@@ -30,6 +30,7 @@ import {
 	issueModalResponse,
 	issueSubmission,
 } from "../features/about.js";
+import { DAILY_GUIDES_SETUP_CUSTOM_ID, handleChannelSelectMenu } from "../features/daily-guides.js";
 import {
 	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
 	SHOP_SUGGEST_CUSTOM_ID,
@@ -132,10 +133,11 @@ import {
 	isButton,
 	isChatInputCommand,
 	isGuildButton,
-	isGuildSelectMenu,
+	isGuildChannelSelectMenu,
+	isGuildStringSelectMenu,
 	isModalSubmit,
 	isRealm,
-	isSelectMenu,
+	isStringSelectMenu,
 	isUserContextMenuCommand,
 } from "../utility/functions.js";
 import { OptionResolver } from "../utility/option-resolver.js";
@@ -646,7 +648,7 @@ export default {
 			return;
 		}
 
-		if (isSelectMenu(interaction)) {
+		if (isStringSelectMenu(interaction)) {
 			logMessageComponent(interaction);
 			const customId = interaction.data.custom_id;
 			const values = interaction.data.values;
@@ -753,7 +755,7 @@ export default {
 					return;
 				}
 
-				if (isGuildSelectMenu(interaction)) {
+				if (isGuildStringSelectMenu(interaction)) {
 					if (customId.startsWith(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)) {
 						await finaliseSetup(interaction);
 						return;
@@ -773,6 +775,33 @@ export default {
 						await AI.set(interaction);
 						return;
 					}
+				}
+			} catch (error) {
+				void recoverInteractionError(interaction, error);
+				return;
+			}
+
+			pino.warn(interaction, "Received an unknown select menu interaction.");
+
+			await api.interactions.updateMessage(
+				interaction.id,
+				interaction.token,
+				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
+					? ERROR_RESPONSE
+					: ERROR_RESPONSE_COMPONENTS_V2,
+			);
+
+			return;
+		}
+
+		if (isGuildChannelSelectMenu(interaction)) {
+			logMessageComponent(interaction);
+			const customId = interaction.data.custom_id;
+
+			try {
+				if (customId === DAILY_GUIDES_SETUP_CUSTOM_ID) {
+					await handleChannelSelectMenu(interaction);
+					return;
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);

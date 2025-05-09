@@ -1,7 +1,9 @@
 import {
 	type APIChannel,
-	type APIChatInputApplicationCommandGuildInteraction,
 	type APIComponentInContainer,
+	type APIGuildInteractionWrapper,
+	type APIInteractionResponseCallbackData,
+	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	type APINewsChannel,
 	type APITextChannel,
@@ -11,6 +13,7 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 	RESTJSONErrorCodes,
+	SelectMenuDefaultValueType,
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
@@ -18,6 +21,7 @@ import { DiscordAPIError } from "@discordjs/rest";
 import {
 	RotationIdentifier,
 	TIME_ZONE,
+	WEBSITE_URL,
 	formatEmoji,
 	formatEmojiURL,
 	resolveCurrencyEmoji,
@@ -59,14 +63,15 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
 
-function isDailyGuidesDistributionChannel(
+export const DAILY_GUIDES_SETUP_CUSTOM_ID = "DAILY_GUIDES_SETUP_CUSTOM_ID" as const;
+
+export function isDailyGuidesDistributionChannel(
 	channel: APIChannel | AnnouncementThread | PublicThread | PrivateThread,
 ): channel is DailyGuidesDistributionAllowedChannel {
 	return DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES.includes(
@@ -74,21 +79,21 @@ function isDailyGuidesDistributionChannel(
 	);
 }
 
-function isDailyGuidesDistributable(
+export function isDailyGuidesDistributable(
 	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: GuildMember,
 	returnErrors: true,
 ): string[];
 
-function isDailyGuidesDistributable(
+export function isDailyGuidesDistributable(
 	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: GuildMember,
 	returnErrors?: false,
 ): boolean;
 
-function isDailyGuidesDistributable(
+export function isDailyGuidesDistributable(
 	guild: Guild,
 	channel: DailyGuidesDistributionAllowedChannel,
 	me: GuildMember,
@@ -159,45 +164,17 @@ function isDailyGuidesDistributable(
 		: errors.length === 0;
 }
 
-export async function setup(
-	interaction: APIChatInputApplicationCommandGuildInteraction,
-	options: OptionResolver,
-) {
-	const guild = GUILD_CACHE.get(interaction.guild_id);
+interface DailyGuidesSetupOptions {
+	guildId: Snowflake;
+	channelId: Snowflake | null;
+}
 
-	if (!guild) {
-		await client.api.interactions.reply(
-			interaction.id,
-			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
-		);
-
-		return;
-	}
-
-	const channelId = options.getChannel("channel", true).id;
-	const channel = guild.channels.get(channelId) ?? guild.threads.get(channelId);
-
-	if (!(channel && isDailyGuidesDistributionChannel(channel))) {
-		pino.error(interaction, "Received an unknown channel type whilst setting up daily guides.");
-		throw new Error("Received an unknown channel type whilst setting up daily guides.");
-	}
-
-	const me = await guild.fetchMe();
-	const dailyGuidesDistributable = isDailyGuidesDistributable(guild, channel, me, true);
-
-	if (dailyGuidesDistributable.length > 0) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: dailyGuidesDistributable.join("\n"),
-			flags: MessageFlags.Ephemeral,
-		});
-
-		return;
-	}
-
-	const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
+export async function setup({ guildId, channelId }: DailyGuidesSetupOptions) {
+	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
-	).where({ guild_id: guild.id });
+	)
+		.where({ guild_id: guildId })
+		.first();
 
 	let shouldSend = false;
 
@@ -205,109 +182,162 @@ export async function setup(
 		// biome-ignore lint/suspicious/noImplicitAnyLet: Effort.
 		let updateData;
 
-		if (dailyGuidesDistributionPacket.channel_id === channel.id) {
-			updateData = { channel_id: channel.id };
+		if (dailyGuidesDistributionPacket.channel_id === channelId) {
+			updateData = { channel_id: channelId };
 		} else {
 			// Delete the existing message, if present.
 			if (dailyGuidesDistributionPacket.channel_id && dailyGuidesDistributionPacket.message_id) {
-				const channel = guild.channels.get(dailyGuidesDistributionPacket.channel_id);
-
-				if (channel) {
-					await client.api.channels
-						.deleteMessage(channel.id, dailyGuidesDistributionPacket.message_id)
-						.catch(() => null);
-				}
+				await client.api.channels
+					.deleteMessage(
+						dailyGuidesDistributionPacket.channel_id,
+						dailyGuidesDistributionPacket.message_id,
+					)
+					.catch(() => null);
 			}
 
-			updateData = { channel_id: channel.id, message_id: null };
-			shouldSend = true;
+			updateData = { channel_id: channelId, message_id: null };
+			shouldSend = Boolean(channelId);
 		}
 
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 			.update(updateData)
-			.where({ guild_id: guild.id })
+			.where({ guild_id: guildId })
 			.returning("*");
 	} else {
-		shouldSend = true;
+		shouldSend = Boolean(channelId);
 
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert(
-			{ guild_id: guild.id, channel_id: channel.id, message_id: null },
+			{ guild_id: guildId, channel_id: channelId, message_id: null },
 			"*",
 		);
 	}
 
 	if (shouldSend) {
-		await send(false, { guildId: guild.id, channelId: channel.id, messageId: null });
+		await send(false, { guildId, channelId, messageId: null });
 	}
-
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		content: "Daily guides have been modified.",
-		embeds: [await statusEmbed(guild, channel.id)],
-		flags: MessageFlags.Ephemeral,
-	});
 }
 
-export async function status(interaction: APIChatInputApplicationCommandGuildInteraction) {
-	const guild = GUILD_CACHE.get(interaction.guild_id);
-
-	if (!guild) {
-		await client.api.interactions.reply(
-			interaction.id,
-			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
-		);
-
-		return;
-	}
-
-	const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
-		Table.DailyGuidesDistribution,
-	).where({ guild_id: guild.id });
-
-	if (!dailyGuidesDistributionPacket) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This server does not have this feature set up.",
-			flags: MessageFlags.Ephemeral,
-		});
-
-		return;
-	}
-
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		embeds: [await statusEmbed(guild, dailyGuidesDistributionPacket.channel_id)],
-		flags: MessageFlags.Ephemeral,
-	});
-}
-
-export async function unset(interaction: APIChatInputApplicationCommandGuildInteraction) {
-	const guild = GUILD_CACHE.get(interaction.guild_id);
-
-	if (!guild) {
-		await client.api.interactions.reply(
-			interaction.id,
-			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
-		);
-
-		return;
-	}
-
-	const [dailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
+export async function setupResponse(guild: Guild): Promise<APIInteractionResponseCallbackData> {
+	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	)
-		.update({ channel_id: null, message_id: null })
+		.select("channel_id")
 		.where({ guild_id: guild.id })
-		.returning("*");
+		.first();
 
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		content: dailyGuidesDistributionPacket
-			? "Daily guides have been unset."
-			: "There were no daily guide updates in this server.",
-		embeds: dailyGuidesDistributionPacket
-			? [await statusEmbed(guild, dailyGuidesDistributionPacket.channel_id)]
-			: [],
-		flags: MessageFlags.Ephemeral,
-	});
+	const channelId = dailyGuidesDistributionPacket?.channel_id;
+	const channel = channelId ? guild.channels.get(channelId) : null;
+	const feedback = [];
+
+	if (channel) {
+		if (isDailyGuidesDistributionChannel(channel)) {
+			feedback.push(...isDailyGuidesDistributable(guild, channel, await guild.fetchMe(), true));
+		} else {
+			feedback.push("No channel detected. Was it deleted?");
+		}
+	} else {
+		feedback.push("No channel selected.");
+	}
+
+	return {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## [Daily guides](${new URL("caelus/daily-guides", WEBSITE_URL)})`,
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content:
+							"You may choose a channel to receive daily guides in! Use the select menu below to select a channel.",
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.ChannelSelect,
+								custom_id: DAILY_GUIDES_SETUP_CUSTOM_ID,
+								// @ts-expect-error The mutable array error is fine.
+								channel_types: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+								default_values: channelId
+									? [{ id: channelId, type: SelectMenuDefaultValueType.Channel }]
+									: [],
+								max_values: 1,
+								min_values: 0,
+								placeholder: "Select a channel to use for daily guides.",
+							},
+						],
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content:
+							feedback.length > 0
+								? `Stopped ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}\n${feedback.join("\n")}`
+								: `Sending ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`,
+					},
+				],
+			},
+		],
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	};
+}
+
+export async function handleChannelSelectMenu(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			NOT_IN_CACHED_GUILD_RESPONSE,
+		);
+		return;
+	}
+
+	const [channelId] = interaction.data.values;
+
+	if (channelId) {
+		const channel = guild.channels.get(channelId);
+
+		if (!(channel && isDailyGuidesDistributionChannel(channel))) {
+			throw new Error("Received an unknown channel type whilst setting up daily guides.");
+		}
+
+		const dailyGuidesDistributable = isDailyGuidesDistributable(
+			guild,
+			channel,
+			await guild.fetchMe(),
+			true,
+		);
+
+		if (dailyGuidesDistributable.length > 0) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: dailyGuidesDistributable.join("\n"),
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+	}
+
+	await setup({ guildId: interaction.guild_id, channelId: channelId ?? null });
+
+	await client.api.interactions.updateMessage(
+		interaction.id,
+		interaction.token,
+		await setupResponse(guild),
+	);
 }
 
 export async function reset() {
@@ -388,29 +418,6 @@ async function send(
 		.returning("*");
 
 	return newDailyGuidesDistributionPacket;
-}
-
-async function statusEmbed(guild: Guild, channelId: Snowflake | null) {
-	const channel = channelId ? guild.channels.get(channelId) : null;
-
-	const sending =
-		channel &&
-		isDailyGuidesDistributionChannel(channel) &&
-		isDailyGuidesDistributable(guild, channel, await guild.fetchMe());
-
-	return {
-		color: DEFAULT_EMBED_COLOUR,
-		fields: [
-			{
-				name: "Daily Guides",
-				value: `${channelId ? `<#${channelId}>` : "No channel"}\n${
-					sending ? "Sending!" : "Stopped!"
-				} ${formatEmoji(sending ? MISCELLANEOUS_EMOJIS.Yes : MISCELLANEOUS_EMOJIS.No)}`,
-				inline: true,
-			},
-		],
-		title: guild.name,
-	};
 }
 
 function dailyGuidesEventData(date: DateTime, locale: Locale) {

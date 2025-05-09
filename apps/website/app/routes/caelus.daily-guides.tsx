@@ -20,24 +20,14 @@ export default function DailyGuides() {
 			</InfoBox>
 			<h2>Setting up daily guides</h2>
 			<p>
-				You'll need a channel to send notifications in. Then, use <code>/daily-guides setup</code>!
+				You'll need a channel to send notifications in. Then, use{" "}
+				<code>/configure daily-guides</code>!
 			</p>
 			<Video src="https://cdn.thatskyapplication.com/examples/daily_guides_setup.mp4" />
 			<p>
 				The date, message, quests, treasure candles, seasonal candles (and calculations), shard
 				eruption, season dates, and event dates are all shown. Amazing!
 			</p>
-			<h2>Do I have daily guides set up?</h2>
-			<p>
-				Have daily guides suddenly stopped working? It could be that permissions in your server
-				changed or someone stopped the daily guides. Use <code>/daily-guides status</code> to see
-				the status.
-			</p>
-			<img
-				src="https://cdn.thatskyapplication.com/examples/daily_guides_status.webp"
-				alt="Showing the status of daily guides."
-				className="w-full max-w-lg rounded-md shadow-md"
-			/>
 			<h2>What will it look like?</h2>
 			<p>
 				When you first set up daily guides, you might wonder when the next day's will come. The
@@ -45,8 +35,8 @@ export default function DailyGuides() {
 				clarity.
 			</p>
 			<InfoBox>
-				Daily guides are distributed at 00:00, but the daily message and the daily quests need
-				manual input. You can expect these to appear between 0-30 minutes.
+				Daily guides are distributed at 00:00, but the daily quests need manual input. You can
+				expect them to appear between 0-30 minutes.
 			</InfoBox>
 			<img
 				src="https://cdn.thatskyapplication.com/examples/daily_guides_example.webp"
@@ -54,14 +44,10 @@ export default function DailyGuides() {
 				className="w-full max-w-lg rounded-md shadow-md"
 			/>
 			<p>
-				The time zone in this image is GMT+00:00, which is why the daily guides appeared at 08:00
-				(Sky is 8 or 7 hours behind, depending on daylight savings).
+				The time zone in this image is GMT+00:00, which is why the timestamp states 08:00 (Sky is 8
+				or 7 hours behind, depending on daylight savings).
 			</p>
 			<p>You can also see an example of what shard eruptions look like here!</p>
-			<h2>Removing daily guides</h2>
-			<p>
-				No longer want daily guides? That's what <code>/daily-guides unset</code> is for. Easy!
-			</p>
 		</div>
 	);
 }

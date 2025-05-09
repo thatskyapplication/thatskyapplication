@@ -3,13 +3,13 @@ import { GatewayDispatchEvents, type Snowflake } from "@discordjs/core";
 import type { NotificationPacket } from "@thatskyapplication/utility";
 import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import croner from "../croner.js";
+import { deleteDailyGuidesDistribution } from "../features/daily-guides.js";
 import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";
 import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { deleteDailyGuidesDistribution } from "../services/daily-guides.js";
 import { deleteNotifications } from "../services/notification.js";
 import type { Event } from "./index.js";
 

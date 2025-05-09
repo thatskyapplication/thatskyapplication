@@ -2,10 +2,10 @@ import process from "node:process";
 import { TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { request } from "undici";
+import { distribute, reset } from "./features/daily-guides.js";
 import DailyGuides from "./models/DailyGuides.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
-import { distribute, reset } from "./services/daily-guides.js";
 import { FLIGHT_CHECK, PRODUCTION } from "./utility/configuration.js";
 
 export default function croner() {

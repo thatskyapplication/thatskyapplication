@@ -157,7 +157,7 @@ export function isGuildButton(
 	return isButton(interaction) && "guild_id" in interaction;
 }
 
-export function isSelectMenu(
+export function isStringSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIMessageComponentSelectMenuInteraction {
 	return (
@@ -166,10 +166,25 @@ export function isSelectMenu(
 	);
 }
 
-export function isGuildSelectMenu(
+function isChannelSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIMessageComponentSelectMenuInteraction {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.ChannelSelect
+	);
+}
+
+export function isGuildStringSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
-	return isSelectMenu(interaction) && "guild_id" in interaction;
+	return isStringSelectMenu(interaction) && "guild_id" in interaction;
+}
+
+export function isGuildChannelSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
+	return isChannelSelectMenu(interaction) && "guild_id" in interaction;
 }
 
 export function isAutocomplete(

@@ -18,9 +18,9 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import pQueue from "p-queue";
+import { distribute } from "../features/daily-guides.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { distribute } from "../services/daily-guides.js";
 import {
 	DAILY_INFOGRAPHICS_CHANNEL_ID,
 	DailyQuestToInfographicURL,

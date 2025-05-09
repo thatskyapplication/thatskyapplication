@@ -364,7 +364,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				description_localizations: localisations("configure.ai.command-description"),
 			},
 			{
-				type: ApplicationCommandOptionType.SubcommandGroup,
+				type: ApplicationCommandOptionType.Subcommand,
 				name: t("configure.daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 				name_localizations: localisations("configure.daily-guides.command-name"),
 				description: t("configure.daily-guides.command-description", {
@@ -374,70 +374,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				description_localizations: localisations("configure.daily-guides.command-description"),
 				options: [
 					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: t("configure.daily-guides.setup.command-name", {
+						type: ApplicationCommandOptionType.Channel,
+						name: t("configure.daily-guides.command-option-channel-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("configure.daily-guides.setup.command-name"),
-						description: t("configure.daily-guides.setup.command-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.daily-guides.setup.command-description",
-						),
-						options: [
-							{
-								type: ApplicationCommandOptionType.Channel,
-								name: t("configure.daily-guides.setup.command-option-channel-name", {
-									lng: Locale.EnglishGB,
-									ns: "commands",
-								}),
-								name_localizations: localisations(
-									"configure.daily-guides.setup.command-option-channel-name",
-								),
-								description: t("configure.daily-guides.setup.command-option-channel-description", {
-									lng: Locale.EnglishGB,
-									ns: "commands",
-								}),
-								description_localizations: localisations(
-									"configure.daily-guides.setup.command-option-channel-description",
-								),
-								required: true,
-								channel_types: [...DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES],
-							},
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: t("configure.daily-guides.status.command-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.daily-guides.status.command-name"),
-						description: t("configure.daily-guides.status.command-description", {
+						name_localizations: localisations("configure.daily-guides.command-option-channel-name"),
+						description: t("configure.daily-guides.command-option-channel-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: localisations(
-							"configure.daily-guides.status.command-description",
+							"configure.daily-guides.command-option-channel-description",
 						),
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: t("configure.daily-guides.unset.command-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.daily-guides.unset.command-name"),
-						description: t("configure.daily-guides.unset.command-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.daily-guides.unset.command-description",
-						),
+						channel_types: [...DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES],
 					},
 				],
 			},

@@ -1378,20 +1378,8 @@ export default {
 			"daily-guides": {
 				"command-name": "daily-guides",
 				"command-description": "The command to set up daily guides in the server.",
-				setup: {
-					"command-name": "setup",
-					"command-description": "Sets up the daily guides in the server.",
-					"command-option-channel-name": "channel",
-					"command-option-channel-description": "The channel to send daily guides in.",
-				},
-				status: {
-					"command-name": "status",
-					"command-description": "Displays the status of daily guides in this server.",
-				},
-				unset: {
-					"command-name": "unset",
-					"command-description": "Unsets daily guides in the server.",
-				},
+				"command-option-channel-name": "channel",
+				"command-option-channel-description": "The channel to send daily guides in.",
 			},
 			notifications: {
 				"command-name": "notifications",

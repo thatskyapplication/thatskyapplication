@@ -16,12 +16,12 @@ import { isDailyQuest } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import sharp from "sharp";
 import { client } from "../discord.js";
+import { distribute as distributeDailyGuides, distributionData } from "../features/daily-guides.js";
 import type { InteractiveOptions } from "../models/Admin.js";
 import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
 import DailyGuides from "../models/DailyGuides.js";
 import S3Client from "../s3-client.js";
-import { distribute as distributeDailyGuides, distributionData } from "../services/daily-guides.js";
 import {
 	APPLICATION_ID,
 	CDN_BUCKET,
