@@ -18,6 +18,7 @@ import {
 	type NotificationPacket,
 	NotificationType,
 	type NotificationTypes,
+	WEBSITE_URL,
 	formatEmoji,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -183,7 +184,7 @@ export function setupResponse(locale: Locale): APIInteractionResponseCallbackDat
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: "## Notifications",
+						content: `## [Notifications](${new URL("caelus/notifications", WEBSITE_URL)})`,
 					},
 					{
 						type: ComponentType.Separator,
