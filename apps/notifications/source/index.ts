@@ -354,7 +354,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	// }
 
 	for (const { type, timeUntilStart, suffix } of notifications) {
-		pino.info({ type: type, until: timeUntilStart }, "Queueing notification.");
+		pino.info({ type, until: timeUntilStart }, "Queueing notification.");
 
 		const notificationsSettled = await Promise.allSettled(
 			(
