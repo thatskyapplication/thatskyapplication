@@ -13,7 +13,7 @@ import {
 	setup as setupDailyGuides,
 	setupResponse as setupResponseDailyGuides,
 } from "../../features/daily-guides.js";
-import { setupResponse as setupResponseNotifications } from "../../features/notification.js";
+import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";

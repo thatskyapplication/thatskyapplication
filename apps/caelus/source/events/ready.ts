@@ -4,7 +4,7 @@ import type { NotificationPacket } from "@thatskyapplication/utility";
 import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import croner from "../croner.js";
 import { deleteDailyGuidesDistribution } from "../features/daily-guides.js";
-import { deleteNotifications } from "../features/notification.js";
+import { deleteNotifications } from "../features/notifications.js";
 import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 import DailyGuides, { type DailyGuidesPacket } from "../models/DailyGuides.js";

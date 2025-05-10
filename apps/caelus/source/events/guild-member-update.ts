@@ -1,6 +1,6 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { checkSendable } from "../features/notification.js";
+import { checkSendable } from "../features/notifications.js";
 import { GuildMember } from "../models/discord/guild-member.js";
 import pino from "../pino.js";
 import { APPLICATION_ID } from "../utility/constants.js";

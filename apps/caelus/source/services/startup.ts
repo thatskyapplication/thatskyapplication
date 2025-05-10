@@ -1,5 +1,5 @@
 import type { NotificationPacket } from "@thatskyapplication/utility";
-import { checkSendable } from "../features/notification.js";
+import { checkSendable } from "../features/notifications.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 

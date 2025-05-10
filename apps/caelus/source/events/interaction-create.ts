@@ -46,7 +46,7 @@ import {
 	handleStringSelectMenu as handleNotificationsStringSelectMenu,
 	isNotificationType,
 	setupResponse,
-} from "../features/notification.js";
+} from "../features/notifications.js";
 import {
 	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
 	SHOP_SUGGEST_CUSTOM_ID,
