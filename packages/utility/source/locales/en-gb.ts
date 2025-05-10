@@ -263,8 +263,8 @@ export default {
 				"Cackling Cannoneer needs help with something in Treasure Reef",
 			[DailyQuest.AnxiousAnglerNeedsHelpWithSomethingInTreasureReef]:
 				"Anxious Angler needs help with something in Treasure Reef",
-			[DailyQuest.MellowMusicianNeedsHelpWithSomethingInVillageOfDreams]:
-				"Melow Musician needs help with something in Village of Dreams",
+			[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]:
+				"Meet up with Mellow Musician in Village of Dreams",
 			[DailyQuest.AnxiousAnglerNeedsHelpWithSomethingInGoldenWasteland]:
 				"Anxious Angler needs help with something in Golden Wasteland",
 			[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]:

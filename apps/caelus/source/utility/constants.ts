@@ -1057,7 +1057,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]: null,
 	[DailyQuest.CacklingCannoneerNeedsHelpWithSomethingInTreasureReef]: null,
 	[DailyQuest.AnxiousAnglerNeedsHelpWithSomethingInTreasureReef]: null,
-	[DailyQuest.MellowMusicianNeedsHelpWithSomethingInVillageOfDreams]: null,
+	[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]: null,
 	[DailyQuest.AnxiousAnglerNeedsHelpWithSomethingInGoldenWasteland]: null,
 	[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]: null,
 	[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]: null,
