@@ -166,6 +166,15 @@ export function isStringSelectMenu(
 	);
 }
 
+function isRoleSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIMessageComponentSelectMenuInteraction {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.RoleSelect
+	);
+}
+
 function isChannelSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIMessageComponentSelectMenuInteraction {
@@ -179,6 +188,12 @@ export function isGuildStringSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
 	return isStringSelectMenu(interaction) && "guild_id" in interaction;
+}
+
+export function isGuildRoleSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
+	return isRoleSelectMenu(interaction) && "guild_id" in interaction;
 }
 
 export function isGuildChannelSelectMenu(

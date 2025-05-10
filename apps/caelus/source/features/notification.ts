@@ -125,37 +125,55 @@ export function isNotificationType(
 	return NOTIFICATION_TYPE_VALUES.includes(notificationType as NotificationTypes);
 }
 
-type NotificationSetupOptions = Pick<NotificationPacket, "type"> &
-	Partial<Pick<NotificationPacket, "channel_id" | "role_id" | "offset">> & { guild: Guild };
+interface NotificationsSetupOptions {
+	guild: Guild;
+	type: NotificationTypes;
+	channelId?: Snowflake | null;
+	roleId?: Snowflake | null;
+	offset?: number | null;
+}
 
-export async function setup({
-	guild,
-	type,
-	channel_id,
-	role_id,
-	offset,
-}: NotificationSetupOptions) {
+type NotificationsSetupPayload = Pick<NotificationPacket, "guild_id" | "type" | "sendable"> &
+	Partial<Pick<NotificationPacket, "channel_id" | "role_id" | "offset">>;
+
+export async function setup({ guild, type, channelId, roleId, offset }: NotificationsSetupOptions) {
 	const notificationPacket = await pg<NotificationPacket>(Table.Notifications)
 		.select("channel_id", "role_id")
 		.where({ guild_id: guild.id, type })
 		.first();
 
+	const payload: NotificationsSetupPayload = {
+		guild_id: guild.id,
+		type,
+		sendable: isSendable(
+			await guild.fetchMe(),
+			guild,
+			channelId === undefined ? notificationPacket?.channel_id : channelId,
+			roleId === undefined ? notificationPacket?.role_id : roleId,
+		),
+	};
+
+	const merge: (keyof Pick<NotificationsSetupPayload, "channel_id" | "role_id" | "offset">)[] = [];
+
+	if (channelId !== undefined) {
+		payload.channel_id = channelId;
+		merge.push("channel_id");
+	}
+
+	if (roleId !== undefined) {
+		payload.role_id = roleId;
+		merge.push("role_id");
+	}
+
+	if (offset !== undefined) {
+		payload.offset = offset;
+		merge.push("offset");
+	}
+
 	await pg<NotificationPacket>(Table.Notifications)
-		.insert({
-			guild_id: guild.id,
-			type,
-			channel_id: channel_id!,
-			role_id: role_id!,
-			offset: offset!,
-			sendable: isSendable(
-				await guild.fetchMe(),
-				guild,
-				channel_id === undefined ? notificationPacket?.channel_id : channel_id,
-				role_id === undefined ? notificationPacket?.role_id : role_id,
-			),
-		})
+		.insert(payload)
 		.onConflict(["guild_id", "type"])
-		.merge(["channel_id", "role_id", "offset"]);
+		.merge(merge);
 }
 
 export function setupResponse(locale: Locale): APIInteractionResponseCallbackData {
@@ -316,7 +334,7 @@ export async function displayNotificationType(
 						components: [
 							{
 								type: ComponentType.RoleSelect,
-								custom_id: NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID,
+								custom_id: `${NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID}§${notificationType}`,
 								default_values: notificationPacket?.role_id
 									? [{ id: notificationPacket.role_id, type: SelectMenuDefaultValueType.Role }]
 									: [],
@@ -404,7 +422,48 @@ export async function handleChannelSelectMenu(
 		}
 	}
 
-	await setup({ guild, type: notificationType, channel_id: channelId ?? null });
+	await setup({ guild, type: notificationType, channelId: channelId ?? null });
+	await displayNotificationType(interaction, notificationType);
+}
+
+export async function handleRoleSelectMenu(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			NOT_IN_CACHED_GUILD_RESPONSE,
+		);
+
+		return;
+	}
+
+	const customId = interaction.data.custom_id;
+	const notificationTypeString = customId.slice(customId.indexOf("§") + 1);
+	const notificationType = Number(notificationTypeString);
+
+	if (!isNotificationType(notificationType)) {
+		pino.error(
+			interaction,
+			"Received an unknown notification type whilst setting up notifications.",
+		);
+
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
+
+		return;
+	}
+
+	const [roleId] = interaction.data.values;
+	await setup({ guild, type: notificationType, roleId: roleId ?? null });
 	await displayNotificationType(interaction, notificationType);
 }
 

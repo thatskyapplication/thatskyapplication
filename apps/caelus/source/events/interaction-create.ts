@@ -37,9 +37,11 @@ import {
 import {
 	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
 	NOTIFICATIONS_SETUP_CUSTOM_ID,
+	NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID,
 	NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
 	displayNotificationType,
 	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
+	handleRoleSelectMenu as handleNotificationsRoleSelectMenu,
 	isNotificationType,
 	setupResponse,
 } from "../features/notification.js";
@@ -144,6 +146,7 @@ import {
 	isChatInputCommand,
 	isGuildButton,
 	isGuildChannelSelectMenu,
+	isGuildRoleSelectMenu,
 	isGuildStringSelectMenu,
 	isModalSubmit,
 	isRealm,
@@ -831,6 +834,33 @@ export default {
 			return;
 		}
 
+		if (isGuildRoleSelectMenu(interaction)) {
+			logMessageComponent(interaction);
+			const customId = interaction.data.custom_id;
+
+			try {
+				if (customId.startsWith(NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID)) {
+					await handleNotificationsRoleSelectMenu(interaction);
+					return;
+				}
+			} catch (error) {
+				void recoverInteractionError(interaction, error);
+				return;
+			}
+
+			pino.warn(interaction, "Received an unknown role select menu interaction.");
+
+			await api.interactions.updateMessage(
+				interaction.id,
+				interaction.token,
+				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
+					? ERROR_RESPONSE
+					: ERROR_RESPONSE_COMPONENTS_V2,
+			);
+
+			return;
+		}
+
 		if (isGuildChannelSelectMenu(interaction)) {
 			logMessageComponent(interaction);
 			const customId = interaction.data.custom_id;
@@ -850,7 +880,7 @@ export default {
 				return;
 			}
 
-			pino.warn(interaction, "Received an unknown select menu interaction.");
+			pino.warn(interaction, "Received an unknown channel select menu interaction.");
 
 			await api.interactions.updateMessage(
 				interaction.id,
