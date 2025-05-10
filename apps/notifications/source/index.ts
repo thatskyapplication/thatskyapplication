@@ -358,11 +358,15 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 
 		const notificationsSettled = await Promise.allSettled(
 			(
-				await pg<NotificationPacket>(NOTIFICATIONS_TABLE).select("role_id", "channel_id").where({
-					type: type,
-					offset: timeUntilStart,
-					sendable: true,
-				})
+				await pg<NotificationPacket & { channel_id: string; role_id: string }>(NOTIFICATIONS_TABLE)
+					.select("channel_id", "role_id")
+					.where({
+						type,
+						offset: timeUntilStart,
+						sendable: true,
+					})
+					.and.whereNotNull("channel_id")
+					.and.whereNotNull("role_id")
 			).map((notificationPacket) =>
 				client.channels.createMessage(notificationPacket.channel_id, {
 					allowed_mentions: { roles: [notificationPacket.role_id] },
