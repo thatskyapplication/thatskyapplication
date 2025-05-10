@@ -1,6 +1,5 @@
 import {
 	type APIChannel,
-	type APIChatInputApplicationCommandGuildInteraction,
 	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
 	type APIMessageComponentSelectMenuInteraction,
@@ -107,15 +106,11 @@ function isNotificationSendable(
 		)
 	) {
 		errors.push(
-			`Cannot mention the <@${role.id}> role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for <@${me.user.id}> in the channel or make the role mentionable.`,
+			`Cannot mention the <@&${role.id}> role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for <@${me.user.id}> in <#${channel.id}> or make the role mentionable.`,
 		);
 	}
 
-	return returnErrors
-		? errors.length > 1
-			? errors.map((error) => `- ${error}`)
-			: errors
-		: errors.length === 0;
+	return returnErrors ? errors : errors.length === 0;
 }
 
 export function isNotificationType(
@@ -268,19 +263,20 @@ export async function displayNotificationType(
 		return;
 	}
 
-	const notificationPacket = await pg<NotificationPacket>(Table.Notifications)
+	const notificationsPacket = await pg<NotificationPacket>(Table.Notifications)
 		.select("channel_id", "role_id", "offset")
 		.where({ guild_id: interaction.guild_id, type: notificationType })
 		.first();
 
 	const stringSelectMenuOptions = [];
 	const maximumOffset = NotificationOffsetToMaximumValues[notificationType];
+	const offset = notificationsPacket?.offset;
 
 	for (let index = 0; index <= maximumOffset; index++) {
 		const indexString = String(index);
 
 		const stringSelectMenuOption: APISelectMenuOption = {
-			default: notificationPacket?.offset === index,
+			default: offset === index,
 			label: indexString,
 			value: indexString,
 		};
@@ -290,6 +286,26 @@ export async function displayNotificationType(
 		}
 
 		stringSelectMenuOptions.push(stringSelectMenuOption);
+	}
+
+	const channelId = notificationsPacket?.channel_id;
+	const roleId = notificationsPacket?.role_id;
+	const channel = channelId ? guild.channels.get(channelId) : null;
+	const role = roleId ? guild.roles.get(roleId) : null;
+	const feedback = [];
+
+	if (channel && role) {
+		if (isNotificationChannel(channel)) {
+			feedback.push(...isNotificationSendable(guild, channel, role, await guild.fetchMe(), true));
+		} else {
+			feedback.push("No channel detected. Was it deleted?");
+		}
+	} else {
+		feedback.push("A channel and a role is required.");
+	}
+
+	if (typeof offset !== "number") {
+		feedback.push("An offset is required.");
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -319,13 +335,8 @@ export async function displayNotificationType(
 								custom_id: `${NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID}§${notificationType}`,
 								// @ts-expect-error The mutable array error is fine.
 								channel_types: NOTIFICATION_CHANNEL_TYPES,
-								default_values: notificationPacket?.channel_id
-									? [
-											{
-												id: notificationPacket.channel_id,
-												type: SelectMenuDefaultValueType.Channel,
-											},
-										]
+								default_values: channelId
+									? [{ id: channelId, type: SelectMenuDefaultValueType.Channel }]
 									: [],
 								max_values: 1,
 								min_values: 0,
@@ -339,8 +350,8 @@ export async function displayNotificationType(
 							{
 								type: ComponentType.RoleSelect,
 								custom_id: `${NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID}§${notificationType}`,
-								default_values: notificationPacket?.role_id
-									? [{ id: notificationPacket.role_id, type: SelectMenuDefaultValueType.Role }]
+								default_values: roleId
+									? [{ id: roleId, type: SelectMenuDefaultValueType.Role }]
 									: [],
 								max_values: 1,
 								min_values: 0,
@@ -372,6 +383,13 @@ export async function displayNotificationType(
 								label: t("back", { lng: interaction.locale, ns: "general" }),
 							},
 						],
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content:
+							feedback.length > 0
+								? `Stopped ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
+								: `Sending ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`,
 					},
 				],
 			},
@@ -518,13 +536,6 @@ export async function handleStringSelectMenu(
 	await displayNotificationType(interaction, notificationType);
 }
 
-async function status(interaction: APIChatInputApplicationCommandGuildInteraction) {
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		embeds: [await embed(interaction)],
-		flags: MessageFlags.Ephemeral,
-	});
-}
-
 export async function deleteNotifications(guildId: Snowflake) {
 	await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
 }
@@ -584,68 +595,4 @@ function isSendable(
 			role &&
 			isNotificationSendable(guild, channel, role, me),
 	);
-}
-
-async function embed(
-	interaction:
-		| APIChatInputApplicationCommandGuildInteraction
-		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
-) {
-	const guild = GUILD_CACHE.get(interaction.guild_id);
-
-	if (!guild) {
-		pino.error(interaction, "Guild not found for notification embed.");
-		throw new Error("Guild not found for notification embed.");
-	}
-
-	const { locale } = interaction;
-
-	const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
-		.select(["type", "channel_id", "role_id", "offset", "sendable"])
-		.where({ guild_id: guild.id });
-
-	return {
-		color: DEFAULT_EMBED_COLOUR,
-		fields: NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
-			name: t(`notification-types.${notificationType}`, {
-				lng: locale,
-				ns: "general",
-			}),
-			value: overviewValue(getOverviewPacket(notificationPackets, notificationType)),
-			inline: true,
-		})),
-
-		title: guild.name,
-	};
-}
-
-function getOverviewPacket(
-	notificationPackets: Pick<
-		NotificationPacket,
-		"type" | "channel_id" | "role_id" | "offset" | "sendable"
-	>[],
-	notificationType: NotificationTypes,
-) {
-	return notificationPackets.find((packet) => packet.type === notificationType);
-}
-
-function overviewValue(
-	notificationPacket?: Pick<
-		NotificationPacket,
-		"type" | "channel_id" | "role_id" | "offset" | "sendable"
-	>,
-) {
-	const channelId = notificationPacket?.channel_id;
-	const roleId = notificationPacket?.role_id;
-	const offset = notificationPacket?.offset;
-	const sendable = notificationPacket?.sendable;
-
-	return [
-		channelId ? `<#${channelId}>` : "No channel",
-		roleId ? `<@&${roleId}>` : "No role",
-		sendable
-			? `Sending! ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`
-			: `Stopped! ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`,
-		`Offset: ${offset ?? "N/A"}`,
-	].join("\n");
 }
