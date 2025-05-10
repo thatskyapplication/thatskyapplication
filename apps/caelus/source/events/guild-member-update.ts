@@ -26,7 +26,7 @@ export default {
 		const oldRoles = guild.me?.roles;
 		guild.me = new GuildMember(data);
 
-		if (!oldRoles || !equalSet(oldRoles, guild.me.roles)) {
+		if (!(oldRoles && equalSet(oldRoles, guild.me.roles))) {
 			await checkSendable(guild.id);
 		}
 	},
