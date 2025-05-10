@@ -38,7 +38,6 @@ import {
 	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 
 export const NOTIFICATIONS_SETUP_CUSTOM_ID = "NOTIFICATIONS_SETUP_CUSTOM_ID" as const;
@@ -50,7 +49,7 @@ export const NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID = "NOTIFICATIONS_SETUP_ROLE_CUST
 export const NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID" as const;
 export const NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID = "NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID" as const;
 
-export type NotificationAllowedChannel = Extract<
+type NotificationAllowedChannel = Extract<
 	APIChannel,
 	{ type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }
 >;
@@ -136,9 +135,9 @@ interface NotificationsSetupOptions {
 type NotificationsSetupPayload = Pick<NotificationPacket, "guild_id" | "type" | "sendable"> &
 	Partial<Pick<NotificationPacket, "channel_id" | "role_id" | "offset">>;
 
-export async function setup({ guild, type, channelId, roleId, offset }: NotificationsSetupOptions) {
+async function setup({ guild, type, channelId, roleId, offset }: NotificationsSetupOptions) {
 	const notificationPacket = await pg<NotificationPacket>(Table.Notifications)
-		.select("channel_id", "role_id")
+		.select("channel_id", "role_id", "offset")
 		.where({ guild_id: guild.id, type })
 		.first();
 
@@ -150,10 +149,14 @@ export async function setup({ guild, type, channelId, roleId, offset }: Notifica
 			guild,
 			channelId === undefined ? notificationPacket?.channel_id : channelId,
 			roleId === undefined ? notificationPacket?.role_id : roleId,
+			offset === undefined ? notificationPacket?.offset : offset,
 		),
 	};
 
-	const merge: (keyof Pick<NotificationsSetupPayload, "channel_id" | "role_id" | "offset">)[] = [];
+	const merge: (keyof Pick<
+		NotificationsSetupPayload,
+		"channel_id" | "role_id" | "offset" | "sendable"
+	>)[] = ["sendable"];
 
 	if (channelId !== undefined) {
 		payload.channel_id = channelId;
@@ -277,6 +280,7 @@ export async function displayNotificationType(
 		const indexString = String(index);
 
 		const stringSelectMenuOption: APISelectMenuOption = {
+			default: notificationPacket?.offset === index,
 			label: indexString,
 			value: indexString,
 		};
@@ -349,7 +353,7 @@ export async function displayNotificationType(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID,
+								custom_id: `${NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID}§${notificationType}`,
 								options: stringSelectMenuOptions,
 								max_values: 1,
 								min_values: 0,
@@ -467,20 +471,14 @@ export async function handleRoleSelectMenu(
 	await displayNotificationType(interaction, notificationType);
 }
 
-export async function status(interaction: APIChatInputApplicationCommandGuildInteraction) {
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		embeds: [await embed(interaction)],
-		flags: MessageFlags.Ephemeral,
-	});
-}
-
-export async function unset(
-	interaction: APIChatInputApplicationCommandGuildInteraction,
-	options: OptionResolver,
+export async function handleStringSelectMenu(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
-	const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
+	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
 		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
@@ -490,7 +488,9 @@ export async function unset(
 		return;
 	}
 
-	const notificationType = options.getInteger("notification", true);
+	const customId = interaction.data.custom_id;
+	const notificationTypeString = customId.slice(customId.indexOf("§") + 1);
+	const notificationType = Number(notificationTypeString);
 
 	if (!isNotificationType(notificationType)) {
 		pino.error(
@@ -498,20 +498,28 @@ export async function unset(
 			"Received an unknown notification type whilst setting up notifications.",
 		);
 
-		await client.api.interactions.reply(
+		await client.api.interactions.updateMessage(
 			interaction.id,
 			interaction.token,
 			ERROR_RESPONSE_COMPONENTS_V2,
 		);
+
 		return;
 	}
 
-	await pg<NotificationPacket>(Table.Notifications)
-		.delete()
-		.where({ guild_id: guild.id, type: notificationType });
+	const [offset] = interaction.data.values;
 
+	await setup({
+		guild,
+		type: notificationType,
+		offset: offset === undefined ? null : Number(offset),
+	});
+
+	await displayNotificationType(interaction, notificationType);
+}
+
+async function status(interaction: APIChatInputApplicationCommandGuildInteraction) {
 	await client.api.interactions.reply(interaction.id, interaction.token, {
-		content: "Notifications have been modified.",
 		embeds: [await embed(interaction)],
 		flags: MessageFlags.Ephemeral,
 	});
@@ -532,7 +540,7 @@ export async function checkSendable(guildId: Snowflake) {
 	}
 
 	const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
-		.select(["guild_id", "type", "channel_id", "role_id"])
+		.select(["guild_id", "type", "channel_id", "role_id", "offset"])
 		.where({ guild_id: guildId });
 
 	const me = await guild.fetchMe();
@@ -541,7 +549,13 @@ export async function checkSendable(guildId: Snowflake) {
 	const promises = notificationPackets.map((notificationPacket) =>
 		pg<NotificationPacket>(Table.Notifications)
 			.update({
-				sendable: isSendable(me, guild, notificationPacket.channel_id, notificationPacket.role_id),
+				sendable: isSendable(
+					me,
+					guild,
+					notificationPacket.channel_id,
+					notificationPacket.role_id,
+					notificationPacket.offset,
+				),
 			})
 			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
 			.returning("*"),
@@ -553,10 +567,11 @@ export async function checkSendable(guildId: Snowflake) {
 function isSendable(
 	me: GuildMember,
 	guild: Guild,
-	channelId?: Snowflake | null,
-	roleId?: Snowflake | null,
+	channelId: Snowflake | undefined | null,
+	roleId: Snowflake | undefined | null,
+	offset: number | undefined | null,
 ) {
-	if (!(channelId && roleId)) {
+	if (!(channelId && roleId && typeof offset === "number")) {
 		return false;
 	}
 

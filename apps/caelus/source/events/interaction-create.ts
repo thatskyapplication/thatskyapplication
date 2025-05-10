@@ -37,11 +37,13 @@ import {
 import {
 	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
 	NOTIFICATIONS_SETUP_CUSTOM_ID,
+	NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID,
 	NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID,
 	NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
 	displayNotificationType,
 	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
 	handleRoleSelectMenu as handleNotificationsRoleSelectMenu,
+	handleStringSelectMenu as handleNotificationsStringSelectMenu,
 	isNotificationType,
 	setupResponse,
 } from "../features/notification.js";
@@ -798,6 +800,11 @@ export default {
 						}
 
 						await displayNotificationType(interaction, notificationType);
+						return;
+					}
+
+					if (customId.startsWith(NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID)) {
+						await handleNotificationsStringSelectMenu(interaction);
 						return;
 					}
 
