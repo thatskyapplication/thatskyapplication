@@ -1,12 +1,13 @@
 import {
 	type APIChannel,
+	type APIChatInputApplicationCommandGuildInteraction,
 	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
+	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
-	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	SelectMenuDefaultValueType,
@@ -175,7 +176,27 @@ async function setup({ guild, type, channelId, roleId, offset }: NotificationsSe
 		.merge(merge);
 }
 
-export function setupResponse(locale: Locale): APIInteractionResponseCallbackData {
+export async function setupResponse(
+	interaction:
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+	guild: Guild,
+): Promise<APIInteractionResponseCallbackData> {
+	const notificationsPackets = await pg<NotificationPacket>(Table.Notifications)
+		.select("type", "channel_id", "role_id", "offset")
+		.where({ guild_id: interaction.guild_id });
+
+	const notificationsMap = notificationsPackets.reduce(
+		(notifications, notificationsPacket) =>
+			notifications.set(notificationsPacket.type as NotificationTypes, notificationsPacket),
+		new Map<
+			NotificationTypes,
+			Pick<NotificationPacket, "channel_id" | "type" | "offset" | "role_id">
+		>(),
+	);
+
+	const me = await guild.fetchMe();
+
 	return {
 		components: [
 			{
@@ -202,13 +223,28 @@ export function setupResponse(locale: Locale): APIInteractionResponseCallbackDat
 							{
 								type: ComponentType.StringSelect,
 								custom_id: NOTIFICATIONS_SETUP_CUSTOM_ID,
-								options: NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
-									label: t(`notification-types.${notificationType}`, {
-										lng: locale,
-										ns: "general",
-									}),
-									value: String(notificationType),
-								})),
+								options: NOTIFICATION_TYPE_VALUES.map((notificationType) => {
+									const notification = notificationsMap.get(notificationType);
+
+									return {
+										description: notification
+											? isSendable(
+													me,
+													guild,
+													notification.channel_id,
+													notification.role_id,
+													notification.offset,
+												)
+												? "Sending!"
+												: "Stopped. View to see why."
+											: "Not set up.",
+										label: t(`notification-types.${notificationType}`, {
+											lng: interaction.locale,
+											ns: "general",
+										}),
+										value: String(notificationType),
+									};
+								}),
 								max_values: 1,
 								min_values: 0,
 								placeholder: "Select a notification type.",

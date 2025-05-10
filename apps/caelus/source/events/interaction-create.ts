@@ -14,6 +14,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { isSeasonId } from "@thatskyapplication/utility";
+import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,
 	CHAT_INPUT_COMMANDS,
@@ -140,6 +141,7 @@ import {
 	GUESS_TRY_AGAIN,
 	HEART_HISTORY_BACK,
 	HEART_HISTORY_NEXT,
+	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
 import {
 	interactionInvoker,
@@ -641,10 +643,22 @@ export default {
 					}
 
 					if (customId === NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID) {
+						const guild = GUILD_CACHE.get(interaction.guild_id);
+
+						if (!guild) {
+							await client.api.interactions.updateMessage(
+								interaction.id,
+								interaction.token,
+								NOT_IN_CACHED_GUILD_RESPONSE,
+							);
+
+							return;
+						}
+
 						await client.api.interactions.updateMessage(
 							interaction.id,
 							interaction.token,
-							setupResponse(interaction.locale),
+							await setupResponse(interaction, guild),
 						);
 
 						return;

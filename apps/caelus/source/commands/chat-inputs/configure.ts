@@ -60,11 +60,14 @@ async function dailyGuides(
 	);
 }
 
-async function notifications(interaction: APIChatInputApplicationCommandGuildInteraction) {
+async function notifications(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	guild: Guild,
+) {
 	await client.api.interactions.reply(
 		interaction.id,
 		interaction.token,
-		setupResponseNotifications(interaction.locale),
+		await setupResponseNotifications(interaction, guild),
 	);
 }
 
@@ -102,7 +105,7 @@ export default {
 				return;
 			}
 			case t("configure.notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
-				await notifications(interaction);
+				await notifications(interaction, guild);
 				return;
 			}
 		}
