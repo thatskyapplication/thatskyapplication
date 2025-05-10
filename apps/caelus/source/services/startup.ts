@@ -1,7 +1,7 @@
 import type { NotificationPacket } from "@thatskyapplication/utility";
+import { checkSendable } from "../features/notification.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { checkSendable } from "./notification.js";
 
 export async function startup() {
 	// Perform a health check for our notification subscribers.

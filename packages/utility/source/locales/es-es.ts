@@ -631,9 +631,4 @@ export default {
 			message: "{{user}}, ¡{{invoker}} te ha abrazado!",
 		},
 	},
-	features: {
-		notification: {
-			"no-everyone": "Oye espera, eso no es una buena idea. ¡Escoge otro rol!",
-		},
-	},
 } as const;

@@ -30,7 +30,19 @@ import {
 	issueModalResponse,
 	issueSubmission,
 } from "../features/about.js";
-import { DAILY_GUIDES_SETUP_CUSTOM_ID, handleChannelSelectMenu } from "../features/daily-guides.js";
+import {
+	DAILY_GUIDES_SETUP_CUSTOM_ID,
+	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
+} from "../features/daily-guides.js";
+import {
+	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
+	NOTIFICATIONS_SETUP_CUSTOM_ID,
+	NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
+	displayNotificationType,
+	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
+	isNotificationType,
+	setupResponse,
+} from "../features/notification.js";
 import {
 	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
 	SHOP_SUGGEST_CUSTOM_ID,
@@ -107,7 +119,6 @@ import {
 	tryAgain,
 } from "../services/guess.js";
 import { history } from "../services/heart.js";
-import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
@@ -125,7 +136,6 @@ import {
 	GUESS_TRY_AGAIN,
 	HEART_HISTORY_BACK,
 	HEART_HISTORY_NEXT,
-	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 } from "../utility/constants.js";
 import {
 	interactionInvoker,
@@ -625,6 +635,16 @@ export default {
 						return;
 					}
 
+					if (customId === NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID) {
+						await client.api.interactions.updateMessage(
+							interaction.id,
+							interaction.token,
+							setupResponse(interaction.locale),
+						);
+
+						return;
+					}
+
 					if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
 						await distribute(interaction);
 						return;
@@ -756,8 +776,25 @@ export default {
 				}
 
 				if (isGuildStringSelectMenu(interaction)) {
-					if (customId.startsWith(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)) {
-						await finaliseSetup(interaction);
+					if (customId === NOTIFICATIONS_SETUP_CUSTOM_ID) {
+						const notificationType = Number(value0);
+
+						if (!isNotificationType(notificationType)) {
+							pino.error(
+								interaction,
+								"Received an unknown notification type whilst setting up notifications.",
+							);
+
+							await client.api.interactions.updateMessage(
+								interaction.id,
+								interaction.token,
+								ERROR_RESPONSE_COMPONENTS_V2,
+							);
+
+							return;
+						}
+
+						await displayNotificationType(interaction, notificationType);
 						return;
 					}
 
@@ -800,7 +837,12 @@ export default {
 
 			try {
 				if (customId === DAILY_GUIDES_SETUP_CUSTOM_ID) {
-					await handleChannelSelectMenu(interaction);
+					await handleDailyGuidesChannelSelectMenu(interaction);
+					return;
+				}
+
+				if (customId.startsWith(NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID)) {
+					await handleNotificationsChannelSelectMenu(interaction);
 					return;
 				}
 			} catch (error) {

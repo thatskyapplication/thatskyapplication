@@ -2,11 +2,16 @@ import {
 	type APIChannel,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIGuildInteractionWrapper,
+	type APIInteractionResponseCallbackData,
 	type APIMessageComponentSelectMenuInteraction,
 	type APISelectMenuOption,
+	ButtonStyle,
 	ComponentType,
+	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
+	SelectMenuDefaultValueType,
+	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
 import {
@@ -19,7 +24,6 @@ import {
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import type { NotificationAllowedChannel } from "../models/Notification.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild } from "../models/discord/guild.js";
 import type { Role } from "../models/discord/role.js";
@@ -29,7 +33,6 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE_COMPONENTS_V2,
 	NOTIFICATION_CHANNEL_TYPES,
-	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 	NotificationOffsetToMaximumValues,
 	SUPPORT_SERVER_INVITE_URL,
@@ -37,6 +40,20 @@ import {
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
+
+export const NOTIFICATIONS_SETUP_CUSTOM_ID = "NOTIFICATIONS_SETUP_CUSTOM_ID" as const;
+
+export const NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID =
+	"NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID" as const;
+
+export const NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID = "NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID" as const;
+export const NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID" as const;
+export const NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID = "NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID" as const;
+
+export type NotificationAllowedChannel = Extract<
+	APIChannel,
+	{ type: (typeof NOTIFICATION_CHANNEL_TYPES)[number] }
+>;
 
 function isNotificationChannel(channel: APIChannel): channel is NotificationAllowedChannel {
 	return NOTIFICATION_CHANNEL_TYPES.includes(
@@ -102,17 +119,101 @@ function isNotificationSendable(
 		: errors.length === 0;
 }
 
-function isNotificationType(notificationType: number): notificationType is NotificationTypes {
+export function isNotificationType(
+	notificationType: number,
+): notificationType is NotificationTypes {
 	return NOTIFICATION_TYPE_VALUES.includes(notificationType as NotificationTypes);
 }
 
-export async function setup(
-	interaction: APIChatInputApplicationCommandGuildInteraction,
-	options: OptionResolver,
+type NotificationSetupOptions = Pick<NotificationPacket, "type"> &
+	Partial<Pick<NotificationPacket, "channel_id" | "role_id" | "offset">> & { guild: Guild };
+
+export async function setup({
+	guild,
+	type,
+	channel_id,
+	role_id,
+	offset,
+}: NotificationSetupOptions) {
+	const notificationPacket = await pg<NotificationPacket>(Table.Notifications)
+		.select("channel_id", "role_id")
+		.where({ guild_id: guild.id, type })
+		.first();
+
+	await pg<NotificationPacket>(Table.Notifications)
+		.insert({
+			guild_id: guild.id,
+			type,
+			channel_id: channel_id!,
+			role_id: role_id!,
+			offset: offset!,
+			sendable: isSendable(
+				await guild.fetchMe(),
+				guild,
+				channel_id === undefined ? notificationPacket?.channel_id : channel_id,
+				role_id === undefined ? notificationPacket?.role_id : role_id,
+			),
+		})
+		.onConflict(["guild_id", "type"])
+		.merge(["channel_id", "role_id", "offset"]);
+}
+
+export function setupResponse(locale: Locale): APIInteractionResponseCallbackData {
+	return {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: "## Notifications",
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content:
+							"You may choose a channel to receive notifications in! Use the select menu below to select a notification type.",
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: NOTIFICATIONS_SETUP_CUSTOM_ID,
+								options: NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
+									label: t(`notification-types.${notificationType}`, {
+										lng: locale,
+										ns: "general",
+									}),
+									value: String(notificationType),
+								})),
+								max_values: 1,
+								min_values: 0,
+								placeholder: "Select a notification type.",
+							},
+						],
+					},
+				],
+			},
+		],
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	};
+}
+
+export async function displayNotificationType(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+	notificationType: NotificationTypes,
 ) {
 	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
 		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
@@ -122,48 +223,17 @@ export async function setup(
 		return;
 	}
 
-	const { locale } = interaction;
-	const notificationType = options.getInteger("notification", true);
-	const channel = guild.channels.get(options.getChannel("channel", true).id);
-
-	if (!(channel && isNotificationChannel(channel))) {
-		pino.error(interaction, "Received an unknown channel type whilst setting up notifications.");
-		throw new Error("Received an unknown channel type whilst setting up notifications.");
-	}
-
-	const role = options.getRole("role", true);
-
 	if (!isNotificationType(notificationType)) {
 		pino.error(
 			interaction,
 			"Received an unknown notification type whilst setting up notifications.",
 		);
 
-		await client.api.interactions.reply(
+		await client.api.interactions.updateMessage(
 			interaction.id,
 			interaction.token,
 			ERROR_RESPONSE_COMPONENTS_V2,
 		);
-		return;
-	}
-
-	if (role.id === interaction.guild_id) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("notification.no-everyone", { lng: locale, ns: "features" }),
-			flags: MessageFlags.Ephemeral,
-		});
-
-		return;
-	}
-
-	const me = await guild.fetchMe();
-	const notificationSendable = isNotificationSendable(guild, channel, role, me, true);
-
-	if (notificationSendable.length > 0) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: notificationSendable.join("\n"),
-			flags: MessageFlags.Ephemeral,
-		});
 
 		return;
 	}
@@ -176,6 +246,11 @@ export async function setup(
 
 		return;
 	}
+
+	const notificationPacket = await pg<NotificationPacket>(Table.Notifications)
+		.select("channel_id", "role_id", "offset")
+		.where({ guild_id: interaction.guild_id, type: notificationType })
+		.first();
 
 	const stringSelectMenuOptions = [];
 	const maximumOffset = NotificationOffsetToMaximumValues[notificationType];
@@ -195,41 +270,103 @@ export async function setup(
 		stringSelectMenuOptions.push(stringSelectMenuOption);
 	}
 
-	await client.api.interactions.reply(interaction.id, interaction.token, {
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
 			{
-				type: ComponentType.ActionRow,
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
-						type: ComponentType.StringSelect,
-						custom_id: `${NOTIFICATION_SETUP_OFFSET_CUSTOM_ID}§${notificationType}§${channel.id}§${role.id}`,
-						max_values: 1,
-						min_values: 1,
-						options: stringSelectMenuOptions,
-						placeholder: "Offset notification by how many minutes?",
+						type: ComponentType.TextDisplay,
+						content: `## ${t(`notification-types.${notificationType}`, { lng: interaction.locale, ns: "general" })}`,
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: "You may choose a channel, role, and offset.",
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.ChannelSelect,
+								custom_id: `${NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID}§${notificationType}`,
+								// @ts-expect-error The mutable array error is fine.
+								channel_types: NOTIFICATION_CHANNEL_TYPES,
+								default_values: notificationPacket?.channel_id
+									? [
+											{
+												id: notificationPacket.channel_id,
+												type: SelectMenuDefaultValueType.Channel,
+											},
+										]
+									: [],
+								max_values: 1,
+								min_values: 0,
+								placeholder: "Select a channel.",
+							},
+						],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.RoleSelect,
+								custom_id: NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID,
+								default_values: notificationPacket?.role_id
+									? [{ id: notificationPacket.role_id, type: SelectMenuDefaultValueType.Role }]
+									: [],
+								max_values: 1,
+								min_values: 0,
+								placeholder: "Select a role.",
+							},
+						],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID,
+								options: stringSelectMenuOptions,
+								max_values: 1,
+								min_values: 0,
+								placeholder: "Select an offset.",
+							},
+						],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								style: ButtonStyle.Primary,
+								custom_id: NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
+								emoji: { name: "⏪" },
+								label: t("back", { lng: interaction.locale, ns: "general" }),
+							},
+						],
 					},
 				],
 			},
 		],
-		embeds: [
-			{
-				color: DEFAULT_EMBED_COLOUR,
-				description:
-					"You may choose a custom offset. This will decide how many minutes prior notifications will be delivered.",
-				title: t(`notification-types.${notificationType}`, { lng: locale, ns: "general" }),
-			},
-		],
-		flags: MessageFlags.Ephemeral,
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	});
 }
 
-export async function finaliseSetup(
+export async function handleChannelSelectMenu(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
 	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
-		await client.api.interactions.updateMessage(
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
+		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
 			NOT_IN_CACHED_GUILD_RESPONSE,
@@ -238,8 +375,9 @@ export async function finaliseSetup(
 		return;
 	}
 
-	const [, rawNotificationType, channelId, roleId] = interaction.data.custom_id.split("§");
-	const notificationType = Number(rawNotificationType);
+	const customId = interaction.data.custom_id;
+	const notificationTypeString = customId.slice(customId.indexOf("§") + 1);
+	const notificationType = Number(notificationTypeString);
 
 	if (!isNotificationType(notificationType)) {
 		pino.error(
@@ -252,26 +390,22 @@ export async function finaliseSetup(
 			interaction.token,
 			ERROR_RESPONSE_COMPONENTS_V2,
 		);
+
 		return;
 	}
 
-	await pg<NotificationPacket>(Table.Notifications)
-		.insert({
-			guild_id: guild.id,
-			type: notificationType,
-			channel_id: channelId!,
-			role_id: roleId!,
-			offset: Number(interaction.data.values[0]),
-			sendable: true,
-		})
-		.onConflict(["guild_id", "type"])
-		.merge();
+	const [channelId] = interaction.data.values;
 
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: [],
-		content: "Notifications have been modified.",
-		embeds: [await embed(interaction)],
-	});
+	if (channelId) {
+		const channel = guild.channels.get(channelId);
+
+		if (!(channel && isNotificationChannel(channel))) {
+			throw new Error("Received an unknown channel type whilst setting up notifications.");
+		}
+	}
+
+	await setup({ guild, type: notificationType, channel_id: channelId ?? null });
+	await displayNotificationType(interaction, notificationType);
 }
 
 export async function status(interaction: APIChatInputApplicationCommandGuildInteraction) {
@@ -293,6 +427,7 @@ export async function unset(
 			interaction.token,
 			NOT_IN_CACHED_GUILD_RESPONSE,
 		);
+
 		return;
 	}
 
@@ -359,15 +494,15 @@ export async function checkSendable(guildId: Snowflake) {
 function isSendable(
 	me: GuildMember,
 	guild: Guild,
-	channelId: Snowflake | null,
-	roleId: Snowflake | null,
+	channelId?: Snowflake | null,
+	roleId?: Snowflake | null,
 ) {
 	if (!(channelId && roleId)) {
 		return false;
 	}
 
 	const channel = guild.channels.get(channelId);
-	const role = guild.roles.find((role) => role.id === roleId);
+	const role = guild.roles.get(roleId);
 
 	return Boolean(
 		channel &&

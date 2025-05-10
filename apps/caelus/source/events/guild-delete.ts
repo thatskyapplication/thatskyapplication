@@ -1,9 +1,9 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { MESSAGE_CACHE } from "../caches/messages.js";
+import { checkSendable } from "../features/notification.js";
 import pino from "../pino.js";
 import { logGuild } from "../services/log.js";
-import { checkSendable } from "../services/notification.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.GuildDelete;

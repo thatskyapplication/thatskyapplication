@@ -1179,8 +1179,6 @@ export const NotificationOffsetToMaximumValues = {
 	Record<Exclude<NotificationTypes, typeof NotificationType.AppUpdates>, number>
 >;
 
-export const NOTIFICATION_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATION_SETUP_OFFSET_CUSTOM_ID" as const;
-
 // Schedule.
 export const PASSAGE_TRUNCATION_LIMIT = 9 as const;
 
