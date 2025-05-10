@@ -4,8 +4,8 @@ import { checkSendable } from "../features/notification.js";
 import { GuildMember } from "../models/discord/guild-member.js";
 import pino from "../pino.js";
 import { APPLICATION_ID } from "../utility/constants.js";
-import type { Event } from "./index.js";
 import { equalSet } from "../utility/functions.js";
+import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.GuildMemberUpdate;
 
