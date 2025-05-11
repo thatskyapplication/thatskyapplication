@@ -10,16 +10,12 @@ import { client } from "../../discord.js";
 import {
 	isDailyGuidesDistributable,
 	isDailyGuidesDistributionChannel,
-	setup,
-	setupResponse,
+	setup as setupDailyGuides,
+	setupResponse as setupResponseDailyGuides,
 } from "../../features/daily-guides.js";
+import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
-import {
-	setup as notificationSetup,
-	status as notificationStatus,
-	unset as notificationUnset,
-} from "../../services/notification.js";
 import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
@@ -54,13 +50,24 @@ async function dailyGuides(
 			return;
 		}
 
-		await setup({ guildId: guild.id, channelId: channel.id });
+		await setupDailyGuides({ guildId: guild.id, channelId: channel.id });
 	}
 
 	await client.api.interactions.reply(
 		interaction.id,
 		interaction.token,
-		await setupResponse(guild),
+		await setupResponseDailyGuides(guild),
+	);
+}
+
+async function notifications(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	guild: Guild,
+) {
+	await client.api.interactions.reply(
+		interaction.id,
+		interaction.token,
+		await setupResponseNotifications(interaction, guild),
 	);
 }
 
@@ -81,7 +88,7 @@ export default {
 
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommandGroup(false) ?? options.getSubcommand(true)) {
+		switch (options.getSubcommand(true)) {
 			case t("configure.ai.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
 				const ai = AI.cache.get(interaction.guild_id);
 
@@ -98,22 +105,8 @@ export default {
 				return;
 			}
 			case t("configure.notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
-				switch (options.getSubcommand()) {
-					case "setup": {
-						await notificationSetup(interaction, options);
-						return;
-					}
-					case "status": {
-						await notificationStatus(interaction);
-						return;
-					}
-					case "unset": {
-						await notificationUnset(interaction, options);
-						return;
-					}
-				}
-
-				break;
+				await notifications(interaction, guild);
+				return;
 			}
 		}
 	},

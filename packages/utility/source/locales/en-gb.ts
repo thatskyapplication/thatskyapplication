@@ -1384,26 +1384,6 @@ export default {
 			notifications: {
 				"command-name": "notifications",
 				"command-description": "The command to set up notifications for events.",
-				setup: {
-					"command-name": "setup",
-					"command-description": "Sets up notifications in the server.",
-					"command-option-notification-name": "notification",
-					"command-option-notification-description": "The notification to set.",
-					"command-option-channel-name": "channel",
-					"command-option-channel-description": "The channel to send notifications in.",
-					"command-option-role-name": "role",
-					"command-option-role-description": "The role to mention.",
-				},
-				status: {
-					"command-name": "status",
-					"command-description": "Displays the status of notifications in this server.",
-				},
-				unset: {
-					"command-name": "unset",
-					"command-description": "Unsets notifications in the server.",
-					"command-option-notification-name": "notification",
-					"command-option-notification-description": "The notification to unset.",
-				},
 			},
 		},
 		data: {
@@ -1608,9 +1588,6 @@ export default {
 		heart: {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not receive your heart. Someone needs to adjust the permissions!",
-		},
-		notification: {
-			"no-everyone": "Woah there! Let's pick another role. Not sure we want to do that!",
 		},
 	},
 } as const;

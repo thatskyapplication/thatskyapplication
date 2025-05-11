@@ -166,6 +166,15 @@ export function isStringSelectMenu(
 	);
 }
 
+function isRoleSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIMessageComponentSelectMenuInteraction {
+	return (
+		interaction.type === InteractionType.MessageComponent &&
+		interaction.data.component_type === ComponentType.RoleSelect
+	);
+}
+
 function isChannelSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIMessageComponentSelectMenuInteraction {
@@ -179,6 +188,12 @@ export function isGuildStringSelectMenu(
 	interaction: APIInteraction,
 ): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
 	return isStringSelectMenu(interaction) && "guild_id" in interaction;
+}
+
+export function isGuildRoleSelectMenu(
+	interaction: APIInteraction,
+): interaction is APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction> {
+	return isRoleSelectMenu(interaction) && "guild_id" in interaction;
 }
 
 export function isGuildChannelSelectMenu(
@@ -236,4 +251,18 @@ export function avatarURL(user: APIUser) {
 	return user.avatar
 		? client.rest.cdn.avatar(user.id, user.avatar)
 		: client.rest.cdn.defaultAvatar(index);
+}
+
+export function equalSet<T>(set1: Set<T>, set2: Set<T>) {
+	if (set1.size !== set2.size) {
+		return false;
+	}
+
+	for (const item of set1) {
+		if (!set2.has(item)) {
+			return false;
+		}
+	}
+
+	return true;
 }

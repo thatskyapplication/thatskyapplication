@@ -6,7 +6,6 @@ import {
 	DEVELOPER_GUILD_ID,
 	LOCALES,
 	MAXIMUM_WING_BUFFS,
-	NOTIFICATION_CHANNEL_TYPES,
 	QUEST_NUMBER,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
@@ -30,19 +29,12 @@ import {
 	GuessDifficultyLevelToName,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
-	NOTIFICATION_TYPE_VALUES,
 } from "@thatskyapplication/utility";
 import { DISCORD_TOKEN } from "./configuration.js";
 
 function localisations(name: string, ns = "commands") {
 	return Object.fromEntries(LOCALES.map((locale) => [locale, t(name, { lng: locale, ns })]));
 }
-
-const notificationEventChoices = NOTIFICATION_TYPE_VALUES.map((notificationType) => ({
-	name: t(`notification-types.${notificationType}`, { lng: Locale.EnglishGB, ns: "general" }),
-	name_localizations: localisations(`notification-types.${notificationType}`, "general"),
-	value: notificationType,
-}));
 
 const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	{
@@ -392,7 +384,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				],
 			},
 			{
-				type: ApplicationCommandOptionType.SubcommandGroup,
+				type: ApplicationCommandOptionType.Subcommand,
 				name: t("configure.notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 				name_localizations: localisations("configure.notifications.command-name"),
 				description: t("configure.notifications.command-description", {
@@ -400,138 +392,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					ns: "commands",
 				}),
 				description_localizations: localisations("configure.notifications.command-description"),
-				options: [
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: t("configure.notifications.setup.command-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.notifications.setup.command-name"),
-						description: t("configure.notifications.setup.command-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.notifications.setup.command-description",
-						),
-						options: [
-							{
-								type: ApplicationCommandOptionType.Integer,
-								name: t("configure.notifications.setup.command-option-notification-name", {
-									lng: Locale.EnglishGB,
-									ns: "commands",
-								}),
-								name_localizations: localisations(
-									"configure.notifications.setup.command-option-notification-name",
-								),
-								description: t(
-									"configure.notifications.setup.command-option-notification-description",
-									{
-										lng: Locale.EnglishGB,
-										ns: "commands",
-									},
-								),
-								description_localizations: localisations(
-									"configure.notifications.setup.command-option-notification-description",
-								),
-								required: true,
-								choices: notificationEventChoices,
-							},
-							{
-								type: ApplicationCommandOptionType.Channel,
-								name: t("configure.notifications.setup.command-option-channel-name", {
-									lng: Locale.EnglishGB,
-									ns: "commands",
-								}),
-								name_localizations: localisations(
-									"configure.notifications.setup.command-option-channel-name",
-								),
-								description: t("configure.notifications.setup.command-option-channel-description", {
-									lng: Locale.EnglishGB,
-									ns: "commands",
-								}),
-								description_localizations: localisations(
-									"configure.notifications.setup.command-option-channel-description",
-								),
-								required: true,
-								channel_types: [...NOTIFICATION_CHANNEL_TYPES],
-							},
-							{
-								type: ApplicationCommandOptionType.Role,
-								name: t("configure.notifications.setup.command-option-role-name", {
-									lng: Locale.EnglishGB,
-									ns: "commands",
-								}),
-								name_localizations: localisations(
-									"configure.notifications.setup.command-option-role-name",
-								),
-								description: t("configure.notifications.setup.command-option-role-description", {
-									lng: Locale.EnglishGB,
-									ns: "commands",
-								}),
-								description_localizations: localisations(
-									"configure.notifications.setup.command-option-role-description",
-								),
-								required: true,
-							},
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: t("configure.notifications.status.command-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.notifications.status.command-name"),
-						description: t("configure.notifications.status.command-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.notifications.status.command-description",
-						),
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: t("configure.notifications.unset.command-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.notifications.unset.command-name"),
-						description: t("configure.notifications.unset.command-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.notifications.unset.command-description",
-						),
-						options: [
-							{
-								type: ApplicationCommandOptionType.Integer,
-								name: t("configure.notifications.unset.command-option-notification-name", {
-									lng: Locale.EnglishGB,
-									ns: "commands",
-								}),
-								name_localizations: localisations(
-									"configure.notifications.unset.command-option-notification-name",
-								),
-								description: t(
-									"configure.notifications.unset.command-option-notification-description",
-									{
-										lng: Locale.EnglishGB,
-										ns: "commands",
-									},
-								),
-								description_localizations: localisations(
-									"configure.notifications.unset.command-option-notification-description",
-								),
-								required: true,
-								choices: notificationEventChoices,
-							},
-						],
-					},
-				],
 			},
 		],
 		default_member_permissions: String(PermissionFlagsBits.ManageGuild),

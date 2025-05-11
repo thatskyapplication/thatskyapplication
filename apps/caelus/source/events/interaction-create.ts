@@ -14,6 +14,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { isSeasonId } from "@thatskyapplication/utility";
+import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,
 	CHAT_INPUT_COMMANDS,
@@ -30,7 +31,23 @@ import {
 	issueModalResponse,
 	issueSubmission,
 } from "../features/about.js";
-import { DAILY_GUIDES_SETUP_CUSTOM_ID, handleChannelSelectMenu } from "../features/daily-guides.js";
+import {
+	DAILY_GUIDES_SETUP_CUSTOM_ID,
+	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
+} from "../features/daily-guides.js";
+import {
+	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
+	NOTIFICATIONS_SETUP_CUSTOM_ID,
+	NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID,
+	NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID,
+	NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
+	displayNotificationType,
+	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
+	handleRoleSelectMenu as handleNotificationsRoleSelectMenu,
+	handleStringSelectMenu as handleNotificationsStringSelectMenu,
+	isNotificationType,
+	setupResponse,
+} from "../features/notifications.js";
 import {
 	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
 	SHOP_SUGGEST_CUSTOM_ID,
@@ -107,7 +124,6 @@ import {
 	tryAgain,
 } from "../services/guess.js";
 import { history } from "../services/heart.js";
-import { finaliseSetup } from "../services/notification.js";
 import { browse, today } from "../services/shard-eruption.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
@@ -125,7 +141,7 @@ import {
 	GUESS_TRY_AGAIN,
 	HEART_HISTORY_BACK,
 	HEART_HISTORY_NEXT,
-	NOTIFICATION_SETUP_OFFSET_CUSTOM_ID,
+	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
 import {
 	interactionInvoker,
@@ -134,6 +150,7 @@ import {
 	isChatInputCommand,
 	isGuildButton,
 	isGuildChannelSelectMenu,
+	isGuildRoleSelectMenu,
 	isGuildStringSelectMenu,
 	isModalSubmit,
 	isRealm,
@@ -625,6 +642,28 @@ export default {
 						return;
 					}
 
+					if (customId === NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID) {
+						const guild = GUILD_CACHE.get(interaction.guild_id);
+
+						if (!guild) {
+							await client.api.interactions.updateMessage(
+								interaction.id,
+								interaction.token,
+								NOT_IN_CACHED_GUILD_RESPONSE,
+							);
+
+							return;
+						}
+
+						await client.api.interactions.updateMessage(
+							interaction.id,
+							interaction.token,
+							await setupResponse(interaction, guild),
+						);
+
+						return;
+					}
+
 					if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
 						await distribute(interaction);
 						return;
@@ -756,8 +795,30 @@ export default {
 				}
 
 				if (isGuildStringSelectMenu(interaction)) {
-					if (customId.startsWith(NOTIFICATION_SETUP_OFFSET_CUSTOM_ID)) {
-						await finaliseSetup(interaction);
+					if (customId === NOTIFICATIONS_SETUP_CUSTOM_ID) {
+						const notificationType = Number(value0);
+
+						if (!isNotificationType(notificationType)) {
+							pino.error(
+								interaction,
+								"Received an unknown notification type whilst setting up notifications.",
+							);
+
+							await client.api.interactions.updateMessage(
+								interaction.id,
+								interaction.token,
+								ERROR_RESPONSE_COMPONENTS_V2,
+							);
+
+							return;
+						}
+
+						await displayNotificationType(interaction, notificationType);
+						return;
+					}
+
+					if (customId.startsWith(NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID)) {
+						await handleNotificationsStringSelectMenu(interaction);
 						return;
 					}
 
@@ -794,13 +855,13 @@ export default {
 			return;
 		}
 
-		if (isGuildChannelSelectMenu(interaction)) {
+		if (isGuildRoleSelectMenu(interaction)) {
 			logMessageComponent(interaction);
 			const customId = interaction.data.custom_id;
 
 			try {
-				if (customId === DAILY_GUIDES_SETUP_CUSTOM_ID) {
-					await handleChannelSelectMenu(interaction);
+				if (customId.startsWith(NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID)) {
+					await handleNotificationsRoleSelectMenu(interaction);
 					return;
 				}
 			} catch (error) {
@@ -808,7 +869,39 @@ export default {
 				return;
 			}
 
-			pino.warn(interaction, "Received an unknown select menu interaction.");
+			pino.warn(interaction, "Received an unknown role select menu interaction.");
+
+			await api.interactions.updateMessage(
+				interaction.id,
+				interaction.token,
+				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
+					? ERROR_RESPONSE
+					: ERROR_RESPONSE_COMPONENTS_V2,
+			);
+
+			return;
+		}
+
+		if (isGuildChannelSelectMenu(interaction)) {
+			logMessageComponent(interaction);
+			const customId = interaction.data.custom_id;
+
+			try {
+				if (customId === DAILY_GUIDES_SETUP_CUSTOM_ID) {
+					await handleDailyGuidesChannelSelectMenu(interaction);
+					return;
+				}
+
+				if (customId.startsWith(NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID)) {
+					await handleNotificationsChannelSelectMenu(interaction);
+					return;
+				}
+			} catch (error) {
+				void recoverInteractionError(interaction, error);
+				return;
+			}
+
+			pino.warn(interaction, "Received an unknown channel select menu interaction.");
 
 			await api.interactions.updateMessage(
 				interaction.id,

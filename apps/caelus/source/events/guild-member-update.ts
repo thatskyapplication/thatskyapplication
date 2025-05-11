@@ -1,15 +1,17 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
+import { checkSendable } from "../features/notifications.js";
 import { GuildMember } from "../models/discord/guild-member.js";
 import pino from "../pino.js";
 import { APPLICATION_ID } from "../utility/constants.js";
+import { equalSet } from "../utility/functions.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.GuildMemberUpdate;
 
 export default {
 	name,
-	fire({ data }) {
+	async fire({ data }) {
 		const guild = GUILD_CACHE.get(data.guild_id);
 
 		if (!guild) {
@@ -21,6 +23,11 @@ export default {
 			return;
 		}
 
+		const oldRoles = guild.me?.roles;
 		guild.me = new GuildMember(data);
+
+		if (!(oldRoles && equalSet(oldRoles, guild.me.roles))) {
+			await checkSendable(guild.id);
+		}
 	},
 } satisfies Event<typeof name>;
