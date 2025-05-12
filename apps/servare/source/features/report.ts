@@ -2,7 +2,6 @@ import {
 	type APIComponentInContainer,
 	type APIGuildForumChannel,
 	type APIGuildInteractionWrapper,
-	type APIGuildMember,
 	type APIInteractionResponseCallbackData,
 	type APIMessageApplicationCommandGuildInteraction,
 	type APIMessageComponentButtonInteraction,
@@ -21,6 +20,7 @@ import {
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild } from "../models/discord/guild.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
@@ -44,26 +44,26 @@ import { type MessagesPacket, upsert } from "./message-log.js";
 function isReportCreatableAndSendable(
 	guild: Guild,
 	channel: APIGuildForumChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors: true,
 ): string[];
 
 function isReportCreatableAndSendable(
 	guild: Guild,
 	channel: APIGuildForumChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors?: false,
 ): boolean;
 
 function isReportCreatableAndSendable(
 	guild: Guild,
 	channel: APIGuildForumChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors = false,
 ) {
 	const errors = [];
 
-	if (me.communication_disabled_until && Date.parse(me.communication_disabled_until) > Date.now()) {
+	if (me.isCommunicationDisabled()) {
 		errors.push("I am timed out.");
 	}
 

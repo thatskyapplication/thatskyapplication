@@ -2,7 +2,6 @@ import { Collection } from "@discordjs/collection";
 import {
 	type APIChannel,
 	type APIGuild,
-	type APIGuildMember,
 	type APIRole,
 	ChannelType,
 	type GatewayGuildCreateDispatchData,
@@ -13,6 +12,7 @@ import {
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { client } from "../../discord.js";
 import { APPLICATION_ID } from "../../utility/constants.js";
+import { GuildMember } from "./guild-member.js";
 import { AnnouncementThread, PrivateThread, PublicThread } from "./thread.js";
 
 export type GuildChannel = APIChannel & {
@@ -37,7 +37,7 @@ export class Guild {
 
 	public memberCount: number;
 
-	public me?: APIGuildMember;
+	public me?: GuildMember;
 
 	public readonly channels: Collection<Snowflake, GuildChannel>;
 
@@ -56,7 +56,7 @@ export class Guild {
 
 		for (const member of data.members) {
 			if (member.user.id === APPLICATION_ID) {
-				this.me = member;
+				this.me = new GuildMember(member);
 				break;
 			}
 		}
@@ -93,7 +93,7 @@ export class Guild {
 			return this.me;
 		}
 
-		this.me = await client.api.guilds.getMember(this.id, APPLICATION_ID);
+		this.me = new GuildMember(await client.api.guilds.getMember(this.id, APPLICATION_ID));
 		return this.me;
 	}
 }

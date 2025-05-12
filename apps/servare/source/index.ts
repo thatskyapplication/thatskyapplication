@@ -6,6 +6,7 @@ import guildCreate from "./events/guild-create.js";
 import guildDelete from "./events/guild-delete.js";
 import guildMemberAdd from "./events/guild-member-add.js";
 import guildMemberRemove from "./events/guild-member-remove.js";
+import guildMemberUpdate from "./events/guild-member-update.js";
 import guildRoleCreate from "./events/guild-role-create.js";
 import guildRoleDelete from "./events/guild-role-delete.js";
 import guildRoleUpdate from "./events/guild-role-update.js";
@@ -30,6 +31,7 @@ for (const event of [
 	guildDelete,
 	guildMemberAdd,
 	guildMemberRemove,
+	guildMemberUpdate,
 	guildRoleCreate,
 	guildRoleDelete,
 	guildRoleUpdate,

@@ -1,9 +1,5 @@
-import {
-	type APIGuildChannel,
-	type APIGuildMember,
-	type GuildChannelType,
-	PermissionFlagsBits,
-} from "@discordjs/core";
+import { type APIGuildChannel, type GuildChannelType, PermissionFlagsBits } from "@discordjs/core";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
 
 const ALL_PERMISSIONS = Object.values(PermissionFlagsBits).reduce(
@@ -16,7 +12,7 @@ const computeBasePermissions = ({
 	member,
 }: {
 	guild: Guild;
-	member: APIGuildMember;
+	member: GuildMember;
 }): bigint => {
 	if (guild.ownerId === member.user.id) {
 		return ALL_PERMISSIONS;
@@ -55,7 +51,7 @@ const computeOverwrites = ({
 }: {
 	basePermissions: bigint;
 	guild: Guild;
-	member: APIGuildMember;
+	member: GuildMember;
 	channel: APIGuildChannel<GuildChannelType>;
 }): bigint => {
 	if (basePermissions & PermissionFlagsBits.Administrator) {
@@ -105,7 +101,7 @@ const computePermissions = ({
 	channel,
 }: {
 	guild: Guild;
-	member: APIGuildMember;
+	member: GuildMember;
 	channel?: APIGuildChannel<GuildChannelType> | undefined;
 }): bigint => {
 	const basePermissions = computeBasePermissions({ guild, member });
@@ -125,7 +121,7 @@ export const can = ({
 }: {
 	permission: bigint;
 	guild: Guild;
-	member: APIGuildMember;
+	member: GuildMember;
 	channel?: APIGuildChannel<GuildChannelType>;
 }): boolean => {
 	const permissions = computePermissions({ guild, member, channel });

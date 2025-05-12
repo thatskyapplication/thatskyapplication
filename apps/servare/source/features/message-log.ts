@@ -1,7 +1,6 @@
 import {
 	type APIChannel,
 	type APIGuildInteractionWrapper,
-	type APIGuildMember,
 	type APIInteractionResponseCallbackData,
 	type APIMessageComponentSelectMenuInteraction,
 	ChannelType,
@@ -18,6 +17,7 @@ import {
 } from "@discordjs/core";
 import { diffLines, diffWords } from "diff";
 import { client } from "../discord.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import pg, { Table } from "../pg.js";
@@ -63,26 +63,26 @@ function isMessageLogChannel(channel: APIChannel): channel is MessageLogAllowedC
 function isMessageLogSendable(
 	guild: Guild,
 	channel: MessageLogAllowedChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors: true,
 ): string[];
 
 function isMessageLogSendable(
 	guild: Guild,
 	channel: MessageLogAllowedChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors?: false,
 ): boolean;
 
 function isMessageLogSendable(
 	guild: Guild,
 	channel: MessageLogAllowedChannel,
-	me: APIGuildMember,
+	me: GuildMember,
 	returnErrors = false,
 ) {
 	const errors = [];
 
-	if (me.communication_disabled_until && Date.parse(me.communication_disabled_until) > Date.now()) {
+	if (me.isCommunicationDisabled()) {
 		errors.push("I am timed out.");
 	}
 
