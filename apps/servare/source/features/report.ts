@@ -33,7 +33,7 @@ import {
 	REPORT_MESSAGE_MAXIMUM_LENGTH,
 	REPORT_MINIMUM_REASON_LENGTH,
 } from "../utility/constants.js";
-import { avatarURL, messageLink, userTag } from "../utility/functions.js";
+import { avatarURL, isThreadChannel, messageLink, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
@@ -359,9 +359,18 @@ export async function confirmation(
 		schemaStore.serialize(CustomId.ReportModalResponseText, {}),
 	);
 
-	const channel = guild.channels.get(interaction.channel!.id);
+	const channel =
+		guild.channels.get(interaction.channel!.id) ?? guild.threads.get(interaction.channel!.id);
 
 	if (!channel) {
+		throw new Error("Failed to find a channel to create a report from.");
+	}
+
+	const effectiveChannel = isThreadChannel(channel)
+		? guild.channels.get(channel.parentId)
+		: channel;
+
+	if (!effectiveChannel) {
 		throw new Error("Failed to find a channel to create a report from.");
 	}
 
@@ -371,7 +380,7 @@ export async function confirmation(
 			permission: PermissionFlagsBits.ViewChannel | PermissionFlagsBits.ReadMessageHistory,
 			guild,
 			member: await guild.fetchMe(),
-			channel,
+			channel: effectiveChannel,
 		})
 			? client.api.channels.getMessage(interaction.channel!.id, messageId)
 			: null,
@@ -542,9 +551,25 @@ export async function create(
 		return;
 	}
 
-	const reportedChannel = guild.channels.get(interaction.channel!.id);
+	const reportedChannel =
+		guild.channels.get(interaction.channel!.id) ?? guild.threads.get(interaction.channel!.id);
 
 	if (!reportedChannel) {
+		pino.error(interaction, "Failed to find the channel the report came from.");
+
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			content: "Failed to create a report. Try to approach the moderators directly.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const effectiveReportedChannel = isThreadChannel(reportedChannel)
+		? guild.channels.get(reportedChannel.parentId)
+		: reportedChannel;
+
+	if (!effectiveReportedChannel) {
 		pino.error(interaction, "Failed to find the channel the report came from.");
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -562,7 +587,7 @@ export async function create(
 			permission: PermissionFlagsBits.ViewChannel | PermissionFlagsBits.ReadMessageHistory,
 			guild,
 			member: await guild.fetchMe(),
-			channel: reportedChannel,
+			channel: effectiveReportedChannel,
 		})
 	) {
 		// Fetch messages around the message id for context.
