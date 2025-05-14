@@ -1181,6 +1181,14 @@ const DEVELOPER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 		],
 		default_member_permissions: "0",
 	},
+	{
+		name: t("giveaway.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("giveaway.command-name"),
+		description: t("giveaway.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("giveaway.command-description"),
+		integration_types: [ApplicationIntegrationType.GuildInstall],
+		contexts: [InteractionContextType.Guild],
+	},
 ] as const;
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);

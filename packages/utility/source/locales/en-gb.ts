@@ -1401,6 +1401,10 @@ export default {
 		"Gift-Heart": {
 			"command-name": "Gift Heart",
 		},
+		giveaway: {
+			"command-name": "giveaway",
+			"command-description": "Check the status of the giveaway here!",
+		},
 		guess: {
 			"command-name": "guess",
 			"command-description": "Begin a Sky guessing game! How many can you get right in a row?",

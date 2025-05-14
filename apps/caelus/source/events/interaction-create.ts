@@ -35,6 +35,7 @@ import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 } from "../features/daily-guides.js";
+import { GIVEAWAY_BUTTON_CUSTOM_ID, claimTicket } from "../features/giveaway.js";
 import {
 	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
 	NOTIFICATIONS_SETUP_CUSTOM_ID,
@@ -639,6 +640,11 @@ export default {
 				if (isGuildButton(interaction)) {
 					if (customId.startsWith(CATALOGUE_SHARE_SEND_CUSTOM_ID)) {
 						await Catalogue.shareSend(interaction);
+						return;
+					}
+
+					if (customId === GIVEAWAY_BUTTON_CUSTOM_ID) {
+						await claimTicket(interaction);
 						return;
 					}
 
