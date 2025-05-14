@@ -3,6 +3,7 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../../caches/guilds.js";
 import { client } from "../../discord.js";
@@ -26,7 +27,10 @@ export default {
 		}
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			components: await giveaway({ userId: interaction.member.user.id }),
+			components: await giveaway({
+				userId: interaction.member.user.id,
+				createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
+			}),
 			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		});
 	},

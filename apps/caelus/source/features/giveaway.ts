@@ -11,13 +11,18 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { skyToday } from "@thatskyapplication/utility";
 import type { QueryResult } from "pg";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { ANNOUNCEMENTS_CHANNEL_ID, DEVELOPER_ROLE_ID } from "../utility/configuration.js";
+import {
+	ANNOUNCEMENTS_CHANNEL_ID,
+	DEVELOPER_ROLE_ID,
+	GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT,
+} from "../utility/configuration.js";
 import { DEFAULT_EMBED_COLOUR, DEVELOPER_GUILD_ID } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 
@@ -32,11 +37,37 @@ export const GIVEAWAY_BUTTON_CUSTOM_ID = "GIVEAWAY_BUTTON_CUSTOM_ID" as const;
 
 interface GiveawayOptions {
 	userId: Snowflake;
+	createdTimestamp: number;
 }
 
 export async function giveaway({
 	userId,
+	createdTimestamp,
 }: GiveawayOptions): Promise<[APIMessageTopLevelComponent]> {
+	if (createdTimestamp >= GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT) {
+		return [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: "## Giveaway",
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: "You are ineligible for the giveaway as your account is too new.",
+					},
+				],
+			},
+		];
+	}
+
 	const giveawayPacket = await pg<GiveawayPacket>(Table.Giveaway)
 		.select("entry_count", "last_entry_at")
 		.where({ user_id: userId })
@@ -121,7 +152,10 @@ export async function claimTicket(
 		});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: await giveaway({ userId: interaction.member.user.id }),
+		components: await giveaway({
+			userId: interaction.member.user.id,
+			createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
+		}),
 		flags: MessageFlags.IsComponentsV2,
 	});
 }
