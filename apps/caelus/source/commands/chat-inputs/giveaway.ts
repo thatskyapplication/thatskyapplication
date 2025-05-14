@@ -30,6 +30,7 @@ export default {
 			components: await giveaway({
 				userId: interaction.member.user.id,
 				createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
+				viewInformation: false,
 			}),
 			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		});

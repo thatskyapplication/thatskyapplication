@@ -13,6 +13,7 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { isSeasonId } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
@@ -35,7 +36,12 @@ import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 } from "../features/daily-guides.js";
-import { GIVEAWAY_BUTTON_CUSTOM_ID, claimTicket } from "../features/giveaway.js";
+import {
+	GIVEAWAY_BUTTON_CUSTOM_ID,
+	GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID,
+	claimTicket,
+	giveaway,
+} from "../features/giveaway.js";
 import {
 	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
 	NOTIFICATIONS_SETUP_CUSTOM_ID,
@@ -643,8 +649,20 @@ export default {
 						return;
 					}
 
-					if (customId === GIVEAWAY_BUTTON_CUSTOM_ID) {
-						await claimTicket(interaction);
+					if (customId.startsWith(GIVEAWAY_BUTTON_CUSTOM_ID)) {
+						await claimTicket(interaction, Number(customId.slice(customId.indexOf("§") + 1)) === 1);
+						return;
+					}
+
+					if (customId.startsWith(GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID)) {
+						await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+							components: await giveaway({
+								userId: interaction.member.user.id,
+								createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
+								viewInformation: Number(customId.slice(customId.indexOf("§") + 1)) === 1,
+							}),
+						});
+
 						return;
 					}
 

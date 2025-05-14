@@ -12,8 +12,9 @@ import {
 	RealmName,
 	SkyMap,
 	WEBSITE_URL,
+	skyDate,
 } from "@thatskyapplication/utility";
-import { PRODUCTION } from "./configuration.js";
+import { ANNOUNCEMENTS_CHANNEL_ID, PRODUCTION } from "./configuration.js";
 
 // Application ids.
 const APPLICATION_ID_DEVELOPMENT = "1071822091814441000" as const;
@@ -1117,6 +1118,13 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 
 // Data.
 export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
+
+// Giveaway.
+export const GIVEAWAY_END_DATE = skyDate(2025, 6, 4);
+const GIVEAWAY_END_TIMESTAMP_SECONDS = GIVEAWAY_END_DATE.toUnixInteger();
+
+export const GIVEAWAY_INFORMATION_TEXT =
+	`Welcome to the giveaway!\n\nThere is one prize available: an in-app purchase of your choice from Days of Colour 2025.\n### How do I participate?\nYou must be in the [support server](${SUPPORT_SERVER_INVITE_URL}). You claim tickets via this command. Tickets may be claimed daily and counts as an entry. Simple.\n### How will the winner be announced?\n\nThe winner is picked at random. Winners will be announced in <#${ANNOUNCEMENTS_CHANNEL_ID}> automatically on <t:${GIVEAWAY_END_TIMESTAMP_SECONDS}:F> (<t:${GIVEAWAY_END_TIMESTAMP_SECONDS}:R>).` as const;
 
 // Guess.
 export const GuessDifficultyToStreakColumn = {

@@ -1,8 +1,9 @@
 import {
-	type APIButtonComponentWithCustomId,
+	type APIComponentInContainer,
 	type APIGuildInteractionWrapper,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageTopLevelComponent,
+	type APITextDisplayComponent,
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
@@ -23,7 +24,11 @@ import {
 	DEVELOPER_ROLE_ID,
 	GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT,
 } from "../utility/configuration.js";
-import { DEFAULT_EMBED_COLOUR, DEVELOPER_GUILD_ID } from "../utility/constants.js";
+import {
+	DEFAULT_EMBED_COLOUR,
+	DEVELOPER_GUILD_ID,
+	GIVEAWAY_INFORMATION_TEXT,
+} from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 
 export interface GiveawayPacket {
@@ -34,106 +39,139 @@ export interface GiveawayPacket {
 }
 
 export const GIVEAWAY_BUTTON_CUSTOM_ID = "GIVEAWAY_BUTTON_CUSTOM_ID" as const;
+export const GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID = "GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID" as const;
+
+async function totalUsers() {
+	return Number(
+		(await pg<GiveawayPacket>(Table.Giveaway)
+			.where({ eligible: true })
+			.count({ totalRows: "*" })
+			.first())!.totalRows!,
+	);
+}
 
 interface GiveawayOptions {
 	userId: Snowflake;
 	createdTimestamp: number;
+	viewInformation: boolean;
 }
 
 export async function giveaway({
 	userId,
 	createdTimestamp,
+	viewInformation,
 }: GiveawayOptions): Promise<[APIMessageTopLevelComponent]> {
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: "## Giveaway",
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
 	if (createdTimestamp >= GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT) {
-		return [
-			{
-				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: "## Giveaway",
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: "You are ineligible for the giveaway as your account is too new.",
-					},
-				],
-			},
-		];
-	}
-
-	const giveawayPacket = await pg<GiveawayPacket>(Table.Giveaway)
-		.select("entry_count", "last_entry_at")
-		.where({ user_id: userId })
-		.first();
-
-	let entryText: string;
-	let button: APIButtonComponentWithCustomId;
-
-	if (giveawayPacket) {
-		entryText = `Your entries: ${giveawayPacket.entry_count}\n\n`;
-		const today = skyToday();
-		const claimedToday = giveawayPacket.last_entry_at.getTime() >= today.toMillis();
-
-		if (claimedToday) {
-			entryText += `You have claimed your daily ticket today! You claim again tomorrow (<t:${today.plus({ days: 1 }).toUnixInteger()}:R>).`;
-		} else {
-			entryText += "You can claim your ticket now!";
-		}
-
-		button = {
-			type: ComponentType.Button,
-			style: ButtonStyle.Primary,
-			custom_id: GIVEAWAY_BUTTON_CUSTOM_ID,
-			label: "Claim ticket",
-			disabled: claimedToday,
-		};
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: "You are ineligible to enter the giveaway as your account is too new.",
+		});
 	} else {
-		entryText = "You are yet to enter the giveaway!";
+		const giveawayPacket = await pg<GiveawayPacket>(Table.Giveaway)
+			.select("entry_count", "last_entry_at")
+			.where({ user_id: userId })
+			.first();
 
-		button = {
-			type: ComponentType.Button,
-			style: ButtonStyle.Success,
-			custom_id: GIVEAWAY_BUTTON_CUSTOM_ID,
-			label: "Enter!",
-		};
+		if (giveawayPacket) {
+			let entryText = `Total users entered: **${await totalUsers()}**\nYour entries: **${giveawayPacket.entry_count}**\n\n`;
+			const today = skyToday();
+			const claimedToday = giveawayPacket.last_entry_at.getTime() >= today.toMillis();
+
+			if (claimedToday) {
+				entryText += `You have claimed your daily ticket today! You claim again tomorrow (<t:${today.plus({ days: 1 }).toUnixInteger()}:R>).`;
+			} else {
+				entryText += "You can claim your ticket now!";
+			}
+
+			let accessoryText: string;
+			const sectionComponents: APITextDisplayComponent[] = [];
+
+			if (viewInformation) {
+				accessoryText = "Collapse";
+
+				sectionComponents.push({
+					type: ComponentType.TextDisplay,
+					content: GIVEAWAY_INFORMATION_TEXT,
+				});
+			} else {
+				accessoryText = "Expand";
+			}
+
+			sectionComponents.push({
+				type: ComponentType.TextDisplay,
+				content: `### Status\n\n${entryText}`,
+			});
+
+			containerComponents.push(
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID}§${1 - Number(viewInformation)}`,
+						label: accessoryText,
+					},
+					components: sectionComponents,
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Primary,
+							custom_id: `${GIVEAWAY_BUTTON_CUSTOM_ID}§${Number(viewInformation)}`,
+							label: "Claim ticket",
+							disabled: claimedToday,
+						},
+					],
+				},
+			);
+		} else {
+			containerComponents.push(
+				{
+					type: ComponentType.TextDisplay,
+					content: GIVEAWAY_INFORMATION_TEXT,
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Success,
+							custom_id: `${GIVEAWAY_BUTTON_CUSTOM_ID}§${Number(viewInformation)}`,
+							label: "Enter!",
+							disabled: createdTimestamp >= GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT,
+						},
+					],
+				},
+			);
+		}
 	}
 
 	return [
 		{
 			type: ComponentType.Container,
 			accent_color: DEFAULT_EMBED_COLOUR,
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: "## Giveaway",
-				},
-				{
-					type: ComponentType.Separator,
-					divider: true,
-					spacing: SeparatorSpacingSize.Small,
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: entryText,
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [button],
-				},
-			],
+			components: containerComponents,
 		},
 	];
 }
 
 export async function claimTicket(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+	viewInformation: boolean,
 ) {
 	pino.info(interaction, "User has claimed their daily ticket.");
 	const lastEntryAt = new Date();
@@ -155,6 +193,7 @@ export async function claimTicket(
 		components: await giveaway({
 			userId: interaction.member.user.id,
 			createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
+			viewInformation,
 		}),
 		flags: MessageFlags.IsComponentsV2,
 	});
@@ -223,17 +262,10 @@ export async function end() {
 		return;
 	}
 
-	// This must exist as a winner must exist.
-	const totalUsers = Number(
-		(await pg<GiveawayPacket>(Table.Giveaway)
-			.where({ eligible: true })
-			.count({ totalRows: "*" })
-			.first())!.totalRows!,
-	);
-
 	let entriesText: string;
+	const userCount = await totalUsers();
 
-	if (totalUsers === 1) {
+	if (userCount === 1) {
 		entriesText = "You were the only participant!";
 	} else {
 		const winnerEntries = winner.entry_count;
@@ -243,7 +275,7 @@ export async function end() {
 
 		// Calculate the winner's chance of winning.
 		const chanceOfWinning = ((winnerEntries / totalEntries) * 100).toFixed(2);
-		entriesText = `Out of a total of ${totalEntries} entries across ${totalUsers} users, you had a ~${chanceOfWinning}% chance of winning with your ${winnerEntries === 1 ? "1 entry" : `${winnerEntries} entries`}.`;
+		entriesText = `Out of a total of ${totalEntries} entries across ${userCount} users, you had a ~${chanceOfWinning}% chance of winning with your ${winnerEntries === 1 ? "1 entry" : `${winnerEntries} entries`}.`;
 	}
 
 	await client.api.channels.createMessage(channel.id, {
