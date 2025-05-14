@@ -1,8 +1,9 @@
 import process from "node:process";
-import { TIME_ZONE } from "@thatskyapplication/utility";
+import { TIME_ZONE, skyToday } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { request } from "undici";
 import { distribute, reset } from "./features/daily-guides.js";
+import { end } from "./features/giveaway.js";
 import DailyGuides from "./models/DailyGuides.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
@@ -12,6 +13,11 @@ export default function croner() {
 	new Cron("0 0 0 * * *", { timezone: TIME_ZONE }, async () => {
 		await Promise.all([DailyGuides.reset(), reset()]);
 		await distribute();
+		const today = skyToday();
+
+		if (today.year === 2025 && today.month === 6 && today.day === 4) {
+			await end();
+		}
 	});
 
 	if (PRODUCTION) {
