@@ -660,6 +660,7 @@ export default {
 								userId: interaction.member.user.id,
 								createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
 								viewInformation: Number(customId.slice(customId.indexOf("§") + 1)) === 1,
+								guildId: interaction.guild_id,
 							}),
 						});
 

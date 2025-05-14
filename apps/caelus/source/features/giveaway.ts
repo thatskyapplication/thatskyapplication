@@ -28,6 +28,7 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	GIVEAWAY_INFORMATION_TEXT,
+	GIVEAWAY_NOT_IN_SERVER_TEXT,
 } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 
@@ -54,12 +55,14 @@ interface GiveawayOptions {
 	userId: Snowflake;
 	createdTimestamp: number;
 	viewInformation: boolean;
+	guildId: Snowflake | undefined;
 }
 
 export async function giveaway({
 	userId,
 	createdTimestamp,
 	viewInformation,
+	guildId,
 }: GiveawayOptions): Promise<[APIMessageTopLevelComponent]> {
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -73,7 +76,12 @@ export async function giveaway({
 		},
 	];
 
-	if (createdTimestamp >= GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT) {
+	if (guildId !== DEVELOPER_GUILD_ID) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: GIVEAWAY_NOT_IN_SERVER_TEXT,
+		});
+	} else if (createdTimestamp >= GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: "You are ineligible to enter the giveaway as your account is too new.",
@@ -194,6 +202,7 @@ export async function claimTicket(
 			userId: interaction.member.user.id,
 			createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
 			viewInformation,
+			guildId: interaction.guild_id,
 		}),
 		flags: MessageFlags.IsComponentsV2,
 	});

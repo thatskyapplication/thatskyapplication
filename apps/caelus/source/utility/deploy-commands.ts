@@ -437,6 +437,21 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
 	{
+		name: t("giveaway.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("giveaway.command-name"),
+		description: t("giveaway.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("giveaway.command-description"),
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
+	{
 		name: t("guess.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: localisations("guess.command-name"),
 		description: t("guess.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
@@ -1180,14 +1195,6 @@ const DEVELOPER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 			},
 		],
 		default_member_permissions: "0",
-	},
-	{
-		name: t("giveaway.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: localisations("giveaway.command-name"),
-		description: t("giveaway.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: localisations("giveaway.command-description"),
-		integration_types: [ApplicationIntegrationType.GuildInstall],
-		contexts: [InteractionContextType.Guild],
 	},
 ] as const;
 
