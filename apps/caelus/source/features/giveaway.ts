@@ -11,6 +11,7 @@ import {
 } from "@discordjs/core";
 import { client } from "../discord.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 
 export interface GiveawayPacket {
@@ -100,6 +101,7 @@ export async function giveaway({
 export async function claimTicket(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
+	pino.info(interaction, "User has claimed their daily ticket.");
 	const lastEntryAt = new Date();
 
 	await pg<GiveawayPacket>(Table.Giveaway)
@@ -126,9 +128,11 @@ interface GiveawayEligibilityOptions {
 }
 
 export async function ineligible({ userId }: GiveawayEligibilityOptions) {
+	pino.info({ userId }, "User has become ineligible for the giveaway.");
 	await pg<GiveawayPacket>(Table.Giveaway).update({ eligible: false }).where({ user_id: userId });
 }
 
 export async function eligible({ userId }: GiveawayEligibilityOptions) {
+	pino.info({ userId }, "User has become eligible for the giveaway.");
 	await pg<GiveawayPacket>(Table.Giveaway).update({ eligible: true }).where({ user_id: userId });
 }
