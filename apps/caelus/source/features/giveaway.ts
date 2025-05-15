@@ -309,8 +309,13 @@ export async function end() {
 		const totalEntries = rowCount!;
 
 		// Calculate the winner's chance of winning.
-		const chanceOfWinning = ((winnerEntries / totalEntries) * 100).toFixed(2);
-		entriesText = `Out of a total of ${totalEntries} entries across ${userCount} users, you had a ~${chanceOfWinning}% chance of winning with your ${winnerEntries === 1 ? "1 entry" : `${winnerEntries} entries`}.`;
+		const chanceOfWinning = (winnerEntries / totalEntries) * 100;
+		const withTwoDecimals = chanceOfWinning.toFixed(2);
+		const formattedChance = Number.parseFloat(withTwoDecimals);
+		const isRounded = chanceOfWinning !== Number.parseFloat(withTwoDecimals);
+		const chanceOfWinningString = isRounded ? `~${formattedChance}` : `${formattedChance}`;
+
+		entriesText = `Out of a total of ${totalEntries} entries across ${userCount} users, you had a ${chanceOfWinningString}% chance of winning with your ${winnerEntries === 1 ? "1 entry" : `${winnerEntries} entries`}.`;
 	}
 
 	await client.api.channels.createMessage(channel.id, {
