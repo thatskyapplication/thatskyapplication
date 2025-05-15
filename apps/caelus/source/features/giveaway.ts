@@ -37,6 +37,7 @@ import {
 	GIVEAWAY_OVER_TEXT,
 	GIVEAWAY_START_DATE,
 } from "../utility/constants.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { chatInputApplicationCommandMention, interactionInvoker } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 
@@ -122,9 +123,9 @@ export async function giveaway({
 			const claimedToday = giveawayPacket.last_entry_at.getTime() >= today.toMillis();
 
 			if (claimedToday) {
-				entryText += `You have claimed your daily ticket today! You claim again tomorrow (<t:${today.plus({ days: 1 }).toUnixInteger()}:R>).`;
+				entryText += `You have claimed your daily entry ticket today! You claim again tomorrow (<t:${today.plus({ days: 1 }).toUnixInteger()}:R>).`;
 			} else {
-				entryText += "You can claim your ticket now!";
+				entryText += "You can claim your daily entry ticket now!";
 			}
 
 			let accessoryText: string;
@@ -164,8 +165,9 @@ export async function giveaway({
 							type: ComponentType.Button,
 							style: ButtonStyle.Primary,
 							custom_id: `${GIVEAWAY_BUTTON_CUSTOM_ID}§${Number(viewInformation)}`,
-							label: "Claim ticket",
+							label: "Claim entry ticket",
 							disabled: claimedToday,
+							emoji: MISCELLANEOUS_EMOJIS.GiveawayTicket,
 						},
 					],
 				},
@@ -205,7 +207,7 @@ export async function claimTicket(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 	viewInformation: boolean,
 ) {
-	pino.info(interaction, "User has claimed their daily ticket.");
+	pino.info(interaction, "User has claimed their daily entry ticket.");
 	const lastEntryAt = new Date();
 
 	await pg<GiveawayPacket>(Table.Giveaway)
