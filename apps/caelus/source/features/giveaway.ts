@@ -121,9 +121,10 @@ export async function giveaway({
 			let entryText = `Total users entered: **${await totalUsers()}**\nYour entries: **${giveawayPacket.entry_count}**\n\n`;
 			const today = skyToday();
 			const claimedToday = giveawayPacket.last_entry_at.getTime() >= today.toMillis();
+			const tomorrow = today.plus({ days: 1 });
 
 			if (claimedToday) {
-				entryText += `You have claimed your daily entry ticket today! You claim again tomorrow (<t:${today.plus({ days: 1 }).toUnixInteger()}:R>).`;
+				entryText += `You have claimed your daily entry ticket today!${tomorrow >= GIVEAWAY_END_DATE ? "" : ` You claim again tomorrow (<t:${tomorrow.toUnixInteger()}:R>).`}`;
 			} else {
 				entryText += "You can claim your daily entry ticket now!";
 			}
