@@ -14,7 +14,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { isSeasonId } from "@thatskyapplication/utility";
+import { isDuring, isSeasonId, skyNow } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,
@@ -140,6 +140,8 @@ import {
 	DATA_DELETION_CUSTOM_ID,
 	ERROR_RESPONSE,
 	ERROR_RESPONSE_COMPONENTS_V2,
+	GIVEAWAY_END_DATE,
+	GIVEAWAY_START_DATE,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -334,8 +336,10 @@ export default {
 			try {
 				await command.chatInput(interaction);
 
-				// Upsell for the giveaway.
-				await upsell(interaction);
+				if (isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())) {
+					// Upsell for the giveaway.
+					await upsell(interaction);
+				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 			}

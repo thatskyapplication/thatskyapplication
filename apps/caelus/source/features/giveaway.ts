@@ -33,7 +33,9 @@ import {
 	GIVEAWAY_END_DATE,
 	GIVEAWAY_INFORMATION_TEXT,
 	GIVEAWAY_NOT_IN_SERVER_TEXT,
+	GIVEAWAY_NOT_STARTED_TEXT,
 	GIVEAWAY_OVER_TEXT,
+	GIVEAWAY_START_DATE,
 } from "../utility/constants.js";
 import { chatInputApplicationCommandMention, interactionInvoker } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
@@ -86,7 +88,12 @@ export async function giveaway({
 		},
 	];
 
-	if (skyNow() > GIVEAWAY_END_DATE) {
+	if (skyNow() < GIVEAWAY_START_DATE) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: GIVEAWAY_NOT_STARTED_TEXT,
+		});
+	} else if (skyNow() > GIVEAWAY_END_DATE) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: GIVEAWAY_OVER_TEXT,
