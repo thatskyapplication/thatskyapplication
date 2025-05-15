@@ -1123,6 +1123,7 @@ export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
 export const GIVEAWAY_END_DATE = skyDate(2025, 6, 4);
 const GIVEAWAY_END_TIMESTAMP_SECONDS = GIVEAWAY_END_DATE.toUnixInteger();
 export const GIVEAWAY_INVITE_URL = "https://discord.gg/dVekyau2gN" as const;
+export const GIVEAWAY_OVER_TEXT = "There is currently no giveaway." as const;
 
 export const GIVEAWAY_NOT_IN_SERVER_TEXT =
 	`There is a giveaway in the [support server](${GIVEAWAY_INVITE_URL})! The prize is an in-app purchase of your choice for Days of Colour 2025. Interested? Come on by!` as const;

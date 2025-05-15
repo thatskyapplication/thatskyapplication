@@ -14,7 +14,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { skyToday } from "@thatskyapplication/utility";
+import { skyNow, skyToday } from "@thatskyapplication/utility";
 import type { QueryResult } from "pg";
 import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -30,8 +30,10 @@ import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
+	GIVEAWAY_END_DATE,
 	GIVEAWAY_INFORMATION_TEXT,
 	GIVEAWAY_NOT_IN_SERVER_TEXT,
+	GIVEAWAY_OVER_TEXT,
 } from "../utility/constants.js";
 import { chatInputApplicationCommandMention, interactionInvoker } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
@@ -84,7 +86,12 @@ export async function giveaway({
 		},
 	];
 
-	if (guildId !== DEVELOPER_GUILD_ID) {
+	if (skyNow() > GIVEAWAY_END_DATE) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: GIVEAWAY_OVER_TEXT,
+		});
+	} else if (guildId !== DEVELOPER_GUILD_ID) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: GIVEAWAY_NOT_IN_SERVER_TEXT,
