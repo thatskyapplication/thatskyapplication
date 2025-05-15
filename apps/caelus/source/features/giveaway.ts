@@ -1,4 +1,5 @@
 import {
+	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIGuildInteractionWrapper,
 	type APIMessageComponentButtonInteraction,
@@ -15,6 +16,7 @@ import {
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { skyToday } from "@thatskyapplication/utility";
 import type { QueryResult } from "pg";
+import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pg, { Table } from "../pg.js";
@@ -25,11 +27,13 @@ import {
 	GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT,
 } from "../utility/configuration.js";
 import {
+	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	GIVEAWAY_INFORMATION_TEXT,
 	GIVEAWAY_NOT_IN_SERVER_TEXT,
 } from "../utility/constants.js";
+import { chatInputApplicationCommandMention, interactionInvoker } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 
 export interface GiveawayPacket {
@@ -37,6 +41,10 @@ export interface GiveawayPacket {
 	eligible: boolean;
 	entry_count: number;
 	last_entry_at: Date;
+}
+
+export interface GiveawayUpsellPacket {
+	user_id: Snowflake;
 }
 
 export const GIVEAWAY_BUTTON_CUSTOM_ID = "GIVEAWAY_BUTTON_CUSTOM_ID" as const;
@@ -311,5 +319,34 @@ export async function end() {
 			},
 		],
 		flags: MessageFlags.IsComponentsV2,
+	});
+}
+
+export async function upsell(interaction: APIChatInputApplicationCommandInteraction) {
+	const user = interactionInvoker(interaction);
+
+	const giveawayUpsellPacket = await pg<GiveawayUpsellPacket>(Table.GiveawayUpsell)
+		.where({ user_id: user.id })
+		.first();
+
+	if (giveawayUpsellPacket) {
+		return;
+	}
+
+	await pg<GiveawayUpsellPacket>(Table.GiveawayUpsell).insert({ user_id: user.id });
+
+	if (interaction.data.name === "giveaway" || interaction.guild_id === DEVELOPER_GUILD_ID) {
+		return;
+	}
+
+	const giveawayCommandId = COMMAND_CACHE.get("giveaway");
+
+	const giveawayCommandText = giveawayCommandId
+		? chatInputApplicationCommandMention(giveawayCommandId, "giveaway")
+		: "`/giveaway`";
+
+	await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+		content: `There is a giveaway in the support server! Find out more via ${giveawayCommandText}.\n-# You will not see this again.`,
+		flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 	});
 }

@@ -7,6 +7,7 @@ export enum Table {
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
 	Giveaway = "giveaway",
+	GiveawayUpsell = "giveaway_upsell",
 	Guess = "guess",
 	Hearts = "hearts",
 	Notifications = "notifications",

@@ -41,6 +41,7 @@ import {
 	GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID,
 	claimTicket,
 	giveaway,
+	upsell,
 } from "../features/giveaway.js";
 import {
 	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
@@ -332,6 +333,9 @@ export default {
 
 			try {
 				await command.chatInput(interaction);
+
+				// Upsell for the giveaway.
+				await upsell(interaction);
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 			}
