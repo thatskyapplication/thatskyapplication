@@ -1403,7 +1403,7 @@ export default {
 		},
 		giveaway: {
 			"command-name": "giveaway",
-			"command-description": "Check the status of the giveaway here!",
+			"command-description": "View the giveaway here!",
 		},
 		guess: {
 			"command-name": "guess",
