@@ -187,7 +187,6 @@ export async function giveaway({
 							style: ButtonStyle.Success,
 							custom_id: `${GIVEAWAY_BUTTON_CUSTOM_ID}§${Number(viewInformation)}`,
 							label: "Enter!",
-							disabled: createdTimestamp >= GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT,
 						},
 					],
 				},
