@@ -13,7 +13,8 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { isSeasonId } from "@thatskyapplication/utility";
+import { DiscordSnowflake } from "@sapphire/snowflake";
+import { isDuring, isSeasonId, skyNow } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,
@@ -35,6 +36,13 @@ import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 } from "../features/daily-guides.js";
+import {
+	GIVEAWAY_BUTTON_CUSTOM_ID,
+	GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID,
+	claimTicket,
+	giveaway,
+	upsell,
+} from "../features/giveaway.js";
 import {
 	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
 	NOTIFICATIONS_SETUP_CUSTOM_ID,
@@ -132,6 +140,8 @@ import {
 	DATA_DELETION_CUSTOM_ID,
 	ERROR_RESPONSE,
 	ERROR_RESPONSE_COMPONENTS_V2,
+	GIVEAWAY_END_DATE,
+	GIVEAWAY_START_DATE,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -325,6 +335,11 @@ export default {
 
 			try {
 				await command.chatInput(interaction);
+
+				if (isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())) {
+					// Upsell for the giveaway.
+					await upsell(interaction);
+				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);
 			}
@@ -639,6 +654,24 @@ export default {
 				if (isGuildButton(interaction)) {
 					if (customId.startsWith(CATALOGUE_SHARE_SEND_CUSTOM_ID)) {
 						await Catalogue.shareSend(interaction);
+						return;
+					}
+
+					if (customId.startsWith(GIVEAWAY_BUTTON_CUSTOM_ID)) {
+						await claimTicket(interaction, Number(customId.slice(customId.indexOf("§") + 1)) === 1);
+						return;
+					}
+
+					if (customId.startsWith(GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID)) {
+						await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+							components: await giveaway({
+								userId: interaction.member.user.id,
+								createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
+								viewInformation: Number(customId.slice(customId.indexOf("§") + 1)) === 1,
+								guildId: interaction.guild_id,
+							}),
+						});
+
 						return;
 					}
 

@@ -56,6 +56,7 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	DyeBlack: { id: "1330476749988827166", name: "dye_black" },
 	DyeWhite: { id: "1330476771614916769", name: "dye_red" },
 	Dye: { id: "1365252158030745680", name: "dye" },
+	GiveawayTicket: { id: "1372542240563658782", name: "giveaway_ticket" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -105,6 +106,7 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	DyeBlack: { id: "1330476758964899861", name: "dye_black" },
 	DyeWhite: { id: "1330476779365859328", name: "dye_red" },
 	Dye: { id: "1365252165068656661", name: "dye" },
+	GiveawayTicket: { id: "1372542337623916614", name: "giveaway_ticket" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {

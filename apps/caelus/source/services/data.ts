@@ -7,6 +7,7 @@ import {
 } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../discord.js";
+import type { GiveawayPacket, GiveawayUpsellPacket } from "../features/giveaway.js";
 import type { CataloguePacket } from "../models/Catalogue.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type { HeartPacket } from "../models/Heart.js";
@@ -52,6 +53,8 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 		pg<HeartPacket>(Table.Hearts).update({ gifter_id: null }).where({ gifter_id: userId }),
 		pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: userId }),
 		pg<GuessPacket>(Table.Guess).delete().where({ user_id: userId }),
+		pg<GiveawayPacket>(Table.Giveaway).delete().where({ user_id: userId }),
+		pg<GiveawayUpsellPacket>(Table.GiveawayUpsell).delete().where({ user_id: userId }),
 	);
 
 	try {

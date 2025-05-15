@@ -12,8 +12,9 @@ import {
 	RealmName,
 	SkyMap,
 	WEBSITE_URL,
+	skyDate,
 } from "@thatskyapplication/utility";
-import { PRODUCTION } from "./configuration.js";
+import { ANNOUNCEMENTS_CHANNEL_ID, PRODUCTION } from "./configuration.js";
 
 // Application ids.
 const APPLICATION_ID_DEVELOPMENT = "1071822091814441000" as const;
@@ -1117,6 +1118,24 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 
 // Data.
 export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
+
+// Giveaway.
+export const GIVEAWAY_START_DATE = skyDate(2025, 5, 25);
+const GIVEAWAY_START_TIMESTAMP_SECONDS = GIVEAWAY_START_DATE.toUnixInteger();
+export const GIVEAWAY_END_DATE = skyDate(2025, 6, 2);
+const GIVEAWAY_END_TIMESTAMP_SECONDS = GIVEAWAY_END_DATE.toUnixInteger();
+export const GIVEAWAY_INVITE_URL = "https://discord.gg/dVekyau2gN" as const;
+
+export const GIVEAWAY_NOT_STARTED_TEXT =
+	`There is an upcoming giveaway in the [support server](${GIVEAWAY_INVITE_URL}) starting on <t:${GIVEAWAY_START_TIMESTAMP_SECONDS}:F> (<t:${GIVEAWAY_START_TIMESTAMP_SECONDS}:R>).` as const;
+
+export const GIVEAWAY_OVER_TEXT = "There is currently no giveaway." as const;
+
+export const GIVEAWAY_NOT_IN_SERVER_TEXT =
+	`There is a giveaway in the [support server](${GIVEAWAY_INVITE_URL})! The prize is an in-app purchase of your choice for Days of Colour 2025. Interested? Come on by!` as const;
+
+export const GIVEAWAY_INFORMATION_TEXT =
+	`Welcome to the giveaway!\n\nThere is one prize available: an in-app purchase of your choice from Days of Colour 2025.\n### How do I participate?\nYou must be in the [support server](${GIVEAWAY_INVITE_URL}). You claim entry tickets via this command. Entry tickets may be claimed daily. The more entry tickets you have, the more chance you have of winning. Simple!\n### How will the winner be announced?\n\nThe winner is picked at random. The winner will be announced in <#${ANNOUNCEMENTS_CHANNEL_ID}> automatically on <t:${GIVEAWAY_END_TIMESTAMP_SECONDS}:F> (<t:${GIVEAWAY_END_TIMESTAMP_SECONDS}:R>).` as const;
 
 // Guess.
 export const GuessDifficultyToStreakColumn = {

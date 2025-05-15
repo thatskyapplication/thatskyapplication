@@ -38,6 +38,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@types/luxon": "^3.6.0",
+		"@types/pg": "^8.15.1",
 		"knip": "^5.46.4",
 		"pino-pretty": "^11.2.1",
 		"tsx": "^4.19.3",

@@ -1,6 +1,5 @@
 import "./i18next.js"; // Must be first.
-import { Locale } from "@discordjs/core";
-import { t } from "i18next";
+import type { Snowflake } from "@discordjs/core";
 import { COMMAND_CACHE } from "./caches/commands.js";
 import { client, gateway } from "./discord.js";
 import channelCreate from "./events/channel-create.js";
@@ -64,17 +63,33 @@ for (const event of [
 // Populate the command cache.
 const applicationCommands = await client.api.applicationCommands.getGlobalCommands(APPLICATION_ID);
 
-const skyProfileCommandName = t("sky-profile.command-name", {
-	lng: Locale.EnglishGB,
-	ns: "commands",
-});
+const giveawayCommandName = "giveaway";
+const skyProfileCommandName = "sky-profile";
+let giveawayCommandId: Snowflake | undefined;
+let skyProfileCommandId: Snowflake | undefined;
 
-const skyProfileCommand = applicationCommands.find(
-	(command) => command.name === skyProfileCommandName,
-);
+for (const applicationCommand of applicationCommands) {
+	if (applicationCommand.name === giveawayCommandName) {
+		giveawayCommandId = applicationCommand.id;
+	}
 
-if (skyProfileCommand) {
-	COMMAND_CACHE.set(skyProfileCommandName, skyProfileCommand.id);
+	if (applicationCommand.name === skyProfileCommandName) {
+		skyProfileCommandId = applicationCommand.id;
+	}
+
+	if (giveawayCommandId && skyProfileCommandId) {
+		break;
+	}
+}
+
+if (giveawayCommandId) {
+	COMMAND_CACHE.set(giveawayCommandName, giveawayCommandId);
+} else {
+	pino.warn(`Command "${giveawayCommandName}" not found from the API.`);
+}
+
+if (skyProfileCommandId) {
+	COMMAND_CACHE.set(skyProfileCommandName, skyProfileCommandId);
 } else {
 	pino.warn(`Command "${skyProfileCommandName}" not found from the API.`);
 }

@@ -5,6 +5,7 @@ import calculate from "./chat-inputs/calculate.js";
 import catalogue from "./chat-inputs/catalogue.js";
 import configure from "./chat-inputs/configure.js";
 import data from "./chat-inputs/data.js";
+import giveaway from "./chat-inputs/giveaway.js";
 import guess from "./chat-inputs/guess.js";
 import hair_tousle from "./chat-inputs/hair-tousle.js";
 import heart from "./chat-inputs/heart.js";
@@ -30,6 +31,7 @@ export const CHAT_INPUT_COMMANDS = [
 	configure,
 	data,
 	hair_tousle,
+	giveaway,
 	guess,
 	heart,
 	high_five,
