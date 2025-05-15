@@ -88,12 +88,14 @@ export async function giveaway({
 		},
 	];
 
-	if (skyNow() < GIVEAWAY_START_DATE) {
+	const now = skyNow();
+
+	if (now < GIVEAWAY_START_DATE) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: GIVEAWAY_NOT_STARTED_TEXT,
 		});
-	} else if (skyNow() > GIVEAWAY_END_DATE) {
+	} else if (now > GIVEAWAY_END_DATE) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: GIVEAWAY_OVER_TEXT,
