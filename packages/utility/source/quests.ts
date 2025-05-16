@@ -182,7 +182,7 @@ export const DailyQuest = {
 	ViewASharedMemoryAtAStyleRunwayShrine: 180,
 	RecordASharedMemoryAtAStyleRunwayShrine: 181,
 	CacklingCannoneerNeedsHelpWithSomethingInTreasureReef: 182,
-	AnxiousAnglerNeedsHelpWithSomethingInTreasureReef: 183,
+	MeetUpWithAnxiousAnglerInTreasureReef: 183,
 	MeetUpWithMellowMusicianInVillageOfDreams: 184,
 	AnxiousAnglerNeedsHelpWithSomethingInGoldenWasteland: 185,
 	MeetUpWithAnxiousAnglerInCrabFields: 186,
