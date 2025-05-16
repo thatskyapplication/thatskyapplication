@@ -197,7 +197,11 @@ async function searchResponse(
 	}
 
 	if (spirit.totalCost) {
-		totalOffer.push(resolveCostToString(spirit.totalCost).join(""));
+		const totalCostString = resolveCostToString(spirit.totalCost).join("");
+
+		if (totalCostString.length > 0) {
+			totalOffer.push(totalCostString);
+		}
 	}
 
 	if (totalOffer.length > 0) {

@@ -151,7 +151,7 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 abstract class BaseFriendshipTree {
 	public readonly current: readonly Item[];
 
-	public readonly totalCost: Required<ItemCost> | null;
+	public readonly totalCost: Required<ItemCost>;
 
 	public readonly allCosmetics: number[];
 
@@ -160,11 +160,9 @@ abstract class BaseFriendshipTree {
 	public constructor({ id, offer }: BaseFriendshipTreeData) {
 		this.current = offer?.current ? resolveOffer(offer.current) : [];
 
-		this.totalCost = this.current
-			? addCosts(
-					this.current.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null),
-				)
-			: null;
+		this.totalCost = addCosts(
+			this.current.map((item) => item.cost).filter((cost) => cost !== null),
+		);
 
 		this.allCosmetics = offer?.current ? resolveAllCosmetics(this.current) : [];
 
