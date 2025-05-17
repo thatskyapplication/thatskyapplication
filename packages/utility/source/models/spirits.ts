@@ -11,12 +11,11 @@ import {
 	type Item,
 	type ItemCost,
 	type ItemRaw,
-	SPIRIT_TYPE,
 	type SpiritCall,
 	type SpiritEmote,
 	type SpiritIds,
 	type SpiritStance,
-	type SpiritType,
+	SpiritType,
 	TRAVELLING_DATES,
 } from "../utility/spirits.js";
 
@@ -274,24 +273,24 @@ abstract class BaseSpirit {
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {
-		return this.type === SPIRIT_TYPE.Standard;
+		return this.type === SpiritType.Standard;
 	}
 
 	public isElderSpirit(): this is ElderSpirit {
-		return this.type === SPIRIT_TYPE.Elder;
+		return this.type === SpiritType.Elder;
 	}
 
 	public isSeasonalSpirit(): this is SeasonalSpirit {
-		return this.type === SPIRIT_TYPE.Seasonal;
+		return this.type === SpiritType.Seasonal;
 	}
 
 	public isGuideSpirit(): this is GuideSpirit {
-		return this.type === SPIRIT_TYPE.Guide;
+		return this.type === SpiritType.Guide;
 	}
 }
 
 export class StandardSpirit extends Mixin(BaseSpirit, StandardFriendshipTree, ExpressiveSpirit) {
-	public override readonly type = SPIRIT_TYPE.Standard;
+	public override readonly type = SpiritType.Standard;
 
 	public declare readonly realm: StandardSpiritRealm;
 
@@ -302,7 +301,7 @@ export class StandardSpirit extends Mixin(BaseSpirit, StandardFriendshipTree, Ex
 }
 
 export class ElderSpirit extends Mixin(BaseSpirit, ElderFriendshipTree) {
-	public override readonly type = SPIRIT_TYPE.Elder;
+	public override readonly type = SpiritType.Elder;
 
 	public declare readonly realm: RealmName;
 
@@ -313,7 +312,7 @@ export class ElderSpirit extends Mixin(BaseSpirit, ElderFriendshipTree) {
 }
 
 export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, ExpressiveSpirit) {
-	public override readonly type = SPIRIT_TYPE.Seasonal;
+	public override readonly type = SpiritType.Seasonal;
 
 	public readonly seasonId: SeasonIds;
 
@@ -390,7 +389,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 }
 
 export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
-	public override readonly type = SPIRIT_TYPE.Guide;
+	public override readonly type = SpiritType.Guide;
 
 	public override readonly current;
 

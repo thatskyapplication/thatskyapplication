@@ -77,13 +77,11 @@ export {
 	type Item,
 	type ItemCost,
 	type ItemRaw,
-	SPIRIT_TYPE,
 	SpiritCall,
 	SpiritEmote,
 	SpiritId,
 	type SpiritIds,
 	SpiritStance,
-	type SpiritType,
 	TRAVELLING_DATES,
 	isSpiritId,
 } from "./utility/spirits.js";
