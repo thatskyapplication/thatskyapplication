@@ -394,6 +394,8 @@ export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 
 	public override readonly current;
 
+	public override readonly totalCost: Required<ItemCost>;
+
 	public readonly seasonId: SeasonIds;
 
 	public constructor(spirit: GuideSpiritData) {
@@ -402,6 +404,10 @@ export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 		this.current = spirit.offer?.current
 			? resolveOffer(spirit.offer.current, { seasonId: spirit.seasonId })
 			: [];
+
+		this.totalCost = addCosts(
+			this.current.map((item) => item.cost).filter((cost) => cost !== null),
+		);
 
 		this.seasonId = spirit.seasonId;
 	}
