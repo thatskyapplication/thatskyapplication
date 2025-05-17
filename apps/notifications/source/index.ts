@@ -379,7 +379,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		);
 
 		const errors = notificationsSettled
-			.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+			.filter((result) => result.status === "rejected")
 			.map((result) => result.reason);
 
 		if (errors.length > 0) {

@@ -219,7 +219,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 		this.allCosmetics = resolveAllCosmetics(this.items);
 
 		this.totalCostSeasonal = addCosts(
-			this.seasonal.map((item) => item.cost).filter((cost): cost is ItemCost => cost !== null),
+			this.seasonal.map((item) => item.cost).filter((cost) => cost !== null),
 		);
 
 		this.imageURLSeasonal =

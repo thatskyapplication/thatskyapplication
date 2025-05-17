@@ -86,7 +86,7 @@ export function resolveTravellingSpirit(date: DateTime) {
 }
 
 export function resolveReturningSpirits(date: DateTime) {
-	const returningSpirits = currentSeasonalSpirits().filter((spirit): spirit is SeasonalSpirit =>
+	const returningSpirits = currentSeasonalSpirits().filter((spirit) =>
 		spirit.isSeasonalSpirit() ? spirit.visit(date).current.returning : false,
 	);
 

@@ -27,7 +27,6 @@ import {
 	type EventIds,
 	type GuideSpirit,
 	type Item,
-	type ItemCost,
 	REALMS,
 	REALM_SPIRITS,
 	type RealmName,
@@ -3076,7 +3075,7 @@ export class Catalogue {
 			items
 				.filter(({ cosmetics }) => cosmetics.some((cosmetic) => !this.data.has(cosmetic)))
 				.map((item) => item.cost)
-				.filter((cost): cost is ItemCost => cost !== null),
+				.filter((cost) => cost !== null),
 		);
 
 		if (!includeSeasonalCurrency) {

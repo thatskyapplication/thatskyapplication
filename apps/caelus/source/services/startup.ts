@@ -35,7 +35,7 @@ async function giveaway() {
 	);
 
 	const giveawayErrors = giveawaySettled
-		.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+		.filter((result) => result.status === "rejected")
 		.map((result) => result.reason);
 
 	if (giveawayErrors.length > 0) {
@@ -52,7 +52,7 @@ async function notifications() {
 	);
 
 	const notificationsErrors = notificationsSettled
-		.filter((result): result is PromiseRejectedResult => result.status === "rejected")
+		.filter((result) => result.status === "rejected")
 		.map((result) => result.reason);
 
 	if (notificationsErrors.length > 0) {
