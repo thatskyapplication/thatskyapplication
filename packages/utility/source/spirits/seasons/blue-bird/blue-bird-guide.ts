@@ -47,6 +47,8 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EmoteCough4,
 				cost: { hearts: 5 },
 			},
+			{ name: "Quest 3", cosmetic: Cosmetic.BlueBirdGuideQuest3 },
+			{ name: "Heart 3", cosmetic: Cosmetic.BlueBirdGuideHeart3 },
 		],
 	},
 });

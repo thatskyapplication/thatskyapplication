@@ -7572,6 +7572,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BlueBirdGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.EmoteCough3]: EMOTE_EMOJIS.Cough,
 		[Cosmetic.EmoteCough4]: EMOTE_EMOJIS.Cough,
+		[Cosmetic.BlueBirdGuideQuest3]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.BlueBirdGuideHeart3]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.RainbowSmock]: null,
 		[Cosmetic.RainbowHeadWrap]: null,
 		[Cosmetic.RainbowRibbonShawl]: null,

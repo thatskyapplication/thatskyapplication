@@ -2986,6 +2986,10 @@ export enum Cosmetic {
 	EmoteCough3 = 2380,
 	EmoteCough4 = 2381,
 
+	// 19/05/2025 | Season of the Blue Bird Quest 3.
+	BlueBirdGuideQuest3 = 2382,
+	BlueBirdGuideHeart3 = 2383,
+
 	// 26/05/2025 | Days of Colour.
 	RainbowSmock,
 	RainbowHeadWrap,
