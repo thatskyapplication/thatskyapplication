@@ -184,7 +184,7 @@ export const DailyQuest = {
 	CacklingCannoneerNeedsHelpWithSomethingInTreasureReef: 182,
 	MeetUpWithAnxiousAnglerInTreasureReef: 183,
 	MeetUpWithMellowMusicianInVillageOfDreams: 184,
-	AnxiousAnglerNeedsHelpWithSomethingInGoldenWasteland: 185,
+	MeetUpWithAnxiousAnglerInGoldenWasteland: 185,
 	MeetUpWithAnxiousAnglerInCrabFields: 186,
 	MeetUpWithCeasingCommodoreInTreasureReef: 187,
 	MeetUpWithBlushingProspectorInForestBrook: 188,

@@ -1030,7 +1030,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.CacklingCannoneerNeedsHelpWithSomethingInTreasureReef]: null,
 	[DailyQuest.MeetUpWithAnxiousAnglerInTreasureReef]: null,
 	[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]: null,
-	[DailyQuest.AnxiousAnglerNeedsHelpWithSomethingInGoldenWasteland]: null,
+	[DailyQuest.MeetUpWithAnxiousAnglerInGoldenWasteland]: null,
 	[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]: null,
 	[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]: null,
 	[DailyQuest.MeetUpWithBlushingProspectorInForestBrook]: null,

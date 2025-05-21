@@ -269,8 +269,8 @@ export default {
 				"Meet up with Anxious Angler in Treasure Reef",
 			[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]:
 				"Meet up with Mellow Musician in Village of Dreams",
-			[DailyQuest.AnxiousAnglerNeedsHelpWithSomethingInGoldenWasteland]:
-				"Anxious Angler needs help with something in Golden Wasteland",
+			[DailyQuest.MeetUpWithAnxiousAnglerInGoldenWasteland]:
+				"Meet up with Anxious Angler in Golden Wasteland",
 			[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]:
 				"Meet up with Anxious Angler in Crab Fields",
 			[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]:
