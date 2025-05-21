@@ -9,7 +9,11 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import {
+	AreaToWingedLight,
 	MAXIMUM_WINGED_LIGHT,
+	WINGED_LIGHT_IN_AREAS,
+	WINGED_LIGHT_THRESHOLDS,
+	WING_BUFFS,
 	formatEmoji,
 	shardEruption,
 	skyCurrentEvents,
@@ -29,14 +33,7 @@ import type { Guild } from "./models/discord/guild.js";
 import pino from "./pino.js";
 import { todayData } from "./services/shard-eruption.js";
 import { AI_GATEWAY_TOKEN, OPENAI_API_KEY, OPENAI_BASE_URL } from "./utility/configuration.js";
-import {
-	APPLICATION_ID,
-	AreaToWingedLightCount,
-	MAXIMUM_WING_BUFFS,
-	SKY_CREATOR_TROUPE,
-	WINGED_LIGHT_IN_AREAS,
-	WINGED_LIGHT_THRESHOLDS,
-} from "./utility/constants.js";
+import { APPLICATION_ID, SKY_CREATOR_TROUPE } from "./utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
 
 const openAI = new OpenAI({
@@ -121,8 +118,8 @@ function systemPromptContext(
 		'- Refer to "Sky: Children of the Light" as Sky.',
 		`- The maximum amount of winged light is ${MAXIMUM_WINGED_LIGHT}.`,
 		`- The maximum amount of winged light that can be found in the realms is ${WINGED_LIGHT_IN_AREAS}.`,
-		`- A breakdown of winged light per realm (or area): ${JSON.stringify(AreaToWingedLightCount)}.`,
-		`- The maximum amount of wing buffs is ${MAXIMUM_WING_BUFFS}.`,
+		`- A breakdown of winged light per realm (or area): ${JSON.stringify(AreaToWingedLight)}.`,
+		`- The maximum amount of wing buffs is ${WING_BUFFS.length}.`,
 		`- Upon achieving an amount of winged light, you acheve a wedge. Refer to: ${JSON.stringify(Object.entries(WINGED_LIGHT_THRESHOLDS).map(([index, wingedLight]) => ({ wedge: Number(index) + 1, wingedLight })))}.`,
 		`- If you mention winged light, use ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}.`,
 		`- If you mention wing buffs, use ${formatEmoji(MISCELLANEOUS_EMOJIS.WingBuff)}.`,

@@ -59,11 +59,7 @@ export {
 export { spirits } from "./spirits/index.js";
 export type { Snowflake } from "./types/index.js";
 export type { ProfilePacket } from "./types/profile.js";
-export {
-	LINK_REDIRECTOR_URL,
-	MAXIMUM_WINGED_LIGHT,
-	MINIMUM_WINGED_LIGHT,
-} from "./utility/constants.js";
+export { LINK_REDIRECTOR_URL } from "./utility/constants.js";
 export { EventId, type EventIds } from "./utility/event.js";
 export {
 	addCosts,
@@ -86,7 +82,7 @@ export {
 	isSpiritId,
 } from "./utility/spirits.js";
 export { CDN_URL } from "./cdn.js";
-export { Cosmetic } from "./cosmetics.js";
+export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export { TIME_ZONE, isDuring, skyDate, skyNow, skyToday } from "./dates.js";
 export {
@@ -102,14 +98,20 @@ export {
 	GuessDifficultyLevelToName,
 } from "./guess.js";
 export {
+	AreaToWingedLight,
+	MAXIMUM_WINGED_LIGHT,
+	MINIMUM_WINGED_LIGHT,
 	REALM_NAME_VALUES,
 	RealmName,
 	SKY_MAP_VALUES,
 	SkyMap,
-	treasureCandles,
 	VALID_REALM_NAME,
 	VALID_REALM_NAME_VALUES,
 	type ValidRealmName,
+	WINGED_LIGHT_AREAS,
+	WINGED_LIGHT_IN_AREAS,
+	WINGED_LIGHT_THRESHOLDS,
+	treasureCandles,
 } from "./kingdom.js";
 export {
 	NOTIFICATION_TYPE_VALUES,

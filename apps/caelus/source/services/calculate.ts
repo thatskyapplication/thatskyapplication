@@ -8,10 +8,13 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
+	AreaToWingedLight,
 	type Event,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SkyMap,
+	WINGED_LIGHT_AREAS,
+	WINGED_LIGHT_THRESHOLDS,
 	formatEmoji,
 	formatEmojiURL,
 	isDuring,
@@ -27,10 +30,7 @@ import { client } from "../discord.js";
 import {
 	APPLICATION_ID,
 	ASCENDED_CANDLES_PER_WEEK,
-	AreaToWingedLightCount,
 	DEFAULT_EMBED_COLOUR,
-	WINGED_LIGHT_AREAS,
-	WINGED_LIGHT_THRESHOLDS,
 } from "../utility/constants.js";
 import {
 	EventIdToEventTicketEmoji,
@@ -422,10 +422,10 @@ export async function wingedLight(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-				number: (accumulation += AreaToWingedLightCount[SkyMap.Orbit]),
+				number: (accumulation += AreaToWingedLight[SkyMap.Orbit]),
 				includeSpaceInEmoji: true,
 			},
-		)} (+${AreaToWingedLightCount[SkyMap.Orbit]}).`,
+		)} (+${AreaToWingedLight[SkyMap.Orbit]}).`,
 		title: t("calculate.winged-light.winged-light-calculator", { lng: locale, ns: "commands" }),
 	};
 
@@ -436,8 +436,8 @@ export async function wingedLight(
 		}),
 		value: `${
 			// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-			(accumulation += AreaToWingedLightCount[area])
-		} (+${AreaToWingedLightCount[area]})`,
+			(accumulation += AreaToWingedLight[area])
+		} (+${AreaToWingedLight[area]})`,
 	}));
 
 	const wedge = WINGED_LIGHT_THRESHOLDS.findIndex((threshold) => accumulation < threshold);

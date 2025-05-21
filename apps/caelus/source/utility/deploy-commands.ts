@@ -5,7 +5,6 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DEVELOPER_GUILD_ID,
 	LOCALES,
-	MAXIMUM_WING_BUFFS,
 	QUEST_NUMBER,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
@@ -29,6 +28,7 @@ import {
 	GuessDifficultyLevelToName,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
+	WING_BUFFS,
 } from "@thatskyapplication/utility";
 import { DISCORD_TOKEN } from "./configuration.js";
 
@@ -305,7 +305,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						description_localizations: localisations(
 							"calculate.winged-light.command-option-wing-buffs-description",
 						),
-						max_value: MAXIMUM_WING_BUFFS,
+						max_value: WING_BUFFS.length,
 						min_value: 0,
 						required: true,
 					},

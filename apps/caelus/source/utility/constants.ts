@@ -5,11 +5,8 @@ import {
 	DailyQuest,
 	type DailyQuests,
 	GuessDifficultyLevel,
-	MAXIMUM_WINGED_LIGHT,
 	NotificationType,
 	type NotificationTypes,
-	REALM_NAME_VALUES,
-	RealmName,
 	SkyMap,
 	WEBSITE_URL,
 	skyDate,
@@ -147,9 +144,6 @@ export const RAINBOW_ADMIRE_MAPS = [
 
 export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
 
-export const WINGED_LIGHT_AREAS = [...REALM_NAME_VALUES, SkyMap.AncientMemory] as const;
-type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
-
 // This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
 export const INCONSISTENT_MAP = {
 	// Daylight Prairie.
@@ -163,29 +157,6 @@ export const INCONSISTENT_MAP = {
 } as const;
 
 export const inconsistentMapKeys = Object.keys(INCONSISTENT_MAP);
-
-export const WINGED_LIGHT_THRESHOLDS = [
-	1, 2, 5, 10, 20, 35, 55, 75, 100, 120, 150, 200, 250,
-] as const satisfies Readonly<number[]>;
-
-export const AreaToWingedLightCount = {
-	[RealmName.IslesOfDawn]: 9,
-	[RealmName.DaylightPrairie]: 24,
-	[RealmName.HiddenForest]: 20,
-	[RealmName.ValleyOfTriumph]: 17,
-	[RealmName.GoldenWasteland]: 18,
-	[RealmName.VaultOfKnowledge]: 15,
-	[RealmName.EyeOfEden]: 10,
-	[SkyMap.AncientMemory]: 6,
-	[SkyMap.Orbit]: 1,
-} as const satisfies Readonly<Record<WingedLightAreas | SkyMap.Orbit, number>>;
-
-export const WINGED_LIGHT_IN_AREAS = Object.values(AreaToWingedLightCount).reduce(
-	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
-	0,
-);
-
-export const MAXIMUM_WING_BUFFS = MAXIMUM_WINGED_LIGHT - WINGED_LIGHT_IN_AREAS;
 
 export const LOCALES = [
 	Locale.German,
