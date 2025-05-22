@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteGrieving1 },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteGrieving2 },
@@ -44,6 +43,44 @@ export default new SeasonalSpirit({
 				name: "Seasonal heart",
 				cosmetic: Cosmetic.BereftVeteranSeasonalHeart,
 				cost: { seasonalCandles: 3 },
+			},
+		],
+		current: [
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteGrieving1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteGrieving2, cost: { hearts: 4 } },
+			{ name: "Blessing 1", cosmetic: Cosmetic.BereftVeteranBlessing1, cost: { candles: 5 } },
+			{
+				name: "Mask",
+				cosmetic: Cosmetic.BereftVeteranMask,
+				cost: { candles: 35 },
+			},
+			{
+				name: "Seasonal heart",
+				cosmetic: Cosmetic.BereftVeteranSeasonalHeart,
+				cost: { candles: 3 },
+			},
+			{
+				name: "Wing buff",
+				cosmetic: Cosmetic.BereftVeternWingBuff,
+				cost: { ascendedCandles: 2 },
+			},
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteGrieving3,
+				cost: { hearts: 3 },
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteGrieving4, cost: { hearts: 6 } },
+
+			{
+				name: "Blessing 2",
+				cosmetic: Cosmetic.BereftVeteranBlessing2,
+				cost: { candles: 5 },
+			},
+			{ name: "Hair", cosmetic: Cosmetic.BereftVeteranHair, cost: { candles: 60 } },
+			{
+				name: "Cape",
+				cosmetic: Cosmetic.BereftVeteranCape,
+				cost: { candles: 80 },
 			},
 		],
 	},

@@ -2990,6 +2990,9 @@ export enum Cosmetic {
 	BlueBirdGuideQuest3 = 2382,
 	BlueBirdGuideHeart3 = 2383,
 
+	// 22/05/2025 | Travelling Spirit #141.
+	BereftVeternWingBuff = 2384,
+
 	// 26/05/2025 | Days of Colour.
 	RainbowSmock,
 	RainbowHeadWrap,
@@ -3124,4 +3127,5 @@ export const WING_BUFFS = [
 	Cosmetic.ForgetfulStorytellerWingBuff,
 	Cosmetic.MindfulMinerWingBuff,
 	Cosmetic.TumblingTroublemakerWingBuff,
+	Cosmetic.BereftVeternWingBuff,
 ] as const satisfies Readonly<Cosmetic[]>;
