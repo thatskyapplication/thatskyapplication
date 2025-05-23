@@ -1,8 +1,13 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
+import { isDuring, skyNow } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { eligible } from "../features/giveaway.js";
 import pino from "../pino.js";
-import { DEVELOPER_GUILD_ID } from "../utility/constants.js";
+import {
+	DEVELOPER_GUILD_ID,
+	GIVEAWAY_END_DATE,
+	GIVEAWAY_START_DATE,
+} from "../utility/constants.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.GuildMemberAdd;
@@ -18,7 +23,10 @@ export default {
 			pino.warn({ data }, `Received a ${name} packet on an uncached guild.`);
 		}
 
-		if (data.guild_id === DEVELOPER_GUILD_ID) {
+		if (
+			data.guild_id === DEVELOPER_GUILD_ID &&
+			isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())
+		) {
 			await eligible({ userId: data.user.id });
 		}
 	},
