@@ -51,7 +51,7 @@ if (lastNode.length === 1) {
 	canvasHeight -= NEXT_HEIGHT_LEVEL - HEIGHT_START_OFFSET;
 }
 
-const canvas = createCanvas(canvasHeight, canvasHeight);
+const canvas = createCanvas(WIDTH_MODIFIER * 3, canvasHeight);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
 context.lineWidth = LINE_WIDTH;
