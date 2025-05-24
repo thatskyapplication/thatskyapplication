@@ -12,7 +12,6 @@ export default new GuideSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		inProgress: true,
-		hasInfographic: false,
 		current: [
 			{ name: "Quest 1", cosmetic: Cosmetic.BlueBirdGuideQuest1 },
 			{ name: "Heart 1", cosmetic: Cosmetic.BlueBirdGuideHeart1 },
