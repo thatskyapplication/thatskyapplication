@@ -4,7 +4,7 @@ import type { FriendshipTreeData } from "../../nodes.js";
 
 const seasonId = SeasonId.BlueBird;
 
-export const CURRENT = [
+export const SEASONAL = [
 	[
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/e/e3/Royal-Hairtousle-Teen-emote-icon.png/revision/latest",
