@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.BlueBird,
 	realm: RealmName.HiddenForest,
 	offer: {
-		hasInfographicSeasonal: false,
 		seasonal: [
 			{
 				name: `${emote} 1`,
