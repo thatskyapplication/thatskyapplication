@@ -510,7 +510,7 @@ export async function upsert(
 ) {
 	const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
 
-	if (!channel || (!bypassLogCheck && shouldLogMessage(guild, channel, guildSettingsPacket))) {
+	if (!channel || !(bypassLogCheck || shouldLogMessage(guild, channel, guildSettingsPacket))) {
 		return;
 	}
 
