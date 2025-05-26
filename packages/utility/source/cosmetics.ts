@@ -2994,10 +2994,10 @@ export enum Cosmetic {
 	BereftVeternWingBuff = 2384,
 
 	// 26/05/2025 | Days of Colour.
-	RainbowSmock,
-	RainbowHeadWrap,
-	RainbowRibbonShawl,
-	RainbowFacePaintMask,
+	RainbowSmock = 2385,
+	RainbowHeadWrap = 2386,
+	RainbowRibbonShawl = 2387,
+	RainbowFacePaintMask = 2388,
 }
 
 export const WING_BUFFS = [
