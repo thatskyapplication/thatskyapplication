@@ -50,5 +50,6 @@ export default new Event({
 			cost: { money: 19.99 },
 		},
 	],
+	offerInfographicURL: true,
 	patchNotesURL: String(new URL("p0290", LINK_REDIRECTOR_URL)),
 });
