@@ -32,10 +32,12 @@ export default new Event({
 		{
 			name: "Rainbow Smock",
 			cosmetic: Cosmetic.RainbowSmock,
+			cost: { eventTickets: 42 }
 		},
 		{
 			name: "Rainbow Head Wrap",
 			cosmetic: Cosmetic.RainbowHeadWrap,
+			cost: { eventTickets: 20 }
 		},
 		{
 			name: "Rainbow Ribbon Shawl",
