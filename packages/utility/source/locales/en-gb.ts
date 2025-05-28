@@ -498,6 +498,7 @@ export default {
 			[EventId.DaysOfNature2025]: "Days of Nature",
 			[EventId.DaysOfColour2025]: "Days of Colour",
 			[EventId.AURORAHomecoming2025]: "AURORA: Homecoming",
+			[EventId.WorkshopShowAndTell2025]: "Workshop Show & Tell",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -587,6 +588,8 @@ export default {
 			[EventId.DaysOfColour2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Colour",
 			[EventId.AURORAHomecoming2025]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Special_Events#AURORA:_Homecoming_-_June_2025",
+			[EventId.WorkshopShowAndTell2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Special_Events#Workshop_Show_&_Tell_-_June_2025",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",
