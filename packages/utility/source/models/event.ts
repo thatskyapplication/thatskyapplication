@@ -41,7 +41,7 @@ interface EventData {
 }
 
 interface EventTicketsData {
-	amount: readonly EventTicketsAmountData[];
+	amount?: readonly EventTicketsAmountData[];
 	pool?: readonly EventTicketsPoolData[];
 	end?: DateTime;
 }
@@ -101,10 +101,11 @@ export class Event {
 		this.eventTickets = data.eventTickets
 			? {
 					...data.eventTickets,
-					amount: data.eventTickets.amount.map((amount) => ({
-						...amount,
-						infographicURL: amount.infographicURL ?? null,
-					})),
+					amount:
+						data.eventTickets.amount?.map((amount) => ({
+							...amount,
+							infographicURL: amount.infographicURL ?? null,
+						})) ?? [],
 					end: data.eventTickets.end ?? data.end,
 				}
 			: null;

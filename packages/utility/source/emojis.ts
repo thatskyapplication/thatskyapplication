@@ -7599,6 +7599,12 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RainbowHeadWrap]: HAIR_EMOJIS.Hair164,
 		[Cosmetic.RainbowRibbonShawl]: CAPE_EMOJIS.Cape153,
 		[Cosmetic.RainbowFacePaintMask]: MASK_EMOJIS.Mask101,
+		[Cosmetic.SkyAnniversaryHairAccessory5]: null,
+		[Cosmetic.AnniversaryClapboard]: null,
+		[Cosmetic.AnniversaryMovieSeats]: null,
+		[Cosmetic.AnniversaryCinemaGlasses]: null,
+		[Cosmetic.AnniversaryCinemaPopcorn]: null,
+		[Cosmetic.TGCWireframeCape]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
@@ -7748,6 +7754,7 @@ export function emojiConstants(production: boolean) {
 		[EventId.DaysOfColour2025]: EVENT_EMOJIS.Colour,
 		[EventId.AURORAHomecoming2025]: null,
 		[EventId.WorkshopShowAndTell2025]: null,
+		[EventId.SkyAnniversary2025]: EVENT_EMOJIS.SkyAnniversary,
 	} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 	return {

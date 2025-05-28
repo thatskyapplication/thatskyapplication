@@ -2998,6 +2998,14 @@ export enum Cosmetic {
 	RainbowHeadWrap = 2386,
 	RainbowRibbonShawl = 2387,
 	RainbowFacePaintMask = 2388,
+
+	// 07/07/2025 | Sky Anniversary.
+	SkyAnniversaryHairAccessory5,
+	AnniversaryClapboard,
+	AnniversaryMovieSeats,
+	AnniversaryCinemaGlasses,
+	AnniversaryCinemaPopcorn,
+	TGCWireframeCape,
 }
 
 export const WING_BUFFS = [
