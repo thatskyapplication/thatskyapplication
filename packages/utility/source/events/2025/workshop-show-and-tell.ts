@@ -5,8 +5,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.WorkshopShowAndTell2025,
-	start: skyDate(2_025, 6, 9),
-	end: skyDate(2_025, 6, 23),
-	offerInfographicURL: true,
+	start: skyDate(2_025, 6, 23),
+	end: skyDate(2_025, 7, 7),
 	patchNotesURL: String(new URL("p0295", LINK_REDIRECTOR_URL)),
 });
