@@ -1,3 +1,4 @@
+import auroraHomecoming from "./aurora-homecoming.js";
 import DaysOfBloom from "./days-of-bloom.js";
 import DaysOfColour from "./days-of-colour.js";
 import DaysOfFortune from "./days-of-fortune.js";
@@ -12,4 +13,5 @@ export default [
 	DaysOfBloom,
 	DaysOfNature,
 	DaysOfColour,
+	auroraHomecoming,
 ] as const;
