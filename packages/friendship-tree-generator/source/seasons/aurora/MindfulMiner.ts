@@ -103,7 +103,7 @@ export const CURRENT = [
 	],
 	[
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/31/Winglight.png/revision/latest/scale-to-width-down/51?cb=20230719193544",
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/31/Winglight.png/revision/latest",
 			cost: { ascendedCandles: 2 },
 		},
 	],

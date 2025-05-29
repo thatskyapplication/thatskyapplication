@@ -93,7 +93,7 @@ export const CURRENT = [
 			cost: { candles: 5 },
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b5/SoAurora-Warrior-of-Love-Mask-Icon-Morybel-0146.png/revision/latest/scale-to-width-down/51?cb=20230802004908",
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/b/b5/SoAurora-Warrior-of-Love-Mask-Icon-Morybel-0146.png/revision/latest",
 			cost: { candles: 35 },
 		},
 		{
@@ -103,7 +103,7 @@ export const CURRENT = [
 	],
 	[
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/31/Winglight.png/revision/latest/scale-to-width-down/51?cb=20230719193544",
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/3/31/Winglight.png/revision/latest",
 			cost: { ascendedCandles: 2 },
 		},
 	],
@@ -119,7 +119,7 @@ export const CURRENT = [
 			cost: { hearts: 6 },
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6b/SoAurora-Warrior-of-Love-Hair-Icon-Morybel-0146.png/revision/latest/scale-to-width-down/51?cb=20230716154247",
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6b/SoAurora-Warrior-of-Love-Hair-Icon-Morybel-0146.png/revision/latest",
 			cost: { candles: 40 },
 		},
 	],
