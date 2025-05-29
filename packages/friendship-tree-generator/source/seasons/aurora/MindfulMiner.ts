@@ -119,7 +119,7 @@ export const CURRENT = [
 			cost: { hearts: 6 },
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/6b/SoAurora-Warrior-of-Love-Hair-Icon-Morybel-0146.png/revision/latest/scale-to-width-down/51?cb=20230716154247",
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/68/SoAurora-Mindful-Miner-Hair-Icon-Morybel-0146.png/revision/latest",
 			cost: { candles: 40 },
 		},
 	],
