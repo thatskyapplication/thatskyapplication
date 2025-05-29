@@ -9,6 +9,7 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.BlueBird,
 	realm: RealmName.HiddenForest,
 	offer: {
+		hasInfographic: false,
 		hasInfographicSeasonal: false,
 		seasonal: [
 			{
