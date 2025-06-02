@@ -386,6 +386,7 @@ export enum SpiritStance {
 	Timid = "Timid",
 	Tinker = "Tinker",
 	Injured = "Injured",
+	Sad = "Sad",
 }
 
 export enum SpiritCall {

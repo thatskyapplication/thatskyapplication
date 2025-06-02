@@ -2,9 +2,10 @@ import { Cosmetic } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
-import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
+import { SpiritEmote, SpiritId, SpiritStance } from "../../../utility/spirits.js";
 
 const emote = SpiritEmote.Cough;
+const stance = SpiritStance.Sad;
 
 export default new GuideSpirit({
 	id: SpiritId.BlueBirdGuide,
@@ -48,6 +49,8 @@ export default new GuideSpirit({
 			},
 			{ name: "Quest 3", cosmetic: Cosmetic.BlueBirdGuideQuest3 },
 			{ name: "Heart 3", cosmetic: Cosmetic.BlueBirdGuideHeart3 },
+			{ name: "Quest 4", cosmetic: Cosmetic.BlueBirdGuideQuest4 },
+			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceSad, cost: { hearts: 3 } },
 		],
 	},
 });

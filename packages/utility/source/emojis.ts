@@ -7599,6 +7599,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RainbowHeadWrap]: HAIR_EMOJIS.Hair164,
 		[Cosmetic.RainbowRibbonShawl]: CAPE_EMOJIS.Cape153,
 		[Cosmetic.RainbowFacePaintMask]: MASK_EMOJIS.Mask101,
+		[Cosmetic.BlueBirdGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.StanceSad]: null,
 		[Cosmetic.SkyAnniversaryHairAccessory5]: null,
 		[Cosmetic.AnniversaryClapboard]: null,
 		[Cosmetic.AnniversaryMovieSeats]: null,

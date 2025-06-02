@@ -2999,6 +2999,10 @@ export enum Cosmetic {
 	RainbowRibbonShawl = 2387,
 	RainbowFacePaintMask = 2388,
 
+	// 02/06/2025 | Season of the Blue Bird Quest 4.
+	BlueBirdGuideQuest4 = 2389,
+	StanceSad = 2390,
+
 	// 07/07/2025 | Sky Anniversary.
 	SkyAnniversaryHairAccessory5,
 	AnniversaryClapboard,
