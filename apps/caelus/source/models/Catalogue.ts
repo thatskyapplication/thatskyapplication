@@ -32,7 +32,6 @@ import {
 	type RealmName,
 	STANDARD_SPIRITS,
 	type Season,
-	SeasonId,
 	type SeasonIds,
 	type SeasonalSpirit,
 	type SpiritIds,
@@ -74,7 +73,6 @@ import {
 	ERROR_RESPONSE_COMPONENTS_V2,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
 	NO_EVENTS_WITH_OFFER_TEXT,
-	NO_SPIRITS_WITH_OFFER_TEXT,
 } from "../utility/constants.js";
 import {
 	CUSTOM_EMOJI_REPLACEMENTS,
@@ -606,97 +604,93 @@ export class Catalogue {
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 
+		const containerComponents: APIComponentInContainer[] = [
+			{
+				type: ComponentType.TextDisplay,
+				content: "## Realms \n-# Catalogue",
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+		];
+
+		for (const realm of REALMS) {
+			const remainingCurrency = resolveCostToString(
+				realm.spirits.reduce(
+					(remainingCurrency, spirit) =>
+						addCosts([remainingCurrency, catalogue.remainingCurrency(spirit.current)]),
+					{},
+				),
+			);
+
+			const percentage = catalogue.spiritProgress([...realm.spirits.values()], true);
+
+			containerComponents.push({
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Button,
+					style: ButtonStyle.Primary,
+					custom_id: `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${realm.name}`,
+					label: t("view", { lng: locale, ns: "general" }),
+				},
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}\n\n${
+							remainingCurrency.length > 0
+								? remainingCurrency.join("")
+								: formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
+						}`,
+					},
+				],
+			});
+		}
+
+		containerComponents.push(
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_REALMS_KEY}`,
+						emoji: { name: "🔗" },
+						label: "Share progress",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content: `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					BACK_TO_START_BUTTON,
+					{
+						type: ComponentType.Button,
+						custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+						emoji: { name: "⏪" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
+		);
+
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
 					type: ComponentType.Container,
 					accent_color: DEFAULT_EMBED_COLOUR,
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: "## Realms \n-# Catalogue",
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: REALMS.map((realm) => {
-								const remainingCurrency = resolveCostToString(
-									realm.spirits.reduce(
-										(remainingCurrency, spirit) =>
-											addCosts([remainingCurrency, catalogue.remainingCurrency(spirit.current)]),
-										{},
-									),
-								);
-
-								return `__${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}__\n${
-									remainingCurrency.length > 0
-										? remainingCurrency.join("")
-										: formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
-								}`;
-							}).join("\n\n"),
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.StringSelect,
-									custom_id: CATALOGUE_VIEW_REALM_CUSTOM_ID,
-									max_values: 1,
-									min_values: 0,
-									options: REALMS.map((realm) => {
-										const { name } = realm;
-										const percentage = catalogue.spiritProgress([...realm.spirits.values()], true);
-
-										return {
-											label: `${t(`realms.${name}`, { lng: locale, ns: "general" })}${
-												percentage === null ? "" : ` (${percentage}%)`
-											}`,
-											value: name,
-										};
-									}),
-									placeholder: "Select a realm!",
-								},
-							],
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.Button,
-									custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_REALMS_KEY}`,
-									emoji: { name: "🔗" },
-									label: "Share progress",
-									style: ButtonStyle.Secondary,
-								},
-							],
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`,
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								BACK_TO_START_BUTTON,
-								{
-									type: ComponentType.Button,
-									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-									emoji: { name: "⏪" },
-									label: "Back",
-									style: ButtonStyle.Secondary,
-								},
-							],
-						},
-					],
+					components: containerComponents,
 				},
 			],
 		});
@@ -710,105 +704,98 @@ export class Catalogue {
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
 		const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
-		let hasEverything = true;
-
-		const options = spirits.map((spirit) => {
-			const percentage = catalogue.spiritProgress([spirit], true);
-
-			if (percentage !== null && percentage !== 100) {
-				hasEverything = false;
-			}
-
-			return {
-				label: `${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
-				value: String(spirit.id),
-			};
-		});
-
 		const title = `## ${t(`realms.${realm}`, { lng: locale, ns: "general" })}\n-# Catalogue → Realms`;
 		const percentageNote = `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`;
+
+		const containerComponents: APIComponentInContainer[] = [
+			{
+				type: ComponentType.TextDisplay,
+				content: title,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+		];
+
+		const { remainingCurrency, offerProgress, hasEverything } = catalogue.spiritText(
+			[...spirits.values()],
+			locale,
+			MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - percentageNote.length,
+			true,
+			true,
+		);
+
+		if (remainingCurrency) {
+			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
+		}
+
+		for (const [id, text] of offerProgress) {
+			containerComponents.push({
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Button,
+					style: ButtonStyle.Primary,
+					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+					label: t("view", { lng: locale, ns: "general" }),
+				},
+				components: [{ type: ComponentType.TextDisplay, content: text }],
+			});
+		}
+
+		containerComponents.push(
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${realm}`,
+						emoji: { name: "🔗" },
+						label: "Share progress",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content: percentageNote,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					BACK_TO_START_BUTTON,
+					{
+						type: ComponentType.Button,
+						custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+						emoji: { name: "⏪" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
+					},
+
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`,
+						disabled: hasEverything,
+						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+						label: "I have everything!",
+						style: ButtonStyle.Success,
+					},
+				],
+			},
+		);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
 					type: ComponentType.Container,
 					accent_color: DEFAULT_EMBED_COLOUR,
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: title,
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content:
-								catalogue.spiritText(
-									[...spirits.values()],
-									locale,
-									MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - percentageNote.length,
-								) ?? "",
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.StringSelect,
-									custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-									max_values: 1,
-									min_values: 0,
-									options,
-									placeholder: "Select a spirit!",
-								},
-							],
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.Button,
-									custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${realm}`,
-									emoji: { name: "🔗" },
-									label: "Share progress",
-									style: ButtonStyle.Secondary,
-								},
-							],
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: percentageNote,
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								BACK_TO_START_BUTTON,
-								{
-									type: ComponentType.Button,
-									custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
-									emoji: { name: "⏪" },
-									label: "Back",
-									style: ButtonStyle.Secondary,
-								},
-
-								{
-									type: ComponentType.Button,
-									custom_id: `${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`,
-									disabled: hasEverything,
-									emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-									label: "I have everything!",
-									style: ButtonStyle.Success,
-								},
-							],
-						},
-					],
+					components: containerComponents,
 				},
 			],
 		});
@@ -820,101 +807,92 @@ export class Catalogue {
 		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const catalogue = await this.fetch(invoker.id);
-		let hasEverything = true;
-
-		const options = ELDER_SPIRITS.map((spirit) => {
-			const percentage = catalogue.spiritProgress([spirit], true);
-
-			if (percentage !== null && percentage !== 100) {
-				hasEverything = false;
-			}
-
-			return {
-				label: `${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}${
-					percentage === null ? "" : ` (${percentage}%)`
-				}`,
-				value: String(spirit.id),
-			};
-		});
-
 		const title = "## Elders \n-# Catalogue";
+
+		const containerComponents: APIComponentInContainer[] = [
+			{
+				type: ComponentType.TextDisplay,
+				content: title,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+		];
+
+		const { remainingCurrency, offerProgress, hasEverything } = catalogue.spiritText(
+			[...ELDER_SPIRITS.values()],
+			locale,
+			MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+			true,
+			true,
+		);
+
+		if (remainingCurrency) {
+			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
+		}
+
+		for (const [id, text] of offerProgress) {
+			containerComponents.push({
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Button,
+					style: ButtonStyle.Primary,
+					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+					label: t("view", { lng: locale, ns: "general" }),
+				},
+				components: [{ type: ComponentType.TextDisplay, content: text }],
+			});
+		}
+
+		containerComponents.push(
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_ELDER_KEY}`,
+						emoji: { name: "🔗" },
+						label: "Share progress",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					BACK_TO_START_BUTTON,
+					{
+						type: ComponentType.Button,
+						custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+						emoji: { name: "⏪" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+						disabled: hasEverything,
+						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+						label: "I have everything!",
+						style: ButtonStyle.Success,
+					},
+				],
+			},
+		);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
 					type: ComponentType.Container,
 					accent_color: DEFAULT_EMBED_COLOUR,
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: title,
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content:
-								catalogue.spiritText(
-									[...ELDER_SPIRITS.values()],
-									locale,
-									MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
-								) ?? "",
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.StringSelect,
-									custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-									max_values: 1,
-									min_values: 0,
-									options,
-									placeholder: "Select an elder!",
-								},
-							],
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.Button,
-									custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_ELDER_KEY}`,
-									emoji: { name: "🔗" },
-									label: "Share progress",
-									style: ButtonStyle.Secondary,
-								},
-							],
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								BACK_TO_START_BUTTON,
-								{
-									type: ComponentType.Button,
-									custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-									emoji: { name: "⏪" },
-									label: "Back",
-									style: ButtonStyle.Secondary,
-								},
-								{
-									type: ComponentType.Button,
-									custom_id: CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
-									disabled: hasEverything,
-									emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-									label: "I have everything!",
-									style: ButtonStyle.Success,
-								},
-							],
-						},
-					],
+					components: containerComponents,
 				},
 			],
 		});
@@ -1038,14 +1016,29 @@ export class Catalogue {
 		}
 
 		const catalogue = await this.fetch(invoker.id);
-		const spirits = [season.guide, ...season.spirits.values()];
 		const heading = `## ${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`;
 
 		const containerComponents: APIComponentInContainer[] = [
-			{
-				type: ComponentType.TextDisplay,
-				content: heading,
-			},
+			season.patchNotesURL
+				? {
+						type: ComponentType.Section,
+						accessory: {
+							type: ComponentType.Button,
+							label: "Patch notes",
+							style: ButtonStyle.Link,
+							url: season.patchNotesURL,
+						},
+						components: [
+							{
+								type: ComponentType.TextDisplay,
+								content: heading,
+							},
+						],
+					}
+				: {
+						type: ComponentType.TextDisplay,
+						content: heading,
+					},
 			{
 				type: ComponentType.Separator,
 				divider: true,
@@ -1053,65 +1046,36 @@ export class Catalogue {
 			},
 		];
 
-		const seasonText = catalogue.seasonText(
-			season,
-			locale,
-			MAXIMUM_TEXT_DISPLAY_LENGTH - heading.length,
-		);
+		const { hasEverything, remainingCurrency, offerProgress, itemsOfferProgress } =
+			catalogue.spiritText(
+				[season.guide, ...season.spirits.values()],
+				locale,
+				MAXIMUM_TEXT_DISPLAY_LENGTH - heading.length,
+				true,
+				true,
+				season.items,
+			);
 
-		if (season.patchNotesURL) {
+		if (remainingCurrency) {
+			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
+		}
+
+		for (const [id, text] of offerProgress) {
 			containerComponents.push({
 				type: ComponentType.Section,
 				accessory: {
 					type: ComponentType.Button,
-					label: "Patch notes",
-					style: ButtonStyle.Link,
-					url: season.patchNotesURL,
+					style: ButtonStyle.Primary,
+					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+					label: t("view", { lng: locale, ns: "general" }),
 				},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: seasonText ?? NO_SPIRITS_WITH_OFFER_TEXT,
-					},
-				],
-			});
-		} else {
-			containerComponents.push({
-				type: ComponentType.TextDisplay,
-				content: seasonText ?? NO_SPIRITS_WITH_OFFER_TEXT,
+				components: [{ type: ComponentType.TextDisplay, content: text }],
 			});
 		}
 
-		containerComponents.push({
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.StringSelect,
-					custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-					max_values: 1,
-					min_values: 0,
-					options: spirits.map((spirit) => {
-						const { id } = spirit;
-						const percentage = catalogue.spiritProgress([spirit], true);
-
-						return {
-							label: `${t(`spirits.${id}`, { lng: locale, ns: "general" })}${
-								percentage === null ? "" : ` (${percentage}%)`
-							}`,
-							value: String(id),
-						};
-					}),
-					placeholder:
-						seasonId === SeasonId.Shattering
-							? "Select an entity!"
-							: seasonId === SeasonId.Revival
-								? "Select a spirit or a shop!"
-								: seasonId === SeasonId.Nesting
-									? "Select a spirit or an entity!"
-									: "Select a spirit!",
-				},
-			],
-		});
+		if (itemsOfferProgress) {
+			containerComponents.push({ type: ComponentType.TextDisplay, content: itemsOfferProgress });
+		}
 
 		if (season.items.length > 0) {
 			const itemsOptions = season.items.map(({ name, cosmetics, cosmeticDisplay }) => {
@@ -1155,7 +1119,7 @@ export class Catalogue {
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonId}`,
-						disabled: seasonText === null,
+						disabled: offerProgress.size === 0,
 						emoji: { name: "🔗" },
 						label: "Share progress",
 						style: ButtonStyle.Secondary,
@@ -1163,7 +1127,7 @@ export class Catalogue {
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonId}`,
-						disabled: catalogue.seasonProgress([season]) === 100,
+						disabled: hasEverything,
 						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 						label: "I have everything!",
 						style: ButtonStyle.Success,
@@ -1428,63 +1392,61 @@ export class Catalogue {
 
 		const title = "## Returning Spirits\n-# Catalogue";
 
+		const containerComponents: APIComponentInContainer[] = [
+			{
+				type: ComponentType.TextDisplay,
+				content: title,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+		];
+
+		const { remainingCurrency, offerProgress } = catalogue.spiritText(
+			[...spirits.values()],
+			locale,
+			MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+			true,
+			true,
+		);
+
+		if (remainingCurrency) {
+			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
+		}
+
+		for (const [id, text] of offerProgress) {
+			containerComponents.push({
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Button,
+					style: ButtonStyle.Primary,
+					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+					label: t("view", { lng: locale, ns: "general" }),
+				},
+				components: [{ type: ComponentType.TextDisplay, content: text }],
+			});
+		}
+
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [BACK_TO_START_BUTTON],
+			},
+		);
+
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
 				{
 					type: ComponentType.Container,
 					accent_color: DEFAULT_EMBED_COLOUR,
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: title,
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: catalogue.spiritText(
-								[...spirits.values()],
-								locale,
-								MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
-							)!,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.StringSelect,
-									custom_id: CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-									max_values: 1,
-									min_values: 0,
-									options: spirits.map((spirit) => {
-										const { id } = spirit;
-										const percentage = catalogue.spiritProgress([spirit], true);
-
-										return {
-											emoji: SeasonIdToSeasonalEmoji[spirit.seasonId],
-											label: `${t(`spirits.${id}`, { lng: locale, ns: "general" })}${
-												percentage === null ? "" : ` (${percentage}%)`
-											}`,
-											value: String(id),
-										};
-									}),
-									placeholder: "Select a spirit!",
-								},
-							],
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [BACK_TO_START_BUTTON],
-						},
-					],
+					components: containerComponents,
 				},
 			],
 		});
@@ -1531,7 +1493,13 @@ export class Catalogue {
 		const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
-		const spiritText = this.spiritText([spirit], locale, MAXIMUM_TEXT_DISPLAY_LENGTH);
+		const { hasEverything, offerProgress } = this.spiritText(
+			[spirit],
+			locale,
+			MAXIMUM_TEXT_DISPLAY_LENGTH,
+			false,
+			false,
+		);
 
 		let spirits:
 			| ReadonlyCollection<SpiritIds, StandardSpirit>
@@ -1569,7 +1537,7 @@ export class Catalogue {
 
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: offer.length > 0 ? spiritText! : NO_FRIENDSHIP_TREE_TEXT,
+			content: offerProgress.first() ?? NO_FRIENDSHIP_TREE_TEXT,
 		});
 
 		if (imageURL) {
@@ -1684,7 +1652,7 @@ export class Catalogue {
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§spirit:${spirit.id}`,
-						disabled: this.spiritProgress([spirit]) === 100,
+						disabled: hasEverything,
 						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 						label: "I have everything!",
 						style: ButtonStyle.Success,
@@ -2630,71 +2598,18 @@ export class Catalogue {
 		return { remainingCurrency, offerDescription };
 	}
 
-	private seasonText(season: Season, locale: Locale, limit: number) {
-		const description = [];
-		let descriptionString = null;
-		const remainingCurrencies = [];
-		const offerDescriptions = [];
-
-		const offers: [SpiritIds | `season:${SeasonIds}`, readonly Item[]][] = [
-			[season.guide.id, season.guide.current],
-			...season.spirits.map<[SpiritIds | `season:${SeasonIds}`, readonly Item[]]>((spirit) => [
-				spirit.id,
-				spirit.items,
-			]),
-			[`season:${season.id}`, season.items],
-		];
-
-		for (const [index, offer] of offers) {
-			if (offer.length === 0) {
-				continue;
-			}
-
-			const { remainingCurrency, offerDescription } = this.progress(offer);
-			remainingCurrencies.push(remainingCurrency);
-
-			offerDescriptions.push(
-				`__${
-					typeof index === "number"
-						? t(`spirits.${index}`, { lng: locale, ns: "general" })
-						: "Items"
-				}__\n${offerDescription.join("\n")}`,
-			);
-		}
-
-		const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
-
-		if (totalRemainingCurrency.length > 0) {
-			description.push(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
-		}
-
-		description.push(...offerDescriptions);
-
-		if (description.length > 0) {
-			descriptionString = description.join("\n\n");
-
-			// If the resulting description exceeds the limit, replace some emojis.
-			for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
-				if (descriptionString.length <= limit) {
-					break;
-				}
-
-				descriptionString = descriptionString.replaceAll(from, to);
-			}
-		}
-
-		return descriptionString;
-	}
-
 	private spiritText(
 		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
 		locale: Locale,
 		limit: number,
+		includePercentage: boolean,
+		performRemainingCurrency: boolean,
+		items: readonly Item[] = [],
 	) {
-		const multiple = spirits.length > 1;
-		const description = [];
-		let descriptionString = null;
+		const offerProgress = new Collection<SpiritIds, string>();
+		let hasEverything: boolean;
 		const remainingCurrencies = [];
+		let remainingCurrency = null;
 
 		for (const spirit of spirits) {
 			const isSeasonalSpirit = spirit.isSeasonalSpirit();
@@ -2706,37 +2621,73 @@ export class Catalogue {
 			}
 
 			const { remainingCurrency, offerDescription } = this.progress(offer);
-			remainingCurrencies.push(remainingCurrency);
 
-			description.push(
+			if (performRemainingCurrency) {
+				remainingCurrencies.push(remainingCurrency);
+			}
+
+			const percentage = this.spiritProgress([spirit], true);
+
+			offerProgress.set(
+				spirit.id,
 				`${
-					multiple ? `__${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}__\n` : ""
+					performRemainingCurrency
+						? `### ${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}${includePercentage ? (percentage === null ? "" : ` (${percentage}%)`) : ""}\n\n`
+						: ""
 				}${offerDescription.join("\n")}`,
 			);
 		}
 
-		if (multiple) {
-			const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
+		const { remainingCurrency: itemsRemainingCurrency, offerDescription: itemsOfferProgress } =
+			this.progress(items);
+
+		if (remainingCurrencies.length > 0) {
+			const totalRemainingCurrency = resolveCostToString(
+				addCosts([...remainingCurrencies, itemsRemainingCurrency]),
+			);
 
 			if (totalRemainingCurrency.length > 0) {
-				description.unshift(`__Remaining Currency__\n${totalRemainingCurrency.join("")}`);
+				hasEverything = false;
+				remainingCurrency = `### Remaining currency\n\n${totalRemainingCurrency.join("")}`;
+			} else {
+				hasEverything = true;
 			}
+		} else {
+			hasEverything = true;
 		}
 
-		if (description.length > 0) {
-			descriptionString = description.join("\n\n");
+		const itemsOfferProgressText =
+			itemsOfferProgress.length > 0 ? `### Items\n\n${itemsOfferProgress.join("\n")}` : null;
 
-			// If the resulting description exceeds the limit, replace some emojis.
-			for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
-				if (descriptionString.length <= limit) {
+		const computedLimit = remainingCurrency
+			? limit - remainingCurrency.length - (itemsOfferProgressText?.length ?? 0)
+			: limit;
+
+		// If the text exceeds the limit, replace some emojis.
+		// Only handles spirits for now.
+		for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
+			const computedLength = offerProgress.reduce((total, text) => total + text.length, 0);
+
+			if (computedLength <= computedLimit) {
+				break;
+			}
+
+			for (const [id, text] of offerProgress) {
+				offerProgress.set(id, text.replaceAll(from, to));
+				const computedLength = offerProgress.reduce((total, text) => total + text.length, 0);
+
+				if (computedLength <= computedLimit) {
 					break;
 				}
-
-				descriptionString = descriptionString.replaceAll(from, to);
 			}
 		}
 
-		return descriptionString;
+		return {
+			remainingCurrency,
+			offerProgress,
+			itemsOfferProgress: itemsOfferProgressText,
+			hasEverything,
+		};
 	}
 
 	private eventsText(events: ReadonlyCollection<EventIds, Event>, locale: Locale, limit: number) {
@@ -2812,6 +2763,8 @@ export class Catalogue {
 				locale,
 				// Take 100 away too for good measure.
 				MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
+				false,
+				false,
 			);
 		} else if (isSeasonId(Number(type))) {
 			const seasonId = Number(type) as SeasonIds;
