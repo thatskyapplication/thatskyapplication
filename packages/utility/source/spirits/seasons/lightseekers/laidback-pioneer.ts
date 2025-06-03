@@ -85,7 +85,7 @@ export default new SeasonalSpirit({
 		],
 	},
 	visits: {
-		travelling: [3, 23, 72],
+		travelling: [3, 23, 72, 142],
 	},
 	hasMarketingVideo: true,
 	keywords: ["umbrella"],
