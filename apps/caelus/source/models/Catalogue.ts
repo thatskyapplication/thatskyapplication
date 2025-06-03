@@ -103,6 +103,15 @@ interface CatalogueData {
 
 type CataloguePatchData = Omit<CataloguePacket, "user_id">;
 
+interface OfferDataOptions {
+	spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[];
+	items?: readonly Item[];
+	locale: Locale;
+	limit: number;
+	includePercentage: boolean;
+	performRemainingCurrency: boolean;
+}
+
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
 export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_TYPE_CUSTOM_ID = "CATALOGUE_VIEW_TYPE_CUSTOM_ID" as const;
@@ -719,13 +728,13 @@ export class Catalogue {
 			},
 		];
 
-		const { remainingCurrency, offerProgress, hasEverything } = catalogue.spiritText(
-			[...spirits.values()],
+		const { remainingCurrency, offerProgress, hasEverything } = catalogue.offerData({
+			spirits: [...spirits.values()],
 			locale,
-			MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - percentageNote.length,
-			true,
-			true,
-		);
+			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - percentageNote.length,
+			includePercentage: true,
+			performRemainingCurrency: true,
+		});
 
 		if (remainingCurrency) {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
@@ -821,13 +830,13 @@ export class Catalogue {
 			},
 		];
 
-		const { remainingCurrency, offerProgress, hasEverything } = catalogue.spiritText(
-			[...ELDER_SPIRITS.values()],
+		const { remainingCurrency, offerProgress, hasEverything } = catalogue.offerData({
+			spirits: [...ELDER_SPIRITS.values()],
 			locale,
-			MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
-			true,
-			true,
-		);
+			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+			includePercentage: true,
+			performRemainingCurrency: true,
+		});
 
 		if (remainingCurrency) {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
@@ -1047,14 +1056,14 @@ export class Catalogue {
 		];
 
 		const { hasEverything, remainingCurrency, offerProgress, itemsOfferProgress } =
-			catalogue.spiritText(
-				[season.guide, ...season.spirits.values()],
+			catalogue.offerData({
+				spirits: [season.guide, ...season.spirits.values()],
+				items: season.items,
 				locale,
-				MAXIMUM_TEXT_DISPLAY_LENGTH - heading.length,
-				true,
-				true,
-				season.items,
-			);
+				limit: MAXIMUM_TEXT_DISPLAY_LENGTH - heading.length,
+				includePercentage: true,
+				performRemainingCurrency: true,
+			});
 
 		if (remainingCurrency) {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
@@ -1404,13 +1413,13 @@ export class Catalogue {
 			},
 		];
 
-		const { remainingCurrency, offerProgress } = catalogue.spiritText(
-			[...spirits.values()],
+		const { remainingCurrency, offerProgress } = catalogue.offerData({
+			spirits: [...spirits.values()],
 			locale,
-			MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
-			true,
-			true,
-		);
+			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+			includePercentage: true,
+			performRemainingCurrency: true,
+		});
 
 		if (remainingCurrency) {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
@@ -1493,13 +1502,14 @@ export class Catalogue {
 		const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
 		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
 		const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
-		const { hasEverything, offerProgress } = this.spiritText(
-			[spirit],
+
+		const { hasEverything, offerProgress } = this.offerData({
+			spirits: [spirit],
 			locale,
-			MAXIMUM_TEXT_DISPLAY_LENGTH,
-			false,
-			false,
-		);
+			limit: MAXIMUM_TEXT_DISPLAY_LENGTH,
+			includePercentage: false,
+			performRemainingCurrency: false,
+		});
 
 		let spirits:
 			| ReadonlyCollection<SpiritIds, StandardSpirit>
@@ -2598,14 +2608,14 @@ export class Catalogue {
 		return { remainingCurrency, offerDescription };
 	}
 
-	private spiritText(
-		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-		locale: Locale,
-		limit: number,
-		includePercentage: boolean,
-		performRemainingCurrency: boolean,
-		items: readonly Item[] = [],
-	) {
+	private offerData({
+		spirits,
+		items = [],
+		locale,
+		limit,
+		includePercentage,
+		performRemainingCurrency,
+	}: OfferDataOptions) {
 		const offerProgress = new Collection<SpiritIds, string>();
 		let hasEverything: boolean;
 		const remainingCurrencies = [];
@@ -2758,30 +2768,42 @@ export class Catalogue {
 			backButtonCustomId = `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${type}`;
 			title = `${type} Progress`;
 
-			content = this.spiritText(
-				[...STANDARD_SPIRITS.filter((spirit) => spirit.realm === type).values()],
+			content = this.offerData({
+				spirits: [...STANDARD_SPIRITS.filter((spirit) => spirit.realm === type).values()],
 				locale,
 				// Take 100 away too for good measure.
-				MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
-				false,
-				false,
-			);
+				limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
+				includePercentage: false,
+				performRemainingCurrency: false,
+			});
 		} else if (isSeasonId(Number(type))) {
 			const seasonId = Number(type) as SeasonIds;
 			const emoji = SeasonIdToSeasonalEmoji[seasonId];
 			backButtonCustomId = `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`;
 			backButtonEmoji = emoji;
 			title = `${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`;
+			const season = skySeasons().get(seasonId)!;
 
-			content = this.seasonText(
-				skySeasons().get(seasonId)!,
+			content = this.offerData({
+				spirits: [season.guide, ...season.spirits.values()],
+				items: season.items,
 				locale,
 				// Take 100 away too for good measure.
-				MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
-			);
+				limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
+				includePercentage: false,
+				performRemainingCurrency: false,
+			});
 		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
 			backButtonCustomId = CATALOGUE_VIEW_ELDERS_CUSTOM_ID;
-			content = this.spiritText([...ELDER_SPIRITS.values()], locale, MAXIMUM_TEXT_DISPLAY_LENGTH);
+
+			content = this.offerData({
+				spirits: [...ELDER_SPIRITS.values()],
+				locale,
+				limit: MAXIMUM_TEXT_DISPLAY_LENGTH,
+				includePercentage: false,
+				performRemainingCurrency: false,
+			});
+
 			title = "Elders Progress";
 		}
 
