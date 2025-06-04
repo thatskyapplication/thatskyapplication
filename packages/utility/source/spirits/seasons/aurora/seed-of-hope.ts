@@ -53,4 +53,7 @@ export default new SeasonalSpirit({
 			},
 		],
 	},
+	visits: {
+		returning: [9],
+	},
 });
