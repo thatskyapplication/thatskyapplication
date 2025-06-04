@@ -69,10 +69,10 @@ import {
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import {
+	CATALOGUE_EVENTS_THRESHOLD,
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE_COMPONENTS_V2,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
-	NO_EVENTS_WITH_OFFER_TEXT,
 } from "../utility/constants.js";
 import {
 	CUSTOM_EMOJI_REPLACEMENTS,
@@ -110,7 +110,8 @@ interface OfferDataOptions {
 	locale: Locale;
 	limit: number;
 	includePercentage: boolean;
-	performRemainingCurrency: boolean;
+	includeTotalRemainingCurrency?: boolean;
+	includeTitles?: boolean;
 }
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
@@ -734,7 +735,8 @@ export class Catalogue {
 			locale,
 			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - percentageNote.length,
 			includePercentage: true,
-			performRemainingCurrency: true,
+			includeTotalRemainingCurrency: true,
+			includeTitles: true,
 		});
 
 		if (remainingCurrency) {
@@ -836,7 +838,8 @@ export class Catalogue {
 			locale,
 			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
 			includePercentage: true,
-			performRemainingCurrency: true,
+			includeTotalRemainingCurrency: true,
+			includeTitles: true,
 		});
 
 		if (remainingCurrency) {
@@ -1026,7 +1029,7 @@ export class Catalogue {
 		}
 
 		const catalogue = await this.fetch(invoker.id);
-		const heading = `## ${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`;
+		const title = `## ${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`;
 
 		const containerComponents: APIComponentInContainer[] = [
 			season.patchNotesURL
@@ -1041,13 +1044,13 @@ export class Catalogue {
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: heading,
+								content: title,
 							},
 						],
 					}
 				: {
 						type: ComponentType.TextDisplay,
-						content: heading,
+						content: title,
 					},
 			{
 				type: ComponentType.Separator,
@@ -1061,9 +1064,10 @@ export class Catalogue {
 				spirits: [season.guide, ...season.spirits.values()],
 				items: season.items,
 				locale,
-				limit: MAXIMUM_TEXT_DISPLAY_LENGTH - heading.length,
+				limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
 				includePercentage: true,
-				performRemainingCurrency: true,
+				includeTotalRemainingCurrency: true,
+				includeTitles: true,
 			});
 
 		if (remainingCurrency) {
@@ -1281,35 +1285,122 @@ export class Catalogue {
 		const year = Number(yearString);
 		const catalogue = await this.fetch(invoker.id);
 		const events = skyEvents().filter((event) => event.start.year === year);
-
-		const options = events.map((event) => {
-			const { id } = event;
-			const percentage = catalogue.eventProgress([event], true);
-
-			const stringSelectMenuOption: APISelectMenuOption = {
-				label: `${t(`events.${id}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}`,
-				value: String(id),
-			};
-
-			const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-
-			if (eventTicketEmoji) {
-				stringSelectMenuOption.emoji = eventTicketEmoji;
-			}
-
-			return stringSelectMenuOption;
-		});
-
 		const eventsYears = skyEventYears();
 		const index = eventsYears.indexOf(year);
 		const before = eventsYears[index - 1];
 		const after = eventsYears[index + 1];
 		const title = `## ${year}\n-# Catalogue → Events By Year`;
 
-		const eventsText = catalogue.eventsText(
-			events,
+		const containerComponents: APIComponentInContainer[] = [
+			{
+				type: ComponentType.TextDisplay,
+				content: title,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+		];
+
+		const { offerProgress } = catalogue.offerData({
+			events: [...events.values()],
 			locale,
-			MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+			includePercentage: true,
+			includeTitles: true,
+		});
+
+		if (offerProgress.events.size > CATALOGUE_EVENTS_THRESHOLD) {
+			containerComponents.push(
+				{
+					type: ComponentType.TextDisplay,
+					content: [...offerProgress.events.values()].join("\n"),
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.StringSelect,
+							custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+							max_values: 1,
+							min_values: 0,
+							options: events.map((event) => {
+								const { id } = event;
+
+								const stringSelectMenuOption: APISelectMenuOption = {
+									label: t(`events.${id}`, { lng: locale, ns: "general" }),
+									value: String(id),
+								};
+
+								const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
+
+								if (eventTicketEmoji) {
+									stringSelectMenuOption.emoji = eventTicketEmoji;
+								}
+
+								return stringSelectMenuOption;
+							}),
+							placeholder: "Select an event!",
+						},
+					],
+				},
+			);
+		} else {
+			for (const [id, text] of offerProgress.events) {
+				containerComponents.push({
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${id}`,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
+					components: [{ type: ComponentType.TextDisplay, content: text }],
+				});
+			}
+		}
+
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`,
+						disabled: !before,
+						emoji: { name: "⬅️" },
+						label: "Previous year",
+						style: ButtonStyle.Secondary,
+					},
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`,
+						disabled: !after,
+						emoji: { name: "➡️" },
+						label: "Next year",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					BACK_TO_START_BUTTON,
+					{
+						type: ComponentType.Button,
+						custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+						emoji: { name: "⏪" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
+					},
+				],
+			},
 		);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1317,73 +1408,7 @@ export class Catalogue {
 				{
 					type: ComponentType.Container,
 					accent_color: DEFAULT_EMBED_COLOUR,
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: title,
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: eventsText ?? NO_EVENTS_WITH_OFFER_TEXT,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.StringSelect,
-									custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-									max_values: 1,
-									min_values: 0,
-									options,
-									placeholder: "Select an event!",
-								},
-							],
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.Button,
-									custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`,
-									disabled: !before,
-									emoji: { name: "⬅️" },
-									label: "Previous year",
-									style: ButtonStyle.Secondary,
-								},
-								{
-									type: ComponentType.Button,
-									custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`,
-									disabled: !after,
-									emoji: { name: "➡️" },
-									label: "Next year",
-									style: ButtonStyle.Secondary,
-								},
-							],
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								BACK_TO_START_BUTTON,
-								{
-									type: ComponentType.Button,
-									custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
-									emoji: { name: "⏪" },
-									label: "Back",
-									style: ButtonStyle.Secondary,
-								},
-							],
-						},
-					],
+					components: containerComponents,
 				},
 			],
 		});
@@ -1419,7 +1444,8 @@ export class Catalogue {
 			locale,
 			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
 			includePercentage: true,
-			performRemainingCurrency: true,
+			includeTotalRemainingCurrency: true,
+			includeTitles: true,
 		});
 
 		if (remainingCurrency) {
@@ -1509,7 +1535,6 @@ export class Catalogue {
 			locale,
 			limit: MAXIMUM_TEXT_DISPLAY_LENGTH,
 			includePercentage: false,
-			performRemainingCurrency: false,
 		});
 
 		let spirits:
@@ -2617,7 +2642,8 @@ export class Catalogue {
 		locale,
 		limit,
 		includePercentage,
-		performRemainingCurrency,
+		includeTotalRemainingCurrency = false,
+		includeTitles = false,
 	}: OfferDataOptions) {
 		const offerProgress = {
 			spirits: new Collection<SpiritIds, string>(),
@@ -2639,7 +2665,7 @@ export class Catalogue {
 
 			const { remainingCurrency, offerDescription } = this.progress(offer);
 
-			if (performRemainingCurrency) {
+			if (includeTotalRemainingCurrency) {
 				remainingCurrencies.push(remainingCurrency);
 			}
 
@@ -2652,7 +2678,7 @@ export class Catalogue {
 			offerProgress.spirits.set(
 				spirit.id,
 				`${
-					performRemainingCurrency
+					includeTitles
 						? `### ${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}${includePercentage ? (percentage === null ? "" : ` (${percentage}%)`) : ""}\n\n`
 						: ""
 				}${offerDescription.join("\n")}`,
@@ -2666,7 +2692,7 @@ export class Catalogue {
 
 			const { remainingCurrency, offerDescription } = this.progress(event.offer);
 
-			if (performRemainingCurrency) {
+			if (includeTotalRemainingCurrency) {
 				remainingCurrencies.push(remainingCurrency);
 			}
 
@@ -2679,17 +2705,17 @@ export class Catalogue {
 			offerProgress.events.set(
 				event.id,
 				`${
-					performRemainingCurrency
+					includeTitles
 						? `### ${t(`events.${event.id}`, { lng: locale, ns: "general" })}${includePercentage ? (percentage === null ? "" : ` (${percentage}%)`) : ""}\n\n${offerDescription.join("\n")}`
 						: ""
-				}${offerDescription.join("\n")}`,
+				}`,
 			);
 		}
 
 		const { remainingCurrency: itemsRemainingCurrency, offerDescription: itemsOfferProgress } =
 			this.progress(items);
 
-		if (performRemainingCurrency) {
+		if (includeTotalRemainingCurrency) {
 			remainingCurrencies.push(itemsRemainingCurrency);
 		}
 
@@ -2747,39 +2773,6 @@ export class Catalogue {
 			offerProgress.spirits.reduce((total, text) => total + text.length, 0) +
 			offerProgress.events.reduce((total, text) => total + text.length, 0)
 		);
-	}
-
-	private eventsText(events: ReadonlyCollection<EventIds, Event>, locale: Locale, limit: number) {
-		let offers = events
-			.reduce<string[]>((eventField, event) => {
-				if (event.offer.length === 0) {
-					return eventField;
-				}
-
-				const { offerDescription } = this.progress(event.offer);
-
-				eventField.push(
-					`__${t(`events.${event.id}`, { lng: locale, ns: "general" })}__\n${offerDescription.join("\n")}`,
-				);
-
-				return eventField;
-			}, [])
-			.join("\n\n");
-
-		if (offers.length > 0) {
-			// If the resulting description exceeds the limit, replace some emojis.
-			for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
-				if (offers.length <= limit) {
-					break;
-				}
-
-				offers = offers.replaceAll(from, to);
-			}
-
-			return offers;
-		}
-
-		return null;
 	}
 
 	private async sharePayload(
