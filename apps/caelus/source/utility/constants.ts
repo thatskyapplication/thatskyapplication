@@ -361,8 +361,7 @@ export const BONKS = {
 } as const;
 
 // Catalogue.
-export const NO_SPIRITS_WITH_OFFER_TEXT = "There are no spirits that offer anything." as const;
-export const NO_EVENTS_WITH_OFFER_TEXT = "There are no events that offer anything." as const;
+export const CATALOGUE_EVENTS_THRESHOLD = 10 as const;
 
 export const DailyQuestToInfographicURL = {
 	[DailyQuest.Collect30PiecesOfLight]: null,
