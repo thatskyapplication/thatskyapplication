@@ -104,7 +104,8 @@ interface CatalogueData {
 type CataloguePatchData = Omit<CataloguePacket, "user_id">;
 
 interface OfferDataOptions {
-	spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[];
+	spirits?: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[];
+	events?: readonly Event[];
 	items?: readonly Item[];
 	locale: Locale;
 	limit: number;
@@ -740,7 +741,7 @@ export class Catalogue {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
 		}
 
-		for (const [id, text] of offerProgress) {
+		for (const [id, text] of offerProgress.spirits) {
 			containerComponents.push({
 				type: ComponentType.Section,
 				accessory: {
@@ -842,7 +843,7 @@ export class Catalogue {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
 		}
 
-		for (const [id, text] of offerProgress) {
+		for (const [id, text] of offerProgress.spirits) {
 			containerComponents.push({
 				type: ComponentType.Section,
 				accessory: {
@@ -1069,7 +1070,7 @@ export class Catalogue {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
 		}
 
-		for (const [id, text] of offerProgress) {
+		for (const [id, text] of offerProgress.spirits) {
 			containerComponents.push({
 				type: ComponentType.Section,
 				accessory: {
@@ -1128,7 +1129,7 @@ export class Catalogue {
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonId}`,
-						disabled: offerProgress.size === 0,
+						disabled: offerProgress.spirits.size === 0,
 						emoji: { name: "🔗" },
 						label: "Share progress",
 						style: ButtonStyle.Secondary,
@@ -1425,7 +1426,7 @@ export class Catalogue {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
 		}
 
-		for (const [id, text] of offerProgress) {
+		for (const [id, text] of offerProgress.spirits) {
 			containerComponents.push({
 				type: ComponentType.Section,
 				accessory: {
@@ -1547,7 +1548,7 @@ export class Catalogue {
 
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: offerProgress.first() ?? NO_FRIENDSHIP_TREE_TEXT,
+			content: offerProgress.spirits.first() ?? NO_FRIENDSHIP_TREE_TEXT,
 		});
 
 		if (imageURL) {
@@ -2608,16 +2609,22 @@ export class Catalogue {
 		return { remainingCurrency, offerDescription };
 	}
 
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	private offerData({
-		spirits,
+		spirits = [],
+		events = [],
 		items = [],
 		locale,
 		limit,
 		includePercentage,
 		performRemainingCurrency,
 	}: OfferDataOptions) {
-		const offerProgress = new Collection<SpiritIds, string>();
-		let hasEverything: boolean;
+		const offerProgress = {
+			spirits: new Collection<SpiritIds, string>(),
+			events: new Collection<EventIds, string>(),
+		};
+
+		let hasEverything = true;
 		const remainingCurrencies = [];
 		let remainingCurrency = null;
 
@@ -2638,7 +2645,11 @@ export class Catalogue {
 
 			const percentage = this.spiritProgress([spirit], true);
 
-			offerProgress.set(
+			if (percentage !== null && percentage !== 100) {
+				hasEverything = false;
+			}
+
+			offerProgress.spirits.set(
 				spirit.id,
 				`${
 					performRemainingCurrency
@@ -2648,22 +2659,53 @@ export class Catalogue {
 			);
 		}
 
+		for (const event of events) {
+			if (event.offer.length === 0) {
+				continue;
+			}
+
+			const { remainingCurrency, offerDescription } = this.progress(event.offer);
+
+			if (performRemainingCurrency) {
+				remainingCurrencies.push(remainingCurrency);
+			}
+
+			const percentage = this.eventProgress([event], true);
+
+			if (percentage !== null && percentage !== 100) {
+				hasEverything = false;
+			}
+
+			offerProgress.events.set(
+				event.id,
+				`${
+					performRemainingCurrency
+						? `### ${t(`events.${event.id}`, { lng: locale, ns: "general" })}${includePercentage ? (percentage === null ? "" : ` (${percentage}%)`) : ""}\n\n${offerDescription.join("\n")}`
+						: ""
+				}${offerDescription.join("\n")}`,
+			);
+		}
+
 		const { remainingCurrency: itemsRemainingCurrency, offerDescription: itemsOfferProgress } =
 			this.progress(items);
 
+		if (performRemainingCurrency) {
+			remainingCurrencies.push(itemsRemainingCurrency);
+		}
+
+		const { owned, total } = this.ownedProgress(items);
+		const itemsPercentage = this.progressPercentage(owned, total);
+
+		if (itemsPercentage !== null && itemsPercentage !== 100) {
+			hasEverything = false;
+		}
+
 		if (remainingCurrencies.length > 0) {
-			const totalRemainingCurrency = resolveCostToString(
-				addCosts([...remainingCurrencies, itemsRemainingCurrency]),
-			);
+			const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
 
 			if (totalRemainingCurrency.length > 0) {
-				hasEverything = false;
 				remainingCurrency = `### Remaining currency\n\n${totalRemainingCurrency.join("")}`;
-			} else {
-				hasEverything = true;
 			}
-		} else {
-			hasEverything = true;
 		}
 
 		const itemsOfferProgressText =
@@ -2674,20 +2716,17 @@ export class Catalogue {
 			: limit;
 
 		// If the text exceeds the limit, replace some emojis.
-		// Only handles spirits for now.
-		for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
-			const computedLength = offerProgress.reduce((total, text) => total + text.length, 0);
+		// Only handles spirits and events for now.
+		if (this.offerProgressTotalCharacters(offerProgress) > computedLimit) {
+			outer: for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
+				for (const collection of [offerProgress.spirits, offerProgress.events]) {
+					for (const [id, text] of collection) {
+						collection.set(id, text.replaceAll(from, to));
 
-			if (computedLength <= computedLimit) {
-				break;
-			}
-
-			for (const [id, text] of offerProgress) {
-				offerProgress.set(id, text.replaceAll(from, to));
-				const computedLength = offerProgress.reduce((total, text) => total + text.length, 0);
-
-				if (computedLength <= computedLimit) {
-					break;
+						if (this.offerProgressTotalCharacters(offerProgress) <= computedLimit) {
+							break outer;
+						}
+					}
 				}
 			}
 		}
@@ -2698,6 +2737,16 @@ export class Catalogue {
 			itemsOfferProgress: itemsOfferProgressText,
 			hasEverything,
 		};
+	}
+
+	private offerProgressTotalCharacters(offerProgress: {
+		spirits: Collection<SpiritIds, string>;
+		events: Collection<EventIds, string>;
+	}) {
+		return (
+			offerProgress.spirits.reduce((total, text) => total + text.length, 0) +
+			offerProgress.events.reduce((total, text) => total + text.length, 0)
+		);
 	}
 
 	private eventsText(events: ReadonlyCollection<EventIds, Event>, locale: Locale, limit: number) {
