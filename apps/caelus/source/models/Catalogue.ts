@@ -3,20 +3,14 @@ import {
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
-	type APIGuildInteractionWrapper,
 	type APIMessageComponentButtonInteraction,
-	type APIMessageComponentEmoji,
 	type APIMessageComponentSelectMenuInteraction,
-	type APIMessageTopLevelComponent,
 	type APISelectMenuOption,
-	type APIUser,
 	ButtonStyle,
-	ChannelType,
 	ComponentType,
 	type InteractionsAPI,
 	type Locale,
 	MessageFlags,
-	PermissionFlagsBits,
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
@@ -38,7 +32,6 @@ import {
 	type StandardSpirit,
 	addCosts,
 	formatEmoji,
-	isSeasonId,
 	resolveAllCosmetics,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
@@ -51,7 +44,6 @@ import {
 	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { GUILD_CACHE } from "../caches/guilds.js";
 import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
 import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
@@ -88,8 +80,6 @@ import {
 	isRealm,
 	resolveStringSelectMenu,
 } from "../utility/functions.js";
-import { cannotUsePermissions } from "../utility/permissions.js";
-import Profile from "./Profile.js";
 
 export interface CataloguePacket {
 	user_id: Snowflake;
@@ -134,10 +124,6 @@ export const CATALOGUE_VIEW_EVENT_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_CUSTOM_ID" a
 export const CATALOGUE_VIEW_OFFER_1_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_1_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_OFFER_2_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_2_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_OFFER_3_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_3_CUSTOM_ID" as const;
-const CATALOGUE_SHARE_REALMS_KEY = "realms" as const;
-const CATALOGUE_SHARE_ELDER_KEY = "elders" as const;
-export const CATALOGUE_SHARE_PROMPT_CUSTOM_ID = "CATALOGUE_SHARE_PROMPT_CUSTOM_ID" as const;
-export const CATALOGUE_SHARE_SEND_CUSTOM_ID = "CATALOGUE_SHARE_SEND_CUSTOM_ID" as const;
 export const CATALOGUE_REALM_EVERYTHING_CUSTOM_ID = "CATALOGUE_REALM_EVERYTHING_CUSTOM_ID" as const;
 
 export const CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID =
@@ -661,18 +647,6 @@ export class Catalogue {
 
 		containerComponents.push(
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_REALMS_KEY}`,
-						emoji: { name: "🔗" },
-						label: "Share progress",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-			{
 				type: ComponentType.TextDisplay,
 				content: `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`,
 			},
@@ -757,18 +731,6 @@ export class Catalogue {
 		}
 
 		containerComponents.push(
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${realm}`,
-						emoji: { name: "🔗" },
-						label: "Share progress",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
 			{
 				type: ComponentType.TextDisplay,
 				content: percentageNote,
@@ -860,18 +822,6 @@ export class Catalogue {
 		}
 
 		containerComponents.push(
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${CATALOGUE_SHARE_ELDER_KEY}`,
-						emoji: { name: "🔗" },
-						label: "Share progress",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
 			{
 				type: ComponentType.Separator,
 				divider: true,
@@ -1130,14 +1080,6 @@ export class Catalogue {
 			{
 				type: ComponentType.ActionRow,
 				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_SHARE_PROMPT_CUSTOM_ID}§${seasonId}`,
-						disabled: offerProgress.spirits.size === 0,
-						emoji: { name: "🔗" },
-						label: "Share progress",
-						style: ButtonStyle.Secondary,
-					},
 					{
 						type: ComponentType.Button,
 						custom_id: `${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonId}`,
@@ -2773,318 +2715,6 @@ export class Catalogue {
 			offerProgress.spirits.reduce((total, text) => total + text.length, 0) +
 			offerProgress.events.reduce((total, text) => total + text.length, 0)
 		);
-	}
-
-	private async sharePayload(
-		type: string,
-		invoker: APIUser,
-		locale: Locale,
-		send: boolean,
-	): Promise<{ components: [APIMessageTopLevelComponent]; backButtonCustomId: string }> {
-		let backButtonCustomId: string | undefined;
-		let backButtonEmoji: APIMessageComponentEmoji | undefined;
-		let content: string | null = null;
-		let title: string | null = null;
-
-		if (type === CATALOGUE_SHARE_REALMS_KEY) {
-			backButtonCustomId = CATALOGUE_VIEW_REALMS_CUSTOM_ID;
-
-			content = REALMS.map((realm) => {
-				const remainingCurrency = resolveCostToString(
-					realm.spirits.reduce(
-						(remainingCurrency, spirit) =>
-							addCosts([remainingCurrency, this.remainingCurrency(spirit.current)]),
-						{},
-					),
-				);
-
-				return `__${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}__\n${
-					remainingCurrency.length > 0
-						? remainingCurrency.join("")
-						: formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
-				}`;
-			}).join("\n\n");
-
-			title = "Realms Progress";
-		} else if (isRealm(type)) {
-			backButtonCustomId = `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${type}`;
-			title = `${type} Progress`;
-
-			content = this.offerData({
-				spirits: [...STANDARD_SPIRITS.filter((spirit) => spirit.realm === type).values()],
-				locale,
-				// Take 100 away too for good measure.
-				limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
-				includePercentage: false,
-				performRemainingCurrency: false,
-			});
-		} else if (isSeasonId(Number(type))) {
-			const seasonId = Number(type) as SeasonIds;
-			const emoji = SeasonIdToSeasonalEmoji[seasonId];
-			backButtonCustomId = `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${type}`;
-			backButtonEmoji = emoji;
-			title = `${formatEmoji(emoji)} ${t(`seasons.${type}`, { lng: locale, ns: "general" })} Progress`;
-			const season = skySeasons().get(seasonId)!;
-
-			content = this.offerData({
-				spirits: [season.guide, ...season.spirits.values()],
-				items: season.items,
-				locale,
-				// Take 100 away too for good measure.
-				limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - 100,
-				includePercentage: false,
-				performRemainingCurrency: false,
-			});
-		} else if (type === CATALOGUE_SHARE_ELDER_KEY) {
-			backButtonCustomId = CATALOGUE_VIEW_ELDERS_CUSTOM_ID;
-
-			content = this.offerData({
-				spirits: [...ELDER_SPIRITS.values()],
-				locale,
-				limit: MAXIMUM_TEXT_DISPLAY_LENGTH,
-				includePercentage: false,
-				performRemainingCurrency: false,
-			});
-
-			title = "Elders Progress";
-		}
-
-		if (!(title && content && backButtonCustomId)) {
-			throw new Error("Failed to parse spirits from a catalogue share prompt.");
-		}
-
-		const backButton: APIButtonComponentWithCustomId = {
-			type: ComponentType.Button,
-			custom_id: backButtonCustomId,
-			label: "Back",
-			style: ButtonStyle.Secondary,
-		};
-
-		if (backButtonEmoji) {
-			backButton.emoji = backButtonEmoji;
-		}
-
-		const profile = await Profile.fetch(this.userId).catch(() => null);
-
-		const containerComponents: APIComponentInContainer[] = [
-			{
-				type: ComponentType.TextDisplay,
-				content: `## ${title}`,
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-		];
-
-		if (!send) {
-			containerComponents.push(
-				{
-					type: ComponentType.TextDisplay,
-					content: "This will share your progress in this channel. Is this okay?",
-				},
-				{
-					type: ComponentType.Separator,
-					divider: true,
-					spacing: SeparatorSpacingSize.Small,
-				},
-			);
-		}
-
-		containerComponents.push(
-			profile?.iconURL
-				? {
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Thumbnail,
-							media: { url: profile.iconURL },
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								content: `### ${profile.name}\n${content}`,
-							},
-						],
-					}
-				: {
-						type: ComponentType.TextDisplay,
-						content: `### ${invoker.username}\n${content}`,
-					},
-		);
-
-		if (!send) {
-			containerComponents.push(
-				{
-					type: ComponentType.Separator,
-					divider: true,
-					spacing: SeparatorSpacingSize.Small,
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						backButton,
-						{
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_SHARE_SEND_CUSTOM_ID}§${type}`,
-							emoji: { name: "🔗" },
-							label: "Send",
-							style: ButtonStyle.Success,
-							disabled: send,
-						},
-					],
-				},
-			);
-		}
-
-		return {
-			components: [
-				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
-					components: containerComponents,
-				},
-			],
-			backButtonCustomId,
-		};
-	}
-
-	public static async sharePrompt(interaction: APIMessageComponentButtonInteraction) {
-		const { channel, locale } = interaction;
-		const invoker = interactionInvoker(interaction);
-
-		// Sharing in direct messages is pointless.
-		if (channel.type === ChannelType.DM) {
-			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content:
-					"[You & I](https://youtu.be/_kqQDCxRCzM) are the only ones around here. Try sharing in a server!",
-				flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		if (channel.type === ChannelType.GroupDM) {
-			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content:
-					"I cannot share in group direct messages as I am not here. Try sharing in a server!",
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		const guild = interaction.guild_id && GUILD_CACHE.get(interaction.guild_id);
-
-		if (!guild) {
-			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: "I must be added to this server to share. Try sharing in a server!",
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		if (channel.type === ChannelType.PrivateThread && channel.thread_metadata?.locked) {
-			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: "This thread is locked.",
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		if (
-			await cannotUsePermissions(
-				interaction,
-				PermissionFlagsBits.ViewChannel |
-					(channel.type === ChannelType.PublicThread ||
-					channel.type === ChannelType.PrivateThread ||
-					channel.type === ChannelType.AnnouncementThread
-						? PermissionFlagsBits.SendMessagesInThreads
-						: PermissionFlagsBits.SendMessages) |
-					PermissionFlagsBits.EmbedLinks,
-			)
-		) {
-			return;
-		}
-
-		const customId = interaction.data.custom_id;
-		const type = customId.slice(customId.indexOf("§") + 1);
-		const catalogue = await this.fetch(invoker.id);
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: (await catalogue.sharePayload(type, invoker, locale, false)).components,
-		});
-	}
-
-	public static async shareSend(
-		interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
-	) {
-		const { channel } = interaction;
-
-		if (
-			await cannotUsePermissions(
-				interaction,
-				PermissionFlagsBits.ViewChannel |
-					(channel.type === ChannelType.PublicThread ||
-					channel.type === ChannelType.PrivateThread ||
-					channel.type === ChannelType.AnnouncementThread
-						? PermissionFlagsBits.SendMessagesInThreads
-						: PermissionFlagsBits.SendMessages) |
-					PermissionFlagsBits.EmbedLinks,
-			)
-		) {
-			return;
-		}
-
-		const customId = interaction.data.custom_id;
-		const type = customId.slice(customId.indexOf("§") + 1);
-		const invoker = interactionInvoker(interaction);
-		const catalogue = await this.fetch(invoker.id);
-
-		const { components, backButtonCustomId } = await catalogue.sharePayload(
-			type,
-			invoker,
-			interaction.locale,
-			true,
-		);
-
-		await client.api.channels.createMessage(channel.id, {
-			components,
-			flags: MessageFlags.IsComponentsV2,
-		});
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: "Progress shared!",
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.Button,
-									custom_id: backButtonCustomId,
-									label: "Back",
-									style: ButtonStyle.Primary,
-								},
-							],
-						},
-					],
-				},
-			],
-		});
 	}
 
 	private remainingCurrency(items: readonly Item[], includeSeasonalCurrency?: boolean) {

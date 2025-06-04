@@ -70,8 +70,6 @@ import {
 	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
-	CATALOGUE_SHARE_PROMPT_CUSTOM_ID,
-	CATALOGUE_SHARE_SEND_CUSTOM_ID,
 	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
 	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
 	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
@@ -467,11 +465,6 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_SHARE_PROMPT_CUSTOM_ID)) {
-					await Catalogue.sharePrompt(interaction);
-					return;
-				}
-
 				if (customId.startsWith(CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID)) {
 					await Catalogue.setSeason(interaction);
 					return;
@@ -652,11 +645,6 @@ export default {
 				}
 
 				if (isGuildButton(interaction)) {
-					if (customId.startsWith(CATALOGUE_SHARE_SEND_CUSTOM_ID)) {
-						await Catalogue.shareSend(interaction);
-						return;
-					}
-
 					if (customId.startsWith(GIVEAWAY_BUTTON_CUSTOM_ID)) {
 						await claimTicket(interaction, Number(customId.slice(customId.indexOf("§") + 1)) === 1);
 						return;
