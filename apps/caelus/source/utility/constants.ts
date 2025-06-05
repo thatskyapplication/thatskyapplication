@@ -1164,9 +1164,7 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.AviarysFireworkFestival]: 15,
 	[NotificationType.TravellingSpirit]: 15,
 	[NotificationType.DreamsSkater]: 10,
-} as const satisfies Readonly<
-	Record<Exclude<NotificationTypes, typeof NotificationType.AppUpdates>, number>
->;
+} as const satisfies Readonly<Record<NotificationTypes, number>>;
 
 // Schedule.
 export const PASSAGE_TRUNCATION_LIMIT = 9 as const;

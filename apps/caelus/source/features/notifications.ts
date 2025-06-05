@@ -17,7 +17,6 @@ import {
 import {
 	NOTIFICATION_TYPE_VALUES,
 	type NotificationPacket,
-	NotificationType,
 	type NotificationTypes,
 	WEBSITE_URL,
 	formatEmoji,
@@ -36,7 +35,6 @@ import {
 	NOTIFICATION_CHANNEL_TYPES,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 	NotificationOffsetToMaximumValues,
-	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { can } from "../utility/permissions.js";
@@ -287,15 +285,6 @@ export async function displayNotificationType(
 			interaction.token,
 			ERROR_RESPONSE_COMPONENTS_V2,
 		);
-
-		return;
-	}
-
-	if (notificationType === NotificationType.AppUpdates) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `App Updates for Sky is an experimental feature that is not available in your server. Visit the [support server](${SUPPORT_SERVER_INVITE_URL}) for more information!`,
-			flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-		});
 
 		return;
 	}

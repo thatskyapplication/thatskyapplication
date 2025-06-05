@@ -132,9 +132,6 @@ importers:
       pino:
         specifier: ^9.2.0
         version: 9.6.0
-      undici:
-        specifier: ^7.6.0
-        version: 7.6.0
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4

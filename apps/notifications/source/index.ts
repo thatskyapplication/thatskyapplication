@@ -297,62 +297,6 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		});
 	}
 
-	// if (minute === 0 || (minute >= 50 && minute <= 59)) {
-	// 	const timeUntilStart = (60 - minute) % 60;
-	// 	const startTime = date.plus({ minutes: timeUntilStart });
-
-	// 	notifications.push({
-	// 		type: NotificationType.Dragon,
-	// 		timeUntilStart,
-	// 		suffix:
-	// 			timeUntilStart === 0
-	// 				? "The dragon is appearing now!"
-	// 				: `The dragon will appear <t:${startTime.toUnixInteger()}:R>!`,
-	// 	});
-	// }
-
-	// const versionsPacket = (await pg<VersionsPacket>(VERSIONS_TABLE).first())!;
-
-	// try {
-	// 	const appStoreToken = isAppStoreTokenExpired(versionsPacket.app_store_token)
-	// 		? await updateAppStoreToken()
-	// 		: versionsPacket.app_store_token;
-
-	// 	const json = (await (
-	// 		await request(
-	// 			`https://amp-api.apps.apple.com/v1/catalog/us/apps/${APP_STORE_ID}?platform=web&extend=versionHistory&additionalPlatforms=appletv,ipad,iphone,mac,realityDevice`,
-	// 			{
-	// 				headers: {
-	// 					Origin: "https://apps.apple.com",
-	// 					Authorization: `Bearer ${appStoreToken}`,
-	// 				},
-	// 			},
-	// 		)
-	// 	).body.json()) as AppStoreAppResponse;
-
-	// 	const { versionHistory } = json.data[0]!.attributes.platformAttributes.ios;
-
-	// 	const {
-	// 		releaseNotes,
-	// 		releaseTimestamp: releaseTimestampISO,
-	// 		versionDisplay,
-	// 	} = versionHistory[0]!;
-
-	// 	if (versionDisplay !== versionsPacket.version) {
-	// 		await pg<VersionsPacket>(VERSIONS_TABLE).update({ version: versionDisplay });
-	// 		const releaseTimestamp = Date.parse(releaseTimestampISO);
-	// 		const releaseTimestampSeconds = Math.floor(releaseTimestamp / 1000);
-
-	// 		notifications.push({
-	// 			type: NotificationType.AppUpdates,
-	// 			timeUntilStart: 0,
-	// 			suffix: `${versionDisplay} has been released at <t:${releaseTimestampSeconds}:F> (<t:${releaseTimestampSeconds}:R>)!\n>>> ${releaseNotes}`,
-	// 		});
-	// 	}
-	// } catch (error) {
-	// 	pino.error(error, "Error whilst fetching App Store data.");
-	// }
-
 	for (const { type, timeUntilStart, suffix } of notifications) {
 		pino.info({ type, until: timeUntilStart }, "Queueing notification.");
 
