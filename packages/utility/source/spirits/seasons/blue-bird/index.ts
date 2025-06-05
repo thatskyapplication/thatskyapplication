@@ -23,30 +23,43 @@ export default new Season({
 		royalHairtousleTeen,
 	],
 	seasonalCandlesRotation: (now) =>
-		now >= skyDate(2_025, 5, 1)
+		now >= skyDate(2_025, 6, 5)
 			? [
-					{ rotation: RotationIdentifier.Three, realm: RealmName.GoldenWasteland },
-					{ rotation: RotationIdentifier.Three, realm: RealmName.VaultOfKnowledge },
-					{ rotation: RotationIdentifier.Three, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.Three, realm: RealmName.HiddenForest },
-					{ rotation: RotationIdentifier.Three, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.ValleyOfTriumph },
+					{ rotation: RotationIdentifier.Three, realm: RealmName.GoldenWasteland },
+					{ rotation: RotationIdentifier.Three, realm: RealmName.VaultOfKnowledge },
+					{ rotation: RotationIdentifier.Three, realm: RealmName.DaylightPrairie },
+					{ rotation: RotationIdentifier.Three, realm: RealmName.HiddenForest },
+					{ rotation: RotationIdentifier.Three, realm: RealmName.ValleyOfTriumph },
 				]
-			: [
-					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
-					{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
-					{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
-					{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
-				],
+			: now >= skyDate(2_025, 5, 1)
+				? [
+						{ rotation: RotationIdentifier.Three, realm: RealmName.GoldenWasteland },
+						{ rotation: RotationIdentifier.Three, realm: RealmName.VaultOfKnowledge },
+						{ rotation: RotationIdentifier.Three, realm: RealmName.DaylightPrairie },
+						{ rotation: RotationIdentifier.Three, realm: RealmName.HiddenForest },
+						{ rotation: RotationIdentifier.Three, realm: RealmName.ValleyOfTriumph },
+						{ rotation: RotationIdentifier.Four, realm: RealmName.GoldenWasteland },
+						{ rotation: RotationIdentifier.Four, realm: RealmName.VaultOfKnowledge },
+						{ rotation: RotationIdentifier.Four, realm: RealmName.DaylightPrairie },
+						{ rotation: RotationIdentifier.Four, realm: RealmName.HiddenForest },
+						{ rotation: RotationIdentifier.Four, realm: RealmName.ValleyOfTriumph },
+					]
+				: [
+						{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
+						{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
+						{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
+						{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
+						{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
+						{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+						{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
+						{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
+						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
+						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
+					],
 	patchNotesURL: String(new URL("p0290", LINK_REDIRECTOR_URL)),
 });
