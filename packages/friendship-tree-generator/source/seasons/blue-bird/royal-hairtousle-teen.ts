@@ -22,7 +22,6 @@ export const SEASONAL = [
 		},
 		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/65/Royal-Hairtousle-Teen-Headpiece-icon.png/revision/latest",
-			cost: { hearts: 3 },
 			seasonIcon: seasonId,
 		},
 	],
