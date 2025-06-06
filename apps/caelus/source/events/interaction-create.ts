@@ -56,6 +56,7 @@ import {
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	parseCatalogueType,
 	start,
+	viewElders,
 	viewRealm,
 	viewRealms,
 } from "../features/catalogue.js";
@@ -415,7 +416,7 @@ export default {
 				}
 
 				if (customId === CATALOGUE_VIEW_ELDERS_CUSTOM_ID) {
-					await Catalogue.viewElders(interaction);
+					await viewElders(interaction);
 					return;
 				}
 
