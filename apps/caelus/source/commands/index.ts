@@ -4,6 +4,7 @@ import bonk from "./chat-inputs/bonk.js";
 import calculate from "./chat-inputs/calculate.js";
 import catalogue from "./chat-inputs/catalogue.js";
 import configure from "./chat-inputs/configure.js";
+import dailyGuides from "./chat-inputs/daily-guides.js";
 import data from "./chat-inputs/data.js";
 import giveaway from "./chat-inputs/giveaway.js";
 import guess from "./chat-inputs/guess.js";
@@ -29,6 +30,7 @@ export const CHAT_INPUT_COMMANDS = [
 	calculate,
 	catalogue,
 	configure,
+	dailyGuides,
 	data,
 	hair_tousle,
 	giveaway,

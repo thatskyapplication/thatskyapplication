@@ -399,6 +399,22 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		contexts: [InteractionContextType.Guild],
 	},
 	{
+		name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("daily-guides.command-name"),
+		description: t("daily-guides.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("daily-guides.command-description"),
+		type: ApplicationCommandType.ChatInput,
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
+	{
 		name: t("data.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: localisations("data.command-name"),
 		description: t("data.command-description", { lng: Locale.EnglishGB, ns: "commands" }),

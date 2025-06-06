@@ -1397,6 +1397,10 @@ export default {
 				"command-description": "The command to set up notifications for events.",
 			},
 		},
+		"daily-guides": {
+			"command-name": "daily-guides",
+			"command-description": "Show the daily guides.",
+		},
 		data: {
 			"command-name": "data",
 			"command-description": "A command regarding your data.",
