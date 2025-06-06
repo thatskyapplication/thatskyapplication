@@ -18,17 +18,14 @@ import {
 	type GuideSpirit,
 	type Item,
 	REALMS,
-	REALM_SPIRITS,
 	type RealmName,
 	STANDARD_SPIRITS,
-	type Season,
 	type SeasonIds,
 	type SeasonalSpirit,
 	type SpiritIds,
 	type StandardSpirit,
 	addCosts,
 	formatEmoji,
-	resolveAllCosmetics,
 	resolveReturningSpirits,
 	skyCurrentSeason,
 	skyEventYears,
@@ -43,7 +40,7 @@ import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
-import { start } from "../features/catalogue.js";
+import { type CataloguePacket, start } from "../features/catalogue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -75,11 +72,6 @@ import {
 	resolveStringSelectMenu,
 } from "../utility/functions.js";
 
-export interface CataloguePacket {
-	user_id: Snowflake;
-	data: number[];
-}
-
 interface CatalogueData {
 	userId: CataloguePacket["user_id"];
 	data: Set<number>;
@@ -97,49 +89,6 @@ interface OfferDataOptions {
 	includeTotalRemainingCurrency?: boolean;
 	includeTitles?: boolean;
 }
-
-export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
-export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_TYPE_CUSTOM_ID = "CATALOGUE_VIEW_TYPE_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_REALMS_CUSTOM_ID = "CATALOGUE_VIEW_REALMS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_ELDERS_CUSTOM_ID = "CATALOGUE_VIEW_ELDERS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_SEASONS_CUSTOM_ID = "CATALOGUE_VIEW_SEASONS_CUSTOM_ID" as const;
-export const CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID = "CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
-
-export const CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
-	"CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
-
-export const CATALOGUE_VIEW_SPIRIT_CUSTOM_ID = "CATALOGUE_VIEW_SPIRIT_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_EVENT_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_OFFER_1_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_1_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_OFFER_2_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_2_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_OFFER_3_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_3_CUSTOM_ID" as const;
-export const CATALOGUE_REALM_EVERYTHING_CUSTOM_ID = "CATALOGUE_REALM_EVERYTHING_CUSTOM_ID" as const;
-
-export const CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID =
-	"CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID" as const;
-
-export const CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID =
-	"CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID" as const;
-
-export const CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID = "CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID" as const;
-const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
-
-const CATALOGUE_STANDARD_PERCENTAGE_NOTE =
-	"Averages are calculated even beyond the second wing buff." as const;
-
-const BACK_TO_START_BUTTON = {
-	type: ComponentType.Button,
-	// This custom id must differ to avoid duplicate custom ids.
-	custom_id: CATALOGUE_BACK_TO_START_CUSTOM_ID,
-	emoji: { name: "⏮️" },
-	label: "Start",
-	style: ButtonStyle.Secondary,
-} as const;
 
 export class Catalogue {
 	public readonly userId: CatalogueData["userId"];
@@ -163,299 +112,6 @@ export class Catalogue {
 		}
 
 		return new this(cataloguePacket);
-	}
-
-	private ownedProgress(items: readonly Item[]) {
-		return {
-			owned: resolveAllCosmetics(items).filter((cosmetic) => this.data.has(cosmetic)),
-			total: items.reduce((total, item) => total + item.cosmetics.length, 0),
-		};
-	}
-
-	private progressPercentage(owned: readonly number[], total: number, round?: boolean) {
-		if (total === 0) {
-			return null;
-		}
-
-		const percentage = (owned.length / total) * 100;
-
-		if (!round) {
-			return percentage;
-		}
-
-		const integer = Math.trunc(percentage);
-
-		return integer === 0
-			? Math.ceil(percentage)
-			: integer === 99
-				? Math.floor(percentage)
-				: Math.round(percentage);
-	}
-
-	private spiritOwnedProgress(
-		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-	) {
-		const totalOwned = [];
-		let total = 0;
-
-		for (const spirit of spirits) {
-			const offer =
-				spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-					? spirit.current
-					: spirit.items;
-
-			const { owned, total: offerTotal } = this.ownedProgress(offer);
-			totalOwned.push(...owned);
-			total += offerTotal;
-		}
-
-		return { owned: totalOwned, total };
-	}
-
-	public spiritProgress(
-		spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-		round?: boolean,
-	) {
-		const { owned, total } = this.spiritOwnedProgress(spirits);
-		return this.progressPercentage(owned, total, round);
-	}
-
-	private seasonOwnedProgress(seasons: readonly Season[]) {
-		const totalOwned = [];
-		let total = 0;
-
-		for (const season of seasons) {
-			const offers = [
-				season.guide.current,
-				...season.spirits.map((spirit) => spirit.items),
-				season.items,
-			];
-
-			for (const offer of offers) {
-				const { owned, total: offerTotal } = this.ownedProgress(offer);
-				totalOwned.push(...owned);
-				total += offerTotal;
-			}
-		}
-
-		return { owned: totalOwned, total };
-	}
-
-	public seasonProgress(seasons: readonly Season[], round?: boolean) {
-		const { owned, total } = this.seasonOwnedProgress(seasons);
-		return this.progressPercentage(owned, total, round);
-	}
-
-	private eventOwnedProgress(events: readonly Event[]) {
-		const totalOwned = [];
-		let total = 0;
-
-		for (const event of events) {
-			const { owned, total: offerTotal } = this.ownedProgress(event.offer);
-
-			totalOwned.push(...owned);
-			total += offerTotal;
-		}
-
-		return { owned: totalOwned, total };
-	}
-
-	public eventProgress(events: readonly Event[], round?: boolean) {
-		const { owned, total } = this.eventOwnedProgress(events);
-		return this.progressPercentage(owned, total, round);
-	}
-
-	private starterPackOwnedProgress() {
-		return this.ownedProgress(STARTER_PACKS.items);
-	}
-
-	public starterPackProgress(round?: boolean) {
-		const { owned, total } = this.starterPackOwnedProgress();
-		return this.progressPercentage(owned, total, round);
-	}
-
-	private secretAreaOwnedProgress() {
-		return this.ownedProgress(SECRET_AREA.items);
-	}
-
-	public secretAreaProgress(round?: boolean) {
-		const { owned, total } = this.secretAreaOwnedProgress();
-		return this.progressPercentage(owned, total, round);
-	}
-
-	private permanentEventStoreOwnedProgress() {
-		return this.ownedProgress(PERMANENT_EVENT_STORE.items);
-	}
-
-	public permanentEventStoreProgress(round?: boolean) {
-		const { owned, total } = this.permanentEventStoreOwnedProgress();
-		return this.progressPercentage(owned, total, round);
-	}
-
-	private nestingWorkshopOwnedProgress() {
-		return this.ownedProgress(NESTING_WORKSHOP.items);
-	}
-
-	public nestingWorkshopProgress(round?: boolean) {
-		const { owned, total } = this.nestingWorkshopOwnedProgress();
-		return this.progressPercentage(owned, total, round);
-	}
-
-	public allProgress(round?: boolean) {
-		const standardAndElderOwnedProgress = this.spiritOwnedProgress([...REALM_SPIRITS.values()]);
-		const seasonalOwnedProgress = this.seasonOwnedProgress([...skySeasons().values()]);
-		const eventOwnedProgress = this.eventOwnedProgress([...skyEvents().values()]);
-		const starterPackOwnedProgress = this.starterPackOwnedProgress();
-		const secretAreaOwnedProgress = this.secretAreaOwnedProgress();
-		const permanentEventStoreOwnedProgress = this.permanentEventStoreOwnedProgress();
-		const nestingWorkshopOwnedProgress = this.nestingWorkshopOwnedProgress();
-
-		const progresses = [
-			standardAndElderOwnedProgress,
-			seasonalOwnedProgress,
-			eventOwnedProgress,
-			starterPackOwnedProgress,
-			secretAreaOwnedProgress,
-			permanentEventStoreOwnedProgress,
-			nestingWorkshopOwnedProgress,
-		];
-
-		return this.progressPercentage(
-			progresses.reduce<number[]>((totalOwned, { owned }) => {
-				if (Array.isArray(owned)) {
-					totalOwned.push(...owned);
-				} else {
-					totalOwned.push(owned);
-				}
-
-				return totalOwned;
-			}, []),
-			progresses.reduce((totalTotal, { total }) => totalTotal + total, 0),
-			round,
-		);
-	}
-
-	public static async parseCatalogueType(interaction: APIMessageComponentSelectMenuInteraction) {
-		switch (Number(interaction.data.values[0]) as CatalogueType) {
-			case CatalogueType.StandardSpirits: {
-				await this.viewRealms(interaction);
-				return;
-			}
-			case CatalogueType.Elders: {
-				await this.viewElders(interaction);
-				return;
-			}
-			case CatalogueType.SeasonalSpirits: {
-				await this.viewSeasons(interaction);
-				return;
-			}
-			case CatalogueType.Events: {
-				await this.viewEventYears(interaction);
-				return;
-			}
-			case CatalogueType.StarterPacks: {
-				await this.viewStarterPacks(interaction);
-				return;
-			}
-			case CatalogueType.SecretArea: {
-				await this.viewSecretArea(interaction);
-				return;
-			}
-			case CatalogueType.PermanentEventStore: {
-				await this.viewPermanentEventStore(interaction);
-				return;
-			}
-			case CatalogueType.NestingWorkshop: {
-				await this.viewNestingWorkshop(interaction);
-			}
-		}
-	}
-
-	public static async viewRealms(
-		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-	) {
-		const { locale } = interaction;
-		const invoker = interactionInvoker(interaction);
-		const catalogue = await this.fetch(invoker.id);
-
-		const containerComponents: APIComponentInContainer[] = [
-			{
-				type: ComponentType.TextDisplay,
-				content: "## Realms \n-# Catalogue",
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-		];
-
-		for (const realm of REALMS) {
-			const remainingCurrency = resolveCostToString(
-				realm.spirits.reduce(
-					(remainingCurrency, spirit) =>
-						addCosts([remainingCurrency, catalogue.remainingCurrency(spirit.current)]),
-					{},
-				),
-			);
-
-			const percentage = catalogue.spiritProgress([...realm.spirits.values()], true);
-
-			containerComponents.push({
-				type: ComponentType.Section,
-				accessory: {
-					type: ComponentType.Button,
-					style: ButtonStyle.Primary,
-					custom_id: `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${realm.name}`,
-					label: t("view", { lng: locale, ns: "general" }),
-				},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}${percentage === null ? "" : ` (${percentage}%)`}\n\n${
-							remainingCurrency.length > 0
-								? remainingCurrency.join("")
-								: formatEmoji(MISCELLANEOUS_EMOJIS.Yes)
-						}`,
-					},
-				],
-			});
-		}
-
-		containerComponents.push(
-			{
-				type: ComponentType.TextDisplay,
-				content: `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`,
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					BACK_TO_START_BUTTON,
-					{
-						type: ComponentType.Button,
-						custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-						emoji: { name: "⏪" },
-						label: "Back",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-		);
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
-					components: containerComponents,
-				},
-			],
-		});
 	}
 
 	public static async viewRealm(
@@ -2492,26 +2148,5 @@ export class Catalogue {
 			offerProgress.spirits.reduce((total, text) => total + text.length, 0) +
 			offerProgress.events.reduce((total, text) => total + text.length, 0)
 		);
-	}
-
-	private remainingCurrency(items: readonly Item[], includeSeasonalCurrency?: boolean) {
-		const result = addCosts(
-			items
-				.filter(({ cosmetics }) => cosmetics.some((cosmetic) => !this.data.has(cosmetic)))
-				.map((item) => item.cost)
-				.filter((cost) => cost !== null),
-		);
-
-		if (!includeSeasonalCurrency) {
-			for (const seasonalCandle of result.seasonalCandles) {
-				seasonalCandle.cost = 0;
-			}
-
-			for (const seasonalHeart of result.seasonalHearts) {
-				seasonalHeart.cost = 0;
-			}
-		}
-
-		return result;
 	}
 }
