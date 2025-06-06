@@ -6,6 +6,7 @@ import {
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
+	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
 	type Locale,
@@ -25,6 +26,7 @@ import {
 	type RealmName,
 	STANDARD_SPIRITS,
 	type Season,
+	type SeasonIds,
 	type SeasonalSpirit,
 	type SpiritIds,
 	type StandardSpirit,
@@ -46,8 +48,13 @@ import { SECRET_AREA } from "../data/secret-area.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import pg, { Table } from "../pg.js";
+import pino from "../pino.js";
 import { CatalogueType, resolveCostToString } from "../utility/catalogue.js";
-import { DEFAULT_EMBED_COLOUR, MAXIMUM_TEXT_DISPLAY_LENGTH } from "../utility/constants.js";
+import {
+	DEFAULT_EMBED_COLOUR,
+	ERROR_RESPONSE_COMPONENTS_V2,
+	MAXIMUM_TEXT_DISPLAY_LENGTH,
+} from "../utility/constants.js";
 import {
 	CUSTOM_EMOJI_REPLACEMENTS,
 	CosmeticToEmoji,
@@ -1099,6 +1106,182 @@ export async function viewSeasons(
 				{
 					type: ComponentType.Button,
 					custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+					emoji: { name: "⏪" },
+					label: "Back",
+					style: ButtonStyle.Secondary,
+				},
+			],
+		},
+	);
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: containerComponents,
+			},
+		],
+	});
+}
+
+export async function viewSeason(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	seasonId: SeasonIds,
+) {
+	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const { locale } = interaction;
+	const seasons = skySeasons();
+	const season = seasons.get(seasonId);
+
+	if (!season) {
+		pino.error(interaction, "Failed to view a season.");
+
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
+
+		return;
+	}
+
+	const title = `## ${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`;
+
+	const containerComponents: APIComponentInContainer[] = [
+		season.patchNotesURL
+			? {
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						label: "Patch notes",
+						style: ButtonStyle.Link,
+						url: season.patchNotesURL,
+					},
+					components: [{ type: ComponentType.TextDisplay, content: title }],
+				}
+			: { type: ComponentType.TextDisplay, content: title },
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	const { hasEverything, remainingCurrency, offerProgress, itemsOfferProgress } = offerData({
+		data: catalogue?.data,
+		spirits: [season.guide, ...season.spirits.values()],
+		items: season.items,
+		locale,
+		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+		includePercentage: true,
+		includeTotalRemainingCurrency: true,
+		includeTitles: true,
+	});
+
+	if (remainingCurrency) {
+		containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
+	}
+
+	for (const [id, text] of offerProgress.spirits) {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [{ type: ComponentType.TextDisplay, content: text }],
+		});
+	}
+
+	if (itemsOfferProgress) {
+		containerComponents.push({ type: ComponentType.TextDisplay, content: itemsOfferProgress });
+	}
+
+	if (season.items.length > 0) {
+		const itemsOptions = season.items.map(({ name, cosmetics, cosmeticDisplay }) => {
+			const stringSelectMenuOption: APISelectMenuOption = {
+				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
+				label: name,
+				value: JSON.stringify(cosmetics),
+			};
+
+			const emoji = CosmeticToEmoji[cosmeticDisplay];
+
+			if (emoji) {
+				stringSelectMenuOption.emoji = emoji;
+			}
+
+			return stringSelectMenuOption;
+		});
+
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID}§${seasonId}`,
+					max_values: itemsOptions.length,
+					min_values: 0,
+					options: itemsOptions,
+					placeholder: "What items do you have?",
+				},
+			],
+		});
+	}
+
+	const before = seasons.get((season.id - 1) as SeasonIds);
+	const after = seasons.get((season.id + 1) as SeasonIds);
+
+	containerComponents.push(
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonId}`,
+					disabled: hasEverything,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: "I have everything!",
+					style: ButtonStyle.Success,
+				},
+			],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`,
+					disabled: !before,
+					emoji: before ? SeasonIdToSeasonalEmoji[before.id] : MISCELLANEOUS_EMOJIS.No,
+					label: "Previous season",
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`,
+					disabled: !after,
+					emoji: after ? SeasonIdToSeasonalEmoji[after.id] : MISCELLANEOUS_EMOJIS.No,
+					label: "Next season",
+					style: ButtonStyle.Secondary,
+				},
+			],
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				BACK_TO_START_BUTTON,
+				{
+					type: ComponentType.Button,
+					custom_id: CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
 					emoji: { name: "⏪" },
 					label: "Back",
 					style: ButtonStyle.Secondary,

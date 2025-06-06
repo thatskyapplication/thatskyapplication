@@ -58,6 +58,7 @@ import {
 	viewElders,
 	viewRealm,
 	viewRealms,
+	viewSeason,
 	viewSeasons,
 	viewStart,
 } from "../features/catalogue.js";
@@ -430,7 +431,7 @@ export default {
 					const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
 
 					if (isSeasonId(parsedCustomId)) {
-						await Catalogue.viewSeason(interaction, parsedCustomId);
+						await viewSeason(interaction, parsedCustomId);
 						return;
 					}
 				}
@@ -736,7 +737,7 @@ export default {
 					const seasonId = Number(value0);
 
 					if (isSeasonId(seasonId)) {
-						await Catalogue.viewSeason(interaction, seasonId);
+						await viewSeason(interaction, seasonId);
 						return;
 					}
 				}
