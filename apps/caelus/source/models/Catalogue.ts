@@ -23,7 +23,6 @@ import {
 	type StandardSpirit,
 	formatEmoji,
 	resolveReturningSpirits,
-	skyEventYears,
 	skyEvents,
 	skyNow,
 	skySeasons,
@@ -47,7 +46,6 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 } from "../utility/catalogue.js";
 import {
-	CATALOGUE_EVENTS_THRESHOLD,
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE_COMPONENTS_V2,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
@@ -94,144 +92,6 @@ export class Catalogue {
 		}
 
 		return new this(cataloguePacket);
-	}
-
-	public static async viewEvents(
-		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-		yearString: string,
-	) {
-		const { locale } = interaction;
-		const invoker = interactionInvoker(interaction);
-		const year = Number(yearString);
-		const catalogue = await this.fetch(invoker.id);
-		const events = skyEvents().filter((event) => event.start.year === year);
-		const eventsYears = skyEventYears();
-		const index = eventsYears.indexOf(year);
-		const before = eventsYears[index - 1];
-		const after = eventsYears[index + 1];
-		const title = `## ${year}\n-# Catalogue → Events By Year`;
-
-		const containerComponents: APIComponentInContainer[] = [
-			{
-				type: ComponentType.TextDisplay,
-				content: title,
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-		];
-
-		const { offerProgress } = catalogue.offerData({
-			events: [...events.values()],
-			locale,
-			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
-			includePercentage: true,
-			includeTitles: true,
-		});
-
-		if (offerProgress.events.size > CATALOGUE_EVENTS_THRESHOLD) {
-			containerComponents.push(
-				{
-					type: ComponentType.TextDisplay,
-					content: [...offerProgress.events.values()].join("\n"),
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options: events.map((event) => {
-								const { id } = event;
-
-								const stringSelectMenuOption: APISelectMenuOption = {
-									label: t(`events.${id}`, { lng: locale, ns: "general" }),
-									value: String(id),
-								};
-
-								const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-
-								if (eventTicketEmoji) {
-									stringSelectMenuOption.emoji = eventTicketEmoji;
-								}
-
-								return stringSelectMenuOption;
-							}),
-							placeholder: "Select an event!",
-						},
-					],
-				},
-			);
-		} else {
-			for (const [id, text] of offerProgress.events) {
-				containerComponents.push({
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${id}`,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [{ type: ComponentType.TextDisplay, content: text }],
-				});
-			}
-		}
-
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`,
-						disabled: !before,
-						emoji: { name: "⬅️" },
-						label: "Previous year",
-						style: ButtonStyle.Secondary,
-					},
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`,
-						disabled: !after,
-						emoji: { name: "➡️" },
-						label: "Next year",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					BACK_TO_START_BUTTON,
-					{
-						type: ComponentType.Button,
-						custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
-						emoji: { name: "⏪" },
-						label: "Back",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-		);
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
-					components: containerComponents,
-				},
-			],
-		});
 	}
 
 	public static async viewReturningSpirits(interaction: APIMessageComponentButtonInteraction) {

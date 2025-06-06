@@ -57,6 +57,7 @@ import {
 	parseCatalogueType,
 	viewElders,
 	viewEventYears,
+	viewEvents,
 	viewRealm,
 	viewRealms,
 	viewSeason,
@@ -444,7 +445,7 @@ export default {
 
 				if (customId.startsWith(CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID)) {
 					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-					await Catalogue.viewEvents(interaction, parsedCustomId);
+					await viewEvents(interaction, parsedCustomId);
 					return;
 				}
 
@@ -744,7 +745,7 @@ export default {
 				}
 
 				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
-					await Catalogue.viewEvents(interaction, value0);
+					await viewEvents(interaction, value0);
 					return;
 				}
 
