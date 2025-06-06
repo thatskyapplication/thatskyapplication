@@ -14,13 +14,16 @@ import {
 	ELDER_SPIRITS,
 	type ElderSpirit,
 	type Event,
+	type EventIds,
 	type GuideSpirit,
 	type Item,
 	REALMS,
 	REALM_SPIRITS,
+	RealmName,
 	STANDARD_SPIRITS,
 	type Season,
 	type SeasonalSpirit,
+	type SpiritIds,
 	type StandardSpirit,
 	addCosts,
 	formatEmoji,
@@ -41,13 +44,16 @@ import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import pg, { Table } from "../pg.js";
 import { CatalogueType, resolveCostToString } from "../utility/catalogue.js";
-import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
+import { DEFAULT_EMBED_COLOUR, MAXIMUM_TEXT_DISPLAY_LENGTH } from "../utility/constants.js";
 import {
+	CosmeticToEmoji,
+	CUSTOM_EMOJI_REPLACEMENTS,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
 import { interactionInvoker } from "../utility/functions.js";
+import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
 export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
@@ -96,6 +102,42 @@ export interface CataloguePacket {
 	user_id: Snowflake;
 	data: number[];
 }
+
+function progress(offer: readonly Item[], data: ReadonlySet<number>) {
+		const offerDescription = [];
+		const owned = [];
+		const unowned = [];
+
+		for (const { name, cosmetics } of offer) {
+			const emojis = cosmetics.map((cosmetic) => {
+				const emoji = CosmeticToEmoji[cosmetic];
+				return emoji ? formatEmoji(emoji) : name;
+			});
+
+			if (cosmetics.every((cosmetic) => data.has(cosmetic))) {
+				owned.push(...emojis);
+			} else {
+				unowned.push(...emojis);
+			}
+		}
+
+		if (owned.length > 0) {
+			offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
+		}
+
+		if (unowned.length > 0) {
+			offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
+		}
+
+		const remainingCurrencyResult = remainingCurrency(offer, data, true);
+		const resolvedRemainingCurrency = resolveCostToString(remainingCurrencyResult);
+
+		if (resolvedRemainingCurrency.length > 0) {
+			offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
+		}
+
+		return { remainingCurrencyResult, offerDescription };
+	}
 
 function ownedProgress(items: readonly Item[], data: ReadonlySet<number>) {
 	return {
@@ -295,6 +337,160 @@ function remainingCurrency(
 
 	return result;
 }
+
+interface OfferDataOptions {
+	data: ReadonlySet<number> | undefined;
+	spirits?: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[];
+	events?: readonly Event[];
+	items?: readonly Item[];
+	locale: Locale;
+	limit: number;
+	includePercentage: boolean;
+	includeTotalRemainingCurrency?: boolean;
+	includeTitles?: boolean;
+}
+
+	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
+	function offerData({
+		data = new Set(),
+		spirits = [],
+		events = [],
+		items = [],
+		locale,
+		limit,
+		includePercentage,
+		includeTotalRemainingCurrency = false,
+		includeTitles = false,
+	}: OfferDataOptions) {
+		const offerProgress = {
+			spirits: new Collection<SpiritIds, string>(),
+			events: new Collection<EventIds, string>(),
+		};
+
+		let hasEverything = true;
+		const remainingCurrencies = [];
+		let remainingCurrency = null;
+
+		for (const spirit of spirits) {
+			const isSeasonalSpirit = spirit.isSeasonalSpirit();
+			const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
+			const offer = seasonalParsing ? spirit.seasonal : spirit.current;
+
+			if (offer.length === 0) {
+				continue;
+			}
+
+			const { remainingCurrencyResult, offerDescription } = progress(offer, data);
+
+			if (includeTotalRemainingCurrency) {
+				remainingCurrencies.push(remainingCurrencyResult);
+			}
+
+			const percentage = spiritProgress([spirit], data, true);
+
+			if (percentage !== null && percentage !== 100) {
+				hasEverything = false;
+			}
+
+			offerProgress.spirits.set(
+				spirit.id,
+				`${
+					includeTitles
+						? `### ${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}${includePercentage ? (percentage === null ? "" : ` (${percentage}%)`) : ""}\n\n`
+						: ""
+				}${offerDescription.join("\n")}`,
+			);
+		}
+
+		for (const event of events) {
+			if (event.offer.length === 0) {
+				continue;
+			}
+
+			const { remainingCurrencyResult, offerDescription } = progress(event.offer, data);
+
+			if (includeTotalRemainingCurrency) {
+				remainingCurrencies.push(remainingCurrencyResult);
+			}
+
+			const percentage = eventProgress([event], data, true);
+
+			if (percentage !== null && percentage !== 100) {
+				hasEverything = false;
+			}
+
+			offerProgress.events.set(
+				event.id,
+				`${
+					includeTitles
+						? `### ${t(`events.${event.id}`, { lng: locale, ns: "general" })}${includePercentage ? (percentage === null ? "" : ` (${percentage}%)`) : ""}\n\n${offerDescription.join("\n")}`
+						: ""
+				}`,
+			);
+		}
+
+		const { remainingCurrencyResult: itemsRemainingCurrency, offerDescription: itemsOfferProgress } =
+			progress(items, data);
+
+		if (includeTotalRemainingCurrency) {
+			remainingCurrencies.push(itemsRemainingCurrency);
+		}
+
+		const { owned, total } = ownedProgress(items, data);
+		const itemsPercentage = progressPercentage(owned, total);
+
+		if (itemsPercentage !== null && itemsPercentage !== 100) {
+			hasEverything = false;
+		}
+
+		if (remainingCurrencies.length > 0) {
+			const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
+
+			if (totalRemainingCurrency.length > 0) {
+				remainingCurrency = `### Remaining currency\n\n${totalRemainingCurrency.join("")}`;
+			}
+		}
+
+		const itemsOfferProgressText =
+			itemsOfferProgress.length > 0 ? `### Items\n\n${itemsOfferProgress.join("\n")}` : null;
+
+		const computedLimit = remainingCurrency
+			? limit - remainingCurrency.length - (itemsOfferProgressText?.length ?? 0)
+			: limit;
+
+		// If the text exceeds the limit, replace some emojis.
+		// Only handles spirits and events for now.
+		if (offerProgressTotalCharacters(offerProgress) > computedLimit) {
+			outer: for (const { from, to } of CUSTOM_EMOJI_REPLACEMENTS) {
+				for (const collection of [offerProgress.spirits, offerProgress.events]) {
+					for (const [id, text] of collection) {
+						collection.set(id, text.replaceAll(from, to));
+
+						if (offerProgressTotalCharacters(offerProgress) <= computedLimit) {
+							break outer;
+						}
+					}
+				}
+			}
+		}
+
+		return {
+			remainingCurrency,
+			offerProgress,
+			itemsOfferProgress: itemsOfferProgressText,
+			hasEverything,
+		};
+	}
+
+		function offerProgressTotalCharacters(offerProgress: {
+		spirits: ReadonlyCollection<SpiritIds, string>;
+		events: ReadonlyCollection<EventIds, string>;
+	}) {
+		return (
+			offerProgress.spirits.reduce((total, text) => total + text.length, 0) +
+			offerProgress.events.reduce((total, text) => total + text.length, 0)
+		);
+	}
 
 async function fetch(userId: Snowflake) {
 	const catalogue = await pg<CataloguePacket>(Table.Catalogue).where({ user_id: userId }).first();
@@ -634,3 +830,97 @@ export async function viewRealms(
 		],
 	});
 }
+
+export async function viewRealm(
+		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+		realm: RealmName,
+	) {
+		const catalogue = await fetch(interactionInvoker(interaction).id);
+		const { locale } = interaction;
+		const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
+		const title = `## ${t(`realms.${realm}`, { lng: locale, ns: "general" })}\n-# Catalogue → Realms`;
+		const percentageNote = `-# ${CATALOGUE_STANDARD_PERCENTAGE_NOTE}`;
+
+		const containerComponents: APIComponentInContainer[] = [
+			{
+				type: ComponentType.TextDisplay,
+				content: title,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+		];
+
+		const { remainingCurrency, offerProgress, hasEverything } = offerData({
+			data: catalogue?.data,
+			spirits: [...spirits.values()],
+			locale,
+			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - percentageNote.length,
+			includePercentage: true,
+			includeTotalRemainingCurrency: true,
+			includeTitles: true,
+		});
+
+		if (remainingCurrency) {
+			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
+		}
+
+		for (const [id, text] of offerProgress.spirits) {
+			containerComponents.push({
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Button,
+					style: ButtonStyle.Primary,
+					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+					label: t("view", { lng: locale, ns: "general" }),
+				},
+				components: [{ type: ComponentType.TextDisplay, content: text }],
+			});
+		}
+
+		containerComponents.push(
+			{
+				type: ComponentType.TextDisplay,
+				content: percentageNote,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					BACK_TO_START_BUTTON,
+					{
+						type: ComponentType.Button,
+						custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+						emoji: { name: "⏪" },
+						label: "Back",
+						style: ButtonStyle.Secondary,
+					},
+
+					{
+						type: ComponentType.Button,
+						custom_id: `${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`,
+						disabled: hasEverything,
+						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+						label: "I have everything!",
+						style: ButtonStyle.Success,
+					},
+				],
+			},
+		);
+
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			components: [
+				{
+					type: ComponentType.Container,
+					accent_color: DEFAULT_EMBED_COLOUR,
+					components: containerComponents,
+				},
+			],
+		});
+	}

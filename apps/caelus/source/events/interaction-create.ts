@@ -56,6 +56,7 @@ import {
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	parseCatalogueType,
 	start,
+	viewRealm,
 	viewRealms,
 } from "../features/catalogue.js";
 import {
@@ -408,7 +409,7 @@ export default {
 					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 
 					if (isRealm(parsedCustomId)) {
-						await Catalogue.viewRealm(interaction, parsedCustomId);
+						await viewRealm(interaction, parsedCustomId);
 						return;
 					}
 				}
@@ -725,7 +726,7 @@ export default {
 				const value0 = values[0]!;
 
 				if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
-					await Catalogue.viewRealm(interaction, value0);
+					await viewRealm(interaction, value0);
 					return;
 				}
 
