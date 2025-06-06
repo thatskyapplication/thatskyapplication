@@ -32,6 +32,7 @@ import {
 	issueModalResponse,
 	issueSubmission,
 } from "../features/about.js";
+import { start } from "../features/catalogue.js";
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
@@ -392,7 +393,7 @@ export default {
 					customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
 					customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
 				) {
-					await Catalogue.viewCatalogue(interaction);
+					await start({ userId: interactionInvoker(interaction).id, locale: interaction.locale });
 					return;
 				}
 

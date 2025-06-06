@@ -1,16 +1,12 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import {
-	type APIButtonComponentWithCustomId,
-	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
-	type InteractionsAPI,
 	type Locale,
-	MessageFlags,
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
@@ -34,8 +30,6 @@ import {
 	formatEmoji,
 	resolveAllCosmetics,
 	resolveReturningSpirits,
-	resolveTravellingSpirit,
-	skyCurrentEvents,
 	skyCurrentSeason,
 	skyEventYears,
 	skyEvents,
@@ -49,6 +43,7 @@ import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
+import { start } from "../features/catalogue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -76,7 +71,6 @@ import {
 import {
 	interactionInvoker,
 	isButton,
-	isChatInputCommand,
 	isRealm,
 	resolveStringSelectMenu,
 } from "../utility/functions.js";
@@ -339,223 +333,6 @@ export class Catalogue {
 			progresses.reduce((totalTotal, { total }) => totalTotal + total, 0),
 			round,
 		);
-	}
-
-	public static async viewCatalogue(
-		interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	) {
-		const invoker = interactionInvoker(interaction);
-		const existingCatalogue = await this.fetch(invoker.id).catch(() => null);
-		let catalogue: Catalogue;
-
-		if (existingCatalogue) {
-			catalogue = existingCatalogue;
-		} else {
-			catalogue = new this(
-				(await pg<CataloguePacket>(Table.Catalogue).insert({ user_id: invoker.id }, "*"))[0]!,
-			);
-		}
-
-		const standardProgress = catalogue.spiritProgress([...STANDARD_SPIRITS.values()], true);
-		const elderProgress = catalogue.spiritProgress([...ELDER_SPIRITS.values()], true);
-		const seasonalProgress = catalogue.seasonProgress([...skySeasons().values()], true);
-		const eventProgress = catalogue.eventProgress([...skyEvents().values()], true);
-		const starterPackProgress = catalogue.starterPackProgress(true);
-		const secretAreaProgress = catalogue.secretAreaProgress(true);
-		const permanentEventStoreProgress = catalogue.permanentEventStoreProgress(true);
-		const nestingWorkshopProgress = catalogue.nestingWorkshopProgress(true);
-		const now = skyNow();
-		const currentSeason = skyCurrentSeason(now);
-		const events = skyCurrentEvents(now);
-		const currentTravellingSpirit = resolveTravellingSpirit(now);
-		const currentReturningSpirits = resolveReturningSpirits(now);
-
-		const currentSeasonButton: APIButtonComponentWithCustomId = {
-			type: ComponentType.Button,
-			custom_id: currentSeason
-				? `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`
-				: // This would not happen, but it's here to satisfy the API.
-					CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
-			disabled: !currentSeason,
-			label: "Current Season",
-			style: currentSeason ? ButtonStyle.Success : ButtonStyle.Secondary,
-		};
-
-		if (currentSeason) {
-			currentSeasonButton.emoji = SeasonIdToSeasonalEmoji[currentSeason.id];
-		}
-
-		const currentEventButtons: APIButtonComponentWithCustomId[] =
-			events.size === 0
-				? [
-						{
-							type: ComponentType.Button,
-							// This would not happen, but it's here to satisfy the API.
-							custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-							disabled: true,
-							style: ButtonStyle.Secondary,
-						},
-					]
-				: events.reduce<APIButtonComponentWithCustomId[]>((buttons, event) => {
-						const button: APIButtonComponentWithCustomId = {
-							type: ComponentType.Button,
-							custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.id}`,
-							style: ButtonStyle.Success,
-						};
-
-						const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-
-						if (eventTicketEmoji) {
-							button.emoji = eventTicketEmoji;
-						} else {
-							button.label = t(`events.${event.id}`, { lng: interaction.locale, ns: "general" });
-						}
-
-						buttons.push(button);
-						return buttons;
-					}, []);
-
-		if (currentEventButtons.length === 1) {
-			currentEventButtons[0]!.label = "Current Event";
-		}
-
-		const currentTravellingSpiritButton: APIButtonComponentWithCustomId = {
-			type: ComponentType.Button,
-			custom_id: currentTravellingSpirit
-				? `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.id}`
-				: // This would not happen, but it's here to satisfy the API.
-					`${CATALOGUE_VIEW_START_CUSTOM_ID}-travelling`,
-
-			disabled: !currentTravellingSpirit,
-			label: "Travelling Spirit",
-			style: currentTravellingSpirit ? ButtonStyle.Success : ButtonStyle.Secondary,
-		};
-
-		if (currentTravellingSpirit) {
-			currentTravellingSpiritButton.emoji =
-				SeasonIdToSeasonalEmoji[currentTravellingSpirit.seasonId];
-		}
-
-		const currentReturningSpiritsButton: APIButtonComponentWithCustomId = {
-			type: ComponentType.Button,
-			custom_id: currentReturningSpirits
-				? CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID
-				: // This would not happen, but it's here to satisfy the API.
-					`${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
-			disabled: !currentReturningSpirits,
-			label: "Returning Spirits",
-			style: currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary,
-		};
-
-		if (
-			currentReturningSpirits?.every(
-				(returningSpirit) => returningSpirit.seasonId === currentReturningSpirits.first()!.seasonId,
-			)
-		) {
-			currentReturningSpiritsButton.emoji =
-				SeasonIdToSeasonalEmoji[currentReturningSpirits.first()!.seasonId];
-		}
-
-		const response: Parameters<InteractionsAPI["reply"]>[2] = {
-			components: [
-				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: "## Catalogue",
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: `Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal Progress: ${catalogue.allProgress(true)}%`,
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.StringSelect,
-									custom_id: CATALOGUE_VIEW_TYPE_CUSTOM_ID,
-									max_values: 1,
-									min_values: 0,
-									options: [
-										{
-											label: `Standard Spirits${standardProgress === null ? "" : ` (${standardProgress}%)`}`,
-											value: String(CatalogueType.StandardSpirits),
-										},
-										{
-											label: `Elders${elderProgress === null ? "" : ` (${elderProgress}%)`}`,
-											value: String(CatalogueType.Elders),
-										},
-										{
-											label: `Seasons${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`,
-											value: String(CatalogueType.SeasonalSpirits),
-										},
-										{
-											label: `Events${eventProgress === null ? "" : ` (${eventProgress}%)`}`,
-											value: String(CatalogueType.Events),
-										},
-										{
-											label: `Starter Packs${starterPackProgress === null ? "" : ` (${starterPackProgress}%)`}`,
-											value: String(CatalogueType.StarterPacks),
-										},
-										{
-											label: `Secret Area${secretAreaProgress === null ? "" : ` (${secretAreaProgress}%)`}`,
-											value: String(CatalogueType.SecretArea),
-										},
-										{
-											label: `Permanent Event Store${
-												permanentEventStoreProgress === null
-													? ""
-													: ` (${permanentEventStoreProgress}%)`
-											}`,
-											value: String(CatalogueType.PermanentEventStore),
-										},
-										{
-											label: `Nesting Workshop${
-												nestingWorkshopProgress === null ? "" : ` (${nestingWorkshopProgress}%)`
-											}`,
-											value: String(CatalogueType.NestingWorkshop),
-										},
-									],
-									placeholder: "What do you want to see?",
-								},
-							],
-						},
-						{
-							type: ComponentType.Separator,
-							divider: true,
-							spacing: SeparatorSpacingSize.Small,
-						},
-						{
-							type: ComponentType.TextDisplay,
-							content: "### Quick access",
-						},
-						{
-							type: ComponentType.ActionRow,
-							// Limit the potential current event buttons to 4 to not exceed the limit.
-							components: [currentSeasonButton, ...currentEventButtons.slice(0, 4)],
-						},
-						{
-							type: ComponentType.ActionRow,
-							components: [currentTravellingSpiritButton, currentReturningSpiritsButton],
-						},
-					],
-				},
-			],
-			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-		};
-
-		if (isChatInputCommand(interaction)) {
-			await client.api.interactions.reply(interaction.id, interaction.token, response);
-		} else {
-			await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
-		}
 	}
 
 	public static async parseCatalogueType(interaction: APIMessageComponentSelectMenuInteraction) {
@@ -1363,7 +1140,7 @@ export class Catalogue {
 		const spirits = resolveReturningSpirits(skyNow());
 
 		if (!spirits) {
-			await Catalogue.viewCatalogue(interaction);
+			await start({ locale, userId: invoker.id });
 			return;
 		}
 
