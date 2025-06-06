@@ -189,7 +189,7 @@ function spiritOwnedProgress(
 
 function spiritProgress(
 	spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-	data: ReadonlySet<number>,
+	data: ReadonlySet<number> = new Set(),
 	round?: boolean,
 ) {
 	const { owned, total } = spiritOwnedProgress(spirits, data);
@@ -313,7 +313,7 @@ function allProgress(data: ReadonlySet<number>, round?: boolean) {
 
 function remainingCurrency(
 	items: readonly Item[],
-	data: ReadonlySet<number>,
+	data: ReadonlySet<number> = new Set(),
 	includeSeasonalCurrency?: boolean,
 ) {
 	const dataSet = new Set(data);
@@ -765,15 +765,13 @@ export async function viewRealms(
 
 	for (const realm of REALMS) {
 		let content = `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}`;
-
-		if (catalogue) {
-			const percentage = spiritProgress([...realm.spirits.values()], catalogue.data, true);
+			const percentage = spiritProgress([...realm.spirits.values()], catalogue?.data, true);
 			content += percentage === null ? "" : ` (${percentage}%)`;
 
 			const remainingCurrencyResult = resolveCostToString(
 				realm.spirits.reduce(
 					(remainingCurrencyResult, spirit) =>
-						addCosts([remainingCurrencyResult, remainingCurrency(spirit.current, catalogue.data)]),
+						addCosts([remainingCurrencyResult, remainingCurrency(spirit.current, catalogue?.data)]),
 					{},
 				),
 			);
@@ -781,7 +779,6 @@ export async function viewRealms(
 			if (remainingCurrencyResult) {
 				content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
 			}
-		}
 
 		containerComponents.push({
 			type: ComponentType.Section,

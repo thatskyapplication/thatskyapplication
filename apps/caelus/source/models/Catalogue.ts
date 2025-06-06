@@ -6,7 +6,6 @@ import {
 	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
-	type Locale,
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
@@ -16,15 +15,12 @@ import {
 	type Event,
 	type EventIds,
 	type GuideSpirit,
-	type Item,
 	REALMS,
-	type RealmName,
 	STANDARD_SPIRITS,
 	type SeasonIds,
 	type SeasonalSpirit,
 	type SpiritIds,
 	type StandardSpirit,
-	addCosts,
 	formatEmoji,
 	resolveReturningSpirits,
 	skyCurrentSeason,
@@ -50,7 +46,6 @@ import {
 	NO_EVENT_OFFER_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
-	resolveCostToString,
 } from "../utility/catalogue.js";
 import {
 	CATALOGUE_EVENTS_THRESHOLD,
@@ -59,7 +54,6 @@ import {
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
 } from "../utility/constants.js";
 import {
-	CUSTOM_EMOJI_REPLACEMENTS,
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
