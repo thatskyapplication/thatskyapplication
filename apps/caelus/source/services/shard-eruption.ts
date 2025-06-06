@@ -269,11 +269,7 @@ export async function browse(
 	}
 }
 
-export function browseData(
-	locale: Locale,
-	offset = 0,
-	navigation = true,
-): [APIMessageTopLevelComponent] {
+function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageTopLevelComponent] {
 	const shardToday = skyToday().plus({ days: offset });
 
 	const containerComponents: APIComponentInContainer[] = [

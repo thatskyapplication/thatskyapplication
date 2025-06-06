@@ -1095,7 +1095,7 @@ export const GIVEAWAY_START_DATE = skyDate(2025, 5, 25);
 const GIVEAWAY_START_TIMESTAMP_SECONDS = GIVEAWAY_START_DATE.toUnixInteger();
 export const GIVEAWAY_END_DATE = skyDate(2025, 6, 2);
 const GIVEAWAY_END_TIMESTAMP_SECONDS = GIVEAWAY_END_DATE.toUnixInteger();
-export const GIVEAWAY_INVITE_URL = "https://discord.gg/dVekyau2gN" as const;
+const GIVEAWAY_INVITE_URL = "https://discord.gg/dVekyau2gN" as const;
 
 export const GIVEAWAY_NOT_STARTED_TEXT =
 	`There is an upcoming giveaway in the [support server](${GIVEAWAY_INVITE_URL}) starting on <t:${GIVEAWAY_START_TIMESTAMP_SECONDS}:F> (<t:${GIVEAWAY_START_TIMESTAMP_SECONDS}:R>).` as const;
