@@ -22,7 +22,6 @@ export const SEASONAL = [
 		},
 		{
 			icon: DYE_CYAN,
-			cost: { hearts: 3 },
 			seasonIcon: seasonId,
 		},
 	],
