@@ -98,6 +98,7 @@ export const MAXIMUM_TEXT_DISPLAY_LENGTH = 4000 as const;
 export const MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH = 1000 as const;
 export const MAXIMUM_FEEDBACK_TITLE_LENGTH = 100 as const;
 export const MINIMUM_FEEDBACK_TITLE_LENGTH = 4 as const;
+export const MAXIMUM_AUTOCOMPLETE_NAME_LIMIT = 100 as const;
 
 export const MEDITATION_MAPS = [
 	SkyMap.BirdNest,
@@ -1178,7 +1179,6 @@ export const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
 export const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
 export const SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER = 25 as const;
 export const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
-export const SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH = 100 as const;
 export const SKY_PROFILE_REPORT_MAXIMUM_LENGTH = 1000 as const;
 export const SKY_PROFILE_REPORT_MINIMUM_LENGTH = 10 as const;
 export const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;

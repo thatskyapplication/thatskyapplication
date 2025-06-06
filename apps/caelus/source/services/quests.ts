@@ -1,7 +1,11 @@
 import { type APIMessageTopLevelComponent, ComponentType, type Locale } from "@discordjs/core";
 import { DAILY_QUEST_VALUES, type DailyQuests } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { DEFAULT_EMBED_COLOUR, DailyQuestToInfographicURL } from "../utility/constants.js";
+import {
+	DEFAULT_EMBED_COLOUR,
+	DailyQuestToInfographicURL,
+	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
+} from "../utility/constants.js";
 
 export function questAutocomplete(focused: string, locale: Locale) {
 	return focused === ""
@@ -11,10 +15,15 @@ export function questAutocomplete(focused: string, locale: Locale) {
 					.toUpperCase()
 					.includes(focused.toUpperCase()),
 			)
-				.map((dailyQuest) => ({
-					name: t(`quests.${dailyQuest}`, { lng: locale, ns: "general" }),
-					value: dailyQuest,
-				}))
+				.map((dailyQuest) => {
+					let quest = t(`quests.${dailyQuest}`, { lng: locale, ns: "general" });
+
+					if (quest.length > MAXIMUM_AUTOCOMPLETE_NAME_LIMIT) {
+						quest = `${quest.slice(0, MAXIMUM_AUTOCOMPLETE_NAME_LIMIT - 3)}...`;
+					}
+
+					return { name: quest, value: dailyQuest };
+				})
 				.slice(0, 25);
 }
 

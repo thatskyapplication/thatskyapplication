@@ -71,8 +71,8 @@ import {
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
+	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	SKY_PROFILES_URL,
-	SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
 	SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
@@ -926,8 +926,8 @@ export default class Profile {
 								name += `: ${description}`;
 							}
 
-							if (name.length > SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH) {
-								name = `${name.slice(0, SKY_PROFILE_EXPLORE_AUTOCOMPLETE_NAME_LENGTH - 3)}...`;
+							if (name.length > MAXIMUM_AUTOCOMPLETE_NAME_LIMIT) {
+								name = `${name.slice(0, MAXIMUM_AUTOCOMPLETE_NAME_LIMIT - 3)}...`;
 							}
 
 							return { name, value: user_id };
