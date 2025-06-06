@@ -101,6 +101,7 @@ const BACK_TO_START_BUTTON = {
 } as const;
 
 export const ELDERS_TITLE = "## Elders \n-# Catalogue" as const;
+export const SEASONS_TITLE = "## Seasons \n-# Catalogue" as const;
 
 export interface CataloguePacket {
 	user_id: Snowflake;
@@ -289,7 +290,7 @@ function nestingWorkshopProgress(data: ReadonlySet<number> = new Set(), round?: 
 	return progressPercentage(owned, total, round);
 }
 
-function allProgress(data: ReadonlySet<number>, round?: boolean) {
+function allProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
 	const standardAndElderOwnedProgress = spiritOwnedProgress([...REALM_SPIRITS.values()], data);
 	const seasonalOwnedProgress = seasonOwnedProgress([...skySeasons().values()], data);
 	const eventOwnedProgressResult = eventOwnedProgress([...skyEvents().values()], data);
@@ -619,13 +620,6 @@ async function start({
 			SeasonIdToSeasonalEmoji[currentReturningSpirits.first()!.seasonId];
 	}
 
-	let message =
-		"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.";
-
-	if (data) {
-		message += `\n\nTotal Progress: ${allProgress(data, true)}%`;
-	}
-
 	return [
 		{
 			type: ComponentType.Container,
@@ -642,7 +636,7 @@ async function start({
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: message,
+					content: `Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal Progress: ${allProgress(data, true)}%`,
 				},
 				{
 					type: ComponentType.ActionRow,
@@ -1021,6 +1015,93 @@ export async function viewElders(
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: "I have everything!",
 					style: ButtonStyle.Success,
+				},
+			],
+		},
+	);
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: containerComponents,
+			},
+		],
+	});
+}
+
+export async function viewSeasons(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const { locale } = interaction;
+	const currentSeason = skyCurrentSeason(skyNow());
+	const containerComponents: APIComponentInContainer[] = [];
+
+	if (currentSeason) {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`,
+				emoji: SeasonIdToSeasonalEmoji[currentSeason.id],
+				style: ButtonStyle.Primary,
+			},
+			components: [{ type: ComponentType.TextDisplay, content: SEASONS_TITLE }],
+		});
+	} else {
+		containerComponents.push({ type: ComponentType.TextDisplay, content: SEASONS_TITLE });
+	}
+
+	containerComponents.push(
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: "Behold, the entirety of seasons! Select a season using the select menu!",
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: CATALOGUE_VIEW_SEASON_CUSTOM_ID,
+					max_values: 1,
+					min_values: 0,
+					options: skySeasons().map((season) => {
+						const percentage = seasonProgress([season], catalogue?.data, true);
+
+						return {
+							emoji: SeasonIdToSeasonalEmoji[season.id],
+							label: `${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}${
+								percentage === null ? "" : ` (${percentage}%)`
+							}`,
+							value: String(season.id),
+						};
+					}),
+					placeholder: "Select a season!",
+				},
+			],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				BACK_TO_START_BUTTON,
+				{
+					type: ComponentType.Button,
+					custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+					emoji: { name: "⏪" },
+					label: "Back",
+					style: ButtonStyle.Secondary,
 				},
 			],
 		},

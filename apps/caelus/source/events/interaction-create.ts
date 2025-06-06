@@ -58,6 +58,7 @@ import {
 	viewElders,
 	viewRealm,
 	viewRealms,
+	viewSeasons,
 	viewStart,
 } from "../features/catalogue.js";
 import {
@@ -421,7 +422,7 @@ export default {
 				}
 
 				if (customId === CATALOGUE_VIEW_SEASONS_CUSTOM_ID) {
-					await Catalogue.viewSeasons(interaction);
+					await viewSeasons(interaction);
 					return;
 				}
 

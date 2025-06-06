@@ -23,7 +23,6 @@ import {
 	type StandardSpirit,
 	formatEmoji,
 	resolveReturningSpirits,
-	skyCurrentSeason,
 	skyEventYears,
 	skyEvents,
 	skyNow,
@@ -36,7 +35,7 @@ import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
-import { type CataloguePacket } from "../features/catalogue.js";
+import type { CataloguePacket } from "../features/catalogue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -95,102 +94,6 @@ export class Catalogue {
 		}
 
 		return new this(cataloguePacket);
-	}
-
-	public static async viewSeasons(
-		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-	) {
-		const { locale } = interaction;
-		const invoker = interactionInvoker(interaction);
-		const catalogue = await this.fetch(invoker.id);
-		const currentSeason = skyCurrentSeason(skyNow());
-		const containerComponents: APIComponentInContainer[] = [];
-
-		if (currentSeason) {
-			containerComponents.push({
-				type: ComponentType.Section,
-				accessory: {
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`,
-					emoji: SeasonIdToSeasonalEmoji[currentSeason.id],
-					style: ButtonStyle.Primary,
-				},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: "## Seasons \n-# Catalogue",
-					},
-				],
-			});
-		} else {
-			containerComponents.push({
-				type: ComponentType.TextDisplay,
-				content: "## Seasons \n-# Catalogue",
-			});
-		}
-
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: "Behold, the entirety of seasons! Select a season using the select menu!",
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.StringSelect,
-						custom_id: CATALOGUE_VIEW_SEASON_CUSTOM_ID,
-						max_values: 1,
-						min_values: 0,
-						options: skySeasons().map((season) => {
-							const percentage = catalogue.seasonProgress([season], true);
-
-							return {
-								emoji: SeasonIdToSeasonalEmoji[season.id],
-								label: `${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}${
-									percentage === null ? "" : ` (${percentage}%)`
-								}`,
-								value: String(season.id),
-							};
-						}),
-						placeholder: "Select a season!",
-					},
-				],
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					BACK_TO_START_BUTTON,
-					{
-						type: ComponentType.Button,
-						custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-						emoji: { name: "⏪" },
-						label: "Back",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-		);
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
-					components: containerComponents,
-				},
-			],
-		});
 	}
 
 	public static async viewSeason(
