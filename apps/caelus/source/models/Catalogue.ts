@@ -36,7 +36,7 @@ import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
-import { type CataloguePacket, start } from "../features/catalogue.js";
+import { type CataloguePacket } from "../features/catalogue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {

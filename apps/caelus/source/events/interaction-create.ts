@@ -55,10 +55,10 @@ import {
 	CATALOGUE_VIEW_START_CUSTOM_ID,
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	parseCatalogueType,
-	start,
 	viewElders,
 	viewRealm,
 	viewRealms,
+	viewStart,
 } from "../features/catalogue.js";
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
@@ -397,7 +397,7 @@ export default {
 					customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
 					customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
 				) {
-					await start({ userId: interactionInvoker(interaction).id, locale: interaction.locale });
+					await viewStart(interaction);
 					return;
 				}
 

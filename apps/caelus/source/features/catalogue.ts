@@ -1,6 +1,7 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import {
 	type APIButtonComponentWithCustomId,
+	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
@@ -8,6 +9,7 @@ import {
 	ButtonStyle,
 	ComponentType,
 	type Locale,
+	MessageFlags,
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
@@ -53,7 +55,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { interactionInvoker } from "../utility/functions.js";
+import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
 export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
@@ -512,7 +514,7 @@ interface CatalogueStartOptions {
 	locale: Locale;
 }
 
-export async function start({
+async function start({
 	userId,
 	locale,
 }: CatalogueStartOptions): Promise<[APIMessageTopLevelComponent]> {
@@ -717,6 +719,24 @@ export async function start({
 			],
 		},
 	];
+}
+
+export async function viewStart(
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+) {
+	const response = {
+		components: await start({
+			userId: interactionInvoker(interaction).id,
+			locale: interaction.locale,
+		}),
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	};
+
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+	}
 }
 
 export async function parseCatalogueType(interaction: APIMessageComponentSelectMenuInteraction) {
