@@ -219,7 +219,11 @@ function seasonOwnedProgress(seasons: readonly Season[], data: ReadonlySet<numbe
 	return { owned: totalOwned, total };
 }
 
-function seasonProgress(seasons: readonly Season[], data: ReadonlySet<number>, round?: boolean) {
+function seasonProgress(
+	seasons: readonly Season[],
+	data: ReadonlySet<number> = new Set(),
+	round?: boolean,
+) {
 	const { owned, total } = seasonOwnedProgress(seasons, data);
 	return progressPercentage(owned, total, round);
 }
@@ -238,7 +242,11 @@ function eventOwnedProgress(events: readonly Event[], data: ReadonlySet<number>)
 	return { owned: totalOwned, total };
 }
 
-function eventProgress(events: readonly Event[], data: ReadonlySet<number>, round?: boolean) {
+function eventProgress(
+	events: readonly Event[],
+	data: ReadonlySet<number> = new Set(),
+	round?: boolean,
+) {
 	const { owned, total } = eventOwnedProgress(events, data);
 	return progressPercentage(owned, total, round);
 }
@@ -247,7 +255,7 @@ function starterPackOwnedProgress(data: ReadonlySet<number>) {
 	return ownedProgress(STARTER_PACKS.items, data);
 }
 
-function starterPackProgress(data: ReadonlySet<number>, round?: boolean) {
+function starterPackProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
 	const { owned, total } = starterPackOwnedProgress(data);
 	return progressPercentage(owned, total, round);
 }
@@ -256,7 +264,7 @@ function secretAreaOwnedProgress(data: ReadonlySet<number>) {
 	return ownedProgress(SECRET_AREA.items, data);
 }
 
-function secretAreaProgress(data: ReadonlySet<number>, round?: boolean) {
+function secretAreaProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
 	const { owned, total } = secretAreaOwnedProgress(data);
 	return progressPercentage(owned, total, round);
 }
@@ -265,7 +273,7 @@ function permanentEventStoreOwnedProgress(data: ReadonlySet<number>) {
 	return ownedProgress(PERMANENT_EVENT_STORE.items, data);
 }
 
-function permanentEventStoreProgress(data: ReadonlySet<number>, round?: boolean) {
+function permanentEventStoreProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
 	const { owned, total } = permanentEventStoreOwnedProgress(data);
 	return progressPercentage(owned, total, round);
 }
@@ -274,7 +282,7 @@ function nestingWorkshopOwnedProgress(data: ReadonlySet<number>) {
 	return ownedProgress(NESTING_WORKSHOP.items, data);
 }
 
-function nestingWorkshopProgress(data: ReadonlySet<number>, round?: boolean) {
+function nestingWorkshopProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
 	const { owned, total } = nestingWorkshopOwnedProgress(data);
 	return progressPercentage(owned, total, round);
 }
@@ -510,14 +518,14 @@ export async function start({
 }: CatalogueStartOptions): Promise<[APIMessageTopLevelComponent]> {
 	const catalogue = await fetch(userId);
 	const data = catalogue?.data;
-	const standardProgress = data ? spiritProgress([...STANDARD_SPIRITS.values()], data, true) : null;
-	const elderProgress = data ? spiritProgress([...ELDER_SPIRITS.values()], data, true) : null;
-	const seasonalProgress = data ? seasonProgress([...skySeasons().values()], data, true) : null;
-	const eventProgressResult = data ? eventProgress([...skyEvents().values()], data, true) : null;
-	const starterPackProgressResult = data ? starterPackProgress(data, true) : null;
-	const secretAreaProgressResult = data ? secretAreaProgress(data, true) : null;
-	const permanentEventStoreProgressResult = data ? permanentEventStoreProgress(data, true) : null;
-	const nestingWorkshopProgressResult = data ? nestingWorkshopProgress(data, true) : null;
+	const standardProgress = spiritProgress([...STANDARD_SPIRITS.values()], data, true);
+	const elderProgress = spiritProgress([...ELDER_SPIRITS.values()], data, true);
+	const seasonalProgress = seasonProgress([...skySeasons().values()], data, true);
+	const eventProgressResult = eventProgress([...skyEvents().values()], data, true);
+	const starterPackProgressResult = starterPackProgress(data, true);
+	const secretAreaProgressResult = secretAreaProgress(data, true);
+	const permanentEventStoreProgressResult = permanentEventStoreProgress(data, true);
+	const nestingWorkshopProgressResult = nestingWorkshopProgress(data, true);
 	const now = skyNow();
 	const currentSeason = skyCurrentSeason(now);
 	const events = skyCurrentEvents(now);
