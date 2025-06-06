@@ -56,6 +56,7 @@ import {
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	parseCatalogueType,
 	viewElders,
+	viewEventYears,
 	viewRealm,
 	viewRealms,
 	viewSeason,
@@ -437,7 +438,7 @@ export default {
 				}
 
 				if (customId === CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID) {
-					await Catalogue.viewEventYears(interaction);
+					await viewEventYears(interaction);
 					return;
 				}
 

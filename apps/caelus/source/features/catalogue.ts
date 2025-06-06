@@ -37,6 +37,7 @@ import {
 	resolveTravellingSpirit,
 	skyCurrentEvents,
 	skyCurrentSeason,
+	skyEventYears,
 	skyEvents,
 	skyNow,
 	skySeasons,
@@ -1296,6 +1297,82 @@ export async function viewSeason(
 				type: ComponentType.Container,
 				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
+			},
+		],
+	});
+}
+
+export async function viewEventYears(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const catalogue = await fetch(interactionInvoker(interaction).id);
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: "## Events By Year\n-# Catalogue",
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: "Events are grouped by year.",
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
+								max_values: 1,
+								min_values: 0,
+								options: skyEventYears().map((year) => {
+									const percentage = eventProgress(
+										[
+											...skyEvents()
+												.filter((event) => event.start.year === year)
+												.values(),
+										],
+										catalogue?.data,
+										true,
+									);
+
+									return {
+										label: `${year}${percentage === null ? "" : ` (${percentage}%)`}`,
+										value: String(year),
+									};
+								}),
+								placeholder: "Select a year!",
+							},
+						],
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							BACK_TO_START_BUTTON,
+							{
+								type: ComponentType.Button,
+								custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+								emoji: { name: "⏪" },
+								label: "Back",
+								style: ButtonStyle.Secondary,
+							},
+						],
+					},
+				],
 			},
 		],
 	});
