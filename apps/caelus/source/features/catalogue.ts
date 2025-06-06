@@ -109,8 +109,9 @@ const BACK_TO_START_BUTTON = {
 	style: ButtonStyle.Secondary,
 } as const;
 
-export const ELDERS_TITLE = "## Elders \n-# Catalogue" as const;
-export const SEASONS_TITLE = "## Seasons \n-# Catalogue" as const;
+const ELDERS_TITLE = "## Elders \n-# Catalogue" as const;
+const SEASONS_TITLE = "## Seasons \n-# Catalogue" as const;
+const RETURNING_SPIRITS_TITLE = "## Returning Spirits\n-# Catalogue" as const;
 
 export interface CataloguePacket {
 	user_id: Snowflake;
@@ -1503,6 +1504,79 @@ export async function viewEvents(
 					style: ButtonStyle.Secondary,
 				},
 			],
+		},
+	);
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: containerComponents,
+			},
+		],
+	});
+}
+
+export async function viewReturningSpirits(interaction: APIMessageComponentButtonInteraction) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetch(invoker.id);
+	const { locale } = interaction;
+	const spirits = resolveReturningSpirits(skyNow());
+
+	if (!spirits) {
+		await start({ locale, userId: invoker.id });
+		return;
+	}
+
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: RETURNING_SPIRITS_TITLE,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	const { remainingCurrency, offerProgress } = offerData({
+		data: catalogue?.data,
+		spirits: [...spirits.values()],
+		locale,
+		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - RETURNING_SPIRITS_TITLE.length,
+		includePercentage: true,
+		includeTotalRemainingCurrency: true,
+		includeTitles: true,
+	});
+
+	if (remainingCurrency) {
+		containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
+	}
+
+	for (const [id, text] of offerProgress.spirits) {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [{ type: ComponentType.TextDisplay, content: text }],
+		});
+	}
+
+	containerComponents.push(
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [BACK_TO_START_BUTTON],
 		},
 	);
 

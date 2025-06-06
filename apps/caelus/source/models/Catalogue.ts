@@ -22,9 +22,7 @@ import {
 	type SpiritIds,
 	type StandardSpirit,
 	formatEmoji,
-	resolveReturningSpirits,
 	skyEvents,
-	skyNow,
 	skySeasons,
 	spirits,
 } from "@thatskyapplication/utility";
@@ -92,80 +90,6 @@ export class Catalogue {
 		}
 
 		return new this(cataloguePacket);
-	}
-
-	public static async viewReturningSpirits(interaction: APIMessageComponentButtonInteraction) {
-		const { locale } = interaction;
-		const invoker = interactionInvoker(interaction);
-		const catalogue = await this.fetch(invoker.id);
-		const spirits = resolveReturningSpirits(skyNow());
-
-		if (!spirits) {
-			await start({ locale, userId: invoker.id });
-			return;
-		}
-
-		const title = "## Returning Spirits\n-# Catalogue";
-
-		const containerComponents: APIComponentInContainer[] = [
-			{
-				type: ComponentType.TextDisplay,
-				content: title,
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-		];
-
-		const { remainingCurrency, offerProgress } = catalogue.offerData({
-			spirits: [...spirits.values()],
-			locale,
-			limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
-			includePercentage: true,
-			includeTotalRemainingCurrency: true,
-			includeTitles: true,
-		});
-
-		if (remainingCurrency) {
-			containerComponents.push({ type: ComponentType.TextDisplay, content: remainingCurrency });
-		}
-
-		for (const [id, text] of offerProgress.spirits) {
-			containerComponents.push({
-				type: ComponentType.Section,
-				accessory: {
-					type: ComponentType.Button,
-					style: ButtonStyle.Primary,
-					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
-					label: t("view", { lng: locale, ns: "general" }),
-				},
-				components: [{ type: ComponentType.TextDisplay, content: text }],
-			});
-		}
-
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [BACK_TO_START_BUTTON],
-			},
-		);
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
-					components: containerComponents,
-				},
-			],
-		});
 	}
 
 	public static async parseViewSpirit(

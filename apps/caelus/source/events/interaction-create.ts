@@ -60,6 +60,7 @@ import {
 	viewEvents,
 	viewRealm,
 	viewRealms,
+	viewReturningSpirits,
 	viewSeason,
 	viewSeasons,
 	viewStart,
@@ -455,7 +456,7 @@ export default {
 				}
 
 				if (customId === CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
-					await Catalogue.viewReturningSpirits(interaction);
+					await viewReturningSpirits(interaction);
 					return;
 				}
 
