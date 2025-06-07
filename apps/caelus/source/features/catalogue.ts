@@ -2108,7 +2108,7 @@ async function viewStarterPacks(
 							{
 								type: ComponentType.Button,
 								custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
-								disabled: starterPackProgress() === 100,
+								disabled: starterPackProgress(catalogue?.data) === 100,
 								emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 								label: "I have everything!",
 								style: ButtonStyle.Success,
@@ -2193,7 +2193,7 @@ async function viewSecretArea(
 							{
 								type: ComponentType.Button,
 								custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`,
-								disabled: secretAreaProgress() === 100,
+								disabled: secretAreaProgress(catalogue?.data) === 100,
 								emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 								label: "I have everything!",
 								style: ButtonStyle.Success,
@@ -2282,7 +2282,7 @@ async function viewPermanentEventStore(
 							{
 								type: ComponentType.Button,
 								custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
-								disabled: permanentEventStoreProgress() === 100,
+								disabled: permanentEventStoreProgress(catalogue?.data) === 100,
 								emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 								label: "I have everything!",
 								style: ButtonStyle.Success,
@@ -2407,7 +2407,7 @@ async function viewNestingWorkshop(
 							{
 								type: ComponentType.Button,
 								custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
-								disabled: nestingWorkshopProgress() === 100,
+								disabled: nestingWorkshopProgress(catalogue?.data) === 100,
 								emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 								label: "I have everything!",
 								style: ButtonStyle.Success,
@@ -2609,8 +2609,13 @@ async function setSpiritItems(
 ) {
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
-	await update(invoker.id, calculateSetItems(interaction, spirit.allCosmetics, catalogue?.data));
-	await viewSpirit(interaction, spirit);
+
+	const data = await update(
+		invoker.id,
+		calculateSetItems(interaction, spirit.allCosmetics, catalogue?.data),
+	);
+
+	await viewSpirit(interaction, spirit, data);
 }
 
 async function setEventItems(
@@ -2619,8 +2624,13 @@ async function setEventItems(
 ) {
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
-	await update(invoker.id, calculateSetItems(interaction, event.allCosmetics, catalogue?.data));
-	await viewEvent(interaction, event);
+
+	const data = await update(
+		invoker.id,
+		calculateSetItems(interaction, event.allCosmetics, catalogue?.data),
+	);
+
+	await viewEvent(interaction, event, data);
 }
 
 async function setStarterPacksItems(
@@ -2680,8 +2690,11 @@ async function setNestingWorkshopItems(
 }
 
 async function update(userId: Snowflake, data: ReadonlySet<number>) {
-	await pg<CataloguePacket>(Table.Catalogue)
-		.update({ data: [...data] })
-		.where({ user_id: userId })
-		.returning("*");
+	const [cataloguePacket] = await pg<CataloguePacket>(Table.Catalogue)
+		.insert({ user_id: userId, data: [...data] })
+		.onConflict("user_id")
+		.merge(["data"])
+		.returning("data");
+
+	return new Set(cataloguePacket!.data);
 }
