@@ -1,5 +1,4 @@
 import {
-	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APISelectMenuOption,
@@ -19,12 +18,10 @@ import {
 	type SeasonalSpirit,
 	type SpiritIds,
 	type StandardSpirit,
-	formatEmoji,
 	skyEvents,
 	skySeasons,
 	spirits,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
 import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
@@ -33,17 +30,9 @@ import { client } from "../discord.js";
 import type { CataloguePacket } from "../features/catalogue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import {
-	CatalogueType,
-	NO_EVENT_INFOGRAPHIC_YET,
-	NO_EVENT_OFFER_TEXT,
-} from "../utility/catalogue.js";
+import { CatalogueType } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR, ERROR_RESPONSE_COMPONENTS_V2 } from "../utility/constants.js";
-import {
-	CosmeticToEmoji,
-	EventIdToEventTicketEmoji,
-	MISCELLANEOUS_EMOJIS,
-} from "../utility/emojis.js";
+import { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
 	interactionInvoker,
 	isButton,
@@ -80,198 +69,6 @@ export class Catalogue {
 		}
 
 		return new this(cataloguePacket);
-	}
-
-	public static async parseViewEvent(
-		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-	) {
-		const invoker = interactionInvoker(interaction);
-		const catalogue = await this.fetch(invoker.id);
-
-		const eventId = Number(
-			isButton(interaction)
-				? interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1)
-				: interaction.data.values[0],
-		);
-
-		const event = skyEvents().get(eventId as EventIds);
-
-		if (!event) {
-			pino.error(interaction, "Could not parse an event for the catalogue.");
-
-			await client.api.interactions.updateMessage(
-				interaction.id,
-				interaction.token,
-				ERROR_RESPONSE_COMPONENTS_V2,
-			);
-
-			return;
-		}
-
-		await catalogue.viewEvent(interaction, event);
-	}
-
-	private async viewEvent(
-		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-		event: Event,
-	) {
-		const { locale } = interaction;
-		const { id, start, offer, offerInfographicURL, patchNotesURL } = event;
-		const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-
-		const containerComponents: APIComponentInContainer[] = [
-			{
-				type: ComponentType.TextDisplay,
-				content: `## [${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : ""}${t(`events.${id}`, { lng: locale, ns: "general" })}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Events By Year → ${event.start.year}`,
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-		];
-
-		let description: string;
-
-		if (offer.length > 0) {
-			const { offerDescription } = this.progress(offer);
-			description = offerDescription.join("\n");
-		} else {
-			description = NO_EVENT_OFFER_TEXT;
-		}
-
-		if (patchNotesURL) {
-			containerComponents.push({
-				type: ComponentType.Section,
-				accessory: {
-					type: ComponentType.Button,
-					label: "Patch notes",
-					style: ButtonStyle.Link,
-					url: patchNotesURL,
-				},
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: description,
-					},
-				],
-			});
-		} else {
-			containerComponents.push({
-				type: ComponentType.TextDisplay,
-				content: description,
-			});
-		}
-
-		if (offerInfographicURL) {
-			containerComponents.push({
-				type: ComponentType.MediaGallery,
-				items: [{ media: { url: offerInfographicURL } }],
-			});
-		} else if (offer.length > 0) {
-			containerComponents.push({
-				type: ComponentType.TextDisplay,
-				content: `-# ${NO_EVENT_INFOGRAPHIC_YET}`,
-			});
-		}
-
-		if (offer.length > 0) {
-			const itemSelectionOptions = offer.map(({ name, cosmetics, cosmeticDisplay }) => {
-				const stringSelectMenuOption: APISelectMenuOption = {
-					default: cosmetics.every((cosmetic) => this.data.has(cosmetic)),
-					label: name,
-					value: JSON.stringify(cosmetics),
-				};
-
-				const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-				if (emoji) {
-					stringSelectMenuOption.emoji = emoji;
-				}
-
-				return stringSelectMenuOption;
-			});
-
-			containerComponents.push({
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.StringSelect,
-						custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§event:${id}`,
-						max_values: itemSelectionOptions.length,
-						min_values: 0,
-						options: itemSelectionOptions,
-						placeholder: "Select what you have!",
-					},
-				],
-			});
-		}
-
-		const events = skyEvents().filter((event) => event.start.year === start.year);
-		const before = events.get((id - 1) as EventIds);
-		const after = events.get((id + 1) as EventIds);
-
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
-				// We use the nullish coalescing operator to fallback to some default values to mitigate this.
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`,
-						disabled: !before,
-						emoji: { name: "⬅️" },
-						label: "Previous event",
-						style: ButtonStyle.Secondary,
-					},
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`,
-						disabled: !after,
-						emoji: { name: "➡️" },
-						label: "Next event",
-						style: ButtonStyle.Secondary,
-					},
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`,
-						disabled: this.eventProgress([event]) === 100,
-						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-						label: "I have everything!",
-						style: ButtonStyle.Success,
-					},
-				],
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					BACK_TO_START_BUTTON,
-					{
-						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`,
-						emoji: { name: "⏪" },
-						label: "Back",
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-		);
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.Container,
-					accent_color: DEFAULT_EMBED_COLOUR,
-					components: containerComponents,
-				},
-			],
-		});
 	}
 
 	private static async viewStarterPacks(

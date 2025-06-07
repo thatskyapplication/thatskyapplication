@@ -54,6 +54,8 @@ import pino from "../pino.js";
 import {
 	CatalogueType,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	NO_EVENT_INFOGRAPHIC_YET,
+	NO_EVENT_OFFER_TEXT,
 	NO_FRIENDSHIP_TREE_TEXT,
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveCostToString,
@@ -1828,6 +1830,193 @@ async function viewSpirit(
 			},
 		],
 	});
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: containerComponents,
+			},
+		],
+	});
+}
+
+export async function parseViewEvent(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const catalogue = await fetch(interactionInvoker(interaction).id);
+
+	const eventId = Number(
+		isButton(interaction)
+			? interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1)
+			: interaction.data.values[0],
+	);
+
+	const event = skyEvents().get(eventId as EventIds);
+
+	if (!event) {
+		pino.error(interaction, "Could not parse an event for the catalogue.");
+
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
+
+		return;
+	}
+
+	await viewEvent(interaction, event, catalogue?.data);
+}
+
+async function viewEvent(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	event: Event,
+	data: ReadonlySet<number> = new Set(),
+) {
+	const { locale } = interaction;
+	const { id, start, offer, offerInfographicURL, patchNotesURL } = event;
+	const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
+
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## [${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : ""}${t(`events.${id}`, { lng: locale, ns: "general" })}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Events By Year → ${event.start.year}`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	let description: string;
+
+	if (offer.length > 0) {
+		const { offerDescription } = progress(offer, data);
+		description = offerDescription.join("\n");
+	} else {
+		description = NO_EVENT_OFFER_TEXT;
+	}
+
+	if (patchNotesURL) {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				label: "Patch notes",
+				style: ButtonStyle.Link,
+				url: patchNotesURL,
+			},
+			components: [{ type: ComponentType.TextDisplay, content: description }],
+		});
+	} else {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: description,
+		});
+	}
+
+	if (offerInfographicURL) {
+		containerComponents.push({
+			type: ComponentType.MediaGallery,
+			items: [{ media: { url: offerInfographicURL } }],
+		});
+	} else if (offer.length > 0) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `-# ${NO_EVENT_INFOGRAPHIC_YET}`,
+		});
+	}
+
+	if (offer.length > 0) {
+		const itemSelectionOptions = offer.map(({ name, cosmetics, cosmeticDisplay }) => {
+			const stringSelectMenuOption: APISelectMenuOption = {
+				default: cosmetics.every((cosmetic) => data.has(cosmetic)),
+				label: name,
+				value: JSON.stringify(cosmetics),
+			};
+
+			const emoji = CosmeticToEmoji[cosmeticDisplay];
+
+			if (emoji) {
+				stringSelectMenuOption.emoji = emoji;
+			}
+
+			return stringSelectMenuOption;
+		});
+
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§event:${id}`,
+					max_values: itemSelectionOptions.length,
+					min_values: 0,
+					options: itemSelectionOptions,
+					placeholder: "Select what you have!",
+				},
+			],
+		});
+	}
+
+	const events = skyEvents().filter((event) => event.start.year === start.year);
+	const before = events.get((id - 1) as EventIds);
+	const after = events.get((id + 1) as EventIds);
+
+	containerComponents.push(
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.ActionRow,
+			// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
+			// We use the nullish coalescing operator to fallback to some default values to mitigate this.
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`,
+					disabled: !before,
+					emoji: { name: "⬅️" },
+					label: "Previous event",
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`,
+					disabled: !after,
+					emoji: { name: "➡️" },
+					label: "Next event",
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`,
+					disabled: eventProgress([event], data) === 100,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: "I have everything!",
+					style: ButtonStyle.Success,
+				},
+			],
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				BACK_TO_START_BUTTON,
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`,
+					emoji: { name: "⏪" },
+					label: "Back",
+					style: ButtonStyle.Secondary,
+				},
+			],
+		},
+	);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
