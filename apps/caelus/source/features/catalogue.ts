@@ -41,6 +41,7 @@ import {
 	skyEvents,
 	skyNow,
 	skySeasons,
+	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
@@ -50,7 +51,13 @@ import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
-import { CatalogueType, resolveCostToString } from "../utility/catalogue.js";
+import {
+	CatalogueType,
+	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
+	NO_FRIENDSHIP_TREE_TEXT,
+	NO_FRIENDSHIP_TREE_YET_TEXT,
+	resolveCostToString,
+} from "../utility/catalogue.js";
 import {
 	CATALOGUE_EVENTS_THRESHOLD,
 	DEFAULT_EMBED_COLOUR,
@@ -64,7 +71,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { interactionInvoker, isButton, isChatInputCommand } from "../utility/functions.js";
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
 export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
@@ -1579,6 +1586,248 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 			components: [BACK_TO_START_BUTTON],
 		},
 	);
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: containerComponents,
+			},
+		],
+	});
+}
+
+export async function parseViewSpirit(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const catalogue = await fetch(interactionInvoker(interaction).id);
+
+	const spiritId = Number(
+		isButton(interaction)
+			? interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1)
+			: interaction.data.values[0]!,
+	);
+
+	const spirit = spirits().get(spiritId as SpiritIds);
+
+	if (!spirit) {
+		pino.error(interaction, `Invalid spirit id: ${spiritId}`);
+
+		await client.api.interactions.updateMessage(
+			interaction.id,
+			interaction.token,
+			ERROR_RESPONSE_COMPONENTS_V2,
+		);
+
+		return;
+	}
+
+	await viewSpirit(interaction, spirit, catalogue?.data);
+}
+
+async function viewSpirit(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+	data: ReadonlySet<number> = new Set(),
+) {
+	const { locale } = interaction;
+	const isStandardSpirit = spirit.isStandardSpirit();
+	const isElderSpirit = spirit.isElderSpirit();
+	const isSeasonalSpirit = spirit.isSeasonalSpirit();
+	const isGuideSpirit = spirit.isGuideSpirit();
+	const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
+	const offer = seasonalParsing ? spirit.seasonal : spirit.current;
+	const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
+
+	const { hasEverything, offerProgress } = offerData({
+		data,
+		spirits: [spirit],
+		locale,
+		limit: MAXIMUM_TEXT_DISPLAY_LENGTH,
+		includePercentage: false,
+	});
+
+	let spirits:
+		| ReadonlyCollection<SpiritIds, StandardSpirit>
+		| ReadonlyCollection<SpiritIds, ElderSpirit>
+		| ReadonlyCollection<SpiritIds, SeasonalSpirit | GuideSpirit>
+		| undefined;
+
+	if (isStandardSpirit) {
+		spirits = REALMS.find(({ name }) => name === spirit.realm)?.spirits;
+	} else if (isElderSpirit) {
+		spirits = ELDER_SPIRITS;
+	} else if (isSeasonalSpirit || isGuideSpirit) {
+		const season = skySeasons().get(spirit.seasonId);
+
+		if (season) {
+			spirits = new Collection<SpiritIds, SeasonalSpirit | GuideSpirit>()
+				.set(season.guide.id, season.guide)
+				.concat(season.spirits);
+		}
+	}
+
+	const breadcrumbs = `Catalogue → ${isStandardSpirit ? `Realms → ${t(`realms.${spirit.realm}`, { lng: locale, ns: "general" })}` : isElderSpirit ? "Elders" : `Seasons → ${t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" })}`}`;
+
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## [${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})\n-# ${breadcrumbs}`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: offerProgress.spirits.first() ?? NO_FRIENDSHIP_TREE_TEXT,
+	});
+
+	if (imageURL) {
+		containerComponents.push({
+			type: ComponentType.MediaGallery,
+			items: [{ media: { url: imageURL } }],
+		});
+	} else if (offer.length > 0) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `-# ${NO_FRIENDSHIP_TREE_YET_TEXT}`,
+		});
+	}
+
+	if (isGuideSpirit && spirit.inProgress) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `-# ${GUIDE_SPIRIT_IN_PROGRESS_TEXT}`,
+		});
+	}
+
+	if (offer.length > 0) {
+		const itemSelectionOptions = offer.map(({ name, cosmetics, cosmeticDisplay }) => {
+			const stringSelectMenuOption: APISelectMenuOption = {
+				default: cosmetics.every((cosmetic) => data.has(cosmetic)),
+				label: name,
+				value: JSON.stringify(cosmetics),
+			};
+
+			const emoji = CosmeticToEmoji[cosmeticDisplay];
+
+			if (emoji) {
+				stringSelectMenuOption.emoji = emoji;
+			}
+
+			return stringSelectMenuOption;
+		});
+
+		const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(
+			0,
+			CATALOGUE_MAXIMUM_OPTIONS_LIMIT,
+		);
+
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§spirit:${spirit.id}`,
+					max_values: itemSelectionOptionsMaximumLimit.length,
+					min_values: 0,
+					options: itemSelectionOptionsMaximumLimit,
+					placeholder: "Select what you have!",
+				},
+			],
+		});
+
+		if (itemSelectionOptions.length > CATALOGUE_MAXIMUM_OPTIONS_LIMIT) {
+			const itemSelectionOverflowOptionsMaximumLimit = itemSelectionOptions.slice(
+				CATALOGUE_MAXIMUM_OPTIONS_LIMIT,
+			);
+
+			containerComponents.push({
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: `${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§spirit:${spirit.id}`,
+						max_values: itemSelectionOverflowOptionsMaximumLimit.length,
+						min_values: 0,
+						options: itemSelectionOverflowOptionsMaximumLimit,
+						placeholder: "Select what you have!",
+					},
+				],
+			});
+		}
+	}
+
+	containerComponents.push({
+		type: ComponentType.Separator,
+		divider: true,
+		spacing: SeparatorSpacingSize.Small,
+	});
+
+	if (spirits) {
+		const index = [...spirits.values()].findIndex(({ id }) => id === spirit.id);
+		const beforeIndex = index - 1;
+		const before = beforeIndex >= 0 ? spirits.at(beforeIndex) : null;
+		const after = spirits.at(index + 1);
+
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			// It is possible that for 1 spirit, the custom ids will be the same, leading to an error.
+			// We use the nullish coalescing operator to fallback to some default values to mitigate this.
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.id ?? "before"}`,
+					disabled: !before,
+					emoji: { name: "⬅️" },
+					label: "Previous spirit",
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.id ?? "after"}`,
+					disabled: !after,
+					emoji: { name: "➡️" },
+					label: "Next spirit",
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§spirit:${spirit.id}`,
+					disabled: hasEverything,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: "I have everything!",
+					style: ButtonStyle.Success,
+				},
+			],
+		});
+	}
+
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: [
+			BACK_TO_START_BUTTON,
+			{
+				type: ComponentType.Button,
+				custom_id: isElderSpirit
+					? CATALOGUE_VIEW_ELDERS_CUSTOM_ID
+					: isStandardSpirit
+						? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
+						: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.seasonId}`,
+				emoji:
+					isSeasonalSpirit || isGuideSpirit
+						? SeasonIdToSeasonalEmoji[spirit.seasonId]
+						: { name: "⏪" },
+				label: "Back",
+				style: ButtonStyle.Secondary,
+			},
+		],
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [

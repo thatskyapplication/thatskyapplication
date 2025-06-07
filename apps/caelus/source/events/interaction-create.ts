@@ -55,6 +55,7 @@ import {
 	CATALOGUE_VIEW_START_CUSTOM_ID,
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	parseCatalogueType,
+	parseViewSpirit,
 	viewElders,
 	viewEventYears,
 	viewEvents,
@@ -461,7 +462,7 @@ export default {
 				}
 
 				if (customId.startsWith(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)) {
-					await Catalogue.parseViewSpirit(interaction);
+					await parseViewSpirit(interaction);
 					return;
 				}
 
@@ -751,7 +752,7 @@ export default {
 				}
 
 				if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
-					await Catalogue.parseViewSpirit(interaction);
+					await parseViewSpirit(interaction);
 					return;
 				}
 
