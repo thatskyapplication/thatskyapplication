@@ -362,6 +362,8 @@ export default {
 				"Find a clue of the Blue Bird's whereabouts in the Forest Clearing",
 			[DailyQuest.MeetUpWithBumblingBoatswainInTreasureReef]:
 				"Meet up with Bumbling Boatswain in Treasure Reef",
+			[DailyQuest.MeetUpWithTalentedBuilderInBirdNest]:
+				"Meet up with Talented Builder in Bird Nest",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
