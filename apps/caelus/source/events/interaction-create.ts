@@ -33,6 +33,46 @@ import {
 	issueSubmission,
 } from "../features/about.js";
 import {
+	CATALOGUE_BACK_TO_START_CUSTOM_ID,
+	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
+	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
+	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
+	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
+	CATALOGUE_VIEW_OFFER_3_CUSTOM_ID,
+	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+	CATALOGUE_VIEW_REALM_CUSTOM_ID,
+	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
+	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
+	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
+	CATALOGUE_VIEW_START_CUSTOM_ID,
+	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
+	parseCatalogueType,
+	parseSetItems,
+	parseViewEvent,
+	parseViewSpirit,
+	setElders,
+	setRealm,
+	setSeason,
+	setSeasonItems,
+	viewElders,
+	viewEventYears,
+	viewEvents,
+	viewRealm,
+	viewRealms,
+	viewReturningSpirits,
+	viewSeason,
+	viewSeasons,
+	viewStart,
+} from "../features/catalogue.js";
+import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 } from "../features/daily-guides.js";
@@ -63,30 +103,6 @@ import {
 	shopSuggestionSubmission,
 } from "../features/shop.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
-import {
-	CATALOGUE_BACK_TO_START_CUSTOM_ID,
-	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
-	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_3_CUSTOM_ID,
-	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
-	CATALOGUE_VIEW_REALM_CUSTOM_ID,
-	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
-	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
-	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
-	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-	CATALOGUE_VIEW_START_CUSTOM_ID,
-	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
-	Catalogue,
-} from "../models/Catalogue.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
 	SKY_PROFILE_EDIT_CUSTOM_ID,
@@ -392,12 +408,12 @@ export default {
 					customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
 					customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
 				) {
-					await Catalogue.viewCatalogue(interaction);
+					await viewStart(interaction);
 					return;
 				}
 
 				if (customId === CATALOGUE_VIEW_REALMS_CUSTOM_ID) {
-					await Catalogue.viewRealms(interaction);
+					await viewRealms(interaction);
 					return;
 				}
 
@@ -405,18 +421,18 @@ export default {
 					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
 
 					if (isRealm(parsedCustomId)) {
-						await Catalogue.viewRealm(interaction, parsedCustomId);
+						await viewRealm(interaction, parsedCustomId);
 						return;
 					}
 				}
 
 				if (customId === CATALOGUE_VIEW_ELDERS_CUSTOM_ID) {
-					await Catalogue.viewElders(interaction);
+					await viewElders(interaction);
 					return;
 				}
 
 				if (customId === CATALOGUE_VIEW_SEASONS_CUSTOM_ID) {
-					await Catalogue.viewSeasons(interaction);
+					await viewSeasons(interaction);
 					return;
 				}
 
@@ -424,54 +440,54 @@ export default {
 					const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
 
 					if (isSeasonId(parsedCustomId)) {
-						await Catalogue.viewSeason(interaction, parsedCustomId);
+						await viewSeason(interaction, parsedCustomId);
 						return;
 					}
 				}
 
 				if (customId === CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID) {
-					await Catalogue.viewEventYears(interaction);
+					await viewEventYears(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID)) {
 					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-					await Catalogue.viewEvents(interaction, parsedCustomId);
+					await viewEvents(interaction, parsedCustomId);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_VIEW_EVENT_CUSTOM_ID)) {
-					await Catalogue.parseViewEvent(interaction);
+					await parseViewEvent(interaction);
 					return;
 				}
 
 				if (customId === CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
-					await Catalogue.viewReturningSpirits(interaction);
+					await viewReturningSpirits(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)) {
-					await Catalogue.parseViewSpirit(interaction);
+					await parseViewSpirit(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_REALM_EVERYTHING_CUSTOM_ID)) {
-					await Catalogue.setRealm(interaction);
+					await setRealm(interaction);
 					return;
 				}
 
 				if (customId === CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID) {
-					await Catalogue.setElders(interaction);
+					await setElders(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID)) {
-					await Catalogue.setSeason(interaction);
+					await setSeason(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID)) {
-					await Catalogue.parseSetItems(interaction);
+					await parseSetItems(interaction);
 					return;
 				}
 
@@ -715,14 +731,14 @@ export default {
 
 			try {
 				if (customId === CATALOGUE_VIEW_TYPE_CUSTOM_ID) {
-					await Catalogue.parseCatalogueType(interaction);
+					await parseCatalogueType(interaction);
 					return;
 				}
 
 				const value0 = values[0]!;
 
 				if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
-					await Catalogue.viewRealm(interaction, value0);
+					await viewRealm(interaction, value0);
 					return;
 				}
 
@@ -730,23 +746,23 @@ export default {
 					const seasonId = Number(value0);
 
 					if (isSeasonId(seasonId)) {
-						await Catalogue.viewSeason(interaction, seasonId);
+						await viewSeason(interaction, seasonId);
 						return;
 					}
 				}
 
 				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
-					await Catalogue.viewEvents(interaction, value0);
+					await viewEvents(interaction, value0);
 					return;
 				}
 
 				if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
-					await Catalogue.parseViewSpirit(interaction);
+					await parseViewSpirit(interaction);
 					return;
 				}
 
 				if (customId === CATALOGUE_VIEW_EVENT_CUSTOM_ID) {
-					await Catalogue.parseViewEvent(interaction);
+					await parseViewEvent(interaction);
 					return;
 				}
 
@@ -755,12 +771,12 @@ export default {
 					customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID) ||
 					customId.startsWith(CATALOGUE_VIEW_OFFER_3_CUSTOM_ID)
 				) {
-					await Catalogue.parseSetItems(interaction);
+					await parseSetItems(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
-					await Catalogue.setSeasonItems(interaction);
+					await setSeasonItems(interaction);
 					return;
 				}
 

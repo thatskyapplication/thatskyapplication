@@ -7,8 +7,8 @@ import {
 } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../discord.js";
+import type { CataloguePacket } from "../features/catalogue.js";
 import type { GiveawayPacket, GiveawayUpsellPacket } from "../features/giveaway.js";
-import type { CataloguePacket } from "../models/Catalogue.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type { HeartPacket } from "../models/Heart.js";
 import Profile from "../models/Profile.js";
