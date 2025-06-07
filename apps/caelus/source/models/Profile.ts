@@ -58,6 +58,7 @@ import sharp from "sharp";
 import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
+import { allProgress, fetchCatalogue } from "../features/catalogue.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
@@ -97,7 +98,6 @@ import {
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
-import { Catalogue } from "./Catalogue.js";
 
 interface SkyProfileLikesPacket {
 	user_id: LooseSnowflake;
@@ -2006,9 +2006,13 @@ export default class Profile {
 
 		if (typeof catalogueProgression === "boolean") {
 			if (catalogueProgression) {
-				const catalogue = await Catalogue.fetch(userId).catch(() => null);
-				const allProgress = catalogue?.allProgress(true) ?? 0;
-				fields.push({ name: "Catalogue Progression", value: `${allProgress}%`, inline: true });
+				const catalogue = await fetchCatalogue(userId);
+				const allProgressResult = allProgress(catalogue?.data, true) ?? 0;
+				fields.push({
+					name: "Catalogue Progression",
+					value: `${allProgressResult}%`,
+					inline: true,
+				});
 			}
 		} else {
 			missing.push("- Set if you want to share your catalogue progression!");

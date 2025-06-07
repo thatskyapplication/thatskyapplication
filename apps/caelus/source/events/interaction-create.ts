@@ -55,8 +55,13 @@ import {
 	CATALOGUE_VIEW_START_CUSTOM_ID,
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
 	parseCatalogueType,
+	parseSetItems,
 	parseViewEvent,
 	parseViewSpirit,
+	setElders,
+	setRealm,
+	setSeason,
+	setSeasonItems,
 	viewElders,
 	viewEventYears,
 	viewEvents,
@@ -98,7 +103,6 @@ import {
 	shopSuggestionSubmission,
 } from "../features/shop.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
-import { Catalogue } from "../models/Catalogue.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
 	SKY_PROFILE_EDIT_CUSTOM_ID,
@@ -468,22 +472,22 @@ export default {
 				}
 
 				if (customId.startsWith(CATALOGUE_REALM_EVERYTHING_CUSTOM_ID)) {
-					await Catalogue.setRealm(interaction);
+					await setRealm(interaction);
 					return;
 				}
 
 				if (customId === CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID) {
-					await Catalogue.setElders(interaction);
+					await setElders(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID)) {
-					await Catalogue.setSeason(interaction);
+					await setSeason(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID)) {
-					await Catalogue.parseSetItems(interaction);
+					await parseSetItems(interaction);
 					return;
 				}
 
@@ -767,12 +771,12 @@ export default {
 					customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID) ||
 					customId.startsWith(CATALOGUE_VIEW_OFFER_3_CUSTOM_ID)
 				) {
-					await Catalogue.parseSetItems(interaction);
+					await parseSetItems(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
-					await Catalogue.setSeasonItems(interaction);
+					await setSeasonItems(interaction);
 					return;
 				}
 

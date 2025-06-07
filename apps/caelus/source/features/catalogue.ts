@@ -73,7 +73,13 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { interactionInvoker, isButton, isChatInputCommand } from "../utility/functions.js";
+import {
+	interactionInvoker,
+	isButton,
+	isChatInputCommand,
+	isRealm,
+	resolveStringSelectMenu,
+} from "../utility/functions.js";
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
 export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
@@ -309,7 +315,7 @@ function nestingWorkshopProgress(data: ReadonlySet<number> = new Set(), round?: 
 	return progressPercentage(owned, total, round);
 }
 
-function allProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
+export function allProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
 	const standardAndElderOwnedProgress = spiritOwnedProgress([...REALM_SPIRITS.values()], data);
 	const seasonalOwnedProgress = seasonOwnedProgress([...skySeasons().values()], data);
 	const eventOwnedProgressResult = eventOwnedProgress([...skyEvents().values()], data);
@@ -524,7 +530,7 @@ function offerProgressTotalCharacters(offerProgress: {
 	);
 }
 
-async function fetch(userId: Snowflake) {
+export async function fetchCatalogue(userId: Snowflake) {
 	const catalogue = await pg<CataloguePacket>(Table.Catalogue).where({ user_id: userId }).first();
 	return catalogue ? { ...catalogue, data: new Set(catalogue.data) } : null;
 }
@@ -538,7 +544,7 @@ async function start({
 	userId,
 	locale,
 }: CatalogueStartOptions): Promise<[APIMessageTopLevelComponent]> {
-	const catalogue = await fetch(userId);
+	const catalogue = await fetchCatalogue(userId);
 	const data = catalogue?.data;
 	const standardProgress = spiritProgress([...STANDARD_SPIRITS.values()], data, true);
 	const elderProgress = spiritProgress([...ELDER_SPIRITS.values()], data, true);
@@ -791,7 +797,7 @@ export async function parseCatalogueType(interaction: APIMessageComponentSelectM
 export async function viewRealms(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -875,7 +881,7 @@ export async function viewRealm(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	realm: RealmName,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 	const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
 	const title = `## ${t(`realms.${realm}`, { lng: locale, ns: "general" })}\n-# Catalogue → Realms`;
@@ -968,7 +974,7 @@ export async function viewRealm(
 export async function viewElders(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -1053,7 +1059,7 @@ export async function viewElders(
 export async function viewSeasons(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 	const currentSeason = skyCurrentSeason(skyNow());
 	const containerComponents: APIComponentInContainer[] = [];
@@ -1141,7 +1147,7 @@ export async function viewSeason(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	seasonId: SeasonIds,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 	const seasons = skySeasons();
 	const season = seasons.get(seasonId);
@@ -1316,7 +1322,7 @@ export async function viewSeason(
 export async function viewEventYears(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1393,7 +1399,7 @@ export async function viewEvents(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	yearString: string,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 	const year = Number(yearString);
 	const events = skyEvents().filter((event) => event.start.year === year);
@@ -1529,7 +1535,7 @@ export async function viewEvents(
 
 export async function viewReturningSpirits(interaction: APIMessageComponentButtonInteraction) {
 	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetch(invoker.id);
+	const catalogue = await fetchCatalogue(invoker.id);
 	const { locale } = interaction;
 	const spirits = resolveReturningSpirits(skyNow());
 
@@ -1603,7 +1609,7 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 export async function parseViewSpirit(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
 	const spiritId = Number(
 		isButton(interaction)
@@ -1845,7 +1851,7 @@ async function viewSpirit(
 export async function parseViewEvent(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
 	const eventId = Number(
 		isButton(interaction)
@@ -2029,11 +2035,11 @@ async function viewEvent(
 	});
 }
 
-export async function viewStarterPacks(
+async function viewStarterPacks(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const invoker = interactionInvoker(interaction);
-	const catalogue = await fetch(invoker.id);
+	const catalogue = await fetchCatalogue(invoker.id);
 
 	const itemSelectionOptions = STARTER_PACKS.items.map(({ name, cosmetics, cosmeticDisplay }) => {
 		const stringSelectMenuOption: APISelectMenuOption = {
@@ -2115,10 +2121,10 @@ export async function viewStarterPacks(
 	});
 }
 
-export async function viewSecretArea(
+async function viewSecretArea(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
 	const itemSelectionOptions = SECRET_AREA.items.map(({ name, cosmetics, cosmeticDisplay }) => {
 		const stringSelectMenuOption: APISelectMenuOption = {
@@ -2200,10 +2206,10 @@ export async function viewSecretArea(
 	});
 }
 
-export async function viewPermanentEventStore(
+async function viewPermanentEventStore(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
 	const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(
 		({ name, cosmetics, cosmeticDisplay }) => {
@@ -2289,10 +2295,10 @@ export async function viewPermanentEventStore(
 	});
 }
 
-export async function viewNestingWorkshop(
+async function viewNestingWorkshop(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
-	const catalogue = await fetch(interactionInvoker(interaction).id);
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
 	const itemSelectionOptions = NESTING_WORKSHOP.items.map(
 		({ name, cosmetics, cosmeticDisplay }) => {
@@ -2412,4 +2418,270 @@ export async function viewNestingWorkshop(
 			},
 		],
 	});
+}
+
+export async function setRealm(interaction: APIMessageComponentButtonInteraction) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+	const realm = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
+
+	if (!isRealm(realm)) {
+		throw new Error("Unknown realm.");
+	}
+
+	const allCosmetics = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce(
+		(data, spirit) => {
+			for (const cosmetic of spirit.allCosmetics) {
+				data.add(cosmetic);
+			}
+
+			return data;
+		},
+		new Set<number>(),
+	);
+
+	await update(invoker.id, catalogue ? catalogue.data.union(allCosmetics) : allCosmetics);
+	await viewRealm(interaction, realm);
+}
+
+export async function setElders(interaction: APIMessageComponentButtonInteraction) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+
+	const allCosmetics = ELDER_SPIRITS.reduce((data, spirit) => {
+		for (const cosmetic of spirit.allCosmetics) {
+			data.add(cosmetic);
+		}
+
+		return data;
+	}, new Set<number>());
+
+	await update(invoker.id, catalogue ? catalogue.data.union(allCosmetics) : allCosmetics);
+	await viewElders(interaction);
+}
+
+export async function setSeason(interaction: APIMessageComponentButtonInteraction) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+
+	const parsedCustomId = Number(
+		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
+	);
+
+	const season = skySeasons().get(parsedCustomId as SeasonIds);
+
+	if (!season) {
+		throw new Error("Unknown season.");
+	}
+
+	const allCosmetics = new Set([
+		...season.guide.allCosmetics,
+		...season.spirits.reduce<number[]>((totalCosmetics, spirit) => {
+			totalCosmetics.push(...spirit.allCosmetics);
+			return totalCosmetics;
+		}, []),
+		...season.allCosmetics,
+	]);
+
+	await update(invoker.id, catalogue ? catalogue.data.union(allCosmetics) : allCosmetics);
+	await viewSeason(interaction, season.id);
+}
+
+export async function setSeasonItems(interaction: APIMessageComponentSelectMenuInteraction) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+
+	const parsedCustomId = Number(
+		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
+	);
+
+	const season = skySeasons().get(parsedCustomId as SeasonIds);
+
+	if (!season) {
+		throw new Error("Unknown season.");
+	}
+
+	await update(invoker.id, calculateSetItems(interaction, season.allCosmetics, catalogue?.data));
+	await viewSeason(interaction, season.id);
+}
+
+export async function parseSetItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const resolvedCustomId = interaction.data.custom_id.slice(
+		interaction.data.custom_id.indexOf("§") + 1,
+	);
+
+	const resolvedCustomIdForSpirits = resolvedCustomId.startsWith("spirit:")
+		? Number(resolvedCustomId.slice(7))
+		: null;
+
+	const resolvedCustomIdNumberForEvents = resolvedCustomId.startsWith("event:")
+		? Number(resolvedCustomId.slice(6))
+		: null;
+
+	const spirit = spirits().get(resolvedCustomIdForSpirits as SpiritIds);
+
+	const event =
+		resolvedCustomIdNumberForEvents === null
+			? null
+			: skyEvents().get(resolvedCustomIdNumberForEvents as EventIds);
+
+	if (spirit) {
+		await setSpiritItems(interaction, spirit);
+	} else if (event) {
+		await setEventItems(interaction, event);
+	} else {
+		switch (Number(resolvedCustomId)) {
+			case CatalogueType.StarterPacks: {
+				await setStarterPacksItems(interaction);
+				return;
+			}
+			case CatalogueType.SecretArea: {
+				await setSecretAreaItems(interaction);
+				return;
+			}
+			case CatalogueType.PermanentEventStore: {
+				await setPermanentEventStoreItems(interaction);
+				return;
+			}
+			case CatalogueType.NestingWorkshop: {
+				await setNestingWorkshopItems(interaction);
+				return;
+			}
+			default: {
+				pino.error(interaction, "Could not parse items to set.");
+
+				await client.api.interactions.updateMessage(
+					interaction.id,
+					interaction.token,
+					ERROR_RESPONSE_COMPONENTS_V2,
+				);
+			}
+		}
+	}
+}
+
+function calculateSetItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	allCosmetics: readonly number[],
+	data: ReadonlySet<number> = new Set(),
+) {
+	if (isButton(interaction)) {
+		return new Set([...data, ...allCosmetics]);
+	}
+
+	// Get the select menu where this interaction came from.
+	const component = resolveStringSelectMenu(
+		interaction.message.components!,
+		interaction.data.custom_id,
+	)!;
+
+	// Retrieve all cosmetics in this select menu.
+	const selectMenuCosmetics = component.options.reduce((computedCosmetics, { value }) => {
+		for (const parsedValue of JSON.parse(value) as readonly number[]) {
+			computedCosmetics.add(parsedValue);
+		}
+
+		return computedCosmetics;
+	}, new Set<number>());
+
+	// Remove the cosmetics from the data.
+	const modifiedData = data.difference(selectMenuCosmetics);
+
+	// Calculate the new data.
+	return modifiedData.union(
+		interaction.data.values.reduce((computedCosmetics, value) => {
+			const parsedValue = JSON.parse(value) as readonly number[];
+
+			for (const value of parsedValue) {
+				computedCosmetics.add(value);
+			}
+
+			return computedCosmetics;
+		}, new Set<number>()),
+	);
+}
+
+async function setSpiritItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+	await update(invoker.id, calculateSetItems(interaction, spirit.allCosmetics, catalogue?.data));
+	await viewSpirit(interaction, spirit);
+}
+
+async function setEventItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	event: Event,
+) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+	await update(invoker.id, calculateSetItems(interaction, event.allCosmetics, catalogue?.data));
+	await viewEvent(interaction, event);
+}
+
+async function setStarterPacksItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+
+	await update(
+		invoker.id,
+		calculateSetItems(interaction, STARTER_PACKS.allCosmetics, catalogue?.data),
+	);
+
+	await viewStarterPacks(interaction);
+}
+
+async function setSecretAreaItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+
+	await update(
+		invoker.id,
+		calculateSetItems(interaction, SECRET_AREA.allCosmetics, catalogue?.data),
+	);
+
+	await viewSecretArea(interaction);
+}
+
+async function setPermanentEventStoreItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+
+	await update(
+		invoker.id,
+		calculateSetItems(interaction, PERMANENT_EVENT_STORE.allCosmetics, catalogue?.data),
+	);
+
+	await viewPermanentEventStore(interaction);
+}
+
+async function setNestingWorkshopItems(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+) {
+	const invoker = interactionInvoker(interaction);
+	const catalogue = await fetchCatalogue(invoker.id);
+
+	await update(
+		invoker.id,
+		calculateSetItems(interaction, NESTING_WORKSHOP.allCosmetics, catalogue?.data),
+	);
+
+	await viewNestingWorkshop(interaction);
+}
+
+async function update(userId: Snowflake, data: ReadonlySet<number>) {
+	await pg<CataloguePacket>(Table.Catalogue)
+		.update({ data: [...data] })
+		.where({ user_id: userId })
+		.returning("*");
 }
