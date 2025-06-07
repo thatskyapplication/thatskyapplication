@@ -320,6 +320,7 @@ function logMessageComponent(
 			values: "values" in interaction.data ? interaction.data.values : null,
 			guildId: interaction.guild_id,
 			channelId: interaction.channel.id,
+			messageId: interaction.message.id,
 			permissions: interaction.app_permissions,
 			authorizingIntegrationOwners: interaction.authorizing_integration_owners,
 			context: interaction.context,
