@@ -38,6 +38,8 @@ import {
 	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
+	CATALOGUE_SETTINGS_CUSTOM_ID,
+	CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
 	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
 	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
@@ -62,6 +64,7 @@ import {
 	setRealm,
 	setSeason,
 	setSeasonItems,
+	updateEverythingButtonSetting,
 	viewElders,
 	viewEventYears,
 	viewEvents,
@@ -70,6 +73,7 @@ import {
 	viewReturningSpirits,
 	viewSeason,
 	viewSeasons,
+	viewSettings,
 	viewStart,
 } from "../features/catalogue.js";
 import {
@@ -410,6 +414,16 @@ export default {
 					customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
 				) {
 					await viewStart(interaction);
+					return;
+				}
+
+				if (customId === CATALOGUE_SETTINGS_CUSTOM_ID) {
+					await viewSettings(interaction);
+					return;
+				}
+
+				if (customId.startsWith(CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID)) {
+					await updateEverythingButtonSetting(interaction);
 					return;
 				}
 

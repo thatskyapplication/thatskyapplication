@@ -3,6 +3,7 @@ import {
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
+	type APIComponentInMessageActionRow,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
@@ -83,6 +84,11 @@ import {
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
 export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
+export const CATALOGUE_SETTINGS_CUSTOM_ID = "CATALOGUE_SETTINGS_CUSTOM_ID" as const;
+
+export const CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID =
+	"CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID" as const;
+
 export const CATALOGUE_VIEW_TYPE_CUSTOM_ID = "CATALOGUE_VIEW_TYPE_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_REALMS_CUSTOM_ID = "CATALOGUE_VIEW_REALMS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_ELDERS_CUSTOM_ID = "CATALOGUE_VIEW_ELDERS_CUSTOM_ID" as const;
@@ -115,6 +121,8 @@ const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 const CATALOGUE_STANDARD_PERCENTAGE_NOTE =
 	"Averages are calculated even beyond the second wing buff." as const;
 
+const I_HAVE_EVERYTHING = "I have everything!" as const;
+
 const BACK_TO_START_BUTTON = {
 	type: ComponentType.Button,
 	// This custom id must differ to avoid duplicate custom ids.
@@ -131,6 +139,7 @@ const RETURNING_SPIRITS_TITLE = "## Returning Spirits\n-# Catalogue" as const;
 export interface CataloguePacket {
 	user_id: Snowflake;
 	data: number[];
+	show_everything_button: boolean;
 }
 
 function progress(offer: readonly Item[], data: ReadonlySet<number> = new Set()) {
@@ -660,8 +669,19 @@ async function start({
 					spacing: SeparatorSpacingSize.Small,
 				},
 				{
-					type: ComponentType.TextDisplay,
-					content: `Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal Progress: ${allProgress(data, true)}%`,
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: CATALOGUE_SETTINGS_CUSTOM_ID,
+						emoji: MISCELLANEOUS_EMOJIS.Settings,
+					},
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal Progress: ${allProgress(data, true)}%`,
+						},
+					],
 				},
 				{
 					type: ComponentType.ActionRow,
@@ -756,6 +776,68 @@ export async function viewStart(
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
 	}
+}
+
+export async function viewSettings(interaction: APIMessageComponentButtonInteraction) {
+	const catalogue = await pg<CataloguePacket>(Table.Catalogue)
+		.select("show_everything_button")
+		.where({ user_id: interactionInvoker(interaction).id })
+		.first();
+
+	const everythingSetting: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		style: catalogue?.show_everything_button ? ButtonStyle.Danger : ButtonStyle.Success,
+		custom_id: `${CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID}§${Number(catalogue?.show_everything_button ?? true)}`,
+		label: catalogue?.show_everything_button ? "Disable" : "Enable",
+	};
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				accent_color: DEFAULT_EMBED_COLOUR,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: "## Settings\n-# Catalogue",
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.Section,
+						accessory: everythingSetting,
+						components: [
+							{
+								type: ComponentType.TextDisplay,
+								content: `Toggle displaying the "${I_HAVE_EVERYTHING}" button.`,
+							},
+						],
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							BACK_TO_START_BUTTON,
+							{
+								type: ComponentType.Button,
+								custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+								emoji: { name: "⏪" },
+								label: "Back",
+								style: ButtonStyle.Secondary,
+							},
+						],
+					},
+				],
+			},
+		],
+	});
 }
 
 export async function parseCatalogueType(interaction: APIMessageComponentSelectMenuInteraction) {
@@ -926,6 +1008,28 @@ export async function viewRealm(
 		});
 	}
 
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		BACK_TO_START_BUTTON,
+		{
+			type: ComponentType.Button,
+			custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+			emoji: { name: "⏪" },
+			label: "Back",
+			style: ButtonStyle.Secondary,
+		},
+	];
+
+	if (catalogue?.show_everything_button) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: `${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`,
+			disabled: hasEverything,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: I_HAVE_EVERYTHING,
+			style: ButtonStyle.Success,
+		});
+	}
+
 	containerComponents.push(
 		{
 			type: ComponentType.TextDisplay,
@@ -938,25 +1042,7 @@ export async function viewRealm(
 		},
 		{
 			type: ComponentType.ActionRow,
-			components: [
-				BACK_TO_START_BUTTON,
-				{
-					type: ComponentType.Button,
-					custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
-					emoji: { name: "⏪" },
-					label: "Back",
-					style: ButtonStyle.Secondary,
-				},
-
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`,
-					disabled: hasEverything,
-					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-					label: "I have everything!",
-					style: ButtonStyle.Success,
-				},
-			],
+			components: actionRowComponents,
 		},
 	);
 
@@ -1016,6 +1102,28 @@ export async function viewElders(
 		});
 	}
 
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		BACK_TO_START_BUTTON,
+		{
+			type: ComponentType.Button,
+			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			emoji: { name: "⏪" },
+			label: "Back",
+			style: ButtonStyle.Secondary,
+		},
+	];
+
+	if (catalogue?.show_everything_button) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+			disabled: hasEverything,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: I_HAVE_EVERYTHING,
+			style: ButtonStyle.Success,
+		});
+	}
+
 	containerComponents.push(
 		{
 			type: ComponentType.Separator,
@@ -1024,24 +1132,7 @@ export async function viewElders(
 		},
 		{
 			type: ComponentType.ActionRow,
-			components: [
-				BACK_TO_START_BUTTON,
-				{
-					type: ComponentType.Button,
-					custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-					emoji: { name: "⏪" },
-					label: "Back",
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
-					disabled: hasEverything,
-					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-					label: "I have everything!",
-					style: ButtonStyle.Success,
-				},
-			],
+			components: actionRowComponents,
 		},
 	);
 
@@ -1253,8 +1344,8 @@ export async function viewSeason(
 	const before = seasons.get((season.id - 1) as SeasonIds);
 	const after = seasons.get((season.id + 1) as SeasonIds);
 
-	containerComponents.push(
-		{
+	if (catalogue?.show_everything_button) {
+		containerComponents.push({
 			type: ComponentType.ActionRow,
 			components: [
 				{
@@ -1262,11 +1353,14 @@ export async function viewSeason(
 					custom_id: `${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonId}`,
 					disabled: hasEverything,
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-					label: "I have everything!",
+					label: I_HAVE_EVERYTHING,
 					style: ButtonStyle.Success,
 				},
 			],
-		},
+		});
+	}
+
+	containerComponents.push(
 		{
 			type: ComponentType.Separator,
 			divider: true,
@@ -1631,13 +1725,21 @@ export async function parseViewSpirit(
 		return;
 	}
 
-	await viewSpirit(interaction, spirit, catalogue?.data);
+	await viewSpirit(interaction, spirit, {
+		data: catalogue?.data,
+		showEverythingButton: catalogue?.show_everything_button,
+	});
+}
+
+interface CatalogueViewSpiritOptions {
+	data: ReadonlySet<number> | undefined;
+	showEverythingButton: boolean | undefined;
 }
 
 async function viewSpirit(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
-	data: ReadonlySet<number> = new Set(),
+	{ data, showEverythingButton }: CatalogueViewSpiritOptions,
 ) {
 	const { locale } = interaction;
 	const isStandardSpirit = spirit.isStandardSpirit();
@@ -1717,7 +1819,7 @@ async function viewSpirit(
 	if (offer.length > 0) {
 		const itemSelectionOptions = offer.map(({ name, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => data.has(cosmetic)),
+				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
 				label: name,
 				value: JSON.stringify(cosmetics),
 			};
@@ -1783,37 +1885,39 @@ async function viewSpirit(
 		const before = beforeIndex >= 0 ? spirits.at(beforeIndex) : null;
 		const after = spirits.at(index + 1);
 
-		containerComponents.push({
-			type: ComponentType.ActionRow,
-			// It is possible that for 1 spirit, the custom ids will be the same, leading to an error.
-			// We use the nullish coalescing operator to fallback to some default values to mitigate this.
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.id ?? "before"}`,
-					disabled: !before,
-					emoji: { name: "⬅️" },
-					label: "Previous spirit",
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.id ?? "after"}`,
-					disabled: !after,
-					emoji: { name: "➡️" },
-					label: "Next spirit",
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§spirit:${spirit.id}`,
-					disabled: hasEverything,
-					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-					label: "I have everything!",
-					style: ButtonStyle.Success,
-				},
-			],
-		});
+		// It is possible that for 1 spirit, the custom ids will be the same, leading to an error.
+		// We use the nullish coalescing operator to fallback to some default values to mitigate this.
+		const actionRowComponents: APIComponentInMessageActionRow[] = [
+			{
+				type: ComponentType.Button,
+				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.id ?? "before"}`,
+				disabled: !before,
+				emoji: { name: "⬅️" },
+				label: "Previous spirit",
+				style: ButtonStyle.Secondary,
+			},
+			{
+				type: ComponentType.Button,
+				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.id ?? "after"}`,
+				disabled: !after,
+				emoji: { name: "➡️" },
+				label: "Next spirit",
+				style: ButtonStyle.Secondary,
+			},
+		];
+
+		if (showEverythingButton) {
+			actionRowComponents.push({
+				type: ComponentType.Button,
+				custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§spirit:${spirit.id}`,
+				disabled: hasEverything,
+				emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+				label: I_HAVE_EVERYTHING,
+				style: ButtonStyle.Success,
+			});
+		}
+
+		containerComponents.push({ type: ComponentType.ActionRow, components: actionRowComponents });
 	}
 
 	containerComponents.push({
@@ -1873,13 +1977,21 @@ export async function parseViewEvent(
 		return;
 	}
 
-	await viewEvent(interaction, event, catalogue?.data);
+	await viewEvent(interaction, event, {
+		data: catalogue?.data,
+		showEverythingButton: catalogue?.show_everything_button,
+	});
+}
+
+interface CatalogueViewEventOptions {
+	data: ReadonlySet<number> | undefined;
+	showEverythingButton: boolean | undefined;
 }
 
 async function viewEvent(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	event: Event,
-	data: ReadonlySet<number> = new Set(),
+	{ data, showEverythingButton }: CatalogueViewEventOptions,
 ) {
 	const { locale } = interaction;
 	const { id, start, offer, offerInfographicURL, patchNotesURL } = event;
@@ -1939,7 +2051,7 @@ async function viewEvent(
 	if (offer.length > 0) {
 		const itemSelectionOptions = offer.map(({ name, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => data.has(cosmetic)),
+				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
 				label: name,
 				value: JSON.stringify(cosmetics),
 			};
@@ -1972,6 +2084,38 @@ async function viewEvent(
 	const before = events.get((id - 1) as EventIds);
 	const after = events.get((id + 1) as EventIds);
 
+	// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
+	// We use the nullish coalescing operator to fallback to some default values to mitigate this.
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		{
+			type: ComponentType.Button,
+			custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`,
+			disabled: !before,
+			emoji: { name: "⬅️" },
+			label: "Previous event",
+			style: ButtonStyle.Secondary,
+		},
+		{
+			type: ComponentType.Button,
+			custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`,
+			disabled: !after,
+			emoji: { name: "➡️" },
+			label: "Next event",
+			style: ButtonStyle.Secondary,
+		},
+	];
+
+	if (showEverythingButton) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`,
+			disabled: eventProgress([event], data) === 100,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: I_HAVE_EVERYTHING,
+			style: ButtonStyle.Success,
+		});
+	}
+
 	containerComponents.push(
 		{
 			type: ComponentType.Separator,
@@ -1980,34 +2124,7 @@ async function viewEvent(
 		},
 		{
 			type: ComponentType.ActionRow,
-			// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
-			// We use the nullish coalescing operator to fallback to some default values to mitigate this.
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`,
-					disabled: !before,
-					emoji: { name: "⬅️" },
-					label: "Previous event",
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`,
-					disabled: !after,
-					emoji: { name: "➡️" },
-					label: "Next event",
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`,
-					disabled: eventProgress([event], data) === 100,
-					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-					label: "I have everything!",
-					style: ButtonStyle.Success,
-				},
-			],
+			components: actionRowComponents,
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -2057,6 +2174,28 @@ async function viewStarterPacks(
 		return stringSelectMenuOption;
 	});
 
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		BACK_TO_START_BUTTON,
+		{
+			type: ComponentType.Button,
+			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			emoji: { name: "⏪" },
+			label: "Back",
+			style: ButtonStyle.Secondary,
+		},
+	];
+
+	if (catalogue?.show_everything_button) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
+			disabled: starterPackProgress(catalogue?.data) === 100,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: I_HAVE_EVERYTHING,
+			style: ButtonStyle.Success,
+		});
+	}
+
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
 			{
@@ -2096,24 +2235,7 @@ async function viewStarterPacks(
 					},
 					{
 						type: ComponentType.ActionRow,
-						components: [
-							BACK_TO_START_BUTTON,
-							{
-								type: ComponentType.Button,
-								custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-								emoji: { name: "⏪" },
-								label: "Back",
-								style: ButtonStyle.Secondary,
-							},
-							{
-								type: ComponentType.Button,
-								custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
-								disabled: starterPackProgress(catalogue?.data) === 100,
-								emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-								label: "I have everything!",
-								style: ButtonStyle.Success,
-							},
-						],
+						components: actionRowComponents,
 					},
 				],
 			},
@@ -2141,6 +2263,28 @@ async function viewSecretArea(
 
 		return stringSelectMenuOption;
 	});
+
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		BACK_TO_START_BUTTON,
+		{
+			type: ComponentType.Button,
+			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			emoji: { name: "⏪" },
+			label: "Back",
+			style: ButtonStyle.Secondary,
+		},
+	];
+
+	if (catalogue?.show_everything_button) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`,
+			disabled: secretAreaProgress(catalogue?.data) === 100,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: I_HAVE_EVERYTHING,
+			style: ButtonStyle.Success,
+		});
+	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -2181,24 +2325,7 @@ async function viewSecretArea(
 					},
 					{
 						type: ComponentType.ActionRow,
-						components: [
-							BACK_TO_START_BUTTON,
-							{
-								type: ComponentType.Button,
-								custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-								emoji: { name: "⏪" },
-								label: "Back",
-								style: ButtonStyle.Secondary,
-							},
-							{
-								type: ComponentType.Button,
-								custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`,
-								disabled: secretAreaProgress(catalogue?.data) === 100,
-								emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-								label: "I have everything!",
-								style: ButtonStyle.Success,
-							},
-						],
+						components: actionRowComponents,
 					},
 				],
 			},
@@ -2228,6 +2355,28 @@ async function viewPermanentEventStore(
 			return stringSelectMenuOption;
 		},
 	);
+
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		BACK_TO_START_BUTTON,
+		{
+			type: ComponentType.Button,
+			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			emoji: { name: "⏪" },
+			label: "Back",
+			style: ButtonStyle.Secondary,
+		},
+	];
+
+	if (catalogue?.show_everything_button) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
+			disabled: permanentEventStoreProgress(catalogue?.data) === 100,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: I_HAVE_EVERYTHING,
+			style: ButtonStyle.Success,
+		});
+	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -2270,24 +2419,7 @@ async function viewPermanentEventStore(
 					},
 					{
 						type: ComponentType.ActionRow,
-						components: [
-							BACK_TO_START_BUTTON,
-							{
-								type: ComponentType.Button,
-								custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-								emoji: { name: "⏪" },
-								label: "Back",
-								style: ButtonStyle.Secondary,
-							},
-							{
-								type: ComponentType.Button,
-								custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
-								disabled: permanentEventStoreProgress(catalogue?.data) === 100,
-								emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-								label: "I have everything!",
-								style: ButtonStyle.Success,
-							},
-						],
+						components: actionRowComponents,
 					},
 				],
 			},
@@ -2329,6 +2461,28 @@ async function viewNestingWorkshop(
 		CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 2,
 		CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 3,
 	);
+
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		BACK_TO_START_BUTTON,
+		{
+			type: ComponentType.Button,
+			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			emoji: { name: "⏪" },
+			label: "Back",
+			style: ButtonStyle.Secondary,
+		},
+	];
+
+	if (catalogue?.show_everything_button) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+			disabled: nestingWorkshopProgress(catalogue?.data) === 100,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: I_HAVE_EVERYTHING,
+			style: ButtonStyle.Success,
+		});
+	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -2395,24 +2549,7 @@ async function viewNestingWorkshop(
 					},
 					{
 						type: ComponentType.ActionRow,
-						components: [
-							BACK_TO_START_BUTTON,
-							{
-								type: ComponentType.Button,
-								custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
-								emoji: { name: "⏪" },
-								label: "Back",
-								style: ButtonStyle.Secondary,
-							},
-							{
-								type: ComponentType.Button,
-								custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
-								disabled: nestingWorkshopProgress(catalogue?.data) === 100,
-								emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-								label: "I have everything!",
-								style: ButtonStyle.Success,
-							},
-						],
+						components: actionRowComponents,
 					},
 				],
 			},
@@ -2440,7 +2577,7 @@ export async function setRealm(interaction: APIMessageComponentButtonInteraction
 		new Set<number>(),
 	);
 
-	await update(invoker.id, catalogue ? catalogue.data.union(allCosmetics) : allCosmetics);
+	await update(invoker.id, { data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics });
 	await viewRealm(interaction, realm);
 }
 
@@ -2456,7 +2593,7 @@ export async function setElders(interaction: APIMessageComponentButtonInteractio
 		return data;
 	}, new Set<number>());
 
-	await update(invoker.id, catalogue ? catalogue.data.union(allCosmetics) : allCosmetics);
+	await update(invoker.id, { data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics });
 	await viewElders(interaction);
 }
 
@@ -2483,7 +2620,7 @@ export async function setSeason(interaction: APIMessageComponentButtonInteractio
 		...season.allCosmetics,
 	]);
 
-	await update(invoker.id, catalogue ? catalogue.data.union(allCosmetics) : allCosmetics);
+	await update(invoker.id, { data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics });
 	await viewSeason(interaction, season.id);
 }
 
@@ -2501,7 +2638,9 @@ export async function setSeasonItems(interaction: APIMessageComponentSelectMenuI
 		throw new Error("Unknown season.");
 	}
 
-	await update(invoker.id, calculateSetItems(interaction, season.allCosmetics, catalogue?.data));
+	await update(invoker.id, {
+		data: calculateSetItems(interaction, season.allCosmetics, catalogue?.data),
+	});
 	await viewSeason(interaction, season.id);
 }
 
@@ -2610,12 +2749,14 @@ async function setSpiritItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	const data = await update(
-		invoker.id,
-		calculateSetItems(interaction, spirit.allCosmetics, catalogue?.data),
-	);
+	const { data, show_everything_button } = await update(invoker.id, {
+		data: calculateSetItems(interaction, spirit.allCosmetics, catalogue?.data),
+	});
 
-	await viewSpirit(interaction, spirit, data);
+	await viewSpirit(interaction, spirit, {
+		data,
+		showEverythingButton: show_everything_button,
+	});
 }
 
 async function setEventItems(
@@ -2625,12 +2766,11 @@ async function setEventItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	const data = await update(
-		invoker.id,
-		calculateSetItems(interaction, event.allCosmetics, catalogue?.data),
-	);
+	const { data, show_everything_button } = await update(invoker.id, {
+		data: calculateSetItems(interaction, event.allCosmetics, catalogue?.data),
+	});
 
-	await viewEvent(interaction, event, data);
+	await viewEvent(interaction, event, { data, showEverythingButton: show_everything_button });
 }
 
 async function setStarterPacksItems(
@@ -2639,10 +2779,9 @@ async function setStarterPacksItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	await update(
-		invoker.id,
-		calculateSetItems(interaction, STARTER_PACKS.allCosmetics, catalogue?.data),
-	);
+	await update(invoker.id, {
+		data: calculateSetItems(interaction, STARTER_PACKS.allCosmetics, catalogue?.data),
+	});
 
 	await viewStarterPacks(interaction);
 }
@@ -2653,10 +2792,9 @@ async function setSecretAreaItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	await update(
-		invoker.id,
-		calculateSetItems(interaction, SECRET_AREA.allCosmetics, catalogue?.data),
-	);
+	await update(invoker.id, {
+		data: calculateSetItems(interaction, SECRET_AREA.allCosmetics, catalogue?.data),
+	});
 
 	await viewSecretArea(interaction);
 }
@@ -2667,10 +2805,9 @@ async function setPermanentEventStoreItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	await update(
-		invoker.id,
-		calculateSetItems(interaction, PERMANENT_EVENT_STORE.allCosmetics, catalogue?.data),
-	);
+	await update(invoker.id, {
+		data: calculateSetItems(interaction, PERMANENT_EVENT_STORE.allCosmetics, catalogue?.data),
+	});
 
 	await viewPermanentEventStore(interaction);
 }
@@ -2681,20 +2818,49 @@ async function setNestingWorkshopItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	await update(
-		invoker.id,
-		calculateSetItems(interaction, NESTING_WORKSHOP.allCosmetics, catalogue?.data),
-	);
+	await update(invoker.id, {
+		data: calculateSetItems(interaction, NESTING_WORKSHOP.allCosmetics, catalogue?.data),
+	});
 
 	await viewNestingWorkshop(interaction);
 }
 
-async function update(userId: Snowflake, data: ReadonlySet<number>) {
-	const [cataloguePacket] = await pg<CataloguePacket>(Table.Catalogue)
-		.insert({ user_id: userId, data: [...data] })
-		.onConflict("user_id")
-		.merge(["data"])
-		.returning("data");
+export async function updateEverythingButtonSetting(
+	interaction: APIMessageComponentButtonInteraction,
+) {
+	const invoker = interactionInvoker(interaction);
+	const customId = interaction.data.custom_id;
+	const setting = Number(customId.slice(customId.indexOf("§") + 1));
+	await update(invoker.id, { showEverythingButton: !setting });
+	await viewSettings(interaction);
+}
 
-	return new Set(cataloguePacket!.data);
+interface CatalogueUpdateOptions {
+	data?: ReadonlySet<number>;
+	showEverythingButton?: boolean;
+}
+
+type CatalogueUpdatePayload = Partial<Omit<CataloguePacket, "user_id">>;
+
+async function update(userId: Snowflake, { data, showEverythingButton }: CatalogueUpdateOptions) {
+	const payload: CatalogueUpdatePayload = {};
+	const mergeFields: (keyof CatalogueUpdatePayload)[] = [];
+
+	if (data) {
+		mergeFields.push("data");
+		payload.data = [...data];
+	}
+
+	if (showEverythingButton !== undefined) {
+		mergeFields.push("show_everything_button");
+		payload.show_everything_button = showEverythingButton;
+	}
+
+	const [cataloguePacket] = await pg<CataloguePacket>(Table.Catalogue)
+		.insert({ user_id: userId, ...payload })
+		.onConflict("user_id")
+		.merge(mergeFields)
+		.returning("*");
+
+	return { ...cataloguePacket!, data: new Set(cataloguePacket!.data) };
 }
