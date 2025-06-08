@@ -28,12 +28,12 @@ export default new Season({
 					{ rotation: RotationIdentifier.Four, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.Four, realm: RealmName.HiddenForest },
+					{ rotation: RotationIdentifier.Three, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.Three, realm: RealmName.HiddenForest },
+					{ rotation: RotationIdentifier.Four, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.ValleyOfTriumph },
 				]
 			: now >= skyDate(2_025, 5, 1)
