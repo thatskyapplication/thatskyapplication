@@ -318,7 +318,7 @@ export async function end() {
 		entriesText = `Out of a total of ${totalEntries} entries across ${userCount} users, you had a ${chanceOfWinningString}% chance of winning with your ${winnerEntries === 1 ? "1 entry" : `${winnerEntries} entries`}.`;
 	}
 
-	await client.api.channels.createMessage(channel.id, {
+	const { id: messageId } = await client.api.channels.createMessage(channel.id, {
 		allowed_mentions: { users: [winner.user_id] },
 		components: [
 			{
@@ -343,6 +343,8 @@ export async function end() {
 		],
 		flags: MessageFlags.IsComponentsV2,
 	});
+
+	await client.api.channels.crosspostMessage(channel.id, messageId);
 }
 
 export async function upsell(interaction: APIChatInputApplicationCommandInteraction) {
