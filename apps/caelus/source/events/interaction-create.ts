@@ -29,7 +29,6 @@ import {
 	issueSubmission,
 } from "../features/about.js";
 import {
-	CATALOGUE_BACK_TO_START_CUSTOM_ID,
 	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
 	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
@@ -48,7 +47,6 @@ import {
 	CATALOGUE_VIEW_REALM_CUSTOM_ID,
 	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
 	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
-	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
 	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
 	CATALOGUE_VIEW_START_CUSTOM_ID,
 	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
@@ -388,7 +386,7 @@ export default {
 
 		if (isButton(interaction)) {
 			logMessageComponent(interaction);
-			const customId = interaction.data.custom_id;
+			const [customId, ...data] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
 				if (customId === DATA_DELETION_CUSTOM_ID) {
@@ -408,7 +406,7 @@ export default {
 
 				if (
 					customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
-					customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
+					customId === CustomId.CatalogueBackToStartButton
 				) {
 					await viewStart(interaction);
 					return;
@@ -448,8 +446,8 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_VIEW_SEASON_CUSTOM_ID)) {
-					const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
+				if (customId === CustomId.CatalogueViewSeasonButton) {
+					const parsedCustomId = Number(data[0]);
 
 					if (isSeasonId(parsedCustomId)) {
 						await viewSeason(interaction, parsedCustomId);
@@ -738,7 +736,7 @@ export default {
 
 		if (isStringSelectMenu(interaction)) {
 			logMessageComponent(interaction);
-			const customId = interaction.data.custom_id;
+			const [customId] = interaction.data.custom_id.split("§") as [string, ...string[]];
 			const values = interaction.data.values;
 
 			try {
@@ -754,7 +752,7 @@ export default {
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID) {
+				if (customId === CustomId.CatalogueViewSeasonButton) {
 					const seasonId = Number(value0);
 
 					if (isSeasonId(seasonId)) {
@@ -906,7 +904,7 @@ export default {
 
 		if (isGuildRoleSelectMenu(interaction)) {
 			logMessageComponent(interaction);
-			const customId = interaction.data.custom_id;
+			const [customId] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
 				if (customId.startsWith(NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID)) {
@@ -933,7 +931,7 @@ export default {
 
 		if (isGuildChannelSelectMenu(interaction)) {
 			logMessageComponent(interaction);
-			const customId = interaction.data.custom_id;
+			const [customId] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
 				if (customId === DAILY_GUIDES_SETUP_CUSTOM_ID) {
@@ -986,7 +984,7 @@ export default {
 		}
 
 		if (isModalSubmit(interaction)) {
-			const customId = interaction.data.custom_id;
+			const [customId] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
 				if (customId === CustomId.AboutFeedbackModal) {

@@ -63,6 +63,7 @@ import {
 } from "../utility/catalogue.js";
 import {
 	CATALOGUE_EVENTS_THRESHOLD,
+	CustomId,
 	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE_COMPONENTS_V2,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
@@ -83,7 +84,6 @@ import {
 } from "../utility/functions.js";
 
 export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
-export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
 export const CATALOGUE_SETTINGS_CUSTOM_ID = "CATALOGUE_SETTINGS_CUSTOM_ID" as const;
 
 export const CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID =
@@ -96,7 +96,6 @@ export const CATALOGUE_VIEW_SEASONS_CUSTOM_ID = "CATALOGUE_VIEW_SEASONS_CUSTOM_I
 export const CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID = "CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
 
 export const CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
@@ -126,7 +125,7 @@ const I_HAVE_EVERYTHING = "I have everything!" as const;
 const BACK_TO_START_BUTTON = {
 	type: ComponentType.Button,
 	// This custom id must differ to avoid duplicate custom ids.
-	custom_id: CATALOGUE_BACK_TO_START_CUSTOM_ID,
+	custom_id: CustomId.CatalogueBackToStartButton,
 	emoji: { name: "⏮️" },
 	label: "Start",
 	style: ButtonStyle.Secondary,
@@ -572,7 +571,7 @@ async function start({
 	const currentSeasonButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: currentSeason
-			? `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`
+			? `${CustomId.CatalogueViewSeasonButton}§${currentSeason.id}`
 			: // This would not happen, but it's here to satisfy the API.
 				CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
 		disabled: !currentSeason,
@@ -1160,7 +1159,7 @@ export async function viewSeasons(
 			type: ComponentType.Section,
 			accessory: {
 				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`,
+				custom_id: `${CustomId.CatalogueViewSeasonButton}§${currentSeason.id}`,
 				emoji: SeasonIdToSeasonalEmoji[currentSeason.id],
 				style: ButtonStyle.Primary,
 			},
@@ -1185,7 +1184,7 @@ export async function viewSeasons(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: CATALOGUE_VIEW_SEASON_CUSTOM_ID,
+					custom_id: CustomId.CatalogueViewSeasonButton,
 					max_values: 1,
 					min_values: 0,
 					options: skySeasons().map((season) => {
@@ -1371,7 +1370,7 @@ export async function viewSeason(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`,
+					custom_id: `${CustomId.CatalogueViewSeasonButton}§${before?.id}`,
 					disabled: !before,
 					emoji: before ? SeasonIdToSeasonalEmoji[before.id] : MISCELLANEOUS_EMOJIS.No,
 					label: "Previous season",
@@ -1379,7 +1378,7 @@ export async function viewSeason(
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`,
+					custom_id: `${CustomId.CatalogueViewSeasonButton}§${after?.id}`,
 					disabled: !after,
 					emoji: after ? SeasonIdToSeasonalEmoji[after.id] : MISCELLANEOUS_EMOJIS.No,
 					label: "Next season",
@@ -1930,7 +1929,7 @@ async function viewSpirit(
 					? CATALOGUE_VIEW_ELDERS_CUSTOM_ID
 					: isStandardSpirit
 						? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
-						: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.seasonId}`,
+						: `${CustomId.CatalogueViewSeasonButton}§${spirit.seasonId}`,
 				emoji:
 					isSeasonalSpirit || isGuideSpirit
 						? SeasonIdToSeasonalEmoji[spirit.seasonId]

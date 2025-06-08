@@ -94,6 +94,8 @@ export const enum CustomId {
 	AboutIssueModal = "6",
 	AboutIssueModalTitle = "7",
 	AboutIssueModalDescription = "8",
+	CatalogueBackToStartButton = "9",
+	CatalogueViewSeasonButton = "10",
 }
 
 // Miscellaneous constants.
