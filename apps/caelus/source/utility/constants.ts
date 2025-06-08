@@ -84,6 +84,18 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 // Quest numbers.
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 
+// Custom ids.
+export const enum CustomId {
+	AboutFeedbackButton = "1",
+	AboutIssueButton = "2",
+	AboutFeedbackModal = "3",
+	AboutFeedbackModalTitle = "4",
+	AboutFeedbackModalDescription = "5",
+	AboutIssueModal = "6",
+	AboutIssueModalTitle = "7",
+	AboutIssueModalDescription = "8",
+}
+
 // Miscellaneous constants.
 export const THATSKYGAME_URL = "https://thatskygame.com" as const;
 export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;

@@ -18,6 +18,7 @@ import pino from "../pino.js";
 import { FEEDBACK_CHANNEL_ID, IDEA_TAG_ID, ISSUE_TAG_ID } from "../utility/configuration.js";
 import {
 	APPLICATION_INVITE_URL,
+	CustomId,
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	GITHUB_SPONSORS_URL,
@@ -34,18 +35,6 @@ import { EMOTE_EMOJIS } from "../utility/emojis.js";
 import { avatarURL, interactionInvoker, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
-
-export const ABOUT_FEEDBACK_CUSTOM_ID = "ABOUT_FEEDBACK_CUSTOM_ID" as const;
-export const ABOUT_ISSUE_CUSTOM_ID = "ABOUT_ISSUE_CUSTOM_ID" as const;
-export const FEEDBACK_MODAL_CUSTOM_ID = "FEEDBACK_MODAL_CUSTOM_ID" as const;
-const FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID = "FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID" as const;
-
-const FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID =
-	"FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID" as const;
-
-export const ISSUE_MODAL_CUSTOM_ID = "ISSUE_MODAL_CUSTOM_ID" as const;
-const ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID = "ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID" as const;
-const ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID = "ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID" as const;
 
 export async function about(): Promise<[APIMessageTopLevelComponent]> {
 	const currentUser = await client.api.users.getCurrent();
@@ -95,14 +84,14 @@ export async function about(): Promise<[APIMessageTopLevelComponent]> {
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
-							custom_id: ABOUT_FEEDBACK_CUSTOM_ID,
+							custom_id: CustomId.AboutFeedbackButton,
 							label: "Submit feedback",
 							emoji: EMOTE_EMOJIS.Thinking,
 						},
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
-							custom_id: ABOUT_ISSUE_CUSTOM_ID,
+							custom_id: CustomId.AboutIssueButton,
 							label: "Report issue",
 							emoji: EMOTE_EMOJIS.Duck,
 						},
@@ -123,7 +112,7 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 						type: ComponentType.TextInput,
 						style: TextInputStyle.Short,
 						label: "Enter a suitable title for your feedback.",
-						custom_id: FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID,
+						custom_id: CustomId.AboutFeedbackModalTitle,
 						min_length: MINIMUM_FEEDBACK_TITLE_LENGTH,
 						max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
 						required: true,
@@ -137,7 +126,7 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 						type: ComponentType.TextInput,
 						style: TextInputStyle.Paragraph,
 						label: "Type your feedback here!",
-						custom_id: FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
+						custom_id: CustomId.AboutFeedbackModalDescription,
 						placeholder: "It would be cool to...\nI wish we could...",
 						min_length: 1,
 						max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
@@ -146,7 +135,7 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 				],
 			},
 		],
-		custom_id: FEEDBACK_MODAL_CUSTOM_ID,
+		custom_id: CustomId.AboutFeedbackModal,
 		title: "Submit feedback",
 	});
 }
@@ -199,8 +188,8 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 	}
 
 	const components = new ModalResolver(interaction.data.components);
-	const title = components.getTextInputValue(FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID);
-	const description = components.getTextInputValue(FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID);
+	const title = components.getTextInputValue(CustomId.AboutFeedbackModalTitle);
+	const description = components.getTextInputValue(CustomId.AboutFeedbackModalDescription);
 	const invoker = interactionInvoker(interaction);
 	const profile = await Profile.fetch(invoker.id).catch(() => null);
 
@@ -239,7 +228,7 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 						type: ComponentType.TextInput,
 						style: TextInputStyle.Short,
 						label: "Enter a suitable title for your issue.",
-						custom_id: ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID,
+						custom_id: CustomId.AboutIssueModalTitle,
 						min_length: MINIMUM_FEEDBACK_TITLE_LENGTH,
 						max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
 						required: true,
@@ -253,7 +242,7 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 						type: ComponentType.TextInput,
 						style: TextInputStyle.Paragraph,
 						label: "Describe your issue here.",
-						custom_id: ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
+						custom_id: CustomId.AboutIssueModalDescription,
 						placeholder: "Every time I try to...\nNothing happens when...",
 						min_length: 1,
 						max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
@@ -262,7 +251,7 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 				],
 			},
 		],
-		custom_id: ISSUE_MODAL_CUSTOM_ID,
+		custom_id: CustomId.AboutIssueModal,
 		title: "Report issue",
 	});
 }
@@ -315,8 +304,8 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 	}
 
 	const components = new ModalResolver(interaction.data.components);
-	const title = components.getTextInputValue(ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID);
-	const description = components.getTextInputValue(ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID);
+	const title = components.getTextInputValue(CustomId.AboutIssueModalTitle);
+	const description = components.getTextInputValue(CustomId.AboutIssueModalDescription);
 	const invoker = interactionInvoker(interaction);
 	const profile = await Profile.fetch(invoker.id).catch(() => null);
 

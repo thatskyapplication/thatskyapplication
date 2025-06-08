@@ -23,10 +23,6 @@ import {
 } from "../commands/index.js";
 import { client } from "../discord.js";
 import {
-	ABOUT_FEEDBACK_CUSTOM_ID,
-	ABOUT_ISSUE_CUSTOM_ID,
-	FEEDBACK_MODAL_CUSTOM_ID,
-	ISSUE_MODAL_CUSTOM_ID,
 	feedbackModalResponse,
 	feedbackSubmission,
 	issueModalResponse,
@@ -152,6 +148,7 @@ import {
 import { history } from "../services/heart.js";
 import { browse, today } from "../services/shard-eruption.js";
 import {
+	CustomId,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
@@ -399,12 +396,12 @@ export default {
 					return;
 				}
 
-				if (customId === ABOUT_FEEDBACK_CUSTOM_ID) {
+				if (customId === CustomId.AboutFeedbackButton) {
 					await feedbackModalResponse(interaction);
 					return;
 				}
 
-				if (customId === ABOUT_ISSUE_CUSTOM_ID) {
+				if (customId === CustomId.AboutIssueButton) {
 					await issueModalResponse(interaction);
 					return;
 				}
@@ -992,12 +989,12 @@ export default {
 			const customId = interaction.data.custom_id;
 
 			try {
-				if (customId === FEEDBACK_MODAL_CUSTOM_ID) {
+				if (customId === CustomId.AboutFeedbackModal) {
 					await feedbackSubmission(interaction);
 					return;
 				}
 
-				if (customId === ISSUE_MODAL_CUSTOM_ID) {
+				if (customId === CustomId.AboutIssueModal) {
 					await issueSubmission(interaction);
 					return;
 				}
