@@ -112,6 +112,8 @@ const TREASURE_CANDLES_DOUBLE_DATES = [
 	{ start: skyDate(2_024, 12, 9), end: skyDate(2_024, 12, 23) },
 	{ start: skyDate(2_025, 3, 17), end: skyDate(2_025, 3, 24) },
 	{ start: skyDate(2_025, 4, 7), end: skyDate(2_025, 4, 21) },
+	// Unannounced. Using dates for AURORA Homecoming 2025.
+	{ start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) },
 ];
 
 const TREASURE_CANDLES_ROTATION = {
@@ -142,22 +144,22 @@ const TREASURE_CANDLES_ROTATION = {
 
 const TREASURE_CANDLES_DOUBLE_ROTATION = {
 	[RealmName.DaylightPrairie]: [
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
 	],
 	[RealmName.HiddenForest]: [
-		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
 	],
 	[RealmName.ValleyOfTriumph]: [
-		String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
 	],
 	[RealmName.GoldenWasteland]: [
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
 	],
 	[RealmName.VaultOfKnowledge]: [
