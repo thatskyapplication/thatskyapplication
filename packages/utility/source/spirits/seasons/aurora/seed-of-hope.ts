@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteRhythmicClap1 },
 			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteRhythmicClap2 },
@@ -51,6 +50,44 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SeedOfHopeSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 			},
+		],
+		current: [
+			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteRhythmicClap1 },
+			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteRhythmicClap2, cost: { hearts: 4 } },
+			{
+				name: "Blessing 1",
+				cosmetic: Cosmetic.SeedOfHopeBlessing1,
+				cost: { candles: 5 },
+			},
+			{ name: "Mask", cosmetic: Cosmetic.SeedOfHopeMask, cost: { candles: 35 } },
+			{
+				name: "Heart",
+				cosmetic: Cosmetic.SeedOfHopeSeasonalHeart,
+				cost: { candles: 3 },
+			},
+			{
+				name: "Wing buff",
+				cosmetic: Cosmetic.SeedOfHopeWingBuff,
+				cost: { ascendedCandles: 2 },
+			},
+			{
+				name: `${emote} 3`,
+				cosmetic: Cosmetic.EmoteRhythmicClap3,
+				cost: { hearts: 3 },
+			},
+			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteRhythmicClap4, cost: { hearts: 6 } },
+			{
+				name: "Hair",
+				cosmetic: Cosmetic.SeedOfHopeHair,
+				cost: { candles: 40 },
+			},
+			{ name: "Blessing 2", cosmetic: Cosmetic.SeedOfHopeBlessing2, cost: { candles: 5 } },
+			{
+				name: "Music sheet",
+				cosmetic: Cosmetic.SeedOfHopeMusicSheet,
+				cost: { candles: 15 },
+			},
+			{ name: "Cape", cosmetic: Cosmetic.SeedOfHopeCape, cost: { candles: 75 } },
 		],
 	},
 	visits: {
