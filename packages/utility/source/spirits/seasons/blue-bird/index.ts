@@ -34,6 +34,7 @@ export default new Season({
 					{ rotation: RotationIdentifier.Four, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.HiddenForest },
+					// 09/06/2025: Unsure of the first rotation of this as double seasonal light occurred.
 					{ rotation: RotationIdentifier.Three, realm: RealmName.ValleyOfTriumph },
 				]
 			: now >= skyDate(2_025, 5, 1)
@@ -61,5 +62,8 @@ export default new Season({
 						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 					],
+	// Double seasonal light event is unannounced. Using dates for AURORA Homecoming 2025.
+	doubleSeasonalLightEventStartDate: skyDate(2_025, 6, 9),
+	doubleSeasonalLightEventEndDate: skyDate(2_025, 6, 23),
 	patchNotesURL: String(new URL("p0290", LINK_REDIRECTOR_URL)),
 });
