@@ -1,13 +1,24 @@
 {
+	"root": false,
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-	"extends": ["../../biome.json"],
+	"extends": "//",
 	"linter": {
 		"rules": {
 			"complexity": {
 				"noExcessiveCognitiveComplexity": "off"
 			},
 			"style": {
-				"useDefaultSwitchClause": "off"
+				"useDefaultSwitchClause": "off",
+				"noParameterAssign": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error"
 			},
 			"suspicious": {
 				"noEvolvingTypes": "off"

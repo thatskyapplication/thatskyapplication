@@ -14,8 +14,8 @@ import {
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild } from "../models/discord/guild.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {

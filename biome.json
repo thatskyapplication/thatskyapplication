@@ -1,7 +1,11 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"files": {
+		"includes": ["!distribution"]
+	},
 	"formatter": {
-		"lineWidth": 100
+		"lineWidth": 100,
+		"formatWithErrors": true
 	},
 	"javascript": {
 		"formatter": {
@@ -10,9 +14,9 @@
 	},
 	"linter": {
 		"rules": {
-			"all": true,
 			"correctness": {
-				"noNodejsModules": "off"
+				"noNodejsModules": "off",
+				"noSwitchDeclarations": "error"
 			},
 			"complexity": {
 				"noExcessiveCognitiveComplexity": {
@@ -29,16 +33,23 @@
 				"noNonNullAssertion": "off",
 				"useFilenamingConvention": "off",
 				"useNamingConvention": "off",
-				"useSingleCaseStatement": "error"
+				"noParameterAssign": "error",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error",
+				"noUnusedTemplateLiteral": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error",
+				"noUselessElse": "error"
 			},
 			"suspicious": {
 				"noConstEnum": "off"
 			}
 		}
 	},
-	"organizeImports": {
-		"enabled": true
-	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"vcs": {
 		"clientKind": "git",
 		"defaultBranch": "main",

@@ -7,14 +7,45 @@ export const MAXIMUM_KRILL_GIF = 11 as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
-// biome-ignore lint/performance/noBarrelFile: This is fine.
+export { CDN_URL } from "./cdn.js";
+export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
+export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
+export { isDuring, skyDate, skyNow, skyToday, TIME_ZONE } from "./dates.js";
+export {
+	type Emoji,
+	emojiConstants,
+	formatEmoji,
+	formatEmojiURL,
+	resolveCurrencyEmoji,
+} from "./emojis.js";
 export {
 	skyCurrentEvents,
-	skyEventYears,
 	skyEvents,
+	skyEventYears,
 	skyNotEndedEvents,
 	skyUpcomingEvents,
 } from "./events/index.js";
+export {
+	GUESS_DIFFICULTY_LEVEL_VALUES,
+	GuessDifficultyLevel,
+	GuessDifficultyLevelToName,
+} from "./guess.js";
+export {
+	AreaToWingedLight,
+	MAXIMUM_WINGED_LIGHT,
+	MINIMUM_WINGED_LIGHT,
+	REALM_NAME_VALUES,
+	RealmName,
+	SKY_MAP_VALUES,
+	SkyMap,
+	treasureCandles,
+	VALID_REALM_NAME,
+	VALID_REALM_NAME_VALUES,
+	type ValidRealmName,
+	WINGED_LIGHT_AREAS,
+	WINGED_LIGHT_IN_AREAS,
+	WINGED_LIGHT_THRESHOLDS,
+} from "./kingdom.js";
 export { default as de } from "./locales/de.js";
 export { default as enGB } from "./locales/en-gb.js";
 export { default as es419 } from "./locales/es-419.js";
@@ -43,9 +74,28 @@ export {
 	type StandardSpiritRealm,
 } from "./models/spirits.js";
 export {
+	NOTIFICATION_TYPE_VALUES,
+	type NotificationPacket,
+	NotificationType,
+	type NotificationTypes,
+} from "./notifications.js";
+export { isPlatformId, PLATFORM_ID_VALUES, PlatformId, type PlatformIds } from "./platforms.js";
+export { DAILY_QUEST_VALUES, DailyQuest, type DailyQuests, isDailyQuest } from "./quests.js";
+export {
+	isSeasonId,
+	RotationIdentifier,
+	SEASON_PASS_SEASONAL_CANDLES_BONUS,
+	SEASONAL_CANDLES_PER_DAY,
+	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
+	SeasonId,
+	type SeasonIds,
+} from "./season.js";
+export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
+export { spirits } from "./spirits/index.js";
+export {
 	ELDER_SPIRITS,
-	REALMS,
 	REALM_SPIRITS,
+	REALMS,
 	STANDARD_SPIRITS,
 } from "./spirits/realms/index.js";
 export {
@@ -56,7 +106,6 @@ export {
 	skySeasons,
 	skyUpcomingSeason,
 } from "./spirits/seasons/index.js";
-export { spirits } from "./spirits/index.js";
 export type { Snowflake } from "./types/index.js";
 export type { ProfilePacket } from "./types/profile.js";
 export { LINK_REDIRECTOR_URL } from "./utility/constants.js";
@@ -73,61 +122,11 @@ export {
 	type Item,
 	type ItemCost,
 	type ItemRaw,
+	isSpiritId,
 	SpiritCall,
 	SpiritEmote,
 	SpiritId,
 	type SpiritIds,
 	SpiritStance,
 	TRAVELLING_DATES,
-	isSpiritId,
 } from "./utility/spirits.js";
-export { CDN_URL } from "./cdn.js";
-export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
-export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
-export { TIME_ZONE, isDuring, skyDate, skyNow, skyToday } from "./dates.js";
-export {
-	type Emoji,
-	emojiConstants,
-	formatEmoji,
-	formatEmojiURL,
-	resolveCurrencyEmoji,
-} from "./emojis.js";
-export {
-	GUESS_DIFFICULTY_LEVEL_VALUES,
-	GuessDifficultyLevel,
-	GuessDifficultyLevelToName,
-} from "./guess.js";
-export {
-	AreaToWingedLight,
-	MAXIMUM_WINGED_LIGHT,
-	MINIMUM_WINGED_LIGHT,
-	REALM_NAME_VALUES,
-	RealmName,
-	SKY_MAP_VALUES,
-	SkyMap,
-	VALID_REALM_NAME,
-	VALID_REALM_NAME_VALUES,
-	type ValidRealmName,
-	WINGED_LIGHT_AREAS,
-	WINGED_LIGHT_IN_AREAS,
-	WINGED_LIGHT_THRESHOLDS,
-	treasureCandles,
-} from "./kingdom.js";
-export {
-	NOTIFICATION_TYPE_VALUES,
-	type NotificationPacket,
-	NotificationType,
-	type NotificationTypes,
-} from "./notifications.js";
-export { PlatformId, PLATFORM_ID_VALUES, type PlatformIds, isPlatformId } from "./platforms.js";
-export { DAILY_QUEST_VALUES, DailyQuest, type DailyQuests, isDailyQuest } from "./quests.js";
-export {
-	RotationIdentifier,
-	SEASONAL_CANDLES_PER_DAY,
-	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	SEASON_PASS_SEASONAL_CANDLES_BONUS,
-	SeasonId,
-	type SeasonIds,
-	isSeasonId,
-} from "./season.js";
-export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";

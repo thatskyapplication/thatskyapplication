@@ -4,9 +4,9 @@ import { CDN_URL } from "../cdn.js";
 import type { RealmName } from "../kingdom.js";
 import {
 	type RotationIdentifier,
+	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	type SeasonIds,
 } from "../season.js";
 import { resolveAllCosmetics, resolveOffer, snakeCaseName } from "../utility/functions.js";

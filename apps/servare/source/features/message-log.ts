@@ -17,8 +17,8 @@ import {
 } from "@discordjs/core";
 import { diffLines, diffWords } from "diff";
 import { client } from "../discord.js";
-import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import pg, { Table } from "../pg.js";
 import {

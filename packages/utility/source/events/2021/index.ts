@@ -7,8 +7,8 @@ import DaysOfLove from "./days-of-love.js";
 import DaysOfMischief from "./days-of-mischief.js";
 import DaysOfNature from "./days-of-nature.js";
 import DaysOfRainbow from "./days-of-rainbow.js";
-import DaysOfSummerLights from "./days-of-summer-lights.js";
 import DaysOfSummer from "./days-of-summer.js";
+import DaysOfSummerLights from "./days-of-summer-lights.js";
 import SkyAnniversary from "./sky-anniversary.js";
 
 export default [

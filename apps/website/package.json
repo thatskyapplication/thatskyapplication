@@ -31,7 +31,7 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.4",
+		"@biomejs/biome": "2.0.0-beta.6",
 		"@remix-run/dev": "^2.16.4",
 		"@types/node": "^22.13.17",
 		"@types/react": "^18.2.20",
