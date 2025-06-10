@@ -1608,6 +1608,7 @@ export default {
 		},
 		guess: {
 			title: "Where does this come from?",
+			"your-guess": "Your guess",
 			"try-again": "Try again?",
 		},
 		heart: {

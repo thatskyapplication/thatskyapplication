@@ -330,10 +330,13 @@ async function endGame(
 	if (interaction.data.custom_id.startsWith(GUESS_END_GAME)) {
 		description = "Game ended.";
 	} else {
-		description = `Your guess: ${t(`spirits.${guess}`, {
-			lng: locale,
-			ns: "general",
-		})} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
+		description = `${t("guess.your-guess", { lng: locale, ns: "features" })}: ${t(
+			`spirits.${guess}`,
+			{
+				lng: locale,
+				ns: "general",
+			},
+		)} ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
 	}
 
 	const invoker = interactionInvoker(interaction);

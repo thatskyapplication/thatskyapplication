@@ -590,6 +590,7 @@ export default {
 	features: {
 		guess: {
 			title: "Woher kommt das?",
+			"your-guess": "Dein Tipp",
 			"try-again": "Erneut versuchen?",
 		},
 	},
