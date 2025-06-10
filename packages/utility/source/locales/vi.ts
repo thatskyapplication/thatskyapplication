@@ -552,6 +552,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "Di Sản Của Các Nhạc",
 			[SpiritId.TheCellistsFlourishing]: "Sự Thành Công Của Nghệ Sĩ Cello",
 			[SpiritId.ThePianistsFlourishing]: "Sự Thành Công Của Nghệ Sĩ Piano",
+			[SpiritId.CompassionateCellist]: "Nghệ Sĩ Cello Nhân Hậu",
 			[SpiritId.TheMoominStorybook]: "Truyện Moomin",
 			[SpiritId.ComfortOfKindness]: "Sự An Ủi Của Lòng Tốt",
 			[SpiritId.SenseOfSelf]: "Tự Nhận Thức",

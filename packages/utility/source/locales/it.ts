@@ -556,6 +556,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "Eredità dei musicisti",
 			[SpiritId.TheCellistsFlourishing]: " Violoncellista esperta",
 			[SpiritId.ThePianistsFlourishing]: "Pianista esperto",
+			[SpiritId.CompassionateCellist]: "Violoncellista compassionevole",
 			[SpiritId.TheMoominStorybook]: "Libro di fiabe dei Mumin",
 			[SpiritId.ComfortOfKindness]: "Conforto della gentilezza",
 			[SpiritId.SenseOfSelf]: "Autopercezione",

@@ -563,6 +563,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "El legado del músico",
 			[SpiritId.TheCellistsFlourishing]: "La prosperidad del chelista",
 			[SpiritId.ThePianistsFlourishing]: "La prosperidad del pianista",
+			[SpiritId.CompassionateCellist]: "Chelista compasivo",
 			[SpiritId.TheMoominStorybook]: "Libro de cuentos de los Mumin",
 			[SpiritId.ComfortOfKindness]: "Consuelo de bondad",
 			[SpiritId.SenseOfSelf]: "Sentido de identidad",

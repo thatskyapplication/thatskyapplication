@@ -469,6 +469,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "音楽家たちの遺産",
 			[SpiritId.TheCellistsFlourishing]: "栄光のチェリスト",
 			[SpiritId.ThePianistsFlourishing]: "栄光のピアニスト",
+			[SpiritId.CompassionateCellist]: "思いやり深いチェリスト",
 			[SpiritId.TheMoominStorybook]: "ムーミンの本",
 			[SpiritId.ComfortOfKindness]: "慈愛の安らぎ",
 			[SpiritId.SenseOfSelf]: "自乙の確立",

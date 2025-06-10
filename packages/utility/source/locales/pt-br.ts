@@ -550,6 +550,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "O Legado dos Músicos",
 			[SpiritId.TheCellistsFlourishing]: "Desabrochar da Violoncelista",
 			[SpiritId.ThePianistsFlourishing]: "O Desabrochar do Pianista",
+			[SpiritId.CompassionateCellist]: "Violoncelista Solidária",
 			[SpiritId.TheMoominStorybook]: "Livro de Histórias dos Mumins",
 			[SpiritId.ComfortOfKindness]: "Conforto da Bondade",
 			[SpiritId.SenseOfSelf]: "Senso de Identidade",

@@ -437,6 +437,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "音乐家的传承",
 			[SpiritId.TheCellistsFlourishing]: "大提琴家的巅峰",
 			[SpiritId.ThePianistsFlourishing]: "钢琴家的巅峰",
+			[SpiritId.CompassionateCellist]: "富有同情心的大提琴手",
 			[SpiritId.TheMoominStorybook]: "姆明故事书",
 			[SpiritId.ComfortOfKindness]: "善意的慰藉",
 			[SpiritId.SenseOfSelf]: "自我的意识",

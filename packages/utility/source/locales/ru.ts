@@ -536,6 +536,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "Наследие музыкантов",
 			[SpiritId.TheCellistsFlourishing]: "Зенит виолончелиски",
 			[SpiritId.ThePianistsFlourishing]: "Зенит пианиста",
+			[SpiritId.CompassionateCellist]: "Добрая виолончелистка",
 			[SpiritId.TheMoominStorybook]: "Книга Муми-троллей",
 			[SpiritId.ComfortOfKindness]: "Комфорт доброты",
 			[SpiritId.SenseOfSelf]: "Самосознание",

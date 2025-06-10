@@ -514,6 +514,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "음악가의 유산",
 			[SpiritId.TheCellistsFlourishing]: "첼로 연주자의 전성기",
 			[SpiritId.ThePianistsFlourishing]: "피아노 연주자의 전성기",
+			[SpiritId.CompassionateCellist]: "인정 많은 첼로 연주자",
 			[SpiritId.TheMoominStorybook]: "무민 이야기책",
 			[SpiritId.ComfortOfKindness]: "친절의 위로",
 			[SpiritId.SenseOfSelf]: "자아의 인식",

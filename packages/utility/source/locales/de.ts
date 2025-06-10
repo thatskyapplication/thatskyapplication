@@ -558,6 +558,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "Das Vermächtnis der Musik",
 			[SpiritId.TheCellistsFlourishing]: "Das Aufblühen der Cellistin",
 			[SpiritId.ThePianistsFlourishing]: "Das Aufblühen des Pianisten",
+			[SpiritId.CompassionateCellist]: "Mitfühlende Cellistin",
 			[SpiritId.TheMoominStorybook]: "Das Mumin-Geschichtsbuch",
 			[SpiritId.ComfortOfKindness]: "Komfort der Güte",
 			[SpiritId.SenseOfSelf]: "Selbstbewusstsein",

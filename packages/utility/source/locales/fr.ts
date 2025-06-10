@@ -581,6 +581,7 @@ export default {
 			[SpiritId.TheMusiciansLegacy]: "L'héritage du Musicien",
 			[SpiritId.TheCellistsFlourishing]: "L'eclosion de la Violoncelliste",
 			[SpiritId.ThePianistsFlourishing]: "L'eclosion du Pianiste",
+			[SpiritId.CompassionateCellist]: "Violoncelliste compatissante",
 			[SpiritId.TheMoominStorybook]: "Le livre des Moomins",
 			[SpiritId.ComfortOfKindness]: "Bien-être et bonté",
 			[SpiritId.SenseOfSelf]: "Sens de soi",
