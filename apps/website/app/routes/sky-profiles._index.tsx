@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
-import { type ProfilePacket, WEBSITE_URL, isPlatformId } from "@thatskyapplication/utility";
+import { isPlatformId, type ProfilePacket, WEBSITE_URL } from "@thatskyapplication/utility";
 import Layout from "~/components/Layout.js";
 import Pagination from "~/components/Pagination.js";
 import pg from "~/pg.server";

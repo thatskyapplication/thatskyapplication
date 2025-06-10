@@ -22,8 +22,8 @@ import {
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
-	InteractionType,
 	type InteractionsAPI,
+	InteractionType,
 	Locale,
 	type Snowflake as LooseSnowflake,
 	MessageFlags,
@@ -35,8 +35,13 @@ import {
 	type Country,
 	CountryToEmoji,
 	type Emoji,
+	formatEmoji,
+	formatEmojiURL,
 	GuessDifficultyLevel,
 	GuessDifficultyLevelToName,
+	isCountry,
+	isPlatformId,
+	isSeasonId,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 	PLATFORM_ID_VALUES,
@@ -45,11 +50,6 @@ import {
 	type ProfilePacket,
 	type SeasonIds,
 	type Snowflake,
-	formatEmoji,
-	formatEmojiURL,
-	isCountry,
-	isPlatformId,
-	isSeasonId,
 	skySeasons,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
@@ -73,7 +73,6 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
-	SKY_PROFILES_URL,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
 	SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
@@ -85,6 +84,7 @@ import {
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
+	SKY_PROFILES_URL,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import {
@@ -398,14 +398,12 @@ function generateProfileExplorerSelectMenuOptions(
 }
 
 function generateLabelLetter(label: string) {
-	// biome-ignore lint/performance/useTopLevelRegex: This is fine.
 	const emojiRegularExpression = /^\p{Emoji}/u.exec(label);
 
 	if (emojiRegularExpression) {
 		return emojiRegularExpression[0];
 	}
 
-	// biome-ignore lint/performance/useTopLevelRegex: This is fine.
 	const zeroWidthRegularExpression = /\u200B|\u200C|\u200D\|u00A0]/.test(label);
 
 	if (zeroWidthRegularExpression) {

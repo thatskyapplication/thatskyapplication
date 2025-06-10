@@ -5,7 +5,7 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { type SpiritIds, isCountry, spirits } from "@thatskyapplication/utility";
+import { isCountry, type SpiritIds, spirits } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
 import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";

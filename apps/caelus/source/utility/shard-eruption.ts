@@ -1,8 +1,8 @@
 import type { Locale } from "@discordjs/core";
 import {
-	type ShardEruptionData,
 	formatEmoji,
 	resolveCurrencyEmoji,
+	type ShardEruptionData,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { MISCELLANEOUS_EMOJIS } from "./emojis.js";

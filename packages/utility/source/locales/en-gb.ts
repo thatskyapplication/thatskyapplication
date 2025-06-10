@@ -588,7 +588,8 @@ export default {
 			[EventId.DaysOfBloom2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
 			[EventId.DaysOfNature2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
 			[EventId.DaysOfColour2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Colour",
-			[EventId.AURORAHomecoming2025]: "https://sky-children-of-the-light.fandom.com/wiki/AURORA:_Homecoming",
+			[EventId.AURORAHomecoming2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/AURORA:_Homecoming",
 			[EventId.WorkshopShowAndTell2025]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Special_Events#Workshop_Show_&_Tell_-_June_2025",
 			[EventId.SkyAnniversary2025]: "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",

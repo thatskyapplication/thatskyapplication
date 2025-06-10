@@ -16,7 +16,7 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { TIME_ZONE, shardEruption, skyNow, skyToday } from "@thatskyapplication/utility";
+import { shardEruption, skyNow, skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { DateTime } from "luxon";
 import { client } from "../discord.js";
@@ -24,6 +24,7 @@ import { APPLICATION_ID, DEFAULT_EMBED_COLOUR, SHARD_ERUPTION_URL } from "../uti
 import { isChatInputCommand } from "../utility/functions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
+	resolveShardEruptionEmoji,
 	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
@@ -33,7 +34,6 @@ import {
 	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
-	resolveShardEruptionEmoji,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";

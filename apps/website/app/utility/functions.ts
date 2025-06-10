@@ -1,11 +1,11 @@
 import {
 	CDN_URL,
+	getRandomElement,
 	MAXIMUM_HAIR_TOUSLE_GIF,
 	MAXIMUM_HIGH_FIVE_GIF,
 	MAXIMUM_KRILL_GIF,
 	MAXIMUM_PLAY_FIGHT_GIF,
 	TIME_ZONE,
-	getRandomElement,
 } from "@thatskyapplication/utility";
 import { DEFAULT_LOCALE, HUGGING_GIFS } from "~/utility/constants";
 

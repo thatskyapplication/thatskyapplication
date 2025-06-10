@@ -13,8 +13,8 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import {
-	ENTITLEMENT_CACHE,
 	clearEntitlementCache,
+	ENTITLEMENT_CACHE,
 	fetchEntitlement,
 } from "../caches/entitlements.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -33,8 +33,8 @@ import {
 	SERVER_UPGRADE_SKU_ID,
 } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
-import type { GuildMember } from "./discord/guild-member.js";
 import type { GuildChannel } from "./discord/guild.js";
+import type { GuildMember } from "./discord/guild-member.js";
 
 export interface AIPacket {
 	guild_id: Snowflake;

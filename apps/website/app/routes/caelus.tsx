@@ -74,98 +74,92 @@ export default function GuidesLayout() {
 					{renderCategory("Guides", GUIDES, location)}
 				</div>
 			</nav>
-			<>
-				{isSidebarOpen && (
-					<div
-						className="fixed inset-0 bg-black bg-opacity-50 z-30"
-						onClick={() => setIsSidebarOpen(false)}
-						onKeyDown={(event) => event.key === "Escape" && setIsSidebarOpen(false)}
-						aria-hidden="true"
-					/>
-				)}
-				<nav
-					className={`fixed bottom-2 right-2 w-3/4 max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg shadow-lg z-40 transform transition-transform duration-150 ease-in-out ${
-						isSidebarOpen ? "translate-x-0" : "translate-x-[110%]"
-					} overflow-y-auto max-h-[50vh]`}
-				>
-					<div className="relative space-y-1">
-						<div className="flex justify-between items-center">
-							<h2 className="text-lg my-0 uppercase tracking-wide">Home</h2>
-							<button
-								type="button"
-								onClick={() => setIsSidebarOpen(false)}
-								aria-label="Close menu."
-							>
-								<XIcon className="h-6 w-6" />
-							</button>
-						</div>
-						<ul className="space-y-1">
-							{HOME.map((home) => (
-								<li key={home.path}>
-									<Link
-										to={home.path}
-										className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
-											location.pathname === home.path
-												? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
-												: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
-										}`}
-										onClick={() => setIsSidebarOpen(false)}
-									>
-										<div className="flex items-center justify-between">
-											<span className="flex-1 truncate">{home.title}</span>
-											{location.pathname === home.path && (
-												<img
-													src={SKY_KID_ICON_URL}
-													alt="You are here."
-													className="w-6 h-6 flex-shrink-0 ml-2"
-												/>
-											)}
-										</div>
-									</Link>
-								</li>
-							))}
-						</ul>
-						<h2 className="text-lg mt-0 mb-0 uppercase tracking-wide">Guides</h2>
-						<ul className="space-y-1">
-							{GUIDES.map((guide) => (
-								<li key={guide.path}>
-									<Link
-										to={guide.path}
-										className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
-											location.pathname === guide.path
-												? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
-												: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
-										}`}
-										onClick={() => setIsSidebarOpen(false)}
-									>
-										<div className="flex items-center justify-between">
-											<span className="flex-1 truncate">{guide.title}</span>
-											{location.pathname === guide.path && (
-												<img
-													src={SKY_KID_ICON_URL}
-													alt="You are here."
-													className="w-6 h-6 flex-shrink-0 ml-2"
-												/>
-											)}
-										</div>
-									</Link>
-								</li>
-							))}
-						</ul>
-						<div className="flex justify-between border-t border-gray-300 dark:border-gray-700 pt-2">
-							<button
-								type="button"
-								className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md focus:outline-none ml-auto flex items-center space-x-2"
-								onClick={toggleSidebar}
-								aria-label="Close sidebar"
-							>
-								<span className="font-semibold uppercase">Close</span>
-								<XIcon className="h-6 w-6" />
-							</button>
-						</div>
+			{isSidebarOpen && (
+				<div
+					className="fixed inset-0 bg-black bg-opacity-50 z-30"
+					onClick={() => setIsSidebarOpen(false)}
+					onKeyDown={(event) => event.key === "Escape" && setIsSidebarOpen(false)}
+					aria-hidden="true"
+				/>
+			)}
+			<nav
+				className={`fixed bottom-2 right-2 w-3/4 max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg shadow-lg z-40 transform transition-transform duration-150 ease-in-out ${
+					isSidebarOpen ? "translate-x-0" : "translate-x-[110%]"
+				} overflow-y-auto max-h-[50vh]`}
+			>
+				<div className="relative space-y-1">
+					<div className="flex justify-between items-center">
+						<h2 className="text-lg my-0 uppercase tracking-wide">Home</h2>
+						<button type="button" onClick={() => setIsSidebarOpen(false)} aria-label="Close menu.">
+							<XIcon className="h-6 w-6" />
+						</button>
 					</div>
-				</nav>
-			</>
+					<ul className="space-y-1">
+						{HOME.map((home) => (
+							<li key={home.path}>
+								<Link
+									to={home.path}
+									className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
+										location.pathname === home.path
+											? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
+											: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
+									}`}
+									onClick={() => setIsSidebarOpen(false)}
+								>
+									<div className="flex items-center justify-between">
+										<span className="flex-1 truncate">{home.title}</span>
+										{location.pathname === home.path && (
+											<img
+												src={SKY_KID_ICON_URL}
+												alt="You are here."
+												className="w-6 h-6 flex-shrink-0 ml-2"
+											/>
+										)}
+									</div>
+								</Link>
+							</li>
+						))}
+					</ul>
+					<h2 className="text-lg mt-0 mb-0 uppercase tracking-wide">Guides</h2>
+					<ul className="space-y-1">
+						{GUIDES.map((guide) => (
+							<li key={guide.path}>
+								<Link
+									to={guide.path}
+									className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
+										location.pathname === guide.path
+											? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
+											: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
+									}`}
+									onClick={() => setIsSidebarOpen(false)}
+								>
+									<div className="flex items-center justify-between">
+										<span className="flex-1 truncate">{guide.title}</span>
+										{location.pathname === guide.path && (
+											<img
+												src={SKY_KID_ICON_URL}
+												alt="You are here."
+												className="w-6 h-6 flex-shrink-0 ml-2"
+											/>
+										)}
+									</div>
+								</Link>
+							</li>
+						))}
+					</ul>
+					<div className="flex justify-between border-t border-gray-300 dark:border-gray-700 pt-2">
+						<button
+							type="button"
+							className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md focus:outline-none ml-auto flex items-center space-x-2"
+							onClick={toggleSidebar}
+							aria-label="Close sidebar"
+						>
+							<span className="font-semibold uppercase">Close</span>
+							<XIcon className="h-6 w-6" />
+						</button>
+					</div>
+				</div>
+			</nav>
 			{!isSidebarOpen && (
 				<button
 					type="button"

@@ -13,12 +13,12 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
-	TIME_ZONE,
 	formatEmoji,
 	getRandomElement,
 	isDuring,
 	resolveCurrencyEmoji,
 	skyNow,
+	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
@@ -28,10 +28,10 @@ import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	DELETED_USER_TEXT,
-	HEARTS,
 	HEART_HISTORY_BACK,
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
 	HEART_HISTORY_NEXT,
+	HEARTS,
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
 import { HEART_EXTRA_DATES } from "../utility/dates.js";

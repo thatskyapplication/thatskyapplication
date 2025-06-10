@@ -2,8 +2,8 @@ import { type APIMessageTopLevelComponent, ComponentType, type Locale } from "@d
 import { DAILY_QUEST_VALUES, type DailyQuests } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import {
-	DEFAULT_EMBED_COLOUR,
 	DailyQuestToInfographicURL,
+	DEFAULT_EMBED_COLOUR,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 } from "../utility/constants.js";
 

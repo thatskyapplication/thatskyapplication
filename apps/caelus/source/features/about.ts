@@ -10,7 +10,7 @@ import {
 	SeparatorSpacingSize,
 	TextInputStyle,
 } from "@discordjs/core";
-import { SkyMap, WEBSITE_URL, formatEmoji } from "@thatskyapplication/utility";
+import { formatEmoji, SkyMap, WEBSITE_URL } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import Profile from "../models/Profile.js";

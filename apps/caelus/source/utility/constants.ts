@@ -8,8 +8,8 @@ import {
 	NotificationType,
 	type NotificationTypes,
 	SkyMap,
-	WEBSITE_URL,
 	skyDate,
+	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { ANNOUNCEMENTS_CHANNEL_ID, PRODUCTION } from "./configuration.js";
 

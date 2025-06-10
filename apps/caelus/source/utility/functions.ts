@@ -24,16 +24,18 @@ import {
 	VALID_REALM_NAME_VALUES,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
-import { ANIMATED_HASH_PREFIX, APPLICATION_ID, MAXIMUM_ASSET_SIZE } from "./constants.js";
 import {
+	ANIMATED_HASH_PREFIX,
+	APPLICATION_ID,
 	INCONSISTENT_MAP,
+	inconsistentMapKeys,
+	MAXIMUM_ASSET_SIZE,
 	MEDITATION_MAPS,
 	type MeditationMaps,
 	RAINBOW_ADMIRE_MAPS,
 	type RainbowAdmireMaps,
 	SOCIAL_LIGHT_AREA_MAPS,
 	type SocialLightAreaMaps,
-	inconsistentMapKeys,
 } from "./constants.js";
 
 export function chatInputApplicationCommandMention(

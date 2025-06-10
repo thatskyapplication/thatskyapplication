@@ -13,8 +13,8 @@ import {
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import { client } from "../discord.js";
-import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Guild } from "../models/discord/guild.js";
+import type { GuildMember } from "../models/discord/guild-member.js";
 import pino from "../pino.js";
 
 const ALL_PERMISSIONS = Object.values(PermissionFlagsBits).reduce(

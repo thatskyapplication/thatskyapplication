@@ -13,8 +13,8 @@ import {
 	RealmName,
 	SkyMap,
 	SpiritId,
-	type ValidRealmName,
 	skyToday,
+	type ValidRealmName,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import pQueue from "p-queue";
@@ -25,11 +25,11 @@ import {
 	DAILY_INFOGRAPHICS_CHANNEL_ID,
 	DailyQuestToInfographicURL,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
+	inconsistentMapKeys,
 	type MeditationMaps,
 	type QUEST_NUMBER,
 	type RainbowAdmireMaps,
 	type SocialLightAreaMaps,
-	inconsistentMapKeys,
 } from "../utility/constants.js";
 import {
 	isMeditationMap,
@@ -38,7 +38,7 @@ import {
 	resolveMap,
 	resolveValidRealm,
 } from "../utility/functions.js";
-import { QUEST_SPIRITS, type QuestSpirits, isQuestSpirit } from "../utility/spirits.js";
+import { isQuestSpirit, QUEST_SPIRITS, type QuestSpirits } from "../utility/spirits.js";
 
 export interface DailyGuidesPacket {
 	quest1: DailyGuideQuest | null;
@@ -554,12 +554,9 @@ export default new (class DailyGuides {
 		}
 
 		// Remove the message link, if any.
-		const pureContent =
-			// biome-ignore lint/performance/useTopLevelRegex: This is fine.
-			(/\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")) : content).replaceAll(
-				new RegExp(FormattingPatterns.Emoji, "gi"),
-				"",
-			);
+		const pureContent = (
+			/\n<?https?/.test(content) ? content.slice(0, content.indexOf("\n")) : content
+		).replaceAll(new RegExp(FormattingPatterns.Emoji, "gi"), "");
 
 		// Attempt to find a realm.
 		const potentialRealmRegExp =

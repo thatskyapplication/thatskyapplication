@@ -2,13 +2,13 @@ import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import {
 	CountryToEmoji,
-	type ProfilePacket,
-	type Snowflake,
-	WEBSITE_URL,
 	enGB,
 	isCountry,
 	isPlatformId,
 	isSpiritId,
+	type ProfilePacket,
+	type Snowflake,
+	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { ChevronLeftIcon, LinkIcon, MapPinIcon } from "lucide-react";
 import { useState } from "react";

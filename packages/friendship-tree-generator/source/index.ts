@@ -1,5 +1,5 @@
 import { writeFile } from "node:fs/promises";
-import { GlobalFonts, createCanvas, loadImage } from "@napi-rs/canvas";
+import { createCanvas, GlobalFonts, loadImage } from "@napi-rs/canvas";
 import { enGB } from "@thatskyapplication/utility";
 import { fetch } from "undici";
 import {

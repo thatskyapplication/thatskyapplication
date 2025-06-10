@@ -1,5 +1,5 @@
 import process from "node:process";
-import { TIME_ZONE, skyToday } from "@thatskyapplication/utility";
+import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { request } from "undici";
 import { distribute, reset } from "./features/daily-guides.js";

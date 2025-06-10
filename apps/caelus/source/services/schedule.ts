@@ -8,8 +8,8 @@ import {
 import {
 	INTERNATIONAL_SPACE_STATION_DATES,
 	NotificationType,
-	TRAVELLING_DATES,
 	skyNow,
+	TRAVELLING_DATES,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";

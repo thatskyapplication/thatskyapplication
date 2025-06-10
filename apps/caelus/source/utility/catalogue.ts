@@ -1,9 +1,9 @@
 import {
 	type Emoji,
 	type ItemCost,
+	resolveCurrencyEmoji,
 	SeasonId,
 	type SeasonIds,
-	resolveCurrencyEmoji,
 } from "@thatskyapplication/utility";
 import {
 	EventIdToEventTicketEmoji,

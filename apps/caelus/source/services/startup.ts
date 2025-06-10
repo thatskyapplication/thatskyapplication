@@ -1,6 +1,6 @@
 import type { NotificationPacket } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
-import { type GiveawayPacket, eligible, ineligible } from "../features/giveaway.js";
+import { eligible, type GiveawayPacket, ineligible } from "../features/giveaway.js";
 import { checkSendable } from "../features/notifications.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";

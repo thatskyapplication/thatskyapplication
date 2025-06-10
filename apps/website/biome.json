@@ -4,6 +4,9 @@
 	"extends": "//",
 	"linter": {
 		"rules": {
+			"a11y": {
+				"useAriaPropsSupportedByRole": "off"
+			},
 			"suspicious": {
 				"noEvolvingTypes": "off",
 				"noImplicitAnyLet": "off",
