@@ -1607,6 +1607,9 @@ export default {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not be bonked. Someone needs to adjust the permissions!",
 		},
+		catalogue: {
+			"main-title": "Catalogue",
+		},
 		guess: {
 			title: "Where does this come from?",
 			"guess-in": "Guess {{time}}!",

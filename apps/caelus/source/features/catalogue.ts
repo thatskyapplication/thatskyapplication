@@ -661,7 +661,7 @@ async function start({
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "## Catalogue",
+					content: `## ${t("catalogue.main-title", { lng: locale, ns: "features" })}`,
 				},
 				{
 					type: ComponentType.Separator,
