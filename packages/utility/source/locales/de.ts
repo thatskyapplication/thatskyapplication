@@ -590,6 +590,9 @@ export default {
 	features: {
 		guess: {
 			title: "Woher kommt das?",
+			"guess-in": "Gib einen Tipp ab",
+			"end-game": "Spiel beenden",
+			"game-ended": "Spiel beendet.",
 			"your-guess": "Dein Tipp",
 			"try-again": "Erneut versuchen?",
 		},

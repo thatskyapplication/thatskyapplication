@@ -150,7 +150,7 @@ export async function guess(
 	const endGameButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: `${GUESS_END_GAME}§${answer}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
-		label: "End Game",
+		label: t("guess.end-game", { lng: interaction.locale, ns: "features" }),
 		style: ButtonStyle.Danger,
 	};
 
@@ -177,7 +177,7 @@ export async function guess(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `Guess <t:${Math.floor(timeoutTimestamp / 1_000)}:R>!`,
+					content: `${t("guess.guess-in", { lng: interaction.locale, ns: "features" })} <t:${Math.floor(timeoutTimestamp / 1_000)}:R>!`,
 				},
 				{
 					type: ComponentType.MediaGallery,
@@ -328,7 +328,7 @@ async function endGame(
 	let description: string;
 
 	if (interaction.data.custom_id.startsWith(GUESS_END_GAME)) {
-		description = "Game ended.";
+		description = t("guess.game-ended", { lng: locale, ns: "features" });
 	} else {
 		description = `${t("guess.your-guess", { lng: locale, ns: "features" })}: ${t(
 			`spirits.${guess}`,

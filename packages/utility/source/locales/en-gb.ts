@@ -1608,6 +1608,9 @@ export default {
 		},
 		guess: {
 			title: "Where does this come from?",
+			"guess-in": "Guess",
+			"end-game": "End game",
+			"game-ended": "Game ended.",
 			"your-guess": "Your guess",
 			"try-again": "Try again?",
 		},
