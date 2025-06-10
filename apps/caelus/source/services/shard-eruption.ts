@@ -147,7 +147,7 @@ export function todayData(
 	const buttonYesterday: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: `${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`,
-		label: t("back", { lng: locale, ns: "general" }),
+		label: t("shard-eruption.back", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Secondary,
 	};
 
@@ -338,7 +338,7 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 						custom_id: `${SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID}§${
 							offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
 						}`,
-						label: t("back", { lng: locale, ns: "general" }),
+						label: t("shard-eruption.back", { lng: locale, ns: "features" }),
 						style: ButtonStyle.Secondary,
 					},
 					{
@@ -353,7 +353,7 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 						custom_id: `${SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID}§${
 							offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
 						}`,
-						label: t("next", { lng: locale, ns: "general" }),
+						label: t("shard-eruption.next", { lng: locale, ns: "features" }),
 						style: ButtonStyle.Secondary,
 					},
 				],

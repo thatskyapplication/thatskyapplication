@@ -14,8 +14,6 @@ import { SpiritId, type SpiritIds } from "../utility/spirits.js";
 
 export default {
 	general: {
-		back: "Back",
-		next: "Next",
 		"days-left": {
 			season_zero: "The season ends today.",
 			season_one: "{{count}} day left in the season.",
@@ -1621,6 +1619,13 @@ export default {
 		heart: {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not receive your heart. Someone needs to adjust the permissions!",
+		},
+		notifications: {
+			back: "Back",
+		},
+		"shard-eruption": {
+			back: "Back",
+			next: "Next",
 		},
 	},
 } as const;

@@ -406,7 +406,7 @@ export async function displayNotificationType(
 								style: ButtonStyle.Primary,
 								custom_id: NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
 								emoji: { name: "⏪" },
-								label: t("back", { lng: interaction.locale, ns: "general" }),
+								label: t("notifications.back", { lng: interaction.locale, ns: "features" }),
 							},
 						],
 					},

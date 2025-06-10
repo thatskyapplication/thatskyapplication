@@ -1,7 +1,5 @@
 {
 	"general": {
-		"back": "Retour",
-		"next": "Suivant",
 		"days-left": {
 			"season_zero": "",
 			"season_one": "",
@@ -1456,6 +1454,13 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": ""
+		},
+		"notifications": {
+			"back": "Retour"
+		},
+		"shard-eruption": {
+			"back": "Retour",
+			"next": "Suivant"
 		}
 	}
 }
