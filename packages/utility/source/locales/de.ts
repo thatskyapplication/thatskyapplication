@@ -587,4 +587,10 @@ export default {
 			},
 		},
 	},
+	features: {
+		guess: {
+			title: "Woher kommt das?",
+			"try-again": "Erneut versuchen?",
+		},
+	},
 } as const;

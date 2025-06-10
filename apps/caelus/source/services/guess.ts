@@ -8,6 +8,7 @@ import {
 	type APIMessageTopLevelComponent,
 	ButtonStyle,
 	ComponentType,
+	type Locale,
 	MessageFlags,
 	SeparatorSpacingSize,
 	type Snowflake,
@@ -167,7 +168,7 @@ export async function guess(
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "## Where does this come from?",
+					content: `## ${t("guess.title", { lng: interaction.locale, ns: "features" })}`,
 				},
 				{
 					type: ComponentType.Separator,
@@ -221,11 +222,14 @@ export async function guess(
 	}
 }
 
-function tryAgainComponent(difficulty: GuessDifficultyLevel): APIButtonComponentWithCustomId {
+function tryAgainComponent(
+	difficulty: GuessDifficultyLevel,
+	locale: Locale,
+): APIButtonComponentWithCustomId {
 	return {
 		type: ComponentType.Button,
 		custom_id: `${GUESS_TRY_AGAIN}§${difficulty}`,
-		label: "Try Again?",
+		label: t("guess.try-again", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Primary,
 	};
 }
@@ -342,7 +346,7 @@ async function endGame(
 
 	(interaction.message.components![0]! as APIContainerComponent).components.splice(4, 2, {
 		type: ComponentType.ActionRow,
-		components: [tryAgainComponent(difficulty)],
+		components: [tryAgainComponent(difficulty, locale)],
 	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
