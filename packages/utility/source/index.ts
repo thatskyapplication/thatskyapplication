@@ -1,3 +1,5 @@
+import deLocale from "./locales/de.json" with { type: "json" };
+
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const MAXIMUM_HAIR_TOUSLE_GIF = 3 as const;
 export const MAXIMUM_HIGH_FIVE_GIF = 9 as const;
@@ -46,7 +48,7 @@ export {
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./kingdom.js";
-export { default as de } from "./locales/de.js";
+export const de = deLocale;
 export { default as enGB } from "./locales/en-gb.js";
 export { default as es419 } from "./locales/es-419.js";
 export { default as esES } from "./locales/es-es.js";
