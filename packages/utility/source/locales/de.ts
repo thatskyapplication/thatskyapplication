@@ -7,7 +7,7 @@ export default {
 	general: {
 		"days-left": {
 			season_zero: "Die Saison endet heute.",
-			season_one: "{{count}} Tag für die Saison übrig. ",
+			season_one: "{{count}} Tag für die Saison übrig.",
 			season_other: "{{count}} Tage für die Saison übrig.",
 		},
 		realms: {
