@@ -455,4 +455,9 @@ export default {
 			[SpiritId.RoyalHairtousleTeen]: "尊贵蓬头青年",
 		},
 	},
+	features: {
+		guess: {
+			title: "这个哪里来的？",
+		},
+	}
 } as const;
