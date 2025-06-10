@@ -1608,7 +1608,7 @@ export default {
 		},
 		guess: {
 			title: "Where does this come from?",
-			"guess-in": "Guess",
+			"guess-in": "Guess {{time}}!",
 			"end-game": "End game",
 			"game-ended": "Game ended.",
 			"your-guess": "Your guess",

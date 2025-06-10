@@ -458,6 +458,7 @@ export default {
 	features: {
 		guess: {
 			title: "这个哪里来的？",
+			"guess-in": "在{{time}}猜一下！",
 		},
-	}
+	},
 } as const;

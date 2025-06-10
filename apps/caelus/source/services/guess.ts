@@ -177,7 +177,11 @@ export async function guess(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `${t("guess.guess-in", { lng: interaction.locale, ns: "features" })} <t:${Math.floor(timeoutTimestamp / 1_000)}:R>!`,
+					content: t("guess.guess-in", {
+						lng: interaction.locale,
+						ns: "features",
+						time: `<t:${Math.floor(timeoutTimestamp / 1_000)}:R>`,
+					}),
 				},
 				{
 					type: ComponentType.MediaGallery,
