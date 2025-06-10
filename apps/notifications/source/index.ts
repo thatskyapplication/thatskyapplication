@@ -280,6 +280,20 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		});
 	}
 
+	if ((hour === 23 && minute >= 45 && minute <= 59) || (hour === 0 && minute === 0)) {
+		const timeUntilStart = (60 - minute) % 60;
+		const startTime = date.plus({ minutes: timeUntilStart });
+
+		notifications.push({
+			type: NotificationType.NestingWorkshop,
+			timeUntilStart,
+			suffix:
+				timeUntilStart === 0
+					? "The Nesting Workshop's stock has refreshed!"
+					: `The Nesting Workshop's stock will refresh <t:${startTime.toUnixInteger()}:R>!`,
+		});
+	}
+
 	if (
 		(day === 1 && ((hour % 4 === 0 && minute === 0) || (hour % 4 === 3 && minute >= 45))) ||
 		(date.endOf("month").day === day && hour === 23 && minute >= 45)

@@ -1166,6 +1166,7 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.AviarysFireworkFestival]: 15,
 	[NotificationType.TravellingSpirit]: 15,
 	[NotificationType.DreamsSkater]: 10,
+	[NotificationType.NestingWorkshop]: 15,
 } as const satisfies Readonly<Record<NotificationTypes, number>>;
 
 // Schedule.
