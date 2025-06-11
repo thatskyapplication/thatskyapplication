@@ -15,6 +15,9 @@ import { can } from "../utility/permissions.js";
 const SUGGESTION_REGULAR_EXPRESSION =
 	/Suggestion for (?<language>.+) was (?<action>:.+) in project (?<project>.+)\nKey: (?<key>.+?) ?\nContext: (?<context>.+)\nFile: (?<file>.+)\nSource string: (?<source>.+)\nTranslation: (?<translation>.+)\nURL: (?<url>.+)/;
 
+const BUILT_REGULAR_EXPRESSION =
+	/Project (?<project>.+) are successfully built.\nDownload link: (?<url>.+)/;
+
 const CrowdinLanguageToLanguage = {
 	"Chinese Simplified": "中文",
 	"Chinese Traditional": "繁體中文",
@@ -71,6 +74,22 @@ function createSuggestionEmbed(message: GatewayMessageCreateDispatchData) {
 	};
 }
 
+function createBuiltEmbed(message: GatewayMessageCreateDispatchData) {
+	const result = BUILT_REGULAR_EXPRESSION.exec(message.content);
+
+	if (!result?.groups) {
+		return;
+	}
+
+	const { url } = result.groups as { project: string; url: string };
+
+	return {
+		color: DEFAULT_EMBED_COLOUR,
+		description: `Translations built! [Download](${url})`,
+		timestamp: new Date().toISOString(),
+	};
+}
+
 export async function crowdin(
 	message: GatewayMessageCreateDispatchData,
 	guild: Guild,
@@ -102,6 +121,11 @@ export async function crowdin(
 
 	if (message.content.startsWith("Suggestion for")) {
 		embed = createSuggestionEmbed(message);
+	} else if (
+		message.content.startsWith("Project ") &&
+		message.content.includes("are successfully built.")
+	) {
+		embed = createBuiltEmbed(message);
 	}
 
 	if (!embed) {
