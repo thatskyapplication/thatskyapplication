@@ -74,6 +74,7 @@ function createSuggestionEmbed(message: GatewayMessageCreateDispatchData) {
 		footer: {
 			text: `${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]} | ${key} | ${context}`,
 		},
+		timestamp: new Date().toISOString(),
 	};
 }
 
@@ -128,6 +129,7 @@ function createFinalTranslationEmbed(message: GatewayMessageCreateDispatchData) 
 		footer: {
 			text: `${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]} | ${key}`,
 		},
+		timestamp: new Date().toISOString(),
 	};
 }
 
