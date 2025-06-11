@@ -15,6 +15,9 @@ import { can } from "../utility/permissions.js";
 const SUGGESTION_REGULAR_EXPRESSION =
 	/Suggestion for (?<language>.+) was (?<action>.+) in project (?<project>.+)\nKey: (?<key>.+?) ?\nContext: (?<context>.+)\nFile: (?<file>.+)\nSource string: (?<source>.+)\nTranslation: (?<translation>.+)\nURL: (?<url>.+)/;
 
+const FILE_UPDATED_REGULAR_EXPRESSION =
+	/File (?<file>.+) has been updated in the project (?<project>.+)\.\n(?<newStrings>\d+) new strings \((?<newWords>\d+) words\), (?<updatedStrings>\d+) updated strings \((?<updatedWords>\d+) words\), (?<deletedStrings>\d+) deleted strings \((?<deletedWords>\d+) words\)\.\nURL: (?<url>.+)/;
+
 const BUILT_REGULAR_EXPRESSION =
 	/Project (?<project>.+) are successfully built.\nDownload link: (?<url>.+)/;
 
@@ -74,6 +77,53 @@ function createSuggestionEmbed(message: GatewayMessageCreateDispatchData) {
 		footer: {
 			text: `${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]} | ${key} | ${context}`,
 		},
+		timestamp: new Date().toISOString(),
+	};
+}
+
+function createFileUpdatedEmbed(message: GatewayMessageCreateDispatchData) {
+	const result = FILE_UPDATED_REGULAR_EXPRESSION.exec(message.content);
+
+	if (!result?.groups) {
+		return;
+	}
+
+	const { newStrings, newWords, updatedStrings, updatedWords, deletedStrings, deletedWords, url } =
+		result.groups as {
+			file: string;
+			project: string;
+			newStrings: string;
+			newWords: string;
+			updatedStrings: string;
+			updatedWords: string;
+			deletedStrings: string;
+			deletedWords: string;
+			url: string;
+		};
+	const newWordsText = newWords === "1" ? "1 word" : `${newWords} words`;
+	const updatedWordsText = updatedWords === "1" ? "1 word" : `${updatedWords} words`;
+	const deletedWordsText = deletedWords === "1" ? "1 word" : `${deletedWords} words`;
+
+	return {
+		color: DEFAULT_EMBED_COLOUR,
+		description: `[Source file updated.](${url})`,
+		fields: [
+			{
+				name: "New Strings",
+				value: `${newStrings} (${newWordsText})`,
+				inline: true,
+			},
+			{
+				name: "Updated Strings",
+				value: `${updatedStrings} (${updatedWordsText})`,
+				inline: true,
+			},
+			{
+				name: "Deleted Strings",
+				value: `${deletedStrings} (${deletedWordsText})`,
+				inline: true,
+			},
+		],
 		timestamp: new Date().toISOString(),
 	};
 }
@@ -166,6 +216,11 @@ export async function crowdin(
 		embed = createSuggestionEmbed(message);
 	} else if (message.content.startsWith("Final translation of string")) {
 		embed = createFinalTranslationEmbed(message);
+	} else if (
+		message.content.startsWith("File ") &&
+		message.content.includes(" has been updated in the project ")
+	) {
+		embed = createFileUpdatedEmbed(message);
 	} else if (
 		message.content.startsWith("Project ") &&
 		message.content.includes("are successfully built.")
