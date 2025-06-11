@@ -22,7 +22,7 @@ const BUILT_REGULAR_EXPRESSION =
 	/Project (?<project>.+) are successfully built.\nDownload link: (?<url>.+)/;
 
 const FINAL_TRANSLATION_REGULAR_EXPRESSION =
-	/Final translation of string into (?<language>.+) was updated in the project (?<project>.+)\.\nKey: (?<key>.+)\nFile: (?<file>.+)\nOld translation: (?<oldTranslation>.+)?\nNew translation: (?<newTranslation>.+)\nURL: (?<url>.+)/;
+	/Final translation of string into (?<language>.+) was updated in the project (?<project>.+)\.\nKey: (?<key>.+)\nFile: (?<file>.+)\nOld translation: (?<oldTranslation>.+)?\nNew translation: (?<newTranslation>.+)?\nURL: (?<url>.+)/;
 
 const CrowdinLanguageToLanguage = {
 	"Chinese Simplified": "中文",
@@ -157,7 +157,7 @@ function createFinalTranslationEmbed(message: GatewayMessageCreateDispatchData) 
 		key: string;
 		file: string;
 		oldTranslation?: string;
-		newTranslation: string;
+		newTranslation?: string;
 		url: string;
 	};
 
@@ -172,7 +172,7 @@ function createFinalTranslationEmbed(message: GatewayMessageCreateDispatchData) 
 			},
 			{
 				name: "New",
-				value: newTranslation,
+				value: newTranslation ?? "_Empty string_",
 				inline: false,
 			},
 		],
