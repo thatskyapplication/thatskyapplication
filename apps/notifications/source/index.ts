@@ -280,7 +280,10 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		});
 	}
 
-	if ((hour === 23 && minute >= 45 && minute <= 59) || (hour === 0 && minute === 0)) {
+	if (
+		(weekday === 6 && hour === 23 && minute >= 45 && minute <= 59) ||
+		(weekday === 7 && hour === 0 && minute === 0)
+	) {
 		const timeUntilStart = (60 - minute) % 60;
 		const startTime = date.plus({ minutes: timeUntilStart });
 
