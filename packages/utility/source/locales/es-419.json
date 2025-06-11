@@ -1,7 +1,5 @@
 {
 	"general": {
-		"back": "",
-		"next": "",
 		"days-left": {
 			"season_zero": "La temporada termina hoy.",
 			"season_one": "Resta {{count}} día en la temporada.",
@@ -23,7 +21,7 @@
 		"maps": {
 			"Bird Nest": "",
 			"Butterfly Fields": "",
-			"Cave": "",
+			"Cave": "Cueva",
 			"Koi Pond": "",
 			"Village Islands": "",
 			"Sanctuary Islands": "",
@@ -40,7 +38,7 @@
 			"Hermit Valley": "",
 			"Village of Dreams": "",
 			"Battlefield": "",
-			"Boat": "",
+			"Boat": "Barco",
 			"Broken Temple": "",
 			"Crab Fields": "",
 			"Forgotten Ark": "",
@@ -59,10 +57,10 @@
 			"0": "",
 			"1": "",
 			"2": "",
-			"3": "",
+			"3": "Dragón",
 			"4": "",
-			"5": "",
-			"6": "",
+			"5": "Abuela",
+			"6": "Tortuga",
 			"7": "",
 			"8": "",
 			"9": "",
@@ -1456,6 +1454,13 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": ""
+		},
+		"notifications": {
+			"back": ""
+		},
+		"shard-eruption": {
+			"back": "",
+			"next": ""
 		}
 	}
 }

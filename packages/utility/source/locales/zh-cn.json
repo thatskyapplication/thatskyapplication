@@ -1,16 +1,14 @@
 {
 	"general": {
-		"back": "",
-		"next": "",
 		"days-left": {
-			"season_zero": "",
-			"season_one": "",
-			"season_other": "",
-			"event_zero": "",
-			"event_one": "",
-			"event_other": ""
+			"season_zero": "此季今天结束。",
+			"season_one": "此季还剩{{count}}天。",
+			"season_other": "此季还剩{{count}}天。",
+			"event_zero": "{{name}}今天结束。",
+			"event_one": "{{name}}还剩{{count}}天。",
+			"event_other": "{{name}}还剩{{count}}天。"
 		},
-		"event-tickets": "",
+		"event-tickets": "活动代币",
 		"realms": {
 			"Isles of Dawn": "晨岛",
 			"Daylight Prairie": "云野",
@@ -21,9 +19,9 @@
 			"Eye of Eden": "暴风眼"
 		},
 		"maps": {
-			"Bird Nest": "",
-			"Butterfly Fields": "",
-			"Cave": "",
+			"Bird Nest": "云野浮岛",
+			"Butterfly Fields": "蝴蝶平原",
+			"Cave": "山洞",
 			"Koi Pond": "",
 			"Village Islands": "",
 			"Sanctuary Islands": "",
@@ -1456,6 +1454,13 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": ""
+		},
+		"notifications": {
+			"back": ""
+		},
+		"shard-eruption": {
+			"back": "",
+			"next": ""
 		}
 	}
 }
