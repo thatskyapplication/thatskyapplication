@@ -18,6 +18,9 @@ const SUGGESTION_REGULAR_EXPRESSION =
 const BUILT_REGULAR_EXPRESSION =
 	/Project (?<project>.+) are successfully built.\nDownload link: (?<url>.+)/;
 
+const FINAL_TRANSLATION_REGULAR_EXPRESSION =
+	/Final translation of string into (?<language>.+) was updated in the project (?<project>.+)\.\nKey: (?<key>.+)\nFile: (?<file>.+)\nOld translation: (?<oldTranslation>.+)?\nNew translation: (?<newTranslation>.+)\nURL: (?<url>.+)/;
+
 const CrowdinLanguageToLanguage = {
 	"Chinese Simplified": "中文",
 	"Chinese Traditional": "繁體中文",
@@ -90,6 +93,44 @@ function createBuiltEmbed(message: GatewayMessageCreateDispatchData) {
 	};
 }
 
+function createFinalTranslationEmbed(message: GatewayMessageCreateDispatchData) {
+	const result = FINAL_TRANSLATION_REGULAR_EXPRESSION.exec(message.content);
+
+	if (!result?.groups) {
+		return;
+	}
+
+	const { language, key, oldTranslation, newTranslation, url } = result.groups as {
+		language: string;
+		project: string;
+		key: string;
+		file: string;
+		oldTranslation?: string;
+		newTranslation: string;
+		url: string;
+	};
+
+	return {
+		color: DEFAULT_EMBED_COLOUR,
+		description: `[Final translation updated!](${url})`,
+		fields: [
+			{
+				name: "Old",
+				value: oldTranslation ?? "_Empty string_",
+				inline: false,
+			},
+			{
+				name: "New",
+				value: newTranslation,
+				inline: false,
+			},
+		],
+		footer: {
+			text: `${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]} | ${key}`,
+		},
+	};
+}
+
 export async function crowdin(
 	message: GatewayMessageCreateDispatchData,
 	guild: Guild,
@@ -121,6 +162,8 @@ export async function crowdin(
 
 	if (message.content.startsWith("Suggestion for")) {
 		embed = createSuggestionEmbed(message);
+	} else if (message.content.startsWith("Final translation of string")) {
+		embed = createFinalTranslationEmbed(message);
 	} else if (
 		message.content.startsWith("Project ") &&
 		message.content.includes("are successfully built.")
