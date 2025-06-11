@@ -162,7 +162,7 @@ export function todayData(
 	const buttonTomorrow: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: `${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`,
-		label: t("next", { lng: locale, ns: "general" }),
+		label: t("next", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Secondary,
 	};
 
