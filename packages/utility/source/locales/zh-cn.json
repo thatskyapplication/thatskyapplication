@@ -55,7 +55,7 @@
 		},
 		"notification-types": {
 			"0": "每日重置",
-			"1": "伊甸之眼",
+			"1": "暴风眼",
 			"2": "太空站",
 			"3": "冥龙",
 			"4": "污染的喷泉",
@@ -331,7 +331,7 @@
 			"21": "二重奏季",
 			"22": "姆明季",
 			"23": "彩染季",
-			"24": ""
+			"24": "青鸟季"
 		},
 		"season-wiki": {
 			"0": "",
@@ -358,7 +358,7 @@
 			"21": "",
 			"22": "",
 			"23": "",
-			"24": "青鸟季"
+			"24": ""
 		},
 		"events": {
 			"0": "",
@@ -652,7 +652,7 @@
 			"126": "远古光辉（鳐鲲）",
 			"127": "远古冥暗（植物）",
 			"128": "远古冥暗（龙）",
-			"129": "",
+			"129": "AURORA",
 			"130": "奔跑旅人",
 			"131": "警觉矿工",
 			"132": "爱之战士",
@@ -1173,7 +1173,7 @@
 				"command-option-start-description": "",
 				"command-option-goal-name": "",
 				"command-option-goal-description": "",
-				"command-option-eye-of-eden-name": "",
+				"command-option-eye-of-eden-name": "暴风眼",
 				"command-option-eye-of-eden-description": "",
 				"command-option-shard-eruptions-name": "",
 				"command-option-shard-eruptions-description": "",
