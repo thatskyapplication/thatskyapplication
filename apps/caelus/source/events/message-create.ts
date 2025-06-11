@@ -1,11 +1,13 @@
 import { ChannelType, GatewayDispatchEvents, PermissionFlagsBits } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { addMessageToCache } from "../caches/messages.js";
+import { crowdin } from "../features/crowdin.js";
 import AI from "../models/AI.js";
 import Configuration from "../models/Configuration.js";
 import DailyGuides from "../models/DailyGuides.js";
 import type { GuildChannel } from "../models/discord/guild.js";
 import pino from "../pino.js";
+import { CROWDIN_RAW_CHANNEL_ID, CROWDIN_RAW_WEBHOOK_ID } from "../utility/configuration.js";
 import { APPLICATION_ID } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 import type { Event } from "./index.js";
@@ -27,8 +29,14 @@ export default {
 			return;
 		}
 
-		void DailyGuides.parse(data);
 		const me = await guild.fetchMe();
+
+		if (channel.id === CROWDIN_RAW_CHANNEL_ID && data.webhook_id === CROWDIN_RAW_WEBHOOK_ID) {
+			await crowdin(data, guild, me);
+			return;
+		}
+
+		void DailyGuides.parse(data);
 
 		const isThreadChannelType =
 			channel.type === ChannelType.AnnouncementThread ||

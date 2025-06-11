@@ -7,10 +7,13 @@ export const PRODUCTION = process.env.NODE_ENV === "production";
 if (
 	!(
 		process.env.DISCORD_TOKEN &&
+		process.env.CROWDIN_RAW_WEBHOOK_ID &&
 		process.env.ANNOUNCEMENTS_CHANNEL_ID &&
 		process.env.FEEDBACK_CHANNEL_ID &&
 		process.env.SKY_PROFILE_REPORTS_CHANNEL_ID &&
 		process.env.SHOP_SUGGESTIONS_CHANNEL_ID &&
+		process.env.CROWDIN_CHANNEL_ID &&
+		process.env.CROWDIN_RAW_CHANNEL_ID &&
 		process.env.IDEA_TAG_ID &&
 		process.env.ISSUE_TAG_ID &&
 		process.env.DEVELOPER_ROLE_ID &&
@@ -29,10 +32,13 @@ if (
 }
 
 export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
+export const CROWDIN_RAW_WEBHOOK_ID = process.env.CROWDIN_RAW_WEBHOOK_ID;
 export const ANNOUNCEMENTS_CHANNEL_ID = process.env.ANNOUNCEMENTS_CHANNEL_ID;
 export const FEEDBACK_CHANNEL_ID = process.env.FEEDBACK_CHANNEL_ID;
 export const SKY_PROFILE_REPORTS_CHANNEL_ID = process.env.SKY_PROFILE_REPORTS_CHANNEL_ID;
 export const SHOP_SUGGESTIONS_CHANNEL_ID = process.env.SHOP_SUGGESTIONS_CHANNEL_ID;
+export const CROWDIN_CHANNEL_ID = process.env.CROWDIN_CHANNEL_ID;
+export const CROWDIN_RAW_CHANNEL_ID = process.env.CROWDIN_RAW_CHANNEL_ID;
 export const IDEA_TAG_ID = process.env.IDEA_TAG_ID;
 export const ISSUE_TAG_ID = process.env.ISSUE_TAG_ID;
 export const DEVELOPER_ROLE_ID = process.env.DEVELOPER_ROLE_ID;
