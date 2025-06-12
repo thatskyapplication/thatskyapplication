@@ -440,22 +440,35 @@ export async function wingedLight(
 		} (+${AreaToWingedLight[area]})`,
 	}));
 
+	let totalText = `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, number: accumulation, includeSpaceInEmoji: true })}`;
 	const wedge = WINGED_LIGHT_THRESHOLDS.findIndex((threshold) => accumulation < threshold);
+	const wedgeText = [];
+
+	if (wedge !== -1) {
+		const wedgeTotal = t("calculate.winged-light.wedge-total", {
+			lng: locale,
+			ns: "commands",
+			count: wedge,
+		});
+
+		wedgeText.push(wedgeTotal);
+	}
+
 	const nextThreshold = WINGED_LIGHT_THRESHOLDS[wedge];
 
-	const wedgeTotal = t("calculate.winged-light.wedge-total", {
-		lng: locale,
-		ns: "commands",
-		count: wedge,
-	});
+	if (nextThreshold) {
+		wedgeText.push(
+			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "commands", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`,
+		);
+	}
 
-	const nextWedge = nextThreshold
-		? `${t("calculate.winged-light.wedge-next", { lng: locale, ns: "commands", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`
-		: null;
+	if (wedgeText.length > 0) {
+		totalText += ` | ${wedgeText.join("\n")}`;
+	}
 
 	fields.push({
 		name: t("calculate.winged-light.total", { lng: locale, ns: "commands" }),
-		value: `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, number: accumulation, includeSpaceInEmoji: true })} | ${wedgeTotal}${nextThreshold ? `\n${nextWedge}` : ""}`,
+		value: totalText,
 	});
 
 	embed.fields = fields;
