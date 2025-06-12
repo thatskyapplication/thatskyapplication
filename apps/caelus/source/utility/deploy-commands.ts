@@ -659,7 +659,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				type: ApplicationCommandOptionType.User,
 				name: t("hug.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
 				name_localizations: localisations("hug.command-option-user-name"),
-				description: t("hug.command-option-user-description", { lng: Locale.EnglishGB, ns: "commands" }),
+				description: t("hug.command-option-user-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
 				description_localizations: localisations("hug.command-option-user-description"),
 				required: true,
 			},
