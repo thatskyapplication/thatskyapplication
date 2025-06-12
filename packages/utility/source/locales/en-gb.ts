@@ -363,6 +363,8 @@ export default {
 				"Meet up with Bumbling Boatswain in Treasure Reef",
 			[DailyQuest.MeetUpWithTalentedBuilderInBirdNest]:
 				"Meet up with Talented Builder in Bird Nest",
+			[DailyQuest.MeetUpWithTinkeringChimesmithInBirdNest]:
+				"Meet up with Tinkering Chimesmith in Bird Nest",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
