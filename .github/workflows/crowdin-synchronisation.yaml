@@ -1,4 +1,4 @@
-name: Crowdin Synchronisation
+name: Crowdin synchronisation
 on:
   workflow_dispatch:
 jobs:
