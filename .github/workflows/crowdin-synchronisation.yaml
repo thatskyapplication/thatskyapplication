@@ -59,6 +59,8 @@ jobs:
 
       - name: Open pull request
         run: |
+          git config user.name "thatskyapplication[bot]"
+          git config user.email "${{ vars.APP_ID }}+thatskyapplication[bot]@users.noreply.github.com"
           git add .
           git commit --amend --no-edit
           git push --force origin chore/translations
