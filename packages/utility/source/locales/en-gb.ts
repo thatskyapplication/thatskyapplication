@@ -1483,13 +1483,6 @@ export default {
 			"command-description": "Hug someone!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to be hugged.",
-			"missing-external-apps-permission":
-				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hug. Someone needs to adjust the permissions!",
-			"hug-self": "Share the love! Hug someone other than yourself!",
-			"not-in-server": "{{user}} is not in this server to be hugged.",
-			"not-around": "{{user}} is not around for the hug!",
-			bot: "{{user}} is a bot. They're pretty emotionless. Immune to hugs, I'd say.",
-			message: "{{user}}, {{invoker}} hugged you!",
 		},
 		krill: {
 			"command-name": "krill",
@@ -1632,6 +1625,15 @@ export default {
 		heart: {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not receive your heart. Someone needs to adjust the permissions!",
+		},
+		hug: {
+			"hug-self": "Share the love! Hug someone other than yourself!",
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hug. Someone needs to adjust the permissions!",
+			"not-in-server": "{{user}} is not in this server to be hugged.",
+			"not-around": "{{user}} is not around for the hug!",
+			"hug-bot": "{{user}} is a bot. They're pretty emotionless. Immune to hugs, I'd say.",
+			message: "{{user}}, {{invoker}} hugged you!",
 		},
 		notifications: {
 			back: "Back",

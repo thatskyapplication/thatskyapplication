@@ -24,7 +24,7 @@ export async function hug(
 
 	if (user.id === invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("hug.hug-self", { lng: resolvedLocale, ns: "commands" }),
+			content: t("hug.hug-self", { lng: resolvedLocale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -36,7 +36,7 @@ export async function hug(
 			interaction,
 			t("hug.missing-external-apps-permission", {
 				lng: resolvedLocale,
-				ns: "commands",
+				ns: "features",
 				user: `<@${user.id}>`,
 			}),
 		)
@@ -48,7 +48,7 @@ export async function hug(
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("hug.not-in-server", {
 				lng: resolvedLocale,
-				ns: "commands",
+				ns: "features",
 				user: `<@${user.id}>`,
 			}),
 			flags: MessageFlags.Ephemeral,
@@ -64,7 +64,7 @@ export async function hug(
 			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: t("hug.not-around", {
 					lng: resolvedLocale,
-					ns: "commands",
+					ns: "features",
 					user: `<@${user.id}>`,
 				}),
 				flags: MessageFlags.Ephemeral,
@@ -76,7 +76,7 @@ export async function hug(
 
 	if (user.bot) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("hug.bot", { lng: resolvedLocale, ns: "commands", user: `<@${user.id}>` }),
+			content: t("hug.hug-bot", { lng: resolvedLocale, ns: "features", user: `<@${user.id}>` }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -94,7 +94,7 @@ export async function hug(
 						type: ComponentType.TextDisplay,
 						content: t("hug.message", {
 							lng: resolvedLocale,
-							ns: "commands",
+							ns: "features",
 							user: `<@${user.id}>`,
 							invoker: `<@${invoker.id}>`,
 						}),

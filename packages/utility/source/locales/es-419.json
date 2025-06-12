@@ -1322,13 +1322,7 @@
 			"command-name": "abrazo",
 			"command-description": "¡Abraza a alguien!",
 			"command-option-user-name": "usuario",
-			"command-option-user-description": "El individuo para ser abrazado.",
-			"missing-external-apps-permission": "",
-			"hug-self": "¡Comparte el amor! ¡Abraza a alguien que no seas tú!",
-			"not-in-server": "{{user}} no está en el servidor para recibir tu abrazo.",
-			"not-around": "{{user}} no está aquí para recibir el abrazo!",
-			"bot": "{{user}} es un bot. No tiene emociones. Es inmune a los abrazos, diría yo.",
-			"message": "{{user}}, ¡{{invoker}} te abrazó!"
+			"command-option-user-description": "El individuo para ser abrazado."
 		},
 		"krill": {
 			"command-name": "",
@@ -1466,6 +1460,14 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": ""
+		},
+		"hug": {
+			"hug-self": "¡Comparte el amor! ¡Abraza a alguien que no seas tú!",
+			"missing-external-apps-permission": "",
+			"not-in-server": "{{user}} no está en el servidor para recibir tu abrazo.",
+			"not-around": "{{user}} no está aquí para recibir el abrazo!",
+			"hug-bot": "{{user}} es un bot. No tiene emociones. Es inmune a los abrazos, diría yo.",
+			"message": "{{user}}, ¡{{invoker}} te abrazó!"
 		},
 		"notifications": {
 			"back": ""
