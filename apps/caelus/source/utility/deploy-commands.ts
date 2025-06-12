@@ -32,8 +32,10 @@ import {
 } from "@thatskyapplication/utility";
 import { DISCORD_TOKEN } from "./configuration.js";
 
-function localisations(name: string, ns = "commands") {
-	return Object.fromEntries(LOCALES.map((locale) => [locale, t(name, { lng: locale, ns })]));
+function localisations(name: string, options: Record<string, unknown> = {}, ns = "commands") {
+	return Object.fromEntries(
+		LOCALES.map((locale) => [locale, t(name, { lng: locale, ns, ...options })]),
+	);
 }
 
 const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
@@ -903,9 +905,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						description: t("sky-profile.edit.command-option-winged-light-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
+							minimum: MINIMUM_WINGED_LIGHT,
+							maximum: MAXIMUM_WINGED_LIGHT,
 						}),
 						description_localizations: localisations(
 							"sky-profile.edit.command-option-winged-light-description",
+							{ minimum: MINIMUM_WINGED_LIGHT, maximum: MAXIMUM_WINGED_LIGHT },
 						),
 						max_value: MAXIMUM_WINGED_LIGHT,
 						min_value: MINIMUM_WINGED_LIGHT,

@@ -1,11 +1,6 @@
 import { Country } from "../country.js";
 import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevelToName } from "../guess.js";
-import {
-	MAXIMUM_WINGED_LIGHT,
-	MINIMUM_WINGED_LIGHT,
-	REALM_NAME_VALUES,
-	SKY_MAP_VALUES,
-} from "../kingdom.js";
+import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { DailyQuest, type DailyQuests } from "../quests.js";
 import { SeasonId, type SeasonIds } from "../season.js";
@@ -1550,7 +1545,8 @@ export default {
 				"command-option-icon-name": "icon",
 				"command-option-icon-description": "Upload your icon!",
 				"command-option-winged-light-name": "winged-light",
-				"command-option-winged-light-description": `How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
+				"command-option-winged-light-description":
+					"How much winged light do you have? ({{minimum}}-{{maximum}})",
 				"command-option-spirit-name": "spirit",
 				"command-option-spirit-description": "What's your favourite spirit?",
 				"command-option-country-name": "country",
