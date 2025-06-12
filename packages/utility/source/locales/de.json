@@ -1323,8 +1323,8 @@
 		"hug": {
 			"command-name": "",
 			"command-description": "",
-			"user": "",
-			"user-description": "",
+			"command-option-user-name": "",
+			"command-option-user-description": "",
 			"missing-external-apps-permission": "",
 			"hug-self": "",
 			"not-in-server": "",

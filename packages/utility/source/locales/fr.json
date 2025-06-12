@@ -1323,8 +1323,8 @@
 		"hug": {
 			"command-name": "câlin",
 			"command-description": "Fais un câlin à quelqu'un!",
-			"user": "utilisateur",
-			"user-description": "La personne a qui tu veux faire un câlin.",
+			"command-option-user-name": "utilisateur",
+			"command-option-user-description": "La personne a qui tu veux faire un câlin.",
 			"missing-external-apps-permission": "",
 			"hug-self": "Fais en profiter les autres! Va câliner quelqu'un!",
 			"not-in-server": "{{user}} n'est pas dans ce serveur pour recevoir ton câlin.",

@@ -1481,8 +1481,8 @@ export default {
 		hug: {
 			"command-name": "hug",
 			"command-description": "Hug someone!",
-			user: "user",
-			"user-description": "The individual to be hugged.",
+			"command-option-user-name": "user",
+			"command-option-user-description": "The individual to be hugged.",
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hug. Someone needs to adjust the permissions!",
 			"hug-self": "Share the love! Hug someone other than yourself!",

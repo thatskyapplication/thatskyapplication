@@ -1323,8 +1323,8 @@
 		"hug": {
 			"command-name": "abrazo",
 			"command-description": "¡Abraza a alguien!",
-			"user": "usuario",
-			"user-description": "El individuo para ser abrazado.",
+			"command-option-user-name": "usuario",
+			"command-option-user-description": "El individuo para ser abrazado.",
 			"missing-external-apps-permission": "",
 			"hug-self": "¡Comparte el amor! ¡Abraza a alguien que no seas tú!",
 			"not-in-server": "{{user}} no está en el servidor para recibir tu abrazo.",
