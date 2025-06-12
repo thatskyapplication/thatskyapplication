@@ -1322,13 +1322,7 @@
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": "",
-			"hug-self": "",
-			"not-in-server": "",
-			"not-around": "",
-			"bot": "",
-			"message": ""
+			"command-option-user-description": ""
 		},
 		"krill": {
 			"command-name": "",
@@ -1466,6 +1460,14 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": ""
+		},
+		"hug": {
+			"hug-self": "",
+			"missing-external-apps-permission": "",
+			"not-in-server": "",
+			"not-around": "",
+			"hug-bot": "",
+			"message": ""
 		},
 		"notifications": {
 			"back": ""
