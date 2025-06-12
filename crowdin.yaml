@@ -1,0 +1,11 @@
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
+preserve_hierarchy: true
+files:
+  - source: packages/utility/source/locales/en-gb.ts
+    translation: packages/utility/source/locales/%locale%.json
+    translation_replace:
+      es-ES: es-es
+      pt-BR: pt-br
+      zh-CN: zh-cn
+      zh-TW: zh-tw
