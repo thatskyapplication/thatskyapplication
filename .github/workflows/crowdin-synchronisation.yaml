@@ -46,8 +46,6 @@ jobs:
           skip_untranslated_strings: false
           export_only_approved: false
           push_translations: false
-          localization_branch_name: chore/translations
-          commit_message: "chore: Update translation files"
           create_pull_request: false
         env:
           GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
@@ -65,9 +63,10 @@ jobs:
         run: |
           git config user.name "thatskyapplication[bot]"
           git config user.email "${{ vars.APP_ID }}+thatskyapplication[bot]@users.noreply.github.com"
-          git add .
-          git commit --amend --no-edit
-          git push --force origin chore/translations
-          gh pr create --title "chore: Update translation files" --base main --head chore/translations
+          git checkout -b chore/translations
+          git add packages/utility/source/locales
+          git commit --message "chore: Update translation files"
+          git push --set-upstream origin chore/translations
+          gh pr create --base main --body "" --title "chore: Update translation files"
         env:
           GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
