@@ -3,7 +3,6 @@ import {
 	type APIComponentInContainer,
 	type APIEmbed,
 	ComponentType,
-	Locale,
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
@@ -48,10 +47,11 @@ export async function ascendedCandles(
 	const goal = options.getInteger("goal", true);
 	const eyeOfEden = options.getBoolean("eye-of-eden") ?? true;
 	const shardEruptions = options.getBoolean("shard-eruptions") ?? true;
+	const { locale } = interaction;
 
 	if (start >= goal) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "The goal has already been achieved.",
+			content: t("calculate.ascended-candles.goal-achieved", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -60,7 +60,7 @@ export async function ascendedCandles(
 
 	if (eyeOfEden === false && shardEruptions === false) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "You must have a source for gaining ascended candles!",
+			content: t("calculate.ascended-candles.no-source", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -108,7 +108,7 @@ export async function ascendedCandles(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: "## Ascended Candle Calculator",
+						content: `## ${t("calculate.ascended-candles.title", { lng: locale, ns: "features" })}`,
 					},
 					{
 						type: ComponentType.Separator,
@@ -117,20 +117,31 @@ export async function ascendedCandles(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `Start: ${resolveCurrencyEmoji({
-							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-							number: start,
-						})}\nGoal: ${resolveCurrencyEmoji({
-							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-							number: goal,
-						})}\nRequired: ${resolveCurrencyEmoji({
-							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-							number: amountRequired,
-						})}`,
+						content: `${t("calculate.ascended-candles.start", { lng: locale, ns: "features" })}${resolveCurrencyEmoji(
+							{
+								emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+								number: start,
+							},
+						)}\n${t("calculate.ascended-candles.goal", { lng: locale, ns: "features" })}${resolveCurrencyEmoji(
+							{
+								emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+								number: goal,
+							},
+						)}\n${t("calculate.ascended-candles.required", { lng: locale, ns: "features" })}${resolveCurrencyEmoji(
+							{
+								emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+								number: amountRequired,
+							},
+						)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `This goal is first achievable at <t:${timestamp}:D> (<t:${timestamp}:R>).`,
+						content: t("calculate.ascended-candles.goal-first-achievable", {
+							lng: locale,
+							ns: "features",
+							date: `<t:${timestamp}:D>`,
+							relative: `<t:${timestamp}:R>`,
+						}),
 					},
 					{
 						type: ComponentType.Separator,
@@ -139,7 +150,7 @@ export async function ascendedCandles(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `${t("calculate.ascended-candles.minimum-time-beginning", { lng: Locale.EnglishGB, ns: "commands" })}\n${eyeOfEden ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-eye-of-eden", { lng: Locale.EnglishGB, ns: "commands" })}\n${shardEruptions ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-shard-eruptions", { lng: Locale.EnglishGB, ns: "commands" })}`,
+						content: `${t("calculate.ascended-candles.minimum-time-beginning", { lng: locale, ns: "features" })}\n${eyeOfEden ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-eye-of-eden", { lng: locale, ns: "features" })}\n${shardEruptions ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-shard-eruptions", { lng: locale, ns: "features" })}`,
 					},
 				],
 			},

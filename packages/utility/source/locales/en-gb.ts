@@ -1327,9 +1327,6 @@ export default {
 				"command-option-shard-eruptions-name": "shard-eruptions",
 				"command-option-shard-eruptions-description":
 					"Whether to include shard eruptions in the calculation.",
-				"minimum-time-beginning": "Minimum time derived by:",
-				"minimum-time-eye-of-eden": "Eye of Eden statues",
-				"minimum-time-shard-eruptions": "Shard eruptions",
 			},
 			"event-tickets": {
 				"command-name": "event-tickets",
@@ -1603,6 +1600,20 @@ export default {
 		},
 	},
 	features: {
+		calculate: {
+			"ascended-candles": {
+				"goal-achieved": "You have already achieved your goal!",
+				"no-source": "You must have a source for gaining ascended candles!",
+				title: "Ascended candle calculator",
+				start: "Start: ",
+				goal: "Goal: ",
+				required: "Required: ",
+				"goal-first-achievable": "This goal is first achievable at {{date}} ({{relative}}).",
+				"minimum-time-beginning": "Minimum time derived by:",
+				"minimum-time-eye-of-eden": "Eye of Eden statues",
+				"minimum-time-shard-eruptions": "Shard eruptions",
+			},
+		},
 		bonk: {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not be bonked. Someone needs to adjust the permissions!",
