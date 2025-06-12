@@ -4,9 +4,10 @@ on:
 jobs:
   synchronise:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - uses: actions/checkout@v4
-
       - name: Create token
         id: create-token
         uses: actions/create-github-app-token@v2
@@ -15,6 +16,13 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: thatskyapplication
           repositories: thatskyapplication
+          permission-contents: write
+          permission-pull-requests: write
+
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.create-token.outputs.token }}
+          persist-credentials: false
 
       - uses: crowdin/github-action@v2
         with:
