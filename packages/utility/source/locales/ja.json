@@ -2,8 +2,8 @@
 	"general": {
 		"days-left": {
 			"season_zero": "",
-			"season_one": "",
-			"season_other": "",
+			"season_one": "シーズン終了まであと{{count}} 日",
+			"season_other": "シーズン終了まであと{{count}} 日",
 			"event_zero": "",
 			"event_one": "",
 			"event_other": ""

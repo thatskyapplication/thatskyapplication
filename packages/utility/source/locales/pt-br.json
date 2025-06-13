@@ -1,14 +1,14 @@
 {
 	"general": {
 		"days-left": {
-			"season_zero": "",
-			"season_one": "",
-			"season_other": "",
-			"event_zero": "",
-			"event_one": "",
-			"event_other": ""
+			"season_zero": "A temporada termina hoje.",
+			"season_one": "{{count}} dia restante na temporada.",
+			"season_other": "{{count}} dias restantes na temporada.",
+			"event_zero": "{{name}} termina hoje.",
+			"event_one": "{{count}} dia restante em {{name}}.",
+			"event_other": "{{count}} dias restantes em {{name}}."
 		},
-		"event-tickets": "",
+		"event-tickets": "Tíquete de Evento",
 		"realms": {
 			"Isles of Dawn": "Ilha do Alvorecer",
 			"Daylight Prairie": "Campina da Aurora",
@@ -19,13 +19,13 @@
 			"Eye of Eden": "Olho de Éden"
 		},
 		"maps": {
-			"Bird Nest": "",
-			"Butterfly Fields": "",
-			"Cave": "",
-			"Koi Pond": "",
-			"Village Islands": "",
+			"Bird Nest": "Ninho de Pássaro",
+			"Butterfly Fields": "Campos de Borboletas",
+			"Cave": "Caverna",
+			"Koi Pond": "Lagoa de Carpas",
+			"Village Islands": "Ilhas Vizinhas",
 			"Sanctuary Islands": "Ilhas do Santuário",
-			"Boneyard": "",
+			"Boneyard": "Cemitério",
 			"Elevated Clearing": "",
 			"Forest Brook": "",
 			"Forest Clearing": "",
@@ -34,7 +34,7 @@
 			"Wind Paths": "",
 			"Ice Rink": "",
 			"Citadel": "",
-			"Coliseum": "",
+			"Coliseum": "Coliseu",
 			"Hermit Valley": "",
 			"Village of Dreams": "Aldeia dos Sonhos",
 			"Battlefield": "",

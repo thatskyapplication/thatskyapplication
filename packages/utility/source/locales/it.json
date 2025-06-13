@@ -2,8 +2,8 @@
 	"general": {
 		"days-left": {
 			"season_zero": "",
-			"season_one": "",
-			"season_other": "",
+			"season_one": "Ancora {{count}} giorno alla fine della stagione.",
+			"season_other": "Ancora {{count}} giorni alla fine della stagione.",
 			"event_zero": "",
 			"event_one": "",
 			"event_other": ""
