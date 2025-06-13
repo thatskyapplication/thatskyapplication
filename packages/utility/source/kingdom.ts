@@ -82,7 +82,7 @@ export const WINGED_LIGHT_AREAS = [...REALM_NAME_VALUES, SkyMap.AncientMemory] a
 type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
 
 export const WINGED_LIGHT_THRESHOLDS = [
-	1, 2, 5, 10, 20, 35, 55, 75, 100, 120, 150, 200, 250,
+	1, 2, 5, 10, 20, 35, 55, 75, 100, 120, 150, 200, 250, 300,
 ] as const satisfies Readonly<number[]>;
 
 export const AreaToWingedLight = {
