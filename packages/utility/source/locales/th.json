@@ -2,8 +2,8 @@
 	"general": {
 		"days-left": {
 			"season_zero": "",
-			"season_one": "",
-			"season_other": "",
+			"season_one": "ฤดูกาลนี้เหลืออยู่อีก {{count}} วัน.",
+			"season_other": "ฤดูกาลนี้เหลืออยู่อีก {{count}} วัน.",
 			"event_zero": "",
 			"event_one": "",
 			"event_other": ""

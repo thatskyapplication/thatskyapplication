@@ -2,11 +2,11 @@
 	"general": {
 		"days-left": {
 			"season_zero": "",
-			"season_one": "",
-			"season_other": "",
+			"season_one": "本季節還有{{count}}天結束。",
+			"season_other": "本季節還有{{count}}天結束。",
 			"event_zero": "",
-			"event_one": "",
-			"event_other": ""
+			"event_one": "{{name}}還剩{{count}}天。",
+			"event_other": "{{name}}還剩{{count}}天。"
 		},
 		"event-tickets": "",
 		"realms": {
