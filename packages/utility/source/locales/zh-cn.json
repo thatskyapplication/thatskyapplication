@@ -1151,7 +1151,9 @@
 			"ZM": "",
 			"ZW": "",
 			"AX": ""
-		}
+		},
+		"open-bracket": "",
+		"close-bracket": ""
 	},
 	"commands": {
 		"about": {
