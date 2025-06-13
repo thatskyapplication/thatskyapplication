@@ -1293,6 +1293,8 @@ export default {
 			[Country.Zimbabwe]: "Zimbabwe",
 			[Country.ÅlandIslands]: "Åland Islands",
 		} satisfies Record<Country, string>,
+		"open-bracket": " (",
+		"close-bracket": ")",
 	},
 	commands: {
 		about: {
