@@ -25,7 +25,7 @@
 			"Koi Pond": "",
 			"Village Islands": "",
 			"Sanctuary Islands": "Zufluchtsinseln",
-			"Boneyard": "",
+			"Boneyard": "Friedhof im Wald",
 			"Elevated Clearing": "",
 			"Forest Brook": "",
 			"Forest Clearing": "",
@@ -35,7 +35,7 @@
 			"Ice Rink": "",
 			"Citadel": "",
 			"Coliseum": "",
-			"Hermit Valley": "",
+			"Hermit Valley": "Yetihang",
 			"Village of Dreams": "Dorf der Träume",
 			"Battlefield": "",
 			"Boat": "",
@@ -1432,6 +1432,24 @@
 		}
 	},
 	"features": {
+		"about": {
+			"description": "",
+			"links": "",
+			"sponsor": "",
+			"issues-feedback": "",
+			"feedback-button": "",
+			"issue-button": "",
+			"feedback-modal-heading": "",
+			"feedback-modal-title": "",
+			"feedback-modal-description": "",
+			"feedback-modal-description-placeholder": "",
+			"feedback-submission": "",
+			"issue-modal-heading": "",
+			"issue-modal-title": "",
+			"issue-modal-description": "",
+			"issue-modal-description-placeholder": "",
+			"issue-submission": ""
+		},
 		"calculate": {
 			"ascended-candles": {
 				"goal-achieved": "",

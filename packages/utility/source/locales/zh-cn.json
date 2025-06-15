@@ -25,7 +25,7 @@
 			"Koi Pond": "锦鲤池",
 			"Village Islands": "仙乡",
 			"Sanctuary Islands": "圣域群岛",
-			"Boneyard": "密林遗迹",
+			"Boneyard": "埋骨之地",
 			"Elevated Clearing": "秘密花园",
 			"Forest Brook": "荧光森林",
 			"Forest Clearing": "静谧公园",
@@ -35,7 +35,7 @@
 			"Ice Rink": "溜冰场",
 			"Citadel": "霞光城",
 			"Coliseum": "竞技场",
-			"Hermit Valley": "雪隐峰",
+			"Hermit Valley": "隐士山谷",
 			"Village of Dreams": "圆梦村",
 			"Battlefield": "远古战场",
 			"Boat": "船上",
@@ -1432,6 +1432,24 @@
 		}
 	},
 	"features": {
+		"about": {
+			"description": "",
+			"links": "",
+			"sponsor": "",
+			"issues-feedback": "",
+			"feedback-button": "",
+			"issue-button": "",
+			"feedback-modal-heading": "",
+			"feedback-modal-title": "",
+			"feedback-modal-description": "",
+			"feedback-modal-description-placeholder": "",
+			"feedback-submission": "",
+			"issue-modal-heading": "",
+			"issue-modal-title": "",
+			"issue-modal-description": "",
+			"issue-modal-description-placeholder": "",
+			"issue-submission": ""
+		},
 		"calculate": {
 			"ascended-candles": {
 				"goal-achieved": "",
