@@ -346,6 +346,7 @@ const STANCE_EMOJIS_PRODUCTION = {
 	Timid: { id: "1313932320822001685", name: "timid" },
 	Tinker: { id: "1313932325347659918", name: "tinker" },
 	Injured: { id: "1313932323598762057", name: "injured" },
+	Sad: { id: "1383903593739976794", name: "sad" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS_DEVELOPMENT = {
@@ -361,6 +362,7 @@ const STANCE_EMOJIS_DEVELOPMENT = {
 	Timid: { id: "1313865791522738296", name: "timid" },
 	Tinker: { id: "1313865788851097720", name: "tinker" },
 	Injured: { id: "1313865793670221995", name: "injured" },
+	Sad: { id: "1383903601277010021", name: "sad" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CALL_EMOJIS_PRODUCTION = {
@@ -7602,7 +7604,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RainbowRibbonShawl]: CAPE_EMOJIS.Cape153,
 		[Cosmetic.RainbowFacePaintMask]: MASK_EMOJIS.Mask101,
 		[Cosmetic.BlueBirdGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.StanceSad]: null,
+		[Cosmetic.StanceSad]: STANCE_EMOJIS.Sad,
 		[Cosmetic.RunningWayfarerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.SeedOfHopeWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.SkyAnniversaryHairAccessory5]: null,
