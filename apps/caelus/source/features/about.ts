@@ -5,12 +5,14 @@ import {
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
+	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	SeparatorSpacingSize,
 	TextInputStyle,
 } from "@discordjs/core";
-import { formatEmoji, SkyMap, WEBSITE_URL } from "@thatskyapplication/utility";
+import { formatEmoji, WEBSITE_URL } from "@thatskyapplication/utility";
+import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import Profile from "../models/Profile.js";
@@ -47,7 +49,7 @@ export const ISSUE_MODAL_CUSTOM_ID = "ISSUE_MODAL_CUSTOM_ID" as const;
 const ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID = "ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID" as const;
 const ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID = "ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID" as const;
 
-export async function about(): Promise<[APIMessageTopLevelComponent]> {
+export async function about(locale: Locale): Promise<[APIMessageTopLevelComponent]> {
 	const currentUser = await client.api.users.getCurrent();
 
 	return [
@@ -73,21 +75,41 @@ export async function about(): Promise<[APIMessageTopLevelComponent]> {
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `### Description\n\nWelcome to the lovely Discord application for [Sky: Children of the Light](${THATSKYGAME_URL} "thatskygame")!\n\nSo you'd like to know about me, huh? Well, I like long walks across the ${SkyMap.SanctuaryIslands}. Oh, and don't forget about gliding all over the ${SkyMap.StarlightDesert}. Also... JELLYFISH!\n\nCheck out these useful links:`,
+							content: t("about.description", {
+								lng: locale,
+								ns: "features",
+								url: THATSKYGAME_URL,
+							}),
 						},
 						{
 							type: ComponentType.TextDisplay,
-							content: `- [Invite](${APPLICATION_INVITE_URL})\n- [Support](${SUPPORT_SERVER_INVITE_URL})\n- [Website](${WEBSITE_URL})`,
+							content: t("about.links", {
+								lng: locale,
+								ns: "features",
+								applicationInviteURL: APPLICATION_INVITE_URL,
+								supportServerInviteURL: SUPPORT_SERVER_INVITE_URL,
+								websiteURL: WEBSITE_URL,
+							}),
 						},
 					],
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `### Sponsoring\n\nWant to give support? There are ways you can do that! Thank you in advance!\n- [Patreon](${PATREON_URL})\n- [Ko-fi](${KO_FI_URL})\n- [GitHub](${GITHUB_SPONSORS_URL})`,
+					content: t("about.sponsor", {
+						lng: locale,
+						ns: "features",
+						patreonURL: PATREON_URL,
+						koFiURL: KO_FI_URL,
+						githubSponsorsURL: GITHUB_SPONSORS_URL,
+					}),
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `### Reporting issues & giving feedback\n\nYou may join the [support server](${SUPPORT_SERVER_INVITE_URL}) to do this.\n\nYou may also use the buttons below to do this without joining the server, if that's more your style.`,
+					content: t("about.issues-feedback", {
+						lng: locale,
+						ns: "features",
+						supportServerInviteURL: SUPPORT_SERVER_INVITE_URL,
+					}),
 				},
 				{
 					type: ComponentType.ActionRow,
@@ -96,14 +118,14 @@ export async function about(): Promise<[APIMessageTopLevelComponent]> {
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
 							custom_id: ABOUT_FEEDBACK_CUSTOM_ID,
-							label: "Submit feedback",
+							label: t("about.feedback-button", { lng: locale, ns: "features" }),
 							emoji: EMOTE_EMOJIS.Thinking,
 						},
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
 							custom_id: ABOUT_ISSUE_CUSTOM_ID,
-							label: "Report issue",
+							label: t("about.issue-button", { lng: locale, ns: "features" }),
 							emoji: EMOTE_EMOJIS.Duck,
 						},
 					],
@@ -122,7 +144,7 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 					{
 						type: ComponentType.TextInput,
 						style: TextInputStyle.Short,
-						label: "Enter a suitable title for your feedback.",
+						label: t("about.feedback-modal-title", { lng: interaction.locale, ns: "features" }),
 						custom_id: FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID,
 						min_length: MINIMUM_FEEDBACK_TITLE_LENGTH,
 						max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
@@ -136,9 +158,15 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 					{
 						type: ComponentType.TextInput,
 						style: TextInputStyle.Paragraph,
-						label: "Type your feedback here!",
+						label: t("about.feedback-modal-description", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
 						custom_id: FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
-						placeholder: "It would be cool to...\nI wish we could...",
+						placeholder: t("about.feedback-modal-description-placeholder", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
 						min_length: 1,
 						max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
 						required: true,
@@ -147,7 +175,7 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 			},
 		],
 		custom_id: FEEDBACK_MODAL_CUSTOM_ID,
-		title: "Submit feedback",
+		title: t("about.feedback-modal-heading", { lng: interaction.locale, ns: "features" }),
 	});
 }
 
@@ -158,7 +186,11 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 		pino.error(interaction, "Could not find the developer guild.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `Thank you for your feedback! ${formatEmoji(EMOTE_EMOJIS.BlowKiss)}`,
+			content: t("about.feedback-submission", {
+				lng: interaction.locale,
+				ns: "features",
+				emoij: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -171,7 +203,11 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 		pino.error(interaction, "Could not find the feedback channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `Thank you for your feedback! ${formatEmoji(EMOTE_EMOJIS.BlowKiss)}`,
+			content: t("about.feedback-submission", {
+				lng: interaction.locale,
+				ns: "features",
+				emoij: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -191,7 +227,11 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 		pino.error(interaction, "Missing permissions to post in the feedback channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `Thank you for your feedback! ${formatEmoji(EMOTE_EMOJIS.BlowKiss)}`,
+			content: t("about.feedback-submission", {
+				lng: interaction.locale,
+				ns: "features",
+				emoij: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -224,7 +264,11 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
-		content: `Thank you for your feedback! ${formatEmoji(EMOTE_EMOJIS.BlowKiss)}`,
+		content: t("about.feedback-submission", {
+			lng: interaction.locale,
+			ns: "features",
+			emoij: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+		}),
 		flags: MessageFlags.Ephemeral,
 	});
 }
@@ -238,7 +282,7 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 					{
 						type: ComponentType.TextInput,
 						style: TextInputStyle.Short,
-						label: "Enter a suitable title for your issue.",
+						label: t("about.issue-modal-title", { lng: interaction.locale, ns: "features" }),
 						custom_id: ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID,
 						min_length: MINIMUM_FEEDBACK_TITLE_LENGTH,
 						max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
@@ -252,9 +296,12 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 					{
 						type: ComponentType.TextInput,
 						style: TextInputStyle.Paragraph,
-						label: "Describe your issue here.",
+						label: t("about.issue-modal-description", { lng: interaction.locale, ns: "features" }),
 						custom_id: ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
-						placeholder: "Every time I try to...\nNothing happens when...",
+						placeholder: t("about.issue-modal-description-placeholder", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
 						min_length: 1,
 						max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
 						required: true,
@@ -263,7 +310,7 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 			},
 		],
 		custom_id: ISSUE_MODAL_CUSTOM_ID,
-		title: "Report issue",
+		title: t("about.issue-modal-heading", { lng: interaction.locale, ns: "features" }),
 	});
 }
 
@@ -274,7 +321,11 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 		pino.error(interaction, "Could not find the developer guild.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `Thank you for reporting your issue! ${formatEmoji(EMOTE_EMOJIS.BlowKiss)}`,
+			content: t("about.issue-submission", {
+				lng: interaction.locale,
+				ns: "features",
+				emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -287,7 +338,11 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 		pino.error(interaction, "Could not find the feedback channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `Thank you for reporting your issue! ${formatEmoji(EMOTE_EMOJIS.BlowKiss)}`,
+			content: t("about.issue-submission", {
+				lng: interaction.locale,
+				ns: "features",
+				emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -307,7 +362,11 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 		pino.error(interaction, "Missing permissions to post in the feedback channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `Thank you for reporting your issue! ${formatEmoji(EMOTE_EMOJIS.BlowKiss)}`,
+			content: t("about.issue-submission", {
+				lng: interaction.locale,
+				ns: "features",
+				emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -340,7 +399,11 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
-		content: `Thank you for reporting your issue! ${formatEmoji(EMOTE_EMOJIS.BlowKiss)}`,
+		content: t("about.issue-submission", {
+			lng: interaction.locale,
+			ns: "features",
+			emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+		}),
 		flags: MessageFlags.Ephemeral,
 	});
 }

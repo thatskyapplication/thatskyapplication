@@ -11,7 +11,7 @@ export default {
 	name: t("about.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			components: await about(),
+			components: await about(interaction.locale),
 			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		});
 	},
