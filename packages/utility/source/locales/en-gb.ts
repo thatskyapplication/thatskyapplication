@@ -1593,9 +1593,12 @@ export default {
 	features: {
 		about: {
 			description: `### Description\n\nWelcome to the lovely Discord application for [Sky: Children of the Light]({{url}} "thatskygame")!\n\nSo you'd like to know about me, huh? Well, I like long walks across the Sanctuary Islands. Oh, and don't forget about gliding all over the Starlight Desert. Also... JELLYFISH!\n\nCheck out these useful links:`,
-			links: "- [Invite]({{applicationInviteURL}})\n- [Support]({{supportServerInviteURL}})\n- [Website]({{websiteURL}})",
-			sponsor: "### Sponsoring\n\nWant to give support? There are ways you can do that! Thank you in advance!\n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
-			"issues-feedback": "### Reporting issues & giving feedback\n\nYou may join the [support server]({{supportServerInviteURL}}) to do this.\n\nYou may also use the buttons below to do this without joining the server, if that's more your style.",
+			links:
+				"- [Invite]({{applicationInviteURL}})\n- [Support]({{supportServerInviteURL}})\n- [Website]({{websiteURL}})",
+			sponsor:
+				"### Sponsoring\n\nWant to give support? There are ways you can do that! Thank you in advance!\n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
+			"issues-feedback":
+				"### Reporting issues & giving feedback\n\nYou may join the [support server]({{supportServerInviteURL}}) to do this.\n\nYou may also use the buttons below to do this without joining the server, if that's more your style.",
 			"feedback-button": "Submit feedback",
 			"issue-button": "Report an issue",
 			"feedback-modal-heading": "Submit feedback",
