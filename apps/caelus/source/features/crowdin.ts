@@ -25,7 +25,7 @@ const FINAL_TRANSLATION_REGULAR_EXPRESSION =
 	/Final translation of string into (?<language>.+) was updated in the project (?<project>.+)\.\nKey: (?<key>.+)\nFile: (?<file>.+)\nOld translation: (?<oldTranslation>.+)?\nNew translation: (?<newTranslation>.+)?\nURL: (?<url>.+)/;
 
 const ISSUE_REGULAR_EXPRESSION =
-	/An issue created in (?<project>.+)\. ?\nIssue Type: (?<type>.+?)\. ?\nFile: (?<file>.+)\. ?\nText: (?<text>.+?) ?\nLanguage: (?<language>.+)\. ?\n\nURL: (?<url>.+)/s;
+	/An issue (?<issueType>has been updated|created) in (?<project>.+)\. ?\nIssue Type: (?<type>.+?)\. ?\nFile: (?<file>.+)\. ?\nText: (?<text>.+?) ?\nLanguage: (?<language>.+)\. ?\n\nURL: (?<url>.+)/s;
 
 const CrowdinLanguageToLanguage = {
 	"Chinese Simplified": "中文",
@@ -42,6 +42,13 @@ const CrowdinLanguageToLanguage = {
 	Thai: "ไทย",
 	Vietnamese: "Tiếng Việt",
 } as const satisfies Readonly<Record<string, string>>;
+
+const IssueTypeToString = {
+	created: "created",
+	"has been updated": "updated",
+} as const satisfies Readonly<Record<string, string>>;
+
+const ISSUE_TYPE_STRING_DEFAULT = "notification" as const;
 
 function createSuggestionEmbed(message: GatewayMessageCreateDispatchData) {
 	const result = SUGGESTION_REGULAR_EXPRESSION.exec(message.content);
@@ -193,7 +200,8 @@ function createIssueEmbed(message: GatewayMessageCreateDispatchData) {
 		return;
 	}
 
-	const { type, text, language, url } = result.groups as {
+	const { issueType, type, text, language, url } = result.groups as {
+		issueType: string;
 		project: string;
 		type: string;
 		file: string;
@@ -202,9 +210,19 @@ function createIssueEmbed(message: GatewayMessageCreateDispatchData) {
 		url: string;
 	};
 
+	let issueTypeString:
+		| (typeof IssueTypeToString)[keyof typeof IssueTypeToString]
+		| typeof ISSUE_TYPE_STRING_DEFAULT =
+		IssueTypeToString[issueType as keyof typeof IssueTypeToString];
+
+	if (!issueTypeString) {
+		pino.error(message, "Unknown issue type in Crowdin message.");
+		issueTypeString = ISSUE_TYPE_STRING_DEFAULT;
+	}
+
 	return {
 		color: DEFAULT_EMBED_COLOUR,
-		description: `[Issue created: \`${type}\`](${url})\n\n>>> ${text}`,
+		description: `[Issue ${issueTypeString}: \`${type}\`](${url})\n\n>>> ${text}`,
 		footer: {
 			text: `${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]}`,
 		},
@@ -255,7 +273,7 @@ export async function crowdin(
 		message.content.includes("are successfully built.")
 	) {
 		embed = createBuiltEmbed(message);
-	} else if (message.content.startsWith("An issue created in ")) {
+	} else if (message.content.startsWith("An issue ")) {
 		embed = createIssueEmbed(message);
 	}
 
