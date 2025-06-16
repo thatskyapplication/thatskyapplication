@@ -51,6 +51,8 @@ export default new GuideSpirit({
 			{ name: "Heart 3", cosmetic: Cosmetic.BlueBirdGuideHeart3 },
 			{ name: "Quest 4", cosmetic: Cosmetic.BlueBirdGuideQuest4 },
 			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceSad, cost: { hearts: 3 } },
+			{ name: "Quest 5", cosmetic: Cosmetic.BlueBirdGuideQuest5 },
+			{ name: "Heart 4", cosmetic: Cosmetic.BlueBirdGuideHeart4 },
 		],
 	},
 });

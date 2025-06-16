@@ -3007,6 +3007,10 @@ export enum Cosmetic {
 	RunningWayfarerWingBuff = 2391,
 	SeedOfHopeWingBuff = 2392,
 
+	// 16/06/2025 | Season of the Blue Bird Quest 5.
+	BlueBirdGuideQuest5 = 2393,
+	BlueBirdGuideHeart4 = 2394,
+
 	// 07/07/2025 | Sky Anniversary.
 	SkyAnniversaryHairAccessory5,
 	AnniversaryClapboard,

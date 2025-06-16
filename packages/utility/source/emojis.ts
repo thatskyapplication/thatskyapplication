@@ -7607,6 +7607,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.StanceSad]: STANCE_EMOJIS.Sad,
 		[Cosmetic.RunningWayfarerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.SeedOfHopeWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.BlueBirdGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.BlueBirdGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.SkyAnniversaryHairAccessory5]: null,
 		[Cosmetic.AnniversaryClapboard]: null,
 		[Cosmetic.AnniversaryMovieSeats]: null,

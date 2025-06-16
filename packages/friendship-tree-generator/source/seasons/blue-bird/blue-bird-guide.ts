@@ -68,6 +68,23 @@ export const CURRENT = [
 	],
 	[
 		{
+			icon: QUEST_URL,
+		},
+		{
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/d/da/Blue-Bird-Sad-Stance-icon.png/revision/latest",
+			cost: { hearts: 3 },
+		},
+	],
+	[
+		{
+			icon: QUEST_URL,
+		},
+		{
+			icon: HEART_URL,
+		},
+	],
+	[
+		{
 			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/60/Question-mark-Ray.png/revision/latest",
 		},
 	],
