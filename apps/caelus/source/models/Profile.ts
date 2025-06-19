@@ -1584,7 +1584,7 @@ export default class Profile {
 							type: ComponentType.StringSelect,
 							custom_id: SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID,
 							max_values: 1,
-							min_values: 0,
+							min_values: 1,
 							options: SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((skyProfileWingedLightType) => ({
 								default: profile?.wingedLight === skyProfileWingedLightType,
 								label: t(`sky-profile-winged-light-types.${skyProfileWingedLightType}`, {
