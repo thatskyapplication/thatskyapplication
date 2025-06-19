@@ -112,7 +112,6 @@ const TREASURE_CANDLES_DOUBLE_DATES = [
 	{ start: skyDate(2_024, 12, 9), end: skyDate(2_024, 12, 23) },
 	{ start: skyDate(2_025, 3, 17), end: skyDate(2_025, 3, 24) },
 	{ start: skyDate(2_025, 4, 7), end: skyDate(2_025, 4, 21) },
-	// Unannounced. Using dates for AURORA Homecoming 2025.
 	{ start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) },
 ];
 

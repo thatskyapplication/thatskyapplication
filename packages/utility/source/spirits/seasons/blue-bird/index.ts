@@ -62,7 +62,6 @@ export default new Season({
 						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 					],
-	// Double seasonal light event is unannounced. Using dates for AURORA Homecoming 2025.
 	doubleSeasonalLightEventStartDate: skyDate(2_025, 6, 9),
 	doubleSeasonalLightEventEndDate: skyDate(2_025, 6, 23),
 	patchNotesURL: String(new URL("p0290", LINK_REDIRECTOR_URL)),
