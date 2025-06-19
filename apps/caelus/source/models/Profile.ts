@@ -8,6 +8,7 @@ import {
 	type APIAttachment,
 	type APIButtonComponent,
 	type APIChatInputApplicationCommandInteraction,
+	type APIComponentInMessageActionRow,
 	type APIEmbed,
 	type APIEmbedAuthor,
 	type APIMessageComponentButtonInteraction,
@@ -68,7 +69,7 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
-import { SKY_PROFILE_REPORTS_CHANNEL_ID } from "../utility/configuration.js";
+import { SKY_PROFILE_REPORTS_CHANNEL_ID, THAT_WINGLESS_COMMUNITY_INVITE_URL } from "../utility/configuration.js";
 import {
 	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
@@ -248,6 +249,13 @@ const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW: APIActionRowComponent<APISelectMenuCo
 			placeholder: "What do you want to edit?",
 		},
 	],
+} as const;
+
+const SKY_PROFILE_EDIT_WINGLESS_BUTTON = {
+	type: ComponentType.Button,
+	style: ButtonStyle.Link,
+	label: "Join capeless community server",
+	url: THAT_WINGLESS_COMMUNITY_INVITE_URL,
 } as const;
 
 const SKY_PROFILE_EDIT_RESET_BUTTON = {
@@ -1796,24 +1804,28 @@ export default class Profile {
 			flags |= MessageFlags.SuppressEmbeds;
 		}
 
+		const actionRowComponents: APIComponentInMessageActionRow[] = [
+			{
+				type: ComponentType.Button,
+				label: "View in browser",
+				url: profile?.userId ? `${SKY_PROFILES_URL}/${profile?.userId}` : SKY_PROFILES_URL,
+				style: ButtonStyle.Link,
+			},
+		];
+
+		if (profile?.wingedLight === SkyProfileWingedLightType.Capeless) {
+			actionRowComponents.push(SKY_PROFILE_EDIT_WINGLESS_BUTTON);
+		}
+
+		actionRowComponents.push(SKY_PROFILE_EDIT_RESET_BUTTON);
+
 		const baseReplyOptions:
 			| Parameters<InteractionsAPI["editReply"]>[2]
 			| Parameters<InteractionsAPI["reply"]>[2]
 			| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 			components: [
 				SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW,
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.Button,
-							label: "View in browser",
-							url: profile?.userId ? `${SKY_PROFILES_URL}/${profile?.userId}` : SKY_PROFILES_URL,
-							style: ButtonStyle.Link,
-						},
-						SKY_PROFILE_EDIT_RESET_BUTTON,
-					],
-				},
+				{ type: ComponentType.ActionRow, components: actionRowComponents },
 			],
 			content: embed
 				? missing
