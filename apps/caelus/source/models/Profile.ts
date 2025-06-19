@@ -69,7 +69,10 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
-import { SKY_PROFILE_REPORTS_CHANNEL_ID, THAT_WINGLESS_COMMUNITY_INVITE_URL } from "../utility/configuration.js";
+import {
+	SKY_PROFILE_REPORTS_CHANNEL_ID,
+	THAT_WINGLESS_COMMUNITY_INVITE_URL,
+} from "../utility/configuration.js";
 import {
 	ANIMATED_HASH_PREFIX,
 	APPLICATION_ID,
