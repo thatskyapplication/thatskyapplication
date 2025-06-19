@@ -674,7 +674,7 @@ async function start({
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal Progress: ${allProgress(data, true)}%`,
+							content: `Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal progress: ${allProgress(data, true)}%`,
 						},
 					],
 				},
