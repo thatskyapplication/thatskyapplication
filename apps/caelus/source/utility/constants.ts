@@ -1176,8 +1176,6 @@ export const PASSAGE_TRUNCATION_LIMIT = 9 as const;
 // Sky profiles.
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;
-export const SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH = 1 as const;
-export const SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH = 3 as const;
 export const SKY_PROFILE_MINIMUM_SPOT_LENGTH = 2 as const;
 export const SKY_PROFILE_MAXIMUM_SPOT_LENGTH = 50 as const;
 export const SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER = 25 as const;

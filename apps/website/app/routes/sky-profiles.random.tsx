@@ -1,25 +1,25 @@
 import { type LoaderFunction, redirect } from "@remix-run/node";
-import type { ProfilePacket } from "@thatskyapplication/utility";
+import type { SkyProfilePacket } from "@thatskyapplication/utility";
 import pg from "~/pg.server";
 import { Table } from "~/utility/constants";
 
 export const loader: LoaderFunction = async () => {
-	const countResult = await pg<ProfilePacket>(Table.Profiles)
+	const countResult = await pg<SkyProfilePacket>(Table.Profiles)
 		.whereNotNull("name")
 		.count({ total: "*" })
 		.first();
 
 	const randomProfile = Math.floor(Math.random() * Number(countResult!.total!) + 1);
 
-	const profilePacket = await pg<ProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.whereNotNull("name")
 		.limit(1)
 		.offset(randomProfile)
 		.first();
 
-	if (!profilePacket) {
+	if (!skyProfilePacket) {
 		throw new Response("No profile found.", { status: 404 });
 	}
 
-	return redirect(`/sky-profiles/${profilePacket.user_id}`);
+	return redirect(`/sky-profiles/${skyProfilePacket.user_id}`);
 };

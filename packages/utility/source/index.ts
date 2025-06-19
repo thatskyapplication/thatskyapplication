@@ -21,6 +21,7 @@ export const MAXIMUM_KRILL_GIF = 11 as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
+export type { CataloguePacket } from "./catalogue.js";
 export { CDN_URL } from "./cdn.js";
 export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
@@ -105,6 +106,12 @@ export {
 	type SeasonIds,
 } from "./season.js";
 export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
+export {
+	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
+	type SkyProfilePacket,
+	SkyProfileWingedLightType,
+	type SkyProfileWingedLightTypes,
+} from "./sky-profile.js";
 export { spirits } from "./spirits/index.js";
 export {
 	ELDER_SPIRITS,
@@ -121,7 +128,6 @@ export {
 	skyUpcomingSeason,
 } from "./spirits/seasons/index.js";
 export type { Snowflake } from "./types/index.js";
-export type { ProfilePacket } from "./types/profile.js";
 export { LINK_REDIRECTOR_URL } from "./utility/constants.js";
 export { EventId, type EventIds } from "./utility/event.js";
 export {

@@ -17,6 +17,7 @@ import {
 } from "@discordjs/core";
 import {
 	addCosts,
+	type CataloguePacket,
 	ELDER_SPIRITS,
 	type ElderSpirit,
 	type Event,
@@ -135,12 +136,6 @@ const BACK_TO_START_BUTTON = {
 const ELDERS_TITLE = "## Elders \n-# Catalogue" as const;
 const SEASONS_TITLE = "## Seasons \n-# Catalogue" as const;
 const RETURNING_SPIRITS_TITLE = "## Returning Spirits\n-# Catalogue" as const;
-
-export interface CataloguePacket {
-	user_id: Snowflake;
-	data: number[];
-	show_everything_button: boolean;
-}
 
 function progress(offer: readonly Item[], data: ReadonlySet<number> = new Set()) {
 	const offerDescription = [];

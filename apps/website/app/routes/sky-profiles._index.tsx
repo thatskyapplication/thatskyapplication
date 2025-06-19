@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
-import { isPlatformId, type ProfilePacket, WEBSITE_URL } from "@thatskyapplication/utility";
+import { isPlatformId, type SkyProfilePacket, WEBSITE_URL } from "@thatskyapplication/utility";
 import Layout from "~/components/Layout.js";
 import Pagination from "~/components/Pagination.js";
 import pg from "~/pg.server";
@@ -47,7 +47,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	if (query) {
 		const queryLowerCase = query.toLowerCase();
 
-		const profiles = await pg<ProfilePacket>(Table.Profiles)
+		const profiles = await pg<SkyProfilePacket>(Table.Profiles)
 			.whereRaw("lower(name) % ?", [queryLowerCase])
 			.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase])
 			.limit(SKY_PROFILES_PAGE_LIMIT);
@@ -66,7 +66,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const offset = (currentPage - 1) * SKY_PROFILES_PAGE_LIMIT;
 
 	try {
-		const countResult = await pg<ProfilePacket>(Table.Profiles)
+		const countResult = await pg<SkyProfilePacket>(Table.Profiles)
 			.whereNotNull("name")
 			.count({ total: "*" })
 			.first();
@@ -78,7 +78,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			throw new Response("Invalid page number.", { status: 404 });
 		}
 
-		const profiles = await pg<ProfilePacket>(Table.Profiles)
+		const profiles = await pg<SkyProfilePacket>(Table.Profiles)
 			.whereNotNull("name")
 			.orderBy("name", "asc")
 			.orderBy("user_id", "asc")
@@ -91,7 +91,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	}
 };
 
-function SkyProfileCard(profile: ProfilePacket) {
+function SkyProfileCard(profile: SkyProfilePacket) {
 	return (
 		<Link
 			key={profile.user_id}

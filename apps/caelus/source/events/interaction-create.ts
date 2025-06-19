@@ -136,7 +136,7 @@ import Profile, {
 	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
 } from "../models/Profile.js";
 import pino from "../pino.js";
@@ -818,6 +818,11 @@ export default {
 					return;
 				}
 
+				if (customId === SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID) {
+					await Profile.setWingedLight(interaction);
+					return;
+				}
+
 				if (customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID) {
 					await Profile.setSeasons(interaction);
 					return;
@@ -1009,11 +1014,6 @@ export default {
 
 				if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
 					await Profile.setDescription(interaction);
-					return;
-				}
-
-				if (customId === SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID) {
-					await Profile.setWingedLight(interaction);
 					return;
 				}
 

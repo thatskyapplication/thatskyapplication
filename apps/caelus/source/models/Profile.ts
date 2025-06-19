@@ -43,14 +43,18 @@ import {
 	isPlatformId,
 	isSeasonId,
 	MAXIMUM_WINGED_LIGHT,
-	MINIMUM_WINGED_LIGHT,
 	PLATFORM_ID_VALUES,
 	PlatformId,
 	type PlatformIds,
-	type ProfilePacket,
 	type SeasonIds,
+	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
+	type SkyProfilePacket,
+	SkyProfileWingedLightType,
+	type SkyProfileWingedLightTypes,
 	type Snowflake,
 	skySeasons,
+	WING_BUFFS,
+	WINGED_LIGHT_IN_AREAS,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
@@ -78,9 +82,7 @@ import {
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
-	SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH,
 	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
-	SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH,
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
@@ -105,19 +107,19 @@ interface SkyProfileLikesPacket {
 }
 
 interface ProfileData {
-	userId: ProfilePacket["user_id"];
-	name: ProfilePacket["name"];
-	icon: ProfilePacket["icon"];
-	thumbnail: ProfilePacket["thumbnail"];
-	description: ProfilePacket["description"];
-	country: ProfilePacket["country"];
-	wingedLight: ProfilePacket["winged_light"];
+	userId: SkyProfilePacket["user_id"];
+	name: SkyProfilePacket["name"];
+	icon: SkyProfilePacket["icon"];
+	thumbnail: SkyProfilePacket["thumbnail"];
+	description: SkyProfilePacket["description"];
+	country: SkyProfilePacket["country"];
+	wingedLight: SkyProfilePacket["winged_light"];
 	seasons: SeasonIds[] | null;
 	platform: PlatformIds[] | null;
-	spirit: ProfilePacket["spirit"];
-	spot: ProfilePacket["spot"];
-	catalogueProgression: ProfilePacket["catalogue_progression"];
-	guessRank: ProfilePacket["guess_rank"];
+	spirit: SkyProfilePacket["spirit"];
+	spot: SkyProfilePacket["spot"];
+	catalogueProgression: SkyProfilePacket["catalogue_progression"];
+	guessRank: SkyProfilePacket["guess_rank"];
 }
 
 export interface ProfileSetData {
@@ -126,7 +128,7 @@ export interface ProfileSetData {
 	thumbnail?: string | null;
 	description?: string | null;
 	country?: Country | null;
-	winged_light?: number | null;
+	winged_light?: SkyProfileWingedLightTypes | null;
 	seasons?: SeasonIds[] | null;
 	platform?: PlatformIds[] | null;
 	spirit?: number | null;
@@ -135,7 +137,7 @@ export interface ProfileSetData {
 	guess_rank?: boolean | null;
 }
 
-type ProfilePatchData = Omit<ProfilePacket, "user_id">;
+type ProfilePatchData = Omit<SkyProfilePacket, "user_id">;
 
 enum ProfileInteractiveEditType {
 	Name = "Name",
@@ -153,7 +155,7 @@ const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEdi
 const ProfileInteractiveEditTypeToDescription = {
 	[ProfileInteractiveEditType.Name]: "What name do you go by?",
 	[ProfileInteractiveEditType.Description]: "What's your story?",
-	[ProfileInteractiveEditType.WingedLight]: "What's the maximum winged light you can possess?",
+	[ProfileInteractiveEditType.WingedLight]: "What is your maximum winged light?",
 	[ProfileInteractiveEditType.Spot]: "Where do you hang out?",
 	[ProfileInteractiveEditType.Seasons]: "What seasons have you played in?",
 	[ProfileInteractiveEditType.Platforms]: "What platforms do you play on?",
@@ -215,11 +217,8 @@ export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
 const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
 	"SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID =
-	"SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID" as const;
-
-const SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID =
-	"SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID =
+	"SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID =
 	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID" as const;
@@ -432,15 +431,15 @@ export default class Profile {
 
 	public platform!: ProfileData["platform"];
 
-	public spirit!: ProfilePacket["spirit"];
+	public spirit!: SkyProfilePacket["spirit"];
 
-	public spot!: ProfilePacket["spot"];
+	public spot!: SkyProfilePacket["spot"];
 
-	public catalogueProgression!: ProfilePacket["catalogue_progression"];
+	public catalogueProgression!: SkyProfilePacket["catalogue_progression"];
 
-	public guessRank!: ProfilePacket["guess_rank"];
+	public guessRank!: SkyProfilePacket["guess_rank"];
 
-	public constructor(profile: ProfilePacket) {
+	public constructor(profile: SkyProfilePacket) {
 		this.userId = profile.user_id;
 		this.patch(profile);
 	}
@@ -461,13 +460,13 @@ export default class Profile {
 	}
 
 	public static async fetch(userId: LooseSnowflake) {
-		const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).where("user_id", userId);
+		const [SkyProfilePacket] = await pg<SkyProfilePacket>(Table.Profiles).where("user_id", userId);
 
-		if (!profilePacket) {
+		if (!SkyProfilePacket) {
 			throw new Error("No profile found.");
 		}
 
-		return new this(profilePacket);
+		return new this(SkyProfilePacket);
 	}
 
 	public static async set(
@@ -482,14 +481,14 @@ export default class Profile {
 		let profile = await this.fetch(invoker.id).catch(() => null);
 
 		if (profile) {
-			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles)
+			const [SkyProfilePacket] = await pg<SkyProfilePacket>(Table.Profiles)
 				.update(data)
 				.where({ user_id: profile.userId })
 				.returning("*");
 
-			profile.patch(profilePacket!);
+			profile.patch(SkyProfilePacket!);
 		} else {
-			const [profilePacket] = await pg<ProfilePacket>(Table.Profiles).insert(
+			const [SkyProfilePacket] = await pg<SkyProfilePacket>(Table.Profiles).insert(
 				{
 					...data,
 					user_id: invoker.id as Snowflake,
@@ -497,7 +496,7 @@ export default class Profile {
 				"*",
 			);
 
-			profile = new this(profilePacket!);
+			profile = new this(SkyProfilePacket!);
 		}
 
 		await this.showEdit(interaction, deferred);
@@ -591,7 +590,7 @@ export default class Profile {
 				return;
 			}
 			case ProfileInteractiveEditType.WingedLight: {
-				await this.showWingedLightModal(interaction);
+				await this.showWingedLightSelectMenu(interaction);
 				return;
 			}
 			case ProfileInteractiveEditType.Spot: {
@@ -705,7 +704,7 @@ export default class Profile {
 			);
 		}
 
-		promises.push(pg<ProfilePacket>(Table.Profiles).delete().where({ user_id: this.userId }));
+		promises.push(pg<SkyProfilePacket>(Table.Profiles).delete().where({ user_id: this.userId }));
 		await Promise.all(promises);
 	}
 
@@ -763,14 +762,14 @@ export default class Profile {
 
 		const offset = (page - 1) * limit;
 
-		const profilePackets = await pg<ProfilePacket>(Table.Profiles)
+		const skyProfilePackets = await pg<SkyProfilePacket>(Table.Profiles)
 			.whereNotNull("name")
 			.orderBy("name", "asc")
 			.orderBy("user_id", "asc")
 			.limit(limit + 1)
 			.offset(offset);
 
-		if (profilePackets.length === 0) {
+		if (skyProfilePackets.length === 0) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "There are no profiles to explore. Why not be the first?",
 				flags: MessageFlags.Ephemeral,
@@ -780,13 +779,13 @@ export default class Profile {
 		}
 
 		const hasPreviousPage = offset > 0;
-		const hasNextPage = profilePackets.length > limit;
+		const hasNextPage = skyProfilePackets.length > limit;
 
 		if (hasNextPage) {
-			profilePackets.pop();
+			skyProfilePackets.pop();
 		}
 
-		const profiles = profilePackets.map((profilePacket) => new this(profilePacket));
+		const profiles = skyProfilePackets.map((skyProfilePacket) => new this(skyProfilePacket));
 		const invoker = interactionInvoker(interaction);
 
 		const skyProfileLikesPackets = await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
@@ -913,7 +912,7 @@ export default class Profile {
 				focused.length === 0
 					? []
 					: (
-							await pg<ProfilePacket>(Table.Profiles)
+							await pg<SkyProfilePacket>(Table.Profiles)
 								.select(["user_id", "name", "description"])
 								.where("name", "ilike", `%${focused}%`)
 								.limit(25)
@@ -1039,7 +1038,7 @@ export default class Profile {
 	}
 
 	private static async exploreProfilePreviousRow(name: string, userId: LooseSnowflake) {
-		const [previous] = await pg<ProfilePacket>(Table.Profiles)
+		const [previous] = await pg<SkyProfilePacket>(Table.Profiles)
 			.where(function () {
 				this.where("name", "<", name).orWhere(function () {
 					this.where("name", "=", name).andWhere("user_id", "<", userId);
@@ -1053,7 +1052,7 @@ export default class Profile {
 	}
 
 	private static async exploreProfileNextRow(name: string, userId: LooseSnowflake) {
-		const [next] = await pg<ProfilePacket>(Table.Profiles)
+		const [next] = await pg<SkyProfilePacket>(Table.Profiles)
 			.where(function () {
 				this.where("name", ">", name).orWhere(function () {
 					this.where("name", "=", name).andWhere("user_id", ">", userId);
@@ -1080,7 +1079,7 @@ export default class Profile {
 
 		const offset = (page - 1) * limit;
 
-		const profilePackets = await pg(Table.SkyProfileLikes)
+		const SkyProfilePackets = await pg(Table.SkyProfileLikes)
 			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
 			.select(`${Table.Profiles}.*`)
 			.where(`${Table.SkyProfileLikes}.user_id`, invoker.id)
@@ -1089,7 +1088,7 @@ export default class Profile {
 			.limit(limit + 1)
 			.offset(offset);
 
-		if (profilePackets.length === 0) {
+		if (SkyProfilePackets.length === 0) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: "You have no Sky profiles that you've liked.",
 				flags: MessageFlags.Ephemeral,
@@ -1099,13 +1098,13 @@ export default class Profile {
 		}
 
 		const hasPreviousPage = offset > 0;
-		const hasNextPage = profilePackets.length > limit;
+		const hasNextPage = SkyProfilePackets.length > limit;
 
 		if (hasNextPage) {
-			profilePackets.pop();
+			SkyProfilePackets.pop();
 		}
 
-		const profiles = profilePackets.map((profilePacket) => new this(profilePacket));
+		const profiles = SkyProfilePackets.map((SkyProfilePacket) => new this(SkyProfilePacket));
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
@@ -1182,7 +1181,7 @@ export default class Profile {
 		userId: LooseSnowflake,
 		targetId: LooseSnowflake,
 	) {
-		const [previous] = await pg<ProfilePacket>(Table.SkyProfileLikes)
+		const [previous] = await pg<SkyProfilePacket>(Table.SkyProfileLikes)
 			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
 			.select(`${Table.Profiles}.*`)
 			.where(`${Table.SkyProfileLikes}.user_id`, userId)
@@ -1207,7 +1206,7 @@ export default class Profile {
 		userId: LooseSnowflake,
 		targetId: LooseSnowflake,
 	) {
-		const [next] = await pg<ProfilePacket>(Table.SkyProfileLikes)
+		const [next] = await pg<SkyProfilePacket>(Table.SkyProfileLikes)
 			.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
 			.select(`${Table.Profiles}.*`)
 			.where(`${Table.SkyProfileLikes}.user_id`, userId)
@@ -1561,28 +1560,45 @@ export default class Profile {
 		});
 	}
 
-	public static async showWingedLightModal(interaction: APIMessageComponentSelectMenuInteraction) {
+	private static async showWingedLightSelectMenu(
+		interaction: APIMessageComponentSelectMenuInteraction,
+	) {
+		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const profile = await Profile.fetch(invoker.id).catch(() => null);
 
-		const textInput: APITextInputComponent = {
-			type: ComponentType.TextInput,
-			custom_id: SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID,
-			label: `How much winged light do you have? (${MINIMUM_WINGED_LIGHT}-${MAXIMUM_WINGED_LIGHT})`,
-			max_length: SKY_PROFILE_MAXIMUM_WINGED_LIGHT_LENGTH,
-			min_length: SKY_PROFILE_MINIMUM_WINGED_LIGHT_LENGTH,
-			required: true,
-			style: TextInputStyle.Short,
-		};
-
-		if (profile?.wingedLight) {
-			textInput.value = String(profile.wingedLight);
-		}
-
-		await client.api.interactions.createModal(interaction.id, interaction.token, {
-			components: [{ type: ComponentType.ActionRow, components: [textInput] }],
-			custom_id: SKY_PROFILE_SET_WINGED_LIGHT_MODAL_CUSTOM_ID,
-			title: "Sky Profile",
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			components: [
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.StringSelect,
+							custom_id: SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID,
+							max_values: 1,
+							min_values: 0,
+							options: SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((skyProfileWingedLightType) => ({
+								default: profile?.wingedLight === skyProfileWingedLightType,
+								label: t(`sky-profile-winged-light-types.${skyProfileWingedLightType}`, {
+									lng: locale,
+									ns: "general",
+								}),
+								value: skyProfileWingedLightType.toString(),
+							})),
+							placeholder: "How would you like your winged light to be displayed?",
+						},
+					],
+				},
+				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
+			],
+			content: "",
+			embeds: [
+				{
+					description:
+						"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
+					color: DEFAULT_EMBED_COLOUR,
+				},
+			],
 		});
 	}
 
@@ -1697,25 +1713,10 @@ export default class Profile {
 		return this.set(interaction, { description });
 	}
 
-	public static async setWingedLight(interaction: APIModalSubmitInteraction) {
-		const components = new ModalResolver(interaction.data.components);
-
-		const wingedLight = components
-			.getTextInputValue(SKY_PROFILE_SET_WINGED_LIGHT_INPUT_CUSTOM_ID)
-			.trim();
-
-		const wingedLightNumber = Number(wingedLight);
-
-		if (!Number.isInteger(wingedLightNumber)) {
-			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: `Please enter an integer between ${MINIMUM_WINGED_LIGHT} and ${MAXIMUM_WINGED_LIGHT}.`,
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		return this.set(interaction, { winged_light: wingedLightNumber });
+	public static async setWingedLight(interaction: APIMessageComponentSelectMenuInteraction) {
+		await this.set(interaction, {
+			winged_light: Number(interaction.data.values[0]) as SkyProfileWingedLightTypes,
+		});
 	}
 
 	public static setSpot(interaction: APIModalSubmitInteraction) {
@@ -1943,16 +1944,30 @@ export default class Profile {
 		}
 
 		if (typeof wingedLight === "number") {
-			fields.push({
-				name: "Winged Light",
-				value:
-					wingedLight === 0
-						? "Capeless"
-						: wingedLight === MAXIMUM_WINGED_LIGHT
-							? `${wingedLight} (Max ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
-							: String(wingedLight),
-				inline: true,
-			});
+			if (wingedLight === SkyProfileWingedLightType.Capeless) {
+				fields.push({ name: "Winged Light", value: "Capeless", inline: true });
+			} else {
+				const catalogue = await fetchCatalogue(userId);
+
+				if (catalogue) {
+					let count = WINGED_LIGHT_IN_AREAS;
+
+					for (const wingBuff of WING_BUFFS) {
+						if (catalogue.data.has(wingBuff)) {
+							count++;
+						}
+					}
+
+					fields.push({
+						name: "Winged Light",
+						value:
+							count === MAXIMUM_WINGED_LIGHT
+								? `${count} (Max ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
+								: count.toString(),
+						inline: true,
+					});
+				}
+			}
 		} else {
 			missing.push("- Set the winged light you have!");
 		}

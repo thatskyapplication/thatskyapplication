@@ -31,6 +31,7 @@ export const HUGGING_GIFS = [
 ] as const;
 
 export enum Table {
+	Catalogue = "catalogue",
 	DailyGuides = "daily_guides",
 	Profiles = "profiles",
 }

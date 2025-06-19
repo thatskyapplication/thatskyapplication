@@ -5,7 +5,12 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { isCountry, type SpiritIds, spirits } from "@thatskyapplication/utility";
+import {
+	isCountry,
+	type SkyProfileWingedLightTypes,
+	type SpiritIds,
+	spirits,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
 import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
@@ -83,7 +88,7 @@ export default {
 		const name = options.getString("name");
 		const thumbnail = options.getAttachment("thumbnail");
 		const icon = options.getAttachment("icon");
-		const wingedLight = options.getInteger("winged-light");
+		const wingedLight = options.getInteger("winged-light") as SkyProfileWingedLightTypes | null;
 		const spiritId = options.getInteger("spirit");
 		const country = options.getString("country");
 		const spot = options.getString("spot");

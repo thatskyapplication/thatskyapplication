@@ -5,9 +5,9 @@ import {
 	ComponentType,
 	MessageFlags,
 } from "@discordjs/core";
+import type { CataloguePacket } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import type { CataloguePacket } from "../features/catalogue.js";
 import type { GiveawayPacket, GiveawayUpsellPacket } from "../features/giveaway.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type { HeartPacket } from "../models/Heart.js";

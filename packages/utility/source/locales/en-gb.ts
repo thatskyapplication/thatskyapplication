@@ -4,6 +4,7 @@ import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { DailyQuest, type DailyQuests } from "../quests.js";
 import { SeasonId, type SeasonIds } from "../season.js";
+import { SkyProfileWingedLightType, type SkyProfileWingedLightTypes } from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";
 import { SpiritId, type SpiritIds } from "../utility/spirits.js";
 
@@ -592,6 +593,10 @@ export default {
 		} satisfies Record<EventIds, `https://${string}`>,
 		"shard-eruption": "Shard Eruption",
 		"shard-eruption-none": "None",
+		"sky-profile-winged-light-types": {
+			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
+			[SkyProfileWingedLightType.Capeless]: "Capeless",
+		} satisfies Record<SkyProfileWingedLightTypes, string>,
 		spirits: {
 			[SpiritId.PointingCandlemaker]: "Pointing Candlemaker",
 			[SpiritId.UsheringStargazer]: "Ushering Stargazer",
@@ -1547,8 +1552,11 @@ export default {
 				"command-option-icon-name": "icon",
 				"command-option-icon-description": "Upload your icon!",
 				"command-option-winged-light-name": "winged-light",
-				"command-option-winged-light-description":
-					"How much winged light do you have? ({{minimum}}-{{maximum}})",
+				"command-option-winged-light-description": "What is your maximum winged light?",
+				"command-option-winged-light-choice-name": {
+					[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue.",
+					[SkyProfileWingedLightType.Capeless]: "Capeless.",
+				} satisfies Record<SkyProfileWingedLightTypes, string>,
 				"command-option-spirit-name": "spirit",
 				"command-option-spirit-description": "What's your favourite spirit?",
 				"command-option-country-name": "country",

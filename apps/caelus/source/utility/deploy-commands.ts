@@ -28,6 +28,7 @@ import {
 	GuessDifficultyLevelToName,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
+	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
 import { DISCORD_TOKEN } from "./configuration.js";
@@ -905,15 +906,21 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						description: t("sky-profile.edit.command-option-winged-light-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
-							minimum: MINIMUM_WINGED_LIGHT,
-							maximum: MAXIMUM_WINGED_LIGHT,
 						}),
 						description_localizations: localisations(
 							"sky-profile.edit.command-option-winged-light-description",
 							{ minimum: MINIMUM_WINGED_LIGHT, maximum: MAXIMUM_WINGED_LIGHT },
 						),
-						max_value: MAXIMUM_WINGED_LIGHT,
-						min_value: MINIMUM_WINGED_LIGHT,
+						choices: SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((skyProfileWingedLightType) => ({
+							name: t(
+								`sky-profile.edit.command-option-winged-light-choice-name.${skyProfileWingedLightType}`,
+								{ lng: Locale.EnglishGB, ns: "commands" },
+							),
+							name_localizations: localisations(
+								`sky-profile.edit.command-option-winged-light-choice-name.${skyProfileWingedLightType}`,
+							),
+							value: skyProfileWingedLightType,
+						})),
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
