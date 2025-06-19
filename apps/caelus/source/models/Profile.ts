@@ -155,7 +155,7 @@ const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEdi
 const ProfileInteractiveEditTypeToDescription = {
 	[ProfileInteractiveEditType.Name]: "What name do you go by?",
 	[ProfileInteractiveEditType.Description]: "What's your story?",
-	[ProfileInteractiveEditType.WingedLight]: "What is your maximum winged light?",
+	[ProfileInteractiveEditType.WingedLight]: "What's your maximum winged light?",
 	[ProfileInteractiveEditType.Spot]: "Where do you hang out?",
 	[ProfileInteractiveEditType.Seasons]: "What seasons have you played in?",
 	[ProfileInteractiveEditType.Platforms]: "What platforms do you play on?",
