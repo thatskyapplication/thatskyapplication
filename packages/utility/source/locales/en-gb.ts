@@ -587,7 +587,7 @@ export default {
 			[EventId.AURORAHomecoming2025]:
 				"https://sky-children-of-the-light.fandom.com/wiki/AURORA:_Homecoming",
 			[EventId.WorkshopShowAndTell2025]:
-				"https://sky-children-of-the-light.fandom.com/wiki/Special_Events#Workshop_Show_&_Tell_-_June_2025",
+				"https://sky-children-of-the-light.fandom.com/wiki/Workshop_Show_%26_Tell",
 			[EventId.SkyAnniversary2025]: "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"shard-eruption": "Shard Eruption",
