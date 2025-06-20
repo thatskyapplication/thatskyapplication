@@ -3850,7 +3850,7 @@ const CAPE_EMOJIS_PRODUCTION = {
 	/**
 	 * Nostalgic Sparkler Parent.
 	 */
-	Cape150: { id: "1365260385577467904", name: "150_cape" },
+	Cape150: { id: "1385651493432201338", name: "150_cape" },
 	/**
 	 * Royal Hairtousle Teen.
 	 */
@@ -4015,7 +4015,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape147: { id: "1353521862545768468", name: "147_cape" },
 	Cape148: { id: "1365253705430995025", name: "148_cape" },
 	Cape149: { id: "1365251711626776667", name: "149_cape" },
-	Cape150: { id: "1365260392904790098", name: "150_cape" },
+	Cape150: { id: "1385651515196440727", name: "150_cape" },
 	Cape151: { id: "1365271219129028608", name: "151_cape" },
 	Cape152: { id: "1366371491746283520", name: "152_cape" },
 	Cape153: { id: "1376529647810121849", name: "153_cape" },
