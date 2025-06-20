@@ -13,7 +13,7 @@ import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 
 const SUGGESTION_REGULAR_EXPRESSION =
-	/Suggestion for (?<language>.+) was (?<action>.+) in project (?<project>.+)\nKey: (?<key>.+?) ?\nContext: (?<context>.+)\nFile: (?<file>.+)\nSource string: (?<source>.+)\nTranslation: (?<translation>.+)\nURL: (?<url>.+)/;
+	/Suggestion for (?<language>.+) was (?<action>.+) in project (?<project>.+?)\.?\nKey: (?<key>.+?) ?\nContext: (?<context>.+)\nFile: (?<file>.+)\nSource string: (?<source>.+)\nTranslation: (?<translation>.+)\nURL: (?<url>.+)/s;
 
 const FILE_UPDATED_REGULAR_EXPRESSION =
 	/File (?<file>.+) has been updated in the project (?<project>.+)\.\n(?<newStrings>\d+) new strings \((?<newWords>\d+) words\), (?<updatedStrings>\d+) updated strings \((?<updatedWords>\d+) words\), (?<deletedStrings>\d+) deleted strings \((?<deletedWords>\d+) words\)\.\nURL: (?<url>.+)/;
