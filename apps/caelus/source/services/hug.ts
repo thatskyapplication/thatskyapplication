@@ -19,12 +19,12 @@ export async function hug(
 	user: APIUser,
 	member: APIInteractionDataResolvedGuildMember | null,
 ) {
-	const resolvedLocale = interaction.guild_locale ?? Locale.EnglishGB;
 	const invoker = interactionInvoker(interaction);
+	const userLocale = interaction.locale;
 
 	if (user.id === invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("hug.hug-self", { lng: resolvedLocale, ns: "features" }),
+			content: t("hug.hug-self", { lng: userLocale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -35,7 +35,7 @@ export async function hug(
 		await cannotUseUserInstallable(
 			interaction,
 			t("hug.missing-external-apps-permission", {
-				lng: resolvedLocale,
+				lng: userLocale,
 				ns: "features",
 				user: `<@${user.id}>`,
 			}),
@@ -47,7 +47,7 @@ export async function hug(
 	if (interaction.guild_id && !member) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("hug.not-in-server", {
-				lng: resolvedLocale,
+				lng: userLocale,
 				ns: "features",
 				user: `<@${user.id}>`,
 			}),
@@ -63,7 +63,7 @@ export async function hug(
 		if ((permissions & PermissionFlagsBits.ViewChannel) === 0n) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: t("hug.not-around", {
-					lng: resolvedLocale,
+					lng: userLocale,
 					ns: "features",
 					user: `<@${user.id}>`,
 				}),
@@ -76,7 +76,7 @@ export async function hug(
 
 	if (user.bot) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("hug.hug-bot", { lng: resolvedLocale, ns: "features", user: `<@${user.id}>` }),
+			content: t("hug.hug-bot", { lng: userLocale, ns: "features", user: `<@${user.id}>` }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -93,7 +93,7 @@ export async function hug(
 					{
 						type: ComponentType.TextDisplay,
 						content: t("hug.message", {
-							lng: resolvedLocale,
+							lng: interaction.guild_locale ?? Locale.EnglishGB,
 							ns: "features",
 							user: `<@${user.id}>`,
 							invoker: `<@${invoker.id}>`,

@@ -3,7 +3,6 @@ import {
 	type APIInteractionDataResolvedGuildMember,
 	type APIUser,
 	ComponentType,
-	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
@@ -19,8 +18,8 @@ export async function hairTousle(
 	user: APIUser,
 	member: APIInteractionDataResolvedGuildMember | null,
 ) {
-	const resolvedLocale = interaction.guild_locale ?? Locale.EnglishGB;
 	const invoker = interactionInvoker(interaction);
+	const userLocale = interaction.locale;
 
 	if (user.id === invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -35,7 +34,7 @@ export async function hairTousle(
 		await cannotUseUserInstallable(
 			interaction,
 			t("hair-tousle.missing-external-apps-permission", {
-				lng: resolvedLocale,
+				lng: userLocale,
 				ns: "commands",
 				user: `<@${user.id}>`,
 			}),
