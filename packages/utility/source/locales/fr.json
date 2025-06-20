@@ -523,6 +523,10 @@
 		},
 		"shard-eruption": "Éruption d'Éclats",
 		"shard-eruption-none": "Aucun",
+		"sky-profile-winged-light-types": {
+			"0": "",
+			"1": ""
+		},
 		"spirits": {
 			"0": "Cirier pointant",
 			"1": "Guide astronome",
@@ -1391,6 +1395,10 @@
 				"command-option-icon-description": "",
 				"command-option-winged-light-name": "",
 				"command-option-winged-light-description": "",
+				"command-option-winged-light-choice-name": {
+					"0": "",
+					"1": ""
+				},
 				"command-option-spirit-name": "",
 				"command-option-spirit-description": "",
 				"command-option-country-name": "",
