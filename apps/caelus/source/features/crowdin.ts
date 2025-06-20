@@ -22,7 +22,7 @@ const BUILT_REGULAR_EXPRESSION =
 	/Project (?<project>.+) are successfully built.\nDownload link: (?<url>.+)/;
 
 const FINAL_TRANSLATION_REGULAR_EXPRESSION =
-	/Final translation of string into (?<language>.+) was updated in the project (?<project>.+)\.\nKey: (?<key>.+)\nFile: (?<file>.+)\nOld translation: (?<oldTranslation>.+)?\nNew translation: (?<newTranslation>.+)?\nURL: (?<url>.+)/;
+	/Final translation of string into (?<language>.+) was updated in the project (?<project>.+)\.\nKey: (?<key>.+)\nFile: (?<file>.+)\nOld translation: (?<oldTranslation>.+)?\nNew translation: (?<newTranslation>.+)?\nURL: (?<url>.+)/s;
 
 const ISSUE_REGULAR_EXPRESSION =
 	/An issue (?<issueType>has been updated|created) in (?<project>.+)\. ?\nIssue Type: (?<type>.+?)\. ?\nFile: (?<file>.+)\. ?\nText: (?<text>.+?) ?\nLanguage: (?<language>.+)\. ?\n\nURL: (?<url>.+)/s;
