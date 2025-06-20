@@ -523,6 +523,10 @@
 		},
 		"shard-eruption": "",
 		"shard-eruption-none": "",
+		"sky-profile-winged-light-types": {
+			"0": "",
+			"1": ""
+		},
 		"spirits": {
 			"0": "Deutender Kerzenmacher",
 			"1": "Geleitende Sternguckerin",
@@ -806,7 +810,7 @@
 			"91": "",
 			"92": "",
 			"93": "",
-			"94": "",
+			"94": "https://sky-kinder-des-lichts.fandom.com/de/wiki/Gro%C3%9Fer_Yeti",
 			"95": "",
 			"96": "",
 			"97": "",
@@ -1161,9 +1165,9 @@
 			"command-description": "Infos über mich, den kleinen wunderbaren Helfer für Sky!"
 		},
 		"bonk": {
-			"command-name": "",
+			"command-name": "bonk",
 			"command-description": "Bonke jemanden!",
-			"command-option-user-name": "",
+			"command-option-user-name": "nutzer",
 			"command-option-user-description": ""
 		},
 		"calculate": {
@@ -1295,48 +1299,48 @@
 		"hair-tousle": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
+			"command-option-user-name": "nutzer",
 			"command-option-user-description": "",
 			"missing-external-apps-permission": ""
 		},
 		"heart": {
-			"command-name": "",
+			"command-name": "herz",
 			"command-description": "",
 			"gift": {
-				"command-name": "",
+				"command-name": "geschenk",
 				"command-description": "",
-				"command-option-user-name": "",
+				"command-option-user-name": "nutzer",
 				"command-option-user-description": ""
 			},
 			"history": {
-				"command-name": "",
+				"command-name": "verlauf",
 				"command-description": ""
 			}
 		},
 		"high-five": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
+			"command-option-user-name": "nutzer",
 			"command-option-user-description": "",
 			"missing-external-apps-permission": ""
 		},
 		"hug": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-name": "umarmung",
+			"command-description": "Umarme jemanden!",
+			"command-option-user-name": "nutzer",
+			"command-option-user-description": "Die Person, die umarmt werden soll."
 		},
 		"krill": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
+			"command-option-user-name": "nutzer",
 			"command-option-user-description": "",
 			"missing-external-apps-permission": ""
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
+			"command-option-user-name": "nutzer",
 			"command-option-user-description": "",
 			"missing-external-apps-permission": ""
 		},
@@ -1391,6 +1395,10 @@
 				"command-option-icon-description": "",
 				"command-option-winged-light-name": "",
 				"command-option-winged-light-description": "",
+				"command-option-winged-light-choice-name": {
+					"0": "",
+					"1": ""
+				},
 				"command-option-spirit-name": "",
 				"command-option-spirit-description": "",
 				"command-option-country-name": "",
@@ -1411,7 +1419,7 @@
 			"show": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
+				"command-option-user-name": "nutzer",
 				"command-option-user-description": "",
 				"command-option-hide-name": "",
 				"command-option-hide-description": ""
@@ -1482,12 +1490,12 @@
 			"missing-external-apps-permission": ""
 		},
 		"hug": {
-			"hug-self": "",
-			"missing-external-apps-permission": "",
-			"not-in-server": "",
-			"not-around": "",
-			"hug-bot": "",
-			"message": ""
+			"hug-self": "Teile die Liebe! Umarme jemand anderen!",
+			"missing-external-apps-permission": "Dir fehlt die Externe App verwenden Berechtigung, weshalb {{user}} deine Umarmung nicht empfangen kann. Jemand muss die Rechte des Servers überprüfen!",
+			"not-in-server": "{{user}} ist nicht auf diesem Server und kann nicht umarmt werden.",
+			"not-around": "{{user}} ist nicht da, um umarmt zu werden!",
+			"hug-bot": "{{user}} ist ein Bot. Sehr emotionslos. Und immun gegen Umarmungen würde ich sagen.",
+			"message": "{{user}}, {{invoker}} hat dich umarmt!"
 		},
 		"notifications": {
 			"back": ""

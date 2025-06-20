@@ -523,6 +523,10 @@
 		},
 		"shard-eruption": "",
 		"shard-eruption-none": "",
+		"sky-profile-winged-light-types": {
+			"0": "",
+			"1": ""
+		},
 		"spirits": {
 			"0": "가리키는 양초장이",
 			"1": "안내하는 별지기",
@@ -1391,6 +1395,10 @@
 				"command-option-icon-description": "",
 				"command-option-winged-light-name": "",
 				"command-option-winged-light-description": "",
+				"command-option-winged-light-choice-name": {
+					"0": "",
+					"1": ""
+				},
 				"command-option-spirit-name": "",
 				"command-option-spirit-description": "",
 				"command-option-country-name": "",
