@@ -13,7 +13,7 @@ export default function FriendshipActions() {
 			<h1 className="mt-4">Friendship Actions</h1>
 			<hr />
 			<p>Just like Sky, you can do all sorts of friendship actions! Try the following out:</p>
-			<ul className="list-disc pl-5">
+			<ul className="list-disc pl-5 space-y-1">
 				<li>
 					<code>/hair-tousle</code>
 				</li>
@@ -44,7 +44,7 @@ export default function FriendshipActions() {
 			<h2>Submit your GIF!</h2>
 			<p>Like what you see? These were all created by the community!</p>
 			<p>You can submit one too. GIFs must meet the following criteria:</p>
-			<ul className="list-disc pl-5">
+			<ul className="list-disc pl-5 space-y-1">
 				<li>
 					Recorded on a device with native screen recording (iOS, macOS, etc.) to ensure elements
 					are not visible
