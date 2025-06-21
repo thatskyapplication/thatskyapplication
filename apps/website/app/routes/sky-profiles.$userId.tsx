@@ -22,8 +22,8 @@ import pg from "~/pg.server";
 import { APPLICATION_NAME, Table } from "~/utility/constants.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
-export const meta: MetaFunction = ({ data, location }) => {
-	const skyProfilePacket = data as SkyProfilePacket;
+export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+	const { skyProfilePacket } = data!;
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -64,22 +64,22 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		throw new Response("User id not provided,", { status: 400 });
 	}
 
-	const profile = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.where({ user_id: userId as Snowflake })
 		.first();
 
-	if (!profile) {
+	if (!skyProfilePacket) {
 		throw new Response("Sky Profile not found.", { status: 404 });
 	}
 
 	let maximumWingedLight = null;
 
-	if (profile.winged_light !== null) {
-		if (profile.winged_light === SkyProfileWingedLightType.Capeless) {
+	if (skyProfilePacket.winged_light !== null) {
+		if (skyProfilePacket.winged_light === SkyProfileWingedLightType.Capeless) {
 			maximumWingedLight = "Capeless";
 		} else {
 			const catalogue = await pg<CataloguePacket>(Table.Catalogue)
-				.where({ user_id: profile.user_id })
+				.where({ user_id: skyProfilePacket.user_id })
 				.first();
 
 			if (catalogue) {
@@ -97,11 +97,11 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		}
 	}
 
-	return { profile, maximumWingedLight };
+	return { skyProfilePacket, maximumWingedLight };
 };
 
 export default function SkyProfile() {
-	const { profile, maximumWingedLight } = useLoaderData<typeof loader>();
+	const { skyProfilePacket, maximumWingedLight } = useLoaderData<typeof loader>();
 	const [copied, setCopied] = useState(false);
 
 	return (
@@ -110,37 +110,37 @@ export default function SkyProfile() {
 				<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
 					<div className="relative h-60 w-full">
 						<div className="w-full h-full rounded-md overflow-hidden">
-							{profile.thumbnail ? (
+							{skyProfilePacket.thumbnail ? (
 								<div
 									className="w-full h-full bg-cover bg-center"
 									style={{
-										backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profile.user_id}/${profile.thumbnail.startsWith("a_") ? `${profile.thumbnail}.gif` : `${profile.thumbnail}.webp`})`,
+										backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.thumbnail.startsWith("a_") ? `${skyProfilePacket.thumbnail}.gif` : `${skyProfilePacket.thumbnail}.webp`})`,
 									}}
-									aria-label={`Thumbnail of ${profile.name}.`}
+									aria-label={`Thumbnail of ${skyProfilePacket.name}.`}
 								/>
 							) : (
 								<div className="w-full h-full bg-gray-200 dark:bg-gray-600" />
 							)}
 						</div>
-						{profile.icon && (
+						{skyProfilePacket.icon && (
 							<div
 								className="w-20 h-20 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
 								style={{
-									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${profile.user_id}/${profile.icon.startsWith("a_") ? `${profile.icon}.gif` : `${profile.icon}.webp`})`,
+									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfilePacket.user_id}/${skyProfilePacket.icon.startsWith("a_") ? `${skyProfilePacket.icon}.gif` : `${skyProfilePacket.icon}.webp`})`,
 								}}
-								aria-label={`Icon of ${profile.name}.`}
+								aria-label={`Icon of ${skyProfilePacket.name}.`}
 							/>
 						)}
 					</div>
 					<div className="px-4 pt-10 pb-2">
-						{profile.name ? (
-							<h1 className="mb-2">{profile.name}</h1>
+						{skyProfilePacket.name ? (
+							<h1 className="mb-2">{skyProfilePacket.name}</h1>
 						) : (
 							<h1 className="mb-2 italic">No name</h1>
 						)}
-						{profile.seasons && profile.seasons.length > 0 && (
+						{skyProfilePacket.seasons && skyProfilePacket.seasons.length > 0 && (
 							<div className="flex flex-wrap gap-2">
-								{profile.seasons
+								{skyProfilePacket.seasons
 									.sort((a, b) => a - b)
 									.map((season) => (
 										<div
@@ -154,9 +154,9 @@ export default function SkyProfile() {
 									))}
 							</div>
 						)}
-						{profile.platform && profile.platform.length > 0 && (
+						{skyProfilePacket.platform && skyProfilePacket.platform.length > 0 && (
 							<div className="mt-4 flex flex-wrap gap-2">
-								{profile.platform
+								{skyProfilePacket.platform
 									.filter((platform) => isPlatformId(platform))
 									.sort((a, b) => a - b)
 									.map((platform) => (
@@ -171,11 +171,13 @@ export default function SkyProfile() {
 						)}
 						<h2 className="font-semibold mb-2">
 							About Me{" "}
-							{profile.country && isCountry(profile.country) && CountryToEmoji[profile.country]}
+							{skyProfilePacket.country &&
+								isCountry(skyProfilePacket.country) &&
+								CountryToEmoji[skyProfilePacket.country]}
 						</h2>
 						<div className="mt-4">
-							{profile.description ? (
-								<p className="whitespace-pre-wrap">{profile.description}</p>
+							{skyProfilePacket.description ? (
+								<p className="whitespace-pre-wrap">{skyProfilePacket.description}</p>
 							) : (
 								<p className="italic">No description.</p>
 							)}
@@ -201,7 +203,7 @@ export default function SkyProfile() {
 							</div>
 						</div>
 					)}
-					{profile.spirit !== null && isSpiritId(profile.spirit) ? (
+					{skyProfilePacket.spirit !== null && isSpiritId(skyProfilePacket.spirit) ? (
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
 							<div
 								className="w-6 h-6 mr-2 bg-cover bg-center"
@@ -212,18 +214,18 @@ export default function SkyProfile() {
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
-								<p className="my-0">{enGB.general.spirits[profile.spirit]}</p>
+								<p className="my-0">{enGB.general.spirits[skyProfilePacket.spirit]}</p>
 							</div>
 						</div>
 					) : null}
-					{profile.spot && (
+					{skyProfilePacket.spot && (
 						<div
-							className={`group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 ${(profile.winged_light === null && profile.spirit === null) || (profile.winged_light !== null && profile.spirit) ? "md:col-span-2" : ""}`}
+							className={`group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 ${(skyProfilePacket.winged_light === null && skyProfilePacket.spirit === null) || (skyProfilePacket.winged_light !== null && skyProfilePacket.spirit) ? "md:col-span-2" : ""}`}
 						>
 							<MapPinIcon className="w-6 h-6 mr-2" />
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Hangout</p>
-								<p className="my-0">{profile.spot}</p>
+								<p className="my-0">{skyProfilePacket.spot}</p>
 							</div>
 						</div>
 					)}
