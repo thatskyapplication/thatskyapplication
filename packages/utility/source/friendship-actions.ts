@@ -19,11 +19,17 @@ function hairTouslesRoute(id: number): HairTouslesRoute {
 	return `${CDN_URL}/hair_tousles/${id}.gif`;
 }
 
+type PlayFightsRoute = `${typeof CDN_URL}/play_fights/${number}.gif`;
+
+function playFightsRoute(id: number): PlayFightsRoute {
+	return `${CDN_URL}/play_fights/${id}.gif`;
+}
+
 interface FriendshipAction {
 	/**
 	 * The URL to the asset.
 	 */
-	url: HighFivesRoute | HugsRoute | HairTouslesRoute;
+	url: HighFivesRoute | HugsRoute | HairTouslesRoute | PlayFightsRoute;
 	/**
 	 * A user involved.
 	 */
@@ -425,5 +431,65 @@ export const HAIR_TOUSLES = [
 		user2: "820687453290496034",
 		square: true,
 		reference: "https://discord.com/channels/@me/1118611467164467250/1332764981829173279",
+	},
+] as const satisfies Readonly<FriendshipAction[]>;
+
+export const PLAY_FIGHTS = [
+	{
+		url: playFightsRoute(1),
+		user1: "618976181026422814",
+		user2: "323864336793862144",
+		square: true,
+		reference: null,
+	},
+	{
+		url: playFightsRoute(2),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: null,
+	},
+	{
+		url: playFightsRoute(3),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: null,
+	},
+	{
+		url: playFightsRoute(4),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: null,
+	},
+	{
+		url: playFightsRoute(5),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: null,
+	},
+	{
+		url: playFightsRoute(6),
+		user1: "618976181026422814",
+		user2: "323864336793862144",
+		square: true,
+		reference: "https://discord.com/channels/@me/981986807354896394/1328649378558251060",
+	},
+	{
+		url: playFightsRoute(7),
+		user1: "618976181026422814",
+		user2: "487590025127526400",
+		square: true,
+		reference: null,
+	},
+	{
+		url: playFightsRoute(8),
+		user1: "1080830389628710952",
+		user2: "1073784513014018078",
+		square: true,
+		reference:
+			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
 	},
 ] as const satisfies Readonly<FriendshipAction[]>;
