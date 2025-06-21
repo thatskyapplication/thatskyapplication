@@ -1,6 +1,12 @@
 import { CDN_URL } from "./cdn.js";
 import type { Snowflake } from "./types/index.js";
 
+type HighFivesRoute = `${typeof CDN_URL}/high_fives/${number}.gif`;
+
+function highFivesRoute(id: number): HighFivesRoute {
+	return `${CDN_URL}/high_fives/${id}.gif`;
+}
+
 type HugsRoute = `${typeof CDN_URL}/hugs/${number}.gif`;
 
 function hugsRoute(id: number): HugsRoute {
@@ -17,7 +23,7 @@ interface FriendshipAction {
 	/**
 	 * The URL to the asset.
 	 */
-	url: HugsRoute | HairTouslesRoute;
+	url: HighFivesRoute | HugsRoute | HairTouslesRoute;
 	/**
 	 * A user involved.
 	 */
@@ -35,6 +41,73 @@ interface FriendshipAction {
 	 */
 	reference: `https://discord.com/channels/${"@me" | Snowflake}/${Snowflake}/${Snowflake}` | null;
 }
+
+export const HIGH_FIVES = [
+	{
+		url: highFivesRoute(1),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: "https://discord.com/channels/@me/978871599669313536/1203386825532768308",
+	},
+	{
+		url: highFivesRoute(2),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: null,
+	},
+	{
+		url: highFivesRoute(3),
+		user1: "618976181026422814",
+		user2: "820687453290496034",
+		square: true,
+		reference: null,
+	},
+	{
+		url: highFivesRoute(4),
+		user1: "618976181026422814",
+		user2: "820687453290496034",
+		square: true,
+		reference: null,
+	},
+	{
+		url: highFivesRoute(5),
+		user1: "618976181026422814",
+		user2: "820687453290496034",
+		square: true,
+		reference: null,
+	},
+	{
+		url: highFivesRoute(6),
+		user1: "618976181026422814",
+		user2: "820687453290496034",
+		square: true,
+		reference: null,
+	},
+	{
+		url: highFivesRoute(7),
+		user1: "678313351641563214",
+		user2: "840297266311987201",
+		square: true,
+		reference: null,
+	},
+	{
+		url: highFivesRoute(8),
+		user1: "678313351641563214",
+		user2: "840297266311987201",
+		square: true,
+		reference: "https://discord.com/channels/@me/981986807354896394/1328649378558251060",
+	},
+	{
+		url: highFivesRoute(9),
+		user1: "824821969517674536",
+		user2: null,
+		square: true,
+		reference:
+			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
+	},
+] as const satisfies Readonly<FriendshipAction[]>;
 
 export const HUGS = [
 	{
