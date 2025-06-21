@@ -1,13 +1,13 @@
 import {
-	CDN_URL,
 	getRandomElement,
-	MAXIMUM_HAIR_TOUSLE_GIF,
-	MAXIMUM_HIGH_FIVE_GIF,
-	MAXIMUM_KRILL_GIF,
-	MAXIMUM_PLAY_FIGHT_GIF,
+	HAIR_TOUSLES,
+	HIGH_FIVES,
+	HUGS_SQUARE,
+	KRILLS,
+	PLAY_FIGHTS,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
-import { DEFAULT_LOCALE, HUGGING_GIFS } from "~/utility/constants";
+import { DEFAULT_LOCALE } from "~/utility/constants";
 
 export function getLocaleFromRequest(request: Request) {
 	return (
@@ -44,31 +44,23 @@ export function timeString(locale: string | string[]) {
 }
 
 function hairTousleGIF() {
-	return String(
-		new URL(`hair_tousles/${Math.floor(Math.random() * MAXIMUM_HAIR_TOUSLE_GIF + 1)}.gif`, CDN_URL),
-	);
+	return getRandomElement(HAIR_TOUSLES)!.url;
 }
 
 function highFiveGIF() {
-	return String(
-		new URL(`high_fives/${Math.floor(Math.random() * MAXIMUM_HIGH_FIVE_GIF + 1)}.gif`, CDN_URL),
-	);
+	return getRandomElement(HIGH_FIVES)!.url;
 }
 
 function huggingGIF() {
-	return String(new URL(`hugs/${getRandomElement(HUGGING_GIFS)!}.gif`, CDN_URL));
+	return getRandomElement(HUGS_SQUARE)!.url;
 }
 
 function playFightGIF() {
-	return String(
-		new URL(`play_fights/${Math.floor(Math.random() * MAXIMUM_PLAY_FIGHT_GIF + 1)}.gif`, CDN_URL),
-	);
+	return getRandomElement(PLAY_FIGHTS)!.url;
 }
 
 function krillingGIF() {
-	return String(
-		new URL(`krills/${Math.floor(Math.random() * MAXIMUM_KRILL_GIF + 1)}.gif`, CDN_URL),
-	);
+	return getRandomElement(KRILLS)!.url;
 }
 
 export function friendshipActionGIFs() {

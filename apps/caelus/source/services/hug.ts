@@ -7,10 +7,10 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
-import { MAXIMUM_HUG_GIF } from "@thatskyapplication/utility";
+import { getRandomElement, HUGS } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { CDN_URL, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
@@ -101,15 +101,7 @@ export async function hug(
 					},
 					{
 						type: ComponentType.MediaGallery,
-						items: [
-							{
-								media: {
-									url: String(
-										new URL(`hugs/${Math.floor(Math.random() * MAXIMUM_HUG_GIF + 1)}.gif`, CDN_URL),
-									),
-								},
-							},
-						],
+						items: [{ media: { url: getRandomElement(HUGS)!.url } }],
 					},
 				],
 			},

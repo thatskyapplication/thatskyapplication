@@ -13,11 +13,6 @@ import zhCNLocale from "./locales/zh-cn.json" with { type: "json" };
 import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
 
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
-export const MAXIMUM_HAIR_TOUSLE_GIF = 3 as const;
-export const MAXIMUM_HIGH_FIVE_GIF = 9 as const;
-export const MAXIMUM_HUG_GIF = 41 as const;
-export const MAXIMUM_PLAY_FIGHT_GIF = 8 as const;
-export const MAXIMUM_KRILL_GIF = 11 as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
@@ -40,6 +35,14 @@ export {
 	skyNotEndedEvents,
 	skyUpcomingEvents,
 } from "./events/index.js";
+export {
+	HAIR_TOUSLES,
+	HIGH_FIVES,
+	HUGS,
+	HUGS_SQUARE,
+	KRILLS,
+	PLAY_FIGHTS,
+} from "./friendship-actions.js";
 export {
 	GUESS_DIFFICULTY_LEVEL_VALUES,
 	GuessDifficultyLevel,

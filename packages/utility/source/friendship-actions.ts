@@ -429,6 +429,8 @@ export const HUGS = [
 	},
 ] as const satisfies Readonly<FriendshipAction[]>;
 
+export const HUGS_SQUARE = HUGS.filter(({ square }) => square);
+
 export const HAIR_TOUSLES = [
 	{
 		url: hairTouslesRoute(1),
