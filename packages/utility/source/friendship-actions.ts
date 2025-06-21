@@ -589,3 +589,28 @@ export const KRILLS = [
 		reference: null,
 	},
 ] as const satisfies Readonly<Krill[]>;
+
+const friendshipActionContributors = new Set<Snowflake>();
+
+for (const type of [HIGH_FIVES, HUGS, HAIR_TOUSLES, PLAY_FIGHTS, KRILLS]) {
+	for (const action of type) {
+		if ("users" in action) {
+			for (const user of action.users) {
+				friendshipActionContributors.add(user);
+			}
+		} else {
+			if (action.user1) {
+				friendshipActionContributors.add(action.user1);
+			}
+
+			if (action.user2) {
+				friendshipActionContributors.add(action.user2);
+			}
+		}
+	}
+}
+
+export const FRIENDSHIP_ACTIONS_CONTRIBUTORS =
+	friendshipActionContributors as ReadonlySet<Snowflake>;
+
+export const FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY = [...FRIENDSHIP_ACTIONS_CONTRIBUTORS] as const;

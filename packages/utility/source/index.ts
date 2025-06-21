@@ -36,6 +36,8 @@ export {
 	skyUpcomingEvents,
 } from "./events/index.js";
 export {
+	FRIENDSHIP_ACTIONS_CONTRIBUTORS,
+	FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY,
 	HAIR_TOUSLES,
 	HIGH_FIVES,
 	HUGS,
