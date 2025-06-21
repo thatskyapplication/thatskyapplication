@@ -17,7 +17,7 @@ export default function TermsPrivacy() {
 			</p>
 			<h2>What data is stored?</h2>
 			<p>Data you give to {APPLICATION_NAME} is stored indefinitely:</p>
-			<ul className="list-disc pl-5">
+			<ul className="list-disc pl-5 space-y-1">
 				<li>User ids (catalogue, hearts, etc.).</li>
 				<li>Server ids (notifications, daily guides, etc.).</li>
 				<li>Content in Sky profiles.</li>
