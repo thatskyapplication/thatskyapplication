@@ -344,7 +344,7 @@ export const HUGS = [
 	{
 		url: hugsRoute(34),
 		user1: "1088471588606853212",
-		user2: null,
+		user2: "1332602559533154415",
 		square: true,
 		reference:
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1315148576166514758",
@@ -352,7 +352,7 @@ export const HUGS = [
 	{
 		url: hugsRoute(35),
 		user1: "1088471588606853212",
-		user2: null,
+		user2: "1332602559533154415",
 		square: true,
 		reference: "https://discord.com/channels/@me/1301966613045841981/1317491732362956890",
 	},
