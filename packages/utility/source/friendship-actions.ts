@@ -1,5 +1,5 @@
 import { CDN_URL } from "./cdn.js";
-import type { Snowflake } from "./types/index.js";
+import type { MessageLink, Snowflake } from "./types/index.js";
 
 type HighFivesRoute = `${typeof CDN_URL}/high_fives/${number}.gif`;
 
@@ -45,7 +45,26 @@ interface FriendshipAction {
 	/**
 	 * A message link that references the context of the hug.
 	 */
-	reference: `https://discord.com/channels/${"@me" | Snowflake}/${Snowflake}/${Snowflake}` | null;
+	reference: MessageLink;
+}
+
+interface Krill {
+	/**
+	 * The URL to the asset.
+	 */
+	url: KrillRoute;
+	/**
+	 * Users involved.
+	 */
+	users: Snowflake[] | null;
+	/**
+	 * Whether the asset is 1:1.
+	 */
+	square: boolean;
+	/**
+	 * A message link that references the context of the hug.
+	 */
+	reference: MessageLink;
 }
 
 export const HIGH_FIVES = [
@@ -493,3 +512,78 @@ export const PLAY_FIGHTS = [
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
 	},
 ] as const satisfies Readonly<FriendshipAction[]>;
+
+type KrillRoute = `${typeof CDN_URL}/krills/${number}.gif`;
+
+function krillsRoute(id: number): KrillRoute {
+	return `${CDN_URL}/krills/${id}.gif`;
+}
+
+export const KRILLS = [
+	{
+		url: krillsRoute(1),
+		users: ["713002852909449236"],
+		square: true,
+		reference: "https://discord.com/channels/@me/1167786068163174410/1201094884363350057",
+	},
+	{
+		url: krillsRoute(2),
+		users: ["713002852909449236"],
+		square: true,
+		reference: "https://discord.com/channels/@me/1167786068163174410/1201094884363350057",
+	},
+	{
+		url: krillsRoute(3),
+		users: ["713002852909449236"],
+		square: true,
+		reference: "https://discord.com/channels/@me/1167786068163174410/1201094884363350057",
+	},
+	{
+		url: krillsRoute(4),
+		users: ["713002852909449236"],
+		square: true,
+		reference: "https://discord.com/channels/@me/1167786068163174410/1201094884363350057",
+	},
+	{
+		url: krillsRoute(5),
+		users: ["713002852909449236"],
+		square: true,
+		reference: "https://discord.com/channels/@me/1167786068163174410/1201094884363350057",
+	},
+	{
+		url: krillsRoute(6),
+		users: ["713002852909449236"],
+		square: true,
+		reference: "https://discord.com/channels/@me/1167786068163174410/1201094884363350057",
+	},
+	{
+		url: krillsRoute(7),
+		users: ["618976181026422814"],
+		square: true,
+		reference: null,
+	},
+	{
+		url: krillsRoute(8),
+		users: ["713002852909449236"],
+		square: true,
+		reference: "https://discord.com/channels/@me/1167786068163174410/1201190585466363944",
+	},
+	{
+		url: krillsRoute(9),
+		users: ["618976181026422814", "628363361637236767"],
+		square: true,
+		reference: "https://discord.com/channels/@me/978871599669313536/1202441218202800189",
+	},
+	{
+		url: krillsRoute(10),
+		users: ["618976181026422814", "628363361637236767"],
+		square: true,
+		reference: "https://discord.com/channels/@me/978871599669313536/1202451995118805023",
+	},
+	{
+		url: krillsRoute(11),
+		users: ["618976181026422814"],
+		square: true,
+		reference: null,
+	},
+] as const satisfies Readonly<Krill[]>;
