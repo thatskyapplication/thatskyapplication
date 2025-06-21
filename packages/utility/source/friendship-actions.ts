@@ -1,10 +1,23 @@
+import { CDN_URL } from "./cdn.js";
 import type { Snowflake } from "./types/index.js";
+
+type HugsRoute = `${typeof CDN_URL}/hugs/${number}.gif`;
+
+function hugsRoute(id: number): HugsRoute {
+	return `${CDN_URL}/hugs/${id}.gif`;
+}
+
+type HairTouslesRoute = `${typeof CDN_URL}/hair_tousles/${number}.gif`;
+
+function hairTouslesRoute(id: number): HairTouslesRoute {
+	return `${CDN_URL}/hair_tousles/${id}.gif`;
+}
 
 interface FriendshipAction {
 	/**
-	 * The id. Filenames should be this.
+	 * The URL to the asset.
 	 */
-	id: number;
+	url: HugsRoute | HairTouslesRoute;
 	/**
 	 * A user involved.
 	 */
@@ -25,238 +38,238 @@ interface FriendshipAction {
 
 export const HUGS = [
 	{
-		id: 1,
+		url: hugsRoute(1),
 		user1: "618976181026422814",
 		user2: "826803719323910184",
 		square: true,
 		reference: "https://discord.com/channels/@me/966748908569112617/1075455587892084836",
 	},
 	{
-		id: 2,
+		url: hugsRoute(2),
 		user1: "618976181026422814",
 		user2: "826803719323910184",
 		square: true,
 		reference: "https://discord.com/channels/@me/966748908569112617/1075468403944464445",
 	},
 	{
-		id: 3,
+		url: hugsRoute(3),
 		user1: "618976181026422814",
 		user2: "826803719323910184",
 		square: false,
 		reference: "https://discord.com/channels/@me/966748908569112617/1075476870952390747",
 	},
 	{
-		id: 4,
+		url: hugsRoute(4),
 		user1: "618976181026422814",
 		user2: "588116773392351246",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 5,
+		url: hugsRoute(5),
 		user1: "618976181026422814",
 		user2: "588116773392351246",
 		square: false,
 		reference: null,
 	},
 	{
-		id: 6,
+		url: hugsRoute(6),
 		user1: "618976181026422814",
 		user2: null,
 		square: false,
 		reference: null,
 	},
 	{
-		id: 7,
+		url: hugsRoute(7),
 		user1: null,
 		user2: null,
 		square: false,
 		reference: null,
 	},
 	{
-		id: 8,
+		url: hugsRoute(8),
 		user1: null,
 		user2: null,
 		square: false,
 		reference: null,
 	},
 	{
-		id: 9,
+		url: hugsRoute(9),
 		user1: "319884785050714112",
 		user2: "588116773392351246",
 		square: false,
 		reference: null,
 	},
 	{
-		id: 10,
+		url: hugsRoute(10),
 		user1: "618976181026422814",
 		user2: "319884785050714112",
 		square: false,
 		reference: "https://discord.com/channels/@me/996478536674201622/1076275606293065889",
 	},
 	{
-		id: 11,
+		url: hugsRoute(11),
 		user1: "618976181026422814",
 		user2: "323864336793862144",
 		square: false,
 		reference: "https://discord.com/channels/@me/981986807354896394/1076568094857760939",
 	},
 	{
-		id: 12,
+		url: hugsRoute(12),
 		user1: "618976181026422814",
 		user2: "618976181026422814",
 		square: false,
 		reference: "https://discord.com/channels/@me/966748908569112617/1077651301107773450",
 	},
 	{
-		id: 13,
+		url: hugsRoute(13),
 		user1: "319884785050714112",
 		user2: "588116773392351246",
 		square: false,
 		reference: null,
 	},
 	{
-		id: 14,
+		url: hugsRoute(14),
 		user1: "618976181026422814",
 		user2: "685979313689985095",
 		square: false,
 		reference: "https://discord.com/channels/@me/1065544020417323079/1080580366089326722",
 	},
 	{
-		id: 15,
+		url: hugsRoute(15),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: false,
 		reference: "https://discord.com/channels/@me/978871599669313536/1089306088245043242",
 	},
 	{
-		id: 16,
+		url: hugsRoute(16),
 		user1: "618976181026422814",
 		user2: "976366720916799538",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 17,
+		url: hugsRoute(17),
 		user1: "618976181026422814",
 		user2: "976366720916799538",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 18,
+		url: hugsRoute(18),
 		user1: "618976181026422814",
 		user2: "820687453290496034",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 19,
+		url: hugsRoute(19),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 20,
+		url: hugsRoute(20),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 21,
+		url: hugsRoute(21),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: "https://discord.com/channels/@me/978871599669313536/1133604012525109339",
 	},
 	{
-		id: 22,
+		url: hugsRoute(22),
 		user1: "618976181026422814",
 		user2: "881146771412250625",
 		square: true,
 		reference: "https://discord.com/channels/@me/1169413845710815342/1169426206261788774",
 	},
 	{
-		id: 23,
+		url: hugsRoute(23),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: "https://discord.com/channels/@me/978871599669313536/1169468680443281428",
 	},
 	{
-		id: 24,
+		url: hugsRoute(24),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: "https://discord.com/channels/@me/978871599669313536/1169476505433276507",
 	},
 	{
-		id: 25,
+		url: hugsRoute(25),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 26,
+		url: hugsRoute(26),
 		user1: "678313351641563214",
 		user2: "676086722475458611",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 27,
+		url: hugsRoute(27),
 		user1: "618976181026422814",
 		user2: "319884785050714112",
 		square: true,
 		reference: "https://discord.com/channels/@me/996478536674201622/1236226811319549982",
 	},
 	{
-		id: 28,
+		url: hugsRoute(28),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 29,
+		url: hugsRoute(29),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 30,
+		url: hugsRoute(30),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: "https://discord.com/channels/@me/978871599669313536/1313687995592736870",
 	},
 	{
-		id: 31,
+		url: hugsRoute(31),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: "https://discord.com/channels/@me/978871599669313536/1313687995592736870",
 	},
 	{
-		id: 32,
+		url: hugsRoute(32),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: "https://discord.com/channels/@me/978871599669313536/1313687995592736870",
 	},
 	{
-		id: 33,
+		url: hugsRoute(33),
 		user1: "618976181026422814",
 		user2: "628363361637236767",
 		square: true,
 		reference: "https://discord.com/channels/@me/978871599669313536/1313687995592736870",
 	},
 	{
-		id: 34,
+		url: hugsRoute(34),
 		user1: "1088471588606853212",
 		user2: null,
 		square: true,
@@ -264,21 +277,21 @@ export const HUGS = [
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1315148576166514758",
 	},
 	{
-		id: 35,
+		url: hugsRoute(35),
 		user1: "1088471588606853212",
 		user2: null,
 		square: true,
 		reference: "https://discord.com/channels/@me/1301966613045841981/1317491732362956890",
 	},
 	{
-		id: 36,
+		url: hugsRoute(36),
 		user1: "618976181026422814",
 		user2: "323864336793862144",
 		square: true,
 		reference: null,
 	},
 	{
-		id: 37,
+		url: hugsRoute(37),
 		user1: "824821969517674536",
 		user2: null,
 		square: true,
@@ -286,7 +299,7 @@ export const HUGS = [
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
 	},
 	{
-		id: 38,
+		url: hugsRoute(38),
 		user1: "1080830389628710952",
 		user2: "1073784513014018078",
 		square: true,
@@ -294,7 +307,7 @@ export const HUGS = [
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
 	},
 	{
-		id: 39,
+		url: hugsRoute(39),
 		user1: "1080830389628710952",
 		user2: "1073784513014018078",
 		square: true,
@@ -302,7 +315,7 @@ export const HUGS = [
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
 	},
 	{
-		id: 40,
+		url: hugsRoute(40),
 		user1: "1080830389628710952",
 		user2: "1073784513014018078",
 		square: true,
@@ -310,7 +323,7 @@ export const HUGS = [
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
 	},
 	{
-		id: 41,
+		url: hugsRoute(41),
 		user1: "678313351641563214",
 		user2: null,
 		square: true,
@@ -320,21 +333,21 @@ export const HUGS = [
 
 export const HAIR_TOUSLES = [
 	{
-		id: 1,
+		url: hairTouslesRoute(1),
 		user1: "618976181026422814",
 		user2: "323864336793862144",
 		square: true,
 		reference: "https://discord.com/channels/@me/981986807354896394/1332476262308122669",
 	},
 	{
-		id: 2,
+		url: hairTouslesRoute(2),
 		user1: "618976181026422814",
 		user2: "323864336793862144",
 		square: true,
 		reference: "https://discord.com/channels/@me/981986807354896394/1332475548240445521",
 	},
 	{
-		id: 3,
+		url: hairTouslesRoute(3),
 		user1: "618976181026422814",
 		user2: "820687453290496034",
 		square: true,
