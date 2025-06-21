@@ -201,8 +201,8 @@ export const HUGS = [
 	},
 	{
 		id: 26,
-		user1: null,
-		user2: null,
+		user1: "678313351641563214",
+		user2: "676086722475458611",
 		square: true,
 		reference: null,
 	},
