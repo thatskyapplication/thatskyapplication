@@ -102,7 +102,7 @@ export const HIGH_FIVES = [
 	{
 		url: highFivesRoute(9),
 		user1: "824821969517674536",
-		user2: null,
+		user2: "1151275117683408998",
 		square: true,
 		reference:
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
