@@ -1,6 +1,6 @@
 import type { Snowflake } from "./types/index.js";
 
-interface HugData {
+interface FriendshipAction {
 	/**
 	 * The id. Filenames should be this.
 	 */
@@ -316,4 +316,28 @@ export const HUGS = [
 		square: true,
 		reference: "https://discord.com/channels/@me/1229370707830378496/1359911288821518376",
 	},
-] as const satisfies Readonly<HugData[]>;
+] as const satisfies Readonly<FriendshipAction[]>;
+
+export const HAIR_TOUSLES = [
+	{
+		id: 1,
+		user1: "618976181026422814",
+		user2: "323864336793862144",
+		square: true,
+		reference: "https://discord.com/channels/@me/981986807354896394/1332476262308122669",
+	},
+	{
+		id: 2,
+		user1: "618976181026422814",
+		user2: "323864336793862144",
+		square: true,
+		reference: "https://discord.com/channels/@me/981986807354896394/1332475548240445521",
+	},
+	{
+		id: 3,
+		user1: "618976181026422814",
+		user2: "820687453290496034",
+		square: true,
+		reference: "https://discord.com/channels/@me/1118611467164467250/1332764981829173279",
+	},
+] as const satisfies Readonly<FriendshipAction[]>;
