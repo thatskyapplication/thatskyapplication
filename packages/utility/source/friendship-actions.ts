@@ -286,8 +286,8 @@ export const HUGS = [
 	},
 	{
 		url: hugsRoute(25),
-		user1: "618976181026422814",
-		user2: "628363361637236767",
+		user1: "713002852909449236",
+		user2: "713002852909449236",
 		square: true,
 		reference: null,
 	},
