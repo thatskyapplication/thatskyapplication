@@ -39,7 +39,7 @@ interface FriendshipAction {
 	 */
 	user2: Snowflake | null;
 	/**
-	 * Whether the hug is 1:1.
+	 * Whether the asset is 1:1.
 	 */
 	square: boolean;
 	/**
