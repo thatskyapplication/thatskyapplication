@@ -11,6 +11,7 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 	RESTJSONErrorCodes,
+	type Snowflake,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
@@ -286,12 +287,14 @@ function logCommand(
 	interaction: APIChatInputApplicationCommandInteraction | APIUserApplicationCommandInteraction,
 ) {
 	let command: string;
+	let targetUser: Snowflake | undefined;
 
 	if (isChatInputCommand(interaction)) {
 		const options = new OptionResolver(interaction);
 		command = options.chatInputCommandText();
 	} else {
 		command = interaction.data.name;
+		targetUser = interaction.data.target_id;
 	}
 
 	const invoker = interactionInvoker(interaction);
@@ -302,6 +305,7 @@ function logCommand(
 			command,
 			guildId: interaction.guild_id,
 			channelId: interaction.channel.id,
+			targetUser,
 			permissions: interaction.app_permissions,
 			authorizingIntegrationOwners: interaction.authorizing_integration_owners,
 			context: interaction.context,
