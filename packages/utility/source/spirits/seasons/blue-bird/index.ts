@@ -29,13 +29,12 @@ export default new Season({
 					{ rotation: RotationIdentifier.Three, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.HiddenForest },
-					{ rotation: RotationIdentifier.Four, realm: RealmName.ValleyOfTriumph },
+					{ rotation: RotationIdentifier.Three, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.HiddenForest },
-					// 09/06/2025: Unsure of the first rotation of this as double seasonal light occurred.
-					{ rotation: RotationIdentifier.Three, realm: RealmName.ValleyOfTriumph },
+					{ rotation: RotationIdentifier.Four, realm: RealmName.ValleyOfTriumph },
 				]
 			: now >= skyDate(2_025, 5, 1)
 				? [
