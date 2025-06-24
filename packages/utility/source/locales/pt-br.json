@@ -1242,7 +1242,7 @@
 				"command-description": "Configurar a IA."
 			},
 			"daily-guides": {
-				"command-name": "guias diários",
+				"command-name": "",
 				"command-description": "O comando para definir os guias diários no servidor.",
 				"command-option-channel-name": "canal",
 				"command-option-channel-description": "O canal para enviar os guias diários."
@@ -1253,7 +1253,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "guias diários",
+			"command-name": "",
 			"command-description": "Mostrar os guias diários."
 		},
 		"data": {
@@ -1287,7 +1287,7 @@
 				}
 			},
 			"leaderboard": {
-				"command-name": "placares de líderes",
+				"command-name": "",
 				"command-description": "Ver classificação!",
 				"command-option-difficulty-name": "dificuldade",
 				"command-option-difficulty-description": "",
@@ -1319,7 +1319,7 @@
 			}
 		},
 		"high-five": {
-			"command-name": "toca aí",
+			"command-name": "",
 			"command-description": "Toca aí com alguém!",
 			"command-option-user-name": "usuário",
 			"command-option-user-description": "Toca aí sozinho.",
