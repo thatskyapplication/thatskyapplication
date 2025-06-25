@@ -306,7 +306,7 @@
 			"232": "Encontre-se com o Contramestre Trapalhão no Tesouro do Recife",
 			"233": "Encontre-se com o Construtor Engenhoso no Ninho de Pássaros",
 			"234": "Encontre-se com a Forjadora de Sinos no Ninho de Pássaros",
-			"235": ""
+			"235": "Encontre-se com a Domadora de Luzes no Ninho de Pássaros"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -1242,7 +1242,7 @@
 				"command-description": "Configurar a IA."
 			},
 			"daily-guides": {
-				"command-name": "",
+				"command-name": "guias-diários",
 				"command-description": "O comando para definir os guias diários no servidor.",
 				"command-option-channel-name": "canal",
 				"command-option-channel-description": "O canal para enviar os guias diários."
@@ -1253,7 +1253,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "",
+			"command-name": "guias-diários",
 			"command-description": "Mostrar os guias diários."
 		},
 		"data": {
@@ -1267,18 +1267,18 @@
 			}
 		},
 		"Gift-Heart": {
-			"command-name": ""
+			"command-name": "Dar Coração"
 		},
 		"giveaway": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "sorteio",
+			"command-description": "Veja o sorteio aqui!"
 		},
 		"guess": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "quiz",
+			"command-description": "Vamos jogar um quiz de Sky! Quantos seguidos você consegue acertar?",
 			"game": {
 				"command-name": "jogo",
-				"command-description": "",
+				"command-description": "Iniciar o jogo do quiz!",
 				"command-option-difficulty-name": "dificuldade",
 				"command-option-difficulty-description": "Ajustar o nível de dificuldade!",
 				"command-option-difficulty-choice-name": {
@@ -1287,10 +1287,10 @@
 				}
 			},
 			"leaderboard": {
-				"command-name": "",
+				"command-name": "líderes",
 				"command-description": "Ver classificação!",
 				"command-option-difficulty-name": "dificuldade",
-				"command-option-difficulty-description": "",
+				"command-option-difficulty-description": "Qual dificuldade você gostaria de ver?",
 				"command-option-difficulty-choice-name": {
 					"0": "Original",
 					"1": "Difícil"
@@ -1298,11 +1298,11 @@
 			}
 		},
 		"hair-tousle": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-name": "cafuné",
+			"command-description": "Faça um cafuné em alguém!",
+			"command-option-user-name": "usuário",
+			"command-option-user-description": "O indivíduo cujo cabelo será bagunçado.",
+			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu cafuné. Alguém precisa ajustar as permissões!"
 		},
 		"heart": {
 			"command-name": "coração",
@@ -1319,10 +1319,10 @@
 			}
 		},
 		"high-five": {
-			"command-name": "",
+			"command-name": "toca-aí",
 			"command-description": "Toca aí com alguém!",
 			"command-option-user-name": "usuário",
-			"command-option-user-description": "Toca aí sozinho.",
+			"command-option-user-description": "O indivíduo com quem vai fazer o toca aí.",
 			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu toca aí. Alguém precisa ajustar as permissões!"
 		},
 		"hug": {
@@ -1339,91 +1339,91 @@
 			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não será atacado por um krill. Alguém precisa ajustar as permissões!"
 		},
 		"play-fight": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "jogo-de-luta",
+			"command-description": "Lute com alguém!",
 			"command-option-user-name": "usuário",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": "O indivíduo com quem vai fazer o jogo de luta.",
+			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não poderá ser desafiado para uma luta. Alguém precisa ajustar as permissões!"
 		},
 		"quest": {
 			"command-name": "missão",
-			"command-description": "",
+			"command-description": "Trazer informações sobre missões diárias.",
 			"command-option-daily-name": "diário",
-			"command-option-daily-description": ""
+			"command-option-daily-description": "Escolha uma missão diária!"
 		},
 		"schedule": {
 			"command-name": "programação",
 			"command-description": "Retornar a programação de eventos em Sky!",
-			"every-15-minutes": "",
+			"every-15-minutes": "... a cada 15 minutos...",
 			"travelling-spirit": "Espírito Viajante",
 			"travelling-spirit-today": "Hoje!",
 			"travelling-spirit-none": "Nada",
 			"travelling-spirit-next-visit": "Próxima visita em",
 			"dreams-skater-days": "Nas Sextas, Sábados e Domingos",
-			"first-of-month": "",
+			"first-of-month": "No primeiro dia de cada mês",
 			"deer-0": "Aparecer",
-			"deer-120": "",
-			"deer-600": "",
-			"deer-720": "",
+			"deer-120": "Anda",
+			"deer-600": "Aparição de águas-vivas e arraias",
+			"deer-720": "Voa por aí ou se levanta",
 			"deer-1200": "Desaparecer",
 			"deer-1800": "Repetições",
-			"times-are-relative": "",
-			"schedule-today": ""
+			"times-are-relative": "Os horários seguem o seu fuso horário local.",
+			"schedule-today": "Programação de Hoje"
 		},
 		"shard-eruption": {
 			"command-name": "erupções-de-fragmentos",
-			"command-description": "",
-			"command-option-browse-name": "",
-			"command-option-browse-description": "",
-			"command-option-today-name": "",
-			"command-option-today-description": ""
+			"command-description": "Veja o cronograma de erupção de fragmentos.",
+			"command-option-browse-name": "explorar",
+			"command-option-browse-description": "Explore as erupções de fragmentos.",
+			"command-option-today-name": "hoje",
+			"command-option-today-description": "Veja a erupção de fragmentos hoje."
 		},
 		"shop": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "loja",
+			"command-description": "Veja a loja."
 		},
 		"sky-profile": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "perfil-sky",
+			"command-description": "Monte um perfil Sky para você e outros verem!",
 			"edit": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-name-name": "",
-				"command-option-name-description": "",
-				"command-option-thumbnail-name": "",
-				"command-option-thumbnail-description": "",
-				"command-option-icon-name": "",
-				"command-option-icon-description": "",
-				"command-option-winged-light-name": "",
-				"command-option-winged-light-description": "",
+				"command-name": "editar",
+				"command-description": "Edite seu perfil Sky.",
+				"command-option-name-name": "nome",
+				"command-option-name-description": "Qual o seu nome no jogo?",
+				"command-option-thumbnail-name": "miniatura",
+				"command-option-thumbnail-description": "Carregue sua miniatura!",
+				"command-option-icon-name": "ícone",
+				"command-option-icon-description": "Carregue seu ícone!",
+				"command-option-winged-light-name": "luz-alada",
+				"command-option-winged-light-description": "Qual é o seu máximo de luz alada?",
 				"command-option-winged-light-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "Inferir do catálogo.",
+					"1": "Sem Capa."
 				},
-				"command-option-spirit-name": "",
-				"command-option-spirit-description": "",
-				"command-option-country-name": "",
-				"command-option-country-description": "",
+				"command-option-spirit-name": "espírito",
+				"command-option-spirit-description": "Qual o seu espírito favorito?",
+				"command-option-country-name": "país",
+				"command-option-country-description": "Gostaria de especificar seu país?",
 				"command-option-spot-name": "local",
-				"command-option-spot-description": "",
-				"command-option-catalogue-progression-name": "",
-				"command-option-catalogue-progression-description": "",
-				"command-option-guess-rank-name": "",
-				"command-option-guess-rank-description": ""
+				"command-option-spot-description": "Onde você gosta de ficar para relaxar?",
+				"command-option-catalogue-progression-name": "progresso-no-inventário",
+				"command-option-catalogue-progression-description": "Mostrar seu progresso no inventário?",
+				"command-option-guess-rank-name": "ranking-no-quiz",
+				"command-option-guess-rank-description": "Mostrar sua classificação no jogo de quiz?"
 			},
 			"explore": {
 				"command-name": "explorar",
-				"command-description": "",
+				"command-description": "Explore o perfil Sky dos outros!",
 				"command-option-name-name": "nome",
-				"command-option-name-description": ""
+				"command-option-name-description": "Procure um perfil Sky pelo nome!"
 			},
 			"show": {
 				"command-name": "mostrar",
-				"command-description": "",
+				"command-description": "Mostra o perfil Sky de alguém.",
 				"command-option-user-name": "usuário",
-				"command-option-user-description": "",
+				"command-option-user-description": "O usuário cujo perfil de Sky você deseja ver.",
 				"command-option-hide-name": "ocultar",
-				"command-option-hide-description": ""
+				"command-option-hide-description": "Certifique-se de que só você veja a resposta."
 			}
 		},
 		"Sky-Profile": {
@@ -1431,10 +1431,10 @@
 		},
 		"spirit": {
 			"command-name": "espirito",
-			"command-description": "",
+			"command-description": "Exibe a árvore de amizade de um espírito.",
 			"search": {
 				"command-name": "pesquisar",
-				"command-description": "",
+				"command-description": "Revela uma informação sobre um espírito.",
 				"command-option-query-name": "consulta",
 				"command-option-query-description": "O nome, temporada, expressão, pose ou chamado do espírito."
 			}
@@ -1442,22 +1442,22 @@
 	},
 	"features": {
 		"about": {
-			"description": "",
-			"links": "",
-			"sponsor": "",
-			"issues-feedback": "",
-			"feedback-button": "",
-			"issue-button": "",
-			"feedback-modal-heading": "",
-			"feedback-modal-title": "",
-			"feedback-modal-description": "",
-			"feedback-modal-description-placeholder": "",
-			"feedback-submission": "",
-			"issue-modal-heading": "",
-			"issue-modal-title": "",
-			"issue-modal-description": "",
-			"issue-modal-description-placeholder": "",
-			"issue-submission": ""
+			"description": "### Descrição\n\nBem-vindo(a) à amada aplicação do Discord para [Sky: Filhos da Luz]({{url}} \"thatskygame\")!\n\nQuer saber sobre mim, hã? Bem, eu adoro longas caminhadas pelas Ilhas do Santuário. Ah, e não esqueça de planear por todo o Deserto Estelar. E também... ÁGUA-VIVAS!\n\nConfira estes links úteis:",
+			"links": "- [Convidar]({{applicationInviteURL}})\n- [Suporte]({{supportServerInviteURL}})\n- [Website]({{websiteURL}})",
+			"sponsor": "### Patrocínio\n\nQuer ajudar a apoiar? Existem várias formas de fazer isso!\nAgradecemos desde já!\n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
+			"issues-feedback": "### Reportar problemas & enviar feedback\n\nVocê pode entrar no [servidor de suporte]({{supportServerInviteURL}}) para fazer isso.\n\nTambém pode usar os botões abaixo para isso, sem precisar entrar no servidor, se preferir.",
+			"feedback-button": "Enviar feedback",
+			"issue-button": "Relatar um problema",
+			"feedback-modal-heading": "Enviar feedback",
+			"feedback-modal-title": "Insira um título apropriado para seu feedback.",
+			"feedback-modal-description": "Digite seu Feedback aqui!",
+			"feedback-modal-description-placeholder": "Seria bacana poder...\nGostaria que pudéssemos...",
+			"feedback-submission": "Agradecemos pelo seu feedback! {{emoji}}",
+			"issue-modal-heading": "Reportar problema",
+			"issue-modal-title": "Insira um título apropriado para seu problema.",
+			"issue-modal-description": "Descreva seu problema aqui.",
+			"issue-modal-description-placeholder": "Toda vez eu tento...\nNada acontece quando...",
+			"issue-submission": "Agradecemos por reportar seu problema! {{emoji}}"
 		},
 		"calculate": {
 			"ascended-candles": {
@@ -1474,29 +1474,29 @@
 			}
 		},
 		"bonk": {
-			"missing-external-apps-permission": ""
+			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não poderá ser cutucado. Alguém precisa ajustar as permissões!"
 		},
 		"catalogue": {
 			"main-title": "Inventário"
 		},
 		"guess": {
-			"title": "",
-			"guess-in": "",
+			"title": "De onde isso veio?",
+			"guess-in": "Palpite {{time}}!",
 			"end-game": "Encerrar jogo",
 			"game-ended": "Fim de jogo.",
-			"your-guess": "",
+			"your-guess": "Seu palpite",
 			"try-again": "Tentar novamente?"
 		},
 		"heart": {
-			"missing-external-apps-permission": ""
+			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu coração. Alguém precisa ajustar as permissões!"
 		},
 		"hug": {
-			"hug-self": "",
-			"missing-external-apps-permission": "",
-			"not-in-server": "",
-			"not-around": "",
-			"hug-bot": "",
-			"message": ""
+			"hug-self": "Compartilhe o amor! Abrace alguém que não seja você!",
+			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu abraço. Alguém precisa ajustar as permissões!",
+			"not-in-server": "{{user}} não está no servidor para ser abraçado.",
+			"not-around": "{{user}} não está por aqui para receber o abraço!",
+			"hug-bot": "{{user}} É um bot. Eles são meio sem emoção. Imunes a abraços, eu diria.",
+			"message": "{{user}}, {{invoker}} abraçou você!"
 		},
 		"notifications": {
 			"back": "Retornar"
