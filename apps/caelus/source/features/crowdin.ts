@@ -18,6 +18,9 @@ const SUGGESTION_REGULAR_EXPRESSION =
 const FILE_UPDATED_REGULAR_EXPRESSION =
 	/File (?<file>.+) has been updated in the project (?<project>.+)\.\n(?<newStrings>\d+) new strings \((?<newWords>\d+) words\), (?<updatedStrings>\d+) updated strings \((?<updatedWords>\d+) words\), (?<deletedStrings>\d+) deleted strings \((?<deletedWords>\d+) words\)\.\nURL: (?<url>.+)/;
 
+const FILE_FULLY_TRANSLATED_REGULAR_EXPRESSION =
+	/File (?<file>.+) is now fully translated into (?<language>.+) in project (?<project>.+)\.\nURL: (?<url>.+)/;
+
 const BUILT_REGULAR_EXPRESSION =
 	/Project (?<project>.+) are successfully built.\nDownload link: (?<url>.+)/;
 
@@ -134,6 +137,27 @@ function createFileUpdatedEmbed(message: GatewayMessageCreateDispatchData) {
 				inline: true,
 			},
 		],
+		timestamp: new Date().toISOString(),
+	};
+}
+
+function createFileFullyTranslatedEmbed(message: GatewayMessageCreateDispatchData) {
+	const result = FILE_FULLY_TRANSLATED_REGULAR_EXPRESSION.exec(message.content);
+
+	if (!result?.groups) {
+		return;
+	}
+
+	const { language, url } = result.groups as {
+		file: string;
+		language: string;
+		project: string;
+		url: string;
+	};
+
+	return {
+		color: DEFAULT_EMBED_COLOUR,
+		description: `[Fully translated in ${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]}!](${url})`,
 		timestamp: new Date().toISOString(),
 	};
 }
@@ -268,6 +292,11 @@ export async function crowdin(
 		message.content.includes(" has been updated in the project ")
 	) {
 		embed = createFileUpdatedEmbed(message);
+	} else if (
+		message.content.startsWith("File ") &&
+		message.content.includes(" is now fully translated ")
+	) {
+		embed = createFileFullyTranslatedEmbed(message);
 	} else if (
 		message.content.startsWith("Project ") &&
 		message.content.includes("are successfully built.")
