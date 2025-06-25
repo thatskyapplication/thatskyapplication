@@ -30,6 +30,9 @@ const FINAL_TRANSLATION_REGULAR_EXPRESSION =
 const ISSUE_REGULAR_EXPRESSION =
 	/An issue (?<issueType>has been updated|created) in (?<project>.+)\. ?\nIssue Type: (?<type>.+?)\. ?\nFile: (?<file>.+)\. ?\nText: (?<text>.+?) ?\nLanguage: (?<language>.+)\. ?\n\nURL: (?<url>.+)/s;
 
+const PROJECT_FULLY_TRANSLATED_REGULAR_EXPRESSION =
+	/Project (?<project>.+) is now fully translated into (?<language>.+)\.\nProject link: (?<url>.+)/;
+
 const CrowdinLanguageToLanguage = {
 	"Chinese Simplified": "中文",
 	"Chinese Traditional": "繁體中文",
@@ -157,7 +160,7 @@ function createFileFullyTranslatedEmbed(message: GatewayMessageCreateDispatchDat
 
 	return {
 		color: DEFAULT_EMBED_COLOUR,
-		description: `[Fully translated in ${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]}!](${url})`,
+		description: `[File fully translated in ${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]}!](${url})`,
 		timestamp: new Date().toISOString(),
 	};
 }
@@ -254,6 +257,27 @@ function createIssueEmbed(message: GatewayMessageCreateDispatchData) {
 	};
 }
 
+function createProjectFullyTranslatedEmbed(message: GatewayMessageCreateDispatchData) {
+	const result = PROJECT_FULLY_TRANSLATED_REGULAR_EXPRESSION.exec(message.content);
+
+	if (!result?.groups) {
+		return;
+	}
+
+	const { language, url } = result.groups as {
+		file: string;
+		language: string;
+		project: string;
+		url: string;
+	};
+
+	return {
+		color: DEFAULT_EMBED_COLOUR,
+		description: `[Project fully translated in ${CrowdinLanguageToLanguage[language as keyof typeof CrowdinLanguageToLanguage]}!](${url})`,
+		timestamp: new Date().toISOString(),
+	};
+}
+
 export async function crowdin(
 	message: GatewayMessageCreateDispatchData,
 	guild: Guild,
@@ -304,6 +328,11 @@ export async function crowdin(
 		embed = createBuiltEmbed(message);
 	} else if (message.content.startsWith("An issue ")) {
 		embed = createIssueEmbed(message);
+	} else if (
+		message.content.startsWith("Project ") &&
+		message.content.includes(" is now fully translated ")
+	) {
+		embed = createProjectFullyTranslatedEmbed(message);
 	}
 
 	if (!embed) {
