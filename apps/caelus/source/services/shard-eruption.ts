@@ -257,7 +257,7 @@ export async function browse(
 	}
 
 	const { locale } = interaction;
-	const components = browseData(locale, offset, false);
+	const components = browseData(locale, offset, true);
 
 	if (isChatInputCommand(interaction)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
