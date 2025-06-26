@@ -1669,8 +1669,15 @@ export default {
 			back: "Back",
 		},
 		"shard-eruption": {
+			"browse-title": "Shard Eruptions",
+			"browse-description":
+				"You're currently browsing shard eruptions. Open the select menus to quickly see information over a great period of time. Select a date to view more information.",
+			"no-shard-eruptions-today": "There are no shard eruptions today.",
+			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
 			back: "Back",
+			today: "Today",
 			next: "Next",
+			browse: "Browse",
 		},
 	},
 } as const;

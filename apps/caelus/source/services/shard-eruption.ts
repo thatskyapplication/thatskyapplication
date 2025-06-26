@@ -155,7 +155,7 @@ export function todayData(
 		type: ComponentType.Button,
 		custom_id: SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
 		disabled: offset === 0,
-		label: "Today",
+		label: t("shard-eruption.today", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Primary,
 	};
 
@@ -210,7 +210,10 @@ export function todayData(
 	} else {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `There are no shard eruptions ${offset === 0 ? "today" : "on this day"}.`,
+			content:
+				offset === 0
+					? t("shard-eruption.no-shard-eruptions-today", { lng: locale, ns: "features" })
+					: t("shard-eruption.no-shard-eruptions-not-today", { lng: locale, ns: "features" }),
 		});
 	}
 
@@ -231,7 +234,7 @@ export function todayData(
 						type: ComponentType.Button,
 						custom_id: `${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`,
 						emoji: { name: "🌐" },
-						label: "Browse",
+						label: t("shard-eruption.browse", { lng: locale, ns: "features" }),
 						style: ButtonStyle.Secondary,
 					},
 				],
@@ -275,7 +278,7 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: "## Shard Eruptions",
+			content: `## ${t("shard-eruption.browse-description", { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -284,8 +287,7 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content:
-				"You're currently browsing shard eruptions. Open the select menus to quickly see information over a great period of time. Select a date to view more information.",
+			content: t("shard-eruption.browse-description", { lng: locale, ns: "features" }),
 		},
 		...SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map(
 			(customId, index): APIActionRowComponent<APISelectMenuComponent> => {
@@ -345,7 +347,7 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 						type: ComponentType.Button,
 						custom_id: SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
 						disabled: offset === 0,
-						label: "Today",
+						label: t("shard-eruption.today", { lng: locale, ns: "features" }),
 						style: ButtonStyle.Primary,
 					},
 					{
