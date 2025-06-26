@@ -1459,6 +1459,9 @@
 			"issue-modal-description-placeholder": "Toda vez eu tento...\nNada acontece quando...",
 			"issue-submission": "Agradecemos por reportar seu problema! {{emoji}}"
 		},
+		"bonk": {
+			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não poderá ser cutucado. Alguém precisa ajustar as permissões!"
+		},
 		"calculate": {
 			"ascended-candles": {
 				"goal-achieved": "Você já conquistou seu objetivo!",
@@ -1473,11 +1476,9 @@
 				"minimum-time-shard-eruptions": "Erupções de Fragmentos"
 			}
 		},
-		"bonk": {
-			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não poderá ser cutucado. Alguém precisa ajustar as permissões!"
-		},
 		"catalogue": {
-			"main-title": "Inventário"
+			"main-title": "Inventário",
+			"main-description": ""
 		},
 		"guess": {
 			"title": "De onde isso veio?",
@@ -1502,8 +1503,14 @@
 			"back": "Retornar"
 		},
 		"shard-eruption": {
+			"browse-title": "",
+			"browse-description": "",
+			"no-shard-eruptions-today": "",
+			"no-shard-eruptions-not-today": "",
 			"back": "Retornar",
-			"next": "Avançar"
+			"today": "",
+			"next": "Avançar",
+			"browse": ""
 		}
 	}
 }

@@ -1459,6 +1459,9 @@
 			"issue-modal-description-placeholder": "",
 			"issue-submission": ""
 		},
+		"bonk": {
+			"missing-external-apps-permission": ""
+		},
 		"calculate": {
 			"ascended-candles": {
 				"goal-achieved": "",
@@ -1473,11 +1476,9 @@
 				"minimum-time-shard-eruptions": ""
 			}
 		},
-		"bonk": {
-			"missing-external-apps-permission": ""
-		},
 		"catalogue": {
-			"main-title": ""
+			"main-title": "",
+			"main-description": ""
 		},
 		"guess": {
 			"title": "这个哪里来的？",
@@ -1502,8 +1503,14 @@
 			"back": ""
 		},
 		"shard-eruption": {
+			"browse-title": "",
+			"browse-description": "",
+			"no-shard-eruptions-today": "",
+			"no-shard-eruptions-not-today": "",
 			"back": "",
-			"next": ""
+			"today": "",
+			"next": "",
+			"browse": ""
 		}
 	}
 }
