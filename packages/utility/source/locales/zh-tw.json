@@ -1383,7 +1383,7 @@
 			"command-description": "查看商店。"
 		},
 		"sky-profile": {
-			"command-name": "Sky資料",
+			"command-name": "sky資料",
 			"command-description": "為您和其他人建立一個 Sky 個人資料以供查看！",
 			"edit": {
 				"command-name": "編輯編輯",
