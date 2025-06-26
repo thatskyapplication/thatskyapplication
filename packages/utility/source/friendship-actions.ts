@@ -132,6 +132,13 @@ export const HIGH_FIVES = [
 		reference:
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
 	},
+	{
+		url: highFivesRoute(10),
+		user1: "588116773392351246",
+		user2: "319884785050714112",
+		square: true,
+		reference: null,
+	},
 ] as const satisfies Readonly<FriendshipAction[]>;
 
 export const HUGS = [
