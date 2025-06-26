@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { data, useLoaderData } from "@remix-run/react";
 import {
 	type DailyQuests,
 	enGB,
@@ -40,38 +40,41 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
 		const shard = shardEruption();
 
-		return {
-			dailyGuides: dailyGuides[0]!,
-			todayString: new Intl.DateTimeFormat(locale, {
-				timeZone: TIME_ZONE,
-				dateStyle: "full",
-			}).format(new Date()),
-			shard: shard
-				? {
-						...shard,
-						timestamps: shard.timestamps.map(({ start, end }) => ({
-							start: {
-								unix: start.toUnixInteger(),
-								format: new Intl.DateTimeFormat(locale, {
-									timeZone,
-									hour: "2-digit",
-									minute: "2-digit",
-									second: "2-digit",
-								}).format(start.toMillis()),
-							},
-							end: {
-								unix: end.toUnixInteger(),
-								format: new Intl.DateTimeFormat(locale, {
-									timeZone,
-									hour: "2-digit",
-									minute: "2-digit",
-									second: "2-digit",
-								}).format(end.toMillis()),
-							},
-						})),
-					}
-				: shard,
-		};
+		return data(
+			{
+				dailyGuides: dailyGuides[0]!,
+				todayString: new Intl.DateTimeFormat(locale, {
+					timeZone: TIME_ZONE,
+					dateStyle: "full",
+				}).format(new Date()),
+				shard: shard
+					? {
+							...shard,
+							timestamps: shard.timestamps.map(({ start, end }) => ({
+								start: {
+									unix: start.toUnixInteger(),
+									format: new Intl.DateTimeFormat(locale, {
+										timeZone,
+										hour: "2-digit",
+										minute: "2-digit",
+										second: "2-digit",
+									}).format(start.toMillis()),
+								},
+								end: {
+									unix: end.toUnixInteger(),
+									format: new Intl.DateTimeFormat(locale, {
+										timeZone,
+										hour: "2-digit",
+										minute: "2-digit",
+										second: "2-digit",
+									}).format(end.toMillis()),
+								},
+							})),
+						}
+					: shard,
+			},
+			{ headers: { "Cache-Control": "public, max-age=300, s-maxage=300" } },
+		);
 	} catch {
 		throw new Response("Unable to fetch daily guides.", { status: 500 });
 	}

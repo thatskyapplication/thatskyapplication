@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "@remix-run/react";
+import { data, Link, useLoaderData } from "@remix-run/react";
 import {
 	FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY,
 	type SkyProfilePacket,
@@ -8,12 +8,16 @@ import pg from "~/pg.server";
 import { APPLICATION_NAME, Table, WIKI_URL } from "~/utility/constants";
 
 export const loader = async () => {
-	return await pg<SkyProfilePacket>(Table.Profiles)
+	const contributors = await pg<SkyProfilePacket>(Table.Profiles)
 		.select("user_id", "name")
 		.whereIn("user_id", FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY)
 		.whereNotNull("name")
 		.orderBy("name", "asc")
 		.orderBy("user_id", "asc");
+
+	return data(contributors, {
+		headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" },
+	});
 };
 
 export default function Acknowledgements() {

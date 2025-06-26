@@ -1,5 +1,5 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
+import { data, Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import { isPlatformId, type SkyProfilePacket, WEBSITE_URL } from "@thatskyapplication/utility";
 import Layout from "~/components/Layout.js";
 import Pagination from "~/components/Pagination.js";
@@ -52,7 +52,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase])
 			.limit(SKY_PROFILES_PAGE_LIMIT);
 
-		return { profiles, query };
+		return data(
+			{ profiles, query },
+			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
+		);
 	}
 
 	const pageParameter = url.searchParams.get("page") ?? "1";
@@ -85,7 +88,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			.limit(SKY_PROFILES_PAGE_LIMIT)
 			.offset(offset);
 
-		return { profiles, currentPage, totalPages };
+		return data(
+			{ profiles, currentPage, totalPages },
+			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
+		);
 	} catch {
 		throw new Response("Unable to fetch Sky profiles.", { status: 500 });
 	}
@@ -166,7 +172,11 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 }
 
 export default function SkyProfiles() {
-	const { profiles, query, currentPage, totalPages } = useLoaderData<typeof loader>();
+	const data = useLoaderData<typeof loader>();
+	const { profiles } = data;
+	const query = "query" in data ? data.query : undefined;
+	const currentPage = "currentPage" in data ? data.currentPage : undefined;
+	const totalPages = "totalPages" in data ? data.totalPages : undefined;
 
 	return (
 		<Layout>
