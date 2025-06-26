@@ -1621,6 +1621,10 @@ export default {
 			"issue-modal-description-placeholder": "Every time I try to...\nNothing happens when...",
 			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
 		},
+		bonk: {
+			"missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not be bonked. Someone needs to adjust the permissions!",
+		},
 		calculate: {
 			"ascended-candles": {
 				"goal-achieved": "You have already achieved your goal!",
@@ -1634,10 +1638,6 @@ export default {
 				"minimum-time-eye-of-eden": "Eye of Eden statues",
 				"minimum-time-shard-eruptions": "Shard eruptions",
 			},
-		},
-		bonk: {
-			"missing-external-apps-permission":
-				"You are missing the `Use External Apps` permission, so {{user}} would not be bonked. Someone needs to adjust the permissions!",
 		},
 		catalogue: {
 			"main-title": "Catalogue",
