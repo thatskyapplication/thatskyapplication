@@ -577,7 +577,9 @@ async function start({
 			: // This would not happen, but it's here to satisfy the API.
 				CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
 		disabled: !currentSeason,
-		label: "Current Season",
+		label: currentSeason
+			? t(`seasons.${currentSeason.id}`, { lng: locale, ns: "general" })
+			: t("catalogue.current-season-fallback", { lng: locale, ns: "features" }),
 		style: currentSeason ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 

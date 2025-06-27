@@ -1656,6 +1656,7 @@ export default {
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
 			"quick-access": "Quick access",
+			"current-season-fallback": "Current season",
 		},
 		guess: {
 			title: "Where does this come from?",
