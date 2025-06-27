@@ -1654,7 +1654,8 @@ export default {
 			"permanent-event-store": "Permanent event store",
 			"nesting-workshop": "Nesting Workshop",
 			"main-no-progress": "No progress",
-			"main-progress": "Progress: {{number}}%"
+			"main-progress": "Progress: {{number}}%",
+			"quick-access": "Quick access",
 		},
 		guess: {
 			title: "Where does this come from?",

@@ -811,7 +811,7 @@ async function start({
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: "### Quick access",
+					content: `### ${t("catalogue.quick-access", { lng: locale, ns: "features" })}`,
 				},
 				{
 					type: ComponentType.ActionRow,
