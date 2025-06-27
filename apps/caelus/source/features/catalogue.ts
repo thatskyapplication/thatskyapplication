@@ -90,7 +90,6 @@ export const CATALOGUE_SETTINGS_CUSTOM_ID = "CATALOGUE_SETTINGS_CUSTOM_ID" as co
 export const CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID =
 	"CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID" as const;
 
-export const CATALOGUE_VIEW_TYPE_CUSTOM_ID = "CATALOGUE_VIEW_TYPE_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_REALMS_CUSTOM_ID = "CATALOGUE_VIEW_REALMS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_ELDERS_CUSTOM_ID = "CATALOGUE_VIEW_ELDERS_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_SEASONS_CUSTOM_ID = "CATALOGUE_VIEW_SEASONS_CUSTOM_ID" as const;
@@ -99,6 +98,13 @@ export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_
 export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
 export const CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID =
+	"CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID = "CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID =
+	"CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID" as const;
+export const CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID =
+	"CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID" as const;
 
 export const CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
 	"CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
@@ -674,61 +680,127 @@ async function start({
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `## ${t("catalogue.main-description", { lng: locale, ns: "features", progress: allProgress(data, true) })}`,
+							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: allProgress(data, true) })}`,
 						},
 					],
 				},
 				{
-					type: ComponentType.ActionRow,
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: CATALOGUE_VIEW_TYPE_CUSTOM_ID,
-							max_values: 1,
-							min_values: 0,
-							options: [
-								{
-									label: `Standard Spirits${standardProgress === null ? "" : ` (${standardProgress}%)`}`,
-									value: String(CatalogueType.StandardSpirits),
-								},
-								{
-									label: `Elders${elderProgress === null ? "" : ` (${elderProgress}%)`}`,
-									value: String(CatalogueType.Elders),
-								},
-								{
-									label: `Seasons${seasonalProgress === null ? "" : ` (${seasonalProgress}%)`}`,
-									value: String(CatalogueType.SeasonalSpirits),
-								},
-								{
-									label: `Events${eventProgressResult === null ? "" : ` (${eventProgressResult}%)`}`,
-									value: String(CatalogueType.Events),
-								},
-								{
-									label: `Starter Packs${starterPackProgressResult === null ? "" : ` (${starterPackProgressResult}%)`}`,
-									value: String(CatalogueType.StarterPacks),
-								},
-								{
-									label: `Secret Area${secretAreaProgressResult === null ? "" : ` (${secretAreaProgressResult}%)`}`,
-									value: String(CatalogueType.SecretArea),
-								},
-								{
-									label: `Permanent Event Store${
-										permanentEventStoreProgressResult === null
-											? ""
-											: ` (${permanentEventStoreProgressResult}%)`
-									}`,
-									value: String(CatalogueType.PermanentEventStore),
-								},
-								{
-									label: `Nesting Workshop${
-										nestingWorkshopProgressResult === null
-											? ""
-											: ` (${nestingWorkshopProgressResult}%)`
-									}`,
-									value: String(CatalogueType.NestingWorkshop),
-								},
-							],
-							placeholder: "What do you want to see?",
+							type: ComponentType.TextDisplay,
+							content: `### ${t("catalogue.standard-spirits", { lng: locale, ns: "features" })}\n\n${standardProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: standardProgress })}`,
+						},
+					],
+				},
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `### ${t("catalogue.elders", { lng: locale, ns: "features" })}\n\n${elderProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: elderProgress })}`,
+						},
+					],
+				},
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `### ${t("catalogue.seasons", { lng: locale, ns: "features" })}\n\n${seasonalProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: seasonalProgress })}`,
+						},
+					],
+				},
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `### ${t("catalogue.events", { lng: locale, ns: "features" })}\n\n${eventProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: eventProgressResult })}`,
+						},
+					],
+				},
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `### ${t("catalogue.starter-packs", { lng: locale, ns: "features" })}\n\n${starterPackProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: starterPackProgressResult })}`,
+						},
+					],
+				},
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `### ${t("catalogue.secret-area", { lng: locale, ns: "features" })}\n\n${secretAreaProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: secretAreaProgressResult })}`,
+						},
+					],
+				},
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `### ${t("catalogue.permanent-event-store", { lng: locale, ns: "features" })}\n\n${permanentEventStoreProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: permanentEventStoreProgressResult })}`,
+						},
+					],
+				},
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Primary,
+						custom_id: CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID,
+						label: t("view", { lng: locale, ns: "general" }),
+					},
+					components: [
+						{
+							type: ComponentType.TextDisplay,
+							content: `### ${t("catalogue.nesting-workshop", { lng: locale, ns: "features" })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
 						},
 					],
 				},
@@ -833,42 +905,6 @@ export async function viewSettings(interaction: APIMessageComponentButtonInterac
 			},
 		],
 	});
-}
-
-export async function parseCatalogueType(interaction: APIMessageComponentSelectMenuInteraction) {
-	switch (Number(interaction.data.values[0]) as CatalogueType) {
-		case CatalogueType.StandardSpirits: {
-			await viewRealms(interaction);
-			return;
-		}
-		case CatalogueType.Elders: {
-			await viewElders(interaction);
-			return;
-		}
-		case CatalogueType.SeasonalSpirits: {
-			await viewSeasons(interaction);
-			return;
-		}
-		case CatalogueType.Events: {
-			await viewEventYears(interaction);
-			return;
-		}
-		case CatalogueType.StarterPacks: {
-			await viewStarterPacks(interaction);
-			return;
-		}
-		case CatalogueType.SecretArea: {
-			await viewSecretArea(interaction);
-			return;
-		}
-		case CatalogueType.PermanentEventStore: {
-			await viewPermanentEventStore(interaction);
-			return;
-		}
-		case CatalogueType.NestingWorkshop: {
-			await viewNestingWorkshop(interaction);
-		}
-	}
 }
 
 export async function viewRealms(
@@ -2147,7 +2183,7 @@ async function viewEvent(
 	});
 }
 
-async function viewStarterPacks(
+export async function viewStarterPacks(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const invoker = interactionInvoker(interaction);
@@ -2238,7 +2274,7 @@ async function viewStarterPacks(
 	});
 }
 
-async function viewSecretArea(
+export async function viewSecretArea(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
@@ -2328,7 +2364,7 @@ async function viewSecretArea(
 	});
 }
 
-async function viewPermanentEventStore(
+export async function viewPermanentEventStore(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
@@ -2422,7 +2458,7 @@ async function viewPermanentEventStore(
 	});
 }
 
-async function viewNestingWorkshop(
+export async function viewNestingWorkshop(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);

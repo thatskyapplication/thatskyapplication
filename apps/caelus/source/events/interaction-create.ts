@@ -46,18 +46,20 @@ import {
 	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
 	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
 	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+	CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID,
 	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
 	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
 	CATALOGUE_VIEW_OFFER_3_CUSTOM_ID,
+	CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID,
 	CATALOGUE_VIEW_REALM_CUSTOM_ID,
 	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
 	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
 	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
 	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+	CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID,
 	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
 	CATALOGUE_VIEW_START_CUSTOM_ID,
-	CATALOGUE_VIEW_TYPE_CUSTOM_ID,
-	parseCatalogueType,
+	CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID,
 	parseSetItems,
 	parseViewEvent,
 	parseViewSpirit,
@@ -69,13 +71,17 @@ import {
 	viewElders,
 	viewEvents,
 	viewEventYears,
+	viewNestingWorkshop,
+	viewPermanentEventStore,
 	viewRealm,
 	viewRealms,
 	viewReturningSpirits,
 	viewSeason,
 	viewSeasons,
+	viewSecretArea,
 	viewSettings,
 	viewStart,
+	viewStarterPacks,
 } from "../features/catalogue.js";
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
@@ -480,6 +486,26 @@ export default {
 					return;
 				}
 
+				if (customId === CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID) {
+					await viewStarterPacks(interaction);
+					return;
+				}
+
+				if (customId === CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID) {
+					await viewSecretArea(interaction);
+					return;
+				}
+
+				if (customId === CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID) {
+					await viewPermanentEventStore(interaction);
+					return;
+				}
+
+				if (customId === CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID) {
+					await viewNestingWorkshop(interaction);
+					return;
+				}
+
 				if (customId === CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
 					await viewReturningSpirits(interaction);
 					return;
@@ -749,11 +775,6 @@ export default {
 			const values = interaction.data.values;
 
 			try {
-				if (customId === CATALOGUE_VIEW_TYPE_CUSTOM_ID) {
-					await parseCatalogueType(interaction);
-					return;
-				}
-
 				const value0 = values[0]!;
 
 				if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {

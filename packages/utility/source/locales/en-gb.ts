@@ -1645,6 +1645,16 @@ export default {
 			"main-title": "Catalogue",
 			"main-description":
 				"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal progress: {{progress}}%",
+			"standard-spirits": "Standard spirits",
+			elders: "Elders",
+			seasons: "Seasons",
+			events: "Events",
+			"starter-packs": "Starter packs",
+			"secret-area": "Secret area",
+			"permanent-event-store": "Permanent event store",
+			"nesting-workshop": "Nesting Workshop",
+			"main-no-progress": "No progress",
+			"main-progress": "Progress: {{number}}%"
 		},
 		guess: {
 			title: "Where does this come from?",
