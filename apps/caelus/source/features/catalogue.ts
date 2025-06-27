@@ -592,34 +592,30 @@ async function start({
 			? [
 					{
 						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
 						// This would not happen, but it's here to satisfy the API.
 						custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+						label: t("catalogue.current-event-fallback", { lng: locale, ns: "features" }),
 						disabled: true,
-						style: ButtonStyle.Secondary,
 					},
 				]
 			: events.reduce<APIButtonComponentWithCustomId[]>((buttons, event) => {
 					const button: APIButtonComponentWithCustomId = {
 						type: ComponentType.Button,
-						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.id}`,
 						style: ButtonStyle.Success,
+						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.id}`,
+						label: t(`events.${event.id}`, { lng: locale, ns: "general" }),
 					};
 
 					const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
 
 					if (eventTicketEmoji) {
 						button.emoji = eventTicketEmoji;
-					} else {
-						button.label = t(`events.${event.id}`, { lng: locale, ns: "general" });
 					}
 
 					buttons.push(button);
 					return buttons;
 				}, []);
-
-	if (currentEventButtons.length === 1) {
-		currentEventButtons[0]!.label = "Current Event";
-	}
 
 	const currentTravellingSpiritButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -629,7 +625,7 @@ async function start({
 				`${CATALOGUE_VIEW_START_CUSTOM_ID}-travelling`,
 
 		disabled: !currentTravellingSpirit,
-		label: "Travelling Spirit",
+		label: t("catalogue.travelling-spirit", { lng: locale, ns: "features" }),
 		style: currentTravellingSpirit ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 
@@ -644,7 +640,7 @@ async function start({
 			: // This would not happen, but it's here to satisfy the API.
 				`${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
 		disabled: !currentReturningSpirits,
-		label: "Returning Spirits",
+		label: t("catalogue.returning-spirits", { lng: locale, ns: "features" }),
 		style: currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 

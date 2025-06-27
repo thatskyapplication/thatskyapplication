@@ -1656,7 +1656,10 @@ export default {
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
 			"quick-access": "Quick access",
-			"current-season-fallback": "Current season",
+			"current-season-fallback": "Season",
+			"current-event-fallback": "Event",
+			"travelling-spirit": "Travelling Spirit",
+			"returning-spirits": "Returning Spirits",
 		},
 		guess: {
 			title: "Where does this come from?",
