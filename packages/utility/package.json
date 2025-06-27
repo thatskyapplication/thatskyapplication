@@ -13,6 +13,7 @@
 		"format": "biome check --write",
 		"lint": "biome check",
 		"lint:ci": "biome ci --reporter github",
+		"crowdin": "tsx scripts/crowdin.ts",
 		"knip": "knip"
 	},
 	"dependencies": {

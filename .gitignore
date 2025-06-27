@@ -16,3 +16,4 @@ node_modules
 build
 distribution/
 friendship-tree.webp
+packages/utility/en-gb.json
