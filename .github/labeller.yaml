@@ -1,0 +1,34 @@
+a:caelus:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/caelus/*
+          - apps/caelus/**/*
+a:friendship-tree-generator:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/friendship-tree-generator/*
+          - packages/friendship-tree-generator/**/*
+a:notifications:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/notifications/*
+          - apps/notifications/**/*
+a:servare:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/servare/*
+          - apps/servare/**/*
+a:utility:
+  - changed-files:
+      - any-glob-to-any-file:
+          - packages/utility/*
+          - packages/utility/**/*
+a:website:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/website/*
+          - apps/website/**/*
+f:catalogue:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/caelus/source/features/catalogue.ts

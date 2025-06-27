@@ -1,0 +1,24 @@
+name: Triage pull request
+on:
+  pull_request_target:
+jobs:
+  label:
+    name: Label
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create token
+        id: create-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: thatskyapplication
+          repositories: thatskyapplication
+          permission-pull-requests: write
+
+      - name: Label pull request
+        uses: actions/labeler@v5
+        with:
+          repo-token: ${{ steps.create-token.outputs.token }}
+          configuration-path: "../labeller.yaml"
+          sync-labels: true
