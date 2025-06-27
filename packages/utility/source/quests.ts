@@ -235,6 +235,7 @@ export const DailyQuest = {
 	MeetUpWithTalentedBuilderInBirdNest: 233,
 	MeetUpWithTinkeringChimesmithInBirdNest: 234,
 	MeetUpWithLightWhispererInBirdNest: 235,
+	MeetUpWithLivelyNavigatorInBirdNest: 236,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);

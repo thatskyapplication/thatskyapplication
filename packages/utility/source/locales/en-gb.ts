@@ -362,6 +362,8 @@ export default {
 			[DailyQuest.MeetUpWithTinkeringChimesmithInBirdNest]:
 				"Meet up with Tinkering Chimesmith in Bird Nest",
 			[DailyQuest.MeetUpWithLightWhispererInBirdNest]: "Meet up with Light Whisperer in Bird Nest",
+			[DailyQuest.MeetUpWithLivelyNavigatorInBirdNest]:
+				"Meet up with Lively Navigator in Bird Nest",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
