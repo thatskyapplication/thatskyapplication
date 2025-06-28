@@ -152,5 +152,4 @@ export {
 	SpiritId,
 	type SpiritIds,
 	SpiritStance,
-	TRAVELLING_DATES,
 } from "./utility/spirits.js";

@@ -65,15 +65,18 @@ interface TravellingDatesData {
 	end: DateTime;
 }
 
-const TRAVELLING_DATES = SEASONS.reduce<TravellingDatesData[]>((travellingDates, season) => {
-	for (const spirit of season.spirits.values()) {
-		for (const dates of spirit.visits.travelling) {
-			travellingDates.push({...dates, spiritId: spirit.id });
+const TRAVELLING_DATES: Readonly<TravellingDatesData[]> = SEASONS.reduce<TravellingDatesData[]>(
+	(travellingDates, season) => {
+		for (const spirit of season.spirits.values()) {
+			for (const dates of spirit.visits.travelling) {
+				travellingDates.push({ ...dates, spiritId: spirit.id });
+			}
 		}
-	}
 
-	return travellingDates;
-}, []).sort((a, b) => a.start < b.start ? -1 : 1);
+		return travellingDates;
+	},
+	[],
+).sort((a, b) => a.start.toMillis() - b.start.toMillis());
 
 export function skySeasons(date = skyNow()) {
 	return SEASONS.filter(({ start }) => date >= start);
