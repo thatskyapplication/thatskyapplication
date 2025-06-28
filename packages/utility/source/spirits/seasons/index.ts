@@ -2,7 +2,7 @@ import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { skyNow } from "../../dates.js";
 import type { Season } from "../../models/season.js";
-import type { GuideSpirit, SeasonalSpirit, TravellingSpiritsDates } from "../../models/spirits.js";
+import type { GuideSpirit, SeasonalSpirit } from "../../models/spirits.js";
 import type { SeasonIds } from "../../season.js";
 import type { SpiritIds } from "../../utility/spirits.js";
 import Abyss from "./abyss/index.js";
@@ -70,30 +70,62 @@ export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingDatesData> =
 	number,
 	TravellingDatesData
 >(
-	SEASONS.reduce<(TravellingSpiritsDates & { spiritId: SpiritIds })[]>(
-		(travellingDates, season) => {
-			for (const spirit of season.spirits.values()) {
-				for (const dates of spirit.visits.travelling) {
-					travellingDates.push({ ...dates, spiritId: spirit.id });
-				}
+	SEASONS.reduce<Omit<TravellingDatesData, "visit">[]>((travellingDates, season) => {
+		for (const spirit of season.spirits.values()) {
+			for (const dates of spirit.visits.travelling) {
+				travellingDates.push({ ...dates, spiritId: spirit.id });
 			}
+		}
 
-			return travellingDates;
-		},
-		[],
-	)
+		return travellingDates;
+	}, [])
 		.sort((a, b) => a.start.toMillis() - b.start.toMillis())
 		.map((dates, index) => [index + 1, { ...dates, visit: index + 1 }]),
 );
 
-export const TRAVELLING_DATES_ABSENCE: ReadonlyCollection<number, TravellingDatesData> =
-	TRAVELLING_DATES.reduceRight((travellingDates, dates) => {
-		if (travellingDates.has(dates.spiritId)) {
-			return travellingDates;
+const returningDates: Readonly<TravellingDatesData[]> = SEASONS.reduce<TravellingDatesData[]>(
+	(returningDates, season) => {
+		for (const spirit of season.spirits.values()) {
+			for (const [visit, dates] of spirit.visits.returning) {
+				returningDates.push({ ...dates, spiritId: spirit.id, visit });
+			}
 		}
 
-		return travellingDates.set(dates.spiritId, dates);
-	}, new Collection<number, TravellingDatesData>()).reverse();
+		return returningDates;
+	},
+	[],
+);
+
+enum VisitType {
+	Travelling = 0,
+	Returning = 1,
+}
+
+interface Visit extends TravellingDatesData {
+	type: VisitType;
+}
+
+const allVisits = [];
+
+for (const travellingDate of TRAVELLING_DATES.values()) {
+	allVisits.push({ ...travellingDate, type: VisitType.Travelling });
+}
+
+for (const returningDate of returningDates) {
+	allVisits.push({ ...returningDate, type: VisitType.Returning });
+}
+
+export const VISITS_ABSENT: Readonly<Visit[]> = allVisits
+	.sort((a, b) => a.start.toMillis() - b.start.toMillis())
+	.reduceRight<Visit[]>((visits, visit) => {
+		if (visits.some((storedVisit) => storedVisit.spiritId === visit.spiritId)) {
+			return visits;
+		}
+
+		visits.push(visit);
+		return visits;
+	}, [])
+	.reverse();
 
 export function skySeasons(date = skyNow()) {
 	return SEASONS.filter(({ start }) => date >= start);

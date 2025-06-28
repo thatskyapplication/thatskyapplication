@@ -21,14 +21,13 @@ import {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	SeasonId,
-	type SpiritIds,
 	type StandardSpirit,
 	skyNow,
 	spirits,
 	TIME_ZONE,
 	TRAVELLING_DATES,
-	TRAVELLING_DATES_ABSENCE,
 	type TravellingDatesData,
+	VISITS_ABSENT,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
@@ -268,11 +267,14 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 }
 
 export async function handleSearchButton(interaction: APIMessageComponentButtonInteraction) {
-	const visit = Number(
-		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
+	const [, typeString, index] = interaction.data.custom_id.split("§") as [string, string, string];
+	const type = Number(typeString) as SpiritsHistoryOrderType;
+
+	const visit = (type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT).at(
+		Number(index),
 	);
 
-	const spirit = spirits().get(TRAVELLING_DATES.get(visit)?.spiritId as SpiritIds);
+	const spirit = visit && spirits().get(visit.spiritId);
 
 	if (!spirit) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -313,11 +315,16 @@ export async function spiritsHistory(
 
 	const offset = (page - 1) * MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
 	const limit = offset + MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
+	let spirits: typeof TRAVELLING_DATES | typeof VISITS_ABSENT;
+	let maximumPage: number;
 
-	const spirits =
-		type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : TRAVELLING_DATES_ABSENCE;
-
-	const maximumPage = Math.ceil(spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
+	if (type === SpiritsHistoryOrderType.Natural) {
+		spirits = TRAVELLING_DATES;
+		maximumPage = Math.ceil(spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
+	} else {
+		spirits = VISITS_ABSENT;
+		maximumPage = Math.ceil(spirits.length / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
+	}
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -341,7 +348,7 @@ export async function spiritsHistory(
 		const { spiritId, start, visit } = travelling;
 
 		// Need to escape # otherwise Discord will not render the heading correctly.
-		const heading = `### \\#${visit} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
+		const heading = `###${type === SpiritsHistoryOrderType.Natural ? ` \\#${visit}` : ""} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
 
 		const startFormatOptions: Intl.DateTimeFormatOptions = {
 			timeZone: TIME_ZONE,
@@ -360,7 +367,7 @@ export async function spiritsHistory(
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Secondary,
-				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${visit}`,
+				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${type}§${travellingIndex}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${lastVisited}` }],
