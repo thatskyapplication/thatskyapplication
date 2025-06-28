@@ -1,4 +1,5 @@
 import { Cosmetic } from "../../../cosmetics.js";
+import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -63,7 +64,13 @@ export default new SeasonalSpirit({
 		],
 	},
 	visits: {
-		travelling: [1, 10, 39, 76, 111],
+		travelling: [
+			{ start: skyDate(2020, 1, 31, 12), end: skyDate(2020, 2, 3) },
+			{ start: skyDate(2020, 5, 28), end: skyDate(2020, 6, 1) },
+			{ start: skyDate(2021, 7, 8), end: skyDate(2021, 7, 12) },
+			{ start: skyDate(2022, 12, 8), end: skyDate(2022, 12, 12) },
+			{ start: skyDate(2024, 4, 11), end: skyDate(2024, 4, 15) },
+		],
 	},
 	keywords: ["weasel", "weasel mask"],
 });

@@ -16,7 +16,6 @@ import {
 	type SpiritIds,
 	type SpiritStance,
 	SpiritType,
-	TRAVELLING_DATES,
 } from "../utility/spirits.js";
 
 interface TravellingSpiritsDates {
@@ -120,18 +119,17 @@ interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
 	realm: RealmName;
 }
 
-export type SeasonalSpiritVisitTravellingData = Collection<number, TravellingSpiritsDates>;
 export type SeasonalSpiritVisitTravellingErrorData = Collection<number, DateTime>;
 export type SeasonalSpiritVisitReturningData = Collection<number, ReturningDatesData>;
 
 interface SeasonalSpiritVisitData {
-	travelling?: number[];
+	travelling?: TravellingSpiritsDates[];
 	travellingErrors?: number[];
 	returning?: number[];
 }
 
 interface SeasonalSpiritVisit {
-	travelling: SeasonalSpiritVisitTravellingData;
+	travelling: TravellingSpiritsDates[];
 	travellingErrors: SeasonalSpiritVisitTravellingErrorData;
 	returning: SeasonalSpiritVisitReturningData;
 }
@@ -330,19 +328,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 			: null;
 
 		this.visits = {
-			travelling:
-				spirit.visits?.travelling?.reduce((collection, travelling) => {
-					const period = TRAVELLING_DATES.get(travelling);
-
-					if (!period) {
-						throw new Error(
-							`${this.id} had a travelling index of ${travelling}, but there was no date for it.`,
-						);
-					}
-
-					return collection.set(travelling, period);
-				}, new Collection<number, TravellingSpiritsDates>()) ??
-				new Collection<number, TravellingSpiritsDates>(),
+			travelling: spirit.visits?.travelling ?? [],
 			travellingErrors:
 				spirit.visits?.travellingErrors?.reduce((collection, travellingError) => {
 					const period = TRAVELLING_ERROR_DATES.get(travellingError);
@@ -373,7 +359,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 	public visit(date: DateTime) {
 		const { travelling, returning } = this.visits;
-		const firstTravelling = travelling.first();
+		const firstTravelling = travelling[0];
 		const firstReturning = returning.first();
 
 		return {

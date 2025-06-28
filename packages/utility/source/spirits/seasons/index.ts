@@ -1,10 +1,10 @@
-import { Collection } from "@discordjs/collection";
+import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { skyNow } from "../../dates.js";
 import type { Season } from "../../models/season.js";
 import type { GuideSpirit, SeasonalSpirit } from "../../models/spirits.js";
 import type { SeasonIds } from "../../season.js";
-import { type SpiritIds, TRAVELLING_DATES } from "../../utility/spirits.js";
+import type { SpiritIds } from "../../utility/spirits.js";
 import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
 import AURORA from "./aurora/index.js";
@@ -31,7 +31,7 @@ import Rhythm from "./rhythm/index.js";
 import Sanctuary from "./sanctuary/index.js";
 import Shattering from "./shattering/index.js";
 
-const SEASONS = [
+const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	Gratitude,
 	Lightseekers,
 	Belonging,
@@ -58,6 +58,29 @@ const SEASONS = [
 	Radiance,
 	BlueBird,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
+
+export interface TravellingDatesData {
+	spiritId: SpiritIds;
+	start: DateTime;
+	end: DateTime;
+}
+
+export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingDatesData> = new Collection<
+	number,
+	TravellingDatesData
+>(
+	SEASONS.reduce<TravellingDatesData[]>((travellingDates, season) => {
+		for (const spirit of season.spirits.values()) {
+			for (const dates of spirit.visits.travelling) {
+				travellingDates.push({ ...dates, spiritId: spirit.id });
+			}
+		}
+
+		return travellingDates;
+	}, [])
+		.sort((a, b) => a.start.toMillis() - b.start.toMillis())
+		.map((dates, index) => [index + 1, dates]),
+);
 
 export function skySeasons(date = skyNow()) {
 	return SEASONS.filter(({ start }) => date >= start);

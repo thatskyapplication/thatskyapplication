@@ -88,7 +88,6 @@ export {
 	GuideSpirit,
 	SeasonalSpirit,
 	type SeasonalSpiritVisitReturningData,
-	type SeasonalSpiritVisitTravellingData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	StandardSpirit,
 	type StandardSpiritRealm,
@@ -131,6 +130,8 @@ export {
 	skyCurrentSeason,
 	skySeasons,
 	skyUpcomingSeason,
+	TRAVELLING_DATES,
+	type TravellingDatesData,
 } from "./spirits/seasons/index.js";
 export type { Snowflake } from "./types/index.js";
 export { LINK_REDIRECTOR_URL } from "./utility/constants.js";
@@ -153,5 +154,4 @@ export {
 	SpiritId,
 	type SpiritIds,
 	SpiritStance,
-	TRAVELLING_DATES,
 } from "./utility/spirits.js";
