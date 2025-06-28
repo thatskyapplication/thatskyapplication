@@ -2,7 +2,7 @@ import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { skyNow } from "../../dates.js";
 import type { Season } from "../../models/season.js";
-import type { GuideSpirit, SeasonalSpirit } from "../../models/spirits.js";
+import type { GuideSpirit, SeasonalSpirit, TravellingSpiritsDates } from "../../models/spirits.js";
 import type { SeasonIds } from "../../season.js";
 import type { SpiritIds } from "../../utility/spirits.js";
 import Abyss from "./abyss/index.js";
@@ -61,6 +61,7 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 
 export interface TravellingDatesData {
 	spiritId: SpiritIds;
+	visit: number;
 	start: DateTime;
 	end: DateTime;
 }
@@ -69,18 +70,30 @@ export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingDatesData> =
 	number,
 	TravellingDatesData
 >(
-	SEASONS.reduce<TravellingDatesData[]>((travellingDates, season) => {
-		for (const spirit of season.spirits.values()) {
-			for (const dates of spirit.visits.travelling) {
-				travellingDates.push({ ...dates, spiritId: spirit.id });
+	SEASONS.reduce<(TravellingSpiritsDates & { spiritId: SpiritIds })[]>(
+		(travellingDates, season) => {
+			for (const spirit of season.spirits.values()) {
+				for (const dates of spirit.visits.travelling) {
+					travellingDates.push({ ...dates, spiritId: spirit.id });
+				}
 			}
+
+			return travellingDates;
+		},
+		[],
+	)
+		.sort((a, b) => a.start.toMillis() - b.start.toMillis())
+		.map((dates, index) => [index + 1, { ...dates, visit: index + 1 }]),
+);
+
+export const TRAVELLING_DATES_ABSENCE: ReadonlyCollection<number, TravellingDatesData> =
+	TRAVELLING_DATES.reduceRight((travellingDates, dates) => {
+		if (travellingDates.has(dates.spiritId)) {
+			return travellingDates;
 		}
 
-		return travellingDates;
-	}, [])
-		.sort((a, b) => a.start.toMillis() - b.start.toMillis())
-		.map((dates, index) => [index + 1, dates]),
-);
+		return travellingDates.set(dates.spiritId, dates);
+	}, new Collection<number, TravellingDatesData>()).reverse();
 
 export function skySeasons(date = skyNow()) {
 	return SEASONS.filter(({ start }) => date >= start);

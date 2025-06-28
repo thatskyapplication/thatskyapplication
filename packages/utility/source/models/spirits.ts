@@ -18,7 +18,7 @@ import {
 	SpiritType,
 } from "../utility/spirits.js";
 
-interface TravellingSpiritsDates {
+export interface TravellingSpiritsDates {
 	start: DateTime;
 	end: DateTime;
 }

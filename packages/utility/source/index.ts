@@ -131,6 +131,7 @@ export {
 	skySeasons,
 	skyUpcomingSeason,
 	TRAVELLING_DATES,
+	TRAVELLING_DATES_ABSENCE,
 	type TravellingDatesData,
 } from "./spirits/seasons/index.js";
 export type { Snowflake } from "./types/index.js";

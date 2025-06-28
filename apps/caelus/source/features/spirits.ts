@@ -27,6 +27,7 @@ import {
 	spirits,
 	TIME_ZONE,
 	TRAVELLING_DATES,
+	TRAVELLING_DATES_ABSENCE,
 	type TravellingDatesData,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -39,7 +40,12 @@ import { isChatInputCommand } from "../utility/functions.js";
 export const SPIRITS_VIEW_SPIRIT_CUSTOM_ID = "SPIRITS_VIEW_SPIRIT_CUSTOM_ID";
 export const SPIRITS_HISTORY_BACK_CUSTOM_ID = "SPIRITS_HISTORY_BACK_CUSTOM_ID";
 export const SPIRITS_HISTORY_NEXT_CUSTOM_ID = "SPIRITS_HISTORY_NEXT_CUSTOM_ID";
-const MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER = 11 as const;
+const MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER = 10 as const;
+
+enum SpiritsHistoryOrderType {
+	Natural = 0,
+	Absence = 1,
+}
 
 export async function searchAutocomplete<
 	Interaction extends APIApplicationCommandAutocompleteInteraction,
@@ -288,13 +294,30 @@ export async function spiritsHistory(
 ) {
 	const { locale } = interaction;
 	const isChatInput = isChatInputCommand(interaction);
+	let page: number;
+	let type: SpiritsHistoryOrderType;
 
-	const page = isChatInput
-		? 1
-		: Number(interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1));
+	if (isChatInput) {
+		page = 1;
+		type = SpiritsHistoryOrderType.Natural;
+	} else {
+		const [, priorPage, priorType] = interaction.data.custom_id.split("§") as [
+			string,
+			string,
+			string,
+		];
+
+		page = Number(priorPage);
+		type = Number(priorType);
+	}
 
 	const offset = (page - 1) * MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
 	const limit = offset + MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
+
+	const spirits =
+		type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : TRAVELLING_DATES_ABSENCE;
+
+	const maximumPage = Math.ceil(spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -309,14 +332,13 @@ export async function spiritsHistory(
 	];
 
 	for (let travellingIndex = offset; travellingIndex < limit; travellingIndex++) {
-		const travelling = TRAVELLING_DATES.at(travellingIndex);
+		const travelling = spirits.at(travellingIndex);
 
 		if (!travelling) {
 			break;
 		}
 
-		const { spiritId, start } = travelling;
-		const visit = TRAVELLING_DATES.keyAt(travellingIndex)!;
+		const { spiritId, start, visit } = travelling;
 
 		// Need to escape # otherwise Discord will not render the heading correctly.
 		const heading = `### \\#${visit} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
@@ -352,18 +374,29 @@ export async function spiritsHistory(
 			spacing: SeparatorSpacingSize.Small,
 		},
 		{
+			type: ComponentType.TextDisplay,
+			content: `-# Page ${page}/${maximumPage}`,
+		},
+		{
 			type: ComponentType.ActionRow,
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? TRAVELLING_DATES.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER : page - 1}`,
+					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER : page - 1}§${type}`,
 					emoji: { name: "⬅️" },
 					label: "Back",
 					style: ButtonStyle.Secondary,
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§${page === Math.ceil(TRAVELLING_DATES.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER) ? 1 : page + 1}`,
+					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§1§${type === SpiritsHistoryOrderType.Natural ? SpiritsHistoryOrderType.Absence : SpiritsHistoryOrderType.Natural}`,
+					label:
+						type === SpiritsHistoryOrderType.Natural ? "Order by absence" : "Order by appearance",
+					style: ButtonStyle.Primary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§${page === maximumPage ? 1 : page + 1}§${type}`,
 					emoji: { name: "➡️" },
 					label: "Next",
 					style: ButtonStyle.Secondary,
