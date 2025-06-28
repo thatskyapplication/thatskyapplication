@@ -356,17 +356,14 @@ export async function spiritsHistory(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page - 1}`,
-					disabled: page === 1,
+					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? TRAVELLING_DATES.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER : page - 1}`,
 					emoji: { name: "⬅️" },
 					label: "Back",
 					style: ButtonStyle.Secondary,
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§${page + 1}`,
-					disabled:
-						page === Math.ceil(TRAVELLING_DATES.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER),
+					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§${page === Math.ceil(TRAVELLING_DATES.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER) ? 1 : page + 1}`,
 					emoji: { name: "➡️" },
 					label: "Next",
 					style: ButtonStyle.Secondary,
