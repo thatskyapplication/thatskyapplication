@@ -1703,11 +1703,12 @@ export default {
 			browse: "Browse",
 		},
 		spirits: {
-			"not-encountered-spirit": "Woah, it seems we have not encountered that spirit yet. How strange!",
+			"not-encountered-spirit":
+				"Woah, it seems we have not encountered that spirit yet. How strange!",
 			title: "Travelling Spirits History",
 			"order-natural": "Order by appearance",
 			"order-absence": "Order by last visit",
-			page: "Page"
+			page: "Page",
 		},
 	},
 } as const;
