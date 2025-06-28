@@ -1707,7 +1707,7 @@ export default {
 				"Woah, it seems we have not encountered that spirit yet. How strange!",
 			title: "Travelling Spirits History",
 			"order-natural": "Order by appearance",
-			"order-absence": "Order by last visit",
+			"order-rarity": "Order by rarity",
 			page: "Page",
 		},
 	},

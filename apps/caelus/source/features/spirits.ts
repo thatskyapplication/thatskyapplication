@@ -43,7 +43,7 @@ const MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER = 10 as const;
 
 enum SpiritsHistoryOrderType {
 	Natural = 0,
-	Absence = 1,
+	Rarity = 1,
 }
 
 export async function searchAutocomplete<
@@ -396,10 +396,10 @@ export async function spiritsHistory(
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§1§${type === SpiritsHistoryOrderType.Natural ? SpiritsHistoryOrderType.Absence : SpiritsHistoryOrderType.Natural}`,
+					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§1§${type === SpiritsHistoryOrderType.Natural ? SpiritsHistoryOrderType.Rarity : SpiritsHistoryOrderType.Natural}`,
 					label:
 						type === SpiritsHistoryOrderType.Natural
-							? t("spirits.order-absence", { lng: locale, ns: "features" })
+							? t("spirits.order-rarity", { lng: locale, ns: "features" })
 							: t("spirits.order-natural", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Primary,
 				},
