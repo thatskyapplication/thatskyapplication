@@ -16,6 +16,8 @@ jobs:
           repositories: thatskyapplication
           permission-pull-requests: write
 
+      - uses: actions/checkout@v4
+
       - name: Label pull request
         uses: actions/labeler@v5
         with:
