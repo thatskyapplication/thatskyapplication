@@ -137,7 +137,10 @@ export default {
 
 				if (!spirit) {
 					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-						content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+						content: t("spirits.not-encountered-spirit", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
 					});
 
 					return;
