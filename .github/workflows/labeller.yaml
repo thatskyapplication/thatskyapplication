@@ -20,5 +20,5 @@ jobs:
         uses: actions/labeler@v5
         with:
           repo-token: ${{ steps.create-token.outputs.token }}
-          configuration-path: "../labeller.yaml"
+          configuration-path: .github/labeller.yaml
           sync-labels: true
