@@ -1,3 +1,4 @@
+import type { ReadonlyCollection } from "@discordjs/collection";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIApplicationCommandInteractionDataIntegerOption,
@@ -21,6 +22,8 @@ import {
 	skyNow,
 	spirits,
 	TIME_ZONE,
+	TRAVELLING_DATES,
+	type TravellingDatesData,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
@@ -102,30 +105,32 @@ export async function search(
 }
 
 function visitField(
-	seasonalSpiritVisit: SeasonalSpiritVisitTravellingData | SeasonalSpiritVisitReturningData,
+	seasonalSpiritVisit:
+		| ReadonlyCollection<number, TravellingDatesData>
+		| SeasonalSpiritVisitReturningData,
 	locale: Locale,
 ) {
 	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
+	const visits = [];
 
-	return seasonalSpiritVisit
-		.reduce<string[]>((visits, { start }, visit) => {
-			const startFormatOptions: Intl.DateTimeFormatOptions = {
-				timeZone: TIME_ZONE,
-				dateStyle: "short",
-			};
+	for (const [visit, { start }] of seasonalSpiritVisit) {
+		const startFormatOptions: Intl.DateTimeFormatOptions = {
+			timeZone: TIME_ZONE,
+			dateStyle: "short",
+		};
 
-			if (start.hour !== 0 || start.minute !== 0) {
-				startFormatOptions.timeStyle = "short";
-			}
+		if (start.hour !== 0 || start.minute !== 0) {
+			startFormatOptions.timeStyle = "short";
+		}
 
-			const dateString = Intl.DateTimeFormat(locale, startFormatOptions).format(start.toMillis());
+		const dateString = Intl.DateTimeFormat(locale, startFormatOptions).format(start.toMillis());
 
-			visits.push(
-				`\`#${String(visit).padStart(maxLength, "0")}\` \`${dateString}\` (<t:${start.toUnixInteger()}:R>)`,
-			);
-			return visits;
-		}, [])
-		.join("\n");
+		visits.push(
+			`\`#${String(visit).padStart(maxLength, "0")}\` \`${dateString}\` (<t:${start.toUnixInteger()}:R>)`,
+		);
+	}
+
+	return visits.join("\n");
 }
 
 function visitErrorField(
@@ -157,7 +162,8 @@ async function searchResponse(
 	const visits = [];
 
 	if (isSeasonalSpirit) {
-		const { travelling, travellingErrors, returning } = spirit.visits;
+		const { travellingErrors, returning } = spirit.visits;
+		const travelling = TRAVELLING_DATES.filter(({ spiritId }) => spiritId === spirit.id);
 		const travellingValue = [];
 
 		if (travelling.size > 0) {

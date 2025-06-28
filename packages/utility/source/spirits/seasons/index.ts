@@ -59,14 +59,17 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	BlueBird,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
-interface TravellingDatesData {
+export interface TravellingDatesData {
 	spiritId: SpiritIds;
 	start: DateTime;
 	end: DateTime;
 }
 
-const TRAVELLING_DATES: Readonly<TravellingDatesData[]> = SEASONS.reduce<TravellingDatesData[]>(
-	(travellingDates, season) => {
+export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingDatesData> = new Collection<
+	number,
+	TravellingDatesData
+>(
+	SEASONS.reduce<TravellingDatesData[]>((travellingDates, season) => {
 		for (const spirit of season.spirits.values()) {
 			for (const dates of spirit.visits.travelling) {
 				travellingDates.push({ ...dates, spiritId: spirit.id });
@@ -74,9 +77,10 @@ const TRAVELLING_DATES: Readonly<TravellingDatesData[]> = SEASONS.reduce<Travell
 		}
 
 		return travellingDates;
-	},
-	[],
-).sort((a, b) => a.start.toMillis() - b.start.toMillis());
+	}, [])
+		.sort((a, b) => a.start.toMillis() - b.start.toMillis())
+		.map((dates, index) => [index + 1, dates]),
+);
 
 export function skySeasons(date = skyNow()) {
 	return SEASONS.filter(({ start }) => date >= start);

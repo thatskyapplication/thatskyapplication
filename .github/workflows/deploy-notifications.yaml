@@ -5,7 +5,7 @@ on:
     paths:
       - apps/notifications/**/*
       # Ensure a change in travelling spirits triggers this workflow.
-      - packages/utility/source/utility/spirits.ts
+      - packages/utility/source/spirits/**/*
   workflow_dispatch:
 jobs:
   deploy:
