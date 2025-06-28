@@ -1,4 +1,5 @@
 import { Cosmetic } from "../../../cosmetics.js";
+import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -102,6 +103,10 @@ export default new SeasonalSpirit({
 		],
 	},
 	visits: {
-		travelling: [59, 91, 120],
+		travelling: [
+			{ start: skyDate(2022, 4, 14), end: skyDate(2022, 4, 18) },
+			{ start: skyDate(2023, 7, 6), end: skyDate(2023, 7, 10) },
+			{ start: skyDate(2024, 8, 15), end: skyDate(2024, 8, 19) },
+		],
 	},
 });
