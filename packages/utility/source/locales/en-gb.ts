@@ -1591,7 +1591,11 @@ export default {
 		},
 		spirit: {
 			"command-name": "spirit",
-			"command-description": "Returns the friendship tree of a spirit.",
+			"command-description": "Commands regarding spirits.",
+			history: {
+				"command-name": "history",
+				"command-description": "Shows the history of travelling spirits.",
+			},
 			search: {
 				"command-name": "search",
 				"command-description": "Reveal information about a spirit.",

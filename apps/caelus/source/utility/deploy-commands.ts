@@ -1109,6 +1109,16 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
+				name: t("spirit.history.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("spirit.history.command-name"),
+				description: t("spirit.history.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: localisations("spirit.history.command-description"),
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
 				name: t("spirit.search.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 				name_localizations: localisations("spirit.search.command-name"),
 				description: t("spirit.search.command-description", {

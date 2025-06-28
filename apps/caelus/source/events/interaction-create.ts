@@ -113,6 +113,11 @@ import {
 	shopSuggestionModal,
 	shopSuggestionSubmission,
 } from "../features/shop.js";
+import {
+	SPIRITS_HISTORY_BACK_CUSTOM_ID,
+	SPIRITS_HISTORY_NEXT_CUSTOM_ID,
+	spiritsHistory,
+} from "../features/spirits.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
@@ -647,6 +652,14 @@ export default {
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID)) {
 					await Profile.reportModalPrompt(interaction);
+					return;
+				}
+
+				if (
+					customId.startsWith(SPIRITS_HISTORY_BACK_CUSTOM_ID) ||
+					customId.startsWith(SPIRITS_HISTORY_NEXT_CUSTOM_ID)
+				) {
+					await spiritsHistory(interaction);
 					return;
 				}
 

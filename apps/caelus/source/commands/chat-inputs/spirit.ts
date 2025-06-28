@@ -5,6 +5,7 @@ import {
 	Locale,
 } from "@discordjs/core";
 import { t } from "i18next";
+import { spiritsHistory } from "../../features/spirits.js";
 import { search, searchAutocomplete } from "../../services/spirit.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -15,6 +16,10 @@ export default {
 		const options = new OptionResolver(interaction);
 
 		switch (options.getSubcommand()) {
+			case "history": {
+				await spiritsHistory(interaction);
+				return;
+			}
 			case "search": {
 				await search(interaction, options);
 				return;
