@@ -322,7 +322,7 @@ export async function spiritsHistory(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: "## Travelling Spirits history",
+			content: `## ${t("spirits.title", { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -361,7 +361,7 @@ export async function spiritsHistory(
 				type: ComponentType.Button,
 				style: ButtonStyle.Secondary,
 				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${visit}`,
-				label: "View",
+				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${lastVisited}` }],
 		});
@@ -375,7 +375,7 @@ export async function spiritsHistory(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: `-# Page ${page}/${maximumPage}`,
+			content: `-# ${t("spirits.page", { lng: locale, ns: "features" })} ${page}/${maximumPage}`,
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -384,21 +384,23 @@ export async function spiritsHistory(
 					type: ComponentType.Button,
 					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER : page - 1}§${type}`,
 					emoji: { name: "⬅️" },
-					label: "Back",
+					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
 				},
 				{
 					type: ComponentType.Button,
 					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§1§${type === SpiritsHistoryOrderType.Natural ? SpiritsHistoryOrderType.Absence : SpiritsHistoryOrderType.Natural}`,
 					label:
-						type === SpiritsHistoryOrderType.Natural ? "Order by absence" : "Order by appearance",
+						type === SpiritsHistoryOrderType.Natural
+							? t("spirits.order-absence", { lng: locale, ns: "features" })
+							: t("spirits.order-natural", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Primary,
 				},
 				{
 					type: ComponentType.Button,
 					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§${page === maximumPage ? 1 : page + 1}§${type}`,
 					emoji: { name: "➡️" },
-					label: "Next",
+					label: t("navigation-next", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
 				},
 			],

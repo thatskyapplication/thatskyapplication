@@ -1303,6 +1303,8 @@ export default {
 		} satisfies Record<Country, string>,
 		"open-bracket": " (",
 		"close-bracket": ")",
+		"navigation-back": "Back",
+		"navigation-next": "Next",
 	},
 	commands: {
 		about: {
@@ -1699,6 +1701,12 @@ export default {
 			today: "Today",
 			next: "Next",
 			browse: "Browse",
+		},
+		spirits: {
+			title: "Travelling Spirits History",
+			"order-natural": "Order by appearance",
+			"order-absence": "Order by last visit",
+			page: "Page"
 		},
 	},
 } as const;
