@@ -88,7 +88,6 @@ export {
 	GuideSpirit,
 	SeasonalSpirit,
 	type SeasonalSpiritVisitReturningData,
-	type SeasonalSpiritVisitTravellingData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	StandardSpirit,
 	type StandardSpiritRealm,

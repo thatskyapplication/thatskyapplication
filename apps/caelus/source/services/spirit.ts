@@ -14,7 +14,6 @@ import {
 	type GuideSpirit,
 	type SeasonalSpirit,
 	type SeasonalSpiritVisitReturningData,
-	type SeasonalSpiritVisitTravellingData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	SeasonId,
 	type SpiritIds,
