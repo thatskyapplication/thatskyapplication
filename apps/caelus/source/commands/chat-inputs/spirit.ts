@@ -3,10 +3,12 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	ApplicationCommandOptionType,
 	Locale,
+	MessageFlags,
 } from "@discordjs/core";
+import { type SpiritIds, spirits } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { spiritsHistory } from "../../features/spirits.js";
-import { search, searchAutocomplete } from "../../services/spirit.js";
+import { client } from "../../discord.js";
+import { search, searchAutocomplete, spiritsHistory } from "../../features/spirits.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -21,7 +23,22 @@ export default {
 				return;
 			}
 			case "search": {
-				await search(interaction, options);
+				const spirit = spirits().get(options.getInteger("query", true) as SpiritIds);
+
+				if (!spirit) {
+					await client.api.interactions.reply(interaction.id, interaction.token, {
+						content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+						flags: MessageFlags.Ephemeral,
+					});
+
+					return;
+				}
+
+				await client.api.interactions.reply(interaction.id, interaction.token, {
+					components: search({ spirit, locale: interaction.locale }),
+					flags: MessageFlags.IsComponentsV2,
+				});
+
 				return;
 			}
 		}

@@ -114,8 +114,10 @@ import {
 	shopSuggestionSubmission,
 } from "../features/shop.js";
 import {
+	handleSearchButton,
 	SPIRITS_HISTORY_BACK_CUSTOM_ID,
 	SPIRITS_HISTORY_NEXT_CUSTOM_ID,
+	SPIRITS_VIEW_SPIRIT_CUSTOM_ID,
 	spiritsHistory,
 } from "../features/spirits.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
@@ -660,6 +662,11 @@ export default {
 					customId.startsWith(SPIRITS_HISTORY_NEXT_CUSTOM_ID)
 				) {
 					await spiritsHistory(interaction);
+					return;
+				}
+
+				if (customId.startsWith(SPIRITS_VIEW_SPIRIT_CUSTOM_ID)) {
+					await handleSearchButton(interaction);
 					return;
 				}
 
