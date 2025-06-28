@@ -382,7 +382,7 @@ export async function spiritsHistory(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER : page - 1}§${type}`,
+					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? maximumPage : page - 1}§${type}`,
 					emoji: { name: "⬅️" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
