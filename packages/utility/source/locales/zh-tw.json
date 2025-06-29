@@ -1160,8 +1160,8 @@
 		},
 		"open-bracket": "（",
 		"close-bracket": "）",
-		"navigation-back": "",
-		"navigation-next": ""
+		"navigation-back": "上一頁",
+		"navigation-next": "下一頁"
 	},
 	"commands": {
 		"about": {
@@ -1535,9 +1535,7 @@
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
-			"back": "上一頁",
 			"today": "",
-			"next": "下一頁",
 			"browse": ""
 		},
 		"spirits": {

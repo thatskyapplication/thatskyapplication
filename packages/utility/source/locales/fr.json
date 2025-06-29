@@ -1160,8 +1160,8 @@
 		},
 		"open-bracket": " (",
 		"close-bracket": ")",
-		"navigation-back": "",
-		"navigation-next": ""
+		"navigation-back": "Retour",
+		"navigation-next": "Suivant"
 	},
 	"commands": {
 		"about": {
@@ -1535,9 +1535,7 @@
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
-			"back": "Retour",
 			"today": "",
-			"next": "Suivant",
 			"browse": ""
 		},
 		"spirits": {
