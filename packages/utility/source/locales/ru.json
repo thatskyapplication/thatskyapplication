@@ -1528,7 +1528,69 @@
 			"message": ""
 		},
 		"notifications": {
-			"back": ""
+			"back": "",
+			"messages": {
+				"0": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"1": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"2": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"3": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"4": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"5": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"6": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"7": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"8": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"9": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"10": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"11": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"12": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"13": {
+					"message_zero": "",
+					"message_other": ""
+				},
+				"14": {
+					"message_zero": "",
+					"message_other": ""
+				}
+			}
 		},
 		"shard-eruption": {
 			"browse-title": "",
