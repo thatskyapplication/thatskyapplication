@@ -22,6 +22,7 @@ import {
 	SeasonId,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
+	type SpiritsHistoryOrderTypes,
 	type StandardSpirit,
 	skyNow,
 	spirits,
@@ -35,6 +36,7 @@ import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, resolveCostToString } from "../utility/c
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
+import { OptionResolver } from "../utility/option-resolver.js";
 
 export const SPIRITS_VIEW_SPIRIT_CUSTOM_ID = "SPIRITS_VIEW_SPIRIT_CUSTOM_ID";
 export const SPIRITS_HISTORY_BACK_CUSTOM_ID = "SPIRITS_HISTORY_BACK_CUSTOM_ID";
@@ -284,11 +286,13 @@ export async function spiritsHistory(
 	const { locale } = interaction;
 	const isChatInput = isChatInputCommand(interaction);
 	let page: number;
-	let type: SpiritsHistoryOrderType;
+	let type: SpiritsHistoryOrderTypes;
 
 	if (isChatInput) {
 		page = 1;
-		type = SpiritsHistoryOrderType.Natural;
+		type =
+			(new OptionResolver(interaction).getInteger("order") as SpiritsHistoryOrderTypes | null) ??
+			SpiritsHistoryOrderType.Natural;
 	} else {
 		const [, priorPage, priorType] = interaction.data.custom_id.split("§") as [
 			string,
@@ -297,7 +301,7 @@ export async function spiritsHistory(
 		];
 
 		page = Number(priorPage);
-		type = Number(priorType);
+		type = Number(priorType) as SpiritsHistoryOrderTypes;
 	}
 
 	const offset = (page - 1) * MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;

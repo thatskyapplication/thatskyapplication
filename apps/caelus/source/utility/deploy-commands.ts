@@ -29,6 +29,7 @@ import {
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
+	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
 import { DISCORD_TOKEN } from "./configuration.js";
@@ -1116,6 +1117,33 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					ns: "commands",
 				}),
 				description_localizations: localisations("spirits.history.command-description"),
+				options: [
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: t("spirits.history.command-option-order-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: localisations("spirits.history.command-option-order-name"),
+						description: t("spirits.history.command-option-order-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"spirits.history.command-option-order-description",
+						),
+						choices: SPIRITS_HISTORY_ORDER_TYPE_VALUES.map((spiritsHistoryOrderType) => ({
+							name: t(
+								`spirits.history.command-option-order-choice-name.${spiritsHistoryOrderType}`,
+								{ lng: Locale.EnglishGB, ns: "commands" },
+							),
+							name_localizations: localisations(
+								`spirits.history.command-option-order-choice-name.${spiritsHistoryOrderType}`,
+							),
+							value: spiritsHistoryOrderType,
+						})),
+					},
+				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,

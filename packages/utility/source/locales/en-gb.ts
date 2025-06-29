@@ -6,7 +6,12 @@ import { DailyQuest, type DailyQuests } from "../quests.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import { SkyProfileWingedLightType, type SkyProfileWingedLightTypes } from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";
-import { SpiritId, type SpiritIds, SpiritsHistoryOrderType } from "../utility/spirits.js";
+import {
+	SpiritId,
+	type SpiritIds,
+	SpiritsHistoryOrderType,
+	type SpiritsHistoryOrderTypes,
+} from "../utility/spirits.js";
 
 export default {
 	general: {
@@ -1598,6 +1603,13 @@ export default {
 				"command-name": "history",
 				"command-description":
 					"See a history of spirits that visit, including spirits that have been away for a long time.",
+				"command-option-order-name": "order",
+				"command-option-order-description": "Choose an order type for the spirits.",
+				"command-option-order-choice-name": {
+					[SpiritsHistoryOrderType.Natural]: "Order by appearance (chronological order).",
+					[SpiritsHistoryOrderType.Rarity]:
+						"Order by rarity (spirits that have not returned in a long time).",
+				} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			},
 			search: {
 				"command-name": "search",
@@ -1709,7 +1721,7 @@ export default {
 			title: {
 				[SpiritsHistoryOrderType.Natural]: "History of Travelling Spirits",
 				[SpiritsHistoryOrderType.Rarity]: "Rarity of Spirits",
-			} satisfies Record<SpiritsHistoryOrderType, string>,
+			} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			"order-natural": "Order by appearance",
 			"order-rarity": "Order by rarity",
 			page: "Page",

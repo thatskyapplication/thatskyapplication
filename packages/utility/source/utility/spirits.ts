@@ -482,7 +482,12 @@ export interface Item {
 	cost: ItemCost | null;
 }
 
-export enum SpiritsHistoryOrderType {
-	Natural = 0,
-	Rarity = 1,
-}
+export const SpiritsHistoryOrderType = {
+	Natural: 0,
+	Rarity: 1,
+} as const satisfies Readonly<Record<string, number>>;
+
+export type SpiritsHistoryOrderTypes =
+	(typeof SpiritsHistoryOrderType)[keyof typeof SpiritsHistoryOrderType];
+
+export const SPIRITS_HISTORY_ORDER_TYPE_VALUES = Object.values(SpiritsHistoryOrderType);
