@@ -1591,12 +1591,13 @@ export default {
 		"Sky-Profile": {
 			"command-name": "Sky Profile",
 		},
-		spirit: {
-			"command-name": "spirit",
-			"command-description": "Commands regarding spirits.",
+		spirits: {
+			"command-name": "spirits",
+			"command-description": "Look up a spirit's information!",
 			history: {
 				"command-name": "history",
-				"command-description": "Shows the history of travelling spirits.",
+				"command-description":
+					"See a history of spirits that visit, including spirits that have been away for a long time.",
 			},
 			search: {
 				"command-name": "search",

@@ -12,7 +12,7 @@ import { search, searchAutocomplete, spiritsHistory } from "../../features/spiri
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("spirit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("spirits.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);

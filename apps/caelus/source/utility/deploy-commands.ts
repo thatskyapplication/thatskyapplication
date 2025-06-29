@@ -1101,45 +1101,45 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
-		name: t("spirit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: localisations("spirit.command-name"),
-		description: t("spirit.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: localisations("spirit.command-description"),
+		name: t("spirits.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("spirits.command-name"),
+		description: t("spirits.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("spirits.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("spirit.history.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("spirit.history.command-name"),
-				description: t("spirit.history.command-description", {
+				name: t("spirits.history.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("spirits.history.command-name"),
+				description: t("spirits.history.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: localisations("spirit.history.command-description"),
+				description_localizations: localisations("spirits.history.command-description"),
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("spirit.search.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("spirit.search.command-name"),
-				description: t("spirit.search.command-description", {
+				name: t("spirits.search.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("spirits.search.command-name"),
+				description: t("spirits.search.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: localisations("spirit.search.command-description"),
+				description_localizations: localisations("spirits.search.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("spirit.search.command-option-query-name", {
+						name: t("spirits.search.command-option-query-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("spirit.search.command-option-query-name"),
-						description: t("spirit.search.command-option-query-description", {
+						name_localizations: localisations("spirits.search.command-option-query-name"),
+						description: t("spirits.search.command-option-query-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: localisations(
-							"spirit.search.command-option-query-description",
+							"spirits.search.command-option-query-description",
 						),
 						required: true,
 						autocomplete: true,
