@@ -5,6 +5,7 @@ export interface NotificationPacket {
 	role_id: string | null;
 	offset: number | null;
 	sendable: boolean;
+	locale: string;
 }
 
 export const NotificationType = {

@@ -8,6 +8,7 @@ import {
 	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
+	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	SelectMenuDefaultValueType,
@@ -127,7 +128,10 @@ interface NotificationsSetupOptions {
 	offset?: number | null;
 }
 
-type NotificationsSetupPayload = Pick<NotificationPacket, "guild_id" | "type" | "sendable"> &
+type NotificationsSetupPayload = Pick<
+	NotificationPacket,
+	"guild_id" | "type" | "sendable" | "locale"
+> &
 	Partial<Pick<NotificationPacket, "channel_id" | "role_id" | "offset">>;
 
 async function setup({ guild, type, channelId, roleId, offset }: NotificationsSetupOptions) {
@@ -146,6 +150,7 @@ async function setup({ guild, type, channelId, roleId, offset }: NotificationsSe
 			roleId === undefined ? notificationPacket?.role_id : roleId,
 			offset === undefined ? notificationPacket?.offset : offset,
 		),
+		locale: guild.preferredLocale,
 	};
 
 	const merge: (keyof Pick<
@@ -594,11 +599,14 @@ export async function checkSendable(guildId: Snowflake) {
 					notificationPacket.offset,
 				),
 			})
-			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type })
-			.returning("*"),
+			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type }),
 	);
 
 	await Promise.all(promises);
+}
+
+export async function updateLocale(guildId: Snowflake, locale: Locale) {
+	await pg<NotificationPacket>(Table.Notifications).update({ locale }).where({ guild_id: guildId });
 }
 
 function isSendable(
