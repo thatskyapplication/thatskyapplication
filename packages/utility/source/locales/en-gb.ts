@@ -1703,6 +1703,72 @@ export default {
 		},
 		notifications: {
 			back: "Back",
+			messages: {
+				[NotificationType.DailyReset]: {
+					message_zero: "It's a new day. Time to forge candles again!",
+					message_other: "A new day will begin {{timestamp}}!",
+				},
+				[NotificationType.EyeOfEden]: {
+					message_zero: "Sky kids may save statues in the Eye of Eden again!",
+					message_other: "Statues in the Eye of Eden will reset {{timestamp}}!",
+				},
+				[NotificationType.InternationalSpaceStation]: {
+					message_zero: "The International Space Station is accessible!",
+					message_other: "The International Space Station will be accessible {{timestamp}}!",
+				},
+				[NotificationType.Dragon]: {
+					message_zero: "The dragon is spreading its festivities now!",
+					message_other: "The dragon will spread its festivities {{timestamp}}!",
+				},
+				[NotificationType.PollutedGeyser]: {
+					message_zero: "The Polluted Geyser is starting to erupt!",
+					message_other: "The Polluted Geyser will erupt {{timestamp}}!",
+				},
+				[NotificationType.Grandma]: {
+					message_zero: "Grandma has begun sharing her light!",
+					message_other: "Grandma will share her light {{timestamp}}!",
+				},
+				[NotificationType.Turtle]: {
+					message_zero: "The turtle needs cleansing of darkness now!",
+					message_other: "The turtle will need cleansing of darkness {{timestamp}}!",
+				},
+				[NotificationType.RegularShardEruption]: {
+					message_zero:
+						"A regular shard eruption is landing in the {{location}} {{timestampStart}} and clears up {{timestampEnd}}!",
+					message_other:
+						"A regular shard eruption lands in the {{location}} {{timestampStart}} and clears up {{timestampEnd}}!",
+				},
+				[NotificationType.StrongShardEruption]: {
+					message_zero:
+						"A strong shard eruption is landing in the {{location}} {{timestampStart}} and clears up {{timestampEnd}}!",
+					message_other:
+						"A strong shard eruption lands in the {{location}} {{timestampStart}} and clears up {{timestampEnd}}!",
+				},
+				[NotificationType.AURORA]: {
+					message_zero: "The AURORA concert is starting! Take your friends!",
+					message_other: "The AURORA concert will start {{timestamp}}! Take your friends!",
+				},
+				[NotificationType.Passage]: {
+					message_zero: "The Season of Passage quests are starting!",
+					message_other: "The Season of Passage quests will start {{timestamp}}!",
+				},
+				[NotificationType.AviarysFireworkFestival]: {
+					message_zero: "Aviary's Firework Festival is beginning!",
+					message_other: "Aviary's Firework Festival will begin {{timestamp}}!",
+				},
+				[NotificationType.TravellingSpirit]: {
+					message_zero: "{{spirit}} has arrived!",
+					message_other: "{{spirit}} will arrive {{timestamp}}!",
+				},
+				[NotificationType.DreamsSkater]: {
+					message_zero: "The Dreams skater has begun practising!",
+					message_other: "The Dreams skater will practise {{timestamp}}!",
+				},
+				[NotificationType.NestingWorkshop]: {
+					message_zero: "The Nesting Workshop's stock has refreshed!",
+					message_other: "The Nesting Workshop's stock will refresh {{timestamp}}!",
+				},
+			} satisfies Record<NotificationTypes, { message_zero: string; message_other: string }>,
 		},
 		"shard-eruption": {
 			"browse-title": "Shard Eruptions",
