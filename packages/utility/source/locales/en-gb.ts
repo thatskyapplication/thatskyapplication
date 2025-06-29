@@ -1707,8 +1707,8 @@ export default {
 			"not-encountered-spirit":
 				"Woah, it seems we have not encountered that spirit yet. How strange!",
 			title: {
-				[SpiritsHistoryOrderType.Natural]: "Travelling Spirits History",
-				[SpiritsHistoryOrderType.Rarity]: "Spirits Rarity",
+				[SpiritsHistoryOrderType.Natural]: "History of Travelling Spirits",
+				[SpiritsHistoryOrderType.Rarity]: "Rarity of Spirits",
 			} satisfies Record<SpiritsHistoryOrderType, string>,
 			"order-natural": "Order by appearance",
 			"order-rarity": "Order by rarity",
