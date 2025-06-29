@@ -762,6 +762,7 @@ export default class Profile {
 	public static async explore(
 		interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	) {
+		const { locale } = interaction;
 		const isChatInput = isChatInputCommand(interaction);
 
 		const page = isChatInput
@@ -844,7 +845,7 @@ export default class Profile {
 							custom_id: `${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1}`,
 							disabled: !hasPreviousPage,
 							emoji: { name: "⬅️" },
-							label: "Back",
+							label: t("navigation-back", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
 						{
@@ -852,7 +853,7 @@ export default class Profile {
 							custom_id: `${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${page + 1}`,
 							disabled: !hasNextPage,
 							emoji: { name: "➡️" },
-							label: "Next",
+							label: t("navigation-next", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
 						{
@@ -951,6 +952,7 @@ export default class Profile {
 			| APIUserApplicationCommandInteraction,
 		userId: LooseSnowflake,
 	) {
+		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const profile = await this.fetch(userId).catch(() => null);
 
@@ -999,7 +1001,7 @@ export default class Profile {
 							custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`,
 							disabled: !previous,
 							emoji: { name: "⬅️" },
-							label: "Back",
+							label: t("navigation-back", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
 						{
@@ -1007,7 +1009,7 @@ export default class Profile {
 							custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`,
 							disabled: !next,
 							emoji: { name: "➡️" },
-							label: "Next",
+							label: t("navigation-next", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
 						{
@@ -1079,6 +1081,7 @@ export default class Profile {
 	public static async exploreLikes(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
+		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 		const page = Number(
 			interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
@@ -1155,7 +1158,7 @@ export default class Profile {
 							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID}§${page - 1}`,
 							disabled: !hasPreviousPage,
 							emoji: { name: "⬅️" },
-							label: "Back",
+							label: t("navigation-back", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
 						{
@@ -1163,7 +1166,7 @@ export default class Profile {
 							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID}§${page + 1}`,
 							disabled: !hasNextPage,
 							emoji: { name: "➡️" },
-							label: "Next",
+							label: t("navigation-next", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
 						{
@@ -1240,6 +1243,7 @@ export default class Profile {
 	public static async exploreLikedProfile(
 		interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	) {
+		const { locale } = interaction;
 		const invoker = interactionInvoker(interaction);
 
 		const userId = isButton(interaction)
@@ -1280,7 +1284,7 @@ export default class Profile {
 							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`,
 							disabled: !previous,
 							emoji: { name: "⬅️" },
-							label: "Back",
+							label: t("navigation-back", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
 						{
@@ -1288,7 +1292,7 @@ export default class Profile {
 							custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`,
 							disabled: !next,
 							emoji: { name: "➡️" },
-							label: "Next",
+							label: t("navigation-next", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
 						{

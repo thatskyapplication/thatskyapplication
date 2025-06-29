@@ -218,6 +218,7 @@ export async function gift(
 export async function history(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 ) {
+	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 	const isChatInput = isChatInputCommand(interaction);
 
@@ -275,7 +276,7 @@ export async function history(
 						custom_id: `${HEART_HISTORY_BACK}§${page - 1}`,
 						disabled: !hasPreviousPage,
 						emoji: { name: "⬅️" },
-						label: "Back",
+						label: t("navigation-back", { lng: locale, ns: "general" }),
 						style: ButtonStyle.Secondary,
 					},
 					{
@@ -283,7 +284,7 @@ export async function history(
 						custom_id: `${HEART_HISTORY_NEXT}§${page + 1}`,
 						disabled: !hasNextPage,
 						emoji: { name: "➡️" },
-						label: "Next",
+						label: t("navigation-next", { lng: locale, ns: "general" }),
 						style: ButtonStyle.Secondary,
 					},
 				],

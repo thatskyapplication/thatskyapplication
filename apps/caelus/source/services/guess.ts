@@ -451,6 +451,7 @@ export async function leaderboard(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	difficulty: GuessDifficultyLevel,
 ) {
+	const { locale } = interaction;
 	const isChatInput = isChatInputCommand(interaction);
 
 	const page = isChatInput
@@ -530,7 +531,7 @@ export async function leaderboard(
 					custom_id: `${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${difficulty}§${page - 1}`,
 					disabled: !hasPreviousPage,
 					emoji: { name: "⬅️" },
-					label: "Back",
+					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
 				},
 				{
@@ -538,7 +539,7 @@ export async function leaderboard(
 					custom_id: `${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${difficulty}§${page + 1}`,
 					disabled: !hasNextPage,
 					emoji: { name: "➡️" },
-					label: "Next",
+					label: t("navigation-next", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
 				},
 			],
