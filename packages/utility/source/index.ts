@@ -154,4 +154,5 @@ export {
 	SpiritId,
 	type SpiritIds,
 	SpiritStance,
+	SpiritsHistoryOrderType,
 } from "./utility/spirits.js";

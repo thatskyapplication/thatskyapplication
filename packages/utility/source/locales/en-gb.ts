@@ -6,7 +6,7 @@ import { DailyQuest, type DailyQuests } from "../quests.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import { SkyProfileWingedLightType, type SkyProfileWingedLightTypes } from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";
-import { SpiritId, type SpiritIds } from "../utility/spirits.js";
+import { SpiritId, type SpiritIds, SpiritsHistoryOrderType } from "../utility/spirits.js";
 
 export default {
 	general: {
@@ -1706,7 +1706,10 @@ export default {
 		spirits: {
 			"not-encountered-spirit":
 				"Woah, it seems we have not encountered that spirit yet. How strange!",
-			title: "Travelling Spirits History",
+			title: {
+				[SpiritsHistoryOrderType.Natural]: "Travelling Spirits History",
+				[SpiritsHistoryOrderType.Rarity]: "Spirits Rarity",
+			} satisfies Record<SpiritsHistoryOrderType, string>,
 			"order-natural": "Order by appearance",
 			"order-rarity": "Order by rarity",
 			page: "Page",

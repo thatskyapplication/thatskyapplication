@@ -20,6 +20,7 @@ import {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	SeasonId,
+	SpiritsHistoryOrderType,
 	type StandardSpirit,
 	skyNow,
 	spirits,
@@ -38,11 +39,6 @@ export const SPIRITS_VIEW_SPIRIT_CUSTOM_ID = "SPIRITS_VIEW_SPIRIT_CUSTOM_ID";
 export const SPIRITS_HISTORY_BACK_CUSTOM_ID = "SPIRITS_HISTORY_BACK_CUSTOM_ID";
 export const SPIRITS_HISTORY_NEXT_CUSTOM_ID = "SPIRITS_HISTORY_NEXT_CUSTOM_ID";
 const MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER = 10 as const;
-
-enum SpiritsHistoryOrderType {
-	Natural = 0,
-	Rarity = 1,
-}
 
 export async function searchAutocomplete<
 	Interaction extends APIApplicationCommandAutocompleteInteraction,
@@ -325,7 +321,7 @@ export async function spiritsHistory(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t("spirits.title", { lng: locale, ns: "features" })}`,
+			content: `## ${t(`spirits.title.${type}`, { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,

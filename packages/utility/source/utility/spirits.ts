@@ -481,3 +481,8 @@ export interface Item {
 	cosmeticDisplay: Cosmetic;
 	cost: ItemCost | null;
 }
+
+export enum SpiritsHistoryOrderType {
+	Natural = 0,
+	Rarity = 1,
+}
