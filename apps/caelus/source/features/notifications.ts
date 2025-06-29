@@ -598,6 +598,7 @@ export async function checkSendable(guildId: Snowflake) {
 					notificationPacket.role_id,
 					notificationPacket.offset,
 				),
+				locale: guild.preferredLocale,
 			})
 			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type }),
 	);
