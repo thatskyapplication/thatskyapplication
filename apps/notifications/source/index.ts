@@ -15,7 +15,9 @@ import {
 	NotificationType,
 	type NotificationTypes,
 	ptBR,
+	type RealmName,
 	ru,
+	type SkyMap,
 	shardEruption,
 	TIME_ZONE,
 	TRAVELLING_DATES,
@@ -66,10 +68,37 @@ const travellingSpiritStart = travellingSpirit?.start;
 const travellingSpiritEarliestNotificationTime = travellingSpiritStart?.minus(900000);
 let shardData = shardEruption();
 
-interface NotificationsData {
-	type: NotificationTypes;
+const NOTIFICATION_SHARD_ERUPTION_TYPES = [
+	NotificationType.RegularShardEruption,
+	NotificationType.StrongShardEruption,
+] as const satisfies Readonly<NotificationTypes[]>;
+
+type NotificationShardEruptionTypes = (typeof NOTIFICATION_SHARD_ERUPTION_TYPES)[number];
+
+interface NotificationsShardEruptionData {
+	type: NotificationShardEruptionTypes;
 	timeUntilStart: number;
-	suffix: string;
+	realm: RealmName;
+	skyMap: SkyMap;
+	url: string;
+	timestampStart: `<t:${number}:R>`;
+	timestampEnd: `<t:${number}:R>`;
+}
+
+interface NotificationsNotShardEruptionData {
+	type: Exclude<NotificationTypes, NotificationShardEruptionTypes>;
+	timeUntilStart: number;
+	timestamp: `<t:${number}:R>`;
+}
+
+type NotificationsData = NotificationsShardEruptionData | NotificationsNotShardEruptionData;
+
+function isNotificationShardEruptionData(
+	notification: NotificationsData,
+): notification is NotificationsShardEruptionData {
+	return NOTIFICATION_SHARD_ERUPTION_TYPES.includes(
+		notification.type as NotificationShardEruptionTypes,
+	);
 }
 
 // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
@@ -98,13 +127,11 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					? NotificationType.StrongShardEruption
 					: NotificationType.RegularShardEruption,
 				timeUntilStart,
-				suffix: shardData.strong
-					? timeUntilStart === 0
-						? `A strong shard eruption is landing in the [${shardData.realm} (${shardData.skyMap})](${shardData.url}) and clears up <t:${shardStart.end.toUnixInteger()}:R>!`
-						: `A strong shard eruption lands in the [${shardData.realm} (${shardData.skyMap})](${shardData.url}) <t:${shardStart.start.toUnixInteger()}:R> and clears up <t:${shardStart.end.toUnixInteger()}:R>!`
-					: timeUntilStart === 0
-						? `A regular shard eruption is landing in the [${shardData.realm} (${shardData.skyMap})](${shardData.url}) and clears up <t:${shardStart.end.toUnixInteger()}:R>!`
-						: `A regular shard eruption lands in the [${shardData.realm} (${shardData.skyMap})](${shardData.url}) <t:${shardStart.start.toUnixInteger()}:R> and clears up <t:${shardStart.end.toUnixInteger()}:R>!`,
+				realm: shardData.realm,
+				skyMap: shardData.skyMap,
+				url: shardData.url,
+				timestampStart: `<t:${shardStart.start.toUnixInteger()}:R>`,
+				timestampEnd: `<t:${shardStart.end.toUnixInteger()}:R>`,
 			});
 		}
 	}
@@ -116,10 +143,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.DailyReset,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "It's a new day. Time to forge candles again!"
-					: `A new day will begin <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -133,10 +157,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.EyeOfEden,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "Sky kids may save statues in the Eye of Eden again!"
-					: `Statues in the Eye of Eden will reset <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -159,10 +180,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.InternationalSpaceStation,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "The International Space Station is accessible!"
-					: `The International Space Station will be accessible <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -177,10 +195,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.TravellingSpirit,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? `${t(`spirits.${travellingSpirit.spiritId}`, { lng: Locale.EnglishGB, ns: "general" })} has arrived!`
-					: `${t(`spirits.${travellingSpirit.spiritId}`, { lng: Locale.EnglishGB, ns: "general" })} will arrive <t:${travellingSpiritStart.toUnixInteger()}:R>!`,
+			timestamp: `<t:${travellingSpiritStart.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -197,10 +212,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.Passage,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "The Season of Passage quests are starting!"
-					: `The Season of Passage quests will start <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -211,10 +223,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.AURORA,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "The AURORA concert is starting! Take your friends!"
-					: `The AURORA concert will start <t:${startTime.toUnixInteger()}:R>! Take your friends!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -228,10 +237,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.PollutedGeyser,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "The Polluted Geyser is starting to erupt!"
-					: `The Polluted Geyser will erupt <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -242,10 +248,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.Grandma,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "Grandma has begun sharing her light!"
-					: `Grandma will share her light <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -256,10 +259,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.Turtle,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "The turtle needs cleansing of darkness now!"
-					: `The turtle will need cleansing of darkness <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -273,10 +273,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.DreamsSkater,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "The Dreams skater has begun practising!"
-					: `The Dreams skater will practise <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -290,10 +287,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.NestingWorkshop,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "The Nesting Workshop's stock has refreshed!"
-					: `The Nesting Workshop's stock will refresh <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
@@ -307,20 +301,18 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		notifications.push({
 			type: NotificationType.AviarysFireworkFestival,
 			timeUntilStart,
-			suffix:
-				timeUntilStart === 0
-					? "Aviary's Firework Festival is beginning!"
-					: `Aviary's Firework Festival will begin <t:${startTime.toUnixInteger()}:R>!`,
+			timestamp: `<t:${startTime.toUnixInteger()}:R>`,
 		});
 	}
 
-	for (const { type, timeUntilStart, suffix } of notifications) {
+	for (const notification of notifications) {
+		const { type, timeUntilStart } = notification;
 		pino.info({ type, until: timeUntilStart }, "Queueing notification.");
 
 		const notificationsSettled = await Promise.allSettled(
 			(
 				await pg<NotificationPacket & { channel_id: string; role_id: string }>(NOTIFICATIONS_TABLE)
-					.select("channel_id", "role_id")
+					.select("channel_id", "role_id", "locale")
 					.where({
 						type,
 						offset: timeUntilStart,
@@ -328,15 +320,35 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					})
 					.and.whereNotNull("channel_id")
 					.and.whereNotNull("role_id")
-			).map((notificationPacket) =>
+			).map((notificationPacket) => {
+				const message = isNotificationShardEruptionData(notification)
+					? t(`notifications.messages.${type}.message`, {
+							lng: notificationPacket.locale,
+							ns: "features",
+							count: timeUntilStart,
+							location: `[${t(`realms.${notification.realm}`, { lng: notificationPacket.locale, ns: "general" })}${t("open-bracket", { lng: notificationPacket.locale, ns: "general" })}${t(`maps.${notification.skyMap}`, { lng: notificationPacket.locale, ns: "general" })}${t("close-bracket", { lng: notificationPacket.locale, ns: "general" })}](${notification.url})`,
+							timestampStart: notification.timestampStart,
+							timestampEnd: notification.timestampEnd,
+						})
+					: t(`notifications.messages.${type}.message`, {
+							lng: notificationPacket.locale,
+							ns: "features",
+							count: timeUntilStart,
+							timestamp: notification.timestamp,
+							spirit: t(`spirits.${travellingSpirit!.spiritId}`, {
+								lng: notificationPacket.locale,
+								ns: "general",
+							}),
+						});
+
 				client.channels.createMessage(notificationPacket.channel_id, {
 					allowed_mentions: { roles: [notificationPacket.role_id] },
-					content: `<@&${notificationPacket.role_id}> ${suffix}`,
+					content: `<@&${notificationPacket.role_id}> ${message}`,
 					enforce_nonce: true,
 					flags: MessageFlags.SuppressEmbeds,
 					nonce: `${type}-${notificationPacket.channel_id}`,
-				}),
-			),
+				});
+			}),
 		);
 
 		const errors = notificationsSettled
