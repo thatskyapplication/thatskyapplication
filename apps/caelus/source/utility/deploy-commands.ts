@@ -29,6 +29,7 @@ import {
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
+	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
 import { DISCORD_TOKEN } from "./configuration.js";
@@ -1101,35 +1102,72 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
-		name: t("spirit.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: localisations("spirit.command-name"),
-		description: t("spirit.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: localisations("spirit.command-description"),
+		name: t("spirits.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("spirits.command-name"),
+		description: t("spirits.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("spirits.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("spirit.search.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("spirit.search.command-name"),
-				description: t("spirit.search.command-description", {
+				name: t("spirits.history.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("spirits.history.command-name"),
+				description: t("spirits.history.command-description", {
 					lng: Locale.EnglishGB,
 					ns: "commands",
 				}),
-				description_localizations: localisations("spirit.search.command-description"),
+				description_localizations: localisations("spirits.history.command-description"),
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("spirit.search.command-option-query-name", {
+						name: t("spirits.history.command-option-order-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("spirit.search.command-option-query-name"),
-						description: t("spirit.search.command-option-query-description", {
+						name_localizations: localisations("spirits.history.command-option-order-name"),
+						description: t("spirits.history.command-option-order-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: localisations(
-							"spirit.search.command-option-query-description",
+							"spirits.history.command-option-order-description",
+						),
+						choices: SPIRITS_HISTORY_ORDER_TYPE_VALUES.map((spiritsHistoryOrderType) => ({
+							name: t(
+								`spirits.history.command-option-order-choice-name.${spiritsHistoryOrderType}`,
+								{ lng: Locale.EnglishGB, ns: "commands" },
+							),
+							name_localizations: localisations(
+								`spirits.history.command-option-order-choice-name.${spiritsHistoryOrderType}`,
+							),
+							value: spiritsHistoryOrderType,
+						})),
+					},
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: t("spirits.search.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("spirits.search.command-name"),
+				description: t("spirits.search.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: localisations("spirits.search.command-description"),
+				options: [
+					{
+						type: ApplicationCommandOptionType.Integer,
+						name: t("spirits.search.command-option-query-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: localisations("spirits.search.command-option-query-name"),
+						description: t("spirits.search.command-option-query-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"spirits.search.command-option-query-description",
 						),
 						required: true,
 						autocomplete: true,

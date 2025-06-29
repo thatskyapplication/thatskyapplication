@@ -481,3 +481,13 @@ export interface Item {
 	cosmeticDisplay: Cosmetic;
 	cost: ItemCost | null;
 }
+
+export const SpiritsHistoryOrderType = {
+	Natural: 0,
+	Rarity: 1,
+} as const satisfies Readonly<Record<string, number>>;
+
+export type SpiritsHistoryOrderTypes =
+	(typeof SpiritsHistoryOrderType)[keyof typeof SpiritsHistoryOrderType];
+
+export const SPIRITS_HISTORY_ORDER_TYPE_VALUES = Object.values(SpiritsHistoryOrderType);

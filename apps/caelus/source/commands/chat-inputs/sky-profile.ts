@@ -13,8 +13,8 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
+import { searchAutocomplete } from "../../features/spirits.js";
 import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
-import { searchAutocomplete } from "../../services/spirit.js";
 import { APPLICATION_ID } from "../../utility/constants.js";
 import { validateAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
@@ -137,7 +137,10 @@ export default {
 
 				if (!spirit) {
 					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-						content: "Woah, it seems we have not encountered that spirit yet. How strange!",
+						content: t("spirits.not-encountered-spirit", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
 					});
 
 					return;

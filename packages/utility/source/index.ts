@@ -131,7 +131,7 @@ export {
 	skySeasons,
 	skyUpcomingSeason,
 	TRAVELLING_DATES,
-	type TravellingDatesData,
+	VISITS_ABSENT,
 } from "./spirits/seasons/index.js";
 export type { Snowflake } from "./types/index.js";
 export { LINK_REDIRECTOR_URL } from "./utility/constants.js";
@@ -149,9 +149,12 @@ export {
 	type ItemCost,
 	type ItemRaw,
 	isSpiritId,
+	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	SpiritCall,
 	SpiritEmote,
 	SpiritId,
 	type SpiritIds,
 	SpiritStance,
+	SpiritsHistoryOrderType,
+	type SpiritsHistoryOrderTypes,
 } from "./utility/spirits.js";

@@ -59,28 +59,64 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	BlueBird,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
-export interface TravellingDatesData {
+enum VisitType {
+	Travelling = 0,
+	Returning = 1,
+}
+
+interface Visit {
+	type: VisitType;
 	spiritId: SpiritIds;
+	visit: number;
 	start: DateTime;
 	end: DateTime;
 }
 
-export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingDatesData> = new Collection<
-	number,
-	TravellingDatesData
->(
-	SEASONS.reduce<TravellingDatesData[]>((travellingDates, season) => {
+export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collection<number, Visit>(
+	SEASONS.reduce<Omit<Visit, "visit">[]>((travellingDates, season) => {
 		for (const spirit of season.spirits.values()) {
 			for (const dates of spirit.visits.travelling) {
-				travellingDates.push({ ...dates, spiritId: spirit.id });
+				travellingDates.push({ ...dates, spiritId: spirit.id, type: VisitType.Travelling });
 			}
 		}
 
 		return travellingDates;
 	}, [])
 		.sort((a, b) => a.start.toMillis() - b.start.toMillis())
-		.map((dates, index) => [index + 1, dates]),
+		.map((dates, index) => [index + 1, { ...dates, visit: index + 1 }]),
 );
+
+const returningDates: Readonly<Visit[]> = SEASONS.reduce<Visit[]>((returningDates, season) => {
+	for (const spirit of season.spirits.values()) {
+		for (const [visit, dates] of spirit.visits.returning) {
+			returningDates.push({ ...dates, spiritId: spirit.id, visit, type: VisitType.Returning });
+		}
+	}
+
+	return returningDates;
+}, []);
+
+const allVisits = [];
+
+for (const travellingDate of TRAVELLING_DATES.values()) {
+	allVisits.push(travellingDate);
+}
+
+for (const returningDate of returningDates) {
+	allVisits.push(returningDate);
+}
+
+export const VISITS_ABSENT: Readonly<Visit[]> = allVisits
+	.sort((a, b) => a.start.toMillis() - b.start.toMillis())
+	.reduceRight<Visit[]>((visits, visit) => {
+		if (visits.some((storedVisit) => storedVisit.spiritId === visit.spiritId)) {
+			return visits;
+		}
+
+		visits.push(visit);
+		return visits;
+	}, [])
+	.reverse();
 
 export function skySeasons(date = skyNow()) {
 	return SEASONS.filter(({ start }) => date >= start);

@@ -1,9 +1,12 @@
-import type { ReadonlyCollection } from "@discordjs/collection";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIApplicationCommandInteractionDataIntegerOption,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
+	type APIInteractionResponseCallbackData,
+	type APIMessageComponentButtonInteraction,
+	type APIMessageTopLevelComponent,
+	ButtonStyle,
 	ComponentType,
 	type Locale,
 	MessageFlags,
@@ -18,19 +21,27 @@ import {
 	type SeasonalSpiritVisitTravellingErrorData,
 	SeasonId,
 	type SpiritIds,
+	SpiritsHistoryOrderType,
+	type SpiritsHistoryOrderTypes,
 	type StandardSpirit,
 	skyNow,
 	spirits,
 	TIME_ZONE,
 	TRAVELLING_DATES,
-	type TravellingDatesData,
+	VISITS_ABSENT,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, resolveCostToString } from "../utility/catalogue.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
-import type { OptionResolver } from "../utility/option-resolver.js";
+import { isChatInputCommand } from "../utility/functions.js";
+import { OptionResolver } from "../utility/option-resolver.js";
+
+export const SPIRITS_VIEW_SPIRIT_CUSTOM_ID = "SPIRITS_VIEW_SPIRIT_CUSTOM_ID";
+export const SPIRITS_HISTORY_BACK_CUSTOM_ID = "SPIRITS_HISTORY_BACK_CUSTOM_ID";
+export const SPIRITS_HISTORY_NEXT_CUSTOM_ID = "SPIRITS_HISTORY_NEXT_CUSTOM_ID";
+const MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER = 10 as const;
 
 export async function searchAutocomplete<
 	Interaction extends APIApplicationCommandAutocompleteInteraction,
@@ -85,29 +96,8 @@ export async function searchAutocomplete<
 	});
 }
 
-export async function search(
-	interaction: APIChatInputApplicationCommandInteraction,
-	options: OptionResolver,
-) {
-	const query = options.getInteger("query", true);
-	const spirit = spirits().get(query as SpiritIds);
-
-	if (!spirit) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "Woah, it seems we have not encountered that spirit yet. How strange!",
-			flags: MessageFlags.Ephemeral,
-		});
-
-		return;
-	}
-
-	await searchResponse(interaction, spirit);
-}
-
 function visitField(
-	seasonalSpiritVisit:
-		| ReadonlyCollection<number, TravellingDatesData>
-		| SeasonalSpiritVisitReturningData,
+	seasonalSpiritVisit: typeof TRAVELLING_DATES | SeasonalSpiritVisitReturningData,
 	locale: Locale,
 ) {
 	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
@@ -150,11 +140,12 @@ function visitErrorField(
 		.join("\n");
 }
 
-async function searchResponse(
-	interaction: APIChatInputApplicationCommandInteraction,
-	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
-) {
-	const { locale } = interaction;
+interface SpiritSearchOptions {
+	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit;
+	locale: Locale;
+}
+
+export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopLevelComponent] {
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
 	const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : null;
@@ -261,14 +252,168 @@ async function searchResponse(
 		});
 	}
 
+	return [
+		{
+			type: ComponentType.Container,
+			accent_color: DEFAULT_EMBED_COLOUR,
+			components: containerComponents,
+		},
+	];
+}
+
+export async function handleSearchButton(interaction: APIMessageComponentButtonInteraction) {
+	const [, spiritId] = interaction.data.custom_id.split("§") as [string, string, string];
+	const spirit = spirits().get(Number(spiritId) as SpiritIds);
+
+	if (!spirit) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("spirits.not-encountered-spirit", { lng: interaction.locale, ns: "features" }),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
 	await client.api.interactions.reply(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
-				components: containerComponents,
-			},
-		],
-		flags: MessageFlags.IsComponentsV2,
+		components: search({ spirit, locale: interaction.locale }),
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	});
+}
+
+export async function spiritsHistory(
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+) {
+	const { locale } = interaction;
+	const isChatInput = isChatInputCommand(interaction);
+	let page: number;
+	let type: SpiritsHistoryOrderTypes;
+
+	if (isChatInput) {
+		page = 1;
+		type =
+			(new OptionResolver(interaction).getInteger("order") as SpiritsHistoryOrderTypes | null) ??
+			SpiritsHistoryOrderType.Natural;
+	} else {
+		const [, priorPage, priorType] = interaction.data.custom_id.split("§") as [
+			string,
+			string,
+			string,
+		];
+
+		page = Number(priorPage);
+		type = Number(priorType) as SpiritsHistoryOrderTypes;
+	}
+
+	const offset = (page - 1) * MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
+	const limit = offset + MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
+	let spirits: typeof TRAVELLING_DATES | typeof VISITS_ABSENT;
+	let maximumPage: number;
+
+	if (type === SpiritsHistoryOrderType.Natural) {
+		spirits = TRAVELLING_DATES;
+		maximumPage = Math.ceil(spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
+	} else {
+		spirits = VISITS_ABSENT;
+		maximumPage = Math.ceil(spirits.length / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
+	}
+
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## ${t(`spirits.title.${type}`, { lng: locale, ns: "features" })}`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	for (let index = offset; index < limit; index++) {
+		const visitData = spirits.at(index);
+
+		if (!visitData) {
+			break;
+		}
+
+		const { spiritId, start, visit } = visitData;
+
+		// Need to escape # otherwise Discord will not render the heading correctly.
+		const heading = `###${type === SpiritsHistoryOrderType.Natural ? ` \\#${visit}` : ""} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
+
+		const startFormatOptions: Intl.DateTimeFormatOptions = {
+			timeZone: TIME_ZONE,
+			dateStyle: "short",
+		};
+
+		if (start.hour !== 0 || start.minute !== 0) {
+			startFormatOptions.timeStyle = "short";
+		}
+
+		const dateString = Intl.DateTimeFormat(locale, startFormatOptions).format(start.toMillis());
+		const lastVisited = `\`${dateString}\` (<t:${start.toUnixInteger()}:R>)`;
+
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Secondary,
+				// We add the index to prevent custom id duplication.
+				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${spiritId}§${index}`,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${lastVisited}` }],
+		});
+	}
+
+	containerComponents.push(
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: `-# ${t("spirits.page", { lng: locale, ns: "features" })} ${page}/${maximumPage}`,
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? maximumPage : page - 1}§${type}`,
+					emoji: { name: "⬅️" },
+					label: t("navigation-back", { lng: locale, ns: "general" }),
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§1§${type === SpiritsHistoryOrderType.Natural ? SpiritsHistoryOrderType.Rarity : SpiritsHistoryOrderType.Natural}`,
+					label:
+						type === SpiritsHistoryOrderType.Natural
+							? t("spirits.order-rarity", { lng: locale, ns: "features" })
+							: t("spirits.order-natural", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Primary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§${page === maximumPage ? 1 : page + 1}§${type}`,
+					emoji: { name: "➡️" },
+					label: t("navigation-next", { lng: locale, ns: "general" }),
+					style: ButtonStyle.Secondary,
+				},
+			],
+		},
+	);
+
+	const response: APIInteractionResponseCallbackData = {
+		components: [{ type: ComponentType.Container, components: containerComponents }],
+		flags: MessageFlags.IsComponentsV2,
+	};
+
+	if (isChatInput) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+	}
 }
