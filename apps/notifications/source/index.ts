@@ -335,6 +335,10 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 							ns: "features",
 							count: timeUntilStart,
 							timestamp: notification.timestamp,
+							spirit: t(`spirits.${travellingSpirit!.spiritId}`, {
+								lng: notificationPacket.locale,
+								ns: "general",
+							}),
 						});
 
 				client.channels.createMessage(notificationPacket.channel_id, {
