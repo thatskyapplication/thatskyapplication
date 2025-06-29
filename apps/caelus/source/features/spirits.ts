@@ -334,14 +334,14 @@ export async function spiritsHistory(
 		},
 	];
 
-	for (let travellingIndex = offset; travellingIndex < limit; travellingIndex++) {
-		const travelling = spirits.at(travellingIndex);
+	for (let index = offset; index < limit; index++) {
+		const visitData = spirits.at(index);
 
-		if (!travelling) {
+		if (!visitData) {
 			break;
 		}
 
-		const { spiritId, start, visit } = travelling;
+		const { spiritId, start, visit } = visitData;
 
 		// Need to escape # otherwise Discord will not render the heading correctly.
 		const heading = `###${type === SpiritsHistoryOrderType.Natural ? ` \\#${visit}` : ""} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
@@ -363,7 +363,7 @@ export async function spiritsHistory(
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Secondary,
-				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${type}§${travellingIndex}`,
+				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${type}§${index}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${lastVisited}` }],
