@@ -20,6 +20,7 @@ import {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	SeasonId,
+	type SpiritIds,
 	SpiritsHistoryOrderType,
 	type StandardSpirit,
 	skyNow,
@@ -259,14 +260,8 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 }
 
 export async function handleSearchButton(interaction: APIMessageComponentButtonInteraction) {
-	const [, typeString, index] = interaction.data.custom_id.split("§") as [string, string, string];
-	const type = Number(typeString) as SpiritsHistoryOrderType;
-
-	const visit = (type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT).at(
-		Number(index),
-	);
-
-	const spirit = visit && spirits().get(visit.spiritId);
+	const [, spiritId] = interaction.data.custom_id.split("§") as [string, string, string];
+	const spirit = spirits().get(Number(spiritId) as SpiritIds);
 
 	if (!spirit) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -359,7 +354,8 @@ export async function spiritsHistory(
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Secondary,
-				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${type}§${index}`,
+				// We add the index to prevent custom id duplication.
+				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${spiritId}§${index}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${lastVisited}` }],
