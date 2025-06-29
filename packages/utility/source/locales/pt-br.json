@@ -306,7 +306,8 @@
 			"232": "Encontre-se com o Contramestre Trapalhão no Tesouro do Recife",
 			"233": "Encontre-se com o Construtor Engenhoso no Ninho de Pássaros",
 			"234": "Encontre-se com a Forjadora de Sinos no Ninho de Pássaros",
-			"235": "Encontre-se com a Domadora de Luzes no Ninho de Pássaros"
+			"235": "Encontre-se com a Domadora de Luzes no Ninho de Pássaros",
+			"236": ""
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -1158,7 +1159,9 @@
 			"AX": "Ilhas Åland"
 		},
 		"open-bracket": " (",
-		"close-bracket": ")"
+		"close-bracket": ")",
+		"navigation-back": "",
+		"navigation-next": ""
 	},
 	"commands": {
 		"about": {
@@ -1429,9 +1432,19 @@
 		"Sky-Profile": {
 			"command-name": "Perfil Sky"
 		},
-		"spirit": {
-			"command-name": "espirito",
-			"command-description": "Exibe a árvore de amizade de um espírito.",
+		"spirits": {
+			"command-name": "",
+			"command-description": "",
+			"history": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-order-name": "",
+				"command-option-order-description": "",
+				"command-option-order-choice-name": {
+					"0": "",
+					"1": ""
+				}
+			},
 			"search": {
 				"command-name": "pesquisar",
 				"command-description": "Revela uma informação sobre um espírito.",
@@ -1478,7 +1491,22 @@
 		},
 		"catalogue": {
 			"main-title": "Inventário",
-			"main-description": ""
+			"main-description": "",
+			"standard-spirits": "",
+			"elders": "",
+			"seasons": "",
+			"events": "",
+			"starter-packs": "",
+			"secret-area": "",
+			"permanent-event-store": "",
+			"nesting-workshop": "",
+			"main-no-progress": "",
+			"main-progress": "",
+			"quick-access": "",
+			"current-season-fallback": "",
+			"current-event-fallback": "",
+			"travelling-spirit": "",
+			"returning-spirits": ""
 		},
 		"guess": {
 			"title": "De onde isso veio?",
@@ -1511,6 +1539,16 @@
 			"today": "",
 			"next": "Avançar",
 			"browse": ""
+		},
+		"spirits": {
+			"not-encountered-spirit": "",
+			"title": {
+				"0": "",
+				"1": ""
+			},
+			"order-natural": "",
+			"order-rarity": "",
+			"page": ""
 		}
 	}
 }

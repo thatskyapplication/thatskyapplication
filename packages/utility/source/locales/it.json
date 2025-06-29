@@ -306,7 +306,8 @@
 			"232": "",
 			"233": "",
 			"234": "",
-			"235": ""
+			"235": "",
+			"236": ""
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
@@ -1158,7 +1159,9 @@
 			"AX": ""
 		},
 		"open-bracket": " (",
-		"close-bracket": ")"
+		"close-bracket": ")",
+		"navigation-back": "",
+		"navigation-next": ""
 	},
 	"commands": {
 		"about": {
@@ -1429,9 +1432,19 @@
 		"Sky-Profile": {
 			"command-name": ""
 		},
-		"spirit": {
+		"spirits": {
 			"command-name": "",
 			"command-description": "",
+			"history": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-order-name": "",
+				"command-option-order-description": "",
+				"command-option-order-choice-name": {
+					"0": "",
+					"1": ""
+				}
+			},
 			"search": {
 				"command-name": "",
 				"command-description": "",
@@ -1478,7 +1491,22 @@
 		},
 		"catalogue": {
 			"main-title": "",
-			"main-description": ""
+			"main-description": "",
+			"standard-spirits": "",
+			"elders": "",
+			"seasons": "",
+			"events": "",
+			"starter-packs": "",
+			"secret-area": "",
+			"permanent-event-store": "",
+			"nesting-workshop": "",
+			"main-no-progress": "",
+			"main-progress": "",
+			"quick-access": "",
+			"current-season-fallback": "",
+			"current-event-fallback": "",
+			"travelling-spirit": "",
+			"returning-spirits": ""
 		},
 		"guess": {
 			"title": "",
@@ -1511,6 +1539,16 @@
 			"today": "",
 			"next": "",
 			"browse": ""
+		},
+		"spirits": {
+			"not-encountered-spirit": "",
+			"title": {
+				"0": "",
+				"1": ""
+			},
+			"order-natural": "",
+			"order-rarity": "",
+			"page": ""
 		}
 	}
 }
