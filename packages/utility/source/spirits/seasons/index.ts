@@ -59,21 +59,24 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	BlueBird,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
-export interface TravellingDatesData {
+enum VisitType {
+	Travelling = 0,
+	Returning = 1,
+}
+
+interface Visit {
+	type: VisitType;
 	spiritId: SpiritIds;
 	visit: number;
 	start: DateTime;
 	end: DateTime;
 }
 
-export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingDatesData> = new Collection<
-	number,
-	TravellingDatesData
->(
-	SEASONS.reduce<Omit<TravellingDatesData, "visit">[]>((travellingDates, season) => {
+export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collection<number, Visit>(
+	SEASONS.reduce<Omit<Visit, "visit">[]>((travellingDates, season) => {
 		for (const spirit of season.spirits.values()) {
 			for (const dates of spirit.visits.travelling) {
-				travellingDates.push({ ...dates, spiritId: spirit.id });
+				travellingDates.push({ ...dates, spiritId: spirit.id, type: VisitType.Travelling });
 			}
 		}
 
@@ -83,36 +86,24 @@ export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingDatesData> =
 		.map((dates, index) => [index + 1, { ...dates, visit: index + 1 }]),
 );
 
-const returningDates: Readonly<TravellingDatesData[]> = SEASONS.reduce<TravellingDatesData[]>(
-	(returningDates, season) => {
-		for (const spirit of season.spirits.values()) {
-			for (const [visit, dates] of spirit.visits.returning) {
-				returningDates.push({ ...dates, spiritId: spirit.id, visit });
-			}
+const returningDates: Readonly<Visit[]> = SEASONS.reduce<Visit[]>((returningDates, season) => {
+	for (const spirit of season.spirits.values()) {
+		for (const [visit, dates] of spirit.visits.returning) {
+			returningDates.push({ ...dates, spiritId: spirit.id, visit, type: VisitType.Returning });
 		}
+	}
 
-		return returningDates;
-	},
-	[],
-);
-
-enum VisitType {
-	Travelling = 0,
-	Returning = 1,
-}
-
-interface Visit extends TravellingDatesData {
-	type: VisitType;
-}
+	return returningDates;
+}, []);
 
 const allVisits = [];
 
 for (const travellingDate of TRAVELLING_DATES.values()) {
-	allVisits.push({ ...travellingDate, type: VisitType.Travelling });
+	allVisits.push(travellingDate);
 }
 
 for (const returningDate of returningDates) {
-	allVisits.push({ ...returningDate, type: VisitType.Returning });
+	allVisits.push(returningDate);
 }
 
 export const VISITS_ABSENT: Readonly<Visit[]> = allVisits

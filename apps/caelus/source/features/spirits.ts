@@ -1,4 +1,3 @@
-import type { ReadonlyCollection } from "@discordjs/collection";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIApplicationCommandInteractionDataIntegerOption,
@@ -26,7 +25,6 @@ import {
 	spirits,
 	TIME_ZONE,
 	TRAVELLING_DATES,
-	type TravellingDatesData,
 	VISITS_ABSENT,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -100,9 +98,7 @@ export async function searchAutocomplete<
 }
 
 function visitField(
-	seasonalSpiritVisit:
-		| ReadonlyCollection<number, TravellingDatesData>
-		| SeasonalSpiritVisitReturningData,
+	seasonalSpiritVisit: typeof TRAVELLING_DATES | SeasonalSpiritVisitReturningData,
 	locale: Locale,
 ) {
 	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
