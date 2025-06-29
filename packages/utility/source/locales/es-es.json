@@ -1160,8 +1160,8 @@
 		},
 		"open-bracket": " (",
 		"close-bracket": ")",
-		"navigation-back": "",
-		"navigation-next": ""
+		"navigation-back": "Atrás",
+		"navigation-next": "Siguiente"
 	},
 	"commands": {
 		"about": {
@@ -1251,8 +1251,8 @@
 				"command-option-channel-description": ""
 			},
 			"notifications": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "notificaciones",
+				"command-description": "El comando para activar las notificaciones de eventos."
 			}
 		},
 		"daily-guides": {
@@ -1528,67 +1528,67 @@
 			"message": "{{user}}, ¡{{invoker}} te ha abrazado!"
 		},
 		"notifications": {
-			"back": "",
+			"back": "Atrás",
 			"messages": {
 				"0": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Es un nuevo día. ¡Hora de forjar velas otra vez!",
+					"message_other": "¡Un nuevo día comenzará {{timestamp}}!"
 				},
 				"1": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡Los niños de Sky pueden volver a salvar estatuas en el Ojo del Edén!",
+					"message_other": "¡Las estatuas del Ojo del Edén se resetearán {{timestamp}}!"
 				},
 				"2": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡La Estación Espacial Internacional es accesible!",
+					"message_other": "¡La Estación Espacial Internacional será accesible {{timestamp}}!"
 				},
 				"3": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡El dragón está propagando sus festividades ahora!",
+					"message_other": "¡El dragón propagará sus festividades {{timestamp}}!"
 				},
 				"4": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡El Géiser Contaminado está en erupción!",
+					"message_other": "¡El Géiser Contaminado entrará en erupción {{timestamp}}!"
 				},
 				"5": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡La abuela ha empezado a compartir su luz!",
+					"message_other": "¡La abuela compartirá su luz {{timestamp}}!"
 				},
 				"6": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡La tortuga necesita limpieza de oscuridad ahora!",
+					"message_other": "¡La tortuga necesitará limpieza de oscuridad {{timestamp}}!"
 				},
 				"7": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡Una erupción de fragmentos regular está aterrizando en {{location}} y termina {{timestampEnd}}!",
+					"message_other": "¡Una erupción de fragmentos regular aterriza en {{location}} {{timestampStart}} y termina {{timestampEnd}}!"
 				},
 				"8": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡Una fuerte erupción de fragmentos está aterrizando en {{location}} y termina {{timestampEnd}}!",
+					"message_other": "¡Una fuerte erupción de fragmentos aterriza en {{location}} {{timestampStart}} y termina {{timestampEnd}}!"
 				},
 				"9": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡El concierto de AURORA está empezando! ¡Trae a tus amigos!",
+					"message_other": "¡El concierto de AURORA empezará {{timestamp}}! ¡Trae a tus amigos!"
 				},
 				"10": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡Las misiones de la Temporada de Iniciación están empezando!",
+					"message_other": "¡Las misiones de la Temporada de Iniciación empezarán {{timestamp}}!"
 				},
 				"11": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡El festival de fuegos artificiales del Aviario está empezando!",
+					"message_other": "¡El festival de fuegos artificiales del Aviario empezará {{timestamp}}!"
 				},
 				"12": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡{{spirit}} ha llegado!",
+					"message_other": "¡{{spirit}} llegará {{timestamp}}!"
 				},
 				"13": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡La patinadora de la Aldea de los Sueños ha empezado a practicar!",
+					"message_other": "¡La patinadora de la Aldea de los Sueños practicará {{timestamp}}!"
 				},
 				"14": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "¡El stock en el Taller de Anidación se ha actualizado!",
+					"message_other": "¡El stock en el Taller de Anidación se actualizará {{timestamp}}!"
 				}
 			}
 		},
