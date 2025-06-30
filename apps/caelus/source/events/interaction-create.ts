@@ -463,13 +463,13 @@ export default {
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_SEASONS_CUSTOM_ID) {
+				if (customId.startsWith(CATALOGUE_VIEW_SEASONS_CUSTOM_ID)) {
 					await viewSeasons(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_VIEW_SEASON_CUSTOM_ID)) {
-					const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
+					const parsedCustomId = Number((customId.split("§") as [string, string, string?])[1]);
 
 					if (isSeasonId(parsedCustomId)) {
 						await viewSeason(interaction, parsedCustomId);
@@ -800,15 +800,6 @@ export default {
 				if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
 					await viewRealm(interaction, value0);
 					return;
-				}
-
-				if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID) {
-					const seasonId = Number(value0);
-
-					if (isSeasonId(seasonId)) {
-						await viewSeason(interaction, seasonId);
-						return;
-					}
 				}
 
 				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {

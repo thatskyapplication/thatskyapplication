@@ -717,7 +717,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+						custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§1`,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -1176,9 +1176,7 @@ export async function viewElders(
 	});
 }
 
-export async function viewSeasons(
-	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-) {
+export async function viewSeasons(interaction: APIMessageComponentButtonInteraction) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 	const currentSeason = skyCurrentSeason(skyNow());
@@ -1189,7 +1187,8 @@ export async function viewSeasons(
 			type: ComponentType.Section,
 			accessory: {
 				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`,
+				// The § at the end is to prevent the API throwing a duplicate custom id error.
+				custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}§`,
 				emoji: SeasonIdToSeasonalEmoji[currentSeason.id],
 				style: ButtonStyle.Primary,
 			},
@@ -1199,6 +1198,16 @@ export async function viewSeasons(
 		containerComponents.push({ type: ComponentType.TextDisplay, content: SEASONS_TITLE });
 	}
 
+	const seasons = skySeasons();
+
+	const page = Number(
+		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
+	);
+
+	const offset = (page - 1) * 7;
+	const limit = offset + 7;
+	const maximumPage = Math.ceil(seasons.size / 7);
+
 	containerComponents.push(
 		{
 			type: ComponentType.Separator,
@@ -1207,35 +1216,66 @@ export async function viewSeasons(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: "Behold, the entirety of seasons! Select a season using the select menu!",
+			content: "Behold, the entirety of seasons! Select a season!",
+		},
+	);
+
+	for (let index = offset; index < limit; index++) {
+		const season = seasons.get(index as SeasonIds);
+
+		if (!season) {
+			continue;
+		}
+
+		const seasonalProgress = seasonProgress([season], catalogue?.data, true);
+
+		const progress =
+			seasonalProgress === null
+				? t("catalogue.main-no-progress", { lng: locale, ns: "features" })
+				: t("catalogue.main-progress", { lng: locale, ns: "features", number: seasonalProgress });
+
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Secondary,
+				custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${season.id}`,
+				label: t("view", { lng: locale, ns: "general" }),
+				emoji: SeasonIdToSeasonalEmoji[season.id],
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}\n\n${progress}`,
+				},
+			],
+		});
+	}
+
+	containerComponents.push(
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
 		},
 		{
 			type: ComponentType.ActionRow,
 			components: [
 				{
-					type: ComponentType.StringSelect,
-					custom_id: CATALOGUE_VIEW_SEASON_CUSTOM_ID,
-					max_values: 1,
-					min_values: 0,
-					options: skySeasons().map((season) => {
-						const percentage = seasonProgress([season], catalogue?.data, true);
-
-						return {
-							emoji: SeasonIdToSeasonalEmoji[season.id],
-							label: `${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}${
-								percentage === null ? "" : ` (${percentage}%)`
-							}`,
-							value: String(season.id),
-						};
-					}),
-					placeholder: "Select a season!",
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§${page === 1 ? maximumPage : page - 1}`,
+					emoji: { name: "⬅️" },
+					label: t("catalogue.seasons-navigate-back", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Secondary,
+				},
+				{
+					type: ComponentType.Button,
+					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§${page === maximumPage ? 1 : page + 1}`,
+					emoji: { name: "➡️" },
+					label: t("catalogue.seasons-navigate-forward", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Secondary,
 				},
 			],
-		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -1422,7 +1462,7 @@ export async function viewSeason(
 				BACK_TO_START_BUTTON,
 				{
 					type: ComponentType.Button,
-					custom_id: CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§1`,
 					emoji: { name: "⏪" },
 					label: "Back",
 					style: ButtonStyle.Secondary,
