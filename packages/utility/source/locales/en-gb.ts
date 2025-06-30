@@ -1679,6 +1679,8 @@ export default {
 			"current-event-fallback": "Event",
 			"travelling-spirit": "Travelling Spirit",
 			"returning-spirits": "Returning Spirits",
+			"seasons-navigate-back": "Navigate back",
+			"seasons-navigate-forward": "Navigate forward",
 		},
 		guess: {
 			title: "Where does this come from?",

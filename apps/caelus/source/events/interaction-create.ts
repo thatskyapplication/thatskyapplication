@@ -148,7 +148,8 @@ import Profile, {
 	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
-	SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
+	SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID,
+	SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID,
 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
@@ -463,13 +464,13 @@ export default {
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_SEASONS_CUSTOM_ID) {
+				if (customId.startsWith(CATALOGUE_VIEW_SEASONS_CUSTOM_ID)) {
 					await viewSeasons(interaction);
 					return;
 				}
 
 				if (customId.startsWith(CATALOGUE_VIEW_SEASON_CUSTOM_ID)) {
-					const parsedCustomId = Number(customId.slice(customId.indexOf("§") + 1));
+					const parsedCustomId = Number((customId.split("§") as [string, string, string?])[1]);
 
 					if (isSeasonId(parsedCustomId)) {
 						await viewSeason(interaction, parsedCustomId);
@@ -802,15 +803,6 @@ export default {
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_SEASON_CUSTOM_ID) {
-					const seasonId = Number(value0);
-
-					if (isSeasonId(seasonId)) {
-						await viewSeason(interaction, seasonId);
-						return;
-					}
-				}
-
 				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
 					await viewEvents(interaction, value0);
 					return;
@@ -868,7 +860,10 @@ export default {
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID) {
+				if (
+					customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID ||
+					customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID
+				) {
 					await Profile.setSeasons(interaction);
 					return;
 				}
