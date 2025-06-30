@@ -81,6 +81,7 @@ import {
 	DEFAULT_EMBED_COLOUR,
 	DEVELOPER_GUILD_ID,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
+	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
 	SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
@@ -99,6 +100,7 @@ import {
 	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
+	resolveStringSelectMenu,
 	userLogFormat,
 } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
@@ -224,8 +226,11 @@ const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
 export const SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID =
 	"SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID =
-	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID =
+	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID" as const;
+
+export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID =
+	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID =
 	"SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID" as const;
@@ -1650,29 +1655,56 @@ export default class Profile {
 		const profile = await Profile.fetch(invoker.id).catch(() => null);
 		const currentSeasons = profile?.seasons;
 		const seasons = skySeasons();
+		const [seasons1, seasons2] = seasons.partition(
+			(_, key) => key < MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
+		);
+
+		const components: APIActionRowComponent<APIComponentInMessageActionRow>[] = [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID,
+						max_values: seasons1.size,
+						min_values: 0,
+						options: seasons1.map((season) => ({
+							default: currentSeasons?.includes(season.id) ?? false,
+							emoji: SeasonIdToSeasonalEmoji[season.id],
+							label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
+							value: String(season.id),
+						})),
+						placeholder: "Select the seasons you participated in!",
+					},
+				],
+			},
+		];
+
+		if (seasons2.size > 0) {
+			components.push({
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.StringSelect,
+						custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID,
+						max_values: seasons2.size,
+						min_values: 0,
+						options: seasons2.map((season) => ({
+							default: currentSeasons?.includes(season.id) ?? false,
+							emoji: SeasonIdToSeasonalEmoji[season.id],
+							label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
+							value: String(season.id),
+						})),
+						placeholder: "Select the seasons you participated in!",
+					},
+				],
+			});
+		}
+
+		components.push(SKY_PROFILE_BACK_TO_START_ACTION_ROW);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.StringSelect,
-							custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_CUSTOM_ID,
-							max_values: seasons.size,
-							min_values: 0,
-							options: seasons.map((season) => ({
-								default: currentSeasons?.includes(season.id) ?? false,
-								emoji: SeasonIdToSeasonalEmoji[season.id],
-								label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
-								value: String(season.id),
-							})),
-							placeholder: "Select the seasons you participated in!",
-						},
-					],
-				},
-				SKY_PROFILE_BACK_TO_START_ACTION_ROW,
-			],
+			components,
 			content: "",
 			embeds: [],
 		});
@@ -1740,10 +1772,33 @@ export default class Profile {
 		return this.set(interaction, { spot });
 	}
 
-	public static setSeasons(interaction: APIMessageComponentSelectMenuInteraction) {
-		return this.set(interaction, {
-			seasons: interaction.data.values.map((value) => Number(value) as SeasonIds),
-		});
+	public static async setSeasons(interaction: APIMessageComponentSelectMenuInteraction) {
+		const profile = await Profile.fetch(interactionInvoker(interaction).id).catch(() => null);
+
+		// Get the select menu where this interaction came from.
+		const component = resolveStringSelectMenu(
+			interaction.message.components!,
+			interaction.data.custom_id,
+		)!;
+
+		// Retrieve all seasons in this select menu.
+		const selectMenuSeasons = component.options.reduce(
+			(computedSeasons, { value }) => computedSeasons.add(Number(value) as SeasonIds),
+			new Set<SeasonIds>(),
+		);
+
+		// Remove the seasons from the data.
+		const modifiedData = new Set<SeasonIds>(profile?.seasons).difference(selectMenuSeasons);
+
+		// Calculate the new data.
+		const newData = modifiedData.union(
+			interaction.data.values.reduce(
+				(computedSeasons, value) => computedSeasons.add(Number(value) as SeasonIds),
+				new Set<SeasonIds>(),
+			),
+		);
+
+		return this.set(interaction, { seasons: [...newData] });
 	}
 
 	public static async setPlatform(interaction: APIMessageComponentSelectMenuInteraction) {
