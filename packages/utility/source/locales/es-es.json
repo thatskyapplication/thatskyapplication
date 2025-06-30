@@ -1437,7 +1437,7 @@
 			"command-description": "¡Mira la información de un espíritu!",
 			"history": {
 				"command-name": "historial",
-				"command-description": "Mira el historial de espíritus que han venido, incluyendo los espíritus que no han venido en mucho tiempo.",
+				"command-description": "Mira el historial de espíritus que han venido, incluyendo aquellos que no lo han hecho hace tiempo.",
 				"command-option-order-name": "orden",
 				"command-option-order-description": "Elige un tipo de orden para los espíritus.",
 				"command-option-order-choice-name": {
