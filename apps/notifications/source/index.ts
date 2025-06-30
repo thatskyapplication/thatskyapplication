@@ -321,19 +321,19 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					.and.whereNotNull("channel_id")
 					.and.whereNotNull("role_id")
 			).map((notificationPacket) => {
+				const key = timeUntilStart === 0 ? "now" : "future";
+
 				const message = isNotificationShardEruptionData(notification)
-					? t(`notifications.messages.${type}.message`, {
+					? t(`notifications.messages.${type}.message-${key}`, {
 							lng: notificationPacket.locale,
 							ns: "features",
-							count: timeUntilStart,
 							location: `[${t(`realms.${notification.realm}`, { lng: notificationPacket.locale, ns: "general" })}${t("open-bracket", { lng: notificationPacket.locale, ns: "general" })}${t(`maps.${notification.skyMap}`, { lng: notificationPacket.locale, ns: "general" })}${t("close-bracket", { lng: notificationPacket.locale, ns: "general" })}](${notification.url})`,
 							timestampStart: notification.timestampStart,
 							timestampEnd: notification.timestampEnd,
 						})
-					: t(`notifications.messages.${type}.message`, {
+					: t(`notifications.messages.${type}.message-${key}`, {
 							lng: notificationPacket.locale,
 							ns: "features",
-							count: timeUntilStart,
 							timestamp: notification.timestamp,
 							spirit: t(`spirits.${travellingSpirit!.spiritId}`, {
 								lng: notificationPacket.locale,

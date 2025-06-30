@@ -1705,70 +1705,70 @@ export default {
 			back: "Back",
 			messages: {
 				[NotificationType.DailyReset]: {
-					message_zero: "It's a new day. Time to forge candles again!",
-					message_other: "A new day will begin {{timestamp}}!",
+					"message-now": "It's a new day. Time to forge candles again!",
+					"message-future": "A new day will begin {{timestamp}}!",
 				},
 				[NotificationType.EyeOfEden]: {
-					message_zero: "Sky kids may save statues in the Eye of Eden again!",
-					message_other: "Statues in the Eye of Eden will reset {{timestamp}}!",
+					"message-now": "Sky kids may save statues in the Eye of Eden again!",
+					"message-future": "Statues in the Eye of Eden will reset {{timestamp}}!",
 				},
 				[NotificationType.InternationalSpaceStation]: {
-					message_zero: "The International Space Station is accessible!",
-					message_other: "The International Space Station will be accessible {{timestamp}}!",
+					"message-now": "The International Space Station is accessible!",
+					"message-future": "The International Space Station will be accessible {{timestamp}}!",
 				},
 				[NotificationType.Dragon]: {
-					message_zero: "The dragon is spreading its festivities now!",
-					message_other: "The dragon will spread its festivities {{timestamp}}!",
+					"message-now": "The dragon is spreading its festivities now!",
+					"message-future": "The dragon will spread its festivities {{timestamp}}!",
 				},
 				[NotificationType.PollutedGeyser]: {
-					message_zero: "The Polluted Geyser is starting to erupt!",
-					message_other: "The Polluted Geyser will erupt {{timestamp}}!",
+					"message-now": "The Polluted Geyser is starting to erupt!",
+					"message-future": "The Polluted Geyser will erupt {{timestamp}}!",
 				},
 				[NotificationType.Grandma]: {
-					message_zero: "Grandma has begun sharing her light!",
-					message_other: "Grandma will share her light {{timestamp}}!",
+					"message-now": "Grandma has begun sharing her light!",
+					"message-future": "Grandma will share her light {{timestamp}}!",
 				},
 				[NotificationType.Turtle]: {
-					message_zero: "The turtle needs cleansing of darkness now!",
-					message_other: "The turtle will need cleansing of darkness {{timestamp}}!",
+					"message-now": "The turtle needs cleansing of darkness now!",
+					"message-future": "The turtle will need cleansing of darkness {{timestamp}}!",
 				},
 				[NotificationType.RegularShardEruption]: {
-					message_zero:
-						"A regular shard eruption is landing in the {{location}} and clears up {{timestampEnd}}!",
-					message_other:
+					"message-now":
+						"A refuture shard eruption is landing in the {{location}} and clears up {{timestampEnd}}!",
+					"message-future":
 						"A regular shard eruption lands in the {{location}} {{timestampStart}} and clears up {{timestampEnd}}!",
 				},
 				[NotificationType.StrongShardEruption]: {
-					message_zero:
-						"A strong shard eruption is landing in the {{location}} and clears up {{timestampEnd}}!",
-					message_other:
+					"message-now":
+						"A strong future eruption is landing in the {{location}} and clears up {{timestampEnd}}!",
+					"message-future":
 						"A strong shard eruption lands in the {{location}} {{timestampStart}} and clears up {{timestampEnd}}!",
 				},
 				[NotificationType.AURORA]: {
-					message_zero: "The AURORA concert is starting! Take your friends!",
-					message_other: "The AURORA concert will start {{timestamp}}! Take your friends!",
+					"message-now": "The AURORA concert is starting! Take your friends!",
+					"message-future": "The AURORA concert will start {{timestamp}}! Take your friends!",
 				},
 				[NotificationType.Passage]: {
-					message_zero: "The Season of Passage quests are starting!",
-					message_other: "The Season of Passage quests will start {{timestamp}}!",
+					"message-now": "The Season of Passage quests are starting!",
+					"message-future": "The Season of Passage quests will start {{timestamp}}!",
 				},
 				[NotificationType.AviarysFireworkFestival]: {
-					message_zero: "Aviary's Firework Festival is beginning!",
-					message_other: "Aviary's Firework Festival will begin {{timestamp}}!",
+					"message-now": "Aviary's Firework Festival is beginning!",
+					"message-future": "Aviary's Firework Festival will begin {{timestamp}}!",
 				},
 				[NotificationType.TravellingSpirit]: {
-					message_zero: "{{spirit}} has arrived!",
-					message_other: "{{spirit}} will arrive {{timestamp}}!",
+					"message-now": "{{spirit}} has arrived!",
+					"message-future": "{{spirit}} will arrive {{timestamp}}!",
 				},
 				[NotificationType.DreamsSkater]: {
-					message_zero: "The Dreams skater has begun practising!",
-					message_other: "The Dreams skater will practise {{timestamp}}!",
+					"message-now": "The Dreams skater has begun practising!",
+					"message-future": "The Dreams skater will practise {{timestamp}}!",
 				},
 				[NotificationType.NestingWorkshop]: {
-					message_zero: "The Nesting Workshop's stock has refreshed!",
-					message_other: "The Nesting Workshop's stock will refresh {{timestamp}}!",
+					"message-now": "The Nesting Workshop's stock has refreshed!",
+					"message-future": "The Nesting Workshop's stock will refresh {{timestamp}}!",
 				},
-			} satisfies Record<NotificationTypes, { message_zero: string; message_other: string }>,
+			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 		},
 		"shard-eruption": {
 			"browse-title": "Shard Eruptions",
