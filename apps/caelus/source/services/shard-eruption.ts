@@ -278,7 +278,7 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t("shard-eruption.browse-description", { lng: locale, ns: "features" })}`,
+			content: `## ${t("shard-eruption.browse-title", { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
