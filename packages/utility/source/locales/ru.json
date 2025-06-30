@@ -1,14 +1,14 @@
 {
 	"general": {
 		"days-left": {
-			"season_zero": "",
+			"season_zero": "Сезон заканчивается сегодня.",
 			"season_one": "День до конца сезона: {{count}}",
 			"season_other": "Дней до конца сезона: {{count}}",
-			"event_zero": "",
-			"event_one": "",
+			"event_zero": "{{name}} заканчивается сегодня.",
+			"event_one": "{{count}} дней/день осталось в {{name}}.",
 			"event_other": ""
 		},
-		"event-tickets": "",
+		"event-tickets": "Билеты события",
 		"realms": {
 			"Isles of Dawn": "Остров рассвета",
 			"Daylight Prairie": "Полуденная прерия",
@@ -19,10 +19,10 @@
 			"Eye of Eden": "Сердце Эдема"
 		},
 		"maps": {
-			"Bird Nest": "",
-			"Butterfly Fields": "",
-			"Cave": "",
-			"Koi Pond": "",
+			"Bird Nest": "Птичье Гнездо",
+			"Butterfly Fields": "Поля бабочек",
+			"Cave": "Пещера",
+			"Koi Pond": "Пруд Кои",
 			"Village Islands": "",
 			"Sanctuary Islands": "Острова укрытия",
 			"Boneyard": "Могильник",
@@ -30,45 +30,45 @@
 			"Forest Brook": "",
 			"Forest Clearing": "",
 			"Forest End": "",
-			"Treehouse": "",
-			"Wind Paths": "",
+			"Treehouse": "Домик на дереве",
+			"Wind Paths": "Ветреные пути",
 			"Ice Rink": "",
 			"Citadel": "",
 			"Coliseum": "",
 			"Hermit Valley": "Долина Отшельника",
 			"Village of Dreams": "Деревушка Мечтаний",
-			"Battlefield": "",
-			"Boat": "",
+			"Battlefield": "Поле боя",
+			"Boat": "Лодка",
 			"Broken Temple": "",
-			"Crab Fields": "",
+			"Crab Fields": "Крабовые поля",
 			"Forgotten Ark": "",
-			"Graveyard": "",
-			"Treasure Reef": "",
-			"Vault Entrance": "",
+			"Graveyard": "Кладбище",
+			"Treasure Reef": "Остров сокровищ",
+			"Vault Entrance": "Вход в Хранилище",
 			"Jellyfish Cove": "Бухту медуз",
-			"Starlight Desert": "",
-			"Vault Second Floor": "",
+			"Starlight Desert": "Звёздная Пустыня",
+			"Vault Second Floor": "Хранилище Второй Этаж",
 			"Vault Summit": "",
-			"Orbit": "",
+			"Orbit": "Орбита",
 			"Ancient Memory": "",
 			"Crescent Oasis": ""
 		},
 		"notification-types": {
 			"0": "",
 			"1": "Сердце Эдема",
-			"2": "",
-			"3": "",
-			"4": "",
-			"5": "",
-			"6": "",
-			"7": "",
-			"8": "",
-			"9": "",
-			"10": "",
-			"11": "",
-			"12": "",
-			"13": "",
-			"14": ""
+			"2": "Международная Космическая Станция",
+			"3": "Дракон",
+			"4": "Загрязнённый Гейзер",
+			"5": "Бабушка",
+			"6": "Черепаха",
+			"7": "Извержение осколков (Тёмные)",
+			"8": "Извержение осколков (Красные)",
+			"9": "AURORA",
+			"10": "Посвящение",
+			"11": "Фестиваль Фейерверков в Птичьей Деревне",
+			"12": "Странствующий Дух",
+			"13": "Конькобежец Мечтаний",
+			"14": "Мастерская Гнездования"
 		},
 		"quests": {
 			"0": "Соберите 30 ед. света",
@@ -1251,8 +1251,8 @@
 				"command-option-channel-description": ""
 			},
 			"notifications": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "уведомления",
+				"command-description": "Команда, чтобы настроить уведомления для событий."
 			}
 		},
 		"daily-guides": {
@@ -1528,67 +1528,67 @@
 			"message": ""
 		},
 		"notifications": {
-			"back": "",
+			"back": "Вернуться",
 			"messages": {
 				"0": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Начался новый день! Самое время вновь делать свечи!",
+					"message_other": "Новый день начнётся {{timestamp}}!"
 				},
 				"1": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Скайкиды могут вновь спасти статуи в Сердце Эдема!",
+					"message_other": "Статуи в Сердце Эдема будут сброшены {{timestamp}}!"
 				},
 				"2": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Международная Космическая Станция доступна!",
+					"message_other": "Международная Космическая Станция будет доступна {{timestamp}}!"
 				},
 				"3": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Дракон несёт свои празднества!",
+					"message_other": "Дракон начнёт нести празднества {{timestamp}}!"
 				},
 				"4": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Загрязнённый гейзер начинает извергаться!",
+					"message_other": "Загрязнённый гейзер начнёт извергаться {{timestamp}}!"
 				},
 				"5": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Бабушка начала делиться светом!",
+					"message_other": "Бабушка поделится своим светом {{timestamp}}!"
 				},
 				"6": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Черепахе требуется очищение от тьмы!",
+					"message_other": "Черепахе понадобится помощь в очистке от тьмы {{timestamp}}!"
 				},
 				"7": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Тёмный осколок приземлился в {{location}} и пропадёт {{timestampEnd}}!",
+					"message_other": "Тёмный осколок приземлится в {{location}} {{timestampStart}} и пропадёт {{timestampEnd}}!"
 				},
 				"8": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Красный осколок приземлился в {{location}} и пропадёт {{timestampEnd}}!",
+					"message_other": "Красный осколок приземлится в {{location}} {{timestampStart}} и пропадёт {{timestampEnd}}!"
 				},
 				"9": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Начинается концерт AURORA! Зовите друзей!",
+					"message_other": "Концерт AURORA начнётся {{timestamp}}! Зовите друзей!"
 				},
 				"10": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Квесты сезона Посвящения начались!",
+					"message_other": "Квесты Сезона Посвящения начнутся {{timestamp}}!"
 				},
 				"11": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Начинается Фестиваль Фейерверков в Птичьей Деревне!",
+					"message_other": "Фестиваль Фейерверков в Птичьей Деревне начнётся {{timestamp}}!"
 				},
 				"12": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "{{spirit}} прибыл!",
+					"message_other": "{{spirit}} прибудет {{timestamp}}!"
 				},
 				"13": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Конькобежец Мечтаний начал тренироваться!",
+					"message_other": "Конькобежец Мечтаний начнёт тренировку {{timestamp}}!"
 				},
 				"14": {
-					"message_zero": "",
-					"message_other": ""
+					"message_zero": "Ассортимент Мастерской Гнездования был обновлён!",
+					"message_other": "Ассортимент Мастерской Гнездования будет обновлён {{timestamp}}!"
 				}
 			}
 		},
