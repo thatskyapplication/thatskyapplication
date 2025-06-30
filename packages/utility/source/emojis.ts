@@ -4616,6 +4616,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Fortune Plant.
 	 */
 	LargePlaceableProp82: { id: "1333206450998214696", name: "82_large_placeable_prop" },
+	/**
+	 * Blue Bird Guide (non-ultimate).
+	 */
+	LargePlaceableProp83: { id: "1389136116308774962", name: "83_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4701,6 +4705,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp80: { id: "1333205584824238080", name: "80_large_placeable_prop" },
 	LargePlaceableProp81: { id: "1333206114203865088", name: "81_large_placeable_prop" },
 	LargePlaceableProp82: { id: "1333206456794873928", name: "82_large_placeable_prop" },
+	LargePlaceableProp83: { id: "1389136123988545587", name: "83_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
