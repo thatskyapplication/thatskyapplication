@@ -1433,23 +1433,23 @@
 			"command-name": ""
 		},
 		"spirits": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "espíritus",
+			"command-description": "¡Mira la información de un espíritu!",
 			"history": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-order-name": "",
-				"command-option-order-description": "",
+				"command-name": "historial",
+				"command-description": "Mira el historial de espíritus que han venido, incluyendo los espíritus que no han venido en mucho tiempo.",
+				"command-option-order-name": "orden",
+				"command-option-order-description": "Elige un tipo de orden para los espíritus.",
 				"command-option-order-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "Orden según aparición (orden cronológico).",
+					"1": "Orden según rareza (espíritus que no han vuelto en mucho tiempo)."
 				}
 			},
 			"search": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-query-name": "",
-				"command-option-query-description": ""
+				"command-name": "buscar",
+				"command-description": "Revelar información sobre un espíritu.",
+				"command-option-query-name": "consulta",
+				"command-option-query-description": "El nombre, temporada, expresión, postura o llamada del espíritu."
 			}
 		}
 	},
@@ -1601,14 +1601,14 @@
 			"browse": ""
 		},
 		"spirits": {
-			"not-encountered-spirit": "",
+			"not-encountered-spirit": "Vaya, parece que no nos hemos encontrado con ese espíritu todavía. ¡Qué raro!",
 			"title": {
-				"0": "",
-				"1": ""
+				"0": "Historial de Espíritus Viajeros",
+				"1": "Rareza de los Espíritus"
 			},
-			"order-natural": "",
-			"order-rarity": "",
-			"page": ""
+			"order-natural": "Orden según aparición",
+			"order-rarity": "Orden según rareza",
+			"page": "Página"
 		}
 	}
 }
