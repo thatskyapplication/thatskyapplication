@@ -1462,7 +1462,7 @@ export async function viewSeason(
 				BACK_TO_START_BUTTON,
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§1`,
+					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§${Math.ceil((season.id + 1) / 7)}`,
 					emoji: { name: "⏪" },
 					label: "Back",
 					style: ButtonStyle.Secondary,
