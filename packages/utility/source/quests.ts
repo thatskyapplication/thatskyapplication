@@ -181,7 +181,7 @@ export const DailyQuest = {
 	ChangeYourOutfit: 179,
 	ViewASharedMemoryAtAStyleRunwayShrine: 180,
 	RecordASharedMemoryAtAStyleRunwayShrine: 181,
-	CacklingCannoneerNeedsHelpWithSomethingInTreasureReef: 182,
+	MeetUpWithCacklingCannoneerInTreasureReef: 182,
 	MeetUpWithAnxiousAnglerInTreasureReef: 183,
 	MeetUpWithMellowMusicianInVillageOfDreams: 184,
 	MeetUpWithAnxiousAnglerInGoldenWasteland: 185,

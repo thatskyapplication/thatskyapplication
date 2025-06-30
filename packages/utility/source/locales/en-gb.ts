@@ -262,8 +262,8 @@ export default {
 				"View a shared memory at a Style Runway Shrine",
 			[DailyQuest.RecordASharedMemoryAtAStyleRunwayShrine]:
 				"Record a shared memory at a Style Runway Shrine",
-			[DailyQuest.CacklingCannoneerNeedsHelpWithSomethingInTreasureReef]:
-				"Cackling Cannoneer needs help with something in Treasure Reef",
+			[DailyQuest.MeetUpWithCacklingCannoneerInTreasureReef]:
+				"Meet up with Cackling Cannoneer in Treasure Reef",
 			[DailyQuest.MeetUpWithAnxiousAnglerInTreasureReef]:
 				"Meet up with Anxious Angler in Treasure Reef",
 			[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]:
