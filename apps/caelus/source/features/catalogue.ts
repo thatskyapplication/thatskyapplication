@@ -142,7 +142,7 @@ const BACK_TO_START_BUTTON = {
 const ELDERS_TITLE = "## Elders \n-# Catalogue" as const;
 const SEASONS_TITLE = "## Seasons \n-# Catalogue" as const;
 const RETURNING_SPIRITS_TITLE = "## Returning Spirits\n-# Catalogue" as const;
-const MAXIMUM_SEASONS_DISPLAY_LIMIT = 7 as const;
+const MAXIMUM_SEASONS_DISPLAY_LIMIT = 9 as const;
 
 function progress(offer: readonly Item[], data: ReadonlySet<number> = new Set()) {
 	const offerDescription = [];
