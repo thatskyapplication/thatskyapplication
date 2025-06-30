@@ -375,6 +375,7 @@ const CALL_EMOJIS_PRODUCTION = {
 	Jellyfish: { id: "1313932581007392828", name: "jellyfish" },
 	BabyManta: { id: "1313932591950200952", name: "baby_manta" },
 	Nightbird: { id: "1313932588917854239", name: "nightbird" },
+	BlueBird: { id: "1389263899345424404", name: "blue_bird" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CALL_EMOJIS_DEVELOPMENT = {
@@ -387,6 +388,7 @@ const CALL_EMOJIS_DEVELOPMENT = {
 	Jellyfish: { id: "1313867163966374048", name: "jellyfish" },
 	BabyManta: { id: "1313867160228986891", name: "baby_manta" },
 	Nightbird: { id: "1313867168001298557", name: "nightbird" },
+	BlueBird: { id: "1389264024423764018", name: "blue_bird" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FRIEND_ACTION_EMOJIS_PRODUCTION = {
@@ -7615,7 +7617,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BlueBirdGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.BlueBirdGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.BlueBirdGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.CallBlueBird]: null,
+		[Cosmetic.CallBlueBird]: CALL_EMOJIS.BlueBird,
 		[Cosmetic.BlueBirdGuideProp]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp83,
 		[Cosmetic.SkyAnniversaryHairAccessory5]: null,
 		[Cosmetic.AnniversaryClapboard]: null,
