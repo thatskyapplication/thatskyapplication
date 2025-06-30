@@ -405,6 +405,8 @@ export enum SpiritCall {
 
 	// Season of Moomin.
 	Ninny = "Ninny",
+
+	BlueBird = "Blue bird",
 }
 
 export enum FriendAction {

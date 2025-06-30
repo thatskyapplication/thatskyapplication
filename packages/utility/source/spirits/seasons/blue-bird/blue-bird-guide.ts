@@ -2,17 +2,17 @@ import { Cosmetic } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
-import { SpiritEmote, SpiritId, SpiritStance } from "../../../utility/spirits.js";
+import { SpiritCall, SpiritEmote, SpiritId, SpiritStance } from "../../../utility/spirits.js";
 
 const emote = SpiritEmote.Cough;
 const stance = SpiritStance.Sad;
+const call = SpiritCall.BlueBird;
 
 export default new GuideSpirit({
 	id: SpiritId.BlueBirdGuide,
 	seasonId: SeasonId.BlueBird,
 	realm: RealmName.HiddenForest,
 	offer: {
-		inProgress: true,
 		current: [
 			{ name: "Quest 1", cosmetic: Cosmetic.BlueBirdGuideQuest1 },
 			{ name: "Heart 1", cosmetic: Cosmetic.BlueBirdGuideHeart1 },
@@ -53,6 +53,9 @@ export default new GuideSpirit({
 			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceSad, cost: { hearts: 3 } },
 			{ name: "Quest 5", cosmetic: Cosmetic.BlueBirdGuideQuest5 },
 			{ name: "Heart 4", cosmetic: Cosmetic.BlueBirdGuideHeart4 },
+			{ name: "Quest 6", cosmetic: Cosmetic.BlueBirdGuideQuest6 },
+			{ name: `${call} call`, cosmetic: Cosmetic.CallBlueBird, cost: { hearts: 3 } },
+			{ name: "Prop", cosmetic: Cosmetic.BlueBirdGuideProp, cost: { hearts: 18 } },
 		],
 	},
 });
