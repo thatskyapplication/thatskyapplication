@@ -16,7 +16,7 @@ const SUGGESTION_REGULAR_EXPRESSION =
 	/Suggestion for (?<language>.+) was (?<action>.+) in project (?<project>.+?)\.?\nKey: (?<key>.+?) ?\nContext: (?<context>.+)\nFile: (?<file>.+)\nSource string: (?<source>.+)\nTranslation: (?<translation>.+)\nURL: (?<url>.+)/s;
 
 const FILE_UPDATED_REGULAR_EXPRESSION =
-	/File (?<file>.+) has been updated in the project (?<project>.+)\.\n(?<newStrings>\d+) new strings \((?<newWords>\d+) words\), (?<updatedStrings>\d+) updated strings \((?<updatedWords>\d+) words\), (?<deletedStrings>\d+) deleted strings \((?<deletedWords>\d+) words\)\.\nURL: (?<url>.+)/;
+	/File (?<file>.+) has been updated in the project (?<project>.+)\.\n(?<newStrings>\d+) new strings \((?<newWords>\d+) words\), (?<updatedStrings>\d+) updated strings \((?<updatedWords>\d+) words\), (?<deletedStrings>\d+) deleted strings \((?<deletedWords>\d+) words\)\.\nURL: (?<url>[^ ]+)(?: There are (?<similar>\d+) more similar events\.)?/;
 
 const FILE_FULLY_TRANSLATED_REGULAR_EXPRESSION =
 	/File (?<file>.+) is now fully translated into (?<language>.+) in project (?<project>.+)\.\nURL: (?<url>.+)/;
@@ -104,25 +104,35 @@ function createFileUpdatedEmbed(message: GatewayMessageCreateDispatchData) {
 		return;
 	}
 
-	const { newStrings, newWords, updatedStrings, updatedWords, deletedStrings, deletedWords, url } =
-		result.groups as {
-			file: string;
-			project: string;
-			newStrings: string;
-			newWords: string;
-			updatedStrings: string;
-			updatedWords: string;
-			deletedStrings: string;
-			deletedWords: string;
-			url: string;
-		};
+	const {
+		newStrings,
+		newWords,
+		updatedStrings,
+		updatedWords,
+		deletedStrings,
+		deletedWords,
+		url,
+		similar,
+	} = result.groups as {
+		file: string;
+		project: string;
+		newStrings: string;
+		newWords: string;
+		updatedStrings: string;
+		updatedWords: string;
+		deletedStrings: string;
+		deletedWords: string;
+		url: string;
+		similar?: string;
+	};
+
 	const newWordsText = newWords === "1" ? "1 word" : `${newWords} words`;
 	const updatedWordsText = updatedWords === "1" ? "1 word" : `${updatedWords} words`;
 	const deletedWordsText = deletedWords === "1" ? "1 word" : `${deletedWords} words`;
 
 	return {
 		color: DEFAULT_EMBED_COLOUR,
-		description: `[Source file updated.](${url})`,
+		description: `[Source file updated.](${url})${similar ? `\nThere are ${similar} more similar events.` : ""}`,
 		fields: [
 			{
 				name: "New Strings",
