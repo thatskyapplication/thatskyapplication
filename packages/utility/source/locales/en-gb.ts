@@ -1736,13 +1736,13 @@ export default {
 				},
 				[NotificationType.RegularShardEruption]: {
 					"message-now":
-						"A refuture shard eruption is landing in the {{location}} and clears up {{timestampEnd}}!",
+						"A regular shard eruption is landing in the {{location}} and clears up {{timestampEnd}}!",
 					"message-future":
 						"A regular shard eruption lands in the {{location}} {{timestampStart}} and clears up {{timestampEnd}}!",
 				},
 				[NotificationType.StrongShardEruption]: {
 					"message-now":
-						"A strong future eruption is landing in the {{location}} and clears up {{timestampEnd}}!",
+						"A strong shard eruption is landing in the {{location}} and clears up {{timestampEnd}}!",
 					"message-future":
 						"A strong shard eruption lands in the {{location}} {{timestampStart}} and clears up {{timestampEnd}}!",
 				},
