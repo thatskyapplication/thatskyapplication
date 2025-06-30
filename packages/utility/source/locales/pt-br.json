@@ -1531,64 +1531,64 @@
 			"back": "Retornar",
 			"messages": {
 				"0": {
-					"message_zero": "",
-					"message_other": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"1": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"2": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"3": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"4": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"5": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"6": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"7": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"8": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"9": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"10": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"11": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"12": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"13": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				},
 				"14": {
-					"message_zero": "",
-					"message_other": ""
+					"message-future": "",
+					"message-now": ""
 				}
 			}
 		},
