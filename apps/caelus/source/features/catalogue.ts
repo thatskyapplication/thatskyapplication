@@ -142,6 +142,7 @@ const BACK_TO_START_BUTTON = {
 const ELDERS_TITLE = "## Elders \n-# Catalogue" as const;
 const SEASONS_TITLE = "## Seasons \n-# Catalogue" as const;
 const RETURNING_SPIRITS_TITLE = "## Returning Spirits\n-# Catalogue" as const;
+const MAXIMUM_SEASONS_DISPLAY_LIMIT = 7 as const;
 
 function progress(offer: readonly Item[], data: ReadonlySet<number> = new Set()) {
 	const offerDescription = [];
@@ -1204,9 +1205,9 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
 	);
 
-	const offset = (page - 1) * 7;
-	const limit = offset + 7;
-	const maximumPage = Math.ceil(seasons.size / 7);
+	const offset = (page - 1) * MAXIMUM_SEASONS_DISPLAY_LIMIT;
+	const limit = offset + MAXIMUM_SEASONS_DISPLAY_LIMIT;
+	const maximumPage = Math.ceil(seasons.size / MAXIMUM_SEASONS_DISPLAY_LIMIT);
 
 	containerComponents.push(
 		{
@@ -1462,7 +1463,7 @@ export async function viewSeason(
 				BACK_TO_START_BUTTON,
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§${Math.ceil((season.id + 1) / 7)}`,
+					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§${Math.ceil((season.id + 1) / MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
 					emoji: { name: "⏪" },
 					label: "Back",
 					style: ButtonStyle.Secondary,
