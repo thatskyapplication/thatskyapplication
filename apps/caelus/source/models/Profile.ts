@@ -83,7 +83,6 @@ import {
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
-	SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
@@ -381,7 +380,7 @@ function generateProfileExplorerSelectMenuOptions(
 	indexStart: number,
 	skyProfileLikesPackets?: SkyProfileLikesPacket[],
 ) {
-	const maximumIndex = SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER + indexStart;
+	const maximumIndex = MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT + indexStart;
 
 	return profiles.slice(indexStart, maximumIndex).map((profile) => {
 		const stringSelectMenuOption: APISelectMenuOption = {
@@ -775,7 +774,7 @@ export default class Profile {
 			: Number(interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1));
 
 		const limit =
-			SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER * SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.length;
+			MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT * SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.length;
 
 		const offset = (page - 1) * limit;
 
@@ -817,7 +816,7 @@ export default class Profile {
 					(customId, index): APIActionRowComponent<APISelectMenuComponent> | undefined => {
 						const options = generateProfileExplorerSelectMenuOptions(
 							profiles,
-							index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+							index * MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 							skyProfileLikesPackets,
 						);
 
@@ -1093,7 +1092,7 @@ export default class Profile {
 		);
 
 		const limit =
-			SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER *
+			MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT *
 			SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.length;
 
 		const offset = (page - 1) * limit;
@@ -1131,7 +1130,7 @@ export default class Profile {
 					(customId, index): APIActionRowComponent<APISelectMenuComponent> | undefined => {
 						const options = generateProfileExplorerSelectMenuOptions(
 							profiles,
-							index * SKY_PROFILE_EXPLORE_MAXIMUM_OPTION_NUMBER,
+							index * MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 						);
 
 						if (options.length === 0) {
