@@ -1548,7 +1548,10 @@ export async function viewEvents(
 		data: catalogue?.data,
 		events: [...events.values()],
 		locale,
-		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
+		limit:
+			MAXIMUM_TEXT_DISPLAY_LENGTH -
+			title.length -
+			(events.size > CATALOGUE_EVENTS_THRESHOLD ? "\n".length * events.size : 0),
 		includePercentage: true,
 		includeTitles: true,
 	});
