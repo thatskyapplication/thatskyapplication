@@ -271,7 +271,7 @@
 			"197": "與威嚴的艦長在失落方舟見面",
 			"198": "與雀躍地質學家在雲野峻嶺見面",
 			"199": "與沮喪獵人在埋骨之地見面",
-			"200": "與鯨語者在埋骨之地介面",
+			"200": "與鯨語者在埋骨之地見面",
 			"201": "與苦行僧侶在聖域群島見面",
 			"202": "與夜鳥語者在聖域群島見面",
 			"203": "與雀躍地質學家在聖域群島見面",
@@ -291,10 +291,10 @@
 			"217": "幫助威嚴的艦長或白日夢森林人在聖域群島尋寶",
 			"218": "幫助焦慮的垂釣者或管事小隊長在雨林尋寶",
 			"219": "幫助嘎嘎大笑的炮手或傻笑童子軍在圓夢村尋寶",
-			"220": "",
-			"221": "",
-			"222": "",
-			"223": "",
+			"220": "與懇求的孩子在知識庫避難所見面",
+			"221": "與苦行僧侶在雲野峻嶺見面",
+			"222": "與可靠護林員在雲野峻嶺見面",
+			"223": "與羞澀探勘者在霞谷見面",
 			"224": "調查青色的鳥出沒於溜冰場的傳聞",
 			"225": "調查青色的鳥出沒於禁閣知識庫的傳聞",
 			"226": "調查青色的鳥出沒於鄉村劇院的傳聞",
@@ -303,11 +303,11 @@
 			"229": "在禁閣知識庫尋找青色的鳥行蹤的線索",
 			"230": "在鄉村劇院尋找青色的鳥行蹤的線索",
 			"231": "在雨林空地尋找青色的鳥行蹤的線索",
-			"232": "",
-			"233": "",
-			"234": "",
-			"235": "",
-			"236": ""
+			"232": "與笨拙的水手長在寶礁見面",
+			"233": "與天才建築者在鳥巢見面",
+			"234": "與樂鐘修補匠在鳥巢見面",
+			"235": "與光之低語者在鳥巢見面",
+			"236": "與活躍導航員在鳥巢見面"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -337,24 +337,24 @@
 			"24": "青羽季"
 		},
 		"season-wiki": {
-			"0": "",
-			"1": "",
-			"2": "",
-			"3": "",
-			"4": "",
-			"5": "",
-			"6": "",
-			"7": "",
-			"8": "",
-			"9": "",
-			"10": "",
-			"11": "",
-			"12": "",
-			"13": "",
-			"14": "",
-			"15": "",
-			"16": "",
-			"17": "",
+			"0": "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
+			"1": "https://sky-children-of-the-light.fandom.com/Season_of_Lightseekers",
+			"2": "https://sky-children-of-the-light.fandom.com/Season_of_Belonging",
+			"3": "https://sky-children-of-the-light.fandom.com/Season_of_Rhythm",
+			"4": "https://sky-children-of-the-light.fandom.com/Season_of_Enchantment",
+			"5": "https://sky-children-of-the-light.fandom.com/Season_of_Sanctuary",
+			"6": "https://sky-children-of-the-light.fandom.com/Season_of_Prophecy",
+			"7": "https://sky-children-of-the-light.fandom.com/Season_of_Dreams",
+			"8": "https://sky-children-of-the-light.fandom.com/Season_of_Assembly",
+			"9": "https://sky-children-of-the-light.fandom.com/Season_of_the_Little_Prince",
+			"10": "https://sky-children-of-the-light.fandom.com/Season_of_Flight",
+			"11": "https://sky-children-of-the-light.fandom.com/Season_of_Abyss",
+			"12": "https://sky-children-of-the-light.fandom.com/Season_of_Performance",
+			"13": "https://sky-children-of-the-light.fandom.com/Season_of_Shattering",
+			"14": "https://sky-children-of-the-light.fandom.com/Season_of_AURORA",
+			"15": "https://sky-children-of-the-light.fandom.com/Season_of_Remembrance",
+			"16": "https://sky-children-of-the-light.fandom.com/The_Season_of_Passage",
+			"17": "https://sky-children-of-the-light.fandom.com/The_Season_of_Moments",
 			"18": "",
 			"19": "",
 			"20": "https://sky-children-of-the-light.fandom.com/Season_of_Nesting",
@@ -444,7 +444,7 @@
 			"77": "《Sky光·遇》週年慶"
 		},
 		"event-wiki": {
-			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief#2019",
+			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief",
 			"1": "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
 			"2": "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
 			"3": "https://sky-children-of-the-light.fandom.com/Lunar_New_Year",
@@ -1165,57 +1165,57 @@
 	},
 	"commands": {
 		"about": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "關於",
+			"command-description": "關於我，奇妙的Sky小助手！"
 		},
 		"bonk": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-name": "撞",
+			"command-description": "Bonk某人！",
+			"command-option-user-name": "使用者",
+			"command-option-user-description": "有人被bonk了。"
 		},
 		"calculate": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "計算",
+			"command-description": "包含各種計算器的命令。",
 			"ascended-candles": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": "",
+				"command-name": "昇華蠟燭",
+				"command-description": "計算達到一定數量的昇華蠟燭所需的天數。",
+				"command-option-start-name": "起始",
+				"command-option-start-description": "昇華蠟燭的起始數量。",
+				"command-option-goal-name": "目標",
+				"command-option-goal-description": "期望的昇華蠟燭數量。",
 				"command-option-eye-of-eden-name": "暴風眼",
-				"command-option-eye-of-eden-description": "",
-				"command-option-shard-eruptions-name": "",
-				"command-option-shard-eruptions-description": ""
+				"command-option-eye-of-eden-description": "是否將暴風眼納入計算。",
+				"command-option-shard-eruptions-name": "碎片噴發",
+				"command-option-shard-eruptions-description": "是否將碎片噴發納入計算中。"
 			},
 			"event-tickets": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": ""
+				"command-name": "活動票卷",
+				"command-description": "計算獲得一定數量的活動票卷所需的天數。",
+				"command-option-start-name": "起始",
+				"command-option-start-description": "活動票卷的起始數量。",
+				"command-option-goal-name": "目標",
+				"command-option-goal-description": "所需的活動票卷數量。"
 			},
 			"seasonal-candles": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": "",
-				"goal-achieved": "",
-				"no-season": "",
-				"start": "",
-				"goal": "",
-				"required": "",
-				"day_one": "",
-				"day_other": "",
+				"command-name": "季節蠟燭",
+				"command-description": "計算獲得一定數量的季節蠟燭所需的天數。",
+				"command-option-start-name": "起始",
+				"command-option-start-description": "季節蠟燭的起始數量。",
+				"command-option-goal-name": "目標",
+				"command-option-goal-description": "所需的季節蠟燭數量。",
+				"goal-achieved": "你已經實現了你的目標！",
+				"no-season": "目前沒有季節。",
+				"start": "起始",
+				"goal": "目標",
+				"required": "必需的",
+				"day_one": "结果: {{count}} 天",
+				"day_other": "結果: {{count}} 天s",
 				"day-season-pass_one": "(持有季票還剩 {{count}} 天).",
 				"day-season-pass_other": "(持有季票還剩 {{count}} 天).",
 				"seasonal-candle-calculator": "季節蠟燭計算器",
-				"remain-in-the-season": "在本賽季",
-				"remain-in-the-season-with-a-season-pass": "持有季票在本賽季",
+				"remain-in-the-season": "在本賽季。",
+				"remain-in-the-season-with-a-season-pass": "持有季票在本賽季。",
 				"double-seasonal-light-calculation": "計算中包括雙倍季蠟事件。"
 			},
 			"winged-light": {
@@ -1265,8 +1265,8 @@
 			"delete": {
 				"command-name": "刪除",
 				"command-description": "刪除您的資料。",
-				"prompt-message": "您確定要刪除資料嗎？這將：\n- 刪除你的 Sky 個人資料\n- 刪除您的目錄\n- 刪除你的愛心\n  - 您在他人愛心歷史中的使用者 ID 將被匿名化\n- 刪除猜謎遊戲中的最大連續紀錄\n- 刪除贈品數據",
-				"error-message": "刪除您的用戶資料時出現問題。請放心，我們正在追蹤此事件，並已將其轉換為手動資料刪除請求（而不是自動刪除請求）。您的資料將被刪除\n\n如果您願意，您可以加入[支援伺服器]({{url}})並要求查看您的資料刪除請求的狀態。"
+				"prompt-message": "您確定要刪除資料嗎？這將：\n- 刪除你的 Sky 個人資料\n- 刪除您的目錄\n- 刪除你的愛心\n - 您在他人愛心歷史中的使用者 Id 將被匿名化\n- 刪除猜謎遊戲中的最大連續紀錄\n- 刪除贈品數據",
+				"error-message": "刪除您的用戶資料時出現問題。請放心，我們正在追蹤此事件，並已將其轉換為手動資料刪除請求（而不是自動刪除請求）。您的資料將在 30 天內被刪除。\n\n如果您願意，您可以加入[支援伺服器]({{url}})並要求查看您的資料刪除請求的狀態。"
 			}
 		},
 		"Gift-Heart": {
@@ -1291,55 +1291,55 @@
 			},
 			"leaderboard": {
 				"command-name": "排行榜",
-				"command-description": "",
-				"command-option-difficulty-name": "",
-				"command-option-difficulty-description": "",
+				"command-description": "查看排行榜！",
+				"command-option-difficulty-name": "困難",
+				"command-option-difficulty-description": "您想查看什麼難度？",
 				"command-option-difficulty-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "原來的",
+					"1": "難的"
 				}
 			}
 		},
 		"hair-tousle": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-name": "弄亂頭髮",
+			"command-description": "弄亂某人的頭髮！",
+			"command-option-user-name": "用戶",
+			"command-option-user-description": "頭髮將會被弄亂的人。",
+			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法弄亂頭髮。需要有人調整權限！"
 		},
 		"heart": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "愛心",
+			"command-description": "覺得自己慷慨大方？您每天最多可以贈送 3 顆愛心！",
 			"gift": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-user-name": "",
-				"command-option-user-description": ""
+				"command-name": "贈送",
+				"command-description": "選擇要贈送愛心的人！",
+				"command-option-user-name": "用戶",
+				"command-option-user-description": "贈送愛心的用戶。"
 			},
 			"history": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "愛心歷史紀錄",
+				"command-description": "展現你獲得愛心的歷史紀錄！"
 			}
 		},
 		"high-five": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-name": "擊掌",
+			"command-description": "擊掌慶祝！",
+			"command-option-user-name": "用戶",
+			"command-option-user-description": "和某人擊掌了。",
+			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會收到您的擊掌。需要有人調整權限！"
 		},
 		"hug": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-name": "擁抱",
+			"command-description": "擁抱某人！",
+			"command-option-user-name": "用戶",
+			"command-option-user-description": "某人被擁抱了。"
 		},
 		"krill": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-name": "冥龍",
+			"command-description": "冥龍某人！",
+			"command-option-user-name": "用戶",
+			"command-option-user-description": "某人被冥龍了。",
+			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會被冥龍。需要有人調整權限！"
 		},
 		"play-fight": {
 			"command-name": "",
@@ -1394,7 +1394,7 @@
 				"command-option-name-name": "名字",
 				"command-option-name-description": "你的遊戲名字是？",
 				"command-option-thumbnail-name": "縮圖",
-				"command-option-thumbnail-description": "上傳您的縮圖！ ",
+				"command-option-thumbnail-description": "上傳您的縮圖 ！",
 				"command-option-icon-name": "圖示",
 				"command-option-icon-description": "上傳你的圖標！",
 				"command-option-winged-light-name": "光之翼",
@@ -1458,68 +1458,68 @@
 			"description": "",
 			"links": "",
 			"sponsor": "",
-			"issues-feedback": "",
-			"feedback-button": "",
-			"issue-button": "",
-			"feedback-modal-heading": "",
-			"feedback-modal-title": "",
-			"feedback-modal-description": "",
-			"feedback-modal-description-placeholder": "",
-			"feedback-submission": "",
-			"issue-modal-heading": "",
-			"issue-modal-title": "",
-			"issue-modal-description": "",
-			"issue-modal-description-placeholder": "",
-			"issue-submission": ""
+			"issues-feedback": "### 報告問題並提供回饋\n\n您可以加入[支援伺服器]({{supportServerInviteURL}})來執行此操作。\n\n如果您喜歡這種方式，您也可以使用下面的按鈕來執行此操作而無需加入伺服器。",
+			"feedback-button": "提交回饋",
+			"issue-button": "報告問題",
+			"feedback-modal-heading": "提交回饋",
+			"feedback-modal-title": "輸入適合您的回饋的標題。",
+			"feedback-modal-description": "在此輸入您的回饋！",
+			"feedback-modal-description-placeholder": "很酷的…\n我希望我們可以……",
+			"feedback-submission": "感謝您的回饋！ {{emoji}}",
+			"issue-modal-heading": "報告問題",
+			"issue-modal-title": "輸入適合您的問題的標題。",
+			"issue-modal-description": "在此描述您的問題。",
+			"issue-modal-description-placeholder": "每次我嘗試…\n都沒有任何反應……",
+			"issue-submission": "感謝您回報問題！ {{emoji}}"
 		},
 		"bonk": {
-			"missing-external-apps-permission": ""
+			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會被攔截。需要有人調整權限！"
 		},
 		"calculate": {
 			"ascended-candles": {
-				"goal-achieved": "",
-				"no-source": "",
-				"title": "",
-				"start": "",
-				"goal": "",
-				"required": "",
-				"goal-first-achievable": "",
-				"minimum-time-beginning": "",
-				"minimum-time-eye-of-eden": "",
-				"minimum-time-shard-eruptions": ""
+				"goal-achieved": "你已經實現了你的目標！",
+				"no-source": "你一定有獲得昇華蠟燭的來源！",
+				"title": "昇華蠟燭計算器",
+				"start": "起始: ",
+				"goal": "目標: ",
+				"required": "必需: ",
+				"goal-first-achievable": "此目標將於 {{date}} ({{relative}}) 首次實現。",
+				"minimum-time-beginning": "最短時間由以下公式得出：",
+				"minimum-time-eye-of-eden": "暴風眼雕像",
+				"minimum-time-shard-eruptions": "碎片噴發"
 			}
 		},
 		"catalogue": {
-			"main-title": "",
-			"main-description": "",
-			"standard-spirits": "",
-			"elders": "",
-			"seasons": "",
-			"events": "",
-			"starter-packs": "",
-			"secret-area": "",
-			"permanent-event-store": "",
-			"nesting-workshop": "",
-			"main-no-progress": "",
-			"main-progress": "",
-			"quick-access": "",
-			"current-season-fallback": "",
-			"current-event-fallback": "",
-			"travelling-spirit": "",
-			"returning-spirits": "",
-			"seasons-navigate-back": "",
-			"seasons-navigate-forward": ""
+			"main-title": "目錄",
+			"main-description": "歡迎來到您的目錄！\n\n在這裡，您可以追蹤遊戲中的所有飾品，並進行動態計算，例如當前賽季剩餘的季節蠟燭數量，這使其成為一款強大的工具。\n\n總進度：{{progress}}%",
+			"standard-spirits": "普通先靈",
+			"elders": "長老",
+			"seasons": "季節",
+			"events": "活動",
+			"starter-packs": "入門包",
+			"secret-area": "秘密區域",
+			"permanent-event-store": "永久活動商店",
+			"nesting-workshop": "雲巢工作坊",
+			"main-no-progress": "沒有進展",
+			"main-progress": "進度: {{number}}%",
+			"quick-access": "快速存取",
+			"current-season-fallback": "季節",
+			"current-event-fallback": "活動",
+			"travelling-spirit": "旅行先靈",
+			"returning-spirits": "復刻先靈",
+			"seasons-navigate-back": "返回",
+			"seasons-navigate-forward": "下一頁"
 		},
 		"guess": {
-			"title": "",
-			"guess-in": "",
-			"end-game": "",
-			"game-ended": "",
-			"your-guess": "",
-			"try-again": ""
+			"title": "這是從哪裡來的？",
+			"guess-in": "猜猜{{time}}！",
+			"end-game": "結束遊戲",
+			"game-ended": "遊戲結束。",
+			"your-guess": "你的猜測",
+			"try-again": "再試一次？"
 		},
 		"heart": {
-			"missing-external-apps-permission": ""
+			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法收到您的愛心。需要有人調整權限！"
 		},
 		"hug": {
 			"hug-self": "",
