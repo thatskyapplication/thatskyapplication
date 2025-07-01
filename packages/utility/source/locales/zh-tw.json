@@ -253,20 +253,20 @@
 			"179": "更換你的褲子",
 			"180": "欣賞一個伸展台神壇的共享記憶",
 			"181": "在風格伸展台神壇錄製共享記憶",
-			"182": "嘎嘎大笑的砲手需要寶礁的幫助",
-			"183": "",
-			"184": "",
-			"185": "",
-			"186": "",
-			"187": "",
-			"188": "",
-			"189": "",
+			"182": "與嘎嘎大笑的砲手在寶礁見面",
+			"183": "與焦慮的垂釣者在寶礁見面",
+			"184": "與沉穩音樂家在圓夢村見面",
+			"185": "與焦慮的垂釣者在暮土見面",
+			"186": "與焦慮的垂釣者在螃蟹沙岸見面",
+			"187": "與威嚴的艦長在寶礁見面",
+			"188": "與羞澀勘探者在森林小溪見面",
+			"189": "與發抖開拓者在森林小溪見面",
 			"190": "捉弄一下威嚴的艦長",
 			"191": "與躲貓貓拓荒者在埋骨之地見面",
-			"192": "",
-			"193": "",
-			"194": "",
-			"195": "",
+			"192": "與躲貓貓拓荒者在森林高處見面",
+			"193": "與笨拙的水手長在失落方舟見面",
+			"194": "與躲貓貓拓荒者在雨林見面",
+			"195": "與嘎嘎大笑的砲手在失落方舟見面",
 			"196": "",
 			"197": "",
 			"198": "",
@@ -1506,7 +1506,9 @@
 			"current-season-fallback": "",
 			"current-event-fallback": "",
 			"travelling-spirit": "",
-			"returning-spirits": ""
+			"returning-spirits": "",
+			"seasons-navigate-back": "",
+			"seasons-navigate-forward": ""
 		},
 		"guess": {
 			"title": "",
@@ -1535,60 +1537,60 @@
 					"message-future": ""
 				},
 				"1": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"2": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"3": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"4": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"5": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"6": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"7": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"8": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"9": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"10": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"11": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"12": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"13": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"14": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				}
 			}
 		},

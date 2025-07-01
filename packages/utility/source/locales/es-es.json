@@ -1506,7 +1506,9 @@
 			"current-season-fallback": "",
 			"current-event-fallback": "",
 			"travelling-spirit": "",
-			"returning-spirits": ""
+			"returning-spirits": "",
+			"seasons-navigate-back": "",
+			"seasons-navigate-forward": ""
 		},
 		"guess": {
 			"title": "",
@@ -1535,60 +1537,60 @@
 					"message-future": "¡Un nuevo día comenzará {{timestamp}}!"
 				},
 				"1": {
-					"message-future": "¡Las estatuas del Ojo del Edén se resetearán {{timestamp}}!",
-					"message-now": "¡Los niños de Sky pueden volver a salvar estatuas en el Ojo del Edén!"
+					"message-now": "¡Los niños de Sky pueden volver a salvar estatuas en el Ojo del Edén!",
+					"message-future": "¡Las estatuas del Ojo del Edén se resetearán {{timestamp}}!"
 				},
 				"2": {
-					"message-future": "¡La Estación Espacial Internacional será accesible {{timestamp}}!",
-					"message-now": "¡La Estación Espacial Internacional es accesible!"
+					"message-now": "¡La Estación Espacial Internacional es accesible!",
+					"message-future": "¡La Estación Espacial Internacional será accesible {{timestamp}}!"
 				},
 				"3": {
-					"message-future": "¡El dragón propagará sus festividades {{timestamp}}!",
-					"message-now": "¡El dragón está propagando sus festividades ahora!"
+					"message-now": "¡El dragón está propagando sus festividades ahora!",
+					"message-future": "¡El dragón propagará sus festividades {{timestamp}}!"
 				},
 				"4": {
-					"message-future": "¡El Géiser Contaminado entrará en erupción {{timestamp}}!",
-					"message-now": "¡El Géiser Contaminado está en erupción!"
+					"message-now": "¡El Géiser Contaminado está en erupción!",
+					"message-future": "¡El Géiser Contaminado entrará en erupción {{timestamp}}!"
 				},
 				"5": {
-					"message-future": "¡La abuela compartirá su luz {{timestamp}}!",
-					"message-now": "¡La abuela ha empezado a compartir su luz!"
+					"message-now": "¡La abuela ha empezado a compartir su luz!",
+					"message-future": "¡La abuela compartirá su luz {{timestamp}}!"
 				},
 				"6": {
-					"message-future": "¡La tortuga necesitará limpieza de oscuridad {{timestamp}}!",
-					"message-now": "¡La tortuga necesita limpieza de oscuridad ahora!"
+					"message-now": "¡La tortuga necesita limpieza de oscuridad ahora!",
+					"message-future": "¡La tortuga necesitará limpieza de oscuridad {{timestamp}}!"
 				},
 				"7": {
-					"message-future": "¡Una erupción de fragmentos regular aterriza en {{location}} {{timestampStart}} y termina {{timestampEnd}}!",
-					"message-now": "¡Una erupción de fragmentos regular está aterrizando en {{location}} y termina {{timestampEnd}}!"
+					"message-now": "¡Una erupción de fragmentos regular está aterrizando en {{location}} y termina {{timestampEnd}}!",
+					"message-future": "¡Una erupción de fragmentos regular aterriza en {{location}} {{timestampStart}} y termina {{timestampEnd}}!"
 				},
 				"8": {
-					"message-future": "¡Una fuerte erupción de fragmentos aterriza en {{location}} {{timestampStart}} y termina {{timestampEnd}}!",
-					"message-now": "¡Una fuerte erupción de fragmentos está aterrizando en {{location}} y termina {{timestampEnd}}!"
+					"message-now": "¡Una fuerte erupción de fragmentos está aterrizando en {{location}} y termina {{timestampEnd}}!",
+					"message-future": "¡Una fuerte erupción de fragmentos aterriza en {{location}} {{timestampStart}} y termina {{timestampEnd}}!"
 				},
 				"9": {
-					"message-future": "¡El concierto de AURORA empezará {{timestamp}}! ¡Trae a tus amigos!",
-					"message-now": "¡El concierto de AURORA está empezando! ¡Trae a tus amigos!"
+					"message-now": "¡El concierto de AURORA está empezando! ¡Trae a tus amigos!",
+					"message-future": "¡El concierto de AURORA empezará {{timestamp}}! ¡Trae a tus amigos!"
 				},
 				"10": {
-					"message-future": "¡Las misiones de la Temporada de Iniciación empezarán {{timestamp}}!",
-					"message-now": "¡Las misiones de la Temporada de Iniciación están empezando!"
+					"message-now": "¡Las misiones de la Temporada de Iniciación están empezando!",
+					"message-future": "¡Las misiones de la Temporada de Iniciación empezarán {{timestamp}}!"
 				},
 				"11": {
-					"message-future": "¡El festival de fuegos artificiales del Aviario empezará {{timestamp}}!",
-					"message-now": "¡El festival de fuegos artificiales del Aviario está empezando!"
+					"message-now": "¡El festival de fuegos artificiales del Aviario está empezando!",
+					"message-future": "¡El festival de fuegos artificiales del Aviario empezará {{timestamp}}!"
 				},
 				"12": {
-					"message-future": "¡{{spirit}} llegará {{timestamp}}!",
-					"message-now": "¡{{spirit}} ha llegado!"
+					"message-now": "¡{{spirit}} ha llegado!",
+					"message-future": "¡{{spirit}} llegará {{timestamp}}!"
 				},
 				"13": {
-					"message-future": "¡La patinadora de la Aldea de los Sueños practicará {{timestamp}}!",
-					"message-now": "¡La patinadora de la Aldea de los Sueños ha empezado a practicar!"
+					"message-now": "¡La patinadora de la Aldea de los Sueños ha empezado a practicar!",
+					"message-future": "¡La patinadora de la Aldea de los Sueños practicará {{timestamp}}!"
 				},
 				"14": {
-					"message-future": "¡El stock en el Taller de Anidación se actualizará {{timestamp}}!",
-					"message-now": "¡El stock en el Taller de Anidación se ha actualizado!"
+					"message-now": "¡El stock en el Taller de Anidación se ha actualizado!",
+					"message-future": "¡El stock en el Taller de Anidación se actualizará {{timestamp}}!"
 				}
 			}
 		},

@@ -1506,7 +1506,9 @@
 			"current-season-fallback": "",
 			"current-event-fallback": "",
 			"travelling-spirit": "",
-			"returning-spirits": ""
+			"returning-spirits": "",
+			"seasons-navigate-back": "",
+			"seasons-navigate-forward": ""
 		},
 		"guess": {
 			"title": "Woher kommt das?",
@@ -1535,60 +1537,60 @@
 					"message-future": ""
 				},
 				"1": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"2": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"3": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"4": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"5": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"6": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"7": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"8": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"9": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"10": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"11": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"12": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"13": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"14": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				}
 			}
 		},

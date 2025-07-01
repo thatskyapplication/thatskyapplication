@@ -253,7 +253,7 @@
 			"179": "更换你的裤子",
 			"180": "在时尚秀场神坛观看共享回忆",
 			"181": "在时尚秀场神坛记录共享回忆",
-			"182": "嬉笑炮手在藏宝岛礁需要帮助",
+			"182": "",
 			"183": "焦虑渔夫在藏宝岛礁需要帮助",
 			"184": "",
 			"185": "",
@@ -1506,7 +1506,9 @@
 			"current-season-fallback": "",
 			"current-event-fallback": "",
 			"travelling-spirit": "",
-			"returning-spirits": ""
+			"returning-spirits": "",
+			"seasons-navigate-back": "",
+			"seasons-navigate-forward": ""
 		},
 		"guess": {
 			"title": "这个哪里来的？",
@@ -1535,60 +1537,60 @@
 					"message-future": ""
 				},
 				"1": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"2": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"3": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"4": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"5": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"6": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"7": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"8": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"9": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"10": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"11": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"12": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"13": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				},
 				"14": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "",
+					"message-future": ""
 				}
 			}
 		},
