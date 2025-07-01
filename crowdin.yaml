@@ -6,9 +6,11 @@ files:
   - source: packages/utility/source/locales/en-gb.ts
     translation: packages/utility/source/locales/%locale%.json
     translation_replace:
+      de-DE: de
       es-ES: es-es
       fr-FR: fr
       it-IT: it
+      ja-JP: ja
       ko-KR: ko
       pt-BR: pt-br
       ru-RU: ru
