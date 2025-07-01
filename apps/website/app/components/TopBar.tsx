@@ -1,9 +1,13 @@
-import { SiDiscord } from "@icons-pack/react-simple-icons";
+import { SiCrowdin, SiDiscord } from "@icons-pack/react-simple-icons";
 import { Link } from "@remix-run/react";
 import { ChevronLeftIcon, LinkIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocale } from "~/contexts/LocaleContext";
-import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
+import {
+	CROWDIN_URL,
+	INVITE_APPLICATION_URL,
+	INVITE_SUPPORT_SERVER_URL,
+} from "~/utility/constants";
 import { timeString } from "~/utility/functions";
 
 interface TopBarOptions {
@@ -38,11 +42,19 @@ export default function TopBar({ back, hideBack }: TopBarOptions) {
 								aria-label="Back"
 							>
 								<ChevronLeftIcon className="h-5 w-5 mr-2" />
-								Back
+								<div className="hidden md:block">Back</div>
 							</Link>
 						)}
 					</div>
 					<div className="flex space-x-2">
+						<a
+							href={CROWDIN_URL}
+							className="flex hover:text-gray-400 hover:outline-none"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							<SiCrowdin className="h-5 w-5 mr-2" />
+						</a>
 						<a
 							href={INVITE_APPLICATION_URL}
 							className="flex hover:text-gray-400 hover:outline-none"
