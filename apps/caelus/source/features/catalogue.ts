@@ -44,6 +44,7 @@ import {
 	skyNow,
 	skySeasons,
 	spirits,
+	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
@@ -51,7 +52,7 @@ import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
 import { SECRET_AREA } from "../data/secret-area.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	CatalogueType,

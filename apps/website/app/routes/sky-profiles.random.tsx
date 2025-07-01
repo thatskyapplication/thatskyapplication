@@ -1,7 +1,6 @@
 import { type LoaderFunction, redirect } from "@remix-run/node";
-import type { SkyProfilePacket } from "@thatskyapplication/utility";
+import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
 import pg from "~/pg.server";
-import { Table } from "~/utility/constants";
 
 export const loader: LoaderFunction = async () => {
 	const countResult = await pg<SkyProfilePacket>(Table.Profiles)

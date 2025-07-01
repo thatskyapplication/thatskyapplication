@@ -1,7 +1,7 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { data, redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
-import type { UsersPacket } from "@thatskyapplication/utility";
+import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
 import TopBar from "~/components/TopBar";
 import {
@@ -16,7 +16,7 @@ import {
 import discord from "~/discord.js";
 import pg from "~/pg.server";
 import { commitSession, getSession } from "~/session.server";
-import { INVITE_SUPPORT_SERVER_URL, Table } from "~/utility/constants.js";
+import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 import { generateState } from "~/utility/functions.server";
 
 interface AuthState {

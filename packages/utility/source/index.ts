@@ -16,6 +16,22 @@ export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
+export enum Table {
+	AI = "ai",
+	Catalogue = "catalogue",
+	Configuration = "configuration",
+	DailyGuides = "daily_guides",
+	DailyGuidesDistribution = "daily_guides_distribution",
+	Giveaway = "giveaway",
+	GiveawayUpsell = "giveaway_upsell",
+	Guess = "guess",
+	Hearts = "hearts",
+	Notifications = "notifications",
+	Profiles = "profiles",
+	SkyProfileLikes = "sky_profile_likes",
+	Users = "users",
+}
+
 export type { CataloguePacket } from "./catalogue.js";
 export { CDN_URL } from "./cdn.js";
 export { Cosmetic, WING_BUFFS } from "./cosmetics.js";

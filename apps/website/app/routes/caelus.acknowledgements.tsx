@@ -2,10 +2,11 @@ import { data, Link, useLoaderData } from "@remix-run/react";
 import {
 	FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY,
 	type SkyProfilePacket,
+	Table,
 } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
 import pg from "~/pg.server";
-import { APPLICATION_NAME, Table, WIKI_URL } from "~/utility/constants";
+import { APPLICATION_NAME, WIKI_URL } from "~/utility/constants";
 
 export const loader = async () => {
 	const contributors = await pg<SkyProfilePacket>(Table.Profiles)

@@ -30,6 +30,7 @@ import {
 	skyNow,
 	skyToday,
 	skyUpcomingSeason,
+	Table,
 	TIME_ZONE,
 	treasureCandles,
 	WEBSITE_URL,
@@ -48,7 +49,7 @@ import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import pQueue from "../p-queue.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	CDN_URL,

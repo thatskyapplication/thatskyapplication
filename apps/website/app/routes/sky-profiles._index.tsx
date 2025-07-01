@@ -1,6 +1,11 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { data, Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
-import { isPlatformId, type SkyProfilePacket, WEBSITE_URL } from "@thatskyapplication/utility";
+import {
+	isPlatformId,
+	type SkyProfilePacket,
+	Table,
+	WEBSITE_URL,
+} from "@thatskyapplication/utility";
 import Layout from "~/components/Layout.js";
 import Pagination from "~/components/Pagination.js";
 import pg from "~/pg.server";
@@ -9,7 +14,6 @@ import {
 	APPLICATION_NAME,
 	SKY_PROFILES_DESCRIPTION,
 	SKY_PROFILES_PAGE_LIMIT,
-	Table,
 } from "~/utility/constants";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 

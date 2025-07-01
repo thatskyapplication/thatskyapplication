@@ -20,6 +20,7 @@ import {
 	NOTIFICATION_TYPE_VALUES,
 	type NotificationPacket,
 	type NotificationTypes,
+	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -28,7 +29,7 @@ import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Role } from "../models/discord/role.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	DEFAULT_EMBED_COLOUR,

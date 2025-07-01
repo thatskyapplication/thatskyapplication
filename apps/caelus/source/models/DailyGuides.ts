@@ -14,12 +14,13 @@ import {
 	SkyMap,
 	SpiritId,
 	skyToday,
+	Table,
 	type ValidRealmName,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import pQueue from "p-queue";
 import { distribute } from "../features/daily-guides.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	DAILY_INFOGRAPHICS_CHANNEL_ID,

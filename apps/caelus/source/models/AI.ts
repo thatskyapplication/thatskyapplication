@@ -12,6 +12,7 @@ import {
 	PermissionFlagsBits,
 	type Snowflake,
 } from "@discordjs/core";
+import { Table } from "@thatskyapplication/utility";
 import {
 	clearEntitlementCache,
 	ENTITLEMENT_CACHE,
@@ -25,7 +26,7 @@ import {
 	messageCreateResponse,
 	messageCreateStickerResponse,
 } from "../open-ai.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	APPLICATION_ID,

@@ -31,11 +31,12 @@ import {
 	STANDARD_SPIRITS,
 	type StandardSpirit,
 	spirits,
+	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { GuessPacket } from "../models/Guess.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	DEFAULT_EMBED_COLOUR,

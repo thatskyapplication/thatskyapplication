@@ -6,13 +6,14 @@ import {
 	MessageFlags,
 } from "@discordjs/core";
 import type { CataloguePacket } from "@thatskyapplication/utility";
+import { Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { GiveawayPacket, GiveawayUpsellPacket } from "../features/giveaway.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type { HeartPacket } from "../models/Heart.js";
 import Profile from "../models/Profile.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import { DATA_DELETION_CUSTOM_ID, SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";

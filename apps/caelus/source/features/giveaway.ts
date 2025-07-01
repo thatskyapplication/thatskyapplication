@@ -14,12 +14,12 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { skyNow, skyToday } from "@thatskyapplication/utility";
+import { skyNow, skyToday, Table } from "@thatskyapplication/utility";
 import type { QueryResult } from "pg";
 import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	ANNOUNCEMENTS_CHANNEL_ID,

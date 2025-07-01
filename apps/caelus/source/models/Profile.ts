@@ -54,6 +54,7 @@ import {
 	type SkyProfileWingedLightTypes,
 	type Snowflake,
 	skySeasons,
+	Table,
 	WING_BUFFS,
 	WINGED_LIGHT_IN_AREAS,
 } from "@thatskyapplication/utility";
@@ -64,7 +65,7 @@ import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import { allProgress, fetchCatalogue } from "../features/catalogue.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { findUser } from "../services/guess.js";

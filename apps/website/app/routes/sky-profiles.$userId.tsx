@@ -11,6 +11,7 @@ import {
 	type SkyProfilePacket,
 	SkyProfileWingedLightType,
 	type Snowflake,
+	Table,
 	WEBSITE_URL,
 	WING_BUFFS,
 	WINGED_LIGHT_IN_AREAS,
@@ -19,7 +20,7 @@ import { ChevronLeftIcon, LinkIcon, MapPinIcon } from "lucide-react";
 import { useState } from "react";
 import Layout from "~/components/Layout.js";
 import pg from "~/pg.server";
-import { APPLICATION_NAME, Table } from "~/utility/constants.js";
+import { APPLICATION_NAME } from "~/utility/constants.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {

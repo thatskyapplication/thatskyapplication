@@ -1,9 +1,9 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
-import { isDuring, skyNow, type UsersPacket } from "@thatskyapplication/utility";
+import { isDuring, skyNow, Table, type UsersPacket } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import { eligible } from "../features/giveaway.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import { TRANSLATOR_ROLE_ID } from "../utility/configuration.js";
 import {

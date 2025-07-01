@@ -1,4 +1,5 @@
-import pg, { Table } from "../pg.js";
+import { Table } from "@thatskyapplication/utility";
+import pg from "../pg.js";
 
 export interface ConfigurationPacket {
 	ai: boolean;

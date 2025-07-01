@@ -18,12 +18,13 @@ import {
 	isDuring,
 	resolveCurrencyEmoji,
 	skyNow,
+	Table,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { HeartPacket } from "../models/Heart.js";
-import pg, { Table } from "../pg.js";
+import pg from "../pg.js";
 import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,

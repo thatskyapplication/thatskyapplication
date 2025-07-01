@@ -10,6 +10,7 @@ import {
 	skyNotEndedEvents,
 	skyNow,
 	skyUpcomingSeason,
+	Table,
 	TIME_ZONE,
 	treasureCandles,
 } from "@thatskyapplication/utility";
@@ -17,7 +18,7 @@ import { PanelRightClose, X } from "lucide-react";
 import { useState } from "react";
 import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
-import { SEASONAL_CANDLE_ICON, Table } from "~/utility/constants";
+import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
 import { getLocaleFromRequest } from "~/utility/functions";
 
 interface DailyGuidesPacket {

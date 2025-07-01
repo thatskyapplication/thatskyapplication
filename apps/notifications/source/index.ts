@@ -19,6 +19,7 @@ import {
 	ru,
 	type SkyMap,
 	shardEruption,
+	Table,
 	TIME_ZONE,
 	TRAVELLING_DATES,
 	th,
@@ -32,7 +33,6 @@ import { DateTime } from "luxon";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
-import { NOTIFICATIONS_TABLE } from "./utility/constants.js";
 
 void init({
 	fallbackLng: Locale.EnglishGB,
@@ -311,7 +311,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 
 		const notificationsSettled = await Promise.allSettled(
 			(
-				await pg<NotificationPacket & { channel_id: string; role_id: string }>(NOTIFICATIONS_TABLE)
+				await pg<NotificationPacket & { channel_id: string; role_id: string }>(Table.Notifications)
 					.select("channel_id", "role_id", "locale")
 					.where({
 						type,
