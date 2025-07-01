@@ -253,7 +253,7 @@
 			"179": "Trocar de calças",
 			"180": "Veja uma memória compartilhada em um altar de passarela de moda",
 			"181": "Grave uma memória compartilhada em um altar de passarela de moda",
-			"182": "A Canhoneira Sorridente precisa de ajuda com algo no Tesouro do Recife",
+			"182": "Encontre-se com Canhoneira Sorridente em Tesouro do Recife",
 			"183": "Encontre-se com a Pescadora Ansiosa no Tesouro do Recife",
 			"184": "Encontre-se com o Músico Meloso na Vila dos Sonhos",
 			"185": "Encontre-se com a Pescadora Ansiosa no Sertão Dourado",
@@ -307,7 +307,7 @@
 			"233": "Encontre-se com o Construtor Engenhoso no Ninho de Pássaros",
 			"234": "Encontre-se com a Forjadora de Sinos no Ninho de Pássaros",
 			"235": "Encontre-se com a Domadora de Luzes no Ninho de Pássaros",
-			"236": ""
+			"236": "Encontre-se com Navegador Animado no Ninho de Pássaros"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -1433,16 +1433,16 @@
 			"command-name": "Perfil Sky"
 		},
 		"spirits": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "espíritos",
+			"command-description": "Busque informações sobre um espírito!",
 			"history": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-order-name": "",
-				"command-option-order-description": "",
+				"command-name": "histórico",
+				"command-description": "Veja um histórico dos espíritos que já visitaram, inclusive espíritos não visitam há bastante tempo.",
+				"command-option-order-name": "ordem",
+				"command-option-order-description": "Escolha um tipo de ordem para os espíritos.",
 				"command-option-order-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "Ordenar por aparência (ordem cronológica).",
+					"1": "Ordenar por raridade (espíritos que não retornam há bastante tempo)."
 				}
 			},
 			"search": {
@@ -1491,22 +1491,24 @@
 		},
 		"catalogue": {
 			"main-title": "Inventário",
-			"main-description": "",
-			"standard-spirits": "",
-			"elders": "",
-			"seasons": "",
-			"events": "",
-			"starter-packs": "",
-			"secret-area": "",
-			"permanent-event-store": "",
-			"nesting-workshop": "",
-			"main-no-progress": "",
-			"main-progress": "",
-			"quick-access": "",
-			"current-season-fallback": "",
-			"current-event-fallback": "",
-			"travelling-spirit": "",
-			"returning-spirits": ""
+			"main-description": "Bem-vindo ao seu catálogo!\n\nAqui, você pode controlar todos os cosméticos do jogo, com cálculos dinâmicos, como a quantidade de velas da temporada que faltam para a temporada atual, tornando-o uma ferramenta poderosa para usar.\n\nProgresso total: {{progress}}%",
+			"standard-spirits": "Espíritos regulares",
+			"elders": "Anciões",
+			"seasons": "Temporadas",
+			"events": "Eventos",
+			"starter-packs": "Pacotes de iniciante",
+			"secret-area": "Área secreta",
+			"permanent-event-store": "Loja de evento permanente",
+			"nesting-workshop": "Oficina do Ninho",
+			"main-no-progress": "Sem progresso",
+			"main-progress": "Progresso: {{number}}%",
+			"quick-access": "Acesso rápido",
+			"current-season-fallback": "Temporada",
+			"current-event-fallback": "Evento",
+			"travelling-spirit": "Espírito Viajante",
+			"returning-spirits": "Espíritos Retornando",
+			"seasons-navigate-back": "Voltar",
+			"seasons-navigate-forward": "Avançar"
 		},
 		"guess": {
 			"title": "De onde isso veio?",
@@ -1531,84 +1533,84 @@
 			"back": "Retornar",
 			"messages": {
 				"0": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "É um novo dia. Hora de pegar velas de novo!",
+					"message-future": "Um novo dia começa {{timestamp}}!"
 				},
 				"1": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "Sky kids podem salvar as estátuas no Olho do Éden de novo!",
+					"message-future": "As estátuas do Olho do Éden serão redefinidas {{timestamp}}!"
 				},
 				"2": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "A Estação Espacial Internacional pode ser acessada!",
+					"message-future": "A Estação Espacial Internacional poderá ser acessada {{timestamp}}!"
 				},
 				"3": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "O dragão está espalhando suas festividades agora!",
+					"message-future": "O dragão vai espalhar suas festividades {{timestamp}}!"
 				},
 				"4": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "O Gêiser Poluído está entrando em erupção!",
+					"message-future": "O Gêiser Poluído vai entrar em erupção {{timestamp}}!"
 				},
 				"5": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "A Vovó começou a compartilhar sua luz!",
+					"message-future": "A Vovó vai compartilhar sua luz {{timestamp}}!"
 				},
 				"6": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "A Tartaruga precisa de uma limpeza de escuridão agora!",
+					"message-future": "A Tartaruga vai precisar de uma limpeza de escuridão {{timestamp}}!"
 				},
 				"7": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "Uma erupção de cristais comum vai cair em {{location}} e ser limpa {{timestampEnd}}!",
+					"message-future": "Uma erupção de cristais comum vai cair em {{location}} {{timestampStart}} e ser limpa {{timestampEnd}}!"
 				},
 				"8": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "Uma erupção de cristais forte vai cair em {{location}} e ser limpa {{timestampEnd}}!",
+					"message-future": "Uma erupção de cristais forte vai cair em {{location}} {{timestampStart}} e ser limpa em {{timestampEnd}}!"
 				},
 				"9": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "O concerto da AURORA está começando! Leve seus amigos!",
+					"message-future": "O concerto da AURORA começa {{timestamp}}! Leve seus amigos!"
 				},
 				"10": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "As missões da Temporada da Passagem estão começando!",
+					"message-future": "As missões da Temporada da Passagem vai começar {{timestamp}}!"
 				},
 				"11": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "O Festival de Fogos do Aviário está começando!",
+					"message-future": "O Festival de Fogos do Aviário vai começar {{timestamp}}!"
 				},
 				"12": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "{{spirit}} chegou!",
+					"message-future": "{{spirit}} vai chegar {{timestamp}}!"
 				},
 				"13": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "A Patinadora dos Sonhos começou a praticar!",
+					"message-future": "A Patinadora dos Sonhos vai praticar {{timestamp}}!"
 				},
 				"14": {
-					"message-future": "",
-					"message-now": ""
+					"message-now": "A Oficina do Ninho foi atualizada!",
+					"message-future": "A Oficina do Ninho vai atualizar {{timestamp}}!"
 				}
 			}
 		},
 		"shard-eruption": {
-			"browse-title": "",
-			"browse-description": "",
-			"no-shard-eruptions-today": "",
-			"no-shard-eruptions-not-today": "",
-			"today": "",
-			"browse": ""
+			"browse-title": "Erupções de Cristais",
+			"browse-description": "Você está atualmente navegando erupções de cristais. Abra os menus de seleção para ver informações por um maior período. Selecione uma data para ver mais informações.",
+			"no-shard-eruptions-today": "Não haverá erupções de cristais hoje.",
+			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
+			"today": "Hoje",
+			"browse": "Procurar"
 		},
 		"spirits": {
-			"not-encountered-spirit": "",
+			"not-encountered-spirit": "Uau, parece que nós não encontramos esse espírito ainda. Que estranho!",
 			"title": {
-				"0": "",
-				"1": ""
+				"0": "Histórico de Espíritos Viajantes",
+				"1": "Raridade de Espíritos"
 			},
-			"order-natural": "",
-			"order-rarity": "",
-			"page": ""
+			"order-natural": "Ordenar por aparência",
+			"order-rarity": "Ordenar por raridade",
+			"page": "Página"
 		}
 	}
 }
