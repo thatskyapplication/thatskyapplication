@@ -22,6 +22,7 @@ import { generateState } from "~/utility/functions.server";
 interface AuthState {
 	crowdinAuthorised: boolean;
 	discordAuthorised: boolean;
+	success?: boolean;
 	crowdinUser?: {
 		id: number;
 		username: string;
@@ -98,7 +99,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				}
 			}
 		} catch {
-			authenticationState.error = "Failed to authorise with Crowdin";
+			authenticationState.error = "Failed to authorise with Crowdin.";
 			session.set("auth_error", authenticationState.error);
 		}
 
@@ -145,7 +146,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				}
 			}
 		} catch {
-			authenticationState.error = "Failed to authorise with Discord";
+			authenticationState.error = "Failed to authorise with Discord.";
 			session.set("auth_error", authenticationState.error);
 		}
 
@@ -164,6 +165,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				authenticationState.discordUser!.id,
 				TRANSLATOR_ROLE_ID,
 			);
+
+			authenticationState.success = true;
 		} catch {
 			authenticationState.error = "Failed to link accounts.";
 			session.set("auth_error", authenticationState.error);
@@ -227,7 +230,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function CrowdinDiscord() {
-	const { crowdinAuthorised, discordAuthorised, crowdinUser, discordUser, error } =
+	const { crowdinAuthorised, discordAuthorised, crowdinUser, discordUser, error, success } =
 		useLoaderData<typeof loader>();
 
 	return (
@@ -240,7 +243,7 @@ export default function CrowdinDiscord() {
 						<p className="text-sm">{error}</p>
 					</div>
 				)}
-				{crowdinAuthorised && discordAuthorised ? (
+				{success ? (
 					<div className="text-center">
 						<CheckCircleIcon className="w-16 h-16 text-green-500 mx-auto mb-4" />
 						<h2 className="text-xl font-semibold text-green-600 dark:text-green-400 mb-4">
@@ -294,9 +297,6 @@ export default function CrowdinDiscord() {
 								<div>
 									<p className="text-sm text-green-600 dark:text-green-400 mb-1">
 										✓ Authorised as {crowdinUser!.username}
-									</p>
-									<p className="text-xs text-gray-500 dark:text-gray-400">
-										{crowdinUser!.username}
 									</p>
 								</div>
 							) : (
