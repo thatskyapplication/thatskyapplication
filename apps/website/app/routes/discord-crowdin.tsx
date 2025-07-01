@@ -234,7 +234,7 @@ export default function CrowdinDiscord() {
 		<div className="min-h-screen flex items-center justify-center">
 			<TopBar />
 			<div className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg p-8 w-full max-w-md">
-				<h1 className="text-center mb-6">Crowdin & Discord Authorization</h1>
+				<h1 className="text-center mb-6">Crowdin & Discord Authorisation</h1>
 				{error && (
 					<div className="bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded mb-4">
 						<p className="text-sm">{error}</p>
