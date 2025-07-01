@@ -27,9 +27,19 @@ export default {
 		}
 
 		if (data.guild_id === DEVELOPER_GUILD_ID) {
-			if (await pg<UsersPacket>(Table.Users).where({ discord_user_id: data.user.id  }).and.whereNotNull("crowdin_user_id").first()) {
+			if (
+				await pg<UsersPacket>(Table.Users)
+					.where({ discord_user_id: data.user.id })
+					.and.whereNotNull("crowdin_user_id")
+					.first()
+			) {
 				pino.info(data, "Added translator role to user.");
-				await client.api.guilds.addRoleToMember(DEVELOPER_GUILD_ID, data.user.id, TRANSLATOR_ROLE_ID);
+
+				await client.api.guilds.addRoleToMember(
+					DEVELOPER_GUILD_ID,
+					data.user.id,
+					TRANSLATOR_ROLE_ID,
+				);
 			}
 
 			if (isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())) {
