@@ -258,7 +258,7 @@ export default function CrowdinDiscord() {
 					<div className="text-center">
 						<CheckCircleIcon className="w-16 h-16 text-green-500 mx-auto mb-4" />
 						<h2 className="text-xl font-semibold text-green-600 dark:text-green-400 mb-4">
-							Successfully Authorised!
+							Success!
 						</h2>
 						<p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
 							You have successfully linked your Crowdin and Discord accounts.
