@@ -18,6 +18,7 @@ if (
 		process.env.IDEA_TAG_ID &&
 		process.env.ISSUE_TAG_ID &&
 		process.env.DEVELOPER_ROLE_ID &&
+		process.env.TRANSLATOR_ROLE_ID &&
 		process.env.GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT &&
 		process.env.DATABASE_URL &&
 		process.env.OPENAI_API_KEY &&
@@ -44,6 +45,7 @@ export const CROWDIN_RAW_CHANNEL_ID = process.env.CROWDIN_RAW_CHANNEL_ID;
 export const IDEA_TAG_ID = process.env.IDEA_TAG_ID;
 export const ISSUE_TAG_ID = process.env.ISSUE_TAG_ID;
 export const DEVELOPER_ROLE_ID = process.env.DEVELOPER_ROLE_ID;
+export const TRANSLATOR_ROLE_ID = process.env.TRANSLATOR_ROLE_ID;
 
 export const GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT = Number(
 	process.env.GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT,

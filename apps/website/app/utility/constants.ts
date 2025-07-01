@@ -28,6 +28,7 @@ export enum Table {
 	Catalogue = "catalogue",
 	DailyGuides = "daily_guides",
 	Profiles = "profiles",
+	Users = "users",
 }
 
 export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp", CDN_URL));

@@ -134,6 +134,7 @@ export {
 	VISITS_ABSENT,
 } from "./spirits/seasons/index.js";
 export type { Snowflake } from "./types/index.js";
+export type { UsersPacket } from "./users.js";
 export { LINK_REDIRECTOR_URL } from "./utility/constants.js";
 export { EventId, type EventIds } from "./utility/event.js";
 export {
