@@ -155,18 +155,29 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	if (authenticationState.crowdinAuthorised && authenticationState.discordAuthorised) {
 		try {
-			await pg<UsersPacket>(Table.Users).insert({
-				discord_user_id: authenticationState.discordUser!.id,
-				crowdin_user_id: authenticationState.crowdinUser!.id,
-			});
+			const user = await pg<UsersPacket>(Table.Users)
+				.where({
+					discord_user_id: authenticationState.discordUser!.id,
+					crowdin_user_id: authenticationState.crowdinUser!.id,
+				})
+				.first();
 
-			await discord.guilds.addRoleToMember(
-				SUPPORT_SERVER_GUILD_ID,
-				authenticationState.discordUser!.id,
-				TRANSLATOR_ROLE_ID,
-			);
+			if (user) {
+				authenticationState.error = "You're already a translator!";
+			} else {
+				await pg<UsersPacket>(Table.Users).insert({
+					discord_user_id: authenticationState.discordUser!.id,
+					crowdin_user_id: authenticationState.crowdinUser!.id,
+				});
 
-			authenticationState.success = true;
+				await discord.guilds.addRoleToMember(
+					SUPPORT_SERVER_GUILD_ID,
+					authenticationState.discordUser!.id,
+					TRANSLATOR_ROLE_ID,
+				);
+
+				authenticationState.success = true;
+			}
 		} catch {
 			authenticationState.error = "Failed to link accounts.";
 			session.set("auth_error", authenticationState.error);
