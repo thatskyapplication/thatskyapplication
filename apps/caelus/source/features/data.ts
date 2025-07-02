@@ -1,5 +1,10 @@
-import { type APIMessageComponentButtonInteraction, MessageFlags } from "@discordjs/core";
-import type { CataloguePacket } from "@thatskyapplication/utility";
+import {
+	type APIMessageComponentButtonInteraction,
+	MessageFlags,
+	RESTJSONErrorCodes,
+} from "@discordjs/core";
+import { DiscordAPIError } from "@discordjs/rest";
+import type { CataloguePacket, UsersPacket } from "@thatskyapplication/utility";
 import { Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
@@ -8,7 +13,8 @@ import type { HeartPacket } from "../models/Heart.js";
 import Profile from "../models/Profile.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
+import { TRANSLATOR_ROLE_ID } from "../utility/configuration.js";
+import { DEVELOPER_GUILD_ID, SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import type { GiveawayPacket, GiveawayUpsellPacket } from "./giveaway.js";
 
@@ -30,10 +36,20 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 		pg<GuessPacket>(Table.Guess).delete().where({ user_id: userId }),
 		pg<GiveawayPacket>(Table.Giveaway).delete().where({ user_id: userId }),
 		pg<GiveawayUpsellPacket>(Table.GiveawayUpsell).delete().where({ user_id: userId }),
+		pg<UsersPacket>(Table.Users).delete().where({ discord_user_id: userId }),
 	);
 
 	try {
 		await Promise.all(promises);
+
+		try {
+			await client.api.guilds.removeRoleFromMember(DEVELOPER_GUILD_ID, userId, TRANSLATOR_ROLE_ID);
+		} catch (error) {
+			// Unknown member is fine.
+			if (!(error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownMember)) {
+				throw error;
+			}
+		}
 	} catch (error) {
 		pino.error(error, `Error deleting user data for ${userId}.`);
 
