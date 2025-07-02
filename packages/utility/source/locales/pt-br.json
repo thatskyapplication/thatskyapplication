@@ -1509,7 +1509,7 @@
 			"seasons-navigate-forward": "Avançar"
 		},
 		"data": {
-			"delete-message": "Tem certeza que quer apagar seus dados? Isto vai:\n- Excluir seu perfil Sky\n- Excluir seu inventário\n- Excluir seus corações\n  - Seu id de usuário no histórico de corações dos outros tornará-se anônimo\n- Excluir sua sequência máxima no jogo\n- Remover dados de sorteios ou promoções",
+			"delete-message": "",
 			"delete-my-data": "",
 			"delete-error": "Houve um problema ao excluir seus dados de usuário. Não se preocupe, este incidente está sendo acompanhado e foi convertido em uma solicitação manual de exclusão de dados (em vez de uma automática). Seus dados serão excluídos dentro de 30 dias.\n\nSe quiser, você pode entrar no [servidor de suporte]({{url}}) e pedir para verificar o status da sua solicitação de exclusão de dados.",
 			"delete-success": ""
