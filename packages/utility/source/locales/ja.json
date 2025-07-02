@@ -5,10 +5,10 @@
 			"season_one": "シーズン終了まであと{{count}} 日。",
 			"season_other": "シーズン終了まであと{{count}} 日。",
 			"event_zero": "",
-			"event_one": "",
-			"event_other": ""
+			"event_one": "{{name}}終了まであと{{count}}日",
+			"event_other": "{{name}}終了まであと{{count}}日"
 		},
-		"event-tickets": "",
+		"event-tickets": "イベントチケット",
 		"realms": {
 			"Isles of Dawn": "孤島",
 			"Daylight Prairie": "草原",
@@ -22,7 +22,7 @@
 			"Bird Nest": "鳥の塔",
 			"Butterfly Fields": "蝶々の住処",
 			"Cave": "草原の洞窟",
-			"Koi Pond": "",
+			"Koi Pond": "鯉の池",
 			"Village Islands": "草原の村",
 			"Sanctuary Islands": "楽園の島々",
 			"Boneyard": "雨林の墓場",
@@ -31,44 +31,44 @@
 			"Forest Clearing": "開拓地",
 			"Forest End": "",
 			"Treehouse": "ツリーハウス",
-			"Wind Paths": "",
-			"Ice Rink": "",
-			"Citadel": "",
-			"Coliseum": "",
+			"Wind Paths": "風の街道",
+			"Ice Rink": "アイスリンク",
+			"Citadel": "城塞都市",
+			"Coliseum": "円形劇場",
 			"Hermit Valley": "隠者の峠",
 			"Village of Dreams": "夢見の町",
-			"Battlefield": "",
-			"Boat": "",
-			"Broken Temple": "",
-			"Crab Fields": "",
-			"Forgotten Ark": "",
-			"Graveyard": "",
-			"Treasure Reef": "",
+			"Battlefield": "戦場",
+			"Boat": "船",
+			"Broken Temple": "倒壊した祠",
+			"Crab Fields": "座礁船",
+			"Forgotten Ark": "忘れられた方舟",
+			"Graveyard": "墓所",
+			"Treasure Reef": "秘宝の環礁",
 			"Vault Entrance": "",
 			"Jellyfish Cove": "海月の入り江",
-			"Starlight Desert": "",
+			"Starlight Desert": "星月夜の砂漠",
 			"Vault Second Floor": "",
 			"Vault Summit": "",
-			"Orbit": "",
+			"Orbit": "天空",
 			"Ancient Memory": "いにしえの追想",
-			"Crescent Oasis": ""
+			"Crescent Oasis": "三日月オアシス"
 		},
 		"notification-types": {
-			"0": "",
+			"0": "デイリー更新",
 			"1": "暴風域",
 			"2": "",
 			"3": "",
 			"4": "",
-			"5": "",
-			"6": "",
+			"5": "おばあちゃん",
+			"6": "亀",
 			"7": "",
 			"8": "",
-			"9": "",
+			"9": "AURORA",
 			"10": "",
 			"11": "",
-			"12": "",
-			"13": "",
-			"14": ""
+			"12": "再訪する精霊",
+			"13": "スケーター",
+			"14": "巣づくり工房"
 		},
 		"quests": {
 			"0": "光のかけらを30個集める",
@@ -241,7 +241,7 @@
 			"167": "花鳥郷でシナモンと高い塔の上まで飛んで行く",
 			"168": "花鳥郷でシナモンといっしょに水遊びする",
 			"169": "大競技会のいずれかの競技をプレーする",
-			"170": "",
+			"170": "慎み深い踊り手に夢見の町で会いましょう",
 			"171": "",
 			"172": "",
 			"173": "",
@@ -1264,9 +1264,7 @@
 			"command-description": "",
 			"delete": {
 				"command-name": "",
-				"command-description": "",
-				"prompt-message": "",
-				"error-message": ""
+				"command-description": ""
 			}
 		},
 		"Gift-Heart": {
@@ -1509,6 +1507,12 @@
 			"returning-spirits": "",
 			"seasons-navigate-back": "",
 			"seasons-navigate-forward": ""
+		},
+		"data": {
+			"delete-message": "",
+			"delete-my-data": "",
+			"delete-error": "",
+			"delete-success": ""
 		},
 		"guess": {
 			"title": "",
