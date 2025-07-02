@@ -1,6 +1,13 @@
-import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
+import {
+	type APIChatInputApplicationCommandInteraction,
+	ButtonStyle,
+	ComponentType,
+	Locale,
+	MessageFlags,
+} from "@discordjs/core";
 import { t } from "i18next";
-import { deletePrompt } from "../../services/data.js";
+import { client } from "../../discord.js";
+import { DATA_DELETION_CUSTOM_ID } from "../../utility/constants.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -9,8 +16,25 @@ export default {
 		const options = new OptionResolver(interaction);
 
 		switch (options.getSubcommand()) {
-			case "delete":
-				await deletePrompt(interaction);
+			case "delete": {
+				await client.api.interactions.reply(interaction.id, interaction.token, {
+					components: [
+						{
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.Button,
+									custom_id: DATA_DELETION_CUSTOM_ID,
+									label: t("data.delete-my-data", { lng: interaction.locale, ns: "features" }),
+									style: ButtonStyle.Danger,
+								},
+							],
+						},
+					],
+					content: t("data.delete-message", { lng: interaction.locale, ns: "features" }),
+					flags: MessageFlags.Ephemeral,
+				});
+			}
 		}
 	},
 } as const;

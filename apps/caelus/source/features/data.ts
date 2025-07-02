@@ -1,42 +1,16 @@
-import {
-	type APIChatInputApplicationCommandInteraction,
-	type APIMessageComponentButtonInteraction,
-	ButtonStyle,
-	ComponentType,
-	MessageFlags,
-} from "@discordjs/core";
+import { type APIMessageComponentButtonInteraction, MessageFlags } from "@discordjs/core";
 import type { CataloguePacket } from "@thatskyapplication/utility";
 import { Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import type { GiveawayPacket, GiveawayUpsellPacket } from "../features/giveaway.js";
 import type { GuessPacket } from "../models/Guess.js";
 import type { HeartPacket } from "../models/Heart.js";
 import Profile from "../models/Profile.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { DATA_DELETION_CUSTOM_ID, SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
+import { SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
-
-export async function deletePrompt(interaction: APIChatInputApplicationCommandInteraction) {
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: DATA_DELETION_CUSTOM_ID,
-						label: "Delete my data",
-						style: ButtonStyle.Danger,
-					},
-				],
-			},
-		],
-		content: t("data.delete.prompt-message", { lng: interaction.locale, ns: "commands" }),
-		flags: MessageFlags.Ephemeral,
-	});
-}
+import type { GiveawayPacket, GiveawayUpsellPacket } from "./giveaway.js";
 
 export async function deleteUserData(interaction: APIMessageComponentButtonInteraction) {
 	const { locale } = interaction;
@@ -65,9 +39,9 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [],
-			content: t("data.delete.error-message", {
+			content: t("data.delete-error", {
 				lng: locale,
-				ns: "commands",
+				ns: "features",
 				url: SUPPORT_SERVER_INVITE_URL,
 			}),
 			flags: MessageFlags.SuppressEmbeds,
@@ -78,6 +52,6 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [],
-		content: "Your data has been deleted. You are a moth now.",
+		content: t("data.delete-success", { lng: locale, ns: "features" }),
 	});
 }

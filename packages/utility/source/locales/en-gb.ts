@@ -1419,10 +1419,6 @@ export default {
 			delete: {
 				"command-name": "delete",
 				"command-description": "Delete your data.",
-				"prompt-message":
-					"Are you sure you want to delete your data? This will:\n- Delete your Sky profile\n- Delete your catalogue\n- Delete your hearts\n  - Your user id in heart histories for others will be anonymised\n- Delete your maximum streak in the guessing game\n- Remove giveaway data",
-				"error-message":
-					"There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.\n\nIf you want, you may join the [support server]({{url}}) and request to see the status of your data deletion request.",
 			},
 		},
 		"Gift-Heart": {
@@ -1681,6 +1677,14 @@ export default {
 			"returning-spirits": "Returning Spirits",
 			"seasons-navigate-back": "Navigate back",
 			"seasons-navigate-forward": "Navigate forward",
+		},
+		data: {
+			"delete-message":
+				"Are you sure you want to delete your data? This will:\n- Delete your Sky profile\n- Delete your catalogue\n- Delete your hearts\n  - Your user id in heart histories for others will be anonymised\n- Delete your maximum streak in the guessing game\n- Remove giveaway data",
+			"delete-my-data": "Delete my data",
+			"delete-error":
+				"There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.\n\nIf you want, you may join the [support server]({{url}}) and request to see the status of your data deletion request.",
+			"delete-success": "Your data has been deleted. You are a moth now.",
 		},
 		guess: {
 			title: "Where does this come from?",

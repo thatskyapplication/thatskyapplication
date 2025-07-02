@@ -87,6 +87,7 @@ import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 } from "../features/daily-guides.js";
+import { deleteUserData } from "../features/data.js";
 import {
 	claimTicket,
 	GIVEAWAY_BUTTON_CUSTOM_ID,
@@ -156,7 +157,6 @@ import Profile, {
 } from "../models/Profile.js";
 import pino from "../pino.js";
 import { distribute, interactive, questSwap } from "../services/admin.js";
-import { deleteUserData } from "../services/data.js";
 import {
 	answer,
 	isGuessDifficultyLevel,
