@@ -1264,9 +1264,7 @@
 			"command-description": "",
 			"delete": {
 				"command-name": "",
-				"command-description": "",
-				"prompt-message": "",
-				"error-message": ""
+				"command-description": ""
 			}
 		},
 		"Gift-Heart": {
@@ -1510,6 +1508,12 @@
 			"seasons-navigate-back": "",
 			"seasons-navigate-forward": ""
 		},
+		"data": {
+			"delete-message": "",
+			"delete-my-data": "",
+			"delete-error": "",
+			"delete-success": ""
+		},
 		"guess": {
 			"title": "",
 			"guess-in": "",
@@ -1598,9 +1602,9 @@
 			"browse-title": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
-			"no-shard-eruptions-not-today": "",
-			"today": "",
-			"browse": ""
+			"no-shard-eruptions-not-today": "No hay erupciones de fragmentos en este día.",
+			"today": "Hoy",
+			"browse": "Echar un vistazo"
 		},
 		"spirits": {
 			"not-encountered-spirit": "Vaya, parece que no nos hemos encontrado con ese espíritu todavía. ¡Qué raro!",

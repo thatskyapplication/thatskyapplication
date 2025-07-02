@@ -1211,8 +1211,8 @@
 				"required": "必需的",
 				"day_one": "结果: {{count}} 天",
 				"day_other": "結果: {{count}} 天s",
-				"day-season-pass_one": "(持有季票還剩 {{count}} 天).",
-				"day-season-pass_other": "(持有季票還剩 {{count}} 天).",
+				"day-season-pass_one": "(持有季票還剩 {{count}} 天)。",
+				"day-season-pass_other": "(持有季票還剩 {{count}} 天)。",
 				"seasonal-candle-calculator": "季節蠟燭計算器",
 				"remain-in-the-season": "在本賽季。",
 				"remain-in-the-season-with-a-season-pass": "持有季票在本賽季。",
@@ -1264,9 +1264,7 @@
 			"command-description": "有關您的資料的命令。",
 			"delete": {
 				"command-name": "刪除",
-				"command-description": "刪除您的資料。",
-				"prompt-message": "您確定要刪除資料嗎？這將：\n- 刪除你的 Sky 個人資料\n- 刪除您的目錄\n- 刪除你的愛心\n - 您在他人愛心歷史中的使用者 Id 將被匿名化\n- 刪除猜謎遊戲中的最大連續紀錄\n- 刪除贈品數據",
-				"error-message": "刪除您的用戶資料時出現問題。請放心，我們正在追蹤此事件，並已將其轉換為手動資料刪除請求（而不是自動刪除請求）。您的資料將在 30 天內被刪除。\n\n如果您願意，您可以加入[支援伺服器]({{url}})並要求查看您的資料刪除請求的狀態。"
+				"command-description": "刪除您的資料。"
 			}
 		},
 		"Gift-Heart": {
@@ -1394,7 +1392,7 @@
 				"command-option-name-name": "名字",
 				"command-option-name-description": "你的遊戲名字是？",
 				"command-option-thumbnail-name": "縮圖",
-				"command-option-thumbnail-description": "上傳您的縮圖 ！",
+				"command-option-thumbnail-description": "上傳您的縮圖！ ",
 				"command-option-icon-name": "圖示",
 				"command-option-icon-description": "上傳你的圖標！",
 				"command-option-winged-light-name": "光之翼",
@@ -1510,6 +1508,12 @@
 			"seasons-navigate-back": "返回",
 			"seasons-navigate-forward": "下一頁"
 		},
+		"data": {
+			"delete-message": "您確定要刪除資料嗎？這將：\n- 刪除你的 Sky 個人資料\n- 刪除您的目錄\n- 刪除你的愛心\n - 您在他人愛心歷史中的使用者 Id 將被匿名化\n- 刪除猜謎遊戲中的最大連續紀錄\n- 刪除贈品數據",
+			"delete-my-data": "",
+			"delete-error": "刪除您的用戶資料時出現問題。請放心，我們正在追蹤此事件，並已將其轉換為手動資料刪除請求（而不是自動刪除請求）。您的資料將在 30 天內被刪除。\n\n如果您願意，您可以加入[支援伺服器]({{url}})並要求查看您的資料刪除請求的狀態。",
+			"delete-success": ""
+		},
 		"guess": {
 			"title": "這是從哪裡來的？",
 			"guess-in": "猜猜{{time}}！",
@@ -1541,8 +1545,8 @@
 					"message-future": ""
 				},
 				"2": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "國際太空站目前開放參觀。",
+					"message-future": "國際太空站將在{{timestamp}}開放參觀。"
 				},
 				"3": {
 					"message-now": "",

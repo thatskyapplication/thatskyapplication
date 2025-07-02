@@ -1264,9 +1264,7 @@
 			"command-description": "",
 			"delete": {
 				"command-name": "",
-				"command-description": "",
-				"prompt-message": "",
-				"error-message": ""
+				"command-description": ""
 			}
 		},
 		"Gift-Heart": {
@@ -1509,6 +1507,12 @@
 			"returning-spirits": "",
 			"seasons-navigate-back": "",
 			"seasons-navigate-forward": ""
+		},
+		"data": {
+			"delete-message": "",
+			"delete-my-data": "",
+			"delete-error": "",
+			"delete-success": ""
 		},
 		"guess": {
 			"title": "这个哪里来的？",
