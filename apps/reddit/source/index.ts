@@ -23,7 +23,12 @@ import { WebhookExecuteError } from "./models/webbook-execute-error.js";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { PRODUCTION } from "./utility/configuration.js";
-import { EXECUTE_TIMEOUT, REDDIT_BASE_URL, REDDIT_COLOUR } from "./utility/constants.js";
+import {
+	EXECUTE_TIMEOUT,
+	MAXIMUM_CHARACTER_LIMIT,
+	REDDIT_BASE_URL,
+	REDDIT_COLOUR,
+} from "./utility/constants.js";
 
 interface DiscordPayload {
 	over18: boolean;
@@ -66,7 +71,9 @@ new Cron(
 		// Construct the payload for Discord.
 		const payloads = posts.map((post): DiscordPayload => {
 			let { data } = post;
+			const title = `## ${data.title.replace(/^#+/g, (match) => match.replace(/#/g, "\\#"))}`;
 			let authorText = `[u/${data.author}](${REDDIT_BASE_URL}/user/${data.author})`;
+			const footer = `-# ${formatEmoji(emojis.MISCELLANEOUS_EMOJIS.Reddit)} [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed}) (<t:${data.created_utc}:R>)`;
 
 			if (data.crosspost_parent_list) {
 				if (data.crosspost_parent_list.length > 1) {
@@ -84,7 +91,7 @@ new Cron(
 			const containerComponents: APIComponentInContainer[] = [
 				{
 					type: ComponentType.TextDisplay,
-					content: `## ${data.title.replace(/^#+/g, (match) => match.replace(/#/g, "\\#"))}`,
+					content: title,
 				},
 				{
 					type: ComponentType.Separator,
@@ -103,8 +110,16 @@ new Cron(
 				},
 			];
 
+			const limit = MAXIMUM_CHARACTER_LIMIT - title.length - authorText.length - footer.length;
+
 			if (data.selftext.length > 0) {
-				containerComponents.push({ type: ComponentType.TextDisplay, content: data.selftext });
+				let selfText = data.selftext;
+
+				if (selfText.length > limit) {
+					selfText = `${selfText.slice(0, limit - 3)}...`;
+				}
+
+				containerComponents.push({ type: ComponentType.TextDisplay, content: selfText });
 			}
 
 			const urls = [];
@@ -137,7 +152,7 @@ new Cron(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# ${formatEmoji(emojis.MISCELLANEOUS_EMOJIS.Reddit)} [${post.data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${post.data.subreddit_name_prefixed}) (<t:${post.data.created_utc}:R>)`,
+					content: footer,
 				},
 			);
 
