@@ -24,9 +24,9 @@ import {
 	VALID_REALM_NAME_VALUES,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
+import { APPLICATION_ID } from "./configuration.js";
 import {
 	ANIMATED_HASH_PREFIX,
-	APPLICATION_ID,
 	INCONSISTENT_MAP,
 	inconsistentMapKeys,
 	MAXIMUM_ASSET_SIZE,

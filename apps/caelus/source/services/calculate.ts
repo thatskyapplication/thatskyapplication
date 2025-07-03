@@ -26,11 +26,8 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import {
-	APPLICATION_ID,
-	ASCENDED_CANDLES_PER_WEEK,
-	DEFAULT_EMBED_COLOUR,
-} from "../utility/constants.js";
+import { APPLICATION_ID } from "../utility/configuration.js";
+import { ASCENDED_CANDLES_PER_WEEK, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,

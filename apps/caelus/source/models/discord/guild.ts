@@ -12,7 +12,7 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { client } from "../../discord.js";
-import { APPLICATION_ID } from "../../utility/constants.js";
+import { APPLICATION_ID } from "../../utility/configuration.js";
 import { GuildMember } from "./guild-member.js";
 import { Role } from "./role.js";
 import { Sticker } from "./sticker.js";

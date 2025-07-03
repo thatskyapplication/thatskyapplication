@@ -1,7 +1,7 @@
 import { t } from "i18next";
 import pino from "../pino.js";
+import { APPLICATION_ID } from "../utility/configuration.js";
 import {
-	APPLICATION_ID,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	LOCALES,
 	QUEST_NUMBER,

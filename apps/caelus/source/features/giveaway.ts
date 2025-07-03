@@ -23,12 +23,12 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	ANNOUNCEMENTS_CHANNEL_ID,
+	APPLICATION_ID,
 	DEVELOPER_ROLE_ID,
 	GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT,
 	SUPPORT_SERVER_GUILD_ID,
 } from "../utility/configuration.js";
 import {
-	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	GIVEAWAY_END_DATE,
 	GIVEAWAY_INFORMATION_TEXT,

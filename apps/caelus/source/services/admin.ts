@@ -22,8 +22,8 @@ import Configuration from "../models/Configuration.js";
 import type { QuestNumber } from "../models/DailyGuides.js";
 import DailyGuides from "../models/DailyGuides.js";
 import S3Client from "../s3-client.js";
+import { APPLICATION_ID } from "../utility/configuration.js";
 import {
-	APPLICATION_ID,
 	CDN_BUCKET,
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,

@@ -6,7 +6,7 @@ import Configuration from "../models/Configuration.js";
 import DailyGuides from "../models/DailyGuides.js";
 import type { GuildChannel } from "../models/discord/guild.js";
 import pino from "../pino.js";
-import { APPLICATION_ID } from "../utility/constants.js";
+import { APPLICATION_ID } from "../utility/configuration.js";
 import { can } from "../utility/permissions.js";
 import type { Event } from "./index.js";
 

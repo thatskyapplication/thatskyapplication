@@ -3,7 +3,7 @@ import { GUILD_CACHE } from "../caches/guilds.js";
 import { checkSendable } from "../features/notifications.js";
 import { GuildMember } from "../models/discord/guild-member.js";
 import pino from "../pino.js";
-import { APPLICATION_ID } from "../utility/constants.js";
+import { APPLICATION_ID } from "../utility/configuration.js";
 import { equalSet } from "../utility/functions.js";
 import type { Event } from "./index.js";
 

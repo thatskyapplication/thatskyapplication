@@ -25,8 +25,8 @@ import { t } from "i18next";
 import { client } from "../discord.js";
 import type { HeartPacket } from "../models/Heart.js";
 import pg from "../pg.js";
+import { APPLICATION_ID } from "../utility/configuration.js";
 import {
-	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
 	DELETED_USER_TEXT,
 	HEART_HISTORY_BACK,

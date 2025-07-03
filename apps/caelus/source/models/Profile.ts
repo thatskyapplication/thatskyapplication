@@ -71,13 +71,13 @@ import S3Client from "../s3-client.js";
 import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
 import {
+	APPLICATION_ID,
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SUPPORT_SERVER_GUILD_ID,
 	THAT_WINGLESS_COMMUNITY_INVITE_URL,
 } from "../utility/configuration.js";
 import {
 	ANIMATED_HASH_PREFIX,
-	APPLICATION_ID,
 	CDN_BUCKET,
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,

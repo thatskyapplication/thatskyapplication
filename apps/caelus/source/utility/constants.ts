@@ -11,12 +11,7 @@ import {
 	skyDate,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { ANNOUNCEMENTS_CHANNEL_ID, PRODUCTION } from "./configuration.js";
-
-// Application ids.
-const APPLICATION_ID_DEVELOPMENT = "1071822091814441000" as const;
-const APPLICATION_ID_PRODUCTION = "982740693070012506" as const;
-export const APPLICATION_ID = PRODUCTION ? APPLICATION_ID_PRODUCTION : APPLICATION_ID_DEVELOPMENT;
+import { ANNOUNCEMENTS_CHANNEL_ID, APPLICATION_ID, PRODUCTION } from "./configuration.js";
 
 // Content delivery network buckets.
 const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;

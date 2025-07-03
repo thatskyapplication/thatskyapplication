@@ -1,7 +1,8 @@
 import { Collection } from "@discordjs/collection";
 import type { APIEntitlement, Snowflake } from "@discordjs/core";
 import { client } from "../discord.js";
-import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/constants.js";
+import { APPLICATION_ID } from "../utility/configuration.js";
+import { SERVER_UPGRADE_SKU_ID } from "../utility/constants.js";
 
 export const ENTITLEMENT_CACHE = new Collection<Snowflake, APIEntitlement>();
 

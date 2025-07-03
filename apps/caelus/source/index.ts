@@ -28,7 +28,7 @@ import threadDelete from "./events/thread-delete.js";
 import threadListSync from "./events/thread-list-sync.js";
 import threadUpdate from "./events/thread-update.js";
 import pino from "./pino.js";
-import { APPLICATION_ID } from "./utility/constants.js";
+import { APPLICATION_ID } from "./utility/configuration.js";
 
 for (const event of [
 	channelCreate,

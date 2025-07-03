@@ -20,7 +20,8 @@ import { shardEruption, skyNow, skyToday, TIME_ZONE } from "@thatskyapplication/
 import { t } from "i18next";
 import { DateTime } from "luxon";
 import { client } from "../discord.js";
-import { APPLICATION_ID, DEFAULT_EMBED_COLOUR, SHARD_ERUPTION_URL } from "../utility/constants.js";
+import { APPLICATION_ID } from "../utility/configuration.js";
+import { DEFAULT_EMBED_COLOUR, SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,

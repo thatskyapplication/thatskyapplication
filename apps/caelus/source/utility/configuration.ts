@@ -7,6 +7,7 @@ export const PRODUCTION = process.env.NODE_ENV === "production";
 const envSchema = z.object({
 	DISCORD_TOKEN: z.string().min(1),
 	THAT_WINGLESS_COMMUNITY_INVITE_URL: z.url(),
+	APPLICATION_ID: z.string().min(1),
 	SUPPORT_SERVER_GUILD_ID: z.string().min(1),
 	ANNOUNCEMENTS_CHANNEL_ID: z.string().min(1),
 	FEEDBACK_CHANNEL_ID: z.string().min(1),
@@ -37,6 +38,7 @@ const productionEnvSchema = envSchema.extend({
 export const {
 	DISCORD_TOKEN,
 	THAT_WINGLESS_COMMUNITY_INVITE_URL,
+	APPLICATION_ID,
 	SUPPORT_SERVER_GUILD_ID,
 	ANNOUNCEMENTS_CHANNEL_ID,
 	FEEDBACK_CHANNEL_ID,

@@ -32,8 +32,13 @@ import { client } from "./discord.js";
 import type { Guild } from "./models/discord/guild.js";
 import pino from "./pino.js";
 import { todayData } from "./services/shard-eruption.js";
-import { AI_GATEWAY_TOKEN, OPENAI_API_KEY, OPENAI_BASE_URL } from "./utility/configuration.js";
-import { APPLICATION_ID, SKY_CREATOR_TROUPE } from "./utility/constants.js";
+import {
+	AI_GATEWAY_TOKEN,
+	APPLICATION_ID,
+	OPENAI_API_KEY,
+	OPENAI_BASE_URL,
+} from "./utility/configuration.js";
+import { SKY_CREATOR_TROUPE } from "./utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
 
 const openAI = new OpenAI({
