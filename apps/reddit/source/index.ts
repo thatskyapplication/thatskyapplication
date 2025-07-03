@@ -56,11 +56,11 @@ new Cron(
 		}
 
 		const posts = await fetchSubredditPosts();
+		pino.info(posts, "Processing posts.");
 
 		// Construct the payload for Discord.
 		const payloads = posts.map((post): DiscordPayload => {
 			let { data } = post;
-			pino.info(post, "Processing post.");
 			let authorText = `[u/${data.author}](${REDDIT_BASE_URL}/user/${data.author})`;
 
 			if (data.crosspost_parent_list) {
