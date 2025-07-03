@@ -1,4 +1,3 @@
-import process from "node:process";
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { request } from "undici";
@@ -7,7 +6,7 @@ import { end } from "./features/giveaway.js";
 import DailyGuides from "./models/DailyGuides.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
-import { FLIGHT_CHECK, PRODUCTION } from "./utility/configuration.js";
+import { FLIGHT_CHECK } from "./utility/configuration.js";
 import { GIVEAWAY_END_DATE } from "./utility/constants.js";
 
 export default function croner() {
@@ -25,12 +24,7 @@ export default function croner() {
 		}
 	});
 
-	if (PRODUCTION) {
-		if (!FLIGHT_CHECK) {
-			pino.fatal("Missing Flight Check authorisation.");
-			process.exit(1);
-		}
-
+	if (FLIGHT_CHECK) {
 		new Cron("*/5 * * * *", async () => {
 			try {
 				await pg.select(1);
