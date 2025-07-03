@@ -1,4 +1,4 @@
-name: Deploy Notifications
+name: Deploy Reddit
 on:
   push:
     branches:
