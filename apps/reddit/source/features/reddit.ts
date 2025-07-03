@@ -102,7 +102,7 @@ interface SubredditPostsResponse {
 export async function fetchSingleSubredditPosts(subreddit: string) {
 	await ensureValidToken();
 	const url = new URL(`https://oauth.reddit.com/r/${subreddit}/new`);
-	url.searchParams.set("limit", "5");
+	url.searchParams.set("limit", "50");
 	url.searchParams.set("raw_json", "1");
 
 	const response = await fetch(url, {
