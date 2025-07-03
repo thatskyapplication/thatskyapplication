@@ -38,7 +38,7 @@ interface DiscordPayload {
 }
 
 const api = new API(new REST());
-const emojis = emojiConstants(PRODUCTION);
+const { MISCELLANEOUS_EMOJIS } = emojiConstants(PRODUCTION);
 
 new Cron(
 	"* * * * *",
@@ -73,7 +73,7 @@ new Cron(
 			let { data } = post;
 			const title = `## ${data.title.replace(/^#+/g, (match) => match.replace(/#/g, "\\#"))}`;
 			let authorText = `[u/${data.author}](${REDDIT_BASE_URL}/user/${data.author})`;
-			const footer = `-# ${formatEmoji(emojis.MISCELLANEOUS_EMOJIS.Reddit)} [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed}) (<t:${data.created_utc}:R>)`;
+			const footer = `-# ${formatEmoji(MISCELLANEOUS_EMOJIS.Reddit)} [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed}) (<t:${data.created_utc}:R>)`;
 
 			if (data.crosspost_parent_list) {
 				if (data.crosspost_parent_list.length > 1) {
