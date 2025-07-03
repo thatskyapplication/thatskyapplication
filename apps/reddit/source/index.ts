@@ -177,6 +177,7 @@ new Cron(
 
 			const settled = await Promise.allSettled(promises);
 			clearTimeout(timeout);
+			const errors = [];
 
 			for (const result of settled) {
 				if (result.status === "rejected") {
@@ -195,8 +196,14 @@ new Cron(
 						redditWebhooksPackets = redditWebhooksPackets.filter(
 							(packet) => packet.webhook_id !== reason.webhook.webhook_id,
 						);
+					} else {
+						errors.push(reason);
 					}
 				}
+			}
+
+			if (errors.length > 0) {
+				pino.error(errors, "Failed to execute webhooks.");
 			}
 		}
 	},
