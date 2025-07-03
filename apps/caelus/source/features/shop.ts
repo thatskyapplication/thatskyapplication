@@ -14,12 +14,8 @@ import { formatEmoji } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pino from "../pino.js";
-import { SHOP_SUGGESTIONS_CHANNEL_ID } from "../utility/configuration.js";
-import {
-	DEFAULT_EMBED_COLOUR,
-	DEVELOPER_GUILD_ID,
-	SKY_PROFILES_URL,
-} from "../utility/constants.js";
+import { SHOP_SUGGESTIONS_CHANNEL_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
+import { DEFAULT_EMBED_COLOUR, SKY_PROFILES_URL } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { avatarURL, interactionInvoker, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
@@ -90,7 +86,7 @@ export async function shopSuggestionModal(interaction: APIMessageComponentButton
 }
 
 export async function shopSuggestionSubmission(interaction: APIModalSubmitInteraction) {
-	const guild = GUILD_CACHE.get(DEVELOPER_GUILD_ID);
+	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
 		pino.error(interaction, "Could not find the guild of the shop suggestions channel.");

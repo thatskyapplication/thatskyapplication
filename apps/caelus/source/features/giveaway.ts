@@ -25,11 +25,11 @@ import {
 	ANNOUNCEMENTS_CHANNEL_ID,
 	DEVELOPER_ROLE_ID,
 	GIVEAWAY_ACCOUNT_CREATION_TIMESTAMP_LIMIT,
+	SUPPORT_SERVER_GUILD_ID,
 } from "../utility/configuration.js";
 import {
 	APPLICATION_ID,
 	DEFAULT_EMBED_COLOUR,
-	DEVELOPER_GUILD_ID,
 	GIVEAWAY_END_DATE,
 	GIVEAWAY_INFORMATION_TEXT,
 	GIVEAWAY_NOT_IN_SERVER_TEXT,
@@ -101,7 +101,7 @@ export async function giveaway({
 			type: ComponentType.TextDisplay,
 			content: GIVEAWAY_OVER_TEXT,
 		});
-	} else if (guildId !== DEVELOPER_GUILD_ID) {
+	} else if (guildId !== SUPPORT_SERVER_GUILD_ID) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: GIVEAWAY_NOT_IN_SERVER_TEXT,
@@ -269,7 +269,7 @@ export async function end() {
 		return;
 	}
 
-	const guild = GUILD_CACHE.get(DEVELOPER_GUILD_ID);
+	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
 		pino.error("Could not find the developer guild whilst ending the giveaway.");
@@ -360,7 +360,7 @@ export async function upsell(interaction: APIChatInputApplicationCommandInteract
 
 	await pg<GiveawayUpsellPacket>(Table.GiveawayUpsell).insert({ user_id: user.id });
 
-	if (interaction.data.name === "giveaway" || interaction.guild_id === DEVELOPER_GUILD_ID) {
+	if (interaction.data.name === "giveaway" || interaction.guild_id === SUPPORT_SERVER_GUILD_ID) {
 		return;
 	}
 

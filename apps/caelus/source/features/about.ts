@@ -17,11 +17,15 @@ import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import Profile from "../models/Profile.js";
 import pino from "../pino.js";
-import { FEEDBACK_CHANNEL_ID, IDEA_TAG_ID, ISSUE_TAG_ID } from "../utility/configuration.js";
+import {
+	FEEDBACK_CHANNEL_ID,
+	IDEA_TAG_ID,
+	ISSUE_TAG_ID,
+	SUPPORT_SERVER_GUILD_ID,
+} from "../utility/configuration.js";
 import {
 	APPLICATION_INVITE_URL,
 	DEFAULT_EMBED_COLOUR,
-	DEVELOPER_GUILD_ID,
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
 	MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
@@ -180,7 +184,7 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 }
 
 export async function feedbackSubmission(interaction: APIModalSubmitInteraction) {
-	const guild = GUILD_CACHE.get(DEVELOPER_GUILD_ID);
+	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
 		pino.error(interaction, "Could not find the developer guild.");
@@ -315,7 +319,7 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 }
 
 export async function issueSubmission(interaction: APIModalSubmitInteraction) {
-	const guild = GUILD_CACHE.get(DEVELOPER_GUILD_ID);
+	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
 		pino.error(interaction, "Could not find the developer guild.");

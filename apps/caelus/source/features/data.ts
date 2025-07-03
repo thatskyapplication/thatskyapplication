@@ -13,8 +13,8 @@ import type { HeartPacket } from "../models/Heart.js";
 import Profile from "../models/Profile.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { TRANSLATOR_ROLE_ID } from "../utility/configuration.js";
-import { DEVELOPER_GUILD_ID, SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
+import { SUPPORT_SERVER_GUILD_ID, TRANSLATOR_ROLE_ID } from "../utility/configuration.js";
+import { SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import type { GiveawayPacket, GiveawayUpsellPacket } from "./giveaway.js";
 
@@ -43,7 +43,11 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 		await Promise.all(promises);
 
 		try {
-			await client.api.guilds.removeRoleFromMember(DEVELOPER_GUILD_ID, userId, TRANSLATOR_ROLE_ID);
+			await client.api.guilds.removeRoleFromMember(
+				SUPPORT_SERVER_GUILD_ID,
+				userId,
+				TRANSLATOR_ROLE_ID,
+			);
 		} catch (error) {
 			// Unknown member is fine.
 			if (!(error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownMember)) {

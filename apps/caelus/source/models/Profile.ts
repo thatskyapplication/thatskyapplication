@@ -72,6 +72,7 @@ import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
 import {
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
+	SUPPORT_SERVER_GUILD_ID,
 	THAT_WINGLESS_COMMUNITY_INVITE_URL,
 } from "../utility/configuration.js";
 import {
@@ -80,7 +81,6 @@ import {
 	CDN_BUCKET,
 	CDN_URL,
 	DEFAULT_EMBED_COLOUR,
-	DEVELOPER_GUILD_ID,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
@@ -1453,7 +1453,7 @@ export default class Profile {
 	}
 
 	public static async sendReport(interaction: APIModalSubmitInteraction) {
-		const guild = GUILD_CACHE.get(DEVELOPER_GUILD_ID);
+		const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 		if (!guild) {
 			pino.error(interaction, "Could not find the guild of the Sky profile reports channel.");

@@ -5,14 +5,14 @@ import { eligible, type GiveawayPacket, ineligible } from "../features/giveaway.
 import { checkSendable } from "../features/notifications.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { DEVELOPER_GUILD_ID } from "../utility/constants.js";
+import { SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
 
 async function giveaway() {
 	// Ensure eligibility in the giveaway.
 	const giveawayPackets = await pg<GiveawayPacket>(Table.Giveaway).select("user_id", "eligible");
 
 	const { members } = await client.requestGuildMembers({
-		guild_id: DEVELOPER_GUILD_ID,
+		guild_id: SUPPORT_SERVER_GUILD_ID,
 		query: "",
 		limit: 0,
 	});

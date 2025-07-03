@@ -8,6 +8,7 @@ if (
 	!(
 		process.env.DISCORD_TOKEN &&
 		process.env.THAT_WINGLESS_COMMUNITY_INVITE_URL &&
+		process.env.SUPPORT_SERVER_GUILD_ID &&
 		process.env.CROWDIN_RAW_WEBHOOK_ID &&
 		process.env.ANNOUNCEMENTS_CHANNEL_ID &&
 		process.env.FEEDBACK_CHANNEL_ID &&
@@ -35,6 +36,7 @@ if (
 
 export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 export const THAT_WINGLESS_COMMUNITY_INVITE_URL = process.env.THAT_WINGLESS_COMMUNITY_INVITE_URL;
+export const SUPPORT_SERVER_GUILD_ID = process.env.SUPPORT_SERVER_GUILD_ID;
 export const CROWDIN_RAW_WEBHOOK_ID = process.env.CROWDIN_RAW_WEBHOOK_ID;
 export const ANNOUNCEMENTS_CHANNEL_ID = process.env.ANNOUNCEMENTS_CHANNEL_ID;
 export const FEEDBACK_CHANNEL_ID = process.env.FEEDBACK_CHANNEL_ID;

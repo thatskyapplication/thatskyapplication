@@ -3,7 +3,6 @@ import pino from "../pino.js";
 import {
 	APPLICATION_ID,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
-	DEVELOPER_GUILD_ID,
 	LOCALES,
 	QUEST_NUMBER,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
@@ -32,7 +31,7 @@ import {
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
-import { DISCORD_TOKEN } from "./configuration.js";
+import { DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID } from "./configuration.js";
 
 function localisations(name: string, options: Record<string, unknown> = {}, ns = "commands") {
 	return Object.fromEntries(
@@ -1275,7 +1274,7 @@ const commands = [
 	api.applicationCommands.bulkOverwriteGlobalCommands(APPLICATION_ID, COMMANDS),
 	api.applicationCommands.bulkOverwriteGuildCommands(
 		APPLICATION_ID,
-		DEVELOPER_GUILD_ID,
+		SUPPORT_SERVER_GUILD_ID,
 		DEVELOPER_COMMANDS,
 	),
 ];
