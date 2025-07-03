@@ -71,7 +71,6 @@ export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplicati
 export const PATREON_URL = "https://patreon.com/Jiralite" as const;
 export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
-export const INFOGRAPHICS_DATABASE_GUILD_ID = "736912435654688868" as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const ANIMATED_HASH_PREFIX = "a_" as const;
 export const MAXIMUM_ASSET_SIZE = 5_000_000 as const;
