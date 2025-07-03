@@ -22,8 +22,8 @@ import pQueue from "p-queue";
 import { distribute } from "../features/daily-guides.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
+import { DAILY_INFOGRAPHICS_CHANNEL_ID } from "../utility/configuration.js";
 import {
-	DAILY_INFOGRAPHICS_CHANNEL_ID,
 	DailyQuestToInfographicURL,
 	INFOGRAPHICS_DATABASE_GUILD_ID,
 	inconsistentMapKeys,
