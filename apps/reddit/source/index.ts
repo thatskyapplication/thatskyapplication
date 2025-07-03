@@ -56,6 +56,11 @@ new Cron(
 		}
 
 		const posts = await fetchSubredditPosts();
+
+		if (posts.length === 0) {
+			return;
+		}
+
 		pino.info(posts, "Processing posts.");
 
 		// Construct the payload for Discord.
