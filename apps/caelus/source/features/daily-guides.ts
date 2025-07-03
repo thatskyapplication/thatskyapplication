@@ -37,6 +37,7 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
+import pQueue from "p-queue";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import DailyGuides, { type DailyGuideQuest } from "../models/DailyGuides.js";
@@ -48,9 +49,9 @@ import type {
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
-import pQueue from "../p-queue.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
+import { MAXIMUM_CONCURRENCY_LIMIT } from "../utility/configuration.js";
 import {
 	CDN_URL,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
@@ -71,6 +72,7 @@ import {
 } from "../utility/shard-eruption.js";
 
 export const DAILY_GUIDES_SETUP_CUSTOM_ID = "DAILY_GUIDES_SETUP_CUSTOM_ID" as const;
+const queue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
 
 export function isDailyGuidesDistributionChannel(
 	channel: APIChannel | AnnouncementThread | PublicThread | PrivateThread,
@@ -644,7 +646,7 @@ export async function distribute() {
 
 	const settled = await Promise.allSettled(
 		dailyGuidesDistributionPackets.map((dailyGuidesDistributionPacket) =>
-			pQueue.add(async () =>
+			queue.add(async () =>
 				send(true, {
 					guildId: dailyGuidesDistributionPacket.guild_id,
 					channelId: dailyGuidesDistributionPacket.channel_id,

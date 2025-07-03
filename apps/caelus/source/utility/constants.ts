@@ -22,9 +22,6 @@ export const CDN_BUCKET = PRODUCTION ? CDN_BUCKET_PRODUCTION : CDN_BUCKET_DEVELO
 const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as const;
 export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
-// Concurrency limit to not hit the global rate limit of 50 requests per second.
-export const MAXIMUM_NOTIFICATION_CONCURRENCY_LIMIT = 45 as const;
-
 // Website URLs.
 export const APPLICATION_INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${APPLICATION_ID}`;
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
