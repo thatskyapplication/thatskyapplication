@@ -13,6 +13,11 @@ a:notifications:
       - any-glob-to-any-file:
           - apps/notifications/*
           - apps/notifications/**/*
+a:reddit:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/reddit/*
+          - apps/reddit/**/*
 a:servare:
   - changed-files:
       - any-glob-to-any-file:

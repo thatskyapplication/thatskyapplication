@@ -28,6 +28,7 @@ export enum Table {
 	Hearts = "hearts",
 	Notifications = "notifications",
 	Profiles = "profiles",
+	RedditWebhooks = "reddit_webhooks",
 	SkyProfileLikes = "sky_profile_likes",
 	Users = "users",
 }
@@ -82,6 +83,7 @@ export {
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./kingdom.js";
+export type { RedditWebhooksPacket } from "./reddit.js";
 export const de = deLocale;
 export { default as enGB } from "./locales/en-gb.js";
 export const es419 = es419Locale;

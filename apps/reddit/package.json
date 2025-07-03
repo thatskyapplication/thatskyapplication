@@ -1,0 +1,33 @@
+{
+	"name": "@thatskyapplication/reddit",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "tsc",
+		"test": "tsc --noEmit",
+		"format": "biome check --write",
+		"lint": "biome check",
+		"lint:ci": "biome ci --reporter github",
+		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
+		"start": "node distribution/index.js",
+		"knip": "knip"
+	},
+	"dependencies": {
+		"@discordjs/core": "^2.2.0",
+		"@discordjs/rest": "^2.5.1",
+		"@logtail/pino": "^0.5.2",
+		"@thatskyapplication/utility": "workspace:^",
+		"croner": "^9.1.0",
+		"knex": "^3.1.0",
+		"pg": "^8.16.3",
+		"pino": "^9.7.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.0.6",
+		"@types/luxon": "^3.6.2",
+		"knip": "^5.61.3",
+		"pino-pretty": "^13.0.0",
+		"tsx": "^4.20.3",
+		"typescript": "5.8.3"
+	}
+}
