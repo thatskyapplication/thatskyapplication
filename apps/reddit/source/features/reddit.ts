@@ -4,7 +4,7 @@ import { REDDIT_BASE_WWW_URL, USER_AGENT } from "../utility/constants.js";
 
 let accessToken: string | null = null;
 let tokenExpiry: number | null = null;
-const seenPosts = new Map<string, Set<string>>();
+const seenPosts = new Map<string, Map<string, number>>();
 
 interface AccessTokenResponse {
 	access_token: string;
@@ -101,9 +101,9 @@ interface SubredditPostsResponse {
 
 export async function fetchSingleSubredditPosts(subreddit: string) {
 	await ensureValidToken();
-	const seenPostsSet = seenPosts.get(subreddit);
+	const seenPostsMap = seenPosts.get(subreddit);
 	const url = new URL(`https://oauth.reddit.com/r/${subreddit}/new`);
-	url.searchParams.set("limit", seenPostsSet === undefined ? "100" : "50");
+	url.searchParams.set("limit", seenPostsMap === undefined ? "100" : "50");
 	url.searchParams.set("raw_json", "1");
 
 	const response = await fetch(url, {
@@ -119,26 +119,33 @@ export async function fetchSingleSubredditPosts(subreddit: string) {
 
 	const posts = ((await response.json()) as SubredditPostsResponse).data.children;
 
-	// I mean, you never know.
 	if (posts.length === 0) {
 		return [];
 	}
 
-	if (!seenPostsSet) {
+	if (!seenPostsMap) {
 		// First run.
-		seenPosts.set(subreddit, new Set(posts.map((post) => post.data.name)));
+		seenPosts.set(
+			subreddit,
+			posts.reduce(
+				(map, post) => map.set(post.data.name, post.data.created_utc),
+				new Map<string, number>(),
+			),
+		);
+
 		return [];
 	}
 
-	const newPosts = posts.filter((post) => !seenPostsSet.has(post.data.name));
+	const newPosts = posts.filter((post) => !seenPostsMap.has(post.data.name));
 
 	for (const newPost of newPosts) {
-		seenPostsSet.add(newPost.data.name);
+		seenPostsMap.set(newPost.data.name, newPost.data.created_utc);
 	}
 
-	if (seenPostsSet.size > 100) {
+	if (seenPostsMap.size > 100) {
 		// Keep only the most recent 100 post names.
-		seenPosts.set(subreddit, new Set([...seenPostsSet].slice(-100)));
+		const sortedPosts = [...seenPostsMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 100);
+		seenPosts.set(subreddit, new Map(sortedPosts));
 	}
 
 	return newPosts.reverse();
