@@ -4,7 +4,7 @@ import { REDDIT_BASE_WWW_URL, USER_AGENT } from "../utility/constants.js";
 
 let accessToken: string | null = null;
 let tokenExpiry: number | null = null;
-const lastSeenPosts = new Map<string, string>();
+const seenPosts = new Map<string, Set<string>>();
 
 interface AccessTokenResponse {
 	access_token: string;
@@ -101,8 +101,9 @@ interface SubredditPostsResponse {
 
 export async function fetchSingleSubredditPosts(subreddit: string) {
 	await ensureValidToken();
+	const seenPostsSet = seenPosts.get(subreddit);
 	const url = new URL(`https://oauth.reddit.com/r/${subreddit}/new`);
-	url.searchParams.set("limit", "50");
+	url.searchParams.set("limit", seenPostsSet === undefined ? "100" : "50");
 	url.searchParams.set("raw_json", "1");
 
 	const response = await fetch(url, {
@@ -123,26 +124,21 @@ export async function fetchSingleSubredditPosts(subreddit: string) {
 		return [];
 	}
 
-	const lastSeenPostName = lastSeenPosts.get(subreddit);
-
-	if (!lastSeenPostName) {
+	if (!seenPostsSet) {
 		// First run.
-		lastSeenPosts.set(subreddit, posts[0]!.data.name);
+		seenPosts.set(subreddit, new Set(posts.map((post) => post.data.name)));
 		return [];
 	}
 
-	const newPosts = [];
+	const newPosts = posts.filter((post) => !seenPostsSet.has(post.data.name));
 
-	for (const post of posts) {
-		if (post.data.name === lastSeenPostName) {
-			break;
-		}
-
-		newPosts.push(post);
+	for (const newPost of newPosts) {
+		seenPostsSet.add(newPost.data.name);
 	}
 
-	if (newPosts.length > 0) {
-		lastSeenPosts.set(subreddit, newPosts[0]!.data.name);
+	if (seenPostsSet.size > 100) {
+		// Keep only the most recent 100 post names.
+		seenPosts.set(subreddit, new Set([...seenPostsSet].slice(-100)));
 	}
 
 	return newPosts.reverse();
