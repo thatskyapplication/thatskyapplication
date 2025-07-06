@@ -1,14 +1,14 @@
 {
 	"general": {
 		"days-left": {
-			"season_zero": "這個季節在今天結束。",
+			"season_zero": "本季節將在今天結束。",
 			"season_one": "本季節還有{{count}}天結束。",
 			"season_other": "本季節還有{{count}}天結束。",
-			"event_zero": "{{name}} 今天結束。",
+			"event_zero": "{{name}} 將在今天結束。",
 			"event_one": "{{name}}還剩{{count}}天。",
 			"event_other": "{{name}}還剩{{count}}天。"
 		},
-		"event-tickets": "活動票卷",
+		"event-tickets": "活動票券",
 		"realms": {
 			"Isles of Dawn": "晨島",
 			"Daylight Prairie": "雲野",
@@ -66,7 +66,7 @@
 			"9": "AURORA",
 			"10": "夜行",
 			"11": "雲巢煙火節",
-			"12": "復刻先靈",
+			"12": "旅行先靈",
 			"13": "夢想滑行者",
 			"14": "雲巢工作坊"
 		},
@@ -439,7 +439,7 @@
 			"72": "花憩節",
 			"73": "自然節",
 			"74": "彩色嘉年華",
-			"75": "AURORA:樂音歸來",
+			"75": "AURORA 樂音歸來",
 			"76": "工作坊成果發表",
 			"77": "《Sky光·遇》週年慶"
 		},
@@ -981,18 +981,18 @@
 			"ET": "",
 			"FK": "",
 			"FO": "",
-			"FJ": "",
-			"FI": "",
-			"FR": "",
+			"FJ": "斐濟",
+			"FI": "芬蘭",
+			"FR": "法國",
 			"GF": "",
 			"PF": "",
 			"TF": "",
 			"GA": "",
-			"GM": "",
-			"GE": "",
-			"DE": "",
-			"GH": "",
-			"GI": "",
+			"GM": "甘比亞",
+			"GE": "喬治亞",
+			"DE": "德國",
+			"GH": "迦納",
+			"GI": "英屬直布羅陀",
 			"GR": "希臘",
 			"GL": "格陵蘭",
 			"GD": "格瑞那達",
@@ -1020,7 +1020,7 @@
 			"IT": "義大利",
 			"JM": "牙買加",
 			"JP": "日本",
-			"JE": "球衣",
+			"JE": "英屬澤西島",
 			"JO": "約旦",
 			"KZ": "哈薩克",
 			"KE": "肯亞",
@@ -1050,7 +1050,7 @@
 			"MR": "",
 			"MU": "",
 			"YT": "",
-			"MX": "",
+			"MX": "墨西哥",
 			"FM": "",
 			"MD": "",
 			"MC": "",
@@ -1058,14 +1058,14 @@
 			"ME": "",
 			"MS": "",
 			"MA": "",
-			"MZ": "",
-			"MM": "",
+			"MZ": "莫三比克",
+			"MM": "緬甸",
 			"NA": "",
 			"NR": "",
-			"NP": "",
-			"NL": "",
+			"NP": "尼泊爾",
+			"NL": "荷蘭",
 			"NC": "",
-			"NZ": "",
+			"NZ": "紐西蘭",
 			"NI": "",
 			"NE": "",
 			"NG": "",
@@ -1190,12 +1190,12 @@
 				"command-option-shard-eruptions-description": "是否將碎片噴發納入計算中。"
 			},
 			"event-tickets": {
-				"command-name": "活動票卷",
+				"command-name": "活動票券",
 				"command-description": "計算獲得一定數量的活動票卷所需的天數。",
 				"command-option-start-name": "起始",
-				"command-option-start-description": "活動票卷的起始數量。",
+				"command-option-start-description": "活動票券的起始數量。",
 				"command-option-goal-name": "目標",
-				"command-option-goal-description": "所需的活動票卷數量。"
+				"command-option-goal-description": "所需的活動票券數量。"
 			},
 			"seasonal-candles": {
 				"command-name": "季節蠟燭",
@@ -1276,25 +1276,25 @@
 		},
 		"guess": {
 			"command-name": "猜測",
-			"command-description": "開始天空猜謎遊戲！你能連續猜對多少個？",
+			"command-description": "開始光遇知識猜謎！在這局中您能連續答對多少次？",
 			"game": {
 				"command-name": "遊戲",
 				"command-description": "開始猜謎遊戲！",
-				"command-option-difficulty-name": "困難",
+				"command-option-difficulty-name": "難度",
 				"command-option-difficulty-description": "調整難度等級！",
 				"command-option-difficulty-choice-name": {
-					"0": "正常",
-					"1": "難的"
+					"0": "一般",
+					"1": "困難"
 				}
 			},
 			"leaderboard": {
 				"command-name": "排行榜",
 				"command-description": "查看排行榜！",
-				"command-option-difficulty-name": "困難",
+				"command-option-difficulty-name": "難度",
 				"command-option-difficulty-description": "您想查看什麼難度？",
 				"command-option-difficulty-choice-name": {
-					"0": "原來的",
-					"1": "難的"
+					"0": "一般",
+					"1": "困難"
 				}
 			}
 		},
@@ -1509,10 +1509,10 @@
 			"seasons-navigate-forward": "下一頁"
 		},
 		"data": {
-			"delete-message": "",
-			"delete-my-data": "",
-			"delete-error": "刪除您的用戶資料時出現問題。請放心，我們正在追蹤此事件，並已將其轉換為手動資料刪除請求（而不是自動刪除請求）。您的資料將在 30 天內被刪除。\n\n如果您願意，您可以加入[支援伺服器]({{url}})並要求查看您的資料刪除請求的狀態。",
-			"delete-success": ""
+			"delete-message": "您是否確定要刪除您的資料？此舉將會：\n- 刪除您的光子簡介\n- 刪除您的目錄\n- 刪除您曾經獲得/贈送的愛心記錄\n  - 以您的ID所贈送的愛心記錄，在其他人頁面上將以匿名方式呈現\n- 刪除您於猜謎遊戲的最長連勝記錄\n- 移除您的抽獎資訊\n- 移除您的翻譯員角色，若您曾獲得該角色",
+			"delete-my-data": "刪除本人資料",
+			"delete-error": "在刪除您的用戶資料時出了點問題，但請放心，系統已將該問題列入追蹤，並改為人工處理（非系統自動刪除）。我們會在30天內刪除您的資料。\n\n如果您想瞭解關於您的資料刪除進度，歡迎加入我們的[支援社群]({{url}})並提出請求。",
+			"delete-success": "已刪除您的資料，現在的您是一位萌新。"
 		},
 		"guess": {
 			"title": "這是從哪裡來的？",
@@ -1574,7 +1574,7 @@
 				},
 				"9": {
 					"message-now": "",
-					"message-future": ""
+					"message-future": "AURORA演唱會即將在{{timestamp}}開始，和朋友相揪一起體驗吧！"
 				},
 				"10": {
 					"message-now": "",
@@ -1609,12 +1609,12 @@
 		"spirits": {
 			"not-encountered-spirit": "",
 			"title": {
-				"0": "",
+				"0": "旅行先靈來訪記錄",
 				"1": ""
 			},
 			"order-natural": "",
 			"order-rarity": "",
-			"page": ""
+			"page": "頁次"
 		}
 	}
 }

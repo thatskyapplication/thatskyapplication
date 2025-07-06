@@ -1509,10 +1509,10 @@
 			"seasons-navigate-forward": "Avançar"
 		},
 		"data": {
-			"delete-message": "",
-			"delete-my-data": "",
+			"delete-message": "Tem certeza que deseja excluir seus dados? Isso irá:\n- Excluir seu perfil Sky\n- Excluir seu inventário\n- Excluir seus corações\n  - Seu id de usuário no histórico de corações dos outros será anonimizado\n- Excluir seu recorde nos jogos de advinhação\n- Remover dados de sorteios\n- Remover seu cargo de tradutor, se tiver um",
+			"delete-my-data": "Excluir meus dados",
 			"delete-error": "Houve um problema ao excluir seus dados de usuário. Não se preocupe, este incidente está sendo acompanhado e foi convertido em uma solicitação manual de exclusão de dados (em vez de uma automática). Seus dados serão excluídos dentro de 30 dias.\n\nSe quiser, você pode entrar no [servidor de suporte]({{url}}) e pedir para verificar o status da sua solicitação de exclusão de dados.",
-			"delete-success": ""
+			"delete-success": "Seus dados foram excluídos. Você é uma mariposa agora."
 		},
 		"guess": {
 			"title": "De onde isso veio?",
