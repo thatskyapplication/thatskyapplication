@@ -11,7 +11,6 @@ interface SidebarItem {
 const HOME_ITEMS = [
 	{ title: "Home", path: "/caelus/home" },
 	{ title: "Acknowledgements", path: "/caelus/acknowledgements" },
-	{ title: "Terms & Privacy", path: "/caelus/terms-privacy" },
 ] as const satisfies Readonly<SidebarItem[]>;
 
 const GUIDE_ITEMS = [
