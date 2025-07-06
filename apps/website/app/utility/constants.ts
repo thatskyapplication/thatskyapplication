@@ -24,6 +24,6 @@ export const SKY_PROFILES_DESCRIPTION = "See the Sky Profiles of the community!"
 export const INVITE_APPLICATION_URL =
 	"https://discord.com/oauth2/authorize?client_id=982740693070012506" as const;
 
-export const INVITE_SUPPORT_SERVER_URL = "https://discord.gg/dFJms52NgB" as const;
+export const INVITE_SUPPORT_SERVER_URL = "https://discord.gg/BFT7EAhrNz" as const;
 export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp", CDN_URL));
 export const SKY_PROFILES_PAGE_LIMIT = 24 as const;
