@@ -1,4 +1,4 @@
-import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
+import { SiCrowdin, SiDiscord, SiDiscordHex, SiGithub } from "@icons-pack/react-simple-icons";
 import { Link, useLocation } from "@remix-run/react";
 import { Bot, Clock, Menu, Users, X, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -216,7 +216,7 @@ export function SiteFooter() {
 								href={INVITE_SUPPORT_SERVER_URL}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="p-2 bg-[#5865F2] hover:bg-[#4752C4] rounded-lg transition-colors"
+								className={`p-2 bg-[${SiDiscordHex}] hover:bg-[#4752C4] rounded-lg transition-colors`}
 								aria-label="Join Discord Server"
 							>
 								<SiDiscord className="h-5 w-5 text-white" />
