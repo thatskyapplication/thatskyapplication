@@ -64,7 +64,12 @@ function krillingGIF() {
 }
 
 export function friendshipActionGIFs() {
-	return [hairTousleGIF(), highFiveGIF(), huggingGIF(), playFightGIF(), krillingGIF()].sort(
-		() => Math.random() - 0.5,
-	);
+	return [
+		hairTousleGIF(),
+		highFiveGIF(),
+		huggingGIF(),
+		huggingGIF(),
+		playFightGIF(),
+		krillingGIF(),
+	].sort(() => Math.random() - 0.5);
 }
