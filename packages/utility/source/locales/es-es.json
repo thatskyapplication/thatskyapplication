@@ -1165,8 +1165,8 @@
 	},
 	"commands": {
 		"about": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "sobre",
+			"command-description": "Sobre mí, ¡el pequeño y maravilloso ayudante de Sky!"
 		},
 		"bonk": {
 			"command-name": "",
@@ -1453,22 +1453,22 @@
 	},
 	"features": {
 		"about": {
-			"description": "",
-			"links": "",
-			"sponsor": "",
-			"issues-feedback": "",
-			"feedback-button": "",
-			"issue-button": "",
-			"feedback-modal-heading": "",
-			"feedback-modal-title": "",
-			"feedback-modal-description": "",
-			"feedback-modal-description-placeholder": "",
-			"feedback-submission": "",
-			"issue-modal-heading": "",
-			"issue-modal-title": "",
-			"issue-modal-description": "",
-			"issue-modal-description-placeholder": "",
-			"issue-submission": ""
+			"description": "### Descripción\n\n¡Bienvenido a la agradable aplicación de Discord para [Sky: Niños de la Luz]({{url}} \"thatskygame\")!\n\nAsí que te gustaría saber más sobre mí, ¿eh? Bueno, me gustan los paseos largos por las Islas Santuario. Oh, y no puedo olvidar el deslizarme por todo el Desierto Luz de Estrellas. También...¡LAS MEDUSAS!\n\nMira estos útiles links:\n",
+			"links": "- [Invitar]({{applicationInviteURL}})\n- [Soporte]({{supportServerInviteURL}})\n- [Web]({{websiteURL}})",
+			"sponsor": "### Patrocinar\n\n¿Te gustaría apoyarnos? ¡Hay formas de hacerlo! ¡Gracias de antemano!\n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
+			"issues-feedback": "### Reportar problemas y hacer comentarios\n\nPuedes unirte al [servidor de soporte]({{supportServerInviteURL}}) para hacerlo.\n\nTambién puedes utilizar los botones de abajo para hacerlo sin unirte al servidor, si lo prefieres.",
+			"feedback-button": "Enviar comentario",
+			"issue-button": "Reportar un problema",
+			"feedback-modal-heading": "Enviar feedback",
+			"feedback-modal-title": "Introduce un título acorde a tu comentario.",
+			"feedback-modal-description": "¡Escribe tu comentario aquí!",
+			"feedback-modal-description-placeholder": "Estaría bien que...\nMe gustaría poder...",
+			"feedback-submission": "¡Gracias por tu comentario! {{emoji}}",
+			"issue-modal-heading": "Reportar problema",
+			"issue-modal-title": "Introduce un título acorde a tu problema.",
+			"issue-modal-description": "Describe tu problema aquí.",
+			"issue-modal-description-placeholder": "Cada vez que intento...\nNo pasa nada cuando...",
+			"issue-submission": "¡Gracias por reportar tu problema! {{emoji}}"
 		},
 		"bonk": {
 			"missing-external-apps-permission": ""
