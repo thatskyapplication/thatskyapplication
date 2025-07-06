@@ -154,7 +154,7 @@ export function SiteTopBar() {
 						<div className="flex items-center gap-6">
 							<Link
 								to="/"
-								className="font-bold text-xl text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+								className="font-bold sm:text-xl text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
 							>
 								thatskyapplication
 							</Link>
