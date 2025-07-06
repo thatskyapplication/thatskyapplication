@@ -1,7 +1,7 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { Link } from "@remix-run/react";
-import { BellIcon, Clock3Icon } from "lucide-react";
-import { APPLICATION_NAME, INVITE_APPLICATION_URL } from "~/utility/constants";
+import { BellIcon, Clock3Icon, Globe } from "lucide-react";
+import { APPLICATION_NAME, CROWDIN_URL, INVITE_APPLICATION_URL } from "~/utility/constants";
 
 export default function Home() {
 	return (
@@ -133,6 +133,29 @@ export default function Home() {
 								</div>
 							</div>
 						</Link>
+					</div>
+				</div>
+				<div className="mt-12 w-full max-w-2xl">
+					<div className="bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 border border-orange-200 dark:border-orange-700/50 rounded-xl p-6 text-center">
+						<div className="flex items-center justify-center mb-3">
+							<div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg mr-3">
+								<Globe className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+							</div>
+							<h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+								Translate {APPLICATION_NAME}!
+							</h3>
+						</div>
+						<p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+							Make {APPLICATION_NAME} accessible to everyone in their native language!
+						</p>
+						<a
+							href={CROWDIN_URL}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors text-sm"
+						>
+							Join on Crowdin
+						</a>
 					</div>
 				</div>
 				<div className="mt-16 text-center">
