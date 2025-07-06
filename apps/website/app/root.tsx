@@ -10,6 +10,7 @@ import {
 	useRouteError,
 } from "@remix-run/react";
 import type React from "react";
+import ConditionalLayout from "~/components/ConditionalLayout";
 import "./tailwind.css";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { LocaleProvider } from "~/contexts/LocaleContext";
@@ -110,7 +111,9 @@ export default function App() {
 
 	return (
 		<LocaleProvider locale={locale}>
-			<Outlet />
+			<ConditionalLayout>
+				<Outlet />
+			</ConditionalLayout>
 		</LocaleProvider>
 	);
 }

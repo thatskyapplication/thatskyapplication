@@ -6,7 +6,6 @@ import {
 	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import Layout from "~/components/Layout.js";
 import Pagination from "~/components/Pagination.js";
 import pg from "~/pg.server";
 import {
@@ -183,53 +182,50 @@ export default function SkyProfiles() {
 	const totalPages = "totalPages" in data ? data.totalPages : undefined;
 
 	return (
-		<Layout>
-			<div className="container mx-auto px-4 m-4">
-				<div className="flex items-center mb-4">
-					<Form method="get" className="mr-4">
-						<input
-							type="search"
-							name="query"
-							placeholder="Search..."
-							defaultValue={query}
-							onChange={(event) => {
-								const value = event.currentTarget.value;
-								if (value !== value.trim()) {
-									return;
-								}
-								return event.currentTarget.form!.requestSubmit();
-							}}
-							className="p-2 border border-gray-200 dark:border-gray-600 rounded my-2 w-48"
-						/>
-					</Form>
-					<Link
-						to={"/sky-profiles/random"}
-						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
-					>
-						<div
-							className="w-6 h-6 mr-2 bg-cover bg-center"
-							style={{
-								backgroundImage:
-									"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
-							}}
-							aria-label="Question mark icon."
-						/>
-						<span>Random</span>
-					</Link>
-				</div>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{profiles.length > 0 ? (
-						profiles.map((profile) => SkyProfileCard(profile))
-					) : currentPage !== undefined && totalPages !== undefined ? (
-						<p>Oh. No Sky profiles? Why not be the first time make one?</p>
-					) : (
-						<p>No results.</p>
-					)}
-				</div>
-				{currentPage !== undefined && totalPages !== undefined && (
-					<Pagination currentPage={currentPage ?? 0} totalPages={totalPages ?? 0} />
+		<div className="container mx-auto px-4 m-4">
+			<div className="flex items-center mb-4">
+				<Form method="get" className="mr-4">
+					<input
+						type="search"
+						name="query"
+						placeholder="Search..."
+						defaultValue={query}
+						onChange={(event) => {
+							const value = event.currentTarget.value;
+							if (value !== value.trim()) {
+								return;
+							}
+							return event.currentTarget.form!.requestSubmit();
+						}}
+						className="p-2 border border-gray-200 dark:border-gray-600 rounded my-2 w-48"
+					/>
+				</Form>
+				<Link
+					to={"/sky-profiles/random"}
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
+				>
+					<div
+						className="w-6 h-6 mr-2 bg-cover bg-center"
+						style={{
+							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
+						}}
+						aria-label="Question mark icon."
+					/>
+					<span>Random</span>
+				</Link>
+			</div>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{profiles.length > 0 ? (
+					profiles.map((profile) => SkyProfileCard(profile))
+				) : currentPage !== undefined && totalPages !== undefined ? (
+					<p>Oh. No Sky profiles? Why not be the first time make one?</p>
+				) : (
+					<p>No results.</p>
 				)}
 			</div>
-		</Layout>
+			{currentPage !== undefined && totalPages !== undefined && (
+				<Pagination currentPage={currentPage ?? 0} totalPages={totalPages ?? 0} />
+			)}
+		</div>
 	);
 }

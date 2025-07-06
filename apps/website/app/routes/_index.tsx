@@ -1,12 +1,11 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { Link } from "@remix-run/react";
 import { Clock, LinkIcon, UsersIcon } from "lucide-react";
-import PageLayout from "~/components/Layout.js";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Index() {
 	return (
-		<PageLayout hideBack={true} className="flex flex-col items-center justify-center p-4">
+		<div className="flex flex-col items-center justify-center p-4 min-h-screen">
 			<header className="flex flex-col items-center text-center mb-8 max-w-lg w-full">
 				<h1 className="mt-4">thatskyapplication</h1>
 				<p className="mt-2 text-lg">Here are some cool things for Sky: Children of the Light!</p>
@@ -71,6 +70,6 @@ export default function Index() {
 					</p>
 				</Link>
 			</div>
-		</PageLayout>
+		</div>
 	);
 }

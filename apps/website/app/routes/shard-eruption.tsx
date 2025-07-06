@@ -10,7 +10,6 @@ import {
 } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
 import Pagination from "~/components/Pagination.js";
-import TopBar from "~/components/TopBar";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
@@ -177,7 +176,6 @@ export default function ShardEruption() {
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center">
-			<TopBar />
 			<div className="flex-wrap pt-20 pb-4 px-4">
 				{page === 0 ? (
 					<>

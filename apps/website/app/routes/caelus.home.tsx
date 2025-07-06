@@ -73,7 +73,7 @@ export default function Home() {
 			<div className="mt-8 space-y-4 text-center text-lg">
 				<p className="lg:hidden">
 					{APPLICATION_NAME} is simple to set up and use. If you prefer reading a guide on features,
-					see above for some popular features, or browse everything via the menu button below.
+					see above for some popular features, or browse everything via the menu button above.
 				</p>
 				<p className="hidden lg:block">
 					{APPLICATION_NAME} is simple to set up and use. If you prefer reading a guide on features,

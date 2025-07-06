@@ -1,180 +1,172 @@
 import { Link, Outlet, useLocation } from "@remix-run/react";
-import { MenuIcon, XIcon } from "lucide-react";
-import { useState } from "react";
-import PageLayout from "~/components/Layout.js";
+import { BookOpen, Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { SKY_KID_ICON_URL } from "~/utility/constants.js";
 
-interface SidebarData {
+interface SidebarItem {
 	title: string;
 	path: string;
 }
 
-const HOME = [
+const HOME_ITEMS = [
 	{ title: "Home", path: "/caelus/home" },
 	{ title: "Acknowledgements", path: "/caelus/acknowledgements" },
 	{ title: "Terms & Privacy", path: "/caelus/terms-privacy" },
-] as const;
+] as const satisfies Readonly<SidebarItem[]>;
 
-const GUIDES = [
+const GUIDE_ITEMS = [
 	{ title: "Daily Guides", path: "/caelus/daily-guides" },
 	{ title: "Hearts", path: "/caelus/hearts" },
 	{ title: "Friendship Actions", path: "/caelus/friendship-actions" },
 	{ title: "Notifications", path: "/caelus/notifications" },
 	{ title: "Spirits", path: "/caelus/spirits" },
-] as const;
+] as const satisfies Readonly<SidebarItem[]>;
 
-const renderCategory = (
-	title: string,
-	sidebarData: readonly SidebarData[],
-	location: ReturnType<typeof useLocation>,
-) => (
-	<>
-		<h2 className="text-lg mt-0 mb-0 uppercase tracking-wide">{title}</h2>
-		<ul className="space-y-1">
-			{sidebarData.map((data) => (
-				<li key={data.path}>
-					<Link
-						to={data.path}
-						className={`block px-2 py-1 rounded-md transition duration-200 ${
-							location.pathname === data.path
-								? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
-								: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
-						}`}
-					>
-						<div className="flex items-center justify-between">
-							<span className="flex-1 truncate">{data.title}</span>
-							{location.pathname === data.path && (
-								<img
-									src={SKY_KID_ICON_URL}
-									alt="You are here."
-									className="w-6 h-6 flex-shrink-0 ml-2"
-								/>
-							)}
-						</div>
-					</Link>
-				</li>
-			))}
-		</ul>
-	</>
-);
+function SidebarSection({
+	title,
+	items,
+	currentPath,
+	onItemClick,
+}: {
+	title: string;
+	items: readonly SidebarItem[];
+	currentPath: string;
+	onItemClick?: () => void;
+}) {
+	return (
+		<div className="mb-6">
+			<h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+				{title}
+			</h3>
+			<ul className="space-y-1">
+				{items.map((item) => {
+					const isActive = currentPath === item.path;
+					return (
+						<li key={item.path}>
+							<Link
+								to={item.path}
+								onClick={onItemClick}
+								className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+									isActive
+										? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+										: "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+								}`}
+							>
+								<span>{item.title}</span>
+								{isActive && (
+									<img
+										src={SKY_KID_ICON_URL}
+										alt="Current page"
+										className="w-4 h-4 flex-shrink-0"
+									/>
+								)}
+							</Link>
+						</li>
+					);
+				})}
+			</ul>
+		</div>
+	);
+}
 
-export default function GuidesLayout() {
-	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+export default function CaelusLayout() {
 	const location = useLocation();
+	const [sidebarOpen, setSidebarOpen] = useState(false);
 
-	const toggleSidebar = () => {
-		setIsSidebarOpen(!isSidebarOpen);
-	};
+	// biome-ignore lint/correctness/useExhaustiveDependencies: This is fine.
+	useEffect(() => {
+		setSidebarOpen(false);
+	}, [location.pathname]);
+
+	useEffect(() => {
+		const handleEscape = (event: KeyboardEvent) => {
+			if (event.key === "Escape") setSidebarOpen(false);
+		};
+
+		document.addEventListener("keydown", handleEscape);
+		return () => document.removeEventListener("keydown", handleEscape);
+	}, []);
 
 	return (
-		<PageLayout className="flex">
-			<nav className="hidden lg:block fixed left-0 top-0 pt-24 h-full w-64 bg-gray-100 dark:bg-gray-900 lg:border-r lg:border-gray-300 dark:lg:border-gray-700 p-4 overflow-y-auto">
-				<div className="space-y-1">
-					{renderCategory("Home", HOME, location)}
-					{renderCategory("Guides", GUIDES, location)}
-				</div>
-			</nav>
-			{isSidebarOpen && (
-				<div
-					className="fixed inset-0 bg-black bg-opacity-50 z-30"
-					onClick={() => setIsSidebarOpen(false)}
-					onKeyDown={(event) => event.key === "Escape" && setIsSidebarOpen(false)}
-					aria-hidden="true"
-				/>
-			)}
-			<nav
-				className={`fixed bottom-2 right-2 w-3/4 max-w-xs bg-gray-100 dark:bg-gray-900 p-4 rounded-lg shadow-lg z-40 transform transition-transform duration-150 ease-in-out ${
-					isSidebarOpen ? "translate-x-0" : "translate-x-[110%]"
-				} overflow-y-auto max-h-[50vh]`}
-			>
-				<div className="relative space-y-1">
-					<div className="flex justify-between items-center">
-						<h2 className="text-lg my-0 uppercase tracking-wide">Home</h2>
-						<button type="button" onClick={() => setIsSidebarOpen(false)} aria-label="Close menu.">
-							<XIcon className="h-6 w-6" />
-						</button>
+		<div className="container mx-auto px-4 py-8 max-w-7xl">
+			<div className="flex gap-8">
+				<aside className="hidden lg:block w-64 flex-shrink-0">
+					<div className="sticky top-24">
+						<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
+							<div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+								<div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+									<BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+								</div>
+								<div>
+									<h2 className="font-semibold text-gray-900 dark:text-gray-100">Caelus</h2>
+								</div>
+							</div>
+							<SidebarSection title="Home" items={HOME_ITEMS} currentPath={location.pathname} />
+							<SidebarSection title="Guides" items={GUIDE_ITEMS} currentPath={location.pathname} />
+						</div>
 					</div>
-					<ul className="space-y-1">
-						{HOME.map((home) => (
-							<li key={home.path}>
-								<Link
-									to={home.path}
-									className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
-										location.pathname === home.path
-											? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
-											: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
-									}`}
-									onClick={() => setIsSidebarOpen(false)}
-								>
-									<div className="flex items-center justify-between">
-										<span className="flex-1 truncate">{home.title}</span>
-										{location.pathname === home.path && (
-											<img
-												src={SKY_KID_ICON_URL}
-												alt="You are here."
-												className="w-6 h-6 flex-shrink-0 ml-2"
-											/>
-										)}
-									</div>
-								</Link>
-							</li>
-						))}
-					</ul>
-					<h2 className="text-lg mt-0 mb-0 uppercase tracking-wide">Guides</h2>
-					<ul className="space-y-1">
-						{GUIDES.map((guide) => (
-							<li key={guide.path}>
-								<Link
-									to={guide.path}
-									className={`block px-2 py-1 rounded-md hover:outline-none transition duration-200 ${
-										location.pathname === guide.path
-											? "bg-gray-300 dark:bg-gray-700 dark:text-white text-black shadow"
-											: "text-gray-600 dark:text-gray-400 hover:bg-sky-100 dark:hover:bg-gray-800"
-									}`}
-									onClick={() => setIsSidebarOpen(false)}
-								>
-									<div className="flex items-center justify-between">
-										<span className="flex-1 truncate">{guide.title}</span>
-										{location.pathname === guide.path && (
-											<img
-												src={SKY_KID_ICON_URL}
-												alt="You are here."
-												className="w-6 h-6 flex-shrink-0 ml-2"
-											/>
-										)}
-									</div>
-								</Link>
-							</li>
-						))}
-					</ul>
-					<div className="flex justify-between border-t border-gray-300 dark:border-gray-700 pt-2">
+				</aside>
+				<main className="flex-1 min-w-0">
+					<div className="lg:hidden mb-6">
 						<button
 							type="button"
-							className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md focus:outline-none ml-auto flex items-center space-x-2"
-							onClick={toggleSidebar}
-							aria-label="Close sidebar"
+							onClick={() => setSidebarOpen(true)}
+							className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow"
 						>
-							<span className="font-semibold uppercase">Close</span>
-							<XIcon className="h-6 w-6" />
+							<BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+							<span className="font-medium text-gray-900 dark:text-gray-100">Guide Navigation</span>
+							<Menu className="h-4 w-4 text-gray-500 dark:text-gray-400 ml-auto" />
 						</button>
 					</div>
-				</div>
-			</nav>
-			{!isSidebarOpen && (
-				<button
-					type="button"
-					className="lg:hidden fixed z-40 bottom-4 right-4 p-3 bg-gray-500/90 dark:bg-gray-900/90 text-white rounded-full shadow-lg focus:outline-none"
-					onClick={toggleSidebar}
-					aria-label="Open sidebar"
-				>
-					<MenuIcon className="h-7 w-7" />
-				</button>
-			)}
-			<div className="flex-1 lg:ml-64 p-4">
-				<div className="w-full text-black dark:text-white">
-					<Outlet />
-				</div>
+					<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-8">
+						<Outlet />
+					</div>
+				</main>
 			</div>
-		</PageLayout>
+			{sidebarOpen && (
+				<>
+					<button
+						type="button"
+						className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden cursor-default"
+						onClick={() => setSidebarOpen(false)}
+						aria-label="Close sidebar"
+					/>
+					<div className="fixed top-4 left-4 right-4 bottom-4 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 flex flex-col lg:hidden">
+						<div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+							<div className="flex items-center gap-2">
+								<div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+									<BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+								</div>
+								<div>
+									<h2 className="font-semibold text-gray-900 dark:text-gray-100">Caelus Guide</h2>
+								</div>
+							</div>
+							<button
+								type="button"
+								onClick={() => setSidebarOpen(false)}
+								className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+								aria-label="Close navigation"
+							>
+								<X className="h-5 w-5" />
+							</button>
+						</div>
+						<div className="flex-1 overflow-y-auto p-6">
+							<SidebarSection
+								title="Home"
+								items={HOME_ITEMS}
+								currentPath={location.pathname}
+								onItemClick={() => setSidebarOpen(false)}
+							/>
+							<SidebarSection
+								title="Guides"
+								items={GUIDE_ITEMS}
+								currentPath={location.pathname}
+								onItemClick={() => setSidebarOpen(false)}
+							/>
+						</div>
+					</div>
+				</>
+			)}
+		</div>
 	);
 }

@@ -1,13 +1,11 @@
 import { ExternalLinkIcon } from "lucide-react";
-import TopBar from "~/components/TopBar";
 import Video from "~/components/Video";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function ThatSkyLink() {
 	return (
 		<div className="min-h-screen px-4 w-full max-w-6xl mx-auto">
-			<TopBar />
-			<h1 className="text-center pt-20">thatskylink</h1>
+			<h1 className="text-center pt-8">thatskylink</h1>
 			<hr />
 			<div className="bg-gray-100 dark:bg-gray-900 p-6 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg mt-8 text-lg">
 				<section>

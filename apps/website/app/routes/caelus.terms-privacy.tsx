@@ -12,8 +12,8 @@ export default function TermsPrivacy() {
 			</p>
 			<h2>Use</h2>
 			<p>
-				Use involves a Discord bot called {APPLICATION_NAME}. By engaging with this service, you
-				agree to the terms of service and privacy policy.
+				Use involves a Discord application called {APPLICATION_NAME}. By engaging with this service,
+				you agree to the terms of service and privacy policy.
 			</p>
 			<h2>What data is stored?</h2>
 			<p>Data you give to {APPLICATION_NAME} is stored indefinitely:</p>

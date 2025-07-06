@@ -1,5 +1,6 @@
 import { CDN_URL } from "@thatskyapplication/utility";
 
+export const EXCLUDE_TOP_BAR_AND_FOOTER = ["/"] as const;
 export const DEFAULT_LOCALE = "en-GB" as const;
 export const APPLICATION_NAME = "Caelus" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;

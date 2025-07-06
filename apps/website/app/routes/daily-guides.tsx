@@ -16,7 +16,6 @@ import {
 } from "@thatskyapplication/utility";
 import { PanelRightClose, X } from "lucide-react";
 import { useState } from "react";
-import TopBar from "~/components/TopBar";
 import pg from "~/pg.server";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
 import { getLocaleFromRequest } from "~/utility/functions";
@@ -207,7 +206,6 @@ export default function DailyGuides() {
 
 	return (
 		<div className="min-h-screen flex items-center justify-center pt-20 lg:pt-0 pb-4 lg:pb-0 px-4">
-			<TopBar />
 			{/* biome-ignore lint/a11y/noStaticElementInteractions: This is fine. */}
 			<div
 				className={`bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow p-6 rounded-3xl w-full max-w-lg transition-all duration-300 ${
