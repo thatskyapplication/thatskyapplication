@@ -41,7 +41,7 @@ export default function ThatSkyLink() {
 						>
 							<div className="space-y-3">
 								<div className="flex items-center gap-3">
-									<div className="w-2 h-2 bg-green-500 rounded-full" />
+									<div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0" />
 									<a
 										href={`https://${example.short}`}
 										target="_blank"
@@ -51,13 +51,13 @@ export default function ThatSkyLink() {
 										<code>{example.short}</code>
 									</a>
 								</div>
-								<div className="flex items-center gap-3">
-									<div className="w-2 h-2 bg-red-500 rounded-full" />
+								<div className="flex items-start gap-3">
+									<div className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0 mt-1" />
 									<a
 										href={`https://${example.full}`}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm break-all underline-offset-4 hover:underline transition-colors"
+										className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm break-all underline-offset-4 hover:underline transition-colors min-w-0"
 									>
 										<code>{example.full}</code>
 									</a>
