@@ -1,7 +1,7 @@
 import { Link, Outlet, useLocation } from "@remix-run/react";
 import { BookOpen, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { SKY_KID_ICON_URL } from "~/utility/constants.js";
+import { APPLICATION_NAME, SKY_KID_ICON_URL } from "~/utility/constants.js";
 
 interface SidebarItem {
 	title: string;
@@ -91,13 +91,15 @@ export default function CaelusLayout() {
 			<div className="flex gap-8">
 				<aside className="hidden lg:block w-64 flex-shrink-0">
 					<div className="sticky top-24">
-						<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-6 max-h-[calc(100vh-8rem)] overflow-y-auto">
-							<div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+						<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
+							<div className="flex items-center gap-2 mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">
 								<div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
 									<BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />
 								</div>
 								<div>
-									<h2 className="font-semibold text-gray-900 dark:text-gray-100">Caelus</h2>
+									<h2 className="font-semibold text-gray-900 dark:text-gray-100">
+										{APPLICATION_NAME}
+									</h2>
 								</div>
 							</div>
 							<SidebarSection title="Home" items={HOME_ITEMS} currentPath={location.pathname} />
