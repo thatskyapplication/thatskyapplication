@@ -11,6 +11,11 @@ const items = resolveOffer([
 		cosmetic: Cosmetic.TGCGuitar,
 		cost: { money: 29.99 },
 	},
+	{
+		name: "TGC Wireframe Cape",
+		cosmetic: Cosmetic.TGCWireframeCape,
+		cost: { money: 19.99 },
+	},
 ]);
 
 export const SECRET_AREA = { items, allCosmetics: resolveAllCosmetics(items) } as const;
