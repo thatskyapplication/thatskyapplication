@@ -209,7 +209,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `##${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}[${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`,
+			content: `##${seasonEmoji ? ` ${formatEmoji(seasonEmoji)}` : ""} [${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`,
 		},
 		{
 			type: ComponentType.Separator,
