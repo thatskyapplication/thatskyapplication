@@ -3026,12 +3026,12 @@ export enum Cosmetic {
 	BlueBirdGuideProp = 2404,
 
 	// 07/07/2025 | Sky Anniversary.
-	SkyAnniversaryHairAccessory5,
-	AnniversaryClapboard,
-	AnniversaryMovieSeats,
-	AnniversaryCinemaGlasses,
-	AnniversaryCinemaPopcorn,
-	TGCWireframeCape,
+	SkyAnniversaryHairAccessory5 = 2405,
+	AnniversaryClapboard = 2406,
+	AnniversaryMovieSeats = 2407,
+	AnniversaryCinemaGlasses = 2408,
+	AnniversaryCinemaPopcorn = 2409,
+	TGCWireframeCape = 2410,
 }
 
 export const WING_BUFFS = [
