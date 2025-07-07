@@ -15,8 +15,8 @@ const HOME_ITEMS = [
 
 const GUIDE_ITEMS = [
 	{ title: "Daily Guides", path: "/caelus/daily-guides" },
-	{ title: "Hearts", path: "/caelus/hearts" },
 	{ title: "Friendship Actions", path: "/caelus/friendship-actions" },
+	{ title: "Hearts", path: "/caelus/hearts" },
 	{ title: "Notifications", path: "/caelus/notifications" },
 	{ title: "Spirits", path: "/caelus/spirits" },
 ] as const satisfies Readonly<SidebarItem[]>;
