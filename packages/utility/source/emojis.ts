@@ -4621,9 +4621,25 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	LargePlaceableProp82: { id: "1333206450998214696", name: "82_large_placeable_prop" },
 	/**
+	 * Dressing table.
+	 */
+	LargePlaceableProp83: { id: "1391669691172520028", name: "83_large_placeable_prop" },
+	/**
+	 * Blue stool.
+	 */
+	LargePlaceableProp84: { id: "1391669703046332457", name: "84_large_placeable_prop" },
+	/**
+	 * Floor curtain.
+	 */
+	LargePlaceableProp85: { id: "1391669711476883609", name: "85_large_placeable_prop" },
+	/**
+	 * Left curtain.
+	 */
+	LargePlaceableProp86: { id: "1391669720335388602", name: "87_large_placeable_prop" },
+	/**
 	 * Blue Bird Guide (non-ultimate).
 	 */
-	LargePlaceableProp83: { id: "1389136116308774962", name: "83_large_placeable_prop" },
+	LargePlaceableProp87: { id: "1389136116308774962", name: "87_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4709,7 +4725,11 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp80: { id: "1333205584824238080", name: "80_large_placeable_prop" },
 	LargePlaceableProp81: { id: "1333206114203865088", name: "81_large_placeable_prop" },
 	LargePlaceableProp82: { id: "1333206456794873928", name: "82_large_placeable_prop" },
-	LargePlaceableProp83: { id: "1389136123988545587", name: "83_large_placeable_prop" },
+	LargePlaceableProp83: { id: "1391669758554013767", name: "83_large_placeable_prop" },
+	LargePlaceableProp84: { id: "1391669766930038896", name: "84_large_placeable_prop" },
+	LargePlaceableProp85: { id: "1391669774626324480", name: "85_large_placeable_prop" },
+	LargePlaceableProp86: { id: "1391669782289584138", name: "86_large_placeable_prop" },
+	LargePlaceableProp87: { id: "1389136123988545587", name: "87_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5065,6 +5085,18 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Bloom Rose Jar.
 	 */
 	SmallPlaceableProp88: { id: "1353522647463624875", name: "88_small_placeable_prop" },
+	/**
+	 * Flower vase.
+	 */
+	SmallPlaceableProp89: { id: "1391669733245583370", name: "89_small_placeable_prop" },
+	/**
+	 * Small crescent rug.
+	 */
+	SmallPlaceableProp90: { id: "1391669740564381847", name: "90_small_placeable_prop" },
+	/**
+	 * Decorative stick jar.
+	 */
+	SmallPlaceableProp91: { id: "1391669748420575322", name: "91_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5156,6 +5188,9 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp86: { id: "1320566442755756102", name: "86_small_placeable_prop" },
 	SmallPlaceableProp87: { id: "1338230482931814540", name: "87_small_placeable_prop" },
 	SmallPlaceableProp88: { id: "1353522656946819122", name: "88_small_placeable_prop" },
+	SmallPlaceableProp89: { id: "1391669789591601184", name: "89_small_placeable_prop" },
+	SmallPlaceableProp90: { id: "1391669797715972126", name: "90_small_placeable_prop" },
+	SmallPlaceableProp91: { id: "1391669806096187392", name: "91_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -7618,9 +7653,16 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.SeedOfHopeWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.BlueBirdGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.BlueBirdGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.WorkshopShowAndTellProp1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp83,
+		[Cosmetic.WorkshopShowAndTellProp2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp84,
+		[Cosmetic.WorkshopShowAndTellProp3]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp85,
+		[Cosmetic.WorkshopShowAndTellProp4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp89,
+		[Cosmetic.WorkshopShowAndTellProp5]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp86,
+		[Cosmetic.WorkshopShowAndTellProp6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp90,
+		[Cosmetic.WorkshopShowAndTellProp7]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp91,
 		[Cosmetic.BlueBirdGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CallBlueBird]: CALL_EMOJIS.BlueBird,
-		[Cosmetic.BlueBirdGuideProp]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp83,
+		[Cosmetic.BlueBirdGuideProp]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp87,
 		[Cosmetic.SkyAnniversaryHairAccessory5]: null,
 		[Cosmetic.AnniversaryClapboard]: null,
 		[Cosmetic.AnniversaryMovieSeats]: null,

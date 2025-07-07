@@ -3011,6 +3011,15 @@ export enum Cosmetic {
 	BlueBirdGuideQuest5 = 2393,
 	BlueBirdGuideHeart4 = 2394,
 
+	// 23/06/2025 | Workshop Show & Tell.
+	WorkshopShowAndTellProp1 = 2395,
+	WorkshopShowAndTellProp2 = 2396,
+	WorkshopShowAndTellProp3 = 2397,
+	WorkshopShowAndTellProp4 = 2398,
+	WorkshopShowAndTellProp5 = 2399,
+	WorkshopShowAndTellProp6 = 2400,
+	WorkshopShowAndTellProp7 = 2401,
+
 	// 30/06/2025 | Season of the Blue Bird Quest 6.
 	BlueBirdGuideQuest6 = 2402,
 	CallBlueBird = 2403,
