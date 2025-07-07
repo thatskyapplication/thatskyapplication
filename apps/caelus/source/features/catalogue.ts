@@ -585,8 +585,10 @@ async function start({
 		style: currentSeason ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 
-	if (currentSeason) {
-		currentSeasonButton.emoji = SeasonIdToSeasonalEmoji[currentSeason.id];
+	const seasonEmoji = currentSeason && SeasonIdToSeasonalEmoji[currentSeason.id];
+
+	if (seasonEmoji) {
+		currentSeasonButton.emoji = seasonEmoji;
 	}
 
 	const currentEventButtons: APIButtonComponentWithCustomId[] =
@@ -631,8 +633,11 @@ async function start({
 		style: currentTravellingSpirit ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 
-	if (currentTravellingSpirit) {
-		currentTravellingSpiritButton.emoji = SeasonIdToSeasonalEmoji[currentTravellingSpirit.seasonId];
+	const travellingSpiritSeasonEmoji =
+		currentTravellingSpirit && SeasonIdToSeasonalEmoji[currentTravellingSpirit.seasonId];
+
+	if (travellingSpiritSeasonEmoji) {
+		currentTravellingSpiritButton.emoji = travellingSpiritSeasonEmoji;
 	}
 
 	const currentReturningSpiritsButton: APIButtonComponentWithCustomId = {
@@ -651,8 +656,12 @@ async function start({
 			(returningSpirit) => returningSpirit.seasonId === currentReturningSpirits.first()!.seasonId,
 		)
 	) {
-		currentReturningSpiritsButton.emoji =
+		const returningSpiritSeasonEmoji =
 			SeasonIdToSeasonalEmoji[currentReturningSpirits.first()!.seasonId];
+
+		if (returningSpiritSeasonEmoji) {
+			currentReturningSpiritsButton.emoji = returningSpiritSeasonEmoji;
+		}
 	}
 
 	return [
@@ -1185,15 +1194,22 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 	const containerComponents: APIComponentInContainer[] = [];
 
 	if (currentSeason) {
+		const accessory: APIButtonComponentWithCustomId = {
+			type: ComponentType.Button,
+			// The § at the end is to prevent the API throwing a duplicate custom id error.
+			custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}§`,
+			style: ButtonStyle.Primary,
+		};
+
+		const seasonEmoji = SeasonIdToSeasonalEmoji[currentSeason.id];
+
+		if (seasonEmoji) {
+			accessory.emoji = seasonEmoji;
+		}
+
 		containerComponents.push({
 			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				// The § at the end is to prevent the API throwing a duplicate custom id error.
-				custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}§`,
-				emoji: SeasonIdToSeasonalEmoji[currentSeason.id],
-				style: ButtonStyle.Primary,
-			},
+			accessory,
 			components: [{ type: ComponentType.TextDisplay, content: SEASONS_TITLE }],
 		});
 	} else {
@@ -1236,15 +1252,22 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 				? t("catalogue.main-no-progress", { lng: locale, ns: "features" })
 				: t("catalogue.main-progress", { lng: locale, ns: "features", number: seasonalProgress });
 
+		const accessory: APIButtonComponentWithCustomId = {
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${season.id}`,
+			label: t("view", { lng: locale, ns: "general" }),
+		};
+
+		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
+
+		if (seasonEmoji) {
+			accessory.emoji = seasonEmoji;
+		}
+
 		containerComponents.push({
 			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Secondary,
-				custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${season.id}`,
-				label: t("view", { lng: locale, ns: "general" }),
-				emoji: SeasonIdToSeasonalEmoji[season.id],
-			},
+			accessory,
 			components: [
 				{
 					type: ComponentType.TextDisplay,
@@ -1326,7 +1349,8 @@ export async function viewSeason(
 		return;
 	}
 
-	const title = `## ${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`;
+	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
+	const title = `##${seasonEmoji ? ` ${formatEmoji(seasonEmoji)}` : ""} [${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})\n-# Catalogue → Seasons`;
 
 	const containerComponents: APIComponentInContainer[] = [
 		season.patchNotesURL
@@ -1431,6 +1455,42 @@ export async function viewSeason(
 		});
 	}
 
+	const previousSeasonButton: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`,
+		disabled: !before,
+		label: "Previous season",
+		style: ButtonStyle.Secondary,
+	};
+
+	const nextSeasonButton: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`,
+		disabled: !after,
+		label: "Next season",
+		style: ButtonStyle.Secondary,
+	};
+
+	if (before) {
+		const beforeSeasonEmoji = SeasonIdToSeasonalEmoji[before.id];
+
+		if (beforeSeasonEmoji) {
+			previousSeasonButton.emoji = beforeSeasonEmoji;
+		}
+	} else {
+		previousSeasonButton.emoji = MISCELLANEOUS_EMOJIS.No;
+	}
+
+	if (after) {
+		const afterSeasonEmoji = SeasonIdToSeasonalEmoji[after.id];
+
+		if (afterSeasonEmoji) {
+			nextSeasonButton.emoji = afterSeasonEmoji;
+		}
+	} else {
+		nextSeasonButton.emoji = MISCELLANEOUS_EMOJIS.No;
+	}
+
 	containerComponents.push(
 		{
 			type: ComponentType.Separator,
@@ -1439,24 +1499,7 @@ export async function viewSeason(
 		},
 		{
 			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`,
-					disabled: !before,
-					emoji: before ? SeasonIdToSeasonalEmoji[before.id] : MISCELLANEOUS_EMOJIS.No,
-					label: "Previous season",
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`,
-					disabled: !after,
-					emoji: after ? SeasonIdToSeasonalEmoji[after.id] : MISCELLANEOUS_EMOJIS.No,
-					label: "Next season",
-					style: ButtonStyle.Secondary,
-				},
-			],
+			components: [previousSeasonButton, nextSeasonButton],
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -2007,7 +2050,7 @@ async function viewSpirit(
 						: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.seasonId}`,
 				emoji:
 					isSeasonalSpirit || isGuideSpirit
-						? SeasonIdToSeasonalEmoji[spirit.seasonId]
+						? (SeasonIdToSeasonalEmoji[spirit.seasonId] ?? { name: "⏪" })
 						: { name: "⏪" },
 				label: "Back",
 				style: ButtonStyle.Secondary,

@@ -1668,12 +1668,21 @@ export default class Profile {
 						custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID,
 						max_values: seasons1.size,
 						min_values: 0,
-						options: seasons1.map((season) => ({
-							default: currentSeasons?.includes(season.id) ?? false,
-							emoji: SeasonIdToSeasonalEmoji[season.id],
-							label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
-							value: String(season.id),
-						})),
+						options: seasons1.map((season) => {
+							const option: APISelectMenuOption = {
+								default: currentSeasons?.includes(season.id) ?? false,
+								label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
+								value: String(season.id),
+							};
+
+							const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
+
+							if (seasonEmoji) {
+								option.emoji = seasonEmoji;
+							}
+
+							return option;
+						}),
 						placeholder: "Select the seasons you participated in!",
 					},
 				],
@@ -1689,12 +1698,21 @@ export default class Profile {
 						custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID,
 						max_values: seasons2.size,
 						min_values: 0,
-						options: seasons2.map((season) => ({
-							default: currentSeasons?.includes(season.id) ?? false,
-							emoji: SeasonIdToSeasonalEmoji[season.id],
-							label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
-							value: String(season.id),
-						})),
+						options: seasons2.map((season) => {
+							const option: APISelectMenuOption = {
+								default: currentSeasons?.includes(season.id) ?? false,
+								label: t(`seasons.${season.id}`, { lng: locale, ns: "general" }),
+								value: String(season.id),
+							};
+
+							const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
+
+							if (seasonEmoji) {
+								option.emoji = seasonEmoji;
+							}
+
+							return option;
+						}),
 						placeholder: "Select the seasons you participated in!",
 					},
 				],
@@ -1979,7 +1997,15 @@ export default class Profile {
 				descriptions.push(
 					seasons
 						.sort((a, b) => a - b)
-						.map((season) => formatEmoji(SeasonIdToSeasonalEmoji[season]))
+						.reduce<string[]>((seasonEmojis, season) => {
+							const seasonEmoji = SeasonIdToSeasonalEmoji[season];
+
+							if (seasonEmoji) {
+								seasonEmojis.push(formatEmoji(seasonEmoji));
+							}
+
+							return seasonEmojis;
+						}, [])
 						.join(" "),
 				);
 			}

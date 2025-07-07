@@ -210,6 +210,7 @@ export default function SkyProfile() {
 						/>
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
+							{/* @ts-expect-error New season not yet announced. */}
 							<p className="my-0">{enGB.general.spirits[skyProfilePacket.spirit]}</p>
 						</div>
 					</div>

@@ -30,6 +30,7 @@ import Revival from "./revival/index.js";
 import Rhythm from "./rhythm/index.js";
 import Sanctuary from "./sanctuary/index.js";
 import Shattering from "./shattering/index.js";
+import twoEmbers from "./two-embers/index.js";
 
 const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	Gratitude,
@@ -57,6 +58,7 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	Moomin,
 	Radiance,
 	BlueBird,
+	twoEmbers,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
 enum VisitType {

@@ -45,8 +45,9 @@ const SeasonIdToSeasonalHeartEmoji = {
 	[SeasonId.Moomin]: SEASON_EMOJIS.MoominHeart,
 	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
 	[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdHeart,
+	// @ts-expect-error New season not yet announced.
 } as const satisfies Readonly<
-	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, Emoji>
+	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, Emoji | null>
 >;
 
 export function resolveCostToString(cost: ItemCost) {
@@ -81,6 +82,7 @@ export function resolveCostToString(cost: ItemCost) {
 		for (const seasonalCandles of cost.seasonalCandles) {
 			totalCost.push(
 				resolveCurrencyEmoji({
+					// @ts-expect-error New season not yet announced.
 					emoji: SeasonIdToSeasonalCandleEmoji[seasonalCandles.seasonId],
 					number: seasonalCandles.cost,
 				}),
@@ -96,7 +98,8 @@ export function resolveCostToString(cost: ItemCost) {
 				resolveCurrencyEmoji({
 					emoji:
 						seasonId !== SeasonId.Gratitude && seasonId !== SeasonId.Lightseekers
-							? SeasonIdToSeasonalHeartEmoji[seasonId]
+							? // @ts-expect-error New season not yet announced.
+								SeasonIdToSeasonalHeartEmoji[seasonId]
 							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
 					number: seasonalHearts.cost,
 				}),

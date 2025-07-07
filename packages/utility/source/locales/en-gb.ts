@@ -396,6 +396,7 @@ export default {
 			[SeasonId.Moomin]: "Season of Moomin",
 			[SeasonId.Radiance]: "Season of Radiance",
 			[SeasonId.BlueBird]: "Season of the Blue Bird",
+			// @ts-expect-error New season not yet announced.
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -426,6 +427,7 @@ export default {
 			[SeasonId.Moomin]: "https://sky-children-of-the-light.fandom.com/Season_of_Moomin",
 			[SeasonId.Radiance]: "https://sky-children-of-the-light.fandom.com/Season_of_Radiance",
 			[SeasonId.BlueBird]: "https://sky-children-of-the-light.fandom.com/Season_of_the_Blue_Bird",
+			// @ts-expect-error New season not yet announced.
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",
@@ -792,6 +794,7 @@ export default {
 			[SpiritId.WoodcuttingPleafulParent]: "Woodcutting Pleaful Parent",
 			[SpiritId.NostalgicSparklerParent]: "Nostalgic Sparkler Parent",
 			[SpiritId.RoyalHairtousleTeen]: "Royal Hairtousle Teen",
+			// @ts-expect-error New season not yet announced.
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1051,6 +1054,7 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Nostalgic_Sparkler_Parent",
 			[SpiritId.RoyalHairtousleTeen]:
 				"https://sky-children-of-the-light.fandom.com/Royal_Hairtousle_Teen",
+			// @ts-expect-error New season not yet announced.
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		timestamps: "Timestamps",
 		view: "View",

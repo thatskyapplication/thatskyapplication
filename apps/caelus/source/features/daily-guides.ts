@@ -533,9 +533,10 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 	if (season) {
 		const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
 		const values = [];
+		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
 		footerText.push(
-			`${formatEmoji(SeasonIdToSeasonalEmoji[season.id])} ${t("days-left.season", {
+			`${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}${t("days-left.season", {
 				lng: locale,
 				ns: "general",
 				count: Math.ceil(season.end.diff(now, "days").days) - 1,
@@ -557,6 +558,7 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
+		// @ts-expect-error New season not yet announced.
 		const candleEmoji = SeasonIdToSeasonalCandleEmoji[season.id];
 
 		values.push(
@@ -578,9 +580,10 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 
 		if (next) {
 			const daysUntilStart = next.start.diff(now, "days").days;
+			const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
 
 			footerText.push(
-				`${formatEmoji(SeasonIdToSeasonalEmoji[next.id])} ${daysUntilStart <= 1 ? "The new season starts tomorrow." : daysUntilStart >= 2 ? `The new season starts in ${Math.floor(daysUntilStart)} days.` : "The new season starts in 1 day."}`,
+				`${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${daysUntilStart <= 1 ? "The new season starts tomorrow." : daysUntilStart >= 2 ? `The new season starts in ${Math.floor(daysUntilStart)} days.` : "The new season starts in 1 day."}`,
 			);
 		}
 	}

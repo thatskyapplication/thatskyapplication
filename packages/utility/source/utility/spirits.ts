@@ -250,6 +250,9 @@ export const SpiritId = {
 	WoodcuttingPleafulParent: 183,
 	NostalgicSparklerParent: 184,
 	RoyalHairtousleTeen: 185,
+
+	// Season #25.
+	TwoEmbersGuide: 186,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);

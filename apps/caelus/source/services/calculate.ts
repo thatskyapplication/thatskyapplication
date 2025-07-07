@@ -2,6 +2,7 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIEmbed,
+	type APITextDisplayComponent,
 	ComponentType,
 	MessageFlags,
 	SeparatorSpacingSize,
@@ -309,6 +310,7 @@ export async function seasonalCandles(
 		return;
 	}
 
+	// @ts-expect-error New season not yet announced.
 	const emoji = SeasonIdToSeasonalCandleEmoji[season.id];
 	const amountRequired = goal - start;
 	let result = 0;
@@ -345,43 +347,53 @@ export async function seasonalCandles(
 			divider: true,
 			spacing: SeparatorSpacingSize.Small,
 		},
+	];
+
+	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
+
+	const textDisplayComponents: APITextDisplayComponent[] = [
 		{
+			type: ComponentType.TextDisplay,
+			content: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: start })}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: goal })}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "commands", count: days })}${days === daysWithSeasonPass ? "" : ` ${t("calculate.seasonal-candles.day-season-pass", { lng: locale, ns: "commands", count: daysWithSeasonPass })}`}`,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: `${resolveCurrencyEmoji({
+				emoji,
+				number: seasonalCandlesLeft,
+			})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "commands" })}\n${resolveCurrencyEmoji(
+				{
+					emoji,
+					number: seasonalCandlesLeftWithSeasonPass,
+				},
+			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
+		},
+	];
+
+	if (seasonEmoji) {
+		containerComponents.push({
 			type: ComponentType.Section,
 			accessory: {
 				type: ComponentType.Thumbnail,
 				media: {
-					url: formatEmojiURL(SeasonIdToSeasonalEmoji[season.id].id),
+					url: formatEmojiURL(seasonEmoji.id),
 				},
 			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: start })}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: goal })}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "commands", count: days })}${days === daysWithSeasonPass ? "" : ` ${t("calculate.seasonal-candles.day-season-pass", { lng: locale, ns: "commands", count: daysWithSeasonPass })}`}`,
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: `${resolveCurrencyEmoji({
-						emoji,
-						number: seasonalCandlesLeft,
-					})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "commands" })}\n${resolveCurrencyEmoji(
-						{
-							emoji,
-							number: seasonalCandlesLeftWithSeasonPass,
-						},
-					)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
-				},
-			],
-		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-	];
+			components: textDisplayComponents,
+		});
+	} else {
+		containerComponents.push(...textDisplayComponents);
+	}
+
+	containerComponents.push({
+		type: ComponentType.Separator,
+		divider: true,
+		spacing: SeparatorSpacingSize.Small,
+	});
 
 	if (includedDoubleLight) {
 		containerComponents.push({
