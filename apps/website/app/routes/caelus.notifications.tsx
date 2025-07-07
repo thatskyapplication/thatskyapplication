@@ -54,7 +54,7 @@ export default function Notifications() {
 								<Bell className="w-6 h-6 text-purple-600 dark:text-purple-400" />
 							</div>
 							<h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-0">
-								Available Notification Types
+								Available notification types
 							</h3>
 						</div>
 						<div className="grid md:grid-cols-2 gap-4">
@@ -83,9 +83,7 @@ export default function Notifications() {
 							<div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg">
 								<Zap className="w-6 h-6 text-green-600 dark:text-green-400" />
 							</div>
-							<h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-0">
-								Example Notification
-							</h3>
+							<h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-0">Example</h3>
 						</div>
 						<img
 							src="https://cdn.thatskyapplication.com/assets/notifications_example.webp"
