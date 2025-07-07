@@ -129,7 +129,13 @@ new Cron(
 			}
 
 			for (const mediaMetadataItem of Object.values(data.media_metadata ?? {})) {
-				urls.push(mediaMetadataItem.s.u);
+				if ("u" in mediaMetadataItem.s) {
+					urls.push(mediaMetadataItem.s.u);
+				}
+
+				if ("gif" in mediaMetadataItem.s) {
+					urls.push(mediaMetadataItem.s.gif);
+				}
 			}
 
 			if (data.domain === "i.redd.it") {

@@ -42,13 +42,25 @@ async function ensureValidToken() {
 	}
 }
 
-interface PostMediaMetadataItemS {
+interface PostMediaMetadataItemSJPG {
 	u: string;
 }
 
-interface PostMediaMetadataItem {
-	s: PostMediaMetadataItemS;
+interface PostMediaMetadataItemSGIF {
+	gif: string;
 }
+
+interface PostMediaMetadataItemGIF {
+	m: "image/gif";
+	s: PostMediaMetadataItemSGIF;
+}
+
+interface PostMediaMetadataItemJPG {
+	m: "image/jpg";
+	s: PostMediaMetadataItemSJPG;
+}
+
+type PostMediaMetadataItem = PostMediaMetadataItemGIF | PostMediaMetadataItemJPG;
 
 interface PostMediaMetadata {
 	[media_id: string]: PostMediaMetadataItem;
