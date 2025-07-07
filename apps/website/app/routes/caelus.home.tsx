@@ -1,6 +1,6 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { Link } from "@remix-run/react";
-import { BellIcon, Clock3Icon, Globe } from "lucide-react";
+import { BellIcon, Clock3Icon, Globe, Heart } from "lucide-react";
 import { APPLICATION_NAME, CROWDIN_URL, INVITE_APPLICATION_URL } from "~/utility/constants";
 
 export default function Home() {
@@ -64,11 +64,7 @@ export default function Home() {
 							<div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-pink-400/20 to-transparent rounded-full blur-xl" />
 							<div className="relative z-10">
 								<div className="mb-4 p-3 bg-white/70 dark:bg-gray-800/70 rounded-xl w-fit backdrop-blur-sm">
-									<img
-										src="https://cdn.thatskyapplication.com/icons/heart.png"
-										alt="Heart icon"
-										className="w-8 h-8"
-									/>
+									<Heart className="w-8 h-8 text-pink-600 dark:text-pink-400" />
 								</div>
 								<h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">Hearts</h3>
 								<div className="mt-4 text-pink-600 dark:text-pink-400 text-sm font-medium group-hover:translate-x-1 transition-transform">
