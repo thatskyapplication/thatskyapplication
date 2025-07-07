@@ -1,12 +1,9 @@
 import { Link } from "@remix-run/react";
-import { ChevronDown, ChevronRight, Clock } from "lucide-react";
-import { useState } from "react";
+import { Clock } from "lucide-react";
 import InfoBox from "~/components/InfoBox";
-import { APPLICATION_NAME } from "~/utility/constants";
+import Permissions from "~/components/Permissions";
 
 export default function DailyGuides() {
-	const [permissionsExpanded, setPermissionsExpanded] = useState(false);
-
 	return (
 		<div className="relative overflow-hidden">
 			<div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -35,37 +32,10 @@ export default function DailyGuides() {
 					</p>
 				</div>
 				<hr className="my-8" />
-				<div className="my-4">
-					<button
-						type="button"
-						onClick={() => setPermissionsExpanded(!permissionsExpanded)}
-						className="flex items-center gap-2 text-amber-700 dark:text-amber-300 hover:text-amber-800 dark:hover:text-amber-200 transition-colors"
-					>
-						{permissionsExpanded ? (
-							<ChevronDown className="w-4 h-4" />
-						) : (
-							<ChevronRight className="w-4 h-4" />
-						)}
-						<span className="text-sm font-medium">Permissions</span>
-					</button>
-					{permissionsExpanded && (
-						<div className="mt-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 rounded-lg p-4">
-							<div className="space-y-2">
-								<div className="flex items-center gap-2">
-									<span className="text-amber-700 dark:text-amber-300 text-sm">
-										<strong>You:</strong> <code>Manage Server</code>
-									</span>
-								</div>
-								<div className="flex items-center gap-2">
-									<span className="text-amber-700 dark:text-amber-300 text-sm">
-										<strong>{APPLICATION_NAME}:</strong> <code>Send Messages</code>{" "}
-										<code>View Channel</code>
-									</span>
-								</div>
-							</div>
-						</div>
-					)}
-				</div>
+				<Permissions
+					userPermissions={["Manage Server"]}
+					appPermissions={["Send Messages", "View Channel"]}
+				/>
 				<h2>Setting up daily guides</h2>
 				<p>
 					Use <code>/configure daily-guides</code>. That's all.
