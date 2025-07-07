@@ -3012,9 +3012,9 @@ export enum Cosmetic {
 	BlueBirdGuideHeart4 = 2394,
 
 	// 30/06/2025 | Season of the Blue Bird Quest 6.
-	BlueBirdGuideQuest6 = 2395,
-	CallBlueBird = 2396,
-	BlueBirdGuideProp = 2397,
+	BlueBirdGuideQuest6 = 2402,
+	CallBlueBird = 2403,
+	BlueBirdGuideProp = 2404,
 
 	// 07/07/2025 | Sky Anniversary.
 	SkyAnniversaryHairAccessory5,
