@@ -4635,7 +4635,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	/**
 	 * Left curtain.
 	 */
-	LargePlaceableProp86: { id: "1391669720335388602", name: "87_large_placeable_prop" },
+	LargePlaceableProp86: { id: "1391669720335388702", name: "87_large_placeable_prop" },
 	/**
 	 * Blue Bird Guide (non-ultimate).
 	 */
