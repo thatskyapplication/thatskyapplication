@@ -1844,6 +1844,10 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Divining Wise Grandparent.
 	 */
 	FaceAccessory42: { id: "1365251455874895922", name: "42_face_accessory" },
+	/**
+	 * Anniversary Cinema Glasses.
+	 */
+	FaceAccessory43: { id: "1391821692338442460", name: "43_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -1889,6 +1893,7 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory40: { id: "1313920607028777020", name: "40_face_accessory" },
 	FaceAccessory41: { id: "1365253690675433542", name: "41_face_accessory" },
 	FaceAccessory42: { id: "1365251466738139169", name: "42_face_accessory" },
+	FaceAccessory43: { id: "1391821700949082252", name: "43_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -3191,6 +3196,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Royal Hairtousle Teen.
 	 */
 	HairAccessory58: { id: "1365271433810284564", name: "58_hair_accessory" },
+	/**
+	 * Sixth Sky Anniversary.
+	 */
+	HairAccessory59: { id: "1391821367585935511", name: "59_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3252,6 +3261,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory56: { id: "1364903137093226578", name: "56_hair_accessory" },
 	HairAccessory57: { id: "1365260201950711880", name: "57_hair_accessory" },
 	HairAccessory58: { id: "1365271440584212492", name: "58_hair_accessory" },
+	HairAccessory59: { id: "1391821381422809118", name: "59_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -4234,6 +4244,14 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Treasure Shovel.
 	 */
 	HeldProp52: { id: "1345897425151332372", name: "52_held_prop" },
+	/**
+	 * Anniversary Clapperboard.
+	 */
+	HeldProp53: { id: "1391822648979357859", name: "53_held_prop" },
+	/**
+	 * Anniversary Cinema Popcorn.
+	 */
+	HeldProp54: { id: "1391821970747953428", name: "54_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4289,6 +4307,8 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp50: { id: "1330644766781603994", name: "50_held_prop" },
 	HeldProp51: { id: "1333206885289168936", name: "51_held_prop" },
 	HeldProp52: { id: "1345897433070309387", name: "52_held_prop" },
+	HeldProp53: { id: "1391822656877232280", name: "53_held_prop" },
+	HeldProp54: { id: "1391821979446939760", name: "54_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -4640,6 +4660,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Blue Bird Guide (non-ultimate).
 	 */
 	LargePlaceableProp87: { id: "1389136116308774962", name: "87_large_placeable_prop" },
+	/**
+	 * Anniversary Film Seats.
+	 */
+	LargePlaceableProp88: { id: "1391822982787108884", name: "88_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4730,6 +4754,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp85: { id: "1391669774626324480", name: "85_large_placeable_prop" },
 	LargePlaceableProp86: { id: "1391669782289584138", name: "86_large_placeable_prop" },
 	LargePlaceableProp87: { id: "1389136123988545587", name: "87_large_placeable_prop" },
+	LargePlaceableProp88: { id: "1391822990693634108", name: "88_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -7663,11 +7688,11 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BlueBirdGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CallBlueBird]: CALL_EMOJIS.BlueBird,
 		[Cosmetic.BlueBirdGuideProp]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp87,
-		[Cosmetic.SkyAnniversaryHairAccessory5]: null,
-		[Cosmetic.AnniversaryClapboard]: null,
-		[Cosmetic.AnniversaryMovieSeats]: null,
-		[Cosmetic.AnniversaryCinemaGlasses]: null,
-		[Cosmetic.AnniversaryCinemaPopcorn]: null,
+		[Cosmetic.SkyAnniversaryHairAccessory5]: HAIR_ACCESSORY_EMOJIS.HairAccessory59,
+		[Cosmetic.AnniversaryClapboard]: HELD_PROPS_EMOJIS.HeldProp53,
+		[Cosmetic.AnniversaryMovieSeats]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp88,
+		[Cosmetic.AnniversaryCinemaGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory43,
+		[Cosmetic.AnniversaryCinemaPopcorn]: HELD_PROPS_EMOJIS.HeldProp54,
 		[Cosmetic.TGCWireframeCape]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
