@@ -432,8 +432,8 @@ export default function DailyGuides() {
 					)}
 				</div>
 				{selectedImage && (
-					<div className="hidden lg:block w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4">
-						<div className="flex items-center justify-between mb-4">
+					<div className="hidden lg:flex w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4 max-h-[80vh] flex-col">
+						<div className="flex items-center justify-between mb-4 flex-shrink-0">
 							<h3 className="font-semibold text-gray-900 dark:text-white text-sm">Infographic</h3>
 							<button
 								type="button"
@@ -444,11 +444,12 @@ export default function DailyGuides() {
 								<X className="w-4 h-4" />
 							</button>
 						</div>
-						<div className="flex items-center justify-center h-full">
+						<div className="flex items-center justify-center flex-1 min-h-0 overflow-hidden">
 							<img
 								src={selectedImage}
 								alt="Infographic"
 								className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+								style={{ objectFit: "contain" }}
 							/>
 						</div>
 					</div>
@@ -456,7 +457,7 @@ export default function DailyGuides() {
 			</div>
 			{selectedImage && (
 				<div className="lg:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-sm z-50 flex flex-col">
-					<div className="flex items-center justify-between p-4 bg-gray-800/50">
+					<div className="flex items-center justify-between p-4 bg-gray-800/50 flex-shrink-0">
 						<h3 className="text-white font-medium">Infographic</h3>
 						<button
 							type="button"
@@ -467,11 +468,12 @@ export default function DailyGuides() {
 							<X className="w-6 h-6" />
 						</button>
 					</div>
-					<div className="flex-1 flex items-center justify-center p-4">
+					<div className="flex-1 flex items-center justify-center p-4 min-h-0 overflow-hidden">
 						<img
 							src={selectedImage}
 							alt="Infographic"
 							className="max-w-full max-h-full object-contain"
+							style={{ objectFit: "contain" }}
 						/>
 					</div>
 				</div>
