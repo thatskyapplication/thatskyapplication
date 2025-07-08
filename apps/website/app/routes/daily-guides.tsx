@@ -1,6 +1,8 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { data, useLoaderData } from "@remix-run/react";
 import {
+	type DailyGuideQuest,
+	type DailyGuidesPacket,
 	type DailyQuests,
 	enGB,
 	isDailyQuest,
@@ -19,19 +21,6 @@ import { useEffect, useState } from "react";
 import pg from "~/pg.server";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
 import { getLocaleFromRequest } from "~/utility/functions";
-
-interface DailyGuidesPacket {
-	quest1: DailyGuideQuest | null;
-	quest2: DailyGuideQuest | null;
-	quest3: DailyGuideQuest | null;
-	quest4: DailyGuideQuest | null;
-	travelling_rock: string | null;
-}
-
-interface DailyGuideQuest {
-	id: number;
-	url: string | null;
-}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	try {

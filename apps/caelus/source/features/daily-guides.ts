@@ -40,7 +40,7 @@ import type { DateTime } from "luxon";
 import pQueue from "p-queue";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import DailyGuides, { type DailyGuideQuest } from "../models/DailyGuides.js";
+import DailyGuides from "../models/DailyGuides.js";
 import type {
 	DailyGuidesDistributionAllowedChannel,
 	DailyGuidesDistributionData,
@@ -500,9 +500,7 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 		},
 	];
 
-	const quests = [quest1, quest2, quest3, quest4].filter(
-		(quest): quest is DailyGuideQuest => quest !== null,
-	);
+	const quests = [quest1, quest2, quest3, quest4].filter((quest) => quest !== null);
 
 	if (quests.length > 0) {
 		containerComponents.push({

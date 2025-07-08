@@ -7,6 +7,7 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
+	type DailyGuidesPacket,
 	DailyQuest,
 	type DailyQuests,
 	REALM_NAME_VALUES,
@@ -43,14 +44,6 @@ import {
 } from "../utility/functions.js";
 import { isQuestSpirit, QUEST_SPIRITS, type QuestSpirits } from "../utility/spirits.js";
 
-export interface DailyGuidesPacket {
-	quest1: DailyGuideQuest | null;
-	quest2: DailyGuideQuest | null;
-	quest3: DailyGuideQuest | null;
-	quest4: DailyGuideQuest | null;
-	travelling_rock: string | null;
-}
-
 interface DailyGuidesData {
 	quest1: DailyGuidesPacket["quest1"];
 	quest2: DailyGuidesPacket["quest2"];
@@ -62,11 +55,6 @@ interface DailyGuidesData {
 type DailyGuidesSetQuestsData = Partial<
 	Pick<DailyGuidesData, "quest1" | "quest2" | "quest3" | "quest4">
 >;
-
-export interface DailyGuideQuest {
-	id: number;
-	url: string | null;
-}
 
 const DAILY_GUIDES_RESET_DATA = {
 	quest1: null,
