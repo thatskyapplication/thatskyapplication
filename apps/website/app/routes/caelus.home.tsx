@@ -132,10 +132,10 @@ export default function Home() {
 					</div>
 				</div>
 				<div className="mt-12 w-full max-w-2xl">
-					<div className="bg-gradient-to-r from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 border border-orange-200 dark:border-orange-700/50 rounded-xl p-6 text-center">
+					<div className="bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-900/20 dark:to-slate-900/20 border border-gray-200 dark:border-gray-700/50 rounded-xl p-6 text-center">
 						<div className="flex items-center justify-center mb-3">
-							<div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg mr-3">
-								<Globe className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+							<div className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg mr-3">
+								<Globe className="w-6 h-6 text-gray-700 dark:text-gray-300" />
 							</div>
 							<h3 className="text-lg font-semibold text-gray-800 dark:text-white">
 								Translate {APPLICATION_NAME}!
@@ -148,7 +148,8 @@ export default function Home() {
 							href={CROWDIN_URL}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="inline-flex items-center px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg transition-colors text-sm"
+							className="inline-flex items-center px-4 py-2 bg-[#263238] hover:bg-[#1a222a] text-white font-medium rounded-lg transition-colors text-sm shadow-sm hover:shadow-md"
+							style={{ backgroundColor: "#263238" }}
 						>
 							Join on Crowdin
 						</a>
