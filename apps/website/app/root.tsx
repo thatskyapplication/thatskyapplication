@@ -14,6 +14,7 @@ import ConditionalLayout from "~/components/ConditionalLayout";
 import "./tailwind.css";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { LocaleProvider } from "~/contexts/LocaleContext";
+import { getSession } from "~/session.server";
 import {
 	APPLICATION_DESCRIPTION,
 	APPLICATION_ICON_URL,
@@ -104,14 +105,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export const loader = ({ request }: LoaderFunctionArgs) => getLocaleFromRequest(request);
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+	const locale = getLocaleFromRequest(request);
+	const session = await getSession(request.headers.get("Cookie"));
+	const user = session.get("user") ?? null;
+	return { locale, user };
+};
 
 export default function App() {
-	const locale = useLoaderData<typeof loader>();
+	const { locale, user } = useLoaderData<typeof loader>();
 
 	return (
 		<LocaleProvider locale={locale}>
-			<ConditionalLayout>
+			<ConditionalLayout user={user}>
 				<Outlet />
 			</ConditionalLayout>
 		</LocaleProvider>

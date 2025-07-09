@@ -1,3 +1,5 @@
+import type { APIUser } from "@discordjs/core/http-only";
+import { CDN, calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import {
 	getRandomElement,
 	HAIR_TOUSLES,
@@ -8,6 +10,8 @@ import {
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { DEFAULT_LOCALE } from "~/utility/constants";
+
+const cdn = new CDN();
 
 export function getLocaleFromRequest(request: Request) {
 	return (
@@ -72,4 +76,13 @@ export function friendshipActionGIFs() {
 		playFightGIF(),
 		krillingGIF(),
 	].sort(() => Math.random() - 0.5);
+}
+
+export function avatarURL(user: Pick<APIUser, "id" | "avatar" | "discriminator">) {
+	const index =
+		user.discriminator === "0"
+			? calculateUserDefaultAvatarIndex(user.id)
+			: Number(user.discriminator) % 5;
+
+	return user.avatar ? cdn.avatar(user.id, user.avatar) : cdn.defaultAvatar(index);
 }

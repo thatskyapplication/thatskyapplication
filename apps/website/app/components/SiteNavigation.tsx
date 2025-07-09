@@ -1,6 +1,6 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
-import { Link, useLocation } from "@remix-run/react";
-import { Bot, Clock, Menu, Users, X, Zap } from "lucide-react";
+import { Form, Link, useLocation } from "@remix-run/react";
+import { Bot, Clock, LogIn, LogOut, Menu, Users, X, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocale } from "~/contexts/LocaleContext";
 import {
@@ -8,13 +8,28 @@ import {
 	INVITE_APPLICATION_URL,
 	INVITE_SUPPORT_SERVER_URL,
 } from "~/utility/constants";
-import { timeString } from "~/utility/functions";
+import { avatarURL, timeString } from "~/utility/functions";
+import type { DiscordUser } from "~/utility/types";
 
 interface NavigationItem {
 	to: string;
 	label: string;
 	icon: React.ReactNode;
 	description: string;
+}
+
+interface SiteTopBarProps {
+	user: DiscordUser | null;
+}
+
+interface UserMenuProps {
+	user: DiscordUser;
+}
+
+interface MobileMenuProps {
+	isOpen: boolean;
+	onClose: () => void;
+	user?: DiscordUser | null;
 }
 
 const NAVIGATION_ITEMS = [
@@ -82,8 +97,57 @@ function TimeDisplay() {
 	);
 }
 
-function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-	if (!isOpen) return null;
+function UserMenu({ user }: UserMenuProps) {
+	const location = useLocation();
+	const currentPath = location.pathname + location.search;
+
+	return (
+		<div className="flex items-center gap-3">
+			<img
+				src={avatarURL(user)}
+				alt={`${user.username}'s avatar`}
+				className="w-8 h-8 rounded-full"
+			/>
+			<div className="hidden sm:flex flex-col">
+				<span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+					{user.username}
+				</span>
+			</div>
+			<Form method="post" action={`/logout?returnTo=${encodeURIComponent(currentPath)}`}>
+				<button
+					type="submit"
+					className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+					title="Sign out"
+				>
+					<LogOut className="h-4 w-4 text-gray-600 dark:text-gray-400" />
+				</button>
+			</Form>
+		</div>
+	);
+}
+
+function LoginButton() {
+	const location = useLocation();
+	const currentPath = location.pathname + location.search;
+
+	return (
+		<Link
+			to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
+			className="flex items-center gap-2 px-3 py-2 bg-discord-button hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
+		>
+			<LogIn className="h-4 w-4" />
+			<span className="hidden sm:inline">Sign in</span>
+		</Link>
+	);
+}
+
+function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
+	const location = useLocation();
+	const currentPath = location.pathname + location.search;
+
+	if (!isOpen) {
+		return null;
+	}
 
 	return (
 		<div className="md:hidden">
@@ -106,6 +170,42 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 							<X className="h-5 w-5" />
 						</button>
 					</div>
+					{user ? (
+						<div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+							<div className="flex items-center gap-3 mb-3">
+								<img
+									src={avatarURL(user)}
+									alt={`Avatar of ${user.username}`}
+									className="w-8 h-8 rounded-full"
+								/>
+								<span className="font-medium text-gray-900 dark:text-gray-100">
+									{user.username}
+								</span>
+							</div>
+							<Form method="post" action={`/logout?returnTo=${encodeURIComponent(currentPath)}`}>
+								<button
+									type="submit"
+									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
+									onClick={onClose}
+								>
+									<LogOut className="h-4 w-4" />
+									Sign out
+								</button>
+							</Form>
+						</div>
+					) : (
+						<div className="mb-4">
+							<Link
+								to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
+								onClick={onClose}
+								className="flex items-center gap-2 w-full px-3 py-2 bg-discord-button hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium justify-center"
+							>
+								<LogIn className="h-4 w-4" />
+								Sign in with Discord
+							</Link>
+						</div>
+					)}
+
 					<nav className="space-y-1">
 						{NAVIGATION_ITEMS.map((item) => (
 							<Link
@@ -128,7 +228,7 @@ function MobileMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 	);
 }
 
-export function SiteTopBar() {
+export function SiteTopBar({ user }: SiteTopBarProps) {
 	const location = useLocation();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -182,6 +282,9 @@ export function SiteTopBar() {
 						</div>
 						<div className="flex items-center gap-4">
 							<TimeDisplay />
+							<div className="hidden md:flex">
+								{user ? <UserMenu user={user} /> : <LoginButton />}
+							</div>
 							<button
 								type="button"
 								onClick={() => setMobileMenuOpen(true)}
@@ -194,7 +297,7 @@ export function SiteTopBar() {
 					</div>
 				</div>
 			</div>
-			<MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} />
+			<MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} user={user} />
 		</>
 	);
 }

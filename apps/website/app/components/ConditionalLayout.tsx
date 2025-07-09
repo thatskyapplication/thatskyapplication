@@ -1,17 +1,20 @@
 import { useLocation } from "@remix-run/react";
 import { SiteFooter, SiteTopBar } from "~/components/SiteNavigation";
-import { EXCLUDE_TOP_BAR_AND_FOOTER } from "~/utility/constants.js";
+import { EXCLUDE_TOP_BAR_AND_FOOTER } from "~/utility/constants";
+import type { DiscordUser } from "~/utility/types";
 
 interface ConditionalLayoutProps {
 	children: React.ReactNode;
 	forceShowTopBar?: boolean;
 	forceShowFooter?: boolean;
+	user: DiscordUser | null;
 }
 
 export default function ConditionalLayout({
 	children,
 	forceShowTopBar,
 	forceShowFooter,
+	user,
 }: ConditionalLayoutProps) {
 	const location = useLocation();
 
@@ -31,7 +34,7 @@ export default function ConditionalLayout({
 
 	return (
 		<div className="min-h-screen flex flex-col">
-			{shouldShowNavigation && <SiteTopBar />}
+			{shouldShowNavigation && <SiteTopBar user={user} />}
 			<main className={`flex-1 ${shouldShowNavigation ? "pt-20" : ""}`}>{children}</main>
 			{shouldShowFooter && <SiteFooter />}
 		</div>
