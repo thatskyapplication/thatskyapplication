@@ -1900,241 +1900,241 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	/**
 	 * Gratitude Pendant.
 	 */
-	Necklace01: { id: "1313935763599130694", name: "necklace_01" },
+	Necklace01: { id: "1313935763599130694", name: "01_necklace" },
 	/**
 	 * Lightseekers Pendant.
 	 */
-	Necklace02: { id: "1313935760109600849", name: "necklace_02" },
+	Necklace02: { id: "1313935760109600849", name: "02_necklace" },
 	/**
 	 * Belonging Pendant.
 	 */
-	Necklace03: { id: "1313935761518624899", name: "necklace_03" },
+	Necklace03: { id: "1313935761518624899", name: "03_necklace" },
 	/**
 	 * Rhythm Pendant.
 	 */
-	Necklace04: { id: "1313935770482118676", name: "necklace_04" },
+	Necklace04: { id: "1313935770482118676", name: "04_necklace" },
 	/**
 	 * Enchantment Pendant.
 	 */
-	Necklace05: { id: "1313935769190268979", name: "necklace_05" },
+	Necklace05: { id: "1313935769190268979", name: "05_necklace" },
 	/**
 	 * Sanctuary Pendant.
 	 */
-	Necklace06: { id: "1313935767575461919", name: "necklace_06" },
+	Necklace06: { id: "1313935767575461919", name: "06_necklace" },
 	/**
 	 * Hiking Grouch.
 	 */
-	Necklace07: { id: "1313935766035894282", name: "necklace_07" },
+	Necklace07: { id: "1313935766035894282", name: "07_necklace" },
 	/**
 	 * Prophecy Pendant.
 	 */
-	Necklace08: { id: "1313935764676939777", name: "necklace_08" },
+	Necklace08: { id: "1313935764676939777", name: "08_necklace" },
 	/**
 	 * Days of Feast 2020.
 	 */
-	Necklace09: { id: "1313935778048643214", name: "necklace_09" },
+	Necklace09: { id: "1313935778048643214", name: "09_necklace" },
 	/**
 	 * Dreams Pendant.
 	 */
-	Necklace10: { id: "1313935780737060937", name: "necklace_10" },
+	Necklace10: { id: "1313935780737060937", name: "10_necklace" },
 	/**
 	 * Assembly Pendant.
 	 */
-	Necklace11: { id: "1313935776052023329", name: "necklace_11" },
+	Necklace11: { id: "1313935776052023329", name: "11_necklace" },
 	/**
 	 * Ocean Necklace.
 	 */
-	Necklace12: { id: "1313935801654182030", name: "necklace_12" },
+	Necklace12: { id: "1313935801654182030", name: "12_necklace" },
 	/**
 	 * Little Prince Pendant.
 	 */
-	Necklace13: { id: "1313935826413158481", name: "necklace_13" },
+	Necklace13: { id: "1313935826413158481", name: "13_necklace" },
 	/**
 	 * Star Collector.
 	 */
-	Necklace14: { id: "1313935814648135692", name: "necklace_14" },
+	Necklace14: { id: "1313935814648135692", name: "14_necklace" },
 	/**
 	 * Flight Pendant.
 	 */
-	Necklace15: { id: "1313935771849326703", name: "necklace_15" },
+	Necklace15: { id: "1313935771849326703", name: "15_necklace" },
 	/**
 	 * Talented Builder.
 	 */
-	Necklace16: { id: "1313935782570102886", name: "necklace_16" },
+	Necklace16: { id: "1313935782570102886", name: "16_necklace" },
 	/**
 	 * Winter Feast Scarf.
 	 */
-	Necklace17: { id: "1313935792196030536", name: "necklace_17" },
+	Necklace17: { id: "1313935792196030536", name: "17_necklace" },
 	/**
 	 * Abyss Pendant.
 	 */
-	Necklace18: { id: "1313935794746167366", name: "necklace_18" },
+	Necklace18: { id: "1313935794746167366", name: "18_necklace" },
 	/**
 	 * Performance Pendant.
 	 */
-	Necklace19: { id: "1313935773883568179", name: "necklace_19" },
+	Necklace19: { id: "1313935773883568179", name: "19_necklace" },
 	/**
 	 * Days of Nature 2022.
 	 */
-	Necklace20: { id: "1313935779411791976", name: "necklace_20" },
+	Necklace20: { id: "1313935779411791976", name: "20_necklace" },
 	/**
 	 * Shattering Pendant.
 	 */
-	Necklace21: { id: "1313935792934096917", name: "necklace_21" },
+	Necklace21: { id: "1313935792934096917", name: "21_necklace" },
 	/**
 	 * Ancient Darkness (dragon).
 	 */
-	Necklace22: { id: "1313935789888901191", name: "necklace_22" },
+	Necklace22: { id: "1313935789888901191", name: "22_necklace" },
 	/**
 	 * Jelly Shoulder Buddy.
 	 */
-	Necklace23: { id: "1313935796352319509", name: "necklace_23" },
+	Necklace23: { id: "1313935796352319509", name: "23_necklace" },
 	/**
 	 * AURORA Pendant.
 	 */
-	Necklace24: { id: "1313935803348549642", name: "necklace_24" },
+	Necklace24: { id: "1313935803348549642", name: "24_necklace" },
 	/**
 	 * Remembrance Pendant.
 	 */
-	Necklace25: { id: "1313935799116370001", name: "necklace_25" },
+	Necklace25: { id: "1313935799116370001", name: "25_necklace" },
 	/**
 	 * Pleading Child.
 	 */
-	Necklace26: { id: "1313935806821564467", name: "necklace_26" },
+	Necklace26: { id: "1313935806821564467", name: "26_necklace" },
 	/**
 	 * Remembrance Guide.
 	 */
-	Necklace27: { id: "1313935830904999986", name: "necklace_27" },
+	Necklace27: { id: "1313935830904999986", name: "27_necklace" },
 	/**
 	 * Days of Love Classy Cravat.
 	 */
-	Necklace28: { id: "1313935819018600491", name: "necklace_28" },
+	Necklace28: { id: "1313935819018600491", name: "28_necklace" },
 	/**
 	 * Passage Pendant.
 	 */
-	Necklace29: { id: "1313935804804108438", name: "necklace_29" },
+	Necklace29: { id: "1313935804804108438", name: "29_necklace" },
 	/**
 	 * Oddball Outcast.
 	 */
-	Necklace30: { id: "1313935797661208607", name: "necklace_30" },
+	Necklace30: { id: "1313935797661208607", name: "30_necklace" },
 	/**
 	 * Moments Pendant.
 	 */
-	Necklace31: { id: "1313935800731172864", name: "necklace_31" },
+	Necklace31: { id: "1313935800731172864", name: "31_necklace" },
 	/**
 	 * Revival Pendant.
 	 */
-	Necklace32: { id: "1313935808079724575", name: "necklace_32" },
+	Necklace32: { id: "1313935808079724575", name: "32_necklace" },
 	/**
 	 * Nine-Coloured Deer Pendant.
 	 */
-	Necklace33: { id: "1313935809547862049", name: "necklace_33" },
+	Necklace33: { id: "1313935809547862049", name: "33_necklace" },
 	/**
 	 * Nesting Pendant.
 	 */
-	Necklace34: { id: "1313935832687579146", name: "necklace_34" },
+	Necklace34: { id: "1313935832687579146", name: "34_necklace" },
 	/**
 	 * Cinnamoroll Pop-Up Cafe Bowtie.
 	 */
-	Necklace35: { id: "1313935824873586740", name: "necklace_35" },
+	Necklace35: { id: "1313935824873586740", name: "35_necklace" },
 	/**
 	 * Ocean Blue Scarf.
 	 */
-	Necklace36: { id: "1313935827973308447", name: "necklace_36" },
+	Necklace36: { id: "1313935827973308447", name: "36_necklace" },
 	/**
 	 * Duets Pendant.
 	 */
-	Necklace37: { id: "1313935815881134122", name: "necklace_37" },
+	Necklace37: { id: "1313935815881134122", name: "37_necklace" },
 	/**
 	 * Style Dapper Necktie.
 	 */
-	Necklace38: { id: "1313935821807685772", name: "necklace_38" },
+	Necklace38: { id: "1313935821807685772", name: "38_necklace" },
 	/**
 	 * Hattifattener Shoulder Buddy.
 	 */
-	Necklace39: { id: "1313935811497951235", name: "necklace_39" },
+	Necklace39: { id: "1313935811497951235", name: "39_necklace" },
 	/**
 	 * Roving Snufkin Scarf.
 	 */
-	Necklace40: { id: "1313935791067627520", name: "necklace_40" },
+	Necklace40: { id: "1313935791067627520", name: "40_necklace" },
 	/**
 	 * Moomintroll Tail.
 	 */
-	Necklace41: { id: "1313935817600667668", name: "necklace_41" },
+	Necklace41: { id: "1313935817600667668", name: "41_necklace" },
 	/**
 	 * Moomin Pendant.
 	 */
-	Necklace42: { id: "1313935823015776267", name: "necklace_42" },
+	Necklace42: { id: "1313935823015776267", name: "42_necklace" },
 	/**
 	 * Comfort of Kindness.
 	 */
-	Necklace43: { id: "1313935820385943712", name: "necklace_43" },
+	Necklace43: { id: "1313935820385943712", name: "43_necklace" },
 	/**
 	 * Sense of Self.
 	 */
-	Necklace44: { id: "1313935829202370580", name: "necklace_44" },
+	Necklace44: { id: "1313935829202370580", name: "44_necklace" },
 	/**
 	 * Inspiration of Inclusion.
 	 */
-	Necklace45: { id: "1313935812668424214", name: "necklace_45" },
+	Necklace45: { id: "1313935812668424214", name: "45_necklace" },
 	/**
 	 * Radiance Pendant.
 	 */
-	Necklace46: { id: "1330482500056911944", name: "necklace_46" },
+	Necklace46: { id: "1330482500056911944", name: "46_necklace" },
 	/**
 	 * Blue Bird Pendant.
 	 */
-	Necklace47: { id: "1363811108015706123", name: "necklace_47" },
+	Necklace47: { id: "1363811108015706123", name: "47_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
-	Necklace01: { id: "1313920866920435712", name: "necklace_01" },
-	Necklace02: { id: "1313920801229246608", name: "necklace_02" },
-	Necklace03: { id: "1313920876667998211", name: "necklace_03" },
-	Necklace04: { id: "1313920838763811008", name: "necklace_04" },
-	Necklace05: { id: "1313920868195373207", name: "necklace_05" },
-	Necklace06: { id: "1313920872657977475", name: "necklace_06" },
-	Necklace07: { id: "1313920818132160665", name: "necklace_07" },
-	Necklace08: { id: "1313920871194427412", name: "necklace_08" },
-	Necklace09: { id: "1313920878798704721", name: "necklace_09" },
-	Necklace10: { id: "1313920821399519244", name: "necklace_10" },
-	Necklace11: { id: "1313920806002229318", name: "necklace_11" },
-	Necklace12: { id: "1313920849568338060", name: "necklace_12" },
-	Necklace13: { id: "1313920847651541134", name: "necklace_13" },
-	Necklace14: { id: "1313920813577011232", name: "necklace_14" },
-	Necklace15: { id: "1313920865360154655", name: "necklace_15" },
-	Necklace16: { id: "1313920814814466068", name: "necklace_16" },
-	Necklace17: { id: "1313920832996905002", name: "necklace_17" },
-	Necklace18: { id: "1313920825568530594", name: "necklace_18" },
-	Necklace19: { id: "1313920809802137611", name: "necklace_19" },
-	Necklace20: { id: "1313920828592623617", name: "necklace_20" },
-	Necklace21: { id: "1313920861379624990", name: "necklace_21" },
-	Necklace22: { id: "1313920874671505448", name: "necklace_22" },
-	Necklace23: { id: "1313920860251492574", name: "necklace_23" },
-	Necklace24: { id: "1313920854312091679", name: "necklace_24" },
-	Necklace25: { id: "1313920840664088586", name: "necklace_25" },
-	Necklace26: { id: "1313920842035626035", name: "necklace_26" },
-	Necklace27: { id: "1313920864479219773", name: "necklace_27" },
-	Necklace28: { id: "1313920808065699912", name: "necklace_28" },
-	Necklace29: { id: "1313920858900664442", name: "necklace_29" },
-	Necklace30: { id: "1313920797772877958", name: "necklace_30" },
-	Necklace31: { id: "1313920835047657553", name: "necklace_31" },
-	Necklace32: { id: "1313920822762541130", name: "necklace_32" },
-	Necklace33: { id: "1313920827506298903", name: "necklace_33" },
-	Necklace34: { id: "1313920824482332772", name: "necklace_34" },
-	Necklace35: { id: "1313920856728010762", name: "necklace_35" },
-	Necklace36: { id: "1313920843880861766", name: "necklace_36" },
-	Necklace37: { id: "1313920792932778004", name: "necklace_37" },
-	Necklace38: { id: "1313920819377737792", name: "necklace_38" },
-	Necklace39: { id: "1313920830748495923", name: "necklace_39" },
-	Necklace40: { id: "1313920845596332186", name: "necklace_40" },
-	Necklace41: { id: "1313920851477008466", name: "necklace_41" },
-	Necklace42: { id: "1313920836784095325", name: "necklace_42" },
-	Necklace43: { id: "1313920795763802113", name: "necklace_43" },
-	Necklace44: { id: "1313920815838007378", name: "necklace_44" },
-	Necklace45: { id: "1313920862830989324", name: "necklace_45" },
-	Necklace46: { id: "1330482752545362080", name: "necklace_46" },
-	Necklace47: { id: "1363810875089096865", name: "necklace_47" },
+	Necklace01: { id: "1313920866920435712", name: "01_necklace" },
+	Necklace02: { id: "1313920801229246608", name: "02_necklace" },
+	Necklace03: { id: "1313920876667998211", name: "03_necklace" },
+	Necklace04: { id: "1313920838763811008", name: "04_necklace" },
+	Necklace05: { id: "1313920868195373207", name: "05_necklace" },
+	Necklace06: { id: "1313920872657977475", name: "06_necklace" },
+	Necklace07: { id: "1313920818132160665", name: "07_necklace" },
+	Necklace08: { id: "1313920871194427412", name: "08_necklace" },
+	Necklace09: { id: "1313920878798704721", name: "09_necklace" },
+	Necklace10: { id: "1313920821399519244", name: "10_necklace" },
+	Necklace11: { id: "1313920806002229318", name: "11_necklace" },
+	Necklace12: { id: "1313920849568338060", name: "12_necklace" },
+	Necklace13: { id: "1313920847651541134", name: "13_necklace" },
+	Necklace14: { id: "1313920813577011232", name: "14_necklace" },
+	Necklace15: { id: "1313920865360154655", name: "15_necklace" },
+	Necklace16: { id: "1313920814814466068", name: "16_necklace" },
+	Necklace17: { id: "1313920832996905002", name: "17_necklace" },
+	Necklace18: { id: "1313920825568530594", name: "18_necklace" },
+	Necklace19: { id: "1313920809802137611", name: "19_necklace" },
+	Necklace20: { id: "1313920828592623617", name: "20_necklace" },
+	Necklace21: { id: "1313920861379624990", name: "21_necklace" },
+	Necklace22: { id: "1313920874671505448", name: "22_necklace" },
+	Necklace23: { id: "1313920860251492574", name: "23_necklace" },
+	Necklace24: { id: "1313920854312091679", name: "24_necklace" },
+	Necklace25: { id: "1313920840664088586", name: "25_necklace" },
+	Necklace26: { id: "1313920842035626035", name: "26_necklace" },
+	Necklace27: { id: "1313920864479219773", name: "27_necklace" },
+	Necklace28: { id: "1313920808065699912", name: "28_necklace" },
+	Necklace29: { id: "1313920858900664442", name: "29_necklace" },
+	Necklace30: { id: "1313920797772877958", name: "30_necklace" },
+	Necklace31: { id: "1313920835047657553", name: "31_necklace" },
+	Necklace32: { id: "1313920822762541130", name: "32_necklace" },
+	Necklace33: { id: "1313920827506298903", name: "33_necklace" },
+	Necklace34: { id: "1313920824482332772", name: "34_necklace" },
+	Necklace35: { id: "1313920856728010762", name: "35_necklace" },
+	Necklace36: { id: "1313920843880861766", name: "36_necklace" },
+	Necklace37: { id: "1313920792932778004", name: "37_necklace" },
+	Necklace38: { id: "1313920819377737792", name: "38_necklace" },
+	Necklace39: { id: "1313920830748495923", name: "39_necklace" },
+	Necklace40: { id: "1313920845596332186", name: "40_necklace" },
+	Necklace41: { id: "1313920851477008466", name: "41_necklace" },
+	Necklace42: { id: "1313920836784095325", name: "42_necklace" },
+	Necklace43: { id: "1313920795763802113", name: "43_necklace" },
+	Necklace44: { id: "1313920815838007378", name: "44_necklace" },
+	Necklace45: { id: "1313920862830989324", name: "45_necklace" },
+	Necklace46: { id: "1330482752545362080", name: "46_necklace" },
+	Necklace47: { id: "1363810875089096865", name: "47_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
