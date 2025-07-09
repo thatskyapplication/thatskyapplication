@@ -48,6 +48,7 @@ const SPIRIT_COSMETIC_EMOJIS = spirits()
 				emoji.id !== MISCELLANEOUS_EMOJIS.DyePurple.id &&
 				emoji.id !== MISCELLANEOUS_EMOJIS.DyeBlack.id &&
 				emoji.id !== MISCELLANEOUS_EMOJIS.DyeWhite.id &&
+				emoji.id !== MISCELLANEOUS_EMOJIS.Dye.id &&
 				emoji.id !== FRIEND_ACTION_EMOJIS.HighFive.id &&
 				emoji.id !== FRIEND_ACTION_EMOJIS.Hug.id &&
 				!HEART_EMOJIS.has(emoji.id)
