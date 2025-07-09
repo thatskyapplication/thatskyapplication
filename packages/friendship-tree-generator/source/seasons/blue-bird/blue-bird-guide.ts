@@ -88,7 +88,7 @@ export const CURRENT = [
 			icon: QUEST_URL,
 		},
 		{
-			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/6/60/Question-mark-Ray.png/revision/latest",
+			icon: "https://static.wikia.nocookie.net/sky-children-of-the-light/images/1/12/Blue-Bird-Call.png/revision/latest",
 			cost: { hearts: 3 },
 		},
 	],
