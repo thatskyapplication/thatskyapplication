@@ -3877,6 +3877,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Rainbow Ribbon Shawl.
 	 */
 	Cape153: { id: "1376529616486797342", name: "153_cape" },
+	/**
+	 * TGC Wireframe Cape.
+	 */
+	Cape154: { id: "1392519682141192303", name: "154_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4033,6 +4037,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape151: { id: "1365271219129028608", name: "151_cape" },
 	Cape152: { id: "1366371491746283520", name: "152_cape" },
 	Cape153: { id: "1376529647810121849", name: "153_cape" },
+	Cape154: { id: "1392519712918999200", name: "154_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7693,7 +7698,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AnniversaryMovieSeats]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp88,
 		[Cosmetic.AnniversaryCinemaGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory43,
 		[Cosmetic.AnniversaryCinemaPopcorn]: HELD_PROPS_EMOJIS.HeldProp54,
-		[Cosmetic.TGCWireframeCape]: null,
+		[Cosmetic.TGCWireframeCape]: CAPE_EMOJIS.Cape154,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
