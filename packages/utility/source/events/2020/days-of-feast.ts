@@ -10,27 +10,22 @@ export default new Event({
 	end: skyDate(2_021, 1, 4),
 	offer: [
 		{
-			name: "Feast Neck Tie",
 			cosmetic: Cosmetic.FeastNeckTie,
 			cost: { hearts: 15 },
 		},
 		{
-			name: "Days of Feast Cape",
 			cosmetic: Cosmetic.DaysOfFeastCape,
 			cost: { candles: 65 },
 		},
 		{
-			name: "Days of Feast Table",
 			cosmetic: Cosmetic.DaysOfFeastTable,
 			cost: { candles: 150 },
 		},
 		{
-			name: "Days of Feast Horns",
 			cosmetic: Cosmetic.DaysOfFeastHorns,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Snowflake Cape",
 			cosmetic: Cosmetic.SnowflakeCape,
 			cost: { money: 14.99 },
 		},

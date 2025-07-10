@@ -30,22 +30,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Rainbow Smock",
 			cosmetic: Cosmetic.RainbowSmock,
 			cost: { eventTickets: 42 },
 		},
 		{
-			name: "Rainbow Head Wrap",
 			cosmetic: Cosmetic.RainbowHeadWrap,
 			cost: { eventTickets: 20 },
 		},
 		{
-			name: "Rainbow Ribbon Shawl",
 			cosmetic: Cosmetic.RainbowRibbonShawl,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Rainbow Face Paint Mask",
 			cosmetic: Cosmetic.RainbowFacePaintMask,
 			cost: { money: 19.99 },
 		},

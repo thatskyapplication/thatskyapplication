@@ -14,34 +14,29 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteJollyDance1 },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteJollyDance2 },
+			{ cosmetic: Cosmetic.EmoteJollyDance1 },
+			{ cosmetic: Cosmetic.EmoteJollyDance2 },
 			{
-				name: "Face accessory",
 				cosmetic: Cosmetic.JollyGeologistFaceAccessory,
 				cost: { seasonalCandles: 8 },
 			},
-			{ name: "Hair", cosmetic: Cosmetic.JollyGeologistHair },
+			{ cosmetic: Cosmetic.JollyGeologistHair },
 			{
-				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteJollyDance3,
 				cost: { seasonalCandles: 20 },
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteJollyDance4 },
+			{ cosmetic: Cosmetic.EmoteJollyDance4 },
 			{
-				name: "Blessing 1",
 				cosmetic: Cosmetic.JollyGeologistBlessing1,
 				cost: { seasonalCandles: 28 },
 			},
-			{ name: "Blessing 2", cosmetic: Cosmetic.JollyGeologistBlessing2 },
+			{ cosmetic: Cosmetic.JollyGeologistBlessing2 },
 			{
-				name: "Music sheet",
 				cosmetic: Cosmetic.JollyGeologistMusicSheet,
 				cost: { seasonalCandles: 34 },
 			},
-			{ name: "Prop", cosmetic: Cosmetic.JollyGeologistProp },
+			{ cosmetic: Cosmetic.JollyGeologistProp },
 			{
-				name: "Seasonal heart",
 				cosmetic: Cosmetic.JollyGeologistSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 			},

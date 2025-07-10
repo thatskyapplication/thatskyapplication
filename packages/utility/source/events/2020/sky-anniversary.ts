@@ -10,7 +10,6 @@ export default new Event({
 	end: skyDate(2_020, 7, 20),
 	offer: [
 		{
-			name: "Hair accessory",
 			cosmetic: Cosmetic.SkyAnniversaryHairAccessory1,
 			cost: { hearts: 3 },
 		},

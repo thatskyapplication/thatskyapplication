@@ -30,28 +30,23 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Hair accessory",
 			cosmetic: Cosmetic.SkyAnniversaryHairAccessory5,
 			cost: { eventTickets: 16 },
 		},
 		{
-			name: "Anniversary Clapperboard",
 			cosmetic: Cosmetic.AnniversaryClapboard,
 			cost: { eventTickets: 32 },
 		},
 		{
-			name: "Anniversary Film Seats",
 			cosmetic: Cosmetic.AnniversaryMovieSeats,
 			cost: { eventTickets: 36 },
 		},
 		{
-			name: "Anniversary Cinema Set",
 			cosmetic: [Cosmetic.AnniversaryCinemaGlasses, Cosmetic.AnniversaryCinemaPopcorn],
 			cosmeticDisplay: Cosmetic.AnniversaryCinemaGlasses,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "TGC Wireframe Cape",
 			cosmetic: Cosmetic.TGCWireframeCape,
 			cost: { money: 19.99 },
 		},

@@ -10,12 +10,10 @@ export default new Event({
 	end: skyDate(2_022, 2, 23),
 	offer: [
 		{
-			name: "Days of Love Flower Crown",
 			cosmetic: Cosmetic.DaysOfLoveFlowerCrown,
 			cost: { hearts: 15 },
 		},
 		{
-			name: "Days of Love Gondola Pack",
 			cosmetic: Cosmetic.DaysOfLoveGondola,
 			cost: { money: 19.99 },
 		},

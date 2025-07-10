@@ -26,17 +26,14 @@ export default new Season({
 	],
 	items: [
 		{
-			name: "Little Prince Scarf",
 			cosmetic: Cosmetic.LittlePrinceScarf,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Little Prince Fox",
 			cosmetic: Cosmetic.LittlePrinceFox,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Little Prince Asteroid Jacket",
 			cosmetic: Cosmetic.LittlePrinceAsteroidJacket,
 			cost: { money: 24.99 },
 		},

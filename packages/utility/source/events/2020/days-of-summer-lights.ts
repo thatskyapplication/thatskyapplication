@@ -10,7 +10,6 @@ export default new Event({
 	end: skyDate(2_020, 9, 21),
 	offer: [
 		{
-			name: "Days of Summer Lights Pack",
 			cosmetic: Cosmetic.DaysOfSummerLightsLantern,
 			cost: { money: 19.99 },
 		},

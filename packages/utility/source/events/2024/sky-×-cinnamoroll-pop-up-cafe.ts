@@ -30,17 +30,14 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Cosy Teacup Headband",
 			cosmetic: Cosmetic.CosyTeacupHeadband,
 			cost: { eventTickets: 22 },
 		},
 		{
-			name: "Cosy Cafe Table",
 			cosmetic: Cosmetic.CosyCafeTable,
 			cost: { eventTickets: 52 },
 		},
 		{
-			name: "Cinnamoroll Pop-Up Cafe Combo",
 			cosmetic: [
 				Cosmetic.CinnamorollPopUpCafeSwirledHair,
 				Cosmetic.CinnamorollPopUpCafeCinnamarollEars,
@@ -49,17 +46,14 @@ export default new Event({
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Cinnamoroll Pop-Up Cafe Plushie",
 			cosmetic: Cosmetic.CinnamorollPopUpCafePlushie,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Cinnamoroll Pop-Up Cafe Mini Companion",
 			cosmetic: Cosmetic.CinnamorollPopUpCafeMiniCompanion,
 			cost: { money: 6.99 },
 		},
 		{
-			name: "Cinnamoroll Pop-Up Cafe Bowtie and Cloud Cape",
 			cosmetic: [Cosmetic.CinnamorollPopUpCafeBowtie, Cosmetic.CinnamorollPopUpCafeCloudCape],
 			cosmeticDisplay: Cosmetic.CinnamorollPopUpCafeCloudCape,
 			cost: { money: 14.99 },

@@ -10,17 +10,14 @@ export default new Event({
 	end: skyDate(2_022, 11, 14),
 	offer: [
 		{
-			name: "Mischief Tufted Hair",
 			cosmetic: Cosmetic.MischiefTuftedHair,
 			cost: { candles: 44 },
 		},
 		{
-			name: "Feline Familiar Prop",
 			cosmetic: Cosmetic.FelineFamiliarProp,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Cat Costume Pack",
 			cosmetic: [Cosmetic.CatCostumeMask, Cosmetic.CatCostumeCape],
 			cosmeticDisplay: Cosmetic.CatCostumeCape,
 			cost: { money: 19.99 },

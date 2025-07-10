@@ -34,17 +34,14 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Treasure Cavalier Boots",
 			cosmetic: Cosmetic.TreasureCavalierBoots,
 			cost: { eventTickets: 30 },
 		},
 		{
-			name: "Treasure Shovel",
 			cosmetic: Cosmetic.TreasureShovel,
 			cost: { eventTickets: 30 },
 		},
 		{
-			name: "Treasure Seeker's Bounty",
 			cosmetic: [
 				Cosmetic.TreasureSeekersEyepatch,
 				Cosmetic.TreasureSeekersOutfit,

@@ -23,27 +23,22 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Mischief Star Sticker",
 			cosmetic: Cosmetic.MischiefStarSticker,
 			cost: { eventTickets: 16 },
 		},
 		{
-			name: "Mischief Cauldron",
 			cosmetic: Cosmetic.MischiefCauldron,
 			cost: { eventTickets: 36 },
 		},
 		{
-			name: "Mischief Spider Bun",
 			cosmetic: Cosmetic.MischiefSpiderBun,
 			cost: { eventTickets: 22 },
 		},
 		{
-			name: "Mischief Raven-Feathered Cloak",
 			cosmetic: Cosmetic.MischiefRavenFeatheredCloak,
 			cost: { money: 17.99 },
 		},
 		{
-			name: "Mischief Withered Broom",
 			cosmetic: Cosmetic.MischiefWitheredBroom,
 			cost: { money: 19.99 },
 		},

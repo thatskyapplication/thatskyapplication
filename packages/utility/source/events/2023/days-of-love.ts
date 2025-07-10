@@ -10,17 +10,14 @@ export default new Event({
 	end: skyDate(2_023, 2, 27),
 	offer: [
 		{
-			name: "Days of Love Flowery Archway",
 			cosmetic: Cosmetic.DaysOfLoveFloweryArchway,
 			cost: { candles: 100 },
 		},
 		{
-			name: "Days of Love Classy Cravat",
 			cosmetic: Cosmetic.DaysOfLoveClassyCravat,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "Days of Love Serendipitous Sceptre",
 			cosmetic: Cosmetic.DaysOfLoveSerendipitousSceptre,
 			cost: { money: 14.99 },
 		},

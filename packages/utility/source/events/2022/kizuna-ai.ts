@@ -10,7 +10,6 @@ export default new Event({
 	end: skyDate(2_022, 3, 11),
 	offer: [
 		{
-			name: "Kizuna AI Pack",
 			cosmetic: [Cosmetic.KizunaAIHair, Cosmetic.KizunaAIBow, Cosmetic.KizunaAICape],
 			cosmeticDisplay: Cosmetic.KizunaAIHair,
 			cost: { money: 19.99 },

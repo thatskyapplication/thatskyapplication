@@ -15,49 +15,41 @@ export default new SeasonalSpirit({
 	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
-			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceSassy },
+			{ cosmetic: Cosmetic.StanceSassy },
 			{
-				name: "Hair",
 				cosmetic: Cosmetic.SassyDrifterHair,
 				cost: { seasonalCandles: 6 },
 			},
-			{ name: "Blessing 1", cosmetic: Cosmetic.SassyDrifterBlessing1 },
+			{ cosmetic: Cosmetic.SassyDrifterBlessing1 },
 			{
-				name: "Blessing 2",
 				cosmetic: Cosmetic.SassyDrifterBlessing2,
 				cost: { seasonalCandles: 8 },
 			},
-			{ name: "Weasel mask", cosmetic: Cosmetic.SassyDrifterMask },
+			{ cosmetic: Cosmetic.SassyDrifterMask },
 		],
 		current: [
-			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceSassy },
+			{ cosmetic: Cosmetic.StanceSassy },
 			{
-				name: "Blessing 1",
 				cosmetic: Cosmetic.SassyDrifterBlessing1,
 				cost: { candles: 5 },
 			},
 			{
-				name: "Hair",
 				cosmetic: Cosmetic.SassyDrifterHair,
 				cost: { candles: 26 },
 			},
 			{
-				name: "Heart",
 				cosmetic: Cosmetic.SassyDrifterHeart,
 				cost: { candles: 3 },
 			},
 			{
-				name: "Wing buff",
 				cosmetic: Cosmetic.SassyDrifterWingBuff,
 				cost: { ascendedCandles: 2 },
 			},
 			{
-				name: "Blessing 2",
 				cosmetic: Cosmetic.SassyDrifterBlessing2,
 				cost: { candles: 5 },
 			},
 			{
-				name: "Weasel mask",
 				cosmetic: Cosmetic.SassyDrifterMask,
 				cost: { candles: 48 },
 			},

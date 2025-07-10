@@ -37,22 +37,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Tournament Curls",
 			cosmetic: Cosmetic.TournamentCurls,
 			cost: { eventTickets: 25 },
 		},
 		{
-			name: "Tournament Torch",
 			cosmetic: Cosmetic.TournamentTorch,
 			cost: { eventTickets: 37 },
 		},
 		{
-			name: "Tournament Golden Garland",
 			cosmetic: Cosmetic.TournamentGoldenGarland,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "Tournament Tunic",
 			cosmetic: Cosmetic.TournamentTunic,
 			cost: { money: 9.99 },
 		},

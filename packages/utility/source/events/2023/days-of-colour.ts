@@ -10,17 +10,14 @@ export default new Event({
 	end: skyDate(2_023, 6, 15),
 	offer: [
 		{
-			name: "Dark Rainbow Cape",
 			cosmetic: Cosmetic.DarkRainbowCape,
 			cost: { eventTickets: 104 },
 		},
 		{
-			name: "Dark Rainbow Pack",
 			cosmetic: Cosmetic.DarkRainbowEarrings,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Dark Rainbow Tunic",
 			cosmetic: Cosmetic.DarkRainbowTunic,
 			cost: { money: 14.99 },
 		},

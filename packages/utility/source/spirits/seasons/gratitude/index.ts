@@ -23,9 +23,6 @@ export default new Season({
 		SalutingProtector,
 		GreetingShaman,
 	],
-	items: [
-		{ name: "Pendant", cosmetic: Cosmetic.GratitudePendant },
-		{ name: "Ultimate mask", cosmetic: Cosmetic.GratitudeUltimateMask },
-	],
+	items: [{ cosmetic: Cosmetic.GratitudePendant }, { cosmetic: Cosmetic.GratitudeUltimateMask }],
 	seasonalCandlesRotation: null,
 });

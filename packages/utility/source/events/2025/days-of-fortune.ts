@@ -33,47 +33,38 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Dragon Dance music sheet",
 			cosmetic: Cosmetic.DragonDanceMusicSheet,
 			cost: { eventTickets: 8 },
 		},
 		{
-			name: "Red dye",
 			cosmetic: Cosmetic.FortuneRedDye,
 			cost: { eventTickets: 10 },
 		},
 		{
-			name: "Fortune Snake Mask",
 			cosmetic: Cosmetic.FortuneSnakeMask,
 			cost: { eventTickets: 14 },
 		},
 		{
-			name: "Fortune Snake Outfit",
 			cosmetic: Cosmetic.FortuneSnakeOutfit,
 			cost: { eventTickets: 36 },
 		},
 		{
-			name: "Fortune Vertical Poster",
 			cosmetic: Cosmetic.FortuneVerticalPoster,
 			cost: { candles: 5 },
 		},
 		{
-			name: "Fortune Candle Flags",
 			cosmetic: Cosmetic.FortuneCandleFlags,
 			cost: { candles: 10 },
 		},
 		{
-			name: "Fortune Plant",
 			cosmetic: Cosmetic.FortunePlant,
 			cost: { candles: 20 },
 		},
 		{
-			name: "Fortune Hand Fan",
 			cosmetic: Cosmetic.FortuneHandFan,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "Fortune Snake Coif and Cloak",
 			cosmetic: [Cosmetic.FortuneSnakeCoif, Cosmetic.FortuneSnakeCloak],
 			cosmeticDisplay: Cosmetic.FortuneSnakeCloak,
 			cost: { money: 19.99 },

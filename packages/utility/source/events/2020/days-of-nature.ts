@@ -10,7 +10,6 @@ export default new Event({
 	end: skyDate(2_020, 4, 27, 12),
 	offer: [
 		{
-			name: "Earth Cape",
 			cosmetic: Cosmetic.EarthCape,
 			cost: { money: 4.99 },
 		},

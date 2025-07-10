@@ -10,17 +10,14 @@ export default new Event({
 	end: skyDate(2_023, 5, 8),
 	offer: [
 		{
-			name: "Nature School Cape",
 			cosmetic: Cosmetic.NatureSchoolCape,
 			cost: { candles: 180 },
 		},
 		{
-			name: "Nature Glasses Pack",
 			cosmetic: Cosmetic.NatureGlasses,
 			cost: { money: 19.99 },
 		},
 		{
-			name: "Nature Sonorous Seashell",
 			cosmetic: Cosmetic.NatureSonorousSeashell,
 			cost: { money: 4.99 },
 		},

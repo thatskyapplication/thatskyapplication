@@ -23,22 +23,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Ocean Mask",
 			cosmetic: Cosmetic.OceanMask,
 			cost: { eventTickets: 16 },
 		},
 		{
-			name: "Ocean Blue Scarf",
 			cosmetic: Cosmetic.OceanBlueScarf,
 			cost: { eventTickets: 40 },
 		},
 		{
-			name: "Nature Wave Pack",
 			cosmetic: Cosmetic.NatureWaveCape,
 			cost: { money: 19.99 },
 		},
 		{
-			name: "Nature Wave-Touched Hair",
 			cosmetic: Cosmetic.NatureWaveTouchedHair,
 			cost: { money: 6.99 },
 		},

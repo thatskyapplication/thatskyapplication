@@ -17,37 +17,30 @@ export default new Season({
 	spirits: [RunningWayfarer, MindfulMiner, WarriorOfLove, SeedOfHope],
 	items: [
 		{
-			name: "Runaway Hairstyle",
 			cosmetic: Cosmetic.RunawayHairstyle,
 			cost: { money: 2.99 },
 		},
 		{
-			name: "Tiara We Can Touch",
 			cosmetic: Cosmetic.TiaraWeCanTouch,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "Voice of AURORA",
 			cosmetic: Cosmetic.VoiceOfAURORA,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Runaway Outfit",
 			cosmetic: Cosmetic.RunawayOutfit,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "To The Love Outfit",
 			cosmetic: Cosmetic.ToTheLoveOutfit,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Giving In Cape",
 			cosmetic: Cosmetic.GivingInCape,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Wings of AURORA",
 			cosmetic: Cosmetic.WingsOfAURORA,
 			cost: { money: 24.99 },
 		},

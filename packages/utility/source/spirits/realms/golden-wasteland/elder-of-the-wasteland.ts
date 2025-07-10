@@ -9,7 +9,6 @@ export default new ElderSpirit({
 	offer: {
 		current: [
 			{
-				name: "Hair",
 				cosmetic: Cosmetic.ElderOfTheWastelandHair,
 				cost: { ascendedCandles: 6 },
 			},

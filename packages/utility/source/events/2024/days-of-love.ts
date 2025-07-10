@@ -28,22 +28,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Love Heart Plushie",
 			cosmetic: Cosmetic.LoveHeartPlushie,
 			cost: { eventTickets: 14 },
 		},
 		{
-			name: "Love Heart Beret",
 			cosmetic: Cosmetic.LoveHeartBeret,
 			cost: { eventTickets: 27 },
 		},
 		{
-			name: "Days of Love music sheet",
 			cosmetic: Cosmetic.DaysofLoveMusicSheet,
 			cost: { eventTickets: 7 },
 		},
 		{
-			name: "Days of Love Meteor Mantle",
 			cosmetic: Cosmetic.DaysofLoveMeteorMantle,
 			cost: { money: 17.99 },
 		},

@@ -10,28 +10,23 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
-				name: "Blessing 1",
 				cosmetic: Cosmetic.ThePianistsFlourishingBlessing1,
 				cost: { seasonalCandles: 12 },
 			},
 			{
-				name: "Prop",
 				cosmetic: Cosmetic.ThePianistsFlourishingProp,
 			},
 			{
-				name: "Shoes",
 				cosmetic: Cosmetic.ThePianistsFlourishingShoes,
 				cost: { seasonalCandles: 22 },
 			},
-			{ name: "Blessing 2", cosmetic: Cosmetic.ThePianistsFlourishingBlessing2 },
+			{ cosmetic: Cosmetic.ThePianistsFlourishingBlessing2 },
 			{
-				name: "Blessing 3",
 				cosmetic: Cosmetic.ThePianistsFlourishingBlessing3,
 				cost: { seasonalCandles: 26 },
 			},
-			{ name: "Outfit", cosmetic: Cosmetic.ThePianistsFlourishingOutfit },
+			{ cosmetic: Cosmetic.ThePianistsFlourishingOutfit },
 			{
-				name: "Seasonal heart",
 				cosmetic: Cosmetic.ThePianistsFlourishingSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 			},

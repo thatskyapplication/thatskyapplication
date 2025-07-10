@@ -11,34 +11,28 @@ export default new StandardSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		current: [
-			{ name: `${stance} stance`, cosmetic: Cosmetic.StanceConfident },
+			{ cosmetic: Cosmetic.StanceConfident },
 			{
-				name: "Hair",
 				cosmetic: Cosmetic.ConfidentSightseerHair,
 				cost: { hearts: 2 },
 			},
 			{
-				name: "Blessing 1",
 				cosmetic: Cosmetic.ConfidentSightseerBlessing1,
 				cost: { candles: 1 },
 			},
 			{
-				name: "Heart",
 				cosmetic: Cosmetic.ConfidentSightseerHeart,
 				cost: { candles: 3 },
 			},
 			{
-				name: "Wing buff",
 				cosmetic: Cosmetic.ConfidentSightseerWingBuff,
 				cost: { ascendedCandles: 2 },
 			},
 			{
-				name: "Blessing 2",
 				cosmetic: Cosmetic.ConfidentSightseerBlessing2,
 				cost: { candles: 5 },
 			},
 			{
-				name: "Outfit",
 				cosmetic: Cosmetic.ConfidentSightseerOutfit,
 				cost: { hearts: 5 },
 			},

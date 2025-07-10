@@ -10,22 +10,18 @@ export default new Event({
 	end: skyDate(2_023, 4, 10),
 	offer: [
 		{
-			name: "Red Bloom Cape",
 			cosmetic: Cosmetic.RedBloomCape,
 			cost: { candles: 110 },
 		},
 		{
-			name: "Bloom Butterfly Fountain",
 			cosmetic: Cosmetic.BloomButterflyFountain,
 			cost: { candles: 80 },
 		},
 		{
-			name: "Bloom Gardening Tunic",
 			cosmetic: Cosmetic.BloomGardeningTunic,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Bloom Picnic Basket",
 			cosmetic: Cosmetic.BloomPicnicBasket,
 			cost: { money: 19.99 },
 		},

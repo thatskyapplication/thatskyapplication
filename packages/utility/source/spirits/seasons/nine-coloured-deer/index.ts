@@ -18,12 +18,10 @@ export default new Season({
 	spirits: [HerbGatherer, Hunter, FeudalLord, Princess],
 	items: [
 		{
-			name: "Gift of the Nine-Coloured Deer",
 			cosmetic: Cosmetic.GiftOfTheNineColouredDeer,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Radiance of the Nine-Coloured Deer",
 			cosmetic: Cosmetic.RadianceOfTheNineColouredDeer,
 			cost: { money: 19.99 },
 		},

@@ -8,9 +8,8 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Belonging,
 	offer: {
 		current: [
-			{ name: "Pendant", cosmetic: Cosmetic.BelongingPendant },
+			{ cosmetic: Cosmetic.BelongingPendant },
 			{
-				name: "Bonfire",
 				cosmetic: Cosmetic.BelongingBonfire,
 				cost: { seasonalHearts: 6 },
 			},

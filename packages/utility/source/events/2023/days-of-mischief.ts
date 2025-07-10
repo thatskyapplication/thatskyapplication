@@ -30,32 +30,26 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Mischief Crabkin Accessory",
 			cosmetic: Cosmetic.MischiefCrabkinAccessory,
 			cost: { eventTickets: 24 },
 		},
 		{
-			name: "Mischief Goth Boots",
 			cosmetic: Cosmetic.MischiefGothBoots,
 			cost: { eventTickets: 16 },
 		},
 		{
-			name: "Mischief Goth Garment",
 			cosmetic: Cosmetic.MischiefGothGarment,
 			cost: { eventTickets: 41 },
 		},
 		{
-			name: "Mischief Gossamer Cape",
 			cosmetic: Cosmetic.MischiefGossamerCape,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Mischief Crabula Cloak",
 			cosmetic: Cosmetic.MischiefCrabulaCloak,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Mischief Crabula Mask",
 			cosmetic: Cosmetic.MischiefCrabulaMask,
 			cost: { money: 2.99 },
 		},

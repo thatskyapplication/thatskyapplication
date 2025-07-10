@@ -33,22 +33,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Marching Band Cape",
 			cosmetic: Cosmetic.MarchingBandCape,
 			cost: { eventTickets: 50 },
 		},
 		{
-			name: "Music Marching Uniform",
 			cosmetic: Cosmetic.MusicMarchingUniform,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Jam Station",
 			cosmetic: Cosmetic.JamStation,
 			cost: { candles: 250 },
 		},
 		{
-			name: "Fledgling Upright Piano",
 			cosmetic: Cosmetic.FledglingUprightPiano,
 			cost: { money: 4.99 },
 		},

@@ -10,27 +10,22 @@ export default new Event({
 	end: skyDate(2_022, 8, 4),
 	offer: [
 		{
-			name: "Hair accessory",
 			cosmetic: Cosmetic.SkyAnniversaryHairAccessory3,
 			cost: { hearts: 3 },
 		},
 		{
-			name: "Happy Birthday Music Sheet",
 			cosmetic: Cosmetic.HappyBirthdayMusicSheet,
 			cost: { hearts: 10 },
 		},
 		{
-			name: "Balloon",
 			cosmetic: Cosmetic.Balloon,
 			cost: { candles: 30 },
 		},
 		{
-			name: "Light fence",
 			cosmetic: Cosmetic.LightFence,
 			cost: { candles: 20 },
 		},
 		{
-			name: "Confetti launcher",
 			cosmetic: Cosmetic.ConfettiLauncher,
 			cost: { hearts: 20 },
 		},

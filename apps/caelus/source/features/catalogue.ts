@@ -145,15 +145,17 @@ const SEASONS_TITLE = "## Seasons \n-# Catalogue" as const;
 const RETURNING_SPIRITS_TITLE = "## Returning Spirits\n-# Catalogue" as const;
 const MAXIMUM_SEASONS_DISPLAY_LIMIT = 9 as const;
 
-function progress(offer: readonly Item[], data: ReadonlySet<number> = new Set()) {
+function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<number> = new Set()) {
 	const offerDescription = [];
 	const owned = [];
 	const unowned = [];
 
-	for (const { name, cosmetics } of offer) {
+	for (const { cosmetics } of offer) {
 		const emojis = cosmetics.map((cosmetic) => {
 			const emoji = CosmeticToEmoji[cosmetic];
-			return emoji ? formatEmoji(emoji) : name;
+			return emoji
+				? formatEmoji(emoji)
+				: t(`cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
 		});
 
 		if (cosmetics.every((cosmetic) => data.has(cosmetic))) {
@@ -430,7 +432,7 @@ function offerData({
 			continue;
 		}
 
-		const { remainingCurrencyResult, offerDescription } = progress(offer, data);
+		const { remainingCurrencyResult, offerDescription } = progress(locale, offer, data);
 
 		if (includeTotalRemainingCurrency) {
 			remainingCurrencies.push(remainingCurrencyResult);
@@ -457,7 +459,7 @@ function offerData({
 			continue;
 		}
 
-		const { remainingCurrencyResult, offerDescription } = progress(event.offer, data);
+		const { remainingCurrencyResult, offerDescription } = progress(locale, event.offer, data);
 
 		if (includeTotalRemainingCurrency) {
 			remainingCurrencies.push(remainingCurrencyResult);
@@ -480,7 +482,7 @@ function offerData({
 	}
 
 	const { remainingCurrencyResult: itemsRemainingCurrency, offerDescription: itemsOfferProgress } =
-		progress(items, data);
+		progress(locale, items, data);
 
 	if (includeTotalRemainingCurrency) {
 		remainingCurrencies.push(itemsRemainingCurrency);
@@ -1405,10 +1407,10 @@ export async function viewSeason(
 	}
 
 	if (season.items.length > 0) {
-		const itemsOptions = season.items.map(({ name, cosmetics, cosmeticDisplay }) => {
+		const itemsOptions = season.items.map(({ cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: name,
+				label: t(`cosmetic-names.${cosmeticDisplay}`, { lng: interaction.locale, ns: "general" }),
 				value: JSON.stringify(cosmetics),
 			};
 
@@ -1934,10 +1936,10 @@ async function viewSpirit(
 	}
 
 	if (offer.length > 0) {
-		const itemSelectionOptions = offer.map(({ name, cosmetics, cosmeticDisplay }) => {
+		const itemSelectionOptions = offer.map(({ cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-				label: name,
+				label: t(`cosmetic-names.${cosmeticDisplay}`, { lng: interaction.locale, ns: "general" }),
 				value: JSON.stringify(cosmetics),
 			};
 
@@ -2129,7 +2131,7 @@ async function viewEvent(
 	let description: string;
 
 	if (offer.length > 0) {
-		const { offerDescription } = progress(offer, data);
+		const { offerDescription } = progress(locale, offer, data);
 		description = offerDescription.join("\n");
 	} else {
 		description = NO_EVENT_OFFER_TEXT;
@@ -2166,10 +2168,10 @@ async function viewEvent(
 	}
 
 	if (offer.length > 0) {
-		const itemSelectionOptions = offer.map(({ name, cosmetics, cosmeticDisplay }) => {
+		const itemSelectionOptions = offer.map(({ cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-				label: name,
+				label: t(`cosmetic-names.${cosmeticDisplay}`, { lng: interaction.locale, ns: "general" }),
 				value: JSON.stringify(cosmetics),
 			};
 
@@ -2275,10 +2277,10 @@ export async function viewStarterPacks(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	const itemSelectionOptions = STARTER_PACKS.items.map(({ name, cosmetics, cosmeticDisplay }) => {
+	const itemSelectionOptions = STARTER_PACKS.items.map(({ cosmetics, cosmeticDisplay }) => {
 		const stringSelectMenuOption: APISelectMenuOption = {
 			default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-			label: name,
+			label: t(`cosmetic-names.${cosmeticDisplay}`, { lng: interaction.locale, ns: "general" }),
 			value: JSON.stringify(cosmetics),
 		};
 
@@ -2330,7 +2332,11 @@ export async function viewStarterPacks(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: progress(STARTER_PACKS.items, catalogue?.data).offerDescription.join("\n"),
+						content: progress(
+							interaction.locale,
+							STARTER_PACKS.items,
+							catalogue?.data,
+						).offerDescription.join("\n"),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -2365,10 +2371,10 @@ export async function viewSecretArea(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
-	const itemSelectionOptions = SECRET_AREA.items.map(({ name, cosmetics, cosmeticDisplay }) => {
+	const itemSelectionOptions = SECRET_AREA.items.map(({ cosmetics, cosmeticDisplay }) => {
 		const stringSelectMenuOption: APISelectMenuOption = {
 			default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-			label: name,
+			label: t(`cosmetic-names.${cosmeticDisplay}`, { lng: interaction.locale, ns: "general" }),
 			value: JSON.stringify(cosmetics),
 		};
 
@@ -2420,7 +2426,11 @@ export async function viewSecretArea(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: progress(SECRET_AREA.items, catalogue?.data).offerDescription.join("\n"),
+						content: progress(
+							interaction.locale,
+							SECRET_AREA.items,
+							catalogue?.data,
+						).offerDescription.join("\n"),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -2455,23 +2465,21 @@ export async function viewPermanentEventStore(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
-	const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(
-		({ name, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: name,
-				value: JSON.stringify(cosmetics),
-			};
+	const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(({ cosmetics, cosmeticDisplay }) => {
+		const stringSelectMenuOption: APISelectMenuOption = {
+			default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
+			label: t(`cosmetic-names.${cosmeticDisplay}`, { lng: interaction.locale, ns: "general" }),
+			value: JSON.stringify(cosmetics),
+		};
 
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
+		const emoji = CosmeticToEmoji[cosmeticDisplay];
 
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
+		if (emoji) {
+			stringSelectMenuOption.emoji = emoji;
+		}
 
-			return stringSelectMenuOption;
-		},
-	);
+		return stringSelectMenuOption;
+	});
 
 	const actionRowComponents: APIComponentInMessageActionRow[] = [
 		BACK_TO_START_BUTTON,
@@ -2512,9 +2520,11 @@ export async function viewPermanentEventStore(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: progress(PERMANENT_EVENT_STORE.items, catalogue?.data).offerDescription.join(
-							"\n",
-						),
+						content: progress(
+							interaction.locale,
+							PERMANENT_EVENT_STORE.items,
+							catalogue?.data,
+						).offerDescription.join("\n"),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -2549,23 +2559,21 @@ export async function viewNestingWorkshop(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 
-	const itemSelectionOptions = NESTING_WORKSHOP.items.map(
-		({ name, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: name,
-				value: JSON.stringify(cosmetics),
-			};
+	const itemSelectionOptions = NESTING_WORKSHOP.items.map(({ cosmetics, cosmeticDisplay }) => {
+		const stringSelectMenuOption: APISelectMenuOption = {
+			default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
+			label: t(`cosmetic-names.${cosmeticDisplay}`, { lng: interaction.locale, ns: "general" }),
+			value: JSON.stringify(cosmetics),
+		};
 
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
+		const emoji = CosmeticToEmoji[cosmeticDisplay];
 
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
+		if (emoji) {
+			stringSelectMenuOption.emoji = emoji;
+		}
 
-			return stringSelectMenuOption;
-		},
-	);
+		return stringSelectMenuOption;
+	});
 
 	const itemSelectionOptions1 = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);
 
@@ -2618,7 +2626,11 @@ export async function viewNestingWorkshop(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: progress(NESTING_WORKSHOP.items, catalogue?.data).offerDescription.join("\n"),
+						content: progress(
+							interaction.locale,
+							NESTING_WORKSHOP.items,
+							catalogue?.data,
+						).offerDescription.join("\n"),
 					},
 					{
 						type: ComponentType.ActionRow,

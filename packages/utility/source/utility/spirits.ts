@@ -447,13 +447,11 @@ interface ItemCostRaw {
 }
 
 interface ItemRawSingleCosmetic {
-	name: string;
 	cosmetic: Cosmetic;
 	cost?: ItemCostRaw;
 }
 
 interface ItemRawMultipleCosmetics {
-	name: string;
 	cosmetic: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	cost?: ItemCostRaw;
@@ -481,7 +479,6 @@ export interface ItemCost {
 }
 
 export interface Item {
-	name: string;
 	cosmetics: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	cost: ItemCost | null;

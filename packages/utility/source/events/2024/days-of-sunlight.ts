@@ -26,22 +26,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Sunlight Manta Float",
 			cosmetic: Cosmetic.SunlightMantaFloat,
 			cost: { eventTickets: 20 },
 		},
 		{
-			name: "Sunlight Beach Shorts",
 			cosmetic: Cosmetic.SunlightBeachShorts,
 			cost: { eventTickets: 30 },
 		},
 		{
-			name: "Sunlight Helios Hoops",
 			cosmetic: Cosmetic.SunlightHeliosHoops,
 			cost: { money: 2.99 },
 		},
 		{
-			name: "Sunlight Woven Wrap",
 			cosmetic: Cosmetic.SunlightWovenWrap,
 			cost: { money: 14.99 },
 		},

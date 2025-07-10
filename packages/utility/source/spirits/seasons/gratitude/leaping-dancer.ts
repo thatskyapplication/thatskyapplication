@@ -15,63 +15,53 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteLeap1 },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteLeap2 },
+			{ cosmetic: Cosmetic.EmoteLeap1 },
+			{ cosmetic: Cosmetic.EmoteLeap2 },
 			{
-				name: "Small bell",
 				cosmetic: Cosmetic.LeapingDancerSmallBell,
 				cost: { seasonalCandles: 10 },
 			},
-			{ name: "Blessing 1", cosmetic: Cosmetic.LeapingDancerBlessing1 },
+			{ cosmetic: Cosmetic.LeapingDancerBlessing1 },
 			{
-				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteLeap3,
 				cost: { seasonalCandles: 14 },
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteLeap4 },
+			{ cosmetic: Cosmetic.EmoteLeap4 },
 			{
-				name: "Blessing 2",
 				cosmetic: Cosmetic.LeapingDancerBlessing2,
 				cost: { seasonalCandles: 16 },
 			},
 			{
-				name: "Fox mask",
 				cosmetic: Cosmetic.LeapingDancerMask,
 				cost: { hearts: 5 },
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteLeap1 },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteLeap2, cost: { hearts: 4 } },
+			{ cosmetic: Cosmetic.EmoteLeap1 },
+			{ cosmetic: Cosmetic.EmoteLeap2, cost: { hearts: 4 } },
 			{
-				name: "Blessing 1",
 				cosmetic: Cosmetic.LeapingDancerBlessing1,
 				cost: { candles: 5 },
 			},
 			{
-				name: "Small bell",
 				cosmetic: Cosmetic.LeapingDancerSmallBell,
 				cost: { candles: 40 },
 			},
 			{
-				name: "Heart",
 				cosmetic: Cosmetic.LeapingDancingHeart,
 				cost: { candles: 3 },
 			},
 			{
-				name: "Wing buff",
 				cosmetic: Cosmetic.LeapingDancingWingBuff,
 				cost: { ascendedCandles: 2 },
 			},
-			{ name: `${emote} 3`, cosmetic: Cosmetic.EmoteLeap3, cost: { hearts: 3 } },
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteLeap4, cost: { hearts: 6 } },
+			{ cosmetic: Cosmetic.EmoteLeap3, cost: { hearts: 3 } },
+			{ cosmetic: Cosmetic.EmoteLeap4, cost: { hearts: 6 } },
 			{
-				name: "Blessing 2",
 				cosmetic: Cosmetic.LeapingDancerBlessing2,
 				cost: { candles: 5 },
 			},
 			{
-				name: "Fox mask",
 				cosmetic: Cosmetic.LeapingDancerMask,
 				cost: { candles: 54 },
 			},

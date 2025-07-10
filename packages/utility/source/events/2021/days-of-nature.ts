@@ -10,12 +10,10 @@ export default new Event({
 	end: skyDate(2_021, 5, 3),
 	offer: [
 		{
-			name: "Ocean Necklace",
 			cosmetic: Cosmetic.OceanNecklace,
 			cost: { money: 1.99 },
 		},
 		{
-			name: "Ocean Cape",
 			cosmetic: Cosmetic.OceanCape,
 			cost: { money: 14.99 },
 		},

@@ -33,7 +33,6 @@ export function resolveOffer(
 	{ seasonId, eventId }: ResolveOfferOptions = {},
 ): Item[] {
 	return items.map((item) => ({
-		name: item.name,
 		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
 		cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
 		cost: item.cost

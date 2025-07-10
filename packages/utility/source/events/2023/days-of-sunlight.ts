@@ -23,27 +23,22 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Sunlight Pink Beach Towel Cape",
 			cosmetic: Cosmetic.SunlightPinkBeachTowelCape,
 			cost: { eventTickets: 16 },
 		},
 		{
-			name: "Sunlight Yellow Beach Towel Cape",
 			cosmetic: Cosmetic.SunlightYellowBeachTowelCape,
 			cost: { eventTickets: 18 },
 		},
 		{
-			name: "Sunlight Blue Beach Towel Cape",
 			cosmetic: Cosmetic.SunlightBlueBeachTowelCape,
 			cost: { eventTickets: 23 },
 		},
 		{
-			name: "Sunlight Chunky Sandals",
 			cosmetic: Cosmetic.SunlightChunkySandals,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Sunlight Surfboard",
 			cosmetic: Cosmetic.SunlightSurfboard,
 			cost: { money: 14.99 },
 		},

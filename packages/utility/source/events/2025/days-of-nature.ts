@@ -30,23 +30,19 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Ocean Waves Outfit",
 			cosmetic: Cosmetic.OceanWavesOutfit,
 			cost: { eventTickets: 49 },
 		},
 		{
-			name: "Ocean Manta Hair",
 			cosmetic: Cosmetic.OceanMantaHair,
 			cost: { eventTickets: 37 },
 		},
 		{
-			name: "Ocean Sea Foam Set",
 			cosmetic: [Cosmetic.OceanSeaFoamCape, Cosmetic.OceanSeaFoamBoots],
 			cosmeticDisplay: Cosmetic.OceanSeaFoamCape,
 			cost: { money: 24.99 },
 		},
 		{
-			name: "Ocean Waves Mask",
 			cosmetic: Cosmetic.OceanWavesMask,
 			cost: { money: 19.99 },
 		},

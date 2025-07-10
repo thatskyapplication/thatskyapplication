@@ -30,27 +30,22 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Fortune Dragon Mask",
 			cosmetic: Cosmetic.FortuneDragonMask,
 			cost: { eventTickets: 14 },
 		},
 		{
-			name: "Fortune Drum",
 			cosmetic: Cosmetic.FortuneDrum,
 			cost: { eventTickets: 34 },
 		},
 		{
-			name: "Days of Fortune Dragon Vestment",
 			cosmetic: Cosmetic.DaysOfFortuneDragonVestment,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Days of Fortune Dragon Stole",
 			cosmetic: Cosmetic.DaysOfFortuneDragonStole,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Days of Fortune Dragon Bangles",
 			cosmetic: Cosmetic.DaysOfFortuneDragonBangles,
 			cost: { money: 1.99 },
 		},

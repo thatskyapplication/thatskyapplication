@@ -10,22 +10,18 @@ export default new Event({
 	end: skyDate(2_023, 7, 17),
 	offer: [
 		{
-			name: "Music sheet",
 			cosmetic: Cosmetic.DaysOfMusicMusicSheet,
 			cost: { candles: 5 },
 		},
 		{
-			name: "Triumph Saxophone",
 			cosmetic: Cosmetic.TriumphSaxophone,
 			cost: { eventTickets: 102 },
 		},
 		{
-			name: "Marching Band Hat",
 			cosmetic: Cosmetic.MarchingBandHat,
 			cost: { eventTickets: 43 },
 		},
 		{
-			name: "Triumph Violin",
 			cosmetic: Cosmetic.TriumphViolin,
 			cost: { money: 19.99 },
 		},

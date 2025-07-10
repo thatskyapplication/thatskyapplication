@@ -23,22 +23,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Dark Rainbow Mask",
 			cosmetic: Cosmetic.DarkRainbowMask,
 			cost: { eventTickets: 32 },
 		},
 		{
-			name: "Colour Glam Cut",
 			cosmetic: Cosmetic.ColourGlamCut,
 			cost: { eventTickets: 18 },
 		},
 		{
-			name: "Dark Rainbow Loafers",
 			cosmetic: Cosmetic.DarkRainbowLoafers,
 			cost: { money: 19.99 },
 		},
 		{
-			name: "Colour Bubble Machine",
 			cosmetic: Cosmetic.ColourBubbleMachine,
 			cost: { money: 14.99 },
 		},

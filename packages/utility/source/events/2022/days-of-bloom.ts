@@ -10,12 +10,10 @@ export default new Event({
 	end: skyDate(2_022, 4, 11),
 	offer: [
 		{
-			name: "Purple Bloom Cape",
 			cosmetic: Cosmetic.PurpleBloomCape,
 			cost: { candles: 105 },
 		},
 		{
-			name: "Purple Bloom Teaset",
 			cosmetic: Cosmetic.PurpleBloomTeaset,
 			cost: { money: 19.99 },
 		},

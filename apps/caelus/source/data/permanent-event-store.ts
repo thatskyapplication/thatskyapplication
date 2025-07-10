@@ -2,18 +2,15 @@ import { Cosmetic, resolveAllCosmetics, resolveOffer } from "@thatskyapplication
 
 const items = resolveOffer([
 	{
-		name: "Journey Pack",
 		cosmetic: [Cosmetic.JourneyCape, Cosmetic.JourneyHood, Cosmetic.JourneyMask],
 		cosmeticDisplay: Cosmetic.JourneyCape,
 		cost: { money: 24.99 },
 	},
 	{
-		name: "Companion Cube",
 		cosmetic: Cosmetic.CompanionCube,
 		cost: { candles: 50 },
 	},
 	{
-		name: "Tracendent Journey Pack",
 		cosmetic: [
 			Cosmetic.TranscendentJourneyCape,
 			Cosmetic.TranscendentJourneyHood,

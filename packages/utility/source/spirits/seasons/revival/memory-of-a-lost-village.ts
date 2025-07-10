@@ -10,25 +10,21 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
-				name: "Blessing 1",
 				cosmetic: Cosmetic.MemoryOfALostVillageBlessing1,
 				cost: { seasonalCandles: 20 },
 			},
-			{ name: "Cape", cosmetic: Cosmetic.MemoryOfALostVillageCape },
+			{ cosmetic: Cosmetic.MemoryOfALostVillageCape },
 			{
-				name: "Outfit",
 				cosmetic: Cosmetic.MemoryOfALostVillageOutfit,
 				cost: { seasonalCandles: 32 },
 			},
-			{ name: "Blessing 2", cosmetic: Cosmetic.MemoryOfALostVillageBlessing2 },
+			{ cosmetic: Cosmetic.MemoryOfALostVillageBlessing2 },
 			{
-				name: "Blessing 3",
 				cosmetic: Cosmetic.MemoryOfALostVillageBlessing3,
 				cost: { seasonalCandles: 38 },
 			},
-			{ name: "Hair", cosmetic: Cosmetic.MemoryOfALostVillageHair },
+			{ cosmetic: Cosmetic.MemoryOfALostVillageHair },
 			{
-				name: "Seasonal heart",
 				cosmetic: Cosmetic.MemoryOfALostVillageSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 			},

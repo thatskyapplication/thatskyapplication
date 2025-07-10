@@ -26,17 +26,14 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Style Darkness Fascinator",
 			cosmetic: Cosmetic.StyleDarknessFascinator,
 			cost: { eventTickets: 15 },
 		},
 		{
-			name: "Style Dazzling Dress",
 			cosmetic: Cosmetic.StyleDazzlingDress,
 			cost: { eventTickets: 34 },
 		},
 		{
-			name: "Style Dapper Trio",
 			cosmetic: [
 				Cosmetic.StyleDapperSuit,
 				Cosmetic.StyleDapperMonocle,

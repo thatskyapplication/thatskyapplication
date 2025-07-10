@@ -10,37 +10,30 @@ export default new Event({
 	end: skyDate(2_021, 11, 8),
 	offer: [
 		{
-			name: "Mischief Witch Hair",
 			cosmetic: Cosmetic.MischiefWitchHair,
 			cost: { candles: 66 },
 		},
 		{
-			name: "Mischief Withered Cape",
 			cosmetic: Cosmetic.MischiefWitheredCape,
 			cost: { candles: 99 },
 		},
 		{
-			name: "Mischief Spooky Dining Set",
 			cosmetic: Cosmetic.MischiefSpookyDiningSet,
 			cost: { hearts: 33 },
 		},
 		{
-			name: "Mischief Witch Jumper",
 			cosmetic: Cosmetic.MischiefWitchJumper,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Mischief Withered Antlers",
 			cosmetic: Cosmetic.MischiefWitheredAntlers,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Mischief Spider Quiff",
 			cosmetic: Cosmetic.MischiefSpiderQuiff,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "Mischief Pumpkin Prop",
 			cosmetic: Cosmetic.MischiefPumpkinProp,
 			cost: { money: 1.99 },
 		},

@@ -10,22 +10,18 @@ export default new Event({
 	end: skyDate(2_021, 8, 26),
 	offer: [
 		{
-			name: "Double Deck Chairs",
 			cosmetic: Cosmetic.DoubleDeckChairs,
 			cost: { hearts: 16 },
 		},
 		{
-			name: "Summer Hat",
 			cosmetic: Cosmetic.SummerHat,
 			cost: { candles: 44 },
 		},
 		{
-			name: "Summer Umbrella",
 			cosmetic: Cosmetic.SummerUmbrella,
 			cost: { money: 19.99 },
 		},
 		{
-			name: "Summer Shell Hair Pin",
 			cosmetic: Cosmetic.SummerShellHairPin,
 			cost: { money: 0.99 },
 		},

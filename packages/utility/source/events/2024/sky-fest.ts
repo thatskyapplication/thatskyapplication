@@ -23,32 +23,26 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "SkyFest Star Jar",
 			cosmetic: Cosmetic.SkyFestStarJar,
 			cost: { eventTickets: 15 },
 		},
 		{
-			name: "SkyFest 5th Anniversary T-shirt",
 			cosmetic: Cosmetic.SkyFest5thAnniversaryTShirt,
 			cost: { eventTickets: 10 },
 		},
 		{
-			name: "SkyFest 5th Anniversary Headband",
 			cosmetic: Cosmetic.SkyFest5thAnniversaryHeadband,
 			cost: { eventTickets: 3 },
 		},
 		{
-			name: "SkyFest Jenova Fan",
 			cosmetic: Cosmetic.SkyFestJenovaFan,
 			cost: { eventTickets: 7 },
 		},
 		{
-			name: "SkyFest Oreo Headband",
 			cosmetic: Cosmetic.SkyFestOreoHeadband,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "SkyFest Wireframe Cape",
 			cosmetic: Cosmetic.SkyFestWireframeCape,
 			cost: { money: 19.99 },
 		},

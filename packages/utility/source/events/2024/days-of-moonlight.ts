@@ -26,22 +26,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Moonlight Blossom Accessory",
 			cosmetic: Cosmetic.MoonlightBlossomAccessory,
 			cost: { eventTickets: 17 },
 		},
 		{
-			name: "Moonlight Lantern Decoration",
 			cosmetic: Cosmetic.MoonlightLanternDecoration,
 			cost: { eventTickets: 32 },
 		},
 		{
-			name: "Moonlight Earrings",
 			cosmetic: Cosmetic.MoonlightEarrings,
 			cost: { money: 2.99 },
 		},
 		{
-			name: "Moonlight Frock and Updo",
 			cosmetic: [Cosmetic.MoonlightFrock, Cosmetic.MoonlightUpdo],
 			cosmeticDisplay: Cosmetic.MoonlightFrock,
 			cost: { money: 14.99 },

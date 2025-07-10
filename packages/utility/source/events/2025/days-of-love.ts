@@ -33,27 +33,22 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Violet Crystal",
 			cosmetic: Cosmetic.DaysOfLoveVioletCrystal,
 			cost: { eventTickets: 14 },
 		},
 		{
-			name: "Braids",
 			cosmetic: Cosmetic.DaysOfLoveBraids,
 			cost: { eventTickets: 35 },
 		},
 		{
-			name: "Purple dye",
 			cosmetic: Cosmetic.DaysOfLovePurpleDye,
 			cost: { eventTickets: 10 },
 		},
 		{
-			name: "Amethyst Accessory",
 			cosmetic: Cosmetic.DaysOfLoveAmethystAccessory,
 			cost: { money: 2.99 },
 		},
 		{
-			name: "Amethyst-Tipped Tails",
 			cosmetic: Cosmetic.DaysOfLoveAmethystTippedTails,
 			cost: { money: 6.99 },
 		},

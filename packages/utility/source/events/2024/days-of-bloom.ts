@@ -162,22 +162,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Bloom Arum Petal Hair",
 			cosmetic: Cosmetic.BloomArumPetalHair,
 			cost: { hearts: 25 },
 		},
 		{
-			name: "Bloom Spiky Sprig Hair",
 			cosmetic: Cosmetic.BloomSpikySprigHair,
 			cost: { eventTickets: 24 },
 		},
 		{
-			name: "Bloom Arum Petal Cape",
 			cosmetic: Cosmetic.BloomArumPetalCape,
 			cost: { eventTickets: 48 },
 		},
 		{
-			name: "Bloom Lilypad Umbrella",
 			cosmetic: Cosmetic.BloomLilypadUmbrella,
 			cost: { money: 14.99 },
 		},

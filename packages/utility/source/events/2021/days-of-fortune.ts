@@ -10,28 +10,23 @@ export default new Event({
 	end: skyDate(2_021, 3, 1, 12),
 	offer: [
 		{
-			name: "Days of Fortune mask",
 			cosmetic: Cosmetic.DaysOfFortuneMask,
 			cost: { candles: 54 },
 		},
 		{
-			name: "Days of Fortune headdress",
 			cosmetic: Cosmetic.DaysOfFortuneHeaddress,
 			cost: { candles: 66 },
 		},
 		{
-			name: "Days of Fortune Orange",
 			cosmetic: Cosmetic.DaysOfFortuneOrange,
 			cost: { money: 0.99 },
 		},
 		{
-			name: "Days of Fortune Pack",
 			cosmetic: [Cosmetic.DaysOfFortuneCape, Cosmetic.FortuneBlushingMask, Cosmetic.FortuneBunHair],
 			cosmeticDisplay: Cosmetic.DaysOfFortuneCape,
 			cost: { money: 24.99 },
 		},
 		{
-			name: "Days of Fortune Wool Hat",
 			cosmetic: Cosmetic.DaysOfFortuneWoolHat,
 			cost: { money: 9.99 },
 		},

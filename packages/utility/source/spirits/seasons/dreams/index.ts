@@ -15,7 +15,7 @@ export default new Season({
 	end: skyDate(2_021, 3, 15),
 	guide: DreamsGuide,
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
-	items: [{ name: "Pendant", cosmetic: Cosmetic.DreamsPendant }],
+	items: [{ cosmetic: Cosmetic.DreamsPendant }],
 	seasonalCandlesRotation: null,
 	patchNotesURL: String(new URL("p0120", LINK_REDIRECTOR_URL)),
 });

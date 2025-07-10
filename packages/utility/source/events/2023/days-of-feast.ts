@@ -30,27 +30,22 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Winter Feast Snowboard",
 			cosmetic: Cosmetic.WinterFeastSnowboard,
 			cost: { eventTickets: 44 },
 		},
 		{
-			name: "Winter Pine Cone Hair Clip",
 			cosmetic: Cosmetic.WinterPineConeHairClip,
 			cost: { eventTickets: 19 },
 		},
 		{
-			name: "Course Creation Prop",
 			cosmetic: Cosmetic.CourseCreationProp,
 			cost: { candles: 150 },
 		},
 		{
-			name: "Cosy Hermit Boots",
 			cosmetic: Cosmetic.CosyHermitBoots,
 			cost: { money: 6.99 },
 		},
 		{
-			name: "Winter Quilted Cape",
 			cosmetic: Cosmetic.WinterQuiltedCape,
 			cost: { money: 14.99 },
 		},

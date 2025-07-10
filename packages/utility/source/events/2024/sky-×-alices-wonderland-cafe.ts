@@ -33,27 +33,22 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Wonderland Stacked Hat",
 			cosmetic: Cosmetic.WonderlandStackedHat,
 			cost: { eventTickets: 18 },
 		},
 		{
-			name: "Wonderland Frantic Hair",
 			cosmetic: Cosmetic.WonderlandFranticHair,
 			cost: { eventTickets: 30 },
 		},
 		{
-			name: "Wonderland Teacup Bath",
 			cosmetic: Cosmetic.WonderlandTeacupBath,
 			cost: { eventTickets: 36 },
 		},
 		{
-			name: "Wonderland Hare Hairstyle",
 			cosmetic: Cosmetic.WonderlandHareHairstyle,
 			cost: { candles: 150 },
 		},
 		{
-			name: "Wonderland Primrose Pinafore Set",
 			cosmetic: [
 				Cosmetic.WonderlandPrimrosePinaforeDress,
 				Cosmetic.WonderlandPrimrosePinaforeHairAccessory,
@@ -62,7 +57,6 @@ export default new Event({
 			cost: { money: 11.99 },
 		},
 		{
-			name: "Wonderland Cafe Corridor",
 			cosmetic: Cosmetic.WonderlandCafeCorridor,
 			cost: { money: 11.99 },
 		},

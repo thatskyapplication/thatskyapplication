@@ -10,22 +10,18 @@ export default new Event({
 	end: skyDate(2_022, 7, 14),
 	offer: [
 		{
-			name: "Rainbow Trousers",
 			cosmetic: Cosmetic.RainbowTrousers,
 			cost: { candles: 95 },
 		},
 		{
-			name: "Rainbow Earring",
 			cosmetic: Cosmetic.RainbowEarring,
 			cost: { money: 2.99 },
 		},
 		{
-			name: "Rainbow Headphones",
 			cosmetic: Cosmetic.RainbowHeadphones,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Double Rainbow Pack",
 			cosmetic: Cosmetic.RainbowDoubleFlower,
 			cost: { money: 9.99 },
 		},

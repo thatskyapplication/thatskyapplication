@@ -8,14 +8,12 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Rhythm,
 	offer: {
 		current: [
-			{ name: "Pendant", cosmetic: Cosmetic.RhythmPendant },
+			{ cosmetic: Cosmetic.RhythmPendant },
 			{
-				name: "Ultimate mask",
 				cosmetic: Cosmetic.RhythmUltimateMask,
 				cost: { seasonalHearts: 2 },
 			},
 			{
-				name: "Ultimate hair",
 				cosmetic: Cosmetic.RhythmUltimateHair,
 				cost: { seasonalHearts: 4 },
 			},

@@ -23,42 +23,34 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Style Top Hat",
 			cosmetic: Cosmetic.StyleTopHat,
 			cost: { eventTickets: 10 },
 		},
 		{
-			name: "Style Runway Mask",
 			cosmetic: Cosmetic.StyleRunwayMask,
 			cost: { eventTickets: 8 },
 		},
 		{
-			name: "Style Star Sunglasses",
 			cosmetic: Cosmetic.StyleStarSunglasses,
 			cost: { eventTickets: 14 },
 		},
 		{
-			name: "Style Silk Ballet Slippers",
 			cosmetic: Cosmetic.StyleSilkBalletSlippers,
 			cost: { eventTickets: 18 },
 		},
 		{
-			name: "Style Flame Sunglasses",
 			cosmetic: Cosmetic.StyleFlameSunglasses,
 			cost: { money: 2.99 },
 		},
 		{
-			name: "Style Heart Sunglasses",
 			cosmetic: Cosmetic.StyleHeartSunglasses,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "Style Bunny Slippers",
 			cosmetic: Cosmetic.StyleBunnySlippers,
 			cost: { money: 6.99 },
 		},
 		{
-			name: "Style Wide-Leg Jeans",
 			cosmetic: Cosmetic.StyleWideLegJeans,
 			cost: { money: 9.99 },
 		},

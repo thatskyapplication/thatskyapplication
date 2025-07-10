@@ -2,12 +2,10 @@ import { Cosmetic, resolveAllCosmetics, resolveOffer } from "@thatskyapplication
 
 const items = resolveOffer([
 	{
-		name: "Starter Pack",
 		cosmetic: Cosmetic.MobileCape,
 		cost: { money: 4.99 },
 	},
 	{
-		name: "Nintendo Pack",
 		cosmetic: [
 			Cosmetic.SwitchBlueCape,
 			Cosmetic.SwitchRedCape,

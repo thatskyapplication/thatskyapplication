@@ -10,17 +10,14 @@ export default new Event({
 	end: skyDate(2_022, 9, 12),
 	offer: [
 		{
-			name: "Campfire Tent",
 			cosmetic: Cosmetic.CampfireTent,
 			cost: { candles: 90 },
 		},
 		{
-			name: "Jelly Shoulder Buddy",
 			cosmetic: Cosmetic.JellyShoulderBuddy,
 			cost: { money: 2.99 },
 		},
 		{
-			name: "Campfire Snack Kit",
 			cosmetic: Cosmetic.CampfireSnackKit,
 			cost: { money: 19.99 },
 		},

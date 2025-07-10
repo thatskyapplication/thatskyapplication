@@ -24,9 +24,8 @@ export default new Season({
 		ShushingLightScholar,
 	],
 	items: [
-		{ name: "Pendant", cosmetic: Cosmetic.LightseekerPendant },
+		{ cosmetic: Cosmetic.LightseekerPendant },
 		{
-			name: "Ultimate prop",
 			cosmetic: Cosmetic.LightseekerUltimateProp,
 		},
 	],

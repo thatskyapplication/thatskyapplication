@@ -10,7 +10,6 @@ export default new Event({
 	end: skyDate(2_020, 6, 22, 12),
 	offer: [
 		{
-			name: "Healing Pack",
 			cosmetic: Cosmetic.HealingHairAccessory,
 			cost: { money: 19.99 },
 		},

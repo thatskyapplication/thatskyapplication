@@ -10,7 +10,6 @@ export default new Event({
 	end: skyDate(2_020, 2, 19, 12),
 	offer: [
 		{
-			name: "Days of Love Pack",
 			cosmetic: Cosmetic.DaysOfLoveSwing,
 			cost: { money: 19.99 },
 		},

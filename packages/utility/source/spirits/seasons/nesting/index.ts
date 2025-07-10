@@ -18,7 +18,6 @@ export default new Season({
 	spirits: [NestingSolarium, NestingLoft, NestingAtrium, NestingNook],
 	items: [
 		{
-			name: "Stone stool",
 			cosmetic: Cosmetic.StoneStool,
 		},
 	],

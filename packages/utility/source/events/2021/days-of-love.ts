@@ -10,12 +10,10 @@ export default new Event({
 	end: skyDate(2_021, 2, 21, 12),
 	offer: [
 		{
-			name: "Mask",
 			cosmetic: Cosmetic.DaysOfLoveMask,
 			cost: { hearts: 15 },
 		},
 		{
-			name: "Days of Love Seesaw Pack",
 			cosmetic: Cosmetic.DaysOfLoveSeesaw,
 			cost: { candles: 66 },
 		},

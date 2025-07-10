@@ -33,22 +33,18 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Bloom Rose Jar",
 			cosmetic: Cosmetic.BloomRoseJar,
 			cost: { eventTickets: 16 },
 		},
 		{
-			name: "Bloom Rose Braided Hair",
 			cosmetic: Cosmetic.BloomRoseBraidedHair,
 			cost: { eventTickets: 28 },
 		},
 		{
-			name: "Bloom Rose Petal Mask",
 			cosmetic: Cosmetic.BloomRosePetalMask,
 			cost: { eventTickets: 36 },
 		},
 		{
-			name: "Bloom Rose Embroidered Cape",
 			cosmetic: Cosmetic.BloomRoseEmbroideredCape,
 			cost: { money: 14.99 },
 		},

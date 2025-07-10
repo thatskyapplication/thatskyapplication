@@ -15,92 +15,76 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteChuckle1 },
-			{ name: `${emote} 2`, cosmetic: Cosmetic.EmoteChuckle2 },
+			{ cosmetic: Cosmetic.EmoteChuckle1 },
+			{ cosmetic: Cosmetic.EmoteChuckle2 },
 			{
-				name: "Mask",
 				cosmetic: Cosmetic.ChucklingScoutMask,
 				cost: { seasonalCandles: 12 },
 			},
-			{ name: "Blessing 1", cosmetic: Cosmetic.ChucklingScoutBlessing1 },
+			{ cosmetic: Cosmetic.ChucklingScoutBlessing1 },
 			{
-				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteChuckle3,
 				cost: { seasonalCandles: 14 },
 			},
-			{ name: `${emote} 4`, cosmetic: Cosmetic.EmoteChuckle4 },
+			{ cosmetic: Cosmetic.EmoteChuckle4 },
 			{
-				name: "Blessing 2",
 				cosmetic: Cosmetic.ChucklingScoutBlessing2,
 				cost: { seasonalCandles: 17 },
 			},
-			{ name: "Outfit", cosmetic: Cosmetic.ChucklingScoutOutfit },
+			{ cosmetic: Cosmetic.ChucklingScoutOutfit },
 			{
-				name: "Prop",
 				cosmetic: Cosmetic.ChucklingScoutProp,
 				cost: { seasonalCandles: 20 },
 			},
-			{ name: "Blessing 3", cosmetic: Cosmetic.ChucklingScoutBlessing3 },
+			{ cosmetic: Cosmetic.ChucklingScoutBlessing3 },
 			{
-				name: "Seasonal heart",
 				cosmetic: Cosmetic.ChucklingScoutSeasonalHeart,
 				cost: { seasonalCandles: 3 },
 			},
 		],
 		current: [
-			{ name: `${emote} 1`, cosmetic: Cosmetic.EmoteChuckle1 },
+			{ cosmetic: Cosmetic.EmoteChuckle1 },
 			{
-				name: `${emote} 2`,
 				cosmetic: Cosmetic.EmoteChuckle2,
 				cost: { hearts: 4 },
 			},
 			{
-				name: "Blessing 1",
 				cosmetic: Cosmetic.ChucklingScoutBlessing1,
 				cost: { candles: 5 },
 			},
 			{
-				name: "Mask",
 				cosmetic: Cosmetic.ChucklingScoutMask,
 				cost: { candles: 36 },
 			},
 			{
-				name: "Heart",
 				cosmetic: Cosmetic.ChucklingScoutSeasonalHeart,
 				cost: { candles: 3 },
 			},
 			{
-				name: "Wing buff",
 				cosmetic: Cosmetic.ChucklingScoutWingBuff,
 				cost: { ascendedCandles: 2 },
 			},
 			{
-				name: `${emote} 3`,
 				cosmetic: Cosmetic.EmoteChuckle3,
 				cost: { hearts: 3 },
 			},
 			{
-				name: `${emote} 4`,
 				cosmetic: Cosmetic.EmoteChuckle4,
 				cost: { hearts: 6 },
 			},
 			{
-				name: "Outfit",
 				cosmetic: Cosmetic.ChucklingScoutOutfit,
 				cost: { candles: 46 },
 			},
 			{
-				name: "Blessing 2",
 				cosmetic: Cosmetic.ChucklingScoutBlessing2,
 				cost: { candles: 5 },
 			},
 			{
-				name: "Shoes",
 				cosmetic: Cosmetic.ChucklingScoutShoes,
 				cost: { candles: 32 },
 			},
 			{
-				name: "Prop",
 				cosmetic: Cosmetic.ChucklingScoutProp,
 				cost: { candles: 45 },
 			},

@@ -10,20 +10,16 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
-				name: "Shared memory spell",
 				cosmetic: Cosmetic.CompassionateCellistSharedMemorySpell,
 			},
 			{
-				name: "Face accessory",
 				cosmetic: Cosmetic.CompassionateCellistFaceAccessory,
 				cost: { candles: 85 },
 			},
 			{
-				name: "Heart",
 				cosmetic: Cosmetic.CompassionateCellistHeart,
 			},
 			{
-				name: "Prop",
 				cosmetic: Cosmetic.CompassionateCellistProp,
 				cost: { candles: 200 },
 			},

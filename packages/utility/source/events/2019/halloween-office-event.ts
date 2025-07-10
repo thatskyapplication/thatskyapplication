@@ -9,12 +9,10 @@ export default new Event({
 	end: skyDate(2_019, 11, 1),
 	offer: [
 		{
-			name: "Spooky Bat Cape",
 			cosmetic: Cosmetic.SpookyBatCape,
 			cost: { money: 14.99 },
 		},
 		{
-			name: "Hungry Pumpkin Hat",
 			cosmetic: Cosmetic.HungryPumpkinHat,
 			cost: { money: 9.99 },
 		},

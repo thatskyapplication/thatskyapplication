@@ -18,29 +18,24 @@ export default new Season({
 	spirits: [ComfortOfKindness, SenseOfSelf, SpiritOfAdventure, InspirationOfInclusion],
 	items: [
 		{
-			name: "Hattifattener Shoulder Buddy",
 			cosmetic: Cosmetic.HattifattenerShoulderBuddy,
 			cost: { money: 2.99 },
 		},
 		{
-			name: "Pointed Snufkin Hat",
 			cosmetic: Cosmetic.PointedSnufkinHat,
 			cost: { money: 4.99 },
 		},
 		{
-			name: "Roving Snufkin Robe Set",
 			cosmetic: [Cosmetic.RovingSnufkinRobe, Cosmetic.RovingSnufkinScarf],
 			cosmeticDisplay: Cosmetic.RovingSnufkinRobe,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Moomintroll Accessory Set",
 			cosmetic: [Cosmetic.MoomintrollEars, Cosmetic.MoomintrollTail],
 			cosmeticDisplay: Cosmetic.MoomintrollTail,
 			cost: { money: 11.99 },
 		},
 		{
-			name: "Moominmamma's Masterpiece",
 			cosmetic: Cosmetic.MoominmammasMasterpiece,
 			cost: { money: 24.99 },
 		},

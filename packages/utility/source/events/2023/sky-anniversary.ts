@@ -10,22 +10,18 @@ export default new Event({
 	end: skyDate(2_023, 7, 31),
 	offer: [
 		{
-			name: "Hair accessory",
 			cosmetic: Cosmetic.SkyAnniversaryHairAccessory4,
 			cost: { eventTickets: 8 },
 		},
 		{
-			name: "Anniversary Sonorous Seashell",
 			cosmetic: Cosmetic.AnniversarySonorousSeashell,
 			cost: { eventTickets: 46 },
 		},
 		{
-			name: "Anniversary Party Lights",
 			cosmetic: Cosmetic.AnniversaryPartyLights,
 			cost: { eventTickets: 46 },
 		},
 		{
-			name: "Anniversary Plush",
 			cosmetic: Cosmetic.AnniversaryPlush,
 			cost: { money: 9.99 },
 		},

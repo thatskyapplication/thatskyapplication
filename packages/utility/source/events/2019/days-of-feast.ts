@@ -9,7 +9,6 @@ export default new Event({
 	end: skyDate(2_020, 1, 3),
 	offer: [
 		{
-			name: "Days of Feast Pack",
 			cosmetic: Cosmetic.DaysOfFeastHat,
 			cost: { money: 6.99 },
 		},

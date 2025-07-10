@@ -31,23 +31,19 @@ export default new Event({
 	},
 	offer: [
 		{
-			name: "Festival Earrings",
 			cosmetic: Cosmetic.FestivalEarrings,
 			cost: { eventTickets: 15 },
 		},
 		{
-			name: "Festival Sceptre",
 			cosmetic: Cosmetic.FestivalSceptre,
 			cost: { eventTickets: 36 },
 		},
 		{
-			name: "Moth Appreciation Pack",
 			cosmetic: [Cosmetic.MothAppreciationCape, Cosmetic.MothAppreciationAntennae],
 			cosmeticDisplay: Cosmetic.MothAppreciationCape,
 			cost: { money: 9.99 },
 		},
 		{
-			name: "Sparrow Appreciation Pack",
 			cosmetic: [Cosmetic.SparrowAppreciationCape, Cosmetic.SparrowAppreciationMask],
 			cosmeticDisplay: Cosmetic.SparrowAppreciationCape,
 			cost: { money: 9.99 },

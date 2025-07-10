@@ -9,12 +9,10 @@ export default new ElderSpirit({
 	offer: {
 		current: [
 			{
-				name: "Hair 1",
 				cosmetic: Cosmetic.ElderOfTheValleyHair1,
 				cost: { ascendedCandles: 5 },
 			},
 			{
-				name: "Hair 2",
 				cosmetic: Cosmetic.ElderOfTheValleyHair2,
 				cost: { ascendedCandles: 6 },
 			},
