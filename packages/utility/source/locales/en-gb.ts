@@ -417,8 +417,8 @@ export default {
 			[SeasonId.Shattering]: "https://sky-children-of-the-light.fandom.com/Season_of_Shattering",
 			[SeasonId.AURORA]: "https://sky-children-of-the-light.fandom.com/Season_of_AURORA",
 			[SeasonId.Remembrance]: "https://sky-children-of-the-light.fandom.com/Season_of_Remembrance",
-			[SeasonId.Passage]: "https://sky-children-of-the-light.fandom.com/The_Season_of_Passage",
-			[SeasonId.Moments]: "https://sky-children-of-the-light.fandom.com/The_Season_of_Moments",
+			[SeasonId.Passage]: "https://sky-children-of-the-light.fandom.com/Season_of_Passage",
+			[SeasonId.Moments]: "https://sky-children-of-the-light.fandom.com/Season_of_Moments",
 			[SeasonId.Revival]: "https://sky-children-of-the-light.fandom.com/Season_of_Revival",
 			[SeasonId.NineColouredDeer]:
 				"https://sky-children-of-the-light.fandom.com/Season_of_the_Nine-Coloured_Deer",
