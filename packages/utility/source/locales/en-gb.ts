@@ -396,7 +396,7 @@ export default {
 			[SeasonId.Moomin]: "Season of Moomin",
 			[SeasonId.Radiance]: "Season of Radiance",
 			[SeasonId.BlueBird]: "Season of the Blue Bird",
-			// @ts-expect-error New season not yet announced.
+			[SeasonId.TwoEmbers]: "Season of the Two Embers",
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",

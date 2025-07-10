@@ -169,11 +169,9 @@ async function createNode(
 			imageToDraw = "ascended-candle";
 			currency = cost.ascendedCandles;
 		} else if ("seasonalCandles" in cost) {
-			// @ts-expect-error New season not yet announced.
 			imageToDraw = `seasons/${enGB.general.seasons[cost.seasonalCandles.season].toLowerCase().replaceAll(/ /g, "-")}/candle`;
 			currency = cost.seasonalCandles.cost;
 		} else if ("seasonalHearts" in cost) {
-			// @ts-expect-error New season not yet announced.
 			imageToDraw = `seasons/${enGB.general.seasons[cost.seasonalHearts.season].toLowerCase().replaceAll(/ /g, "-")}/heart`;
 			currency = cost.seasonalHearts.cost;
 		} else {
@@ -209,7 +207,6 @@ async function createNode(
 	if (seasonIcon) {
 		context.drawImage(
 			await loadImage(
-				// @ts-expect-error New season not yet announced.
 				`./assets/seasons/${enGB.general.seasons[seasonIcon].toLowerCase().replaceAll(/ /g, "-")}/icon.webp`,
 			),
 			dx - seasonIconOffsetX,
