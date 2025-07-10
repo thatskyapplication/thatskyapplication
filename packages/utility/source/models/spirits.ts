@@ -378,7 +378,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 	public override readonly type = SpiritType.Guide;
 
-	public override readonly current;
+	public override readonly current: readonly Item[];
 
 	public override readonly totalCost: Required<ItemCost>;
 
