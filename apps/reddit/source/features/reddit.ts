@@ -42,6 +42,10 @@ async function ensureValidToken() {
 	}
 }
 
+interface PostMediaMetadataItemUnprocessed {
+	status: "unprocessed";
+}
+
 interface PostMediaMetadataItemSJPG {
 	u: string;
 }
@@ -51,19 +55,26 @@ interface PostMediaMetadataItemSGIF {
 }
 
 interface PostMediaMetadataItemGIF {
+	status: "valid";
 	m: "image/gif";
 	s: PostMediaMetadataItemSGIF;
 }
 
 interface PostMediaMetadataItemJPG {
+	status: "valid";
 	m: "image/jpg";
 	s: PostMediaMetadataItemSJPG;
 }
 
-type PostMediaMetadataItem = PostMediaMetadataItemGIF | PostMediaMetadataItemJPG;
+type PostMediaMetadataItem =
+	| PostMediaMetadataItemGIF
+	| PostMediaMetadataItemJPG
+	| PostMediaMetadataItemUnprocessed;
 
-interface PostMediaMetadata {
-	[media_id: string]: PostMediaMetadataItem;
+interface PostMediaMetadata<Valid> {
+	[media_id: string]: Valid extends true
+		? Exclude<PostMediaMetadataItem, PostMediaMetadataItemUnprocessed>
+		: PostMediaMetadataItem;
 }
 
 interface PostSecureMediaRedditVideo {
@@ -74,16 +85,16 @@ interface PostSecureMedia {
 	reddit_video: PostSecureMediaRedditVideo;
 }
 
-interface PostData {
+interface PostData<ValidMediaMetadata> {
 	selftext: string;
 	title: string;
 	subreddit_name_prefixed: `r/${string}`;
-	media_metadata?: PostMediaMetadata;
+	media_metadata?: PostMediaMetadata<ValidMediaMetadata>;
 	name: string;
 	secure_media: PostSecureMedia | null;
 	is_reddit_media_domain: boolean;
 	thumbnail: string;
-	crosspost_parent_list?: Omit<PostData, "crosspost_parent_list">[];
+	crosspost_parent_list?: Omit<PostData<ValidMediaMetadata>, "crosspost_parent_list">[];
 	domain: string;
 	over_18: boolean;
 	spoiler: boolean;
@@ -95,9 +106,9 @@ interface PostData {
 	is_video: boolean;
 }
 
-interface Post {
+interface Post<ValidMediaMetadata extends boolean = boolean> {
 	kind: string;
-	data: PostData;
+	data: PostData<ValidMediaMetadata>;
 }
 
 interface SubredditPostsData {
@@ -148,7 +159,13 @@ export async function fetchSingleSubredditPosts(subreddit: string) {
 		return [];
 	}
 
-	const newPosts = posts.filter((post) => !seenPostsMap.has(post.data.name));
+	const newPosts = posts.filter(
+		(post): post is Post<true> =>
+			!seenPostsMap.has(post.data.name) &&
+			Object.values(post.data.media_metadata ?? {}).every(
+				(mediaMetadataItem) => mediaMetadataItem.status === "valid",
+			),
+	);
 
 	for (const newPost of newPosts) {
 		seenPostsMap.set(newPost.data.name, newPost.data.created_utc);
