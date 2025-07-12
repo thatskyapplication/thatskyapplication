@@ -236,8 +236,6 @@ export async function reddit() {
 		return;
 	}
 
-	pino.info(posts, "Processing posts.");
-
 	// Construct the payload for Discord.
 	const payloads = posts.map((post): DiscordPayload => {
 		let { data } = post;
@@ -399,7 +397,7 @@ export async function reddit() {
 		}
 
 		if (errors.length > 0) {
-			pino.error(errors, "Failed to execute webhooks.");
+			pino.error({ posts, errors }, "Failed to execute webhooks.");
 		}
 	}
 }
