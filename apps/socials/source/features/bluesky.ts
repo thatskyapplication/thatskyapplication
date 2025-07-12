@@ -26,10 +26,6 @@ jetstream.on(EventType.Commit, async (event) => {
 			return;
 		}
 
-		if ("reply" in event.commit.record) {
-			event.commit.record.reply;
-		}
-
 		const did = event.did;
 
 		// https://github.com/bluesky-social/jetstream#consuming-jetstream
