@@ -12,7 +12,6 @@
 		"strict": true,
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
-		"resolveJsonModule": true,
 		"verbatimModuleSyntax": true,
 		"newLine": "lf",
 		"outDir": "distribution",

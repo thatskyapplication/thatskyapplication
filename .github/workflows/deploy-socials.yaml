@@ -1,0 +1,20 @@
+name: Deploy Socials
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - apps/socials/**/*
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - run: flyctl deploy --config apps/socials/fly.toml --dockerfile apps/socials/Dockerfile --remote-only --access-token $FLY_DEPLOY_TOKEN
+        env:
+          FLY_DEPLOY_TOKEN: ${{ secrets.FLY_DEPLOY_THATSKYAPPLICATION_SOCIALS_TOKEN }}

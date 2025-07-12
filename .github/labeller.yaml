@@ -13,11 +13,11 @@ a:notifications:
       - any-glob-to-any-file:
           - apps/notifications/*
           - apps/notifications/**/*
-a:reddit:
+a:socials:
   - changed-files:
       - any-glob-to-any-file:
-          - apps/reddit/*
-          - apps/reddit/**/*
+          - apps/socials/*
+          - apps/socials/**/*
 a:servare:
   - changed-files:
       - any-glob-to-any-file:
