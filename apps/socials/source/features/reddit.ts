@@ -10,7 +10,12 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { formatEmoji, type RedditWebhooksPacket, Table } from "@thatskyapplication/utility";
+import {
+	formatEmoji,
+	type RedditWebhooksPacket,
+	Table,
+	WEBSITE_URL,
+} from "@thatskyapplication/utility";
 import { discord } from "../discord.js";
 import { WebhookExecuteError } from "../models/webbook-execute-error.js";
 import pg from "../pg.js";
@@ -240,8 +245,8 @@ export async function reddit() {
 	const payloads = posts.map((post): DiscordPayload => {
 		let { data } = post;
 		const title = `## ${data.title.replace(/^#+/g, (match) => match.replace(/#/g, "\\#"))}`;
-		let authorText = `[u/${data.author}](${REDDIT_BASE_URL}/user/${data.author})`;
-		const footer = `-# ${formatEmoji(MISCELLANEOUS_EMOJIS.Reddit)} [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed}) (<t:${data.created_utc}:R>)`;
+		let authorText = `[u/${data.author}](${REDDIT_BASE_URL}/user/${data.author}) in [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed})`;
+		const footer = `-# ${formatEmoji(MISCELLANEOUS_EMOJIS.Reddit)} [thatskyapplication](${WEBSITE_URL}) (<t:${data.created_utc}:R>)`;
 
 		if (data.crosspost_parent_list) {
 			if (data.crosspost_parent_list.length > 1) {
