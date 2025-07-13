@@ -30,7 +30,7 @@ export function embedLinksInText(text: string, facets: Facet[]): string {
 		if (AppBskyRichtextFacet.isLink(feature)) {
 			result += `[${facetText}](${feature.uri})`;
 		} else if (AppBskyRichtextFacet.isMention(feature)) {
-			result += `[@${facetText}](https://bsky.app/profile/${feature.did})`;
+			result += `[${facetText}](https://bsky.app/profile/${feature.did})`;
 		} else if (AppBskyRichtextFacet.isTag(feature)) {
 			const tagText = facetText.startsWith("#") ? facetText.slice(1) : facetText;
 			result += `[${facetText}](https://bsky.app/search?q=%23${encodeURIComponent(tagText)})`;
