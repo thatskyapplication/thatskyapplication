@@ -17,7 +17,7 @@
 		"@discordjs/core": "^2.2.0",
 		"@discordjs/rest": "^2.5.1",
 		"@logtail/pino": "^0.5.2",
-		"@skyware/jetstream": "0.2.2",
+		"@skyware/jetstream": "0.2.5",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
 		"knex": "^3.1.0",

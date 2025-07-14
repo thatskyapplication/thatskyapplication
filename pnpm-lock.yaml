@@ -228,8 +228,8 @@ importers:
         specifier: ^0.5.2
         version: 0.5.2(pino@9.7.0)
       '@skyware/jetstream':
-        specifier: 0.2.2
-        version: 0.2.2(@atcute/client@2.0.9)
+        specifier: 0.2.5
+        version: 0.2.5
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../packages/utility
@@ -419,13 +419,14 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@atcute/bluesky@1.0.15':
-    resolution: {integrity: sha512-+EFiybmKQ97aBAgtaD+cKRJER5AMn3cZMkEwEg/pDdWyzxYJ9m1UgemmLdTgI8VrxPufKqdXS2nl7uO7TY6BPA==}
-    peerDependencies:
-      '@atcute/client': ^1.0.0 || ^2.0.0
+  '@atcute/atproto@3.1.0':
+    resolution: {integrity: sha512-aJbDsY7FcIh8APWKAimBtshPwqoRE056tc0UV6vw4TW4e3nYaHedoJmKhlh/k8KQWxyw64MQThNGMaC89HNoTg==}
 
-  '@atcute/client@2.0.9':
-    resolution: {integrity: sha512-QNDm9gMP6x9LY77ArwY+urQOBtQW74/onEAz42c40JxRm6Rl9K9cU4ROvNKJ+5cpVmEm1sthEWVRmDr5CSZENA==}
+  '@atcute/bluesky@3.1.4':
+    resolution: {integrity: sha512-iSdZGk/UktgKpT/lI0/YxRjM3E5dkd6/vIa2mgH82lgRjI0jH5LJAfLXPyr2mPeZ/qku1gf2/KrkqJ9dfiNxVw==}
+
+  '@atcute/lexicons@1.1.0':
+    resolution: {integrity: sha512-LFqwnria78xLYb62Ri/+WwQpUTgZp2DuyolNGIIOV1dpiKhFFFh//nscHMA6IExFLQRqWDs3tTjy7zv0h3sf1Q==}
 
   '@atproto/api@0.15.25':
     resolution: {integrity: sha512-dUqe920qyXd596AI5iJyBlSv0vK5fh1a8PC0zPoeM+FzGDiebnbxuJdPIZ3HeBT/xQ2ce9HwYk1Ih2G7a+JkzQ==}
@@ -1874,8 +1875,8 @@ packages:
     resolution: {integrity: sha512-Ba6HQqzvtTu+8Ye4Vmd51lU2+L9C3KAWbvtIbkJlVEC9iKC98hAvDronE/qOgMDZfYI8KgT9dsLXtGuA8sFneQ==}
     engines: {node: '>=v20', npm: '>=10'}
 
-  '@skyware/jetstream@0.2.2':
-    resolution: {integrity: sha512-d1MtWPTIFEciSzV8OClXZCJoz0DJ7aupt4EZSwpGAASYG0ZIPmZTt7RVJkoFzQyqRPHAMD7CvEwu0ut3MHX1og==}
+  '@skyware/jetstream@0.2.5':
+    resolution: {integrity: sha512-fM/zs03DLwqRyzZZJFWN20e76KrdqIp97Tlm8Cek+vxn96+tu5d/fx79V6H85L0QN6HvGiX2l9A8hWFqHvYlOA==}
 
   '@smithy/abort-controller@4.0.1':
     resolution: {integrity: sha512-fiUIYgIgRjMWznk6iLJz35K2YxSLHzLBA/RC6lBrKfQ8fHbPfvk7Pk9UvpKoHgJjI18MnbPuEju53zcVy6KF1g==}
@@ -2715,6 +2716,9 @@ packages:
 
   escape-html@1.0.3:
     resolution: {integrity: sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==}
+
+  esm-env@1.2.2:
+    resolution: {integrity: sha512-Epxrv+Nr/CaL4ZcFGPJIYLWFom+YeV1DqMLHJoEd9SYRxNbaFruBwfEX/kkHUJf55j2+TUbmDcmuilbP1TmXHA==}
 
   esm@3.2.25:
     resolution: {integrity: sha512-U1suiZ2oDVWv4zPO56S0NcR5QriEahGtdN2OR6FiOG4WJvcjBVFB0qI4+eKoWFH483PKGuLuu6V8Z4T5g63UVA==}
@@ -4425,6 +4429,9 @@ packages:
     resolution: {integrity: sha512-Cc+OraorugtXNfs50hU9KS369rFXCfgGLpfCfvlc+Ud5u6VWmUQsOAa9HbTvheQdYnrdJqqv1e5oIqXppMYnSw==}
     engines: {node: '>=8'}
 
+  tiny-emitter@2.1.0:
+    resolution: {integrity: sha512-NB6Dk1A9xgQPMoGqC5CVXn123gWyte215ONT5Pp5a0yt4nlEoO1ZWeCwpncaekPHXO60i47ihFnZPiRPjRMq4Q==}
+
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
 
@@ -4814,11 +4821,18 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.12
       '@jridgewell/trace-mapping': 0.3.29
 
-  '@atcute/bluesky@1.0.15(@atcute/client@2.0.9)':
+  '@atcute/atproto@3.1.0':
     dependencies:
-      '@atcute/client': 2.0.9
+      '@atcute/lexicons': 1.1.0
 
-  '@atcute/client@2.0.9': {}
+  '@atcute/bluesky@3.1.4':
+    dependencies:
+      '@atcute/atproto': 3.1.0
+      '@atcute/lexicons': 1.1.0
+
+  '@atcute/lexicons@1.1.0':
+    dependencies:
+      esm-env: 1.2.2
 
   '@atproto/api@0.15.25':
     dependencies:
@@ -6475,12 +6489,13 @@ snapshots:
 
   '@sapphire/string-store@2.0.0': {}
 
-  '@skyware/jetstream@0.2.2(@atcute/client@2.0.9)':
+  '@skyware/jetstream@0.2.5':
     dependencies:
-      '@atcute/bluesky': 1.0.15(@atcute/client@2.0.9)
+      '@atcute/atproto': 3.1.0
+      '@atcute/bluesky': 3.1.4
+      '@atcute/lexicons': 1.1.0
       partysocket: 1.1.4
-    transitivePeerDependencies:
-      - '@atcute/client'
+      tiny-emitter: 2.1.0
 
   '@smithy/abort-controller@4.0.1':
     dependencies:
@@ -7481,6 +7496,8 @@ snapshots:
   escalade@3.2.0: {}
 
   escape-html@1.0.3: {}
+
+  esm-env@1.2.2: {}
 
   esm@3.2.25: {}
 
@@ -9510,6 +9527,8 @@ snapshots:
       xtend: 4.0.2
 
   tildify@2.0.0: {}
+
+  tiny-emitter@2.1.0: {}
 
   tinyexec@0.3.2: {}
 

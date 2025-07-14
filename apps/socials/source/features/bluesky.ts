@@ -1,3 +1,4 @@
+import type { Facet } from "@atproto/api";
 import {
 	type APIComponentInContainer,
 	type APIMediaGalleryItem,
@@ -98,16 +99,22 @@ jetstream.on(EventType.Commit, async (event) => {
 		if (text.length > 0) {
 			containerComponents.push({
 				type: ComponentType.TextDisplay,
-				content: record.facets ? embedLinksInText(text, record.facets) : text,
+				content: record.facets ? embedLinksInText(text, record.facets as Facet[]) : text,
 			});
 		}
 
 		const images =
 			embed?.$type === "app.bsky.embed.images"
-				? embed.images.map(({ alt, image }) => ({
-						url: formatBlueskyImageURL(did, image.ref.$link),
-						description: alt,
-					}))
+				? embed.images.reduce<{ url: string; description: string }[]>((images, { alt, image }) => {
+						if ("ref" in image && image.ref.$link) {
+							images.push({
+								url: formatBlueskyImageURL(did, image.ref.$link),
+								description: alt,
+							});
+						}
+
+						return images;
+					}, [])
 				: [];
 
 		if (images.length > 0) {

@@ -1,10 +1,6 @@
 import { AppBskyRichtextFacet, type Facet, RichText } from "@atproto/api";
 
 export function embedLinksInText(text: string, facets: Facet[]): string {
-	if (!facets) {
-		return text;
-	}
-
 	const richText = new RichText({ text, facets });
 	let result = "";
 	let lastIndex = 0;
