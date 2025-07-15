@@ -229,8 +229,14 @@ export async function eventTickets(
 
 		// Collect pools, if any.
 		const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-		const pool = event.eventTickets.pool?.find((pool) => isDuring(pool.start, pool.end, today));
-		return `${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool ? ` There is currently a pool of ${pool.amount}!` : ""}`;
+
+		const pool =
+			event.eventTickets.pool?.reduce(
+				(total, pool) => (isDuring(pool.start, pool.end, today) ? total + pool.amount : total),
+				0,
+			) ?? null;
+
+		return `${eventTicketEmoji ? formatEmoji(eventTicketEmoji) : `${t(`events.${event.id}`, { lng: locale, ns: "general" })}: `} A total of ${dailyRemaining} remains daily.${pool === null ? "" : ` There is currently a pool of ${pool}!`}`;
 	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {

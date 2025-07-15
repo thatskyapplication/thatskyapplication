@@ -14,15 +14,18 @@ export default new Event({
 		amount: eventTicketAmount,
 		pool: [
 			{
-				// 10 event tickets alongside a guess of 20 for the first week's event.
-				amount: 30,
+				// 5 event tickets worth 2 each.
+				amount: 10,
 				start: skyDate(2_025, 7, 7),
-				// This is a guess as 0.30.0 is not announced.
-				end: skyDate(2_025, 7, 13),
+				end: skyDate(2_025, 8, 18),
 			},
 			{
-				amount: 20,
-				// This is a guess as 0.30.0 is not announced.
+				amount: 30,
+				start: skyDate(2_025, 7, 7),
+				end: skyDate(2_025, 8, 18),
+			},
+			{
+				amount: 30,
 				start: skyDate(2_025, 7, 14),
 				end: skyDate(2_025, 8, 18),
 			},
