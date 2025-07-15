@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -56,6 +56,7 @@ export default [
 					cost: { candles: 45 },
 				},
 				{
+					translation: CosmeticCommon.WingBuff,
 					cosmetic: Cosmetic.AncientDarknessPlantWingBuff,
 					cost: { ascendedCandles: 2 },
 				},
@@ -120,6 +121,7 @@ export default [
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.WingBuff,
 					cosmetic: Cosmetic.AncientDarknessDragonWingBuff,
 					cost: { ascendedCandles: 2 },
 				},

@@ -3034,6 +3034,10 @@ export enum Cosmetic {
 	TGCWireframeCape = 2410,
 }
 
+export enum CosmeticCommon {
+	WingBuff = 0,
+}
+
 export const WING_BUFFS = [
 	Cosmetic.PointingCandlemakerWingBuff,
 	Cosmetic.UsheringStargazerWingBuff,

@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
@@ -53,6 +53,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				cost: { ascendedCandles: 2 },
+				translation: CosmeticCommon.WingBuff,
 				cosmetic: Cosmetic.StretchingGuruWingBuff,
 			},
 			{ cosmetic: Cosmetic.EmoteYoga3, cost: { hearts: 3 } },

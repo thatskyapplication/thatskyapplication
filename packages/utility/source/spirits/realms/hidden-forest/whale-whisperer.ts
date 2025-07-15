@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { StandardSpirit } from "../../../models/spirits.js";
 import { SpiritCall, SpiritId } from "../../../utility/spirits.js";
@@ -21,6 +21,7 @@ export default new StandardSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: CosmeticCommon.WingBuff,
 				cosmetic: Cosmetic.WhaleWhispererWingBuff,
 				cost: { ascendedCandles: 1 },
 			},

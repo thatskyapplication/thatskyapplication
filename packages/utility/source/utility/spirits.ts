@@ -1,4 +1,4 @@
-import type { Cosmetic } from "../cosmetics.js";
+import type { Cosmetic, CosmeticCommon } from "../cosmetics.js";
 import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
 
@@ -447,11 +447,13 @@ interface ItemCostRaw {
 }
 
 interface ItemRawSingleCosmetic {
+	translation?: CosmeticCommon;
 	cosmetic: Cosmetic;
 	cost?: ItemCostRaw;
 }
 
 interface ItemRawMultipleCosmetics {
+	translation?: CosmeticCommon;
 	cosmetic: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	cost?: ItemCostRaw;
@@ -479,6 +481,7 @@ export interface ItemCost {
 }
 
 export interface Item {
+	translation: `cosmetic-common-names.${CosmeticCommon}` | null;
 	cosmetics: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	cost: ItemCost | null;
