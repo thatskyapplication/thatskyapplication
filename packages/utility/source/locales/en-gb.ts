@@ -397,7 +397,7 @@ export default {
 			[SeasonId.Moomin]: "Season of Moomin",
 			[SeasonId.Radiance]: "Season of Radiance",
 			[SeasonId.BlueBird]: "Season of the Blue Bird",
-			[SeasonId.TwoEmbers]: "Season of the Two Embers",
+			[SeasonId.TwoEmbersPart1]: "Season of The Two Embers - Part 1",
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -428,7 +428,8 @@ export default {
 			[SeasonId.Moomin]: "https://sky-children-of-the-light.fandom.com/Season_of_Moomin",
 			[SeasonId.Radiance]: "https://sky-children-of-the-light.fandom.com/Season_of_Radiance",
 			[SeasonId.BlueBird]: "https://sky-children-of-the-light.fandom.com/Season_of_the_Blue_Bird",
-			// @ts-expect-error New season not yet announced.
+			[SeasonId.TwoEmbersPart1]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",

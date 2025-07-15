@@ -501,7 +501,7 @@ const SEASON_EMOJIS_PRODUCTION = {
 	BlueBird: { id: "1363537580578050400", name: "blue_bird" },
 	BlueBirdCandle: { id: "1363538105067503846", name: "blue_bird_candle" },
 	BlueBirdHeart: { id: "1363538304288690226", name: "blue_bird_heart" },
-	TwoEmbers: { id: "1392771944562163752", name: "two_embers" },
+	TwoEmbersPart1: { id: "1392771944562163752", name: "two_embers_part_1" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -578,7 +578,7 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	BlueBird: { id: "1363537620289847437", name: "blue_bird" },
 	BlueBirdCandle: { id: "1363538114949414963", name: "blue_bird_candle" },
 	BlueBirdHeart: { id: "1363538311402094813", name: "blue_bird_heart" },
-	TwoEmbers: { id: "1392772065802719252", name: "two_embers" },
+	TwoEmbersPart1: { id: "1392772065802719252", name: "two_embers_part_1" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -7758,7 +7758,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
 		[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBird,
-		[SeasonId.TwoEmbers]: SEASON_EMOJIS.TwoEmbers,
+		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const EventIdToEventTicketEmoji = {

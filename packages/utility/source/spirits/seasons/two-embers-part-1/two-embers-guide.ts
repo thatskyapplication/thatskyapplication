@@ -4,5 +4,5 @@ import { SpiritId } from "../../../utility/spirits.js";
 
 export default new GuideSpirit({
 	id: SpiritId.TwoEmbersGuide,
-	seasonId: SeasonId.TwoEmbers,
+	seasonId: SeasonId.TwoEmbersPart1,
 });

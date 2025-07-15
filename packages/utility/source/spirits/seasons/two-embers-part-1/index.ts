@@ -5,7 +5,7 @@ import { RotationIdentifier, SeasonId } from "../../../season.js";
 import twoEmbersGuide from "./two-embers-guide.js";
 
 export default new Season({
-	id: SeasonId.TwoEmbers,
+	id: SeasonId.TwoEmbersPart1,
 	start: skyDate(2_025, 7, 21),
 	end: skyDate(2_025, 10, 7), // Not yet announced.
 	guide: twoEmbersGuide,
