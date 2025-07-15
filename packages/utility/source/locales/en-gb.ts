@@ -1568,7 +1568,7 @@ export default {
 			[Cosmetic.WiseGrandparentBlessing5]: "Blessing 5",
 			[Cosmetic.WiseGrandparentCape]: "Cape",
 			[Cosmetic.WiseGrandparentSeasonalHeart]: "Seasonal heart",
-			[Cosmetic.DaysOfFeastHat]: "Days of Feast Pack",
+			[Cosmetic.DaysOfFeastHat]: "Days of Feast Hat",
 			[Cosmetic.RhythmPendant]: "Pendant",
 			[Cosmetic.RhythmUltimateMask]: "Ultimate mask",
 			[Cosmetic.RhythmUltimateHair]: "Ultimate hair",
