@@ -1940,7 +1940,6 @@ async function viewSpirit(
 
 	if (offer.length > 0) {
 		const itemSelectionOptions = offer.map(({ translation, cosmetics, cosmeticDisplay }) => {
-			console.log({ translation, cosmetics, cosmeticDisplay });
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
 				label: t(translation ?? `cosmetic-names.${cosmeticDisplay}`, {
