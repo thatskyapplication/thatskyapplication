@@ -7017,7 +7017,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.JollyGeologistBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.JollyGeologistMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
 		[Cosmetic.JollyGeologistProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp28,
-		[Cosmetic.JollyGeologistSeasonalHeart]: SEASON_EMOJIS.MomentsHeart,
+		[Cosmetic.JollyGeologistSeasonalHeart]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.EmoteBlindfoldBalancePose1]: EMOTE_EMOJIS.BlindfoldBalancePose,
 		[Cosmetic.EmoteBlindfoldBalancePose2]: EMOTE_EMOJIS.BlindfoldBalancePose,
 		[Cosmetic.AsceticMonkBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -7701,6 +7701,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AnniversaryCinemaGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory43,
 		[Cosmetic.AnniversaryCinemaPopcorn]: HELD_PROPS_EMOJIS.HeldProp54,
 		[Cosmetic.TGCWireframeCape]: CAPE_EMOJIS.Cape154,
+		[Cosmetic.JollyGeologistWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
