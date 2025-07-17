@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.DaylightPrairie,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			{ cosmetic: Cosmetic.EmoteJollyDance1 },
 			{ cosmetic: Cosmetic.EmoteJollyDance2 },
