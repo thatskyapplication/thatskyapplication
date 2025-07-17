@@ -41,6 +41,14 @@ import {
 import { SKY_CREATOR_TROUPE } from "./utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
 
+const enum ShardEruptionIntent {
+	Current = 0,
+	Tomorrow = 1,
+	NextRegular = 2,
+	NextDangerous = 3,
+	SpecificDay = 4,
+}
+
 const openAI = new OpenAI({
 	apiKey: OPENAI_API_KEY,
 	baseURL: OPENAI_BASE_URL,
@@ -430,31 +438,36 @@ export async function messageCreateResponse(
 					model: "gpt-4o-mini-2024-07-18",
 					n: 1,
 					user: message.author.id,
-					temperature: 0.5,
+					temperature: 0.7,
 					tools: [
 						{
 							type: "function",
 							function: {
 								name: "shardEruption",
-								description: `Returns shard eruption data. Call this whenever the shard eruption is asked for. For example, "What's the shard eruption today?".`,
+								description:
+									"Returns shard eruption data. Only call this when users explicitly ask about shard eruptions, shard events, black shards, red shards, or dangerous shards. Do not call for general questions about Sky events or gameplay.",
 								parameters: {
 									type: "object",
 									properties: {
+										intent: {
+											type: "integer",
+											enum: [
+												ShardEruptionIntent.Current,
+												ShardEruptionIntent.Tomorrow,
+												ShardEruptionIntent.NextRegular,
+												ShardEruptionIntent.NextDangerous,
+												ShardEruptionIntent.SpecificDay,
+											],
+											description: `Intent: ${ShardEruptionIntent.Current}=current, ${ShardEruptionIntent.Tomorrow}=tomorrow, ${ShardEruptionIntent.NextRegular}=next_regular, ${ShardEruptionIntent.NextDangerous}=next_dangerous, ${ShardEruptionIntent.SpecificDay}=specific_day`,
+										},
 										daysOffset: {
 											type: "integer",
-											description: `Number of days offset from the current day. Defaults to 0. For example, "What's the shard eruption tomorrow?"`,
+											description:
+												"Number of days offset from the current day (0 = today, 1 = tomorrow, etc.)",
 											default: 0,
 										},
-										whenNextRegular: {
-											type: "boolean",
-											description: `Specified whenever asked about when the next regular (or black) shard eruption is. For example, "When is the next black shard?"`,
-										},
-										whenNextDangerous: {
-											type: "boolean",
-											description: `Specified whenever asked about when the next dangerous (or red) shard eruption is. For example, "When is the next black shard?"`,
-										},
 									},
-									required: [],
+									required: ["intent"],
 									additionalProperties: false,
 								},
 							},
@@ -473,25 +486,44 @@ export async function messageCreateResponse(
 		if (response?.finish_reason === "tool_calls") {
 			const toolCall = response.message.tool_calls![0]!;
 			const functionArguments = toolCall.function.arguments;
-			const data = JSON.parse(functionArguments);
-			let offset = data.daysOffset;
 
-			if (data.whenNextRegular) {
-				let index = offset ?? 1;
+			const data = JSON.parse(functionArguments) as {
+				intent: ShardEruptionIntent;
+				daysOffset?: number;
+			};
 
-				while (shardEruption(index)?.strong) {
-					index++;
+			let offset = data.daysOffset ?? 0;
+
+			switch (data.intent) {
+				case ShardEruptionIntent.Current:
+					offset = 0;
+					break;
+				case ShardEruptionIntent.Tomorrow:
+					offset = 1;
+					break;
+				case ShardEruptionIntent.NextRegular: {
+					let searchOffset = Math.max(offset, 1);
+
+					while (shardEruption(searchOffset)?.strong === true) {
+						searchOffset++;
+					}
+
+					offset = searchOffset;
+					break;
 				}
+				case ShardEruptionIntent.NextDangerous: {
+					let searchOffset = Math.max(offset, 1);
 
-				offset = index;
-			} else if (data.whenNextDangerous) {
-				let index = offset ?? 1;
+					while (shardEruption(searchOffset)?.strong === false) {
+						searchOffset++;
+					}
 
-				while (shardEruption(index)?.strong === false) {
-					index++;
+					offset = searchOffset;
+					break;
 				}
-
-				offset = index;
+				case ShardEruptionIntent.SpecificDay:
+					offset = data.daysOffset ?? 0;
+					break;
 			}
 
 			const components = todayData(guild.preferredLocale, offset);
