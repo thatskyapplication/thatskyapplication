@@ -49,10 +49,7 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.JollyGeologistBlessing1,
 				cost: { candles: 5 },
 			},
-			{
-				cosmetic: Cosmetic.JollyGeologistFaceAccessory,
-				cost: { candles: 40 },
-			},
+			{ cosmetic: Cosmetic.JollyGeologistProp, cost: { candles: 36 } },
 			{
 				cosmetic: Cosmetic.JollyGeologistSeasonalHeart,
 				cost: { candles: 3 },
@@ -67,13 +64,16 @@ export default new SeasonalSpirit({
 				cost: { hearts: 3 },
 			},
 			{ cosmetic: Cosmetic.EmoteJollyDance4, cost: { hearts: 6 } },
+			{ cosmetic: Cosmetic.JollyGeologistBlessing2, cost: { candles: 5 } },
+			{
+				cosmetic: Cosmetic.JollyGeologistFaceAccessory,
+				cost: { candles: 42 },
+			},
 			{
 				cosmetic: Cosmetic.JollyGeologistMusicSheet,
 				cost: { candles: 15 },
 			},
-			{ cosmetic: Cosmetic.JollyGeologistBlessing2, cost: { candles: 5 } },
-			{ cosmetic: Cosmetic.JollyGeologistHair, cost: { candles: 45 } },
-			{ cosmetic: Cosmetic.JollyGeologistProp, cost: { candles: 70 } },
+			{ cosmetic: Cosmetic.JollyGeologistHair, cost: { candles: 48 } },
 		],
 	},
 	visits: {
