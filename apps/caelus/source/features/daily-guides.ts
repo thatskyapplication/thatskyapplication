@@ -556,7 +556,6 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
-		// @ts-expect-error New season not yet announced.
 		const candleEmoji = SeasonIdToSeasonalCandleEmoji[season.id];
 
 		values.push(

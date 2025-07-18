@@ -316,7 +316,6 @@ export async function seasonalCandles(
 		return;
 	}
 
-	// @ts-expect-error New season not yet announced.
 	const emoji = SeasonIdToSeasonalCandleEmoji[season.id];
 	const amountRequired = goal - start;
 	let result = 0;
