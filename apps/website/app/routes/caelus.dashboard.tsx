@@ -1,6 +1,7 @@
-import type {
-	RESTAPIPartialCurrentUserGuild,
-	RESTGetAPICurrentUserGuildsResult,
+import {
+	PermissionFlagsBits,
+	type RESTAPIPartialCurrentUserGuild,
+	type RESTGetAPICurrentUserGuildsResult,
 } from "@discordjs/core/http-only";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { data, redirect } from "@remix-run/node";
@@ -35,7 +36,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 		return data({
 			guilds: guilds.reduce<RESTAPIPartialCurrentUserGuild[]>((guilds, guild) => {
-				if ((BigInt(guild.permissions) & 8n) === 8n) {
+				if (
+					(BigInt(guild.permissions) & PermissionFlagsBits.Administrator) ===
+					PermissionFlagsBits.Administrator
+				) {
 					guilds.push(guild);
 				}
 
