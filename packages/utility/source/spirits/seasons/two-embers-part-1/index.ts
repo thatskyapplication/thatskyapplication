@@ -7,7 +7,7 @@ import twoEmbersGuide from "./two-embers-guide.js";
 export default new Season({
 	id: SeasonId.TwoEmbersPart1,
 	start: skyDate(2_025, 7, 21),
-	end: skyDate(2_025, 10, 7), // Not yet announced.
+	end: skyDate(2_025, 10, 6),
 	guide: twoEmbersGuide,
 	spirits: [],
 	seasonalCandlesRotation: [
