@@ -82,7 +82,7 @@ export default function Dashboard() {
 				<hr className="my-8" />
 				{error && (
 					<div className="bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded mb-6">
-						<p className="text-sm">{error}</p>
+						<p className="text-sm">Something went wrong. Please report this!</p>
 					</div>
 				)}
 				<div className="mb-6">
