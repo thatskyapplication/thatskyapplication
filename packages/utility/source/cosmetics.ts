@@ -3045,6 +3045,17 @@ export enum Cosmetic {
 	VestigeOfDarkDragonsTail,
 	VestigeOfDarkDragonsHeadAccessory,
 	CloakOfDarkness,
+
+	// [To be determined] | Version 0.30.0.
+	SkyBalloonProp,
+	BlueCarpet,
+	AnniversarySuit,
+	BalloonArch,
+
+	// 11/08/2025 | Version 0.30.0.
+	AnniversaryGown,
+	AnniversaryShoes,
+	AnniversaryTuxedoCape,
 }
 
 export enum CosmeticCommon {

@@ -7710,6 +7710,13 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.VestigeOfDarkDragonsTail]: null,
 		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: null,
 		[Cosmetic.CloakOfDarkness]: null,
+		[Cosmetic.SkyBalloonProp]: null,
+		[Cosmetic.BlueCarpet]: null,
+		[Cosmetic.AnniversarySuit]: null,
+		[Cosmetic.BalloonArch]: null,
+		[Cosmetic.AnniversaryGown]: null,
+		[Cosmetic.AnniversaryShoes]: null,
+		[Cosmetic.AnniversaryTuxedoCape]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
