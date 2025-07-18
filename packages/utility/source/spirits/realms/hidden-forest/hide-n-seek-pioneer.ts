@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { StandardSpirit } from "../../../models/spirits.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
@@ -25,6 +25,7 @@ export default new StandardSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 1 },
 				cosmetic: Cosmetic.HideAndSeekPioneerWingBuff1,
 				cost: { ascendedCandles: 3 },
 			},
@@ -37,6 +38,7 @@ export default new StandardSpirit({
 				cost: { hearts: 20 },
 			},
 			{
+				translation: { key: CosmeticCommon.WingBuffMultiple, number: 2 },
 				cosmetic: Cosmetic.HideAndSeekPioneerWingBuff2,
 				cost: { ascendedCandles: 6 },
 			},

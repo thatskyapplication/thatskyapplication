@@ -34,7 +34,11 @@ export function resolveOffer(
 ): Item[] {
 	return items.map((item) => ({
 		translation:
-			item.translation === undefined ? null : `cosmetic-common-names.${item.translation}`,
+			item.translation === undefined
+				? null
+				: typeof item.translation === "number"
+					? { key: `cosmetic-common-names.${item.translation}` }
+					: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
 		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
 		cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
 		cost: item.cost

@@ -5613,7 +5613,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.PoliteScholarOutfit]: OUTFIT_EMOJIS.Outfit08,
 		[Cosmetic.PoliteScholarBlessing1]: MISCELLANEOUS_EMOJIS.Blessing1,
 		[Cosmetic.PoliteScholarHeart]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.PoliteScholarWingBuff1]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.PoliteScholarWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.PoliteScholarBlessing2]: MISCELLANEOUS_EMOJIS.Blessing2,
 		[Cosmetic.PoliteScholarHair]: HAIR_EMOJIS.Hair28,
 		[Cosmetic.CallCosmicManta]: CALL_EMOJIS.CosmicManta,

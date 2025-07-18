@@ -446,14 +446,19 @@ interface ItemCostRaw {
 	eventTickets?: number;
 }
 
+interface ItemRawTranslation {
+	key: CosmeticCommon;
+	number?: number;
+}
+
 interface ItemRawSingleCosmetic {
-	translation?: CosmeticCommon;
+	translation?: Exclude<CosmeticCommon, CosmeticCommon.WingBuffMultiple> | ItemRawTranslation;
 	cosmetic: Cosmetic;
 	cost?: ItemCostRaw;
 }
 
 interface ItemRawMultipleCosmetics {
-	translation?: CosmeticCommon;
+	translation?: CosmeticCommon | ItemRawTranslation;
 	cosmetic: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	cost?: ItemCostRaw;
@@ -480,8 +485,13 @@ export interface ItemCost {
 	eventTickets?: ItemCostEvent[];
 }
 
+interface ItemTranslation {
+	key: `cosmetic-common-names.${CosmeticCommon}`;
+	number?: number;
+}
+
 export interface Item {
-	translation: `cosmetic-common-names.${CosmeticCommon}` | null;
+	translation: ItemTranslation | null;
 	cosmetics: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	cost: ItemCost | null;

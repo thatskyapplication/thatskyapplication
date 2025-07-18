@@ -344,7 +344,7 @@ export enum Cosmetic {
 	PoliteScholarOutfit = 320,
 	PoliteScholarBlessing1 = 321,
 	PoliteScholarHeart = 322,
-	PoliteScholarWingBuff1 = 323,
+	PoliteScholarWingBuff = 323,
 	PoliteScholarBlessing2 = 324,
 	PoliteScholarHair = 325,
 	CallCosmicManta = 326,
@@ -3039,6 +3039,7 @@ export enum Cosmetic {
 
 export enum CosmeticCommon {
 	WingBuff = 0,
+	WingBuffMultiple = 1,
 }
 
 export const WING_BUFFS = [
@@ -3079,7 +3080,7 @@ export const WING_BUFFS = [
 	Cosmetic.LookoutScoutWingBuff,
 	Cosmetic.PrayingAcolyteWingBuff1,
 	Cosmetic.LevitatingAdeptWingBuff,
-	Cosmetic.PoliteScholarWingBuff1,
+	Cosmetic.PoliteScholarWingBuff,
 	Cosmetic.MemoryWhispererWingBuff1,
 	Cosmetic.MeditatingMonasticWingBuff,
 	Cosmetic.SassyDrifterWingBuff,

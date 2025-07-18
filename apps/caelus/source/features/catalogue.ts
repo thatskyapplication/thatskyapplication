@@ -1410,9 +1410,10 @@ export async function viewSeason(
 		const itemsOptions = season.items.map(({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
 					lng: interaction.locale,
 					ns: "general",
+					number: translation?.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -1942,9 +1943,10 @@ async function viewSpirit(
 		const itemSelectionOptions = offer.map(({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-				label: t(translation ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
 					lng: interaction.locale,
 					ns: "general",
+					number: translation?.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2177,9 +2179,10 @@ async function viewEvent(
 		const itemSelectionOptions = offer.map(({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-				label: t(translation ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
 					lng: interaction.locale,
 					ns: "general",
+					number: translation?.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2290,9 +2293,10 @@ export async function viewStarterPacks(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
 					lng: interaction.locale,
 					ns: "general",
+					number: translation?.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2389,9 +2393,10 @@ export async function viewSecretArea(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
 					lng: interaction.locale,
 					ns: "general",
+					number: translation?.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2488,9 +2493,10 @@ export async function viewPermanentEventStore(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
 					lng: interaction.locale,
 					ns: "general",
+					number: translation?.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2587,9 +2593,10 @@ export async function viewNestingWorkshop(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
 					lng: interaction.locale,
 					ns: "general",
+					number: translation?.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
