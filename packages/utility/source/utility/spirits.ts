@@ -251,8 +251,13 @@ export const SpiritId = {
 	NostalgicSparklerParent: 184,
 	RoyalHairtousleTeen: 185,
 
-	// Season #25.
+	// Season of The Two Embers - Part 1.
 	VaultEldersLantern: 186,
+	TenderToymaker: 187,
+	CaringCompanion: 188,
+	ScarredSentry: 189,
+	SternShepherd: 190,
+	ResourcefulRecluse: 191,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);
