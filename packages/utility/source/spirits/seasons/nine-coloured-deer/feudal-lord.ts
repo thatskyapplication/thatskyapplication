@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.FriendActionCradleCarry1 },
 			{ cosmetic: Cosmetic.FriendActionCradleCarry2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.FeudalLordBlessing1,
 				cost: { seasonalCandles: 6 },
 			},
@@ -27,8 +28,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.FeudalLordMask,
 				cost: { seasonalCandles: 18 },
 			},
-			{ cosmetic: Cosmetic.FeudalLordBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.FeudalLordBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.FeudalLordBlessing3,
 				cost: { seasonalCandles: 26 },
 			},
@@ -37,7 +42,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.FeudalLordMusicSheet,
 				cost: { seasonalCandles: 32 },
 			},
-			{ cosmetic: Cosmetic.FeudalLordBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.FeudalLordBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.FeudalLordSeasonalHeart,
 				cost: { seasonalCandles: 3 },

@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteVoilà1 },
 			{ cosmetic: Cosmetic.EmoteVoilà2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TalentedBuilderBlessing1,
 				cost: { seasonalCandles: 10 },
 			},
@@ -25,7 +26,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.TalentedBuilderNeckAccessory,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.TalentedBuilderBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.TalentedBuilderBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteVoilà3,
 				cost: { seasonalCandles: 22 },
@@ -53,6 +57,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TalentedBuilderBlessing1,
 				cost: { candles: 5 },
 			},
@@ -82,6 +87,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TalentedBuilderBlessing2,
 				cost: { candles: 5 },
 			},

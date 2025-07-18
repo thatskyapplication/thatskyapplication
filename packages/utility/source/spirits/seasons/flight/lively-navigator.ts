@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteNavigate1 },
 			{ cosmetic: Cosmetic.EmoteNavigate2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.LivelyNavigatorBlessing1,
 				cost: { seasonalCandles: 12 },
 			},
@@ -25,7 +26,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.LivelyNavigatorHairAccessory,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.LivelyNavigatorBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.LivelyNavigatorBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteNavigate3,
 				cost: { seasonalCandles: 18 },
@@ -53,6 +57,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.LivelyNavigatorBlessing1,
 				cost: { candles: 5 },
 			},
@@ -82,6 +87,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.LivelyNavigatorBlessing2,
 				cost: { candles: 5 },
 			},

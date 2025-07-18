@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteSomersault1 },
 			{ cosmetic: Cosmetic.EmoteSomersault2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TumblingTroublemakerBlessing1,
 				cost: { seasonalCandles: 8 },
 			},
@@ -27,11 +28,13 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteSomersault4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TumblingTroublemakerBlessing2,
 				cost: { seasonalCandles: 28 },
 			},
 			{ cosmetic: Cosmetic.TumblingTroublemakerCape },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.TumblingTroublemakerBlessing3,
 				cost: { seasonalCandles: 32 },
 			},
@@ -47,6 +50,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteSomersault1 },
 			{ cosmetic: Cosmetic.EmoteSomersault2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TumblingTroublemakerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -66,6 +70,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteSomersault4, cost: { hearts: 6 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TumblingTroublemakerBlessing2,
 				cost: { candles: 5 },
 			},

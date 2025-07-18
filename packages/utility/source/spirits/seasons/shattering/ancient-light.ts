@@ -13,8 +13,12 @@ export default [
 					cosmetic: Cosmetic.AncientLightJellyfishHair,
 					cost: { seasonalCandles: 35 },
 				},
-				{ cosmetic: Cosmetic.AncientLightJellyfishBlessing1 },
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.AncientLightJellyfishBlessing1,
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.AncientLightJellyfishBlessing2,
 					cost: { seasonalCandles: 16 },
 				},
@@ -25,7 +29,10 @@ export default [
 					cosmetic: Cosmetic.AncientLightJellyfishCape,
 					cost: { seasonalCandles: 42 },
 				},
-				{ cosmetic: Cosmetic.AncientLightJellyfishBlessing3 },
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.AncientLightJellyfishBlessing3,
+				},
 				{
 					cosmetic: Cosmetic.AncientLightJellyfishSeasonalHeart,
 					cost: { seasonalCandles: 3 },
@@ -33,6 +40,7 @@ export default [
 			],
 			current: [
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 					cosmetic: Cosmetic.AncientLightJellyfishBlessing1,
 					cost: { candles: 5 },
 				},
@@ -45,6 +53,7 @@ export default [
 					cost: { candles: 3 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.AncientLightJellyfishBlessing2,
 					cost: { candles: 5 },
 				},
@@ -54,6 +63,7 @@ export default [
 					cost: { ascendedCandles: 2 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 					cosmetic: Cosmetic.AncientLightJellyfishBlessing3,
 					cost: { candles: 5 },
 				},
@@ -80,8 +90,12 @@ export default [
 					cosmetic: Cosmetic.AncientLightMantaMusicSheet,
 					cost: { seasonalCandles: 27 },
 				},
-				{ cosmetic: Cosmetic.AncientLightMantaBlessing1 },
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.AncientLightMantaBlessing1,
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.AncientLightMantaBlessing2,
 					cost: { seasonalCandles: 16 },
 				},
@@ -90,8 +104,12 @@ export default [
 					cosmetic: Cosmetic.AncientLightMantaCape,
 					cost: { seasonalCandles: 35 },
 				},
-				{ cosmetic: Cosmetic.AncientLightMantaBlessing3 },
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.AncientLightMantaBlessing3,
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
 					cosmetic: Cosmetic.AncientLightMantaBlessing4,
 					cost: { seasonalCandles: 16 },
 				},
@@ -103,6 +121,7 @@ export default [
 			],
 			current: [
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 					cosmetic: Cosmetic.AncientLightMantaBlessing1,
 					cost: { candles: 5 },
 				},
@@ -115,6 +134,7 @@ export default [
 					cost: { candles: 3 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.AncientLightMantaBlessing2,
 					cost: { candles: 5 },
 				},
@@ -128,6 +148,7 @@ export default [
 					cost: { ascendedCandles: 2 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 					cosmetic: Cosmetic.AncientLightMantaBlessing3,
 					cost: { candles: 5 },
 				},

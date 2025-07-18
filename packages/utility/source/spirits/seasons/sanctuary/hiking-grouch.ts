@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteGrumpy1 },
 			{ cosmetic: Cosmetic.EmoteGrumpy2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.HikingGrouchBlessing1,
 				cost: { seasonalCandles: 12 },
 			},
@@ -31,8 +32,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.HikingGrouchHair,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.HikingGrouchBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.HikingGrouchBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.HikingGrouchBlessing3,
 				cost: { seasonalCandles: 18 },
 			},
@@ -53,6 +58,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 16 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.HikingGrouchBlessing1,
 				cost: { candles: 5 },
 			},
@@ -82,6 +88,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 42 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.HikingGrouchBlessing2,
 				cost: { candles: 5 },
 			},

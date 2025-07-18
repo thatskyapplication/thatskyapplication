@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteOuch1 },
 			{ cosmetic: Cosmetic.EmoteOuch2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BumblingBoatswainBlessing1,
 				cost: { seasonalCandles: 8 },
 			},
@@ -26,13 +27,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.BumblingBoatswainMusicSheet,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.BumblingBoatswainBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.BumblingBoatswainBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteOuch3,
 				cost: { seasonalCandles: 16 },
 			},
 			{ cosmetic: Cosmetic.EmoteOuch4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.BumblingBoatswainBlessing3,
 				cost: { seasonalCandles: 20 },
 			},
@@ -41,7 +46,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.BumblingBoatswainHairAccessory,
 				cost: { seasonalCandles: 24 },
 			},
-			{ cosmetic: Cosmetic.BumblingBoatswainBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.BumblingBoatswainBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.BumblingBoatswainSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -51,6 +59,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteOuch1 },
 			{ cosmetic: Cosmetic.EmoteOuch2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BumblingBoatswainBlessing1,
 				cost: { candles: 5 },
 			},
@@ -77,6 +86,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BumblingBoatswainBlessing2,
 				cost: { candles: 5 },
 			},

@@ -21,13 +21,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.LeapingDancerSmallBell,
 				cost: { seasonalCandles: 10 },
 			},
-			{ cosmetic: Cosmetic.LeapingDancerBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.LeapingDancerBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteLeap3,
 				cost: { seasonalCandles: 14 },
 			},
 			{ cosmetic: Cosmetic.EmoteLeap4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.LeapingDancerBlessing2,
 				cost: { seasonalCandles: 16 },
 			},
@@ -40,6 +44,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteLeap1 },
 			{ cosmetic: Cosmetic.EmoteLeap2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.LeapingDancerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -59,6 +64,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteLeap3, cost: { hearts: 3 } },
 			{ cosmetic: Cosmetic.EmoteLeap4, cost: { hearts: 6 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.LeapingDancerBlessing2,
 				cost: { candles: 5 },
 			},

@@ -21,7 +21,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ProphetOfEarthHair,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.ProphetOfEarthBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.ProphetOfEarthBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteDustOff3,
 				cost: { seasonalCandles: 16 },
@@ -31,7 +34,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ProphetOfEarthMusicSheet,
 				cost: { seasonalCandles: 21 },
 			},
-			{ cosmetic: Cosmetic.ProphetOfEarthBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ProphetOfEarthBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.ProphetOfEarthCape,
 				cost: { seasonalCandles: 27 },
@@ -53,6 +59,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ProphetOfEarthBlessing1,
 				cost: { candles: 5 },
 			},
@@ -82,6 +89,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ProphetOfEarthBlessing2,
 				cost: { candles: 5 },
 			},

@@ -22,13 +22,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.NoddingMuralistMask,
 				cost: { seasonalCandles: 6 },
 			},
-			{ cosmetic: Cosmetic.NoddingMuralistBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.NoddingMuralistBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteNod3,
 				cost: { seasonalCandles: 8 },
 			},
 			{ cosmetic: Cosmetic.EmoteNod4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.NoddingMuralistBlessing2,
 				cost: { seasonalCandles: 10 },
 			},
@@ -42,6 +46,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteNod1 },
 			{ cosmetic: Cosmetic.EmoteNod2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.NoddingMuralistBlessing1,
 				cost: { candles: 5 },
 			},
@@ -64,6 +69,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.NoddingMuralistBlessing2,
 				cost: { candles: 5 },
 			},

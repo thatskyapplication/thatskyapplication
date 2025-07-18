@@ -19,13 +19,20 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.JellyWhispererMusicSheet,
 				cost: { seasonalCandles: 6 },
 			},
-			{ cosmetic: Cosmetic.JellyWhispererBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.JellyWhispererBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.JellyWhispererHair,
 				cost: { seasonalCandles: 8 },
 			},
-			{ cosmetic: Cosmetic.JellyWhispererBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.JellyWhispererBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.JellyWhispererBlessing3,
 				cost: { seasonalCandles: 10 },
 			},
@@ -38,6 +45,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.CallJellyfish },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.JellyWhispererBlessing1,
 				cost: { candles: 5 },
 			},
@@ -55,6 +63,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.JellyWhispererBlessing2,
 				cost: { candles: 5 },
 			},

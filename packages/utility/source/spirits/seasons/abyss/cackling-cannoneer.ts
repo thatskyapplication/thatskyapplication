@@ -16,6 +16,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteEvilLaugh1 },
 			{ cosmetic: Cosmetic.EmoteEvilLaugh2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CacklingCannoneerBlessing1,
 				cost: { seasonalCandles: 12 },
 			},
@@ -24,7 +25,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.CacklingCannoneerMask,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.CacklingCannoneerBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.CacklingCannoneerBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteEvilLaugh3,
 				cost: { seasonalCandles: 20 },
@@ -34,8 +38,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.CacklingCannoneerCape,
 				cost: { seasonalCandles: 26 },
 			},
-			{ cosmetic: Cosmetic.CacklingCannoneerBlessing3 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.CacklingCannoneerBlessing3,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
 				cosmetic: Cosmetic.CacklingCannoneerBlessing4,
 				cost: { seasonalCandles: 34 },
 			},
@@ -52,6 +60,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CacklingCannoneerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -81,6 +90,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 50 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CacklingCannoneerBlessing2,
 				cost: { candles: 5 },
 			},

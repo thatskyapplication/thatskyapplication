@@ -22,7 +22,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SpinningMentorHair,
 				cost: { seasonalCandles: 13 },
 			},
-			{ cosmetic: Cosmetic.SpinningMentorBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.SpinningMentorBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteSpinTrick3,
 				cost: { seasonalCandles: 18 },
@@ -32,8 +35,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SpinningMentorMask,
 				cost: { seasonalCandles: 23 },
 			},
-			{ cosmetic: Cosmetic.SpinningMentorBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.SpinningMentorBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.SpinningMentorBlessing3,
 				cost: { seasonalCandles: 29 },
 			},
@@ -50,6 +57,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SpinningMentorBlessing1,
 				cost: { candles: 5 },
 			},
@@ -79,6 +87,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 42 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SpinningMentorBlessing2,
 				cost: { candles: 5 },
 			},

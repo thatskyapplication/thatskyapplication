@@ -17,6 +17,7 @@ export default new StandardSpirit({
 				cost: { candles: 1 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SlumberingShipwrightBlessing1,
 				cost: { candles: 1 },
 			},
@@ -42,6 +43,7 @@ export default new StandardSpirit({
 				cost: { candles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SlumberingShipwrightBlessing2,
 				cost: { candles: 5 },
 			},

@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteShrug1 },
 			{ cosmetic: Cosmetic.EmoteShrug2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.IndifferentAlchemistBlessing1,
 				cost: { seasonalCandles: 14 },
 			},
@@ -31,8 +32,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.IndifferentAlchemistHair,
 				cost: { seasonalCandles: 18 },
 			},
-			{ cosmetic: Cosmetic.IndifferentAlchemistBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.IndifferentAlchemistBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.IndifferentAlchemistBlessing3,
 				cost: { seasonalCandles: 20 },
 			},
@@ -49,6 +54,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.IndifferentAlchemistBlessing1,
 				cost: { candles: 5 },
 			},
@@ -74,6 +80,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.IndifferentAlchemistBlessing2,
 				cost: { candles: 5 },
 			},

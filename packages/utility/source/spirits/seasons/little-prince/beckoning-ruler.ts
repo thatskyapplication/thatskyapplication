@@ -19,6 +19,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteBeckon1 },
 			{ cosmetic: Cosmetic.EmoteBeckon2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BeckoningRulerBlessing1,
 				cost: { seasonalCandles: 14 },
 			},
@@ -32,7 +33,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.BeckoningRulerFrogMask,
 				cost: { seasonalCandles: 26 },
 			},
-			{ cosmetic: Cosmetic.BeckoningRulerBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.BeckoningRulerBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.BeckoningRulerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -49,6 +53,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BeckoningRulerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -70,6 +75,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BeckoningRulerBlessing2,
 				cost: { candles: 5 },
 			},

@@ -21,8 +21,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.PiggybackLightseekerMask,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.PiggybackLightseekerBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.PiggybackLightseekerBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PiggybackLightseekerBlessing2,
 				cost: { seasonalCandles: 18 },
 			},
@@ -36,6 +40,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.FriendActionCarry1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.PiggybackLightseekerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -53,6 +58,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PiggybackLightseekerBlessing2,
 				cost: { candles: 5 },
 			},

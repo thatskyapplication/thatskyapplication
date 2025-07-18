@@ -20,7 +20,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.DaydreamForesterMask,
 				cost: { seasonalCandles: 5 },
 			},
-			{ cosmetic: Cosmetic.DaydreamForesterBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.DaydreamForesterBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteBubbles3,
 				cost: { seasonalCandles: 10 },
@@ -30,8 +33,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.DaydreamForesterMusicSheet,
 				cost: { seasonalCandles: 15 },
 			},
-			{ cosmetic: Cosmetic.DaydreamForesterBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.DaydreamForesterBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.DaydreamForesterBlessing3,
 				cost: { seasonalCandles: 20 },
 			},
@@ -48,6 +55,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.DaydreamForesterBlessing1,
 				cost: { candles: 5 },
 			},
@@ -77,6 +85,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.DaydreamForesterBlessing2,
 				cost: { candles: 5 },
 			},

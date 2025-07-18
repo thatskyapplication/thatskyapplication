@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -13,8 +13,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.TheCellistsBeginningsHair,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.TheCellistsBeginningsBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.TheCellistsBeginningsBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TheCellistsBeginningsBlessing2,
 				cost: { seasonalCandles: 26 },
 			},
@@ -25,7 +29,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.TheCellistsBeginningsOutfit,
 				cost: { seasonalCandles: 32 },
 			},
-			{ cosmetic: Cosmetic.TheCellistsBeginningsBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.TheCellistsBeginningsBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.TheCellistsBeginningsSeasonalHeart,
 				cost: { seasonalCandles: 3 },

@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteKungFu1 },
 			{ cosmetic: Cosmetic.EmoteKungFu2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.GreetingShamanBlessing1,
 				cost: { seasonalCandles: 18 },
 			},
@@ -28,6 +29,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteKungFu4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.GreetingShamanBlessing2,
 				cost: { seasonalCandles: 22 },
 			},
@@ -43,6 +45,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.GreetingShamanBlessing1,
 				cost: { candles: 5 },
 			},
@@ -68,6 +71,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.GreetingShamanBlessing2,
 				cost: { candles: 5 },
 			},

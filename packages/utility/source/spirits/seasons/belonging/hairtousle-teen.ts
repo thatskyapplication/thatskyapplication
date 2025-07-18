@@ -16,16 +16,21 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.FriendActionHairTousle1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.HairtousleTeenBlessing1,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.HairtousleTeenBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.HairtousleTeenBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.HairtousleTeenMusicSheet,
 				cost: { seasonalCandles: 14 },
 			},
 			{ cosmetic: Cosmetic.FriendActionHairTousle2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.HairtousleTeenBlessing3,
 				cost: { seasonalCandles: 16 },
 			},
@@ -34,7 +39,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.HairtousleTeenUkulele,
 				cost: { seasonalCandles: 18 },
 			},
-			{ cosmetic: Cosmetic.HairtousleTeenBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.HairtousleTeenBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.HairtousleTeenSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -43,6 +51,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.FriendActionHairTousle1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.HairtousleTeenBlessing1,
 				cost: { candles: 5 },
 			},
@@ -60,6 +69,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.HairtousleTeenBlessing2,
 				cost: { candles: 5 },
 			},

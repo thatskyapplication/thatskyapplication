@@ -22,13 +22,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SneezingGeographerHair,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.SneezingGeographerBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.SneezingGeographerBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteSneeze3,
 				cost: { seasonalCandles: 18 },
 			},
 			{ cosmetic: Cosmetic.EmoteSneeze4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SneezingGeographerBlessing2,
 				cost: { seasonalCandles: 22 },
 			},
@@ -49,6 +53,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SneezingGeographerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -70,6 +75,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SneezingGeographerBlessing2,
 				cost: { candles: 5 },
 			},

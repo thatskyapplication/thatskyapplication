@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.FriendActionDoubleFive1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
 				cost: { seasonalCandles: 4 },
 			},
@@ -27,6 +28,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.FriendActionDoubleFive2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.DoublefiveLightCatcherBlessing2,
 				cost: { seasonalCandles: 8 },
 			},
@@ -35,6 +37,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.FriendActionDoubleFive1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
 				cost: { candles: 5 },
 			},
@@ -52,6 +55,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.DoublefiveLightCatcherBlessing2,
 				cost: { candles: 5 },
 			},

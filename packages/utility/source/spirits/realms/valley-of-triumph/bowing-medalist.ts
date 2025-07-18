@@ -14,6 +14,7 @@ export default new StandardSpirit({
 			{ cosmetic: Cosmetic.EmoteBow1 },
 			{ cosmetic: Cosmetic.EmoteBow2, cost: { candles: 3 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BowingMedalistBlessing1,
 				cost: { candles: 1 },
 			},
@@ -33,6 +34,7 @@ export default new StandardSpirit({
 			{ cosmetic: Cosmetic.EmoteBow3, cost: { candles: 4 } },
 			{ cosmetic: Cosmetic.EmoteBow4, cost: { candles: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BowingMedalistBlessing2,
 				cost: { candles: 5 },
 			},

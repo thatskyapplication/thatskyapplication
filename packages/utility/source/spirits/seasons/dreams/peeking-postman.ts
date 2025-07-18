@@ -21,7 +21,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.PeekingPostmanMusicSheet,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.PeekingPostmanBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.PeekingPostmanBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmotePeek3,
 				cost: { seasonalCandles: 16 },
@@ -31,7 +34,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.PeekingPostmanOutfit,
 				cost: { seasonalCandles: 21 },
 			},
-			{ cosmetic: Cosmetic.PeekingPostmanBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.PeekingPostmanBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.PeekingPostmanCape,
 				cost: { seasonalCandles: 27 },
@@ -50,6 +56,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.PeekingPostmanBlessing1,
 				cost: { candles: 5 },
 			},
@@ -73,6 +80,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 65 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PeekingPostmanBlessing2,
 				cost: { candles: 5 },
 			},

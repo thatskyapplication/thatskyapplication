@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -10,6 +10,7 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing1,
 				cost: { seasonalCandles: 18 },
 			},
@@ -18,8 +19,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeMusicSheet,
 				cost: { seasonalCandles: 24 },
 			},
-			{ cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing3,
 				cost: { seasonalCandles: 32 },
 			},
@@ -28,7 +33,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeHairAccessory,
 				cost: { seasonalCandles: 42 },
 			},
-			{ cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeSeasonalHeart,
 				cost: { seasonalCandles: 3 },

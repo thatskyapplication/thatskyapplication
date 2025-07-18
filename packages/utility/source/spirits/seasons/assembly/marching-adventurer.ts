@@ -21,13 +21,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.MarchingAdventurerHair,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.MarchingAdventurerBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.MarchingAdventurerBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteMarching3,
 				cost: { seasonalCandles: 14 },
 			},
 			{ cosmetic: Cosmetic.EmoteMarching4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.MarchingAdventurerBlessing2,
 				cost: { seasonalCandles: 16 },
 			},
@@ -36,7 +40,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.MarchingAdventurerTikiTorch,
 				cost: { seasonalCandles: 22 },
 			},
-			{ cosmetic: Cosmetic.MarchingAdventurerBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.MarchingAdventurerBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.MarchingAdventurerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -49,6 +56,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.MarchingAdventurerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -78,6 +86,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 45 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.MarchingAdventurerBlessing2,
 				cost: { candles: 5 },
 			},

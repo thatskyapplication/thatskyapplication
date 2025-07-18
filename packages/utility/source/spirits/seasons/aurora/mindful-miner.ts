@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteRaiseTheRoof1 },
 			{ cosmetic: Cosmetic.EmoteRaiseTheRoof2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.MindfulMinerBlessing1,
 				cost: { seasonalCandles: 10 },
 			},
@@ -30,8 +31,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.MindfulMinerHair,
 				cost: { seasonalCandles: 24 },
 			},
-			{ cosmetic: Cosmetic.MindfulMinerBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.MindfulMinerBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.MindfulMinerBlessing3,
 				cost: { seasonalCandles: 28 },
 			},
@@ -40,7 +45,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.MindfulMinerCape,
 				cost: { seasonalCandles: 32 },
 			},
-			{ cosmetic: Cosmetic.MindfulMinerBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.MindfulMinerBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.MindfulMinerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -53,6 +61,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.MindfulMinerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -82,6 +91,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 40 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.MindfulMinerBlessing2,
 				cost: { candles: 5 },
 			},

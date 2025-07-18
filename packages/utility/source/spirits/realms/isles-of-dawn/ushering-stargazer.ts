@@ -18,6 +18,7 @@ export default new StandardSpirit({
 			},
 			{ cosmetic: Cosmetic.UsheringStargazerHair },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.UsheringStargazerBlessing1,
 				cost: { candles: 1 },
 			},
@@ -43,6 +44,7 @@ export default new StandardSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.UsheringStargazerBlessing2,
 				cost: { candles: 5 },
 			},

@@ -20,17 +20,25 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.CrabWhispererMask,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.CrabWhispererBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.CrabWhispererBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CrabWhispererBlessing2,
 				cost: { seasonalCandles: 14 },
 			},
 			{ cosmetic: Cosmetic.CrabWhispererMusicSheet },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.CrabWhispererBlessing3,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.CrabWhispererBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.CrabWhispererBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.CrabWhispererHair,
 				cost: { seasonalCandles: 18 },
@@ -44,6 +52,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 20 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CrabWhispererBlessing1,
 				cost: { candles: 5 },
 			},
@@ -61,6 +70,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CrabWhispererBlessing2,
 				cost: { candles: 5 },
 			},

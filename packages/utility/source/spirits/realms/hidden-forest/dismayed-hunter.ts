@@ -14,6 +14,7 @@ export default new StandardSpirit({
 			{ cosmetic: Cosmetic.Shocked1 },
 			{ cosmetic: Cosmetic.Shocked2, cost: { candles: 3 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.DismayedHunterBlessing1,
 				cost: { candles: 1 },
 			},
@@ -33,6 +34,7 @@ export default new StandardSpirit({
 			{ cosmetic: Cosmetic.Shocked3, cost: { candles: 5 } },
 			{ cosmetic: Cosmetic.Shocked4, cost: { candles: 5 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.DismayedHunterBlessing2,
 				cost: { candles: 5 },
 			},

@@ -15,13 +15,20 @@ export default new SeasonalSpirit({
 	offer: {
 		seasonal: [
 			{ cosmetic: Cosmetic.FriendActionPlayFight1 },
-			{ cosmetic: Cosmetic.PlayfightingHerbalistBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.PlayfightingHerbalistBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.PlayfightingHerbalistMask,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.PlayfightingHerbalistBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.PlayfightingHerbalistBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.PlayfightingHerbalistBlessing3,
 				cost: { seasonalCandles: 16 },
 			},
@@ -35,7 +42,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.PlayfightingHerbalistCape,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.PlayfightingHerbalistBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.PlayfightingHerbalistBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.PlayfightingHerbalistSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -44,6 +54,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.FriendActionPlayFight1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.PlayfightingHerbalistBlessing1,
 				cost: { candles: 5 },
 			},
@@ -61,6 +72,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PlayfightingHerbalistBlessing2,
 				cost: { candles: 5 },
 			},
@@ -73,6 +85,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.PlayfightingHerbalistBlessing3,
 				cost: { candles: 5 },
 			},

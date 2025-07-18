@@ -19,10 +19,14 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteBoogieDance1 },
 			{ cosmetic: Cosmetic.EmoteBoogieDance2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BoogieKidBlessing1,
 				cost: { seasonalCandles: 8 },
 			},
-			{ cosmetic: Cosmetic.BoogieKidBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.BoogieKidBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteBoogieDance3,
 				cost: { seasonalCandles: 10 },
@@ -45,6 +49,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BoogieKidBlessing1,
 				cost: { candles: 5 },
 			},
@@ -67,6 +72,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BoogieKidBlessing2,
 				cost: { candles: 5 },
 			},

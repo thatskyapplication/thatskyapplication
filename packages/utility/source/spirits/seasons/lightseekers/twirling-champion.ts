@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteTripleAxel1 },
 			{ cosmetic: Cosmetic.EmoteTripleAxel2 },
 			{
+				translation: CosmeticCommon.Blessing,
 				cosmetic: Cosmetic.TwirlingChampionBlessing1,
 				cost: { seasonalCandles: 12 },
 			},
@@ -39,6 +40,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TwirlingChampionBlessing1,
 				cost: { candles: 5 },
 			},
@@ -64,6 +66,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TwirlingChampionBlessing2,
 				cost: { candles: 5 },
 			},

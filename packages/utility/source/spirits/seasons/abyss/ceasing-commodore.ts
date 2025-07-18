@@ -16,6 +16,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteCalmDown1 },
 			{ cosmetic: Cosmetic.EmoteCalmDown2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CeasingCommodoreBlessing1,
 				cost: { seasonalCandles: 6 },
 			},
@@ -24,7 +25,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.CeasingCommodoreMask,
 				cost: { seasonalCandles: 8 },
 			},
-			{ cosmetic: Cosmetic.CeasingCommodoreBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.CeasingCommodoreBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteCalmDown3,
 				cost: { seasonalCandles: 16 },
@@ -34,7 +38,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.CeasingCommodoreCape,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.CeasingCommodoreBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.CeasingCommodoreBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.CeasingCommodoreSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -47,6 +54,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CeasingCommodoreBlessing1,
 				cost: { candles: 5 },
 			},
@@ -72,6 +80,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CeasingCommodoreBlessing2,
 				cost: { candles: 5 },
 			},

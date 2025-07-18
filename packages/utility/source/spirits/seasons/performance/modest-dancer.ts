@@ -15,6 +15,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.FriendActionDuetDance1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ModestDancerBlessing1,
 				cost: { seasonalCandles: 8 },
 			},
@@ -23,8 +24,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ModestDancerMask,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.ModestDancerBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ModestDancerBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.ModestDancerBlessing3,
 				cost: { seasonalCandles: 26 },
 			},
@@ -46,6 +51,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ModestDancerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -63,6 +69,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ModestDancerBlessing2,
 				cost: { candles: 5 },
 			},

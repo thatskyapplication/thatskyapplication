@@ -19,6 +19,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteGrateful1 },
 			{ cosmetic: Cosmetic.EmoteGrateful2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.GratefulShellCollectorBlessing1,
 				cost: { seasonalCandles: 14 },
 			},
@@ -32,7 +33,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.GratefulShellCollectorCape,
 				cost: { seasonalCandles: 18 },
 			},
-			{ cosmetic: Cosmetic.GratefulShellCollectorBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.GratefulShellCollectorBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.GratefulShellCollectorSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -49,6 +53,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 45 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.GratefulShellCollectorBlessing1,
 				cost: { candles: 5 },
 			},
@@ -74,6 +79,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.GratefulShellCollectorBlessing2,
 				cost: { candles: 5 },
 			},

@@ -16,6 +16,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.CallBabyManta },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.LightWhispererBlessing1,
 				cost: { seasonalCandles: 14 },
 			},
@@ -26,7 +27,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.LightWhispererHair,
 				cost: { seasonalCandles: 22 },
 			},
-			{ cosmetic: Cosmetic.LightWhispererBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.LightWhispererBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.LightWhispererTrailSpell1,
 				cost: { seasonalCandles: 26 },
@@ -45,6 +49,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.CallBabyManta },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.LightWhispererBlessing1,
 				cost: { candles: 5 },
 			},
@@ -62,6 +67,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.LightWhispererBlessing2,
 				cost: { candles: 5 },
 			},

@@ -20,8 +20,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SassyDrifterHair,
 				cost: { seasonalCandles: 6 },
 			},
-			{ cosmetic: Cosmetic.SassyDrifterBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.SassyDrifterBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SassyDrifterBlessing2,
 				cost: { seasonalCandles: 8 },
 			},
@@ -30,6 +34,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.StanceSassy },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SassyDrifterBlessing1,
 				cost: { candles: 5 },
 			},
@@ -47,6 +52,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SassyDrifterBlessing2,
 				cost: { candles: 5 },
 			},

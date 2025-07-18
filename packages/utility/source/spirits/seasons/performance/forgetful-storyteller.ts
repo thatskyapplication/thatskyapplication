@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteAww1 },
 			{ cosmetic: Cosmetic.EmoteAww2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ForgetfulStorytellerBlessing1,
 				cost: { seasonalCandles: 12 },
 			},
@@ -25,13 +26,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ForgetfulStorytellerHair,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.ForgetfulStorytellerBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ForgetfulStorytellerBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteAww3,
 				cost: { seasonalCandles: 20 },
 			},
 			{ cosmetic: Cosmetic.EmoteAww4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.ForgetfulStorytellerBlessing3,
 				cost: { seasonalCandles: 26 },
 			},
@@ -40,7 +45,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ForgetfulStorytellerCape,
 				cost: { seasonalCandles: 34 },
 			},
-			{ cosmetic: Cosmetic.ForgetfulStorytellerBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.ForgetfulStorytellerBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.ForgetfulStorytellerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -50,6 +58,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteAww1 },
 			{ cosmetic: Cosmetic.EmoteAww2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ForgetfulStorytellerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -76,6 +85,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 44 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ForgetfulStorytellerBlessing2,
 				cost: { candles: 5 },
 			},

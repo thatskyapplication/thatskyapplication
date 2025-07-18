@@ -18,6 +18,7 @@ export default new StandardSpirit({
 			},
 			{ cosmetic: Cosmetic.PointingCandlemakerHair },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.PointingCandlemakerBlessing1,
 				cost: { candles: 1 },
 			},
@@ -43,6 +44,7 @@ export default new StandardSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PointingCandlemakerBlessing2,
 				cost: { candles: 5 },
 			},

@@ -19,6 +19,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteDoze1 },
 			{ cosmetic: Cosmetic.EmoteDoze2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SnoozingCarpenterBlessing1,
 				cost: { seasonalCandles: 10 },
 			},
@@ -32,7 +33,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SnoozingCarpenterCape,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.SnoozingCarpenterBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.SnoozingCarpenterBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.SnoozingCarpenterSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -42,6 +46,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteDoze1 },
 			{ cosmetic: Cosmetic.EmoteDoze2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SnoozingCarpenterBlessing1,
 				cost: { candles: 5 },
 			},
@@ -64,6 +69,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SnoozingCarpenterBlessing2,
 				cost: { candles: 5 },
 			},

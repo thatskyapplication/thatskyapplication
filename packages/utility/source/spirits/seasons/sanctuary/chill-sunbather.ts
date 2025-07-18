@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteBellyScratch1 },
 			{ cosmetic: Cosmetic.EmoteBellyScratch2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ChillSunbatherBlessing1,
 				cost: { seasonalCandles: 16 },
 			},
@@ -32,12 +33,18 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ChillSunbatherHairAccessory,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.ChillSunbatherBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ChillSunbatherBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.ChillSunbatherCape,
 				cost: { seasonalCandles: 22 },
 			},
-			{ cosmetic: Cosmetic.ChillSunbatherBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.ChillSunbatherBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.ChillSunbatherSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -54,6 +61,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 20 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ChillSunbatherBlessing1,
 				cost: { candles: 5 },
 			},
@@ -83,6 +91,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 44 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ChillSunbatherBlessing2,
 				cost: { candles: 5 },
 			},

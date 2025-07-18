@@ -21,7 +21,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.TroupeGreeterMusicSheet,
 				cost: { seasonalCandles: 8 },
 			},
-			{ cosmetic: Cosmetic.TroupeGreeterBlessing1 },
+			{
+				translation: CosmeticCommon.Blessing,
+				cosmetic: Cosmetic.TroupeGreeterBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteWelcome3,
 				cost: { seasonalCandles: 10 },
@@ -44,6 +47,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TroupeGreeterBlessing1,
 				cost: { candles: 5 },
 			},
@@ -69,6 +73,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TroupeGreeterBlessing2,
 				cost: { candles: 5 },
 			},

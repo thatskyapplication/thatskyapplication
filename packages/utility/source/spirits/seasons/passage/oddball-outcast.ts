@@ -19,8 +19,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.OddballOutcastHair,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.OddballOutcastBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.OddballOutcastBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.OddballOutcastBlessing2,
 				cost: { seasonalCandles: 18 },
 			},
@@ -36,7 +40,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.OddballOutcastOutfit,
 				cost: { seasonalCandles: 32 },
 			},
-			{ cosmetic: Cosmetic.OddballOutcastBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.OddballOutcastBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.OddballOutcastSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -49,6 +56,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.OddballOutcastBlessing1,
 				cost: { candles: 5 },
 			},
@@ -74,6 +82,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.OddballOutcastBlessing2,
 				cost: { candles: 5 },
 			},

@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -10,6 +10,7 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.NestingSolariumBlessing1,
 				cost: { seasonalCandles: 14 },
 			},
@@ -18,8 +19,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.NestingSolariumProp2,
 				cost: { seasonalCandles: 22 },
 			},
-			{ cosmetic: Cosmetic.NestingSolariumBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.NestingSolariumBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.NestingSolariumBlessing3,
 				cost: { seasonalCandles: 30 },
 			},
@@ -28,7 +33,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.NestingSolariumProp4,
 				cost: { seasonalCandles: 34 },
 			},
-			{ cosmetic: Cosmetic.NestingSolariumBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.NestingSolariumBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.NestingSolariumSeasonalHeart,
 				cost: { seasonalCandles: 3 },

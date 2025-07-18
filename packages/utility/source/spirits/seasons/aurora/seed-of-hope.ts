@@ -16,6 +16,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteRhythmicClap1 },
 			{ cosmetic: Cosmetic.EmoteRhythmicClap2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SeedOfHopeBlessing1,
 				cost: { seasonalCandles: 8 },
 			},
@@ -24,7 +25,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SeedOfHopeMusicSheet,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.SeedOfHopeBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.SeedOfHopeBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteRhythmicClap3,
 				cost: { seasonalCandles: 16 },
@@ -34,8 +38,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SeedOfHopeHair,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.SeedOfHopeBlessing3 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.SeedOfHopeBlessing3,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
 				cosmetic: Cosmetic.SeedOfHopeBlessing4,
 				cost: { seasonalCandles: 26 },
 			},
@@ -49,6 +57,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteRhythmicClap1 },
 			{ cosmetic: Cosmetic.EmoteRhythmicClap2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SeedOfHopeBlessing1,
 				cost: { candles: 5 },
 			},
@@ -71,7 +80,11 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SeedOfHopeHair,
 				cost: { candles: 40 },
 			},
-			{ cosmetic: Cosmetic.SeedOfHopeBlessing2, cost: { candles: 5 } },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.SeedOfHopeBlessing2,
+				cost: { candles: 5 },
+			},
 			{
 				cosmetic: Cosmetic.SeedOfHopeMusicSheet,
 				cost: { candles: 15 },

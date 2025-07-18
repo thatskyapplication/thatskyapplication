@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.StanceTinker },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TinkeringChimesmithBlessing1,
 				cost: { seasonalCandles: 16 },
 			},
@@ -26,7 +27,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.TinkeringChimesmithHairAccessory,
 				cost: { seasonalCandles: 22 },
 			},
-			{ cosmetic: Cosmetic.TinkeringChimesmithBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.TinkeringChimesmithBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.TinkeringChimesmithTrailSpell1,
 				cost: { seasonalCandles: 26 },
@@ -47,6 +51,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.StanceTinker },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TinkeringChimesmithBlessing1,
 				cost: { candles: 5 },
 			},
@@ -64,6 +69,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TinkeringChimesmithBlessing2,
 				cost: { candles: 5 },
 			},

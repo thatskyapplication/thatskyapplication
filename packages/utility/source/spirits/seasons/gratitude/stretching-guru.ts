@@ -21,13 +21,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.StretchingGuruHair,
 				cost: { seasonalCandles: 6 },
 			},
-			{ cosmetic: Cosmetic.StretchingGuruBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.StretchingGuruBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteYoga3,
 				cost: { seasonalCandles: 8 },
 			},
 			{ cosmetic: Cosmetic.EmoteYoga4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.StretchingGuruBlessing2,
 				cost: { seasonalCandles: 10 },
 			},
@@ -40,6 +44,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteYoga1 },
 			{ cosmetic: Cosmetic.EmoteYoga2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.StretchingGuruBlessing1,
 				cost: { candles: 5 },
 			},
@@ -59,6 +64,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteYoga3, cost: { hearts: 3 } },
 			{ cosmetic: Cosmetic.EmoteYoga4, cost: { hearts: 6 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.StretchingGuruBlessing2,
 				cost: { candles: 5 },
 			},

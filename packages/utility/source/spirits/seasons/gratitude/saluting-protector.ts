@@ -21,7 +21,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SalutingProtectorMusicSheet,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.SalutingProtectorBlessing1 },
+			{
+				translation: CosmeticCommon.Blessing,
+				cosmetic: Cosmetic.SalutingProtectorBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteAcknowledge3,
 				cost: { seasonalCandles: 18 },
@@ -43,6 +46,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SalutingProtectorBlessing1,
 				cost: { candles: 5 },
 			},
@@ -68,6 +72,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SalutingProtectorBlessing2,
 				cost: { candles: 5 },
 			},

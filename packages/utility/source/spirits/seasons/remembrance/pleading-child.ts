@@ -19,8 +19,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.PleadingChildNeckAccessory,
 				cost: { seasonalCandles: 16 },
 			},
-			{ cosmetic: Cosmetic.PleadingChildBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.PleadingChildBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PleadingChildBlessing2,
 				cost: { seasonalCandles: 20 },
 			},
@@ -34,7 +38,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.PleadingChildOutfit,
 				cost: { seasonalCandles: 36 },
 			},
-			{ cosmetic: Cosmetic.PleadingChildBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.PleadingChildBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.PleadingChildSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -47,6 +54,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.PleadingChildBlessing1,
 				cost: { candles: 5 },
 			},
@@ -72,6 +80,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PleadingChildBlessing2,
 				cost: { candles: 5 },
 			},

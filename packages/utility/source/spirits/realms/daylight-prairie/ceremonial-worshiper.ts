@@ -13,6 +13,7 @@ export default new StandardSpirit({
 		current: [
 			{ cosmetic: Cosmetic.EmoteTeamwork },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CeremonialWorshipperBlessing1,
 				cost: { candles: 1 },
 			},
@@ -26,6 +27,7 @@ export default new StandardSpirit({
 				cost: { ascendedCandles: 1 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CeremonialWorshipperBlessing2,
 				cost: { candles: 5 },
 			},

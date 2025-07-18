@@ -20,7 +20,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ScaredyCadetMask,
 				cost: { seasonalCandles: 5 },
 			},
-			{ cosmetic: Cosmetic.ScaredyCadetBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.ScaredyCadetBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteEww3,
 				cost: { seasonalCandles: 10 },
@@ -35,7 +38,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ScaredyCadetHammock,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.ScaredyCadetBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ScaredyCadetBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.ScaredyCadetSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -45,6 +51,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteEww1 },
 			{ cosmetic: Cosmetic.EmoteEww2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ScaredyCadetBlessing1,
 				cost: { candles: 5 },
 			},
@@ -68,6 +75,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ScaredyCadetBlessing2,
 				cost: { candles: 5 },
 			},

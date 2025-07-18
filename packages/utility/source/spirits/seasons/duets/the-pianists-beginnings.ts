@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -10,6 +10,7 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ThePianistsBeginningsBlessing1,
 				cost: { seasonalCandles: 14 },
 			},
@@ -20,8 +21,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ThePianistsBeginningsHair,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.ThePianistsBeginningsBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ThePianistsBeginningsBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.ThePianistsBeginningsBlessing3,
 				cost: { seasonalCandles: 24 },
 			},
@@ -30,7 +35,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ThePianistsBeginningsProp2,
 				cost: { seasonalCandles: 30 },
 			},
-			{ cosmetic: Cosmetic.ThePianistsBeginningsBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.ThePianistsBeginningsBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.ThePianistsBeginningsSeasonalHeart,
 				cost: { seasonalCandles: 3 },

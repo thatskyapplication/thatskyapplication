@@ -19,6 +19,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteFacepalm1 },
 			{ cosmetic: Cosmetic.EmoteFacepalm2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BaffledBotanistBlessing1,
 				cost: { seasonalCandles: 10 },
 			},
@@ -32,8 +33,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.BaffledBotanistMask,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.BaffledBotanistBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.BaffledBotanistBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.BaffledBotanistBlessing3,
 				cost: { seasonalCandles: 16 },
 			},
@@ -50,6 +55,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BaffledBotanistBlessing1,
 				cost: { candles: 5 },
 			},
@@ -79,6 +85,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 45 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BaffledBotanistBlessing2,
 				cost: { candles: 5 },
 			},

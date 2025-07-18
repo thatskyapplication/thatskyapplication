@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteStretch1 },
 			{ cosmetic: Cosmetic.EmoteStretch2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.StretchingLamplighterBlessing1,
 				cost: { seasonalCandles: 10 },
 			},
@@ -30,7 +31,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.StretchingLamplighterCape,
 				cost: { seasonalCandles: 22 },
 			},
-			{ cosmetic: Cosmetic.StretchingLamplighterBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.StretchingLamplighterBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.StretchingLamplighterSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -47,6 +51,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.StretchingLamplighterBlessing1,
 				cost: { candles: 5 },
 			},
@@ -68,6 +73,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.StretchingLamplighterBlessing2,
 				cost: { candles: 5 },
 			},

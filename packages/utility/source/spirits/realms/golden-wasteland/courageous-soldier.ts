@@ -17,6 +17,7 @@ export default new StandardSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CourageousSoldierBlessing1,
 				cost: { candles: 1 },
 			},
@@ -30,6 +31,7 @@ export default new StandardSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CourageousSoldierBlessing2,
 				cost: { candles: 5 },
 			},

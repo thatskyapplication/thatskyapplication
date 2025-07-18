@@ -20,13 +20,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.StarCollectorNecktie,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.StarCollectorBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.StarCollectorBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteHandRub3,
 				cost: { seasonalCandles: 16 },
 			},
 			{ cosmetic: Cosmetic.EmoteHandRub4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.StarCollectorBlessing2,
 				cost: { seasonalCandles: 20 },
 			},
@@ -35,7 +39,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.StarCollectorProp,
 				cost: { seasonalCandles: 24 },
 			},
-			{ cosmetic: Cosmetic.StarCollectorBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.StarCollectorBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.StarCollectorSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -52,6 +59,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.StarCollectorBlessing1,
 				cost: { candles: 5 },
 			},
@@ -73,6 +81,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.StarCollectorBlessing2,
 				cost: { candles: 5 },
 			},

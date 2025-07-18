@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.FriendActionSideHug1 },
 			{ cosmetic: Cosmetic.FriendActionSideHug2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ReassuringRangerBlessing1,
 				cost: { seasonalCandles: 16 },
 			},
@@ -27,8 +28,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ReassuringRangerMask,
 				cost: { seasonalCandles: 26 },
 			},
-			{ cosmetic: Cosmetic.ReassuringRangerBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ReassuringRangerBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.ReassuringRangerBlessing3,
 				cost: { seasonalCandles: 30 },
 			},
@@ -37,7 +42,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ReassuringRangerHairAccessory,
 				cost: { seasonalCandles: 36 },
 			},
-			{ cosmetic: Cosmetic.ReassuringRangerBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.ReassuringRangerBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.ReassuringRangerSeasonalHeart,
 				cost: { seasonalCandles: 3 },

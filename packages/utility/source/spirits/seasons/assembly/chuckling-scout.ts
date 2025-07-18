@@ -21,13 +21,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ChucklingScoutMask,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.ChucklingScoutBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.ChucklingScoutBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteChuckle3,
 				cost: { seasonalCandles: 14 },
 			},
 			{ cosmetic: Cosmetic.EmoteChuckle4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ChucklingScoutBlessing2,
 				cost: { seasonalCandles: 17 },
 			},
@@ -36,7 +40,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ChucklingScoutProp,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.ChucklingScoutBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.ChucklingScoutBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.ChucklingScoutSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -49,6 +56,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ChucklingScoutBlessing1,
 				cost: { candles: 5 },
 			},
@@ -78,6 +86,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 46 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ChucklingScoutBlessing2,
 				cost: { candles: 5 },
 			},

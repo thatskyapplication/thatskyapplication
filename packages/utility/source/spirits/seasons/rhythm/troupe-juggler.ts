@@ -25,6 +25,7 @@ export default new SeasonalSpirit({
 				cost: { seasonalCandles: 12 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TroupeJugglerBlessing1,
 			},
 			{
@@ -35,6 +36,7 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.EmoteJuggle4,
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TroupeJugglerBlessing2,
 				cost: { seasonalCandles: 16 },
 			},
@@ -44,6 +46,7 @@ export default new SeasonalSpirit({
 				cost: { seasonalCandles: 18 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.TroupeJugglerBlessing3,
 			},
 			{
@@ -64,6 +67,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 14 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TroupeJugglerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -89,6 +93,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TroupeJugglerBlessing2,
 				cost: { candles: 5 },
 			},

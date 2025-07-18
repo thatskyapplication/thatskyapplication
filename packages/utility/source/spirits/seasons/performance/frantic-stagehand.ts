@@ -15,6 +15,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.FriendActionHandshake1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.FranticStagehandBlessing1,
 				cost: { seasonalCandles: 10 },
 			},
@@ -23,8 +24,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.FranticStagehandMusicSheet,
 				cost: { seasonalCandles: 22 },
 			},
-			{ cosmetic: Cosmetic.FranticStagehandBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.FranticStagehandBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.FranticStagehandBlessing3,
 				cost: { seasonalCandles: 26 },
 			},
@@ -46,6 +51,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 22 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.FranticStagehandBlessing1,
 				cost: { candles: 5 },
 			},
@@ -62,7 +68,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.FranticStagehandWingBuff,
 				cost: { ascendedCandles: 2 },
 			},
-			{ cosmetic: Cosmetic.FranticStagehandBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.FranticStagehandBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.FriendActionHandshake2,
 				cost: { hearts: 8 },

@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -20,8 +20,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.PrincessMask,
 				cost: { seasonalCandles: 8 },
 			},
-			{ cosmetic: Cosmetic.PrincessBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.PrincessBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.PrincessBlessing2,
 				cost: { seasonalCandles: 18 },
 			},
@@ -35,8 +39,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.PrincessOutfit,
 				cost: { seasonalCandles: 26 },
 			},
-			{ cosmetic: Cosmetic.PrincessBlessing3 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.PrincessBlessing3,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
 				cosmetic: Cosmetic.PrincessBlessing4,
 				cost: { seasonalCandles: 32 },
 			},

@@ -19,6 +19,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteSlouch1 },
 			{ cosmetic: Cosmetic.EmoteSlouch2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SlouchingSoldierBlessing1,
 				cost: { seasonalCandles: 10 },
 			},
@@ -29,6 +30,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteSlouch4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SlouchingSoldierBlessing2,
 				cost: { seasonalCandles: 18 },
 			},
@@ -37,7 +39,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.SlouchingSoldierCape,
 				cost: { seasonalCandles: 22 },
 			},
-			{ cosmetic: Cosmetic.SlouchingSoldierBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.SlouchingSoldierBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.SlouchingSoldierSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -54,6 +59,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.SlouchingSoldierBlessing1,
 				cost: { candles: 5 },
 			},
@@ -79,6 +85,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.SlouchingSoldierBlessing2,
 				cost: { candles: 5 },
 			},

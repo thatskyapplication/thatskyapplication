@@ -20,8 +20,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.WarriorOfLoveMask,
 				cost: { seasonalCandles: 6 },
 			},
-			{ cosmetic: Cosmetic.WarriorOfLoveBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.WarriorOfLoveBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.WarriorOfLoveBlessing2,
 				cost: { seasonalCandles: 12 },
 			},
@@ -35,8 +39,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
 				cost: { seasonalCandles: 24 },
 			},
-			{ cosmetic: Cosmetic.WarriorOfLoveBlessing3 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.WarriorOfLoveBlessing3,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
 				cosmetic: Cosmetic.WarriorOfLoveBlessing4,
 				cost: { seasonalCandles: 30 },
 			},
@@ -53,6 +61,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.WarriorOfLoveBlessing1,
 				cost: { candles: 5 },
 			},
@@ -82,6 +91,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 40 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.WarriorOfLoveBlessing2,
 				cost: { candles: 5 },
 			},

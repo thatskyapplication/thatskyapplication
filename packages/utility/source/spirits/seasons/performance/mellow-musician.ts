@@ -20,8 +20,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.MellowMusicianMask,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.MellowMusicianBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.MellowMusicianBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.MellowMusicianBlessing2,
 				cost: { seasonalCandles: 14 },
 			},
@@ -32,6 +36,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteHeadbob4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.MellowMusicianBlessing3,
 				cost: { seasonalCandles: 22 },
 			},
@@ -40,7 +45,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.MellowMusicianHair,
 				cost: { seasonalCandles: 36 },
 			},
-			{ cosmetic: Cosmetic.MellowMusicianBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.MellowMusicianBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.MellowMusicianSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -53,6 +61,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.MellowMusicianBlessing1,
 				cost: { candles: 5 },
 			},
@@ -82,6 +91,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 70 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.MellowMusicianBlessing2,
 				cost: { candles: 5 },
 			},

@@ -17,16 +17,19 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.FriendActionBearhug1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BearhugHermitBlessing1,
 				cost: { seasonalCandles: 13 },
 			},
 			{ cosmetic: Cosmetic.BearhugHermitRedHorns },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BearhugHermitBlessing2,
 				cost: { seasonalCandles: 18 },
 			},
 			{ cosmetic: Cosmetic.BearhugHermitMusicSheet },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.BearhugHermitBlessing3,
 				cost: { seasonalCandles: 23 },
 			},
@@ -48,6 +51,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.BearhugHermitBlessing1,
 				cost: { candles: 5 },
 			},
@@ -65,6 +69,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BearhugHermitBlessing2,
 				cost: { candles: 5 },
 			},

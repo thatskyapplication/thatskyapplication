@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteThinking1 },
 			{ cosmetic: Cosmetic.EmoteThinking2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ThoughtfulDirectorBlessing1,
 				cost: { seasonalCandles: 16 },
 			},
@@ -30,8 +31,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ThoughtfulDirectorXylophone,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.ThoughtfulDirectorBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ThoughtfulDirectorBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.ThoughtfulDirectorBlessing3,
 				cost: { seasonalCandles: 22 },
 			},
@@ -48,6 +53,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ThoughtfulDirectorBlessing1,
 				cost: { candles: 5 },
 			},
@@ -73,6 +79,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ThoughtfulDirectorBlessing2,
 				cost: { candles: 5 },
 			},

@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteBoo1 },
 			{ cosmetic: Cosmetic.EmoteBoo2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ScarecrowFarmerBlessing1,
 				cost: { seasonalCandles: 8 },
 			},
@@ -31,7 +32,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ScarecrowFarmerHair,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.ScarecrowFarmerBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.ScarecrowFarmerBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.ScarecrowFarmerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -41,6 +45,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteBoo1 },
 			{ cosmetic: Cosmetic.EmoteBoo2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ScarecrowFarmerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -63,6 +68,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ScarecrowFarmerBlessing2,
 				cost: { candles: 5 },
 			},

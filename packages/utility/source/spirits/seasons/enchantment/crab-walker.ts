@@ -22,13 +22,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.CrabWalkerHair,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.CrabWalkerBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.CrabWalkerBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteCrabWalk3,
 				cost: { seasonalCandles: 14 },
 			},
 			{ cosmetic: Cosmetic.EmoteCrabWalk4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CrabWalkerBlessing2,
 				cost: { seasonalCandles: 16 },
 			},
@@ -45,6 +49,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.CrabWalkerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -70,6 +75,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.CrabWalkerBlessing2,
 				cost: { candles: 5 },
 			},

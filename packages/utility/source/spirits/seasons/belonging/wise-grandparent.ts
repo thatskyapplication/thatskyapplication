@@ -16,21 +16,30 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.StanceWise },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.WiseGrandparentBlessing1,
 				cost: { seasonalCandles: 10 },
 			},
 			{ cosmetic: Cosmetic.WiseGrandparentMusicSheet },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.WiseGrandparentBlessing2,
 				cost: { seasonalCandles: 12 },
 			},
-			{ cosmetic: Cosmetic.WiseGrandparentBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.WiseGrandparentBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.WiseGrandparentMask,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.WiseGrandparentBlessing4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.WiseGrandparentBlessing4,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
 				cosmetic: Cosmetic.WiseGrandparentBlessing5,
 				cost: { seasonalCandles: 16 },
 			},
@@ -51,6 +60,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.WiseGrandparentBlessing1,
 				cost: { candles: 5 },
 			},
@@ -60,6 +70,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.WiseGrandparentBlessing2,
 				cost: { candles: 5 },
 			},

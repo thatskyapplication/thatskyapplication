@@ -20,8 +20,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.LaidbackPioneerMask,
 				cost: { seasonalCandles: 6 },
 			},
-			{ cosmetic: Cosmetic.LaidbackPioneerBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.LaidbackPioneerBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.LaidbackPioneerBlessing2,
 				cost: { seasonalCandles: 8 },
 			},
@@ -30,8 +34,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.LaidbackPioneerHair,
 				cost: { seasonalCandles: 10 },
 			},
-			{ cosmetic: Cosmetic.LaidbackPioneerBlessing3 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.LaidbackPioneerBlessing3,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
 				cosmetic: Cosmetic.LaidbackPioneerBlessing4,
 				cost: { seasonalCandles: 20 },
 			},
@@ -40,6 +48,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.StanceLaidback },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.LaidbackPioneerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -57,6 +66,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.LaidbackPioneerBlessing2,
 				cost: { candles: 5 },
 			},

@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteShowDance1 },
 			{ cosmetic: Cosmetic.EmoteShowDance2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.DancingPerformerBlessing1,
 				cost: { seasonalCandles: 12 },
 			},
@@ -27,6 +28,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteShowDance4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.DancingPerformerBlessing2,
 				cost: { seasonalCandles: 21 },
 			},
@@ -48,6 +50,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.DancingPerformerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -77,6 +80,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 48 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.DancingPerformerBlessing2,
 				cost: { candles: 5 },
 			},

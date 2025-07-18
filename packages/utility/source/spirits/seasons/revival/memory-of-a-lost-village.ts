@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -10,6 +10,7 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.MemoryOfALostVillageBlessing1,
 				cost: { seasonalCandles: 20 },
 			},
@@ -18,8 +19,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.MemoryOfALostVillageOutfit,
 				cost: { seasonalCandles: 32 },
 			},
-			{ cosmetic: Cosmetic.MemoryOfALostVillageBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.MemoryOfALostVillageBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.MemoryOfALostVillageBlessing3,
 				cost: { seasonalCandles: 38 },
 			},

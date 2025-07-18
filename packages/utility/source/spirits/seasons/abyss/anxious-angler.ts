@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteAnxious1 },
 			{ cosmetic: Cosmetic.EmoteAnxious2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.AnxiousAnglerBlessing1,
 				cost: { seasonalCandles: 8 },
 			},
@@ -25,13 +26,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.AnxiousAnglerHair,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.AnxiousAnglerBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.AnxiousAnglerBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteAnxious3,
 				cost: { seasonalCandles: 18 },
 			},
 			{ cosmetic: Cosmetic.EmoteAnxious4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.AnxiousAnglerBlessing3,
 				cost: { seasonalCandles: 22 },
 			},
@@ -40,7 +45,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.AnxiousAnglerOutfit,
 				cost: { seasonalCandles: 38 },
 			},
-			{ cosmetic: Cosmetic.AnxiousAnglerBlessing4 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+				cosmetic: Cosmetic.AnxiousAnglerBlessing4,
+			},
 			{
 				cosmetic: Cosmetic.AnxiousAnglerSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -53,6 +61,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.AnxiousAnglerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -82,6 +91,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 35 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.AnxiousAnglerBlessing2,
 				cost: { candles: 5 },
 			},

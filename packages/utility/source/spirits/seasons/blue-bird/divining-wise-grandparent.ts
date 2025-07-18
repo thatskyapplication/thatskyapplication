@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -20,7 +20,7 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.DiviningWiseGrandparentFaceAccessory,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.DiviningWiseGrandparentBlessing },
+			{ translation: CosmeticCommon.Blessing, cosmetic: Cosmetic.DiviningWiseGrandparentBlessing },
 			{
 				cosmetic: Cosmetic.DiviningWiseGrandparentBlueDye,
 				cost: { seasonalCandles: 17 },

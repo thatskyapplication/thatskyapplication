@@ -452,7 +452,9 @@ interface ItemRawTranslation {
 }
 
 interface ItemRawSingleCosmetic {
-	translation?: Exclude<CosmeticCommon, CosmeticCommon.WingBuffMultiple> | ItemRawTranslation;
+	translation?:
+		| Exclude<CosmeticCommon, CosmeticCommon.WingBuffMultiple | CosmeticCommon.BlessingMultiple>
+		| ItemRawTranslation;
 	cosmetic: Cosmetic;
 	cost?: ItemCostRaw;
 }

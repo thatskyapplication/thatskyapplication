@@ -3040,6 +3040,8 @@ export enum Cosmetic {
 export enum CosmeticCommon {
 	WingBuff = 0,
 	WingBuffMultiple = 1,
+	Blessing = 2,
+	BlessingMultiple = 3,
 }
 
 export const WING_BUFFS = [

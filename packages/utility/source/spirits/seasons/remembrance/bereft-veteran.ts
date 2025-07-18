@@ -20,8 +20,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.BereftVeteranMask,
 				cost: { seasonalCandles: 6 },
 			},
-			{ cosmetic: Cosmetic.BereftVeteranBlessing1 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.BereftVeteranBlessing1,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BereftVeteranBlessing2,
 				cost: { seasonalCandles: 18 },
 			},
@@ -35,7 +39,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.BereftVeteranCape,
 				cost: { seasonalCandles: 34 },
 			},
-			{ cosmetic: Cosmetic.BereftVeteranBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.BereftVeteranBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.BereftVeteranSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -44,7 +51,12 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.EmoteGrieving1 },
 			{ cosmetic: Cosmetic.EmoteGrieving2, cost: { hearts: 4 } },
-			{ cosmetic: Cosmetic.BereftVeteranBlessing1, cost: { candles: 5 } },
+
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.BereftVeteranBlessing1,
+				cost: { candles: 5 },
+			},
 			{
 				cosmetic: Cosmetic.BereftVeteranMask,
 				cost: { candles: 35 },
@@ -65,6 +77,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteGrieving4, cost: { hearts: 6 } },
 
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.BereftVeteranBlessing2,
 				cost: { candles: 5 },
 			},

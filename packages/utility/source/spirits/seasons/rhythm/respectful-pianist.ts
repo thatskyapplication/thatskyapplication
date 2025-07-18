@@ -21,13 +21,17 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.RespectfulPianistHair,
 				cost: { seasonalCandles: 14 },
 			},
-			{ cosmetic: Cosmetic.RespectfulPianistBlessing1 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+				cosmetic: Cosmetic.RespectfulPianistBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteRespect3,
 				cost: { seasonalCandles: 16 },
 			},
 			{ cosmetic: Cosmetic.EmoteRespect4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.RespectfulPianistBlessing2,
 				cost: { seasonalCandles: 18 },
 			},
@@ -36,7 +40,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.RespectfulPianistMask,
 				cost: { seasonalCandles: 20 },
 			},
-			{ cosmetic: Cosmetic.RespectfulPianistBlessing3 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+				cosmetic: Cosmetic.RespectfulPianistBlessing3,
+			},
 			{
 				cosmetic: Cosmetic.RespectfulPianistSeasonalHeart,
 				cost: { seasonalCandles: 3 },
@@ -49,6 +56,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.RespectfulPianistBlessing1,
 				cost: { candles: 5 },
 			},
@@ -74,6 +82,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.RespectfulPianistBlessing2,
 				cost: { candles: 5 },
 			},

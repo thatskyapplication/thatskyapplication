@@ -13,8 +13,12 @@ export default [
 					cosmetic: Cosmetic.AncientDarknessPlantHairAccessory,
 					cost: { seasonalCandles: 27 },
 				},
-				{ cosmetic: Cosmetic.AncientDarknessPlantBlessing1 },
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.AncientDarknessPlantBlessing1,
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.AncientDarknessPlantBlessing2,
 					cost: { seasonalCandles: 16 },
 				},
@@ -23,8 +27,12 @@ export default [
 					cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
 					cost: { seasonalCandles: 35 },
 				},
-				{ cosmetic: Cosmetic.AncientDarknessPlantBlessing3 },
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.AncientDarknessPlantBlessing3,
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
 					cosmetic: Cosmetic.AncientDarknessPlantBlessing4,
 					cost: { seasonalCandles: 16 },
 				},
@@ -36,6 +44,7 @@ export default [
 			],
 			current: [
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 					cosmetic: Cosmetic.AncientDarknessPlantBlessing1,
 					cost: { candles: 5 },
 				},
@@ -48,6 +57,7 @@ export default [
 					cost: { candles: 3 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.AncientDarknessPlantBlessing2,
 					cost: { candles: 5 },
 				},
@@ -61,6 +71,7 @@ export default [
 					cost: { ascendedCandles: 2 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 					cosmetic: Cosmetic.AncientDarknessPlantBlessing3,
 					cost: { candles: 5 },
 				},
@@ -87,8 +98,12 @@ export default [
 					cosmetic: Cosmetic.AncientDarknessDragonNeckAccessory,
 					cost: { seasonalCandles: 35 },
 				},
-				{ cosmetic: Cosmetic.AncientDarknessDragonBlessing1 },
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.AncientDarknessDragonBlessing1,
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.AncientDarknessDragonBlessing2,
 					cost: { seasonalCandles: 16 },
 				},
@@ -97,7 +112,10 @@ export default [
 					cosmetic: Cosmetic.AncientDarknessDragonHair,
 					cost: { seasonalCandles: 42 },
 				},
-				{ cosmetic: Cosmetic.AncientDarknessDragonBlessing3 },
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.AncientDarknessDragonBlessing3,
+				},
 				{
 					cosmetic: Cosmetic.AncientDarknessDragonSeasonalHeart,
 					cost: { seasonalCandles: 3 },
@@ -105,6 +123,7 @@ export default [
 			],
 			current: [
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 					cosmetic: Cosmetic.AncientDarknessDragonBlessing1,
 					cost: { candles: 5 },
 				},
@@ -117,6 +136,7 @@ export default [
 					cost: { candles: 3 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.AncientDarknessDragonBlessing2,
 					cost: { candles: 5 },
 				},
@@ -126,6 +146,7 @@ export default [
 					cost: { ascendedCandles: 2 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 					cosmetic: Cosmetic.AncientDarknessDragonBlessing3,
 					cost: { candles: 5 },
 				},

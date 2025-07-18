@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteChestPound1 },
 			{ cosmetic: Cosmetic.EmoteChestPound2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ProphetOfFireBlessing1,
 				cost: { seasonalCandles: 13 },
 			},
@@ -27,6 +28,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteChestPound4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ProphetOfFireBlessing2,
 				cost: { seasonalCandles: 23 },
 			},
@@ -52,6 +54,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ProphetOfFireBlessing1,
 				cost: { candles: 5 },
 			},
@@ -81,6 +84,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ProphetOfFireBlessing2,
 				cost: { candles: 5 },
 			},

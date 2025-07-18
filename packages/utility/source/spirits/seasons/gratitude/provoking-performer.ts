@@ -22,7 +22,10 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.ProvokingPerformerMusicSheet,
 				cost: { seasonalCandles: 10 },
 			},
-			{ cosmetic: Cosmetic.ProvokingPerformerBlessing1 },
+			{
+				translation: CosmeticCommon.Blessing,
+				cosmetic: Cosmetic.ProvokingPerformerBlessing1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteKabuki3,
 				cost: { seasonalCandles: 12 },
@@ -44,6 +47,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.ProvokingPerformerBlessing1,
 				cost: { candles: 5 },
 			},
@@ -69,6 +73,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.ProvokingPerformerBlessing2,
 				cost: { candles: 5 },
 			},

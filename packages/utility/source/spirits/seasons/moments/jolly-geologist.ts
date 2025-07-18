@@ -27,10 +27,14 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteJollyDance4 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.JollyGeologistBlessing1,
 				cost: { seasonalCandles: 28 },
 			},
-			{ cosmetic: Cosmetic.JollyGeologistBlessing2 },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.JollyGeologistBlessing2,
+			},
 			{
 				cosmetic: Cosmetic.JollyGeologistMusicSheet,
 				cost: { seasonalCandles: 34 },
@@ -45,6 +49,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteJollyDance1 },
 			{ cosmetic: Cosmetic.EmoteJollyDance2, cost: { hearts: 4 } },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.JollyGeologistBlessing1,
 				cost: { candles: 5 },
 			},
@@ -63,7 +68,11 @@ export default new SeasonalSpirit({
 				cost: { hearts: 3 },
 			},
 			{ cosmetic: Cosmetic.EmoteJollyDance4, cost: { hearts: 6 } },
-			{ cosmetic: Cosmetic.JollyGeologistBlessing2, cost: { candles: 5 } },
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.JollyGeologistBlessing2,
+				cost: { candles: 5 },
+			},
 			{
 				cosmetic: Cosmetic.JollyGeologistFaceAccessory,
 				cost: { candles: 42 },

@@ -17,6 +17,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			{ cosmetic: Cosmetic.StanceTimid },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TimidBookwormBlessing1,
 				cost: { seasonalCandles: 8 },
 			},
@@ -25,8 +26,12 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.TimidBookwormHair,
 				cost: { seasonalCandles: 10 },
 			},
-			{ cosmetic: Cosmetic.TimidBookwormBlessing2 },
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+				cosmetic: Cosmetic.TimidBookwormBlessing2,
+			},
+			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 				cosmetic: Cosmetic.TimidBookwormBlessing3,
 				cost: { seasonalCandles: 12 },
 			},
@@ -43,6 +48,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 15 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 				cosmetic: Cosmetic.TimidBookwormBlessing1,
 				cost: { candles: 5 },
 			},
@@ -60,6 +66,7 @@ export default new SeasonalSpirit({
 				cost: { ascendedCandles: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.TimidBookwormBlessing2,
 				cost: { candles: 5 },
 			},
