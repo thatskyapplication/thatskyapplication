@@ -4,7 +4,7 @@ import {
 	type RESTGetAPICurrentUserGuildsResult,
 } from "@discordjs/core/http-only";
 import type { LoaderFunctionArgs } from "@remix-run/node";
-import { data, redirect } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Server, Settings } from "lucide-react";
 import { useState } from "react";
@@ -34,7 +34,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 		const guilds = (await response.json()) as RESTGetAPICurrentUserGuildsResult;
 
-		return data({
+		return {
 			guilds: guilds.reduce<RESTAPIPartialCurrentUserGuild[]>((guilds, guild) => {
 				if (
 					(BigInt(guild.permissions) & PermissionFlagsBits.Administrator) ===
@@ -45,10 +45,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 				return guilds;
 			}, []),
-			error: false,
-		});
+		};
 	} catch {
-		return data({ guilds: [], error: true });
+		return { guilds: [], error: true };
 	}
 };
 
