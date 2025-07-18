@@ -76,7 +76,7 @@ export default {
 		if (ai) {
 			const { frequency } = ai;
 
-			if (data.mentions.find((user) => user.id === APPLICATION_ID)) {
+			if (data.mentions.some((user) => user.id === APPLICATION_ID)) {
 				await ai.respond(data, me, true);
 				return;
 			}
