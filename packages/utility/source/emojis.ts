@@ -7702,6 +7702,14 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AnniversaryCinemaPopcorn]: HELD_PROPS_EMOJIS.HeldProp54,
 		[Cosmetic.TGCWireframeCape]: CAPE_EMOJIS.Cape154,
 		[Cosmetic.JollyGeologistWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.ButterflyBlossomMemento]: null,
+		[Cosmetic.MiniManateeAccessory]: null,
+		[Cosmetic.ManateePlush]: null,
+		[Cosmetic.SpiritedManateeTail]: null,
+		[Cosmetic.SpiritedManateeHeadAccessory]: null,
+		[Cosmetic.VestigeOfDarkDragonsTail]: null,
+		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: null,
+		[Cosmetic.CloakOfDarkness]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {

@@ -3035,6 +3035,16 @@ export enum Cosmetic {
 
 	// 17/07/2025 | Travelling Spirit #145.
 	JollyGeologistWingBuff = 2411,
+
+	// 21/07/2025 | Season of The Two Embers - Part 1.
+	ButterflyBlossomMemento,
+	MiniManateeAccessory,
+	ManateePlush,
+	SpiritedManateeTail,
+	SpiritedManateeHeadAccessory,
+	VestigeOfDarkDragonsTail,
+	VestigeOfDarkDragonsHeadAccessory,
+	CloakOfDarkness,
 }
 
 export enum CosmeticCommon {
