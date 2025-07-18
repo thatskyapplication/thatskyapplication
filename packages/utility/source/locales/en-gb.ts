@@ -796,7 +796,7 @@ export default {
 			[SpiritId.WoodcuttingPleafulParent]: "Woodcutting Pleaful Parent",
 			[SpiritId.NostalgicSparklerParent]: "Nostalgic Sparkler Parent",
 			[SpiritId.RoyalHairtousleTeen]: "Royal Hairtousle Teen",
-			// @ts-expect-error New season not yet announced.
+			[SpiritId.VaultEldersLantern]: "Vault Elder's Lantern",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1056,7 +1056,8 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Nostalgic_Sparkler_Parent",
 			[SpiritId.RoyalHairtousleTeen]:
 				"https://sky-children-of-the-light.fandom.com/Royal_Hairtousle_Teen",
-			// @ts-expect-error New season not yet announced.
+			[SpiritId.VaultEldersLantern]:
+				"https://sky-children-of-the-light.fandom.com/Vault_Elder's_Lantern",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"cosmetic-common-names": {
 			[CosmeticCommon.WingBuff]: "Wing buff",

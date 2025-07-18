@@ -4,7 +4,7 @@ import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import twoEmbersGuide from "./two-embers-guide.js";
+import twoEmbersGuide from "./vault-elders-lantern.js";
 
 export default new Season({
 	id: SeasonId.TwoEmbersPart1,
