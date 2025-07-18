@@ -75,6 +75,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 				avatar: userData.avatar,
 			});
 
+			session.set("access_token", tokenData.access_token);
+
 			return redirect(storedReturnTo, {
 				headers: {
 					"Set-Cookie": await commitSession(session),
