@@ -2234,7 +2234,7 @@ export enum Cosmetic {
 	HopefulStewardQuest3 = 1816,
 	HopefulStewardHeart3 = 1817,
 
-	// 09/11/2023 | Version 0.23.4
+	// 09/11/2023 | Version 0.23.4.
 	/**
 	 * Unlocked by default.
 	 */
