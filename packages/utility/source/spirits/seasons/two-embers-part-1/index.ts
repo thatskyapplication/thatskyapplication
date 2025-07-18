@@ -3,6 +3,7 @@ import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
+import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import twoEmbersGuide from "./two-embers-guide.js";
 
 export default new Season({
@@ -51,4 +52,5 @@ export default new Season({
 			cost: { money: 14.99 },
 		},
 	],
+	patchNotesURL: String(new URL("p0300", LINK_REDIRECTOR_URL)),
 });
