@@ -3566,6 +3566,8 @@ export default {
 			"returning-spirits": "Returning Spirits",
 			"seasons-navigate-back": "Navigate back",
 			"seasons-navigate-forward": "Navigate forward",
+			"seasons-season-previous-season": "Previous season",
+			"seasons-season-next-season": "Next season",
 		},
 		data: {
 			"delete-message":

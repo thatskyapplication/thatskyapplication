@@ -1465,7 +1465,7 @@ export async function viewSeason(
 		type: ComponentType.Button,
 		custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`,
 		disabled: !before,
-		label: "Previous season",
+		label: t("catalogue.seasons-season-previous-season", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Secondary,
 	};
 
@@ -1473,7 +1473,7 @@ export async function viewSeason(
 		type: ComponentType.Button,
 		custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`,
 		disabled: !after,
-		label: "Next season",
+		label: t("catalogue.seasons-season-next-season", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Secondary,
 	};
 
