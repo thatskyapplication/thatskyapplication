@@ -100,7 +100,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 			client_id: APPLICATION_ID,
 			response_type: "code",
 			redirect_uri: REDIRECT_URI_LOGIN,
-			scope: "identify",
+			scope: "identify guilds",
 			state: oAuthState,
 		}),
 		{
