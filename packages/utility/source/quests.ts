@@ -236,6 +236,15 @@ export const DailyQuest = {
 	MeetUpWithTinkeringChimesmithInBirdNest: 234,
 	MeetUpWithLightWhispererInBirdNest: 235,
 	MeetUpWithLivelyNavigatorInBirdNest: 236,
+	PickUpACrab: 237,
+	AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile: 238,
+	JoinGratefulShellCollectorForSomeTea: 239,
+	JoinSparklerParentForSomeTea: 240,
+	JoinAsceticMonkForSomeTea: 241,
+	AdmireSharedSpacesWithApplaudingBellmaker: 242,
+	AdmireSharedSpacesWithDaydreamForester: 243,
+	AdmireSharedSpacesWithBearhugHermit: 244,
+	AdmireSharedSpacesWithBumblingBoatswain: 245,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
