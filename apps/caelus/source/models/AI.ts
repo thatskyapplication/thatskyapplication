@@ -152,7 +152,7 @@ export default class AI {
 	}
 
 	private static async upsert(guildId: AI["guildId"], data: AISetData) {
-		let ai = this.cache.find((cachedAI) => cachedAI.guildId === guildId);
+		let ai = this.cache.get(guildId);
 
 		const [aiPacket] = await pg<AIPacket>(Table.AI)
 			.insert({ ...data, guild_id: guildId }, "*")
