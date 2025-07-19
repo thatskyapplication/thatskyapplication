@@ -307,7 +307,16 @@
 			"233": "",
 			"234": "",
 			"235": "",
-			"236": ""
+			"236": "",
+			"237": "Prendre un crabe",
+			"238": "Admirer un instant les espaces partagés du clocher brisé au village volière",
+			"239": "Rejoindre la Collectionneuse de coquillages reconnaissante pour boire le thé",
+			"240": "Rejoindre la Parente étincelante pour admirer le koi",
+			"241": "Rejoindre le Moine ascétique pour une discussion profonde",
+			"242": "Admirer des espaces partagés avec la Fabricante de cloches applaudissant",
+			"243": "Admirer des espaces partagés avec le Forestier rêveur",
+			"244": "Admirer des espaces partagés avec le Yéti du câlin",
+			"245": "Admirer des espaces partagés avec le Maître d'équipage maladroit"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -335,7 +344,7 @@
 			"22": "Saison des Moomins",
 			"23": "Saison de l'Éclat",
 			"24": "Saison de l'Oiseau bleu",
-			"25": ""
+			"25": "Saison des Deux braises (partie 1)"
 		},
 		"season-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_la_Gratitude",
@@ -717,7 +726,13 @@
 			"182": "Grand-parent sage divinateur",
 			"183": "Parent suppliant bûcheron",
 			"184": "Parente étincelante nostalgique",
-			"185": "Adolescent ébouriffé royal"
+			"185": "Adolescent ébouriffé royal",
+			"186": "Lanterne de l'Ancien de la chambre forte",
+			"187": "Fabricant de jouets fraternel",
+			"188": "Compagnon attentionné",
+			"189": "Sentinelle marquée",
+			"190": "Berger sévère",
+			"191": "Reclus ingénieux"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -905,7 +920,13 @@
 			"182": "",
 			"183": "",
 			"184": "",
-			"185": ""
+			"185": "",
+			"186": "",
+			"187": "",
+			"188": "",
+			"189": "",
+			"190": "",
+			"191": ""
 		},
 		"cosmetic-common-names": {
 			"0": "",
@@ -2787,7 +2808,22 @@
 			"2407": "",
 			"2408": "",
 			"2409": "",
-			"2410": "Cape constellation TGC"
+			"2410": "Cape constellation TGC",
+			"2412": "Souvenir fleur papillon",
+			"2413": "Mini-accessoire lamantin",
+			"2414": "Peluche lamantin",
+			"2415": "",
+			"2416": "",
+			"2417": "",
+			"2418": "",
+			"2419": "Manteau de ténèbres",
+			"2420": "",
+			"2421": "",
+			"2422": "",
+			"2423": "",
+			"2424": "",
+			"2425": "",
+			"2426": "Cape de smoking anniversaire"
 		},
 		"timestamps": "Heures",
 		"view": "Voir",
@@ -3390,7 +3426,9 @@
 			"travelling-spirit": "",
 			"returning-spirits": "",
 			"seasons-navigate-back": "",
-			"seasons-navigate-forward": ""
+			"seasons-navigate-forward": "",
+			"seasons-season-previous-season": "",
+			"seasons-season-next-season": ""
 		},
 		"data": {
 			"delete-message": "",

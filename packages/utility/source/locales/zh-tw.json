@@ -307,7 +307,16 @@
 			"233": "與天才建築者在鳥巢見面",
 			"234": "與樂鐘修補匠在鳥巢見面",
 			"235": "與光之低語者在鳥巢見面",
-			"236": "與活躍導航員在鳥巢見面"
+			"236": "與活躍導航員在鳥巢見面",
+			"237": "抱起一隻暗蟹",
+			"238": "在雲巢破損鐘塔處，欣賞共享空間片刻",
+			"239": "與鳴謝收藏家一同品茗",
+			"240": "與火花家長一起欣賞鯉魚",
+			"241": "與苦行僧侶一起靜心散步",
+			"242": "與鼓掌鐘匠欣賞共享空間",
+			"243": "與白日夢森林人欣賞共享空間",
+			"244": "與熊抱雪人欣賞共享空間",
+			"245": "與笨拙的水手長欣賞共享空間"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -335,7 +344,7 @@
 			"22": "姆明季",
 			"23": "彩染季",
 			"24": "青羽季",
-			"25": ""
+			"25": "雙星季：暮星篇"
 		},
 		"season-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -717,7 +726,13 @@
 			"182": "占卜智慧長者",
 			"183": "伐木不捨家長",
 			"184": "懷舊火花家長",
-			"185": "尊貴蓬頭青年"
+			"185": "尊貴蓬頭青年",
+			"186": "禁閣長老之燈",
+			"187": "溫柔玩具匠",
+			"188": "知心夥伴",
+			"189": "刀疤士兵",
+			"190": "嚴厲牧牛人",
+			"191": "巧手隱士"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/Pointing_Candlemaker",
@@ -905,7 +920,13 @@
 			"182": "https://sky-children-of-the-light.fandom.com/Divining_Wise_Grandparent",
 			"183": "https://sky-children-of-the-light.fandom.com/Woodcutting_Pleaful_Parent",
 			"184": "https://sky-children-of-the-light.fandom.com/Nostalgic_Sparkler_Parent",
-			"185": "https://sky-children-of-the-light.fandom.com/Royal_Hairtousle_Teen"
+			"185": "https://sky-children-of-the-light.fandom.com/Royal_Hairtousle_Teen",
+			"186": "",
+			"187": "",
+			"188": "",
+			"189": "",
+			"190": "",
+			"191": ""
 		},
 		"cosmetic-common-names": {
 			"0": "",
@@ -2787,7 +2808,22 @@
 			"2407": "",
 			"2408": "",
 			"2409": "",
-			"2410": "TGC 線框紋斗篷"
+			"2410": "TGC 線框紋斗篷",
+			"2412": "蝴蝶綻放頭飾",
+			"2413": "迷你海牛飾品",
+			"2414": "海牛玩偶",
+			"2415": "",
+			"2416": "",
+			"2417": "",
+			"2418": "",
+			"2419": "冥闇披風",
+			"2420": "",
+			"2421": "",
+			"2422": "",
+			"2423": "",
+			"2424": "",
+			"2425": "",
+			"2426": "週年慶典燕尾斗篷"
 		},
 		"timestamps": "時間戳",
 		"view": "瀏覽",
@@ -3390,7 +3426,9 @@
 			"travelling-spirit": "旅行先靈",
 			"returning-spirits": "復刻先靈",
 			"seasons-navigate-back": "返回",
-			"seasons-navigate-forward": "下一頁"
+			"seasons-navigate-forward": "下一頁",
+			"seasons-season-previous-season": "",
+			"seasons-season-next-season": ""
 		},
 		"data": {
 			"delete-message": "您是否確定要刪除您的資料？此舉將會：\n- 刪除您的光子簡介\n- 刪除您的目錄\n- 刪除您曾經獲得/贈送的愛心記錄\n  - 以您的ID所贈送的愛心記錄，在其他人頁面上將以匿名方式呈現\n- 刪除您於猜謎遊戲的最長連勝記錄\n- 移除您的抽獎資訊\n- 移除您的翻譯員角色，若您曾獲得該角色",

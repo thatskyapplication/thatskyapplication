@@ -307,7 +307,16 @@
 			"233": "",
 			"234": "",
 			"235": "",
-			"236": ""
+			"236": "",
+			"237": "Recoge un cangrejo",
+			"238": "Admira los espacios compartidos del campanario destrozado de la aldea aviaria por un momento",
+			"239": "Únete al coleccionista de caracolas agradecida para tomar el té",
+			"240": "Únete a la madre iluminada para admirar los peces koi",
+			"241": "Únete al monje ascético para dar una caminata de retrospección",
+			"242": "Admira los espacios compartidos con la campanera que aplaude",
+			"243": "Admira los espacios compartidos con la guardabosques soñador",
+			"244": "Admira los espacios compartidos con la yeti abrazoso",
+			"245": "Admira los espacios compartidos con la contramaestre torpe"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -335,7 +344,7 @@
 			"22": "Temporada de los Mumins",
 			"23": "Temporada de resplandor",
 			"24": "Temporada del Pájaro Azul",
-			"25": ""
+			"25": "Temporada de Las Dos Brasas: Parte 1"
 		},
 		"season-wiki": {
 			"0": "",
@@ -717,7 +726,13 @@
 			"182": "Abuelo sabio adivinador",
 			"183": "Padre suplicante talador",
 			"184": "Madre iluminada nostálgica",
-			"185": "Adolescente despeinado de la realeza"
+			"185": "Adolescente despeinado de la realeza",
+			"186": "Farol del anciano de la bóveda",
+			"187": "Fabricante de juguetes sensible",
+			"188": "Compañero cariñoso",
+			"189": "Centinela herido",
+			"190": "Pastor austero",
+			"191": "Ermitaño ingenioso"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -905,7 +920,13 @@
 			"182": "",
 			"183": "",
 			"184": "",
-			"185": ""
+			"185": "",
+			"186": "",
+			"187": "",
+			"188": "",
+			"189": "",
+			"190": "",
+			"191": ""
 		},
 		"cosmetic-common-names": {
 			"0": "",
@@ -2787,7 +2808,22 @@
 			"2407": "",
 			"2408": "",
 			"2409": "",
-			"2410": "Capa esquemática de TGC"
+			"2410": "Capa esquemática de TGC",
+			"2412": "Recuerdo de flor de mariposa",
+			"2413": "Accesorio de minimanatí",
+			"2414": "Peluche de manatí",
+			"2415": "",
+			"2416": "",
+			"2417": "",
+			"2418": "",
+			"2419": "Capa de la oscuridad",
+			"2420": "",
+			"2421": "",
+			"2422": "",
+			"2423": "",
+			"2424": "",
+			"2425": "",
+			"2426": "Capa de esmoquin de aniversario"
 		},
 		"timestamps": "",
 		"view": "",
@@ -3390,7 +3426,9 @@
 			"travelling-spirit": "",
 			"returning-spirits": "",
 			"seasons-navigate-back": "",
-			"seasons-navigate-forward": ""
+			"seasons-navigate-forward": "",
+			"seasons-season-previous-season": "",
+			"seasons-season-next-season": ""
 		},
 		"data": {
 			"delete-message": "",

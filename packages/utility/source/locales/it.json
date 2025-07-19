@@ -307,7 +307,16 @@
 			"233": "",
 			"234": "",
 			"235": "",
-			"236": ""
+			"236": "",
+			"237": "Prendi un granchio",
+			"238": "Ammira per un breve momento gli spazi condivisi della Torre Campanarotta nel Villaggio della Voliera",
+			"239": "Unisciti al Raccoglitore di conchiglie riconoscente per un tè",
+			"240": "Unisciti alla Madre scintillante per ammirare le carpe koi",
+			"241": "Unisciti al Monaco asceta per una passeggiata consapevole",
+			"242": "Ammira gli spazi condivisi con il Panettiere che applaude",
+			"243": "Ammira gli spazi condivisi con il Boscaiolo sognatore",
+			"244": "Ammira gli spazi condivisi con l'Eremita in vena di abbracci",
+			"245": "Ammira gli spazi condivisi con il Nostromo imbranato"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
@@ -335,7 +344,7 @@
 			"22": "Stagione dei Mumin",
 			"23": "Stagione dello Splendore",
 			"24": "Stagione dell'Uccello Azzurro",
-			"25": ""
+			"25": "Stagione \"Le due braci - Parte 1\""
 		},
 		"season-wiki": {
 			"0": "",
@@ -717,7 +726,13 @@
 			"182": "Nonno saggio indovino",
 			"183": "Genitore supplice taglialegna",
 			"184": "Madre scintillante nostalgica",
-			"185": "Adolescente spettinato nobile"
+			"185": "Adolescente spettinato nobile",
+			"186": "Lanterna dell'Anziano della cripta",
+			"187": "Tenero giocattolaio",
+			"188": "Compagno premuroso",
+			"189": "Sentinella traumatizzata",
+			"190": "Pastore severo",
+			"191": "Eremita ingegnoso"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -905,7 +920,13 @@
 			"182": "",
 			"183": "",
 			"184": "",
-			"185": ""
+			"185": "",
+			"186": "",
+			"187": "",
+			"188": "",
+			"189": "",
+			"190": "",
+			"191": ""
 		},
 		"cosmetic-common-names": {
 			"0": "",
@@ -2787,7 +2808,22 @@
 			"2407": "",
 			"2408": "",
 			"2409": "",
-			"2410": "Mantello con crinolina TGC"
+			"2410": "Mantello con crinolina TGC",
+			"2412": "Memento con farfalle e fiori",
+			"2413": "Mini accessorio lamantino",
+			"2414": "Peluche lamantino",
+			"2415": "",
+			"2416": "",
+			"2417": "",
+			"2418": "",
+			"2419": "Mantello dell'oscurità",
+			"2420": "",
+			"2421": "",
+			"2422": "",
+			"2423": "",
+			"2424": "",
+			"2425": "",
+			"2426": "Smoking Anniversario"
 		},
 		"timestamps": "",
 		"view": "",
@@ -3390,7 +3426,9 @@
 			"travelling-spirit": "",
 			"returning-spirits": "",
 			"seasons-navigate-back": "",
-			"seasons-navigate-forward": ""
+			"seasons-navigate-forward": "",
+			"seasons-season-previous-season": "",
+			"seasons-season-next-season": ""
 		},
 		"data": {
 			"delete-message": "",
