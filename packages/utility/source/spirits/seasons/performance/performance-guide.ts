@@ -36,6 +36,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.PerformanceGuideHighFive,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.PerformanceGuideHeart1,
 				cost: { candles: 3 },
 			},
@@ -58,6 +59,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.PerformanceGuideDoubleFive,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.PerformanceGuideHeart2,
 				cost: { candles: 3 },
 			},
@@ -72,6 +74,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.FriendActionHug,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 				cosmetic: Cosmetic.PerformanceGuideHeart3,
 				cost: { candles: 3 },
 			},
@@ -86,6 +89,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.PerformanceGuideDuetDance,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 				cosmetic: Cosmetic.PerformanceGuideHeart4,
 				cost: { candles: 3 },
 			},

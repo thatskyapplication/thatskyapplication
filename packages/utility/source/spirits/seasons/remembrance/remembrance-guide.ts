@@ -16,6 +16,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RemembranceGuideQuest1,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.RemembranceGuideHeart1,
 				cost: { candles: 3 },
 			},
@@ -47,6 +48,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RemembranceGuideQuest3,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.RemembranceGuideHeart2,
 				cost: { candles: 3 },
 			},
@@ -69,6 +71,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RemembranceGuideQuest5,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 				cosmetic: Cosmetic.RemembranceGuideHeart3,
 				cost: { candles: 3 },
 			},
@@ -85,6 +88,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RemembranceGuideQuest7,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 				cosmetic: Cosmetic.RemembranceGuideHeart4,
 				cost: { candles: 3 },
 			},

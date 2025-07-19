@@ -15,6 +15,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.SpiritOfMuralQuest1,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.SpiritOfMuralHeart1,
 			},
 			{
@@ -37,6 +38,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.SpiritOfMuralQuest2,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.SpiritOfMuralHeart2,
 			},
 			{
@@ -51,6 +53,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.SpiritOfMuralQuest4,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 				cosmetic: Cosmetic.SpiritOfMuralHeart3,
 			},
 			{

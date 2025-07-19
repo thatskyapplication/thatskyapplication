@@ -49,8 +49,9 @@ export default new SeasonalSpirit({
 				cost: { candles: 24 },
 			},
 			{
-				cost: { candles: 3 },
+				translation: CosmeticCommon.Heart,
 				cosmetic: Cosmetic.TwirlingChampionHeart,
+				cost: { candles: 3 },
 			},
 			{
 				cost: { ascendedCandles: 2 },

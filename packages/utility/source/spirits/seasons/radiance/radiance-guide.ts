@@ -13,6 +13,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuideQuest1,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.RadianceGuideHeart1,
 			},
 			{
@@ -37,6 +38,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuideQuest2,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.RadianceGuideHeart2,
 			},
 			{
@@ -50,6 +52,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuideQuest3,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 				cosmetic: Cosmetic.RadianceGuideHeart3,
 			},
 			{
@@ -73,6 +76,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuideQuest5,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 				cosmetic: Cosmetic.RadianceGuideHeart4,
 			},
 			{

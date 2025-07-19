@@ -16,6 +16,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheRoseQuest1,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.TheRoseHeart1,
 				cost: { candles: 3 },
 			},
@@ -39,6 +40,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheRoseQuest2,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.TheRoseHeart2,
 				cost: { candles: 3 },
 			},
@@ -47,6 +49,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheRoseQuest3,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 				cosmetic: Cosmetic.TheRoseHeart3,
 				cost: { candles: 3 },
 			},
@@ -55,6 +58,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheRoseQuest4,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 				cosmetic: Cosmetic.TheRoseHeart4,
 				cost: { candles: 3 },
 			},
@@ -63,6 +67,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheRoseQuest5,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
 				cosmetic: Cosmetic.TheRoseHeart5,
 				cost: { candles: 3 },
 			},
@@ -71,6 +76,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheRoseQuest6,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 6 },
 				cosmetic: Cosmetic.TheRoseHeart6,
 				cost: { candles: 3 },
 			},
@@ -79,6 +85,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheRoseQuest7,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 7 },
 				cosmetic: Cosmetic.TheRoseHeart7,
 				cost: { candles: 3 },
 			},

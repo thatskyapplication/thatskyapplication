@@ -19,6 +19,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.AssemblyGuideQuest1,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.AssemblyGuideHeart1,
 				cost: { candles: 3 },
 			},
@@ -57,6 +58,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.AssemblyGuideQuest3,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.AssemblyGuideHeart2,
 				cost: { candles: 3 },
 			},
@@ -87,6 +89,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.AssemblyGuideQuest6,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 				cosmetic: Cosmetic.AssemblyGuideHeart3,
 				cost: { candles: 3 },
 			},

@@ -22,6 +22,7 @@ export default new StandardSpirit({
 				cost: { candles: 1 },
 			},
 			{
+				translation: CosmeticCommon.Heart,
 				cosmetic: Cosmetic.BirdWhispererHeart,
 				cost: { candles: 3 },
 			},

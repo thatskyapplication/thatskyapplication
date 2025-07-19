@@ -62,6 +62,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.AURORAQuest3,
 			},
 			{
+				translation: CosmeticCommon.Heart,
 				cosmetic: Cosmetic.AURORAHeart,
 				cost: { candles: 3 },
 			},

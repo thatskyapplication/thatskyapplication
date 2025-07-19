@@ -13,6 +13,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheVoidofShatteringQuest1,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.TheVoidofShatteringHeart1,
 				cost: { candles: 3 },
 			},
@@ -32,6 +33,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheVoidofShatteringQuest2,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.TheVoidofShatteringHeart2,
 				cost: { candles: 3 },
 			},
@@ -40,6 +42,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheVoidofShatteringQuest3,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 				cosmetic: Cosmetic.TheVoidofShatteringHeart3,
 				cost: { candles: 3 },
 			},
@@ -48,6 +51,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheVoidofShatteringQuest4,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 				cosmetic: Cosmetic.TheVoidofShatteringHeart4,
 				cost: { candles: 3 },
 			},
@@ -56,6 +60,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheVoidofShatteringQuest5,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
 				cosmetic: Cosmetic.TheVoidofShatteringHeart5,
 				cost: { candles: 3 },
 			},
@@ -64,6 +69,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheVoidofShatteringQuest6,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 6 },
 				cosmetic: Cosmetic.TheVoidofShatteringHeart6,
 				cost: { candles: 3 },
 			},

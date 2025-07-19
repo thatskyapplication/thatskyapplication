@@ -16,6 +16,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EnchantmentGuideQuest1,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.EnchantmentGuideHeart1,
 				cost: { candles: 3 },
 			},
@@ -33,6 +34,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EnchantmentGuideQuest2,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.EnchantmentGuideHeart2,
 				cost: { candles: 3 },
 			},
@@ -41,6 +43,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EnchantmentGuideQuest3,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 				cosmetic: Cosmetic.EnchantmentGuideHeart3,
 				cost: { candles: 3 },
 			},
@@ -49,6 +52,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EnchantmentGuideQuest4,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
 				cosmetic: Cosmetic.EnchantmentGuideHeart4,
 				cost: { candles: 3 },
 			},
@@ -57,6 +61,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EnchantmentGuideQuest5,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
 				cosmetic: Cosmetic.EnchantmentGuideHeart5,
 				cost: { candles: 3 },
 			},
@@ -65,6 +70,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EnchantmentGuideQuest6,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 6 },
 				cosmetic: Cosmetic.EnchantmentGuideHeart6,
 				cost: { candles: 3 },
 			},

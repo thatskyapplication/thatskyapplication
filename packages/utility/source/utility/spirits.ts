@@ -463,6 +463,7 @@ interface ItemRawSingleCosmetic {
 				| CosmeticCommon.WingBuffMultiple
 				| CosmeticCommon.BlessingMultiple
 				| CosmeticCommon.QuestMultiple
+				| CosmeticCommon.HeartMultiple
 		  >
 		| ItemRawTranslation;
 	cosmetic: Cosmetic;

@@ -45,6 +45,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheMoominStorybookQuest3,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 				cosmetic: Cosmetic.TheMoominStorybookHeart1,
 			},
 			{
@@ -68,6 +69,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.TheMoominStorybookQuest6,
 			},
 			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 				cosmetic: Cosmetic.TheMoominStorybookHeart2,
 			},
 			{
