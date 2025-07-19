@@ -12,7 +12,7 @@ export default function Index() {
 			</header>
 			<div className="flex flex-wrap justify-center gap-6 max-w-6xl w-full">
 				<Link
-					to="/caelus/home"
+					to="/caelus/guides/home"
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 				>
 					<SiDiscord className="h-8 w-8 mb-4" />

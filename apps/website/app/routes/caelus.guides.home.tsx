@@ -40,7 +40,7 @@ export default function Home() {
 					</h2>
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 						<Link
-							to="/caelus/daily-guides"
+							to="/caelus/guides/daily-guides"
 							className="group relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-900/20 dark:to-indigo-900/30 border border-blue-200 dark:border-blue-700/50 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
 						>
 							<div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full blur-xl" />
@@ -58,7 +58,7 @@ export default function Home() {
 						</Link>
 
 						<Link
-							to="/caelus/hearts"
+							to="/caelus/guides/hearts"
 							className="group relative bg-gradient-to-br from-pink-50 to-rose-100 dark:from-pink-900/20 dark:to-rose-900/30 border border-pink-200 dark:border-pink-700/50 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
 						>
 							<div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-pink-400/20 to-transparent rounded-full blur-xl" />
@@ -73,7 +73,7 @@ export default function Home() {
 							</div>
 						</Link>
 						<Link
-							to="/caelus/notifications"
+							to="/caelus/guides/notifications"
 							className="group relative bg-gradient-to-br from-amber-50 to-yellow-100 dark:from-amber-900/20 dark:to-yellow-900/30 border border-amber-200 dark:border-amber-700/50 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
 						>
 							<div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-amber-400/20 to-transparent rounded-full blur-xl" />
@@ -90,7 +90,7 @@ export default function Home() {
 							</div>
 						</Link>
 						<Link
-							to="/caelus/friendship-actions"
+							to="/caelus/guides/friendship-actions"
 							className="group relative bg-gradient-to-br from-green-50 to-emerald-100 dark:from-green-900/20 dark:to-emerald-900/30 border border-green-200 dark:border-green-700/50 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden"
 						>
 							<div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-400/20 to-transparent rounded-full blur-xl" />
@@ -111,7 +111,7 @@ export default function Home() {
 							</div>
 						</Link>
 						<Link
-							to="/caelus/spirits"
+							to="/caelus/guides/spirits"
 							className="group relative bg-gradient-to-br from-purple-50 to-violet-100 dark:from-purple-900/20 dark:to-violet-900/30 border border-purple-200 dark:border-purple-700/50 rounded-2xl p-6 hover:shadow-xl hover:scale-105 transition-all duration-300 overflow-hidden md:col-span-2 lg:col-span-1"
 						>
 							<div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-400/20 to-transparent rounded-full blur-xl" />

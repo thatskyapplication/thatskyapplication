@@ -392,7 +392,7 @@ export function SiteFooter() {
 							</li>
 							<li>
 								<Link
-									to="/caelus/terms-privacy"
+									to="/caelus/guides/terms-privacy"
 									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
 								>
 									Terms & Privacy
@@ -400,7 +400,7 @@ export function SiteFooter() {
 							</li>
 							<li>
 								<Link
-									to="/caelus/acknowledgements"
+									to="/caelus/guides/acknowledgements"
 									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
 								>
 									Acknowledgements

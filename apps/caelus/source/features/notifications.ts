@@ -209,7 +209,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `## [Notifications](${new URL("caelus/notifications", WEBSITE_URL)})`,
+						content: `## [Notifications](${new URL("caelus/guides/notifications", WEBSITE_URL)})`,
 					},
 					{
 						type: ComponentType.Separator,
