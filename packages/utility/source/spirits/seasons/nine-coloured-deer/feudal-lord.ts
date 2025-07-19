@@ -39,6 +39,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.FeudalLordCape },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.FeudalLordMusicSheet,
 				cost: { seasonalCandles: 32 },
 			},

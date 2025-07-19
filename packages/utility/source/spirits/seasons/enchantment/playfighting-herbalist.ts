@@ -34,6 +34,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.FriendActionPlayFight2 },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.PlayfightingHerbalistMusicSheet,
 				cost: { seasonalCandles: 18 },
 			},
@@ -81,6 +82,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 10 },
 			},
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.PlayfightingHerbalistMusicSheet,
 				cost: { candles: 15 },
 			},

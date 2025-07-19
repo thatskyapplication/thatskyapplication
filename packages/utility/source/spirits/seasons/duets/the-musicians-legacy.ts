@@ -10,6 +10,7 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.TheMusiciansLegacyMusicSheet,
 				cost: { seasonalCandles: 14 },
 			},

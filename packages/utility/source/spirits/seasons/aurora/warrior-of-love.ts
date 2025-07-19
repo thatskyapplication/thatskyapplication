@@ -36,6 +36,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteTwirl4 },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
 				cost: { seasonalCandles: 24 },
 			},
@@ -96,6 +97,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 5 },
 			},
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
 				cost: { candles: 15 },
 			},

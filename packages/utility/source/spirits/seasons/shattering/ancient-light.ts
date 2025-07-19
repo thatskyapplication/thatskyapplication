@@ -87,6 +87,7 @@ export default [
 		offer: {
 			seasonal: [
 				{
+					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.AncientLightMantaMusicSheet,
 					cost: { seasonalCandles: 27 },
 				},
@@ -126,6 +127,7 @@ export default [
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.AncientLightMantaMusicSheet,
 					cost: { candles: 15 },
 				},

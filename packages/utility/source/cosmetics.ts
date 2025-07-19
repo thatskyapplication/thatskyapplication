@@ -3067,6 +3067,8 @@ export enum CosmeticCommon {
 	QuestMultiple = 5,
 	Heart = 6,
 	HeartMultiple = 7,
+	MusicSheet = 8,
+	MusicSheetMultiple = 9,
 }
 
 export const WING_BUFFS = [

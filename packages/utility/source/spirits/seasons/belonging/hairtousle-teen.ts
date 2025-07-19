@@ -25,6 +25,7 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.HairtousleTeenBlessing2,
 			},
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.HairtousleTeenMusicSheet,
 				cost: { seasonalCandles: 14 },
 			},
@@ -56,6 +57,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 5 },
 			},
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.HairtousleTeenMusicSheet,
 				cost: { candles: 15 },
 			},

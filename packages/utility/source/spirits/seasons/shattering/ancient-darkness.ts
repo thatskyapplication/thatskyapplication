@@ -24,6 +24,7 @@ export default [
 				},
 				{ cosmetic: Cosmetic.AncientDarknessPlantMask },
 				{
+					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
 					cost: { seasonalCandles: 35 },
 				},
@@ -49,6 +50,7 @@ export default [
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.AncientDarknessPlantMusicSheet,
 					cost: { candles: 15 },
 				},

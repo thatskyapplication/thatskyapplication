@@ -31,6 +31,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteDustOff4 },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.ProphetOfEarthMusicSheet,
 				cost: { seasonalCandles: 21 },
 			},
@@ -85,6 +86,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.ProphetOfEarthMusicSheet,
 				cost: { candles: 15 },
 			},

@@ -464,6 +464,7 @@ interface ItemRawSingleCosmetic {
 				| CosmeticCommon.BlessingMultiple
 				| CosmeticCommon.QuestMultiple
 				| CosmeticCommon.HeartMultiple
+				| CosmeticCommon.MusicSheetMultiple
 		  >
 		| ItemRawTranslation;
 	cosmetic: Cosmetic;

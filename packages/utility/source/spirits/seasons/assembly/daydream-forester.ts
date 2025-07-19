@@ -30,6 +30,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.EmoteBubbles4 },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.DaydreamForesterMusicSheet,
 				cost: { seasonalCandles: 15 },
 			},
@@ -81,6 +82,7 @@ export default new SeasonalSpirit({
 				cost: { hearts: 6 },
 			},
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.DaydreamForesterMusicSheet,
 				cost: { candles: 15 },
 			},

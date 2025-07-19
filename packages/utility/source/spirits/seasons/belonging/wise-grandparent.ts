@@ -52,6 +52,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.StanceWise },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.WiseGrandparentMusicSheet,
 				cost: { candles: 15 },
 			},

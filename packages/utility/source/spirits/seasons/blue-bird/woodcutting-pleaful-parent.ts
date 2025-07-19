@@ -12,6 +12,7 @@ export default new SeasonalSpirit({
 		hasInfographic: false,
 		seasonal: [
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.WoodcuttingPleafulParentMusicSheet,
 				cost: { seasonalCandles: 12 },
 			},

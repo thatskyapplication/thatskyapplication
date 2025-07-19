@@ -22,6 +22,7 @@ export default new SeasonalSpirit({
 			},
 			{ cosmetic: Cosmetic.SeedOfHopeMask },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.SeedOfHopeMusicSheet,
 				cost: { seasonalCandles: 12 },
 			},
@@ -86,6 +87,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 5 },
 			},
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.SeedOfHopeMusicSheet,
 				cost: { candles: 15 },
 			},

@@ -47,6 +47,7 @@ export default new SeasonalSpirit({
 		current: [
 			{ cosmetic: Cosmetic.FriendActionDuetDance1 },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.ModestDancerMusicSheet,
 				cost: { candles: 15 },
 			},

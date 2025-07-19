@@ -19,6 +19,7 @@ export default new SeasonalSpirit({
 			{ cosmetic: Cosmetic.EmoteKabuki1 },
 			{ cosmetic: Cosmetic.EmoteKabuki2 },
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.ProvokingPerformerMusicSheet,
 				cost: { seasonalCandles: 10 },
 			},
@@ -52,6 +53,7 @@ export default new SeasonalSpirit({
 				cost: { candles: 5 },
 			},
 			{
+				translation: CosmeticCommon.MusicSheet,
 				cosmetic: Cosmetic.ProvokingPerformerMusicSheet,
 				cost: { candles: 15 },
 			},

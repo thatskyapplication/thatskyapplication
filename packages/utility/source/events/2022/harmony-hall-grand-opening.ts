@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
 import { LINK_REDIRECTOR_URL } from "../../utility/constants.js";
@@ -14,18 +14,22 @@ export default new Event({
 			cost: { candles: 50 },
 		},
 		{
+			translation: { key: CosmeticCommon.MusicSheetMultiple, number: 1 },
 			cosmetic: Cosmetic.HarmonyHallMusicSheet1,
 			cost: { candles: 10 },
 		},
 		{
+			translation: { key: CosmeticCommon.MusicSheetMultiple, number: 2 },
 			cosmetic: Cosmetic.HarmonyHallMusicSheet2,
 			cost: { candles: 10 },
 		},
 		{
+			translation: { key: CosmeticCommon.MusicSheetMultiple, number: 3 },
 			cosmetic: Cosmetic.HarmonyHallMusicSheet3,
 			cost: { candles: 10 },
 		},
 		{
+			translation: { key: CosmeticCommon.MusicSheetMultiple, number: 4 },
 			cosmetic: Cosmetic.HarmonyHallMusicSheet4,
 			cost: { candles: 10 },
 		},

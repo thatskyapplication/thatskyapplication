@@ -85,7 +85,11 @@ export default new SeasonalSpirit({
 				cosmetic: Cosmetic.RunningWayfarerBlessing2,
 				cost: { candles: 5 },
 			},
-			{ cosmetic: Cosmetic.RunningWayfarerMusicSheet, cost: { candles: 15 } },
+			{
+				translation: CosmeticCommon.MusicSheet,
+				cosmetic: Cosmetic.RunningWayfarerMusicSheet,
+				cost: { candles: 15 },
+			},
 			{
 				cosmetic: Cosmetic.RunningWayfarerCape,
 				cost: { candles: 75 },
