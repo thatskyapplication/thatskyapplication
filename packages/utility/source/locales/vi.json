@@ -307,7 +307,16 @@
 			"233": "",
 			"234": "",
 			"235": "",
-			"236": ""
+			"236": "",
+			"237": "Nhặt một con Cua",
+			"238": "Ngắm Không Gian Chung tại Tháp Chuông Vỡ trong Làng Chuồng Chim trong chốc lát",
+			"239": "Cùng Nhà Sưu Tầm Biết Ơn uống trà",
+			"240": "Cùng Phụ Huynh Pháo Hoa để ngắm cá chép",
+			"241": "Cùng Nhà Sư Khổ Hạnh đi bộ chánh niệm",
+			"242": "Ngắm Không Gian Chung cùng Thợ Đồng Hồ Vỗ Tay",
+			"243": "Ngắm Không Gian Chung cùng Người Đi Rừng Mộng Du",
+			"244": "Ngắm Không Gian Chung cùng Tu Sĩ Gấu Ôm",
+			"245": "Ngắm Không Gian Chung cùng Thủy Thủ Hậu Đậu"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",
@@ -335,7 +344,7 @@
 			"22": "Mùa Moomin",
 			"23": "Mùa Rạng Rỡ",
 			"24": "Mùa Chim Xanh",
-			"25": ""
+			"25": "Mùa của Hai Ngọn Lửa - Phần 1"
 		},
 		"season-wiki": {
 			"0": "",
@@ -717,7 +726,13 @@
 			"182": "Ông Bà Tiên Tri Minh Triết",
 			"183": "Phụ Huynh Kêu Cầu Đốn Cây",
 			"184": "Phụ Huynh Pháo Hoa Ký Ức",
-			"185": "Thiếu Niên Hoàng Tộc Tóc Rối"
+			"185": "Thiếu Niên Hoàng Tộc Tóc Rối",
+			"186": "Đèn Kho Trưởng Lão",
+			"187": "Thợ Đồ Chơi Dịu Dàng",
+			"188": "Đồng Hành Dịu Dàng",
+			"189": "Người Gác Đền Sẹo",
+			"190": "Người Chăn Cừu Cứng Rắn",
+			"191": "Ẩn Sĩ Tháo Vát"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -905,7 +920,13 @@
 			"182": "",
 			"183": "",
 			"184": "",
-			"185": ""
+			"185": "",
+			"186": "",
+			"187": "",
+			"188": "",
+			"189": "",
+			"190": "",
+			"191": ""
 		},
 		"cosmetic-common-names": {
 			"0": "",
@@ -2787,7 +2808,22 @@
 			"2407": "",
 			"2408": "",
 			"2409": "",
-			"2410": "Áo Choàng Khung Dây TGC"
+			"2410": "Áo Choàng Khung Dây TGC",
+			"2412": "Kỷ Vật Hoa Bướm",
+			"2413": "Phụ Kiện Heo Biển Mini",
+			"2414": "Heo Biển Bông",
+			"2415": "",
+			"2416": "",
+			"2417": "",
+			"2418": "",
+			"2419": "Áo Choàng Bóng Tối",
+			"2420": "",
+			"2421": "",
+			"2422": "",
+			"2423": "",
+			"2424": "",
+			"2425": "",
+			"2426": "Áo Choàng Tuxedo Kỷ Niệm"
 		},
 		"timestamps": "",
 		"view": "",
@@ -3390,7 +3426,9 @@
 			"travelling-spirit": "",
 			"returning-spirits": "",
 			"seasons-navigate-back": "",
-			"seasons-navigate-forward": ""
+			"seasons-navigate-forward": "",
+			"seasons-season-previous-season": "",
+			"seasons-season-next-season": ""
 		},
 		"data": {
 			"delete-message": "",

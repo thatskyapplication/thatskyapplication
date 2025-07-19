@@ -19,10 +19,10 @@
 			"Eye of Eden": "Auge von Eden"
 		},
 		"maps": {
-			"Bird Nest": "",
-			"Butterfly Fields": "",
-			"Cave": "",
-			"Koi Pond": "",
+			"Bird Nest": "Vogelnest",
+			"Butterfly Fields": "Schmetterlingsfelder",
+			"Cave": "Prärie-Höhlen",
+			"Koi Pond": "Koiteich",
 			"Village Islands": "",
 			"Sanctuary Islands": "Zufluchtsinseln",
 			"Boneyard": "Friedhof im Wald",
@@ -307,7 +307,16 @@
 			"233": "",
 			"234": "",
 			"235": "",
-			"236": ""
+			"236": "",
+			"237": "Hebe die Krabbe auf",
+			"238": "Bewundere Gemeinschaftsräume im Kaputten Glockenturm des Volieren-Dorfs für kurze Zeit",
+			"239": "Trinke einen Tee mit Dankbare Muschelsammlerin",
+			"240": "Bewundere mit Wunderkerzen-Mutter die Kois",
+			"241": "Begleite Asketen-Mönch bei einem achtsamen Spaziergang",
+			"242": "Bewundere Gemeinschaftsräume mit Applaudierende Glockenmacherin",
+			"243": "Bewundere Gemeinschaftsräume mit Tagträumender Förster",
+			"244": "Bewundere Gemeinschaftsräume mit Großer Yeti",
+			"245": "Bewundere Gemeinschaftsräume mit Stümperhafter Schiffsjunge"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",
@@ -335,7 +344,7 @@
 			"22": "Saison des Mumins",
 			"23": "Saison des Leuchtens",
 			"24": "Saison des blauen Vogels",
-			"25": ""
+			"25": "Saison Die zwei Glutnester – Teil 1"
 		},
 		"season-wiki": {
 			"0": "https://sky-kinder-des-lichts.fandom.com/de/wiki/Saison_der_Dankbarkeit",
@@ -717,7 +726,13 @@
 			"182": "Hellseherischer weiser Großvater",
 			"183": "Holzfällender bittender Vater",
 			"184": "Nostalgische Wunderkerzen-Mutter",
-			"185": "Königlicher Haarwuschel-Teenager"
+			"185": "Königlicher Haarwuschel-Teenager",
+			"186": "Laterne des Tresorältesten",
+			"187": "Sensibler Spielzeugmacher",
+			"188": "Sorgender Gefährte",
+			"189": "Vernarbter Wächter",
+			"190": "Sternhirte",
+			"191": "Einfallsreicher Einsiedler"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -905,7 +920,13 @@
 			"182": "",
 			"183": "",
 			"184": "",
-			"185": ""
+			"185": "",
+			"186": "",
+			"187": "",
+			"188": "",
+			"189": "",
+			"190": "",
+			"191": ""
 		},
 		"cosmetic-common-names": {
 			"0": "",
@@ -2787,7 +2808,22 @@
 			"2407": "",
 			"2408": "",
 			"2409": "",
-			"2410": "TGC-Drahtmodellumhang"
+			"2410": "TGC-Drahtmodellumhang",
+			"2412": "Schmetterlingsblüten-Memento",
+			"2413": "Mini-Seekuh-Accessoire",
+			"2414": "Seekuhplüschtier",
+			"2415": "",
+			"2416": "",
+			"2417": "",
+			"2418": "",
+			"2419": "Mantel der Finsternis",
+			"2420": "",
+			"2421": "",
+			"2422": "",
+			"2423": "",
+			"2424": "",
+			"2425": "",
+			"2426": "Smoking-Cape zum Jubiläum"
 		},
 		"timestamps": "",
 		"view": "",
@@ -3118,8 +3154,8 @@
 			}
 		},
 		"catalogue": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "katalog",
+			"command-description": "Dein ganz eigener Sky-Katalog."
 		},
 		"configure": {
 			"command-name": "",
@@ -3135,8 +3171,8 @@
 				"command-option-channel-description": ""
 			},
 			"notifications": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "benachrichtigungen",
+				"command-description": "Der Befehl, um Benachrichtigungen für Events einzustellen."
 			}
 		},
 		"daily-guides": {
@@ -3315,44 +3351,44 @@
 			"command-name": ""
 		},
 		"spirits": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "geister",
+			"command-description": "Schau dir Informationen zu Geistern an!",
 			"history": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-order-name": "",
-				"command-option-order-description": "",
+				"command-name": "verlauf",
+				"command-description": "Schaue den Verlauf der Geister, die zu Besuch gekommen sind, in unterschiedlichen Reihenfolgen an.",
+				"command-option-order-name": "reihenfolge",
+				"command-option-order-description": "Wähle die Reihenfolge, wie die Geister angeordnet sind.",
 				"command-option-order-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "Ordne nach Auftreten (chronologisch).",
+					"1": "Ordne nach Seltenheit (Geister, die lange nicht zurückgekehrt sind)."
 				}
 			},
 			"search": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-query-name": "",
-				"command-option-query-description": ""
+				"command-name": "suchen",
+				"command-description": "Schaue Informationen über einen Geist nach.",
+				"command-option-query-name": "suchanfrage",
+				"command-option-query-description": "Der Name, die Saison, der Ausdruck, die Haltung oder der Ruf eines Geists."
 			}
 		}
 	},
 	"features": {
 		"about": {
-			"description": "",
-			"links": "",
-			"sponsor": "",
-			"issues-feedback": "",
-			"feedback-button": "",
-			"issue-button": "",
-			"feedback-modal-heading": "",
-			"feedback-modal-title": "",
-			"feedback-modal-description": "",
-			"feedback-modal-description-placeholder": "",
-			"feedback-submission": "",
-			"issue-modal-heading": "",
-			"issue-modal-title": "",
-			"issue-modal-description": "",
-			"issue-modal-description-placeholder": "",
-			"issue-submission": ""
+			"description": "### Beschreibung\n\nWillkommen zur Discord App für [Sky: Kinder des Lichts] ({{url}} \"thatskygame\")!\n\nDu willst also etwas über mich wissen, hm? Ich mag lange Spaziergänge auf den Zufluchtsinseln. Oh, und nicht zu vergessen, ich liebe es, über die Sternenlichtwüste zu fliegen. Und natürlich.... QUALLEN!\n\nSchau dir diese nützlichen Links an:",
+			"links": "- [Invite]({{applicationInviteURL}})\n- [Support]({{supportServerInviteURL}})\n- [Website]({{websiteURL}})",
+			"sponsor": "### Sponsoring\n\nDu möchtest mich unterstützen? Dafür gibt es mehrere Möglichkeiten. Vielen Dank im Voraus! \n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
+			"issues-feedback": "### Fehler melden & Feedback geben\n\nDu kannst dafür den [Support Server]({{supportServerInviteURL}}) beitreten.\n\nOder du benutzt den unteren Button dafür, ohne den Server beitreten zu müssen - wenn dir das mehr zusagt.",
+			"feedback-button": "Feedback einreichen",
+			"issue-button": "Einen Fehler melden",
+			"feedback-modal-heading": "Feedback einreichen",
+			"feedback-modal-title": "Gib einen passenden Titel für dein Feedback ein.",
+			"feedback-modal-description": "Schreibe dein Feedback in dieses Feld!",
+			"feedback-modal-description-placeholder": "Es wäre cool, wenn... \nIch wünschte, wir könnten...",
+			"feedback-submission": "Dankeschön für dein Feedback! {{emoji}}",
+			"issue-modal-heading": "Fehler melden",
+			"issue-modal-title": "Gib einen passenden Titel für den Fehler ein.",
+			"issue-modal-description": "Beschreibe den Fehler.",
+			"issue-modal-description-placeholder": "Jedes Mal, wenn ich versuche...\nNichts geschieht, wenn...",
+			"issue-submission": "Dankeschön für das Melden des Fehlers! {{emoji}}"
 		},
 		"bonk": {
 			"missing-external-apps-permission": ""
@@ -3372,25 +3408,27 @@
 			}
 		},
 		"catalogue": {
-			"main-title": "",
-			"main-description": "",
-			"standard-spirits": "",
-			"elders": "",
-			"seasons": "",
-			"events": "",
-			"starter-packs": "",
-			"secret-area": "",
-			"permanent-event-store": "",
-			"nesting-workshop": "",
-			"main-no-progress": "",
-			"main-progress": "",
-			"quick-access": "",
-			"current-season-fallback": "",
-			"current-event-fallback": "",
-			"travelling-spirit": "",
-			"returning-spirits": "",
-			"seasons-navigate-back": "",
-			"seasons-navigate-forward": ""
+			"main-title": "Katalog",
+			"main-description": "Willkommen zu deinem Katalog!\n\nHier kannst du all deine Kosmetika im Spiel im Überblick halten. Du kannst sogar mit dynamischen Berechnungen sehen, wie viele Saisonkerzen in der aktiven Saison übrig sind. Es ist also ein nützliches Werkzeug!\n\nGesamtfortschritt: {{progress}}%",
+			"standard-spirits": "Reguläre Geister",
+			"elders": "Älteste",
+			"seasons": "Saisons",
+			"events": "Events",
+			"starter-packs": "Starterpaket",
+			"secret-area": "Geheimversteck",
+			"permanent-event-store": "Permanenter Event-Shop",
+			"nesting-workshop": "Nest-Werkstatt",
+			"main-no-progress": "Kein Fortschritt",
+			"main-progress": "Fortschritt: {{number}}%",
+			"quick-access": "Schnellzugriff",
+			"current-season-fallback": "Saison",
+			"current-event-fallback": "Event",
+			"travelling-spirit": "Reisende Geister",
+			"returning-spirits": "Zurückkehrende Geister",
+			"seasons-navigate-back": "Zurück navigieren",
+			"seasons-navigate-forward": "Vorwärts navigieren",
+			"seasons-season-previous-season": "",
+			"seasons-season-next-season": ""
 		},
 		"data": {
 			"delete-message": "",
@@ -3418,23 +3456,23 @@
 			"message": "{{user}}, {{invoker}} hat dich umarmt!"
 		},
 		"notifications": {
-			"back": "",
+			"back": "Zurück",
 			"messages": {
 				"0": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "Ein neuer Tag ist angebrochen. Zeit, neue Kerzen zu schmieden!",
+					"message-future": "Eine neuer Tag wird {{timestamp}} anbrechen!"
 				},
 				"1": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "Sky-Kinder können wieder Statuen im Auge von Eden retten!",
+					"message-future": "Die Statuen im Auge von Eden werden sich {{timestamp}} zurücksetzen!"
 				},
 				"2": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "Die Internationale Raumstation ist zugänglich!",
+					"message-future": "Die Internationale Raumstation wird in {{timestamp}} zugänglich sein!"
 				},
 				"3": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "Der Drache belebt jetzt die Festlichkeiten!",
+					"message-future": "Der Drache wird die Festlichkeiten {{timestamp}} beleben!"
 				},
 				"4": {
 					"message-now": "",
@@ -3491,14 +3529,14 @@
 			"browse": ""
 		},
 		"spirits": {
-			"not-encountered-spirit": "",
+			"not-encountered-spirit": "Oh! Diesen Geist haben wir noch nicht angetroffen. Wie komisch!",
 			"title": {
-				"0": "",
-				"1": ""
+				"0": "Verlauf der Reisenden Geister",
+				"1": "Seltenheit der Geister"
 			},
-			"order-natural": "",
-			"order-rarity": "",
-			"page": ""
+			"order-natural": "Ordne nach Auftreten",
+			"order-rarity": "Ordne nach Seltenheit",
+			"page": "Seite"
 		}
 	}
 }
