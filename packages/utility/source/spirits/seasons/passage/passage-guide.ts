@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -11,7 +11,10 @@ export default new GuideSpirit({
 	offer: {
 		hasInfographic: false,
 		current: [
-			{ cosmetic: Cosmetic.PassageGuideQuest1 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+				cosmetic: Cosmetic.PassageGuideQuest1,
+			},
 			{
 				cosmetic: Cosmetic.PassageGuideHeart1,
 				cost: { candles: 3 },
@@ -25,12 +28,18 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.PassageGuideUltimateCape,
 				cost: { seasonalHearts: 2 },
 			},
-			{ cosmetic: Cosmetic.PassageGuideQuest2 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+				cosmetic: Cosmetic.PassageGuideQuest2,
+			},
 			{
 				cosmetic: Cosmetic.PassageGuideSerowMask,
 				cost: { candles: 48 },
 			},
-			{ cosmetic: Cosmetic.PassageGuideQuest3 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+				cosmetic: Cosmetic.PassageGuideQuest3,
+			},
 			{
 				cosmetic: Cosmetic.PassageGuideHeart2,
 				cost: { candles: 3 },
@@ -39,7 +48,10 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.PassageGuideBoarMask,
 				cost: { candles: 44 },
 			},
-			{ cosmetic: Cosmetic.PassageGuideQuest4 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+				cosmetic: Cosmetic.PassageGuideQuest4,
+			},
 			{
 				cosmetic: Cosmetic.PassageGuideHeart3,
 				cost: { candles: 3 },
@@ -48,7 +60,10 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.PassageGuideMonkeyMask,
 				cost: { candles: 46 },
 			},
-			{ cosmetic: Cosmetic.PassageGuideQuest5 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+				cosmetic: Cosmetic.PassageGuideQuest5,
+			},
 			{
 				cosmetic: Cosmetic.PassageGuideHeart4,
 				cost: { candles: 3 },

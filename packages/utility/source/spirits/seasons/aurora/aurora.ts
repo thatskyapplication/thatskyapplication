@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -10,7 +10,10 @@ export default new GuideSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.AURORAQuest1 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+				cosmetic: Cosmetic.AURORAQuest1,
+			},
 			{
 				cosmetic: Cosmetic.EmoteSilentClap2,
 				cost: { hearts: 3 },
@@ -37,7 +40,10 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EmoteSilentClap4,
 				cost: { hearts: 5 },
 			},
-			{ cosmetic: Cosmetic.AURORAQuest2 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+				cosmetic: Cosmetic.AURORAQuest2,
+			},
 			{ cosmetic: Cosmetic.EmoteConduct1 },
 			{
 				cosmetic: Cosmetic.EmoteConduct2,
@@ -51,7 +57,10 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EmoteConduct4,
 				cost: { hearts: 5 },
 			},
-			{ cosmetic: Cosmetic.AURORAQuest3 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+				cosmetic: Cosmetic.AURORAQuest3,
+			},
 			{
 				cosmetic: Cosmetic.AURORAHeart,
 				cost: { candles: 3 },
@@ -69,12 +78,18 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EmoteSkipping4,
 				cost: { hearts: 5 },
 			},
-			{ cosmetic: Cosmetic.AURORAQuest4 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+				cosmetic: Cosmetic.AURORAQuest4,
+			},
 			{
 				cosmetic: Cosmetic.AURORAMusicSheet1,
 				cost: { candles: 20 },
 			},
-			{ cosmetic: Cosmetic.AURORAQuest5 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+				cosmetic: Cosmetic.AURORAQuest5,
+			},
 			{
 				cosmetic: Cosmetic.AURORAMusicSheet2,
 				cost: { candles: 20 },

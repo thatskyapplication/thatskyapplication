@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -9,6 +9,7 @@ export default new GuideSpirit({
 	offer: {
 		current: [
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
 				cosmetic: Cosmetic.HopefulStewardQuest1,
 			},
 			{
@@ -25,15 +26,15 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 2 },
 			},
 			// {
-			// 				// 	cosmetic: Cosmetic.HopefulStewardQuest2,
-			// 	emoji: MISCELLANEOUS_EMOJIS.Quest,
+			// 	translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+			// 	cosmetic: Cosmetic.HopefulStewardQuest2,
 			// },
 			// {
-			// 				// 	cosmetic: Cosmetic.HopefulStewardHeart2,
+			// 	cosmetic: Cosmetic.HopefulStewardHeart2,
 			// 	cost: { candles: 3 },
-			// 	emoji: MISCELLANEOUS_EMOJIS.Heart,
 			// },
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
 				cosmetic: Cosmetic.HopefulStewardQuest3,
 			},
 			{
@@ -41,6 +42,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 				cosmetic: Cosmetic.HopefulStewardQuest4,
 			},
 			{
@@ -51,6 +53,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.HopefulStewardFriendActionHug,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 				cosmetic: Cosmetic.HopefulStewardQuest5,
 			},
 			{
@@ -58,6 +61,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
 				cosmetic: Cosmetic.HopefulStewardQuest6,
 			},
 			{
@@ -65,6 +69,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 7 },
 				cosmetic: Cosmetic.HopefulStewardQuest7,
 			},
 			{
@@ -72,12 +77,15 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 8 },
 				cosmetic: Cosmetic.HopefulStewardQuest8,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 9 },
 				cosmetic: Cosmetic.HopefulStewardQuest9,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 10 },
 				cosmetic: Cosmetic.HopefulStewardQuest10,
 			},
 			{

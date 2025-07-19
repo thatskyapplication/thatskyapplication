@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -8,7 +8,10 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Duets,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.DuetsGuideQuest1 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+				cosmetic: Cosmetic.DuetsGuideQuest1,
+			},
 			{
 				cosmetic: Cosmetic.DuetsGuideMask,
 				cost: { candles: 65 },
@@ -26,18 +29,30 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.DuetsGuideUltimateProp2,
 				cost: { seasonalHearts: 2 },
 			},
-			{ cosmetic: Cosmetic.DuetsGuideQuest2 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+				cosmetic: Cosmetic.DuetsGuideQuest2,
+			},
 			{ cosmetic: Cosmetic.DuetsGuideHeart1 },
-			{ cosmetic: Cosmetic.DuetsGuideQuest3 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+				cosmetic: Cosmetic.DuetsGuideQuest3,
+			},
 			{
 				cosmetic: Cosmetic.DuetsGuideDuetBow1,
 			},
-			{ cosmetic: Cosmetic.DuetsGuideQuest4 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+				cosmetic: Cosmetic.DuetsGuideQuest4,
+			},
 			{
 				cosmetic: Cosmetic.DuetsGuideDuetBow2,
 				cost: { hearts: 2 },
 			},
-			{ cosmetic: Cosmetic.DuetsGuideQuest5 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+				cosmetic: Cosmetic.DuetsGuideQuest5,
+			},
 			{ cosmetic: Cosmetic.DuetsGuideHeart2 },
 		],
 	},

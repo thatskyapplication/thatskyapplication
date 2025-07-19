@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -12,6 +12,7 @@ export default new GuideSpirit({
 		hasInfographic: false,
 		current: [
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
 				cosmetic: Cosmetic.EnchantmentGuideQuest1,
 			},
 			{
@@ -28,6 +29,7 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 4 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
 				cosmetic: Cosmetic.EnchantmentGuideQuest2,
 			},
 			{
@@ -35,6 +37,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
 				cosmetic: Cosmetic.EnchantmentGuideQuest3,
 			},
 			{
@@ -42,6 +45,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 				cosmetic: Cosmetic.EnchantmentGuideQuest4,
 			},
 			{
@@ -49,6 +53,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 				cosmetic: Cosmetic.EnchantmentGuideQuest5,
 			},
 			{
@@ -56,6 +61,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
 				cosmetic: Cosmetic.EnchantmentGuideQuest6,
 			},
 			{

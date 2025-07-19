@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -11,6 +11,7 @@ export default new GuideSpirit({
 	offer: {
 		current: [
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
 				cosmetic: Cosmetic.TheMoominStorybookQuest1,
 			},
 			{
@@ -36,15 +37,18 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
 				cosmetic: Cosmetic.TheMoominStorybookQuest2,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
 				cosmetic: Cosmetic.TheMoominStorybookQuest3,
 			},
 			{
 				cosmetic: Cosmetic.TheMoominStorybookHeart1,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 				cosmetic: Cosmetic.TheMoominStorybookQuest4,
 			},
 			{
@@ -56,9 +60,11 @@ export default new GuideSpirit({
 				cost: { hearts: 5 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 				cosmetic: Cosmetic.TheMoominStorybookQuest5,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
 				cosmetic: Cosmetic.TheMoominStorybookQuest6,
 			},
 			{

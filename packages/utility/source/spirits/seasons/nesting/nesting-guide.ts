@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -8,7 +8,10 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Nesting,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.NestingGuideQuest1 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+				cosmetic: Cosmetic.NestingGuideQuest1,
+			},
 			{ cosmetic: Cosmetic.NestingGuideHeart1 },
 			{ cosmetic: Cosmetic.NestingPendant },
 			{
@@ -19,13 +22,25 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.NestingGuideUltimateProp,
 				cost: { seasonalHearts: 2 },
 			},
-			{ cosmetic: Cosmetic.NestingGuideQuest2 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+				cosmetic: Cosmetic.NestingGuideQuest2,
+			},
 			{ cosmetic: Cosmetic.NestingGuideHeart2 },
-			{ cosmetic: Cosmetic.NestingGuideQuest3 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+				cosmetic: Cosmetic.NestingGuideQuest3,
+			},
 			{ cosmetic: Cosmetic.NestingGuideHeart3 },
-			{ cosmetic: Cosmetic.NestingGuideQuest4 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+				cosmetic: Cosmetic.NestingGuideQuest4,
+			},
 			{ cosmetic: Cosmetic.NestingGuideHeart4 },
-			{ cosmetic: Cosmetic.NestingGuideQuest5 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+				cosmetic: Cosmetic.NestingGuideQuest5,
+			},
 			{ cosmetic: Cosmetic.NestingGuideHeart5 },
 		],
 	},

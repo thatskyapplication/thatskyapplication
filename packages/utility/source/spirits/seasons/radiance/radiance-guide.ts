@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -9,6 +9,7 @@ export default new GuideSpirit({
 	offer: {
 		current: [
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
 				cosmetic: Cosmetic.RadianceGuideQuest1,
 			},
 			{
@@ -32,6 +33,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuideYellowDye,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
 				cosmetic: Cosmetic.RadianceGuideQuest2,
 			},
 			{
@@ -44,6 +46,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuideCyanDye,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
 				cosmetic: Cosmetic.RadianceGuideQuest3,
 			},
 			{
@@ -56,6 +59,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuidePurpleDye,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 				cosmetic: Cosmetic.RadianceGuideQuest4,
 			},
 			{
@@ -65,6 +69,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RadianceGuideBlackDye,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 				cosmetic: Cosmetic.RadianceGuideQuest5,
 			},
 			{

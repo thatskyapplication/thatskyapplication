@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -12,6 +12,7 @@ export default new GuideSpirit({
 		hasInfographic: false,
 		current: [
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
 				cosmetic: Cosmetic.RemembranceGuideQuest1,
 			},
 			{
@@ -28,6 +29,7 @@ export default new GuideSpirit({
 				cost: { seasonalHearts: 2 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
 				cosmetic: Cosmetic.RemembranceGuideQuest2,
 			},
 			{
@@ -41,6 +43,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell1,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
 				cosmetic: Cosmetic.RemembranceGuideQuest3,
 			},
 			{
@@ -48,6 +51,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 				cosmetic: Cosmetic.RemembranceGuideQuest4,
 			},
 			{
@@ -61,6 +65,7 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell2,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 				cosmetic: Cosmetic.RemembranceGuideQuest5,
 			},
 			{
@@ -68,6 +73,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
 				cosmetic: Cosmetic.RemembranceGuideQuest6,
 			},
 			{
@@ -75,6 +81,7 @@ export default new GuideSpirit({
 				cost: { candles: 40 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 7 },
 				cosmetic: Cosmetic.RemembranceGuideQuest7,
 			},
 			{
@@ -82,6 +89,7 @@ export default new GuideSpirit({
 				cost: { candles: 3 },
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 8 },
 				cosmetic: Cosmetic.RemembranceGuideQuest8,
 			},
 			{
@@ -99,12 +107,14 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell3,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 9 },
 				cosmetic: Cosmetic.RemembranceGuideQuest9,
 			},
 			{
 				cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell4,
 			},
 			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 10 },
 				cosmetic: Cosmetic.RemembranceGuideQuest10,
 			},
 		],

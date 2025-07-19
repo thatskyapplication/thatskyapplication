@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -10,7 +10,10 @@ export default new GuideSpirit({
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.AbyssGuideQuest1 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+				cosmetic: Cosmetic.AbyssGuideQuest1,
+			},
 			{
 				cosmetic: Cosmetic.AbyssGuideHeart1,
 				cost: { candles: 3 },
@@ -28,22 +31,34 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.AbyssGuideUltimateMask,
 				cost: { seasonalHearts: 1 },
 			},
-			{ cosmetic: Cosmetic.AbyssGuideQuest2 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+				cosmetic: Cosmetic.AbyssGuideQuest2,
+			},
 			{
 				cosmetic: Cosmetic.AbyssGuideHeart2,
 				cost: { candles: 3 },
 			},
-			{ cosmetic: Cosmetic.AbyssGuideQuest3 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+				cosmetic: Cosmetic.AbyssGuideQuest3,
+			},
 			{
 				cosmetic: Cosmetic.AbyssGuideHeart3,
 				cost: { candles: 3 },
 			},
-			{ cosmetic: Cosmetic.AbyssGuideQuest4 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+				cosmetic: Cosmetic.AbyssGuideQuest4,
+			},
 			{
 				cosmetic: Cosmetic.AbyssGuideHeart4,
 				cost: { candles: 3 },
 			},
-			{ cosmetic: Cosmetic.AbyssGuideQuest5 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+				cosmetic: Cosmetic.AbyssGuideQuest5,
+			},
 			{
 				cosmetic: Cosmetic.AbyssGuideHeart5,
 				cost: { candles: 3 },

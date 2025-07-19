@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -10,7 +10,10 @@ export default new GuideSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.BlueBirdGuideQuest1 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+				cosmetic: Cosmetic.BlueBirdGuideQuest1,
+			},
 			{ cosmetic: Cosmetic.BlueBirdGuideHeart1 },
 			{ cosmetic: Cosmetic.BlueBirdPendant },
 			{
@@ -28,7 +31,10 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EmoteCough2,
 				cost: { hearts: 3 },
 			},
-			{ cosmetic: Cosmetic.BlueBirdGuideQuest2 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+				cosmetic: Cosmetic.BlueBirdGuideQuest2,
+			},
 			{ cosmetic: Cosmetic.BlueBirdGuideHeart2 },
 			{
 				cosmetic: Cosmetic.EmoteCough3,
@@ -37,13 +43,25 @@ export default new GuideSpirit({
 				cosmetic: Cosmetic.EmoteCough4,
 				cost: { hearts: 5 },
 			},
-			{ cosmetic: Cosmetic.BlueBirdGuideQuest3 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+				cosmetic: Cosmetic.BlueBirdGuideQuest3,
+			},
 			{ cosmetic: Cosmetic.BlueBirdGuideHeart3 },
-			{ cosmetic: Cosmetic.BlueBirdGuideQuest4 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+				cosmetic: Cosmetic.BlueBirdGuideQuest4,
+			},
 			{ cosmetic: Cosmetic.StanceSad, cost: { hearts: 3 } },
-			{ cosmetic: Cosmetic.BlueBirdGuideQuest5 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+				cosmetic: Cosmetic.BlueBirdGuideQuest5,
+			},
 			{ cosmetic: Cosmetic.BlueBirdGuideHeart4 },
-			{ cosmetic: Cosmetic.BlueBirdGuideQuest6 },
+			{
+				translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+				cosmetic: Cosmetic.BlueBirdGuideQuest6,
+			},
 			{ cosmetic: Cosmetic.CallBlueBird, cost: { hearts: 3 } },
 			{ cosmetic: Cosmetic.BlueBirdGuideProp, cost: { hearts: 18 } },
 		],
