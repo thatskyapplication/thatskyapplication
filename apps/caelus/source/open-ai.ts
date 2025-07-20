@@ -137,6 +137,7 @@ function systemPromptContext(
 		`- If you mention wing buffs, use ${formatEmoji(MISCELLANEOUS_EMOJIS.WingBuff)}.`,
 		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
 		`- If you mention pieces of light (may be referred to as "wax"), use ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}.`,
+		"- Only use the shardEruption tool when users specifically ask about shard eruptions, black shards, or red shards. Do NOT use it for questions about seasons or general events.",
 	];
 
 	if (seasonsText.length > 0) {
@@ -443,7 +444,7 @@ export async function messageCreateResponse(
 							function: {
 								name: "shardEruption",
 								description:
-									"Returns shard eruption data. Only call this when users explicitly ask about shard eruptions, shard events, black shards, red shards, or dangerous shards. Do not call for general questions about Sky events or gameplay.",
+									"Returns shard eruption data. ONLY call this when users explicitly mention the words 'shard eruption', 'black shard', 'red shard', or 'dangerous shard'. Do NOT call for questions about seasons, general events, or gameplay.",
 								parameters: {
 									type: "object",
 									properties: {
