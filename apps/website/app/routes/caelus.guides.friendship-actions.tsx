@@ -1,5 +1,5 @@
-import { useLoaderData } from "@remix-run/react";
 import { ExternalLink, Send } from "lucide-react";
+import { useLoaderData } from "react-router";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { friendshipActionGIFs } from "~/utility/functions.js";
 

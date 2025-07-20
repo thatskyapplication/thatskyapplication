@@ -1,7 +1,7 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
-import { Form, Link, useLocation } from "@remix-run/react";
 import { Bot, Clock, LogIn, LogOut, Menu, Users, X, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Form, Link, useLocation } from "react-router";
 import { useLocale } from "~/contexts/LocaleContext";
 import {
 	CROWDIN_URL,
@@ -34,7 +34,7 @@ interface MobileMenuProps {
 
 const NAVIGATION_ITEMS = [
 	{
-		to: "/caelus/home",
+		to: "/caelus/guides/home",
 		label: "Caelus",
 		icon: <Bot className="h-5 w-5" />,
 		description: "Guides for Caelus.",

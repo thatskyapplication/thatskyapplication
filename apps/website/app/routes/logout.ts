@@ -1,4 +1,4 @@
-import { type ActionFunction, type LoaderFunction, redirect } from "@remix-run/node";
+import { type ActionFunction, type LoaderFunction, redirect } from "react-router";
 import { destroySession, getSession } from "~/session.server";
 
 export const action: ActionFunction = async ({ request }) => {

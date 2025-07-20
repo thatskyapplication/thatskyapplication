@@ -1,10 +1,10 @@
-import { data, Link, useLoaderData } from "@remix-run/react";
 import {
 	FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY,
 	type SkyProfilePacket,
 	Table,
 } from "@thatskyapplication/utility";
 import { ExternalLinkIcon, Heart } from "lucide-react";
+import { data, Link, useLoaderData } from "react-router";
 import pg from "~/pg.server";
 import { APPLICATION_NAME, WIKI_URL } from "~/utility/constants";
 

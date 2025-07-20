@@ -1,5 +1,5 @@
-import { type LoaderFunction, redirect } from "@remix-run/node";
 import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
+import { type LoaderFunction, redirect } from "react-router";
 import pg from "~/pg.server";
 
 export const loader: LoaderFunction = async () => {

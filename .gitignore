@@ -13,6 +13,7 @@ node_modules
 # Miscellaneous
 .cache
 .DS_Store
+.react-router
 build
 distribution/
 friendship-tree.webp

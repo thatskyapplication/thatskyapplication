@@ -1,8 +1,7 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { data, redirect } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
 import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+import { data, Form, redirect, useLoaderData } from "react-router";
 import {
 	CROWDIN_CLIENT_ID,
 	CROWDIN_CLIENT_SECRET,

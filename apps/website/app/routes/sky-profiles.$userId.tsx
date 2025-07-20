@@ -1,5 +1,3 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import {
 	type CataloguePacket,
 	CountryToEmoji,
@@ -18,6 +16,8 @@ import {
 } from "@thatskyapplication/utility";
 import { ChevronLeftIcon, LinkIcon, MapPinIcon } from "lucide-react";
 import { useState } from "react";
+import type { LoaderFunctionArgs } from "react-router";
+import { Link, type MetaFunction, useLoaderData } from "react-router";
 import pg from "~/pg.server";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";

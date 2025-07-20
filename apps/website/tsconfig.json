@@ -22,7 +22,8 @@
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"target": "ESNext",
 		"skipLibCheck": true,
-		"types": ["@remix-run/node", "vite/client"],
+		"rootDirs": [".", "./.react-router/types"],
+		"types": ["@react-router/node", "vite/client"],
 		"isolatedModules": true,
 		"baseUrl": ".",
 		"paths": {
@@ -38,6 +39,7 @@
 		"**/.client/**/*.ts",
 		"**/.client/**/*.tsx",
 		"postcss.config.js",
-		"vite.config.ts"
+		"vite.config.ts",
+		".react-router/types/**/*"
 	]
 }

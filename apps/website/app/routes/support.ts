@@ -1,4 +1,4 @@
-import { type ActionFunction, redirect } from "@remix-run/node";
+import { type ActionFunction, redirect } from "react-router";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 
 export const action: ActionFunction = () =>

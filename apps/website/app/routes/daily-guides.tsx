@@ -1,5 +1,3 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { data, useLoaderData } from "@remix-run/react";
 import {
 	type DailyGuideQuest,
 	type DailyGuidesPacket,
@@ -18,6 +16,8 @@ import {
 } from "@thatskyapplication/utility";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
+import type { LoaderFunctionArgs } from "react-router";
+import { data, useLoaderData } from "react-router";
 import pg from "~/pg.server";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
 import { getLocaleFromRequest } from "~/utility/functions";

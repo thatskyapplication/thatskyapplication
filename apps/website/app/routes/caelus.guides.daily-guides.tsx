@@ -1,5 +1,5 @@
-import { Link } from "@remix-run/react";
 import { Clock } from "lucide-react";
+import { Link } from "react-router";
 import InfoBox from "~/components/InfoBox";
 import Permissions from "~/components/Permissions";
 

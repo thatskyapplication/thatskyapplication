@@ -1,5 +1,3 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { type MetaFunction, useLoaderData } from "@remix-run/react";
 import {
 	type ShardEruptionData,
 	shardEruption,
@@ -9,6 +7,8 @@ import {
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
+import type { LoaderFunctionArgs } from "react-router";
+import { type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
 import {
 	APPLICATION_NAME,

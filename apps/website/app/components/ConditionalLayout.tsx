@@ -1,4 +1,4 @@
-import { useLocation } from "@remix-run/react";
+import { useLocation } from "react-router";
 import { SiteFooter, SiteTopBar } from "~/components/SiteNavigation";
 import { EXCLUDE_TOP_BAR_AND_FOOTER } from "~/utility/constants";
 import type { DiscordUser } from "~/utility/types";

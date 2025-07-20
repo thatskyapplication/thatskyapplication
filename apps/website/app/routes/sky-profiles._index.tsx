@@ -1,11 +1,11 @@
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { data, Form, Link, type MetaFunction, useLoaderData } from "@remix-run/react";
 import {
 	isPlatformId,
 	type SkyProfilePacket,
 	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import type { LoaderFunctionArgs } from "react-router";
+import { data, Form, Link, type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
 import pg from "~/pg.server";
 import {

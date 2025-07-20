@@ -1,7 +1,7 @@
 {
 	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
 	"files": {
-		"includes": ["**", "!distribution", "!build"]
+		"includes": ["**", "!.react-router", "!distribution", "!build"]
 	},
 	"formatter": {
 		"lineWidth": 100,

@@ -1,6 +1,6 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
-import { Link } from "@remix-run/react";
 import { BellIcon, Clock3Icon, Globe, Heart } from "lucide-react";
+import { Link } from "react-router";
 import { APPLICATION_NAME, CROWDIN_URL, INVITE_APPLICATION_URL } from "~/utility/constants";
 
 export default function Home() {

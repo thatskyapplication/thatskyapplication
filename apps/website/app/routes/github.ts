@@ -1,4 +1,4 @@
-import { type ActionFunction, redirect } from "@remix-run/node";
+import { type ActionFunction, redirect } from "react-router";
 
 export const action: ActionFunction = () =>
 	redirect("https://github.com/thatskyapplication", {

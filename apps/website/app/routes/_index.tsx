@@ -1,6 +1,6 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
-import { Link } from "@remix-run/react";
 import { Clock, LinkIcon, UsersIcon } from "lucide-react";
+import { Link } from "react-router";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Index() {

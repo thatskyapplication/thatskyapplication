@@ -1,4 +1,5 @@
-import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import type React from "react";
+import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "react-router";
 import {
 	Link,
 	Links,
@@ -8,8 +9,7 @@ import {
 	ScrollRestoration,
 	useLoaderData,
 	useRouteError,
-} from "@remix-run/react";
-import type React from "react";
+} from "react-router";
 import ConditionalLayout from "~/components/ConditionalLayout";
 import "./tailwind.css";
 import { WEBSITE_URL } from "@thatskyapplication/utility";

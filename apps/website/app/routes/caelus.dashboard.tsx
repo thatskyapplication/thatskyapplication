@@ -3,11 +3,10 @@ import {
 	type RESTAPIPartialCurrentUserGuild,
 	type RESTGetAPICurrentUserGuildsResult,
 } from "@discordjs/core/http-only";
-import type { LoaderFunctionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 import { Server, Settings } from "lucide-react";
 import { useState } from "react";
+import type { LoaderFunctionArgs } from "react-router";
+import { redirect, useLoaderData } from "react-router";
 import { getSession } from "~/session.server";
 import { guildIconURL } from "~/utility/functions.js";
 

@@ -1,10 +1,10 @@
-import { Form, Link } from "@remix-run/react";
 import {
 	ChevronLeftIcon,
 	ChevronRightIcon,
 	ChevronsLeftIcon,
 	ChevronsRightIcon,
 } from "lucide-react";
+import { Form, Link } from "react-router";
 
 interface PaginationProps {
 	currentPage: number;

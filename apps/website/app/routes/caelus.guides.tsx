@@ -1,6 +1,6 @@
-import { Link, Outlet, useLocation } from "@remix-run/react";
 import { BookOpen, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link, Outlet, useLocation } from "react-router";
 import { APPLICATION_NAME, SKY_KID_ICON_URL } from "~/utility/constants.js";
 
 interface SidebarItem {
