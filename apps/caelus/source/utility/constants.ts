@@ -157,14 +157,6 @@ export const LOCALES = [
 	Locale.ChineseTW,
 ] as const satisfies Readonly<Locale[]>;
 
-export const SKY_CREATOR_TROUPE = {
-	evinsky: {
-		name: "Evinsky",
-		userId: "713002852909449236",
-		description: "Content creator on TikTok",
-	},
-} as const satisfies Readonly<Record<string, Record<string, string>>>;
-
 // Admin.
 export const DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID =
 	"DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID" as const;

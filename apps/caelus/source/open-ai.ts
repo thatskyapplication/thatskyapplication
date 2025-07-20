@@ -38,7 +38,6 @@ import {
 	OPENAI_API_KEY,
 	OPENAI_BASE_URL,
 } from "./utility/configuration.js";
-import { SKY_CREATOR_TROUPE } from "./utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
 
 const enum ShardEruptionIntent {
@@ -138,7 +137,6 @@ function systemPromptContext(
 		`- If you mention wing buffs, use ${formatEmoji(MISCELLANEOUS_EMOJIS.WingBuff)}.`,
 		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
 		`- If you mention pieces of light (may be referred to as "wax"), use ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}.`,
-		`- These are content creators on Sky: ${JSON.stringify(SKY_CREATOR_TROUPE)}.`,
 	];
 
 	if (seasonsText.length > 0) {
