@@ -986,6 +986,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Stern Shepherd.
 	 */
 	Outfit87: { id: "1396949612899602533", name: "87_outfit" },
+	/**
+	 * Resourceful Recluse.
+	 */
+	Outfit88: { id: "1396955999528685578", name: "88_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1076,6 +1080,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit85: { id: "1396908105500987647", name: "85_outfit" },
 	Outfit86: { id: "1396917168918106184", name: "86_outfit" },
 	Outfit87: { id: "1396949620608864417", name: "87_outfit" },
+	Outfit88: { id: "1396956009645473904", name: "88_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1603,6 +1608,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Stern Shepherd.
 	 */
 	Mask102: { id: "1396951023146373150", name: "102_mask" },
+	/**
+	 * Resourceful Recluse.
+	 */
+	Mask103: { id: "1396955699723894906", name: "103_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1708,6 +1717,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask100: { id: "1366372071566999633", name: "100_mask" },
 	Mask101: { id: "1376530178947153970", name: "101_mask" },
 	Mask102: { id: "1396951030150987816", name: "102_mask" },
+	Mask103: { id: "1396955708032811099", name: "103_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4779,6 +4789,14 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Anniversary Film Seats.
 	 */
 	LargePlaceableProp88: { id: "1391822982787108884", name: "88_large_placeable_prop" },
+	/**
+	 * Resourceful Recluse 1.
+	 */
+	LargePlaceableProp89: { id: "1396956391478001894", name: "89_large_placeable_prop" },
+	/**
+	 * Resourceful Recluse 2.
+	 */
+	LargePlaceableProp90: { id: "1396956605022732379", name: "90_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4870,6 +4888,8 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp86: { id: "1391669782289584138", name: "86_large_placeable_prop" },
 	LargePlaceableProp87: { id: "1389136123988545587", name: "87_large_placeable_prop" },
 	LargePlaceableProp88: { id: "1391822990693634108", name: "88_large_placeable_prop" },
+	LargePlaceableProp89: { id: "1396956400135180471", name: "89_large_placeable_prop" },
+	LargePlaceableProp90: { id: "1396956612895313950", name: "90_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -7854,6 +7874,15 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.SternShepherdMask]: MASK_EMOJIS.Mask102,
 		[Cosmetic.SternShepherdDye2]: MISCELLANEOUS_EMOJIS.Dye,
 		[Cosmetic.SternShepherdSeasonalHeart]: SEASON_EMOJIS.TwoEmbersPart1Heart,
+		[Cosmetic.ResourcefulRecluseMask]: MASK_EMOJIS.Mask103,
+		[Cosmetic.ResourcefulRecluseBlessing]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.ResourcefulRecluseDye1]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.ResourcefulRecluseOutfit]: OUTFIT_EMOJIS.Outfit88,
+		[Cosmetic.ResourcefulRecluseProp1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp89,
+		[Cosmetic.ResourcefulRecluseBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
+		[Cosmetic.ResourcefulRecluseDye2]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.ResourcefulRecluseProp2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp90,
+		[Cosmetic.ResourcefulRecluseSeasonalHeart]: SEASON_EMOJIS.TwoEmbersPart1Heart,
 		[Cosmetic.SkyBalloonProp]: null,
 		[Cosmetic.BlueCarpet]: null,
 		[Cosmetic.AnniversarySuit]: null,

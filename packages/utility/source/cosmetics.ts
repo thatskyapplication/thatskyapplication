@@ -3076,6 +3076,15 @@ export enum Cosmetic {
 	SternShepherdMask = 2448,
 	SternShepherdDye2 = 2449,
 	SternShepherdSeasonalHeart = 2450,
+	ResourcefulRecluseMask = 2451,
+	ResourcefulRecluseBlessing = 2452,
+	ResourcefulRecluseDye1 = 2453,
+	ResourcefulRecluseOutfit = 2454,
+	ResourcefulRecluseProp1 = 2455,
+	ResourcefulRecluseBlackDye = 2456,
+	ResourcefulRecluseDye2 = 2457,
+	ResourcefulRecluseProp2 = 2458,
+	ResourcefulRecluseSeasonalHeart = 2459,
 
 	// 21/07/2025 | Version 0.30.0.
 	SkyBalloonProp,
