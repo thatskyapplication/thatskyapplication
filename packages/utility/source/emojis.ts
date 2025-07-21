@@ -349,6 +349,7 @@ const STANCE_EMOJIS_PRODUCTION = {
 	Tinker: { id: "1313932325347659918", name: "tinker" },
 	Injured: { id: "1313932323598762057", name: "injured" },
 	Sad: { id: "1383903593739976794", name: "sad" },
+	Scarred: { id: "1396915896559337502", name: "scarred" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS_DEVELOPMENT = {
@@ -365,6 +366,7 @@ const STANCE_EMOJIS_DEVELOPMENT = {
 	Tinker: { id: "1313865788851097720", name: "tinker" },
 	Injured: { id: "1313865793670221995", name: "injured" },
 	Sad: { id: "1383903601277010021", name: "sad" },
+	Scarred: { id: "1396915902917644461", name: "scarred" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CALL_EMOJIS_PRODUCTION = {
@@ -974,6 +976,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Tending Toymaker.
 	 */
 	Outfit85: { id: "1396908098257686548", name: "85_outfit" },
+	/**
+	 * Scarred Sentry.
+	 */
+	Outfit86: { id: "1396917161343189012", name: "86_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1062,6 +1068,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit83: { id: "1366370369044484119", name: "83_outfit" },
 	Outfit84: { id: "1376529980800106496", name: "84_outfit" },
 	Outfit85: { id: "1396908105500987647", name: "85_outfit" },
+	Outfit86: { id: "1396917168918106184", name: "86_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1149,6 +1156,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Ocean Sea Foam Boots.
 	 */
 	Shoe21: { id: "1366371889743921182", name: "21_shoe" },
+	/**
+	 * Scarred Sentry.
+	 */
+	Shoe22: { id: "1396917421683511466", name: "22_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1173,6 +1184,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe19: { id: "1345896926830133379", name: "19_shoe" },
 	Shoe20: { id: "1365257785629216768", name: "20_shoe" },
 	Shoe21: { id: "1366371897792532620", name: "21_shoe" },
+	Shoe22: { id: "1396917426486247454", name: "22_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -2814,6 +2826,14 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Tending Toymaker.
 	 */
 	Hair165: { id: "1396908344098426940", name: "165_hair" },
+	/**
+	 * Scarred Sentry 1.
+	 */
+	Hair166: { id: "1396916687659470990", name: "166_hair" },
+	/**
+	 * Scarred Sentry 2.
+	 */
+	Hair167: { id: "1396916702293393549", name: "167_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -2982,6 +3002,8 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair163: { id: "1366371285243789403", name: "163_hair" },
 	Hair164: { id: "1376530850547761312", name: "164_hair" },
 	Hair165: { id: "1396908358262591511", name: "165_hair" },
+	Hair166: { id: "1396916694261174341", name: "166_hair" },
+	Hair167: { id: "1396916710698909706", name: "167_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3925,6 +3947,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Vault Elder's Lantern (ultimate).
 	 */
 	Cape156: { id: "1396896124287320094", name: "156_cape" },
+	/**
+	 * Scarred Sentry.
+	 */
+	Cape157: { id: "1396916995714453624", name: "157_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4084,6 +4110,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape154: { id: "1392519712918999200", name: "154_cape" },
 	Cape155: { id: "1396909761089241168", name: "155_cape" },
 	Cape156: { id: "1396896130075332690", name: "156_cape" },
+	Cape157: { id: "1396916997295706253", name: "157_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -4307,6 +4334,14 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Tender Toymaker.
 	 */
 	HeldProp55: { id: "1396907779679195186", name: "55_held_prop" },
+	/**
+	 * Scarred Sentry 1.
+	 */
+	HeldProp56: { id: "1396920105610510508", name: "56_held_prop" },
+	/**
+	 * Scarred Sentry 2.
+	 */
+	HeldProp57: { id: "1396917851394277426", name: "57_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4365,6 +4400,8 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp53: { id: "1391822656877232280", name: "53_held_prop" },
 	HeldProp54: { id: "1391821979446939760", name: "54_held_prop" },
 	HeldProp55: { id: "1396907787304439948", name: "55_held_prop" },
+	HeldProp56: { id: "1396920113374040204", name: "57_held_prop" },
+	HeldProp57: { id: "1396917858767863828", name: "58_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -7773,6 +7810,18 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TenderToymakerHair]: HAIR_EMOJIS.Hair165,
 		[Cosmetic.TenderToymakerDye2]: MISCELLANEOUS_EMOJIS.Dye,
 		[Cosmetic.TenderToymakerSeasonalHeart]: SEASON_EMOJIS.TwoEmbersPart1Heart,
+		[Cosmetic.StanceScarred]: STANCE_EMOJIS.Scarred,
+		[Cosmetic.ScarredSentryHair1]: HAIR_EMOJIS.Hair166,
+		[Cosmetic.ScarredSentryHair2]: HAIR_EMOJIS.Hair167,
+		[Cosmetic.ScarredSentryPurpleDye]: MISCELLANEOUS_EMOJIS.DyePurple,
+		[Cosmetic.ScarredSentryCape]: CAPE_EMOJIS.Cape157,
+		[Cosmetic.ScarredSentryOutfit]: OUTFIT_EMOJIS.Outfit86,
+		[Cosmetic.ScarredSentryShoes]: SHOE_EMOJIS.Shoe22,
+		[Cosmetic.ScarredSentryProp1]: HELD_PROPS_EMOJIS.HeldProp56,
+		[Cosmetic.ScarredSentryDye]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.ScarredSentryWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
+		[Cosmetic.ScarredSentryProp2]: HELD_PROPS_EMOJIS.HeldProp57,
+		[Cosmetic.ScarredSentrySeasonalHeart]: SEASON_EMOJIS.TwoEmbersPart1Heart,
 		[Cosmetic.SkyBalloonProp]: null,
 		[Cosmetic.BlueCarpet]: null,
 		[Cosmetic.AnniversarySuit]: null,

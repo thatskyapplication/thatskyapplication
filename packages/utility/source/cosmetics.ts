@@ -3054,6 +3054,18 @@ export enum Cosmetic {
 	TenderToymakerHair = 2426,
 	TenderToymakerDye2 = 2427,
 	TenderToymakerSeasonalHeart = 2428,
+	StanceScarred = 2429,
+	ScarredSentryHair1 = 2430,
+	ScarredSentryHair2 = 2431,
+	ScarredSentryPurpleDye = 2432,
+	ScarredSentryCape = 2433,
+	ScarredSentryOutfit = 2434,
+	ScarredSentryShoes = 2435,
+	ScarredSentryProp1 = 2436,
+	ScarredSentryDye = 2437,
+	ScarredSentryWhiteDye = 2438,
+	ScarredSentryProp2 = 2439,
+	ScarredSentrySeasonalHeart = 2440,
 
 	// 21/07/2025 | Version 0.30.0.
 	SkyBalloonProp,
