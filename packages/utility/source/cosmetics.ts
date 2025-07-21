@@ -3087,10 +3087,10 @@ export enum Cosmetic {
 	ResourcefulRecluseSeasonalHeart = 2459,
 
 	// 21/07/2025 | Version 0.30.0.
-	SkyBalloonProp,
-	BlueCarpet,
-	AnniversarySuit,
-	BalloonArch,
+	SkyBalloonProp = 2460,
+	BlueCarpet = 2461,
+	AnniversarySuit = 2462,
+	BalloonArch = 2463,
 
 	// [To be determined]
 	ManateePlush,

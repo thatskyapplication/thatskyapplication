@@ -44,8 +44,8 @@ export default new Event({
 	},
 	offer: [
 		{
-			cosmetic: Cosmetic.SkyAnniversaryHairAccessory5,
-			cost: { eventTickets: 16 },
+			cosmetic: Cosmetic.BalloonArch,
+			cost: { candles: 20 },
 		},
 		{
 			cosmetic: Cosmetic.AnniversaryClapboard,
@@ -54,6 +54,22 @@ export default new Event({
 		{
 			cosmetic: Cosmetic.AnniversaryMovieSeats,
 			cost: { eventTickets: 36 },
+		},
+		{
+			cosmetic: Cosmetic.SkyAnniversaryHairAccessory5,
+			cost: { eventTickets: 16 },
+		},
+		{
+			cosmetic: Cosmetic.BlueCarpet,
+			cost: { eventTickets: 26 },
+		},
+		{
+			cosmetic: Cosmetic.AnniversarySuit,
+			cost: { eventTickets: 66 },
+		},
+		{
+			cosmetic: Cosmetic.SkyBalloonProp,
+			cost: { eventTickets: 16 },
 		},
 		{
 			cosmetic: [Cosmetic.AnniversaryCinemaGlasses, Cosmetic.AnniversaryCinemaPopcorn],
