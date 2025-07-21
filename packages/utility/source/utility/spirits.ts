@@ -416,6 +416,7 @@ export enum SpiritCall {
 	Ninny = "Ninny",
 
 	BlueBird = "Blue bird",
+	Manatee = "Manatee",
 }
 
 export enum FriendAction {

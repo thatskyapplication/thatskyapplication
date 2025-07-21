@@ -380,6 +380,7 @@ const CALL_EMOJIS_PRODUCTION = {
 	BabyManta: { id: "1313932591950200952", name: "baby_manta" },
 	Nightbird: { id: "1313932588917854239", name: "nightbird" },
 	BlueBird: { id: "1389263899345424404", name: "blue_bird" },
+	Manatee: { id: "1396948897603125359", name: "manatee" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CALL_EMOJIS_DEVELOPMENT = {
@@ -393,6 +394,7 @@ const CALL_EMOJIS_DEVELOPMENT = {
 	BabyManta: { id: "1313867160228986891", name: "baby_manta" },
 	Nightbird: { id: "1313867168001298557", name: "nightbird" },
 	BlueBird: { id: "1389264024423764018", name: "blue_bird" },
+	Manatee: { id: "1396948907115937832", name: "manatee" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FRIEND_ACTION_EMOJIS_PRODUCTION = {
@@ -980,6 +982,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Scarred Sentry.
 	 */
 	Outfit86: { id: "1396917161343189012", name: "86_outfit" },
+	/**
+	 * Stern Shepherd.
+	 */
+	Outfit87: { id: "1396949612899602533", name: "87_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1069,6 +1075,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit84: { id: "1376529980800106496", name: "84_outfit" },
 	Outfit85: { id: "1396908105500987647", name: "85_outfit" },
 	Outfit86: { id: "1396917168918106184", name: "86_outfit" },
+	Outfit87: { id: "1396949620608864417", name: "87_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1592,6 +1599,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Rainbow Face Paint Mask.
 	 */
 	Mask101: { id: "1376530171292680212", name: "101_mask" },
+	/**
+	 * Stern Shepherd.
+	 */
+	Mask102: { id: "1396951023146373150", name: "102_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1696,6 +1707,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask99: { id: "1364902309586407479", name: "99_mask" },
 	Mask100: { id: "1366372071566999633", name: "100_mask" },
 	Mask101: { id: "1376530178947153970", name: "101_mask" },
+	Mask102: { id: "1396951030150987816", name: "102_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -2834,6 +2846,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Scarred Sentry 2.
 	 */
 	Hair167: { id: "1396916702293393549", name: "167_hair" },
+	/**
+	 * Stern Shepherd.
+	 */
+	Hair168: { id: "1396949340118843442", name: "168_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3004,6 +3020,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair165: { id: "1396908358262591511", name: "165_hair" },
 	Hair166: { id: "1396916694261174341", name: "166_hair" },
 	Hair167: { id: "1396916710698909706", name: "167_hair" },
+	Hair168: { id: "1396949348863971441", name: "168_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4342,6 +4359,10 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Scarred Sentry 2.
 	 */
 	HeldProp57: { id: "1396917851394277426", name: "57_held_prop" },
+	/**
+	 * Stern Shepherd.
+	 */
+	HeldProp58: { id: "1396950649765105705", name: "58_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4402,6 +4423,7 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp55: { id: "1396907787304439948", name: "55_held_prop" },
 	HeldProp56: { id: "1396920113374040204", name: "57_held_prop" },
 	HeldProp57: { id: "1396917858767863828", name: "58_held_prop" },
+	HeldProp58: { id: "1396950659575844996", name: "58_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -7822,6 +7844,16 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.ScarredSentryWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
 		[Cosmetic.ScarredSentryProp2]: HELD_PROPS_EMOJIS.HeldProp57,
 		[Cosmetic.ScarredSentrySeasonalHeart]: SEASON_EMOJIS.TwoEmbersPart1Heart,
+		[Cosmetic.CallManatee]: CALL_EMOJIS.Manatee,
+		[Cosmetic.SternShepherdMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
+		[Cosmetic.SternShepherdHair]: HAIR_EMOJIS.Hair168,
+		[Cosmetic.SternShepherdOutfit]: OUTFIT_EMOJIS.Outfit87,
+		[Cosmetic.SternShepherdYellowDye]: MISCELLANEOUS_EMOJIS.DyeYellow,
+		[Cosmetic.SternShepherdDye1]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.SternShepherdProp]: HELD_PROPS_EMOJIS.HeldProp58,
+		[Cosmetic.SternShepherdMask]: MASK_EMOJIS.Mask102,
+		[Cosmetic.SternShepherdDye2]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.SternShepherdSeasonalHeart]: SEASON_EMOJIS.TwoEmbersPart1Heart,
 		[Cosmetic.SkyBalloonProp]: null,
 		[Cosmetic.BlueCarpet]: null,
 		[Cosmetic.AnniversarySuit]: null,

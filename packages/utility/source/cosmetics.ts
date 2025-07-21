@@ -3066,6 +3066,16 @@ export enum Cosmetic {
 	ScarredSentryWhiteDye = 2438,
 	ScarredSentryProp2 = 2439,
 	ScarredSentrySeasonalHeart = 2440,
+	CallManatee = 2441,
+	SternShepherdMusicSheet = 2442,
+	SternShepherdHair = 2443,
+	SternShepherdOutfit = 2444,
+	SternShepherdYellowDye = 2445,
+	SternShepherdDye1 = 2446,
+	SternShepherdProp = 2447,
+	SternShepherdMask = 2448,
+	SternShepherdDye2 = 2449,
+	SternShepherdSeasonalHeart = 2450,
 
 	// 21/07/2025 | Version 0.30.0.
 	SkyBalloonProp,
