@@ -14,7 +14,7 @@ export default new Event({
 		amount: eventTicketAmount,
 		pool: [
 			{
-				// 5 event tickets worth 2 each.
+				// 5 bonus event tickets worth 2 each.
 				amount: 10,
 				start: skyDate(2_025, 7, 7),
 				end: skyDate(2_025, 8, 18),
@@ -27,6 +27,12 @@ export default new Event({
 			{
 				amount: 30,
 				start: skyDate(2_025, 7, 14),
+				end: skyDate(2_025, 8, 18),
+			},
+			{
+				// 5 bonus event tickets worth 2 each.
+				amount: 10,
+				start: skyDate(2_025, 7, 21),
 				end: skyDate(2_025, 8, 18),
 			},
 			{
