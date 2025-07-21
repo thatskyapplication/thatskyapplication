@@ -4805,7 +4805,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	/**
 	 * Sky Balloon Prop.
 	 */
-	LargePlaceableProp91: { id: "1396966377897852978", name: "91_large_placeable_prop" },
+	LargePlaceableProp91: { id: "1396966370293579796", name: "91_large_placeable_prop" },
 	/**
 	 * Balloon Arch.
 	 */
