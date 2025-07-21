@@ -3046,7 +3046,7 @@ export enum Cosmetic {
 	VestigeOfDarkDragonsHeadAccessory,
 	CloakOfDarkness,
 
-	// [To be determined] | Version 0.30.0.
+	// 21/07/2025 | Version 0.30.0.
 	SkyBalloonProp,
 	BlueCarpet,
 	AnniversarySuit,
