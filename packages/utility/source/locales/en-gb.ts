@@ -814,10 +814,10 @@ export default {
 			[SpiritId.RoyalHairtousleTeen]: "Royal Hairtousle Teen",
 			[SpiritId.VaultEldersLantern]: "Vault Elder's Lantern",
 			[SpiritId.TenderToymaker]: "Tender Toymaker",
-			[SpiritId.CaringCompanion]: "Caring Companion",
 			[SpiritId.ScarredSentry]: "Scarred Sentry",
 			[SpiritId.SternShepherd]: "Stern Shepherd",
 			[SpiritId.ResourcefulRecluse]: "Resourceful Recluse",
+			[SpiritId.CaringCompanion]: "Caring Companion",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1080,11 +1080,11 @@ export default {
 			[SpiritId.VaultEldersLantern]:
 				"https://sky-children-of-the-light.fandom.com/Vault_Elder's_Lantern",
 			[SpiritId.TenderToymaker]: "https://sky-children-of-the-light.fandom.com/Tender_Toymaker",
-			[SpiritId.CaringCompanion]: "https://sky-children-of-the-light.fandom.com/Caring_Companion",
 			[SpiritId.ScarredSentry]: "https://sky-children-of-the-light.fandom.com/Scarred_Sentry",
 			[SpiritId.SternShepherd]: "https://sky-children-of-the-light.fandom.com/Stern_Shepherd",
 			[SpiritId.ResourcefulRecluse]:
 				"https://sky-children-of-the-light.fandom.com/Resourceful_Recluse",
+			[SpiritId.CaringCompanion]: "https://sky-children-of-the-light.fandom.com/Caring_Companion",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"cosmetic-common-names": {
 			[CosmeticCommon.WingBuff]: "Wing buff",

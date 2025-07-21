@@ -4,7 +4,6 @@ import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
-import caringCompanion from "./caring-companion.js";
 import resourcefulRecluse from "./resourceful-recluse.js";
 import scarredSentry from "./scarred-sentry.js";
 import sternShepherd from "./stern-shepherd.js";
@@ -16,7 +15,7 @@ export default new Season({
 	start: skyDate(2_025, 7, 21),
 	end: skyDate(2_025, 10, 6),
 	guide: vaultEldersLantern,
-	spirits: [tenderToymaker, caringCompanion, scarredSentry, sternShepherd, resourcefulRecluse],
+	spirits: [tenderToymaker, scarredSentry, sternShepherd, resourcefulRecluse],
 	seasonalCandlesRotation: [
 		{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
 		{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
