@@ -1064,6 +1064,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.AdmireSharedSpacesWithDaydreamForester]: null,
 	[DailyQuest.AdmireSharedSpacesWithBearhugHermit]: null,
 	[DailyQuest.AdmireSharedSpacesWithBumblingBoatswain]: null,
+	[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 // Daily guides distribution.

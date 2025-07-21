@@ -384,6 +384,8 @@ export default {
 				"Join Grateful Shell Collector for some tea",
 			[DailyQuest.JoinSparklerParentForSomeTea]: "Join Sparkler Parent for some tea",
 			[DailyQuest.JoinAsceticMonkForSomeTea]: "Join Ascetic Monk for some tea",
+			[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]:
+				"Meet up with Grateful Shell Collector in Aviary Village",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
