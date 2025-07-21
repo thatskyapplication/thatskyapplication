@@ -3222,6 +3222,14 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	HairAccessory59: { id: "1391821367585935511", name: "59_hair_accessory" },
 	/**
+	 * Butterfly Blossom Memento.
+	 */
+	HairAccessory60: { id: "1396910401362329600", name: "60_hair_accessory" },
+	/**
+	 * Mini Manatee Accessory.
+	 */
+	HairAccessory61: { id: "1396910416243982356", name: "61_hair_accessory" },
+	/**
 	 * Vault Elder's Lantern (ultimate).
 	 */
 	HairAccessory62: { id: "1396895791959904536", name: "62_hair_accessory" },
@@ -3287,6 +3295,8 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory57: { id: "1365260201950711880", name: "57_hair_accessory" },
 	HairAccessory58: { id: "1365271440584212492", name: "58_hair_accessory" },
 	HairAccessory59: { id: "1391821381422809118", name: "59_hair_accessory" },
+	HairAccessory60: { id: "1396910409046556804", name: "60_hair_accessory" },
+	HairAccessory61: { id: "1396910423139156088", name: "61_hair_accessory" },
 	HairAccessory62: { id: "1396895798465134765", name: "62_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
@@ -3908,6 +3918,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 */
 	Cape154: { id: "1392519682141192303", name: "154_cape" },
 	/**
+	 * Cloak of Darkness.
+	 */
+	Cape155: { id: "1396909752306499755", name: "155_cape" },
+	/**
 	 * Vault Elder's Lantern (ultimate).
 	 */
 	Cape156: { id: "1396896124287320094", name: "156_cape" },
@@ -4068,6 +4082,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape152: { id: "1366371491746283520", name: "152_cape" },
 	Cape153: { id: "1376529647810121849", name: "153_cape" },
 	Cape154: { id: "1392519712918999200", name: "154_cape" },
+	Cape155: { id: "1396909761089241168", name: "155_cape" },
 	Cape156: { id: "1396896130075332690", name: "156_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
@@ -7741,9 +7756,9 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AnniversaryCinemaPopcorn]: HELD_PROPS_EMOJIS.HeldProp54,
 		[Cosmetic.TGCWireframeCape]: CAPE_EMOJIS.Cape154,
 		[Cosmetic.JollyGeologistWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
-		[Cosmetic.ButterflyBlossomMemento]: null,
-		[Cosmetic.MiniManateeAccessory]: null,
-		[Cosmetic.CloakOfDarkness]: null,
+		[Cosmetic.ButterflyBlossomMemento]: HAIR_ACCESSORY_EMOJIS.HairAccessory60,
+		[Cosmetic.MiniManateeAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory61,
+		[Cosmetic.CloakOfDarkness]: CAPE_EMOJIS.Cape155,
 		[Cosmetic.VaultEldersLanternQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart1]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.TheTwoEmbersPendant]: NECKLACE_EMOJIS.Necklace48,
