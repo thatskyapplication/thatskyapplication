@@ -2091,6 +2091,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Blue Bird Pendant.
 	 */
 	Necklace47: { id: "1363811108015706123", name: "47_necklace" },
+	/**
+	 * The Two Embers - Part 1 Pendant.
+	 */
+	Necklace48: { id: "1396895194703466698", name: "48_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2141,6 +2145,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace45: { id: "1313920862830989324", name: "45_necklace" },
 	Necklace46: { id: "1330482752545362080", name: "46_necklace" },
 	Necklace47: { id: "1363810875089096865", name: "47_necklace" },
+	Necklace48: { id: "1396895202043760723", name: "48_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -3206,6 +3211,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Sixth Sky Anniversary.
 	 */
 	HairAccessory59: { id: "1391821367585935511", name: "59_hair_accessory" },
+	/**
+	 * Vault Elder's Lantern (ultimate).
+	 */
+	HairAccessory62: { id: "1396895791959904536", name: "62_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3268,6 +3277,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory57: { id: "1365260201950711880", name: "57_hair_accessory" },
 	HairAccessory58: { id: "1365271440584212492", name: "58_hair_accessory" },
 	HairAccessory59: { id: "1391821381422809118", name: "59_hair_accessory" },
+	HairAccessory62: { id: "1396895798465134765", name: "62_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -3887,6 +3897,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * TGC Wireframe Cape.
 	 */
 	Cape154: { id: "1392519682141192303", name: "154_cape" },
+	/**
+	 * Vault Elder's Lantern (ultimate).
+	 */
+	Cape156: { id: "1396896124287320094", name: "156_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4044,6 +4058,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape152: { id: "1366371491746283520", name: "152_cape" },
 	Cape153: { id: "1376529647810121849", name: "153_cape" },
 	Cape154: { id: "1392519712918999200", name: "154_cape" },
+	Cape156: { id: "1396896130075332690", name: "156_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7708,16 +7723,21 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.JollyGeologistWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.ButterflyBlossomMemento]: null,
 		[Cosmetic.MiniManateeAccessory]: null,
+		[Cosmetic.CloakOfDarkness]: null,
+		[Cosmetic.VaultEldersLanternQuest1]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.VaultEldersLanternHeart1]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.TheTwoEmbersPendant]: NECKLACE_EMOJIS.Necklace48,
+		[Cosmetic.VaultEldersLanternUltimateHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory62,
+		[Cosmetic.VaultEldersLanternUltimateCape]: CAPE_EMOJIS.Cape156,
+		[Cosmetic.SkyBalloonProp]: null,
+		[Cosmetic.BlueCarpet]: null,
+		[Cosmetic.AnniversarySuit]: null,
+		[Cosmetic.BalloonArch]: null,
 		[Cosmetic.ManateePlush]: null,
 		[Cosmetic.SpiritedManateeTail]: null,
 		[Cosmetic.SpiritedManateeHeadAccessory]: null,
 		[Cosmetic.VestigeOfDarkDragonsTail]: null,
 		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: null,
-		[Cosmetic.CloakOfDarkness]: null,
-		[Cosmetic.SkyBalloonProp]: null,
-		[Cosmetic.BlueCarpet]: null,
-		[Cosmetic.AnniversarySuit]: null,
-		[Cosmetic.BalloonArch]: null,
 		[Cosmetic.AnniversaryGown]: null,
 		[Cosmetic.AnniversaryShoes]: null,
 		[Cosmetic.AnniversaryTuxedoCape]: null,

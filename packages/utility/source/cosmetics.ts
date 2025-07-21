@@ -3040,6 +3040,11 @@ export enum Cosmetic {
 	ButterflyBlossomMemento = 2412,
 	MiniManateeAccessory = 2413,
 	CloakOfDarkness = 2414,
+	VaultEldersLanternQuest1 = 2415,
+	VaultEldersLanternHeart1 = 2416,
+	TheTwoEmbersPendant = 2417,
+	VaultEldersLanternUltimateHairAccessory = 2418,
+	VaultEldersLanternUltimateCape = 2419,
 
 	// 21/07/2025 | Version 0.30.0.
 	SkyBalloonProp,
