@@ -757,7 +757,7 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 */
 	Outfit30: { id: "1313933858047135895", name: "30_outfit" },
 	/**
-	 * Frantic Stagehand
+	 * Frantic Stagehand.
 	 */
 	Outfit31: { id: "1313933856012763186", name: "31_outfit" },
 	/**
