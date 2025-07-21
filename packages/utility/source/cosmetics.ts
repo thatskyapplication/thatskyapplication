@@ -3045,6 +3045,15 @@ export enum Cosmetic {
 	TheTwoEmbersPendant = 2417,
 	VaultEldersLanternUltimateHairAccessory = 2418,
 	VaultEldersLanternUltimateCape = 2419,
+	TenderToymakerBlessing = 2420,
+	TenderToymakerProp1 = 2421,
+	TenderToymakerProp2 = 2422,
+	TenderToymakerDye1 = 2423,
+	TenderToymakerGreenDye = 2424,
+	TenderToymakerOutfit = 2425,
+	TenderToymakerHair = 2426,
+	TenderToymakerDye2 = 2427,
+	TenderToymakerSeasonalHeart = 2428,
 
 	// 21/07/2025 | Version 0.30.0.
 	SkyBalloonProp,

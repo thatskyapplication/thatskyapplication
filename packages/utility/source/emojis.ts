@@ -970,6 +970,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Rainbow Smock.
 	 */
 	Outfit84: { id: "1376529972608372756", name: "84_outfit" },
+	/**
+	 * Tending Toymaker.
+	 */
+	Outfit85: { id: "1396908098257686548", name: "85_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1057,6 +1061,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit82: { id: "1365271629558452224", name: "82_outfit" },
 	Outfit83: { id: "1366370369044484119", name: "83_outfit" },
 	Outfit84: { id: "1376529980800106496", name: "84_outfit" },
+	Outfit85: { id: "1396908105500987647", name: "85_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -2805,6 +2810,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Rainbow Head Wrap.
 	 */
 	Hair164: { id: "1376530842750419086", name: "164_hair" },
+	/**
+	 * Tending Toymaker.
+	 */
+	Hair165: { id: "1396908344098426940", name: "165_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -2972,6 +2981,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair162: { id: "1364902007327948911", name: "162_hair" },
 	Hair163: { id: "1366371285243789403", name: "163_hair" },
 	Hair164: { id: "1376530850547761312", name: "164_hair" },
+	Hair165: { id: "1396908358262591511", name: "165_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4278,6 +4288,10 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Anniversary Cinema Popcorn.
 	 */
 	HeldProp54: { id: "1391821970747953428", name: "54_held_prop" },
+	/**
+	 * Tender Toymaker.
+	 */
+	HeldProp55: { id: "1396907779679195186", name: "55_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4335,6 +4349,7 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp52: { id: "1345897433070309387", name: "52_held_prop" },
 	HeldProp53: { id: "1391822656877232280", name: "53_held_prop" },
 	HeldProp54: { id: "1391821979446939760", name: "54_held_prop" },
+	HeldProp55: { id: "1396907787304439948", name: "55_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5148,6 +5163,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Decorative stick jar.
 	 */
 	SmallPlaceableProp91: { id: "1391669748420575322", name: "91_small_placeable_prop" },
+	/**
+	 * Tender Toymaker.
+	 */
+	SmallPlaceableProp92: { id: "1396906802330865715", name: "92_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5242,6 +5261,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp89: { id: "1391669789591601184", name: "89_small_placeable_prop" },
 	SmallPlaceableProp90: { id: "1391669797715972126", name: "90_small_placeable_prop" },
 	SmallPlaceableProp91: { id: "1391669806096187392", name: "91_small_placeable_prop" },
+	SmallPlaceableProp92: { id: "1396906809238884393", name: "92_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -7729,6 +7749,15 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TheTwoEmbersPendant]: NECKLACE_EMOJIS.Necklace48,
 		[Cosmetic.VaultEldersLanternUltimateHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory62,
 		[Cosmetic.VaultEldersLanternUltimateCape]: CAPE_EMOJIS.Cape156,
+		[Cosmetic.TenderToymakerBlessing]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.TenderToymakerProp1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp92,
+		[Cosmetic.TenderToymakerProp2]: HELD_PROPS_EMOJIS.HeldProp55,
+		[Cosmetic.TenderToymakerDye1]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.TenderToymakerGreenDye]: MISCELLANEOUS_EMOJIS.DyeGreen,
+		[Cosmetic.TenderToymakerOutfit]: OUTFIT_EMOJIS.Outfit85,
+		[Cosmetic.TenderToymakerHair]: HAIR_EMOJIS.Hair165,
+		[Cosmetic.TenderToymakerDye2]: MISCELLANEOUS_EMOJIS.Dye,
+		[Cosmetic.TenderToymakerSeasonalHeart]: SEASON_EMOJIS.TwoEmbersPart1Heart,
 		[Cosmetic.SkyBalloonProp]: null,
 		[Cosmetic.BlueCarpet]: null,
 		[Cosmetic.AnniversarySuit]: null,
