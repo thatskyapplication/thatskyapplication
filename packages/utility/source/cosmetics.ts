@@ -3037,20 +3037,22 @@ export enum Cosmetic {
 	JollyGeologistWingBuff = 2411,
 
 	// 21/07/2025 | Season of The Two Embers - Part 1.
-	ButterflyBlossomMemento,
-	MiniManateeAccessory,
-	ManateePlush,
-	SpiritedManateeTail,
-	SpiritedManateeHeadAccessory,
-	VestigeOfDarkDragonsTail,
-	VestigeOfDarkDragonsHeadAccessory,
-	CloakOfDarkness,
+	ButterflyBlossomMemento = 2412,
+	MiniManateeAccessory = 2413,
+	CloakOfDarkness = 2414,
 
 	// 21/07/2025 | Version 0.30.0.
 	SkyBalloonProp,
 	BlueCarpet,
 	AnniversarySuit,
 	BalloonArch,
+
+	// [To be determined]
+	ManateePlush,
+	SpiritedManateeTail,
+	SpiritedManateeHeadAccessory,
+	VestigeOfDarkDragonsTail,
+	VestigeOfDarkDragonsHeadAccessory,
 
 	// 11/08/2025 | Version 0.30.0.
 	AnniversaryGown,

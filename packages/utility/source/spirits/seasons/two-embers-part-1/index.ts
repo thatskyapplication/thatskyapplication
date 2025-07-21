@@ -35,27 +35,27 @@ export default new Season({
 			cost: { money: 2.99 },
 		},
 		{
-			cosmetic: Cosmetic.MiniManateeAccessory,
-			cost: { money: 3.99 },
-		},
-		{
-			cosmetic: Cosmetic.ManateePlush,
-			cost: { money: 6.99 },
-		},
-		{
-			cosmetic: [Cosmetic.SpiritedManateeTail, Cosmetic.SpiritedManateeHeadAccessory],
-			cosmeticDisplay: Cosmetic.SpiritedManateeTail, // Double-check this.
-			cost: { money: 9.99 },
-		},
-		{
-			cosmetic: [Cosmetic.VestigeOfDarkDragonsTail, Cosmetic.VestigeOfDarkDragonsHeadAccessory],
-			cosmeticDisplay: Cosmetic.VestigeOfDarkDragonsTail, // Double-check this.
-			cost: { money: 11.99 },
-		},
-		{
 			cosmetic: Cosmetic.CloakOfDarkness,
 			cost: { money: 14.99 },
 		},
+		{
+			cosmetic: Cosmetic.MiniManateeAccessory,
+			cost: { money: 3.99 },
+		},
+		// {
+		// 	cosmetic: Cosmetic.ManateePlush,
+		// 	cost: { money: 6.99 },
+		// },
+		// {
+		// 	cosmetic: [Cosmetic.SpiritedManateeTail, Cosmetic.SpiritedManateeHeadAccessory],
+		// 	cosmeticDisplay: Cosmetic.SpiritedManateeTail, // Double-check this.
+		// 	cost: { money: 9.99 },
+		// },
+		// {
+		// 	cosmetic: [Cosmetic.VestigeOfDarkDragonsTail, Cosmetic.VestigeOfDarkDragonsHeadAccessory],
+		// 	cosmeticDisplay: Cosmetic.VestigeOfDarkDragonsTail, // Double-check this.
+		// 	cost: { money: 11.99 },
+		// },
 	],
 	patchNotesURL: String(new URL("p0300", LINK_REDIRECTOR_URL)),
 });
