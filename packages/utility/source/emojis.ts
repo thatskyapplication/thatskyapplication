@@ -4421,8 +4421,8 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp53: { id: "1391822656877232280", name: "53_held_prop" },
 	HeldProp54: { id: "1391821979446939760", name: "54_held_prop" },
 	HeldProp55: { id: "1396907787304439948", name: "55_held_prop" },
-	HeldProp56: { id: "1396920113374040204", name: "57_held_prop" },
-	HeldProp57: { id: "1396917858767863828", name: "58_held_prop" },
+	HeldProp56: { id: "1396920113374040204", name: "56_held_prop" },
+	HeldProp57: { id: "1396917858767863828", name: "57_held_prop" },
 	HeldProp58: { id: "1396950659575844996", name: "58_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
