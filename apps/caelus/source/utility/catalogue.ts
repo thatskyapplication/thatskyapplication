@@ -45,8 +45,7 @@ const SeasonIdToSeasonalHeartEmoji = {
 	[SeasonId.Moomin]: SEASON_EMOJIS.MoominHeart,
 	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
 	[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdHeart,
-	// Double-check this.
-	[SeasonId.TwoEmbersPart1]: MISCELLANEOUS_EMOJIS.SeasonalHeart,
+	[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Heart,
 } as const satisfies Readonly<
 	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, Emoji | null>
 >;
