@@ -458,7 +458,12 @@ interface ItemRawTranslation {
 	number?: number;
 }
 
-interface ItemRawSingleCosmetic {
+interface BaseItemRaw {
+	level?: 1 | 2 | 3 | 4 | 5 | 6;
+	cost?: ItemCostRaw;
+}
+
+interface ItemRawSingleCosmetic extends BaseItemRaw {
 	translation?:
 		| Exclude<
 				CosmeticCommon,
@@ -470,14 +475,12 @@ interface ItemRawSingleCosmetic {
 		  >
 		| ItemRawTranslation;
 	cosmetic: Cosmetic;
-	cost?: ItemCostRaw;
 }
 
-interface ItemRawMultipleCosmetics {
+interface ItemRawMultipleCosmetics extends BaseItemRaw {
 	translation?: CosmeticCommon | ItemRawTranslation;
 	cosmetic: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
-	cost?: ItemCostRaw;
 }
 
 export type ItemRaw = ItemRawSingleCosmetic | ItemRawMultipleCosmetics;
@@ -510,6 +513,7 @@ export interface Item {
 	translation: ItemTranslation | null;
 	cosmetics: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
+	level: 1 | 2 | 3 | 4 | 5 | 6 | null;
 	cost: ItemCost | null;
 }
 

@@ -69,6 +69,7 @@ export function resolveOfferFromItems(
 					: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
 		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
 		cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
+		level: item.level ?? null,
 		cost: item.cost
 			? {
 					...item.cost,
