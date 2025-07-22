@@ -285,7 +285,8 @@ export async function reddit() {
 
 		const limit = MAXIMUM_CHARACTER_LIMIT - title.length - authorText.length - footer.length;
 
-		if (data.selftext.length > 0) {
+		// Text may be only new lines which Discord's API trims.
+		if (data.selftext.trim().length > 0) {
 			let selfText = data.selftext;
 
 			if (selfText.length > limit) {
