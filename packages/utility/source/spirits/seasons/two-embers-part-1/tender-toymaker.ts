@@ -7,7 +7,6 @@ export default new SeasonalSpirit({
 	id: SpiritId.TenderToymaker,
 	seasonId: SeasonId.TwoEmbersPart1,
 	offer: {
-		hasInfographicSeasonal: false,
 		hasInfographic: false,
 		seasonal: [
 			{
