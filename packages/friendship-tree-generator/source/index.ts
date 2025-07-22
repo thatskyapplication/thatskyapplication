@@ -1,5 +1,13 @@
 import { writeFile } from "node:fs/promises";
 import { createCanvas, GlobalFonts, loadImage } from "@napi-rs/canvas";
+import {
+	currentSeasonalSpirits,
+	formatEmojiURL,
+	type Item,
+	type SeasonalSpirit,
+	type SeasonIds,
+	SpiritId,
+} from "@thatskyapplication/utility";
 import { fetch } from "undici";
 import {
 	ASSET_OFFSET,
@@ -7,6 +15,7 @@ import {
 	ASSET_TEXT_DOUBLE_OFFSET,
 	ASSET_TEXT_SINGLE_OFFSET,
 	ASSET_TEXT_TRIPLE_OFFSET,
+	CosmeticToEmoji,
 	CURRENCY_TEXT_OFFSET,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
@@ -23,8 +32,9 @@ import {
 	SEASON_ICON_SIDES_OFFSET_Y,
 	WIDTH_MODIFIER,
 } from "./constants.js";
-import NODES, { type Node } from "./nodes.js";
 
+const spirit = currentSeasonalSpirits().get(SpiritId.ResourcefulRecluse) as SeasonalSpirit;
+const NODES = spirit.seasonal;
 const hind = GlobalFonts.registerFromPath("./assets/Hind-Regular.ttf");
 
 if (!hind) {
@@ -43,7 +53,7 @@ if (firstNodeHasCostAtStart) {
 const lastNode = NODES.at(-1)!;
 
 if (lastNode.length === 1) {
-	if ("seasonIcon" in lastNode[0]!) {
+	if (spirit.isSeasonalSpirit()) {
 		canvasHeight += SEASON_ICON_MIDDLE_OFFSET_Y;
 	}
 
@@ -67,15 +77,8 @@ let heightStartMiddle =
 
 let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL_SIDES_OFFSET;
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
-async function createNode(
-	node: Node,
-	nodeIndex: number,
-	sideLineUpX?: number,
-	sideLineUpY?: number,
-	customY?: number,
-) {
-	const { icon, cost, level, seasonIcon, flatLine, nodes } = node;
+async function createNode(node: Item, nodeIndex: number, seasonId?: SeasonIds) {
+	const { cost } = node;
 	let dx: number;
 	let dy: number;
 	let assetXOffset: number;
@@ -95,7 +98,7 @@ async function createNode(
 		}
 		case 1: {
 			dx = widthStartLeft;
-			dy = flatLine ? heightStartMiddle : (customY ?? heightStartSides);
+			dy = heightStartSides;
 			assetXOffset = -(LINE_OFFSET + ASSET_OFFSET);
 			currencyTextXOffset = 0;
 			seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
@@ -104,7 +107,7 @@ async function createNode(
 		}
 		case 2: {
 			dx = widthStartRight;
-			dy = flatLine ? heightStartMiddle : (customY ?? heightStartSides);
+			dy = heightStartSides;
 			assetXOffset = imageSizeHalf + LINE_OFFSET + ASSET_OFFSET;
 			currencyTextXOffset = ASSET_SIZE;
 			seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
@@ -121,35 +124,20 @@ async function createNode(
 		context.beginPath();
 
 		if (nodeIndex === 1) {
-			context.moveTo(
-				sideLineUpX ?? widthMiddle - (imageSizeHalf + LINE_OFFSET),
-
-				sideLineUpY ??
-					(flatLine ? heightStartMiddle + imageSizeHalf : heightStartMiddle) + LINE_OFFSET,
-			);
-
-			context.lineTo(
-				sideLineUpX ?? widthStartLeft + IMAGE_SIZE + LINE_OFFSET,
-				(flatLine ? heightStartMiddle + imageSizeHalf : dy + IMAGE_SIZE) + LINE_OFFSET,
-			);
+			context.moveTo(widthMiddle - (imageSizeHalf + LINE_OFFSET), heightStartMiddle + LINE_OFFSET);
+			context.lineTo(widthStartLeft + IMAGE_SIZE + LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
 		} else {
-			context.moveTo(
-				sideLineUpX ?? widthMiddle + (imageSizeHalf + LINE_OFFSET),
-
-				sideLineUpY ??
-					(flatLine ? heightStartMiddle + imageSizeHalf : heightStartMiddle) + LINE_OFFSET,
-			);
-
-			context.lineTo(
-				sideLineUpX ?? widthStartRight - LINE_OFFSET,
-				(flatLine ? heightStartMiddle + imageSizeHalf : dy + IMAGE_SIZE) + LINE_OFFSET,
-			);
+			context.moveTo(widthMiddle + (imageSizeHalf + LINE_OFFSET), heightStartMiddle + LINE_OFFSET);
+			context.lineTo(widthStartRight - LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
 		}
 
 		context.stroke();
 	}
 
-	const arrayBuffer = await (await fetch(icon)).arrayBuffer();
+	const arrayBuffer = await (
+		await fetch(formatEmojiURL(CosmeticToEmoji[node.cosmeticDisplay]!.id))
+	).arrayBuffer();
+
 	const image = await loadImage(arrayBuffer);
 	context.drawImage(image, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
 	context.font = "35px Hind";
@@ -168,11 +156,11 @@ async function createNode(
 			imageToDraw = "ascended-candle";
 			currency = cost.ascendedCandles;
 		} else if ("seasonalCandles" in cost) {
-			imageToDraw = `seasons/${cost.seasonalCandles.season}/candle`;
-			currency = cost.seasonalCandles.cost;
+			imageToDraw = `seasons/${seasonId}/candle`;
+			currency = cost.seasonalCandles[0]?.cost ?? 0;
 		} else if ("seasonalHearts" in cost) {
-			imageToDraw = `seasons/${cost.seasonalHearts.season}/heart`;
-			currency = cost.seasonalHearts.cost;
+			imageToDraw = `seasons/${seasonId}/heart`;
+			currency = cost.seasonalHearts[0]?.cost ?? 0;
 		} else {
 			throw new Error("A cost was specified with no currency.");
 		}
@@ -203,9 +191,9 @@ async function createNode(
 		context.fillText(String(currency), currencyX, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
 	}
 
-	if (seasonIcon) {
+	if (seasonId) {
 		context.drawImage(
-			await loadImage(`./assets/seasons/${seasonIcon}/icon.webp`),
+			await loadImage(`./assets/seasons/${seasonId}/icon.webp`),
 			dx - seasonIconOffsetX,
 			dy - seasonIconOffsetY,
 			ASSET_SIZE,
@@ -213,26 +201,11 @@ async function createNode(
 		);
 	}
 
+	// Resolve this.
+	const level = undefined;
+
 	if (level) {
 		context.fillText(`Lv${level}`, dx + IMAGE_SIZE - LEVEL_OFFSET_X, dy - LEVEL_OFFSET_Y);
-	}
-
-	if (nodes && nodes.length > 0) {
-		let sideLineUpYCalculation = dy - LINE_OFFSET;
-		let customHeightLevel = dy - NEXT_HEIGHT_LEVEL;
-
-		for (const subnode of nodes) {
-			await createNode(
-				subnode,
-				nodeIndex,
-				dx + imageSizeHalf,
-				sideLineUpYCalculation,
-				customHeightLevel,
-			);
-
-			sideLineUpYCalculation -= NEXT_HEIGHT_LEVEL;
-			customHeightLevel -= NEXT_HEIGHT_LEVEL;
-		}
 	}
 }
 
@@ -242,9 +215,7 @@ for (const nodes of NODES) {
 	let nodeIndex = 0;
 
 	for (const node of nodes) {
-		if (node) {
-			await createNode(node, nodeIndex);
-		}
+		await createNode(node, nodeIndex, spirit.seasonId);
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();
