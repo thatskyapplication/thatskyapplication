@@ -201,11 +201,8 @@ async function createNode(node: Item, nodeIndex: number, seasonId?: SeasonIds) {
 		);
 	}
 
-	// Resolve this.
-	const level = undefined;
-
-	if (level) {
-		context.fillText(`Lv${level}`, dx + IMAGE_SIZE - LEVEL_OFFSET_X, dy - LEVEL_OFFSET_Y);
+	if (node.level) {
+		context.fillText(`Lv${node.level}`, dx + IMAGE_SIZE - LEVEL_OFFSET_X, dy - LEVEL_OFFSET_Y);
 	}
 }
 
