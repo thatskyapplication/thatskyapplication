@@ -1,6 +1,7 @@
+import type { FriendshipTreeRaw } from "../models/spirits.js";
 import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
-import type { Item, ItemCost, ItemRaw } from "./spirits.js";
+import type { FriendshipTree, Item, ItemCost, ItemRaw } from "./spirits.js";
 
 export function getRandomElement<const T>(array: readonly T[]) {
 	return array[Math.floor(Math.random() * array.length)];
@@ -16,11 +17,24 @@ export function snakeCaseName(name: string) {
 		.toLowerCase();
 }
 
-export function resolveAllCosmetics(items: readonly Item[]) {
-	return items.reduce<number[]>((total, { cosmetics }) => {
+export function resolveAllCosmetics(friendshipTree: FriendshipTree) {
+	const total = [];
+
+	for (const items of friendshipTree) {
+		total.push(...resolveAllCosmeticsFromItems(items));
+	}
+
+	return total;
+}
+
+export function resolveAllCosmeticsFromItems(items: readonly Item[]) {
+	const total = [];
+
+	for (const { cosmetics } of items) {
 		total.push(...cosmetics);
-		return total;
-	}, []);
+	}
+
+	return total;
 }
 
 interface ResolveOfferOptions {
@@ -29,6 +43,20 @@ interface ResolveOfferOptions {
 }
 
 export function resolveOffer(
+	friendshipTree: FriendshipTreeRaw,
+	options?: ResolveOfferOptions,
+): FriendshipTree {
+	return friendshipTree.map(
+		(items) =>
+			resolveOfferFromItems(items, options) as
+				| [Item]
+				| [Item, Item]
+				| [Item, Item, Item]
+				| [Item, Item, Item, Item],
+	);
+}
+
+export function resolveOfferFromItems(
 	items: readonly ItemRaw[],
 	{ seasonId, eventId }: ResolveOfferOptions = {},
 ): Item[] {
