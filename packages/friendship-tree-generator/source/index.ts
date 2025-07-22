@@ -191,7 +191,7 @@ async function createNode(node: Item, nodeIndex: number, seasonId?: SeasonIds) {
 		context.fillText(String(currency), currencyX, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
 	}
 
-	if (seasonId) {
+	if (node.seasonPass && seasonId) {
 		context.drawImage(
 			await loadImage(`./assets/seasons/${seasonId}/icon.webp`),
 			dx - seasonIconOffsetX,
