@@ -7,7 +7,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.ResourcefulRecluse,
 	seasonId: SeasonId.TwoEmbersPart1,
 	offer: {
-		hasInfographicSeasonal: false,
+		hasInfographic: false,
 		seasonal: [
 			{
 				cosmetic: Cosmetic.ResourcefulRecluseMask,
