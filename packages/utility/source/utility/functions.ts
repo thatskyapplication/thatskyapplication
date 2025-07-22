@@ -70,6 +70,7 @@ export function resolveOfferFromItems(
 		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
 		cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
 		level: item.level ?? null,
+		seasonPass: item.seasonPass ?? false,
 		cost: item.cost
 			? {
 					...item.cost,

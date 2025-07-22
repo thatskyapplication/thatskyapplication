@@ -460,6 +460,7 @@ interface ItemRawTranslation {
 
 interface BaseItemRaw {
 	level?: 1 | 2 | 3 | 4 | 5 | 6;
+	seasonPass?: boolean;
 	cost?: ItemCostRaw;
 }
 
@@ -514,6 +515,7 @@ export interface Item {
 	cosmetics: [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	level: 1 | 2 | 3 | 4 | 5 | 6 | null;
+	seasonPass: boolean;
 	cost: ItemCost | null;
 }
 
