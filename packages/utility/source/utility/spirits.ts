@@ -513,6 +513,13 @@ export interface Item {
 	cost: ItemCost | null;
 }
 
+export type FriendshipTree = readonly (
+	| readonly [Item]
+	| readonly [Item, Item]
+	| readonly [Item, Item, Item]
+	| readonly [Item, Item, Item, Item]
+)[];
+
 export const SpiritsHistoryOrderType = {
 	Natural: 0,
 	Rarity: 1,
