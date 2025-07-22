@@ -8,7 +8,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.TwoEmbersPart1,
 	offer: {
 		hasInfographicSeasonal: false,
-		hasInfographic: false,
 		seasonal: [
 			{
 				cosmetic: Cosmetic.ResourcefulRecluseMask,
