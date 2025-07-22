@@ -8,7 +8,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.TwoEmbersPart1,
 	offer: {
 		inProgress: true,
-		hasInfographic: false,
 		current: [
 			{
 				translation: CosmeticCommon.Quest,
