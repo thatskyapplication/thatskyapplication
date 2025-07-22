@@ -14,7 +14,10 @@ export default new GuideSpirit({
 				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
 				cosmetic: Cosmetic.BlueBirdGuideQuest1,
 			},
-			{ cosmetic: Cosmetic.BlueBirdGuideHeart1 },
+			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+				cosmetic: Cosmetic.BlueBirdGuideHeart1,
+			},
 			{ cosmetic: Cosmetic.BlueBirdPendant },
 			{
 				cosmetic: Cosmetic.BlueBirdGuideUltimateFaceAccessory,
@@ -35,7 +38,10 @@ export default new GuideSpirit({
 				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
 				cosmetic: Cosmetic.BlueBirdGuideQuest2,
 			},
-			{ cosmetic: Cosmetic.BlueBirdGuideHeart2 },
+			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+				cosmetic: Cosmetic.BlueBirdGuideHeart2,
+			},
 			{
 				cosmetic: Cosmetic.EmoteCough3,
 			},
@@ -47,7 +53,10 @@ export default new GuideSpirit({
 				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
 				cosmetic: Cosmetic.BlueBirdGuideQuest3,
 			},
-			{ cosmetic: Cosmetic.BlueBirdGuideHeart3 },
+			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+				cosmetic: Cosmetic.BlueBirdGuideHeart3,
+			},
 			{
 				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 				cosmetic: Cosmetic.BlueBirdGuideQuest4,
@@ -57,7 +66,10 @@ export default new GuideSpirit({
 				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 				cosmetic: Cosmetic.BlueBirdGuideQuest5,
 			},
-			{ cosmetic: Cosmetic.BlueBirdGuideHeart4 },
+			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+				cosmetic: Cosmetic.BlueBirdGuideHeart4,
+			},
 			{
 				translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
 				cosmetic: Cosmetic.BlueBirdGuideQuest6,

@@ -33,7 +33,10 @@ export default new GuideSpirit({
 				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
 				cosmetic: Cosmetic.DuetsGuideQuest2,
 			},
-			{ cosmetic: Cosmetic.DuetsGuideHeart1 },
+			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+				cosmetic: Cosmetic.DuetsGuideHeart1,
+			},
 			{
 				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
 				cosmetic: Cosmetic.DuetsGuideQuest3,
@@ -53,7 +56,10 @@ export default new GuideSpirit({
 				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 				cosmetic: Cosmetic.DuetsGuideQuest5,
 			},
-			{ cosmetic: Cosmetic.DuetsGuideHeart2 },
+			{
+				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+				cosmetic: Cosmetic.DuetsGuideHeart2,
+			},
 		],
 	},
 });
