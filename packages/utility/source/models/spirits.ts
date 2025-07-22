@@ -49,7 +49,6 @@ export type FriendshipTreeRaw = readonly (
 	| readonly [ItemRaw]
 	| readonly [ItemRaw, ItemRaw]
 	| readonly [ItemRaw, ItemRaw, ItemRaw]
-	| readonly [ItemRaw, ItemRaw, ItemRaw, ItemRaw]
 )[];
 
 interface BaseFriendshipTreeOfferData {
