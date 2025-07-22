@@ -47,12 +47,7 @@ export function resolveOffer(
 	options?: ResolveOfferOptions,
 ): FriendshipTree {
 	return friendshipTree.map(
-		(items) =>
-			resolveOfferFromItems(items, options) as
-				| [Item]
-				| [Item, Item]
-				| [Item, Item, Item]
-				| [Item, Item, Item, Item],
+		(items) => resolveOfferFromItems(items, options) as [Item] | [Item, Item] | [Item, Item, Item],
 	);
 }
 

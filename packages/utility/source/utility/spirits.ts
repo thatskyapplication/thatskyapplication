@@ -523,7 +523,6 @@ export type FriendshipTree = readonly (
 	| readonly [Item]
 	| readonly [Item, Item]
 	| readonly [Item, Item, Item]
-	| readonly [Item, Item, Item, Item]
 )[];
 
 export const SpiritsHistoryOrderType = {
