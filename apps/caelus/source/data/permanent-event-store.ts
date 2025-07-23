@@ -1,6 +1,10 @@
-import { Cosmetic, resolveAllCosmetics, resolveOffer } from "@thatskyapplication/utility";
+import {
+	Cosmetic,
+	resolveAllCosmeticsFromItems,
+	resolveOfferFromItems,
+} from "@thatskyapplication/utility";
 
-const items = resolveOffer([
+const items = resolveOfferFromItems([
 	{
 		cosmetic: [Cosmetic.JourneyCape, Cosmetic.JourneyHood, Cosmetic.JourneyMask],
 		cosmeticDisplay: Cosmetic.JourneyCape,
@@ -21,4 +25,7 @@ const items = resolveOffer([
 	},
 ]);
 
-export const PERMANENT_EVENT_STORE = { items, allCosmetics: resolveAllCosmetics(items) } as const;
+export const PERMANENT_EVENT_STORE = {
+	items,
+	allCosmetics: resolveAllCosmeticsFromItems(items),
+} as const;

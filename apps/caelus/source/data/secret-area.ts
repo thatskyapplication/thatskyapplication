@@ -1,6 +1,10 @@
-import { Cosmetic, resolveAllCosmetics, resolveOffer } from "@thatskyapplication/utility";
+import {
+	Cosmetic,
+	resolveAllCosmeticsFromItems,
+	resolveOfferFromItems,
+} from "@thatskyapplication/utility";
 
-const items = resolveOffer([
+const items = resolveOfferFromItems([
 	{
 		cosmetic: Cosmetic.FoundersCape,
 		cost: { money: 29.99 },
@@ -15,4 +19,4 @@ const items = resolveOffer([
 	},
 ]);
 
-export const SECRET_AREA = { items, allCosmetics: resolveAllCosmetics(items) } as const;
+export const SECRET_AREA = { items, allCosmetics: resolveAllCosmeticsFromItems(items) } as const;

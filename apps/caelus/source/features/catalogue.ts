@@ -23,12 +23,13 @@ import {
 	type Event,
 	type EventIds,
 	formatEmoji,
+	friendshipTreeToItems,
 	type GuideSpirit,
 	type Item,
 	REALM_SPIRITS,
 	REALMS,
 	type RealmName,
-	resolveAllCosmetics,
+	resolveAllCosmeticsFromItems,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	type Season,
@@ -153,6 +154,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	for (const { cosmetics } of offer) {
 		const emojis = cosmetics.map((cosmetic) => {
 			const emoji = CosmeticToEmoji[cosmetic];
+
 			return emoji
 				? formatEmoji(emoji)
 				: t(`cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
@@ -185,7 +187,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 
 function ownedProgress(items: readonly Item[], data: ReadonlySet<number>) {
 	return {
-		owned: resolveAllCosmetics(items).filter((cosmetic) => data.has(cosmetic)),
+		owned: resolveAllCosmeticsFromItems(items).filter((cosmetic) => data.has(cosmetic)),
 		total: items.reduce((total, item) => total + item.cosmetics.length, 0),
 	};
 }
@@ -223,7 +225,7 @@ function spiritOwnedProgress(
 				? spirit.current
 				: spirit.items;
 
-		const { owned, total: offerTotal } = ownedProgress(offer, data);
+		const { owned, total: offerTotal } = ownedProgress(friendshipTreeToItems(offer), data);
 		totalOwned.push(...owned);
 		total += offerTotal;
 	}
@@ -245,17 +247,20 @@ function seasonOwnedProgress(seasons: readonly Season[], data: ReadonlySet<numbe
 	let total = 0;
 
 	for (const season of seasons) {
-		const offers = [
-			season.guide.current,
-			...season.spirits.map((spirit) => spirit.items),
-			season.items,
-		];
+		const friendshipTrees = [season.guide.current, ...season.spirits.map((spirit) => spirit.items)];
 
-		for (const offer of offers) {
-			const { owned, total: offerTotal } = ownedProgress(offer, data);
+		for (const friendshipTree of friendshipTrees) {
+			const { owned, total: offerTotal } = ownedProgress(
+				friendshipTreeToItems(friendshipTree),
+				data,
+			);
 			totalOwned.push(...owned);
 			total += offerTotal;
 		}
+
+		const { owned, total: offerTotal } = ownedProgress(season.items, data);
+		totalOwned.push(...owned);
+		total += offerTotal;
 	}
 
 	return { owned: totalOwned, total };
@@ -368,14 +373,15 @@ function remainingCurrency(
 	data: ReadonlySet<number> = new Set(),
 	includeSeasonalCurrency?: boolean,
 ) {
-	const dataSet = new Set(data);
+	const itemCosts = [];
 
-	const result = addCosts(
-		items
-			.filter(({ cosmetics }) => cosmetics.some((cosmetic) => !dataSet.has(cosmetic)))
-			.map((item) => item.cost)
-			.filter((cost) => cost !== null),
-	);
+	for (const { cosmetics, cost } of items) {
+		if (cost && cosmetics.some((cosmetic) => !data.has(cosmetic))) {
+			itemCosts.push(cost);
+		}
+	}
+
+	const result = addCosts(itemCosts);
 
 	if (!includeSeasonalCurrency) {
 		for (const seasonalCandle of result.seasonalCandles) {
@@ -432,7 +438,11 @@ function offerData({
 			continue;
 		}
 
-		const { remainingCurrencyResult, offerDescription } = progress(locale, offer, data);
+		const { remainingCurrencyResult, offerDescription } = progress(
+			locale,
+			friendshipTreeToItems(offer),
+			data,
+		);
 
 		if (includeTotalRemainingCurrency) {
 			remainingCurrencies.push(remainingCurrencyResult);
@@ -944,7 +954,10 @@ export async function viewRealms(
 		const remainingCurrencyResult = resolveCostToString(
 			realm.spirits.reduce(
 				(remainingCurrencyResult, spirit) =>
-					addCosts([remainingCurrencyResult, remainingCurrency(spirit.current, catalogue?.data)]),
+					addCosts([
+						remainingCurrencyResult,
+						remainingCurrency(friendshipTreeToItems(spirit.current), catalogue?.data),
+					]),
 				{},
 			),
 		);
@@ -1870,7 +1883,7 @@ async function viewSpirit(
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
 	const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
-	const offer = seasonalParsing ? spirit.seasonal : spirit.current;
+	const friendshipTree = seasonalParsing ? spirit.seasonal : spirit.current;
 	const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
 	const { hasEverything, offerProgress } = offerData({
@@ -1925,7 +1938,7 @@ async function viewSpirit(
 			type: ComponentType.MediaGallery,
 			items: [{ media: { url: imageURL } }],
 		});
-	} else if (offer.length > 0) {
+	} else if (friendshipTree.length > 0) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `-# ${NO_FRIENDSHIP_TREE_YET_TEXT}`,
@@ -1939,8 +1952,14 @@ async function viewSpirit(
 		});
 	}
 
-	if (offer.length > 0) {
-		const itemSelectionOptions = offer.map(({ translation, cosmetics, cosmeticDisplay }) => {
+	if (friendshipTree.length > 0) {
+		const items = [];
+
+		for (const tuple of friendshipTree) {
+			items.push(...tuple);
+		}
+
+		const itemSelectionOptions = items.map(({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
 				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {

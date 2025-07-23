@@ -142,8 +142,8 @@ export { EventId, type EventIds } from "./utility/event.js";
 export {
 	addCosts,
 	getRandomElement,
-	resolveAllCosmetics,
-	resolveOffer,
+	resolveAllCosmeticsFromItems,
+	resolveOfferFromItems,
 	snakeCaseName,
 } from "./utility/functions.js";
 export {
@@ -159,5 +159,7 @@ export {
 	type SpiritIds,
 	SpiritStance,
 	SpiritsHistoryOrderType,
+	type FriendshipTree,
+	friendshipTreeToItems,
 	type SpiritsHistoryOrderTypes,
 } from "./utility/spirits.js";

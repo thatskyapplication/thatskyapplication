@@ -1,6 +1,10 @@
-import { Cosmetic, resolveAllCosmetics, resolveOffer } from "@thatskyapplication/utility";
+import {
+	Cosmetic,
+	resolveAllCosmeticsFromItems,
+	resolveOfferFromItems,
+} from "@thatskyapplication/utility";
 
-const items = resolveOffer([
+const items = resolveOfferFromItems([
 	{
 		cosmetic: Cosmetic.MobileCape,
 		cost: { money: 4.99 },
@@ -17,4 +21,4 @@ const items = resolveOffer([
 	},
 ]);
 
-export const STARTER_PACKS = { items, allCosmetics: resolveAllCosmetics(items) } as const;
+export const STARTER_PACKS = { items, allCosmetics: resolveAllCosmeticsFromItems(items) } as const;
