@@ -534,3 +534,13 @@ export type SpiritsHistoryOrderTypes =
 	(typeof SpiritsHistoryOrderType)[keyof typeof SpiritsHistoryOrderType];
 
 export const SPIRITS_HISTORY_ORDER_TYPE_VALUES = Object.values(SpiritsHistoryOrderType);
+
+export function friendshipTreeToItems(friendshipTree: FriendshipTree): readonly Item[] {
+	const result = [];
+
+	for (const items of friendshipTree) {
+		result.push(...items);
+	}
+
+	return result;
+}
