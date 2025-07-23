@@ -77,7 +77,13 @@ let heightStartMiddle =
 
 let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL_SIDES_OFFSET;
 
-async function createNode(node: Item, nodeIndex: number, seasonId?: SeasonIds) {
+interface CreateNodeOptions {
+	node: Item;
+	nodeIndex: number;
+	seasonId?: SeasonIds;
+}
+
+async function createNode({ node, nodeIndex, seasonId }: CreateNodeOptions) {
 	const { cost } = node;
 	let dx: number;
 	let dy: number;
@@ -212,7 +218,7 @@ for (const nodes of NODES) {
 	let nodeIndex = 0;
 
 	for (const node of nodes) {
-		await createNode(node, nodeIndex, spirit.seasonId);
+		await createNode({ node, nodeIndex, seasonId: spirit.seasonId });
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();
