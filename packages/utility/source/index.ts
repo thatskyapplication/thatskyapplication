@@ -148,6 +148,8 @@ export {
 } from "./utility/functions.js";
 export {
 	FriendAction,
+	type FriendshipTree,
+	friendshipTreeToItems,
 	type Item,
 	type ItemCost,
 	type ItemRaw,
@@ -159,7 +161,5 @@ export {
 	type SpiritIds,
 	SpiritStance,
 	SpiritsHistoryOrderType,
-	type FriendshipTree,
-	friendshipTreeToItems,
 	type SpiritsHistoryOrderTypes,
 } from "./utility/spirits.js";
