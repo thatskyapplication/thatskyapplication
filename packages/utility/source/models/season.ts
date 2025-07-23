@@ -15,7 +15,7 @@ import {
 	resolveOfferFromItems,
 	snakeCaseName,
 } from "../utility/functions.js";
-import type { Item, ItemRaw, SpiritIds } from "../utility/spirits.js";
+import type { ItemRawWithoutChildren, ItemWithoutChildren, SpiritIds } from "../utility/spirits.js";
 import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
 type SeasonalCandlesRotation = Readonly<
@@ -53,7 +53,7 @@ interface SeasonData {
 	 *
 	 * @remarks When cosmetics are not tied to any entity, they should be stored here.
 	 */
-	items?: readonly ItemRaw[];
+	items?: readonly ItemRawWithoutChildren[];
 	/**
 	 * The seasonal candles rotation.
 	 */
@@ -88,7 +88,7 @@ export class Season {
 
 	public readonly spirits: ReadonlyCollection<SpiritIds, SeasonalSpirit>;
 
-	public readonly items: readonly Item[];
+	public readonly items: readonly ItemWithoutChildren[];
 
 	public readonly allCosmetics: readonly Cosmetic[];
 

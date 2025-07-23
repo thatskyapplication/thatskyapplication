@@ -458,13 +458,13 @@ interface ItemRawTranslation {
 	number?: number;
 }
 
-interface BaseItemRaw {
+interface BaseItemRawWithoutChildren {
 	level?: 1 | 2 | 3 | 4 | 5 | 6;
 	seasonPass?: boolean;
 	cost?: ItemCostRaw;
 }
 
-interface ItemRawSingleCosmetic extends BaseItemRaw {
+interface ItemRawSingleCosmeticWithoutChildren extends BaseItemRawWithoutChildren {
 	translation?:
 		| Exclude<
 				CosmeticCommon,
@@ -478,13 +478,21 @@ interface ItemRawSingleCosmetic extends BaseItemRaw {
 	cosmetic: Cosmetic;
 }
 
-interface ItemRawMultipleCosmetics extends BaseItemRaw {
+interface ItemRawMultipleCosmeticsWithoutChildren extends BaseItemRawWithoutChildren {
 	translation?: CosmeticCommon | ItemRawTranslation;
-	cosmetic: [Cosmetic, ...Cosmetic[]];
+	cosmetic: readonly [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 }
 
-export type ItemRaw = ItemRawSingleCosmetic | ItemRawMultipleCosmetics;
+export type ItemRawWithoutChildren =
+	| ItemRawSingleCosmeticWithoutChildren
+	| ItemRawMultipleCosmeticsWithoutChildren;
+
+export type ItemRawWithPossibleChildren = ItemRawWithoutChildren & {
+	children?: readonly ItemRawWithoutChildren[];
+};
+
+export type ItemRaw = ItemRawWithoutChildren | ItemRawWithPossibleChildren;
 
 interface ItemCostSeasonal {
 	cost: number;
@@ -510,19 +518,25 @@ interface ItemTranslation {
 	number?: number;
 }
 
-export interface Item {
+export interface ItemWithoutChildren {
 	translation: ItemTranslation | null;
-	cosmetics: [Cosmetic, ...Cosmetic[]];
+	cosmetics: readonly [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	level: 1 | 2 | 3 | 4 | 5 | 6 | null;
 	seasonPass: boolean;
 	cost: ItemCost | null;
 }
 
+export interface ItemWithPossibleChildren extends ItemWithoutChildren {
+	children: readonly ItemWithoutChildren[];
+}
+
+export type Item = ItemWithoutChildren | ItemWithPossibleChildren;
+
 export type FriendshipTree = readonly (
-	| readonly [Item]
-	| readonly [Item, Item]
-	| readonly [Item, Item, Item]
+	| readonly [ItemWithoutChildren]
+	| readonly [ItemWithoutChildren, ItemWithPossibleChildren]
+	| readonly [ItemWithoutChildren, ItemWithPossibleChildren, ItemWithPossibleChildren]
 )[];
 
 export const SpiritsHistoryOrderType = {
@@ -535,11 +549,19 @@ export type SpiritsHistoryOrderTypes =
 
 export const SPIRITS_HISTORY_ORDER_TYPE_VALUES = Object.values(SpiritsHistoryOrderType);
 
-export function friendshipTreeToItems(friendshipTree: FriendshipTree): readonly Item[] {
+export function friendshipTreeToItems(
+	friendshipTree: FriendshipTree,
+): readonly ItemWithoutChildren[] {
 	const result = [];
 
 	for (const items of friendshipTree) {
-		result.push(...items);
+		for (const item of items) {
+			if ("children" in item) {
+				result.push(...item.children);
+			}
+
+			result.push(item);
+		}
 	}
 
 	return result;

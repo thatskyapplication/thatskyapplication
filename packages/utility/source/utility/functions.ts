@@ -1,7 +1,15 @@
+import type { Cosmetic } from "../cosmetics.js";
 import type { FriendshipTreeRaw } from "../models/spirits.js";
 import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
-import type { FriendshipTree, Item, ItemCost, ItemRaw } from "./spirits.js";
+import type {
+	FriendshipTree,
+	Item,
+	ItemCost,
+	ItemRaw,
+	ItemWithoutChildren,
+	ItemWithPossibleChildren,
+} from "./spirits.js";
 
 export function getRandomElement<const T>(array: readonly T[]) {
 	return array[Math.floor(Math.random() * array.length)];
@@ -17,17 +25,23 @@ export function snakeCaseName(name: string) {
 		.toLowerCase();
 }
 
-export function resolveAllCosmetics(friendshipTree: FriendshipTree) {
-	const total = [];
+export function resolveAllCosmetics(friendshipTree: FriendshipTree): readonly Cosmetic[] {
+	const result: Cosmetic[] = [];
 
 	for (const items of friendshipTree) {
-		total.push(...resolveAllCosmeticsFromItems(items));
+		for (const item of items) {
+			if ("children" in item) {
+				result.push(...resolveAllCosmeticsFromItems(item.children));
+			}
+		}
+
+		result.push(...resolveAllCosmeticsFromItems(items));
 	}
 
-	return total;
+	return result;
 }
 
-export function resolveAllCosmeticsFromItems(items: readonly Item[]) {
+export function resolveAllCosmeticsFromItems(items: readonly ItemWithoutChildren[]) {
 	const total = [];
 
 	for (const { cosmetics } of items) {
@@ -47,43 +61,53 @@ export function resolveOffer(
 	options?: ResolveOfferOptions,
 ): FriendshipTree {
 	return friendshipTree.map(
-		(items) => resolveOfferFromItems(items, options) as [Item] | [Item, Item] | [Item, Item, Item],
+		(items) =>
+			resolveOfferFromItems(items, options) as
+				| [ItemWithoutChildren]
+				| [ItemWithoutChildren, ItemWithPossibleChildren]
+				| [ItemWithoutChildren, ItemWithPossibleChildren, ItemWithPossibleChildren],
 	);
 }
 
 export function resolveOfferFromItems(
 	items: readonly ItemRaw[],
 	{ seasonId, eventId }: ResolveOfferOptions = {},
-): Item[] {
-	return items.map((item) => ({
-		translation:
-			item.translation === undefined
-				? null
-				: typeof item.translation === "number"
-					? { key: `cosmetic-common-names.${item.translation}` }
-					: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
-		cosmetics: Array.isArray(item.cosmetic) ? item.cosmetic : [item.cosmetic],
-		cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
-		level: item.level ?? null,
-		seasonPass: item.seasonPass ?? false,
-		cost: item.cost
-			? {
-					...item.cost,
-					seasonalCandles:
-						typeof seasonId === "number" && item.cost.seasonalCandles
-							? [{ cost: item.cost.seasonalCandles, seasonId }]
-							: [],
-					seasonalHearts:
-						typeof seasonId === "number" && item.cost.seasonalHearts
-							? [{ cost: item.cost.seasonalHearts, seasonId }]
-							: [],
-					eventTickets:
-						typeof eventId === "number" && item.cost.eventTickets
-							? [{ cost: item.cost.eventTickets, eventId }]
-							: [],
-				}
-			: null,
-	}));
+): readonly Item[] {
+	return items.map((item) => {
+		return {
+			translation:
+				item.translation === undefined
+					? null
+					: typeof item.translation === "number"
+						? { key: `cosmetic-common-names.${item.translation}` }
+						: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
+			cosmetics: Array.isArray(item.cosmetic)
+				? // These assertions are necessary because the type is too complex to represent.
+					(item.cosmetic as readonly [Cosmetic, ...Cosmetic[]])
+				: ([item.cosmetic] as readonly [Cosmetic]),
+			cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
+			level: item.level ?? null,
+			seasonPass: item.seasonPass ?? false,
+			cost: item.cost
+				? {
+						...item.cost,
+						seasonalCandles:
+							typeof seasonId === "number" && item.cost.seasonalCandles
+								? [{ cost: item.cost.seasonalCandles, seasonId }]
+								: [],
+						seasonalHearts:
+							typeof seasonId === "number" && item.cost.seasonalHearts
+								? [{ cost: item.cost.seasonalHearts, seasonId }]
+								: [],
+						eventTickets:
+							typeof eventId === "number" && item.cost.eventTickets
+								? [{ cost: item.cost.eventTickets, eventId }]
+								: [],
+					}
+				: null,
+			children: "children" in item ? resolveOfferFromItems(item.children) : [],
+		};
+	});
 }
 
 export function addCosts(items: ItemCost[]) {
