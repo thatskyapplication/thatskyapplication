@@ -2,6 +2,7 @@ import { Collection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { CDN_URL } from "../cdn.js";
+import type { Cosmetic } from "../cosmetics.js";
 import { skyDate } from "../dates.js";
 import type { RealmName } from "../kingdom.js";
 import type { SeasonIds } from "../season.js";
@@ -10,7 +11,8 @@ import {
 	type FriendAction,
 	type FriendshipTree,
 	type ItemCost,
-	type ItemRaw,
+	type ItemRawWithoutChildren,
+	type ItemRawWithPossibleChildren,
 	type SpiritCall,
 	type SpiritEmote,
 	type SpiritIds,
@@ -46,9 +48,9 @@ const RETURNING_DATES = new Collection<number, ReturningDatesData>()
 	.set(9, { start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) });
 
 export type FriendshipTreeRaw = readonly (
-	| readonly [ItemRaw]
-	| readonly [ItemRaw, ItemRaw]
-	| readonly [ItemRaw, ItemRaw, ItemRaw]
+	| readonly [ItemRawWithoutChildren]
+	| readonly [ItemRawWithoutChildren, ItemRawWithPossibleChildren]
+	| readonly [ItemRawWithoutChildren, ItemRawWithPossibleChildren, ItemRawWithPossibleChildren]
 )[];
 
 interface BaseFriendshipTreeOfferData {
@@ -171,7 +173,7 @@ abstract class BaseFriendshipTree {
 
 	public readonly totalCost: Required<ItemCost>;
 
-	public readonly allCosmetics: number[];
+	public readonly allCosmetics: readonly Cosmetic[];
 
 	public imageURL: string | null;
 
@@ -200,7 +202,7 @@ abstract class StandardFriendshipTree extends BaseFriendshipTree {
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly allCosmetics: number[];
+	public declare readonly allCosmetics: readonly Cosmetic[];
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
@@ -208,11 +210,11 @@ abstract class ElderFriendshipTree extends BaseFriendshipTree {
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly allCosmetics: number[];
+	public declare readonly allCosmetics: readonly Cosmetic[];
 }
 
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
-	public override readonly allCosmetics: number[];
+	public override readonly allCosmetics: readonly Cosmetic[];
 
 	public readonly seasonal: FriendshipTree;
 

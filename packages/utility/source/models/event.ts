@@ -3,7 +3,7 @@ import { CDN_URL } from "../cdn.js";
 import type { Cosmetic } from "../cosmetics.js";
 import type { EventIds } from "../utility/event.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "../utility/functions.js";
-import type { Item, ItemRaw } from "../utility/spirits.js";
+import type { ItemRawWithoutChildren, ItemWithoutChildren } from "../utility/spirits.js";
 
 /**
  * Data to create an event.
@@ -30,7 +30,7 @@ interface EventData {
 	/**
 	 * What the event offers.
 	 */
-	offer?: readonly ItemRaw[];
+	offer?: readonly ItemRawWithoutChildren[];
 	/**
 	 * Whether this event has an infographic URL regarding the items it offers.
 	 */
@@ -86,7 +86,7 @@ export class Event {
 
 	public readonly eventTickets: EventTickets | null;
 
-	public readonly offer: readonly Item[];
+	public readonly offer: readonly ItemWithoutChildren[];
 
 	public readonly allCosmetics: readonly Cosmetic[];
 
