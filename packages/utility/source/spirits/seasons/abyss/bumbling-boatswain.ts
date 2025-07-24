@@ -15,91 +15,123 @@ export default new SeasonalSpirit({
 	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteOuch1 },
-			{ cosmetic: Cosmetic.EmoteOuch2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.BumblingBoatswainBlessing1,
-				cost: { seasonalCandles: 8 },
-			},
-			{ cosmetic: Cosmetic.BumblingBoatswainMask },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.BumblingBoatswainMusicSheet,
-				cost: { seasonalCandles: 12 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.BumblingBoatswainBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.EmoteOuch3,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.EmoteOuch4 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.BumblingBoatswainBlessing3,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.BumblingBoatswainCape },
-			{
-				cosmetic: Cosmetic.BumblingBoatswainHairAccessory,
-				cost: { seasonalCandles: 24 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.BumblingBoatswainBlessing4,
-			},
-			{
-				cosmetic: Cosmetic.BumblingBoatswainSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteOuch1 },
+				{ cosmetic: Cosmetic.EmoteOuch2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.BumblingBoatswainBlessing1,
+					cost: { seasonalCandles: 8 },
+				},
+				{ cosmetic: Cosmetic.BumblingBoatswainMask, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.BumblingBoatswainMusicSheet,
+					cost: { seasonalCandles: 12 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.BumblingBoatswainBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteOuch3,
+					cost: { seasonalCandles: 16 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteOuch4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.BumblingBoatswainBlessing3,
+					cost: { seasonalCandles: 20 },
+				},
+				{ cosmetic: Cosmetic.BumblingBoatswainCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.BumblingBoatswainHairAccessory,
+					cost: { seasonalCandles: 24 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.BumblingBoatswainBlessing4,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.BumblingBoatswainSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteOuch1 },
-			{ cosmetic: Cosmetic.EmoteOuch2, cost: { hearts: 4 } },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.BumblingBoatswainBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.BumblingBoatswainMask,
-				cost: { candles: 40 },
-			},
-			{
-				cosmetic: Cosmetic.BumblingBoatswainSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.BumblingBoatswainWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteOuch3,
-				cost: { hearts: 3 },
-			},
-			{ cosmetic: Cosmetic.EmoteOuch4, cost: { hearts: 6 } },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.BumblingBoatswainMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.BumblingBoatswainBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.BumblingBoatswainHairAccessory,
-				cost: { candles: 35 },
-			},
-			{
-				cosmetic: Cosmetic.BumblingBoatswainCape,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteOuch1 },
+				{ cosmetic: Cosmetic.EmoteOuch2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.BumblingBoatswainBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.BumblingBoatswainMask,
+					cost: { candles: 40 },
+				},
+				{
+					cosmetic: Cosmetic.BumblingBoatswainSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.BumblingBoatswainWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteOuch3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteOuch4, cost: { hearts: 6 }, level: 4 },
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.BumblingBoatswainMusicSheet,
+					cost: { candles: 15 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.BumblingBoatswainBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.BumblingBoatswainHairAccessory,
+					cost: { candles: 35 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.BumblingBoatswainCape,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	visits: {

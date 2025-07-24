@@ -10,68 +10,87 @@ export default new GuideSpirit({
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		current: [
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
-				cosmetic: Cosmetic.AbyssGuideQuest1,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
-				cosmetic: Cosmetic.AbyssGuideHeart1,
-				cost: { candles: 3 },
-			},
-			{ cosmetic: Cosmetic.AbyssGuidePendant },
-			{
-				cosmetic: Cosmetic.AbyssGuideUltimateFaceAccessory,
-				cost: { seasonalHearts: 1 },
-			},
-			{
-				cosmetic: Cosmetic.AbyssGuideUltimateCape,
-				cost: { seasonalHearts: 2 },
-			},
-			{
-				cosmetic: Cosmetic.AbyssGuideUltimateMask,
-				cost: { seasonalHearts: 1 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
-				cosmetic: Cosmetic.AbyssGuideQuest2,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
-				cosmetic: Cosmetic.AbyssGuideHeart2,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
-				cosmetic: Cosmetic.AbyssGuideQuest3,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
-				cosmetic: Cosmetic.AbyssGuideHeart3,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
-				cosmetic: Cosmetic.AbyssGuideQuest4,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
-				cosmetic: Cosmetic.AbyssGuideHeart4,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
-				cosmetic: Cosmetic.AbyssGuideQuest5,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
-				cosmetic: Cosmetic.AbyssGuideHeart5,
-				cost: { candles: 3 },
-			},
-			{
-				cosmetic: Cosmetic.AbyssGuideMask,
-				cost: { candles: 48 },
-			},
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+					cosmetic: Cosmetic.AbyssGuideQuest1,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+					cosmetic: Cosmetic.AbyssGuideHeart1,
+					cost: { candles: 3 },
+				},
+				{
+					cosmetic: Cosmetic.AbyssGuidePendant,
+					children: [
+						{
+							cosmetic: Cosmetic.AbyssGuideUltimateFaceAccessory,
+							cost: { seasonalHearts: 1 },
+							seasonPass: true,
+						},
+						{
+							cosmetic: Cosmetic.AbyssGuideUltimateCape,
+							cost: { seasonalHearts: 2 },
+							seasonPass: true,
+						},
+						{
+							cosmetic: Cosmetic.AbyssGuideUltimateMask,
+							cost: { seasonalHearts: 1 },
+							seasonPass: true,
+						},
+					],
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+					cosmetic: Cosmetic.AbyssGuideQuest2,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+					cosmetic: Cosmetic.AbyssGuideHeart2,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+					cosmetic: Cosmetic.AbyssGuideQuest3,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+					cosmetic: Cosmetic.AbyssGuideHeart3,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+					cosmetic: Cosmetic.AbyssGuideQuest4,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+					cosmetic: Cosmetic.AbyssGuideHeart4,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+					cosmetic: Cosmetic.AbyssGuideQuest5,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+					cosmetic: Cosmetic.AbyssGuideHeart5,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.AbyssGuideMask,
+					cost: { candles: 48 },
+				},
+			],
 		],
 	},
 });
