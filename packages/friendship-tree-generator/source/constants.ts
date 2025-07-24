@@ -20,4 +20,5 @@ export const LEVEL_OFFSET_Y = 2 as const;
 export const CURRENCY_TEXT_OFFSET = 10 as const;
 export const NEXT_HEIGHT_LEVEL = 240 as const;
 export const NEXT_HEIGHT_LEVEL_SIDES_OFFSET = 60 as const;
-export const { CosmeticToEmoji, SeasonIdToSeasonalEmoji } = emojiConstants(true);
+export const { MISCELLANEOUS_EMOJIS, CosmeticToEmoji, SeasonIdToSeasonalEmoji } =
+	emojiConstants(true);

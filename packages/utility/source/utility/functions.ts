@@ -106,6 +106,7 @@ export function resolveOfferFromItems(
 							: [],
 				}
 			: null,
+		regularHeart: "regularHeart" in item ? item.regularHeart : false,
 		thirdHeight: "thirdHeight" in item ? item.thirdHeight : false,
 		children: "children" in item ? resolveOfferFromItems(item.children, options) : [],
 	}));
