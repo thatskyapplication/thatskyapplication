@@ -503,14 +503,15 @@ interface ItemCostEvent {
 	cost: number;
 	eventId: EventIds;
 }
+
 export interface ItemCost {
 	money?: number;
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
-	seasonalCandles?: ItemCostSeasonal[];
-	seasonalHearts?: ItemCostSeasonal[];
-	eventTickets?: ItemCostEvent[];
+	seasonalCandles: ItemCostSeasonal[];
+	seasonalHearts: ItemCostSeasonal[];
+	eventTickets: ItemCostEvent[];
 }
 
 interface ItemTranslation {
