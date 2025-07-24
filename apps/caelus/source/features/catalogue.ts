@@ -152,14 +152,16 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	const owned = [];
 	const unowned = [];
 
-	for (const { cosmetics } of offer) {
-		const emojis = cosmetics.map((cosmetic) => {
-			const emoji = CosmeticToEmoji[cosmetic];
+	for (const { cosmetics, regularHeart } of offer) {
+		const emojis = regularHeart
+			? [formatEmoji(MISCELLANEOUS_EMOJIS.Heart)]
+			: cosmetics.map((cosmetic) => {
+					const emoji = CosmeticToEmoji[cosmetic];
 
-			return emoji
-				? formatEmoji(emoji)
-				: t(`cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
-		});
+					return emoji
+						? formatEmoji(emoji)
+						: t(`cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
+				});
 
 		if (cosmetics.every((cosmetic) => data.has(cosmetic))) {
 			owned.push(...emojis);

@@ -462,6 +462,7 @@ interface BaseItemRawWithoutChildren {
 	level?: 1 | 2 | 3 | 4 | 5 | 6;
 	seasonPass?: boolean;
 	cost?: ItemCostRaw;
+	regularHeart?: boolean;
 }
 
 interface ItemRawSingleCosmeticWithoutChildren extends BaseItemRawWithoutChildren {
@@ -530,6 +531,7 @@ export interface ItemWithoutChildren {
 	level: 1 | 2 | 3 | 4 | 5 | 6 | null;
 	seasonPass: boolean;
 	cost: ItemCost | null;
+	regularHeart: boolean;
 }
 
 export interface ItemWithPossibleChildren extends ItemWithoutChildren {

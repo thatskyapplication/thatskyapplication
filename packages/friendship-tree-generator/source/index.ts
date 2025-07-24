@@ -24,6 +24,7 @@ import {
 	LINE_COLOUR,
 	LINE_OFFSET,
 	LINE_WIDTH,
+	MISCELLANEOUS_EMOJIS,
 	NEXT_HEIGHT_LEVEL,
 	NEXT_HEIGHT_LEVEL_SIDES_OFFSET,
 	SEASON_ICON_MIDDLE_OFFSET_X,
@@ -162,9 +163,15 @@ async function createNode({
 		context.stroke();
 	}
 
-	const arrayBuffer = await (
-		await fetch(formatEmojiURL(CosmeticToEmoji[node.cosmeticDisplay]!.id))
-	).arrayBuffer();
+	const emojiId = node.regularHeart
+		? MISCELLANEOUS_EMOJIS.Heart.id
+		: CosmeticToEmoji[node.cosmeticDisplay]?.id;
+
+	if (!emojiId) {
+		throw new Error(`No emoji found for cosmetic ${node.cosmeticDisplay}.`);
+	}
+
+	const arrayBuffer = await (await fetch(formatEmojiURL(emojiId))).arrayBuffer();
 
 	const image = await loadImage(arrayBuffer);
 	context.drawImage(image, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
