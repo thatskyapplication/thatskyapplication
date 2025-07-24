@@ -15,89 +15,121 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteChuckle1 },
-			{ cosmetic: Cosmetic.EmoteChuckle2 },
-			{
-				cosmetic: Cosmetic.ChucklingScoutMask,
-				cost: { seasonalCandles: 12 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ChucklingScoutBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteChuckle3,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.EmoteChuckle4 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ChucklingScoutBlessing2,
-				cost: { seasonalCandles: 17 },
-			},
-			{ cosmetic: Cosmetic.ChucklingScoutOutfit },
-			{
-				cosmetic: Cosmetic.ChucklingScoutProp,
-				cost: { seasonalCandles: 20 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.ChucklingScoutBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.ChucklingScoutSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteChuckle1 },
+				{ cosmetic: Cosmetic.EmoteChuckle2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ChucklingScoutMask,
+					cost: { seasonalCandles: 12 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ChucklingScoutBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteChuckle3,
+					cost: { seasonalCandles: 14 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteChuckle4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ChucklingScoutBlessing2,
+					cost: { seasonalCandles: 17 },
+				},
+				{ cosmetic: Cosmetic.ChucklingScoutOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ChucklingScoutProp,
+					cost: { seasonalCandles: 20 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.ChucklingScoutBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ChucklingScoutSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteChuckle1 },
-			{
-				cosmetic: Cosmetic.EmoteChuckle2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ChucklingScoutBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ChucklingScoutMask,
-				cost: { candles: 36 },
-			},
-			{
-				cosmetic: Cosmetic.ChucklingScoutSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.ChucklingScoutWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteChuckle3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteChuckle4,
-				cost: { hearts: 6 },
-			},
-			{
-				cosmetic: Cosmetic.ChucklingScoutOutfit,
-				cost: { candles: 46 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ChucklingScoutBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ChucklingScoutShoes,
-				cost: { candles: 32 },
-			},
-			{
-				cosmetic: Cosmetic.ChucklingScoutProp,
-				cost: { candles: 45 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteChuckle1 },
+				{
+					cosmetic: Cosmetic.EmoteChuckle2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ChucklingScoutBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.ChucklingScoutMask,
+					cost: { candles: 36 },
+				},
+				{
+					cosmetic: Cosmetic.ChucklingScoutSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.ChucklingScoutWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteChuckle3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteChuckle4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+				{
+					cosmetic: Cosmetic.ChucklingScoutOutfit,
+					cost: { candles: 46 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ChucklingScoutBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.ChucklingScoutShoes,
+					cost: { candles: 32 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ChucklingScoutProp,
+					cost: { candles: 45 },
+				},
+			],
 		],
 	},
 	visits: {

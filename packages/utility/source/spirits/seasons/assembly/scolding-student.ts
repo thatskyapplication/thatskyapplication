@@ -15,85 +15,117 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteScold1 },
-			{ cosmetic: Cosmetic.EmoteScold2 },
-			{
-				cosmetic: Cosmetic.ScoldingStudentMask,
-				cost: { seasonalCandles: 10 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ScoldingStudentBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteScold3,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.EmoteScold4 },
-			{
-				cosmetic: Cosmetic.ScoldingStudentHair,
-				cost: { seasonalCandles: 18 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ScoldingStudentBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.ScoldingStudentBlessing3,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.ScoldingStudentCape },
-			{
-				cosmetic: Cosmetic.ScoldingStudentSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteScold1 },
+				{ cosmetic: Cosmetic.EmoteScold2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ScoldingStudentMask,
+					cost: { seasonalCandles: 10 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ScoldingStudentBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteScold3,
+					cost: { seasonalCandles: 16 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteScold4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ScoldingStudentHair,
+					cost: { seasonalCandles: 18 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ScoldingStudentBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.ScoldingStudentBlessing3,
+					cost: { seasonalCandles: 20 },
+				},
+				{ cosmetic: Cosmetic.ScoldingStudentCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ScoldingStudentSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteScold1 },
-			{
-				cosmetic: Cosmetic.EmoteScold2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ScoldingStudentBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ScoldingStudentMask,
-				cost: { candles: 24 },
-			},
-			{
-				cosmetic: Cosmetic.ScoldingStudentSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.ScoldingStudentWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteScold3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteScold4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ScoldingStudentBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ScoldingStudentHair,
-				cost: { candles: 50 },
-			},
-			{
-				cosmetic: Cosmetic.ScoldingStudentCape,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteScold1 },
+				{
+					cosmetic: Cosmetic.EmoteScold2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ScoldingStudentBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.ScoldingStudentMask,
+					cost: { candles: 24 },
+				},
+				{
+					cosmetic: Cosmetic.ScoldingStudentSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.ScoldingStudentWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteScold3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteScold4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ScoldingStudentBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.ScoldingStudentHair,
+					cost: { candles: 50 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ScoldingStudentCape,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	keywords: ["clover", "clover cape"],
