@@ -71,43 +71,43 @@ export function resolveOffer(
 
 export function resolveOfferFromItems(
 	items: readonly ItemRaw[],
-	{ seasonId, eventId }: ResolveOfferOptions = {},
+	options: ResolveOfferOptions = {},
 ): readonly Item[] {
-	return items.map((item) => {
-		return {
-			translation:
-				item.translation === undefined
-					? null
-					: typeof item.translation === "number"
-						? { key: `cosmetic-common-names.${item.translation}` }
-						: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
-			cosmetics: Array.isArray(item.cosmetic)
-				? // These assertions are necessary because the type is too complex to represent.
-					(item.cosmetic as readonly [Cosmetic, ...Cosmetic[]])
-				: ([item.cosmetic] as readonly [Cosmetic]),
-			cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
-			level: item.level ?? null,
-			seasonPass: item.seasonPass ?? false,
-			cost: item.cost
-				? {
-						...item.cost,
-						seasonalCandles:
-							typeof seasonId === "number" && item.cost.seasonalCandles
-								? [{ cost: item.cost.seasonalCandles, seasonId }]
-								: [],
-						seasonalHearts:
-							typeof seasonId === "number" && item.cost.seasonalHearts
-								? [{ cost: item.cost.seasonalHearts, seasonId }]
-								: [],
-						eventTickets:
-							typeof eventId === "number" && item.cost.eventTickets
-								? [{ cost: item.cost.eventTickets, eventId }]
-								: [],
-					}
-				: null,
-			children: "children" in item ? resolveOfferFromItems(item.children) : [],
-		};
-	});
+	const { seasonId, eventId } = options;
+
+	return items.map((item) => ({
+		translation:
+			item.translation === undefined
+				? null
+				: typeof item.translation === "number"
+					? { key: `cosmetic-common-names.${item.translation}` }
+					: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
+		cosmetics: Array.isArray(item.cosmetic)
+			? // These assertions are necessary because the type is too complex to represent.
+				(item.cosmetic as readonly [Cosmetic, ...Cosmetic[]])
+			: ([item.cosmetic] as readonly [Cosmetic]),
+		cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
+		level: item.level ?? null,
+		seasonPass: item.seasonPass ?? false,
+		cost: item.cost
+			? {
+					...item.cost,
+					seasonalCandles:
+						typeof seasonId === "number" && item.cost.seasonalCandles
+							? [{ cost: item.cost.seasonalCandles, seasonId }]
+							: [],
+					seasonalHearts:
+						typeof seasonId === "number" && item.cost.seasonalHearts
+							? [{ cost: item.cost.seasonalHearts, seasonId }]
+							: [],
+					eventTickets:
+						typeof eventId === "number" && item.cost.eventTickets
+							? [{ cost: item.cost.eventTickets, eventId }]
+							: [],
+				}
+			: null,
+		children: "children" in item ? resolveOfferFromItems(item.children, options) : [],
+	}));
 }
 
 export function addCosts(items: ItemCost[]) {
