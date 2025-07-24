@@ -9,39 +9,54 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				translation: CosmeticCommon.Blessing,
-				cosmetic: Cosmetic.TenderToymakerBlessing,
-				cost: { seasonalCandles: 8 },
-			},
-			{
-				cosmetic: Cosmetic.TenderToymakerProp1,
-			},
-			{
-				cosmetic: Cosmetic.TenderToymakerProp2,
-				cost: { seasonalCandles: 14 },
-			},
-			{
-				cosmetic: Cosmetic.TenderToymakerDye1,
-			},
-			{
-				cosmetic: Cosmetic.TenderToymakerGreenDye,
-				cost: { seasonalCandles: 22 },
-			},
-			{
-				cosmetic: Cosmetic.TenderToymakerOutfit,
-			},
-			{
-				cosmetic: Cosmetic.TenderToymakerHair,
-				cost: { seasonalCandles: 28 },
-			},
-			{
-				cosmetic: Cosmetic.TenderToymakerDye2,
-			},
-			{
-				cosmetic: Cosmetic.TenderToymakerSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.TenderToymakerBlessing,
+					cost: { seasonalCandles: 8 },
+				},
+				{
+					cosmetic: Cosmetic.TenderToymakerProp1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TenderToymakerProp2,
+					cost: { seasonalCandles: 14 },
+				},
+				{
+					cosmetic: Cosmetic.TenderToymakerDye1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TenderToymakerGreenDye,
+					cost: { seasonalCandles: 22 },
+				},
+				{
+					cosmetic: Cosmetic.TenderToymakerOutfit,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TenderToymakerHair,
+					cost: { seasonalCandles: 28 },
+				},
+				{
+					cosmetic: Cosmetic.TenderToymakerDye2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TenderToymakerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

@@ -9,25 +9,32 @@ export default new GuideSpirit({
 	offer: {
 		inProgress: true,
 		current: [
-			{
-				translation: CosmeticCommon.Quest,
-				cosmetic: Cosmetic.VaultEldersLanternQuest1,
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.VaultEldersLanternHeart1,
-			},
-			{
-				cosmetic: Cosmetic.TheTwoEmbersPendant,
-			},
-			{
-				cosmetic: Cosmetic.VaultEldersLanternUltimateHairAccessory,
-				cost: { seasonalHearts: 2 },
-			},
-			{
-				cosmetic: Cosmetic.VaultEldersLanternUltimateCape,
-				cost: { seasonalHearts: 2 },
-			},
+			[
+				{
+					translation: CosmeticCommon.Quest,
+					cosmetic: Cosmetic.VaultEldersLanternQuest1,
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.VaultEldersLanternHeart1,
+				},
+				{
+					cosmetic: Cosmetic.TheTwoEmbersPendant,
+					seasonPass: true,
+					children: [
+						{
+							cosmetic: Cosmetic.VaultEldersLanternUltimateHairAccessory,
+							cost: { seasonalHearts: 2 },
+							seasonPass: true,
+						},
+						{
+							cosmetic: Cosmetic.VaultEldersLanternUltimateCape,
+							cost: { seasonalHearts: 2 },
+							seasonPass: true,
+						},
+					],
+				},
+			],
 		],
 	},
 });
