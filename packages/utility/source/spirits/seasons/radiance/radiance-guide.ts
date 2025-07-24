@@ -8,81 +8,104 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Radiance,
 	offer: {
 		current: [
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
-				cosmetic: Cosmetic.RadianceGuideQuest1,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
-				cosmetic: Cosmetic.RadianceGuideHeart1,
-			},
-			{
-				cosmetic: Cosmetic.RadiancePendant,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideUltimateCape,
-				cost: { seasonalHearts: 1 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideUltimateMask,
-				cost: { seasonalHearts: 2 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideRedDye,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideYellowDye,
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
-				cosmetic: Cosmetic.RadianceGuideQuest2,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
-				cosmetic: Cosmetic.RadianceGuideHeart2,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideGreenDye,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideCyanDye,
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
-				cosmetic: Cosmetic.RadianceGuideQuest3,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
-				cosmetic: Cosmetic.RadianceGuideHeart3,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideBlueDye,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuidePurpleDye,
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
-				cosmetic: Cosmetic.RadianceGuideQuest4,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideWhiteDye,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideBlackDye,
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
-				cosmetic: Cosmetic.RadianceGuideQuest5,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
-				cosmetic: Cosmetic.RadianceGuideHeart4,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGuideCape,
-				cost: { hearts: 12 },
-			},
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+					cosmetic: Cosmetic.RadianceGuideQuest1,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+					cosmetic: Cosmetic.RadianceGuideHeart1,
+				},
+				{
+					cosmetic: Cosmetic.RadiancePendant,
+					seasonPass: true,
+					children: [
+						{
+							cosmetic: Cosmetic.RadianceGuideUltimateCape,
+							cost: { seasonalHearts: 1 },
+							seasonPass: true,
+						},
+						{
+							cosmetic: Cosmetic.RadianceGuideUltimateMask,
+							cost: { seasonalHearts: 2 },
+							seasonPass: true,
+						},
+					],
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGuideRedDye,
+				},
+				{
+					cosmetic: Cosmetic.RadianceGuideYellowDye,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+					cosmetic: Cosmetic.RadianceGuideQuest2,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+					cosmetic: Cosmetic.RadianceGuideHeart2,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGuideGreenDye,
+				},
+				{
+					cosmetic: Cosmetic.RadianceGuideCyanDye,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+					cosmetic: Cosmetic.RadianceGuideQuest3,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+					cosmetic: Cosmetic.RadianceGuideHeart3,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGuideBlueDye,
+				},
+				{
+					cosmetic: Cosmetic.RadianceGuidePurpleDye,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+					cosmetic: Cosmetic.RadianceGuideQuest4,
+				},
+				{
+					cosmetic: Cosmetic.RadianceGuideWhiteDye,
+				},
+				{
+					cosmetic: Cosmetic.RadianceGuideBlackDye,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+					cosmetic: Cosmetic.RadianceGuideQuest5,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+					cosmetic: Cosmetic.RadianceGuideHeart4,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGuideCape,
+					cost: { hearts: 12 },
+				},
+			],
 		],
 	},
 });
