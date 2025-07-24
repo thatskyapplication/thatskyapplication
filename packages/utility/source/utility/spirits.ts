@@ -489,6 +489,10 @@ export type ItemRawWithoutChildren =
 	| ItemRawMultipleCosmeticsWithoutChildren;
 
 export type ItemRawWithPossibleChildren = ItemRawWithoutChildren & {
+	/**
+	 * Aurora, why?
+	 */
+	thirdHeight?: boolean;
 	children?: readonly ItemRawWithoutChildren[];
 };
 
@@ -529,6 +533,10 @@ export interface ItemWithoutChildren {
 }
 
 export interface ItemWithPossibleChildren extends ItemWithoutChildren {
+	/**
+	 * Aurora, why?
+	 */
+	thirdHeight: boolean;
 	children: readonly ItemWithoutChildren[];
 }
 
