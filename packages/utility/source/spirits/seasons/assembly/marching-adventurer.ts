@@ -15,85 +15,117 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteMarching1 },
-			{ cosmetic: Cosmetic.EmoteMarching2 },
-			{
-				cosmetic: Cosmetic.MarchingAdventurerHair,
-				cost: { seasonalCandles: 12 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.MarchingAdventurerBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteMarching3,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.EmoteMarching4 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.MarchingAdventurerBlessing2,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.MarchingAdventurerMask },
-			{
-				cosmetic: Cosmetic.MarchingAdventurerTikiTorch,
-				cost: { seasonalCandles: 22 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.MarchingAdventurerBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.MarchingAdventurerSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteMarching1 },
+				{ cosmetic: Cosmetic.EmoteMarching2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.MarchingAdventurerHair,
+					cost: { seasonalCandles: 12 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MarchingAdventurerBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteMarching3,
+					cost: { seasonalCandles: 14 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteMarching4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MarchingAdventurerBlessing2,
+					cost: { seasonalCandles: 16 },
+				},
+				{ cosmetic: Cosmetic.MarchingAdventurerMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.MarchingAdventurerTikiTorch,
+					cost: { seasonalCandles: 22 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.MarchingAdventurerBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MarchingAdventurerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteMarching1 },
-			{
-				cosmetic: Cosmetic.EmoteMarching2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.MarchingAdventurerBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.MarchingAdventurerMask,
-				cost: { candles: 30 },
-			},
-			{
-				cosmetic: Cosmetic.MarchingAdventurerSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.MarchingAdventurerWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteMarching3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteMarching4,
-				cost: { hearts: 6 },
-			},
-			{
-				cosmetic: Cosmetic.MarchingAdventurerHair,
-				cost: { candles: 45 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.MarchingAdventurerBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.MarchingAdventurerTikiTorch,
-				cost: { candles: 55 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteMarching1 },
+				{
+					cosmetic: Cosmetic.EmoteMarching2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MarchingAdventurerBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.MarchingAdventurerMask,
+					cost: { candles: 30 },
+				},
+				{
+					cosmetic: Cosmetic.MarchingAdventurerSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.MarchingAdventurerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteMarching3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteMarching4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+				{
+					cosmetic: Cosmetic.MarchingAdventurerHair,
+					cost: { candles: 45 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MarchingAdventurerBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MarchingAdventurerTikiTorch,
+					cost: { candles: 55 },
+				},
+			],
 		],
 	},
 	visits: {
