@@ -13,85 +13,117 @@ export default new SeasonalSpirit({
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteCalmDown1 },
-			{ cosmetic: Cosmetic.EmoteCalmDown2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.CeasingCommodoreBlessing1,
-				cost: { seasonalCandles: 6 },
-			},
-			{ cosmetic: Cosmetic.CeasingCommodoreHair },
-			{
-				cosmetic: Cosmetic.CeasingCommodoreMask,
-				cost: { seasonalCandles: 8 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.CeasingCommodoreBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.EmoteCalmDown3,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.EmoteCalmDown4 },
-			{
-				cosmetic: Cosmetic.CeasingCommodoreCape,
-				cost: { seasonalCandles: 20 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.CeasingCommodoreBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.CeasingCommodoreSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteCalmDown1 },
+				{ cosmetic: Cosmetic.EmoteCalmDown2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.CeasingCommodoreBlessing1,
+					cost: { seasonalCandles: 6 },
+				},
+				{ cosmetic: Cosmetic.CeasingCommodoreHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.CeasingCommodoreMask,
+					cost: { seasonalCandles: 8 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.CeasingCommodoreBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteCalmDown3,
+					cost: { seasonalCandles: 16 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteCalmDown4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.CeasingCommodoreCape,
+					cost: { seasonalCandles: 20 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.CeasingCommodoreBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.CeasingCommodoreSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteCalmDown1 },
-			{
-				cosmetic: Cosmetic.EmoteCalmDown2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.CeasingCommodoreBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.CeasingCommodoreHair,
-				cost: { candles: 45 },
-			},
-			{
-				cosmetic: Cosmetic.CeasingCommodoreSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.CeasingCommodoreWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteCalmDown3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteCalmDown4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.CeasingCommodoreBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.CeasingCommodoreMask,
-				cost: { candles: 40 },
-			},
-			{
-				cosmetic: Cosmetic.CeasingCommodoreCape,
-				cost: { candles: 20 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteCalmDown1 },
+				{
+					cosmetic: Cosmetic.EmoteCalmDown2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.CeasingCommodoreBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.CeasingCommodoreHair,
+					cost: { candles: 45 },
+				},
+				{
+					cosmetic: Cosmetic.CeasingCommodoreSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.CeasingCommodoreWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteCalmDown3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteCalmDown4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.CeasingCommodoreBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.CeasingCommodoreMask,
+					cost: { candles: 40 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.CeasingCommodoreCape,
+					cost: { candles: 20 },
+				},
+			],
 		],
 	},
 	visits: {
