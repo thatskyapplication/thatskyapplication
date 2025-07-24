@@ -6692,7 +6692,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.CacklingCannoneerBlessing1]: MISCELLANEOUS_EMOJIS.Blessing2,
 		[Cosmetic.CacklingCannoneerMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
 		[Cosmetic.CacklingCannoneerMask]: MASK_EMOJIS.Mask54,
-		[Cosmetic.CacklingCannoneerBlessing2]: MISCELLANEOUS_EMOJIS.Blessing2,
+		[Cosmetic.CacklingCannoneerBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.EmoteEvilLaugh3]: EMOTE_EMOJIS.EvilLaugh,
 		[Cosmetic.EmoteEvilLaugh4]: EMOTE_EMOJIS.EvilLaugh,
 		[Cosmetic.CacklingCannoneerCape]: CAPE_EMOJIS.Cape70,
