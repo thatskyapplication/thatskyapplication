@@ -14,95 +14,129 @@ export default new SeasonalSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteRaiseTheRoof1 },
-			{ cosmetic: Cosmetic.EmoteRaiseTheRoof2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.MindfulMinerBlessing1,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.MindfulMinerMask },
-			{
-				cosmetic: Cosmetic.EmoteRaiseTheRoof3,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.EmoteRaiseTheRoof4 },
-			{
-				cosmetic: Cosmetic.MindfulMinerHair,
-				cost: { seasonalCandles: 24 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.MindfulMinerBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.MindfulMinerBlessing3,
-				cost: { seasonalCandles: 28 },
-			},
-			{ cosmetic: Cosmetic.MindfulMinerOutfit },
-			{
-				cosmetic: Cosmetic.MindfulMinerCape,
-				cost: { seasonalCandles: 32 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.MindfulMinerBlessing4,
-			},
-			{
-				cosmetic: Cosmetic.MindfulMinerSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteRaiseTheRoof1 },
+				{ cosmetic: Cosmetic.EmoteRaiseTheRoof2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MindfulMinerBlessing1,
+					cost: { seasonalCandles: 10 },
+				},
+				{ cosmetic: Cosmetic.MindfulMinerMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteRaiseTheRoof3,
+					cost: { seasonalCandles: 18 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteRaiseTheRoof4, seasonPass: true, level: 4 },
+			],
+			[
+				{
+					cosmetic: Cosmetic.MindfulMinerHair,
+					cost: { seasonalCandles: 24 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MindfulMinerBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.MindfulMinerBlessing3,
+					cost: { seasonalCandles: 28 },
+				},
+				{ cosmetic: Cosmetic.MindfulMinerOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.MindfulMinerCape,
+					cost: { seasonalCandles: 32 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.MindfulMinerBlessing4,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MindfulMinerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteRaiseTheRoof1 },
-			{
-				cosmetic: Cosmetic.EmoteRaiseTheRoof2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.MindfulMinerBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.MindfulMinerMask,
-				cost: { candles: 35 },
-			},
-			{
-				cosmetic: Cosmetic.MindfulMinerSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.MindfulMinerWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteRaiseTheRoof3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteRaiseTheRoof4,
-				cost: { hearts: 6 },
-			},
-			{
-				cosmetic: Cosmetic.MindfulMinerHair,
-				cost: { candles: 40 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.MindfulMinerBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.MindfulMinerOutfit,
-				cost: { candles: 55 },
-			},
-			{
-				cosmetic: Cosmetic.MindfulMinerCape,
-				cost: { candles: 75 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteRaiseTheRoof1 },
+				{
+					cosmetic: Cosmetic.EmoteRaiseTheRoof2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MindfulMinerBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.MindfulMinerMask,
+					cost: { candles: 35 },
+				},
+				{
+					cosmetic: Cosmetic.MindfulMinerSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.MindfulMinerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteRaiseTheRoof3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteRaiseTheRoof4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+				{
+					cosmetic: Cosmetic.MindfulMinerHair,
+					cost: { candles: 40 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MindfulMinerBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.MindfulMinerOutfit,
+					cost: { candles: 55 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MindfulMinerCape,
+					cost: { candles: 75 },
+				},
+			],
 		],
 	},
 	visits: {

@@ -14,97 +14,131 @@ export default new SeasonalSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteTwirl1 },
-			{ cosmetic: Cosmetic.EmoteTwirl2 },
-			{
-				cosmetic: Cosmetic.WarriorOfLoveMask,
-				cost: { seasonalCandles: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.WarriorOfLoveBlessing1,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.WarriorOfLoveBlessing2,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.WarriorOfLoveHair },
-			{
-				cosmetic: Cosmetic.EmoteTwirl3,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.EmoteTwirl4 },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
-				cost: { seasonalCandles: 24 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.WarriorOfLoveBlessing3,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.WarriorOfLoveBlessing4,
-				cost: { seasonalCandles: 30 },
-			},
-			{ cosmetic: Cosmetic.WarriorOfLoveCape },
-			{
-				cosmetic: Cosmetic.WarriorOfLoveSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteTwirl1 },
+				{ cosmetic: Cosmetic.EmoteTwirl2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.WarriorOfLoveMask,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.WarriorOfLoveBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.WarriorOfLoveBlessing2,
+					cost: { seasonalCandles: 12 },
+				},
+				{ cosmetic: Cosmetic.WarriorOfLoveHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteTwirl3,
+					cost: { seasonalCandles: 20 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteTwirl4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
+					cost: { seasonalCandles: 24 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.WarriorOfLoveBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.WarriorOfLoveBlessing4,
+					cost: { seasonalCandles: 30 },
+				},
+				{ cosmetic: Cosmetic.WarriorOfLoveCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.WarriorOfLoveSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteTwirl1 },
-			{
-				cosmetic: Cosmetic.EmoteTwirl2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.WarriorOfLoveBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.WarriorOfLoveMask,
-				cost: { candles: 35 },
-			},
-			{
-				cosmetic: Cosmetic.WarriorOfLoveSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.WarriorOfLoveWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteTwirl3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteTwirl4,
-				cost: { hearts: 6 },
-			},
-			{
-				cosmetic: Cosmetic.WarriorOfLoveHair,
-				cost: { candles: 40 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.WarriorOfLoveBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				cosmetic: Cosmetic.WarriorOfLoveCape,
-				cost: { candles: 75 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteTwirl1 },
+				{
+					cosmetic: Cosmetic.EmoteTwirl2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.WarriorOfLoveBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.WarriorOfLoveMask,
+					cost: { candles: 35 },
+				},
+				{
+					cosmetic: Cosmetic.WarriorOfLoveSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.WarriorOfLoveWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteTwirl3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteTwirl4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+				{
+					cosmetic: Cosmetic.WarriorOfLoveHair,
+					cost: { candles: 40 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.WarriorOfLoveBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.WarriorOfLoveMusicSheet,
+					cost: { candles: 15 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.WarriorOfLoveCape,
+					cost: { candles: 75 },
+				},
+			],
 		],
 	},
 	visits: {
