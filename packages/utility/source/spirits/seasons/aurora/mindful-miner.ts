@@ -97,7 +97,7 @@ export default new SeasonalSpirit({
 			},
 			{
 				cosmetic: Cosmetic.MindfulMinerOutfit,
-				cost: { hearts: 55 },
+				cost: { candles: 55 },
 			},
 			{
 				cosmetic: Cosmetic.MindfulMinerCape,
