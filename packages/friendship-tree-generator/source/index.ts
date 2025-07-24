@@ -54,7 +54,7 @@ if (firstNodeHasCostAtStart) {
 const lastNode = NODES.at(-1)!;
 
 if (lastNode.length === 1) {
-	if (spirit.isSeasonalSpirit()) {
+	if (lastNode[0].seasonPass) {
 		canvasHeight += SEASON_ICON_MIDDLE_OFFSET_Y;
 	}
 
