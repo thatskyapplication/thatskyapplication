@@ -26,6 +26,7 @@ import {
 	friendshipTreeToItems,
 	type GuideSpirit,
 	type Item,
+	type ItemCost,
 	REALM_SPIRITS,
 	REALMS,
 	type RealmName,
@@ -950,21 +951,14 @@ export async function viewRealms(
 		let content = `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}`;
 		const percentage = spiritProgress([...realm.spirits.values()], catalogue?.data, true);
 		content += percentage === null ? "" : ` (${percentage}%)`;
+		const itemCosts: ItemCost[] = [];
 
-		const remainingCurrencyResult = resolveCostToString(
-			realm.spirits.reduce(
-				(remainingCurrencyResult, spirit) =>
-					addCosts([
-						remainingCurrencyResult,
-						remainingCurrency(friendshipTreeToItems(spirit.current), catalogue?.data),
-					]),
-				{},
-			),
-		);
-
-		if (remainingCurrencyResult) {
-			content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
+		for (const spirit of realm.spirits.values()) {
+			itemCosts.push(remainingCurrency(friendshipTreeToItems(spirit.current), catalogue?.data));
 		}
+
+		const remainingCurrencyResult = resolveCostToString(addCosts(itemCosts));
+		content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
 
 		containerComponents.push({
 			type: ComponentType.Section,
