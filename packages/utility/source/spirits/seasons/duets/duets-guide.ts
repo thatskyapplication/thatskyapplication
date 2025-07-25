@@ -50,7 +50,7 @@ export default new GuideSpirit({
 			},
 			{
 				cosmetic: Cosmetic.DuetsGuideDuetBow2,
-				cost: { hearts: 2 },
+				cost: { hearts: 8 },
 			},
 			{
 				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
