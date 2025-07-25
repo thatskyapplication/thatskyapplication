@@ -15,67 +15,94 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteBoo1 },
-			{ cosmetic: Cosmetic.EmoteBoo2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ScarecrowFarmerBlessing1,
-				cost: { seasonalCandles: 8 },
-			},
-			{ cosmetic: Cosmetic.ScarecrowFarmerMask },
-			{
-				cosmetic: Cosmetic.EmoteBoo3,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.EmoteBoo4 },
-			{
-				cosmetic: Cosmetic.ScarecrowFarmerHair,
-				cost: { seasonalCandles: 12 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ScarecrowFarmerBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.ScarecrowFarmerSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteBoo1 },
+				{ cosmetic: Cosmetic.EmoteBoo2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ScarecrowFarmerBlessing1,
+					cost: { seasonalCandles: 8 },
+				},
+				{ cosmetic: Cosmetic.ScarecrowFarmerMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteBoo3,
+					cost: { seasonalCandles: 10 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteBoo4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ScarecrowFarmerHair,
+					cost: { seasonalCandles: 12 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ScarecrowFarmerBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ScarecrowFarmerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteBoo1 },
-			{ cosmetic: Cosmetic.EmoteBoo2, cost: { hearts: 4 } },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ScarecrowFarmerBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ScarecrowFarmerMask,
-				cost: { candles: 42 },
-			},
-			{
-				cosmetic: Cosmetic.ScarecrowFarmerSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.ScarecrowFarmerWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{ cosmetic: Cosmetic.EmoteBoo3, cost: { hearts: 3 } },
-			{
-				cosmetic: Cosmetic.EmoteBoo4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ScarecrowFarmerBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ScarecrowFarmerHair,
-				cost: { candles: 34 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteBoo1 },
+				{ cosmetic: Cosmetic.EmoteBoo2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ScarecrowFarmerBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.ScarecrowFarmerMask,
+					cost: { candles: 42 },
+				},
+				{
+					cosmetic: Cosmetic.ScarecrowFarmerSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.ScarecrowFarmerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{ cosmetic: Cosmetic.EmoteBoo3, cost: { hearts: 3 }, level: 3 },
+				{
+					cosmetic: Cosmetic.EmoteBoo4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ScarecrowFarmerBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ScarecrowFarmerHair,
+					cost: { candles: 34 },
+				},
+			],
 		],
 	},
 	visits: {

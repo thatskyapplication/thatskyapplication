@@ -15,83 +15,114 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteShrug1 },
-			{ cosmetic: Cosmetic.EmoteShrug2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.IndifferentAlchemistBlessing1,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.IndifferentAlchemistMask },
-			{
-				cosmetic: Cosmetic.EmoteShrug3,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.EmoteShrug4 },
-			{
-				cosmetic: Cosmetic.IndifferentAlchemistHair,
-				cost: { seasonalCandles: 18 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.IndifferentAlchemistBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.IndifferentAlchemistBlessing3,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.IndifferentAlchemistCape },
-			{
-				cosmetic: Cosmetic.IndifferentAlchemistSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteShrug1 },
+				{ cosmetic: Cosmetic.EmoteShrug2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.IndifferentAlchemistBlessing1,
+					cost: { seasonalCandles: 14 },
+				},
+				{ cosmetic: Cosmetic.IndifferentAlchemistMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteShrug3,
+					cost: { seasonalCandles: 16 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteShrug4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.IndifferentAlchemistHair,
+					cost: { seasonalCandles: 18 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.IndifferentAlchemistBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.IndifferentAlchemistBlessing3,
+					cost: { seasonalCandles: 20 },
+				},
+				{ cosmetic: Cosmetic.IndifferentAlchemistCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.IndifferentAlchemistSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteShrug1 },
-			{
-				cosmetic: Cosmetic.EmoteShrug2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.IndifferentAlchemistBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.IndifferentAlchemistMask,
-				cost: { candles: 42 },
-			},
-			{
-				cosmetic: Cosmetic.IndifferentAlchemistSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.IndifferentAlchemistWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteShrug3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteShrug4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.IndifferentAlchemistBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.IndifferentAlchemistHair,
-				cost: { candles: 42 },
-			},
-			{
-				cosmetic: Cosmetic.IndifferentAlchemistCape,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteShrug1 },
+				{
+					cosmetic: Cosmetic.EmoteShrug2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.IndifferentAlchemistBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.IndifferentAlchemistMask,
+					cost: { candles: 42 },
+				},
+				{
+					cosmetic: Cosmetic.IndifferentAlchemistSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.IndifferentAlchemistWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteShrug3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteShrug4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.IndifferentAlchemistBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.IndifferentAlchemistHair,
+					cost: { candles: 42 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.IndifferentAlchemistCape,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	visits: {
