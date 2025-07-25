@@ -15,52 +15,65 @@ export default new SeasonalSpirit({
 	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.StanceSassy },
-			{
-				cosmetic: Cosmetic.SassyDrifterHair,
-				cost: { seasonalCandles: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SassyDrifterBlessing1,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SassyDrifterBlessing2,
-				cost: { seasonalCandles: 8 },
-			},
-			{ cosmetic: Cosmetic.SassyDrifterMask },
+			[{ cosmetic: Cosmetic.StanceSassy }],
+			[
+				{
+					cosmetic: Cosmetic.SassyDrifterHair,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SassyDrifterBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SassyDrifterBlessing2,
+					cost: { seasonalCandles: 8 },
+				},
+			],
+			[{ cosmetic: Cosmetic.SassyDrifterMask, seasonPass: true }],
 		],
 		current: [
-			{ cosmetic: Cosmetic.StanceSassy },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SassyDrifterBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.SassyDrifterHair,
-				cost: { candles: 26 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.SassyDrifterHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.SassyDrifterWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SassyDrifterBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.SassyDrifterMask,
-				cost: { candles: 48 },
-			},
+			[{ cosmetic: Cosmetic.StanceSassy }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SassyDrifterBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.SassyDrifterHair,
+					cost: { candles: 26 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.SassyDrifterHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.SassyDrifterWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SassyDrifterBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.SassyDrifterMask,
+					cost: { candles: 48 },
+				},
+			],
 		],
 	},
 	visits: {

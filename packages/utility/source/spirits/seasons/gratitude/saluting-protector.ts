@@ -15,78 +15,106 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteAcknowledge1 },
-			{ cosmetic: Cosmetic.EmoteAcknowledge2 },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.SalutingProtectorMusicSheet,
-				cost: { seasonalCandles: 16 },
-			},
-			{
-				translation: CosmeticCommon.Blessing,
-				cosmetic: Cosmetic.SalutingProtectorBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteAcknowledge3,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.EmoteAcknowledge4 },
-			{
-				cosmetic: Cosmetic.SalutingProtectorCape,
-				cost: { seasonalCandles: 20 },
-			},
-			{
-				cosmetic: Cosmetic.SalutingProtectorMask,
-				cost: { hearts: 5 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteAcknowledge1 },
+				{ cosmetic: Cosmetic.EmoteAcknowledge2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.SalutingProtectorMusicSheet,
+					cost: { seasonalCandles: 16 },
+				},
+				{
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.SalutingProtectorBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteAcknowledge3,
+					cost: { seasonalCandles: 18 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteAcknowledge4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.SalutingProtectorCape,
+					cost: { seasonalCandles: 20 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.SalutingProtectorMask,
+					cost: { hearts: 5 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteAcknowledge1 },
-			{
-				cosmetic: Cosmetic.EmoteAcknowledge2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SalutingProtectorBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.SalutingProtectorMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.SalutingProtectorHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.SalutingProtectorWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteAcknowledge3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteAcknowledge4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SalutingProtectorBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.SalutingProtectorCape,
-				cost: { candles: 75 },
-			},
-			{
-				cosmetic: Cosmetic.SalutingProtectorMask,
-				cost: { candles: 42 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteAcknowledge1 },
+				{
+					cosmetic: Cosmetic.EmoteAcknowledge2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SalutingProtectorBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.SalutingProtectorMusicSheet,
+					cost: { candles: 15 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.SalutingProtectorHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.SalutingProtectorWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteAcknowledge3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteAcknowledge4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SalutingProtectorBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.SalutingProtectorCape,
+					cost: { candles: 75 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.SalutingProtectorMask,
+					cost: { candles: 42 },
+				},
+			],
 		],
 	},
 	visits: {
