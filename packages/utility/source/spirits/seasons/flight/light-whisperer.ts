@@ -14,75 +14,97 @@ export default new SeasonalSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.CallBabyManta },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.LightWhispererBlessing1,
-				cost: { seasonalCandles: 14 },
-			},
-			{
-				cosmetic: Cosmetic.LightWhispererHairAccessory,
-			},
-			{
-				cosmetic: Cosmetic.LightWhispererHair,
-				cost: { seasonalCandles: 22 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.LightWhispererBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.LightWhispererTrailSpell1,
-				cost: { seasonalCandles: 26 },
-			},
-			{ cosmetic: Cosmetic.LightWhispererCape },
-			{
-				cosmetic: Cosmetic.LightWhispererOutfit,
-				cost: { seasonalCandles: 28 },
-			},
-			{ cosmetic: Cosmetic.LightWhispererTrailSpell2 },
-			{
-				cosmetic: Cosmetic.LightWhispererSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[{ cosmetic: Cosmetic.CallBabyManta }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.LightWhispererBlessing1,
+					cost: { seasonalCandles: 14 },
+				},
+				{
+					cosmetic: Cosmetic.LightWhispererHairAccessory,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.LightWhispererHair,
+					cost: { seasonalCandles: 22 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.LightWhispererBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.LightWhispererTrailSpell1,
+					cost: { seasonalCandles: 26 },
+				},
+				{ cosmetic: Cosmetic.LightWhispererCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.LightWhispererOutfit,
+					cost: { seasonalCandles: 28 },
+				},
+				{ cosmetic: Cosmetic.LightWhispererTrailSpell2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.LightWhispererSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.CallBabyManta },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.LightWhispererBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.LightWhispererHairAccessory,
-				cost: { candles: 45 },
-			},
-			{
-				cosmetic: Cosmetic.LightWhispererSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.LightWhispererWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.LightWhispererBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.LightWhispererHair,
-				cost: { candles: 50 },
-			},
-			{
-				cosmetic: Cosmetic.LightWhispererOutfit,
-				cost: { candles: 65 },
-			},
-			{
-				cosmetic: Cosmetic.LightWhispererCape,
-				cost: { candles: 70 },
-			},
+			[{ cosmetic: Cosmetic.CallBabyManta }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.LightWhispererBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.LightWhispererHairAccessory,
+					cost: { candles: 45 },
+				},
+				{
+					cosmetic: Cosmetic.LightWhispererSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.LightWhispererWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.LightWhispererBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.LightWhispererHair,
+					cost: { candles: 50 },
+				},
+				{
+					cosmetic: Cosmetic.LightWhispererOutfit,
+					cost: { candles: 65 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.LightWhispererCape,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	visits: {
