@@ -16,85 +16,117 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteSpinTrick1 },
-			{ cosmetic: Cosmetic.EmoteSpinTrick2 },
-			{
-				cosmetic: Cosmetic.SpinningMentorHair,
-				cost: { seasonalCandles: 13 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SpinningMentorBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteSpinTrick3,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.EmoteSpinTrick4 },
-			{
-				cosmetic: Cosmetic.SpinningMentorMask,
-				cost: { seasonalCandles: 23 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SpinningMentorBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.SpinningMentorBlessing3,
-				cost: { seasonalCandles: 29 },
-			},
-			{ cosmetic: Cosmetic.SpinningMentorCape },
-			{
-				cosmetic: Cosmetic.SpinningMentorSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteSpinTrick1 },
+				{ cosmetic: Cosmetic.EmoteSpinTrick2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.SpinningMentorHair,
+					cost: { seasonalCandles: 13 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SpinningMentorBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteSpinTrick3,
+					cost: { seasonalCandles: 18 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteSpinTrick4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.SpinningMentorMask,
+					cost: { seasonalCandles: 23 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SpinningMentorBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.SpinningMentorBlessing3,
+					cost: { seasonalCandles: 29 },
+				},
+				{ cosmetic: Cosmetic.SpinningMentorCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.SpinningMentorSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteSpinTrick1 },
-			{
-				cosmetic: Cosmetic.EmoteSpinTrick2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SpinningMentorBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.SpinningMentorHair,
-				cost: { candles: 44 },
-			},
-			{
-				cosmetic: Cosmetic.SpinningMentorSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.SpinningMentorWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteSpinTrick3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteSpinTrick4,
-				cost: { hearts: 6 },
-			},
-			{
-				cosmetic: Cosmetic.SpinningMentorMask,
-				cost: { candles: 42 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SpinningMentorBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.SpinningMentorCape,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteSpinTrick1 },
+				{
+					cosmetic: Cosmetic.EmoteSpinTrick2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SpinningMentorBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.SpinningMentorHair,
+					cost: { candles: 44 },
+				},
+				{
+					cosmetic: Cosmetic.SpinningMentorSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.SpinningMentorWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteSpinTrick3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteSpinTrick4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+				{
+					cosmetic: Cosmetic.SpinningMentorMask,
+					cost: { candles: 42 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SpinningMentorBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.SpinningMentorCape,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	visits: {
