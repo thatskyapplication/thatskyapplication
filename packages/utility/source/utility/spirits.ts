@@ -459,7 +459,7 @@ interface ItemRawTranslation {
 }
 
 interface BaseItemRawWithoutChildren {
-	level?: 1 | 2 | 3 | 4 | 5 | 6;
+	level?: 2 | 3 | 4 | 5 | 6;
 	seasonPass?: boolean;
 	cost?: ItemCostRaw;
 	regularHeart?: boolean;
@@ -528,7 +528,7 @@ export interface ItemWithoutChildren {
 	translation: ItemTranslation | null;
 	cosmetics: readonly [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
-	level: 1 | 2 | 3 | 4 | 5 | 6 | null;
+	level: 2 | 3 | 4 | 5 | 6 | null;
 	seasonPass: boolean;
 	cost: ItemCost | null;
 	regularHeart: boolean;
