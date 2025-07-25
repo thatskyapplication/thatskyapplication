@@ -3092,10 +3092,12 @@ export enum Cosmetic {
 	AnniversarySuit = 2462,
 	BalloonArch = 2463,
 
-	// [To be determined]
+	// 28/07/2025 | Version 0.30.0.
 	ManateePlush,
 	SpiritedManateeTail,
 	SpiritedManateeHeadAccessory,
+
+	// 04/08/2025 | Version 0.30.0.
 	VestigeOfDarkDragonsTail,
 	VestigeOfDarkDragonsHeadAccessory,
 
