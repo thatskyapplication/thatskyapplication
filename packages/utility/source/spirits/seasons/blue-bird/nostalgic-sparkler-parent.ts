@@ -11,30 +11,41 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				cosmetic: Cosmetic.NostalgicSparklerParentDye1,
-				cost: { seasonalCandles: 9 },
-			},
-			{ cosmetic: Cosmetic.NostalgicSparklerParentHairAccessory },
-			{
-				cosmetic: Cosmetic.NostalgicSparklerParentPurpleDye,
-				cost: { seasonalCandles: 13 },
-			},
-			{ cosmetic: Cosmetic.NostalgicSparklerParentCyanDye },
-			{
-				cosmetic: Cosmetic.NostalgicSparklerParentCape,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.NostalgicSparklerParentDye2 },
-			{
-				cosmetic: Cosmetic.NostalgicSparklerParentDye3,
-				cost: { seasonalCandles: 23 },
-			},
-			{ cosmetic: Cosmetic.NostalgicSparklerParentDye4 },
-			{
-				cosmetic: Cosmetic.NostalgicSparklerParentSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.NostalgicSparklerParentDye1,
+					cost: { seasonalCandles: 9 },
+				},
+				{ cosmetic: Cosmetic.NostalgicSparklerParentHairAccessory, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.NostalgicSparklerParentPurpleDye,
+					cost: { seasonalCandles: 13 },
+				},
+				{ cosmetic: Cosmetic.NostalgicSparklerParentCyanDye, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.NostalgicSparklerParentCape,
+					cost: { seasonalCandles: 20 },
+				},
+				{ cosmetic: Cosmetic.NostalgicSparklerParentDye2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.NostalgicSparklerParentDye3,
+					cost: { seasonalCandles: 23 },
+				},
+				{ cosmetic: Cosmetic.NostalgicSparklerParentDye4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.NostalgicSparklerParentSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

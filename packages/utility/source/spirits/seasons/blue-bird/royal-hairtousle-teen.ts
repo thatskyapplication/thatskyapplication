@@ -11,38 +11,53 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				cosmetic: Cosmetic.EmoteAmazed1,
-			},
-			{ cosmetic: Cosmetic.EmoteAmazed2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.RoyalHairtousleTeenBlessing1,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.RoyalHairtousleTeenHeadAccessory },
-			{
-				cosmetic: Cosmetic.EmoteAmazed3,
-				cost: { seasonalCandles: 17 },
-			},
-			{ cosmetic: Cosmetic.EmoteAmazed4 },
-			{
-				cosmetic: Cosmetic.RoyalHairtousleTeenOutfit,
-				cost: { seasonalCandles: 25 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.RoyalHairtousleTeenBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.RoyalHairtousleTeenWhiteDye,
-				cost: { seasonalCandles: 29 },
-			},
-			{ cosmetic: Cosmetic.RoyalHairtousleTeenCape },
-			{
-				cosmetic: Cosmetic.RoyalHairtousleTeenSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.EmoteAmazed1,
+				},
+				{ cosmetic: Cosmetic.EmoteAmazed2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.RoyalHairtousleTeenBlessing1,
+					cost: { seasonalCandles: 12 },
+				},
+				{ cosmetic: Cosmetic.RoyalHairtousleTeenHeadAccessory, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteAmazed3,
+					cost: { seasonalCandles: 17 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteAmazed4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RoyalHairtousleTeenOutfit,
+					cost: { seasonalCandles: 25 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.RoyalHairtousleTeenBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RoyalHairtousleTeenWhiteDye,
+					cost: { seasonalCandles: 29 },
+				},
+				{ cosmetic: Cosmetic.RoyalHairtousleTeenCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RoyalHairtousleTeenSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
