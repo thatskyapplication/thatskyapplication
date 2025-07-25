@@ -9,21 +9,25 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				cosmetic: Cosmetic.CompassionateCellistSharedMemorySpell,
-			},
-			{
-				cosmetic: Cosmetic.CompassionateCellistFaceAccessory,
-				cost: { candles: 85 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.CompassionateCellistHeart,
-			},
-			{
-				cosmetic: Cosmetic.CompassionateCellistProp,
-				cost: { candles: 200 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.CompassionateCellistSharedMemorySpell,
+				},
+				{
+					cosmetic: Cosmetic.CompassionateCellistFaceAccessory,
+					cost: { candles: 85 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.CompassionateCellistHeart,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.CompassionateCellistProp,
+					cost: { candles: 200 },
+				},
+			],
 		],
 	},
 });
