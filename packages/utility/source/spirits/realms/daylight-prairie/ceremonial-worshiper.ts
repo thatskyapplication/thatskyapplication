@@ -11,27 +11,33 @@ export default new StandardSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.EmoteTeamwork },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.CeremonialWorshipperBlessing1,
-				cost: { candles: 1 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.CeremonialWorshipperHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.CeremonialWorshipperWingBuff,
-				cost: { ascendedCandles: 1 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.CeremonialWorshipperBlessing2,
-				cost: { candles: 5 },
-			},
+			[{ cosmetic: Cosmetic.EmoteTeamwork }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.CeremonialWorshipperBlessing1,
+					cost: { candles: 1 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.CeremonialWorshipperHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.CeremonialWorshipperWingBuff,
+					cost: { ascendedCandles: 1 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.CeremonialWorshipperBlessing2,
+					cost: { candles: 5 },
+				},
+			],
 		],
 	},
 });
