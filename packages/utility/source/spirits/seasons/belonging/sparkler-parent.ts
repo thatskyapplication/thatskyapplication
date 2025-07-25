@@ -16,77 +16,106 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteSparkler1 },
-			{ cosmetic: Cosmetic.EmoteSparkler2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SparklerParentBlessing1,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.SparklerParentMask },
-			{
-				cosmetic: Cosmetic.EmoteSparkler3,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.EmoteSparkler4 },
-			{
-				cosmetic: Cosmetic.SparklerParentHair,
-				cost: { seasonalCandles: 14 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SparklerParentBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.SparklerParentSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteSparkler1 },
+				{ cosmetic: Cosmetic.EmoteSparkler2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SparklerParentBlessing1,
+					cost: { seasonalCandles: 10 },
+				},
+				{ cosmetic: Cosmetic.SparklerParentMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteSparkler3,
+					cost: { seasonalCandles: 12 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteSparkler4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.SparklerParentHair,
+					cost: { seasonalCandles: 14 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SparklerParentBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.SparklerParentSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteSparkler1 },
-			{
-				cosmetic: Cosmetic.EmoteSparkler2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SparklerParentBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.SparklerParentMask,
-				cost: { candles: 36 },
-			},
-			{
-				cosmetic: Cosmetic.SparklerParentSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.SparklerParentWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteSparkler3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteSparkler4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SparklerParentBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.SparklerParentHair,
-				cost: { candles: 34 },
-			},
-			{
-				cosmetic: Cosmetic.SparklerParentPinwheel,
-				cost: { candles: 33 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteSparkler1 },
+				{
+					cosmetic: Cosmetic.EmoteSparkler2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SparklerParentBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.SparklerParentMask,
+					cost: { candles: 36 },
+				},
+				{
+					cosmetic: Cosmetic.SparklerParentSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.SparklerParentWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteSparkler3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteSparkler4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SparklerParentBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.SparklerParentHair,
+					cost: { candles: 34 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.SparklerParentPinwheel,
+					cost: { candles: 33 },
+				},
+			],
 		],
 	},
 	visits: {

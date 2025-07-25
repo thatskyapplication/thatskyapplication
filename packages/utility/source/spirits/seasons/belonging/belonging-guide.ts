@@ -8,11 +8,14 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Belonging,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.BelongingPendant },
-			{
-				cosmetic: Cosmetic.BelongingBonfire,
-				cost: { seasonalHearts: 6 },
-			},
+			[{ cosmetic: Cosmetic.BelongingPendant, seasonPass: true }],
+			[
+				{
+					cosmetic: Cosmetic.BelongingBonfire,
+					cost: { seasonalHearts: 6 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 	keywords: ["bonfire"],

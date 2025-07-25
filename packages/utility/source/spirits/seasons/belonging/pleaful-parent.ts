@@ -16,74 +16,102 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteDontGo1 },
-			{ cosmetic: Cosmetic.EmoteDontGo2 },
-			{
-				translation: CosmeticCommon.Blessing,
-				cosmetic: Cosmetic.PleafulParentBlessing1,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.PleafulParentGuitar },
-			{
-				cosmetic: Cosmetic.EmoteDontGo3,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.EmoteDontGo4 },
-			{
-				cosmetic: Cosmetic.PleafulParentMask,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.PleafulParentCape },
-			{
-				cosmetic: Cosmetic.PleafulParentSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteDontGo1 },
+				{ cosmetic: Cosmetic.EmoteDontGo2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.PleafulParentBlessing1,
+					cost: { seasonalCandles: 14 },
+				},
+				{ cosmetic: Cosmetic.PleafulParentGuitar, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteDontGo3,
+					cost: { seasonalCandles: 16 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteDontGo4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.PleafulParentMask,
+					cost: { seasonalCandles: 18 },
+				},
+				{ cosmetic: Cosmetic.PleafulParentCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.PleafulParentSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteDontGo1 },
-			{
-				cosmetic: Cosmetic.EmoteDontGo2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.PleafulParentBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.PleafulParentMask,
-				cost: { candles: 42 },
-			},
-			{
-				cosmetic: Cosmetic.PleafulParentSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.PleafulParentWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteDontGo3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteDontGo4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.PleafulParentBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.PleafulParentCape,
-				cost: { candles: 65 },
-			},
-			{
-				cosmetic: Cosmetic.PleafulParentGuitar,
-				cost: { candles: 75 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteDontGo1 },
+				{
+					cosmetic: Cosmetic.EmoteDontGo2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.PleafulParentBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.PleafulParentMask,
+					cost: { candles: 42 },
+				},
+				{
+					cosmetic: Cosmetic.PleafulParentSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.PleafulParentWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteDontGo3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteDontGo4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.PleafulParentBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.PleafulParentCape,
+					cost: { candles: 65 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.PleafulParentGuitar,
+					cost: { candles: 75 },
+				},
+			],
 		],
 	},
 	visits: {

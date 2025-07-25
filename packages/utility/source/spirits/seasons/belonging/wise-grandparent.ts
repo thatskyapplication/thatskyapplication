@@ -14,79 +14,103 @@ export default new SeasonalSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.StanceWise },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.WiseGrandparentBlessing1,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.WiseGrandparentMusicSheet },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.WiseGrandparentBlessing2,
-				cost: { seasonalCandles: 12 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.WiseGrandparentBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.WiseGrandparentMask,
-				cost: { seasonalCandles: 14 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.WiseGrandparentBlessing4,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
-				cosmetic: Cosmetic.WiseGrandparentBlessing5,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.WiseGrandparentCape },
-			{
-				cosmetic: Cosmetic.WiseGrandparentSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[{ cosmetic: Cosmetic.StanceWise }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.WiseGrandparentBlessing1,
+					cost: { seasonalCandles: 10 },
+				},
+				{ cosmetic: Cosmetic.WiseGrandparentMusicSheet, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.WiseGrandparentBlessing2,
+					cost: { seasonalCandles: 12 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.WiseGrandparentBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.WiseGrandparentMask,
+					cost: { seasonalCandles: 14 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.WiseGrandparentBlessing4,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
+					cosmetic: Cosmetic.WiseGrandparentBlessing5,
+					cost: { seasonalCandles: 16 },
+				},
+				{ cosmetic: Cosmetic.WiseGrandparentCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.WiseGrandparentSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.StanceWise },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.WiseGrandparentMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				cosmetic: Cosmetic.WiseGrandparentSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.WiseGrandparentBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.WiseGrandparentWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.WiseGrandparentBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.WiseGrandparentCape,
-				cost: { candles: 70 },
-			},
-			{
-				cosmetic: Cosmetic.WiseGrandparentProp,
-				cost: { candles: 10 },
-			},
-			{
-				cosmetic: Cosmetic.WiseGrandparentMask,
-				cost: { candles: 48 },
-			},
+			[
+				{ cosmetic: Cosmetic.StanceWise },
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.WiseGrandparentMusicSheet,
+					cost: { candles: 15 },
+				},
+				{
+					cosmetic: Cosmetic.WiseGrandparentSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.WiseGrandparentBlessing1,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.WiseGrandparentWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.WiseGrandparentBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.WiseGrandparentCape,
+					cost: { candles: 70 },
+				},
+				{
+					cosmetic: Cosmetic.WiseGrandparentProp,
+					cost: { candles: 10 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.WiseGrandparentMask,
+					cost: { candles: 48 },
+				},
+			],
 		],
 	},
 	visits: {
