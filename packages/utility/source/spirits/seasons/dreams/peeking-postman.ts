@@ -15,81 +15,110 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmotePeek1 },
-			{ cosmetic: Cosmetic.EmotePeek2 },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.PeekingPostmanMusicSheet,
-				cost: { seasonalCandles: 12 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.PeekingPostmanBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmotePeek3,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.EmotePeek4 },
-			{
-				cosmetic: Cosmetic.PeekingPostmanOutfit,
-				cost: { seasonalCandles: 21 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.PeekingPostmanBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.PeekingPostmanCape,
-				cost: { seasonalCandles: 27 },
-			},
-			{ cosmetic: Cosmetic.PeekingPostmanRabbitMask },
-			{
-				cosmetic: Cosmetic.PeekingPostmanSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmotePeek1 },
+				{ cosmetic: Cosmetic.EmotePeek2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.PeekingPostmanMusicSheet,
+					cost: { seasonalCandles: 12 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.PeekingPostmanBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmotePeek3,
+					cost: { seasonalCandles: 16 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmotePeek4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.PeekingPostmanOutfit,
+					cost: { seasonalCandles: 21 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.PeekingPostmanBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.PeekingPostmanCape,
+					cost: { seasonalCandles: 27 },
+				},
+				{ cosmetic: Cosmetic.PeekingPostmanRabbitMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.PeekingPostmanSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmotePeek1 },
-			{ cosmetic: Cosmetic.EmotePeek2, cost: { hearts: 4 } },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.PeekingPostmanMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.PeekingPostmanBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.PeekingPostmanRabbitMask,
-				cost: { candles: 54 },
-			},
-			{
-				cosmetic: Cosmetic.PeekingPostmanSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.PeekingPostmanWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{ cosmetic: Cosmetic.EmotePeek3, cost: { hearts: 3 } },
-			{ cosmetic: Cosmetic.EmotePeek4, cost: { hearts: 6 } },
-			{
-				cosmetic: Cosmetic.PeekingPostmanCape,
-				cost: { candles: 65 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.PeekingPostmanBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.PeekingPostmanOutfit,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmotePeek1 },
+				{ cosmetic: Cosmetic.EmotePeek2, cost: { hearts: 4 }, level: 2 },
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.PeekingPostmanMusicSheet,
+					cost: { candles: 15 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.PeekingPostmanBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.PeekingPostmanRabbitMask,
+					cost: { candles: 54 },
+				},
+				{
+					cosmetic: Cosmetic.PeekingPostmanSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.PeekingPostmanWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{ cosmetic: Cosmetic.EmotePeek3, cost: { hearts: 3 }, level: 3 },
+				{ cosmetic: Cosmetic.EmotePeek4, cost: { hearts: 6 }, level: 4 },
+				{
+					cosmetic: Cosmetic.PeekingPostmanCape,
+					cost: { candles: 65 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.PeekingPostmanBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.PeekingPostmanOutfit,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	keywords: ["rabbit", "rabbit mask"],
