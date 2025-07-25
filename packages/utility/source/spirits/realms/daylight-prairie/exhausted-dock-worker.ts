@@ -11,43 +11,58 @@ export default new StandardSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.EmoteWipeBrow1 },
-			{
-				cosmetic: Cosmetic.EmoteWipeBrow2,
-				cost: { candles: 1 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ExhaustedDockWorkerBlessing1,
-				cost: { candles: 1 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.ExhaustedDockWorkerHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.ExhaustedDockWorkerWingBuff,
-				cost: { ascendedCandles: 1 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteWipeBrow3,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteWipeBrow4,
-				cost: { candles: 5 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ExhaustedDockWorkerBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ExhaustedDockWorkerFaceAccessory,
-				cost: { hearts: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteWipeBrow1 },
+				{
+					cosmetic: Cosmetic.EmoteWipeBrow2,
+					cost: { candles: 1 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ExhaustedDockWorkerBlessing1,
+					cost: { candles: 1 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.ExhaustedDockWorkerHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.ExhaustedDockWorkerWingBuff,
+					cost: { ascendedCandles: 1 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteWipeBrow3,
+					cost: { candles: 5 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteWipeBrow4,
+					cost: { candles: 5 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ExhaustedDockWorkerBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ExhaustedDockWorkerFaceAccessory,
+					cost: { hearts: 3 },
+				},
+			],
 		],
 	},
 });
