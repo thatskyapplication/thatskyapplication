@@ -9,32 +9,43 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ThePianistsFlourishingBlessing1,
-				cost: { seasonalCandles: 12 },
-			},
-			{
-				cosmetic: Cosmetic.ThePianistsFlourishingProp,
-			},
-			{
-				cosmetic: Cosmetic.ThePianistsFlourishingShoes,
-				cost: { seasonalCandles: 22 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ThePianistsFlourishingBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.ThePianistsFlourishingBlessing3,
-				cost: { seasonalCandles: 26 },
-			},
-			{ cosmetic: Cosmetic.ThePianistsFlourishingOutfit },
-			{
-				cosmetic: Cosmetic.ThePianistsFlourishingSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ThePianistsFlourishingBlessing1,
+					cost: { seasonalCandles: 12 },
+				},
+				{
+					cosmetic: Cosmetic.ThePianistsFlourishingProp,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ThePianistsFlourishingShoes,
+					cost: { seasonalCandles: 22 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ThePianistsFlourishingBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.ThePianistsFlourishingBlessing3,
+					cost: { seasonalCandles: 26 },
+				},
+				{ cosmetic: Cosmetic.ThePianistsFlourishingOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ThePianistsFlourishingSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

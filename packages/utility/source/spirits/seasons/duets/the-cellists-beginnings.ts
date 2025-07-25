@@ -9,34 +9,46 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				cosmetic: Cosmetic.TheCellistsBeginningsHair,
-				cost: { seasonalCandles: 20 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.TheCellistsBeginningsBlessing1,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.TheCellistsBeginningsBlessing2,
-				cost: { seasonalCandles: 26 },
-			},
-			{
-				cosmetic: Cosmetic.TheCellistsBeginningsProp,
-			},
-			{
-				cosmetic: Cosmetic.TheCellistsBeginningsOutfit,
-				cost: { seasonalCandles: 32 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.TheCellistsBeginningsBlessing4,
-			},
-			{
-				cosmetic: Cosmetic.TheCellistsBeginningsSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.TheCellistsBeginningsHair,
+					cost: { seasonalCandles: 20 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.TheCellistsBeginningsBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.TheCellistsBeginningsBlessing2,
+					cost: { seasonalCandles: 26 },
+				},
+				{
+					cosmetic: Cosmetic.TheCellistsBeginningsProp,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TheCellistsBeginningsOutfit,
+					cost: { seasonalCandles: 32 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.TheCellistsBeginningsBlessing4,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TheCellistsBeginningsSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
