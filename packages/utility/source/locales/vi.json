@@ -1,5 +1,6 @@
 {
 	"general": {
+		"discovery-expanded-description": "",
 		"days-left": {
 			"season_zero": "",
 			"season_one": "Mùa này kết thúc sau {{count}} ngày.",

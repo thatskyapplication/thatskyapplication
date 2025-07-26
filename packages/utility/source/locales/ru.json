@@ -1,5 +1,6 @@
 {
 	"general": {
+		"discovery-expanded-description": "",
 		"days-left": {
 			"season_zero": "Сезон заканчивается сегодня.",
 			"season_one": "День до конца сезона: {{count}}",
