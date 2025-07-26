@@ -16,6 +16,8 @@ import {
 
 export default {
 	general: {
+		"discovery-expanded-description":
+			"The Discord application for Sky: Children of the Light!\n\nFeatures include:\n\n- Delivery of daily guides, straight to your server, also in [your browser](https://thatskyapplication.com/daily-guides)!\n- Hug, high-five, krill PEOPLE, and more!\n- Notifications regarding time-based events, also straight to your server\n- View a `/schedule` for the current day\n- See calculations regarding winged light, seasonal candles, ascended candles, and event currency\n- View shard eruptions for today and browse shard eruptions timelessly! Also in [your browser](https://thatskyapplication.com/shard-eruption)!\n- Customise a Sky profile for yourself for others to view! See them all in [your browser](https://thatskyapplication.com/sky-profiles)!\n- View any spirit right here in Discord\n- View a history of travelling spirits, including spirits that have not returned for a long time\n- Track your spirits & events completion\n- AI responses/talking\n- MORE!",
 		"days-left": {
 			season_zero: "The season ends today.",
 			season_one: "{{count}} day left in the season.",
