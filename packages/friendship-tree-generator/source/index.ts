@@ -45,7 +45,7 @@ if (!hind) {
 let canvasHeight = IMAGE_SIZE + HEIGHT_START_OFFSET;
 canvasHeight += NEXT_HEIGHT_LEVEL * NODES.length;
 const firstNode = NODES[0]!;
-const firstNodeHasCostAtStart = firstNode[0].cost !== null
+const firstNodeHasCostAtStart = firstNode[0].cost !== null;
 
 if (firstNodeHasCostAtStart) {
 	canvasHeight += IMAGE_SIZE;
