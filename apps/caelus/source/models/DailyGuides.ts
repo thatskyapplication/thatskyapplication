@@ -42,7 +42,7 @@ import {
 	resolveMap,
 	resolveValidRealm,
 } from "../utility/functions.js";
-import { isQuestSpirit, QUEST_SPIRITS, type QuestSpirits } from "../utility/spirits.js";
+import { QUEST_SPIRITS, type QuestSpirits } from "../utility/spirits.js";
 
 interface DailyGuidesData {
 	quest1: DailyGuidesPacket["quest1"];
@@ -524,12 +524,7 @@ export default new (class DailyGuides {
 					t(`spirits.${spiritId}`, { lng: Locale.EnglishGB, ns: "general" }).toUpperCase(),
 				)
 			) {
-				if (isQuestSpirit(spiritId)) {
-					return SpiritIdToDailyQuest[spiritId];
-				}
-
-				pino.error(options, `Failed to match a spirit for ${spiritId}.`);
-				return null;
+				return SpiritIdToDailyQuest[spiritId];
 			}
 		}
 

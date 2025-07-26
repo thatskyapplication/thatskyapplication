@@ -79,7 +79,3 @@ export const QUEST_SPIRITS = [
 ] as const satisfies Readonly<SpiritIds[]>;
 
 export type QuestSpirits = (typeof QUEST_SPIRITS)[number];
-
-export function isQuestSpirit(spiritId: number): spiritId is QuestSpirits {
-	return QUEST_SPIRITS.includes(spiritId as QuestSpirits);
-}
