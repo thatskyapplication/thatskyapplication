@@ -373,6 +373,12 @@ export default {
 			[DailyQuest.PickUpACrab]: "Pick up a crab",
 			[DailyQuest.AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile]:
 				"Admire Shared Spaces at the Broken Bell Tower in Aviary Village for a short while",
+			[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]:
+				"Meet up with Grateful Shell Collector in Aviary Village",
+			[DailyQuest.MeetUpWithSparklerParentInAviaryVillage]:
+				"Meet up with Sparkler Parent in Aviary Village",
+			[DailyQuest.MeetUpWithAsceticMonkInAviaryVillage]:
+				"Meet up with Ascetic Monk in Aviary Village",
 			[DailyQuest.AdmireSharedSpacesWithApplaudingBellmaker]:
 				"Admire Shared Spaces with Applauding Bellmaker",
 			[DailyQuest.AdmireSharedSpacesWithDaydreamForester]:
@@ -380,12 +386,6 @@ export default {
 			[DailyQuest.AdmireSharedSpacesWithBearhugHermit]: "Admire Shared Spaces with Bearhug Hermit",
 			[DailyQuest.AdmireSharedSpacesWithBumblingBoatswain]:
 				"Admire Shared Spaces with Bumbling Boatswain",
-			[DailyQuest.JoinGratefulShellCollectorForSomeTea]:
-				"Join Grateful Shell Collector for some tea",
-			[DailyQuest.JoinSparklerParentForSomeTea]: "Join Sparkler Parent for some tea",
-			[DailyQuest.JoinAsceticMonkForSomeTea]: "Join Ascetic Monk for some tea",
-			[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]:
-				"Meet up with Grateful Shell Collector in Aviary Village",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

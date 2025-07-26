@@ -1056,15 +1056,14 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithLightWhispererInBirdNest]: null,
 	[DailyQuest.MeetUpWithLivelyNavigatorInBirdNest]: null,
 	[DailyQuest.PickUpACrab]: null,
-	[DailyQuest.JoinGratefulShellCollectorForSomeTea]: null,
-	[DailyQuest.JoinSparklerParentForSomeTea]: null,
-	[DailyQuest.JoinAsceticMonkForSomeTea]: null,
 	[DailyQuest.AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile]: null,
+	[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]: null,
+	[DailyQuest.MeetUpWithSparklerParentInAviaryVillage]: null,
+	[DailyQuest.MeetUpWithAsceticMonkInAviaryVillage]: null,
 	[DailyQuest.AdmireSharedSpacesWithApplaudingBellmaker]: null,
 	[DailyQuest.AdmireSharedSpacesWithDaydreamForester]: null,
 	[DailyQuest.AdmireSharedSpacesWithBearhugHermit]: null,
 	[DailyQuest.AdmireSharedSpacesWithBumblingBoatswain]: null,
-	[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 // Daily guides distribution.
