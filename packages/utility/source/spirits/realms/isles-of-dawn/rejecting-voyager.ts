@@ -11,47 +11,60 @@ export default new StandardSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.EmoteNoThanks1 },
-			{
-				cosmetic: Cosmetic.EmoteNoThanks2,
-				cost: { candles: 1 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.RejectingVoyagerBlessing1,
-				cost: { candles: 1 },
-			},
-			{
-				cosmetic: Cosmetic.RejectingVoyagerHair,
-				cost: { hearts: 1 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.RejectingVoyagerHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.RejectingVoyagerWingBuff,
-				cost: { ascendedCandles: 1 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteNoThanks3,
-				cost: { candles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteNoThanks4,
-				cost: { candles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.RejectingVoyagerFaceAccessory,
-				cost: { hearts: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.RejectingVoyagerBlessing2,
-				cost: { candles: 5 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteNoThanks1 },
+				{
+					cosmetic: Cosmetic.EmoteNoThanks2,
+					cost: { candles: 1 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.RejectingVoyagerBlessing1,
+					cost: { candles: 1 },
+				},
+				{
+					cosmetic: Cosmetic.RejectingVoyagerHair,
+					cost: { hearts: 1 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.RejectingVoyagerHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.RejectingVoyagerWingBuff,
+					cost: { ascendedCandles: 1 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteNoThanks3,
+					cost: { candles: 2 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteNoThanks4,
+					cost: { candles: 2 },
+					level: 4,
+				},
+				{
+					cosmetic: Cosmetic.RejectingVoyagerFaceAccessory,
+					cost: { hearts: 3 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.RejectingVoyagerBlessing2,
+					cost: { candles: 5 },
+				},
+			],
 		],
 	},
 });
