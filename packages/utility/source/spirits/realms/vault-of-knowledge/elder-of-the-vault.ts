@@ -8,10 +8,12 @@ export default new ElderSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		current: [
-			{
-				cosmetic: Cosmetic.ElderOfTheVaultHair,
-				cost: { ascendedCandles: 5 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.ElderOfTheVaultHair,
+					cost: { ascendedCandles: 5 },
+				},
+			],
 		],
 	},
 });

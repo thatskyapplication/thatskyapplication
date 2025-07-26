@@ -8,14 +8,18 @@ export default new ElderSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		current: [
-			{
-				cosmetic: Cosmetic.ElderOfTheValleyHair1,
-				cost: { ascendedCandles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ElderOfTheValleyHair2,
-				cost: { ascendedCandles: 6 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.ElderOfTheValleyHair1,
+					cost: { ascendedCandles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ElderOfTheValleyHair2,
+					cost: { ascendedCandles: 6 },
+				},
+			],
 		],
 	},
 });

@@ -8,10 +8,12 @@ export default new ElderSpirit({
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		current: [
-			{
-				cosmetic: Cosmetic.ElderOfTheWastelandHair,
-				cost: { ascendedCandles: 6 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.ElderOfTheWastelandHair,
+					cost: { ascendedCandles: 6 },
+				},
+			],
 		],
 	},
 });
