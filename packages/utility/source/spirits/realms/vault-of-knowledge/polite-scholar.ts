@@ -11,35 +11,45 @@ export default new StandardSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.StancePolite },
-			{
-				cosmetic: Cosmetic.PoliteScholarOutfit,
-				cost: { hearts: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.PoliteScholarBlessing1,
-				cost: { candles: 1 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.PoliteScholarHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.PoliteScholarWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.PoliteScholarBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.PoliteScholarHair,
-				cost: { hearts: 15 },
-			},
+			[
+				{ cosmetic: Cosmetic.StancePolite },
+				{
+					cosmetic: Cosmetic.PoliteScholarOutfit,
+					cost: { hearts: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.PoliteScholarBlessing1,
+					cost: { candles: 1 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.PoliteScholarHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.PoliteScholarWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.PoliteScholarBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.PoliteScholarHair,
+					cost: { hearts: 15 },
+				},
+			],
 		],
 	},
 });
