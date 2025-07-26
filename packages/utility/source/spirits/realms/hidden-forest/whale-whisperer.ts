@@ -11,32 +11,40 @@ export default new StandardSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.CallWhale },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.WhaleWhispererBlessing1,
-				cost: { candles: 1 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.WhaleWhispererHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.WhaleWhispererWingBuff,
-				cost: { ascendedCandles: 1 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.WhaleWhispererBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.WhaleWhispererMusicSheet,
-				cost: { hearts: 2 },
-			},
+			[{ cosmetic: Cosmetic.CallWhale }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.WhaleWhispererBlessing1,
+					cost: { candles: 1 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.WhaleWhispererHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.WhaleWhispererWingBuff,
+					cost: { ascendedCandles: 1 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.WhaleWhispererBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.WhaleWhispererMusicSheet,
+					cost: { hearts: 2 },
+				},
+			],
 		],
 	},
 });

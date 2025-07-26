@@ -11,47 +11,62 @@ export default new StandardSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: [
-			{ cosmetic: Cosmetic.EmoteShiver1 },
-			{
-				cosmetic: Cosmetic.EmoteShiver2,
-				cost: { candles: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ShiveringTrailblazerBlessing1,
-				cost: { candles: 1 },
-			},
-			{
-				cosmetic: Cosmetic.ShiveringTrailblazerOutfit,
-				cost: { hearts: 2 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.ShiveringTrailblazerHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.ShiveringTrailblazerWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteShiver3,
-				cost: { candles: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteShiver4,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ShiveringTrailblazerBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ShiveringTrailblazerHair,
-				cost: { hearts: 5 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteShiver1 },
+				{
+					cosmetic: Cosmetic.EmoteShiver2,
+					cost: { candles: 2 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ShiveringTrailblazerBlessing1,
+					cost: { candles: 1 },
+				},
+				{
+					cosmetic: Cosmetic.ShiveringTrailblazerOutfit,
+					cost: { hearts: 2 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.ShiveringTrailblazerHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.ShiveringTrailblazerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteShiver3,
+					cost: { candles: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteShiver4,
+					cost: { candles: 3 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ShiveringTrailblazerBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ShiveringTrailblazerHair,
+					cost: { hearts: 5 },
+				},
+			],
 		],
 	},
 });
