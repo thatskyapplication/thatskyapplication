@@ -15,75 +15,93 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.StanceLaidback },
-			{
-				cosmetic: Cosmetic.LaidbackPioneerMask,
-				cost: { seasonalCandles: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.LaidbackPioneerBlessing1,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.LaidbackPioneerBlessing2,
-				cost: { seasonalCandles: 8 },
-			},
-			{ cosmetic: Cosmetic.LaidbackPioneerMusicSheet },
-			{
-				cosmetic: Cosmetic.LaidbackPioneerHair,
-				cost: { seasonalCandles: 10 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.LaidbackPioneerBlessing3,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.LaidbackPioneerBlessing4,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.LaidbackPioneerUmbrella },
+			[{ cosmetic: Cosmetic.StanceLaidback }],
+			[
+				{
+					cosmetic: Cosmetic.LaidbackPioneerMask,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.LaidbackPioneerBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.LaidbackPioneerBlessing2,
+					cost: { seasonalCandles: 8 },
+				},
+				{ cosmetic: Cosmetic.LaidbackPioneerMusicSheet, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.LaidbackPioneerHair,
+					cost: { seasonalCandles: 10 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.LaidbackPioneerBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.LaidbackPioneerBlessing4,
+					cost: { seasonalCandles: 20 },
+				},
+			],
+			[{ cosmetic: Cosmetic.LaidbackPioneerUmbrella, seasonPass: true }],
 		],
 		current: [
-			{ cosmetic: Cosmetic.StanceLaidback },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.LaidbackPioneerBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.LaidbackPioneerMask,
-				cost: { candles: 30 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.LaidbackPioneerHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.LaidbackPioneerWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.LaidbackPioneerBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.LaidbackPioneerMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				cosmetic: Cosmetic.LaidbackPioneerHair,
-				cost: { candles: 18 },
-			},
-			{
-				cosmetic: Cosmetic.LaidbackPioneerUmbrella,
-				cost: { candles: 75 },
-			},
+			[{ cosmetic: Cosmetic.StanceLaidback }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.LaidbackPioneerBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.LaidbackPioneerMask,
+					cost: { candles: 30 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.LaidbackPioneerHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.LaidbackPioneerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.LaidbackPioneerBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.LaidbackPioneerMusicSheet,
+					cost: { candles: 15 },
+				},
+				{
+					cosmetic: Cosmetic.LaidbackPioneerHair,
+					cost: { candles: 18 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.LaidbackPioneerUmbrella,
+					cost: { candles: 75 },
+				},
+			],
 		],
 	},
 	visits: {

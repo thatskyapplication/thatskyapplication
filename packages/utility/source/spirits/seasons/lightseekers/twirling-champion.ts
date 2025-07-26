@@ -14,71 +14,95 @@ export default new SeasonalSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteTripleAxel1 },
-			{ cosmetic: Cosmetic.EmoteTripleAxel2 },
-			{
-				translation: CosmeticCommon.Blessing,
-				cosmetic: Cosmetic.TwirlingChampionBlessing1,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.TwirlingChampionMask },
-			{
-				cosmetic: Cosmetic.EmoteTripleAxel3,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.EmoteTripleAxel4 },
-			{
-				cosmetic: Cosmetic.TwirlingChampionHair,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.TwirlingChampionPanflute },
+			[
+				{ cosmetic: Cosmetic.EmoteTripleAxel1 },
+				{ cosmetic: Cosmetic.EmoteTripleAxel2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.TwirlingChampionBlessing1,
+					cost: { seasonalCandles: 12 },
+				},
+				{ cosmetic: Cosmetic.TwirlingChampionMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteTripleAxel3,
+					cost: { seasonalCandles: 14 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteTripleAxel4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.TwirlingChampionHair,
+					cost: { seasonalCandles: 16 },
+				},
+			],
+			[{ cosmetic: Cosmetic.TwirlingChampionPanflute, seasonPass: true }],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteTripleAxel1 },
-			{
-				cosmetic: Cosmetic.EmoteTripleAxel2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.TwirlingChampionBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.TwirlingChampionMask,
-				cost: { candles: 24 },
-			},
-			{
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.TwirlingChampionHeart,
-				cost: { candles: 3 },
-			},
-			{
-				cost: { ascendedCandles: 2 },
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.TwirlingChampionWingBuff,
-			},
-			{
-				cosmetic: Cosmetic.EmoteTripleAxel3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteTripleAxel4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.TwirlingChampionBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.TwirlingChampionPanflute,
-				cost: { candles: 60 },
-			},
-			{
-				cosmetic: Cosmetic.TwirlingChampionHair,
-				cost: { candles: 34 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteTripleAxel1 },
+				{
+					cosmetic: Cosmetic.EmoteTripleAxel2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.TwirlingChampionBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.TwirlingChampionMask,
+					cost: { candles: 24 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.TwirlingChampionHeart,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					cost: { ascendedCandles: 2 },
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.TwirlingChampionWingBuff,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteTripleAxel3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteTripleAxel4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.TwirlingChampionBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.TwirlingChampionPanflute,
+					cost: { candles: 60 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TwirlingChampionHair,
+					cost: { candles: 34 },
+				},
+			],
 		],
 	},
 	visits: {
