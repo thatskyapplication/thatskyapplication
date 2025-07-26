@@ -10,7 +10,7 @@ jobs:
         id: create-token
         uses: actions/create-github-app-token@v2
         with:
-          app-id: ${{ vars.APP_ID }}
+          app-id: ${{ vars.APPLICATION_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: thatskyapplication
           repositories: thatskyapplication

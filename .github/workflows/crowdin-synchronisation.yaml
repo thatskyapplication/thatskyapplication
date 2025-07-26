@@ -12,7 +12,7 @@ jobs:
         id: create-token
         uses: actions/create-github-app-token@v2
         with:
-          app-id: ${{ vars.APP_ID }}
+          app-id: ${{ vars.APPLICATION_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: thatskyapplication
           repositories: thatskyapplication
@@ -62,7 +62,7 @@ jobs:
       - name: Open pull request
         run: |
           git config user.name thatskyapplication[bot]
-          git config user.email "${{ vars.APP_ID }}+thatskyapplication[bot]@users.noreply.github.com"
+          git config user.email "${{ vars.APPLICATION_USER_ID }}+thatskyapplication[bot]@users.noreply.github.com"
           git checkout -b chore/translations
           git add packages/utility/source/locales
           git commit --message "chore: Update translation files"
