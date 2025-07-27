@@ -571,11 +571,11 @@ export function friendshipTreeToItems(
 				continue;
 			}
 
+			result.push(item);
+
 			if ("children" in item) {
 				result.push(...item.children);
 			}
-
-			result.push(item);
 		}
 	}
 

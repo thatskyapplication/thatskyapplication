@@ -29,6 +29,8 @@ export function resolveAllCosmetics(friendshipTree: FriendshipTree): readonly Co
 	const result: Cosmetic[] = [];
 
 	for (const items of friendshipTree) {
+		result.push(...resolveAllCosmeticsFromItems(items));
+
 		for (const item of items) {
 			if (!item) {
 				continue;
@@ -38,8 +40,6 @@ export function resolveAllCosmetics(friendshipTree: FriendshipTree): readonly Co
 				result.push(...resolveAllCosmeticsFromItems(item.children));
 			}
 		}
-
-		result.push(...resolveAllCosmeticsFromItems(items));
 	}
 
 	return result;
