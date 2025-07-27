@@ -16,84 +16,115 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteSlouch1 },
-			{ cosmetic: Cosmetic.EmoteSlouch2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SlouchingSoldierBlessing1,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.SlouchingSoldierHair },
-			{
-				cosmetic: Cosmetic.EmoteSlouch3,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.EmoteSlouch4 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SlouchingSoldierBlessing2,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.SlouchingSoldierMusicSheet },
-			{
-				cosmetic: Cosmetic.SlouchingSoldierCape,
-				cost: { seasonalCandles: 22 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.SlouchingSoldierBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.SlouchingSoldierSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteSlouch1 },
+				{ cosmetic: Cosmetic.EmoteSlouch2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SlouchingSoldierBlessing1,
+					cost: { seasonalCandles: 10 },
+				},
+				{ cosmetic: Cosmetic.SlouchingSoldierHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteSlouch3,
+					cost: { seasonalCandles: 14 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteSlouch4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SlouchingSoldierBlessing2,
+					cost: { seasonalCandles: 18 },
+				},
+				{ cosmetic: Cosmetic.SlouchingSoldierMusicSheet, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.SlouchingSoldierCape,
+					cost: { seasonalCandles: 22 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.SlouchingSoldierBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.SlouchingSoldierSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteSlouch1 },
-			{
-				cosmetic: Cosmetic.EmoteSlouch2,
-				cost: { hearts: 4 },
-			},
-			{
-				cosmetic: Cosmetic.SlouchingSoldierSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.SlouchingSoldierBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.SlouchingSoldierMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				cosmetic: Cosmetic.SlouchingSoldierHair,
-				cost: { candles: 42 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.SlouchingSoldierWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteSlouch3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteSlouch4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.SlouchingSoldierBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.SlouchingSoldierCape,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteSlouch1 },
+				{
+					cosmetic: Cosmetic.EmoteSlouch2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+				{
+					cosmetic: Cosmetic.SlouchingSoldierSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.SlouchingSoldierBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.SlouchingSoldierMusicSheet,
+					cost: { candles: 15 },
+				},
+				{
+					cosmetic: Cosmetic.SlouchingSoldierHair,
+					cost: { candles: 42 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.SlouchingSoldierWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteSlouch3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteSlouch4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.SlouchingSoldierBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.SlouchingSoldierCape,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	visits: {
