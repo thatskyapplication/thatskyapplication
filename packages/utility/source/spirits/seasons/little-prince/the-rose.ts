@@ -25,7 +25,7 @@ export default new GuideSpirit({
 			},
 			{
 				cosmetic: Cosmetic.TheRoseUltimateHair,
-				cost: { seasonalHearts: 1 },
+				cost: { seasonalHearts: 2 },
 			},
 			{
 				cosmetic: Cosmetic.TheRoseUltimateOutfit,
@@ -33,7 +33,7 @@ export default new GuideSpirit({
 			},
 			{
 				cosmetic: Cosmetic.TheRoseRose,
-				cost: { seasonalHearts: 1 },
+				cost: { seasonalHearts: 2 },
 			},
 			{
 				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
