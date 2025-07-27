@@ -47,6 +47,7 @@ export default new GuideSpirit({
 			},
 			{
 				cosmetic: Cosmetic.SpiritOfMuralHairAccessory,
+				cost: { candles: 50 },
 			},
 			{
 				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
@@ -60,7 +61,7 @@ export default new GuideSpirit({
 				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 				cosmetic: Cosmetic.SpiritOfMuralQuest5,
 			},
-			{ cosmetic: Cosmetic.SpiritOfMuralMask },
+			{ cosmetic: Cosmetic.SpiritOfMuralMask, cost: { candles: 120 } },
 		],
 	},
 });
