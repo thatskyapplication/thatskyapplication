@@ -14,39 +14,55 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose1 },
-			{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.AsceticMonkBlessing1,
-				cost: { seasonalCandles: 6 },
-			},
-			{ cosmetic: Cosmetic.AsceticMonkMask },
-			{
-				cosmetic: Cosmetic.AsceticMonkHair,
-				cost: { seasonalCandles: 18 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.AsceticMonkBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.EmoteBlindfoldBalancePose3,
-				cost: { seasonalCandles: 26 },
-			},
-			{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose4 },
-			{
-				cosmetic: Cosmetic.AsceticMonkOutfit,
-				cost: { seasonalCandles: 32 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.AsceticMonkBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.AsceticMonkSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose1 },
+				{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.AsceticMonkBlessing1,
+					cost: { seasonalCandles: 6 },
+				},
+				{ cosmetic: Cosmetic.AsceticMonkMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.AsceticMonkHair,
+					cost: { seasonalCandles: 18 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.AsceticMonkBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteBlindfoldBalancePose3,
+					cost: { seasonalCandles: 26 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.AsceticMonkOutfit,
+					cost: { seasonalCandles: 32 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.AsceticMonkBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.AsceticMonkSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
