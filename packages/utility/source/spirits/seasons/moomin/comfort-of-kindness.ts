@@ -11,50 +11,68 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ComfortOfKindnessBlessing1,
-				cost: { seasonalCandles: 6 },
-			},
-			{
-				cosmetic: Cosmetic.ComfortOfKindnessProp1,
-			},
-			{
-				cosmetic: Cosmetic.ComfortOfKindnessHair,
-				cost: { seasonalCandles: 16 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ComfortOfKindnessBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.ComfortOfKindnessBlessing3,
-				cost: { seasonalCandles: 20 },
-			},
-			{
-				cosmetic: Cosmetic.ComfortOfKindnessProp2,
-			},
-			{
-				cosmetic: Cosmetic.ComfortOfKindnessNeckAccessory,
-				cost: { seasonalCandles: 24 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.ComfortOfKindnessBlessing4,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
-				cosmetic: Cosmetic.ComfortOfKindnessBlessing5,
-				cost: { seasonalCandles: 32 },
-			},
-			{
-				cosmetic: Cosmetic.ComfortOfKindnessCape,
-			},
-			{
-				cosmetic: Cosmetic.ComfortOfKindnessSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ComfortOfKindnessBlessing1,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					cosmetic: Cosmetic.ComfortOfKindnessProp1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ComfortOfKindnessHair,
+					cost: { seasonalCandles: 16 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ComfortOfKindnessBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.ComfortOfKindnessBlessing3,
+					cost: { seasonalCandles: 20 },
+				},
+				{
+					cosmetic: Cosmetic.ComfortOfKindnessProp2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ComfortOfKindnessNeckAccessory,
+					cost: { seasonalCandles: 24 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.ComfortOfKindnessBlessing4,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 5 },
+					cosmetic: Cosmetic.ComfortOfKindnessBlessing5,
+					cost: { seasonalCandles: 32 },
+				},
+				{
+					cosmetic: Cosmetic.ComfortOfKindnessCape,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ComfortOfKindnessSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
