@@ -9,40 +9,54 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				cosmetic: Cosmetic.NestingNookProp1,
-				cost: { seasonalCandles: 16 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.NestingNookBlessing1,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.NestingNookBlessing2,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.NestingNookProp2 },
-			{
-				cosmetic: Cosmetic.NestingNookProp3,
-				cost: { seasonalCandles: 26 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.NestingNookBlessing3,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.NestingNookBlessing4,
-				cost: { seasonalCandles: 30 },
-			},
-			{
-				cosmetic: Cosmetic.NestingNookHairAccessory,
-			},
-			{
-				cosmetic: Cosmetic.NestingNookSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.NestingNookProp1,
+					cost: { seasonalCandles: 16 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.NestingNookBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.NestingNookBlessing2,
+					cost: { seasonalCandles: 20 },
+				},
+				{ cosmetic: Cosmetic.NestingNookProp2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.NestingNookProp3,
+					cost: { seasonalCandles: 26 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.NestingNookBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.NestingNookBlessing4,
+					cost: { seasonalCandles: 30 },
+				},
+				{
+					cosmetic: Cosmetic.NestingNookHairAccessory,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.NestingNookSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
