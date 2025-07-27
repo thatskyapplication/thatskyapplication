@@ -50,7 +50,11 @@ const RETURNING_DATES = new Collection<number, ReturningDatesData>()
 export type FriendshipTreeRaw = readonly (
 	| readonly [ItemRawWithoutChildren]
 	| readonly [ItemRawWithoutChildren, ItemRawWithPossibleChildren]
-	| readonly [ItemRawWithoutChildren, ItemRawWithPossibleChildren, ItemRawWithPossibleChildren]
+	| readonly [
+			ItemRawWithoutChildren,
+			ItemRawWithPossibleChildren | null,
+			ItemRawWithPossibleChildren,
+	  ]
 )[];
 
 interface BaseFriendshipTreeOfferData {
@@ -159,7 +163,7 @@ function friendshipTreeWithCosts(friendshipTree: FriendshipTree) {
 
 	for (const items of friendshipTree) {
 		for (const item of items) {
-			if (item.cost) {
+			if (item?.cost) {
 				costs.push(item.cost);
 			}
 		}

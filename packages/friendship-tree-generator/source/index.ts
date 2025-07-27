@@ -277,7 +277,9 @@ for (const nodes of NODES) {
 	let nodeIndex = 0;
 
 	for (const node of nodes) {
-		await createNode({ node, nodeIndex, seasonId: spirit.seasonId });
+		if (node) {
+			await createNode({ node, nodeIndex, seasonId: spirit.seasonId });
+		}
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
 			context.beginPath();

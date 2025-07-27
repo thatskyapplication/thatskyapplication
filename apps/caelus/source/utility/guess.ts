@@ -27,6 +27,10 @@ const SPIRIT_COSMETIC_EMOJIS = spirits()
 	.reduce((emojis, friendshipTree) => {
 		for (const items of friendshipTree) {
 			for (const item of items) {
+				if (!item) {
+					continue;
+				}
+
 				const emoji = CosmeticToEmoji[item.cosmetics[0]];
 
 				if (

@@ -547,7 +547,7 @@ export type Item = ItemWithoutChildren | ItemWithPossibleChildren;
 export type FriendshipTree = readonly (
 	| readonly [ItemWithoutChildren]
 	| readonly [ItemWithoutChildren, ItemWithPossibleChildren]
-	| readonly [ItemWithoutChildren, ItemWithPossibleChildren, ItemWithPossibleChildren]
+	| readonly [ItemWithoutChildren, ItemWithPossibleChildren | null, ItemWithPossibleChildren]
 )[];
 
 export const SpiritsHistoryOrderType = {
@@ -567,6 +567,10 @@ export function friendshipTreeToItems(
 
 	for (const items of friendshipTree) {
 		for (const item of items) {
+			if (!item) {
+				continue;
+			}
+
 			if ("children" in item) {
 				result.push(...item.children);
 			}

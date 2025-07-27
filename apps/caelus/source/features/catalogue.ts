@@ -1949,31 +1949,27 @@ async function viewSpirit(
 	}
 
 	if (friendshipTree.length > 0) {
-		const items = [];
+		const itemSelectionOptions = friendshipTreeToItems(friendshipTree).map(
+			({ translation, cosmetics, cosmeticDisplay }) => {
+				const stringSelectMenuOption: APISelectMenuOption = {
+					default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
+					label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+						lng: interaction.locale,
+						ns: "general",
+						number: translation?.number,
+					}),
+					value: JSON.stringify(cosmetics),
+				};
 
-		for (const tuple of friendshipTree) {
-			items.push(...tuple);
-		}
+				const emoji = CosmeticToEmoji[cosmeticDisplay];
 
-		const itemSelectionOptions = items.map(({ translation, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
-					lng: interaction.locale,
-					ns: "general",
-					number: translation?.number,
-				}),
-				value: JSON.stringify(cosmetics),
-			};
+				if (emoji) {
+					stringSelectMenuOption.emoji = emoji;
+				}
 
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
-
-			return stringSelectMenuOption;
-		});
+				return stringSelectMenuOption;
+			},
+		);
 
 		const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(
 			0,
