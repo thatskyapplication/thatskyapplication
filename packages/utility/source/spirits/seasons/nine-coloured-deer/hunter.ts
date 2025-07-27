@@ -14,39 +14,55 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteFlex1 },
-			{ cosmetic: Cosmetic.EmoteFlex2 },
-			{
-				cosmetic: Cosmetic.HunterOutfit,
-				cost: { seasonalCandles: 8 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.HunterBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteFlex3,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.EmoteFlex4 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.HunterBlessing2,
-				cost: { seasonalCandles: 28 },
-			},
-			{ cosmetic: Cosmetic.HunterHair },
-			{
-				cosmetic: Cosmetic.HunterCape,
-				cost: { seasonalCandles: 34 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.HunterBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.HunterSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteFlex1 },
+				{ cosmetic: Cosmetic.EmoteFlex2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.HunterOutfit,
+					cost: { seasonalCandles: 8 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.HunterBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteFlex3,
+					cost: { seasonalCandles: 20 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteFlex4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.HunterBlessing2,
+					cost: { seasonalCandles: 28 },
+				},
+				{ cosmetic: Cosmetic.HunterHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.HunterCape,
+					cost: { seasonalCandles: 34 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.HunterBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.HunterSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
