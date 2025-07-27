@@ -73,6 +73,7 @@ export default new SeasonalSpirit({
 			{
 				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 				cosmetic: Cosmetic.FranticStagehandBlessing2,
+				cost: { candles: 5 },
 			},
 			{
 				cosmetic: Cosmetic.FriendActionHandshake2,
