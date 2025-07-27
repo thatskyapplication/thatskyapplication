@@ -1520,11 +1520,11 @@ const MASK_EMOJIS_PRODUCTION = {
 	/**
 	 * Passage Guide (non-ultimate 3).
 	 */
-	Mask79: { id: "1313935302913425409", name: "79_mask" },
+	Mask79: { id: "1313935288065589248", name: "79_mask" },
 	/**
 	 * Passage Guide (non-ultimate 4).
 	 */
-	Mask80: { id: "1313935288065589248", name: "80_mask" },
+	Mask80: { id: "1313935302913425409", name: "80_mask" },
 	/**
 	 * Reassuring Ranger.
 	 */
