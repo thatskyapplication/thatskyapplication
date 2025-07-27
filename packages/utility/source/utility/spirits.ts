@@ -491,7 +491,7 @@ export type ItemRawWithoutChildren =
 
 export type ItemRawWithPossibleChildren = ItemRawWithoutChildren & {
 	/**
-	 * Aurora, why?
+	 * Rarely, ultimates shrink to fit in the friendship tree.
 	 */
 	thirdHeight?: boolean;
 	children?: readonly ItemRawWithoutChildren[];
@@ -536,7 +536,7 @@ export interface ItemWithoutChildren {
 
 export interface ItemWithPossibleChildren extends ItemWithoutChildren {
 	/**
-	 * Aurora, why?
+	 * Rarely, ultimates shrink to fit in the friendship tree.
 	 */
 	thirdHeight: boolean;
 	children: readonly ItemWithoutChildren[];
