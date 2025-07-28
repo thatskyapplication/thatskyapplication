@@ -40,6 +40,11 @@ export default new Event({
 				start: skyDate(2_025, 7, 21),
 				end: skyDate(2_025, 8, 18),
 			},
+			{
+				amount: 30,
+				start: skyDate(2_025, 7, 28),
+				end: skyDate(2_025, 8, 18),
+			},
 		],
 	},
 	offer: [
