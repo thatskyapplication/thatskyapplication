@@ -3097,9 +3097,9 @@ export enum Cosmetic {
 	VaultEldersLanternHeart2 = 2465,
 
 	// 28/07/2025 | Version 0.30.0.
-	ManateePlush,
-	SpiritedManateeTail,
-	SpiritedManateeHeadAccessory,
+	ManateePlush = 2466,
+	SpiritedManateeTail = 2467,
+	SpiritedManateeHeadAccessory = 2468,
 
 	// 04/08/2025 | Version 0.30.0.
 	VestigeOfDarkDragonsTail,
