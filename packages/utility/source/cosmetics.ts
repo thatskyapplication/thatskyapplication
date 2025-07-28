@@ -3092,6 +3092,10 @@ export enum Cosmetic {
 	AnniversarySuit = 2462,
 	BalloonArch = 2463,
 
+	// 28/07/2025 | Season of The Two Embers - Part 1 Quest 2.
+	VaultEldersLanternQuest2 = 2464,
+	VaultEldersLanternHeart2 = 2465,
+
 	// 28/07/2025 | Version 0.30.0.
 	ManateePlush,
 	SpiritedManateeTail,

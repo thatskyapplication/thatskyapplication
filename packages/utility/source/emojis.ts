@@ -7907,6 +7907,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BlueCarpet]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp93,
 		[Cosmetic.AnniversarySuit]: OUTFIT_EMOJIS.Outfit89,
 		[Cosmetic.BalloonArch]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp92,
+		[Cosmetic.VaultEldersLanternQuest2]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.VaultEldersLanternHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.ManateePlush]: null,
 		[Cosmetic.SpiritedManateeTail]: null,
 		[Cosmetic.SpiritedManateeHeadAccessory]: null,

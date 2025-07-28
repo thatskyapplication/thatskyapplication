@@ -10,11 +10,11 @@ export default new GuideSpirit({
 		inProgress: true,
 		current: [
 			{
-				translation: CosmeticCommon.Quest,
+				translation: { key: CosmeticCommon.Quest, number: 1 },
 				cosmetic: Cosmetic.VaultEldersLanternQuest1,
 			},
 			{
-				translation: CosmeticCommon.Heart,
+				translation: { key: CosmeticCommon.Heart, number: 1 },
 				cosmetic: Cosmetic.VaultEldersLanternHeart1,
 			},
 			{
@@ -27,6 +27,14 @@ export default new GuideSpirit({
 			{
 				cosmetic: Cosmetic.VaultEldersLanternUltimateCape,
 				cost: { seasonalHearts: 2 },
+			},
+			{
+				translation: { key: CosmeticCommon.Quest, number: 2 },
+				cosmetic: Cosmetic.VaultEldersLanternQuest2,
+			},
+			{
+				translation: { key: CosmeticCommon.Heart, number: 2 },
+				cosmetic: Cosmetic.VaultEldersLanternHeart2,
 			},
 		],
 	},
