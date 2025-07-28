@@ -1898,6 +1898,10 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Anniversary Cinema Glasses.
 	 */
 	FaceAccessory43: { id: "1391821692338442460", name: "43_face_accessory" },
+	/**
+	 * Spirited Manatee Head Accessory.
+	 */
+	FaceAccessory44: { id: "1399295002525307003", name: "44_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -1944,6 +1948,7 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory41: { id: "1365253690675433542", name: "41_face_accessory" },
 	FaceAccessory42: { id: "1365251466738139169", name: "42_face_accessory" },
 	FaceAccessory43: { id: "1391821700949082252", name: "43_face_accessory" },
+	FaceAccessory44: { id: "1399295009513279508", name: "44_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -2139,6 +2144,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * The Two Embers - Part 1 Pendant.
 	 */
 	Necklace48: { id: "1396895194703466698", name: "48_necklace" },
+	/**
+	 * Spirited Manatee Tail.
+	 */
+	Necklace49: { id: "1399295016740065360", name: "49_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2190,6 +2199,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace46: { id: "1330482752545362080", name: "46_necklace" },
 	Necklace47: { id: "1363810875089096865", name: "47_necklace" },
 	Necklace48: { id: "1396895202043760723", name: "48_necklace" },
+	Necklace49: { id: "1399295025233395742", name: "49_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -5280,6 +5290,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Blue Carpet.
 	 */
 	SmallPlaceableProp93: { id: "1396966719569920120", name: "93_small_placeable_prop" },
+	/**
+	 * Manatee Plush.
+	 */
+	SmallPlaceableProp94: { id: "1399294985655947375", name: "94_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5376,6 +5390,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp91: { id: "1391669806096187392", name: "91_small_placeable_prop" },
 	SmallPlaceableProp92: { id: "1396906809238884393", name: "92_small_placeable_prop" },
 	SmallPlaceableProp93: { id: "1396966726335463474", name: "93_small_placeable_prop" },
+	SmallPlaceableProp94: { id: "1399294985655947375", name: "94_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -7909,9 +7924,9 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BalloonArch]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp92,
 		[Cosmetic.VaultEldersLanternQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart2]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.ManateePlush]: null,
-		[Cosmetic.SpiritedManateeTail]: null,
-		[Cosmetic.SpiritedManateeHeadAccessory]: null,
+		[Cosmetic.ManateePlush]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp94,
+		[Cosmetic.SpiritedManateeTail]: NECKLACE_EMOJIS.Necklace49,
+		[Cosmetic.SpiritedManateeHeadAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory44,
 		[Cosmetic.VestigeOfDarkDragonsTail]: null,
 		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: null,
 		[Cosmetic.AnniversaryGown]: null,

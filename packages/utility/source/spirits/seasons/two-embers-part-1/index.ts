@@ -41,15 +41,15 @@ export default new Season({
 			cosmetic: Cosmetic.MiniManateeAccessory,
 			cost: { money: 3.99 },
 		},
-		// {
-		// 	cosmetic: Cosmetic.ManateePlush,
-		// 	cost: { money: 6.99 },
-		// },
-		// {
-		// 	cosmetic: [Cosmetic.SpiritedManateeTail, Cosmetic.SpiritedManateeHeadAccessory],
-		// 	cosmeticDisplay: Cosmetic.SpiritedManateeTail, // Double-check this.
-		// 	cost: { money: 9.99 },
-		// },
+		{
+			cosmetic: Cosmetic.ManateePlush,
+			cost: { money: 6.99 },
+		},
+		{
+			cosmetic: [Cosmetic.SpiritedManateeTail, Cosmetic.SpiritedManateeHeadAccessory],
+			cosmeticDisplay: Cosmetic.SpiritedManateeHeadAccessory,
+			cost: { money: 9.99 },
+		},
 		// {
 		// 	cosmetic: [Cosmetic.VestigeOfDarkDragonsTail, Cosmetic.VestigeOfDarkDragonsHeadAccessory],
 		// 	cosmeticDisplay: Cosmetic.VestigeOfDarkDragonsTail, // Double-check this.
