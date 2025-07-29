@@ -12,50 +12,72 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.HypeDance1 },
-			{ cosmetic: Cosmetic.HypeDance2 },
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerGreenDye1,
-				cost: { seasonalCandles: 10 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerHeadAccessory,
-			},
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerGreenDye2,
-				cost: { seasonalCandles: 14 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerCymbals,
-			},
-			{
-				cosmetic: Cosmetic.HypeDance3,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.HypeDance4 },
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerOutfit,
-				cost: { seasonalCandles: 24 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerYellowDye1,
-			},
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerYellowDye2,
-				cost: { seasonalCandles: 32 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerCape,
-			},
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerShoes,
-				cost: { seasonalCandles: 38 },
-			},
-			{ cosmetic: Cosmetic.RadianceProvokingPerformerWhiteDye },
-			{
-				cosmetic: Cosmetic.RadianceProvokingPerformerSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.HypeDance1 },
+				{ cosmetic: Cosmetic.HypeDance2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerGreenDye1,
+					cost: { seasonalCandles: 10 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerHeadAccessory,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerGreenDye2,
+					cost: { seasonalCandles: 14 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerCymbals,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.HypeDance3,
+					cost: { seasonalCandles: 18 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.HypeDance4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerOutfit,
+					cost: { seasonalCandles: 24 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerYellowDye1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerYellowDye2,
+					cost: { seasonalCandles: 32 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerCape,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerShoes,
+					cost: { seasonalCandles: 38 },
+				},
+				{ cosmetic: Cosmetic.RadianceProvokingPerformerWhiteDye, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceProvokingPerformerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

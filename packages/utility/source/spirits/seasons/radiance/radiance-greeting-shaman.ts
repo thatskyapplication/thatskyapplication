@@ -12,50 +12,72 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.HeartGesture1 },
-			{ cosmetic: Cosmetic.HeartGesture2 },
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanHairAccessory,
-				cost: { seasonalCandles: 14 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanBlueDye1,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanBlueDye2,
-				cost: { seasonalCandles: 16 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanCyanDye1,
-			},
-			{
-				cosmetic: Cosmetic.HeartGesture3,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.HeartGesture4 },
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanPurpleDye1,
-				cost: { seasonalCandles: 20 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanBlackDye,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanHair,
-				cost: { seasonalCandles: 24 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanCyanDye2,
-			},
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanPurpleDye2,
-				cost: { seasonalCandles: 28 },
-			},
-			{ cosmetic: Cosmetic.RadianceGreetingShamanOutfit },
-			{
-				cosmetic: Cosmetic.RadianceGreetingShamanSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.HeartGesture1 },
+				{ cosmetic: Cosmetic.HeartGesture2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanHairAccessory,
+					cost: { seasonalCandles: 14 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanBlueDye1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanBlueDye2,
+					cost: { seasonalCandles: 16 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanCyanDye1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.HeartGesture3,
+					cost: { seasonalCandles: 18 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.HeartGesture4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanPurpleDye1,
+					cost: { seasonalCandles: 20 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanBlackDye,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanHair,
+					cost: { seasonalCandles: 24 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanCyanDye2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanPurpleDye2,
+					cost: { seasonalCandles: 28 },
+				},
+				{ cosmetic: Cosmetic.RadianceGreetingShamanOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceGreetingShamanSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
