@@ -223,6 +223,7 @@ interface DiscordPayload {
 	};
 }
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 export async function reddit() {
 	// Fetch webhooks.
 	let redditWebhooksPackets = await pg<RedditWebhooksPacket>(Table.RedditWebhooks).select(
@@ -241,119 +242,130 @@ export async function reddit() {
 		return;
 	}
 
+	const payloads: DiscordPayload[] = [];
+	const payloadsErrors = [];
+
 	// Construct the payload for Discord.
-	const payloads = posts.map((post): DiscordPayload => {
-		let { data } = post;
-		const title = `## ${data.title.replace(/^#+/g, (match) => match.replace(/#/g, "\\#"))}`;
-		let authorText = `[u/${data.author}](${REDDIT_BASE_URL}/user/${data.author}) in [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed})`;
-		const footer = `-# ${formatEmoji(MISCELLANEOUS_EMOJIS.Reddit)} [thatskyapplication](${WEBSITE_URL}) (<t:${data.created_utc}:R>)`;
+	for (const post of posts) {
+		try {
+			let { data } = post;
+			const title = `## ${data.title.replace(/^#+/g, (match) => match.replace(/#/g, "\\#"))}`;
+			let authorText = `[u/${data.author}](${REDDIT_BASE_URL}/user/${data.author}) in [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed})`;
+			const footer = `-# ${formatEmoji(MISCELLANEOUS_EMOJIS.Reddit)} [thatskyapplication](${WEBSITE_URL}) (<t:${data.created_utc}:R>)`;
 
-		if (data.crosspost_parent_list) {
-			if (data.crosspost_parent_list.length > 1) {
-				pino.warn(post, "Multiple crossposts found!");
+			if (data.crosspost_parent_list) {
+				if (data.crosspost_parent_list.length > 1) {
+					pino.warn(post, "Multiple crossposts found!");
+				}
+
+				data = data.crosspost_parent_list[0]!;
+
+				authorText +=
+					post.data.author === data.author
+						? ` crossposted their own post from [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed})`
+						: ` crossposted from [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed}) by [u/${data.author}](${REDDIT_BASE_URL}/user/${data.author})`;
 			}
 
-			data = data.crosspost_parent_list[0]!;
-
-			authorText +=
-				post.data.author === data.author
-					? ` crossposted their own post from [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed})`
-					: ` crossposted from [${data.subreddit_name_prefixed}](${REDDIT_BASE_URL}/${data.subreddit_name_prefixed}) by [u/${data.author}](${REDDIT_BASE_URL}/user/${data.author})`;
-		}
-
-		const containerComponents: APIComponentInContainer[] = [
-			{
-				type: ComponentType.TextDisplay,
-				content: title,
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.Section,
-				accessory: {
-					type: ComponentType.Button,
-					style: ButtonStyle.Link,
-					url: `${REDDIT_BASE_URL}${post.data.permalink}`,
-					label: "View",
+			const containerComponents: APIComponentInContainer[] = [
+				{
+					type: ComponentType.TextDisplay,
+					content: title,
 				},
-				components: [{ type: ComponentType.TextDisplay, content: authorText }],
-			},
-		];
-
-		const limit = MAXIMUM_CHARACTER_LIMIT - title.length - authorText.length - footer.length;
-
-		// Text may be only new lines which Discord's API trims.
-		if (data.selftext.trim().length > 0) {
-			let selfText = data.selftext;
-
-			if (selfText.length > limit) {
-				selfText = `${selfText.slice(0, limit - 3)}...`;
-			}
-
-			containerComponents.push({ type: ComponentType.TextDisplay, content: selfText });
-		}
-
-		const urls = [];
-
-		if (data.is_video && data.secure_media) {
-			urls.push(data.secure_media.reddit_video.fallback_url);
-		}
-
-		for (const mediaMetadataItem of Object.values(data.media_metadata ?? {})) {
-			if ("u" in mediaMetadataItem.s) {
-				urls.push(mediaMetadataItem.s.u);
-			}
-
-			if ("gif" in mediaMetadataItem.s) {
-				urls.push(mediaMetadataItem.s.gif);
-			}
-		}
-
-		if (data.domain === "i.redd.it") {
-			urls.push(data.url);
-		}
-
-		if (urls.length > 0) {
-			containerComponents.push({
-				type: ComponentType.MediaGallery,
-				// Reddit has a maximum of 20 assets. Discord has a maximum of 10.
-				items: urls.slice(0, 10).map((url) => ({ media: { url } })),
-			});
-		}
-
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: footer,
-			},
-		);
-
-		return {
-			over18: post.data.over_18 || data.over_18,
-			payload: {
-				allowed_mentions: { parse: [] },
-				components: [
-					{
-						type: ComponentType.Container,
-						components: containerComponents,
-						accent_color: REDDIT_COLOUR,
-						spoiler: post.data.spoiler,
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Link,
+						url: `${REDDIT_BASE_URL}${post.data.permalink}`,
+						label: "View",
 					},
-				],
-				flags: MessageFlags.IsComponentsV2,
-				wait: true,
-				with_components: true,
-			},
-		};
-	});
+					components: [{ type: ComponentType.TextDisplay, content: authorText }],
+				},
+			];
+
+			const limit = MAXIMUM_CHARACTER_LIMIT - title.length - authorText.length - footer.length;
+
+			// Text may be only new lines which Discord's API trims.
+			if (data.selftext.trim().length > 0) {
+				let selfText = data.selftext;
+
+				if (selfText.length > limit) {
+					selfText = `${selfText.slice(0, limit - 3)}...`;
+				}
+
+				containerComponents.push({ type: ComponentType.TextDisplay, content: selfText });
+			}
+
+			const urls = [];
+
+			if (data.is_video && data.secure_media) {
+				urls.push(data.secure_media.reddit_video.fallback_url);
+			}
+
+			for (const mediaMetadataItem of Object.values(data.media_metadata ?? {})) {
+				if ("u" in mediaMetadataItem.s) {
+					urls.push(mediaMetadataItem.s.u);
+				}
+
+				if ("gif" in mediaMetadataItem.s) {
+					urls.push(mediaMetadataItem.s.gif);
+				}
+			}
+
+			if (data.domain === "i.redd.it") {
+				urls.push(data.url);
+			}
+
+			if (urls.length > 0) {
+				containerComponents.push({
+					type: ComponentType.MediaGallery,
+					// Reddit has a maximum of 20 assets. Discord has a maximum of 10.
+					items: urls.slice(0, 10).map((url) => ({ media: { url } })),
+				});
+			}
+
+			containerComponents.push(
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: footer,
+				},
+			);
+
+			payloads.push({
+				over18: post.data.over_18 || data.over_18,
+				payload: {
+					allowed_mentions: { parse: [] },
+					components: [
+						{
+							type: ComponentType.Container,
+							components: containerComponents,
+							accent_color: REDDIT_COLOUR,
+							spoiler: post.data.spoiler,
+						},
+					],
+					flags: MessageFlags.IsComponentsV2,
+					wait: true,
+					with_components: true,
+				},
+			});
+		} catch (error) {
+			payloadsErrors.push({ post, error });
+		}
+	}
+
+	if (payloadsErrors.length > 0) {
+		pino.error(payloadsErrors, "Failed to generate Reddit payloads.");
+	}
 
 	// Execute webhooks.
 	for (const payload of payloads) {
