@@ -11,116 +11,149 @@ export default new GuideSpirit({
 	offer: {
 		hasInfographic: false,
 		current: [
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
-				cosmetic: Cosmetic.RemembranceGuideQuest1,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
-				cosmetic: Cosmetic.RemembranceGuideHeart1,
-				cost: { candles: 3 },
-			},
-			{ cosmetic: Cosmetic.RemembrancePendant },
-			{
-				cosmetic: Cosmetic.RemembranceGuideUltimateNeckAccessory,
-				cost: { seasonalHearts: 2 },
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideUltimateProp,
-				cost: { seasonalHearts: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
-				cosmetic: Cosmetic.RemembranceGuideQuest2,
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideChimes,
-				cost: { candles: 30 },
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideHighFive,
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell1,
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
-				cosmetic: Cosmetic.RemembranceGuideQuest3,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
-				cosmetic: Cosmetic.RemembranceGuideHeart2,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
-				cosmetic: Cosmetic.RemembranceGuideQuest4,
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideKettle,
-				cost: { candles: 50 },
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideDoubleFive,
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell2,
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
-				cosmetic: Cosmetic.RemembranceGuideQuest5,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
-				cosmetic: Cosmetic.RemembranceGuideHeart3,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
-				cosmetic: Cosmetic.RemembranceGuideQuest6,
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuidePottedPlant,
-				cost: { candles: 40 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 7 },
-				cosmetic: Cosmetic.RemembranceGuideQuest7,
-			},
-			{
-				translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
-				cosmetic: Cosmetic.RemembranceGuideHeart4,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 8 },
-				cosmetic: Cosmetic.RemembranceGuideQuest8,
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideCrabPlushie,
-				cost: { hearts: 19 },
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideMantaPlushie,
-				cost: { hearts: 17 },
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideFriendActionHug,
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell3,
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 9 },
-				cosmetic: Cosmetic.RemembranceGuideQuest9,
-			},
-			{
-				cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell4,
-			},
-			{
-				translation: { key: CosmeticCommon.QuestMultiple, number: 10 },
-				cosmetic: Cosmetic.RemembranceGuideQuest10,
-			},
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
+					cosmetic: Cosmetic.RemembranceGuideQuest1,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+					cosmetic: Cosmetic.RemembranceGuideHeart1,
+					cost: { candles: 3 },
+				},
+				{
+					cosmetic: Cosmetic.RemembrancePendant,
+					seasonPass: true,
+					children: [
+						{
+							cosmetic: Cosmetic.RemembranceGuideUltimateNeckAccessory,
+							cost: { seasonalHearts: 2 },
+							seasonPass: true,
+						},
+						{
+							cosmetic: Cosmetic.RemembranceGuideUltimateProp,
+							cost: { seasonalHearts: 2 },
+							seasonPass: true,
+						},
+					],
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+					cosmetic: Cosmetic.RemembranceGuideQuest2,
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuideChimes,
+					cost: { candles: 30 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RemembranceGuideHighFive,
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell1,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+					cosmetic: Cosmetic.RemembranceGuideQuest3,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+					cosmetic: Cosmetic.RemembranceGuideHeart2,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+					cosmetic: Cosmetic.RemembranceGuideQuest4,
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuideKettle,
+					cost: { candles: 50 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RemembranceGuideDoubleFive,
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+					cosmetic: Cosmetic.RemembranceGuideQuest5,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+					cosmetic: Cosmetic.RemembranceGuideHeart3,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+					cosmetic: Cosmetic.RemembranceGuideQuest6,
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuidePottedPlant,
+					cost: { candles: 40 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 7 },
+					cosmetic: Cosmetic.RemembranceGuideQuest7,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+					cosmetic: Cosmetic.RemembranceGuideHeart4,
+					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 8 },
+					cosmetic: Cosmetic.RemembranceGuideQuest8,
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuideCrabPlushie,
+					cost: { hearts: 19 },
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuideMantaPlushie,
+					cost: { hearts: 17 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RemembranceGuideFriendActionHug,
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell3,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 9 },
+					cosmetic: Cosmetic.RemembranceGuideQuest9,
+				},
+				{
+					cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 10 },
+					cosmetic: Cosmetic.RemembranceGuideQuest10,
+				},
+			],
 		],
 	},
 });
