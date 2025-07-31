@@ -15,78 +15,107 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteWelcome1 },
-			{ cosmetic: Cosmetic.EmoteWelcome2 },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.TroupeGreeterMusicSheet,
-				cost: { seasonalCandles: 8 },
-			},
-			{
-				translation: CosmeticCommon.Blessing,
-				cosmetic: Cosmetic.TroupeGreeterBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteWelcome3,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.EmoteWelcome4 },
-			{
-				cosmetic: Cosmetic.TroupeGreeterMask,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.TroupeGreeterOutfit },
-			{
-				cosmetic: Cosmetic.TroupeGreeterSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteWelcome1 },
+				{ cosmetic: Cosmetic.EmoteWelcome2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.TroupeGreeterMusicSheet,
+					cost: { seasonalCandles: 8 },
+				},
+				{
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.TroupeGreeterBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteWelcome3,
+					cost: { seasonalCandles: 10 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteWelcome4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.TroupeGreeterMask,
+					cost: { seasonalCandles: 12 },
+				},
+				{ cosmetic: Cosmetic.TroupeGreeterOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.TroupeGreeterSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteWelcome1 },
-			{
-				cosmetic: Cosmetic.EmoteWelcome2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.TroupeGreeterBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.TroupeGreeterMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				cosmetic: Cosmetic.TroupeGreeterSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.TroupeGreeterWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteWelcome3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteWelcome4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.TroupeGreeterBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.TroupeGreeterOutfit,
-				cost: { candles: 70 },
-			},
-			{
-				cosmetic: Cosmetic.TroupeGreeterMask,
-				cost: { candles: 48 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteWelcome1 },
+				{
+					cosmetic: Cosmetic.EmoteWelcome2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.TroupeGreeterBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.TroupeGreeterMusicSheet,
+					cost: { candles: 15 },
+				},
+				{
+					cosmetic: Cosmetic.TroupeGreeterSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.TroupeGreeterWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteWelcome3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteWelcome4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.TroupeGreeterBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.TroupeGreeterOutfit,
+					cost: { candles: 70 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TroupeGreeterMask,
+					cost: { candles: 48 },
+				},
+			],
 		],
 	},
 	visits: {

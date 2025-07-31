@@ -14,79 +14,107 @@ export default new SeasonalSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteSpinDance1 },
-			{ cosmetic: Cosmetic.EmoteSpinDance2 },
-			{
-				translation: CosmeticCommon.Blessing,
-				cosmetic: Cosmetic.FestivalSpinDancerBlessing1,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.FestivalSpinDancerMusicSheet },
-			{
-				cosmetic: Cosmetic.EmoteSpinDance3,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.EmoteSpinDance4 },
-			{
-				cosmetic: Cosmetic.FestivalSpinDancerHair,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.FestivalSpinDancerOutfit },
-			{
-				cosmetic: Cosmetic.FestivalSpinDancerSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteSpinDance1 },
+				{ cosmetic: Cosmetic.EmoteSpinDance2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.FestivalSpinDancerBlessing1,
+					cost: { seasonalCandles: 10 },
+				},
+				{ cosmetic: Cosmetic.FestivalSpinDancerMusicSheet, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteSpinDance3,
+					cost: { seasonalCandles: 12 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteSpinDance4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.FestivalSpinDancerHair,
+					cost: { seasonalCandles: 14 },
+				},
+				{ cosmetic: Cosmetic.FestivalSpinDancerOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.FestivalSpinDancerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteSpinDance1 },
-			{
-				cosmetic: Cosmetic.EmoteSpinDance2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.FestivalSpinDancerBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.FestivalSpinDancerMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				cosmetic: Cosmetic.FestivalSpinDancerSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.FestivalSpinDancerWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteSpinDance3,
-				cost: { hearts: 5 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteSpinDance4,
-				cost: { hearts: 10 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.FestivalSpinDancerBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.FestivalSpinDancerHair,
-				cost: { candles: 34 },
-			},
-			{
-				cosmetic: Cosmetic.FestivalSpinDancerProp,
-				cost: { candles: 30 },
-			},
-			{
-				cosmetic: Cosmetic.FestivalSpinDancerOutfit,
-				cost: { candles: 65 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteSpinDance1 },
+				{
+					cosmetic: Cosmetic.EmoteSpinDance2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.FestivalSpinDancerBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.FestivalSpinDancerMusicSheet,
+					cost: { candles: 15 },
+				},
+				{
+					cosmetic: Cosmetic.FestivalSpinDancerSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.FestivalSpinDancerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteSpinDance3,
+					cost: { hearts: 5 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteSpinDance4,
+					cost: { hearts: 10 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.FestivalSpinDancerBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.FestivalSpinDancerHair,
+					cost: { candles: 34 },
+				},
+				{
+					cosmetic: Cosmetic.FestivalSpinDancerProp,
+					cost: { candles: 30 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.FestivalSpinDancerOutfit,
+					cost: { candles: 65 },
+				},
+			],
 		],
 	},
 	visits: {
