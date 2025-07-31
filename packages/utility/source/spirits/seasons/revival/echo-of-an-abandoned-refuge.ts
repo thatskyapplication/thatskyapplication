@@ -9,39 +9,52 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing1,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.EchoOfAnAbandonedRefugeShoes },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeMusicSheet,
-				cost: { seasonalCandles: 24 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing3,
-				cost: { seasonalCandles: 32 },
-			},
-			{ cosmetic: Cosmetic.EchoOfAnAbandonedRefugeCape },
-			{
-				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeHairAccessory,
-				cost: { seasonalCandles: 42 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing4,
-			},
-			{
-				cosmetic: Cosmetic.EchoOfAnAbandonedRefugeSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing1,
+					cost: { seasonalCandles: 18 },
+				},
+				{ cosmetic: Cosmetic.EchoOfAnAbandonedRefugeShoes, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeMusicSheet,
+					cost: { seasonalCandles: 24 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing3,
+					cost: { seasonalCandles: 32 },
+				},
+				{ cosmetic: Cosmetic.EchoOfAnAbandonedRefugeCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeHairAccessory,
+					cost: { seasonalCandles: 42 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing4,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

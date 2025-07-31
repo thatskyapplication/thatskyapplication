@@ -9,32 +9,43 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
-				cost: { seasonalCandles: 24 },
-			},
-			{ cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes },
-			{
-				cosmetic: Cosmetic.RemnantOfAForgottenHavenCape,
-				cost: { seasonalCandles: 32 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing3,
-				cost: { seasonalCandles: 40 },
-			},
-			{
-				cosmetic: Cosmetic.RemnantOfAForgottenHavenHairAccessory,
-			},
-			{
-				cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
+					cost: { seasonalCandles: 24 },
+				},
+				{ cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenCape,
+					cost: { seasonalCandles: 32 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing3,
+					cost: { seasonalCandles: 40 },
+				},
+				{
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenHairAccessory,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

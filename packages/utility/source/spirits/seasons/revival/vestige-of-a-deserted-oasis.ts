@@ -9,32 +9,43 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				cosmetic: Cosmetic.VestigeOfADesertedOasisHair,
-				cost: { seasonalCandles: 16 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing1,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing2,
-				cost: { seasonalCandles: 28 },
-			},
-			{ cosmetic: Cosmetic.VestigeOfADesertedOasisCape },
-			{
-				cosmetic: Cosmetic.VestigeOfADesertedOasisShoes,
-				cost: { seasonalCandles: 38 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.VestigeOfADesertedOasisSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.VestigeOfADesertedOasisHair,
+					cost: { seasonalCandles: 16 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing2,
+					cost: { seasonalCandles: 28 },
+				},
+				{ cosmetic: Cosmetic.VestigeOfADesertedOasisCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.VestigeOfADesertedOasisShoes,
+					cost: { seasonalCandles: 38 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.VestigeOfADesertedOasisSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
