@@ -22,6 +22,7 @@ export default new GuideSpirit({
 				},
 				{
 					cosmetic: Cosmetic.AbyssGuidePendant,
+					seasonPass: true,
 					children: [
 						{
 							cosmetic: Cosmetic.AbyssGuideUltimateFaceAccessory,
