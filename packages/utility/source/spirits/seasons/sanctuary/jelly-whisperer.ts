@@ -14,73 +14,93 @@ export default new SeasonalSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.CallJellyfish },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.JellyWhispererMusicSheet,
-				cost: { seasonalCandles: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.JellyWhispererBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.JellyWhispererHair,
-				cost: { seasonalCandles: 8 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.JellyWhispererBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.JellyWhispererBlessing3,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.JellyWhispererOutfit },
-			{
-				cosmetic: Cosmetic.JellyWhispererSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[{ cosmetic: Cosmetic.CallJellyfish }],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.JellyWhispererMusicSheet,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.JellyWhispererBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.JellyWhispererHair,
+					cost: { seasonalCandles: 8 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.JellyWhispererBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.JellyWhispererBlessing3,
+					cost: { seasonalCandles: 10 },
+				},
+				{ cosmetic: Cosmetic.JellyWhispererOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.JellyWhispererSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.CallJellyfish },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.JellyWhispererBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.JellyWhispererMusicSheet,
-				cost: { candles: 15 },
-			},
-			{
-				cosmetic: Cosmetic.JellyWhispererSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.JellyWhispererWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.JellyWhispererBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.JellyWhispererUmbrella,
-				cost: { hearts: 15 },
-			},
-			{
-				cosmetic: Cosmetic.JellyWhispererHair,
-				cost: { candles: 42 },
-			},
-			{
-				cosmetic: Cosmetic.JellyWhispererOutfit,
-				cost: { candles: 65 },
-			},
+			[{ cosmetic: Cosmetic.CallJellyfish }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.JellyWhispererBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.JellyWhispererMusicSheet,
+					cost: { candles: 15 },
+				},
+				{
+					cosmetic: Cosmetic.JellyWhispererSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.JellyWhispererWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.JellyWhispererBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.JellyWhispererUmbrella,
+					cost: { hearts: 15 },
+				},
+				{
+					cosmetic: Cosmetic.JellyWhispererHair,
+					cost: { candles: 42 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.JellyWhispererOutfit,
+					cost: { candles: 65 },
+				},
+			],
 		],
 	},
 	visits: {
