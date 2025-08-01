@@ -1,12 +1,14 @@
 import { writeFile } from "node:fs/promises";
 import { createCanvas, GlobalFonts, loadImage } from "@napi-rs/canvas";
 import {
-	currentSeasonalSpirits,
 	formatEmojiURL,
-	type GuideSpirit,
 	type Item,
+	type SeasonalSpirit,
+	SeasonId,
 	type SeasonIds,
+	type Snowflake,
 	SpiritId,
+	spirits,
 } from "@thatskyapplication/utility";
 import { fetch } from "undici";
 import {
@@ -31,10 +33,14 @@ import {
 	SEASON_ICON_MIDDLE_OFFSET_Y,
 	SEASON_ICON_SIDES_OFFSET_X,
 	SEASON_ICON_SIDES_OFFSET_Y,
+	SeasonIdToSeasonalCandleEmoji,
+	SeasonIdToSeasonalEmoji,
+	SeasonIdToSeasonalHeartEmoji,
 	WIDTH_MODIFIER,
 } from "./constants.js";
 
-const spirit = currentSeasonalSpirits().get(SpiritId.AURORA) as GuideSpirit;
+const spirit = spirits().get(SpiritId.AbyssGuide) as SeasonalSpirit;
+// const NODES = spirit.seasonal;
 const NODES = spirit.current;
 const hind = GlobalFonts.registerFromPath("./assets/Hind-Regular.ttf");
 
@@ -172,29 +178,33 @@ async function createNode({
 	}
 
 	const arrayBuffer = await (await fetch(formatEmojiURL(emojiId))).arrayBuffer();
-
 	const image = await loadImage(arrayBuffer);
 	context.drawImage(image, dx, dy, IMAGE_SIZE, IMAGE_SIZE);
 	context.font = "35px Hind";
 
 	if (cost) {
 		let currency: number;
-		let imageToDraw: string;
+		let emojiAssetId: Snowflake;
 
 		if ("candles" in cost) {
-			imageToDraw = "candle";
+			emojiAssetId = MISCELLANEOUS_EMOJIS.Candle.id;
 			currency = cost.candles;
 		} else if ("hearts" in cost) {
-			imageToDraw = "heart";
+			emojiAssetId = MISCELLANEOUS_EMOJIS.Heart.id;
 			currency = cost.hearts;
 		} else if ("ascendedCandles" in cost) {
-			imageToDraw = "ascended-candle";
+			emojiAssetId = MISCELLANEOUS_EMOJIS.AscendedCandle.id;
 			currency = cost.ascendedCandles;
-		} else if (cost.seasonalCandles.length > 0) {
-			imageToDraw = `seasons/${seasonId}/candle`;
+		} else if (seasonId !== undefined && cost.seasonalCandles.length > 0) {
+			emojiAssetId = SeasonIdToSeasonalCandleEmoji[seasonId].id;
 			currency = cost.seasonalCandles[0]!.cost;
-		} else if (cost.seasonalHearts.length > 0) {
-			imageToDraw = `seasons/${seasonId}/heart`;
+		} else if (
+			seasonId !== undefined &&
+			seasonId !== SeasonId.Gratitude &&
+			seasonId !== SeasonId.Lightseekers &&
+			cost.seasonalHearts.length > 0
+		) {
+			emojiAssetId = SeasonIdToSeasonalHeartEmoji[seasonId].id;
 			currency = cost.seasonalHearts[0]!.cost;
 		} else {
 			throw new Error("A cost was specified with no currency.");
@@ -204,7 +214,7 @@ async function createNode({
 		const assetY = dy + IMAGE_SIZE + LINE_OFFSET;
 
 		context.drawImage(
-			await loadImage(`./assets/${imageToDraw}.webp`),
+			await loadImage(await (await fetch(formatEmojiURL(emojiAssetId))).arrayBuffer()),
 			assetX,
 			assetY,
 			ASSET_SIZE,
@@ -228,7 +238,9 @@ async function createNode({
 
 	if (node.seasonPass && seasonId !== undefined) {
 		context.drawImage(
-			await loadImage(`./assets/seasons/${seasonId}/icon.webp`),
+			await loadImage(
+				await (await fetch(formatEmojiURL(SeasonIdToSeasonalEmoji[seasonId].id))).arrayBuffer(),
+			),
 			dx - seasonIconOffsetX,
 			dy - seasonIconOffsetY,
 			ASSET_SIZE,

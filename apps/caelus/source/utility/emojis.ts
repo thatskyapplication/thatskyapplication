@@ -7,8 +7,9 @@ export const {
 	FRIEND_ACTION_EMOJIS,
 	SEASON_EMOJIS,
 	CosmeticToEmoji,
-	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
+	SeasonIdToSeasonalCandleEmoji,
+	SeasonIdToSeasonalHeartEmoji,
 	EventIdToEventTicketEmoji,
 } = emojiConstants(PRODUCTION);
 

@@ -7934,6 +7934,35 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AnniversaryTuxedoCape]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
+	const SeasonIdToSeasonalEmoji = {
+		[SeasonId.Gratitude]: SEASON_EMOJIS.Gratitude,
+		[SeasonId.Lightseekers]: SEASON_EMOJIS.Lightseekers,
+		[SeasonId.Belonging]: SEASON_EMOJIS.Belonging,
+		[SeasonId.Rhythm]: SEASON_EMOJIS.Rhythm,
+		[SeasonId.Enchantment]: SEASON_EMOJIS.Enchantment,
+		[SeasonId.Sanctuary]: SEASON_EMOJIS.Sanctuary,
+		[SeasonId.Prophecy]: SEASON_EMOJIS.Prophecy,
+		[SeasonId.Dreams]: SEASON_EMOJIS.Dreams,
+		[SeasonId.Assembly]: SEASON_EMOJIS.Assembly,
+		[SeasonId.LittlePrince]: SEASON_EMOJIS.LittlePrince,
+		[SeasonId.Flight]: SEASON_EMOJIS.Flight,
+		[SeasonId.Abyss]: SEASON_EMOJIS.Abyss,
+		[SeasonId.Performance]: SEASON_EMOJIS.Performance,
+		[SeasonId.Shattering]: SEASON_EMOJIS.Shattering,
+		[SeasonId.AURORA]: SEASON_EMOJIS.Aurora,
+		[SeasonId.Remembrance]: SEASON_EMOJIS.Remembrance,
+		[SeasonId.Passage]: SEASON_EMOJIS.Passage,
+		[SeasonId.Moments]: SEASON_EMOJIS.Moments,
+		[SeasonId.Revival]: SEASON_EMOJIS.Revival,
+		[SeasonId.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeer,
+		[SeasonId.Nesting]: SEASON_EMOJIS.Nesting,
+		[SeasonId.Duets]: SEASON_EMOJIS.Duets,
+		[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
+		[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
+		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBird,
+		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1,
+	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
+
 	const SeasonIdToSeasonalCandleEmoji = {
 		[SeasonId.Gratitude]: SEASON_EMOJIS.GratitudeCandle,
 		[SeasonId.Lightseekers]: SEASON_EMOJIS.LightseekersCandle,
@@ -7963,34 +7992,37 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Candle,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
-	const SeasonIdToSeasonalEmoji = {
-		[SeasonId.Gratitude]: SEASON_EMOJIS.Gratitude,
-		[SeasonId.Lightseekers]: SEASON_EMOJIS.Lightseekers,
-		[SeasonId.Belonging]: SEASON_EMOJIS.Belonging,
-		[SeasonId.Rhythm]: SEASON_EMOJIS.Rhythm,
-		[SeasonId.Enchantment]: SEASON_EMOJIS.Enchantment,
-		[SeasonId.Sanctuary]: SEASON_EMOJIS.Sanctuary,
-		[SeasonId.Prophecy]: SEASON_EMOJIS.Prophecy,
-		[SeasonId.Dreams]: SEASON_EMOJIS.Dreams,
-		[SeasonId.Assembly]: SEASON_EMOJIS.Assembly,
-		[SeasonId.LittlePrince]: SEASON_EMOJIS.LittlePrince,
-		[SeasonId.Flight]: SEASON_EMOJIS.Flight,
-		[SeasonId.Abyss]: SEASON_EMOJIS.Abyss,
-		[SeasonId.Performance]: SEASON_EMOJIS.Performance,
-		[SeasonId.Shattering]: SEASON_EMOJIS.Shattering,
-		[SeasonId.AURORA]: SEASON_EMOJIS.Aurora,
-		[SeasonId.Remembrance]: SEASON_EMOJIS.Remembrance,
-		[SeasonId.Passage]: SEASON_EMOJIS.Passage,
-		[SeasonId.Moments]: SEASON_EMOJIS.Moments,
-		[SeasonId.Revival]: SEASON_EMOJIS.Revival,
-		[SeasonId.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeer,
-		[SeasonId.Nesting]: SEASON_EMOJIS.Nesting,
-		[SeasonId.Duets]: SEASON_EMOJIS.Duets,
-		[SeasonId.Moomin]: SEASON_EMOJIS.Moomin,
-		[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
-		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBird,
-		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1,
-	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
+	const SeasonIdToSeasonalHeartEmoji = {
+		[SeasonId.Belonging]: SEASON_EMOJIS.BelongingHeart,
+		[SeasonId.Rhythm]: SEASON_EMOJIS.RhythmHeart,
+		[SeasonId.Enchantment]: SEASON_EMOJIS.EnchantmentHeart,
+		[SeasonId.Sanctuary]: SEASON_EMOJIS.SanctuaryHeart,
+		[SeasonId.Prophecy]: SEASON_EMOJIS.ProphecyHeart,
+		[SeasonId.Dreams]: SEASON_EMOJIS.DreamsHeart,
+		[SeasonId.Assembly]: SEASON_EMOJIS.AssemblyHeart,
+		[SeasonId.LittlePrince]: SEASON_EMOJIS.LittlePrinceHeart,
+		[SeasonId.Flight]: SEASON_EMOJIS.FlightHeart,
+		[SeasonId.Abyss]: SEASON_EMOJIS.AbyssHeart,
+		[SeasonId.Performance]: SEASON_EMOJIS.PerformanceHeart,
+		[SeasonId.Shattering]: SEASON_EMOJIS.ShatteringHeart,
+		[SeasonId.AURORA]: SEASON_EMOJIS.AuroraHeart,
+		[SeasonId.Remembrance]: SEASON_EMOJIS.RemembranceHeart,
+		[SeasonId.Passage]: SEASON_EMOJIS.PassageHeart,
+		[SeasonId.Moments]: SEASON_EMOJIS.MomentsHeart,
+		[SeasonId.Revival]: SEASON_EMOJIS.RevivalHeart,
+		[SeasonId.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerHeart,
+		[SeasonId.Nesting]: SEASON_EMOJIS.NestingHeart,
+		[SeasonId.Duets]: SEASON_EMOJIS.DuetsHeart,
+		[SeasonId.Moomin]: SEASON_EMOJIS.MoominHeart,
+		[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
+		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdHeart,
+		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Heart,
+	} as const satisfies Readonly<
+		Record<
+			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,
+			Emoji | null
+		>
+	>;
 
 	const EventIdToEventTicketEmoji = {
 		// 2019.
@@ -8089,8 +8121,9 @@ export function emojiConstants(production: boolean) {
 	return {
 		...emojis,
 		CosmeticToEmoji,
-		SeasonIdToSeasonalCandleEmoji,
 		SeasonIdToSeasonalEmoji,
+		SeasonIdToSeasonalCandleEmoji,
+		SeasonIdToSeasonalHeartEmoji,
 		EventIdToEventTicketEmoji,
 	};
 }
