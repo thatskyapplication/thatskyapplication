@@ -3,14 +3,12 @@ import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
-import { SpiritCall, SpiritId } from "../../../utility/spirits.js";
-
-const call = SpiritCall.BabyManta;
+import { SpiritId } from "../../../utility/spirits.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.LightWhisperer,
 	seasonId: SeasonId.Flight,
-	call,
+	call: Cosmetic.CallBabyManta,
 	realm: RealmName.HiddenForest,
 	offer: {
 		seasonal: [

@@ -1,13 +1,11 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { StandardSpirit } from "../../../models/spirits.js";
-import { SpiritCall, SpiritId } from "../../../utility/spirits.js";
-
-const call = SpiritCall.Whale;
+import { SpiritId } from "../../../utility/spirits.js";
 
 export default new StandardSpirit({
 	id: SpiritId.WhaleWhisperer,
-	call,
+	call: Cosmetic.CallWhale,
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: [

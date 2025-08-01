@@ -155,7 +155,6 @@ export {
 	type ItemRaw,
 	isSpiritId,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
-	SpiritCall,
 	SpiritEmote,
 	SpiritId,
 	type SpiritIds,

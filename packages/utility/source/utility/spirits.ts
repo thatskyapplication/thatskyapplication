@@ -378,30 +378,6 @@ export enum SpiritEmote {
 	Amazed = "Amazed",
 }
 
-export enum SpiritCall {
-	Base = "Base",
-	Bird = "Bird",
-	Whale = "Whale",
-	Manta = "Manta",
-	CosmicManta = "Cosmic manta",
-	Crab = "Crab",
-	Jellyfish = "Jellyfish",
-	BabyManta = "Baby manta",
-	Nightbird = "Nightbird",
-
-	// Kizuna-AI pin.
-	KizunaAI = "Kizuna-AI",
-
-	// PlayStation starter pack.
-	Journey = "Journey",
-
-	// Season of Moomin.
-	Ninny = "Ninny",
-
-	BlueBird = "Blue bird",
-	Manatee = "Manatee",
-}
-
 export enum FriendAction {
 	HoldHand = "Hold hand",
 	HighFive = "High-five",

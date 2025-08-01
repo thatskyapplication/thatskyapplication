@@ -1,13 +1,11 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { StandardSpirit } from "../../../models/spirits.js";
-import { SpiritCall, SpiritId } from "../../../utility/spirits.js";
-
-const call = SpiritCall.Bird;
+import { SpiritId } from "../../../utility/spirits.js";
 
 export default new StandardSpirit({
 	id: SpiritId.BirdWhisperer,
-	call,
+	call: Cosmetic.CallBird,
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		current: [

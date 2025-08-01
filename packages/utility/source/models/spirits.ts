@@ -13,7 +13,6 @@ import {
 	type ItemCost,
 	type ItemRawWithoutChildren,
 	type ItemRawWithPossibleChildren,
-	type SpiritCall,
 	type SpiritEmote,
 	type SpiritIds,
 	SpiritType,
@@ -107,7 +106,7 @@ interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
 interface ExpressiveSpiritData {
 	emote?: SpiritEmote;
 	stance?: Cosmetic;
-	call?: Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny>;
+	call?: Cosmetic;
 	action?: FriendAction;
 }
 
@@ -259,10 +258,7 @@ abstract class ExpressiveSpirit {
 
 	public readonly stance: Cosmetic | null;
 
-	public readonly call: Exclude<
-		SpiritCall,
-		SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny
-	> | null;
+	public readonly call: Cosmetic | null;
 
 	public readonly action: FriendAction | null;
 
