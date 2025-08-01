@@ -378,23 +378,6 @@ export enum SpiritEmote {
 	Amazed = "Amazed",
 }
 
-export enum SpiritStance {
-	Base = "Base",
-	Courageous = "Courageous",
-	Confident = "Confident",
-	Sneaky = "Sneaky",
-	Proud = "Proud",
-	Polite = "Polite",
-	Sassy = "Sassy",
-	Laidback = "Laidback",
-	Wise = "Wise",
-	Timid = "Timid",
-	Tinker = "Tinker",
-	Injured = "Injured",
-	Sad = "Sad",
-	Scarred = "Scarred",
-}
-
 export enum SpiritCall {
 	Base = "Base",
 	Bird = "Bird",

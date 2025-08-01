@@ -159,7 +159,6 @@ export {
 	SpiritEmote,
 	SpiritId,
 	type SpiritIds,
-	SpiritStance,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
 } from "./utility/spirits.js";

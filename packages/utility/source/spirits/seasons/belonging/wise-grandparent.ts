@@ -3,14 +3,12 @@ import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
-import { SpiritId, SpiritStance } from "../../../utility/spirits.js";
-
-const stance = SpiritStance.Wise;
+import { SpiritId } from "../../../utility/spirits.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.WiseGrandparent,
 	seasonId: SeasonId.Belonging,
-	stance,
+	stance: Cosmetic.StanceWise,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		seasonal: [

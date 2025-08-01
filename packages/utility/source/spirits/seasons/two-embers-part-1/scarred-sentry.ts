@@ -1,12 +1,12 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
-import { SpiritId, SpiritStance } from "../../../utility/spirits.js";
+import { SpiritId } from "../../../utility/spirits.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.ScarredSentry,
 	seasonId: SeasonId.TwoEmbersPart1,
-	stance: SpiritStance.Scarred,
+	stance: Cosmetic.StanceScarred,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

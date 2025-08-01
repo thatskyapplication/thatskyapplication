@@ -1,13 +1,11 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { StandardSpirit } from "../../../models/spirits.js";
-import { SpiritId, SpiritStance } from "../../../utility/spirits.js";
-
-const stance = SpiritStance.Courageous;
+import { SpiritId } from "../../../utility/spirits.js";
 
 export default new StandardSpirit({
 	id: SpiritId.CourageousSoldier,
-	stance,
+	stance: Cosmetic.StanceCourageous,
 	realm: RealmName.GoldenWasteland,
 	offer: {
 		current: [

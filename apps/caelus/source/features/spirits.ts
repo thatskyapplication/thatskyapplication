@@ -68,7 +68,11 @@ export async function searchAutocomplete<
 
 							if (spirit.isStandardSpirit() || isSeasonalSpirit) {
 								emote = spirit.emote?.toUpperCase() ?? null;
-								stance = spirit.stance?.toUpperCase() ?? null;
+
+								stance = spirit.stance
+									? t(`cosmetic-names.${spirit.stance}`, { lng: locale, ns: "general" })
+									: null;
+
 								call = spirit.call?.toUpperCase() ?? null;
 								action = spirit.action?.toUpperCase() ?? null;
 							}

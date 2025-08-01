@@ -16,7 +16,6 @@ import {
 	type SpiritCall,
 	type SpiritEmote,
 	type SpiritIds,
-	type SpiritStance,
 	SpiritType,
 } from "../utility/spirits.js";
 
@@ -107,7 +106,7 @@ interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
 
 interface ExpressiveSpiritData {
 	emote?: SpiritEmote;
-	stance?: SpiritStance;
+	stance?: Cosmetic;
 	call?: Exclude<SpiritCall, SpiritCall.KizunaAI | SpiritCall.Journey | SpiritCall.Ninny>;
 	action?: FriendAction;
 }
@@ -258,7 +257,7 @@ abstract class GuideFriendshipTree extends BaseFriendshipTree {
 abstract class ExpressiveSpirit {
 	public readonly emote: SpiritEmote | null;
 
-	public readonly stance: SpiritStance | null;
+	public readonly stance: Cosmetic | null;
 
 	public readonly call: Exclude<
 		SpiritCall,
