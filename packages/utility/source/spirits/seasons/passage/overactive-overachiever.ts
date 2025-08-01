@@ -14,39 +14,55 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmotePullUp1 },
-			{ cosmetic: Cosmetic.EmotePullUp2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.OveractiveOverachieverBlessing1,
-				cost: { seasonalCandles: 14 },
-			},
-			{
-				cosmetic: Cosmetic.OveractiveOverachieverMantaOcarina,
-			},
-			{
-				cosmetic: Cosmetic.EmotePullUp3,
-				cost: { seasonalCandles: 22 },
-			},
-			{ cosmetic: Cosmetic.EmotePullUp4 },
-			{
-				cosmetic: Cosmetic.OveractiveOverachieverCape,
-				cost: { seasonalCandles: 30 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.OveractiveOverachieverBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.OveractiveOverachieverBlessing3,
-				cost: { seasonalCandles: 32 },
-			},
-			{ cosmetic: Cosmetic.OveractiveOverachieverHair },
-			{
-				cosmetic: Cosmetic.OveractiveOverachieverSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmotePullUp1 },
+				{ cosmetic: Cosmetic.EmotePullUp2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.OveractiveOverachieverBlessing1,
+					cost: { seasonalCandles: 14 },
+				},
+				{
+					cosmetic: Cosmetic.OveractiveOverachieverMantaOcarina,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmotePullUp3,
+					cost: { seasonalCandles: 22 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmotePullUp4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.OveractiveOverachieverCape,
+					cost: { seasonalCandles: 30 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.OveractiveOverachieverBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.OveractiveOverachieverBlessing3,
+					cost: { seasonalCandles: 32 },
+				},
+				{ cosmetic: Cosmetic.OveractiveOverachieverHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.OveractiveOverachieverSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

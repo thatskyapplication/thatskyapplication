@@ -24,36 +24,42 @@ const SPIRIT_COSMETIC_EMOJIS = spirits()
 			? spirit.current
 			: spirit.items,
 	)
-	.reduce((emojis, items) => {
-		for (const item of items) {
-			const emoji = CosmeticToEmoji[item.cosmetics[0]];
+	.reduce((emojis, friendshipTree) => {
+		for (const items of friendshipTree) {
+			for (const item of items) {
+				if (!item) {
+					continue;
+				}
 
-			if (
-				emoji &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.Blessing1.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.Blessing2.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.Blessing3.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.Heart.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.MusicSheet.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.Quest.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.SpellColourTrail.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.SpellSharedMemory.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.SpellSharedSpace.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.WingBuff.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.DyeRed.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.DyeYellow.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.DyeGreen.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.DyeCyan.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.DyeBlue.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.DyePurple.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.DyeBlack.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.DyeWhite.id &&
-				emoji.id !== MISCELLANEOUS_EMOJIS.Dye.id &&
-				emoji.id !== FRIEND_ACTION_EMOJIS.HighFive.id &&
-				emoji.id !== FRIEND_ACTION_EMOJIS.Hug.id &&
-				!HEART_EMOJIS.has(emoji.id)
-			) {
-				emojis.add(emoji.id);
+				const emoji = CosmeticToEmoji[item.cosmetics[0]];
+
+				if (
+					emoji &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.Blessing1.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.Blessing2.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.Blessing3.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.Heart.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.MusicSheet.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.Quest.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.SpellColourTrail.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.SpellSharedMemory.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.SpellSharedSpace.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.WingBuff.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.DyeRed.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.DyeYellow.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.DyeGreen.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.DyeCyan.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.DyeBlue.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.DyePurple.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.DyeBlack.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.DyeWhite.id &&
+					emoji.id !== MISCELLANEOUS_EMOJIS.Dye.id &&
+					emoji.id !== FRIEND_ACTION_EMOJIS.HighFive.id &&
+					emoji.id !== FRIEND_ACTION_EMOJIS.Hug.id &&
+					!HEART_EMOJIS.has(emoji.id)
+				) {
+					emojis.add(emoji.id);
+				}
 			}
 		}
 

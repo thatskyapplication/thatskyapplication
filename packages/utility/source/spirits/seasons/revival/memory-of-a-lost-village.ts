@@ -9,30 +9,40 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.MemoryOfALostVillageBlessing1,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.MemoryOfALostVillageCape },
-			{
-				cosmetic: Cosmetic.MemoryOfALostVillageOutfit,
-				cost: { seasonalCandles: 32 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.MemoryOfALostVillageBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.MemoryOfALostVillageBlessing3,
-				cost: { seasonalCandles: 38 },
-			},
-			{ cosmetic: Cosmetic.MemoryOfALostVillageHair },
-			{
-				cosmetic: Cosmetic.MemoryOfALostVillageSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MemoryOfALostVillageBlessing1,
+					cost: { seasonalCandles: 20 },
+				},
+				{ cosmetic: Cosmetic.MemoryOfALostVillageCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.MemoryOfALostVillageOutfit,
+					cost: { seasonalCandles: 32 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MemoryOfALostVillageBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.MemoryOfALostVillageBlessing3,
+					cost: { seasonalCandles: 38 },
+				},
+				{ cosmetic: Cosmetic.MemoryOfALostVillageHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.MemoryOfALostVillageSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

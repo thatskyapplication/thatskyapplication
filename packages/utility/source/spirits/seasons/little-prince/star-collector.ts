@@ -14,85 +14,117 @@ export default new SeasonalSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteHandRub1 },
-			{ cosmetic: Cosmetic.EmoteHandRub2 },
-			{
-				cosmetic: Cosmetic.StarCollectorNecktie,
-				cost: { seasonalCandles: 12 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.StarCollectorBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteHandRub3,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.EmoteHandRub4 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.StarCollectorBlessing2,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.StarCollectorCape },
-			{
-				cosmetic: Cosmetic.StarCollectorProp,
-				cost: { seasonalCandles: 24 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.StarCollectorBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.StarCollectorSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteHandRub1 },
+				{ cosmetic: Cosmetic.EmoteHandRub2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.StarCollectorNecktie,
+					cost: { seasonalCandles: 12 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.StarCollectorBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteHandRub3,
+					cost: { seasonalCandles: 16 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteHandRub4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.StarCollectorBlessing2,
+					cost: { seasonalCandles: 20 },
+				},
+				{ cosmetic: Cosmetic.StarCollectorCape, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.StarCollectorProp,
+					cost: { seasonalCandles: 24 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.StarCollectorBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.StarCollectorSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteHandRub1 },
-			{
-				cosmetic: Cosmetic.EmoteHandRub2,
-				cost: { hearts: 4 },
-			},
-			{
-				cosmetic: Cosmetic.StarCollectorSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.StarCollectorBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.StarCollectorNecktie,
-				cost: { candles: 40 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.StarCollectorWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteHandRub3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteHandRub4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.StarCollectorBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.StarCollectorCape,
-				cost: { candles: 75 },
-			},
-			{
-				cosmetic: Cosmetic.StarCollectorProp,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteHandRub1 },
+				{
+					cosmetic: Cosmetic.EmoteHandRub2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+				{
+					cosmetic: Cosmetic.StarCollectorSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.StarCollectorBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.StarCollectorNecktie,
+					cost: { candles: 40 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.StarCollectorWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteHandRub3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteHandRub4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.StarCollectorBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.StarCollectorCape,
+					cost: { candles: 75 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.StarCollectorProp,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	visits: {

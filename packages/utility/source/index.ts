@@ -142,12 +142,14 @@ export { EventId, type EventIds } from "./utility/event.js";
 export {
 	addCosts,
 	getRandomElement,
-	resolveAllCosmetics,
-	resolveOffer,
+	resolveAllCosmeticsFromItems,
+	resolveOfferFromItems,
 	snakeCaseName,
 } from "./utility/functions.js";
 export {
 	FriendAction,
+	type FriendshipTree,
+	friendshipTreeToItems,
 	type Item,
 	type ItemCost,
 	type ItemRaw,

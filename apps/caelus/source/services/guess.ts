@@ -75,7 +75,9 @@ function getAnswer(): [Snowflake, SpiritIds] {
 			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
 				? spirit.current
 				: spirit.items
-			).some((item) => CosmeticToEmoji[item.cosmetics[0]]?.id === emoji),
+			).some((items) =>
+				items.some((item) => item && CosmeticToEmoji[item.cosmetics[0]]?.id === emoji),
+			),
 		)!.id;
 	}
 

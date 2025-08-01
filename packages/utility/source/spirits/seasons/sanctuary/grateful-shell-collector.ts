@@ -16,77 +16,106 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteGrateful1 },
-			{ cosmetic: Cosmetic.EmoteGrateful2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.GratefulShellCollectorBlessing1,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.GratefulShellCollectorHair },
-			{
-				cosmetic: Cosmetic.EmoteGrateful3,
-				cost: { seasonalCandles: 16 },
-			},
-			{ cosmetic: Cosmetic.EmoteGrateful4 },
-			{
-				cosmetic: Cosmetic.GratefulShellCollectorCape,
-				cost: { seasonalCandles: 18 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.GratefulShellCollectorBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.GratefulShellCollectorSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteGrateful1 },
+				{ cosmetic: Cosmetic.EmoteGrateful2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.GratefulShellCollectorBlessing1,
+					cost: { seasonalCandles: 14 },
+				},
+				{ cosmetic: Cosmetic.GratefulShellCollectorHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteGrateful3,
+					cost: { seasonalCandles: 16 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteGrateful4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.GratefulShellCollectorCape,
+					cost: { seasonalCandles: 18 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.GratefulShellCollectorBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.GratefulShellCollectorSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteGrateful1 },
-			{
-				cosmetic: Cosmetic.EmoteGrateful2,
-				cost: { hearts: 4 },
-			},
-			{
-				cosmetic: Cosmetic.GratefulShellCollectorChairs,
-				cost: { candles: 45 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.GratefulShellCollectorBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.GratefulShellCollectorHair,
-				cost: { candles: 34 },
-			},
-			{
-				cosmetic: Cosmetic.GratefulShellCollectorSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.GratefulShellCollectorWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteGrateful3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteGrateful4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.GratefulShellCollectorBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.GratefulShellCollectorCape,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteGrateful1 },
+				{
+					cosmetic: Cosmetic.EmoteGrateful2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+				{
+					cosmetic: Cosmetic.GratefulShellCollectorChairs,
+					cost: { candles: 45 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.GratefulShellCollectorBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.GratefulShellCollectorHair,
+					cost: { candles: 34 },
+				},
+				{
+					cosmetic: Cosmetic.GratefulShellCollectorSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.GratefulShellCollectorWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteGrateful3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteGrateful4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.GratefulShellCollectorBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.GratefulShellCollectorCape,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	visits: {

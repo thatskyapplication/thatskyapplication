@@ -2219,7 +2219,13 @@ export enum Cosmetic {
 	RemnantOfAForgottenHavenSeasonalHeart = 1807,
 
 	// 23/10/2023 | Season of Revival Quest 2.
+	/**
+	 * Removed with {@link https://thatsky.link/p0250 0.25.0}.
+	 */
 	HopefulStewardQuest2 = 1808,
+	/**
+	 * Removed with {@link https://thatsky.link/p0250 0.25.0}.
+	 */
 	HopefulStewardHeart2 = 1809,
 
 	// 23/10/2023 | Days of Mischief.

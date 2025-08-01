@@ -15,64 +15,89 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteYoga1 },
-			{ cosmetic: Cosmetic.EmoteYoga2 },
-			{
-				cosmetic: Cosmetic.StretchingGuruHair,
-				cost: { seasonalCandles: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.StretchingGuruBlessing1,
-			},
-			{
-				cosmetic: Cosmetic.EmoteYoga3,
-				cost: { seasonalCandles: 8 },
-			},
-			{ cosmetic: Cosmetic.EmoteYoga4 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.StretchingGuruBlessing2,
-				cost: { seasonalCandles: 10 },
-			},
-			{
-				cosmetic: Cosmetic.StretchingGuruCape,
-				cost: { hearts: 5 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteYoga1 },
+				{ cosmetic: Cosmetic.EmoteYoga2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.StretchingGuruHair,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.StretchingGuruBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteYoga3,
+					cost: { seasonalCandles: 8 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteYoga4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.StretchingGuruBlessing2,
+					cost: { seasonalCandles: 10 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.StretchingGuruCape,
+					cost: { hearts: 5 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteYoga1 },
-			{ cosmetic: Cosmetic.EmoteYoga2, cost: { hearts: 4 } },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.StretchingGuruBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.StretchingGuruHair,
-				cost: { candles: 26 },
-			},
-			{
-				cost: { candles: 3 },
-				translation: CosmeticCommon.Heart,
-				cosmetic: Cosmetic.StretchingGuruHeart,
-			},
-			{
-				cost: { ascendedCandles: 2 },
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.StretchingGuruWingBuff,
-			},
-			{ cosmetic: Cosmetic.EmoteYoga3, cost: { hearts: 3 } },
-			{ cosmetic: Cosmetic.EmoteYoga4, cost: { hearts: 6 } },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.StretchingGuruBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.StretchingGuruCape,
-				cost: { candles: 65 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteYoga1 },
+				{ cosmetic: Cosmetic.EmoteYoga2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.StretchingGuruBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.StretchingGuruHair,
+					cost: { candles: 26 },
+				},
+				{
+					cost: { candles: 3 },
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.StretchingGuruHeart,
+				},
+			],
+			[
+				{
+					cost: { ascendedCandles: 2 },
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.StretchingGuruWingBuff,
+				},
+			],
+			[
+				{ cosmetic: Cosmetic.EmoteYoga3, cost: { hearts: 3 }, level: 3 },
+				{ cosmetic: Cosmetic.EmoteYoga4, cost: { hearts: 6 }, level: 4 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.StretchingGuruBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.StretchingGuruCape,
+					cost: { candles: 65 },
+				},
+			],
 		],
 	},
 	visits: {

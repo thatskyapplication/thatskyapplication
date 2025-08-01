@@ -14,43 +14,59 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.FriendActionCradleCarry1 },
-			{ cosmetic: Cosmetic.FriendActionCradleCarry2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.FeudalLordBlessing1,
-				cost: { seasonalCandles: 6 },
-			},
-			{
-				cosmetic: Cosmetic.FeudalLordHairAccessory,
-			},
-			{
-				cosmetic: Cosmetic.FeudalLordMask,
-				cost: { seasonalCandles: 18 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.FeudalLordBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.FeudalLordBlessing3,
-				cost: { seasonalCandles: 26 },
-			},
-			{ cosmetic: Cosmetic.FeudalLordCape },
-			{
-				translation: CosmeticCommon.MusicSheet,
-				cosmetic: Cosmetic.FeudalLordMusicSheet,
-				cost: { seasonalCandles: 32 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.FeudalLordBlessing4,
-			},
-			{
-				cosmetic: Cosmetic.FeudalLordSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.FriendActionCradleCarry1 },
+				{ cosmetic: Cosmetic.FriendActionCradleCarry2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.FeudalLordBlessing1,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					cosmetic: Cosmetic.FeudalLordHairAccessory,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.FeudalLordMask,
+					cost: { seasonalCandles: 18 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.FeudalLordBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.FeudalLordBlessing3,
+					cost: { seasonalCandles: 26 },
+				},
+				{ cosmetic: Cosmetic.FeudalLordCape, seasonPass: true },
+			],
+			[
+				{
+					translation: CosmeticCommon.MusicSheet,
+					cosmetic: Cosmetic.FeudalLordMusicSheet,
+					cost: { seasonalCandles: 32 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.FeudalLordBlessing4,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.FeudalLordSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

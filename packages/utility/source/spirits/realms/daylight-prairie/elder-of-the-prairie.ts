@@ -8,14 +8,18 @@ export default new ElderSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		current: [
-			{
-				cosmetic: Cosmetic.ElderOfThePrairieHair,
-				cost: { ascendedCandles: 3 },
-			},
-			{
-				cosmetic: Cosmetic.ElderOfThePrairieFaceAccessory,
-				cost: { ascendedCandles: 75 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.ElderOfThePrairieHair,
+					cost: { ascendedCandles: 3 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ElderOfThePrairieFaceAccessory,
+					cost: { ascendedCandles: 75 },
+				},
+			],
 		],
 	},
 });

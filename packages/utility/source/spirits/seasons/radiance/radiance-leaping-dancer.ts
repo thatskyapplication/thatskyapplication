@@ -12,46 +12,66 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.Cartwheel1 },
-			{ cosmetic: Cosmetic.Cartwheel2 },
-			{
-				cosmetic: Cosmetic.RadianceLeapingDancerHair,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.RadianceLeapingDancerRedDye1 },
-			{
-				cosmetic: Cosmetic.RadianceLeapingDancerRedDye2,
-				cost: { seasonalCandles: 16 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceLeapingDancerProp,
-			},
-			{
-				cosmetic: Cosmetic.Cartwheel3,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.Cartwheel4 },
-			{
-				cosmetic: Cosmetic.RadianceLeapingDancerRedDye3,
-				cost: { seasonalCandles: 24 },
-			},
-			{ cosmetic: Cosmetic.RadianceLeapingDancerOutfit },
-			{
-				cosmetic: Cosmetic.RadianceLeapingDancerCape,
-				cost: { seasonalCandles: 28 },
-			},
-			{
-				cosmetic: Cosmetic.RadianceLeapingDancerYellowDye1,
-			},
-			{
-				cosmetic: Cosmetic.RadianceLeapingDancerYellowDye2,
-				cost: { seasonalCandles: 32 },
-			},
-			{ cosmetic: Cosmetic.RadianceLeapingDancerShoes },
-			{
-				cosmetic: Cosmetic.RadianceLeapingDancerSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.Cartwheel1 },
+				{ cosmetic: Cosmetic.Cartwheel2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceLeapingDancerHair,
+					cost: { seasonalCandles: 12 },
+				},
+				{ cosmetic: Cosmetic.RadianceLeapingDancerRedDye1, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceLeapingDancerRedDye2,
+					cost: { seasonalCandles: 16 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceLeapingDancerProp,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.Cartwheel3,
+					cost: { seasonalCandles: 20 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.Cartwheel4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceLeapingDancerRedDye3,
+					cost: { seasonalCandles: 24 },
+				},
+				{ cosmetic: Cosmetic.RadianceLeapingDancerOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceLeapingDancerCape,
+					cost: { seasonalCandles: 28 },
+				},
+				{
+					cosmetic: Cosmetic.RadianceLeapingDancerYellowDye1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceLeapingDancerYellowDye2,
+					cost: { seasonalCandles: 32 },
+				},
+				{ cosmetic: Cosmetic.RadianceLeapingDancerShoes, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.RadianceLeapingDancerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

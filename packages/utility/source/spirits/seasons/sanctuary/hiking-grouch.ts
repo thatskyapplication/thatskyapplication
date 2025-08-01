@@ -15,87 +15,118 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteGrumpy1 },
-			{ cosmetic: Cosmetic.EmoteGrumpy2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.HikingGrouchBlessing1,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.HikingGrouchMask },
-			{
-				cosmetic: Cosmetic.EmoteGrumpy3,
-				cost: { seasonalCandles: 14 },
-			},
-			{ cosmetic: Cosmetic.EmoteGrumpy4 },
-			{
-				cosmetic: Cosmetic.HikingGrouchHair,
-				cost: { seasonalCandles: 16 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.HikingGrouchBlessing2,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.HikingGrouchBlessing3,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.HikingGrouchBowTie },
-			{
-				cosmetic: Cosmetic.HikingGrouchSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteGrumpy1 },
+				{ cosmetic: Cosmetic.EmoteGrumpy2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.HikingGrouchBlessing1,
+					cost: { seasonalCandles: 12 },
+				},
+				{ cosmetic: Cosmetic.HikingGrouchMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteGrumpy3,
+					cost: { seasonalCandles: 14 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteGrumpy4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.HikingGrouchHair,
+					cost: { seasonalCandles: 16 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.HikingGrouchBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.HikingGrouchBlessing3,
+					cost: { seasonalCandles: 18 },
+				},
+				{ cosmetic: Cosmetic.HikingGrouchBowTie, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.HikingGrouchSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteGrumpy1 },
-			{
-				cosmetic: Cosmetic.EmoteGrumpy2,
-				cost: { hearts: 4 },
-			},
-			{
-				cosmetic: Cosmetic.DoubleDeckChairs,
-				cost: { hearts: 16 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.HikingGrouchBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.HikingGrouchMask,
-				cost: { candles: 34 },
-			},
-			{
-				cosmetic: Cosmetic.HikingGrouchSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.HikingGrouchWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteGrumpy3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteGrumpy4,
-				cost: { hearts: 6 },
-			},
-			{
-				cosmetic: Cosmetic.HikingGrouchHair,
-				cost: { candles: 42 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.HikingGrouchBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.HikingGrouchBowTie,
-				cost: { candles: 50 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteGrumpy1 },
+				{
+					cosmetic: Cosmetic.EmoteGrumpy2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+				{
+					cosmetic: Cosmetic.DoubleDeckChairs,
+					cost: { hearts: 16 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.HikingGrouchBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.HikingGrouchMask,
+					cost: { candles: 34 },
+				},
+				{
+					cosmetic: Cosmetic.HikingGrouchSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.HikingGrouchWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteGrumpy3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteGrumpy4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+				{
+					cosmetic: Cosmetic.HikingGrouchHair,
+					cost: { candles: 42 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.HikingGrouchBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.HikingGrouchBowTie,
+					cost: { candles: 50 },
+				},
+			],
 		],
 	},
 	visits: {

@@ -8,14 +8,18 @@ export default new ElderSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		current: [
-			{
-				cosmetic: Cosmetic.ElderOfTheForestHair,
-				cost: { ascendedCandles: 6 },
-			},
-			{
-				cosmetic: Cosmetic.ElderOfTheForestFaceAccessory,
-				cost: { ascendedCandles: 250 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.ElderOfTheForestHair,
+					cost: { ascendedCandles: 6 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ElderOfTheForestFaceAccessory,
+					cost: { ascendedCandles: 250 },
+				},
+			],
 		],
 	},
 });

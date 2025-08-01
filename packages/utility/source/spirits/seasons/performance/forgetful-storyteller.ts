@@ -14,89 +14,121 @@ export default new SeasonalSpirit({
 	realm: RealmName.ValleyOfTriumph,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteAww1 },
-			{ cosmetic: Cosmetic.EmoteAww2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ForgetfulStorytellerBlessing1,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.ForgetfulStorytellerMask },
-			{
-				cosmetic: Cosmetic.ForgetfulStorytellerHair,
-				cost: { seasonalCandles: 16 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ForgetfulStorytellerBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.EmoteAww3,
-				cost: { seasonalCandles: 20 },
-			},
-			{ cosmetic: Cosmetic.EmoteAww4 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.ForgetfulStorytellerBlessing3,
-				cost: { seasonalCandles: 26 },
-			},
-			{ cosmetic: Cosmetic.ForgetfulStorytellerOutfit },
-			{
-				cosmetic: Cosmetic.ForgetfulStorytellerCape,
-				cost: { seasonalCandles: 34 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
-				cosmetic: Cosmetic.ForgetfulStorytellerBlessing4,
-			},
-			{
-				cosmetic: Cosmetic.ForgetfulStorytellerSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteAww1 },
+				{ cosmetic: Cosmetic.EmoteAww2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ForgetfulStorytellerBlessing1,
+					cost: { seasonalCandles: 12 },
+				},
+				{ cosmetic: Cosmetic.ForgetfulStorytellerMask, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ForgetfulStorytellerHair,
+					cost: { seasonalCandles: 16 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ForgetfulStorytellerBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteAww3,
+					cost: { seasonalCandles: 20 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteAww4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.ForgetfulStorytellerBlessing3,
+					cost: { seasonalCandles: 26 },
+				},
+				{ cosmetic: Cosmetic.ForgetfulStorytellerOutfit, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ForgetfulStorytellerCape,
+					cost: { seasonalCandles: 34 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 4 },
+					cosmetic: Cosmetic.ForgetfulStorytellerBlessing4,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ForgetfulStorytellerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteAww1 },
-			{ cosmetic: Cosmetic.EmoteAww2, cost: { hearts: 4 } },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ForgetfulStorytellerBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ForgetfulStorytellerMask,
-				cost: { candles: 34 },
-			},
-			{
-				cosmetic: Cosmetic.ForgetfulStorytellerSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.ForgetfulStorytellerWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteAww3,
-				cost: { hearts: 3 },
-			},
-			{ cosmetic: Cosmetic.EmoteAww4, cost: { hearts: 6 } },
-			{
-				cosmetic: Cosmetic.ForgetfulStorytellerHair,
-				cost: { candles: 44 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ForgetfulStorytellerBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ForgetfulStorytellerOutfit,
-				cost: { candles: 70 },
-			},
-			{
-				cosmetic: Cosmetic.ForgetfulStorytellerCape,
-				cost: { candles: 70 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteAww1 },
+				{ cosmetic: Cosmetic.EmoteAww2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ForgetfulStorytellerBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.ForgetfulStorytellerMask,
+					cost: { candles: 34 },
+				},
+				{
+					cosmetic: Cosmetic.ForgetfulStorytellerSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.ForgetfulStorytellerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteAww3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteAww4, cost: { hearts: 6 }, level: 4 },
+				{
+					cosmetic: Cosmetic.ForgetfulStorytellerHair,
+					cost: { candles: 44 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ForgetfulStorytellerBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.ForgetfulStorytellerOutfit,
+					cost: { candles: 70 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ForgetfulStorytellerCape,
+					cost: { candles: 70 },
+				},
+			],
 		],
 	},
 	visits: {

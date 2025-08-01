@@ -1,6 +1,7 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { CDN_URL } from "../cdn.js";
+import type { Cosmetic } from "../cosmetics.js";
 import type { RealmName } from "../kingdom.js";
 import {
 	type RotationIdentifier,
@@ -9,8 +10,12 @@ import {
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	type SeasonIds,
 } from "../season.js";
-import { resolveAllCosmetics, resolveOffer, snakeCaseName } from "../utility/functions.js";
-import type { Item, ItemRaw, SpiritIds } from "../utility/spirits.js";
+import {
+	resolveAllCosmeticsFromItems,
+	resolveOfferFromItems,
+	snakeCaseName,
+} from "../utility/functions.js";
+import type { ItemRawWithoutChildren, ItemWithoutChildren, SpiritIds } from "../utility/spirits.js";
 import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
 type SeasonalCandlesRotation = Readonly<
@@ -48,7 +53,7 @@ interface SeasonData {
 	 *
 	 * @remarks When cosmetics are not tied to any entity, they should be stored here.
 	 */
-	items?: readonly ItemRaw[];
+	items?: readonly ItemRawWithoutChildren[];
 	/**
 	 * The seasonal candles rotation.
 	 */
@@ -83,9 +88,9 @@ export class Season {
 
 	public readonly spirits: ReadonlyCollection<SpiritIds, SeasonalSpirit>;
 
-	public readonly items: Item[];
+	public readonly items: readonly ItemWithoutChildren[];
 
-	public readonly allCosmetics: number[];
+	public readonly allCosmetics: readonly Cosmetic[];
 
 	private readonly seasonalCandlesRotation: ((now: DateTime) => SeasonalCandlesRotation) | null;
 
@@ -108,8 +113,8 @@ export class Season {
 			new Collection<SpiritIds, SeasonalSpirit>(),
 		);
 
-		this.items = data.items ? resolveOffer(data.items) : [];
-		this.allCosmetics = data.items ? resolveAllCosmetics(this.items) : [];
+		this.items = data.items ? resolveOfferFromItems(data.items, { seasonId: data.id }) : [];
+		this.allCosmetics = resolveAllCosmeticsFromItems(this.items);
 
 		this.seasonalCandlesRotation =
 			typeof data.seasonalCandlesRotation === "function"

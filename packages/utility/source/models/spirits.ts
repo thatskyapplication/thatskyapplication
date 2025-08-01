@@ -2,15 +2,17 @@ import { Collection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import { CDN_URL } from "../cdn.js";
+import type { Cosmetic } from "../cosmetics.js";
 import { skyDate } from "../dates.js";
 import type { RealmName } from "../kingdom.js";
 import type { SeasonIds } from "../season.js";
 import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
 import {
 	type FriendAction,
-	type Item,
+	type FriendshipTree,
 	type ItemCost,
-	type ItemRaw,
+	type ItemRawWithoutChildren,
+	type ItemRawWithPossibleChildren,
 	type SpiritCall,
 	type SpiritEmote,
 	type SpiritIds,
@@ -45,22 +47,32 @@ const RETURNING_DATES = new Collection<number, ReturningDatesData>()
 	.set(8, { start: skyDate(2_025, 4, 7), end: skyDate(2_025, 4, 21) })
 	.set(9, { start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) });
 
+export type FriendshipTreeRaw = readonly (
+	| readonly [ItemRawWithoutChildren]
+	| readonly [ItemRawWithoutChildren, ItemRawWithPossibleChildren]
+	| readonly [
+			ItemRawWithoutChildren,
+			ItemRawWithPossibleChildren | null,
+			ItemRawWithPossibleChildren,
+	  ]
+)[];
+
 interface BaseFriendshipTreeOfferData {
 	hasInfographic?: boolean;
-	current?: readonly ItemRaw[];
+	current?: FriendshipTreeRaw;
 }
 
 interface StandardFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
-	current: readonly ItemRaw[];
+	current: FriendshipTreeRaw;
 }
 
 interface ElderFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
-	current: readonly ItemRaw[];
+	current: FriendshipTreeRaw;
 }
 
 interface SeasonalFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 	hasInfographicSeasonal?: boolean;
-	seasonal: readonly ItemRaw[];
+	seasonal: FriendshipTreeRaw;
 }
 
 interface GuideFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
@@ -146,22 +158,32 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	seasonId: SeasonIds;
 }
 
+function friendshipTreeWithCosts(friendshipTree: FriendshipTree) {
+	const costs = [];
+
+	for (const items of friendshipTree) {
+		for (const item of items) {
+			if (item?.cost) {
+				costs.push(item.cost);
+			}
+		}
+	}
+
+	return costs;
+}
+
 abstract class BaseFriendshipTree {
-	public readonly current: readonly Item[];
+	public readonly current: FriendshipTree;
 
 	public readonly totalCost: Required<ItemCost>;
 
-	public readonly allCosmetics: number[];
+	public readonly allCosmetics: readonly Cosmetic[];
 
 	public imageURL: string | null;
 
 	public constructor({ id, offer }: BaseFriendshipTreeData) {
 		this.current = offer?.current ? resolveOffer(offer.current) : [];
-
-		this.totalCost = addCosts(
-			this.current.map((item) => item.cost).filter((cost) => cost !== null),
-		);
-
+		this.totalCost = addCosts(friendshipTreeWithCosts(this.current));
 		this.allCosmetics = offer?.current ? resolveAllCosmetics(this.current) : [];
 
 		this.imageURL = (offer ? (offer.hasInfographic ?? true) : false)
@@ -180,27 +202,27 @@ abstract class BaseFriendshipTree {
 }
 
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: readonly Item[];
+	public declare readonly current: FriendshipTree;
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly allCosmetics: number[];
+	public declare readonly allCosmetics: readonly Cosmetic[];
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: readonly Item[];
+	public declare readonly current: FriendshipTree;
 
 	public declare readonly totalCost: Required<ItemCost>;
 
-	public declare readonly allCosmetics: number[];
+	public declare readonly allCosmetics: readonly Cosmetic[];
 }
 
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
-	public override readonly allCosmetics: number[];
+	public override readonly allCosmetics: readonly Cosmetic[];
 
-	public readonly seasonal: readonly Item[];
+	public readonly seasonal: FriendshipTree;
 
-	public readonly items: readonly Item[];
+	public readonly items: FriendshipTree;
 
 	public readonly totalCostSeasonal: Required<ItemCost>;
 
@@ -215,10 +237,7 @@ abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 
 		this.items = this.current.length > 0 ? this.current : this.seasonal;
 		this.allCosmetics = resolveAllCosmetics(this.items);
-
-		this.totalCostSeasonal = addCosts(
-			this.seasonal.map((item) => item.cost).filter((cost) => cost !== null),
-		);
+		this.totalCostSeasonal = addCosts(friendshipTreeWithCosts(this.seasonal));
 
 		this.imageURLSeasonal =
 			(seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true)
@@ -378,7 +397,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 	public override readonly type = SpiritType.Guide;
 
-	public override readonly current: readonly Item[];
+	public override readonly current: FriendshipTree;
 
 	public override readonly totalCost: Required<ItemCost>;
 
@@ -391,10 +410,7 @@ export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 			? resolveOffer(spirit.offer.current, { seasonId: spirit.seasonId })
 			: [];
 
-		this.totalCost = addCosts(
-			this.current.map((item) => item.cost).filter((cost) => cost !== null),
-		);
-
+		this.totalCost = addCosts(friendshipTreeWithCosts(this.current));
 		this.seasonId = spirit.seasonId;
 	}
 }

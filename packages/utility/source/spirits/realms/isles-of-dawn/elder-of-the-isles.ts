@@ -8,14 +8,18 @@ export default new ElderSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		current: [
-			{
-				cosmetic: Cosmetic.ElderOfTheIsleHair,
-				cost: { ascendedCandles: 4 },
-			},
-			{
-				cosmetic: Cosmetic.ElderOfTheIsleFaceAccessory,
-				cost: { ascendedCandles: 125 },
-			},
+			[
+				{
+					cosmetic: Cosmetic.ElderOfTheIsleHair,
+					cost: { ascendedCandles: 4 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ElderOfTheIsleFaceAccessory,
+					cost: { ascendedCandles: 125 },
+				},
+			],
 		],
 	},
 });

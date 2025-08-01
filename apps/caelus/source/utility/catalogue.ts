@@ -1,15 +1,9 @@
-import {
-	type Emoji,
-	type ItemCost,
-	resolveCurrencyEmoji,
-	SeasonId,
-	type SeasonIds,
-} from "@thatskyapplication/utility";
+import { type ItemCost, resolveCurrencyEmoji, SeasonId } from "@thatskyapplication/utility";
 import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
-	SEASON_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
+	SeasonIdToSeasonalHeartEmoji,
 } from "./emojis.js";
 
 export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
@@ -20,35 +14,6 @@ export const GUIDE_SPIRIT_IN_PROGRESS_TEXT =
 
 export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
 export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
-
-const SeasonIdToSeasonalHeartEmoji = {
-	[SeasonId.Belonging]: SEASON_EMOJIS.BelongingHeart,
-	[SeasonId.Rhythm]: SEASON_EMOJIS.RhythmHeart,
-	[SeasonId.Enchantment]: SEASON_EMOJIS.EnchantmentHeart,
-	[SeasonId.Sanctuary]: SEASON_EMOJIS.SanctuaryHeart,
-	[SeasonId.Prophecy]: SEASON_EMOJIS.ProphecyHeart,
-	[SeasonId.Dreams]: SEASON_EMOJIS.DreamsHeart,
-	[SeasonId.Assembly]: SEASON_EMOJIS.AssemblyHeart,
-	[SeasonId.LittlePrince]: SEASON_EMOJIS.LittlePrinceHeart,
-	[SeasonId.Flight]: SEASON_EMOJIS.FlightHeart,
-	[SeasonId.Abyss]: SEASON_EMOJIS.AbyssHeart,
-	[SeasonId.Performance]: SEASON_EMOJIS.PerformanceHeart,
-	[SeasonId.Shattering]: SEASON_EMOJIS.ShatteringHeart,
-	[SeasonId.AURORA]: SEASON_EMOJIS.AuroraHeart,
-	[SeasonId.Remembrance]: SEASON_EMOJIS.RemembranceHeart,
-	[SeasonId.Passage]: SEASON_EMOJIS.PassageHeart,
-	[SeasonId.Moments]: SEASON_EMOJIS.MomentsHeart,
-	[SeasonId.Revival]: SEASON_EMOJIS.RevivalHeart,
-	[SeasonId.NineColouredDeer]: SEASON_EMOJIS.NineColouredDeerHeart,
-	[SeasonId.Nesting]: SEASON_EMOJIS.NestingHeart,
-	[SeasonId.Duets]: SEASON_EMOJIS.DuetsHeart,
-	[SeasonId.Moomin]: SEASON_EMOJIS.MoominHeart,
-	[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
-	[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdHeart,
-	[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Heart,
-} as const satisfies Readonly<
-	Record<Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>, Emoji | null>
->;
 
 export function resolveCostToString(cost: ItemCost) {
 	const totalCost = [];

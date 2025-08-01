@@ -14,39 +14,55 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographic: false,
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteMoping1 },
-			{ cosmetic: Cosmetic.EmoteMoping2 },
-			{
-				cosmetic: Cosmetic.MelancholyMopeFaceAccessory,
-				cost: { seasonalCandles: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.MelancholyMopeBlessing1,
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.MelancholyMopeBlessing2,
-				cost: { seasonalCandles: 18 },
-			},
-			{ cosmetic: Cosmetic.MelancholyMopeHair },
-			{
-				cosmetic: Cosmetic.EmoteMoping3,
-				cost: { seasonalCandles: 26 },
-			},
-			{ cosmetic: Cosmetic.EmoteMoping4 },
-			{
-				cosmetic: Cosmetic.MelancholyMopeOutfit,
-				cost: { seasonalCandles: 28 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-				cosmetic: Cosmetic.MelancholyMopeBlessing3,
-			},
-			{
-				cosmetic: Cosmetic.MelancholyMopeSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteMoping1 },
+				{ cosmetic: Cosmetic.EmoteMoping2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.MelancholyMopeFaceAccessory,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MelancholyMopeBlessing1,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MelancholyMopeBlessing2,
+					cost: { seasonalCandles: 18 },
+				},
+				{ cosmetic: Cosmetic.MelancholyMopeHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteMoping3,
+					cost: { seasonalCandles: 26 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteMoping4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.MelancholyMopeOutfit,
+					cost: { seasonalCandles: 28 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.MelancholyMopeBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MelancholyMopeSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });

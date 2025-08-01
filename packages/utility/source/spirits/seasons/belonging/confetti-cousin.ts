@@ -14,73 +14,102 @@ export default new SeasonalSpirit({
 	realm: RealmName.DaylightPrairie,
 	offer: {
 		seasonal: [
-			{ cosmetic: Cosmetic.EmoteConfetti1 },
-			{ cosmetic: Cosmetic.EmoteConfetti2 },
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ConfettiCousinBlessing1,
-				cost: { seasonalCandles: 8 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ConfettiCousinBlessing2,
-			},
-			{
-				cosmetic: Cosmetic.EmoteConfetti3,
-				cost: { seasonalCandles: 10 },
-			},
-			{ cosmetic: Cosmetic.EmoteConfetti4 },
-			{
-				cosmetic: Cosmetic.ConfettiCousinCape,
-				cost: { seasonalCandles: 12 },
-			},
-			{ cosmetic: Cosmetic.ConfettiCousinHair },
-			{
-				cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
-				cost: { seasonalCandles: 3 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteConfetti1 },
+				{ cosmetic: Cosmetic.EmoteConfetti2, level: 2, seasonPass: true },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ConfettiCousinBlessing1,
+					cost: { seasonalCandles: 8 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ConfettiCousinBlessing2,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteConfetti3,
+					cost: { seasonalCandles: 10 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteConfetti4, level: 4, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ConfettiCousinCape,
+					cost: { seasonalCandles: 12 },
+				},
+				{ cosmetic: Cosmetic.ConfettiCousinHair, seasonPass: true },
+			],
+			[
+				{
+					cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
-			{ cosmetic: Cosmetic.EmoteConfetti1 },
-			{
-				cosmetic: Cosmetic.EmoteConfetti2,
-				cost: { hearts: 4 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-				cosmetic: Cosmetic.ConfettiCousinBlessing1,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ConfettiCousinHair,
-				cost: { candles: 42 },
-			},
-			{
-				cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
-				cost: { candles: 3 },
-			},
-			{
-				translation: CosmeticCommon.WingBuff,
-				cosmetic: Cosmetic.ConfettiCousinWingBuff,
-				cost: { ascendedCandles: 2 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteConfetti3,
-				cost: { hearts: 3 },
-			},
-			{
-				cosmetic: Cosmetic.EmoteConfetti4,
-				cost: { hearts: 6 },
-			},
-			{
-				translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-				cosmetic: Cosmetic.ConfettiCousinBlessing2,
-				cost: { candles: 5 },
-			},
-			{
-				cosmetic: Cosmetic.ConfettiCousinCape,
-				cost: { candles: 60 },
-			},
+			[
+				{ cosmetic: Cosmetic.EmoteConfetti1 },
+				{
+					cosmetic: Cosmetic.EmoteConfetti2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ConfettiCousinBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.ConfettiCousinHair,
+					cost: { candles: 42 },
+				},
+				{
+					cosmetic: Cosmetic.ConfettiCousinSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.ConfettiCousinWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteConfetti3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteConfetti4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ConfettiCousinBlessing2,
+					cost: { candles: 5 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.ConfettiCousinCape,
+					cost: { candles: 60 },
+				},
+			],
 		],
 	},
 	visits: {

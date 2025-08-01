@@ -458,7 +458,14 @@ interface ItemRawTranslation {
 	number?: number;
 }
 
-interface ItemRawSingleCosmetic {
+interface BaseItemRawWithoutChildren {
+	level?: 2 | 3 | 4 | 5 | 6;
+	seasonPass?: boolean;
+	cost?: ItemCostRaw;
+	regularHeart?: boolean;
+}
+
+interface ItemRawSingleCosmeticWithoutChildren extends BaseItemRawWithoutChildren {
 	translation?:
 		| Exclude<
 				CosmeticCommon,
@@ -470,17 +477,27 @@ interface ItemRawSingleCosmetic {
 		  >
 		| ItemRawTranslation;
 	cosmetic: Cosmetic;
-	cost?: ItemCostRaw;
 }
 
-interface ItemRawMultipleCosmetics {
+interface ItemRawMultipleCosmeticsWithoutChildren extends BaseItemRawWithoutChildren {
 	translation?: CosmeticCommon | ItemRawTranslation;
-	cosmetic: [Cosmetic, ...Cosmetic[]];
+	cosmetic: readonly [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
-	cost?: ItemCostRaw;
 }
 
-export type ItemRaw = ItemRawSingleCosmetic | ItemRawMultipleCosmetics;
+export type ItemRawWithoutChildren =
+	| ItemRawSingleCosmeticWithoutChildren
+	| ItemRawMultipleCosmeticsWithoutChildren;
+
+export type ItemRawWithPossibleChildren = ItemRawWithoutChildren & {
+	/**
+	 * Rarely, ultimates shrink to fit in the friendship tree.
+	 */
+	thirdHeight?: boolean;
+	children?: readonly ItemRawWithoutChildren[];
+};
+
+export type ItemRaw = ItemRawWithoutChildren | ItemRawWithPossibleChildren;
 
 interface ItemCostSeasonal {
 	cost: number;
@@ -491,14 +508,15 @@ interface ItemCostEvent {
 	cost: number;
 	eventId: EventIds;
 }
+
 export interface ItemCost {
 	money?: number;
 	candles?: number;
 	hearts?: number;
 	ascendedCandles?: number;
-	seasonalCandles?: ItemCostSeasonal[];
-	seasonalHearts?: ItemCostSeasonal[];
-	eventTickets?: ItemCostEvent[];
+	seasonalCandles: ItemCostSeasonal[];
+	seasonalHearts: ItemCostSeasonal[];
+	eventTickets: ItemCostEvent[];
 }
 
 interface ItemTranslation {
@@ -506,12 +524,31 @@ interface ItemTranslation {
 	number?: number;
 }
 
-export interface Item {
+export interface ItemWithoutChildren {
 	translation: ItemTranslation | null;
-	cosmetics: [Cosmetic, ...Cosmetic[]];
+	cosmetics: readonly [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
+	level: 2 | 3 | 4 | 5 | 6 | null;
+	seasonPass: boolean;
 	cost: ItemCost | null;
+	regularHeart: boolean;
 }
+
+export interface ItemWithPossibleChildren extends ItemWithoutChildren {
+	/**
+	 * Rarely, ultimates shrink to fit in the friendship tree.
+	 */
+	thirdHeight: boolean;
+	children: readonly ItemWithoutChildren[];
+}
+
+export type Item = ItemWithoutChildren | ItemWithPossibleChildren;
+
+export type FriendshipTree = readonly (
+	| readonly [ItemWithoutChildren]
+	| readonly [ItemWithoutChildren, ItemWithPossibleChildren]
+	| readonly [ItemWithoutChildren, ItemWithPossibleChildren | null, ItemWithPossibleChildren]
+)[];
 
 export const SpiritsHistoryOrderType = {
 	Natural: 0,
@@ -522,3 +559,25 @@ export type SpiritsHistoryOrderTypes =
 	(typeof SpiritsHistoryOrderType)[keyof typeof SpiritsHistoryOrderType];
 
 export const SPIRITS_HISTORY_ORDER_TYPE_VALUES = Object.values(SpiritsHistoryOrderType);
+
+export function friendshipTreeToItems(
+	friendshipTree: FriendshipTree,
+): readonly ItemWithoutChildren[] {
+	const result = [];
+
+	for (const items of friendshipTree) {
+		for (const item of items) {
+			if (!item) {
+				continue;
+			}
+
+			result.push(item);
+
+			if ("children" in item) {
+				result.push(...item.children);
+			}
+		}
+	}
+
+	return result;
+}

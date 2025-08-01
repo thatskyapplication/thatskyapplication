@@ -1,6 +1,10 @@
-import { Cosmetic, resolveAllCosmetics, resolveOffer } from "@thatskyapplication/utility";
+import {
+	Cosmetic,
+	resolveAllCosmeticsFromItems,
+	resolveOfferFromItems,
+} from "@thatskyapplication/utility";
 
-const items = resolveOffer([
+const items = resolveOfferFromItems([
 	{
 		cosmetic: Cosmetic.StoneSingleBench,
 		cost: { candles: 32 },
@@ -215,4 +219,7 @@ const items = resolveOffer([
 	},
 ]);
 
-export const NESTING_WORKSHOP = { items, allCosmetics: resolveAllCosmetics(items) } as const;
+export const NESTING_WORKSHOP = {
+	items,
+	allCosmetics: resolveAllCosmeticsFromItems(items),
+} as const;

@@ -23,12 +23,14 @@ import {
 	type Event,
 	type EventIds,
 	formatEmoji,
+	friendshipTreeToItems,
 	type GuideSpirit,
 	type Item,
+	type ItemCost,
 	REALM_SPIRITS,
 	REALMS,
 	type RealmName,
-	resolveAllCosmetics,
+	resolveAllCosmeticsFromItems,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	type Season,
@@ -150,13 +152,16 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	const owned = [];
 	const unowned = [];
 
-	for (const { cosmetics } of offer) {
-		const emojis = cosmetics.map((cosmetic) => {
-			const emoji = CosmeticToEmoji[cosmetic];
-			return emoji
-				? formatEmoji(emoji)
-				: t(`cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
-		});
+	for (const { cosmetics, regularHeart } of offer) {
+		const emojis = regularHeart
+			? [formatEmoji(MISCELLANEOUS_EMOJIS.Heart)]
+			: cosmetics.map((cosmetic) => {
+					const emoji = CosmeticToEmoji[cosmetic];
+
+					return emoji
+						? formatEmoji(emoji)
+						: t(`cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
+				});
 
 		if (cosmetics.every((cosmetic) => data.has(cosmetic))) {
 			owned.push(...emojis);
@@ -185,7 +190,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 
 function ownedProgress(items: readonly Item[], data: ReadonlySet<number>) {
 	return {
-		owned: resolveAllCosmetics(items).filter((cosmetic) => data.has(cosmetic)),
+		owned: resolveAllCosmeticsFromItems(items).filter((cosmetic) => data.has(cosmetic)),
 		total: items.reduce((total, item) => total + item.cosmetics.length, 0),
 	};
 }
@@ -223,7 +228,7 @@ function spiritOwnedProgress(
 				? spirit.current
 				: spirit.items;
 
-		const { owned, total: offerTotal } = ownedProgress(offer, data);
+		const { owned, total: offerTotal } = ownedProgress(friendshipTreeToItems(offer), data);
 		totalOwned.push(...owned);
 		total += offerTotal;
 	}
@@ -245,17 +250,20 @@ function seasonOwnedProgress(seasons: readonly Season[], data: ReadonlySet<numbe
 	let total = 0;
 
 	for (const season of seasons) {
-		const offers = [
-			season.guide.current,
-			...season.spirits.map((spirit) => spirit.items),
-			season.items,
-		];
+		const friendshipTrees = [season.guide.current, ...season.spirits.map((spirit) => spirit.items)];
 
-		for (const offer of offers) {
-			const { owned, total: offerTotal } = ownedProgress(offer, data);
+		for (const friendshipTree of friendshipTrees) {
+			const { owned, total: offerTotal } = ownedProgress(
+				friendshipTreeToItems(friendshipTree),
+				data,
+			);
 			totalOwned.push(...owned);
 			total += offerTotal;
 		}
+
+		const { owned, total: offerTotal } = ownedProgress(season.items, data);
+		totalOwned.push(...owned);
+		total += offerTotal;
 	}
 
 	return { owned: totalOwned, total };
@@ -368,14 +376,15 @@ function remainingCurrency(
 	data: ReadonlySet<number> = new Set(),
 	includeSeasonalCurrency?: boolean,
 ) {
-	const dataSet = new Set(data);
+	const itemCosts = [];
 
-	const result = addCosts(
-		items
-			.filter(({ cosmetics }) => cosmetics.some((cosmetic) => !dataSet.has(cosmetic)))
-			.map((item) => item.cost)
-			.filter((cost) => cost !== null),
-	);
+	for (const { cosmetics, cost } of items) {
+		if (cost && cosmetics.some((cosmetic) => !data.has(cosmetic))) {
+			itemCosts.push(cost);
+		}
+	}
+
+	const result = addCosts(itemCosts);
 
 	if (!includeSeasonalCurrency) {
 		for (const seasonalCandle of result.seasonalCandles) {
@@ -432,7 +441,11 @@ function offerData({
 			continue;
 		}
 
-		const { remainingCurrencyResult, offerDescription } = progress(locale, offer, data);
+		const { remainingCurrencyResult, offerDescription } = progress(
+			locale,
+			friendshipTreeToItems(offer),
+			data,
+		);
 
 		if (includeTotalRemainingCurrency) {
 			remainingCurrencies.push(remainingCurrencyResult);
@@ -940,18 +953,14 @@ export async function viewRealms(
 		let content = `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}`;
 		const percentage = spiritProgress([...realm.spirits.values()], catalogue?.data, true);
 		content += percentage === null ? "" : ` (${percentage}%)`;
+		const itemCosts: ItemCost[] = [];
 
-		const remainingCurrencyResult = resolveCostToString(
-			realm.spirits.reduce(
-				(remainingCurrencyResult, spirit) =>
-					addCosts([remainingCurrencyResult, remainingCurrency(spirit.current, catalogue?.data)]),
-				{},
-			),
-		);
-
-		if (remainingCurrencyResult) {
-			content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
+		for (const spirit of realm.spirits.values()) {
+			itemCosts.push(remainingCurrency(friendshipTreeToItems(spirit.current), catalogue?.data));
 		}
+
+		const remainingCurrencyResult = resolveCostToString(addCosts(itemCosts));
+		content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
 
 		containerComponents.push({
 			type: ComponentType.Section,
@@ -1870,7 +1879,7 @@ async function viewSpirit(
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
 	const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
-	const offer = seasonalParsing ? spirit.seasonal : spirit.current;
+	const friendshipTree = seasonalParsing ? spirit.seasonal : spirit.current;
 	const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
 	const { hasEverything, offerProgress } = offerData({
@@ -1925,7 +1934,7 @@ async function viewSpirit(
 			type: ComponentType.MediaGallery,
 			items: [{ media: { url: imageURL } }],
 		});
-	} else if (offer.length > 0) {
+	} else if (friendshipTree.length > 0) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `-# ${NO_FRIENDSHIP_TREE_YET_TEXT}`,
@@ -1939,26 +1948,28 @@ async function viewSpirit(
 		});
 	}
 
-	if (offer.length > 0) {
-		const itemSelectionOptions = offer.map(({ translation, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
-					lng: interaction.locale,
-					ns: "general",
-					number: translation?.number,
-				}),
-				value: JSON.stringify(cosmetics),
-			};
+	if (friendshipTree.length > 0) {
+		const itemSelectionOptions = friendshipTreeToItems(friendshipTree).map(
+			({ translation, cosmetics, cosmeticDisplay }) => {
+				const stringSelectMenuOption: APISelectMenuOption = {
+					default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
+					label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+						lng: interaction.locale,
+						ns: "general",
+						number: translation?.number,
+					}),
+					value: JSON.stringify(cosmetics),
+				};
 
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
+				const emoji = CosmeticToEmoji[cosmeticDisplay];
 
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
+				if (emoji) {
+					stringSelectMenuOption.emoji = emoji;
+				}
 
-			return stringSelectMenuOption;
-		});
+				return stringSelectMenuOption;
+			},
+		);
 
 		const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(
 			0,
