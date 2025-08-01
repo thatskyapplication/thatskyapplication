@@ -144,7 +144,6 @@ export {
 	getRandomElement,
 	resolveAllCosmeticsFromItems,
 	resolveOfferFromItems,
-	snakeCaseName,
 } from "./utility/functions.js";
 export {
 	FriendAction,
@@ -152,7 +151,6 @@ export {
 	friendshipTreeToItems,
 	type Item,
 	type ItemCost,
-	type ItemRaw,
 	isSpiritId,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	SpiritEmote,
