@@ -14,16 +14,73 @@ import {
 	WING_BUFFS,
 	WINGED_LIGHT_IN_AREAS,
 } from "@thatskyapplication/utility";
-import { ChevronLeftIcon, LinkIcon, MapPinIcon } from "lucide-react";
+import { ChevronLeftIcon, LinkIcon, MapPinIcon, Users } from "lucide-react";
 import { useState } from "react";
 import type { LoaderFunctionArgs } from "react-router";
-import { Link, type MetaFunction, useLoaderData } from "react-router";
+import {
+	isRouteErrorResponse,
+	Link,
+	type MetaFunction,
+	useLoaderData,
+	useRouteError,
+} from "react-router";
 import pg from "~/pg.server";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
+export function ErrorBoundary() {
+	const error = useRouteError();
+
+	if (isRouteErrorResponse(error) && error.status === 404) {
+		return (
+			<div className="flex items-center justify-center px-4 py-16">
+				<div className="text-center max-w-lg">
+					<div className="mb-8">
+						<div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full mb-6 border-4 border-gray-300 dark:border-gray-600">
+							<Users className="w-12 h-12 text-gray-400 dark:text-gray-500" />
+						</div>
+						<h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+							Unknown Sky Kid
+						</h1>
+						<p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
+							This Sky kid seems to have flown away... and hit a wall.
+						</p>
+					</div>
+					<div className="space-y-4">
+						<div className="flex flex-col sm:flex-row gap-3 justify-center">
+							<Link
+								to="/sky-profiles"
+								className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+							>
+								<ChevronLeftIcon className="w-5 h-5" />
+								Sky Profiles
+							</Link>
+							<Link
+								to="/sky-profiles/random"
+								className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
+							>
+								<div
+									className="w-5 h-5 bg-cover bg-center"
+									style={{
+										backgroundImage:
+											"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
+									}}
+									aria-label="Question mark icon"
+								/>
+								Random Sky Profile
+							</Link>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	throw error;
+}
+
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
-	const { skyProfilePacket } = data!;
+	const { skyProfilePacket } = data ?? {};
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -34,25 +91,34 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 			name: "keywords",
 			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky Profiles, Sky Profile`,
 		},
-		{ title: skyProfilePacket.name ?? "Sky Profile" },
-		{ name: "description", content: skyProfilePacket.description },
+		{ title: skyProfilePacket?.name ?? "Sky Profile" },
+		{
+			name: "description",
+			content: skyProfilePacket?.description ?? "A Sky profile.",
+		},
 		{ name: "theme-color", content: "#A5B5F1" },
-		{ property: "og:title", content: skyProfilePacket.name ?? "Sky Profile" },
-		{ property: "og:description", content: skyProfilePacket.description },
+		{ property: "og:title", content: skyProfilePacket?.name ?? "Sky Profile" },
+		{
+			property: "og:description",
+			content: skyProfilePacket?.description ?? "A Sky profile.",
+		},
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{
 			property: "og:image",
-			content: skyProfilePacket.icon
+			content: skyProfilePacket?.icon
 				? `https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfilePacket.user_id}/${skyProfilePacket.icon.startsWith("a_") ? `${skyProfilePacket.icon}.gif` : `${skyProfilePacket.icon}.webp`}`
-				: skyProfilePacket.thumbnail
+				: skyProfilePacket?.thumbnail
 					? `https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.thumbnail.startsWith("a_") ? `${skyProfilePacket.thumbnail}.gif` : `${skyProfilePacket.thumbnail}.webp`}`
 					: null,
 		},
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: skyProfilePacket.name ?? "Sky Profile" },
-		{ name: "twitter:description", content: skyProfilePacket.description },
+		{ name: "twitter:title", content: skyProfilePacket?.name ?? "Sky Profile" },
+		{
+			name: "twitter:description",
+			content: skyProfilePacket?.description ?? "A Sky profile.",
+		},
 		{ rel: "canonical", href: url },
 	];
 };
@@ -61,7 +127,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 	const { userId } = params;
 
 	if (!userId) {
-		throw new Response("User id not provided,", { status: 400 });
+		throw new Response(null, { status: 400 });
 	}
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
@@ -69,7 +135,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		.first();
 
 	if (!skyProfilePacket) {
-		throw new Response("Sky Profile not found.", { status: 404 });
+		throw new Response(null, { status: 404 });
 	}
 
 	let maximumWingedLight = null;
