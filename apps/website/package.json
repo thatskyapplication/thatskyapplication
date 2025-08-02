@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "react-router build",
 		"test": "react-router typegen && tsc",
-		"dev": "react-router dev",
+		"dev": "react-router dev | pino-pretty",
 		"start": "react-router-serve ./build/server/index.js",
 		"lint": "biome check",
 		"lint:ci": "biome ci --reporter github",
@@ -16,6 +16,7 @@
 		"@discordjs/core": "^2.2.0",
 		"@discordjs/rest": "^2.5.1",
 		"@icons-pack/react-simple-icons": "10.2.0",
+		"@logtail/pino": "^0.5.2",
 		"@react-router/fs-routes": "^7.7.0",
 		"@react-router/node": "^7.7.0",
 		"@react-router/serve": "^7.7.0",
@@ -27,6 +28,7 @@
 		"luxon": "^3.6.1",
 		"media-chrome": "^4.12.0",
 		"pg": "^8.16.3",
+		"pino": "^9.7.0",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
 		"react-router": "^7.7.0"
@@ -38,6 +40,7 @@
 		"@types/react": "^19.1.8",
 		"@types/react-dom": "^19.1.6",
 		"autoprefixer": "^10.4.21",
+		"pino-pretty": "^13.0.0",
 		"postcss": "^8.5.6",
 		"tailwindcss": "^3.4.4",
 		"typescript": "^5.8.3",

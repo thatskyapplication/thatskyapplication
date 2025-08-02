@@ -7,6 +7,7 @@ import { Server, Settings } from "lucide-react";
 import { useState } from "react";
 import type { LoaderFunctionArgs } from "react-router";
 import { redirect, useLoaderData } from "react-router";
+import pino from "~/pino";
 import { getSession } from "~/session.server";
 import { guildIconURL } from "~/utility/functions.js";
 
@@ -28,7 +29,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		});
 
 		if (!response.ok) {
-			throw new Error("Failed to fetch guilds");
+			throw await response.json();
 		}
 
 		const guilds = (await response.json()) as RESTGetAPICurrentUserGuildsResult;
@@ -45,7 +46,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				return guilds;
 			}, []),
 		};
-	} catch {
+	} catch (error) {
+		pino.error(error, "Failed to load dashboard.");
 		return { guilds: [], error: true };
 	}
 };

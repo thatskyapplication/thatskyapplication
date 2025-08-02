@@ -10,6 +10,7 @@ import { ExternalLinkIcon } from "lucide-react";
 import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
+import pino from "~/pino.js";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
@@ -105,8 +106,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		}
 
 		return { shards, page };
-	} catch {
-		throw new Response("Unable to fetch the shard eruption.", { status: 500 });
+	} catch (error) {
+		pino.error(error, "Unable to load shard eruptions.");
+		throw new Response(null, { status: 500 });
 	}
 };
 

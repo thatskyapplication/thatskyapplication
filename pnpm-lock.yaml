@@ -276,6 +276,9 @@ importers:
       '@icons-pack/react-simple-icons':
         specifier: 10.2.0
         version: 10.2.0(react@19.1.0)
+      '@logtail/pino':
+        specifier: ^0.5.2
+        version: 0.5.2(pino@9.7.0)
       '@react-router/fs-routes':
         specifier: ^7.7.0
         version: 7.7.0(@react-router/dev@7.7.0(@react-router/serve@7.7.0(react-router@7.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(typescript@5.8.3))(@types/node@22.16.0)(jiti@2.4.2)(react-router@7.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(tsx@4.20.3)(typescript@5.8.3)(vite@7.0.5(@types/node@22.16.0)(jiti@2.4.2)(tsx@4.20.3)(yaml@2.6.1))(yaml@2.6.1))(typescript@5.8.3)
@@ -309,6 +312,9 @@ importers:
       pg:
         specifier: ^8.16.3
         version: 8.16.3
+      pino:
+        specifier: ^9.7.0
+        version: 9.7.0
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -337,6 +343,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
+      pino-pretty:
+        specifier: ^13.0.0
+        version: 13.0.0
       postcss:
         specifier: ^8.5.6
         version: 8.5.6

@@ -2,6 +2,7 @@ import type { APIUser } from "@discordjs/core";
 import { type LoaderFunction, redirect } from "react-router";
 import { APPLICATION_ID, DISCORD_CLIENT_SECRET, REDIRECT_URI_LOGIN } from "~/config.server";
 import discord from "~/discord";
+import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
 import { generateState } from "~/utility/functions.server";
 
@@ -51,7 +52,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 			});
 
 			if (!tokenResponse.ok) {
-				throw new Error("Failed to exchange code for token.");
+				throw await tokenResponse.json();
 			}
 
 			const tokenData = await tokenResponse.json();
@@ -63,7 +64,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 			});
 
 			if (!userResponse.ok) {
-				throw new Error("Failed to fetch user data.");
+				throw await userResponse.json();
 			}
 
 			const userData = (await userResponse.json()) as APIUser;
@@ -82,7 +83,9 @@ export const loader: LoaderFunction = async ({ request }) => {
 					"Set-Cookie": await commitSession(session),
 				},
 			});
-		} catch {
+		} catch (error) {
+			pino.error(error, "Failed to log in.");
+
 			return redirect(storedReturnTo, {
 				headers: {
 					"Set-Cookie": await commitSession(session),

@@ -11,6 +11,7 @@ import {
 } from "~/config.server.js";
 import discord from "~/discord.js";
 import pg from "~/pg.server";
+import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 import { generateState } from "~/utility/functions.server";
@@ -67,35 +68,40 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				}),
 			});
 
-			if (tokenResponse.ok) {
-				const tokenData = (await tokenResponse.json()) as {
-					token_type: string;
-					access_token: string;
-					refresh_token: string;
-					expires_in: number;
-				};
-
-				const userResponse = await fetch("https://thatskyapplication.api.crowdin.com/api/v2/user", {
-					headers: {
-						Authorization: `Bearer ${tokenData.access_token}`,
-					},
-				});
-
-				if (userResponse.ok) {
-					const userData = await userResponse.json();
-					authenticationState.crowdinAuthorised = true;
-
-					authenticationState.crowdinUser = {
-						id: userData.data.id,
-						username: userData.data.username,
-					};
-
-					session.set("crowdin_authorised", true);
-					session.set("crowdin_user", authenticationState.crowdinUser);
-					session.set("crowdin_token", tokenData.access_token);
-				}
+			if (!tokenResponse.ok) {
+				throw await tokenResponse.text();
 			}
-		} catch {
+
+			const tokenData = (await tokenResponse.json()) as {
+				token_type: string;
+				access_token: string;
+				refresh_token: string;
+				expires_in: number;
+			};
+
+			const userResponse = await fetch("https://thatskyapplication.api.crowdin.com/api/v2/user", {
+				headers: {
+					Authorization: `Bearer ${tokenData.access_token}`,
+				},
+			});
+
+			if (!userResponse.ok) {
+				throw await userResponse.text();
+			}
+
+			const userData = await userResponse.json();
+			authenticationState.crowdinAuthorised = true;
+
+			authenticationState.crowdinUser = {
+				id: userData.data.id,
+				username: userData.data.username,
+			};
+
+			session.set("crowdin_authorised", true);
+			session.set("crowdin_user", authenticationState.crowdinUser);
+			session.set("crowdin_token", tokenData.access_token);
+		} catch (error) {
+			pino.error(error, "Failed to authorise with Crowdin.");
 			authenticationState.error = "Failed to authorise with Crowdin.";
 			session.set("auth_error", authenticationState.error);
 		}
@@ -128,7 +134,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 				authenticationState.success = true;
 			}
-		} catch {
+		} catch (error) {
+			pino.error(error, "Failed to link accounts.");
 			authenticationState.error = "Failed to link accounts.";
 			session.set("auth_error", authenticationState.error);
 		}

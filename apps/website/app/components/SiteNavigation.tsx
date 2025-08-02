@@ -70,9 +70,9 @@ function TimeDisplay() {
 				const time = timeString(locale);
 				setCurrentTime(time);
 				setError(null);
-			} catch (err) {
+			} catch (error) {
 				setError("Time unavailable.");
-				console.warn("Failed to update time:", err);
+				console.warn("Failed to update time.", error);
 			}
 		};
 

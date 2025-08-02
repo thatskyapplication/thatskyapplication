@@ -8,6 +8,7 @@ import type { LoaderFunctionArgs } from "react-router";
 import { data, Form, Link, type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
 import pg from "~/pg.server";
+import pino from "~/pino.js";
 import {
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
@@ -95,8 +96,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			{ profiles, currentPage, totalPages },
 			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 		);
-	} catch {
-		throw new Response("Unable to fetch Sky profiles.", { status: 500 });
+	} catch (error) {
+		pino.error(error, "Unable to fetch Sky profiles.");
+		throw new Response(null, { status: 500 });
 	}
 };
 

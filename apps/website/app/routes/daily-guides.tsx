@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, useLoaderData } from "react-router";
 import pg from "~/pg.server";
+import pino from "~/pino.js";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
 import { getLocaleFromRequest } from "~/utility/functions";
 
@@ -64,8 +65,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			},
 			{ headers: { "Cache-Control": "public, max-age=300, s-maxage=300" } },
 		);
-	} catch {
-		throw new Response("Unable to fetch daily guides.", { status: 500 });
+	} catch (error) {
+		pino.error(error, "Unable to fetch daily guides.");
+		throw new Response(null, { status: 500 });
 	}
 };
 
