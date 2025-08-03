@@ -4,6 +4,7 @@ base_url: https://thatskyapplication.api.crowdin.com
 preserve_hierarchy: true
 files:
   - source: packages/utility/source/locales/en-gb.ts
+    dest: caelus.json
     translation: packages/utility/source/locales/%locale%.json
     translation_replace:
       de-DE: de
