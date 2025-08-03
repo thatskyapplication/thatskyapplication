@@ -105,35 +105,35 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 function SkyProfileCard(profile: SkyProfilePacket) {
 	return (
 		<Link
-			key={profile.user_id}
 			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-[550px]"
+			key={profile.user_id}
 			to={`/sky-profiles/${profile.user_id}`}
 		>
 			<div className="relative">
 				{profile.thumbnail ? (
 					<div
+						aria-label={`Thumbnail of ${profile.name}.`}
 						className="w-full h-48 bg-cover bg-center"
+						role="img"
 						style={{
 							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profile.user_id}/${profile.thumbnail.startsWith("a_") ? `${profile.thumbnail}.gif` : `${profile.thumbnail}.webp`})`,
 						}}
-						role="img"
-						aria-label={`Thumbnail of ${profile.name}.`}
 					/>
 				) : (
 					<div
+						aria-label="No thumbnail."
 						className="w-full h-48 bg-gray-200 dark:bg-gray-600"
 						role="img"
-						aria-label="No thumbnail."
 					/>
 				)}
 				{profile.icon && (
 					<div
+						aria-label={`Icon of ${profile.name}.`}
 						className="w-16 h-16 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
+						role="img"
 						style={{
 							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${profile.user_id}/${profile.icon.startsWith("a_") ? `${profile.icon}.gif` : `${profile.icon}.webp`})`,
 						}}
-						role="img"
-						aria-label={`Icon of ${profile.name}.`}
 					/>
 				)}
 			</div>
@@ -145,13 +145,13 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 							.sort((a, b) => a - b)
 							.map((season) => (
 								<div
-									key={season}
+									aria-label={`Season ${season} icon.`}
 									className="w-6 h-6 bg-cover bg-center"
+									key={season}
+									role="img"
 									style={{
 										backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
 									}}
-									role="img"
-									aria-label={`Season ${season} icon.`}
 								/>
 							))}
 					</div>
@@ -170,8 +170,8 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 							.sort((a, b) => a - b)
 							.map((platform) => (
 								<div
-									key={platform}
 									className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow items-center justify-center"
+									key={platform}
 								>
 									{PlatformToIcon[platform]}
 								</div>
@@ -193,12 +193,11 @@ export default function SkyProfiles() {
 	return (
 		<div className="container mx-auto px-4 m-4">
 			<div className="flex items-center mb-4">
-				<Form method="get" className="mr-4">
+				<Form className="mr-4" method="get">
 					<input
-						type="search"
-						name="query"
-						placeholder="Search..."
+						className="p-2 border border-gray-200 dark:border-gray-600 rounded my-2 w-48"
 						defaultValue={query}
+						name="query"
 						onChange={(event) => {
 							const value = event.currentTarget.value;
 							if (value !== value.trim()) {
@@ -206,20 +205,21 @@ export default function SkyProfiles() {
 							}
 							return event.currentTarget.form!.requestSubmit();
 						}}
-						className="p-2 border border-gray-200 dark:border-gray-600 rounded my-2 w-48"
+						placeholder="Search..."
+						type="search"
 					/>
 				</Form>
 				<Link
-					to={"/sky-profiles/random"}
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
+					to={"/sky-profiles/random"}
 				>
 					<div
+						aria-label="Question mark icon."
 						className="w-6 h-6 mr-2 bg-cover bg-center"
+						role="img"
 						style={{
 							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 						}}
-						role="img"
-						aria-label="Question mark icon."
 					/>
 					<span>Random</span>
 				</Link>

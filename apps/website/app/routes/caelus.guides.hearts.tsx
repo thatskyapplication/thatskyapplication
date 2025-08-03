@@ -52,9 +52,9 @@ export default function Hearts() {
 									Right-click any user and select "Gift Heart":
 								</p>
 								<img
-									src="https://cdn.thatskyapplication.com/assets/gift_heart_example.webp"
 									alt="Showing how to gift hearts via the context menu"
 									className="w-full max-w-sm rounded-md shadow-md border border-gray-200 dark:border-gray-600"
+									src="https://cdn.thatskyapplication.com/assets/gift_heart_example.webp"
 								/>
 							</div>
 						</div>
@@ -123,9 +123,9 @@ export default function Hearts() {
 							</div>
 						</div>
 						<img
-							src="https://cdn.thatskyapplication.com/assets/heart_history_example.webp"
 							alt="Showing the history of hearts with total counts and navigation"
 							className="w-full max-w-lg rounded-md shadow-md border border-gray-200 dark:border-gray-600 mx-auto"
+							src="https://cdn.thatskyapplication.com/assets/heart_history_example.webp"
 						/>
 					</div>
 				</section>

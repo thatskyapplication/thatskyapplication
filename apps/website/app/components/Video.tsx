@@ -16,13 +16,13 @@ export default function Video({ src }: VideoOptions) {
 		<div className="relative w-full max-w-3xl aspect-video rounded-md overflow-hidden">
 			<MediaController className="absolute top-0 left-0 w-full h-full rounded-md shadow-md overflow-hidden">
 				<video
+					className="w-full h-full object-cover rounded-md"
 					controls={false}
+					muted={true}
+					poster="https://cdn.thatskyapplication.com/assets/sunset_16_9.webp"
+					preload="metadata"
 					slot="media"
 					src={src}
-					preload="metadata"
-					muted={true}
-					className="w-full h-full object-cover rounded-md"
-					poster="https://cdn.thatskyapplication.com/assets/sunset_16_9.webp"
 				/>
 				<MediaControlBar>
 					<MediaPlayButton />

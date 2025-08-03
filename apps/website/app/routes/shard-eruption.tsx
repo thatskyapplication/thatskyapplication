@@ -115,15 +115,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: number) {
 	return (
 		<div
-			key={todayFormat}
 			className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700 border rounded-lg shadow flex flex-col items-center text-center w-full max-w-sm p-6"
+			key={todayFormat}
 		>
 			<div className="flex flex-row items-center justify-center">
 				{shard && (
 					<img
-						src={`https://cdn.thatskyapplication.com/assets/${shard.strong ? "shard_strong" : "shard_regular"}.webp`}
 						alt={`${shard.strong ? "Strong" : "Regular"} shard eruption icon.`}
 						className="w-5 h-5 mr-1"
+						src={`https://cdn.thatskyapplication.com/assets/${shard.strong ? "shard_strong" : "shard_regular"}.webp`}
 					/>
 				)}
 				<h2 className="text-lg my-0">{todayFormat}</h2>
@@ -131,10 +131,10 @@ function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: n
 			{shard ? (
 				<>
 					<a
-						href={shard.url}
-						target="_blank"
-						rel="noopener noreferrer"
 						className="regular-link inline-flex items-center text-sm"
+						href={shard.url}
+						rel="noopener noreferrer"
+						target="_blank"
 					>
 						{shard.realm} ({shard.skyMap})
 						<ExternalLinkIcon className="ml-1 w-4 h-4" />
@@ -143,15 +143,15 @@ function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: n
 						<span className="text-sm">{shard.reward}</span>
 						{shard.strong ? (
 							<img
-								src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
 								alt="Ascended candle."
 								className="h-4 w-4 ml-1"
+								src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
 							/>
 						) : (
 							<img
-								src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
 								alt="Piece of light."
 								className="h-4 w-4 ml-1"
+								src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
 							/>
 						)}
 					</div>

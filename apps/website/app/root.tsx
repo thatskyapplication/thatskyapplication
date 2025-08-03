@@ -80,8 +80,8 @@ export function ErrorBoundary() {
 				)}
 			</header>
 			<Link
-				to="/"
 				className="px-6 py-3 bg-discord-button text-white font-medium rounded-md shadow-md hover:bg-blue-700 transition duration-200"
+				to="/"
 			>
 				Return
 			</Link>

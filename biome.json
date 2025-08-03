@@ -49,7 +49,15 @@
 			}
 		}
 	},
-	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on",
+				"useSortedAttributes": "on",
+				"useSortedProperties": "on"
+			}
+		}
+	},
 	"vcs": {
 		"clientKind": "git",
 		"defaultBranch": "main",

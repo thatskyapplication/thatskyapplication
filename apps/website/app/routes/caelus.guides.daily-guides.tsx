@@ -26,15 +26,15 @@ export default function DailyGuides() {
 					</p>
 					<p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
 						Guess what?{" "}
-						<Link to="/daily-guides" className="regular-link">
+						<Link className="regular-link" to="/daily-guides">
 							In your browser too!
 						</Link>
 					</p>
 				</div>
 				<hr className="my-8" />
 				<Permissions
-					userPermissions={["Manage Server"]}
 					appPermissions={["Send Messages", "View Channel"]}
+					userPermissions={["Manage Server"]}
 				/>
 				<h2>Setting up daily guides</h2>
 				<p>
@@ -51,9 +51,9 @@ export default function DailyGuides() {
 					expect them to appear between 0-30 minutes.
 				</InfoBox>
 				<img
-					src="https://cdn.thatskyapplication.com/assets/daily_guides_example.webp"
 					alt="Example of daily guides message in Discord showing quest information, treasure candles, seasonal details, and shard eruption data"
 					className="w-full max-w-lg rounded-md shadow-md"
+					src="https://cdn.thatskyapplication.com/assets/daily_guides_example.webp"
 				/>
 				<p>
 					The time zone in this image is GMT+01:00, which is why the timestamp states 08:00 (Sky is

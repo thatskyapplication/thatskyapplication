@@ -30,10 +30,10 @@ export default function FriendshipActions() {
 				<div className="text-center mb-8">
 					<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 rounded-full mb-4">
 						<div
-							className="w-8 h-8 bg-cover bg-center"
-							style={{ backgroundImage: "url(https://cdn.thatskyapplication.com/icons/hug.png)" }}
-							role="img"
 							aria-label="Hug icon"
+							className="w-8 h-8 bg-cover bg-center"
+							role="img"
+							style={{ backgroundImage: "url(https://cdn.thatskyapplication.com/icons/hug.png)" }}
 						/>
 					</div>
 					<h1 className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 dark:from-pink-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
@@ -69,14 +69,14 @@ export default function FriendshipActions() {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 						{gifs.map((gif) => (
 							<div
-								key={gif}
 								className="group relative bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+								key={gif}
 							>
 								<div
-									className="w-full aspect-square bg-cover bg-center group-hover:scale-105 transition-transform duration-300"
-									style={{ backgroundImage: `url(${gif})` }}
-									role="img"
 									aria-label="Friendship action GIF"
+									className="w-full aspect-square bg-cover bg-center group-hover:scale-105 transition-transform duration-300"
+									role="img"
+									style={{ backgroundImage: `url(${gif})` }}
 								/>
 							</div>
 						))}
@@ -100,8 +100,8 @@ export default function FriendshipActions() {
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							{REQUIREMENTS.map((requirement) => (
 								<div
-									key={requirement}
 									className="flex items-center gap-3 p-4 bg-white/60 dark:bg-gray-800/60 rounded-lg backdrop-blur-sm"
+									key={requirement}
 								>
 									<div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />
 									<p className="text-sm text-gray-700 dark:text-gray-300">{requirement}</p>
@@ -115,10 +115,10 @@ export default function FriendshipActions() {
 							and mention a developer!
 						</p>
 						<a
-							href={INVITE_SUPPORT_SERVER_URL}
-							target="_blank"
-							rel="noopener noreferrer"
 							className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+							href={INVITE_SUPPORT_SERVER_URL}
+							rel="noopener noreferrer"
+							target="_blank"
 						>
 							<ExternalLink className="w-5 h-5" />
 							Join Support Server

@@ -12,9 +12,9 @@ export default function Spirits() {
 				<div className="text-center mb-8">
 					<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 rounded-full mb-4">
 						<img
-							src="https://cdn.thatskyapplication.com/icons/wing_buff.png"
 							alt="Wing buff icon"
 							className="w-8 h-8"
+							src="https://cdn.thatskyapplication.com/icons/wing_buff.png"
 						/>
 					</div>
 					<h1 className="bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
@@ -32,9 +32,9 @@ export default function Spirits() {
 						<code>/spirits search</code>!
 					</p>
 					<img
-						src="https://cdn.thatskyapplication.com/assets/spirits_search_example.webp"
 						alt="Example of spirit search command showing detailed spirit information with cosmetics and seasonal details"
 						className="w-full max-w-lg rounded-md shadow-md border border-gray-200 dark:border-gray-600"
+						src="https://cdn.thatskyapplication.com/assets/spirits_search_example.webp"
 					/>
 				</section>
 				<section className="space-y-6">
@@ -47,9 +47,9 @@ export default function Spirits() {
 						<div className="flex items-center gap-3 mb-4">
 							<div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
 								<img
-									src="https://cdn.thatskyapplication.com/icons/wing_buff.png"
 									alt="Wing buff icon"
 									className="w-6 h-6"
+									src="https://cdn.thatskyapplication.com/icons/wing_buff.png"
 								/>
 							</div>
 							<h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-0">
@@ -58,14 +58,14 @@ export default function Spirits() {
 						</div>
 						<div className="grid md:grid-cols-2 gap-4 mb-6">
 							<img
-								src="https://cdn.thatskyapplication.com/assets/spirits_history_appearance_example.webp?v=2"
 								alt="Example of spirit history showing appearance tracking"
 								className="w-full rounded-md shadow-md border border-gray-200 dark:border-gray-600"
+								src="https://cdn.thatskyapplication.com/assets/spirits_history_appearance_example.webp?v=2"
 							/>
 							<img
-								src="https://cdn.thatskyapplication.com/assets/spirits_history_rarity_example.webp?v=2"
 								alt="Example of spirit history showing rarity tracking"
 								className="w-full rounded-md shadow-md border border-gray-200 dark:border-gray-600"
+								src="https://cdn.thatskyapplication.com/assets/spirits_history_rarity_example.webp?v=2"
 							/>
 						</div>
 						<div className="bg-indigo-100 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 rounded-lg p-3">

@@ -49,24 +49,24 @@ export function ErrorBoundary() {
 					<div className="space-y-4">
 						<div className="flex flex-col sm:flex-row gap-3 justify-center">
 							<Link
-								to="/sky-profiles"
 								className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+								to="/sky-profiles"
 							>
 								<ChevronLeftIcon className="w-5 h-5" />
 								Sky Profiles
 							</Link>
 							<Link
-								to="/sky-profiles/random"
 								className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
+								to="/sky-profiles/random"
 							>
 								<div
+									aria-label="Question mark icon"
 									className="w-5 h-5 bg-cover bg-center"
+									role="img"
 									style={{
 										backgroundImage:
 											"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 									}}
-									role="img"
-									aria-label="Question mark icon"
 								/>
 								Random Sky Profile
 							</Link>
@@ -178,12 +178,12 @@ export default function SkyProfile() {
 					<div className="w-full h-full rounded-md overflow-hidden">
 						{skyProfilePacket.thumbnail ? (
 							<div
+								aria-label={`Thumbnail of ${skyProfilePacket.name}.`}
 								className="w-full h-full bg-cover bg-center"
+								role="img"
 								style={{
 									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.thumbnail.startsWith("a_") ? `${skyProfilePacket.thumbnail}.gif` : `${skyProfilePacket.thumbnail}.webp`})`,
 								}}
-								role="img"
-								aria-label={`Thumbnail of ${skyProfilePacket.name}.`}
 							/>
 						) : (
 							<div className="w-full h-full bg-gray-200 dark:bg-gray-600" />
@@ -191,12 +191,12 @@ export default function SkyProfile() {
 					</div>
 					{skyProfilePacket.icon && (
 						<div
+							aria-label={`Icon of ${skyProfilePacket.name}.`}
 							className="w-20 h-20 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
+							role="img"
 							style={{
 								backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfilePacket.user_id}/${skyProfilePacket.icon.startsWith("a_") ? `${skyProfilePacket.icon}.gif` : `${skyProfilePacket.icon}.webp`})`,
 							}}
-							role="img"
-							aria-label={`Icon of ${skyProfilePacket.name}.`}
 						/>
 					)}
 				</div>
@@ -212,13 +212,13 @@ export default function SkyProfile() {
 								.sort((a, b) => a - b)
 								.map((season) => (
 									<div
-										key={season}
+										aria-label={`Season ${season} icon.`}
 										className="w-10 h-10 bg-cover bg-center"
+										key={season}
+										role="img"
 										style={{
 											backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
 										}}
-										role="img"
-										aria-label={`Season ${season} icon.`}
 									/>
 								))}
 						</div>
@@ -230,8 +230,8 @@ export default function SkyProfile() {
 								.sort((a, b) => a - b)
 								.map((platform) => (
 									<div
-										key={platform}
 										className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow items-center justify-center"
+										key={platform}
 									>
 										{PlatformToIcon[platform]}
 									</div>
@@ -257,12 +257,12 @@ export default function SkyProfile() {
 				{maximumWingedLight && (
 					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
 						<div
+							aria-label="Winged light icon."
 							className="w-6 h-6 mr-2 bg-cover bg-center"
+							role="img"
 							style={{
 								backgroundImage: "url(https://cdn.thatskyapplication.com/assets/winged_light.webp)",
 							}}
-							role="img"
-							aria-label="Winged light icon."
 						/>
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Maximum Winged Light</p>
@@ -273,12 +273,12 @@ export default function SkyProfile() {
 				{skyProfilePacket.spirit !== null && isSpiritId(skyProfilePacket.spirit) ? (
 					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
 						<div
+							aria-label="Favourite spirit icon."
 							className="w-6 h-6 mr-2 bg-cover bg-center"
+							role="img"
 							style={{
 								backgroundImage: "url(https://cdn.thatskyapplication.com/assets/heart.webp)",
 							}}
-							role="img"
-							aria-label="Favourite spirit icon."
 						/>
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
@@ -300,34 +300,34 @@ export default function SkyProfile() {
 			</div>
 			<div className="flex items-center justify-start mt-6 space-x-2">
 				<Link
-					to="/sky-profiles"
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
+					to="/sky-profiles"
 				>
 					<ChevronLeftIcon className="w-6 h-6 mr-2" />
 					<span>Back</span>
 				</Link>
 				<Link
-					to={"/sky-profiles/random"}
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
+					to={"/sky-profiles/random"}
 				>
 					<div
+						aria-label="Question mark icon."
 						className="w-6 h-6 mr-2 bg-cover bg-center"
+						role="img"
 						style={{
 							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 						}}
-						role="img"
-						aria-label="Question mark icon."
 					/>
 					<span>Random</span>
 				</Link>
 				<button
-					type="button"
+					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded transition-colors duration-300 overflow-auto`}
 					onClick={async () => {
 						await navigator.clipboard.writeText(window.location.href);
 						setCopied(true);
 						setTimeout(() => setCopied(false), 2000);
 					}}
-					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded transition-colors duration-300 overflow-auto`}
+					type="button"
 				>
 					<LinkIcon className="w-6 h-6 mr-2" />
 					{copied ? "Link copied!" : "Share"}

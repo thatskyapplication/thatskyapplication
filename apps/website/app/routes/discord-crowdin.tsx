@@ -217,10 +217,10 @@ export default function CrowdinDiscord() {
 						<p className="text-center text-gray-600 dark:text-gray-400 text-sm mb-6">
 							Hey translators! This will allow us to easily identify our kind in the{" "}
 							<a
-								href={INVITE_SUPPORT_SERVER_URL}
-								target="_blank"
-								rel="noopener noreferrer"
 								className="regular-link inline-flex items-center transition duration-200"
+								href={INVITE_SUPPORT_SERVER_URL}
+								rel="noopener noreferrer"
+								target="_blank"
 							>
 								support server
 								<ExternalLinkIcon className="ml-1 w-4 h-4" />
@@ -240,10 +240,10 @@ export default function CrowdinDiscord() {
 						) : (
 							<Form method="post">
 								<button
-									type="submit"
-									name="action"
-									value="authorise_crowdin"
 									className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 flex items-center justify-center"
+									name="action"
+									type="submit"
+									value="authorise_crowdin"
 								>
 									Authorise Crowdin
 									<ExternalLinkIcon className="w-4 h-4 ml-2" />

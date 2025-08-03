@@ -43,20 +43,20 @@ function SidebarSection({
 					return (
 						<li key={item.path}>
 							<Link
-								to={item.path}
-								onClick={onItemClick}
 								className={`flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
 									isActive
 										? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
 										: "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
 								}`}
+								onClick={onItemClick}
+								to={item.path}
 							>
 								<span>{item.title}</span>
 								{isActive && (
 									<img
-										src={SKY_KID_ICON_URL}
 										alt="Current page"
 										className="w-4 h-4 flex-shrink-0"
+										src={SKY_KID_ICON_URL}
 									/>
 								)}
 							</Link>
@@ -102,17 +102,17 @@ export default function CaelusGuidesLayout() {
 									</h2>
 								</div>
 							</div>
-							<SidebarSection title="Home" items={HOME_ITEMS} currentPath={location.pathname} />
-							<SidebarSection title="Guides" items={GUIDE_ITEMS} currentPath={location.pathname} />
+							<SidebarSection currentPath={location.pathname} items={HOME_ITEMS} title="Home" />
+							<SidebarSection currentPath={location.pathname} items={GUIDE_ITEMS} title="Guides" />
 						</div>
 					</div>
 				</aside>
 				<main className="flex-1 min-w-0">
 					<div className="lg:hidden mb-6">
 						<button
-							type="button"
-							onClick={() => setSidebarOpen(true)}
 							className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+							onClick={() => setSidebarOpen(true)}
+							type="button"
 						>
 							<BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />
 							<span className="font-medium text-gray-900 dark:text-gray-100">Guide Navigation</span>
@@ -127,10 +127,10 @@ export default function CaelusGuidesLayout() {
 			{sidebarOpen && (
 				<>
 					<button
-						type="button"
+						aria-label="Close sidebar"
 						className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden cursor-default"
 						onClick={() => setSidebarOpen(false)}
-						aria-label="Close sidebar"
+						type="button"
 					/>
 					<div className="fixed top-4 left-4 right-4 bottom-4 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 flex flex-col lg:hidden">
 						<div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
@@ -143,26 +143,26 @@ export default function CaelusGuidesLayout() {
 								</div>
 							</div>
 							<button
-								type="button"
-								onClick={() => setSidebarOpen(false)}
-								className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
 								aria-label="Close navigation"
+								className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+								onClick={() => setSidebarOpen(false)}
+								type="button"
 							>
 								<X className="h-5 w-5" />
 							</button>
 						</div>
 						<div className="flex-1 overflow-y-auto p-6">
 							<SidebarSection
-								title="Home"
-								items={HOME_ITEMS}
 								currentPath={location.pathname}
+								items={HOME_ITEMS}
 								onItemClick={() => setSidebarOpen(false)}
+								title="Home"
 							/>
 							<SidebarSection
-								title="Guides"
-								items={GUIDE_ITEMS}
 								currentPath={location.pathname}
+								items={GUIDE_ITEMS}
 								onItemClick={() => setSidebarOpen(false)}
+								title="Guides"
 							/>
 						</div>
 					</div>

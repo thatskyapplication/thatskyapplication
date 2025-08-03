@@ -104,20 +104,20 @@ function UserMenu({ user }: UserMenuProps) {
 	return (
 		<div className="flex items-center gap-3">
 			<img
-				src={avatarURL(user)}
 				alt={`${user.username}'s avatar`}
 				className="w-8 h-8 rounded-full"
+				src={avatarURL(user)}
 			/>
 			<div className="hidden sm:flex flex-col">
 				<span className="text-sm font-medium text-gray-900 dark:text-gray-100">
 					{user.username}
 				</span>
 			</div>
-			<Form method="post" action={`/logout?returnTo=${encodeURIComponent(currentPath)}`}>
+			<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
 				<button
-					type="submit"
 					className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
 					title="Sign out"
+					type="submit"
 				>
 					<LogOut className="h-4 w-4 text-gray-600 dark:text-gray-400" />
 				</button>
@@ -132,8 +132,8 @@ function LoginButton() {
 
 	return (
 		<Link
-			to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
 			className="flex items-center gap-2 px-3 py-2 bg-discord-button hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
+			to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
 		>
 			<LogIn className="h-4 w-4" />
 			<span className="hidden sm:inline">Sign in</span>
@@ -152,20 +152,20 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	return (
 		<div className="md:hidden">
 			<button
-				type="button"
+				aria-label="Close mobile menu"
 				className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
 				onClick={onClose}
-				aria-label="Close mobile menu"
+				type="button"
 			/>
 			<div className="fixed top-4 left-4 right-4 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50">
 				<div className="p-4">
 					<div className="flex justify-between items-center mb-4">
 						<h3 className="font-semibold text-gray-900 dark:text-gray-100">Navigation</h3>
 						<button
-							type="button"
-							onClick={onClose}
-							className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
 							aria-label="Close menu"
+							className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+							onClick={onClose}
+							type="button"
 						>
 							<X className="h-5 w-5" />
 						</button>
@@ -174,19 +174,19 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 						<div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
 							<div className="flex items-center gap-3 mb-3">
 								<img
-									src={avatarURL(user)}
 									alt={`Avatar of ${user.username}`}
 									className="w-8 h-8 rounded-full"
+									src={avatarURL(user)}
 								/>
 								<span className="font-medium text-gray-900 dark:text-gray-100">
 									{user.username}
 								</span>
 							</div>
-							<Form method="post" action={`/logout?returnTo=${encodeURIComponent(currentPath)}`}>
+							<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
 								<button
-									type="submit"
 									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
 									onClick={onClose}
+									type="submit"
 								>
 									<LogOut className="h-4 w-4" />
 									Sign out
@@ -196,9 +196,9 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 					) : (
 						<div className="mb-4">
 							<Link
-								to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
-								onClick={onClose}
 								className="flex items-center gap-2 w-full px-3 py-2 bg-discord-button hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium justify-center"
+								onClick={onClose}
+								to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
 							>
 								<LogIn className="h-4 w-4" />
 								Sign in with Discord
@@ -209,10 +209,10 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 					<nav className="space-y-1">
 						{NAVIGATION_ITEMS.map((item) => (
 							<Link
-								key={item.to}
-								to={item.to}
-								onClick={onClose}
 								className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+								key={item.to}
+								onClick={onClose}
+								to={item.to}
 							>
 								{item.icon}
 								<div>
@@ -253,8 +253,8 @@ export function SiteTopBar({ user }: SiteTopBarProps) {
 					<div className="flex justify-between items-center">
 						<div className="flex items-center gap-6">
 							<Link
-								to="/"
 								className="font-bold sm:text-xl text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+								to="/"
 							>
 								thatskyapplication
 							</Link>
@@ -265,13 +265,13 @@ export function SiteTopBar({ user }: SiteTopBarProps) {
 									);
 									return (
 										<Link
-											key={item.to}
-											to={item.to}
 											className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
 												isActive
 													? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
 													: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
 											}`}
+											key={item.to}
+											to={item.to}
 										>
 											{item.icon}
 											<span>{item.label}</span>
@@ -286,10 +286,10 @@ export function SiteTopBar({ user }: SiteTopBarProps) {
 								{user ? <UserMenu user={user} /> : <LoginButton />}
 							</div>
 							<button
-								type="button"
-								onClick={() => setMobileMenuOpen(true)}
-								className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
 								aria-label="Open navigation menu"
+								className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+								onClick={() => setMobileMenuOpen(true)}
+								type="button"
 							>
 								<Menu className="h-5 w-5 text-gray-600 dark:text-gray-400" />
 							</button>
@@ -316,29 +316,29 @@ export function SiteFooter() {
 						</p>
 						<div className="flex gap-4">
 							<a
-								href={INVITE_SUPPORT_SERVER_URL}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="p-2 bg-[#5865F2] hover:bg-[#4752C4] rounded-lg transition-colors"
 								aria-label="Join Discord Server"
+								className="p-2 bg-[#5865F2] hover:bg-[#4752C4] rounded-lg transition-colors"
+								href={INVITE_SUPPORT_SERVER_URL}
+								rel="noopener noreferrer"
+								target="_blank"
 							>
 								<SiDiscord className="h-5 w-5 text-white" />
 							</a>
 							<a
-								href="https://github.com/thatskyapplication"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
 								aria-label="GitHub Repository"
+								className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+								href="https://github.com/thatskyapplication"
+								rel="noopener noreferrer"
+								target="_blank"
 							>
 								<SiGithub className="h-5 w-5 text-white" />
 							</a>
 							<a
-								href={CROWDIN_URL}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="p-2 bg-[#2E3440] hover:bg-[#242933] rounded-lg transition-colors"
 								aria-label="Help Translate"
+								className="p-2 bg-[#2E3440] hover:bg-[#242933] rounded-lg transition-colors"
+								href={CROWDIN_URL}
+								rel="noopener noreferrer"
+								target="_blank"
 							>
 								<SiCrowdin className="h-5 w-5 text-white" />
 							</a>
@@ -350,8 +350,8 @@ export function SiteFooter() {
 							{NAVIGATION_ITEMS.map((item) => (
 								<li key={item.to}>
 									<Link
-										to={item.to}
 										className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+										to={item.to}
 									>
 										{item.label}
 									</Link>
@@ -359,8 +359,8 @@ export function SiteFooter() {
 							))}
 							<li>
 								<Link
-									to="/thatskylink"
 									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+									to="/thatskylink"
 								>
 									thatskylink
 								</Link>
@@ -372,36 +372,36 @@ export function SiteFooter() {
 						<ul className="space-y-2">
 							<li>
 								<a
-									href={INVITE_SUPPORT_SERVER_URL}
-									target="_blank"
-									rel="noopener noreferrer"
 									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+									href={INVITE_SUPPORT_SERVER_URL}
+									rel="noopener noreferrer"
+									target="_blank"
 								>
 									Support Server
 								</a>
 							</li>
 							<li>
 								<a
-									href={INVITE_APPLICATION_URL}
-									target="_blank"
-									rel="noopener noreferrer"
 									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+									href={INVITE_APPLICATION_URL}
+									rel="noopener noreferrer"
+									target="_blank"
 								>
 									Invite Caelus
 								</a>
 							</li>
 							<li>
 								<Link
-									to="/caelus/guides/terms-privacy"
 									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+									to="/caelus/guides/terms-privacy"
 								>
 									Terms & Privacy
 								</Link>
 							</li>
 							<li>
 								<Link
-									to="/caelus/guides/acknowledgements"
 									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+									to="/caelus/guides/acknowledgements"
 								>
 									Acknowledgements
 								</Link>

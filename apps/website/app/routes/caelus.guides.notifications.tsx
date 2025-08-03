@@ -27,12 +27,12 @@ export default function Notifications() {
 				</div>
 				<hr className="my-8" />
 				<Permissions
-					userPermissions={["Manage Server"]}
 					appPermissions={[
 						"Send Messages",
 						"View Channel",
 						"Mention @everyone, @here and All Roles",
 					]}
+					userPermissions={["Manage Server"]}
 				/>
 				<section className="space-y-6">
 					<h2>Setting up notifications</h2>
@@ -60,8 +60,8 @@ export default function Notifications() {
 						<div className="grid md:grid-cols-2 gap-4">
 							{NOTIFICATION_TYPE_VALUES.map((notification) => (
 								<div
-									key={notification}
 									className="bg-white/60 dark:bg-gray-800/60 rounded-lg p-4 backdrop-blur-sm"
+									key={notification}
 								>
 									<h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
 										<Bell className="w-4 h-4 text-purple-600 dark:text-purple-400" />
@@ -86,9 +86,9 @@ export default function Notifications() {
 							<h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-0">Example</h3>
 						</div>
 						<img
-							src="https://cdn.thatskyapplication.com/assets/notifications_example.webp"
 							alt="Example of notifications in a channel showing polluted geyser alerts with role mentions"
 							className="w-full max-w-lg rounded-md shadow-md border border-gray-200 dark:border-gray-600"
+							src="https://cdn.thatskyapplication.com/assets/notifications_example.webp"
 						/>
 						<div className="mt-4 bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-3">
 							<p className="text-green-800 dark:text-green-300 text-sm m-0 flex items-start gap-2">

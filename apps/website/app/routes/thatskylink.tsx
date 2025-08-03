@@ -36,17 +36,17 @@ export default function ThatSkyLink() {
 				<div className="grid gap-6">
 					{EXAMPLES.map((example) => (
 						<div
-							key={example.short}
 							className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-md transition-shadow"
+							key={example.short}
 						>
 							<div className="space-y-3">
 								<div className="flex items-center gap-3">
 									<div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0" />
 									<a
-										href={`https://${example.short}`}
-										target="_blank"
-										rel="noopener noreferrer"
 										className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium underline-offset-4 hover:underline transition-colors"
+										href={`https://${example.short}`}
+										rel="noopener noreferrer"
+										target="_blank"
 									>
 										<code>{example.short}</code>
 									</a>
@@ -54,10 +54,10 @@ export default function ThatSkyLink() {
 								<div className="flex items-start gap-3">
 									<div className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0 mt-1" />
 									<a
-										href={`https://${example.full}`}
-										target="_blank"
-										rel="noopener noreferrer"
 										className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm break-all underline-offset-4 hover:underline transition-colors min-w-0"
+										href={`https://${example.full}`}
+										rel="noopener noreferrer"
+										target="_blank"
 									>
 										<code>{example.full}</code>
 									</a>
@@ -108,10 +108,10 @@ export default function ThatSkyLink() {
 							All links are listed here. You may suggest a link too!
 						</p>
 						<a
-							href="https://github.com/thatskyapplication/thatskylink"
-							target="_blank"
-							rel="noopener noreferrer"
 							className="inline-flex items-center px-6 py-3 bg-gray-900 hover:bg-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 text-white font-medium rounded-lg transition-colors"
+							href="https://github.com/thatskyapplication/thatskylink"
+							rel="noopener noreferrer"
+							target="_blank"
 						>
 							View
 							<ExternalLinkIcon className="ml-2 w-4 h-4" />

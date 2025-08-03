@@ -13,11 +13,11 @@ export default function Permissions({ userPermissions, appPermissions }: Permiss
 	return (
 		<div className="my-4">
 			<button
-				type="button"
-				onClick={() => setPermissionsExpanded(!permissionsExpanded)}
 				className={
 					"flex items-center gap-2 text-amber-700 dark:text-amber-300 hover:text-amber-800 dark:hover:text-amber-200 transition-colors"
 				}
+				onClick={() => setPermissionsExpanded(!permissionsExpanded)}
+				type="button"
 			>
 				{permissionsExpanded ? (
 					<ChevronDown className="w-4 h-4" />

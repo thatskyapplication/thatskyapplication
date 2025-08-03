@@ -52,7 +52,7 @@ export default function Acknowledgements() {
 							<h2 className="mt-0">Friendship actions contributors</h2>
 							<p className="text-gray-700 dark:text-gray-300 mb-6">
 								These wonderful people have contributed to{" "}
-								<Link to="/caelus/guides/friendship-actions" className="regular-link">
+								<Link className="regular-link" to="/caelus/guides/friendship-actions">
 									friendship actions
 								</Link>{" "}
 								for everyone to enjoy!
@@ -60,19 +60,19 @@ export default function Acknowledgements() {
 							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 								{skyProfilePackets.map((profile) => (
 									<Link
+										className="group bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-lg p-4 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-200 hover:scale-105 hover:shadow-md border border-pink-200/50 dark:border-pink-700/30"
 										key={profile.user_id}
 										to={`/sky-profiles/${profile.user_id}`}
-										className="group bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-lg p-4 hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-200 hover:scale-105 hover:shadow-md border border-pink-200/50 dark:border-pink-700/30"
 									>
 										<div className="flex items-center gap-3">
 											{profile.icon ? (
 												<div
+													aria-label={`Icon of ${profile.name}.`}
 													className="w-10 h-10 rounded-full border-2 border-pink-200 dark:border-pink-700 bg-cover bg-center"
+													role="img"
 													style={{
 														backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${profile.user_id}/${profile.icon.startsWith("a_") ? `${profile.icon}.gif` : `${profile.icon}.webp`})`,
 													}}
-													role="img"
-													aria-label={`Icon of ${profile.name}.`}
 												/>
 											) : (
 												<div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
@@ -98,10 +98,10 @@ export default function Acknowledgements() {
 							{APPLICATION_NAME} features over 1,000 assets sourced directly from the
 							community-maintained{" "}
 							<a
-								href={WIKI_URL}
-								target="_blank"
-								rel="noopener noreferrer"
 								className="regular-link inline-flex items-center transition duration-200"
+								href={WIKI_URL}
+								rel="noopener noreferrer"
+								target="_blank"
 							>
 								Sky: Children of the Light wiki
 								<ExternalLinkIcon className="ml-1 w-4 h-4" />

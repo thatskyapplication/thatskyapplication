@@ -15,10 +15,10 @@ import {
 import { PlatformId } from "@thatskyapplication/utility";
 
 export const PlatformToIcon = {
-	[PlatformId.iOS]: <SiIos color={SiIosHex} className="h-6 w-6" />,
-	[PlatformId.Android]: <SiAndroid color={SiAndroidHex} className="h-6 w-6" />,
-	[PlatformId.Mac]: <SiMacos color={SiMacosHex} className="h-6 w-6" />,
-	[PlatformId.NintendoSwitch]: <SiNintendoswitch color={SiNintendoswitchHex} className="h-6 w-6" />,
-	[PlatformId.PlayStation]: <SiPlaystation color={SiPlaystationHex} className="h-6 w-6" />,
-	[PlatformId.Steam]: <SiSteam color={SiSteamHex} className="h-6 w-6" />,
+	[PlatformId.iOS]: <SiIos className="h-6 w-6" color={SiIosHex} />,
+	[PlatformId.Android]: <SiAndroid className="h-6 w-6" color={SiAndroidHex} />,
+	[PlatformId.Mac]: <SiMacos className="h-6 w-6" color={SiMacosHex} />,
+	[PlatformId.NintendoSwitch]: <SiNintendoswitch className="h-6 w-6" color={SiNintendoswitchHex} />,
+	[PlatformId.PlayStation]: <SiPlaystation className="h-6 w-6" color={SiPlaystationHex} />,
+	[PlatformId.Steam]: <SiSteam className="h-6 w-6" color={SiSteamHex} />,
 } as const;

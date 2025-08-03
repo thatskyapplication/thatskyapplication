@@ -208,15 +208,15 @@ export default function DailyGuides() {
 							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Quests</h2>
 							<div className="space-y-2">
 								{quests.map((quest, index) => (
-									<div key={quest.id} className="flex items-start gap-3">
+									<div className="flex items-start gap-3" key={quest.id}>
 										<span className="text-gray-600 dark:text-gray-400 text-sm font-medium w-4 flex-shrink-0">
 											{index + 1}.
 										</span>
 										{quest.url ? (
 											<button
-												type="button"
-												onClick={() => handleImageClick(quest.url)}
 												className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors text-left flex-1"
+												onClick={() => handleImageClick(quest.url)}
+												type="button"
 											>
 												{enGB.general.quests[quest.id]}
 											</button>
@@ -237,9 +237,9 @@ export default function DailyGuides() {
 							</h2>
 							{treasureCandlesData.length === 1 ? (
 								<button
-									type="button"
-									onClick={() => handleImageClick(treasureCandlesData[0]!.url)}
 									className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+									onClick={() => handleImageClick(treasureCandlesData[0]!.url)}
+									type="button"
 								>
 									View
 								</button>
@@ -248,9 +248,9 @@ export default function DailyGuides() {
 									{treasureCandlesData.map((candle, index) => (
 										<span key={candle.url}>
 											<button
-												type="button"
-												onClick={() => handleImageClick(candle.url)}
 												className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
+												onClick={() => handleImageClick(candle.url)}
+												type="button"
 											>
 												{candle.text}
 											</button>
@@ -271,15 +271,15 @@ export default function DailyGuides() {
 							<div className="space-y-2">
 								{seasonalCandles.url && (
 									<button
-										type="button"
-										onClick={() => handleImageClick(seasonalCandles.url)}
 										className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+										onClick={() => handleImageClick(seasonalCandles.url)}
+										type="button"
 									>
 										View
 									</button>
 								)}
 								<div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-									<img src={SEASONAL_CANDLE_ICON} alt="Seasonal candle" className="h-4 w-4" />
+									<img alt="Seasonal candle" className="h-4 w-4" src={SEASONAL_CANDLE_ICON} />
 									<span>
 										{seasonalCandles.remaining} remain ({seasonalCandles.remainingWithPass} with a
 										season pass)
@@ -300,9 +300,9 @@ export default function DailyGuides() {
 											Data
 										</h3>
 										<button
-											type="button"
-											onClick={() => handleImageClick(shard.url)}
 											className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors block mb-1"
+											onClick={() => handleImageClick(shard.url)}
+											type="button"
 										>
 											{shard.realm} ({shard.skyMap})
 										</button>
@@ -312,15 +312,15 @@ export default function DailyGuides() {
 											</span>
 											{shard.strong ? (
 												<img
-													src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
 													alt="Ascended candle"
 													className="h-4 w-4"
+													src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
 												/>
 											) : (
 												<img
-													src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
 													alt="Piece of light"
 													className="h-4 w-4"
+													src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
 												/>
 											)}
 										</div>
@@ -348,9 +348,9 @@ export default function DailyGuides() {
 								</div>
 								<div className="sm:hidden space-y-2">
 									<button
-										type="button"
-										onClick={() => handleImageClick(shard.url)}
 										className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors block"
+										onClick={() => handleImageClick(shard.url)}
+										type="button"
 									>
 										{shard.realm} ({shard.skyMap})
 									</button>
@@ -358,15 +358,15 @@ export default function DailyGuides() {
 										<span className="text-sm text-gray-700 dark:text-gray-300">{shard.reward}</span>
 										{shard.strong ? (
 											<img
-												src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
 												alt="Ascended candle"
 												className="h-4 w-4"
+												src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
 											/>
 										) : (
 											<img
-												src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
 												alt="Piece of light"
 												className="h-4 w-4"
+												src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
 											/>
 										)}
 									</div>
@@ -397,13 +397,13 @@ export default function DailyGuides() {
 								Travelling Rock
 							</h2>
 							<button
-								type="button"
+								className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
 								onClick={() =>
 									handleImageClick(
 										`https://cdn.thatskyapplication.com/daily_guides/travelling_rocks/${travellingRock}.webp`,
 									)
 								}
-								className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+								type="button"
 							>
 								View
 							</button>
@@ -413,8 +413,8 @@ export default function DailyGuides() {
 						<div className="pt-4 border-t-2 border-gray-200 dark:border-gray-700">
 							{daysCount.map((text) => (
 								<p
-									key={text}
 									className="text-xs text-gray-500 dark:text-gray-400 m-0 mb-1 last:mb-0"
+									key={text}
 								>
 									{text}
 								</p>
@@ -427,19 +427,19 @@ export default function DailyGuides() {
 						<div className="flex items-center justify-between mb-4 flex-shrink-0">
 							<h3 className="font-semibold text-gray-900 dark:text-white text-sm">Infographic</h3>
 							<button
-								type="button"
-								onClick={() => setSelectedImage(null)}
-								className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
 								aria-label="Close infographic"
+								className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+								onClick={() => setSelectedImage(null)}
+								type="button"
 							>
 								<X className="w-4 h-4" />
 							</button>
 						</div>
 						<div className="flex items-center justify-center flex-1 min-h-0 overflow-hidden">
 							<img
-								src={selectedImage}
 								alt="Infographic"
 								className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+								src={selectedImage}
 								style={{ objectFit: "contain" }}
 							/>
 						</div>
@@ -451,19 +451,19 @@ export default function DailyGuides() {
 					<div className="flex items-center justify-between p-4 bg-gray-800/50 flex-shrink-0">
 						<h3 className="text-white font-medium">Infographic</h3>
 						<button
-							type="button"
-							onClick={() => setSelectedImage(null)}
-							className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
 							aria-label="Close infographic"
+							className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+							onClick={() => setSelectedImage(null)}
+							type="button"
 						>
 							<X className="w-6 h-6" />
 						</button>
 					</div>
 					<div className="flex-1 flex items-center justify-center p-4 min-h-0 overflow-hidden">
 						<img
-							src={selectedImage}
 							alt="Infographic"
 							className="max-w-full max-h-full object-contain"
+							src={selectedImage}
 							style={{ objectFit: "contain" }}
 						/>
 					</div>
