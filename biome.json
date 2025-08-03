@@ -54,6 +54,7 @@
 				},
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
+				"useExplicitLengthCheck": "error",
 				"useNamingConvention": "off",
 				"useNumberNamespace": "error",
 				"useSelfClosingElements": "error",
