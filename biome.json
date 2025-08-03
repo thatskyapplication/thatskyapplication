@@ -55,6 +55,7 @@
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
 				"useExplicitLengthCheck": "error",
+				"useForOf": "error",
 				"useNamingConvention": "off",
 				"useNumberNamespace": "error",
 				"useSelfClosingElements": "error",
