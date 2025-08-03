@@ -4,9 +4,6 @@
 	"extends": "//",
 	"linter": {
 		"rules": {
-			"complexity": {
-				"noExcessiveCognitiveComplexity": "off"
-			},
 			"style": {
 				"useDefaultSwitchClause": "off",
 				"noParameterAssign": "error",

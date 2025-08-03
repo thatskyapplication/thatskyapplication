@@ -101,7 +101,6 @@ function isNotificationShardEruptionData(
 	);
 }
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	const date = DateTime.now().setZone(TIME_ZONE).set({ second: 0, millisecond: 0 });
 	const { day, weekday, hour, minute } = date;

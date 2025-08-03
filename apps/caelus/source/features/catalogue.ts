@@ -411,7 +411,6 @@ interface OfferDataOptions {
 	includeTitles?: boolean;
 }
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 function offerData({
 	data = new Set(),
 	spirits = [],

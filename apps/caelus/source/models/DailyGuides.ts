@@ -327,7 +327,6 @@ export default new (class DailyGuides {
 		}
 	}
 
-	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	private resolveDailyGuide(options: ResolveDailyGuideOptions) {
 		const { pureContent, realm, skyMap } = options;
 		const upperPureContent = pureContent.toUpperCase();

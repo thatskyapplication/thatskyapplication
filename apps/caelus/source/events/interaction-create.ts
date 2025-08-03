@@ -354,7 +354,6 @@ function logMessageComponent(
 
 export default {
 	name,
-	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: It's fine.
 	async fire({ api, data: interaction }) {
 		if (isChatInputCommand(interaction)) {
 			logCommand(interaction);

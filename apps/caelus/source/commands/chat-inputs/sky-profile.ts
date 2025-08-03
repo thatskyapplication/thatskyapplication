@@ -83,7 +83,6 @@ export default {
 			return;
 		}
 	},
-	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	async edit(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const name = options.getString("name");
 		const thumbnail = options.getAttachment("thumbnail");

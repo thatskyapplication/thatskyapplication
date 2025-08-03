@@ -223,7 +223,6 @@ interface DiscordPayload {
 	};
 }
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 export async function reddit() {
 	// Fetch webhooks.
 	let redditWebhooksPackets = await pg<RedditWebhooksPacket>(Table.RedditWebhooks).select(

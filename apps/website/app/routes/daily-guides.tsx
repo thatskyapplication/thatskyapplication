@@ -71,7 +71,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	}
 };
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 export default function DailyGuides() {
 	const { dailyGuides, todayString, shard } = useLoaderData<typeof loader>();
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);

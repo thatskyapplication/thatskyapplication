@@ -1943,7 +1943,6 @@ export default class Profile {
 		});
 	}
 
-	// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 	public async embed(
 		interaction:
 			| APIChatInputApplicationCommandInteraction

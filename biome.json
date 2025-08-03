@@ -19,12 +19,6 @@
 				"noSwitchDeclarations": "error"
 			},
 			"complexity": {
-				"noExcessiveCognitiveComplexity": {
-					"level": "error",
-					"options": {
-						"maxAllowedComplexity": 35
-					}
-				},
 				"noThisInStatic": "off",
 				"noVoid": "off"
 			},

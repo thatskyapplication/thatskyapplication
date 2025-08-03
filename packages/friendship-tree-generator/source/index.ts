@@ -93,7 +93,6 @@ interface CreateNodeOptions {
 	customY?: number;
 }
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: This is fine.
 async function createNode({
 	node,
 	nodeIndex,
