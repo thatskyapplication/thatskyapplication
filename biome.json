@@ -42,6 +42,7 @@
 				"noYodaExpression": "error",
 				"useAsConstAssertion": "error",
 				"useBlockStatements": "error",
+				"useCollapsedElseIf": "error",
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
 				"useNamingConvention": "off",
