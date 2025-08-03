@@ -44,6 +44,7 @@
 				"useBlockStatements": "error",
 				"useCollapsedElseIf": "error",
 				"useCollapsedIf": "error",
+				"useConsistentArrayType": "error",
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
 				"useNamingConvention": "off",
