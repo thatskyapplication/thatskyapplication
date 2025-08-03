@@ -35,7 +35,7 @@ jobs:
             - args: [--frozen-lockfile]
 
       - name: Build dependencies
-        run: pnpm run build
+        run: pnpm --filter @thatskyapplication/utility run build
 
       - uses: crowdin/github-action@v2
         with:
