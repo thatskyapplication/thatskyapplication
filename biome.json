@@ -29,7 +29,8 @@
 				"noFloatingPromises": "on"
 			},
 			"performance": {
-				"noBarrelFile": "on"
+				"noBarrelFile": "on",
+				"noDelete": "on"
 			},
 			"style": {
 				"noNonNullAssertion": "off",
