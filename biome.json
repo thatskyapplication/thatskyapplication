@@ -60,6 +60,7 @@
 				"useNamingConvention": "off",
 				"useNumberNamespace": "error",
 				"useSelfClosingElements": "error",
+				"useShorthandAssign": "error",
 				"useSingleVarDeclarator": "error"
 			},
 			"suspicious": {
