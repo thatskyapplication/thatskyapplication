@@ -33,6 +33,7 @@
 				"noDelete": "on"
 			},
 			"style": {
+				"noNegationElse": "on",
 				"noNonNullAssertion": "off",
 				"useNamingConvention": "off",
 				"noParameterAssign": "error",
