@@ -107,7 +107,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 		return { shards, page };
 	} catch (error) {
-		pino.error(error, "Unable to load shard eruptions.");
+		pino.error({ request, error }, "Unable to load shard eruptions.");
 		throw new Response(null, { status: 500 });
 	}
 };

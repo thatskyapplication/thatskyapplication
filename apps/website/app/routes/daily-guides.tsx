@@ -66,7 +66,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			{ headers: { "Cache-Control": "public, max-age=300, s-maxage=300" } },
 		);
 	} catch (error) {
-		pino.error(error, "Unable to fetch daily guides.");
+		pino.error({ request, error }, "Unable to fetch daily guides.");
 		throw new Response(null, { status: 500 });
 	}
 };

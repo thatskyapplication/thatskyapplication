@@ -84,7 +84,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 				},
 			});
 		} catch (error) {
-			pino.error(error, "Failed to log in.");
+			pino.error({ request, error }, "Failed to log in.");
 
 			return redirect(storedReturnTo, {
 				headers: {

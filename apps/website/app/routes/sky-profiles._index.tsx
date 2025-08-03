@@ -97,7 +97,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 		);
 	} catch (error) {
-		pino.error(error, "Unable to fetch Sky profiles.");
+		pino.error({ request, error }, "Unable to fetch Sky profiles.");
 		throw new Response(null, { status: 500 });
 	}
 };

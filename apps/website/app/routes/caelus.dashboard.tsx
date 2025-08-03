@@ -47,7 +47,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			}, []),
 		};
 	} catch (error) {
-		pino.error(error, "Failed to load dashboard.");
+		pino.error({ request, error }, "Failed to load dashboard.");
 		return { guilds: [], error: true };
 	}
 };

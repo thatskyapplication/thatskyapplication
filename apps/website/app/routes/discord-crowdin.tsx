@@ -101,7 +101,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			session.set("crowdin_user", authenticationState.crowdinUser);
 			session.set("crowdin_token", tokenData.access_token);
 		} catch (error) {
-			pino.error(error, "Failed to authorise with Crowdin.");
+			pino.error({ request, error }, "Failed to authorise with Crowdin.");
 			authenticationState.error = "Failed to authorise with Crowdin.";
 			session.set("auth_error", authenticationState.error);
 		}
@@ -135,7 +135,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				authenticationState.success = true;
 			}
 		} catch (error) {
-			pino.error(error, "Failed to link accounts.");
+			pino.error({ request, error }, "Failed to link accounts.");
 			authenticationState.error = "Failed to link accounts.";
 			session.set("auth_error", authenticationState.error);
 		}
