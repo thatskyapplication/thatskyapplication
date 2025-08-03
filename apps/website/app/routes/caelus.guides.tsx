@@ -79,7 +79,9 @@ export default function CaelusGuidesLayout() {
 
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
-			if (event.key === "Escape") setSidebarOpen(false);
+			if (event.key === "Escape") {
+				setSidebarOpen(false);
+			}
 		};
 
 		document.addEventListener("keydown", handleEscape);

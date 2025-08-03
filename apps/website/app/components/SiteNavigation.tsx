@@ -239,7 +239,9 @@ export function SiteTopBar({ user }: SiteTopBarProps) {
 
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
-			if (event.key === "Escape") setMobileMenuOpen(false);
+			if (event.key === "Escape") {
+				setMobileMenuOpen(false);
+			}
 		};
 
 		document.addEventListener("keydown", handleEscape);

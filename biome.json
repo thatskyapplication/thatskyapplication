@@ -41,6 +41,7 @@
 				"noUselessElse": "error",
 				"noYodaExpression": "error",
 				"useAsConstAssertion": "error",
+				"useBlockStatements": "error",
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
 				"useNamingConvention": "off",
