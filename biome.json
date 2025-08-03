@@ -14,10 +14,6 @@
 	},
 	"linter": {
 		"rules": {
-			"correctness": {
-				"noNodejsModules": "off",
-				"noSwitchDeclarations": "error"
-			},
 			"complexity": {
 				"noForEach": "on",
 				"noThisInStatic": "off",
