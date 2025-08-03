@@ -116,10 +116,15 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 						style={{
 							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profile.user_id}/${profile.thumbnail.startsWith("a_") ? `${profile.thumbnail}.gif` : `${profile.thumbnail}.webp`})`,
 						}}
+						role="img"
 						aria-label={`Thumbnail of ${profile.name}.`}
 					/>
 				) : (
-					<div className="w-full h-48 bg-gray-200 dark:bg-gray-600" aria-label="No thumbnail." />
+					<div
+						className="w-full h-48 bg-gray-200 dark:bg-gray-600"
+						role="img"
+						aria-label="No thumbnail."
+					/>
 				)}
 				{profile.icon && (
 					<div
@@ -127,6 +132,7 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 						style={{
 							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${profile.user_id}/${profile.icon.startsWith("a_") ? `${profile.icon}.gif` : `${profile.icon}.webp`})`,
 						}}
+						role="img"
 						aria-label={`Icon of ${profile.name}.`}
 					/>
 				)}
@@ -144,6 +150,7 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 									style={{
 										backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
 									}}
+									role="img"
 									aria-label={`Season ${season} icon.`}
 								/>
 							))}
@@ -211,6 +218,7 @@ export default function SkyProfiles() {
 						style={{
 							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 						}}
+						role="img"
 						aria-label="Question mark icon."
 					/>
 					<span>Random</span>

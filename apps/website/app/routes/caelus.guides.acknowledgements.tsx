@@ -71,6 +71,7 @@ export default function Acknowledgements() {
 													style={{
 														backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${profile.user_id}/${profile.icon.startsWith("a_") ? `${profile.icon}.gif` : `${profile.icon}.webp`})`,
 													}}
+													role="img"
 													aria-label={`Icon of ${profile.name}.`}
 												/>
 											) : (

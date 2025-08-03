@@ -65,6 +65,7 @@ export function ErrorBoundary() {
 										backgroundImage:
 											"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 									}}
+									role="img"
 									aria-label="Question mark icon"
 								/>
 								Random Sky Profile
@@ -181,6 +182,7 @@ export default function SkyProfile() {
 								style={{
 									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.thumbnail.startsWith("a_") ? `${skyProfilePacket.thumbnail}.gif` : `${skyProfilePacket.thumbnail}.webp`})`,
 								}}
+								role="img"
 								aria-label={`Thumbnail of ${skyProfilePacket.name}.`}
 							/>
 						) : (
@@ -193,6 +195,7 @@ export default function SkyProfile() {
 							style={{
 								backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfilePacket.user_id}/${skyProfilePacket.icon.startsWith("a_") ? `${skyProfilePacket.icon}.gif` : `${skyProfilePacket.icon}.webp`})`,
 							}}
+							role="img"
 							aria-label={`Icon of ${skyProfilePacket.name}.`}
 						/>
 					)}
@@ -214,6 +217,7 @@ export default function SkyProfile() {
 										style={{
 											backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
 										}}
+										role="img"
 										aria-label={`Season ${season} icon.`}
 									/>
 								))}
@@ -257,6 +261,7 @@ export default function SkyProfile() {
 							style={{
 								backgroundImage: "url(https://cdn.thatskyapplication.com/assets/winged_light.webp)",
 							}}
+							role="img"
 							aria-label="Winged light icon."
 						/>
 						<div className="flex-1">
@@ -272,6 +277,7 @@ export default function SkyProfile() {
 							style={{
 								backgroundImage: "url(https://cdn.thatskyapplication.com/assets/heart.webp)",
 							}}
+							role="img"
 							aria-label="Favourite spirit icon."
 						/>
 						<div className="flex-1">
@@ -309,6 +315,7 @@ export default function SkyProfile() {
 						style={{
 							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 						}}
+						role="img"
 						aria-label="Question mark icon."
 					/>
 					<span>Random</span>

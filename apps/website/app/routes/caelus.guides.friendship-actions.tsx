@@ -32,6 +32,7 @@ export default function FriendshipActions() {
 						<div
 							className="w-8 h-8 bg-cover bg-center"
 							style={{ backgroundImage: "url(https://cdn.thatskyapplication.com/icons/hug.png)" }}
+							role="img"
 							aria-label="Hug icon"
 						/>
 					</div>
@@ -74,6 +75,7 @@ export default function FriendshipActions() {
 								<div
 									className="w-full aspect-square bg-cover bg-center group-hover:scale-105 transition-transform duration-300"
 									style={{ backgroundImage: `url(${gif})` }}
+									role="img"
 									aria-label="Friendship action GIF"
 								/>
 							</div>
