@@ -34,7 +34,7 @@
 			},
 			"style": {
 				"noInferrableTypes": "error",
-				"noNegationElse": "on",
+				"noNegationElse": "error",
 				"noNonNullAssertion": "off",
 				"noParameterAssign": "error",
 				"noUnusedTemplateLiteral": "error",
