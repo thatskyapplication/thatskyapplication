@@ -21,7 +21,8 @@
 			"complexity": {
 				"noForEach": "on",
 				"noThisInStatic": "off",
-				"noVoid": "off"
+				"noVoid": "off",
+				"useSimplifiedLogicExpression": "on"
 			},
 			"style": {
 				"noDefaultExport": "off",
