@@ -1,6 +1,5 @@
 {
 	"general": {
-		"discovery-expanded-description": "",
 		"days-left": {
 			"season_zero": "",
 			"season_one": "シーズン終了まであと{{count}} 日。",

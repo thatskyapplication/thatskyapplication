@@ -1,6 +1,5 @@
 {
 	"general": {
-		"discovery-expanded-description": "",
 		"days-left": {
 			"season_zero": "本季節將在今天結束。",
 			"season_one": "本季節還有{{count}}天結束。",

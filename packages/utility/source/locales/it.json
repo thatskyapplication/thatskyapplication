@@ -1,6 +1,5 @@
 {
 	"general": {
-		"discovery-expanded-description": "",
 		"days-left": {
 			"season_zero": "",
 			"season_one": "Ancora {{count}} giorno alla fine della stagione.",
