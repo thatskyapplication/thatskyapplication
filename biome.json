@@ -43,6 +43,7 @@
 				"useAsConstAssertion": "error",
 				"useBlockStatements": "error",
 				"useCollapsedElseIf": "error",
+				"useCollapsedIf": "error",
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
 				"useNamingConvention": "off",
