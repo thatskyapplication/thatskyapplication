@@ -19,6 +19,7 @@
 				"noSwitchDeclarations": "error"
 			},
 			"complexity": {
+				"noForEach": "on",
 				"noThisInStatic": "off",
 				"noVoid": "off"
 			},
