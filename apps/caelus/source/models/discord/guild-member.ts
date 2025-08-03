@@ -21,7 +21,7 @@ export class GuildMember {
 		}
 	}
 
-	isCommunicationDisabled() {
+	public isCommunicationDisabled() {
 		return Boolean(
 			this.communicationDisabledUntil && this.communicationDisabledUntil.getTime() > Date.now(),
 		);

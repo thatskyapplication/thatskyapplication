@@ -475,7 +475,7 @@ export class OptionResolver {
 		return option as TypeToOptionMap<InteractionType.ApplicationCommand>[Option];
 	}
 
-	chatInputCommandText() {
+	public chatInputCommandText() {
 		const properties = [
 			this.interaction.data.name,
 			this.group,

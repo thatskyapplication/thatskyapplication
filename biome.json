@@ -46,6 +46,12 @@
 				"useCollapsedIf": "error",
 				"useConsistentArrayType": "error",
 				"useConsistentCurlyBraces": "error",
+				"useConsistentMemberAccessibility": {
+					"level": "error",
+					"options": {
+						"accessibility": "explicit"
+					}
+				},
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
 				"useNamingConvention": "off",
