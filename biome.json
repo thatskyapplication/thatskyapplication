@@ -28,6 +28,9 @@
 				"noConstantBinaryExpression": "on",
 				"noFloatingPromises": "on"
 			},
+			"performance": {
+				"noBarrelFile": "on"
+			},
 			"style": {
 				"noNonNullAssertion": "off",
 				"useNamingConvention": "off",
