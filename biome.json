@@ -24,6 +24,9 @@
 				"noUndeclaredDependencies": "on",
 				"useJsxKeyInIterable": "on"
 			},
+			"nursery": {
+				"noConstantBinaryExpression": "on"
+			},
 			"style": {
 				"noNonNullAssertion": "off",
 				"useNamingConvention": "off",
