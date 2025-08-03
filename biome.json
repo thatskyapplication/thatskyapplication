@@ -33,19 +33,19 @@
 				"noDelete": "on"
 			},
 			"style": {
+				"noInferrableTypes": "error",
 				"noNegationElse": "on",
 				"noNonNullAssertion": "off",
-				"useNamingConvention": "off",
 				"noParameterAssign": "error",
+				"noUnusedTemplateLiteral": "error",
+				"noUselessElse": "error",
 				"useAsConstAssertion": "error",
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
-				"useSelfClosingElements": "error",
-				"useSingleVarDeclarator": "error",
-				"noUnusedTemplateLiteral": "error",
+				"useNamingConvention": "off",
 				"useNumberNamespace": "error",
-				"noInferrableTypes": "error",
-				"noUselessElse": "error"
+				"useSelfClosingElements": "error",
+				"useSingleVarDeclarator": "error"
 			},
 			"suspicious": {
 				"noConstEnum": "off"
