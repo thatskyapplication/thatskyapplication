@@ -20,6 +20,10 @@
 				"noVoid": "off",
 				"useSimplifiedLogicExpression": "on"
 			},
+			"correctness": {
+				"noUndeclaredDependencies": "on",
+				"useJsxKeyInIterable": "on"
+			},
 			"style": {
 				"noNonNullAssertion": "off",
 				"useNamingConvention": "off",
