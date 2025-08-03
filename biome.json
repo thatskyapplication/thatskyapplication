@@ -45,6 +45,7 @@
 				"useCollapsedElseIf": "error",
 				"useCollapsedIf": "error",
 				"useConsistentArrayType": "error",
+				"useConsistentCurlyBraces": "error",
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
 				"useNamingConvention": "off",

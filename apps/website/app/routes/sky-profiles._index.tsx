@@ -211,7 +211,7 @@ export default function SkyProfiles() {
 				</Form>
 				<Link
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
-					to={"/sky-profiles/random"}
+					to="/sky-profiles/random"
 				>
 					<div
 						aria-label="Question mark icon."

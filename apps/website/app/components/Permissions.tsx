@@ -13,9 +13,7 @@ export default function Permissions({ userPermissions, appPermissions }: Permiss
 	return (
 		<div className="my-4">
 			<button
-				className={
-					"flex items-center gap-2 text-amber-700 dark:text-amber-300 hover:text-amber-800 dark:hover:text-amber-200 transition-colors"
-				}
+				className="flex items-center gap-2 text-amber-700 dark:text-amber-300 hover:text-amber-800 dark:hover:text-amber-200 transition-colors"
 				onClick={() => setPermissionsExpanded(!permissionsExpanded)}
 				type="button"
 			>
@@ -27,14 +25,10 @@ export default function Permissions({ userPermissions, appPermissions }: Permiss
 				<span className="text-sm font-medium">Permissions</span>
 			</button>
 			{permissionsExpanded && (
-				<div
-					className={
-						"mt-3 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-700 border rounded-lg p-4"
-					}
-				>
+				<div className="mt-3 bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-700 border rounded-lg p-4">
 					<div className="space-y-2">
 						<div className="flex items-center gap-2">
-							<span className={"text-amber-700 dark:text-amber-300 text-sm"}>
+							<span className="text-amber-700 dark:text-amber-300 text-sm">
 								<strong>You:</strong>{" "}
 								{userPermissions.map((permission, index) => (
 									<span key={permission}>
@@ -45,7 +39,7 @@ export default function Permissions({ userPermissions, appPermissions }: Permiss
 							</span>
 						</div>
 						<div className="flex items-center gap-2">
-							<span className={"text-amber-700 dark:text-amber-300 text-sm"}>
+							<span className="text-amber-700 dark:text-amber-300 text-sm">
 								<strong>{APPLICATION_NAME}:</strong>{" "}
 								{appPermissions.map((permission, index) => (
 									<span key={permission}>

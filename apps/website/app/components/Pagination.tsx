@@ -29,7 +29,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
 							event.preventDefault();
 						}
 					}}
-					to={"?page=1"}
+					to="?page=1"
 				>
 					<ChevronsLeftIcon className="w-6 h-6" />
 					<span className="hidden md:block ml-1">Start</span>
