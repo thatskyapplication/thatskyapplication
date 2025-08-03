@@ -25,7 +25,8 @@
 				"useJsxKeyInIterable": "on"
 			},
 			"nursery": {
-				"noConstantBinaryExpression": "on"
+				"noConstantBinaryExpression": "on",
+				"noFloatingPromises": "on"
 			},
 			"style": {
 				"noNonNullAssertion": "off",
