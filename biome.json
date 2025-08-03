@@ -64,6 +64,7 @@
 				"useSingleVarDeclarator": "error"
 			},
 			"suspicious": {
+				"noAlert": "error",
 				"noConstEnum": "off"
 			}
 		}
