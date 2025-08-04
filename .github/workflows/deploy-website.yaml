@@ -1,8 +1,10 @@
 name: Deploy website
 on:
   push:
-    branches: main
-    paths: apps/website/**/*
+    branches:
+      - main
+    paths:
+      - apps/website/**/*
   workflow_dispatch:
 jobs:
   deploy:

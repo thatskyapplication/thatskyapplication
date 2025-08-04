@@ -1,7 +1,8 @@
 name: Deploy Notifications
 on:
   push:
-    branches: main
+    branches:
+      - main
     paths:
       - apps/notifications/**/*
       # Ensure a change in travelling spirits triggers this workflow.

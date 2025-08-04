@@ -1,8 +1,10 @@
 name: Deploy Servare
 on:
   push:
-    branches: main
-    paths: apps/servare/**/*
+    branches:
+      - main
+    paths:
+      - apps/servare/**/*
   workflow_dispatch:
 jobs:
   deploy:

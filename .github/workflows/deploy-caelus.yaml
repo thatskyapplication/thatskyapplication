@@ -1,7 +1,8 @@
 name: Deploy Caelus
 on:
   push:
-    branches: main
+    branches:
+      - main
     paths:
       - apps/caelus/**/*
       # Ensure a change in travelling spirits triggers this workflow.
