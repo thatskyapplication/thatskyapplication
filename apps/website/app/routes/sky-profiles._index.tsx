@@ -234,7 +234,7 @@ export default function SkyProfiles() {
 				)}
 			</div>
 			{currentPage !== undefined && totalPages !== undefined && (
-				<Pagination currentPage={currentPage ?? 0} totalPages={totalPages ?? 0} />
+				<Pagination currentPage={currentPage} totalPages={totalPages} />
 			)}
 		</div>
 	);
