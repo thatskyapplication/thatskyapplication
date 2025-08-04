@@ -993,7 +993,7 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	/**
 	 * Anniversary Suit.
 	 */
-	Outfit89: { id: "1396967031881990385", name: "89_outfit" },
+	Outfit89: { id: "1401820507371737190", name: "89_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1085,7 +1085,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit86: { id: "1396917168918106184", name: "86_outfit" },
 	Outfit87: { id: "1396949620608864417", name: "87_outfit" },
 	Outfit88: { id: "1396956009645473904", name: "88_outfit" },
-	Outfit89: { id: "1396967018607022120", name: "89_outfit" },
+	Outfit89: { id: "1401820515299229697", name: "89_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -4825,11 +4825,11 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	/**
 	 * Sky Balloon Prop.
 	 */
-	LargePlaceableProp91: { id: "1396966370293579796", name: "91_large_placeable_prop" },
+	LargePlaceableProp91: { id: "1401821013708242945", name: "91_large_placeable_prop" },
 	/**
 	 * Balloon Arch.
 	 */
-	LargePlaceableProp92: { id: "1396967493519806464", name: "92_large_placeable_prop" },
+	LargePlaceableProp92: { id: "1401820180027412540", name: "92_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4923,8 +4923,8 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp88: { id: "1391822990693634108", name: "88_large_placeable_prop" },
 	LargePlaceableProp89: { id: "1396956400135180471", name: "89_large_placeable_prop" },
 	LargePlaceableProp90: { id: "1396956612895313950", name: "90_large_placeable_prop" },
-	LargePlaceableProp91: { id: "1396966377897852978", name: "91_large_placeable_prop" },
-	LargePlaceableProp92: { id: "1396967500960497694", name: "92_large_placeable_prop" },
+	LargePlaceableProp91: { id: "1401821020276523038", name: "91_large_placeable_prop" },
+	LargePlaceableProp92: { id: "1401820190467162163", name: "92_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5299,7 +5299,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	/**
 	 * Blue Carpet.
 	 */
-	SmallPlaceableProp93: { id: "1396966719569920120", name: "93_small_placeable_prop" },
+	SmallPlaceableProp93: { id: "1401820772309270588", name: "93_small_placeable_prop" },
 	/**
 	 * Manatee Plush.
 	 */
@@ -5399,7 +5399,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp90: { id: "1391669797715972126", name: "90_small_placeable_prop" },
 	SmallPlaceableProp91: { id: "1391669806096187392", name: "91_small_placeable_prop" },
 	SmallPlaceableProp92: { id: "1396906809238884393", name: "92_small_placeable_prop" },
-	SmallPlaceableProp93: { id: "1396966726335463474", name: "93_small_placeable_prop" },
+	SmallPlaceableProp93: { id: "1401820779548639252", name: "93_small_placeable_prop" },
 	SmallPlaceableProp94: { id: "1399294985655947375", name: "94_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
