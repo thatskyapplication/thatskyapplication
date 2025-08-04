@@ -167,7 +167,7 @@ const TREASURE_CANDLES_DOUBLE_ROTATION = {
 	],
 } as const;
 
-export function treasureCandles(today: DateTime) {
+export function treasureCandles(today: DateTime): readonly [string, ...string[]] {
 	if (today.year === 2025 && today.month === 3 && today.day === 21) {
 		// 3 were available on this date.
 		return [
@@ -183,7 +183,7 @@ export function treasureCandles(today: DateTime) {
 
 	const realmRotation = TREASURE_CANDLES_ROTATION[realmIndex];
 	const realmRotationIndex = today.day % realmRotation.length;
-	const result = [realmRotation[realmRotationIndex]!];
+	const result: [string] = [realmRotation[realmRotationIndex]!];
 
 	if (TREASURE_CANDLES_DOUBLE_DATES.some(({ start, end }) => today >= start && today < end)) {
 		result.push(TREASURE_CANDLES_DOUBLE_ROTATION[realmIndex][realmRotationIndex]!);

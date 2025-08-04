@@ -505,7 +505,7 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 	if (quests.length > 0) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### Quests\n${quests
+			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
 				.map(
 					({ id, url }, index) =>
 						`${index + 1}. ${url ? `[${t(`quests.${id}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${id}`, { lng: locale, ns: "general" })}`,
@@ -518,11 +518,16 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
-		content: `### Treasure Candles\n${treasureCandleURLs
-			.map(
-				(treasureCandleURL, index) => `[${index * 4 + 1} - ${index * 4 + 4}](${treasureCandleURL})`,
-			)
-			.join(" | ")}`,
+		content: `### ${t("daily-guides.treasure-candles", { lng: locale, ns: "features" })}\n${
+			treasureCandleURLs.length === 1
+				? `[${t("view", { lng: locale, ns: "general" })}](${treasureCandleURLs[0]})`
+				: treasureCandleURLs
+						.map(
+							(treasureCandleURL, index) =>
+								`[${index * 4 + 1}–${index * 4 + 4}](${treasureCandleURL})`,
+						)
+						.join(" | ")
+		}`,
 	});
 
 	const season = skyCurrentSeason(today);
@@ -550,7 +555,7 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 			}
 
 			const url = season.seasonalCandlesRotationURL(realm, rotationIdentifier);
-			values.push(`[Rotation ${rotationIdentifier}](${url})`);
+			values.push(`[${t("view", { lng: locale, ns: "general" })}](${url})`);
 		}
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
@@ -559,28 +564,30 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 		const candleEmoji = SeasonIdToSeasonalCandleEmoji[season.id];
 
 		values.push(
-			`${resolveCurrencyEmoji({
-				emoji: candleEmoji,
-				number: seasonalCandlesLeft,
-			})} remain in the season.\n${resolveCurrencyEmoji({
-				emoji: candleEmoji,
-				number: seasonalCandlesLeftWithSeasonPass,
-			})} remain in the season with a Season Pass.`,
+			t("daily-guides.seasonal-candles-remain", {
+				lng: locale,
+				ns: "features",
+				remaining: resolveCurrencyEmoji({ emoji: candleEmoji, number: seasonalCandlesLeft }),
+				remainingSeasonPass: resolveCurrencyEmoji({
+					emoji: candleEmoji,
+					number: seasonalCandlesLeftWithSeasonPass,
+				}),
+			}),
 		);
 
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### Seasonal Candles\n${values.join("\n")}`,
+			content: `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n${values.join("\n")}`,
 		});
 	} else {
 		const next = skyUpcomingSeason(today);
 
 		if (next) {
-			const daysUntilStart = next.start.diff(now, "days").days;
+			const daysUntilStart = next.start.diff(today, "days").days;
 			const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
 
 			footerText.push(
-				`${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${daysUntilStart <= 1 ? "The new season starts tomorrow." : daysUntilStart >= 2 ? `The new season starts in ${Math.floor(daysUntilStart)} days.` : "The new season starts in 1 day."}`,
+				`${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: daysUntilStart })}`,
 			);
 		}
 	}
@@ -600,19 +607,19 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 	if (shard) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("shard-eruption", { lng: locale, ns: "general" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString(shard)}`,
+			content: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString(shard)}`,
 		});
 	} else {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("shard-eruption", { lng: locale, ns: "general" })}\n${t("shard-eruption-none", { lng: locale, ns: "general" })}`,
+			content: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${t("shard-eruption-none", { lng: locale, ns: "general" })}`,
 		});
 	}
 
 	if (travellingRock) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### Travelling Rock\n[View](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
+			content: `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n[${t("view", { lng: locale, ns: "general" })}](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
 		});
 	}
 

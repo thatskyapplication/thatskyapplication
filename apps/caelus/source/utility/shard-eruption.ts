@@ -63,6 +63,6 @@ export function shardEruptionInformationString(
 
 export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData) {
 	return timestamps
-		.map(({ start, end }) => `<t:${start.toUnixInteger()}:T> - <t:${end.toUnixInteger()}:T>`)
+		.map(({ start, end }) => `<t:${start.toUnixInteger()}:T>–<t:${end.toUnixInteger()}:T>`)
 		.join("\n");
 }

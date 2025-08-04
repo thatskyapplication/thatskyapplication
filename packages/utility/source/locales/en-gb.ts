@@ -619,8 +619,6 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/Workshop_Show_%26_Tell",
 			[EventId.SkyAnniversary2025]: "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
 		} satisfies Record<EventIds, `https://${string}`>,
-		"shard-eruption": "Shard Eruption",
-		"shard-eruption-none": "None",
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
 			[SkyProfileWingedLightType.Capeless]: "Capeless",
@@ -3346,6 +3344,19 @@ export default {
 			"seasons-navigate-forward": "Navigate forward",
 			"seasons-season-previous-season": "Previous season",
 			"seasons-season-next-season": "Next season",
+		},
+		"daily-guides": {
+			"quests-heading": "Quests",
+			"treasure-candles": "Treasure Candles",
+			"seasonal-candles": "Seasonal Candles",
+			"seasonal-candles-remain":
+				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
+			"shard-eruption": "Shard Eruption",
+			"shard-eruption-none": "None",
+			"travelling-rock": "Travelling Rock",
+			"season-upcoming_zero": "The new season starts tomorrow.",
+			"season-upcoming_one": "The new season starts in {{count}} day.",
+			"season-upcoming_other": "The new season starts in {{count}} days.",
 		},
 		data: {
 			"delete-message":

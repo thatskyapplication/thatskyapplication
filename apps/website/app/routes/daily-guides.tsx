@@ -100,12 +100,6 @@ export default function DailyGuides() {
 	);
 
 	const treasureCandleURLs = treasureCandles(today);
-
-	const treasureCandlesData = treasureCandleURLs.map((treasureCandleURL, index) => ({
-		text: `${index * 4 + 1}–${index * 4 + 4}`,
-		url: treasureCandleURL,
-	}));
-
 	let seasonalCandles = null;
 	let seasonalCandlesUrl = null;
 	const daysCount = [];
@@ -229,31 +223,31 @@ export default function DailyGuides() {
 							</div>
 						</div>
 					)}
-					{treasureCandlesData.length > 0 && (
+					{treasureCandleURLs.length > 0 && (
 						<div className="mb-5">
 							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
 								Treasure Candles
 							</h2>
-							{treasureCandlesData.length === 1 ? (
+							{treasureCandleURLs.length === 1 ? (
 								<button
 									className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-									onClick={() => handleImageClick(treasureCandlesData[0]!.url)}
+									onClick={() => handleImageClick(treasureCandleURLs[0])}
 									type="button"
 								>
 									View
 								</button>
 							) : (
 								<div className="flex flex-wrap gap-1 text-sm">
-									{treasureCandlesData.map((candle, index) => (
-										<span key={candle.url}>
+									{treasureCandleURLs.map((treasureCandleURL, index) => (
+										<span key={treasureCandleURL}>
 											<button
 												className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
-												onClick={() => handleImageClick(candle.url)}
+												onClick={() => handleImageClick(treasureCandleURL)}
 												type="button"
 											>
-												{candle.text}
+												{`${index * 4 + 1}–${index * 4 + 4}`}
 											</button>
-											{index < treasureCandlesData.length - 1 && (
+											{index < treasureCandleURLs.length - 1 && (
 												<span className="mx-1 text-gray-600 dark:text-gray-300">|</span>
 											)}
 										</span>
