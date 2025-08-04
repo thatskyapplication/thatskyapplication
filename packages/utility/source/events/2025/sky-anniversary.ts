@@ -46,6 +46,12 @@ export default new Event({
 				end: skyDate(2_025, 8, 18),
 			},
 			{
+				// 5 bonus event tickets worth 2 each.
+				amount: 10,
+				start: skyDate(2_025, 8, 4),
+				end: skyDate(2_025, 8, 18),
+			},
+			{
 				amount: 30,
 				start: skyDate(2_025, 8, 4),
 				end: skyDate(2_025, 8, 18),
