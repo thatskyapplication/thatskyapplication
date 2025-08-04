@@ -8,6 +8,9 @@ on:
       # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/spirits/**/*
   workflow_dispatch:
+concurrency:
+  group: deploy-notifications
+  cancel-in-progress: true
 jobs:
   deploy:
     name: Deploy app

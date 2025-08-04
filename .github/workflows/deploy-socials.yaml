@@ -6,6 +6,9 @@ on:
     paths:
       - apps/socials/**/*
   workflow_dispatch:
+concurrency:
+  group: deploy-socials
+  cancel-in-progress: true
 jobs:
   deploy:
     name: Deploy app

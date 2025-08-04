@@ -6,6 +6,9 @@ on:
     paths:
       - apps/website/**/*
   workflow_dispatch:
+concurrency:
+  group: deploy-website
+  cancel-in-progress: true
 jobs:
   deploy:
     name: Deploy app
