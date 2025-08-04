@@ -3108,8 +3108,8 @@ export enum Cosmetic {
 	SpiritedManateeHeadAccessory = 2468,
 
 	// 04/08/2025 | Version 0.30.0.
-	VestigeOfDarkDragonsTail,
-	VestigeOfDarkDragonsHeadAccessory,
+	VestigeOfDarkDragonsTail = 2469,
+	VestigeOfDarkDragonsHeadAccessory = 2470,
 
 	// 11/08/2025 | Version 0.30.0.
 	AnniversaryGown,

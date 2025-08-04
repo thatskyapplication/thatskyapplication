@@ -1902,6 +1902,10 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Spirited Manatee Head Accessory.
 	 */
 	FaceAccessory44: { id: "1399295002525307003", name: "44_face_accessory" },
+	/**
+	 * Vestige of Dark Dragons Head Accessory.
+	 */
+	FaceAccessory45: { id: "1401818086453149776", name: "45_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -1949,6 +1953,7 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory42: { id: "1365251466738139169", name: "42_face_accessory" },
 	FaceAccessory43: { id: "1391821700949082252", name: "43_face_accessory" },
 	FaceAccessory44: { id: "1399295009513279508", name: "44_face_accessory" },
+	FaceAccessory45: { id: "1401818096985182218", name: "45_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -2148,6 +2153,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Spirited Manatee Tail.
 	 */
 	Necklace49: { id: "1399295016740065360", name: "49_necklace" },
+	/**
+	 * Vestige of Dark Dragons Tail.
+	 */
+	Necklace50: { id: "1401818687077355672", name: "50_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2200,6 +2209,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace47: { id: "1363810875089096865", name: "47_necklace" },
 	Necklace48: { id: "1396895202043760723", name: "48_necklace" },
 	Necklace49: { id: "1399295025233395742", name: "49_necklace" },
+	Necklace50: { id: "1401818695403311175", name: "50_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -7927,8 +7937,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.ManateePlush]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp94,
 		[Cosmetic.SpiritedManateeTail]: NECKLACE_EMOJIS.Necklace49,
 		[Cosmetic.SpiritedManateeHeadAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory44,
-		[Cosmetic.VestigeOfDarkDragonsTail]: null,
-		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: null,
+		[Cosmetic.VestigeOfDarkDragonsTail]: NECKLACE_EMOJIS.Necklace50,
+		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory45,
 		[Cosmetic.AnniversaryGown]: null,
 		[Cosmetic.AnniversaryShoes]: null,
 		[Cosmetic.AnniversaryTuxedoCape]: null,

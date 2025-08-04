@@ -64,11 +64,11 @@ export default new Season({
 			cosmeticDisplay: Cosmetic.SpiritedManateeHeadAccessory,
 			cost: { money: 9.99 },
 		},
-		// {
-		// 	cosmetic: [Cosmetic.VestigeOfDarkDragonsTail, Cosmetic.VestigeOfDarkDragonsHeadAccessory],
-		// 	cosmeticDisplay: Cosmetic.VestigeOfDarkDragonsTail, // Double-check this.
-		// 	cost: { money: 11.99 },
-		// },
+		{
+			cosmetic: [Cosmetic.VestigeOfDarkDragonsTail, Cosmetic.VestigeOfDarkDragonsHeadAccessory],
+			cosmeticDisplay: Cosmetic.VestigeOfDarkDragonsHeadAccessory,
+			cost: { money: 11.99 },
+		},
 	],
 	patchNotesURL: String(new URL("p0300", LINK_REDIRECTOR_URL)),
 });
