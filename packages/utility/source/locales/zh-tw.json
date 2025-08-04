@@ -534,8 +534,6 @@
 			"76": "https://sky-children-of-the-light.fandom.com/wiki/Workshop_Show_%26_Tell",
 			"77": "https://sky-children-of-the-light.fandom.com/Sky_Anniversary"
 		},
-		"shard-eruption": "碎片噴發",
-		"shard-eruption-none": "無",
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
 			"1": "無披風"
@@ -2556,9 +2554,9 @@
 			"2468": "",
 			"2469": "",
 			"2470": "",
-			"2471": "",
-			"2472": "",
-			"2473": "週年慶典燕尾斗篷"
+			"2473": "",
+			"2474": "",
+			"2475": "週年慶典燕尾斗篷"
 		},
 		"timestamps": "時間戳",
 		"view": "瀏覽",
@@ -3164,6 +3162,18 @@
 			"seasons-navigate-forward": "下一頁",
 			"seasons-season-previous-season": "",
 			"seasons-season-next-season": ""
+		},
+		"daily-guides": {
+			"quests-heading": "",
+			"treasure-candles": "",
+			"seasonal-candles": "",
+			"seasonal-candles-remain": "",
+			"shard-eruption": "碎片噴發",
+			"shard-eruption-none": "無",
+			"travelling-rock": "",
+			"season-upcoming_zero": "",
+			"season-upcoming_one": "",
+			"season-upcoming_other": ""
 		},
 		"data": {
 			"delete-message": "您是否確定要刪除您的資料？此舉將會：\n- 刪除您的光子簡介\n- 刪除您的目錄\n- 刪除您曾經獲得/贈送的愛心記錄\n  - 以您的ID所贈送的愛心記錄，在其他人頁面上將以匿名方式呈現\n- 刪除您於猜謎遊戲的最長連勝記錄\n- 移除您的抽獎資訊\n- 移除您的翻譯員角色，若您曾獲得該角色",
