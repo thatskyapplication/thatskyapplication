@@ -534,8 +534,6 @@
 			"76": "",
 			"77": ""
 		},
-		"shard-eruption": "",
-		"shard-eruption-none": "",
 		"sky-profile-winged-light-types": {
 			"0": "",
 			"1": ""
@@ -2556,9 +2554,9 @@
 			"2468": "",
 			"2469": "",
 			"2470": "",
-			"2471": "",
-			"2472": "",
-			"2473": "Smoking Anniversario"
+			"2473": "",
+			"2474": "",
+			"2475": "Smoking Anniversario"
 		},
 		"timestamps": "",
 		"view": "",
@@ -3164,6 +3162,18 @@
 			"seasons-navigate-forward": "",
 			"seasons-season-previous-season": "",
 			"seasons-season-next-season": ""
+		},
+		"daily-guides": {
+			"quests-heading": "",
+			"treasure-candles": "",
+			"seasonal-candles": "",
+			"seasonal-candles-remain": "",
+			"shard-eruption": "",
+			"shard-eruption-none": "",
+			"travelling-rock": "",
+			"season-upcoming_zero": "",
+			"season-upcoming_one": "",
+			"season-upcoming_other": ""
 		},
 		"data": {
 			"delete-message": "",
