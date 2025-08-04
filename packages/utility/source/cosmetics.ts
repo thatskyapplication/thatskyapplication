@@ -3111,6 +3111,10 @@ export enum Cosmetic {
 	VestigeOfDarkDragonsTail = 2469,
 	VestigeOfDarkDragonsHeadAccessory = 2470,
 
+	// 04/08/2025 | Season of The Two Embers - Part 1 Quest 3.
+	VaultEldersLanternQuest3 = 2471,
+	VaultEldersLanternHeart3 = 2472,
+
 	// 11/08/2025 | Version 0.30.0.
 	AnniversaryGown,
 	AnniversaryShoes,
