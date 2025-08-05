@@ -5,7 +5,11 @@ import { client } from "../discord.js";
 import { eligible } from "../features/giveaway.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { SUPPORT_SERVER_GUILD_ID, TRANSLATOR_ROLE_ID } from "../utility/configuration.js";
+import {
+	SUPPORT_SERVER_GUILD_ID,
+	SUPPORTER_ROLE_ID,
+	TRANSLATOR_ROLE_ID,
+} from "../utility/configuration.js";
 import { GIVEAWAY_END_DATE, GIVEAWAY_START_DATE } from "../utility/constants.js";
 import type { Event } from "./index.js";
 
@@ -23,13 +27,16 @@ export default {
 		}
 
 		if (data.guild_id === SUPPORT_SERVER_GUILD_ID) {
-			if (
-				await pg<UsersPacket>(Table.Users)
-					.where({ discord_user_id: data.user.id })
-					.and.whereNotNull("crowdin_user_id")
-					.first()
-			) {
-				pino.info(data, "Added translator role to user.");
+			if (isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())) {
+				await eligible({ userId: data.user.id });
+			}
+
+			const usersPacket = await pg<UsersPacket>(Table.Users)
+				.where({ discord_user_id: data.user.id })
+				.first();
+
+			if (usersPacket?.crowdin_user_id) {
+				pino.info(data, "Adding translator role to user.");
 
 				await client.api.guilds.addRoleToMember(
 					SUPPORT_SERVER_GUILD_ID,
@@ -38,8 +45,14 @@ export default {
 				);
 			}
 
-			if (isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())) {
-				await eligible({ userId: data.user.id });
+			if (usersPacket?.supporter) {
+				pino.info(data, "Adding supporter role to user.");
+
+				await client.api.guilds.addRoleToMember(
+					SUPPORT_SERVER_GUILD_ID,
+					data.user.id,
+					SUPPORTER_ROLE_ID,
+				);
 			}
 		}
 	},

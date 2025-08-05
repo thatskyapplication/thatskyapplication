@@ -5,6 +5,7 @@ import { client, gateway } from "./discord.js";
 import channelCreate from "./events/channel-create.js";
 import channelDelete from "./events/channel-delete.js";
 import channelUpdate from "./events/channel-update.js";
+import entitlementCreate from "./events/entitlement-create.js";
 import entitlementDelete from "./events/entitlement-delete.js";
 import entitlementUpdate from "./events/entitlement-update.js";
 import guildCreate from "./events/guild-create.js";
@@ -34,6 +35,7 @@ for (const event of [
 	channelCreate,
 	channelDelete,
 	channelUpdate,
+	entitlementCreate,
 	entitlementDelete,
 	entitlementUpdate,
 	guildCreate,
