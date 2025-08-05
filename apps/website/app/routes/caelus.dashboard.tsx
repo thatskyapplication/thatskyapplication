@@ -28,6 +28,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			},
 		});
 
+		if (response.status === 401) {
+			const returnTo = encodeURIComponent(request.url);
+			return redirect(`/login?returnTo=${returnTo}`);
+		}
+
 		if (!response.ok) {
 			throw await response.json();
 		}
