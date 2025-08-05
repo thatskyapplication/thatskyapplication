@@ -321,11 +321,15 @@ export async function reddit() {
 			}
 
 			if (urls.length > 0) {
-				containerComponents.push({
-					type: ComponentType.MediaGallery,
-					// Reddit has a maximum of 20 assets. Discord has a maximum of 10.
-					items: urls.slice(0, 10).map((url) => ({ media: { url } })),
-				});
+				// Reddit has a maximum of 20 assets. Discord has a maximum of 10.
+				for (let index = 0; index < urls.length; index += 10) {
+					const chunk = urls.slice(index, index + 10);
+
+					containerComponents.push({
+						type: ComponentType.MediaGallery,
+						items: chunk.map((url) => ({ media: { url } })),
+					});
+				}
 			}
 
 			containerComponents.push(
