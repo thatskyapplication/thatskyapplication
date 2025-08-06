@@ -9,17 +9,49 @@ import {
 	PLAY_FIGHTS,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
-import { DEFAULT_LOCALE } from "~/utility/constants";
+import { DEFAULT_LOCALE, LOCALES } from "~/utility/constants";
 
 const cdn = new CDN();
 
-export function getLocaleFromRequest(request: Request) {
-	return (
-		request.headers
-			.get("accept-language")
-			?.split(",")
-			.map((language) => language.split(";")[0]!.trim()) ?? DEFAULT_LOCALE
-	);
+export function getLocaleFromRequest(request: Request): string {
+	const acceptLanguage = request.headers.get("accept-language");
+
+	if (!acceptLanguage) {
+		return DEFAULT_LOCALE;
+	}
+
+	const languages = acceptLanguage.split(",");
+
+	for (const language of languages) {
+		const [locale] = language.split(";");
+		const preferred = locale?.trim().toLowerCase();
+
+		if (!preferred) {
+			continue;
+		}
+
+		const exactMatch = LOCALES.find((supported) => supported.toLowerCase() === preferred);
+
+		if (exactMatch) {
+			return exactMatch;
+		}
+
+		const [preferredLanguage] = preferred.split("-");
+
+		if (!preferredLanguage) {
+			continue;
+		}
+
+		const languageMatch = LOCALES.find((supported) =>
+			supported.toLowerCase().startsWith(`${preferredLanguage}-`),
+		);
+
+		if (languageMatch) {
+			return languageMatch;
+		}
+	}
+
+	return DEFAULT_LOCALE;
 }
 
 export function timeString(locale: string | string[]) {

@@ -1,3 +1,4 @@
+import { Locale } from "@discordjs/core/http-only";
 import { CDN_URL } from "@thatskyapplication/utility";
 
 export const EXCLUDE_TOP_BAR_AND_FOOTER = ["/"] as const;
@@ -27,3 +28,20 @@ export const INVITE_APPLICATION_URL =
 export const INVITE_SUPPORT_SERVER_URL = "https://discord.gg/BFT7EAhrNz" as const;
 export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp", CDN_URL));
 export const SKY_PROFILES_PAGE_LIMIT = 24 as const;
+
+export const LOCALES = [
+	Locale.German,
+	Locale.EnglishGB,
+	Locale.EnglishUS,
+	Locale.SpanishLATAM,
+	Locale.SpanishES,
+	Locale.French,
+	Locale.Italian,
+	Locale.Japanese,
+	Locale.Korean,
+	Locale.PortugueseBR,
+	Locale.Russian,
+	Locale.Vietnamese,
+	Locale.ChineseCN,
+	Locale.ChineseTW,
+] as const satisfies Readonly<Locale[]>;
