@@ -43,7 +43,8 @@ const RETURNING_DATES = new Collection<number, ReturningDatesData>()
 	.set(6, { start: skyDate(2_024, 9, 16), end: skyDate(2_024, 9, 30) })
 	.set(7, { start: skyDate(2_025, 1, 13), end: skyDate(2_025, 1, 27) })
 	.set(8, { start: skyDate(2_025, 4, 7), end: skyDate(2_025, 4, 21) })
-	.set(9, { start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) });
+	.set(9, { start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) })
+	.set(10, { start: skyDate(2_025, 8, 18), end: skyDate(2_025, 9, 1) });
 
 export type FriendshipTreeRaw = readonly (
 	| readonly [ItemRawWithoutChildren]
