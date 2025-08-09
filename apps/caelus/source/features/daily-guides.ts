@@ -955,4 +955,9 @@ export async function submitInterest(interaction: APIModalSubmitInteraction) {
 		allowed_mentions: { parse: [] },
 		content: `<@${invoker.id}> expressed interest! Time zone:\n>>> ${timeZone}`,
 	});
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		content: "Thank you for expressing interest!",
+		flags: MessageFlags.Ephemeral,
+	});
 }
