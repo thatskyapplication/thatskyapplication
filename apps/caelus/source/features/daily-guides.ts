@@ -9,6 +9,7 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	type APIModalSubmitGuildInteraction,
+	type APIModalSubmitInteraction,
 	type APINewsChannel,
 	type APITextChannel,
 	ButtonStyle,
@@ -21,6 +22,7 @@ import {
 	SelectMenuDefaultValueType,
 	SeparatorSpacingSize,
 	type Snowflake,
+	TextInputStyle,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import {
@@ -80,7 +82,8 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { isChatInputCommand } from "../utility/functions.js";
+import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
@@ -915,4 +918,41 @@ export async function setTravellingRock(
 
 	await DailyGuides.updateTravellingRock(hashedBuffer);
 	await interactive(interaction, { deferred: true, locale });
+}
+
+export async function epxressInterest(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		title: "Daily Guides Aid",
+		custom_id: "daily-guides-aid",
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						label: "What is your time zone?",
+						custom_id: "daily-guides-aid-time-zone",
+						style: TextInputStyle.Short,
+						max_length: 20,
+						min_length: 5,
+						placeholder: "E.g. GMT+01:00",
+						required: true,
+					},
+				],
+			},
+		],
+	});
+}
+
+export async function submitInterest(interaction: APIModalSubmitInteraction) {
+	const components = new ModalResolver(interaction.data.components);
+	const timeZone = components.getTextInputValue("daily-guides-aid-time-zone");
+	const invoker = interactionInvoker(interaction);
+
+	await client.api.channels.createMessage("1312597812956893305", {
+		allowed_mentions: { parse: [] },
+		content: `<@${invoker.id}> expressed interest! Time zone:\n>>> ${timeZone}`,
+	});
 }
