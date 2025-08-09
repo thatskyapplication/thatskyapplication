@@ -86,6 +86,9 @@ import {
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
+	handleDistributeButton,
+	interactive,
+	questsReorder,
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
 import {
@@ -156,7 +159,6 @@ import Profile, {
 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
 } from "../models/Profile.js";
 import pino from "../pino.js";
-import { distribute, interactive, questSwap } from "../services/admin.js";
 import {
 	answer,
 	isGuessDifficultyLevel,
@@ -169,7 +171,7 @@ import { browse, today } from "../services/shard-eruption.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
-	DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID,
+	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DATA_DELETION_CUSTOM_ID,
 	ERROR_RESPONSE,
 	ERROR_RESPONSE_COMPONENTS_V2,
@@ -767,7 +769,7 @@ export default {
 					}
 
 					if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
-						await distribute(interaction);
+						await handleDistributeButton(interaction);
 						return;
 					}
 				}
@@ -918,8 +920,8 @@ export default {
 						return;
 					}
 
-					if (customId === DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID) {
-						await questSwap(interaction);
+					if (customId === DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID) {
+						await questsReorder(interaction);
 						return;
 					}
 

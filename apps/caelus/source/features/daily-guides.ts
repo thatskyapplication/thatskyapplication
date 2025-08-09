@@ -1,12 +1,17 @@
+import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIChannel,
+	type APIChatInputApplicationCommandGuildInteraction,
 	type APIComponentInContainer,
 	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
+	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
+	type APIModalSubmitGuildInteraction,
 	type APINewsChannel,
 	type APITextChannel,
+	ButtonStyle,
 	ChannelType,
 	ComponentType,
 	type Locale,
@@ -21,6 +26,7 @@ import { DiscordAPIError } from "@discordjs/rest";
 import {
 	formatEmoji,
 	formatEmojiURL,
+	isDailyQuest,
 	RotationIdentifier,
 	resolveCurrencyEmoji,
 	shardEruption,
@@ -35,12 +41,14 @@ import {
 	treasureCandles,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { hash } from "hasha";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import pQueue from "p-queue";
+import sharp from "sharp";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import DailyGuides from "../models/DailyGuides.js";
+import DailyGuides, { type DailyGuidesSetQuestsData } from "../models/DailyGuides.js";
 import type {
 	DailyGuidesDistributionAllowedChannel,
 	DailyGuidesDistributionData,
@@ -51,12 +59,19 @@ import type { GuildMember } from "../models/discord/guild-member.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { MAXIMUM_CONCURRENCY_LIMIT } from "../utility/configuration.js";
+import S3Client from "../s3-client.js";
+import { APPLICATION_ID, MAXIMUM_CONCURRENCY_LIMIT } from "../utility/configuration.js";
 import {
+	CDN_BUCKET,
 	CDN_URL,
+	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	DAILY_GUIDES_LOCALE_CUSTOM_ID,
+	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_URL,
+	DailyQuestToInfographicURL,
 	DEFAULT_EMBED_COLOUR,
+	LOCALE_OPTIONS,
 	NOT_IN_CACHED_GUILD_RESPONSE,
 } from "../utility/constants.js";
 import {
@@ -65,6 +80,8 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
+import { isChatInputCommand } from "../utility/functions.js";
+import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
 	shardEruptionInformationString,
@@ -637,13 +654,7 @@ export function distributionData(locale: Locale): [APIMessageTopLevelComponent] 
 		);
 	}
 
-	return [
-		{
-			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
-			components: containerComponents,
-		},
-	];
+	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
 export async function distribute() {
@@ -689,4 +700,219 @@ export async function distribute() {
 	if (knownErrors.length > 0) {
 		pino.info(knownErrors, "Known errors whilst distributing daily guides.");
 	}
+}
+
+interface InteractiveOptions {
+	deferred?: boolean;
+	locale: Locale;
+}
+
+export async function interactive(
+	interaction:
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
+		| APIModalSubmitGuildInteraction,
+	options?: InteractiveOptions,
+) {
+	const resolvedLocale = options?.locale ?? interaction.locale;
+	const quests = [DailyGuides.quest1, DailyGuides.quest2, DailyGuides.quest3, DailyGuides.quest4];
+	const questOptions = [];
+
+	for (const quest of quests) {
+		if (!quest) {
+			continue;
+		}
+
+		questOptions.push({
+			label: t(`quests.${quest.id}`, { lng: resolvedLocale, ns: "general" }),
+			value: quest.id.toString(),
+		});
+	}
+
+	const containerComponents: APIComponentInContainer[] = [];
+
+	const components: APIMessageTopLevelComponent[] = [
+		...distributionData(resolvedLocale),
+		{
+			type: ComponentType.Container,
+			components: containerComponents,
+		},
+	];
+
+	if (questOptions.length > 1) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
+					max_values: questOptions.length,
+					min_values: questOptions.length,
+					options: questOptions,
+					placeholder: "Reorder quests.",
+				},
+			],
+		});
+	}
+
+	containerComponents.push(
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: DAILY_GUIDES_LOCALE_CUSTOM_ID,
+					max_values: 1,
+					min_values: 1,
+					options: LOCALE_OPTIONS,
+					placeholder: "View in a locale.",
+				},
+			],
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
+					label: "Distribute",
+					style: ButtonStyle.Success,
+				},
+			],
+		},
+	);
+
+	const response: APIInteractionResponseCallbackData = {
+		components,
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	};
+
+	if (options?.deferred) {
+		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, response);
+	} else if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+	}
+}
+
+export async function handleDistributeButton(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	const { locale } = interaction;
+	await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+	await distribute();
+	await interactive(interaction, { deferred: true, locale });
+}
+
+export async function setQuest(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+) {
+	const { locale } = interaction;
+
+	if (options.hoistedOptions.length === 0) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "At least one option must be specified.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const quest1 = options.getInteger("quest-1") ?? DailyGuides.quest1?.id;
+	const quest2 = options.getInteger("quest-2") ?? DailyGuides.quest2?.id;
+	const quest3 = options.getInteger("quest-3") ?? DailyGuides.quest3?.id;
+	const quest4 = options.getInteger("quest-4") ?? DailyGuides.quest4?.id;
+
+	const url1 =
+		options.getString("url-1") ??
+		(quest1 !== undefined && isDailyQuest(quest1) ? DailyQuestToInfographicURL[quest1] : null);
+
+	const url2 =
+		options.getString("url-2") ??
+		(quest2 !== undefined && isDailyQuest(quest2) ? DailyQuestToInfographicURL[quest2] : null);
+
+	const url3 =
+		options.getString("url-3") ??
+		(quest3 !== undefined && isDailyQuest(quest3) ? DailyQuestToInfographicURL[quest3] : null);
+
+	const url4 =
+		options.getString("url-4") ??
+		(quest4 !== undefined && isDailyQuest(quest4) ? DailyQuestToInfographicURL[quest4] : null);
+
+	await DailyGuides.updateQuests({
+		quest1: quest1 !== undefined ? { id: quest1, url: url1 } : null,
+		quest2: quest2 !== undefined ? { id: quest2, url: url2 } : null,
+		quest3: quest3 !== undefined ? { id: quest3, url: url3 } : null,
+		quest4: quest4 !== undefined ? { id: quest4, url: url4 } : null,
+	});
+
+	await interactive(interaction, { locale });
+}
+
+export async function questsReorder(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
+	const {
+		locale,
+		data: { values },
+	} = interaction;
+	const quest1 = Number(values[0]);
+	const quest2 = Number(values[1]);
+	const quest3 = Number(values[2]);
+	const quest4 = Number(values[3]);
+	const data: DailyGuidesSetQuestsData = {};
+
+	if (isDailyQuest(quest1)) {
+		data.quest1 = { id: quest1, url: DailyQuestToInfographicURL[quest1] };
+	}
+
+	if (isDailyQuest(quest2)) {
+		data.quest2 = { id: quest2, url: DailyQuestToInfographicURL[quest2] };
+	}
+
+	if (isDailyQuest(quest3)) {
+		data.quest3 = { id: quest3, url: DailyQuestToInfographicURL[quest3] };
+	}
+
+	if (isDailyQuest(quest4)) {
+		data.quest4 = { id: quest4, url: DailyQuestToInfographicURL[quest4] };
+	}
+
+	await DailyGuides.updateQuests(data);
+	await interactive(interaction, { locale });
+}
+
+export async function setTravellingRock(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+) {
+	await client.api.interactions.defer(interaction.id, interaction.token, {
+		flags: MessageFlags.Ephemeral,
+	});
+
+	const { locale } = interaction;
+	const attachment = options.getAttachment("attachment", true);
+	const fetchedURL = await fetch(attachment.url);
+
+	const buffer = await sharp(await fetchedURL.arrayBuffer())
+		.webp()
+		.toBuffer();
+
+	const hashedBuffer = await hash(buffer, { algorithm: "md5" });
+
+	await S3Client.send(
+		new PutObjectCommand({
+			Bucket: CDN_BUCKET,
+			Key: `daily_guides/travelling_rocks/${hashedBuffer}.webp`,
+			Body: buffer,
+			ContentDisposition: "inline",
+			ContentType: fetchedURL.headers.get("content-type")!,
+		}),
+	);
+
+	await DailyGuides.updateTravellingRock(hashedBuffer);
+	await interactive(interaction, { deferred: true, locale });
 }

@@ -1186,7 +1186,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	},
 ] as const;
 
-const DEVELOPER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
+const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 	{
 		name: "admin",
 		description: "Developer-specific commands.",
@@ -1218,46 +1218,48 @@ const DEVELOPER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 					},
 				],
 			},
+		],
+		default_member_permissions: "0",
+	},
+	{
+		name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("daily-guides.command-name"),
+		description: "Edits the daily guides.",
+		type: ApplicationCommandType.ChatInput,
+		options: [
 			{
-				type: ApplicationCommandOptionType.SubcommandGroup,
-				name: "daily-guides",
-				description: "Edits the daily guides embed.",
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "interactive",
+				description: "Interactively edits the daily guides.",
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "set-quest",
+				description: "Sets a quest for the daily guides.",
+				options: [
+					...QUEST_NUMBER.map((questNumber) => ({
+						type: ApplicationCommandOptionType.Integer as const,
+						name: `quest-${questNumber}`,
+						description: "The daily quest.",
+						autocomplete: true,
+					})),
+					...QUEST_NUMBER.map((questNumber) => ({
+						type: ApplicationCommandOptionType.String as const,
+						name: `url-${questNumber}`,
+						description: "Override the respective daily quest's infographic.",
+					})),
+				],
+			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: "set-travelling-rock",
+				description: "Sets the travelling rock's location for the daily guides.",
 				options: [
 					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "interactive",
-						description: "Interactively edits the daily guides.",
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "set-quest",
-						description: "Sets a quest for the daily guides.",
-						options: [
-							...QUEST_NUMBER.map((questNumber) => ({
-								type: ApplicationCommandOptionType.Integer as const,
-								name: `quest-${questNumber}`,
-								description: "The daily quest.",
-								autocomplete: true,
-							})),
-							...QUEST_NUMBER.map((questNumber) => ({
-								type: ApplicationCommandOptionType.String as const,
-								name: `url-${questNumber}`,
-								description: "Override the respective daily quest's infographic.",
-							})),
-						],
-					},
-					{
-						type: ApplicationCommandOptionType.Subcommand,
-						name: "set-travelling-rock",
-						description: "Sets the travelling rock's location for the daily guides.",
-						options: [
-							{
-								type: ApplicationCommandOptionType.Attachment,
-								name: "attachment",
-								description: "The location of the travelling rock.",
-								required: true,
-							},
-						],
+						type: ApplicationCommandOptionType.Attachment,
+						name: "attachment",
+						description: "The location of the travelling rock.",
+						required: true,
 					},
 				],
 			},
@@ -1275,7 +1277,7 @@ const commands = [
 	api.applicationCommands.bulkOverwriteGuildCommands(
 		APPLICATION_ID,
 		SUPPORT_SERVER_GUILD_ID,
-		DEVELOPER_COMMANDS,
+		SUPPORT_SERVER_COMMANDS,
 	),
 ];
 

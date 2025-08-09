@@ -157,25 +157,6 @@ export const LOCALES = [
 	Locale.ChineseTW,
 ] as const satisfies Readonly<Locale[]>;
 
-// Admin.
-export const DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID =
-	"DAILY_GUIDES_QUESTS_SWAP_SELECT_MENU_CUSTOM_ID" as const;
-
-export const DAILY_GUIDES_LOCALE_CUSTOM_ID = "DAILY_GUIDES_LOCALE_CUSTOM_ID" as const;
-
-export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID =
-	"DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
-
-export const QUEST_OPTIONS = QUEST_NUMBER.map((questNumber) => ({
-	label: `Quest ${questNumber}`,
-	value: String(questNumber),
-}));
-
-export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
-	label: locale,
-	value: locale,
-}));
-
 // Bonk.
 export const BONKS = {
 	successful: [
@@ -336,6 +317,20 @@ export const BONKS = {
 
 // Catalogue.
 export const CATALOGUE_EVENTS_THRESHOLD = 10 as const;
+
+// Daily guides.
+export const DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID =
+	"DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID" as const;
+
+export const DAILY_GUIDES_LOCALE_CUSTOM_ID = "DAILY_GUIDES_LOCALE_CUSTOM_ID" as const;
+
+export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID =
+	"DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
+
+export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
+	label: locale,
+	value: locale,
+}));
 
 export const DailyQuestToInfographicURL = {
 	[DailyQuest.Collect30PiecesOfLight]: null,
@@ -1066,7 +1061,6 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.AdmireSharedSpacesWithBumblingBoatswain]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
-// Daily guides distribution.
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
 	ChannelType.GuildAnnouncement,

@@ -31,7 +31,6 @@ import {
 	DailyQuestToInfographicURL,
 	inconsistentMapKeys,
 	type MeditationMaps,
-	type QUEST_NUMBER,
 	type RainbowAdmireMaps,
 	type SocialLightAreaMaps,
 } from "../utility/constants.js";
@@ -52,7 +51,7 @@ interface DailyGuidesData {
 	travellingRock: DailyGuidesPacket["travelling_rock"];
 }
 
-type DailyGuidesSetQuestsData = Partial<
+export type DailyGuidesSetQuestsData = Partial<
 	Pick<DailyGuidesData, "quest1" | "quest2" | "quest3" | "quest4">
 >;
 
@@ -65,8 +64,6 @@ const DAILY_GUIDES_RESET_DATA = {
 } as const satisfies Readonly<{
 	[DailyGuide in keyof DailyGuidesPacket]: null;
 }>;
-
-export type QuestNumber = (typeof QUEST_NUMBER)[number];
 
 interface ResolveDailyGuideOptions {
 	pureContent: string;
