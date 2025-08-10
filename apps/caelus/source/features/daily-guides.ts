@@ -8,10 +8,10 @@ import {
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
-	type APIModalSubmitGuildInteraction,
 	type APIModalSubmitInteraction,
 	type APINewsChannel,
 	type APITextChannel,
+	type APIUser,
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
@@ -62,7 +62,12 @@ import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/
 import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
-import { APPLICATION_ID, MAXIMUM_CONCURRENCY_LIMIT } from "../utility/configuration.js";
+import {
+	APPLICATION_ID,
+	DAILY_GUIDES_LOG_CHANNEL_ID,
+	MAXIMUM_CONCURRENCY_LIMIT,
+	SUPPORT_SERVER_GUILD_ID,
+} from "../utility/configuration.js";
 import {
 	CDN_BUCKET,
 	CDN_URL,
@@ -82,7 +87,7 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { interactionInvoker } from "../utility/functions.js";
+import { interactionInvoker, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
@@ -722,8 +727,7 @@ export async function interactive(
 	interaction:
 		| APIChatInputApplicationCommandGuildInteraction
 		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
-		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
-		| APIModalSubmitGuildInteraction,
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 	{ type, locale }: InteractiveOptions,
 ) {
 	const quests = [DailyGuides.quest1, DailyGuides.quest2, DailyGuides.quest3, DailyGuides.quest4];
@@ -835,11 +839,53 @@ export async function interactive(
 	await client.api.interactions.reply(interaction.id, interaction.token, response);
 }
 
+interface LogModificationOptions {
+	user: APIUser;
+	content: string;
+}
+
+async function logModification({ user, content }: LogModificationOptions) {
+	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
+
+	if (!guild) {
+		pino.error("Could not find the support server whilst logging a daily guides modification.");
+		return;
+	}
+
+	const channel = guild.channels.get(DAILY_GUIDES_LOG_CHANNEL_ID);
+
+	if (channel?.type !== ChannelType.GuildText) {
+		pino.error("Could not find the daily guides log channel.");
+		return;
+	}
+
+	const me = await guild.fetchMe();
+
+	if (
+		!can({
+			permission: PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages,
+			guild,
+			member: me,
+			channel,
+		})
+	) {
+		pino.error("Missing permissions to post in the daily guides log channel.");
+		return;
+	}
+
+	await client.api.channels.createMessage(channel.id, {
+		allowed_mentions: { parse: [] },
+		content: `<@${user.id}> (${userTag(user)}) ${content}`,
+		flags: MessageFlags.SuppressEmbeds,
+	});
+}
+
 export async function handleDistributeButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
 	const { locale } = interaction;
 	await interactive(interaction, { type: InteractiveType.Distributing, locale });
+	await logModification({ user: interaction.member.user, content: "distributed daily guides." });
 	await distribute();
 	await interactive(interaction, { type: InteractiveType.Distributed, locale });
 }
@@ -859,10 +905,14 @@ export async function setQuest(
 		return;
 	}
 
-	const quest1 = options.getInteger("quest-1") ?? DailyGuides.quest1?.id;
-	const quest2 = options.getInteger("quest-2") ?? DailyGuides.quest2?.id;
-	const quest3 = options.getInteger("quest-3") ?? DailyGuides.quest3?.id;
-	const quest4 = options.getInteger("quest-4") ?? DailyGuides.quest4?.id;
+	const oldQuest1 = DailyGuides.quest1?.id;
+	const oldQuest2 = DailyGuides.quest2?.id;
+	const oldQuest3 = DailyGuides.quest3?.id;
+	const oldQuest4 = DailyGuides.quest4?.id;
+	const quest1 = options.getInteger("quest-1") ?? oldQuest1;
+	const quest2 = options.getInteger("quest-2") ?? oldQuest2;
+	const quest3 = options.getInteger("quest-3") ?? oldQuest3;
+	const quest4 = options.getInteger("quest-4") ?? oldQuest4;
 
 	const url1 =
 		options.getString("url-1") ??
@@ -879,6 +929,25 @@ export async function setQuest(
 	const url4 =
 		options.getString("url-4") ??
 		(quest4 !== undefined && isDailyQuest(quest4) ? DailyQuestToInfographicURL[quest4] : null);
+
+	const oldQuests = {
+		oldQuest1: oldQuest1 ? t(`quests.${oldQuest1}`, { ns: "general" }) : null,
+		oldQuest2: oldQuest2 ? t(`quests.${oldQuest2}`, { ns: "general" }) : null,
+		oldQuest3: oldQuest3 ? t(`quests.${oldQuest3}`, { ns: "general" }) : null,
+		oldQuest4: oldQuest4 ? t(`quests.${oldQuest4}`, { ns: "general" }) : null,
+	};
+
+	const newQuests = {
+		quest1: quest1 === undefined ? null : t(`quests.${quest1}`, { ns: "general" }),
+		quest2: quest2 === undefined ? null : t(`quests.${quest2}`, { ns: "general" }),
+		quest3: quest3 === undefined ? null : t(`quests.${quest3}`, { ns: "general" }),
+		quest4: quest4 === undefined ? null : t(`quests.${quest4}`, { ns: "general" }),
+	};
+
+	await logModification({
+		user: interaction.member.user,
+		content: `set daily quests.\nOld:\n\`\`\`JSON\n${JSON.stringify(oldQuests)}\n\`\`\`\nNew:\n\`\`\`JSON\n${JSON.stringify(newQuests)}\n\`\`\``,
+	});
 
 	await DailyGuides.updateQuests({
 		quest1: quest1 !== undefined ? { id: quest1, url: url1 } : null,
@@ -899,8 +968,8 @@ export async function questsReorder(
 	} = interaction;
 	const quest1 = Number(values[0]);
 	const quest2 = Number(values[1]);
-	const quest3 = Number(values[2]);
-	const quest4 = Number(values[3]);
+	const quest3 = values[2] === undefined ? null : Number(values[2]);
+	const quest4 = values[3] === undefined ? null : Number(values[3]);
 	const data: DailyGuidesSetQuestsData = {};
 
 	if (isDailyQuest(quest1)) {
@@ -911,13 +980,40 @@ export async function questsReorder(
 		data.quest2 = { id: quest2, url: DailyQuestToInfographicURL[quest2] };
 	}
 
-	if (isDailyQuest(quest3)) {
+	if (quest3 !== null && isDailyQuest(quest3)) {
 		data.quest3 = { id: quest3, url: DailyQuestToInfographicURL[quest3] };
 	}
 
-	if (isDailyQuest(quest4)) {
+	if (quest4 !== null && isDailyQuest(quest4)) {
 		data.quest4 = { id: quest4, url: DailyQuestToInfographicURL[quest4] };
 	}
+
+	const oldQuests = {
+		oldQuest1: DailyGuides.quest1?.id
+			? t(`quests.${DailyGuides.quest1.id}`, { ns: "general" })
+			: null,
+		oldQuest2: DailyGuides.quest2?.id
+			? t(`quests.${DailyGuides.quest2.id}`, { ns: "general" })
+			: null,
+		oldQuest3: DailyGuides.quest3?.id
+			? t(`quests.${DailyGuides.quest3.id}`, { ns: "general" })
+			: null,
+		oldQuest4: DailyGuides.quest4?.id
+			? t(`quests.${DailyGuides.quest4.id}`, { ns: "general" })
+			: null,
+	};
+
+	const newQuests = {
+		quest1: t(`quests.${quest1}`, { ns: "general" }),
+		quest2: t(`quests.${quest2}`, { ns: "general" }),
+		quest3: quest3 === null ? null : t(`quests.${quest3}`, { ns: "general" }),
+		quest4: quest4 === null ? null : t(`quests.${quest4}`, { ns: "general" }),
+	};
+
+	await logModification({
+		user: interaction.member.user,
+		content: `reordered daily quests.\nOld:\n\`\`\`JSON\n${JSON.stringify(oldQuests)}\n\`\`\`\nNew:\n\`\`\`JSON\n${JSON.stringify(newQuests)}\n\`\`\``,
+	});
 
 	await DailyGuides.updateQuests(data);
 	await interactive(interaction, { type: InteractiveType.Reorder, locale });
@@ -950,6 +1046,11 @@ export async function setTravellingRock(
 			ContentType: fetchedURL.headers.get("content-type")!,
 		}),
 	);
+
+	await logModification({
+		user: interaction.member.user,
+		content: `set the travelling rock.\n${new URL(`daily_guides/travelling_rocks/${hashedBuffer}.webp`, CDN_URL)}`,
+	});
 
 	await DailyGuides.updateTravellingRock(hashedBuffer);
 	await interactive(interaction, { type: InteractiveType.Uploading, locale });
