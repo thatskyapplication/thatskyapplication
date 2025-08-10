@@ -42,7 +42,10 @@ export default {
 
 			switch (options.getSubcommand()) {
 				case "interactive": {
-					await interactive(interaction as APIChatInputApplicationCommandGuildInteraction);
+					await interactive(interaction as APIChatInputApplicationCommandGuildInteraction, {
+						locale: interaction.locale,
+					});
+
 					return;
 				}
 				case "set-quest": {

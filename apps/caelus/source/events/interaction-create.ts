@@ -88,6 +88,7 @@ import {
 	epxressInterest,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 	handleDistributeButton,
+	InteractiveType,
 	interactive,
 	questsReorder,
 	submitInterest,
@@ -933,7 +934,11 @@ export default {
 					}
 
 					if (customId === DAILY_GUIDES_LOCALE_CUSTOM_ID) {
-						await interactive(interaction, { locale: value0 as Locale });
+						await interactive(interaction, {
+							type: InteractiveType.Locale,
+							locale: value0 as Locale,
+						});
+
 						return;
 					}
 

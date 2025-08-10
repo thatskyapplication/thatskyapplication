@@ -82,7 +82,7 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { interactionInvoker } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
@@ -705,8 +705,16 @@ export async function distribute() {
 	}
 }
 
+export const enum InteractiveType {
+	Reorder = 0,
+	Distributing = 1,
+	Distributed = 2,
+	Locale = 3,
+	Uploading = 4,
+}
+
 interface InteractiveOptions {
-	deferred?: boolean;
+	type?: InteractiveType;
 	locale: Locale;
 }
 
@@ -716,9 +724,8 @@ export async function interactive(
 		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
 		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
 		| APIModalSubmitGuildInteraction,
-	options?: InteractiveOptions,
+	{ type, locale }: InteractiveOptions,
 ) {
-	const resolvedLocale = options?.locale ?? interaction.locale;
 	const quests = [DailyGuides.quest1, DailyGuides.quest2, DailyGuides.quest3, DailyGuides.quest4];
 	const questOptions = [];
 
@@ -728,7 +735,7 @@ export async function interactive(
 		}
 
 		questOptions.push({
-			label: t(`quests.${quest.id}`, { lng: resolvedLocale, ns: "general" }),
+			label: t(`quests.${quest.id}`, { lng: locale, ns: "general" }),
 			value: quest.id.toString(),
 		});
 	}
@@ -736,12 +743,31 @@ export async function interactive(
 	const containerComponents: APIComponentInContainer[] = [];
 
 	const components: APIMessageTopLevelComponent[] = [
-		...distributionData(resolvedLocale),
+		...distributionData(locale),
 		{
 			type: ComponentType.Container,
 			components: containerComponents,
 		},
 	];
+
+	let message: string;
+
+	switch (type) {
+		case InteractiveType.Reorder:
+			message = "Quests reordered!";
+			break;
+		case InteractiveType.Distributing:
+			message = "Distributing...";
+			break;
+		case InteractiveType.Distributed:
+			message = "Distributed daily guides!";
+			break;
+		default:
+			message = "What would you like to do?";
+			break;
+	}
+
+	containerComponents.push({ type: ComponentType.TextDisplay, content: message });
 
 	if (questOptions.length > 1) {
 		containerComponents.push({
@@ -778,9 +804,10 @@ export async function interactive(
 			components: [
 				{
 					type: ComponentType.Button,
+					style: ButtonStyle.Success,
 					custom_id: DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 					label: "Distribute",
-					style: ButtonStyle.Success,
+					disabled: type === InteractiveType.Distributing,
 				},
 			],
 		},
@@ -791,22 +818,30 @@ export async function interactive(
 		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	};
 
-	if (options?.deferred) {
+	if (type === InteractiveType.Distributed || type === InteractiveType.Uploading) {
 		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, response);
-	} else if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
-	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+		return;
 	}
+
+	if (
+		type === InteractiveType.Reorder ||
+		type === InteractiveType.Distributing ||
+		type === InteractiveType.Locale
+	) {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+		return;
+	}
+
+	await client.api.interactions.reply(interaction.id, interaction.token, response);
 }
 
 export async function handleDistributeButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
 	const { locale } = interaction;
-	await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+	await interactive(interaction, { type: InteractiveType.Distributing, locale });
 	await distribute();
-	await interactive(interaction, { deferred: true, locale });
+	await interactive(interaction, { type: InteractiveType.Distributed, locale });
 }
 
 export async function setQuest(
@@ -885,7 +920,7 @@ export async function questsReorder(
 	}
 
 	await DailyGuides.updateQuests(data);
-	await interactive(interaction, { locale });
+	await interactive(interaction, { type: InteractiveType.Reorder, locale });
 }
 
 export async function setTravellingRock(
@@ -917,7 +952,7 @@ export async function setTravellingRock(
 	);
 
 	await DailyGuides.updateTravellingRock(hashedBuffer);
-	await interactive(interaction, { deferred: true, locale });
+	await interactive(interaction, { type: InteractiveType.Uploading, locale });
 }
 
 export async function epxressInterest(
