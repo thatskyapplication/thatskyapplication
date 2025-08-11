@@ -85,13 +85,11 @@ import {
 } from "../features/catalogue.js";
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
-	epxressInterest,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 	handleDistributeButton,
 	InteractiveType,
 	interactive,
 	questsReorder,
-	submitInterest,
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
 import {
@@ -731,11 +729,6 @@ export default {
 				}
 
 				if (isGuildButton(interaction)) {
-					if (customId === "DAILY_GUIDES_HELP_ANNOUNCEMENT") {
-						await epxressInterest(interaction);
-						return;
-					}
-
 					if (customId.startsWith(GIVEAWAY_BUTTON_CUSTOM_ID)) {
 						await claimTicket(interaction, Number(customId.slice(customId.indexOf("§") + 1)) === 1);
 						return;
@@ -1082,11 +1075,6 @@ export default {
 
 				if (customId === SHOP_SUGGESTION_MODAL_CUSTOM_ID) {
 					await shopSuggestionSubmission(interaction);
-					return;
-				}
-
-				if (customId === "daily-guides-aid") {
-					await submitInterest(interaction);
 					return;
 				}
 			} catch (error) {
