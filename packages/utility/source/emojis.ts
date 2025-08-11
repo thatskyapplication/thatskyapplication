@@ -7951,6 +7951,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory45,
 		[Cosmetic.VaultEldersLanternQuest3]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart3]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.VaultEldersLanternQuest4]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.VaultEldersLanternHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.AnniversaryGown]: OUTFIT_EMOJIS.Outfit90,
 		[Cosmetic.AnniversaryShoes]: SHOE_EMOJIS.Shoe23,
 		[Cosmetic.AnniversaryTuxedoCape]: null,

@@ -3115,6 +3115,10 @@ export enum Cosmetic {
 	VaultEldersLanternQuest3 = 2471,
 	VaultEldersLanternHeart3 = 2472,
 
+	// 11/08/2025 | Season of The Two Embers - Part 1 Quest 4.
+	VaultEldersLanternQuest4 = 2473,
+	VaultEldersLanternHeart4 = 2474,
+
 	// 11/08/2025 | Version 0.30.0.
 	AnniversaryGown,
 	AnniversaryShoes,
