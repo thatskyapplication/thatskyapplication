@@ -1,7 +1,8 @@
-import { Clock } from "lucide-react";
+import { Clock, ExternalLinkIcon } from "lucide-react";
 import { Link } from "react-router";
 import InfoBox from "~/components/InfoBox";
 import Permissions from "~/components/Permissions";
+import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 
 export default function DailyGuides() {
 	return (
@@ -65,6 +66,21 @@ export default function DailyGuides() {
 			<p>
 				You can view daily guides at any time by using the <code>/daily-guides</code> command. This
 				will respond ephemerally to not interrupt any ongoing conversation.
+			</p>
+			<h2>I want to help set daily guides!</h2>
+			<p>
+				As mentioned above, daily quests need manual input. Anyone in the{" "}
+				<a
+					className="regular-link inline-flex items-center transition duration-200"
+					href={INVITE_SUPPORT_SERVER_URL}
+					rel="noopener noreferrer"
+					target="_blank"
+				>
+					support server
+					<ExternalLinkIcon className="ml-1 w-4 h-4" />
+				</a>{" "}
+				can update the daily quests! Please read the documentation in the server or ask around for
+				help!
 			</p>
 		</div>
 	);
