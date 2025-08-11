@@ -1234,8 +1234,8 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "set-quest",
-				description: "Sets a quest for the daily guides.",
+				name: "set",
+				description: "Sets data for the daily guides.",
 				options: [
 					...QUEST_NUMBER.map((questNumber) => ({
 						type: ApplicationCommandOptionType.Integer as const,
@@ -1248,18 +1248,10 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 						name: `url-${questNumber}`,
 						description: "Override the respective daily quest's infographic.",
 					})),
-				],
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "set-travelling-rock",
-				description: "Sets the travelling rock's location for the daily guides.",
-				options: [
 					{
 						type: ApplicationCommandOptionType.Attachment,
-						name: "attachment",
+						name: "travelling-rock",
 						description: "The location of the travelling rock.",
-						required: true,
 					},
 				],
 			},

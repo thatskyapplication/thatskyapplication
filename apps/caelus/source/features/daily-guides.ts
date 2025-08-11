@@ -887,7 +887,7 @@ export async function handleDistributeButton(
 	await interactive(interaction, { type: InteractiveType.Distributed, locale });
 }
 
-export async function setQuest(
+export async function set(
 	interaction: APIChatInputApplicationCommandGuildInteraction,
 	options: OptionResolver,
 ) {
@@ -902,6 +902,7 @@ export async function setQuest(
 		return;
 	}
 
+	const interactiveOptions: InteractiveOptions = { locale };
 	const oldQuest1 = DailyGuides.quest1?.id;
 	const oldQuest2 = DailyGuides.quest2?.id;
 	const oldQuest3 = DailyGuides.quest3?.id;
@@ -910,6 +911,7 @@ export async function setQuest(
 	const quest2 = options.getInteger("quest-2") ?? oldQuest2;
 	const quest3 = options.getInteger("quest-3") ?? oldQuest3;
 	const quest4 = options.getInteger("quest-4") ?? oldQuest4;
+	const travellingRock = options.getAttachment("travelling-rock");
 
 	const url1 =
 		options.getString("url-1") ??
@@ -941,10 +943,36 @@ export async function setQuest(
 		quest4: quest4 === undefined ? null : t(`quests.${quest4}`, { ns: "general" }),
 	};
 
-	await logModification({
-		user: interaction.member.user,
-		content: `set daily quests.\nOld:\n\`\`\`JSON\n${JSON.stringify(oldQuests)}\n\`\`\`\nNew:\n\`\`\`JSON\n${JSON.stringify(newQuests)}\n\`\`\``,
-	});
+	let logMessage = `set daily guides.\nOld:\n\`\`\`JSON\n${JSON.stringify(oldQuests)}\n\`\`\`\nNew:\n\`\`\`JSON\n${JSON.stringify(newQuests)}\n\`\`\``;
+
+	if (travellingRock) {
+		await client.api.interactions.defer(interaction.id, interaction.token, {
+			flags: MessageFlags.Ephemeral,
+		});
+
+		interactiveOptions.type = InteractiveType.Uploading;
+		const fetchedURL = await fetch(travellingRock.url);
+
+		const buffer = await sharp(await fetchedURL.arrayBuffer())
+			.webp()
+			.toBuffer();
+
+		const hashedBuffer = await hash(buffer, { algorithm: "md5" });
+
+		await S3Client.send(
+			new PutObjectCommand({
+				Bucket: CDN_BUCKET,
+				Key: `daily_guides/travelling_rocks/${hashedBuffer}.webp`,
+				Body: buffer,
+				ContentDisposition: "inline",
+				ContentType: fetchedURL.headers.get("content-type")!,
+			}),
+		);
+
+		logMessage += `\nTravelling rock is now:\n${new URL(`daily_guides/travelling_rocks/${hashedBuffer}.webp`, CDN_URL)}`;
+	}
+
+	await logModification({ user: interaction.member.user, content: logMessage });
 
 	await DailyGuides.updateQuests({
 		quest1: quest1 !== undefined ? { id: quest1, url: url1 } : null,
@@ -953,7 +981,7 @@ export async function setQuest(
 		quest4: quest4 !== undefined ? { id: quest4, url: url4 } : null,
 	});
 
-	await interactive(interaction, { locale });
+	await interactive(interaction, interactiveOptions);
 }
 
 export async function questsReorder(
@@ -1014,41 +1042,4 @@ export async function questsReorder(
 
 	await DailyGuides.updateQuests(data);
 	await interactive(interaction, { type: InteractiveType.Reorder, locale });
-}
-
-export async function setTravellingRock(
-	interaction: APIChatInputApplicationCommandGuildInteraction,
-	options: OptionResolver,
-) {
-	await client.api.interactions.defer(interaction.id, interaction.token, {
-		flags: MessageFlags.Ephemeral,
-	});
-
-	const { locale } = interaction;
-	const attachment = options.getAttachment("attachment", true);
-	const fetchedURL = await fetch(attachment.url);
-
-	const buffer = await sharp(await fetchedURL.arrayBuffer())
-		.webp()
-		.toBuffer();
-
-	const hashedBuffer = await hash(buffer, { algorithm: "md5" });
-
-	await S3Client.send(
-		new PutObjectCommand({
-			Bucket: CDN_BUCKET,
-			Key: `daily_guides/travelling_rocks/${hashedBuffer}.webp`,
-			Body: buffer,
-			ContentDisposition: "inline",
-			ContentType: fetchedURL.headers.get("content-type")!,
-		}),
-	);
-
-	await logModification({
-		user: interaction.member.user,
-		content: `set the travelling rock.\n${new URL(`daily_guides/travelling_rocks/${hashedBuffer}.webp`, CDN_URL)}`,
-	});
-
-	await DailyGuides.updateTravellingRock(hashedBuffer);
-	await interactive(interaction, { type: InteractiveType.Uploading, locale });
 }

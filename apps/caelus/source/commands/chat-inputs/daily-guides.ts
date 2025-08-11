@@ -7,12 +7,7 @@ import {
 } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../../discord.js";
-import {
-	distributionData,
-	interactive,
-	setQuest,
-	setTravellingRock,
-} from "../../features/daily-guides.js";
+import { distributionData, interactive, set } from "../../features/daily-guides.js";
 import { questAutocomplete } from "../../services/quests.js";
 import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
@@ -23,7 +18,7 @@ export default {
 		const options = new OptionResolver(interaction);
 
 		switch (options.getSubcommand()) {
-			case "set-quest":
+			case "set":
 				await client.api.interactions.createAutocompleteResponse(
 					interaction.id,
 					interaction.token,
@@ -48,15 +43,8 @@ export default {
 
 					return;
 				}
-				case "set-quest": {
-					await setQuest(interaction as APIChatInputApplicationCommandGuildInteraction, options);
-					return;
-				}
-				case "set-travelling-rock": {
-					await setTravellingRock(
-						interaction as APIChatInputApplicationCommandGuildInteraction,
-						options,
-					);
+				case "set": {
+					await set(interaction as APIChatInputApplicationCommandGuildInteraction, options);
 					return;
 				}
 			}
