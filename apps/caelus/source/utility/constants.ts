@@ -72,6 +72,7 @@ export const PATREON_URL = "https://patreon.com/Jiralite" as const;
 export const KO_FI_URL = "https://ko-fi.com/jiralite" as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
+export const INFORMATION_ACCENT_COLOUR = 0x3b82f6 as const;
 export const ANIMATED_HASH_PREFIX = "a_" as const;
 export const MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 export const MAXIMUM_TEXT_DISPLAY_LENGTH = 4000 as const;
