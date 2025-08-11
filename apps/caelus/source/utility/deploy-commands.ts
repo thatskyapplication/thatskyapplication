@@ -1256,7 +1256,6 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 				],
 			},
 		],
-		default_member_permissions: "0",
 	},
 ] as const;
 
