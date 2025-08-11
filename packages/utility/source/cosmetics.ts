@@ -1,4 +1,3 @@
-// biome-ignore lint/style/useEnumInitializers: Prevent initialising cosmetics that are not yet available.
 export enum Cosmetic {
 	/**
 	 * Unlocked by default.
@@ -3120,9 +3119,9 @@ export enum Cosmetic {
 	VaultEldersLanternHeart4 = 2474,
 
 	// 11/08/2025 | Version 0.30.0.
-	AnniversaryGown,
-	AnniversaryShoes,
-	AnniversaryTuxedoCape,
+	AnniversaryGown = 2475,
+	AnniversaryShoes = 2476,
+	AnniversaryTuxedoCape = 2477,
 }
 
 export enum CosmeticCommon {

@@ -101,6 +101,15 @@ export default new Event({
 			cosmetic: Cosmetic.TGCWireframeCape,
 			cost: { money: 19.99 },
 		},
+		{
+			cosmetic: [Cosmetic.AnniversaryGown, Cosmetic.AnniversaryShoes],
+			cosmeticDisplay: Cosmetic.AnniversaryGown,
+			cost: { money: 9.99 },
+		},
+		{
+			cosmetic: Cosmetic.AnniversaryTuxedoCape,
+			cost: { money: 14.99 },
+		},
 	],
 	patchNotesURL: String(new URL("p0295", LINK_REDIRECTOR_URL)),
 });
