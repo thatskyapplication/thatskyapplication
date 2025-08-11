@@ -994,6 +994,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Anniversary Suit.
 	 */
 	Outfit89: { id: "1401820507371737190", name: "89_outfit" },
+	/**
+	 * Anniversary Gown Ensemble Gown.
+	 */
+	Outfit90: { id: "1404327666202710016", name: "90_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1086,6 +1090,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit87: { id: "1396949620608864417", name: "87_outfit" },
 	Outfit88: { id: "1396956009645473904", name: "88_outfit" },
 	Outfit89: { id: "1401820515299229697", name: "89_outfit" },
+	Outfit90: { id: "1404327674553303211", name: "90_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1177,6 +1182,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Scarred Sentry.
 	 */
 	Shoe22: { id: "1396917421683511466", name: "22_shoe" },
+	/**
+	 * Anniversary Gown Ensemble Shoes.
+	 */
+	Shoe23: { id: "1404327902828560456", name: "23_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1202,6 +1211,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe20: { id: "1365257785629216768", name: "20_shoe" },
 	Shoe21: { id: "1366371897792532620", name: "21_shoe" },
 	Shoe22: { id: "1396917426486247454", name: "22_shoe" },
+	Shoe23: { id: "1404327909891641480", name: "23_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -7941,8 +7951,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory45,
 		[Cosmetic.VaultEldersLanternQuest3]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart3]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.AnniversaryGown]: null,
-		[Cosmetic.AnniversaryShoes]: null,
+		[Cosmetic.AnniversaryGown]: OUTFIT_EMOJIS.Outfit90,
+		[Cosmetic.AnniversaryShoes]: SHOE_EMOJIS.Shoe23,
 		[Cosmetic.AnniversaryTuxedoCape]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
