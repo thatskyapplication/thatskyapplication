@@ -1,6 +1,7 @@
 name: Triage pull request
 on:
   pull_request_target:
+permissions: {}
 jobs:
   label:
     name: Label
@@ -17,6 +18,8 @@ jobs:
           permission-pull-requests: write
 
       - uses: actions/checkout@v4
+        with:
+          token: ${{ steps.create-token.outputs.token }}
 
       - name: Label pull request
         uses: actions/labeler@v5

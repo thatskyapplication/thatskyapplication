@@ -2,6 +2,7 @@ name: Nesting Workshop reminder
 on:
   schedule:
     - cron: 0 7 * * 1
+permissions: {}
 jobs:
   issue:
     name: Nesting Workshop reminder

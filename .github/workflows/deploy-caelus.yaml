@@ -8,6 +8,8 @@ on:
       # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/spirits/**/*
   workflow_dispatch:
+permissions:
+  contents: read
 concurrency:
   group: deploy-caelus
   cancel-in-progress: true

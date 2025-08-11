@@ -4,9 +4,7 @@ on:
 jobs:
   synchronise:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
+    permissions: {}
     steps:
       - name: Create token
         id: create-token

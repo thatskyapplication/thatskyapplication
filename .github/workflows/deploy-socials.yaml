@@ -9,6 +9,8 @@ on:
 concurrency:
   group: deploy-socials
   cancel-in-progress: true
+permissions:
+  contents: read
 jobs:
   deploy:
     name: Deploy app
