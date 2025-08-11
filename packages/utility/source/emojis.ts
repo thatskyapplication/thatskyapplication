@@ -4627,7 +4627,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	/**
 	 * Nesting Atrium 1.
 	 */
-	LargePlaceableProp39: { id: "1313938312804958229", name: "39_large_placeable_prop" },
+	LargePlaceableProp39: { id: "1404328860958593107", name: "39_large_placeable_prop" },
 	/**
 	 * Nesting Atrium 2.
 	 */
@@ -4881,7 +4881,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp36: { id: "1313923122826838107", name: "36_large_placeable_prop" },
 	LargePlaceableProp37: { id: "1313923169882472500", name: "37_large_placeable_prop" },
 	LargePlaceableProp38: { id: "1313923145475948689", name: "38_large_placeable_prop" },
-	LargePlaceableProp39: { id: "1313923133236973651", name: "39_large_placeable_prop" },
+	LargePlaceableProp39: { id: "1404328872987725844", name: "39_large_placeable_prop" },
 	LargePlaceableProp40: { id: "1313923164321091607", name: "40_large_placeable_prop" },
 	LargePlaceableProp41: { id: "1313923179751936011", name: "41_large_placeable_prop" },
 	LargePlaceableProp42: { id: "1313923141277454347", name: "42_large_placeable_prop" },
