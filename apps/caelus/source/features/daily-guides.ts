@@ -10,6 +10,7 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	type APINewsChannel,
+	type APIPublicThreadChannel,
 	type APITextChannel,
 	type APIUser,
 	ButtonStyle,
@@ -60,10 +61,6 @@ import pQueue from "p-queue";
 import sharp from "sharp";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import type {
-	DailyGuidesDistributionAllowedChannel,
-	DailyGuidesDistributionPacket,
-} from "../models/DailyGuidesDistribution.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
@@ -119,6 +116,20 @@ import { QUEST_SPIRITS, type QuestSpirits } from "../utility/spirits.js";
 
 type DailyGuidesSetData = Partial<DailyGuidesPacket> &
 	Required<Pick<DailyGuidesPacket, "last_updated_user_id" | "last_updated_at">>;
+
+export interface DailyGuidesDistributionPacket {
+	guild_id: Snowflake;
+	channel_id: Snowflake | null;
+	message_id: Snowflake | null;
+}
+
+type DailyGuidesDistributionAllowedChannel =
+	| Extract<
+			// We use our own thread.
+			Exclude<APIChannel, APIPublicThreadChannel>,
+			{ type: (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number] }
+	  >
+	| PublicThread;
 
 interface ResolveDailyGuideOptions {
 	pureContent: string;

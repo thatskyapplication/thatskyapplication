@@ -4,11 +4,13 @@ import type { NotificationPacket } from "@thatskyapplication/utility";
 import { Table } from "@thatskyapplication/utility";
 import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import croner from "../croner.js";
-import { deleteDailyGuidesDistribution } from "../features/daily-guides.js";
+import {
+	type DailyGuidesDistributionPacket,
+	deleteDailyGuidesDistribution,
+} from "../features/daily-guides.js";
 import { deleteNotifications } from "../features/notifications.js";
 import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
-import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
