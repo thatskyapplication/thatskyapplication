@@ -131,12 +131,6 @@ type DailyGuidesDistributionAllowedChannel =
 	  >
 	| PublicThread;
 
-interface ResolveDailyGuideOptions {
-	pureContent: string;
-	realm: ValidRealmName | null;
-	skyMap: SkyMap | null;
-}
-
 const CatchTheLightRealmToDailyQuest = {
 	[RealmName.DaylightPrairie]: DailyQuest.CatchTheLightInTheDaylightPrairie,
 	[RealmName.HiddenForest]: DailyQuest.CatchTheLightInTheHiddenForest,
@@ -370,6 +364,12 @@ export async function parseDailyQuest(message: GatewayMessageCreateDispatchData)
 
 		updateQueue.start();
 	}
+}
+
+interface ResolveDailyGuideOptions {
+	pureContent: string;
+	realm: ValidRealmName | null;
+	skyMap: SkyMap | null;
 }
 
 function resolveDailyGuide(options: ResolveDailyGuideOptions) {
