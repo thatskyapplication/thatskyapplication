@@ -1553,10 +1553,10 @@ export async function set(
 			: null);
 
 	const oldQuests = {
-		oldQuest1: oldQuest1 === undefined ? null : t(`quests.${oldQuest1}`, { ns: "general" }),
-		oldQuest2: oldQuest2 === undefined ? null : t(`quests.${oldQuest2}`, { ns: "general" }),
-		oldQuest3: oldQuest3 === undefined ? null : t(`quests.${oldQuest3}`, { ns: "general" }),
-		oldQuest4: oldQuest4 === undefined ? null : t(`quests.${oldQuest4}`, { ns: "general" }),
+		quest1: oldQuest1 === undefined ? null : t(`quests.${oldQuest1}`, { ns: "general" }),
+		quest2: oldQuest2 === undefined ? null : t(`quests.${oldQuest2}`, { ns: "general" }),
+		quest3: oldQuest3 === undefined ? null : t(`quests.${oldQuest3}`, { ns: "general" }),
+		quest4: oldQuest4 === undefined ? null : t(`quests.${oldQuest4}`, { ns: "general" }),
 	};
 
 	const newQuests = {
@@ -1646,10 +1646,10 @@ export async function questsReorder(
 	}
 
 	const oldQuests = {
-		oldQuest1: quest1?.id === undefined ? null : t(`quests.${quest1.id}`, { ns: "general" }),
-		oldQuest2: quest2?.id === undefined ? null : t(`quests.${quest2.id}`, { ns: "general" }),
-		oldQuest3: quest3?.id === undefined ? null : t(`quests.${quest3.id}`, { ns: "general" }),
-		oldQuest4: quest4?.id === undefined ? null : t(`quests.${quest4.id}`, { ns: "general" }),
+		quest1: quest1?.id === undefined ? null : t(`quests.${quest1.id}`, { ns: "general" }),
+		quest2: quest2?.id === undefined ? null : t(`quests.${quest2.id}`, { ns: "general" }),
+		quest3: quest3?.id === undefined ? null : t(`quests.${quest3.id}`, { ns: "general" }),
+		quest4: quest4?.id === undefined ? null : t(`quests.${quest4.id}`, { ns: "general" }),
 	};
 
 	const newQuests = {
