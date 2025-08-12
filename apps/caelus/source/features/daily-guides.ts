@@ -62,7 +62,6 @@ import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import type {
 	DailyGuidesDistributionAllowedChannel,
-	DailyGuidesDistributionData,
 	DailyGuidesDistributionPacket,
 } from "../models/DailyGuidesDistribution.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
@@ -921,9 +920,15 @@ export async function deleteDailyGuidesDistribution(guildId: Snowflake) {
 		.where({ guild_id: guildId });
 }
 
+export interface DailyGuidesSendOptions {
+	guildId: DailyGuidesDistributionPacket["guild_id"];
+	channelId: DailyGuidesDistributionPacket["channel_id"];
+	messageId: DailyGuidesDistributionPacket["message_id"];
+}
+
 async function send(
 	enforceNonce: boolean,
-	{ guildId, channelId, messageId }: DailyGuidesDistributionData,
+	{ guildId, channelId, messageId }: DailyGuidesSendOptions,
 ) {
 	const guild = GUILD_CACHE.get(guildId);
 
