@@ -9,14 +9,14 @@ import {
 import { end } from "./features/giveaway.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
-import { FLIGHT_CHECK } from "./utility/configuration.js";
+import { APPLICATION_ID, FLIGHT_CHECK } from "./utility/configuration.js";
 import { GIVEAWAY_END_DATE } from "./utility/constants.js";
 
 export default function croner() {
 	new Cron("0 0 0 * * *", { timezone: TIME_ZONE }, async () => {
-		await Promise.all([resetDailyGuides(), resetDailyGuidesDistribution()]);
-		await distribute();
 		const today = skyToday();
+		await Promise.all([resetDailyGuides(), resetDailyGuidesDistribution()]);
+		await distribute({ lastUpdatedUserId: APPLICATION_ID, lastUpdatedAt: today.toJSDate() });
 
 		if (
 			today.year === GIVEAWAY_END_DATE.year &&

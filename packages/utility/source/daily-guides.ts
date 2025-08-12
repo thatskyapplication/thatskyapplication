@@ -4,6 +4,8 @@ export interface DailyGuidesPacket {
 	quest3: DailyGuideQuest | null;
 	quest4: DailyGuideQuest | null;
 	travelling_rock: string | null;
+	last_updated_user_id: string | null;
+	last_updated_at: Date;
 }
 
 export interface DailyGuideQuest {

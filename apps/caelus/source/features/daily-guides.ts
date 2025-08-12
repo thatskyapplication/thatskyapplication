@@ -117,7 +117,8 @@ import {
 } from "../utility/shard-eruption.js";
 import { QUEST_SPIRITS, type QuestSpirits } from "../utility/spirits.js";
 
-type DailyGuidesSetData = Partial<DailyGuidesPacket>;
+type DailyGuidesSetData = Partial<DailyGuidesPacket> &
+	Required<Pick<DailyGuidesPacket, "last_updated_user_id" | "last_updated_at">>;
 
 interface ResolveDailyGuideOptions {
 	pureContent: string;
@@ -307,7 +308,7 @@ export function validToParse(message: GatewayMessageCreateDispatchData) {
 }
 
 export async function parseDailyQuest(message: GatewayMessageCreateDispatchData) {
-	const { attachments, content } = message;
+	const { id, attachments, content } = message;
 	const transformedContent = content.toUpperCase();
 
 	if (
@@ -340,7 +341,7 @@ export async function parseDailyQuest(message: GatewayMessageCreateDispatchData)
 			transformedContent.includes("SAPLING") ||
 			transformedContent.includes("NATURE")
 		) {
-			parsed = await parseQuests(content, attachments);
+			parsed = await parseQuests(id, content, attachments);
 		} else {
 			pino.warn(message, "Intercepted an unparsed message.");
 		}
@@ -350,7 +351,12 @@ export async function parseDailyQuest(message: GatewayMessageCreateDispatchData)
 
 	if (parsed && updateQueue.pending === 0 && updateQueue.size === 0) {
 		updateQueue.pause();
-		await distribute();
+
+		await distribute({
+			lastUpdatedUserId: APPLICATION_ID,
+			lastUpdatedAt: new Date(DiscordSnowflake.timestampFrom(id)),
+		});
+
 		updateQueue.start();
 	}
 }
@@ -555,7 +561,7 @@ function resolveDailyGuide(options: ResolveDailyGuideOptions) {
 	return null;
 }
 
-async function parseQuests(content: string, attachments: APIAttachment[]) {
+async function parseQuests(id: Snowflake, content: string, attachments: APIAttachment[]) {
 	const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
 
 	if (
@@ -612,22 +618,42 @@ async function parseQuests(content: string, attachments: APIAttachment[]) {
 
 	// Update a quest variable.
 	if (!quest1) {
-		await updateDailyGuides({ quest1: data });
+		await updateDailyGuides({
+			quest1: data,
+			last_updated_user_id: APPLICATION_ID,
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(id)),
+		});
+
 		return true;
 	}
 
 	if (!quest2) {
-		await updateDailyGuides({ quest2: data });
+		await updateDailyGuides({
+			quest2: data,
+			last_updated_user_id: APPLICATION_ID,
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(id)),
+		});
+
 		return true;
 	}
 
 	if (!quest3) {
-		await updateDailyGuides({ quest3: data });
+		await updateDailyGuides({
+			quest3: data,
+			last_updated_user_id: APPLICATION_ID,
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(id)),
+		});
+
 		return true;
 	}
 
 	if (!quest4) {
-		await updateDailyGuides({ quest4: data });
+		await updateDailyGuides({
+			quest4: data,
+			last_updated_user_id: APPLICATION_ID,
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(id)),
+		});
+
 		return true;
 	}
 
@@ -1217,7 +1243,20 @@ export async function distributionData(locale: Locale): Promise<[APIMessageTopLe
 	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
-export async function distribute() {
+interface DailyGuidesDistributionOptions {
+	lastUpdatedUserId: Snowflake | null;
+	lastUpdatedAt: Date;
+}
+
+export async function distribute({
+	lastUpdatedUserId,
+	lastUpdatedAt,
+}: DailyGuidesDistributionOptions) {
+	await updateDailyGuides({
+		last_updated_user_id: lastUpdatedUserId,
+		last_updated_at: lastUpdatedAt,
+	});
+
 	const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	).whereNotNull("channel_id");
@@ -1282,7 +1321,14 @@ export async function interactive(
 		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 	{ type, locale }: InteractiveOptions,
 ) {
-	const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
+	const {
+		quest1,
+		quest2,
+		quest3,
+		quest4,
+		last_updated_at: lastUpdatedAt,
+		last_updated_user_id: lastUpdatedUserId,
+	} = await fetchDailyGuides();
 	const quests = [quest1, quest2, quest3, quest4];
 	const questOptions = [];
 
@@ -1357,6 +1403,12 @@ export async function interactive(
 			],
 		},
 		{
+			type: ComponentType.TextDisplay,
+			content: lastUpdatedUserId
+				? `-# Last updated by <@${lastUpdatedUserId}> <t:${Math.floor(lastUpdatedAt.getTime() / 1000)}:R>.`
+				: `-# Last updated <t:${Math.floor(lastUpdatedAt.getTime() / 1000)}:R>.`,
+		},
+		{
 			type: ComponentType.ActionRow,
 			components: [
 				{
@@ -1371,6 +1423,7 @@ export async function interactive(
 	);
 
 	const response: APIInteractionResponseCallbackData = {
+		allowed_mentions: { parse: [] },
 		components,
 		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	};
@@ -1439,7 +1492,12 @@ export async function handleDistributeButton(
 	const { locale } = interaction;
 	await interactive(interaction, { type: InteractiveType.Distributing, locale });
 	await logModification({ user: interaction.member.user, content: "distributed daily guides." });
-	await distribute();
+
+	await distribute({
+		lastUpdatedUserId: interaction.member.user.id,
+		lastUpdatedAt: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+	});
+
 	await interactive(interaction, { type: InteractiveType.Distributed, locale });
 }
 
@@ -1509,7 +1567,11 @@ export async function set(
 	};
 
 	let logMessage = `set daily guides.\nOld:\n\`\`\`JSON\n${JSON.stringify(oldQuests)}\n\`\`\`\nNew:\n\`\`\`JSON\n${JSON.stringify(newQuests)}\n\`\`\``;
-	const data: DailyGuidesSetData = {};
+
+	const data: DailyGuidesSetData = {
+		last_updated_user_id: interaction.member.user.id,
+		last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+	};
 
 	if (travellingRock) {
 		await client.api.interactions.defer(interaction.id, interaction.token, {
@@ -1561,7 +1623,11 @@ export async function questsReorder(
 	const newQuest2 = Number(values[1]);
 	const newQuest3 = values[2] === undefined ? null : Number(values[2]);
 	const newQuest4 = values[3] === undefined ? null : Number(values[3]);
-	const data: DailyGuidesSetData = {};
+
+	const data: DailyGuidesSetData = {
+		last_updated_user_id: interaction.member.user.id,
+		last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+	};
 
 	if (isDailyQuest(newQuest1)) {
 		data.quest1 = { id: newQuest1, url: DailyQuestToInfographicURL[newQuest1] };
