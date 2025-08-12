@@ -95,9 +95,15 @@ interface PostMediaMetadataItemJPG {
 	s: PostMediaMetadataItemSJPG;
 }
 
+interface PostMediaMetadataItemRedditVideo {
+	status: "valid";
+	e: "RedditVideo";
+}
+
 type PostMediaMetadataItem =
 	| PostMediaMetadataItemGIF
 	| PostMediaMetadataItemJPG
+	| PostMediaMetadataItemRedditVideo
 	| PostMediaMetadataItemUnprocessed;
 
 interface PostMediaMetadata<Valid> {
@@ -307,12 +313,14 @@ export async function reddit() {
 			}
 
 			for (const mediaMetadataItem of Object.values(data.media_metadata ?? {})) {
-				if ("u" in mediaMetadataItem.s) {
-					urls.push(mediaMetadataItem.s.u);
-				}
+				if ("s" in mediaMetadataItem) {
+					if ("u" in mediaMetadataItem.s) {
+						urls.push(mediaMetadataItem.s.u);
+					}
 
-				if ("gif" in mediaMetadataItem.s) {
-					urls.push(mediaMetadataItem.s.gif);
+					if ("gif" in mediaMetadataItem.s) {
+						urls.push(mediaMetadataItem.s.gif);
+					}
 				}
 			}
 
