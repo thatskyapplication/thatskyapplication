@@ -2550,10 +2550,10 @@
 			"2462": "Terno de Aniversário",
 			"2463": "Arco de Balão",
 			"2466": "Pelúcia de peixe-boi",
-			"2467": "Cauda do Espírito do Peixe-Boi",
-			"2468": "Acessório de Cabeça do Peixe-Boi",
-			"2469": "Cauda do Vestígio do Dragão Sombrio",
-			"2470": "Acessório de Cabeça do Vestígio do Dragão Sombrio",
+			"2467": "Cauda de Peixe-Boi Animada",
+			"2468": "Acessório de Cabeça de Peixe-Boi Animada",
+			"2469": "Cauda de Vestígio dos Dragões Sombrios",
+			"2470": "Acessório de Cabeça de Vestígio dos Dragões Sombrios",
 			"2475": "Vestido de Gala de Aniversário",
 			"2476": "Calçados de Aniversário",
 			"2477": "Capa do smoking de aniversário"
@@ -3173,7 +3173,8 @@
 			"travelling-rock": "Pedra Viajante",
 			"season-upcoming_zero": "A nova temporada inicia amanhã.",
 			"season-upcoming_one": "A nova temporada inicia em {{count}} dia.",
-			"season-upcoming_other": "A nova temporada inicia em {{count}} dias."
+			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
+			"not-yet-updated": "Os guias diários estão esperando por um incrível Sky kid para serem atualizados!\nPossui as informações que precisamos? Entre no [servidor de suporte]({{url}}) e atualize os guias você mesmo, ajudando a galera!"
 		},
 		"data": {
 			"delete-message": "Tem certeza que deseja excluir seus dados? Isso irá:\n- Excluir seu perfil Sky\n- Excluir seu inventário\n- Excluir seus corações\n  - Seu id de usuário no histórico de corações dos outros será anonimizado\n- Excluir seu recorde nos jogos de advinhação\n- Remover dados de sorteios\n- Remover seu cargo de tradutor, se tiver um",
