@@ -4013,6 +4013,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Scarred Sentry.
 	 */
 	Cape157: { id: "1396916995714453624", name: "157_cape" },
+	/**
+	 * Anniversary Tuxedo Cape.
+	 */
+	Cape158: { id: "1404901751844372560", name: "158_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4173,6 +4177,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape155: { id: "1396909761089241168", name: "155_cape" },
 	Cape156: { id: "1396896130075332690", name: "156_cape" },
 	Cape157: { id: "1396916997295706253", name: "157_cape" },
+	Cape158: { id: "1404901759306170439", name: "158_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -7955,7 +7960,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.VaultEldersLanternHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.AnniversaryGown]: OUTFIT_EMOJIS.Outfit90,
 		[Cosmetic.AnniversaryShoes]: SHOE_EMOJIS.Shoe23,
-		[Cosmetic.AnniversaryTuxedoCape]: null,
+		[Cosmetic.AnniversaryTuxedoCape]: CAPE_EMOJIS.Cape158,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
