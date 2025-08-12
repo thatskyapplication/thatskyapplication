@@ -7,7 +7,6 @@
 		"test": "pnpm --recursive test",
 		"lint": "pnpm --recursive lint",
 		"format": "pnpm --recursive format",
-		"lint:ci": "pnpm --recursive lint:ci",
 		"update": "pnpm update --interactive --latest --recursive && pre-commit autoupdate"
 	},
 	"devDependencies": {

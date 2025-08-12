@@ -7,7 +7,6 @@
 		"test": "tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
-		"lint:ci": "biome ci --reporter github",
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
 		"start": "node distribution/index.js",
 		"knip": "knip"
