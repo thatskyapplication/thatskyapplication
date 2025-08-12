@@ -5,7 +5,11 @@ import {
 	PRODUCTION,
 } from "./utility/configuration.js";
 
-const options: Parameters<(typeof pino)["default"]>[0] = {};
+const options: Parameters<(typeof pino)["default"]>[0] = {
+	serializers: {
+		error: pino.stdSerializers.err,
+	},
+};
 
 if (PRODUCTION) {
 	options.transport = {
