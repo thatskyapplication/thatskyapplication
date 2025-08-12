@@ -135,7 +135,7 @@ interface PostData<ValidMediaMetadata> {
 	is_video: boolean;
 }
 
-interface Post<ValidMediaMetadata extends boolean = boolean> {
+export interface Post<ValidMediaMetadata extends boolean = boolean> {
 	kind: string;
 	data: PostData<ValidMediaMetadata>;
 }
@@ -367,7 +367,7 @@ export async function reddit() {
 	}
 
 	if (payloadsErrors.length > 0) {
-		pino.error(payloadsErrors, "Failed to generate Reddit payloads.");
+		pino.error({ payloadsErrors }, "Failed to generate Reddit payloads.");
 	}
 
 	// Execute webhooks.
@@ -399,8 +399,8 @@ export async function reddit() {
 				const reason = result.reason as WebhookExecuteError;
 
 				if (
-					reason.error instanceof DiscordAPIError &&
-					reason.error.code === RESTJSONErrorCodes.UnknownWebhook
+					reason.cause instanceof DiscordAPIError &&
+					reason.cause.code === RESTJSONErrorCodes.UnknownWebhook
 				) {
 					pino.info(`Deleting unknown webhook ${reason.webhook.webhook_id}.`);
 
@@ -418,7 +418,10 @@ export async function reddit() {
 		}
 
 		if (errors.length > 0) {
-			pino.error({ posts, errors }, "Failed to execute webhooks.");
+			pino.error(
+				{ posts, error: new AggregateError(errors, "Failed to execute webooks.") },
+				"Failed to execute webhooks.",
+			);
 		}
 	}
 }

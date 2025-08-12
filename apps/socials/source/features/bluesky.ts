@@ -172,8 +172,8 @@ jetstream.on(EventType.Commit, async (event) => {
 				const reason = result.reason as WebhookExecuteError;
 
 				if (
-					reason.error instanceof DiscordAPIError &&
-					reason.error.code === RESTJSONErrorCodes.UnknownWebhook
+					reason.cause instanceof DiscordAPIError &&
+					reason.cause.code === RESTJSONErrorCodes.UnknownWebhook
 				) {
 					pino.info(`Deleting unknown webhook ${reason.webhook.webhook_id}.`);
 
@@ -187,7 +187,10 @@ jetstream.on(EventType.Commit, async (event) => {
 		}
 
 		if (errors.length > 0) {
-			pino.error({ event, errors }, "Failed to execute webhooks.");
+			pino.error(
+				{ event, error: new AggregateError(errors, "Failed to execute webooks.") },
+				"Failed to execute webhooks.",
+			);
 		}
 	}
 });
