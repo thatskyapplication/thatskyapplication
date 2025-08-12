@@ -6,7 +6,6 @@
 		"test": "tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
-		"lint:ci": "biome ci --reporter github",
 		"start": "tsx --watch source/index.ts",
 		"generate-watch-urls": "tsx scripts/generateWatchUrls.ts"
 	},
