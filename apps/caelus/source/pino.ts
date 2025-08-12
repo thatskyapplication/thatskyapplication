@@ -2,9 +2,7 @@ import pino from "pino";
 import { BETTER_STACK_TOKEN } from "./utility/configuration.js";
 
 const options: Parameters<(typeof pino)["default"]>[0] = {
-	serializers: {
-		error: pino.stdSerializers.err,
-	},
+	errorKey: "error",
 };
 
 if (BETTER_STACK_TOKEN) {

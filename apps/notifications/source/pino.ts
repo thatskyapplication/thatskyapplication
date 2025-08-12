@@ -6,9 +6,7 @@ import {
 } from "./utility/configuration.js";
 
 const options: Parameters<(typeof pino)["default"]>[0] = {
-	serializers: {
-		error: pino.stdSerializers.err,
-	},
+	errorKey: "error",
 };
 
 if (PRODUCTION) {

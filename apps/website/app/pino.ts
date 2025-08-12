@@ -2,8 +2,8 @@ import pino from "pino";
 import { BETTER_STACK_ENDPOINT_URL, BETTER_STACK_TOKEN, PRODUCTION } from "./config.server.js";
 
 const options: Parameters<typeof pino>[0] = {
+	errorKey: "error",
 	serializers: {
-		error: pino.stdSerializers.err,
 		request: pino.stdSerializers.req,
 	},
 };
