@@ -957,7 +957,7 @@ export async function deleteDailyGuidesDistribution(guildId: Snowflake) {
 		.where({ guild_id: guildId });
 }
 
-export interface DailyGuidesSendOptions {
+interface DailyGuidesSendOptions {
 	guildId: DailyGuidesDistributionPacket["guild_id"];
 	channelId: DailyGuidesDistributionPacket["channel_id"];
 	messageId: DailyGuidesDistributionPacket["message_id"];
