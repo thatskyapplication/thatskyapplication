@@ -1,12 +1,9 @@
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { request } from "undici";
-import {
-	distribute,
-	resetDailyGuides,
-	resetDailyGuidesDistribution,
-} from "./features/daily-guides.js";
+import { distribute, reset } from "./features/daily-guides.js";
 import { end } from "./features/giveaway.js";
+import DailyGuides from "./models/DailyGuides.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
 import { FLIGHT_CHECK } from "./utility/configuration.js";
@@ -14,7 +11,7 @@ import { GIVEAWAY_END_DATE } from "./utility/constants.js";
 
 export default function croner() {
 	new Cron("0 0 0 * * *", { timezone: TIME_ZONE }, async () => {
-		await Promise.all([resetDailyGuides(), resetDailyGuidesDistribution()]);
+		await Promise.all([DailyGuides.reset(), reset()]);
 		await distribute();
 		const today = skyToday();
 

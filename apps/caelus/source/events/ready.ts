@@ -1,6 +1,6 @@
 import process from "node:process";
 import { GatewayDispatchEvents, type Snowflake } from "@discordjs/core";
-import type { NotificationPacket } from "@thatskyapplication/utility";
+import type { DailyGuidesPacket, NotificationPacket } from "@thatskyapplication/utility";
 import { Table } from "@thatskyapplication/utility";
 import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import croner from "../croner.js";
@@ -8,6 +8,7 @@ import { deleteDailyGuidesDistribution } from "../features/daily-guides.js";
 import { deleteNotifications } from "../features/notifications.js";
 import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
+import DailyGuides from "../models/DailyGuides.js";
 import type { DailyGuidesDistributionPacket } from "../models/DailyGuidesDistribution.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
@@ -21,6 +22,7 @@ async function collectFromDatabase() {
 	try {
 		await collectConfigurations();
 		await AI.populateCache();
+		await collectDailyGuides();
 	} catch (error) {
 		pino.fatal(error, "Error collecting configurations from the database.");
 		process.exit(1);
@@ -30,6 +32,16 @@ async function collectFromDatabase() {
 async function collectConfigurations() {
 	const [configurationPacket] = await pg<ConfigurationPacket>(Table.Configuration);
 	Configuration.patch(configurationPacket!);
+}
+
+async function collectDailyGuides() {
+	const [dailyGuidesPacket] = await pg<DailyGuidesPacket>(Table.DailyGuides);
+
+	if (dailyGuidesPacket) {
+		DailyGuides.patch(dailyGuidesPacket);
+	} else {
+		await DailyGuides.reset(true);
+	}
 }
 
 export default {

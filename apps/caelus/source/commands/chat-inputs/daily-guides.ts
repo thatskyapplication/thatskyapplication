@@ -8,12 +8,8 @@ import {
 } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../../discord.js";
-import {
-	distributionData,
-	fetchDailyGuides,
-	interactive,
-	set,
-} from "../../features/daily-guides.js";
+import { distributionData, interactive, set } from "../../features/daily-guides.js";
+import DailyGuides from "../../models/DailyGuides.js";
 import { questAutocomplete } from "../../services/quests.js";
 import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
 import { INFORMATION_ACCENT_COLOUR, SUPPORT_SERVER_INVITE_URL } from "../../utility/constants.js";
@@ -60,10 +56,13 @@ export default {
 		}
 
 		const { locale } = interaction;
-		const components = await distributionData(locale);
-		const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
+		const components = distributionData(locale);
 
-		if ([quest1, quest2, quest3, quest4].some((quest) => quest === null)) {
+		if (
+			[DailyGuides.quest1, DailyGuides.quest2, DailyGuides.quest3, DailyGuides.quest4].some(
+				(quest) => quest === null,
+			)
+		) {
 			components.push({
 				type: ComponentType.Container,
 				accent_color: INFORMATION_ACCENT_COLOUR,
