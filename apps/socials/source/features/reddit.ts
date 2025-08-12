@@ -217,8 +217,8 @@ export async function fetchSingleSubredditPosts(subreddit: string) {
 
 export async function fetchSubredditPosts() {
 	return [
-		...(await fetchSingleSubredditPosts("SkyChildrenOfLight")),
 		...(await fetchSingleSubredditPosts("SkyGame")),
+		...(await fetchSingleSubredditPosts("SkyChildrenOfLight")),
 	].sort((a, b) => a.data.created_utc - b.data.created_utc);
 }
 
