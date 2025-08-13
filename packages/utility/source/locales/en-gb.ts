@@ -85,7 +85,7 @@ export default {
 			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
 				"Visit the Ancestor's Table of Belonging in the Hidden Forest",
 			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
-				"Visit the hot spring in the Valley of Triumph",
+				"Visit the hot spring in the Village of Dreams",
 			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: "Visit the bonfire at the Golden Wasteland",
 			[DailyQuest.AdmireTheSaplingInTheDaylightPrairie]:
 				"Admire the sapling in the Daylight Prairie",
