@@ -82,7 +82,7 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { userTag } from "../utility/functions.js";
+import { userTag, validateAttachment } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
@@ -1064,6 +1064,10 @@ export async function set(
 		await client.api.interactions.defer(interaction.id, interaction.token, {
 			flags: MessageFlags.Ephemeral,
 		});
+
+		if (!(await validateAttachment(interaction, travellingRock))) {
+			return;
+		}
 
 		interactiveOptions.type = InteractiveType.Uploading;
 		const fetchedURL = await fetch(travellingRock.url);
