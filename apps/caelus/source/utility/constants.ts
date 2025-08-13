@@ -7,7 +7,6 @@ import {
 	GuessDifficultyLevel,
 	NotificationType,
 	type NotificationTypes,
-	SkyMap,
 	skyDate,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
@@ -81,65 +80,6 @@ export const MAXIMUM_FEEDBACK_TITLE_LENGTH = 100 as const;
 export const MINIMUM_FEEDBACK_TITLE_LENGTH = 4 as const;
 export const MAXIMUM_AUTOCOMPLETE_NAME_LIMIT = 100 as const;
 export const MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT = 25 as const;
-
-export const MEDITATION_MAPS = [
-	SkyMap.BirdNest,
-	SkyMap.ButterflyFields,
-	SkyMap.SanctuaryIslands,
-	SkyMap.Cave,
-	SkyMap.KoiPond,
-	SkyMap.ForestClearing,
-	SkyMap.ForestBrook,
-	SkyMap.ElevatedClearing,
-	SkyMap.ForestEnd,
-	SkyMap.Boneyard,
-	SkyMap.IceRink,
-	SkyMap.Citadel,
-	SkyMap.Coliseum,
-	SkyMap.BrokenTemple,
-	SkyMap.ForgottenArk,
-	SkyMap.Graveyard,
-	SkyMap.Boat,
-	SkyMap.Battlefield,
-	SkyMap.VaultEntrance,
-	SkyMap.VaultSecondFloor,
-	SkyMap.VaultSummit,
-] as const;
-
-export type MeditationMaps = (typeof MEDITATION_MAPS)[number];
-
-export const SOCIAL_LIGHT_AREA_MAPS = [
-	SkyMap.Cave,
-	SkyMap.ElevatedClearing,
-	SkyMap.VillageOfDreams,
-	SkyMap.Graveyard,
-] as const;
-
-export type SocialLightAreaMaps = (typeof SOCIAL_LIGHT_AREA_MAPS)[number];
-
-export const RAINBOW_ADMIRE_MAPS = [
-	SkyMap.SanctuaryIslands,
-	SkyMap.WindPaths,
-	SkyMap.HermitValley,
-	SkyMap.TreasureReef,
-	SkyMap.StarlightDesert,
-] as const;
-
-export type RainbowAdmireMaps = (typeof RAINBOW_ADMIRE_MAPS)[number];
-
-// This exists due to the Infographics server's inconsistencies and faults alongside no desire to fix them.
-export const INCONSISTENT_MAP = {
-	// Daylight Prairie.
-	"Sanctuary Island": SkyMap.SanctuaryIslands,
-
-	// Hidden Forest.
-	"Forest's Brook": SkyMap.ForestBrook,
-
-	// Valley of Triumph.
-	"Race End": SkyMap.Coliseum,
-} as const;
-
-export const inconsistentMapKeys = Object.keys(INCONSISTENT_MAP);
 
 export const LOCALES = [
 	Locale.German,

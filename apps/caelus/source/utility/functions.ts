@@ -17,26 +17,10 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { ALLOWED_EXTENSIONS, calculateUserDefaultAvatarIndex } from "@discordjs/rest";
-import {
-	REALM_NAME_VALUES,
-	type RealmName,
-	SkyMap,
-	VALID_REALM_NAME_VALUES,
-} from "@thatskyapplication/utility";
+import { REALM_NAME_VALUES, type RealmName } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { APPLICATION_ID } from "./configuration.js";
-import {
-	ANIMATED_HASH_PREFIX,
-	INCONSISTENT_MAP,
-	inconsistentMapKeys,
-	MAXIMUM_ASSET_SIZE,
-	MEDITATION_MAPS,
-	type MeditationMaps,
-	RAINBOW_ADMIRE_MAPS,
-	type RainbowAdmireMaps,
-	SOCIAL_LIGHT_AREA_MAPS,
-	type SocialLightAreaMaps,
-} from "./constants.js";
+import { ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "./constants.js";
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
@@ -85,39 +69,6 @@ export function userLogFormat(user: APIUser) {
 
 export function isRealm(realm: string): realm is RealmName {
 	return REALM_NAME_VALUES.includes(realm as RealmName);
-}
-
-export function resolveValidRealm(realm: string) {
-	const upperRealm = realm.toUpperCase();
-
-	return (
-		VALID_REALM_NAME_VALUES.find((validRealm) => validRealm.toUpperCase() === upperRealm) ?? null
-	);
-}
-
-export function resolveMap(rawMap: string) {
-	const upperRawMap = rawMap.toUpperCase();
-
-	const inconsistentResult = inconsistentMapKeys.find(
-		(inconsistentMapKey): inconsistentMapKey is keyof typeof INCONSISTENT_MAP =>
-			inconsistentMapKey.toUpperCase() === upperRawMap,
-	);
-
-	return inconsistentResult
-		? INCONSISTENT_MAP[inconsistentResult]
-		: (Object.values(SkyMap).find((skyMap) => skyMap.toUpperCase() === upperRawMap) ?? null);
-}
-
-export function isMeditationMap(skyMap: SkyMap): skyMap is MeditationMaps {
-	return MEDITATION_MAPS.includes(skyMap as MeditationMaps);
-}
-
-export function isSocialLightAreaMap(skyMap: SkyMap): skyMap is SocialLightAreaMaps {
-	return SOCIAL_LIGHT_AREA_MAPS.includes(skyMap as SocialLightAreaMaps);
-}
-
-export function isRainbowAdmireMap(skyMap: SkyMap): skyMap is RainbowAdmireMaps {
-	return RAINBOW_ADMIRE_MAPS.includes(skyMap as RainbowAdmireMaps);
 }
 
 export function isChatInputCommand(

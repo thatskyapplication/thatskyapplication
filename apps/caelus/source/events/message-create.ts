@@ -1,7 +1,6 @@
 import { ChannelType, GatewayDispatchEvents, PermissionFlagsBits } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { addMessageToCache } from "../caches/messages.js";
-import { parseDailyQuest, validToParse } from "../features/daily-guides.js";
 import AI from "../models/AI.js";
 import Configuration from "../models/Configuration.js";
 import type { GuildChannel } from "../models/discord/guild.js";
@@ -25,10 +24,6 @@ export default {
 
 		if (!channel) {
 			return;
-		}
-
-		if (validToParse(data)) {
-			await parseDailyQuest(data);
 		}
 
 		const isThreadChannelType =
