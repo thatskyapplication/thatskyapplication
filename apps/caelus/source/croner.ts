@@ -1,6 +1,7 @@
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { request } from "undici";
+import { GUILD_CACHE } from "./caches/guilds.js";
 import {
 	distribute,
 	resetDailyGuides,
@@ -9,14 +10,31 @@ import {
 import { end } from "./features/giveaway.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
-import { APPLICATION_ID, FLIGHT_CHECK } from "./utility/configuration.js";
+import { APPLICATION_ID, FLIGHT_CHECK, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
 import { GIVEAWAY_END_DATE } from "./utility/constants.js";
 
 export default function croner() {
 	new Cron("0 0 0 * * *", { timezone: TIME_ZONE }, async () => {
 		const today = skyToday();
-		await Promise.all([resetDailyGuides(), resetDailyGuidesDistribution()]);
-		await distribute({ lastUpdatedUserId: APPLICATION_ID, lastUpdatedAt: today.toJSDate() });
+		const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
+
+		if (!guild) {
+			pino.error("Could not find the support server whilst resetting daily guides.");
+			return;
+		}
+
+		const me = await guild.fetchMe();
+
+		await Promise.all([
+			resetDailyGuides({ user: me.user, lastUpdatedAt: today.toJSDate() }),
+			resetDailyGuidesDistribution(),
+		]);
+
+		await distribute({
+			user: me.user,
+			lastUpdatedUserId: APPLICATION_ID,
+			lastUpdatedAt: today.toJSDate(),
+		});
 
 		if (
 			today.year === GIVEAWAY_END_DATE.year &&

@@ -91,7 +91,7 @@ import {
 } from "../utility/shard-eruption.js";
 
 type DailyGuidesSetData = Partial<DailyGuidesPacket> &
-	Required<Pick<DailyGuidesPacket, "last_updated_user_id" | "last_updated_at">>;
+	Pick<DailyGuidesPacket, "last_updated_user_id" | "last_updated_at">;
 
 export interface DailyGuidesDistributionPacket {
 	guild_id: Snowflake;
@@ -125,9 +125,23 @@ export async function fetchDailyGuides() {
 	return insertedDailyQuests!;
 }
 
-export async function resetDailyGuides() {
-	await pg<DailyGuidesPacket>(Table.DailyGuides).truncate();
-	await pg<DailyGuidesPacket>(Table.DailyGuides).insert({});
+interface DailyGuidesResetOptions {
+	user: APIUser;
+	lastUpdatedAt: Date;
+}
+
+export async function resetDailyGuides({ user, lastUpdatedAt }: DailyGuidesResetOptions) {
+	await logModification({ content: "reset the daily guides.", user });
+
+	await updateDailyGuides({
+		quest1: null,
+		quest2: null,
+		quest3: null,
+		quest4: null,
+		travelling_rock: null,
+		last_updated_user_id: APPLICATION_ID,
+		last_updated_at: lastUpdatedAt,
+	});
 }
 
 async function updateDailyGuides(data: DailyGuidesSetData) {
@@ -713,14 +727,18 @@ export async function distributionData(locale: Locale): Promise<[APIMessageTopLe
 }
 
 interface DailyGuidesDistributionOptions {
-	lastUpdatedUserId: Snowflake | null;
+	user: APIUser;
+	lastUpdatedUserId: Snowflake;
 	lastUpdatedAt: Date;
 }
 
 export async function distribute({
+	user,
 	lastUpdatedUserId,
 	lastUpdatedAt,
 }: DailyGuidesDistributionOptions) {
+	await logModification({ user, content: "distributed daily guides." });
+
 	await updateDailyGuides({
 		last_updated_user_id: lastUpdatedUserId,
 		last_updated_at: lastUpdatedAt,
@@ -915,7 +933,7 @@ export async function interactive(
 }
 
 interface LogModificationOptions {
-	user: APIUser;
+	user: Pick<APIUser, "id" | "username" | "discriminator">;
 	content: string;
 }
 
@@ -960,9 +978,9 @@ export async function handleDistributeButton(
 ) {
 	const { locale } = interaction;
 	await interactive(interaction, { type: InteractiveType.Distributing, locale });
-	await logModification({ user: interaction.member.user, content: "distributed daily guides." });
 
 	await distribute({
+		user: interaction.member.user,
 		lastUpdatedUserId: interaction.member.user.id,
 		lastUpdatedAt: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 	});

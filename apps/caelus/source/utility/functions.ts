@@ -191,7 +191,7 @@ export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PR
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }
 
-export function userTag(user: APIUser) {
+export function userTag(user: Pick<APIUser, "username" | "discriminator">) {
 	return user.discriminator === "0" ? user.username : `${user.username}#${user.discriminator}`;
 }
 
