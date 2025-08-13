@@ -1,21 +1,16 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIGuildChannel,
-	type APIMessageComponentButtonInteraction,
-	type APIMessageComponentSelectMenuInteraction,
-	type APIModalSubmitInteraction,
 	type APIUserApplicationCommandInteraction,
 	ApplicationIntegrationType,
 	type GuildChannelType,
 	InteractionContextType,
-	InteractionType,
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
-import pino from "../pino.js";
 
 const ALL_PERMISSIONS = Object.values(PermissionFlagsBits).reduce(
 	(bitField, permission) => bitField | permission,
@@ -142,95 +137,6 @@ export const can = ({
 	const permissions = computePermissions({ guild, member, channel });
 	return (permissions & permission) === permission;
 };
-
-const PermissionFlagBitsToString = new Map<bigint, string>()
-	.set(PermissionFlagsBits.ViewChannel, "View Channel")
-	.set(PermissionFlagsBits.SendMessages, "Send Messages")
-	.set(PermissionFlagsBits.EmbedLinks, "Embed Links")
-	.set(PermissionFlagsBits.SendMessagesInThreads, "Send Messages in Threads");
-
-function getPermissionString(bit: bigint) {
-	const string = PermissionFlagBitsToString.get(bit);
-
-	if (string === undefined) {
-		pino.warn(`No permission string exists for ${bit}.`);
-		return "Unknown";
-	}
-
-	return string;
-}
-
-export async function cannotUsePermissions(
-	interaction:
-		| APIChatInputApplicationCommandInteraction
-		| APIMessageComponentButtonInteraction
-		| APIMessageComponentSelectMenuInteraction
-		| APIModalSubmitInteraction
-		| APIUserApplicationCommandInteraction,
-	permissions: bigint,
-) {
-	// Direct messages are fine.
-	if (!interaction.guild_id) {
-		return false;
-	}
-
-	const appPermissions = BigInt(interaction.app_permissions);
-	const missingPermissions = [];
-
-	if (
-		(permissions & PermissionFlagsBits.ViewChannel) === PermissionFlagsBits.ViewChannel &&
-		(appPermissions & PermissionFlagsBits.ViewChannel) === 0n
-	) {
-		missingPermissions.push(getPermissionString(PermissionFlagsBits.ViewChannel));
-	}
-
-	if (
-		(permissions & PermissionFlagsBits.SendMessages) === PermissionFlagsBits.SendMessages &&
-		(appPermissions & PermissionFlagsBits.SendMessages) === 0n
-	) {
-		missingPermissions.push(getPermissionString(PermissionFlagsBits.SendMessages));
-	}
-
-	if (
-		(permissions & PermissionFlagsBits.EmbedLinks) === PermissionFlagsBits.EmbedLinks &&
-		(appPermissions & PermissionFlagsBits.EmbedLinks) === 0n
-	) {
-		missingPermissions.push(getPermissionString(PermissionFlagsBits.EmbedLinks));
-	}
-
-	if (
-		(permissions & PermissionFlagsBits.SendMessagesInThreads) ===
-			PermissionFlagsBits.SendMessagesInThreads &&
-		(appPermissions & PermissionFlagsBits.SendMessagesInThreads) === 0n
-	) {
-		missingPermissions.push(getPermissionString(PermissionFlagsBits.SendMessagesInThreads));
-	}
-
-	if (missingPermissions.length === 0) {
-		return false;
-	}
-
-	const response = {
-		components: [],
-		content: `${
-			missingPermissions.length > 1
-				? `Missing the following permissions:\n${missingPermissions
-						.map((missingPermission) => `- \`${missingPermission}\``)
-						.join("\n")}\n`
-				: `Missing the \`${missingPermissions[0]}\` permission. `
-		}Someone needs to adjust the permissions!`,
-		embeds: [],
-		flags: MessageFlags.Ephemeral,
-	};
-
-	if (interaction.type === InteractionType.MessageComponent) {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
-	} else {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
-	}
-
-	return true;
-}
 
 export async function cannotUseUserInstallable(
 	interaction: APIChatInputApplicationCommandInteraction | APIUserApplicationCommandInteraction,
