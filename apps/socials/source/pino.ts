@@ -2,7 +2,7 @@ import pino from "pino";
 import type { Post } from "./features/reddit.js";
 import { BETTER_STACK_ENDPOINT_URL, BETTER_STACK_TOKEN } from "./utility/configuration.js";
 
-const options: Parameters<(typeof pino)["default"]>[0] = {
+const options: Parameters<typeof pino>[0] = {
 	errorKey: "error",
 	serializers: {
 		payloadsErrors: (value: readonly { post: Post<true>; error: unknown }[]) =>
@@ -23,4 +23,4 @@ if (BETTER_STACK_TOKEN && BETTER_STACK_ENDPOINT_URL) {
 	};
 }
 
-export default pino.default(options);
+export default pino(options);

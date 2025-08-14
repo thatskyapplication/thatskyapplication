@@ -1,7 +1,7 @@
 import pino from "pino";
 import { BETTER_STACK_ENDPOINT_URL, BETTER_STACK_TOKEN, PRODUCTION } from "./utility/constants.js";
 
-const options: Parameters<(typeof pino)["default"]>[0] = {
+const options: Parameters<typeof pino>[0] = {
 	errorKey: "error",
 };
 
@@ -15,4 +15,4 @@ if (PRODUCTION) {
 	};
 }
 
-export default pino.default(options);
+export default pino(options);
