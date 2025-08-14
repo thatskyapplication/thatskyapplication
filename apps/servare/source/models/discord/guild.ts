@@ -69,6 +69,7 @@ export class Guild {
 			new Collection<Snowflake, GuildChannel>(),
 		);
 
+		// biome-ignore lint/suspicious/useIterableCallbackReturn: https://github.com/biomejs/biome/issues/7229
 		this.threads = data.threads.reduce((threads, thread) => {
 			switch (thread.type) {
 				case ChannelType.AnnouncementThread:

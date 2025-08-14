@@ -340,7 +340,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 							}),
 						});
 
-				client.channels.createMessage(notificationPacket.channel_id, {
+				return client.channels.createMessage(notificationPacket.channel_id, {
 					allowed_mentions: { roles: [notificationPacket.role_id] },
 					content: `<@&${notificationPacket.role_id}> ${message}`,
 					enforce_nonce: true,

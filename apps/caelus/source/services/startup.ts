@@ -32,7 +32,7 @@ async function giveaway() {
 				return ineligible({ userId: giveawayPacket.user_id });
 			}
 
-			return;
+			return undefined;
 		}),
 	);
 

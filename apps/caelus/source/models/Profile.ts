@@ -822,7 +822,7 @@ export default class Profile {
 						);
 
 						if (options.length === 0) {
-							return;
+							return undefined;
 						}
 
 						return {
@@ -1135,7 +1135,7 @@ export default class Profile {
 						);
 
 						if (options.length === 0) {
-							return;
+							return undefined;
 						}
 
 						return {

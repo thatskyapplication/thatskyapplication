@@ -34,7 +34,6 @@
 				"useJsxKeyInIterable": "on"
 			},
 			"nursery": {
-				"noConstantBinaryExpression": "on",
 				"noFloatingPromises": "on"
 			},
 			"performance": {
@@ -74,6 +73,7 @@
 			},
 			"suspicious": {
 				"noAlert": "error",
+				"noConstantBinaryExpressions": "on",
 				"noConstEnum": "off"
 			}
 		}
