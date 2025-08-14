@@ -17,10 +17,6 @@ jobs:
           repositories: thatskyapplication
           permission-pull-requests: write
 
-      - uses: actions/checkout@v5
-        with:
-          token: ${{ steps.create-token.outputs.token }}
-
       - name: Label pull request
         uses: actions/labeler@v5
         with:
