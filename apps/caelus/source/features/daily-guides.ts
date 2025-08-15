@@ -590,7 +590,7 @@ export async function distributionData(locale: Locale): Promise<[APIMessageTopLe
 	const quests = [];
 
 	for (const quest of [quest1, quest2, quest3, quest4]) {
-		if (quest && isDailyQuest(quest)) {
+		if (quest !== null && isDailyQuest(quest)) {
 			quests.push({ quest, url: DailyQuestToInfographicURL[quest] });
 		}
 	}
