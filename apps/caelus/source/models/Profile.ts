@@ -904,12 +904,13 @@ export default class Profile {
 				value.length === 0
 					? []
 					: COUNTRY_VALUES.filter((country) =>
-							t(`countries.${country}`, { lng: locale, ns: "general" })
+							new Intl.DisplayNames(locale, { type: "region", style: "long" })
+								.of(country)!
 								.toUpperCase()
 								.includes(value),
 						)
 							.map((country) => ({
-								name: t(`countries.${country}`, { lng: locale, ns: "general" }),
+								name: new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!,
 								value: country,
 							}))
 							.slice(0, 25),
@@ -2085,7 +2086,7 @@ export default class Profile {
 			if (isCountry(country)) {
 				fields.push({
 					name: "Country",
-					value: `${CountryToEmoji[country]} ${t(`countries.${country}`, { lng: locale, ns: "general" })}`,
+					value: `${CountryToEmoji[country]} ${new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!}`,
 					inline: true,
 				});
 			} else {
