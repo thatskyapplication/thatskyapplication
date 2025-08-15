@@ -533,7 +533,8 @@ export default {
 			[EventId.DaysOfFeast2019]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
 			[EventId.LunarNewYear2020]: "https://sky-children-of-the-light.fandom.com/Lunar_New_Year",
 			[EventId.DaysOfLove2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
-			[EventId.DaysOfSpring2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Spring",
+			[EventId.DaysOfSpring2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Days_of_Spring_-_March_2020",
 			[EventId.DaysOfNature2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
 			[EventId.DaysOfHealing2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Healing",
 			[EventId.DaysOfRainbow2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Rainbow",
