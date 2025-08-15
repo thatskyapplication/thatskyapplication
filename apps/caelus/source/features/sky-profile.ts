@@ -2182,6 +2182,7 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket) {
 	const {
 		name,
 		icon,
+		thumbnail,
 		description,
 		country,
 		winged_light: wingedLight,
@@ -2210,6 +2211,12 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket) {
 
 	if (!icon) {
 		missing.push(`- ${useCommandPrefix} to upload an icon!`);
+	}
+
+	if (!thumbnail) {
+		missing.push(
+			`- ${useCommandPrefix} to upload a thumbnail!\n  - The thumbnail is only used on the [website](${SKY_PROFILES_URL}/${skyProfilePacket.user_id}).`,
+		);
 	}
 
 	if (!description) {
