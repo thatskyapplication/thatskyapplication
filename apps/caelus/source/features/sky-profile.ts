@@ -1563,9 +1563,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 	});
 }
 
-export async function skyProfileShowNameModal(
-	interaction: APIMessageComponentSelectMenuInteraction,
-) {
+async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMenuInteraction) {
 	const invoker = interactionInvoker(interaction);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
@@ -1593,7 +1591,7 @@ export async function skyProfileShowNameModal(
 	});
 }
 
-export async function skyProfileShowDescriptionModal(
+async function skyProfileShowDescriptionModal(
 	interaction: APIMessageComponentSelectMenuInteraction,
 ) {
 	const invoker = interactionInvoker(interaction);
@@ -2255,10 +2253,6 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket) {
 
 function skyProfileThumbnailRoute(userId: Snowflake, hash: string) {
 	return `sky_profiles/thumbnails/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
-}
-
-export function skyProfileThumbnailURL(userId: Snowflake, thumbnail: string) {
-	return new URL(skyProfileThumbnailRoute(userId, thumbnail), CDN_URL).href;
 }
 
 function skyProfileIconRoute(userId: Snowflake, hash: string) {
