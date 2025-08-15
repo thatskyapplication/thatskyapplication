@@ -21,7 +21,14 @@ export type { CataloguePacket } from "./catalogue.js";
 export { CDN_URL } from "./cdn.js";
 export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
-export type { DailyGuideQuest, DailyGuidesPacket } from "./daily-guides.js";
+export {
+	DAILY_QUEST_VALUES,
+	type DailyGuidesPacket,
+	DailyQuest,
+	type DailyQuests,
+	DailyQuestToInfographicURL,
+	isDailyQuest,
+} from "./daily-guides.js";
 export { type BlueskyWebhooksPacket, type RedditWebhooksPacket, Table } from "./database.js";
 export { isDuring, skyDate, skyNow, skyToday, TIME_ZONE } from "./dates.js";
 export {
@@ -102,7 +109,6 @@ export {
 	type NotificationTypes,
 } from "./notifications.js";
 export { isPlatformId, PLATFORM_ID_VALUES, PlatformId, type PlatformIds } from "./platforms.js";
-export { DAILY_QUEST_VALUES, DailyQuest, type DailyQuests, isDailyQuest } from "./quests.js";
 export {
 	isSeasonId,
 	RotationIdentifier,

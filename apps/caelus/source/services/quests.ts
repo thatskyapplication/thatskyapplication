@@ -1,11 +1,11 @@
 import { type APIMessageTopLevelComponent, ComponentType, type Locale } from "@discordjs/core";
-import { DAILY_QUEST_VALUES, type DailyQuests } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import {
+	DAILY_QUEST_VALUES,
+	type DailyQuests,
 	DailyQuestToInfographicURL,
-	DEFAULT_EMBED_COLOUR,
-	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
-} from "../utility/constants.js";
+} from "@thatskyapplication/utility";
+import { t } from "i18next";
+import { DEFAULT_EMBED_COLOUR, MAXIMUM_AUTOCOMPLETE_NAME_LIMIT } from "../utility/constants.js";
 
 export function questAutocomplete(focused: string, locale: Locale) {
 	return focused === ""

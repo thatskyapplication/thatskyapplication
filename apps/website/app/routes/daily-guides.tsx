@@ -1,7 +1,6 @@
 import {
-	type DailyGuideQuest,
 	type DailyGuidesPacket,
-	type DailyQuests,
+	DailyQuestToInfographicURL,
 	enGB,
 	isDailyQuest,
 	RotationIdentifier,
@@ -94,10 +93,13 @@ export default function DailyGuides() {
 		return () => document.removeEventListener("keydown", handleEscape);
 	}, [selectedImage]);
 
-	const quests = [quest1, quest2, quest3, quest4].filter(
-		(quest): quest is DailyGuideQuest & { id: DailyQuests } =>
-			quest !== null && isDailyQuest(quest.id),
-	);
+	const quests = [];
+
+	for (const quest of [quest1, quest2, quest3, quest4]) {
+		if (quest && isDailyQuest(quest)) {
+			quests.push({ quest, url: DailyQuestToInfographicURL[quest] });
+		}
+	}
 
 	const treasureCandleURLs = treasureCandles(today);
 	let seasonalCandles = null;
@@ -200,22 +202,22 @@ export default function DailyGuides() {
 						<div className="mb-5">
 							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Quests</h2>
 							<div className="space-y-2">
-								{quests.map((quest, index) => (
-									<div className="flex items-start gap-3" key={quest.id}>
+								{quests.map(({ quest, url }, index) => (
+									<div className="flex items-start gap-3" key={quest}>
 										<span className="text-gray-600 dark:text-gray-400 text-sm font-medium w-4 flex-shrink-0">
 											{index + 1}.
 										</span>
-										{quest.url ? (
+										{url ? (
 											<button
 												className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors text-left flex-1"
-												onClick={() => handleImageClick(quest.url)}
+												onClick={() => handleImageClick(url)}
 												type="button"
 											>
-												{enGB.general.quests[quest.id]}
+												{enGB.general.quests[quest]}
 											</button>
 										) : (
 											<span className="text-sm text-gray-700 dark:text-gray-300 flex-1">
-												{enGB.general.quests[quest.id]}
+												{enGB.general.quests[quest]}
 											</span>
 										)}
 									</div>

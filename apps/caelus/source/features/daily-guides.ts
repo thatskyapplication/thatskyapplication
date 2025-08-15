@@ -27,6 +27,7 @@ import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	type DailyGuidesPacket,
+	DailyQuestToInfographicURL,
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
@@ -71,7 +72,6 @@ import {
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_URL,
-	DailyQuestToInfographicURL,
 	DEFAULT_EMBED_COLOUR,
 	LOCALE_OPTIONS,
 	NOT_IN_CACHED_GUILD_RESPONSE,
@@ -586,15 +586,22 @@ export async function distributionData(locale: Locale): Promise<[APIMessageTopLe
 		quest4,
 		travelling_rock: travellingRock,
 	} = await fetchDailyGuides();
-	const quests = [quest1, quest2, quest3, quest4].filter((quest) => quest !== null);
+
+	const quests = [];
+
+	for (const quest of [quest1, quest2, quest3, quest4]) {
+		if (quest && isDailyQuest(quest)) {
+			quests.push({ quest, url: DailyQuestToInfographicURL[quest] });
+		}
+	}
 
 	if (quests.length > 0) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
 				.map(
-					({ id, url }, index) =>
-						`${index + 1}. ${url ? `[${t(`quests.${id}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${id}`, { lng: locale, ns: "general" })}`,
+					({ quest, url }, index) =>
+						`${index + 1}. ${url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
 				)
 				.join("\n")}`,
 		});
@@ -825,8 +832,8 @@ export async function interactive(
 		}
 
 		questOptions.push({
-			label: t(`quests.${quest.id}`, { lng: locale, ns: "general" }),
-			value: quest.id.toString(),
+			label: t(`quests.${quest}`, { lng: locale, ns: "general" }),
+			value: quest.toString(),
 		});
 	}
 
@@ -1005,52 +1012,28 @@ export async function set(
 
 	const interactiveOptions: InteractiveOptions = { locale };
 	const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
-	const oldQuest1 = quest1?.id;
-	const oldQuest2 = quest2?.id;
-	const oldQuest3 = quest3?.id;
-	const oldQuest4 = quest4?.id;
+	const oldQuest1 = quest1;
+	const oldQuest2 = quest2;
+	const oldQuest3 = quest3;
+	const oldQuest4 = quest4;
 	const newQuest1 = options.getInteger("quest-1") ?? oldQuest1;
 	const newQuest2 = options.getInteger("quest-2") ?? oldQuest2;
 	const newQuest3 = options.getInteger("quest-3") ?? oldQuest3;
 	const newQuest4 = options.getInteger("quest-4") ?? oldQuest4;
 	const travellingRock = options.getAttachment("travelling-rock");
 
-	const url1 =
-		options.getString("url-1") ??
-		(newQuest1 !== undefined && isDailyQuest(newQuest1)
-			? DailyQuestToInfographicURL[newQuest1]
-			: null);
-
-	const url2 =
-		options.getString("url-2") ??
-		(newQuest2 !== undefined && isDailyQuest(newQuest2)
-			? DailyQuestToInfographicURL[newQuest2]
-			: null);
-
-	const url3 =
-		options.getString("url-3") ??
-		(newQuest3 !== undefined && isDailyQuest(newQuest3)
-			? DailyQuestToInfographicURL[newQuest3]
-			: null);
-
-	const url4 =
-		options.getString("url-4") ??
-		(newQuest4 !== undefined && isDailyQuest(newQuest4)
-			? DailyQuestToInfographicURL[newQuest4]
-			: null);
-
 	const oldQuests = {
-		quest1: oldQuest1 === undefined ? null : t(`quests.${oldQuest1}`, { ns: "general" }),
-		quest2: oldQuest2 === undefined ? null : t(`quests.${oldQuest2}`, { ns: "general" }),
-		quest3: oldQuest3 === undefined ? null : t(`quests.${oldQuest3}`, { ns: "general" }),
-		quest4: oldQuest4 === undefined ? null : t(`quests.${oldQuest4}`, { ns: "general" }),
+		quest1: oldQuest1 === null ? null : t(`quests.${oldQuest1}`, { ns: "general" }),
+		quest2: oldQuest2 === null ? null : t(`quests.${oldQuest2}`, { ns: "general" }),
+		quest3: oldQuest3 === null ? null : t(`quests.${oldQuest3}`, { ns: "general" }),
+		quest4: oldQuest4 === null ? null : t(`quests.${oldQuest4}`, { ns: "general" }),
 	};
 
 	const newQuests = {
-		quest1: newQuest1 === undefined ? null : t(`quests.${newQuest1}`, { ns: "general" }),
-		quest2: newQuest2 === undefined ? null : t(`quests.${newQuest2}`, { ns: "general" }),
-		quest3: newQuest3 === undefined ? null : t(`quests.${newQuest3}`, { ns: "general" }),
-		quest4: newQuest4 === undefined ? null : t(`quests.${newQuest4}`, { ns: "general" }),
+		quest1: newQuest1 === null ? null : t(`quests.${newQuest1}`, { ns: "general" }),
+		quest2: newQuest2 === null ? null : t(`quests.${newQuest2}`, { ns: "general" }),
+		quest3: newQuest3 === null ? null : t(`quests.${newQuest3}`, { ns: "general" }),
+		quest4: newQuest4 === null ? null : t(`quests.${newQuest4}`, { ns: "general" }),
 	};
 
 	let logMessage = `set daily guides.\nOld:\n\`\`\`JSON\n${JSON.stringify(oldQuests)}\n\`\`\`\nNew:\n\`\`\`JSON\n${JSON.stringify(newQuests)}\n\`\`\``;
@@ -1092,10 +1075,10 @@ export async function set(
 		data.travelling_rock = hashedBuffer;
 	}
 
-	data.quest1 = newQuest1 === undefined ? null : { id: newQuest1, url: url1 };
-	data.quest2 = newQuest2 === undefined ? null : { id: newQuest2, url: url2 };
-	data.quest3 = newQuest3 === undefined ? null : { id: newQuest3, url: url3 };
-	data.quest4 = newQuest4 === undefined ? null : { id: newQuest4, url: url4 };
+	data.quest1 = newQuest1 === null ? null : newQuest1;
+	data.quest2 = newQuest2 === null ? null : newQuest2;
+	data.quest3 = newQuest3 === null ? null : newQuest3;
+	data.quest4 = newQuest4 === null ? null : newQuest4;
 	await logModification({ user: interaction.member.user, content: logMessage });
 	await updateDailyGuides(data);
 	await interactive(interaction, interactiveOptions);
@@ -1121,26 +1104,26 @@ export async function questsReorder(
 	};
 
 	if (isDailyQuest(newQuest1)) {
-		data.quest1 = { id: newQuest1, url: DailyQuestToInfographicURL[newQuest1] };
+		data.quest1 = newQuest1;
 	}
 
 	if (isDailyQuest(newQuest2)) {
-		data.quest2 = { id: newQuest2, url: DailyQuestToInfographicURL[newQuest2] };
+		data.quest2 = newQuest2;
 	}
 
 	if (newQuest3 !== null && isDailyQuest(newQuest3)) {
-		data.quest3 = { id: newQuest3, url: DailyQuestToInfographicURL[newQuest3] };
+		data.quest3 = newQuest3;
 	}
 
 	if (newQuest4 !== null && isDailyQuest(newQuest4)) {
-		data.quest4 = { id: newQuest4, url: DailyQuestToInfographicURL[newQuest4] };
+		data.quest4 = newQuest4;
 	}
 
 	const oldQuests = {
-		quest1: quest1?.id === undefined ? null : t(`quests.${quest1.id}`, { ns: "general" }),
-		quest2: quest2?.id === undefined ? null : t(`quests.${quest2.id}`, { ns: "general" }),
-		quest3: quest3?.id === undefined ? null : t(`quests.${quest3.id}`, { ns: "general" }),
-		quest4: quest4?.id === undefined ? null : t(`quests.${quest4.id}`, { ns: "general" }),
+		quest1: quest1 === null ? null : t(`quests.${quest1}`, { ns: "general" }),
+		quest2: quest2 === null ? null : t(`quests.${quest2}`, { ns: "general" }),
+		quest3: quest3 === null ? null : t(`quests.${quest3}`, { ns: "general" }),
+		quest4: quest4 === null ? null : t(`quests.${quest4}`, { ns: "general" }),
 	};
 
 	const newQuests = {

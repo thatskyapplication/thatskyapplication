@@ -1,9 +1,9 @@
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
 import { Country } from "../country.js";
+import { DailyQuest, type DailyQuests } from "../daily-guides.js";
 import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevelToName } from "../guess.js";
 import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
-import { DailyQuest, type DailyQuests } from "../quests.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import { SkyProfileWingedLightType, type SkyProfileWingedLightTypes } from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";

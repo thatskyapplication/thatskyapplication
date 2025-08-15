@@ -1243,11 +1243,6 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 						description: "The daily quest.",
 						autocomplete: true,
 					})),
-					...QUEST_NUMBER.map((questNumber) => ({
-						type: ApplicationCommandOptionType.String as const,
-						name: `url-${questNumber}`,
-						description: "Override the respective daily quest's infographic.",
-					})),
 					{
 						type: ApplicationCommandOptionType.Attachment,
 						name: "travelling-rock",
