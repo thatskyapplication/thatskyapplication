@@ -8,7 +8,6 @@ import type { LoaderFunctionArgs } from "react-router";
 import { data, Form, Link, type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
 import pg from "~/pg.server";
-import pino from "~/pino.js";
 import {
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
@@ -72,34 +71,29 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const currentPage = Math.max(1, Number(page));
 	const offset = (currentPage - 1) * SKY_PROFILES_PAGE_LIMIT;
 
-	try {
-		const countResult = await pg<SkyProfilePacket>(Table.Profiles)
-			.whereNotNull("name")
-			.count({ total: "*" })
-			.first();
+	const countResult = await pg<SkyProfilePacket>(Table.Profiles)
+		.whereNotNull("name")
+		.count({ total: "*" })
+		.first();
 
-		const totalProfiles = Number(countResult!.total!);
-		const totalPages = Math.ceil(totalProfiles / SKY_PROFILES_PAGE_LIMIT);
+	const totalProfiles = Number(countResult!.total!);
+	const totalPages = Math.ceil(totalProfiles / SKY_PROFILES_PAGE_LIMIT);
 
-		if (currentPage > totalPages) {
-			throw new Response("Invalid page number.", { status: 404 });
-		}
-
-		const profiles = await pg<SkyProfilePacket>(Table.Profiles)
-			.whereNotNull("name")
-			.orderBy("name", "asc")
-			.orderBy("user_id", "asc")
-			.limit(SKY_PROFILES_PAGE_LIMIT)
-			.offset(offset);
-
-		return data(
-			{ profiles, currentPage, totalPages },
-			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
-		);
-	} catch (error) {
-		pino.error({ request, error }, "Unable to fetch Sky profiles.");
-		throw new Response(null, { status: 500 });
+	if (currentPage > totalPages) {
+		throw new Response(null, { status: 404 });
 	}
+
+	const profiles = await pg<SkyProfilePacket>(Table.Profiles)
+		.whereNotNull("name")
+		.orderBy("name", "asc")
+		.orderBy("user_id", "asc")
+		.limit(SKY_PROFILES_PAGE_LIMIT)
+		.offset(offset);
+
+	return data(
+		{ profiles, currentPage, totalPages },
+		{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
+	);
 };
 
 function SkyProfileCard(profile: SkyProfilePacket) {
