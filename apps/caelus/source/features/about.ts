@@ -11,11 +11,16 @@ import {
 	SeparatorSpacingSize,
 	TextInputStyle,
 } from "@discordjs/core";
-import { formatEmoji, WEBSITE_URL } from "@thatskyapplication/utility";
+import {
+	formatEmoji,
+	type SkyProfilePacket,
+	Table,
+	WEBSITE_URL,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import Profile from "../models/Profile.js";
+import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	FEEDBACK_CHANNEL_ID,
@@ -40,6 +45,7 @@ import { EMOTE_EMOJIS } from "../utility/emojis.js";
 import { avatarURL, interactionInvoker, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
+import { skyProfileIconURL } from "./sky-profile.js";
 
 export const ABOUT_FEEDBACK_CUSTOM_ID = "ABOUT_FEEDBACK_CUSTOM_ID" as const;
 export const ABOUT_ISSUE_CUSTOM_ID = "ABOUT_ISSUE_CUSTOM_ID" as const;
@@ -246,7 +252,11 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 	const title = components.getTextInputValue(FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID);
 	const description = components.getTextInputValue(FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID);
 	const invoker = interactionInvoker(interaction);
-	const profile = await Profile.fetch(invoker.id).catch(() => null);
+
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+		.select("name", "icon")
+		.where({ user_id: invoker.id })
+		.first();
 
 	await client.api.channels.createForumThread(channel.id, {
 		applied_tags: [IDEA_TAG_ID],
@@ -254,8 +264,11 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 			embeds: [
 				{
 					author: {
-						name: `${profile?.name ?? userTag(invoker)} (${invoker.id})`,
-						icon_url: profile?.iconURL ?? avatarURL(invoker),
+						name: `${skyProfilePacket?.name ?? userTag(invoker)} (${invoker.id})`,
+						icon_url:
+							invoker.id && skyProfilePacket?.icon
+								? skyProfileIconURL(invoker.id, skyProfilePacket.icon)
+								: avatarURL(invoker),
 						url: `${SKY_PROFILES_URL}/${invoker.id}`,
 					},
 					color: DEFAULT_EMBED_COLOUR,
@@ -381,7 +394,11 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 	const title = components.getTextInputValue(ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID);
 	const description = components.getTextInputValue(ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID);
 	const invoker = interactionInvoker(interaction);
-	const profile = await Profile.fetch(invoker.id).catch(() => null);
+
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+		.select("name", "icon")
+		.where({ user_id: invoker.id })
+		.first();
 
 	await client.api.channels.createForumThread(channel.id, {
 		applied_tags: [ISSUE_TAG_ID],
@@ -389,8 +406,11 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 			embeds: [
 				{
 					author: {
-						name: `${profile?.name ?? userTag(invoker)} (${invoker.id})`,
-						icon_url: profile?.iconURL ?? avatarURL(invoker),
+						name: `${skyProfilePacket?.name ?? userTag(invoker)} (${invoker.id})`,
+						icon_url:
+							invoker.id && skyProfilePacket?.icon
+								? skyProfileIconURL(invoker.id, skyProfilePacket.icon)
+								: avatarURL(invoker),
 						url: `${SKY_PROFILES_URL}/${invoker.id}`,
 					},
 					color: DEFAULT_EMBED_COLOUR,

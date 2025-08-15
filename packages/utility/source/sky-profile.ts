@@ -1,7 +1,5 @@
-import type { Snowflake } from "./types/index.js";
-
 export interface SkyProfilePacket {
-	user_id: Snowflake;
+	user_id: string;
 	name: string | null;
 	icon: string | null;
 	thumbnail: string | null;

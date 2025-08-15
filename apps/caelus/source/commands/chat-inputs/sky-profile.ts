@@ -13,10 +13,21 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
+import {
+	AssetType,
+	type SkyProfileSetData,
+	skyProfileCountryAutocomplete,
+	skyProfileExplore,
+	skyProfileExploreAutocomplete,
+	skyProfileExploreProfile,
+	skyProfileSet,
+	skyProfileSetAsset,
+	skyProfileShow,
+	skyProfileShowEdit,
+} from "../../features/sky-profile.js";
 import { searchAutocomplete } from "../../features/spirits.js";
-import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
 import { APPLICATION_ID } from "../../utility/configuration.js";
-import { validateAttachment } from "../../utility/functions.js";
+import { interactionInvoker, validateAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -30,7 +41,7 @@ export default {
 				return;
 			}
 			case "explore": {
-				await Profile.exploreAutocomplete(interaction, options);
+				await skyProfileExploreAutocomplete(interaction, options);
 				return;
 			}
 		}
@@ -67,7 +78,7 @@ export default {
 				}) &&
 			option.type === ApplicationCommandOptionType.String
 		) {
-			await Profile.editCountryAutocomplete(interaction, option);
+			await skyProfileCountryAutocomplete(interaction, option);
 			return;
 		}
 
@@ -93,7 +104,7 @@ export default {
 		const spot = options.getString("spot");
 		const catalogueProgression = options.getBoolean("catalogue-progression");
 		const guessRank = options.getBoolean("guess-rank");
-		const data: ProfileSetData = {};
+		const data: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
 		const promises = [];
 
 		if (options.hoistedOptions.length > 0) {
@@ -112,7 +123,7 @@ export default {
 
 				promises.push({
 					type: AssetType.Thumbnail,
-					promise: Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail),
+					promise: skyProfileSetAsset(interaction, thumbnail, AssetType.Thumbnail),
 				});
 			}
 
@@ -123,7 +134,7 @@ export default {
 
 				promises.push({
 					type: AssetType.Icon,
-					promise: Profile.setAsset(interaction, icon, AssetType.Icon),
+					promise: skyProfileSetAsset(interaction, icon, AssetType.Icon),
 				});
 			}
 
@@ -184,25 +195,25 @@ export default {
 				}
 			}
 
-			await Profile.set(interaction, data, true);
+			await skyProfileSet(interaction, data, true);
 			return;
 		}
 
-		await Profile.showEdit(interaction, false);
+		await skyProfileShowEdit(interaction, false);
 	},
 	async explore(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const name = options.getString("name");
 
 		if (name) {
-			await Profile.exploreProfile(interaction, name);
+			await skyProfileExploreProfile(interaction, name);
 			return;
 		}
 
-		await Profile.explore(interaction);
+		await skyProfileExplore(interaction);
 	},
 	async show(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const user = options.getUser("user");
 		const hide = options.getBoolean("hide") ?? false;
-		await Profile.show(interaction, user, hide);
+		await skyProfileShow(interaction, user, hide);
 	},
 } as const;

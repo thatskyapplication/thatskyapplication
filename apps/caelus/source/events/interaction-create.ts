@@ -119,14 +119,6 @@ import {
 	shopSuggestionSubmission,
 } from "../features/shop.js";
 import {
-	handleSearchButton,
-	SPIRITS_HISTORY_BACK_CUSTOM_ID,
-	SPIRITS_HISTORY_NEXT_CUSTOM_ID,
-	SPIRITS_VIEW_SPIRIT_CUSTOM_ID,
-	spiritsHistory,
-} from "../features/spirits.js";
-import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
-import Profile, {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
 	SKY_PROFILE_EDIT_CUSTOM_ID,
 	SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID,
@@ -158,7 +150,33 @@ import Profile, {
 	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
-} from "../models/Profile.js";
+	skyProfileEdit,
+	skyProfileExplore,
+	skyProfileExploreLikedProfile,
+	skyProfileExploreLikes,
+	skyProfileExploreProfile,
+	skyProfileLike,
+	skyProfileReport,
+	skyProfileReportModalPrompt,
+	skyProfileReset,
+	skyProfileSendReport,
+	skyProfileSetDescription,
+	skyProfileSetName,
+	skyProfileSetPlatform,
+	skyProfileSetSeasons,
+	skyProfileSetSpot,
+	skyProfileSetWingedLight,
+	skyProfileShowEdit,
+	skyProfileShowReset,
+} from "../features/sky-profile.js";
+import {
+	handleSearchButton,
+	SPIRITS_HISTORY_BACK_CUSTOM_ID,
+	SPIRITS_HISTORY_NEXT_CUSTOM_ID,
+	SPIRITS_VIEW_SPIRIT_CUSTOM_ID,
+	spiritsHistory,
+} from "../features/spirits.js";
+import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import {
 	answer,
@@ -590,12 +608,12 @@ export default {
 				}
 
 				if (customId === SKY_PROFILE_SHOW_RESET_CUSTOM_ID) {
-					await Profile.showReset(interaction);
+					await skyProfileShowReset(interaction);
 					return;
 				}
 
 				if (customId === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
-					await Profile.showEdit(interaction);
+					await skyProfileShowEdit(interaction);
 					return;
 				}
 
@@ -604,7 +622,7 @@ export default {
 					customId.startsWith(SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID)
 				) {
-					await Profile.explore(interaction);
+					await skyProfileExplore(interaction);
 					return;
 				}
 
@@ -613,7 +631,7 @@ export default {
 					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID)
 				) {
-					await Profile.exploreLikes(interaction);
+					await skyProfileExploreLikes(interaction);
 					return;
 				}
 
@@ -622,7 +640,7 @@ export default {
 					customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID)
 				) {
-					await Profile.exploreProfile(interaction, customId.slice(customId.indexOf("§") + 1));
+					await skyProfileExploreProfile(interaction, customId.slice(customId.indexOf("§") + 1));
 					return;
 				}
 
@@ -631,32 +649,32 @@ export default {
 					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID) ||
 					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID)
 				) {
-					await Profile.exploreLikedProfile(interaction);
+					await skyProfileExploreLikedProfile(interaction);
 					return;
 				}
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID)) {
-					await Profile.like(interaction);
+					await skyProfileLike(interaction);
 					return;
 				}
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID)) {
-					await Profile.like(interaction, true);
+					await skyProfileLike(interaction, true);
 					return;
 				}
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID)) {
-					await Profile.report(interaction);
+					await skyProfileReport(interaction);
 					return;
 				}
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID)) {
-					await Profile.report(interaction, true);
+					await skyProfileReport(interaction, true);
 					return;
 				}
 
 				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID)) {
-					await Profile.reportModalPrompt(interaction);
+					await skyProfileReportModalPrompt(interaction);
 					return;
 				}
 
@@ -848,17 +866,17 @@ export default {
 				}
 
 				if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
-					await Profile.edit(interaction);
+					await skyProfileEdit(interaction);
 					return;
 				}
 
 				if (customId === SKY_PROFILE_RESET_CUSTOM_ID) {
-					await Profile.reset(interaction);
+					await skyProfileReset(interaction);
 					return;
 				}
 
 				if (customId === SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID) {
-					await Profile.setWingedLight(interaction);
+					await skyProfileSetWingedLight(interaction);
 					return;
 				}
 
@@ -866,12 +884,12 @@ export default {
 					customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID ||
 					customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID
 				) {
-					await Profile.setSeasons(interaction);
+					await skyProfileSetSeasons(interaction);
 					return;
 				}
 
 				if (customId === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
-					await Profile.setPlatform(interaction);
+					await skyProfileSetPlatform(interaction);
 					return;
 				}
 
@@ -880,7 +898,7 @@ export default {
 						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
-					await Profile.exploreProfile(interaction, value0);
+					await skyProfileExploreProfile(interaction, value0);
 					return;
 				}
 
@@ -889,7 +907,7 @@ export default {
 						customId as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
-					await Profile.exploreLikedProfile(interaction);
+					await skyProfileExploreLikedProfile(interaction);
 					return;
 				}
 
@@ -1054,22 +1072,22 @@ export default {
 				}
 
 				if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
-					await Profile.setName(interaction);
+					await skyProfileSetName(interaction);
 					return;
 				}
 
 				if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
-					await Profile.setDescription(interaction);
+					await skyProfileSetDescription(interaction);
 					return;
 				}
 
 				if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
-					await Profile.setSpot(interaction);
+					await skyProfileSetSpot(interaction);
 					return;
 				}
 
 				if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
-					await Profile.sendReport(interaction);
+					await skyProfileSendReport(interaction);
 					return;
 				}
 
