@@ -121,10 +121,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			if (user) {
 				authenticationState.error = "You're already a translator!";
 			} else {
-				await pg<UsersPacket>(Table.Users).insert({
-					discord_user_id: authenticationState.discordUser.id,
-					crowdin_user_id: authenticationState.crowdinUser!.id,
-				});
+				await pg<UsersPacket>(Table.Users)
+					.insert({
+						discord_user_id: authenticationState.discordUser.id,
+						crowdin_user_id: authenticationState.crowdinUser!.id,
+					})
+					.onConflict("discord_user_id")
+					.merge();
 
 				await discord.guilds.addRoleToMember(
 					SUPPORT_SERVER_GUILD_ID,
