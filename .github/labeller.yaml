@@ -1,48 +1,48 @@
 a:caelus:
-  - changed-files:
-      - any-glob-to-any-file:
-          - apps/caelus/*
-          - apps/caelus/**/*
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/caelus/*
+     - apps/caelus/**/*
 a:friendship-tree-generator:
-  - changed-files:
-      - any-glob-to-any-file:
-          - packages/friendship-tree-generator/*
-          - packages/friendship-tree-generator/**/*
+ - changed-files:
+   - any-glob-to-any-file:
+     - packages/friendship-tree-generator/*
+     - packages/friendship-tree-generator/**/*
 a:notifications:
-  - changed-files:
-      - any-glob-to-any-file:
-          - apps/notifications/*
-          - apps/notifications/**/*
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/notifications/*
+     - apps/notifications/**/*
 a:servare:
-  - changed-files:
-      - any-glob-to-any-file:
-          - apps/servare/*
-          - apps/servare/**/*
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/servare/*
+     - apps/servare/**/*
 a:socials:
-  - changed-files:
-      - any-glob-to-any-file:
-          - apps/socials/*
-          - apps/socials/**/*
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/socials/*
+     - apps/socials/**/*
 a:utility:
-  - changed-files:
-      - any-glob-to-any-file:
-          - packages/utility/*
-          - packages/utility/**/*
+ - changed-files:
+   - any-glob-to-any-file:
+     - packages/utility/*
+     - packages/utility/**/*
 a:website:
-  - changed-files:
-      - any-glob-to-any-file:
-          - apps/website/*
-          - apps/website/**/*
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/website/*
+     - apps/website/**/*
 f:catalogue:
-  - changed-files:
-      - any-glob-to-any-file:
-          - apps/caelus/source/commands/chat-inputs/catalogue.ts
-          - apps/caelus/source/features/catalogue.ts
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/caelus/source/commands/chat-inputs/catalogue.ts
+     - apps/caelus/source/features/catalogue.ts
 f:sky-profile:
-  - changed-files:
-      - any-glob-to-any-file:
-          - apps/caelus/source/commands/chat-inputs/sky-profile.ts
-          - apps/caelus/source/commands/user-context-menus/sky-profile.ts
-          - apps/caelus/source/features/sky-profile.ts
-          - apps/website/app/routes/sky-profiles.*.tsx
-          - packages/utility/source/sky-profile.ts
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/caelus/source/commands/chat-inputs/sky-profile.ts
+     - apps/caelus/source/commands/user-context-menus/sky-profile.ts
+     - apps/caelus/source/features/sky-profile.ts
+     - apps/website/app/routes/sky-profiles.*.tsx
+     - packages/utility/source/sky-profile.ts
