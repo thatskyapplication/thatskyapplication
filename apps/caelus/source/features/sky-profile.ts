@@ -483,9 +483,12 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 		pino.warn(interaction, "Received an unknown profile edit type.");
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [],
-			content: "Unknown profile edit type. Please try again!",
-			embeds: [],
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: "Unknown profile edit type. Please try again!",
+				},
+			],
 		});
 
 		return;
@@ -538,9 +541,12 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 		pino.warn(interaction, "Received an unknown profile reset type.");
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [],
-			content: "Unknown profile edit type. Please try again!",
-			embeds: [],
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: "Unknown profile edit type. Please try again!",
+				},
+			],
 		});
 
 		return;
