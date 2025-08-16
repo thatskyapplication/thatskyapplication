@@ -1,14 +1,3 @@
-import { t } from "i18next";
-import pino from "../pino.js";
-import { APPLICATION_ID } from "../utility/configuration.js";
-import {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
-	LOCALES,
-	QUEST_NUMBER,
-	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
-	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
-	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
-} from "./constants.js";
 import "../i18next.js";
 import {
 	API,
@@ -31,7 +20,17 @@ import {
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
-import { DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID } from "./configuration.js";
+import { t } from "i18next";
+import pino from "../pino.js";
+import { APPLICATION_ID, DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID } from "./configuration.js";
+import {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	LOCALES,
+	QUEST_NUMBER,
+	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
+	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
+	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
+} from "./constants.js";
 
 function localisations(name: string, options: Record<string, unknown> = {}, ns = "commands") {
 	return Object.fromEntries(
