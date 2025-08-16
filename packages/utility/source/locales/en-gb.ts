@@ -3258,7 +3258,7 @@ export default {
 			"report-confirm-button": "Report",
 			"report-modal-title": "Report Sky Profile",
 			"report-modal-description": "What's wrong with this Sky profile?",
-			"report-submision":
+			"report-submission":
 				"This Sky profile has been reported. Thank you for keeping the community safe!",
 			"edit-type-label": {
 				[SkyProfileEditType.Name]: "Name",
