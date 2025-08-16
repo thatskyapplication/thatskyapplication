@@ -2976,10 +2976,10 @@ export default {
 				"command-description": "Edit your Sky profile.",
 				"command-option-name-name": "name",
 				"command-option-name-description": "What's your in-game name?",
-				"command-option-thumbnail-name": "thumbnail",
-				"command-option-thumbnail-description": "Upload your thumbnail!",
 				"command-option-icon-name": "icon",
 				"command-option-icon-description": "Upload your icon!",
+				"command-option-banner-name": "banner",
+				"command-option-banner-description": "Upload your banner (only on the website)!",
 				"command-option-winged-light-name": "winged-light",
 				"command-option-winged-light-description": "What is your maximum winged light?",
 				"command-option-winged-light-choice-name": {
@@ -3302,7 +3302,7 @@ export default {
 			"reset-type-label": {
 				[SkyProfileResetType.Description]: "Description",
 				[SkyProfileResetType.Icon]: "Icon",
-				[SkyProfileResetType.Thumbnail]: "Thumbnail",
+				[SkyProfileResetType.Banner]: "Banner",
 				[SkyProfileResetType.WingedLight]: "Winged Light",
 				[SkyProfileResetType.Country]: "Country",
 				[SkyProfileResetType.Spot]: "Spot",
@@ -3327,10 +3327,10 @@ export default {
 			"missing-name": "Set your name!",
 			"missing-icon-mention": "Use {{mention}} to upload an icon!",
 			"missing-icon-text": "Use the command to upload an icon!",
-			"missing-thumbnail-mention":
-				"Use {{mention}} to upload a thumbnail!\n  - The thumbnail is only used on the [website]({{url}}).",
-			"missing-thumbnail-text":
-				"Use the command to upload a thumbnail!\n  - The thumbnail is only used on the [website]({{url}}).",
+			"missing-banner-mention":
+				"Use {{mention}} to upload a banner!\n  - The banner is only used on the [website]({{url}}).",
+			"missing-banner-text":
+				"Use the command to upload a banner!\n  - The banner is only used on the [website]({{url}}).",
 			"missing-description": "Set a description!",
 			"missing-country-mention": "Use {{mention}} to set the country you are from!",
 			"missing-country-text": "Use the command to set the country you are from!",

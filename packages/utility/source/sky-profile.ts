@@ -2,7 +2,7 @@ export interface SkyProfilePacket {
 	user_id: string;
 	name: string | null;
 	icon: string | null;
-	thumbnail: string | null;
+	banner: string | null;
 	description: string | null;
 	country: string | null;
 	winged_light: SkyProfileWingedLightTypes | null;
@@ -41,7 +41,7 @@ export const SKY_PROFILE_EDIT_TYPE_VALUES = Object.values(SkyProfileEditType);
 export const SkyProfileResetType = {
 	Description: 0,
 	Icon: 1,
-	Thumbnail: 2,
+	Banner: 2,
 	WingedLight: 3,
 	Country: 4,
 	Spot: 5,

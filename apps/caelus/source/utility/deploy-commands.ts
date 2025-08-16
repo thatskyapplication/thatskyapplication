@@ -868,21 +868,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					},
 					{
 						type: ApplicationCommandOptionType.Attachment,
-						name: t("sky-profile.edit.command-option-thumbnail-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("sky-profile.edit.command-option-thumbnail-name"),
-						description: t("sky-profile.edit.command-option-thumbnail-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"sky-profile.edit.command-option-thumbnail-description",
-						),
-					},
-					{
-						type: ApplicationCommandOptionType.Attachment,
 						name: t("sky-profile.edit.command-option-icon-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
@@ -894,6 +879,21 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						}),
 						description_localizations: localisations(
 							"sky-profile.edit.command-option-icon-description",
+						),
+					},
+					{
+						type: ApplicationCommandOptionType.Attachment,
+						name: t("sky-profile.edit.command-option-banner-name", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						name_localizations: localisations("sky-profile.edit.command-option-banner-name"),
+						description: t("sky-profile.edit.command-option-banner-description", {
+							lng: Locale.EnglishGB,
+							ns: "commands",
+						}),
+						description_localizations: localisations(
+							"sky-profile.edit.command-option-banner-description",
 						),
 					},
 					{

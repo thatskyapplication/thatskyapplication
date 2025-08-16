@@ -96,7 +96,7 @@ export default {
 	},
 	async edit(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const name = options.getString("name");
-		const thumbnail = options.getAttachment("thumbnail");
+		const banner = options.getAttachment("banner");
 		const icon = options.getAttachment("icon");
 		const wingedLight = options.getInteger("winged-light") as SkyProfileWingedLightTypes | null;
 		const spiritId = options.getInteger("spirit");
@@ -116,14 +116,14 @@ export default {
 				data.name = name;
 			}
 
-			if (thumbnail) {
-				if (!(await validateAttachment(interaction, thumbnail))) {
+			if (banner) {
+				if (!(await validateAttachment(interaction, banner))) {
 					return;
 				}
 
 				promises.push({
-					type: AssetType.Thumbnail,
-					promise: skyProfileSetAsset(interaction, thumbnail, AssetType.Thumbnail),
+					type: AssetType.Banner,
+					promise: skyProfileSetAsset(interaction, banner, AssetType.Banner),
 				});
 			}
 
@@ -190,8 +190,8 @@ export default {
 					data.icon = resolvedPromises[index]!;
 				}
 
-				if (promises[index]!.type === AssetType.Thumbnail) {
-					data.thumbnail = resolvedPromises[index]!;
+				if (promises[index]!.type === AssetType.Banner) {
+					data.banner = resolvedPromises[index]!;
 				}
 			}
 

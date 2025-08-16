@@ -246,7 +246,7 @@ export const SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID =
 
 export const enum AssetType {
 	Icon = 0,
-	Thumbnail = 1,
+	Banner = 1,
 }
 
 function generateProfileExplorerSelectMenuOptions(
@@ -333,11 +333,11 @@ export async function skyProfileSetAsset(
 			);
 		}
 
-		if (skyProfilePacket.thumbnail && type === AssetType.Thumbnail) {
+		if (skyProfilePacket.banner && type === AssetType.Banner) {
 			await S3Client.send(
 				new DeleteObjectCommand({
 					Bucket: CDN_BUCKET,
-					Key: skyProfileThumbnailRoute(invoker.id, skyProfilePacket.thumbnail),
+					Key: skyProfileBannerRoute(invoker.id, skyProfilePacket.banner),
 				}),
 			);
 		}
@@ -369,7 +369,7 @@ export async function skyProfileSetAsset(
 			Key:
 				type === AssetType.Icon
 					? skyProfileIconRoute(invoker.id, hashedBuffer)
-					: skyProfileThumbnailRoute(invoker.id, hashedBuffer),
+					: skyProfileBannerRoute(invoker.id, hashedBuffer),
 			Body: buffer,
 		}),
 	);
@@ -465,8 +465,8 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 			case SkyProfileResetType.Icon:
 				data.icon = null;
 				continue;
-			case SkyProfileResetType.Thumbnail:
-				data.thumbnail = null;
+			case SkyProfileResetType.Banner:
+				data.banner = null;
 				continue;
 			case SkyProfileResetType.WingedLight:
 				data.winged_light = null;
@@ -584,7 +584,7 @@ export async function skyProfileShowEdit(
 
 export async function skyProfileDelete(userId: Snowflake) {
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("icon", "thumbnail")
+		.select("icon", "banner")
 		.where({ user_id: userId })
 		.first();
 
@@ -599,9 +599,9 @@ export async function skyProfileDelete(userId: Snowflake) {
 		profileDeleteData.push({ Key: skyProfileIconRoute(userId, skyProfilePacket.icon) });
 	}
 
-	if (skyProfilePacket.thumbnail) {
+	if (skyProfilePacket.banner) {
 		profileDeleteData.push({
-			Key: skyProfileThumbnailRoute(userId, skyProfilePacket.thumbnail),
+			Key: skyProfileBannerRoute(userId, skyProfilePacket.banner),
 		});
 	}
 
@@ -2263,7 +2263,7 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 	const {
 		name,
 		icon,
-		thumbnail,
+		banner,
 		description,
 		country,
 		winged_light: wingedLight,
@@ -2301,9 +2301,9 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 		missing.push(`- ${t(`sky-profile.missing-icon-${suffix}`, options)}`);
 	}
 
-	if (!thumbnail) {
+	if (!banner) {
 		missing.push(
-			`- ${t(`sky-profile.missing-thumbnail-${suffix}`, { ...options, url: `${SKY_PROFILES_URL}/${skyProfilePacket.user_id}` })}`,
+			`- ${t(`sky-profile.missing-banner-${suffix}`, { ...options, url: `${SKY_PROFILES_URL}/${skyProfilePacket.user_id}` })}`,
 		);
 	}
 
@@ -2346,7 +2346,7 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 	return missing;
 }
 
-function skyProfileThumbnailRoute(userId: Snowflake, hash: string) {
+function skyProfileBannerRoute(userId: Snowflake, hash: string) {
 	return `sky_profiles/thumbnails/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 }
 

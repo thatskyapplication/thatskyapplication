@@ -104,18 +104,18 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 			to={`/sky-profiles/${profile.user_id}`}
 		>
 			<div className="relative">
-				{profile.thumbnail ? (
+				{profile.banner ? (
 					<div
-						aria-label={`Thumbnail of ${profile.name}.`}
+						aria-label={`Banner of ${profile.name}.`}
 						className="w-full h-48 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profile.user_id}/${profile.thumbnail.startsWith("a_") ? `${profile.thumbnail}.gif` : `${profile.thumbnail}.webp`})`,
+							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profile.user_id}/${profile.banner.startsWith("a_") ? `${profile.banner}.gif` : `${profile.banner}.webp`})`,
 						}}
 					/>
 				) : (
 					<div
-						aria-label="No thumbnail."
+						aria-label="No banner."
 						className="w-full h-48 bg-gray-200 dark:bg-gray-600"
 						role="img"
 					/>
