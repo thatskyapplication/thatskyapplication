@@ -257,6 +257,7 @@ export const DailyQuest = {
 	AdmireSharedSpacesWithDaydreamForester: 243,
 	AdmireSharedSpacesWithBearhugHermit: 244,
 	AdmireSharedSpacesWithBumblingBoatswain: 245,
+	MeetUpWithFlightGuideInPrairieVillage: 246,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -993,4 +994,5 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.AdmireSharedSpacesWithDaydreamForester]: null,
 	[DailyQuest.AdmireSharedSpacesWithBearhugHermit]: null,
 	[DailyQuest.AdmireSharedSpacesWithBumblingBoatswain]: null,
+	[DailyQuest.MeetUpWithFlightGuideInPrairieVillage]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;

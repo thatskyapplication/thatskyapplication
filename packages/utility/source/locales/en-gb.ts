@@ -385,6 +385,8 @@ export default {
 			[DailyQuest.AdmireSharedSpacesWithBearhugHermit]: "Admire Shared Spaces with Bearhug Hermit",
 			[DailyQuest.AdmireSharedSpacesWithBumblingBoatswain]:
 				"Admire Shared Spaces with Bumbling Boatswain",
+			[DailyQuest.MeetUpWithFlightGuideInPrairieVillage]:
+				"Meet up with Flight Guide in Prairie Village",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
