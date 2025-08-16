@@ -2227,11 +2227,11 @@ async function skyProfileComponents(
 		const guessPacketRanking = await findUser(userId);
 
 		miscellaneous.push(
-			`**${t("sky-profile.guess-rank.original", { lng: locale, ns: "features" })}** ${guessPacketRanking?.streak_rank ? `#${guessPacketRanking.streak_rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
+			`**${t("sky-profile.guess-rank-original", { lng: locale, ns: "features" })}** ${guessPacketRanking?.streak_rank ? `#${guessPacketRanking.streak_rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
 		);
 
 		miscellaneous.push(
-			`**${t("sky-profile.guess-rank.hard", { lng: locale, ns: "features" })}** ${guessPacketRanking?.streak_hard_rank ? `#${guessPacketRanking.streak_hard_rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
+			`**${t("sky-profile.guess-rank-hard", { lng: locale, ns: "features" })}** ${guessPacketRanking?.streak_hard_rank ? `#${guessPacketRanking.streak_hard_rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
 		);
 	}
 
