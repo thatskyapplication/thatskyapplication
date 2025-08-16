@@ -2236,17 +2236,18 @@ async function skyProfileComponents(
 	}
 
 	if (miscellaneous.length > 0) {
-		containerComponents.push(
-			{
-				type: ComponentType.TextDisplay,
-				content: miscellaneous.join("\n"),
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-		);
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: miscellaneous.join("\n"),
+		});
+	}
+
+	if (description || miscellaneous.length > 0) {
+		containerComponents.push({
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		});
 	}
 
 	const hearts = await totalReceived(skyProfilePacket.user_id);
