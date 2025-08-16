@@ -36,6 +36,7 @@ a:website:
 f:catalogue:
   - changed-files:
       - any-glob-to-any-file:
+          - apps/caelus/source/commands/chat-inputs/catalogue.ts
           - apps/caelus/source/features/catalogue.ts
 f:sky-profile:
   - changed-files:
