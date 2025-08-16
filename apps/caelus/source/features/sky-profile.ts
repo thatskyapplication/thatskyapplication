@@ -880,7 +880,7 @@ export async function skyProfileExploreProfile(
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("no-sky-profile-explore-user", { lng: locale, ns: "features" }),
+			content: t("sky-profile.no-sky-profile-explore-user", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
