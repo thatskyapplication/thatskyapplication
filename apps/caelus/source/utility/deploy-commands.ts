@@ -1222,6 +1222,10 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 		default_member_permissions: "0",
 	},
 	{
+		name: "Crowdin",
+		type: ApplicationCommandType.User,
+	},
+	{
 		name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: localisations("daily-guides.command-name"),
 		description: "Edits the daily guides.",

@@ -20,6 +20,7 @@ import shard_eruption from "./chat-inputs/shard-eruption.js";
 import shop from "./chat-inputs/shop.js";
 import sky_profile_chat_input from "./chat-inputs/sky-profile.js";
 import spirit from "./chat-inputs/spirits.js";
+import crowdin from "./user-context-menus/crowdin.js";
 import gift_heart from "./user-context-menus/gift-heart.js";
 import sky_profile_context_menu from "./user-context-menus/sky-profile.js";
 
@@ -48,7 +49,7 @@ export const CHAT_INPUT_COMMANDS = [
 	spirit,
 ] as const;
 
-export const USER_CONTEXT_MENU_COMMANDS = [gift_heart, sky_profile_context_menu] as const;
+export const USER_CONTEXT_MENU_COMMANDS = [crowdin, gift_heart, sky_profile_context_menu] as const;
 
 export const AUTOCOMPLETE_COMMANDS = CHAT_INPUT_COMMANDS.filter(
 	(command) => "autocomplete" in command,
