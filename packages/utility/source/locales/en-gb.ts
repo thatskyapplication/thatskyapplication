@@ -3282,7 +3282,7 @@ export default {
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-modal-title": "Sky Profile",
 			"edit-name-description": "What's your in-game name?",
-			"edit-description-description": "Type a lovely description about your Skykid!",
+			"edit-description-description": "Type a lovely description about your Sky kid!",
 			"edit-winged-light-description":
 				"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
 			"edit-winged-light-string-select-menu-placeholder":
