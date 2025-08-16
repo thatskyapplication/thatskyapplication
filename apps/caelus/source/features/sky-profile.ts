@@ -14,7 +14,6 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	type APIModalSubmitInteraction,
-	type APISelectMenuComponent,
 	type APISelectMenuOption,
 	type APITextDisplayComponent,
 	type APITextInputComponent,
@@ -49,10 +48,13 @@ import {
 	resolveCurrencyEmoji,
 	type SeasonIds,
 	SKY_PROFILE_EDIT_TYPE_VALUES,
+	SKY_PROFILE_RESET_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
 	type SkyProfilePacket,
+	SkyProfileResetType,
+	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 	skySeasons,
@@ -124,24 +126,8 @@ function isSkyProfileEditType(value: number): value is SkyProfileEditTypes {
 	return SKY_PROFILE_EDIT_TYPE_VALUES.includes(value as SkyProfileEditTypes);
 }
 
-enum SkyProfileResetType {
-	Description = "Description",
-	Icon = "Icon",
-	Thumbnail = "Thumbnail",
-	WingedLight = "Winged Light",
-	Country = "Country",
-	Spot = "Spot",
-	Seasons = "Seasons",
-	Platforms = "Platforms",
-	Spirit = "Spirit",
-	CatalogueProgression = "Catalogue Progression",
-	GuessRank = "Guess Rank",
-}
-
-const PROFILE_INTERACTIVE_RESET_TYPE_VALUES = Object.values(SkyProfileResetType);
-
-function isSkyProfileResetType(value: string): value is SkyProfileResetType {
-	return PROFILE_INTERACTIVE_RESET_TYPE_VALUES.includes(value as SkyProfileResetType);
+function isSkyProfileResetType(value: number): value is SkyProfileResetTypes {
+	return SKY_PROFILE_RESET_TYPE_VALUES.includes(value as SkyProfileResetTypes);
 }
 
 const PlatformIdToString = {
@@ -204,27 +190,6 @@ const SKY_PROFILE_EDIT_RESET_BUTTON = {
 	custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
 	label: "Reset",
 	style: ButtonStyle.Secondary,
-} as const;
-
-const SKY_PROFILE_RESET_OPTIONS = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map(
-	(skyProfileResetType) => ({
-		label: skyProfileResetType,
-		value: skyProfileResetType,
-	}),
-);
-
-const SKY_PROFILE_RESET_OPTIONS_ACTION_ROW: APIActionRowComponent<APISelectMenuComponent> = {
-	type: ComponentType.ActionRow,
-	components: [
-		{
-			type: ComponentType.StringSelect,
-			custom_id: SKY_PROFILE_RESET_CUSTOM_ID,
-			max_values: SKY_PROFILE_RESET_OPTIONS.length,
-			min_values: 1,
-			options: SKY_PROFILE_RESET_OPTIONS,
-			placeholder: "What do you wish to reset?",
-		},
-	],
 } as const;
 
 const SKY_PROFILE_BACK_TO_START_ACTION_ROW: APIActionRowComponent<APIButtonComponent> = {
@@ -492,69 +457,61 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 }
 
 export async function skyProfileReset(interaction: APIMessageComponentSelectMenuInteraction) {
-	const skyProfileResetTypes = interaction.data.values;
-
-	if (
-		!skyProfileResetTypes.every((skyProfileResetType) => isSkyProfileResetType(skyProfileResetType))
-	) {
-		pino.warn(interaction, "Received an unknown profile reset type.");
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: "Unknown profile reset type. Please try again!",
-				},
-			],
-		});
-
-		return;
-	}
-
 	const data: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
 
-	if (skyProfileResetTypes.includes(SkyProfileResetType.Description)) {
-		data.description = null;
-	}
+	for (const values of interaction.data.values) {
+		const skyProfileResetType = Number(values);
 
-	if (skyProfileResetTypes.includes(SkyProfileResetType.Icon)) {
-		data.icon = null;
-	}
+		if (!isSkyProfileResetType(skyProfileResetType)) {
+			pino.warn(interaction, "Received an unknown profile reset type.");
 
-	if (skyProfileResetTypes.includes(SkyProfileResetType.Thumbnail)) {
-		data.thumbnail = null;
-	}
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: "Unknown profile reset type. Please try again!",
+					},
+				],
+			});
 
-	if (skyProfileResetTypes.includes(SkyProfileResetType.WingedLight)) {
-		data.winged_light = null;
-	}
+			return;
+		}
 
-	if (skyProfileResetTypes.includes(SkyProfileResetType.Country)) {
-		data.country = null;
-	}
-
-	if (skyProfileResetTypes.includes(SkyProfileResetType.Spot)) {
-		data.spot = null;
-	}
-
-	if (skyProfileResetTypes.includes(SkyProfileResetType.Seasons)) {
-		data.seasons = null;
-	}
-
-	if (skyProfileResetTypes.includes(SkyProfileResetType.Platforms)) {
-		data.platform = null;
-	}
-
-	if (skyProfileResetTypes.includes(SkyProfileResetType.Spirit)) {
-		data.spirit = null;
-	}
-
-	if (skyProfileResetTypes.includes(SkyProfileResetType.CatalogueProgression)) {
-		data.catalogue_progression = null;
-	}
-
-	if (skyProfileResetTypes.includes(SkyProfileResetType.GuessRank)) {
-		data.guess_rank = null;
+		switch (skyProfileResetType) {
+			case SkyProfileResetType.Description:
+				data.description = null;
+				continue;
+			case SkyProfileResetType.Icon:
+				data.icon = null;
+				continue;
+			case SkyProfileResetType.Thumbnail:
+				data.thumbnail = null;
+				continue;
+			case SkyProfileResetType.WingedLight:
+				data.winged_light = null;
+				continue;
+			case SkyProfileResetType.Country:
+				data.country = null;
+				continue;
+			case SkyProfileResetType.Spot:
+				data.spot = null;
+				continue;
+			case SkyProfileResetType.Seasons:
+				data.seasons = null;
+				continue;
+			case SkyProfileResetType.Platforms:
+				data.platform = null;
+				continue;
+			case SkyProfileResetType.Spirit:
+				data.spirit = null;
+				continue;
+			case SkyProfileResetType.CatalogueProgression:
+				data.catalogue_progression = null;
+				continue;
+			case SkyProfileResetType.GuessRank:
+				data.guess_rank = null;
+				continue;
+		}
 	}
 
 	await skyProfileSet(interaction, data);
@@ -1936,7 +1893,28 @@ export async function skyProfileShowReset(interaction: APIMessageComponentButton
 			...(await skyProfileComponents(interaction, skyProfilePacket)),
 			{
 				type: ComponentType.Container,
-				components: [SKY_PROFILE_RESET_OPTIONS_ACTION_ROW, SKY_PROFILE_BACK_TO_START_ACTION_ROW],
+				components: [
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: SKY_PROFILE_RESET_CUSTOM_ID,
+								max_values: SKY_PROFILE_RESET_TYPE_VALUES.length,
+								min_values: 1,
+								options: SKY_PROFILE_RESET_TYPE_VALUES.map((skyProfileResetType) => ({
+									label: t(`sky-profile.reset-type-label.${skyProfileResetType}`, {
+										lng: interaction.locale,
+										ns: "features",
+									}),
+									value: skyProfileResetType.toString(),
+								})),
+								placeholder: "What do you wish to reset?",
+							},
+						],
+					},
+					SKY_PROFILE_BACK_TO_START_ACTION_ROW,
+				],
 			},
 		],
 	});

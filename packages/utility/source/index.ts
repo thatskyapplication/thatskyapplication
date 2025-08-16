@@ -121,10 +121,13 @@ export {
 export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
 export {
 	SKY_PROFILE_EDIT_TYPE_VALUES,
+	SKY_PROFILE_RESET_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
 	type SkyProfilePacket,
+	SkyProfileResetType,
+	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 } from "./sky-profile.js";

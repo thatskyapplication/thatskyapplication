@@ -6,8 +6,10 @@ import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import {
 	SkyProfileEditType,
-	SkyProfileWingedLightType,
 	type SkyProfileEditTypes,
+	SkyProfileResetType,
+	type SkyProfileResetTypes,
+	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 } from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";
@@ -3243,6 +3245,19 @@ export default {
 				[SkyProfileEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
 				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
 			} satisfies Record<SkyProfileEditTypes, string>,
+			"reset-type-label": {
+				[SkyProfileResetType.Description]: "Description",
+				[SkyProfileResetType.Icon]: "Icon",
+				[SkyProfileResetType.Thumbnail]: "Thumbnail",
+				[SkyProfileResetType.WingedLight]: "Winged Light",
+				[SkyProfileResetType.Country]: "Country",
+				[SkyProfileResetType.Spot]: "Spot",
+				[SkyProfileResetType.Seasons]: "Seasons",
+				[SkyProfileResetType.Platforms]: "Platforms",
+				[SkyProfileResetType.Spirit]: "Spirit",
+				[SkyProfileResetType.CatalogueProgression]: "Catalogue Progression",
+				[SkyProfileResetType.GuessRank]: "Guess Rank",
+			} satisfies Record<SkyProfileResetTypes, string>,
 		},
 		spirits: {
 			"not-encountered-spirit":
