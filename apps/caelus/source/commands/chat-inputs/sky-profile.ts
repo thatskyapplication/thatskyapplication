@@ -162,7 +162,7 @@ export default {
 			if (country) {
 				if (!isCountry(country)) {
 					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-						content: "Please select a country!",
+						content: t("sky-profile.unknown-country", { lng: interaction.locale, ns: "features" }),
 					});
 
 					return;

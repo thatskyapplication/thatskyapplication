@@ -3225,6 +3225,7 @@ export default {
 			browse: "Browse",
 		},
 		"sky-profile": {
+			"unknown-country": "Please select a country!",
 			"edit-type-label": {
 				[SkyProfileEditType.Name]: "Name",
 				[SkyProfileEditType.Description]: "Description",
