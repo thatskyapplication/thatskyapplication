@@ -130,15 +130,6 @@ function isSkyProfileResetType(value: number): value is SkyProfileResetTypes {
 	return SKY_PROFILE_RESET_TYPE_VALUES.includes(value as SkyProfileResetTypes);
 }
 
-const PlatformIdToString = {
-	[PlatformId.iOS]: "iOS",
-	[PlatformId.Android]: "Android",
-	[PlatformId.Mac]: "Mac",
-	[PlatformId.NintendoSwitch]: "Nintendo Switch",
-	[PlatformId.PlayStation]: "PlayStation",
-	[PlatformId.Steam]: "Steam",
-} as const satisfies Readonly<Record<PlatformIds, string>>;
-
 const PlatformIdToEmoji = {
 	[PlatformId.iOS]: MISCELLANEOUS_EMOJIS.PlatformIOS,
 	[PlatformId.Android]: MISCELLANEOUS_EMOJIS.PlatformAndroid,
@@ -1752,7 +1743,10 @@ async function skyProfileShowPlatformsSelectMenu(
 								options: PLATFORM_ID_VALUES.map((platformId) => ({
 									default: currentPlatforms?.includes(platformId) ?? false,
 									emoji: PlatformIdToEmoji[platformId],
-									label: PlatformIdToString[platformId],
+									label: t(`sky-profile.platform-label.${platformId}`, {
+										lng: interaction.locale,
+										ns: "features",
+									}),
 									value: String(platformId),
 								})),
 								placeholder: "Select the platforms you play on!",

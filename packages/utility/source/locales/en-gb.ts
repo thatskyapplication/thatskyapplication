@@ -3,6 +3,7 @@ import { DailyQuest, type DailyQuests } from "../daily-guides.js";
 import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevelToName } from "../guess.js";
 import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
+import { PlatformId, type PlatformIds } from "../platforms.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import {
 	SkyProfileEditType,
@@ -3226,6 +3227,14 @@ export default {
 		},
 		"sky-profile": {
 			"unknown-country": "Please select a country!",
+			"platform-label": {
+				[PlatformId.iOS]: "iOS",
+				[PlatformId.Android]: "Android",
+				[PlatformId.Mac]: "Mac",
+				[PlatformId.NintendoSwitch]: "Nintendo Switch",
+				[PlatformId.PlayStation]: "PlayStation",
+				[PlatformId.Steam]: "Steam",
+			} satisfies Record<PlatformIds, string>,
 			"edit-type-label": {
 				[SkyProfileEditType.Name]: "Name",
 				[SkyProfileEditType.Description]: "Description",
