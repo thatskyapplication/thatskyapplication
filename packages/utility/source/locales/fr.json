@@ -2779,7 +2779,7 @@
 			"command-description": "",
 			"command-option-browse-name": "",
 			"command-option-browse-description": "",
-			"command-option-today-name": "aujourd'hui",
+			"command-option-today-name": "",
 			"command-option-today-description": ""
 		},
 		"shop": {
