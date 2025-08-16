@@ -84,9 +84,9 @@ import {
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
+	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
-	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
-	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
+	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
@@ -160,8 +160,10 @@ export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID =
 export const SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID =
 	"SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID" as const;
 
-export const SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID" as const;
-const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID" as const;
+export const SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID =
+	"SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID" as const;
+
+const SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID" as const;
 
 export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
 	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
@@ -411,8 +413,8 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 			await skyProfileShowWingedLightSelectMenu(interaction);
 			return;
 		}
-		case SkyProfileEditType.Spot: {
-			await skyProfileShowSpotModal(interaction);
+		case SkyProfileEditType.Hangout: {
+			await skyProfileShowHangoutModal(interaction);
 			return;
 		}
 		case SkyProfileEditType.Seasons: {
@@ -474,8 +476,8 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 			case SkyProfileResetType.Country:
 				data.country = null;
 				continue;
-			case SkyProfileResetType.Spot:
-				data.spot = null;
+			case SkyProfileResetType.Hangout:
+				data.hangout = null;
 				continue;
 			case SkyProfileResetType.Seasons:
 				data.seasons = null;
@@ -1664,7 +1666,7 @@ async function skyProfileShowWingedLightSelectMenu(
 	});
 }
 
-async function skyProfileShowSpotModal(interaction: APIMessageComponentSelectMenuInteraction) {
+async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelectMenuInteraction) {
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
@@ -1674,21 +1676,21 @@ async function skyProfileShowSpotModal(interaction: APIMessageComponentSelectMen
 
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
-		custom_id: SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID,
+		custom_id: SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID,
 		label: t("sky-profile.edit-hangout-description", { lng: locale, ns: "features" }),
-		max_length: SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
-		min_length: SKY_PROFILE_MINIMUM_SPOT_LENGTH,
+		max_length: SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
+		min_length: SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 		required: true,
 		style: TextInputStyle.Short,
 	};
 
-	if (skyProfilePacket?.spot) {
-		textInput.value = skyProfilePacket.spot;
+	if (skyProfilePacket?.hangout) {
+		textInput.value = skyProfilePacket.hangout;
 	}
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
-		custom_id: SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
+		custom_id: SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID,
 		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
 }
@@ -1878,10 +1880,10 @@ export async function skyProfileSetWingedLight(
 	});
 }
 
-export function skyProfileSetSpot(interaction: APIModalSubmitInteraction) {
+export function skyProfileSetHangout(interaction: APIModalSubmitInteraction) {
 	const components = new ModalResolver(interaction.data.components);
-	const spot = components.getTextInputValue(SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID).trim();
-	return skyProfileSet(interaction, { user_id: interactionInvoker(interaction).id, spot });
+	const hangout = components.getTextInputValue(SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID).trim();
+	return skyProfileSet(interaction, { user_id: interactionInvoker(interaction).id, hangout });
 }
 
 export async function skyProfileSetSeasons(interaction: APIMessageComponentSelectMenuInteraction) {
@@ -2048,7 +2050,7 @@ async function skyProfileComponents(
 		seasons,
 		platform,
 		spirit,
-		spot,
+		hangout,
 		catalogue_progression: catalogueProgression,
 		guess_rank: guessRank,
 	} = skyProfilePacket;
@@ -2208,9 +2210,9 @@ async function skyProfileComponents(
 		);
 	}
 
-	if (spot) {
+	if (hangout) {
 		miscellaneous.push(
-			`**${t("sky-profile.favourite-hangout", { lng: locale, ns: "features" })}** ${spot}`,
+			`**${t("sky-profile.favourite-hangout", { lng: locale, ns: "features" })}** ${hangout}`,
 		);
 	}
 
@@ -2271,7 +2273,7 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 		seasons,
 		platform,
 		spirit,
-		spot,
+		hangout,
 		catalogue_progression: catalogueProgression,
 		guess_rank: guessRank,
 	} = skyProfilePacket;
@@ -2332,7 +2334,7 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 		missing.push(`- ${t(`sky-profile.missing-spirit-${suffix}`, options)}`);
 	}
 
-	if (!spot) {
+	if (!hangout) {
 		missing.push(`- ${t("sky-profile.missing-hangout", options)}`);
 	}
 

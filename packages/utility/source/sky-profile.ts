@@ -9,7 +9,7 @@ export interface SkyProfilePacket {
 	seasons: number[] | null;
 	platform: number[] | null;
 	spirit: number | null;
-	spot: string | null;
+	hangout: string | null;
 	catalogue_progression: boolean | null;
 	guess_rank: boolean | null;
 }
@@ -28,7 +28,7 @@ export const SkyProfileEditType = {
 	Name: 0,
 	Description: 1,
 	WingedLight: 2,
-	Spot: 3,
+	Hangout: 3,
 	Seasons: 4,
 	Platforms: 5,
 	CatalogueProgression: 6,
@@ -44,7 +44,7 @@ export const SkyProfileResetType = {
 	Banner: 2,
 	WingedLight: 3,
 	Country: 4,
-	Spot: 5,
+	Hangout: 5,
 	Seasons: 6,
 	Platforms: 7,
 	Spirit: 8,

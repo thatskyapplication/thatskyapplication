@@ -286,14 +286,14 @@ export default function SkyProfile() {
 						</div>
 					</div>
 				) : null}
-				{skyProfilePacket.spot && (
+				{skyProfilePacket.hangout && (
 					<div
 						className={`group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 ${(skyProfilePacket.winged_light === null && skyProfilePacket.spirit === null) || (skyProfilePacket.winged_light !== null && skyProfilePacket.spirit) ? "md:col-span-2" : ""}`}
 					>
 						<MapPinIcon className="w-6 h-6 mr-2" />
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Hangout</p>
-							<p className="my-0">{skyProfilePacket.spot}</p>
+							<p className="my-0">{skyProfilePacket.hangout}</p>
 						</div>
 					</div>
 				)}

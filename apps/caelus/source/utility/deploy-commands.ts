@@ -5,9 +5,9 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	LOCALES,
 	QUEST_NUMBER,
+	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
-	SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
-	SKY_PROFILE_MINIMUM_SPOT_LENGTH,
+	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 } from "./constants.js";
 import "../i18next.js";
 import {
@@ -956,20 +956,20 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					},
 					{
 						type: ApplicationCommandOptionType.String,
-						name: t("sky-profile.edit.command-option-spot-name", {
+						name: t("sky-profile.edit.command-option-hangout-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("sky-profile.edit.command-option-spot-name"),
-						description: t("sky-profile.edit.command-option-spot-description", {
+						name_localizations: localisations("sky-profile.edit.command-option-hangout-name"),
+						description: t("sky-profile.edit.command-option-hangout-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: localisations(
-							"sky-profile.edit.command-option-spot-description",
+							"sky-profile.edit.command-option-hangout-description",
 						),
-						max_length: SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
-						min_length: SKY_PROFILE_MINIMUM_SPOT_LENGTH,
+						max_length: SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
+						min_length: SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 					},
 					{
 						type: ApplicationCommandOptionType.Boolean,

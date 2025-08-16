@@ -101,7 +101,7 @@ export default {
 		const wingedLight = options.getInteger("winged-light") as SkyProfileWingedLightTypes | null;
 		const spiritId = options.getInteger("spirit");
 		const country = options.getString("country");
-		const spot = options.getString("spot");
+		const hangout = options.getString("hangout");
 		const catalogueProgression = options.getBoolean("catalogue-progression");
 		const guessRank = options.getBoolean("guess-rank");
 		const data: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
@@ -171,8 +171,8 @@ export default {
 				data.country = country;
 			}
 
-			if (spot) {
-				data.spot = spot;
+			if (hangout) {
+				data.hangout = hangout;
 			}
 
 			if (catalogueProgression !== null) {

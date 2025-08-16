@@ -143,11 +143,11 @@ import {
 	SKY_PROFILE_REPORT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_RESET_CUSTOM_ID,
 	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
+	SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID,
 	SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID,
-	SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
 	SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID,
 	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
 	skyProfileEdit,
@@ -161,10 +161,10 @@ import {
 	skyProfileReset,
 	skyProfileSendReport,
 	skyProfileSetDescription,
+	skyProfileSetHangout,
 	skyProfileSetName,
 	skyProfileSetPlatform,
 	skyProfileSetSeasons,
-	skyProfileSetSpot,
 	skyProfileSetWingedLight,
 	skyProfileShowEdit,
 	skyProfileShowReset,
@@ -1081,8 +1081,8 @@ export default {
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID) {
-					await skyProfileSetSpot(interaction);
+				if (customId === SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID) {
+					await skyProfileSetHangout(interaction);
 					return;
 				}
 
