@@ -110,7 +110,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 			content: skyProfilePacket?.icon
 				? `https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfilePacket.user_id}/${skyProfilePacket.icon.startsWith("a_") ? `${skyProfilePacket.icon}.gif` : `${skyProfilePacket.icon}.webp`}`
 				: skyProfilePacket?.banner
-					? `https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.banner.startsWith("a_") ? `${skyProfilePacket.banner}.gif` : `${skyProfilePacket.banner}.webp`}`
+					? `https://cdn.thatskyapplication.com/sky_profiles/banners/${skyProfilePacket.user_id}/${skyProfilePacket.banner.startsWith("a_") ? `${skyProfilePacket.banner}.gif` : `${skyProfilePacket.banner}.webp`}`
 					: null,
 		},
 		{ property: "og:url", content: url },
@@ -182,7 +182,7 @@ export default function SkyProfile() {
 								className="w-full h-full bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.banner.startsWith("a_") ? `${skyProfilePacket.banner}.gif` : `${skyProfilePacket.banner}.webp`})`,
+									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/banners/${skyProfilePacket.user_id}/${skyProfilePacket.banner.startsWith("a_") ? `${skyProfilePacket.banner}.gif` : `${skyProfilePacket.banner}.webp`})`,
 								}}
 							/>
 						) : (

@@ -110,7 +110,7 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 						className="w-full h-48 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${profile.user_id}/${profile.banner.startsWith("a_") ? `${profile.banner}.gif` : `${profile.banner}.webp`})`,
+							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/banners/${profile.user_id}/${profile.banner.startsWith("a_") ? `${profile.banner}.gif` : `${profile.banner}.webp`})`,
 						}}
 					/>
 				) : (

@@ -2350,7 +2350,7 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 }
 
 function skyProfileBannerRoute(userId: Snowflake, hash: string) {
-	return `sky_profiles/thumbnails/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
+	return `sky_profiles/banners/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 }
 
 function skyProfileIconRoute(userId: Snowflake, hash: string) {
