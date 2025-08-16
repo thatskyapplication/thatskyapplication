@@ -4,7 +4,12 @@ import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevelToName } from "../gu
 import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { SeasonId, type SeasonIds } from "../season.js";
-import { SkyProfileWingedLightType, type SkyProfileWingedLightTypes } from "../sky-profile.js";
+import {
+	SkyProfileEditType,
+	SkyProfileWingedLightType,
+	type SkyProfileEditTypes,
+	type SkyProfileWingedLightTypes,
+} from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";
 import {
 	SpiritId,
@@ -3216,6 +3221,28 @@ export default {
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
 			today: "Today",
 			browse: "Browse",
+		},
+		"sky-profile": {
+			"edit-type-label": {
+				[SkyProfileEditType.Name]: "Name",
+				[SkyProfileEditType.Description]: "Description",
+				[SkyProfileEditType.WingedLight]: "Winged Light",
+				[SkyProfileEditType.Spot]: "Hangout",
+				[SkyProfileEditType.Seasons]: "Seasons",
+				[SkyProfileEditType.Platforms]: "Platforms",
+				[SkyProfileEditType.CatalogueProgression]: "Catalogue Progression",
+				[SkyProfileEditType.GuessRank]: "Guessing Rank",
+			} satisfies Record<SkyProfileEditTypes, string>,
+			"edit-type-description": {
+				[SkyProfileEditType.Name]: "What name do you go by?",
+				[SkyProfileEditType.Description]: "What's your story?",
+				[SkyProfileEditType.WingedLight]: "What's your maximum winged light?",
+				[SkyProfileEditType.Spot]: "Where do you hang out?",
+				[SkyProfileEditType.Seasons]: "What seasons have you played in?",
+				[SkyProfileEditType.Platforms]: "What platforms do you play on?",
+				[SkyProfileEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
+				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
+			} satisfies Record<SkyProfileEditTypes, string>,
 		},
 		spirits: {
 			"not-encountered-spirit":

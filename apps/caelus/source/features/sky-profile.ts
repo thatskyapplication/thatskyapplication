@@ -48,7 +48,10 @@ import {
 	type PlatformIds,
 	resolveCurrencyEmoji,
 	type SeasonIds,
+	SKY_PROFILE_EDIT_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
+	SkyProfileEditType,
+	type SkyProfileEditTypes,
 	type SkyProfilePacket,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
@@ -117,35 +120,11 @@ export type SkyProfileSetData = Partial<SkyProfilePacket> &
 		platform?: readonly PlatformIds[] | null;
 	};
 
-enum ProfileInteractiveEditType {
-	Name = "Name",
-	Description = "Description",
-	WingedLight = "Winged Light",
-	Spot = "Spot",
-	Seasons = "Seasons",
-	Platforms = "Platforms",
-	CatalogueProgression = "Catalogue Progression",
-	GuessRank = "Guess Rank",
+function isSkyProfileEditType(value: number): value is SkyProfileEditTypes {
+	return SKY_PROFILE_EDIT_TYPE_VALUES.includes(value as SkyProfileEditTypes);
 }
 
-const PROFILE_INTERACTIVE_EDIT_TYPE_VALUES = Object.values(ProfileInteractiveEditType);
-
-const ProfileInteractiveEditTypeToDescription = {
-	[ProfileInteractiveEditType.Name]: "What name do you go by?",
-	[ProfileInteractiveEditType.Description]: "What's your story?",
-	[ProfileInteractiveEditType.WingedLight]: "What's your maximum winged light?",
-	[ProfileInteractiveEditType.Spot]: "Where do you hang out?",
-	[ProfileInteractiveEditType.Seasons]: "What seasons have you played in?",
-	[ProfileInteractiveEditType.Platforms]: "What platforms do you play on?",
-	[ProfileInteractiveEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
-	[ProfileInteractiveEditType.GuessRank]: "Toggle showing your guessing game rank?",
-} as const satisfies Readonly<Record<ProfileInteractiveEditType, string>>;
-
-function isProfileInteractiveEditType(value: unknown): value is ProfileInteractiveEditType {
-	return PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.includes(value as ProfileInteractiveEditType);
-}
-
-enum ProfileInteractiveResetType {
+enum SkyProfileResetType {
 	Description = "Description",
 	Icon = "Icon",
 	Thumbnail = "Thumbnail",
@@ -159,10 +138,10 @@ enum ProfileInteractiveResetType {
 	GuessRank = "Guess Rank",
 }
 
-const PROFILE_INTERACTIVE_RESET_TYPE_VALUES = Object.values(ProfileInteractiveResetType);
+const PROFILE_INTERACTIVE_RESET_TYPE_VALUES = Object.values(SkyProfileResetType);
 
-function isProfileInteractiveResetType(value: unknown): value is ProfileInteractiveResetType {
-	return PROFILE_INTERACTIVE_RESET_TYPE_VALUES.includes(value as ProfileInteractiveResetType);
+function isSkyProfileResetType(value: string): value is SkyProfileResetType {
+	return PROFILE_INTERACTIVE_RESET_TYPE_VALUES.includes(value as SkyProfileResetType);
 }
 
 const PlatformIdToString = {
@@ -213,24 +192,6 @@ const SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_
 export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
 	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
 
-const SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW: APIActionRowComponent<APISelectMenuComponent> = {
-	type: ComponentType.ActionRow,
-	components: [
-		{
-			type: ComponentType.StringSelect,
-			custom_id: SKY_PROFILE_EDIT_CUSTOM_ID,
-			max_values: 1,
-			min_values: 1,
-			options: PROFILE_INTERACTIVE_EDIT_TYPE_VALUES.map((profileInteractiveEditType) => ({
-				description: ProfileInteractiveEditTypeToDescription[profileInteractiveEditType],
-				label: profileInteractiveEditType,
-				value: profileInteractiveEditType,
-			})),
-			placeholder: "What do you want to edit?",
-		},
-	],
-} as const;
-
 const SKY_PROFILE_EDIT_WINGLESS_BUTTON = {
 	type: ComponentType.Button,
 	style: ButtonStyle.Link,
@@ -246,9 +207,9 @@ const SKY_PROFILE_EDIT_RESET_BUTTON = {
 } as const;
 
 const SKY_PROFILE_RESET_OPTIONS = PROFILE_INTERACTIVE_RESET_TYPE_VALUES.map(
-	(profileInteractiveResetType) => ({
-		label: profileInteractiveResetType,
-		value: profileInteractiveResetType,
+	(skyProfileResetType) => ({
+		label: skyProfileResetType,
+		value: skyProfileResetType,
 	}),
 );
 
@@ -477,9 +438,9 @@ export async function skyProfileSetAsset(
 }
 
 export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuInteraction) {
-	const profileInteractiveEditType = interaction.data.values[0];
+	const skyProfileEditType = Number(interaction.data.values[0]!);
 
-	if (!isProfileInteractiveEditType(profileInteractiveEditType)) {
+	if (!isSkyProfileEditType(skyProfileEditType)) {
 		pino.warn(interaction, "Received an unknown profile edit type.");
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -494,36 +455,36 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 		return;
 	}
 
-	switch (profileInteractiveEditType) {
-		case ProfileInteractiveEditType.Name: {
+	switch (skyProfileEditType) {
+		case SkyProfileEditType.Name: {
 			await skyProfileShowNameModal(interaction);
 			return;
 		}
-		case ProfileInteractiveEditType.Description: {
+		case SkyProfileEditType.Description: {
 			await skyProfileShowDescriptionModal(interaction);
 			return;
 		}
-		case ProfileInteractiveEditType.WingedLight: {
+		case SkyProfileEditType.WingedLight: {
 			await skyProfileShowWingedLightSelectMenu(interaction);
 			return;
 		}
-		case ProfileInteractiveEditType.Spot: {
+		case SkyProfileEditType.Spot: {
 			await skyProfileShowSpotModal(interaction);
 			return;
 		}
-		case ProfileInteractiveEditType.Seasons: {
+		case SkyProfileEditType.Seasons: {
 			await skyProfileShowSeasonsSelectMenu(interaction);
 			return;
 		}
-		case ProfileInteractiveEditType.Platforms: {
+		case SkyProfileEditType.Platforms: {
 			await skyProfileShowPlatformsSelectMenu(interaction);
 			return;
 		}
-		case ProfileInteractiveEditType.CatalogueProgression: {
+		case SkyProfileEditType.CatalogueProgression: {
 			await skyProfileSetCatalogueProgression(interaction);
 			return;
 		}
-		case ProfileInteractiveEditType.GuessRank: {
+		case SkyProfileEditType.GuessRank: {
 			await skyProfileSetGuessRank(interaction);
 			return;
 		}
@@ -531,12 +492,10 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 }
 
 export async function skyProfileReset(interaction: APIMessageComponentSelectMenuInteraction) {
-	const profileInteractiveResetTypes = interaction.data.values;
+	const skyProfileResetTypes = interaction.data.values;
 
 	if (
-		!profileInteractiveResetTypes.every((profileInteractiveResetType) =>
-			isProfileInteractiveResetType(profileInteractiveResetType),
-		)
+		!skyProfileResetTypes.every((skyProfileResetType) => isSkyProfileResetType(skyProfileResetType))
 	) {
 		pino.warn(interaction, "Received an unknown profile reset type.");
 
@@ -544,7 +503,7 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "Unknown profile edit type. Please try again!",
+					content: "Unknown profile reset type. Please try again!",
 				},
 			],
 		});
@@ -554,47 +513,47 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 
 	const data: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Description)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.Description)) {
 		data.description = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Icon)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.Icon)) {
 		data.icon = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Thumbnail)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.Thumbnail)) {
 		data.thumbnail = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.WingedLight)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.WingedLight)) {
 		data.winged_light = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Country)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.Country)) {
 		data.country = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Spot)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.Spot)) {
 		data.spot = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Seasons)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.Seasons)) {
 		data.seasons = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Platforms)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.Platforms)) {
 		data.platform = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.Spirit)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.Spirit)) {
 		data.spirit = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.CatalogueProgression)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.CatalogueProgression)) {
 		data.catalogue_progression = null;
 	}
 
-	if (profileInteractiveResetTypes.includes(ProfileInteractiveResetType.GuessRank)) {
+	if (skyProfileResetTypes.includes(SkyProfileResetType.GuessRank)) {
 		data.guess_rank = null;
 	}
 
@@ -632,7 +591,30 @@ export async function skyProfileShowEdit(
 		});
 	}
 
-	containerComponents.push(SKY_PROFILE_EDIT_OPTIONS_ACTION_ROW);
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: [
+			{
+				type: ComponentType.StringSelect,
+				custom_id: SKY_PROFILE_EDIT_CUSTOM_ID,
+				max_values: 1,
+				min_values: 1,
+				options: SKY_PROFILE_EDIT_TYPE_VALUES.map((skyProfileEditType) => ({
+					description: t(`sky-profile.edit-type-description.${skyProfileEditType}`, {
+						lng: interaction.locale,
+						ns: "features",
+					}),
+					label: t(`sky-profile.edit-type-label.${skyProfileEditType}`, {
+						lng: interaction.locale,
+						ns: "features",
+					}),
+					value: skyProfileEditType.toString(),
+				})),
+				placeholder: "What do you want to edit?",
+			},
+		],
+	});
+
 	const actionRowComponents: APIComponentInMessageActionRow[] = [];
 
 	if (skyProfilePacket?.winged_light === SkyProfileWingedLightType.Capeless) {
