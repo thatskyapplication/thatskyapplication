@@ -2,11 +2,9 @@ import type { Buffer } from "node:buffer";
 import { URL } from "node:url";
 import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
-	type APIActionRowComponent,
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIApplicationCommandInteractionDataStringOption,
 	type APIAttachment,
-	type APIButtonComponent,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIComponentInMessageActionRow,
@@ -25,6 +23,7 @@ import {
 	ComponentType,
 	type InteractionsAPI,
 	InteractionType,
+	type Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	SeparatorSpacingSize,
@@ -37,8 +36,6 @@ import {
 	CountryToEmoji,
 	type Emoji,
 	formatEmoji,
-	GuessDifficultyLevel,
-	GuessDifficultyLevelToName,
 	isCountry,
 	isPlatformId,
 	MAXIMUM_WINGED_LIGHT,
@@ -181,19 +178,6 @@ const SKY_PROFILE_EDIT_RESET_BUTTON = {
 	custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
 	label: "Reset",
 	style: ButtonStyle.Secondary,
-} as const;
-
-const SKY_PROFILE_BACK_TO_START_ACTION_ROW: APIActionRowComponent<APIButtonComponent> = {
-	type: ComponentType.ActionRow,
-	components: [
-		{
-			type: ComponentType.Button,
-			custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
-			emoji: { name: "⏮️" },
-			label: "Back to Sky Profile",
-			style: ButtonStyle.Primary,
-		},
-	],
 } as const;
 
 export const SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS = [
@@ -403,7 +387,10 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "Unknown profile edit type. Please try again!",
+					content: t("sky-profile.unknown-profile-edit-type", {
+						lng: interaction.locale,
+						ns: "features",
+					}),
 				},
 			],
 		});
@@ -460,7 +447,10 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: "Unknown profile reset type. Please try again!",
+						content: t("sky-profile.unknown-profile-reset-type", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
 					},
 				],
 			});
@@ -516,6 +506,7 @@ export async function skyProfileShowEdit(
 		| APIModalSubmitInteraction,
 	defer?: boolean,
 ) {
+	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
@@ -527,7 +518,7 @@ export async function skyProfileShowEdit(
 
 	if (skyProfilePacket) {
 		components.push(...(await skyProfileComponents(interaction, skyProfilePacket)));
-		const missing = skyProfileMissingData(skyProfilePacket);
+		const missing = skyProfileMissingData(skyProfilePacket, locale);
 
 		if (missing.length > 0) {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: missing.join("\n") });
@@ -535,7 +526,11 @@ export async function skyProfileShowEdit(
 	} else {
 		components.push({
 			type: ComponentType.TextDisplay,
-			content: `You do not have a Sky profile yet. Build one!\nSky profiles show up on ${SKY_PROFILES_URL} too!`,
+			content: t("sky-profile.no-sky-profile-edit", {
+				lng: locale,
+				ns: "features",
+				url: SKY_PROFILES_URL,
+			}),
 		});
 	}
 
@@ -549,16 +544,16 @@ export async function skyProfileShowEdit(
 				min_values: 1,
 				options: SKY_PROFILE_EDIT_TYPE_VALUES.map((skyProfileEditType) => ({
 					description: t(`sky-profile.edit-type-description.${skyProfileEditType}`, {
-						lng: interaction.locale,
+						lng: locale,
 						ns: "features",
 					}),
 					label: t(`sky-profile.edit-type-label.${skyProfileEditType}`, {
-						lng: interaction.locale,
+						lng: locale,
 						ns: "features",
 					}),
 					value: skyProfileEditType.toString(),
 				})),
-				placeholder: "What do you want to edit?",
+				placeholder: t("sky-profile.edit-placeholder", { lng: locale, ns: "features" }),
 			},
 		],
 	});
@@ -629,13 +624,17 @@ export async function skyProfileShow(
 ) {
 	if (user?.bot) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "Do applications have Sky profiles? Hm. Who knows?",
+			content: t("sky-profile.no-sky-profile-application", {
+				lng: interaction.locale,
+				ns: "features",
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
+	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	if (hide) {
@@ -649,9 +648,13 @@ export async function skyProfileShow(
 			const userIsInvoker = !user || user.id === invoker.id;
 
 			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: `${userIsInvoker ? "You do" : `<@${user.id}> does`} not have a Sky profile! Why not${
-					userIsInvoker ? "" : " ask them to"
-				} create one?`,
+				content: userIsInvoker
+					? t("sky-profile.no-sky-profile-invoker", { lng: locale, ns: "features" })
+					: t("sky-profile.no-sky-profile-other", {
+							lng: locale,
+							ns: "features",
+							user: `<@${user.id}>`,
+						}),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -690,7 +693,7 @@ export async function skyProfileExplore(
 
 	if (skyProfilePackets.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "There are no profiles to explore. Why not be the first?",
+			content: t("sky-profile.no-sky-profile-explore", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -713,7 +716,7 @@ export async function skyProfileExplore(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: "## Sky Profile Explorer",
+			content: `## ${t("sky-profile.explore-title", { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -722,7 +725,11 @@ export async function skyProfileExplore(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: `You can explore Sky profiles others have created!\n\nYou can ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} a Sky profile to keep track of it, and report any Sky profiles that are not in the spirit of Sky.\n\nHave fun exploring!`,
+			content: t("sky-profile.explore-description", {
+				lng: locale,
+				ns: "features",
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+			}),
 		},
 	];
 
@@ -778,7 +785,7 @@ export async function skyProfileExplore(
 				custom_id: `${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`,
 				disabled: skyProfileLikesPackets.length === 0,
 				emoji: { name: "🌐" },
-				label: "Explore Likes",
+				label: t("sky-profile.explore-likes-button", { lng: locale, ns: "features" }),
 				style: ButtonStyle.Secondary,
 			},
 		],
@@ -871,7 +878,7 @@ export async function skyProfileExploreProfile(
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This Sky kid does not have a Sky profile. Maybe they should make one!",
+			content: t("no-sky-profile-explore-user", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -928,14 +935,25 @@ export async function skyProfileExploreProfile(
 								custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Heart,
-								label: isLiked ? "Unlike" : "Like",
+								label: isLiked
+									? t("sky-profile.explore-profile-like-button-unlike", {
+											lng: locale,
+											ns: "features",
+										})
+									: t("sky-profile.explore-profile-like-button-like", {
+											lng: locale,
+											ns: "features",
+										}),
 								style: isLiked ? ButtonStyle.Secondary : ButtonStyle.Success,
 							},
 							{
 								type: ComponentType.Button,
 								custom_id: `${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`,
 								emoji: { name: "🌐" },
-								label: "Explore",
+								label: t("sky-profile.explore-profile-explore-button", {
+									lng: locale,
+									ns: "features",
+								}),
 								style: ButtonStyle.Secondary,
 							},
 							{
@@ -943,7 +961,10 @@ export async function skyProfileExploreProfile(
 								custom_id: `${SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: "Report",
+								label: t("sky-profile.explore-profile-report-button", {
+									lng: locale,
+									ns: "features",
+								}),
 								style: ButtonStyle.Secondary,
 							},
 						],
@@ -1014,7 +1035,7 @@ export async function skyProfileExploreLikes(
 
 	if (SkyProfilePackets.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "You have no Sky profiles that you've liked.",
+			content: t("sky-profile.explore-likes-none", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1031,7 +1052,7 @@ export async function skyProfileExploreLikes(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: "## Sky Profile Explorer",
+			content: `## ${t("sky-profile.explore-title", { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -1040,7 +1061,11 @@ export async function skyProfileExploreLikes(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: `You ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} these Sky profiles!`,
+			content: t("sky-profile.explore-likes-description", {
+				lng: locale,
+				ns: "features",
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+			}),
 		},
 	];
 
@@ -1094,7 +1119,7 @@ export async function skyProfileExploreLikes(
 				type: ComponentType.Button,
 				custom_id: `${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`,
 				emoji: { name: "🌐" },
-				label: "Explore",
+				label: t("sky-profile.explore-profile-explore-button", { lng: locale, ns: "features" }),
 				style: ButtonStyle.Secondary,
 			},
 		],
@@ -1169,7 +1194,7 @@ export async function skyProfileExploreLikedProfile(
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "Could not go to that Sky kid's Sky profile. Try browsing?",
+			content: t("sky-profile.no-sky-profile-explore-likes", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1224,14 +1249,22 @@ export async function skyProfileExploreLikedProfile(
 								custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Heart,
-								label: isLiked ? "Unlike" : "Like",
+								label: isLiked
+									? t("sky-profile.explore-profile-like-button-unlike", {
+											lng: locale,
+											ns: "features",
+										})
+									: t("sky-profile.explore-profile-like-button-like", {
+											lng: locale,
+											ns: "features",
+										}),
 								style: isLiked ? ButtonStyle.Secondary : ButtonStyle.Success,
 							},
 							{
 								type: ComponentType.Button,
 								custom_id: `${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`,
 								emoji: { name: "🌐" },
-								label: "Explore Likes",
+								label: t("sky-profile.explore-likes-button", { lng: locale, ns: "features" }),
 								style: ButtonStyle.Secondary,
 							},
 							{
@@ -1239,7 +1272,10 @@ export async function skyProfileExploreLikedProfile(
 								custom_id: `${SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: "Report",
+								label: t("sky-profile.explore-profile-report-button", {
+									lng: locale,
+									ns: "features",
+								}),
 								style: ButtonStyle.Secondary,
 							},
 						],
@@ -1254,14 +1290,16 @@ export async function skyProfileLike(
 	interaction: APIMessageComponentButtonInteraction,
 	fromLike = false,
 ) {
+	const { locale } = interaction;
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
+
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.where({ user_id: userId })
 		.first();
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+			content: t("sky-profile.no-sky-profile-sky-kid", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1272,7 +1310,7 @@ export async function skyProfileLike(
 
 	if (invoker.id === skyProfilePacket.user_id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "You can't like your own Sky profile!",
+			content: t("sky-profile.like-own-profile", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1307,14 +1345,16 @@ export async function skyProfileReport(
 	interaction: APIMessageComponentButtonInteraction,
 	fromLike = false,
 ) {
+	const { locale } = interaction;
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
+
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.where({ user_id: userId })
 		.first();
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+			content: t("sky-profile.no-sky-profile-sky-kid", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1329,8 +1369,7 @@ export async function skyProfileReport(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content:
-							"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
+						content: t("sky-profile.report-description", { lng: locale, ns: "features" }),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -1339,14 +1378,14 @@ export async function skyProfileReport(
 								type: ComponentType.Button,
 								custom_id: `${fromLike ? SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID : SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`,
 								emoji: { name: "⬅️" },
-								label: "Back",
+								label: t("navigation-back", { lng: locale, ns: "general" }),
 								style: ButtonStyle.Secondary,
 							},
 							{
 								type: ComponentType.Button,
 								custom_id: `${SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID}§${userId}`,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: "Confirm",
+								label: t("sky-profile.report-confirm-button", { lng: locale, ns: "features" }),
 								style: ButtonStyle.Danger,
 							},
 						],
@@ -1361,14 +1400,16 @@ export async function skyProfileReport(
 export async function skyProfileReportModalPrompt(
 	interaction: APIMessageComponentButtonInteraction,
 ) {
+	const { locale } = interaction;
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
+
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.where({ user_id: userId })
 		.first();
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+			content: t("sky-profile.no-sky-profile-sky-kid", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1383,7 +1424,7 @@ export async function skyProfileReportModalPrompt(
 					{
 						type: ComponentType.TextInput,
 						custom_id: SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID,
-						label: "What's wrong with this Sky profile?",
+						label: t("sky-profile.report-modal-description", { lng: locale, ns: "features" }),
 						max_length: SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 						min_length: SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 						style: TextInputStyle.Paragraph,
@@ -1392,11 +1433,12 @@ export async function skyProfileReportModalPrompt(
 			},
 		],
 		custom_id: `${SKY_PROFILE_REPORT_MODAL_CUSTOM_ID}§${userId}`,
-		title: "Report Sky Profile",
+		title: t("sky-profile.report-modal-title", { lng: locale, ns: "features" }),
 	});
 }
 
 export async function skyProfileSendReport(interaction: APIModalSubmitInteraction) {
+	const { locale } = interaction;
 	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
@@ -1406,7 +1448,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "This Sky profile has been reported. Thank you for keeping the community safe!",
+					content: t("sky-profile.report-submission", { lng: locale, ns: "features" }),
 				},
 			],
 		});
@@ -1423,7 +1465,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "This Sky profile has been reported. Thank you for keeping the community safe!",
+					content: t("sky-profile.report-submission", { lng: locale, ns: "features" }),
 				},
 			],
 		});
@@ -1450,7 +1492,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "This Sky profile has been reported. Thank you for keeping the community safe!",
+					content: t("sky-profile.report-submission", { lng: locale, ns: "features" }),
 				},
 			],
 		});
@@ -1466,7 +1508,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This Sky kid does not have a Sky profile. Why not ask them to make one?",
+			content: t("sky-profile.no-sky-profile-sky-kid", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1493,13 +1535,14 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 		components: [
 			{
 				type: ComponentType.TextDisplay,
-				content: "This Sky profile has been reported. Thank you for keeping the community safe!",
+				content: t("sky-profile.report-submission", { lng: locale, ns: "features" }),
 			},
 		],
 	});
 }
 
 async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMenuInteraction) {
+	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
@@ -1509,7 +1552,7 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
 		custom_id: SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID,
-		label: "What's your in-game name?",
+		label: t("sky-profile.edit-name-description", { lng: locale, ns: "features" }),
 		max_length: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 		min_length: 1,
 		required: true,
@@ -1523,13 +1566,14 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
 		custom_id: SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
-		title: "Sky Profile",
+		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
 }
 
 async function skyProfileShowDescriptionModal(
 	interaction: APIMessageComponentSelectMenuInteraction,
 ) {
+	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
@@ -1539,7 +1583,7 @@ async function skyProfileShowDescriptionModal(
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
 		custom_id: SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID,
-		label: "Type a lovely description about your Skykid!",
+		label: t("sky-profile.edit-description-description", { lng: locale, ns: "features" }),
 		max_length: SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 		min_length: 1,
 		required: true,
@@ -1553,7 +1597,7 @@ async function skyProfileShowDescriptionModal(
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
 		custom_id: SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
-		title: "Sky Profile",
+		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1574,8 +1618,10 @@ async function skyProfileShowWingedLightSelectMenu(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content:
-							"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
+						content: t("sky-profile.edit-winged-light-description", {
+							lng: locale,
+							ns: "features",
+						}),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -1593,11 +1639,25 @@ async function skyProfileShowWingedLightSelectMenu(
 									}),
 									value: skyProfileWingedLightType.toString(),
 								})),
-								placeholder: "How would you like your winged light to be displayed?",
+								placeholder: t("sky-profile.edit-winged-light-string-select-menu-placeholder", {
+									lng: locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
-					SKY_PROFILE_BACK_TO_START_ACTION_ROW,
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+								emoji: { name: "⏮️" },
+								label: t("navigation-back", { lng: locale, ns: "general" }),
+								style: ButtonStyle.Primary,
+							},
+						],
+					},
 				],
 			},
 		],
@@ -1605,6 +1665,7 @@ async function skyProfileShowWingedLightSelectMenu(
 }
 
 async function skyProfileShowSpotModal(interaction: APIMessageComponentSelectMenuInteraction) {
+	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
@@ -1614,7 +1675,7 @@ async function skyProfileShowSpotModal(interaction: APIMessageComponentSelectMen
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
 		custom_id: SKY_PROFILE_SET_SPOT_INPUT_CUSTOM_ID,
-		label: "Where's your favourite spot to hang out?",
+		label: t("sky-profile.edit-hangout-description", { lng: locale, ns: "features" }),
 		max_length: SKY_PROFILE_MAXIMUM_SPOT_LENGTH,
 		min_length: SKY_PROFILE_MINIMUM_SPOT_LENGTH,
 		required: true,
@@ -1628,7 +1689,7 @@ async function skyProfileShowSpotModal(interaction: APIMessageComponentSelectMen
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
 		custom_id: SKY_PROFILE_SET_SPOT_MODAL_CUSTOM_ID,
-		title: "Sky Profile",
+		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1673,7 +1734,10 @@ async function skyProfileShowSeasonsSelectMenu(
 
 						return option;
 					}),
-					placeholder: "Select the seasons you participated in!",
+					placeholder: t("sky-profile.edit-seasons-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
 				},
 			],
 		},
@@ -1703,13 +1767,27 @@ async function skyProfileShowSeasonsSelectMenu(
 
 						return option;
 					}),
-					placeholder: "Select the seasons you participated in!",
+					placeholder: t("sky-profile.edit-seasons-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
 				},
 			],
 		});
 	}
 
-	components.push(SKY_PROFILE_BACK_TO_START_ACTION_ROW);
+	components.push({
+		type: ComponentType.ActionRow,
+		components: [
+			{
+				type: ComponentType.Button,
+				custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+				emoji: { name: "⏮️" },
+				label: t("navigation-back", { lng: locale, ns: "general" }),
+				style: ButtonStyle.Primary,
+			},
+		],
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [{ type: ComponentType.Container, components }],
@@ -1719,6 +1797,7 @@ async function skyProfileShowSeasonsSelectMenu(
 async function skyProfileShowPlatformsSelectMenu(
 	interaction: APIMessageComponentSelectMenuInteraction,
 ) {
+	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
@@ -1744,16 +1823,30 @@ async function skyProfileShowPlatformsSelectMenu(
 									default: currentPlatforms?.includes(platformId) ?? false,
 									emoji: PlatformIdToEmoji[platformId],
 									label: t(`sky-profile.platform-label.${platformId}`, {
-										lng: interaction.locale,
+										lng: locale,
 										ns: "features",
 									}),
 									value: String(platformId),
 								})),
-								placeholder: "Select the platforms you play on!",
+								placeholder: t("sky-profile.edit-platforms-string-select-menu-placeholder", {
+									lng: locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
-					SKY_PROFILE_BACK_TO_START_ACTION_ROW,
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+								emoji: { name: "⏮️" },
+								label: t("navigation-back", { lng: locale, ns: "general" }),
+								style: ButtonStyle.Primary,
+							},
+						],
+					},
 				],
 			},
 		],
@@ -1831,7 +1924,7 @@ export async function skyProfileSetPlatform(interaction: APIMessageComponentSele
 
 	if (!platformIds.every((platformId) => isPlatformId(platformId))) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "Invalid platform selected. Please try again.",
+			content: t("sky-profile.edit-platform-invalid", { lng: interaction.locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1848,9 +1941,11 @@ async function skyProfileSetCatalogueProgression(
 	interaction: APIMessageComponentSelectMenuInteraction,
 ) {
 	const invoker = interactionInvoker(interaction);
+
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.where({ user_id: invoker.id })
 		.first();
+
 	await skyProfileSet(interaction, {
 		user_id: invoker.id,
 		catalogue_progression: !skyProfilePacket?.catalogue_progression,
@@ -1859,9 +1954,11 @@ async function skyProfileSetCatalogueProgression(
 
 async function skyProfileSetGuessRank(interaction: APIMessageComponentSelectMenuInteraction) {
 	const invoker = interactionInvoker(interaction);
+
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.where({ user_id: invoker.id })
 		.first();
+
 	await skyProfileSet(interaction, {
 		user_id: invoker.id,
 		guess_rank: !skyProfilePacket?.guess_rank,
@@ -1869,13 +1966,15 @@ async function skyProfileSetGuessRank(interaction: APIMessageComponentSelectMenu
 }
 
 export async function skyProfileShowReset(interaction: APIMessageComponentButtonInteraction) {
+	const { locale } = interaction;
+
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.where({ user_id: interactionInvoker(interaction).id })
 		.first();
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "You do not have a Sky profile to reset.",
+			content: t("sky-profile.no-sky-profile-reset", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -1898,16 +1997,30 @@ export async function skyProfileShowReset(interaction: APIMessageComponentButton
 								min_values: 1,
 								options: SKY_PROFILE_RESET_TYPE_VALUES.map((skyProfileResetType) => ({
 									label: t(`sky-profile.reset-type-label.${skyProfileResetType}`, {
-										lng: interaction.locale,
+										lng: locale,
 										ns: "features",
 									}),
 									value: skyProfileResetType.toString(),
 								})),
-								placeholder: "What do you wish to reset?",
+								placeholder: t("sky-profile.reset-string-select-menu-placeholder", {
+									lng: locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
-					SKY_PROFILE_BACK_TO_START_ACTION_ROW,
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+								emoji: { name: "⏮️" },
+								label: t("navigation-back", { lng: locale, ns: "general" }),
+								style: ButtonStyle.Primary,
+							},
+						],
+					},
 				],
 			},
 		],
@@ -2054,7 +2167,7 @@ async function skyProfileComponents(
 	if (country) {
 		if (isCountry(country)) {
 			miscellaneous.push(
-				`**Country:** ${CountryToEmoji[country]} ${new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!}`,
+				`**${t("sky-profile.country", { lng: locale, ns: "features" })}** ${CountryToEmoji[country]} ${new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!}`,
 			);
 		} else {
 			pino.error(interaction, `Invalid country code in Sky Profile: ${country}`);
@@ -2063,7 +2176,9 @@ async function skyProfileComponents(
 
 	if (typeof wingedLight === "number") {
 		if (wingedLight === SkyProfileWingedLightType.Capeless) {
-			miscellaneous.push("**Winged Light:** Capeless");
+			miscellaneous.push(
+				`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${t("sky-profile.winged-light-capeless", { lng: locale, ns: "features" })}`,
+			);
 		} else {
 			const catalogue = await fetchCatalogue(userId);
 
@@ -2077,9 +2192,9 @@ async function skyProfileComponents(
 				}
 
 				miscellaneous.push(
-					`**Winged Light:** ${
+					`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${
 						count === MAXIMUM_WINGED_LIGHT
-							? `${count} (Max ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
+							? `${count} (${t("sky-profile.winged-light-max", { lng: locale, ns: "features" })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
 							: count.toString()
 					}`,
 				);
@@ -2089,29 +2204,34 @@ async function skyProfileComponents(
 
 	if (typeof spirit === "number") {
 		miscellaneous.push(
-			`**Favourite Spirit:** ${t(`spirits.${spirit}`, { lng: locale, ns: "general" })}`,
+			`**${t("sky-profile.favourite-spirit", { lng: locale, ns: "features" })}** ${t(`spirits.${spirit}`, { lng: locale, ns: "general" })}`,
 		);
 	}
 
 	if (spot) {
-		miscellaneous.push(`**Favourite Spot:** ${spot}`);
+		miscellaneous.push(
+			`**${t("sky-profile.favourite-hangout", { lng: locale, ns: "features" })}** ${spot}`,
+		);
 	}
 
 	if (catalogueProgression) {
 		const catalogue = await fetchCatalogue(userId);
 		const allProgressResult = allProgress(catalogue?.data, true) ?? 0;
-		miscellaneous.push(`**Catalogue Progression:** ${allProgressResult}%`);
+
+		miscellaneous.push(
+			`**${t("sky-profile.catalogue-progression", { lng: locale, ns: "features" })}** ${allProgressResult}%`,
+		);
 	}
 
 	if (guessRank) {
 		const guessPacketRanking = await findUser(userId);
 
 		miscellaneous.push(
-			`**Guess Rank ${GuessDifficultyLevelToName[GuessDifficultyLevel.Original]}:** ${guessPacketRanking?.streak_rank ? `#${guessPacketRanking.streak_rank}` : "Unranked"}`,
+			`**${t("sky-profile.guess-rank.original", { lng: locale, ns: "features" })}** ${guessPacketRanking?.streak_rank ? `#${guessPacketRanking.streak_rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
 		);
 
 		miscellaneous.push(
-			`**Guess Rank ${GuessDifficultyLevelToName[GuessDifficultyLevel.Hard]}:** ${guessPacketRanking?.streak_hard_rank ? `#${guessPacketRanking.streak_hard_rank}` : "Unranked"}`,
+			`**${t("sky-profile.guess-rank.hard", { lng: locale, ns: "features" })}** ${guessPacketRanking?.streak_hard_rank ? `#${guessPacketRanking.streak_hard_rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
 		);
 	}
 
@@ -2138,7 +2258,7 @@ async function skyProfileComponents(
 	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
-function skyProfileMissingData(skyProfilePacket: SkyProfilePacket) {
+function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Locale) {
 	const {
 		name,
 		icon,
@@ -2157,62 +2277,69 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket) {
 	const missing = [];
 	const skyProfileCommandId = COMMAND_CACHE.get(t("sky-profile.command-name", { ns: "commands" }));
 
-	const useCommandPrefix = skyProfileCommandId
-		? `Use ${chatInputApplicationCommandMention(
-				skyProfileCommandId,
-				t("sky-profile.command-name", { ns: "commands" }),
-				t("sky-profile.edit.command-name", { ns: "commands" }),
-			)}`
-		: "- Use the command";
+	let suffix: "mention" | "text";
+	const options: Parameters<typeof t>[1] = { lng: locale, ns: "features" };
+
+	if (skyProfileCommandId) {
+		suffix = "mention";
+
+		options.mention = chatInputApplicationCommandMention(
+			skyProfileCommandId,
+			t("sky-profile.command-name", { ns: "commands" }),
+			t("sky-profile.edit.command-name", { ns: "commands" }),
+		);
+	} else {
+		suffix = "text";
+	}
 
 	if (!name) {
-		missing.push("- Set your name!");
+		missing.push(`- ${t("sky-profile.missing-name", options)}`);
 	}
 
 	if (!icon) {
-		missing.push(`- ${useCommandPrefix} to upload an icon!`);
+		missing.push(`- ${t(`sky-profile.missing-icon-${suffix}`, options)}`);
 	}
 
 	if (!thumbnail) {
 		missing.push(
-			`- ${useCommandPrefix} to upload a thumbnail!\n  - The thumbnail is only used on the [website](${SKY_PROFILES_URL}/${skyProfilePacket.user_id}).`,
+			`- ${t(`sky-profile.missing-thumbnail-${suffix}`, { ...options, url: `${SKY_PROFILES_URL}/${skyProfilePacket.user_id}` })}`,
 		);
 	}
 
 	if (!description) {
-		missing.push("- Set a description!");
+		missing.push(`- ${t("sky-profile.missing-description", options)}`);
 	}
 
 	if (!country) {
-		missing.push(`- ${useCommandPrefix} to set the country you are from!`);
+		missing.push(`- ${t(`sky-profile.missing-country-${suffix}`, options)}`);
 	}
 
 	if (wingedLight === null) {
-		missing.push("- Set the winged light you have!");
+		missing.push(`- ${t("sky-profile.missing-winged-light", options)}`);
 	}
 
 	if (!seasons) {
-		missing.push("- Use the select menu to show what seasons you participated in!");
+		missing.push(`- ${t("sky-profile.missing-seasons", options)}`);
 	}
 
 	if (!platform) {
-		missing.push("- Use the select menu to show what platforms you play on!");
+		missing.push(`- ${t("sky-profile.missing-platforms", options)}`);
 	}
 
 	if (spirit === null) {
-		missing.push(`- ${useCommandPrefix} to set your favourite spirit!`);
+		missing.push(`- ${t(`sky-profile.missing-spirit-${suffix}`, options)}`);
 	}
 
 	if (!spot) {
-		missing.push("- Set your favourite spot!");
+		missing.push(`- ${t("sky-profile.missing-hangout", options)}`);
 	}
 
 	if (catalogueProgression === null) {
-		missing.push("- Set if you want to share your catalogue progression!");
+		missing.push(`- ${t("sky-profile.missing-catalogue-progression", options)}`);
 	}
 
 	if (guessRank === null) {
-		missing.push("- Set if you want to share your guessing game rank!");
+		missing.push(`- ${t("sky-profile.missing-guess-rank", options)}`);
 	}
 
 	return missing;
