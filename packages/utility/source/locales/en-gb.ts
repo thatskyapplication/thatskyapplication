@@ -3,8 +3,16 @@ import { DailyQuest, type DailyQuests } from "../daily-guides.js";
 import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevelToName } from "../guess.js";
 import { REALM_NAME_VALUES, SKY_MAP_VALUES } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
+import { PlatformId, type PlatformIds } from "../platforms.js";
 import { SeasonId, type SeasonIds } from "../season.js";
-import { SkyProfileWingedLightType, type SkyProfileWingedLightTypes } from "../sky-profile.js";
+import {
+	SkyProfileEditType,
+	type SkyProfileEditTypes,
+	SkyProfileResetType,
+	type SkyProfileResetTypes,
+	SkyProfileWingedLightType,
+	type SkyProfileWingedLightTypes,
+} from "../sky-profile.js";
 import { EventId, type EventIds } from "../utility/event.js";
 import {
 	SpiritId,
@@ -2968,10 +2976,10 @@ export default {
 				"command-description": "Edit your Sky profile.",
 				"command-option-name-name": "name",
 				"command-option-name-description": "What's your in-game name?",
-				"command-option-thumbnail-name": "thumbnail",
-				"command-option-thumbnail-description": "Upload your thumbnail!",
 				"command-option-icon-name": "icon",
 				"command-option-icon-description": "Upload your icon!",
+				"command-option-banner-name": "banner",
+				"command-option-banner-description": "Upload your banner (only on the website)!",
 				"command-option-winged-light-name": "winged-light",
 				"command-option-winged-light-description": "What is your maximum winged light?",
 				"command-option-winged-light-choice-name": {
@@ -3216,6 +3224,124 @@ export default {
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
 			today: "Today",
 			browse: "Browse",
+		},
+		"sky-profile": {
+			"unknown-country": "Please select a country!",
+			"unknown-profile-edit-type": "Unknown profile edit type. Please try again!",
+			"unknown-profile-reset-type": "Unknown profile reset type. Please try again!",
+			"no-sky-profile-sky-kid":
+				"This Sky kid does not have a Sky profile. Why not ask them to make one?",
+			"no-sky-profile-edit":
+				"You do not have a Sky profile yet. Build one!\nSky profiles show up on {{url}} too!",
+			"edit-placeholder": "What do you want to edit?",
+			"no-sky-profile-application": "Do applications have Sky profiles? Hm. Who knows?",
+			"no-sky-profile-invoker": "You do not have a Sky profile! Why not create one?",
+			"no-sky-profile-other":
+				"{{user}} does not have a Sky profile! Why not ask them to create one?",
+			"no-sky-profile-explore": "There are no profiles to explore. Why not be the first?",
+			"explore-title": "Sky Profile Explorer",
+			"explore-description":
+				"You can explore Sky profiles others have created!\n\nYou can {{emoji}} a Sky profile to keep track of it, and report any Sky profiles that are not in the spirit of Sky.\n\nHave fun exploring!",
+			"explore-likes-button": "Explore likes",
+			"no-sky-profile-explore-user":
+				"This Sky kid does not have a Sky profile. Maybe they should make one!",
+			"explore-profile-like-button-like": "Like",
+			"explore-profile-like-button-unlike": "Unlike",
+			"explore-profile-explore-button": "Explore",
+			"explore-profile-report-button": "Report",
+			"explore-likes-none": "You have no Sky profiles that you've liked.",
+			"explore-likes-description": "You {{emoji}} these Sky profiles!",
+			"no-sky-profile-explore-likes": "Could not go to that Sky kid's Sky profile. Try browsing?",
+			"like-own-profile": "You can't like your own Sky profile!",
+			"report-description":
+				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
+			"report-confirm-button": "Report",
+			"report-modal-title": "Report Sky Profile",
+			"report-modal-description": "What's wrong with this Sky profile?",
+			"report-submission":
+				"This Sky profile has been reported. Thank you for keeping the community safe!",
+			"edit-type-label": {
+				[SkyProfileEditType.Name]: "Name",
+				[SkyProfileEditType.Description]: "Description",
+				[SkyProfileEditType.WingedLight]: "Winged Light",
+				[SkyProfileEditType.Spot]: "Hangout",
+				[SkyProfileEditType.Seasons]: "Seasons",
+				[SkyProfileEditType.Platforms]: "Platforms",
+				[SkyProfileEditType.CatalogueProgression]: "Catalogue Progression",
+				[SkyProfileEditType.GuessRank]: "Guessing Rank",
+			} satisfies Record<SkyProfileEditTypes, string>,
+			"edit-type-description": {
+				[SkyProfileEditType.Name]: "What name do you go by?",
+				[SkyProfileEditType.Description]: "What's your story?",
+				[SkyProfileEditType.WingedLight]: "What's your maximum winged light?",
+				[SkyProfileEditType.Spot]: "Where do you hang out?",
+				[SkyProfileEditType.Seasons]: "What seasons have you played in?",
+				[SkyProfileEditType.Platforms]: "What platforms do you play on?",
+				[SkyProfileEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
+				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
+			} satisfies Record<SkyProfileEditTypes, string>,
+			"edit-modal-title": "Sky Profile",
+			"edit-name-description": "What's your in-game name?",
+			"edit-description-description": "Type a lovely description about your Sky kid!",
+			"edit-winged-light-description":
+				"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
+			"edit-winged-light-string-select-menu-placeholder":
+				"How would you like your winged light to be displayed?",
+			"edit-hangout-description": "Where's your favourite place to hang out?",
+			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",
+			"edit-platforms-string-select-menu-placeholder": "Select the platforms you play on!",
+			"platform-label": {
+				[PlatformId.iOS]: "iOS",
+				[PlatformId.Android]: "Android",
+				[PlatformId.Mac]: "Mac",
+				[PlatformId.NintendoSwitch]: "Nintendo Switch",
+				[PlatformId.PlayStation]: "PlayStation",
+				[PlatformId.Steam]: "Steam",
+			} satisfies Record<PlatformIds, string>,
+			"edit-platform-invalid": "Invalid platform selected. Please try again.",
+			"reset-type-label": {
+				[SkyProfileResetType.Description]: "Description",
+				[SkyProfileResetType.Icon]: "Icon",
+				[SkyProfileResetType.Banner]: "Banner",
+				[SkyProfileResetType.WingedLight]: "Winged Light",
+				[SkyProfileResetType.Country]: "Country",
+				[SkyProfileResetType.Spot]: "Spot",
+				[SkyProfileResetType.Seasons]: "Seasons",
+				[SkyProfileResetType.Platforms]: "Platforms",
+				[SkyProfileResetType.Spirit]: "Spirit",
+				[SkyProfileResetType.CatalogueProgression]: "Catalogue Progression",
+				[SkyProfileResetType.GuessRank]: "Guess Rank",
+			} satisfies Record<SkyProfileResetTypes, string>,
+			"no-sky-profile-reset": "You do not have a Sky profile to reset.",
+			"reset-string-select-menu-placeholder": "What do you wish to reset?",
+			country: "Country:",
+			"winged-light": "Winged light:",
+			"winged-light-capeless": "Capeless",
+			"winged-light-max": "Max",
+			"favourite-spirit": "Favourite spirit:",
+			"favourite-hangout": "Favourite hangout:",
+			"catalogue-progression": "Catalogue progression:",
+			"guess-rank-original": "Guess rank original:",
+			"guess-rank-hard": "Guess rank hard:",
+			"guess-rank-unranked": "Unranked",
+			"missing-name": "Set your name!",
+			"missing-icon-mention": "Use {{mention}} to upload an icon!",
+			"missing-icon-text": "Use the command to upload an icon!",
+			"missing-banner-mention":
+				"Use {{mention}} to upload a banner!\n  - The banner is only used on the [website]({{url}}).",
+			"missing-banner-text":
+				"Use the command to upload a banner!\n  - The banner is only used on the [website]({{url}}).",
+			"missing-description": "Set a description!",
+			"missing-country-mention": "Use {{mention}} to set the country you are from!",
+			"missing-country-text": "Use the command to set the country you are from!",
+			"missing-winged-light": "Set the winged light you have!",
+			"missing-seasons": "Use the select menu to show what seasons you participated in!",
+			"missing-platforms": "Use the select menu to show what platforms you play on!",
+			"missing-spirit-mention": "Use {{mention}} to set your favourite spirit!",
+			"missing-spirit-text": "Use the command to set your favourite spirit!",
+			"missing-hangout": "Set the place you like to hang out in!",
+			"missing-catalogue-progression": "Toggle showing your catalogue progression!",
+			"missing-guess-rank": "Toggle showing your guessing game rank!",
 		},
 		spirits: {
 			"not-encountered-spirit":

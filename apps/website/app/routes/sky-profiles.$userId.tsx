@@ -109,8 +109,8 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 			property: "og:image",
 			content: skyProfilePacket?.icon
 				? `https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfilePacket.user_id}/${skyProfilePacket.icon.startsWith("a_") ? `${skyProfilePacket.icon}.gif` : `${skyProfilePacket.icon}.webp`}`
-				: skyProfilePacket?.thumbnail
-					? `https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.thumbnail.startsWith("a_") ? `${skyProfilePacket.thumbnail}.gif` : `${skyProfilePacket.thumbnail}.webp`}`
+				: skyProfilePacket?.banner
+					? `https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.banner.startsWith("a_") ? `${skyProfilePacket.banner}.gif` : `${skyProfilePacket.banner}.webp`}`
 					: null,
 		},
 		{ property: "og:url", content: url },
@@ -176,13 +176,13 @@ export default function SkyProfile() {
 			<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
 				<div className="relative h-60 w-full">
 					<div className="w-full h-full rounded-md overflow-hidden">
-						{skyProfilePacket.thumbnail ? (
+						{skyProfilePacket.banner ? (
 							<div
-								aria-label={`Thumbnail of ${skyProfilePacket.name}.`}
+								aria-label={`Banner of ${skyProfilePacket.name}.`}
 								className="w-full h-full bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.thumbnail.startsWith("a_") ? `${skyProfilePacket.thumbnail}.gif` : `${skyProfilePacket.thumbnail}.webp`})`,
+									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/thumbnails/${skyProfilePacket.user_id}/${skyProfilePacket.banner.startsWith("a_") ? `${skyProfilePacket.banner}.gif` : `${skyProfilePacket.banner}.webp`})`,
 								}}
 							/>
 						) : (

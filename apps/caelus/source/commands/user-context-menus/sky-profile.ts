@@ -1,7 +1,7 @@
 import { type APIUserApplicationCommandInteraction, Locale, MessageFlags } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../../discord.js";
-import Profile from "../../models/Profile.js";
+import { skyProfileExploreProfile } from "../../features/sky-profile.js";
 
 export default {
 	name: t("Sky-Profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
@@ -18,6 +18,6 @@ export default {
 			return;
 		}
 
-		await Profile.exploreProfile(interaction, data.target_id);
+		await skyProfileExploreProfile(interaction, data.target_id);
 	},
 } as const;

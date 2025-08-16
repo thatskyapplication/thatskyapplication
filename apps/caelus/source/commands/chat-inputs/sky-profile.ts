@@ -13,10 +13,21 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
+import {
+	AssetType,
+	type SkyProfileSetData,
+	skyProfileCountryAutocomplete,
+	skyProfileExplore,
+	skyProfileExploreAutocomplete,
+	skyProfileExploreProfile,
+	skyProfileSet,
+	skyProfileSetAsset,
+	skyProfileShow,
+	skyProfileShowEdit,
+} from "../../features/sky-profile.js";
 import { searchAutocomplete } from "../../features/spirits.js";
-import Profile, { AssetType, type ProfileSetData } from "../../models/Profile.js";
 import { APPLICATION_ID } from "../../utility/configuration.js";
-import { validateAttachment } from "../../utility/functions.js";
+import { interactionInvoker, validateAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -30,7 +41,7 @@ export default {
 				return;
 			}
 			case "explore": {
-				await Profile.exploreAutocomplete(interaction, options);
+				await skyProfileExploreAutocomplete(interaction, options);
 				return;
 			}
 		}
@@ -67,7 +78,7 @@ export default {
 				}) &&
 			option.type === ApplicationCommandOptionType.String
 		) {
-			await Profile.editCountryAutocomplete(interaction, option);
+			await skyProfileCountryAutocomplete(interaction, option);
 			return;
 		}
 
@@ -85,7 +96,7 @@ export default {
 	},
 	async edit(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const name = options.getString("name");
-		const thumbnail = options.getAttachment("thumbnail");
+		const banner = options.getAttachment("banner");
 		const icon = options.getAttachment("icon");
 		const wingedLight = options.getInteger("winged-light") as SkyProfileWingedLightTypes | null;
 		const spiritId = options.getInteger("spirit");
@@ -93,7 +104,7 @@ export default {
 		const spot = options.getString("spot");
 		const catalogueProgression = options.getBoolean("catalogue-progression");
 		const guessRank = options.getBoolean("guess-rank");
-		const data: ProfileSetData = {};
+		const data: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
 		const promises = [];
 
 		if (options.hoistedOptions.length > 0) {
@@ -105,14 +116,14 @@ export default {
 				data.name = name;
 			}
 
-			if (thumbnail) {
-				if (!(await validateAttachment(interaction, thumbnail))) {
+			if (banner) {
+				if (!(await validateAttachment(interaction, banner))) {
 					return;
 				}
 
 				promises.push({
-					type: AssetType.Thumbnail,
-					promise: Profile.setAsset(interaction, thumbnail, AssetType.Thumbnail),
+					type: AssetType.Banner,
+					promise: skyProfileSetAsset(interaction, banner, AssetType.Banner),
 				});
 			}
 
@@ -123,7 +134,7 @@ export default {
 
 				promises.push({
 					type: AssetType.Icon,
-					promise: Profile.setAsset(interaction, icon, AssetType.Icon),
+					promise: skyProfileSetAsset(interaction, icon, AssetType.Icon),
 				});
 			}
 
@@ -151,7 +162,7 @@ export default {
 			if (country) {
 				if (!isCountry(country)) {
 					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-						content: "Please select a country!",
+						content: t("sky-profile.unknown-country", { lng: interaction.locale, ns: "features" }),
 					});
 
 					return;
@@ -179,30 +190,30 @@ export default {
 					data.icon = resolvedPromises[index]!;
 				}
 
-				if (promises[index]!.type === AssetType.Thumbnail) {
-					data.thumbnail = resolvedPromises[index]!;
+				if (promises[index]!.type === AssetType.Banner) {
+					data.banner = resolvedPromises[index]!;
 				}
 			}
 
-			await Profile.set(interaction, data, true);
+			await skyProfileSet(interaction, data, true);
 			return;
 		}
 
-		await Profile.showEdit(interaction, false);
+		await skyProfileShowEdit(interaction, false);
 	},
 	async explore(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const name = options.getString("name");
 
 		if (name) {
-			await Profile.exploreProfile(interaction, name);
+			await skyProfileExploreProfile(interaction, name);
 			return;
 		}
 
-		await Profile.explore(interaction);
+		await skyProfileExplore(interaction);
 	},
 	async show(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const user = options.getUser("user");
 		const hide = options.getBoolean("hide") ?? false;
-		await Profile.show(interaction, user, hide);
+		await skyProfileShow(interaction, user, hide);
 	},
 } as const;
