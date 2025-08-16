@@ -3249,10 +3249,10 @@ export default {
 			"explore-profile-like-button-unlike": "Unlike",
 			"explore-profile-explore-button": "Explore",
 			"explore-profile-report-button": "Report",
-			"explore-likes-none": "You have no Sky profiles that you've liked",
+			"explore-likes-none": "You have no Sky profiles that you've liked.",
 			"explore-likes-description": "You {{emoji}} these Sky profiles!",
 			"no-sky-profile-explore-likes": "Could not go to that Sky kid's Sky profile. Try browsing?",
-			"like-own-profile": "You can't like your own Sky profile",
+			"like-own-profile": "You can't like your own Sky profile!",
 			"report-description":
 				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
 			"report-confirm-button": "Report",
