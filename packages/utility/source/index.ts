@@ -15,6 +15,7 @@ import zhCNLocale from "./locales/zh-cn.json" with { type: "json" };
 import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
 
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
+export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 export type { CataloguePacket } from "./catalogue.js";
@@ -123,6 +124,7 @@ export {
 	SKY_PROFILE_EDIT_TYPE_VALUES,
 	SKY_PROFILE_RESET_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
+	type SkyProfileData,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
 	type SkyProfilePacket,
@@ -148,7 +150,7 @@ export {
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
 } from "./spirits/seasons/index.js";
-export type { Snowflake } from "./types/index.js";
+export type { Nullable, Snowflake } from "./types/index.js";
 export type { UsersPacket } from "./users.js";
 export { LINK_REDIRECTOR_URL } from "./utility/constants.js";
 export { EventId, type EventIds } from "./utility/event.js";

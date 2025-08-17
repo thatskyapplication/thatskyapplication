@@ -3324,6 +3324,14 @@ export default {
 			"guess-rank-original": "Guess rank original:",
 			"guess-rank-hard": "Guess rank hard:",
 			"guess-rank-unranked": "Unranked",
+			"crowdin-support-server":
+				"{{emoji}} This Sky kid is a {{role}}! You can help out on [Crowdin]({{url}}) too!",
+			"crowdin-other-server":
+				"{{emoji}} This Sky kid helps translate what you see! You can help out on [Crowdin]({{url}}) too!",
+			"supporter-support-server":
+				"{{emoji1}} This Sky kid is a {{role}}! How nice of them to support development! {{emoji2}}",
+			"supporter-other-server":
+				"{{emoji1}} This Sky kid is supporting development! How nice of them! {{emoji2}}",
 			"missing-name": "Set your name!",
 			"missing-icon-mention": "Use {{mention}} to upload an icon!",
 			"missing-icon-text": "Use the command to upload an icon!",

@@ -1,3 +1,6 @@
+import type { Nullable } from "./types/index.js";
+import type { UsersPacket } from "./users.js";
+
 export interface SkyProfilePacket {
 	user_id: string;
 	name: string | null;
@@ -13,6 +16,9 @@ export interface SkyProfilePacket {
 	catalogue_progression: boolean | null;
 	guess_rank: boolean | null;
 }
+
+export type SkyProfileData = SkyProfilePacket &
+	Pick<Nullable<UsersPacket>, "crowdin_user_id" | "supporter">;
 
 export const SkyProfileWingedLightType = {
 	InferFromCatalogue: 0,

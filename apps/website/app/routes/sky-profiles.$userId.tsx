@@ -1,12 +1,13 @@
 import {
 	type CataloguePacket,
 	CountryToEmoji,
+	CROWDIN_URL,
 	enGB,
 	isCountry,
 	isPlatformId,
 	isSpiritId,
 	MAXIMUM_WINGED_LIGHT,
-	type SkyProfilePacket,
+	type SkyProfileData,
 	SkyProfileWingedLightType,
 	type Snowflake,
 	Table,
@@ -14,7 +15,7 @@ import {
 	WING_BUFFS,
 	WINGED_LIGHT_IN_AREAS,
 } from "@thatskyapplication/utility";
-import { ChevronLeftIcon, LinkIcon, MapPinIcon, Users } from "lucide-react";
+import { ChevronLeftIcon, Globe, LinkIcon, MapPinIcon, Users } from "lucide-react";
 import { useState } from "react";
 import type { LoaderFunctionArgs } from "react-router";
 import {
@@ -27,6 +28,9 @@ import {
 import pg from "~/pg.server";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
+
+const BADGES_CLASS_NAME =
+	"inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-700 rounded-full text-sm font-medium text-purple-800 dark:text-purple-200 shadow-sm" as const;
 
 export function ErrorBoundary() {
 	const error = useRouteError();
@@ -81,7 +85,7 @@ export function ErrorBoundary() {
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
-	const { skyProfilePacket } = data ?? {};
+	const { data: skyProfileData } = data ?? {};
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -92,33 +96,33 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 			name: "keywords",
 			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky Profiles, Sky Profile`,
 		},
-		{ title: skyProfilePacket?.name ?? "Sky Profile" },
+		{ title: skyProfileData?.name ?? "Sky Profile" },
 		{
 			name: "description",
-			content: skyProfilePacket?.description ?? "A Sky profile.",
+			content: skyProfileData?.description ?? "A Sky profile.",
 		},
 		{ name: "theme-color", content: "#A5B5F1" },
-		{ property: "og:title", content: skyProfilePacket?.name ?? "Sky Profile" },
+		{ property: "og:title", content: skyProfileData?.name ?? "Sky Profile" },
 		{
 			property: "og:description",
-			content: skyProfilePacket?.description ?? "A Sky profile.",
+			content: skyProfileData?.description ?? "A Sky profile.",
 		},
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{
 			property: "og:image",
-			content: skyProfilePacket?.icon
-				? `https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfilePacket.user_id}/${skyProfilePacket.icon.startsWith("a_") ? `${skyProfilePacket.icon}.gif` : `${skyProfilePacket.icon}.webp`}`
-				: skyProfilePacket?.banner
-					? `https://cdn.thatskyapplication.com/sky_profiles/banners/${skyProfilePacket.user_id}/${skyProfilePacket.banner.startsWith("a_") ? `${skyProfilePacket.banner}.gif` : `${skyProfilePacket.banner}.webp`}`
+			content: skyProfileData?.icon
+				? `https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfileData.user_id}/${skyProfileData.icon.startsWith("a_") ? `${skyProfileData.icon}.gif` : `${skyProfileData.icon}.webp`}`
+				: skyProfileData?.banner
+					? `https://cdn.thatskyapplication.com/sky_profiles/banners/${skyProfileData.user_id}/${skyProfileData.banner.startsWith("a_") ? `${skyProfileData.banner}.gif` : `${skyProfileData.banner}.webp`}`
 					: null,
 		},
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: skyProfilePacket?.name ?? "Sky Profile" },
+		{ name: "twitter:title", content: skyProfileData?.name ?? "Sky Profile" },
 		{
 			name: "twitter:description",
-			content: skyProfilePacket?.description ?? "A Sky profile.",
+			content: skyProfileData?.description ?? "A Sky profile.",
 		},
 		{ rel: "canonical", href: url },
 	];
@@ -131,22 +135,25 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		throw new Response(null, { status: 400 });
 	}
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.where({ user_id: userId as Snowflake })
+	const data = await pg
+		.select<SkyProfileData>(["p.*", "u.crowdin_user_id", "u.supporter"])
+		.from(`${Table.Profiles} as p`)
+		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
+		.where("p.user_id", userId as Snowflake)
 		.first();
 
-	if (!skyProfilePacket) {
+	if (!data) {
 		throw new Response(null, { status: 404 });
 	}
 
 	let maximumWingedLight = null;
 
-	if (skyProfilePacket.winged_light !== null) {
-		if (skyProfilePacket.winged_light === SkyProfileWingedLightType.Capeless) {
+	if (data.winged_light !== null) {
+		if (data.winged_light === SkyProfileWingedLightType.Capeless) {
 			maximumWingedLight = "Capeless";
 		} else {
 			const catalogue = await pg<CataloguePacket>(Table.Catalogue)
-				.where({ user_id: skyProfilePacket.user_id })
+				.where({ user_id: data.user_id })
 				.first();
 
 			if (catalogue) {
@@ -164,11 +171,66 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		}
 	}
 
-	return { skyProfilePacket, maximumWingedLight };
+	return { data, maximumWingedLight };
 };
 
+function RecognitionBadges({ data }: { data: SkyProfileData }) {
+	const badges = [];
+
+	if (data.supporter) {
+		badges.push({
+			label: "Supporter",
+			icon: "🩵",
+			description: "Supporting the project!",
+			clickable: false,
+		});
+	}
+
+	if (data.crowdin_user_id) {
+		badges.push({
+			label: "Translator",
+			icon: <Globe className="w-4 h-4" />,
+			description: "Helping translate the application!",
+			clickable: true,
+			href: CROWDIN_URL,
+		});
+	}
+
+	return badges.length > 0 ? (
+		<div className="mb-4 flex flex-wrap gap-2">
+			{badges.map((badge) => {
+				const content = (
+					<>
+						<span aria-label={badge.label} className="text-base" role="img">
+							{badge.icon}
+						</span>
+						<span>{badge.label}</span>
+					</>
+				);
+
+				return badge.clickable ? (
+					<a
+						className={`${BADGES_CLASS_NAME} hover:from-purple-200 hover:to-blue-200 dark:hover:from-purple-800/40 dark:hover:to-blue-800/40 transition-colors cursor-pointer`}
+						href={badge.href}
+						key={badge.label}
+						rel="noopener noreferrer"
+						target="_blank"
+						title={badge.description}
+					>
+						{content}
+					</a>
+				) : (
+					<div className={BADGES_CLASS_NAME} key={badge.label} title={badge.description}>
+						{content}
+					</div>
+				);
+			})}
+		</div>
+	) : null;
+}
+
 export default function SkyProfile() {
-	const { skyProfilePacket, maximumWingedLight } = useLoaderData<typeof loader>();
+	const { data, maximumWingedLight } = useLoaderData<typeof loader>();
 	const [copied, setCopied] = useState(false);
 
 	return (
@@ -176,39 +238,42 @@ export default function SkyProfile() {
 			<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
 				<div className="relative h-60 w-full">
 					<div className="w-full h-full rounded-md overflow-hidden">
-						{skyProfilePacket.banner ? (
+						{data.banner ? (
 							<div
-								aria-label={`Banner of ${skyProfilePacket.name}.`}
+								aria-label={`Banner of ${data.name}.`}
 								className="w-full h-full bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/banners/${skyProfilePacket.user_id}/${skyProfilePacket.banner.startsWith("a_") ? `${skyProfilePacket.banner}.gif` : `${skyProfilePacket.banner}.webp`})`,
+									backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/banners/${data.user_id}/${data.banner.startsWith("a_") ? `${data.banner}.gif` : `${data.banner}.webp`})`,
 								}}
 							/>
 						) : (
 							<div className="w-full h-full bg-gray-200 dark:bg-gray-600" />
 						)}
 					</div>
-					{skyProfilePacket.icon && (
+					{data.icon && (
 						<div
-							aria-label={`Icon of ${skyProfilePacket.name}.`}
+							aria-label={`Icon of ${data.name}.`}
 							className="w-20 h-20 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
 							role="img"
 							style={{
-								backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfilePacket.user_id}/${skyProfilePacket.icon.startsWith("a_") ? `${skyProfilePacket.icon}.gif` : `${skyProfilePacket.icon}.webp`})`,
+								backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${data.user_id}/${data.icon.startsWith("a_") ? `${data.icon}.gif` : `${data.icon}.webp`})`,
 							}}
 						/>
 					)}
 				</div>
 				<div className="px-4 pt-10 pb-2">
-					{skyProfilePacket.name ? (
-						<h1 className="mb-2">{skyProfilePacket.name}</h1>
-					) : (
-						<h1 className="mb-2 italic">No name</h1>
-					)}
-					{skyProfilePacket.seasons && skyProfilePacket.seasons.length > 0 && (
+					<div className="flex-1 min-w-0">
+						{data.name ? (
+							<h1 className="mb-2">{data.name}</h1>
+						) : (
+							<h1 className="mb-2 italic">No name</h1>
+						)}
+						<RecognitionBadges data={data} />
+					</div>
+					{data.seasons && data.seasons.length > 0 && (
 						<div className="flex flex-wrap gap-2">
-							{skyProfilePacket.seasons
+							{data.seasons
 								.sort((a, b) => a - b)
 								.map((season) => (
 									<div
@@ -223,9 +288,9 @@ export default function SkyProfile() {
 								))}
 						</div>
 					)}
-					{skyProfilePacket.platform && skyProfilePacket.platform.length > 0 && (
+					{data.platform && data.platform.length > 0 && (
 						<div className="mt-4 flex flex-wrap gap-2">
-							{skyProfilePacket.platform
+							{data.platform
 								.filter((platform) => isPlatformId(platform))
 								.sort((a, b) => a - b)
 								.map((platform) => (
@@ -239,14 +304,11 @@ export default function SkyProfile() {
 						</div>
 					)}
 					<h2 className="font-semibold mb-2">
-						About Me{" "}
-						{skyProfilePacket.country &&
-							isCountry(skyProfilePacket.country) &&
-							CountryToEmoji[skyProfilePacket.country]}
+						About Me {data.country && isCountry(data.country) && CountryToEmoji[data.country]}
 					</h2>
 					<div className="mt-4">
-						{skyProfilePacket.description ? (
-							<p className="whitespace-pre-wrap">{skyProfilePacket.description}</p>
+						{data.description ? (
+							<p className="whitespace-pre-wrap">{data.description}</p>
 						) : (
 							<p className="italic">No description.</p>
 						)}
@@ -270,7 +332,7 @@ export default function SkyProfile() {
 						</div>
 					</div>
 				)}
-				{skyProfilePacket.spirit !== null && isSpiritId(skyProfilePacket.spirit) ? (
+				{data.spirit !== null && isSpiritId(data.spirit) ? (
 					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
 						<div
 							aria-label="Favourite spirit icon."
@@ -282,18 +344,18 @@ export default function SkyProfile() {
 						/>
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
-							<p className="my-0">{enGB.general.spirits[skyProfilePacket.spirit]}</p>
+							<p className="my-0">{enGB.general.spirits[data.spirit]}</p>
 						</div>
 					</div>
 				) : null}
-				{skyProfilePacket.hangout && (
+				{data.hangout && (
 					<div
-						className={`group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 ${(skyProfilePacket.winged_light === null && skyProfilePacket.spirit === null) || (skyProfilePacket.winged_light !== null && skyProfilePacket.spirit) ? "md:col-span-2" : ""}`}
+						className={`group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 ${(data.winged_light === null && data.spirit === null) || (data.winged_light !== null && data.spirit) ? "md:col-span-2" : ""}`}
 					>
 						<MapPinIcon className="w-6 h-6 mr-2" />
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Hangout</p>
-							<p className="my-0">{skyProfilePacket.hangout}</p>
+							<p className="my-0">{data.hangout}</p>
 						</div>
 					</div>
 				)}

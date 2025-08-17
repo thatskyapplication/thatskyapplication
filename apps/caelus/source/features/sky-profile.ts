@@ -34,6 +34,7 @@ import {
 	COUNTRY_VALUES,
 	type Country,
 	CountryToEmoji,
+	CROWDIN_URL,
 	type Emoji,
 	formatEmoji,
 	isCountry,
@@ -47,6 +48,7 @@ import {
 	SKY_PROFILE_EDIT_TYPE_VALUES,
 	SKY_PROFILE_RESET_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
+	type SkyProfileData,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
 	type SkyProfilePacket,
@@ -74,7 +76,9 @@ import {
 	APPLICATION_ID,
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SUPPORT_SERVER_GUILD_ID,
+	SUPPORTER_ROLE_ID,
 	THAT_WINGLESS_COMMUNITY_INVITE_URL,
+	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
 import {
 	ANIMATED_HASH_PREFIX,
@@ -92,7 +96,7 @@ import {
 	SKY_PROFILE_UNKNOWN_NAME,
 	SKY_PROFILES_URL,
 } from "../utility/constants.js";
-import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
+import { EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import {
 	chatInputApplicationCommandMention,
 	interactionInvoker,
@@ -299,6 +303,15 @@ function generateLabelLetter(label: string) {
 	}
 
 	return label[0]!.toUpperCase();
+}
+
+export async function skyProfileFetch(userId: Snowflake) {
+	return await pg
+		.select<SkyProfileData>(["p.*", "u.crowdin_user_id", "u.supporter"])
+		.from(`${Table.Profiles} as p`)
+		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
+		.where("p.user_id", userId)
+		.first();
 }
 
 export async function skyProfileSet(
@@ -510,17 +523,14 @@ export async function skyProfileShowEdit(
 ) {
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
-
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const data = await skyProfileFetch(invoker.id);
 
 	const components: APIMessageTopLevelComponent[] = [];
 	const containerComponents: APIComponentInContainer[] = [];
 
-	if (skyProfilePacket) {
-		components.push(...(await skyProfileComponents(interaction, skyProfilePacket)));
-		const missing = skyProfileMissingData(skyProfilePacket, locale);
+	if (data) {
+		components.push(...(await skyProfileComponents(interaction, data)));
+		const missing = skyProfileMissingData(data, locale);
 
 		if (missing.length > 0) {
 			containerComponents.push({ type: ComponentType.TextDisplay, content: missing.join("\n") });
@@ -562,7 +572,7 @@ export async function skyProfileShowEdit(
 
 	const actionRowComponents: APIComponentInMessageActionRow[] = [];
 
-	if (skyProfilePacket?.winged_light === SkyProfileWingedLightType.Capeless) {
+	if (data?.winged_light === SkyProfileWingedLightType.Capeless) {
 		actionRowComponents.push(SKY_PROFILE_EDIT_WINGLESS_BUTTON);
 	}
 
@@ -642,11 +652,9 @@ export async function skyProfileShow(
 	if (hide) {
 		await skyProfileExploreProfile(interaction, user?.id ?? invoker.id);
 	} else {
-		const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-			.where({ user_id: user?.id ?? invoker.id })
-			.first();
+		const data = await skyProfileFetch(invoker.id);
 
-		if (!skyProfilePacket) {
+		if (!data) {
 			const userIsInvoker = !user || user.id === invoker.id;
 
 			await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -665,7 +673,7 @@ export async function skyProfileShow(
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			allowed_mentions: { parse: [] },
-			components: await skyProfileComponents(interaction, skyProfilePacket),
+			components: await skyProfileComponents(interaction, data),
 			flags: MessageFlags.IsComponentsV2,
 		});
 	}
@@ -873,12 +881,9 @@ export async function skyProfileExploreProfile(
 ) {
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
+	const data = await skyProfileFetch(userId);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.where({ user_id: userId })
-		.first();
-
-	if (!skyProfilePacket) {
+	if (!data) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("sky-profile.no-sky-profile-explore-user", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
@@ -887,10 +892,10 @@ export async function skyProfileExploreProfile(
 		return;
 	}
 
-	const name = skyProfilePacket.name!;
+	const name = data.name!;
 	const previous = await skyProfileExploreProfilePreviousRow(name, userId);
 	const next = await skyProfileExploreProfileNextRow(name, userId);
-	const ownSkyProfile = invoker.id === skyProfilePacket.user_id;
+	const ownSkyProfile = invoker.id === data.user_id;
 
 	const isLiked = Boolean(
 		await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes)
@@ -905,13 +910,13 @@ export async function skyProfileExploreProfile(
 		| Parameters<InteractionsAPI["reply"]>[2]
 		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 		components: [
-			...(await skyProfileComponents(interaction, skyProfilePacket)),
+			...(await skyProfileComponents(interaction, data)),
 			{
 				type: ComponentType.Container,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `<@${skyProfilePacket.user_id}>`,
+						content: `<@${data.user_id}>`,
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -1190,11 +1195,9 @@ export async function skyProfileExploreLikedProfile(
 		? interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1)
 		: interaction.data.values[0]!;
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.where({ user_id: userId })
-		.first();
+	const data = await skyProfileFetch(userId);
 
-	if (!skyProfilePacket) {
+	if (!data) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("sky-profile.no-sky-profile-explore-likes", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
@@ -1203,10 +1206,10 @@ export async function skyProfileExploreLikedProfile(
 		return;
 	}
 
-	const name = skyProfilePacket.name!;
+	const name = data.name!;
 	const previous = await skyProfileExploreLikedProfilePreviousRow(name, invoker.id, userId);
 	const next = await skyProfileExploreLikedProfileNextRow(name, invoker.id, userId);
-	const ownSkyProfile = invoker.id === skyProfilePacket.user_id;
+	const ownSkyProfile = invoker.id === data.user_id;
 
 	const isLiked = Boolean(
 		await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes)
@@ -1219,13 +1222,13 @@ export async function skyProfileExploreLikedProfile(
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
-			...(await skyProfileComponents(interaction, skyProfilePacket)),
+			...(await skyProfileComponents(interaction, data)),
 			{
 				type: ComponentType.Container,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `<@${skyProfilePacket.user_id}>`,
+						content: `<@${data.user_id}>`,
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -1349,12 +1352,9 @@ export async function skyProfileReport(
 ) {
 	const { locale } = interaction;
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
+	const data = await skyProfileFetch(userId);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.where({ user_id: userId })
-		.first();
-
-	if (!skyProfilePacket) {
+	if (!data) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("sky-profile.no-sky-profile-sky-kid", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
@@ -1365,7 +1365,7 @@ export async function skyProfileReport(
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
-			...(await skyProfileComponents(interaction, skyProfilePacket)),
+			...(await skyProfileComponents(interaction, data)),
 			{
 				type: ComponentType.Container,
 				components: [
@@ -1503,12 +1503,9 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 	}
 
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
+	const data = await skyProfileFetch(userId);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.where({ user_id: userId })
-		.first();
-
-	if (!skyProfilePacket) {
+	if (!data) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("sky-profile.no-sky-profile-sky-kid", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
@@ -1526,9 +1523,9 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 		components: [
 			{
 				type: ComponentType.TextDisplay,
-				content: `Report by ${userLogFormat(invoker)} against <@${skyProfilePacket.user_id}>:\n>>> ${text}`,
+				content: `Report by ${userLogFormat(invoker)} against <@${data.user_id}>:\n>>> ${text}`,
 			},
-			...(await skyProfileComponents(interaction, skyProfilePacket)),
+			...(await skyProfileComponents(interaction, data)),
 		],
 		flags: MessageFlags.IsComponentsV2,
 	});
@@ -1969,12 +1966,9 @@ async function skyProfileSetGuessRank(interaction: APIMessageComponentSelectMenu
 
 export async function skyProfileShowReset(interaction: APIMessageComponentButtonInteraction) {
 	const { locale } = interaction;
+	const data = await skyProfileFetch(interactionInvoker(interaction).id);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.where({ user_id: interactionInvoker(interaction).id })
-		.first();
-
-	if (!skyProfilePacket) {
+	if (!data) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("sky-profile.no-sky-profile-reset", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
@@ -1985,7 +1979,7 @@ export async function skyProfileShowReset(interaction: APIMessageComponentButton
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
-			...(await skyProfileComponents(interaction, skyProfilePacket)),
+			...(await skyProfileComponents(interaction, data)),
 			{
 				type: ComponentType.Container,
 				components: [
@@ -2036,9 +2030,9 @@ async function skyProfileComponents(
 		| APIMessageComponentSelectMenuInteraction
 		| APIModalSubmitInteraction
 		| APIUserApplicationCommandInteraction,
-	skyProfilePacket: SkyProfilePacket,
-): Promise<[APIMessageTopLevelComponent]> {
-	const { locale } = interaction;
+	data: SkyProfileData,
+): Promise<APIMessageTopLevelComponent[]> {
+	const { locale, guild_id: guildId } = interaction;
 
 	const {
 		user_id: userId,
@@ -2053,8 +2047,11 @@ async function skyProfileComponents(
 		hangout,
 		catalogue_progression: catalogueProgression,
 		guess_rank: guessRank,
-	} = skyProfilePacket;
+		crowdin_user_id,
+		supporter,
+	} = data;
 
+	const components: APIMessageTopLevelComponent[] = [];
 	const containerComponents: APIComponentInContainer[] = [];
 	let seasonsComponent: APITextDisplayComponent | undefined;
 	let platformsComponent: APITextDisplayComponent | undefined;
@@ -2252,14 +2249,53 @@ async function skyProfileComponents(
 		});
 	}
 
-	const hearts = await totalReceived(skyProfilePacket.user_id);
+	const hearts = await totalReceived(data.user_id);
 
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
 		content: `-# ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: hearts })}`,
 	});
 
-	return [{ type: ComponentType.Container, components: containerComponents }];
+	components.push({
+		type: ComponentType.Container,
+		components: containerComponents,
+	});
+
+	const userDataContent = [];
+	const suffix = guildId === SUPPORT_SERVER_GUILD_ID ? "support-server" : "other-server";
+
+	if (crowdin_user_id) {
+		userDataContent.push(
+			t(`sky-profile.crowdin-${suffix}`, {
+				lng: locale,
+				ns: "features",
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Crowdin),
+				role: `<@&${TRANSLATOR_ROLE_ID}>`,
+				url: CROWDIN_URL,
+			}),
+		);
+	}
+
+	if (supporter) {
+		userDataContent.push(
+			t(`sky-profile.supporter-${suffix}`, {
+				lng: locale,
+				ns: "features",
+				emoji1: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+				role: `<@&${SUPPORTER_ROLE_ID}>`,
+				emoji2: formatEmoji(EMOTE_EMOJIS.Bow),
+			}),
+		);
+	}
+
+	if (userDataContent.length > 0) {
+		components.push({
+			type: ComponentType.Container,
+			components: [{ type: ComponentType.TextDisplay, content: userDataContent.join("\n") }],
+		});
+	}
+
+	return components;
 }
 
 function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Locale) {

@@ -59,6 +59,7 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	GiveawayTicket: { id: "1372542240563658782", name: "giveaway_ticket" },
 	Settings: { id: "1381212248856465428", name: "settings" },
 	Reddit: { id: "1390378584568234004", name: "reddit" },
+	Crowdin: { id: "1406562879351689317", name: "crowdin" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -111,6 +112,7 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	GiveawayTicket: { id: "1372542337623916614", name: "giveaway_ticket" },
 	Settings: { id: "1381212382121955329", name: "settings" },
 	Reddit: { id: "1390378668282351667", name: "reddit" },
+	Crowdin: { id: "1406560560534917130", name: "crowdin" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {
