@@ -15,6 +15,8 @@ import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_ICON_URL,
+	SHARD_ERUPTION_MAXIMUM_PAGE,
+	SHARD_ERUPTION_MINIMUM_PAGE,
 } from "~/utility/constants";
 import { getLocaleFromRequest } from "~/utility/functions";
 
@@ -64,7 +66,14 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		const shards = [];
 		const locale = getLocaleFromRequest(request);
 		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
-		const page = pageParameter ? Number(pageParameter) : 0;
+		let page = pageParameter ? Number(pageParameter) : 0;
+
+		if (!Number.isInteger(page)) {
+			page = 0;
+		}
+
+		page = Math.max(SHARD_ERUPTION_MINIMUM_PAGE, Math.min(SHARD_ERUPTION_MAXIMUM_PAGE, page));
+
 		const amount = page === 0 ? 31 : 30;
 		const startIndex = page * amount + (page <= 0 ? 0 : 1);
 		const endIndex = startIndex + amount;
@@ -189,7 +198,11 @@ export default function ShardEruption() {
 				) : (
 					<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">{shardCards}</div>
 				)}
-				{<Pagination currentPage={page} />}
+				<Pagination
+					currentPage={page}
+					maximumPage={SHARD_ERUPTION_MAXIMUM_PAGE}
+					minimumPage={SHARD_ERUPTION_MINIMUM_PAGE}
+				/>
 			</div>
 		</div>
 	);

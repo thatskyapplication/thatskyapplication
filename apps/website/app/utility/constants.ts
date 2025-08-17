@@ -18,6 +18,8 @@ export const SHARD_ERUPTION_DESCRIPTION =
 	"See today's shard eruption, and view a schedule of future shard eruptions." as const;
 
 export const SHARD_ERUPTION_ICON_URL = String(new URL("assets/shard_strong.webp", CDN_URL));
+export const SHARD_ERUPTION_MINIMUM_PAGE = -50 as const;
+export const SHARD_ERUPTION_MAXIMUM_PAGE = 50 as const;
 export const SKY_KID_ICON_URL = String(new URL("assets/sky_kid.webp", CDN_URL));
 
 export const SKY_PROFILES_DESCRIPTION = "See the Sky Profiles of the community!" as const;

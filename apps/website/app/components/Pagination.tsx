@@ -8,39 +8,46 @@ import { Form, Link } from "react-router";
 
 interface PaginationProps {
 	currentPage: number;
-	totalPages?: number;
+	maximumPage: number;
+	minimumPage?: number;
 }
 
-export default function Pagination({ currentPage, totalPages }: PaginationProps) {
+export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }: PaginationProps) {
 	const back2 = currentPage - 2;
 	const back1 = currentPage - 1;
 	const next1 = currentPage + 1;
 	const next2 = currentPage + 2;
+	const absoluteMaximumPage = Math.max(Math.abs(maximumPage), Math.abs(minimumPage));
+
+	const maximumLength =
+		minimumPage < 0
+			? absoluteMaximumPage.toString().length + 1
+			: absoluteMaximumPage.toString().length;
 
 	return (
 		<div className="mt-8 flex justify-center items-center space-x-2">
-			{typeof totalPages === "number" && (
+			{
 				<Link
 					className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
-						currentPage <= 1 ? "cursor-not-allowed opacity-50" : ""
+						currentPage <= minimumPage ? "cursor-not-allowed opacity-50" : ""
 					}`}
 					onClick={(event) => {
-						if (currentPage <= 1) {
+						if (currentPage <= minimumPage) {
 							event.preventDefault();
 						}
 					}}
-					to="?page=1"
+					to={`?page=${minimumPage}`}
 				>
 					<ChevronsLeftIcon className="w-6 h-6" />
 					<span className="hidden md:block ml-1">Start</span>
 				</Link>
-			)}
+			}
 			<Link
 				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
-					typeof totalPages === "number" && currentPage <= 1 ? "cursor-not-allowed opacity-50" : ""
+					currentPage <= minimumPage ? "cursor-not-allowed opacity-50" : ""
 				}`}
 				onClick={(event) => {
-					if (typeof totalPages === "number" && currentPage <= 1) {
+					if (currentPage <= minimumPage) {
 						event.preventDefault();
 					}
 				}}
@@ -49,7 +56,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
 				<ChevronLeftIcon className="w-6 h-6" />
 			</Link>
 			<div className="flex items-center space-x-2">
-				{(totalPages === undefined || back2 > 0) && (
+				{back2 >= minimumPage && (
 					<Link
 						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
 						to={`?page=${back2}`}
@@ -57,7 +64,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
 						<span>{back2}</span>
 					</Link>
 				)}
-				{(totalPages === undefined || back1 > 0) && (
+				{back1 >= minimumPage && (
 					<Link
 						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
 						to={`?page=${back1}`}
@@ -72,16 +79,18 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
 						const pageInput = form.elements.namedItem("page") as HTMLInputElement;
 						const pageValue = Number(pageInput.value);
 
-						if (typeof totalPages === "number" && pageValue > totalPages) {
+						if (pageValue > maximumPage) {
 							event.preventDefault();
-							pageInput.value = totalPages.toString();
+							pageInput.value = maximumPage.toString();
 							setTimeout(() => form.submit(), 0);
+							return;
 						}
 
-						if (typeof totalPages === "number" && pageValue < 1) {
+						if (pageValue < minimumPage) {
 							event.preventDefault();
-							pageInput.value = "1";
+							pageInput.value = minimumPage.toString();
 							setTimeout(() => form.submit(), 0);
+							return;
 						}
 					}}
 				>
@@ -90,13 +99,13 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
 						defaultValue={currentPage}
 						inputMode="numeric"
 						key={currentPage}
-						maxLength={String(totalPages).length}
+						maxLength={maximumLength}
 						name="page"
-						pattern={totalPages === undefined ? "-?\\d*" : "\\d*"}
+						pattern={minimumPage < 0 ? `-?\\d{1,${maximumLength}}` : `\\d{1,${maximumLength}}`}
 						type="text"
 					/>
 				</Form>
-				{(totalPages === undefined || (typeof totalPages === "number" && next1 <= totalPages)) && (
+				{next1 <= maximumPage && (
 					<Link
 						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
 						to={`?page=${next1}`}
@@ -104,7 +113,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
 						<span>{next1}</span>
 					</Link>
 				)}
-				{(totalPages === undefined || (typeof totalPages === "number" && next2 <= totalPages)) && (
+				{next2 <= maximumPage && (
 					<Link
 						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
 						to={`?page=${next2}`}
@@ -115,12 +124,10 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
 			</div>
 			<Link
 				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
-					typeof totalPages === "number" && currentPage >= totalPages
-						? "cursor-not-allowed opacity-50"
-						: ""
+					currentPage >= maximumPage ? "cursor-not-allowed opacity-50" : ""
 				}`}
 				onClick={(event) => {
-					if (typeof totalPages === "number" && currentPage >= totalPages) {
+					if (currentPage >= maximumPage) {
 						event.preventDefault();
 					}
 				}}
@@ -128,22 +135,22 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
 			>
 				<ChevronRightIcon className="w-6 h-6" />
 			</Link>
-			{typeof totalPages === "number" && (
+			{
 				<Link
 					className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
-						currentPage >= totalPages ? "cursor-not-allowed opacity-50" : ""
+						currentPage >= maximumPage ? "cursor-not-allowed opacity-50" : ""
 					}`}
 					onClick={(event) => {
-						if (currentPage >= totalPages) {
+						if (currentPage >= maximumPage) {
 							event.preventDefault();
 						}
 					}}
-					to={`?page=${totalPages}`}
+					to={`?page=${maximumPage}`}
 				>
 					<span className="hidden md:block mr-1">End</span>
 					<ChevronsRightIcon className="w-6 h-6" />
 				</Link>
-			)}
+			}
 		</div>
 	);
 }

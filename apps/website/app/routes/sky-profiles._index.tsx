@@ -77,9 +77,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		.first();
 
 	const totalProfiles = Number(countResult!.total!);
-	const totalPages = Math.ceil(totalProfiles / SKY_PROFILES_PAGE_LIMIT);
+	const maximumPage = Math.ceil(totalProfiles / SKY_PROFILES_PAGE_LIMIT);
 
-	if (currentPage > totalPages) {
+	if (currentPage > maximumPage) {
 		throw new Response(null, { status: 404 });
 	}
 
@@ -91,7 +91,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		.offset(offset);
 
 	return data(
-		{ profiles, currentPage, totalPages },
+		{ profiles, currentPage, maximumPage },
 		{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 	);
 };
@@ -182,7 +182,7 @@ export default function SkyProfiles() {
 	const { profiles } = data;
 	const query = "query" in data ? data.query : undefined;
 	const currentPage = "currentPage" in data ? data.currentPage : undefined;
-	const totalPages = "totalPages" in data ? data.totalPages : undefined;
+	const maximumPage = "maximumPage" in data ? data.maximumPage : undefined;
 
 	return (
 		<div className="container mx-auto px-4 m-4">
@@ -221,14 +221,14 @@ export default function SkyProfiles() {
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{profiles.length > 0 ? (
 					profiles.map((profile) => SkyProfileCard(profile))
-				) : currentPage !== undefined && totalPages !== undefined ? (
+				) : currentPage !== undefined && maximumPage !== undefined ? (
 					<p>Oh. No Sky profiles? Why not be the first time make one?</p>
 				) : (
 					<p>No results.</p>
 				)}
 			</div>
-			{currentPage !== undefined && totalPages !== undefined && (
-				<Pagination currentPage={currentPage} totalPages={totalPages} />
+			{currentPage !== undefined && maximumPage !== undefined && (
+				<Pagination currentPage={currentPage} maximumPage={maximumPage} />
 			)}
 		</div>
 	);
