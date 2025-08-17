@@ -1,13 +1,10 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
+import { CROWDIN_URL } from "@thatskyapplication/utility";
 import { Bot, Clock, LogIn, LogOut, Menu, Users, X, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Form, Link, useLocation } from "react-router";
 import { useLocale } from "~/contexts/LocaleContext";
-import {
-	CROWDIN_URL,
-	INVITE_APPLICATION_URL,
-	INVITE_SUPPORT_SERVER_URL,
-} from "~/utility/constants";
+import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL, timeString } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
 
