@@ -181,7 +181,7 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 		badges.push({
 			label: "Supporter",
 			icon: "🩵",
-			description: "Supporting the project!",
+			description: "This Sky kid is supporting development! How nice of them!",
 			clickable: false,
 		});
 	}
@@ -190,7 +190,7 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 		badges.push({
 			label: "Translator",
 			icon: <Globe className="w-4 h-4" />,
-			description: "Helping translate the application!",
+			description: "This Sky kid helps translate what you see! You can help out on Crowdin!",
 			clickable: true,
 			href: CROWDIN_URL,
 		});
