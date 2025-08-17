@@ -3124,8 +3124,8 @@ export enum Cosmetic {
 	AnniversaryTuxedoCape = 2477,
 
 	// 18/08/2025 | Returning Spirits #10.
-	TiptoeingTeaBrewerWingBuff,
-	WoundedWarriorWingBuff,
+	TiptoeingTeaBrewerWingBuff = 2478,
+	WoundedWarriorWingBuff = 2479,
 }
 
 export enum CosmeticCommon {
