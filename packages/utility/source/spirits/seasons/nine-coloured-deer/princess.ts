@@ -47,6 +47,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.PrincessOutfit,
 					cost: { seasonalCandles: 26 },
 				},

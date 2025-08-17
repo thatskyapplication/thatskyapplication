@@ -47,7 +47,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ProphetOfFireMask,
 					cost: { seasonalCandles: 29 },
 				},
-				{ cosmetic: Cosmetic.ProphetOfFireOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.ProphetOfFireOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -127,6 +131,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.ProphetOfFireOutfit,
 					cost: { candles: 75 },
 				},

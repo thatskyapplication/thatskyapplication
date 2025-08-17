@@ -137,6 +137,7 @@ export default new GuideSpirit({
 					cost: { candles: 20 },
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.AURORAOutfit,
 					cost: { candles: 200 },
 				},

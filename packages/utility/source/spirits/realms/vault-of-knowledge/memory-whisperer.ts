@@ -12,6 +12,7 @@ export default new StandardSpirit({
 			[
 				{ cosmetic: Cosmetic.CallCosmicManta },
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.MemoryWhispererOutfit,
 					cost: { hearts: 3 },
 				},

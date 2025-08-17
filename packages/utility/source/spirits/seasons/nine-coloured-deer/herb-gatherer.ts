@@ -24,7 +24,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.HerbGathererBlessing1,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.HerbGathererOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.HerbGathererOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{

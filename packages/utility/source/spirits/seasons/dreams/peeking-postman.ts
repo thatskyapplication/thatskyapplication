@@ -41,6 +41,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.PeekingPostmanOutfit,
 					cost: { seasonalCandles: 21 },
 				},
@@ -115,6 +116,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.PeekingPostmanOutfit,
 					cost: { candles: 70 },
 				},

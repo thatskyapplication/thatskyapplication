@@ -21,7 +21,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.TinkeringChimesmithBlessing1,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.TinkeringChimesmithOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.TinkeringChimesmithOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -95,6 +99,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 35 },
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.TinkeringChimesmithOutfit,
 					cost: { candles: 70 },
 				},

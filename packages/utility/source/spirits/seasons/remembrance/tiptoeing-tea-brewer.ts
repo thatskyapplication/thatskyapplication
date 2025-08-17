@@ -40,7 +40,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.TiptoeingTeaBrewerBlessing2,
 					cost: { seasonalCandles: 34 },
 				},
-				{ cosmetic: Cosmetic.TiptoeingTeaBrewerOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.TiptoeingTeaBrewerOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{

@@ -146,7 +146,11 @@ export default [
 						cosmetic: Cosmetic.AncientLightMantaBlessing4,
 						cost: { seasonalCandles: 16 },
 					},
-					{ cosmetic: Cosmetic.AncientLightMantaOutfit, seasonPass: true },
+					{
+						translation: CosmeticCommon.Outfit,
+						cosmetic: Cosmetic.AncientLightMantaOutfit,
+						seasonPass: true,
+					},
 				],
 				[
 					{
@@ -199,6 +203,7 @@ export default [
 						cost: { candles: 5 },
 					},
 					{
+						translation: CosmeticCommon.Outfit,
 						cosmetic: Cosmetic.AncientLightMantaOutfit,
 						cost: { candles: 75 },
 					},

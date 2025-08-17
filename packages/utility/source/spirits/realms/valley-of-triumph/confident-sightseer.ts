@@ -44,6 +44,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.ConfidentSightseerOutfit,
 					cost: { hearts: 5 },
 				},

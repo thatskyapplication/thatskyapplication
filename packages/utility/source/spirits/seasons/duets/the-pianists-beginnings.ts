@@ -37,7 +37,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ThePianistsBeginningsBlessing3,
 					cost: { seasonalCandles: 24 },
 				},
-				{ cosmetic: Cosmetic.ThePianistsBeginningsOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.ThePianistsBeginningsOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{

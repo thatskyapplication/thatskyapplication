@@ -37,6 +37,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.NightbirdWhispererOutfit,
 					cost: { seasonalCandles: 28 },
 				},

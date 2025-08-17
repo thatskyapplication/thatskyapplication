@@ -44,7 +44,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ChucklingScoutBlessing2,
 					cost: { seasonalCandles: 17 },
 				},
-				{ cosmetic: Cosmetic.ChucklingScoutOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.ChucklingScoutOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -109,6 +113,7 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.ChucklingScoutOutfit,
 					cost: { candles: 46 },
 				},

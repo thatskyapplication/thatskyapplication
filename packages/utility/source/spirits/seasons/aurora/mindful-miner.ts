@@ -51,7 +51,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MindfulMinerBlessing3,
 					cost: { seasonalCandles: 28 },
 				},
-				{ cosmetic: Cosmetic.MindfulMinerOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.MindfulMinerOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -127,6 +131,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.MindfulMinerOutfit,
 					cost: { candles: 55 },
 				},

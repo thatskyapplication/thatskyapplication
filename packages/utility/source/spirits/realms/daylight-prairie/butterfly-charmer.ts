@@ -54,6 +54,7 @@ export default new StandardSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.ButterflyCharmerOutfit,
 					cost: { hearts: 4 },
 				},

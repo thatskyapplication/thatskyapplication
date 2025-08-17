@@ -39,7 +39,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.FestivalSpinDancerHair,
 					cost: { seasonalCandles: 14 },
 				},
-				{ cosmetic: Cosmetic.FestivalSpinDancerOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.FestivalSpinDancerOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -111,6 +115,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.FestivalSpinDancerOutfit,
 					cost: { candles: 65 },
 				},

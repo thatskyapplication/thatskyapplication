@@ -44,7 +44,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.TroupeGreeterMask,
 					cost: { seasonalCandles: 12 },
 				},
-				{ cosmetic: Cosmetic.TroupeGreeterOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.TroupeGreeterOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -106,6 +110,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.TroupeGreeterOutfit,
 					cost: { candles: 70 },
 				},

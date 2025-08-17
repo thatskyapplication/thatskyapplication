@@ -12,6 +12,7 @@ export default new StandardSpirit({
 			[
 				{ cosmetic: Cosmetic.StancePolite },
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.PoliteScholarOutfit,
 					cost: { hearts: 2 },
 				},

@@ -57,6 +57,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.TroupeJugglerOutfit,
 					cost: { seasonalCandles: 18 },
 				},
@@ -137,6 +138,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.TroupeJugglerOutfit,
 					cost: { candles: 75 },
 				},

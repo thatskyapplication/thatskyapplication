@@ -50,7 +50,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.TalentedBuilderTrailSpell1,
 					cost: { seasonalCandles: 24 },
 				},
-				{ cosmetic: Cosmetic.TalentedBuilderOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.TalentedBuilderOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -123,6 +127,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.TalentedBuilderOutfit,
 					cost: { candles: 70 },
 				},

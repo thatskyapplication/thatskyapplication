@@ -41,7 +41,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.GloatingNarcissistBlessing2,
 					cost: { seasonalCandles: 22 },
 				},
-				{ cosmetic: Cosmetic.GloatingNarcissistOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.GloatingNarcissistOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -120,6 +124,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.GloatingNarcissistOutfit,
 					cost: { candles: 65 },
 				},

@@ -47,7 +47,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.FranticStagehandMask,
 					cost: { seasonalCandles: 30 },
 				},
-				{ cosmetic: Cosmetic.FranticStagehandOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.FranticStagehandOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -101,6 +105,7 @@ export default new SeasonalSpirit({
 					level: 2,
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.FranticStagehandOutfit,
 					cost: { candles: 70 },
 				},

@@ -19,6 +19,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.MemoryOfALostVillageOutfit,
 					cost: { seasonalCandles: 32 },
 				},

@@ -26,6 +26,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 18 },
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.ResourcefulRecluseOutfit,
 					seasonPass: true,
 				},

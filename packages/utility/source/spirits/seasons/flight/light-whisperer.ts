@@ -44,6 +44,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.LightWhispererOutfit,
 					cost: { seasonalCandles: 28 },
 				},
@@ -93,6 +94,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 50 },
 				},
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.LightWhispererOutfit,
 					cost: { candles: 65 },
 				},

@@ -45,7 +45,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.BearhugHermitHair,
 					cost: { seasonalCandles: 29 },
 				},
-				{ cosmetic: Cosmetic.BearhugHermitOutfit, seasonPass: true },
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.BearhugHermitOutfit,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -105,6 +109,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.BearhugHermitOutfit,
 					cost: { candles: 70 },
 				},

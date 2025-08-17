@@ -100,6 +100,7 @@ export default new GuideSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Outfit,
 					cosmetic: Cosmetic.TheMoominStorybookOutfit,
 					cost: { candles: 190 },
 				},
