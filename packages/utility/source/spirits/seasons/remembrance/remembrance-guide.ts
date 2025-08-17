@@ -9,7 +9,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Remembrance,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		hasInfographic: false,
 		current: [
 			[
 				{
