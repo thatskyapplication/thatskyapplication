@@ -652,7 +652,7 @@ export async function skyProfileShow(
 	if (hide) {
 		await skyProfileExploreProfile(interaction, user?.id ?? invoker.id);
 	} else {
-		const data = await skyProfileFetch(invoker.id);
+		const data = await skyProfileFetch(user?.id ?? invoker.id);
 
 		if (!data) {
 			const userIsInvoker = !user || user.id === invoker.id;
