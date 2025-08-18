@@ -25,7 +25,7 @@ export default new GuideSpirit({
 					seasonPass: true,
 					children: [
 						{
-							cosmetic: Cosmetic.AbyssGuideUltimateFaceAccessory,
+							cosmetic: Cosmetic.AbyssGuideUltimateHeadAccessory,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,
 						},

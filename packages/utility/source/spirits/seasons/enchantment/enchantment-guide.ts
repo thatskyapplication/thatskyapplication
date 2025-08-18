@@ -26,7 +26,7 @@ export default new GuideSpirit({
 					seasonPass: true,
 					children: [
 						{
-							cosmetic: Cosmetic.EnchantmentUltimateFaceAccessory,
+							cosmetic: Cosmetic.EnchantmentUltimateHeadAccessory,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
 						},

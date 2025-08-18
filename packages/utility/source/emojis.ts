@@ -1767,157 +1767,77 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	FaceAccessory07: { id: "1313935541703802910", name: "07_face_accessory" },
 	/**
-	 * Hairtousle Teen.
-	 */
-	FaceAccessory08: { id: "1313935572443856977", name: "08_face_accessory" },
-	/**
-	 * Enchantment Guide (ultimate).
-	 */
-	FaceAccessory09: { id: "1313935550125838346", name: "09_face_accessory" },
-	/**
 	 * Chill Sunbather.
 	 */
-	FaceAccessory10: { id: "1313935551342186647", name: "10_face_accessory" },
-	/**
-	 * Days of Feast Horns.
-	 */
-	FaceAccessory11: { id: "1313935537203052675", name: "11_face_accessory" },
-	/**
-	 * Bearhug Hermit.
-	 */
-	FaceAccessory12: { id: "1313935534942457896", name: "12_face_accessory" },
-	/**
-	 * Rainbow braid.
-	 */
-	FaceAccessory13: { id: "1313935552944275488", name: "13_face_accessory" },
-	/**
-	 * Mischief Withered Antlers.
-	 */
-	FaceAccessory14: { id: "1313935554429190254", name: "14_face_accessory" },
-	/**
-	 * Abyss Guide (ultimate).
-	 */
-	FaceAccessory15: { id: "1313935592731443250", name: "15_face_accessory" },
-	/**
-	 * Rainbow Earring.
-	 */
-	FaceAccessory16: { id: "1313935547810578453", name: "16_face_accessory" },
-	/**
-	 * Rainbow Headphones.
-	 */
-	FaceAccessory17: { id: "1313935578747768854", name: "17_face_accessory" },
+	FaceAccessory08: { id: "1313935551342186647", name: "08_face_accessory" },
 	/**
 	 * Elder of the Isle.
 	 */
-	FaceAccessory18: { id: "1313935577212653650", name: "18_face_accessory" },
+	FaceAccessory09: { id: "1313935577212653650", name: "09_face_accessory" },
 	/**
 	 * Elder of the Prairie.
 	 */
-	FaceAccessory19: { id: "1313935546904477706", name: "19_face_accessory" },
+	FaceAccessory10: { id: "1313935546904477706", name: "10_face_accessory" },
 	/**
 	 * Elder of the Forest.
 	 */
-	FaceAccessory20: { id: "1313935556534734910", name: "20_face_accessory" },
-	/**
-	 * Tiara We Can Touch.
-	 */
-	FaceAccessory21: { id: "1313935588474228866", name: "21_face_accessory" },
+	FaceAccessory11: { id: "1313935556534734910", name: "11_face_accessory" },
 	/**
 	 * Feast Goggles.
 	 */
-	FaceAccessory22: { id: "1313935558103273472", name: "22_face_accessory" },
-	/**
-	 * Melancholy Mope.
-	 */
-	FaceAccessory23: { id: "1313935587627110560", name: "23_face_accessory" },
-	/**
-	 * Tumbling Troublemaker.
-	 */
-	FaceAccessory24: { id: "1313935543696097380", name: "24_face_accessory" },
+	FaceAccessory12: { id: "1313935558103273472", name: "12_face_accessory" },
 	/**
 	 * Nature Glasses.
 	 */
-	FaceAccessory25: { id: "1313935562348167208", name: "25_face_accessory" },
-	/**
-	 * Days of Colour 2023.
-	 */
-	FaceAccessory26: { id: "1313935565112217680", name: "26_face_accessory" },
+	FaceAccessory13: { id: "1313935562348167208", name: "13_face_accessory" },
 	/**
 	 * Reassuring Ranger.
 	 */
-	FaceAccessory27: { id: "1313935575505440839", name: "27_face_accessory" },
+	FaceAccessory14: { id: "1313935575505440839", name: "14_face_accessory" },
 	/**
 	 * Moments Guide (ultimate).
 	 */
-	FaceAccessory28: { id: "1313935569440739359", name: "28_face_accessory" },
+	FaceAccessory15: { id: "1313935569440739359", name: "15_face_accessory" },
 	/**
 	 * Jolly Geologist.
 	 */
-	FaceAccessory29: { id: "1313935570820665407", name: "29_face_accessory" },
+	FaceAccessory16: { id: "1313935570820665407", name: "16_face_accessory" },
 	/**
 	 * Style Star Sunglasses.
 	 */
-	FaceAccessory30: { id: "1313935568165539871", name: "30_face_accessory" },
+	FaceAccessory17: { id: "1313935568165539871", name: "17_face_accessory" },
 	/**
 	 * Style Flame Sunglasses.
 	 */
-	FaceAccessory31: { id: "1313935559525400667", name: "31_face_accessory" },
+	FaceAccessory18: { id: "1313935559525400667", name: "18_face_accessory" },
 	/**
 	 * Style Heart Sunglasses.
 	 */
-	FaceAccessory32: { id: "1313935586058567771", name: "32_face_accessory" },
-	/**
-	 * Festival Earrings.
-	 */
-	FaceAccessory33: { id: "1313935584045301791", name: "33_face_accessory" },
-	/**
-	 * Gift of the Nine-Coloured Deer.
-	 */
-	FaceAccessory34: { id: "1313935563610394624", name: "34_face_accessory" },
-	/**
-	 * Days of Fortune Dragon Bangles.
-	 */
-	FaceAccessory35: { id: "1313935589833179230", name: "35_face_accessory" },
+	FaceAccessory19: { id: "1313935586058567771", name: "19_face_accessory" },
 	/**
 	 * Compassionate Cellist.
 	 */
-	FaceAccessory36: { id: "1313935581046116412", name: "36_face_accessory" },
-	/**
-	 * Sunlight Helios Hoops earrings.
-	 */
-	FaceAccessory37: { id: "1313935574088028160", name: "37_face_accessory" },
-	/**
-	 * Moonlight earrings.
-	 */
-	FaceAccessory38: { id: "1313935591502643200", name: "38_face_accessory" },
+	FaceAccessory20: { id: "1313935581046116412", name: "20_face_accessory" },
 	/**
 	 * Style Dapper Monocle.
 	 */
-	FaceAccessory39: { id: "1313935582761717780", name: "39_face_accessory" },
+	FaceAccessory21: { id: "1313935582761717780", name: "21_face_accessory" },
 	/**
 	 * Mischief Star Sticker.
 	 */
-	FaceAccessory40: { id: "1313935561022636072", name: "40_face_accessory" },
+	FaceAccessory22: { id: "1313935561022636072", name: "22_face_accessory" },
 	/**
 	 * Blue Bird Guide (ultimate).
 	 */
-	FaceAccessory41: { id: "1365253683805421631", name: "41_face_accessory" },
+	FaceAccessory23: { id: "1365253683805421631", name: "23_face_accessory" },
 	/**
 	 * Divining Wise Grandparent.
 	 */
-	FaceAccessory42: { id: "1365251455874895922", name: "42_face_accessory" },
+	FaceAccessory24: { id: "1365251455874895922", name: "24_face_accessory" },
 	/**
 	 * Anniversary Cinema Glasses.
 	 */
-	FaceAccessory43: { id: "1391821692338442460", name: "43_face_accessory" },
-	/**
-	 * Spirited Manatee Head Accessory.
-	 */
-	FaceAccessory44: { id: "1399295002525307003", name: "44_face_accessory" },
-	/**
-	 * Vestige of Dark Dragons Head Accessory.
-	 */
-	FaceAccessory45: { id: "1401818086453149776", name: "45_face_accessory" },
+	FaceAccessory25: { id: "1391821692338442460", name: "25_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -1928,44 +1848,24 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory05: { id: "1313920587621732382", name: "05_face_accessory" },
 	FaceAccessory06: { id: "1313920571335114753", name: "06_face_accessory" },
 	FaceAccessory07: { id: "1313920622971326554", name: "07_face_accessory" },
-	FaceAccessory08: { id: "1313920618265182259", name: "08_face_accessory" },
-	FaceAccessory09: { id: "1313920585302147092", name: "09_face_accessory" },
-	FaceAccessory10: { id: "1313920632051863617", name: "10_face_accessory" },
-	FaceAccessory11: { id: "1313920583980814336", name: "11_face_accessory" },
-	FaceAccessory12: { id: "1313920574334173277", name: "12_face_accessory" },
-	FaceAccessory13: { id: "1313920625311744052", name: "13_face_accessory" },
-	FaceAccessory14: { id: "1313920586493333627", name: "14_face_accessory" },
-	FaceAccessory15: { id: "1313920568449302542", name: "15_face_accessory" },
-	FaceAccessory16: { id: "1313920616482738256", name: "16_face_accessory" },
-	FaceAccessory17: { id: "1313920573306310827", name: "17_face_accessory" },
-	FaceAccessory18: { id: "1313920633503219826", name: "18_face_accessory" },
-	FaceAccessory19: { id: "1313920598258483293", name: "19_face_accessory" },
-	FaceAccessory20: { id: "1313920610497335316", name: "20_face_accessory" },
-	FaceAccessory21: { id: "1313920600988975196", name: "21_face_accessory" },
-	FaceAccessory22: { id: "1313920631334502493", name: "22_face_accessory" },
-	FaceAccessory23: { id: "1313920577601536041", name: "23_face_accessory" },
-	FaceAccessory24: { id: "1313920615299678208", name: "24_face_accessory" },
-	FaceAccessory25: { id: "1313920612015542445", name: "25_face_accessory" },
-	FaceAccessory26: { id: "1313920626872029306", name: "26_face_accessory" },
-	FaceAccessory27: { id: "1313920595192315967", name: "27_face_accessory" },
-	FaceAccessory28: { id: "1313920621263982642", name: "28_face_accessory" },
-	FaceAccessory29: { id: "1313920580667310111", name: "29_face_accessory" },
-	FaceAccessory30: { id: "1313920624573284472", name: "30_face_accessory" },
-	FaceAccessory31: { id: "1313920576079007856", name: "31_face_accessory" },
-	FaceAccessory32: { id: "1313920628834828378", name: "32_face_accessory" },
-	FaceAccessory33: { id: "1313920582651215902", name: "33_face_accessory" },
-	FaceAccessory34: { id: "1313920604042432613", name: "34_face_accessory" },
-	FaceAccessory35: { id: "1313920613525487696", name: "35_face_accessory" },
-	FaceAccessory36: { id: "1313920602817564802", name: "36_face_accessory" },
-	FaceAccessory37: { id: "1313920578440138773", name: "37_face_accessory" },
-	FaceAccessory38: { id: "1313920604939747450", name: "38_face_accessory" },
-	FaceAccessory39: { id: "1313920608677134378", name: "39_face_accessory" },
-	FaceAccessory40: { id: "1313920607028777020", name: "40_face_accessory" },
-	FaceAccessory41: { id: "1365253690675433542", name: "41_face_accessory" },
-	FaceAccessory42: { id: "1365251466738139169", name: "42_face_accessory" },
-	FaceAccessory43: { id: "1391821700949082252", name: "43_face_accessory" },
-	FaceAccessory44: { id: "1399295009513279508", name: "44_face_accessory" },
-	FaceAccessory45: { id: "1401818096985182218", name: "45_face_accessory" },
+	FaceAccessory08: { id: "1313920632051863617", name: "08_face_accessory" },
+	FaceAccessory09: { id: "1313920633503219826", name: "09_face_accessory" },
+	FaceAccessory10: { id: "1313920598258483293", name: "10_face_accessory" },
+	FaceAccessory11: { id: "1313920610497335316", name: "11_face_accessory" },
+	FaceAccessory12: { id: "1313920631334502493", name: "12_face_accessory" },
+	FaceAccessory13: { id: "1313920612015542445", name: "13_face_accessory" },
+	FaceAccessory14: { id: "1313920595192315967", name: "14_face_accessory" },
+	FaceAccessory15: { id: "1313920621263982642", name: "15_face_accessory" },
+	FaceAccessory16: { id: "1313920580667310111", name: "16_face_accessory" },
+	FaceAccessory17: { id: "1313920624573284472", name: "17_face_accessory" },
+	FaceAccessory18: { id: "1313920576079007856", name: "18_face_accessory" },
+	FaceAccessory19: { id: "1313920628834828378", name: "19_face_accessory" },
+	FaceAccessory20: { id: "1313920602817564802", name: "20_face_accessory" },
+	FaceAccessory21: { id: "1313920608677134378", name: "21_face_accessory" },
+	FaceAccessory22: { id: "1313920607028777020", name: "22_face_accessory" },
+	FaceAccessory23: { id: "1365253690675433542", name: "23_face_accessory" },
+	FaceAccessory24: { id: "1365251466738139169", name: "24_face_accessory" },
+	FaceAccessory25: { id: "1391821700949082252", name: "25_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -3280,45 +3180,37 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	HairAccessory52: { id: "1320565947206995998", name: "52_hair_accessory" },
 	/**
-	 * Radiance Provoking Performer.
-	 */
-	HairAccessory53: { id: "1330643945394278400", name: "53_hair_accessory" },
-	/**
 	 * Radiance Greeting Shaman.
 	 */
-	HairAccessory54: { id: "1330662827316477952", name: "54_hair_accessory" },
+	HairAccessory53: { id: "1330662827316477952", name: "53_hair_accessory" },
 	/**
 	 * Amethyst Accessory.
 	 */
-	HairAccessory55: { id: "1338232440082272316", name: "55_hair_accessory" },
+	HairAccessory54: { id: "1338232440082272316", name: "54_hair_accessory" },
 	/**
 	 * Costumed Confetti Cousin.
 	 */
-	HairAccessory56: { id: "1364903131032322112", name: "56_hair_accessory" },
+	HairAccessory55: { id: "1364903131032322112", name: "55_hair_accessory" },
 	/**
 	 * Nostalgic Sparkler Parent.
 	 */
-	HairAccessory57: { id: "1365260195114127390", name: "57_hair_accessory" },
-	/**
-	 * Royal Hairtousle Teen.
-	 */
-	HairAccessory58: { id: "1365271433810284564", name: "58_hair_accessory" },
+	HairAccessory56: { id: "1365260195114127390", name: "56_hair_accessory" },
 	/**
 	 * Sixth Sky Anniversary.
 	 */
-	HairAccessory59: { id: "1391821367585935511", name: "59_hair_accessory" },
+	HairAccessory57: { id: "1391821367585935511", name: "57_hair_accessory" },
 	/**
 	 * Butterfly Blossom Memento.
 	 */
-	HairAccessory60: { id: "1396910401362329600", name: "60_hair_accessory" },
+	HairAccessory58: { id: "1396910401362329600", name: "58_hair_accessory" },
 	/**
 	 * Mini Manatee Accessory.
 	 */
-	HairAccessory61: { id: "1396910416243982356", name: "61_hair_accessory" },
+	HairAccessory59: { id: "1396910416243982356", name: "59_hair_accessory" },
 	/**
 	 * Vault Elder's Lantern (ultimate).
 	 */
-	HairAccessory62: { id: "1396895791959904536", name: "62_hair_accessory" },
+	HairAccessory60: { id: "1396895791959904536", name: "60_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3374,16 +3266,130 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory50: { id: "1313922149366632479", name: "50_hair_accessory" },
 	HairAccessory51: { id: "1320563050180378715", name: "51_hair_accessory" },
 	HairAccessory52: { id: "1320566011736490115", name: "52_hair_accessory" },
-	HairAccessory53: { id: "1330643964210057416", name: "53_hair_accessory" },
-	HairAccessory54: { id: "1330662833142239272", name: "54_hair_accessory" },
-	HairAccessory55: { id: "1338232448043057152", name: "55_hair_accessory" },
-	HairAccessory56: { id: "1364903137093226578", name: "56_hair_accessory" },
-	HairAccessory57: { id: "1365260201950711880", name: "57_hair_accessory" },
-	HairAccessory58: { id: "1365271440584212492", name: "58_hair_accessory" },
-	HairAccessory59: { id: "1391821381422809118", name: "59_hair_accessory" },
-	HairAccessory60: { id: "1396910409046556804", name: "60_hair_accessory" },
-	HairAccessory61: { id: "1396910423139156088", name: "61_hair_accessory" },
-	HairAccessory62: { id: "1396895798465134765", name: "62_hair_accessory" },
+	HairAccessory53: { id: "1330662833142239272", name: "53_hair_accessory" },
+	HairAccessory54: { id: "1338232448043057152", name: "54_hair_accessory" },
+	HairAccessory55: { id: "1364903137093226578", name: "55_hair_accessory" },
+	HairAccessory56: { id: "1365260201950711880", name: "56_hair_accessory" },
+	HairAccessory57: { id: "1391821381422809118", name: "57_hair_accessory" },
+	HairAccessory58: { id: "1396910409046556804", name: "58_hair_accessory" },
+	HairAccessory59: { id: "1396910423139156088", name: "59_hair_accessory" },
+	HairAccessory60: { id: "1396895798465134765", name: "60_hair_accessory" },
+} as const satisfies Readonly<Record<string, Emoji>>;
+
+const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
+	/**
+	 * Hairtousle Teen.
+	 */
+	HeadAccessory01: { id: "1313935572443856977", name: "01_head_accessory" },
+	/**
+	 * Enchantment Guide (ultimate).
+	 */
+	HeadAccessory02: { id: "1313935550125838346", name: "02_head_accessory" },
+	/**
+	 * Days of Feast Horns.
+	 */
+	HeadAccessory03: { id: "1313935537203052675", name: "03_head_accessory" },
+	/**
+	 * Bearhug Hermit.
+	 */
+	HeadAccessory04: { id: "1313935534942457896", name: "04_head_accessory" },
+	/**
+	 * Rainbow braid.
+	 */
+	HeadAccessory05: { id: "1313935552944275488", name: "05_head_accessory" },
+	/**
+	 * Mischief Withered Antlers.
+	 */
+	HeadAccessory06: { id: "1313935554429190254", name: "06_head_accessory" },
+	/**
+	 * Abyss Guide (ultimate).
+	 */
+	HeadAccessory07: { id: "1313935592731443250", name: "07_head_accessory" },
+	/**
+	 * Rainbow Earring.
+	 */
+	HeadAccessory08: { id: "1313935547810578453", name: "08_head_accessory" },
+	/**
+	 * Rainbow Headphones.
+	 */
+	HeadAccessory09: { id: "1313935578747768854", name: "09_head_accessory" },
+	/**
+	 * Tiara We Can Touch.
+	 */
+	HeadAccessory10: { id: "1313935588474228866", name: "10_head_accessory" },
+	/**
+	 * Melancholy Mope.
+	 */
+	HeadAccessory11: { id: "1313935587627110560", name: "11_head_accessory" },
+	/**
+	 * Tumbling Troublemaker.
+	 */
+	HeadAccessory12: { id: "1313935543696097380", name: "12_head_accessory" },
+	/**
+	 * Dark Rainbow Earrings.
+	 */
+	HeadAccessory13: { id: "1313935565112217680", name: "13_head_accessory" },
+	/**
+	 * Festival Earrings.
+	 */
+	HeadAccessory14: { id: "1313935584045301791", name: "14_head_accessory" },
+	/**
+	 * Gift of the Nine-Coloured Deer.
+	 */
+	HeadAccessory15: { id: "1313935563610394624", name: "15_head_accessory" },
+	/**
+	 * Days of Fortune Dragon Bangles.
+	 */
+	HeadAccessory16: { id: "1313935589833179230", name: "16_head_accessory" },
+	/**
+	 * Sunlight Helios Hoops earrings.
+	 */
+	HeadAccessory17: { id: "1313935574088028160", name: "17_head_accessory" },
+	/**
+	 * Moonlight earrings.
+	 */
+	HeadAccessory18: { id: "1313935591502643200", name: "18_head_accessory" },
+	/**
+	 * Radiance Provoking Performer.
+	 */
+	HeadAccessory19: { id: "1330643945394278400", name: "19_head_accessory" },
+	/**
+	 * Royal Hairtousle Teen.
+	 */
+	HeadAccessory20: { id: "1365271433810284564", name: "20_head_accessory" },
+	/**
+	 * Spirited Manatee Head Accessory.
+	 */
+	HeadAccessory21: { id: "1399295002525307003", name: "21_head_accessory" },
+	/**
+	 * Vestige of Dark Dragons Head Accessory.
+	 */
+	HeadAccessory22: { id: "1401818086453149776", name: "22_head_accessory" },
+} as const satisfies Readonly<Record<string, Emoji>>;
+
+const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
+	HeadAccessory01: { id: "1313920618265182259", name: "01_head_accessory" },
+	HeadAccessory02: { id: "1313920585302147092", name: "02_head_accessory" },
+	HeadAccessory03: { id: "1313920583980814336", name: "03_head_accessory" },
+	HeadAccessory04: { id: "1313920574334173277", name: "04_head_accessory" },
+	HeadAccessory05: { id: "1313920625311744052", name: "05_head_accessory" },
+	HeadAccessory06: { id: "1313920586493333627", name: "06_head_accessory" },
+	HeadAccessory07: { id: "1313920568449302542", name: "07_head_accessory" },
+	HeadAccessory08: { id: "1313920616482738256", name: "08_head_accessory" },
+	HeadAccessory09: { id: "1313920573306310827", name: "09_head_accessory" },
+	HeadAccessory10: { id: "1313920600988975196", name: "10_head_accessory" },
+	HeadAccessory11: { id: "1313920577601536041", name: "11_head_accessory" },
+	HeadAccessory12: { id: "1313920615299678208", name: "12_head_accessory" },
+	HeadAccessory13: { id: "1313920626872029306", name: "13_head_accessory" },
+	HeadAccessory14: { id: "1313920582651215902", name: "14_head_accessory" },
+	HeadAccessory15: { id: "1313920604042432613", name: "15_head_accessory" },
+	HeadAccessory16: { id: "1313920613525487696", name: "16_head_accessory" },
+	HeadAccessory17: { id: "1313920578440138773", name: "17_head_accessory" },
+	HeadAccessory18: { id: "1313920604939747450", name: "18_head_accessory" },
+	HeadAccessory19: { id: "1330643964210057416", name: "19_head_accessory" },
+	HeadAccessory20: { id: "1365271440584212492", name: "20_head_accessory" },
+	HeadAccessory21: { id: "1399295009513279508", name: "21_head_accessory" },
+	HeadAccessory22: { id: "1401818096985182218", name: "22_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -5437,6 +5443,7 @@ export function emojiConstants(production: boolean) {
 				NECKLACE_EMOJIS: NECKLACE_EMOJIS_PRODUCTION,
 				HAIR_EMOJIS: HAIR_EMOJIS_PRODUCTION,
 				HAIR_ACCESSORY_EMOJIS: HAIR_ACCESSORY_EMOJIS_PRODUCTION,
+				HEAD_ACCESSORY_EMOJIS: HEAD_ACCESSORY_EMOJIS_PRODUCTION,
 				CAPE_EMOJIS: CAPE_EMOJIS_PRODUCTION,
 				HELD_PROPS_EMOJIS: HELD_PROPS_EMOJIS_PRODUCTION,
 				LARGE_PLACEABLE_PROPS_EMOJIS: LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION,
@@ -5457,6 +5464,7 @@ export function emojiConstants(production: boolean) {
 				NECKLACE_EMOJIS: NECKLACE_EMOJIS_DEVELOPMENT,
 				HAIR_EMOJIS: HAIR_EMOJIS_DEVELOPMENT,
 				HAIR_ACCESSORY_EMOJIS: HAIR_ACCESSORY_EMOJIS_DEVELOPMENT,
+				HEAD_ACCESSORY_EMOJIS: HEAD_ACCESSORY_EMOJIS_DEVELOPMENT,
 				CAPE_EMOJIS: CAPE_EMOJIS_DEVELOPMENT,
 				HELD_PROPS_EMOJIS: HELD_PROPS_EMOJIS_DEVELOPMENT,
 				LARGE_PLACEABLE_PROPS_EMOJIS: LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT,
@@ -5472,6 +5480,7 @@ export function emojiConstants(production: boolean) {
 		FRIEND_ACTION_EMOJIS,
 		HAIR_ACCESSORY_EMOJIS,
 		HAIR_EMOJIS,
+		HEAD_ACCESSORY_EMOJIS,
 		HELD_PROPS_EMOJIS,
 		LARGE_PLACEABLE_PROPS_EMOJIS,
 		MASK_EMOJIS,
@@ -5962,7 +5971,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.HairtousleTeenMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
 		[Cosmetic.FriendActionHairTousle2]: FRIEND_ACTION_EMOJIS.HairTousle,
 		[Cosmetic.HairtousleTeenBlessing3]: MISCELLANEOUS_EMOJIS.Blessing2,
-		[Cosmetic.HairtousleTeenEarmuffs]: FACE_ACCESSORY_EMOJIS.FaceAccessory08,
+		[Cosmetic.HairtousleTeenEarmuffs]: HEAD_ACCESSORY_EMOJIS.HeadAccessory01,
 		[Cosmetic.HairtousleTeenUkulele]: HELD_PROPS_EMOJIS.HeldProp14,
 		[Cosmetic.HairtousleTeenBlessing4]: MISCELLANEOUS_EMOJIS.Blessing2,
 		[Cosmetic.HairtousleTeenSeasonalHeart]: SEASON_EMOJIS.BelongingHeart,
@@ -6077,7 +6086,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.EnchantmentGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.EnchantmentGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.EnchantmentPendant]: NECKLACE_EMOJIS.Necklace05,
-		[Cosmetic.EnchantmentUltimateFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory09,
+		[Cosmetic.EnchantmentUltimateHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory02,
 		[Cosmetic.EnchantmentTurban]: HAIR_EMOJIS.Hair59,
 		[Cosmetic.EmoteNod1]: EMOTE_EMOJIS.Nod,
 		[Cosmetic.EmoteNod2]: EMOTE_EMOJIS.Nod,
@@ -6213,7 +6222,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.EmoteBellyScratch1]: EMOTE_EMOJIS.BellyScratch,
 		[Cosmetic.EmoteBellyScratch2]: EMOTE_EMOJIS.BellyScratch,
 		[Cosmetic.ChillSunbatherBlessing1]: MISCELLANEOUS_EMOJIS.Blessing2,
-		[Cosmetic.ChillSunbatherFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory10,
+		[Cosmetic.ChillSunbatherFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory08,
 		[Cosmetic.EmoteBellyScratch3]: EMOTE_EMOJIS.BellyScratch,
 		[Cosmetic.EmoteBellyScratch4]: EMOTE_EMOJIS.BellyScratch,
 		[Cosmetic.ChillSunbatherHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory02,
@@ -6315,7 +6324,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.FeastNeckTie]: NECKLACE_EMOJIS.Necklace09,
 		[Cosmetic.DaysOfFeastCape]: CAPE_EMOJIS.Cape41,
 		[Cosmetic.DaysOfFeastTable]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp03,
-		[Cosmetic.DaysOfFeastHorns]: FACE_ACCESSORY_EMOJIS.FaceAccessory11,
+		[Cosmetic.DaysOfFeastHorns]: HEAD_ACCESSORY_EMOJIS.HeadAccessory03,
 		[Cosmetic.SnowflakeCape]: CAPE_EMOJIS.Cape42,
 		[Cosmetic.TroupeGreeterWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.TroupeGreeterBlessing2]: MISCELLANEOUS_EMOJIS.Blessing2,
@@ -6359,7 +6368,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.PeekingPostmanSeasonalHeart]: SEASON_EMOJIS.DreamsHeart,
 		[Cosmetic.FriendActionBearhug1]: FRIEND_ACTION_EMOJIS.Bearhug,
 		[Cosmetic.BearhugHermitBlessing1]: MISCELLANEOUS_EMOJIS.Blessing2,
-		[Cosmetic.BearhugHermitRedHorns]: FACE_ACCESSORY_EMOJIS.FaceAccessory12,
+		[Cosmetic.BearhugHermitRedHorns]: HEAD_ACCESSORY_EMOJIS.HeadAccessory04,
 		[Cosmetic.BearhugHermitBlessing2]: MISCELLANEOUS_EMOJIS.Blessing2,
 		[Cosmetic.BearhugHermitMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
 		[Cosmetic.BearhugHermitBlessing3]: MISCELLANEOUS_EMOJIS.Blessing2,
@@ -6492,7 +6501,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AssemblyGuideBookcase]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp06,
 		[Cosmetic.AssemblyGuideTarpaulin]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp09,
 		[Cosmetic.TimidBookwormWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
-		[Cosmetic.RainbowBraid]: FACE_ACCESSORY_EMOJIS.FaceAccessory13,
+		[Cosmetic.RainbowBraid]: HEAD_ACCESSORY_EMOJIS.HeadAccessory05,
 		[Cosmetic.RainbowCape]: CAPE_EMOJIS.Cape56,
 		[Cosmetic.RainbowHat]: HAIR_EMOJIS.Hair83,
 		[Cosmetic.RainbowFlower]: HAIR_ACCESSORY_EMOJIS.HairAccessory05,
@@ -6657,7 +6666,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MischiefWitheredCape]: CAPE_EMOJIS.Cape67,
 		[Cosmetic.MischiefSpookyDiningSet]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp19,
 		[Cosmetic.MischiefWitchJumper]: OUTFIT_EMOJIS.Outfit28,
-		[Cosmetic.MischiefWitheredAntlers]: FACE_ACCESSORY_EMOJIS.FaceAccessory14,
+		[Cosmetic.MischiefWitheredAntlers]: HEAD_ACCESSORY_EMOJIS.HeadAccessory06,
 		[Cosmetic.MischiefSpiderQuiff]: HAIR_EMOJIS.Hair96,
 		[Cosmetic.MischiefPumpkinProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp08,
 		[Cosmetic.PlayfightingHerbalistWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
@@ -6689,7 +6698,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AbyssGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.AbyssGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.AbyssGuidePendant]: NECKLACE_EMOJIS.Necklace18,
-		[Cosmetic.AbyssGuideUltimateFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory15,
+		[Cosmetic.AbyssGuideUltimateHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory07,
 		[Cosmetic.AbyssGuideUltimateCape]: CAPE_EMOJIS.Cape73,
 		[Cosmetic.AbyssGuideUltimateMask]: MASK_EMOJIS.Mask55,
 		[Cosmetic.EmoteAnxious1]: EMOTE_EMOJIS.Anxious,
@@ -6854,8 +6863,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.StealthySurvivorWingBuff2]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.StealthySurvivorCape2]: CAPE_EMOJIS.Cape82,
 		[Cosmetic.RainbowTrousers]: OUTFIT_EMOJIS.Outfit33,
-		[Cosmetic.RainbowEarring]: FACE_ACCESSORY_EMOJIS.FaceAccessory16,
-		[Cosmetic.RainbowHeadphones]: FACE_ACCESSORY_EMOJIS.FaceAccessory17,
+		[Cosmetic.RainbowEarring]: HEAD_ACCESSORY_EMOJIS.HeadAccessory08,
+		[Cosmetic.RainbowHeadphones]: HEAD_ACCESSORY_EMOJIS.HeadAccessory09,
 		[Cosmetic.RainbowDoubleFlower]: HAIR_ACCESSORY_EMOJIS.HairAccessory21,
 		[Cosmetic.TheVoidofShatteringQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.TheVoidofShatteringHeart1]: MISCELLANEOUS_EMOJIS.Heart,
@@ -6904,9 +6913,9 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TheVoidofShatteringHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.TheVoidofShatteringQuest3]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.TheVoidofShatteringHeart3]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.ElderOfTheIsleFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory18,
-		[Cosmetic.ElderOfThePrairieFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory19,
-		[Cosmetic.ElderOfTheForestFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory20,
+		[Cosmetic.ElderOfTheIsleFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory09,
+		[Cosmetic.ElderOfThePrairieFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory10,
+		[Cosmetic.ElderOfTheForestFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory11,
 		[Cosmetic.ScoldingStudentWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.TheVoidofShatteringQuest4]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.TheVoidofShatteringHeart4]: MISCELLANEOUS_EMOJIS.Heart,
@@ -6919,7 +6928,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TheVoidofShatteringHeart6]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.BeckoningRulerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.RunawayHairstyle]: HAIR_EMOJIS.Hair115,
-		[Cosmetic.TiaraWeCanTouch]: FACE_ACCESSORY_EMOJIS.FaceAccessory21,
+		[Cosmetic.TiaraWeCanTouch]: HEAD_ACCESSORY_EMOJIS.HeadAccessory10,
 		[Cosmetic.RunawayOutfit]: OUTFIT_EMOJIS.Outfit39,
 		[Cosmetic.AURORAQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.EmoteSilentClap2]: EMOTE_EMOJIS.SilentClap,
@@ -7011,7 +7020,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AURORAOutfit]: OUTFIT_EMOJIS.Outfit37,
 		[Cosmetic.AURORAMask]: MASK_EMOJIS.Mask70,
 		[Cosmetic.WingsOfAURORA]: CAPE_EMOJIS.Cape96,
-		[Cosmetic.FeastGoggles]: FACE_ACCESSORY_EMOJIS.FaceAccessory22,
+		[Cosmetic.FeastGoggles]: FACE_ACCESSORY_EMOJIS.FaceAccessory12,
 		[Cosmetic.SnowkidProp]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp27,
 		[Cosmetic.TournamentSkyballSet]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp21,
 		[Cosmetic.CosyHermitCape]: CAPE_EMOJIS.Cape97,
@@ -7127,11 +7136,11 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TumblingTroublemakerBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.TumblingTroublemakerCape]: CAPE_EMOJIS.Cape102,
 		[Cosmetic.TumblingTroublemakerBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
-		[Cosmetic.TumblingTroublemakerFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory24,
+		[Cosmetic.TumblingTroublemakerHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory12,
 		[Cosmetic.TumblingTroublemakerSeasonalHeart]: SEASON_EMOJIS.PassageHeart,
 		[Cosmetic.EmoteMoping1]: EMOTE_EMOJIS.Moping,
 		[Cosmetic.EmoteMoping2]: EMOTE_EMOJIS.Moping,
-		[Cosmetic.MelancholyMopeFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory23,
+		[Cosmetic.MelancholyMopeHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory11,
 		[Cosmetic.MelancholyMopeBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.MelancholyMopeBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.MelancholyMopeHair]: HAIR_EMOJIS.Hair123,
@@ -7152,7 +7161,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.OveractiveOverachieverHair]: HAIR_EMOJIS.Hair124,
 		[Cosmetic.OveractiveOverachieverSeasonalHeart]: SEASON_EMOJIS.PassageHeart,
 		[Cosmetic.NatureSchoolCape]: CAPE_EMOJIS.Cape105,
-		[Cosmetic.NatureGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory25,
+		[Cosmetic.NatureGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory13,
 		[Cosmetic.NatureSonorousSeashell]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp27,
 		[Cosmetic.PassageGuideQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.PassageGuideSerowMask]: MASK_EMOJIS.Mask77,
@@ -7164,7 +7173,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.PassageGuideHeart3]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.PassageGuideMonkeyMask]: MASK_EMOJIS.Mask79,
 		[Cosmetic.DarkRainbowCape]: CAPE_EMOJIS.Cape106,
-		[Cosmetic.DarkRainbowEarrings]: FACE_ACCESSORY_EMOJIS.FaceAccessory26,
+		[Cosmetic.DarkRainbowEarrings]: HEAD_ACCESSORY_EMOJIS.HeadAccessory13,
 		[Cosmetic.DarkRainbowTunic]: OUTFIT_EMOJIS.Outfit47,
 		[Cosmetic.PassageGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.PassageGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
@@ -7176,7 +7185,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TriumphViolin]: HELD_PROPS_EMOJIS.HeldProp35,
 		[Cosmetic.MomentsGuideCamera]: HELD_PROPS_EMOJIS.HeldProp38,
 		[Cosmetic.MomentsPendant]: NECKLACE_EMOJIS.Necklace31,
-		[Cosmetic.MomentsGuideUltimateFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory28,
+		[Cosmetic.MomentsGuideUltimateFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory15,
 		[Cosmetic.MomentsGuideUltimateCamera]: HELD_PROPS_EMOJIS.HeldProp37,
 		[Cosmetic.MomentsGuideUltimateHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory27,
 		[Cosmetic.MomentsGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
@@ -7184,7 +7193,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.FriendActionSideHug1]: FRIEND_ACTION_EMOJIS.SideHug,
 		[Cosmetic.FriendActionSideHug2]: FRIEND_ACTION_EMOJIS.SideHug,
 		[Cosmetic.ReassuringRangerBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
-		[Cosmetic.ReassuringRangerFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory27,
+		[Cosmetic.ReassuringRangerFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory14,
 		[Cosmetic.ReassuringRangerMask]: MASK_EMOJIS.Mask81,
 		[Cosmetic.ReassuringRangerBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.ReassuringRangerBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -7204,7 +7213,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.NightbirdWhispererSeasonalHeart]: SEASON_EMOJIS.MomentsHeart,
 		[Cosmetic.EmoteJollyDance1]: EMOTE_EMOJIS.JollyDance,
 		[Cosmetic.EmoteJollyDance2]: EMOTE_EMOJIS.JollyDance,
-		[Cosmetic.JollyGeologistFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory29,
+		[Cosmetic.JollyGeologistFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory16,
 		[Cosmetic.JollyGeologistHair]: HAIR_EMOJIS.Hair129,
 		[Cosmetic.EmoteJollyDance3]: EMOTE_EMOJIS.JollyDance,
 		[Cosmetic.EmoteJollyDance4]: EMOTE_EMOJIS.JollyDance,
@@ -7252,10 +7261,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MomentsGuideHeart5]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.StyleTopHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory29,
 		[Cosmetic.StyleRunwayMask]: MASK_EMOJIS.Mask83,
-		[Cosmetic.StyleStarSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory30,
+		[Cosmetic.StyleStarSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory17,
 		[Cosmetic.StyleSilkBalletSlippers]: SHOE_EMOJIS.Shoe07,
-		[Cosmetic.StyleFlameSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory31,
-		[Cosmetic.StyleHeartSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory32,
+		[Cosmetic.StyleFlameSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory18,
+		[Cosmetic.StyleHeartSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory19,
 		[Cosmetic.StyleBunnySlippers]: SHOE_EMOJIS.Shoe08,
 		[Cosmetic.StyleWideLegJeans]: OUTFIT_EMOJIS.Outfit50,
 		[Cosmetic.HopefulStewardQuest1]: MISCELLANEOUS_EMOJIS.Quest,
@@ -7313,7 +7322,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TalentedBuilderWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.HopefulStewardQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.HopefulStewardHeart6]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.FestivalEarrings]: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
+		[Cosmetic.FestivalEarrings]: HEAD_ACCESSORY_EMOJIS.HeadAccessory14,
 		[Cosmetic.FestivalSceptre]: HELD_PROPS_EMOJIS.HeldProp39,
 		[Cosmetic.MothAppreciationCape]: CAPE_EMOJIS.Cape119,
 		[Cosmetic.MothAppreciationAntennae]: HAIR_ACCESSORY_EMOJIS.HairAccessory33,
@@ -7331,7 +7340,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.CosyHermitBoots]: SHOE_EMOJIS.Shoe13,
 		[Cosmetic.WinterQuiltedCape]: CAPE_EMOJIS.Cape120,
 		[Cosmetic.HopefulStewardQuest10]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.GiftOfTheNineColouredDeer]: FACE_ACCESSORY_EMOJIS.FaceAccessory34,
+		[Cosmetic.GiftOfTheNineColouredDeer]: HEAD_ACCESSORY_EMOJIS.HeadAccessory15,
 		[Cosmetic.RadianceOfTheNineColouredDeer]: CAPE_EMOJIS.Cape125,
 		[Cosmetic.SpiritOfMuralQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.SpiritOfMuralHeart1]: MISCELLANEOUS_EMOJIS.Heart,
@@ -7392,7 +7401,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.FortuneDrum]: HELD_PROPS_EMOJIS.HeldProp41,
 		[Cosmetic.DaysOfFortuneDragonVestment]: OUTFIT_EMOJIS.Outfit57,
 		[Cosmetic.DaysOfFortuneDragonStole]: CAPE_EMOJIS.Cape126,
-		[Cosmetic.DaysOfFortuneDragonBangles]: FACE_ACCESSORY_EMOJIS.FaceAccessory35,
+		[Cosmetic.DaysOfFortuneDragonBangles]: HEAD_ACCESSORY_EMOJIS.HeadAccessory16,
 		[Cosmetic.SpiritOfMuralQuest3]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.SpiritOfMuralHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory35,
 		[Cosmetic.LoveHeartPlushie]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp35,
@@ -7593,18 +7602,18 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.DuetsGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.DuetsGuideDuetBow2]: FRIEND_ACTION_EMOJIS.DuetBow,
 		[Cosmetic.CompassionateCellistSharedMemorySpell]: MISCELLANEOUS_EMOJIS.SpellSharedMemory,
-		[Cosmetic.CompassionateCellistFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory36,
+		[Cosmetic.CompassionateCellistFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory20,
 		[Cosmetic.CompassionateCellistHeart]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.CompassionateCellistProp]: HELD_PROPS_EMOJIS.HeldProp46,
 		[Cosmetic.SunlightMantaFloat]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp71,
 		[Cosmetic.SunlightBeachShorts]: OUTFIT_EMOJIS.Outfit65,
-		[Cosmetic.SunlightHeliosHoops]: FACE_ACCESSORY_EMOJIS.FaceAccessory37,
+		[Cosmetic.SunlightHeliosHoops]: HEAD_ACCESSORY_EMOJIS.HeadAccessory17,
 		[Cosmetic.SunlightWovenWrap]: CAPE_EMOJIS.Cape135,
 		[Cosmetic.DuetsGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.DuetsGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.MoonlightBlossomAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory45,
 		[Cosmetic.MoonlightLanternDecoration]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp72,
-		[Cosmetic.MoonlightEarrings]: FACE_ACCESSORY_EMOJIS.FaceAccessory38,
+		[Cosmetic.MoonlightEarrings]: HEAD_ACCESSORY_EMOJIS.HeadAccessory18,
 		[Cosmetic.MoonlightFrock]: OUTFIT_EMOJIS.Outfit66,
 		[Cosmetic.MoonlightUpdo]: HAIR_EMOJIS.Hair149,
 		[Cosmetic.AncientLightJellyfishWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
@@ -7614,7 +7623,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.StyleDarknessFascinator]: HAIR_ACCESSORY_EMOJIS.HairAccessory46,
 		[Cosmetic.StyleDazzlingDress]: OUTFIT_EMOJIS.Outfit67,
 		[Cosmetic.StyleDapperSuit]: OUTFIT_EMOJIS.Outfit68,
-		[Cosmetic.StyleDapperMonocle]: FACE_ACCESSORY_EMOJIS.FaceAccessory39,
+		[Cosmetic.StyleDapperMonocle]: FACE_ACCESSORY_EMOJIS.FaceAccessory21,
 		[Cosmetic.StyleDapperNecktie]: NECKLACE_EMOJIS.Necklace38,
 		[Cosmetic.BumblingBoatswainWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.HattifattenerShoulderBuddy]: NECKLACE_EMOJIS.Necklace39,
@@ -7670,7 +7679,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.InspirationOfInclusionOutfit]: OUTFIT_EMOJIS.Outfit71,
 		[Cosmetic.InspirationOfInclusionBlessing5]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.InspirationOfInclusionSeasonalHeart]: SEASON_EMOJIS.MoominHeart,
-		[Cosmetic.MischiefStarSticker]: FACE_ACCESSORY_EMOJIS.FaceAccessory40,
+		[Cosmetic.MischiefStarSticker]: FACE_ACCESSORY_EMOJIS.FaceAccessory22,
 		[Cosmetic.MischiefCauldron]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp76,
 		[Cosmetic.MischiefSpiderBun]: HAIR_EMOJIS.Hair152,
 		[Cosmetic.MischiefRavenFeatheredCloak]: CAPE_EMOJIS.Cape138,
@@ -7729,7 +7738,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.HypeDance1]: EMOTE_EMOJIS.HypeDance,
 		[Cosmetic.HypeDance2]: EMOTE_EMOJIS.HypeDance,
 		[Cosmetic.RadianceProvokingPerformerGreenDye1]: MISCELLANEOUS_EMOJIS.DyeGreen,
-		[Cosmetic.RadianceProvokingPerformerHeadAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory53,
+		[Cosmetic.RadianceProvokingPerformerHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory19,
 		[Cosmetic.RadianceProvokingPerformerGreenDye2]: MISCELLANEOUS_EMOJIS.DyeGreen,
 		[Cosmetic.RadianceProvokingPerformerCymbals]: HELD_PROPS_EMOJIS.HeldProp50,
 		[Cosmetic.HypeDance3]: EMOTE_EMOJIS.HypeDance,
@@ -7743,7 +7752,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceProvokingPerformerSeasonalHeart]: SEASON_EMOJIS.RadianceHeart,
 		[Cosmetic.HeartGesture1]: EMOTE_EMOJIS.HeartGesture,
 		[Cosmetic.HeartGesture2]: EMOTE_EMOJIS.HeartGesture,
-		[Cosmetic.RadianceGreetingShamanHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory54,
+		[Cosmetic.RadianceGreetingShamanHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory53,
 		[Cosmetic.RadianceGreetingShamanBlueDye1]: MISCELLANEOUS_EMOJIS.DyeBlue,
 		[Cosmetic.RadianceGreetingShamanBlueDye2]: MISCELLANEOUS_EMOJIS.DyeBlue,
 		[Cosmetic.RadianceGreetingShamanCyanDye1]: MISCELLANEOUS_EMOJIS.DyeCyan,
@@ -7773,7 +7782,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceGuideCyanDye]: MISCELLANEOUS_EMOJIS.DyeCyan,
 		[Cosmetic.DaysOfLoveVioletCrystal]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp87,
 		[Cosmetic.DaysOfLoveBraids]: HAIR_EMOJIS.Hair158,
-		[Cosmetic.DaysOfLoveAmethystAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory55,
+		[Cosmetic.DaysOfLoveAmethystAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory54,
 		[Cosmetic.DaysOfLoveAmethystTippedTails]: HAIR_EMOJIS.Hair159,
 		[Cosmetic.DaysOfLovePurpleDye]: MISCELLANEOUS_EMOJIS.DyePurple,
 		[Cosmetic.RadianceGuideQuest3]: MISCELLANEOUS_EMOJIS.Quest,
@@ -7804,11 +7813,11 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BlueBirdGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.BlueBirdGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.BlueBirdPendant]: NECKLACE_EMOJIS.Necklace47,
-		[Cosmetic.BlueBirdGuideUltimateFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory41,
+		[Cosmetic.BlueBirdGuideUltimateFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory23,
 		[Cosmetic.BlueBirdGuideUltimateCape]: CAPE_EMOJIS.Cape148,
 		[Cosmetic.EmoteCough1]: EMOTE_EMOJIS.Cough,
 		[Cosmetic.EmoteCough2]: EMOTE_EMOJIS.Cough,
-		[Cosmetic.CostumedConfettiCousinHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory56,
+		[Cosmetic.CostumedConfettiCousinHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory55,
 		[Cosmetic.CostumedConfettiCousinBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.CostumedConfettiCousinBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.CostumedConfettiCousinMask]: MASK_EMOJIS.Mask99,
@@ -7822,7 +7831,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TumblingTroublemakerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.DiviningWiseGrandparentDye1]: MISCELLANEOUS_EMOJIS.Dye,
 		[Cosmetic.DiviningWiseGrandparentBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
-		[Cosmetic.DiviningWiseGrandparentFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory42,
+		[Cosmetic.DiviningWiseGrandparentFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory24,
 		[Cosmetic.DiviningWiseGrandparentBlessing]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.DiviningWiseGrandparentBlueDye]: MISCELLANEOUS_EMOJIS.DyeBlue,
 		[Cosmetic.DiviningWiseGrandparentDye2]: MISCELLANEOUS_EMOJIS.Dye,
@@ -7839,7 +7848,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.WoodcuttingPleafulParentBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.WoodcuttingPleafulParentSeasonalHeart]: SEASON_EMOJIS.BlueBirdHeart,
 		[Cosmetic.NostalgicSparklerParentDye1]: MISCELLANEOUS_EMOJIS.Dye,
-		[Cosmetic.NostalgicSparklerParentHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory57,
+		[Cosmetic.NostalgicSparklerParentHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory56,
 		[Cosmetic.NostalgicSparklerParentPurpleDye]: MISCELLANEOUS_EMOJIS.DyePurple,
 		[Cosmetic.NostalgicSparklerParentCyanDye]: MISCELLANEOUS_EMOJIS.DyeCyan,
 		[Cosmetic.NostalgicSparklerParentCape]: CAPE_EMOJIS.Cape150,
@@ -7850,7 +7859,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.EmoteAmazed1]: EMOTE_EMOJIS.Amazed,
 		[Cosmetic.EmoteAmazed2]: EMOTE_EMOJIS.Amazed,
 		[Cosmetic.RoyalHairtousleTeenBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
-		[Cosmetic.RoyalHairtousleTeenHeadAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory58,
+		[Cosmetic.RoyalHairtousleTeenHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory20,
 		[Cosmetic.EmoteAmazed3]: EMOTE_EMOJIS.Amazed,
 		[Cosmetic.EmoteAmazed4]: EMOTE_EMOJIS.Amazed,
 		[Cosmetic.RoyalHairtousleTeenOutfit]: OUTFIT_EMOJIS.Outfit82,
@@ -7890,20 +7899,20 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.BlueBirdGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CallBlueBird]: CALL_EMOJIS.BlueBird,
 		[Cosmetic.BlueBirdGuideProp]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp87,
-		[Cosmetic.SkyAnniversaryHairAccessory5]: HAIR_ACCESSORY_EMOJIS.HairAccessory59,
+		[Cosmetic.SkyAnniversaryHairAccessory5]: HAIR_ACCESSORY_EMOJIS.HairAccessory57,
 		[Cosmetic.AnniversaryClapboard]: HELD_PROPS_EMOJIS.HeldProp53,
 		[Cosmetic.AnniversaryMovieSeats]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp88,
-		[Cosmetic.AnniversaryCinemaGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory43,
+		[Cosmetic.AnniversaryCinemaGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory25,
 		[Cosmetic.AnniversaryCinemaPopcorn]: HELD_PROPS_EMOJIS.HeldProp54,
 		[Cosmetic.TGCWireframeCape]: CAPE_EMOJIS.Cape154,
 		[Cosmetic.JollyGeologistWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
-		[Cosmetic.ButterflyBlossomMemento]: HAIR_ACCESSORY_EMOJIS.HairAccessory60,
-		[Cosmetic.MiniManateeAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory61,
+		[Cosmetic.ButterflyBlossomMemento]: HAIR_ACCESSORY_EMOJIS.HairAccessory58,
+		[Cosmetic.MiniManateeAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory59,
 		[Cosmetic.CloakOfDarkness]: CAPE_EMOJIS.Cape155,
 		[Cosmetic.VaultEldersLanternQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart1]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.TheTwoEmbersPendant]: NECKLACE_EMOJIS.Necklace48,
-		[Cosmetic.VaultEldersLanternUltimateHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory62,
+		[Cosmetic.VaultEldersLanternUltimateHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory60,
 		[Cosmetic.VaultEldersLanternUltimateCape]: CAPE_EMOJIS.Cape156,
 		[Cosmetic.TenderToymakerBlessing]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.TenderToymakerProp1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp92,
@@ -7953,9 +7962,9 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.VaultEldersLanternHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.ManateePlush]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp94,
 		[Cosmetic.SpiritedManateeTail]: NECKLACE_EMOJIS.Necklace49,
-		[Cosmetic.SpiritedManateeHeadAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory44,
+		[Cosmetic.SpiritedManateeHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory21,
 		[Cosmetic.VestigeOfDarkDragonsTail]: NECKLACE_EMOJIS.Necklace50,
-		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory45,
+		[Cosmetic.VestigeOfDarkDragonsHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory22,
 		[Cosmetic.VaultEldersLanternQuest3]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart3]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.VaultEldersLanternQuest4]: MISCELLANEOUS_EMOJIS.Quest,

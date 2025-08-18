@@ -49,7 +49,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 32 },
 				},
 				{
-					cosmetic: Cosmetic.TumblingTroublemakerFaceAccessory,
+					cosmetic: Cosmetic.TumblingTroublemakerHeadAccessory,
 					seasonPass: true,
 				},
 			],
@@ -101,7 +101,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
-					cosmetic: Cosmetic.TumblingTroublemakerFaceAccessory,
+					cosmetic: Cosmetic.TumblingTroublemakerHeadAccessory,
 					cost: { candles: 55 },
 				},
 			],

@@ -20,7 +20,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					cosmetic: Cosmetic.MelancholyMopeFaceAccessory,
+					cosmetic: Cosmetic.MelancholyMopeHeadAccessory,
 					cost: { seasonalCandles: 6 },
 				},
 				{
