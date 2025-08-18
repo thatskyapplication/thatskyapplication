@@ -395,6 +395,8 @@ export default {
 				"Admire Shared Spaces with Bumbling Boatswain",
 			[DailyQuest.MeetUpWithFlightGuideInPrairieVillage]:
 				"Meet up with Flight Guide in Prairie Village",
+			[DailyQuest.MeetUpWithLaughingLightCatcherInValleyOfTriumph]:
+				"Meet up with Laughing Light Catcher in Valley of Triumph",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
