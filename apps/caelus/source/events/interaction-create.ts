@@ -15,7 +15,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { isDuring, isSeasonId, skyNow } from "@thatskyapplication/utility";
+import { isDuring, isRealm, isSeasonId, skyNow } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,
@@ -217,7 +217,6 @@ import {
 	isGuildRoleSelectMenu,
 	isGuildStringSelectMenu,
 	isModalSubmit,
-	isRealm,
 	isStringSelectMenu,
 	isUserContextMenuCommand,
 } from "../utility/functions.js";

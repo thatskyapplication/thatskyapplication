@@ -63,6 +63,7 @@ export {
 } from "./guess.js";
 export {
 	AreaToWingedLight,
+	isRealm,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 	REALM_NAME_VALUES,

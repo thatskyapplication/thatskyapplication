@@ -17,7 +17,6 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { ALLOWED_EXTENSIONS, calculateUserDefaultAvatarIndex } from "@discordjs/rest";
-import { REALM_NAME_VALUES, type RealmName } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { APPLICATION_ID } from "./configuration.js";
 import { ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "./constants.js";
@@ -65,10 +64,6 @@ export function resolveStringSelectMenu(
 
 export function userLogFormat(user: APIUser) {
 	return `<@${user.id}> (${userTag(user)})`;
-}
-
-export function isRealm(realm: string): realm is RealmName {
-	return REALM_NAME_VALUES.includes(realm as RealmName);
 }
 
 export function isChatInputCommand(

@@ -15,6 +15,10 @@ export enum RealmName {
 
 export const REALM_NAME_VALUES = Object.values(RealmName);
 
+export function isRealm(realm: string): realm is RealmName {
+	return REALM_NAME_VALUES.includes(realm as RealmName);
+}
+
 export const VALID_REALM_NAME = [
 	RealmName.DaylightPrairie,
 	RealmName.HiddenForest,
@@ -31,8 +35,9 @@ export enum SkyMap {
 	BirdNest = "Bird Nest",
 	ButterflyFields = "Butterfly Fields",
 	Cave = "Cave",
+	PrairiePeaks = "Prairie Peaks",
 	KoiPond = "Koi Pond",
-	VillageIslands = "Village Islands",
+	PrairieVillage = "Prairie Village",
 	SanctuaryIslands = "Sanctuary Islands",
 
 	// Hidden Forest.
@@ -50,6 +55,7 @@ export enum SkyMap {
 	Coliseum = "Coliseum",
 	HermitValley = "Hermit Valley",
 	VillageOfDreams = "Village of Dreams",
+	VillageTheatre = "Village Theatre",
 
 	// Golden Wasteland.
 	Battlefield = "Battlefield",
@@ -64,6 +70,7 @@ export enum SkyMap {
 	VaultEntrance = "Vault Entrance",
 	JellyfishCove = "Jellyfish Cove",
 	StarlightDesert = "Starlight Desert",
+	RepositoryOfRefuge = "Repository of Refuge",
 	VaultSecondFloor = "Vault Second Floor",
 	VaultSummit = "Vault Summit",
 
@@ -73,8 +80,8 @@ export enum SkyMap {
 	// Season of Shattering.
 	AncientMemory = "Ancient Memory",
 
-	// Season of the Nine-Coloured Deer.
-	CrescentOasis = "Crescent Oasis",
+	// Season of Revival.
+	AviaryVillage = "Aviary Village",
 }
 
 export const SKY_MAP_VALUES = Object.values(SkyMap);

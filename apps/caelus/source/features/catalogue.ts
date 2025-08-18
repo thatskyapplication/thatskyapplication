@@ -27,6 +27,7 @@ import {
 	type GuideSpirit,
 	type Item,
 	type ItemCost,
+	isRealm,
 	REALM_SPIRITS,
 	REALMS,
 	type RealmName,
@@ -82,7 +83,6 @@ import {
 	interactionInvoker,
 	isButton,
 	isChatInputCommand,
-	isRealm,
 	resolveStringSelectMenu,
 } from "../utility/functions.js";
 
