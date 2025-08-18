@@ -30,6 +30,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 18 },
 				},
 				{
+					translation: CosmeticCommon.Shoes,
 					cosmetic: Cosmetic.SenseOfSelfShoes,
 					seasonPass: true,
 				},

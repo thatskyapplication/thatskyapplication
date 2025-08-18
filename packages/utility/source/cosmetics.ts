@@ -3140,6 +3140,7 @@ export enum CosmeticCommon {
 	MusicSheet = 8,
 	MusicSheetMultiple = 9,
 	Outfit = 10,
+	Shoes = 11,
 }
 
 export const WING_BUFFS = [

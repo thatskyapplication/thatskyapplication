@@ -53,7 +53,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.NightbirdWhispererBlessing4,
 					cost: { seasonalCandles: 36 },
 				},
-				{ cosmetic: Cosmetic.NightbirdWhispererShoes, seasonPass: true },
+				{
+					translation: CosmeticCommon.Shoes,
+					cosmetic: Cosmetic.NightbirdWhispererShoes,
+					seasonPass: true,
+				},
 			],
 			[
 				{

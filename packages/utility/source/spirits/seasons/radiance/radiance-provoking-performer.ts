@@ -67,6 +67,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Shoes,
 					cosmetic: Cosmetic.RadianceProvokingPerformerShoes,
 					cost: { seasonalCandles: 38 },
 				},

@@ -15,7 +15,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
 					cost: { seasonalCandles: 24 },
 				},
-				{ cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes, seasonPass: true },
+				{
+					translation: CosmeticCommon.Shoes,
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes,
+					seasonPass: true,
+				},
 			],
 			[
 				{

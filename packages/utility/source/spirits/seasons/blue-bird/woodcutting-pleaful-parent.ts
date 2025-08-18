@@ -29,7 +29,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.WoodcuttingPleafulParentBlessing2,
 					cost: { seasonalCandles: 15 },
 				},
-				{ cosmetic: Cosmetic.WoodcuttingPleafulParentShoes, seasonPass: true },
+				{
+					translation: CosmeticCommon.Shoes,
+					cosmetic: Cosmetic.WoodcuttingPleafulParentShoes,
+					seasonPass: true,
+				},
 			],
 			[
 				{
