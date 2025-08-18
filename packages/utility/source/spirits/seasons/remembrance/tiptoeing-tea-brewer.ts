@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.EmoteTiptoeing1 },
@@ -62,6 +61,58 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.TiptoeingTeaBrewerSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.EmoteTiptoeing1 },
+				{ cosmetic: Cosmetic.EmoteTiptoeing2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.TiptoeingTeaBrewerBlessing1,
+					cost: { candles: 5 },
+				},
+				{ cosmetic: Cosmetic.TiptoeingTeaBrewerHair, cost: { candles: 40 } },
+				{
+					cosmetic: Cosmetic.TiptoeingTeaBrewerSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.TiptoeingTeaBrewerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteTiptoeing3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteTiptoeing4, cost: { hearts: 6 }, level: 4 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.TiptoeingTeaBrewerBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.TiptoeingTeaBrewerOutfit,
+					cost: { candles: 55 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.TiptoeingTeaBrewerCape,
+					cost: { candles: 65 },
 				},
 			],
 		],
