@@ -44,7 +44,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MarchingAdventurerBlessing2,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.MarchingAdventurerMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.MarchingAdventurerMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -81,6 +85,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.MarchingAdventurerMask,
 					cost: { candles: 30 },
 				},

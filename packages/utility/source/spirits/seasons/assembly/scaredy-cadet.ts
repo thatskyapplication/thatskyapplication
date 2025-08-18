@@ -20,6 +20,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ScaredyCadetMask,
 					cost: { seasonalCandles: 5 },
 				},
@@ -76,6 +77,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ScaredyCadetMask,
 					cost: { candles: 24 },
 				},

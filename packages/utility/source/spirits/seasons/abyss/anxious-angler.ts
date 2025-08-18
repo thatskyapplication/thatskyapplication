@@ -24,7 +24,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.AnxiousAnglerBlessing1,
 					cost: { seasonalCandles: 8 },
 				},
-				{ cosmetic: Cosmetic.AnxiousAnglerMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.AnxiousAnglerMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -117,6 +121,7 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.AnxiousAnglerMask,
 					cost: { candles: 35 },
 				},

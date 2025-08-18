@@ -144,6 +144,7 @@ export default new GuideSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.AURORAMask,
 					cost: { candles: 50 },
 				},

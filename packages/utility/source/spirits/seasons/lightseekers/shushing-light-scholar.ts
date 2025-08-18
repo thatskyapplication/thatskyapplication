@@ -25,7 +25,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ShushingLightScholarBlessing1,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.ShushingLightScholarMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.ShushingLightScholarMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -60,6 +64,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ShushingLightScholarMask,
 					cost: { candles: 30 },
 				},

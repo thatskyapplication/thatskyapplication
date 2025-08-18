@@ -19,6 +19,7 @@ export default new SeasonalSpirit({
 			[{ cosmetic: Cosmetic.FriendActionCarry1 }],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.PiggybackLightseekerMask,
 					cost: { seasonalCandles: 16 },
 				},
@@ -53,6 +54,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.PiggybackLightseekerMask,
 					cost: { candles: 24 },
 				},

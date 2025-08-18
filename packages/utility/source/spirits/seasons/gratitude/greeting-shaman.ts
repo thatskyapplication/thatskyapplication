@@ -44,6 +44,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.GreetingShamanMask,
 					cost: { hearts: 5 },
 					seasonPass: true,
@@ -103,6 +104,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.GreetingShamanMask,
 					cost: { candles: 54 },
 				},

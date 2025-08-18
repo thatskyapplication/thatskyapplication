@@ -28,7 +28,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.CostumedConfettiCousinBlessing2,
 					cost: { seasonalCandles: 15 },
 				},
-				{ cosmetic: Cosmetic.CostumedConfettiCousinMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.CostumedConfettiCousinMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{

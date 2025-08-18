@@ -24,7 +24,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ForgetfulStorytellerBlessing1,
 					cost: { seasonalCandles: 12 },
 				},
-				{ cosmetic: Cosmetic.ForgetfulStorytellerMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.ForgetfulStorytellerMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -88,6 +92,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ForgetfulStorytellerMask,
 					cost: { candles: 34 },
 				},

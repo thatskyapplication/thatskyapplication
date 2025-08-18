@@ -18,7 +18,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.WoundedWarriorBlessing1,
 					cost: { seasonalCandles: 14 },
 				},
-				{ cosmetic: Cosmetic.WoundedWarriorMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.WoundedWarriorMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -56,7 +60,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.WoundedWarriorBlessing1,
 					cost: { candles: 5 },
 				},
-				{ cosmetic: Cosmetic.WoundedWarriorMask, cost: { candles: 45 } },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.WoundedWarriorMask,
+					cost: { candles: 45 },
+				},
 				{
 					cosmetic: Cosmetic.WoundedWarriorSeasonalHeart,
 					cost: { candles: 3 },

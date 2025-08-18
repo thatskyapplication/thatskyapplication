@@ -88,6 +88,7 @@ export default new GuideSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.AbyssGuideMask,
 					cost: { candles: 48 },
 				},

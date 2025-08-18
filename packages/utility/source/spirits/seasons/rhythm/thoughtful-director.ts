@@ -24,7 +24,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ThoughtfulDirectorBlessing1,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.ThoughtfulDirectorMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.ThoughtfulDirectorMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -77,6 +81,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ThoughtfulDirectorMask,
 					cost: { candles: 42 },
 				},

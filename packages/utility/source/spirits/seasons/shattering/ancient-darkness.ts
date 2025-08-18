@@ -26,7 +26,11 @@ export default [
 						cosmetic: Cosmetic.AncientDarknessPlantBlessing2,
 						cost: { seasonalCandles: 16 },
 					},
-					{ cosmetic: Cosmetic.AncientDarknessPlantMask, seasonPass: true },
+					{
+						translation: CosmeticCommon.Mask,
+						cosmetic: Cosmetic.AncientDarknessPlantMask,
+						seasonPass: true,
+					},
 				],
 				[
 					{
@@ -99,6 +103,7 @@ export default [
 						cost: { candles: 5 },
 					},
 					{
+						translation: CosmeticCommon.Mask,
 						cosmetic: Cosmetic.AncientDarknessPlantMask,
 						cost: { candles: 50 },
 					},

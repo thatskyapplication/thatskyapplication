@@ -44,6 +44,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ProudVictorMask,
 					cost: { hearts: 30 },
 				},

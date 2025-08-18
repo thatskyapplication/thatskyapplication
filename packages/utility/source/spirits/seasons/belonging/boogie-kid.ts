@@ -42,6 +42,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.BoogieKidMask,
 					cost: { seasonalCandles: 12 },
 				},
@@ -74,7 +75,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.BoogieKidBlessing1,
 					cost: { candles: 5 },
 				},
-				{ cosmetic: Cosmetic.BoogieKidMask, cost: { candles: 30 } },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.BoogieKidMask,
+					cost: { candles: 30 },
+				},
 				{
 					cosmetic: Cosmetic.BoogieKidSeasonalHeart,
 					cost: { candles: 3 },

@@ -31,6 +31,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ReassuringRangerMask,
 					cost: { seasonalCandles: 26 },
 				},

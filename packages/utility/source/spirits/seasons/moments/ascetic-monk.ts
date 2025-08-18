@@ -24,7 +24,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.AsceticMonkBlessing1,
 					cost: { seasonalCandles: 6 },
 				},
-				{ cosmetic: Cosmetic.AsceticMonkMask, seasonPass: true },
+				{ translation: CosmeticCommon.Mask, cosmetic: Cosmetic.AsceticMonkMask, seasonPass: true },
 			],
 			[
 				{

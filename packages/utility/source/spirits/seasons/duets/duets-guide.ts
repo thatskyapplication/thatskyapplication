@@ -14,6 +14,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.DuetsGuideQuest1,
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.DuetsGuideMask,
 					cost: { candles: 65 },
 				},

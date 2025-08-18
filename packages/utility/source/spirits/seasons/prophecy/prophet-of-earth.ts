@@ -55,7 +55,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ProphetOfEarthCape,
 					cost: { seasonalCandles: 27 },
 				},
-				{ cosmetic: Cosmetic.ProphetOfEarthMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.ProphetOfEarthMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -131,6 +135,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ProphetOfEarthMask,
 					cost: { candles: 44 },
 				},

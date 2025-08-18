@@ -49,6 +49,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.SternShepherdMask,
 					cost: { seasonalCandles: 30 },
 				},

@@ -44,7 +44,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ProphetOfAirBlessing2,
 					cost: { seasonalCandles: 23 },
 				},
-				{ cosmetic: Cosmetic.ProphetOfAirMask, seasonPass: true },
+				{ translation: CosmeticCommon.Mask, cosmetic: Cosmetic.ProphetOfAirMask, seasonPass: true },
 			],
 			[
 				{
@@ -113,6 +113,7 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ProphetOfAirMask,
 					cost: { candles: 54 },
 				},

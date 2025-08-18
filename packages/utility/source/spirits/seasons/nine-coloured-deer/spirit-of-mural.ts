@@ -77,7 +77,13 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.SpiritOfMuralQuest5,
 				},
 			],
-			[{ cosmetic: Cosmetic.SpiritOfMuralMask, cost: { candles: 120 } }],
+			[
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.SpiritOfMuralMask,
+					cost: { candles: 120 },
+				},
+			],
 		],
 	},
 });

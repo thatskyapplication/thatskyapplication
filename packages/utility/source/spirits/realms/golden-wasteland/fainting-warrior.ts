@@ -63,6 +63,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.FaintingWarriorMask,
 					cost: { hearts: 15 },
 				},

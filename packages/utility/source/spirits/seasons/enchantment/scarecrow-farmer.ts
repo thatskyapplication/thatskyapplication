@@ -25,7 +25,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ScarecrowFarmerBlessing1,
 					cost: { seasonalCandles: 8 },
 				},
-				{ cosmetic: Cosmetic.ScarecrowFarmerMask, seasonPass: true },
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.ScarecrowFarmerMask,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -66,6 +70,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.ScarecrowFarmerMask,
 					cost: { candles: 42 },
 				},

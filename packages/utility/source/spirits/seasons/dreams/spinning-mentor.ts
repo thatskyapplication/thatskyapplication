@@ -41,6 +41,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.SpinningMentorMask,
 					cost: { seasonalCandles: 23 },
 				},
@@ -110,6 +111,7 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Mask,
 					cosmetic: Cosmetic.SpinningMentorMask,
 					cost: { candles: 42 },
 				},
