@@ -3122,6 +3122,10 @@ export enum Cosmetic {
 	AnniversaryGown = 2475,
 	AnniversaryShoes = 2476,
 	AnniversaryTuxedoCape = 2477,
+
+	// 18/08/2025 | Returning Spirits #10.
+	TiptoeingTeaBrewerWingBuff = 2478,
+	WoundedWarriorWingBuff = 2479,
 }
 
 export enum CosmeticCommon {
@@ -3269,4 +3273,6 @@ export const WING_BUFFS = [
 	Cosmetic.RunningWayfarerWingBuff,
 	Cosmetic.SeedOfHopeWingBuff,
 	Cosmetic.JollyGeologistWingBuff,
+	Cosmetic.TiptoeingTeaBrewerWingBuff,
+	Cosmetic.WoundedWarriorWingBuff,
 ] as const satisfies Readonly<Cosmetic[]>;

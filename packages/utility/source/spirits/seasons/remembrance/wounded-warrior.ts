@@ -10,7 +10,6 @@ export default new SeasonalSpirit({
 	stance: Cosmetic.StanceInjured,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[{ cosmetic: Cosmetic.StanceInjured }],
 			[
@@ -48,6 +47,42 @@ export default new SeasonalSpirit({
 					seasonPass: true,
 				},
 			],
+		],
+		current: [
+			[{ cosmetic: Cosmetic.StanceInjured }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.WoundedWarriorBlessing1,
+					cost: { candles: 5 },
+				},
+				{ cosmetic: Cosmetic.WoundedWarriorMask, cost: { candles: 45 } },
+				{
+					cosmetic: Cosmetic.WoundedWarriorSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.WoundedWarriorWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.WoundedWarriorBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.WoundedWarriorOutfit,
+					cost: { candles: 60 },
+				},
+			],
+			[{ cosmetic: Cosmetic.WoundedWarriorCape, cost: { candles: 80 } }],
 		],
 	},
 	visits: { returning: [10] },
