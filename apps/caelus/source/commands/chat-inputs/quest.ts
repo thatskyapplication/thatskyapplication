@@ -22,6 +22,7 @@ export default {
 		});
 	},
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		const { locale } = interaction;
 		const options = new OptionResolver(interaction);
 		const daily = options.getInteger("daily", true);
 
@@ -29,7 +30,7 @@ export default {
 			pino.error(interaction, "Unknown daily quest.");
 
 			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: "Woah, that's a daily we do not know. Maybe try another?",
+				content: t("daily-guides.quest-unknown", { lng: locale, ns: "features" }),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -37,7 +38,7 @@ export default {
 		}
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			components: questResponse(daily, interaction.locale),
+			components: questResponse(daily, locale),
 			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		});
 	},
