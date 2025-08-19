@@ -59,7 +59,7 @@ export {
 export {
 	GUESS_TYPE_VALUES,
 	GuessType,
-	GuessTypeToName,
+	type GuessTypes,
 } from "./guess.js";
 export {
 	AreaToWingedLight,

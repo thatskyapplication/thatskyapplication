@@ -1,12 +1,7 @@
-export enum GuessType {
-	Original = 0,
-	Hard = 1,
-}
-export const GUESS_TYPE_VALUES = Object.values(GuessType).filter(
-	(guessType) => typeof guessType === "number",
-);
+export const GuessType = {
+	Original: 0,
+	Hard: 1,
+} as const satisfies Readonly<Record<string, number>>;
 
-export const GuessTypeToName = {
-	[GuessType.Original]: "Original",
-	[GuessType.Hard]: "Hard",
-} as const satisfies Readonly<Record<GuessType, string>>;
+export type GuessTypes = (typeof GuessType)[keyof typeof GuessType];
+export const GUESS_TYPE_VALUES = Object.values(GuessType);

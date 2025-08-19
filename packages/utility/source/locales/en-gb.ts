@@ -1,6 +1,6 @@
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
 import { DailyQuest, type DailyQuests } from "../daily-guides.js";
-import { GUESS_TYPE_VALUES, GuessTypeToName } from "../guess.js";
+import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
 import { isRealm, REALM_NAME_VALUES, RealmName, SKY_MAP_VALUES, SkyMap } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
@@ -2827,7 +2827,7 @@ export default {
 				"command-option-difficulty-choice-name": Object.fromEntries(
 					GUESS_TYPE_VALUES.map((guessDifficultyLevel) => [
 						guessDifficultyLevel,
-						GuessTypeToName[guessDifficultyLevel],
+						"$t(features:guess.type.{{type}})",
 					]),
 				),
 			},
@@ -2839,7 +2839,7 @@ export default {
 				"command-option-difficulty-choice-name": Object.fromEntries(
 					GUESS_TYPE_VALUES.map((guessDifficultyLevel) => [
 						guessDifficultyLevel,
-						GuessTypeToName[guessDifficultyLevel],
+						"$t(features:guess.type.{{type}})",
 					]),
 				),
 			},
@@ -3093,12 +3093,23 @@ export default {
 			"delete-success": "Your data has been deleted. You are a moth now.",
 		},
 		guess: {
+			type: {
+				[GuessType.Original]: "Original",
+				[GuessType.Hard]: "Hard",
+			} satisfies Record<GuessTypes, string>,
 			title: "Where does this come from?",
 			"guess-in": "Guess {{time}}!",
+			footer:
+				"Difficulty: $t(guess.type.{{type}}) | Streak: {{streak}} | Highest: {{highestStreak}}",
 			"end-game": "End game",
+			"too-late": "Too late!",
 			"game-ended": "Game ended.",
 			"your-guess": "Your guess",
 			"try-again": "Try again?",
+			"game-interaction-not-self": "You didn't start this game!",
+			"leaderboard-nothing": "There is nothing on the leaderboard. Why not be the first?",
+			"leaderboard-title": "$t(guess.type.{{type}}) leaderboard",
+			"leaderboard-you": "You: #{{rank}} ({{streak}})",
 		},
 		heart: {
 			"missing-external-apps-permission":

@@ -8,7 +8,6 @@ import {
 	type APIMessageTopLevelComponent,
 	ButtonStyle,
 	ComponentType,
-	type Locale,
 	MessageFlags,
 	SeparatorSpacingSize,
 	type Snowflake,
@@ -22,7 +21,7 @@ import {
 	formatEmojiURL,
 	GUESS_TYPE_VALUES,
 	GuessType,
-	GuessTypeToName,
+	type GuessTypes,
 	type GuideSpirit,
 	getRandomElement,
 	isSpiritId,
@@ -56,13 +55,13 @@ import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
 export interface GuessPacket {
 	user_id: string;
 	streak: number;
-	type: GuessType;
+	type: GuessTypes;
 }
 
 type GuessUserRanking = GuessPacket & { rank: number };
 
-export function isGuessType(type: number): type is GuessType {
-	return GUESS_TYPE_VALUES.includes(type);
+export function isGuessType(type: number): type is GuessTypes {
+	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
 }
 
 function getAnswer(): [Snowflake, SpiritIds] {
@@ -89,7 +88,7 @@ function getAnswer(): [Snowflake, SpiritIds] {
 	return [emoji, spiritId];
 }
 
-function getOptions(type: GuessType) {
+function getOptions(type: GuessTypes) {
 	// Get the answer.
 	const [emoji, spiritId] = getAnswer();
 	const foundAnswers = new Set<SpiritIds>();
@@ -138,7 +137,7 @@ function getOptions(type: GuessType) {
 }
 
 interface GuessGenerateCustomIdBaseOptions {
-	type: GuessType;
+	type: GuessTypes;
 	answer: SpiritIds;
 	streak: number;
 	timeoutTimestamp: number;
@@ -155,7 +154,7 @@ interface GuessGenerateCustomIdEndOptions extends GuessGenerateCustomIdBaseOptio
 
 interface GuessGenerationCustomIdTryAgainOptions {
 	prefix: typeof GUESS_TRY_AGAIN;
-	type: GuessType;
+	type: GuessTypes;
 }
 
 type GuessGenerateCustomIdOptions =
@@ -171,7 +170,7 @@ function generateCustomId(options: GuessGenerateCustomIdOptions) {
 function parseCustomId(customId: string) {
 	const [prefix, rawType, rawAnswer, rawOption, streak, timeoutTimestamp] = customId.split("§") as [
 		GuessGenerateCustomIdOptions["prefix"],
-		`${GuessType}`,
+		`${GuessTypes}`,
 		`${SpiritIds | null}`,
 		`${SpiritIds | null}`,
 		`${number | null}`,
@@ -206,7 +205,7 @@ function parseCustomId(customId: string) {
 
 export async function guess(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	type: GuessType,
+	type: GuessTypes,
 	streak: number,
 ) {
 	const { answer, emoji, options } = getOptions(type);
@@ -303,7 +302,7 @@ export async function guess(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# Difficulty: ${GuessTypeToName[type]} | Streak: ${streak} | Highest: ${highestStreak}`,
+					content: `-# ${t("guess.footer", { lng: interaction.locale, ns: "features", type, streak, highestStreak })}`,
 				},
 			],
 		},
@@ -319,22 +318,13 @@ export async function guess(
 	}
 }
 
-function tryAgainComponent(type: GuessType, locale: Locale): APIButtonComponentWithCustomId {
-	return {
-		type: ComponentType.Button,
-		custom_id: generateCustomId({ prefix: GUESS_TRY_AGAIN, type }),
-		label: t("guess.try-again", { lng: locale, ns: "features" }),
-		style: ButtonStyle.Primary,
-	};
-}
-
 export async function answer(interaction: APIMessageComponentButtonInteraction) {
-	const { message } = interaction;
+	const { locale, message } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	if (message.interaction_metadata!.user.id !== invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "You didn't start this game!",
+			content: t("guess.game-interaction-not-self", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -350,7 +340,7 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 
 		(interaction.message.components![0]! as APIContainerComponent).components.splice(2, 1, {
 			type: ComponentType.TextDisplay,
-			content: "Too late!",
+			content: t("guess.too-late", { lng: locale, ns: "features" }),
 		});
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -369,12 +359,12 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 }
 
 export async function parseEndGame(interaction: APIMessageComponentButtonInteraction) {
-	const { message } = interaction;
+	const { locale, message } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	if (message.interaction_metadata!.user.id !== invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "You didn't start this game!",
+			content: t("guess.game-interaction-not-self", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -390,7 +380,7 @@ async function endGame(
 	prefix: GuessGenerateCustomIdOptions["prefix"],
 	answer: number,
 	guess: number,
-	type: GuessType,
+	type: GuessTypes,
 	streak: number,
 ) {
 	const { locale } = interaction;
@@ -418,7 +408,14 @@ async function endGame(
 
 	(interaction.message.components![0]! as APIContainerComponent).components.splice(4, 2, {
 		type: ComponentType.ActionRow,
-		components: [tryAgainComponent(type, locale)],
+		components: [
+			{
+				type: ComponentType.Button,
+				custom_id: generateCustomId({ prefix: GUESS_TRY_AGAIN, type }),
+				label: t("guess.try-again", { lng: locale, ns: "features" }),
+				style: ButtonStyle.Primary,
+			},
+		],
 	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -427,12 +424,12 @@ async function endGame(
 }
 
 export async function tryAgain(interaction: APIMessageComponentButtonInteraction) {
-	const { message } = interaction;
+	const { locale, message } = interaction;
 	const invoker = interactionInvoker(interaction);
 
 	if (message.interaction_metadata!.user.id !== invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "You didn't start this game!",
+			content: t("guess.game-interaction-not-self", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -443,7 +440,7 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 	await guess(interaction, type, 0);
 }
 
-async function update(type: GuessType, userId: Snowflake, streak: number) {
+async function update(type: GuessTypes, userId: Snowflake, streak: number) {
 	await pg<GuessPacket>(Table.Guess)
 		.insert({ user_id: userId, streak, type: type })
 		.onConflict(["user_id", "type"])
@@ -452,7 +449,7 @@ async function update(type: GuessType, userId: Snowflake, streak: number) {
 		.orWhere(`${Table.Guess}.streak`, "is", null);
 }
 
-export async function findUser(userId: Snowflake, type: GuessType) {
+export async function findUser(userId: Snowflake, type: GuessTypes) {
 	const result = await pg
 		.select<GuessUserRanking>()
 		.from(
@@ -473,7 +470,7 @@ export async function findUser(userId: Snowflake, type: GuessType) {
 
 export async function leaderboard(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	type: GuessType,
+	type: GuessTypes,
 ) {
 	const { locale } = interaction;
 	const isChatInput = isChatInputCommand(interaction);
@@ -499,7 +496,7 @@ export async function leaderboard(
 
 	if (guessPacketsLeaderboard.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "There is nothing on the leaderboard. Why not be the first?",
+			content: t("guess.leaderboard-nothing", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -516,7 +513,7 @@ export async function leaderboard(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${GuessTypeToName[type]} Leaderboard`,
+			content: `## ${t("guess.leaderboard-title", { lng: locale, ns: "features", type })}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -536,7 +533,7 @@ export async function leaderboard(
 	if (guessPacketInvoker) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `-# You: #${guessPacketInvoker.rank} (${guessPacketInvoker.streak!})`,
+			content: `-# ${t("guess.leaderboard-you", { lng: locale, ns: "features", rank: guessPacketInvoker.rank, streak: guessPacketInvoker.streak })}`,
 		});
 	}
 
