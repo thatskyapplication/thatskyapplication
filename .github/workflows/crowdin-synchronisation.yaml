@@ -73,7 +73,7 @@ jobs:
           git commit --message "chore: Update translation files"
           git push --force origin chore/translations
 
-          if ! gh pr list --head chore/translations --state open --json number | grep -q .; then
+          if [ "$(gh pr list --head chore/translations --state open --json number | jq length)" -eq 0 ]; then
             gh pr create --base main --body "" --title "chore: Update translation files"
           fi
         env:
