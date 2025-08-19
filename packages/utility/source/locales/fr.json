@@ -2435,6 +2435,8 @@
 			"2476": "",
 			"2477": "Cape de smoking anniversaire"
 		},
+		"interaction-error": "",
+		"interaction-not-in-cached-guild": "",
 		"timestamps": "Heures",
 		"view": "Voir",
 		"open-bracket": " (",
@@ -2800,7 +2802,8 @@
 			"season-upcoming_zero": "La nouvelle saison commence demain.",
 			"season-upcoming_one": "La nouvelle saison commence dans {{count}} jour.",
 			"season-upcoming_other": "La nouvelle saison commence dans {{count}} jours.",
-			"not-yet-updated": ""
+			"not-yet-updated": "",
+			"quest-unknown": ""
 		},
 		"data": {
 			"delete-message": "",

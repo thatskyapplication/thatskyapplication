@@ -2435,6 +2435,8 @@
 			"2476": "Sapatilhas de Aniversário",
 			"2477": "Capa do smoking de aniversário"
 		},
+		"interaction-error": "",
+		"interaction-not-in-cached-guild": "",
 		"timestamps": "Marcação de data/hora",
 		"view": "Exibir",
 		"open-bracket": " (",
@@ -2800,7 +2802,8 @@
 			"season-upcoming_zero": "A nova temporada inicia amanhã.",
 			"season-upcoming_one": "A nova temporada inicia em {{count}} dia.",
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
-			"not-yet-updated": "Os guias diários estão esperando por uma incrível Criança da Luz para serem atualizados!\nPossui as informações que precisamos? Entre no [servidor de suporte]({{url}}) e atualize os guias você mesmo, ajudando a galera!"
+			"not-yet-updated": "Os guias diários estão esperando por uma incrível Criança da Luz para serem atualizados!\nPossui as informações que precisamos? Entre no [servidor de suporte]({{url}}) e atualize os guias você mesmo, ajudando a galera!",
+			"quest-unknown": ""
 		},
 		"data": {
 			"delete-message": "Tem certeza que deseja excluir seus dados? Isso irá:\n- Excluir seu perfil Sky\n- Excluir seu inventário\n- Excluir seus corações\n  - Seu id de usuário no histórico de corações dos outros será anonimizado\n- Excluir seu recorde nos jogos de advinhação\n- Remover dados de sorteios\n- Remover seu cargo de tradutor, se tiver um",
