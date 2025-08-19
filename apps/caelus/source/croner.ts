@@ -37,6 +37,7 @@ export default function croner() {
 				user: me.user,
 				lastUpdatedUserId: APPLICATION_ID,
 				lastUpdatedAt: today.toJSDate(),
+				force: true,
 			});
 
 			if (

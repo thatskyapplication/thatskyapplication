@@ -108,6 +108,7 @@ type DailyGuidesDistributionAllowedChannel =
 	| PublicThread;
 
 const distributeQueue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
+let distributionLock: Promise<unknown> | null = null;
 export const DAILY_GUIDES_SETUP_CUSTOM_ID = "DAILY_GUIDES_SETUP_CUSTOM_ID" as const;
 
 export async function fetchDailyGuides() {
@@ -737,9 +738,10 @@ interface DailyGuidesDistributionOptions {
 	user: APIUser;
 	lastUpdatedUserId: Snowflake;
 	lastUpdatedAt: Date;
+	force?: boolean;
 }
 
-export async function distribute({
+async function distributeLogic({
 	user,
 	lastUpdatedUserId,
 	lastUpdatedAt,
@@ -793,6 +795,20 @@ export async function distribute({
 	if (knownErrors.length > 0) {
 		pino.info(knownErrors, "Known errors whilst distributing daily guides.");
 	}
+}
+
+export async function distribute(options: DailyGuidesDistributionOptions) {
+	if (distributionLock && !options.force) {
+		await distributionLock;
+		return;
+	}
+
+	const promise = distributeLogic(options).finally(() => {
+		distributionLock = null;
+	});
+
+	distributionLock = promise;
+	await promise;
 }
 
 export const enum InteractiveType {
