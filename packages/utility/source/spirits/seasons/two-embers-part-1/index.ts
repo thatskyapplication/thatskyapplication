@@ -70,5 +70,7 @@ export default new Season({
 			cost: { money: 11.99 },
 		},
 	],
+	doubleSeasonalLightEventStartDate: skyDate(2_025, 8, 19),
+	doubleSeasonalLightEventEndDate: skyDate(2_025, 9, 2),
 	patchNotesURL: String(new URL("p0300", LINK_REDIRECTOR_URL)),
 });
