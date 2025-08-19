@@ -189,10 +189,7 @@ import {
 } from "../services/guess.js";
 import { history } from "../services/heart.js";
 import { browse, today } from "../services/shard-eruption.js";
-import {
-	NOT_IN_CACHED_GUILD_RESPONSE,
-	SUPPORT_SERVER_INVITE_URL,
-} from "../utility/configuration.js";
+import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
@@ -222,6 +219,7 @@ import {
 	isModalSubmit,
 	isStringSelectMenu,
 	isUserContextMenuCommand,
+	notInCachedGuildResponse,
 } from "../utility/functions.js";
 import { OptionResolver } from "../utility/option-resolver.js";
 import {
@@ -803,7 +801,7 @@ export default {
 							await client.api.interactions.updateMessage(
 								interaction.id,
 								interaction.token,
-								NOT_IN_CACHED_GUILD_RESPONSE,
+								notInCachedGuildResponse(interaction.locale),
 							);
 
 							return;

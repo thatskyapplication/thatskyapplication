@@ -1,5 +1,4 @@
 import process from "node:process";
-import { MessageFlags } from "@discordjs/core";
 import { CDN_URL as CDN_URL_PRODUCTION, WEBSITE_URL } from "@thatskyapplication/utility";
 import { z } from "zod/v4";
 
@@ -90,9 +89,3 @@ export const SERVER_UPGRADE_SKU_ID = PRODUCTION
 
 // Support server invite URL.
 export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
-
-// Not in cached guild response.
-export const NOT_IN_CACHED_GUILD_RESPONSE = {
-	content: `This command requires me to be present in the server. [Invite me](${APPLICATION_INVITE_URL}) with the bot scope and try again!\nIf you need help, join the [support server](${SUPPORT_SERVER_INVITE_URL})!`,
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-} as const;

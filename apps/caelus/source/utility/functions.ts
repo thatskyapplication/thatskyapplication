@@ -14,11 +14,18 @@ import {
 	ApplicationCommandType,
 	ComponentType,
 	InteractionType,
+	type Locale,
+	MessageFlags,
 	type Snowflake,
 } from "@discordjs/core";
 import { ALLOWED_EXTENSIONS, calculateUserDefaultAvatarIndex } from "@discordjs/rest";
+import { t } from "i18next";
 import { client } from "../discord.js";
-import { APPLICATION_ID } from "./configuration.js";
+import {
+	APPLICATION_ID,
+	APPLICATION_INVITE_URL,
+	SUPPORT_SERVER_INVITE_URL,
+} from "./configuration.js";
 import { ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "./constants.js";
 
 export function chatInputApplicationCommandMention(
@@ -160,6 +167,18 @@ export function isModalSubmit(
 	interaction: APIInteraction,
 ): interaction is APIModalSubmitInteraction {
 	return interaction.type === InteractionType.ModalSubmit;
+}
+
+export function notInCachedGuildResponse(locale: Locale) {
+	return {
+		content: t("interaction-not-in-cached-guild", {
+			lng: locale,
+			ns: "general",
+			url1: APPLICATION_INVITE_URL,
+			url2: SUPPORT_SERVER_INVITE_URL,
+		}),
+		flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+	};
 }
 
 export async function validateAttachment(

@@ -31,13 +31,13 @@ import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Role } from "../models/discord/role.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { NOT_IN_CACHED_GUILD_RESPONSE } from "../utility/configuration.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	NOTIFICATION_CHANNEL_TYPES,
 	NotificationOffsetToMaximumValues,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { notInCachedGuildResponse } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 
 export const NOTIFICATIONS_SETUP_CUSTOM_ID = "NOTIFICATIONS_SETUP_CUSTOM_ID" as const;
@@ -273,7 +273,7 @@ export async function displayNotificationType(
 		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
+			notInCachedGuildResponse(interaction.locale),
 		);
 
 		return;
@@ -429,7 +429,7 @@ export async function handleChannelSelectMenu(
 		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
+			notInCachedGuildResponse(interaction.locale),
 		);
 
 		return;
@@ -468,7 +468,7 @@ export async function handleRoleSelectMenu(
 		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
+			notInCachedGuildResponse(interaction.locale),
 		);
 
 		return;
@@ -498,7 +498,7 @@ export async function handleStringSelectMenu(
 		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
+			notInCachedGuildResponse(interaction.locale),
 		);
 
 		return;

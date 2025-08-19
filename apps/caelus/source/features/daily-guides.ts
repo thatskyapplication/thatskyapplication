@@ -64,7 +64,6 @@ import {
 	CDN_BUCKET,
 	DAILY_GUIDES_LOG_CHANNEL_ID,
 	MAXIMUM_CONCURRENCY_LIMIT,
-	NOT_IN_CACHED_GUILD_RESPONSE,
 	SUPPORT_SERVER_GUILD_ID,
 } from "../utility/configuration.js";
 import {
@@ -82,7 +81,7 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { userTag, validateAttachment } from "../utility/functions.js";
+import { notInCachedGuildResponse, userTag, validateAttachment } from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
@@ -375,11 +374,13 @@ export async function handleChannelSelectMenu(
 
 	if (!guild) {
 		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
 		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
-			NOT_IN_CACHED_GUILD_RESPONSE,
+			notInCachedGuildResponse(interaction.locale),
 		);
+
 		return;
 	}
 
