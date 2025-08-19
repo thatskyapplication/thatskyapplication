@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   synchronise:
+    name: Synchronise
     runs-on: ubuntu-latest
     permissions: {}
     steps:
@@ -30,7 +31,7 @@ jobs:
         uses: pnpm/action-setup@v4
         with:
           run_install: |
-            - args: [--frozen-lockfile]
+            - args: [--frozen-lockfile, --filter, "@thatskyapplication/utility..."]
 
       - name: Build dependencies
         run: pnpm --filter @thatskyapplication/utility run build
@@ -57,14 +58,23 @@ jobs:
       - name: Run Biome
         run: pnpm --filter @thatskyapplication/utility run format
 
-      - name: Open pull request
+      - name: Update files
         run: |
           git config user.name thatskyapplication[bot]
           git config user.email "${{ vars.APPLICATION_USER_ID }}+thatskyapplication[bot]@users.noreply.github.com"
           git checkout -b chore/translations
           git add packages/utility/source/locales
+
+          if git diff --cached --quiet; then
+            echo "::notice::No translation changes to commit."
+            exit 0
+          fi
+
           git commit --message "chore: Update translation files"
-          git push --set-upstream origin chore/translations
-          gh pr create --base main --body "" --title "chore: Update translation files"
+          git push --force origin chore/translations
+
+          if ! gh pr list --head chore/translations --state open --json number | grep -q .; then
+            gh pr create --base main --body "" --title "chore: Update translation files"
+          fi
         env:
           GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
