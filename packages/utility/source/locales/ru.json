@@ -2564,8 +2564,8 @@
 				"command-option-difficulty-name": "",
 				"command-option-difficulty-description": "",
 				"command-option-difficulty-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "$t(features:guess.type.{{type}})",
+					"1": "$t(features:guess.type.{{type}})"
 				}
 			},
 			"leaderboard": {
@@ -2574,8 +2574,8 @@
 				"command-option-difficulty-name": "",
 				"command-option-difficulty-description": "",
 				"command-option-difficulty-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "$t(features:guess.type.{{type}})",
+					"1": "$t(features:guess.type.{{type}})"
 				}
 			}
 		},
@@ -2812,12 +2812,22 @@
 			"delete-success": ""
 		},
 		"guess": {
+			"type": {
+				"0": "",
+				"1": ""
+			},
 			"title": "",
 			"guess-in": "",
+			"footer": "",
 			"end-game": "",
+			"too-late": "",
 			"game-ended": "",
 			"your-guess": "",
-			"try-again": ""
+			"try-again": "",
+			"game-interaction-not-self": "",
+			"leaderboard-nothing": "",
+			"leaderboard-title": "",
+			"leaderboard-you": ""
 		},
 		"heart": {
 			"missing-external-apps-permission": ""
