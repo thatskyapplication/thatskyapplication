@@ -1277,7 +1277,7 @@
 			"572": "Coração sazonal",
 			"575": "Pacote dos Dias de Amor",
 			"591": "Pingente",
-			"592": "",
+			"592": "Acessório de Cabelo Supremo",
 			"593": "Turbante",
 			"594": "Acenar com a Cabeça 1",
 			"595": "Acenar com a Cabeça 2",
@@ -1633,7 +1633,7 @@
 			"1198": "Cata-vento",
 			"1199": "Apetrecho",
 			"1203": "Pingente",
-			"1204": "",
+			"1204": "Acessório de Cabelo Supremo",
 			"1205": "Capa Suprema",
 			"1206": "Máscara Suprema",
 			"1207": "Ansiedade 1",
@@ -1882,11 +1882,11 @@
 			"1637": "Cambalhota 3",
 			"1638": "Cambalhota 4",
 			"1640": "Capa",
-			"1642": "",
+			"1642": "Acessório de Cabeça",
 			"1643": "Coração sazonal",
 			"1644": "Desânimo 1",
 			"1645": "Desânimo 2",
-			"1646": "",
+			"1646": "Acessório de Cabeça",
 			"1649": "Cabelo",
 			"1650": "Desânimo 3",
 			"1651": "Desânimo 4",
@@ -2435,8 +2435,8 @@
 			"2476": "Sapatilhas de Aniversário",
 			"2477": "Capa do smoking de aniversário"
 		},
-		"interaction-error": "",
-		"interaction-not-in-cached-guild": "",
+		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
+		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
 		"timestamps": "Marcação de data/hora",
 		"view": "Exibir",
 		"open-bracket": " (",
@@ -2564,8 +2564,8 @@
 				"command-option-difficulty-name": "dificuldade",
 				"command-option-difficulty-description": "Ajustar o nível de dificuldade!",
 				"command-option-difficulty-choice-name": {
-					"0": "Original",
-					"1": "Difícil"
+					"0": "$t(features:guess.type.{{type}})",
+					"1": "$t(features:guess.type.{{type}})"
 				}
 			},
 			"leaderboard": {
@@ -2574,8 +2574,8 @@
 				"command-option-difficulty-name": "dificuldade",
 				"command-option-difficulty-description": "Qual dificuldade você gostaria de ver?",
 				"command-option-difficulty-choice-name": {
-					"0": "Original",
-					"1": "Difícil"
+					"0": "$t(features:guess.type.{{type}})",
+					"1": "$t(features:guess.type.{{type}})"
 				}
 			}
 		},
@@ -2803,7 +2803,7 @@
 			"season-upcoming_one": "A nova temporada inicia em {{count}} dia.",
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
 			"not-yet-updated": "Os guias diários estão esperando por uma incrível Criança da Luz para serem atualizados!\nPossui as informações que precisamos? Entre no [servidor de suporte]({{url}}) e atualize os guias você mesmo, ajudando a galera!",
-			"quest-unknown": ""
+			"quest-unknown": "Uou, essa é uma missão diária que não conhecemos. Talvez tente outra?"
 		},
 		"data": {
 			"delete-message": "Tem certeza que deseja excluir seus dados? Isso irá:\n- Excluir seu perfil Sky\n- Excluir seu inventário\n- Excluir seus corações\n  - Seu id de usuário no histórico de corações dos outros será anonimizado\n- Excluir seu recorde nos jogos de advinhação\n- Remover dados de sorteios\n- Remover seu cargo de tradutor, se tiver um",
@@ -2812,12 +2812,22 @@
 			"delete-success": "Seus dados foram excluídos. Você é uma mariposa agora."
 		},
 		"guess": {
+			"type": {
+				"0": "",
+				"1": ""
+			},
 			"title": "De onde isso veio?",
 			"guess-in": "Palpite {{time}}!",
+			"footer": "",
 			"end-game": "Encerrar jogo",
+			"too-late": "",
 			"game-ended": "Fim de jogo.",
 			"your-guess": "Seu palpite",
-			"try-again": "Tentar novamente?"
+			"try-again": "Tentar novamente?",
+			"game-interaction-not-self": "",
+			"leaderboard-nothing": "",
+			"leaderboard-title": "",
+			"leaderboard-you": ""
 		},
 		"heart": {
 			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu coração. Alguém precisa ajustar as permissões!"

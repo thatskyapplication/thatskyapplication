@@ -2564,8 +2564,8 @@
 				"command-option-difficulty-name": "難度",
 				"command-option-difficulty-description": "調整難度等級！",
 				"command-option-difficulty-choice-name": {
-					"0": "一般",
-					"1": "困難"
+					"0": "$t(features:guess.type.{{type}})",
+					"1": "$t(features:guess.type.{{type}})"
 				}
 			},
 			"leaderboard": {
@@ -2574,8 +2574,8 @@
 				"command-option-difficulty-name": "難度",
 				"command-option-difficulty-description": "您想查看什麼難度？",
 				"command-option-difficulty-choice-name": {
-					"0": "一般",
-					"1": "困難"
+					"0": "$t(features:guess.type.{{type}})",
+					"1": "$t(features:guess.type.{{type}})"
 				}
 			}
 		},
@@ -2812,12 +2812,22 @@
 			"delete-success": "已刪除您的資料，現在的您是一位萌新。"
 		},
 		"guess": {
+			"type": {
+				"0": "",
+				"1": ""
+			},
 			"title": "這是從哪裡來的？",
 			"guess-in": "猜猜{{time}}！",
+			"footer": "",
 			"end-game": "結束遊戲",
+			"too-late": "",
 			"game-ended": "遊戲結束。",
 			"your-guess": "你的猜測",
-			"try-again": "再試一次？"
+			"try-again": "再試一次？",
+			"game-interaction-not-self": "",
+			"leaderboard-nothing": "",
+			"leaderboard-title": "",
+			"leaderboard-you": ""
 		},
 		"heart": {
 			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法收到您的愛心。需要有人調整權限！"
