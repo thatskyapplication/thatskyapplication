@@ -25,6 +25,7 @@ import {
 	GuessTypeToName,
 	type GuideSpirit,
 	getRandomElement,
+	isSpiritId,
 	type SeasonalSpirit,
 	SpiritId,
 	type SpiritIds,
@@ -136,6 +137,73 @@ function getOptions(type: GuessType) {
 	};
 }
 
+interface GuessGenerateCustomIdBaseOptions {
+	type: GuessType;
+	answer: SpiritIds;
+	streak: number;
+	timeoutTimestamp: number;
+}
+
+interface GuessGenerateCustomIdGuessOptions extends GuessGenerateCustomIdBaseOptions {
+	prefix: typeof GUESS_ANSWER_1 | typeof GUESS_ANSWER_2 | typeof GUESS_ANSWER_3;
+	option: SpiritIds;
+}
+
+interface GuessGenerateCustomIdEndOptions extends GuessGenerateCustomIdBaseOptions {
+	prefix: typeof GUESS_END_GAME;
+}
+
+interface GuessGenerationCustomIdTryAgainOptions {
+	prefix: typeof GUESS_TRY_AGAIN;
+	type: GuessType;
+}
+
+type GuessGenerateCustomIdOptions =
+	| GuessGenerateCustomIdGuessOptions
+	| GuessGenerateCustomIdEndOptions
+	| GuessGenerationCustomIdTryAgainOptions;
+
+function generateCustomId(options: GuessGenerateCustomIdOptions) {
+	const { prefix, type } = options;
+	return `${prefix}§${type}§${"answer" in options ? options.answer : null}§${"option" in options ? options.option : null}§${"streak" in options ? options.streak : null}§${"timeoutTimestamp" in options ? options.timeoutTimestamp : null}`;
+}
+
+function parseCustomId(customId: string) {
+	const [prefix, rawType, rawAnswer, rawOption, streak, timeoutTimestamp] = customId.split("§") as [
+		GuessGenerateCustomIdOptions["prefix"],
+		`${GuessType}`,
+		`${SpiritIds | null}`,
+		`${SpiritIds | null}`,
+		`${number | null}`,
+		`${number | null}`,
+	];
+
+	const type = Number(rawType);
+	const answer = rawAnswer === "null" ? null : Number(rawAnswer);
+	const option = rawOption === "null" ? null : Number(rawOption);
+
+	if (!isGuessType(type)) {
+		throw new Error(`Invalid guessing game type: ${type}`);
+	}
+
+	if (answer !== null && !isSpiritId(answer)) {
+		throw new Error(`Invalid answer spirit id: ${rawAnswer}`);
+	}
+
+	if (option !== null && !isSpiritId(option)) {
+		throw new Error(`Invalid guessed answer spirit id: ${rawOption}`);
+	}
+
+	return {
+		prefix,
+		type,
+		answer,
+		option,
+		streak: streak === "null" ? null : Number(streak),
+		timeoutTimestamp: timeoutTimestamp === "null" ? null : Number(timeoutTimestamp),
+	};
+}
+
 export async function guess(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	type: GuessType,
@@ -149,14 +217,27 @@ export async function guess(
 	// Create buttons from the answers.
 	const buttons: APIButtonComponentWithCustomId[] = options.map((option, index) => ({
 		type: ComponentType.Button,
-		custom_id: `${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer}§${option}§${type}§${streak}§${timeoutTimestamp}`,
+		custom_id: generateCustomId({
+			prefix: index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3,
+			answer,
+			option,
+			type,
+			streak,
+			timeoutTimestamp,
+		}),
 		label: t(`spirits.${option}`, { lng: interaction.locale, ns: "general" }),
 		style: ButtonStyle.Secondary,
 	}));
 
 	const endGameButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${GUESS_END_GAME}§${answer}§null§${type}§${streak}§${timeoutTimestamp}`,
+		custom_id: generateCustomId({
+			prefix: GUESS_END_GAME,
+			answer,
+			type,
+			streak,
+			timeoutTimestamp,
+		}),
 		label: t("guess.end-game", { lng: interaction.locale, ns: "features" }),
 		style: ButtonStyle.Danger,
 	};
@@ -241,7 +322,7 @@ export async function guess(
 function tryAgainComponent(type: GuessType, locale: Locale): APIButtonComponentWithCustomId {
 	return {
 		type: ComponentType.Button,
-		custom_id: `${GUESS_TRY_AGAIN}§${type}`,
+		custom_id: generateCustomId({ prefix: GUESS_TRY_AGAIN, type }),
 		label: t("guess.try-again", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Primary,
 	};
@@ -260,19 +341,12 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 		return;
 	}
 
-	const [, answer, guessedAnswer, type, streak, timeoutTimestamp] =
-		interaction.data.custom_id.split("§");
+	const { prefix, type, answer, option, streak, timeoutTimestamp } = parseCustomId(
+		interaction.data.custom_id,
+	);
 
-	const parsedType = Number(type);
-	const parsedStreak = Number(streak);
-	const parsedTimeoutTimestamp = Number(timeoutTimestamp);
-
-	if (!isGuessType(parsedType)) {
-		throw new Error(`Invalid guessing game type: ${type}`);
-	}
-
-	if (Date.now() > parsedTimeoutTimestamp) {
-		await update(parsedType, invoker.id, parsedStreak);
+	if (Date.now() > timeoutTimestamp!) {
+		await update(type, invoker.id, streak!);
 
 		(interaction.message.components![0]! as APIContainerComponent).components.splice(2, 1, {
 			type: ComponentType.TextDisplay,
@@ -286,12 +360,12 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 		return;
 	}
 
-	if (guessedAnswer !== answer) {
-		await endGame(interaction, answer!, guessedAnswer!, parsedType, parsedStreak);
+	if (option !== answer) {
+		await endGame(interaction, prefix, answer!, option!, type, streak!);
 		return;
 	}
 
-	await guess(interaction, parsedType, parsedStreak + 1);
+	await guess(interaction, type, streak! + 1);
 }
 
 export async function parseEndGame(interaction: APIMessageComponentButtonInteraction) {
@@ -307,28 +381,22 @@ export async function parseEndGame(interaction: APIMessageComponentButtonInterac
 		return;
 	}
 
-	const [, answer, guess, rawType, rawStreak] = interaction.data.custom_id.split("§");
-	const type = Number(rawType);
-
-	if (!isGuessType(type)) {
-		throw new Error(`Invalid guessing game type: ${type}`);
-	}
-
-	const streak = Number(rawStreak);
-	await endGame(interaction, answer!, guess!, type, streak);
+	const { prefix, type, answer, option, streak } = parseCustomId(interaction.data.custom_id);
+	await endGame(interaction, prefix, answer!, option!, type, streak!);
 }
 
 async function endGame(
 	interaction: APIMessageComponentButtonInteraction,
-	answer: string,
-	guess: string,
+	prefix: GuessGenerateCustomIdOptions["prefix"],
+	answer: number,
+	guess: number,
 	type: GuessType,
 	streak: number,
 ) {
 	const { locale } = interaction;
 	let description: string;
 
-	if (interaction.data.custom_id.startsWith(GUESS_END_GAME)) {
+	if (prefix === GUESS_END_GAME) {
 		description = t("guess.game-ended", { lng: locale, ns: "features" });
 	} else {
 		description = `${t("guess.your-guess", { lng: locale, ns: "features" })}: ${t(
@@ -371,13 +439,7 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 		return;
 	}
 
-	const customId = interaction.data.custom_id;
-	const type = Number(customId.slice(customId.indexOf("§") + 1));
-
-	if (!isGuessType(type)) {
-		throw new Error(`Invalid guessing game type: ${type}`);
-	}
-
+	const { type } = parseCustomId(interaction.data.custom_id);
 	await guess(interaction, type, 0);
 }
 
