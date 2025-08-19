@@ -35,7 +35,6 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import type { GuessPacket } from "../models/Guess.js";
 import pg from "../pg.js";
 import {
 	DEFAULT_EMBED_COLOUR,
@@ -48,11 +47,18 @@ import {
 	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
 	GUESS_TIMEOUT,
 	GUESS_TRY_AGAIN,
-	GuessDifficultyToStreakColumn,
 } from "../utility/constants.js";
 import { CosmeticToEmoji, FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
+
+export interface GuessPacket {
+	user_id: string;
+	streak: number | null;
+	type: GuessDifficultyLevel;
+}
+
+type GuessUserRanking = GuessPacket & { streak: number; rank: number };
 
 export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {
 	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
@@ -157,9 +163,14 @@ export async function guess(
 
 	// Retrieve the highest streak.
 	const invoker = interactionInvoker(interaction);
-	const highestStreak = await pg<GuessPacket>(Table.Guess).where({ user_id: invoker.id });
-	const difficultyString = GuessDifficultyLevelToName[difficulty];
-	const streakString = highestStreak[0]?.[GuessDifficultyToStreakColumn[difficulty]] ?? 0;
+
+	const highestStreak =
+		(
+			await pg<GuessPacket>(Table.Guess)
+				.select("streak")
+				.where({ user_id: invoker.id, type: difficulty })
+				.first()
+		)?.streak ?? 0;
 
 	// Respond.
 	const components: [APIMessageTopLevelComponent] = [
@@ -211,7 +222,7 @@ export async function guess(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# Difficulty: ${difficultyString} | Streak: ${streak} | Highest: ${streakString}`,
+					content: `-# Difficulty: ${GuessDifficultyLevelToName[difficulty]} | Streak: ${streak} | Highest: ${highestStreak}`,
 				},
 			],
 		},
@@ -374,58 +385,29 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 }
 
 async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number) {
-	const column = GuessDifficultyToStreakColumn[difficulty];
-
 	await pg<GuessPacket>(Table.Guess)
-		.insert({
-			user_id: userId,
-			[column]: streak,
-		})
-		.onConflict("user_id")
-		.merge({ [column]: streak })
-		.where(`${Table.Guess}.${[column]}`, "<", streak)
-		.orWhere(`${Table.Guess}.${[column]}`, "is", null);
+		.insert({ user_id: userId, streak, type: difficulty })
+		.onConflict(["user_id", "type"])
+		.merge()
+		.where(`${Table.Guess}.streak`, "<", streak)
+		.orWhere(`${Table.Guess}.streak`, "is", null);
 }
 
-export async function findUser(userId: Snowflake) {
-	const originalColumn = GuessDifficultyToStreakColumn[GuessDifficultyLevel.Original];
-	const hardColumn = GuessDifficultyToStreakColumn[GuessDifficultyLevel.Hard];
-
-	const [result] = (await pg
-		.with(
-			"streak_ranking",
+export async function findUser(userId: Snowflake, type: number) {
+	const result = await pg
+		.select<GuessUserRanking>()
+		.from(
 			pg(Table.Guess)
 				.select(
 					"user_id",
-					originalColumn,
-					pg.raw(`row_number() over (order by ${originalColumn} desc) ::int as streak_rank`),
+					"type",
+					"streak",
+					pg.raw("row_number() over (partition by type order by streak desc)::int as rank"),
 				)
-				.whereNotNull(originalColumn),
+				.where("streak", ">", 0),
 		)
-		.with(
-			"streak_hard_ranking",
-			pg(Table.Guess)
-				.select(
-					"user_id",
-					hardColumn,
-					pg.raw(`row_number() over (order by ${hardColumn} desc) ::int as streak_hard_rank`),
-				)
-				.whereNotNull(hardColumn),
-		)
-		.select(
-			"streak_ranking.streak",
-			"streak_ranking.streak_rank",
-			"streak_hard_ranking.streak_hard",
-			"streak_hard_ranking.streak_hard_rank",
-		)
-		.from("streak_ranking")
-		.join("streak_hard_ranking", "streak_ranking.user_id", "=", "streak_hard_ranking.user_id")
-		.where("streak_ranking.user_id", userId)) as {
-		streak: number;
-		streak_rank: number;
-		streak_hard: number;
-		streak_hard_rank: number;
-	}[];
+		.where({ user_id: userId, type })
+		.first();
 
 	return result;
 }
@@ -442,22 +424,19 @@ export async function leaderboard(
 		: Number(interaction.data.custom_id.slice(interaction.data.custom_id.lastIndexOf("§") + 1));
 
 	const offset = (page - 1) * GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER;
-	const column = GuessDifficultyToStreakColumn[difficulty];
 
-	const guessPacketsLeaderboard = await pg
-		.with(
-			"ranked_data",
-			pg(Table.Guess)
-				.select("user_id", column, pg.raw(`row_number() over (order by ${column} desc) as rank`))
-				.whereNotNull(column),
+	const guessPacketsLeaderboard = await pg(Table.Guess)
+		.select<(GuessPacket & { streak: number; rank: number })[]>(
+			"user_id",
+			"type",
+			"streak",
+			pg.raw("row_number() over (partition by type order by streak desc)::int as rank"),
 		)
-		.select("user_id", column, "rank")
-		.from("ranked_data")
+		.where({ type: difficulty })
+		.where("streak", ">", 0)
 		.orderBy("rank")
 		.limit(GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER + 1)
 		.offset(offset);
-
-	const guessPacketInvoker = await findUser(interactionInvoker(interaction).id);
 
 	if (guessPacketsLeaderboard.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -488,15 +467,17 @@ export async function leaderboard(
 		{
 			type: ComponentType.TextDisplay,
 			content: guessPacketsLeaderboard
-				.map((row) => `${row.rank}. <@${row.user_id}>: ${row[column]}`)
+				.map((row) => `${row.rank}. <@${row.user_id}>: ${row.streak}`)
 				.join("\n"),
 		},
 	];
 
+	const guessPacketInvoker = await findUser(interactionInvoker(interaction).id, difficulty);
+
 	if (guessPacketInvoker) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `-# You: #${guessPacketInvoker[`${column}_rank`]} (${guessPacketInvoker[column]})`,
+			content: `-# You: #${guessPacketInvoker.rank} (${guessPacketInvoker.streak!})`,
 		});
 	}
 

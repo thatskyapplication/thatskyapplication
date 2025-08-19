@@ -1,7 +1,7 @@
 import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { GuessDifficultyLevel } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { guess, leaderboard } from "../../services/guess.js";
+import { guess, leaderboard } from "../../features/guess.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {

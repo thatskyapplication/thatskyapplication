@@ -102,6 +102,13 @@ import {
 	upsell,
 } from "../features/giveaway.js";
 import {
+	answer,
+	isGuessDifficultyLevel,
+	leaderboard,
+	parseEndGame,
+	tryAgain,
+} from "../features/guess.js";
+import {
 	displayNotificationType,
 	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
 	handleRoleSelectMenu as handleNotificationsRoleSelectMenu,
@@ -180,13 +187,6 @@ import {
 } from "../features/spirits.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
-import {
-	answer,
-	isGuessDifficultyLevel,
-	leaderboard,
-	parseEndGame,
-	tryAgain,
-} from "../services/guess.js";
 import { history } from "../services/heart.js";
 import { browse, today } from "../services/shard-eruption.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";

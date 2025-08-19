@@ -38,6 +38,7 @@ import {
 	CROWDIN_URL,
 	type Emoji,
 	formatEmoji,
+	GuessDifficultyLevel,
 	isCountry,
 	isPlatformId,
 	MAXIMUM_WINGED_LIGHT,
@@ -71,7 +72,6 @@ import { client } from "../discord.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
-import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
 import {
 	APPLICATION_ID,
@@ -110,6 +110,7 @@ import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import { allProgress, fetchCatalogue } from "./catalogue.js";
+import { findUser } from "./guess.js";
 
 interface SkyProfileLikesPacket {
 	user_id: Snowflake;
@@ -2223,14 +2224,15 @@ async function skyProfileComponents(
 	}
 
 	if (guessRank) {
-		const guessPacketRanking = await findUser(userId);
+		const originalRanking = await findUser(userId, GuessDifficultyLevel.Original);
+		const hardRanking = await findUser(userId, GuessDifficultyLevel.Hard);
 
 		miscellaneous.push(
-			`**${t("sky-profile.guess-rank-original", { lng: locale, ns: "features" })}** ${guessPacketRanking?.streak_rank ? `#${guessPacketRanking.streak_rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
+			`**${t("sky-profile.guess-rank-original", { lng: locale, ns: "features" })}** ${originalRanking ? `#${originalRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
 		);
 
 		miscellaneous.push(
-			`**${t("sky-profile.guess-rank-hard", { lng: locale, ns: "features" })}** ${guessPacketRanking?.streak_hard_rank ? `#${guessPacketRanking.streak_hard_rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
+			`**${t("sky-profile.guess-rank-hard", { lng: locale, ns: "features" })}** ${hardRanking ? `#${hardRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
 		);
 	}
 

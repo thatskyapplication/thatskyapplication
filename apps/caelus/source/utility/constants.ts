@@ -6,7 +6,6 @@ import {
 	es419,
 	esES,
 	fr,
-	GuessDifficultyLevel,
 	it,
 	ja,
 	ko,
@@ -289,11 +288,6 @@ export const GIVEAWAY_NOT_IN_SERVER_TEXT =
 	`There is a giveaway in the [support server](${GIVEAWAY_INVITE_URL})! The prize is an in-app purchase of your choice for Days of Colour 2025. Interested? Come on by!` as const;
 
 // Guess.
-export const GuessDifficultyToStreakColumn = {
-	[GuessDifficultyLevel.Original]: "streak",
-	[GuessDifficultyLevel.Hard]: "streak_hard",
-} as const satisfies Readonly<Record<GuessDifficultyLevel, string>>;
-
 export const GUESS_TIMEOUT = 30_000 as const;
 export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
 export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
