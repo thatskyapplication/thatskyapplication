@@ -16,7 +16,7 @@ import {
 import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
-import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/constants.js";
+import { NOT_IN_CACHED_GUILD_RESPONSE } from "../../utility/configuration.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 

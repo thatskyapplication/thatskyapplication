@@ -10,7 +10,7 @@
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
 		"start": "node --enable-source-maps distribution/index.js",
 		"deploy-commands-dev": "tsx --env-file=.env.development source/utility/deploy-commands.ts | pino-pretty",
-		"deploy-commands": "NODE_ENV=production tsx --env-file=.env.production source/utility/deploy-commands.ts | pino-pretty",
+		"deploy-commands": "tsx source/utility/deploy-commands.ts",
 		"knip": "knip"
 	},
 	"dependencies": {

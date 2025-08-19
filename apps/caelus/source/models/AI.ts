@@ -28,8 +28,8 @@ import {
 } from "../open-ai.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { APPLICATION_ID } from "../utility/configuration.js";
-import { DEFAULT_EMBED_COLOUR, SERVER_UPGRADE_SKU_ID } from "../utility/constants.js";
+import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
+import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 import type { GuildChannel } from "./discord/guild.js";
 import type { GuildMember } from "./discord/guild-member.js";

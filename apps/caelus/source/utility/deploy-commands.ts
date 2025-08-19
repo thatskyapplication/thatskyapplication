@@ -1,4 +1,4 @@
-import "../i18next.js";
+import process from "node:process";
 import {
 	API,
 	ApplicationCommandOptionType,
@@ -20,17 +20,34 @@ import {
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
-import pino from "../pino.js";
-import { APPLICATION_ID, DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID } from "./configuration.js";
+import { init, t } from "i18next";
+import pino from "pino";
+import { z } from "zod/v4";
 import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	I18_NEXT_OPTIONS,
 	LOCALES,
 	QUEST_NUMBER,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 } from "./constants.js";
+
+const envSchema = z.object({
+	DISCORD_TOKEN: z.string().min(1),
+	SUPPORT_SERVER_GUILD_ID: z.string().min(1),
+});
+
+const { DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID } = envSchema.parse(process.env);
+const logger = pino({ errorKey: "error" });
+
+await init({
+	...I18_NEXT_OPTIONS,
+	missingKeyHandler: (locale, namespace, key) =>
+		logger.error(
+			`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,
+		),
+});
 
 function localisations(name: string, options: Record<string, unknown> = {}, ns = "commands") {
 	return Object.fromEntries(
@@ -1255,12 +1272,13 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 const api = new API(rest);
-pino.info("Setting application commands...");
+const applicationId = (await api.users.getCurrent()).id;
+logger.info("Setting application commands...");
 
 const commands = [
-	api.applicationCommands.bulkOverwriteGlobalCommands(APPLICATION_ID, COMMANDS),
+	api.applicationCommands.bulkOverwriteGlobalCommands(applicationId, COMMANDS),
 	api.applicationCommands.bulkOverwriteGuildCommands(
-		APPLICATION_ID,
+		applicationId,
 		SUPPORT_SERVER_GUILD_ID,
 		SUPPORT_SERVER_COMMANDS,
 	),
@@ -1273,7 +1291,7 @@ const errors = settled
 	.map((result) => result.reason);
 
 if (errors.length > 0) {
-	pino.error(errors, "Error setting commands.");
+	logger.error({ error: new AggregateError(errors, "Error setting commands.") });
 } else {
-	pino.info("Successfully set application commands.");
+	logger.info("Successfully set application commands.");
 }

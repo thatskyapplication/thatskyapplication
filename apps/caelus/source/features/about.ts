@@ -23,13 +23,14 @@ import { client } from "../discord.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import {
+	APPLICATION_INVITE_URL,
 	FEEDBACK_CHANNEL_ID,
 	IDEA_TAG_ID,
 	ISSUE_TAG_ID,
 	SUPPORT_SERVER_GUILD_ID,
+	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/configuration.js";
 import {
-	APPLICATION_INVITE_URL,
 	DEFAULT_EMBED_COLOUR,
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
@@ -38,7 +39,6 @@ import {
 	MINIMUM_FEEDBACK_TITLE_LENGTH,
 	PATREON_URL,
 	SKY_PROFILES_URL,
-	SUPPORT_SERVER_INVITE_URL,
 	THATSKYGAME_URL,
 } from "../utility/constants.js";
 import { EMOTE_EMOJIS } from "../utility/emojis.js";

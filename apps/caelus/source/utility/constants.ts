@@ -1,63 +1,56 @@
 import { URL } from "node:url";
-import { ChannelType, ComponentType, Locale, MessageFlags } from "@discordjs/core";
+import { ChannelType, Locale } from "@discordjs/core";
 import {
-	CDN_URL as CDN_URL_PRODUCTION,
+	de,
+	enGB,
+	es419,
+	esES,
+	fr,
 	GuessDifficultyLevel,
+	it,
+	ja,
+	ko,
 	NotificationType,
 	type NotificationTypes,
+	ptBR,
+	ru,
 	skyDate,
+	th,
+	vi,
 	WEBSITE_URL,
+	zhCN,
+	zhTW,
 } from "@thatskyapplication/utility";
-import { ANNOUNCEMENTS_CHANNEL_ID, APPLICATION_ID, PRODUCTION } from "./configuration.js";
 
-// Content delivery network buckets.
-const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
-const CDN_BUCKET_PRODUCTION = "thatskyapplication" as const;
-export const CDN_BUCKET = PRODUCTION ? CDN_BUCKET_PRODUCTION : CDN_BUCKET_DEVELOPMENT;
-
-// Content delivery network links.
-const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as const;
-export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
+// Shared options for i18next.
+export const I18_NEXT_OPTIONS = {
+	fallbackLng: Locale.EnglishGB,
+	ns: ["general", "commands", "features"],
+	resources: {
+		[Locale.German]: de,
+		[Locale.EnglishGB]: enGB,
+		[Locale.SpanishLATAM]: es419,
+		[Locale.SpanishES]: esES,
+		[Locale.French]: fr,
+		[Locale.Italian]: it,
+		[Locale.Japanese]: ja,
+		[Locale.Korean]: ko,
+		[Locale.PortugueseBR]: ptBR,
+		[Locale.Russian]: ru,
+		[Locale.Thai]: th,
+		[Locale.Vietnamese]: vi,
+		[Locale.ChineseCN]: zhCN,
+		[Locale.ChineseTW]: zhTW,
+	},
+	returnEmptyString: false,
+	saveMissing: true,
+	interpolation: { escapeValue: false },
+} as const;
 
 // Website URLs.
-export const APPLICATION_INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${APPLICATION_ID}`;
-export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
 export const DAILY_GUIDES_URL = String(new URL("daily-guides", WEBSITE_URL));
 export const SHARD_ERUPTION_URL = String(new URL("shard-eruption", WEBSITE_URL));
 export const SKY_PROFILES_URL = String(new URL("sky-profiles", WEBSITE_URL));
-
-// SKU ids.
-const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;
-const SERVER_UPGRADE_SKU_ID_PRODUCTION = "1270871254316089515" as const;
-
-export const SERVER_UPGRADE_SKU_ID = PRODUCTION
-	? SERVER_UPGRADE_SKU_ID_PRODUCTION
-	: SERVER_UPGRADE_SKU_ID_DEVELOPMENT;
-
-// Error response.
-export const ERROR_RESPONSE = {
-	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
-	components: [],
-	embeds: [],
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-};
-
-// Error response for components v2.
-export const ERROR_RESPONSE_COMPONENTS_V2 = {
-	components: [
-		{
-			type: ComponentType.TextDisplay as const,
-			content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
-		},
-	],
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-};
-
-// Not in cached guild response.
-export const NOT_IN_CACHED_GUILD_RESPONSE = {
-	content: `This command requires me to be present in the server. [Invite me](${APPLICATION_INVITE_URL}) with the bot scope and try again!\nIf you need help, join the [support server](${SUPPORT_SERVER_INVITE_URL})!`,
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-} as const;
 
 // Quest numbers.
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;
@@ -284,8 +277,8 @@ export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
 export const GIVEAWAY_START_DATE = skyDate(2025, 5, 25);
 const GIVEAWAY_START_TIMESTAMP_SECONDS = GIVEAWAY_START_DATE.toUnixInteger();
 export const GIVEAWAY_END_DATE = skyDate(2025, 6, 2);
-const GIVEAWAY_END_TIMESTAMP_SECONDS = GIVEAWAY_END_DATE.toUnixInteger();
-const GIVEAWAY_INVITE_URL = "https://discord.gg/dVekyau2gN" as const;
+export const GIVEAWAY_END_TIMESTAMP_SECONDS = GIVEAWAY_END_DATE.toUnixInteger();
+export const GIVEAWAY_INVITE_URL = "https://discord.gg/dVekyau2gN" as const;
 
 export const GIVEAWAY_NOT_STARTED_TEXT =
 	`There is an upcoming giveaway in the [support server](${GIVEAWAY_INVITE_URL}) starting on <t:${GIVEAWAY_START_TIMESTAMP_SECONDS}:F> (<t:${GIVEAWAY_START_TIMESTAMP_SECONDS}:R>).` as const;
@@ -294,9 +287,6 @@ export const GIVEAWAY_OVER_TEXT = "There is currently no giveaway." as const;
 
 export const GIVEAWAY_NOT_IN_SERVER_TEXT =
 	`There is a giveaway in the [support server](${GIVEAWAY_INVITE_URL})! The prize is an in-app purchase of your choice for Days of Colour 2025. Interested? Come on by!` as const;
-
-export const GIVEAWAY_INFORMATION_TEXT =
-	`Welcome to the giveaway!\n\nThere is one prize available: an in-app purchase of your choice from Days of Colour.\n### How do I participate?\nYou must be in the [support server](${GIVEAWAY_INVITE_URL}). You claim entry tickets via this command. Entry tickets may be claimed daily. The more entry tickets you have, the more chance you have of winning. Simple!\n### How will the winner be announced?\n\nThe winner is picked at random. The winner will be announced in <#${ANNOUNCEMENTS_CHANNEL_ID}> automatically on <t:${GIVEAWAY_END_TIMESTAMP_SECONDS}:F> (<t:${GIVEAWAY_END_TIMESTAMP_SECONDS}:R>).` as const;
 
 // Guess.
 export const GuessDifficultyToStreakColumn = {

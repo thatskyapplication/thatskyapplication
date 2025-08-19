@@ -38,9 +38,9 @@ import { client } from "../discord.js";
 import type { GuessPacket } from "../models/Guess.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
+import { ERROR_RESPONSE_COMPONENTS_V2 } from "../utility/configuration.js";
 import {
 	DEFAULT_EMBED_COLOUR,
-	ERROR_RESPONSE_COMPONENTS_V2,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,

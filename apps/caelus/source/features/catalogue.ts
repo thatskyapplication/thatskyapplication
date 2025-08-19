@@ -66,10 +66,10 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveCostToString,
 } from "../utility/catalogue.js";
+import { ERROR_RESPONSE_COMPONENTS_V2 } from "../utility/configuration.js";
 import {
 	CATALOGUE_EVENTS_THRESHOLD,
 	DEFAULT_EMBED_COLOUR,
-	ERROR_RESPONSE_COMPONENTS_V2,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
 } from "../utility/constants.js";
 import {

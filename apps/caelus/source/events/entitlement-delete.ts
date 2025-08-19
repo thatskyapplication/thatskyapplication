@@ -5,8 +5,11 @@ import { client } from "../discord.js";
 import AI from "../models/AI.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { SUPPORT_SERVER_GUILD_ID, SUPPORTER_ROLE_ID } from "../utility/configuration.js";
-import { SERVER_UPGRADE_SKU_ID } from "../utility/constants.js";
+import {
+	SERVER_UPGRADE_SKU_ID,
+	SUPPORT_SERVER_GUILD_ID,
+	SUPPORTER_ROLE_ID,
+} from "../utility/configuration.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.EntitlementDelete;

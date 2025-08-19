@@ -1,0 +1,32 @@
+name: Deploy commands
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deploy:
+    name: Deploy commands
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: |
+            - args: [--frozen-lockfile, --filter, "@thatskyapplication/caelus..."]
+
+      - name: Build dependencies
+        run: pnpm --filter @thatskyapplication/caelus^... run build
+          
+      - name: Deploy commands
+        run: pnpm --filter @thatskyapplication/caelus run deploy-commands
+        env:
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          SUPPORT_SERVER_GUILD_ID: ${{ vars.SUPPORT_SERVER_GUILD_ID }}
+

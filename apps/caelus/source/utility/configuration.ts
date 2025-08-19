@@ -1,4 +1,6 @@
 import process from "node:process";
+import { ComponentType, MessageFlags } from "@discordjs/core";
+import { CDN_URL as CDN_URL_PRODUCTION, WEBSITE_URL } from "@thatskyapplication/utility";
 import { z } from "zod/v4";
 
 // Production detection.
@@ -65,3 +67,51 @@ export const {
 	BETTER_STACK_TOKEN,
 	FLIGHT_CHECK,
 } = (PRODUCTION ? productionEnvSchema : envSchema).parse(process.env);
+
+// Content delivery network buckets.
+const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
+const CDN_BUCKET_PRODUCTION = "thatskyapplication" as const;
+export const CDN_BUCKET = PRODUCTION ? CDN_BUCKET_PRODUCTION : CDN_BUCKET_DEVELOPMENT;
+
+// Content delivery network links.
+const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as const;
+export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
+
+// Application invite URL.
+export const APPLICATION_INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${APPLICATION_ID}`;
+
+// SKU ids.
+const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;
+const SERVER_UPGRADE_SKU_ID_PRODUCTION = "1270871254316089515" as const;
+
+export const SERVER_UPGRADE_SKU_ID = PRODUCTION
+	? SERVER_UPGRADE_SKU_ID_PRODUCTION
+	: SERVER_UPGRADE_SKU_ID_DEVELOPMENT;
+
+// Support server invite URL.
+export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
+
+// Not in cached guild response.
+export const NOT_IN_CACHED_GUILD_RESPONSE = {
+	content: `This command requires me to be present in the server. [Invite me](${APPLICATION_INVITE_URL}) with the bot scope and try again!\nIf you need help, join the [support server](${SUPPORT_SERVER_INVITE_URL})!`,
+	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+} as const;
+
+// Error response.
+export const ERROR_RESPONSE = {
+	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
+	components: [],
+	embeds: [],
+	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+};
+
+// Error response for components v2.
+export const ERROR_RESPONSE_COMPONENTS_V2 = {
+	components: [
+		{
+			type: ComponentType.TextDisplay as const,
+			content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
+		},
+	],
+	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+};

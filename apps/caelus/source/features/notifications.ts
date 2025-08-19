@@ -32,9 +32,11 @@ import type { Role } from "../models/discord/role.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import {
-	DEFAULT_EMBED_COLOUR,
 	ERROR_RESPONSE_COMPONENTS_V2,
 	NOT_IN_CACHED_GUILD_RESPONSE,
+} from "../utility/configuration.js";
+import {
+	DEFAULT_EMBED_COLOUR,
 	NOTIFICATION_CHANNEL_TYPES,
 	NotificationOffsetToMaximumValues,
 } from "../utility/constants.js";

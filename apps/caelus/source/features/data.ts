@@ -12,8 +12,11 @@ import type { GuessPacket } from "../models/Guess.js";
 import type { HeartPacket } from "../models/Heart.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { SUPPORT_SERVER_GUILD_ID, TRANSLATOR_ROLE_ID } from "../utility/configuration.js";
-import { SUPPORT_SERVER_INVITE_URL } from "../utility/constants.js";
+import {
+	SUPPORT_SERVER_GUILD_ID,
+	SUPPORT_SERVER_INVITE_URL,
+	TRANSLATOR_ROLE_ID,
+} from "../utility/configuration.js";
 import { interactionInvoker } from "../utility/functions.js";
 import type { GiveawayPacket, GiveawayUpsellPacket } from "./giveaway.js";
 import { skyProfileDelete } from "./sky-profile.js";

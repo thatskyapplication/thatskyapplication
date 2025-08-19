@@ -15,8 +15,8 @@ import {
 	set,
 } from "../../features/daily-guides.js";
 import { questAutocomplete } from "../../services/quests.js";
-import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
-import { INFORMATION_ACCENT_COLOUR, SUPPORT_SERVER_INVITE_URL } from "../../utility/constants.js";
+import { SUPPORT_SERVER_GUILD_ID, SUPPORT_SERVER_INVITE_URL } from "../../utility/configuration.js";
+import { INFORMATION_ACCENT_COLOUR } from "../../utility/constants.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {

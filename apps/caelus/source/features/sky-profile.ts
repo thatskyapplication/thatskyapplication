@@ -31,6 +31,7 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import {
+	CDN_URL,
 	COUNTRY_VALUES,
 	type Country,
 	CountryToEmoji,
@@ -74,6 +75,7 @@ import { findUser } from "../services/guess.js";
 import { totalReceived } from "../services/heart.js";
 import {
 	APPLICATION_ID,
+	CDN_BUCKET,
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORTER_ROLE_ID,
@@ -82,8 +84,6 @@ import {
 } from "../utility/configuration.js";
 import {
 	ANIMATED_HASH_PREFIX,
-	CDN_BUCKET,
-	CDN_URL,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
