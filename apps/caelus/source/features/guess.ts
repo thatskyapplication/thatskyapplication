@@ -54,11 +54,11 @@ import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
 
 export interface GuessPacket {
 	user_id: string;
-	streak: number | null;
+	streak: number;
 	type: GuessDifficultyLevel;
 }
 
-type GuessUserRanking = GuessPacket & { streak: number; rank: number };
+type GuessUserRanking = GuessPacket & { rank: number };
 
 export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {
 	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
@@ -426,7 +426,7 @@ export async function leaderboard(
 	const offset = (page - 1) * GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER;
 
 	const guessPacketsLeaderboard = await pg(Table.Guess)
-		.select<(GuessPacket & { streak: number; rank: number })[]>(
+		.select<(GuessPacket & { rank: number })[]>(
 			"user_id",
 			"type",
 			"streak",
