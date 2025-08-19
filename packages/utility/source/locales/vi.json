@@ -2435,6 +2435,8 @@
 			"2476": "",
 			"2477": "Áo Choàng Tuxedo Kỷ Niệm"
 		},
+		"interaction-error": "",
+		"interaction-not-in-cached-guild": "",
 		"timestamps": "",
 		"view": "",
 		"open-bracket": " (",
@@ -2800,7 +2802,8 @@
 			"season-upcoming_zero": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
-			"not-yet-updated": ""
+			"not-yet-updated": "",
+			"quest-unknown": ""
 		},
 		"data": {
 			"delete-message": "",

@@ -2435,6 +2435,8 @@
 			"2476": "",
 			"2477": "週年慶典燕尾斗篷"
 		},
+		"interaction-error": "",
+		"interaction-not-in-cached-guild": "",
 		"timestamps": "時間戳",
 		"view": "瀏覽",
 		"open-bracket": "（",
@@ -2800,7 +2802,8 @@
 			"season-upcoming_zero": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
-			"not-yet-updated": ""
+			"not-yet-updated": "",
+			"quest-unknown": ""
 		},
 		"data": {
 			"delete-message": "您是否確定要刪除您的資料？此舉將會：\n- 刪除您的光子簡介\n- 刪除您的目錄\n- 刪除您曾經獲得/贈送的愛心記錄\n  - 以您的ID所贈送的愛心記錄，在其他人頁面上將以匿名方式呈現\n- 刪除您於猜謎遊戲的最長連勝記錄\n- 移除您的抽獎資訊\n- 移除您的翻譯員角色，若您曾獲得該角色",
