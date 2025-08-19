@@ -5,6 +5,7 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIUserApplicationCommandInteraction,
 	ApplicationCommandType,
+	ComponentType,
 	GatewayDispatchEvents,
 	InteractionType,
 	type Locale,
@@ -16,6 +17,7 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { isDuring, isRealm, isSeasonId, skyNow } from "@thatskyapplication/utility";
+import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,
@@ -188,9 +190,8 @@ import {
 import { history } from "../services/heart.js";
 import { browse, today } from "../services/shard-eruption.js";
 import {
-	ERROR_RESPONSE,
-	ERROR_RESPONSE_COMPONENTS_V2,
 	NOT_IN_CACHED_GUILD_RESPONSE,
+	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/configuration.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
@@ -236,6 +237,31 @@ import {
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
+
+function errorResponse(locale: Locale) {
+	return {
+		content: t("interaction-error", { lng: locale, ns: "general", url: SUPPORT_SERVER_INVITE_URL }),
+		components: [],
+		embeds: [],
+		flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
+	};
+}
+
+function errorResponseV2(locale: Locale) {
+	return {
+		components: [
+			{
+				type: ComponentType.TextDisplay as const,
+				content: t("interaction-error", {
+					lng: locale,
+					ns: "general",
+					url: SUPPORT_SERVER_INVITE_URL,
+				}),
+			},
+		],
+		flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	};
+}
 
 async function isNotComponentsV2(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
@@ -383,11 +409,13 @@ export default {
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown chat input command interaction.");
+
 				await api.interactions.reply(
 					interaction.id,
 					interaction.token,
-					ERROR_RESPONSE_COMPONENTS_V2,
+					errorResponseV2(interaction.locale),
 				);
+
 				return;
 			}
 
@@ -411,11 +439,13 @@ export default {
 
 			if (!command) {
 				pino.warn(interaction, "Received an unknown user context menu command interaction.");
+
 				await api.interactions.reply(
 					interaction.id,
 					interaction.token,
-					ERROR_RESPONSE_COMPONENTS_V2,
+					errorResponseV2(interaction.locale),
 				);
+
 				return;
 			}
 
@@ -804,8 +834,8 @@ export default {
 				interaction.id,
 				interaction.token,
 				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
-					? ERROR_RESPONSE
-					: ERROR_RESPONSE_COMPONENTS_V2,
+					? errorResponse(interaction.locale)
+					: errorResponseV2(interaction.locale),
 			);
 
 			return;
@@ -925,7 +955,7 @@ export default {
 							await client.api.interactions.updateMessage(
 								interaction.id,
 								interaction.token,
-								ERROR_RESPONSE_COMPONENTS_V2,
+								errorResponseV2(interaction.locale),
 							);
 
 							return;
@@ -970,8 +1000,8 @@ export default {
 				interaction.id,
 				interaction.token,
 				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
-					? ERROR_RESPONSE
-					: ERROR_RESPONSE_COMPONENTS_V2,
+					? errorResponse(interaction.locale)
+					: errorResponseV2(interaction.locale),
 			);
 
 			return;
@@ -997,8 +1027,8 @@ export default {
 				interaction.id,
 				interaction.token,
 				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
-					? ERROR_RESPONSE
-					: ERROR_RESPONSE_COMPONENTS_V2,
+					? errorResponse(interaction.locale)
+					: errorResponseV2(interaction.locale),
 			);
 
 			return;
@@ -1029,8 +1059,8 @@ export default {
 				interaction.id,
 				interaction.token,
 				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
-					? ERROR_RESPONSE
-					: ERROR_RESPONSE_COMPONENTS_V2,
+					? errorResponse(interaction.locale)
+					: errorResponseV2(interaction.locale),
 			);
 
 			return;
@@ -1102,7 +1132,12 @@ export default {
 			}
 
 			pino.warn(interaction, "Received an unknown modal interaction.");
-			await api.interactions.reply(interaction.id, interaction.token, ERROR_RESPONSE_COMPONENTS_V2);
+
+			await api.interactions.reply(
+				interaction.id,
+				interaction.token,
+				errorResponseV2(interaction.locale),
+			);
 		}
 	},
 } satisfies Event<typeof name>;

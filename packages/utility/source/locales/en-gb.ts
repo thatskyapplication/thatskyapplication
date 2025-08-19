@@ -2688,6 +2688,8 @@ export default {
 			[Cosmetic.AnniversaryShoes]: "Anniversary Shoes",
 			[Cosmetic.AnniversaryTuxedoCape]: "Anniversary Tuxedo Cape",
 		},
+		"interaction-error":
+			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
 		timestamps: "Timestamps",
 		view: "View",
 		"open-bracket": " (",

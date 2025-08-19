@@ -1,5 +1,5 @@
 import process from "node:process";
-import { ComponentType, MessageFlags } from "@discordjs/core";
+import { MessageFlags } from "@discordjs/core";
 import { CDN_URL as CDN_URL_PRODUCTION, WEBSITE_URL } from "@thatskyapplication/utility";
 import { z } from "zod/v4";
 
@@ -96,22 +96,3 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 	content: `This command requires me to be present in the server. [Invite me](${APPLICATION_INVITE_URL}) with the bot scope and try again!\nIf you need help, join the [support server](${SUPPORT_SERVER_INVITE_URL})!`,
 	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 } as const;
-
-// Error response.
-export const ERROR_RESPONSE = {
-	content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
-	components: [],
-	embeds: [],
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
-};
-
-// Error response for components v2.
-export const ERROR_RESPONSE_COMPONENTS_V2 = {
-	components: [
-		{
-			type: ComponentType.TextDisplay as const,
-			content: `Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server](${SUPPORT_SERVER_INVITE_URL}) and report this issue! 🩵`,
-		},
-	],
-	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-};

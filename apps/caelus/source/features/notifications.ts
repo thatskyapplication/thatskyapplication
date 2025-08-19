@@ -31,10 +31,7 @@ import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Role } from "../models/discord/role.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import {
-	ERROR_RESPONSE_COMPONENTS_V2,
-	NOT_IN_CACHED_GUILD_RESPONSE,
-} from "../utility/configuration.js";
+import { NOT_IN_CACHED_GUILD_RESPONSE } from "../utility/configuration.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	NOTIFICATION_CHANNEL_TYPES,
@@ -283,18 +280,7 @@ export async function displayNotificationType(
 	}
 
 	if (!isNotificationType(notificationType)) {
-		pino.error(
-			interaction,
-			"Received an unknown notification type whilst setting up notifications.",
-		);
-
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-
-		return;
+		throw new Error("Received an unknown notification type whilst setting up notifications.");
 	}
 
 	const notificationsPacket = await pg<NotificationPacket>(Table.Notifications)
@@ -454,18 +440,7 @@ export async function handleChannelSelectMenu(
 	const notificationType = Number(notificationTypeString);
 
 	if (!isNotificationType(notificationType)) {
-		pino.error(
-			interaction,
-			"Received an unknown notification type whilst setting up notifications.",
-		);
-
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-
-		return;
+		throw new Error("Received an unknown notification type whilst setting up notifications.");
 	}
 
 	const [channelId] = interaction.data.values;
@@ -504,18 +479,7 @@ export async function handleRoleSelectMenu(
 	const notificationType = Number(notificationTypeString);
 
 	if (!isNotificationType(notificationType)) {
-		pino.error(
-			interaction,
-			"Received an unknown notification type whilst setting up notifications.",
-		);
-
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-
-		return;
+		throw new Error("Received an unknown notification type whilst setting up notifications.");
 	}
 
 	const [roleId] = interaction.data.values;
@@ -545,18 +509,7 @@ export async function handleStringSelectMenu(
 	const notificationType = Number(notificationTypeString);
 
 	if (!isNotificationType(notificationType)) {
-		pino.error(
-			interaction,
-			"Received an unknown notification type whilst setting up notifications.",
-		);
-
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-
-		return;
+		throw new Error("Received an unknown notification type whilst setting up notifications.");
 	}
 
 	const [offset] = interaction.data.values;

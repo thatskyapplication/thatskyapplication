@@ -56,7 +56,6 @@ import { SECRET_AREA } from "../data/secret-area.js";
 import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
-import pino from "../pino.js";
 import {
 	CatalogueType,
 	GUIDE_SPIRIT_IN_PROGRESS_TEXT,
@@ -66,7 +65,6 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveCostToString,
 } from "../utility/catalogue.js";
-import { ERROR_RESPONSE_COMPONENTS_V2 } from "../utility/configuration.js";
 import {
 	CATALOGUE_EVENTS_THRESHOLD,
 	DEFAULT_EMBED_COLOUR,
@@ -1348,15 +1346,7 @@ export async function viewSeason(
 	const season = seasons.get(seasonId);
 
 	if (!season) {
-		pino.error(interaction, "Failed to view a season.");
-
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-
-		return;
+		throw new Error("Failed to view a season.");
 	}
 
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
@@ -1845,15 +1835,7 @@ export async function parseViewSpirit(
 	const spirit = spirits().get(spiritId as SpiritIds);
 
 	if (!spirit) {
-		pino.error(interaction, `Invalid spirit id: ${spiritId}`);
-
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-
-		return;
+		throw new Error(`Invalid spirit id: ${spiritId}`);
 	}
 
 	await viewSpirit(interaction, spirit, {
@@ -2103,15 +2085,7 @@ export async function parseViewEvent(
 	const event = skyEvents().get(eventId as EventIds);
 
 	if (!event) {
-		pino.error(interaction, "Could not parse an event for the catalogue.");
-
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-
-		return;
+		throw new Error("Could not parse an event for the catalogue.");
 	}
 
 	await viewEvent(interaction, event, {
@@ -2864,13 +2838,7 @@ export async function parseSetItems(
 				return;
 			}
 			default: {
-				pino.error(interaction, "Could not parse items to set.");
-
-				await client.api.interactions.updateMessage(
-					interaction.id,
-					interaction.token,
-					ERROR_RESPONSE_COMPONENTS_V2,
-				);
+				throw new Error("Could not parse items to set.");
 			}
 		}
 	}

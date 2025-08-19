@@ -37,8 +37,6 @@ import { t } from "i18next";
 import { client } from "../discord.js";
 import type { GuessPacket } from "../models/Guess.js";
 import pg from "../pg.js";
-import pino from "../pino.js";
-import { ERROR_RESPONSE_COMPONENTS_V2 } from "../utility/configuration.js";
 import {
 	DEFAULT_EMBED_COLOUR,
 	GUESS_ANSWER_1,
@@ -262,13 +260,7 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 	const parsedTimeoutTimestamp = Number(timeoutTimestamp);
 
 	if (!isGuessDifficultyLevel(parsedDifficulty)) {
-		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-		return;
+		throw new Error(`Invalid guessing game difficulty level: ${difficulty}`);
 	}
 
 	if (Date.now() > parsedTimeoutTimestamp) {
@@ -311,13 +303,7 @@ export async function parseEndGame(interaction: APIMessageComponentButtonInterac
 	const difficulty = Number(rawDifficulty);
 
 	if (!isGuessDifficultyLevel(difficulty)) {
-		pino.warn(interaction, `Invalid guessing game difficulty level: ${rawDifficulty}`);
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-		return;
+		throw new Error(`Invalid guessing game difficulty level: ${rawDifficulty}`);
 	}
 
 	const streak = Number(rawStreak);
@@ -381,13 +367,7 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 	const difficulty = Number(customId.slice(customId.indexOf("§") + 1));
 
 	if (!isGuessDifficultyLevel(difficulty)) {
-		pino.warn(interaction, `Invalid guessing game difficulty level: ${difficulty}`);
-		await client.api.interactions.updateMessage(
-			interaction.id,
-			interaction.token,
-			ERROR_RESPONSE_COMPONENTS_V2,
-		);
-		return;
+		throw new Error(`Invalid guessing game difficulty level: ${difficulty}`);
 	}
 
 	await guess(interaction, difficulty, 0);
