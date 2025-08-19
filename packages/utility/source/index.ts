@@ -57,9 +57,9 @@ export {
 	PLAY_FIGHTS,
 } from "./friendship-actions.js";
 export {
-	GUESS_DIFFICULTY_LEVEL_VALUES,
-	GuessDifficultyLevel,
-	GuessDifficultyLevelToName,
+	GUESS_TYPE_VALUES,
+	GuessType,
+	GuessTypeToName,
 } from "./guess.js";
 export {
 	AreaToWingedLight,

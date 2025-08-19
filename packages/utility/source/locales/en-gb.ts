@@ -1,6 +1,6 @@
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
 import { DailyQuest, type DailyQuests } from "../daily-guides.js";
-import { GUESS_DIFFICULTY_LEVEL_VALUES, GuessDifficultyLevelToName } from "../guess.js";
+import { GUESS_TYPE_VALUES, GuessTypeToName } from "../guess.js";
 import { isRealm, REALM_NAME_VALUES, RealmName, SKY_MAP_VALUES, SkyMap } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
@@ -2825,9 +2825,9 @@ export default {
 				"command-option-difficulty-name": "difficulty",
 				"command-option-difficulty-description": "Adjust the difficulty level!",
 				"command-option-difficulty-choice-name": Object.fromEntries(
-					GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => [
+					GUESS_TYPE_VALUES.map((guessDifficultyLevel) => [
 						guessDifficultyLevel,
-						GuessDifficultyLevelToName[guessDifficultyLevel],
+						GuessTypeToName[guessDifficultyLevel],
 					]),
 				),
 			},
@@ -2837,9 +2837,9 @@ export default {
 				"command-option-difficulty-name": "difficulty",
 				"command-option-difficulty-description": "What difficulty would you like to view?",
 				"command-option-difficulty-choice-name": Object.fromEntries(
-					GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => [
+					GUESS_TYPE_VALUES.map((guessDifficultyLevel) => [
 						guessDifficultyLevel,
-						GuessDifficultyLevelToName[guessDifficultyLevel],
+						GuessTypeToName[guessDifficultyLevel],
 					]),
 				),
 			},

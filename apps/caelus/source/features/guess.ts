@@ -20,9 +20,9 @@ import {
 	type ElderSpirit,
 	formatEmoji,
 	formatEmojiURL,
-	GUESS_DIFFICULTY_LEVEL_VALUES,
-	GuessDifficultyLevel,
-	GuessDifficultyLevelToName,
+	GUESS_TYPE_VALUES,
+	GuessType,
+	GuessTypeToName,
 	type GuideSpirit,
 	getRandomElement,
 	type SeasonalSpirit,
@@ -55,13 +55,13 @@ import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
 export interface GuessPacket {
 	user_id: string;
 	streak: number;
-	type: GuessDifficultyLevel;
+	type: GuessType;
 }
 
 type GuessUserRanking = GuessPacket & { rank: number };
 
-export function isGuessDifficultyLevel(level: number): level is GuessDifficultyLevel {
-	return GUESS_DIFFICULTY_LEVEL_VALUES.includes(level);
+export function isGuessType(type: number): type is GuessType {
+	return GUESS_TYPE_VALUES.includes(type);
 }
 
 function getAnswer(): [Snowflake, SpiritIds] {
@@ -88,13 +88,13 @@ function getAnswer(): [Snowflake, SpiritIds] {
 	return [emoji, spiritId];
 }
 
-function getOptions(difficulty: GuessDifficultyLevel) {
+function getOptions(type: GuessType) {
 	// Get the answer.
 	const [emoji, spiritId] = getAnswer();
 	const foundAnswers = new Set<SpiritIds>();
 
 	// Generate other answers.
-	if (difficulty === GuessDifficultyLevel.Original) {
+	if (type === GuessType.Original) {
 		const filtered = spirits().clone();
 		filtered.delete(spiritId);
 
@@ -138,10 +138,10 @@ function getOptions(difficulty: GuessDifficultyLevel) {
 
 export async function guess(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	difficulty: GuessDifficultyLevel,
+	type: GuessType,
 	streak: number,
 ) {
-	const { answer, emoji, options } = getOptions(difficulty);
+	const { answer, emoji, options } = getOptions(type);
 
 	// Set the timeout timestamp.
 	const timeoutTimestamp = DiscordSnowflake.timestampFrom(interaction.id) + GUESS_TIMEOUT;
@@ -149,14 +149,14 @@ export async function guess(
 	// Create buttons from the answers.
 	const buttons: APIButtonComponentWithCustomId[] = options.map((option, index) => ({
 		type: ComponentType.Button,
-		custom_id: `${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer}§${option}§${difficulty}§${streak}§${timeoutTimestamp}`,
+		custom_id: `${index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3}§${answer}§${option}§${type}§${streak}§${timeoutTimestamp}`,
 		label: t(`spirits.${option}`, { lng: interaction.locale, ns: "general" }),
 		style: ButtonStyle.Secondary,
 	}));
 
 	const endGameButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${GUESS_END_GAME}§${answer}§null§${difficulty}§${streak}§${timeoutTimestamp}`,
+		custom_id: `${GUESS_END_GAME}§${answer}§null§${type}§${streak}§${timeoutTimestamp}`,
 		label: t("guess.end-game", { lng: interaction.locale, ns: "features" }),
 		style: ButtonStyle.Danger,
 	};
@@ -168,7 +168,7 @@ export async function guess(
 		(
 			await pg<GuessPacket>(Table.Guess)
 				.select("streak")
-				.where({ user_id: invoker.id, type: difficulty })
+				.where({ user_id: invoker.id, type })
 				.first()
 		)?.streak ?? 0;
 
@@ -222,7 +222,7 @@ export async function guess(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# Difficulty: ${GuessDifficultyLevelToName[difficulty]} | Streak: ${streak} | Highest: ${highestStreak}`,
+					content: `-# Difficulty: ${GuessTypeToName[type]} | Streak: ${streak} | Highest: ${highestStreak}`,
 				},
 			],
 		},
@@ -238,13 +238,10 @@ export async function guess(
 	}
 }
 
-function tryAgainComponent(
-	difficulty: GuessDifficultyLevel,
-	locale: Locale,
-): APIButtonComponentWithCustomId {
+function tryAgainComponent(type: GuessType, locale: Locale): APIButtonComponentWithCustomId {
 	return {
 		type: ComponentType.Button,
-		custom_id: `${GUESS_TRY_AGAIN}§${difficulty}`,
+		custom_id: `${GUESS_TRY_AGAIN}§${type}`,
 		label: t("guess.try-again", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Primary,
 	};
@@ -263,19 +260,19 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 		return;
 	}
 
-	const [, answer, guessedAnswer, difficulty, streak, timeoutTimestamp] =
+	const [, answer, guessedAnswer, type, streak, timeoutTimestamp] =
 		interaction.data.custom_id.split("§");
 
-	const parsedDifficulty = Number(difficulty);
+	const parsedType = Number(type);
 	const parsedStreak = Number(streak);
 	const parsedTimeoutTimestamp = Number(timeoutTimestamp);
 
-	if (!isGuessDifficultyLevel(parsedDifficulty)) {
-		throw new Error(`Invalid guessing game difficulty level: ${difficulty}`);
+	if (!isGuessType(parsedType)) {
+		throw new Error(`Invalid guessing game type: ${type}`);
 	}
 
 	if (Date.now() > parsedTimeoutTimestamp) {
-		await update(parsedDifficulty, invoker.id, parsedStreak);
+		await update(parsedType, invoker.id, parsedStreak);
 
 		(interaction.message.components![0]! as APIContainerComponent).components.splice(2, 1, {
 			type: ComponentType.TextDisplay,
@@ -290,11 +287,11 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 	}
 
 	if (guessedAnswer !== answer) {
-		await endGame(interaction, answer!, guessedAnswer!, parsedDifficulty, parsedStreak);
+		await endGame(interaction, answer!, guessedAnswer!, parsedType, parsedStreak);
 		return;
 	}
 
-	await guess(interaction, parsedDifficulty, parsedStreak + 1);
+	await guess(interaction, parsedType, parsedStreak + 1);
 }
 
 export async function parseEndGame(interaction: APIMessageComponentButtonInteraction) {
@@ -310,22 +307,22 @@ export async function parseEndGame(interaction: APIMessageComponentButtonInterac
 		return;
 	}
 
-	const [, answer, guess, rawDifficulty, rawStreak] = interaction.data.custom_id.split("§");
-	const difficulty = Number(rawDifficulty);
+	const [, answer, guess, rawType, rawStreak] = interaction.data.custom_id.split("§");
+	const type = Number(rawType);
 
-	if (!isGuessDifficultyLevel(difficulty)) {
-		throw new Error(`Invalid guessing game difficulty level: ${rawDifficulty}`);
+	if (!isGuessType(type)) {
+		throw new Error(`Invalid guessing game type: ${type}`);
 	}
 
 	const streak = Number(rawStreak);
-	await endGame(interaction, answer!, guess!, difficulty, streak);
+	await endGame(interaction, answer!, guess!, type, streak);
 }
 
 async function endGame(
 	interaction: APIMessageComponentButtonInteraction,
 	answer: string,
 	guess: string,
-	difficulty: GuessDifficultyLevel,
+	type: GuessType,
 	streak: number,
 ) {
 	const { locale } = interaction;
@@ -344,7 +341,7 @@ async function endGame(
 	}
 
 	const invoker = interactionInvoker(interaction);
-	await update(difficulty, invoker.id, streak);
+	await update(type, invoker.id, streak);
 
 	(interaction.message.components![0]! as APIContainerComponent).components.splice(2, 1, {
 		type: ComponentType.TextDisplay,
@@ -353,7 +350,7 @@ async function endGame(
 
 	(interaction.message.components![0]! as APIContainerComponent).components.splice(4, 2, {
 		type: ComponentType.ActionRow,
-		components: [tryAgainComponent(difficulty, locale)],
+		components: [tryAgainComponent(type, locale)],
 	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -375,25 +372,25 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 	}
 
 	const customId = interaction.data.custom_id;
-	const difficulty = Number(customId.slice(customId.indexOf("§") + 1));
+	const type = Number(customId.slice(customId.indexOf("§") + 1));
 
-	if (!isGuessDifficultyLevel(difficulty)) {
-		throw new Error(`Invalid guessing game difficulty level: ${difficulty}`);
+	if (!isGuessType(type)) {
+		throw new Error(`Invalid guessing game type: ${type}`);
 	}
 
-	await guess(interaction, difficulty, 0);
+	await guess(interaction, type, 0);
 }
 
-async function update(difficulty: GuessDifficultyLevel, userId: Snowflake, streak: number) {
+async function update(type: GuessType, userId: Snowflake, streak: number) {
 	await pg<GuessPacket>(Table.Guess)
-		.insert({ user_id: userId, streak, type: difficulty })
+		.insert({ user_id: userId, streak, type: type })
 		.onConflict(["user_id", "type"])
 		.merge()
 		.where(`${Table.Guess}.streak`, "<", streak)
 		.orWhere(`${Table.Guess}.streak`, "is", null);
 }
 
-export async function findUser(userId: Snowflake, type: number) {
+export async function findUser(userId: Snowflake, type: GuessType) {
 	const result = await pg
 		.select<GuessUserRanking>()
 		.from(
@@ -414,7 +411,7 @@ export async function findUser(userId: Snowflake, type: number) {
 
 export async function leaderboard(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	difficulty: GuessDifficultyLevel,
+	type: GuessType,
 ) {
 	const { locale } = interaction;
 	const isChatInput = isChatInputCommand(interaction);
@@ -432,7 +429,7 @@ export async function leaderboard(
 			"streak",
 			pg.raw("row_number() over (partition by type order by streak desc)::int as rank"),
 		)
-		.where({ type: difficulty })
+		.where({ type })
 		.where("streak", ">", 0)
 		.orderBy("rank")
 		.limit(GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER + 1)
@@ -457,7 +454,7 @@ export async function leaderboard(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${GuessDifficultyLevelToName[difficulty]} Leaderboard`,
+			content: `## ${GuessTypeToName[type]} Leaderboard`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -472,7 +469,7 @@ export async function leaderboard(
 		},
 	];
 
-	const guessPacketInvoker = await findUser(interactionInvoker(interaction).id, difficulty);
+	const guessPacketInvoker = await findUser(interactionInvoker(interaction).id, type);
 
 	if (guessPacketInvoker) {
 		containerComponents.push({
@@ -492,7 +489,7 @@ export async function leaderboard(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${difficulty}§${page - 1}`,
+					custom_id: `${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${type}§${page - 1}`,
 					disabled: !hasPreviousPage,
 					emoji: { name: "⬅️" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
@@ -500,7 +497,7 @@ export async function leaderboard(
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${difficulty}§${page + 1}`,
+					custom_id: `${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${type}§${page + 1}`,
 					disabled: !hasNextPage,
 					emoji: { name: "➡️" },
 					label: t("navigation-next", { lng: locale, ns: "general" }),

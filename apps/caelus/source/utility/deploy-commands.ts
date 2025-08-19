@@ -12,8 +12,8 @@ import {
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import {
-	GUESS_DIFFICULTY_LEVEL_VALUES,
-	GuessDifficultyLevelToName,
+	GUESS_TYPE_VALUES,
+	GuessTypeToName,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
@@ -514,8 +514,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						description_localizations: localisations(
 							"guess.game.command-option-difficulty-description",
 						),
-						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
-							name: GuessDifficultyLevelToName[guessDifficultyLevel],
+						choices: GUESS_TYPE_VALUES.map((guessDifficultyLevel) => ({
+							name: GuessTypeToName[guessDifficultyLevel],
 							name_localizations: localisations(
 								`guess.game.command-option-difficulty-choice-name.${guessDifficultyLevel}`,
 							),
@@ -548,8 +548,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						description_localizations: localisations(
 							"guess.leaderboard.command-option-difficulty-description",
 						),
-						choices: GUESS_DIFFICULTY_LEVEL_VALUES.map((guessDifficultyLevel) => ({
-							name: GuessDifficultyLevelToName[guessDifficultyLevel],
+						choices: GUESS_TYPE_VALUES.map((guessDifficultyLevel) => ({
+							name: GuessTypeToName[guessDifficultyLevel],
 							name_localizations: localisations(
 								`guess.leaderboard.command-option-difficulty-choice-name.${guessDifficultyLevel}`,
 							),

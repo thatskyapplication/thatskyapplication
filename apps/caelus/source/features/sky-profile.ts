@@ -38,7 +38,7 @@ import {
 	CROWDIN_URL,
 	type Emoji,
 	formatEmoji,
-	GuessDifficultyLevel,
+	GuessType,
 	isCountry,
 	isPlatformId,
 	MAXIMUM_WINGED_LIGHT,
@@ -2224,8 +2224,8 @@ async function skyProfileComponents(
 	}
 
 	if (guessRank) {
-		const originalRanking = await findUser(userId, GuessDifficultyLevel.Original);
-		const hardRanking = await findUser(userId, GuessDifficultyLevel.Hard);
+		const originalRanking = await findUser(userId, GuessType.Original);
+		const hardRanking = await findUser(userId, GuessType.Hard);
 
 		miscellaneous.push(
 			`**${t("sky-profile.guess-rank-original", { lng: locale, ns: "features" })}** ${originalRanking ? `#${originalRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,

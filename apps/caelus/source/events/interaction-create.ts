@@ -101,13 +101,7 @@ import {
 	giveaway,
 	upsell,
 } from "../features/giveaway.js";
-import {
-	answer,
-	isGuessDifficultyLevel,
-	leaderboard,
-	parseEndGame,
-	tryAgain,
-} from "../features/guess.js";
+import { answer, isGuessType, leaderboard, parseEndGame, tryAgain } from "../features/guess.js";
 import {
 	displayNotificationType,
 	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
@@ -764,7 +758,7 @@ export default {
 						customId.slice(customId.indexOf("§") + 1, customId.lastIndexOf("§")),
 					);
 
-					if (isGuessDifficultyLevel(guessDifficultyLevel)) {
+					if (isGuessType(guessDifficultyLevel)) {
 						await leaderboard(interaction, guessDifficultyLevel);
 						return;
 					}
