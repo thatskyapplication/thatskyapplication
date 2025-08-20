@@ -55,6 +55,7 @@ export interface GuessPacket {
 	user_id: string;
 	streak: number;
 	type: GuessTypes;
+	date: Date | null;
 }
 
 type GuessUserRanking = GuessPacket & { rank: number };
@@ -435,7 +436,16 @@ async function endGame({
 				.first()
 		)?.streak ?? 0;
 
-	await update(type, invoker.id, streak);
+	await pg<GuessPacket>(Table.Guess)
+		.insert({
+			user_id: invoker.id,
+			streak,
+			type,
+			date: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+		})
+		.onConflict(["user_id", "type"])
+		.merge()
+		.where(`${Table.Guess}.streak`, "<", streak);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -500,15 +510,6 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 
 	const { type } = parseCustomId(interaction.data.custom_id);
 	await guess(interaction, type, 0);
-}
-
-async function update(type: GuessTypes, userId: Snowflake, streak: number) {
-	await pg<GuessPacket>(Table.Guess)
-		.insert({ user_id: userId, streak, type: type })
-		.onConflict(["user_id", "type"])
-		.merge()
-		.where(`${Table.Guess}.streak`, "<", streak)
-		.orWhere(`${Table.Guess}.streak`, "is", null);
 }
 
 export async function findUser(userId: Snowflake, type: GuessTypes) {
