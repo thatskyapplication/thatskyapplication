@@ -326,7 +326,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					? t(`notifications.messages.${type}.message-${key}`, {
 							lng: notificationPacket.locale,
 							ns: "features",
-							location: `[${t(`realms.${notification.realm}`, { lng: notificationPacket.locale, ns: "general" })}${t("open-bracket", { lng: notificationPacket.locale, ns: "general" })}${t(`maps.${notification.skyMap}`, { lng: notificationPacket.locale, ns: "general" })}${t("close-bracket", { lng: notificationPacket.locale, ns: "general" })}](${notification.url})`,
+							location: `[${t("shard-eruption.realm-map", { lng: notificationPacket.locale, ns: "features", realm: notification.realm, map: notification.skyMap })}](${notification.url})`,
 							timestampStart: notification.timestampStart,
 							timestampEnd: notification.timestampEnd,
 						})

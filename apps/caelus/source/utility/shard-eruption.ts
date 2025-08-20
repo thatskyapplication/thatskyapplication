@@ -48,7 +48,7 @@ export function shardEruptionInformationString(
 	useHyperlink: boolean,
 	locale: Locale,
 ) {
-	let realmMap = `${t(`realms.${realm}`, { lng: locale, ns: "general" })}${t("open-bracket", { lng: locale, ns: "general" })}${t(`maps.${skyMap}`, { lng: locale, ns: "general" })}${t("close-bracket", { lng: locale, ns: "general" })}`;
+	let realmMap = t("shard-eruption.realm-map", { lng: locale, ns: "features", realm, map: skyMap });
 
 	if (useHyperlink) {
 		realmMap = `[${realmMap}](${url})`;

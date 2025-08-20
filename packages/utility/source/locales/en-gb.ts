@@ -2694,8 +2694,6 @@ export default {
 			"This command requires me to be present in the server. [Invite me]({{url1}}) with the bot scope and try again!\nIf you need help, join the [support server]({{url2}})!",
 		timestamps: "Timestamps",
 		view: "View",
-		"open-bracket": " (",
-		"close-bracket": ")",
 		"navigation-back": "Back",
 		"navigation-next": "Next",
 	},
@@ -3202,6 +3200,7 @@ export default {
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
 			today: "Today",
 			browse: "Browse",
+			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))",
 		},
 		"sky-profile": {
 			"unknown-country": "Please select a country!",
