@@ -63,7 +63,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
-					cosmetic: Cosmetic.MeditatingMonasticChair,
+					cosmetic: Cosmetic.MeditatingMonasticTable,
 					cost: { hearts: 30 },
 				},
 			],

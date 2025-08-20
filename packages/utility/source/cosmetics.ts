@@ -362,7 +362,7 @@ export enum Cosmetic {
 	EmoteFloat3 = 339,
 	EmoteFloat4 = 340,
 	MeditatingMonasticBlessing2 = 341,
-	MeditatingMonasticChair = 342,
+	MeditatingMonasticTable = 342,
 
 	ElderOfTheIsleHair = 343,
 	ElderOfThePrairieHair = 344,

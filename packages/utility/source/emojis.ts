@@ -5836,7 +5836,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.EmoteFloat3]: EMOTE_EMOJIS.Float,
 		[Cosmetic.EmoteFloat4]: EMOTE_EMOJIS.Float,
 		[Cosmetic.MeditatingMonasticBlessing2]: MISCELLANEOUS_EMOJIS.Blessing2,
-		[Cosmetic.MeditatingMonasticChair]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp01,
+		[Cosmetic.MeditatingMonasticTable]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp01,
 		[Cosmetic.ElderOfTheIsleHair]: HAIR_EMOJIS.Hair30,
 		[Cosmetic.ElderOfThePrairieHair]: HAIR_EMOJIS.Hair31,
 		[Cosmetic.ElderOfTheForestHair]: HAIR_EMOJIS.Hair32,

@@ -1379,7 +1379,7 @@ export default {
 			[Cosmetic.MeditatingMonasticHair]: "Hair",
 			[Cosmetic.EmoteFloat3]: "Float 3",
 			[Cosmetic.EmoteFloat4]: "Float 4",
-			[Cosmetic.MeditatingMonasticChair]: "Chair",
+			[Cosmetic.MeditatingMonasticTable]: "Table",
 			[Cosmetic.ElderOfTheIsleHair]: "Hair",
 			[Cosmetic.ElderOfThePrairieHair]: "Hair",
 			[Cosmetic.ElderOfTheForestHair]: "Hair",
