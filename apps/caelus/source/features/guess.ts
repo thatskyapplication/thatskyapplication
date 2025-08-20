@@ -36,7 +36,6 @@ import { t } from "i18next";
 import { client } from "../discord.js";
 import pg from "../pg.js";
 import {
-	DEFAULT_EMBED_COLOUR,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -263,7 +262,6 @@ export async function guess(
 	const components: [APIMessageTopLevelComponent] = [
 		{
 			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
 			components: [
 				{
 					type: ComponentType.TextDisplay,
@@ -630,11 +628,7 @@ export async function leaderboard(
 	);
 
 	const components: [APIMessageTopLevelComponent] = [
-		{
-			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
-			components: containerComponents,
-		},
+		{ type: ComponentType.Container, components: containerComponents },
 	];
 
 	if (isChatInput) {
