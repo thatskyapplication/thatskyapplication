@@ -2439,8 +2439,6 @@
 		"interaction-not-in-cached-guild": "",
 		"timestamps": "時間戳",
 		"view": "瀏覽",
-		"open-bracket": "（",
-		"close-bracket": "）",
 		"navigation-back": "上一頁",
 		"navigation-next": "下一頁"
 	},
@@ -2912,7 +2910,8 @@
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
 			"today": "",
-			"browse": ""
+			"browse": "",
+			"realm-map": ""
 		},
 		"sky-profile": {
 			"unknown-country": "",

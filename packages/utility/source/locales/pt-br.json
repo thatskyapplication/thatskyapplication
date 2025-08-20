@@ -2439,8 +2439,6 @@
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
 		"timestamps": "Marcação de data/hora",
 		"view": "Exibir",
-		"open-bracket": " (",
-		"close-bracket": ")",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar"
 	},
@@ -2912,7 +2910,8 @@
 			"no-shard-eruptions-today": "Não haverá erupções de cristais hoje.",
 			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
 			"today": "Hoje",
-			"browse": "Procurar"
+			"browse": "Procurar",
+			"realm-map": ""
 		},
 		"sky-profile": {
 			"unknown-country": "Por favor, selecione um país!",
