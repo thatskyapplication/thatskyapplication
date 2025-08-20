@@ -2,6 +2,7 @@ import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { request } from "undici";
 import { GUILD_CACHE } from "./caches/guilds.js";
+import { commandAnalyticsDeleteOld } from "./features/command-analytics.js";
 import {
 	distribute,
 	resetDailyGuides,
@@ -19,16 +20,28 @@ export default function croner() {
 		{ catch: (error) => pino.error(error, "Error during changing days."), timezone: TIME_ZONE },
 		async () => {
 			const today = skyToday();
+			const independentPromises = [commandAnalyticsDeleteOld()];
+
+			if (
+				today.year === GIVEAWAY_END_DATE.year &&
+				today.month === GIVEAWAY_END_DATE.month &&
+				today.day === GIVEAWAY_END_DATE.day
+			) {
+				independentPromises.push(end());
+			}
+
 			const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 			if (!guild) {
 				pino.error("Could not find the support server whilst resetting daily guides.");
+				await Promise.all(independentPromises);
 				return;
 			}
 
 			const me = await guild.fetchMe();
 
 			await Promise.all([
+				...independentPromises,
 				resetDailyGuides({ user: me.user, lastUpdatedAt: today.toJSDate() }),
 				resetDailyGuidesDistribution(),
 			]);
@@ -39,14 +52,6 @@ export default function croner() {
 				lastUpdatedAt: today.toJSDate(),
 				force: true,
 			});
-
-			if (
-				today.year === GIVEAWAY_END_DATE.year &&
-				today.month === GIVEAWAY_END_DATE.month &&
-				today.day === GIVEAWAY_END_DATE.day
-			) {
-				await end();
-			}
 		},
 	);
 

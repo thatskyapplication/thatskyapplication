@@ -85,6 +85,7 @@ import {
 	viewStart,
 	viewStarterPacks,
 } from "../features/catalogue.js";
+import { commandAnalyticsSend } from "../features/command-analytics.js";
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
@@ -353,6 +354,17 @@ function logCommand(
 
 	const invoker = interactionInvoker(interaction);
 
+	void commandAnalyticsSend({
+		userId: invoker.id,
+		guildId: interaction.guild_id,
+		channelId: interaction.channel.id,
+		commandId: interaction.data.id,
+		commandString: command,
+		userLocale: interaction.locale,
+		guildLocale: interaction.guild_locale,
+		date: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+	});
+
 	pino.info(
 		{
 			user: { id: invoker.id, username: invoker.username },
@@ -378,7 +390,7 @@ function logMessageComponent(
 	pino.info(
 		{
 			user: { id: invoker.id, invokername: invoker.username },
-			customId: customId,
+			customId,
 			values: "values" in interaction.data ? interaction.data.values : null,
 			guildId: interaction.guild_id,
 			channelId: interaction.channel.id,
