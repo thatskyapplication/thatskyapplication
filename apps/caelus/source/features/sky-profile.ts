@@ -306,7 +306,7 @@ function generateLabelLetter(label: string) {
 	return label[0]!.toUpperCase();
 }
 
-export async function skyProfileFetch(userId: Snowflake) {
+async function skyProfileFetch(userId: Snowflake) {
 	return await pg
 		.select<SkyProfileData>(["p.*", "u.crowdin_user_id", "u.supporter"])
 		.from(`${Table.Profiles} as p`)

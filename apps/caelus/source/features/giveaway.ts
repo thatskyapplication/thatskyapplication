@@ -42,7 +42,7 @@ import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { chatInputApplicationCommandMention, interactionInvoker } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 
-export const GIVEAWAY_INFORMATION_TEXT =
+const GIVEAWAY_INFORMATION_TEXT =
 	`Welcome to the giveaway!\n\nThere is one prize available: an in-app purchase of your choice from Days of Colour.\n### How do I participate?\nYou must be in the [support server](${GIVEAWAY_INVITE_URL}). You claim entry tickets via this command. Entry tickets may be claimed daily. The more entry tickets you have, the more chance you have of winning. Simple!\n### How will the winner be announced?\n\nThe winner is picked at random. The winner will be announced in <#${ANNOUNCEMENTS_CHANNEL_ID}> automatically on <t:${GIVEAWAY_END_TIMESTAMP_SECONDS}:F> (<t:${GIVEAWAY_END_TIMESTAMP_SECONDS}:R>).` as const;
 
 export interface GiveawayPacket {

@@ -26,7 +26,6 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
-	CDN_URL,
 	type DailyGuidesPacket,
 	DailyQuestToInfographicURL,
 	formatEmoji,
@@ -62,6 +61,7 @@ import S3Client from "../s3-client.js";
 import {
 	APPLICATION_ID,
 	CDN_BUCKET,
+	CDN_URL,
 	DAILY_GUIDES_LOG_CHANNEL_ID,
 	MAXIMUM_CONCURRENCY_LIMIT,
 	SUPPORT_SERVER_GUILD_ID,
