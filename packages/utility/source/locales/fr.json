@@ -2581,8 +2581,7 @@
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"heart": {
 			"command-name": "cœur",
@@ -2602,8 +2601,7 @@
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "utilisateur",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"hug": {
 			"command-name": "câlin",
@@ -2615,15 +2613,13 @@
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "utilisateur",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "utilisateur",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"quest": {
 			"command-name": "quête",
@@ -2801,13 +2797,46 @@
 			"season-upcoming_one": "La nouvelle saison commence dans {{count}} jour.",
 			"season-upcoming_other": "La nouvelle saison commence dans {{count}} jours.",
 			"not-yet-updated": "Les guides journaliers attendent qu'un incroyable enfant de Sky les mettent à jour. Vous avez l'information dont nous avons besoin ? Rejoignez le [serveur d'assistance]({{url}}) et mettez-les à jour pour la communauté !",
-			"quest-unknown": ""
+			"quest-unknown": "",
+			"quest-no-infographic": ""
 		},
 		"data": {
 			"delete-message": "",
 			"delete-my-data": "Supprimer mes données",
 			"delete-error": "Il y a eu un problème lors de la suppression de vos données. Ne vous inquiétez pas, cet incident est suivi et a été converti en une demande de suppression de données manuelle (au lieu d'une automatique). Vos données seront supprimées sous 30 jours.\n\nSi vous le souhaitez, vous pouvez rejoindre le [serveur d'assistance]({{url}}) et demander de voir le statut de votre demande de suppression de données.",
 			"delete-success": "Vos données ont été supprimées. Vous êtes un papillon de nuit maintenant."
+		},
+		"friendship-actions": {
+			"hug-self": "Fais en profiter les autres! Va câliner quelqu'un!",
+			"hug-missing-external-apps-permission": "",
+			"hug-not-in-server": "{{user}} n'est pas dans ce serveur pour recevoir ton câlin.",
+			"hug-not-around": "{{user}} n'est pas dans le coin pour voir recevoir ton câlin!",
+			"hug-app": "{{user}} est un bot. Ils ne ressentent pas grand chose. Tu peux essayer, mais je crois qu'ils ne sont pas très sensible aux câlins.",
+			"hug-message": "{{user}}, {{invoker}} te fait un câlin!",
+			"high-five-self": "",
+			"high-five-missing-external-apps-permission": "",
+			"high-five-not-in-server": "",
+			"high-five-not-around": "",
+			"high-five-app": "",
+			"high-five-message": "",
+			"hair-tousle-self": "",
+			"hair-tousle-missing-external-apps-permission": "",
+			"hair-tousle-not-in-server": "",
+			"hair-tousle-not-around": "",
+			"hair-tousle-app": "",
+			"hair-tousle-message": "",
+			"play-fight-self": "",
+			"play-fight-missing-external-apps-permission": "",
+			"play-fight-not-in-server": "",
+			"play-fight-not-around": "",
+			"play-fight-app": "",
+			"play-fight-message": "",
+			"krill-self": "",
+			"krill-missing-external-apps-permission": "",
+			"krill-not-in-server": "",
+			"krill-not-around": "",
+			"krill-app": "",
+			"krill-message": ""
 		},
 		"guess": {
 			"type": {
@@ -2830,14 +2859,6 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": ""
-		},
-		"hug": {
-			"hug-self": "Fais en profiter les autres! Va câliner quelqu'un!",
-			"missing-external-apps-permission": "",
-			"not-in-server": "{{user}} n'est pas dans ce serveur pour recevoir ton câlin.",
-			"not-around": "{{user}} n'est pas dans le coin pour voir recevoir ton câlin!",
-			"hug-bot": "{{user}} est un bot. Ils ne ressentent pas grand chose. Tu peux essayer, mais je crois qu'ils ne sont pas très sensible aux câlins.",
-			"message": "{{user}}, {{invoker}} te fait un câlin!"
 		},
 		"notifications": {
 			"back": "Retour",

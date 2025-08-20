@@ -1127,7 +1127,7 @@
 			"336": "Cabelo",
 			"339": "Levitar 3",
 			"340": "Levitar 4",
-			"342": "",
+			"342": "Mesa",
 			"343": "Cabelo",
 			"344": "Cabelo",
 			"345": "Cabelo",
@@ -2581,8 +2581,7 @@
 			"command-name": "cafuné",
 			"command-description": "Faça um cafuné em alguém!",
 			"command-option-user-name": "usuário",
-			"command-option-user-description": "O indivíduo cujo cabelo será bagunçado.",
-			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu cafuné. Alguém precisa ajustar as permissões!"
+			"command-option-user-description": "O indivíduo cujo cabelo será bagunçado."
 		},
 		"heart": {
 			"command-name": "coração",
@@ -2602,8 +2601,7 @@
 			"command-name": "toca-aí",
 			"command-description": "Toca aí com alguém!",
 			"command-option-user-name": "usuário",
-			"command-option-user-description": "O indivíduo com quem vai fazer o toca aí.",
-			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu toca aí. Alguém precisa ajustar as permissões!"
+			"command-option-user-description": "O indivíduo com quem vai fazer o toca aí."
 		},
 		"hug": {
 			"command-name": "abraço",
@@ -2615,15 +2613,13 @@
 			"command-name": "krill",
 			"command-description": "Fazer alguém ser atacado por um krill!",
 			"command-option-user-name": "usuário",
-			"command-option-user-description": "O indivíduo a ser atacado por um krill.",
-			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não será atacado por um krill. Alguém precisa ajustar as permissões!"
+			"command-option-user-description": "O indivíduo a ser atacado por um krill."
 		},
 		"play-fight": {
 			"command-name": "jogo-de-luta",
 			"command-description": "Lute com alguém!",
 			"command-option-user-name": "usuário",
-			"command-option-user-description": "O indivíduo com quem vai fazer o jogo de luta.",
-			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não poderá ser desafiado para uma luta. Alguém precisa ajustar as permissões!"
+			"command-option-user-description": "O indivíduo com quem vai fazer o jogo de luta."
 		},
 		"quest": {
 			"command-name": "missão",
@@ -2801,13 +2797,46 @@
 			"season-upcoming_one": "A nova temporada inicia em {{count}} dia.",
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
 			"not-yet-updated": "Os guias diários estão esperando por uma incrível Criança da Luz para serem atualizados!\nPossui as informações que precisamos? Entre no [servidor de suporte]({{url}}) e atualize os guias você mesmo, ajudando a galera!",
-			"quest-unknown": "Uou, essa é uma missão diária que não conhecemos. Talvez tente outra?"
+			"quest-unknown": "Uou, essa é uma missão diária que não conhecemos. Talvez tente outra?",
+			"quest-no-infographic": "Essa missão não possui um infográfico."
 		},
 		"data": {
 			"delete-message": "Tem certeza que deseja excluir seus dados? Isso irá:\n- Excluir seu perfil Sky\n- Excluir seu inventário\n- Excluir seus corações\n  - Seu id de usuário no histórico de corações dos outros será anonimizado\n- Excluir seu recorde nos jogos de advinhação\n- Remover dados de sorteios\n- Remover seu cargo de tradutor, se tiver um",
 			"delete-my-data": "Excluir meus dados",
 			"delete-error": "Houve um problema ao excluir seus dados de usuário. Não se preocupe, este incidente está sendo acompanhado e foi convertido em uma solicitação manual de exclusão de dados (em vez de uma automática). Seus dados serão excluídos dentro de 30 dias.\n\nSe quiser, você pode entrar no [servidor de suporte]({{url}}) e pedir para verificar o status da sua solicitação de exclusão de dados.",
 			"delete-success": "Seus dados foram excluídos. Você é uma mariposa agora."
+		},
+		"friendship-actions": {
+			"hug-self": "Compartilhe o amor! Abrace alguém que não seja você!",
+			"hug-missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu abraço. Alguém precisa ajustar as permissões!",
+			"hug-not-in-server": "{{user}} não está no servidor para ser abraçado.",
+			"hug-not-around": "{{user}} não está por aqui para receber o abraço!",
+			"hug-app": "{{user}} É um bot. Eles são meio sem emoção. Imunes a abraços, eu diria.",
+			"hug-message": "{{user}}, {{invoker}} abraçou você!",
+			"high-five-self": "",
+			"high-five-missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu toca aí. Alguém precisa ajustar as permissões!",
+			"high-five-not-in-server": "",
+			"high-five-not-around": "",
+			"high-five-app": "",
+			"high-five-message": "",
+			"hair-tousle-self": "",
+			"hair-tousle-missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu cafuné. Alguém precisa ajustar as permissões!",
+			"hair-tousle-not-in-server": "",
+			"hair-tousle-not-around": "",
+			"hair-tousle-app": "",
+			"hair-tousle-message": "",
+			"play-fight-self": "",
+			"play-fight-missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não poderá ser desafiado para uma luta. Alguém precisa ajustar as permissões!",
+			"play-fight-not-in-server": "",
+			"play-fight-not-around": "",
+			"play-fight-app": "",
+			"play-fight-message": "",
+			"krill-self": "",
+			"krill-missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não será atacado por um krill. Alguém precisa ajustar as permissões!",
+			"krill-not-in-server": "",
+			"krill-not-around": "",
+			"krill-app": "",
+			"krill-message": ""
 		},
 		"guess": {
 			"type": {
@@ -2830,14 +2859,6 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu coração. Alguém precisa ajustar as permissões!"
-		},
-		"hug": {
-			"hug-self": "Compartilhe o amor! Abrace alguém que não seja você!",
-			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu abraço. Alguém precisa ajustar as permissões!",
-			"not-in-server": "{{user}} não está no servidor para ser abraçado.",
-			"not-around": "{{user}} não está por aqui para receber o abraço!",
-			"hug-bot": "{{user}} É um bot. Eles são meio sem emoção. Imunes a abraços, eu diria.",
-			"message": "{{user}}, {{invoker}} abraçou você!"
 		},
 		"notifications": {
 			"back": "Retornar",
@@ -2911,7 +2932,7 @@
 			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
 			"today": "Hoje",
 			"browse": "Procurar",
-			"realm-map": ""
+			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
 		},
 		"sky-profile": {
 			"unknown-country": "Por favor, selecione um país!",
