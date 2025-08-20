@@ -3081,6 +3081,7 @@ export default {
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!",
 			"quest-unknown": "Woah, that's a daily we do not know. Maybe try another?",
+			"quest-no-infographic": "This quest does not have an infographic.",
 		},
 		data: {
 			"delete-message":

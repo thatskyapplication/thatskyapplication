@@ -26,7 +26,9 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
+	DAILY_QUEST_VALUES,
 	type DailyGuidesPacket,
+	type DailyQuests,
 	DailyQuestToInfographicURL,
 	formatEmoji,
 	formatEmojiURL,
@@ -73,6 +75,7 @@ import {
 	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_URL,
 	LOCALE_OPTIONS,
+	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 } from "../utility/constants.js";
 import {
 	EventIdToEventTicketEmoji,
@@ -108,6 +111,48 @@ type DailyGuidesDistributionAllowedChannel =
 const distributeQueue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
 let distributionLock: Promise<unknown> | null = null;
 export const DAILY_GUIDES_SETUP_CUSTOM_ID = "DAILY_GUIDES_SETUP_CUSTOM_ID" as const;
+
+export function questAutocomplete(focused: string, locale: Locale) {
+	return focused === ""
+		? []
+		: DAILY_QUEST_VALUES.filter((dailyQuest) =>
+				t(`quests.${dailyQuest}`, { lng: locale, ns: "general" })
+					.toUpperCase()
+					.includes(focused.toUpperCase()),
+			)
+				.map((dailyQuest) => {
+					let quest = t(`quests.${dailyQuest}`, { lng: locale, ns: "general" });
+
+					if (quest.length > MAXIMUM_AUTOCOMPLETE_NAME_LIMIT) {
+						quest = `${quest.slice(0, MAXIMUM_AUTOCOMPLETE_NAME_LIMIT - 3)}...`;
+					}
+
+					return { name: quest, value: dailyQuest };
+				})
+				.slice(0, 25);
+}
+
+export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTopLevelComponent] {
+	const url = DailyQuestToInfographicURL[quest];
+
+	return [
+		{
+			type: ComponentType.Container,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+				},
+				url
+					? { type: ComponentType.MediaGallery, items: [{ media: { url } }] }
+					: {
+							type: ComponentType.TextDisplay,
+							content: t("daily-guides.quest-no-infographic", { lng: locale, ns: "features" }),
+						},
+			],
+		},
+	];
+}
 
 export async function fetchDailyGuides() {
 	const dailyQuests = await pg<DailyGuidesPacket>(Table.DailyGuides).first();

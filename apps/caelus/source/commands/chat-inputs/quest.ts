@@ -7,8 +7,8 @@ import {
 import { isDailyQuest } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
+import { questAutocomplete, questResponse } from "../../features/daily-guides.js";
 import pino from "../../pino.js";
-import { questAutocomplete, questResponse } from "../../services/quests.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
