@@ -198,7 +198,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 			content: t("about.feedback-submission", {
 				lng: interaction.locale,
 				ns: "features",
-				emoij: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+				emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
 			}),
 			flags: MessageFlags.Ephemeral,
 		});
@@ -215,7 +215,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 			content: t("about.feedback-submission", {
 				lng: interaction.locale,
 				ns: "features",
-				emoij: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+				emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
 			}),
 			flags: MessageFlags.Ephemeral,
 		});
@@ -239,7 +239,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 			content: t("about.feedback-submission", {
 				lng: interaction.locale,
 				ns: "features",
-				emoij: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+				emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
 			}),
 			flags: MessageFlags.Ephemeral,
 		});
@@ -283,7 +283,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 		content: t("about.feedback-submission", {
 			lng: interaction.locale,
 			ns: "features",
-			emoij: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+			emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
 		}),
 		flags: MessageFlags.Ephemeral,
 	});
