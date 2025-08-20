@@ -1127,7 +1127,7 @@
 			"336": "Cabelo",
 			"339": "Levitar 3",
 			"340": "Levitar 4",
-			"342": "Cadeira",
+			"342": "",
 			"343": "Cabelo",
 			"344": "Cabelo",
 			"345": "Cabelo",
@@ -2813,22 +2813,22 @@
 		},
 		"guess": {
 			"type": {
-				"0": "",
-				"1": ""
+				"0": "Original",
+				"1": "Difícil"
 			},
 			"title": "De onde isso veio?",
 			"guess-in": "Palpite {{time}}!",
-			"footer": "",
+			"footer": "Dificuldade: $t(guess.type.{{type}}) | Sequência: {{streak}} | Recorde: {{highestStreak}}",
 			"end-game": "Encerrar jogo",
 			"try-again": "Tentar novamente?",
-			"game-over": "",
-			"answer": "",
-			"your-guess": "",
-			"too-late": "",
-			"game-interaction-not-self": "",
-			"leaderboard-nothing": "",
-			"leaderboard-title": "",
-			"leaderboard-you": ""
+			"game-over": "Fim de jogo",
+			"answer": "Resposta:",
+			"your-guess": "Seu palpite:",
+			"too-late": "Você demorou muito para responder!",
+			"game-interaction-not-self": "Você não iniciou esse jogo!",
+			"leaderboard-nothing": "Não há nada no leaderboard. Que tal ser o primeiro?",
+			"leaderboard-title": "Leaderboard - $t(guess.type.{{type}})",
+			"leaderboard-you": "Você: #{{rank}} ({{streak}})"
 		},
 		"heart": {
 			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu coração. Alguém precisa ajustar as permissões!"
