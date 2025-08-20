@@ -2581,8 +2581,7 @@
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"heart": {
 			"command-name": "",
@@ -2602,8 +2601,7 @@
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"hug": {
 			"command-name": "abrazo",
@@ -2615,15 +2613,13 @@
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"quest": {
 			"command-name": "",
@@ -2801,13 +2797,46 @@
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
 			"not-yet-updated": "",
-			"quest-unknown": ""
+			"quest-unknown": "",
+			"quest-no-infographic": ""
 		},
 		"data": {
 			"delete-message": "",
 			"delete-my-data": "",
 			"delete-error": "",
 			"delete-success": ""
+		},
+		"friendship-actions": {
+			"hug-self": "¡Comparte el amor! ¡Abraza a alguien que no seas tú!",
+			"hug-missing-external-apps-permission": "",
+			"hug-not-in-server": "{{user}} no está en el servidor para recibir tu abrazo.",
+			"hug-not-around": "{{user}} no está aquí para recibir el abrazo!",
+			"hug-app": "{{user}} es un bot. No tiene emociones. Es inmune a los abrazos, diría yo.",
+			"hug-message": "{{user}}, ¡{{invoker}} te abrazó!",
+			"high-five-self": "",
+			"high-five-missing-external-apps-permission": "",
+			"high-five-not-in-server": "",
+			"high-five-not-around": "",
+			"high-five-app": "",
+			"high-five-message": "",
+			"hair-tousle-self": "",
+			"hair-tousle-missing-external-apps-permission": "",
+			"hair-tousle-not-in-server": "",
+			"hair-tousle-not-around": "",
+			"hair-tousle-app": "",
+			"hair-tousle-message": "",
+			"play-fight-self": "",
+			"play-fight-missing-external-apps-permission": "",
+			"play-fight-not-in-server": "",
+			"play-fight-not-around": "",
+			"play-fight-app": "",
+			"play-fight-message": "",
+			"krill-self": "",
+			"krill-missing-external-apps-permission": "",
+			"krill-not-in-server": "",
+			"krill-not-around": "",
+			"krill-app": "",
+			"krill-message": ""
 		},
 		"guess": {
 			"type": {
@@ -2830,14 +2859,6 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": ""
-		},
-		"hug": {
-			"hug-self": "¡Comparte el amor! ¡Abraza a alguien que no seas tú!",
-			"missing-external-apps-permission": "",
-			"not-in-server": "{{user}} no está en el servidor para recibir tu abrazo.",
-			"not-around": "{{user}} no está aquí para recibir el abrazo!",
-			"hug-bot": "{{user}} es un bot. No tiene emociones. Es inmune a los abrazos, diría yo.",
-			"message": "{{user}}, ¡{{invoker}} te abrazó!"
 		},
 		"notifications": {
 			"back": "",

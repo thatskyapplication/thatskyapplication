@@ -2581,8 +2581,7 @@
 			"command-name": "弄亂頭髮",
 			"command-description": "弄亂某人的頭髮！",
 			"command-option-user-name": "用戶",
-			"command-option-user-description": "頭髮將會被弄亂的人。",
-			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法弄亂頭髮。需要有人調整權限！"
+			"command-option-user-description": "頭髮將會被弄亂的人。"
 		},
 		"heart": {
 			"command-name": "愛心",
@@ -2602,8 +2601,7 @@
 			"command-name": "擊掌",
 			"command-description": "擊掌慶祝！",
 			"command-option-user-name": "用戶",
-			"command-option-user-description": "和某人擊掌了。",
-			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會收到您的擊掌。需要有人調整權限！"
+			"command-option-user-description": "和某人擊掌了。"
 		},
 		"hug": {
 			"command-name": "擁抱",
@@ -2615,15 +2613,13 @@
 			"command-name": "冥龍",
 			"command-description": "冥龍某人！",
 			"command-option-user-name": "用戶",
-			"command-option-user-description": "某人被冥龍了。",
-			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會被冥龍。需要有人調整權限！"
+			"command-option-user-description": "某人被冥龍了。"
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
 			"command-option-user-name": "",
-			"command-option-user-description": "",
-			"missing-external-apps-permission": ""
+			"command-option-user-description": ""
 		},
 		"quest": {
 			"command-name": "",
@@ -2801,13 +2797,46 @@
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
 			"not-yet-updated": "",
-			"quest-unknown": ""
+			"quest-unknown": "",
+			"quest-no-infographic": ""
 		},
 		"data": {
 			"delete-message": "您是否確定要刪除您的資料？此舉將會：\n- 刪除您的光子簡介\n- 刪除您的目錄\n- 刪除您曾經獲得/贈送的愛心記錄\n  - 以您的ID所贈送的愛心記錄，在其他人頁面上將以匿名方式呈現\n- 刪除您於猜謎遊戲的最長連勝記錄\n- 移除您的抽獎資訊\n- 移除您的翻譯員角色，若您曾獲得該角色",
 			"delete-my-data": "刪除本人資料",
 			"delete-error": "在刪除您的用戶資料時出了點問題，但請放心，系統已將該問題列入追蹤，並改為人工處理（非系統自動刪除）。我們會在30天內刪除您的資料。\n\n如果您想瞭解關於您的資料刪除進度，歡迎加入我們的[支援社群]({{url}})並提出請求。",
 			"delete-success": "已刪除您的資料，現在的您是一位萌新。"
+		},
+		"friendship-actions": {
+			"hug-self": "",
+			"hug-missing-external-apps-permission": "",
+			"hug-not-in-server": "",
+			"hug-not-around": "",
+			"hug-app": "",
+			"hug-message": "",
+			"high-five-self": "",
+			"high-five-missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會收到您的擊掌。需要有人調整權限！",
+			"high-five-not-in-server": "",
+			"high-five-not-around": "",
+			"high-five-app": "",
+			"high-five-message": "",
+			"hair-tousle-self": "",
+			"hair-tousle-missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法弄亂頭髮。需要有人調整權限！",
+			"hair-tousle-not-in-server": "",
+			"hair-tousle-not-around": "",
+			"hair-tousle-app": "",
+			"hair-tousle-message": "",
+			"play-fight-self": "",
+			"play-fight-missing-external-apps-permission": "",
+			"play-fight-not-in-server": "",
+			"play-fight-not-around": "",
+			"play-fight-app": "",
+			"play-fight-message": "",
+			"krill-self": "",
+			"krill-missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會被冥龍。需要有人調整權限！",
+			"krill-not-in-server": "",
+			"krill-not-around": "",
+			"krill-app": "",
+			"krill-message": ""
 		},
 		"guess": {
 			"type": {
@@ -2830,14 +2859,6 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法收到您的愛心。需要有人調整權限！"
-		},
-		"hug": {
-			"hug-self": "",
-			"missing-external-apps-permission": "",
-			"not-in-server": "",
-			"not-around": "",
-			"hug-bot": "",
-			"message": ""
 		},
 		"notifications": {
 			"back": "",
