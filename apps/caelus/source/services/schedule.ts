@@ -14,7 +14,7 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
-import { DEFAULT_EMBED_COLOUR, PASSAGE_TRUNCATION_LIMIT } from "../utility/constants.js";
+import { PASSAGE_TRUNCATION_LIMIT } from "../utility/constants.js";
 
 function dailyResetTime(date: DateTime) {
 	return date.plus({ day: 1 }).toUnixInteger();
@@ -158,7 +158,6 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,

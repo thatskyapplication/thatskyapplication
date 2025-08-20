@@ -9,7 +9,6 @@ import {
 import { getRandomElement, HIGH_FIVES } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
@@ -79,7 +78,6 @@ export async function highFive(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,

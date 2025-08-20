@@ -5,7 +5,7 @@ import {
 	DailyQuestToInfographicURL,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { DEFAULT_EMBED_COLOUR, MAXIMUM_AUTOCOMPLETE_NAME_LIMIT } from "../utility/constants.js";
+import { MAXIMUM_AUTOCOMPLETE_NAME_LIMIT } from "../utility/constants.js";
 
 export function questAutocomplete(focused: string, locale: Locale) {
 	return focused === ""
@@ -33,7 +33,6 @@ export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTo
 	return [
 		{
 			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
 			components: [
 				{
 					type: ComponentType.TextDisplay,

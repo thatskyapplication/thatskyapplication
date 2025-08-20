@@ -33,7 +33,6 @@ import {
 import { t } from "i18next";
 import { client } from "../discord.js";
 import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, resolveCostToString } from "../utility/catalogue.js";
-import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import { OptionResolver } from "../utility/option-resolver.js";
@@ -261,13 +260,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 		});
 	}
 
-	return [
-		{
-			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
-			components: containerComponents,
-		},
-	];
+	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
 export async function handleSearchButton(interaction: APIMessageComponentButtonInteraction) {

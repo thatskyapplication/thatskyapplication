@@ -10,7 +10,6 @@ import {
 import { getRandomElement, HUGS } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
@@ -88,7 +87,6 @@ export async function hug(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,

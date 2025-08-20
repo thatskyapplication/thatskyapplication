@@ -65,11 +65,7 @@ import {
 	NO_FRIENDSHIP_TREE_YET_TEXT,
 	resolveCostToString,
 } from "../utility/catalogue.js";
-import {
-	CATALOGUE_EVENTS_THRESHOLD,
-	DEFAULT_EMBED_COLOUR,
-	MAXIMUM_TEXT_DISPLAY_LENGTH,
-} from "../utility/constants.js";
+import { CATALOGUE_EVENTS_THRESHOLD, MAXIMUM_TEXT_DISPLAY_LENGTH } from "../utility/constants.js";
 import {
 	CosmeticToEmoji,
 	CUSTOM_EMOJI_REPLACEMENTS,
@@ -679,7 +675,6 @@ async function start({
 	return [
 		{
 			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
 			components: [
 				{
 					type: ComponentType.TextDisplay,
@@ -883,7 +878,6 @@ export async function viewSettings(interaction: APIMessageComponentButtonInterac
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -1000,7 +994,6 @@ export async function viewRealms(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -1098,7 +1091,6 @@ export async function viewRealm(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -1188,7 +1180,6 @@ export async function viewElders(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -1329,7 +1320,6 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -1524,7 +1514,6 @@ export async function viewSeason(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -1540,7 +1529,6 @@ export async function viewEventYears(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -1741,7 +1729,6 @@ export async function viewEvents(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -1814,7 +1801,6 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -2064,7 +2050,6 @@ async function viewSpirit(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -2260,7 +2245,6 @@ async function viewEvent(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: containerComponents,
 			},
 		],
@@ -2321,7 +2305,6 @@ export async function viewStarterPacks(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -2421,7 +2404,6 @@ export async function viewSecretArea(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -2521,7 +2503,6 @@ export async function viewPermanentEventStore(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -2633,7 +2614,6 @@ export async function viewNestingWorkshop(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,

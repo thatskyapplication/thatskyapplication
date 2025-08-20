@@ -72,7 +72,6 @@ import {
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_URL,
-	DEFAULT_EMBED_COLOUR,
 	LOCALE_OPTIONS,
 } from "../utility/constants.js";
 import {
@@ -320,7 +319,6 @@ export async function setupResponse(guild: Guild): Promise<APIInteractionRespons
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,

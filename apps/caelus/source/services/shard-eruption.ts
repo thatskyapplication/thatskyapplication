@@ -21,7 +21,7 @@ import { t } from "i18next";
 import { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { APPLICATION_ID } from "../utility/configuration.js";
-import { DEFAULT_EMBED_COLOUR, SHARD_ERUPTION_URL } from "../utility/constants.js";
+import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
@@ -243,13 +243,7 @@ export function todayData(
 		);
 	}
 
-	return [
-		{
-			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
-			components: containerComponents,
-		},
-	];
+	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
 export async function browse(
@@ -364,11 +358,5 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 		);
 	}
 
-	return [
-		{
-			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
-			components: containerComponents,
-		},
-	];
+	return [{ type: ComponentType.Container, components: containerComponents }];
 }

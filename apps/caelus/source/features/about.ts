@@ -65,7 +65,6 @@ export async function about(locale: Locale): Promise<[APIMessageTopLevelComponen
 	return [
 		{
 			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
 			components: [
 				{
 					type: ComponentType.TextDisplay,

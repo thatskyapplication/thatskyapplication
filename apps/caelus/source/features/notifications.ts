@@ -32,7 +32,6 @@ import type { Role } from "../models/discord/role.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import {
-	DEFAULT_EMBED_COLOUR,
 	NOTIFICATION_CHANNEL_TYPES,
 	NotificationOffsetToMaximumValues,
 } from "../utility/constants.js";
@@ -204,7 +203,6 @@ export async function setupResponse(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -332,7 +330,6 @@ export async function displayNotificationType(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,

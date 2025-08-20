@@ -29,7 +29,6 @@ import {
 	SUPPORT_SERVER_GUILD_ID,
 } from "../utility/configuration.js";
 import {
-	DEFAULT_EMBED_COLOUR,
 	GIVEAWAY_END_DATE,
 	GIVEAWAY_END_TIMESTAMP_SECONDS,
 	GIVEAWAY_INVITE_URL,
@@ -198,13 +197,7 @@ export async function giveaway({
 		}
 	}
 
-	return [
-		{
-			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
-			components: containerComponents,
-		},
-	];
+	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
 export async function claimTicket(
@@ -327,7 +320,6 @@ export async function end() {
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,

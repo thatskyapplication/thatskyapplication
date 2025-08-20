@@ -29,7 +29,6 @@ export function shop(): [APIMessageTopLevelComponent] {
 	return [
 		{
 			type: ComponentType.Container,
-			accent_color: DEFAULT_EMBED_COLOUR,
 			components: [
 				{
 					type: ComponentType.TextDisplay,

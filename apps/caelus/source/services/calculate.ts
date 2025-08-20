@@ -102,7 +102,6 @@ export async function ascendedCandles(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -243,7 +242,6 @@ export async function eventTickets(
 		components: [
 			{
 				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
 				components: [
 					{
 						type: ComponentType.TextDisplay,
@@ -416,13 +414,7 @@ export async function seasonalCandles(
 	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.Container,
-				accent_color: DEFAULT_EMBED_COLOUR,
-				components: containerComponents,
-			},
-		],
+		components: [{ type: ComponentType.Container, components: containerComponents }],
 		flags: MessageFlags.IsComponentsV2,
 	});
 }
