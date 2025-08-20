@@ -8,7 +8,7 @@ export default function TermsPrivacy() {
 			<p>Let's be real. This is a Discord application, so we'll keep it short.</p>
 			<h2>Terminology</h2>
 			<p>
-				The term "server moderator" apply to those with the <code>Manage Server</code> permission.
+				The term "server moderator" applies to those with the <code>Manage Server</code> permission.
 			</p>
 			<h2>Use</h2>
 			<p>
@@ -39,7 +39,7 @@ export default function TermsPrivacy() {
 			</p>
 			<h2>Changes to the terms of service and privacy policy</h2>
 			<p>
-				The terms of service and privacy policy may be amended ay any time. Continued use will
+				The terms of service and privacy policy may be amended at any time. Continued use will
 				signify acceptance of the changes. If you no longer wish to be bound by these changes, you
 				may stop using the service. You may also request a deletion of your data.
 			</p>
