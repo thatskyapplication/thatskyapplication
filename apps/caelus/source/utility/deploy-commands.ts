@@ -70,31 +70,31 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			InteractionContextType.PrivateChannel,
 		],
 	},
-	{
-		name: t("bonk.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
-		name_localizations: localisations("bonk.command-name"),
-		description: t("bonk.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
-		description_localizations: localisations("bonk.command-description"),
-		type: ApplicationCommandType.ChatInput,
-		options: [
-			{
-				type: ApplicationCommandOptionType.User,
-				name: t("bonk.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
-				name_localizations: localisations("bonk.command-option-user-name"),
-				description: t("bonk.command-option-user-description", {
-					lng: Locale.EnglishGB,
-					ns: "commands",
-				}),
-				description_localizations: localisations("bonk.command-option-user-description"),
-				required: true,
-			},
-		],
-		integration_types: [
-			ApplicationIntegrationType.GuildInstall,
-			ApplicationIntegrationType.UserInstall,
-		],
-		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
-	},
+	// {
+	// 	name: t("bonk.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	// 	name_localizations: localisations("bonk.command-name"),
+	// 	description: t("bonk.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+	// 	description_localizations: localisations("bonk.command-description"),
+	// 	type: ApplicationCommandType.ChatInput,
+	// 	options: [
+	// 		{
+	// 			type: ApplicationCommandOptionType.User,
+	// 			name: t("bonk.command-option-user-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	// 			name_localizations: localisations("bonk.command-option-user-name"),
+	// 			description: t("bonk.command-option-user-description", {
+	// 				lng: Locale.EnglishGB,
+	// 				ns: "commands",
+	// 			}),
+	// 			description_localizations: localisations("bonk.command-option-user-description"),
+	// 			required: true,
+	// 		},
+	// 	],
+	// 	integration_types: [
+	// 		ApplicationIntegrationType.GuildInstall,
+	// 		ApplicationIntegrationType.UserInstall,
+	// 	],
+	// 	contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
+	// },
 	{
 		name: t("calculate.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: localisations("calculate.command-name"),
