@@ -3,37 +3,67 @@ import {
 	type APIInteractionDataResolvedGuildMember,
 	type APIUser,
 	ComponentType,
+	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
-import { getRandomElement, PLAY_FIGHTS } from "@thatskyapplication/utility";
+import {
+	getRandomElement,
+	HAIR_TOUSLES,
+	HIGH_FIVES,
+	HUGS,
+	KRILLS,
+	PLAY_FIGHTS,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
-export async function playFight(
-	interaction: APIChatInputApplicationCommandInteraction,
-	user: APIUser,
-	member: APIInteractionDataResolvedGuildMember | null,
-) {
+interface FriendshipActionOptions {
+	interaction: APIChatInputApplicationCommandInteraction;
+	user: APIUser;
+	member: APIInteractionDataResolvedGuildMember | null;
+	key: keyof typeof KeyToData;
+}
+
+const KeyToData = {
+	"high-five": HIGH_FIVES,
+	hug: HUGS,
+	"hair-tousle": HAIR_TOUSLES,
+	"play-fight": PLAY_FIGHTS,
+	krill: KRILLS,
+} as const satisfies Readonly<
+	Record<
+		string,
+		typeof HUGS | typeof HIGH_FIVES | typeof HAIR_TOUSLES | typeof PLAY_FIGHTS | typeof KRILLS
+	>
+>;
+
+export async function friendshipAction({
+	interaction,
+	user,
+	member,
+	key,
+}: FriendshipActionOptions) {
 	const invoker = interactionInvoker(interaction);
 	const userLocale = interaction.locale;
 
 	if (user.id === invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "Play with others!",
+			content: t(`friendship-actions.${key}-self`, { lng: userLocale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
+
 		return;
 	}
 
 	if (
 		await cannotUseUserInstallable(
 			interaction,
-			t("play-fight.missing-external-apps-permission", {
+			t(`friendship-actions.${key}-missing-external-apps-permission`, {
 				lng: userLocale,
-				ns: "commands",
+				ns: "features",
 				user: `<@${user.id}>`,
 			}),
 		)
@@ -43,7 +73,11 @@ export async function playFight(
 
 	if (interaction.guild_id && !member) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `<@${user.id}> is not in this server to fight.`,
+			content: t(`friendship-actions.${key}-not-in-server`, {
+				lng: userLocale,
+				ns: "features",
+				user: `<@${user.id}>`,
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -55,7 +89,11 @@ export async function playFight(
 
 		if ((permissions & PermissionFlagsBits.ViewChannel) === 0n) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: `<@${user.id}> is not around to be fought!`,
+				content: t(`friendship-actions.${key}-not-around`, {
+					lng: userLocale,
+					ns: "features",
+					user: `<@${user.id}>`,
+				}),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -65,7 +103,11 @@ export async function playFight(
 
 	if (user.bot) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `<@${user.id}> is a bot. They're pretty durable. Immune to fights, I'd say.`,
+			content: t(`friendship-actions.${key}-app`, {
+				lng: userLocale,
+				ns: "features",
+				user: `<@${user.id}>`,
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -80,11 +122,16 @@ export async function playFight(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `<@${invoker.id}> is fighting <@${user.id}>!`,
+						content: t(`friendship-actions.${key}-message`, {
+							lng: interaction.guild_locale ?? Locale.EnglishGB,
+							ns: "features",
+							user: `<@${user.id}>`,
+							invoker: `<@${invoker.id}>`,
+						}),
 					},
 					{
 						type: ComponentType.MediaGallery,
-						items: [{ media: { url: getRandomElement(PLAY_FIGHTS)!.url } }],
+						items: [{ media: { url: getRandomElement(KeyToData[key])!.url } }],
 					},
 				],
 			},

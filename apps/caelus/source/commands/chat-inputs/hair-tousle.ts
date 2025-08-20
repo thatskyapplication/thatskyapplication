@@ -1,12 +1,18 @@
 import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { t } from "i18next";
-import { hairTousle } from "../../services/hair-tousle.js";
+import { friendshipAction } from "../../features/friendship-actions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
 	name: t("hair-tousle.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
-		await hairTousle(interaction, options.getUser("user", true), options.getMember("user"));
+
+		await friendshipAction({
+			interaction,
+			user: options.getUser("user", true),
+			member: options.getMember("user"),
+			key: "hair-tousle",
+		});
 	},
 } as const;

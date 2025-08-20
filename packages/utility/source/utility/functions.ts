@@ -11,7 +11,9 @@ import type {
 	ItemWithPossibleChildren,
 } from "./spirits.js";
 
-export function getRandomElement<const T>(array: readonly T[]) {
+export function getRandomElement<const T extends readonly unknown[]>(
+	array: T,
+): T[number] | undefined {
 	return array[Math.floor(Math.random() * array.length)];
 }
 

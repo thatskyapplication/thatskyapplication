@@ -2847,8 +2847,6 @@ export default {
 			"command-description": "Give someone a hair tousle!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual whose hair will be tousled.",
-			"missing-external-apps-permission":
-				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hair tousle. Someone needs to adjust the permissions!",
 		},
 		heart: {
 			"command-name": "heart",
@@ -2869,8 +2867,6 @@ export default {
 			"command-description": "High-five someone!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to high-five.",
-			"missing-external-apps-permission":
-				"You are missing the `Use External Apps` permission, so {{user}} would not receive your high-five. Someone needs to adjust the permissions!",
 		},
 		hug: {
 			"command-name": "hug",
@@ -2883,16 +2879,12 @@ export default {
 			"command-description": "Krill someone!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to be krilled.",
-			"missing-external-apps-permission":
-				"You are missing the `Use External Apps` permission, so {{user}} would not be krilled. Someone needs to adjust the permissions!",
 		},
 		"play-fight": {
 			"command-name": "play-fight",
 			"command-description": "Fight someone!",
 			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to play fight.",
-			"missing-external-apps-permission":
-				"You are missing the `Use External Apps` permission, so {{user}} would not be fought. Someone needs to adjust the permissions!",
 		},
 		quest: {
 			"command-name": "quest",
@@ -3091,6 +3083,43 @@ export default {
 				"There was an issue deleting your user data. Don't worry, this incident is being tracked and has been converted into a manual data deletion request (as opposed to an automatic one). Your data will be deleted within 30 days.\n\nIf you want, you may join the [support server]({{url}}) and request to see the status of your data deletion request.",
 			"delete-success": "Your data has been deleted. You are a moth now.",
 		},
+		"friendship-actions": {
+			"hug-self": "Share the love! Hug someone other than yourself!",
+			"hug-missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hug. Someone needs to adjust the permissions!",
+			"hug-not-in-server": "{{user}} is not in this server to be hugged.",
+			"hug-not-around": "{{user}} is not around for the hug!",
+			"hug-app": "{{user}} is a bot. They're pretty emotionless. Immune to hugs, I'd say.",
+			"hug-message": "{{user}}, {{invoker}} hugged you!",
+			"high-five-self": "You may have two hands, but... try someone else!",
+			"high-five-missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not receive your high-five. Someone needs to adjust the permissions!",
+			"high-five-not-in-server": "{{user}} is not in this server to high-five.",
+			"high-five-not-around": "{{user}} is not around to high-five!",
+			"high-five-app": "{{user}} is a bot. They're pretty cold. Immune to high-fives, I'd say.",
+			"high-five-message": "{{user}}, {{invoker}} high-fived you!",
+			"hair-tousle-self": "Mess someone else's hair up!",
+			"hair-tousle-missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hair tousle. Someone needs to adjust the permissions!",
+			"hair-tousle-not-in-server": "{{user}} is not in this server to hair tousle.",
+			"hair-tousle-not-around": "{{user}} is not around to hair tousle!",
+			"hair-tousle-app": "{{user}} is a bot. They're pretty cold. Immune to hair tousles, I'd say.",
+			"hair-tousle-message": "{{user}}, {{invoker}} tousled your hair!",
+			"play-fight-self": "Play with others!",
+			"play-fight-missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not be fought. Someone needs to adjust the permissions!",
+			"play-fight-not-in-server": "{{user}} is not in this server to fight.",
+			"play-fight-not-around": "{{user}} is not around to be fought!",
+			"play-fight-app": "{{user}} is a bot. They're pretty durable. Immune to fights, I'd say.",
+			"play-fight-message": "{{invoker}} is fighting {{user}}!",
+			"krill-self": "Self-krilling is no joke!",
+			"krill-missing-external-apps-permission":
+				"You are missing the `Use External Apps` permission, so {{user}} would not be krilled. Someone needs to adjust the permissions!",
+			"krill-not-in-server": "{{user}} is not in this server to be krilled.",
+			"krill-not-around": "{{user}} is not around to be krilled!",
+			"krill-app": "{{user}} is a bot. They're pretty strong. Immune to krills, I'd say.",
+			"krill-message": "{{user}} has been krilled by {{invoker}}!",
+		},
 		guess: {
 			type: {
 				[GuessType.Original]: "Original",
@@ -3114,15 +3143,6 @@ export default {
 		heart: {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not receive your heart. Someone needs to adjust the permissions!",
-		},
-		hug: {
-			"hug-self": "Share the love! Hug someone other than yourself!",
-			"missing-external-apps-permission":
-				"You are missing the `Use External Apps` permission, so {{user}} would not receive your hug. Someone needs to adjust the permissions!",
-			"not-in-server": "{{user}} is not in this server to be hugged.",
-			"not-around": "{{user}} is not around for the hug!",
-			"hug-bot": "{{user}} is a bot. They're pretty emotionless. Immune to hugs, I'd say.",
-			message: "{{user}}, {{invoker}} hugged you!",
 		},
 		notifications: {
 			back: "Back",
