@@ -1,8 +1,8 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import BearhugHermit from "./bearhug-hermit.js";
 import DancingPerformer from "./dancing-performer.js";
 import DreamsGuide from "./dreams-guide.js";
@@ -17,5 +17,5 @@ export default new Season({
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
 	items: [{ cosmetic: Cosmetic.DreamsPendant }],
 	seasonalCandlesRotation: null,
-	patchNotesURL: String(new URL("p0120", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0120"),
 });

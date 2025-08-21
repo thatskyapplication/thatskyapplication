@@ -2,8 +2,8 @@ import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import NestingAtrium from "./nesting-atrium.js";
 import NestingGuide from "./nesting-guide.js";
 import NestingLoft from "./nesting-loft.js";
@@ -33,5 +33,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 	],
-	patchNotesURL: String(new URL("p0250", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0250"),
 });

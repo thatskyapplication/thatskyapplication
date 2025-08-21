@@ -1,7 +1,7 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import ChillSunbather from "./chill-sunbather.js";
 import GratefulShellCollector from "./grateful-shell-collector.js";
 import HikingGrouch from "./hiking-grouch.js";
@@ -24,5 +24,5 @@ export default new Season({
 		ChillSunbather,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: String(new URL("p0100", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0100"),
 });

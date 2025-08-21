@@ -1,8 +1,8 @@
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import blueBirdGuide from "./blue-bird-guide.js";
 import costumedConfettiCousin from "./costumed-confetti-cousin.js";
 import diviningWiseGrandparent from "./divining-wise-grandparent.js";
@@ -63,5 +63,5 @@ export default new Season({
 					],
 	doubleSeasonalLightEventStartDate: skyDate(2_025, 6, 9),
 	doubleSeasonalLightEventEndDate: skyDate(2_025, 6, 23),
-	patchNotesURL: String(new URL("p0290", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0290"),
 });

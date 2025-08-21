@@ -1,8 +1,8 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
-import { CDN_URL } from "../cdn.js";
 import type { Cosmetic } from "../cosmetics.js";
 import type { RealmName } from "../kingdom.js";
+import { CDN_URL } from "../routes.js";
 import {
 	type RotationIdentifier,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,

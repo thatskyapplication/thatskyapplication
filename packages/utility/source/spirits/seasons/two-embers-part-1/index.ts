@@ -2,8 +2,8 @@ import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import resourcefulRecluse from "./resourceful-recluse.js";
 import scarredSentry from "./scarred-sentry.js";
 import sternShepherd from "./stern-shepherd.js";
@@ -72,5 +72,5 @@ export default new Season({
 	],
 	doubleSeasonalLightEventStartDate: skyDate(2_025, 8, 19),
 	doubleSeasonalLightEventEndDate: skyDate(2_025, 9, 2),
-	patchNotesURL: String(new URL("p0300", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0300"),
 });

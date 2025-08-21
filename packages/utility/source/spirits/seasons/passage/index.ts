@@ -1,7 +1,7 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import MelancholyMope from "./melancholy-mope.js";
 import OddballOutcast from "./oddball-outcast.js";
 import OveractiveOverachiever from "./overactive-overachiever.js";
@@ -15,5 +15,5 @@ export default new Season({
 	guide: PassageGuide,
 	spirits: [OddballOutcast, TumblingTroublemaker, MelancholyMope, OveractiveOverachiever],
 	seasonalCandlesRotation: null,
-	patchNotesURL: String(new URL("p0210", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0210"),
 });

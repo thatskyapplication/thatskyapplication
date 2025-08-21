@@ -1,8 +1,8 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import BeckoningRuler from "./beckoning-ruler.js";
 import GloatingNarcissist from "./gloating-narcissist.js";
 import SlouchingSoldier from "./slouching-soldier.js";
@@ -39,5 +39,5 @@ export default new Season({
 		},
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: String(new URL("p0140", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0140"),
 });

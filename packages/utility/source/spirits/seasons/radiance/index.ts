@@ -1,8 +1,8 @@
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import RadianceGreetingShaman from "./radiance-greeting-shaman.js";
 import RadianceGuide from "./radiance-guide.js";
 import RadianceLeapingDancer from "./radiance-leaping-dancer.js";
@@ -68,5 +68,5 @@ export default new Season({
 						],
 	doubleSeasonalLightEventStartDate: skyDate(2_025, 3, 17),
 	doubleSeasonalLightEventEndDate: skyDate(2_025, 3, 24),
-	patchNotesURL: String(new URL("p0280", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0280"),
 });

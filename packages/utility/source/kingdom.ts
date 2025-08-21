@@ -1,7 +1,7 @@
 import type { DateTime } from "luxon";
-import { CDN_URL } from "./cdn.js";
 import { WING_BUFFS } from "./cosmetics.js";
 import { skyDate } from "./dates.js";
+import { CDN_URL } from "./routes.js";
 
 export enum RealmName {
 	IslesOfDawn = "Isles of Dawn",

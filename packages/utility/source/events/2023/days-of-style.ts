@@ -1,7 +1,7 @@
 import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
-import { LINK_REDIRECTOR_URL } from "../../utility/constants.js";
+import { patchNotesRoute } from "../../routes.js";
 import { EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
@@ -56,5 +56,5 @@ export default new Event({
 		},
 	],
 
-	patchNotesURL: String(new URL("p0225", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0225"),
 });

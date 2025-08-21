@@ -1,7 +1,7 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import BereftVeteran from "./bereft-veteran.js";
 import PleadingChild from "./pleading-child.js";
 import RemembranceGuide from "./remembrance-guide.js";
@@ -15,5 +15,5 @@ export default new Season({
 	guide: RemembranceGuide,
 	spirits: [BereftVeteran, PleadingChild, TiptoeingTeaBrewer, WoundedWarrior],
 	seasonalCandlesRotation: null,
-	patchNotesURL: String(new URL("p0200", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0200"),
 });

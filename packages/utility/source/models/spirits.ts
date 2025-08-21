@@ -1,10 +1,10 @@
 import { Collection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
-import { CDN_URL } from "../cdn.js";
 import type { Cosmetic } from "../cosmetics.js";
 import { skyDate } from "../dates.js";
 import type { RealmName } from "../kingdom.js";
+import { CDN_URL } from "../routes.js";
 import type { SeasonIds } from "../season.js";
 import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
 import {

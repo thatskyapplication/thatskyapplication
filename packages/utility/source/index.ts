@@ -19,7 +19,6 @@ export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 export type { CataloguePacket } from "./catalogue.js";
-export { CDN_URL } from "./cdn.js";
 export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export {
@@ -78,6 +77,7 @@ export {
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./kingdom.js";
+export { CDN_URL } from "./routes.js";
 export const de = deLocale;
 export { default as enGB } from "./locales/en-gb.js";
 export const es419 = es419Locale;
@@ -153,7 +153,6 @@ export {
 } from "./spirits/seasons/index.js";
 export type { Nullable, Snowflake } from "./types/index.js";
 export type { UsersPacket } from "./users.js";
-export { LINK_REDIRECTOR_URL } from "./utility/constants.js";
 export { EventId, type EventIds } from "./utility/event.js";
 export {
 	addCosts,

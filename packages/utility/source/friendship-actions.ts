@@ -1,4 +1,4 @@
-import { CDN_URL } from "./cdn.js";
+import { CDN_URL } from "./routes.js";
 import type { MessageLink, Snowflake } from "./types/index.js";
 
 type HighFivesRoute = `${typeof CDN_URL}/high_fives/${number}.gif`;

@@ -2,8 +2,8 @@ import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import ComfortOfKindness from "./comfort-of-kindness.js";
 import InspirationOfInclusion from "./inspiration-of-inclusion.js";
 import SenseOfSelf from "./sense-of-self.js";
@@ -52,5 +52,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 		{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 	],
-	patchNotesURL: String(new URL("p0270", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0270"),
 });

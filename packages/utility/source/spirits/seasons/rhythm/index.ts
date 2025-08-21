@@ -1,7 +1,7 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import AdmiringActor from "./admiring-actor.js";
 import FestivalSpinDancer from "./festival-spin-dancer.js";
 import RespectfulPianist from "./respectful-pianist.js";
@@ -24,5 +24,5 @@ export default new Season({
 		ThoughtfulDirector,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: String(new URL("p080", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p080"),
 });

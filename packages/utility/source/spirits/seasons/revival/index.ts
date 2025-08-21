@@ -1,8 +1,8 @@
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import EchoOfAnAbandonedRefuge from "./echo-of-an-abandoned-refuge.js";
 import HopefulSteward from "./hopeful-steward.js";
 import MemoryOfALostVillage from "./memory-of-a-lost-village.js";
@@ -32,5 +32,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
 	],
-	patchNotesURL: String(new URL("p0230", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0230"),
 });

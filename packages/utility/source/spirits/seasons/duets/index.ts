@@ -1,8 +1,8 @@
 import { skyDate } from "../../../dates.js";
 import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
+import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
-import { LINK_REDIRECTOR_URL } from "../../../utility/constants.js";
 import CompassionateCellist from "./compassionate-cellist.js";
 import DuetsGuide from "./duets-guide.js";
 import TheCellistsBeginnings from "./the-cellists-beginnings.js";
@@ -36,5 +36,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
 		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 	],
-	patchNotesURL: String(new URL("p0260", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0260"),
 });

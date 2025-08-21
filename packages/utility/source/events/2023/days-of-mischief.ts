@@ -1,8 +1,7 @@
-import { CDN_URL } from "../../cdn.js";
 import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
-import { LINK_REDIRECTOR_URL } from "../../utility/constants.js";
+import { CDN_URL, patchNotesRoute } from "../../routes.js";
 import { EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
@@ -54,5 +53,5 @@ export default new Event({
 			cost: { money: 2.99 },
 		},
 	],
-	patchNotesURL: String(new URL("p0230", LINK_REDIRECTOR_URL)),
+	patchNotesURL: patchNotesRoute("p0230"),
 });

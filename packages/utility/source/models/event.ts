@@ -1,6 +1,6 @@
 import type { DateTime } from "luxon";
-import { CDN_URL } from "../cdn.js";
 import type { Cosmetic } from "../cosmetics.js";
+import { CDN_URL } from "../routes.js";
 import type { EventIds } from "../utility/event.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "../utility/functions.js";
 import type { ItemRawWithoutChildren, ItemWithoutChildren } from "../utility/spirits.js";
