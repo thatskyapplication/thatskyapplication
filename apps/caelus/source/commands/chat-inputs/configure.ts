@@ -91,11 +91,10 @@ export default {
 			case t("configure.ai.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
 				const ai = AI.cache.get(interaction.guild_id);
 
-				await client.api.interactions.reply(
-					interaction.id,
-					interaction.token,
-					AI.response(interaction, ai),
-				);
+				await client.api.interactions.reply(interaction.id, interaction.token, {
+					components: AI.response(interaction, ai),
+					flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+				});
 
 				break;
 			}

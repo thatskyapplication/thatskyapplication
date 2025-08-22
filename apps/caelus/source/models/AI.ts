@@ -1,18 +1,27 @@
 import { Collection } from "@discordjs/collection";
 import {
 	type APIChatInputApplicationCommandGuildInteraction,
+	type APIComponentInContainer,
 	type APIGuildInteractionWrapper,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIMessageTopLevelComponent,
+	ButtonStyle,
 	ChannelType,
 	ComponentType,
 	type GatewayMessageCreateDispatchData,
-	type InteractionsAPI,
 	MessageFlags,
 	MessageType,
 	PermissionFlagsBits,
+	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
-import { Table } from "@thatskyapplication/utility";
+import {
+	AI_FREQUENCY_TYPE_VALUES,
+	AIFrequencyType,
+	type AIFrequencyTypes,
+	Table,
+} from "@thatskyapplication/utility";
+import { t } from "i18next";
 import {
 	clearEntitlementCache,
 	ENTITLEMENT_CACHE,
@@ -29,7 +38,6 @@ import {
 import pg from "../pg.js";
 import pino from "../pino.js";
 import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
-import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { can } from "../utility/permissions.js";
 import type { GuildChannel } from "./discord/guild.js";
 import type { GuildMember } from "./discord/guild-member.js";
@@ -47,27 +55,6 @@ interface AIData {
 type AISetData = Omit<AIPacket, "guild_id">;
 type AIPatchData = Omit<AIPacket, "guild_id">;
 
-const AIFrequencyType = {
-	Disabled: 0,
-	VeryRare: 1,
-	Rare: 2,
-	Normal: 3,
-	Common: 4,
-	VeryCommon: 5,
-} as const;
-
-const AI_FREQUENCY_VALUES = Object.values(AIFrequencyType);
-type AIFrequencyTypes = (typeof AI_FREQUENCY_VALUES)[number];
-
-const AIFrequencyTypeToString = {
-	[AIFrequencyType.Disabled]: "Disabled",
-	[AIFrequencyType.VeryRare]: "Very rare",
-	[AIFrequencyType.Rare]: "Rare",
-	[AIFrequencyType.Normal]: "Normal",
-	[AIFrequencyType.Common]: "Common",
-	[AIFrequencyType.VeryCommon]: "Very common",
-} as const satisfies Readonly<Record<AIFrequencyTypes, string>>;
-
 const AIFrequencyTypeToValue = {
 	[AIFrequencyType.Disabled]: 0,
 	[AIFrequencyType.VeryRare]: 0.000_1,
@@ -79,23 +66,11 @@ const AIFrequencyTypeToValue = {
 
 type AIFrequencyValues = (typeof AIFrequencyTypeToValue)[keyof typeof AIFrequencyTypeToValue];
 
-function isAIFrequency(number: number): number is AIFrequencyTypes {
-	return AI_FREQUENCY_VALUES.includes(number as AIFrequencyTypes);
+function isAIFrequency(frequencyType: number): frequencyType is AIFrequencyTypes {
+	return AI_FREQUENCY_TYPE_VALUES.includes(frequencyType as AIFrequencyTypes);
 }
 
 export const AI_FREQUENCY_SELECT_MENU_CUSTOM_ID = "AI_FREQUENCY_SELECT_MENU_CUSTOM_ID" as const;
-
-const AI_FREQUENCY_DESCRIPTION =
-	`I have the ability to engage in conversation, be it sporadically or when you mention me!
-
-The frequency at which I will sporadically respond may be configured. The higher the frequency, the more likely I will respond.
-
-You can disable the frequency to turn this feature off and I will no longer sporadically reply.` as const;
-
-const AI_FREQUENCY_DESCRIPTION_WITHOUT_MONETISATION =
-	`I have the ability to engage in conversation, be it sporadically or when you mention me! I can choose to respond in certain frequencies too!
-
-To use this feature though, it must be purchased.` as const;
 
 export default class AI {
 	public static readonly cache = new Collection<Snowflake, AI>();
@@ -175,17 +150,15 @@ export default class AI {
 		const guild = GUILD_CACHE.get(interaction.guild_id);
 
 		if (!guild) {
-			pino.error(interaction, "Failed to find a guild to set an AI frequency in.");
-			throw new Error("Guild not found.");
+			throw new Error("Failed to find a guild to set an AI frequency in.");
 		}
 
 		const frequencyType = Number(interaction.data.values[0]);
 
 		if (!isAIFrequency(frequencyType)) {
-			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-				components: [],
-				content: "Unknown frequency. Please try again.",
-				embeds: [],
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: t("ai.frequency-unknown", { lng: interaction.locale, ns: "features" }),
+				flags: MessageFlags.Ephemeral,
 			});
 
 			return;
@@ -194,8 +167,8 @@ export default class AI {
 		const ai = await this.upsert(guild.id, { frequency_type: frequencyType });
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			...this.response(interaction, ai),
-			content: `Frequency set to \`${AIFrequencyTypeToString[frequencyType]}\`.`,
+			components: this.response(interaction, ai),
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		});
 	}
 
@@ -204,64 +177,78 @@ export default class AI {
 			| APIChatInputApplicationCommandGuildInteraction
 			| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 		ai?: AI,
-	): Parameters<InteractionsAPI["reply"]>[2] {
+	): [APIMessageTopLevelComponent] {
 		const guild = GUILD_CACHE.get(interaction.guild_id);
 
 		if (!guild) {
-			pino.error(interaction, "Failed to find a guild to create a JSON body response in.");
-			throw new Error("Guild not found.");
+			throw new Error("Failed to find a guild to create a JSON body response in.");
 		}
 
-		const entitlement = interaction.entitlements.find(
+		const { entitlements, locale } = interaction;
+
+		const entitlement = entitlements.find(
 			(entitlement) => entitlement.sku_id === SERVER_UPGRADE_SKU_ID,
 		);
 
-		return entitlement
-			? {
+		const containerComponents: APIComponentInContainer[] = [
+			{
+				type: ComponentType.TextDisplay,
+				content: `## ${t("ai.title", { lng: locale, ns: "features" })}`,
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+		];
+
+		if (entitlement) {
+			containerComponents.push(
+				{
+					type: ComponentType.TextDisplay,
+					content: t("ai.frequency-description", { lng: locale, ns: "features" }),
+				},
+				{
+					type: ComponentType.ActionRow,
 					components: [
 						{
-							type: ComponentType.ActionRow,
-							components: [
-								{
-									type: ComponentType.StringSelect,
-									custom_id: AI_FREQUENCY_SELECT_MENU_CUSTOM_ID,
-									max_values: 1,
-									min_values: 1,
-									options: AI_FREQUENCY_VALUES.map((aIFrequencyValue) => ({
-										default: aIFrequencyValue === ai?.frequencyType,
-										label: AIFrequencyTypeToString[aIFrequencyValue],
-										value: String(aIFrequencyValue),
-									})),
-									placeholder: "Set the frequency.",
-								},
-							],
+							type: ComponentType.StringSelect,
+							custom_id: AI_FREQUENCY_SELECT_MENU_CUSTOM_ID,
+							max_values: 1,
+							min_values: 1,
+							options: AI_FREQUENCY_TYPE_VALUES.map((aIFrequencyValue) => ({
+								default: aIFrequencyValue === ai?.frequencyType,
+								label: t(`ai.frequency-type.${aIFrequencyValue}`, { lng: locale, ns: "features" }),
+								value: String(aIFrequencyValue),
+							})),
+							placeholder: t("ai.frequency-type-string-select-menu-placeholder", {
+								lng: locale,
+								ns: "features",
+							}),
 						},
 					],
-					embeds: [
-						{
-							color: DEFAULT_EMBED_COLOUR,
-							description: AI_FREQUENCY_DESCRIPTION,
-							title: guild.name,
-						},
-					],
-					flags: MessageFlags.Ephemeral,
-				}
-			: {
+				},
+			);
+		} else {
+			containerComponents.push(
+				{
+					type: ComponentType.TextDisplay,
+					content: t("ai.frequency-description-no-monetisation", { lng: locale, ns: "features" }),
+				},
+				{
+					type: ComponentType.ActionRow,
 					components: [
 						{
-							type: ComponentType.ActionRow,
-							components: [{ type: ComponentType.Button, sku_id: SERVER_UPGRADE_SKU_ID, style: 6 }],
+							type: ComponentType.Button,
+							style: ButtonStyle.Premium,
+							sku_id: SERVER_UPGRADE_SKU_ID,
 						},
 					],
-					embeds: [
-						{
-							color: DEFAULT_EMBED_COLOUR,
-							description: AI_FREQUENCY_DESCRIPTION_WITHOUT_MONETISATION,
-							title: guild.name,
-						},
-					],
-					flags: MessageFlags.Ephemeral,
-				};
+				},
+			);
+		}
+
+		return [{ type: ComponentType.Container, components: containerComponents }];
 	}
 
 	public async respond(
@@ -286,12 +273,11 @@ export default class AI {
 		const entitlement = await fetchEntitlement(guild.id);
 		let resolvedChannelForPermission: GuildChannel;
 
-		const isThreadChannelType =
+		if (
 			channel.type === ChannelType.AnnouncementThread ||
 			channel.type === ChannelType.PublicThread ||
-			channel.type === ChannelType.PrivateThread;
-
-		if (isThreadChannelType) {
+			channel.type === ChannelType.PrivateThread
+		) {
 			const parentChannel = guild.channels.get(channel.parentId);
 
 			if (!parentChannel) {

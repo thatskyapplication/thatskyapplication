@@ -1,3 +1,4 @@
+import { AIFrequencyType, type AIFrequencyTypes } from "../ai.js";
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
 import { DailyQuest, type DailyQuests } from "../daily-guides.js";
 import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
@@ -3015,6 +3016,23 @@ export default {
 			"issue-modal-description": "Describe your issue here.",
 			"issue-modal-description-placeholder": "Every time I try to...\nNothing happens when...",
 			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
+		},
+		ai: {
+			"frequency-type": {
+				[AIFrequencyType.Disabled]: "Disabled",
+				[AIFrequencyType.VeryRare]: "Very rare",
+				[AIFrequencyType.Rare]: "Rare",
+				[AIFrequencyType.Normal]: "Normal",
+				[AIFrequencyType.Common]: "Common",
+				[AIFrequencyType.VeryCommon]: "Very common",
+			} satisfies Record<AIFrequencyTypes, string>,
+			title: "Caelus AI",
+			"frequency-description":
+				"I have the ability to engage in conversation, be it sporadically or when you mention me!\n\nThe frequency at which I will sporadically respond may be configured. The higher the frequency, the more likely I will respond.\n\nYou can disable the frequency to turn this feature off and I will no longer sporadically reply.",
+			"frequency-description-no-monetisation":
+				"I have the ability to engage in conversation, be it sporadically or when you mention me! I can choose to respond in certain frequencies too!\n\nTo use this feature though, it must be purchased.",
+			"frequency-type-string-select-menu-placeholder": "Set the frequency.",
+			"frequency-unknown": "Unknown frequency. Please try again.",
 		},
 		bonk: {
 			"missing-external-apps-permission":

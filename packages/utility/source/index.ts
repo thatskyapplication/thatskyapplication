@@ -18,6 +18,7 @@ export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
+export { AI_FREQUENCY_TYPE_VALUES, AIFrequencyType, type AIFrequencyTypes } from "./ai.js";
 export type { CataloguePacket } from "./catalogue.js";
 export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
