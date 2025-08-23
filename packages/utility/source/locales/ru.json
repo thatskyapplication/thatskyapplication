@@ -2483,34 +2483,13 @@
 				"command-option-start-name": "",
 				"command-option-start-description": "",
 				"command-option-goal-name": "",
-				"command-option-goal-description": "",
-				"goal-achieved": "",
-				"no-season": "",
-				"start": "",
-				"goal": "",
-				"required": "",
-				"day_one": "",
-				"day_other": "",
-				"day-season-pass_one": "",
-				"day-season-pass_other": "",
-				"seasonal-candle-calculator": "",
-				"remain-in-the-season": "",
-				"remain-in-the-season-with-a-season-pass": "",
-				"double-seasonal-light-calculation": ""
+				"command-option-goal-description": ""
 			},
 			"winged-light": {
 				"command-name": "",
 				"command-description": "",
 				"command-option-wing-buffs-name": "",
-				"command-option-wing-buffs-description": "",
-				"duplicate-areas": "",
-				"started-with": "",
-				"reborn-with": "",
-				"total": "",
-				"unknown": "",
-				"wedge-next_other": "",
-				"wedge-total_other": "",
-				"winged-light-calculator": ""
+				"command-option-wing-buffs-description": ""
 			}
 		},
 		"catalogue": {
@@ -2765,17 +2744,45 @@
 			"missing-external-apps-permission": ""
 		},
 		"calculate": {
+			"goal-already-achieved": "",
+			"start": "",
+			"goal": "",
+			"required": "",
 			"ascended-candles": {
 				"goal-achieved": "",
 				"no-source": "",
 				"title": "",
-				"start": "",
-				"goal": "",
-				"required": "",
 				"goal-first-achievable": "",
 				"minimum-time-beginning": "",
 				"minimum-time-eye-of-eden": "",
 				"minimum-time-shard-eruptions": ""
+			},
+			"event-tickets": {
+				"no-event": "",
+				"no-tickets": "",
+				"result-emoji": "",
+				"result-event": "",
+				"result-pool": "",
+				"title": ""
+			},
+			"seasonal-candles": {
+				"no-season": "",
+				"day_one": "",
+				"day_other": "",
+				"day-season-pass_one": "",
+				"day-season-pass_other": "",
+				"title": "",
+				"remain-in-the-season": "",
+				"remain-in-the-season-with-a-season-pass": "",
+				"double-seasonal-light-calculation": ""
+			},
+			"winged-light": {
+				"started-with": "",
+				"reborn-with": "",
+				"total": "",
+				"wedge-next_other": "",
+				"wedge-total_other": "",
+				"title": ""
 			}
 		},
 		"catalogue": {

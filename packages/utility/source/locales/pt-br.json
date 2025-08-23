@@ -2483,34 +2483,13 @@
 				"command-option-start-name": "iniciar",
 				"command-option-start-description": "O número inicial de velas de temporada.",
 				"command-option-goal-name": "objetivo",
-				"command-option-goal-description": "O número desejado de velas de temporada.",
-				"goal-achieved": "Você já conquistou seu objetivo!",
-				"no-season": "Não há temporada agora.",
-				"start": "Iniciar",
-				"goal": "Objetivo",
-				"required": "Exigido",
-				"day_one": "Resultado: {{count}} dia",
-				"day_other": "Resultado: {{count}} dias",
-				"day-season-pass_one": "({{count}} dia com o Passe de Temporada).",
-				"day-season-pass_other": "({{count}} dias com o Passe de Temporada).",
-				"seasonal-candle-calculator": "Calculadora de Velas de Temporada",
-				"remain-in-the-season": "restantes na temporada.",
-				"remain-in-the-season-with-a-season-pass": "restantes na temporada com o Passe de Temporada.",
-				"double-seasonal-light-calculation": "Evento de luz em Dobro de Temporada incluído nos cálculos."
+				"command-option-goal-description": "O número desejado de velas de temporada."
 			},
 			"winged-light": {
 				"command-name": "luz-alada",
 				"command-description": "Calcula quanta luz alada deveria ter.",
 				"command-option-wing-buffs-name": "melhorias-aladas",
-				"command-option-wing-buffs-description": "O número de melhoria nas asas (quantidade total coletada de espíritos ascendidos).",
-				"duplicate-areas": "Áreas duplicadas detectadas. Certifique-se de fornecer uma única área!",
-				"started-with": "Começar com",
-				"reborn-with": "Renascer com",
-				"total": "Total",
-				"unknown": "Área desconhecida detectada. Por favor, reporte este problema!",
-				"wedge-next_other": "Próximo nivel: {{count}}",
-				"wedge-total_other": "Nível {{count}}",
-				"winged-light-calculator": "Calculadora de Luz Alada"
+				"command-option-wing-buffs-description": "O número de melhoria nas asas (quantidade total coletada de espíritos ascendidos)."
 			}
 		},
 		"catalogue": {
@@ -2765,17 +2744,45 @@
 			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não poderá ser cutucado. Alguém precisa ajustar as permissões!"
 		},
 		"calculate": {
+			"goal-already-achieved": "Você já conquistou seu objetivo!",
+			"start": "Início: ",
+			"goal": "Objetivo: ",
+			"required": "Exigido: ",
 			"ascended-candles": {
 				"goal-achieved": "Você já conquistou seu objetivo!",
 				"no-source": "Você precisa ter uma fonte para ganhar velas ascendidas!",
 				"title": "Calculadora de velas ascendidas",
-				"start": "Início: ",
-				"goal": "Objetivo: ",
-				"required": "Exigido: ",
 				"goal-first-achievable": "Esse objetivo é primeiro conquistado em {{date}} ({{relative}}).",
 				"minimum-time-beginning": "Tempo mínimo calculado por:",
 				"minimum-time-eye-of-eden": "Olho das estátuas do Éden",
 				"minimum-time-shard-eruptions": "Erupções de Fragmentos"
+			},
+			"event-tickets": {
+				"no-event": "",
+				"no-tickets": "",
+				"result-emoji": "",
+				"result-event": "",
+				"result-pool": "",
+				"title": ""
+			},
+			"seasonal-candles": {
+				"no-season": "Não há temporada agora.",
+				"day_one": "Resultado: {{count}} dia",
+				"day_other": "Resultado: {{count}} dias",
+				"day-season-pass_one": "({{count}} dia com o Passe de Temporada).",
+				"day-season-pass_other": "({{count}} dias com o Passe de Temporada).",
+				"title": "Calculadora de Velas de Temporada",
+				"remain-in-the-season": "restantes na temporada.",
+				"remain-in-the-season-with-a-season-pass": "restantes na temporada com o Passe de Temporada.",
+				"double-seasonal-light-calculation": ""
+			},
+			"winged-light": {
+				"started-with": "Começar com",
+				"reborn-with": "Renascer com",
+				"total": "Total",
+				"wedge-next_other": "Próximo nivel: {{count}}",
+				"wedge-total_other": "Nível {{count}}",
+				"title": "Calculadora de Luz Alada"
 			}
 		},
 		"catalogue": {

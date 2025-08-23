@@ -2483,34 +2483,13 @@
 				"command-option-start-name": "inicio",
 				"command-option-start-description": "Número inicial de velas de temporada.",
 				"command-option-goal-name": "meta",
-				"command-option-goal-description": "Número de velas de temporada que deseas",
-				"goal-achieved": "¡Ya has alcanzado tu objetivo!",
-				"no-season": "",
-				"start": "Inicio",
-				"goal": "Meta",
-				"required": "Requeridos",
-				"day_one": "Resultado: {{count}} día",
-				"day_other": "Resultado: {{count}} días",
-				"day-season-pass_one": "({{count}} día con el Pase).",
-				"day-season-pass_other": "({{count}} días con el Pase).",
-				"seasonal-candle-calculator": "Calculadora de Velas de Temporada",
-				"remain-in-the-season": "Restantes en la temporada.",
-				"remain-in-the-season-with-a-season-pass": "Restantes en la temporada con el Pase.",
-				"double-seasonal-light-calculation": "Evento de luz doble de Temporada incluído en los cálculos."
+				"command-option-goal-description": "Número de velas de temporada que deseas"
 			},
 			"winged-light": {
 				"command-name": "luz-alada",
 				"command-description": "Calcula cuánta luz alada deberías tener.",
 				"command-option-wing-buffs-name": "",
-				"command-option-wing-buffs-description": "",
-				"duplicate-areas": "Áreas duplicadas detectadas. ¡Asegúrate de dar una única área!",
-				"started-with": "Empezaste con",
-				"reborn-with": "Renaciste con",
-				"total": "",
-				"unknown": "Área desconocida detectada. Por favor, ¡reporta este problema!",
-				"wedge-next_other": "Siguiente nivel: {{count}}",
-				"wedge-total_other": "Nivel {{count}}",
-				"winged-light-calculator": "Calculadora de Luz Alada"
+				"command-option-wing-buffs-description": ""
 			}
 		},
 		"catalogue": {
@@ -2765,17 +2744,45 @@
 			"missing-external-apps-permission": ""
 		},
 		"calculate": {
+			"goal-already-achieved": "¡Ya has alcanzado tu objetivo!",
+			"start": "",
+			"goal": "",
+			"required": "",
 			"ascended-candles": {
 				"goal-achieved": "",
 				"no-source": "",
 				"title": "",
-				"start": "",
-				"goal": "",
-				"required": "",
 				"goal-first-achievable": "",
 				"minimum-time-beginning": "",
 				"minimum-time-eye-of-eden": "",
 				"minimum-time-shard-eruptions": ""
+			},
+			"event-tickets": {
+				"no-event": "",
+				"no-tickets": "",
+				"result-emoji": "",
+				"result-event": "",
+				"result-pool": "",
+				"title": ""
+			},
+			"seasonal-candles": {
+				"no-season": "",
+				"day_one": "Resultado: {{count}} día",
+				"day_other": "Resultado: {{count}} días",
+				"day-season-pass_one": "({{count}} día con el Pase).",
+				"day-season-pass_other": "({{count}} días con el Pase).",
+				"title": "Calculadora de Velas de Temporada",
+				"remain-in-the-season": "Restantes en la temporada.",
+				"remain-in-the-season-with-a-season-pass": "Restantes en la temporada con el Pase.",
+				"double-seasonal-light-calculation": ""
+			},
+			"winged-light": {
+				"started-with": "Empezaste con",
+				"reborn-with": "Renaciste con",
+				"total": "",
+				"wedge-next_other": "Siguiente nivel: {{count}}",
+				"wedge-total_other": "Nivel {{count}}",
+				"title": "Calculadora de Luz Alada"
 			}
 		},
 		"catalogue": {
