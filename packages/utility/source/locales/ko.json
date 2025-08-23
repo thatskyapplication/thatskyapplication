@@ -324,7 +324,8 @@
 			"244": "안아 드는 운둔자와 함께 공유공간을 감상하세요",
 			"245": "우왕좌왕 갑판장과 함께 공유공간을 감상하세요",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
 		},
 		"seasons": {
 			"0": "감사의 시즌",
