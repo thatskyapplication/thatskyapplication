@@ -2745,6 +2745,21 @@
 			"issue-modal-description-placeholder": "Chaque fois que j'essaie...\nRien ne ce passe quand...",
 			"issue-submission": "Merci d'avoir reporté votre problème ! {{emoji}}"
 		},
+		"ai": {
+			"frequency-type": {
+				"0": "",
+				"1": "",
+				"2": "",
+				"3": "",
+				"4": "",
+				"5": ""
+			},
+			"title": "",
+			"frequency-description": "",
+			"frequency-description-no-monetisation": "",
+			"frequency-type-string-select-menu-placeholder": "",
+			"frequency-unknown": ""
+		},
 		"bonk": {
 			"missing-external-apps-permission": ""
 		},
