@@ -2745,6 +2745,21 @@
 			"issue-modal-description-placeholder": "每次我嘗試…\n都沒有任何反應……",
 			"issue-submission": "感謝您回報問題！ {{emoji}}"
 		},
+		"ai": {
+			"frequency-type": {
+				"0": "",
+				"1": "",
+				"2": "",
+				"3": "",
+				"4": "",
+				"5": ""
+			},
+			"title": "",
+			"frequency-description": "",
+			"frequency-description-no-monetisation": "",
+			"frequency-type-string-select-menu-placeholder": "",
+			"frequency-unknown": ""
+		},
 		"bonk": {
 			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會被攔截。需要有人調整權限！"
 		},
