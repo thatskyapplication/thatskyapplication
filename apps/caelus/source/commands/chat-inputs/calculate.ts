@@ -5,7 +5,7 @@ import {
 	eventTickets,
 	seasonalCandles,
 	wingedLight,
-} from "../../services/calculate.js";
+} from "../../features/calculate.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
