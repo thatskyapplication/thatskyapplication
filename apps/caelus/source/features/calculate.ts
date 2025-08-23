@@ -295,7 +295,7 @@ export async function seasonalCandles(
 
 	if (start >= goal) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("calculate.seasonal-candles.goal-achieved", { lng: locale, ns: "commands" }),
+			content: t("calculate.seasonal-candles.goal-achieved", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -307,7 +307,7 @@ export async function seasonalCandles(
 
 	if (!season) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("calculate.seasonal-candles.no-season", { lng: locale, ns: "commands" }),
+			content: t("calculate.seasonal-candles.no-season", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -343,7 +343,7 @@ export async function seasonalCandles(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t("calculate.seasonal-candles.seasonal-candle-calculator", { lng: locale, ns: "commands" })}`,
+			content: `## ${t("calculate.seasonal-candles.seasonal-candle-calculator", { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -357,23 +357,23 @@ export async function seasonalCandles(
 	const textDisplayComponents: APITextDisplayComponent[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: start })}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: goal })}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "commands" })}: ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
+			content: `${t("calculate.seasonal-candles.start", { lng: locale, ns: "features" })}: ${resolveCurrencyEmoji({ emoji, number: start })}\n${t("calculate.seasonal-candles.goal", { lng: locale, ns: "features" })}: ${resolveCurrencyEmoji({ emoji, number: goal })}\n${t("calculate.seasonal-candles.required", { lng: locale, ns: "features" })}: ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "commands", count: days })}${days === daysWithSeasonPass ? "" : ` ${t("calculate.seasonal-candles.day-season-pass", { lng: locale, ns: "commands", count: daysWithSeasonPass })}`}`,
+			content: `${t("calculate.seasonal-candles.day", { lng: locale, ns: "features", count: days })}${days === daysWithSeasonPass ? "" : ` ${t("calculate.seasonal-candles.day-season-pass", { lng: locale, ns: "features", count: daysWithSeasonPass })}`}`,
 		},
 		{
 			type: ComponentType.TextDisplay,
 			content: `${resolveCurrencyEmoji({
 				emoji,
 				number: seasonalCandlesLeft,
-			})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "commands" })}\n${resolveCurrencyEmoji(
+			})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "features" })}\n${resolveCurrencyEmoji(
 				{
 					emoji,
 					number: seasonalCandlesLeftWithSeasonPass,
 				},
-			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "commands" })}`,
+			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "features" })}`,
 		},
 	];
 
@@ -403,7 +403,7 @@ export async function seasonalCandles(
 			type: ComponentType.TextDisplay,
 			content: `${t("calculate.seasonal-candles.double-seasonal-light-calculation", {
 				lng: locale,
-				ns: "commands",
+				ns: "features",
 			})}\n<t:${season!.doubleSeasonalLightEventStartDate!.toUnixInteger()}:d> - <t:${season!.doubleSeasonalLightEventEndDate!.toUnixInteger()}:d>`,
 		});
 	}
