@@ -2483,34 +2483,13 @@
 				"command-option-start-name": "起始",
 				"command-option-start-description": "季節蠟燭的起始數量。",
 				"command-option-goal-name": "目標",
-				"command-option-goal-description": "所需的季節蠟燭數量。",
-				"goal-achieved": "你已達成你的目標！",
-				"no-season": "目前尚無季節活動。",
-				"start": "起始",
-				"goal": "目標",
-				"required": "必需的",
-				"day_one": "结果: {{count}} 天",
-				"day_other": "結果: {{count}} 天",
-				"day-season-pass_one": "(持有季票還剩 {{count}} 天)。",
-				"day-season-pass_other": "(持有季票還剩 {{count}} 天)。",
-				"seasonal-candle-calculator": "季節蠟燭計算器",
-				"remain-in-the-season": "在本賽季。",
-				"remain-in-the-season-with-a-season-pass": "持有季票在本賽季。",
-				"double-seasonal-light-calculation": "將雙倍季蠟活動納入計算。"
+				"command-option-goal-description": "所需的季節蠟燭數量。"
 			},
 			"winged-light": {
 				"command-name": "翼之光",
 				"command-description": "計算一個人應該擁有多少翼光。",
 				"command-option-wing-buffs-name": "永久翼",
-				"command-option-wing-buffs-description": "永久翼數量（從昇華先靈收集的總數量）。",
-				"duplicate-areas": "偵測到重複區域。請確保僅提供唯一區域！",
-				"started-with": "始於",
-				"reborn-with": "重生",
-				"total": "總數",
-				"unknown": "檢測到未知區域。請回報此問題！",
-				"wedge-next_other": "下個等級: {{count}}",
-				"wedge-total_other": "{{count}} 個",
-				"winged-light-calculator": "翼光計算器"
+				"command-option-wing-buffs-description": "永久翼數量（從昇華先靈收集的總數量）。"
 			}
 		},
 		"catalogue": {
@@ -2765,17 +2744,45 @@
 			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會被攔截。需要有人調整權限！"
 		},
 		"calculate": {
+			"goal-already-achieved": "你已達成你的目標！",
+			"start": "起始: ",
+			"goal": "目標: ",
+			"required": "必需: ",
 			"ascended-candles": {
 				"goal-achieved": "你已經實現了你的目標！",
 				"no-source": "你一定有獲得昇華蠟燭的來源！",
 				"title": "昇華蠟燭計算器",
-				"start": "起始: ",
-				"goal": "目標: ",
-				"required": "必需: ",
 				"goal-first-achievable": "此目標將於 {{date}} ({{relative}}) 首次實現。",
 				"minimum-time-beginning": "最短時間由以下公式得出：",
 				"minimum-time-eye-of-eden": "暴風眼雕像",
 				"minimum-time-shard-eruptions": "碎片噴發"
+			},
+			"event-tickets": {
+				"no-event": "",
+				"no-tickets": "",
+				"result-emoji": "",
+				"result-event": "",
+				"result-pool": "",
+				"title": ""
+			},
+			"seasonal-candles": {
+				"no-season": "目前尚無季節活動。",
+				"day_one": "结果: {{count}} 天",
+				"day_other": "結果: {{count}} 天",
+				"day-season-pass_one": "(持有季票還剩 {{count}} 天)。",
+				"day-season-pass_other": "(持有季票還剩 {{count}} 天)。",
+				"title": "季節蠟燭計算器",
+				"remain-in-the-season": "在本賽季。",
+				"remain-in-the-season-with-a-season-pass": "持有季票在本賽季。",
+				"double-seasonal-light-calculation": ""
+			},
+			"winged-light": {
+				"started-with": "始於",
+				"reborn-with": "重生",
+				"total": "總數",
+				"wedge-next_other": "下個等級: {{count}}",
+				"wedge-total_other": "{{count}} 個",
+				"title": "翼光計算器"
 			}
 		},
 		"catalogue": {

@@ -3061,7 +3061,7 @@ export default {
 				total: "Total",
 				"wedge-next_other": "Next wedge: {{count}}",
 				"wedge-total_other": "{{count}} wedges",
-				"title": "Winged light calculator",
+				title: "Winged light calculator",
 			},
 		},
 		catalogue: {
