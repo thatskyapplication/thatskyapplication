@@ -488,6 +488,10 @@ export default {
 				SpiritId.LaughingLightCatcher,
 				RealmName.ValleyOfTriumph,
 			),
+			[DailyQuest.MeetUpWithCourageousSoldierInValleyOfTriumph]: questsMeetUpWith(
+				SpiritId.CourageousSoldier,
+				RealmName.ValleyOfTriumph,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
