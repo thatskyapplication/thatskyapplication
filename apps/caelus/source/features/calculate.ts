@@ -429,13 +429,13 @@ export async function wingedLight(
 
 	const embed: APIEmbed = {
 		color: DEFAULT_EMBED_COLOUR,
-		description: `${t("calculate.winged-light.started-with", { lng: locale, ns: "commands" })} ${resolveCurrencyEmoji(
+		description: `${t("calculate.winged-light.started-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				number: wingBuffs,
 				includeSpaceInEmoji: true,
 			},
-		)}.\n${t("calculate.winged-light.reborn-with", { lng: locale, ns: "commands" })} ${resolveCurrencyEmoji(
+		)}.\n${t("calculate.winged-light.reborn-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
@@ -443,7 +443,7 @@ export async function wingedLight(
 				includeSpaceInEmoji: true,
 			},
 		)} (+${AreaToWingedLight[SkyMap.Orbit]}).`,
-		title: t("calculate.winged-light.winged-light-calculator", { lng: locale, ns: "commands" }),
+		title: t("calculate.winged-light.winged-light-calculator", { lng: locale, ns: "features" }),
 	};
 
 	const fields = WINGED_LIGHT_AREAS.map((area) => ({
@@ -464,7 +464,7 @@ export async function wingedLight(
 	if (wedge !== -1) {
 		const wedgeTotal = t("calculate.winged-light.wedge-total", {
 			lng: locale,
-			ns: "commands",
+			ns: "features",
 			count: wedge,
 		});
 
@@ -475,7 +475,7 @@ export async function wingedLight(
 
 	if (nextThreshold) {
 		wedgeText.push(
-			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "commands", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`,
+			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "features", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`,
 		);
 	}
 
@@ -484,7 +484,7 @@ export async function wingedLight(
 	}
 
 	fields.push({
-		name: t("calculate.winged-light.total", { lng: locale, ns: "commands" }),
+		name: t("calculate.winged-light.total", { lng: locale, ns: "features" }),
 		value: totalText,
 	});
 

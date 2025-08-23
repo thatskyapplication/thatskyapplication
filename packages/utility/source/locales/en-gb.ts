@@ -2755,14 +2755,6 @@ export default {
 				"command-option-wing-buffs-name": "wing-buffs",
 				"command-option-wing-buffs-description":
 					"The number of wing buffs (total amount collected from ascended spirits).",
-				"duplicate-areas": "Duplicate areas detected. Make sure to only provide unique areas!",
-				"started-with": "Started with",
-				"reborn-with": "Reborn with",
-				total: "Total",
-				unknown: "Unknown area detected. Please report this issue!",
-				"wedge-next_other": "Next wedge: {{count}}",
-				"wedge-total_other": "{{count}} wedges",
-				"winged-light-calculator": "Winged Light Calculator",
 			},
 		},
 		catalogue: {
@@ -3056,6 +3048,16 @@ export default {
 				"remain-in-the-season": "remain in the season.",
 				"remain-in-the-season-with-a-season-pass": "remain in the season with a Season Pass.",
 				"double-seasonal-light-calculation": "Double Seasonal Light event included in calculation.",
+			},
+			"winged-light": {
+				"duplicate-areas": "Duplicate areas detected. Make sure to only provide unique areas!",
+				"started-with": "Started with",
+				"reborn-with": "Reborn with",
+				total: "Total",
+				unknown: "Unknown area detected. Please report this issue!",
+				"wedge-next_other": "Next wedge: {{count}}",
+				"wedge-total_other": "{{count}} wedges",
+				"winged-light-calculator": "Winged Light Calculator",
 			},
 		},
 		catalogue: {
