@@ -3154,6 +3154,7 @@ export default {
 			type: {
 				[GuessType.Original]: "Original",
 				[GuessType.Hard]: "Hard",
+				[GuessType.Events]: "Events",
 			} satisfies Record<GuessTypes, string>,
 			title: "Where does this come from?",
 			"guess-in": "Guess {{time}}!",

@@ -102,7 +102,17 @@ import {
 	giveaway,
 	upsell,
 } from "../features/giveaway.js";
-import { answer, isGuessType, leaderboard, parseEndGame, tryAgain } from "../features/guess.js";
+import {
+	answer,
+	GUESS_EVENT_OPTION_1_CUSTOM_ID,
+	GUESS_EVENT_OPTION_2_CUSTOM_ID,
+	GUESS_EVENT_OPTION_3_CUSTOM_ID,
+	guessEventAnswer,
+	isGuessType,
+	leaderboard,
+	parseEndGame,
+	tryAgain,
+} from "../features/guess.js";
 import {
 	displayNotificationType,
 	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
@@ -737,6 +747,15 @@ export default {
 					customId.startsWith(GUESS_ANSWER_3)
 				) {
 					await answer(interaction);
+					return;
+				}
+
+				if (
+					customId.startsWith(GUESS_EVENT_OPTION_1_CUSTOM_ID) ||
+					customId.startsWith(GUESS_EVENT_OPTION_2_CUSTOM_ID) ||
+					customId.startsWith(GUESS_EVENT_OPTION_3_CUSTOM_ID)
+				) {
+					await guessEventAnswer(interaction);
 					return;
 				}
 

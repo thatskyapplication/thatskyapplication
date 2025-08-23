@@ -1,5 +1,6 @@
+import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { Snowflake } from "@discordjs/core";
-import { spirits } from "@thatskyapplication/utility";
+import { type EventIds, skyEvents, spirits } from "@thatskyapplication/utility";
 import {
 	CosmeticToEmoji,
 	FRIEND_ACTION_EMOJIS,
@@ -66,4 +67,17 @@ const SPIRIT_COSMETIC_EMOJIS = spirits()
 		return emojis;
 	}, new Set<Snowflake>());
 
-export const SPIRIT_COSMETIC_EMOJIS_ARRAY = [...SPIRIT_COSMETIC_EMOJIS];
+export const SPIRIT_COSMETIC_EMOJIS_ARRAY: readonly Snowflake[] = [...SPIRIT_COSMETIC_EMOJIS];
+const events = skyEvents();
+export const eventCosmeticEmojis = new Collection<Snowflake, EventIds>();
+
+for (const event of events.values()) {
+	for (const offer of event.offer) {
+		for (const cosmetic of offer.cosmetics) {
+			const emoji = CosmeticToEmoji[cosmetic];
+			eventCosmeticEmojis.set(emoji.id, event.id);
+		}
+	}
+}
+
+export const EVENT_COSMETIC_EMOJIS: ReadonlyCollection<Snowflake, EventIds> = eventCosmeticEmojis;

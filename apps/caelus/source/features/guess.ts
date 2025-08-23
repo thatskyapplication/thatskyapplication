@@ -16,6 +16,7 @@ import {
 	currentSeasonalSpirits,
 	ELDER_SPIRITS,
 	type ElderSpirit,
+	type EventIds,
 	formatEmoji,
 	formatEmojiURL,
 	GUESS_TYPE_VALUES,
@@ -23,6 +24,7 @@ import {
 	type GuessTypes,
 	type GuideSpirit,
 	getRandomElement,
+	isEventId,
 	isSpiritId,
 	type SeasonalSpirit,
 	SpiritId,
@@ -48,7 +50,11 @@ import {
 } from "../utility/constants.js";
 import { CosmeticToEmoji, FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
-import { SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
+import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
+
+export const GUESS_EVENT_OPTION_1_CUSTOM_ID = "GUESS_EVENT_OPTION_1_CUSTOM_ID" as const;
+export const GUESS_EVENT_OPTION_2_CUSTOM_ID = "GUESS_EVENT_OPTION_2_CUSTOM_ID" as const;
+export const GUESS_EVENT_OPTION_3_CUSTOM_ID = "GUESS_EVENT_OPTION_3_CUSTOM_ID" as const;
 
 export interface GuessPacket {
 	user_id: string;
@@ -63,7 +69,7 @@ export function isGuessType(type: number): type is GuessTypes {
 	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
 }
 
-function getAnswer(): [Snowflake, SpiritIds] {
+function getAnswer(): readonly [Snowflake, SpiritIds] {
 	// Get a random emoji as the answer.
 	const emoji = getRandomElement(SPIRIT_COSMETIC_EMOJIS_ARRAY)!;
 
@@ -135,20 +141,20 @@ function getOptions(type: GuessTypes) {
 	};
 }
 
-interface GuessGenerateCustomIdBaseOptions {
+interface GuessGenerateCustomIdBaseOptions<Answer> {
 	type: GuessTypes;
 	emoji: Snowflake;
-	answer: SpiritIds;
+	answer: Answer;
 	streak: number;
 	timeoutTimestamp: number;
 }
 
-interface GuessGenerateCustomIdGuessOptions extends GuessGenerateCustomIdBaseOptions {
+interface GuessGenerateCustomIdGuessOptions extends GuessGenerateCustomIdBaseOptions<SpiritIds> {
 	prefix: typeof GUESS_ANSWER_1 | typeof GUESS_ANSWER_2 | typeof GUESS_ANSWER_3;
 	option: SpiritIds;
 }
 
-interface GuessGenerateCustomIdEndOptions extends GuessGenerateCustomIdBaseOptions {
+interface GuessGenerateCustomIdEndOptions extends GuessGenerateCustomIdBaseOptions<SpiritIds> {
 	prefix: typeof GUESS_END_GAME;
 }
 
@@ -157,10 +163,20 @@ interface GuessGenerationCustomIdTryAgainOptions {
 	type: GuessTypes;
 }
 
+interface GuessEventGenerateCustomIdGuessOptions
+	extends GuessGenerateCustomIdBaseOptions<EventIds> {
+	prefix:
+		| typeof GUESS_EVENT_OPTION_1_CUSTOM_ID
+		| typeof GUESS_EVENT_OPTION_2_CUSTOM_ID
+		| typeof GUESS_EVENT_OPTION_3_CUSTOM_ID;
+	option: EventIds;
+}
+
 type GuessGenerateCustomIdOptions =
 	| GuessGenerateCustomIdGuessOptions
 	| GuessGenerateCustomIdEndOptions
-	| GuessGenerationCustomIdTryAgainOptions;
+	| GuessGenerationCustomIdTryAgainOptions
+	| GuessEventGenerateCustomIdGuessOptions;
 
 function generateCustomId(options: GuessGenerateCustomIdOptions) {
 	const { prefix, type } = options;
@@ -194,6 +210,46 @@ function parseCustomId(customId: string) {
 
 	if (option !== null && !isSpiritId(option)) {
 		throw new Error(`Invalid guessed answer spirit id: ${rawOption}`);
+	}
+
+	return {
+		prefix,
+		type,
+		emoji: streak === "null" ? null : emoji,
+		answer,
+		option,
+		streak: streak === "null" ? null : Number(streak),
+		timeoutTimestamp: timeoutTimestamp === "null" ? null : Number(timeoutTimestamp),
+	};
+}
+
+function parseEventCustomId(customId: string) {
+	const [prefix, rawType, emoji, rawAnswer, rawOption, streak, timeoutTimestamp] = customId.split(
+		"§",
+	) as [
+		GuessGenerateCustomIdOptions["prefix"],
+		`${GuessTypes}`,
+		Snowflake | `${null}`,
+		`${EventIds | null}`,
+		`${EventIds | null}`,
+		`${number | null}`,
+		`${number | null}`,
+	];
+
+	const type = Number(rawType);
+	const answer = rawAnswer === "null" ? null : Number(rawAnswer);
+	const option = rawOption === "null" ? null : Number(rawOption);
+
+	if (!isGuessType(type)) {
+		throw new Error(`Invalid guessing game type: ${type}`);
+	}
+
+	if (answer !== null && !isEventId(answer)) {
+		throw new Error(`Invalid answer event id: ${rawAnswer}`);
+	}
+
+	if (option !== null && !isEventId(option)) {
+		throw new Error(`Invalid guessed answer event id: ${rawOption}`);
 	}
 
 	return {
@@ -384,7 +440,17 @@ export async function parseEndGame(interaction: APIMessageComponentButtonInterac
 	}
 
 	const { type, emoji, answer, option, streak } = parseCustomId(interaction.data.custom_id);
-	await endGame({ interaction, type, emoji: emoji!, answer: answer!, option, streak: streak! });
+
+	await (type === GuessType.Events
+		? endEventGame({
+				interaction,
+				type,
+				emoji: emoji!,
+				answer: answer!,
+				option,
+				streak: streak!,
+			})
+		: endGame({ interaction, type, emoji: emoji!, answer: answer!, option, streak: streak! }));
 }
 
 interface GuessEndGameOptions {
@@ -493,6 +559,319 @@ async function endGame({
 	});
 }
 
+interface GuessEventOptions {
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction;
+	streak: number;
+}
+
+export async function guessEvent({ interaction, streak = 0 }: GuessEventOptions) {
+	const { locale } = interaction;
+	const options = new Set<EventIds>();
+	const answerEmojiId = EVENT_COSMETIC_EMOJIS.randomKey()!;
+	const answerEventId = EVENT_COSMETIC_EMOJIS.get(answerEmojiId)!;
+	options.add(answerEventId);
+
+	generateOtherOptions: while (options.size < 3) {
+		const option = EVENT_COSMETIC_EMOJIS.random()!;
+		const eventName = t(`events.${option}`, { lng: locale, ns: "general" });
+
+		// Ensure no duplicate labels.
+		for (const existingOption of options) {
+			const existingEventName = t(`events.${existingOption}`, { lng: locale, ns: "general" });
+
+			if (eventName === existingEventName) {
+				continue generateOtherOptions;
+			}
+		}
+
+		options.add(option);
+	}
+
+	const [option1, option2, option3] = options;
+
+	// Set the timeout timestamp.
+	const timeoutTimestamp = DiscordSnowflake.timestampFrom(interaction.id) + GUESS_TIMEOUT;
+
+	// Create buttons from the answers.
+	const buttons: APIButtonComponentWithCustomId[] = [
+		{
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: generateCustomId({
+				prefix: GUESS_EVENT_OPTION_1_CUSTOM_ID,
+				type: GuessType.Events,
+				emoji: answerEmojiId,
+				answer: answerEventId,
+				option: option1!,
+				streak,
+				timeoutTimestamp,
+			}),
+			label: t(`events.${option1!}`, { lng: locale, ns: "general" }),
+		},
+		{
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: generateCustomId({
+				prefix: GUESS_EVENT_OPTION_2_CUSTOM_ID,
+				type: GuessType.Events,
+				emoji: answerEmojiId,
+				answer: answerEventId,
+				option: option2!,
+				streak,
+				timeoutTimestamp,
+			}),
+			label: t(`events.${option2!}`, { lng: locale, ns: "general" }),
+		},
+		{
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: generateCustomId({
+				prefix: GUESS_EVENT_OPTION_3_CUSTOM_ID,
+				type: GuessType.Events,
+				emoji: answerEmojiId,
+				answer: answerEventId,
+				option: option3!,
+				streak,
+				timeoutTimestamp,
+			}),
+			label: t(`events.${option3!}`, { lng: locale, ns: "general" }),
+		},
+	];
+
+	// Retrieve the highest streak.
+	const invoker = interactionInvoker(interaction);
+
+	const highestStreak =
+		(
+			await pg<GuessPacket>(Table.Guess)
+				.select("streak")
+				.where({ user_id: invoker.id, type: GuessType.Events })
+				.first()
+		)?.streak ?? 0;
+
+	const components: [APIMessageTopLevelComponent] = [
+		{
+			type: ComponentType.Container,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `## ${t("guess.title", { lng: locale, ns: "features" })}`,
+				},
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: t("guess.guess-in", {
+						lng: locale,
+						ns: "features",
+						time: `<t:${Math.floor(timeoutTimestamp / 1_000)}:R>`,
+					}),
+				},
+				{
+					type: ComponentType.MediaGallery,
+					items: [{ media: { url: formatEmojiURL(answerEmojiId as `${bigint}`) } }],
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: buttons.sort(() => Math.random() - 0.5),
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							custom_id: generateCustomId({
+								prefix: GUESS_END_GAME,
+								type: GuessType.Events,
+								emoji: answerEmojiId,
+								answer: answerEventId,
+								streak,
+								timeoutTimestamp,
+							}),
+							label: t("guess.end-game", { lng: locale, ns: "features" }),
+							style: ButtonStyle.Danger,
+						},
+					],
+				},
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `-# ${t("guess.footer", { lng: locale, ns: "features", type: GuessType.Events, streak, highestStreak })}`,
+				},
+			],
+		},
+	];
+
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components,
+			flags: MessageFlags.IsComponentsV2,
+		});
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
+	}
+}
+
+export async function guessEventAnswer(interaction: APIMessageComponentButtonInteraction) {
+	const { locale, message } = interaction;
+	const invoker = interactionInvoker(interaction);
+
+	if (message.interaction_metadata!.user.id !== invoker.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("guess.game-interaction-not-self", { lng: locale, ns: "features" }),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const { type, emoji, answer, option, streak, timeoutTimestamp } = parseEventCustomId(
+		interaction.data.custom_id,
+	);
+
+	if (Date.now() > timeoutTimestamp!) {
+		await endEventGame({
+			interaction,
+			type,
+			emoji: emoji!,
+			answer: answer!,
+			option,
+			streak: streak!,
+			timeRanOut: true,
+		});
+
+		return;
+	}
+
+	if (option !== answer) {
+		await endEventGame({
+			interaction,
+			type,
+			emoji: emoji!,
+			answer: answer!,
+			option,
+			streak: streak!,
+		});
+
+		return;
+	}
+
+	await guessEvent({ interaction, streak: streak! + 1 });
+}
+
+interface GuessEventEndGameOptions {
+	interaction: APIMessageComponentButtonInteraction;
+	type: GuessTypes;
+	emoji: Snowflake;
+	answer: SpiritIds;
+	option: SpiritIds | null;
+	streak: number;
+	timeRanOut?: boolean;
+}
+
+async function endEventGame({
+	interaction,
+	type,
+	emoji,
+	answer,
+	option,
+	streak,
+	timeRanOut,
+}: GuessEventEndGameOptions) {
+	const { locale } = interaction;
+	let description = `**${t("guess.answer", { lng: locale, ns: "features" })}** ${t(`events.${answer}`, { lng: locale, ns: "general" })}`;
+
+	if (option !== null) {
+		description += `\n**${t("guess.your-guess", { lng: locale, ns: "features" })}** ${t(
+			`events.${option}`,
+			{ lng: locale, ns: "general" },
+		)}`;
+
+		if (!timeRanOut) {
+			description += ` ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
+		}
+	}
+
+	if (timeRanOut) {
+		description += `\n${t("guess.too-late", { lng: locale, ns: "features" })}`;
+	}
+
+	const invoker = interactionInvoker(interaction);
+
+	const highestStreak =
+		(
+			await pg<GuessPacket>(Table.Guess)
+				.select("streak")
+				.where({ user_id: invoker.id, type })
+				.first()
+		)?.streak ?? 0;
+
+	await pg<GuessPacket>(Table.Guess)
+		.insert({
+			user_id: invoker.id,
+			streak,
+			type,
+			date: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+		})
+		.onConflict(["user_id", "type"])
+		.merge()
+		.where(`${Table.Guess}.streak`, "<", streak);
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## ${t("guess.game-over", { lng: locale, ns: "features" })}`,
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: description,
+					},
+					{
+						type: ComponentType.MediaGallery,
+						items: [{ media: { url: formatEmojiURL(emoji as `${bigint}`) } }],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								custom_id: generateCustomId({ prefix: GUESS_TRY_AGAIN, type }),
+								label: t("guess.try-again", { lng: locale, ns: "features" }),
+								style: ButtonStyle.Primary,
+							},
+						],
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `-# ${t("guess.footer", { lng: locale, ns: "features", type, streak, highestStreak })}`,
+					},
+				],
+			},
+		],
+	});
+}
+
 export async function tryAgain(interaction: APIMessageComponentButtonInteraction) {
 	const { locale, message } = interaction;
 	const invoker = interactionInvoker(interaction);
@@ -507,7 +886,13 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 	}
 
 	const { type } = parseCustomId(interaction.data.custom_id);
-	await guess(interaction, type, 0);
+
+	await (type === GuessType.Events
+		? guessEvent({
+				interaction,
+				streak: 0,
+			})
+		: guess(interaction, type, 0));
 }
 
 export async function findUser(userId: Snowflake, type: GuessTypes) {
