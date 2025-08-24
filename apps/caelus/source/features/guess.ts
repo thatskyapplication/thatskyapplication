@@ -488,7 +488,7 @@ export async function guessSpiritAnswer(interaction: APIMessageComponentButtonIn
 	await guessSpirit({ interaction, type, streak: streak + 1 });
 }
 
-interface GuessEndGameOptions {
+interface GuessEndSpiritGameOptions {
 	interaction: APIMessageComponentButtonInteraction;
 	type: GuessTypes;
 	emoji: Snowflake;
@@ -506,7 +506,7 @@ async function endSpiritGame({
 	option,
 	streak,
 	timeRanOut,
-}: GuessEndGameOptions) {
+}: GuessEndSpiritGameOptions) {
 	const { locale } = interaction;
 	let description = `**${t("guess.answer", { lng: locale, ns: "features" })}** ${t(`spirits.${answer}`, { lng: locale, ns: "general" })}`;
 
@@ -802,12 +802,12 @@ export async function guessEventAnswer(interaction: APIMessageComponentButtonInt
 	await guessEvent({ interaction, type, streak: streak + 1 });
 }
 
-interface GuessEventEndGameOptions {
+interface GuessEndEventGameOptions {
 	interaction: APIMessageComponentButtonInteraction;
 	type: GuessTypes;
 	emoji: Snowflake;
-	answer: SpiritIds;
-	option?: SpiritIds;
+	answer: EventIds;
+	option?: EventIds;
 	streak: number;
 	timeRanOut?: boolean;
 }
@@ -820,7 +820,7 @@ async function endEventGame({
 	option,
 	streak,
 	timeRanOut,
-}: GuessEventEndGameOptions) {
+}: GuessEndEventGameOptions) {
 	const { locale } = interaction;
 	let description = `**${t("guess.answer", { lng: locale, ns: "features" })}** ${t(`events.${answer}`, { lng: locale, ns: "general" })}`;
 
@@ -928,7 +928,7 @@ export async function guessHandleEndGame(interaction: APIMessageComponentButtonI
 				interaction,
 				type,
 				emoji,
-				answer,
+				answer: answer as EventIds,
 				streak,
 			})
 		: endSpiritGame({ interaction, type, emoji, answer, streak }));
