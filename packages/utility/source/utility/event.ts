@@ -92,4 +92,9 @@ export const EventId = {
 	SkyAnniversary2025: 77,
 } as const satisfies Readonly<Record<string, number>>;
 
-export type EventIds = (typeof EventId)[keyof typeof EventId];
+const EVENT_ID_VALUES = Object.values(EventId);
+export type EventIds = (typeof EVENT_ID_VALUES)[number];
+
+export function isEventId(eventId: number): eventId is EventIds {
+	return EVENT_ID_VALUES.includes(eventId as EventIds);
+}

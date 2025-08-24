@@ -154,7 +154,7 @@ export {
 } from "./spirits/seasons/index.js";
 export type { Nullable, Snowflake } from "./types/index.js";
 export type { UsersPacket } from "./users.js";
-export { EventId, type EventIds } from "./utility/event.js";
+export { EventId, type EventIds, isEventId } from "./utility/event.js";
 export {
 	addCosts,
 	getRandomElement,
