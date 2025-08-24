@@ -521,6 +521,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							),
 							value: guessType,
 						})),
+						required: true,
 					},
 				],
 			},

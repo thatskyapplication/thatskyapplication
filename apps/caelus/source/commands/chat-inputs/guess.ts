@@ -20,7 +20,7 @@ export default {
 		}
 	},
 	async game(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
-		const type = options.getInteger("type") as GuessTypes | null;
+		const type = options.getInteger("type", true) as GuessTypes;
 
 		switch (type) {
 			case GuessType.Spirits:
@@ -30,10 +30,6 @@ export default {
 			}
 			case GuessType.Events: {
 				await guessEvent({ interaction, type, streak: 0 });
-				return;
-			}
-			default: {
-				await guessSpirit({ interaction, type: GuessType.Spirits, streak: 0 });
 				return;
 			}
 		}
