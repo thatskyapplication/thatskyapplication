@@ -2539,8 +2539,8 @@
 			"game": {
 				"command-name": "jogo",
 				"command-description": "Iniciar o jogo do quiz!",
-				"command-option-type-name": "",
-				"command-option-type-description": "",
+				"command-option-type-name": "tipo",
+				"command-option-type-description": "Que tipo de jogo você gostaria de jogar?",
 				"command-option-type-choice-name": {
 					"0": "$t(features:guess.type.0)",
 					"1": "$t(features:guess.type.1)",
@@ -2550,8 +2550,8 @@
 			"leaderboard": {
 				"command-name": "líderes",
 				"command-description": "Ver classificação!",
-				"command-option-type-name": "",
-				"command-option-type-description": "",
+				"command-option-type-name": "tipo",
+				"command-option-type-description": "Que tipo de jogo você gostaria de ver?",
 				"command-option-type-choice-name": {
 					"0": "$t(features:guess.type.0)",
 					"1": "$t(features:guess.type.1)",
@@ -2760,12 +2760,12 @@
 				"minimum-time-shard-eruptions": "Erupções de Fragmentos"
 			},
 			"event-tickets": {
-				"no-event": "",
-				"no-tickets": "",
-				"result-emoji": "",
-				"result-event": "",
-				"result-pool": "",
-				"title": ""
+				"no-event": "No momento, não há eventos ativos com tíquetes.",
+				"no-tickets": "Não há mais tíquetes para o evento.",
+				"result-emoji": "{{emoji}} Restam {{total}} por dia.",
+				"result-event": "{{event}}: Restam {{total}} por dia.",
+				"result-pool": "No momento, há um total de {{pool}}!",
+				"title": "Calculadora de tíquetes de evento"
 			},
 			"seasonal-candles": {
 				"no-season": "Não há temporada agora.",
@@ -2776,7 +2776,7 @@
 				"title": "Calculadora de Velas de Temporada",
 				"remain-in-the-season": "restantes na temporada.",
 				"remain-in-the-season-with-a-season-pass": "restantes na temporada com o Passe de Temporada.",
-				"double-seasonal-light-calculation": ""
+				"double-seasonal-light-calculation": "Evento de Luz Sazonal em Dobro incluído no cálculo.\n{{start}}–{{end}} (fim {{relative}})"
 			},
 			"winged-light": {
 				"started-with": "Começar com",
@@ -2865,13 +2865,13 @@
 		},
 		"guess": {
 			"type": {
-				"0": "",
-				"1": "",
-				"2": ""
+				"0": "Espíritos",
+				"1": "Espíritos (difícil)",
+				"2": "Eventos"
 			},
 			"title": "De onde isso veio?",
 			"guess-in": "Palpite {{time}}!",
-			"footer": "",
+			"footer": "Tipo: $t(guess.type.{{type}}) | Sequência: {{streak}} | Maior: {{highestStreak}}",
 			"end-game": "Encerrar jogo",
 			"try-again": "Tentar novamente?",
 			"game-over": "Fim de jogo",
@@ -3047,9 +3047,9 @@
 			"favourite-spirit": "Espírito favorito:",
 			"favourite-hangout": "Cantinho favorito:",
 			"catalogue-progression": "Progresso no Catálogo:",
-			"guess-rank-spirits": "",
-			"guess-rank-spirits-hard": "",
-			"guess-rank-events": "",
+			"guess-rank-spirits": "Adivinhe os espíritos:",
+			"guess-rank-spirits-hard": "Adivinhe os espíritos (difícil):",
+			"guess-rank-events": "Adivinhe os eventos corretamente:",
 			"guess-rank-unranked": "Sem classificação",
 			"crowdin-support-server": "{{emoji}} Esse Sky kid é um {{role}}! Você pode ajudar no [Crowdin]({{url}}) também!",
 			"crowdin-other-server": "{{emoji}} Esse Sky kid ajuda a traduzir o que você vê! Você pode ajudar no [Crowdin]({{url}}) também!",
