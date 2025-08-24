@@ -38,6 +38,14 @@ f:catalogue:
    - any-glob-to-any-file:
      - apps/caelus/source/commands/chat-inputs/catalogue.ts
      - apps/caelus/source/features/catalogue.ts
+f:daily-guides:
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/caelus/source/commands/chat-inputs/daily-guides.ts
+     - apps/caelus/source/features/daily-guides.ts
+     - apps/website/app/routes/caelus.guides.daily-guides.tsx
+     - apps/website/app/routes/daily-guides.tsx
+     - packages/utility/source/daily-guides.ts
 f:guess:
  - changed-files:
    - any-glob-to-any-file:
