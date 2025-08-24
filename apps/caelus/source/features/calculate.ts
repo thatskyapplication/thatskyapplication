@@ -472,7 +472,7 @@ export async function wingedLight(
 				includeSpaceInEmoji: true,
 			},
 		)} (+${AreaToWingedLight[SkyMap.Orbit]}).`,
-		title: t("calculate.winged-light.winged-light-calculator", { lng: locale, ns: "features" }),
+		title: t("calculate.winged-light.title", { lng: locale, ns: "features" }),
 	};
 
 	const fields = WINGED_LIGHT_AREAS.map((area) => ({
