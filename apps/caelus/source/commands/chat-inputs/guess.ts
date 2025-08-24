@@ -20,15 +20,15 @@ export default {
 		}
 	},
 	async game(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
-		const difficulty = (options.getInteger("difficulty") as GuessTypes) ?? GuessType.Original;
+		const difficulty = options.getInteger("difficulty") as GuessTypes | null;
 
 		switch (difficulty) {
 			case GuessType.Events: {
-				await guessEvent({ interaction, streak: 0 });
+				await guessEvent({ interaction, type: difficulty, streak: 0 });
 				return;
 			}
 			default: {
-				await guess(interaction, difficulty, 0);
+				await guess(interaction, GuessType.Original, 0);
 				return;
 			}
 		}
