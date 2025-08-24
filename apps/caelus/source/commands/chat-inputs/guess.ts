@@ -1,7 +1,7 @@
 import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { GuessType, type GuessTypes } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { guess, guessEvent, leaderboard } from "../../features/guess.js";
+import { guessEvent, guessSpirit, leaderboard } from "../../features/guess.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -20,15 +20,20 @@ export default {
 		}
 	},
 	async game(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
-		const difficulty = options.getInteger("difficulty") as GuessTypes | null;
+		const type = options.getInteger("type") as GuessTypes | null;
 
-		switch (difficulty) {
+		switch (type) {
+			case GuessType.Spirits:
+			case GuessType.SpiritsHard: {
+				await guessSpirit({ interaction, type, streak: 0 });
+				return;
+			}
 			case GuessType.Events: {
-				await guessEvent({ interaction, type: difficulty, streak: 0 });
+				await guessEvent({ interaction, type, streak: 0 });
 				return;
 			}
 			default: {
-				await guess(interaction, GuessType.Original, 0);
+				await guessSpirit({ interaction, type: GuessType.Spirits, streak: 0 });
 				return;
 			}
 		}
@@ -37,6 +42,6 @@ export default {
 		interaction: APIChatInputApplicationCommandInteraction,
 		options: OptionResolver,
 	) {
-		await leaderboard(interaction, options.getInteger("difficulty", true) as GuessTypes);
+		await leaderboard(interaction, options.getInteger("type", true) as GuessTypes);
 	},
 } as const;

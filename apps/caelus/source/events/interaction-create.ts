@@ -103,14 +103,14 @@ import {
 	upsell,
 } from "../features/giveaway.js";
 import {
-	answer,
 	GUESS_EVENT_OPTION_1_CUSTOM_ID,
 	GUESS_EVENT_OPTION_2_CUSTOM_ID,
 	GUESS_EVENT_OPTION_3_CUSTOM_ID,
 	guessEventAnswer,
+	guessHandleEndGame,
+	guessSpiritAnswer,
 	isGuessType,
 	leaderboard,
-	parseEndGame,
 	tryAgain,
 } from "../features/guess.js";
 import {
@@ -746,7 +746,7 @@ export default {
 					customId.startsWith(GUESS_ANSWER_2) ||
 					customId.startsWith(GUESS_ANSWER_3)
 				) {
-					await answer(interaction);
+					await guessSpiritAnswer(interaction);
 					return;
 				}
 
@@ -764,7 +764,7 @@ export default {
 						return;
 					}
 
-					await parseEndGame(interaction);
+					await guessHandleEndGame(interaction);
 					return;
 				}
 
@@ -785,12 +785,12 @@ export default {
 						return;
 					}
 
-					const guessDifficultyLevel = Number(
+					const guessType = Number(
 						customId.slice(customId.indexOf("§") + 1, customId.lastIndexOf("§")),
 					);
 
-					if (isGuessType(guessDifficultyLevel)) {
-						await leaderboard(interaction, guessDifficultyLevel);
+					if (isGuessType(guessType)) {
+						await leaderboard(interaction, guessType);
 						return;
 					}
 				}

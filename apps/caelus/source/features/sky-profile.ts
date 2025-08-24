@@ -2224,8 +2224,8 @@ async function skyProfileComponents(
 	}
 
 	if (guessRank) {
-		const originalRanking = await findUser(userId, GuessType.Original);
-		const hardRanking = await findUser(userId, GuessType.Hard);
+		const originalRanking = await findUser(userId, GuessType.Spirits);
+		const hardRanking = await findUser(userId, GuessType.SpiritsHard);
 
 		miscellaneous.push(
 			`**${t("sky-profile.guess-rank-original", { lng: locale, ns: "features" })}** ${originalRanking ? `#${originalRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,

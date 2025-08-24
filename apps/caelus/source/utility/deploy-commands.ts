@@ -501,27 +501,23 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("guess.game.command-option-difficulty-name", {
+						name: t("guess.game.command-option-type-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("guess.game.command-option-difficulty-name"),
-						description: t("guess.game.command-option-difficulty-description", {
+						name_localizations: localisations("guess.game.command-option-type-name"),
+						description: t("guess.game.command-option-type-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						description_localizations: localisations(
-							"guess.game.command-option-difficulty-description",
-						),
+						description_localizations: localisations("guess.game.command-option-type-description"),
 						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(`guess.game.command-option-difficulty-choice-name.${guessType}`, {
+							name: t(`guess.game.command-option-type-choice-name.${guessType}`, {
 								lng: Locale.EnglishGB,
 								ns: "commands",
-								type: guessType,
 							}),
 							name_localizations: localisations(
-								`guess.game.command-option-difficulty-choice-name.${guessType}`,
-								{ type: guessType },
+								`guess.game.command-option-type-choice-name.${guessType}`,
 							),
 							value: guessType,
 						})),
@@ -540,27 +536,25 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("guess.leaderboard.command-option-difficulty-name", {
+						name: t("guess.leaderboard.command-option-type-name", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
-						name_localizations: localisations("guess.leaderboard.command-option-difficulty-name"),
-						description: t("guess.leaderboard.command-option-difficulty-description", {
+						name_localizations: localisations("guess.leaderboard.command-option-type-name"),
+						description: t("guess.leaderboard.command-option-type-description", {
 							lng: Locale.EnglishGB,
 							ns: "commands",
 						}),
 						description_localizations: localisations(
-							"guess.leaderboard.command-option-difficulty-description",
+							"guess.leaderboard.command-option-type-description",
 						),
 						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(`guess.game.command-option-difficulty-choice-name.${guessType}`, {
+							name: t(`guess.game.command-option-type-choice-name.${guessType}`, {
 								lng: Locale.EnglishGB,
 								ns: "commands",
-								type: guessType,
 							}),
 							name_localizations: localisations(
-								`guess.leaderboard.command-option-difficulty-choice-name.${guessType}`,
-								{ type: guessType },
+								`guess.leaderboard.command-option-type-choice-name.${guessType}`,
 							),
 							value: guessType,
 						})),

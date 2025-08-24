@@ -2804,25 +2804,19 @@ export default {
 			game: {
 				"command-name": "game",
 				"command-description": "Begin the guessing game!",
-				"command-option-difficulty-name": "difficulty",
-				"command-option-difficulty-description": "Adjust the difficulty level!",
-				"command-option-difficulty-choice-name": Object.fromEntries(
-					GUESS_TYPE_VALUES.map((guessDifficultyLevel) => [
-						guessDifficultyLevel,
-						"$t(features:guess.type.{{type}})",
-					]),
+				"command-option-type-name": "type",
+				"command-option-type-description": "What type of game do you wish to play?",
+				"command-option-type-choice-name": Object.fromEntries(
+					GUESS_TYPE_VALUES.map((guessType) => [guessType, `$t(features:guess.type.${guessType})`]),
 				),
 			},
 			leaderboard: {
 				"command-name": "leaderboard",
 				"command-description": "View the leaderboard!",
-				"command-option-difficulty-name": "difficulty",
-				"command-option-difficulty-description": "What difficulty would you like to view?",
-				"command-option-difficulty-choice-name": Object.fromEntries(
-					GUESS_TYPE_VALUES.map((guessDifficultyLevel) => [
-						guessDifficultyLevel,
-						"$t(features:guess.type.{{type}})",
-					]),
+				"command-option-type-name": "type",
+				"command-option-type-description": "What type of game would you like to view?",
+				"command-option-type-choice-name": Object.fromEntries(
+					GUESS_TYPE_VALUES.map((guessType) => [guessType, `$t(features:guess.type.${guessType})`]),
 				),
 			},
 		},
@@ -3152,14 +3146,13 @@ export default {
 		},
 		guess: {
 			type: {
-				[GuessType.Original]: "Original",
-				[GuessType.Hard]: "Hard",
+				[GuessType.Spirits]: "Spirits",
+				[GuessType.SpiritsHard]: "Spirits (hard)",
 				[GuessType.Events]: "Events",
 			} satisfies Record<GuessTypes, string>,
 			title: "Where does this come from?",
 			"guess-in": "Guess {{time}}!",
-			footer:
-				"Difficulty: $t(guess.type.{{type}}) | Streak: {{streak}} | Highest: {{highestStreak}}",
+			footer: "Type: $t(guess.type.{{type}}) | Streak: {{streak}} | Highest: {{highestStreak}}",
 			"end-game": "End game",
 			"try-again": "Try again?",
 			"game-over": "Game over",

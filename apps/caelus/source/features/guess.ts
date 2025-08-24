@@ -69,7 +69,7 @@ export function isGuessType(type: number): type is GuessTypes {
 	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
 }
 
-function getAnswer(): readonly [Snowflake, SpiritIds] {
+function getSpiritAnswer(): readonly [Snowflake, SpiritIds] {
 	// Get a random emoji as the answer.
 	const emoji = getRandomElement(SPIRIT_COSMETIC_EMOJIS_ARRAY)!;
 
@@ -93,13 +93,13 @@ function getAnswer(): readonly [Snowflake, SpiritIds] {
 	return [emoji, spiritId];
 }
 
-function getOptions(type: GuessTypes) {
+function getSpiritOptions(type: GuessTypes) {
 	// Get the answer.
-	const [emoji, spiritId] = getAnswer();
+	const [emoji, spiritId] = getSpiritAnswer();
 	const foundAnswers = new Set<SpiritIds>();
 
 	// Generate other answers.
-	if (type === GuessType.Original) {
+	if (type === GuessType.Spirits) {
 		const filtered = spirits().clone();
 		filtered.delete(spiritId);
 
@@ -223,7 +223,7 @@ function parseSpiritCustomId(customId: string) {
 	const answer = Number(rawAnswer);
 	const option = Number(rawOption);
 
-	if (type !== GuessType.Original && type !== GuessType.Hard) {
+	if (type !== GuessType.Spirits && type !== GuessType.SpiritsHard) {
 		throw new Error(`Invalid guessing game type: ${type}`);
 	}
 
@@ -302,7 +302,7 @@ function parseEndGameCustomId(customId: string) {
 		throw new Error(`Invalid guessing game type: ${type}`);
 	}
 
-	if (type === GuessType.Original || type === GuessType.Hard) {
+	if (type === GuessType.Spirits || type === GuessType.SpiritsHard) {
 		if (!isSpiritId(answer)) {
 			throw new Error(`Invalid answer spirit id: ${rawAnswer}`);
 		}
@@ -324,12 +324,14 @@ function parseTryAgainCustomId(customId: string) {
 	return { prefix, type };
 }
 
-export async function guess(
-	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	type: GuessTypes,
-	streak: number,
-) {
-	const { answer, emoji, options } = getOptions(type);
+interface GuessSpiritOptions {
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction;
+	type: typeof GuessType.Spirits | typeof GuessType.SpiritsHard;
+	streak: number;
+}
+
+export async function guessSpirit({ interaction, type, streak }: GuessSpiritOptions) {
+	const { answer, emoji, options } = getSpiritOptions(type);
 
 	// Set the timeout timestamp.
 	const timeoutTimestamp = DiscordSnowflake.timestampFrom(interaction.id) + GUESS_TIMEOUT;
@@ -439,7 +441,7 @@ export async function guess(
 	}
 }
 
-export async function answer(interaction: APIMessageComponentButtonInteraction) {
+export async function guessSpiritAnswer(interaction: APIMessageComponentButtonInteraction) {
 	const { locale, message } = interaction;
 	const invoker = interactionInvoker(interaction);
 
@@ -457,7 +459,7 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 	);
 
 	if (Date.now() > timeoutTimestamp) {
-		await endGame({
+		await endSpiritGame({
 			interaction,
 			type,
 			emoji,
@@ -471,7 +473,7 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 	}
 
 	if (option !== answer) {
-		await endGame({
+		await endSpiritGame({
 			interaction,
 			type,
 			emoji,
@@ -483,7 +485,113 @@ export async function answer(interaction: APIMessageComponentButtonInteraction) 
 		return;
 	}
 
-	await guess(interaction, type, streak + 1);
+	await guessSpirit({ interaction, type, streak: streak + 1 });
+}
+
+interface GuessEndGameOptions {
+	interaction: APIMessageComponentButtonInteraction;
+	type: GuessTypes;
+	emoji: Snowflake;
+	answer: SpiritIds;
+	option?: SpiritIds;
+	streak: number;
+	timeRanOut?: boolean;
+}
+
+async function endSpiritGame({
+	interaction,
+	type,
+	emoji,
+	answer,
+	option,
+	streak,
+	timeRanOut,
+}: GuessEndGameOptions) {
+	const { locale } = interaction;
+	let description = `**${t("guess.answer", { lng: locale, ns: "features" })}** ${t(`spirits.${answer}`, { lng: locale, ns: "general" })}`;
+
+	if (option !== undefined) {
+		description += `\n**${t("guess.your-guess", { lng: locale, ns: "features" })}** ${t(
+			`spirits.${option}`,
+			{ lng: locale, ns: "general" },
+		)}`;
+
+		if (!timeRanOut) {
+			description += ` ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
+		}
+	}
+
+	if (timeRanOut) {
+		description += `\n${t("guess.too-late", { lng: locale, ns: "features" })}`;
+	}
+
+	const invoker = interactionInvoker(interaction);
+
+	const highestStreak =
+		(
+			await pg<GuessPacket>(Table.Guess)
+				.select("streak")
+				.where({ user_id: invoker.id, type })
+				.first()
+		)?.streak ?? 0;
+
+	await pg<GuessPacket>(Table.Guess)
+		.insert({
+			user_id: invoker.id,
+			streak,
+			type,
+			date: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+		})
+		.onConflict(["user_id", "type"])
+		.merge()
+		.where(`${Table.Guess}.streak`, "<", streak);
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## ${t("guess.game-over", { lng: locale, ns: "features" })}`,
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: description,
+					},
+					{
+						type: ComponentType.MediaGallery,
+						items: [{ media: { url: formatEmojiURL(emoji as `${bigint}`) } }],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								custom_id: generateTryAgainCustomId({ prefix: GUESS_TRY_AGAIN, type }),
+								label: t("guess.try-again", { lng: locale, ns: "features" }),
+								style: ButtonStyle.Primary,
+							},
+						],
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `-# ${t("guess.footer", { lng: locale, ns: "features", type, streak, highestStreak })}`,
+					},
+				],
+			},
+		],
+	});
 }
 
 interface GuessEventOptions {
@@ -492,7 +600,7 @@ interface GuessEventOptions {
 	streak: number;
 }
 
-export async function guessEvent({ interaction, type, streak = 0 }: GuessEventOptions) {
+export async function guessEvent({ interaction, type, streak }: GuessEventOptions) {
 	const { locale } = interaction;
 	const options = new Map<EventIds, string>();
 	const answerEmojiId = EVENT_COSMETIC_EMOJIS.randomKey()!;
@@ -800,7 +908,7 @@ async function endEventGame({
 	});
 }
 
-export async function parseEndGame(interaction: APIMessageComponentButtonInteraction) {
+export async function guessHandleEndGame(interaction: APIMessageComponentButtonInteraction) {
 	const { locale, message } = interaction;
 	const invoker = interactionInvoker(interaction);
 
@@ -823,113 +931,7 @@ export async function parseEndGame(interaction: APIMessageComponentButtonInterac
 				answer,
 				streak,
 			})
-		: endGame({ interaction, type, emoji, answer, streak }));
-}
-
-interface GuessEndGameOptions {
-	interaction: APIMessageComponentButtonInteraction;
-	type: GuessTypes;
-	emoji: Snowflake;
-	answer: SpiritIds;
-	option?: SpiritIds;
-	streak: number;
-	timeRanOut?: boolean;
-}
-
-async function endGame({
-	interaction,
-	type,
-	emoji,
-	answer,
-	option,
-	streak,
-	timeRanOut,
-}: GuessEndGameOptions) {
-	const { locale } = interaction;
-	let description = `**${t("guess.answer", { lng: locale, ns: "features" })}** ${t(`spirits.${answer}`, { lng: locale, ns: "general" })}`;
-
-	if (option !== undefined) {
-		description += `\n**${t("guess.your-guess", { lng: locale, ns: "features" })}** ${t(
-			`spirits.${option}`,
-			{ lng: locale, ns: "general" },
-		)}`;
-
-		if (!timeRanOut) {
-			description += ` ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}`;
-		}
-	}
-
-	if (timeRanOut) {
-		description += `\n${t("guess.too-late", { lng: locale, ns: "features" })}`;
-	}
-
-	const invoker = interactionInvoker(interaction);
-
-	const highestStreak =
-		(
-			await pg<GuessPacket>(Table.Guess)
-				.select("streak")
-				.where({ user_id: invoker.id, type })
-				.first()
-		)?.streak ?? 0;
-
-	await pg<GuessPacket>(Table.Guess)
-		.insert({
-			user_id: invoker.id,
-			streak,
-			type,
-			date: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		})
-		.onConflict(["user_id", "type"])
-		.merge()
-		.where(`${Table.Guess}.streak`, "<", streak);
-
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## ${t("guess.game-over", { lng: locale, ns: "features" })}`,
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: description,
-					},
-					{
-						type: ComponentType.MediaGallery,
-						items: [{ media: { url: formatEmojiURL(emoji as `${bigint}`) } }],
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.Button,
-								custom_id: generateTryAgainCustomId({ prefix: GUESS_TRY_AGAIN, type }),
-								label: t("guess.try-again", { lng: locale, ns: "features" }),
-								style: ButtonStyle.Primary,
-							},
-						],
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: `-# ${t("guess.footer", { lng: locale, ns: "features", type, streak, highestStreak })}`,
-					},
-				],
-			},
-		],
-	});
+		: endSpiritGame({ interaction, type, emoji, answer, streak }));
 }
 
 export async function tryAgain(interaction: APIMessageComponentButtonInteraction) {
@@ -953,7 +955,7 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 				type,
 				streak: 0,
 			})
-		: guess(interaction, type, 0));
+		: guessSpirit({ interaction, type, streak: 0 }));
 }
 
 export async function findUser(userId: Snowflake, type: GuessTypes) {

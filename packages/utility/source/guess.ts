@@ -1,6 +1,6 @@
 export const GuessType = {
-	Original: 0,
-	Hard: 1,
+	Spirits: 0,
+	SpiritsHard: 1,
 	Events: 2,
 } as const satisfies Readonly<Record<string, number>>;
 
