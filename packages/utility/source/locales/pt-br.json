@@ -2539,21 +2539,23 @@
 			"game": {
 				"command-name": "jogo",
 				"command-description": "Iniciar o jogo do quiz!",
-				"command-option-difficulty-name": "dificuldade",
-				"command-option-difficulty-description": "Ajustar o nível de dificuldade!",
-				"command-option-difficulty-choice-name": {
-					"0": "$t(features:guess.type.{{type}})",
-					"1": "$t(features:guess.type.{{type}})"
+				"command-option-type-name": "",
+				"command-option-type-description": "",
+				"command-option-type-choice-name": {
+					"0": "$t(features:guess.type.0)",
+					"1": "$t(features:guess.type.1)",
+					"2": "$t(features:guess.type.2)"
 				}
 			},
 			"leaderboard": {
 				"command-name": "líderes",
 				"command-description": "Ver classificação!",
-				"command-option-difficulty-name": "dificuldade",
-				"command-option-difficulty-description": "Qual dificuldade você gostaria de ver?",
-				"command-option-difficulty-choice-name": {
-					"0": "$t(features:guess.type.{{type}})",
-					"1": "$t(features:guess.type.{{type}})"
+				"command-option-type-name": "",
+				"command-option-type-description": "",
+				"command-option-type-choice-name": {
+					"0": "$t(features:guess.type.0)",
+					"1": "$t(features:guess.type.1)",
+					"2": "$t(features:guess.type.2)"
 				}
 			}
 		},
@@ -2863,12 +2865,13 @@
 		},
 		"guess": {
 			"type": {
-				"0": "Original",
-				"1": "Difícil"
+				"0": "",
+				"1": "",
+				"2": ""
 			},
 			"title": "De onde isso veio?",
 			"guess-in": "Palpite {{time}}!",
-			"footer": "Dificuldade: $t(guess.type.{{type}}) | Sequência: {{streak}} | Recorde: {{highestStreak}}",
+			"footer": "",
 			"end-game": "Encerrar jogo",
 			"try-again": "Tentar novamente?",
 			"game-over": "Fim de jogo",
@@ -3044,8 +3047,9 @@
 			"favourite-spirit": "Espírito favorito:",
 			"favourite-hangout": "Cantinho favorito:",
 			"catalogue-progression": "Progresso no Catálogo:",
-			"guess-rank-original": "Ranking no modo original do quiz:",
-			"guess-rank-hard": "Ranking no modo difícil do quiz:",
+			"guess-rank-spirits": "",
+			"guess-rank-spirits-hard": "",
+			"guess-rank-events": "",
 			"guess-rank-unranked": "Sem classificação",
 			"crowdin-support-server": "{{emoji}} Esse Sky kid é um {{role}}! Você pode ajudar no [Crowdin]({{url}}) também!",
 			"crowdin-other-server": "{{emoji}} Esse Sky kid ajuda a traduzir o que você vê! Você pode ajudar no [Crowdin]({{url}}) também!",

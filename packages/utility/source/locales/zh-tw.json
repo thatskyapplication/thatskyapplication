@@ -2539,21 +2539,23 @@
 			"game": {
 				"command-name": "遊戲",
 				"command-description": "開始猜謎遊戲！",
-				"command-option-difficulty-name": "難度",
-				"command-option-difficulty-description": "調整難度等級！",
-				"command-option-difficulty-choice-name": {
-					"0": "$t(features:guess.type.{{type}})",
-					"1": "$t(features:guess.type.{{type}})"
+				"command-option-type-name": "",
+				"command-option-type-description": "",
+				"command-option-type-choice-name": {
+					"0": "$t(features:guess.type.0)",
+					"1": "$t(features:guess.type.1)",
+					"2": "$t(features:guess.type.2)"
 				}
 			},
 			"leaderboard": {
 				"command-name": "排行榜",
 				"command-description": "查看排行榜！",
-				"command-option-difficulty-name": "難度",
-				"command-option-difficulty-description": "您想查看什麼難度？",
-				"command-option-difficulty-choice-name": {
-					"0": "$t(features:guess.type.{{type}})",
-					"1": "$t(features:guess.type.{{type}})"
+				"command-option-type-name": "",
+				"command-option-type-description": "",
+				"command-option-type-choice-name": {
+					"0": "$t(features:guess.type.0)",
+					"1": "$t(features:guess.type.1)",
+					"2": "$t(features:guess.type.2)"
 				}
 			}
 		},
@@ -2864,7 +2866,8 @@
 		"guess": {
 			"type": {
 				"0": "",
-				"1": ""
+				"1": "",
+				"2": ""
 			},
 			"title": "這是從哪裡來的？",
 			"guess-in": "猜猜{{time}}！",
@@ -3044,8 +3047,9 @@
 			"favourite-spirit": "",
 			"favourite-hangout": "",
 			"catalogue-progression": "",
-			"guess-rank-original": "",
-			"guess-rank-hard": "",
+			"guess-rank-spirits": "",
+			"guess-rank-spirits-hard": "",
+			"guess-rank-events": "",
 			"guess-rank-unranked": "",
 			"crowdin-support-server": "",
 			"crowdin-other-server": "",
