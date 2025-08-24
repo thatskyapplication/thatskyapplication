@@ -2224,15 +2224,20 @@ async function skyProfileComponents(
 	}
 
 	if (guessRank) {
-		const originalRanking = await findUser(userId, GuessType.Spirits);
-		const hardRanking = await findUser(userId, GuessType.SpiritsHard);
+		const spiritsRanking = await findUser(userId, GuessType.Spirits);
+		const spiritsHardRanking = await findUser(userId, GuessType.SpiritsHard);
+		const eventsRanking = await findUser(userId, GuessType.Events);
 
 		miscellaneous.push(
-			`**${t("sky-profile.guess-rank-original", { lng: locale, ns: "features" })}** ${originalRanking ? `#${originalRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
+			`**${t("sky-profile.guess-rank-spirits", { lng: locale, ns: "features" })}** ${spiritsRanking ? `#${spiritsRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
 		);
 
 		miscellaneous.push(
-			`**${t("sky-profile.guess-rank-hard", { lng: locale, ns: "features" })}** ${hardRanking ? `#${hardRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
+			`**${t("sky-profile.guess-rank-spirits-hard", { lng: locale, ns: "features" })}** ${spiritsHardRanking ? `#${spiritsHardRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
+		);
+
+		miscellaneous.push(
+			`**${t("sky-profile.guess-rank-events", { lng: locale, ns: "features" })}** ${eventsRanking ? `#${eventsRanking.rank}` : t("sky-profile.guess-rank-unranked", { lng: locale, ns: "features" })}`,
 		);
 	}
 

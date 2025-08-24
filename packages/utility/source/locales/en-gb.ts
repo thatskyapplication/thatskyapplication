@@ -3343,8 +3343,9 @@ export default {
 			"favourite-spirit": "Favourite spirit:",
 			"favourite-hangout": "Favourite hangout:",
 			"catalogue-progression": "Catalogue progression:",
-			"guess-rank-original": "Guess rank original:",
-			"guess-rank-hard": "Guess rank hard:",
+			"guess-rank-spirits": "Guess rank spirits:",
+			"guess-rank-spirits-hard": "Guess rank spirits (hard):",
+			"guess-rank-events": "Guess rank events:",
 			"guess-rank-unranked": "Unranked",
 			"crowdin-support-server":
 				"{{emoji}} This Sky kid is a {{role}}! You can help out on [Crowdin]({{url}}) too!",
