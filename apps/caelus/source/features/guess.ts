@@ -388,7 +388,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 				},
 				{
 					type: ComponentType.ActionRow,
-					components: buttons,
+					components: buttons.sort(() => Math.random() - 0.5),
 				},
 				{
 					type: ComponentType.ActionRow,
