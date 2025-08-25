@@ -1,6 +1,6 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { Snowflake } from "@discordjs/core";
-import { type EventIds, skyEvents, spirits } from "@thatskyapplication/utility";
+import { type EventIds, type SpiritIds, skyEvents, spirits } from "@thatskyapplication/utility";
 import {
 	CosmeticToEmoji,
 	FRIEND_ACTION_EMOJIS,
@@ -41,35 +41,34 @@ for (const [key, { id }] of [
 	}
 }
 
-const SPIRIT_COSMETIC_EMOJIS = spirits()
-	.map((spirit) =>
-		spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-			? spirit.current
-			: spirit.items,
-	)
-	.reduce((emojis, friendshipTree) => {
-		for (const items of friendshipTree) {
-			for (const item of items) {
-				if (!item) {
-					continue;
-				}
+const spiritCosmeticEmojis = new Collection<Snowflake, SpiritIds>();
 
-				const emoji = CosmeticToEmoji[item.cosmetics[0]];
+for (const spirit of spirits().values()) {
+	for (const items of spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
+		? spirit.current
+		: spirit.items) {
+		for (const item of items) {
+			if (!item) {
+				continue;
+			}
+
+			for (const cosmetic of item.cosmetics) {
+				const emoji = CosmeticToEmoji[cosmetic];
 
 				if (emoji && !emojisToSkip.has(emoji.id)) {
-					emojis.add(emoji.id);
+					spiritCosmeticEmojis.set(emoji.id, spirit.id);
 				}
 			}
 		}
+	}
+}
 
-		return emojis;
-	}, new Set<Snowflake>());
+export const SPIRIT_COSMETIC_EMOJIS: ReadonlyCollection<Snowflake, SpiritIds> =
+	spiritCosmeticEmojis;
 
-export const SPIRIT_COSMETIC_EMOJIS_ARRAY: readonly Snowflake[] = [...SPIRIT_COSMETIC_EMOJIS];
-const events = skyEvents();
-export const eventCosmeticEmojis = new Collection<Snowflake, EventIds>();
+const eventCosmeticEmojis = new Collection<Snowflake, EventIds>();
 
-for (const event of events.values()) {
+for (const event of skyEvents().values()) {
 	for (const offer of event.offer) {
 		for (const cosmetic of offer.cosmetics) {
 			const emoji = CosmeticToEmoji[cosmetic];

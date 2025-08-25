@@ -1,4 +1,4 @@
-import type { Collection } from "@discordjs/collection";
+import type { Collection, ReadonlyCollection } from "@discordjs/collection";
 import {
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
@@ -13,7 +13,6 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
-	currentSeasonalSpirits,
 	ELDER_SPIRITS,
 	type ElderSpirit,
 	type EventIds,
@@ -23,14 +22,13 @@ import {
 	GuessType,
 	type GuessTypes,
 	type GuideSpirit,
-	getRandomElement,
 	isEventId,
 	isSpiritId,
+	REALMS,
 	type SeasonalSpirit,
-	SpiritId,
 	type SpiritIds,
-	STANDARD_SPIRITS,
 	type StandardSpirit,
+	skySeasons,
 	spirits,
 	Table,
 } from "@thatskyapplication/utility";
@@ -48,9 +46,9 @@ import {
 	GUESS_TIMEOUT,
 	GUESS_TRY_AGAIN,
 } from "../utility/constants.js";
-import { CosmeticToEmoji, FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
-import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS_ARRAY } from "../utility/guess.js";
+import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.js";
 
 export const GUESS_EVENT_OPTION_1_CUSTOM_ID = "GUESS_EVENT_OPTION_1_CUSTOM_ID" as const;
 export const GUESS_EVENT_OPTION_2_CUSTOM_ID = "GUESS_EVENT_OPTION_2_CUSTOM_ID" as const;
@@ -67,78 +65,6 @@ type GuessUserRanking = GuessPacket & { rank: number };
 
 export function isGuessType(type: number): type is GuessTypes {
 	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
-}
-
-function getSpiritAnswer(): readonly [Snowflake, SpiritIds] {
-	// Get a random emoji as the answer.
-	const emoji = getRandomElement(SPIRIT_COSMETIC_EMOJIS_ARRAY)!;
-
-	// Find what spirit uses this emoji.
-	let spiritId: SpiritIds;
-
-	if (emoji === FRIEND_ACTION_EMOJIS.DuetDance.id) {
-		// Early exit due to multiple sources.
-		spiritId = SpiritId.ModestDancer;
-	} else {
-		spiritId = spirits().find((spirit) =>
-			(spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-				? spirit.current
-				: spirit.items
-			).some((items) =>
-				items.some((item) => item && CosmeticToEmoji[item.cosmetics[0]]?.id === emoji),
-			),
-		)!.id;
-	}
-
-	return [emoji, spiritId];
-}
-
-function getSpiritOptions(type: GuessTypes) {
-	// Get the answer.
-	const [emoji, spiritId] = getSpiritAnswer();
-	const foundAnswers = new Set<SpiritIds>();
-
-	// Generate other answers.
-	if (type === GuessType.Spirits) {
-		const filtered = spirits().clone();
-		filtered.delete(spiritId);
-
-		while (foundAnswers.size < 2) {
-			const randomSpirit = filtered.random()!;
-			foundAnswers.add(randomSpirit.id);
-		}
-	} else {
-		const spirit = spirits().get(spiritId)!;
-
-		let filtered: Collection<
-			SpiritIds,
-			StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit
-		>;
-
-		// Collect spirits from the same realm or season.
-		if (spirit.isStandardSpirit()) {
-			filtered = STANDARD_SPIRITS.filter(
-				(original) => original.id !== spirit.id && original.realm === spirit.realm,
-			);
-		} else if (spirit.isElderSpirit()) {
-			filtered = ELDER_SPIRITS.filter((original) => original.id !== spirit.id);
-		} else {
-			filtered = currentSeasonalSpirits().filter(
-				(original) => original.id !== spirit.id && original.seasonId === spirit.seasonId,
-			);
-		}
-
-		while (foundAnswers.size < 2) {
-			const randomSpirit = filtered.random()!;
-			foundAnswers.add(randomSpirit.id);
-		}
-	}
-
-	return {
-		answer: spiritId,
-		emoji,
-		options: [spiritId, ...foundAnswers].sort(() => Math.random() - 0.5),
-	};
 }
 
 interface GuessGenerateCustomIdBaseOptions<Answer> {
@@ -331,26 +257,97 @@ interface GuessSpiritOptions {
 }
 
 export async function guessSpirit({ interaction, type, streak }: GuessSpiritOptions) {
-	const { answer, emoji, options } = getSpiritOptions(type);
+	const { locale } = interaction;
+	const options = new Map<SpiritIds, string>();
+	const answerEmojiId = SPIRIT_COSMETIC_EMOJIS.randomKey()!;
+	const answerSpiritId = SPIRIT_COSMETIC_EMOJIS.get(answerEmojiId)!;
+	options.set(answerSpiritId, t(`spirits.${answerSpiritId}`, { lng: locale, ns: "general" }));
+
+	if (type === GuessType.Spirits) {
+		while (options.size < 3) {
+			const option = SPIRIT_COSMETIC_EMOJIS.random()!;
+			options.set(option, t(`spirits.${option}`, { lng: locale, ns: "general" }));
+		}
+	} else {
+		// Collect spirits from the same realm or season.
+		const spirit = spirits().get(answerSpiritId)!;
+
+		let filtered: ReadonlyCollection<
+			SpiritIds,
+			StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit
+		>;
+
+		if (spirit.isStandardSpirit()) {
+			filtered = REALMS.find((realm) => realm.name === spirit.realm)!.spirits;
+		} else if (spirit.isElderSpirit()) {
+			filtered = ELDER_SPIRITS;
+		} else {
+			const season = skySeasons().get(spirit.seasonId)!;
+
+			filtered = (
+				season.spirits.clone() as Collection<SpiritIds, SeasonalSpirit | GuideSpirit>
+			).set(season.guide.id, season.guide);
+		}
+
+		while (options.size < 3) {
+			const { id } = filtered.random()!;
+			options.set(id, t(`spirits.${id}`, { lng: locale, ns: "general" }));
+		}
+	}
+
+	const [option1, option2, option3] = options;
+	const [option1SpiritId, option1String] = option1!;
+	const [option2SpiritId, option2String] = option2!;
+	const [option3SpiritId, option3String] = option3!;
 
 	// Set the timeout timestamp.
 	const timeoutTimestamp = DiscordSnowflake.timestampFrom(interaction.id) + GUESS_TIMEOUT;
 
 	// Create buttons from the answers.
-	const buttons: APIButtonComponentWithCustomId[] = options.map((option, index) => ({
-		type: ComponentType.Button,
-		custom_id: generateCustomId({
-			prefix: index === 0 ? GUESS_ANSWER_1 : index === 1 ? GUESS_ANSWER_2 : GUESS_ANSWER_3,
-			type,
-			emoji,
-			answer,
-			option,
-			streak,
-			timeoutTimestamp,
-		}),
-		label: t(`spirits.${option}`, { lng: interaction.locale, ns: "general" }),
-		style: ButtonStyle.Secondary,
-	}));
+	const buttons: APIButtonComponentWithCustomId[] = [
+		{
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: generateCustomId({
+				prefix: GUESS_ANSWER_1,
+				type,
+				emoji: answerEmojiId,
+				answer: answerSpiritId,
+				option: option1SpiritId!,
+				streak,
+				timeoutTimestamp,
+			}),
+			label: option1String,
+		},
+		{
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: generateCustomId({
+				prefix: GUESS_ANSWER_2,
+				type,
+				emoji: answerEmojiId,
+				answer: answerSpiritId,
+				option: option2SpiritId,
+				streak,
+				timeoutTimestamp,
+			}),
+			label: option2String,
+		},
+		{
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: generateCustomId({
+				prefix: GUESS_ANSWER_3,
+				type,
+				emoji: answerEmojiId,
+				answer: answerSpiritId,
+				option: option3SpiritId,
+				streak,
+				timeoutTimestamp,
+			}),
+			label: option3String,
+		},
+	];
 
 	// Retrieve the highest streak.
 	const invoker = interactionInvoker(interaction);
@@ -387,15 +384,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 				},
 				{
 					type: ComponentType.MediaGallery,
-					items: [
-						{
-							media: {
-								url: formatEmojiURL(emoji as `${bigint}`),
-								height: 64,
-								width: 64,
-							},
-						},
-					],
+					items: [{ media: { url: formatEmojiURL(answerEmojiId as `${bigint}`) } }],
 				},
 				{
 					type: ComponentType.ActionRow,
@@ -409,8 +398,8 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 							custom_id: generateEndGameCustomId({
 								prefix: GUESS_END_GAME,
 								type,
-								emoji,
-								answer,
+								emoji: answerEmojiId,
+								answer: answerSpiritId,
 								streak,
 							}),
 							label: t("guess.end-game", { lng: interaction.locale, ns: "features" }),
