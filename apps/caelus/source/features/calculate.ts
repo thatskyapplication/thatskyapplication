@@ -353,7 +353,7 @@ export async function seasonalCandles(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t("calculate.seasonal-candles.seasonal-candle-calculator", { lng: locale, ns: "features" })}`,
+			content: `## ${t("calculate.seasonal-candles.title", { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
