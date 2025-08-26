@@ -1,7 +1,6 @@
 import {
 	type DailyGuidesPacket,
 	DailyQuestToInfographicURL,
-	enGB,
 	isDailyQuest,
 	RotationIdentifier,
 	shardEruption,
@@ -74,6 +73,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 export default function DailyGuides() {
 	const { dailyGuides, todayString, shard } = useLoaderData<typeof loader>();
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
+	const { t } = useTranslation();
 	const now = skyNow();
 	const today = now.startOf("day");
 	const quest1 = dailyGuides.quest1;
@@ -81,7 +81,7 @@ export default function DailyGuides() {
 	const quest3 = dailyGuides.quest3;
 	const quest4 = dailyGuides.quest4;
 	const travellingRock = dailyGuides.travelling_rock;
-	const currentSeason = skyCurrentSeason(now);
+	const season = skyCurrentSeason(now);
 
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
@@ -104,19 +104,16 @@ export default function DailyGuides() {
 
 	const treasureCandleURLs = treasureCandles(today);
 	let seasonalCandles = null;
-	let seasonalCandlesUrl = null;
+	let seasonalCandlesURL = null;
 	const daysCount = [];
 
-	if (currentSeason) {
-		const seasonalCandlesRotation = currentSeason.resolveSeasonalCandlesRotation(today);
-		const daysLeft = Math.ceil(currentSeason.end.diff(now, "days").days) - 1;
+	if (season) {
+		const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
 
-		const daysLeftText =
-			daysLeft === 0
-				? "The season ends today."
-				: daysLeft === 1
-					? "1 day left in the season."
-					: `${daysLeft} days left in the season.`;
+		const daysLeftText = t("days-left.season", {
+			ns: "general",
+			count: Math.ceil(season.end.diff(now, "days").days) - 1,
+		});
 
 		daysCount.push(daysLeftText);
 
@@ -124,40 +121,33 @@ export default function DailyGuides() {
 			const { rotation, realm } = seasonalCandlesRotation;
 			let rotationIdentifier: RotationIdentifier = rotation;
 
-			if (currentSeason.isDuringDoubleSeasonalLightEvent(today)) {
+			if (season.isDuringDoubleSeasonalLightEvent(today)) {
 				rotationIdentifier = RotationIdentifier.Double;
 			}
 
-			seasonalCandlesUrl = currentSeason.seasonalCandlesRotationURL(realm, rotationIdentifier);
+			seasonalCandlesURL = season.seasonalCandlesRotationURL(realm, rotationIdentifier);
 		}
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
-			currentSeason.remainingSeasonalCandles(today);
+			season.remainingSeasonalCandles(today);
 
 		seasonalCandles = {
 			remaining: seasonalCandlesLeft,
 			remainingWithPass: seasonalCandlesLeftWithSeasonPass,
-			url: seasonalCandlesUrl,
+			url: seasonalCandlesURL,
 		};
 	} else {
 		const next = skyUpcomingSeason(today);
 
 		if (next) {
-			const daysUntilStart = next.start.diff(now, "days").days;
-
-			daysCount.push(
-				daysUntilStart <= 1
-					? "The new season starts tomorrow."
-					: daysUntilStart >= 2
-						? `The new season starts in ${Math.floor(daysUntilStart)} days.`
-						: "The new season starts in 1 day.",
-			);
+			const daysUntilStart = next.start.diff(today, "days").days;
+			daysCount.push(t("daily-guides.season-upcoming", { ns: "features", count: daysUntilStart }));
 		}
 	}
 
 	for (const { id, start, end } of skyNotEndedEvents(today).values()) {
 		const daysUntilStart = start.diff(today, "days").days;
-		const name = enGB.general.events[id];
+		const name = t(`events.${id}`, { ns: "general" });
 
 		if (daysUntilStart > 0) {
 			daysCount.push(
@@ -171,14 +161,12 @@ export default function DailyGuides() {
 			continue;
 		}
 
-		const daysLeft = Math.ceil(end.diff(now, "days").days) - 1;
-
 		daysCount.push(
-			daysLeft === 0
-				? `${name} ends today.`
-				: daysLeft === 1
-					? `1 day left in ${name}.`
-					: `${daysLeft} days left in ${name}.`,
+			t("days-left.event", {
+				ns: "general",
+				count: Math.ceil(end.diff(today, "days").days) - 1,
+				name,
+			}),
 		);
 	}
 
@@ -187,8 +175,6 @@ export default function DailyGuides() {
 			setSelectedImage(url);
 		}
 	};
-
-	const { i18n } = useTranslation();
 
 	return (
 		<div className="min-h-screen flex items-center justify-center p-4">
@@ -203,7 +189,9 @@ export default function DailyGuides() {
 					</div>
 					{quests.length > 0 && (
 						<div className="mb-5">
-							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Quests</h2>
+							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+								{t("daily-guides.quests-heading", { ns: "features" })}
+							</h2>
 							<div className="space-y-2">
 								{quests.map(({ quest, url }, index) => (
 									<div className="flex items-start gap-3" key={quest}>
@@ -216,11 +204,11 @@ export default function DailyGuides() {
 												onClick={() => handleImageClick(url)}
 												type="button"
 											>
-												{i18n.t(`quests.${quest}`, { ns: "general" })}
+												{t(`quests.${quest}`, { ns: "general" })}
 											</button>
 										) : (
 											<span className="text-sm text-gray-700 dark:text-gray-300 flex-1">
-												{i18n.t(`quests.${quest}`, { ns: "general" })}
+												{t(`quests.${quest}`, { ns: "general" })}
 											</span>
 										)}
 									</div>
@@ -231,7 +219,7 @@ export default function DailyGuides() {
 					{treasureCandleURLs.length > 0 && (
 						<div className="mb-5">
 							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-								Treasure Candles
+								{t("daily-guides.treasure-candles", { ns: "features" })}
 							</h2>
 							{treasureCandleURLs.length === 1 ? (
 								<button
@@ -239,7 +227,7 @@ export default function DailyGuides() {
 									onClick={() => handleImageClick(treasureCandleURLs[0])}
 									type="button"
 								>
-									View
+									{t("view", { ns: "general" })}
 								</button>
 							) : (
 								<div className="flex flex-wrap gap-1 text-sm">
@@ -264,7 +252,7 @@ export default function DailyGuides() {
 					{seasonalCandles && (
 						<div className="mb-5">
 							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-								Seasonal Candles
+								{t("daily-guides.seasonal-candles", { ns: "features" })}
 							</h2>
 							<div className="space-y-2">
 								{seasonalCandles.url && (
@@ -273,14 +261,17 @@ export default function DailyGuides() {
 										onClick={() => handleImageClick(seasonalCandles.url)}
 										type="button"
 									>
-										View
+										{t("view", { ns: "general" })}
 									</button>
 								)}
 								<div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
 									<img alt="Seasonal candle" className="h-4 w-4" src={SEASONAL_CANDLE_ICON} />
 									<span>
-										{seasonalCandles.remaining} remain ({seasonalCandles.remainingWithPass} with a
-										season pass)
+										{t("daily-guides.seasonal-candles-remain", {
+											ns: "features",
+											remaining: seasonalCandles.remaining,
+											remainingSeasonPass: seasonalCandles.remainingWithPass,
+										})}
 									</span>
 								</div>
 							</div>
@@ -288,21 +279,25 @@ export default function DailyGuides() {
 					)}
 					<div className="mb-5">
 						<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-							Shard Eruption
+							{t("daily-guides.shard-eruption", { ns: "features" })}
 						</h2>
 						{shard ? (
 							<div className="space-y-3">
 								<div className="hidden sm:flex items-start justify-between">
 									<div>
 										<h3 className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
-											Data
+											{t("daily-guides.shard-eruption-data", { ns: "features" })}
 										</h3>
 										<button
 											className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors block mb-1"
 											onClick={() => handleImageClick(shard.url)}
 											type="button"
 										>
-											{shard.realm} ({shard.skyMap})
+											{t("shard-eruption.realm-map", {
+												ns: "features",
+												realm: shard.realm,
+												map: shard.skyMap,
+											})}
 										</button>
 										<div className="flex items-center gap-2">
 											<span className="text-sm text-gray-700 dark:text-gray-300">
@@ -325,7 +320,7 @@ export default function DailyGuides() {
 									</div>
 									<div className="text-right">
 										<h3 className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
-											Timestamps
+											{t("daily-guides.shard-eruption-timestamps", { ns: "features" })}
 										</h3>
 										<div className="space-y-1">
 											{shard.timestamps.map(({ start, end }) => (
@@ -337,7 +332,7 @@ export default function DailyGuides() {
 																: "text-gray-600 dark:text-gray-300"
 														}`}
 													>
-														{start.format} - {end.format}
+														{start.format}–{end.format}
 													</code>
 												</div>
 											))}
@@ -350,7 +345,11 @@ export default function DailyGuides() {
 										onClick={() => handleImageClick(shard.url)}
 										type="button"
 									>
-										{shard.realm} ({shard.skyMap})
+										{t("shard-eruption.realm-map", {
+											ns: "features",
+											realm: shard.realm,
+											map: shard.skyMap,
+										})}
 									</button>
 									<div className="flex items-center gap-2">
 										<span className="text-sm text-gray-700 dark:text-gray-300">{shard.reward}</span>
@@ -378,7 +377,7 @@ export default function DailyGuides() {
 															: "text-gray-600 dark:text-gray-300"
 													}`}
 												>
-													{start.format} - {end.format}
+													{start.format}–{end.format}
 												</code>
 											</div>
 										))}
@@ -392,7 +391,7 @@ export default function DailyGuides() {
 					{travellingRock && (
 						<div className="mb-5">
 							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-								Travelling Rock
+								{t("daily-guides.travelling-rock", { ns: "features" })}
 							</h2>
 							<button
 								className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -403,7 +402,7 @@ export default function DailyGuides() {
 								}
 								type="button"
 							>
-								View
+								{t("view", { ns: "general" })}
 							</button>
 						</div>
 					)}
@@ -423,7 +422,9 @@ export default function DailyGuides() {
 				{selectedImage && (
 					<div className="hidden lg:flex w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4 max-h-[80vh] flex-col">
 						<div className="flex items-center justify-between mb-4 flex-shrink-0">
-							<h3 className="font-semibold text-gray-900 dark:text-white text-sm">Infographic</h3>
+							<h3 className="font-semibold text-gray-900 dark:text-white text-sm">
+								{t("daily-guides.infographic", { ns: "features" })}
+							</h3>
 							<button
 								aria-label="Close infographic"
 								className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
@@ -447,7 +448,9 @@ export default function DailyGuides() {
 			{selectedImage && (
 				<div className="lg:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-sm z-50 flex flex-col">
 					<div className="flex items-center justify-between p-4 bg-gray-800/50 flex-shrink-0">
-						<h3 className="text-white font-medium">Infographic</h3>
+						<h3 className="text-white font-medium">
+							{t("daily-guides.infographic", { ns: "features" })}
+						</h3>
 						<button
 							aria-label="Close infographic"
 							className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"

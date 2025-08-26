@@ -2,7 +2,6 @@ import {
 	type CataloguePacket,
 	CountryToEmoji,
 	CROWDIN_URL,
-	enGB,
 	isCountry,
 	isPlatformId,
 	isSpiritId,
@@ -17,6 +16,7 @@ import {
 } from "@thatskyapplication/utility";
 import { ChevronLeftIcon, Globe, LinkIcon, MapPinIcon, Users } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import {
 	isRouteErrorResponse,
@@ -232,6 +232,7 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 export default function SkyProfile() {
 	const { data, maximumWingedLight } = useLoaderData<typeof loader>();
 	const [copied, setCopied] = useState(false);
+	const { t } = useTranslation();
 
 	return (
 		<div className="pt-8 mx-auto px-4 max-w-3xl mb-4">
@@ -344,7 +345,7 @@ export default function SkyProfile() {
 						/>
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
-							<p className="my-0">{enGB.general.spirits[data.spirit]}</p>
+							<p className="my-0">{t(`spirits.${data.spirit}`, { ns: "general" })}</p>
 						</div>
 					</div>
 				) : null}

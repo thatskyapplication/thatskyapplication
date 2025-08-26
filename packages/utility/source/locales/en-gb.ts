@@ -2703,7 +2703,6 @@ export default {
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
 		"interaction-not-in-cached-guild":
 			"This command requires me to be present in the server. [Invite me]({{url1}}) with the bot scope and try again!\nIf you need help, join the [support server]({{url2}})!",
-		timestamps: "Timestamps",
 		view: "View",
 		"navigation-back": "Back",
 		"navigation-next": "Next",
@@ -3095,11 +3094,14 @@ export default {
 			"seasonal-candles-remain":
 				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
 			"shard-eruption": "Shard Eruption",
+			"shard-eruption-data": "Data",
+			"shard-eruption-timestamps": "Timestamps",
 			"shard-eruption-none": "None",
 			"travelling-rock": "Travelling Rock",
 			"season-upcoming_zero": "The new season starts tomorrow.",
 			"season-upcoming_one": "The new season starts in {{count}} day.",
 			"season-upcoming_other": "The new season starts in {{count}} days.",
+			"infographic": "Infographic",
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!",
 			"quest-unknown": "Woah, that's a daily we do not know. Maybe try another?",

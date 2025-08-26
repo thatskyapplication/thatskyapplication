@@ -1,9 +1,12 @@
-import { enGB, NOTIFICATION_TYPE_VALUES } from "@thatskyapplication/utility";
+import { NOTIFICATION_TYPE_VALUES } from "@thatskyapplication/utility";
 import { Bell, Zap } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import Permissions from "~/components/Permissions";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Notifications() {
+	const { t } = useTranslation();
+
 	return (
 		<div className="relative overflow-hidden">
 			<div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -65,7 +68,7 @@ export default function Notifications() {
 								>
 									<h4 className="font-medium text-gray-800 dark:text-gray-200 mb-2 flex items-center gap-2">
 										<Bell className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-										{enGB.general["notification-types"][notification]}
+										{t(`notification-types.${notification}`, { ns: "general" })}
 									</h4>
 								</div>
 							))}
