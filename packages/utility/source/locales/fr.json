@@ -25,6 +25,7 @@
 			"Prairie Peaks": "Pics de la Prairie",
 			"Koi Pond": "Mare des Carpes Koï",
 			"Prairie Village": "Village des prairies",
+			"Prairie Temple": "Temple de la prairie",
 			"Sanctuary Islands": "Îles du sanctuaire",
 			"Boneyard": "Cimetière de la Forêt",
 			"Elevated Clearing": "Clairière Élevée",
@@ -325,7 +326,8 @@
 			"245": "Admirer des espaces partagés avec le Maître d'équipage maladroit",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
