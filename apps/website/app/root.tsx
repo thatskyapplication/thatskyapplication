@@ -1,3 +1,4 @@
+import "./i18next";
 import type React from "react";
 import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "react-router";
 import {

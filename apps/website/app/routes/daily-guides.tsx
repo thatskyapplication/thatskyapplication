@@ -1,3 +1,4 @@
+import { Locale } from "@discordjs/core/http-only";
 import {
 	type DailyGuidesPacket,
 	DailyQuestToInfographicURL,
@@ -13,6 +14,7 @@ import {
 	TIME_ZONE,
 	treasureCandles,
 } from "@thatskyapplication/utility";
+import { t } from "i18next";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { LoaderFunctionArgs } from "react-router";
@@ -213,11 +215,11 @@ export default function DailyGuides() {
 												onClick={() => handleImageClick(url)}
 												type="button"
 											>
-												{enGB.general.quests[quest]}
+												{t(`quests.${quest}`, { lng: Locale.EnglishGB, ns: "general" })}
 											</button>
 										) : (
 											<span className="text-sm text-gray-700 dark:text-gray-300 flex-1">
-												{enGB.general.quests[quest]}
+												{t(`quests.${quest}`, { lng: Locale.EnglishGB, ns: "general" })}
 											</span>
 										)}
 									</div>

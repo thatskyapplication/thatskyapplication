@@ -300,6 +300,9 @@ importers:
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../packages/utility
+      i18next:
+        specifier: ^25.3.6
+        version: 25.3.6(typescript@5.9.2)
       isbot:
         specifier: ^4.1.0
         version: 4.4.0
