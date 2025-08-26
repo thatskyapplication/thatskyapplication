@@ -10,6 +10,7 @@ import { ExternalLinkIcon } from "lucide-react";
 import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
+import { getLocale } from "~/middleware/i18next.js";
 import pino from "~/pino.js";
 import {
 	APPLICATION_NAME,
@@ -18,7 +19,6 @@ import {
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 	SHARD_ERUPTION_MINIMUM_PAGE,
 } from "~/utility/constants";
-import { getLocaleFromRequest } from "~/utility/functions";
 
 type ShardEruptionCardData = {
 	shard:
@@ -59,12 +59,12 @@ export const meta: MetaFunction = ({ location }) => {
 	];
 };
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	try {
 		const url = new URL(request.url);
 		const pageParameter = url.searchParams.get("page");
 		const shards = [];
-		const locale = getLocaleFromRequest(request);
+		const locale = getLocale(context);
 		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
 		let page = pageParameter ? Number(pageParameter) : 0;
 

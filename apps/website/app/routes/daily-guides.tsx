@@ -1,4 +1,3 @@
-import { Locale } from "@discordjs/core/http-only";
 import {
 	type DailyGuidesPacket,
 	DailyQuestToInfographicURL,
@@ -14,19 +13,19 @@ import {
 	TIME_ZONE,
 	treasureCandles,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, useLoaderData } from "react-router";
+import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import pino from "~/pino.js";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
-import { getLocaleFromRequest } from "~/utility/functions";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	try {
-		const locale = getLocaleFromRequest(request);
+		const locale = getLocale(context);
 		const dailyGuides = await pg<DailyGuidesPacket>(Table.DailyGuides);
 		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
 		const shard = shardEruption();
@@ -189,6 +188,8 @@ export default function DailyGuides() {
 		}
 	};
 
+	const { i18n } = useTranslation();
+
 	return (
 		<div className="min-h-screen flex items-center justify-center p-4">
 			<div
@@ -215,11 +216,11 @@ export default function DailyGuides() {
 												onClick={() => handleImageClick(url)}
 												type="button"
 											>
-												{t(`quests.${quest}`, { lng: Locale.EnglishGB, ns: "general" })}
+												{i18n.t(`quests.${quest}`, { ns: "general" })}
 											</button>
 										) : (
 											<span className="text-sm text-gray-700 dark:text-gray-300 flex-1">
-												{t(`quests.${quest}`, { lng: Locale.EnglishGB, ns: "general" })}
+												{i18n.t(`quests.${quest}`, { ns: "general" })}
 											</span>
 										)}
 									</div>

@@ -3,7 +3,6 @@ import { CROWDIN_URL } from "@thatskyapplication/utility";
 import { Bot, Clock, LogIn, LogOut, Menu, Users, X, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Form, Link, useLocation } from "react-router";
-import { useLocale } from "~/contexts/LocaleContext";
 import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL, timeString } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
@@ -17,6 +16,7 @@ interface NavigationItem {
 
 interface SiteTopBarProps {
 	user: DiscordUser | null;
+	locale: string;
 }
 
 interface UserMenuProps {
@@ -27,6 +27,10 @@ interface MobileMenuProps {
 	isOpen: boolean;
 	onClose: () => void;
 	user?: DiscordUser | null;
+}
+
+interface TimeDisplayProps {
+	locale: string;
 }
 
 const NAVIGATION_ITEMS = [
@@ -56,8 +60,7 @@ const NAVIGATION_ITEMS = [
 	},
 ] as const satisfies Readonly<NavigationItem[]>;
 
-function TimeDisplay() {
-	const locale = useLocale();
+function TimeDisplay({ locale }: TimeDisplayProps) {
 	const [currentTime, setCurrentTime] = useState(() => timeString(locale));
 	const [error, setError] = useState<string | null>(null);
 
@@ -225,7 +228,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	);
 }
 
-export function SiteTopBar({ user }: SiteTopBarProps) {
+export function SiteTopBar({ user, locale }: SiteTopBarProps) {
 	const location = useLocation();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -280,7 +283,7 @@ export function SiteTopBar({ user }: SiteTopBarProps) {
 							</nav>
 						</div>
 						<div className="flex items-center gap-4">
-							<TimeDisplay />
+							<TimeDisplay locale={locale} />
 							<div className="hidden md:flex">
 								{user ? <UserMenu user={user} /> : <LoginButton />}
 							</div>

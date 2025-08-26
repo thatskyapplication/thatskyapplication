@@ -1,5 +1,7 @@
-import "./i18next";
+import "./tailwind.css";
+import { WEBSITE_URL } from "@thatskyapplication/utility";
 import type React from "react";
+import { useTranslation } from "react-i18next";
 import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "react-router";
 import {
 	Link,
@@ -11,17 +13,17 @@ import {
 	useLoaderData,
 	useRouteError,
 } from "react-router";
+import { useChangeLanguage } from "remix-i18next/react";
 import ConditionalLayout from "~/components/ConditionalLayout";
-import "./tailwind.css";
-import { WEBSITE_URL } from "@thatskyapplication/utility";
-import { LocaleProvider } from "~/contexts/LocaleContext";
+import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
 import { getSession } from "~/session.server";
 import {
 	APPLICATION_DESCRIPTION,
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
 } from "~/utility/constants";
-import { getLocaleFromRequest } from "~/utility/functions";
+
+export const unstable_middleware = [i18nextMiddleware];
 
 export const meta: MetaFunction = () => [
 	{ charSet: "utf-8" },
@@ -91,8 +93,10 @@ export function ErrorBoundary() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
+	const { i18n } = useTranslation();
+
 	return (
-		<html lang="en">
+		<html dir={i18n.dir(i18n.language)} lang={i18n.language}>
 			<head>
 				<Meta />
 				<Links />
@@ -106,21 +110,20 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const locale = getLocaleFromRequest(request);
+export async function loader({ request, context }: LoaderFunctionArgs) {
+	const locale = getLocale(context);
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("user") ?? null;
 	return { locale, user };
-};
+}
 
 export default function App() {
 	const { locale, user } = useLoaderData<typeof loader>();
+	useChangeLanguage(locale);
 
 	return (
-		<LocaleProvider locale={locale}>
-			<ConditionalLayout user={user}>
-				<Outlet />
-			</ConditionalLayout>
-		</LocaleProvider>
+		<ConditionalLayout locale={locale} user={user}>
+			<Outlet />
+		</ConditionalLayout>
 	);
 }
