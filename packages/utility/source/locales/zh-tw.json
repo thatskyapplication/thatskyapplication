@@ -2442,7 +2442,6 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
-		"timestamps": "時間戳",
 		"view": "瀏覽",
 		"navigation-back": "上一頁",
 		"navigation-next": "下一頁"
@@ -2820,11 +2819,14 @@
 			"seasonal-candles": "",
 			"seasonal-candles-remain": "",
 			"shard-eruption": "碎片噴發",
+			"shard-eruption-data": "",
+			"shard-eruption-timestamps": "時間戳",
 			"shard-eruption-none": "無",
 			"travelling-rock": "",
 			"season-upcoming_zero": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
+			"infographic": "",
 			"not-yet-updated": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""

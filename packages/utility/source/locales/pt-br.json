@@ -2442,7 +2442,6 @@
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
-		"timestamps": "Marcação de data/hora",
 		"view": "Exibir",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar"
@@ -2820,11 +2819,14 @@
 			"seasonal-candles": "Velas de temporada",
 			"seasonal-candles-remain": "{{remaining}} restantes ({{remainingSeasonPass}} com o Passe de Temporada)",
 			"shard-eruption": "Erupções de Fragmentos",
+			"shard-eruption-data": "",
+			"shard-eruption-timestamps": "Marcação de data/hora",
 			"shard-eruption-none": "Nada",
 			"travelling-rock": "Pedra Viajante",
 			"season-upcoming_zero": "A nova temporada inicia amanhã.",
 			"season-upcoming_one": "A nova temporada inicia em {{count}} dia.",
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
+			"infographic": "",
 			"not-yet-updated": "Os guias diários estão esperando por uma incrível Criança da Luz para serem atualizados!\nPossui as informações que precisamos? Entre no [servidor de suporte]({{url}}) e atualize os guias você mesmo, ajudando a galera!",
 			"quest-unknown": "Uou, essa é uma missão diária que não conhecemos. Talvez tente outra?",
 			"quest-no-infographic": "Essa missão não possui um infográfico."
