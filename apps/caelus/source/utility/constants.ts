@@ -42,7 +42,6 @@ export const I18_NEXT_OPTIONS = {
 		[Locale.ChineseTW]: zhTW,
 	},
 	returnEmptyString: false,
-	saveMissing: true,
 	interpolation: { escapeValue: false },
 } as const;
 

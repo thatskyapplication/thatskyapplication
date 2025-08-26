@@ -56,7 +56,6 @@ void init({
 		[Locale.ChineseTW]: zhTW,
 	},
 	returnEmptyString: false,
-	saveMissing: true,
 	interpolation: {
 		escapeValue: false,
 	},
