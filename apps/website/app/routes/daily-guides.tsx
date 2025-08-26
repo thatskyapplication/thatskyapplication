@@ -14,9 +14,9 @@ import {
 	TIME_ZONE,
 	treasureCandles,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, useLoaderData } from "react-router";
 import pg from "~/pg.server";
@@ -189,6 +189,8 @@ export default function DailyGuides() {
 		}
 	};
 
+	const { t } = useTranslation();
+
 	return (
 		<div className="min-h-screen flex items-center justify-center p-4">
 			<div
@@ -215,11 +217,11 @@ export default function DailyGuides() {
 												onClick={() => handleImageClick(url)}
 												type="button"
 											>
-												{t(`quests.${quest}`, { lng: Locale.EnglishGB, ns: "general" })}
+												{t(`quests.${quest}`, { ns: "general" })}
 											</button>
 										) : (
 											<span className="text-sm text-gray-700 dark:text-gray-300 flex-1">
-												{t(`quests.${quest}`, { lng: Locale.EnglishGB, ns: "general" })}
+												{t(`quests.${quest}`, { ns: "general" })}
 											</span>
 										)}
 									</div>

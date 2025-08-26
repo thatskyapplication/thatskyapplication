@@ -15,15 +15,19 @@ import {
 	zhCN,
 	zhTW,
 } from "@thatskyapplication/utility";
-import { init } from "i18next";
+import i18next from "i18next";
+import { initReactI18next } from "react-i18next";
 
-await init({
+export default i18next.use(initReactI18next).init({
+	detection: {
+		order: [],
+	},
 	fallbackLng: Locale.EnglishGB,
+	lng: Locale.EnglishGB,
 	missingKeyHandler: (locale, namespace, key) =>
 		console.warn(
 			`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,
 		),
-	ns: ["general", "commands", "features"],
 	resources: {
 		[Locale.German]: de,
 		[Locale.EnglishGB]: enGB,
