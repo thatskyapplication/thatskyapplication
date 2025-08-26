@@ -1,4 +1,4 @@
-import type { APIUser } from "@discordjs/core";
+import type { APIUser } from "@discordjs/core/http-only";
 import { type LoaderFunction, redirect } from "react-router";
 import { APPLICATION_ID, DISCORD_CLIENT_SECRET, REDIRECT_URI_LOGIN } from "~/config.server";
 import discord from "~/discord";
