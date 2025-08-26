@@ -25,6 +25,7 @@
 			"Prairie Peaks": "Cumbres de la planicie",
 			"Koi Pond": "",
 			"Prairie Village": "Aldea de la planicie",
+			"Prairie Temple": "Templo de la planicie",
 			"Sanctuary Islands": "Islas Santuario",
 			"Boneyard": "Deshuesadero",
 			"Elevated Clearing": "Claro Elevado",
@@ -325,7 +326,8 @@
 			"245": "Admira los espacios compartidos con la contramaestre torpe",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",

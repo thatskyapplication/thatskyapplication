@@ -25,6 +25,7 @@
 			"Prairie Peaks": "雲野峻嶺",
 			"Koi Pond": "鯉魚池",
 			"Prairie Village": "雲野村落",
+			"Prairie Temple": "雲野神廟",
 			"Sanctuary Islands": "聖域群島",
 			"Boneyard": "埋骨之地",
 			"Elevated Clearing": "樹林高處",
@@ -325,7 +326,8 @@
 			"245": "與笨拙的水手長欣賞共享空間",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",

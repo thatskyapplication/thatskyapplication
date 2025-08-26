@@ -25,6 +25,7 @@
 			"Prairie Peaks": "Präriegipfel",
 			"Koi Pond": "Koiteich",
 			"Prairie Village": "Präriedorf",
+			"Prairie Temple": "Prärietempel",
 			"Sanctuary Islands": "Zufluchtsinseln",
 			"Boneyard": "Friedhof im Wald",
 			"Elevated Clearing": "Höhergelegenen Lichtung",
@@ -325,7 +326,8 @@
 			"245": "Bewundere Gemeinschaftsräume mit Stümperhafter Schiffsjunge",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",
