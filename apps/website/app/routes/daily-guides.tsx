@@ -151,11 +151,7 @@ export default function DailyGuides() {
 
 		if (daysUntilStart > 0) {
 			daysCount.push(
-				daysUntilStart < 1
-					? `${name} starts today.`
-					: daysUntilStart >= 2
-						? `${name} starts in ${Math.floor(daysUntilStart)} days.`
-						: `${name} starts tomorrow.`,
+				t("daily-guides.event-upcoming", { ns: "features", event: name, count: daysUntilStart }),
 			);
 
 			continue;

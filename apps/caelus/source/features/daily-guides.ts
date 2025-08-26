@@ -553,23 +553,18 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 
 	const eventEndText = skyNotEndedEvents(date).map(({ id, start, end }) => {
 		const daysUntilStart = start.diff(date, "days").days;
+		const name = t(`events.${id}`, { lng: locale, ns: "general" });
 		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
 		if (daysUntilStart > 0) {
-			return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${
-				daysUntilStart < 1
-					? `${t(`events.${id}`, { lng: locale, ns: "general" })} starts today.`
-					: daysUntilStart >= 2
-						? `${t(`events.${id}`, { lng: locale, ns: "general" })} starts in ${Math.floor(daysUntilStart)} days.`
-						: `${t(`events.${id}`, { lng: locale, ns: "general" })} starts tomorrow.`
-			}`;
+			return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("daily-guides.event-upcoming", { lng: locale, ns: "features", event: name, count: daysUntilStart })}`;
 		}
 
 		return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("days-left.event", {
 			lng: locale,
 			ns: "general",
 			count: Math.ceil(end.diff(date, "days").days) - 1,
-			name: t(`events.${id}`, { lng: locale, ns: "general" }),
+			name,
 		})}`;
 	});
 

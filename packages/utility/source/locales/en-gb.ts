@@ -3098,9 +3098,10 @@ export default {
 			"shard-eruption-timestamps": "Timestamps",
 			"shard-eruption-none": "None",
 			"travelling-rock": "Travelling Rock",
-			"season-upcoming_zero": "The new season starts tomorrow.",
-			"season-upcoming_one": "The new season starts in {{count}} day.",
+			"season-upcoming_one": "The new season starts tomorrow.",
 			"season-upcoming_other": "The new season starts in {{count}} days.",
+			"event-upcoming_one": "{{event}} starts tomorrow.",
+			"event-upcoming_other": "{{event}} starts in {{count}} days.",
 			infographic: "Infographic",
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!",
