@@ -25,6 +25,7 @@
 			"Prairie Peaks": "Picos da Campina",
 			"Koi Pond": "Lagoa de Carpas",
 			"Prairie Village": "Aldeia da Campina",
+			"Prairie Temple": "Templo da Campina",
 			"Sanctuary Islands": "Ilhas do Santuário",
 			"Boneyard": "Cemitério",
 			"Elevated Clearing": "Clareira Elevada",
@@ -325,7 +326,8 @@
 			"245": "Admire os espaços compartilhados com o Contramestre Trapalhão",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",

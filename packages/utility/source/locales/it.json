@@ -25,6 +25,7 @@
 			"Prairie Peaks": "Vette della Prateria",
 			"Koi Pond": "",
 			"Prairie Village": "Villaggio della Prateria",
+			"Prairie Temple": "Tempio della Prateria",
 			"Sanctuary Islands": "Arcipelago Paradiso",
 			"Boneyard": "Cimitero",
 			"Elevated Clearing": "Radura elevata",
@@ -325,7 +326,8 @@
 			"245": "Ammira gli spazi condivisi con il Nostromo imbranato",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",

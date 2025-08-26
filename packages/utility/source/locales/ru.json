@@ -25,6 +25,7 @@
 			"Prairie Peaks": "Степные вершины",
 			"Koi Pond": "Пруд Кои",
 			"Prairie Village": "Деревня Прерии",
+			"Prairie Temple": "Храм прерии",
 			"Sanctuary Islands": "Острова укрытия",
 			"Boneyard": "Могильник",
 			"Elevated Clearing": "Поляна",
@@ -325,7 +326,8 @@
 			"245": "Полюбуйтесь общими пространствами вместе с Нерадивым боцманом",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "Сезон благодарности",

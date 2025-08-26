@@ -38,6 +38,7 @@ export enum SkyMap {
 	PrairiePeaks = "Prairie Peaks",
 	KoiPond = "Koi Pond",
 	PrairieVillage = "Prairie Village",
+	PrairieTemple = "Prairie Temple",
 	SanctuaryIslands = "Sanctuary Islands",
 
 	// Hidden Forest.

@@ -25,6 +25,7 @@
 			"Prairie Peaks": "草原連峰",
 			"Koi Pond": "鯉の池",
 			"Prairie Village": "草原の村",
+			"Prairie Temple": "草原の神殿",
 			"Sanctuary Islands": "楽園の島々",
 			"Boneyard": "雨林の墓場",
 			"Elevated Clearing": "高台広場",
@@ -325,7 +326,8 @@
 			"245": "おっちょこちょいな水夫長とシェアスペースを鑑賞しましょう",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "感謝の季節",

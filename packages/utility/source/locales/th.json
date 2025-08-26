@@ -25,6 +25,7 @@
 			"Prairie Peaks": "ยอดเขาแห่งทุ่งหญ้า",
 			"Koi Pond": "",
 			"Prairie Village": "หมู่บ้านทุ่งหญ้า",
+			"Prairie Temple": "วิหารทุ่งหญ้า",
 			"Sanctuary Islands": "เกาะสวรรค์",
 			"Boneyard": "ทุ่งกระดูก",
 			"Elevated Clearing": "ที่โล่งสูง",
@@ -325,7 +326,8 @@
 			"245": "ชื่นชมพื้นที่ส่วนกลางไปกับนักพายเรือบ่นพึมพำ",
 			"246": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})"
 		},
 		"seasons": {
 			"0": "ฤดูกาลแห่งความกตัญญู",

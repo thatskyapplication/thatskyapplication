@@ -492,6 +492,10 @@ export default {
 				SpiritId.CourageousSoldier,
 				RealmName.ValleyOfTriumph,
 			),
+			[DailyQuest.MeetUpWithFlightGuideInPrairieTemple]: questsMeetUpWith(
+				SpiritId.FlightGuide,
+				SkyMap.PrairieTemple,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
