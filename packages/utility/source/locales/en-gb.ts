@@ -3101,7 +3101,7 @@ export default {
 			"season-upcoming_zero": "The new season starts tomorrow.",
 			"season-upcoming_one": "The new season starts in {{count}} day.",
 			"season-upcoming_other": "The new season starts in {{count}} days.",
-			"infographic": "Infographic",
+			infographic: "Infographic",
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!",
 			"quest-unknown": "Woah, that's a daily we do not know. Maybe try another?",

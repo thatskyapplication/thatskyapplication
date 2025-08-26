@@ -2442,7 +2442,6 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
-		"timestamps": "Временные метки",
 		"view": "Вид",
 		"navigation-back": "",
 		"navigation-next": ""
@@ -2820,11 +2819,14 @@
 			"seasonal-candles": "",
 			"seasonal-candles-remain": "",
 			"shard-eruption": "",
+			"shard-eruption-data": "",
+			"shard-eruption-timestamps": "Временные метки",
 			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"season-upcoming_zero": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
+			"infographic": "",
 			"not-yet-updated": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
