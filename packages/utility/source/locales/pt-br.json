@@ -464,7 +464,9 @@
 			"75": "AURORA: De Volta ao Lar",
 			"76": "Oficina Mostre e Conte",
 			"77": "Aniversário de Sky",
-			"78": "Dias Ensolarados"
+			"78": "Dias Ensolarados",
+			"79": "Dias de Luar",
+			"80": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras#Outubro_de_2019",
@@ -545,7 +547,9 @@
 			"75": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/AURORA:_De_Volta_ao_Lar",
 			"76": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Eventos_Especiais#Oficina_Mostre_e_Conte_-_Junho_de_2025",
 			"77": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Aniversário_do_Sky",
-			"78": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados"
+			"78": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados",
+			"79": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar",
+			"80": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -2438,7 +2442,8 @@
 			"2470": "Acessório de Cabeça de Vestígio dos Dragões Sombrios",
 			"2475": "Vestido de Aniversário",
 			"2476": "Sapatilhas de Aniversário",
-			"2477": "Capa do smoking de aniversário"
+			"2477": "Capa do smoking de aniversário",
+			"2480": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -2515,6 +2520,10 @@
 			"notifications": {
 				"command-name": "notificações",
 				"command-description": "O comando para definir as notificações sobre eventos."
+			},
+			"welcome": {
+				"command-name": "",
+				"command-description": ""
 			}
 		},
 		"daily-guides": {
@@ -3088,6 +3097,40 @@
 			"order-natural": "Ordenar por aparência",
 			"order-rarity": "Ordenar por raridade",
 			"page": "Página"
+		},
+		"welcome": {
+			"preview": "",
+			"title": "",
+			"description": "",
+			"welcome-channel-select-menu-placeholder": "",
+			"message-description": "",
+			"message-remove": "",
+			"message-edit": "",
+			"message-use": "",
+			"message-modal-title": "",
+			"message-modal-text-input-label": "",
+			"message-modal-text-input-placeholder": "",
+			"asset-description": "",
+			"asset-remove": "",
+			"asset-edit": "",
+			"asset-use": "",
+			"asset-modal-title": "",
+			"asset-modal-text-input-label": "",
+			"asset-https-start": "",
+			"hug-description": "",
+			"hug-remove": "",
+			"hug-add": "",
+			"accent-colour-description": "",
+			"accent-colour-remove": "",
+			"accent-colour-edit": "",
+			"accent-colour-use": "",
+			"accent-colour-modal-title": "",
+			"accent-colour-modal-text-input-label": "",
+			"accent-colour-invalid": "",
+			"missing-permissions": "",
+			"welcome-with-a-hug": "",
+			"hug-self": "",
+			"hug-disabled": ""
 		}
 	}
 }

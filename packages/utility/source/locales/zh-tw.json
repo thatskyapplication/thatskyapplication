@@ -464,7 +464,9 @@
 			"75": "AURORA 樂音歸來",
 			"76": "工作坊成果發表",
 			"77": "《Sky光·遇》週年慶",
-			"78": "陽光日"
+			"78": "陽光日",
+			"79": "月華節",
+			"80": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief",
@@ -530,7 +532,7 @@
 			"60": "https://sky-children-of-the-light.fandom.com/SkyFest",
 			"61": "https://sky-children-of-the-light.fandom.com/Tournament_of_Triumph",
 			"62": "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
-			"63": "https://sky-children-of-the-light.fandom.com/Days_of_Moonlight",
+			"63": "https://sky-children-of-the-light.fandom.com/zh/wiki/%E6%9C%88%E8%8F%AF%E7%AF%80",
 			"64": "https://sky-children-of-the-light.fandom.com/Days_of_Style",
 			"65": "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
 			"66": "https://sky-children-of-the-light.fandom.com/Days_of_Music",
@@ -545,7 +547,9 @@
 			"75": "https://sky-children-of-the-light.fandom.com/wiki/AURORA:_Homecoming",
 			"76": "https://sky-children-of-the-light.fandom.com/wiki/Workshop_Show_%26_Tell",
 			"77": "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
-			"78": "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight"
+			"78": "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
+			"79": "https://sky-children-of-the-light.fandom.com/zh/wiki/%E6%9C%88%E8%8F%AF%E7%AF%80",
+			"80": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -2438,7 +2442,8 @@
 			"2470": "",
 			"2475": "",
 			"2476": "",
-			"2477": "週年慶典燕尾斗篷"
+			"2477": "週年慶典燕尾斗篷",
+			"2480": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2515,6 +2520,10 @@
 			"notifications": {
 				"command-name": "通知",
 				"command-description": "設定事件通知的命令。"
+			},
+			"welcome": {
+				"command-name": "",
+				"command-description": ""
 			}
 		},
 		"daily-guides": {
@@ -3088,6 +3097,40 @@
 			"order-natural": "",
 			"order-rarity": "",
 			"page": "頁次"
+		},
+		"welcome": {
+			"preview": "",
+			"title": "",
+			"description": "",
+			"welcome-channel-select-menu-placeholder": "",
+			"message-description": "",
+			"message-remove": "",
+			"message-edit": "",
+			"message-use": "",
+			"message-modal-title": "",
+			"message-modal-text-input-label": "",
+			"message-modal-text-input-placeholder": "",
+			"asset-description": "",
+			"asset-remove": "",
+			"asset-edit": "",
+			"asset-use": "",
+			"asset-modal-title": "",
+			"asset-modal-text-input-label": "",
+			"asset-https-start": "",
+			"hug-description": "",
+			"hug-remove": "",
+			"hug-add": "",
+			"accent-colour-description": "",
+			"accent-colour-remove": "",
+			"accent-colour-edit": "",
+			"accent-colour-use": "",
+			"accent-colour-modal-title": "",
+			"accent-colour-modal-text-input-label": "",
+			"accent-colour-invalid": "",
+			"missing-permissions": "",
+			"welcome-with-a-hug": "",
+			"hug-self": "",
+			"hug-disabled": ""
 		}
 	}
 }
