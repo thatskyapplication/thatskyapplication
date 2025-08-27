@@ -131,30 +131,6 @@ export async function setupResponse(
 			{
 				type: ComponentType.TextDisplay,
 				content:
-					"You can show a cute hug button on the message for others to use to welcome the joined Sky kid!",
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						style: welcomePacket?.hug ? ButtonStyle.Danger : ButtonStyle.Success,
-						custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§${Number(welcomePacket?.hug ?? false)}`,
-						label: welcomePacket?.hug
-							? "Disable showing the hug button?"
-							: "Enable showing the hug button?",
-						emoji: FRIEND_ACTION_EMOJIS.Hug,
-					},
-				],
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content:
 					"You can choose to display a message! To mention the user who joined, type `{{user}}`.",
 			},
 			{
@@ -185,6 +161,30 @@ export async function setupResponse(
 								emoji: { name: "📝" },
 							},
 						],
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content:
+					"You can show a cute hug button on the message for others to use to welcome the joined Sky kid!",
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						style: welcomePacket?.hug ? ButtonStyle.Danger : ButtonStyle.Success,
+						custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§${Number(welcomePacket?.hug ?? false)}`,
+						label: welcomePacket?.hug
+							? "Disable showing the hug button?"
+							: "Enable showing the hug button?",
+						emoji: FRIEND_ACTION_EMOJIS.Hug,
+					},
+				],
 			},
 		],
 	});
