@@ -638,6 +638,7 @@ export default {
 			[EventId.SkyAnniversary2025]: "Sky Anniversary",
 			[EventId.DaysOfSunlight2025]: "Days of Sunlight",
 			[EventId.DaysOfMoonlight2025]: "Days of Moonlight",
+			[EventId.RadianceEvent2025]: "Radiance Event",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -734,6 +735,8 @@ export default {
 			[EventId.DaysOfSunlight2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
 			[EventId.DaysOfMoonlight2025]:
 				"https://sky-children-of-the-light.fandom.com/Days_of_Moonlight",
+			// Double-check this.
+			[EventId.RadianceEvent2025]: "https://sky-children-of-the-light.fandom.com/Radiance_Event",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
