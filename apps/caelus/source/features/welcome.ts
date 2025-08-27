@@ -243,15 +243,21 @@ export async function welcomeSetup(
 			{
 				type: ComponentType.ActionRow,
 				components: [
-					{
-						type: ComponentType.Button,
-						style: welcomePacket?.hug ? ButtonStyle.Danger : ButtonStyle.Success,
-						custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§${Number(welcomePacket?.hug ?? false)}`,
-						label: welcomePacket?.hug
-							? t("welcome.hug-remove", { lng: locale, ns: "features" })
-							: t("welcome.hug-add", { lng: locale, ns: "features" }),
-						emoji: welcomePacket?.hug ? FRIEND_ACTION_EMOJIS.Hug : MISCELLANEOUS_EMOJIS.Trash,
-					},
+					welcomePacket?.hug
+						? {
+								type: ComponentType.Button,
+								style: ButtonStyle.Danger,
+								custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§1`,
+								label: t("welcome.hug-remove", { lng: locale, ns: "features" }),
+								emoji: MISCELLANEOUS_EMOJIS.Trash,
+							}
+						: {
+								type: ComponentType.Button,
+								style: ButtonStyle.Success,
+								custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§0`,
+								label: t("welcome.hug-add", { lng: locale, ns: "features" }),
+								emoji: FRIEND_ACTION_EMOJIS.Hug,
+							},
 				],
 			},
 			{
