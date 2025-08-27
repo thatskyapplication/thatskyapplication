@@ -192,12 +192,18 @@ import {
 } from "../features/spirits.js";
 import {
 	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
+	WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
+	WELCOME_ASSET_SETTING_CUSTOM_ID,
+	WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID,
 	WELCOME_HUG_CUSTOM_ID,
 	WELCOME_HUG_SETTING_CUSTOM_ID,
 	WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
 	WELCOME_MESSAGE_SETTING_CUSTOM_ID,
 	WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID,
 	WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
+	welcomeHandleAssetSettingButton,
+	welcomeHandleAssetSettingDeleteButton,
+	welcomeHandleAssetSettingModal,
 	welcomeHandleHugButton,
 	welcomeHandleHugSettingButton,
 	welcomeHandleMessageSettingButton,
@@ -876,6 +882,16 @@ export default {
 						return;
 					}
 
+					if (customId === WELCOME_ASSET_SETTING_CUSTOM_ID) {
+						await welcomeHandleAssetSettingButton(interaction);
+						return;
+					}
+
+					if (customId === WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID) {
+						await welcomeHandleAssetSettingDeleteButton(interaction);
+						return;
+					}
+
 					if (customId.startsWith(WELCOME_HUG_CUSTOM_ID)) {
 						await welcomeHandleHugButton(interaction, customId.slice(customId.indexOf("§") + 1));
 						return;
@@ -1192,12 +1208,16 @@ export default {
 					return;
 				}
 
-				if (
-					isGuildModalSubmit(interaction) &&
-					customId === WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID
-				) {
-					await welcomeHandleMessageSettingModal(interaction);
-					return;
+				if (isGuildModalSubmit(interaction)) {
+					if (customId === WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID) {
+						await welcomeHandleMessageSettingModal(interaction);
+						return;
+					}
+
+					if (customId === WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID) {
+						await welcomeHandleAssetSettingModal(interaction);
+						return;
+					}
 				}
 			} catch (error) {
 				void recoverInteractionError(interaction, error);

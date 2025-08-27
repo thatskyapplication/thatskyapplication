@@ -70,6 +70,7 @@ export const MAXIMUM_FEEDBACK_TITLE_LENGTH = 100 as const;
 export const MINIMUM_FEEDBACK_TITLE_LENGTH = 4 as const;
 export const MAXIMUM_AUTOCOMPLETE_NAME_LIMIT = 100 as const;
 export const MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT = 25 as const;
+export const MAXIMUM_MEDIA_GALLERY_URL_LENGTH = 2048 as const;
 
 export const LOCALES = [
 	Locale.German,

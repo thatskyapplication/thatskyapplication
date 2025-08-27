@@ -26,6 +26,7 @@ import { client } from "../discord.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import type { NonNullableInterface } from "../types/index.js";
+import { MAXIMUM_MEDIA_GALLERY_URL_LENGTH } from "../utility/constants.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { notInCachedGuildResponse } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
@@ -46,6 +47,15 @@ const WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID =
 	"WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID" as const;
 
 export const WELCOME_HUG_CUSTOM_ID = "WELCOME_HUG_CUSTOM_ID" as const;
+export const WELCOME_ASSET_SETTING_CUSTOM_ID = "WELCOME_ASSET_SETTING_CUSTOM_ID" as const;
+
+export const WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID =
+	"WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID" as const;
+
+export const WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID =
+	"WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID" as const;
+
+const WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID = "WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID" as const;
 
 const WELCOME_MESSAGE_MAXIMUM_LENGTH = 1000 as const;
 
@@ -54,6 +64,7 @@ export interface WelcomePacket {
 	welcome_channel_id: string | null;
 	hug: boolean | null;
 	message: string | null;
+	asset_url: string | null;
 }
 
 export type WelcomePacketWithChannel = WelcomePacket &
@@ -169,8 +180,45 @@ export async function setupResponse(
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content:
-					"You can show a cute hug button on the message for others to use to welcome the joined Sky kid!",
+				content: "You can use an asset to display!",
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: welcomePacket?.asset_url
+					? [
+							{
+								type: ComponentType.Button,
+								style: ButtonStyle.Danger,
+								custom_id: WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
+								label: "Remove the asset?",
+								emoji: MISCELLANEOUS_EMOJIS.Trash,
+							},
+							{
+								type: ComponentType.Button,
+								style: ButtonStyle.Primary,
+								custom_id: WELCOME_ASSET_SETTING_CUSTOM_ID,
+								label: "Edit the asset URL?",
+								emoji: MISCELLANEOUS_EMOJIS.Edit,
+							},
+						]
+					: [
+							{
+								type: ComponentType.Button,
+								style: ButtonStyle.Success,
+								custom_id: WELCOME_ASSET_SETTING_CUSTOM_ID,
+								label: "Use an asset?",
+								emoji: { name: "📷" },
+							},
+						],
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content: "You can show a hug button on the message for others to use!",
 			},
 			{
 				type: ComponentType.ActionRow,
@@ -291,6 +339,13 @@ function welcomeComponents(
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: welcomePacket.message.replace(/\{\{user\}\}/g, `<@${userId}>`),
+		});
+	}
+
+	if (welcomePacket.asset_url) {
+		containerComponents.push({
+			type: ComponentType.MediaGallery,
+			items: [{ media: { url: welcomePacket.asset_url } }],
 		});
 	}
 
@@ -445,10 +500,78 @@ export async function welcomeHandleMessageSettingDeleteButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
 	await pg<WelcomePacket>(Table.Welcome)
-		.insert({
-			guild_id: interaction.guild_id,
-			message: null,
-		})
+		.insert({ guild_id: interaction.guild_id, message: null })
+		.onConflict("guild_id")
+		.merge();
+
+	await client.api.interactions.updateMessage(
+		interaction.id,
+		interaction.token,
+		await setupResponse(interaction.member.user.id, interaction.guild_id),
+	);
+}
+
+export async function welcomeHandleAssetSettingButton(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
+		.select("asset_url")
+		.where({ guild_id: interaction.guild_id })
+		.first();
+
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.TextInput,
+						custom_id: WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID,
+						label: "Enter the asset URL.",
+						placeholder: "https://cdn.thatskyapplication.com/assets/sky_kid.webp",
+						max_length: MAXIMUM_MEDIA_GALLERY_URL_LENGTH,
+						style: TextInputStyle.Short,
+						value: welcomePacket?.asset_url ?? "",
+						required: true,
+					},
+				],
+			},
+		],
+		custom_id: WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID,
+		title: "Welcome asset",
+	});
+}
+
+export async function welcomeHandleAssetSettingModal(interaction: APIModalSubmitGuildInteraction) {
+	const components = new ModalResolver(interaction.data.components);
+	const assetURL = components.getTextInputValue(WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID);
+
+	if (!assetURL.startsWith("https://")) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "The asset URL must start with `https://`.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	await pg<WelcomePacket>(Table.Welcome)
+		.insert({ guild_id: interaction.guild_id, asset_url: assetURL })
+		.onConflict("guild_id")
+		.merge();
+
+	await client.api.interactions.updateMessage(
+		interaction.id,
+		interaction.token,
+		await setupResponse(interaction.member.user.id, interaction.guild_id),
+	);
+}
+
+export async function welcomeHandleAssetSettingDeleteButton(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	await pg<WelcomePacket>(Table.Welcome)
+		.insert({ guild_id: interaction.guild_id, asset_url: null })
 		.onConflict("guild_id")
 		.merge();
 
