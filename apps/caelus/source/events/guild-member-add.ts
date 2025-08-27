@@ -26,7 +26,7 @@ export default {
 
 			const welcomePacket = await pg<WelcomePacketWithChannel>(Table.Welcome)
 				.where({ guild_id: data.guild_id })
-				.andWhere("welcome_channel_id", "<>", null)
+				.and.whereNotNull("welcome_channel_id")
 				.first();
 
 			if (welcomePacket) {
