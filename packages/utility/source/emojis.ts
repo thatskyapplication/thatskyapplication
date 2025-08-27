@@ -7979,6 +7979,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TiptoeingTeaBrewerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.WoundedWarriorWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.ProjectorOfMemories]: null,
+		[Cosmetic.SunlightShawl]: null,
+		[Cosmetic.SunlightWaveProjector]: null,
+		[Cosmetic.SunlightBonnetDress]: null,
+		[Cosmetic.SunlightBonnetJellyfishHat]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
