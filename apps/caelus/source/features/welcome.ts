@@ -1,8 +1,8 @@
 import {
+	type APIChatInputApplicationCommandGuildInteraction,
 	type APIComponentInContainer,
 	type APIContainerComponent,
 	type APIGuildInteractionWrapper,
-	type APIInteractionResponseCallbackData,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
@@ -29,7 +29,7 @@ import pino from "../pino.js";
 import type { NonNullableInterface } from "../types/index.js";
 import { MAXIMUM_MEDIA_GALLERY_URL_LENGTH } from "../utility/constants.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { notInCachedGuildResponse } from "../utility/functions.js";
+import { isChatInputCommand, notInCachedGuildResponse } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { friendshipActionComponents } from "./friendship-actions.js";
@@ -73,12 +73,19 @@ export type WelcomePacketWithChannel = WelcomePacket &
 
 type WelcomePacketSetData = Pick<WelcomePacket, "guild_id"> & Partial<WelcomePacket>;
 
-export async function setupResponse(
+export async function welcomeSetup(
+	interaction:
+		| APIChatInputApplicationCommandGuildInteraction
+		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
+		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
+		| APIModalSubmitGuildInteraction,
 	userId: Snowflake,
-	guildId: Snowflake,
 	locale: Locale,
-): Promise<APIInteractionResponseCallbackData> {
-	const welcomePacket = await pg<WelcomePacket>(Table.Welcome).where({ guild_id: guildId }).first();
+) {
+	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
+		.where({ guild_id: interaction.guild_id })
+		.first();
+
 	const components: APIMessageTopLevelComponent[] = [];
 
 	if (welcomePacket) {
@@ -236,7 +243,17 @@ export async function setupResponse(
 		],
 	});
 
-	return { components, flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2 };
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components,
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		});
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			components,
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		});
+	}
 }
 
 interface WelcomeSetupOptions {
@@ -288,12 +305,7 @@ export async function handleChannelSelectMenu(
 	}
 
 	await pg<WelcomePacket>(Table.Welcome).insert(data).onConflict("guild_id").merge();
-
-	await client.api.interactions.updateMessage(
-		interaction.id,
-		interaction.token,
-		await setupResponse(interaction.member.user.id, guild.id, guild.preferredLocale),
-	);
+	await welcomeSetup(interaction, interaction.member.user.id, guild.preferredLocale);
 }
 
 interface WelcomeMessageOptions {
@@ -434,15 +446,7 @@ export async function welcomeHandleHugSettingButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await client.api.interactions.updateMessage(
-		interaction.id,
-		interaction.token,
-		await setupResponse(
-			interaction.member.user.id,
-			interaction.guild_id,
-			interaction.guild_locale!,
-		),
-	);
+	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
 }
 
 export async function welcomeHandleMessageSettingButton(
@@ -494,15 +498,7 @@ export async function welcomeHandleMessageSettingModal(
 		.onConflict("guild_id")
 		.merge();
 
-	await client.api.interactions.updateMessage(
-		interaction.id,
-		interaction.token,
-		await setupResponse(
-			interaction.member.user.id,
-			interaction.guild_id,
-			interaction.guild_locale!,
-		),
-	);
+	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
 }
 
 export async function welcomeHandleMessageSettingDeleteButton(
@@ -513,15 +509,7 @@ export async function welcomeHandleMessageSettingDeleteButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await client.api.interactions.updateMessage(
-		interaction.id,
-		interaction.token,
-		await setupResponse(
-			interaction.member.user.id,
-			interaction.guild_id,
-			interaction.guild_locale!,
-		),
-	);
+	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
 }
 
 export async function welcomeHandleAssetSettingButton(
@@ -575,15 +563,7 @@ export async function welcomeHandleAssetSettingModal(interaction: APIModalSubmit
 		.onConflict("guild_id")
 		.merge();
 
-	await client.api.interactions.updateMessage(
-		interaction.id,
-		interaction.token,
-		await setupResponse(
-			interaction.member.user.id,
-			interaction.guild_id,
-			interaction.guild_locale!,
-		),
-	);
+	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
 }
 
 export async function welcomeHandleAssetSettingDeleteButton(
@@ -594,13 +574,5 @@ export async function welcomeHandleAssetSettingDeleteButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await client.api.interactions.updateMessage(
-		interaction.id,
-		interaction.token,
-		await setupResponse(
-			interaction.member.user.id,
-			interaction.guild_id,
-			interaction.guild_locale!,
-		),
-	);
+	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
 }
