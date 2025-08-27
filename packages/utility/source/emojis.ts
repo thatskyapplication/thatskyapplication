@@ -7990,6 +7990,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.CaringCompanionHeart]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.CaringCompanionProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp96,
 		[Cosmetic.ProjectorOfMemories]: null,
+		[Cosmetic.SunlightShawl]: null,
+		[Cosmetic.SunlightWaveProjector]: null,
+		[Cosmetic.SunlightBonnetDress]: null,
+		[Cosmetic.SunlightBonnetJellyfishHat]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

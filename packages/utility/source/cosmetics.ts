@@ -3135,8 +3135,14 @@ export enum Cosmetic {
 	CaringCompanionHeart = 2484,
 	CaringCompanionProp = 2485,
 
+	// 01/09/2025 | Days of Sunlight.
+	SunlightShawl = 2486,
+	SunlightWaveProjector = 2487,
+	SunlightBonnetDress = 2488,
+	SunlightBonnetJellyfishHat = 2489,
+
 	// Unknown | Version 0.30.5.
-	ProjectorOfMemories = 2486,
+	ProjectorOfMemories,
 }
 
 export enum CosmeticCommon {
