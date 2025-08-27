@@ -91,6 +91,7 @@ export const EventId = {
 	WorkshopShowAndTell2025: 76,
 	SkyAnniversary2025: 77,
 	DaysOfSunlight2025: 78,
+	DaysOfMoonlight2025: 79,
 } as const satisfies Readonly<Record<string, number>>;
 
 const EVENT_ID_VALUES = Object.values(EventId);

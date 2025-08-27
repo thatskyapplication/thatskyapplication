@@ -3,6 +3,7 @@ import DaysOfBloom from "./days-of-bloom.js";
 import DaysOfColour from "./days-of-colour.js";
 import DaysOfFortune from "./days-of-fortune.js";
 import DaysOfLove from "./days-of-love.js";
+import daysOfMoonlight from "./days-of-moonlight.js";
 import DaysOfNature from "./days-of-nature.js";
 import daysOfSunlight from "./days-of-sunlight.js";
 import DaysOfTreasure from "./days-of-treasure.js";
@@ -20,4 +21,5 @@ export default [
 	workshopShowAndTell,
 	skyAnniversary,
 	daysOfSunlight,
+	daysOfMoonlight,
 ] as const;
