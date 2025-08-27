@@ -3428,7 +3428,7 @@ export default {
 			"accent-colour-edit": "Edit accent colour?",
 			"accent-colour-use": "Use an accent colour?",
 			"accent-colour-modal-title": "Welcome accent colour",
-			"accent-colour-text-input-label": "Enter a hexadecimal colour code.",
+			"accent-colour-modal-text-input-label": "Enter a hexadecimal colour code.",
 			"accent-colour-invalid":
 				"Invalid hexadecimal colour code. Look up a colour picker tool for ease!",
 			"missing-permissions": "`View Channel` & `Send Messages` are required.",

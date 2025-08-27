@@ -651,7 +651,7 @@ export async function welcomeHandleAccentColourSettingButton(
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
 		custom_id: WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID,
-		label: t("welcome.accent-colour-text-input-label", { lng: locale, ns: "features" }),
+		label: t("welcome.accent-colour-modal-text-input-label", { lng: locale, ns: "features" }),
 		placeholder: "#123456",
 		max_length: 7,
 		min_length: 7,
