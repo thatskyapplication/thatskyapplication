@@ -83,6 +83,9 @@ export default new Season({
 			cosmeticDisplay: Cosmetic.VestigeOfDarkDragonsHeadAccessory,
 			cost: { money: 11.99 },
 		},
+		{
+			cosmetic: Cosmetic.ProjectorOfMemories,
+		},
 	],
 	doubleSeasonalLightEventStartDate: skyDate(2_025, 8, 19),
 	doubleSeasonalLightEventEndDate: skyDate(2_025, 9, 2),
