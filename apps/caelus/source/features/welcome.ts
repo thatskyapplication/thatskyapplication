@@ -227,9 +227,7 @@ export async function setupResponse(
 						type: ComponentType.Button,
 						style: welcomePacket?.hug ? ButtonStyle.Danger : ButtonStyle.Success,
 						custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§${Number(welcomePacket?.hug ?? false)}`,
-						label: welcomePacket?.hug
-							? "Disable showing the hug button?"
-							: "Enable showing the hug button?",
+						label: welcomePacket?.hug ? "Remove the hug button?" : "Show the hug button?",
 						emoji: FRIEND_ACTION_EMOJIS.Hug,
 					},
 				],
