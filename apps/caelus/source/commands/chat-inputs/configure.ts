@@ -4,7 +4,6 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../../caches/guilds.js";
 import { client } from "../../discord.js";
@@ -15,13 +14,9 @@ import {
 	setupResponse as setupResponseDailyGuides,
 } from "../../features/daily-guides.js";
 import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
-import {
-	setupResponse as setupResponseWelcome,
-	type WelcomePacket,
-} from "../../features/welcome.js";
+import { setupResponse as setupResponseWelcome } from "../../features/welcome.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
-import pg from "../../pg.js";
 import { isGuildChatInputCommand, notInCachedGuildResponse } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -77,15 +72,10 @@ async function notifications(
 }
 
 async function welcome(interaction: APIChatInputApplicationCommandGuildInteraction, guild: Guild) {
-	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
-		.select("hug")
-		.where({ guild_id: guild.id })
-		.first();
-
 	await client.api.interactions.reply(
 		interaction.id,
 		interaction.token,
-		await setupResponseWelcome(interaction.member.user.id, guild.id, welcomePacket?.hug ?? false),
+		await setupResponseWelcome(interaction.member.user.id, guild.id),
 	);
 }
 

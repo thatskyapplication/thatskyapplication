@@ -22,6 +22,7 @@ import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
+import type { NonNullableInterface } from "../types/index.js";
 import { FRIEND_ACTION_EMOJIS } from "../utility/emojis.js";
 import { notInCachedGuildResponse } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
@@ -43,74 +44,78 @@ export interface WelcomePacket {
 	hug: boolean | null;
 }
 
+export type WelcomePacketWithChannel = WelcomePacket &
+	NonNullableInterface<Pick<WelcomePacket, "welcome_channel_id">>;
+
 type WelcomePacketSetData = Pick<WelcomePacket, "guild_id"> & Partial<WelcomePacket>;
 
 export async function setupResponse(
 	userId: Snowflake,
 	guildId: Snowflake,
-	hug: boolean,
 ): Promise<APIInteractionResponseCallbackData> {
 	const welcomePacket = await pg<WelcomePacket>(Table.Welcome).where({ guild_id: guildId }).first();
 
-	return {
+	const components: APIMessageTopLevelComponent[] = [];
+
+	if (welcomePacket) {
+		components.push(...welcomeComponents(userId, welcomePacket));
+	}
+
+	components.push({
+		type: ComponentType.Container,
 		components: [
-			...welcomeComponents(userId, hug),
 			{
-				type: ComponentType.Container,
+				type: ComponentType.TextDisplay,
+				content: "## Welcome setup",
+			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content: "You can set up messages for whenever someone joins your server.",
+			},
+			{
+				type: ComponentType.ActionRow,
 				components: [
 					{
-						type: ComponentType.TextDisplay,
-						content: "## Welcome setup",
+						type: ComponentType.ChannelSelect,
+						custom_id: WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
+						channel_types: [ChannelType.GuildText],
+						placeholder: "Select a welcome channel.",
+						min_values: 0,
+						max_values: 1,
+						default_values: welcomePacket?.welcome_channel_id
+							? [
+									{
+										type: SelectMenuDefaultValueType.Channel,
+										id: welcomePacket.welcome_channel_id,
+									},
+								]
+							: [],
 					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
 					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: "You can set up messages for whenever someone joins your server.",
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.ChannelSelect,
-								custom_id: WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
-								channel_types: [ChannelType.GuildText],
-								placeholder: "Select a welcome channel.",
-								min_values: 0,
-								max_values: 1,
-								default_values: welcomePacket?.welcome_channel_id
-									? [
-											{
-												type: SelectMenuDefaultValueType.Channel,
-												id: welcomePacket.welcome_channel_id,
-											},
-										]
-									: [],
-							},
-						],
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.Button,
-								style: welcomePacket?.hug ? ButtonStyle.Danger : ButtonStyle.Success,
-								custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§${Number(welcomePacket?.hug ?? false)}`,
-								label: welcomePacket?.hug
-									? "Disable showing the hug button?"
-									: "Enable showing the hug button?",
-								emoji: FRIEND_ACTION_EMOJIS.Hug,
-							},
-						],
+						type: ComponentType.Button,
+						style: welcomePacket?.hug ? ButtonStyle.Danger : ButtonStyle.Success,
+						custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§${Number(welcomePacket?.hug ?? false)}`,
+						label: welcomePacket?.hug
+							? "Disable showing the hug button?"
+							: "Enable showing the hug button?",
+						emoji: FRIEND_ACTION_EMOJIS.Hug,
 					},
 				],
 			},
 		],
-		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-	};
+	});
+
+	return { components, flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2 };
 }
 
 interface WelcomeByeSetupOptions {
@@ -161,30 +166,30 @@ export async function handleChannelSelectMenu(
 		data.welcome_channel_id = welcomeChannelId;
 	}
 
-	const [welcomePacket] = await pg<WelcomePacket>(Table.Welcome)
-		.insert(data)
-		.onConflict("guild_id")
-		.merge()
-		.returning("hug");
+	await pg<WelcomePacket>(Table.Welcome).insert(data).onConflict("guild_id").merge();
 
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(interaction.member.user.id, guild.id, welcomePacket?.hug ?? false),
+		await setupResponse(interaction.member.user.id, guild.id),
 	);
 }
 
 interface WelcomeMessageOptions {
-	channelId: Snowflake;
 	userId: Snowflake;
-	hug: boolean;
+	welcomePacket: WelcomePacketWithChannel;
 }
 
-export async function sendWelcomeMessage({ channelId, userId, hug }: WelcomeMessageOptions) {
+export async function sendWelcomeMessage({ userId, welcomePacket }: WelcomeMessageOptions) {
 	try {
-		await client.api.channels.createMessage(channelId, {
+		await client.api.channels.createMessage(welcomePacket.welcome_channel_id, {
 			allowed_mentions: { users: [userId] },
-			components: welcomeComponents(userId, hug),
+			components: welcomeComponents(
+				userId,
+				(await pg<WelcomePacket>(Table.Welcome)
+					.where({ guild_id: welcomePacket.guild_id })
+					.first())!,
+			),
 			flags: MessageFlags.IsComponentsV2,
 		});
 	} catch (error) {
@@ -193,7 +198,7 @@ export async function sendWelcomeMessage({ channelId, userId, hug }: WelcomeMess
 
 			await pg<WelcomePacket>(Table.Welcome)
 				.update({ welcome_channel_id: null })
-				.where({ welcome_channel_id: channelId });
+				.where({ welcome_channel_id: welcomePacket.welcome_channel_id });
 
 			return;
 		}
@@ -202,7 +207,10 @@ export async function sendWelcomeMessage({ channelId, userId, hug }: WelcomeMess
 	}
 }
 
-function welcomeComponents(userId: Snowflake, hug: boolean): [APIMessageTopLevelComponent] {
+function welcomeComponents(
+	userId: Snowflake,
+	welcomePacket: WelcomePacket,
+): [APIMessageTopLevelComponent] {
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
@@ -210,7 +218,7 @@ function welcomeComponents(userId: Snowflake, hug: boolean): [APIMessageTopLevel
 		},
 	];
 
-	if (hug) {
+	if (welcomePacket.hug) {
 		containerComponents.push({
 			type: ComponentType.ActionRow,
 			components: [
@@ -296,19 +304,11 @@ export async function welcomeHandleHugSettingButton(
 		hug: !Number(customId.slice(customId.indexOf("§") + 1)),
 	};
 
-	const [welcomePacket] = await pg<WelcomePacket>(Table.Welcome)
-		.insert(data)
-		.onConflict("guild_id")
-		.merge()
-		.returning("hug");
+	await pg<WelcomePacket>(Table.Welcome).insert(data).onConflict("guild_id").merge();
 
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(
-			interaction.member.user.id,
-			interaction.guild_id,
-			welcomePacket?.hug ?? false,
-		),
+		await setupResponse(interaction.member.user.id, interaction.guild_id),
 	);
 }

@@ -3,7 +3,7 @@ import { isDuring, skyNow, Table, type UsersPacket } from "@thatskyapplication/u
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import { eligible } from "../features/giveaway.js";
-import { sendWelcomeMessage, type WelcomePacket } from "../features/welcome.js";
+import { sendWelcomeMessage, type WelcomePacketWithChannel } from "../features/welcome.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -24,16 +24,13 @@ export default {
 		if (guild) {
 			guild.memberCount++;
 
-			const [welcomeByePacket] = await pg<WelcomePacket>(Table.Welcome)
-				.select("welcome_channel_id", "hug")
-				.where({ guild_id: data.guild_id });
+			const welcomePacket = await pg<WelcomePacketWithChannel>(Table.Welcome)
+				.where({ guild_id: data.guild_id })
+				.andWhere("welcome_channel_id", "<>", null)
+				.first();
 
-			if (welcomeByePacket?.welcome_channel_id) {
-				await sendWelcomeMessage({
-					channelId: welcomeByePacket.welcome_channel_id,
-					userId: data.user.id,
-					hug: welcomeByePacket.hug ?? false,
-				});
+			if (welcomePacket) {
+				await sendWelcomeMessage({ userId: data.user.id, welcomePacket });
 			}
 		} else {
 			pino.warn({ data }, `Received a ${name} packet on an uncached guild.`);
