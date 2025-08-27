@@ -194,9 +194,15 @@ import {
 	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
 	WELCOME_HUG_CUSTOM_ID,
 	WELCOME_HUG_SETTING_CUSTOM_ID,
+	WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
+	WELCOME_MESSAGE_SETTING_CUSTOM_ID,
+	WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID,
 	WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
 	welcomeHandleHugButton,
 	welcomeHandleHugSettingButton,
+	welcomeHandleMessageSettingButton,
+	welcomeHandleMessageSettingDeleteButton,
+	welcomeHandleMessageSettingModal,
 } from "../features/welcome.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
@@ -227,6 +233,7 @@ import {
 	isChatInputCommand,
 	isGuildButton,
 	isGuildChannelSelectMenu,
+	isGuildModalSubmit,
 	isGuildRoleSelectMenu,
 	isGuildStringSelectMenu,
 	isModalSubmit,
@@ -859,6 +866,16 @@ export default {
 						return;
 					}
 
+					if (customId === WELCOME_MESSAGE_SETTING_CUSTOM_ID) {
+						await welcomeHandleMessageSettingButton(interaction);
+						return;
+					}
+
+					if (customId === WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID) {
+						await welcomeHandleMessageSettingDeleteButton(interaction);
+						return;
+					}
+
 					if (customId.startsWith(WELCOME_HUG_CUSTOM_ID)) {
 						await welcomeHandleHugButton(interaction, customId.slice(customId.indexOf("§") + 1));
 						return;
@@ -1172,6 +1189,14 @@ export default {
 
 				if (customId === SHOP_SUGGESTION_MODAL_CUSTOM_ID) {
 					await shopSuggestionSubmission(interaction);
+					return;
+				}
+
+				if (
+					isGuildModalSubmit(interaction) &&
+					customId === WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID
+				) {
+					await welcomeHandleMessageSettingModal(interaction);
 					return;
 				}
 			} catch (error) {

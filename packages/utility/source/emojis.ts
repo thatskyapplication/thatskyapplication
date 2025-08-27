@@ -60,6 +60,8 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	Settings: { id: "1381212248856465428", name: "settings" },
 	Reddit: { id: "1390378584568234004", name: "reddit" },
 	Crowdin: { id: "1406562879351689317", name: "crowdin" },
+	Trash: { id: "1410256775961251990", name: "trash" },
+	Edit: { id: "1410257589840908318", name: "edit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -113,6 +115,8 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	Settings: { id: "1381212382121955329", name: "settings" },
 	Reddit: { id: "1390378668282351667", name: "reddit" },
 	Crowdin: { id: "1406560560534917130", name: "crowdin" },
+	Trash: { id: "1410256786191155283", name: "trash" },
+	Edit: { id: "1410257597130473522", name: "edit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {

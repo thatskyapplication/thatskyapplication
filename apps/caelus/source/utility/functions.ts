@@ -8,6 +8,7 @@ import {
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
+	type APIModalSubmitGuildInteraction,
 	type APIModalSubmitInteraction,
 	type APIUser,
 	type APIUserApplicationCommandInteraction,
@@ -167,6 +168,12 @@ export function isModalSubmit(
 	interaction: APIInteraction,
 ): interaction is APIModalSubmitInteraction {
 	return interaction.type === InteractionType.ModalSubmit;
+}
+
+export function isGuildModalSubmit(
+	interaction: APIInteraction,
+): interaction is APIModalSubmitGuildInteraction {
+	return isModalSubmit(interaction) && "guild_id" in interaction;
 }
 
 export function notInCachedGuildResponse(locale: Locale) {
