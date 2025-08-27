@@ -1136,6 +1136,7 @@ export default {
 
 				if (customId.startsWith(NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID)) {
 					await handleNotificationsChannelSelectMenu(interaction);
+					return;
 				}
 
 				if (customId === WELCOME_WELCOME_CHANNEL_CUSTOM_ID) {
