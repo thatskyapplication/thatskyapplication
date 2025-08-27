@@ -354,12 +354,3 @@ export const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
 export const SKY_PROFILE_REPORT_MAXIMUM_LENGTH = 1000 as const;
 export const SKY_PROFILE_REPORT_MINIMUM_LENGTH = 10 as const;
 export const SKY_PROFILE_UNKNOWN_NAME = "Anonymous" as const;
-
-// Welcome bye.
-export const WELCOME_WELCOME_CHANNEL_CUSTOM_ID = "WELCOME_WELCOME_CHANNEL_CUSTOM_ID" as const;
-
-export const WELCOME_WELCOME_MESSAGES = [
-	"{{user}} has joined with light for all!",
-	"{{user}} flies into the server at the speed of sound!",
-	"Resident uber {{user}} has joined!",
-] as const satisfies Readonly<string[]>;

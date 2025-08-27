@@ -25,13 +25,14 @@ export default {
 			guild.memberCount++;
 
 			const [welcomeByePacket] = await pg<WelcomePacket>(Table.Welcome)
-				.select("welcome_channel_id")
+				.select("welcome_channel_id", "hug")
 				.where({ guild_id: data.guild_id });
 
 			if (welcomeByePacket?.welcome_channel_id) {
 				await sendWelcomeMessage({
 					channelId: welcomeByePacket.welcome_channel_id,
 					userId: data.user.id,
+					hug: welcomeByePacket.hug ?? false,
 				});
 			}
 		} else {

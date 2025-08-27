@@ -190,7 +190,14 @@ import {
 	SPIRITS_VIEW_SPIRIT_CUSTOM_ID,
 	spiritsHistory,
 } from "../features/spirits.js";
-import { handleChannelSelectMenu as handleWelcomeChannelSelectMenu } from "../features/welcome.js";
+import {
+	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
+	WELCOME_HUG_CUSTOM_ID,
+	WELCOME_HUG_SETTING_CUSTOM_ID,
+	WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
+	welcomeHandleHugButton,
+	welcomeHandleHugSettingButton,
+} from "../features/welcome.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import { history } from "../services/heart.js";
@@ -212,7 +219,6 @@ import {
 	GUESS_TRY_AGAIN,
 	HEART_HISTORY_BACK,
 	HEART_HISTORY_NEXT,
-	WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
 } from "../utility/constants.js";
 import {
 	interactionInvoker,
@@ -845,6 +851,16 @@ export default {
 
 					if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
 						await handleDistributeButton(interaction);
+						return;
+					}
+
+					if (customId.startsWith(WELCOME_HUG_SETTING_CUSTOM_ID)) {
+						await welcomeHandleHugSettingButton(interaction, customId);
+						return;
+					}
+
+					if (customId.startsWith(WELCOME_HUG_CUSTOM_ID)) {
+						await welcomeHandleHugButton(interaction, customId.slice(customId.indexOf("§") + 1));
 						return;
 					}
 				}
