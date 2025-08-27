@@ -14,6 +14,7 @@ import {
 	setupResponse as setupResponseDailyGuides,
 } from "../../features/daily-guides.js";
 import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
+import { welcomeSetup } from "../../features/welcome.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
 import { isGuildChatInputCommand, notInCachedGuildResponse } from "../../utility/functions.js";
@@ -70,6 +71,10 @@ async function notifications(
 	);
 }
 
+async function welcome(interaction: APIChatInputApplicationCommandGuildInteraction, guild: Guild) {
+	await welcomeSetup(interaction, interaction.member.user.id, guild.preferredLocale);
+}
+
 export default {
 	name: t("configure.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
@@ -104,6 +109,10 @@ export default {
 			}
 			case t("configure.notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
 				await notifications(interaction, guild);
+				return;
+			}
+			case t("configure.welcome.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
+				await welcome(interaction, guild);
 				return;
 			}
 		}

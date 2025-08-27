@@ -1,6 +1,7 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionDataResolvedGuildMember,
+	type APIMessageTopLevelComponent,
 	type APIUser,
 	ComponentType,
 	Locale,
@@ -116,26 +117,47 @@ export async function friendshipAction({
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		allowed_mentions: { users: [user.id] },
-		components: [
-			{
-				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t(`friendship-actions.${key}-message`, {
-							lng: interaction.guild_locale ?? Locale.EnglishGB,
-							ns: "features",
-							user: `<@${user.id}>`,
-							invoker: `<@${invoker.id}>`,
-						}),
-					},
-					{
-						type: ComponentType.MediaGallery,
-						items: [{ media: { url: getRandomElement(KeyToData[key])!.url } }],
-					},
-				],
-			},
-		],
+		components: friendshipActionComponents({
+			invoker,
+			user,
+			key,
+			locale: interaction.guild_locale ?? Locale.EnglishGB,
+		}),
 		flags: MessageFlags.IsComponentsV2,
 	});
+}
+
+interface FriendshipActionComponentOptions {
+	invoker: APIUser;
+	user: APIUser;
+	key: keyof typeof KeyToData;
+	locale: Locale;
+}
+
+export function friendshipActionComponents({
+	invoker,
+	user,
+	key,
+	locale,
+}: FriendshipActionComponentOptions): [APIMessageTopLevelComponent] {
+	return [
+		{
+			type: ComponentType.Container,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: t(`friendship-actions.${key}-message`, {
+						lng: locale,
+						ns: "features",
+						user: `<@${user.id}>`,
+						invoker: `<@${invoker.id}>`,
+					}),
+				},
+				{
+					type: ComponentType.MediaGallery,
+					items: [{ media: { url: getRandomElement(KeyToData[key])!.url } }],
+				},
+			],
+		},
+	];
 }

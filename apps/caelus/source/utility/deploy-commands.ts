@@ -411,6 +411,26 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				}),
 				description_localizations: localisations("configure.notifications.command-description"),
 			},
+			{
+				type: ApplicationCommandOptionType.Subcommand,
+				name: t("configure.welcome.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("configure.welcome.command-name", { lng: locale, ns: "commands" }),
+					]),
+				),
+				description: t("configure.welcome.command-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: Object.fromEntries(
+					LOCALES.map((locale) => [
+						locale,
+						t("configure.welcome.command-description", { lng: locale, ns: "commands" }),
+					]),
+				),
+			},
 		],
 		default_member_permissions: String(PermissionFlagsBits.ManageGuild),
 		integration_types: [ApplicationIntegrationType.GuildInstall],

@@ -61,3 +61,6 @@ f:sky-profile:
      - apps/caelus/source/features/sky-profile.ts
      - apps/website/app/routes/sky-profiles.*.tsx
      - packages/utility/source/sky-profile.ts
+f:welcome:
+ - changed-files:
+   - any-glob-to-any-file: apps/caelus/source/features/welcome.ts
