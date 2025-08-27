@@ -464,7 +464,9 @@
 			"75": "AURORA ホームカミング",
 			"76": "巣づくり工房発表会",
 			"77": "Skyアニバーサリー",
-			"78": "陽光の日々"
+			"78": "陽光の日々",
+			"79": "月灯りの日々",
+			"80": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -530,7 +532,7 @@
 			"60": "",
 			"61": "",
 			"62": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%99%BD%E5%85%89%E3%81%AE%E6%97%A5%E3%80%85",
-			"63": "",
+			"63": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
 			"64": "",
 			"65": "",
 			"66": "",
@@ -545,7 +547,9 @@
 			"75": "",
 			"76": "",
 			"77": "",
-			"78": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%99%BD%E5%85%89%E3%81%AE%E6%97%A5%E3%80%85"
+			"78": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%99%BD%E5%85%89%E3%81%AE%E6%97%A5%E3%80%85",
+			"79": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
+			"80": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2438,7 +2442,8 @@
 			"2470": "",
 			"2475": "",
 			"2476": "",
-			"2477": "アニバーサリータキシードケープ"
+			"2477": "アニバーサリータキシードケープ",
+			"2480": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2513,6 +2518,10 @@
 				"command-option-channel-description": ""
 			},
 			"notifications": {
+				"command-name": "",
+				"command-description": ""
+			},
+			"welcome": {
 				"command-name": "",
 				"command-description": ""
 			}
@@ -3088,6 +3097,40 @@
 			"order-natural": "",
 			"order-rarity": "",
 			"page": ""
+		},
+		"welcome": {
+			"preview": "",
+			"title": "",
+			"description": "",
+			"welcome-channel-select-menu-placeholder": "",
+			"message-description": "",
+			"message-remove": "",
+			"message-edit": "",
+			"message-use": "",
+			"message-modal-title": "",
+			"message-modal-text-input-label": "",
+			"message-modal-text-input-placeholder": "",
+			"asset-description": "",
+			"asset-remove": "",
+			"asset-edit": "",
+			"asset-use": "",
+			"asset-modal-title": "",
+			"asset-modal-text-input-label": "",
+			"asset-https-start": "",
+			"hug-description": "",
+			"hug-remove": "",
+			"hug-add": "",
+			"accent-colour-description": "",
+			"accent-colour-remove": "",
+			"accent-colour-edit": "",
+			"accent-colour-use": "",
+			"accent-colour-modal-title": "",
+			"accent-colour-modal-text-input-label": "",
+			"accent-colour-invalid": "",
+			"missing-permissions": "",
+			"welcome-with-a-hug": "",
+			"hug-self": "",
+			"hug-disabled": ""
 		}
 	}
 }

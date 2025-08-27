@@ -464,7 +464,9 @@
 			"75": "",
 			"76": "Taller de compartir",
 			"77": "Aniversario de Sky",
-			"78": ""
+			"78": "",
+			"79": "",
+			"80": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -545,7 +547,9 @@
 			"75": "",
 			"76": "",
 			"77": "",
-			"78": ""
+			"78": "",
+			"79": "",
+			"80": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2438,7 +2442,8 @@
 			"2470": "",
 			"2475": "",
 			"2476": "",
-			"2477": "Capa de esmoquin de aniversario"
+			"2477": "Capa de esmoquin de aniversario",
+			"2480": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2513,6 +2518,10 @@
 				"command-option-channel-description": ""
 			},
 			"notifications": {
+				"command-name": "",
+				"command-description": ""
+			},
+			"welcome": {
 				"command-name": "",
 				"command-description": ""
 			}
@@ -3088,6 +3097,40 @@
 			"order-natural": "",
 			"order-rarity": "",
 			"page": ""
+		},
+		"welcome": {
+			"preview": "",
+			"title": "",
+			"description": "",
+			"welcome-channel-select-menu-placeholder": "",
+			"message-description": "",
+			"message-remove": "",
+			"message-edit": "",
+			"message-use": "",
+			"message-modal-title": "",
+			"message-modal-text-input-label": "",
+			"message-modal-text-input-placeholder": "",
+			"asset-description": "",
+			"asset-remove": "",
+			"asset-edit": "",
+			"asset-use": "",
+			"asset-modal-title": "",
+			"asset-modal-text-input-label": "",
+			"asset-https-start": "",
+			"hug-description": "",
+			"hug-remove": "",
+			"hug-add": "",
+			"accent-colour-description": "",
+			"accent-colour-remove": "",
+			"accent-colour-edit": "",
+			"accent-colour-use": "",
+			"accent-colour-modal-title": "",
+			"accent-colour-modal-text-input-label": "",
+			"accent-colour-invalid": "",
+			"missing-permissions": "",
+			"welcome-with-a-hug": "",
+			"hug-self": "",
+			"hug-disabled": ""
 		}
 	}
 }
