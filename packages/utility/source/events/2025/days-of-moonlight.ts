@@ -1,3 +1,4 @@
+import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -27,5 +28,23 @@ export default new Event({
 			},
 		],
 	},
+	offer: [
+		{
+			cosmetic: Cosmetic.MoonlightBasin,
+			cost: { candles: 75 },
+		},
+		{
+			cosmetic: Cosmetic.MoonlightBanner,
+			cost: { eventTickets: 18 },
+		},
+		{
+			cosmetic: Cosmetic.MoonlightTuftedTail,
+			cost: { eventTickets: 42 },
+		},
+		{
+			cosmetic: Cosmetic.MoonlightGarlandCape,
+			cost: { money: 14.99 },
+		},
+	],
 	patchNotesURL: patchNotesRoute("0305"),
 });
