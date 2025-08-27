@@ -39,5 +39,5 @@ export default new Season({
 		},
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0140"),
+	patchNotesURL: patchNotesRoute("0140"),
 });

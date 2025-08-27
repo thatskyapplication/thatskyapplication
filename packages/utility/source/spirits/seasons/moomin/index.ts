@@ -52,5 +52,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 		{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 	],
-	patchNotesURL: patchNotesRoute("p0270"),
+	patchNotesURL: patchNotesRoute("0270"),
 });

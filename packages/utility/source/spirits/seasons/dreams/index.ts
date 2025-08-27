@@ -17,5 +17,5 @@ export default new Season({
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
 	items: [{ cosmetic: Cosmetic.DreamsPendant }],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0120"),
+	patchNotesURL: patchNotesRoute("0120"),
 });

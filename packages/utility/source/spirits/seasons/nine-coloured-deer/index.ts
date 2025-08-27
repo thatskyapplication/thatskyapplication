@@ -38,5 +38,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 	],
-	patchNotesURL: patchNotesRoute("p0240"),
+	patchNotesURL: patchNotesRoute("0240"),
 });

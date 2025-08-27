@@ -30,5 +30,5 @@ export default new Event({
 			cost: { money: 14.99 },
 		},
 	],
-	patchNotesURL: patchNotesRoute("p0120"),
+	patchNotesURL: patchNotesRoute("0120"),
 });

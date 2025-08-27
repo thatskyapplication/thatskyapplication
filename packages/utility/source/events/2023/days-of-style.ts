@@ -56,5 +56,5 @@ export default new Event({
 		},
 	],
 
-	patchNotesURL: patchNotesRoute("p0225"),
+	patchNotesURL: patchNotesRoute("0225"),
 });

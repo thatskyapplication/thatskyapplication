@@ -15,5 +15,5 @@ export default new Season({
 	guide: PassageGuide,
 	spirits: [OddballOutcast, TumblingTroublemaker, MelancholyMope, OveractiveOverachiever],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0210"),
+	patchNotesURL: patchNotesRoute("0210"),
 });

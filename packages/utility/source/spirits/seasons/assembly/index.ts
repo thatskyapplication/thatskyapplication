@@ -24,5 +24,5 @@ export default new Season({
 		DaydreamForester,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0132"),
+	patchNotesURL: patchNotesRoute("0132"),
 });

@@ -24,5 +24,5 @@ export default new Season({
 		ThoughtfulDirector,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p080"),
+	patchNotesURL: patchNotesRoute("080"),
 });

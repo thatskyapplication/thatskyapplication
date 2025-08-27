@@ -15,5 +15,5 @@ export default new Season({
 	guide: MomentsGuide,
 	spirits: [ReassuringRanger, NightbirdWhisperer, JollyGeologist, AsceticMonk],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0220"),
+	patchNotesURL: patchNotesRoute("0220"),
 });

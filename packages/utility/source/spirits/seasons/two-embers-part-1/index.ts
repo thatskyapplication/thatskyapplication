@@ -72,5 +72,5 @@ export default new Season({
 	],
 	doubleSeasonalLightEventStartDate: skyDate(2_025, 8, 19),
 	doubleSeasonalLightEventEndDate: skyDate(2_025, 9, 2),
-	patchNotesURL: patchNotesRoute("p0300"),
+	patchNotesURL: patchNotesRoute("0300"),
 });

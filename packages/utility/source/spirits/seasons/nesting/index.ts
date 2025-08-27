@@ -33,5 +33,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 	],
-	patchNotesURL: patchNotesRoute("p0250"),
+	patchNotesURL: patchNotesRoute("0250"),
 });

@@ -7,8 +7,8 @@ export function dailyGuidesQuestRoute<Quest extends string>(
 	return `${CDN_URL}/daily_guides/quests/${quest}.webp`;
 }
 
-export function patchNotesRoute<Version extends string>(
+export function patchNotesRoute<Version extends `${number}`>(
 	version: Version,
-): `${typeof LINK_REDIRECTOR_URL}/p/${Version}` {
-	return `${LINK_REDIRECTOR_URL}/p/${version}`;
+): `${typeof LINK_REDIRECTOR_URL}/p${Version}` {
+	return `${LINK_REDIRECTOR_URL}/p${version}`;
 }

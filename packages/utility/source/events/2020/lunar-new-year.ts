@@ -7,5 +7,5 @@ export default new Event({
 	id: EventId.LunarNewYear2020,
 	start: skyDate(2_020, 1, 24),
 	end: skyDate(2_020, 1, 28),
-	patchNotesURL: patchNotesRoute("p080"),
+	patchNotesURL: patchNotesRoute("080"),
 });

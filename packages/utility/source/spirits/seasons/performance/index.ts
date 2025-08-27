@@ -15,5 +15,5 @@ export default new Season({
 	guide: PerformanceGuide,
 	spirits: [FranticStagehand, ForgetfulStoryteller, MellowMusician, ModestDancer],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0170"),
+	patchNotesURL: patchNotesRoute("0170"),
 });

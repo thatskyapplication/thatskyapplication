@@ -7,5 +7,5 @@ export default new Event({
 	id: EventId.LazyDays2022,
 	start: skyDate(2_022, 9, 26),
 	end: skyDate(2_022, 10, 17),
-	patchNotesURL: patchNotesRoute("p0185"),
+	patchNotesURL: patchNotesRoute("0185"),
 });

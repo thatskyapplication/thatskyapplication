@@ -13,5 +13,5 @@ export default new Season({
 	guide: TheVoidOfShattering,
 	spirits: [...AncientLight, ...AncientDarkness],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0180"),
+	patchNotesURL: patchNotesRoute("0180"),
 });

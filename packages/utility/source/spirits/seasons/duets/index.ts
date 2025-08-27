@@ -36,5 +36,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
 		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 	],
-	patchNotesURL: patchNotesRoute("p0260"),
+	patchNotesURL: patchNotesRoute("0260"),
 });

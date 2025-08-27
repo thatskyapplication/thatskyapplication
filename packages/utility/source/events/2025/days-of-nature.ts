@@ -48,5 +48,5 @@ export default new Event({
 		},
 	],
 	offerInfographicURL: true,
-	patchNotesURL: patchNotesRoute("p0290"),
+	patchNotesURL: patchNotesRoute("0290"),
 });

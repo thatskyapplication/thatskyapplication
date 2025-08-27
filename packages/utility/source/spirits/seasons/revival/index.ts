@@ -32,5 +32,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
 	],
-	patchNotesURL: patchNotesRoute("p0230"),
+	patchNotesURL: patchNotesRoute("0230"),
 });

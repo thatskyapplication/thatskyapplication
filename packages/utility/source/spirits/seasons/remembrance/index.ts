@@ -15,5 +15,5 @@ export default new Season({
 	guide: RemembranceGuide,
 	spirits: [BereftVeteran, PleadingChild, TiptoeingTeaBrewer, WoundedWarrior],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0200"),
+	patchNotesURL: patchNotesRoute("0200"),
 });

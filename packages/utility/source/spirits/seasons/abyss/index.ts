@@ -15,5 +15,5 @@ export default new Season({
 	guide: AbyssGuide,
 	spirits: [AnxiousAngler, CeasingCommodore, BumblingBoatswain, CacklingCannoneer],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0160"),
+	patchNotesURL: patchNotesRoute("0160"),
 });

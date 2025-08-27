@@ -7,5 +7,5 @@ export default new Event({
 	id: EventId.DaysOfRainbow2020,
 	start: skyDate(2_020, 6, 10),
 	end: skyDate(2_020, 6, 15),
-	patchNotesURL: patchNotesRoute("p095"),
+	patchNotesURL: patchNotesRoute("095"),
 });

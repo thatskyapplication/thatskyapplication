@@ -15,5 +15,5 @@ export default new Season({
 	guide: ProphecyGuide,
 	spirits: [ProphetOfWater, ProphetOfEarth, ProphetOfAir, ProphetOfFire],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0110"),
+	patchNotesURL: patchNotesRoute("0110"),
 });

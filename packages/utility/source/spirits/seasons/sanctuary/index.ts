@@ -24,5 +24,5 @@ export default new Season({
 		ChillSunbather,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("p0100"),
+	patchNotesURL: patchNotesRoute("0100"),
 });

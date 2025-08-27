@@ -14,5 +14,5 @@ export default new Event({
 			cost: { hearts: 3 },
 		},
 	],
-	patchNotesURL: patchNotesRoute("p0100"),
+	patchNotesURL: patchNotesRoute("0100"),
 });

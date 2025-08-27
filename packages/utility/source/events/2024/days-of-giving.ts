@@ -7,5 +7,5 @@ export default new Event({
 	id: EventId.DaysOfGiving2024,
 	start: skyDate(2_024, 12, 9),
 	end: skyDate(2_024, 12, 23),
-	patchNotesURL: patchNotesRoute("p0275"),
+	patchNotesURL: patchNotesRoute("0275"),
 });
