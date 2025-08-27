@@ -238,13 +238,13 @@ export async function setupResponse(
 	return { components, flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2 };
 }
 
-interface WelcomeByeSetupOptions {
+interface WelcomeSetupOptions {
 	welcomeChannelId: Snowflake | null;
 }
 
 export async function handleChannelSelectMenu(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
-	{ welcomeChannelId }: WelcomeByeSetupOptions,
+	{ welcomeChannelId }: WelcomeSetupOptions,
 ) {
 	const guild = GUILD_CACHE.get(interaction.guild_id);
 
