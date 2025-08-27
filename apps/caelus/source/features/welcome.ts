@@ -591,7 +591,7 @@ export async function welcomeHandleAssetSettingButton(
 					{
 						type: ComponentType.TextInput,
 						custom_id: WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID,
-						label: t("welcome.asset-text-input-label", { lng: locale, ns: "features" }),
+						label: t("welcome.asset-modal-text-input-label", { lng: locale, ns: "features" }),
 						placeholder: "https://cdn.thatskyapplication.com/assets/sky_kid.webp",
 						max_length: MAXIMUM_MEDIA_GALLERY_URL_LENGTH,
 						style: TextInputStyle.Short,
