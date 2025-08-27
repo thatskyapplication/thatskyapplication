@@ -75,7 +75,7 @@ async function welcome(interaction: APIChatInputApplicationCommandGuildInteracti
 	await client.api.interactions.reply(
 		interaction.id,
 		interaction.token,
-		await setupResponseWelcome(interaction.member.user.id, guild.id),
+		await setupResponseWelcome(interaction.member.user.id, guild.id, guild.preferredLocale),
 	);
 }
 

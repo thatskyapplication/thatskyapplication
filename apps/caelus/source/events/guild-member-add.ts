@@ -30,7 +30,11 @@ export default {
 				.first();
 
 			if (welcomePacket) {
-				await sendWelcomeMessage({ userId: data.user.id, welcomePacket });
+				await sendWelcomeMessage({
+					userId: data.user.id,
+					welcomePacket,
+					locale: guild.preferredLocale,
+				});
 			}
 		} else {
 			pino.warn({ data }, `Received a ${name} packet on an uncached guild.`);

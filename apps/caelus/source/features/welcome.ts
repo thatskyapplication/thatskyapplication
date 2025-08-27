@@ -21,6 +21,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { Table } from "@thatskyapplication/utility";
+import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
@@ -75,12 +76,13 @@ type WelcomePacketSetData = Pick<WelcomePacket, "guild_id"> & Partial<WelcomePac
 export async function setupResponse(
 	userId: Snowflake,
 	guildId: Snowflake,
+	locale: Locale,
 ): Promise<APIInteractionResponseCallbackData> {
 	const welcomePacket = await pg<WelcomePacket>(Table.Welcome).where({ guild_id: guildId }).first();
 	const components: APIMessageTopLevelComponent[] = [];
 
 	if (welcomePacket) {
-		const preview = welcomeComponents(userId, welcomePacket);
+		const preview = welcomeComponents(userId, welcomePacket, locale);
 
 		if (preview[0].components.length > 0) {
 			components.push(...preview);
@@ -90,7 +92,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: "This is the preview area for your welcome message. It is currently empty.",
+						content: t("welcome.preview", { lng: locale, ns: "features" }),
 					},
 				],
 			});
@@ -102,7 +104,7 @@ export async function setupResponse(
 		components: [
 			{
 				type: ComponentType.TextDisplay,
-				content: "## Welcome setup",
+				content: `## ${t("welcome.title", { lng: locale, ns: "features" })}`,
 			},
 			{
 				type: ComponentType.Separator,
@@ -111,7 +113,7 @@ export async function setupResponse(
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content: "You can set up messages for whenever someone joins your server.",
+				content: t("welcome.description", { lng: locale, ns: "features" }),
 			},
 			{
 				type: ComponentType.ActionRow,
@@ -120,16 +122,14 @@ export async function setupResponse(
 						type: ComponentType.ChannelSelect,
 						custom_id: WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
 						channel_types: [ChannelType.GuildText],
-						placeholder: "Select a welcome channel.",
+						placeholder: t("welcome.welcome-channel-select-menu-placeholder", {
+							lng: locale,
+							ns: "features",
+						}),
 						min_values: 0,
 						max_values: 1,
 						default_values: welcomePacket?.welcome_channel_id
-							? [
-									{
-										type: SelectMenuDefaultValueType.Channel,
-										id: welcomePacket.welcome_channel_id,
-									},
-								]
+							? [{ type: SelectMenuDefaultValueType.Channel, id: welcomePacket.welcome_channel_id }]
 							: [],
 					},
 				],
@@ -141,8 +141,7 @@ export async function setupResponse(
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content:
-					"You can choose to display a message! To mention the user who joined, type `{{user}}`.",
+				content: t("welcome.message-description", { lng: locale, ns: "features" }),
 			},
 			{
 				type: ComponentType.ActionRow,
@@ -152,14 +151,14 @@ export async function setupResponse(
 								type: ComponentType.Button,
 								style: ButtonStyle.Danger,
 								custom_id: WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
-								label: "Remove the message?",
+								label: t("welcome.message-remove", { lng: locale, ns: "features" }),
 								emoji: MISCELLANEOUS_EMOJIS.Trash,
 							},
 							{
 								type: ComponentType.Button,
 								style: ButtonStyle.Primary,
 								custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
-								label: "Edit the message?",
+								label: t("welcome.message-edit", { lng: locale, ns: "features" }),
 								emoji: MISCELLANEOUS_EMOJIS.Edit,
 							},
 						]
@@ -168,7 +167,7 @@ export async function setupResponse(
 								type: ComponentType.Button,
 								style: ButtonStyle.Success,
 								custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
-								label: "Use a message?",
+								label: t("welcome.message-use", { lng: locale, ns: "features" }),
 								emoji: { name: "📝" },
 							},
 						],
@@ -180,7 +179,7 @@ export async function setupResponse(
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content: "You can use an asset to display!",
+				content: t("welcome.asset-description", { lng: locale, ns: "features" }),
 			},
 			{
 				type: ComponentType.ActionRow,
@@ -190,14 +189,14 @@ export async function setupResponse(
 								type: ComponentType.Button,
 								style: ButtonStyle.Danger,
 								custom_id: WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
-								label: "Remove the asset?",
+								label: t("welcome.asset-remove", { lng: locale, ns: "features" }),
 								emoji: MISCELLANEOUS_EMOJIS.Trash,
 							},
 							{
 								type: ComponentType.Button,
 								style: ButtonStyle.Primary,
 								custom_id: WELCOME_ASSET_SETTING_CUSTOM_ID,
-								label: "Edit the asset URL?",
+								label: t("welcome.asset-edit", { lng: locale, ns: "features" }),
 								emoji: MISCELLANEOUS_EMOJIS.Edit,
 							},
 						]
@@ -206,7 +205,7 @@ export async function setupResponse(
 								type: ComponentType.Button,
 								style: ButtonStyle.Success,
 								custom_id: WELCOME_ASSET_SETTING_CUSTOM_ID,
-								label: "Use an asset?",
+								label: t("welcome.asset-use", { lng: locale, ns: "features" }),
 								emoji: { name: "📷" },
 							},
 						],
@@ -218,7 +217,7 @@ export async function setupResponse(
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content: "You can show a hug button on the message for others to use!",
+				content: t("welcome.hug-description", { lng: locale, ns: "features" }),
 			},
 			{
 				type: ComponentType.ActionRow,
@@ -227,7 +226,9 @@ export async function setupResponse(
 						type: ComponentType.Button,
 						style: welcomePacket?.hug ? ButtonStyle.Danger : ButtonStyle.Success,
 						custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§${Number(welcomePacket?.hug ?? false)}`,
-						label: welcomePacket?.hug ? "Remove the hug button?" : "Show the hug button?",
+						label: welcomePacket?.hug
+							? t("welcome.hug-remove", { lng: locale, ns: "features" })
+							: t("welcome.hug-add", { lng: locale, ns: "features" }),
 						emoji: welcomePacket?.hug ? FRIEND_ACTION_EMOJIS.Hug : MISCELLANEOUS_EMOJIS.Trash,
 					},
 				],
@@ -276,7 +277,7 @@ export async function handleChannelSelectMenu(
 			})
 		) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: "`View Channel` & `Send Messages` are required.",
+				content: t("welcome.missing-permissions", { lng: interaction.locale, ns: "features" }),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -291,25 +292,21 @@ export async function handleChannelSelectMenu(
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(interaction.member.user.id, guild.id),
+		await setupResponse(interaction.member.user.id, guild.id, guild.preferredLocale),
 	);
 }
 
 interface WelcomeMessageOptions {
 	userId: Snowflake;
 	welcomePacket: WelcomePacketWithChannel;
+	locale: Locale;
 }
 
-export async function sendWelcomeMessage({ userId, welcomePacket }: WelcomeMessageOptions) {
+export async function sendWelcomeMessage({ userId, welcomePacket, locale }: WelcomeMessageOptions) {
 	try {
 		await client.api.channels.createMessage(welcomePacket.welcome_channel_id, {
 			allowed_mentions: { users: [userId] },
-			components: welcomeComponents(
-				userId,
-				(await pg<WelcomePacket>(Table.Welcome)
-					.where({ guild_id: welcomePacket.guild_id })
-					.first())!,
-			),
+			components: welcomeComponents(userId, welcomePacket, locale),
 			flags: MessageFlags.IsComponentsV2,
 		});
 	} catch (error) {
@@ -330,6 +327,7 @@ export async function sendWelcomeMessage({ userId, welcomePacket }: WelcomeMessa
 function welcomeComponents(
 	userId: Snowflake,
 	welcomePacket: WelcomePacket,
+	locale: Locale,
 ): [APIContainerComponent] {
 	const containerComponents: APIComponentInContainer[] = [];
 
@@ -355,7 +353,7 @@ function welcomeComponents(
 					type: ComponentType.Button,
 					style: ButtonStyle.Primary,
 					custom_id: `${WELCOME_HUG_CUSTOM_ID}§${userId}`,
-					label: "Welcome with a hug!",
+					label: t("welcome.welcome-with-a-hug", { lng: locale, ns: "features" }),
 					emoji: FRIEND_ACTION_EMOJIS.Hug,
 				},
 			],
@@ -371,7 +369,7 @@ export async function welcomeHandleHugButton(
 ) {
 	if (interaction.member.user.id === userId) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This is you! Why not hug the others?",
+			content: t("welcome.hug-self", { lng: interaction.locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -387,7 +385,7 @@ export async function welcomeHandleHugButton(
 
 	if (!channelId) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This server has disabled hugging.",
+			content: t("welcome.hug-disabled", { lng: interaction.locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -439,13 +437,19 @@ export async function welcomeHandleHugSettingButton(
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(interaction.member.user.id, interaction.guild_id),
+		await setupResponse(
+			interaction.member.user.id,
+			interaction.guild_id,
+			interaction.guild_locale!,
+		),
 	);
 }
 
 export async function welcomeHandleMessageSettingButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
+	const { locale } = interaction;
+
 	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
 		.select("message")
 		.where({ guild_id: interaction.guild_id })
@@ -459,8 +463,11 @@ export async function welcomeHandleMessageSettingButton(
 					{
 						type: ComponentType.TextInput,
 						custom_id: WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID,
-						label: "Enter your welcome message.",
-						placeholder: "Welcome to the server, {{user}}!",
+						label: t("welcome.message-modal-text-input-label", { lng: locale, ns: "features" }),
+						placeholder: t("welcome.message-modal-text-input-placeholder", {
+							lng: locale,
+							ns: "features",
+						}),
 						max_length: WELCOME_MESSAGE_MAXIMUM_LENGTH,
 						style: TextInputStyle.Paragraph,
 						value: welcomePacket?.message ?? "",
@@ -470,7 +477,7 @@ export async function welcomeHandleMessageSettingButton(
 			},
 		],
 		custom_id: WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID,
-		title: "Welcome message",
+		title: t("welcome.message-modal-title", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -490,7 +497,11 @@ export async function welcomeHandleMessageSettingModal(
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(interaction.member.user.id, interaction.guild_id),
+		await setupResponse(
+			interaction.member.user.id,
+			interaction.guild_id,
+			interaction.guild_locale!,
+		),
 	);
 }
 
@@ -505,13 +516,19 @@ export async function welcomeHandleMessageSettingDeleteButton(
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(interaction.member.user.id, interaction.guild_id),
+		await setupResponse(
+			interaction.member.user.id,
+			interaction.guild_id,
+			interaction.guild_locale!,
+		),
 	);
 }
 
 export async function welcomeHandleAssetSettingButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
+	const { locale } = interaction;
+
 	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
 		.select("asset_url")
 		.where({ guild_id: interaction.guild_id })
@@ -525,7 +542,7 @@ export async function welcomeHandleAssetSettingButton(
 					{
 						type: ComponentType.TextInput,
 						custom_id: WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID,
-						label: "Enter the asset URL.",
+						label: t("welcome.asset-text-input-label", { lng: locale, ns: "features" }),
 						placeholder: "https://cdn.thatskyapplication.com/assets/sky_kid.webp",
 						max_length: MAXIMUM_MEDIA_GALLERY_URL_LENGTH,
 						style: TextInputStyle.Short,
@@ -536,7 +553,7 @@ export async function welcomeHandleAssetSettingButton(
 			},
 		],
 		custom_id: WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID,
-		title: "Welcome asset",
+		title: t("welcome.asset-modal-title", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -546,7 +563,7 @@ export async function welcomeHandleAssetSettingModal(interaction: APIModalSubmit
 
 	if (!assetURL.startsWith("https://")) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "The asset URL must start with `https://`.",
+			content: t("welcome.asset-https-start", { lng: interaction.locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -561,7 +578,11 @@ export async function welcomeHandleAssetSettingModal(interaction: APIModalSubmit
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(interaction.member.user.id, interaction.guild_id),
+		await setupResponse(
+			interaction.member.user.id,
+			interaction.guild_id,
+			interaction.guild_locale!,
+		),
 	);
 }
 
@@ -576,6 +597,10 @@ export async function welcomeHandleAssetSettingDeleteButton(
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(interaction.member.user.id, interaction.guild_id),
+		await setupResponse(
+			interaction.member.user.id,
+			interaction.guild_id,
+			interaction.guild_locale!,
+		),
 	);
 }
