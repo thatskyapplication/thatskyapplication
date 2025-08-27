@@ -192,6 +192,9 @@ import {
 } from "../features/spirits.js";
 import {
 	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
+	WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID,
+	WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
+	WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID,
 	WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
 	WELCOME_ASSET_SETTING_CUSTOM_ID,
 	WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID,
@@ -201,6 +204,9 @@ import {
 	WELCOME_MESSAGE_SETTING_CUSTOM_ID,
 	WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID,
 	WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
+	welcomeHandleAccentColourSettingButton,
+	welcomeHandleAccentColourSettingDeleteButton,
+	welcomeHandleAccentColourSettingModal,
 	welcomeHandleAssetSettingButton,
 	welcomeHandleAssetSettingDeleteButton,
 	welcomeHandleAssetSettingModal,
@@ -892,6 +898,16 @@ export default {
 						return;
 					}
 
+					if (customId === WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID) {
+						await welcomeHandleAccentColourSettingButton(interaction);
+						return;
+					}
+
+					if (customId === WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID) {
+						await welcomeHandleAccentColourSettingDeleteButton(interaction);
+						return;
+					}
+
 					if (customId.startsWith(WELCOME_HUG_CUSTOM_ID)) {
 						await welcomeHandleHugButton(interaction, customId.slice(customId.indexOf("§") + 1));
 						return;
@@ -1216,6 +1232,11 @@ export default {
 
 					if (customId === WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID) {
 						await welcomeHandleAssetSettingModal(interaction);
+						return;
+					}
+
+					if (customId === WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID) {
+						await welcomeHandleAccentColourSettingModal(interaction);
 						return;
 					}
 				}

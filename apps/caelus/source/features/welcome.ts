@@ -7,6 +7,7 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	type APIModalSubmitGuildInteraction,
+	type APITextInputComponent,
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
@@ -57,8 +58,20 @@ export const WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID =
 	"WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID" as const;
 
 const WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID = "WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID" as const;
+export const WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID =
+	"WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID" as const;
+
+export const WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID =
+	"WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID" as const;
+
+export const WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID =
+	"WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID" as const;
+
+const WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID =
+	"WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID" as const;
 
 const WELCOME_MESSAGE_MAXIMUM_LENGTH = 1000 as const;
+const hexadecimalRegularExpression = /^[0-9A-Fa-f]+$/;
 
 interface WelcomePacket {
 	guild_id: string;
@@ -66,6 +79,7 @@ interface WelcomePacket {
 	hug: boolean | null;
 	message: string | null;
 	asset_url: string | null;
+	accent_colour: number | null;
 }
 
 export type WelcomePacketWithChannel = WelcomePacket &
@@ -240,6 +254,44 @@ export async function welcomeSetup(
 					},
 				],
 			},
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content: t("welcome.accent-colour-description", { lng: locale, ns: "features" }),
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: welcomePacket?.accent_colour
+					? [
+							{
+								type: ComponentType.Button,
+								style: ButtonStyle.Danger,
+								custom_id: WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID,
+								label: t("welcome.accent-colour-remove", { lng: locale, ns: "features" }),
+								emoji: MISCELLANEOUS_EMOJIS.Trash,
+							},
+							{
+								type: ComponentType.Button,
+								style: ButtonStyle.Primary,
+								custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
+								label: t("welcome.accent-colour-edit", { lng: locale, ns: "features" }),
+								emoji: MISCELLANEOUS_EMOJIS.Edit,
+							},
+						]
+					: [
+							{
+								type: ComponentType.Button,
+								style: ButtonStyle.Success,
+								custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
+								label: t("welcome.accent-colour-use", { lng: locale, ns: "features" }),
+								emoji: MISCELLANEOUS_EMOJIS.Dye,
+							},
+						],
+			},
 		],
 	});
 
@@ -372,7 +424,16 @@ function welcomeComponents(
 		});
 	}
 
-	return [{ type: ComponentType.Container, components: containerComponents }];
+	const container: APIContainerComponent = {
+		type: ComponentType.Container,
+		components: containerComponents,
+	};
+
+	if (welcomePacket.accent_colour !== null) {
+		container.accent_color = welcomePacket.accent_colour;
+	}
+
+	return [container];
 }
 
 export async function welcomeHandleHugButton(
@@ -571,6 +632,80 @@ export async function welcomeHandleAssetSettingDeleteButton(
 ) {
 	await pg<WelcomePacket>(Table.Welcome)
 		.insert({ guild_id: interaction.guild_id, asset_url: null })
+		.onConflict("guild_id")
+		.merge();
+
+	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+}
+
+export async function welcomeHandleAccentColourSettingButton(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	const { locale } = interaction;
+
+	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
+		.select("accent_colour")
+		.where({ guild_id: interaction.guild_id })
+		.first();
+
+	const textInput: APITextInputComponent = {
+		type: ComponentType.TextInput,
+		custom_id: WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID,
+		label: t("welcome.accent-colour-text-input-label", { lng: locale, ns: "features" }),
+		placeholder: "#123456",
+		max_length: 7,
+		min_length: 7,
+		style: TextInputStyle.Short,
+		required: true,
+	};
+
+	if (typeof welcomePacket?.accent_colour === "number") {
+		textInput.value = `#${welcomePacket.accent_colour.toString(16).padStart(6, "0")}`;
+	}
+
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+		custom_id: WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID,
+		title: t("welcome.accent-colour-modal-title", { lng: locale, ns: "features" }),
+	});
+}
+
+export async function welcomeHandleAccentColourSettingModal(
+	interaction: APIModalSubmitGuildInteraction,
+) {
+	const components = new ModalResolver(interaction.data.components);
+
+	const accentColour = components.getTextInputValue(
+		WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID,
+	);
+
+	const hexadecimalString = accentColour.slice(1);
+
+	if (accentColour[0] !== "#" || !hexadecimalRegularExpression.test(hexadecimalString)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("welcome.accent-colour-invalid", { lng: interaction.locale, ns: "features" }),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	await pg<WelcomePacket>(Table.Welcome)
+		.insert({
+			guild_id: interaction.guild_id,
+			accent_colour: Number.parseInt(hexadecimalString, 16),
+		})
+		.onConflict("guild_id")
+		.merge();
+
+	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+}
+
+export async function welcomeHandleAccentColourSettingDeleteButton(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	await pg<WelcomePacket>(Table.Welcome)
+		.insert({ guild_id: interaction.guild_id, accent_colour: null })
 		.onConflict("guild_id")
 		.merge();
 
