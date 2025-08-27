@@ -2749,6 +2749,10 @@ export default {
 			[Cosmetic.SandcastlePiece6]: "Sandcastle piece 6",
 			[Cosmetic.SandcastlePiece7]: "Sandcastle piece 7",
 			[Cosmetic.ProjectorOfMemories]: "Projector of Memories",
+			[Cosmetic.MoonlightBanner]: "Moonlight Banner",
+			[Cosmetic.MoonlightTuftedTail]: "Moonlight Tufted Tail",
+			[Cosmetic.MoonlightBasin]: "Moonlight Basin",
+			[Cosmetic.MoonlightGarlandCape]: "Moonlight Garland Cape",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

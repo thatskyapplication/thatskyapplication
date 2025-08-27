@@ -8071,6 +8071,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.SandcastlePiece6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp104,
 		[Cosmetic.SandcastlePiece7]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105,
 		[Cosmetic.ProjectorOfMemories]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
+		[Cosmetic.MoonlightBanner]: null,
+		[Cosmetic.MoonlightTuftedTail]: null,
+		[Cosmetic.MoonlightBasin]: null,
+		[Cosmetic.MoonlightGarlandCape]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
