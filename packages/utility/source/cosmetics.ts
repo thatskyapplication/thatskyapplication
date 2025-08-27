@@ -3126,6 +3126,9 @@ export enum Cosmetic {
 	// 18/08/2025 | Returning Spirits #10.
 	TiptoeingTeaBrewerWingBuff = 2478,
 	WoundedWarriorWingBuff = 2479,
+
+	// Unknown | Version 0.30.5.
+	ProjectorOfMemories = 2480,
 }
 
 export enum CosmeticCommon {

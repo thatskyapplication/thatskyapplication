@@ -2698,6 +2698,7 @@ export default {
 			[Cosmetic.AnniversaryGown]: "Anniversary Gown",
 			[Cosmetic.AnniversaryShoes]: "Anniversary Shoes",
 			[Cosmetic.AnniversaryTuxedoCape]: "Anniversary Tuxedo Cape",
+			[Cosmetic.ProjectorOfMemories]: "Projector of Memories",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
