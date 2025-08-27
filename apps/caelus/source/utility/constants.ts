@@ -24,6 +24,7 @@ import {
 // Shared options for i18next.
 export const I18_NEXT_OPTIONS = {
 	fallbackLng: Locale.EnglishGB,
+	interpolation: { escapeValue: false },
 	ns: ["general", "commands", "features"],
 	resources: {
 		[Locale.German]: de,
@@ -42,8 +43,8 @@ export const I18_NEXT_OPTIONS = {
 		[Locale.ChineseTW]: zhTW,
 	},
 	returnEmptyString: false,
-	interpolation: { escapeValue: false },
-} as const;
+	saveMissing: true,
+} as const satisfies Readonly<Parameters<typeof import("i18next").init>[0]>;
 
 // Website URLs.
 export const DAILY_GUIDES_URL = String(new URL("daily-guides", WEBSITE_URL));

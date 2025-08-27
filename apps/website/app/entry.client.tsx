@@ -50,6 +50,7 @@ async function main() {
 				[Locale.ChineseTW]: zhTW,
 			},
 			returnEmptyString: false,
+			saveMissing: true,
 		});
 
 	startTransition(() => {

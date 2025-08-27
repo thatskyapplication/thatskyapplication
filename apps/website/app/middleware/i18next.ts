@@ -47,5 +47,6 @@ export const [i18nextMiddleware, getLocale, getInstance] = unstable_createI18nex
 			[Locale.ChineseTW]: zhTW,
 		},
 		returnEmptyString: false,
+		saveMissing: true,
 	},
 });

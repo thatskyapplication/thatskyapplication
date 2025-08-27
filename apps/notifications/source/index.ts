@@ -36,6 +36,9 @@ import { DISCORD_TOKEN } from "./utility/configuration.js";
 
 void init({
 	fallbackLng: Locale.EnglishGB,
+	interpolation: {
+		escapeValue: false,
+	},
 	missingKeyHandler: (locale, namespace, key) =>
 		pino.warn(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
 	ns: ["general", "commands", "features"],
@@ -56,9 +59,7 @@ void init({
 		[Locale.ChineseTW]: zhTW,
 	},
 	returnEmptyString: false,
-	interpolation: {
-		escapeValue: false,
-	},
+	saveMissing: true,
 });
 
 const client = new API(new REST({ version: "10" }).setToken(DISCORD_TOKEN));
