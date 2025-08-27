@@ -378,6 +378,11 @@ export async function welcomeHandleHugSettingButton(
 export async function welcomeHandleMessageSettingButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
+	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
+		.select("message")
+		.where({ guild_id: interaction.guild_id })
+		.first();
+
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [
 			{
@@ -389,6 +394,7 @@ export async function welcomeHandleMessageSettingButton(
 						label: "Enter your welcome message.",
 						max_length: WELCOME_MESSAGE_MAXIMUM_LENGTH,
 						style: TextInputStyle.Paragraph,
+						value: welcomePacket?.message ?? "",
 						required: true,
 					},
 				],
