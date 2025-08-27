@@ -60,7 +60,7 @@ const WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID = "WELCOME_ASSET_SETTING_ASSET_CUSTO
 
 const WELCOME_MESSAGE_MAXIMUM_LENGTH = 1000 as const;
 
-export interface WelcomePacket {
+interface WelcomePacket {
 	guild_id: string;
 	welcome_channel_id: string | null;
 	hug: boolean | null;
