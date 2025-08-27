@@ -124,6 +124,16 @@ export async function setupResponse(
 				],
 			},
 			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content:
+					"You can show a cute hug button on the message for others to use to welcome the joined Sky kid!",
+			},
+			{
 				type: ComponentType.ActionRow,
 				components: [
 					{
@@ -138,9 +148,14 @@ export async function setupResponse(
 				],
 			},
 			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
 				type: ComponentType.TextDisplay,
 				content:
-					"You can choose to display a message! To mention the user who joined, type {{user}}.",
+					"You can choose to display a message! To mention the user who joined, type `{{user}}`.",
 			},
 			{
 				type: ComponentType.ActionRow,
@@ -392,6 +407,7 @@ export async function welcomeHandleMessageSettingButton(
 						type: ComponentType.TextInput,
 						custom_id: WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID,
 						label: "Enter your welcome message.",
+						placeholder: "Welcome to the server, {{user}}!",
 						max_length: WELCOME_MESSAGE_MAXIMUM_LENGTH,
 						style: TextInputStyle.Paragraph,
 						value: welcomePacket?.message ?? "",
