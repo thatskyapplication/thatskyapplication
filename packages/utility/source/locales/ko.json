@@ -450,7 +450,7 @@
 			"60": "",
 			"61": "",
 			"62": "",
-			"63": "",
+			"63": "달빛의 날",
 			"64": "",
 			"65": "장난꾸러기의 날",
 			"66": "음악의 날",
@@ -466,7 +466,7 @@
 			"76": "제작소 발표회",
 			"77": "Sky 기념일",
 			"78": "",
-			"79": "",
+			"79": "달빛의 날",
 			"80": ""
 		},
 		"event-wiki": {
@@ -2444,7 +2444,7 @@
 			"2475": "",
 			"2476": "",
 			"2477": "기념일 턱시도 망토",
-			"2480": ""
+			"2480": "기억의 영사기"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2986,6 +2986,7 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
+			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",

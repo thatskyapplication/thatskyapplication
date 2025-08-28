@@ -450,7 +450,7 @@
 			"60": "",
 			"61": "",
 			"62": "",
-			"63": "",
+			"63": "Giorni del Chiaro di Luna",
 			"64": "",
 			"65": "Giorni degli Scherzetti",
 			"66": "",
@@ -466,7 +466,7 @@
 			"76": "Workshop \"Dimostrazione pratica\"",
 			"77": "Anniversario di Sky",
 			"78": "",
-			"79": "",
+			"79": "Giorni del Chiaro di Luna",
 			"80": ""
 		},
 		"event-wiki": {
@@ -2444,7 +2444,7 @@
 			"2475": "",
 			"2476": "",
 			"2477": "Smoking Anniversario",
-			"2480": ""
+			"2480": "Proiettore di ricordi"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2986,6 +2986,7 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
+			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",
