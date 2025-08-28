@@ -2798,6 +2798,8 @@ export default {
 				"command-name": "welcome",
 				"command-description":
 					"The command to set up welcome messages for new members of the server.",
+				"command-option-asset-name": "asset",
+				"command-option-asset-description": "Upload an asset to include in the welcome message.",
 			},
 		},
 		"daily-guides": {
@@ -3423,13 +3425,11 @@ export default {
 			"message-modal-title": "Welcome message",
 			"message-modal-text-input-label": "Enter your welcome message.",
 			"message-modal-text-input-placeholder": "Welcome to the server, {{user}}!",
-			"asset-description": "You can use an asset to display!",
+			"asset-description-mention":
+				"Use {{mention}} to set an asset to display in the welcome message!",
+			"asset-description-text":
+				"Use the command to set an asset to display in the welcome message!",
 			"asset-remove": "Remove the asset?",
-			"asset-edit": "Edit the asset?",
-			"asset-use": "Use an asset?",
-			"asset-modal-title": "Welcome asset",
-			"asset-modal-text-input-label": "Enter the asset URL.",
-			"asset-https-start": "The asset URL must start with `https://`.",
 			"hug-description": "You can show a hug button on the message for others to use!",
 			"hug-remove": "Remove the hug button?",
 			"hug-add": "Add the hug button?",

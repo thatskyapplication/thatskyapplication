@@ -14,10 +14,14 @@ import {
 	setupResponse as setupResponseDailyGuides,
 } from "../../features/daily-guides.js";
 import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
-import { welcomeSetup } from "../../features/welcome.js";
+import { welcomeSetAsset, welcomeSetup } from "../../features/welcome.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
-import { isGuildChatInputCommand, notInCachedGuildResponse } from "../../utility/functions.js";
+import {
+	isGuildChatInputCommand,
+	notInCachedGuildResponse,
+	validateAttachment,
+} from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 async function dailyGuides(
@@ -72,6 +76,17 @@ async function notifications(
 }
 
 async function welcome(interaction: APIChatInputApplicationCommandGuildInteraction, guild: Guild) {
+	const options = new OptionResolver(interaction);
+	const asset = options.getAttachment("asset");
+
+	if (asset) {
+		if (!(await validateAttachment(interaction, asset))) {
+			return;
+		}
+
+		await welcomeSetAsset(interaction, asset);
+	}
+
 	await welcomeSetup(interaction, interaction.member.user.id, guild.preferredLocale);
 }
 

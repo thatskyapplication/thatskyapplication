@@ -65,23 +65,38 @@ for (const event of [
 // Populate the command cache.
 const applicationCommands = await client.api.applicationCommands.getGlobalCommands(APPLICATION_ID);
 
+const configureCommandName = "configure";
 const giveawayCommandName = "giveaway";
 const skyProfileCommandName = "sky-profile";
+let configureCommandId: Snowflake | undefined;
 let giveawayCommandId: Snowflake | undefined;
 let skyProfileCommandId: Snowflake | undefined;
 
 for (const applicationCommand of applicationCommands) {
-	if (applicationCommand.name === giveawayCommandName) {
-		giveawayCommandId = applicationCommand.id;
+	switch (applicationCommand.name) {
+		case configureCommandName: {
+			configureCommandId = applicationCommand.id;
+			break;
+		}
+		case giveawayCommandName: {
+			giveawayCommandId = applicationCommand.id;
+			break;
+		}
+		case skyProfileCommandName: {
+			skyProfileCommandId = applicationCommand.id;
+			break;
+		}
 	}
 
-	if (applicationCommand.name === skyProfileCommandName) {
-		skyProfileCommandId = applicationCommand.id;
-	}
-
-	if (giveawayCommandId && skyProfileCommandId) {
+	if (configureCommandId && giveawayCommandId && skyProfileCommandId) {
 		break;
 	}
+}
+
+if (configureCommandId) {
+	COMMAND_CACHE.set(configureCommandName, configureCommandId);
+} else {
+	pino.warn(`Command "${configureCommandName}" not found from the API.`);
 }
 
 if (giveawayCommandId) {

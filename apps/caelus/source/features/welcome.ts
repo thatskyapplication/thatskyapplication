@@ -1,4 +1,6 @@
+import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
+	type APIAttachment,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIComponentInContainer,
 	type APIContainerComponent,
@@ -22,15 +24,25 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { Table } from "@thatskyapplication/utility";
+import { hash } from "hasha";
 import { t } from "i18next";
+import sharp from "sharp";
+import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
+import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
-import { MAXIMUM_MEDIA_GALLERY_URL_LENGTH } from "../utility/constants.js";
+import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
+import { ANIMATED_HASH_PREFIX } from "../utility/constants.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { isChatInputCommand, notInCachedGuildResponse } from "../utility/functions.js";
+import {
+	chatInputApplicationCommandMention,
+	isAnimatedHash,
+	isChatInputCommand,
+	notInCachedGuildResponse,
+} from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { friendshipActionComponents } from "./friendship-actions.js";
@@ -49,15 +61,10 @@ const WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID =
 	"WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID" as const;
 
 export const WELCOME_HUG_CUSTOM_ID = "WELCOME_HUG_CUSTOM_ID" as const;
-export const WELCOME_ASSET_SETTING_CUSTOM_ID = "WELCOME_ASSET_SETTING_CUSTOM_ID" as const;
 
 export const WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID =
 	"WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID" as const;
 
-export const WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID =
-	"WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID" as const;
-
-const WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID = "WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID" as const;
 export const WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID =
 	"WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID" as const;
 
@@ -78,7 +85,7 @@ interface WelcomePacket {
 	welcome_channel_id: string | null;
 	hug: boolean | null;
 	message: string | null;
-	asset_url: string | null;
+	asset: string | null;
 	accent_colour: number | null;
 }
 
@@ -120,186 +127,190 @@ export async function welcomeSetup(
 		}
 	}
 
-	components.push({
-		type: ComponentType.Container,
-		components: [
-			{
-				type: ComponentType.TextDisplay,
-				content: `## ${t("welcome.title", { lng: locale, ns: "features" })}`,
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: t("welcome.description", { lng: locale, ns: "features" }),
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.ChannelSelect,
-						custom_id: WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
-						channel_types: [ChannelType.GuildText],
-						placeholder: t("welcome.welcome-channel-select-menu-placeholder", {
-							lng: locale,
-							ns: "features",
-						}),
-						min_values: 0,
-						max_values: 1,
-						default_values: welcomePacket?.welcome_channel_id
-							? [{ type: SelectMenuDefaultValueType.Channel, id: welcomePacket.welcome_channel_id }]
-							: [],
-					},
-				],
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: t("welcome.message-description", { lng: locale, ns: "features" }),
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: welcomePacket?.message
-					? [
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Danger,
-								custom_id: WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
-								label: t("welcome.message-remove", { lng: locale, ns: "features" }),
-								emoji: MISCELLANEOUS_EMOJIS.Trash,
-							},
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Primary,
-								custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
-								label: t("welcome.message-edit", { lng: locale, ns: "features" }),
-								emoji: MISCELLANEOUS_EMOJIS.Edit,
-							},
-						]
-					: [
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Success,
-								custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
-								label: t("welcome.message-use", { lng: locale, ns: "features" }),
-								emoji: { name: "📝" },
-							},
-						],
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: t("welcome.asset-description", { lng: locale, ns: "features" }),
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: welcomePacket?.asset_url
-					? [
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Danger,
-								custom_id: WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
-								label: t("welcome.asset-remove", { lng: locale, ns: "features" }),
-								emoji: MISCELLANEOUS_EMOJIS.Trash,
-							},
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Primary,
-								custom_id: WELCOME_ASSET_SETTING_CUSTOM_ID,
-								label: t("welcome.asset-edit", { lng: locale, ns: "features" }),
-								emoji: MISCELLANEOUS_EMOJIS.Edit,
-							},
-						]
-					: [
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Success,
-								custom_id: WELCOME_ASSET_SETTING_CUSTOM_ID,
-								label: t("welcome.asset-use", { lng: locale, ns: "features" }),
-								emoji: { name: "📷" },
-							},
-						],
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: t("welcome.hug-description", { lng: locale, ns: "features" }),
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					welcomePacket?.hug
-						? {
-								type: ComponentType.Button,
-								style: ButtonStyle.Danger,
-								custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§1`,
-								label: t("welcome.hug-remove", { lng: locale, ns: "features" }),
-								emoji: MISCELLANEOUS_EMOJIS.Trash,
-							}
-						: {
-								type: ComponentType.Button,
-								style: ButtonStyle.Success,
-								custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§0`,
-								label: t("welcome.hug-add", { lng: locale, ns: "features" }),
-								emoji: FRIEND_ACTION_EMOJIS.Hug,
-							},
-				],
-			},
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.TextDisplay,
-				content: t("welcome.accent-colour-description", { lng: locale, ns: "features" }),
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: welcomePacket?.accent_colour
-					? [
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Danger,
-								custom_id: WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID,
-								label: t("welcome.accent-colour-remove", { lng: locale, ns: "features" }),
-								emoji: MISCELLANEOUS_EMOJIS.Trash,
-							},
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Primary,
-								custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
-								label: t("welcome.accent-colour-edit", { lng: locale, ns: "features" }),
-								emoji: MISCELLANEOUS_EMOJIS.Edit,
-							},
-						]
-					: [
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Success,
-								custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
-								label: t("welcome.accent-colour-use", { lng: locale, ns: "features" }),
-								emoji: MISCELLANEOUS_EMOJIS.Dye,
-							},
-						],
-			},
-		],
-	});
+	const configureCommandId = COMMAND_CACHE.get(t("configure.command-name", { ns: "commands" }));
+	const assetLocaleOptions: Parameters<typeof t>[1] = { lng: locale, ns: "features" };
+	let suffix: "mention" | "text";
+
+	if (configureCommandId) {
+		suffix = "mention";
+
+		assetLocaleOptions.mention = chatInputApplicationCommandMention(
+			configureCommandId,
+			t("configure.command-name", { ns: "commands" }),
+			t("configure.welcome.command-name", { ns: "commands" }),
+		);
+	} else {
+		suffix = "text";
+	}
+
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## ${t("welcome.title", { lng: locale, ns: "features" })}`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("welcome.description", { lng: locale, ns: "features" }),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.ChannelSelect,
+					custom_id: WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
+					channel_types: [ChannelType.GuildText],
+					placeholder: t("welcome.welcome-channel-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+					min_values: 0,
+					max_values: 1,
+					default_values: welcomePacket?.welcome_channel_id
+						? [{ type: SelectMenuDefaultValueType.Channel, id: welcomePacket.welcome_channel_id }]
+						: [],
+				},
+			],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("welcome.message-description", { lng: locale, ns: "features" }),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: welcomePacket?.message
+				? [
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Danger,
+							custom_id: WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
+							label: t("welcome.message-remove", { lng: locale, ns: "features" }),
+							emoji: MISCELLANEOUS_EMOJIS.Trash,
+						},
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Primary,
+							custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
+							label: t("welcome.message-edit", { lng: locale, ns: "features" }),
+							emoji: MISCELLANEOUS_EMOJIS.Edit,
+						},
+					]
+				: [
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Success,
+							custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
+							label: t("welcome.message-use", { lng: locale, ns: "features" }),
+							emoji: { name: "📝" },
+						},
+					],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t(`welcome.asset-description-${suffix}`, assetLocaleOptions),
+		},
+	];
+
+	if (welcomePacket?.asset) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					style: ButtonStyle.Danger,
+					custom_id: WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
+					label: t("welcome.asset-remove", { lng: locale, ns: "features" }),
+					emoji: MISCELLANEOUS_EMOJIS.Trash,
+				},
+			],
+		});
+	}
+
+	containerComponents.push(
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("welcome.hug-description", { lng: locale, ns: "features" }),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				welcomePacket?.hug
+					? {
+							type: ComponentType.Button,
+							style: ButtonStyle.Danger,
+							custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§1`,
+							label: t("welcome.hug-remove", { lng: locale, ns: "features" }),
+							emoji: MISCELLANEOUS_EMOJIS.Trash,
+						}
+					: {
+							type: ComponentType.Button,
+							style: ButtonStyle.Success,
+							custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§0`,
+							label: t("welcome.hug-add", { lng: locale, ns: "features" }),
+							emoji: FRIEND_ACTION_EMOJIS.Hug,
+						},
+			],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("welcome.accent-colour-description", { lng: locale, ns: "features" }),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: welcomePacket?.accent_colour
+				? [
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Danger,
+							custom_id: WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID,
+							label: t("welcome.accent-colour-remove", { lng: locale, ns: "features" }),
+							emoji: MISCELLANEOUS_EMOJIS.Trash,
+						},
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Primary,
+							custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
+							label: t("welcome.accent-colour-edit", { lng: locale, ns: "features" }),
+							emoji: MISCELLANEOUS_EMOJIS.Edit,
+						},
+					]
+				: [
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Success,
+							custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
+							label: t("welcome.accent-colour-use", { lng: locale, ns: "features" }),
+							emoji: MISCELLANEOUS_EMOJIS.Dye,
+						},
+					],
+		},
+	);
+
+	components.push({ type: ComponentType.Container, components: containerComponents });
 
 	if (isChatInputCommand(interaction)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -408,10 +419,10 @@ function welcomeComponents(
 		});
 	}
 
-	if (welcomePacket.asset_url) {
+	if (welcomePacket.asset) {
 		containerComponents.push({
 			type: ComponentType.MediaGallery,
-			items: [{ media: { url: welcomePacket.asset_url } }],
+			items: [{ media: { url: welcomeAssetURL(welcomePacket.guild_id, welcomePacket.asset) } }],
 		});
 	}
 
@@ -579,65 +590,25 @@ export async function welcomeHandleMessageSettingDeleteButton(
 	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
 }
 
-export async function welcomeHandleAssetSettingButton(
-	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
-) {
-	const { locale } = interaction;
-
-	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
-		.select("asset_url")
-		.where({ guild_id: interaction.guild_id })
-		.first();
-
-	await client.api.interactions.createModal(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID,
-						label: t("welcome.asset-modal-text-input-label", { lng: locale, ns: "features" }),
-						placeholder: "https://cdn.thatskyapplication.com/assets/sky_kid.webp",
-						max_length: MAXIMUM_MEDIA_GALLERY_URL_LENGTH,
-						style: TextInputStyle.Short,
-						value: welcomePacket?.asset_url ?? "",
-						required: true,
-					},
-				],
-			},
-		],
-		custom_id: WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID,
-		title: t("welcome.asset-modal-title", { lng: locale, ns: "features" }),
-	});
-}
-
-export async function welcomeHandleAssetSettingModal(interaction: APIModalSubmitGuildInteraction) {
-	const components = new ModalResolver(interaction.data.components);
-	const assetURL = components.getTextInputValue(WELCOME_ASSET_SETTING_ASSET_CUSTOM_ID);
-
-	if (!assetURL.startsWith("https://")) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("welcome.asset-https-start", { lng: interaction.locale, ns: "features" }),
-			flags: MessageFlags.Ephemeral,
-		});
-
-		return;
-	}
-
-	await pg<WelcomePacket>(Table.Welcome)
-		.insert({ guild_id: interaction.guild_id, asset_url: assetURL })
-		.onConflict("guild_id")
-		.merge();
-
-	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
-}
-
 export async function welcomeHandleAssetSettingDeleteButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
+	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
+		.select("asset")
+		.where({ guild_id: interaction.guild_id })
+		.first();
+
+	if (welcomePacket?.asset) {
+		await S3Client.send(
+			new DeleteObjectCommand({
+				Bucket: CDN_BUCKET,
+				Key: welcomeAssetRoute(interaction.guild_id, welcomePacket.asset),
+			}),
+		);
+	}
+
 	await pg<WelcomePacket>(Table.Welcome)
-		.insert({ guild_id: interaction.guild_id, asset_url: null })
+		.insert({ guild_id: interaction.guild_id, asset: null })
 		.onConflict("guild_id")
 		.merge();
 
@@ -716,4 +687,73 @@ export async function welcomeHandleAccentColourSettingDeleteButton(
 		.merge();
 
 	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+}
+
+export async function welcomeSetAsset(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	attachment: APIAttachment,
+) {
+	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
+		.where({ guild_id: interaction.guild_id })
+		.first();
+
+	// Delete the old asset if it exists.
+	if (welcomePacket?.asset) {
+		await S3Client.send(
+			new DeleteObjectCommand({
+				Bucket: CDN_BUCKET,
+				Key: welcomeAssetRoute(interaction.guild_id, welcomePacket.asset),
+			}),
+		);
+	}
+
+	const gif = attachment.content_type === "image/gif";
+
+	const assetBuffer = sharp(await (await fetch(attachment.url)).arrayBuffer(), {
+		animated: true,
+	});
+
+	let buffer: Buffer;
+
+	if (gif) {
+		buffer = await assetBuffer.gif().toBuffer();
+	} else {
+		buffer = await assetBuffer.webp().toBuffer();
+	}
+
+	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
+
+	if (gif) {
+		hashedBuffer = `${ANIMATED_HASH_PREFIX}${hashedBuffer}`;
+	}
+
+	await S3Client.send(
+		new PutObjectCommand({
+			Bucket: CDN_BUCKET,
+			Key: welcomeAssetRoute(interaction.guild_id, hashedBuffer),
+			Body: buffer,
+		}),
+	);
+
+	await pg<WelcomePacket>(Table.Welcome)
+		.insert({
+			guild_id: interaction.guild_id,
+			asset: hashedBuffer,
+		})
+		.onConflict("guild_id")
+		.merge();
+}
+
+function welcomeAssetRoute<GuildId extends Snowflake, Hash extends string>(
+	guildId: GuildId,
+	hash: Hash,
+): `welcome/asset/${GuildId}/${Hash}.gif` | `welcome/asset/${GuildId}/${Hash}.webp` {
+	return `welcome/asset/${guildId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
+}
+
+function welcomeAssetURL<GuildId extends Snowflake, Asset extends string>(
+	guildId: GuildId,
+	asset: Asset,
+): `${typeof CDN_URL}/${`welcome/asset/${GuildId}/${Asset}.gif` | `welcome/asset/${GuildId}/${Asset}.webp`}` {
+	return `${CDN_URL}/${welcomeAssetRoute(guildId, asset)}`;
 }

@@ -196,8 +196,6 @@ import {
 	WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
 	WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID,
 	WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
-	WELCOME_ASSET_SETTING_CUSTOM_ID,
-	WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID,
 	WELCOME_HUG_CUSTOM_ID,
 	WELCOME_HUG_SETTING_CUSTOM_ID,
 	WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
@@ -207,9 +205,7 @@ import {
 	welcomeHandleAccentColourSettingButton,
 	welcomeHandleAccentColourSettingDeleteButton,
 	welcomeHandleAccentColourSettingModal,
-	welcomeHandleAssetSettingButton,
 	welcomeHandleAssetSettingDeleteButton,
-	welcomeHandleAssetSettingModal,
 	welcomeHandleHugButton,
 	welcomeHandleHugSettingButton,
 	welcomeHandleMessageSettingButton,
@@ -888,11 +884,6 @@ export default {
 						return;
 					}
 
-					if (customId === WELCOME_ASSET_SETTING_CUSTOM_ID) {
-						await welcomeHandleAssetSettingButton(interaction);
-						return;
-					}
-
 					if (customId === WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID) {
 						await welcomeHandleAssetSettingDeleteButton(interaction);
 						return;
@@ -1228,11 +1219,6 @@ export default {
 				if (isGuildModalSubmit(interaction)) {
 					if (customId === WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID) {
 						await welcomeHandleMessageSettingModal(interaction);
-						return;
-					}
-
-					if (customId === WELCOME_ASSET_SETTING_MODAL_CUSTOM_ID) {
-						await welcomeHandleAssetSettingModal(interaction);
 						return;
 					}
 
