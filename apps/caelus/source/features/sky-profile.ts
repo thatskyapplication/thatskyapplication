@@ -307,6 +307,37 @@ export async function skyProfileSet(
 	data: SkyProfileSetData,
 	deferred = false,
 ) {
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+		.select("icon", "banner")
+		.where({ user_id: data.user_id })
+		.first();
+
+	if (skyProfilePacket) {
+		const promises = [];
+		const skyProfileDeleteData = [];
+
+		if (data.icon === null && skyProfilePacket.icon) {
+			skyProfileDeleteData.push({ Key: skyProfileIconRoute(data.user_id, skyProfilePacket.icon) });
+		}
+
+		if (data.banner === null && skyProfilePacket.banner) {
+			skyProfileDeleteData.push({
+				Key: skyProfileBannerRoute(data.user_id, skyProfilePacket.banner),
+			});
+		}
+
+		if (skyProfileDeleteData.length > 0) {
+			promises.push(
+				S3Client.send(
+					new DeleteObjectsCommand({
+						Bucket: CDN_BUCKET,
+						Delete: { Objects: skyProfileDeleteData },
+					}),
+				),
+			);
+		}
+	}
+
 	await pg<SkyProfilePacket>(Table.Profiles).insert(data).onConflict("user_id").merge();
 	await skyProfileShowEdit(interaction, deferred);
 }
