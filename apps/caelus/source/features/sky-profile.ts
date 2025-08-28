@@ -30,7 +30,6 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import {
-	CDN_URL,
 	COUNTRY_VALUES,
 	type Country,
 	CountryToEmoji,
@@ -75,6 +74,7 @@ import { totalReceived } from "../services/heart.js";
 import {
 	APPLICATION_ID,
 	CDN_BUCKET,
+	CDN_URL,
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORTER_ROLE_ID,
