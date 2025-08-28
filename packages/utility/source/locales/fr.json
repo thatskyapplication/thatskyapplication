@@ -2524,7 +2524,9 @@
 			},
 			"welcome": {
 				"command-name": "",
-				"command-description": ""
+				"command-description": "",
+				"command-option-asset-name": "",
+				"command-option-asset-description": ""
 			}
 		},
 		"daily-guides": {
@@ -3111,13 +3113,9 @@
 			"message-modal-title": "Message de bienvenue",
 			"message-modal-text-input-label": "Entrer votre message de bienvenue.",
 			"message-modal-text-input-placeholder": "Bienvenue sur le serveur, {{user}} !",
-			"asset-description": "Vous pouvez utiliser un média à afficher !",
+			"asset-description-mention": "",
+			"asset-description-text": "",
 			"asset-remove": "Supprimer le média ?",
-			"asset-edit": "Modifier le média ?",
-			"asset-use": "Utiliser un média ?",
-			"asset-modal-title": "Média de bienvenue",
-			"asset-modal-text-input-label": "Entrer le lien du média.",
-			"asset-https-start": "Le lien du média doit commencer par `https://`.",
 			"hug-description": "Vous pouvez afficher un bouton de câlin au message pour que les autre l'utilise !",
 			"hug-remove": "Supprimer le bouton de câlin ?",
 			"hug-add": "Ajouter le bouton de câlin ?",

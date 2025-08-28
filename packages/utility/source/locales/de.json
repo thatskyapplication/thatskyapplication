@@ -2524,7 +2524,9 @@
 			},
 			"welcome": {
 				"command-name": "",
-				"command-description": ""
+				"command-description": "",
+				"command-option-asset-name": "",
+				"command-option-asset-description": ""
 			}
 		},
 		"daily-guides": {
@@ -3111,13 +3113,9 @@
 			"message-modal-title": "",
 			"message-modal-text-input-label": "",
 			"message-modal-text-input-placeholder": "",
-			"asset-description": "",
+			"asset-description-mention": "",
+			"asset-description-text": "",
 			"asset-remove": "",
-			"asset-edit": "",
-			"asset-use": "",
-			"asset-modal-title": "",
-			"asset-modal-text-input-label": "",
-			"asset-https-start": "",
 			"hug-description": "",
 			"hug-remove": "",
 			"hug-add": "",
