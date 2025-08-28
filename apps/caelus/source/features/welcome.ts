@@ -312,16 +312,16 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 
 	components.push({ type: ComponentType.Container, components: containerComponents });
 
-	const responeOptions = {
+	const responseOptions = {
 		components,
 		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	};
 
 	await (isChatInputCommand(interaction)
 		? deferred
-			? client.api.interactions.editReply(APPLICATION_ID, interaction.token, responeOptions)
-			: client.api.interactions.reply(interaction.id, interaction.token, responeOptions)
-		: client.api.interactions.updateMessage(interaction.id, interaction.token, responeOptions));
+			? client.api.interactions.editReply(APPLICATION_ID, interaction.token, responseOptions)
+			: client.api.interactions.reply(interaction.id, interaction.token, responseOptions)
+		: client.api.interactions.updateMessage(interaction.id, interaction.token, responseOptions));
 }
 
 interface WelcomeSetupChannelOptions {
