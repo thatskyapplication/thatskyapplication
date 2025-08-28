@@ -191,17 +191,17 @@ export async function welcomeSetup(
 				? [
 						{
 							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
-							label: t("welcome.message-remove", { lng: locale, ns: "features" }),
-							emoji: MISCELLANEOUS_EMOJIS.Trash,
-						},
-						{
-							type: ComponentType.Button,
 							style: ButtonStyle.Primary,
 							custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
 							label: t("welcome.message-edit", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Edit,
+						},
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Danger,
+							custom_id: WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
+							label: t("welcome.message-remove", { lng: locale, ns: "features" }),
+							emoji: MISCELLANEOUS_EMOJIS.Trash,
 						},
 					]
 				: [
@@ -214,33 +214,6 @@ export async function welcomeSetup(
 						},
 					],
 		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t(`welcome.asset-description-${suffix}`, assetLocaleOptions),
-		},
-	];
-
-	if (welcomePacket?.asset) {
-		containerComponents.push({
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.Button,
-					style: ButtonStyle.Danger,
-					custom_id: WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
-					label: t("welcome.asset-remove", { lng: locale, ns: "features" }),
-					emoji: MISCELLANEOUS_EMOJIS.Trash,
-				},
-			],
-		});
-	}
-
-	containerComponents.push(
 		{
 			type: ComponentType.Separator,
 			divider: true,
@@ -285,17 +258,17 @@ export async function welcomeSetup(
 				? [
 						{
 							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID,
-							label: t("welcome.accent-colour-remove", { lng: locale, ns: "features" }),
-							emoji: MISCELLANEOUS_EMOJIS.Trash,
-						},
-						{
-							type: ComponentType.Button,
 							style: ButtonStyle.Primary,
 							custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
 							label: t("welcome.accent-colour-edit", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Edit,
+						},
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Danger,
+							custom_id: WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID,
+							label: t("welcome.accent-colour-remove", { lng: locale, ns: "features" }),
+							emoji: MISCELLANEOUS_EMOJIS.Trash,
 						},
 					]
 				: [
@@ -308,7 +281,31 @@ export async function welcomeSetup(
 						},
 					],
 		},
-	);
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t(`welcome.asset-description-${suffix}`, assetLocaleOptions),
+		},
+	];
+
+	if (welcomePacket?.asset) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					style: ButtonStyle.Danger,
+					custom_id: WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
+					label: t("welcome.asset-remove", { lng: locale, ns: "features" }),
+					emoji: MISCELLANEOUS_EMOJIS.Trash,
+				},
+			],
+		});
+	}
 
 	components.push({ type: ComponentType.Container, components: containerComponents });
 
