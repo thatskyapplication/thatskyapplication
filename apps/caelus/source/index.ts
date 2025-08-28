@@ -66,10 +66,10 @@ for (const event of [
 const applicationCommands = await client.api.applicationCommands.getGlobalCommands(APPLICATION_ID);
 
 const configureCommandName = "configure";
-const giveawayCommandName = "giveaway";
+// const giveawayCommandName = "giveaway";
 const skyProfileCommandName = "sky-profile";
 let configureCommandId: Snowflake | undefined;
-let giveawayCommandId: Snowflake | undefined;
+// let giveawayCommandId: Snowflake | undefined;
 let skyProfileCommandId: Snowflake | undefined;
 
 for (const applicationCommand of applicationCommands) {
@@ -78,17 +78,21 @@ for (const applicationCommand of applicationCommands) {
 			configureCommandId = applicationCommand.id;
 			break;
 		}
-		case giveawayCommandName: {
-			giveawayCommandId = applicationCommand.id;
-			break;
-		}
+		// case giveawayCommandName: {
+		// 	giveawayCommandId = applicationCommand.id;
+		// 	break;
+		// }
 		case skyProfileCommandName: {
 			skyProfileCommandId = applicationCommand.id;
 			break;
 		}
 	}
 
-	if (configureCommandId && giveawayCommandId && skyProfileCommandId) {
+	if (
+		configureCommandId &&
+		// giveawayCommandId &&
+		skyProfileCommandId
+	) {
 		break;
 	}
 }
@@ -99,11 +103,11 @@ if (configureCommandId) {
 	pino.warn(`Command "${configureCommandName}" not found from the API.`);
 }
 
-if (giveawayCommandId) {
-	COMMAND_CACHE.set(giveawayCommandName, giveawayCommandId);
-} else {
-	pino.warn(`Command "${giveawayCommandName}" not found from the API.`);
-}
+// if (giveawayCommandId) {
+// 	COMMAND_CACHE.set(giveawayCommandName, giveawayCommandId);
+// } else {
+// 	pino.warn(`Command "${giveawayCommandName}" not found from the API.`);
+// }
 
 if (skyProfileCommandId) {
 	COMMAND_CACHE.set(skyProfileCommandName, skyProfileCommandId);
