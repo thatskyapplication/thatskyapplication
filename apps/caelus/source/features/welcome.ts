@@ -34,7 +34,7 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
-import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
+import { APPLICATION_ID, CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
 import { ANIMATED_HASH_PREFIX } from "../utility/constants.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
@@ -94,15 +94,18 @@ export type WelcomePacketWithChannel = WelcomePacket &
 
 type WelcomePacketSetData = Pick<WelcomePacket, "guild_id"> & Partial<WelcomePacket>;
 
-export async function welcomeSetup(
+interface WelcomeSetupOptions {
 	interaction:
 		| APIChatInputApplicationCommandGuildInteraction
 		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
 		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
-		| APIModalSubmitGuildInteraction,
-	userId: Snowflake,
-	locale: Locale,
-) {
+		| APIModalSubmitGuildInteraction;
+	userId: Snowflake;
+	locale: Locale;
+	deferred?: boolean;
+}
+
+export async function welcomeSetup({ interaction, userId, locale, deferred }: WelcomeSetupOptions) {
 	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
 		.where({ guild_id: interaction.guild_id })
 		.first();
@@ -309,26 +312,25 @@ export async function welcomeSetup(
 
 	components.push({ type: ComponentType.Container, components: containerComponents });
 
-	if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			components,
-			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-		});
-	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components,
-			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-		});
-	}
+	const responeOptions = {
+		components,
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	};
+
+	await (isChatInputCommand(interaction)
+		? deferred
+			? client.api.interactions.editReply(APPLICATION_ID, interaction.token, responeOptions)
+			: client.api.interactions.reply(interaction.id, interaction.token, responeOptions)
+		: client.api.interactions.updateMessage(interaction.id, interaction.token, responeOptions));
 }
 
-interface WelcomeSetupOptions {
+interface WelcomeSetupChannelOptions {
 	welcomeChannelId: Snowflake | null;
 }
 
 export async function handleChannelSelectMenu(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
-	{ welcomeChannelId }: WelcomeSetupOptions,
+	{ welcomeChannelId }: WelcomeSetupChannelOptions,
 ) {
 	const guild = GUILD_CACHE.get(interaction.guild_id);
 
@@ -371,7 +373,12 @@ export async function handleChannelSelectMenu(
 	}
 
 	await pg<WelcomePacket>(Table.Welcome).insert(data).onConflict("guild_id").merge();
-	await welcomeSetup(interaction, interaction.member.user.id, guild.preferredLocale);
+
+	await welcomeSetup({
+		interaction,
+		userId: interaction.member.user.id,
+		locale: guild.preferredLocale,
+	});
 }
 
 interface WelcomeMessageOptions {
@@ -532,7 +539,11 @@ export async function welcomeHandleHugSettingButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+	await welcomeSetup({
+		interaction,
+		userId: interaction.member.user.id,
+		locale: interaction.guild_locale!,
+	});
 }
 
 export async function welcomeHandleMessageSettingButton(
@@ -584,7 +595,11 @@ export async function welcomeHandleMessageSettingModal(
 		.onConflict("guild_id")
 		.merge();
 
-	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+	await welcomeSetup({
+		interaction,
+		userId: interaction.member.user.id,
+		locale: interaction.guild_locale!,
+	});
 }
 
 export async function welcomeHandleMessageSettingDeleteButton(
@@ -595,7 +610,11 @@ export async function welcomeHandleMessageSettingDeleteButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+	await welcomeSetup({
+		interaction,
+		userId: interaction.member.user.id,
+		locale: interaction.guild_locale!,
+	});
 }
 
 export async function welcomeHandleAssetSettingDeleteButton(
@@ -620,7 +639,11 @@ export async function welcomeHandleAssetSettingDeleteButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+	await welcomeSetup({
+		interaction,
+		userId: interaction.member.user.id,
+		locale: interaction.guild_locale!,
+	});
 }
 
 export async function welcomeHandleAccentColourSettingButton(
@@ -683,7 +706,11 @@ export async function welcomeHandleAccentColourSettingModal(
 		.onConflict("guild_id")
 		.merge();
 
-	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+	await welcomeSetup({
+		interaction,
+		userId: interaction.member.user.id,
+		locale: interaction.guild_locale!,
+	});
 }
 
 export async function welcomeHandleAccentColourSettingDeleteButton(
@@ -694,7 +721,11 @@ export async function welcomeHandleAccentColourSettingDeleteButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await welcomeSetup(interaction, interaction.member.user.id, interaction.guild_locale!);
+	await welcomeSetup({
+		interaction,
+		userId: interaction.member.user.id,
+		locale: interaction.guild_locale!,
+	});
 }
 
 export async function welcomeSetAsset(

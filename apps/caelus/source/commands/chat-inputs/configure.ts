@@ -80,14 +80,31 @@ async function welcome(interaction: APIChatInputApplicationCommandGuildInteracti
 	const media = options.getAttachment("media");
 
 	if (media) {
+		await client.api.interactions.defer(interaction.id, interaction.token, {
+			flags: MessageFlags.Ephemeral,
+		});
+
 		if (!(await validateAttachment(interaction, media))) {
 			return;
 		}
 
 		await welcomeSetAsset(interaction, media);
+
+		await welcomeSetup({
+			interaction,
+			userId: interaction.member.user.id,
+			locale: guild.preferredLocale,
+			deferred: true,
+		});
+
+		return;
 	}
 
-	await welcomeSetup(interaction, interaction.member.user.id, guild.preferredLocale);
+	await welcomeSetup({
+		interaction,
+		userId: interaction.member.user.id,
+		locale: guild.preferredLocale,
+	});
 }
 
 export default {
