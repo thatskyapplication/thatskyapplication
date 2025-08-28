@@ -7,7 +7,6 @@ import {
 	type APIAttachment,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
-	type APIComponentInMessageActionRow,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
@@ -79,7 +78,6 @@ import {
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORTER_ROLE_ID,
-	THAT_WINGLESS_COMMUNITY_INVITE_URL,
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
 import {
@@ -172,20 +170,6 @@ const SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_HANGOUT_INPUT_C
 
 export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
 	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
-
-const SKY_PROFILE_EDIT_WINGLESS_BUTTON = {
-	type: ComponentType.Button,
-	style: ButtonStyle.Link,
-	label: "Join capeless community server",
-	url: THAT_WINGLESS_COMMUNITY_INVITE_URL,
-} as const;
-
-const SKY_PROFILE_EDIT_RESET_BUTTON = {
-	type: ComponentType.Button,
-	custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
-	label: "Reset",
-	style: ButtonStyle.Secondary,
-} as const;
 
 export const SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS = [
 	"SKY_PROFILE_EXPLORE_1_SELECT_MENU_CUSTOM_ID",
@@ -571,14 +555,17 @@ export async function skyProfileShowEdit(
 		],
 	});
 
-	const actionRowComponents: APIComponentInMessageActionRow[] = [];
-
-	if (data?.winged_light === SkyProfileWingedLightType.Capeless) {
-		actionRowComponents.push(SKY_PROFILE_EDIT_WINGLESS_BUTTON);
-	}
-
-	actionRowComponents.push(SKY_PROFILE_EDIT_RESET_BUTTON);
-	containerComponents.push({ type: ComponentType.ActionRow, components: actionRowComponents });
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: [
+			{
+				type: ComponentType.Button,
+				custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
+				label: t("sky-profile.edit-reset-button-label", { lng: locale, ns: "features" }),
+				style: ButtonStyle.Secondary,
+			},
+		],
+	});
 
 	const baseReplyOptions:
 		| Parameters<InteractionsAPI["editReply"]>[2]

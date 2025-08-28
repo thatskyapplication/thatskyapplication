@@ -3284,6 +3284,7 @@ export default {
 			"no-sky-profile-edit":
 				"You do not have a Sky profile yet. Build one!\nSky profiles show up on {{url}} too!",
 			"edit-placeholder": "What do you want to edit?",
+			"edit-reset-button-label": "Reset",
 			"no-sky-profile-application": "Do applications have Sky profiles? Hm. Who knows?",
 			"no-sky-profile-invoker": "You do not have a Sky profile! Why not create one?",
 			"no-sky-profile-other":
