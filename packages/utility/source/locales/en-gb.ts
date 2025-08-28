@@ -496,6 +496,10 @@ export default {
 				SpiritId.FlightGuide,
 				SkyMap.PrairieTemple,
 			),
+			[DailyQuest.MeetUpWithBackflippingChampionInValleyOfTriumph]: questsMeetUpWith(
+				SpiritId.BackflippingChampion,
+				RealmName.ValleyOfTriumph,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
