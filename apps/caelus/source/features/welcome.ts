@@ -381,10 +381,17 @@ interface WelcomeMessageOptions {
 }
 
 export async function sendWelcomeMessage({ userId, welcomePacket, locale }: WelcomeMessageOptions) {
+	const components = welcomeComponents(userId, welcomePacket, locale);
+
+	// Could happen if only an accent colour is set.
+	if (components[0].components.length === 0) {
+		return;
+	}
+
 	try {
 		await client.api.channels.createMessage(welcomePacket.welcome_channel_id, {
 			allowed_mentions: { users: [userId] },
-			components: welcomeComponents(userId, welcomePacket, locale),
+			components,
 			flags: MessageFlags.IsComponentsV2,
 		});
 	} catch (error) {
