@@ -3,6 +3,7 @@ import {
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIModalSubmitInteraction,
 	type APIUserApplicationCommandInteraction,
 	ApplicationCommandType,
 	ComponentType,
@@ -433,7 +434,28 @@ function logMessageComponent(
 			context: interaction.context,
 			locale: { user: interaction.locale, guild: interaction.guild_locale },
 		},
-		`Custom id: ${customId}`,
+		`Component custom id: ${customId}`,
+	);
+}
+
+function logModalSubmit(interaction: APIModalSubmitInteraction) {
+	const customId = interaction.data.custom_id;
+	const invoker = interactionInvoker(interaction);
+
+	pino.info(
+		{
+			user: { id: invoker.id, invokername: invoker.username },
+			customId,
+			components: interaction.data.components,
+			guildId: interaction.guild_id,
+			channelId: "channel" in interaction ? interaction.channel.id : null,
+			messageId: "message" in interaction ? interaction.message.id : null,
+			permissions: interaction.app_permissions,
+			authorizingIntegrationOwners: interaction.authorizing_integration_owners,
+			context: interaction.context,
+			locale: { user: interaction.locale, guild: interaction.guild_locale },
+		},
+		`Modal submit custom id: ${customId}`,
 	);
 }
 
@@ -1178,6 +1200,7 @@ export default {
 		}
 
 		if (isModalSubmit(interaction)) {
+			logModalSubmit(interaction);
 			const customId = interaction.data.custom_id;
 
 			try {
