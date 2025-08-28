@@ -2444,7 +2444,7 @@
 			"2475": "",
 			"2476": "",
 			"2477": "アニバーサリータキシードケープ",
-			"2480": ""
+			"2480": "記憶の映写機"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2986,6 +2986,7 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
+			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",

@@ -450,7 +450,7 @@
 			"60": "",
 			"61": "",
 			"62": "",
-			"63": "",
+			"63": "Tage des Mondlichts",
 			"64": "",
 			"65": "Tage des Schalks",
 			"66": "",
@@ -466,7 +466,7 @@
 			"76": "Werkstatt „Zeigen & erzählen“",
 			"77": "Sky-Jubiläum",
 			"78": "",
-			"79": "",
+			"79": "Tage des Mondlichts",
 			"80": ""
 		},
 		"event-wiki": {
@@ -2444,7 +2444,7 @@
 			"2475": "",
 			"2476": "",
 			"2477": "Smoking-Cape zum Jubiläum",
-			"2480": ""
+			"2480": "Projektor der Erinnerungen"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2986,6 +2986,7 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
+			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",
