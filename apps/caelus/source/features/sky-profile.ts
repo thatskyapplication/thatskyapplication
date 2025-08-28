@@ -313,7 +313,6 @@ export async function skyProfileSet(
 		.first();
 
 	if (skyProfilePacket) {
-		const promises = [];
 		const skyProfileDeleteData = [];
 
 		if (data.icon === null && skyProfilePacket.icon) {
@@ -327,13 +326,8 @@ export async function skyProfileSet(
 		}
 
 		if (skyProfileDeleteData.length > 0) {
-			promises.push(
-				S3Client.send(
-					new DeleteObjectsCommand({
-						Bucket: CDN_BUCKET,
-						Delete: { Objects: skyProfileDeleteData },
-					}),
-				),
+			await S3Client.send(
+				new DeleteObjectsCommand({ Bucket: CDN_BUCKET, Delete: { Objects: skyProfileDeleteData } }),
 			);
 		}
 	}
