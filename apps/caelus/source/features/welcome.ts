@@ -391,7 +391,11 @@ export async function sendWelcomeMessage({ userId, welcomePacket, locale }: Welc
 			flags: MessageFlags.IsComponentsV2,
 		});
 	} catch (error) {
-		if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.MissingPermissions) {
+		if (
+			error instanceof DiscordAPIError &&
+			(error.code === RESTJSONErrorCodes.MissingPermissions ||
+				error.code === RESTJSONErrorCodes.InvalidFormBodyOrContentType)
+		) {
 			pino.warn(error, "Missing permissions to send welcome message. Removing configuration.");
 
 			await pg<WelcomePacket>(Table.Welcome)
