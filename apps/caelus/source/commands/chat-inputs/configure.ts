@@ -77,14 +77,14 @@ async function notifications(
 
 async function welcome(interaction: APIChatInputApplicationCommandGuildInteraction, guild: Guild) {
 	const options = new OptionResolver(interaction);
-	const asset = options.getAttachment("asset");
+	const media = options.getAttachment("media");
 
-	if (asset) {
-		if (!(await validateAttachment(interaction, asset))) {
+	if (media) {
+		if (!(await validateAttachment(interaction, media))) {
 			return;
 		}
 
-		await welcomeSetAsset(interaction, asset);
+		await welcomeSetAsset(interaction, media);
 	}
 
 	await welcomeSetup(interaction, interaction.member.user.id, guild.preferredLocale);
