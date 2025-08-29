@@ -2708,6 +2708,8 @@ export default {
 			[Cosmetic.AnniversaryGown]: "Anniversary Gown",
 			[Cosmetic.AnniversaryShoes]: "Anniversary Shoes",
 			[Cosmetic.AnniversaryTuxedoCape]: "Anniversary Tuxedo Cape",
+			[Cosmetic.VaultEldersLanternProp]: "Prop",
+			[Cosmetic.CaringCompanionProp]: "Prop",
 			[Cosmetic.ProjectorOfMemories]: "Projector of Memories",
 		},
 		"interaction-error":

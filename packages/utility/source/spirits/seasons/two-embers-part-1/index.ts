@@ -4,6 +4,7 @@ import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
 import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
+import caringCompanion from "./caring-companion.js";
 import resourcefulRecluse from "./resourceful-recluse.js";
 import scarredSentry from "./scarred-sentry.js";
 import sternShepherd from "./stern-shepherd.js";
@@ -15,7 +16,7 @@ export default new Season({
 	start: skyDate(2_025, 7, 21),
 	end: skyDate(2_025, 10, 6),
 	guide: vaultEldersLantern,
-	spirits: [tenderToymaker, scarredSentry, sternShepherd, resourcefulRecluse],
+	spirits: [tenderToymaker, scarredSentry, sternShepherd, resourcefulRecluse, caringCompanion],
 	seasonalCandlesRotation: (now) =>
 		now >= skyDate(2_025, 8, 1)
 			? [

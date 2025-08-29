@@ -146,7 +146,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	const owned = [];
 	const unowned = [];
 
-	for (const { cosmetics, regularHeart } of offer) {
+	for (const { translation, cosmetics, regularHeart } of offer) {
 		const emojis = regularHeart
 			? [formatEmoji(MISCELLANEOUS_EMOJIS.Heart)]
 			: cosmetics.map((cosmetic) => {
@@ -154,7 +154,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 
 					return emoji
 						? formatEmoji(emoji)
-						: t(`cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
+						: t(translation?.key ?? `cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
 				});
 
 		if (cosmetics.every((cosmetic) => data.has(cosmetic))) {
@@ -168,7 +168,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 		offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
 	}
 
-	if (unowned.length > 0) {
+	if (unowned.length > 0) {	
 		offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
 	}
 
