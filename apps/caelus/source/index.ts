@@ -1,3 +1,4 @@
+import "./i18next.js"; // Must be first.
 import type { Snowflake } from "@discordjs/core";
 import { COMMAND_CACHE } from "./caches/commands.js";
 import { client, gateway } from "./discord.js";
