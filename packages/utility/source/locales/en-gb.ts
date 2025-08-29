@@ -3437,8 +3437,10 @@ export default {
 			"message-edit": "Edit the message?",
 			"message-use": "Use a message?",
 			"message-modal-title": "Welcome message",
-			"message-modal-text-input-label": "Enter your welcome message.",
-			"message-modal-text-input-placeholder": "Welcome to the server, {{user}}!",
+			"message-modal-label-welcome-message-label": "Welcome message",
+			"message-modal-label-welcome-message-description": "Enter your welcome message.",
+			"message-modal-label-welcome-message-text-input-placeholder":
+				"Welcome to the server, {{user}}!",
 			"asset-description-mention":
 				"Use {{mention}} to upload media to display in the welcome message!",
 			"asset-description-text":
@@ -3453,7 +3455,8 @@ export default {
 			"accent-colour-edit": "Edit accent colour?",
 			"accent-colour-use": "Use an accent colour?",
 			"accent-colour-modal-title": "Welcome accent colour",
-			"accent-colour-modal-text-input-label": "Enter a hexadecimal colour code.",
+			"accent-colour-modal-label-accent-colour-label": "Accent colour",
+			"accent-colour-modal-label-accent-colour-description": "Enter a hexadecimal colour code.",
 			"accent-colour-invalid":
 				"Invalid hexadecimal colour code. Look up a colour picker tool for ease!",
 			"missing-permissions": "`View Channel` & `Send Messages` are required.",

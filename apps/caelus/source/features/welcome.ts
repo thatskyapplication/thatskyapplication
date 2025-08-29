@@ -563,7 +563,7 @@ export async function welcomeHandleMessageSettingButton(
 				component: {
 					type: ComponentType.TextInput,
 					custom_id: WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID,
-					placeholder: t("welcome.message-modal-text-input-placeholder", {
+					placeholder: t("welcome.message-modal-label-welcome-message-text-input-placeholder", {
 						lng: locale,
 						ns: "features",
 					}),
@@ -572,7 +572,14 @@ export async function welcomeHandleMessageSettingButton(
 					value: welcomePacket?.message ?? "",
 					required: true,
 				},
-				label: t("welcome.message-modal-text-input-label", { lng: locale, ns: "features" }),
+				label: t("welcome.message-modal-label-welcome-message-label", {
+					lng: locale,
+					ns: "features",
+				}),
+				description: t("welcome.message-modal-label-welcome-message-description", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID,
@@ -673,7 +680,14 @@ export async function welcomeHandleAccentColourSettingButton(
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("welcome.accent-colour-modal-text-input-label", { lng: locale, ns: "features" }),
+				label: t("welcome.accent-colour-modal-label-accent-colour-label", {
+					lng: locale,
+					ns: "features",
+				}),
+				description: t("welcome.accent-colour-modal-label-accent-colour-description", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID,
