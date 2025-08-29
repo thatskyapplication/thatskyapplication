@@ -3127,8 +3127,16 @@ export enum Cosmetic {
 	TiptoeingTeaBrewerWingBuff = 2478,
 	WoundedWarriorWingBuff = 2479,
 
+	// 29/08/2025 | Season of The Two Embers - Part 1 Quest 5.
+	VaultEldersLanternQuest5 = 2480,
+	VaultEldersLanternHeart5 = 2481,
+	VaultEldersLanternProp = 2482,
+	CaringCompanionQuest = 2483,
+	CaringCompanionHeart = 2484,
+	CaringCompanionProp = 2485,
+
 	// Unknown | Version 0.30.5.
-	ProjectorOfMemories = 2480,
+	ProjectorOfMemories = 2486,
 }
 
 export enum CosmeticCommon {

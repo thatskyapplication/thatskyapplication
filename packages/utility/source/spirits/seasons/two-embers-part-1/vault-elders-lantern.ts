@@ -65,6 +65,22 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.VaultEldersLanternHeart4,
 				},
 			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+					cosmetic: Cosmetic.VaultEldersLanternQuest5,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
+					cosmetic: Cosmetic.VaultEldersLanternHeart5,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.VaultEldersLanternProp,
+					cost: { candles: 27 },
+				},
+			],
 		],
 	},
 });

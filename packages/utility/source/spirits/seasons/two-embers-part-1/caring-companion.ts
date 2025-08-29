@@ -1,3 +1,4 @@
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -8,6 +9,23 @@ export default new SeasonalSpirit({
 	offer: {
 		hasInfographicSeasonal: false,
 		hasInfographic: false,
-		seasonal: [],
+		seasonal: [
+			[
+				{
+					translation: CosmeticCommon.Quest,
+					cosmetic: Cosmetic.CaringCompanionQuest,
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.CaringCompanionHeart,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.CaringCompanionProp,
+					cost: { hearts: 12 },
+				},
+			],
+		],
 	},
 });
