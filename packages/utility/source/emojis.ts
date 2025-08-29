@@ -5331,6 +5331,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Manatee Plush.
 	 */
 	SmallPlaceableProp94: { id: "1399294985655947375", name: "94_small_placeable_prop" },
+	/**
+	 * Caring Companion.
+	 */
+	SmallPlaceableProp96: { id: "1410974814767681566", name: "96_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5428,6 +5432,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp92: { id: "1396906809238884393", name: "92_small_placeable_prop" },
 	SmallPlaceableProp93: { id: "1401820779548639252", name: "93_small_placeable_prop" },
 	SmallPlaceableProp94: { id: "1399294998867869737", name: "94_small_placeable_prop" },
+	SmallPlaceableProp96: { id: "1410974885789827245", name: "96_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -7983,7 +7988,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.VaultEldersLanternProp]: null,
 		[Cosmetic.CaringCompanionQuest]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CaringCompanionHeart]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.CaringCompanionProp]: null,
+		[Cosmetic.CaringCompanionProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp96,
 		[Cosmetic.ProjectorOfMemories]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
