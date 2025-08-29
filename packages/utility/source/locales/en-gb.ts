@@ -3014,12 +3014,16 @@ export default {
 			"feedback-modal-label-title-description": "Enter a suitable title for your feedback.",
 			"feedback-modal-label-description-label": "Feedback",
 			"feedback-modal-label-description-description": "Type your feedback here!",
-			"feedback-modal-label-description-text-input-placeholder": "It would be cool to...\nI wish we could...",
+			"feedback-modal-label-description-text-input-placeholder":
+				"It would be cool to...\nI wish we could...",
 			"feedback-submission": "Thank you for your feedback! {{emoji}}",
-			"issue-modal-heading": "Report issue",
-			"issue-modal-title": "Enter a suitable title for your issue.",
-			"issue-modal-description": "Describe your issue here.",
-			"issue-modal-description-placeholder": "Every time I try to...\nNothing happens when...",
+			"issue-modal-title": "Report issue",
+			"issue-modal-label-title-label": "Title",
+			"issue-modal-label-title-description": "Enter a suitable title for your issue.",
+			"issue-modal-label-description-label": "Description",
+			"issue-modal-label-description-description": "Describe your issue here.",
+			"issue-modal-label-description-text-input-placeholder":
+				"Every time I try to...\nNothing happens when...",
 			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
 		},
 		ai: {

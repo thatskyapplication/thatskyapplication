@@ -306,7 +306,14 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 					max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
 					required: true,
 				},
-				label: t("about.issue-modal-title", { lng: interaction.locale, ns: "features" }),
+				label: t("about.issue-modal-label-title-label", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
+				description: t("about.issue-modal-label-title-description", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
 			},
 			{
 				type: ComponentType.Label,
@@ -314,7 +321,7 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 					type: ComponentType.TextInput,
 					style: TextInputStyle.Paragraph,
 					custom_id: ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
-					placeholder: t("about.issue-modal-description-placeholder", {
+					placeholder: t("about.issue-modal-label-description-text-input-placeholder", {
 						lng: interaction.locale,
 						ns: "features",
 					}),
@@ -322,11 +329,18 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 					max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
 					required: true,
 				},
-				label: t("about.issue-modal-description", { lng: interaction.locale, ns: "features" }),
+				label: t("about.issue-modal-label-description-label", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
+				description: t("about.issue-modal-label-description-description", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: ISSUE_MODAL_CUSTOM_ID,
-		title: t("about.issue-modal-heading", { lng: interaction.locale, ns: "features" }),
+		title: t("about.issue-modal-title", { lng: interaction.locale, ns: "features" }),
 	});
 }
 
