@@ -64,10 +64,12 @@ export default function croner() {
 				return;
 			}
 
-			await request("https://flight-check.thatskyapplication.com", {
+			const { body } = await request("https://flight-check.thatskyapplication.com", {
 				method: "GET",
 				headers: { Authorization: `Bearer ${FLIGHT_CHECK}` },
 			});
+
+			await body.dump();
 		});
 	}
 }
