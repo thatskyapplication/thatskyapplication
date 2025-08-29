@@ -1434,17 +1434,19 @@ export async function skyProfileReportModalPrompt(
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID,
-						label: t("sky-profile.report-modal-description", { lng: locale, ns: "features" }),
-						max_length: SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
-						min_length: SKY_PROFILE_REPORT_MINIMUM_LENGTH,
-						style: TextInputStyle.Paragraph,
-					},
-				],
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.TextInput,
+					custom_id: SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID,
+					max_length: SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
+					min_length: SKY_PROFILE_REPORT_MINIMUM_LENGTH,
+					style: TextInputStyle.Paragraph,
+				},
+				label: t("sky-profile.report-modal-label-reason-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.report-modal-label-reason-description", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: `${SKY_PROFILE_REPORT_MODAL_CUSTOM_ID}§${userId}`,
@@ -1564,7 +1566,6 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
 		custom_id: SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID,
-		label: t("sky-profile.edit-name-description", { lng: locale, ns: "features" }),
 		max_length: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 		min_length: 1,
 		required: true,
@@ -1576,7 +1577,17 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 	}
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
-		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+		components: [
+			{
+				type: ComponentType.Label,
+				component: textInput,
+				label: t("sky-profile.edit-modal-label-name-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.edit-modal-label-name-description", {
+					lng: locale,
+					ns: "features",
+				}),
+			},
+		],
 		custom_id: SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
 		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
@@ -1595,7 +1606,6 @@ async function skyProfileShowDescriptionModal(
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
 		custom_id: SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID,
-		label: t("sky-profile.edit-description-description", { lng: locale, ns: "features" }),
 		max_length: SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 		min_length: 1,
 		required: true,
@@ -1607,7 +1617,17 @@ async function skyProfileShowDescriptionModal(
 	}
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
-		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+		components: [
+			{
+				type: ComponentType.Label,
+				component: textInput,
+				label: t("sky-profile.edit-modal-label-description-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.edit-modal-label-description-description", {
+					lng: locale,
+					ns: "features",
+				}),
+			},
+		],
 		custom_id: SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
 		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
@@ -1687,7 +1707,6 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
 		custom_id: SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID,
-		label: t("sky-profile.edit-hangout-description", { lng: locale, ns: "features" }),
 		max_length: SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 		min_length: SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 		required: true,
@@ -1699,7 +1718,17 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 	}
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
-		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+		components: [
+			{
+				type: ComponentType.Label,
+				component: textInput,
+				label: t("sky-profile.edit-modal-label-hangout-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.edit-modal-label-hangout-description", {
+					lng: locale,
+					ns: "features",
+				}),
+			},
+		],
 		custom_id: SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID,
 		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});

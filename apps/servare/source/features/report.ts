@@ -323,19 +323,18 @@ export async function reportModalResponse(
 		}),
 		components: [
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: schemaStore.serialize(CustomId.ReportModalResponseText, {}),
-						label: "Reason",
-						style: TextInputStyle.Paragraph,
-						min_length: REPORT_MINIMUM_REASON_LENGTH,
-						max_length: REPORT_MAXIMUM_REASON_LENGTH,
-						placeholder: "Please provide a reason for the report.",
-						required: true,
-					},
-				],
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.TextInput,
+					custom_id: schemaStore.serialize(CustomId.ReportModalResponseText, {}),
+					style: TextInputStyle.Paragraph,
+					min_length: REPORT_MINIMUM_REASON_LENGTH,
+					max_length: REPORT_MAXIMUM_REASON_LENGTH,
+					placeholder: "Please provide a reason for the report.",
+					required: true,
+				},
+				label: "Reason",
+				description: "What is the reason for this report?",
 			},
 		],
 	});

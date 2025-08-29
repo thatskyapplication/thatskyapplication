@@ -1,34 +1,44 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import {
+	type APIModalSubmissionComponent,
 	ComponentType,
-	type ModalSubmitActionRowComponent,
 	type ModalSubmitComponent,
 } from "@discordjs/core";
 
 export class ModalResolver {
-	private readonly fields: ReadonlyCollection<string, ModalSubmitComponent>;
+	private components: ReadonlyCollection<string, ModalSubmitComponent>;
 
-	public constructor(components: readonly ModalSubmitActionRowComponent[]) {
-		this.fields = components.reduce((accumulator, actionRow) => {
-			for (const component of actionRow.components) {
-				accumulator.set(component.custom_id, component);
+	public constructor(data: readonly APIModalSubmissionComponent[]) {
+		const components = new Collection<string, ModalSubmitComponent>();
+
+		for (const label of data) {
+			if (label.type === ComponentType.ActionRow) {
+				throw new Error("Encountered an action row in a modal.");
 			}
 
-			return accumulator;
-		}, new Collection<string, ModalSubmitComponent>());
+			components.set(label.component.custom_id, label.component);
+		}
+
+		this.components = components;
 	}
 
 	public getTextInputValue(customId: string) {
-		const field = this.fields.get(customId);
+		const field = this.components.get(customId);
 
-		if (!field) {
-			throw new Error(`Custom id ${customId} not found in modal.`);
-		}
-
-		if (ComponentType.TextInput !== field.type) {
+		if (!(field && ComponentType.TextInput === field.type)) {
 			throw new Error(`Custom id ${customId} is not a text input component.`);
 		}
 
 		return field.value;
+	}
+
+	public getStringSelectValues(customId: string) {
+		const field = this.components.get(customId);
+
+		if (!(field && ComponentType.StringSelect === field.type)) {
+			throw new Error(`Custom id ${customId} is not a string select component.`);
+		}
+
+		return field.values;
 	}
 }

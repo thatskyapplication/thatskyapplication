@@ -1,41 +1,44 @@
-import { Collection } from "@discordjs/collection";
+import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import {
+	type APIModalSubmissionComponent,
 	ComponentType,
-	type ModalSubmitActionRowComponent,
 	type ModalSubmitComponent,
 } from "@discordjs/core";
 
 export class ModalResolver {
-	private fields: Collection<string, ModalSubmitComponent>;
+	private components: ReadonlyCollection<string, ModalSubmitComponent>;
 
-	public constructor(components: ModalSubmitActionRowComponent[]) {
-		/**
-		 * The extracted fields from the modal.
-		 */
-		this.fields = components.reduce((accumulator, actionRow) => {
-			for (const component of actionRow.components) {
-				accumulator.set(component.custom_id, component);
+	public constructor(data: readonly APIModalSubmissionComponent[]) {
+		const components = new Collection<string, ModalSubmitComponent>();
+
+		for (const label of data) {
+			if (label.type === ComponentType.ActionRow) {
+				throw new Error("Encountered an action row in a modal.");
 			}
 
-			return accumulator;
-		}, new Collection<string, ModalSubmitComponent>());
-	}
-
-	/**
-	 * Gets the value of a text input component given a custom id.
-	 * @param customId The custom id of the text input component
-	 */
-	public getTextInputValue(customId: string) {
-		const field = this.fields.get(customId);
-
-		if (!field) {
-			throw new Error(`Custom id ${customId} not found in modal.`);
+			components.set(label.component.custom_id, label.component);
 		}
 
-		if (ComponentType.TextInput !== field.type) {
+		this.components = components;
+	}
+
+	public getTextInputValue(customId: string) {
+		const field = this.components.get(customId);
+
+		if (!(field && ComponentType.TextInput === field.type)) {
 			throw new Error(`Custom id ${customId} is not a text input component.`);
 		}
 
 		return field.value;
+	}
+
+	public getStringSelectValues(customId: string) {
+		const field = this.components.get(customId);
+
+		if (!(field && ComponentType.StringSelect === field.type)) {
+			throw new Error(`Custom id ${customId} is not a string select component.`);
+		}
+
+		return field.values;
 	}
 }

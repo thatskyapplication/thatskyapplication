@@ -3009,15 +3009,21 @@ export default {
 				"### Reporting issues & giving feedback\n\nYou may join the [support server]({{supportServerInviteURL}}) to do this.\n\nYou may also use the buttons below to do this without joining the server, if that's more your style.",
 			"feedback-button": "Submit feedback",
 			"issue-button": "Report an issue",
-			"feedback-modal-heading": "Submit feedback",
-			"feedback-modal-title": "Enter a suitable title for your feedback.",
-			"feedback-modal-description": "Type your feedback here!",
-			"feedback-modal-description-placeholder": "It would be cool to...\nI wish we could...",
+			"feedback-modal-title": "Submit feedback",
+			"feedback-modal-label-title-label": "Title",
+			"feedback-modal-label-title-description": "Enter a suitable title for your feedback.",
+			"feedback-modal-label-description-label": "Feedback",
+			"feedback-modal-label-description-description": "Type your feedback here!",
+			"feedback-modal-label-description-text-input-placeholder":
+				"It would be cool to...\nI wish we could...",
 			"feedback-submission": "Thank you for your feedback! {{emoji}}",
-			"issue-modal-heading": "Report issue",
-			"issue-modal-title": "Enter a suitable title for your issue.",
-			"issue-modal-description": "Describe your issue here.",
-			"issue-modal-description-placeholder": "Every time I try to...\nNothing happens when...",
+			"issue-modal-title": "Report issue",
+			"issue-modal-label-title-label": "Title",
+			"issue-modal-label-title-description": "Enter a suitable title for your issue.",
+			"issue-modal-label-description-label": "Description",
+			"issue-modal-label-description-description": "Describe your issue here.",
+			"issue-modal-label-description-text-input-placeholder":
+				"Every time I try to...\nNothing happens when...",
 			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
 		},
 		ai: {
@@ -3310,7 +3316,8 @@ export default {
 				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
 			"report-confirm-button": "Report",
 			"report-modal-title": "Report Sky Profile",
-			"report-modal-description": "What's wrong with this Sky profile?",
+			"report-modal-label-reason-label": "Reason",
+			"report-modal-label-reason-description": "What's wrong with this Sky profile?",
 			"report-submission":
 				"This Sky profile has been reported. Thank you for keeping the community safe!",
 			"edit-type-label": {
@@ -3334,13 +3341,16 @@ export default {
 				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-modal-title": "Sky Profile",
-			"edit-name-description": "What's your in-game name?",
-			"edit-description-description": "Type a lovely description about your Sky kid!",
+			"edit-modal-label-name-label": "Name",
+			"edit-modal-label-name-description": "What's your in-game name?",
+			"edit-modal-label-description-label": "Description",
+			"edit-modal-label-description-description": "Type a lovely description about your Sky kid!",
 			"edit-winged-light-description":
 				"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
 			"edit-winged-light-string-select-menu-placeholder":
 				"How would you like your winged light to be displayed?",
-			"edit-hangout-description": "Where's your favourite place to hang out?",
+			"edit-modal-label-hangout-label": "Hangout",
+			"edit-modal-label-hangout-description": "Where's your favourite place to hang out?",
 			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",
 			"edit-platforms-string-select-menu-placeholder": "Select the platforms you play on!",
 			"platform-label": {
@@ -3427,8 +3437,10 @@ export default {
 			"message-edit": "Edit the message?",
 			"message-use": "Use a message?",
 			"message-modal-title": "Welcome message",
-			"message-modal-text-input-label": "Enter your welcome message.",
-			"message-modal-text-input-placeholder": "Welcome to the server, {{user}}!",
+			"message-modal-label-welcome-message-label": "Welcome message",
+			"message-modal-label-welcome-message-description": "Enter your welcome message.",
+			"message-modal-label-welcome-message-text-input-placeholder":
+				"Welcome to the server, {{user}}!",
 			"asset-description-mention":
 				"Use {{mention}} to upload media to display in the welcome message!",
 			"asset-description-text":
@@ -3443,7 +3455,8 @@ export default {
 			"accent-colour-edit": "Edit accent colour?",
 			"accent-colour-use": "Use an accent colour?",
 			"accent-colour-modal-title": "Welcome accent colour",
-			"accent-colour-modal-text-input-label": "Enter a hexadecimal colour code.",
+			"accent-colour-modal-label-accent-colour-label": "Accent colour",
+			"accent-colour-modal-label-accent-colour-description": "Enter a hexadecimal colour code.",
 			"accent-colour-invalid":
 				"Invalid hexadecimal colour code. Look up a colour picker tool for ease!",
 			"missing-permissions": "`View Channel` & `Send Messages` are required.",

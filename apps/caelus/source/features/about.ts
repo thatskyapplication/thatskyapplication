@@ -148,43 +148,47 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						style: TextInputStyle.Short,
-						label: t("about.feedback-modal-title", { lng: interaction.locale, ns: "features" }),
-						custom_id: FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID,
-						min_length: MINIMUM_FEEDBACK_TITLE_LENGTH,
-						max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
-						required: true,
-					},
-				],
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.TextInput,
+					style: TextInputStyle.Short,
+					custom_id: FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID,
+					min_length: MINIMUM_FEEDBACK_TITLE_LENGTH,
+					max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
+					required: true,
+				},
+				label: t("about.feedback-modal-label-title-label", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
+				description: t("about.feedback-modal-label-title-description", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
 			},
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						style: TextInputStyle.Paragraph,
-						label: t("about.feedback-modal-description", {
-							lng: interaction.locale,
-							ns: "features",
-						}),
-						custom_id: FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
-						placeholder: t("about.feedback-modal-description-placeholder", {
-							lng: interaction.locale,
-							ns: "features",
-						}),
-						min_length: 1,
-						max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
-						required: true,
-					},
-				],
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.TextInput,
+					style: TextInputStyle.Paragraph,
+					custom_id: FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
+					placeholder: t("about.feedback-modal-label-description-text-input-placeholder", {
+						lng: interaction.locale,
+						ns: "features",
+					}),
+					min_length: 1,
+					max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
+					required: true,
+				},
+				label: "Feedback",
+				description: t("about.feedback-modal-label-description-description", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: FEEDBACK_MODAL_CUSTOM_ID,
-		title: t("about.feedback-modal-heading", { lng: interaction.locale, ns: "features" }),
+		title: t("about.feedback-modal-title", { lng: interaction.locale, ns: "features" }),
 	});
 }
 
@@ -293,40 +297,50 @@ export async function issueModalResponse(interaction: APIMessageComponentButtonI
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						style: TextInputStyle.Short,
-						label: t("about.issue-modal-title", { lng: interaction.locale, ns: "features" }),
-						custom_id: ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID,
-						min_length: MINIMUM_FEEDBACK_TITLE_LENGTH,
-						max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
-						required: true,
-					},
-				],
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.TextInput,
+					style: TextInputStyle.Short,
+					custom_id: ISSUE_TITLE_TEXT_INPUT_CUSTOM_ID,
+					min_length: MINIMUM_FEEDBACK_TITLE_LENGTH,
+					max_length: MAXIMUM_FEEDBACK_TITLE_LENGTH,
+					required: true,
+				},
+				label: t("about.issue-modal-label-title-label", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
+				description: t("about.issue-modal-label-title-description", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
 			},
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						style: TextInputStyle.Paragraph,
-						label: t("about.issue-modal-description", { lng: interaction.locale, ns: "features" }),
-						custom_id: ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
-						placeholder: t("about.issue-modal-description-placeholder", {
-							lng: interaction.locale,
-							ns: "features",
-						}),
-						min_length: 1,
-						max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
-						required: true,
-					},
-				],
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.TextInput,
+					style: TextInputStyle.Paragraph,
+					custom_id: ISSUE_DESCRIPTION_TEXT_INPUT_CUSTOM_ID,
+					placeholder: t("about.issue-modal-label-description-text-input-placeholder", {
+						lng: interaction.locale,
+						ns: "features",
+					}),
+					min_length: 1,
+					max_length: MAXIMUM_FEEDBACK_DESCRIPTION_LENGTH,
+					required: true,
+				},
+				label: t("about.issue-modal-label-description-label", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
+				description: t("about.issue-modal-label-description-description", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: ISSUE_MODAL_CUSTOM_ID,
-		title: t("about.issue-modal-heading", { lng: interaction.locale, ns: "features" }),
+		title: t("about.issue-modal-title", { lng: interaction.locale, ns: "features" }),
 	});
 }
 
