@@ -2444,7 +2444,9 @@
 			"2475": "Vestido de Aniversário",
 			"2476": "Sapatilhas de Aniversário",
 			"2477": "Capa do smoking de aniversário",
-			"2480": "Projetor de Lembranças"
+			"2482": "",
+			"2485": "",
+			"2486": "Projetor de Lembranças"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
