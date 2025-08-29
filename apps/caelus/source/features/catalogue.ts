@@ -168,7 +168,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 		offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${owned.join(" ")}`);
 	}
 
-	if (unowned.length > 0) {	
+	if (unowned.length > 0) {
 		offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
 	}
 
