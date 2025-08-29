@@ -559,22 +559,20 @@ export async function welcomeHandleMessageSettingButton(
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID,
-						label: t("welcome.message-modal-text-input-label", { lng: locale, ns: "features" }),
-						placeholder: t("welcome.message-modal-text-input-placeholder", {
-							lng: locale,
-							ns: "features",
-						}),
-						max_length: WELCOME_MESSAGE_MAXIMUM_LENGTH,
-						style: TextInputStyle.Paragraph,
-						value: welcomePacket?.message ?? "",
-						required: true,
-					},
-				],
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.TextInput,
+					custom_id: WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID,
+					placeholder: t("welcome.message-modal-text-input-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+					max_length: WELCOME_MESSAGE_MAXIMUM_LENGTH,
+					style: TextInputStyle.Paragraph,
+					value: welcomePacket?.message ?? "",
+					required: true,
+				},
+				label: t("welcome.message-modal-text-input-label", { lng: locale, ns: "features" }),
 			},
 		],
 		custom_id: WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID,
@@ -659,7 +657,6 @@ export async function welcomeHandleAccentColourSettingButton(
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
 		custom_id: WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID,
-		label: t("welcome.accent-colour-modal-text-input-label", { lng: locale, ns: "features" }),
 		placeholder: "#123456",
 		max_length: 7,
 		min_length: 7,
@@ -672,7 +669,13 @@ export async function welcomeHandleAccentColourSettingButton(
 	}
 
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
-		components: [{ type: ComponentType.ActionRow, components: [textInput] }],
+		components: [
+			{
+				type: ComponentType.Label,
+				component: textInput,
+				label: t("welcome.accent-colour-modal-text-input-label", { lng: locale, ns: "features" }),
+			},
+		],
 		custom_id: WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID,
 		title: t("welcome.accent-colour-modal-title", { lng: locale, ns: "features" }),
 	});

@@ -64,19 +64,18 @@ export async function shopSuggestionModal(interaction: APIMessageComponentButton
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [
 			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.TextInput,
-						custom_id: SHOP_SUGGESTION_TEXT_INPUT_CUSTOM_ID,
-						label: "What's your suggestion?",
-						style: TextInputStyle.Paragraph,
-						placeholder: "A cool thing to have would be...",
-						max_length: 1000,
-						min_length: 1,
-						required: true,
-					},
-				],
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.TextInput,
+					custom_id: SHOP_SUGGESTION_TEXT_INPUT_CUSTOM_ID,
+					style: TextInputStyle.Paragraph,
+					placeholder: "A cool thing to have would be...",
+					max_length: 1000,
+					min_length: 1,
+					required: true,
+				},
+				label: "What's your suggestion?",
+				description: "Really, anything that comes to mind! Don't be shy!",
 			},
 		],
 		custom_id: SHOP_SUGGESTION_MODAL_CUSTOM_ID,
