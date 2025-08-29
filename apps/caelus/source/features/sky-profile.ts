@@ -1442,7 +1442,11 @@ export async function skyProfileReportModalPrompt(
 					min_length: SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 					style: TextInputStyle.Paragraph,
 				},
-				label: t("sky-profile.report-modal-description", { lng: locale, ns: "features" }),
+				label: t("sky-profile.report-modal-label-reason-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.report-modal-label-reason-description", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: `${SKY_PROFILE_REPORT_MODAL_CUSTOM_ID}§${userId}`,
@@ -1577,7 +1581,11 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-name-description", { lng: locale, ns: "features" }),
+				label: t("sky-profile.edit-modal-label-name-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.edit-modal-label-name-description", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
@@ -1613,7 +1621,11 @@ async function skyProfileShowDescriptionModal(
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-description-description", { lng: locale, ns: "features" }),
+				label: t("sky-profile.edit-modal-label-description-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.edit-modal-label-description-description", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
@@ -1710,7 +1722,11 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-hangout-description", { lng: locale, ns: "features" }),
+				label: t("sky-profile.edit-modal-label-hangout-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.edit-modal-label-hangout-description", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 		],
 		custom_id: SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID,

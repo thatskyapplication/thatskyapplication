@@ -3316,7 +3316,8 @@ export default {
 				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
 			"report-confirm-button": "Report",
 			"report-modal-title": "Report Sky Profile",
-			"report-modal-description": "What's wrong with this Sky profile?",
+			"report-modal-label-reason-label": "Reason",
+			"report-modal-label-reason-description": "What's wrong with this Sky profile?",
 			"report-submission":
 				"This Sky profile has been reported. Thank you for keeping the community safe!",
 			"edit-type-label": {
@@ -3340,13 +3341,16 @@ export default {
 				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-modal-title": "Sky Profile",
-			"edit-name-description": "What's your in-game name?",
-			"edit-description-description": "Type a lovely description about your Sky kid!",
+			"edit-modal-label-name-label": "Name",
+			"edit-modal-label-name-description": "What's your in-game name?",
+			"edit-modal-label-description-label": "Description",
+			"edit-modal-label-description-description": "Type a lovely description about your Sky kid!",
 			"edit-winged-light-description":
 				"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
 			"edit-winged-light-string-select-menu-placeholder":
 				"How would you like your winged light to be displayed?",
-			"edit-hangout-description": "Where's your favourite place to hang out?",
+			"edit-modal-label-hangout-label": "Hangout",
+			"edit-modal-label-hangout-description": "Where's your favourite place to hang out?",
 			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",
 			"edit-platforms-string-select-menu-placeholder": "Select the platforms you play on!",
 			"platform-label": {
