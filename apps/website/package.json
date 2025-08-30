@@ -1,5 +1,5 @@
 {
-	"name": "website",
+	"name": "@thatskyapplication/website",
 	"private": true,
 	"type": "module",
 	"sideEffects": false,
@@ -49,8 +49,5 @@
 		"typescript": "^5.9.2",
 		"vite": "^7.0.5",
 		"vite-tsconfig-paths": "^5.1.4"
-	},
-	"engines": {
-		"node": ">=20.0.0"
 	}
 }
