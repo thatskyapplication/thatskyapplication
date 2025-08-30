@@ -1,5 +1,5 @@
 # Builder stage.
-FROM node:lts-bullseye-slim AS builder
+FROM node:lts-alpine AS builder
 
 WORKDIR /thatskyapplication
 
@@ -13,13 +13,13 @@ RUN pnpm install --frozen-lockfile
 
 # Build the application.
 COPY . .
-RUN pnpm run --filter ./apps/servare build
+RUN pnpm --filter @thatskyapplication/servare run build
 
 # Remove unnecessary dependencies.
 RUN pnpm prune --prod
 
 # Final stage.
-FROM node:lts-bullseye-slim
+FROM node:lts-alpine
 ENV NODE_ENV production
 
 # Copy built files and production dependencies from builder stage.
