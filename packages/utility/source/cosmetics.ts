@@ -3142,7 +3142,7 @@ export enum Cosmetic {
 	SunlightBonnetJellyfishHat = 2489,
 
 	// Unknown | Version 0.30.5.
-	ProjectorOfMemories,
+	ProjectorOfMemories = 2490,
 }
 
 export enum CosmeticCommon {
