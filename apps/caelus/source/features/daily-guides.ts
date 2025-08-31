@@ -745,7 +745,7 @@ export async function distributionData(locale: Locale): Promise<[APIMessageTopLe
 	} else {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${t("daily-guides.shard-eruption-none", { lng: locale, ns: "features" })}`,
+			content: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${t("shard-eruption.none", { lng: locale, ns: "features" })}`,
 		});
 	}
 

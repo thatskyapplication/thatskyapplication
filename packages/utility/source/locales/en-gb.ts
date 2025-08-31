@@ -3279,6 +3279,7 @@ export default {
 				"You're currently browsing shard eruptions. Open the select menus to quickly see information over a great period of time. Select a date to view more information.",
 			"no-shard-eruptions-today": "There are no shard eruptions today.",
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
+			none: "None",
 			today: "Today",
 			browse: "Browse",
 			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))",

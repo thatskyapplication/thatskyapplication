@@ -178,7 +178,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 					))}
 				</>
 			) : (
-				<p className="pt-6">None</p>
+				<p className="pt-6">{t("shard-eruption.none", { ns: "features" })}</p>
 			)}
 		</div>
 	);
