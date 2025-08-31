@@ -2839,7 +2839,6 @@
 			"shard-eruption": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
-			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
@@ -2983,7 +2982,8 @@
 			"no-shard-eruptions-not-today": "No hay erupciones de fragmentos en este día.",
 			"today": "Hoy",
 			"browse": "Echar un vistazo",
-			"realm-map": ""
+			"realm-map": "",
+			"none": ""
 		},
 		"sky-profile": {
 			"unknown-country": "",
