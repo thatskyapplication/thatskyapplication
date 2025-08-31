@@ -2839,7 +2839,6 @@
 			"shard-eruption": "Éruption d'Éclats",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "Heures",
-			"shard-eruption-none": "Aucun",
 			"travelling-rock": "",
 			"season-upcoming_one": "La nouvelle saison commence demain.",
 			"season-upcoming_other": "La nouvelle saison commence dans {{count}} jours.",
@@ -2983,7 +2982,8 @@
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
 			"today": "Aujourd'hui",
 			"browse": "Rechercher",
-			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
+			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))",
+			"none": "Aucun"
 		},
 		"sky-profile": {
 			"unknown-country": "Sélectionnez un pays !",

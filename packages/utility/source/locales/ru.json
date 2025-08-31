@@ -2839,7 +2839,6 @@
 			"shard-eruption": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "Временные метки",
-			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
@@ -2983,7 +2982,8 @@
 			"no-shard-eruptions-not-today": "",
 			"today": "",
 			"browse": "",
-			"realm-map": ""
+			"realm-map": "",
+			"none": ""
 		},
 		"sky-profile": {
 			"unknown-country": "",
