@@ -36,12 +36,12 @@ export default function ThatSkyLink() {
 				<div className="grid gap-6">
 					{EXAMPLES.map((example) => (
 						<div
-							className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-md transition-shadow"
+							className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-xs hover:shadow-md transition-shadow"
 							key={example.short}
 						>
 							<div className="space-y-3">
 								<div className="flex items-center gap-3">
-									<div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0" />
+									<div className="w-2 h-2 bg-green-500 rounded-full shrink-0" />
 									<a
 										className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 font-medium underline-offset-4 hover:underline transition-colors"
 										href={`https://${example.short}`}
@@ -52,7 +52,7 @@ export default function ThatSkyLink() {
 									</a>
 								</div>
 								<div className="flex items-start gap-3">
-									<div className="w-2 h-2 bg-red-500 rounded-full flex-shrink-0 mt-1" />
+									<div className="w-2 h-2 bg-red-500 rounded-full shrink-0 mt-1" />
 									<a
 										className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 text-sm break-all underline-offset-4 hover:underline transition-colors min-w-0"
 										href={`https://${example.full}`}
@@ -62,7 +62,7 @@ export default function ThatSkyLink() {
 										<code>{example.full}</code>
 									</a>
 								</div>
-								<p className="text-gray-600 dark:text-gray-400 text-sm pl-5">
+								<p className="text-gray-600 dark:text-gray-400 text-sm pl-5 my-0">
 									{example.description}
 								</p>
 							</div>
@@ -81,7 +81,9 @@ export default function ThatSkyLink() {
 							<h3 className="font-semibold mb-2">Type the shortened variant</h3>
 							<p className="text-gray-600 dark:text-gray-400 text-sm">
 								Enter something like{" "}
-								<code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">thatsky.link/wiki</code>
+								<code className="bg-gray-200 dark:bg-gray-700 px-1 rounded-sm">
+									thatsky.link/wiki
+								</code>
 							</p>
 						</div>
 						<div className="text-center">

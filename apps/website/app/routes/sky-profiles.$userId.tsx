@@ -30,7 +30,7 @@ import { APPLICATION_NAME } from "~/utility/constants.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
 const BADGES_CLASS_NAME =
-	"inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-700 rounded-full text-sm font-medium text-purple-800 dark:text-purple-200 shadow-sm" as const;
+	"inline-flex items-center gap-2 px-3 py-1 bg-linear-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-700 rounded-full text-sm font-medium text-purple-800 dark:text-purple-200 shadow-xs" as const;
 
 export function ErrorBoundary() {
 	const error = useRouteError();
@@ -40,7 +40,7 @@ export function ErrorBoundary() {
 			<div className="flex items-center justify-center px-4 py-16">
 				<div className="text-center max-w-lg">
 					<div className="mb-8">
-						<div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full mb-6 border-4 border-gray-300 dark:border-gray-600">
+						<div className="inline-flex items-center justify-center w-24 h-24 bg-linear-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full mb-6 border-4 border-gray-300 dark:border-gray-600">
 							<Users className="w-12 h-12 text-gray-400 dark:text-gray-500" />
 						</div>
 						<h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
@@ -296,7 +296,7 @@ export default function SkyProfile() {
 								.sort((a, b) => a - b)
 								.map((platform) => (
 									<div
-										className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow items-center justify-center"
+										className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow-sm items-center justify-center"
 										key={platform}
 									>
 										{PlatformToIcon[platform]}
@@ -363,14 +363,14 @@ export default function SkyProfile() {
 			</div>
 			<div className="flex items-center justify-start mt-6 space-x-2">
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
 					to="/sky-profiles"
 				>
 					<ChevronLeftIcon className="w-6 h-6 mr-2" />
 					<span>Back</span>
 				</Link>
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
 					to="/sky-profiles/random"
 				>
 					<div
@@ -384,7 +384,7 @@ export default function SkyProfile() {
 					<span>Random</span>
 				</Link>
 				<button
-					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded transition-colors duration-300 overflow-auto`}
+					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded-sm transition-colors duration-300 overflow-auto`}
 					onClick={async () => {
 						await navigator.clipboard.writeText(window.location.href);
 						setCopied(true);

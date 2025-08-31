@@ -13,10 +13,10 @@ export default function Hearts() {
 			</div>
 			<div className="relative z-10">
 				<div className="text-center mb-8">
-					<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-100 to-red-100 dark:from-pink-900/30 dark:to-red-900/30 rounded-full mb-4">
+					<div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-pink-100 to-red-100 dark:from-pink-900/30 dark:to-red-900/30 rounded-full mb-4">
 						<Heart className="w-8 h-8 text-pink-600 dark:text-pink-400" />
 					</div>
-					<h1 className="bg-gradient-to-r from-pink-600 via-red-600 to-rose-600 dark:from-pink-400 dark:via-red-400 dark:to-rose-400 bg-clip-text text-transparent">
+					<h1 className="bg-linear-to-r from-pink-600 via-red-600 to-rose-600 dark:from-pink-400 dark:via-red-400 dark:to-rose-400 bg-clip-text text-transparent">
 						Hearts
 					</h1>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -27,7 +27,7 @@ export default function Hearts() {
 				<section className="space-y-6">
 					<h2>Gifting hearts</h2>
 					<p>There are two ways to gift hearts.</p>
-					<div className="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 border border-pink-200 dark:border-pink-700/50 rounded-xl p-6">
+					<div className="bg-linear-to-br from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 border border-pink-200 dark:border-pink-700/50 rounded-xl p-6">
 						<div className="flex items-center gap-3 mb-4">
 							<div className="p-2 bg-pink-100 dark:bg-pink-900/30 rounded-lg">
 								<Gift className="w-6 h-6 text-pink-600 dark:text-pink-400" />
@@ -80,7 +80,7 @@ export default function Hearts() {
 						Ever wanted to see your gifted and received hearts? You can invoke the{" "}
 						<code>/heart history</code> command!
 					</p>
-					<div className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-700/50 rounded-xl p-6">
+					<div className="bg-linear-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-700/50 rounded-xl p-6">
 						<div className="flex items-center gap-3 mb-4">
 							<div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
 								<History className="w-6 h-6 text-purple-600 dark:text-purple-400" />

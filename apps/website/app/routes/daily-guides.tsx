@@ -191,7 +191,7 @@ export default function DailyGuides() {
 							<div className="space-y-2">
 								{quests.map(({ quest, url }, index) => (
 									<div className="flex items-start gap-3" key={quest}>
-										<span className="text-gray-600 dark:text-gray-400 text-sm font-medium w-4 flex-shrink-0">
+										<span className="text-gray-600 dark:text-gray-400 text-sm font-medium w-4 shrink-0">
 											{index + 1}.
 										</span>
 										{url ? (
@@ -417,7 +417,7 @@ export default function DailyGuides() {
 				</div>
 				{selectedImage && (
 					<div className="hidden lg:flex w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4 max-h-[80vh] flex-col">
-						<div className="flex items-center justify-between mb-4 flex-shrink-0">
+						<div className="flex items-center justify-between mb-4 shrink-0">
 							<h3 className="font-semibold text-gray-900 dark:text-white text-sm">
 								{t("daily-guides.infographic", { ns: "features" })}
 							</h3>
@@ -442,8 +442,8 @@ export default function DailyGuides() {
 				)}
 			</div>
 			{selectedImage && (
-				<div className="lg:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-sm z-50 flex flex-col">
-					<div className="flex items-center justify-between p-4 bg-gray-800/50 flex-shrink-0">
+				<div className="lg:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-xs z-50 flex flex-col">
+					<div className="flex items-center justify-between p-4 bg-gray-800/50 shrink-0">
 						<h3 className="text-white font-medium">
 							{t("daily-guides.infographic", { ns: "features" })}
 						</h3>

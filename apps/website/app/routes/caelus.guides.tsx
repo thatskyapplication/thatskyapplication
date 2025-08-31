@@ -53,11 +53,7 @@ function SidebarSection({
 							>
 								<span>{item.title}</span>
 								{isActive && (
-									<img
-										alt="Current page"
-										className="w-4 h-4 flex-shrink-0"
-										src={SKY_KID_ICON_URL}
-									/>
+									<img alt="Current page" className="w-4 h-4 shrink-0" src={SKY_KID_ICON_URL} />
 								)}
 							</Link>
 						</li>
@@ -91,7 +87,7 @@ export default function CaelusGuidesLayout() {
 	return (
 		<div className="container mx-auto px-4 py-8 max-w-7xl">
 			<div className="flex gap-8">
-				<aside className="hidden lg:block w-64 flex-shrink-0">
+				<aside className="hidden lg:block w-64 shrink-0">
 					<div className="sticky top-24">
 						<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4 max-h-[calc(100vh-8rem)] overflow-y-auto">
 							<div className="flex items-center gap-2 mb-6 pb-2 border-b border-gray-200 dark:border-gray-700">
@@ -112,7 +108,7 @@ export default function CaelusGuidesLayout() {
 				<main className="flex-1 min-w-0">
 					<div className="lg:hidden mb-6">
 						<button
-							className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+							className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-xs hover:shadow-md transition-shadow"
 							onClick={() => setSidebarOpen(true)}
 							type="button"
 						>
@@ -121,7 +117,7 @@ export default function CaelusGuidesLayout() {
 							<Menu className="h-4 w-4 text-gray-500 dark:text-gray-400 ml-auto" />
 						</button>
 					</div>
-					<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-8">
+					<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xs p-8">
 						<Outlet />
 					</div>
 				</main>
@@ -130,7 +126,7 @@ export default function CaelusGuidesLayout() {
 				<>
 					<button
 						aria-label="Close sidebar"
-						className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden cursor-default"
+						className="fixed inset-0 bg-black/20 backdrop-blur-xs z-40 lg:hidden cursor-default"
 						onClick={() => setSidebarOpen(false)}
 						type="button"
 					/>

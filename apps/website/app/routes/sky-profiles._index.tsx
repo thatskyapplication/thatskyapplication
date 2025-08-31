@@ -164,7 +164,7 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 							.sort((a, b) => a - b)
 							.map((platform) => (
 								<div
-									className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow items-center justify-center"
+									className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow-sm items-center justify-center"
 									key={platform}
 								>
 									{PlatformToIcon[platform]}
@@ -189,7 +189,7 @@ export default function SkyProfiles() {
 			<div className="flex items-center mb-4">
 				<Form className="mr-4" method="get">
 					<input
-						className="p-2 border border-gray-200 dark:border-gray-600 rounded my-2 w-48"
+						className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm my-2 w-48"
 						defaultValue={query}
 						name="query"
 						onChange={(event) => {
@@ -204,7 +204,7 @@ export default function SkyProfiles() {
 					/>
 				</Form>
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded px-4 py-2"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
 					to="/sky-profiles/random"
 				>
 					<div

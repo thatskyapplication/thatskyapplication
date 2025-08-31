@@ -16,10 +16,10 @@ export default function DailyGuides() {
 			</div>
 			<div className="relative z-10">
 				<div className="text-center mb-8">
-					<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-full mb-4">
+					<div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-blue-100 to-indigo-100 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-full mb-4">
 						<Clock className="w-8 h-8 text-blue-600 dark:text-blue-400" />
 					</div>
-					<h1 className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
+					<h1 className="bg-linear-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
 						Daily Guides
 					</h1>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">

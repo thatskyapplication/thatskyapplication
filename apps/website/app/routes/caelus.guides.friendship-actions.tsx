@@ -28,7 +28,7 @@ export default function FriendshipActions() {
 			</div>
 			<div className="relative z-10">
 				<div className="text-center mb-8">
-					<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 rounded-full mb-4">
+					<div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-pink-100 to-purple-100 dark:from-pink-900/30 dark:to-purple-900/30 rounded-full mb-4">
 						<div
 							aria-label="Hug icon"
 							className="w-8 h-8 bg-cover bg-center"
@@ -36,7 +36,7 @@ export default function FriendshipActions() {
 							style={{ backgroundImage: "url(https://cdn.thatskyapplication.com/icons/hug.png)" }}
 						/>
 					</div>
-					<h1 className="bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 dark:from-pink-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+					<h1 className="bg-linear-to-r from-pink-600 via-purple-600 to-indigo-600 dark:from-pink-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
 						Friendship Actions
 					</h1>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -82,9 +82,9 @@ export default function FriendshipActions() {
 						))}
 					</div>
 				</div>
-				<div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700/50 rounded-2xl p-8">
+				<div className="bg-linear-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-700/50 rounded-2xl p-8">
 					<div className="text-center mb-8">
-						<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full mb-4">
+						<div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-blue-500 to-indigo-600 rounded-full mb-4">
 							<Send className="w-8 h-8 text-white" />
 						</div>
 						<h2>Submit Your GIF!</h2>
@@ -100,10 +100,10 @@ export default function FriendshipActions() {
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							{REQUIREMENTS.map((requirement) => (
 								<div
-									className="flex items-center gap-3 p-4 bg-white/60 dark:bg-gray-800/60 rounded-lg backdrop-blur-sm"
+									className="flex items-center gap-3 p-4 bg-white/60 dark:bg-gray-800/60 rounded-lg backdrop-blur-xs"
 									key={requirement}
 								>
-									<div className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0" />
+									<div className="w-2 h-2 bg-blue-500 rounded-full shrink-0" />
 									<p className="text-sm text-gray-700 dark:text-gray-300">{requirement}</p>
 								</div>
 							))}
@@ -115,7 +115,7 @@ export default function FriendshipActions() {
 							and mention a developer!
 						</p>
 						<a
-							className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+							className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
 							href={INVITE_SUPPORT_SERVER_URL}
 							rel="noopener noreferrer"
 							target="_blank"

@@ -68,7 +68,7 @@ export default function Dashboard() {
 
 	return (
 		<div className="container mx-auto px-4 py-8 max-w-7xl">
-			<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm p-8">
+			<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xs p-8">
 				<div className="relative overflow-hidden">
 					<div className="absolute inset-0 overflow-hidden pointer-events-none">
 						<div className="absolute top-10 right-10 w-20 h-20 bg-blue-200/20 dark:bg-blue-400/10 rounded-full blur-xl animate-pulse" />
@@ -79,16 +79,16 @@ export default function Dashboard() {
 					</div>
 					<div className="relative z-10">
 						<div className="text-center mb-8">
-							<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full mb-4">
+							<div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full mb-4">
 								<Settings className="w-8 h-8 text-blue-600 dark:text-blue-400" />
 							</div>
-							<h1 className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+							<h1 className="bg-linear-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
 								Dashboard
 							</h1>
 						</div>
 						<hr className="my-8" />
 						{error && (
-							<div className="bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded mb-6">
+							<div className="bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-sm mb-6">
 								<p className="text-sm">Something went wrong. Please report this!</p>
 							</div>
 						)}
@@ -130,7 +130,7 @@ export default function Dashboard() {
 													src={guildIconURL(guild.id, guild.icon)}
 												/>
 											) : (
-												<div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+												<div className="w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
 													{guild.name[0]!.toUpperCase()}
 												</div>
 											)}

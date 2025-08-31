@@ -153,7 +153,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 		<div className="md:hidden">
 			<button
 				aria-label="Close mobile menu"
-				className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
+				className="fixed inset-0 bg-black/20 backdrop-blur-xs z-40"
 				onClick={onClose}
 				type="button"
 			/>

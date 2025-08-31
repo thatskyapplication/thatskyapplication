@@ -10,14 +10,14 @@ export default function Spirits() {
 			</div>
 			<div className="relative z-10">
 				<div className="text-center mb-8">
-					<div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 rounded-full mb-4">
+					<div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-purple-100 to-violet-100 dark:from-purple-900/30 dark:to-violet-900/30 rounded-full mb-4">
 						<img
 							alt="Wing buff icon"
 							className="w-8 h-8"
 							src="https://cdn.thatskyapplication.com/icons/wing_buff.png"
 						/>
 					</div>
-					<h1 className="bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
+					<h1 className="bg-linear-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:via-violet-400 dark:to-indigo-400 bg-clip-text text-transparent">
 						Spirits
 					</h1>
 					<p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
@@ -43,7 +43,7 @@ export default function Spirits() {
 						Want to track when spirits visit? Use <code>/spirits history</code> to see comprehensive
 						tracking of them all!
 					</p>
-					<div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-200 dark:border-indigo-700/50 rounded-xl p-6">
+					<div className="bg-linear-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-200 dark:border-indigo-700/50 rounded-xl p-6">
 						<div className="flex items-center gap-3 mb-4">
 							<div className="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg">
 								<img

@@ -124,7 +124,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: number) {
 	return (
 		<div
-			className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700 border rounded-lg shadow flex flex-col items-center text-center w-full max-w-sm p-6"
+			className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700 border rounded-lg shadow-sm flex flex-col items-center text-center w-full max-w-sm p-6"
 			key={todayFormat}
 		>
 			<div className="flex flex-row items-center justify-center">
