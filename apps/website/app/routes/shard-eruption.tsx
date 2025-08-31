@@ -7,6 +7,7 @@ import {
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
@@ -20,7 +21,7 @@ import {
 	SHARD_ERUPTION_MINIMUM_PAGE,
 } from "~/utility/constants";
 
-type ShardEruptionCardData = {
+type ShardEruptionCardProps = {
 	shard:
 		| (Omit<ShardEruptionData, "timestamps"> & {
 				timestamps: {
@@ -30,6 +31,7 @@ type ShardEruptionCardData = {
 		  })
 		| null;
 	todayFormat: string;
+	now: number;
 };
 
 export const meta: MetaFunction = ({ location }) => {
@@ -121,12 +123,11 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	}
 };
 
-function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: number) {
+function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) {
+	const { t } = useTranslation();
+
 	return (
-		<div
-			className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700 border rounded-lg shadow-sm flex flex-col items-center text-center w-full max-w-sm p-6"
-			key={todayFormat}
-		>
+		<div className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700 border rounded-lg shadow-sm flex flex-col items-center text-center w-full max-w-sm p-6">
 			<div className="flex flex-row items-center justify-center">
 				{shard && (
 					<img
@@ -145,7 +146,11 @@ function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: n
 						rel="noopener noreferrer"
 						target="_blank"
 					>
-						{shard.realm} ({shard.skyMap})
+						{t("shard-eruption.realm-map", {
+							ns: "features",
+							realm: shard.realm,
+							map: shard.skyMap,
+						})}
 						<ExternalLinkIcon className="ml-1 w-4 h-4" />
 					</a>
 					<div className="inline-flex items-center">
@@ -182,7 +187,16 @@ function shardEruptionCard({ shard, todayFormat }: ShardEruptionCardData, now: n
 export default function ShardEruption() {
 	const { shards, page } = useLoaderData<typeof loader>();
 	const now = skyNow();
-	const shardCards = shards.map((shard) => shardEruptionCard(shard, now.toUnixInteger()));
+
+	const shardCards = shards.map((shard) => (
+		<ShardEruptionCard
+			key={shard.todayFormat}
+			now={now.toUnixInteger()}
+			shard={shard.shard}
+			todayFormat={shard.todayFormat}
+		/>
+	));
+
 	const [firstShard, ...restShards] = shardCards;
 
 	return (
