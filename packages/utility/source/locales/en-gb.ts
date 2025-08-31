@@ -2710,6 +2710,10 @@ export default {
 			[Cosmetic.AnniversaryTuxedoCape]: "Anniversary Tuxedo Cape",
 			[Cosmetic.VaultEldersLanternProp]: "Prop",
 			[Cosmetic.CaringCompanionProp]: "Prop",
+			[Cosmetic.SunlightShawl]: "Sunlight Shawl",
+			[Cosmetic.SunlightWaveProjector]: "Sunlight Wave Projector",
+			[Cosmetic.SunlightBonnetDress]: "Sunlight Bonnet Dress",
+			[Cosmetic.SunlightBonnetJellyfishHat]: "Sunlight Bonnet Jellyfish Hat",
 			[Cosmetic.ProjectorOfMemories]: "Projector of Memories",
 		},
 		"interaction-error":
