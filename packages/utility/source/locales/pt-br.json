@@ -328,7 +328,8 @@
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
-			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"251": "Ajude o Acólito que Reza a arquivar o verão nos Arquivos"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -2446,6 +2447,10 @@
 			"2477": "Capa do smoking de aniversário",
 			"2482": "Apetrecho",
 			"2485": "Apetrecho",
+			"2486": "",
+			"2487": "",
+			"2488": "",
+			"2489": "",
 			"2490": "Projetor de Lembranças"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
@@ -2839,6 +2844,7 @@
 			"shard-eruption": "Erupções de Fragmentos",
 			"shard-eruption-data": "Dados",
 			"shard-eruption-timestamps": "Marcação de data/hora",
+			"shard-eruption-none": "",
 			"travelling-rock": "Pedra Viajante",
 			"season-upcoming_one": "A nova temporada inicia amanhã.",
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
@@ -2980,10 +2986,10 @@
 			"browse-description": "Você está atualmente navegando erupções de cristais. Abra os menus de seleção para ver informações por um maior período. Selecione uma data para ver mais informações.",
 			"no-shard-eruptions-today": "Não haverá erupções de cristais hoje.",
 			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
+			"none": "Nada",
 			"today": "Hoje",
 			"browse": "Procurar",
-			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))",
-			"none": "Nada"
+			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
 		},
 		"sky-profile": {
 			"unknown-country": "Por favor, selecione um país!",

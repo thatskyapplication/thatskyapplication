@@ -328,7 +328,8 @@
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
-			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"251": "Aidez l'Acolyte en prière à classer l'été dans les Archives"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -2446,6 +2447,10 @@
 			"2477": "Cape de smoking anniversaire",
 			"2482": "",
 			"2485": "",
+			"2486": "",
+			"2487": "",
+			"2488": "",
+			"2489": "",
 			"2490": "Projecteur de Souvenirs"
 		},
 		"interaction-error": "",
@@ -2839,6 +2844,7 @@
 			"shard-eruption": "Éruption d'Éclats",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "Heures",
+			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"season-upcoming_one": "La nouvelle saison commence demain.",
 			"season-upcoming_other": "La nouvelle saison commence dans {{count}} jours.",
@@ -2980,10 +2986,10 @@
 			"browse-description": "Vous être en train de rechercher les éruptions d'éclats. Ouvrez les menus de sélection pour rapidement voir les informations sur une bonne période de temps. Sélectionnez une date pour voir plus d'informations.",
 			"no-shard-eruptions-today": "Il n'y a pas d'éruption d'éclats aujourd'hui.",
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
+			"none": "Aucun",
 			"today": "Aujourd'hui",
 			"browse": "Rechercher",
-			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))",
-			"none": "Aucun"
+			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
 		},
 		"sky-profile": {
 			"unknown-country": "Sélectionnez un pays !",
