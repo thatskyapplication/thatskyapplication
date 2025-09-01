@@ -482,16 +482,44 @@ export async function welcomeHandleHugButton(
 		return;
 	}
 
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		throw new Error("Could not find the guild of a welcome message.");
+	}
+
 	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
-		.select("welcome_channel_id")
+		.select("welcome_channel_id", "hug")
 		.where({ guild_id: interaction.guild_id })
 		.first();
 
-	const channelId = welcomePacket?.welcome_channel_id;
+	const channel =
+		welcomePacket?.welcome_channel_id && guild.channels.get(welcomePacket?.welcome_channel_id);
 
-	if (!channelId) {
+	if (!(channel && welcomePacket.hug)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("welcome.hug-disabled", { lng: interaction.locale, ns: "features" }),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const me = await guild.fetchMe();
+
+	if (
+		!can({
+			permission:
+				PermissionFlagsBits.ViewChannel |
+				PermissionFlagsBits.SendMessages |
+				PermissionFlagsBits.ReadMessageHistory,
+			guild,
+			member: me,
+			channel,
+		})
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("welcome.hug-missing-permissions", { lng: interaction.locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -501,7 +529,7 @@ export async function welcomeHandleHugButton(
 	try {
 		const user = await client.api.users.get(userId);
 
-		await client.api.channels.createMessage(channelId, {
+		await client.api.channels.createMessage(channel.id, {
 			allowed_mentions: { users: [user.id] },
 			components: friendshipActionComponents({
 				invoker: interaction.member.user,
@@ -513,23 +541,21 @@ export async function welcomeHandleHugButton(
 			message_reference: {
 				type: MessageReferenceType.Default,
 				message_id: interaction.message.id,
-				fail_if_not_exists: false,
 			},
 		});
-
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {});
 	} catch (error) {
-		if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.MissingPermissions) {
-			pino.warn(error, "Missing permissions to send welcome hug. Removing configuration.");
-
-			await pg<WelcomePacket>(Table.Welcome)
-				.update({ welcome_channel_id: null })
-				.where({ welcome_channel_id: channelId });
-
+		if (
+			error instanceof DiscordAPIError &&
+			error.code === RESTJSONErrorCodes.InvalidFormBodyOrContentType &&
+			error.message.includes("MESSAGE_REFERENCE_UNKNOWN_MESSAGE")
+		) {
+			// Welcome message was deleted as we were sending one. This will not happen again.
 			return;
 		}
 
 		pino.error(error, "Failed to send welcome hug.");
+	} finally {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {});
 	}
 }
 

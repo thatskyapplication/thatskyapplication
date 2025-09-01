@@ -3477,6 +3477,8 @@ export default {
 			"welcome-with-a-hug": "Welcome with a hug!",
 			"hug-self": "This is you! Why not hug the others?",
 			"hug-disabled": "This server has disabled hugging.",
+			"hug-missing-permissions":
+				"I need the following permissions to do this:\n- `View Channels`\n- `Send Messages`\n- `Read Message History`\nSomeone needs to adjust the permissions!",
 		},
 	},
 } as const;
