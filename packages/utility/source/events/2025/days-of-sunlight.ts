@@ -20,7 +20,13 @@ export default new Event({
 	end: skyDate(2_025, 9, 22),
 	eventTickets: {
 		amount: eventTicketAmount,
-		// Need more information on bonus event tickets.
+		pool: [
+			{
+				amount: 15,
+				start: skyDate(2_025, 9, 1),
+				end: skyDate(2_025, 9, 21),
+			},
+		],
 	},
 	offer: [
 		{
@@ -33,8 +39,36 @@ export default new Event({
 		},
 		{
 			cosmetic: [Cosmetic.SunlightBonnetDress, Cosmetic.SunlightBonnetJellyfishHat],
-			cosmeticDisplay: Cosmetic.SunlightBonnetDress,
+			cosmeticDisplay: Cosmetic.SunlightBonnetJellyfishHat,
 			cost: { money: 14.99 },
+		},
+		{
+			cosmetic: Cosmetic.SandcastlePiece1,
+			cost: { candles: 5 },
+		},
+		{
+			cosmetic: Cosmetic.SandcastlePiece2,
+			cost: { candles: 5 },
+		},
+		{
+			cosmetic: Cosmetic.SandcastlePiece3,
+			cost: { candles: 6 },
+		},
+		{
+			cosmetic: Cosmetic.SandcastlePiece4,
+			cost: { candles: 7 },
+		},
+		{
+			cosmetic: Cosmetic.SandcastlePiece5,
+			cost: { candles: 5 },
+		},
+		{
+			cosmetic: Cosmetic.SandcastlePiece6,
+			cost: { candles: 8 },
+		},
+		{
+			cosmetic: Cosmetic.SandcastlePiece7,
+			cost: { candles: 5 },
 		},
 	],
 	patchNotesURL: patchNotesRoute("0305"),

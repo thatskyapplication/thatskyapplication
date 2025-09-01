@@ -3140,9 +3140,16 @@ export enum Cosmetic {
 	SunlightWaveProjector = 2487,
 	SunlightBonnetDress = 2488,
 	SunlightBonnetJellyfishHat = 2489,
+	SandcastlePiece1 = 2490,
+	SandcastlePiece2 = 2491,
+	SandcastlePiece3 = 2492,
+	SandcastlePiece4 = 2493,
+	SandcastlePiece5 = 2494,
+	SandcastlePiece6 = 2495,
+	SandcastlePiece7 = 2496,
 
 	// Unknown | Version 0.30.5.
-	ProjectorOfMemories = 2490,
+	ProjectorOfMemories = 2497,
 }
 
 export enum CosmeticCommon {
