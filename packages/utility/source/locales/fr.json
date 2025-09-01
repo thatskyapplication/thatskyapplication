@@ -2451,6 +2451,13 @@
 			"2487": "",
 			"2488": "",
 			"2489": "",
+			"2490": "",
+			"2491": "",
+			"2492": "",
+			"2493": "",
+			"2494": "",
+			"2495": "",
+			"2496": "",
 			"2497": "Projecteur de Souvenirs"
 		},
 		"interaction-error": "",
@@ -3121,7 +3128,8 @@
 		"welcome": {
 			"preview": "Ceci est la zone d'aperçu de votre message de bienvenue. C'est actuellement vide.",
 			"title": "Paramètres de bienvenue",
-			"description": "Vous pouvez mettre en place des messages pour l'arrivée d'enfant de Sky dans votre serveur.",
+			"channel-description": "Vous pouvez mettre en place des messages pour l'arrivée d'enfant de Sky dans votre serveur.",
+			"channel-description-missing-permissions": "",
 			"welcome-channel-select-menu-placeholder": "Sélectionnez un salon de bienvenue.",
 			"message-description": "Vous pouvez choisir d'afficher un message ! Pour mentionner l'utilisateur qui vient de rejoindre, entrez `{{user}}`.",
 			"message-remove": "Supprimer le message ?",
@@ -3135,6 +3143,7 @@
 			"asset-description-text": "Utiliser la commande pour télécharger un média à afficher dans le message de bienvenue !",
 			"asset-remove": "Supprimer le média téléchargé ?",
 			"hug-description": "Vous pouvez afficher un bouton de câlin au message pour que les autre l'utilise !",
+			"hug-description-missing-permissions": "",
 			"hug-remove": "Supprimer le bouton de câlin ?",
 			"hug-add": "Ajouter le bouton de câlin ?",
 			"accent-colour-description": "Vous pouvez choisir une couleur d'accent sur le côté gauche du message de bienvenue à l'aide d'un code de couleur au format hexadécimal (exemple : `#123456`).",
@@ -3148,7 +3157,8 @@
 			"missing-permissions": "`Voir les salons` & `Envoyer des messages` sont requis.",
 			"welcome-with-a-hug": "Accueillir avec un câlin !",
 			"hug-self": "C'est vous ! Pourquoi ne pas faire de câlins aux autres ?",
-			"hug-disabled": "Ce serveur a désactivé les câlins."
+			"hug-disabled": "Ce serveur a désactivé les câlins.",
+			"hug-missing-permissions": ""
 		}
 	}
 }

@@ -2451,6 +2451,13 @@
 			"2487": "",
 			"2488": "",
 			"2489": "",
+			"2490": "",
+			"2491": "",
+			"2492": "",
+			"2493": "",
+			"2494": "",
+			"2495": "",
+			"2496": "",
 			"2497": "Projetor de Lembranças"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
@@ -3121,7 +3128,8 @@
 		"welcome": {
 			"preview": "Esta é a área de pré-visualização da sua mensagem de boas-vindas. Ela está atualmente vazia.",
 			"title": "Configurar boas-vindas",
-			"description": "Você pode configurar as mensagens sempre que um Filho da Luz entrar no seu servidor.",
+			"channel-description": "Você pode configurar as mensagens sempre que um Filho da Luz entrar no seu servidor.",
+			"channel-description-missing-permissions": "",
 			"welcome-channel-select-menu-placeholder": "Selecione um canal de boas-vindas.",
 			"message-description": "Você pode optar por mostrar uma mensagem! Para mencionar o usuário que entrou, digite `{{user}}`.",
 			"message-remove": "Remover a mensagem?",
@@ -3135,6 +3143,7 @@
 			"asset-description-text": "Use o comando para enviar a mídia a ser exibida na mensagem de boas-vindas!",
 			"asset-remove": "Remover a mídia enviada?",
 			"hug-description": "Você pode mostrar um botão de abraço na mensagem para que outros possam usá-lo!",
+			"hug-description-missing-permissions": "",
 			"hug-remove": "Remover o botão de abraço?",
 			"hug-add": "Adicionar o botão de abraço?",
 			"accent-colour-description": "Você pode definir uma cor de realce para a mensagem de boas-vindas no lado esquerdo, usando um código de cor hexadecimal (e.g. `#123456`).",
@@ -3148,7 +3157,8 @@
 			"missing-permissions": "Permissões para `Ver Canal` & `Enviar Mensagens` são obrigatórias.",
 			"welcome-with-a-hug": "Dê as boas-vindas com um abraço!",
 			"hug-self": "É você! Que tal abraçar os outros?",
-			"hug-disabled": "Este servidor desativou os abraços."
+			"hug-disabled": "Este servidor desativou os abraços.",
+			"hug-missing-permissions": ""
 		}
 	}
 }
