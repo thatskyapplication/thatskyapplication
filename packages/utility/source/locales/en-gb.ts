@@ -3461,6 +3461,8 @@ export default {
 				"Use the command to upload media to display in the welcome message!",
 			"asset-remove": "Remove the uploaded media?",
 			"hug-description": "You can show a hug button on the message for others to use!",
+			"hug-description-missing-permissions":
+				"I require the following permissions in {{channel}} for this to work:\n- `View Channels`\n- `Send Messages`\n- `Read Message History`",
 			"hug-remove": "Remove the hug button?",
 			"hug-add": "Add the hug button?",
 			"accent-colour-description":

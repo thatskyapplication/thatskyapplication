@@ -81,6 +81,11 @@ const WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID =
 const WELCOME_MESSAGE_MAXIMUM_LENGTH = 1000 as const;
 const hexadecimalRegularExpression = /^[0-9A-Fa-f]+$/;
 
+const WELCOME_MESSAGE_HUG_PERMISSIONS =
+	PermissionFlagsBits.ViewChannel |
+	PermissionFlagsBits.SendMessages |
+	PermissionFlagsBits.ReadMessageHistory;
+
 interface WelcomePacket {
 	guild_id: string;
 	welcome_channel_id: string | null;
@@ -145,6 +150,35 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 		);
 	} else {
 		suffix = "text";
+	}
+
+	let hugDescription = t("welcome.hug-description", { lng: locale, ns: "features" });
+
+	if (welcomePacket?.welcome_channel_id) {
+		const guild = GUILD_CACHE.get(interaction.guild_id);
+
+		if (!guild) {
+			throw new Error("Could not find the guild to set up a welcome message.");
+		}
+
+		const channel =
+			welcomePacket?.welcome_channel_id && guild.channels.get(welcomePacket?.welcome_channel_id);
+
+		if (
+			channel &&
+			!can({
+				permission: WELCOME_MESSAGE_HUG_PERMISSIONS,
+				guild,
+				member: await guild.fetchMe(),
+				channel,
+			})
+		) {
+			hugDescription += `\n\n⚠️ ${t("welcome.hug-description-missing-permissions", {
+				lng: locale,
+				ns: "features",
+				channel: `<#${channel.id}>`,
+			})}`;
+		}
 	}
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -225,7 +259,7 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t("welcome.hug-description", { lng: locale, ns: "features" }),
+			content: hugDescription,
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -509,10 +543,7 @@ export async function welcomeHandleHugButton(
 
 	if (
 		!can({
-			permission:
-				PermissionFlagsBits.ViewChannel |
-				PermissionFlagsBits.SendMessages |
-				PermissionFlagsBits.ReadMessageHistory,
+			permission: WELCOME_MESSAGE_HUG_PERMISSIONS,
 			guild,
 			member: me,
 			channel,
