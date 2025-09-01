@@ -500,6 +500,8 @@ export default {
 				SpiritId.BackflippingChampion,
 				RealmName.ValleyOfTriumph,
 			),
+			[DailyQuest.HelpThePrayingAcolyteArchiveSummerIntheArchives]:
+				"Help the Praying Acolyte archive summer in the Archives",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
