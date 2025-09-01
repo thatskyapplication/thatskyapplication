@@ -15,6 +15,7 @@ import {
 	ComponentType,
 	Locale,
 	MessageFlags,
+	MessageReferenceType,
 	PermissionFlagsBits,
 	RESTJSONErrorCodes,
 	SelectMenuDefaultValueType,
@@ -509,6 +510,11 @@ export async function welcomeHandleHugButton(
 				locale: interaction.guild_locale ?? Locale.EnglishGB,
 			}),
 			flags: MessageFlags.IsComponentsV2,
+			message_reference: {
+				type: MessageReferenceType.Default,
+				message_id: interaction.message.id,
+				fail_if_not_exists: false,
+			},
 		});
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {});
