@@ -2716,6 +2716,13 @@ export default {
 			[Cosmetic.SunlightWaveProjector]: "Sunlight Wave Projector",
 			[Cosmetic.SunlightBonnetDress]: "Sunlight Bonnet Dress",
 			[Cosmetic.SunlightBonnetJellyfishHat]: "Sunlight Bonnet Jellyfish Hat",
+			[Cosmetic.SandcastlePiece1]: "Sandcastle piece 1",
+			[Cosmetic.SandcastlePiece2]: "Sandcastle piece 2",
+			[Cosmetic.SandcastlePiece3]: "Sandcastle piece 3",
+			[Cosmetic.SandcastlePiece4]: "Sandcastle piece 4",
+			[Cosmetic.SandcastlePiece5]: "Sandcastle piece 5",
+			[Cosmetic.SandcastlePiece6]: "Sandcastle piece 6",
+			[Cosmetic.SandcastlePiece7]: "Sandcastle piece 7",
 			[Cosmetic.ProjectorOfMemories]: "Projector of Memories",
 		},
 		"interaction-error":
