@@ -81,6 +81,9 @@ const WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID =
 const WELCOME_MESSAGE_MAXIMUM_LENGTH = 1000 as const;
 const hexadecimalRegularExpression = /^[0-9A-Fa-f]+$/;
 
+const WELCOME_CHANNEL_PERMISSIONS =
+	PermissionFlagsBits.ViewChannel | PermissionFlagsBits.SendMessages;
+
 const WELCOME_MESSAGE_HUG_PERMISSIONS =
 	PermissionFlagsBits.ViewChannel |
 	PermissionFlagsBits.SendMessages |
@@ -152,6 +155,7 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 		suffix = "text";
 	}
 
+	let channelDescription = t("welcome.channel-description", { lng: locale, ns: "features" });
 	let hugDescription = t("welcome.hug-description", { lng: locale, ns: "features" });
 
 	if (welcomePacket?.welcome_channel_id) {
@@ -164,20 +168,35 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 		const channel =
 			welcomePacket?.welcome_channel_id && guild.channels.get(welcomePacket?.welcome_channel_id);
 
-		if (
-			channel &&
-			!can({
-				permission: WELCOME_MESSAGE_HUG_PERMISSIONS,
-				guild,
-				member: await guild.fetchMe(),
-				channel,
-			})
-		) {
-			hugDescription += `\n\n⚠️ ${t("welcome.hug-description-missing-permissions", {
-				lng: locale,
-				ns: "features",
-				channel: `<#${channel.id}>`,
-			})}`;
+		if (channel) {
+			if (
+				!can({
+					permission: WELCOME_CHANNEL_PERMISSIONS,
+					guild,
+					member: await guild.fetchMe(),
+					channel,
+				})
+			) {
+				channelDescription += `\n\n⚠️ ${t("welcome.channel-description-missing-permissions", {
+					lng: locale,
+					ns: "features",
+				})}`;
+			}
+
+			if (
+				!can({
+					permission: WELCOME_MESSAGE_HUG_PERMISSIONS,
+					guild,
+					member: await guild.fetchMe(),
+					channel,
+				})
+			) {
+				hugDescription += `\n\n⚠️ ${t("welcome.hug-description-missing-permissions", {
+					lng: locale,
+					ns: "features",
+					channel: `<#${channel.id}>`,
+				})}`;
+			}
 		}
 	}
 
@@ -193,7 +212,7 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t("welcome.description", { lng: locale, ns: "features" }),
+			content: channelDescription,
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -430,6 +449,36 @@ export async function sendWelcomeMessage({ userId, welcomePacket, locale }: Welc
 		return;
 	}
 
+	const guild = GUILD_CACHE.get(welcomePacket.guild_id);
+
+	if (!guild) {
+		pino.error(
+			new Error("Could not find the guild of a welcome message."),
+			"Failed to send welcome message.",
+		);
+
+		return;
+	}
+
+	const channel = guild.channels.get(welcomePacket.welcome_channel_id);
+
+	if (!channel) {
+		return;
+	}
+
+	const me = await guild.fetchMe();
+
+	if (
+		!can({
+			permission: WELCOME_CHANNEL_PERMISSIONS,
+			guild,
+			member: me,
+			channel,
+		})
+	) {
+		return;
+	}
+
 	try {
 		await client.api.channels.createMessage(welcomePacket.welcome_channel_id, {
 			allowed_mentions: { users: [userId] },
@@ -437,20 +486,6 @@ export async function sendWelcomeMessage({ userId, welcomePacket, locale }: Welc
 			flags: MessageFlags.IsComponentsV2,
 		});
 	} catch (error) {
-		if (
-			error instanceof DiscordAPIError &&
-			(error.code === RESTJSONErrorCodes.MissingPermissions ||
-				error.code === RESTJSONErrorCodes.InvalidFormBodyOrContentType)
-		) {
-			pino.warn(error, "Missing permissions to send welcome message. Removing configuration.");
-
-			await pg<WelcomePacket>(Table.Welcome)
-				.update({ welcome_channel_id: null })
-				.where({ welcome_channel_id: welcomePacket.welcome_channel_id });
-
-			return;
-		}
-
 		pino.error(error, "Failed to send welcome message.");
 	}
 }

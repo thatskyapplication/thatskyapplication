@@ -3443,7 +3443,9 @@ export default {
 		welcome: {
 			preview: "This is the preview area for your welcome message. It is currently empty.",
 			title: "Welcome setup",
-			description: "You can set up messages for whenever a Sky kid joins your server.",
+			"channel-description": "You can set up messages for whenever a Sky kid joins your server.",
+			"channel-description-missing-permissions":
+				"I require the following permissions for this to work:\n- `View Channels`\n- `Send Messages`",
 			"welcome-channel-select-menu-placeholder": "Select a welcome channel.",
 			"message-description":
 				"You can choose to display a message! To mention the user who joined, type `{{user}}`.",
