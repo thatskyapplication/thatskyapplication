@@ -328,7 +328,8 @@
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
-			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"251": "ช่วยเหลือสาวกผู้อธิษฐานบันทึกช่วงเวลาฤดูร้อนไว้ในห้องเก็บเอกสาร"
 		},
 		"seasons": {
 			"0": "ฤดูกาลแห่งความกตัญญู",
@@ -2446,6 +2447,10 @@
 			"2477": "เสื้อคลุมทักซิโด้วันฉลองครบรอบ",
 			"2482": "",
 			"2485": "",
+			"2486": "",
+			"2487": "",
+			"2488": "",
+			"2489": "",
 			"2490": "เครื่องฉายความทรงจำ"
 		},
 		"interaction-error": "",
@@ -2839,6 +2844,7 @@
 			"shard-eruption": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
+			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
@@ -2980,10 +2986,10 @@
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
+			"none": "",
 			"today": "",
 			"browse": "",
-			"realm-map": "",
-			"none": ""
+			"realm-map": ""
 		},
 		"sky-profile": {
 			"unknown-country": "",

@@ -328,7 +328,8 @@
 			"247": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.8)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
-			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})"
+			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
+			"251": "幫助祈禱聖徒在秘密書庫中記錄夏日"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -2446,6 +2447,10 @@
 			"2477": "週年慶典燕尾斗篷",
 			"2482": "",
 			"2485": "",
+			"2486": "",
+			"2487": "",
+			"2488": "",
+			"2489": "",
 			"2490": "回憶投影機"
 		},
 		"interaction-error": "",
@@ -2839,6 +2844,7 @@
 			"shard-eruption": "碎片噴發",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "時間戳",
+			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
@@ -2980,10 +2986,10 @@
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
+			"none": "無",
 			"today": "",
 			"browse": "",
-			"realm-map": "",
-			"none": "無"
+			"realm-map": ""
 		},
 		"sky-profile": {
 			"unknown-country": "",
