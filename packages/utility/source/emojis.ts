@@ -1004,6 +1004,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Anniversary Gown Ensemble Gown.
 	 */
 	Outfit90: { id: "1404327666202710016", name: "90_outfit" },
+	/**
+	 * Sunlight Bonnet Dress.
+	 */
+	Outfit91: { id: "1412357405106372608", name: "91_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1097,6 +1101,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit88: { id: "1396956009645473904", name: "88_outfit" },
 	Outfit89: { id: "1401820515299229697", name: "89_outfit" },
 	Outfit90: { id: "1404327674553303211", name: "90_outfit" },
+	Outfit91: { id: "1412357412500934696", name: "91_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -3215,6 +3220,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Vault Elder's Lantern (ultimate).
 	 */
 	HairAccessory60: { id: "1396895791959904536", name: "60_hair_accessory" },
+	/**
+	 * Sunlight Bonnet Jellyfish Hat.
+	 */
+	HairAccessory61: { id: "1412360698922537072", name: "61_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3278,6 +3287,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory58: { id: "1396910409046556804", name: "58_hair_accessory" },
 	HairAccessory59: { id: "1396910423139156088", name: "59_hair_accessory" },
 	HairAccessory60: { id: "1396895798465134765", name: "60_hair_accessory" },
+	HairAccessory61: { id: "1412360710121324624", name: "61_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4029,6 +4039,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Anniversary Tuxedo Cape.
 	 */
 	Cape158: { id: "1404901751844372560", name: "158_cape" },
+	/**
+	 * Sunlight Shawl.
+	 */
+	Cape159: { id: "1412354185634254929", name: "159_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4190,6 +4204,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape156: { id: "1396896130075332690", name: "156_cape" },
 	Cape157: { id: "1396916997295706253", name: "157_cape" },
 	Cape158: { id: "1404901759306170439", name: "158_cape" },
+	Cape159: { id: "1412354192940728402", name: "159_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -5335,6 +5350,38 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Caring Companion.
 	 */
 	SmallPlaceableProp96: { id: "1410974814767681566", name: "96_small_placeable_prop" },
+	/**
+	 * Sunlight Wave Projector.
+	 */
+	SmallPlaceableProp97: { id: "1412356286833627157", name: "97_small_placeable_prop" },
+	/**
+	 * Sandcastle piece 1.
+	 */
+	SmallPlaceableProp98: { id: "1412362936252629072", name: "98_small_placeable_prop" },
+	/**
+	 * Sandcastle piece 2.
+	 */
+	SmallPlaceableProp99: { id: "1412362954199924787", name: "99_small_placeable_prop" },
+	/**
+	 * Sandcastle piece 3.
+	 */
+	SmallPlaceableProp100: { id: "1412362978061189281", name: "100_small_placeable_prop" },
+	/**
+	 * Sandcastle piece 4.
+	 */
+	SmallPlaceableProp101: { id: "1412362986105999400", name: "101_small_placeable_prop" },
+	/**
+	 * Sandcastle piece 5.
+	 */
+	SmallPlaceableProp102: { id: "1412362994616369212", name: "102_small_placeable_prop" },
+	/**
+	 * Sandcastle piece 6.
+	 */
+	SmallPlaceableProp103: { id: "1412363003201982546", name: "103_small_placeable_prop" },
+	/**
+	 * Sandcastle piece 7.
+	 */
+	SmallPlaceableProp104: { id: "1412363013624959056", name: "104_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5433,6 +5480,14 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp93: { id: "1401820779548639252", name: "93_small_placeable_prop" },
 	SmallPlaceableProp94: { id: "1399294998867869737", name: "94_small_placeable_prop" },
 	SmallPlaceableProp96: { id: "1410974885789827245", name: "96_small_placeable_prop" },
+	SmallPlaceableProp97: { id: "1412356291883696208", name: "97_small_placeable_prop" },
+	SmallPlaceableProp98: { id: "1412363024085549146", name: "98_small_placeable_prop" },
+	SmallPlaceableProp99: { id: "1412363031710662717", name: "99_small_placeable_prop" },
+	SmallPlaceableProp100: { id: "1412363038673080340", name: "100_small_placeable_prop" },
+	SmallPlaceableProp101: { id: "1412363046424416286", name: "101_small_placeable_prop" },
+	SmallPlaceableProp102: { id: "1412363052916936714", name: "102_small_placeable_prop" },
+	SmallPlaceableProp103: { id: "1412363059103793223", name: "103_small_placeable_prop" },
+	SmallPlaceableProp104: { id: "1412363066477379604", name: "104_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -7989,17 +8044,17 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.CaringCompanionQuest]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CaringCompanionHeart]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.CaringCompanionProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp96,
-		[Cosmetic.SunlightShawl]: null,
-		[Cosmetic.SunlightWaveProjector]: null,
-		[Cosmetic.SunlightBonnetDress]: null,
-		[Cosmetic.SunlightBonnetJellyfishHat]: null,
-		[Cosmetic.SandcastlePiece1]: null,
-		[Cosmetic.SandcastlePiece2]: null,
-		[Cosmetic.SandcastlePiece3]: null,
-		[Cosmetic.SandcastlePiece4]: null,
-		[Cosmetic.SandcastlePiece5]: null,
-		[Cosmetic.SandcastlePiece6]: null,
-		[Cosmetic.SandcastlePiece7]: null,
+		[Cosmetic.SunlightShawl]: CAPE_EMOJIS.Cape159,
+		[Cosmetic.SunlightWaveProjector]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp97,
+		[Cosmetic.SunlightBonnetDress]: OUTFIT_EMOJIS.Outfit91,
+		[Cosmetic.SunlightBonnetJellyfishHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory61,
+		[Cosmetic.SandcastlePiece1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp98,
+		[Cosmetic.SandcastlePiece2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp99,
+		[Cosmetic.SandcastlePiece3]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp100,
+		[Cosmetic.SandcastlePiece4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp101,
+		[Cosmetic.SandcastlePiece5]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp102,
+		[Cosmetic.SandcastlePiece6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp103,
+		[Cosmetic.SandcastlePiece7]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp104,
 		[Cosmetic.ProjectorOfMemories]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
