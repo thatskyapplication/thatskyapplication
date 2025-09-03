@@ -7,6 +7,7 @@ import { sendWelcomeMessage, type WelcomePacketWithChannel } from "../features/w
 import pg from "../pg.js";
 import pino from "../pino.js";
 import {
+	ARTIST_ROLE_ID,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORTER_ROLE_ID,
 	TRANSLATOR_ROLE_ID,
@@ -66,6 +67,16 @@ export default {
 					SUPPORT_SERVER_GUILD_ID,
 					data.user.id,
 					SUPPORTER_ROLE_ID,
+				);
+			}
+
+			if (usersPacket?.artist) {
+				pino.info(data, "Adding artist role to user.");
+
+				await client.api.guilds.addRoleToMember(
+					SUPPORT_SERVER_GUILD_ID,
+					data.user.id,
+					ARTIST_ROLE_ID,
 				);
 			}
 		}

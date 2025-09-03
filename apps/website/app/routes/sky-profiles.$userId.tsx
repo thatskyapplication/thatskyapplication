@@ -136,7 +136,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 	}
 
 	const data = await pg
-		.select<SkyProfileData>(["p.*", "u.crowdin_user_id", "u.supporter"])
+		.select<SkyProfileData>(["p.*", "u.crowdin_user_id", "u.supporter", "u.artist"])
 		.from(`${Table.Profiles} as p`)
 		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
 		.where("p.user_id", userId as Snowflake)
@@ -177,22 +177,28 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 function RecognitionBadges({ data }: { data: SkyProfileData }) {
 	const badges = [];
 
-	if (data.supporter) {
-		badges.push({
-			label: "Supporter",
-			icon: "🩵",
-			description: "This Sky kid is supporting development! How nice of them!",
-			clickable: false,
-		});
-	}
-
 	if (data.crowdin_user_id) {
 		badges.push({
 			label: "Translator",
 			icon: <Globe className="w-4 h-4" />,
 			description: "This Sky kid helps translate what you see! You can help out on Crowdin!",
-			clickable: true,
 			href: CROWDIN_URL,
+		});
+	}
+
+	if (data.artist) {
+		badges.push({
+			label: "Artist",
+			icon: "🎨",
+			description: "This Sky kid contributes artwork! They have amazing styles!",
+		});
+	}
+
+	if (data.supporter) {
+		badges.push({
+			label: "Supporter",
+			icon: "🩵",
+			description: "This Sky kid is supporting development! How nice of them!",
 		});
 	}
 
@@ -208,7 +214,7 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 					</>
 				);
 
-				return badge.clickable ? (
+				return badge.href ? (
 					<a
 						className={`${BADGES_CLASS_NAME} hover:from-purple-200 hover:to-blue-200 dark:hover:from-purple-800/40 dark:hover:to-blue-800/40 transition-colors cursor-pointer`}
 						href={badge.href}

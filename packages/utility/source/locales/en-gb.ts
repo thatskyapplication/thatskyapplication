@@ -3406,6 +3406,9 @@ export default {
 				"{{emoji}} This Sky kid is a {{role}}! You can help out on [Crowdin]({{url}}) too!",
 			"crowdin-other-server":
 				"{{emoji}} This Sky kid helps translate what you see! You can help out on [Crowdin]({{url}}) too!",
+			"artist-support-server": "{{emoji}} This Sky kid is an {{role}}! They have amazing styles!",
+			"artist-other-server":
+				"{{emoji}} This Sky kid contributes artwork! They have amazing styles!",
 			"supporter-support-server":
 				"{{emoji1}} This Sky kid is a {{role}}! How nice of them to support development! {{emoji2}}",
 			"supporter-other-server":

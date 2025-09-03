@@ -73,6 +73,7 @@ import S3Client from "../s3-client.js";
 import { totalReceived } from "../services/heart.js";
 import {
 	APPLICATION_ID,
+	ARTIST_ROLE_ID,
 	CDN_BUCKET,
 	CDN_URL,
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
@@ -292,7 +293,7 @@ function generateLabelLetter(label: string) {
 
 async function skyProfileFetch(userId: Snowflake) {
 	return await pg
-		.select<SkyProfileData>(["p.*", "u.crowdin_user_id", "u.supporter"])
+		.select<SkyProfileData>(["p.*", "u.crowdin_user_id", "u.supporter", "u.artist"])
 		.from(`${Table.Profiles} as p`)
 		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
 		.where("p.user_id", userId)
@@ -2091,6 +2092,7 @@ async function skyProfileComponents(
 		guess_rank: guessRank,
 		crowdin_user_id,
 		supporter,
+		artist,
 	} = data;
 
 	const components: APIMessageTopLevelComponent[] = [];
@@ -2320,6 +2322,17 @@ async function skyProfileComponents(
 				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Crowdin),
 				role: `<@&${TRANSLATOR_ROLE_ID}>`,
 				url: CROWDIN_URL,
+			}),
+		);
+	}
+
+	if (artist) {
+		userDataContent.push(
+			t(`sky-profile.artist-${suffix}`, {
+				lng: locale,
+				ns: "features",
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Dye),
+				role: `<@&${ARTIST_ROLE_ID}>`,
 			}),
 		);
 	}

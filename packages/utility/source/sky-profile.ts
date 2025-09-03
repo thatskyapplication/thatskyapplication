@@ -18,7 +18,7 @@ export interface SkyProfilePacket {
 }
 
 export type SkyProfileData = SkyProfilePacket &
-	Pick<Nullable<UsersPacket>, "crowdin_user_id" | "supporter">;
+	Pick<Nullable<UsersPacket>, "crowdin_user_id" | "supporter" | "artist">;
 
 export const SkyProfileWingedLightType = {
 	InferFromCatalogue: 0,
