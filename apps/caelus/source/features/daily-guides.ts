@@ -487,39 +487,31 @@ async function send(
 	const guild = GUILD_CACHE.get(guildId);
 
 	if (!guild) {
-		pino.info(
+		throw new Error(
 			`Did not distribute daily guides to guild id ${guildId} as the guild was not cached.`,
 		);
-
-		return;
 	}
 
 	const channel = guild.channels.get(channelId!) ?? guild.threads.get(channelId!);
 
 	if (!channel) {
-		pino.info(
+		throw new Error(
 			`Did not distribute daily guides to guild id ${guildId} as it had no detectable channel id ${channelId}.`,
 		);
-
-		return;
 	}
 
 	if (!isDailyGuidesDistributionChannel(channel)) {
-		pino.info(
+		throw new Error(
 			`Did not distribute daily guides to guild id ${guildId} as it did not satisfy the allowed channel types.`,
 		);
-
-		return;
 	}
 
 	const me = await guild.fetchMe();
 
 	if (!isDailyGuidesDistributable(guild, channel, me)) {
-		pino.info(
+		throw new Error(
 			`Did not distribute daily guides to guild id ${guildId} as it did not have suitable permissions in channel id ${channelId}.`,
 		);
-
-		return;
 	}
 
 	// Retrieve our data.
@@ -809,30 +801,40 @@ async function distributeLogic({
 	);
 
 	const knownErrors: unknown[] = [];
+	const errors: unknown[] = [];
 
-	const errors = settled
-		.filter((result): result is PromiseRejectedResult => result.status === "rejected")
-		.map((result) => result.reason)
-		.filter((error) => {
-			if (
-				error instanceof DiscordAPIError &&
-				error.code === RESTJSONErrorCodes.UnknownMessage &&
-				error.method === "PATCH"
-			) {
-				// It is likely that the message was deleted prior to editing.
-				knownErrors.push(error);
-				return false;
-			}
+	for (const result of settled) {
+		if (result.status !== "rejected") {
+			continue;
+		}
 
-			return true;
-		});
+		const { reason } = result;
+
+		if (
+			reason instanceof DiscordAPIError &&
+			reason.code === RESTJSONErrorCodes.UnknownMessage &&
+			reason.method === "PATCH"
+		) {
+			// It is likely that the message was deleted prior to editing.
+			knownErrors.push(reason);
+			continue;
+		}
+
+		errors.push(result.reason);
+	}
 
 	if (errors.length > 0) {
-		pino.error(errors, "Error whilst distributing daily guides.");
+		pino.error(
+			new AggregateError(errors, "Errors whilst distributing daily guides."),
+			"Daily guides distribution error.",
+		);
 	}
 
 	if (knownErrors.length > 0) {
-		pino.info(knownErrors, "Known errors whilst distributing daily guides.");
+		pino.info(
+			new AggregateError(knownErrors, "Errors (known) whilst distributing daily guides."),
+			"Daily guides distribution error (known).",
+		);
 	}
 }
 
