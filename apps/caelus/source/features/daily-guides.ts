@@ -334,7 +334,7 @@ export async function setup({ guildId, channelId }: DailyGuidesSetupOptions) {
 	}
 
 	if (shouldSend) {
-		await send(false, { guildId, channelId, messageId: null });
+		await send({ guildId, channelId, messageId: null, enforceNonce: false });
 	}
 }
 
@@ -478,12 +478,10 @@ interface DailyGuidesSendOptions {
 	guildId: DailyGuidesDistributionPacket["guild_id"];
 	channelId: DailyGuidesDistributionPacket["channel_id"];
 	messageId: DailyGuidesDistributionPacket["message_id"];
+	enforceNonce: boolean;
 }
 
-async function send(
-	enforceNonce: boolean,
-	{ guildId, channelId, messageId }: DailyGuidesSendOptions,
-) {
+async function send({ guildId, channelId, messageId, enforceNonce }: DailyGuidesSendOptions) {
 	const guild = GUILD_CACHE.get(guildId);
 
 	if (!guild) {
@@ -791,10 +789,11 @@ async function distributeLogic({
 	const settled = await Promise.allSettled(
 		dailyGuidesDistributionPackets.map((dailyGuidesDistributionPacket) =>
 			distributeQueue.add(async () =>
-				send(true, {
+				send({
 					guildId: dailyGuidesDistributionPacket.guild_id,
 					channelId: dailyGuidesDistributionPacket.channel_id,
 					messageId: dailyGuidesDistributionPacket.message_id,
+					enforceNonce: true,
 				}),
 			),
 		),
