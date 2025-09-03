@@ -812,11 +812,13 @@ async function distributeLogic({
 		const { reason } = result;
 
 		if (
-			reason instanceof DiscordAPIError &&
-			reason.code === RESTJSONErrorCodes.UnknownMessage &&
-			reason.method === "PATCH"
-		) {
+			// Our own errors thrown.
+			(reason instanceof Error && reason.message.startsWith("Did not distribute")) ||
 			// It is likely that the message was deleted prior to editing.
+			(reason instanceof DiscordAPIError &&
+				reason.code === RESTJSONErrorCodes.UnknownMessage &&
+				reason.method === "PATCH")
+		) {
 			knownErrors.push(reason);
 			continue;
 		}
