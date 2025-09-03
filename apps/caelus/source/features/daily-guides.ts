@@ -60,6 +60,7 @@ import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/
 import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
+import type { NonNullableInterface } from "../types/index.js";
 import {
 	APPLICATION_ID,
 	CDN_BUCKET,
@@ -317,23 +318,23 @@ export async function setup({ guildId, channelId }: DailyGuidesSetupOptions) {
 			}
 
 			updateData = { channel_id: channelId, message_id: null };
-			shouldSend = Boolean(channelId);
+			shouldSend = true;
 		}
 
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 			.update(updateData)
-			.where({ guild_id: guildId })
-			.returning("*");
+			.where({ guild_id: guildId });
 	} else {
-		shouldSend = Boolean(channelId);
+		shouldSend = true;
 
-		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert(
-			{ guild_id: guildId, channel_id: channelId, message_id: null },
-			"*",
-		);
+		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert({
+			guild_id: guildId,
+			channel_id: channelId,
+			message_id: null,
+		});
 	}
 
-	if (shouldSend) {
+	if (shouldSend && channelId) {
 		await send({ guildId, channelId, messageId: null, enforceNonce: false });
 	}
 }
@@ -475,9 +476,9 @@ export async function deleteDailyGuidesDistribution(guildId: Snowflake) {
 }
 
 interface DailyGuidesSendOptions {
-	guildId: DailyGuidesDistributionPacket["guild_id"];
-	channelId: DailyGuidesDistributionPacket["channel_id"];
-	messageId: DailyGuidesDistributionPacket["message_id"];
+	guildId: Snowflake;
+	channelId: Snowflake;
+	messageId: Snowflake | null;
 	enforceNonce: boolean;
 }
 
@@ -782,9 +783,10 @@ async function distributeLogic({
 		last_updated_at: lastUpdatedAt,
 	});
 
-	const dailyGuidesDistributionPackets = await pg<DailyGuidesDistributionPacket>(
-		Table.DailyGuidesDistribution,
-	).whereNotNull("channel_id");
+	const dailyGuidesDistributionPackets = await pg<
+		DailyGuidesDistributionPacket &
+			NonNullableInterface<Pick<DailyGuidesDistributionPacket, "channel_id">>
+	>(Table.DailyGuidesDistribution).whereNotNull("channel_id");
 
 	const settled = await Promise.allSettled(
 		dailyGuidesDistributionPackets.map((dailyGuidesDistributionPacket) =>
