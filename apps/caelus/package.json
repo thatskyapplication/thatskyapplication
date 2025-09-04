@@ -8,7 +8,7 @@
 		"format": "biome check --write",
 		"lint": "biome check",
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
-		"start": "node distribution/index.js",
+		"start": "node --import ./distribution/sentry.js distribution/index.js",
 		"deploy-commands-dev": "tsx --env-file=.env.development source/utility/deploy-commands.ts | pino-pretty",
 		"deploy-commands": "tsx source/utility/deploy-commands.ts",
 		"knip": "knip"
@@ -21,6 +21,7 @@
 		"@discordjs/ws": "^2.0.3",
 		"@logtail/pino": "^0.5.5",
 		"@sapphire/snowflake": "^3.5.5",
+		"@sentry/node": "^10.9.0",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
 		"hasha": "^6.0.0",

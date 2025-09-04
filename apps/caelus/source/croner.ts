@@ -1,6 +1,6 @@
+import { captureCheckIn } from "@sentry/node";
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
-import { request } from "undici";
 import { GUILD_CACHE } from "./caches/guilds.js";
 import { commandAnalyticsDeleteOld } from "./features/command-analytics.js";
 import {
@@ -11,7 +11,7 @@ import {
 import { end } from "./features/giveaway.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
-import { APPLICATION_ID, FLIGHT_CHECK, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
+import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
 import { GIVEAWAY_END_DATE } from "./utility/constants.js";
 
 export default function croner() {
@@ -55,21 +55,14 @@ export default function croner() {
 		},
 	);
 
-	if (FLIGHT_CHECK) {
-		new Cron("*/5 * * * *", async () => {
-			try {
+	if (PRODUCTION) {
+		new Cron(
+			"*/5 * * * *",
+			{ catch: () => captureCheckIn({ monitorSlug: "caelus", status: "error" }) },
+			async () => {
 				await pg.select(1);
-			} catch (error) {
-				pino.error(error, "[Flight Check] Database failed.");
-				return;
-			}
-
-			const { body } = await request("https://flight-check.thatskyapplication.com", {
-				method: "GET",
-				headers: { Authorization: `Bearer ${FLIGHT_CHECK}` },
-			});
-
-			await body.dump();
-		});
+				captureCheckIn({ monitorSlug: "caelus", status: "ok" });
+			},
+		);
 	}
 }

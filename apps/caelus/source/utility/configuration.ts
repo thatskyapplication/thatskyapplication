@@ -30,13 +30,13 @@ const envSchema = z.object({
 	S3_ACCOUNT_ID: z.string().min(1),
 	S3_SECRET_ACCESS_KEY: z.string().min(1),
 	// Production-only.
+	SENTRY_DATA_SOURCE_NAME: z.url().optional(),
 	BETTER_STACK_TOKEN: z.string().min(1).optional(),
-	FLIGHT_CHECK: z.string().min(1).optional(),
 });
 
 const productionEnvSchema = envSchema.extend({
+	SENTRY_DATA_SOURCE_NAME: z.url(),
 	BETTER_STACK_TOKEN: z.string().min(1),
-	FLIGHT_CHECK: z.string().min(1),
 });
 
 export const {
@@ -63,8 +63,8 @@ export const {
 	S3_ACCESS_KEY_ID,
 	S3_ACCOUNT_ID,
 	S3_SECRET_ACCESS_KEY,
+	SENTRY_DATA_SOURCE_NAME,
 	BETTER_STACK_TOKEN,
-	FLIGHT_CHECK,
 } = (PRODUCTION ? productionEnvSchema : envSchema).parse(process.env);
 
 // Content delivery network buckets.
