@@ -1082,6 +1082,21 @@ export async function set(
 	const newQuest4 = options.getInteger("quest-4") ?? oldQuest4;
 	const travellingRock = options.getAttachment("travelling-rock");
 
+	if (
+		!travellingRock &&
+		oldQuest1 === newQuest1 &&
+		oldQuest2 === newQuest2 &&
+		oldQuest3 === newQuest3 &&
+		oldQuest4 === newQuest4
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "No changes were made. Check to see if daily guides are already distributed!",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
 	const oldQuests = {
 		quest1: oldQuest1 === null ? null : t(`quests.${oldQuest1}`, { ns: "general" }),
 		quest2: oldQuest2 === null ? null : t(`quests.${oldQuest2}`, { ns: "general" }),
