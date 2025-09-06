@@ -5382,6 +5382,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Sandcastle piece 7.
 	 */
 	SmallPlaceableProp104: { id: "1412363013624959056", name: "104_small_placeable_prop" },
+	/**
+	 * Projector of Memories.
+	 */
+	SmallPlaceableProp105: { id: "1413962451191464036", name: "105_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5488,6 +5492,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp102: { id: "1412363052916936714", name: "102_small_placeable_prop" },
 	SmallPlaceableProp103: { id: "1412363059103793223", name: "103_small_placeable_prop" },
 	SmallPlaceableProp104: { id: "1412363066477379604", name: "104_small_placeable_prop" },
+	SmallPlaceableProp105: { id: "1413962458145751163", name: "105_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -8055,7 +8060,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.SandcastlePiece5]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp102,
 		[Cosmetic.SandcastlePiece6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp103,
 		[Cosmetic.SandcastlePiece7]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp104,
-		[Cosmetic.ProjectorOfMemories]: null,
+		[Cosmetic.ProjectorOfMemories]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
