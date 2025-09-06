@@ -17,6 +17,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
+import { addBreadcrumb, captureException } from "@sentry/node";
 import { isDuring, isRealm, isSeasonId, skyNow } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -486,6 +487,16 @@ export default {
 					await upsell(interaction);
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data: interaction,
+					category: "Interaction",
+					message: "Chat input command failed.",
+					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
+				});
+
+				captureException(error);
 				void recoverInteractionError(interaction, error);
 			}
 
@@ -511,6 +522,16 @@ export default {
 			try {
 				await command.userContextMenu(interaction);
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data: interaction,
+					category: "Interaction",
+					message: "User context menu command failed.",
+					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
+				});
+
+				captureException(error);
 				void recoverInteractionError(interaction, error);
 			}
 
@@ -927,6 +948,16 @@ export default {
 					}
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data: interaction,
+					category: "Interaction",
+					message: "Button interaction failed.",
+					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
+				});
+
+				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
@@ -1093,6 +1124,16 @@ export default {
 					}
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data: interaction,
+					category: "Interaction",
+					message: "String select interaction failed.",
+					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
+				});
+
+				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
@@ -1120,6 +1161,16 @@ export default {
 					return;
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data: interaction,
+					category: "Interaction",
+					message: "Role select failed.",
+					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
+				});
+
+				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
@@ -1160,6 +1211,16 @@ export default {
 					return;
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data: interaction,
+					category: "Interaction",
+					message: "Channel select failed.",
+					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
+				});
+
+				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
@@ -1251,6 +1312,16 @@ export default {
 					}
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data: interaction,
+					category: "Interaction",
+					message: "Modal submit failed.",
+					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
+				});
+
+				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
