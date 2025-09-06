@@ -6,6 +6,7 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
+	Cosmetic,
 	INTERNATIONAL_SPACE_STATION_DATES,
 	NotificationType,
 	skyNow,
@@ -51,11 +52,13 @@ function scheduleTimes(date: DateTime) {
 	const aurora = [];
 	const dreamsSkater = [];
 	const passage = [];
+	const projectorOfMemories = [];
 
 	// 5 minutes is the least common denominator.
 	for (let start = date; start < tomorrow; start = start.plus({ minutes: 5 })) {
 		const timeString = `<t:${start.toUnixInteger()}:t>`;
 		const { minute, hour, weekday } = start;
+		const minutesSince = hour * 60 + minute;
 
 		if (minute % 15 === 0) {
 			passage.push(timeString);
@@ -88,9 +91,13 @@ function scheduleTimes(date: DateTime) {
 		if (minute === 0 && hour % 2 === 0) {
 			aurora.push(timeString);
 		}
+
+		if (minutesSince % 80 === 0) {
+			projectorOfMemories.push(timeString);
+		}
 	}
 
-	return { pollutedGeyser, grandma, turtle, aurora, dreamsSkater, passage };
+	return { pollutedGeyser, grandma, turtle, aurora, dreamsSkater, passage, projectorOfMemories };
 }
 
 function aviarysFireworkFestivalTime(date: DateTime) {
@@ -144,8 +151,10 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 	const { locale } = interaction;
 	const now = skyNow();
 	const startOfDay = now.startOf("day");
-	const { pollutedGeyser, grandma, turtle, passage, aurora, dreamsSkater } =
+
+	const { pollutedGeyser, grandma, turtle, passage, aurora, dreamsSkater, projectorOfMemories } =
 		scheduleTimes(startOfDay);
+
 	const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
 	const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
 
@@ -192,6 +201,7 @@ export async function schedule(interaction: APIChatInputApplicationCommandIntera
 							`### Deer\n${deer(locale)
 								.map(({ text, time }, index) => `${index + 1}. ${time} _(${text})_`)
 								.join("\n")}`,
+							`### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n${projectorOfMemories.join(" ")}`,
 						].join("\n"),
 					},
 					{
