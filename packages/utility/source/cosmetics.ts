@@ -3148,7 +3148,7 @@ export enum Cosmetic {
 	SandcastlePiece6 = 2495,
 	SandcastlePiece7 = 2496,
 
-	// Unknown | Version 0.30.5.
+	// 06/09/2025 | Version 0.30.6.
 	ProjectorOfMemories = 2497,
 }
 
