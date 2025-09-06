@@ -3096,6 +3096,8 @@
 			"guess-rank-unranked": "Non-classé",
 			"crowdin-support-server": "{{emoji}} Cet enfant de Sky est un {{role}} ! Vous pouvez aider sur [Crowdin]({{url}}) vous aussi !",
 			"crowdin-other-server": "{{emoji}} Cet enfant de Sky aide à traduire ce que vous voyez ! Vous pouvez aider vous aussi sur [Crowdin]({{url}}) !",
+			"artist-support-server": "",
+			"artist-other-server": "",
 			"supporter-support-server": "{{emoji1}} Cet enfant de Sky est un {{role}} ! Comme c'est gentil de sa part de supporter le développement ! {{emoji2}}",
 			"supporter-other-server": "{{emoji1}} Cet enfant de Sky supporte le développement ! Comme c'est gentil de sa part ! {{emoji2}}",
 			"missing-name": "Entrez votre pseudo !",

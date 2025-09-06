@@ -3096,6 +3096,8 @@
 			"guess-rank-unranked": "",
 			"crowdin-support-server": "",
 			"crowdin-other-server": "",
+			"artist-support-server": "",
+			"artist-other-server": "",
 			"supporter-support-server": "",
 			"supporter-other-server": "",
 			"missing-name": "",
