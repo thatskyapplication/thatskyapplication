@@ -85,6 +85,7 @@ export default new Season({
 		},
 		{
 			cosmetic: Cosmetic.ProjectorOfMemories,
+			cost: { money: 24.99 },
 		},
 	],
 	doubleSeasonalLightEventStartDate: skyDate(2_025, 8, 19),
