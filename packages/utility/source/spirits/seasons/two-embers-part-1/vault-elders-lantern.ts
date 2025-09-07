@@ -7,7 +7,6 @@ export default new GuideSpirit({
 	id: SpiritId.VaultEldersLantern,
 	seasonId: SeasonId.TwoEmbersPart1,
 	offer: {
-		inProgress: true,
 		current: [
 			[
 				{

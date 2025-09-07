@@ -5347,6 +5347,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	SmallPlaceableProp94: { id: "1399294985655947375", name: "94_small_placeable_prop" },
 	/**
+	 * Vault Elder's Lantern (non-ultimate).
+	 */
+	SmallPlaceableProp95: { id: "1414165166928691281", name: "95_small_placeable_prop" },
+	/**
 	 * Caring Companion.
 	 */
 	SmallPlaceableProp96: { id: "1410974814767681566", name: "96_small_placeable_prop" },
@@ -5483,6 +5487,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp92: { id: "1396906809238884393", name: "92_small_placeable_prop" },
 	SmallPlaceableProp93: { id: "1401820779548639252", name: "93_small_placeable_prop" },
 	SmallPlaceableProp94: { id: "1399294998867869737", name: "94_small_placeable_prop" },
+	SmallPlaceableProp95: { id: "1414165242040291389", name: "95_small_placeable_prop" },
 	SmallPlaceableProp96: { id: "1410974885789827245", name: "96_small_placeable_prop" },
 	SmallPlaceableProp97: { id: "1412356291883696208", name: "97_small_placeable_prop" },
 	SmallPlaceableProp98: { id: "1412363024085549146", name: "98_small_placeable_prop" },
@@ -8045,7 +8050,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.WoundedWarriorWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.VaultEldersLanternQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart5]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.VaultEldersLanternProp]: null,
+		[Cosmetic.VaultEldersLanternProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp95,
 		[Cosmetic.CaringCompanionQuest]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CaringCompanionHeart]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.CaringCompanionProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp96,
