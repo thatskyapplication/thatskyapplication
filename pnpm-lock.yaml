@@ -77,9 +77,6 @@ importers:
       sharp:
         specifier: ^0.33.4
         version: 0.33.5
-      undici:
-        specifier: ^7.13.0
-        version: 7.13.0
       zod:
         specifier: ^3.25.71
         version: 3.25.76
