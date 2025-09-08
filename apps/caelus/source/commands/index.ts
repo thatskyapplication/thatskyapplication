@@ -1,6 +1,5 @@
 import about from "./chat-inputs/about.js";
 import admin from "./chat-inputs/admin.js";
-import bonk from "./chat-inputs/bonk.js";
 import calculate from "./chat-inputs/calculate.js";
 import catalogue from "./chat-inputs/catalogue.js";
 import configure from "./chat-inputs/configure.js";
@@ -26,7 +25,6 @@ import sky_profile_context_menu from "./user-context-menus/sky-profile.js";
 export const CHAT_INPUT_COMMANDS = [
 	about,
 	admin,
-	bonk,
 	calculate,
 	catalogue,
 	configure,

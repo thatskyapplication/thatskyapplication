@@ -2738,12 +2738,6 @@ export default {
 			"command-name": "about",
 			"command-description": "About me, the wondrous little Sky helper!",
 		},
-		bonk: {
-			"command-name": "bonk",
-			"command-description": "Bonk someone!",
-			"command-option-user-name": "user",
-			"command-option-user-description": "The individual to be bonked.",
-		},
 		calculate: {
 			"command-name": "calculate",
 			"command-description": "The command containing various calculators.",
@@ -3055,10 +3049,6 @@ export default {
 				"I have the ability to engage in conversation, be it sporadically or when you mention me! I can choose to respond in certain frequencies too!\n\nTo use this feature though, it must be purchased.",
 			"frequency-type-string-select-menu-placeholder": "Set the frequency.",
 			"frequency-unknown": "Unknown frequency. Please try again.",
-		},
-		bonk: {
-			"missing-external-apps-permission":
-				"You are missing the `Use External Apps` permission, so {{user}} would not be bonked. Someone needs to adjust the permissions!",
 		},
 		calculate: {
 			"goal-already-achieved": "You have already achieved your goal!",
