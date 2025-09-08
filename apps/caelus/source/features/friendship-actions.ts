@@ -24,7 +24,7 @@ import { t } from "i18next";
 import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import { SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
+import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
 import { EMOTE_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, userTag } from "../utility/functions.js";
 import { can, cannotUseUserInstallable } from "../utility/permissions.js";
@@ -226,7 +226,13 @@ export async function friendshipActionsCreateThread(
 
 	FRIENDSHIP_ACTIONS_CACHE.set(id, userId);
 
-	await client.api.channels.createMessage(id, {
-		content: `Hey, <@${userId}>! ${formatEmoji(EMOTE_EMOJIS.Bow)} Post your media here and we'll review it. Any questions? Ask away~`,
-	});
+	await Promise.all([
+		client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Let's get started! <#${id}>`,
+			flags: MessageFlags.Ephemeral,
+		}),
+		client.api.channels.createMessage(id, {
+			content: `Hey, <@${userId}>! ${formatEmoji(EMOTE_EMOJIS.Bow)} Post your media here and a <@&${DEVELOPER_ROLE_ID}> will review it. Any questions? Ask away~`,
+		}),
+	]);
 }
