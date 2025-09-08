@@ -6,6 +6,8 @@ export const {
 	EMOTE_EMOJIS,
 	FRIEND_ACTION_EMOJIS,
 	SEASON_EMOJIS,
+	CAPE_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
 	CosmeticToEmoji,
 	SeasonIdToSeasonalEmoji,
 	SeasonIdToSeasonalCandleEmoji,
