@@ -179,7 +179,7 @@ export async function friendshipActionsCreateThread(
 ) {
 	const userId = interaction.member.user.id;
 
-	const existingThread = FRIENDSHIP_ACTIONS_CACHE.find(
+	const existingThread = FRIENDSHIP_ACTIONS_CACHE.findKey(
 		(friendshipAction) => friendshipAction === userId,
 	);
 
