@@ -77,7 +77,7 @@ const computeOverwrites = ({
 	const everyoneOverwrite = overwritesMap.get(guild.id);
 
 	if (everyoneOverwrite) {
-		permissions &= BigInt(~everyoneOverwrite.deny);
+		permissions &= ~BigInt(everyoneOverwrite.deny);
 		permissions |= BigInt(everyoneOverwrite.allow);
 	}
 
@@ -98,7 +98,7 @@ const computeOverwrites = ({
 	const memberOverwrite = overwritesMap.get(member.user.id);
 
 	if (memberOverwrite) {
-		permissions &= BigInt(~memberOverwrite.deny);
+		permissions &= ~BigInt(memberOverwrite.deny);
 		permissions |= BigInt(memberOverwrite.allow);
 	}
 
