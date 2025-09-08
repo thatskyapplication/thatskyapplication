@@ -19,8 +19,11 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { SPIRITS_HISTORY_NEXT_CUSTOM_ID } from "../features/spirits.js";
-import { PASSAGE_TRUNCATION_LIMIT } from "../utility/constants.js";
-import { CAPE_EMOJIS, SMALL_PLACEABLE_PROPS_EMOJIS } from "../utility/emojis.js";
+import {
+	CAPE_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
+} from "../utility/emojis.js";
 
 function dailyResetTime(date: DateTime) {
 	return date.plus({ day: 1 }).toUnixInteger();
@@ -126,27 +129,43 @@ function scheduleTimes(date: DateTime) {
 	return { pollutedGeyser, grandma, turtle, aurora, dreamsSkater, passage, projectorOfMemories };
 }
 
-function nextPollutedGeyser(date: DateTime) {
+function pollutedGeyserOverview(date: DateTime) {
 	const { hour, minute } = date;
-	return `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 5 ? 5 - minute : 125 - minute) : 65 - minute }).toUnixInteger()}:R>`;
+
+	return {
+		now: hour % 2 === 0 && minute >= 5 && minute < 15,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 5 ? 5 - minute : 125 - minute) : 65 - minute }).toUnixInteger()}:R>`,
+	};
 }
 
-function nextGrandma(date: DateTime) {
+function grandmaOverview(date: DateTime) {
 	const { hour, minute } = date;
-	return `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 35 ? 35 - minute : 155 - minute) : 95 - minute }).toUnixInteger()}:R>`;
+
+	return {
+		now: hour % 2 === 0 && minute >= 35 && minute < 45,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 35 ? 35 - minute : 155 - minute) : 95 - minute }).toUnixInteger()}:R>`,
+	};
 }
 
-function nextTurtle(date: DateTime) {
+function turtleOverview(date: DateTime) {
 	const { hour, minute } = date;
-	return `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 50 ? 50 - minute : 170 - minute) : 110 - minute }).toUnixInteger()}:R>`;
+
+	return {
+		now: hour % 2 === 0 && minute >= 50 && minute < 60,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 50 ? 50 - minute : 170 - minute) : 110 - minute }).toUnixInteger()}:R>`,
+	};
 }
 
-function nextAURORA(date: DateTime) {
+function auroraOverview(date: DateTime) {
 	const { hour, minute } = date;
-	return `<t:${date.plus({ minutes: hour % 2 === 0 ? 120 - minute : 60 - minute }).toUnixInteger()}:R>`;
+
+	return {
+		now: hour % 2 === 0,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? 120 - minute : 60 - minute }).toUnixInteger()}:R>`,
+	};
 }
 
-function nextDreamsSkater(date: DateTime) {
+function dreamsSkaterOverview(date: DateTime) {
 	const { weekday, hour, minute } = date;
 
 	const dreamsSkaterDate =
@@ -156,7 +175,10 @@ function nextDreamsSkater(date: DateTime) {
 				? date.plus({ minutes: 60 - minute })
 				: date.plus({ minutes: 120 - minute });
 
-	return `<t:${dreamsSkaterDate.toUnixInteger()}:R>`;
+	return {
+		now: (weekday === 5 || weekday === 6 || weekday === 7) && hour % 2 === 1 && minute < 15,
+		next: `<t:${dreamsSkaterDate.toUnixInteger()}:R>`,
+	};
 }
 
 function nextPassage(date: DateTime) {
@@ -164,32 +186,39 @@ function nextPassage(date: DateTime) {
 	return `<t:${date.plus({ minutes: 15 - (minute % 15) }).toUnixInteger()}:R>`;
 }
 
-function nextAviarysFireworkFestival(date: DateTime) {
+function aviarysFireworkFestivalOverview(date: DateTime) {
 	const { hour, minute } = date;
 	const minutesSince = hour * 60 + minute;
 
-	return `<t:${(
-		date.day === 1
-			? date.plus({ minutes: 240 - (minutesSince % 240) })
-			: date.plus({ month: 1 }).startOf("month")
-	).toUnixInteger()}:R>`;
+	return {
+		now: date.day === 1 && hour % 4 === 0 && minute <= 10,
+		next: `<t:${(
+			date.day === 1
+				? date.plus({ minutes: 240 - (minutesSince % 240) })
+				: date.plus({ month: 1 }).startOf("month")
+		).toUnixInteger()}:R>`,
+	};
 }
 
 function aviarysFireworkFestivalTime(date: DateTime) {
 	const startOfMonth = date.plus({ month: 1 }).startOf("month");
 	const dayAfterStartOfMonth = startOfMonth.plus({ day: 1 });
 	const times = [];
-	
+
 	for (let start = startOfMonth; start < dayAfterStartOfMonth; start = start.plus({ hours: 4 })) {
 		times.push(`<t:${start.toUnixInteger()}:t>`);
 	}
-	
+
 	return times;
 }
 
-function nextDeer(date: DateTime) {
+function deerOverview(date: DateTime) {
 	const { minute } = date;
-	return `<t:${date.plus({ minutes: 30 - (minute % 30) }).toUnixInteger()}:R>`;
+
+	return {
+		now: minute < 20 || (minute >= 30 && minute < 50),
+		next: `<t:${date.plus({ minutes: 30 - (minute % 30) }).toUnixInteger()}:R>`,
+	};
 }
 
 function deer(locale: Locale) {
@@ -227,28 +256,29 @@ function deer(locale: Locale) {
 	];
 }
 
-function nextProjectorOfMemories(date: DateTime) {
+function projectorOfMemoriesOverview(date: DateTime) {
 	const { hour, minute } = date;
 	const minutesSince = hour * 60 + minute;
-	return `<t:${date.plus({ minutes: 80 - (minutesSince % 80) }).toUnixInteger()}:R>`;
+
+	return {
+		// Assume it lasts 70 minutes.
+		now: minutesSince % 80 < 70,
+		next: `<t:${date.plus({ minutes: 80 - (minutesSince % 80) }).toUnixInteger()}:R>`,
+	};
 }
 
 export async function scheduleOverview(interaction: APIChatInputApplicationCommandInteraction) {
 	const { locale } = interaction;
 	const now = skyNow();
-	const { weekday } = now;
 	const startOfDay = now.startOf("day");
-
-	const { grandma, turtle, passage, aurora, dreamsSkater, projectorOfMemories } =
-		scheduleTimes(startOfDay);
-
-	const passageTimesStart = passage.slice(0, PASSAGE_TRUNCATION_LIMIT);
-	const passageTimesEnd = passage.slice(-PASSAGE_TRUNCATION_LIMIT);
-
-	const passageTimesString = `${passageTimesStart.join(" ")}${t("schedule.every-15-minutes", {
-		lng: locale,
-		ns: "commands",
-	})} ${passageTimesEnd.join(" ")}`;
+	const pollutedGeyser = pollutedGeyserOverview(now);
+	const grandma = grandmaOverview(now);
+	const turtle = turtleOverview(now);
+	const aurora = auroraOverview(now);
+	const dreamsSkater = dreamsSkaterOverview(now);
+	const aviarysFireworkFestival = aviarysFireworkFestivalOverview(now);
+	const deer = deerOverview(now);
+	const projectorOfMemories = projectorOfMemoriesOverview(now);
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		components: [
@@ -302,7 +332,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### ${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 5 }).toUnixInteger()}:t>.\nNext available ${nextPollutedGeyser(now)}.`,
+								// content: `### ${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 5 }).toUnixInteger()}:t>.\nNext available ${nextPollutedGeyser(now)}.`,
+								content: `### ${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}\n\n${pollutedGeyser.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${pollutedGeyser.next}.`,
 							},
 						],
 					},
@@ -317,7 +348,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### ${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 35 }).toUnixInteger()}:t>.\nNext available ${nextGrandma(now)}.`,
+								// content: `### ${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 35 }).toUnixInteger()}:t>.\nNext available ${nextGrandma(now)}.`,
+								content: `### ${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}\n\n${grandma.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${grandma.next}.`,
 							},
 						],
 					},
@@ -332,7 +364,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### ${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 50 }).toUnixInteger()}:t>.\nNext available ${nextTurtle(now)}.`,
+								// content: `### ${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 50 }).toUnixInteger()}:t>.\nNext available ${nextTurtle(now)}.`,
+								content: `### ${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}\n\n${turtle.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${turtle.next}.`,
 							},
 						],
 					},
@@ -347,7 +380,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### ${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextAURORA(now)}.`,
+								// content: `### ${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextAURORA(now)}.`,
+								content: `### ${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}\n\n${aurora.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${aurora.next}.`,
 							},
 						],
 					},
@@ -362,7 +396,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### ${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}\n\nOn Fridays, Saturdays, and Sundays every 2 hours from <t:${(weekday !== 5 && weekday !== 6 && weekday !== 7 ? startOfDay.plus({ days: 5 - weekday, hours: 1 }) : startOfDay.plus({ hours: 1 })).toUnixInteger()}:t>.\nNext available ${nextDreamsSkater(now)}.`,
+								// content: `### ${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}\n\nOn Fridays, Saturdays, and Sundays every 2 hours from <t:${(weekday !== 5 && weekday !== 6 && weekday !== 7 ? startOfDay.plus({ days: 5 - weekday, hours: 1 }) : startOfDay.plus({ hours: 1 })).toUnixInteger()}:t>.\nNext available ${nextDreamsSkater(now)}.`,
+								content: `### ${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}\n\n${dreamsSkater.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${dreamsSkater.next}.`,
 							},
 						],
 					},
@@ -377,7 +412,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### ${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}\n\nEvery 15 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextPassage(now)}.`,
+								// content: `### ${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}\n\nEvery 15 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextPassage(now)}.`,
+								content: `### ${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}\n\nNext available ${nextPassage(now)}.`,
 							},
 						],
 					},
@@ -392,7 +428,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\nOn the 1st of every month every 4 hours from <t:${(startOfDay.day === 1 ? startOfDay : startOfDay.plus({ month: 1 }).startOf("month")).toUnixInteger()}:t>.\nNext available ${nextAviarysFireworkFestival(now)}.`,
+								// content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\nOn the 1st of every month every 4 hours from <t:${(startOfDay.day === 1 ? startOfDay : startOfDay.plus({ month: 1 }).startOf("month")).toUnixInteger()}:t>.\nNext available ${nextAviarysFireworkFestival(now)}.`,
+								content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\n${aviarysFireworkFestival.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${aviarysFireworkFestival.next}.`,
 							},
 						],
 					},
@@ -407,7 +444,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}.`,
+								// content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}.`,
+								content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\n${deer.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available: ${deer.next}.`,
 							},
 						],
 					},
@@ -422,7 +460,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 						components: [
 							{
 								type: ComponentType.TextDisplay,
-								content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\nEvery 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available:${nextProjectorOfMemories(now)}`,
+								// content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\nEvery 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available:${nextProjectorOfMemories(now)}`,
+								content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\n${projectorOfMemories.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${projectorOfMemories.next}.`,
 							},
 						],
 					},
