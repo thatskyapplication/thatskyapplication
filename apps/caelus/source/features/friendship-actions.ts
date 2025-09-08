@@ -209,7 +209,9 @@ export async function friendshipActionsCreateThread(
 	if (
 		!can({
 			permission:
-				PermissionFlagsBits.CreatePrivateThreads | PermissionFlagsBits.SendMessagesInThreads,
+				PermissionFlagsBits.ViewChannel |
+				PermissionFlagsBits.CreatePrivateThreads |
+				PermissionFlagsBits.SendMessagesInThreads,
 			guild,
 			member: await guild.fetchMe(),
 			channel,
