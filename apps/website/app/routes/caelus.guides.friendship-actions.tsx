@@ -112,7 +112,7 @@ export default function FriendshipActions() {
 					<div className="text-center">
 						<p className="text-gray-600 dark:text-gray-300 mb-6">
 							Once you've ensured your GIF meets the requirements, head over to our support server
-							and mention a developer!
+							and check out the #friendship-actions channel to get started!
 						</p>
 						<a
 							className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-500 to-indigo-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
@@ -124,7 +124,7 @@ export default function FriendshipActions() {
 							Join Support Server
 						</a>
 						<p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
-							You may also mention a developer with a raw video and we'll try our best!
+							You may also submit a raw video and we'll try our best!
 						</p>
 					</div>
 				</div>
