@@ -17,7 +17,7 @@ export default {
 			return;
 		}
 
-		if (data.thread_metadata?.archived || data.thread_metadata?.locked) {
+		if (data.thread_metadata?.archived) {
 			FRIENDSHIP_ACTIONS_CACHE.delete(data.id);
 		}
 
