@@ -4,7 +4,7 @@ import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { friendshipActionGIFs } from "~/utility/functions.js";
 
 const REQUIREMENTS = [
-	"Recorded on a device with native screen recording (iOS, macOS, etc.) to ensure elements are not visible",
+	"Recorded on a device with native screen recording (iOS, macOS, etc.) to ensure elements are not visible (or have the experimental setting enabled to hide the UI)",
 	"Recorded in the highest definition mode possible",
 	"Must be an aspect ratio of 1:1",
 	"Must not exceed 512x512",

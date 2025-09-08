@@ -98,6 +98,10 @@ import {
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
 import {
+	FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID,
+	friendshipActionsCreateThread,
+} from "../features/friendship-actions.js";
+import {
 	claimTicket,
 	GIVEAWAY_BUTTON_CUSTOM_ID,
 	GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID,
@@ -867,6 +871,11 @@ export default {
 				}
 
 				if (isGuildButton(interaction)) {
+					if (customId === FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID) {
+						await friendshipActionsCreateThread(interaction);
+						return;
+					}
+
 					if (customId.startsWith(GIVEAWAY_BUTTON_CUSTOM_ID)) {
 						await claimTicket(interaction, Number(customId.slice(customId.indexOf("§") + 1)) === 1);
 						return;

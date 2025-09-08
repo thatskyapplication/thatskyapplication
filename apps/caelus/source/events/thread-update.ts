@@ -1,4 +1,5 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
+import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { createThread } from "../models/discord/thread.js";
 import pino from "../pino.js";
@@ -14,6 +15,10 @@ export default {
 		if (!guild) {
 			pino.warn({ data }, `Received a ${name} packet for an uncached guild.`);
 			return;
+		}
+
+		if (data.thread_metadata?.archived || data.thread_metadata?.locked) {
+			FRIENDSHIP_ACTIONS_CACHE.delete(data.id);
 		}
 
 		const thread = guild.threads.get(data.id);

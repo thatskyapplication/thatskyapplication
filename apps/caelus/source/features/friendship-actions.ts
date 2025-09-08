@@ -1,14 +1,18 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
+	type APIGuildInteractionWrapper,
 	type APIInteractionDataResolvedGuildMember,
+	type APIMessageComponentButtonInteraction,
 	type APIMessageTopLevelComponent,
 	type APIUser,
+	ChannelType,
 	ComponentType,
 	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import {
+	formatEmoji,
 	getRandomElement,
 	HAIR_TOUSLES,
 	HIGH_FIVES,
@@ -17,9 +21,17 @@ import {
 	PLAY_FIGHTS,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
+import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import { interactionInvoker } from "../utility/functions.js";
-import { cannotUseUserInstallable } from "../utility/permissions.js";
+import { SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
+import { EMOTE_EMOJIS } from "../utility/emojis.js";
+import { interactionInvoker, userTag } from "../utility/functions.js";
+import { can, cannotUseUserInstallable } from "../utility/permissions.js";
+
+// Used in Discord Delivery.
+export const FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID =
+	"FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID" as const;
 
 interface FriendshipActionOptions {
 	interaction: APIChatInputApplicationCommandInteraction;
@@ -160,4 +172,61 @@ export function friendshipActionComponents({
 			],
 		},
 	];
+}
+
+export async function friendshipActionsCreateThread(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	const userId = interaction.member.user.id;
+
+	const existingThread = FRIENDSHIP_ACTIONS_CACHE.find(
+		(friendshipAction) => friendshipAction === userId,
+	);
+
+	if (existingThread) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: `Hey, awesome person! You already have <#${existingThread}> open!`,
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
+
+	if (!guild) {
+		throw new Error(
+			"Support server not found whilst creating a private thread for friendship actions.",
+		);
+	}
+
+	const channel = guild.channels.get(interaction.channel.id);
+
+	if (!channel) {
+		throw new Error("Channel not found whilst creating a private thread for friendship actions.");
+	}
+
+	if (
+		!can({
+			permission:
+				PermissionFlagsBits.CreatePrivateThreads | PermissionFlagsBits.SendMessagesInThreads,
+			guild,
+			member: await guild.fetchMe(),
+			channel,
+		})
+	) {
+		throw new Error("Missing permissions to create a private thread for friendship actions.");
+	}
+
+	const { id } = await client.api.channels.createThread(channel.id, {
+		type: ChannelType.PrivateThread,
+		invitable: false,
+		name: `${userTag(interaction.member.user)} (${userId})`,
+	});
+
+	FRIENDSHIP_ACTIONS_CACHE.set(id, userId);
+
+	await client.api.channels.createMessage(id, {
+		content: `Hey, <@${userId}>! ${formatEmoji(EMOTE_EMOJIS.Bow)} Post your media here and we'll review it. Any questions? Ask away~`,
+	});
 }
