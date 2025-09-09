@@ -29,6 +29,23 @@ function dailyResetTime(date: DateTime) {
 	return date.plus({ day: 1 }).toUnixInteger();
 }
 
+function internationalSpaceStationOverview(date: DateTime) {
+	const targetDay = INTERNATIONAL_SPACE_STATION_DATES.find(
+		(internationalSpaceStationDates) => internationalSpaceStationDates > date.day,
+	);
+
+	const targetDate = targetDay
+		? date.set({ day: targetDay })
+		: date.plus({ month: 1 }).set({ day: INTERNATIONAL_SPACE_STATION_DATES[0] });
+
+	return {
+		now: INTERNATIONAL_SPACE_STATION_DATES.includes(
+			date.day as (typeof INTERNATIONAL_SPACE_STATION_DATES)[number],
+		),
+		next: `<t:${targetDate.toUnixInteger()}:R>`,
+	};
+}
+
 function internationalSpaceStationDates(date: DateTime) {
 	const result = [];
 
@@ -52,6 +69,17 @@ function internationalSpaceStationDates(date: DateTime) {
 
 function eyeOfEdenResetTime(date: DateTime) {
 	return date.set({ weekday: 7 }).toUnixInteger();
+}
+
+function travellingSpiritOverview(now: DateTime, locale: Locale) {
+	const travellingSpirit = TRAVELLING_DATES.findLast(({ start, end }) => now >= start && now < end);
+
+	return {
+		now: travellingSpirit
+			? t(`spirits.${travellingSpirit.spiritId}`, { lng: locale, ns: "general" })
+			: false as const,
+		next: `<t:${TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }).toUnixInteger()}:R>`,
+	};
 }
 
 function travellingSpiritTime(now: DateTime, locale: Locale) {
@@ -271,6 +299,8 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 	const { locale } = interaction;
 	const now = skyNow();
 	const startOfDay = now.startOf("day");
+	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
+	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
 	const pollutedGeyser = pollutedGeyserOverview(now);
 	const grandma = grandmaOverview(now);
 	const turtle = turtleOverview(now);
@@ -287,192 +317,60 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `## ${t("schedule.schedule-today", { lng: locale, ns: "commands" })}`,
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
+						content: `**${t(`notification-types.${NotificationType.DailyReset}`, { lng: locale, ns: "general" })}:** <t:${dailyResetTime(startOfDay)}:t> (<t:${dailyResetTime(startOfDay)}:R>)`,
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `### ${t(`notification-types.${NotificationType.DailyReset}`, { lng: locale, ns: "general" })}\n<t:${dailyResetTime(startOfDay)}:t> (<t:${dailyResetTime(startOfDay)}:R>)`,
+						content: `**${t(`notification-types.${NotificationType.EyeOfEden}`, { lng: locale, ns: "general" })}:** <t:${eyeOfEdenResetTime(startOfDay)}:t> (<t:${eyeOfEdenResetTime(startOfDay)}:R>)`,
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `### ${t(`notification-types.${NotificationType.InternationalSpaceStation}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape02)} or ${formatEmoji(CAPE_EMOJIS.Cape15)}\n${internationalSpaceStationDates(startOfDay).join("\n")}`,
+						content: `**${t("schedule.travelling-spirit", { lng: locale, ns: "commands" })}:** ${travellingSpirit.now ? `${travellingSpirit.now} ` : ""}Next available ${travellingSpirit.next}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `### ${t(`notification-types.${NotificationType.EyeOfEden}`, { lng: locale, ns: "general" })}\n<t:${eyeOfEdenResetTime(startOfDay)}:t> (<t:${eyeOfEdenResetTime(startOfDay)}:R>)`,
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§0§${SpiritsHistoryOrderType.Natural}`,
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								content: `### ${t("schedule.travelling-spirit", { lng: locale, ns: "commands" })}\n${travellingSpiritTime(now, locale)}`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "1",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### ${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 5 }).toUnixInteger()}:t>.\nNext available ${nextPollutedGeyser(now)}.`,
-								content: `### ${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}\n\n${pollutedGeyser.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${pollutedGeyser.next}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "2",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### ${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 35 }).toUnixInteger()}:t>.\nNext available ${nextGrandma(now)}.`,
-								content: `### ${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}\n\n${grandma.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${grandma.next}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "3",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### ${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 50 }).toUnixInteger()}:t>.\nNext available ${nextTurtle(now)}.`,
-								content: `### ${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}\n\n${turtle.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${turtle.next}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "4",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### ${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextAURORA(now)}.`,
-								content: `### ${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}\n\n${aurora.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${aurora.next}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "5",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### ${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}\n\nOn Fridays, Saturdays, and Sundays every 2 hours from <t:${(weekday !== 5 && weekday !== 6 && weekday !== 7 ? startOfDay.plus({ days: 5 - weekday, hours: 1 }) : startOfDay.plus({ hours: 1 })).toUnixInteger()}:t>.\nNext available ${nextDreamsSkater(now)}.`,
-								content: `### ${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}\n\n${dreamsSkater.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${dreamsSkater.next}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "6",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### ${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}\n\nEvery 15 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextPassage(now)}.`,
-								content: `### ${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}\n\nNext available ${nextPassage(now)}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "7",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\nOn the 1st of every month every 4 hours from <t:${(startOfDay.day === 1 ? startOfDay : startOfDay.plus({ month: 1 }).startOf("month")).toUnixInteger()}:t>.\nNext available ${nextAviarysFireworkFestival(now)}.`,
-								content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\n${aviarysFireworkFestival.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${aviarysFireworkFestival.next}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "8",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}.`,
-								content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\n${deer.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available: ${deer.next}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Section,
-						accessory: {
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: "9",
-							label: "More",
-						},
-						components: [
-							{
-								type: ComponentType.TextDisplay,
-								// content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\nEvery 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available:${nextProjectorOfMemories(now)}`,
-								content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\n${projectorOfMemories.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available!\n` : ""}Next available ${projectorOfMemories.next}.`,
-							},
-						],
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
+						content: `**${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}:** ${aviarysFireworkFestival.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${aviarysFireworkFestival.next}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `-# ${t("schedule.times-are-relative", { lng: locale, ns: "commands" })}`,
+						content: `**${t(`notification-types.${NotificationType.InternationalSpaceStation}`, { lng: locale, ns: "general" })}:** ${internationalSpaceStation.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${internationalSpaceStation.next}`,
+					},
+				],
+			},
+			{
+				type: ComponentType.Container,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}:** ${pollutedGeyser.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${pollutedGeyser.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}:** ${grandma.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${grandma.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}:** ${turtle.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${turtle.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}:** ${aurora.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${aurora.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}:** ${dreamsSkater.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${dreamsSkater.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}:** Next available ${nextPassage(now)}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**Nine-Coloured Deer:** ${deer.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${deer.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}:** ${projectorOfMemories.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${projectorOfMemories.next}`,
 					},
 				],
 			},
@@ -480,3 +378,14 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	});
 }
+
+// content: `### ${t(`notification-types.${NotificationType.InternationalSpaceStation}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape02)} or ${formatEmoji(CAPE_EMOJIS.Cape15)}\n${internationalSpaceStationDates(startOfDay).join("\n")}`,
+// content: `### ${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 5 }).toUnixInteger()}:t>.\nNext available ${nextPollutedGeyser(now)}`,
+// content: `### ${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 35 }).toUnixInteger()}:t>.\nNext available ${nextGrandma(now)}`,
+// content: `### ${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 50 }).toUnixInteger()}:t>.\nNext available ${nextTurtle(now)}`,
+// content: `### ${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextAURORA(now)}`,
+// content: `### ${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}\n\nOn Fridays, Saturdays, and Sundays every 2 hours from <t:${(weekday !== 5 && weekday !== 6 && weekday !== 7 ? startOfDay.plus({ days: 5 - weekday, hours: 1 }) : startOfDay.plus({ hours: 1 })).toUnixInteger()}:t>.\nNext available ${nextDreamsSkater(now)}`,
+// content: `### ${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}\n\nEvery 15 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextPassage(now)}`,
+// content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\nOn the 1st of every month every 4 hours from <t:${(startOfDay.day === 1 ? startOfDay : startOfDay.plus({ month: 1 }).startOf("month")).toUnixInteger()}:t>.\nNext available ${nextAviarysFireworkFestival(now)}`,
+// content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}`,
+// content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\nEvery 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available:${nextProjectorOfMemories(now)}`,
