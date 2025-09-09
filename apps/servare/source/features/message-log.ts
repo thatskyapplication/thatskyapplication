@@ -549,7 +549,7 @@ export async function handleMessageUpdate(
 		| "message_log_allow_channel_ids"
 	> & { message_log_channel_id: Snowflake },
 ) {
-	const channel = guild.channels.get(message.channel_id);
+	const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
 	const messageLogChannel = guild.channels.get(guildSettingsPacket.message_log_channel_id);
 
 	if (
@@ -660,7 +660,7 @@ export async function handleMessageDelete(
 		"message_log_channel_id" | "message_log_ignore_channel_ids" | "message_log_allow_channel_ids"
 	> & { message_log_channel_id: Snowflake },
 ) {
-	const channel = guild.channels.get(message.channel_id);
+	const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
 
 	if (
 		!(
@@ -733,7 +733,7 @@ export async function handleMessageDeleteBulk(
 		"message_log_channel_id" | "message_log_ignore_channel_ids" | "message_log_allow_channel_ids"
 	> & { message_log_channel_id: Snowflake },
 ) {
-	const channel = guild.channels.get(data.channel_id);
+	const channel = guild.channels.get(data.channel_id) ?? guild.threads.get(data.channel_id);
 	const messageLogChannel = guild.channels.get(guildSettingsPacket.message_log_channel_id);
 
 	if (
