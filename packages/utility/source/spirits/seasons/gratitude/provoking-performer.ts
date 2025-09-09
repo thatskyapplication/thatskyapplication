@@ -125,6 +125,7 @@ export default new SeasonalSpirit({
 			{ start: skyDate(2020, 3, 12), end: skyDate(2020, 3, 16) },
 			{ start: skyDate(2020, 10, 1), end: skyDate(2020, 10, 5) },
 			{ start: skyDate(2023, 3, 30), end: skyDate(2023, 4, 3) },
+			{ start: skyDate(2025, 9, 11), end: skyDate(2025, 9, 15) },
 		],
 		travellingErrors: [4],
 	},
