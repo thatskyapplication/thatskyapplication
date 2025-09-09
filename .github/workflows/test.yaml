@@ -9,16 +9,16 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Install Node.js
-        uses: actions/setup-node@v5
-        with:
-          node-version: 22
-
       - name: Install dependencies
         uses: pnpm/action-setup@v4
         with:
           run_install: |
             - args: [--frozen-lockfile]
+
+      - name: Install Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
 
       - name: Build dependencies
         run: pnpm run build
