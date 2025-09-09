@@ -321,7 +321,7 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`notification-types.${NotificationType.EyeOfEden}`, { lng: locale, ns: "general" })}:** <t:${eyeOfEdenResetTime(startOfDay)}:t> (<t:${eyeOfEdenResetTime(startOfDay)}:R>)`,
+						content: `**${t(`notification-types.${NotificationType.EyeOfEden}`, { lng: locale, ns: "general" })}:** <t:${eyeOfEdenResetTime(startOfDay)}:f> (<t:${eyeOfEdenResetTime(startOfDay)}:R>)`,
 					},
 					{
 						type: ComponentType.TextDisplay,
