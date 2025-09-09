@@ -112,6 +112,7 @@ export {
 	type NotificationTypes,
 } from "./notifications.js";
 export { isPlatformId, PLATFORM_ID_VALUES, PlatformId, type PlatformIds } from "./platforms.js";
+export { ScheduleType } from "./schedule.js";
 export {
 	isSeasonId,
 	RotationIdentifier,

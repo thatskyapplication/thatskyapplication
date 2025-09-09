@@ -277,6 +277,7 @@ import {
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../utility/shard-eruption.js";
 import type { Event } from "./index.js";
+import { SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID, scheduleDetailedBreakdown } from "../services/schedule.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
 
@@ -1053,6 +1054,11 @@ export default {
 
 				if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
 					await setSeasonItems(interaction);
+					return;
+				}
+
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID) {
+					await scheduleDetailedBreakdown(interaction);
 					return;
 				}
 

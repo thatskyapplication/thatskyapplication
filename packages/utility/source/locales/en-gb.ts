@@ -5,6 +5,7 @@ import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
 import { isRealm, REALM_NAME_VALUES, RealmName, SKY_MAP_VALUES, SkyMap } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
+import { ScheduleType } from "../schedule.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import {
 	SkyProfileEditType,
@@ -40,20 +41,20 @@ export default {
 		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
 		maps: Object.fromEntries(SKY_MAP_VALUES.map((skyMap) => [skyMap, skyMap])),
 		"notification-types": {
-			[NotificationType.DailyReset]: "Daily Reset",
+			[NotificationType.DailyReset]: "Daily reset",
 			[NotificationType.EyeOfEden]: "Eye of Eden",
 			[NotificationType.InternationalSpaceStation]: "International Space Station",
 			[NotificationType.Dragon]: "Dragon",
-			[NotificationType.PollutedGeyser]: "Polluted Geyser",
+			[NotificationType.PollutedGeyser]: "Polluted geyser",
 			[NotificationType.Grandma]: "Grandma",
 			[NotificationType.Turtle]: "Turtle",
-			[NotificationType.RegularShardEruption]: "Shard Eruption (Regular)",
-			[NotificationType.StrongShardEruption]: "Shard Eruption (Strong)",
+			[NotificationType.RegularShardEruption]: "Shard eruption (regular)",
+			[NotificationType.StrongShardEruption]: "Shard eruption (strong)",
 			[NotificationType.AURORA]: "AURORA",
 			[NotificationType.Passage]: "Passage",
 			[NotificationType.AviarysFireworkFestival]: "Aviary's Firework Festival",
-			[NotificationType.TravellingSpirit]: "Travelling Spirit",
-			[NotificationType.DreamsSkater]: "Dreams Skater",
+			[NotificationType.TravellingSpirit]: "Travelling spirit",
+			[NotificationType.DreamsSkater]: "Dreams skater",
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",
 		} satisfies Record<NotificationTypes, string>,
 		"quests-common": {
@@ -3301,6 +3302,26 @@ export default {
 					"message-future": "The Nesting Workshop's stock will refresh {{timestamp}}!",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
+		},
+		schedule: {
+			type: {
+				[ScheduleType.DailyReset]: "Daily reset",
+				[ScheduleType.EyeOfEden]: "Eye of Eden",
+				[ScheduleType.InternationalSpaceStation]: "International Space Station",
+				[ScheduleType.TravellingSpirit]: "Travelling spirit",
+				[ScheduleType.Dragon]: "Dragon",
+				[ScheduleType.PollutedGeyser]: "Polluted geyser",
+				[ScheduleType.Grandma]: "Grandma",
+				[ScheduleType.Turtle]: "Turtle",
+				[ScheduleType.ShardEruption]: "Shard eruption",
+				[ScheduleType.DreamsSkater]: "Dreams skater",
+				[ScheduleType.AURORA]: "AURORA",
+				[ScheduleType.Passage]: "Passage",
+				[ScheduleType.AviarysFireworkFestival]: "Aviary's Firework Festival",
+				[ScheduleType.NineColouredDeer]: "Nine-coloured deer",
+				[ScheduleType.NestingWorkshop]: "Nesting Workshop",
+				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
+			} satisfies Record<ScheduleType, string>,
 		},
 		"shard-eruption": {
 			"browse-title": "Shard Eruptions",
