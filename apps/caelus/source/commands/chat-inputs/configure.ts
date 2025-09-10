@@ -1,8 +1,10 @@
+import { Buffer } from "node:buffer";
 import {
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
 	Locale,
 	MessageFlags,
+	type RESTPatchAPICurrentGuildMemberJSONBody,
 } from "@discordjs/core";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../../caches/guilds.js";
@@ -13,10 +15,12 @@ import {
 	setup as setupDailyGuides,
 	setupResponse as setupResponseDailyGuides,
 } from "../../features/daily-guides.js";
+import { meOverview, meUpsell } from "../../features/me.js";
 import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
 import { welcomeSetAsset, welcomeSetup } from "../../features/welcome.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
+import { SERVER_UPGRADE_SKU_ID } from "../../utility/configuration.js";
 import {
 	isGuildChatInputCommand,
 	notInCachedGuildResponse,
@@ -62,6 +66,46 @@ async function dailyGuides(
 		interaction.token,
 		await setupResponseDailyGuides(guild),
 	);
+}
+
+async function me(
+	interaction: APIChatInputApplicationCommandGuildInteraction,
+	options: OptionResolver,
+	guild: Guild,
+) {
+	if (
+		!interaction.entitlements.some((entitlement) => entitlement.sku_id === SERVER_UPGRADE_SKU_ID)
+	) {
+		await meUpsell(interaction);
+		return;
+	}
+
+	const avatar = options.getAttachment("avatar");
+	const banner = options.getAttachment("banner");
+
+	if (options.hoistedOptions.length > 0) {
+		await client.api.interactions.defer(interaction.id, interaction.token, {
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		});
+
+		const payload: RESTPatchAPICurrentGuildMemberJSONBody = {};
+
+		if (avatar) {
+			const buffer = Buffer.from(await (await fetch(avatar.url)).arrayBuffer());
+			payload.avatar = `data:${avatar.content_type};base64,${buffer.toString("base64")}`;
+		}
+
+		if (banner) {
+			const buffer = Buffer.from(await (await fetch(banner.url)).arrayBuffer());
+			payload.banner = `data:${banner.content_type};base64,${buffer.toString("base64")}`;
+		}
+
+		await client.api.users.editCurrentGuildMember(guild.id, payload);
+		await meOverview(interaction, { editReply: true });
+		return;
+	}
+
+	await meOverview(interaction);
 }
 
 async function notifications(
@@ -137,6 +181,10 @@ export default {
 			}
 			case t("configure.daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
 				await dailyGuides(interaction, options, guild);
+				return;
+			}
+			case t("configure.me.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
+				await me(interaction, options, guild);
 				return;
 			}
 			case t("configure.notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {

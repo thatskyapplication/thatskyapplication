@@ -2800,6 +2800,14 @@ export default {
 				"command-option-channel-name": "channel",
 				"command-option-channel-description": "The channel to send daily guides in.",
 			},
+			me: {
+				"command-name": "me",
+				"command-description": "Configure how I look in your server!",
+				"command-option-avatar-name": "avatar",
+				"command-option-avatar-description": "Set a new avatar for me to use.",
+				"command-option-banner-name": "banner",
+				"command-option-banner-description": "Set a new banner for me to use.",
+			},
 			notifications: {
 				"command-name": "notifications",
 				"command-description": "The command to set up notifications for events.",
