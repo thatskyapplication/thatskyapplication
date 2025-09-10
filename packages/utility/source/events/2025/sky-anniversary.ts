@@ -110,6 +110,9 @@ export default new Event({
 			cosmetic: Cosmetic.AnniversaryTuxedoCape,
 			cost: { money: 14.99 },
 		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAward,
+		},
 	],
 	patchNotesURL: patchNotesRoute("0295"),
 });
