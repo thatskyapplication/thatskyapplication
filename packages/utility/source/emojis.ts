@@ -5349,47 +5349,47 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	/**
 	 * Vault Elder's Lantern (non-ultimate).
 	 */
-	SmallPlaceableProp95: { id: "1414165166928691281", name: "95_small_placeable_prop" },
+	SmallPlaceableProp96: { id: "1414165166928691281", name: "96_small_placeable_prop" },
 	/**
 	 * Caring Companion.
 	 */
-	SmallPlaceableProp96: { id: "1410974814767681566", name: "96_small_placeable_prop" },
+	SmallPlaceableProp97: { id: "1410974814767681566", name: "97_small_placeable_prop" },
 	/**
 	 * Sunlight Wave Projector.
 	 */
-	SmallPlaceableProp97: { id: "1412356286833627157", name: "97_small_placeable_prop" },
+	SmallPlaceableProp98: { id: "1412356286833627157", name: "98_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 1.
 	 */
-	SmallPlaceableProp98: { id: "1412362936252629072", name: "98_small_placeable_prop" },
+	SmallPlaceableProp99: { id: "1412362936252629072", name: "99_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 2.
 	 */
-	SmallPlaceableProp99: { id: "1412362954199924787", name: "99_small_placeable_prop" },
+	SmallPlaceableProp100: { id: "1412362954199924787", name: "100_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 3.
 	 */
-	SmallPlaceableProp100: { id: "1412362978061189281", name: "100_small_placeable_prop" },
+	SmallPlaceableProp101: { id: "1412362978061189281", name: "101_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 4.
 	 */
-	SmallPlaceableProp101: { id: "1412362986105999400", name: "101_small_placeable_prop" },
+	SmallPlaceableProp102: { id: "1412362986105999400", name: "102_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 5.
 	 */
-	SmallPlaceableProp102: { id: "1412362994616369212", name: "102_small_placeable_prop" },
+	SmallPlaceableProp103: { id: "1412362994616369212", name: "103_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 6.
 	 */
-	SmallPlaceableProp103: { id: "1412363003201982546", name: "103_small_placeable_prop" },
+	SmallPlaceableProp104: { id: "1412363003201982546", name: "104_small_placeable_prop" },
 	/**
 	 * Sandcastle piece 7.
 	 */
-	SmallPlaceableProp104: { id: "1412363013624959056", name: "104_small_placeable_prop" },
+	SmallPlaceableProp105: { id: "1412363013624959056", name: "105_small_placeable_prop" },
 	/**
 	 * Projector of Memories.
 	 */
-	SmallPlaceableProp105: { id: "1413962451191464036", name: "105_small_placeable_prop" },
+	SmallPlaceableProp106: { id: "1413962451191464036", name: "106_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5487,17 +5487,17 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp92: { id: "1396906809238884393", name: "92_small_placeable_prop" },
 	SmallPlaceableProp93: { id: "1401820779548639252", name: "93_small_placeable_prop" },
 	SmallPlaceableProp94: { id: "1399294998867869737", name: "94_small_placeable_prop" },
-	SmallPlaceableProp95: { id: "1414165242040291389", name: "95_small_placeable_prop" },
-	SmallPlaceableProp96: { id: "1410974885789827245", name: "96_small_placeable_prop" },
-	SmallPlaceableProp97: { id: "1412356291883696208", name: "97_small_placeable_prop" },
-	SmallPlaceableProp98: { id: "1412363024085549146", name: "98_small_placeable_prop" },
-	SmallPlaceableProp99: { id: "1412363031710662717", name: "99_small_placeable_prop" },
-	SmallPlaceableProp100: { id: "1412363038673080340", name: "100_small_placeable_prop" },
-	SmallPlaceableProp101: { id: "1412363046424416286", name: "101_small_placeable_prop" },
-	SmallPlaceableProp102: { id: "1412363052916936714", name: "102_small_placeable_prop" },
-	SmallPlaceableProp103: { id: "1412363059103793223", name: "103_small_placeable_prop" },
-	SmallPlaceableProp104: { id: "1412363066477379604", name: "104_small_placeable_prop" },
-	SmallPlaceableProp105: { id: "1413962458145751163", name: "105_small_placeable_prop" },
+	SmallPlaceableProp96: { id: "1414165242040291389", name: "96_small_placeable_prop" },
+	SmallPlaceableProp97: { id: "1410974885789827245", name: "97_small_placeable_prop" },
+	SmallPlaceableProp98: { id: "1412356291883696208", name: "98_small_placeable_prop" },
+	SmallPlaceableProp99: { id: "1412363024085549146", name: "99_small_placeable_prop" },
+	SmallPlaceableProp100: { id: "1412363031710662717", name: "100_small_placeable_prop" },
+	SmallPlaceableProp101: { id: "1412363038673080340", name: "101_small_placeable_prop" },
+	SmallPlaceableProp102: { id: "1412363046424416286", name: "102_small_placeable_prop" },
+	SmallPlaceableProp103: { id: "1412363052916936714", name: "103_small_placeable_prop" },
+	SmallPlaceableProp104: { id: "1412363059103793223", name: "104_small_placeable_prop" },
+	SmallPlaceableProp105: { id: "1412363066477379604", name: "105_small_placeable_prop" },
+	SmallPlaceableProp106: { id: "1413962458145751163", name: "106_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -8046,26 +8046,27 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.AnniversaryGown]: OUTFIT_EMOJIS.Outfit90,
 		[Cosmetic.AnniversaryShoes]: SHOE_EMOJIS.Shoe23,
 		[Cosmetic.AnniversaryTuxedoCape]: CAPE_EMOJIS.Cape158,
+		[Cosmetic.SkyCreatorAward]: null,
 		[Cosmetic.TiptoeingTeaBrewerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.WoundedWarriorWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.VaultEldersLanternQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart5]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.VaultEldersLanternProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp95,
+		[Cosmetic.VaultEldersLanternProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp96,
 		[Cosmetic.CaringCompanionQuest]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CaringCompanionHeart]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.CaringCompanionProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp96,
+		[Cosmetic.CaringCompanionProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp97,
 		[Cosmetic.SunlightShawl]: CAPE_EMOJIS.Cape159,
-		[Cosmetic.SunlightWaveProjector]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp97,
+		[Cosmetic.SunlightWaveProjector]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp98,
 		[Cosmetic.SunlightBonnetDress]: OUTFIT_EMOJIS.Outfit91,
 		[Cosmetic.SunlightBonnetJellyfishHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory61,
-		[Cosmetic.SandcastlePiece1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp98,
-		[Cosmetic.SandcastlePiece2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp99,
-		[Cosmetic.SandcastlePiece3]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp100,
-		[Cosmetic.SandcastlePiece4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp101,
-		[Cosmetic.SandcastlePiece5]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp102,
-		[Cosmetic.SandcastlePiece6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp103,
-		[Cosmetic.SandcastlePiece7]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp104,
-		[Cosmetic.ProjectorOfMemories]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105,
+		[Cosmetic.SandcastlePiece1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp99,
+		[Cosmetic.SandcastlePiece2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp100,
+		[Cosmetic.SandcastlePiece3]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp101,
+		[Cosmetic.SandcastlePiece4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp102,
+		[Cosmetic.SandcastlePiece5]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp103,
+		[Cosmetic.SandcastlePiece6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp104,
+		[Cosmetic.SandcastlePiece7]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105,
+		[Cosmetic.ProjectorOfMemories]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

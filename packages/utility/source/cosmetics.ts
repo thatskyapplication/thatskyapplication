@@ -3123,33 +3123,36 @@ export enum Cosmetic {
 	AnniversaryShoes = 2476,
 	AnniversaryTuxedoCape = 2477,
 
+	// 15/08/2025 | Sky Creator Awards.
+	SkyCreatorAward = 2478,
+
 	// 18/08/2025 | Returning Spirits #10.
-	TiptoeingTeaBrewerWingBuff = 2478,
-	WoundedWarriorWingBuff = 2479,
+	TiptoeingTeaBrewerWingBuff = 2479,
+	WoundedWarriorWingBuff = 2480,
 
 	// 29/08/2025 | Season of The Two Embers - Part 1 Quest 5.
-	VaultEldersLanternQuest5 = 2480,
-	VaultEldersLanternHeart5 = 2481,
-	VaultEldersLanternProp = 2482,
-	CaringCompanionQuest = 2483,
-	CaringCompanionHeart = 2484,
-	CaringCompanionProp = 2485,
+	VaultEldersLanternQuest5 = 2481,
+	VaultEldersLanternHeart5 = 2482,
+	VaultEldersLanternProp = 2483,
+	CaringCompanionQuest = 2484,
+	CaringCompanionHeart = 2485,
+	CaringCompanionProp = 2486,
 
 	// 01/09/2025 | Days of Sunlight.
-	SunlightShawl = 2486,
-	SunlightWaveProjector = 2487,
-	SunlightBonnetDress = 2488,
-	SunlightBonnetJellyfishHat = 2489,
-	SandcastlePiece1 = 2490,
-	SandcastlePiece2 = 2491,
-	SandcastlePiece3 = 2492,
-	SandcastlePiece4 = 2493,
-	SandcastlePiece5 = 2494,
-	SandcastlePiece6 = 2495,
-	SandcastlePiece7 = 2496,
+	SunlightShawl = 2487,
+	SunlightWaveProjector = 2488,
+	SunlightBonnetDress = 2489,
+	SunlightBonnetJellyfishHat = 2490,
+	SandcastlePiece1 = 2491,
+	SandcastlePiece2 = 2492,
+	SandcastlePiece3 = 2493,
+	SandcastlePiece4 = 2494,
+	SandcastlePiece5 = 2495,
+	SandcastlePiece6 = 2496,
+	SandcastlePiece7 = 2497,
 
 	// 06/09/2025 | Version 0.30.6.
-	ProjectorOfMemories = 2497,
+	ProjectorOfMemories = 2498,
 }
 
 export enum CosmeticCommon {

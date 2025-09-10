@@ -2710,6 +2710,7 @@ export default {
 			[Cosmetic.AnniversaryGown]: "Anniversary Gown",
 			[Cosmetic.AnniversaryShoes]: "Anniversary Shoes",
 			[Cosmetic.AnniversaryTuxedoCape]: "Anniversary Tuxedo Cape",
+			[Cosmetic.SkyCreatorAward]: "Sky Creator Award",
 			[Cosmetic.VaultEldersLanternProp]: "Prop",
 			[Cosmetic.CaringCompanionProp]: "Prop",
 			[Cosmetic.SunlightShawl]: "Sunlight Shawl",
