@@ -11,6 +11,7 @@ import {
 	SeparatorSpacingSize,
 	TextInputStyle,
 } from "@discordjs/core";
+import { t } from "i18next";
 import { client } from "../discord.js";
 import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
@@ -35,13 +36,15 @@ export async function meOverview(
 		| APIModalSubmitGuildInteraction,
 	{ editReply, updateMessage }: MeOverviewOptions = {},
 ) {
+	const { locale } = interaction;
+
 	const components: APIMessageTopLevelComponent[] = [
 		{
 			type: ComponentType.Container,
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "## Me",
+					content: `## ${t("me.title", { lng: locale, ns: "features" })}`,
 				},
 				{
 					type: ComponentType.Separator,
@@ -50,8 +53,7 @@ export async function meOverview(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content:
-						"Want to customise me? ✨\n- Set my bio with the modal below!\n- Set my avatar and banner using the command! You can remove the override with the buttons below.",
+					content: t("me.message", { lng: locale, ns: "features" }),
 				},
 				{
 					type: ComponentType.ActionRow,
@@ -60,7 +62,7 @@ export async function meOverview(
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
 							custom_id: ME_SET_BIO_BUTTON_CUSTOM_ID,
-							label: "Set bio",
+							label: t("me.set-bio-button-label", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Edit,
 						},
 					],
@@ -72,21 +74,21 @@ export async function meOverview(
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
 							custom_id: ME_DELETE_BIO_CUSTOM_ID,
-							label: "Delete bio",
+							label: t("me.delete-bio-button-label", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Trash,
 						},
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
 							custom_id: ME_DELETE_AVATAR_CUSTOM_ID,
-							label: "Delete avatar",
+							label: t("me.delete-avatar-button-label", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Trash,
 						},
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
 							custom_id: ME_DELETE_BANNER_CUSTOM_ID,
-							label: "Delete banner",
+							label: t("me.delete-banner-button-label", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Trash,
 						},
 					],
@@ -109,6 +111,8 @@ export async function meOverview(
 }
 
 export async function meUpsell(interaction: APIChatInputApplicationCommandGuildInteraction) {
+	const { locale } = interaction;
+
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		components: [
 			{
@@ -116,7 +120,7 @@ export async function meUpsell(interaction: APIChatInputApplicationCommandGuildI
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: "## Me",
+						content: `## ${t("me.title", { lng: locale, ns: "features" })}`,
 					},
 					{
 						type: ComponentType.Separator,
@@ -125,8 +129,7 @@ export async function meUpsell(interaction: APIChatInputApplicationCommandGuildI
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content:
-							"This is a premium feature!\n\nYou may fully customise me by editing my bio, my banner, and my avatar in your server to whatever you like!\n\nTo get started, interact with the button below.",
+						content: t("me.upsell-message", { lng: locale, ns: "features" }),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -148,6 +151,8 @@ export async function meUpsell(interaction: APIChatInputApplicationCommandGuildI
 export async function meHandleSetBioButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
+	const { locale } = interaction;
+
 	await client.api.interactions.createModal(interaction.id, interaction.token, {
 		components: [
 			{
@@ -159,12 +164,12 @@ export async function meHandleSetBioButton(
 					style: TextInputStyle.Paragraph,
 					required: true,
 				},
-				label: "Set my bio!",
-				description: "You can choose a bio for me to display in your server.",
+				label: t("me.set-bio-modal-label-bio-label", { lng: locale, ns: "features" }),
+				description: t("me.set-bio-modal-label-bio-description", { lng: locale, ns: "features" }),
 			},
 		],
 		custom_id: ME_SET_BIO_MODAL_CUSTOM_ID,
-		title: "My bio",
+		title: t("me.set-bio-modal-title", { lng: locale, ns: "features" }),
 	});
 }
 
