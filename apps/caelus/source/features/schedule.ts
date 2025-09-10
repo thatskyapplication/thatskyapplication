@@ -108,6 +108,10 @@ function dailyResetDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 	];
 }
 
+function eyeOfEdenResetTime(date: DateTime) {
+	return date.set({ weekday: 7 }).toUnixInteger();
+}
+
 function internationalSpaceStationOverview(date: DateTime) {
 	const targetDay = INTERNATIONAL_SPACE_STATION_DATES.find(
 		(internationalSpaceStationDates) => internationalSpaceStationDates > date.day,
@@ -164,10 +168,6 @@ function internationalSpaceStationDetailedBreakdown(date: DateTime) {
 			],
 		},
 	];
-}
-
-function eyeOfEdenResetTime(date: DateTime) {
-	return date.set({ weekday: 7 }).toUnixInteger();
 }
 
 function travellingSpiritOverview(now: DateTime, locale: Locale) {
@@ -338,56 +338,6 @@ function turtleDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 	];
 }
 
-function auroraOverview(date: DateTime) {
-	const { hour, minute } = date;
-
-	return {
-		now: hour % 2 === 0 && minute >= 9 && minute < 58,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? 129 - minute : 69 - minute }).toUnixInteger()}:R>`,
-	};
-}
-
-function auroraDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
-	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const startOfEvent = startOfDay.plus({ minutes: 9 });
-	const tomorrow = startOfDay.plus({ days: 1 });
-
-	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
-		let string = `<t:${start.toUnixInteger()}:t>`;
-
-		if (now >= start.plus({ minutes: 49 })) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(string);
-	}
-
-	const aurora = auroraOverview(now);
-
-	return [
-		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/AURORA_Concert",
-				label: "Wiki",
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 49 minutes.\n\n${timestamps.join(" ")}\n\n${aurora.now ? "The event is ongoing!" : `The event will occur again ${aurora.next}.`}`,
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: `-# Requires ${formatEmoji(CAPE_EMOJIS.Cape96)}`,
-				},
-			],
-		},
-	];
-}
-
 function dreamsSkaterOverview(date: DateTime) {
 	const { weekday, hour, minute } = date;
 
@@ -440,6 +390,56 @@ function dreamsSkaterDetailedBreakdown(now: DateTime): APIComponentInContainer[]
 				{
 					type: ComponentType.TextDisplay,
 					content: `Available every Friday, Saturday, and Sunday every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 15 minutes.\n\n${timestamps.join(" ")}\n\n${dreamsSkater.now ? "The event is ongoing!" : `The event will occur again ${dreamsSkater.next}.`}`,
+				},
+			],
+		},
+	];
+}
+
+function auroraOverview(date: DateTime) {
+	const { hour, minute } = date;
+
+	return {
+		now: hour % 2 === 0 && minute >= 9 && minute < 58,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? 129 - minute : 69 - minute }).toUnixInteger()}:R>`,
+	};
+}
+
+function auroraDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.startOf("day");
+	const startOfEvent = startOfDay.plus({ minutes: 9 });
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start.plus({ minutes: 49 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	const aurora = auroraOverview(now);
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/AURORA_Concert",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 49 minutes.\n\n${timestamps.join(" ")}\n\n${aurora.now ? "The event is ongoing!" : `The event will occur again ${aurora.next}.`}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `-# Requires ${formatEmoji(CAPE_EMOJIS.Cape96)}`,
 				},
 			],
 		},
@@ -511,7 +511,7 @@ function aviarysFireworkFestivalTime(date: DateTime) {
 	return times;
 }
 
-function deerOverview(date: DateTime) {
+function nineColouredDeerOverview(date: DateTime) {
 	const { minute } = date;
 
 	return {
@@ -580,7 +580,7 @@ export async function scheduleOverview(
 	const aurora = auroraOverview(now);
 	const dreamsSkater = dreamsSkaterOverview(now);
 	const aviarysFireworkFestival = aviarysFireworkFestivalOverview(now);
-	const deer = deerOverview(now);
+	const deer = nineColouredDeerOverview(now);
 	const projectorOfMemories = projectorOfMemoriesOverview(now);
 
 	const response:
