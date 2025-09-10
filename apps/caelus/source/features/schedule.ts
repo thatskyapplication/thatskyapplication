@@ -100,7 +100,7 @@ function dailyResetDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 					style: ButtonStyle.Secondary,
 					custom_id: SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID,
 					label: "Daily guides",
-					emoji: MISCELLANEOUS_EMOJIS.DailyQuest
+					emoji: MISCELLANEOUS_EMOJIS.DailyQuest,
 				},
 				shardEruptionButton,
 			],
@@ -125,7 +125,7 @@ function internationalSpaceStationOverview(date: DateTime) {
 	};
 }
 
-function internationalSpaceStationDates(date: DateTime) {
+function internationalSpaceStationDetailedBreakdown(date: DateTime) {
 	const result = [];
 
 	for (const internationalSpaceStationDate of INTERNATIONAL_SPACE_STATION_DATES) {
@@ -143,7 +143,27 @@ function internationalSpaceStationDates(date: DateTime) {
 		result.push(string);
 	}
 
-	return result;
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/Secret_Area#The_International_Space_Station_(ISS)",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available on specific days of the month. See below for a list of dates:\n${result.join("\n")}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `-# Requires ${formatEmoji(CAPE_EMOJIS.Cape02)} or ${formatEmoji(CAPE_EMOJIS.Cape15)}`,
+				},
+			],
+		},
+	];
 }
 
 function eyeOfEdenResetTime(date: DateTime) {
@@ -695,6 +715,10 @@ export async function scheduleDetailedBreakdown(
 			detailedBreakdown = dailyResetDetailedBreakdown(startOfDay);
 			break;
 		}
+		case ScheduleType.InternationalSpaceStation: {
+			detailedBreakdown = internationalSpaceStationDetailedBreakdown(startOfDay);
+			break;
+		}
 		case ScheduleType.PollutedGeyser: {
 			detailedBreakdown = pollutedGeyserDetailedBreakdown(now);
 			break;
@@ -754,7 +778,6 @@ export async function scheduleDetailedBreakdown(
 	});
 }
 
-// content: `### ${t(`notification-types.${NotificationType.InternationalSpaceStation}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape02)} or ${formatEmoji(CAPE_EMOJIS.Cape15)}\n${internationalSpaceStationDates(startOfDay).join("\n")}`,
 // content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\nOn the 1st of every month every 4 hours from <t:${(startOfDay.day === 1 ? startOfDay : startOfDay.plus({ month: 1 }).startOf("month")).toUnixInteger()}:t>.\nNext available ${nextAviarysFireworkFestival(now)}`,
 // content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}`,
 // content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\nEvery 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available:${nextProjectorOfMemories(now)}`,
