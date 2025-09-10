@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  discord-api-types: 0.38.22
+  discord-api-types: 0.38.24
 
 importers:
 
@@ -27,8 +27,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       '@discordjs/core':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^2.2.2
+        version: 2.2.2
       '@discordjs/rest':
         specifier: ^2.6.0
         version: 2.6.0
@@ -106,8 +106,8 @@ importers:
   apps/notifications:
     dependencies:
       '@discordjs/core':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^2.2.2
+        version: 2.2.2
       '@discordjs/rest':
         specifier: ^2.6.0
         version: 2.6.0
@@ -164,8 +164,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       '@discordjs/core':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^2.2.2
+        version: 2.2.2
       '@discordjs/rest':
         specifier: ^2.6.0
         version: 2.6.0
@@ -225,8 +225,8 @@ importers:
         specifier: ^0.16.2
         version: 0.16.2
       '@discordjs/core':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^2.2.2
+        version: 2.2.2
       '@discordjs/rest':
         specifier: ^2.6.0
         version: 2.6.0
@@ -277,8 +277,8 @@ importers:
   apps/website:
     dependencies:
       '@discordjs/core':
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^2.2.2
+        version: 2.2.2
       '@discordjs/rest':
         specifier: ^2.6.0
         version: 2.6.0
@@ -829,8 +829,8 @@ packages:
     resolution: {integrity: sha512-LiSusze9Tc7qF03sLCujF5iZp7K+vRNEDBZ86FT9aQAv3vxMLihUvKvpsCWiQ2DJq1tVckopKm1rxomgNUc9hg==}
     engines: {node: '>=18'}
 
-  '@discordjs/core@2.2.1':
-    resolution: {integrity: sha512-XxSV1YhwWVad0PGzV7TLUCni9NlXHABpoL6SBKuoAqotqN/yJuyeRwFcp2U0S40ktVbUW/oNimatWfVIDvCk2A==}
+  '@discordjs/core@2.2.2':
+    resolution: {integrity: sha512-J2YBG9AclyALcamdEyT+so6bhW+Ys6TslXIaNLw0lN0lkGKUaaqXwUccQBnzZmJt1s4k29dXrdY0pqSnVsl7JA==}
     engines: {node: '>=20'}
 
   '@discordjs/rest@2.6.0':
@@ -2431,8 +2431,8 @@ packages:
     resolution: {integrity: sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw==}
     engines: {node: '>=0.3.1'}
 
-  discord-api-types@0.38.22:
-    resolution: {integrity: sha512-2gnYrgXN3yTlv2cKBISI/A8btZwsSZLwKpIQXeI1cS8a7W7wP3sFVQOm3mPuuinTD8jJCKGPGNH399zE7Un1kA==}
+  discord-api-types@0.38.24:
+    resolution: {integrity: sha512-P7/DkcFIiIoaBogStnhhcGRX7KR+gIFp0SpmwsZUIM0bgDkYMEUx+8l+t3quYc/KSgg92wvE9w/4mabO57EMug==}
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -4694,14 +4694,14 @@ snapshots:
 
   '@discordjs/collection@2.1.1': {}
 
-  '@discordjs/core@2.2.1':
+  '@discordjs/core@2.2.2':
     dependencies:
       '@discordjs/rest': 2.6.0
       '@discordjs/util': 1.1.1
       '@discordjs/ws': 2.0.3
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.38.22
+      discord-api-types: 0.38.24
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -4713,7 +4713,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.5
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.38.22
+      discord-api-types: 0.38.24
       magic-bytes.js: 1.12.1
       tslib: 2.8.1
       undici: 6.21.3
@@ -4728,7 +4728,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.5
       '@types/ws': 8.18.1
       '@vladfrangu/async_event_emitter': 2.4.6
-      discord-api-types: 0.38.22
+      discord-api-types: 0.38.24
       tslib: 2.8.1
       ws: 8.18.3
     transitivePeerDependencies:
@@ -6378,7 +6378,7 @@ snapshots:
 
   diff@7.0.0: {}
 
-  discord-api-types@0.38.22: {}
+  discord-api-types@0.38.24: {}
 
   dunder-proto@1.0.1:
     dependencies:

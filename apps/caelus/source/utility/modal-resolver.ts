@@ -16,6 +16,11 @@ export class ModalResolver {
 				throw new Error("Encountered an action row in a modal.");
 			}
 
+			if (label.type === ComponentType.TextDisplay) {
+				// No custom id.
+				continue;
+			}
+
 			components.set(label.component.custom_id, label.component);
 		}
 

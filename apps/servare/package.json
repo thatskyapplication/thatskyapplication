@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@discordjs/collection": "^2.1.1",
-		"@discordjs/core": "^2.2.1",
+		"@discordjs/core": "^2.2.2",
 		"@discordjs/rest": "^2.6.0",
 		"@discordjs/ws": "^2.0.3",
 		"@logtail/pino": "^0.5.5",

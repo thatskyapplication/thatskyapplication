@@ -12,7 +12,7 @@
 		"format": "biome check --write"
 	},
 	"dependencies": {
-		"@discordjs/core": "^2.2.1",
+		"@discordjs/core": "^2.2.2",
 		"@discordjs/rest": "^2.6.0",
 		"@icons-pack/react-simple-icons": "10.2.0",
 		"@logtail/pino": "^0.5.5",

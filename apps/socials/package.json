@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@atproto/api": "^0.16.2",
-		"@discordjs/core": "^2.2.1",
+		"@discordjs/core": "^2.2.2",
 		"@discordjs/rest": "^2.6.0",
 		"@logtail/pino": "^0.5.5",
 		"@skyware/jetstream": "0.2.5",
