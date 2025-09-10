@@ -96,7 +96,10 @@ export async function meOverview(
 	];
 
 	await (editReply
-		? client.api.interactions.editReply(APPLICATION_ID, interaction.token, { components })
+		? client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+				components,
+				flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+			})
 		: updateMessage
 			? client.api.interactions.updateMessage(interaction.id, interaction.token, { components })
 			: client.api.interactions.reply(interaction.id, interaction.token, {

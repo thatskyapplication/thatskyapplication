@@ -85,7 +85,7 @@ async function me(
 
 	if (options.hoistedOptions.length > 0) {
 		await client.api.interactions.defer(interaction.id, interaction.token, {
-			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+			flags: MessageFlags.Ephemeral,
 		});
 
 		const payload: RESTPatchAPICurrentGuildMemberJSONBody = {};
