@@ -3322,6 +3322,7 @@ export default {
 				[ScheduleType.NestingWorkshop]: "Nesting Workshop",
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 			} satisfies Record<ScheduleType, string>,
+			back: "Back",
 		},
 		"shard-eruption": {
 			"browse-title": "Shard Eruptions",

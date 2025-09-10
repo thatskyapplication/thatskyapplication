@@ -231,6 +231,12 @@ import {
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import { history } from "../services/heart.js";
+import {
+	SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
+	scheduleDetailedBreakdown,
+	scheduleOverview,
+} from "../services/schedule.js";
 import { browse, today } from "../services/shard-eruption.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
@@ -277,7 +283,6 @@ import {
 	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 } from "../utility/shard-eruption.js";
 import type { Event } from "./index.js";
-import { SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID, scheduleDetailedBreakdown } from "../services/schedule.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
 
@@ -687,6 +692,11 @@ export default {
 
 				if (customId.startsWith(CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID)) {
 					await parseSetItems(interaction);
+					return;
+				}
+
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID) {
+					await scheduleOverview(interaction);
 					return;
 				}
 

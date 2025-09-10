@@ -1,34 +1,62 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
+	type APIComponentInContainer,
+	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
+	type InteractionsAPI,
 	type Locale,
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
 	Cosmetic,
+	type Emoji,
 	formatEmoji,
 	INTERNATIONAL_SPACE_STATION_DATES,
-	NotificationType,
 	ScheduleType,
-	SpiritsHistoryOrderType,
 	skyNow,
 	TRAVELLING_DATES,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
-import { SPIRITS_HISTORY_NEXT_CUSTOM_ID } from "../features/spirits.js";
-import {
-	CAPE_EMOJIS,
-	MISCELLANEOUS_EMOJIS,
-	SMALL_PLACEABLE_PROPS_EMOJIS,
-} from "../utility/emojis.js";
+import { CAPE_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { isChatInputCommand } from "../utility/functions.js";
 
 export const SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID" as const;
+
+export const SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID =
+	"SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID" as const;
+
+const SCHEDULE_DETAILED_BREAKDOWN_TYPES = [
+	ScheduleType.TravellingSpirit,
+	ScheduleType.AviarysFireworkFestival,
+	ScheduleType.InternationalSpaceStation,
+	ScheduleType.PollutedGeyser,
+	ScheduleType.Grandma,
+	ScheduleType.Turtle,
+	ScheduleType.AURORA,
+	ScheduleType.DreamsSkater,
+	ScheduleType.Passage,
+	ScheduleType.NineColouredDeer,
+	ScheduleType.ProjectorOfMemories,
+] as const satisfies readonly ScheduleType[];
+
+type ScheduledDetailedBreakdownTypes = (typeof SCHEDULE_DETAILED_BREAKDOWN_TYPES)[number];
+
+function isScheduleDetailedBreakdownType(type: number): type is ScheduledDetailedBreakdownTypes {
+	return SCHEDULE_DETAILED_BREAKDOWN_TYPES.includes(type as ScheduledDetailedBreakdownTypes);
+}
+
+type ScheduleDetailedBreakdownTypesWithEmoji = ScheduleType.AURORA;
+
+const ScheduleDetailedBreakdownTypeToEmoji = {
+	[ScheduleType.AURORA]: CAPE_EMOJIS.Cape96,
+} as const satisfies Readonly<Record<ScheduleDetailedBreakdownTypesWithEmoji, Emoji>>;
 
 function dailyResetTime(date: DateTime) {
 	return date.plus({ day: 1 }).toUnixInteger();
@@ -106,62 +134,6 @@ function travellingSpiritTime(now: DateTime, locale: Locale) {
 	}`;
 }
 
-function scheduleTimes(date: DateTime) {
-	const tomorrow = date.plus({ days: 1 });
-	const pollutedGeyser = [];
-	const grandma = [];
-	const turtle = [];
-	const aurora = [];
-	const dreamsSkater = [];
-	const passage = [];
-	const projectorOfMemories = [];
-
-	// 5 minutes is the least common denominator.
-	for (let start = date; start < tomorrow; start = start.plus({ minutes: 5 })) {
-		const timeString = `<t:${start.toUnixInteger()}:t>`;
-		const { minute, hour, weekday } = start;
-		const minutesSince = hour * 60 + minute;
-
-		if (minute % 15 === 0) {
-			passage.push(timeString);
-		}
-
-		if (hour % 2 === 0) {
-			if (minute === 5) {
-				pollutedGeyser.push(timeString);
-			}
-
-			if (minute === 35) {
-				grandma.push(timeString);
-			}
-
-			if (minute === 50) {
-				turtle.push(timeString);
-			}
-		} else {
-			let dreamsSkaterDate = start;
-
-			if (weekday !== 5 && weekday !== 6 && weekday !== 7) {
-				dreamsSkaterDate = start.plus({ days: 5 - start.weekday });
-			}
-
-			if (dreamsSkaterDate.minute === 0) {
-				dreamsSkater.push(`<t:${dreamsSkaterDate.toUnixInteger()}:t>`);
-			}
-		}
-
-		if (minute === 0 && hour % 2 === 0) {
-			aurora.push(timeString);
-		}
-
-		if (minutesSince % 80 === 0) {
-			projectorOfMemories.push(timeString);
-		}
-	}
-
-	return { pollutedGeyser, grandma, turtle, aurora, dreamsSkater, passage, projectorOfMemories };
-}
-
 function pollutedGeyserOverview(date: DateTime) {
 	const { hour, minute } = date;
 
@@ -169,6 +141,43 @@ function pollutedGeyserOverview(date: DateTime) {
 		now: hour % 2 === 0 && minute >= 5 && minute < 15,
 		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 5 ? 5 - minute : 125 - minute) : 65 - minute }).toUnixInteger()}:R>`,
 	};
+}
+
+function pollutedGeyserDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.startOf("day");
+	const startOfEvent = startOfDay.plus({ minutes: 5 });
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start.plus({ minutes: 10 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	const pollutedGeyser = pollutedGeyserOverview(now);
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Polluted_Geyser",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 10 minutes.\n\n${timestamps.join(" ")}\n\n${pollutedGeyser.now ? "The event is ongoing!" : `The event will occur again ${pollutedGeyser.next}.`}`,
+				},
+			],
+		},
+	];
 }
 
 function grandmaOverview(date: DateTime) {
@@ -180,6 +189,43 @@ function grandmaOverview(date: DateTime) {
 	};
 }
 
+function grandmaDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.startOf("day");
+	const startOfEvent = startOfDay.plus({ minutes: 35 });
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start.plus({ minutes: 10 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	const grandma = grandmaOverview(now);
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Grandma's_Dinner_Event",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 10 minutes.\n\n${timestamps.join(" ")}\n\n${grandma.now ? "The event is ongoing!" : `The event will occur again ${grandma.next}.`}`,
+				},
+			],
+		},
+	];
+}
+
 function turtleOverview(date: DateTime) {
 	const { hour, minute } = date;
 
@@ -189,6 +235,43 @@ function turtleOverview(date: DateTime) {
 	};
 }
 
+function turtleDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.startOf("day");
+	const startOfEvent = startOfDay.plus({ minutes: 50 });
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start.plus({ minutes: 10 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	const turtle = turtleOverview(now);
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Sunset_Sanctuary_Turtle",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 10 minutes.\n\n${timestamps.join(" ")}\n\n${turtle.now ? "The event is ongoing!" : `The event will occur again ${turtle.next}.`}`,
+				},
+			],
+		},
+	];
+}
+
 function auroraOverview(date: DateTime) {
 	const { hour, minute } = date;
 
@@ -196,6 +279,46 @@ function auroraOverview(date: DateTime) {
 		now: hour % 2 === 0,
 		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? 120 - minute : 60 - minute }).toUnixInteger()}:R>`,
 	};
+}
+
+function auroraDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.startOf("day");
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfDay; start < tomorrow; start = start.plus({ hours: 2 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start.plus({ hours: 1 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	const aurora = auroraOverview(now);
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/AURORA_Concert",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every 2 hours from <t:${startOfDay.toUnixInteger()}:t> lasting an hour.\n\n${timestamps.join(" ")}\n\n${aurora.now ? "The event is ongoing!" : `The event will occur again ${aurora.next}.`}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `-# Requires ${formatEmoji(CAPE_EMOJIS.Cape96)}`,
+				},
+			],
+		},
+	];
 }
 
 function dreamsSkaterOverview(date: DateTime) {
@@ -214,9 +337,85 @@ function dreamsSkaterOverview(date: DateTime) {
 	};
 }
 
+function dreamsSkaterDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const { weekday } = now;
+	const timestamps = [];
+
+	const startOfDay = now.startOf("day").plus({
+		days: weekday !== 5 && weekday !== 6 && weekday !== 7 ? 5 - weekday : 0,
+	});
+
+	const startOfEvent = startOfDay.plus({ hours: 1 });
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start.plus({ minutes: 15 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	const dreamsSkater = dreamsSkaterOverview(now);
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Dreams_Skater",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every Friday, Saturday, and Sunday every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 15 minutes.\n\n${timestamps.join(" ")}\n\n${dreamsSkater.now ? "The event is ongoing!" : `The event will occur again ${dreamsSkater.next}.`}`,
+				},
+			],
+		},
+	];
+}
+
 function nextPassage(date: DateTime) {
 	const { minute } = date;
 	return `<t:${date.plus({ minutes: 15 - (minute % 15) }).toUnixInteger()}:R>`;
+}
+
+function passageDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.startOf("day");
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfDay; start < tomorrow; start = start.plus({ minutes: 15 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/Season_of_Passage#Spirit_Memory_Quests",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every 15 minutes from <t:${startOfDay.toUnixInteger()}:t>.\n\n${timestamps.join(" ")}\n\nThe event will occur again ${nextPassage(now)}.`,
+				},
+			],
+		},
+	];
 }
 
 function aviarysFireworkFestivalOverview(date: DateTime) {
@@ -300,7 +499,9 @@ function projectorOfMemoriesOverview(date: DateTime) {
 	};
 }
 
-export async function scheduleOverview(interaction: APIChatInputApplicationCommandInteraction) {
+export async function scheduleOverview(
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+) {
 	const { locale } = interaction;
 	const now = skyNow();
 	const startOfDay = now.startOf("day");
@@ -315,7 +516,9 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 	const deer = deerOverview(now);
 	const projectorOfMemories = projectorOfMemoriesOverview(now);
 
-	await client.api.interactions.reply(interaction.id, interaction.token, {
+	const response:
+		| Parameters<InteractionsAPI["reply"]>[2]
+		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 		components: [
 			{
 				type: ComponentType.Container,
@@ -392,99 +595,23 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 							{
 								type: ComponentType.StringSelect,
 								custom_id: SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
-								options: [
-									{
-										label: t(`schedule.type.${ScheduleType.DailyReset}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.DailyReset.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.EyeOfEden}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.EyeOfEden.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.TravellingSpirit.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.AviarysFireworkFestival.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.InternationalSpaceStation.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.PollutedGeyser.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.Grandma}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.Grandma.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.Turtle}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.Turtle.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.AURORA}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.AURORA.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.DreamsSkater.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.Passage}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.Passage.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.NineColouredDeer.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.ProjectorOfMemories.toString(),
-									},
-								],
+								options: SCHEDULE_DETAILED_BREAKDOWN_TYPES.map((type) => {
+									const option: APISelectMenuOption = {
+										label: t(`schedule.type.${type}`, { lng: locale, ns: "features" }),
+										value: type.toString(),
+									};
+
+									const emoji =
+										ScheduleDetailedBreakdownTypeToEmoji[
+											type as ScheduleDetailedBreakdownTypesWithEmoji
+										];
+
+									if (emoji) {
+										option.emoji = emoji;
+									}
+
+									return option;
+								}),
 								max_values: 1,
 								min_values: 1,
 								placeholder: "View a detailed breakdown of an event?",
@@ -495,20 +622,87 @@ export async function scheduleOverview(interaction: APIChatInputApplicationComma
 			},
 		],
 		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-	});
+	};
+
+	await (isChatInputCommand(interaction)
+		? client.api.interactions.reply(interaction.id, interaction.token, response)
+		: client.api.interactions.updateMessage(interaction.id, interaction.token, response));
 }
 
 export async function scheduleDetailedBreakdown(
 	interaction: APIMessageComponentSelectMenuInteraction,
-) {}
+) {
+	const type = Number(interaction.data.values[0]);
+
+	if (!isScheduleDetailedBreakdownType(type)) {
+		throw new Error("Invalid schedule detailed breakdown type received.");
+	}
+
+	const { locale } = interaction;
+	const now = skyNow();
+	let detailedBreakdown: APIComponentInContainer[];
+
+	switch (type) {
+		case ScheduleType.PollutedGeyser: {
+			detailedBreakdown = pollutedGeyserDetailedBreakdown(now);
+			break;
+		}
+		case ScheduleType.Grandma: {
+			detailedBreakdown = grandmaDetailedBreakdown(now);
+			break;
+		}
+		case ScheduleType.Turtle: {
+			detailedBreakdown = turtleDetailedBreakdown(now);
+			break;
+		}
+		case ScheduleType.DreamsSkater: {
+			detailedBreakdown = dreamsSkaterDetailedBreakdown(now);
+			break;
+		}
+		case ScheduleType.AURORA: {
+			detailedBreakdown = auroraDetailedBreakdown(now);
+			break;
+		}
+		case ScheduleType.Passage: {
+			detailedBreakdown = passageDetailedBreakdown(now);
+			break;
+		}
+	}
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: `## ${t(`schedule.type.${type}`, { lng: locale, ns: "features" })}`,
+					},
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
+					...detailedBreakdown,
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								style: ButtonStyle.Secondary,
+								custom_id: SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
+								label: t("schedule.back", { lng: locale, ns: "features" }),
+								emoji: { name: "⬅️" },
+							},
+						],
+					},
+				],
+			},
+		],
+	});
+}
 
 // content: `### ${t(`notification-types.${NotificationType.InternationalSpaceStation}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape02)} or ${formatEmoji(CAPE_EMOJIS.Cape15)}\n${internationalSpaceStationDates(startOfDay).join("\n")}`,
-// content: `### ${t(`notification-types.${NotificationType.PollutedGeyser}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 5 }).toUnixInteger()}:t>.\nNext available ${nextPollutedGeyser(now)}`,
-// content: `### ${t(`notification-types.${NotificationType.Grandma}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 35 }).toUnixInteger()}:t>.\nNext available ${nextGrandma(now)}`,
-// content: `### ${t(`notification-types.${NotificationType.Turtle}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.plus({ minutes: 50 }).toUnixInteger()}:t>.\nNext available ${nextTurtle(now)}`,
-// content: `### ${t(`notification-types.${NotificationType.AURORA}`, { lng: locale, ns: "general" })}\n\nEvery 2 hours from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextAURORA(now)}`,
-// content: `### ${t(`notification-types.${NotificationType.DreamsSkater}`, { lng: locale, ns: "general" })}\n\nOn Fridays, Saturdays, and Sundays every 2 hours from <t:${(weekday !== 5 && weekday !== 6 && weekday !== 7 ? startOfDay.plus({ days: 5 - weekday, hours: 1 }) : startOfDay.plus({ hours: 1 })).toUnixInteger()}:t>.\nNext available ${nextDreamsSkater(now)}`,
-// content: `### ${t(`notification-types.${NotificationType.Passage}`, { lng: locale, ns: "general" })}\n\nEvery 15 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available ${nextPassage(now)}`,
 // content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\nOn the 1st of every month every 4 hours from <t:${(startOfDay.day === 1 ? startOfDay : startOfDay.plus({ month: 1 }).startOf("month")).toUnixInteger()}:t>.\nNext available ${nextAviarysFireworkFestival(now)}`,
 // content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}`,
 // content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\nEvery 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available:${nextProjectorOfMemories(now)}`,
