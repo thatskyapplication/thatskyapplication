@@ -23,6 +23,7 @@ export const ME_DELETE_AVATAR_CUSTOM_ID = "ME_DELETE_AVATAR_CUSTOM_ID" as const;
 export const ME_DELETE_BANNER_CUSTOM_ID = "ME_DELETE_BANNER_CUSTOM_ID" as const;
 export const ME_SET_BIO_MODAL_CUSTOM_ID = "ME_SET_BIO_MODAL_CUSTOM_ID" as const;
 const ME_SET_BIO_MODAL_BIO_CUSTOM_ID = "ME_SET_BIO_MODAL_BIO_CUSTOM_ID" as const;
+const ME_BIO_MAX_LENGTH = 190 as const;
 
 interface MeOverviewOptions {
 	editReply?: boolean;
@@ -160,7 +161,7 @@ export async function meHandleSetBioButton(
 				component: {
 					type: ComponentType.TextInput,
 					custom_id: ME_SET_BIO_MODAL_BIO_CUSTOM_ID,
-					// max_length: WELCOME_MESSAGE_MAXIMUM_LENGTH, Check this
+					max_length: ME_BIO_MAX_LENGTH,
 					style: TextInputStyle.Paragraph,
 					required: true,
 				},
