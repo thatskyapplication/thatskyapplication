@@ -143,6 +143,12 @@ import {
 	setupResponse,
 } from "../features/notifications.js";
 import {
+	SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
+	scheduleDetailedBreakdown,
+	scheduleOverview,
+} from "../features/schedule.js";
+import {
 	SHOP_SUGGEST_CUSTOM_ID,
 	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
 	shopSuggestionModal,
@@ -231,12 +237,6 @@ import {
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import { history } from "../services/heart.js";
-import {
-	SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
-	SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
-	scheduleDetailedBreakdown,
-	scheduleOverview,
-} from "../services/schedule.js";
 import { browse, today } from "../services/shard-eruption.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
