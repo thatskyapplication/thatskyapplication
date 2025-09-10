@@ -1,4 +1,5 @@
 import {
+	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
@@ -17,6 +18,7 @@ import {
 	formatEmoji,
 	INTERNATIONAL_SPACE_STATION_DATES,
 	ScheduleType,
+	shardEruption,
 	skyNow,
 	TRAVELLING_DATES,
 } from "@thatskyapplication/utility";
@@ -25,6 +27,7 @@ import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { CAPE_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
+import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
 
 export const SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID" as const;
@@ -32,7 +35,14 @@ export const SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID =
 export const SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID" as const;
 
+export const SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID =
+	"SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID" as const;
+
+export const SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID =
+	"SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID" as const;
+
 const SCHEDULE_DETAILED_BREAKDOWN_TYPES = [
+	ScheduleType.DailyReset,
 	ScheduleType.TravellingSpirit,
 	ScheduleType.AviarysFireworkFestival,
 	ScheduleType.InternationalSpaceStation,
@@ -58,8 +68,44 @@ const ScheduleDetailedBreakdownTypeToEmoji = {
 	[ScheduleType.AURORA]: CAPE_EMOJIS.Cape96,
 } as const satisfies Readonly<Record<ScheduleDetailedBreakdownTypesWithEmoji, Emoji>>;
 
-function dailyResetTime(date: DateTime) {
-	return date.plus({ day: 1 }).toUnixInteger();
+function nextDailyReset(date: DateTime) {
+	const tomorrow = date.plus({ day: 1 }).toUnixInteger();
+	return `<t:${tomorrow}:t> (<t:${tomorrow}:R>)`;
+}
+
+function dailyResetDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const shard = shardEruption();
+
+	const shardEruptionButton: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		style: ButtonStyle.Secondary,
+		custom_id: SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+		label: "Shard eruption",
+	};
+
+	if (shard) {
+		shardEruptionButton.emoji = resolveShardEruptionEmoji(shard.strong);
+	}
+
+	return [
+		{
+			type: ComponentType.TextDisplay,
+			content: `The new day happens at ${nextDailyReset(now)}. You may send your friends light again, there will be a new set of daily quests to complete, and more!`,
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					style: ButtonStyle.Secondary,
+					custom_id: SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID,
+					label: "Daily guides",
+					emoji: MISCELLANEOUS_EMOJIS.DailyQuest
+				},
+				shardEruptionButton,
+			],
+		},
+	];
 }
 
 function internationalSpaceStationOverview(date: DateTime) {
@@ -526,7 +572,7 @@ export async function scheduleOverview(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" })}:** <t:${dailyResetTime(startOfDay)}:t> (<t:${dailyResetTime(startOfDay)}:R>)`,
+						content: `**${t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" })}:** ${nextDailyReset(startOfDay)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -641,9 +687,14 @@ export async function scheduleDetailedBreakdown(
 
 	const { locale } = interaction;
 	const now = skyNow();
+	const startOfDay = now.startOf("day");
 	let detailedBreakdown: APIComponentInContainer[];
 
 	switch (type) {
+		case ScheduleType.DailyReset: {
+			detailedBreakdown = dailyResetDetailedBreakdown(startOfDay);
+			break;
+		}
 		case ScheduleType.PollutedGeyser: {
 			detailedBreakdown = pollutedGeyserDetailedBreakdown(now);
 			break;

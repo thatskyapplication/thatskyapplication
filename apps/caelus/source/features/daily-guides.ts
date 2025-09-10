@@ -2,6 +2,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIChannel,
 	type APIChatInputApplicationCommandGuildInteraction,
+	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
@@ -68,6 +69,7 @@ import {
 	DAILY_GUIDES_LOG_CHANNEL_ID,
 	MAXIMUM_CONCURRENCY_LIMIT,
 	SUPPORT_SERVER_GUILD_ID,
+	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/configuration.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
@@ -75,6 +77,7 @@ import {
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_URL,
+	INFORMATION_ACCENT_COLOUR,
 	LOCALE_OPTIONS,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 } from "../utility/constants.js";
@@ -853,6 +856,36 @@ export async function distribute(options: DailyGuidesDistributionOptions) {
 
 	distributionLock = promise;
 	await promise;
+}
+
+export async function dailyGuidesResponse(
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+) {
+	const { locale } = interaction;
+	const components = await distributionData(locale);
+	const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
+
+	if ([quest1, quest2, quest3, quest4].some((quest) => quest === null)) {
+		components.push({
+			type: ComponentType.Container,
+			accent_color: INFORMATION_ACCENT_COLOUR,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: t("daily-guides.not-yet-updated", {
+						lng: locale,
+						ns: "features",
+						url: SUPPORT_SERVER_INVITE_URL,
+					}),
+				},
+			],
+		});
+	}
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		components,
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	});
 }
 
 export const enum InteractiveType {

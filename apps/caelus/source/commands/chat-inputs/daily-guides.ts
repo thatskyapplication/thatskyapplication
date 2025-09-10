@@ -9,6 +9,7 @@ import {
 import { t } from "i18next";
 import { client } from "../../discord.js";
 import {
+	dailyGuidesResponse,
 	distributionData,
 	fetchDailyGuides,
 	interactive,
@@ -59,30 +60,6 @@ export default {
 			return;
 		}
 
-		const { locale } = interaction;
-		const components = await distributionData(locale);
-		const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
-
-		if ([quest1, quest2, quest3, quest4].some((quest) => quest === null)) {
-			components.push({
-				type: ComponentType.Container,
-				accent_color: INFORMATION_ACCENT_COLOUR,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("daily-guides.not-yet-updated", {
-							lng: locale,
-							ns: "features",
-							url: SUPPORT_SERVER_INVITE_URL,
-						}),
-					},
-				],
-			});
-		}
-
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			components,
-			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-		});
+		await dailyGuidesResponse(interaction);
 	},
 } as const;

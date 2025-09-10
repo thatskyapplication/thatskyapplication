@@ -95,6 +95,7 @@ import {
 	InteractiveType,
 	interactive,
 	questsReorder,
+	dailyGuidesResponse,
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
 import {
@@ -144,6 +145,8 @@ import {
 } from "../features/notifications.js";
 import {
 	SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
 	SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
 	scheduleDetailedBreakdown,
 	scheduleOverview,
@@ -700,6 +703,22 @@ export default {
 					return;
 				}
 
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID) {
+					await dailyGuidesResponse(interaction);
+					return;
+				}
+
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID) {
+					await today(interaction, {
+						ephemeral:
+							interaction.message.flags &&
+							(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral,
+						newMessage: true,
+					});
+
+					return;
+				}
+
 				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
@@ -717,7 +736,7 @@ export default {
 						return;
 					}
 
-					await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					await today(interaction, { offset: Number(customId.slice(customId.indexOf("§") + 1)) });
 					return;
 				}
 
@@ -1081,7 +1100,7 @@ export default {
 						return;
 					}
 
-					await today(interaction, Number(value0));
+					await today(interaction, { offset: Number(value0) });
 					return;
 				}
 
