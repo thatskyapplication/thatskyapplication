@@ -9,6 +9,7 @@ import {
 	MessageFlags,
 	type RESTPatchAPICurrentGuildMemberJSONBody,
 	SeparatorSpacingSize,
+	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
 import { t } from "i18next";
@@ -187,4 +188,8 @@ export async function meHandleDeleteButton(
 ) {
 	await client.api.users.editCurrentGuildMember(interaction.guild_id, options);
 	await meOverview(interaction, { updateMessage: true });
+}
+
+export async function meDelete(guildId: Snowflake) {
+	await client.api.users.editCurrentGuildMember(guildId, { bio: null, avatar: null, banner: null });
 }
