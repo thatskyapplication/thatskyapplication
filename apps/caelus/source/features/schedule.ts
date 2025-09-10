@@ -276,20 +276,21 @@ function auroraOverview(date: DateTime) {
 	const { hour, minute } = date;
 
 	return {
-		now: hour % 2 === 0,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? 120 - minute : 60 - minute }).toUnixInteger()}:R>`,
+		now: hour % 2 === 0 && minute >= 9 && minute < 58,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? 129 - minute : 69 - minute }).toUnixInteger()}:R>`,
 	};
 }
 
 function auroraDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
+	const startOfEvent = startOfDay.plus({ minutes: 9 });
 	const tomorrow = startOfDay.plus({ days: 1 });
 
-	for (let start = startOfDay; start < tomorrow; start = start.plus({ hours: 2 })) {
+	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
 		let string = `<t:${start.toUnixInteger()}:t>`;
 
-		if (now >= start.plus({ hours: 1 })) {
+		if (now >= start.plus({ minutes: 49 })) {
 			string = `~~${string}~~`;
 		}
 
@@ -310,7 +311,7 @@ function auroraDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every 2 hours from <t:${startOfDay.toUnixInteger()}:t> lasting an hour.\n\n${timestamps.join(" ")}\n\n${aurora.now ? "The event is ongoing!" : `The event will occur again ${aurora.next}.`}`,
+					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 49 minutes.\n\n${timestamps.join(" ")}\n\n${aurora.now ? "The event is ongoing!" : `The event will occur again ${aurora.next}.`}`,
 				},
 				{
 					type: ComponentType.TextDisplay,
