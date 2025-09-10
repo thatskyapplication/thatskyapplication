@@ -129,7 +129,7 @@ function internationalSpaceStationOverview(date: DateTime) {
 	};
 }
 
-function internationalSpaceStationDetailedBreakdown(date: DateTime) {
+function internationalSpaceStationDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
 	const result = [];
 
 	for (const internationalSpaceStationDate of INTERNATIONAL_SPACE_STATION_DATES) {
