@@ -2445,20 +2445,21 @@
 			"2475": "Vestido de Aniversário",
 			"2476": "Sapatilhas de Aniversário",
 			"2477": "Capa do smoking de aniversário",
-			"2482": "Apetrecho",
-			"2485": "Apetrecho",
-			"2486": "Xale Ensolarada",
-			"2487": "Projetor de Ondas Ensolarado",
-			"2488": "Vestido Ensolarado",
-			"2489": "Chapéu Ensolarado de Água-viva",
-			"2490": "Peça de castelo de areia 1",
-			"2491": "Peça de castelo de areia 2",
-			"2492": "Peça de castelo de areia 3",
-			"2493": "Peça de castelo de areia 4",
-			"2494": "Peça de castelo de areia 5",
-			"2495": "Peça de castelo de areia 6",
-			"2496": "Peça de castelo de areia 7",
-			"2497": "Projetor de Lembranças"
+			"2478": "",
+			"2483": "Apetrecho",
+			"2486": "Apetrecho",
+			"2487": "Xale Ensolarada",
+			"2488": "Projetor de Ondas Ensolarado",
+			"2489": "Vestido Ensolarado",
+			"2490": "Chapéu Ensolarado de Água-viva",
+			"2491": "Peça de castelo de areia 1",
+			"2492": "Peça de castelo de areia 2",
+			"2493": "Peça de castelo de areia 3",
+			"2494": "Peça de castelo de areia 4",
+			"2495": "Peça de castelo de areia 5",
+			"2496": "Peça de castelo de areia 6",
+			"2497": "Peça de castelo de areia 7",
+			"2498": "Projetor de Lembranças"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -2470,12 +2471,6 @@
 		"about": {
 			"command-name": "sobre",
 			"command-description": "Sobre mim, o maravilhoso pequeno ajudante de Sky!"
-		},
-		"bonk": {
-			"command-name": "cutucar",
-			"command-description": "Cutucar alguém!",
-			"command-option-user-name": "usuário",
-			"command-option-user-description": "O indivíduo a ser cutucado."
 		},
 		"calculate": {
 			"command-name": "calcular",
@@ -2774,9 +2769,6 @@
 			"frequency-description-no-monetisation": "Posso conversar com você — às vezes de surpresa, ou sempre que você me chamar! Também posso escolher com que frequência apareço.\n\nMas para usar essa habilidade, é preciso comprá-la.",
 			"frequency-type-string-select-menu-placeholder": "Escolha a frequência.",
 			"frequency-unknown": "Frequência desconhecida. Por favor, tente novamente."
-		},
-		"bonk": {
-			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não poderá ser cutucado. Alguém precisa ajustar as permissões!"
 		},
 		"calculate": {
 			"goal-already-achieved": "Você já conquistou seu objetivo!",
