@@ -2445,8 +2445,8 @@
 			"2475": "",
 			"2476": "",
 			"2477": "週年慶典燕尾斗篷",
-			"2482": "",
-			"2485": "",
+			"2478": "",
+			"2483": "",
 			"2486": "",
 			"2487": "",
 			"2488": "",
@@ -2458,7 +2458,8 @@
 			"2494": "",
 			"2495": "",
 			"2496": "",
-			"2497": "回憶投影機"
+			"2497": "",
+			"2498": "回憶投影機"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2470,12 +2471,6 @@
 		"about": {
 			"command-name": "關於",
 			"command-description": "關於我，奇妙的Sky小助手！"
-		},
-		"bonk": {
-			"command-name": "撞",
-			"command-description": "Bonk某人！",
-			"command-option-user-name": "使用者",
-			"command-option-user-description": "有人被bonk了。"
 		},
 		"calculate": {
 			"command-name": "計算",
@@ -2774,9 +2769,6 @@
 			"frequency-description-no-monetisation": "",
 			"frequency-type-string-select-menu-placeholder": "",
 			"frequency-unknown": ""
-		},
-		"bonk": {
-			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 不會被攔截。需要有人調整權限！"
 		},
 		"calculate": {
 			"goal-already-achieved": "你已達成你的目標！",
