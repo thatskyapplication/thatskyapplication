@@ -65,6 +65,7 @@ const SCHEDULE_DETAILED_BREAKDOWN_TYPES = [
 	ScheduleType.EyeOfEden,
 	ScheduleType.ShardEruption,
 	ScheduleType.TravellingSpirit,
+	ScheduleType.NestingWorkshop,
 	ScheduleType.AviarysFireworkFestival,
 	ScheduleType.InternationalSpaceStation,
 	ScheduleType.PollutedGeyser,
@@ -91,6 +92,7 @@ type ScheduleDetailedBreakdownTypesWithEmoji =
 	| ScheduleType.Passage
 	| ScheduleType.AviarysFireworkFestival
 	| ScheduleType.NineColouredDeer
+	| ScheduleType.NestingWorkshop
 	| ScheduleType.ProjectorOfMemories;
 
 const ScheduleDetailedBreakdownTypeToEmoji = {
@@ -101,6 +103,7 @@ const ScheduleDetailedBreakdownTypeToEmoji = {
 	[ScheduleType.Passage]: SEASON_EMOJIS.Passage,
 	[ScheduleType.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
 	[ScheduleType.NineColouredDeer]: CAPE_EMOJIS.Cape125,
+	[ScheduleType.NestingWorkshop]: SEASON_EMOJIS.Nesting,
 	[ScheduleType.ProjectorOfMemories]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
 } as const satisfies Readonly<Record<ScheduleDetailedBreakdownTypesWithEmoji, Emoji>>;
 
@@ -742,6 +745,31 @@ function nineColouredDeerDetailedBreakdown(
 	];
 }
 
+function nextNestingWorkshop(date: DateTime) {
+	const timestamp = date.plus({ week: 1 }).startOf("week").toUnixInteger();
+	return `<t:${timestamp}:f> (<t:${timestamp}:R>)`;
+}
+
+function nestingWorkshopDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/Nesting_Workshop",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Every Monday, a new set of cosmetics will appear in the Nesting Workshop. Next Monday is at ${nextNestingWorkshop(date)}.`,
+				},
+			],
+		},
+	];
+}
+
 function projectorOfMemoriesOverview(date: DateTime) {
 	const { hour, minute } = date;
 	const minutesSince = hour * 60 + minute;
@@ -833,6 +861,10 @@ export async function scheduleOverview(
 					{
 						type: ComponentType.TextDisplay,
 						content: `**${t(`schedule.type.${ScheduleType.TravellingSpirit}`, { lng: locale, ns: "features" })}:** ${travellingSpirit.now ? `${travellingSpirit.now}. ` : ""}Next available ${travellingSpirit.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`schedule.type.${ScheduleType.NestingWorkshop}`, { lng: locale, ns: "features" })}:** ${nextNestingWorkshop(startOfDay)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -995,6 +1027,10 @@ export async function scheduleDetailedBreakdown(
 			detailedBreakdown = nineColouredDeerDetailedBreakdown(now, locale);
 			break;
 		}
+		case ScheduleType.NestingWorkshop: {
+			detailedBreakdown = nestingWorkshopDetailedBreakdown(now);
+			break;
+		}
 		case ScheduleType.ProjectorOfMemories: {
 			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now);
 			break;
@@ -1016,6 +1052,11 @@ export async function scheduleDetailedBreakdown(
 						spacing: SeparatorSpacingSize.Small,
 					},
 					...detailedBreakdown,
+					{
+						type: ComponentType.Separator,
+						divider: true,
+						spacing: SeparatorSpacingSize.Small,
+					},
 					{
 						type: ComponentType.ActionRow,
 						components: [
