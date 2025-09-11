@@ -26,7 +26,12 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
-import { CAPE_EMOJIS, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
+import {
+	CAPE_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalEmoji,
+	SMALL_PLACEABLE_PROPS_EMOJIS,
+} from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
 
@@ -603,6 +608,46 @@ function projectorOfMemoriesOverview(date: DateTime) {
 	};
 }
 
+function projectorOfMemoriesDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.startOf("day");
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfDay; start < tomorrow; start = start.plus({ minutes: 80 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start.plus({ minutes: 70 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	const projectorOfMemories = projectorOfMemoriesOverview(now);
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: "https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1#Projector_of_Memories",
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\n\n${timestamps.join(" ")}\n\n${projectorOfMemories.now ? "The event is ongoing!" : `The event will occur again ${projectorOfMemories.next}.`}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106)}`,
+				},
+			],
+		},
+	];
+}
+
 export async function scheduleOverview(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 ) {
@@ -784,6 +829,10 @@ export async function scheduleDetailedBreakdown(
 			detailedBreakdown = passageDetailedBreakdown(now);
 			break;
 		}
+		case ScheduleType.ProjectorOfMemories: {
+			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now);
+			break;
+		}
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -821,4 +870,3 @@ export async function scheduleDetailedBreakdown(
 
 // content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\nOn the 1st of every month every 4 hours from <t:${(startOfDay.day === 1 ? startOfDay : startOfDay.plus({ month: 1 }).startOf("month")).toUnixInteger()}:t>.\nNext available ${nextAviarysFireworkFestival(now)}`,
 // content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}`,
-// content: `### ${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}\n\n-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105)}\nEvery 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available:${nextProjectorOfMemories(now)}`,
