@@ -58,6 +58,7 @@ export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM
 
 const SCHEDULE_DETAILED_BREAKDOWN_TYPES = [
 	ScheduleType.DailyReset,
+	ScheduleType.EyeOfEden,
 	ScheduleType.TravellingSpirit,
 	ScheduleType.AviarysFireworkFestival,
 	ScheduleType.InternationalSpaceStation,
@@ -78,6 +79,7 @@ function isScheduleDetailedBreakdownType(type: number): type is ScheduledDetaile
 }
 
 type ScheduleDetailedBreakdownTypesWithEmoji =
+	| ScheduleType.EyeOfEden
 	| ScheduleType.DreamsSkater
 	| ScheduleType.AURORA
 	| ScheduleType.Passage
@@ -86,6 +88,7 @@ type ScheduleDetailedBreakdownTypesWithEmoji =
 	| ScheduleType.ProjectorOfMemories;
 
 const ScheduleDetailedBreakdownTypeToEmoji = {
+	[ScheduleType.EyeOfEden]: MISCELLANEOUS_EMOJIS.AscendedCandle,
 	[ScheduleType.DreamsSkater]: SEASON_EMOJIS.Dreams,
 	[ScheduleType.AURORA]: CAPE_EMOJIS.Cape96,
 	[ScheduleType.Passage]: SEASON_EMOJIS.Passage,
@@ -134,8 +137,35 @@ function dailyResetDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 	];
 }
 
-function eyeOfEdenResetTime(date: DateTime) {
-	return date.set({ weekday: 7 }).toUnixInteger();
+function nextEyeOfEden(date: DateTime) {
+	const timestamp = date.set({ weekday: 7 }).toUnixInteger();
+	return `<t:${timestamp}:f> (<t:${timestamp}:R>)`;
+}
+
+function eyeOfEdenDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
+	const shard = shardEruption();
+
+	const shardEruptionButton: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		style: ButtonStyle.Secondary,
+		custom_id: SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+		label: "Shard eruption",
+	};
+
+	if (shard) {
+		shardEruptionButton.emoji = resolveShardEruptionEmoji(shard.strong);
+	}
+
+	return [
+		{
+			type: ComponentType.TextDisplay,
+			content: `Once a week on Sundays, the Eye of Eden will give ascended candles a week. Next Sunday is at ${nextEyeOfEden(date)}.\n\nShard eruptions also offer ascended candles.`,
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [shardEruptionButton],
+		},
+	];
 }
 
 function internationalSpaceStationOverview(date: DateTime) {
@@ -713,7 +743,7 @@ export async function scheduleOverview(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" })}:** <t:${eyeOfEdenResetTime(startOfDay)}:f> (<t:${eyeOfEdenResetTime(startOfDay)}:R>)`,
+						content: `**${t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" })}:** ${nextEyeOfEden(startOfDay)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -830,6 +860,10 @@ export async function scheduleDetailedBreakdown(
 	switch (type) {
 		case ScheduleType.DailyReset: {
 			detailedBreakdown = dailyResetDetailedBreakdown(startOfDay);
+			break;
+		}
+		case ScheduleType.EyeOfEden: {
+			detailedBreakdown = eyeOfEdenDetailedBreakdown(startOfDay);
 			break;
 		}
 		case ScheduleType.InternationalSpaceStation: {
