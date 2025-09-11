@@ -4,7 +4,6 @@ import {
 	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
-	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
 	type InteractionsAPI,
@@ -15,11 +14,12 @@ import {
 import {
 	Cosmetic,
 	currentSeasonalSpirits,
-	type Emoji,
 	EventId,
 	formatEmoji,
 	INTERNATIONAL_SPACE_STATION_DATES,
+	SCHEDULE_TYPE_VALUES,
 	ScheduleType,
+	type ScheduleTypes,
 	shardEruption,
 	skyNow,
 	TRAVELLING_DATES,
@@ -60,52 +60,9 @@ export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_
 export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID" as const;
 
-const SCHEDULE_DETAILED_BREAKDOWN_TYPES = [
-	ScheduleType.DailyReset,
-	ScheduleType.EyeOfEden,
-	ScheduleType.ShardEruption,
-	ScheduleType.TravellingSpirit,
-	ScheduleType.NestingWorkshop,
-	ScheduleType.AviarysFireworkFestival,
-	ScheduleType.InternationalSpaceStation,
-	ScheduleType.PollutedGeyser,
-	ScheduleType.Grandma,
-	ScheduleType.Turtle,
-	ScheduleType.AURORA,
-	ScheduleType.DreamsSkater,
-	ScheduleType.Passage,
-	ScheduleType.NineColouredDeer,
-	ScheduleType.ProjectorOfMemories,
-] as const satisfies readonly ScheduleType[];
-
-type ScheduledDetailedBreakdownTypes = (typeof SCHEDULE_DETAILED_BREAKDOWN_TYPES)[number];
-
-function isScheduleDetailedBreakdownType(type: number): type is ScheduledDetailedBreakdownTypes {
-	return SCHEDULE_DETAILED_BREAKDOWN_TYPES.includes(type as ScheduledDetailedBreakdownTypes);
+function isScheduleType(type: number): type is ScheduleTypes {
+	return SCHEDULE_TYPE_VALUES.includes(type as ScheduleTypes);
 }
-
-type ScheduleDetailedBreakdownTypesWithEmoji =
-	| ScheduleType.DailyReset
-	| ScheduleType.EyeOfEden
-	| ScheduleType.DreamsSkater
-	| ScheduleType.AURORA
-	| ScheduleType.Passage
-	| ScheduleType.AviarysFireworkFestival
-	| ScheduleType.NineColouredDeer
-	| ScheduleType.NestingWorkshop
-	| ScheduleType.ProjectorOfMemories;
-
-const ScheduleDetailedBreakdownTypeToEmoji = {
-	[ScheduleType.DailyReset]: MISCELLANEOUS_EMOJIS.DailyReset,
-	[ScheduleType.EyeOfEden]: MISCELLANEOUS_EMOJIS.AscendedCandle,
-	[ScheduleType.DreamsSkater]: SEASON_EMOJIS.Dreams,
-	[ScheduleType.AURORA]: CAPE_EMOJIS.Cape96,
-	[ScheduleType.Passage]: SEASON_EMOJIS.Passage,
-	[ScheduleType.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
-	[ScheduleType.NineColouredDeer]: CAPE_EMOJIS.Cape125,
-	[ScheduleType.NestingWorkshop]: SEASON_EMOJIS.Nesting,
-	[ScheduleType.ProjectorOfMemories]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
-} as const satisfies Readonly<Record<ScheduleDetailedBreakdownTypesWithEmoji, Emoji>>;
 
 function nextDailyReset(date: DateTime) {
 	const tomorrow = date.plus({ day: 1 }).toUnixInteger();
@@ -926,23 +883,122 @@ export async function scheduleOverview(
 							{
 								type: ComponentType.StringSelect,
 								custom_id: SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
-								options: SCHEDULE_DETAILED_BREAKDOWN_TYPES.map((type) => {
-									const option: APISelectMenuOption = {
-										label: t(`schedule.type.${type}`, { lng: locale, ns: "features" }),
-										value: type.toString(),
-									};
-
-									const emoji =
-										ScheduleDetailedBreakdownTypeToEmoji[
-											type as ScheduleDetailedBreakdownTypesWithEmoji
-										];
-
-									if (emoji) {
-										option.emoji = emoji;
-									}
-
-									return option;
-								}),
+								options: [
+									{
+										label: t(`schedule.type.${ScheduleType.DailyReset}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.DailyReset.toString(),
+										emoji: MISCELLANEOUS_EMOJIS.DailyReset,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.EyeOfEden}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.EyeOfEden.toString(),
+										emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.ShardEruption}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.ShardEruption.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.TravellingSpirit.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.NestingWorkshop.toString(),
+										emoji: SEASON_EMOJIS.Nesting,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.AviarysFireworkFestival.toString(),
+										emoji: EVENT_EMOJIS.AviarysFireworkFestival,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.InternationalSpaceStation.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.PollutedGeyser.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.Grandma}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.Grandma.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.Turtle}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.Turtle.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.AURORA}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.AURORA.toString(),
+										emoji: CAPE_EMOJIS.Cape96,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.DreamsSkater.toString(),
+										emoji: SEASON_EMOJIS.Dreams,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.Passage}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.Passage.toString(),
+										emoji: SEASON_EMOJIS.Passage,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.NineColouredDeer.toString(),
+										emoji: CAPE_EMOJIS.Cape125,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.ProjectorOfMemories.toString(),
+										emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
+									},
+								],
 								max_values: 1,
 								min_values: 1,
 								placeholder: "View a detailed breakdown of an event?",
@@ -965,7 +1021,7 @@ export async function scheduleDetailedBreakdown(
 ) {
 	const type = Number(interaction.data.values[0]);
 
-	if (!isScheduleDetailedBreakdownType(type)) {
+	if (!isScheduleType(type)) {
 		throw new Error("Invalid schedule detailed breakdown type received.");
 	}
 
@@ -1032,8 +1088,11 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.ProjectorOfMemories: {
-			detailedBreakdown =  projectorOfMemoriesDetailedBreakdown(now);
+			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now);
 			break;
+		}
+		default: {
+			throw new Error("Invalid schedule type for a detailed breakdown received.");
 		}
 	}
 
