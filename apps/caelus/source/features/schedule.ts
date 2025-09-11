@@ -27,6 +27,7 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
+import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import {
 	CAPE_EMOJIS,
 	EVENT_EMOJIS,
@@ -36,7 +37,10 @@ import {
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
-import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
+import {
+	resolveShardEruptionEmoji,
+	shardEruptionInformationString,
+} from "../utility/shard-eruption.js";
 
 export const SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID" as const;
@@ -47,8 +51,8 @@ export const SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID =
 export const SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID" as const;
 
-export const SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID =
-	"SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID" as const;
+export const SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID =
+	"SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID" as const;
 
 export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID" as const;
@@ -65,6 +69,7 @@ const SCHEDULE_DETAILED_BREAKDOWN_TYPES = [
 	ScheduleType.PollutedGeyser,
 	ScheduleType.Grandma,
 	ScheduleType.Turtle,
+	ScheduleType.ShardEruption,
 	ScheduleType.AURORA,
 	ScheduleType.DreamsSkater,
 	ScheduleType.Passage,
@@ -108,7 +113,7 @@ function dailyResetDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
-		custom_id: SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
 		label: "Shard eruption",
 	};
 
@@ -148,7 +153,7 @@ function eyeOfEdenDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
-		custom_id: SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
 		label: "Shard eruption",
 	};
 
@@ -420,6 +425,79 @@ function turtleDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 10 minutes.\n\n${timestamps.join(" ")}\n\n${turtle.now ? "The event is ongoing!" : `The event will occur again ${turtle.next}.`}`,
 				},
 			],
+		},
+	];
+}
+
+function shardEruptionOverview(now: DateTime) {
+	const shard = shardEruption();
+	let nextShard = shard?.timestamps.find(({ start }) => now < start);
+
+	if (!nextShard) {
+		for (let index = 1; ; index++) {
+			const nextPossibleShard = shardEruption(index);
+
+			if (!nextPossibleShard) {
+				continue;
+			}
+
+			nextShard = nextPossibleShard.timestamps.find(({ start }) => now < start)!;
+			break;
+		}
+	}
+
+	return {
+		now: shard?.timestamps.some(({ start, end }) => now >= start && now < end),
+		next: `<t:${nextShard.start.toUnixInteger()}:R>`,
+	};
+}
+
+function shardEruptionDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+	const shard = shardEruption();
+	const timestamps = [];
+
+	for (const { start, end } of shard?.timestamps ?? []) {
+		let string = `<t:${start.toUnixInteger()}:T>–<t:${end.toUnixInteger()}:T>`;
+
+		if (now >= end) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(`- ${string}`);
+	}
+
+	const shardOverview = shardEruptionOverview(now);
+
+	const shardEruptionButton: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		style: ButtonStyle.Secondary,
+		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+		label: "View shard eruptions",
+	};
+
+	if (shard) {
+		shardEruptionButton.emoji = resolveShardEruptionEmoji(shard.strong);
+	}
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: SHARD_ERUPTION_URL,
+				label: "Website",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Shard eruptions may be available on a day. During a day, they will appear multiple times.\n\n${shard ? `${shardEruptionInformationString(shard, true, locale)}\n${timestamps.join("\n")}` : `There is no shard eruption today. The next shard eruption will occur ${shardOverview.next}.`}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [shardEruptionButton],
 		},
 	];
 }
@@ -724,6 +802,7 @@ export async function scheduleOverview(
 	const pollutedGeyser = pollutedGeyserOverview(now);
 	const grandma = grandmaOverview(now);
 	const turtle = turtleOverview(now);
+	const shardEruption = shardEruptionOverview(now);
 	const aurora = auroraOverview(now);
 	const dreamsSkater = dreamsSkaterOverview(now);
 	const aviarysFireworkFestival = aviarysFireworkFestivalOverview(now);
@@ -773,6 +852,10 @@ export async function scheduleOverview(
 					{
 						type: ComponentType.TextDisplay,
 						content: `**${t(`schedule.type.${ScheduleType.Turtle}`, { lng: locale, ns: "features" })}:** ${turtle.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${turtle.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
+						content: `**${t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" })}:** ${shardEruption.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${shardEruption.next}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -884,6 +967,10 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.Turtle: {
 			detailedBreakdown = turtleDetailedBreakdown(now);
+			break;
+		}
+		case ScheduleType.ShardEruption: {
+			detailedBreakdown = shardEruptionDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.DreamsSkater: {
