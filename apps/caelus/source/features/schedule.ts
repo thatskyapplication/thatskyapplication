@@ -157,7 +157,7 @@ function internationalSpaceStationDetailedBreakdown(date: DateTime): APIComponen
 			string = `~~${string}~~`;
 		}
 
-		result.push(string);
+		result.push(`- ${string}`);
 	}
 
 	return [
