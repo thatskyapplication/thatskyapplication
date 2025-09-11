@@ -2527,6 +2527,14 @@
 				"command-option-channel-name": "canal",
 				"command-option-channel-description": "O canal para enviar os guias diários."
 			},
+			"me": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-avatar-name": "",
+				"command-option-avatar-description": "",
+				"command-option-banner-name": "",
+				"command-option-banner-description": ""
+			},
 			"notifications": {
 				"command-name": "notificações",
 				"command-description": "O comando para definir as notificações sobre eventos."
@@ -2914,6 +2922,18 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu coração. Alguém precisa ajustar as permissões!"
+		},
+		"me": {
+			"title": "",
+			"upsell-message": "",
+			"message": "",
+			"set-bio-button-label": "",
+			"delete-bio-button-label": "",
+			"delete-avatar-button-label": "",
+			"delete-banner-button-label": "",
+			"set-bio-modal-title": "",
+			"set-bio-modal-label-bio-label": "",
+			"set-bio-modal-label-bio-description": ""
 		},
 		"notifications": {
 			"back": "Retornar",
