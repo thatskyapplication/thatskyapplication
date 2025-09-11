@@ -120,6 +120,16 @@ import {
 	tryAgain,
 } from "../features/guess.js";
 import {
+	ME_DELETE_AVATAR_CUSTOM_ID,
+	ME_DELETE_BANNER_CUSTOM_ID,
+	ME_DELETE_BIO_CUSTOM_ID,
+	ME_SET_BIO_BUTTON_CUSTOM_ID,
+	ME_SET_BIO_MODAL_CUSTOM_ID,
+	meHandleDeleteButton,
+	meHandleSetBioButton,
+	meHandleSetBioModal,
+} from "../features/me.js";
+import {
 	displayNotificationType,
 	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
 	handleRoleSelectMenu as handleNotificationsRoleSelectMenu,
@@ -894,6 +904,26 @@ export default {
 						return;
 					}
 
+					if (customId === ME_SET_BIO_BUTTON_CUSTOM_ID) {
+						await meHandleSetBioButton(interaction);
+						return;
+					}
+
+					if (customId === ME_DELETE_BIO_CUSTOM_ID) {
+						await meHandleDeleteButton(interaction, { bio: null });
+						return;
+					}
+
+					if (customId === ME_DELETE_AVATAR_CUSTOM_ID) {
+						await meHandleDeleteButton(interaction, { avatar: null });
+						return;
+					}
+
+					if (customId === ME_DELETE_BANNER_CUSTOM_ID) {
+						await meHandleDeleteButton(interaction, { banner: null });
+						return;
+					}
+
 					if (customId === NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID) {
 						const guild = GUILD_CACHE.get(interaction.guild_id);
 
@@ -1310,6 +1340,11 @@ export default {
 				}
 
 				if (isGuildModalSubmit(interaction)) {
+					if (customId === ME_SET_BIO_MODAL_CUSTOM_ID) {
+						await meHandleSetBioModal(interaction);
+						return;
+					}
+
 					if (customId === WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID) {
 						await welcomeHandleMessageSettingModal(interaction);
 						return;

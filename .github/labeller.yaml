@@ -53,6 +53,9 @@ f:guess:
      - apps/caelus/source/features/guess.ts
      - apps/caelus/source/utility/guess.ts
      - packages/utility/source/guess.ts
+f:me:
+ - changed-files:
+   - any-glob-to-any-file: apps/caelus/source/features/me.ts
 f:sky-profile:
  - changed-files:
    - any-glob-to-any-file:

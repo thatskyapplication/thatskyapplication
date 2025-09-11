@@ -2800,6 +2800,14 @@ export default {
 				"command-option-channel-name": "channel",
 				"command-option-channel-description": "The channel to send daily guides in.",
 			},
+			me: {
+				"command-name": "me",
+				"command-description": "Configure how I look in your server!",
+				"command-option-avatar-name": "avatar",
+				"command-option-avatar-description": "Set a new avatar for me to use.",
+				"command-option-banner-name": "banner",
+				"command-option-banner-description": "Set a new banner for me to use.",
+			},
 			notifications: {
 				"command-name": "notifications",
 				"command-description": "The command to set up notifications for events.",
@@ -3207,6 +3215,21 @@ export default {
 		heart: {
 			"missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not receive your heart. Someone needs to adjust the permissions!",
+		},
+		me: {
+			title: "Me",
+			"upsell-message":
+				"This is a premium feature!\n\nYou may fully customise me by editing my bio, my banner, and my avatar in your server to whatever you like!\n\nTo get started, interact with the button below.",
+			message:
+				"Want to customise me? ✨\n- Set my bio with the modal below!\n- Set my avatar and banner using the command! You can remove the override with the buttons below.",
+			"set-bio-button-label": "Set bio",
+			"delete-bio-button-label": "Delete bio",
+			"delete-avatar-button-label": "Delete avatar",
+			"delete-banner-button-label": "Delete banner",
+			"set-bio-modal-title": "My bio",
+			"set-bio-modal-label-bio-label": "Set my bio!",
+			"set-bio-modal-label-bio-description":
+				"You can choose a bio for me to display in your server.",
 		},
 		notifications: {
 			back: "Back",

@@ -2,6 +2,7 @@ import { GatewayDispatchEvents, RESTJSONErrorCodes } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
+import { meDelete } from "../features/me.js";
 import AI from "../models/AI.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
@@ -25,6 +26,7 @@ export default {
 			// This is no longer active. Remove it.
 			// A guild id is always present for this (guild subscription).
 			await AI.delete(data.guild_id!);
+			await meDelete(data.guild_id!);
 
 			if (data.user_id) {
 				try {
