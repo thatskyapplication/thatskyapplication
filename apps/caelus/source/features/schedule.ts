@@ -63,13 +63,13 @@ export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM
 const SCHEDULE_DETAILED_BREAKDOWN_TYPES = [
 	ScheduleType.DailyReset,
 	ScheduleType.EyeOfEden,
+	ScheduleType.ShardEruption,
 	ScheduleType.TravellingSpirit,
 	ScheduleType.AviarysFireworkFestival,
 	ScheduleType.InternationalSpaceStation,
 	ScheduleType.PollutedGeyser,
 	ScheduleType.Grandma,
 	ScheduleType.Turtle,
-	ScheduleType.ShardEruption,
 	ScheduleType.AURORA,
 	ScheduleType.DreamsSkater,
 	ScheduleType.Passage,
@@ -828,6 +828,10 @@ export async function scheduleOverview(
 					},
 					{
 						type: ComponentType.TextDisplay,
+						content: `**${t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" })}:** ${shardEruption.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${shardEruption.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
 						content: `**${t(`schedule.type.${ScheduleType.TravellingSpirit}`, { lng: locale, ns: "features" })}:** ${travellingSpirit.now ? `${travellingSpirit.now}. ` : ""}Next available ${travellingSpirit.next}`,
 					},
 					{
@@ -854,10 +858,6 @@ export async function scheduleOverview(
 					{
 						type: ComponentType.TextDisplay,
 						content: `**${t(`schedule.type.${ScheduleType.Turtle}`, { lng: locale, ns: "features" })}:** ${turtle.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${turtle.next}`,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" })}:** ${shardEruption.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${shardEruption.next}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
