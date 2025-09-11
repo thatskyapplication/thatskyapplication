@@ -5,7 +5,7 @@ import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
 import { isRealm, REALM_NAME_VALUES, RealmName, SKY_MAP_VALUES, SkyMap } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
-import { ScheduleType } from "../schedule.js";
+import { ScheduleType, type ScheduleTypes } from "../schedule.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import {
 	SkyProfileEditType,
@@ -3321,7 +3321,7 @@ export default {
 				[ScheduleType.NineColouredDeer]: "Nine-coloured deer",
 				[ScheduleType.NestingWorkshop]: "Nesting Workshop",
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
-			} satisfies Record<ScheduleType, string>,
+			} satisfies Record<ScheduleTypes, string>,
 			back: "Back",
 		},
 		"shard-eruption": {
