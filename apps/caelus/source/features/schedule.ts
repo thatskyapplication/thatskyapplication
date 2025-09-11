@@ -112,7 +112,7 @@ function nextDailyReset(date: DateTime) {
 	return `<t:${tomorrow}:t> (<t:${tomorrow}:R>)`;
 }
 
-function dailyResetDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function dailyResetDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
 	const shard = shardEruption();
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
@@ -129,7 +129,7 @@ function dailyResetDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: `The new day happens at ${nextDailyReset(now)}. You may send your friends light again, there will be a new set of daily quests to complete, and more!`,
+			content: `The new day happens at ${nextDailyReset(date)}. You may send your friends light again, there will be a new set of daily quests to complete, and more!`,
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -745,12 +745,12 @@ function nineColouredDeerDetailedBreakdown(
 	];
 }
 
-function nextNestingWorkshop(date: DateTime) {
-	const timestamp = date.plus({ week: 1 }).startOf("week").toUnixInteger();
+function nextNestingWorkshop(now: DateTime) {
+	const timestamp = now.plus({ week: 1 }).startOf("week").toUnixInteger();
 	return `<t:${timestamp}:f> (<t:${timestamp}:R>)`;
 }
 
-function nestingWorkshopDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
+function nestingWorkshopDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 	return [
 		{
 			type: ComponentType.Section,
@@ -763,7 +763,7 @@ function nestingWorkshopDetailedBreakdown(date: DateTime): APIComponentInContain
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Every Monday, a new set of cosmetics will appear in the Nesting Workshop. Next Monday is at ${nextNestingWorkshop(date)}.`,
+					content: `Every Monday, a new set of cosmetics will appear in the Nesting Workshop. Next Monday is at ${nextNestingWorkshop(now)}.`,
 				},
 			],
 		},
@@ -864,7 +864,7 @@ export async function scheduleOverview(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.NestingWorkshop}`, { lng: locale, ns: "features" })}:** ${nextNestingWorkshop(startOfDay)}`,
+						content: `**${t(`schedule.type.${ScheduleType.NestingWorkshop}`, { lng: locale, ns: "features" })}:** ${nextNestingWorkshop(now)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -988,7 +988,7 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.TravellingSpirit: {
-			detailedBreakdown = travellingSpiritDetailedBreakdown(startOfDay, locale);
+			detailedBreakdown = travellingSpiritDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.PollutedGeyser: {
@@ -1032,7 +1032,7 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.ProjectorOfMemories: {
-			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now);
+			detailedBreakdown =  projectorOfMemoriesDetailedBreakdown(now);
 			break;
 		}
 	}
