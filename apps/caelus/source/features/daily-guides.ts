@@ -158,7 +158,7 @@ export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTo
 	];
 }
 
-export async function fetchDailyGuides() {
+async function fetchDailyGuides() {
 	const dailyQuests = await pg<DailyGuidesPacket>(Table.DailyGuides).first();
 
 	if (dailyQuests) {
@@ -597,7 +597,7 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	return { eventEndText, iconURL, eventTickets };
 }
 
-export async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComponent]> {
+async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComponent]> {
 	const today = skyToday();
 	const now = skyNow();
 
