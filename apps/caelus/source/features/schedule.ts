@@ -29,7 +29,9 @@ import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import {
 	CAPE_EMOJIS,
+	EVENT_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
+	SEASON_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../utility/emojis.js";
@@ -75,10 +77,21 @@ function isScheduleDetailedBreakdownType(type: number): type is ScheduledDetaile
 	return SCHEDULE_DETAILED_BREAKDOWN_TYPES.includes(type as ScheduledDetailedBreakdownTypes);
 }
 
-type ScheduleDetailedBreakdownTypesWithEmoji = ScheduleType.AURORA;
+type ScheduleDetailedBreakdownTypesWithEmoji =
+	| ScheduleType.DreamsSkater
+	| ScheduleType.AURORA
+	| ScheduleType.Passage
+	| ScheduleType.AviarysFireworkFestival
+	| ScheduleType.NineColouredDeer
+	| ScheduleType.ProjectorOfMemories;
 
 const ScheduleDetailedBreakdownTypeToEmoji = {
+	[ScheduleType.DreamsSkater]: SEASON_EMOJIS.Dreams,
 	[ScheduleType.AURORA]: CAPE_EMOJIS.Cape96,
+	[ScheduleType.Passage]: SEASON_EMOJIS.Passage,
+	[ScheduleType.AviarysFireworkFestival]: EVENT_EMOJIS.AviarysFireworkFestival,
+	[ScheduleType.NineColouredDeer]: CAPE_EMOJIS.Cape125,
+	[ScheduleType.ProjectorOfMemories]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
 } as const satisfies Readonly<Record<ScheduleDetailedBreakdownTypesWithEmoji, Emoji>>;
 
 function nextDailyReset(date: DateTime) {
@@ -590,37 +603,31 @@ function nineColouredDeerOverview(date: DateTime) {
 	};
 }
 
-function deer(locale: Locale) {
-	const date = new Date();
-	date.setUTCMinutes(date.getUTCMinutes() >= 30 ? 30 : 0);
-	date.setUTCSeconds(0);
-	date.setUTCMilliseconds(0);
-	const unix = date.getTime() / 1_000;
+function nineColouredDeerDetailedBreakdown(
+	now: DateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
+	const startOfDay = now.startOf("day");
+	const startOfEvent = now.set({ minute: now.minute >= 30 ? 30 : 0 });
+
+	const timestamps = [
+		`- <t:${startOfEvent.toUnixInteger()}:t> (${t("schedule.deer-0", { lng: locale, ns: "commands" })})`,
+		`- <t:${startOfEvent.plus({ minutes: 2 }).toUnixInteger()}:t> (${t("schedule.deer-120", { lng: locale, ns: "commands" })})`,
+		`- <t:${startOfEvent.plus({ minutes: 10 }).toUnixInteger()}:t> (${t("schedule.deer-600", { lng: locale, ns: "commands" })})`,
+		`- <t:${startOfEvent.plus({ minutes: 12 }).toUnixInteger()}:t> (${t("schedule.deer-720", { lng: locale, ns: "commands" })})`,
+		`- <t:${startOfEvent.plus({ minutes: 20 }).toUnixInteger()}:t> (${t("schedule.deer-1200", { lng: locale, ns: "commands" })})`,
+	];
+
+	const nineColouredDeer = nineColouredDeerOverview(now);
 
 	return [
 		{
-			text: t("schedule.deer-0", { lng: locale, ns: "commands" }),
-			time: `<t:${unix}:t>`,
+			type: ComponentType.TextDisplay,
+			content: `Available every 30 minutes from <t:${startOfDay.toUnixInteger()}:t> lasting 20 minutes.\n${timestamps.join("\n")}\n\n${nineColouredDeer.now ? "The event is ongoing!" : `The event will occur again ${nineColouredDeer.next}.`}`,
 		},
 		{
-			text: t("schedule.deer-120", { lng: locale, ns: "commands" }),
-			time: `<t:${unix + 120}:t>`,
-		},
-		{
-			text: t("schedule.deer-600", { lng: locale, ns: "commands" }),
-			time: `<t:${unix + 600}:t>`,
-		},
-		{
-			text: t("schedule.deer-720", { lng: locale, ns: "commands" }),
-			time: `<t:${unix + 720}:t>`,
-		},
-		{
-			text: t("schedule.deer-1200", { lng: locale, ns: "commands" }),
-			time: `<t:${unix + 1_200}:t>`,
-		},
-		{
-			text: t("schedule.deer-1800", { lng: locale, ns: "commands" }),
-			time: `<t:${unix + 1_800}:t>`,
+			type: ComponentType.TextDisplay,
+			content: `-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}`,
 		},
 	];
 }
@@ -861,6 +868,10 @@ export async function scheduleDetailedBreakdown(
 			detailedBreakdown = aviarysFireworkFestivalDetailedBreakdown(now, locale);
 			break;
 		}
+		case ScheduleType.NineColouredDeer: {
+			detailedBreakdown = nineColouredDeerDetailedBreakdown(now, locale);
+			break;
+		}
 		case ScheduleType.ProjectorOfMemories: {
 			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now);
 			break;
@@ -899,5 +910,3 @@ export async function scheduleDetailedBreakdown(
 		],
 	});
 }
-
-// content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}`,
