@@ -2527,6 +2527,14 @@
 				"command-option-channel-name": "頻道",
 				"command-option-channel-description": "發送每日指南的頻道。"
 			},
+			"me": {
+				"command-name": "",
+				"command-description": "",
+				"command-option-avatar-name": "",
+				"command-option-avatar-description": "",
+				"command-option-banner-name": "",
+				"command-option-banner-description": ""
+			},
 			"notifications": {
 				"command-name": "通知",
 				"command-description": "設定事件通知的命令。"
@@ -2914,6 +2922,18 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法收到您的愛心。需要有人調整權限！"
+		},
+		"me": {
+			"title": "",
+			"upsell-message": "",
+			"message": "",
+			"set-bio-button-label": "",
+			"delete-bio-button-label": "",
+			"delete-avatar-button-label": "",
+			"delete-banner-button-label": "",
+			"set-bio-modal-title": "",
+			"set-bio-modal-label-bio-label": "",
+			"set-bio-modal-label-bio-description": ""
 		},
 		"notifications": {
 			"back": "",

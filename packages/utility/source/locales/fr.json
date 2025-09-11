@@ -468,7 +468,7 @@
 			"77": "Anniversaire de Sky",
 			"78": "Jours Ensoleillés",
 			"79": "Jours du Clair de Lune",
-			"80": ""
+			"80": "Événement de l'Éclat"
 		},
 		"event-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice#2019",
@@ -2446,19 +2446,19 @@
 			"2476": "",
 			"2477": "Cape de smoking anniversaire",
 			"2478": "",
-			"2483": "",
-			"2486": "",
+			"2483": "Accessoire",
+			"2486": "Accessoire",
 			"2487": "",
 			"2488": "",
-			"2489": "",
-			"2490": "",
-			"2491": "",
-			"2492": "",
-			"2493": "",
-			"2494": "",
-			"2495": "",
-			"2496": "",
-			"2497": "",
+			"2489": "Robe Ensoleillée",
+			"2490": "Chapeau Méduse Ensoleillé",
+			"2491": "Partie de château de sable 1",
+			"2492": "Partie de château de sable 2",
+			"2493": "Partie de château de sable 3",
+			"2494": "Partie de château de sable 4",
+			"2495": "Partie de château de sable 5",
+			"2496": "Partie de château de sable 6",
+			"2497": "Partie de château de sable 7",
 			"2498": "Projecteur de Souvenirs"
 		},
 		"interaction-error": "",
@@ -2469,39 +2469,39 @@
 	},
 	"commands": {
 		"about": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "à-propos",
+			"command-description": "À propos de moi, le merveilleux petit assistant de Sky !"
 		},
 		"calculate": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "calculer",
+			"command-description": "La commande qui contient de nombreux calculateurs.",
 			"ascended-candles": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": "",
-				"command-option-eye-of-eden-name": "",
-				"command-option-eye-of-eden-description": "",
-				"command-option-shard-eruptions-name": "",
-				"command-option-shard-eruptions-description": ""
+				"command-name": "bougies-élevées",
+				"command-description": "Calcule le nombre de jours qu'il faudrait pour atteindre un nombre donné de bougies élevées.",
+				"command-option-start-name": "départ",
+				"command-option-start-description": "Le nombre de bougies élevées au départ.",
+				"command-option-goal-name": "objectif",
+				"command-option-goal-description": "Le nombre désiré de bougies élevées.",
+				"command-option-eye-of-eden-name": "œil-éden",
+				"command-option-eye-of-eden-description": "Choisissez d'inclure ou non l'Œil d'Éden dans le calcul.",
+				"command-option-shard-eruptions-name": "éruptions-éclats",
+				"command-option-shard-eruptions-description": "Choisissez d'inclure ou non les éruptions d'éclats dans le calcul."
 			},
 			"event-tickets": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": ""
+				"command-name": "devises-événements",
+				"command-description": "Calcule le nombre de jours qu'il faudrait pour atteindre un nombre donné de devises d'événements.",
+				"command-option-start-name": "départ",
+				"command-option-start-description": "Le nombre de devises d'événements au départ.",
+				"command-option-goal-name": "objectif",
+				"command-option-goal-description": "Le nombre désiré de devises d'événements."
 			},
 			"seasonal-candles": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": ""
+				"command-name": "bougies-saisonnières",
+				"command-description": "Calcule le nombre de jours qu'il faudrait pour atteindre un nombre donné de bougies saisonnières.",
+				"command-option-start-name": "départ",
+				"command-option-start-description": "Le nombre de bougies saisonnières au départ.",
+				"command-option-goal-name": "objectif",
+				"command-option-goal-description": "Le nombre désiré de bougies saisonnières."
 			},
 			"winged-light": {
 				"command-name": "",
@@ -2511,60 +2511,68 @@
 			}
 		},
 		"catalogue": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "catalogue",
+			"command-description": "Votre propre catalogue Sky."
 		},
 		"configure": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "configurer",
+			"command-description": "Configurer les paramètres pour le serveur.",
 			"ai": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "ia",
+				"command-description": "Configurer l'IA."
 			},
 			"daily-guides": {
+				"command-name": "guides-journaliers",
+				"command-description": "La commande pour mettre en place un guide journalier sur le serveur.",
+				"command-option-channel-name": "salon",
+				"command-option-channel-description": "Le salon où envoyer les guides journaliers."
+			},
+			"me": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-channel-name": "",
-				"command-option-channel-description": ""
+				"command-option-avatar-name": "",
+				"command-option-avatar-description": "",
+				"command-option-banner-name": "",
+				"command-option-banner-description": ""
 			},
 			"notifications": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "notifications",
+				"command-description": "La commande pour mettre en place des notifications d'événements."
 			},
 			"welcome": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-asset-name": "",
-				"command-option-asset-description": ""
+				"command-name": "bienvenue",
+				"command-description": "La commande pour mettre en place des messages de bienvenue pour les nouveaux membres du serveur.",
+				"command-option-asset-name": "média",
+				"command-option-asset-description": "Télécharger une image, un GIF, une vidéo, etc. à inclure au message de bienvenue."
 			}
 		},
 		"daily-guides": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "guides-journaliers",
+			"command-description": "Montrer les guides journaliers."
 		},
 		"data": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "données",
+			"command-description": "Une commande à propos de vos données.",
 			"delete": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "supprimer",
+				"command-description": "Supprimer vos données."
 			}
 		},
 		"Gift-Heart": {
-			"command-name": ""
+			"command-name": "Offrir un cœur"
 		},
 		"giveaway": {
-			"command-name": "",
+			"command-name": "tirage-au-sort",
 			"command-description": "Voir le tirage au sort ici !"
 		},
 		"guess": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "devinettes",
+			"command-description": "Commencez un jeu de devinettes Sky ! Combien réussirez-vous à deviner d'affilée ?",
 			"game": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-type-name": "",
-				"command-option-type-description": "",
+				"command-name": "jeu",
+				"command-description": "Commencez le jeu de devinettes !",
+				"command-option-type-name": "type",
+				"command-option-type-description": "À quel type de jeu souhaitez-vous jouer ?",
 				"command-option-type-choice-name": {
 					"0": "$t(features:guess.type.0)",
 					"1": "$t(features:guess.type.1)",
@@ -2572,9 +2580,9 @@
 				}
 			},
 			"leaderboard": {
-				"command-name": "",
+				"command-name": "classement",
 				"command-description": "Voir le classement !",
-				"command-option-type-name": "",
+				"command-option-type-name": "type",
 				"command-option-type-description": "Quel type de jeu souhaitez-vous voir ?",
 				"command-option-type-choice-name": {
 					"0": "$t(features:guess.type.0)",
@@ -2584,30 +2592,30 @@
 			}
 		},
 		"hair-tousle": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-name": "ébouriffage-de-cheveux",
+			"command-description": "Ébouriffez les cheveux de quelqu'un !",
+			"command-option-user-name": "utilisateur",
+			"command-option-user-description": "La personne qui se fera ébouriffer les cheveux."
 		},
 		"heart": {
 			"command-name": "cœur",
 			"command-description": "D'humeur généreuse ? Vous avez jusqu'à 3 cœurs à offrir par jour !",
 			"gift": {
 				"command-name": "cadeau",
-				"command-description": "",
+				"command-description": "Choisissez quelqu'un pour lui envoyer un cœur !",
 				"command-option-user-name": "utilisateur",
-				"command-option-user-description": ""
+				"command-option-user-description": "L'utilisateur à qui offrir un cœur."
 			},
 			"history": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "historique",
+				"command-description": "Afficher un historique de vos cœurs !"
 			}
 		},
 		"high-five": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "tope-là",
+			"command-description": "Topez-là avec quelqu'un !",
 			"command-option-user-name": "utilisateur",
-			"command-option-user-description": ""
+			"command-option-user-description": "La personne à qui là-toper."
 		},
 		"hug": {
 			"command-name": "câlin",
@@ -2616,13 +2624,13 @@
 			"command-option-user-description": "La personne a qui tu veux faire un câlin."
 		},
 		"krill": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "krill",
+			"command-description": "Fait quelqu'un se faire attaquer par un krill !",
 			"command-option-user-name": "utilisateur",
-			"command-option-user-description": ""
+			"command-option-user-description": "La personne qui se fera attaquer par un krill."
 		},
 		"play-fight": {
-			"command-name": "",
+			"command-name": "bagarre-amicale",
 			"command-description": "",
 			"command-option-user-name": "utilisateur",
 			"command-option-user-description": ""
@@ -2630,8 +2638,8 @@
 		"quest": {
 			"command-name": "quête",
 			"command-description": "",
-			"command-option-daily-name": "",
-			"command-option-daily-description": ""
+			"command-option-daily-name": "journalière",
+			"command-option-daily-description": "Choisissez une quête journalière !"
 		},
 		"schedule": {
 			"command-name": "planning",
@@ -2670,8 +2678,8 @@
 			"edit": {
 				"command-name": "éditer",
 				"command-description": "",
-				"command-option-name-name": "",
-				"command-option-name-description": "",
+				"command-option-name-name": "pseudo",
+				"command-option-name-description": "Quel est votre pseudo en jeu ?",
 				"command-option-icon-name": "",
 				"command-option-icon-description": "",
 				"command-option-banner-name": "bannière",
@@ -2715,17 +2723,17 @@
 			"command-name": "esprits",
 			"command-description": "",
 			"history": {
-				"command-name": "",
+				"command-name": "historique",
 				"command-description": "",
-				"command-option-order-name": "",
-				"command-option-order-description": "",
+				"command-option-order-name": "ordre",
+				"command-option-order-description": "Choisissez un type d'ordre pour les esprits.",
 				"command-option-order-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "Ordre par apparence (ordre chronologique).",
+					"1": "Ordre par rareté (esprits qui ne sont pas revenus depuis un certain moment)."
 				}
 			},
 			"search": {
-				"command-name": "",
+				"command-name": "chercher",
 				"command-description": "",
 				"command-option-query-name": "",
 				"command-option-query-description": ""
@@ -2741,45 +2749,45 @@
 			"feedback-button": "Soumettre un retour",
 			"issue-button": "Reporter un problème",
 			"feedback-modal-title": "Soumettre un retour",
-			"feedback-modal-label-title-label": "",
+			"feedback-modal-label-title-label": "Titre",
 			"feedback-modal-label-title-description": "Entrer un titre convenable pour votre retour.",
-			"feedback-modal-label-description-label": "",
+			"feedback-modal-label-description-label": "Retour",
 			"feedback-modal-label-description-description": "Écrivez votre retour ici !",
 			"feedback-modal-label-description-text-input-placeholder": "Ce serait bien de...\nJ'aimerais que nous puissions...",
 			"feedback-submission": "Merci de votre retour ! {{emoji}}",
 			"issue-modal-title": "Reporter un problème",
-			"issue-modal-label-title-label": "",
+			"issue-modal-label-title-label": "Titre",
 			"issue-modal-label-title-description": "Entrer un titre convenable pour votre problème.",
-			"issue-modal-label-description-label": "",
+			"issue-modal-label-description-label": "Description",
 			"issue-modal-label-description-description": "Décrivez votre problème ici.",
 			"issue-modal-label-description-text-input-placeholder": "Chaque fois que j'essaie...\nRien ne ce passe quand...",
 			"issue-submission": "Merci d'avoir reporté votre problème ! {{emoji}}"
 		},
 		"ai": {
 			"frequency-type": {
-				"0": "",
-				"1": "",
-				"2": "",
-				"3": "",
-				"4": "",
-				"5": ""
+				"0": "Désactiver",
+				"1": "Très rare",
+				"2": "Rare",
+				"3": "Standard",
+				"4": "Fréquent",
+				"5": "Très fréquent"
 			},
-			"title": "",
+			"title": "IA Caelus",
 			"frequency-description": "",
 			"frequency-description-no-monetisation": "",
 			"frequency-type-string-select-menu-placeholder": "",
 			"frequency-unknown": ""
 		},
 		"calculate": {
-			"goal-already-achieved": "",
-			"start": "",
+			"goal-already-achieved": "Vous avez déjà atteint votre objectif !",
+			"start": "Départ : ",
 			"goal": "Objectif : ",
-			"required": "",
+			"required": "Nécessaire : ",
 			"ascended-candles": {
 				"goal-achieved": "Vous avez déjà réalisé votre objectif !",
 				"no-source": "",
 				"title": "",
-				"goal-first-achievable": "",
+				"goal-first-achievable": "Votre objectif est atteignable au minimum le {{date}} ({{relative}}).",
 				"minimum-time-beginning": "",
 				"minimum-time-eye-of-eden": "",
 				"minimum-time-shard-eruptions": "Éruptions d'éclats"
@@ -2830,8 +2838,8 @@
 			"current-event-fallback": "Évènement",
 			"travelling-spirit": "Esprit voyageur",
 			"returning-spirits": "",
-			"seasons-navigate-back": "",
-			"seasons-navigate-forward": "",
+			"seasons-navigate-back": "Précédent",
+			"seasons-navigate-forward": "Suivant",
 			"seasons-season-previous-season": "Saison précédente",
 			"seasons-season-next-season": "Prochaine saison"
 		},
@@ -2841,7 +2849,7 @@
 			"seasonal-candles": "Bougies saisonnières",
 			"seasonal-candles-remain": "{{remaining}} restantes ({{remainingSeasonPass}} avec un Passe Saisonnier)",
 			"shard-eruption": "Éruption d'Éclats",
-			"shard-eruption-data": "",
+			"shard-eruption-data": "Données",
 			"shard-eruption-timestamps": "Heures",
 			"shard-eruption-none": "",
 			"travelling-rock": "",
@@ -2914,6 +2922,18 @@
 		},
 		"heart": {
 			"missing-external-apps-permission": "Vous n'avez pas la permission `Utilise des applications externes`, donc {{user}} ne recevra pas votre cœur. Quelqu'un doit ajuster les permissions !"
+		},
+		"me": {
+			"title": "",
+			"upsell-message": "",
+			"message": "",
+			"set-bio-button-label": "",
+			"delete-bio-button-label": "",
+			"delete-avatar-button-label": "",
+			"delete-banner-button-label": "",
+			"set-bio-modal-title": "",
+			"set-bio-modal-label-bio-label": "",
+			"set-bio-modal-label-bio-description": ""
 		},
 		"notifications": {
 			"back": "Retour",
@@ -3017,7 +3037,7 @@
 			"report-description": "Si le profil Sky de quelqu'un n'est pas dans l'esprit de Sky (insultes excessives, spam, etc.), vous pouvez le reporter afin qu'il soit revu.\n\nVoulez-vous reporter ce profil Sky ?",
 			"report-confirm-button": "Reporter",
 			"report-modal-title": "Reporter un Profil Sky",
-			"report-modal-label-reason-label": "",
+			"report-modal-label-reason-label": "Raison",
 			"report-modal-label-reason-description": "Qu'est-ce qu'il ne va pas avec ce profil Sky ?",
 			"report-submission": "Ce profil Sky a été reporté. Merci d'aider à garder cette communauté sûre !",
 			"edit-type-label": {
@@ -3041,13 +3061,13 @@
 				"7": "Montrer votre rang de jeu des devinettes ?"
 			},
 			"edit-modal-title": "Profil Sky",
-			"edit-modal-label-name-label": "",
+			"edit-modal-label-name-label": "Pseudo",
 			"edit-modal-label-name-description": "Quel est votre pseudo en jeu ?",
-			"edit-modal-label-description-label": "",
+			"edit-modal-label-description-label": "Description",
 			"edit-modal-label-description-description": "Entrer une charmante description de votre enfant de Sky !",
 			"edit-winged-light-description": "Vous pouvez choisir la façon d'afficher votre lumière ailée.\n\nDéduire depuis le catalogue signifie que votre nombre maximum de lumières ailées comprend toutes les lumières ailées combinées plus toutes les améliorations que vous avez choisies dans le catalogue. Sans-cape est aussi une option.",
 			"edit-winged-light-string-select-menu-placeholder": "Comment souhaitez-vous que votre lumière ailée soit affichée ?",
-			"edit-modal-label-hangout-label": "",
+			"edit-modal-label-hangout-label": "Lieu où passer du temps",
 			"edit-modal-label-hangout-description": "Quelle est votre endroit favori où passer du temps ?",
 			"edit-seasons-string-select-menu-placeholder": "Sélectionnez les saisons auxquelles vous avez participé !",
 			"edit-platforms-string-select-menu-placeholder": "Sélectionnez les plateformes sur lesquelles vous jouez !",
@@ -3088,8 +3108,8 @@
 			"guess-rank-unranked": "Non-classé",
 			"crowdin-support-server": "{{emoji}} Cet enfant de Sky est un {{role}} ! Vous pouvez aider sur [Crowdin]({{url}}) vous aussi !",
 			"crowdin-other-server": "{{emoji}} Cet enfant de Sky aide à traduire ce que vous voyez ! Vous pouvez aider vous aussi sur [Crowdin]({{url}}) !",
-			"artist-support-server": "",
-			"artist-other-server": "",
+			"artist-support-server": "{{emoji}} Cet enfant de Sky est un {{role}} ! Ils ont des styles incroyables !",
+			"artist-other-server": "{{emoji}} Cet enfant de Sky contribue à créer des œuvres d'art ! Ils ont des styles incroyables !",
 			"supporter-support-server": "{{emoji1}} Cet enfant de Sky est un {{role}} ! Comme c'est gentil de sa part de supporter le développement ! {{emoji2}}",
 			"supporter-other-server": "{{emoji1}} Cet enfant de Sky supporte le développement ! Comme c'est gentil de sa part ! {{emoji2}}",
 			"missing-name": "Entrez votre pseudo !",
@@ -3123,21 +3143,21 @@
 			"preview": "Ceci est la zone d'aperçu de votre message de bienvenue. C'est actuellement vide.",
 			"title": "Paramètres de bienvenue",
 			"channel-description": "Vous pouvez mettre en place des messages pour l'arrivée d'enfant de Sky dans votre serveur.",
-			"channel-description-missing-permissions": "",
+			"channel-description-missing-permissions": "J'ai besoin des permissions suivantes pour que cela fonctionne :\n- `Voir les salons`\n- `Envoyer des messages`",
 			"welcome-channel-select-menu-placeholder": "Sélectionnez un salon de bienvenue.",
 			"message-description": "Vous pouvez choisir d'afficher un message ! Pour mentionner l'utilisateur qui vient de rejoindre, entrez `{{user}}`.",
 			"message-remove": "Supprimer le message ?",
 			"message-edit": "Modifier le message ?",
 			"message-use": "Utiliser un message ?",
 			"message-modal-title": "Message de bienvenue",
-			"message-modal-label-welcome-message-label": "",
+			"message-modal-label-welcome-message-label": "Message de bienvenue",
 			"message-modal-label-welcome-message-description": "Entrer votre message de bienvenue.",
 			"message-modal-label-welcome-message-text-input-placeholder": "Bienvenue sur le serveur, {{user}} !",
 			"asset-description-mention": "Utiliser {{mention}} pour télécharger un média à afficher dans le message de bienvenue !",
 			"asset-description-text": "Utiliser la commande pour télécharger un média à afficher dans le message de bienvenue !",
 			"asset-remove": "Supprimer le média téléchargé ?",
 			"hug-description": "Vous pouvez afficher un bouton de câlin au message pour que les autre l'utilise !",
-			"hug-description-missing-permissions": "",
+			"hug-description-missing-permissions": "J'ai besoin des permissions suivantes dans {{channel}} pour que cela fonctionne :\n- `Voir les salons`\n- `Envoyer des messages`\n- `Voir les anciens messages`",
 			"hug-remove": "Supprimer le bouton de câlin ?",
 			"hug-add": "Ajouter le bouton de câlin ?",
 			"accent-colour-description": "Vous pouvez choisir une couleur d'accent sur le côté gauche du message de bienvenue à l'aide d'un code de couleur au format hexadécimal (exemple : `#123456`).",
@@ -3145,14 +3165,14 @@
 			"accent-colour-edit": "Modifier la couleur d'accent ?",
 			"accent-colour-use": "Utiliser une couleur d'accent ?",
 			"accent-colour-modal-title": "Couleur d'accent de bienvenue",
-			"accent-colour-modal-label-accent-colour-label": "",
+			"accent-colour-modal-label-accent-colour-label": "Couleur d'accent",
 			"accent-colour-modal-label-accent-colour-description": "Entrer un code de couleur au format hexadécimal.",
 			"accent-colour-invalid": "Code de couleur hexadécimal invalide. Vous pouvez aller chercher sur un outil de pipette numérique pour vous aider !",
 			"missing-permissions": "`Voir les salons` & `Envoyer des messages` sont requis.",
 			"welcome-with-a-hug": "Accueillir avec un câlin !",
 			"hug-self": "C'est vous ! Pourquoi ne pas faire de câlins aux autres ?",
 			"hug-disabled": "Ce serveur a désactivé les câlins.",
-			"hug-missing-permissions": ""
+			"hug-missing-permissions": "J'ai besoin des permissions suivantes pour faire cela :\n- `Voir les salons`\n- `Envoyer des messages`\n- `Voir les anciens messages`\nQuelqu'un devrait ajuster les permissions !"
 		}
 	}
 }
