@@ -13,9 +13,11 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import { t } from "i18next";
+import { COMMAND_CACHE } from "../caches/commands.js";
 import { client } from "../discord.js";
 import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { chatInputApplicationCommandMention } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 
 export const ME_SET_BIO_BUTTON_CUSTOM_ID = "ME_SET_BIO_BUTTON_CUSTOM_ID" as const;
@@ -39,6 +41,21 @@ export async function meOverview(
 	{ editReply, updateMessage }: MeOverviewOptions = {},
 ) {
 	const { locale } = interaction;
+	const configureCommandId = COMMAND_CACHE.get(t("configure.command-name", { ns: "commands" }));
+	const messageLocaleOptions: Parameters<typeof t>[1] = { lng: locale, ns: "features" };
+	let suffix: "mention" | "text";
+
+	if (configureCommandId) {
+		suffix = "mention";
+
+		messageLocaleOptions.mention = chatInputApplicationCommandMention(
+			configureCommandId,
+			t("configure.command-name", { ns: "commands" }),
+			t("configure.me.command-name", { ns: "commands" }),
+		);
+	} else {
+		suffix = "text";
+	}
 
 	const components: APIMessageTopLevelComponent[] = [
 		{
@@ -55,7 +72,7 @@ export async function meOverview(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: t("me.message", { lng: locale, ns: "features" }),
+					content: t(`me.message-${suffix}`, messageLocaleOptions),
 				},
 				{
 					type: ComponentType.ActionRow,

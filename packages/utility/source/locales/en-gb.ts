@@ -3220,8 +3220,10 @@ export default {
 			title: "Me",
 			"upsell-message":
 				"This is a premium feature!\n\nYou may fully customise me by editing my bio, my banner, and my avatar in your server to whatever you like!\n\nTo get started, interact with the button below.",
-			message:
-				"Want to customise me? ✨\n- Set my bio with the modal below!\n- Set my avatar and banner using the command! You can remove the override with the buttons below.",
+			"message-mention":
+				"Want to customise me? ✨\n- Set my bio with the button below!\n- Set my avatar and banner using {{mention}}! You can remove the override with the buttons below.",
+			"message-text":
+				"Want to customise me? ✨\n- Set my bio with the button below!\n- Set my avatar and banner using the command! You can remove the override with the buttons below.",
 			"set-bio-button-label": "Set bio",
 			"delete-bio-button-label": "Delete bio",
 			"delete-avatar-button-label": "Delete avatar",
