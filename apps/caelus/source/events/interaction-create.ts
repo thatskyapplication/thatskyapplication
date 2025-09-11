@@ -18,7 +18,15 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { addBreadcrumb, captureException } from "@sentry/node";
-import { isDuring, isRealm, isSeasonId, skyNow } from "@thatskyapplication/utility";
+import {
+	isDuring,
+	isRealm,
+	isSeasonId,
+	type SpiritIds,
+	SpiritsHistoryOrderType,
+	skyNow,
+	spirits,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
@@ -90,12 +98,12 @@ import {
 import { commandAnalyticsSend } from "../features/command-analytics.js";
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
+	dailyGuidesResponse,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 	handleDistributeButton,
 	InteractiveType,
 	interactive,
 	questsReorder,
-	dailyGuidesResponse,
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
 import {
@@ -148,6 +156,8 @@ import {
 	SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID,
 	SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
 	SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID,
 	scheduleDetailedBreakdown,
 	scheduleOverview,
 } from "../features/schedule.js";
@@ -213,7 +223,9 @@ import {
 	SPIRITS_HISTORY_BACK_CUSTOM_ID,
 	SPIRITS_HISTORY_NEXT_CUSTOM_ID,
 	SPIRITS_VIEW_SPIRIT_CUSTOM_ID,
+	search,
 	spiritsHistory,
+	spiritsParseSpiritsHistoryCustomId,
 } from "../features/spirits.js";
 import {
 	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
@@ -719,6 +731,40 @@ export default {
 					return;
 				}
 
+				if (
+					customId.startsWith(SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID)
+				) {
+					const spiritId = Number(customId.slice(customId.indexOf("§") + 1)) as SpiritIds;
+					let flags = MessageFlags.IsComponentsV2;
+
+					if (
+						interaction.message.flags &&
+						(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral
+					) {
+						flags |= MessageFlags.Ephemeral;
+					}
+
+					await client.api.interactions.reply(interaction.id, interaction.token, {
+						components: search({ spirit: spirits().get(spiritId)!, locale: interaction.locale }),
+						flags,
+					});
+
+					return;
+				}
+
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID) {
+					await spiritsHistory(interaction, {
+						type: SpiritsHistoryOrderType.Natural,
+						page: 1,
+						ephemeral:
+							interaction.message.flags &&
+							(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral,
+						newMessage: true,
+					});
+
+					return;
+				}
+
 				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
@@ -837,7 +883,8 @@ export default {
 					customId.startsWith(SPIRITS_HISTORY_BACK_CUSTOM_ID) ||
 					customId.startsWith(SPIRITS_HISTORY_NEXT_CUSTOM_ID)
 				) {
-					await spiritsHistory(interaction);
+					const { type, page } = spiritsParseSpiritsHistoryCustomId(customId);
+					await spiritsHistory(interaction, { type, page });
 					return;
 				}
 

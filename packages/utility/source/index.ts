@@ -169,6 +169,7 @@ export {
 	type Item,
 	type ItemCost,
 	isSpiritId,
+	isSpiritsHistoryOrderType,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	SpiritEmote,
 	SpiritId,

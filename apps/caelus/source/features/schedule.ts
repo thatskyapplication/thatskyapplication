@@ -14,6 +14,7 @@ import {
 } from "@discordjs/core";
 import {
 	Cosmetic,
+	currentSeasonalSpirits,
 	type Emoji,
 	formatEmoji,
 	INTERNATIONAL_SPACE_STATION_DATES,
@@ -25,7 +26,7 @@ import {
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
-import { CAPE_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { CAPE_EMOJIS, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
 
@@ -40,6 +41,12 @@ export const SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_
 
 export const SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_SHARD_ERUPTION_BUTTON_CUSTOM_ID" as const;
+
+export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID =
+	"SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID" as const;
+
+export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID =
+	"SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID" as const;
 
 const SCHEDULE_DETAILED_BREAKDOWN_TYPES = [
 	ScheduleType.DailyReset,
@@ -181,23 +188,53 @@ function travellingSpiritOverview(now: DateTime, locale: Locale) {
 	};
 }
 
-function travellingSpiritTime(now: DateTime, locale: Locale) {
-	const travellingSpirit = TRAVELLING_DATES.find(({ start, end }) => now >= start && now < end);
+function travellingSpiritDetailedBreakdown(
+	now: DateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
+	const visit = TRAVELLING_DATES.findLast(({ start, end }) => now >= start && now < end);
+	const nextArrival = TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }).toUnixInteger();
 
-	if (travellingSpirit) {
-		return t("schedule.travelling-spirit-today", { lng: locale, ns: "commands" });
+	const text = visit
+		? `${t(`spirits.${visit.spiritId}`, { lng: locale, ns: "general" })} is currently visiting and will leave <t:${visit.end.toUnixInteger()}:R>.`
+		: `There is currently no travelling spirit. The next one is scheduled to arrive <t:${nextArrival}:R>.`;
+
+	const travellingSpiritButton: APIButtonComponentWithCustomId = {
+		type: ComponentType.Button,
+		style: ButtonStyle.Secondary,
+		custom_id: `${SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID}§${visit?.spiritId}`,
+	};
+
+	if (visit?.spiritId === undefined) {
+		travellingSpiritButton.label = "View travelling spirit";
+		travellingSpiritButton.disabled = true;
+	} else {
+		travellingSpiritButton.label = t(`spirits.${visit.spiritId}`, { lng: locale, ns: "general" });
+		const emoji = SeasonIdToSeasonalEmoji[currentSeasonalSpirits().get(visit.spiritId)!.seasonId];
+
+		if (emoji) {
+			travellingSpiritButton.emoji = emoji;
+		}
 	}
 
-	const nextArrival = TRAVELLING_DATES.last()?.start.plus({ weeks: 2 }).toUnixInteger();
-
-	return `${t("schedule.travelling-spirit-none", { lng: locale, ns: "commands" })}\n_${
-		nextArrival
-			? `${t("schedule.travelling-spirit-next-visit", {
-					lng: locale,
-					ns: "commands",
-				})} <t:${nextArrival}:d> (<t:${nextArrival}:R>)_`
-			: ""
-	}`;
+	return [
+		{
+			type: ComponentType.TextDisplay,
+			content: `Travelling spirits visit every 2 weeks on Thursday and leave on Monday.\n\n${text}`,
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				travellingSpiritButton,
+				{
+					type: ComponentType.Button,
+					style: ButtonStyle.Secondary,
+					custom_id: SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID,
+					label: "View history",
+				},
+			],
+		},
+	];
 }
 
 function pollutedGeyserOverview(date: DateTime) {
@@ -600,7 +637,7 @@ export async function scheduleOverview(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.TravellingSpirit}`, { lng: locale, ns: "features" })}:** ${travellingSpirit.now ? `${travellingSpirit.now} ` : ""}Next available ${travellingSpirit.next}`,
+						content: `**${t(`schedule.type.${ScheduleType.TravellingSpirit}`, { lng: locale, ns: "features" })}:** ${travellingSpirit.now ? `${travellingSpirit.now}. ` : ""}Next available ${travellingSpirit.next}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -717,6 +754,10 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.InternationalSpaceStation: {
 			detailedBreakdown = internationalSpaceStationDetailedBreakdown(startOfDay);
+			break;
+		}
+		case ScheduleType.TravellingSpirit: {
+			detailedBreakdown = travellingSpiritDetailedBreakdown(startOfDay, locale);
 			break;
 		}
 		case ScheduleType.PollutedGeyser: {
