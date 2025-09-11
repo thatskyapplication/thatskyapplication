@@ -63,6 +63,7 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	Trash: { id: "1410256775961251990", name: "trash" },
 	Edit: { id: "1410257589840908318", name: "edit" },
 	DailyQuest: { id: "1415342214581850182", name: "daily_quest" },
+	DailyReset: { id: "1415788534908063784", animated: true, name: "daily_reset" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -119,6 +120,7 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	Trash: { id: "1410256786191155283", name: "trash" },
 	Edit: { id: "1410257597130473522", name: "edit" },
 	DailyQuest: { id: "1415342223272185938", name: "daily_quest" },
+	DailyReset: { id: "1415788543141347458", animated: true, name: "daily_reset" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {

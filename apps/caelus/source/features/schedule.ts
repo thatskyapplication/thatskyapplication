@@ -84,6 +84,7 @@ function isScheduleDetailedBreakdownType(type: number): type is ScheduledDetaile
 }
 
 type ScheduleDetailedBreakdownTypesWithEmoji =
+	| ScheduleType.DailyReset
 	| ScheduleType.EyeOfEden
 	| ScheduleType.DreamsSkater
 	| ScheduleType.AURORA
@@ -93,6 +94,7 @@ type ScheduleDetailedBreakdownTypesWithEmoji =
 	| ScheduleType.ProjectorOfMemories;
 
 const ScheduleDetailedBreakdownTypeToEmoji = {
+	[ScheduleType.DailyReset]: MISCELLANEOUS_EMOJIS.DailyReset,
 	[ScheduleType.EyeOfEden]: MISCELLANEOUS_EMOJIS.AscendedCandle,
 	[ScheduleType.DreamsSkater]: SEASON_EMOJIS.Dreams,
 	[ScheduleType.AURORA]: CAPE_EMOJIS.Cape96,
