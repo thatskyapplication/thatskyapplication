@@ -16,6 +16,7 @@ import {
 	Cosmetic,
 	currentSeasonalSpirits,
 	type Emoji,
+	EventId,
 	formatEmoji,
 	INTERNATIONAL_SPACE_STATION_DATES,
 	ScheduleType,
@@ -541,16 +542,43 @@ function aviarysFireworkFestivalOverview(date: DateTime) {
 	};
 }
 
-function aviarysFireworkFestivalTime(date: DateTime) {
-	const startOfMonth = date.plus({ month: 1 }).startOf("month");
-	const dayAfterStartOfMonth = startOfMonth.plus({ day: 1 });
-	const times = [];
+function aviarysFireworkFestivalDetailedBreakdown(
+	now: DateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.day === 1 ? now.startOf("day") : now.plus({ month: 1 }).startOf("month");
+	const tomorrow = startOfDay.plus({ days: 1 });
 
-	for (let start = startOfMonth; start < dayAfterStartOfMonth; start = start.plus({ hours: 4 })) {
-		times.push(`<t:${start.toUnixInteger()}:t>`);
+	for (let start = startOfDay; start < tomorrow; start = start.plus({ hours: 4 })) {
+		let string = `<t:${start.toUnixInteger()}:f>`;
+
+		if (now >= start.plus({ minutes: 10 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(`- ${string}`);
 	}
 
-	return times;
+	const aviarysFireworkFestival = aviarysFireworkFestivalOverview(now);
+
+	return [
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: t(`event-wiki.${EventId.AviarysFireworkFestival2023}`, { lng: locale, ns: "general" }),
+				label: "Wiki",
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `Available every 4 hours from <t:${startOfDay.toUnixInteger()}:f> lasting 10 minutes only on the 1st of a month. See below for a list of dates:\n${timestamps.join("\n")}\n\n${aviarysFireworkFestival.now ? "The event is ongoing!" : `The event will occur again ${aviarysFireworkFestival.next}.`}`,
+				},
+			],
+		},
+	];
 }
 
 function nineColouredDeerOverview(date: DateTime) {
@@ -829,6 +857,10 @@ export async function scheduleDetailedBreakdown(
 			detailedBreakdown = passageDetailedBreakdown(now);
 			break;
 		}
+		case ScheduleType.AviarysFireworkFestival: {
+			detailedBreakdown = aviarysFireworkFestivalDetailedBreakdown(now, locale);
+			break;
+		}
 		case ScheduleType.ProjectorOfMemories: {
 			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now);
 			break;
@@ -868,5 +900,4 @@ export async function scheduleDetailedBreakdown(
 	});
 }
 
-// content: `### ${t(`notification-types.${NotificationType.AviarysFireworkFestival}`, { lng: locale, ns: "general" })}\n\nOn the 1st of every month every 4 hours from <t:${(startOfDay.day === 1 ? startOfDay : startOfDay.plus({ month: 1 }).startOf("month")).toUnixInteger()}:t>.\nNext available ${nextAviarysFireworkFestival(now)}`,
 // content: `### Nine-Coloured Deer\n\n-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}\nEvery 30 minutes from <t:${startOfDay.toUnixInteger()}:t>.\nNext available: ${nextDeer(now)}`,
