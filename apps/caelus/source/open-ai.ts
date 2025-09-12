@@ -406,7 +406,7 @@ export async function messageCreateResponse(
 						content:
 							attachments.length > 0
 								? [
-										...message.attachments.map(
+										...attachments.map(
 											(attachment) =>
 												({
 													type: "image_url",
