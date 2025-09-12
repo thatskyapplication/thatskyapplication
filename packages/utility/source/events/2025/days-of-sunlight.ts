@@ -7,7 +7,7 @@ import { EventId } from "../../utility/event.js";
 const eventTicketAmount: EventTicketsAmountData[] = [];
 
 for (
-	let start = skyDate(2_025, 9, 1), end = skyDate(2_025, 9, 22);
+	let start = skyDate(2_025, 9, 1), end = skyDate(2_025, 9, 23);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
@@ -17,14 +17,14 @@ for (
 export default new Event({
 	id: EventId.DaysOfSunlight2025,
 	start: skyDate(2_025, 9, 1),
-	end: skyDate(2_025, 9, 22),
+	end: skyDate(2_025, 9, 23),
 	eventTickets: {
 		amount: eventTicketAmount,
 		pool: [
 			{
 				amount: 15,
 				start: skyDate(2_025, 9, 1),
-				end: skyDate(2_025, 9, 21),
+				end: skyDate(2_025, 9, 22),
 			},
 		],
 	},
