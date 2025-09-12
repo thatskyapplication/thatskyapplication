@@ -727,6 +727,40 @@ function nestingWorkshopDetailedBreakdown(now: DateTime): APIComponentInContaine
 	];
 }
 
+function vaultEldersBlessingOverview(date: DateTime) {
+	const { minute } = date;
+
+	return {
+		now: minute % 20 === 0,
+		next: `<t:${date.plus({ minutes: 20 - (minute % 20) }).toUnixInteger()}:R>`,
+	};
+}
+
+function vaultEldersBlessingDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+	const timestamps = [];
+	const startOfDay = now.startOf("day");
+	const tomorrow = startOfDay.plus({ days: 1 });
+
+	for (let start = startOfDay; start < tomorrow; start = start.plus({ minutes: 20 })) {
+		let string = `<t:${start.toUnixInteger()}:t>`;
+
+		if (now >= start.plus({ minutes: 1 })) {
+			string = `~~${string}~~`;
+		}
+
+		timestamps.push(string);
+	}
+
+	const vaultEldersBlessing = vaultEldersBlessingOverview(now);
+
+	return [
+		{
+			type: ComponentType.TextDisplay,
+			content: `Available every 20 minutes from <t:${startOfDay.toUnixInteger()}:t>. Be sure to enter the area rather than be in it to receive the blessing.\n\n${timestamps.join(" ")}\n\n${vaultEldersBlessing.now ? "The event is ongoing!" : `The event will occur again ${vaultEldersBlessing.next}.`}`,
+		},
+	];
+}
+
 function projectorOfMemoriesOverview(date: DateTime) {
 	const { hour, minute } = date;
 	const minutesSince = hour * 60 + minute;
@@ -793,7 +827,8 @@ export async function scheduleOverview(
 	const aurora = auroraOverview(now);
 	const dreamsSkater = dreamsSkaterOverview(now);
 	const aviarysFireworkFestival = aviarysFireworkFestivalOverview(now);
-	const deer = nineColouredDeerOverview(now);
+	const nineColouredDeer = nineColouredDeerOverview(now);
+	const vaultEldersBlessing = vaultEldersBlessingOverview(now);
 	const projectorOfMemories = projectorOfMemoriesOverview(now);
 
 	const response:
@@ -858,11 +893,15 @@ export async function scheduleOverview(
 					},
 					{
 						type: ComponentType.TextDisplay,
+						content: `**${t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, { lng: locale, ns: "features" })}:** ${vaultEldersBlessing.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${vaultEldersBlessing.next}`,
+					},
+					{
+						type: ComponentType.TextDisplay,
 						content: `**${t(`schedule.type.${ScheduleType.Passage}`, { lng: locale, ns: "features" })}:** Next available ${nextPassage(now)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.NineColouredDeer}`, { lng: locale, ns: "features" })}:** ${deer.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${deer.next}`,
+						content: `**${t(`schedule.type.${ScheduleType.NineColouredDeer}`, { lng: locale, ns: "features" })}:** ${nineColouredDeer.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${nineColouredDeer.next}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -975,6 +1014,14 @@ export async function scheduleOverview(
 										emoji: SEASON_EMOJIS.Dreams,
 									},
 									{
+										label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.VaultEldersBlessing.toString(),
+										emoji: CAPE_EMOJIS.Cape156,
+									},
+									{
 										label: t(`schedule.type.${ScheduleType.Passage}`, {
 											lng: locale,
 											ns: "features",
@@ -1085,6 +1132,10 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.NestingWorkshop: {
 			detailedBreakdown = nestingWorkshopDetailedBreakdown(now);
+			break;
+		}
+		case ScheduleType.VaultEldersBlessing: {
+			detailedBreakdown = vaultEldersBlessingDetailedBreakdown(now);
 			break;
 		}
 		case ScheduleType.ProjectorOfMemories: {

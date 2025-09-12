@@ -3320,6 +3320,7 @@ export default {
 				[ScheduleType.AviarysFireworkFestival]: "Aviary's Firework Festival",
 				[ScheduleType.NineColouredDeer]: "Nine-coloured deer",
 				[ScheduleType.NestingWorkshop]: "Nesting Workshop",
+				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 			} satisfies Record<ScheduleTypes, string>,
 			back: "Back",

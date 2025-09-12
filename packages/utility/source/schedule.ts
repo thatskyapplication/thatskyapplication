@@ -14,7 +14,8 @@ export const ScheduleType = {
 	AviarysFireworkFestival: 12,
 	NineColouredDeer: 13,
 	NestingWorkshop: 14,
-	ProjectorOfMemories: 15,
+	VaultEldersBlessing: 15,
+	ProjectorOfMemories: 16,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
