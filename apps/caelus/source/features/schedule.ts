@@ -1069,7 +1069,7 @@ export async function scheduleDetailedBreakdown(
 	const type = Number(interaction.data.values[0]);
 
 	if (!isScheduleType(type)) {
-		throw new Error("Invalid schedule detailed breakdown type received.");
+		throw new Error("Invalid schedule type received.");
 	}
 
 	const { locale } = interaction;
