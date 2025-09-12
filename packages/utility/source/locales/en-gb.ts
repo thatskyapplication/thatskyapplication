@@ -3323,6 +3323,27 @@ export default {
 				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 			} satisfies Record<ScheduleTypes, string>,
+			"next-daily-reset": "{{timestamp1}} ({{timestamp2}})",
+			"detailed-breakdown-daily-reset-message":
+				"The new day happens at {{time}}. You may send your friends light again, there will be a new set of daily quests to complete, and more!",
+			"detailed-breakdown-daily-reset-daily-guides-button-label": "Daily guides",
+			"next-eye-of-eden": "{{timestamp1}} ({{timestamp2}})",
+			"detailed-breakdown-eye-of-eden-message":
+				"Once a week on Sundays, the Eye of Eden will give ascended candles a week. Next Sunday is at {{time}}.\n\nShard eruptions also offer ascended candles.",
+			"detailed-breakdown-international-space-station-time": "{{timestamp1}} ({{timestamp2}})",
+			"detailed-breakdown-international-space-station-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Secret_Area#The_International_Space_Station_(ISS)",
+			"detailed-breakdown-international-space-station-wiki-button-label": "Wiki",
+			"detailed-breakdown-international-space-station-message":
+				"Available on specific days of the month. See below for a list of dates:\n{{result}}",
+			"detailed-breakdown-international-space-station-requires":
+				"-# Requires {{emoji1}} or {{emoji2}}",
+			"detailed-breakdown-travelling-spirit-message-now":
+				"Travelling spirits visit every 2 weeks on Thursday and leave on Monday.\n\n{{spirit}} is currently visiting and will leave {{timestamp}}.",
+			"detailed-breakdown-travelling-spirit-message-none":
+				"Travelling spirits visit every 2 weeks on Thursday and leave on Monday.\n\nThere is currently no travelling spirit. The next one is scheduled to arrive {{timestamp}}.",
+			"detailed-breakdown-travelling-spirit-view-spirit-button-label": "View travelling spirit",
+			"detailed-breakdown-travelling-spirit-history-button-label": "View history",
 			back: "Back",
 		},
 		"shard-eruption": {

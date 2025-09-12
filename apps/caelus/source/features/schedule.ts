@@ -64,19 +64,25 @@ function isScheduleType(type: number): type is ScheduleTypes {
 	return SCHEDULE_TYPE_VALUES.includes(type as ScheduleTypes);
 }
 
-function nextDailyReset(date: DateTime) {
+function nextDailyReset(date: DateTime, locale: Locale) {
 	const tomorrow = date.plus({ day: 1 }).toUnixInteger();
-	return `<t:${tomorrow}:t> (<t:${tomorrow}:R>)`;
+
+	return t("schedule.next-daily-reset", {
+		lng: locale,
+		ns: "features",
+		timestamp1: `<t:${tomorrow}:t>`,
+		timestamp2: `<t:${tomorrow}:R>`,
+	});
 }
 
-function dailyResetDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
+function dailyResetDetailedBreakdown(date: DateTime, locale: Locale): APIComponentInContainer[] {
 	const shard = shardEruption();
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
 		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
-		label: "Shard eruption",
+		label: t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" }),
 	};
 
 	if (shard) {
@@ -86,7 +92,11 @@ function dailyResetDetailedBreakdown(date: DateTime): APIComponentInContainer[] 
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: `The new day happens at ${nextDailyReset(date)}. You may send your friends light again, there will be a new set of daily quests to complete, and more!`,
+			content: t("schedule.detailed-breakdown-daily-reset-message", {
+				lng: locale,
+				ns: "features",
+				time: nextDailyReset(date, locale),
+			}),
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -95,7 +105,10 @@ function dailyResetDetailedBreakdown(date: DateTime): APIComponentInContainer[] 
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
 					custom_id: SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID,
-					label: "Daily guides",
+					label: t("schedule.detailed-breakdown-daily-reset-daily-guides-button-label", {
+						lng: locale,
+						ns: "features",
+					}),
 					emoji: MISCELLANEOUS_EMOJIS.DailyQuest,
 				},
 				shardEruptionButton,
@@ -104,19 +117,25 @@ function dailyResetDetailedBreakdown(date: DateTime): APIComponentInContainer[] 
 	];
 }
 
-function nextEyeOfEden(date: DateTime) {
+function nextEyeOfEden(date: DateTime, locale: Locale) {
 	const timestamp = date.set({ weekday: 7 }).toUnixInteger();
-	return `<t:${timestamp}:f> (<t:${timestamp}:R>)`;
+
+	return t("schedule.next-eye-of-eden", {
+		lng: locale,
+		ns: "features",
+		timestamp1: `<t:${timestamp}:f>`,
+		timestamp2: `<t:${timestamp}:R>`,
+	});
 }
 
-function eyeOfEdenDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
+function eyeOfEdenDetailedBreakdown(date: DateTime, locale: Locale): APIComponentInContainer[] {
 	const shard = shardEruption();
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
 		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
-		label: "Shard eruption",
+		label: t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" }),
 	};
 
 	if (shard) {
@@ -126,7 +145,11 @@ function eyeOfEdenDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: `Once a week on Sundays, the Eye of Eden will give ascended candles a week. Next Sunday is at ${nextEyeOfEden(date)}.\n\nShard eruptions also offer ascended candles.`,
+			content: t("schedule.detailed-breakdown-eye-of-eden-message", {
+				lng: locale,
+				ns: "features",
+				time: nextEyeOfEden(date, locale),
+			}),
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -152,7 +175,10 @@ function internationalSpaceStationOverview(date: DateTime) {
 	};
 }
 
-function internationalSpaceStationDetailedBreakdown(date: DateTime): APIComponentInContainer[] {
+function internationalSpaceStationDetailedBreakdown(
+	date: DateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const result = [];
 
 	for (const internationalSpaceStationDate of INTERNATIONAL_SPACE_STATION_DATES) {
@@ -161,7 +187,12 @@ function internationalSpaceStationDetailedBreakdown(date: DateTime): APIComponen
 		}
 
 		const issDateUnix = date.set({ day: internationalSpaceStationDate }).toUnixInteger();
-		let string = `<t:${issDateUnix}:f> (<t:${issDateUnix}:R>)`;
+
+		let string = t("schedule.detailed-breakdown-international-space-station-time", {
+			lng: locale,
+			timestamp1: `<t:${issDateUnix}:f>`,
+			timestamp2: `<t:${issDateUnix}:R>`,
+		});
 
 		if (date.toUnixInteger() > issDateUnix) {
 			string = `~~${string}~~`;
@@ -176,17 +207,32 @@ function internationalSpaceStationDetailedBreakdown(date: DateTime): APIComponen
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/Secret_Area#The_International_Space_Station_(ISS)",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-international-space-station-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("schedule.detailed-breakdown-international-space-station-wiki-button-label", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available on specific days of the month. See below for a list of dates:\n${result.join("\n")}`,
+					content: t("schedule.detailed-breakdown-international-space-station-message", {
+						lng: locale,
+						ns: "features",
+						result: result.join("\n"),
+					}),
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# Requires ${formatEmoji(CAPE_EMOJIS.Cape02)} or ${formatEmoji(CAPE_EMOJIS.Cape15)}`,
+					content: t("schedule.detailed-breakdown-international-space-station-requires", {
+						lng: locale,
+						ns: "features",
+						emoji1: formatEmoji(CAPE_EMOJIS.Cape02),
+						emoji2: formatEmoji(CAPE_EMOJIS.Cape15),
+					}),
 				},
 			],
 		},
@@ -211,10 +257,6 @@ function travellingSpiritDetailedBreakdown(
 	const visit = TRAVELLING_DATES.findLast(({ start, end }) => now >= start && now < end);
 	const nextArrival = TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }).toUnixInteger();
 
-	const text = visit
-		? `${t(`spirits.${visit.spiritId}`, { lng: locale, ns: "general" })} is currently visiting and will leave <t:${visit.end.toUnixInteger()}:R>.`
-		: `There is currently no travelling spirit. The next one is scheduled to arrive <t:${nextArrival}:R>.`;
-
 	const travellingSpiritButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
@@ -222,7 +264,11 @@ function travellingSpiritDetailedBreakdown(
 	};
 
 	if (visit?.spiritId === undefined) {
-		travellingSpiritButton.label = "View travelling spirit";
+		travellingSpiritButton.label = t(
+			"schedule.detailed-breakdown-travelling-spirit-view-spirit-button-label",
+			{ lng: locale, ns: "features" },
+		);
+
 		travellingSpiritButton.disabled = true;
 	} else {
 		travellingSpiritButton.label = t(`spirits.${visit.spiritId}`, { lng: locale, ns: "general" });
@@ -236,7 +282,18 @@ function travellingSpiritDetailedBreakdown(
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: `Travelling spirits visit every 2 weeks on Thursday and leave on Monday.\n\n${text}`,
+			content: visit
+				? t("schedule.detailed-breakdown-travelling-spirit-message-now", {
+						lng: locale,
+						ns: "features",
+						spirit: t(`spirits.${visit.spiritId}`, { lng: locale, ns: "general" }),
+						timestamp: `<t:${visit.end.toUnixInteger()}:R>`,
+					})
+				: t("schedule.detailed-breakdown-travelling-spirit-message-none", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${nextArrival}:R>`,
+					}),
 		},
 		{
 			type: ComponentType.ActionRow,
@@ -246,7 +303,10 @@ function travellingSpiritDetailedBreakdown(
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
 					custom_id: SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID,
-					label: "View history",
+					label: t("schedule.detailed-breakdown-travelling-spirit-history-button-label", {
+						lng: locale,
+						ns: "features",
+					}),
 				},
 			],
 		},
@@ -840,11 +900,11 @@ export async function scheduleOverview(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" })}:** ${nextDailyReset(startOfDay)}`,
+						content: `**${t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" })}:** ${nextDailyReset(startOfDay, locale)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" })}:** ${nextEyeOfEden(startOfDay)}`,
+						content: `**${t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" })}:** ${nextEyeOfEden(startOfDay, locale)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -1079,15 +1139,15 @@ export async function scheduleDetailedBreakdown(
 
 	switch (type) {
 		case ScheduleType.DailyReset: {
-			detailedBreakdown = dailyResetDetailedBreakdown(startOfDay);
+			detailedBreakdown = dailyResetDetailedBreakdown(startOfDay, locale);
 			break;
 		}
 		case ScheduleType.EyeOfEden: {
-			detailedBreakdown = eyeOfEdenDetailedBreakdown(startOfDay);
+			detailedBreakdown = eyeOfEdenDetailedBreakdown(startOfDay, locale);
 			break;
 		}
 		case ScheduleType.InternationalSpaceStation: {
-			detailedBreakdown = internationalSpaceStationDetailedBreakdown(startOfDay);
+			detailedBreakdown = internationalSpaceStationDetailedBreakdown(startOfDay, locale);
 			break;
 		}
 		case ScheduleType.TravellingSpirit: {
