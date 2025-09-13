@@ -1053,8 +1053,13 @@ function projectorOfMemoriesDetailedBreakdown(
 	];
 }
 
+interface ScheduleOverviewOptions {
+	ephemeral?: boolean;
+}
+
 export async function scheduleOverview(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+	{ ephemeral }: ScheduleOverviewOptions = {},
 ) {
 	const { locale } = interaction;
 	const now = skyNow();
@@ -1071,6 +1076,11 @@ export async function scheduleOverview(
 	const nineColouredDeer = nineColouredDeerOverview(now);
 	const vaultEldersBlessing = vaultEldersBlessingOverview(now);
 	const projectorOfMemories = projectorOfMemoriesOverview(now);
+	let flags = MessageFlags.IsComponentsV2;
+
+	if (ephemeral) {
+		flags |= MessageFlags.Ephemeral;
+	}
 
 	const response:
 		| Parameters<InteractionsAPI["reply"]>[2]
@@ -1543,7 +1553,7 @@ export async function scheduleOverview(
 				],
 			},
 		],
-		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		flags,
 	};
 
 	await (isChatInputCommand(interaction)

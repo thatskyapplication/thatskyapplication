@@ -835,6 +835,18 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		description: t("schedule.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
 		description_localizations: localisations("schedule.command-description"),
 		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Boolean,
+				name: t("schedule.command-option-hide-name", { lng: Locale.EnglishGB, ns: "commands" }),
+				name_localizations: localisations("schedule.command-option-hide-name"),
+				description: t("schedule.command-option-hide-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: localisations("schedule.command-option-hide-description"),
+			},
+		],
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
 			ApplicationIntegrationType.UserInstall,

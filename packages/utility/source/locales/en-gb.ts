@@ -2917,6 +2917,8 @@ export default {
 		schedule: {
 			"command-name": "schedule",
 			"command-description": "Returns a schedule of events in Sky!",
+			"command-option-hide-name": "hide",
+			"command-option-hide-description": "Ensure only you can see the response.",
 		},
 		"shard-eruption": {
 			"command-name": "shard-eruption",
