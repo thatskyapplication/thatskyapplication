@@ -2917,15 +2917,6 @@ export default {
 		schedule: {
 			"command-name": "schedule",
 			"command-description": "Returns a schedule of events in Sky!",
-			"every-15-minutes": "... every 15 minutes...",
-			"travelling-spirit": "Travelling Spirit",
-			"travelling-spirit-today": "Today!",
-			"travelling-spirit-none": "None",
-			"travelling-spirit-next-visit": "Next visit at",
-			"dreams-skater-days": "On Friday, Saturday, and Sunday",
-			"first-of-month": "On the first of every month",
-			"times-are-relative": "Times are relative to your time zone.",
-			"schedule-today": "Schedule Today",
 		},
 		"shard-eruption": {
 			"command-name": "shard-eruption",
