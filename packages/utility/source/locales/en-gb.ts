@@ -2734,6 +2734,7 @@ export default {
 		view: "View",
 		"navigation-back": "Back",
 		"navigation-next": "Next",
+		wiki: "Wiki",
 	},
 	commands: {
 		about: {
@@ -2923,12 +2924,6 @@ export default {
 			"travelling-spirit-next-visit": "Next visit at",
 			"dreams-skater-days": "On Friday, Saturday, and Sunday",
 			"first-of-month": "On the first of every month",
-			"deer-0": "Appears",
-			"deer-120": "Walks",
-			"deer-600": "Mantas and jellyfish appear",
-			"deer-720": "Flies around or stands up",
-			"deer-1200": "Disappears",
-			"deer-1800": "Repeats",
 			"times-are-relative": "Times are relative to your time zone.",
 			"schedule-today": "Schedule Today",
 		},
@@ -3323,6 +3318,8 @@ export default {
 				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 			} satisfies Record<ScheduleTypes, string>,
+			"event-ongoing": "The event is ongoing!",
+			"event-will-occur": "The event will occur again {{timestamp}}.",
 			"next-daily-reset": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-daily-reset-message":
 				"The new day happens at {{time}}. You may send your friends light again, there will be a new set of daily quests to complete, and more!",
@@ -3333,7 +3330,6 @@ export default {
 			"detailed-breakdown-international-space-station-time": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-international-space-station-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Secret_Area#The_International_Space_Station_(ISS)",
-			"detailed-breakdown-international-space-station-wiki-button-label": "Wiki",
 			"detailed-breakdown-international-space-station-message":
 				"Available on specific days of the month. See below for a list of dates:\n{{result}}",
 			"detailed-breakdown-international-space-station-requires":
@@ -3344,6 +3340,60 @@ export default {
 				"Travelling spirits visit every 2 weeks on Thursday and leave on Monday.\n\nThere is currently no travelling spirit. The next one is scheduled to arrive {{timestamp}}.",
 			"detailed-breakdown-travelling-spirit-view-spirit-button-label": "View travelling spirit",
 			"detailed-breakdown-travelling-spirit-history-button-label": "View history",
+			"detailed-breakdown-polluted-geyser-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Polluted_Geyser",
+			"detailed-breakdown-polluted-geyser-message":
+				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-grandma-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Grandma's_Dinner_Event",
+			"detailed-breakdown-grandma-message":
+				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-turtle-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Sunset_Sanctuary_Turtle",
+			"detailed-breakdown-turtle-message":
+				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-shard-eruptions-view": "View shard eruptions",
+			"detailed-breakdown-shard-eruptions-website": "Website",
+			"detailed-breakdown-shard-eruptions-upcoming":
+				"There is no shard eruption today. The next shard eruption will occur {{timestamp}}.",
+			"detailed-breakdown-shard-eruptions-message":
+				"Shard eruptions may be available on a day. During a day, they will appear multiple times.\n\n{{status}}",
+			"detailed-breakdown-dreams-skater-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Dreams_Skater",
+			"detailed-breakdown-dreams-skater-message":
+				"Available every Friday, Saturday, and Sunday every 2 hours from {{timestamp}} lasting 15 minutes.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-aurora-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/AURORA_Concert",
+			"detailed-breakdown-aurora-message":
+				"Available every 2 hours from {{timestamp}} lasting 49 minutes.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-aurora-requires": "-# Requires {{emoji}}",
+			"detailed-breakdown-passage-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_Passage#Spirit_Memory_Quests",
+			"detailed-breakdown-passage-message":
+				"Available every 15 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-aviarys-firework-festival-message":
+				"Available every 4 hours from {{timestamp}} lasting 10 minutes only on the 1st of a month. See below for a list of dates:\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-nine-coloured-deer-time-0": "{{timestamp}} (Appears)",
+			"detailed-breakdown-nine-coloured-deer-time-120": "{{timestamp}} (Walks)",
+			"detailed-breakdown-nine-coloured-deer-time-600":
+				"{{timestamp}} (Mantas and jellyfish appear)",
+			"detailed-breakdown-nine-coloured-deer-time-720": "{{timestamp}} (Flies around or stands up)",
+			"detailed-breakdown-nine-coloured-deer-time-1200": "{{timestamp}} (Disappears)",
+			"detailed-breakdown-nine-coloured-deer-message":
+				"Available every 30 minutes from {{timestamp}} lasting 20 minutes.\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-nine-coloured-deer-requires": "-# Requires {{emoji}}",
+			"next-nesting-workshop": "{{timestamp1}} ({{timestamp2}})",
+			"detailed-breakdown-nesting-workshop-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Nesting_Workshop",
+			"detailed-breakdown-nesting-workshop-message":
+				"Every Monday, a new set of cosmetics will appear in the Nesting Workshop. Next Monday is at {{timestamp}}.",
+			"detailed-breakdown-vault-elders-blessing-message":
+				"Available every 20 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-projector-of-memories-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1#Projector_of_Memories",
+			"detailed-breakdown-projector-of-memories-message":
+				"Available every 80 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-projector-of-memories-requires": "-# Requires {{emoji}}",
 			back: "Back",
 		},
 		"shard-eruption": {

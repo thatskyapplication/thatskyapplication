@@ -190,6 +190,7 @@ function internationalSpaceStationDetailedBreakdown(
 
 		let string = t("schedule.detailed-breakdown-international-space-station-time", {
 			lng: locale,
+			ns: "features",
 			timestamp1: `<t:${issDateUnix}:f>`,
 			timestamp2: `<t:${issDateUnix}:R>`,
 		});
@@ -211,10 +212,7 @@ function internationalSpaceStationDetailedBreakdown(
 					lng: locale,
 					ns: "features",
 				}),
-				label: t("schedule.detailed-breakdown-international-space-station-wiki-button-label", {
-					lng: locale,
-					ns: "features",
-				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
@@ -322,7 +320,7 @@ function pollutedGeyserOverview(date: DateTime) {
 	};
 }
 
-function pollutedGeyserDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function pollutedGeyserDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const startOfEvent = startOfDay.plus({ minutes: 5 });
@@ -346,13 +344,28 @@ function pollutedGeyserDetailedBreakdown(now: DateTime): APIComponentInContainer
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Polluted_Geyser",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-polluted-geyser-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 10 minutes.\n\n${timestamps.join(" ")}\n\n${pollutedGeyser.now ? "The event is ongoing!" : `The event will occur again ${pollutedGeyser.next}.`}`,
+					content: t("schedule.detailed-breakdown-polluted-geyser-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamps: timestamps.join(" "),
+						status: pollutedGeyser.now
+							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+							: t("schedule.event-will-occur", {
+									lng: locale,
+									ns: "features",
+									timestamp: pollutedGeyser.next,
+								}),
+					}),
 				},
 			],
 		},
@@ -368,7 +381,7 @@ function grandmaOverview(date: DateTime) {
 	};
 }
 
-function grandmaDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function grandmaDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const startOfEvent = startOfDay.plus({ minutes: 35 });
@@ -392,13 +405,28 @@ function grandmaDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Grandma's_Dinner_Event",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-grandma-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 10 minutes.\n\n${timestamps.join(" ")}\n\n${grandma.now ? "The event is ongoing!" : `The event will occur again ${grandma.next}.`}`,
+					content: t("schedule.detailed-breakdown-grandma-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamps: timestamps.join(" "),
+						status: grandma.now
+							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+							: t("schedule.event-will-occur", {
+									lng: locale,
+									ns: "features",
+									timestamp: grandma.next,
+								}),
+					}),
 				},
 			],
 		},
@@ -414,7 +442,7 @@ function turtleOverview(date: DateTime) {
 	};
 }
 
-function turtleDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function turtleDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const startOfEvent = startOfDay.plus({ minutes: 50 });
@@ -438,13 +466,28 @@ function turtleDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Sunset_Sanctuary_Turtle",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-turtle-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 10 minutes.\n\n${timestamps.join(" ")}\n\n${turtle.now ? "The event is ongoing!" : `The event will occur again ${turtle.next}.`}`,
+					content: t("schedule.detailed-breakdown-turtle-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamps: timestamps.join(" "),
+						status: turtle.now
+							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+							: t("schedule.event-will-occur", {
+									lng: locale,
+									ns: "features",
+									timestamp: turtle.next,
+								}),
+					}),
 				},
 			],
 		},
@@ -494,7 +537,7 @@ function shardEruptionDetailedBreakdown(now: DateTime, locale: Locale): APICompo
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
 		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
-		label: "View shard eruptions",
+		label: t("schedule.detailed-breakdown-shard-eruptions-view", { lng: locale, ns: "features" }),
 	};
 
 	if (shard) {
@@ -508,12 +551,26 @@ function shardEruptionDetailedBreakdown(now: DateTime, locale: Locale): APICompo
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
 				url: SHARD_ERUPTION_URL,
-				label: "Website",
+				label: t("schedule.detailed-breakdown-shard-eruptions-website", {
+					lng: locale,
+					ns: "features",
+				}),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Shard eruptions may be available on a day. During a day, they will appear multiple times.\n\n${shard ? `${shardEruptionInformationString(shard, true, locale)}\n${timestamps.join("\n")}` : `There is no shard eruption today. The next shard eruption will occur ${shardOverview.next}.`}`,
+					content: t("schedule.detailed-breakdown-shard-eruptions-message", {
+						lng: locale,
+						ns: "features",
+						timestamps: timestamps.join("\n"),
+						status: shard
+							? `${shardEruptionInformationString(shard, true, locale)}\n${timestamps.join("\n")}`
+							: t("schedule.detailed-breakdown-shard-eruptions-upcoming", {
+									lng: locale,
+									ns: "features",
+									timestamp: shardOverview.next,
+								}),
+					}),
 				},
 			],
 		},
@@ -540,7 +597,7 @@ function dreamsSkaterOverview(date: DateTime) {
 	};
 }
 
-function dreamsSkaterDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function dreamsSkaterDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const { weekday } = now;
 	const timestamps = [];
 
@@ -569,13 +626,28 @@ function dreamsSkaterDetailedBreakdown(now: DateTime): APIComponentInContainer[]
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Dreams_Skater",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-dreams-skater-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every Friday, Saturday, and Sunday every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 15 minutes.\n\n${timestamps.join(" ")}\n\n${dreamsSkater.now ? "The event is ongoing!" : `The event will occur again ${dreamsSkater.next}.`}`,
+					content: t("schedule.detailed-breakdown-dreams-skater-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamps: timestamps.join(" "),
+						status: dreamsSkater.now
+							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+							: t("schedule.event-will-occur", {
+									lng: locale,
+									ns: "features",
+									timestamp: dreamsSkater.next,
+								}),
+					}),
 				},
 			],
 		},
@@ -591,7 +663,7 @@ function auroraOverview(date: DateTime) {
 	};
 }
 
-function auroraDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function auroraDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const startOfEvent = startOfDay.plus({ minutes: 9 });
@@ -615,17 +687,36 @@ function auroraDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/AURORA_Concert",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-aurora-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every 2 hours from <t:${startOfEvent.toUnixInteger()}:t> lasting 49 minutes.\n\n${timestamps.join(" ")}\n\n${aurora.now ? "The event is ongoing!" : `The event will occur again ${aurora.next}.`}`,
+					content: t("schedule.detailed-breakdown-aurora-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamps: timestamps.join(" "),
+						status: aurora.now
+							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+							: t("schedule.event-will-occur", {
+									lng: locale,
+									ns: "features",
+									timestamp: aurora.next,
+								}),
+					}),
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# Requires ${formatEmoji(CAPE_EMOJIS.Cape96)}`,
+					content: t("schedule.detailed-breakdown-aurora-requires", {
+						lng: locale,
+						ns: "features",
+						emoji: formatEmoji(CAPE_EMOJIS.Cape96),
+					}),
 				},
 			],
 		},
@@ -637,7 +728,7 @@ function nextPassage(date: DateTime) {
 	return `<t:${date.plus({ minutes: 15 - (minute % 15) }).toUnixInteger()}:R>`;
 }
 
-function passageDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function passageDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const tomorrow = startOfDay.plus({ days: 1 });
@@ -658,13 +749,26 @@ function passageDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/Season_of_Passage#Spirit_Memory_Quests",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-passage-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every 15 minutes from <t:${startOfDay.toUnixInteger()}:t>.\n\n${timestamps.join(" ")}\n\nThe event will occur again ${nextPassage(now)}.`,
+					content: t("schedule.detailed-breakdown-passage-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
+						timestamps: timestamps.join(" "),
+						status: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: nextPassage(now),
+						}),
+					}),
 				},
 			],
 		},
@@ -712,12 +816,24 @@ function aviarysFireworkFestivalDetailedBreakdown(
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
 				url: t(`event-wiki.${EventId.AviarysFireworkFestival2023}`, { lng: locale, ns: "general" }),
-				label: "Wiki",
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every 4 hours from <t:${startOfDay.toUnixInteger()}:f> lasting 10 minutes only on the 1st of a month. See below for a list of dates:\n${timestamps.join("\n")}\n\n${aviarysFireworkFestival.now ? "The event is ongoing!" : `The event will occur again ${aviarysFireworkFestival.next}.`}`,
+					content: t("schedule.detailed-breakdown-aviarys-firework-festival-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${startOfDay.toUnixInteger()}:f>`,
+						timestamps: timestamps.join("\n"),
+						status: aviarysFireworkFestival.now
+							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+							: t("schedule.event-will-occur", {
+									lng: locale,
+									ns: "features",
+									timestamp: aviarysFireworkFestival.next,
+								}),
+					}),
 				},
 			],
 		},
@@ -739,48 +855,77 @@ function nineColouredDeerDetailedBreakdown(
 ): APIComponentInContainer[] {
 	const startOfDay = now.startOf("day");
 	const startOfEvent = now.set({ minute: now.minute >= 30 ? 30 : 0 });
-
-	const timestamps = [
-		`- <t:${startOfEvent.toUnixInteger()}:t> (${t("schedule.deer-0", { lng: locale, ns: "commands" })})`,
-		`- <t:${startOfEvent.plus({ minutes: 2 }).toUnixInteger()}:t> (${t("schedule.deer-120", { lng: locale, ns: "commands" })})`,
-		`- <t:${startOfEvent.plus({ minutes: 10 }).toUnixInteger()}:t> (${t("schedule.deer-600", { lng: locale, ns: "commands" })})`,
-		`- <t:${startOfEvent.plus({ minutes: 12 }).toUnixInteger()}:t> (${t("schedule.deer-720", { lng: locale, ns: "commands" })})`,
-		`- <t:${startOfEvent.plus({ minutes: 20 }).toUnixInteger()}:t> (${t("schedule.deer-1200", { lng: locale, ns: "commands" })})`,
-	];
-
 	const nineColouredDeer = nineColouredDeerOverview(now);
 
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: `Available every 30 minutes from <t:${startOfDay.toUnixInteger()}:t> lasting 20 minutes.\n${timestamps.join("\n")}\n\n${nineColouredDeer.now ? "The event is ongoing!" : `The event will occur again ${nineColouredDeer.next}.`}`,
+			content: t("schedule.detailed-breakdown-nine-coloured-deer-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
+				timestamps: [
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-0", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.toUnixInteger()}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-120", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.plus({ minutes: 2 }).toUnixInteger()}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-600", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.plus({ minutes: 10 }).toUnixInteger()}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-720", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.plus({ minutes: 12 }).toUnixInteger()}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-1200", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.plus({ minutes: 20 }).toUnixInteger()}:t>` })}`,
+				].join("\n"),
+				status: nineColouredDeer.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: nineColouredDeer.next,
+						}),
+			}),
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: `-# Requires ${formatEmoji(CAPE_EMOJIS.Cape125)}`,
+			content: t("schedule.detailed-breakdown-nine-coloured-deer-requires", {
+				lng: locale,
+				ns: "features",
+				emoji: formatEmoji(CAPE_EMOJIS.Cape125),
+			}),
 		},
 	];
 }
 
-function nextNestingWorkshop(now: DateTime) {
+function nextNestingWorkshop(now: DateTime, locale: Locale) {
 	const timestamp = now.plus({ week: 1 }).startOf("week").toUnixInteger();
-	return `<t:${timestamp}:f> (<t:${timestamp}:R>)`;
+
+	return t("schedule.next-nesting-workshop", {
+		lng: locale,
+		ns: "features",
+		timestamp1: `<t:${timestamp}:f>`,
+		timestamp2: `<t:${timestamp}:R>`,
+	});
 }
 
-function nestingWorkshopDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function nestingWorkshopDetailedBreakdown(
+	now: DateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	return [
 		{
 			type: ComponentType.Section,
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/Nesting_Workshop",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-nesting-workshop-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Every Monday, a new set of cosmetics will appear in the Nesting Workshop. Next Monday is at ${nextNestingWorkshop(now)}.`,
+					content: t("schedule.detailed-breakdown-nesting-workshop-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: nextNestingWorkshop(now, locale),
+					}),
 				},
 			],
 		},
@@ -796,7 +941,10 @@ function vaultEldersBlessingOverview(date: DateTime) {
 	};
 }
 
-function vaultEldersBlessingDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function vaultEldersBlessingDetailedBreakdown(
+	now: DateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const tomorrow = startOfDay.plus({ days: 1 });
@@ -816,7 +964,19 @@ function vaultEldersBlessingDetailedBreakdown(now: DateTime): APIComponentInCont
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: `Available every 20 minutes from <t:${startOfDay.toUnixInteger()}:t>. Be sure to enter the area rather than be in it to receive the blessing.\n\n${timestamps.join(" ")}\n\n${vaultEldersBlessing.now ? "The event is ongoing!" : `The event will occur again ${vaultEldersBlessing.next}.`}`,
+			content: t("schedule.detailed-breakdown-grandma-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
+				timestamps: timestamps.join(" "),
+				status: vaultEldersBlessing.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: vaultEldersBlessing.next,
+						}),
+			}),
 		},
 	];
 }
@@ -832,7 +992,10 @@ function projectorOfMemoriesOverview(date: DateTime) {
 	};
 }
 
-function projectorOfMemoriesDetailedBreakdown(now: DateTime): APIComponentInContainer[] {
+function projectorOfMemoriesDetailedBreakdown(
+	now: DateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const tomorrow = startOfDay.plus({ days: 1 });
@@ -855,17 +1018,36 @@ function projectorOfMemoriesDetailedBreakdown(now: DateTime): APIComponentInCont
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Link,
-				url: "https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1#Projector_of_Memories",
-				label: "Wiki",
+				url: t("schedule.detailed-breakdown-projector-of-memories-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
 			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `Available every 80 minutes from <t:${startOfDay.toUnixInteger()}:t>.\n\n${timestamps.join(" ")}\n\n${projectorOfMemories.now ? "The event is ongoing!" : `The event will occur again ${projectorOfMemories.next}.`}`,
+					content: t("schedule.detailed-breakdown-projector-of-memories-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
+						timestamps: timestamps.join(" "),
+						status: projectorOfMemories.now
+							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+							: t("schedule.event-will-occur", {
+									lng: locale,
+									ns: "features",
+									timestamp: projectorOfMemories.next,
+								}),
+					}),
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# Requires ${formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106)}`,
+					content: t("schedule.detailed-breakdown-projector-of-memories-requires", {
+						lng: locale,
+						ns: "features",
+						emoji: formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106),
+					}),
 				},
 			],
 		},
@@ -916,7 +1098,7 @@ export async function scheduleOverview(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.NestingWorkshop}`, { lng: locale, ns: "features" })}:** ${nextNestingWorkshop(now)}`,
+						content: `**${t(`schedule.type.${ScheduleType.NestingWorkshop}`, { lng: locale, ns: "features" })}:** ${nextNestingWorkshop(now, locale)}`,
 					},
 					{
 						type: ComponentType.TextDisplay,
@@ -1155,15 +1337,15 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.PollutedGeyser: {
-			detailedBreakdown = pollutedGeyserDetailedBreakdown(now);
+			detailedBreakdown = pollutedGeyserDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.Grandma: {
-			detailedBreakdown = grandmaDetailedBreakdown(now);
+			detailedBreakdown = grandmaDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.Turtle: {
-			detailedBreakdown = turtleDetailedBreakdown(now);
+			detailedBreakdown = turtleDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.ShardEruption: {
@@ -1171,15 +1353,15 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.DreamsSkater: {
-			detailedBreakdown = dreamsSkaterDetailedBreakdown(now);
+			detailedBreakdown = dreamsSkaterDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.AURORA: {
-			detailedBreakdown = auroraDetailedBreakdown(now);
+			detailedBreakdown = auroraDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.Passage: {
-			detailedBreakdown = passageDetailedBreakdown(now);
+			detailedBreakdown = passageDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.AviarysFireworkFestival: {
@@ -1191,15 +1373,15 @@ export async function scheduleDetailedBreakdown(
 			break;
 		}
 		case ScheduleType.NestingWorkshop: {
-			detailedBreakdown = nestingWorkshopDetailedBreakdown(now);
+			detailedBreakdown = nestingWorkshopDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.VaultEldersBlessing: {
-			detailedBreakdown = vaultEldersBlessingDetailedBreakdown(now);
+			detailedBreakdown = vaultEldersBlessingDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.ProjectorOfMemories: {
-			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now);
+			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now, locale);
 			break;
 		}
 		default: {
