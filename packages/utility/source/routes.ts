@@ -1,10 +1,13 @@
 export const CDN_URL = "https://cdn.thatskyapplication.com" as const;
 export const LINK_REDIRECTOR_URL = "https://thatsky.link" as const;
 
-export function dailyGuidesQuestRoute<Quest extends string>(
+export function dailyGuidesQuestRoute<Quest extends string, GIF extends boolean | undefined>(
 	quest: Quest,
-): `${typeof CDN_URL}/daily_guides/quests/${Quest}.webp` {
-	return `${CDN_URL}/daily_guides/quests/${quest}.webp`;
+	gif?: GIF | undefined,
+):
+	| `${typeof CDN_URL}/daily_guides/quests/${Quest}.webp`
+	| `${typeof CDN_URL}/daily_guides/quests/${Quest}.gif` {
+	return `${CDN_URL}/daily_guides/quests/${quest}.${gif ? "gif" : "webp"}`;
 }
 
 export function patchNotesRoute<Version extends `${number}`>(

@@ -316,7 +316,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.ReliveASpiritsMemoriesInVaultOfKnowledge]: dailyGuidesQuestRoute(
 		"miscellaneous/relive_a_spirits_memories",
 	),
-	[DailyQuest.FaceTheDarkDragon]: dailyGuidesQuestRoute("miscellaneous/face_the_dark_dragon.gif"),
+	[DailyQuest.FaceTheDarkDragon]: dailyGuidesQuestRoute("miscellaneous/face_the_dark_dragon", true),
 	[DailyQuest.KnockOver5DarkCrabs]: dailyGuidesQuestRoute("miscellaneous/knock_over_5_dark_crabs"),
 	[DailyQuest.CatchTheLightInTheDaylightPrairie]: dailyGuidesQuestRoute(
 		"catch_the_light/daylight_prairie",
