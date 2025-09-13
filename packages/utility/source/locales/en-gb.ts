@@ -3318,9 +3318,15 @@ export default {
 				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 			} satisfies Record<ScheduleTypes, string>,
+			"overview-available": "{{emoji}} Available!",
+			"overview-next": "Next available {{timestamp}}",
+			overview: "**{{type}}:** {{details}}",
 			"event-ongoing": "The event is ongoing!",
 			"event-will-occur": "The event will occur again {{timestamp}}.",
 			"next-daily-reset": "{{timestamp1}} ({{timestamp2}})",
+			"overview-detailed-breakdown-message": "You may select an event to see a detailed breakdown!",
+			"overview-detailed-breakdown-string-select-menu-placeholder":
+				"View a detailed breakdown of an event?",
 			"detailed-breakdown-daily-reset-message":
 				"The new day happens at {{time}}. You may send your friends light again, there will be a new set of daily quests to complete, and more!",
 			"detailed-breakdown-daily-reset-daily-guides-button-label": "Daily guides",

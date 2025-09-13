@@ -12,7 +12,6 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
-	Cosmetic,
 	currentSeasonalSpirits,
 	EventId,
 	formatEmoji,
@@ -1082,31 +1081,117 @@ export async function scheduleOverview(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" })}:** ${nextDailyReset(startOfDay, locale)}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" }),
+							details: nextDailyReset(startOfDay, locale),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" })}:** ${nextEyeOfEden(startOfDay, locale)}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" }),
+							details: nextEyeOfEden(startOfDay, locale),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" })}:** ${shardEruption.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${shardEruption.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.ShardEruption}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: shardEruption.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: shardEruption.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.TravellingSpirit}`, { lng: locale, ns: "features" })}:** ${travellingSpirit.now ? `${travellingSpirit.now}. ` : ""}Next available ${travellingSpirit.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: travellingSpirit.now
+								? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${travellingSpirit.now}`
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: travellingSpirit.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.NestingWorkshop}`, { lng: locale, ns: "features" })}:** ${nextNestingWorkshop(now, locale)}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: nextNestingWorkshop(now, locale),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, { lng: locale, ns: "features" })}:** ${aviarysFireworkFestival.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${aviarysFireworkFestival.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: aviarysFireworkFestival.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: aviarysFireworkFestival.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, { lng: locale, ns: "features" })}:** ${internationalSpaceStation.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${internationalSpaceStation.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: internationalSpaceStation.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: internationalSpaceStation.next,
+									}),
+						}),
 					},
 				],
 			},
@@ -1115,39 +1200,191 @@ export async function scheduleOverview(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.PollutedGeyser}`, { lng: locale, ns: "features" })}:** ${pollutedGeyser.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${pollutedGeyser.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: pollutedGeyser.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: pollutedGeyser.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.Grandma}`, { lng: locale, ns: "features" })}:** ${grandma.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${grandma.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.Grandma}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: grandma.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: grandma.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.Turtle}`, { lng: locale, ns: "features" })}:** ${turtle.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${turtle.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.Turtle}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: turtle.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: turtle.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.AURORA}`, { lng: locale, ns: "features" })}:** ${aurora.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${aurora.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.AURORA}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: aurora.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: aurora.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.DreamsSkater}`, { lng: locale, ns: "features" })}:** ${dreamsSkater.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${dreamsSkater.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: dreamsSkater.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: dreamsSkater.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, { lng: locale, ns: "features" })}:** ${vaultEldersBlessing.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${vaultEldersBlessing.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: vaultEldersBlessing.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: vaultEldersBlessing.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.Passage}`, { lng: locale, ns: "features" })}:** Next available ${nextPassage(now)}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.Passage}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: nextPassage(now),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`schedule.type.${ScheduleType.NineColouredDeer}`, { lng: locale, ns: "features" })}:** ${nineColouredDeer.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${nineColouredDeer.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: nineColouredDeer.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: nineColouredDeer.next,
+									}),
+						}),
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `**${t(`cosmetic-names.${Cosmetic.ProjectorOfMemories}`, { lng: locale, ns: "general" })}:** ${projectorOfMemories.now ? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} Available! ` : ""}Next available ${projectorOfMemories.next}`,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: projectorOfMemories.now
+								? t("schedule.overview-available", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									})
+								: t("schedule.overview-next", {
+										lng: locale,
+										ns: "features",
+										timestamp: projectorOfMemories.next,
+									}),
+						}),
 					},
 				],
 			},
@@ -1156,7 +1393,10 @@ export async function scheduleOverview(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: "You may select an event to see a detailed breakdown!",
+						content: t("schedule.overview-detailed-breakdown-message", {
+							lng: locale,
+							ns: "features",
+						}),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -1290,7 +1530,13 @@ export async function scheduleOverview(
 								],
 								max_values: 1,
 								min_values: 1,
-								placeholder: "View a detailed breakdown of an event?",
+								placeholder: t(
+									"schedule.overview-detailed-breakdown-string-select-menu-placeholder",
+									{
+										lng: locale,
+										ns: "features",
+									},
+								),
 							},
 						],
 					},
