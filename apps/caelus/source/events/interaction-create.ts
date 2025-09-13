@@ -18,7 +18,16 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { addBreadcrumb, captureException } from "@sentry/node";
-import { isDuring, isRealm, isSeasonId, skyNow } from "@thatskyapplication/utility";
+import {
+	isDuring,
+	isRealm,
+	isSeasonId,
+	type ScheduleTypes,
+	type SpiritIds,
+	SpiritsHistoryOrderType,
+	skyNow,
+	spirits,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
@@ -90,6 +99,7 @@ import {
 import { commandAnalyticsSend } from "../features/command-analytics.js";
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
+	dailyGuidesResponse,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 	handleDistributeButton,
 	InteractiveType,
@@ -142,6 +152,16 @@ import {
 	NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
 	setupResponse,
 } from "../features/notifications.js";
+import {
+	SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID,
+	SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID,
+	scheduleDetailedBreakdown,
+	scheduleOverview,
+} from "../features/schedule.js";
 import {
 	SHOP_SUGGEST_CUSTOM_ID,
 	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
@@ -204,7 +224,9 @@ import {
 	SPIRITS_HISTORY_BACK_CUSTOM_ID,
 	SPIRITS_HISTORY_NEXT_CUSTOM_ID,
 	SPIRITS_VIEW_SPIRIT_CUSTOM_ID,
+	search,
 	spiritsHistory,
+	spiritsParseSpiritsHistoryCustomId,
 } from "../features/spirits.js";
 import {
 	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
@@ -689,6 +711,61 @@ export default {
 					return;
 				}
 
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID) {
+					await scheduleOverview(interaction);
+					return;
+				}
+
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID) {
+					await dailyGuidesResponse(interaction);
+					return;
+				}
+
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID) {
+					await today(interaction, {
+						ephemeral:
+							interaction.message.flags &&
+							(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral,
+						newMessage: true,
+					});
+
+					return;
+				}
+
+				if (
+					customId.startsWith(SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID)
+				) {
+					const spiritId = Number(customId.slice(customId.indexOf("§") + 1)) as SpiritIds;
+					let flags = MessageFlags.IsComponentsV2;
+
+					if (
+						interaction.message.flags &&
+						(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral
+					) {
+						flags |= MessageFlags.Ephemeral;
+					}
+
+					await client.api.interactions.reply(interaction.id, interaction.token, {
+						components: search({ spirit: spirits().get(spiritId)!, locale: interaction.locale }),
+						flags,
+					});
+
+					return;
+				}
+
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID) {
+					await spiritsHistory(interaction, {
+						type: SpiritsHistoryOrderType.Natural,
+						page: 1,
+						ephemeral:
+							interaction.message.flags &&
+							(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral,
+						newMessage: true,
+					});
+
+					return;
+				}
+
 				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
@@ -706,7 +783,7 @@ export default {
 						return;
 					}
 
-					await today(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					await today(interaction, { offset: Number(customId.slice(customId.indexOf("§") + 1)) });
 					return;
 				}
 
@@ -807,7 +884,8 @@ export default {
 					customId.startsWith(SPIRITS_HISTORY_BACK_CUSTOM_ID) ||
 					customId.startsWith(SPIRITS_HISTORY_NEXT_CUSTOM_ID)
 				) {
-					await spiritsHistory(interaction);
+					const { type, page } = spiritsParseSpiritsHistoryCustomId(customId);
+					await spiritsHistory(interaction, { type, page });
 					return;
 				}
 
@@ -1056,6 +1134,11 @@ export default {
 					return;
 				}
 
+				if (customId === SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID) {
+					await scheduleDetailedBreakdown(interaction, { type: Number(value0) as ScheduleTypes });
+					return;
+				}
+
 				if (
 					SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(
 						customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
@@ -1065,7 +1148,7 @@ export default {
 						return;
 					}
 
-					await today(interaction, Number(value0));
+					await today(interaction, { offset: Number(value0) });
 					return;
 				}
 

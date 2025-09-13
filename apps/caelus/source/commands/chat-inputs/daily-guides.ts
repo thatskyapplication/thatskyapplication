@@ -2,21 +2,17 @@ import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
-	ComponentType,
 	Locale,
-	MessageFlags,
 } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../../discord.js";
 import {
-	distributionData,
-	fetchDailyGuides,
+	dailyGuidesResponse,
 	interactive,
 	questAutocomplete,
 	set,
 } from "../../features/daily-guides.js";
-import { SUPPORT_SERVER_GUILD_ID, SUPPORT_SERVER_INVITE_URL } from "../../utility/configuration.js";
-import { INFORMATION_ACCENT_COLOUR } from "../../utility/constants.js";
+import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -59,30 +55,6 @@ export default {
 			return;
 		}
 
-		const { locale } = interaction;
-		const components = await distributionData(locale);
-		const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
-
-		if ([quest1, quest2, quest3, quest4].some((quest) => quest === null)) {
-			components.push({
-				type: ComponentType.Container,
-				accent_color: INFORMATION_ACCENT_COLOUR,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("daily-guides.not-yet-updated", {
-							lng: locale,
-							ns: "features",
-							url: SUPPORT_SERVER_INVITE_URL,
-						}),
-					},
-				],
-			});
-		}
-
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			components,
-			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-		});
+		await dailyGuidesResponse(interaction);
 	},
 } as const;

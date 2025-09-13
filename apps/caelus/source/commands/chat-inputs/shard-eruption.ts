@@ -14,7 +14,7 @@ export default {
 				return;
 			}
 			case "today": {
-				await today(interaction, 0);
+				await today(interaction, { newMessage: true });
 			}
 		}
 	},
