@@ -16,6 +16,7 @@ import {
 	type ElderSpirit,
 	formatEmoji,
 	type GuideSpirit,
+	isSpiritsHistoryOrderType,
 	type SeasonalSpirit,
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
@@ -34,8 +35,6 @@ import { t } from "i18next";
 import { client } from "../discord.js";
 import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, resolveCostToString } from "../utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
-import { isChatInputCommand } from "../utility/functions.js";
-import { OptionResolver } from "../utility/option-resolver.js";
 
 export const SPIRITS_VIEW_SPIRIT_CUSTOM_ID = "SPIRITS_VIEW_SPIRIT_CUSTOM_ID";
 export const SPIRITS_HISTORY_BACK_CUSTOM_ID = "SPIRITS_HISTORY_BACK_CUSTOM_ID";
@@ -282,30 +281,49 @@ export async function handleSearchButton(interaction: APIMessageComponentButtonI
 	});
 }
 
-export async function spiritsHistory(
-	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-) {
-	const { locale } = interaction;
-	const isChatInput = isChatInputCommand(interaction);
-	let page: number;
-	let type: SpiritsHistoryOrderTypes;
+interface SpiritsGenerateSpiritsHistoryCustomIdOptions {
+	prefix: string;
+	type: SpiritsHistoryOrderTypes;
+	page: number;
+}
 
-	if (isChatInput) {
-		page = 1;
-		type =
-			(new OptionResolver(interaction).getInteger("order") as SpiritsHistoryOrderTypes | null) ??
-			SpiritsHistoryOrderType.Natural;
-	} else {
-		const [, priorPage, priorType] = interaction.data.custom_id.split("§") as [
-			string,
-			string,
-			string,
-		];
+function generateSpiritsHistoryCustomId({
+	prefix,
+	type,
+	page,
+}: SpiritsGenerateSpiritsHistoryCustomIdOptions) {
+	return `${prefix}§${type}§${page}`;
+}
 
-		page = Number(priorPage);
-		type = Number(priorType) as SpiritsHistoryOrderTypes;
+export function spiritsParseSpiritsHistoryCustomId(customId: string) {
+	const [prefix, rawType, rawPage] = customId.split("§") as [
+		string,
+		`${SpiritsHistoryOrderTypes}`,
+		`${number}`,
+	];
+
+	const type = Number(rawType);
+	const page = Number(rawPage);
+
+	if (!isSpiritsHistoryOrderType(type)) {
+		throw new Error(`Invalid spirits history order type: ${type}`);
 	}
 
+	return { prefix, type, page };
+}
+
+interface SpiritsHistoryOptions {
+	page: number;
+	type: SpiritsHistoryOrderTypes;
+	ephemeral?: boolean | undefined;
+	newMessage?: boolean;
+}
+
+export async function spiritsHistory(
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+	{ page, type, ephemeral, newMessage }: SpiritsHistoryOptions,
+) {
+	const { locale } = interaction;
 	const offset = (page - 1) * MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
 	const limit = offset + MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
 	let spirits: typeof TRAVELLING_DATES | typeof VISITS_ABSENT;
@@ -383,14 +401,25 @@ export async function spiritsHistory(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? maximumPage : page - 1}§${type}`,
+					custom_id: generateSpiritsHistoryCustomId({
+						prefix: SPIRITS_HISTORY_BACK_CUSTOM_ID,
+						type,
+						page: page === 1 ? maximumPage : page - 1,
+					}),
 					emoji: { name: "⬅️" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§1§${type === SpiritsHistoryOrderType.Natural ? SpiritsHistoryOrderType.Rarity : SpiritsHistoryOrderType.Natural}`,
+					custom_id: generateSpiritsHistoryCustomId({
+						prefix: SPIRITS_HISTORY_NEXT_CUSTOM_ID,
+						type:
+							type === SpiritsHistoryOrderType.Natural
+								? SpiritsHistoryOrderType.Rarity
+								: SpiritsHistoryOrderType.Natural,
+						page: 1,
+					}),
 					label:
 						type === SpiritsHistoryOrderType.Natural
 							? t("spirits.order-rarity", { lng: locale, ns: "features" })
@@ -399,7 +428,11 @@ export async function spiritsHistory(
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${SPIRITS_HISTORY_NEXT_CUSTOM_ID}§${page === maximumPage ? 1 : page + 1}§${type}`,
+					custom_id: generateSpiritsHistoryCustomId({
+						prefix: SPIRITS_HISTORY_NEXT_CUSTOM_ID,
+						type,
+						page: page === maximumPage ? 1 : page + 1,
+					}),
 					emoji: { name: "➡️" },
 					label: t("navigation-next", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
@@ -408,12 +441,16 @@ export async function spiritsHistory(
 		},
 	);
 
-	const response: APIInteractionResponseCallbackData = {
+	const response = {
 		components: [{ type: ComponentType.Container, components: containerComponents }],
 		flags: MessageFlags.IsComponentsV2,
-	};
+	} satisfies APIInteractionResponseCallbackData;
 
-	if (isChatInput) {
+	if (ephemeral) {
+		response.flags |= MessageFlags.Ephemeral;
+	}
+
+	if (newMessage) {
 		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);

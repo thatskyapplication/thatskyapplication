@@ -5,7 +5,12 @@ import {
 	Locale,
 	MessageFlags,
 } from "@discordjs/core";
-import { type SpiritIds, spirits } from "@thatskyapplication/utility";
+import {
+	type SpiritIds,
+	SpiritsHistoryOrderType,
+	type SpiritsHistoryOrderTypes,
+	spirits,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
 import { search, searchAutocomplete, spiritsHistory } from "../../features/spirits.js";
@@ -19,7 +24,14 @@ export default {
 
 		switch (options.getSubcommand()) {
 			case "history": {
-				await spiritsHistory(interaction);
+				await spiritsHistory(interaction, {
+					type:
+						(options.getInteger("type") as SpiritsHistoryOrderTypes | null) ??
+						SpiritsHistoryOrderType.Natural,
+					page: 1,
+					newMessage: true,
+				});
+
 				return;
 			}
 			case "search": {

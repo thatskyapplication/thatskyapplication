@@ -112,24 +112,32 @@ async function hasExpired(
 	return false;
 }
 
+interface ShardEruptionTodayOptions {
+	offset?: number;
+	ephemeral?: boolean | undefined;
+	newMessage?: boolean;
+}
+
 export async function today(
 	interaction:
 		| APIChatInputApplicationCommandInteraction
 		| APIMessageComponentButtonInteraction
 		| APIMessageComponentSelectMenuInteraction,
-	offset = 0,
+	{ offset = 0, ephemeral, newMessage }: ShardEruptionTodayOptions = {},
 ) {
 	if (await hasExpired(interaction, true, offset)) {
 		return;
 	}
 
 	const components = todayData(interaction.locale, offset);
+	let flags = MessageFlags.IsComponentsV2;
 
-	if (isChatInputCommand(interaction)) {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
-			components,
-			flags: MessageFlags.IsComponentsV2,
-		});
+	if (ephemeral) {
+		flags |= MessageFlags.Ephemeral;
+	}
+
+	if (newMessage) {
+		await client.api.interactions.reply(interaction.id, interaction.token, { components, flags });
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
 	}

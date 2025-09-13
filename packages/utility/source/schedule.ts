@@ -1,0 +1,22 @@
+export const ScheduleType = {
+	DailyReset: 0,
+	EyeOfEden: 1,
+	InternationalSpaceStation: 2,
+	TravellingSpirit: 3,
+	Dragon: 4,
+	PollutedGeyser: 5,
+	Grandma: 6,
+	Turtle: 7,
+	ShardEruption: 8,
+	DreamsSkater: 9,
+	AURORA: 10,
+	Passage: 11,
+	AviarysFireworkFestival: 12,
+	NineColouredDeer: 13,
+	NestingWorkshop: 14,
+	VaultEldersBlessing: 15,
+	ProjectorOfMemories: 16,
+} as const satisfies Readonly<Record<string, number>>;
+
+export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
+export type ScheduleTypes = (typeof SCHEDULE_TYPE_VALUES)[number];

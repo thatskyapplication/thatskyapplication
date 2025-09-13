@@ -56,6 +56,11 @@ f:guess:
 f:me:
  - changed-files:
    - any-glob-to-any-file: apps/caelus/source/features/me.ts
+f:schedule:
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/caelus/source/features/schedule.ts
+     - packages/utility/source/schedule.ts
 f:sky-profile:
  - changed-files:
    - any-glob-to-any-file:

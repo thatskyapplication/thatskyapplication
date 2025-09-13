@@ -184,9 +184,6 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.NestingWorkshop]: 15,
 } as const satisfies Readonly<Record<NotificationTypes, number>>;
 
-// Schedule.
-export const PASSAGE_TRUNCATION_LIMIT = 9 as const;
-
 // Sky profiles.
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;

@@ -519,6 +519,10 @@ export type SpiritsHistoryOrderTypes =
 
 export const SPIRITS_HISTORY_ORDER_TYPE_VALUES = Object.values(SpiritsHistoryOrderType);
 
+export function isSpiritsHistoryOrderType(type: number): type is SpiritsHistoryOrderTypes {
+	return SPIRITS_HISTORY_ORDER_TYPE_VALUES.includes(type as SpiritsHistoryOrderTypes);
+}
+
 export function friendshipTreeToItems(
 	friendshipTree: FriendshipTree,
 ): readonly ItemWithoutChildren[] {
