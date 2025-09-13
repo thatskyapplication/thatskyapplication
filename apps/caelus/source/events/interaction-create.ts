@@ -22,6 +22,7 @@ import {
 	isDuring,
 	isRealm,
 	isSeasonId,
+	type ScheduleTypes,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 	skyNow,
@@ -1134,7 +1135,7 @@ export default {
 				}
 
 				if (customId === SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID) {
-					await scheduleDetailedBreakdown(interaction);
+					await scheduleDetailedBreakdown(interaction, { type: Number(value0) as ScheduleTypes });
 					return;
 				}
 

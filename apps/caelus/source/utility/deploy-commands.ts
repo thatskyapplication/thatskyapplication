@@ -15,6 +15,7 @@ import {
 	GUESS_TYPE_VALUES,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
+	SCHEDULE_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
@@ -836,6 +837,29 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		description_localizations: localisations("schedule.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
+			{
+				type: ApplicationCommandOptionType.Integer,
+				name: t("schedule.command-option-type-name", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				name_localizations: localisations("schedule.command-option-type-name"),
+				description: t("schedule.command-option-type-description", {
+					lng: Locale.EnglishGB,
+					ns: "commands",
+				}),
+				description_localizations: localisations("schedule.command-option-type-description"),
+				choices: SCHEDULE_TYPE_VALUES.map((scheduleType) => ({
+					name: t(`schedule.command-option-type-choice-name.${scheduleType}`, {
+						lng: Locale.EnglishGB,
+						ns: "commands",
+					}),
+					name_localizations: localisations(
+						`schedule.command-option-type-choice-name.${scheduleType}`,
+					),
+					value: scheduleType,
+				})),
+			},
 			{
 				type: ApplicationCommandOptionType.Boolean,
 				name: t("schedule.command-option-hide-name", { lng: Locale.EnglishGB, ns: "commands" }),

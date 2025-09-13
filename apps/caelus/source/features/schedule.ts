@@ -4,6 +4,7 @@ import {
 	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
+	type APIMessageTopLevelComponent,
 	ButtonStyle,
 	ComponentType,
 	type InteractionsAPI,
@@ -16,7 +17,6 @@ import {
 	EventId,
 	formatEmoji,
 	INTERNATIONAL_SPACE_STATION_DATES,
-	SCHEDULE_TYPE_VALUES,
 	ScheduleType,
 	type ScheduleTypes,
 	shardEruption,
@@ -58,10 +58,6 @@ export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_
 
 export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID" as const;
-
-function isScheduleType(type: number): type is ScheduleTypes {
-	return SCHEDULE_TYPE_VALUES.includes(type as ScheduleTypes);
-}
 
 function nextDailyReset(date: DateTime, locale: Locale) {
 	const tomorrow = date.plus({ day: 1 }).toUnixInteger();
@@ -1561,15 +1557,16 @@ export async function scheduleOverview(
 		: client.api.interactions.updateMessage(interaction.id, interaction.token, response));
 }
 
+interface ScheduleDetailedBreakdownOptions {
+	type: ScheduleTypes;
+	reply?: boolean;
+	ephemeral?: boolean;
+}
+
 export async function scheduleDetailedBreakdown(
-	interaction: APIMessageComponentSelectMenuInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentSelectMenuInteraction,
+	{ type, reply, ephemeral }: ScheduleDetailedBreakdownOptions,
 ) {
-	const type = Number(interaction.data.values[0]);
-
-	if (!isScheduleType(type)) {
-		throw new Error("Invalid schedule type received.");
-	}
-
 	const { locale } = interaction;
 	const now = skyNow();
 	const startOfDay = now.startOf("day");
@@ -1645,40 +1642,48 @@ export async function scheduleDetailedBreakdown(
 		}
 	}
 
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## ${t(`schedule.type.${type}`, { lng: locale, ns: "features" })}`,
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					...detailedBreakdown,
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Secondary,
-								custom_id: SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
-								label: t("schedule.back", { lng: locale, ns: "features" }),
-								emoji: { name: "⬅️" },
-							},
-						],
-					},
-				],
-			},
-		],
-	});
+	const components: APIMessageTopLevelComponent[] = [
+		{
+			type: ComponentType.Container,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `## ${t(`schedule.type.${type}`, { lng: locale, ns: "features" })}`,
+				},
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				...detailedBreakdown,
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.ActionRow,
+					components: [
+						{
+							type: ComponentType.Button,
+							style: ButtonStyle.Secondary,
+							custom_id: SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
+							label: t("schedule.back", { lng: locale, ns: "features" }),
+							emoji: { name: "⬅️" },
+						},
+					],
+				},
+			],
+		},
+	];
+
+	let flags = MessageFlags.IsComponentsV2;
+
+	if (ephemeral) {
+		flags |= MessageFlags.Ephemeral;
+	}
+
+	await (reply
+		? client.api.interactions.reply(interaction.id, interaction.token, { components, flags })
+		: client.api.interactions.updateMessage(interaction.id, interaction.token, { components }));
 }

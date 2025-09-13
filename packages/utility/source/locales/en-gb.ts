@@ -5,7 +5,7 @@ import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
 import { isRealm, REALM_NAME_VALUES, RealmName, SKY_MAP_VALUES, SkyMap } from "../kingdom.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
-import { ScheduleType, type ScheduleTypes } from "../schedule.js";
+import { SCHEDULE_TYPE_VALUES, ScheduleType, type ScheduleTypes } from "../schedule.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import {
 	SkyProfileEditType,
@@ -2917,6 +2917,14 @@ export default {
 		schedule: {
 			"command-name": "schedule",
 			"command-description": "Returns a schedule of events in Sky!",
+			"command-option-type-name": "type",
+			"command-option-type-description": "View a detailed breakdown of a specific schedule?",
+			"command-option-type-choice-name": Object.fromEntries(
+				SCHEDULE_TYPE_VALUES.map((scheduleType) => [
+					scheduleType,
+					`$t(features:schedule.type.${scheduleType})`,
+				]),
+			),
 			"command-option-hide-name": "hide",
 			"command-option-hide-description": "Ensure only you can see the response.",
 		},
