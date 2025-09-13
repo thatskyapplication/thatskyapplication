@@ -959,7 +959,7 @@ function vaultEldersBlessingDetailedBreakdown(
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-grandma-message", {
+			content: t("schedule.detailed-breakdown-vault-elders-blessing-message", {
 				lng: locale,
 				ns: "features",
 				timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
