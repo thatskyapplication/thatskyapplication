@@ -333,6 +333,22 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
+		name: t("checklist.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+		name_localizations: localisations("checklist.command-name"),
+		description: t("checklist.command-description", { lng: Locale.EnglishGB, ns: "commands" }),
+		description_localizations: localisations("checklist.command-description"),
+		type: ApplicationCommandType.ChatInput,
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
+	{
 		name: t("configure.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 		name_localizations: localisations("configure.command-name"),
 		description: t("configure.command-description", { lng: Locale.EnglishGB, ns: "commands" }),

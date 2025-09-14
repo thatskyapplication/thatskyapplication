@@ -2793,6 +2793,10 @@ export default {
 			"command-name": "catalogue",
 			"command-description": "Your very own Sky catalogue.",
 		},
+		checklist: {
+			"command-name": "checklist",
+			"command-description": "Keep track of your activities such as daily quests, Eden, and more!",
+		},
 		configure: {
 			"command-name": "configure",
 			"command-description": "Configure settings for the server.",
@@ -3126,6 +3130,14 @@ export default {
 			"seasons-navigate-forward": "Navigate forward",
 			"seasons-season-previous-season": "Previous season",
 			"seasons-season-next-season": "Next season",
+		},
+		checklist: {
+			title: "Checklist",
+			"daily-quests-message-incomplete": "Have you completed daily quests?",
+			"daily-quests-message-complete": "Daily quests completed! Great job!",
+			"daily-quests-complete-button-label-incomplete": "Complete",
+			"daily-quests-complete-button-label-complete": "Reset",
+			"daily-quests-show-button-label": "Show daily guides",
 		},
 		"daily-guides": {
 			"quests-heading": "Quests",

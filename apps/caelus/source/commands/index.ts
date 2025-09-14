@@ -2,6 +2,7 @@ import about from "./chat-inputs/about.js";
 import admin from "./chat-inputs/admin.js";
 import calculate from "./chat-inputs/calculate.js";
 import catalogue from "./chat-inputs/catalogue.js";
+import checklist from "./chat-inputs/checklist.js";
 import configure from "./chat-inputs/configure.js";
 import dailyGuides from "./chat-inputs/daily-guides.js";
 import data from "./chat-inputs/data.js";
@@ -27,6 +28,7 @@ export const CHAT_INPUT_COMMANDS = [
 	admin,
 	calculate,
 	catalogue,
+	checklist,
 	configure,
 	dailyGuides,
 	data,

@@ -13,6 +13,7 @@ import pg from "./pg.js";
 import pino from "./pino.js";
 import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
 import { GIVEAWAY_END_DATE } from "./utility/constants.js";
+import { checklistResetDailyQuests } from "./features/checklist.js";
 
 export default function croner() {
 	new Cron(
@@ -20,7 +21,7 @@ export default function croner() {
 		{ catch: (error) => pino.error(error, "Error during changing days."), timezone: TIME_ZONE },
 		async () => {
 			const today = skyToday();
-			const independentPromises = [commandAnalyticsDeleteOld()];
+			const independentPromises = [commandAnalyticsDeleteOld(), checklistResetDailyQuests()];
 
 			if (
 				today.year === GIVEAWAY_END_DATE.year &&
