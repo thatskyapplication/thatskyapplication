@@ -1,5 +1,5 @@
 import { CDN_URL } from "./routes.js";
-import type { MessageLink, Snowflake } from "./types/index.js";
+import type { ChannelLink, MessageLink, Snowflake } from "./types/index.js";
 
 type HighFivesRoute = `${typeof CDN_URL}/high_fives/${number}.gif`;
 
@@ -43,9 +43,11 @@ interface FriendshipAction {
 	 */
 	square: boolean;
 	/**
-	 * A message link that references the context of the hug.
+	 * A channel link or a message link that references the context of the friendship action.
+	 *
+	 * @remarks A channel link should be used if the context was from a private thread in the friendship actions channel.
 	 */
-	reference: MessageLink;
+	reference: ChannelLink | MessageLink;
 }
 
 interface Krill {
@@ -138,6 +140,13 @@ export const HIGH_FIVES = [
 		user2: "319884785050714112",
 		square: true,
 		reference: null,
+	},
+	{
+		url: highFivesRoute(11),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: "https://discord.com/channels/1017993798170726411/1416913514676617327",
 	},
 ] as const satisfies Readonly<FriendshipAction[]>;
 
@@ -434,6 +443,13 @@ export const HUGS = [
 		square: true,
 		reference: "https://discord.com/channels/@me/1229370707830378496/1359911288821518376",
 	},
+	{
+		url: hugsRoute(42),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: "https://discord.com/channels/1017993798170726411/1416913514676617327",
+	},
 ] as const satisfies Readonly<FriendshipAction[]>;
 
 export const HUGS_SQUARE = HUGS.filter(({ square }) => square);
@@ -459,6 +475,13 @@ export const HAIR_TOUSLES = [
 		user2: "820687453290496034",
 		square: true,
 		reference: "https://discord.com/channels/@me/1118611467164467250/1332764981829173279",
+	},
+	{
+		url: hairTouslesRoute(4),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: "https://discord.com/channels/1017993798170726411/1416913514676617327",
 	},
 ] as const satisfies Readonly<FriendshipAction[]>;
 
@@ -519,6 +542,13 @@ export const PLAY_FIGHTS = [
 		square: true,
 		reference:
 			"https://discord.com/channels/1017993798170726411/1092894736857174026/1357521020067512390",
+	},
+	{
+		url: playFightsRoute(9),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: "https://discord.com/channels/1017993798170726411/1416913514676617327",
 	},
 ] as const satisfies Readonly<FriendshipAction[]>;
 

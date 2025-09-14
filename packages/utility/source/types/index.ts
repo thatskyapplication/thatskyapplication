@@ -1,4 +1,5 @@
 export type Snowflake = `${bigint}`;
+export type ChannelLink = `https://discord.com/channels/${Snowflake}/${Snowflake}`;
 
 export type MessageLink =
 	| `https://discord.com/channels/${"@me" | Snowflake}/${Snowflake}/${Snowflake}`
