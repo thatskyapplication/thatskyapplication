@@ -1,5 +1,6 @@
 {
 	"general": {
+		"daily-quests": "",
 		"days-left": {
 			"season_zero": "La saison finit aujourd'hui.",
 			"season_one": "{{count}} jour restant avant la fin de la saison.",
@@ -8,7 +9,7 @@
 			"event_one": "{{count}} jour restant avant {{name}}.",
 			"event_other": "{{count}} jours restants pour {{name}}."
 		},
-		"event-tickets": "Devise d'Événement",
+		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "Île de l'aube",
 			"Daylight Prairie": "Prairie illuminée",
@@ -329,7 +330,8 @@
 			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"251": "Aidez l'Acolyte en prière à classer l'été dans les Archives"
+			"251": "Aidez l'Acolyte en prière à classer l'été dans les Archives",
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -553,6 +555,7 @@
 			"79": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_du_Clair_de_Lune",
 			"80": ""
 		},
+		"shard-eruptions": "",
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
 			"1": "Sans cape"
@@ -2515,6 +2518,10 @@
 			"command-name": "catalogue",
 			"command-description": "Votre propre catalogue Sky."
 		},
+		"checklist": {
+			"command-name": "",
+			"command-description": ""
+		},
 		"configure": {
 			"command-name": "configurer",
 			"command-description": "Configurer les paramètres pour le serveur.",
@@ -2852,6 +2859,26 @@
 			"seasons-season-previous-season": "Saison précédente",
 			"seasons-season-next-season": "Prochaine saison"
 		},
+		"checklist": {
+			"title": "",
+			"description": "",
+			"complete": "",
+			"reset": "",
+			"daily-quests-message-incomplete": "",
+			"daily-quests-message-complete": "",
+			"daily-quests-show-button-label": "",
+			"seasonal-candles-message-incomplete": "",
+			"seasonal-candles-message-incomplete-double": "",
+			"seasonal-candles-message-complete": "",
+			"eye-of-eden-message-incomplete": "",
+			"eye-of-eden-message-complete": "",
+			"shard-eruptions-message-none": "",
+			"shard-eruptions-message-incomplete": "",
+			"shard-eruptions-message-complete": "",
+			"shard-eruptions-show-button-label": "",
+			"event-tickets-message-incomplete": "",
+			"event-tickets-message-complete": ""
+		},
 		"daily-guides": {
 			"quests-heading": "Quêtes",
 			"treasure-candles": "Bougies au trésor",
@@ -3018,7 +3045,7 @@
 				"3": "",
 				"4": "",
 				"5": "",
-				"6": "",
+				"6": "Mamie",
 				"7": "",
 				"8": "",
 				"9": "",
@@ -3085,7 +3112,6 @@
 			"back": ""
 		},
 		"shard-eruption": {
-			"browse-title": "Éruptions d'Éclats",
 			"browse-description": "Vous être en train de rechercher les éruptions d'éclats. Ouvrez les menus de sélection pour rapidement voir les informations sur une bonne période de temps. Sélectionnez une date pour voir plus d'informations.",
 			"no-shard-eruptions-today": "Il n'y a pas d'éruption d'éclats aujourd'hui.",
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
