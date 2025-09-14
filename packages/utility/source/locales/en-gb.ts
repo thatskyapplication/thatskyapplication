@@ -3133,11 +3133,14 @@ export default {
 		},
 		checklist: {
 			title: "Checklist",
+			"complete": "Complete",
+			"reset": "Reset",
 			"daily-quests-message-incomplete": "Have you completed daily quests?",
 			"daily-quests-message-complete": "Daily quests completed! Great job!",
-			"daily-quests-complete-button-label-incomplete": "Complete",
-			"daily-quests-complete-button-label-complete": "Reset",
 			"daily-quests-show-button-label": "Show daily guides",
+			"eye-of-eden-message-incomplete": "Have you been to Eden this week?",
+			"eye-of-eden-message-complete": "You've been to Eden! Awesome!",
+			"eye-of-eden-show-button-label": "Show shard eruptions",
 		},
 		"daily-guides": {
 			"quests-heading": "Quests",

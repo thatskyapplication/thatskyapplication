@@ -2,6 +2,7 @@ import { captureCheckIn } from "@sentry/node";
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { GUILD_CACHE } from "./caches/guilds.js";
+import { checklistResetDailyQuests, checklistResetEyeOfEden } from "./features/checklist.js";
 import { commandAnalyticsDeleteOld } from "./features/command-analytics.js";
 import {
 	distribute,
@@ -13,7 +14,6 @@ import pg from "./pg.js";
 import pino from "./pino.js";
 import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
 import { GIVEAWAY_END_DATE } from "./utility/constants.js";
-import { checklistResetDailyQuests } from "./features/checklist.js";
 
 export default function croner() {
 	new Cron(
@@ -22,6 +22,10 @@ export default function croner() {
 		async () => {
 			const today = skyToday();
 			const independentPromises = [commandAnalyticsDeleteOld(), checklistResetDailyQuests()];
+
+			if (today.weekday === 7) {
+				independentPromises.push(checklistResetEyeOfEden());
+			}
 
 			if (
 				today.year === GIVEAWAY_END_DATE.year &&
