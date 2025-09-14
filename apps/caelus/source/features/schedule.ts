@@ -653,21 +653,21 @@ function auroraOverview(date: DateTime) {
 	const { hour, minute } = date;
 
 	return {
-		now: hour % 2 === 0 && minute >= 9 && minute < 58,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 9 ? 9 - minute : 129 - minute) : 69 - minute }).toUnixInteger()}:R>`,
+		now: hour % 2 === 0 && minute >= 10 && minute < 58,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 10 ? 10 - minute : 130 - minute) : 70 - minute }).toUnixInteger()}:R>`,
 	};
 }
 
 function auroraDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
-	const startOfEvent = startOfDay.plus({ minutes: 9 });
+	const startOfEvent = startOfDay.plus({ minutes: 10 });
 	const tomorrow = startOfDay.plus({ days: 1 });
 
 	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
 		let string = `<t:${start.toUnixInteger()}:t>`;
 
-		if (now >= start.plus({ minutes: 49 })) {
+		if (now >= start.plus({ minutes: 48 })) {
 			string = `~~${string}~~`;
 		}
 

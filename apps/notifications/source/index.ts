@@ -215,8 +215,8 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		});
 	}
 
-	if ((hour % 2 === 1 && minute >= 54) || (hour % 2 === 0 && minute <= 9)) {
-		const timeUntilStart = hour % 2 === 0 ? 9 - minute : 69 - minute;
+	if ((hour % 2 === 1 && minute >= 55) || (hour % 2 === 0 && minute <= 10)) {
+		const timeUntilStart = hour % 2 === 0 ? 10 - minute : 70 - minute;
 		const startTime = date.plus({ minutes: timeUntilStart });
 
 		notifications.push({
