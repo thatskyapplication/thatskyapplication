@@ -503,6 +503,10 @@ export default {
 			),
 			[DailyQuest.HelpThePrayingAcolyteArchiveSummerIntheArchives]:
 				"Help the Praying Acolyte archive summer in the Archives",
+			[DailyQuest.MeetUpWithThoughtfulDirectorInVaultOfKnowledge]: questsMeetUpWith(
+				SpiritId.ThoughtfulDirector,
+				RealmName.VaultOfKnowledge,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

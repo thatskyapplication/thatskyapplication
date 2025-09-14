@@ -263,6 +263,7 @@ export const DailyQuest = {
 	MeetUpWithFlightGuideInPrairieTemple: 249,
 	MeetUpWithBackflippingChampionInValleyOfTriumph: 250,
 	HelpThePrayingAcolyteArchiveSummerIntheArchives: 251,
+	MeetUpWithThoughtfulDirectorInVaultOfKnowledge: 252,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -667,4 +668,5 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithFlightGuideInPrairieTemple]: null,
 	[DailyQuest.MeetUpWithBackflippingChampionInValleyOfTriumph]: null,
 	[DailyQuest.HelpThePrayingAcolyteArchiveSummerIntheArchives]: null,
+	[DailyQuest.MeetUpWithThoughtfulDirectorInVaultOfKnowledge]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
