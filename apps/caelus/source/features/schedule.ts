@@ -113,7 +113,7 @@ function dailyResetDetailedBreakdown(date: DateTime, locale: Locale): APICompone
 }
 
 function nextEyeOfEden(date: DateTime, locale: Locale) {
-	const timestamp = date.set({ weekday: 7 }).toUnixInteger();
+	const timestamp = date.plus({ days: 7 - (date.weekday % 7) }).toUnixInteger();
 
 	return t("schedule.next-eye-of-eden", {
 		lng: locale,
