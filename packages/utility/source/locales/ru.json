@@ -1,5 +1,6 @@
 {
 	"general": {
+		"daily-quests": "",
 		"days-left": {
 			"season_zero": "Сезон заканчивается сегодня.",
 			"season_one": "День до конца сезона: {{count}}",
@@ -8,7 +9,7 @@
 			"event_one": "{{count}} дней/день осталось в {{name}}.",
 			"event_other": "{{count}} дней/день осталось до {{name}}."
 		},
-		"event-tickets": "Билеты события",
+		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "Остров рассвета",
 			"Daylight Prairie": "Полуденная прерия",
@@ -329,7 +330,8 @@
 			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"251": "Помогите молящемуся прислужнику сохранить лето в архивах"
+			"251": "Помогите молящемуся прислужнику сохранить лето в архивах",
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
 		},
 		"seasons": {
 			"0": "Сезон благодарности",
@@ -553,6 +555,7 @@
 			"79": "",
 			"80": ""
 		},
+		"shard-eruptions": "",
 		"sky-profile-winged-light-types": {
 			"0": "",
 			"1": "Без плаща"
@@ -2515,6 +2518,10 @@
 			"command-name": "",
 			"command-description": ""
 		},
+		"checklist": {
+			"command-name": "",
+			"command-description": ""
+		},
 		"configure": {
 			"command-name": "",
 			"command-description": "",
@@ -2852,6 +2859,26 @@
 			"seasons-season-previous-season": "",
 			"seasons-season-next-season": ""
 		},
+		"checklist": {
+			"title": "",
+			"description": "",
+			"complete": "",
+			"reset": "",
+			"daily-quests-message-incomplete": "",
+			"daily-quests-message-complete": "",
+			"daily-quests-show-button-label": "",
+			"seasonal-candles-message-incomplete": "",
+			"seasonal-candles-message-incomplete-double": "",
+			"seasonal-candles-message-complete": "",
+			"eye-of-eden-message-incomplete": "",
+			"eye-of-eden-message-complete": "",
+			"shard-eruptions-message-none": "",
+			"shard-eruptions-message-incomplete": "",
+			"shard-eruptions-message-complete": "",
+			"shard-eruptions-show-button-label": "",
+			"event-tickets-message-incomplete": "",
+			"event-tickets-message-complete": ""
+		},
 		"daily-guides": {
 			"quests-heading": "",
 			"treasure-candles": "",
@@ -3085,7 +3112,6 @@
 			"back": ""
 		},
 		"shard-eruption": {
-			"browse-title": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
