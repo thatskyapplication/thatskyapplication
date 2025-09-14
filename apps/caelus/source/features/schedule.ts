@@ -311,7 +311,7 @@ function pollutedGeyserOverview(date: DateTime) {
 
 	return {
 		now: hour % 2 === 0 && minute >= 5 && minute < 15,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 5 ? 5 - minute : 125 - minute) : 65 - minute }).toUnixInteger()}:R>`,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 5 ? 5 - minute : 125 - minute) : 65 - minute }).toUnixInteger()}:R>`,
 	};
 }
 
@@ -372,7 +372,7 @@ function grandmaOverview(date: DateTime) {
 
 	return {
 		now: hour % 2 === 0 && minute >= 35 && minute < 45,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 35 ? 35 - minute : 155 - minute) : 95 - minute }).toUnixInteger()}:R>`,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 35 ? 35 - minute : 155 - minute) : 95 - minute }).toUnixInteger()}:R>`,
 	};
 }
 
@@ -433,7 +433,7 @@ function turtleOverview(date: DateTime) {
 
 	return {
 		now: hour % 2 === 0 && minute >= 50 && minute < 60,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute <= 50 ? 50 - minute : 170 - minute) : 110 - minute }).toUnixInteger()}:R>`,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 50 ? 50 - minute : 170 - minute) : 110 - minute }).toUnixInteger()}:R>`,
 	};
 }
 
