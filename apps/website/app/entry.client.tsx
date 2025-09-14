@@ -29,6 +29,7 @@ async function main() {
 		.init({
 			detection: { order: ["htmlTag"], caches: [] },
 			fallbackLng: Locale.EnglishGB,
+			interpolation: { escapeValue: false },
 			missingKeyHandler: (locale, namespace, key) =>
 				console.warn(
 					`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,

@@ -26,6 +26,7 @@ export const [i18nextMiddleware, getLocale, getInstance] = unstable_createI18nex
 	},
 	i18next: {
 		fallbackLng: Locale.EnglishGB,
+		interpolation: { escapeValue: false },
 		missingKeyHandler: (locale, namespace, key) =>
 			pino.warn(
 				`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,
