@@ -3144,6 +3144,8 @@ export default {
 			"shard-eruptions-message-incomplete": "Have you cleansed the shard eruptions today?",
 			"shard-eruptions-message-complete": "You've cleansed the shard eruptions! Nice!",
 			"shard-eruptions-show-button-label": "Show shard eruptions",
+			"event-tickets-message-incomplete": "Have you collected the event tickets today?",
+			"event-tickets-message-complete": "You've collected all event tickets! Great!",
 		},
 		"daily-guides": {
 			"quests-heading": "Quests",

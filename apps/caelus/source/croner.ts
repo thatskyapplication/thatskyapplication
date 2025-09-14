@@ -4,6 +4,7 @@ import { Cron } from "croner";
 import { GUILD_CACHE } from "./caches/guilds.js";
 import {
 	checklistResetDailyQuests,
+	checklistResetEventTickets,
 	checklistResetEyeOfEden,
 	checklistResetShardEruptions,
 } from "./features/checklist.js";
@@ -30,6 +31,7 @@ export default function croner() {
 				commandAnalyticsDeleteOld(),
 				checklistResetDailyQuests(),
 				checklistResetShardEruptions(),
+				checklistResetEventTickets(),
 			];
 
 			if (today.weekday === 7) {

@@ -99,10 +99,12 @@ import {
 import {
 	CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID,
 	CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID,
+	CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID,
 	CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID,
 	CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID,
 	CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID,
 	checklistHandleDailyQuests,
+	checklistHandleEventTickets,
 	checklistHandleEyeOfEden,
 	checklistHandleShardEruptions,
 } from "../features/checklist.js";
@@ -733,6 +735,11 @@ export default {
 
 				if (customId.startsWith(CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID)) {
 					await checklistHandleEyeOfEden(interaction);
+					return;
+				}
+
+				if (customId.startsWith(CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID)) {
+					await checklistHandleEventTickets(interaction);
 					return;
 				}
 
