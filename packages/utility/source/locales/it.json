@@ -1,5 +1,6 @@
 {
 	"general": {
+		"daily-quests": "",
 		"days-left": {
 			"season_zero": "",
 			"season_one": "Ancora {{count}} giorno alla fine della stagione.",
@@ -329,7 +330,8 @@
 			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"251": "Aiuta l'Accolito supplicante a depositare l'estate negli archivi"
+			"251": "Aiuta l'Accolito supplicante a depositare l'estate negli archivi",
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
@@ -553,6 +555,7 @@
 			"79": "",
 			"80": ""
 		},
+		"shard-eruptions": "",
 		"sky-profile-winged-light-types": {
 			"0": "",
 			"1": ""
@@ -2515,6 +2518,10 @@
 			"command-name": "",
 			"command-description": ""
 		},
+		"checklist": {
+			"command-name": "",
+			"command-description": ""
+		},
 		"configure": {
 			"command-name": "",
 			"command-description": "",
@@ -2852,6 +2859,26 @@
 			"seasons-season-previous-season": "",
 			"seasons-season-next-season": ""
 		},
+		"checklist": {
+			"title": "",
+			"description": "",
+			"complete": "",
+			"reset": "",
+			"daily-quests-message-incomplete": "",
+			"daily-quests-message-complete": "",
+			"daily-quests-show-button-label": "",
+			"seasonal-candles-message-incomplete": "",
+			"seasonal-candles-message-incomplete-double": "",
+			"seasonal-candles-message-complete": "",
+			"eye-of-eden-message-incomplete": "",
+			"eye-of-eden-message-complete": "",
+			"shard-eruptions-message-none": "",
+			"shard-eruptions-message-incomplete": "",
+			"shard-eruptions-message-complete": "",
+			"shard-eruptions-show-button-label": "",
+			"event-tickets-message-incomplete": "",
+			"event-tickets-message-complete": ""
+		},
 		"daily-guides": {
 			"quests-heading": "",
 			"treasure-candles": "",
@@ -3085,7 +3112,6 @@
 			"back": ""
 		},
 		"shard-eruption": {
-			"browse-title": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",

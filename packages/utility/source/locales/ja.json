@@ -1,5 +1,6 @@
 {
 	"general": {
+		"daily-quests": "",
 		"days-left": {
 			"season_zero": "このシーズンは本日で終了します。",
 			"season_one": "シーズン終了まであと{{count}} 日。",
@@ -8,7 +9,7 @@
 			"event_one": "{{name}}終了まであと{{count}}日。",
 			"event_other": "{{name}}終了まであと{{count}}日。"
 		},
-		"event-tickets": "イベントチケット",
+		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "孤島",
 			"Daylight Prairie": "草原",
@@ -58,20 +59,20 @@
 			"Aviary Village": "花鳥郷"
 		},
 		"notification-types": {
-			"0": "",
+			"0": "デイリー更新",
 			"1": "暴風域",
 			"2": "国際宇宙ステーション",
 			"3": "",
-			"4": "",
+			"4": "間欠泉",
 			"5": "おばあちゃん",
 			"6": "亀",
-			"7": "",
-			"8": "",
+			"7": "闇の破片(黒)",
+			"8": "闇の破片(赤)",
 			"9": "AURORA",
-			"10": "",
+			"10": "ならい",
 			"11": "花鳥花火大会",
-			"12": "",
-			"13": "",
+			"12": "再訪する精霊",
+			"13": "スケーター",
 			"14": "巣づくり工房"
 		},
 		"quests-common": {
@@ -329,7 +330,8 @@
 			"248": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.32)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
-			"251": "資料庫で祈る侍者が夏を記録するのを手伝いましょう"
+			"251": "資料庫で祈る侍者が夏を記録するのを手伝いましょう",
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
 		},
 		"seasons": {
 			"0": "感謝の季節",
@@ -385,7 +387,7 @@
 			"22": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E3%83%A0%E3%83%BC%E3%83%9F%E3%83%B3%E3%81%AE%E5%AD%A3%E7%AF%80",
 			"23": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E5%85%89%E3%81%AB%E6%9F%93%E3%81%BE%E3%82%8B%E5%AD%A3%E7%AF%80",
 			"24": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%9D%92%E3%81%84%E9%B3%A5%E3%81%AE%E5%AD%A3%E7%AF%80",
-			"25": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E3%81%B5%E3%81%9F%E3%81%A4%E3%81%AE%E7%81%AF%E7%81%AB%E3%81%AE%E5%AD%A3%E7%AF%80_%E2%88%92%E5%89%8D%E7%AF%87%E2%88%92"
+			"25": "https://sky-children-of-the-light.fandom.com/ja/wiki/ふたつの灯火の季節_−前篇−"
 		},
 		"events": {
 			"0": "",
@@ -553,6 +555,7 @@
 			"79": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
 			"80": ""
 		},
+		"shard-eruptions": "",
 		"sky-profile-winged-light-types": {
 			"0": "",
 			"1": ""
@@ -2515,6 +2518,10 @@
 			"command-name": "",
 			"command-description": ""
 		},
+		"checklist": {
+			"command-name": "",
+			"command-description": ""
+		},
 		"configure": {
 			"command-name": "",
 			"command-description": "",
@@ -2852,6 +2859,26 @@
 			"seasons-season-previous-season": "",
 			"seasons-season-next-season": ""
 		},
+		"checklist": {
+			"title": "",
+			"description": "",
+			"complete": "",
+			"reset": "",
+			"daily-quests-message-incomplete": "",
+			"daily-quests-message-complete": "",
+			"daily-quests-show-button-label": "",
+			"seasonal-candles-message-incomplete": "",
+			"seasonal-candles-message-incomplete-double": "",
+			"seasonal-candles-message-complete": "",
+			"eye-of-eden-message-incomplete": "",
+			"eye-of-eden-message-complete": "",
+			"shard-eruptions-message-none": "",
+			"shard-eruptions-message-incomplete": "",
+			"shard-eruptions-message-complete": "",
+			"shard-eruptions-show-button-label": "",
+			"event-tickets-message-incomplete": "",
+			"event-tickets-message-complete": ""
+		},
 		"daily-guides": {
 			"quests-heading": "",
 			"treasure-candles": "",
@@ -3085,7 +3112,6 @@
 			"back": ""
 		},
 		"shard-eruption": {
-			"browse-title": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",

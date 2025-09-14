@@ -1,7 +1,18 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
-import { Bot, Clock, LogIn, LogOut, Menu, Users, X, Zap } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+	Bot,
+	CheckSquare,
+	ChevronDown,
+	Clock,
+	LogIn,
+	LogOut,
+	Menu,
+	Users,
+	X,
+	Zap,
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Form, Link, useLocation } from "react-router";
 import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL, timeString } from "~/utility/functions";
@@ -98,30 +109,89 @@ function TimeDisplay({ locale }: TimeDisplayProps) {
 }
 
 function UserMenu({ user }: UserMenuProps) {
+	const [isOpen, setIsOpen] = useState(false);
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
+	const dropdownRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+				setIsOpen(false);
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: This is fine.
+	useEffect(() => {
+		setIsOpen(false);
+	}, [location.pathname]);
+
+	useEffect(() => {
+		function handleEscape(event: KeyboardEvent) {
+			if (event.key === "Escape") {
+				setIsOpen(false);
+			}
+		}
+
+		document.addEventListener("keydown", handleEscape);
+		return () => document.removeEventListener("keydown", handleEscape);
+	}, []);
 
 	return (
-		<div className="flex items-center gap-3">
-			<img
-				alt={`${user.username}'s avatar`}
-				className="w-8 h-8 rounded-full"
-				src={avatarURL(user)}
-			/>
-			<div className="hidden sm:flex flex-col">
-				<span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-					{user.username}
-				</span>
-			</div>
-			<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
-				<button
-					className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-					title="Sign out"
-					type="submit"
-				>
-					<LogOut className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-				</button>
-			</Form>
+		<div className="relative" ref={dropdownRef}>
+			<button
+				aria-expanded={isOpen}
+				aria-haspopup="true"
+				className="flex items-center gap-3 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+				onClick={() => setIsOpen(!isOpen)}
+				type="button"
+			>
+				<img
+					alt={`${user.username}'s avatar`}
+					className="w-8 h-8 rounded-full"
+					src={avatarURL(user)}
+				/>
+				<div className="hidden sm:flex flex-col">
+					<span className="text-sm font-medium text-gray-900 dark:text-gray-100">
+						{user.username}
+					</span>
+				</div>
+				<ChevronDown
+					className={`h-4 w-4 text-gray-600 dark:text-gray-400 transition-transform ${
+						isOpen ? "rotate-180" : ""
+					}`}
+				/>
+			</button>
+			{isOpen && (
+				<div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
+					<div className="py-1">
+						<Link
+							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+							onClick={() => setIsOpen(false)}
+							to="/checklist"
+						>
+							<CheckSquare className="h-4 w-4" />
+							<span>Checklist</span>
+						</Link>
+						<div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
+							<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
+								<button
+									className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
+									onClick={() => setIsOpen(false)}
+									type="submit"
+								>
+									<LogOut className="h-4 w-4" />
+									<span>Sign out</span>
+								</button>
+							</Form>
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
@@ -182,16 +252,26 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 									{user.username}
 								</span>
 							</div>
-							<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
-								<button
+							<div className="space-y-2">
+								<Link
 									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
 									onClick={onClose}
-									type="submit"
+									to="/checklist"
 								>
-									<LogOut className="h-4 w-4" />
-									Sign out
-								</button>
-							</Form>
+									<CheckSquare className="h-4 w-4" />
+									Checklist
+								</Link>
+								<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
+									<button
+										className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
+										onClick={onClose}
+										type="submit"
+									>
+										<LogOut className="h-4 w-4" />
+										Sign out
+									</button>
+								</Form>
+							</div>
 						</div>
 					) : (
 						<div className="mb-4">

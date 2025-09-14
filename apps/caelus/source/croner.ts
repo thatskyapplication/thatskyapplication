@@ -2,6 +2,13 @@ import { captureCheckIn } from "@sentry/node";
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { GUILD_CACHE } from "./caches/guilds.js";
+import {
+	checklistResetDailyQuests,
+	checklistResetEventTickets,
+	checklistResetEyeOfEden,
+	checklistResetSeasonalCandles,
+	checklistResetShardEruptions,
+} from "./features/checklist.js";
 import { commandAnalyticsDeleteOld } from "./features/command-analytics.js";
 import {
 	distribute,
@@ -20,7 +27,18 @@ export default function croner() {
 		{ catch: (error) => pino.error(error, "Error during changing days."), timezone: TIME_ZONE },
 		async () => {
 			const today = skyToday();
-			const independentPromises = [commandAnalyticsDeleteOld()];
+
+			const independentPromises = [
+				commandAnalyticsDeleteOld(),
+				checklistResetDailyQuests(),
+				checklistResetSeasonalCandles(),
+				checklistResetShardEruptions(),
+				checklistResetEventTickets(),
+			];
+
+			if (today.weekday === 7) {
+				independentPromises.push(checklistResetEyeOfEden());
+			}
 
 			if (
 				today.year === GIVEAWAY_END_DATE.year &&

@@ -38,6 +38,12 @@ f:catalogue:
    - any-glob-to-any-file:
      - apps/caelus/source/commands/chat-inputs/catalogue.ts
      - apps/caelus/source/features/catalogue.ts
+f:checklist:
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/website/app/routes/checklist.tsx
+     - apps/caelus/source/features/checklist.ts
+     - packages/utility/source/checklist.ts
 f:daily-guides:
  - changed-files:
    - any-glob-to-any-file:

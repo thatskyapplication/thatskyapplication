@@ -29,6 +29,7 @@ function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | SkyMap) {
 
 export default {
 	general: {
+		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
 			season_one: "{{count}} day left in the season.",
@@ -37,7 +38,7 @@ export default {
 			event_one: "{{count}} day left in {{name}}.",
 			event_other: "{{count}} days left in {{name}}.",
 		},
-		"event-tickets": "Event Tickets",
+		"event-tickets": "Event tickets",
 		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
 		maps: Object.fromEntries(SKY_MAP_VALUES.map((skyMap) => [skyMap, skyMap])),
 		"notification-types": {
@@ -749,6 +750,7 @@ export default {
 			// Double-check this.
 			[EventId.RadianceEvent2025]: "https://sky-children-of-the-light.fandom.com/Radiance_Event",
 		} satisfies Record<EventIds, `https://${string}`>,
+		"shard-eruptions": "Shard eruptions",
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
 			[SkyProfileWingedLightType.Capeless]: "Capeless",
@@ -2793,6 +2795,10 @@ export default {
 			"command-name": "catalogue",
 			"command-description": "Your very own Sky catalogue.",
 		},
+		checklist: {
+			"command-name": "checklist",
+			"command-description": "Keep track of your activities such as daily quests, Eden, and more!",
+		},
 		configure: {
 			"command-name": "configure",
 			"command-description": "Configure settings for the server.",
@@ -3127,6 +3133,28 @@ export default {
 			"seasons-season-previous-season": "Previous season",
 			"seasons-season-next-season": "Next season",
 		},
+		checklist: {
+			title: "Checklist",
+			description: "Keep track of your Sky activities, {{user}}!",
+			complete: "Complete",
+			reset: "Reset",
+			"daily-quests-message-incomplete": "Have you completed daily quests?",
+			"daily-quests-message-complete": "Daily quests completed! Great job!",
+			"daily-quests-show-button-label": "Show daily guides",
+			"seasonal-candles-message-incomplete":
+				"Have you collected all seasonal candles, including the seasonal candle clusters found in the realm?",
+			"seasonal-candles-message-incomplete-double":
+				"Have you collected all seasonal candles, including the seasonal candle clusters found in the realm? We're currently in a double seasonal light event!",
+			"seasonal-candles-message-complete": "You've collected all seasonal candles! Keep at it!",
+			"eye-of-eden-message-incomplete": "Have you been to Eden this week?",
+			"eye-of-eden-message-complete": "You've been to Eden! Awesome!",
+			"shard-eruptions-message-none": "There are no shard eruptions to cleanse today.",
+			"shard-eruptions-message-incomplete": "Have you cleansed the shard eruptions today?",
+			"shard-eruptions-message-complete": "You've cleansed the shard eruptions! Nice!",
+			"shard-eruptions-show-button-label": "Show shard eruptions",
+			"event-tickets-message-incomplete": "Have you collected the event tickets today?",
+			"event-tickets-message-complete": "You've collected all event tickets! Great!",
+		},
 		"daily-guides": {
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure Candles",
@@ -3408,7 +3436,6 @@ export default {
 			back: "Back",
 		},
 		"shard-eruption": {
-			"browse-title": "Shard Eruptions",
 			"browse-description":
 				"You're currently browsing shard eruptions. Open the select menus to quickly see information over a great period of time. Select a date to view more information.",
 			"no-shard-eruptions-today": "There are no shard eruptions today.",

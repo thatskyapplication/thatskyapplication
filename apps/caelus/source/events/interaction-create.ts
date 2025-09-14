@@ -96,6 +96,20 @@ import {
 	viewStart,
 	viewStarterPacks,
 } from "../features/catalogue.js";
+import {
+	CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID,
+	CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID,
+	CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID,
+	CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID,
+	CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID,
+	CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID,
+	CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID,
+	checklistHandleDailyQuests,
+	checklistHandleEventTickets,
+	checklistHandleEyeOfEden,
+	checklistHandleSeasonalCandles,
+	checklistHandleShardEruptions,
+} from "../features/checklist.js";
 import { commandAnalyticsSend } from "../features/command-analytics.js";
 import {
 	DAILY_GUIDES_SETUP_CUSTOM_ID,
@@ -716,12 +730,43 @@ export default {
 					return;
 				}
 
-				if (customId === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID) {
+				if (customId.startsWith(CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID)) {
+					await checklistHandleDailyQuests(interaction);
+					return;
+				}
+
+				if (customId.startsWith(CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID)) {
+					await checklistHandleSeasonalCandles(interaction);
+					return;
+				}
+
+				if (customId.startsWith(CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID)) {
+					await checklistHandleEyeOfEden(interaction);
+					return;
+				}
+
+				if (customId.startsWith(CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID)) {
+					await checklistHandleEventTickets(interaction);
+					return;
+				}
+
+				if (customId.startsWith(CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID)) {
+					await checklistHandleShardEruptions(interaction);
+					return;
+				}
+
+				if (
+					customId === CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID ||
+					customId === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID
+				) {
 					await dailyGuidesResponse(interaction);
 					return;
 				}
 
-				if (customId === SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID) {
+				if (
+					customId === CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID ||
+					customId === SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID
+				) {
 					await today(interaction, {
 						ephemeral:
 							interaction.message.flags &&
