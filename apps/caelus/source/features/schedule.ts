@@ -654,7 +654,7 @@ function auroraOverview(date: DateTime) {
 
 	return {
 		now: hour % 2 === 0 && minute >= 9 && minute < 58,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? 129 - minute : 69 - minute }).toUnixInteger()}:R>`,
+		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 9 ? 9 - minute : 129 - minute) : 69 - minute }).toUnixInteger()}:R>`,
 	};
 }
 
