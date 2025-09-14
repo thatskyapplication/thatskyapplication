@@ -29,6 +29,7 @@ function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | SkyMap) {
 
 export default {
 	general: {
+		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
 			season_one: "{{count}} day left in the season.",
@@ -37,7 +38,7 @@ export default {
 			event_one: "{{count}} day left in {{name}}.",
 			event_other: "{{count}} days left in {{name}}.",
 		},
-		"event-tickets": "Event Tickets",
+		"event-tickets": "Event tickets",
 		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
 		maps: Object.fromEntries(SKY_MAP_VALUES.map((skyMap) => [skyMap, skyMap])),
 		"notification-types": {
@@ -749,6 +750,7 @@ export default {
 			// Double-check this.
 			[EventId.RadianceEvent2025]: "https://sky-children-of-the-light.fandom.com/Radiance_Event",
 		} satisfies Record<EventIds, `https://${string}`>,
+		"shard-eruptions": "Shard eruptions",
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
 			[SkyProfileWingedLightType.Capeless]: "Capeless",
@@ -3133,6 +3135,7 @@ export default {
 		},
 		checklist: {
 			title: "Checklist",
+			description: "Keep track of your Sky activities, {{user}}!",
 			complete: "Complete",
 			reset: "Reset",
 			"daily-quests-message-incomplete": "Have you completed daily quests?",

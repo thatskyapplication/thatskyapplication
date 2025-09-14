@@ -10,6 +10,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import {
+	type ChecklistPacket,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
@@ -22,15 +23,6 @@ import pg from "../pg.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
-
-interface ChecklistPacket {
-	user_id: Snowflake;
-	daily_quests: boolean;
-	seasonal_candles: boolean;
-	eye_of_eden: boolean;
-	shard_eruptions: boolean;
-	event_tickets: boolean;
-}
 
 export const CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID =
 	"CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID";
