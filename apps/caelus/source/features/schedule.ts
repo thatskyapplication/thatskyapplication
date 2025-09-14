@@ -1345,7 +1345,11 @@ export async function scheduleOverview(
 								lng: locale,
 								ns: "features",
 							}),
-							details: nextPassage(now),
+							details: t("schedule.overview-next", {
+								lng: locale,
+								ns: "features",
+								timestamp: nextPassage(now),
+							}),
 						}),
 					},
 					{
