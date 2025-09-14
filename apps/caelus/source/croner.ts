@@ -6,6 +6,7 @@ import {
 	checklistResetDailyQuests,
 	checklistResetEventTickets,
 	checklistResetEyeOfEden,
+	checklistResetSeasonalCandles,
 	checklistResetShardEruptions,
 } from "./features/checklist.js";
 import { commandAnalyticsDeleteOld } from "./features/command-analytics.js";
@@ -30,6 +31,7 @@ export default function croner() {
 			const independentPromises = [
 				commandAnalyticsDeleteOld(),
 				checklistResetDailyQuests(),
+				checklistResetSeasonalCandles(),
 				checklistResetShardEruptions(),
 				checklistResetEventTickets(),
 			];

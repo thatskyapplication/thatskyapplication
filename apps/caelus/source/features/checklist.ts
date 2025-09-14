@@ -9,7 +9,13 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
-import { shardEruption, skyCurrentEvents, skyNow, Table } from "@thatskyapplication/utility";
+import {
+	shardEruption,
+	skyCurrentEvents,
+	skyCurrentSeason,
+	skyNow,
+	Table,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import pg from "../pg.js";
@@ -20,6 +26,7 @@ import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
 interface ChecklistPacket {
 	user_id: Snowflake;
 	daily_quests: boolean;
+	seasonal_candles: boolean;
 	eye_of_eden: boolean;
 	shard_eruptions: boolean;
 	event_tickets: boolean;
@@ -29,6 +36,10 @@ export const CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID =
 	"CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID";
 
 export const CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID = "CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID";
+
+export const CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID =
+	"CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID";
+
 export const CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID = "CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID";
 
 export const CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID =
@@ -69,6 +80,7 @@ export async function checklist({
 	}
 
 	const now = skyNow();
+	const season = skyCurrentSeason(now);
 
 	const isAnyEventWithEventTickets = skyCurrentEvents(now).some(
 		({ eventTickets }) => eventTickets && now < eventTickets.end,
@@ -129,6 +141,60 @@ export async function checklist({
 				},
 			],
 		},
+	];
+
+	if (season) {
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.Section,
+				accessory: checklistPacket?.seasonal_candles
+					? {
+							type: ComponentType.Button,
+							style: ButtonStyle.Danger,
+							custom_id: `${CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID}§1`,
+							label: t("checklist.reset", {
+								lng: locale,
+								ns: "features",
+							}),
+						}
+					: {
+							type: ComponentType.Button,
+							style: ButtonStyle.Secondary,
+							custom_id: `${CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID}§0`,
+							label: t("checklist.complete", {
+								lng: locale,
+								ns: "features",
+							}),
+						},
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: checklistPacket?.seasonal_candles
+							? t("checklist.seasonal-candles-message-complete", {
+									lng: locale,
+									ns: "features",
+								})
+							: season.isDuringDoubleSeasonalLightEvent(now)
+								? t("checklist.seasonal-candles-message-incomplete-double", {
+										lng: locale,
+										ns: "features",
+									})
+								: t("checklist.seasonal-candles-message-incomplete", {
+										lng: locale,
+										ns: "features",
+									}),
+					},
+				],
+			},
+		);
+	}
+
+	containerComponents.push(
 		{
 			type: ComponentType.Separator,
 			divider: true,
@@ -213,7 +279,7 @@ export async function checklist({
 			type: ComponentType.ActionRow,
 			components: [shardEruptionButton],
 		},
-	];
+	);
 
 	if (isAnyEventWithEventTickets) {
 		containerComponents.push(
@@ -285,6 +351,25 @@ export async function checklistHandleDailyQuests(
 	});
 }
 
+export async function checklistHandleSeasonalCandles(
+	interaction: APIMessageComponentButtonInteraction,
+) {
+	const customId = interaction.data.custom_id;
+	const userId = interactionInvoker(interaction).id;
+
+	await pg<ChecklistPacket>(Table.Checklist)
+		.insert({
+			user_id: userId,
+			seasonal_candles: customId.slice(customId.indexOf("§") + 1) === "0",
+		})
+		.onConflict("user_id")
+		.merge();
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: await checklist({ userId: userId, locale: interaction.locale }),
+	});
+}
+
 export async function checklistHandleEyeOfEden(interaction: APIMessageComponentButtonInteraction) {
 	const customId = interaction.data.custom_id;
 
@@ -348,6 +433,10 @@ export async function checklistHandleEventTickets(
 
 export async function checklistResetDailyQuests() {
 	await pg<ChecklistPacket>(Table.Checklist).update({ daily_quests: false });
+}
+
+export async function checklistResetSeasonalCandles() {
+	await pg<ChecklistPacket>(Table.Checklist).update({ seasonal_candles: false });
 }
 
 export async function checklistResetEyeOfEden() {

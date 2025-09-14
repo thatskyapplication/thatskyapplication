@@ -3138,6 +3138,11 @@ export default {
 			"daily-quests-message-incomplete": "Have you completed daily quests?",
 			"daily-quests-message-complete": "Daily quests completed! Great job!",
 			"daily-quests-show-button-label": "Show daily guides",
+			"seasonal-candles-message-incomplete":
+				"Have you collected all seasonal candles, including the seasonal candle clusters found in the realm?",
+			"seasonal-candles-message-incomplete-double":
+				"Have you collected all seasonal candles, including the seasonal candle clusters found in the realm? We're currently in a double seasonal light event!",
+			"seasonal-candles-message-complete": "You've collected all seasonal candles! Keep at it!",
 			"eye-of-eden-message-incomplete": "Have you been to Eden this week?",
 			"eye-of-eden-message-complete": "You've been to Eden! Awesome!",
 			"shard-eruptions-message-none": "There are no shard eruptions to cleanse today.",

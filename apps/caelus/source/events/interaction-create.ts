@@ -101,11 +101,13 @@ import {
 	CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID,
 	CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID,
 	CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID,
+	CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID,
 	CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID,
 	CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID,
 	checklistHandleDailyQuests,
 	checklistHandleEventTickets,
 	checklistHandleEyeOfEden,
+	checklistHandleSeasonalCandles,
 	checklistHandleShardEruptions,
 } from "../features/checklist.js";
 import { commandAnalyticsSend } from "../features/command-analytics.js";
@@ -730,6 +732,11 @@ export default {
 
 				if (customId.startsWith(CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID)) {
 					await checklistHandleDailyQuests(interaction);
+					return;
+				}
+
+				if (customId.startsWith(CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID)) {
+					await checklistHandleSeasonalCandles(interaction);
 					return;
 				}
 
