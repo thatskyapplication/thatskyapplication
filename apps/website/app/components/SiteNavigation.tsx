@@ -13,6 +13,7 @@ import {
 	Zap,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Form, Link, useLocation } from "react-router";
 import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL, timeString } from "~/utility/functions";
@@ -141,6 +142,8 @@ function UserMenu({ user }: UserMenuProps) {
 		return () => document.removeEventListener("keydown", handleEscape);
 	}, []);
 
+	const { t } = useTranslation();
+
 	return (
 		<div className="relative" ref={dropdownRef}>
 			<button
@@ -175,7 +178,7 @@ function UserMenu({ user }: UserMenuProps) {
 							to="/checklist"
 						>
 							<CheckSquare className="h-4 w-4" />
-							<span>Checklist</span>
+							<span>{t("checklist.title", { ns: "features" })}</span>
 						</Link>
 						<div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
 							<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
@@ -214,6 +217,7 @@ function LoginButton() {
 function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
+	const { t } = useTranslation();
 
 	if (!isOpen) {
 		return null;
@@ -259,7 +263,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 									to="/checklist"
 								>
 									<CheckSquare className="h-4 w-4" />
-									Checklist
+									{t("checklist.title", { ns: "features" })}
 								</Link>
 								<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
 									<button
