@@ -54,6 +54,7 @@
 			"Repository of Refuge": "Dépôt du refuge",
 			"Vault Second Floor": "Deuxième étage de la Chambre Forte",
 			"Vault Summit": "Sommet de la Chambre Forte",
+			"Eye of Eden": "Œil d’Éden",
 			"Orbit": "Orbite",
 			"Ancient Memory": "Souvenir ancien",
 			"Aviary Village": "Village volière"
@@ -331,7 +332,8 @@
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "Aidez l'Acolyte en prière à classer l'été dans les Archives",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -3109,7 +3111,7 @@
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "",
 			"detailed-breakdown-projector-of-memories-message": "Disponible toutes les 80 minutes depuis {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-requires": "-# Nécessite {{emoji}}",
-			"back": "Retour"
+			"back": "Précédent"
 		},
 		"shard-eruption": {
 			"browse-description": "Vous être en train de rechercher les éruptions d'éclats. Ouvrez les menus de sélection pour rapidement voir les informations sur une bonne période de temps. Sélectionnez une date pour voir plus d'informations.",

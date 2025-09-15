@@ -1,6 +1,6 @@
 {
 	"general": {
-		"daily-quests": "",
+		"daily-quests": "デイリークエスト",
 		"days-left": {
 			"season_zero": "このシーズンは本日で終了します。",
 			"season_one": "シーズン終了まであと{{count}} 日。",
@@ -9,7 +9,7 @@
 			"event_one": "{{name}}終了まであと{{count}}日。",
 			"event_other": "{{name}}終了まであと{{count}}日。"
 		},
-		"event-tickets": "",
+		"event-tickets": "イベントチケット",
 		"realms": {
 			"Isles of Dawn": "孤島",
 			"Daylight Prairie": "草原",
@@ -54,6 +54,7 @@
 			"Repository of Refuge": "君憶う保存庫",
 			"Vault Second Floor": "書庫の２階",
 			"Vault Summit": "書庫の最上部",
+			"Eye of Eden": "原罪",
 			"Orbit": "天空",
 			"Ancient Memory": "いにしえの追想",
 			"Aviary Village": "花鳥郷"
@@ -331,7 +332,8 @@
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "資料庫で祈る侍者が夏を記録するのを手伝いましょう",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
 		},
 		"seasons": {
 			"0": "感謝の季節",
@@ -555,7 +557,7 @@
 			"79": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
 			"80": ""
 		},
-		"shard-eruptions": "",
+		"shard-eruptions": "闇の破片",
 		"sky-profile-winged-light-types": {
 			"0": "",
 			"1": ""
@@ -2480,7 +2482,7 @@
 			"command-name": "",
 			"command-description": "",
 			"ascended-candles": {
-				"command-name": "",
+				"command-name": "星のキャンドル",
 				"command-description": "",
 				"command-option-start-name": "",
 				"command-option-start-description": "",
@@ -2530,7 +2532,7 @@
 				"command-description": ""
 			},
 			"daily-guides": {
-				"command-name": "",
+				"command-name": "デイリーガイド",
 				"command-description": "",
 				"command-option-channel-name": "",
 				"command-option-channel-description": ""
@@ -2555,7 +2557,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "",
+			"command-name": "デイリーガイド",
 			"command-description": ""
 		},
 		"data": {
@@ -2689,7 +2691,7 @@
 			"command-description": ""
 		},
 		"sky-profile": {
-			"command-name": "",
+			"command-name": "skyプロフィール",
 			"command-description": "",
 			"edit": {
 				"command-name": "",
@@ -2881,8 +2883,8 @@
 		},
 		"daily-guides": {
 			"quests-heading": "",
-			"treasure-candles": "",
-			"seasonal-candles": "",
+			"treasure-candles": "キャンドルのかたまり",
+			"seasonal-candles": "シーズンキャンドル",
 			"seasonal-candles-remain": "",
 			"shard-eruption": "",
 			"shard-eruption-data": "",
