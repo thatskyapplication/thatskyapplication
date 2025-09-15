@@ -3150,7 +3150,7 @@ export default {
 			"seasonal-candles-message-incomplete-double":
 				"Have you collected all seasonal candles, including the seasonal candle clusters found in the realm? We're currently in a double seasonal light event!",
 			"seasonal-candles-message-complete": "You've collected all seasonal candles! Keep at it!",
-			"eye-of-eden-message-incomplete": "Have you given light to status in Eden this week?",
+			"eye-of-eden-message-incomplete": "Have you given light to statues in Eden this week?",
 			"eye-of-eden-message-complete": "You've been to Eden! Awesome!",
 			"shard-eruptions-message-none": "There are no shard eruptions to cleanse today.",
 			"shard-eruptions-message-incomplete": "Have you cleansed the shard eruptions today?",
