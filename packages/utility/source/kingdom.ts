@@ -75,6 +75,9 @@ export enum SkyMap {
 	VaultSecondFloor = "Vault Second Floor",
 	VaultSummit = "Vault Summit",
 
+	// Eye of Eden.
+	StormEnd = "Eye of Eden",
+
 	// Orbit.
 	Orbit = "Orbit",
 

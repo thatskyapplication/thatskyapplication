@@ -1,7 +1,7 @@
 import {
 	type ChecklistPacket,
 	type ChecklistSetData,
-	RealmName,
+	SkyMap,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
@@ -244,7 +244,7 @@ export default function Checklist() {
 												: "text-gray-900 dark:text-gray-100"
 										}`}
 									>
-										{t(`realms.${RealmName.EyeOfEden}`, { ns: "general" })}
+										{t(`maps.${SkyMap.StormEnd}`, { ns: "general" })}
 									</div>
 									<div className="text-xs text-gray-500 dark:text-gray-400">
 										{checklistPacket?.eye_of_eden
