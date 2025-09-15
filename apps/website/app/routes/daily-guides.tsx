@@ -381,7 +381,9 @@ export default function DailyGuides() {
 								</div>
 							</div>
 						) : (
-							<p className="text-sm text-gray-500 dark:text-gray-400">None</p>
+							<p className="text-sm text-gray-500 dark:text-gray-400">
+								{t("daily-guides.shard-eruption-none", { ns: "features" })}
+							</p>
 						)}
 					</div>
 					{travellingRock && (
