@@ -8,7 +8,6 @@ import { isDailyQuest } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
 import { questAutocomplete, questResponse } from "../../features/daily-guides.js";
-import pino from "../../pino.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -27,8 +26,6 @@ export default {
 		const daily = options.getInteger("daily", true);
 
 		if (!isDailyQuest(daily)) {
-			pino.error(interaction, "Unknown daily quest.");
-
 			await client.api.interactions.reply(interaction.id, interaction.token, {
 				content: t("daily-guides.quest-unknown", { lng: locale, ns: "features" }),
 				flags: MessageFlags.Ephemeral,
