@@ -508,6 +508,10 @@ export default {
 				SpiritId.ThoughtfulDirector,
 				RealmName.VaultOfKnowledge,
 			),
+			[DailyQuest.MeetUpWithApplaudingBellmakerInDaylightPrairie]: questsMeetUpWith(
+				SpiritId.ApplaudingBellmaker,
+				RealmName.DaylightPrairie,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
