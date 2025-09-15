@@ -371,7 +371,7 @@ export async function setupResponse(guild: Guild): Promise<APIInteractionRespons
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `## [Daily guides](${new URL("caelus/daily-guides", WEBSITE_URL)})`,
+						content: `## [Daily guides](${new URL("caelus/guides/daily-guides", WEBSITE_URL)})`,
 					},
 					{
 						type: ComponentType.Separator,
