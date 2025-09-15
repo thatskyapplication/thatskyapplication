@@ -54,6 +54,7 @@
 			"Repository of Refuge": "知識庫避難所",
 			"Vault Second Floor": "禁閣二樓",
 			"Vault Summit": "禁閣頂層",
+			"Eye of Eden": "暴風眼",
 			"Orbit": "重生之路",
 			"Ancient Memory": "上古記憶",
 			"Aviary Village": "雲巢"
@@ -331,7 +332,8 @@
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "幫助祈禱聖徒在秘密書庫中記錄夏日",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",

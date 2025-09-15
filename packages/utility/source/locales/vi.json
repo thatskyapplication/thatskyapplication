@@ -54,6 +54,7 @@
 			"Repository of Refuge": "Kho Trú Ẩn",
 			"Vault Second Floor": "",
 			"Vault Summit": "",
+			"Eye of Eden": "Mắt Địa Đàng",
 			"Orbit": "",
 			"Ancient Memory": "Ký ức Cổ xưa",
 			"Aviary Village": "Làng Chuồng Chim"
@@ -331,7 +332,8 @@
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "Giúp Thánh Đồ Cầu Nguyện lưu trữ mùa hè tại Kho Lưu Trữ",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",

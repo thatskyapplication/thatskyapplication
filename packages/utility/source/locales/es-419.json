@@ -54,6 +54,7 @@
 			"Repository of Refuge": "Almacén de refugio",
 			"Vault Second Floor": "",
 			"Vault Summit": "",
+			"Eye of Eden": "Ojo de Edén",
 			"Orbit": "",
 			"Ancient Memory": "Recuerdo Ancestral",
 			"Aviary Village": "Aldea aviaria"
@@ -331,7 +332,8 @@
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "Ayuda al Acólito orador a clasificar el verano en los archivos",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",

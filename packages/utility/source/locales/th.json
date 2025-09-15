@@ -54,6 +54,7 @@
 			"Repository of Refuge": "โกดังลี้ภัย",
 			"Vault Second Floor": "",
 			"Vault Summit": "",
+			"Eye of Eden": "ดวงตาแห่งเอเดน",
 			"Orbit": "",
 			"Ancient Memory": "ความทรงจำโบราณ",
 			"Aviary Village": "หมู่บ้านเอเวียรี"
@@ -331,7 +332,8 @@
 			"249": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.109)\",\"location\":\"$t(maps.Prairie Temple)\"})",
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "ช่วยเหลือสาวกผู้อธิษฐานบันทึกช่วงเวลาฤดูร้อนไว้ในห้องเก็บเอกสาร",
-			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})"
+			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
 		},
 		"seasons": {
 			"0": "ฤดูกาลแห่งความกตัญญู",
