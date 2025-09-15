@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Link, useLocation } from "react-router";
+import { Link, useLocation } from "react-router";
 import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL, timeString } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
@@ -181,16 +181,14 @@ function UserMenu({ user }: UserMenuProps) {
 							<span>{t("checklist.title", { ns: "features" })}</span>
 						</Link>
 						<div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
-							<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
-								<button
-									className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
-									onClick={() => setIsOpen(false)}
-									type="submit"
-								>
-									<LogOut className="h-4 w-4" />
-									<span>Sign out</span>
-								</button>
-							</Form>
+							<Link
+								className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
+								onClick={() => setIsOpen(false)}
+								to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
+							>
+								<LogOut className="h-4 w-4" />
+								<span>Log out</span>
+							</Link>
 						</div>
 					</div>
 				</div>
@@ -265,16 +263,14 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 									<CheckSquare className="h-4 w-4" />
 									{t("checklist.title", { ns: "features" })}
 								</Link>
-								<Form action={`/logout?returnTo=${encodeURIComponent(currentPath)}`} method="post">
-									<button
-										className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
-										onClick={onClose}
-										type="submit"
-									>
-										<LogOut className="h-4 w-4" />
-										Sign out
-									</button>
-								</Form>
+								<Link
+									className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
+									onClick={() => onClose()}
+									to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
+								>
+									<LogOut className="h-4 w-4" />
+									<span>Log out</span>
+								</Link>
 							</div>
 						</div>
 					) : (
