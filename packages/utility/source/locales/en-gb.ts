@@ -3408,7 +3408,7 @@ export default {
 			"detailed-breakdown-aurora-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/AURORA_Concert",
 			"detailed-breakdown-aurora-message":
-				"Available every 2 hours from {{timestamp}} lasting 49 minutes.\n\n{{timestamps}}\n\n{{status}}",
+				"Available every 2 hours from {{timestamp}} lasting 48 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-aurora-requires": "-# Requires {{emoji}}",
 			"detailed-breakdown-passage-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_Passage#Spirit_Memory_Quests",
