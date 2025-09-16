@@ -61,7 +61,6 @@ export default new Season({
 						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 					],
-	doubleSeasonalLightEventStartDate: skyDate(2_025, 6, 9),
-	doubleSeasonalLightEventEndDate: skyDate(2_025, 6, 23),
+	doubleSeasonalLight: [{ start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) }],
 	patchNotesURL: patchNotesRoute("0290"),
 });

@@ -96,7 +96,7 @@ export const zhCN = zhCNLocale;
 export const zhTW = zhTWLocale;
 export { Event } from "./models/event.js";
 export { Realm } from "./models/realm.js";
-export { Season } from "./models/season.js";
+export { type DoubleSeasonalLightDate, Season } from "./models/season.js";
 export {
 	ElderSpirit,
 	GuideSpirit,

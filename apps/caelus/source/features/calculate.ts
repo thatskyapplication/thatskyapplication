@@ -9,6 +9,7 @@ import {
 } from "@discordjs/core";
 import {
 	AreaToWingedLight,
+	type DoubleSeasonalLightDate,
 	type Event,
 	formatEmoji,
 	formatEmojiURL,
@@ -330,14 +331,18 @@ export async function seasonalCandles(
 	let days = 0;
 	let resultWithSeasonPass = 0;
 	let daysWithSeasonPass = 1;
-	let includedDoubleLight = false;
+	let doubleSeasonalLightDates: DoubleSeasonalLightDate | null = null;
 
 	for (let day = today; result < amountRequired; day = day.plus({ day: 1 }), days++) {
 		result += SEASONAL_CANDLES_PER_DAY;
 		resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-		if (season?.isDuringDoubleSeasonalLightEvent(day)) {
-			includedDoubleLight = true;
+		const doubleSeasonalLight = season.doubleSeasonalLight?.find(
+			({ start, end }) => day >= start && day < end,
+		);
+
+		if (doubleSeasonalLight) {
+			doubleSeasonalLightDates = doubleSeasonalLight;
 			result += 1;
 			resultWithSeasonPass += 1;
 		}
@@ -408,16 +413,13 @@ export async function seasonalCandles(
 		spacing: SeparatorSpacingSize.Small,
 	});
 
-	if (includedDoubleLight) {
+	if (doubleSeasonalLightDates) {
 		const formatOptions: Intl.DateTimeFormatOptions = {
 			timeZone: TIME_ZONE,
 			dateStyle: "short",
 		};
 
-		if (
-			season.doubleSeasonalLightEventStartDate!.hour !== 0 ||
-			season.doubleSeasonalLightEventStartDate!.minute !== 0
-		) {
+		if (doubleSeasonalLightDates.start.hour !== 0 || doubleSeasonalLightDates.start.minute !== 0) {
 			formatOptions.timeStyle = "short";
 		}
 
@@ -427,12 +429,12 @@ export async function seasonalCandles(
 				lng: locale,
 				ns: "features",
 				start: Intl.DateTimeFormat(locale, formatOptions).format(
-					season.doubleSeasonalLightEventStartDate!.toMillis(),
+					doubleSeasonalLightDates.start.toMillis(),
 				),
 				end: Intl.DateTimeFormat(locale, formatOptions).format(
-					season.doubleSeasonalLightEventEndDate!.toMillis(),
+					doubleSeasonalLightDates.end.toMillis(),
 				),
-				relative: `<t:${season.doubleSeasonalLightEventEndDate!.toUnixInteger()}:R>`,
+				relative: `<t:${doubleSeasonalLightDates.end.toUnixInteger()}:R>`,
 			}),
 		});
 	}

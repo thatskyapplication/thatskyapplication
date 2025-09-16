@@ -66,7 +66,6 @@ export default new Season({
 							{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 							{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 						],
-	doubleSeasonalLightEventStartDate: skyDate(2_025, 3, 17),
-	doubleSeasonalLightEventEndDate: skyDate(2_025, 3, 24),
+	doubleSeasonalLight: [{ start: skyDate(2_025, 3, 17), end: skyDate(2_025, 3, 24) }],
 	patchNotesURL: patchNotesRoute("0280"),
 });

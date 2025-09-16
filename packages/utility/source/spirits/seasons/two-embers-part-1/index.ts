@@ -88,7 +88,9 @@ export default new Season({
 			cost: { money: 24.99 },
 		},
 	],
-	doubleSeasonalLightEventStartDate: skyDate(2_025, 8, 19),
-	doubleSeasonalLightEventEndDate: skyDate(2_025, 9, 2),
+	doubleSeasonalLight: [
+		{ start: skyDate(2_025, 8, 19), end: skyDate(2_025, 9, 2) },
+		{ start: skyDate(2_025, 9, 22), end: skyDate(2_025, 9, 29) },
+	],
 	patchNotesURL: patchNotesRoute("0300"),
 });
