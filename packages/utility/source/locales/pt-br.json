@@ -3092,7 +3092,7 @@
 			"detailed-breakdown-dreams-skater-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Fontes_de_Luz_Adicionais#Patinadora_dos_Sonhos",
 			"detailed-breakdown-dreams-skater-message": "Disponível toda Sexta, Sábado e Domingo a cada 2 horas a partir de {{timestamp}}, com duração de 15 minutos.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-aurora-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Concerto_da_AURORA",
-			"detailed-breakdown-aurora-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 49 minutos.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-aurora-message": "",
 			"detailed-breakdown-aurora-requires": "-# Requer {{emoji}}",
 			"detailed-breakdown-passage-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Passagem#Miss%C3%B5es_de_Mem%C3%B3ria_Espiritual",
 			"detailed-breakdown-passage-message": "Disponível a cada 15 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",

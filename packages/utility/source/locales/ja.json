@@ -2521,8 +2521,8 @@
 			"command-description": ""
 		},
 		"checklist": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "チェックリスト",
+			"command-description": "デイリークエストや原罪などの進捗を記録しましょう！"
 		},
 		"configure": {
 			"command-name": "",
@@ -2862,24 +2862,24 @@
 			"seasons-season-next-season": ""
 		},
 		"checklist": {
-			"title": "",
-			"description": "",
-			"complete": "",
-			"reset": "",
-			"daily-quests-message-incomplete": "",
-			"daily-quests-message-complete": "",
-			"daily-quests-show-button-label": "",
-			"seasonal-candles-message-incomplete": "",
-			"seasonal-candles-message-incomplete-double": "",
-			"seasonal-candles-message-complete": "",
-			"eye-of-eden-message-incomplete": "",
-			"eye-of-eden-message-complete": "",
-			"shard-eruptions-message-none": "",
-			"shard-eruptions-message-incomplete": "",
-			"shard-eruptions-message-complete": "",
-			"shard-eruptions-show-button-label": "",
-			"event-tickets-message-incomplete": "",
-			"event-tickets-message-complete": ""
+			"title": "チェックリスト",
+			"description": "{{user}}さん、Skyでの活躍を記録しましょう！",
+			"complete": "完了",
+			"reset": "リセット",
+			"daily-quests-message-incomplete": "デイリークエストは全て完了しましたか？",
+			"daily-quests-message-complete": "デイリークエストを全て達成しました！お見事です！",
+			"daily-quests-show-button-label": "デイリーガイドを見る",
+			"seasonal-candles-message-incomplete": "本日のシーズンキャンドルは全て獲得しましたか？エリア内・デイリークエスト・シーズンパス特典(所持者のみ)",
+			"seasonal-candles-message-incomplete-double": "本日のシーズンキャンドルは全て獲得しましたか？エリア内・デイリークエスト・シーズンパス特典(所持者のみ)\nエリア内のシーズンキャンドル2倍キャンペーン中！",
+			"seasonal-candles-message-complete": "シーズンキャンドルを集めきりました！この調子で頑張りましょう！",
+			"eye-of-eden-message-incomplete": "今週は原罪に行きましたか？",
+			"eye-of-eden-message-complete": "原罪を乗り越えたあなたは、とても勇敢です！",
+			"shard-eruptions-message-none": "本日の闇の破片の噴出はありません。",
+			"shard-eruptions-message-incomplete": "本日は闇の破片を浄化しましたか？",
+			"shard-eruptions-message-complete": "闇の破片を浄化しました！頑張りましたね！",
+			"shard-eruptions-show-button-label": "闇の破片を見る",
+			"event-tickets-message-incomplete": "本日のイベントチケットは全て獲得しましたか？",
+			"event-tickets-message-complete": "本日のイベントチケットを全て獲得しました！素晴らしい！"
 		},
 		"daily-guides": {
 			"quests-heading": "",
