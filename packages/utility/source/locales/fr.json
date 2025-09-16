@@ -3092,7 +3092,7 @@
 			"detailed-breakdown-dreams-skater-wiki-button-url": "",
 			"detailed-breakdown-dreams-skater-message": "Disponible tous les vendredis, samedi et dimanche toutes les 2 heures depuis {{timestamp}} et dure 15 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-aurora-wiki-button-url": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Concert_d%27AURORA",
-			"detailed-breakdown-aurora-message": "Disponible toutes les 2 heures depuis {{timestamp}} et dure 49 minutes.\n\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-aurora-message": "",
 			"detailed-breakdown-aurora-requires": "-# Nécessite {{emoji}}",
 			"detailed-breakdown-passage-wiki-button-url": "",
 			"detailed-breakdown-passage-message": "Disponible toutes les 15 minutes depuis {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
