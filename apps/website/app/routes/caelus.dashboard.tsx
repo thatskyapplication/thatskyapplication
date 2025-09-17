@@ -1,12 +1,11 @@
-import {
-	PermissionFlagsBits,
-	type RESTGetAPICurrentUserGuildsResult,
-} from "@discordjs/core/http-only";
+import { PermissionFlagsBits } from "@discordjs/core/http-only";
+import { DiscordAPIError } from "@discordjs/rest";
 import { Server, Settings } from "lucide-react";
 import { useState } from "react";
 import type { HeadersArgs, LoaderFunctionArgs } from "react-router";
 import { redirect, useLoaderData } from "react-router";
 import { guildCache } from "~/cache.server.js";
+import discord from "~/discord.js";
 import pino from "~/pino";
 import { getSession } from "~/session.server";
 import { guildIconURL } from "~/utility/functions.js";
@@ -29,22 +28,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	}
 
 	try {
-		const response = await fetch("https://discord.com/api/v10/users/@me/guilds", {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
+		const guilds = await discord.users.getGuilds(undefined, {
+			auth: { prefix: "Bearer", token: accessToken },
 		});
 
-		if (response.status === 401) {
-			const returnTo = encodeURIComponent(request.url);
-			return redirect(`/login?returnTo=${returnTo}`);
-		}
-
-		if (!response.ok) {
-			throw await response.json();
-		}
-
-		const guilds = (await response.json()) as RESTGetAPICurrentUserGuildsResult;
 		const guildsWithAdmin = [];
 
 		for (const guild of guilds) {
@@ -57,9 +44,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		}
 
 		guildCache.set(user.id, guildsWithAdmin, 5);
-
 		return { guilds: guildsWithAdmin, error: false };
 	} catch (error) {
+		if (error instanceof DiscordAPIError && error.status === 401) {
+			const returnTo = encodeURIComponent(request.url);
+			return redirect(`/login?returnTo=${returnTo}`);
+		}
+
 		pino.error({ request, error }, "Failed to load dashboard.");
 		return { guilds: [], error: true };
 	}

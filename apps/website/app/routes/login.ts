@@ -1,4 +1,3 @@
-import type { APIUser } from "@discordjs/core/http-only";
 import { type LoaderFunction, redirect } from "react-router";
 import { APPLICATION_ID, DISCORD_CLIENT_SECRET, REDIRECT_URI_LOGIN } from "~/config.server";
 import discord from "~/discord";
@@ -37,46 +36,26 @@ export const loader: LoaderFunction = async ({ request }) => {
 		}
 
 		try {
-			const tokenResponse = await fetch("https://discord.com/api/oauth2/token", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded",
-				},
-				body: new URLSearchParams({
-					client_id: APPLICATION_ID,
-					client_secret: DISCORD_CLIENT_SECRET,
-					grant_type: "authorization_code",
-					code,
-					redirect_uri: REDIRECT_URI_LOGIN,
-				}),
+			const tokenExchange = await discord.oauth2.tokenExchange({
+				client_id: APPLICATION_ID,
+				client_secret: DISCORD_CLIENT_SECRET,
+				grant_type: "authorization_code",
+				code,
+				redirect_uri: REDIRECT_URI_LOGIN,
 			});
 
-			if (!tokenResponse.ok) {
-				throw await tokenResponse.json();
-			}
-
-			const tokenData = await tokenResponse.json();
-
-			const userResponse = await fetch("https://discord.com/api/users/@me", {
-				headers: {
-					Authorization: `Bearer ${tokenData.access_token}`,
-				},
+			const user = await discord.users.getCurrent({
+				auth: { prefix: "Bearer", token: tokenExchange.access_token },
 			});
-
-			if (!userResponse.ok) {
-				throw await userResponse.json();
-			}
-
-			const userData = (await userResponse.json()) as APIUser;
 
 			session.set("user", {
-				id: userData.id,
-				username: userData.username,
-				discriminator: userData.discriminator,
-				avatar: userData.avatar,
+				id: user.id,
+				username: user.username,
+				discriminator: user.discriminator,
+				avatar: user.avatar,
 			});
 
-			session.set("access_token", tokenData.access_token);
+			session.set("access_token", tokenExchange.access_token);
 
 			return redirect(storedReturnTo, {
 				headers: {
