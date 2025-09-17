@@ -11,6 +11,7 @@ import {
 } from "@discordjs/core";
 import {
 	type ChecklistPacket,
+	type ChecklistSetData,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
@@ -423,22 +424,42 @@ export async function checklistHandleEventTickets(
 	});
 }
 
-export async function checklistResetDailyQuests() {
-	await pg<ChecklistPacket>(Table.Checklist).update({ daily_quests: false });
+export interface ChecklistResetOptions {
+	dailyQuests?: boolean;
+	seasonalCandles?: boolean;
+	eyeOfEden?: boolean;
+	shardEruptions?: boolean;
+	eventTickets?: boolean;
 }
 
-export async function checklistResetSeasonalCandles() {
-	await pg<ChecklistPacket>(Table.Checklist).update({ seasonal_candles: false });
-}
+export async function checklistReset({
+	dailyQuests,
+	seasonalCandles,
+	eyeOfEden,
+	shardEruptions,
+	eventTickets,
+}: ChecklistResetOptions) {
+	const payload: ChecklistSetData = {};
 
-export async function checklistResetEyeOfEden() {
-	await pg<ChecklistPacket>(Table.Checklist).update({ eye_of_eden: false });
-}
+	if (dailyQuests) {
+		payload.daily_quests = false;
+	}
 
-export async function checklistResetShardEruptions() {
-	await pg<ChecklistPacket>(Table.Checklist).update({ shard_eruptions: false });
-}
+	if (seasonalCandles) {
+		payload.seasonal_candles = false;
+	}
 
-export async function checklistResetEventTickets() {
-	await pg<ChecklistPacket>(Table.Checklist).update({ event_tickets: false });
+	if (eyeOfEden) {
+		payload.eye_of_eden = false;
+	}
+
+	if (shardEruptions) {
+		payload.shard_eruptions = false;
+	}
+
+	if (eventTickets) {
+		payload.event_tickets = false;
+	}
+
+	await pg<ChecklistPacket>(Table.Checklist).update(payload);
 }
