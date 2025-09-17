@@ -1,15 +1,16 @@
 import {
 	PermissionFlagsBits,
-	type RESTAPIPartialCurrentUserGuild,
 	type RESTGetAPICurrentUserGuildsResult,
 } from "@discordjs/core/http-only";
 import { Server, Settings } from "lucide-react";
 import { useState } from "react";
-import type { LoaderFunctionArgs } from "react-router";
+import type { HeadersArgs, LoaderFunctionArgs } from "react-router";
 import { redirect, useLoaderData } from "react-router";
+import { guildCache } from "~/cache.server.js";
 import pino from "~/pino";
 import { getSession } from "~/session.server";
 import { guildIconURL } from "~/utility/functions.js";
+import { hasAnyHeaders } from "~/utility/functions.server.js";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
@@ -19,6 +20,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	if (!(user && accessToken)) {
 		const returnTo = encodeURIComponent(request.url);
 		return redirect(`/login?returnTo=${returnTo}`);
+	}
+
+	const cached = guildCache.get(user.id);
+
+	if (cached) {
+		return { guilds: cached, error: false };
 	}
 
 	try {
@@ -38,24 +45,29 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		}
 
 		const guilds = (await response.json()) as RESTGetAPICurrentUserGuildsResult;
+		const guildsWithAdmin = [];
 
-		return {
-			guilds: guilds.reduce<RESTAPIPartialCurrentUserGuild[]>((guilds, guild) => {
-				if (
-					(BigInt(guild.permissions) & PermissionFlagsBits.Administrator) ===
-					PermissionFlagsBits.Administrator
-				) {
-					guilds.push(guild);
-				}
+		for (const guild of guilds) {
+			if (
+				(BigInt(guild.permissions) & PermissionFlagsBits.Administrator) ===
+				PermissionFlagsBits.Administrator
+			) {
+				guildsWithAdmin.push(guild);
+			}
+		}
 
-				return guilds;
-			}, []),
-		};
+		guildCache.set(user.id, guildsWithAdmin, 5);
+
+		return { guilds: guildsWithAdmin, error: false };
 	} catch (error) {
 		pino.error({ request, error }, "Failed to load dashboard.");
 		return { guilds: [], error: true };
 	}
 };
+
+export function headers({ actionHeaders, loaderHeaders }: HeadersArgs) {
+	return hasAnyHeaders(actionHeaders) ? actionHeaders : loaderHeaders;
+}
 
 export default function Dashboard() {
 	const { guilds, error } = useLoaderData<typeof loader>();
