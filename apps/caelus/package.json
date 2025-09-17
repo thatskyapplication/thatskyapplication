@@ -16,9 +16,9 @@
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.864.0",
 		"@discordjs/collection": "^2.1.1",
-		"@discordjs/core": "^2.2.2",
-		"@discordjs/rest": "^2.6.0",
-		"@discordjs/ws": "^2.0.3",
+		"@discordjs/core": "dev",
+		"@discordjs/rest": "dev",
+		"@discordjs/ws": "dev",
 		"@logtail/pino": "^0.5.5",
 		"@sapphire/snowflake": "^3.5.5",
 		"@sentry/node": "^10.9.0",

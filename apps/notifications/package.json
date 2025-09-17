@@ -12,8 +12,8 @@
 		"knip": "knip"
 	},
 	"dependencies": {
-		"@discordjs/core": "^2.2.2",
-		"@discordjs/rest": "^2.6.0",
+		"@discordjs/core": "dev",
+		"@discordjs/rest": "dev",
 		"@logtail/pino": "^0.5.5",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
