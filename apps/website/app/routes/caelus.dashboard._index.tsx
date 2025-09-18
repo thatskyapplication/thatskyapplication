@@ -1,41 +1,19 @@
-import { PermissionFlagsBits } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
 import { Server, Settings } from "lucide-react";
 import { useState } from "react";
 import type { HeadersArgs, LoaderFunctionArgs } from "react-router";
 import { redirect, useLoaderData } from "react-router";
-import { guildCache } from "~/cache.server.js";
-import discord from "~/discord.js";
 import pino from "~/pino";
 import { guildIconURL } from "~/utility/functions.js";
 import { hasAnyHeaders, requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { getUserAdminGuilds } from "~/utility/guilds.server.js";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request);
-	const cached = guildCache.get(discordUser.id);
-
-	if (cached) {
-		return { guilds: cached, error: false };
-	}
 
 	try {
-		const guilds = await discord.users.getGuilds(undefined, {
-			auth: { prefix: "Bearer", token: tokenExchange.access_token },
-		});
-
-		const guildsWithAdmin = [];
-
-		for (const guild of guilds) {
-			if (
-				(BigInt(guild.permissions) & PermissionFlagsBits.Administrator) ===
-				PermissionFlagsBits.Administrator
-			) {
-				guildsWithAdmin.push(guild);
-			}
-		}
-
-		guildCache.set(discordUser.id, guildsWithAdmin, 5);
-		return { guilds: guildsWithAdmin, error: false };
+		const guilds = await getUserAdminGuilds(discordUser, tokenExchange);
+		return { guilds };
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);
