@@ -20,7 +20,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 		const guild = guilds.find((guild) => guild.id === guildId);
 
 		if (!guild) {
-			throw new Response(null, { status: 403 });
+			return redirect("/caelus/dashboard");
 		}
 
 		return { guild };
