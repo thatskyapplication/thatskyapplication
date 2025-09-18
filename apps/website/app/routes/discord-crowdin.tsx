@@ -14,18 +14,15 @@ import pg from "~/pg.server";
 import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
-import { generateState } from "~/utility/functions.server";
-import type { DiscordUser } from "~/utility/types.js";
+import { generateState, requireDiscordAuthentication } from "~/utility/functions.server";
+import type { CrowdinUser, DiscordUser } from "~/utility/types.js";
 
 interface AuthState {
 	crowdinAuthorised: boolean;
 	discordUser: DiscordUser;
 	success?: boolean;
-	crowdinUser?: {
-		id: number;
-		username: string;
-	};
-	error?: string;
+	crowdinUser?: CrowdinUser | undefined;
+	error?: string | undefined;
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -34,22 +31,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const crowdinCode = url.searchParams.get("code");
 	const state = url.searchParams.get("state");
 	const error = url.searchParams.get("error");
-	const discordUser = session.get("user");
-
-	if (!discordUser) {
-		const returnTo = encodeURIComponent(request.url);
-		return redirect(`/login?returnTo=${returnTo}`);
-	}
+	const { discordUser } = await requireDiscordAuthentication(request);
 
 	if (error) {
-		session.set("auth_error", error);
+		session.set("discord_crowdin_auth_error", error);
 	}
 
 	const authenticationState: AuthState = {
 		crowdinAuthorised: session.get("crowdin_authorised") ?? false,
 		discordUser,
 		crowdinUser: session.get("crowdin_user"),
-		error: session.get("auth_error"),
+		error: session.get("discord_crowdin_auth_error"),
 	};
 
 	if (crowdinCode && state === session.get("crowdin_state")) {
@@ -99,14 +91,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 			session.set("crowdin_authorised", true);
 			session.set("crowdin_user", authenticationState.crowdinUser);
-			session.set("crowdin_token", tokenData.access_token);
 		} catch (error) {
 			pino.error({ request, error }, "Failed to authorise with Crowdin.");
 			authenticationState.error = "Failed to authorise with Crowdin.";
-			session.set("auth_error", authenticationState.error);
+			session.set("discord_crowdin_auth_error", authenticationState.error);
 		}
-
-		session.unset("crowdin_state");
 	}
 
 	if (authenticationState.crowdinAuthorised && authenticationState.discordUser) {
@@ -140,12 +129,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		} catch (error) {
 			pino.error({ request, error }, "Failed to link accounts.");
 			authenticationState.error = "Failed to link accounts.";
-			session.set("auth_error", authenticationState.error);
+			session.set("discord_crowdin_auth_error", authenticationState.error);
 		}
-	}
-
-	if (authenticationState.error) {
-		session.unset("auth_error");
 	}
 
 	return data(authenticationState, {
@@ -159,16 +144,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	const formData = await request.formData();
 	const action = formData.get("action");
 	const session = await getSession(request.headers.get("Cookie"));
-	const discordUser = session.get("user");
-
-	if (!discordUser) {
-		const returnTo = encodeURIComponent(request.url);
-		return redirect(`/login?returnTo=${returnTo}`);
-	}
+	await requireDiscordAuthentication(request);
 
 	if (action === "authorise_crowdin") {
 		const state = generateState();
-		session.set("crowdin_state", state);
+		session.flash("crowdin_state", state);
 		const authenticationURL = new URL("https://accounts.crowdin.com/oauth/authorize");
 		authenticationURL.searchParams.set("response_type", "code");
 		authenticationURL.searchParams.set("client_id", CROWDIN_CLIENT_ID);

@@ -16,8 +16,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 	if (code) {
 		const storedState = session.get("oauth_state");
 		const storedReturnTo = session.get("return_to") || returnTo;
-		session.unset("oauth_state");
-		session.unset("return_to");
 
 		if (error) {
 			return redirect(storedReturnTo, {
@@ -48,14 +46,17 @@ export const loader: LoaderFunction = async ({ request }) => {
 				auth: { prefix: "Bearer", token: tokenExchange.access_token },
 			});
 
-			session.set("user", {
+			session.set("discord_user", {
 				id: user.id,
 				username: user.username,
 				discriminator: user.discriminator,
 				avatar: user.avatar,
 			});
 
-			session.set("access_token", tokenExchange.access_token);
+			session.set("token_exchange", {
+				...tokenExchange,
+				expires_at: Date.now() + tokenExchange.expires_in * 1000,
+			});
 
 			return redirect(storedReturnTo, {
 				headers: {
@@ -74,8 +75,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 	}
 
 	const oAuthState = generateState();
-	session.set("oauth_state", oAuthState);
-	session.set("return_to", returnTo);
+	session.flash("oauth_state", oAuthState);
+	session.flash("return_to", returnTo);
 
 	return redirect(
 		discord.oauth2.generateAuthorizationURL({

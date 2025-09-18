@@ -11,22 +11,17 @@ import {
 import { CheckCircle, Circle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { Form, Link, redirect, useLoaderData } from "react-router";
+import { Form, Link, useLoaderData } from "react-router";
 import pg from "~/pg.server";
-import { getSession } from "~/session.server";
+import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const session = await getSession(request.headers.get("Cookie"));
-	const user = session.get("user");
-
-	if (!user) {
-		const returnTo = encodeURIComponent(request.url);
-		return redirect(`/login?returnTo=${returnTo}`);
-	}
+	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
-		.where({ user_id: user.id })
+		.where({ user_id: discordUser.id })
 		.first();
+
 	const now = skyNow();
 	const shard = shardEruption();
 	const season = skyCurrentSeason(now);
@@ -37,7 +32,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	return {
 		checklistPacket,
-		user,
+		discordUser,
 		shard,
 		season,
 		isAnyEventWithEventTickets,
@@ -46,14 +41,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-	const session = await getSession(request.headers.get("Cookie"));
-	const user = session.get("user");
-
-	if (!user) {
-		const returnTo = encodeURIComponent(request.url);
-		return redirect(`/login?returnTo=${returnTo}`);
-	}
-
+	const { discordUser } = await requireDiscordAuthentication(request);
 	const formData = await request.formData();
 	const dailyQuests = formData.get("daily_quests");
 	const seasonalCandles = formData.get("seasonal_candles");
@@ -83,7 +71,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	}
 
 	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({ user_id: user.id, ...payload })
+		.insert({ user_id: discordUser.id, ...payload })
 		.onConflict("user_id")
 		.merge();
 
@@ -93,7 +81,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 export default function Checklist() {
 	const {
 		checklistPacket,
-		user,
+		discordUser,
 		shard,
 		season,
 		isAnyEventWithEventTickets,
@@ -110,7 +98,7 @@ export default function Checklist() {
 						{t("checklist.title", { ns: "features" })}
 					</h1>
 					<p className="text-gray-600 dark:text-gray-300 text-sm">
-						{t("checklist.description", { ns: "features", user: user.username })}
+						{t("checklist.description", { ns: "features", user: discordUser.username })}
 					</p>
 				</div>
 				<div className="space-y-4 mb-6">

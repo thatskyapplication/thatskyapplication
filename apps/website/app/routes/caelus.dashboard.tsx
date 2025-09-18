@@ -7,21 +7,12 @@ import { redirect, useLoaderData } from "react-router";
 import { guildCache } from "~/cache.server.js";
 import discord from "~/discord.js";
 import pino from "~/pino";
-import { getSession } from "~/session.server";
 import { guildIconURL } from "~/utility/functions.js";
-import { hasAnyHeaders } from "~/utility/functions.server.js";
+import { hasAnyHeaders, requireDiscordAuthentication } from "~/utility/functions.server.js";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const session = await getSession(request.headers.get("Cookie"));
-	const user = session.get("user");
-	const accessToken = session.get("access_token");
-
-	if (!(user && accessToken)) {
-		const returnTo = encodeURIComponent(request.url);
-		return redirect(`/login?returnTo=${returnTo}`);
-	}
-
-	const cached = guildCache.get(user.id);
+	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request);
+	const cached = guildCache.get(discordUser.id);
 
 	if (cached) {
 		return { guilds: cached, error: false };
@@ -29,7 +20,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	try {
 		const guilds = await discord.users.getGuilds(undefined, {
-			auth: { prefix: "Bearer", token: accessToken },
+			auth: { prefix: "Bearer", token: tokenExchange.access_token },
 		});
 
 		const guildsWithAdmin = [];
@@ -43,7 +34,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			}
 		}
 
-		guildCache.set(user.id, guildsWithAdmin, 5);
+		guildCache.set(discordUser.id, guildsWithAdmin, 5);
 		return { guilds: guildsWithAdmin, error: false };
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
