@@ -16,8 +16,6 @@ import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
 
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
-export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
-export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 export { AI_FREQUENCY_TYPE_VALUES, AIFrequencyType, type AIFrequencyTypes } from "./ai.js";
 export type { CataloguePacket } from "./catalogue.js";
 export type { ChecklistPacket, ChecklistSetData } from "./checklist.js";
@@ -113,7 +111,29 @@ export {
 	type NotificationTypes,
 } from "./notifications.js";
 export { isPlatformId, PLATFORM_ID_VALUES, PlatformId, type PlatformIds } from "./platforms.js";
-export { SCHEDULE_TYPE_VALUES, ScheduleType, type ScheduleTypes } from "./schedule.js";
+export {
+	auroraSchedule,
+	aviarysFireworkFestivalSchedule,
+	dreamsSkaterSchedule,
+	grandmaSchedule,
+	INTERNATIONAL_SPACE_STATION_DATES,
+	INTERNATIONAL_SPACE_STATION_PRIOR_DATES,
+	internationalSpaceStationSchedule,
+	nextDailyReset,
+	nextEyeOfEden,
+	nextNestingWorkshop,
+	nextPassage,
+	nineColouredDeerSchedule,
+	pollutedGeyserSchedule,
+	projectorOfMemoriesSchedule,
+	SCHEDULE_TYPE_VALUES,
+	ScheduleType,
+	type ScheduleTypes,
+	shardEruptionSchedule,
+	travellingSpiritSchedule,
+	turtleSchedule,
+	vaultEldersBlessingSchedule,
+} from "./schedule.js";
 export {
 	isSeasonId,
 	RotationIdentifier,

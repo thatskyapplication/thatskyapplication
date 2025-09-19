@@ -65,6 +65,7 @@ f:me:
 f:schedule:
  - changed-files:
    - any-glob-to-any-file:
+     - apps/website/app/routes/schedule.tsx
      - apps/caelus/source/features/schedule.ts
      - packages/utility/source/schedule.ts
 f:sky-profile:
