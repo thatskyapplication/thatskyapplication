@@ -920,7 +920,7 @@ export async function interactive(
 	const questOptions = [];
 
 	for (const quest of quests) {
-		if (!quest) {
+		if (quest === null) {
 			continue;
 		}
 
