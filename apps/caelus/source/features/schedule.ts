@@ -981,8 +981,7 @@ function projectorOfMemoriesOverview(date: DateTime) {
 	const minutesSince = hour * 60 + minute;
 
 	return {
-		// Assume it lasts 70 minutes.
-		now: minutesSince % 80 < 70,
+		now: minutesSince % 80 < 78,
 		next: `<t:${date.plus({ minutes: 80 - (minutesSince % 80) }).toUnixInteger()}:R>`,
 	};
 }
@@ -998,7 +997,7 @@ function projectorOfMemoriesDetailedBreakdown(
 	for (let start = startOfDay; start < tomorrow; start = start.plus({ minutes: 80 })) {
 		let string = `<t:${start.toUnixInteger()}:t>`;
 
-		if (now >= start.plus({ minutes: 70 })) {
+		if (now >= start.plus({ minutes: 78 })) {
 			string = `~~${string}~~`;
 		}
 
