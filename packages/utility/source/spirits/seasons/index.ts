@@ -66,7 +66,7 @@ enum VisitType {
 	Returning = 1,
 }
 
-interface Visit {
+export interface Visit {
 	type: VisitType;
 	spiritId: SpiritIds;
 	visit: number;

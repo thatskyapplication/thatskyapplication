@@ -13,15 +13,31 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
+	auroraSchedule,
+	aviarysFireworkFestivalSchedule,
 	currentSeasonalSpirits,
+	dreamsSkaterSchedule,
 	EventId,
 	formatEmoji,
+	grandmaSchedule,
 	INTERNATIONAL_SPACE_STATION_DATES,
+	internationalSpaceStationSchedule,
+	nextDailyReset,
+	nextEyeOfEden,
+	nextNestingWorkshop,
+	nextPassage,
+	nineColouredDeerSchedule,
+	pollutedGeyserSchedule,
+	projectorOfMemoriesSchedule,
 	ScheduleType,
 	type ScheduleTypes,
 	shardEruption,
+	shardEruptionSchedule,
 	skyNow,
 	TRAVELLING_DATES,
+	travellingSpiritSchedule,
+	turtleSchedule,
+	vaultEldersBlessingSchedule,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
@@ -59,18 +75,18 @@ export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_
 export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID =
 	"SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID" as const;
 
-function nextDailyReset(date: DateTime, locale: Locale) {
-	const tomorrow = date.plus({ day: 1 }).toUnixInteger();
+function dailyResetNext(now: DateTime, locale: Locale) {
+	const timestamp = nextDailyReset(now).toUnixInteger();
 
 	return t("schedule.next-daily-reset", {
 		lng: locale,
 		ns: "features",
-		timestamp1: `<t:${tomorrow}:t>`,
-		timestamp2: `<t:${tomorrow}:R>`,
+		timestamp1: `<t:${timestamp}:t>`,
+		timestamp2: `<t:${timestamp}:R>`,
 	});
 }
 
-function dailyResetDetailedBreakdown(date: DateTime, locale: Locale): APIComponentInContainer[] {
+function dailyResetDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const shard = shardEruption();
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
@@ -90,7 +106,7 @@ function dailyResetDetailedBreakdown(date: DateTime, locale: Locale): APICompone
 			content: t("schedule.detailed-breakdown-daily-reset-message", {
 				lng: locale,
 				ns: "features",
-				time: nextDailyReset(date, locale),
+				time: dailyResetNext(now, locale),
 			}),
 		},
 		{
@@ -112,8 +128,8 @@ function dailyResetDetailedBreakdown(date: DateTime, locale: Locale): APICompone
 	];
 }
 
-function nextEyeOfEden(date: DateTime, locale: Locale) {
-	const timestamp = date.plus({ days: 7 - (date.weekday % 7) }).toUnixInteger();
+function eyeOfEdenNext(now: DateTime, locale: Locale) {
+	const timestamp = nextEyeOfEden(now).toUnixInteger();
 
 	return t("schedule.next-eye-of-eden", {
 		lng: locale,
@@ -123,7 +139,7 @@ function nextEyeOfEden(date: DateTime, locale: Locale) {
 	});
 }
 
-function eyeOfEdenDetailedBreakdown(date: DateTime, locale: Locale): APIComponentInContainer[] {
+function eyeOfEdenDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
 	const shard = shardEruption();
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
@@ -143,7 +159,7 @@ function eyeOfEdenDetailedBreakdown(date: DateTime, locale: Locale): APIComponen
 			content: t("schedule.detailed-breakdown-eye-of-eden-message", {
 				lng: locale,
 				ns: "features",
-				time: nextEyeOfEden(date, locale),
+				time: eyeOfEdenNext(now, locale),
 			}),
 		},
 		{
@@ -154,19 +170,11 @@ function eyeOfEdenDetailedBreakdown(date: DateTime, locale: Locale): APIComponen
 }
 
 function internationalSpaceStationOverview(date: DateTime) {
-	const targetDay = INTERNATIONAL_SPACE_STATION_DATES.find(
-		(internationalSpaceStationDates) => internationalSpaceStationDates > date.day,
-	);
-
-	const targetDate = targetDay
-		? date.set({ day: targetDay })
-		: date.plus({ month: 1 }).set({ day: INTERNATIONAL_SPACE_STATION_DATES[0] });
+	const schedule = internationalSpaceStationSchedule(date);
 
 	return {
-		now: INTERNATIONAL_SPACE_STATION_DATES.includes(
-			date.day as (typeof INTERNATIONAL_SPACE_STATION_DATES)[number],
-		),
-		next: `<t:${targetDate.toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -233,13 +241,13 @@ function internationalSpaceStationDetailedBreakdown(
 }
 
 function travellingSpiritOverview(now: DateTime, locale: Locale) {
-	const travellingSpirit = TRAVELLING_DATES.findLast(({ start, end }) => now >= start && now < end);
+	const schedule = travellingSpiritSchedule(now);
 
 	return {
-		now: travellingSpirit
-			? t(`spirits.${travellingSpirit.spiritId}`, { lng: locale, ns: "general" })
+		now: schedule.visit
+			? t(`spirits.${schedule.visit.spiritId}`, { lng: locale, ns: "general" })
 			: (false as const),
-		next: `<t:${TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }).toUnixInteger()}:R>`,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -307,11 +315,11 @@ function travellingSpiritDetailedBreakdown(
 }
 
 function pollutedGeyserOverview(date: DateTime) {
-	const { hour, minute } = date;
+	const schedule = pollutedGeyserSchedule(date);
 
 	return {
-		now: hour % 2 === 0 && minute >= 5 && minute < 15,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 5 ? 5 - minute : 125 - minute) : 65 - minute }).toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -368,11 +376,11 @@ function pollutedGeyserDetailedBreakdown(now: DateTime, locale: Locale): APIComp
 }
 
 function grandmaOverview(date: DateTime) {
-	const { hour, minute } = date;
+	const schedule = grandmaSchedule(date);
 
 	return {
-		now: hour % 2 === 0 && minute >= 35 && minute < 45,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 35 ? 35 - minute : 155 - minute) : 95 - minute }).toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -429,11 +437,11 @@ function grandmaDetailedBreakdown(now: DateTime, locale: Locale): APIComponentIn
 }
 
 function turtleOverview(date: DateTime) {
-	const { hour, minute } = date;
+	const schedule = turtleSchedule(date);
 
 	return {
-		now: hour % 2 === 0 && minute >= 50 && minute < 60,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 50 ? 50 - minute : 170 - minute) : 110 - minute }).toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -490,25 +498,11 @@ function turtleDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInC
 }
 
 function shardEruptionOverview(now: DateTime) {
-	const shard = shardEruption();
-	let nextShard = shard?.timestamps.find(({ start }) => now < start);
-
-	if (!nextShard) {
-		for (let index = 1; ; index++) {
-			const nextPossibleShard = shardEruption(index);
-
-			if (!nextPossibleShard) {
-				continue;
-			}
-
-			nextShard = nextPossibleShard.timestamps.find(({ start }) => now < start)!;
-			break;
-		}
-	}
+	const schedule = shardEruptionSchedule(now);
 
 	return {
-		now: shard?.timestamps.some(({ start, end }) => now >= start && now < end),
-		next: `<t:${nextShard.start.toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -577,18 +571,11 @@ function shardEruptionDetailedBreakdown(now: DateTime, locale: Locale): APICompo
 }
 
 function dreamsSkaterOverview(date: DateTime) {
-	const { weekday, hour, minute } = date;
-
-	const dreamsSkaterDate =
-		weekday !== 5 && weekday !== 6 && weekday !== 7
-			? date.plus({ days: 5 - weekday }).set({ hour: 1, minute: 0, second: 0, millisecond: 0 })
-			: hour % 2 === 0
-				? date.plus({ minutes: 60 - minute })
-				: date.plus({ minutes: 120 - minute });
+	const schedule = dreamsSkaterSchedule(date);
 
 	return {
-		now: (weekday === 5 || weekday === 6 || weekday === 7) && hour % 2 === 1 && minute < 15,
-		next: `<t:${dreamsSkaterDate.toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -650,11 +637,11 @@ function dreamsSkaterDetailedBreakdown(now: DateTime, locale: Locale): APICompon
 }
 
 function auroraOverview(date: DateTime) {
-	const { hour, minute } = date;
+	const schedule = auroraSchedule(date);
 
 	return {
-		now: hour % 2 === 0 && minute >= 10 && minute < 58,
-		next: `<t:${date.plus({ minutes: hour % 2 === 0 ? (minute < 10 ? 10 - minute : 130 - minute) : 70 - minute }).toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -718,9 +705,8 @@ function auroraDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInC
 	];
 }
 
-function nextPassage(date: DateTime) {
-	const { minute } = date;
-	return `<t:${date.plus({ minutes: 15 - (minute % 15) }).toUnixInteger()}:R>`;
+function passageNext(date: DateTime) {
+	return `<t:${nextPassage(date).toUnixInteger()}:R>`;
 }
 
 function passageDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
@@ -761,7 +747,7 @@ function passageDetailedBreakdown(now: DateTime, locale: Locale): APIComponentIn
 						status: t("schedule.event-will-occur", {
 							lng: locale,
 							ns: "features",
-							timestamp: nextPassage(now),
+							timestamp: passageNext(now),
 						}),
 					}),
 				},
@@ -771,16 +757,11 @@ function passageDetailedBreakdown(now: DateTime, locale: Locale): APIComponentIn
 }
 
 function aviarysFireworkFestivalOverview(date: DateTime) {
-	const { hour, minute } = date;
-	const minutesSince = hour * 60 + minute;
+	const schedule = aviarysFireworkFestivalSchedule(date);
 
 	return {
-		now: date.day === 1 && hour % 4 === 0 && minute <= 10,
-		next: `<t:${(
-			date.day === 1
-				? date.plus({ minutes: 240 - (minutesSince % 240) })
-				: date.plus({ month: 1 }).startOf("month")
-		).toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -836,11 +817,11 @@ function aviarysFireworkFestivalDetailedBreakdown(
 }
 
 function nineColouredDeerOverview(date: DateTime) {
-	const { minute } = date;
+	const schedule = nineColouredDeerSchedule(date);
 
 	return {
-		now: minute < 20 || (minute >= 30 && minute < 50),
-		next: `<t:${date.plus({ minutes: 30 - (minute % 30) }).toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -886,8 +867,8 @@ function nineColouredDeerDetailedBreakdown(
 	];
 }
 
-function nextNestingWorkshop(now: DateTime, locale: Locale) {
-	const timestamp = now.plus({ week: 1 }).startOf("week").toUnixInteger();
+function nestingWorkshopNext(now: DateTime, locale: Locale) {
+	const timestamp = nextNestingWorkshop(now).toUnixInteger();
 
 	return t("schedule.next-nesting-workshop", {
 		lng: locale,
@@ -919,7 +900,7 @@ function nestingWorkshopDetailedBreakdown(
 					content: t("schedule.detailed-breakdown-nesting-workshop-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: nextNestingWorkshop(now, locale),
+						timestamp: nestingWorkshopNext(now, locale),
 					}),
 				},
 			],
@@ -928,11 +909,11 @@ function nestingWorkshopDetailedBreakdown(
 }
 
 function vaultEldersBlessingOverview(date: DateTime) {
-	const { minute } = date;
+	const schedule = vaultEldersBlessingSchedule(date);
 
 	return {
-		now: minute % 20 === 0,
-		next: `<t:${date.plus({ minutes: 20 - (minute % 20) }).toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -977,12 +958,11 @@ function vaultEldersBlessingDetailedBreakdown(
 }
 
 function projectorOfMemoriesOverview(date: DateTime) {
-	const { hour, minute } = date;
-	const minutesSince = hour * 60 + minute;
+	const schedule = projectorOfMemoriesSchedule(date);
 
 	return {
-		now: minutesSince % 80 < 78,
-		next: `<t:${date.plus({ minutes: 80 - (minutesSince % 80) }).toUnixInteger()}:R>`,
+		now: schedule.now,
+		next: `<t:${schedule.next.toUnixInteger()}:R>`,
 	};
 }
 
@@ -1090,7 +1070,7 @@ export async function scheduleOverview(
 							lng: locale,
 							ns: "features",
 							type: t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" }),
-							details: nextDailyReset(startOfDay, locale),
+							details: dailyResetNext(now, locale),
 						}),
 					},
 					{
@@ -1099,7 +1079,7 @@ export async function scheduleOverview(
 							lng: locale,
 							ns: "features",
 							type: t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" }),
-							details: nextEyeOfEden(startOfDay, locale),
+							details: eyeOfEdenNext(now, locale),
 						}),
 					},
 					{
@@ -1117,7 +1097,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: shardEruption.next,
@@ -1135,7 +1115,7 @@ export async function scheduleOverview(
 							}),
 							details: travellingSpirit.now
 								? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${travellingSpirit.now}`
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: travellingSpirit.next,
@@ -1151,7 +1131,7 @@ export async function scheduleOverview(
 								lng: locale,
 								ns: "features",
 							}),
-							details: nextNestingWorkshop(now, locale),
+							details: nestingWorkshopNext(now, locale),
 						}),
 					},
 					{
@@ -1169,7 +1149,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: aviarysFireworkFestival.next,
@@ -1191,7 +1171,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: internationalSpaceStation.next,
@@ -1218,7 +1198,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: pollutedGeyser.next,
@@ -1240,7 +1220,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: grandma.next,
@@ -1262,7 +1242,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: turtle.next,
@@ -1284,7 +1264,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: aurora.next,
@@ -1306,7 +1286,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: dreamsSkater.next,
@@ -1328,7 +1308,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: vaultEldersBlessing.next,
@@ -1344,10 +1324,10 @@ export async function scheduleOverview(
 								lng: locale,
 								ns: "features",
 							}),
-							details: t("schedule.overview-next", {
+							details: t("schedule.overview-next-available-timestamp", {
 								lng: locale,
 								ns: "features",
-								timestamp: nextPassage(now),
+								timestamp: passageNext(now),
 							}),
 						}),
 					},
@@ -1366,7 +1346,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: nineColouredDeer.next,
@@ -1388,7 +1368,7 @@ export async function scheduleOverview(
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: projectorOfMemories.next,
@@ -1577,7 +1557,7 @@ export async function scheduleDetailedBreakdown(
 
 	switch (type) {
 		case ScheduleType.DailyReset: {
-			detailedBreakdown = dailyResetDetailedBreakdown(startOfDay, locale);
+			detailedBreakdown = dailyResetDetailedBreakdown(now, locale);
 			break;
 		}
 		case ScheduleType.EyeOfEden: {

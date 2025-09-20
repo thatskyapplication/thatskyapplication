@@ -13,6 +13,11 @@ export const APPLICATION_ICON_URL = String(
 	new URL(`avatar_icons/${APPLICATION_NAME.toLowerCase()}.webp`, CDN_URL),
 );
 
+export const SCHEDULE_TITLE = "Schedule" as const;
+
+export const SCHEDULE_DESCRIPTION =
+	"The schedule of events in Sky!\n\nSee the timings for the polluted geyser, grandma, turtle, Dreams skater, shard eruption, projector of memories, and more!" as const;
+
 export const SHARD_ERUPTION_DESCRIPTION =
 	"See today's shard eruption, and view a schedule of future shard eruptions." as const;
 
