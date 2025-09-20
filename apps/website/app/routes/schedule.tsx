@@ -440,7 +440,7 @@ export default function Schedule() {
 	}
 
 	return (
-		<div className="min-h-screen px-4 md:pt-20 pt-10">
+		<div className="min-h-screen px-4 pt-10">
 			<div className="max-w-6xl mx-auto">
 				{/* Active. */}
 				{active.length > 0 && (
