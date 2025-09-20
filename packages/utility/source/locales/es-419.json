@@ -2532,10 +2532,10 @@
 				"command-description": ""
 			},
 			"daily-guides": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-channel-name": "",
-				"command-option-channel-description": ""
+				"command-name": "guías-diarias",
+				"command-description": "El comando para poner las guías diarias en el servidor.",
+				"command-option-channel-name": "canal",
+				"command-option-channel-description": "El canal para mandar guías diarias."
 			},
 			"me": {
 				"command-name": "",
@@ -2557,8 +2557,8 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "guías-diarias",
+			"command-description": "Mostrar las guías diarias."
 		},
 		"data": {
 			"command-name": "",
@@ -2882,23 +2882,23 @@
 			"event-tickets-message-complete": ""
 		},
 		"daily-guides": {
-			"quests-heading": "",
-			"treasure-candles": "",
-			"seasonal-candles": "",
-			"seasonal-candles-remain": "",
-			"shard-eruption": "",
-			"shard-eruption-data": "",
-			"shard-eruption-timestamps": "",
+			"quests-heading": "Misiones",
+			"treasure-candles": "Velas de tesoro",
+			"seasonal-candles": "Velas de temporada",
+			"seasonal-candles-remain": "{{remaining}} quedan ({{remainingSeasonPass}} con Pase de Temporada)",
+			"shard-eruption": "Erupción de fragmentos",
+			"shard-eruption-data": "Datos",
+			"shard-eruption-timestamps": "Marcas de tiempo",
 			"shard-eruption-none": "",
-			"travelling-rock": "",
+			"travelling-rock": "Roca viajera",
 			"season-upcoming_one": "",
-			"season-upcoming_other": "",
+			"season-upcoming_other": "La nueva temporada empieza en {{count}} días.",
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
 			"infographic": "",
-			"not-yet-updated": "",
-			"quest-unknown": "",
-			"quest-no-infographic": ""
+			"not-yet-updated": "Las guías diarias están esperando a un increíble niño de la luz para que las actualice. ¿Tienes la información que necesitamos? ¡Únete al [servidor de apoyo]({{url}}) y actualízalas tú mismo para la comunidad!",
+			"quest-unknown": "Vaya, esa es una diaria que no conocemos. ¿Mejor prueba otra?",
+			"quest-no-infographic": "Esta misión no tiene una infografía."
 		},
 		"data": {
 			"delete-message": "",
@@ -3125,7 +3125,7 @@
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
-			"none": "",
+			"none": "Ninguna",
 			"today": "",
 			"browse": "",
 			"realm-map": ""
