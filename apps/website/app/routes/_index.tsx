@@ -1,5 +1,5 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
-import { Clock, LinkIcon, UsersIcon } from "lucide-react";
+import { AlarmClock, Clock, LinkIcon, UsersIcon } from "lucide-react";
 import { Link } from "react-router";
 import { APPLICATION_NAME } from "~/utility/constants";
 
@@ -56,6 +56,17 @@ export default function Index() {
 					<p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
 						A lovely place to view all Sky profiles! You can also share a direct link to one! Have
 						fun exploring!
+					</p>
+				</Link>
+				<Link
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+					to="/schedule"
+				>
+					<AlarmClock className="h-8 w-8 mb-4" />
+					<h2 className="font-medium text-lg">Schedule</h2>
+					<p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+						See a schedule of events such as the polluted geyser, grandma, turtle, Vault Elder's
+						blessing, and more!
 					</p>
 				</Link>
 				<Link
