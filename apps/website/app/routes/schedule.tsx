@@ -447,7 +447,7 @@ export default function Schedule() {
 					<div className="mb-12">
 						<h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-3">
 							<span className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-							Active Now
+							{t("schedule.overview-active", { ns: "features" })}
 						</h2>
 
 						{/* Desktop. */}
@@ -468,7 +468,7 @@ export default function Schedule() {
 											<div className="flex items-center gap-2">
 												<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
 												<span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wider">
-													Active
+													{t("schedule.overview-active", { ns: "features" })}
 												</span>
 											</div>
 										</div>
@@ -483,13 +483,17 @@ export default function Schedule() {
 										)}
 										<div className="space-y-2">
 											<div className="flex justify-between items-center">
-												<span className="text-sm text-gray-600 dark:text-gray-400">Next:</span>
+												<span className="text-sm text-gray-600 dark:text-gray-400">
+													{t("schedule.overview-next", { ns: "features" })}
+												</span>
 												<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
 													{item.nextTime}
 												</span>
 											</div>
 											<div className="flex justify-between items-center">
-												<span className="text-sm text-gray-600 dark:text-gray-400">In:</span>
+												<span className="text-sm text-gray-600 dark:text-gray-400">
+													{t("schedule.overview-in", { ns: "features" })}
+												</span>
 												<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
 													{item.nextRelative}
 												</span>
@@ -514,7 +518,7 @@ export default function Schedule() {
 										<div className="flex items-center gap-2">
 											<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
 											<span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wider">
-												Active
+												{t("schedule.overview-active", { ns: "features" })}
 											</span>
 										</div>
 									</div>
@@ -528,7 +532,12 @@ export default function Schedule() {
 										</div>
 									)}
 									<div className="flex justify-between items-center text-sm">
-										<span className="text-gray-600 dark:text-gray-400">Next: {item.nextTime}</span>
+										<span className="text-gray-600 dark:text-gray-400">
+											{t("schedule.overview-next-timestamp", {
+												ns: "features",
+												timestamp: item.nextTime,
+											})}
+										</span>
 										<span className="font-medium text-gray-700 dark:text-gray-300">
 											{item.nextRelative}
 										</span>
@@ -543,7 +552,7 @@ export default function Schedule() {
 				<div className="mb-8">
 					<h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-3">
 						<span className="w-3 h-3 bg-gray-400 rounded-full" />
-						Upcoming Events
+						{t("schedule.overview-upcoming", { ns: "features" })}
 					</h2>
 
 					{/* Desktop. */}
@@ -562,18 +571,22 @@ export default function Schedule() {
 											{t(`schedule.type.${item.type}`, { ns: "features" })}
 										</h3>
 										<span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-											Upcoming
+											{t("schedule.overview-upcoming", { ns: "features" })}
 										</span>
 									</div>
 									<div className="space-y-2">
 										<div className="flex justify-between items-center">
-											<span className="text-sm text-gray-600 dark:text-gray-400">Next:</span>
+											<span className="text-sm text-gray-600 dark:text-gray-400">
+												{t("schedule.overview-next", { ns: "features" })}
+											</span>
 											<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
 												{item.nextTime}
 											</span>
 										</div>
 										<div className="flex justify-between items-center">
-											<span className="text-sm text-gray-600 dark:text-gray-400">In:</span>
+											<span className="text-sm text-gray-600 dark:text-gray-400">
+												{t("schedule.overview-in", { ns: "features" })}
+											</span>
 											<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
 												{item.nextRelative}
 											</span>
@@ -596,11 +609,16 @@ export default function Schedule() {
 										{t(`schedule.type.${item.type}`, { ns: "features" })}
 									</h3>
 									<span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-										Upcoming
+										{t("schedule.overview-upcoming", { ns: "features" })}
 									</span>
 								</div>
 								<div className="flex justify-between items-center text-sm">
-									<span className="text-gray-600 dark:text-gray-400">Next: {item.nextTime}</span>
+									<span className="text-gray-600 dark:text-gray-400">
+										{t("schedule.overview-next-timestamp", {
+											ns: "features",
+											timestamp: item.nextTime,
+										})}
+									</span>
 									<span className="font-medium text-gray-700 dark:text-gray-300">
 										{item.nextRelative}
 									</span>

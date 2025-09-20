@@ -1,9 +1,12 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { AlarmClock, Clock, LinkIcon, UsersIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 export default function Index() {
+	const { t } = useTranslation();
+
 	return (
 		<div className="flex flex-col items-center justify-center p-4 min-h-screen">
 			<header className="flex flex-col items-center text-center mb-8 max-w-lg w-full">
@@ -63,10 +66,9 @@ export default function Index() {
 					to="/schedule"
 				>
 					<AlarmClock className="h-8 w-8 mb-4" />
-					<h2 className="font-medium text-lg">Schedule</h2>
+					<h2 className="font-medium text-lg">{t("schedule.name", { ns: "features" })}</h2>
 					<p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-						See a schedule of events such as the polluted geyser, grandma, turtle, Vault Elder's
-						blessing, and more!
+						{t("schedule.description", { ns: "features" })}
 					</p>
 				</Link>
 				<Link

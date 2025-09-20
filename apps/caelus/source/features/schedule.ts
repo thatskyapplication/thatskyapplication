@@ -1092,12 +1092,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: shardEruption.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: shardEruption.next,
@@ -1115,7 +1115,7 @@ export async function scheduleOverview(
 							}),
 							details: travellingSpirit.now
 								? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${travellingSpirit.now}`
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: travellingSpirit.next,
@@ -1144,12 +1144,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: aviarysFireworkFestival.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: aviarysFireworkFestival.next,
@@ -1166,12 +1166,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: internationalSpaceStation.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: internationalSpaceStation.next,
@@ -1193,12 +1193,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: pollutedGeyser.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: pollutedGeyser.next,
@@ -1215,12 +1215,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: grandma.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: grandma.next,
@@ -1237,12 +1237,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: turtle.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: turtle.next,
@@ -1259,12 +1259,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: aurora.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: aurora.next,
@@ -1281,12 +1281,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: dreamsSkater.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: dreamsSkater.next,
@@ -1303,12 +1303,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: vaultEldersBlessing.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: vaultEldersBlessing.next,
@@ -1324,7 +1324,7 @@ export async function scheduleOverview(
 								lng: locale,
 								ns: "features",
 							}),
-							details: t("schedule.overview-next", {
+							details: t("schedule.overview-next-available-timestamp", {
 								lng: locale,
 								ns: "features",
 								timestamp: passageNext(now),
@@ -1341,12 +1341,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: nineColouredDeer.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: nineColouredDeer.next,
@@ -1363,12 +1363,12 @@ export async function scheduleOverview(
 								ns: "features",
 							}),
 							details: projectorOfMemories.now
-								? t("schedule.overview-available-with-emoji", {
+								? t("schedule.overview-available", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 									})
-								: t("schedule.overview-next", {
+								: t("schedule.overview-next-available-timestamp", {
 										lng: locale,
 										ns: "features",
 										timestamp: projectorOfMemories.next,
