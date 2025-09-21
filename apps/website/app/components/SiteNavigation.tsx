@@ -1,10 +1,13 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
 import {
+	AlarmClock,
 	Bot,
 	CheckSquare,
 	ChevronDown,
 	Clock,
+	ExternalLinkIcon,
+	LinkIcon,
 	LogIn,
 	LogOut,
 	Menu,
@@ -15,7 +18,11 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
-import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
+import {
+	APPLICATION_NAME,
+	INVITE_APPLICATION_URL,
+	INVITE_SUPPORT_SERVER_URL,
+} from "~/utility/constants";
 import { avatarURL, timeString } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
 
@@ -24,6 +31,12 @@ interface NavigationItem {
 	label: string;
 	icon: React.ReactNode;
 	description: string;
+	external?: true;
+}
+
+interface NavigationGroup {
+	label: string;
+	items: readonly NavigationItem[];
 }
 
 interface SiteTopBarProps {
@@ -45,32 +58,79 @@ interface TimeDisplayProps {
 	locale: string;
 }
 
-const NAVIGATION_ITEMS = [
+const NAVIGATION_GROUPS = [
 	{
-		to: "/caelus/guides/home",
-		label: "Caelus",
-		icon: <Bot className="h-5 w-5" />,
-		description: "Guides for Caelus.",
+		label: "Features",
+		items: [
+			{
+				to: "/daily-guides",
+				label: "Daily guides",
+				icon: <Clock className="h-5 w-5" />,
+				description: "Today's daily guides.",
+			},
+			{
+				to: "/shard-eruption",
+				label: "Shard eruptions",
+				icon: <Zap className="h-5 w-5" />,
+				description: "See a schedule of shard eruptions.",
+			},
+			{
+				to: "/sky-profiles",
+				label: "Sky profiles",
+				icon: <Users className="h-5 w-5" />,
+				description: "See everyone's Sky profiles.",
+			},
+			{
+				to: "/schedule",
+				label: "Schedule",
+				icon: <AlarmClock className="h-5 w-5" />,
+				description: "Schedule of all Sky events.",
+			},
+		],
 	},
 	{
-		to: "/daily-guides",
-		label: "Daily Guides",
-		icon: <Clock className="h-5 w-5" />,
-		description: "Today's daily guides.",
+		label: "Other",
+		items: [
+			{
+				to: "/thatskylink",
+				label: "thatskylink",
+				icon: <LinkIcon className="h-5 w-5" />,
+				description: "Making long links short and memorable.",
+			},
+		],
 	},
 	{
-		to: "/shard-eruption",
-		label: "Shard Eruptions",
-		icon: <Zap className="h-5 w-5" />,
-		description: "See a schedule of shard eruptions.",
+		label: "Links",
+		items: [
+			{
+				to: INVITE_SUPPORT_SERVER_URL,
+				label: "Support server",
+				icon: <SiDiscord className="h-5 w-5" />,
+				description: "Join our Discord support server.",
+				external: true,
+			},
+			{
+				to: INVITE_APPLICATION_URL,
+				label: "Invite Caelus",
+				icon: <Bot className="h-5 w-5" />,
+				description: "Add Caelus to your Discord server.",
+				external: true,
+			},
+			{
+				to: "/caelus/guides/terms-privacy",
+				label: "Terms & privacy",
+				icon: <ExternalLinkIcon className="h-5 w-5" />,
+				description: "Terms of service and privacy policy.",
+			},
+			{
+				to: "/caelus/guides/acknowledgements",
+				label: "Acknowledgements",
+				icon: <ExternalLinkIcon className="h-5 w-5" />,
+				description: "Community contributors and credits.",
+			},
+		],
 	},
-	{
-		to: "/sky-profiles",
-		label: "Sky Profiles",
-		icon: <Users className="h-5 w-5" />,
-		description: "See everyone's Sky profiles.",
-	},
-] as const satisfies Readonly<NavigationItem[]>;
+] as const satisfies Readonly<NavigationGroup[]>;
 
 function TimeDisplay({ locale }: TimeDisplayProps) {
 	const [currentTime, setCurrentTime] = useState(() => timeString(locale));
@@ -212,6 +272,98 @@ function LoginButton() {
 	);
 }
 
+function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isActive: boolean }) {
+	const [isOpen, setIsOpen] = useState(false);
+	const location = useLocation();
+	const dropdownRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+				setIsOpen(false);
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => document.removeEventListener("mousedown", handleClickOutside);
+	}, []);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: This is fine.
+	useEffect(() => {
+		setIsOpen(false);
+	}, [location.pathname]);
+
+	useEffect(() => {
+		function handleEscape(event: KeyboardEvent) {
+			if (event.key === "Escape") {
+				setIsOpen(false);
+			}
+		}
+
+		document.addEventListener("keydown", handleEscape);
+		return () => document.removeEventListener("keydown", handleEscape);
+	}, []);
+
+	return (
+		<div className="relative" ref={dropdownRef}>
+			<button
+				aria-expanded={isOpen}
+				aria-haspopup="true"
+				className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
+					isActive
+						? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+						: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+				}`}
+				onClick={() => setIsOpen(!isOpen)}
+				type="button"
+			>
+				<span>{group.label}</span>
+				<ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+			</button>
+			{isOpen && (
+				<div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
+					<div className="py-1">
+						{group.items.map((item) =>
+							item.external ? (
+								<a
+									className="flex items-start gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+									href={item.to}
+									key={item.to}
+									rel="noopener noreferrer"
+									target="_blank"
+								>
+									{item.icon}
+									<div>
+										<div className="font-medium text-sm">{item.label}</div>
+										<div className="text-xs text-gray-500 dark:text-gray-400">
+											{item.description}
+										</div>
+									</div>
+								</a>
+							) : (
+								<Link
+									className="flex items-start gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+									key={item.to}
+									onClick={() => setIsOpen(false)}
+									to={item.to}
+								>
+									{item.icon}
+									<div>
+										<div className="font-medium text-sm">{item.label}</div>
+										<div className="text-xs text-gray-500 dark:text-gray-400">
+											{item.description}
+										</div>
+									</div>
+								</Link>
+							),
+						)}
+					</div>
+				</div>
+			)}
+		</div>
+	);
+}
+
 function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
@@ -229,19 +381,19 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 				onClick={onClose}
 				type="button"
 			/>
-			<div className="fixed top-4 left-4 right-4 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50">
-				<div className="p-4">
-					<div className="flex justify-between items-center mb-4">
-						<h3 className="font-semibold text-gray-900 dark:text-gray-100">Navigation</h3>
-						<button
-							aria-label="Close menu"
-							className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-							onClick={onClose}
-							type="button"
-						>
-							<X className="h-5 w-5" />
-						</button>
-					</div>
+			<div className="fixed top-4 left-4 right-4 bottom-4 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 flex flex-col">
+				<div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 shrink-0">
+					<h3 className="font-semibold text-gray-900 dark:text-gray-100">Navigation</h3>
+					<button
+						aria-label="Close menu."
+						className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+						onClick={onClose}
+						type="button"
+					>
+						<X className="h-5 w-5" />
+					</button>
+				</div>
+				<div className="flex-1 overflow-y-auto p-4">
 					{user ? (
 						<div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
 							<div className="flex items-center gap-3 mb-3">
@@ -286,20 +438,64 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 						</div>
 					)}
 
-					<nav className="space-y-1">
-						{NAVIGATION_ITEMS.map((item) => (
-							<Link
-								className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
-								key={item.to}
-								onClick={onClose}
-								to={item.to}
-							>
-								{item.icon}
-								<div>
-									<div className="font-medium">{item.label}</div>
-									<div className="text-sm text-gray-500 dark:text-gray-400">{item.description}</div>
+					<nav className="space-y-4">
+						{/* Caelus. This is not a group. */}
+						<Link
+							className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+							onClick={onClose}
+							to="/caelus/guides/home"
+						>
+							<Bot className="h-5 w-5" />
+							<div>
+								<div className="font-medium">{APPLICATION_NAME}</div>
+								<div className="text-sm text-gray-500 dark:text-gray-400">
+									Guides for {APPLICATION_NAME}.
 								</div>
-							</Link>
+							</div>
+						</Link>
+						{NAVIGATION_GROUPS.map((group) => (
+							<div key={group.label}>
+								<h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-3">
+									{group.label}
+								</h4>
+								<div className="space-y-1">
+									{group.items.map((item) =>
+										"external" in item ? (
+											<a
+												className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+												href={item.to}
+												key={item.to}
+												onClick={onClose}
+												rel="noopener noreferrer"
+												target="_blank"
+											>
+												{item.icon}
+												<div>
+													<div className="font-medium">{item.label}</div>
+													<div className="text-sm text-gray-500 dark:text-gray-400">
+														{item.description}
+													</div>
+												</div>
+											</a>
+										) : (
+											<Link
+												className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+												key={item.to}
+												onClick={onClose}
+												to={item.to}
+											>
+												{item.icon}
+												<div>
+													<div className="font-medium">{item.label}</div>
+													<div className="text-sm text-gray-500 dark:text-gray-400">
+														{item.description}
+													</div>
+												</div>
+											</Link>
+										),
+									)}
+								</div>
+							</div>
 						))}
 					</nav>
 				</div>
@@ -328,6 +524,16 @@ export function SiteTopBar({ user, locale }: SiteTopBarProps) {
 		return () => document.removeEventListener("keydown", handleEscape);
 	}, []);
 
+	const getGroupActiveState = (group: NavigationGroup) => {
+		return (
+			group.label !== "Links" &&
+			group.items.some(
+				(item) =>
+					!item.external && location.pathname.startsWith(item.to.split("/").slice(0, 2).join("/")),
+			)
+		);
+	};
+
 	return (
 		<>
 			<div className="fixed top-4 left-4 right-4 z-30" style={{ scrollbarGutter: "stable" }}>
@@ -341,25 +547,25 @@ export function SiteTopBar({ user, locale }: SiteTopBarProps) {
 								thatskyapplication
 							</Link>
 							<nav className="hidden md:flex items-center gap-1">
-								{NAVIGATION_ITEMS.map((item) => {
-									const isActive = location.pathname.startsWith(
-										item.to.split("/").slice(0, 2).join("/"),
-									);
-									return (
-										<Link
-											className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
-												isActive
-													? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-													: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-											}`}
-											key={item.to}
-											to={item.to}
-										>
-											{item.icon}
-											<span>{item.label}</span>
-										</Link>
-									);
-								})}
+								{/* Caelus. This is not a group. */}
+								<Link
+									className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
+										location.pathname.startsWith("/caelus")
+											? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+											: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+									}`}
+									to="/caelus/guides/home"
+								>
+									<Bot className="h-5 w-5" />
+									<span>{APPLICATION_NAME}</span>
+								</Link>
+								{NAVIGATION_GROUPS.map((group) => (
+									<NavigationDropdown
+										group={group}
+										isActive={getGroupActiveState(group)}
+										key={group.label}
+									/>
+								))}
 							</nav>
 						</div>
 						<div className="flex items-center gap-4">
@@ -398,7 +604,7 @@ export function SiteFooter() {
 						</p>
 						<div className="flex gap-4">
 							<a
-								aria-label="Join Discord Server"
+								aria-label="Join Discord server."
 								className="p-2 bg-[#5865F2] hover:bg-[#4752C4] rounded-lg transition-colors"
 								href={INVITE_SUPPORT_SERVER_URL}
 								rel="noopener noreferrer"
@@ -407,7 +613,7 @@ export function SiteFooter() {
 								<SiDiscord className="h-5 w-5 text-white" />
 							</a>
 							<a
-								aria-label="GitHub Repository"
+								aria-label="GitHub repository."
 								className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
 								href="https://github.com/thatskyapplication"
 								rel="noopener noreferrer"
@@ -416,7 +622,7 @@ export function SiteFooter() {
 								<SiGithub className="h-5 w-5 text-white" />
 							</a>
 							<a
-								aria-label="Help Translate"
+								aria-label="Help translate via Crowdin."
 								className="p-2 bg-[#2E3440] hover:bg-[#242933] rounded-lg transition-colors"
 								href={CROWDIN_URL}
 								rel="noopener noreferrer"
@@ -429,7 +635,7 @@ export function SiteFooter() {
 					<div>
 						<h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Features</h4>
 						<ul className="space-y-2">
-							{NAVIGATION_ITEMS.map((item) => (
+							{NAVIGATION_GROUPS.find((group) => group.label === "Features")?.items.map((item) => (
 								<li key={item.to}>
 									<Link
 										className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
@@ -452,42 +658,29 @@ export function SiteFooter() {
 					<div>
 						<h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Support</h4>
 						<ul className="space-y-2">
-							<li>
-								<a
-									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-									href={INVITE_SUPPORT_SERVER_URL}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									Support Server
-								</a>
-							</li>
-							<li>
-								<a
-									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-									href={INVITE_APPLICATION_URL}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									Invite Caelus
-								</a>
-							</li>
-							<li>
-								<Link
-									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-									to="/caelus/guides/terms-privacy"
-								>
-									Terms & Privacy
-								</Link>
-							</li>
-							<li>
-								<Link
-									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-									to="/caelus/guides/acknowledgements"
-								>
-									Acknowledgements
-								</Link>
-							</li>
+							{NAVIGATION_GROUPS.find((group) => group.label === "Links")?.items.map((item) =>
+								"external" in item ? (
+									<li key={item.to}>
+										<a
+											className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+											href={item.to}
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											{item.label}
+										</a>
+									</li>
+								) : (
+									<li key={item.to}>
+										<Link
+											className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+											to={item.to}
+										>
+											{item.label}
+										</Link>
+									</li>
+								),
+							)}
 						</ul>
 					</div>
 				</div>
