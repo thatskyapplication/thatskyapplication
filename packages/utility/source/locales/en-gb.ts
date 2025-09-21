@@ -512,6 +512,10 @@ export default {
 				SpiritId.ApplaudingBellmaker,
 				RealmName.DaylightPrairie,
 			),
+			[DailyQuest.MeetUpWithFestivalSpinDancerInForestBrook]: questsMeetUpWith(
+				SpiritId.FestivalSpinDancer,
+				SkyMap.ForestBrook,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
