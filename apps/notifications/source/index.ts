@@ -7,7 +7,6 @@ import {
 	esES,
 	fr,
 	INTERNATIONAL_SPACE_STATION_DATES,
-	INTERNATIONAL_SPACE_STATION_PRIOR_DATES,
 	it,
 	ja,
 	ko,
@@ -161,8 +160,8 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	}
 
 	if (
-		(INTERNATIONAL_SPACE_STATION_PRIOR_DATES.includes(
-			day as (typeof INTERNATIONAL_SPACE_STATION_PRIOR_DATES)[number],
+		(INTERNATIONAL_SPACE_STATION_DATES.includes(
+			date.plus({ day: 1 }).day as (typeof INTERNATIONAL_SPACE_STATION_DATES)[number],
 		) &&
 			hour === 23 &&
 			minute >= 45 &&

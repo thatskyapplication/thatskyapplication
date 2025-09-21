@@ -25,7 +25,6 @@ export const ScheduleType = {
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
 export type ScheduleTypes = (typeof SCHEDULE_TYPE_VALUES)[number];
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
-export const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [5, 13, 21, 29] as const;
 
 export function nextDailyReset(date: DateTime) {
 	return date.plus({ day: 1 }).startOf("day");

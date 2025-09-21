@@ -117,7 +117,6 @@ export {
 	dreamsSkaterSchedule,
 	grandmaSchedule,
 	INTERNATIONAL_SPACE_STATION_DATES,
-	INTERNATIONAL_SPACE_STATION_PRIOR_DATES,
 	internationalSpaceStationSchedule,
 	nextDailyReset,
 	nextEyeOfEden,
