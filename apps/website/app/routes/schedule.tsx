@@ -22,10 +22,10 @@ import {
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import type { DateTime } from "luxon";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
-import { useLoaderData, useRevalidator } from "react-router";
+import { useLoaderData } from "react-router";
 import { getLocale } from "~/middleware/i18next.js";
 import {
 	APPLICATION_ICON_URL,
@@ -278,8 +278,42 @@ function projectorOfMemoriesOverview(now: DateTime, timeZone: string, locale: st
 }
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-	const locale = getLocale(context);
-	const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
+	return { locale: getLocale(context), timeZone: request.headers.get("cf-timezone") ?? TIME_ZONE };
+};
+
+function getEventColor(available: boolean | SpiritIds | undefined) {
+	return available === undefined || available === false
+		? "from-gray-50 to-slate-50 dark:from-gray-900/20 dark:to-slate-900/20 border-gray-200 dark:border-gray-700"
+		: "from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-emerald-200 dark:border-emerald-700";
+}
+
+export default function Schedule() {
+	const { locale, timeZone } = useLoaderData<typeof loader>();
+	const { t } = useTranslation();
+	const [_, setCurrentTime] = useState(() => Date.now());
+
+	useEffect(() => {
+		let timeout: NodeJS.Timeout | null = null;
+
+		const scheduleNextUpdate = () => {
+			timeout = setTimeout(
+				() => {
+					setCurrentTime(Date.now());
+					scheduleNextUpdate();
+				},
+				60_000 - (Date.now() % 60_000),
+			);
+		};
+
+		scheduleNextUpdate();
+
+		return () => {
+			if (timeout) {
+				clearTimeout(timeout);
+			}
+		};
+	}, []);
+
 	const now = skyNow();
 	const dailyReset = dailyResetNext(now, timeZone, locale);
 	const eyeOfEden = eyeOfEdenNext(now, timeZone, locale);
@@ -298,7 +332,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const vaultEldersBlessing = vaultEldersBlessingOverview(now, timeZone, locale);
 	const projectorOfMemories = projectorOfMemoriesOverview(now, timeZone, locale);
 
-	return [
+	const schedule = [
 		{
 			type: ScheduleType.DailyReset,
 			nextTime: dailyReset.next,
@@ -392,45 +426,11 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 			nextRelative: projectorOfMemories.relative,
 		},
 	];
-};
-
-function getEventColor(available: boolean | SpiritIds | undefined) {
-	return available === undefined || available === false
-		? "from-gray-50 to-slate-50 dark:from-gray-900/20 dark:to-slate-900/20 border-gray-200 dark:border-gray-700"
-		: "from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20 border-emerald-200 dark:border-emerald-700";
-}
-
-export default function Schedule() {
-	const data = useLoaderData<typeof loader>();
-	const { t } = useTranslation();
-	const revalidator = useRevalidator();
-
-	useEffect(() => {
-		let timeout: NodeJS.Timeout | null = null;
-
-		const scheduleNextUpdate = () => {
-			timeout = setTimeout(
-				() => {
-					void revalidator.revalidate();
-					scheduleNextUpdate();
-				},
-				60_000 - (Date.now() % 60_000),
-			);
-		};
-
-		scheduleNextUpdate();
-
-		return () => {
-			if (timeout) {
-				clearTimeout(timeout);
-			}
-		};
-	}, [revalidator]);
 
 	const active = [];
 	const upcoming = [];
 
-	for (const item of data) {
+	for (const item of schedule) {
 		if (item.available === undefined || item.available === false) {
 			upcoming.push(item);
 			continue;
