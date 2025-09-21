@@ -5,7 +5,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import type { CataloguePacket, UsersPacket } from "@thatskyapplication/utility";
-import { Table } from "@thatskyapplication/utility";
+import { type ChecklistPacket, Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { HeartPacket } from "../models/Heart.js";
@@ -29,6 +29,7 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 
 	const promises = [
 		pg<CataloguePacket>(Table.Catalogue).delete().where({ user_id: userId }),
+		pg<ChecklistPacket>(Table.Checklist).delete().where({ user_id: userId }),
 		pg<CommandAnalyticsPacket>(Table.CommandAnalytics).delete().where({ user_id: userId }),
 		pg<HeartPacket>(Table.Hearts).update({ gifter_id: null }).where({ gifter_id: userId }),
 		pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: userId }),
