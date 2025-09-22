@@ -135,7 +135,7 @@ export async function gift(
 	const now = skyNow();
 	const today = now.startOf("day");
 
-	const extraHearts = HEART_EXTRA_DATES.find((heartsExtra) =>
+	const extraHearts = HEART_EXTRA_DATES.findLast((heartsExtra) =>
 		isDuring(heartsExtra.start, heartsExtra.end, now),
 	);
 
