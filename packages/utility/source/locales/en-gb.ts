@@ -758,7 +758,6 @@ export default {
 			// Double-check this.
 			[EventId.RadianceEvent2025]: "https://sky-children-of-the-light.fandom.com/Radiance_Event",
 		} satisfies Record<EventIds, `https://${string}`>,
-		"shard-eruptions": "Shard eruptions",
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
 			[SkyProfileWingedLightType.Capeless]: "Capeless",
@@ -3164,6 +3163,8 @@ export default {
 			"event-tickets-message-complete": "You've collected all event tickets! Great!",
 		},
 		"daily-guides": {
+			name: "Daily guides",
+			"description-short": "View today's daily guides.",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure Candles",
 			"seasonal-candles": "Seasonal Candles",
@@ -3362,6 +3363,7 @@ export default {
 			name: "Schedule",
 			description:
 				"See a schedule of events such as the polluted geyser, grandma, turtle, Vault Elder's blessing, and more!",
+			"description-short": "View a schedule of events in Sky.",
 			"overview-active": "Active",
 			"overview-available": "{{emoji}} Available!",
 			"overview-upcoming": "Upcoming",
@@ -3453,6 +3455,8 @@ export default {
 			back: "Back",
 		},
 		"shard-eruption": {
+			"name-plural": "Shard eruptions",
+			"description-short": "See a schedule of shard eruptions.",
 			"browse-description":
 				"You're currently browsing shard eruptions. Open the select menus to quickly see information over a great period of time. Select a date to view more information.",
 			"no-shard-eruptions-today": "There are no shard eruptions today.",
@@ -3463,6 +3467,8 @@ export default {
 			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))",
 		},
 		"sky-profile": {
+			"name-plural": "Sky profiles",
+			"description-short": "Explore everyone's Sky profiles.",
 			"unknown-country": "Please select a country!",
 			"unknown-profile-edit-type": "Unknown profile edit type. Please try again!",
 			"unknown-profile-reset-type": "Unknown profile reset type. Please try again!",

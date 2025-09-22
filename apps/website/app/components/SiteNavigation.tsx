@@ -1,43 +1,13 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
-import {
-	AlarmClock,
-	Bot,
-	CheckSquare,
-	ChevronDown,
-	Clock,
-	ExternalLinkIcon,
-	LinkIcon,
-	LogIn,
-	LogOut,
-	Menu,
-	Users,
-	X,
-	Zap,
-} from "lucide-react";
+import { Bot, CheckSquare, ChevronDown, LogIn, LogOut, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
-import {
-	APPLICATION_NAME,
-	INVITE_APPLICATION_URL,
-	INVITE_SUPPORT_SERVER_URL,
-} from "~/utility/constants";
+import { type NavigationGroup, useNavigationGroups } from "~/hooks/navigation-groups";
+import { APPLICATION_NAME, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL, timeString } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
-
-interface NavigationItem {
-	to: string;
-	label: string;
-	icon: React.ReactNode;
-	description: string;
-	external?: true;
-}
-
-interface NavigationGroup {
-	label: string;
-	items: readonly NavigationItem[];
-}
 
 interface SiteTopBarProps {
 	user: DiscordUser | null;
@@ -57,80 +27,6 @@ interface MobileMenuProps {
 interface TimeDisplayProps {
 	locale: string;
 }
-
-const NAVIGATION_GROUPS = [
-	{
-		label: "Features",
-		items: [
-			{
-				to: "/daily-guides",
-				label: "Daily guides",
-				icon: <Clock className="h-5 w-5" />,
-				description: "Today's daily guides.",
-			},
-			{
-				to: "/shard-eruption",
-				label: "Shard eruptions",
-				icon: <Zap className="h-5 w-5" />,
-				description: "See a schedule of shard eruptions.",
-			},
-			{
-				to: "/sky-profiles",
-				label: "Sky profiles",
-				icon: <Users className="h-5 w-5" />,
-				description: "See everyone's Sky profiles.",
-			},
-			{
-				to: "/schedule",
-				label: "Schedule",
-				icon: <AlarmClock className="h-5 w-5" />,
-				description: "Schedule of all Sky events.",
-			},
-		],
-	},
-	{
-		label: "Other",
-		items: [
-			{
-				to: "/thatskylink",
-				label: "thatskylink",
-				icon: <LinkIcon className="h-5 w-5" />,
-				description: "Making long links short and memorable.",
-			},
-		],
-	},
-	{
-		label: "Links",
-		items: [
-			{
-				to: INVITE_SUPPORT_SERVER_URL,
-				label: "Support server",
-				icon: <SiDiscord className="h-5 w-5" />,
-				description: "Join our Discord support server.",
-				external: true,
-			},
-			{
-				to: INVITE_APPLICATION_URL,
-				label: "Invite Caelus",
-				icon: <Bot className="h-5 w-5" />,
-				description: "Add Caelus to your Discord server.",
-				external: true,
-			},
-			{
-				to: "/caelus/guides/terms-privacy",
-				label: "Terms & privacy",
-				icon: <ExternalLinkIcon className="h-5 w-5" />,
-				description: "Terms of service and privacy policy.",
-			},
-			{
-				to: "/caelus/guides/acknowledgements",
-				label: "Acknowledgements",
-				icon: <ExternalLinkIcon className="h-5 w-5" />,
-				description: "Community contributors and credits.",
-			},
-		],
-	},
-] as const satisfies Readonly<NavigationGroup[]>;
 
 function TimeDisplay({ locale }: TimeDisplayProps) {
 	const [currentTime, setCurrentTime] = useState(() => timeString(locale));
@@ -368,6 +264,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
 	const { t } = useTranslation();
+	const navigationGroups = useNavigationGroups();
 
 	if (!isOpen) {
 		return null;
@@ -453,7 +350,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 								</div>
 							</div>
 						</Link>
-						{NAVIGATION_GROUPS.map((group) => (
+						{navigationGroups.map((group) => (
 							<div key={group.label}>
 								<h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-3">
 									{group.label}
@@ -507,6 +404,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 export function SiteTopBar({ user, locale }: SiteTopBarProps) {
 	const location = useLocation();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const navigationGroups = useNavigationGroups();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: This is fine.
 	useEffect(() => {
@@ -559,7 +457,7 @@ export function SiteTopBar({ user, locale }: SiteTopBarProps) {
 									<Bot className="h-5 w-5" />
 									<span>{APPLICATION_NAME}</span>
 								</Link>
-								{NAVIGATION_GROUPS.map((group) => (
+								{navigationGroups.map((group) => (
 									<NavigationDropdown
 										group={group}
 										isActive={getGroupActiveState(group)}
@@ -591,6 +489,8 @@ export function SiteTopBar({ user, locale }: SiteTopBarProps) {
 }
 
 export function SiteFooter() {
+	const navigationGroups = useNavigationGroups();
+
 	return (
 		<footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 mt-16">
 			<div className="max-w-7xl mx-auto px-4 py-12">
@@ -635,16 +535,18 @@ export function SiteFooter() {
 					<div>
 						<h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Features</h4>
 						<ul className="space-y-2">
-							{NAVIGATION_GROUPS.find((group) => group.label === "Features")?.items.map((item) => (
-								<li key={item.to}>
-									<Link
-										className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-										to={item.to}
-									>
-										{item.label}
-									</Link>
-								</li>
-							))}
+							{navigationGroups
+								.find((group) => group.label === "Features")
+								?.items.map((item) => (
+									<li key={item.to}>
+										<Link
+											className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+											to={item.to}
+										>
+											{item.label}
+										</Link>
+									</li>
+								))}
 							<li>
 								<Link
 									className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
@@ -658,29 +560,31 @@ export function SiteFooter() {
 					<div>
 						<h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Support</h4>
 						<ul className="space-y-2">
-							{NAVIGATION_GROUPS.find((group) => group.label === "Links")?.items.map((item) =>
-								"external" in item ? (
-									<li key={item.to}>
-										<a
-											className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-											href={item.to}
-											rel="noopener noreferrer"
-											target="_blank"
-										>
-											{item.label}
-										</a>
-									</li>
-								) : (
-									<li key={item.to}>
-										<Link
-											className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-											to={item.to}
-										>
-											{item.label}
-										</Link>
-									</li>
-								),
-							)}
+							{navigationGroups
+								.find((group) => group.label === "Links")
+								?.items.map((item) =>
+									"external" in item ? (
+										<li key={item.to}>
+											<a
+												className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+												href={item.to}
+												rel="noopener noreferrer"
+												target="_blank"
+											>
+												{item.label}
+											</a>
+										</li>
+									) : (
+										<li key={item.to}>
+											<Link
+												className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+												to={item.to}
+											>
+												{item.label}
+											</Link>
+										</li>
+									),
+								)}
 						</ul>
 					</div>
 				</div>

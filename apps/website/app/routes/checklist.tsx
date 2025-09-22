@@ -282,7 +282,7 @@ export default function Checklist() {
 													: "text-gray-900 dark:text-gray-100"
 										}`}
 									>
-										{t("shard-eruptions", { ns: "general" })}
+										{t("shard-eruption.name-plural", { ns: "features" })}
 									</div>
 									<div
 										className={`text-xs ${shard === null ? "text-gray-400 dark:text-gray-600" : "text-gray-500 dark:text-gray-400"}`}
