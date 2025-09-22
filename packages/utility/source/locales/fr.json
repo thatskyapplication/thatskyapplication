@@ -2882,8 +2882,8 @@
 			"event-tickets-message-complete": ""
 		},
 		"daily-guides": {
-			"name": "",
-			"description-short": "",
+			"name": "Guides journaliers",
+			"description-short": "Voir le guide journalier d'aujourd'hui.",
 			"quests-heading": "Quêtes",
 			"treasure-candles": "Bougies au trésor",
 			"seasonal-candles": "Bougies saisonnières",
@@ -3063,7 +3063,7 @@
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des événements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
-			"description-short": "",
+			"description-short": "Voir un détail horaire des événements dans Sky.",
 			"overview-active": "Actif",
 			"overview-available": "{{emoji}} Disponible !",
 			"overview-upcoming": "À venir",
@@ -3125,8 +3125,8 @@
 			"back": "Précédent"
 		},
 		"shard-eruption": {
-			"name-plural": "",
-			"description-short": "",
+			"name-plural": "Éruptions d'éclats",
+			"description-short": "Voir un calendrier des éruptions d'éclats.",
 			"browse-description": "Vous être en train de rechercher les éruptions d'éclats. Ouvrez les menus de sélection pour rapidement voir les informations sur une bonne période de temps. Sélectionnez une date pour voir plus d'informations.",
 			"no-shard-eruptions-today": "Il n'y a pas d'éruption d'éclats aujourd'hui.",
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
@@ -3136,8 +3136,8 @@
 			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
 		},
 		"sky-profile": {
-			"name-plural": "",
-			"description-short": "",
+			"name-plural": "Profils Sky",
+			"description-short": "Explorer les profils Sky de tout le monde.",
 			"unknown-country": "Sélectionnez un pays !",
 			"unknown-profile-edit-type": "Erreur d'édition du profil. Veuillez réessayer s'il vous plait !",
 			"unknown-profile-reset-type": "Erreur de réinitialisation du profil. Veuillez réessayer s'il vous plaît !",

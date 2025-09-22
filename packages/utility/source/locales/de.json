@@ -1,6 +1,6 @@
 {
 	"general": {
-		"daily-quests": "",
+		"daily-quests": "Tägliche Quests",
 		"days-left": {
 			"season_zero": "Die Saison endet heute.",
 			"season_one": "{{count}} Tag für die Saison übrig.",
@@ -9,7 +9,7 @@
 			"event_one": "",
 			"event_other": ""
 		},
-		"event-tickets": "",
+		"event-tickets": "Event Tickets",
 		"realms": {
 			"Isles of Dawn": "Insel der Dämmerung",
 			"Daylight Prairie": "Tageslichtprärie",
