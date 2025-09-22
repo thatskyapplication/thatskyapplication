@@ -1,5 +1,5 @@
 import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
-import { ai, customStatus } from "../../services/admin.js";
+import { ai, customStatus } from "../../features/admin.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
