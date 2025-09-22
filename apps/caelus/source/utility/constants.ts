@@ -141,18 +141,6 @@ export const GUESS_LEADERBOARD_BACK_CUSTOM_ID = "GUESS_LEADERBOARD_BACK_CUSTOM_I
 export const GUESS_LEADERBOARD_NEXT_CUSTOM_ID = "GUESS_LEADERBOARD_NEXT_CUSTOM_ID" as const;
 
 // Heart.
-export const HEARTS = [
-	"{{gifter}} sent a heart to {{giftee}}. How lucky!",
-	"A heart from {{gifter}} to {{giftee}}. That was nice of them!",
-	"Incoming heart from {{gifter}} to {{giftee}}!",
-	"{{gifter}} sent {{giftee}} a heart! What a good friend!",
-	"{{gifter}} sent {{giftee}} a heart. How nice of {{gifter}}!",
-	"{{gifter}} sent a heart to {{giftee}}. They're pretty lucky!",
-	"{{gifter}} sent {{giftee}} a heart. {{giftee}} is lucky to have a friend like you!",
-	"{{gifter}}, sending a heart each day keeps the dark dragon away from {{giftee}}!",
-	"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
-] as const satisfies Readonly<string[]>;
-
 export const DELETED_USER_TEXT = "<deleted>" as const;
 export const MAXIMUM_HEARTS_PER_DAY = 3 as const;
 export const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 24 as const;

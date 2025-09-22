@@ -7,6 +7,7 @@ import {
 	ButtonStyle,
 	ComponentType,
 	type InteractionsAPI,
+	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	type Snowflake,
@@ -15,7 +16,6 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	formatEmoji,
 	getRandomElement,
-	isDuring,
 	resolveCurrencyEmoji,
 	skyNow,
 	Table,
@@ -32,7 +32,6 @@ import {
 	HEART_HISTORY_BACK,
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
 	HEART_HISTORY_NEXT,
-	HEARTS,
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
 import { HEART_EXTRA_DATES } from "../utility/dates.js";
@@ -78,10 +77,15 @@ export async function gift(
 	member: APIInteractionDataResolvedGuildMember | null,
 ) {
 	const invoker = interactionInvoker(interaction);
+	const userLocale = interaction.locale;
 
 	if (user.id === invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `You cannot gift a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} to yourself!`,
+			content: t("heart.gift-self", {
+				lng: userLocale,
+				ns: "features",
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -91,7 +95,7 @@ export async function gift(
 	if (
 		await cannotUseUserInstallable(
 			interaction,
-			t("heart.missing-external-apps-permission", {
+			t("heart.gift-missing-external-apps-permission", {
 				lng: interaction.locale,
 				ns: "features",
 				user: `<@${user.id}>`,
@@ -103,7 +107,12 @@ export async function gift(
 
 	if (interaction.guild_id && !member) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `<@${user.id}> is not in this server to gift a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} to.`,
+			content: t("heart.gift-not-in-server", {
+				lng: userLocale,
+				ns: "features",
+				user: `<@${user.id}>`,
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -115,7 +124,12 @@ export async function gift(
 
 		if ((permissions & PermissionFlagsBits.ViewChannel) === 0n) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: `<@${user.id}> is not around to receive a ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)}!`,
+				content: t("heart.gift-not-around", {
+					lng: userLocale,
+					ns: "features",
+					user: `<@${user.id}>`,
+					emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+				}),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -125,7 +139,12 @@ export async function gift(
 
 	if (user.bot) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `<@${user.id}> is a bot. They're pretty emotionless. Immune to love, I'd say.`,
+			content: t("heart.gift-app", {
+				lng: userLocale,
+				ns: "features",
+				user: `<@${user.id}>`,
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -135,35 +154,39 @@ export async function gift(
 	const now = skyNow();
 	const today = now.startOf("day");
 
-	const extraHearts = HEART_EXTRA_DATES.findLast((heartsExtra) =>
-		isDuring(heartsExtra.start, heartsExtra.end, now),
+	const extraHearts = HEART_EXTRA_DATES.findLast(
+		(heartsExtra) => now >= heartsExtra.start && now < heartsExtra.end,
 	);
 
 	const tomorrowTimestamp = `<t:${Math.floor(today.plus({ day: 1 }).toUnixInteger())}:R>`;
 
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
 		.where({ gifter_id: invoker.id })
-		.andWhere("timestamp", ">=", today.toISO())
-		.limit(MAXIMUM_HEARTS_PER_DAY);
+		.andWhere("timestamp", ">=", today.toISO());
 
 	if (heartPackets.some((heartPacket) => heartPacket.giftee_id === user.id)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: `You've already sent <@${user.id}> a ${formatEmoji(
-				MISCELLANEOUS_EMOJIS.Heart,
-			)} today!\nYou can gift another one to them ${tomorrowTimestamp}.`,
+			content: t("heart.gift-duplicate-user", {
+				lng: userLocale,
+				ns: "features",
+				user: `<@${user.id}>`,
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+				timestamp: tomorrowTimestamp,
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
-	const noMoreHeartsLeft = `You have no more ${formatEmoji(
-		MISCELLANEOUS_EMOJIS.Heart,
-	)} left to gift today.\nYou can gift more ${tomorrowTimestamp}.`;
-
 	if (heartPackets.length >= MAXIMUM_HEARTS_PER_DAY) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: noMoreHeartsLeft,
+			content: t("heart.gift-no-hearts-left", {
+				lng: userLocale,
+				ns: "features",
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+				timestamp: tomorrowTimestamp,
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 
@@ -178,39 +201,63 @@ export async function gift(
 	});
 
 	const hearts = await totalReceived(user.id);
+	const guildLocale = interaction.guild_locale ?? Locale.EnglishGB;
 
-	const heartMessage = getRandomElement(HEARTS)!
-		.replaceAll("heart", formatEmoji(MISCELLANEOUS_EMOJIS.Heart))
-		.replaceAll("{{gifter}}", `<@${invoker.id}>`)
-		.replaceAll("{{giftee}}", `<@${user.id}>`);
+	const messages = t("heart.gift-messages", {
+		lng: guildLocale,
+		ns: "features",
+		returnObjects: true,
+		gifter: `<@${invoker.id}>`,
+		giftee: `<@${user.id}>`,
+	}) as readonly string[];
+
+	const heartResult = t("heart.gift-message-heart-result", {
+		lng: guildLocale,
+		ns: "features",
+		user: `<@${user.id}>`,
+		number: hearts,
+		emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		allowed_mentions: { users: [user.id] },
-		content: `${heartMessage}\n<@${user.id}> now has ${resolveCurrencyEmoji({
-			emoji: MISCELLANEOUS_EMOJIS.Heart,
-			number: hearts,
-		})}.`,
+		content: `${getRandomElement(messages)!}\n${heartResult}`,
 	});
 
 	const heartsLeftToGift = MAXIMUM_HEARTS_PER_DAY - heartPackets.length - 1;
-	let heartsLeftToGiftText = `You can gift ${heartsLeftToGift} more ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} today.`;
-
-	if (extraHearts) {
-		const startDate = Intl.DateTimeFormat(interaction.locale, {
-			timeZone: TIME_ZONE,
-			dateStyle: "short",
-		}).format(extraHearts.start.toMillis());
-
-		const endDate = Intl.DateTimeFormat(interaction.locale, {
-			timeZone: TIME_ZONE,
-			dateStyle: "short",
-		}).format(extraHearts.end.toMillis());
-
-		heartsLeftToGiftText += `\nThere is currently a double heart event from ${startDate} to ${endDate}!`;
-	}
 
 	await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
-		content: heartsLeftToGift === 0 ? noMoreHeartsLeft : heartsLeftToGiftText,
+		content:
+			// Also handle negative numbers.
+			// Could happen if we, for example, gift hearts through the database such that they are over the limit.
+			heartsLeftToGift <= 0
+				? t("heart.gift-no-hearts-left", {
+						lng: userLocale,
+						ns: "features",
+						emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+						timestamp: tomorrowTimestamp,
+					})
+				: extraHearts
+					? t("heart.gift-hearts-left-to-gift-double", {
+							lng: guildLocale,
+							ns: "features",
+							number: heartsLeftToGift,
+							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+							date1: Intl.DateTimeFormat(interaction.locale, {
+								timeZone: TIME_ZONE,
+								dateStyle: "short",
+							}).format(extraHearts.start.toMillis()),
+							date2: Intl.DateTimeFormat(interaction.locale, {
+								timeZone: TIME_ZONE,
+								dateStyle: "short",
+							}).format(extraHearts.end.toMillis()),
+						})
+					: t("heart.gift-hearts-left-to-gift", {
+							lng: guildLocale,
+							ns: "features",
+							number: heartsLeftToGift,
+							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+						}),
 		flags: MessageFlags.Ephemeral,
 	});
 }

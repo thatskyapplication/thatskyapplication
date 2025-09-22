@@ -3251,8 +3251,31 @@ export default {
 			"leaderboard-you": "You: #{{rank}} ({{streak}})",
 		},
 		heart: {
-			"missing-external-apps-permission":
+			"gift-self": "You cannot gift a {{emoji}} to yourself!",
+			"gift-missing-external-apps-permission":
 				"You are missing the `Use External Apps` permission, so {{user}} would not receive your heart. Someone needs to adjust the permissions!",
+			"gift-not-in-server": "{{user}} is not in this server to gift a {{emoji}}.",
+			"gift-not-around": "{{user}} is not around to receive a {{emoji}}!",
+			"gift-app": "{{user}} is a bot. They're pretty emotionless. Immune to love, I'd say.",
+			"gift-duplicate-user":
+				"You've already sent {{user}} a {{emoji}} today!\nYou can gift another one to them {{timestamp}}.",
+			"gift-no-hearts-left":
+				"You have no more {{emoji}} left to gift today.\nYou can gift more {{timestamp}}.",
+			"gift-messages": [
+				"{{gifter}} sent a heart to {{giftee}}. How lucky!",
+				"A heart from {{gifter}} to {{giftee}}. That was nice of them!",
+				"Incoming heart from {{gifter}} to {{giftee}}!",
+				"{{gifter}} sent {{giftee}} a heart! What a good friend!",
+				"{{gifter}} sent {{giftee}} a heart. How nice of {{gifter}}!",
+				"{{gifter}} sent a heart to {{giftee}}. They're pretty lucky!",
+				"{{gifter}} sent {{giftee}} a heart. {{giftee}} is lucky to have a friend like you!",
+				"{{gifter}}, sending a heart each day keeps the dark dragon away from {{giftee}}!",
+				"A wholesome heart delivered to {{giftee}} from {{gifter}}!",
+			],
+			"gift-message-heart-result": "{{user}} now has {{number}}{{emoji}}.",
+			"gift-hearts-left-to-gift": "You can gift {{number}} more {{emoji}} today.",
+			"gift-hearts-left-to-gift-double":
+				"You can gift {{number}} more {{emoji}} today.\nThere is currently a double heart event from {{date1}} to {{date2}}",
 		},
 		me: {
 			title: "Me",
