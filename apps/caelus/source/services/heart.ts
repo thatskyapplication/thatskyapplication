@@ -144,7 +144,6 @@ export async function gift(
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
 		.where({ gifter_id: invoker.id })
 		.andWhere("timestamp", ">=", today.toISO())
-		.orderBy("timestamp", "desc")
 		.limit(MAXIMUM_HEARTS_PER_DAY);
 
 	if (heartPackets.some((heartPacket) => heartPacket.giftee_id === user.id)) {
