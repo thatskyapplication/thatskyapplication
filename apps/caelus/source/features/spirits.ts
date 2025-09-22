@@ -394,7 +394,7 @@ export async function spiritsHistory(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: `-# ${t("spirits.page", { lng: locale, ns: "features" })} ${page}/${maximumPage}`,
+			content: `-# ${t("page", { lng: locale, ns: "general" })} ${page}/${maximumPage}`,
 		},
 		{
 			type: ComponentType.ActionRow,

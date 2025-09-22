@@ -2,14 +2,15 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionDataResolvedGuildMember,
 	type APIMessageComponentButtonInteraction,
+	type APIMessageTopLevelComponent,
 	type APIUser,
 	type APIUserApplicationCommandInteraction,
 	ButtonStyle,
 	ComponentType,
-	type InteractionsAPI,
 	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
+	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
@@ -27,17 +28,17 @@ import type { HeartPacket } from "../models/Heart.js";
 import pg from "../pg.js";
 import { APPLICATION_ID } from "../utility/configuration.js";
 import {
-	DEFAULT_EMBED_COLOUR,
 	DELETED_USER_TEXT,
-	HEART_HISTORY_BACK,
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
-	HEART_HISTORY_NEXT,
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
 import { HEART_EXTRA_DATES } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
+
+export const HEART_HISTORY_BACK_CUSTOM_ID = "HEART_HISTORY_BACK_CUSTOM_ID" as const;
+export const HEART_HISTORY_NEXT_CUSTOM_ID = "HEART_HISTORY_NEXT_CUSTOM_ID" as const;
 
 async function totalGifted(userId: Snowflake) {
 	const result = await pg<HeartPacket>(Table.Hearts)
@@ -279,103 +280,121 @@ export async function history(
 		.where({ gifter_id: invoker.id })
 		.orWhere({ giftee_id: invoker.id })
 		.orderBy("timestamp", "desc")
-		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER + 1)
+		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER)
 		.offset(offset);
 
 	if (heartPackets.length === 0) {
-		const response = {
-			components: [],
-			content: `You have ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: 0 })}.`,
-			embeds: [],
-			flags: MessageFlags.Ephemeral,
-		};
+		const components: APIMessageTopLevelComponent[] = [
+			{
+				type: ComponentType.TextDisplay,
+				content: `You have ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: 0 })}.`,
+			},
+		];
 
 		if (isChatInput) {
-			await client.api.interactions.reply(interaction.id, interaction.token, response);
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				components,
+				flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+			});
 		} else {
-			await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+			await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+				components,
+			});
 		}
 
 		return;
 	}
 
-	const hasPreviousPage = offset > 0;
-	const hasNextPage = heartPackets.length > HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
-
-	if (hasNextPage) {
-		heartPackets.pop();
-	}
-
-	const [gifted, received] = await Promise.all([
+	const [gifted, received, total] = await Promise.all([
 		totalGifted(invoker.id),
 		totalReceived(invoker.id),
+		pg<HeartPacket>(Table.Hearts)
+			.where({ gifter_id: invoker.id })
+			.orWhere({ giftee_id: invoker.id })
+			.count({ totalRows: "*" })
+			.first()
+			.then((result) => Number(result?.totalRows ?? 0)),
 	]);
 
-	const response:
-		| Parameters<InteractionsAPI["reply"]>[2]
-		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
-		components: [
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${HEART_HISTORY_BACK}§${page - 1}`,
-						disabled: !hasPreviousPage,
-						emoji: { name: "⬅️" },
-						label: t("navigation-back", { lng: locale, ns: "general" }),
-						style: ButtonStyle.Secondary,
-					},
-					{
-						type: ComponentType.Button,
-						custom_id: `${HEART_HISTORY_NEXT}§${page + 1}`,
-						disabled: !hasNextPage,
-						emoji: { name: "➡️" },
-						label: t("navigation-next", { lng: locale, ns: "general" }),
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-		],
-		embeds: [
-			{
-				color: DEFAULT_EMBED_COLOUR,
-				description: `Gifted: ${resolveCurrencyEmoji({
-					emoji: MISCELLANEOUS_EMOJIS.Heart,
-					number: gifted,
-				})}\nReceived: ${resolveCurrencyEmoji({
-					emoji: MISCELLANEOUS_EMOJIS.Heart,
-					number: received,
-				})}`,
-				fields: heartPackets.map((heartPacket) => {
-					const gifted = heartPacket.gifter_id === invoker.id;
-					let name = gifted ? "Gifted" : "Received";
+	const maximumPage = Math.ceil(total / HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER);
 
-					if (heartPacket.hearts_extra > 0) {
-						name += ` ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: heartPacket.hearts_extra + 1 })}`;
-					}
+	const components: APIMessageTopLevelComponent[] = [
+		{
+			type: ComponentType.Container,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: "## Heart history",
+				},
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `Gifted: ${resolveCurrencyEmoji({
+						emoji: MISCELLANEOUS_EMOJIS.Heart,
+						includeSpaceInEmoji: true,
+						number: gifted,
+					})}\nReceived: ${resolveCurrencyEmoji({
+						emoji: MISCELLANEOUS_EMOJIS.Heart,
+						includeSpaceInEmoji: true,
+						number: received,
+					})}`,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: heartPackets
+						.map((heartPacket) => {
+							const gifted = heartPacket.gifter_id === invoker.id;
+							const amount = `${heartPacket.hearts_extra > 0 ? `${heartPacket.hearts_extra + 1}` : ""} ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} ${gifted ? "to" : "from"}`;
+							const user = gifted ? heartPacket.giftee_id : heartPacket.gifter_id;
+							return `- ${amount} ${user ? `<@${user}>` : DELETED_USER_TEXT} on <t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:d> (<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:R>)`;
+						})
+						.join("\n"),
+				},
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `-# ${t("page", { lng: locale, ns: "general" })} ${page}/${maximumPage}`,
+				},
+			],
+		},
+	];
 
-					const user = gifted ? heartPacket.giftee_id : heartPacket.gifter_id;
-
-					return {
-						name,
-						value: [
-							`${user ? `<@${user}>` : DELETED_USER_TEXT}`,
-							`<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:d>`,
-							`(<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:R>)`,
-						].join("\n"),
-						inline: true,
-					};
-				}),
-				title: "Heart History",
-			},
-		],
-		flags: MessageFlags.Ephemeral,
-	};
+	if (maximumPage > 1) {
+		components.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					style: ButtonStyle.Secondary,
+					custom_id: `${HEART_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? maximumPage : page - 1}`,
+					label: t("navigation-back", { lng: locale, ns: "general" }),
+					emoji: { name: "⬅️" },
+				},
+				{
+					type: ComponentType.Button,
+					style: ButtonStyle.Secondary,
+					custom_id: `${HEART_HISTORY_NEXT_CUSTOM_ID}§${page === maximumPage ? 1 : page + 1}`,
+					label: t("navigation-next", { lng: locale, ns: "general" }),
+					emoji: { name: "➡️" },
+				},
+			],
+		});
+	}
 
 	if (isChatInput) {
-		await client.api.interactions.reply(interaction.id, interaction.token, response);
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components,
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		});
 	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
 	}
 }

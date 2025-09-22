@@ -143,9 +143,7 @@ export const GUESS_LEADERBOARD_NEXT_CUSTOM_ID = "GUESS_LEADERBOARD_NEXT_CUSTOM_I
 // Heart.
 export const DELETED_USER_TEXT = "<deleted>" as const;
 export const MAXIMUM_HEARTS_PER_DAY = 3 as const;
-export const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 24 as const;
-export const HEART_HISTORY_BACK = "HEART_HISTORY_BACK" as const;
-export const HEART_HISTORY_NEXT = "HEART_HISTORY_NEXT" as const;
+export const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 25 as const;
 
 // Notifications.
 export const NOTIFICATION_CHANNEL_TYPES = [

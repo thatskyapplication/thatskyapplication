@@ -58,6 +58,7 @@ export default {
 			[NotificationType.DreamsSkater]: "Dreams skater",
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",
 		} satisfies Record<NotificationTypes, string>,
+		page: "Page",
 		"quests-common": {
 			"meet-up-with": "Meet up with {{spirit}} in {{location}}",
 		},
@@ -3637,7 +3638,6 @@ export default {
 			} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			"order-natural": "Order by appearance",
 			"order-rarity": "Order by rarity",
-			page: "Page",
 		},
 		welcome: {
 			preview: "This is the preview area for your welcome message. It is currently empty.",

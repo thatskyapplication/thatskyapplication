@@ -267,7 +267,11 @@ import {
 } from "../features/welcome.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
-import { history } from "../services/heart.js";
+import {
+	HEART_HISTORY_BACK_CUSTOM_ID,
+	HEART_HISTORY_NEXT_CUSTOM_ID,
+	history,
+} from "../services/heart.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
@@ -283,8 +287,6 @@ import {
 	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
 	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
 	GUESS_TRY_AGAIN,
-	HEART_HISTORY_BACK,
-	HEART_HISTORY_NEXT,
 } from "../utility/constants.js";
 import {
 	interactionInvoker,
@@ -939,7 +941,10 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(HEART_HISTORY_BACK) || customId.startsWith(HEART_HISTORY_NEXT)) {
+				if (
+					customId.startsWith(HEART_HISTORY_BACK_CUSTOM_ID) ||
+					customId.startsWith(HEART_HISTORY_NEXT_CUSTOM_ID)
+				) {
 					await history(interaction);
 					return;
 				}
