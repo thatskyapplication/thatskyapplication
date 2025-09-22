@@ -333,7 +333,8 @@
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "Aiuta l'Accolito supplicante a depositare l'estate negli archivi",
 			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
-			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
+			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
@@ -557,7 +558,6 @@
 			"79": "",
 			"80": ""
 		},
-		"shard-eruptions": "",
 		"sky-profile-winged-light-types": {
 			"0": "",
 			"1": ""
@@ -2882,6 +2882,8 @@
 			"event-tickets-message-complete": ""
 		},
 		"daily-guides": {
+			"name": "",
+			"description-short": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",
@@ -3061,6 +3063,7 @@
 			},
 			"name": "",
 			"description": "",
+			"description-short": "",
 			"overview-active": "",
 			"overview-available": "",
 			"overview-upcoming": "",
@@ -3122,6 +3125,8 @@
 			"back": ""
 		},
 		"shard-eruption": {
+			"name-plural": "",
+			"description-short": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
@@ -3131,6 +3136,8 @@
 			"realm-map": ""
 		},
 		"sky-profile": {
+			"name-plural": "",
+			"description-short": "",
 			"unknown-country": "",
 			"unknown-profile-edit-type": "",
 			"unknown-profile-reset-type": "",

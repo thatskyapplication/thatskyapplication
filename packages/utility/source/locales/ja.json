@@ -333,7 +333,8 @@
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "資料庫で祈る侍者が夏を記録するのを手伝いましょう",
 			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
-			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
+			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "感謝の季節",
@@ -557,7 +558,6 @@
 			"79": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
 			"80": ""
 		},
-		"shard-eruptions": "闇の破片",
 		"sky-profile-winged-light-types": {
 			"0": "",
 			"1": ""
@@ -2882,6 +2882,8 @@
 			"event-tickets-message-complete": "本日のイベントチケットを全て獲得しました！素晴らしい！"
 		},
 		"daily-guides": {
+			"name": "",
+			"description-short": "",
 			"quests-heading": "",
 			"treasure-candles": "キャンドルのかたまり",
 			"seasonal-candles": "シーズンキャンドル",
@@ -3059,8 +3061,9 @@
 				"15": "",
 				"16": "$t(general:cosmetic-names.2498)"
 			},
-			"name": "",
+			"name": "スケジュール",
 			"description": "",
+			"description-short": "",
 			"overview-active": "",
 			"overview-available": "",
 			"overview-upcoming": "",
@@ -3122,6 +3125,8 @@
 			"back": ""
 		},
 		"shard-eruption": {
+			"name-plural": "",
+			"description-short": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
@@ -3131,6 +3136,8 @@
 			"realm-map": ""
 		},
 		"sky-profile": {
+			"name-plural": "",
+			"description-short": "",
 			"unknown-country": "",
 			"unknown-profile-edit-type": "",
 			"unknown-profile-reset-type": "",

@@ -333,7 +333,8 @@
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "幫助祈禱聖徒在秘密書庫中記錄夏日",
 			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
-			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
+			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -557,7 +558,6 @@
 			"79": "https://sky-children-of-the-light.fandom.com/zh/wiki/%E6%9C%88%E8%8F%AF%E7%AF%80",
 			"80": ""
 		},
-		"shard-eruptions": "",
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
 			"1": "無披風"
@@ -2882,6 +2882,8 @@
 			"event-tickets-message-complete": ""
 		},
 		"daily-guides": {
+			"name": "",
+			"description-short": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",
@@ -2901,7 +2903,7 @@
 			"quest-no-infographic": ""
 		},
 		"data": {
-			"delete-message": "您是否確定要刪除您的資料？此舉將會：\n- 刪除您的光子簡介\n- 刪除您的目錄\n- 刪除您曾經獲得/贈送的愛心記錄\n  - 以您的ID所贈送的愛心記錄，在其他人頁面上將以匿名方式呈現\n- 刪除您於猜謎遊戲的最長連勝記錄\n- 移除您的抽獎資訊\n- 移除您的翻譯員角色，若您曾獲得該角色",
+			"delete-message": "",
 			"delete-my-data": "刪除本人資料",
 			"delete-error": "在刪除您的用戶資料時出了點問題，但請放心，系統已將該問題列入追蹤，並改為人工處理（非系統自動刪除）。我們會在30天內刪除您的資料。\n\n如果您想瞭解關於您的資料刪除進度，歡迎加入我們的[支援社群]({{url}})並提出請求。",
 			"delete-success": "已刪除您的資料，現在的您是一位萌新。"
@@ -3061,6 +3063,7 @@
 			},
 			"name": "",
 			"description": "",
+			"description-short": "",
 			"overview-active": "",
 			"overview-available": "",
 			"overview-upcoming": "",
@@ -3122,6 +3125,8 @@
 			"back": ""
 		},
 		"shard-eruption": {
+			"name-plural": "",
+			"description-short": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
@@ -3131,6 +3136,8 @@
 			"realm-map": ""
 		},
 		"sky-profile": {
+			"name-plural": "",
+			"description-short": "",
 			"unknown-country": "",
 			"unknown-profile-edit-type": "",
 			"unknown-profile-reset-type": "",

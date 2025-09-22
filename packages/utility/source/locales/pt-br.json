@@ -333,7 +333,8 @@
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "Ajude o Acólito que Reza a arquivar o verão nos Arquivos",
 			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
-			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
+			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -557,7 +558,6 @@
 			"79": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar",
 			"80": ""
 		},
-		"shard-eruptions": "",
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
 			"1": "Sem Capa"
@@ -2882,6 +2882,8 @@
 			"event-tickets-message-complete": ""
 		},
 		"daily-guides": {
+			"name": "",
+			"description-short": "",
 			"quests-heading": "Missões",
 			"treasure-candles": "Velas do Tesouro",
 			"seasonal-candles": "Velas de temporada",
@@ -2901,7 +2903,7 @@
 			"quest-no-infographic": "Essa missão não possui um infográfico."
 		},
 		"data": {
-			"delete-message": "Tem certeza que deseja excluir seus dados? Isso irá:\n- Excluir seu perfil Sky\n- Excluir seu inventário\n- Excluir seus corações\n  - Seu id de usuário no histórico de corações dos outros será anonimizado\n- Excluir seu recorde nos jogos de advinhação\n- Remover dados de sorteios\n- Remover seu cargo de tradutor, se tiver um",
+			"delete-message": "",
 			"delete-my-data": "Excluir meus dados",
 			"delete-error": "Houve um problema ao excluir seus dados de usuário. Não se preocupe, este incidente está sendo acompanhado e foi convertido em uma solicitação manual de exclusão de dados (em vez de uma automática). Seus dados serão excluídos dentro de 30 dias.\n\nSe quiser, você pode entrar no [servidor de suporte]({{url}}) e pedir para verificar o status da sua solicitação de exclusão de dados.",
 			"delete-success": "Seus dados foram excluídos. Você é uma mariposa agora."
@@ -3061,6 +3063,7 @@
 			},
 			"name": "",
 			"description": "",
+			"description-short": "",
 			"overview-active": "",
 			"overview-available": "{{emoji}} Disponível!",
 			"overview-upcoming": "",
@@ -3122,6 +3125,8 @@
 			"back": "Retornar"
 		},
 		"shard-eruption": {
+			"name-plural": "",
+			"description-short": "",
 			"browse-description": "Você está atualmente navegando erupções de cristais. Abra os menus de seleção para ver informações por um maior período. Selecione uma data para ver mais informações.",
 			"no-shard-eruptions-today": "Não haverá erupções de cristais hoje.",
 			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
@@ -3131,6 +3136,8 @@
 			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
 		},
 		"sky-profile": {
+			"name-plural": "",
+			"description-short": "",
 			"unknown-country": "Por favor, selecione um país!",
 			"unknown-profile-edit-type": "Erro ao editar o perfil. Tente novamente!",
 			"unknown-profile-reset-type": "Erro ao redefinir o perfil. Tente novamente!",
