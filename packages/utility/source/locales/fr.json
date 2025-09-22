@@ -333,7 +333,8 @@
 			"250": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.25)\",\"location\":\"$t(realms.Valley of Triumph)\"})",
 			"251": "Aidez l'Acolyte en prière à classer l'été dans les Archives",
 			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
-			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})"
+			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
+			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -557,7 +558,6 @@
 			"79": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_du_Clair_de_Lune",
 			"80": ""
 		},
-		"shard-eruptions": "Éruptions d'éclats",
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
 			"1": "Sans cape"
@@ -2882,6 +2882,8 @@
 			"event-tickets-message-complete": ""
 		},
 		"daily-guides": {
+			"name": "",
+			"description-short": "",
 			"quests-heading": "Quêtes",
 			"treasure-candles": "Bougies au trésor",
 			"seasonal-candles": "Bougies saisonnières",
@@ -2901,7 +2903,7 @@
 			"quest-no-infographic": ""
 		},
 		"data": {
-			"delete-message": "Êtes-vous sûr•e de vouloir supprimer vos données ? Cela va :\n- Supprimer votre profil Sky\n- Supprimer votre catalogue\n- Supprimer vos cœurs\n  - Votre identifiant d'utilisateur dans l'historique de cœur des autres sera rendu anonyme\n- Supprimer vos combos maximaux dans les jeux de devinettes\n- Destituer les données de tirage au sort\n- Destituer votre rôle de traducteur, si vous en avez un",
+			"delete-message": "Êtes-vous sûr•e de vouloir supprimer vos données ? Cela va :\n- Supprimer votre profil Sky\n- Supprimer votre catalogue\n- Supprimer vos cœurs\n  - Votre identifiant d'utilisateur dans l'historique de cœur des autres sera rendu anonyme\n- Supprimer vos combos maximaux dans les jeux de devinettes\n- Supprimer vos données de liste de choses à faire\n- Destituer les données de tirage au sort\n- Destituer votre rôle de traducteur, si vous en avez un",
 			"delete-my-data": "Supprimer mes données",
 			"delete-error": "Il y a eu un problème lors de la suppression de vos données. Ne vous inquiétez pas, cet incident est suivi et a été converti en une demande de suppression de données manuelle (au lieu d'une automatique). Vos données seront supprimées sous 30 jours.\n\nSi vous le souhaitez, vous pouvez rejoindre le [serveur d'assistance]({{url}}) et demander de voir le statut de votre demande de suppression de données.",
 			"delete-success": "Vos données ont été supprimées. Vous êtes un papillon de nuit maintenant."
@@ -3061,6 +3063,7 @@
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des événements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
+			"description-short": "",
 			"overview-active": "Actif",
 			"overview-available": "{{emoji}} Disponible !",
 			"overview-upcoming": "À venir",
@@ -3122,6 +3125,8 @@
 			"back": "Précédent"
 		},
 		"shard-eruption": {
+			"name-plural": "",
+			"description-short": "",
 			"browse-description": "Vous être en train de rechercher les éruptions d'éclats. Ouvrez les menus de sélection pour rapidement voir les informations sur une bonne période de temps. Sélectionnez une date pour voir plus d'informations.",
 			"no-shard-eruptions-today": "Il n'y a pas d'éruption d'éclats aujourd'hui.",
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
@@ -3131,6 +3136,8 @@
 			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
 		},
 		"sky-profile": {
+			"name-plural": "",
+			"description-short": "",
 			"unknown-country": "Sélectionnez un pays !",
 			"unknown-profile-edit-type": "Erreur d'édition du profil. Veuillez réessayer s'il vous plait !",
 			"unknown-profile-reset-type": "Erreur de réinitialisation du profil. Veuillez réessayer s'il vous plaît !",
