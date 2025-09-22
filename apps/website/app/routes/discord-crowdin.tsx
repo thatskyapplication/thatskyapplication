@@ -25,6 +25,19 @@ interface AuthState {
 	error?: string | undefined;
 }
 
+interface CrowdinAPIUser {
+	id: number;
+	username: string;
+	status: "active" | "pending" | "blocked";
+}
+
+/**
+ * @see {@link https://support.crowdin.com/developer/enterprise/api/v2/#tag/Users/operation/api.users.getById}
+ */
+interface CrowdinRESTGetAPIUserResult {
+	data: CrowdinAPIUser;
+}
+
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const url = new URL(request.url);
 	const session = await getSession(request.headers.get("Cookie"));
@@ -81,12 +94,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				throw await userResponse.text();
 			}
 
-			const userData = await userResponse.json();
+			const { data } = (await userResponse.json()) as CrowdinRESTGetAPIUserResult;
+
+			if (data.status !== "active") {
+				throw new Error("Crowdin account not active.");
+			}
+
 			authenticationState.crowdinAuthorised = true;
 
 			authenticationState.crowdinUser = {
-				id: userData.data.id,
-				username: userData.data.username,
+				id: data.id,
+				username: data.username,
 			};
 
 			session.set("crowdin_authorised", true);
