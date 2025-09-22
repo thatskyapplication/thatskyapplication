@@ -29,9 +29,9 @@ import type { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 import { GUILD_CACHE } from "./caches/guilds.js";
 import { MESSAGE_CACHE } from "./caches/messages.js";
 import { client } from "./discord.js";
+import { todayData } from "./features/shard-eruption.js";
 import type { Guild } from "./models/discord/guild.js";
 import pino from "./pino.js";
-import { todayData } from "./services/shard-eruption.js";
 import {
 	AI_GATEWAY_TOKEN,
 	APPLICATION_ID,

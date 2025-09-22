@@ -4,7 +4,6 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIMessageComponentButtonInteraction,
-	type APIMessageComponentInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	type APISelectMenuComponent,
@@ -15,12 +14,10 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 import { shardEruption, skyNow, skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { DateTime } from "luxon";
+import type { DateTime } from "luxon";
 import { client } from "../discord.js";
-import { APPLICATION_ID } from "../utility/configuration.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import {
@@ -67,49 +64,16 @@ function generateShardEruptionSelectMenuOptions(
 		if (shardNow) {
 			stringSelectMenuOption.emoji = resolveShardEruptionEmoji(shardNow.strong);
 		} else {
-			stringSelectMenuOption.description = "No shard eruption.";
+			stringSelectMenuOption.description = t("shard-eruption.browse-no-shard", {
+				lng: locale,
+				ns: "features",
+			});
 		}
 
 		options.push(stringSelectMenuOption);
 	}
 
 	return options;
-}
-
-async function hasExpired(
-	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentInteraction,
-	fromToday: boolean,
-	offset: number,
-) {
-	const today = skyToday();
-
-	if (isChatInputCommand(interaction)) {
-		return false;
-	}
-
-	const { message } = interaction;
-
-	const expiresAt = DateTime.fromMillis(DiscordSnowflake.timestampFrom(message.id), {
-		zone: TIME_ZONE,
-	}).endOf("day");
-
-	if (today > expiresAt) {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-			components: fromToday
-				? todayData(interaction.locale, offset, false)
-				: browseData(interaction.locale, offset, false),
-			flags: MessageFlags.IsComponentsV2,
-		});
-
-		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
-			content: "This command has expired. Run it again!",
-			flags: MessageFlags.Ephemeral,
-		});
-
-		return true;
-	}
-
-	return false;
 }
 
 interface ShardEruptionTodayOptions {
@@ -125,10 +89,6 @@ export async function today(
 		| APIMessageComponentSelectMenuInteraction,
 	{ offset = 0, ephemeral, newMessage }: ShardEruptionTodayOptions = {},
 ) {
-	if (await hasExpired(interaction, true, offset)) {
-		return;
-	}
-
 	const components = todayData(interaction.locale, offset);
 	let flags = MessageFlags.IsComponentsV2;
 
@@ -163,7 +123,6 @@ export function todayData(
 	const button: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
-		disabled: offset === 0,
 		label: t("shard-eruption.today", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Primary,
 	};
@@ -207,13 +166,7 @@ export function todayData(
 			},
 			{
 				type: ComponentType.MediaGallery,
-				items: [
-					{
-						media: {
-							url: shardToday.url,
-						},
-					},
-				],
+				items: [{ media: { url: shardToday.url } }],
 			},
 		);
 	} else {
@@ -258,10 +211,6 @@ export async function browse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 	offset = 0,
 ) {
-	if (await hasExpired(interaction, false, offset)) {
-		return;
-	}
-
 	const { locale } = interaction;
 	const components = browseData(locale, offset, true);
 
@@ -320,7 +269,12 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 								offset,
 								locale,
 							),
-							placeholder: `${placeholderStartDate} - ${placeholderEndDate}`,
+							placeholder: t("shard-eruption.browse-date-range", {
+								lng: locale,
+								ns: "features",
+								date1: placeholderStartDate,
+								date2: placeholderEndDate,
+							}),
 						},
 					],
 				};
@@ -349,7 +303,6 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 					{
 						type: ComponentType.Button,
 						custom_id: SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
-						disabled: offset === 0,
 						label: t("shard-eruption.today", { lng: locale, ns: "features" }),
 						style: ButtonStyle.Primary,
 					},

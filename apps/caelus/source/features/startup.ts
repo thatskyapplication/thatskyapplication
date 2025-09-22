@@ -1,12 +1,12 @@
 import type { NotificationPacket } from "@thatskyapplication/utility";
 import { isDuring, skyNow, Table } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
-import { eligible, type GiveawayPacket, ineligible } from "../features/giveaway.js";
-import { checkSendable } from "../features/notifications.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
 import { GIVEAWAY_END_DATE, GIVEAWAY_START_DATE } from "../utility/constants.js";
+import { eligible, type GiveawayPacket, ineligible } from "./giveaway.js";
+import { checkSendable } from "./notifications.js";
 
 async function giveaway() {
 	// Ensure eligibility in the giveaway.

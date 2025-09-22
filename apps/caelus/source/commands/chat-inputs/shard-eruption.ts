@@ -1,6 +1,6 @@
 import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { t } from "i18next";
-import { browse, today } from "../../services/shard-eruption.js";
+import { browse, today } from "../../features/shard-eruption.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
