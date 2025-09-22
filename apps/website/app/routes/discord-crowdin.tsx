@@ -38,6 +38,34 @@ interface CrowdinRESTGetAPIUserResult {
 	data: CrowdinAPIUser;
 }
 
+interface CrowdinRESTGetAPIUserProjectContributionsResult {
+	data: UserProjectsContribution[];
+	pagination: unknown;
+}
+
+interface UserProjectsContribution {
+	data: UserProjectsContributionData;
+}
+
+interface UserProjectsContributionData {
+	id: number;
+	translated: StringsAndWords;
+	approved: StringsAndWords;
+	voted: CrowdinStrings;
+	commented: CrowdinStrings;
+	project: unknown;
+}
+
+interface CrowdinStrings {
+	strings: number;
+}
+
+interface CrowdinWords {
+	words: number;
+}
+
+type StringsAndWords = CrowdinStrings & CrowdinWords;
+
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const url = new URL(request.url);
 	const session = await getSession(request.headers.get("Cookie"));
@@ -94,21 +122,42 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 				throw await userResponse.text();
 			}
 
-			const { data } = (await userResponse.json()) as CrowdinRESTGetAPIUserResult;
+			const { data: userData } = (await userResponse.json()) as CrowdinRESTGetAPIUserResult;
 
-			if (data.status !== "active") {
+			if (userData.status !== "active") {
 				throw new Error("Crowdin account not active.");
 			}
 
-			authenticationState.crowdinAuthorised = true;
+			const projectContributionsResponse = await fetch(
+				`https://thatskyapplication.api.crowdin.com/api/v2/users/${userData.id}/projects/contributions`,
+				{ headers: { Authorization: `Bearer ${tokenData.access_token}` } },
+			);
 
-			authenticationState.crowdinUser = {
-				id: data.id,
-				username: data.username,
-			};
+			if (!projectContributionsResponse.ok) {
+				throw await projectContributionsResponse.text();
+			}
 
-			session.set("crowdin_authorised", true);
-			session.set("crowdin_user", authenticationState.crowdinUser);
+			const { data: projectContributionsData } =
+				(await projectContributionsResponse.json()) as CrowdinRESTGetAPIUserProjectContributionsResult;
+
+			if (
+				projectContributionsData.length === 0 ||
+				projectContributionsData[0]!.data.translated.strings === 0 ||
+				projectContributionsData[0]!.data.translated.words === 0
+			) {
+				authenticationState.error = "You have not translated anything.";
+				session.set("discord_crowdin_auth_error", authenticationState.error);
+			} else {
+				authenticationState.crowdinAuthorised = true;
+
+				authenticationState.crowdinUser = {
+					id: userData.id,
+					username: userData.username,
+				};
+
+				session.set("crowdin_authorised", true);
+				session.set("crowdin_user", authenticationState.crowdinUser);
+			}
 		} catch (error) {
 			pino.error({ request, error }, "Failed to authorise with Crowdin.");
 			authenticationState.error = "Failed to authorise with Crowdin.";
