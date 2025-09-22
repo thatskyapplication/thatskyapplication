@@ -76,6 +76,7 @@
 			"13": "",
 			"14": ""
 		},
+		"page": "Page",
 		"quests-common": {
 			"meet-up-with": "Retrouvez {{spirit}} à {{location}}"
 		},
@@ -2961,7 +2962,27 @@
 			"leaderboard-you": "Vous : #{{rank}} ({{streak}})"
 		},
 		"heart": {
-			"missing-external-apps-permission": "Vous n'avez pas la permission `Utilise des applications externes`, donc {{user}} ne recevra pas votre cœur. Quelqu'un doit ajuster les permissions !"
+			"gift-self": "Vous ne pouvez pas offrir de {{emoji}} à vous-même !",
+			"gift-missing-external-apps-permission": "Vous n'avez pas la permission `Utilise des applications externes`, donc {{user}} ne recevra pas votre cœur. Quelqu'un doit ajuster les permissions !",
+			"gift-not-in-server": "{{user}} n'est pas sur ce serveur pour lui offrir un {{emoji}}.",
+			"gift-not-around": "{{user}} n'est pas dans les alentours pour recevoir un {{emoji}} !",
+			"gift-app": "{{user}} est un bot. Ils ne ressentent pas grand-chose. Tu peux essayer, mais je crois qu'ils ne sont pas très sensibles à l'amour.",
+			"gift-duplicate-user": "Vous avez déjà envoyé un {{emoji}} à {{user}} aujourd'hui !\nVous pourrez lui en offrir un autre {{timestamp}}.",
+			"gift-no-hearts-left": "Vous n'avez plus de {{emoji}} restant à offrir aujourd'hui.\nVous pourrez en offrir de nouveau {{timestamp}}.",
+			"gift-messages": [
+				"{{gifter}} a envoyé un cœur à {{giftee}}. Quelle chance !",
+				"Un cœur de {{gifter}} à {{giftee}}. C'est très gentil de sa part !",
+				"Un cœur venu de {{gifter}} pour {{giftee}} !",
+				"{{gifter}} a envoyé un cœur à {{giftee}} ! Quelle belle amitié !",
+				"{{gifter}} a envoyé un cœur à {{giftee}}. Comme c'est gentil de la part de {{gifter}} !",
+				"{{gifter}} a envoyé un cœur à {{giftee}}. Comme c'est chanceux !",
+				"{{gifter}} a envoyé un cœur à {{giftee}}. {{giftee}} à de la chance d'avoir une telle amitié !",
+				"{{gifter}}, envoyer un cœur chaque jour garde le dragon sombre à distance de {{giftee}} !",
+				"Un incroyable cœur livré à {{giftee}} de la part de {{gifter}} !"
+			],
+			"gift-message-heart-result": "{{user}} a maintenant {{number}}{{emoji}}.",
+			"gift-hearts-left-to-gift": "Vous pouvez offrir {{number}}{{emoji}} de plus aujourd'hui.",
+			"gift-hearts-left-to-gift-double": "Vous pouvez offrir {{number}}{{emoji}} de plus aujourd'hui.\nIl y a actuellement un événement de double cœur de {{date1}} à {{date2}}."
 		},
 		"me": {
 			"title": "Moi",
@@ -3130,6 +3151,8 @@
 			"browse-description": "Vous être en train de rechercher les éruptions d'éclats. Ouvrez les menus de sélection pour rapidement voir les informations sur une bonne période de temps. Sélectionnez une date pour voir plus d'informations.",
 			"no-shard-eruptions-today": "Il n'y a pas d'éruption d'éclats aujourd'hui.",
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
+			"browse-date-range": "{{date1}}–{{date2}}",
+			"browse-no-shard": "Pas d'éruptions d'éclats.",
 			"none": "Aucun",
 			"today": "Aujourd'hui",
 			"browse": "Rechercher",
@@ -3263,8 +3286,7 @@
 				"1": "Rareté des Esprits"
 			},
 			"order-natural": "Ordre d'apparence",
-			"order-rarity": "Ordre de rareté",
-			"page": "Page"
+			"order-rarity": "Ordre de rareté"
 		},
 		"welcome": {
 			"preview": "Ceci est la zone d'aperçu de votre message de bienvenue. C'est actuellement vide.",

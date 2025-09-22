@@ -76,6 +76,7 @@
 			"13": "",
 			"14": "雲巢工作坊"
 		},
+		"page": "頁次",
 		"quests-common": {
 			"meet-up-with": "與{{spirit}}在{{location}}見面"
 		},
@@ -2961,7 +2962,17 @@
 			"leaderboard-you": ""
 		},
 		"heart": {
-			"missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法收到您的愛心。需要有人調整權限！"
+			"gift-self": "",
+			"gift-missing-external-apps-permission": "您缺少「使用外部應用程式」權限，因此 {{user}} 無法收到您的愛心。需要有人調整權限！",
+			"gift-not-in-server": "",
+			"gift-not-around": "",
+			"gift-app": "",
+			"gift-duplicate-user": "",
+			"gift-no-hearts-left": "",
+			"gift-messages": ["", "", "", "", "", "", "", "", ""],
+			"gift-message-heart-result": "",
+			"gift-hearts-left-to-gift": "",
+			"gift-hearts-left-to-gift-double": ""
 		},
 		"me": {
 			"title": "",
@@ -3130,6 +3141,8 @@
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
+			"browse-date-range": "",
+			"browse-no-shard": "",
 			"none": "無",
 			"today": "",
 			"browse": "",
@@ -3263,8 +3276,7 @@
 				"1": ""
 			},
 			"order-natural": "",
-			"order-rarity": "",
-			"page": "頁次"
+			"order-rarity": ""
 		},
 		"welcome": {
 			"preview": "",

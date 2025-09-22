@@ -76,6 +76,7 @@
 			"13": "",
 			"14": ""
 		},
+		"page": "",
 		"quests-common": {
 			"meet-up-with": "พบกับ {{spirit}} ใน {{location}}"
 		},
@@ -2961,7 +2962,17 @@
 			"leaderboard-you": ""
 		},
 		"heart": {
-			"missing-external-apps-permission": ""
+			"gift-self": "",
+			"gift-missing-external-apps-permission": "",
+			"gift-not-in-server": "",
+			"gift-not-around": "",
+			"gift-app": "",
+			"gift-duplicate-user": "",
+			"gift-no-hearts-left": "",
+			"gift-messages": ["", "", "", "", "", "", "", "", ""],
+			"gift-message-heart-result": "",
+			"gift-hearts-left-to-gift": "",
+			"gift-hearts-left-to-gift-double": ""
 		},
 		"me": {
 			"title": "",
@@ -3130,6 +3141,8 @@
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
+			"browse-date-range": "",
+			"browse-no-shard": "",
 			"none": "",
 			"today": "",
 			"browse": "",
@@ -3263,8 +3276,7 @@
 				"1": ""
 			},
 			"order-natural": "",
-			"order-rarity": "",
-			"page": ""
+			"order-rarity": ""
 		},
 		"welcome": {
 			"preview": "",
