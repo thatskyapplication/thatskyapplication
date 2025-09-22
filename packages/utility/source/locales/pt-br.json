@@ -1,6 +1,6 @@
 {
 	"general": {
-		"daily-quests": "",
+		"daily-quests": "Missões diárias",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
 			"season_one": "{{count}} dia restante na temporada.",
@@ -9,7 +9,7 @@
 			"event_one": "{{count}} dia restante em {{name}}.",
 			"event_other": "{{count}} dias restantes em {{name}}."
 		},
-		"event-tickets": "",
+		"event-tickets": "Tíquetes de Evento",
 		"realms": {
 			"Isles of Dawn": "Ilha do Alvorecer",
 			"Daylight Prairie": "Campina da Aurora",
@@ -67,7 +67,7 @@
 			"4": "Gêiser poluído",
 			"5": "Vovó",
 			"6": "Tartaruga",
-			"7": "Explosão de fragmentos (normal)",
+			"7": "Explosão de fragmentos (regular)",
 			"8": "Explosão de fragmentos (forte)",
 			"9": "AURORA",
 			"10": "Passagem",
@@ -76,6 +76,7 @@
 			"13": "Patinadora dos sonhos",
 			"14": "Oficina de Nidificação"
 		},
+		"page": "Página",
 		"quests-common": {
 			"meet-up-with": "Encontre-se com {{spirit}} em {{location}}"
 		},
@@ -2521,8 +2522,8 @@
 			"command-description": "Seu próprio catálogo de Sky."
 		},
 		"checklist": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "checklist",
+			"command-description": "Acompanhe suas atividades em Sky como missões diárias, Éden, e muito mais!"
 		},
 		"configure": {
 			"command-name": "configurar",
@@ -2862,28 +2863,28 @@
 			"seasons-season-next-season": "Próxima temporada"
 		},
 		"checklist": {
-			"title": "",
-			"description": "",
-			"complete": "",
-			"reset": "",
-			"daily-quests-message-incomplete": "",
-			"daily-quests-message-complete": "",
-			"daily-quests-show-button-label": "",
-			"seasonal-candles-message-incomplete": "",
-			"seasonal-candles-message-incomplete-double": "",
-			"seasonal-candles-message-complete": "",
-			"eye-of-eden-message-incomplete": "",
-			"eye-of-eden-message-complete": "",
-			"shard-eruptions-message-none": "",
-			"shard-eruptions-message-incomplete": "",
-			"shard-eruptions-message-complete": "",
-			"shard-eruptions-show-button-label": "",
-			"event-tickets-message-incomplete": "",
-			"event-tickets-message-complete": ""
+			"title": "Checklist",
+			"description": "Acompanhe suas atividades em Sky, {{user}}!",
+			"complete": "Completo",
+			"reset": "Redefinir",
+			"daily-quests-message-incomplete": "Você já completou as missões diárias?",
+			"daily-quests-message-complete": "Missões diárias completas! Bom trabalho!",
+			"daily-quests-show-button-label": "Exibir missões diárias",
+			"seasonal-candles-message-incomplete": "Você já coletou todas as velas sazonais, incluindo as torres de velas sazonais encontrados no reino?",
+			"seasonal-candles-message-incomplete-double": "Você já coletou todas as velas sazonais, incluindo as torres de velas sazonais encontrados no reino? Atualmente estamos em um evento de luz sazonal em dobro!",
+			"seasonal-candles-message-complete": "Você coletou todas as velas sazonais! Continue assim!",
+			"eye-of-eden-message-incomplete": "Você já acendeu as estátuas no Éden esta semana?",
+			"eye-of-eden-message-complete": "Você visitou o Éden! Sensacional!",
+			"shard-eruptions-message-none": "Não há erupções de fragmentos para serem limpas hoje.",
+			"shard-eruptions-message-incomplete": "Você já limpou as erupções de fragmentos hoje?",
+			"shard-eruptions-message-complete": "Missão cumprida: os fragmentos foram limpos! Parabéns!",
+			"shard-eruptions-show-button-label": "Exibir erupções de fragmentos",
+			"event-tickets-message-incomplete": "Você já coletou todos os tíquetes evento hoje?",
+			"event-tickets-message-complete": "Você coletou todos os tíquetes de evento! Parabéns!"
 		},
 		"daily-guides": {
-			"name": "",
-			"description-short": "",
+			"name": "Guias diários",
+			"description-short": "Ver os guias diários de hoje.",
 			"quests-heading": "Missões",
 			"treasure-candles": "Velas do Tesouro",
 			"seasonal-candles": "Velas de temporada",
@@ -2903,7 +2904,7 @@
 			"quest-no-infographic": "Essa missão não possui um infográfico."
 		},
 		"data": {
-			"delete-message": "",
+			"delete-message": "Tem certeza que quer apagar seus dados? Isso vai:\n- Apagar seu perfil Sky\n- Apagar seu catálogo\n- Apagar seus corações\n  - Seu id de usuário no histórico de corações se tornará anônimo para os outros\n- Apagar sua maior sequência no quiz\n- Apagar seus dados de checklist\n- Apagar dados do sorteio\n- Apagar sua função de tradutor, se você tiver uma",
 			"delete-my-data": "Excluir meus dados",
 			"delete-error": "Houve um problema ao excluir seus dados de usuário. Não se preocupe, este incidente está sendo acompanhado e foi convertido em uma solicitação manual de exclusão de dados (em vez de uma automática). Seus dados serão excluídos dentro de 30 dias.\n\nSe quiser, você pode entrar no [servidor de suporte]({{url}}) e pedir para verificar o status da sua solicitação de exclusão de dados.",
 			"delete-success": "Seus dados foram excluídos. Você é uma mariposa agora."
@@ -2961,7 +2962,27 @@
 			"leaderboard-you": "Você: #{{rank}} ({{streak}})"
 		},
 		"heart": {
-			"missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu coração. Alguém precisa ajustar as permissões!"
+			"gift-self": "Você não pode presentear um {{emoji}} para si mesmo!",
+			"gift-missing-external-apps-permission": "Você não tem a permissão Usar Aplicativos Externos, então {{user}} não receberá seu coração. Alguém precisa ajustar as permissões!",
+			"gift-not-in-server": "{{user}} não está nesse servidor para presentear um {{emoji}}.",
+			"gift-not-around": "{{user}} não está por aqui para receber um {{emoji}}!",
+			"gift-app": "{{user}} É só um bot — sem emoções. Acho que é imune ao amor.",
+			"gift-duplicate-user": "Você já enviou um {{emoji}} para {{user}} hoje! Poderá enviar outro em {{timestamp}}.",
+			"gift-no-hearts-left": "Você não tem mais {{emoji}} para presentear hoje. Você poderá presentear novamente em {{timestamp}}.",
+			"gift-messages": [
+				"{{gifter}} enviou um coração para {{giftee}}. Que sorte!",
+				"{{gifter}} enviou um coração para {{giftee}}! Que gentileza da parte deles!",
+				"Um coração está a caminho de {{gifter}} para {{giftee}}!",
+				"{{gifter}} enviou um coração para {{giftee}}! Que bom amigo!",
+				"{{gifter}} enviou um coração para {{giftee}}. Que gesto bonito de {{gifter}}!",
+				"{{gifter}} enviou um coração para {{giftee}}. Eles são muito sortudos!",
+				"{{gifter}} enviou para {{giftee}} um coração. {{giftee}} tem sorte de ter um amigo como você!",
+				"{{gifter}}, enviando um coração por dia mantém o dragão sombrio longe de {{giftee}}!",
+				"Um coração carinhoso enviado para {{giftee}} por {{gifter}}!"
+			],
+			"gift-message-heart-result": "{{user}} agora tem {{number}}{{emoji}}.",
+			"gift-hearts-left-to-gift": "Você pode presentear mais {{number}} {{emoji}} hoje.",
+			"gift-hearts-left-to-gift-double": "Você pode presentear mais {{number}} {{emoji}} hoje.\nAtualmente, está acontecendo um evento de corações em dobro de {{date1}} até {{date2}}"
 		},
 		"me": {
 			"title": "Eu",
@@ -3008,11 +3029,11 @@
 					"message-future": "A Tartaruga vai precisar de uma limpeza de escuridão {{timestamp}}!"
 				},
 				"7": {
-					"message-now": "Uma erupção de cristais comum vai cair em {{location}} e ser limpa {{timestampEnd}}!",
-					"message-future": "Uma erupção de cristais comum vai cair em {{location}} {{timestampStart}} e ser limpa {{timestampEnd}}!"
+					"message-now": "Uma erupção de fragmentos regular vai cair em {{location}} e ser limpa {{timestampEnd}}!",
+					"message-future": "Uma erupção de fragmentos regular vai cair em {{location}} {{timestampStart}} e ser limpa {{timestampEnd}}!"
 				},
 				"8": {
-					"message-now": "Uma erupção de cristais forte vai cair em {{location}} e ser limpa {{timestampEnd}}!",
+					"message-now": "Uma erupção de fragmentos forte vai cair em {{location}} e ser limpa {{timestampEnd}}!",
 					"message-future": "Uma erupção de cristais forte vai cair em {{location}} {{timestampStart}} e ser limpa em {{timestampEnd}}!"
 				},
 				"9": {
@@ -3061,17 +3082,17 @@
 				"15": "Benção do Ancião do Relicário",
 				"16": "$t(general:cosmetic-names.2498)"
 			},
-			"name": "",
-			"description": "",
-			"description-short": "",
-			"overview-active": "",
+			"name": "Programação",
+			"description": "Veja a programação de eventos como: o gêiser poluído, a vovó, a tartaruga, a bênção do Ancião do Relicário e muito mais!",
+			"description-short": "Ver a programação de eventos em Sky.",
+			"overview-active": "Ativo",
 			"overview-available": "{{emoji}} Disponível!",
-			"overview-upcoming": "",
-			"overview-unavailable": "",
-			"overview-next": "",
-			"overview-next-timestamp": "",
+			"overview-upcoming": "Está por vir",
+			"overview-unavailable": "Indisponível",
+			"overview-next": "Próximo:",
+			"overview-next-timestamp": "Próximo: {{timestamp}}",
 			"overview-next-available-timestamp": "Próxima disponibilidade {{timestamp}}",
-			"overview-in": "",
+			"overview-in": "Em:",
 			"overview": "**{{type}}:** {{details}}",
 			"event-ongoing": "O evento está em andamento!",
 			"event-will-occur": "O evento ocorrerá novamente {{timestamp}}.",
@@ -3103,7 +3124,7 @@
 			"detailed-breakdown-dreams-skater-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Fontes_de_Luz_Adicionais#Patinadora_dos_Sonhos",
 			"detailed-breakdown-dreams-skater-message": "Disponível toda Sexta, Sábado e Domingo a cada 2 horas a partir de {{timestamp}}, com duração de 15 minutos.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-aurora-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Concerto_da_AURORA",
-			"detailed-breakdown-aurora-message": "",
+			"detailed-breakdown-aurora-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 48 minutos.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-aurora-requires": "-# Requer {{emoji}}",
 			"detailed-breakdown-passage-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Passagem#Miss%C3%B5es_de_Mem%C3%B3ria_Espiritual",
 			"detailed-breakdown-passage-message": "Disponível a cada 15 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
@@ -3125,19 +3146,21 @@
 			"back": "Retornar"
 		},
 		"shard-eruption": {
-			"name-plural": "",
-			"description-short": "",
-			"browse-description": "Você está atualmente navegando erupções de cristais. Abra os menus de seleção para ver informações por um maior período. Selecione uma data para ver mais informações.",
+			"name-plural": "Erupções de Fragmentos",
+			"description-short": "Ver a programação de explosão de fragmentos.",
+			"browse-description": "Você está atualmente navegando erupções de fragmentos. Abra os menus de seleção para ver informações por um maior período. Selecione uma data para ver mais informações.",
 			"no-shard-eruptions-today": "Não haverá erupções de cristais hoje.",
 			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
+			"browse-date-range": "{{date1}}–{{date2}}",
+			"browse-no-shard": "Sem erupções de fragmentos.",
 			"none": "Nada",
 			"today": "Hoje",
 			"browse": "Procurar",
 			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
 		},
 		"sky-profile": {
-			"name-plural": "",
-			"description-short": "",
+			"name-plural": "Perfis Sky",
+			"description-short": "Explore os perfis Sky de todos.",
 			"unknown-country": "Por favor, selecione um país!",
 			"unknown-profile-edit-type": "Erro ao editar o perfil. Tente novamente!",
 			"unknown-profile-reset-type": "Erro ao redefinir o perfil. Tente novamente!",
@@ -3263,8 +3286,7 @@
 				"1": "Raridade de Espíritos"
 			},
 			"order-natural": "Ordenar por aparência",
-			"order-rarity": "Ordenar por raridade",
-			"page": "Página"
+			"order-rarity": "Ordenar por raridade"
 		},
 		"welcome": {
 			"preview": "Esta é a área de pré-visualização da sua mensagem de boas-vindas. Ela está atualmente vazia.",
