@@ -50,7 +50,7 @@ export default {
 				.where({ discord_user_id: data.user.id })
 				.first();
 
-			if (usersPacket?.crowdin_user_id) {
+			if (usersPacket?.translator) {
 				pino.info(data, "Adding translator role to user.");
 
 				await client.api.guilds.addRoleToMember(

@@ -3,4 +3,5 @@ export interface UsersPacket {
 	crowdin_user_id: number | null;
 	supporter: boolean | null;
 	artist: boolean | null;
+	translator: boolean | null;
 }

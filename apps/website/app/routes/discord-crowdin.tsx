@@ -15,14 +15,12 @@ import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 import { generateState, requireDiscordAuthentication } from "~/utility/functions.server";
-import type { CrowdinUser, DiscordUser } from "~/utility/types.js";
+import type { CrowdinUser } from "~/utility/types.js";
 
 interface AuthState {
-	crowdinAuthorised: boolean;
-	discordUser: DiscordUser;
+	crowdinUser: CrowdinUser | undefined;
 	success?: boolean;
-	crowdinUser?: CrowdinUser | undefined;
-	error?: string | undefined;
+	error: string | undefined;
 }
 
 interface CrowdinAPIUser {
@@ -79,132 +77,136 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	}
 
 	const authenticationState: AuthState = {
-		crowdinAuthorised: session.get("crowdin_authorised") ?? false,
-		discordUser,
 		crowdinUser: session.get("crowdin_user"),
 		error: session.get("discord_crowdin_auth_error"),
 	};
 
-	if (crowdinCode && state === session.get("crowdin_state")) {
-		try {
-			const tokenResponse = await fetch("https://accounts.crowdin.com/oauth/token", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded",
-				},
-				body: new URLSearchParams({
-					grant_type: "authorization_code",
-					client_id: CROWDIN_CLIENT_ID,
-					client_secret: CROWDIN_CLIENT_SECRET,
-					code: crowdinCode,
-					redirect_uri: REDIRECT_URI_DISCORD_CROWDIN,
-				}),
-			});
-
-			if (!tokenResponse.ok) {
-				throw await tokenResponse.text();
-			}
-
-			const tokenData = (await tokenResponse.json()) as {
-				token_type: string;
-				access_token: string;
-				refresh_token: string;
-				expires_in: number;
-			};
-
-			const userResponse = await fetch("https://thatskyapplication.api.crowdin.com/api/v2/user", {
-				headers: {
-					Authorization: `Bearer ${tokenData.access_token}`,
-				},
-			});
-
-			if (!userResponse.ok) {
-				throw await userResponse.text();
-			}
-
-			const { data: userData } = (await userResponse.json()) as CrowdinRESTGetAPIUserResult;
-
-			if (userData.status !== "active") {
-				throw new Error("Crowdin account not active.");
-			}
-
-			const projectContributionsResponse = await fetch(
-				`https://thatskyapplication.api.crowdin.com/api/v2/users/${userData.id}/projects/contributions`,
-				{ headers: { Authorization: `Bearer ${tokenData.access_token}` } },
-			);
-
-			if (!projectContributionsResponse.ok) {
-				throw await projectContributionsResponse.text();
-			}
-
-			const { data: projectContributionsData } =
-				(await projectContributionsResponse.json()) as CrowdinRESTGetAPIUserProjectContributionsResult;
-
-			if (
-				projectContributionsData.length === 0 ||
-				projectContributionsData[0]!.data.translated.strings === 0 ||
-				projectContributionsData[0]!.data.translated.words === 0
-			) {
-				authenticationState.error = "You have not translated anything.";
-				session.set("discord_crowdin_auth_error", authenticationState.error);
-			} else {
-				authenticationState.crowdinAuthorised = true;
-
-				authenticationState.crowdinUser = {
-					id: userData.id,
-					username: userData.username,
-				};
-
-				session.set("crowdin_authorised", true);
-				session.set("crowdin_user", authenticationState.crowdinUser);
-			}
-		} catch (error) {
-			pino.error({ request, error }, "Failed to authorise with Crowdin.");
-			authenticationState.error = "Failed to authorise with Crowdin.";
-			session.set("discord_crowdin_auth_error", authenticationState.error);
-		}
+	if (!crowdinCode || state !== session.get("crowdin_state")) {
+		return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
 	}
 
-	if (authenticationState.crowdinAuthorised && authenticationState.discordUser) {
-		try {
-			const user = await pg<UsersPacket>(Table.Users)
-				.where({
-					discord_user_id: authenticationState.discordUser.id,
-					crowdin_user_id: authenticationState.crowdinUser!.id,
+	try {
+		const tokenResponse = await fetch("https://accounts.crowdin.com/oauth/token", {
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded" },
+			body: new URLSearchParams({
+				grant_type: "authorization_code",
+				client_id: CROWDIN_CLIENT_ID,
+				client_secret: CROWDIN_CLIENT_SECRET,
+				code: crowdinCode,
+				redirect_uri: REDIRECT_URI_DISCORD_CROWDIN,
+			}),
+		});
+
+		if (!tokenResponse.ok) {
+			throw await tokenResponse.text();
+		}
+
+		const tokenData = (await tokenResponse.json()) as {
+			token_type: string;
+			access_token: string;
+			refresh_token: string;
+			expires_in: number;
+		};
+
+		const userResponse = await fetch("https://thatskyapplication.api.crowdin.com/api/v2/user", {
+			headers: { Authorization: `Bearer ${tokenData.access_token}` },
+		});
+
+		if (!userResponse.ok) {
+			throw await userResponse.text();
+		}
+
+		const { data: userData } = (await userResponse.json()) as CrowdinRESTGetAPIUserResult;
+		authenticationState.crowdinUser = { id: userData.id, username: userData.username };
+
+		if (userData.status !== "active") {
+			await pg<UsersPacket>(Table.Users)
+				.insert({
+					discord_user_id: discordUser.id,
+					crowdin_user_id: userData.id,
+					translator: false,
 				})
-				.first();
+				.onConflict("discord_user_id")
+				.merge();
 
-			if (user) {
-				authenticationState.error = "You're already a translator!";
-			} else {
-				await pg<UsersPacket>(Table.Users)
-					.insert({
-						discord_user_id: authenticationState.discordUser.id,
-						crowdin_user_id: authenticationState.crowdinUser!.id,
-					})
-					.onConflict("discord_user_id")
-					.merge();
-
-				await discord.guilds.addRoleToMember(
-					SUPPORT_SERVER_GUILD_ID,
-					authenticationState.discordUser.id,
-					TRANSLATOR_ROLE_ID,
-				);
-
-				authenticationState.success = true;
-			}
-		} catch (error) {
-			pino.error({ request, error }, "Failed to link accounts.");
-			authenticationState.error = "Failed to link accounts.";
+			authenticationState.error = "Crowdin account inactive.";
 			session.set("discord_crowdin_auth_error", authenticationState.error);
+
+			return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
 		}
+
+		const projectContributionsResponse = await fetch(
+			`https://thatskyapplication.api.crowdin.com/api/v2/users/${userData.id}/projects/contributions`,
+			{ headers: { Authorization: `Bearer ${tokenData.access_token}` } },
+		);
+
+		if (!projectContributionsResponse.ok) {
+			throw await projectContributionsResponse.text();
+		}
+
+		const { data: projectContributionsData } =
+			(await projectContributionsResponse.json()) as CrowdinRESTGetAPIUserProjectContributionsResult;
+
+		if (
+			projectContributionsData.length === 0 ||
+			projectContributionsData[0]!.data.translated.strings === 0 ||
+			projectContributionsData[0]!.data.translated.words === 0
+		) {
+			await pg<UsersPacket>(Table.Users)
+				.insert({
+					discord_user_id: discordUser.id,
+					crowdin_user_id: userData.id,
+					translator: false,
+				})
+				.onConflict("discord_user_id")
+				.merge();
+
+			authenticationState.error = "You have not translated anything.";
+			session.set("discord_crowdin_auth_error", authenticationState.error);
+			return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
+		}
+
+		const user = await pg<UsersPacket>(Table.Users)
+			.where({
+				discord_user_id: discordUser.id,
+				crowdin_user_id: userData.id,
+				translator: true,
+			})
+			.first();
+
+		if (user) {
+			authenticationState.error = "You're already a translator!";
+			session.set("discord_crowdin_auth_error", authenticationState.error);
+			return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
+		}
+
+		await pg<UsersPacket>(Table.Users)
+			.insert({
+				discord_user_id: discordUser.id,
+				crowdin_user_id: userData.id,
+				translator: true,
+			})
+			.onConflict("discord_user_id")
+			.merge();
+
+		await discord.guilds.addRoleToMember(
+			SUPPORT_SERVER_GUILD_ID,
+			discordUser.id,
+			TRANSLATOR_ROLE_ID,
+		);
+
+		authenticationState.success = true;
+		session.set("crowdin_authorised", true);
+		session.set("crowdin_user", authenticationState.crowdinUser);
+		session.unset("discord_crowdin_auth_error");
+	} catch (error) {
+		pino.error({ request, error }, "Failed to authorise with Crowdin.");
+		authenticationState.error = "Failed to authorise with Crowdin.";
+		session.set("discord_crowdin_auth_error", authenticationState.error);
 	}
 
-	return data(authenticationState, {
-		headers: {
-			"Set-Cookie": await commitSession(session),
-		},
-	});
+	return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -234,7 +236,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function CrowdinDiscord() {
-	const { crowdinAuthorised, crowdinUser, error, success } = useLoaderData<typeof loader>();
+	const { crowdinUser, error, success } = useLoaderData<typeof loader>();
 
 	return (
 		<div className="min-h-screen flex items-center justify-center pt-20 lg:pt-0 pb-4 lg:pb-0 px-4">
@@ -277,14 +279,14 @@ export default function CrowdinDiscord() {
 							</a>
 							!
 						</p>
-						{crowdinAuthorised ? (
+						{crowdinUser ? (
 							<div className="border border-green-300 bg-green-50 dark:bg-green-900/20 dark:border-green-700 rounded-lg p-4">
 								<div className="flex items-center justify-between mb-2">
 									<h3 className="font-medium text-sm">Crowdin</h3>
 									<CheckCircleIcon className="w-5 h-5 text-green-500" />
 								</div>
 								<p className="text-sm text-green-600 dark:text-green-400">
-									✓ Authorised as {crowdinUser!.username}
+									✓ Authorised as {crowdinUser.username}
 								</p>
 							</div>
 						) : (
