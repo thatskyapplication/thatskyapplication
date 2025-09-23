@@ -595,7 +595,7 @@ export default function Schedule() {
 										<span className="text-gray-600 dark:text-gray-400">
 											{t("schedule.overview-next-timestamp", {
 												ns: "features",
-												timestamp: schedule.now,
+												timestamp: schedule.next,
 											})}
 										</span>
 										<span className="font-medium text-gray-700 dark:text-gray-300">
