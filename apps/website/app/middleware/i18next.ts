@@ -15,11 +15,10 @@ import {
 	zhCN,
 	zhTW,
 } from "@thatskyapplication/utility";
-import { unstable_createI18nextMiddleware } from "remix-i18next/middleware";
-import pino from "~/pino.js";
+import { createI18nextMiddleware } from "remix-i18next/middleware";
 import { LOCALES } from "~/utility/constants.js";
 
-export const [i18nextMiddleware, getLocale, getInstance] = unstable_createI18nextMiddleware({
+export const [i18nextMiddleware, getLocale, getInstance] = createI18nextMiddleware({
 	detection: {
 		supportedLanguages: LOCALES as unknown as string[],
 		fallbackLanguage: Locale.EnglishGB,
@@ -28,7 +27,7 @@ export const [i18nextMiddleware, getLocale, getInstance] = unstable_createI18nex
 		fallbackLng: Locale.EnglishGB,
 		interpolation: { escapeValue: false },
 		missingKeyHandler: (locale, namespace, key) =>
-			pino.warn(
+			console.warn(
 				`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,
 			),
 		resources: {

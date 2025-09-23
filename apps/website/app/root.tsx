@@ -23,7 +23,7 @@ import {
 	APPLICATION_NAME,
 } from "~/utility/constants";
 
-export const unstable_middleware = [i18nextMiddleware];
+export const middleware = [i18nextMiddleware];
 
 export const meta: MetaFunction = () => [
 	{ charSet: "utf-8" },
