@@ -85,7 +85,7 @@ export default function CaelusGuidesLayout() {
 	}, []);
 
 	return (
-		<div className="container mx-auto px-4 py-8 max-w-7xl">
+		<div className="container mx-auto px-4 max-w-7xl">
 			<div className="flex gap-8">
 				<aside className="hidden lg:block w-64 shrink-0">
 					<div className="sticky top-24">

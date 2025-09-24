@@ -239,7 +239,7 @@ export default function CrowdinDiscord() {
 	const { crowdinUser, error, success } = useLoaderData<typeof loader>();
 
 	return (
-		<div className="min-h-screen flex items-center justify-center pt-20 lg:pt-0 pb-4 lg:pb-0 px-4">
+		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
 			<div className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg p-8 w-full max-w-md">
 				<h1 className="text-center">Crowdin Authorisation</h1>
 				{error && (

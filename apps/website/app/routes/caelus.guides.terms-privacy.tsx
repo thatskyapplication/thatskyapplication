@@ -3,7 +3,7 @@ import { APPLICATION_NAME } from "~/utility/constants";
 export default function TermsPrivacy() {
 	return (
 		<div>
-			<h1 className="mt-4">Terms of Service & Privacy Policy</h1>
+			<h1>Terms of Service & Privacy Policy</h1>
 			<hr />
 			<p>Let's be real. This is a Discord application, so we'll keep it short.</p>
 			<h2>Terminology</h2>

@@ -37,7 +37,7 @@ export function ErrorBoundary() {
 
 	if (isRouteErrorResponse(error) && error.status === 404) {
 		return (
-			<div className="flex items-center justify-center px-4 py-16">
+			<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4 py-16">
 				<div className="text-center max-w-lg">
 					<div className="mb-8">
 						<div className="inline-flex items-center justify-center w-24 h-24 bg-linear-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full mb-6 border-4 border-gray-300 dark:border-gray-600">
@@ -241,7 +241,7 @@ export default function SkyProfile() {
 	const { t } = useTranslation();
 
 	return (
-		<div className="pt-8 mx-auto px-4 max-w-3xl mb-4">
+		<div className="mx-auto px-4 max-w-3xl mb-4">
 			<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
 				<div className="relative h-60 w-full">
 					<div className="w-full h-full rounded-md overflow-hidden">

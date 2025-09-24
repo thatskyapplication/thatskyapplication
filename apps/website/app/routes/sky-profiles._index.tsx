@@ -185,7 +185,7 @@ export default function SkyProfiles() {
 	const maximumPage = "maximumPage" in data ? data.maximumPage : undefined;
 
 	return (
-		<div className="container mx-auto px-4 m-4">
+		<div className="container mx-auto px-4">
 			<div className="flex items-center mb-4">
 				<Form className="mr-4" method="get">
 					<input

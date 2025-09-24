@@ -21,8 +21,8 @@ const EXAMPLES = [
 
 export default function ThatSkyLink() {
 	return (
-		<div className="min-h-screen px-4 w-full max-w-4xl mx-auto">
-			<div className="text-center pt-8 pb-4">
+		<div className="px-4 w-full max-w-4xl mx-auto">
+			<div className="text-center pb-4">
 				<div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-6">
 					<LinkIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
 				</div>
@@ -98,7 +98,7 @@ export default function ThatSkyLink() {
 					</div>
 				</div>
 			</section>
-			<section className="mb-16">
+			<section>
 				<div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8">
 					<h2 className="text-2xl font-semibold mb-6 text-center">Source Code</h2>
 					<div className="text-center">

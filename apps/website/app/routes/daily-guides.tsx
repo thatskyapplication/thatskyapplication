@@ -173,7 +173,7 @@ export default function DailyGuides() {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center p-4">
+		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center p-4">
 			<div
 				className={`flex gap-6 w-full max-w-6xl transition-all duration-300 ${
 					selectedImage ? "justify-between" : "justify-center"
@@ -418,7 +418,7 @@ export default function DailyGuides() {
 					)}
 				</div>
 				{selectedImage && (
-					<div className="hidden lg:flex w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4 max-h-[80vh] flex-col">
+					<div className="hidden lg:flex w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4 max-h-[70vh] flex-col">
 						<div className="flex items-center justify-between mb-4 shrink-0">
 							<h3 className="font-semibold text-gray-900 dark:text-white text-sm">
 								{t("daily-guides.infographic", { ns: "features" })}

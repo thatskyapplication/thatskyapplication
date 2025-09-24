@@ -492,8 +492,8 @@ export function SiteFooter() {
 	const navigationGroups = useNavigationGroups();
 
 	return (
-		<footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 mt-16">
-			<div className="max-w-7xl mx-auto px-4 py-12">
+		<footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 mt-8">
+			<div className="max-w-7xl mx-auto px-4 py-8">
 				<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 					<div className="col-span-1 md:col-span-2">
 						<h3 className="font-bold text-xl text-gray-900 dark:text-gray-100 mb-4">

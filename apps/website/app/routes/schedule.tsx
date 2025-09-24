@@ -537,7 +537,7 @@ export default function Schedule() {
 	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
 
 	return (
-		<div className="min-h-screen px-4 pt-10">
+		<div className="px-4">
 			<div className="max-w-6xl mx-auto">
 				{/* Active. */}
 				{active.length > 0 && (

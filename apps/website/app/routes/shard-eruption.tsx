@@ -200,11 +200,11 @@ export default function ShardEruption() {
 	const [firstShard, ...restShards] = shardCards;
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center">
-			<div className="flex-wrap pt-20 pb-4 px-4">
+		<div className="flex flex-col items-center justify-center">
+			<div className="flex-wrap px-4">
 				{page === 0 ? (
 					<>
-						<div className="flex mb-3 w-full justify-center">{firstShard}</div>
+						<div className="flex mb-2 w-full justify-center">{firstShard}</div>
 						<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">
 							{restShards}
 						</div>

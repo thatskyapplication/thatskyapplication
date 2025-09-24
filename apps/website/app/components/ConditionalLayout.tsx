@@ -37,7 +37,7 @@ export default function ConditionalLayout({
 	return (
 		<div className="min-h-screen flex flex-col">
 			{shouldShowNavigation && <SiteTopBar locale={locale} user={user} />}
-			<main className={`flex-1 ${shouldShowNavigation ? "pt-20" : ""}`}>{children}</main>
+			<main className={`flex-1 ${shouldShowNavigation ? "pt-28" : ""}`}>{children}</main>
 			{shouldShowFooter && <SiteFooter />}
 		</div>
 	);
