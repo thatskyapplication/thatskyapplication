@@ -951,6 +951,7 @@
 			"190": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Recluso_Ingenioso",
 			"191": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acompanhante_Atencioso"
 		},
+		"time-range": "",
 		"cosmetic-common-names": {
 			"0": "Bônus de Asa",
 			"1": "Bônus de Asa {{number}}",
@@ -2982,7 +2983,14 @@
 			],
 			"gift-message-heart-result": "{{user}} agora tem {{number}}{{emoji}}.",
 			"gift-hearts-left-to-gift": "Você pode presentear mais {{number}} {{emoji}} hoje.",
-			"gift-hearts-left-to-gift-double": "Você pode presentear mais {{number}} {{emoji}} hoje.\nAtualmente, está acontecendo um evento de corações em dobro de {{date1}} até {{date2}}"
+			"gift-hearts-left-to-gift-double": "Você pode presentear mais {{number}} {{emoji}} hoje.\nAtualmente, está acontecendo um evento de corações em dobro de {{date1}} até {{date2}}",
+			"history-no-hearts": "",
+			"history-title": "",
+			"history-summary": "",
+			"history-gifted-message": "",
+			"history-gifted-message-extra": "",
+			"history-received-message": "",
+			"history-received-message-extra": ""
 		},
 		"me": {
 			"title": "Eu",
@@ -3153,7 +3161,6 @@
 			"browse-description": "Você está atualmente navegando erupções de fragmentos. Abra os menus de seleção para ver informações por um maior período. Selecione uma data para ver mais informações.",
 			"no-shard-eruptions-today": "Não haverá erupções de cristais hoje.",
 			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
-			"browse-date-range": "{{date1}}–{{date2}}",
 			"browse-no-shard": "Sem erupções de fragmentos.",
 			"none": "Nada",
 			"today": "Hoje",

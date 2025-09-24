@@ -951,6 +951,7 @@
 			"190": "https://sky-children-of-the-light.fandom.com/Resourceful_Recluse",
 			"191": "https://sky-children-of-the-light.fandom.com/Caring_Companion"
 		},
+		"time-range": "",
 		"cosmetic-common-names": {
 			"0": "永久翼",
 			"1": "永久翼 {{number}}",
@@ -2972,7 +2973,14 @@
 			"gift-messages": ["", "", "", "", "", "", "", "", ""],
 			"gift-message-heart-result": "",
 			"gift-hearts-left-to-gift": "",
-			"gift-hearts-left-to-gift-double": ""
+			"gift-hearts-left-to-gift-double": "",
+			"history-no-hearts": "",
+			"history-title": "",
+			"history-summary": "",
+			"history-gifted-message": "",
+			"history-gifted-message-extra": "",
+			"history-received-message": "",
+			"history-received-message-extra": ""
 		},
 		"me": {
 			"title": "",
@@ -3143,7 +3151,6 @@
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
-			"browse-date-range": "",
 			"browse-no-shard": "",
 			"none": "無",
 			"today": "",
