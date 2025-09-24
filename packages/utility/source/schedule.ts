@@ -156,14 +156,13 @@ export function nextPassage(date: DateTime) {
 
 export function aviarysFireworkFestivalSchedule(date: DateTime) {
 	const { day, hour, minute } = date;
-	let start: DateTime;
 
-	if (day === 1) {
-		const targetHour = hour % 4 === 0 ? (minute < 10 ? hour : hour + 4) : hour + (4 - (hour % 4));
-		start = date.set({ hour: targetHour }).startOf("hour");
-	} else {
-		start = date.plus({ month: 1 }).startOf("month");
-	}
+	const start =
+		day === 1
+			? date
+					.set({ hour: hour % 4 === 0 ? (minute < 10 ? hour : hour + 4) : hour + (4 - (hour % 4)) })
+					.startOf("hour")
+			: date.plus({ month: 1 }).startOf("month");
 
 	const end = start.plus({ minutes: 10 });
 	const active = date >= start && date < end;
