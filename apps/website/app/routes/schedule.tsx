@@ -580,7 +580,9 @@ export default function Schedule() {
 										)}
 										<div className="space-y-2">
 											<div className="flex justify-between items-center">
-												<span className="text-sm text-gray-600 dark:text-gray-400">Ends:</span>
+												<span className="text-sm text-gray-600 dark:text-gray-400">
+													{t("schedule.overview-ends", { ns: "features" })}
+												</span>
 												<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
 													{schedule.end}
 												</span>
@@ -627,7 +629,12 @@ export default function Schedule() {
 										</div>
 									)}
 									<div className="flex justify-between items-center text-sm">
-										<span className="text-gray-600 dark:text-gray-400">Ends: {schedule.end}</span>
+										<span className="text-gray-600 dark:text-gray-400">
+											{t("schedule.overview-ends-timestamp", {
+												ns: "features",
+												timestamp: schedule.end,
+											})}
+										</span>
 										<span className="font-medium text-gray-700 dark:text-gray-300">
 											{schedule.endRelative}
 										</span>

@@ -3395,6 +3395,8 @@ export default {
 			"overview-next": "Next:",
 			"overview-next-timestamp": "Next: {{timestamp}}",
 			"overview-next-available-timestamp": "Next available {{timestamp}}",
+			"overview-ends": "Ends:",
+			"overview-ends-timestamp": "Ends: {{timestamp}}",
 			"overview-in": "In:",
 			overview: "**{{type}}:** {{details}}",
 			"event-ongoing": "The event is ongoing!",
