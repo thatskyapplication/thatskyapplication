@@ -50,10 +50,12 @@ export function internationalSpaceStationSchedule(date: DateTime) {
 	};
 }
 
-export function travellingSpiritSchedule(now: DateTime) {
+export function travellingSpiritSchedule(date: DateTime) {
+	const spirit = TRAVELLING_DATES.findLast(({ end }) => date < end);
+
 	return {
-		visit: TRAVELLING_DATES.findLast(({ start, end }) => now >= start && now < end),
-		next: TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }).startOf("day"),
+		visit: spirit ? (date >= spirit.start ? spirit : null) : null,
+		next: spirit ? spirit.start : TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }),
 	};
 }
 
