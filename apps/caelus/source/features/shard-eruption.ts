@@ -162,7 +162,7 @@ export function todayData(
 		containerComponents.push(
 			{
 				type: ComponentType.TextDisplay,
-				content: `${shardEruptionInformationString(shardToday, true, locale)}\n${shardEruptionTimestampsString(shardToday)}`,
+				content: `${shardEruptionInformationString(shardToday, true, locale)}\n${shardEruptionTimestampsString(shardToday, locale)}`,
 			},
 			{
 				type: ComponentType.MediaGallery,
@@ -269,11 +269,11 @@ function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageT
 								offset,
 								locale,
 							),
-							placeholder: t("shard-eruption.browse-date-range", {
+							placeholder: t("time-range", {
 								lng: locale,
-								ns: "features",
-								date1: placeholderStartDate,
-								date2: placeholderEndDate,
+								ns: "general",
+								start: placeholderStartDate,
+								end: placeholderEndDate,
 							}),
 						},
 					],

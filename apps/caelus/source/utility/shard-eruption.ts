@@ -61,8 +61,15 @@ export function shardEruptionInformationString(
 	}`;
 }
 
-export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData) {
+export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData, locale: Locale) {
 	return timestamps
-		.map(({ start, end }) => `<t:${start.toUnixInteger()}:T>–<t:${end.toUnixInteger()}:T>`)
+		.map(({ start, end }) =>
+			t("time-range", {
+				lng: locale,
+				ns: "general",
+				start: `<t:${start.toUnixInteger()}:T>`,
+				end: `<t:${end.toUnixInteger()}:T>`,
+			}),
+		)
 		.join("\n");
 }

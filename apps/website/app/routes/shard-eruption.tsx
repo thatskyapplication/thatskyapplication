@@ -173,7 +173,9 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 						<span key={start.unix}>
 							<code
 								className={`bg-inherit text-xs ${end.unix < now ? "line-through text-black/50 dark:text-white/50" : ""}`}
-							>{`${start.format} - ${end.format}`}</code>
+							>
+								{t("time-range", { ns: "general", start: start.format, end: end.format })}
+							</code>
 						</span>
 					))}
 				</>

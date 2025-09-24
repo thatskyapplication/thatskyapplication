@@ -734,7 +734,7 @@ async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComp
 	if (shard) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString(shard)}`,
+			content: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString(shard, locale)}`,
 		});
 	} else {
 		containerComponents.push({

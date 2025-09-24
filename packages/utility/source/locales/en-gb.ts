@@ -1224,6 +1224,7 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Resourceful_Recluse",
 			[SpiritId.CaringCompanion]: "https://sky-children-of-the-light.fandom.com/Caring_Companion",
 		} satisfies Record<SpiritIds, `https://${string}`>,
+		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
 			[CosmeticCommon.WingBuff]: "Wing buff",
 			[CosmeticCommon.WingBuffMultiple]: "Wing buff {{number}}",
@@ -3496,7 +3497,6 @@ export default {
 				"You're currently browsing shard eruptions. Open the select menus to quickly see information over a great period of time. Select a date to view more information.",
 			"no-shard-eruptions-today": "There are no shard eruptions today.",
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
-			"browse-date-range": "{{date1}}–{{date2}}",
 			"browse-no-shard": "No shard eruptions.",
 			none: "None",
 			today: "Today",
