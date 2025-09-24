@@ -76,17 +76,45 @@ function formatRelativeTime(date: DateTime, now: DateTime, locale: string) {
 	return rtf.format(diffDays, "day");
 }
 
-interface ScheduleData {
+interface BaseSchedule<Type extends ScheduleTypes> {
+	type: Type;
 	now?: boolean | SpiritIds;
 	next: string;
 	nextUnix: number;
 	relative: string;
+	end?: string;
+	endUnix?: number | null;
+	endRelative?: string | null;
 }
 
-function dailyResetNext(now: DateTime, timeZone: string, locale: string): ScheduleData {
+interface ScheduleWithEnd<
+	Type extends Exclude<
+		ScheduleTypes,
+		| typeof ScheduleType.DailyReset
+		| typeof ScheduleType.EyeOfEden
+		| typeof ScheduleType.Passage
+		| typeof ScheduleType.NestingWorkshop
+	>,
+> extends BaseSchedule<Type> {
+	now: Required<BaseSchedule<Type>>["now"];
+	end: string;
+	endUnix: number | null;
+	endRelative: string | null;
+}
+
+interface ScheduleTravellingSpirit extends ScheduleWithEnd<typeof ScheduleType.TravellingSpirit> {
+	now: SpiritIds | false;
+}
+
+function dailyResetNext(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): BaseSchedule<typeof ScheduleType.DailyReset> {
 	const schedule = nextDailyReset(now);
 
 	return {
+		type: ScheduleType.DailyReset,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
 			schedule.toMillis(),
 		),
@@ -95,10 +123,15 @@ function dailyResetNext(now: DateTime, timeZone: string, locale: string): Schedu
 	};
 }
 
-function eyeOfEdenNext(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function eyeOfEdenNext(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): BaseSchedule<typeof ScheduleType.EyeOfEden> {
 	const schedule = nextEyeOfEden(now);
 
 	return {
+		type: ScheduleType.EyeOfEden,
 		next: new Intl.DateTimeFormat(locale, {
 			dateStyle: "medium",
 			timeStyle: "short",
@@ -113,89 +146,149 @@ function internationalSpaceStationOverview(
 	now: DateTime,
 	timeZone: string,
 	locale: string,
-): ScheduleData {
+): ScheduleWithEnd<typeof ScheduleType.InternationalSpaceStation> {
 	const schedule = internationalSpaceStationSchedule(now);
 
 	return {
-		now: schedule.now,
+		type: ScheduleType.InternationalSpaceStation,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, {
 			dateStyle: "medium",
 			timeStyle: "short",
 			timeZone,
-		}).format(schedule.next.toMillis()),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		}).format(schedule.start.toMillis()),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function travellingSpiritOverview(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function travellingSpiritOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleTravellingSpirit {
 	const schedule = travellingSpiritSchedule(now);
 
 	return {
+		type: ScheduleType.TravellingSpirit,
 		now: schedule.visit?.spiritId ?? false,
 		next: new Intl.DateTimeFormat(locale, {
 			dateStyle: "medium",
 			timeStyle: "short",
 			timeZone,
-		}).format(schedule.next.toMillis()),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		}).format(schedule.start.toMillis()),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.visit?.end.toMillis(),
+		),
+		endUnix: schedule.visit ? schedule.visit.end.toMillis() : null,
+		endRelative: schedule.visit ? formatRelativeTime(schedule.visit.end, now, locale) : null,
 	};
 }
 
-function pollutedGeyserOverview(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function pollutedGeyserOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleWithEnd<typeof ScheduleType.PollutedGeyser> {
 	const schedule = pollutedGeyserSchedule(now);
 
 	return {
-		now: schedule.now,
+		type: ScheduleType.PollutedGeyser,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.next.toMillis(),
+			schedule.start.toMillis(),
 		),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function grandmaOverview(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function grandmaOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleWithEnd<typeof ScheduleType.Grandma> {
 	const schedule = grandmaSchedule(now);
 
 	return {
-		now: schedule.now,
+		type: ScheduleType.Grandma,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.next.toMillis(),
+			schedule.start.toMillis(),
 		),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function turtleOverview(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function turtleOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleWithEnd<typeof ScheduleType.Turtle> {
 	const schedule = turtleSchedule(now);
 
 	return {
-		now: schedule.now,
+		type: ScheduleType.Turtle,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.next.toMillis(),
+			schedule.start.toMillis(),
 		),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function shardEruptionOverview(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function shardEruptionOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleWithEnd<typeof ScheduleType.ShardEruption> {
 	const schedule = shardEruptionSchedule(now);
 
 	return {
-		now: schedule.now ?? false,
+		type: ScheduleType.ShardEruption,
+		now: schedule.active ?? false,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "medium", timeZone }).format(
-			schedule.next.toMillis(),
+			schedule.start.toMillis(),
 		),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function dreamsSkaterOverview(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function dreamsSkaterOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleWithEnd<typeof ScheduleType.DreamsSkater> {
 	const schedule = dreamsSkaterSchedule(now);
 	const options: Intl.DateTimeFormatOptions = { timeStyle: "short", timeZone };
 
@@ -204,30 +297,51 @@ function dreamsSkaterOverview(now: DateTime, timeZone: string, locale: string): 
 	}
 
 	return {
-		now: schedule.now,
-		next: new Intl.DateTimeFormat(locale, options).format(schedule.next.toMillis()),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		type: ScheduleType.DreamsSkater,
+		now: schedule.active,
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.toMillis()),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function auroraOverview(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function auroraOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleWithEnd<typeof ScheduleType.AURORA> {
 	const schedule = auroraSchedule(now);
 
 	return {
-		now: schedule.now,
+		type: ScheduleType.AURORA,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.next.toMillis(),
+			schedule.start.toMillis(),
 		),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function passageNext(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function passageNext(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): BaseSchedule<typeof ScheduleType.Passage> {
 	const schedule = nextPassage(now);
 
 	return {
+		type: ScheduleType.Passage,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
 			schedule.toMillis(),
 		),
@@ -240,7 +354,7 @@ function aviarysFireworkFestivalOverview(
 	now: DateTime,
 	timeZone: string,
 	locale: string,
-): ScheduleData {
+): ScheduleWithEnd<typeof ScheduleType.AviarysFireworkFestival> {
 	const schedule = aviarysFireworkFestivalSchedule(now);
 	const options: Intl.DateTimeFormatOptions = { timeStyle: "short", timeZone };
 
@@ -249,30 +363,51 @@ function aviarysFireworkFestivalOverview(
 	}
 
 	return {
-		now: schedule.now,
-		next: new Intl.DateTimeFormat(locale, options).format(schedule.next.toMillis()),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		type: ScheduleType.AviarysFireworkFestival,
+		now: schedule.active,
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.toMillis()),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function nineColouredDeerOverview(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function nineColouredDeerOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleWithEnd<typeof ScheduleType.NineColouredDeer> {
 	const schedule = nineColouredDeerSchedule(now);
 
 	return {
-		now: schedule.now,
+		type: ScheduleType.NineColouredDeer,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.next.toMillis(),
+			schedule.start.toMillis(),
 		),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
-function nestingWorkshopNext(now: DateTime, timeZone: string, locale: string): ScheduleData {
+function nestingWorkshopNext(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): BaseSchedule<typeof ScheduleType.NestingWorkshop> {
 	const schedule = nextNestingWorkshop(now);
 
 	return {
+		type: ScheduleType.NestingWorkshop,
 		next: new Intl.DateTimeFormat(locale, {
 			dateStyle: "medium",
 			timeStyle: "short",
@@ -287,16 +422,22 @@ function vaultEldersBlessingOverview(
 	now: DateTime,
 	timeZone: string,
 	locale: string,
-): ScheduleData {
+): ScheduleWithEnd<typeof ScheduleType.VaultEldersBlessing> {
 	const schedule = vaultEldersBlessingSchedule(now);
 
 	return {
-		now: schedule.now,
+		type: ScheduleType.VaultEldersBlessing,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.next.toMillis(),
+			schedule.start.toMillis(),
 		),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
@@ -304,16 +445,22 @@ function projectorOfMemoriesOverview(
 	now: DateTime,
 	timeZone: string,
 	locale: string,
-): ScheduleData {
+): ScheduleWithEnd<typeof ScheduleType.ProjectorOfMemories> {
 	const schedule = projectorOfMemoriesSchedule(now);
 
 	return {
-		now: schedule.now,
+		type: ScheduleType.ProjectorOfMemories,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.next.toMillis(),
+			schedule.start.toMillis(),
 		),
-		nextUnix: schedule.next.toMillis(),
-		relative: formatRelativeTime(schedule.next, now, locale),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+			schedule.end.toMillis(),
+		),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
@@ -330,7 +477,7 @@ function getEventColor(available: boolean | SpiritIds | undefined) {
 export default function Schedule() {
 	const { locale, timeZone } = useLoaderData<typeof loader>();
 	const { t } = useTranslation();
-	const [_, setCurrentTime] = useState(() => Date.now());
+	const [, setCurrentTime] = useState(() => Date.now());
 
 	useEffect(() => {
 		let timeout: NodeJS.Timeout | null = null;
@@ -355,55 +502,39 @@ export default function Schedule() {
 	}, []);
 
 	const now = skyNow();
-	const dailyReset = dailyResetNext(now, timeZone, locale);
-	const eyeOfEden = eyeOfEdenNext(now, timeZone, locale);
-	const internationalSpaceStation = internationalSpaceStationOverview(now, timeZone, locale);
-	const travellingSpirit = travellingSpiritOverview(now, timeZone, locale);
-	const pollutedGeyser = pollutedGeyserOverview(now, timeZone, locale);
-	const grandma = grandmaOverview(now, timeZone, locale);
-	const turtle = turtleOverview(now, timeZone, locale);
-	const shardEruption = shardEruptionOverview(now, timeZone, locale);
-	const dreamsSkater = dreamsSkaterOverview(now, timeZone, locale);
-	const aurora = auroraOverview(now, timeZone, locale);
-	const passage = passageNext(now, timeZone, locale);
-	const aviarysFireworkFestival = aviarysFireworkFestivalOverview(now, timeZone, locale);
-	const nineColouredDeer = nineColouredDeerOverview(now, timeZone, locale);
-	const nestingWorkshop = nestingWorkshopNext(now, timeZone, locale);
-	const vaultEldersBlessing = vaultEldersBlessingOverview(now, timeZone, locale);
-	const projectorOfMemories = projectorOfMemoriesOverview(now, timeZone, locale);
 
-	const schedule = [
-		{ type: ScheduleType.DailyReset, schedule: dailyReset },
-		{ type: ScheduleType.EyeOfEden, schedule: eyeOfEden },
-		{ type: ScheduleType.ShardEruption, schedule: shardEruption },
-		{ type: ScheduleType.TravellingSpirit, schedule: travellingSpirit },
-		{ type: ScheduleType.NestingWorkshop, schedule: nestingWorkshop },
-		{ type: ScheduleType.AviarysFireworkFestival, schedule: aviarysFireworkFestival },
-		{ type: ScheduleType.InternationalSpaceStation, schedule: internationalSpaceStation },
-		{ type: ScheduleType.PollutedGeyser, schedule: pollutedGeyser },
-		{ type: ScheduleType.Grandma, schedule: grandma },
-		{ type: ScheduleType.Turtle, schedule: turtle },
-		{ type: ScheduleType.AURORA, schedule: aurora },
-		{ type: ScheduleType.DreamsSkater, schedule: dreamsSkater },
-		{ type: ScheduleType.VaultEldersBlessing, schedule: vaultEldersBlessing },
-		{ type: ScheduleType.Passage, schedule: passage },
-		{ type: ScheduleType.NineColouredDeer, schedule: nineColouredDeer },
-		{ type: ScheduleType.ProjectorOfMemories, schedule: projectorOfMemories },
-	] satisfies Readonly<{ type: ScheduleTypes; schedule: ScheduleData }[]>;
+	const schedules = [
+		dailyResetNext(now, timeZone, locale),
+		eyeOfEdenNext(now, timeZone, locale),
+		internationalSpaceStationOverview(now, timeZone, locale),
+		travellingSpiritOverview(now, timeZone, locale),
+		pollutedGeyserOverview(now, timeZone, locale),
+		grandmaOverview(now, timeZone, locale),
+		turtleOverview(now, timeZone, locale),
+		shardEruptionOverview(now, timeZone, locale),
+		dreamsSkaterOverview(now, timeZone, locale),
+		auroraOverview(now, timeZone, locale),
+		passageNext(now, timeZone, locale),
+		aviarysFireworkFestivalOverview(now, timeZone, locale),
+		nineColouredDeerOverview(now, timeZone, locale),
+		nestingWorkshopNext(now, timeZone, locale),
+		vaultEldersBlessingOverview(now, timeZone, locale),
+		projectorOfMemoriesOverview(now, timeZone, locale),
+	] satisfies readonly BaseSchedule<ScheduleTypes>[];
 
 	const active = [];
 	const upcoming = [];
 
-	for (const item of schedule) {
-		if (item.schedule.now === undefined || item.schedule.now === false) {
-			upcoming.push(item);
+	for (const schedule of schedules) {
+		if (schedule.now === undefined || schedule.now === false) {
+			upcoming.push(schedule);
 			continue;
 		}
 
-		active.push(item);
+		active.push(schedule);
 	}
 
-	upcoming.sort((a, b) => a.schedule.nextUnix - b.schedule.nextUnix);
+	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
 
 	return (
 		<div className="min-h-screen px-4 pt-10">
@@ -418,75 +549,18 @@ export default function Schedule() {
 
 						{/* Desktop. */}
 						<div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-							{active.map((item) => {
-								const { schedule } = item;
-
-								return (
-									<div
-										className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-br ${getEventColor(schedule.now)}`}
-										key={item.type}
-									>
-										<div className="absolute top-0 right-0 w-20 h-20 opacity-10">
-											<div className="absolute inset-0 bg-gradient-to-br from-current to-transparent rounded-full blur-xl" />
-										</div>
-										<div className="relative z-10">
-											<div className="flex items-center justify-between mb-3">
-												<h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg">
-													{t(`schedule.type.${item.type}`, { ns: "features" })}
-												</h3>
-												<div className="flex items-center gap-2">
-													<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-													<span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wider">
-														{t("schedule.overview-active", { ns: "features" })}
-													</span>
-												</div>
-											</div>
-											{schedule.now !== true && (
-												<div className="mb-3">
-													<span className="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-														{item.type === ScheduleType.TravellingSpirit
-															? t(`spirits.${schedule.now}`, { ns: "general" })
-															: "Available"}
-													</span>
-												</div>
-											)}
-											<div className="space-y-2">
-												<div className="flex justify-between items-center">
-													<span className="text-sm text-gray-600 dark:text-gray-400">
-														{t("schedule.overview-next", { ns: "features" })}
-													</span>
-													<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
-														{schedule.next}
-													</span>
-												</div>
-												<div className="flex justify-between items-center">
-													<span className="text-sm text-gray-600 dark:text-gray-400">
-														{t("schedule.overview-in", { ns: "features" })}
-													</span>
-													<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-														{schedule.relative}
-													</span>
-												</div>
-											</div>
-										</div>
+							{active.map((schedule) => (
+								<div
+									className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-br ${getEventColor(schedule.now)}`}
+									key={schedule.type}
+								>
+									<div className="absolute top-0 right-0 w-20 h-20 opacity-10">
+										<div className="absolute inset-0 bg-gradient-to-br from-current to-transparent rounded-full blur-xl" />
 									</div>
-								);
-							})}
-						</div>
-
-						{/* Mobile. */}
-						<div className="md:hidden space-y-3">
-							{active.map((item) => {
-								const { schedule } = item;
-
-								return (
-									<div
-										className={`rounded-lg border p-4 bg-gradient-to-r ${getEventColor(schedule.now)}`}
-										key={item.type}
-									>
-										<div className="flex items-center justify-between mb-2">
-											<h3 className="font-bold text-gray-900 dark:text-gray-100">
-												{t(`schedule.type.${item.type}`, { ns: "features" })}
+									<div className="relative z-10">
+										<div className="flex items-center justify-between mb-3">
+											<h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg">
+												{t(`schedule.type.${schedule.type}`, { ns: "features" })}
 											</h3>
 											<div className="flex items-center gap-2">
 												<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
@@ -496,28 +570,77 @@ export default function Schedule() {
 											</div>
 										</div>
 										{schedule.now !== true && (
-											<div className="mb-2">
-												<span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-													{item.type === ScheduleType.TravellingSpirit
+											<div className="mb-3">
+												<span className="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+													{schedule.type === ScheduleType.TravellingSpirit
 														? t(`spirits.${schedule.now}`, { ns: "general" })
 														: "Available"}
 												</span>
 											</div>
 										)}
-										<div className="flex justify-between items-center text-sm">
-											<span className="text-gray-600 dark:text-gray-400">
-												{t("schedule.overview-next-timestamp", {
-													ns: "features",
-													timestamp: schedule.next,
-												})}
-											</span>
-											<span className="font-medium text-gray-700 dark:text-gray-300">
-												{schedule.relative}
+										<div className="space-y-2">
+											<div className="flex justify-between items-center">
+												<span className="text-sm text-gray-600 dark:text-gray-400">
+													{t("schedule.overview-ends", { ns: "features" })}
+												</span>
+												<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
+													{schedule.end}
+												</span>
+											</div>
+											<div className="flex justify-between items-center">
+												<span className="text-sm text-gray-600 dark:text-gray-400">
+													{t("schedule.overview-in", { ns: "features" })}
+												</span>
+												<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+													{schedule.endRelative}
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							))}
+						</div>
+
+						{/* Mobile. */}
+						<div className="md:hidden space-y-3">
+							{active.map((schedule) => (
+								<div
+									className={`rounded-lg border p-4 bg-gradient-to-r ${getEventColor(schedule.now)}`}
+									key={schedule.type}
+								>
+									<div className="flex items-center justify-between mb-2">
+										<h3 className="font-bold text-gray-900 dark:text-gray-100">
+											{t(`schedule.type.${schedule.type}`, { ns: "features" })}
+										</h3>
+										<div className="flex items-center gap-2">
+											<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+											<span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wider">
+												{t("schedule.overview-active", { ns: "features" })}
 											</span>
 										</div>
 									</div>
-								);
-							})}
+									{schedule.now !== true && (
+										<div className="mb-2">
+											<span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+												{schedule.type === ScheduleType.TravellingSpirit
+													? t(`spirits.${schedule.now}`, { ns: "general" })
+													: "Available"}
+											</span>
+										</div>
+									)}
+									<div className="flex justify-between items-center text-sm">
+										<span className="text-gray-600 dark:text-gray-400">
+											{t("schedule.overview-ends-timestamp", {
+												ns: "features",
+												timestamp: schedule.end,
+											})}
+										</span>
+										<span className="font-medium text-gray-700 dark:text-gray-300">
+											{schedule.endRelative}
+										</span>
+									</div>
+								</div>
+							))}
 						</div>
 					</div>
 				)}
@@ -531,80 +654,74 @@ export default function Schedule() {
 
 					{/* Desktop. */}
 					<div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-						{upcoming.map((item) => {
-							const { schedule } = item;
-							return (
-								<div
-									className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-br ${getEventColor(schedule.now)}`}
-									key={item.type}
-								>
-									<div className="absolute top-0 right-0 w-20 h-20 opacity-5">
-										<div className="absolute inset-0 bg-gradient-to-br from-current to-transparent rounded-full blur-xl" />
-									</div>
-									<div className="relative z-10">
-										<div className="flex items-center justify-between mb-3">
-											<h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg">
-												{t(`schedule.type.${item.type}`, { ns: "features" })}
-											</h3>
-											<span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-												{t("schedule.overview-upcoming", { ns: "features" })}
-											</span>
-										</div>
-										<div className="space-y-2">
-											<div className="flex justify-between items-center">
-												<span className="text-sm text-gray-600 dark:text-gray-400">
-													{t("schedule.overview-next", { ns: "features" })}
-												</span>
-												<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
-													{schedule.next}
-												</span>
-											</div>
-											<div className="flex justify-between items-center">
-												<span className="text-sm text-gray-600 dark:text-gray-400">
-													{t("schedule.overview-in", { ns: "features" })}
-												</span>
-												<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-													{schedule.relative}
-												</span>
-											</div>
-										</div>
-									</div>
+						{upcoming.map((schedule) => (
+							<div
+								className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-br ${getEventColor(schedule.now)}`}
+								key={schedule.type}
+							>
+								<div className="absolute top-0 right-0 w-20 h-20 opacity-5">
+									<div className="absolute inset-0 bg-gradient-to-br from-current to-transparent rounded-full blur-xl" />
 								</div>
-							);
-						})}
-					</div>
-
-					{/* Mobile. */}
-					<div className="md:hidden space-y-3">
-						{upcoming.map((item) => {
-							const { schedule } = item;
-							return (
-								<div
-									className={`rounded-lg border p-4 bg-gradient-to-r ${getEventColor(schedule.now)}`}
-									key={item.type}
-								>
-									<div className="flex items-center justify-between mb-2">
-										<h3 className="font-bold text-gray-900 dark:text-gray-100">
-											{t(`schedule.type.${item.type}`, { ns: "features" })}
+								<div className="relative z-10">
+									<div className="flex items-center justify-between mb-3">
+										<h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg">
+											{t(`schedule.type.${schedule.type}`, { ns: "features" })}
 										</h3>
 										<span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
 											{t("schedule.overview-upcoming", { ns: "features" })}
 										</span>
 									</div>
-									<div className="flex justify-between items-center text-sm">
-										<span className="text-gray-600 dark:text-gray-400">
-											{t("schedule.overview-next-timestamp", {
-												ns: "features",
-												timestamp: schedule.next,
-											})}
-										</span>
-										<span className="font-medium text-gray-700 dark:text-gray-300">
-											{schedule.relative}
-										</span>
+									<div className="space-y-2">
+										<div className="flex justify-between items-center">
+											<span className="text-sm text-gray-600 dark:text-gray-400">
+												{t("schedule.overview-next", { ns: "features" })}
+											</span>
+											<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
+												{schedule.next}
+											</span>
+										</div>
+										<div className="flex justify-between items-center">
+											<span className="text-sm text-gray-600 dark:text-gray-400">
+												{t("schedule.overview-in", { ns: "features" })}
+											</span>
+											<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+												{schedule.relative}
+											</span>
+										</div>
 									</div>
 								</div>
-							);
-						})}
+							</div>
+						))}
+					</div>
+
+					{/* Mobile. */}
+					<div className="md:hidden space-y-3">
+						{upcoming.map((schedule) => (
+							<div
+								className={`rounded-lg border p-4 bg-gradient-to-r ${getEventColor(schedule.now)}`}
+								key={schedule.type}
+							>
+								<div className="flex items-center justify-between mb-2">
+									<h3 className="font-bold text-gray-900 dark:text-gray-100">
+										{t(`schedule.type.${schedule.type}`, { ns: "features" })}
+									</h3>
+									<span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+										{t("schedule.overview-upcoming", { ns: "features" })}
+									</span>
+								</div>
+								<div className="flex justify-between items-center text-sm">
+									<span className="text-gray-600 dark:text-gray-400">
+										{t("schedule.overview-next-timestamp", {
+											ns: "features",
+											timestamp: schedule.next,
+										})}
+									</span>
+									<span className="font-medium text-gray-700 dark:text-gray-300">
+										{schedule.relative}
+									</span>
+								</div>
+							</div>
+						))}
 					</div>
 				</div>
 			</div>

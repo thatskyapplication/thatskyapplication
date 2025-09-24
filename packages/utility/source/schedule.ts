@@ -36,65 +36,63 @@ export function nextEyeOfEden(date: DateTime) {
 
 export function internationalSpaceStationSchedule(date: DateTime) {
 	const targetDay = INTERNATIONAL_SPACE_STATION_DATES.find(
-		(internationalSpaceStationDates) => internationalSpaceStationDates > date.day,
+		(internationalSpaceStationDates) => internationalSpaceStationDates >= date.day,
 	);
 
-	return {
-		now: INTERNATIONAL_SPACE_STATION_DATES.includes(
-			date.day as (typeof INTERNATIONAL_SPACE_STATION_DATES)[number],
-		),
-		next: (targetDay
+	const start = (
+		targetDay
 			? date.set({ day: targetDay })
 			: date.plus({ month: 1 }).set({ day: INTERNATIONAL_SPACE_STATION_DATES[0] })
-		).startOf("day"),
-	};
+	).startOf("day");
+
+	const end = start.plus({ days: 1 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function travellingSpiritSchedule(date: DateTime) {
 	const spirit = TRAVELLING_DATES.findLast(({ end }) => date < end);
 
 	return {
+		start: spirit ? spirit.start : TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }),
 		visit: spirit ? (date >= spirit.start ? spirit : null) : null,
-		next: spirit ? spirit.start : TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }),
 	};
 }
 
 export function pollutedGeyserSchedule(date: DateTime) {
 	const { hour, minute } = date;
 
-	return {
-		now: hour % 2 === 0 && minute >= 5 && minute < 15,
-		next: date
-			.plus({ minutes: hour % 2 === 0 ? (minute < 5 ? 5 - minute : 125 - minute) : 65 - minute })
-			.startOf("minute"),
-	};
+	const start = date
+		.set({ minute: hour % 2 === 0 ? (minute < 15 ? 5 : 125) : 65 })
+		.startOf("minute");
+
+	const end = date.plus({ minutes: 10 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function grandmaSchedule(date: DateTime) {
 	const { hour, minute } = date;
 
-	return {
-		now: hour % 2 === 0 && minute >= 35 && minute < 45,
-		next: date
-			.plus({ minutes: hour % 2 === 0 ? (minute < 35 ? 35 - minute : 155 - minute) : 95 - minute })
-			.startOf("minute"),
-	};
+	const start = date
+		.set({ minute: hour % 2 === 0 ? (minute < 45 ? 35 : 155) : 95 })
+		.startOf("minute");
+
+	const end = start.plus({ minutes: 10 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function turtleSchedule(date: DateTime) {
-	const { hour, minute } = date;
-
-	return {
-		now: hour % 2 === 0 && minute >= 50 && minute < 60,
-		next: date
-			.plus({ minutes: hour % 2 === 0 ? (minute < 50 ? 50 - minute : 170 - minute) : 110 - minute })
-			.startOf("minute"),
-	};
+	const start = date.set({ minute: date.hour % 2 === 0 ? 50 : 110 }).startOf("minute");
+	const end = start.plus({ minutes: 10 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function shardEruptionSchedule(date: DateTime) {
 	const shard = shardEruption();
-	let nextShard = shard?.timestamps.find(({ start }) => date < start);
+	let nextShard = shard?.timestamps.find(({ end }) => date < end);
 
 	if (!nextShard) {
 		for (let index = 1; ; index++) {
@@ -104,40 +102,52 @@ export function shardEruptionSchedule(date: DateTime) {
 				continue;
 			}
 
-			nextShard = nextPossibleShard.timestamps.find(({ start }) => date < start)!;
+			nextShard = nextPossibleShard.timestamps[0]!;
 			break;
 		}
 	}
 
 	return {
-		now: shard?.timestamps.some(({ start, end }) => date >= start && date < end),
-		next: nextShard.start,
+		start: nextShard.start,
+		end: nextShard.end,
+		active: date >= nextShard.start && date < nextShard.end,
 	};
 }
 
 export function dreamsSkaterSchedule(date: DateTime) {
 	const { weekday, hour, minute } = date;
+	const isWeekend = weekday === 5 || weekday === 6 || weekday === 7;
 
-	return {
-		now: (weekday === 5 || weekday === 6 || weekday === 7) && hour % 2 === 1 && minute < 15,
-		next: (weekday !== 5 && weekday !== 6 && weekday !== 7
-			? date.plus({ days: 5 - weekday }).set({ hour: 1 })
-			: hour % 2 === 0
-				? date.plus({ minutes: 60 - minute })
-				: date.plus({ minutes: 120 - minute })
-		).startOf("minute"),
-	};
+	if (isWeekend) {
+		let start = date
+			.set({ minute: hour % 2 === 1 ? (minute < 15 ? 0 : 120) : 60 })
+			.startOf("minute");
+
+		// Sunday's last event would make the next event on Monday.
+		// Move this to Friday.
+		if (start.weekday === 1) {
+			start = start.set({ weekday: 5 });
+		}
+
+		const end = start.plus({ minutes: 15 });
+		const active = date >= start && date < end;
+		return { start, end, active };
+	}
+
+	const start = date.set({ weekday: 5, hour: 1 }).startOf("hour");
+	const end = start.plus({ minutes: 15 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function auroraSchedule(date: DateTime) {
-	const { hour, minute } = date;
+	const start = date
+		.set({ minute: date.hour % 2 === 0 && date.minute < 48 ? 10 : 70 })
+		.startOf("minute");
 
-	return {
-		now: hour % 2 === 0 && minute >= 10 && minute < 58,
-		next: date
-			.plus({ minutes: hour % 2 === 0 ? (minute < 10 ? 10 - minute : 130 - minute) : 70 - minute })
-			.startOf("minute"),
-	};
+	const end = start.plus({ minutes: 48 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function nextPassage(date: DateTime) {
@@ -145,25 +155,26 @@ export function nextPassage(date: DateTime) {
 }
 
 export function aviarysFireworkFestivalSchedule(date: DateTime) {
-	const { hour, minute } = date;
-	const minutesSince = hour * 60 + minute;
+	const { day, hour, minute } = date;
 
-	return {
-		now: date.day === 1 && hour % 4 === 0 && minute <= 10,
-		next:
-			date.day === 1
-				? date.plus({ minutes: 240 - (minutesSince % 240) }).startOf("minute")
-				: date.plus({ month: 1 }).startOf("month"),
-	};
+	const start =
+		day === 1
+			? date
+					.set({ hour: hour % 4 === 0 ? (minute < 10 ? hour : hour + 4) : hour + (4 - (hour % 4)) })
+					.startOf("hour")
+			: date.plus({ month: 1 }).startOf("month");
+
+	const end = start.plus({ minutes: 10 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function nineColouredDeerSchedule(date: DateTime) {
 	const { minute } = date;
-
-	return {
-		now: minute < 20 || (minute >= 30 && minute < 50),
-		next: date.plus({ minutes: 30 - (minute % 30) }).startOf("minute"),
-	};
+	const start = date.set({ minute: minute < 20 ? 0 : minute < 50 ? 30 : 60 }).startOf("minute");
+	const end = start.plus({ minutes: 20 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function nextNestingWorkshop(now: DateTime) {
@@ -173,18 +184,25 @@ export function nextNestingWorkshop(now: DateTime) {
 export function vaultEldersBlessingSchedule(date: DateTime) {
 	const { minute } = date;
 
-	return {
-		now: minute % 20 === 0,
-		next: date.plus({ minutes: 20 - (minute % 20) }).startOf("minute"),
-	};
+	const start = date
+		.set({ minute: minute < 1 ? 0 : minute < 21 ? 20 : minute < 41 ? 40 : 60 })
+		.startOf("minute");
+
+	const end = start.plus({ minutes: 1 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }
 
 export function projectorOfMemoriesSchedule(date: DateTime) {
 	const { hour, minute } = date;
 	const minutesSince = hour * 60 + minute;
+	const remainder = minutesSince % 80;
 
-	return {
-		now: minutesSince % 80 < 78,
-		next: date.plus({ minutes: 80 - (minutesSince % 80) }).startOf("minute"),
-	};
+	const start = date.startOf("day").set({
+		minute: remainder < 78 ? minutesSince - remainder : minutesSince - remainder + 80,
+	});
+
+	const end = start.plus({ minutes: 78 });
+	const active = date >= start && date < end;
+	return { start, end, active };
 }

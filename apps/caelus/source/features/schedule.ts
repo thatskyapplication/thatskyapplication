@@ -173,8 +173,8 @@ function internationalSpaceStationOverview(date: DateTime) {
 	const schedule = internationalSpaceStationSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -247,7 +247,7 @@ function travellingSpiritOverview(now: DateTime, locale: Locale) {
 		now: schedule.visit
 			? t(`spirits.${schedule.visit.spiritId}`, { lng: locale, ns: "general" })
 			: (false as const),
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -256,7 +256,7 @@ function travellingSpiritDetailedBreakdown(
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const visit = TRAVELLING_DATES.findLast(({ start, end }) => now >= start && now < end);
-	const nextArrival = TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }).toUnixInteger();
+	const nextArrival = TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }).toUnixInteger(); //wrong
 
 	const travellingSpiritButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -318,8 +318,8 @@ function pollutedGeyserOverview(date: DateTime) {
 	const schedule = pollutedGeyserSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -379,8 +379,8 @@ function grandmaOverview(date: DateTime) {
 	const schedule = grandmaSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -440,8 +440,8 @@ function turtleOverview(date: DateTime) {
 	const schedule = turtleSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -501,8 +501,8 @@ function shardEruptionOverview(now: DateTime) {
 	const schedule = shardEruptionSchedule(now);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -574,8 +574,8 @@ function dreamsSkaterOverview(date: DateTime) {
 	const schedule = dreamsSkaterSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -640,8 +640,8 @@ function auroraOverview(date: DateTime) {
 	const schedule = auroraSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -760,8 +760,8 @@ function aviarysFireworkFestivalOverview(date: DateTime) {
 	const schedule = aviarysFireworkFestivalSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -820,8 +820,8 @@ function nineColouredDeerOverview(date: DateTime) {
 	const schedule = nineColouredDeerSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -912,8 +912,8 @@ function vaultEldersBlessingOverview(date: DateTime) {
 	const schedule = vaultEldersBlessingSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
@@ -961,8 +961,8 @@ function projectorOfMemoriesOverview(date: DateTime) {
 	const schedule = projectorOfMemoriesSchedule(date);
 
 	return {
-		now: schedule.now,
-		next: `<t:${schedule.next.toUnixInteger()}:R>`,
+		now: schedule.active,
+		next: `<t:${schedule.start.toUnixInteger()}:R>`,
 	};
 }
 
