@@ -3092,6 +3092,8 @@
 			"overview-next": "Próximo:",
 			"overview-next-timestamp": "Próximo: {{timestamp}}",
 			"overview-next-available-timestamp": "Próxima disponibilidade {{timestamp}}",
+			"overview-ends": "",
+			"overview-ends-timestamp": "",
 			"overview-in": "Em:",
 			"overview": "**{{type}}:** {{details}}",
 			"event-ongoing": "O evento está em andamento!",

@@ -3082,6 +3082,8 @@
 			"overview-next": "",
 			"overview-next-timestamp": "",
 			"overview-next-available-timestamp": "",
+			"overview-ends": "",
+			"overview-ends-timestamp": "",
 			"overview-in": "",
 			"overview": "",
 			"event-ongoing": "",
