@@ -951,6 +951,7 @@
 			"190": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Reclus_ingénieux",
 			"191": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Compagnon_attentionné"
 		},
+		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
 			"0": "Quartier d'Ailes",
 			"1": "Quartier d'Ailes {{number}}",
@@ -2982,7 +2983,14 @@
 			],
 			"gift-message-heart-result": "{{user}} a maintenant {{number}}{{emoji}}.",
 			"gift-hearts-left-to-gift": "Vous pouvez offrir {{number}}{{emoji}} de plus aujourd'hui.",
-			"gift-hearts-left-to-gift-double": "Vous pouvez offrir {{number}}{{emoji}} de plus aujourd'hui.\nIl y a actuellement un événement de double cœur de {{date1}} à {{date2}}."
+			"gift-hearts-left-to-gift-double": "Vous pouvez offrir {{number}}{{emoji}} de plus aujourd'hui.\nIl y a actuellement un événement de double cœur de {{date1}} à {{date2}}.",
+			"history-no-hearts": "Vous avez 0{{emoji}}.",
+			"history-title": "Historique des cœurs",
+			"history-summary": "Offert : {{gifted}}{{emoji}}\nReçu : {{received}}{{emoji}}",
+			"history-gifted-message": "{{emoji}} à {{user}} le {{timestamp1}} ({{timestamp2}})",
+			"history-gifted-message-extra": "{{amount}}{{emoji}} à {{user}} le {{timestamp1}} ({{timestamp2}})",
+			"history-received-message": "{{emoji}} de {{user}} le {{timestamp1}} ({{timestamp2}})",
+			"history-received-message-extra": "{{amount}}{{emoji}} de {{user}} le {{timestamp1}} ({{timestamp2}})"
 		},
 		"me": {
 			"title": "Moi",
@@ -3153,7 +3161,6 @@
 			"browse-description": "Vous être en train de rechercher les éruptions d'éclats. Ouvrez les menus de sélection pour rapidement voir les informations sur une bonne période de temps. Sélectionnez une date pour voir plus d'informations.",
 			"no-shard-eruptions-today": "Il n'y a pas d'éruption d'éclats aujourd'hui.",
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
-			"browse-date-range": "{{date1}}–{{date2}}",
 			"browse-no-shard": "Pas d'éruptions d'éclats.",
 			"none": "Aucun",
 			"today": "Aujourd'hui",
