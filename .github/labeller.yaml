@@ -59,6 +59,13 @@ f:guess:
      - apps/caelus/source/features/guess.ts
      - apps/caelus/source/utility/guess.ts
      - packages/utility/source/guess.ts
+f:heart:
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/caelus/source/commands/chat-inputs/heart.ts
+     - apps/caelus/source/commands/user-context-menus/gift-heart.ts
+     - apps/caelus/source/features/heart.ts
+     - apps/website/app/routes/caelus.guides.hearts.tsx
 f:me:
  - changed-files:
    - any-glob-to-any-file: apps/caelus/source/features/me.ts

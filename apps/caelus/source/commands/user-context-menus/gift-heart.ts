@@ -1,6 +1,6 @@
 import { type APIUserApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { t } from "i18next";
-import { gift } from "../../services/heart.js";
+import { gift } from "../../features/heart.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {

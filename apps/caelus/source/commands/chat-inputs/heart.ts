@@ -1,6 +1,6 @@
 import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
 import { t } from "i18next";
-import { gift, history } from "../../services/heart.js";
+import { gift, history } from "../../features/heart.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {

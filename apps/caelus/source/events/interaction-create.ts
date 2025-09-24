@@ -144,6 +144,11 @@ import {
 	tryAgain,
 } from "../features/guess.js";
 import {
+	HEART_HISTORY_BACK_CUSTOM_ID,
+	HEART_HISTORY_NEXT_CUSTOM_ID,
+	history,
+} from "../features/heart.js";
+import {
 	ME_DELETE_AVATAR_CUSTOM_ID,
 	ME_DELETE_BANNER_CUSTOM_ID,
 	ME_DELETE_BIO_CUSTOM_ID,
@@ -267,11 +272,6 @@ import {
 } from "../features/welcome.js";
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
-import {
-	HEART_HISTORY_BACK_CUSTOM_ID,
-	HEART_HISTORY_NEXT_CUSTOM_ID,
-	history,
-} from "../services/heart.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
 	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,

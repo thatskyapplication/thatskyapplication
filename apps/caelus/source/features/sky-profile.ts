@@ -70,7 +70,6 @@ import { client } from "../discord.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
-import { totalReceived } from "../services/heart.js";
 import {
 	APPLICATION_ID,
 	ARTIST_ROLE_ID,
@@ -110,6 +109,7 @@ import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import { allProgress, fetchCatalogue } from "./catalogue.js";
 import { findUser } from "./guess.js";
+import { totalReceived } from "./heart.js";
 
 interface SkyProfileLikesPacket {
 	user_id: Snowflake;

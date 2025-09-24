@@ -3277,6 +3277,15 @@ export default {
 			"gift-hearts-left-to-gift": "You can gift {{number}} more {{emoji}} today.",
 			"gift-hearts-left-to-gift-double":
 				"You can gift {{number}} more {{emoji}} today.\nThere is currently a double heart event from {{date1}} to {{date2}}",
+			"history-no-hearts": "You have 0{{emoji}}.",
+			"history-title": "Heart history",
+			"history-summary": "Gifted: {{gifted}}{{emoji}}\nReceived: {{received}}{{emoji}}",
+			"history-gifted-message": "{{emoji}} to {{user}} on {{timestamp1}} ({{timestamp2}})",
+			"history-gifted-message-extra":
+				"{{amount}}{{emoji}} to {{user}} on {{timestamp1}} ({{timestamp2}})",
+			"history-received-message": "{{emoji}} from {{user}} on {{timestamp1}} ({{timestamp2}})",
+			"history-received-message-extra":
+				"{{amount}}{{emoji}} from {{user}} on {{timestamp1}} ({{timestamp2}})",
 		},
 		me: {
 			title: "Me",

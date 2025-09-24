@@ -1,3 +1,4 @@
+import { Collection } from "@discordjs/collection";
 import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteractionDataResolvedGuildMember,
@@ -17,14 +18,14 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	formatEmoji,
 	getRandomElement,
-	resolveCurrencyEmoji,
+	skyDate,
 	skyNow,
 	Table,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import type { DateTime } from "luxon";
 import { client } from "../discord.js";
-import type { HeartPacket } from "../models/Heart.js";
 import pg from "../pg.js";
 import { APPLICATION_ID } from "../utility/configuration.js";
 import {
@@ -32,13 +33,44 @@ import {
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
-import { HEART_EXTRA_DATES } from "../utility/dates.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
 export const HEART_HISTORY_BACK_CUSTOM_ID = "HEART_HISTORY_BACK_CUSTOM_ID" as const;
 export const HEART_HISTORY_NEXT_CUSTOM_ID = "HEART_HISTORY_NEXT_CUSTOM_ID" as const;
+
+export interface HeartPacket {
+	gifter_id: Snowflake | null;
+	giftee_id: Snowflake | null;
+	timestamp: Date;
+	hearts_extra: number;
+}
+
+interface HeartsExtra {
+	start: DateTime;
+	/**
+	 * The end date is exclusive.
+	 */
+	end: DateTime;
+	/**
+	 * The count of extra hearts.
+	 */
+	count: number;
+}
+
+// Extra hearts.
+const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>()
+	.set(1, {
+		start: skyDate(2_024, 12, 9),
+		end: skyDate(2_024, 12, 23),
+		count: 1,
+	})
+	.set(2, {
+		start: skyDate(2_025, 2, 10),
+		end: skyDate(2_025, 2, 24),
+		count: 1,
+	});
 
 async function totalGifted(userId: Snowflake) {
 	const result = await pg<HeartPacket>(Table.Hearts)
@@ -229,9 +261,7 @@ export async function gift(
 
 	await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
 		content:
-			// Also handle negative numbers.
-			// Could happen if we, for example, gift hearts through the database such that they are over the limit.
-			heartsLeftToGift <= 0
+			heartsLeftToGift === 0
 				? t("heart.gift-no-hearts-left", {
 						lng: userLocale,
 						ns: "features",
@@ -287,7 +317,11 @@ export async function history(
 		const components: APIMessageTopLevelComponent[] = [
 			{
 				type: ComponentType.TextDisplay,
-				content: `You have ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: 0 })}.`,
+				content: t("heart.history-no-hearts", {
+					lng: locale,
+					ns: "features",
+					emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+				}),
 			},
 		];
 
@@ -324,7 +358,7 @@ export async function history(
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: "## Heart history",
+					content: `## ${t("heart.history-title", { lng: locale, ns: "features" })}`,
 				},
 				{
 					type: ComponentType.Separator,
@@ -333,24 +367,47 @@ export async function history(
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `Gifted: ${resolveCurrencyEmoji({
-						emoji: MISCELLANEOUS_EMOJIS.Heart,
-						includeSpaceInEmoji: true,
-						number: gifted,
-					})}\nReceived: ${resolveCurrencyEmoji({
-						emoji: MISCELLANEOUS_EMOJIS.Heart,
-						includeSpaceInEmoji: true,
-						number: received,
-					})}`,
+					content: t("heart.history-summary", {
+						lng: locale,
+						ns: "features",
+						gifted,
+						received,
+						emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+					}),
 				},
 				{
 					type: ComponentType.TextDisplay,
 					content: heartPackets
 						.map((heartPacket) => {
 							const gifted = heartPacket.gifter_id === invoker.id;
-							const amount = `${heartPacket.hearts_extra > 0 ? `${heartPacket.hearts_extra + 1}` : ""} ${formatEmoji(MISCELLANEOUS_EMOJIS.Heart)} ${gifted ? "to" : "from"}`;
-							const user = gifted ? heartPacket.giftee_id : heartPacket.gifter_id;
-							return `- ${amount} ${user ? `<@${user}>` : DELETED_USER_TEXT} on <t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:d> (<t:${Math.floor(heartPacket.timestamp.getTime() / 1_000)}:R>)`;
+							const timestamp = Math.floor(heartPacket.timestamp.getTime() / 1_000);
+
+							const message = t(
+								heartPacket.hearts_extra > 0
+									? gifted
+										? "heart.history-gifted-message-extra"
+										: "heart.history-received-message-extra"
+									: gifted
+										? "heart.history-gifted-message"
+										: "heart.history-received-message",
+								{
+									lng: locale,
+									ns: "features",
+									amount: heartPacket.hearts_extra + 1,
+									emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+									user: gifted
+										? heartPacket.giftee_id
+											? `<@${heartPacket.giftee_id}>`
+											: DELETED_USER_TEXT
+										: heartPacket.gifter_id
+											? `<@${heartPacket.gifter_id}>`
+											: DELETED_USER_TEXT,
+									timestamp1: `<t:${timestamp}:d>`,
+									timestamp2: `<t:${timestamp}:R>`,
+								},
+							);
+
+							return `- ${message}`;
 						})
 						.join("\n"),
 				},
@@ -391,6 +448,7 @@ export async function history(
 
 	if (isChatInput) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
+			allowed_mentions: { parse: [] },
 			components,
 			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		});

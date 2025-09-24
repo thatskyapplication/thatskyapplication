@@ -8,7 +8,6 @@ import type { CataloguePacket, UsersPacket } from "@thatskyapplication/utility";
 import { type ChecklistPacket, Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import type { HeartPacket } from "../models/Heart.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import {
@@ -20,6 +19,7 @@ import { interactionInvoker } from "../utility/functions.js";
 import type { CommandAnalyticsPacket } from "./command-analytics.js";
 import type { GiveawayPacket, GiveawayUpsellPacket } from "./giveaway.js";
 import type { GuessPacket } from "./guess.js";
+import type { HeartPacket } from "./heart.js";
 import { skyProfileDelete } from "./sky-profile.js";
 
 export async function deleteUserData(interaction: APIMessageComponentButtonInteraction) {
