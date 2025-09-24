@@ -1,6 +1,7 @@
 import { Collection } from "@discordjs/collection";
 import {
 	type APIChatInputApplicationCommandInteraction,
+	type APIComponentInContainer,
 	type APIInteractionDataResolvedGuildMember,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageTopLevelComponent,
@@ -352,80 +353,75 @@ export async function history(
 
 	const maximumPage = Math.ceil(total / HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER);
 
-	const components: APIMessageTopLevelComponent[] = [
+	const containerComponents: APIComponentInContainer[] = [
 		{
-			type: ComponentType.Container,
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `## ${t("heart.history-title", { lng: locale, ns: "features" })}`,
-				},
-				{
-					type: ComponentType.Separator,
-					divider: true,
-					spacing: SeparatorSpacingSize.Small,
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: t("heart.history-summary", {
-						lng: locale,
-						ns: "features",
-						gifted,
-						received,
-						emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
-					}),
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: heartPackets
-						.map((heartPacket) => {
-							const gifted = heartPacket.gifter_id === invoker.id;
-							const timestamp = Math.floor(heartPacket.timestamp.getTime() / 1_000);
+			type: ComponentType.TextDisplay,
+			content: `## ${t("heart.history-title", { lng: locale, ns: "features" })}`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("heart.history-summary", {
+				lng: locale,
+				ns: "features",
+				gifted,
+				received,
+				emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: heartPackets
+				.map((heartPacket) => {
+					const gifted = heartPacket.gifter_id === invoker.id;
+					const timestamp = Math.floor(heartPacket.timestamp.getTime() / 1_000);
 
-							const message = t(
-								heartPacket.hearts_extra > 0
-									? gifted
-										? "heart.history-gifted-message-extra"
-										: "heart.history-received-message-extra"
-									: gifted
-										? "heart.history-gifted-message"
-										: "heart.history-received-message",
-								{
-									lng: locale,
-									ns: "features",
-									amount: heartPacket.hearts_extra + 1,
-									emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
-									user: gifted
-										? heartPacket.giftee_id
-											? `<@${heartPacket.giftee_id}>`
-											: DELETED_USER_TEXT
-										: heartPacket.gifter_id
-											? `<@${heartPacket.gifter_id}>`
-											: DELETED_USER_TEXT,
-									timestamp1: `<t:${timestamp}:d>`,
-									timestamp2: `<t:${timestamp}:R>`,
-								},
-							);
+					const message = t(
+						heartPacket.hearts_extra > 0
+							? gifted
+								? "heart.history-gifted-message-extra"
+								: "heart.history-received-message-extra"
+							: gifted
+								? "heart.history-gifted-message"
+								: "heart.history-received-message",
+						{
+							lng: locale,
+							ns: "features",
+							amount: heartPacket.hearts_extra + 1,
+							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
+							user: gifted
+								? heartPacket.giftee_id
+									? `<@${heartPacket.giftee_id}>`
+									: DELETED_USER_TEXT
+								: heartPacket.gifter_id
+									? `<@${heartPacket.gifter_id}>`
+									: DELETED_USER_TEXT,
+							timestamp1: `<t:${timestamp}:d>`,
+							timestamp2: `<t:${timestamp}:R>`,
+						},
+					);
 
-							return `- ${message}`;
-						})
-						.join("\n"),
-				},
-				{
-					type: ComponentType.Separator,
-					divider: true,
-					spacing: SeparatorSpacingSize.Small,
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: `-# ${t("page", { lng: locale, ns: "general" })} ${page}/${maximumPage}`,
-				},
-			],
+					return `- ${message}`;
+				})
+				.join("\n"),
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: `-# ${t("page", { lng: locale, ns: "general" })} ${page}/${maximumPage}`,
 		},
 	];
 
 	if (maximumPage > 1) {
-		components.push({
+		containerComponents.push({
 			type: ComponentType.ActionRow,
 			components: [
 				{
@@ -445,6 +441,10 @@ export async function history(
 			],
 		});
 	}
+
+	const components: APIMessageTopLevelComponent[] = [
+		{ type: ComponentType.Container, components: containerComponents },
+	];
 
 	if (isChatInput) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
