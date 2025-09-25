@@ -517,6 +517,10 @@ export default {
 				SpiritId.FestivalSpinDancer,
 				SkyMap.ForestBrook,
 			),
+			[DailyQuest.MeetUpWithAdmiringActorInBirdNest]: questsMeetUpWith(
+				SpiritId.AdmiringActor,
+				SkyMap.BirdNest,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
