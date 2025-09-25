@@ -6,15 +6,6 @@ import {
 	SeasonIdToSeasonalHeartEmoji,
 } from "./emojis.js";
 
-export const NO_FRIENDSHIP_TREE_TEXT = "This spirit does not have a friendship tree." as const;
-export const NO_FRIENDSHIP_TREE_YET_TEXT = "This spirit does not yet have an infographic." as const;
-
-export const GUIDE_SPIRIT_IN_PROGRESS_TEXT =
-	"This spirit's friendship tree has not been fully revealed." as const;
-
-export const NO_EVENT_OFFER_TEXT = "There are no cosmetics for this event." as const;
-export const NO_EVENT_INFOGRAPHIC_YET = "This event does not yet have an infographic." as const;
-
 export function resolveCostToString(cost: ItemCost) {
 	const totalCost = [];
 

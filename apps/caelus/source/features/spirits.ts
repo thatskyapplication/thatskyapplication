@@ -33,7 +33,7 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { GUIDE_SPIRIT_IN_PROGRESS_TEXT, resolveCostToString } from "../utility/catalogue.js";
+import { resolveCostToString } from "../utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 
 export const SPIRITS_VIEW_SPIRIT_CUSTOM_ID = "SPIRITS_VIEW_SPIRIT_CUSTOM_ID";
@@ -255,7 +255,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 	if (isGuideSpirit && spirit.inProgress) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `-# ${GUIDE_SPIRIT_IN_PROGRESS_TEXT}`,
+			content: `-# ${t("catalogue.spirit-not-fully-revealed", { lng: locale, ns: "features" })}`,
 		});
 	}
 
