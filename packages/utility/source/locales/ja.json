@@ -20,7 +20,7 @@
 			"Eye of Eden": "暴風域"
 		},
 		"maps": {
-			"Bird Nest": "鳥の塔",
+			"Bird Nest": "鳥の巣",
 			"Butterfly Fields": "蝶々の住処",
 			"Cave": "草原の洞窟",
 			"Prairie Peaks": "草原連峰",
@@ -76,7 +76,7 @@
 			"13": "スケーター",
 			"14": "巣づくり工房"
 		},
-		"page": "",
+		"page": "ページ",
 		"quests-common": {
 			"meet-up-with": "{{spirit}}に{{location}}で会いましょう"
 		},
@@ -335,7 +335,8 @@
 			"251": "資料庫で祈る侍者が夏を記録するのを手伝いましょう",
 			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
-			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})"
 		},
 		"seasons": {
 			"0": "感謝の季節",
@@ -498,8 +499,8 @@
 			"18": "",
 			"19": "https://sky-children-of-the-light.fandom.com/ja/wiki/彩なす日々",
 			"20": "",
-			"21": "",
-			"22": "",
+			"21": "https://sky-children-of-the-light.fandom.com/ja/wiki/常夏の日々",
+			"22": "https://sky-children-of-the-light.fandom.com/ja/wiki/夏灯りの日々",
 			"23": "",
 			"24": "",
 			"25": "",
@@ -538,7 +539,7 @@
 			"58": "",
 			"59": "",
 			"60": "",
-			"61": "",
+			"61": "https://sky-children-of-the-light.fandom.com/ja/wiki/凱旋の大競技会",
 			"62": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%99%BD%E5%85%89%E3%81%AE%E6%97%A5%E3%80%85",
 			"63": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
 			"64": "",
@@ -552,7 +553,7 @@
 			"72": "",
 			"73": "",
 			"74": "",
-			"75": "",
+			"75": "https://sky-children-of-the-light.fandom.com/ja/wiki/AURORAホームカミング",
 			"76": "",
 			"77": "",
 			"78": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%99%BD%E5%85%89%E3%81%AE%E6%97%A5%E3%80%85",
@@ -2477,85 +2478,85 @@
 	},
 	"commands": {
 		"about": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "概要",
+			"command-description": "Skyの不思議なお手伝いさん、わたしについてです！"
 		},
 		"calculate": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "計算",
+			"command-description": "いろんな計算が出来るコマンドです。",
 			"ascended-candles": {
 				"command-name": "星のキャンドル",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": "",
+				"command-description": "任意の数の星のキャンドルを獲得するのにかかる日数を計算します。",
+				"command-option-start-name": "開始",
+				"command-option-start-description": "開始時の星のキャンドル所持数。",
+				"command-option-goal-name": "目標",
+				"command-option-goal-description": "目標の星のキャンドル所持数。",
 				"command-option-eye-of-eden-name": "暴風域",
-				"command-option-eye-of-eden-description": "",
-				"command-option-shard-eruptions-name": "",
-				"command-option-shard-eruptions-description": ""
+				"command-option-eye-of-eden-description": "計算に原罪を含めるか。",
+				"command-option-shard-eruptions-name": "闇の破片",
+				"command-option-shard-eruptions-description": "計算に闇の破片の噴出を含めるか。"
 			},
 			"event-tickets": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": ""
+				"command-name": "イベントチケット",
+				"command-description": "任意の数のイベントチケットを獲得するのにかかる日数を計算します。",
+				"command-option-start-name": "開始",
+				"command-option-start-description": "開始時のイベントチケット所持数。",
+				"command-option-goal-name": "目標",
+				"command-option-goal-description": "目標のイベントチケット所持数。"
 			},
 			"seasonal-candles": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-start-name": "",
-				"command-option-start-description": "",
-				"command-option-goal-name": "",
-				"command-option-goal-description": ""
+				"command-name": "シーズンキャンドル",
+				"command-description": "任意の数のシーズンキャンドルを獲得するのにかかる日数を計算します。",
+				"command-option-start-name": "開始",
+				"command-option-start-description": "開始時のシーズンキャンドル所持数。",
+				"command-option-goal-name": "目標",
+				"command-option-goal-description": "目標のシーズンキャンドル所持数。"
 			},
 			"winged-light": {
-				"command-name": "",
+				"command-name": "光の翼",
 				"command-description": "",
 				"command-option-wing-buffs-name": "",
 				"command-option-wing-buffs-description": ""
 			}
 		},
 		"catalogue": {
-			"command-name": "",
-			"command-description": ""
+			"command-name": "カタログ",
+			"command-description": "あなた専用のSkyカタログ。"
 		},
 		"checklist": {
 			"command-name": "チェックリスト",
 			"command-description": "デイリークエストや原罪などの進捗を記録しましょう！"
 		},
 		"configure": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "設定",
+			"command-description": "このサーバーの通知設定をします。",
 			"ai": {
-				"command-name": "",
+				"command-name": "ai",
 				"command-description": "AI機能の設定をします。"
 			},
 			"daily-guides": {
 				"command-name": "デイリーガイド",
-				"command-description": "",
-				"command-option-channel-name": "",
-				"command-option-channel-description": ""
+				"command-description": "このサーバーにデイリーガイドを設置するコマンドです。",
+				"command-option-channel-name": "チャンネル",
+				"command-option-channel-description": "デイリーガイドを送信するチャンネル。"
 			},
 			"me": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-avatar-name": "",
-				"command-option-avatar-description": "",
-				"command-option-banner-name": "",
-				"command-option-banner-description": ""
+				"command-name": "わたし",
+				"command-description": "サーバー内でのわたしの見え方を設定しましょう！",
+				"command-option-avatar-name": "アバター",
+				"command-option-avatar-description": "わたしの新しいアバターを設定してください。",
+				"command-option-banner-name": "バナー",
+				"command-option-banner-description": "わたしの新しいバナーを設定してください。"
 			},
 			"notifications": {
-				"command-name": "",
-				"command-description": ""
+				"command-name": "通知",
+				"command-description": "各イベントの通知を設定するコマンドです。"
 			},
 			"welcome": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-asset-name": "",
-				"command-option-asset-description": ""
+				"command-name": "ウェルカム",
+				"command-description": "このサーバーの新メンバーへのウェルカムメッセージを設定するコマンドです。",
+				"command-option-asset-name": "メディア",
+				"command-option-asset-description": "ウェルカムメッセージに含める画像、GIF、ビデオなどをアップロードします。"
 			}
 		},
 		"daily-guides": {
@@ -2563,10 +2564,10 @@
 			"command-description": "デイリーガイドを表示します。"
 		},
 		"data": {
-			"command-name": "",
+			"command-name": "データ",
 			"command-description": "",
 			"delete": {
-				"command-name": "",
+				"command-name": "削除",
 				"command-description": ""
 			}
 		},
@@ -2581,7 +2582,7 @@
 			"command-name": "",
 			"command-description": "",
 			"game": {
-				"command-name": "",
+				"command-name": "ゲーム",
 				"command-description": "",
 				"command-option-type-name": "",
 				"command-option-type-description": "",
@@ -2610,10 +2611,10 @@
 			"command-option-user-description": ""
 		},
 		"heart": {
-			"command-name": "",
+			"command-name": "ハート",
 			"command-description": "",
 			"gift": {
-				"command-name": "",
+				"command-name": "ギフト",
 				"command-description": "誰かにハートを送りましょう！",
 				"command-option-user-name": "",
 				"command-option-user-description": ""
@@ -2624,13 +2625,13 @@
 			}
 		},
 		"high-five": {
-			"command-name": "",
+			"command-name": "ハイタッチ",
 			"command-description": "誰かとハイタッチしましょう！",
 			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"hug": {
-			"command-name": "",
+			"command-name": "ハグ",
 			"command-description": "誰かとハグしましょう！",
 			"command-option-user-name": "",
 			"command-option-user-description": ""
@@ -2654,7 +2655,7 @@
 			"command-option-daily-description": ""
 		},
 		"schedule": {
-			"command-name": "",
+			"command-name": "スケジュール",
 			"command-description": "Skyの各イベントスケジュールを呼び出します！",
 			"command-option-type-name": "",
 			"command-option-type-description": "",
@@ -2681,7 +2682,7 @@
 			"command-option-hide-description": ""
 		},
 		"shard-eruption": {
-			"command-name": "",
+			"command-name": "闇の破片",
 			"command-description": "",
 			"command-option-browse-name": "",
 			"command-option-browse-description": "",
@@ -2737,32 +2738,32 @@
 			}
 		},
 		"Sky-Profile": {
-			"command-name": ""
+			"command-name": "Skyプロフィール"
 		},
 		"spirits": {
-			"command-name": "",
-			"command-description": "",
+			"command-name": "精霊",
+			"command-description": "精霊の情報を調べましょう！",
 			"history": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-order-name": "",
-				"command-option-order-description": "",
+				"command-name": "来歴",
+				"command-description": "長い間訪れていない精霊を含む、精霊が再訪した履歴をご覧ください。",
+				"command-option-order-name": "オーダー",
+				"command-option-order-description": "精霊の表示順を選択します。",
 				"command-option-order-choice-name": {
-					"0": "",
-					"1": ""
+					"0": "再訪順（時系列昇順）。",
+					"1": "レア度順（精霊単体の再訪降順）。"
 				}
 			},
 			"search": {
-				"command-name": "",
-				"command-description": "",
-				"command-option-query-name": "",
-				"command-option-query-description": ""
+				"command-name": "検索",
+				"command-description": "精霊の情報を表示します。",
+				"command-option-query-name": "キーワード",
+				"command-option-query-description": "精霊の名前・季節・エモート・姿勢・呼びかけ。"
 			}
 		}
 	},
 	"features": {
 		"about": {
-			"description": "",
+			"description": "ご紹介\n\n[Sky 星を紡ぐ子どもたち]({{url}} \"thatskygame\")に寄り添う、Discord アプリケーションへようこそ！\n\nわたしについて何か知りたいのですか？そうですね、わたしのご機嫌の秘訣は楽園の島々をお散歩することです。あ、星月夜の砂漠の満天の夜空を飛ぶことも忘れちゃダメですよ。それから…​​光のクラゲさんも大好きなんです！\n\n以下の便利なリンクもご覧ください:",
 			"links": "",
 			"sponsor": "",
 			"issues-feedback": "",
@@ -2780,7 +2781,7 @@
 			"issue-modal-label-title-description": "",
 			"issue-modal-label-description-label": "",
 			"issue-modal-label-description-description": "",
-			"issue-modal-label-description-text-input-placeholder": "",
+			"issue-modal-label-description-text-input-placeholder": "頑張って試したのですが…\nどんなに経っても動きません…",
 			"issue-submission": ""
 		},
 		"ai": {
@@ -2858,10 +2859,53 @@
 			"current-event-fallback": "",
 			"travelling-spirit": "",
 			"returning-spirits": "",
-			"seasons-navigate-back": "",
-			"seasons-navigate-forward": "",
-			"seasons-season-previous-season": "",
-			"seasons-season-next-season": ""
+			"back-to-start-button-label": "",
+			"settings-title": "",
+			"settings-button-label-enable": "",
+			"settings-button-label-disable": "",
+			"settings-everything": "",
+			"realms-title": "",
+			"realms-percentage-note": "",
+			"realm-title": "",
+			"i-have-everything-button-label": "",
+			"elders-title": "",
+			"seasons-title": "",
+			"seasons-description": "",
+			"seasons-previous-seasons": "",
+			"seasons-next-seasons": "",
+			"season-title": "",
+			"patch-notes-button-label": "",
+			"season-set-items-string-select-menu-placeholder": "",
+			"season-previous-season": "",
+			"season-next-season": "",
+			"event-years-title": "",
+			"event-years-description": "",
+			"event-years-select-year-string-select-menu-placeholder": "",
+			"events-title": "",
+			"events-select-event-string-select-menu-placeholder": "",
+			"events-previous-year": "",
+			"events-next-year": "",
+			"returning-spirits-title": "",
+			"spirit-title-standard-spirit": "",
+			"spirit-title-elder": "",
+			"spirit-title-seasonal-spirit": "",
+			"spirit-no-friendship-tree": "",
+			"spirit-no-infographic-yet": "",
+			"spirit-not-fully-revealed": "",
+			"select-cosmetics-string-select-menu-placeholder": "",
+			"spirit-previous-spirit": "",
+			"spirit-next-spirit": "",
+			"event-title": "",
+			"event-no-cosmetics": "",
+			"event-no-infographic-yet": "",
+			"event-previous-event": "",
+			"event-next-event": "",
+			"starter-packs-title": "",
+			"secret-area-title": "",
+			"permanent-event-store-title": "",
+			"nesting-workshop-title": "",
+			"items": "",
+			"remaining-currency": ""
 		},
 		"checklist": {
 			"title": "チェックリスト",
@@ -2983,17 +3027,17 @@
 			"history-received-message-extra": ""
 		},
 		"me": {
-			"title": "",
-			"upsell-message": "",
-			"message-mention": "",
-			"message-text": "",
-			"set-bio-button-label": "",
-			"delete-bio-button-label": "",
-			"delete-avatar-button-label": "",
-			"delete-banner-button-label": "",
-			"set-bio-modal-title": "",
-			"set-bio-modal-label-bio-label": "",
-			"set-bio-modal-label-bio-description": ""
+			"title": "Me",
+			"upsell-message": "これはプレミアム機能です！\n\nあなたのサーバー上で、わたしのプロフィール・バナー・アバターを自由にカスタマイズできます！\n\n始めるには、下のボタンをクリックしてください。",
+			"message-mention": "わたしをカスタマイズしてみませんか？✨\n- 下のボタンからbioを設定しましょう！\n- {{mention}} を使ってアバターとバナーを設定できます！ 削除ボタンで設定済みの項目をデフォルトの状態に戻します。",
+			"message-text": "わたしをカスタマイズしてみませんか？✨\n- 下のボタンからbioを設定しましょう！\n- コマンドを使ってアバターとバナーが設定できます！ 削除ボタンで設定済みの項目をデフォルトの状態に戻します。",
+			"set-bio-button-label": "bioを書く",
+			"delete-bio-button-label": "bioの削除",
+			"delete-avatar-button-label": "アバターの削除",
+			"delete-banner-button-label": "バナーの削除",
+			"set-bio-modal-title": "My bio",
+			"set-bio-modal-label-bio-label": "わたしのbioを書きましょう！",
+			"set-bio-modal-label-bio-description": "あなたのサーバーに表示するわたしのプロフィールを選択できます。"
 		},
 		"notifications": {
 			"back": "",
@@ -3279,13 +3323,13 @@
 			"missing-guess-rank": ""
 		},
 		"spirits": {
-			"not-encountered-spirit": "",
+			"not-encountered-spirit": "うーん、不思議ですね。どうやら未知の精霊と遭遇してしまったみたい！",
 			"title": {
-				"0": "",
-				"1": ""
+				"0": "再訪する精霊の来歴",
+				"1": "レア精霊たち"
 			},
-			"order-natural": "",
-			"order-rarity": ""
+			"order-natural": "再訪順",
+			"order-rarity": "レア度順"
 		},
 		"welcome": {
 			"preview": "",
