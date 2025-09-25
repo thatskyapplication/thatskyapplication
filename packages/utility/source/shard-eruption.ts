@@ -135,7 +135,7 @@ export interface ShardEruptionData {
 	skyMap: SkyMap;
 	strong: boolean;
 	reward: number;
-	timestamps: ShardEruptionTimestampsData[];
+	timestamps: readonly ShardEruptionTimestampsData[];
 	url: string;
 }
 

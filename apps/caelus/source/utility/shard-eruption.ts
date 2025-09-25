@@ -5,6 +5,7 @@ import {
 	type ShardEruptionData,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import type { DateTime } from "luxon";
 import { MISCELLANEOUS_EMOJIS } from "./emojis.js";
 
 export const SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID = "SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID" as const;
@@ -61,15 +62,31 @@ export function shardEruptionInformationString(
 	}`;
 }
 
-export function shardEruptionTimestampsString({ timestamps }: ShardEruptionData, locale: Locale) {
+interface ShardEruptionTimestampsStringOptions {
+	now?: DateTime;
+	timestamps: ShardEruptionData["timestamps"];
+	locale: Locale;
+}
+
+export function shardEruptionTimestampsString({
+	now,
+	timestamps,
+	locale,
+}: ShardEruptionTimestampsStringOptions) {
 	return timestamps
-		.map(({ start, end }) =>
-			t("time-range", {
+		.map(({ start, end }) => {
+			let string = t("time-range", {
 				lng: locale,
 				ns: "general",
 				start: `<t:${start.toUnixInteger()}:T>`,
 				end: `<t:${end.toUnixInteger()}:T>`,
-			}),
-		)
+			});
+
+			if (now && now >= end) {
+				string = `~~${string}~~`;
+			}
+
+			return string;
+		})
 		.join("\n");
 }

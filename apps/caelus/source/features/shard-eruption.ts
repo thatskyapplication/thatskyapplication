@@ -146,10 +146,12 @@ export function todayData(
 		buttonTomorrow.emoji = resolveShardEruptionEmoji(shardTomorrow.strong);
 	}
 
+	const now = skyNow();
+
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(skyNow().plus({ days: offset }).toMillis())}](${SHARD_ERUPTION_URL})`,
+			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.plus({ days: offset }).toMillis())}](${SHARD_ERUPTION_URL})`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -162,7 +164,7 @@ export function todayData(
 		containerComponents.push(
 			{
 				type: ComponentType.TextDisplay,
-				content: `${shardEruptionInformationString(shardToday, true, locale)}\n${shardEruptionTimestampsString(shardToday, locale)}`,
+				content: `${shardEruptionInformationString(shardToday, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shardToday.timestamps, locale, now })}`,
 			},
 			{
 				type: ComponentType.MediaGallery,
