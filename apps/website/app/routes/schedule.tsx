@@ -22,6 +22,7 @@ import {
 	vaultEldersBlessingSchedule,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { ExternalLinkIcon } from "lucide-react";
 import type { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -560,7 +561,23 @@ export default function Schedule() {
 									<div className="relative z-10">
 										<div className="flex items-center justify-between mb-3">
 											<h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg">
-												{t(`schedule.type.${schedule.type}`, { ns: "features" })}
+												{schedule.type === ScheduleType.TravellingSpirit ? (
+													schedule.now === false ? (
+														t(`schedule.type.${schedule.type}`, { ns: "features" })
+													) : (
+														<a
+															className="inline-flex items-center regular-link"
+															href={t(`spirit-wiki.${schedule.now}`, { ns: "general" })}
+															rel="noopener noreferrer"
+															target="_blank"
+														>
+															{t(`spirits.${schedule.now}`, { ns: "general" })}
+															<ExternalLinkIcon className="ml-2 w-4 h-4" />
+														</a>
+													)
+												) : (
+													t(`schedule.type.${schedule.type}`, { ns: "features" })
+												)}
 											</h3>
 											<div className="flex items-center gap-2">
 												<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
@@ -569,15 +586,6 @@ export default function Schedule() {
 												</span>
 											</div>
 										</div>
-										{schedule.now !== true && (
-											<div className="mb-3">
-												<span className="inline-flex items-center px-2.5 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-													{schedule.type === ScheduleType.TravellingSpirit
-														? t(`spirits.${schedule.now}`, { ns: "general" })
-														: "Available"}
-												</span>
-											</div>
-										)}
 										<div className="space-y-2">
 											<div className="flex justify-between items-center">
 												<span className="text-sm text-gray-600 dark:text-gray-400">
@@ -610,7 +618,23 @@ export default function Schedule() {
 								>
 									<div className="flex items-center justify-between mb-2">
 										<h3 className="font-bold text-gray-900 dark:text-gray-100">
-											{t(`schedule.type.${schedule.type}`, { ns: "features" })}
+											{schedule.type === ScheduleType.TravellingSpirit ? (
+												schedule.now === false ? (
+													t(`schedule.type.${schedule.type}`, { ns: "features" })
+												) : (
+													<a
+														className="inline-flex items-center regular-link"
+														href={t(`spirit-wiki.${schedule.now}`, { ns: "general" })}
+														rel="noopener noreferrer"
+														target="_blank"
+													>
+														{t(`spirits.${schedule.now}`, { ns: "general" })}
+														<ExternalLinkIcon className="ml-2 w-4 h-4" />
+													</a>
+												)
+											) : (
+												t(`schedule.type.${schedule.type}`, { ns: "features" })
+											)}
 										</h3>
 										<div className="flex items-center gap-2">
 											<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
@@ -619,15 +643,6 @@ export default function Schedule() {
 											</span>
 										</div>
 									</div>
-									{schedule.now !== true && (
-										<div className="mb-2">
-											<span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-												{schedule.type === ScheduleType.TravellingSpirit
-													? t(`spirits.${schedule.now}`, { ns: "general" })
-													: "Available"}
-											</span>
-										</div>
-									)}
 									<div className="flex justify-between items-center text-sm">
 										<span className="text-gray-600 dark:text-gray-400">
 											{t("schedule.overview-ends-timestamp", {
