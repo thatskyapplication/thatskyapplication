@@ -60,11 +60,10 @@ export const meta: MetaFunction = () => [
 ];
 
 function formatRelativeTime(date: DateTime, now: DateTime, locale: string) {
-	const diffMs = date.toMillis() - now.toMillis();
 	const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "always" });
-	const diffMinutes = Math.floor(diffMs / 60_000);
-	const diffHours = Math.floor(diffMinutes / 60);
-	const diffDays = Math.floor(diffHours / 24);
+	const diffMinutes = Math.round(date.diff(now, "minutes").minutes);
+	const diffHours = Math.round(date.diff(now, "hours").hours);
+	const diffDays = Math.round(date.diff(now, "days").days);
 
 	if (Math.abs(diffMinutes) < 60) {
 		return rtf.format(diffMinutes, "minute");
