@@ -130,14 +130,15 @@ function eyeOfEdenNext(
 	locale: string,
 ): BaseSchedule<typeof ScheduleType.EyeOfEden> {
 	const schedule = nextEyeOfEden(now);
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+	if (schedule.diff(now, "days").days > 1) {
+		options.dateStyle = "medium";
+	}
 
 	return {
 		type: ScheduleType.EyeOfEden,
-		next: new Intl.DateTimeFormat(locale, {
-			dateStyle: "medium",
-			timeStyle: "short",
-			timeZone,
-		}).format(schedule.toMillis()),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.toMillis()),
 		nextUnix: schedule.toMillis(),
 		relative: formatRelativeTime(schedule, now, locale),
 	};
@@ -149,15 +150,16 @@ function internationalSpaceStationOverview(
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.InternationalSpaceStation> {
 	const schedule = internationalSpaceStationSchedule(now);
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+	if (schedule.start.diff(now, "days").days > 1) {
+		options.dateStyle = "medium";
+	}
 
 	return {
 		type: ScheduleType.InternationalSpaceStation,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, {
-			dateStyle: "medium",
-			timeStyle: "short",
-			timeZone,
-		}).format(schedule.start.toMillis()),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.toMillis()),
 		nextUnix: schedule.start.toMillis(),
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
@@ -174,20 +176,24 @@ function travellingSpiritOverview(
 	locale: string,
 ): ScheduleTravellingSpirit {
 	const schedule = travellingSpiritSchedule(now);
+	const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+	const endOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+	if (schedule.start.diff(now, "days").days > 1) {
+		startOptions.dateStyle = "medium";
+	}
+
+	if (schedule.visit && schedule.visit.end.diff(now, "days").days > 1) {
+		endOptions.dateStyle = "medium";
+	}
 
 	return {
 		type: ScheduleType.TravellingSpirit,
 		now: schedule.visit?.spiritId ?? false,
-		next: new Intl.DateTimeFormat(locale, {
-			dateStyle: "medium",
-			timeStyle: "short",
-			timeZone,
-		}).format(schedule.start.toMillis()),
+		next: new Intl.DateTimeFormat(locale, startOptions).format(schedule.start.toMillis()),
 		nextUnix: schedule.start.toMillis(),
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.visit?.end.toMillis(),
-		),
+		end: new Intl.DateTimeFormat(locale, endOptions).format(schedule.visit?.end.toMillis()),
 		endUnix: schedule.visit ? schedule.visit.end.toMillis() : null,
 		endRelative: schedule.visit ? formatRelativeTime(schedule.visit.end, now, locale) : null,
 	};
@@ -357,9 +363,9 @@ function aviarysFireworkFestivalOverview(
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.AviarysFireworkFestival> {
 	const schedule = aviarysFireworkFestivalSchedule(now);
-	const options: Intl.DateTimeFormatOptions = { timeStyle: "short", timeZone };
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-	if (now.day !== 1) {
+	if (schedule.start.diff(now, "days").days > 1) {
 		options.dateStyle = "medium";
 	}
 
@@ -406,14 +412,15 @@ function nestingWorkshopNext(
 	locale: string,
 ): BaseSchedule<typeof ScheduleType.NestingWorkshop> {
 	const schedule = nextNestingWorkshop(now);
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+	if (schedule.diff(now, "days").days > 1) {
+		options.dateStyle = "medium";
+	}
 
 	return {
 		type: ScheduleType.NestingWorkshop,
-		next: new Intl.DateTimeFormat(locale, {
-			dateStyle: "medium",
-			timeStyle: "short",
-			timeZone,
-		}).format(schedule.toMillis()),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.toMillis()),
 		nextUnix: schedule.toMillis(),
 		relative: formatRelativeTime(schedule, now, locale),
 	};
