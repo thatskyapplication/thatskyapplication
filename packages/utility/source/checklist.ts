@@ -5,6 +5,8 @@ export interface ChecklistPacket {
 	eye_of_eden: boolean;
 	shard_eruptions: boolean;
 	event_tickets: boolean;
+	last_updated_at: Date;
 }
 
-export type ChecklistSetData = Partial<Omit<ChecklistPacket, "user_id">>;
+export type ChecklistSetData = Partial<ChecklistPacket> &
+	Pick<ChecklistPacket, "user_id" | "last_updated_at">;

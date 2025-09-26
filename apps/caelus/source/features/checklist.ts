@@ -9,6 +9,7 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	type ChecklistPacket,
 	type ChecklistSetData,
@@ -16,6 +17,7 @@ import {
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
+	skyToday,
 	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -52,9 +54,17 @@ export async function checklist({
 	userId,
 	locale,
 }: ChecklistOptions): Promise<[APIMessageTopLevelComponent]> {
-	const checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
+	let checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
 		.where({ user_id: userId })
 		.first();
+
+	if (checklistPacket) {
+		const updatedChecklistPacket = await checklistRefresh(checklistPacket);
+
+		if (updatedChecklistPacket) {
+			checklistPacket = updatedChecklistPacket;
+		}
+	}
 
 	const shard = shardEruption();
 
@@ -323,6 +333,35 @@ export async function checklist({
 	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
+async function checklistRefresh(checklistPacket: ChecklistPacket) {
+	const lastUpdatedTimestamp = checklistPacket.last_updated_at.getTime();
+
+	const payload: ChecklistSetData = {
+		user_id: checklistPacket.user_id,
+		last_updated_at: new Date(),
+	};
+
+	const today = skyToday();
+
+	if (today.toMillis() > lastUpdatedTimestamp) {
+		payload.daily_quests = false;
+		payload.seasonal_candles = false;
+		payload.shard_eruptions = false;
+		payload.event_tickets = false;
+	}
+
+	if (today.minus({ days: today.weekday % 7 }).toMillis() > lastUpdatedTimestamp) {
+		payload.eye_of_eden = false;
+	}
+
+	if (Object.keys(payload).length === 2) {
+		return;
+	}
+
+	const [updatedChecklistPacket] = await pg<ChecklistPacket>(Table.Checklist).update(payload, "*");
+	return updatedChecklistPacket!;
+}
+
 export async function checklistHandleDailyQuests(
 	interaction: APIMessageComponentButtonInteraction,
 ) {
@@ -332,6 +371,7 @@ export async function checklistHandleDailyQuests(
 		.insert({
 			user_id: interactionInvoker(interaction).id,
 			daily_quests: customId.slice(customId.indexOf("§") + 1) === "0",
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 		})
 		.onConflict("user_id")
 		.merge();
@@ -354,6 +394,7 @@ export async function checklistHandleSeasonalCandles(
 		.insert({
 			user_id: userId,
 			seasonal_candles: customId.slice(customId.indexOf("§") + 1) === "0",
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 		})
 		.onConflict("user_id")
 		.merge();
@@ -370,6 +411,7 @@ export async function checklistHandleEyeOfEden(interaction: APIMessageComponentB
 		.insert({
 			user_id: interactionInvoker(interaction).id,
 			eye_of_eden: customId.slice(customId.indexOf("§") + 1) === "0",
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 		})
 		.onConflict("user_id")
 		.merge();
@@ -391,6 +433,7 @@ export async function checklistHandleShardEruptions(
 		.insert({
 			user_id: interactionInvoker(interaction).id,
 			shard_eruptions: customId.slice(customId.indexOf("§") + 1) === "0",
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 		})
 		.onConflict("user_id")
 		.merge();
@@ -412,6 +455,7 @@ export async function checklistHandleEventTickets(
 		.insert({
 			user_id: interactionInvoker(interaction).id,
 			event_tickets: customId.slice(customId.indexOf("§") + 1) === "0",
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 		})
 		.onConflict("user_id")
 		.merge();
@@ -422,44 +466,4 @@ export async function checklistHandleEventTickets(
 			locale: interaction.locale,
 		}),
 	});
-}
-
-export interface ChecklistResetOptions {
-	dailyQuests?: boolean;
-	seasonalCandles?: boolean;
-	eyeOfEden?: boolean;
-	shardEruptions?: boolean;
-	eventTickets?: boolean;
-}
-
-export async function checklistReset({
-	dailyQuests,
-	seasonalCandles,
-	eyeOfEden,
-	shardEruptions,
-	eventTickets,
-}: ChecklistResetOptions) {
-	const payload: ChecklistSetData = {};
-
-	if (dailyQuests) {
-		payload.daily_quests = false;
-	}
-
-	if (seasonalCandles) {
-		payload.seasonal_candles = false;
-	}
-
-	if (eyeOfEden) {
-		payload.eye_of_eden = false;
-	}
-
-	if (shardEruptions) {
-		payload.shard_eruptions = false;
-	}
-
-	if (eventTickets) {
-		payload.event_tickets = false;
-	}
-
-	await pg<ChecklistPacket>(Table.Checklist).update(payload);
 }

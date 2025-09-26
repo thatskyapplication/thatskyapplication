@@ -6,6 +6,7 @@ import {
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
+	skyToday,
 	Table,
 } from "@thatskyapplication/utility";
 import { CheckCircle, Circle } from "lucide-react";
@@ -15,12 +16,49 @@ import { Form, Link, useLoaderData } from "react-router";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 
+async function checklistRefresh(checklistPacket: ChecklistPacket) {
+	const lastUpdatedTimestamp = checklistPacket.last_updated_at.getTime();
+
+	const payload: ChecklistSetData = {
+		user_id: checklistPacket.user_id,
+		last_updated_at: new Date(),
+	};
+
+	const today = skyToday();
+
+	if (today.toMillis() > lastUpdatedTimestamp) {
+		payload.daily_quests = false;
+		payload.seasonal_candles = false;
+		payload.shard_eruptions = false;
+		payload.event_tickets = false;
+	}
+
+	if (today.minus({ days: today.weekday % 7 }).toMillis() > lastUpdatedTimestamp) {
+		payload.eye_of_eden = false;
+	}
+
+	if (Object.keys(payload).length === 2) {
+		return;
+	}
+
+	const [updatedChecklistPacket] = await pg<ChecklistPacket>(Table.Checklist).update(payload, "*");
+	return updatedChecklistPacket!;
+}
+
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
-	const checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
+	let checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
 		.where({ user_id: discordUser.id })
 		.first();
+
+	if (checklistPacket) {
+		const updatedChecklistPacket = await checklistRefresh(checklistPacket);
+
+		if (updatedChecklistPacket) {
+			checklistPacket = updatedChecklistPacket;
+		}
+	}
 
 	const now = skyNow();
 	const shard = shardEruption();
@@ -48,7 +86,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	const eyeOfEden = formData.get("eye_of_eden");
 	const shardEruptions = formData.get("shard_eruptions");
 	const eventTickets = formData.get("event_tickets");
-	const payload: ChecklistSetData = {};
+	const payload: ChecklistSetData = { user_id: discordUser.id, last_updated_at: new Date() };
 
 	if (dailyQuests !== null) {
 		payload.daily_quests = dailyQuests === "0";
@@ -70,11 +108,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 		payload.event_tickets = eventTickets === "0";
 	}
 
-	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({ user_id: discordUser.id, ...payload })
-		.onConflict("user_id")
-		.merge();
-
+	await pg<ChecklistPacket>(Table.Checklist).insert(payload).onConflict("user_id").merge();
 	return;
 };
 
