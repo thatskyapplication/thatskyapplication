@@ -188,7 +188,7 @@ export async function meHandleSetBioButton(
 }
 
 export async function meHandleSetBioModal(interaction: APIModalSubmitGuildInteraction) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 	const bio = components.getTextInputValue(CustomId.MeSetBioModalBio);
 	await client.api.users.editCurrentGuildMember(interaction.guild_id, { bio });
 	await meOverview(interaction, { updateMessage: true });
