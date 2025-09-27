@@ -1,6 +1,7 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import {
-	type APIModalSubmissionComponent,
+	type APIInteractionDataResolved,
+	type APIModalSubmission,
 	ComponentType,
 	type ModalSubmitComponent,
 } from "@discordjs/core";
@@ -8,7 +9,9 @@ import {
 export class ModalResolver {
 	private components: ReadonlyCollection<string, ModalSubmitComponent>;
 
-	public constructor(data: readonly APIModalSubmissionComponent[]) {
+	private resolved: Pick<APIInteractionDataResolved, "attachments">;
+
+	public constructor({ components: data, resolved }: APIModalSubmission) {
 		const components = new Collection<string, ModalSubmitComponent>();
 
 		for (const label of data) {
@@ -25,6 +28,13 @@ export class ModalResolver {
 		}
 
 		this.components = components;
+		let attachments = {};
+
+		if (resolved?.attachments) {
+			attachments = resolved.attachments;
+		}
+
+		this.resolved = { attachments };
 	}
 
 	public getTextInputValue(customId: string) {
@@ -45,5 +55,15 @@ export class ModalResolver {
 		}
 
 		return field.values;
+	}
+
+	public getFileUploadValeus(customId: string) {
+		const field = this.components.get(customId);
+
+		if (!(field && ComponentType.FileUpload === field.type)) {
+			throw new Error(`Custom id ${customId} is not a string select component.`);
+		}
+
+		return field.values.map((value) => this.resolved.attachments![value]!);
 	}
 }
