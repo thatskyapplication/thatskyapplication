@@ -8,5 +8,4 @@ export interface ChecklistPacket {
 	last_updated_at: Date;
 }
 
-export type ChecklistSetData = Partial<ChecklistPacket> &
-	Pick<ChecklistPacket, "user_id" | "last_updated_at">;
+export type ChecklistSetData = Partial<ChecklistPacket> & Pick<ChecklistPacket, "last_updated_at">;

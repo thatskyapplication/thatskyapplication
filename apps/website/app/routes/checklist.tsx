@@ -18,12 +18,7 @@ import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 
 async function checklistRefresh(checklistPacket: ChecklistPacket) {
 	const lastUpdatedTimestamp = checklistPacket.last_updated_at.getTime();
-
-	const payload: ChecklistSetData = {
-		user_id: checklistPacket.user_id,
-		last_updated_at: new Date(),
-	};
-
+	const payload: ChecklistSetData = { last_updated_at: new Date() };
 	const today = skyToday();
 
 	if (today.toMillis() > lastUpdatedTimestamp) {
@@ -41,7 +36,10 @@ async function checklistRefresh(checklistPacket: ChecklistPacket) {
 		return;
 	}
 
-	const [updatedChecklistPacket] = await pg<ChecklistPacket>(Table.Checklist).update(payload, "*");
+	const [updatedChecklistPacket] = await pg<ChecklistPacket>(Table.Checklist)
+		.update(payload, "*")
+		.where({ user_id: checklistPacket.user_id });
+
 	return updatedChecklistPacket!;
 }
 
