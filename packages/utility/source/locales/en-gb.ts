@@ -3064,6 +3064,8 @@ export default {
 			"issue-modal-label-description-description": "Describe your issue here.",
 			"issue-modal-label-description-text-input-placeholder":
 				"Every time I try to...\nNothing happens when...",
+			"issue-modal-label-attachments-label": "Attachments",
+			"issue-modal-label-attachments-description": "Screenshots are helpful and appreciated! 🩵",
 			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
 		},
 		ai: {
