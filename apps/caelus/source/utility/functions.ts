@@ -223,7 +223,7 @@ export function avatarURL(user: APIUser) {
 			: Number(user.discriminator) % 5;
 
 	return user.avatar
-		? client.rest.cdn.avatar(user.id, user.avatar)
+		? client.rest.cdn.avatar(user.id, user.avatar, { size: 4096 })
 		: client.rest.cdn.defaultAvatar(index);
 }
 

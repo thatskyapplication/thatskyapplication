@@ -688,7 +688,7 @@ export async function welcomeHandleMessageSettingButton(
 export async function welcomeHandleMessageSettingModal(
 	interaction: APIModalSubmitGuildInteraction,
 ) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 
 	await pg<WelcomePacket>(Table.Welcome)
 		.insert({
@@ -796,7 +796,7 @@ export async function welcomeHandleAccentColourSettingButton(
 export async function welcomeHandleAccentColourSettingModal(
 	interaction: APIModalSubmitGuildInteraction,
 ) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 
 	const accentColour = components.getTextInputValue(
 		WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID,
