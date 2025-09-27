@@ -1435,7 +1435,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 		return;
 	}
 
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 	const text = components.getTextInputValue(CustomId.SkyProfileReportModalReason);
 	const invoker = interactionInvoker(interaction);
 
@@ -1801,7 +1801,7 @@ async function skyProfileShowPlatformsSelectMenu(
 }
 
 export function skyProfileSetName(interaction: APIModalSubmitInteraction) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 
 	// Mobile may use new lines.
 	const name = components.getTextInputValue(CustomId.SkyProfileNameModalName).replace(/\n/g, " ");
@@ -1810,7 +1810,7 @@ export function skyProfileSetName(interaction: APIModalSubmitInteraction) {
 }
 
 export function skyProfileSetDescription(interaction: APIModalSubmitInteraction) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 	const description = components.getTextInputValue(CustomId.SkyProfileDescriptionModalDescription);
 	return skyProfileSet(interaction, { user_id: interactionInvoker(interaction).id, description });
 }
@@ -1825,7 +1825,7 @@ export async function skyProfileSetWingedLight(
 }
 
 export function skyProfileSetHangout(interaction: APIModalSubmitInteraction) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 
 	// Mobile may use new lines.
 	const hangout = components

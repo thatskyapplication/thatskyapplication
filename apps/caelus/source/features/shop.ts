@@ -130,7 +130,7 @@ export async function shopSuggestionSubmission(interaction: APIModalSubmitIntera
 		return;
 	}
 
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 	const text = components.getTextInputValue(CustomId.ShopSuggestionModalSuggestion);
 	const invoker = interactionInvoker(interaction);
 
