@@ -251,7 +251,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 		return;
 	}
 
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 	const title = components.getTextInputValue(FEEDBACK_TITLE_TEXT_INPUT_CUSTOM_ID);
 	const description = components.getTextInputValue(FEEDBACK_DESCRIPTION_TEXT_INPUT_CUSTOM_ID);
 	const invoker = interactionInvoker(interaction);
