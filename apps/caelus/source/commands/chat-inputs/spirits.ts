@@ -26,7 +26,7 @@ export default {
 			case "history": {
 				await spiritsHistory(interaction, {
 					type:
-						(options.getInteger("type") as SpiritsHistoryOrderTypes | null) ??
+						(options.getInteger("order") as SpiritsHistoryOrderTypes | null) ??
 						SpiritsHistoryOrderType.Natural,
 					page: 1,
 					newMessage: true,
