@@ -764,8 +764,8 @@ export default {
 			[EventId.DaysOfSunlight2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
 			[EventId.DaysOfMoonlight2025]:
 				"https://sky-children-of-the-light.fandom.com/Days_of_Moonlight",
-			// Double-check this.
-			[EventId.RadianceEvent2025]: "https://sky-children-of-the-light.fandom.com/Radiance_Event",
+			[EventId.RadianceEvent2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
