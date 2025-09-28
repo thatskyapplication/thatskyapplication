@@ -3155,10 +3155,10 @@ export enum Cosmetic {
 	ProjectorOfMemories = 2498,
 
 	// 29/09/2025 | Days of Moonlight.
-	MoonlightBanner,
-	MoonlightTuftedTail,
-	MoonlightBasin,
-	MoonlightGarlandCape,
+	MoonlightBanner = 2499,
+	MoonlightTuftedTail = 2500,
+	MoonlightBasin = 2501,
+	MoonlightGarlandCape = 2502,
 }
 
 export enum CosmeticCommon {
