@@ -336,7 +336,8 @@
 			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
-			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})"
+			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -2467,7 +2468,11 @@
 			"2495": "Peça de castelo de areia 5",
 			"2496": "Peça de castelo de areia 6",
 			"2497": "Peça de castelo de areia 7",
-			"2498": "Projetor de Lembranças"
+			"2498": "Projetor de Lembranças",
+			"2499": "",
+			"2500": "",
+			"2501": "",
+			"2502": "Capa Grinalda do Luar"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
