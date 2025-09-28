@@ -521,6 +521,10 @@ export default {
 				SpiritId.AdmiringActor,
 				SkyMap.BirdNest,
 			),
+			[DailyQuest.MeetUpWithTroupeJugglerInGoldenWasteland]: questsMeetUpWith(
+				SpiritId.TroupeJuggler,
+				RealmName.GoldenWasteland,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
