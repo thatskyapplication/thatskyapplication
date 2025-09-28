@@ -439,7 +439,7 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 	const description = components.getTextInputValue(CustomId.AboutIssueModalDescription);
 
 	const attachments = components
-		.getFileUploadValeus(CustomId.AboutIssueModalAttachments)
+		.getFileUploadValues(CustomId.AboutIssueModalAttachments)
 		.filter((attachment) =>
 			ALLOWED_MEDIA_TYPES.includes(attachment.content_type as (typeof ALLOWED_MEDIA_TYPES)[number]),
 		);
