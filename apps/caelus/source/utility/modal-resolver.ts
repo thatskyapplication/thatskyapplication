@@ -57,11 +57,11 @@ export class ModalResolver {
 		return field.values;
 	}
 
-	public getFileUploadValeus(customId: string) {
+	public getFileUploadValues(customId: string) {
 		const field = this.components.get(customId);
 
 		if (!(field && ComponentType.FileUpload === field.type)) {
-			throw new Error(`Custom id ${customId} is not a string select component.`);
+			throw new Error(`Custom id ${customId} is not a file upload component.`);
 		}
 
 		return field.values.map((value) => this.resolved.attachments![value]!);
