@@ -336,7 +336,8 @@
 			"252": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(realms.Vault of Knowledge)\"})",
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
-			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})"
+			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -2467,7 +2468,11 @@
 			"2495": "",
 			"2496": "",
 			"2497": "",
-			"2498": "Proyector de recuerdos"
+			"2498": "Proyector de recuerdos",
+			"2499": "",
+			"2500": "",
+			"2501": "",
+			"2502": "Capa de guirnaldas de luz de luna"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
