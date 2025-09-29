@@ -117,8 +117,10 @@ import {
 	skyProfileReportModalPrompt,
 	skyProfileReset,
 	skyProfileSendReport,
+	skyProfileSetBanner,
 	skyProfileSetDescription,
 	skyProfileSetHangout,
+	skyProfileSetIcon,
 	skyProfileSetName,
 	skyProfileSetPlatform,
 	skyProfileSetSeasons,
@@ -1289,6 +1291,16 @@ export default {
 
 				if (id === CustomId.SkyProfileDescriptionModal) {
 					await skyProfileSetDescription(interaction);
+					return;
+				}
+
+				if (id === CustomId.SkyProfileIconModal) {
+					await skyProfileSetIcon(interaction);
+					return;
+				}
+
+				if (id === CustomId.SkyProfileBannerModal) {
+					await skyProfileSetBanner(interaction);
 					return;
 				}
 
