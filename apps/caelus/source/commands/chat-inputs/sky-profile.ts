@@ -195,11 +195,11 @@ export default {
 				}
 			}
 
-			await skyProfileSet(interaction, data, true);
+			await skyProfileSet(interaction, data, { editReply: true });
 			return;
 		}
 
-		await skyProfileShowEdit(interaction, false);
+		await skyProfileShowEdit(interaction, { reply: true });
 	},
 	async explore(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const name = options.getString("name");

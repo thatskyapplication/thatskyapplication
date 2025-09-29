@@ -32,13 +32,15 @@ export const SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES = Object.values(SkyProfileWing
 
 export const SkyProfileEditType = {
 	Name: 0,
-	Description: 1,
-	WingedLight: 2,
-	Hangout: 3,
-	Seasons: 4,
-	Platforms: 5,
-	CatalogueProgression: 6,
-	GuessRank: 7,
+	Icon: 1,
+	Banner: 2,
+	Description: 3,
+	WingedLight: 4,
+	Hangout: 5,
+	Seasons: 6,
+	Platforms: 7,
+	CatalogueProgression: 8,
+	GuessRank: 9,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type SkyProfileEditTypes = (typeof SkyProfileEditType)[keyof typeof SkyProfileEditType];
