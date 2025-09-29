@@ -402,38 +402,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					ns: "commands",
 				}),
 				description_localizations: localisations("configure.me.command-description"),
-				options: [
-					{
-						type: ApplicationCommandOptionType.Attachment,
-						name: t("configure.me.command-option-avatar-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.me.command-option-avatar-name"),
-						description: t("configure.me.command-option-avatar-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.me.command-option-avatar-description",
-						),
-					},
-					{
-						type: ApplicationCommandOptionType.Attachment,
-						name: t("configure.me.command-option-banner-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.me.command-option-banner-name"),
-						description: t("configure.me.command-option-banner-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.me.command-option-banner-description",
-						),
-					},
-				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
