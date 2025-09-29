@@ -85,7 +85,11 @@ import {
 	tryAgain,
 } from "../features/guess.js";
 import { history } from "../features/heart.js";
-import { meHandleDeleteButton, meHandleSetBioButton, meHandleSetBioModal } from "../features/me.js";
+import {
+	meHandleCustomiseMeButton,
+	meHandleCustomiseMeModal,
+	meHandleDeleteButton,
+} from "../features/me.js";
 import {
 	displayNotificationType,
 	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
@@ -781,8 +785,8 @@ export default {
 						return;
 					}
 
-					if (id === CustomId.MeSetBio) {
-						await meHandleSetBioButton(interaction);
+					if (id === CustomId.MeCustomiseMe) {
+						await meHandleCustomiseMeButton(interaction);
 						return;
 					}
 
@@ -1210,8 +1214,8 @@ export default {
 				}
 
 				if (isGuildModalSubmit(interaction)) {
-					if (id === CustomId.MeSetBioModal) {
-						await meHandleSetBioModal(interaction);
+					if (id === CustomId.MeCustomiseMeModal) {
+						await meHandleCustomiseMeModal(interaction);
 						return;
 					}
 

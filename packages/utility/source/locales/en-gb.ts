@@ -2846,10 +2846,6 @@ export default {
 			me: {
 				"command-name": "me",
 				"command-description": "Configure how I look in your server!",
-				"command-option-avatar-name": "avatar",
-				"command-option-avatar-description": "Set a new avatar for me to use.",
-				"command-option-banner-name": "banner",
-				"command-option-banner-description": "Set a new banner for me to use.",
 			},
 			notifications: {
 				"command-name": "notifications",
@@ -3356,18 +3352,19 @@ export default {
 			title: "Me",
 			"upsell-message":
 				"This is a premium feature!\n\nYou may fully customise me by editing my bio, my banner, and my avatar in your server to whatever you like!\n\nTo get started, interact with the button below.",
-			"message-mention":
-				"Want to customise me? ✨\n- Set my bio with the button below!\n- Set my avatar and banner using {{mention}}! You can remove the override with the buttons below.",
-			"message-text":
-				"Want to customise me? ✨\n- Set my bio with the button below!\n- Set my avatar and banner using the command! You can remove the override with the buttons below.",
-			"set-bio-button-label": "Set bio",
+			message:
+				"Want to customise me? ✨\n\nYou can set my bio, avatar, and banner in this server! Interact with the button below to get started!\n\nYou can remove the override with the buttons below.",
+			"customise-me-button-label": "Customise me!",
+			"customise-me-modal-title": "Customise me",
+			"customise-me-modal-label-bio-label": "Bio",
+			"customise-me-modal-label-bio-description": "Type a bio for me to display in your server.",
+			"customise-me-modal-label-avatar-label": "Avatar",
+			"customise-me-modal-label-avatar-description": "Upload an avatar to display in your server.",
+			"customise-me-modal-label-banner-label": "Banner",
+			"customise-me-modal-label-baner-description": "Upload a banner to display in your server.",
 			"delete-bio-button-label": "Delete bio",
 			"delete-avatar-button-label": "Delete avatar",
 			"delete-banner-button-label": "Delete banner",
-			"set-bio-modal-title": "My bio",
-			"set-bio-modal-label-bio-label": "Set my bio!",
-			"set-bio-modal-label-bio-description":
-				"You can choose a bio for me to display in your server.",
 		},
 		notifications: {
 			back: "Back",

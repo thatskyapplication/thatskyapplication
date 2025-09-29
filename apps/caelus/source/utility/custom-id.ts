@@ -151,6 +151,11 @@ export const enum CustomId {
 	WelcomeAccentColourModal = "146",
 	WelcomeAccentColourModalAccentColour = "147",
 	AboutIssueModalAttachments = "148",
+	MeCustomiseMe = "149",
+	MeCustomiseMeModal = "150",
+	MeCustomiseMeModalBio = "151",
+	MeCustomiseMeModalAvatar = "152",
+	MeCustomiseMeModalBanner = "153",
 }
 
 export const SHARD_ERUPTION_DATES = [
