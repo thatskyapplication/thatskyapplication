@@ -2082,6 +2082,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Vestige of Dark Dragons Tail.
 	 */
 	Necklace50: { id: "1401818687077355672", name: "50_necklace" },
+	/**
+	 * Moonlight Tufted Tail.
+	 */
+	Necklace51: { id: "1422146168137191435", name: "51_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2135,6 +2139,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace48: { id: "1396895202043760723", name: "48_necklace" },
 	Necklace49: { id: "1399295025233395742", name: "49_necklace" },
 	Necklace50: { id: "1401818695403311175", name: "50_necklace" },
+	Necklace51: { id: "1422146174357471232", name: "51_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -4047,6 +4052,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Sunlight Shawl.
 	 */
 	Cape159: { id: "1412354185634254929", name: "159_cape" },
+	/**
+	 * Moonlight Garland Cape.
+	 */
+	Cape160: { id: "1422146394285805598", name: "160_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4209,6 +4218,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape157: { id: "1396916997295706253", name: "157_cape" },
 	Cape158: { id: "1404901759306170439", name: "158_cape" },
 	Cape159: { id: "1412354192940728402", name: "159_cape" },
+	Cape160: { id: "1422146401189494915", name: "160_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -4876,6 +4886,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Balloon Arch.
 	 */
 	LargePlaceableProp92: { id: "1401820180027412540", name: "92_large_placeable_prop" },
+	/**
+	 * Moonlight Basin.
+	 */
+	LargePlaceableProp93: { id: "1422145351481036862", name: "93_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4971,6 +4985,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp90: { id: "1396956612895313950", name: "90_large_placeable_prop" },
 	LargePlaceableProp91: { id: "1401821020276523038", name: "91_large_placeable_prop" },
 	LargePlaceableProp92: { id: "1401820190467162163", name: "92_large_placeable_prop" },
+	LargePlaceableProp93: { id: "1422145359089500261", name: "93_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5394,6 +5409,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Projector of Memories.
 	 */
 	SmallPlaceableProp106: { id: "1413962451191464036", name: "106_small_placeable_prop" },
+	/**
+	 * Moonlight Banner.
+	 */
+	SmallPlaceableProp107: { id: "1422145740154736803", name: "107_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5502,6 +5521,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp104: { id: "1412363059103793223", name: "104_small_placeable_prop" },
 	SmallPlaceableProp105: { id: "1412363066477379604", name: "105_small_placeable_prop" },
 	SmallPlaceableProp106: { id: "1413962458145751163", name: "106_small_placeable_prop" },
+	SmallPlaceableProp107: { id: "1422145747624792074", name: "107_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -8071,10 +8091,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.SandcastlePiece6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp104,
 		[Cosmetic.SandcastlePiece7]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp105,
 		[Cosmetic.ProjectorOfMemories]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
-		[Cosmetic.MoonlightBanner]: null,
-		[Cosmetic.MoonlightTuftedTail]: null,
-		[Cosmetic.MoonlightBasin]: null,
-		[Cosmetic.MoonlightGarlandCape]: null,
+		[Cosmetic.MoonlightBanner]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp107,
+		[Cosmetic.MoonlightTuftedTail]: NECKLACE_EMOJIS.Necklace51,
+		[Cosmetic.MoonlightBasin]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp93,
+		[Cosmetic.MoonlightGarlandCape]: CAPE_EMOJIS.Cape160,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
