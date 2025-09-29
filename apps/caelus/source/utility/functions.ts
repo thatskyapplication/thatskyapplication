@@ -189,7 +189,7 @@ export function notInCachedGuildResponse(locale: Locale) {
 }
 
 export async function validateAttachment(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIModalSubmitInteraction,
 	{ size, filename }: APIAttachment,
 ) {
 	if (

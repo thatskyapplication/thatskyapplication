@@ -3614,6 +3614,8 @@ export default {
 			"edit-type-label": {
 				[SkyProfileEditType.Name]: "Name",
 				[SkyProfileEditType.Description]: "Description",
+				[SkyProfileEditType.Icon]: "Icon",
+				[SkyProfileEditType.Banner]: "Banner",
 				[SkyProfileEditType.WingedLight]: "Winged Light",
 				[SkyProfileEditType.Hangout]: "Hangout",
 				[SkyProfileEditType.Seasons]: "Seasons",
@@ -3623,6 +3625,8 @@ export default {
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-type-description": {
 				[SkyProfileEditType.Name]: "What name do you go by?",
+				[SkyProfileEditType.Icon]: "Upload an icon?",
+				[SkyProfileEditType.Banner]: "Upload a banner (only visible on the website)?",
 				[SkyProfileEditType.Description]: "What's your story?",
 				[SkyProfileEditType.WingedLight]: "What's your maximum winged light?",
 				[SkyProfileEditType.Hangout]: "Where do you like to hang out?",
@@ -3636,6 +3640,11 @@ export default {
 			"edit-modal-label-name-description": "What's your in-game name?",
 			"edit-modal-label-description-label": "Description",
 			"edit-modal-label-description-description": "Type a lovely description about your Sky kid!",
+			"edit-modal-label-icon-label": "Icon",
+			"edit-modal-label-icon-description": "Upload an icon for your Sky kid!",
+			"edit-modal-label-banner-label": "Banner",
+			"edit-modal-label-banner-description":
+				"Upload a banner for your Sky kid! This is only used on the website.",
 			"edit-winged-light-description":
 				"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
 			"edit-winged-light-string-select-menu-placeholder":
@@ -3691,13 +3700,9 @@ export default {
 			"supporter-other-server":
 				"{{emoji1}} This Sky kid is supporting development! How nice of them! {{emoji2}}",
 			"missing-name": "Set your name!",
-			"missing-icon-mention": "Use {{mention}} to upload an icon!",
-			"missing-icon-text": "Use the command to upload an icon!",
-			"missing-banner-mention":
-				"Use {{mention}} to upload a banner!\n  - The banner is only used on the [website]({{url}}).",
-			"missing-banner-text":
-				"Use the command to upload a banner!\n  - The banner is only used on the [website]({{url}}).",
 			"missing-description": "Set a description!",
+			"missing-icon": "Set an icon!",
+			"missing-banner": "Set a banner!\n  - The banner is only used on the [website]({{url}}).",
 			"missing-country-mention": "Use {{mention}} to set the country you are from!",
 			"missing-country-text": "Use the command to set the country you are from!",
 			"missing-winged-light": "Set the winged light you have!",
