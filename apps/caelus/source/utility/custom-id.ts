@@ -44,4 +44,5 @@ export const enum CustomId {
 	DailyGuidesQuestsReorder = "42",
 	DailyGuidesLocale = "43",
 	DailyGuidesDistribute = "44",
+	DataDelete = "45",
 }

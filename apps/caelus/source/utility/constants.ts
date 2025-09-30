@@ -102,9 +102,6 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 	ChannelType.PublicThread,
 ] as const;
 
-// Data.
-export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
-
 // Guess.
 export const GUESS_TIMEOUT = 30_000 as const;
 export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;

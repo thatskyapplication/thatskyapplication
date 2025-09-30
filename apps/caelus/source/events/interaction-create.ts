@@ -227,7 +227,6 @@ import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
-	DATA_DELETION_CUSTOM_ID,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -539,7 +538,7 @@ export default {
 			const [id, ...parts] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
-				if (id === DATA_DELETION_CUSTOM_ID) {
+				if (id === CustomId.DataDelete) {
 					await deleteUserData(interaction);
 					return;
 				}
