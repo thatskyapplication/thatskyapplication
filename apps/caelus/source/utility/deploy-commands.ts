@@ -432,23 +432,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						t("configure.welcome.command-description", { lng: locale, ns: "commands" }),
 					]),
 				),
-				options: [
-					{
-						type: ApplicationCommandOptionType.Attachment,
-						name: t("configure.welcome.command-option-asset-name", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.welcome.command-option-asset-name"),
-						description: t("configure.welcome.command-option-asset-description", {
-							lng: Locale.EnglishGB,
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.welcome.command-option-asset-description",
-						),
-					},
-				],
 			},
 		],
 		default_member_permissions: String(PermissionFlagsBits.ManageGuild),

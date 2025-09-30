@@ -9,7 +9,7 @@ import {
 export class ModalResolver {
 	private components: ReadonlyCollection<string, ModalSubmitComponent>;
 
-	private resolved: Pick<APIInteractionDataResolved, "attachments">;
+	private resolved: Pick<APIInteractionDataResolved, "attachments" | "channels">;
 
 	public constructor({ components: data, resolved }: APIModalSubmission) {
 		const components = new Collection<string, ModalSubmitComponent>();
@@ -29,12 +29,19 @@ export class ModalResolver {
 
 		this.components = components;
 		let attachments = {};
+		let channels = {};
 
-		if (resolved?.attachments) {
-			attachments = resolved.attachments;
+		if (resolved) {
+			if (resolved.attachments) {
+				attachments = resolved.attachments;
+			}
+
+			if (resolved.channels) {
+				channels = resolved.channels;
+			}
 		}
 
-		this.resolved = { attachments };
+		this.resolved = { attachments, channels };
 	}
 
 	public getTextInputValue(customId: string) {
@@ -55,6 +62,16 @@ export class ModalResolver {
 		}
 
 		return field.values;
+	}
+
+	public getChannelValues(customId: string) {
+		const field = this.components.get(customId);
+
+		if (!(field && ComponentType.ChannelSelect === field.type)) {
+			throw new Error(`Custom id ${customId} is not a channel select component.`);
+		}
+
+		return field.values.map((value) => this.resolved.channels![value]!);
 	}
 
 	public getFileUploadValues(customId: string) {

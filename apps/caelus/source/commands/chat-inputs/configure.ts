@@ -15,15 +15,11 @@ import {
 } from "../../features/daily-guides.js";
 import { meOverview, meUpsell } from "../../features/me.js";
 import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
-import { welcomeSetAsset, welcomeSetup } from "../../features/welcome.js";
+import { welcomeSetup } from "../../features/welcome.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
 import { SERVER_UPGRADE_SKU_ID } from "../../utility/configuration.js";
-import {
-	isGuildChatInputCommand,
-	notInCachedGuildResponse,
-	validateAttachment,
-} from "../../utility/functions.js";
+import { isGuildChatInputCommand, notInCachedGuildResponse } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 async function dailyGuides(
@@ -88,38 +84,6 @@ async function notifications(
 	);
 }
 
-async function welcome(interaction: APIChatInputApplicationCommandGuildInteraction, guild: Guild) {
-	const options = new OptionResolver(interaction);
-	const media = options.getAttachment("media");
-
-	if (media) {
-		await client.api.interactions.defer(interaction.id, interaction.token, {
-			flags: MessageFlags.Ephemeral,
-		});
-
-		if (!(await validateAttachment(interaction, media))) {
-			return;
-		}
-
-		await welcomeSetAsset(interaction, media);
-
-		await welcomeSetup({
-			interaction,
-			userId: interaction.member.user.id,
-			locale: guild.preferredLocale,
-			deferred: true,
-		});
-
-		return;
-	}
-
-	await welcomeSetup({
-		interaction,
-		userId: interaction.member.user.id,
-		locale: guild.preferredLocale,
-	});
-}
-
 export default {
 	name: t("configure.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
@@ -161,7 +125,7 @@ export default {
 				return;
 			}
 			case t("configure.welcome.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
-				await welcome(interaction, guild);
+				await welcomeSetup({ interaction, locale: guild.preferredLocale, reply: true });
 				return;
 			}
 		}

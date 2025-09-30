@@ -19,7 +19,7 @@ import {
 	MessageFlags,
 	type Snowflake,
 } from "@discordjs/core";
-import { ALLOWED_EXTENSIONS, calculateUserDefaultAvatarIndex } from "@discordjs/rest";
+import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import {
@@ -27,7 +27,7 @@ import {
 	APPLICATION_INVITE_URL,
 	SUPPORT_SERVER_INVITE_URL,
 } from "./configuration.js";
-import { ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "./constants.js";
+import { ALLOWED_MEDIA_TYPES, ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "./constants.js";
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
@@ -188,24 +188,26 @@ export function notInCachedGuildResponse(locale: Locale) {
 	};
 }
 
+export function isValidAttachment(attachment: APIAttachment) {
+	return (
+		attachment.size <= MAXIMUM_ASSET_SIZE &&
+		ALLOWED_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
+	);
+}
+
 export async function validateAttachment(
 	interaction: APIChatInputApplicationCommandInteraction | APIModalSubmitInteraction,
-	{ size, filename }: APIAttachment,
+	attachment: APIAttachment,
 ) {
-	if (
-		size > MAXIMUM_ASSET_SIZE ||
-		!ALLOWED_EXTENSIONS.some((extension) => filename.endsWith(`.${extension}`))
-	) {
-		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-			content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
-				(extension) => `- .${extension}`,
-			).join("\n")}`,
-		});
-
-		return false;
+	if (isValidAttachment(attachment)) {
+		return true;
 	}
 
-	return true;
+	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+		content: t("asset-invalid", { lng: interaction.locale, ns: "general" }),
+	});
+
+	return false;
 }
 
 export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
