@@ -102,12 +102,7 @@ import {
 } from "../features/notifications.js";
 import { scheduleDetailedBreakdown, scheduleOverview } from "../features/schedule.js";
 import { browse, today } from "../features/shard-eruption.js";
-import {
-	SHOP_SUGGEST_CUSTOM_ID,
-	SHOP_SUGGESTION_MODAL_CUSTOM_ID,
-	shopSuggestionModal,
-	shopSuggestionSubmission,
-} from "../features/shop.js";
+import { shopSuggestionModal, shopSuggestionSubmission } from "../features/shop.js";
 import {
 	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
 	SKY_PROFILE_EDIT_CUSTOM_ID,
@@ -875,7 +870,7 @@ export default {
 					}
 				}
 
-				if (id === SHOP_SUGGEST_CUSTOM_ID) {
+				if (id === CustomId.ShopSuggest) {
 					await shopSuggestionModal(interaction);
 					return;
 				}
@@ -1316,7 +1311,7 @@ export default {
 					return;
 				}
 
-				if (id === SHOP_SUGGESTION_MODAL_CUSTOM_ID) {
+				if (id === CustomId.ShopSuggestionModal) {
 					await shopSuggestionSubmission(interaction);
 					return;
 				}

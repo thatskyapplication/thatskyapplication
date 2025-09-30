@@ -90,6 +90,9 @@ export const enum CustomId {
 	ShardEruptionBrowseToday = "85",
 	ShardEruptionBrowseBack = "86",
 	ShardEruptionBrowseNext = "87",
+	ShopSuggest = "88",
+	ShopSuggestionModal = "89",
+	ShopSuggestionModalSuggestion = "90",
 }
 
 export const SHARD_ERUPTION_DATES = [
