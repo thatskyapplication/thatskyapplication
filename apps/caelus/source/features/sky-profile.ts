@@ -106,9 +106,9 @@ import {
 	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
+	isValidAttachment,
 	resolveStringSelectMenu,
 	userLogFormat,
-	validateAttachment,
 } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
@@ -1890,39 +1890,51 @@ export function skyProfileSetDescription(interaction: APIModalSubmitInteraction)
 export async function skyProfileSetIcon(interaction: APIModalSubmitInteraction) {
 	const components = new ModalResolver(interaction.data);
 	const icon = components.getFileUploadValues(CustomId.SkyProfileIconModalIcon)[0]!;
-	await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+	const payload: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
+	let editReply = false;
+	let error = null;
 
-	if (!(await validateAttachment(interaction, icon))) {
-		return;
+	if (isValidAttachment(icon)) {
+		await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+		editReply = true;
+		payload.icon = await skyProfileSetAsset(interaction, icon, AssetType.Icon);
+	} else {
+		error = t("asset-invalid", { lng: interaction.locale, ns: "features" });
 	}
 
-	await skyProfileSet(
-		interaction,
-		{
-			user_id: interactionInvoker(interaction).id,
-			icon: await skyProfileSetAsset(interaction, icon, AssetType.Icon),
-		},
-		{ editReply: true },
-	);
+	await skyProfileSet(interaction, payload, { editReply });
+
+	if (error) {
+		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+			content: error,
+			flags: MessageFlags.Ephemeral,
+		});
+	}
 }
 
 export async function skyProfileSetBanner(interaction: APIModalSubmitInteraction) {
 	const components = new ModalResolver(interaction.data);
 	const banner = components.getFileUploadValues(CustomId.SkyProfileBannerModalBanner)[0]!;
-	await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+	const payload: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
+	let editReply = false;
+	let error = null;
 
-	if (!(await validateAttachment(interaction, banner))) {
-		return;
+	if (isValidAttachment(banner)) {
+		await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+		editReply = true;
+		payload.banner = await skyProfileSetAsset(interaction, banner, AssetType.Banner);
+	} else {
+		error = t("asset-invalid", { lng: interaction.locale, ns: "features" });
 	}
 
-	await skyProfileSet(
-		interaction,
-		{
-			user_id: interactionInvoker(interaction).id,
-			banner: await skyProfileSetAsset(interaction, banner, AssetType.Banner),
-		},
-		{ editReply: true },
-	);
+	await skyProfileSet(interaction, payload, { editReply });
+
+	if (error) {
+		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+			content: error,
+			flags: MessageFlags.Ephemeral,
+		});
+	}
 }
 
 export async function skyProfileSetWingedLight(

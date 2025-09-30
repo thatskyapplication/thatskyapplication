@@ -29,6 +29,8 @@ function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | SkyMap) {
 
 export default {
 	general: {
+		"asset-invalid":
+			"Please upload a valid attachment! It must be less than or equal to 5 megabytes and be a GIF, JPEG, PNG, WebP, MP4, or MOV file.",
 		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -2855,9 +2857,6 @@ export default {
 				"command-name": "welcome",
 				"command-description":
 					"The command to set up welcome messages for new members of the server.",
-				"command-option-asset-name": "media",
-				"command-option-asset-description":
-					"Upload an image, GIF, video, etc. to include in the welcome message.",
 			},
 		},
 		"daily-guides": {
@@ -3727,41 +3726,35 @@ export default {
 		welcome: {
 			preview: "This is the preview area for your welcome message. It is currently empty.",
 			title: "Welcome setup",
-			"channel-description": "You can set up messages for whenever a Sky kid joins your server.",
+			"main-description": "You can set up messages for whenever a Sky kid joins your server!",
+			"edit-button-label": "Edit",
+			"missing-permissions-description": "⚠️ There are permission issues with the current setup.",
 			"channel-description-missing-permissions":
-				"I require the following permissions for this to work:\n- `View Channels`\n- `Send Messages`",
-			"welcome-channel-select-menu-placeholder": "Select a welcome channel.",
-			"message-description":
-				"You can choose to display a message! To mention the user who joined, type `{{user}}`.",
-			"message-remove": "Remove the message?",
-			"message-edit": "Edit the message?",
-			"message-use": "Use a message?",
-			"message-modal-title": "Welcome message",
-			"message-modal-label-welcome-message-label": "Welcome message",
-			"message-modal-label-welcome-message-description": "Enter your welcome message.",
-			"message-modal-label-welcome-message-text-input-placeholder":
-				"Welcome to the server, {{user}}!",
-			"asset-description-mention":
-				"Use {{mention}} to upload media to display in the welcome message!",
-			"asset-description-text":
-				"Use the command to upload media to display in the welcome message!",
-			"asset-remove": "Remove the uploaded media?",
-			"hug-description": "You can show a hug button on the message for others to use!",
+				"To send messages into {{channel}}, I require the following permissions:\n  - `View Channels`\n  - `Send Messages`",
 			"hug-description-missing-permissions":
-				"I require the following permissions in {{channel}} for this to work:\n- `View Channels`\n- `Send Messages`\n- `Read Message History`",
-			"hug-remove": "Remove the hug button?",
-			"hug-add": "Add the hug button?",
-			"accent-colour-description":
-				"You can set an accent colour for the welcome message on the left side as a hexadecimal colour code (e.g. `#123456`).",
-			"accent-colour-remove": "Remove the accent colour?",
-			"accent-colour-edit": "Edit accent colour?",
-			"accent-colour-use": "Use an accent colour?",
-			"accent-colour-modal-title": "Welcome accent colour",
-			"accent-colour-modal-label-accent-colour-label": "Accent colour",
-			"accent-colour-modal-label-accent-colour-description": "Enter a hexadecimal colour code.",
+				"To attach a hug button, I require the following permissions in {{channel}}:\n  - `View Channels`\n  - `Send Messages`\n  - `Read Message History`",
+			"edit-modal-title": "Welcome customisation",
+			"edit-modal-label-channel-label": "Welcome channel",
+			"edit-modal-label-channel-description":
+				"Select a channel where welcome messages will be sent to.",
+			"edit-modal-channel-select-menu-placeholder": "Select a welcome channel.",
+			"edit-modal-label-welcome-message-label": "Welcome message",
+			"edit-modal-label-welcome-message-description": "Enter your welcome message here.",
+			"edit-modal-label-welcome-message-text-input-placeholder": "Welcome to the server, {{user}}!",
+			"edit-modal-label-accent-colour-label": "Accent colour",
+			"edit-modal-label-accent-colour-description":
+				"A hexadecimal colour code may be used to colour the left side of the container.",
+			"edit-modal-label-hug-label": "Hug",
+			"edit-modal-label-hug-description":
+				"A hug button may be attached to the welcome message! Do you wish to show a hug button?",
+			"edit-modal-label-hug-string-select-menu-option-yes": "Show a hug button!",
+			"edit-modal-label-hug-string-select-menu-option-no": "Do not show a hug button.",
+			"edit-modal-label-asset-label": "Media",
+			"edit-modal-label-asset-description":
+				"You may set an image, GIF, video, etc. which will be displayed.",
+			"asset-remove": "Delete media",
 			"accent-colour-invalid":
 				"Invalid hexadecimal colour code. Look up a colour picker tool for ease!",
-			"missing-permissions": "`View Channel` & `Send Messages` are required.",
 			"welcome-with-a-hug": "Welcome with a hug!",
 			"hug-self": "This is you! Why not hug the others?",
 			"hug-disabled": "This server has disabled hugging.",
