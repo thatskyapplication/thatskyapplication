@@ -35,12 +35,8 @@ import {
 } from "../commands/index.js";
 import { client } from "../discord.js";
 import {
-	ABOUT_FEEDBACK_CUSTOM_ID,
-	ABOUT_ISSUE_CUSTOM_ID,
-	FEEDBACK_MODAL_CUSTOM_ID,
 	feedbackModalResponse,
 	feedbackSubmission,
-	ISSUE_MODAL_CUSTOM_ID,
 	issueModalResponse,
 	issueSubmission,
 } from "../features/about.js";
@@ -277,6 +273,7 @@ import {
 	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
 	GUESS_TRY_AGAIN,
 } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import {
 	interactionInvoker,
 	isAutocomplete,
@@ -584,12 +581,12 @@ export default {
 					return;
 				}
 
-				if (customId === ABOUT_FEEDBACK_CUSTOM_ID) {
+				if (customId === CustomId.AboutFeedbackButton) {
 					await feedbackModalResponse(interaction);
 					return;
 				}
 
-				if (customId === ABOUT_ISSUE_CUSTOM_ID) {
+				if (customId === CustomId.AboutIssueButton) {
 					await issueModalResponse(interaction);
 					return;
 				}
@@ -1403,12 +1400,12 @@ export default {
 			const customId = interaction.data.custom_id;
 
 			try {
-				if (customId === FEEDBACK_MODAL_CUSTOM_ID) {
+				if (customId === CustomId.AboutFeedbackModal) {
 					await feedbackSubmission(interaction);
 					return;
 				}
 
-				if (customId === ISSUE_MODAL_CUSTOM_ID) {
+				if (customId === CustomId.AboutIssueModal) {
 					await issueSubmission(interaction);
 					return;
 				}
