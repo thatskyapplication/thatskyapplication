@@ -73,7 +73,6 @@ import {
 } from "../features/checklist.js";
 import { commandAnalyticsSend } from "../features/command-analytics.js";
 import {
-	DAILY_GUIDES_SETUP_CUSTOM_ID,
 	dailyGuidesResponse,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
 	handleDistributeButton,
@@ -228,9 +227,6 @@ import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
-	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
-	DAILY_GUIDES_LOCALE_CUSTOM_ID,
-	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DATA_DELETION_CUSTOM_ID,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
@@ -984,7 +980,7 @@ export default {
 						return;
 					}
 
-					if (id === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
+					if (id === CustomId.DailyGuidesDistribute) {
 						await handleDistributeButton(interaction);
 						return;
 					}
@@ -1186,12 +1182,12 @@ export default {
 						return;
 					}
 
-					if (id === DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID) {
+					if (id === CustomId.DailyGuidesQuestsReorder) {
 						await questsReorder(interaction);
 						return;
 					}
 
-					if (id === DAILY_GUIDES_LOCALE_CUSTOM_ID) {
+					if (id === CustomId.DailyGuidesLocale) {
 						await interactive(interaction, {
 							type: InteractiveType.Locale,
 							locale: value0 as Locale,
@@ -1275,7 +1271,7 @@ export default {
 			const customId = interaction.data.custom_id;
 
 			try {
-				if (customId === DAILY_GUIDES_SETUP_CUSTOM_ID) {
+				if (customId === CustomId.DailyGuidesSetup) {
 					await handleDailyGuidesChannelSelectMenu(interaction);
 					return;
 				}

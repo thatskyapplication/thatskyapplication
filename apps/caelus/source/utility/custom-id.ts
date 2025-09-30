@@ -40,4 +40,8 @@ export const enum CustomId {
 	ChecklistShardEruptionsComplete = "38",
 	ChecklistShardEruptionsShow = "39",
 	ChecklistEventTicketsComplete = "40",
+	DailyGuidesSetup = "41",
+	DailyGuidesQuestsReorder = "42",
+	DailyGuidesLocale = "43",
+	DailyGuidesDistribute = "44",
 }

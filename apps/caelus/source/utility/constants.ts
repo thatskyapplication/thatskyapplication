@@ -91,14 +91,6 @@ export const LOCALES = [
 export const CATALOGUE_EVENTS_THRESHOLD = 10 as const;
 
 // Daily guides.
-export const DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID =
-	"DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID" as const;
-
-export const DAILY_GUIDES_LOCALE_CUSTOM_ID = "DAILY_GUIDES_LOCALE_CUSTOM_ID" as const;
-
-export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID =
-	"DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
-
 export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
 	label: locale,
 	value: locale,
