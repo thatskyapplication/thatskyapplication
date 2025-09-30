@@ -35,18 +35,10 @@ import {
 	NOTIFICATION_CHANNEL_TYPES,
 	NotificationOffsetToMaximumValues,
 } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { notInCachedGuildResponse } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
-
-export const NOTIFICATIONS_SETUP_CUSTOM_ID = "NOTIFICATIONS_SETUP_CUSTOM_ID" as const;
-
-export const NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID =
-	"NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID" as const;
-
-export const NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID = "NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID" as const;
-export const NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID = "NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID" as const;
-export const NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID = "NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID" as const;
 
 type NotificationAllowedChannel = Extract<
 	APIChannel,
@@ -223,7 +215,7 @@ export async function setupResponse(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: NOTIFICATIONS_SETUP_CUSTOM_ID,
+								custom_id: CustomId.NotificationsSetup,
 								options: NOTIFICATION_TYPE_VALUES.map((notificationType) => {
 									const notification = notificationsMap.get(notificationType);
 
@@ -349,7 +341,7 @@ export async function displayNotificationType(
 						components: [
 							{
 								type: ComponentType.ChannelSelect,
-								custom_id: `${NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID}§${notificationType}`,
+								custom_id: `${CustomId.NotificationsSetupChannel}§${notificationType}`,
 								// @ts-expect-error The mutable array error is fine.
 								channel_types: NOTIFICATION_CHANNEL_TYPES,
 								default_values: channelId
@@ -366,7 +358,7 @@ export async function displayNotificationType(
 						components: [
 							{
 								type: ComponentType.RoleSelect,
-								custom_id: `${NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID}§${notificationType}`,
+								custom_id: `${CustomId.NotificationsSetupRole}§${notificationType}`,
 								default_values: roleId
 									? [{ id: roleId, type: SelectMenuDefaultValueType.Role }]
 									: [],
@@ -381,7 +373,7 @@ export async function displayNotificationType(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: `${NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID}§${notificationType}`,
+								custom_id: `${CustomId.NotificationsSetupOffset}§${notificationType}`,
 								options: stringSelectMenuOptions,
 								max_values: 1,
 								min_values: 0,
@@ -395,7 +387,7 @@ export async function displayNotificationType(
 							{
 								type: ComponentType.Button,
 								style: ButtonStyle.Primary,
-								custom_id: NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
+								custom_id: CustomId.NotificationsViewSetup,
 								emoji: { name: "⏪" },
 								label: t("notifications.back", { lng: interaction.locale, ns: "features" }),
 							},

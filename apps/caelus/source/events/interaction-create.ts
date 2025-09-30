@@ -98,11 +98,6 @@ import {
 	handleRoleSelectMenu as handleNotificationsRoleSelectMenu,
 	handleStringSelectMenu as handleNotificationsStringSelectMenu,
 	isNotificationType,
-	NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID,
-	NOTIFICATIONS_SETUP_CUSTOM_ID,
-	NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID,
-	NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID,
-	NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID,
 	setupResponse,
 } from "../features/notifications.js";
 import {
@@ -933,7 +928,7 @@ export default {
 						return;
 					}
 
-					if (id === NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID) {
+					if (id === CustomId.NotificationsViewSetup) {
 						const guild = GUILD_CACHE.get(interaction.guild_id);
 
 						if (!guild) {
@@ -1130,7 +1125,7 @@ export default {
 				}
 
 				if (isGuildStringSelectMenu(interaction)) {
-					if (id === NOTIFICATIONS_SETUP_CUSTOM_ID) {
+					if (id === CustomId.NotificationsSetup) {
 						const notificationType = Number(value0);
 
 						if (!isNotificationType(notificationType)) {
@@ -1152,7 +1147,7 @@ export default {
 						return;
 					}
 
-					if (id === NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID) {
+					if (id === CustomId.NotificationsSetupOffset) {
 						await handleNotificationsStringSelectMenu(interaction);
 						return;
 					}
@@ -1206,10 +1201,10 @@ export default {
 
 		if (isGuildRoleSelectMenu(interaction)) {
 			logMessageComponent(interaction);
-			const customId = interaction.data.custom_id;
+			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
-				if (customId.startsWith(NOTIFICATIONS_SETUP_ROLE_CUSTOM_ID)) {
+				if (id === CustomId.NotificationsSetupRole) {
 					await handleNotificationsRoleSelectMenu(interaction);
 					return;
 				}
@@ -1243,20 +1238,20 @@ export default {
 
 		if (isGuildChannelSelectMenu(interaction)) {
 			logMessageComponent(interaction);
-			const customId = interaction.data.custom_id;
+			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
-				if (customId === CustomId.DailyGuidesSetup) {
+				if (id === CustomId.DailyGuidesSetup) {
 					await handleDailyGuidesChannelSelectMenu(interaction);
 					return;
 				}
 
-				if (customId.startsWith(NOTIFICATIONS_SETUP_CHANNEL_CUSTOM_ID)) {
+				if (id === CustomId.NotificationsSetupChannel) {
 					await handleNotificationsChannelSelectMenu(interaction);
 					return;
 				}
 
-				if (customId === WELCOME_WELCOME_CHANNEL_CUSTOM_ID) {
+				if (id === WELCOME_WELCOME_CHANNEL_CUSTOM_ID) {
 					await handleWelcomeChannelSelectMenu(interaction, {
 						welcomeChannelId: interaction.data.values[0] ?? null,
 					});
@@ -1315,56 +1310,55 @@ export default {
 
 		if (isModalSubmit(interaction)) {
 			logModalSubmit(interaction);
-			const customId = interaction.data.custom_id;
-
+			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
 			try {
-				if (customId === CustomId.AboutFeedbackModal) {
+				if (id === CustomId.AboutFeedbackModal) {
 					await feedbackSubmission(interaction);
 					return;
 				}
 
-				if (customId === CustomId.AboutIssueModal) {
+				if (id === CustomId.AboutIssueModal) {
 					await issueSubmission(interaction);
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
+				if (id === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
 					await skyProfileSetName(interaction);
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
+				if (id === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
 					await skyProfileSetDescription(interaction);
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID) {
+				if (id === SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID) {
 					await skyProfileSetHangout(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_REPORT_MODAL_CUSTOM_ID)) {
+				if (id === SKY_PROFILE_REPORT_MODAL_CUSTOM_ID) {
 					await skyProfileSendReport(interaction);
 					return;
 				}
 
-				if (customId === SHOP_SUGGESTION_MODAL_CUSTOM_ID) {
+				if (id === SHOP_SUGGESTION_MODAL_CUSTOM_ID) {
 					await shopSuggestionSubmission(interaction);
 					return;
 				}
 
 				if (isGuildModalSubmit(interaction)) {
-					if (customId === CustomId.MeSetBioModal) {
+					if (id === CustomId.MeSetBioModal) {
 						await meHandleSetBioModal(interaction);
 						return;
 					}
 
-					if (customId === WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID) {
+					if (id === WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID) {
 						await welcomeHandleMessageSettingModal(interaction);
 						return;
 					}
 
-					if (customId === WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID) {
+					if (id === WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID) {
 						await welcomeHandleAccentColourSettingModal(interaction);
 						return;
 					}

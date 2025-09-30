@@ -67,4 +67,9 @@ export const enum CustomId {
 	MeDeleteBanner = "62",
 	MeSetBioModal = "63",
 	MetSetBioModalBio = "64",
+	NotificationsSetup = "65",
+	NotificationsSetupChannel = "66",
+	NotificationsSetupRole = "67",
+	NotificationsSetupOffset = "68",
+	NotificationsViewSetup = "69",
 }
