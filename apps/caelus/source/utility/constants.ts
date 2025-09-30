@@ -70,6 +70,15 @@ export const MINIMUM_FEEDBACK_TITLE_LENGTH = 4 as const;
 export const MAXIMUM_AUTOCOMPLETE_NAME_LIMIT = 100 as const;
 export const MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT = 25 as const;
 
+export const ALLOWED_MEDIA_TYPES = [
+	"image/gif",
+	"image/jpeg",
+	"image/png",
+	"image/webp",
+	"video/mp4",
+	"video/quicktime",
+] as const satisfies readonly string[];
+
 export const LOCALES = [
 	Locale.German,
 	Locale.EnglishGB,

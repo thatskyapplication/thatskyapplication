@@ -40,6 +40,7 @@ import {
 	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/configuration.js";
 import {
+	ALLOWED_MEDIA_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
@@ -56,15 +57,6 @@ import { avatarURL, interactionInvoker, userTag } from "../utility/functions.js"
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { skyProfileIconURL } from "./sky-profile.js";
-
-const ALLOWED_MEDIA_TYPES = [
-	"image/gif",
-	"image/jpeg",
-	"image/png",
-	"image/webp",
-	"video/mp4",
-	"video/quicktime",
-] as const;
 
 export async function about(locale: Locale): Promise<[APIMessageTopLevelComponent]> {
 	const currentUser = await client.api.users.getCurrent();

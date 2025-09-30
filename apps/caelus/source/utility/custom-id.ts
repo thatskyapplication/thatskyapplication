@@ -160,6 +160,13 @@ export const enum CustomId {
 	SkyProfileIconModalIcon = "155",
 	SkyProfileBannerModal = "156",
 	SkyProfileBannerModalBanner = "157",
+	WelcomeEdit = "158",
+	WelcomeEditModal = "159",
+	WelcomeEditModalChannel = "160",
+	WelcomeEditModalMessage = "161",
+	WelcomeEditModalAccentColour = "162",
+	WelcomeEditModalHug = "163",
+	WelcomeEditModalAsset = "164",
 }
 
 export const SHARD_ERUPTION_DATES = [
