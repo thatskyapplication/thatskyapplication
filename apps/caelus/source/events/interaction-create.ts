@@ -19,13 +19,11 @@ import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { addBreadcrumb, captureException } from "@sentry/node";
 import {
-	isDuring,
 	isRealm,
 	isSeasonId,
 	type ScheduleTypes,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
-	skyNow,
 	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -125,13 +123,6 @@ import {
 	FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID,
 	friendshipActionsCreateThread,
 } from "../features/friendship-actions.js";
-import {
-	claimTicket,
-	GIVEAWAY_BUTTON_CUSTOM_ID,
-	GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID,
-	giveaway,
-	upsell,
-} from "../features/giveaway.js";
 import {
 	GUESS_EVENT_OPTION_1_CUSTOM_ID,
 	GUESS_EVENT_OPTION_2_CUSTOM_ID,
@@ -278,8 +269,6 @@ import {
 	DAILY_GUIDES_LOCALE_CUSTOM_ID,
 	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DATA_DELETION_CUSTOM_ID,
-	GIVEAWAY_END_DATE,
-	GIVEAWAY_START_DATE,
 	GUESS_ANSWER_1,
 	GUESS_ANSWER_2,
 	GUESS_ANSWER_3,
@@ -533,11 +522,6 @@ export default {
 
 			try {
 				await command.chatInput(interaction);
-
-				if (isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())) {
-					// Upsell for the giveaway.
-					await upsell(interaction);
-				}
 			} catch (error) {
 				addBreadcrumb({
 					type: "user",
@@ -1011,24 +995,6 @@ export default {
 				if (isGuildButton(interaction)) {
 					if (customId === FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID) {
 						await friendshipActionsCreateThread(interaction);
-						return;
-					}
-
-					if (customId.startsWith(GIVEAWAY_BUTTON_CUSTOM_ID)) {
-						await claimTicket(interaction, Number(customId.slice(customId.indexOf("§") + 1)) === 1);
-						return;
-					}
-
-					if (customId.startsWith(GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID)) {
-						await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-							components: await giveaway({
-								userId: interaction.member.user.id,
-								createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
-								viewInformation: Number(customId.slice(customId.indexOf("§") + 1)) === 1,
-								guildId: interaction.guild_id,
-							}),
-						});
-
 						return;
 					}
 

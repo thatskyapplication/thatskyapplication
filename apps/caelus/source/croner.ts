@@ -8,11 +8,9 @@ import {
 	resetDailyGuides,
 	resetDailyGuidesDistribution,
 } from "./features/daily-guides.js";
-import { end } from "./features/giveaway.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
 import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
-import { GIVEAWAY_END_DATE } from "./utility/constants.js";
 
 export default function croner() {
 	new Cron(
@@ -21,15 +19,6 @@ export default function croner() {
 		async () => {
 			const today = skyToday();
 			const independentPromises = [commandAnalyticsDeleteOld()];
-
-			if (
-				today.year === GIVEAWAY_END_DATE.year &&
-				today.month === GIVEAWAY_END_DATE.month &&
-				today.day === GIVEAWAY_END_DATE.day
-			) {
-				independentPromises.push(end());
-			}
-
 			const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 			if (!guild) {
