@@ -72,4 +72,10 @@ export const enum CustomId {
 	NotificationsSetupRole = "67",
 	NotificationsSetupOffset = "68",
 	NotificationsViewSetup = "69",
+	ScheduleViewDetailedBreakdown = "70",
+	ScheduleViewOverview = "71",
+	ScheduleDetailedBreakdownViewShardEruptions = "72",
+	ScheduleDetailedBreakdownViewDailyGuides = "73",
+	ScheduleDetailedBreakdownViewSpirit = "74",
+	ScheduleDetailedBreakdownViewSpiritHistory = "75",
 }

@@ -100,16 +100,7 @@ import {
 	isNotificationType,
 	setupResponse,
 } from "../features/notifications.js";
-import {
-	SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
-	SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID,
-	SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
-	SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
-	SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID,
-	SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID,
-	scheduleDetailedBreakdown,
-	scheduleOverview,
-} from "../features/schedule.js";
+import { scheduleDetailedBreakdown, scheduleOverview } from "../features/schedule.js";
 import { browse, today } from "../features/shard-eruption.js";
 import {
 	SHOP_SUGGEST_CUSTOM_ID,
@@ -633,7 +624,7 @@ export default {
 					return;
 				}
 
-				if (id === SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID) {
+				if (id === CustomId.ScheduleViewOverview) {
 					await scheduleOverview(interaction);
 					return;
 				}
@@ -665,7 +656,7 @@ export default {
 
 				if (
 					id === CustomId.ChecklistDailyQuestsShow ||
-					id === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID
+					id === CustomId.ScheduleDetailedBreakdownViewDailyGuides
 				) {
 					await dailyGuidesResponse(interaction);
 					return;
@@ -673,7 +664,7 @@ export default {
 
 				if (
 					id === CustomId.ChecklistShardEruptionsShow ||
-					id === SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID
+					id === CustomId.ScheduleDetailedBreakdownViewShardEruptions
 				) {
 					await today(interaction, {
 						ephemeral:
@@ -685,7 +676,7 @@ export default {
 					return;
 				}
 
-				if (id === SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID) {
+				if (id === CustomId.ScheduleDetailedBreakdownViewSpirit) {
 					const spiritId = Number(parts[0]) as SpiritIds;
 					let flags = MessageFlags.IsComponentsV2;
 
@@ -704,7 +695,7 @@ export default {
 					return;
 				}
 
-				if (id === SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID) {
+				if (id === CustomId.ScheduleDetailedBreakdownViewSpiritHistory) {
 					await spiritsHistory(interaction, {
 						type: SpiritsHistoryOrderType.Natural,
 						page: 1,
@@ -1060,7 +1051,7 @@ export default {
 					return;
 				}
 
-				if (id === SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID) {
+				if (id === CustomId.ScheduleViewDetailedBreakdown) {
 					await scheduleDetailedBreakdown(interaction, { type: Number(value0) as ScheduleTypes });
 					return;
 				}

@@ -43,6 +43,7 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import {
 	CAPE_EMOJIS,
 	EVENT_EMOJIS,
@@ -56,24 +57,6 @@ import {
 	resolveShardEruptionEmoji,
 	shardEruptionInformationString,
 } from "../utility/shard-eruption.js";
-
-export const SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID =
-	"SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID" as const;
-
-export const SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID =
-	"SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID" as const;
-
-export const SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID =
-	"SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID" as const;
-
-export const SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID =
-	"SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID" as const;
-
-export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID =
-	"SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID" as const;
-
-export const SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID =
-	"SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID" as const;
 
 function dailyResetNext(now: DateTime, locale: Locale) {
 	const timestamp = nextDailyReset(now).toUnixInteger();
@@ -92,7 +75,7 @@ function dailyResetDetailedBreakdown(now: DateTime, locale: Locale): APIComponen
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
-		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+		custom_id: CustomId.ScheduleDetailedBreakdownViewShardEruptions,
 		label: t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" }),
 	};
 
@@ -115,7 +98,7 @@ function dailyResetDetailedBreakdown(now: DateTime, locale: Locale): APIComponen
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
-					custom_id: SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID,
+					custom_id: CustomId.ScheduleDetailedBreakdownViewDailyGuides,
 					label: t("schedule.detailed-breakdown-daily-reset-daily-guides-button-label", {
 						lng: locale,
 						ns: "features",
@@ -145,7 +128,7 @@ function eyeOfEdenDetailedBreakdown(now: DateTime, locale: Locale): APIComponent
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
-		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+		custom_id: CustomId.ScheduleDetailedBreakdownViewShardEruptions,
 		label: t(`schedule.type.${ScheduleType.ShardEruption}`, { lng: locale, ns: "features" }),
 	};
 
@@ -261,7 +244,7 @@ function travellingSpiritDetailedBreakdown(
 	const travellingSpiritButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
-		custom_id: `${SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID}§${visit?.spiritId}`,
+		custom_id: `${CustomId.ScheduleDetailedBreakdownViewSpirit}§${visit?.spiritId}`,
 	};
 
 	if (visit?.spiritId === undefined) {
@@ -303,7 +286,7 @@ function travellingSpiritDetailedBreakdown(
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
-					custom_id: SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID,
+					custom_id: CustomId.ScheduleDetailedBreakdownViewSpiritHistory,
 					label: t("schedule.detailed-breakdown-travelling-spirit-history-button-label", {
 						lng: locale,
 						ns: "features",
@@ -525,7 +508,7 @@ function shardEruptionDetailedBreakdown(now: DateTime, locale: Locale): APICompo
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
-		custom_id: SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID,
+		custom_id: CustomId.ScheduleDetailedBreakdownViewShardEruptions,
 		label: t("schedule.detailed-breakdown-shard-eruptions-view", { lng: locale, ns: "features" }),
 	};
 
@@ -1392,7 +1375,7 @@ export async function scheduleOverview(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID,
+								custom_id: CustomId.ScheduleViewDetailedBreakdown,
 								options: [
 									{
 										label: t(`schedule.type.${ScheduleType.DailyReset}`, {
@@ -1650,7 +1633,7 @@ export async function scheduleDetailedBreakdown(
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
-							custom_id: SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID,
+							custom_id: CustomId.ScheduleViewOverview,
 							label: t("schedule.back", { lng: locale, ns: "features" }),
 							emoji: { name: "⬅️" },
 						},
