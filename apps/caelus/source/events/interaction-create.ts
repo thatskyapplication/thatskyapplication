@@ -193,7 +193,7 @@ import {
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
-import { CustomId } from "../utility/custom-id.js";
+import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
 import {
 	interactionInvoker,
 	isAutocomplete,
@@ -210,16 +210,6 @@ import {
 	notInCachedGuildResponse,
 } from "../utility/functions.js";
 import { OptionResolver } from "../utility/option-resolver.js";
-import {
-	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
-	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
-} from "../utility/shard-eruption.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.InteractionCreate;
@@ -708,7 +698,7 @@ export default {
 					return;
 				}
 
-				if (id === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
+				if (id === CustomId.ShardEruptionTodayToday) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -717,10 +707,7 @@ export default {
 					return;
 				}
 
-				if (
-					id === SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID ||
-					id === SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID
-				) {
+				if (id === CustomId.ShardEruptionTodayBack || id === CustomId.ShardEruptionTodayNext) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -729,7 +716,7 @@ export default {
 					return;
 				}
 
-				if (id === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
+				if (id === CustomId.ShardEruptionBrowseToday) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -739,9 +726,9 @@ export default {
 				}
 
 				if (
-					id === SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID ||
-					id === SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID ||
-					id === SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID
+					id === CustomId.ShardEruptionBrowseBack ||
+					id === CustomId.ShardEruptionBrowseNext ||
+					id === CustomId.ShardEruptionBrowse
 				) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
@@ -1056,11 +1043,7 @@ export default {
 					return;
 				}
 
-				if (
-					SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(
-						id as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
-					)
-				) {
+				if (SHARD_ERUPTION_DATES.includes(id as (typeof SHARD_ERUPTION_DATES)[number])) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}

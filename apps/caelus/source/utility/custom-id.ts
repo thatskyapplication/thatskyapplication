@@ -78,4 +78,26 @@ export const enum CustomId {
 	ScheduleDetailedBreakdownViewDailyGuides = "73",
 	ScheduleDetailedBreakdownViewSpirit = "74",
 	ScheduleDetailedBreakdownViewSpiritHistory = "75",
+	ShardEruptionTodayToday = "76",
+	ShardEruptionTodayBack = "77",
+	ShardEruptionTodayNext = "78",
+	ShardEruptionBrowse = "79",
+	ShardEruptionBrowseDates1 = "80",
+	ShardEruptionBrowseDates2 = "81",
+	ShardEruptionBrowseDates3 = "82",
+	ShardEruptionBrowseDates4 = "83",
+	ShardEruptionBrowseDates5 = "84",
+	ShardEruptionBrowseToday = "85",
+	ShardEruptionBrowseBack = "86",
+	ShardEruptionBrowseNext = "87",
 }
+
+export const SHARD_ERUPTION_DATES = [
+	CustomId.ShardEruptionBrowseDates1,
+	CustomId.ShardEruptionBrowseDates2,
+	CustomId.ShardEruptionBrowseDates3,
+	CustomId.ShardEruptionBrowseDates4,
+	CustomId.ShardEruptionBrowseDates5,
+] as const satisfies readonly CustomId[];
+
+export const SHARD_ERUPTION_DATES_LENGTH = SHARD_ERUPTION_DATES.length;
