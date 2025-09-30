@@ -81,14 +81,8 @@ import {
 	questsReorder,
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
+import { friendshipActionsCreateThread } from "../features/friendship-actions.js";
 import {
-	FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID,
-	friendshipActionsCreateThread,
-} from "../features/friendship-actions.js";
-import {
-	GUESS_EVENT_OPTION_1_CUSTOM_ID,
-	GUESS_EVENT_OPTION_2_CUSTOM_ID,
-	GUESS_EVENT_OPTION_3_CUSTOM_ID,
 	guessEventAnswer,
 	guessHandleEndGame,
 	guessSpiritAnswer,
@@ -226,15 +220,6 @@ import {
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
-import {
-	GUESS_ANSWER_1,
-	GUESS_ANSWER_2,
-	GUESS_ANSWER_3,
-	GUESS_END_GAME,
-	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
-	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
-	GUESS_TRY_AGAIN,
-} from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
 	interactionInvoker,
@@ -881,21 +866,25 @@ export default {
 					return;
 				}
 
-				if (id === GUESS_ANSWER_1 || id === GUESS_ANSWER_2 || id === GUESS_ANSWER_3) {
+				if (
+					id === CustomId.GuessSpiritOption1 ||
+					id === CustomId.GuessSpiritOption2 ||
+					id === CustomId.GuessSpiritOption3
+				) {
 					await guessSpiritAnswer(interaction);
 					return;
 				}
 
 				if (
-					id === GUESS_EVENT_OPTION_1_CUSTOM_ID ||
-					id === GUESS_EVENT_OPTION_2_CUSTOM_ID ||
-					id === GUESS_EVENT_OPTION_3_CUSTOM_ID
+					id === CustomId.GuessEventOption1 ||
+					id === CustomId.GuessEventOption2 ||
+					id === CustomId.GuessEventOption3
 				) {
 					await guessEventAnswer(interaction);
 					return;
 				}
 
-				if (id === GUESS_END_GAME) {
+				if (id === CustomId.GuessEnd) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -904,7 +893,7 @@ export default {
 					return;
 				}
 
-				if (id === GUESS_TRY_AGAIN) {
+				if (id === CustomId.GuessTryAgain) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -913,7 +902,7 @@ export default {
 					return;
 				}
 
-				if (id === GUESS_LEADERBOARD_BACK_CUSTOM_ID || id === GUESS_LEADERBOARD_NEXT_CUSTOM_ID) {
+				if (id === CustomId.GuessLeaderboardBack || id === CustomId.GuessLeaderboardNext) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -932,7 +921,7 @@ export default {
 				}
 
 				if (isGuildButton(interaction)) {
-					if (id === FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID) {
+					if (id === CustomId.FriendshipActionsContribute) {
 						await friendshipActionsCreateThread(interaction);
 						return;
 					}

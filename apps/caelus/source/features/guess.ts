@@ -35,24 +35,11 @@ import {
 import { t } from "i18next";
 import { client } from "../discord.js";
 import pg from "../pg.js";
-import {
-	GUESS_ANSWER_1,
-	GUESS_ANSWER_2,
-	GUESS_ANSWER_3,
-	GUESS_END_GAME,
-	GUESS_LEADERBOARD_BACK_CUSTOM_ID,
-	GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER,
-	GUESS_LEADERBOARD_NEXT_CUSTOM_ID,
-	GUESS_TIMEOUT,
-	GUESS_TRY_AGAIN,
-} from "../utility/constants.js";
+import { GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER, GUESS_TIMEOUT } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.js";
-
-export const GUESS_EVENT_OPTION_1_CUSTOM_ID = "GUESS_EVENT_OPTION_1_CUSTOM_ID" as const;
-export const GUESS_EVENT_OPTION_2_CUSTOM_ID = "GUESS_EVENT_OPTION_2_CUSTOM_ID" as const;
-export const GUESS_EVENT_OPTION_3_CUSTOM_ID = "GUESS_EVENT_OPTION_3_CUSTOM_ID" as const;
 
 export interface GuessPacket {
 	user_id: string;
@@ -76,16 +63,13 @@ interface GuessGenerateCustomIdBaseOptions<Answer> {
 }
 
 interface GuessGenerateCustomIdGuessOptions extends GuessGenerateCustomIdBaseOptions<SpiritIds> {
-	prefix: typeof GUESS_ANSWER_1 | typeof GUESS_ANSWER_2 | typeof GUESS_ANSWER_3;
+	prefix: CustomId.GuessSpiritOption1 | CustomId.GuessSpiritOption2 | CustomId.GuessSpiritOption3;
 	option: SpiritIds;
 }
 
 interface GuessEventGenerateCustomIdGuessOptions
 	extends GuessGenerateCustomIdBaseOptions<EventIds> {
-	prefix:
-		| typeof GUESS_EVENT_OPTION_1_CUSTOM_ID
-		| typeof GUESS_EVENT_OPTION_2_CUSTOM_ID
-		| typeof GUESS_EVENT_OPTION_3_CUSTOM_ID;
+	prefix: CustomId.GuessEventOption1 | CustomId.GuessEventOption2 | CustomId.GuessEventOption3;
 	option: EventIds;
 }
 
@@ -106,7 +90,7 @@ function generateCustomId({
 }
 
 interface GuessGenerateEndGameCustomIdOptions {
-	prefix: typeof GUESS_END_GAME;
+	prefix: CustomId.GuessEnd;
 	type: GuessTypes;
 	emoji: Snowflake;
 	answer: SpiritIds | EventIds;
@@ -124,7 +108,7 @@ function generateEndGameCustomId({
 }
 
 interface GenerateTryAgainCustomIdOptions {
-	prefix: typeof GUESS_TRY_AGAIN;
+	prefix: CustomId.GuessTryAgain;
 	type: GuessTypes;
 }
 
@@ -214,7 +198,7 @@ function parseEventCustomId(customId: string) {
 
 function parseEndGameCustomId(customId: string) {
 	const [prefix, rawType, emoji, rawAnswer, streak] = customId.split("§") as [
-		typeof GUESS_END_GAME,
+		CustomId.GuessEnd,
 		`${GuessTypes}`,
 		Snowflake,
 		`${SpiritIds | EventIds}`,
@@ -240,7 +224,7 @@ function parseEndGameCustomId(customId: string) {
 }
 
 function parseTryAgainCustomId(customId: string) {
-	const [prefix, rawType] = customId.split("§") as [typeof GUESS_TRY_AGAIN, `${GuessTypes}`];
+	const [prefix, rawType] = customId.split("§") as [CustomId.GuessTryAgain, `${GuessTypes}`];
 	const type = Number(rawType);
 
 	if (!isGuessType(type)) {
@@ -309,7 +293,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 			type: ComponentType.Button,
 			style: ButtonStyle.Secondary,
 			custom_id: generateCustomId({
-				prefix: GUESS_ANSWER_1,
+				prefix: CustomId.GuessSpiritOption1,
 				type,
 				emoji: answerEmojiId,
 				answer: answerSpiritId,
@@ -323,7 +307,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 			type: ComponentType.Button,
 			style: ButtonStyle.Secondary,
 			custom_id: generateCustomId({
-				prefix: GUESS_ANSWER_2,
+				prefix: CustomId.GuessSpiritOption2,
 				type,
 				emoji: answerEmojiId,
 				answer: answerSpiritId,
@@ -337,7 +321,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 			type: ComponentType.Button,
 			style: ButtonStyle.Secondary,
 			custom_id: generateCustomId({
-				prefix: GUESS_ANSWER_3,
+				prefix: CustomId.GuessSpiritOption3,
 				type,
 				emoji: answerEmojiId,
 				answer: answerSpiritId,
@@ -396,7 +380,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 						{
 							type: ComponentType.Button,
 							custom_id: generateEndGameCustomId({
-								prefix: GUESS_END_GAME,
+								prefix: CustomId.GuessEnd,
 								type,
 								emoji: answerEmojiId,
 								answer: answerSpiritId,
@@ -562,7 +546,7 @@ async function endSpiritGame({
 						components: [
 							{
 								type: ComponentType.Button,
-								custom_id: generateTryAgainCustomId({ prefix: GUESS_TRY_AGAIN, type }),
+								custom_id: generateTryAgainCustomId({ prefix: CustomId.GuessTryAgain, type }),
 								label: t("guess.try-again", { lng: locale, ns: "features" }),
 								style: ButtonStyle.Primary,
 							},
@@ -624,7 +608,7 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 			type: ComponentType.Button,
 			style: ButtonStyle.Secondary,
 			custom_id: generateCustomId({
-				prefix: GUESS_EVENT_OPTION_1_CUSTOM_ID,
+				prefix: CustomId.GuessEventOption1,
 				type,
 				emoji: answerEmojiId,
 				answer: answerEventId,
@@ -638,7 +622,7 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 			type: ComponentType.Button,
 			style: ButtonStyle.Secondary,
 			custom_id: generateCustomId({
-				prefix: GUESS_EVENT_OPTION_2_CUSTOM_ID,
+				prefix: CustomId.GuessEventOption2,
 				type,
 				emoji: answerEmojiId,
 				answer: answerEventId,
@@ -652,7 +636,7 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 			type: ComponentType.Button,
 			style: ButtonStyle.Secondary,
 			custom_id: generateCustomId({
-				prefix: GUESS_EVENT_OPTION_3_CUSTOM_ID,
+				prefix: CustomId.GuessEventOption3,
 				type,
 				emoji: answerEmojiId,
 				answer: answerEventId,
@@ -710,7 +694,7 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 						{
 							type: ComponentType.Button,
 							custom_id: generateEndGameCustomId({
-								prefix: GUESS_END_GAME,
+								prefix: CustomId.GuessEnd,
 								type,
 								emoji: answerEmojiId,
 								answer: answerEventId,
@@ -876,7 +860,7 @@ async function endEventGame({
 						components: [
 							{
 								type: ComponentType.Button,
-								custom_id: generateTryAgainCustomId({ prefix: GUESS_TRY_AGAIN, type }),
+								custom_id: generateTryAgainCustomId({ prefix: CustomId.GuessTryAgain, type }),
 								label: t("guess.try-again", { lng: locale, ns: "features" }),
 								style: ButtonStyle.Primary,
 							},
@@ -1046,7 +1030,7 @@ export async function leaderboard(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${GUESS_LEADERBOARD_BACK_CUSTOM_ID}§${type}§${page - 1}`,
+					custom_id: `${CustomId.GuessLeaderboardBack}§${type}§${page - 1}`,
 					disabled: !hasPreviousPage,
 					emoji: { name: "⬅️" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
@@ -1054,7 +1038,7 @@ export async function leaderboard(
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${GUESS_LEADERBOARD_NEXT_CUSTOM_ID}§${type}§${page + 1}`,
+					custom_id: `${CustomId.GuessLeaderboardNext}§${type}§${page + 1}`,
 					disabled: !hasNextPage,
 					emoji: { name: "➡️" },
 					label: t("navigation-next", { lng: locale, ns: "general" }),

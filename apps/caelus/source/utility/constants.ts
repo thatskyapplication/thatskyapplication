@@ -104,14 +104,7 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 
 // Guess.
 export const GUESS_TIMEOUT = 30_000 as const;
-export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
-export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
-export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
-export const GUESS_END_GAME = "GUESS_END_GAME_CUSTOM_ID" as const;
-export const GUESS_TRY_AGAIN = "GUESS_TRY_AGAIN_CUSTOM_ID" as const;
 export const GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER = 10 as const;
-export const GUESS_LEADERBOARD_BACK_CUSTOM_ID = "GUESS_LEADERBOARD_BACK_CUSTOM_ID" as const;
-export const GUESS_LEADERBOARD_NEXT_CUSTOM_ID = "GUESS_LEADERBOARD_NEXT_CUSTOM_ID" as const;
 
 // Heart.
 export const DELETED_USER_TEXT = "<deleted>" as const;

@@ -29,10 +29,6 @@ import { EMOTE_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, userTag } from "../utility/functions.js";
 import { can, cannotUseUserInstallable } from "../utility/permissions.js";
 
-// Used in Discord Delivery.
-export const FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID =
-	"FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID" as const;
-
 interface FriendshipActionOptions {
 	interaction: APIChatInputApplicationCommandInteraction;
 	user: APIUser;

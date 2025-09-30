@@ -45,4 +45,18 @@ export const enum CustomId {
 	DailyGuidesLocale = "43",
 	DailyGuidesDistribute = "44",
 	DataDelete = "45",
+	/**
+	 * Discord Delivery creates a message that uses this.
+	 */
+	FriendshipActionsContribute = "46",
+	GuessSpiritOption1 = "47",
+	GuessSpiritOption2 = "48",
+	GuessSpiritOption3 = "49",
+	GuessEventOption1 = "50",
+	GuessEventOption2 = "51",
+	GuessEventOption3 = "52",
+	GuessEnd = "53",
+	GuessTryAgain = "54",
+	GuessLeaderboardBack = "55",
+	GuessLeaderboardNext = "56",
 }
