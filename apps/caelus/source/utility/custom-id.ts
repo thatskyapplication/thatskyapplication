@@ -33,4 +33,11 @@ export const enum CustomId {
 	CatalogueViewOffer2 = "31",
 	CatalogueViewOffer3 = "32",
 	CatalogueItemsEverything = "33",
+	ChecklistDailyQuestsComplete = "34",
+	ChecklistDailyQuestsShow = "35",
+	ChecklistSeasonalCandlesComplete = "36",
+	ChecklistEyeOfEdenComplete = "37",
+	ChecklistShardEruptionsComplete = "38",
+	ChecklistShardEruptionsShow = "39",
+	ChecklistEventTicketsComplete = "40",
 }

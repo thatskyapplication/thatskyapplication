@@ -23,27 +23,10 @@ import {
 import { t } from "i18next";
 import { client } from "../discord.js";
 import pg from "../pg.js";
+import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker } from "../utility/functions.js";
 import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
-
-export const CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID =
-	"CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID";
-
-export const CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID = "CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID";
-
-export const CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID =
-	"CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID";
-
-export const CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID = "CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID";
-
-export const CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID =
-	"CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID" as const;
-
-export const CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID = "CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID";
-
-export const CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID =
-	"CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID" as const;
 
 interface ChecklistOptions {
 	userId: Snowflake;
@@ -71,7 +54,7 @@ export async function checklist({
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: ButtonStyle.Secondary,
-		custom_id: CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID,
+		custom_id: CustomId.ChecklistShardEruptionsShow,
 		label: t("checklist.shard-eruptions-show-button-label", {
 			lng: locale,
 			ns: "features",
@@ -105,7 +88,7 @@ export async function checklist({
 				? {
 						type: ComponentType.Button,
 						style: ButtonStyle.Danger,
-						custom_id: `${CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID}§1`,
+						custom_id: `${CustomId.ChecklistDailyQuestsComplete}§1`,
 						label: t("checklist.reset", {
 							lng: locale,
 							ns: "features",
@@ -114,7 +97,7 @@ export async function checklist({
 				: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Secondary,
-						custom_id: `${CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID}§0`,
+						custom_id: `${CustomId.ChecklistDailyQuestsComplete}§0`,
 						label: t("checklist.complete", {
 							lng: locale,
 							ns: "features",
@@ -135,7 +118,7 @@ export async function checklist({
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
-					custom_id: CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID,
+					custom_id: CustomId.ChecklistDailyQuestsShow,
 					label: t("checklist.daily-quests-show-button-label", {
 						lng: locale,
 						ns: "features",
@@ -159,7 +142,7 @@ export async function checklist({
 					? {
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
-							custom_id: `${CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID}§1`,
+							custom_id: `${CustomId.ChecklistSeasonalCandlesComplete}§1`,
 							label: t("checklist.reset", {
 								lng: locale,
 								ns: "features",
@@ -168,7 +151,7 @@ export async function checklist({
 					: {
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
-							custom_id: `${CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID}§0`,
+							custom_id: `${CustomId.ChecklistSeasonalCandlesComplete}§0`,
 							label: t("checklist.complete", {
 								lng: locale,
 								ns: "features",
@@ -209,7 +192,7 @@ export async function checklist({
 				? {
 						type: ComponentType.Button,
 						style: ButtonStyle.Danger,
-						custom_id: `${CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID}§1`,
+						custom_id: `${CustomId.ChecklistEyeOfEdenComplete}§1`,
 						label: t("checklist.reset", {
 							lng: locale,
 							ns: "features",
@@ -218,7 +201,7 @@ export async function checklist({
 				: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Secondary,
-						custom_id: `${CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID}§0`,
+						custom_id: `${CustomId.ChecklistEyeOfEdenComplete}§0`,
 						label: t("checklist.complete", {
 							lng: locale,
 							ns: "features",
@@ -244,7 +227,7 @@ export async function checklist({
 				? {
 						type: ComponentType.Button,
 						style: ButtonStyle.Danger,
-						custom_id: `${CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID}§1`,
+						custom_id: `${CustomId.ChecklistShardEruptionsComplete}§1`,
 						label: t("checklist.reset", {
 							lng: locale,
 							ns: "features",
@@ -253,7 +236,7 @@ export async function checklist({
 				: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Secondary,
-						custom_id: `${CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID}§0`,
+						custom_id: `${CustomId.ChecklistShardEruptionsComplete}§0`,
 						label: t("checklist.complete", {
 							lng: locale,
 							ns: "features",
@@ -297,7 +280,7 @@ export async function checklist({
 					? {
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
-							custom_id: `${CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID}§1`,
+							custom_id: `${CustomId.ChecklistEventTicketsComplete}§1`,
 							label: t("checklist.reset", {
 								lng: locale,
 								ns: "features",
@@ -306,7 +289,7 @@ export async function checklist({
 					: {
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
-							custom_id: `${CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID}§0`,
+							custom_id: `${CustomId.ChecklistEventTicketsComplete}§0`,
 							label: t("checklist.complete", {
 								lng: locale,
 								ns: "features",

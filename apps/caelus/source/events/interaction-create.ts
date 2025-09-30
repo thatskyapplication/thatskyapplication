@@ -65,13 +65,6 @@ import {
 	viewStarterPacks,
 } from "../features/catalogue.js";
 import {
-	CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID,
-	CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID,
-	CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID,
-	CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID,
-	CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID,
-	CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID,
-	CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID,
 	checklistHandleDailyQuests,
 	checklistHandleEventTickets,
 	checklistHandleEyeOfEden,
@@ -683,33 +676,33 @@ export default {
 					return;
 				}
 
-				if (id === CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID) {
+				if (id === CustomId.ChecklistDailyQuestsComplete) {
 					await checklistHandleDailyQuests(interaction);
 					return;
 				}
 
-				if (id === CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID) {
+				if (id === CustomId.ChecklistSeasonalCandlesComplete) {
 					await checklistHandleSeasonalCandles(interaction);
 					return;
 				}
 
-				if (id === CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID) {
+				if (id === CustomId.ChecklistEyeOfEdenComplete) {
 					await checklistHandleEyeOfEden(interaction);
 					return;
 				}
 
-				if (id === CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID) {
+				if (id === CustomId.ChecklistEventTicketsComplete) {
 					await checklistHandleEventTickets(interaction);
 					return;
 				}
 
-				if (id === CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID) {
+				if (id === CustomId.ChecklistShardEruptionsComplete) {
 					await checklistHandleShardEruptions(interaction);
 					return;
 				}
 
 				if (
-					id === CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID ||
+					id === CustomId.ChecklistDailyQuestsShow ||
 					id === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID
 				) {
 					await dailyGuidesResponse(interaction);
@@ -717,7 +710,7 @@ export default {
 				}
 
 				if (
-					id === CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID ||
+					id === CustomId.ChecklistShardEruptionsShow ||
 					id === SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID
 				) {
 					await today(interaction, {
