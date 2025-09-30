@@ -90,11 +90,7 @@ import {
 	leaderboard,
 	tryAgain,
 } from "../features/guess.js";
-import {
-	HEART_HISTORY_BACK_CUSTOM_ID,
-	HEART_HISTORY_NEXT_CUSTOM_ID,
-	history,
-} from "../features/heart.js";
+import { history } from "../features/heart.js";
 import {
 	ME_DELETE_AVATAR_CUSTOM_ID,
 	ME_DELETE_BANNER_CUSTOM_ID,
@@ -861,7 +857,7 @@ export default {
 					return;
 				}
 
-				if (id === HEART_HISTORY_BACK_CUSTOM_ID || id === HEART_HISTORY_NEXT_CUSTOM_ID) {
+				if (id === CustomId.HeartHistoryBack || id === CustomId.HeartHistoryNext) {
 					await history(interaction);
 					return;
 				}

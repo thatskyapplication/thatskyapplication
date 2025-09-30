@@ -34,12 +34,10 @@ import {
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
 	MAXIMUM_HEARTS_PER_DAY,
 } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
-
-export const HEART_HISTORY_BACK_CUSTOM_ID = "HEART_HISTORY_BACK_CUSTOM_ID" as const;
-export const HEART_HISTORY_NEXT_CUSTOM_ID = "HEART_HISTORY_NEXT_CUSTOM_ID" as const;
 
 export interface HeartPacket {
 	gifter_id: Snowflake | null;
@@ -427,14 +425,14 @@ export async function history(
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
-					custom_id: `${HEART_HISTORY_BACK_CUSTOM_ID}§${page === 1 ? maximumPage : page - 1}`,
+					custom_id: `${CustomId.HeartHistoryBack}§${page === 1 ? maximumPage : page - 1}`,
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					emoji: { name: "⬅️" },
 				},
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
-					custom_id: `${HEART_HISTORY_NEXT_CUSTOM_ID}§${page === maximumPage ? 1 : page + 1}`,
+					custom_id: `${CustomId.HeartHistoryNext}§${page === maximumPage ? 1 : page + 1}`,
 					label: t("navigation-next", { lng: locale, ns: "general" }),
 					emoji: { name: "➡️" },
 				},

@@ -59,4 +59,6 @@ export const enum CustomId {
 	GuessTryAgain = "54",
 	GuessLeaderboardBack = "55",
 	GuessLeaderboardNext = "56",
+	HeartHistoryBack = "57",
+	HeartHistoryNext = "58",
 }
