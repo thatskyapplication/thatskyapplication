@@ -132,7 +132,7 @@ function systemPromptContext(
 		`- The maximum amount of winged light that can be found in the realms is ${WINGED_LIGHT_IN_AREAS}.`,
 		`- A breakdown of winged light per realm (or area): ${JSON.stringify(AreaToWingedLight)}.`,
 		`- The maximum amount of wing buffs is ${WING_BUFFS.length}.`,
-		`- Upon achieving an amount of winged light, you acheve a wedge. Refer to: ${JSON.stringify(Object.entries(WINGED_LIGHT_THRESHOLDS).map(([index, wingedLight]) => ({ wedge: Number(index) + 1, wingedLight })))}.`,
+		`- Upon achieving an amount of winged light, you achieve a wedge. Refer to: ${JSON.stringify(Object.entries(WINGED_LIGHT_THRESHOLDS).map(([index, wingedLight]) => ({ wedge: Number(index) + 1, wingedLight })))}.`,
 		`- If you mention winged light, use ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}.`,
 		`- If you mention wing buffs, use ${formatEmoji(MISCELLANEOUS_EMOJIS.WingBuff)}.`,
 		`- If you mention ascended candles, use ${formatEmoji(MISCELLANEOUS_EMOJIS.AscendedCandle)}.`,
