@@ -115,14 +115,14 @@ export async function about(locale: Locale): Promise<[APIMessageTopLevelComponen
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
-							custom_id: CustomId.AboutFeedbackButton,
+							custom_id: CustomId.AboutFeedback,
 							label: t("about.feedback-button", { lng: locale, ns: "features" }),
 							emoji: EMOTE_EMOJIS.Thinking,
 						},
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
-							custom_id: CustomId.AboutIssueButton,
+							custom_id: CustomId.AboutIssue,
 							label: t("about.issue-button", { lng: locale, ns: "features" }),
 							emoji: EMOTE_EMOJIS.Duck,
 						},

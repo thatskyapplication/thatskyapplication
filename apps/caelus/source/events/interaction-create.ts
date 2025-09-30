@@ -41,32 +41,6 @@ import {
 	issueSubmission,
 } from "../features/about.js";
 import {
-	CATALOGUE_BACK_TO_START_CUSTOM_ID,
-	CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_REALM_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID,
-	CATALOGUE_SETTINGS_CUSTOM_ID,
-	CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID,
-	CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
-	CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
-	CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_1_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_2_CUSTOM_ID,
-	CATALOGUE_VIEW_OFFER_3_CUSTOM_ID,
-	CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID,
-	CATALOGUE_VIEW_REALM_CUSTOM_ID,
-	CATALOGUE_VIEW_REALMS_CUSTOM_ID,
-	CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID,
-	CATALOGUE_VIEW_SEASON_CUSTOM_ID,
-	CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
-	CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID,
-	CATALOGUE_VIEW_SPIRIT_CUSTOM_ID,
-	CATALOGUE_VIEW_START_CUSTOM_ID,
-	CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID,
 	parseSetItems,
 	parseViewEvent,
 	parseViewSpirit,
@@ -573,182 +547,178 @@ export default {
 
 		if (isButton(interaction)) {
 			logMessageComponent(interaction);
-			const customId = interaction.data.custom_id;
+			const [id, ...parts] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
-				if (customId === DATA_DELETION_CUSTOM_ID) {
+				if (id === DATA_DELETION_CUSTOM_ID) {
 					await deleteUserData(interaction);
 					return;
 				}
 
-				if (customId === CustomId.AboutFeedbackButton) {
+				if (id === CustomId.AboutFeedback) {
 					await feedbackModalResponse(interaction);
 					return;
 				}
 
-				if (customId === CustomId.AboutIssueButton) {
+				if (id === CustomId.AboutIssue) {
 					await issueModalResponse(interaction);
 					return;
 				}
 
-				if (
-					customId === CATALOGUE_VIEW_START_CUSTOM_ID ||
-					customId === CATALOGUE_BACK_TO_START_CUSTOM_ID
-				) {
+				if (id === CustomId.CatalogueViewStart || id === CustomId.CatalogueBackToStart) {
 					await viewStart(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_SETTINGS_CUSTOM_ID) {
+				if (id === CustomId.CatalogueSettings) {
 					await viewSettings(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID)) {
+				if (id === CustomId.CatalogueSettingsEverything) {
 					await updateEverythingButtonSetting(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_REALMS_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewRealms) {
 					await viewRealms(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_VIEW_REALM_CUSTOM_ID)) {
-					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
+				if (id === CustomId.CatalogueViewRealm) {
+					const realmName = parts[0]!;
 
-					if (isRealm(parsedCustomId)) {
-						await viewRealm(interaction, parsedCustomId);
+					if (isRealm(realmName)) {
+						await viewRealm(interaction, realmName);
 						return;
 					}
 				}
 
-				if (customId === CATALOGUE_VIEW_ELDERS_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewElders) {
 					await viewElders(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_VIEW_SEASONS_CUSTOM_ID)) {
+				if (id === CustomId.CatalogueViewSeasons) {
 					await viewSeasons(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_VIEW_SEASON_CUSTOM_ID)) {
-					const parsedCustomId = Number((customId.split("§") as [string, string, string?])[1]);
+				if (id === CustomId.CatalogueViewSeason) {
+					const seasonId = Number(parts[0]!);
 
-					if (isSeasonId(parsedCustomId)) {
-						await viewSeason(interaction, parsedCustomId);
+					if (isSeasonId(seasonId)) {
+						await viewSeason(interaction, seasonId);
 						return;
 					}
 				}
 
-				if (customId === CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewEventYears) {
 					await viewEventYears(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID)) {
-					const parsedCustomId = customId.slice(customId.indexOf("§") + 1);
-					await viewEvents(interaction, parsedCustomId);
+				if (id === CustomId.CatalogueViewEventYear) {
+					await viewEvents(interaction, parts[0]!);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_VIEW_EVENT_CUSTOM_ID)) {
+				if (id === CustomId.CatalogueViewEvent) {
 					await parseViewEvent(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewStarterPacks) {
 					await viewStarterPacks(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewSecretArea) {
 					await viewSecretArea(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewPermanentEventStore) {
 					await viewPermanentEventStore(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewNestingWorkshop) {
 					await viewNestingWorkshop(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewReturningSpirits) {
 					await viewReturningSpirits(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_VIEW_SPIRIT_CUSTOM_ID)) {
+				if (id === CustomId.CatalogueViewSpirit) {
 					await parseViewSpirit(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_REALM_EVERYTHING_CUSTOM_ID)) {
+				if (id === CustomId.CatalogueRealmEverything) {
 					await setRealm(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID) {
+				if (id === CustomId.CatalogueEldersEverything) {
 					await setElders(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID)) {
+				if (id === CustomId.CatalogueSeasonEverything) {
 					await setSeason(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID)) {
+				if (id === CustomId.CatalogueItemsEverything) {
 					await parseSetItems(interaction);
 					return;
 				}
 
-				if (customId === SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID) {
+				if (id === SCHEDULE_DETAILED_BREAKDOWN_BACK_BUTTON_CUSTOM_ID) {
 					await scheduleOverview(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID)) {
+				if (id === CHECKLIST_DAILY_QUESTS_COMPLETE_CUSTOM_ID) {
 					await checklistHandleDailyQuests(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID)) {
+				if (id === CHECKLIST_SEASONAL_CANDLES_COMPLETE_CUSTOM_ID) {
 					await checklistHandleSeasonalCandles(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID)) {
+				if (id === CHECKLIST_EYE_OF_EDEN_COMPLETE_CUSTOM_ID) {
 					await checklistHandleEyeOfEden(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID)) {
+				if (id === CHECKLIST_EVENT_TICKETS_COMPLETE_CUSTOM_ID) {
 					await checklistHandleEventTickets(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID)) {
+				if (id === CHECKLIST_SHARD_ERUPTIONS_COMPLETE_CUSTOM_ID) {
 					await checklistHandleShardEruptions(interaction);
 					return;
 				}
 
 				if (
-					customId === CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID ||
-					customId === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID
+					id === CHECKLIST_DAILY_QUESTS_SHOW_CUSTOM_ID ||
+					id === SCHEDULE_DETAILED_BREAKDOWN_DAILY_RESET_DAILY_GUIDES_BUTTON_CUSTOM_ID
 				) {
 					await dailyGuidesResponse(interaction);
 					return;
 				}
 
 				if (
-					customId === CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID ||
-					customId === SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID
+					id === CHECKLIST_SHARD_ERUPTIONS_SHOW_CUSTOM_ID ||
+					id === SCHEDULE_DETAILED_BREAKDOWN_SHARD_ERUPTION_BUTTON_CUSTOM_ID
 				) {
 					await today(interaction, {
 						ephemeral:
@@ -760,10 +730,8 @@ export default {
 					return;
 				}
 
-				if (
-					customId.startsWith(SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID)
-				) {
-					const spiritId = Number(customId.slice(customId.indexOf("§") + 1)) as SpiritIds;
+				if (id === SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_SPIRIT_BUTTON_CUSTOM_ID) {
+					const spiritId = Number(parts[0]) as SpiritIds;
 					let flags = MessageFlags.IsComponentsV2;
 
 					if (
@@ -781,7 +749,7 @@ export default {
 					return;
 				}
 
-				if (customId === SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID) {
+				if (id === SCHEDULE_DETAILED_BREAKDOWN_TRAVELLING_SPIRIT_HISTORY_BUTTON_CUSTOM_ID) {
 					await spiritsHistory(interaction, {
 						type: SpiritsHistoryOrderType.Natural,
 						page: 1,
@@ -794,7 +762,7 @@ export default {
 					return;
 				}
 
-				if (customId === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
+				if (id === SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -804,18 +772,18 @@ export default {
 				}
 
 				if (
-					customId.startsWith(SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID) ||
-					customId.startsWith(SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID)
+					id === SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID ||
+					id === SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID
 				) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
 
-					await today(interaction, { offset: Number(customId.slice(customId.indexOf("§") + 1)) });
+					await today(interaction, { offset: Number(parts[0]) });
 					return;
 				}
 
-				if (customId === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
+				if (id === SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -825,130 +793,121 @@ export default {
 				}
 
 				if (
-					customId.startsWith(SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID) ||
-					customId.startsWith(SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID) ||
-					customId.startsWith(SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID)
+					id === SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID ||
+					id === SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID ||
+					id === SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID
 				) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
 
-					await browse(interaction, Number(customId.slice(customId.indexOf("§") + 1)));
+					await browse(interaction, Number(parts[0]));
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SHOW_RESET_CUSTOM_ID) {
+				if (id === SKY_PROFILE_SHOW_RESET_CUSTOM_ID) {
 					await skyProfileShowReset(interaction);
 					return;
 				}
 
-				if (customId === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
+				if (id === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
 					await skyProfileShowEdit(interaction);
 					return;
 				}
 
 				if (
-					customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID) ||
-					customId.startsWith(SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID) ||
-					customId.startsWith(SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID)
+					id === SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID ||
+					id === SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID ||
+					id === SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID
 				) {
 					await skyProfileExplore(interaction);
 					return;
 				}
 
 				if (
-					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID) ||
-					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID) ||
-					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID)
+					id === SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID ||
+					id === SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID ||
+					id === SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID
 				) {
 					await skyProfileExploreLikes(interaction);
 					return;
 				}
 
 				if (
-					customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID) ||
-					customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID) ||
-					customId.startsWith(SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID)
+					id === SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID ||
+					id === SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID ||
+					id === SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID
 				) {
-					await skyProfileExploreProfile(interaction, customId.slice(customId.indexOf("§") + 1));
+					await skyProfileExploreProfile(interaction, parts[0]!);
 					return;
 				}
 
 				if (
-					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID) ||
-					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID) ||
-					customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID)
+					id === SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID ||
+					id === SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID ||
+					id === SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID
 				) {
 					await skyProfileExploreLikedProfile(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID)) {
+				if (id === SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID) {
 					await skyProfileLike(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID)) {
+				if (id === SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID) {
 					await skyProfileLike(interaction, true);
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID)) {
+				if (id === SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID) {
 					await skyProfileReport(interaction);
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID)) {
+				if (id === SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID) {
 					await skyProfileReport(interaction, true);
 					return;
 				}
 
-				if (customId.startsWith(SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID)) {
+				if (id === SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID) {
 					await skyProfileReportModalPrompt(interaction);
 					return;
 				}
 
-				if (
-					customId.startsWith(SPIRITS_HISTORY_BACK_CUSTOM_ID) ||
-					customId.startsWith(SPIRITS_HISTORY_NEXT_CUSTOM_ID)
-				) {
-					const { type, page } = spiritsParseSpiritsHistoryCustomId(customId);
+				if (id === SPIRITS_HISTORY_BACK_CUSTOM_ID || id === SPIRITS_HISTORY_NEXT_CUSTOM_ID) {
+					// We already have an array. Double-check this.
+					const { type, page } = spiritsParseSpiritsHistoryCustomId(interaction.data.custom_id);
 					await spiritsHistory(interaction, { type, page });
 					return;
 				}
 
-				if (customId.startsWith(SPIRITS_VIEW_SPIRIT_CUSTOM_ID)) {
+				if (id === SPIRITS_VIEW_SPIRIT_CUSTOM_ID) {
 					await handleSearchButton(interaction);
 					return;
 				}
 
-				if (
-					customId.startsWith(HEART_HISTORY_BACK_CUSTOM_ID) ||
-					customId.startsWith(HEART_HISTORY_NEXT_CUSTOM_ID)
-				) {
+				if (id === HEART_HISTORY_BACK_CUSTOM_ID || id === HEART_HISTORY_NEXT_CUSTOM_ID) {
 					await history(interaction);
 					return;
 				}
 
-				if (
-					customId.startsWith(GUESS_ANSWER_1) ||
-					customId.startsWith(GUESS_ANSWER_2) ||
-					customId.startsWith(GUESS_ANSWER_3)
-				) {
+				if (id === GUESS_ANSWER_1 || id === GUESS_ANSWER_2 || id === GUESS_ANSWER_3) {
 					await guessSpiritAnswer(interaction);
 					return;
 				}
 
 				if (
-					customId.startsWith(GUESS_EVENT_OPTION_1_CUSTOM_ID) ||
-					customId.startsWith(GUESS_EVENT_OPTION_2_CUSTOM_ID) ||
-					customId.startsWith(GUESS_EVENT_OPTION_3_CUSTOM_ID)
+					id === GUESS_EVENT_OPTION_1_CUSTOM_ID ||
+					id === GUESS_EVENT_OPTION_2_CUSTOM_ID ||
+					id === GUESS_EVENT_OPTION_3_CUSTOM_ID
 				) {
 					await guessEventAnswer(interaction);
 					return;
 				}
 
-				if (customId.startsWith(GUESS_END_GAME)) {
+				if (id === GUESS_END_GAME) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -957,7 +916,7 @@ export default {
 					return;
 				}
 
-				if (customId.startsWith(GUESS_TRY_AGAIN)) {
+				if (id === GUESS_TRY_AGAIN) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
@@ -966,17 +925,12 @@ export default {
 					return;
 				}
 
-				if (
-					customId.startsWith(GUESS_LEADERBOARD_BACK_CUSTOM_ID) ||
-					customId.startsWith(GUESS_LEADERBOARD_NEXT_CUSTOM_ID)
-				) {
+				if (id === GUESS_LEADERBOARD_BACK_CUSTOM_ID || id === GUESS_LEADERBOARD_NEXT_CUSTOM_ID) {
 					if (await isNotComponentsV2(interaction)) {
 						return;
 					}
 
-					const guessType = Number(
-						customId.slice(customId.indexOf("§") + 1, customId.lastIndexOf("§")),
-					);
+					const guessType = Number(parts[0]);
 
 					if (isGuessType(guessType)) {
 						await leaderboard(interaction, guessType);
@@ -984,38 +938,38 @@ export default {
 					}
 				}
 
-				if (customId === SHOP_SUGGEST_CUSTOM_ID) {
+				if (id === SHOP_SUGGEST_CUSTOM_ID) {
 					await shopSuggestionModal(interaction);
 					return;
 				}
 
 				if (isGuildButton(interaction)) {
-					if (customId === FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID) {
+					if (id === FRIENDSHIP_ACTIONS_CONTRIBUTE_BUTTON_CUSTOM_ID) {
 						await friendshipActionsCreateThread(interaction);
 						return;
 					}
 
-					if (customId === ME_SET_BIO_BUTTON_CUSTOM_ID) {
+					if (id === ME_SET_BIO_BUTTON_CUSTOM_ID) {
 						await meHandleSetBioButton(interaction);
 						return;
 					}
 
-					if (customId === ME_DELETE_BIO_CUSTOM_ID) {
+					if (id === ME_DELETE_BIO_CUSTOM_ID) {
 						await meHandleDeleteButton(interaction, { bio: null });
 						return;
 					}
 
-					if (customId === ME_DELETE_AVATAR_CUSTOM_ID) {
+					if (id === ME_DELETE_AVATAR_CUSTOM_ID) {
 						await meHandleDeleteButton(interaction, { avatar: null });
 						return;
 					}
 
-					if (customId === ME_DELETE_BANNER_CUSTOM_ID) {
+					if (id === ME_DELETE_BANNER_CUSTOM_ID) {
 						await meHandleDeleteButton(interaction, { banner: null });
 						return;
 					}
 
-					if (customId === NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID) {
+					if (id === NOTIFICATIONS_VIEW_SETUP_CUSTOM_ID) {
 						const guild = GUILD_CACHE.get(interaction.guild_id);
 
 						if (!guild) {
@@ -1037,43 +991,43 @@ export default {
 						return;
 					}
 
-					if (customId === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
+					if (id === DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID) {
 						await handleDistributeButton(interaction);
 						return;
 					}
 
-					if (customId.startsWith(WELCOME_HUG_SETTING_CUSTOM_ID)) {
-						await welcomeHandleHugSettingButton(interaction, customId);
+					if (id === WELCOME_HUG_SETTING_CUSTOM_ID) {
+						await welcomeHandleHugSettingButton(interaction, !Number(parts[0]));
 						return;
 					}
 
-					if (customId === WELCOME_MESSAGE_SETTING_CUSTOM_ID) {
+					if (id === WELCOME_MESSAGE_SETTING_CUSTOM_ID) {
 						await welcomeHandleMessageSettingButton(interaction);
 						return;
 					}
 
-					if (customId === WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID) {
+					if (id === WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID) {
 						await welcomeHandleMessageSettingDeleteButton(interaction);
 						return;
 					}
 
-					if (customId === WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID) {
+					if (id === WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID) {
 						await welcomeHandleAssetSettingDeleteButton(interaction);
 						return;
 					}
 
-					if (customId === WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID) {
+					if (id === WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID) {
 						await welcomeHandleAccentColourSettingButton(interaction);
 						return;
 					}
 
-					if (customId === WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID) {
+					if (id === WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID) {
 						await welcomeHandleAccentColourSettingDeleteButton(interaction);
 						return;
 					}
 
-					if (customId.startsWith(WELCOME_HUG_CUSTOM_ID)) {
-						await welcomeHandleHugButton(interaction, customId.slice(customId.indexOf("§") + 1));
+					if (id === WELCOME_HUG_CUSTOM_ID) {
+						await welcomeHandleHugButton(interaction, parts[0]!);
 						return;
 					}
 				}
@@ -1107,54 +1061,54 @@ export default {
 
 		if (isStringSelectMenu(interaction)) {
 			logMessageComponent(interaction);
-			const customId = interaction.data.custom_id;
+			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
 			const values = interaction.data.values;
 
 			try {
 				const value0 = values[0]!;
 
-				if (customId === CATALOGUE_VIEW_REALM_CUSTOM_ID && isRealm(value0)) {
+				if (id === CustomId.CatalogueViewRealm && isRealm(value0)) {
 					await viewRealm(interaction, value0);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewEventYear) {
 					await viewEvents(interaction, value0);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_SPIRIT_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewSpirit) {
 					await parseViewSpirit(interaction);
 					return;
 				}
 
-				if (customId === CATALOGUE_VIEW_EVENT_CUSTOM_ID) {
+				if (id === CustomId.CatalogueViewEvent) {
 					await parseViewEvent(interaction);
 					return;
 				}
 
 				if (
-					customId.startsWith(CATALOGUE_VIEW_OFFER_1_CUSTOM_ID) ||
-					customId.startsWith(CATALOGUE_VIEW_OFFER_2_CUSTOM_ID) ||
-					customId.startsWith(CATALOGUE_VIEW_OFFER_3_CUSTOM_ID)
+					id === CustomId.CatalogueViewOffer1 ||
+					id === CustomId.CatalogueViewOffer2 ||
+					id === CustomId.CatalogueViewOffer3
 				) {
 					await parseSetItems(interaction);
 					return;
 				}
 
-				if (customId.startsWith(CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID)) {
+				if (id === CustomId.CatalogueSetSeasonItems) {
 					await setSeasonItems(interaction);
 					return;
 				}
 
-				if (customId === SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID) {
+				if (id === SCHEDULE_DETAILED_BREAKDOWN_SELECT_MENU_CUSTOM_ID) {
 					await scheduleDetailedBreakdown(interaction, { type: Number(value0) as ScheduleTypes });
 					return;
 				}
 
 				if (
 					SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.includes(
-						customId as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
+						id as (typeof SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
 					if (await isNotComponentsV2(interaction)) {
@@ -1165,37 +1119,37 @@ export default {
 					return;
 				}
 
-				if (customId === SKY_PROFILE_EDIT_CUSTOM_ID) {
+				if (id === SKY_PROFILE_EDIT_CUSTOM_ID) {
 					await skyProfileEdit(interaction);
 					return;
 				}
 
-				if (customId === SKY_PROFILE_RESET_CUSTOM_ID) {
+				if (id === SKY_PROFILE_RESET_CUSTOM_ID) {
 					await skyProfileReset(interaction);
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID) {
+				if (id === SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID) {
 					await skyProfileSetWingedLight(interaction);
 					return;
 				}
 
 				if (
-					customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID ||
-					customId === SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID
+					id === SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID ||
+					id === SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID
 				) {
 					await skyProfileSetSeasons(interaction);
 					return;
 				}
 
-				if (customId === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
+				if (id === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
 					await skyProfileSetPlatform(interaction);
 					return;
 				}
 
 				if (
 					SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
-						customId as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
+						id as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
 					await skyProfileExploreProfile(interaction, value0);
@@ -1204,7 +1158,7 @@ export default {
 
 				if (
 					SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.includes(
-						customId as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
+						id as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
 					)
 				) {
 					await skyProfileExploreLikedProfile(interaction);
@@ -1212,7 +1166,7 @@ export default {
 				}
 
 				if (isGuildStringSelectMenu(interaction)) {
-					if (customId === NOTIFICATIONS_SETUP_CUSTOM_ID) {
+					if (id === NOTIFICATIONS_SETUP_CUSTOM_ID) {
 						const notificationType = Number(value0);
 
 						if (!isNotificationType(notificationType)) {
@@ -1234,17 +1188,17 @@ export default {
 						return;
 					}
 
-					if (customId.startsWith(NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID)) {
+					if (id === NOTIFICATIONS_SETUP_OFFSET_CUSTOM_ID) {
 						await handleNotificationsStringSelectMenu(interaction);
 						return;
 					}
 
-					if (customId === DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID) {
+					if (id === DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID) {
 						await questsReorder(interaction);
 						return;
 					}
 
-					if (customId === DAILY_GUIDES_LOCALE_CUSTOM_ID) {
+					if (id === DAILY_GUIDES_LOCALE_CUSTOM_ID) {
 						await interactive(interaction, {
 							type: InteractiveType.Locale,
 							locale: value0 as Locale,
@@ -1253,7 +1207,7 @@ export default {
 						return;
 					}
 
-					if (customId === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
+					if (id === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
 						await AI.set(interaction);
 						return;
 					}

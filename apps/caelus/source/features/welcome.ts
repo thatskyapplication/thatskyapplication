@@ -627,13 +627,10 @@ export async function welcomeHandleHugButton(
 
 export async function welcomeHandleHugSettingButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
-	customId: string,
+	hug: boolean,
 ) {
 	await pg<WelcomePacket>(Table.Welcome)
-		.insert({
-			guild_id: interaction.guild_id,
-			hug: !Number(customId.slice(customId.indexOf("§") + 1)),
-		})
+		.insert({ guild_id: interaction.guild_id, hug })
 		.onConflict("guild_id")
 		.merge();
 
