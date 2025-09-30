@@ -61,4 +61,10 @@ export const enum CustomId {
 	GuessLeaderboardNext = "56",
 	HeartHistoryBack = "57",
 	HeartHistoryNext = "58",
+	MeSetBio = "59",
+	MeDeleteBio = "60",
+	MeDeleteAvatar = "61",
+	MeDeleteBanner = "62",
+	MeSetBioModal = "63",
+	MetSetBioModalBio = "64",
 }
