@@ -139,7 +139,7 @@ import {
 	welcomeHandleMessageSettingDeleteButton,
 	welcomeHandleMessageSettingModal,
 } from "../features/welcome.js";
-import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
+import AI from "../models/AI.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
@@ -1082,7 +1082,7 @@ export default {
 						return;
 					}
 
-					if (id === AI_FREQUENCY_SELECT_MENU_CUSTOM_ID) {
+					if (id === CustomId.AIFrequency) {
 						await AI.set(interaction);
 						return;
 					}
