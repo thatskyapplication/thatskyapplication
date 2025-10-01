@@ -1,5 +1,5 @@
 import process from "node:process";
-import { CDN_URL as CDN_URL_PRODUCTION, WEBSITE_URL } from "@thatskyapplication/utility";
+import { CDN_URL as CDN_URL_PRODUCTION } from "@thatskyapplication/utility";
 import { z } from "zod/v4";
 
 // Production detection.
@@ -10,6 +10,7 @@ const envSchema = z.object({
 	MAXIMUM_CONCURRENCY_LIMIT: z.coerce.number().int().min(1),
 	APPLICATION_ID: z.string().min(1),
 	SUPPORT_SERVER_GUILD_ID: z.string().min(1),
+	SUPPORT_SERVER_INVITE_URL: z.url().min(1),
 	FEEDBACK_CHANNEL_ID: z.string().min(1),
 	SKY_PROFILE_REPORTS_CHANNEL_ID: z.string().min(1),
 	SHOP_SUGGESTIONS_CHANNEL_ID: z.string().min(1),
@@ -42,6 +43,7 @@ export const {
 	MAXIMUM_CONCURRENCY_LIMIT,
 	APPLICATION_ID,
 	SUPPORT_SERVER_GUILD_ID,
+	SUPPORT_SERVER_INVITE_URL,
 	FEEDBACK_CHANNEL_ID,
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SHOP_SUGGESTIONS_CHANNEL_ID,
@@ -82,6 +84,3 @@ const SERVER_UPGRADE_SKU_ID_PRODUCTION = "1270871254316089515" as const;
 export const SERVER_UPGRADE_SKU_ID = PRODUCTION
 	? SERVER_UPGRADE_SKU_ID_PRODUCTION
 	: SERVER_UPGRADE_SKU_ID_DEVELOPMENT;
-
-// Support server invite URL.
-export const SUPPORT_SERVER_INVITE_URL = String(new URL("support", WEBSITE_URL));
