@@ -47,6 +47,7 @@ export const LOCALES = [
 	Locale.Korean,
 	Locale.PortugueseBR,
 	Locale.Russian,
+	Locale.Thai,
 	Locale.Vietnamese,
 	Locale.ChineseCN,
 	Locale.ChineseTW,
