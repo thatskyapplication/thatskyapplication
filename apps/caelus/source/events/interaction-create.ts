@@ -225,6 +225,36 @@ async function isNotComponentsV2(
 	return true;
 }
 
+async function isOldId(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	id: string,
+) {
+	if (Number.isInteger(Number(id))) {
+		return false;
+	}
+
+	const promises = [];
+
+	if (
+		(BigInt(interaction.app_permissions) & PermissionFlagsBits.ViewChannel) ===
+		PermissionFlagsBits.ViewChannel
+	) {
+		promises.push(
+			client.api.channels.deleteMessage(interaction.channel.id, interaction.message.id),
+		);
+	}
+
+	promises.push(
+		client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "This response is too old. Use the command again!",
+			flags: MessageFlags.Ephemeral,
+		}),
+	);
+
+	await Promise.all(promises);
+	return true;
+}
+
 async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
 	const invoker = interactionInvoker(interaction);
 	let errorTypeString = `Error from ${invoker.username} in ${interaction.channel!.id} from `;
@@ -438,6 +468,10 @@ export default {
 		if (isButton(interaction)) {
 			logMessageComponent(interaction);
 			const [id, ...parts] = interaction.data.custom_id.split("§") as [string, ...string[]];
+
+			if (await isOldId(interaction, id)) {
+				return;
+			}
 
 			try {
 				if (id === CustomId.DataDelete) {
@@ -950,6 +984,11 @@ export default {
 		if (isStringSelectMenu(interaction)) {
 			logMessageComponent(interaction);
 			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
+
+			if (await isOldId(interaction, id)) {
+				return;
+			}
+
 			const values = interaction.data.values;
 
 			try {
