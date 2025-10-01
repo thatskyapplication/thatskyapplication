@@ -173,7 +173,7 @@ export async function meHandleSetBioButton(
 				type: ComponentType.Label,
 				component: {
 					type: ComponentType.TextInput,
-					custom_id: CustomId.MetSetBioModalBio,
+					custom_id: CustomId.MeSetBioModalBio,
 					max_length: ME_BIO_MAX_LENGTH,
 					style: TextInputStyle.Paragraph,
 					required: true,
@@ -189,7 +189,7 @@ export async function meHandleSetBioButton(
 
 export async function meHandleSetBioModal(interaction: APIModalSubmitGuildInteraction) {
 	const components = new ModalResolver(interaction.data.components);
-	const bio = components.getTextInputValue(CustomId.MetSetBioModalBio);
+	const bio = components.getTextInputValue(CustomId.MeSetBioModalBio);
 	await client.api.users.editCurrentGuildMember(interaction.guild_id, { bio });
 	await meOverview(interaction, { updateMessage: true });
 }
