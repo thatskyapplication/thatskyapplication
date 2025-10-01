@@ -1340,11 +1340,6 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: "interactive",
-				description: "Interactively edits the daily guides.",
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
 				name: "set",
 				description: "Sets data for the daily guides.",
 				options: [

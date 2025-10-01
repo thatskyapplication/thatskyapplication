@@ -6,12 +6,7 @@ import {
 } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../../discord.js";
-import {
-	dailyGuidesResponse,
-	interactive,
-	questAutocomplete,
-	set,
-} from "../../features/daily-guides.js";
+import { dailyGuidesResponse, questAutocomplete, set } from "../../features/daily-guides.js";
 import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -39,13 +34,6 @@ export default {
 			const options = new OptionResolver(interaction);
 
 			switch (options.getSubcommand()) {
-				case "interactive": {
-					await interactive(interaction as APIChatInputApplicationCommandGuildInteraction, {
-						locale: interaction.locale,
-					});
-
-					return;
-				}
 				case "set": {
 					await set(interaction as APIChatInputApplicationCommandGuildInteraction, options);
 					return;
