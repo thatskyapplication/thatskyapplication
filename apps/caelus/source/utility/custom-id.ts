@@ -137,6 +137,18 @@ export const enum CustomId {
 	SpiritsViewSpirit = "132",
 	SpiritsHistoryBack = "133",
 	SpiritsHistoryNext = "134",
+	WelcomeChannel = "135",
+	WelcomeMessage = "136",
+	WelcomeMessageDelete = "137",
+	WelcomeHugEdit = "138",
+	WelcomeAccentColour = "139",
+	WelcomeAccentColourDelete = "140",
+	WelcomeAssetDelete = "141",
+	WelcomeHugSend = "142",
+	WelcomeMessageModal = "143",
+	WelcomeMessageModalMessage = "144",
+	WelcomeAccentColourModal = "145",
+	WelcomeAccentColourModalAccentColour = "146",
 }
 
 export const SHARD_ERUPTION_DATES = [

@@ -129,16 +129,6 @@ import {
 } from "../features/spirits.js";
 import {
 	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
-	WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID,
-	WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
-	WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID,
-	WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
-	WELCOME_HUG_CUSTOM_ID,
-	WELCOME_HUG_SETTING_CUSTOM_ID,
-	WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
-	WELCOME_MESSAGE_SETTING_CUSTOM_ID,
-	WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID,
-	WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
 	welcomeHandleAccentColourSettingButton,
 	welcomeHandleAccentColourSettingDeleteButton,
 	welcomeHandleAccentColourSettingModal,
@@ -894,37 +884,37 @@ export default {
 						return;
 					}
 
-					if (id === WELCOME_HUG_SETTING_CUSTOM_ID) {
+					if (id === CustomId.WelcomeHugEdit) {
 						await welcomeHandleHugSettingButton(interaction, !Number(parts[0]));
 						return;
 					}
 
-					if (id === WELCOME_MESSAGE_SETTING_CUSTOM_ID) {
+					if (id === CustomId.WelcomeMessage) {
 						await welcomeHandleMessageSettingButton(interaction);
 						return;
 					}
 
-					if (id === WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID) {
+					if (id === CustomId.WelcomeMessageDelete) {
 						await welcomeHandleMessageSettingDeleteButton(interaction);
 						return;
 					}
 
-					if (id === WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID) {
+					if (id === CustomId.WelcomeAssetDelete) {
 						await welcomeHandleAssetSettingDeleteButton(interaction);
 						return;
 					}
 
-					if (id === WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID) {
+					if (id === CustomId.WelcomeAccentColour) {
 						await welcomeHandleAccentColourSettingButton(interaction);
 						return;
 					}
 
-					if (id === WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID) {
+					if (id === CustomId.WelcomeAccentColourDelete) {
 						await welcomeHandleAccentColourSettingDeleteButton(interaction);
 						return;
 					}
 
-					if (id === WELCOME_HUG_CUSTOM_ID) {
+					if (id === CustomId.WelcomeHugSend) {
 						await welcomeHandleHugButton(interaction, parts[0]!);
 						return;
 					}
@@ -1177,7 +1167,7 @@ export default {
 					return;
 				}
 
-				if (id === WELCOME_WELCOME_CHANNEL_CUSTOM_ID) {
+				if (id === CustomId.WelcomeChannel) {
 					await handleWelcomeChannelSelectMenu(interaction, {
 						welcomeChannelId: interaction.data.values[0] ?? null,
 					});
@@ -1279,12 +1269,12 @@ export default {
 						return;
 					}
 
-					if (id === WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID) {
+					if (id === CustomId.WelcomeMessageModal) {
 						await welcomeHandleMessageSettingModal(interaction);
 						return;
 					}
 
-					if (id === WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID) {
+					if (id === CustomId.WelcomeAccentColourModal) {
 						await welcomeHandleAccentColourSettingModal(interaction);
 						return;
 					}

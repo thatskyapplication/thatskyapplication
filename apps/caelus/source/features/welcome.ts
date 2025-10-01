@@ -37,6 +37,7 @@ import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
 import { APPLICATION_ID, CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
 import { ANIMATED_HASH_PREFIX } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
 	chatInputApplicationCommandMention,
@@ -47,36 +48,6 @@ import {
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { friendshipActionComponents } from "./friendship-actions.js";
-
-export const WELCOME_WELCOME_CHANNEL_CUSTOM_ID = "WELCOME_WELCOME_CHANNEL_CUSTOM_ID" as const;
-export const WELCOME_HUG_SETTING_CUSTOM_ID = "WELCOME_HUG_SETTING_CUSTOM_ID" as const;
-export const WELCOME_MESSAGE_SETTING_CUSTOM_ID = "WELCOME_MESSAGE_SETTING_CUSTOM_ID" as const;
-
-export const WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID =
-	"WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID" as const;
-
-export const WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID =
-	"WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID" as const;
-
-const WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID =
-	"WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID" as const;
-
-export const WELCOME_HUG_CUSTOM_ID = "WELCOME_HUG_CUSTOM_ID" as const;
-
-export const WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID =
-	"WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID" as const;
-
-export const WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID =
-	"WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID" as const;
-
-export const WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID =
-	"WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID" as const;
-
-export const WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID =
-	"WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID" as const;
-
-const WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID =
-	"WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID" as const;
 
 const WELCOME_MESSAGE_MAXIMUM_LENGTH = 1000 as const;
 const hexadecimalRegularExpression = /^[0-9A-Fa-f]+$/;
@@ -219,7 +190,7 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 			components: [
 				{
 					type: ComponentType.ChannelSelect,
-					custom_id: WELCOME_WELCOME_CHANNEL_CUSTOM_ID,
+					custom_id: CustomId.WelcomeChannel,
 					channel_types: [ChannelType.GuildText],
 					placeholder: t("welcome.welcome-channel-select-menu-placeholder", {
 						lng: locale,
@@ -249,14 +220,14 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Primary,
-							custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
+							custom_id: CustomId.WelcomeMessage,
 							label: t("welcome.message-edit", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Edit,
 						},
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
-							custom_id: WELCOME_MESSAGE_DELETE_SETTING_CUSTOM_ID,
+							custom_id: CustomId.WelcomeMessageDelete,
 							label: t("welcome.message-remove", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Trash,
 						},
@@ -265,7 +236,7 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Success,
-							custom_id: WELCOME_MESSAGE_SETTING_CUSTOM_ID,
+							custom_id: CustomId.WelcomeMessage,
 							label: t("welcome.message-use", { lng: locale, ns: "features" }),
 							emoji: { name: "📝" },
 						},
@@ -287,14 +258,14 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 					? {
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
-							custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§1`,
+							custom_id: `${CustomId.WelcomeHugEdit}§1`,
 							label: t("welcome.hug-remove", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Trash,
 						}
 					: {
 							type: ComponentType.Button,
 							style: ButtonStyle.Success,
-							custom_id: `${WELCOME_HUG_SETTING_CUSTOM_ID}§0`,
+							custom_id: `${CustomId.WelcomeHugEdit}§0`,
 							label: t("welcome.hug-add", { lng: locale, ns: "features" }),
 							emoji: FRIEND_ACTION_EMOJIS.Hug,
 						},
@@ -316,14 +287,14 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Primary,
-							custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
+							custom_id: CustomId.WelcomeAccentColour,
 							label: t("welcome.accent-colour-edit", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Edit,
 						},
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Danger,
-							custom_id: WELCOME_ACCENT_COLOUR_DELETE_SETTING_CUSTOM_ID,
+							custom_id: CustomId.WelcomeAccentColourDelete,
 							label: t("welcome.accent-colour-remove", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Trash,
 						},
@@ -332,7 +303,7 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 						{
 							type: ComponentType.Button,
 							style: ButtonStyle.Success,
-							custom_id: WELCOME_ACCENT_COLOUR_SETTING_CUSTOM_ID,
+							custom_id: CustomId.WelcomeAccentColour,
 							label: t("welcome.accent-colour-use", { lng: locale, ns: "features" }),
 							emoji: MISCELLANEOUS_EMOJIS.Dye,
 						},
@@ -356,7 +327,7 @@ export async function welcomeSetup({ interaction, userId, locale, deferred }: We
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Danger,
-					custom_id: WELCOME_ASSET_DELETE_SETTING_CUSTOM_ID,
+					custom_id: CustomId.WelcomeAssetDelete,
 					label: t("welcome.asset-remove", { lng: locale, ns: "features" }),
 					emoji: MISCELLANEOUS_EMOJIS.Trash,
 				},
@@ -518,7 +489,7 @@ function welcomeComponents(
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Primary,
-					custom_id: `${WELCOME_HUG_CUSTOM_ID}§${userId}`,
+					custom_id: `${CustomId.WelcomeHugSend}§${userId}`,
 					label: t("welcome.welcome-with-a-hug", { lng: locale, ns: "features" }),
 					emoji: FRIEND_ACTION_EMOJIS.Hug,
 				},
@@ -657,7 +628,7 @@ export async function welcomeHandleMessageSettingButton(
 				type: ComponentType.Label,
 				component: {
 					type: ComponentType.TextInput,
-					custom_id: WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID,
+					custom_id: CustomId.WelcomeMessageModalMessage,
 					placeholder: t("welcome.message-modal-label-welcome-message-text-input-placeholder", {
 						lng: locale,
 						ns: "features",
@@ -677,7 +648,7 @@ export async function welcomeHandleMessageSettingButton(
 				}),
 			},
 		],
-		custom_id: WELCOME_MESSAGE_SETTING_MODAL_CUSTOM_ID,
+		custom_id: CustomId.WelcomeMessageModal,
 		title: t("welcome.message-modal-title", { lng: locale, ns: "features" }),
 	});
 }
@@ -690,7 +661,7 @@ export async function welcomeHandleMessageSettingModal(
 	await pg<WelcomePacket>(Table.Welcome)
 		.insert({
 			guild_id: interaction.guild_id,
-			message: components.getTextInputValue(WELCOME_MESSAGE_SETTING_MESSAGE_CUSTOM_ID),
+			message: components.getTextInputValue(CustomId.WelcomeMessageModalMessage),
 		})
 		.onConflict("guild_id")
 		.merge();
@@ -758,7 +729,7 @@ export async function welcomeHandleAccentColourSettingButton(
 
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
-		custom_id: WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID,
+		custom_id: CustomId.WelcomeAccentColourModalAccentColour,
 		placeholder: "#123456",
 		max_length: 7,
 		min_length: 7,
@@ -785,7 +756,7 @@ export async function welcomeHandleAccentColourSettingButton(
 				}),
 			},
 		],
-		custom_id: WELCOME_ACCENT_COLOUR_SETTING_MODAL_CUSTOM_ID,
+		custom_id: CustomId.WelcomeAccentColourModal,
 		title: t("welcome.accent-colour-modal-title", { lng: locale, ns: "features" }),
 	});
 }
@@ -794,11 +765,7 @@ export async function welcomeHandleAccentColourSettingModal(
 	interaction: APIModalSubmitGuildInteraction,
 ) {
 	const components = new ModalResolver(interaction.data.components);
-
-	const accentColour = components.getTextInputValue(
-		WELCOME_ACCENT_COLOUR_SETTING_ACCENT_COLOUR_CUSTOM_ID,
-	);
-
+	const accentColour = components.getTextInputValue(CustomId.WelcomeAccentColourModalAccentColour);
 	const hexadecimalString = accentColour.slice(1);
 
 	if (accentColour[0] !== "#" || !hexadecimalRegularExpression.test(hexadecimalString)) {
