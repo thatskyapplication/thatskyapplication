@@ -1227,6 +1227,7 @@ export default {
 		if (isModalSubmit(interaction)) {
 			logModalSubmit(interaction);
 			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
+
 			try {
 				if (id === CustomId.AboutFeedbackModal) {
 					await feedbackSubmission(interaction);
