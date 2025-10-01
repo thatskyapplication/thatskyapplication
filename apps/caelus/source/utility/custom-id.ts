@@ -134,6 +134,9 @@ export const enum CustomId {
 	SkyProfileSeasons2 = "129",
 	SkyProfilePlatforms = "130",
 	SkyProfileReset = "131",
+	SpiritsViewSpirit = "132",
+	SpiritsHistoryBack = "133",
+	SpiritsHistoryNext = "134",
 }
 
 export const SHARD_ERUPTION_DATES = [

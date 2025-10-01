@@ -24,7 +24,6 @@ import {
 	type ScheduleTypes,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
-	spirits,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -124,13 +123,9 @@ import {
 	skyProfileShowReset,
 } from "../features/sky-profile.js";
 import {
-	handleSearchButton,
-	SPIRITS_HISTORY_BACK_CUSTOM_ID,
-	SPIRITS_HISTORY_NEXT_CUSTOM_ID,
-	SPIRITS_VIEW_SPIRIT_CUSTOM_ID,
-	search,
 	spiritsHistory,
 	spiritsParseSpiritsHistoryCustomId,
+	spiritsViewSpirit,
 } from "../features/spirits.js";
 import {
 	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
@@ -636,7 +631,6 @@ export default {
 				}
 
 				if (id === CustomId.ScheduleDetailedBreakdownViewSpirit) {
-					const spiritId = Number(parts[0]) as SpiritIds;
 					let flags = MessageFlags.IsComponentsV2;
 
 					if (
@@ -646,11 +640,7 @@ export default {
 						flags |= MessageFlags.Ephemeral;
 					}
 
-					await client.api.interactions.reply(interaction.id, interaction.token, {
-						components: search({ spirit: spirits().get(spiritId)!, locale: interaction.locale }),
-						flags,
-					});
-
+					await spiritsViewSpirit(interaction, Number(parts[0]) as SpiritIds, { flags });
 					return;
 				}
 
@@ -778,15 +768,17 @@ export default {
 					return;
 				}
 
-				if (id === SPIRITS_HISTORY_BACK_CUSTOM_ID || id === SPIRITS_HISTORY_NEXT_CUSTOM_ID) {
-					// We already have an array. Double-check this.
+				if (id === CustomId.SpiritsHistoryBack || id === CustomId.SpiritsHistoryNext) {
 					const { type, page } = spiritsParseSpiritsHistoryCustomId(interaction.data.custom_id);
 					await spiritsHistory(interaction, { type, page });
 					return;
 				}
 
-				if (id === SPIRITS_VIEW_SPIRIT_CUSTOM_ID) {
-					await handleSearchButton(interaction);
+				if (id === CustomId.SpiritsViewSpirit) {
+					await spiritsViewSpirit(interaction, Number(parts[0]) as SpiritIds, {
+						flags: MessageFlags.Ephemeral,
+					});
+
 					return;
 				}
 
