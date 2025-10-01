@@ -94,6 +94,11 @@ import {
 	SKY_PROFILE_UNKNOWN_NAME,
 	SKY_PROFILES_URL,
 } from "../utility/constants.js";
+import {
+	CustomId,
+	SKY_PROFILE_EXPLORER_LIKES,
+	SKY_PROFILE_EXPLORERS,
+} from "../utility/custom-id.js";
 import { EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import {
 	chatInputApplicationCommandMention,
@@ -139,102 +144,6 @@ const PlatformIdToEmoji = {
 	[PlatformId.PlayStation]: MISCELLANEOUS_EMOJIS.PlatformPlayStation,
 	[PlatformId.Steam]: MISCELLANEOUS_EMOJIS.PlatformSteam,
 } as const satisfies Readonly<Record<PlatformIds, Emoji>>;
-
-export const SKY_PROFILE_EDIT_CUSTOM_ID = "SKY_PROFILE_EDIT_CUSTOM_ID" as const;
-export const SKY_PROFILE_SHOW_RESET_CUSTOM_ID = "SKY_PROFILE_SHOW_RESET_CUSTOM_ID" as const;
-export const SKY_PROFILE_RESET_CUSTOM_ID = "SKY_PROFILE_RESET_CUSTOM_ID" as const;
-export const SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID = "SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID" as const;
-const SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID =
-	"SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID" as const;
-
-const SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID =
-	"SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID =
-	"SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID =
-	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID =
-	"SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID =
-	"SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID =
-	"SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID" as const;
-
-const SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID = "SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID =
-	"SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS = [
-	"SKY_PROFILE_EXPLORE_1_SELECT_MENU_CUSTOM_ID",
-	"SKY_PROFILE_EXPLORE_2_SELECT_MENU_CUSTOM_ID",
-	"SKY_PROFILE_EXPLORE_3_SELECT_MENU_CUSTOM_ID",
-	"SKY_PROFILE_EXPLORE_4_SELECT_MENU_CUSTOM_ID",
-] as const;
-
-export const SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS = [
-	"SKY_PROFILE_EXPLORE_LIKES_1_SELECT_MENU_CUSTOM_ID",
-	"SKY_PROFILE_EXPLORE_LIKES_2_SELECT_MENU_CUSTOM_ID",
-	"SKY_PROFILE_EXPLORE_LIKES_3_SELECT_MENU_CUSTOM_ID",
-	"SKY_PROFILE_EXPLORE_LIKES_4_SELECT_MENU_CUSTOM_ID",
-] as const;
-
-export const SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID = "SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID" as const;
-export const SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID = "SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID" as const;
-export const SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID = "SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID = "SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_REPORT_MODAL_CUSTOM_ID = "SKY_PROFILE_REPORT_MODAL_CUSTOM_ID" as const;
-
-const SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID =
-	"SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID" as const;
-
-export const SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID =
-	"SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID" as const;
 
 export const enum AssetType {
 	Icon = 0,
@@ -562,7 +471,7 @@ export async function skyProfileShowEdit(
 		components: [
 			{
 				type: ComponentType.StringSelect,
-				custom_id: SKY_PROFILE_EDIT_CUSTOM_ID,
+				custom_id: CustomId.SkyProfileEdit,
 				max_values: 1,
 				min_values: 1,
 				options: SKY_PROFILE_EDIT_TYPE_VALUES.map((skyProfileEditType) => ({
@@ -586,7 +495,7 @@ export async function skyProfileShowEdit(
 		components: [
 			{
 				type: ComponentType.Button,
-				custom_id: SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
+				custom_id: CustomId.SkyProfileViewReset,
 				label: t("sky-profile.edit-reset-button-label", { lng: locale, ns: "features" }),
 				style: ButtonStyle.Secondary,
 			},
@@ -703,8 +612,7 @@ export async function skyProfileExplore(
 		? 1
 		: Number(interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1));
 
-	const limit =
-		MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT * SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.length;
+	const limit = MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT * SKY_PROFILE_EXPLORERS.length;
 
 	const offset = (page - 1) * limit;
 
@@ -757,7 +665,7 @@ export async function skyProfileExplore(
 		},
 	];
 
-	for (const [index, customId] of SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.entries()) {
+	for (const [index, customId] of SKY_PROFILE_EXPLORERS.entries()) {
 		const options = generateProfileExplorerSelectMenuOptions(
 			skyProfilePackets,
 			index * MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
@@ -790,7 +698,7 @@ export async function skyProfileExplore(
 		components: [
 			{
 				type: ComponentType.Button,
-				custom_id: `${SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID}§${page - 1}`,
+				custom_id: `${CustomId.SkyProfileExplorerBack}§${page - 1}`,
 				disabled: !hasPreviousPage,
 				emoji: { name: "⬅️" },
 				label: t("navigation-back", { lng: locale, ns: "general" }),
@@ -798,7 +706,7 @@ export async function skyProfileExplore(
 			},
 			{
 				type: ComponentType.Button,
-				custom_id: `${SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID}§${page + 1}`,
+				custom_id: `${CustomId.SkyProfileExplorerNext}§${page + 1}`,
 				disabled: !hasNextPage,
 				emoji: { name: "➡️" },
 				label: t("navigation-next", { lng: locale, ns: "general" }),
@@ -806,7 +714,7 @@ export async function skyProfileExplore(
 			},
 			{
 				type: ComponentType.Button,
-				custom_id: `${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`,
+				custom_id: `${CustomId.SkyProfileExplorerViewLikes}§1`,
 				disabled: skyProfileLikesPackets.length === 0,
 				emoji: { name: "🌐" },
 				label: t("sky-profile.explore-likes-button", { lng: locale, ns: "features" }),
@@ -937,7 +845,7 @@ export async function skyProfileExploreProfile(
 						components: [
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`,
+								custom_id: `${CustomId.SkyProfileExplorerProfileBack}§${previous?.user_id}`,
 								disabled: !previous,
 								emoji: { name: "⬅️" },
 								label: t("navigation-back", { lng: locale, ns: "general" }),
@@ -945,7 +853,7 @@ export async function skyProfileExploreProfile(
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`,
+								custom_id: `${CustomId.SkyProfileExplorerProfileNext}§${next?.user_id}`,
 								disabled: !next,
 								emoji: { name: "➡️" },
 								label: t("navigation-next", { lng: locale, ns: "general" }),
@@ -953,7 +861,7 @@ export async function skyProfileExploreProfile(
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID}§${userId}`,
+								custom_id: `${CustomId.SkyProfileExplorerProfileLike}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Heart,
 								label: isLiked
@@ -969,7 +877,7 @@ export async function skyProfileExploreProfile(
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`,
+								custom_id: `${CustomId.SkyProfileViewExplorer}§1`,
 								emoji: { name: "🌐" },
 								label: t("sky-profile.explore-profile-explore-button", {
 									lng: locale,
@@ -979,7 +887,7 @@ export async function skyProfileExploreProfile(
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID}§${userId}`,
+								custom_id: `${CustomId.SkyProfileExplorerProfileReport}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
 								label: t("sky-profile.explore-profile-report-button", {
@@ -1039,10 +947,7 @@ export async function skyProfileExploreLikes(
 		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
 	);
 
-	const limit =
-		MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT *
-		SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.length;
-
+	const limit = MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT * SKY_PROFILE_EXPLORER_LIKES.length;
 	const offset = (page - 1) * limit;
 
 	const SkyProfilePackets = await pg(Table.SkyProfileLikes)
@@ -1090,7 +995,7 @@ export async function skyProfileExploreLikes(
 		},
 	];
 
-	for (const [index, customId] of SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.entries()) {
+	for (const [index, customId] of SKY_PROFILE_EXPLORER_LIKES.entries()) {
 		const options = generateProfileExplorerSelectMenuOptions(
 			SkyProfilePackets,
 			index * MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
@@ -1122,7 +1027,7 @@ export async function skyProfileExploreLikes(
 		components: [
 			{
 				type: ComponentType.Button,
-				custom_id: `${SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID}§${page - 1}`,
+				custom_id: `${CustomId.SkyProfileExplorerLikesBack}§${page - 1}`,
 				disabled: !hasPreviousPage,
 				emoji: { name: "⬅️" },
 				label: t("navigation-back", { lng: locale, ns: "general" }),
@@ -1130,7 +1035,7 @@ export async function skyProfileExploreLikes(
 			},
 			{
 				type: ComponentType.Button,
-				custom_id: `${SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID}§${page + 1}`,
+				custom_id: `${CustomId.SkyProfileExplorerLikesNext}§${page + 1}`,
 				disabled: !hasNextPage,
 				emoji: { name: "➡️" },
 				label: t("navigation-next", { lng: locale, ns: "general" }),
@@ -1138,7 +1043,7 @@ export async function skyProfileExploreLikes(
 			},
 			{
 				type: ComponentType.Button,
-				custom_id: `${SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID}§1`,
+				custom_id: `${CustomId.SkyProfileViewExplorer}§1`,
 				emoji: { name: "🌐" },
 				label: t("sky-profile.explore-profile-explore-button", { lng: locale, ns: "features" }),
 				style: ButtonStyle.Secondary,
@@ -1249,7 +1154,7 @@ export async function skyProfileExploreLikedProfile(
 						components: [
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID}§${previous?.user_id}`,
+								custom_id: `${CustomId.SkyProfileExplorerLikesProfileBack}§${previous?.user_id}`,
 								disabled: !previous,
 								emoji: { name: "⬅️" },
 								label: t("navigation-back", { lng: locale, ns: "general" }),
@@ -1257,7 +1162,7 @@ export async function skyProfileExploreLikedProfile(
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID}§${next?.user_id}`,
+								custom_id: `${CustomId.SkyProfileExplorerLikesProfileNext}§${next?.user_id}`,
 								disabled: !next,
 								emoji: { name: "➡️" },
 								label: t("navigation-next", { lng: locale, ns: "general" }),
@@ -1265,7 +1170,7 @@ export async function skyProfileExploreLikedProfile(
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID}§${userId}`,
+								custom_id: `${CustomId.SkyProfileExplorerLikesProfileLike}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Heart,
 								label: isLiked
@@ -1281,14 +1186,14 @@ export async function skyProfileExploreLikedProfile(
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID}§1`,
+								custom_id: `${CustomId.SkyProfileExplorerViewLikes}§1`,
 								emoji: { name: "🌐" },
 								label: t("sky-profile.explore-likes-button", { lng: locale, ns: "features" }),
 								style: ButtonStyle.Secondary,
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID}§${userId}`,
+								custom_id: `${CustomId.SkyProfileExplorerLikesProfileReport}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
 								label: t("sky-profile.explore-profile-report-button", {
@@ -1392,14 +1297,14 @@ export async function skyProfileReport(
 						components: [
 							{
 								type: ComponentType.Button,
-								custom_id: `${fromLike ? SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID : SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID}§${userId}`,
+								custom_id: `${fromLike ? CustomId.SkyProfileExplorerLikesViewProfile : CustomId.SkyProfileExplorerViewProfile}§${userId}`,
 								emoji: { name: "⬅️" },
 								label: t("navigation-back", { lng: locale, ns: "general" }),
 								style: ButtonStyle.Secondary,
 							},
 							{
 								type: ComponentType.Button,
-								custom_id: `${SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID}§${userId}`,
+								custom_id: `${CustomId.SkyProfileExplorerConfirmReport}§${userId}`,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
 								label: t("sky-profile.report-confirm-button", { lng: locale, ns: "features" }),
 								style: ButtonStyle.Danger,
@@ -1438,7 +1343,7 @@ export async function skyProfileReportModalPrompt(
 				type: ComponentType.Label,
 				component: {
 					type: ComponentType.TextInput,
-					custom_id: SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID,
+					custom_id: CustomId.SkyProfileReportModalReason,
 					max_length: SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 					min_length: SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 					style: TextInputStyle.Paragraph,
@@ -1450,7 +1355,7 @@ export async function skyProfileReportModalPrompt(
 				}),
 			},
 		],
-		custom_id: `${SKY_PROFILE_REPORT_MODAL_CUSTOM_ID}§${userId}`,
+		custom_id: `${CustomId.SkyProfileReportModal}§${userId}`,
 		title: t("sky-profile.report-modal-title", { lng: locale, ns: "features" }),
 	});
 }
@@ -1531,7 +1436,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 	}
 
 	const components = new ModalResolver(interaction.data.components);
-	const text = components.getTextInputValue(SKY_PROFILE_REPORT_TEXT_INPUT_1_CUSTOM_ID);
+	const text = components.getTextInputValue(CustomId.SkyProfileReportModalReason);
 	const invoker = interactionInvoker(interaction);
 
 	await client.api.channels.createMessage(channel.id, {
@@ -1566,7 +1471,7 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
-		custom_id: SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID,
+		custom_id: CustomId.SkyProfileNameModalName,
 		max_length: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 		min_length: 1,
 		required: true,
@@ -1589,7 +1494,7 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 				}),
 			},
 		],
-		custom_id: SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
+		custom_id: CustomId.SkyProfileNameModal,
 		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
 }
@@ -1606,7 +1511,7 @@ async function skyProfileShowDescriptionModal(
 
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
-		custom_id: SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID,
+		custom_id: CustomId.SkyProfileDescriptionModalDescription,
 		max_length: SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 		min_length: 1,
 		required: true,
@@ -1629,7 +1534,7 @@ async function skyProfileShowDescriptionModal(
 				}),
 			},
 		],
-		custom_id: SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
+		custom_id: CustomId.SkyProfileDescriptionModal,
 		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
 }
@@ -1661,7 +1566,7 @@ async function skyProfileShowWingedLightSelectMenu(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID,
+								custom_id: CustomId.SkyProfileWingedLight,
 								max_values: 1,
 								min_values: 1,
 								options: SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((skyProfileWingedLightType) => ({
@@ -1684,7 +1589,7 @@ async function skyProfileShowWingedLightSelectMenu(
 						components: [
 							{
 								type: ComponentType.Button,
-								custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+								custom_id: CustomId.SkyProfileViewEdit,
 								emoji: { name: "⏮️" },
 								label: t("navigation-back", { lng: locale, ns: "general" }),
 								style: ButtonStyle.Primary,
@@ -1707,7 +1612,7 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
-		custom_id: SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID,
+		custom_id: CustomId.SkyProfileHangoutModalHangout,
 		max_length: SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 		min_length: SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 		required: true,
@@ -1730,7 +1635,7 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 				}),
 			},
 		],
-		custom_id: SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID,
+		custom_id: CustomId.SkyProfileHangoutModal,
 		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
 }
@@ -1758,7 +1663,7 @@ async function skyProfileShowSeasonsSelectMenu(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID,
+					custom_id: CustomId.SkyProfileSeasons1,
 					max_values: seasons1.size,
 					min_values: 0,
 					options: seasons1.map((season) => {
@@ -1791,7 +1696,7 @@ async function skyProfileShowSeasonsSelectMenu(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID,
+					custom_id: CustomId.SkyProfileSeasons2,
 					max_values: seasons2.size,
 					min_values: 0,
 					options: seasons2.map((season) => {
@@ -1823,7 +1728,7 @@ async function skyProfileShowSeasonsSelectMenu(
 		components: [
 			{
 				type: ComponentType.Button,
-				custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+				custom_id: CustomId.SkyProfileViewEdit,
 				emoji: { name: "⏮️" },
 				label: t("navigation-back", { lng: locale, ns: "general" }),
 				style: ButtonStyle.Primary,
@@ -1858,7 +1763,7 @@ async function skyProfileShowPlatformsSelectMenu(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
+								custom_id: CustomId.SkyProfilePlatforms,
 								max_values: PLATFORM_ID_VALUES.length,
 								min_values: 0,
 								options: PLATFORM_ID_VALUES.map((platformId) => ({
@@ -1882,7 +1787,7 @@ async function skyProfileShowPlatformsSelectMenu(
 						components: [
 							{
 								type: ComponentType.Button,
-								custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+								custom_id: CustomId.SkyProfileViewEdit,
 								emoji: { name: "⏮️" },
 								label: t("navigation-back", { lng: locale, ns: "general" }),
 								style: ButtonStyle.Primary,
@@ -1899,16 +1804,14 @@ export function skyProfileSetName(interaction: APIModalSubmitInteraction) {
 	const components = new ModalResolver(interaction.data.components);
 
 	// Mobile may use new lines.
-	const name = components
-		.getTextInputValue(SKY_PROFILE_SET_NAME_INPUT_CUSTOM_ID)
-		.replace(/\n/g, " ");
+	const name = components.getTextInputValue(CustomId.SkyProfileNameModalName).replace(/\n/g, " ");
 
 	return skyProfileSet(interaction, { user_id: interactionInvoker(interaction).id, name });
 }
 
 export function skyProfileSetDescription(interaction: APIModalSubmitInteraction) {
 	const components = new ModalResolver(interaction.data.components);
-	const description = components.getTextInputValue(SKY_PROFILE_SET_DESCRIPTION_INPUT_CUSTOM_ID);
+	const description = components.getTextInputValue(CustomId.SkyProfileDescriptionModalDescription);
 	return skyProfileSet(interaction, { user_id: interactionInvoker(interaction).id, description });
 }
 
@@ -1926,7 +1829,7 @@ export function skyProfileSetHangout(interaction: APIModalSubmitInteraction) {
 
 	// Mobile may use new lines.
 	const hangout = components
-		.getTextInputValue(SKY_PROFILE_SET_HANGOUT_INPUT_CUSTOM_ID)
+		.getTextInputValue(CustomId.SkyProfileHangoutModalHangout)
 		.replace(/\n/g, " ");
 
 	return skyProfileSet(interaction, { user_id: interactionInvoker(interaction).id, hangout });
@@ -2037,7 +1940,7 @@ export async function skyProfileShowReset(interaction: APIMessageComponentButton
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: SKY_PROFILE_RESET_CUSTOM_ID,
+								custom_id: CustomId.SkyProfileReset,
 								max_values: SKY_PROFILE_RESET_TYPE_VALUES.length,
 								min_values: 1,
 								options: SKY_PROFILE_RESET_TYPE_VALUES.map((skyProfileResetType) => ({
@@ -2059,7 +1962,7 @@ export async function skyProfileShowReset(interaction: APIMessageComponentButton
 						components: [
 							{
 								type: ComponentType.Button,
-								custom_id: SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
+								custom_id: CustomId.SkyProfileViewEdit,
 								emoji: { name: "⏮️" },
 								label: t("navigation-back", { lng: locale, ns: "general" }),
 								style: ButtonStyle.Primary,

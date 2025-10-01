@@ -58,6 +58,7 @@ import { client } from "../discord.js";
 import pg from "../pg.js";
 import { CatalogueType, resolveCostToString } from "../utility/catalogue.js";
 import { CATALOGUE_EVENTS_THRESHOLD, MAXIMUM_TEXT_DISPLAY_LENGTH } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import {
 	CosmeticToEmoji,
 	CUSTOM_EMOJI_REPLACEMENTS,
@@ -72,53 +73,13 @@ import {
 	resolveStringSelectMenu,
 } from "../utility/functions.js";
 
-export const CATALOGUE_VIEW_START_CUSTOM_ID = "CATALOGUE_VIEW_START_CUSTOM_ID" as const;
-export const CATALOGUE_BACK_TO_START_CUSTOM_ID = "CATALOGUE_BACK_TO_START_CUSTOM_ID" as const;
-export const CATALOGUE_SETTINGS_CUSTOM_ID = "CATALOGUE_SETTINGS_CUSTOM_ID" as const;
-
-export const CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID =
-	"CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID" as const;
-
-export const CATALOGUE_VIEW_REALMS_CUSTOM_ID = "CATALOGUE_VIEW_REALMS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_ELDERS_CUSTOM_ID = "CATALOGUE_VIEW_ELDERS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_SEASONS_CUSTOM_ID = "CATALOGUE_VIEW_SEASONS_CUSTOM_ID" as const;
-export const CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID = "CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_REALM_CUSTOM_ID = "CATALOGUE_VIEW_REALM_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_SEASON_CUSTOM_ID = "CATALOGUE_VIEW_SEASON_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID =
-	"CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID = "CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID =
-	"CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID =
-	"CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID" as const;
-
-export const CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID =
-	"CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID" as const;
-
-export const CATALOGUE_VIEW_SPIRIT_CUSTOM_ID = "CATALOGUE_VIEW_SPIRIT_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_EVENT_CUSTOM_ID = "CATALOGUE_VIEW_EVENT_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_OFFER_1_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_1_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_OFFER_2_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_2_CUSTOM_ID" as const;
-export const CATALOGUE_VIEW_OFFER_3_CUSTOM_ID = "CATALOGUE_VIEW_OFFER_3_CUSTOM_ID" as const;
-export const CATALOGUE_REALM_EVERYTHING_CUSTOM_ID = "CATALOGUE_REALM_EVERYTHING_CUSTOM_ID" as const;
-
-export const CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID =
-	"CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID" as const;
-
-export const CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID =
-	"CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID" as const;
-
-export const CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID = "CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID" as const;
 const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
 
 function backToStartButton(locale: Locale): APIButtonComponentWithCustomId {
 	return {
 		type: ComponentType.Button,
 		// This custom id must differ to avoid duplicate custom ids.
-		custom_id: CATALOGUE_BACK_TO_START_CUSTOM_ID,
+		custom_id: CustomId.CatalogueBackToStart,
 		emoji: { name: "⏮️" },
 		label: t("catalogue.back-to-start-button-label", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Secondary,
@@ -571,9 +532,9 @@ async function start({
 	const currentSeasonButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: currentSeason
-			? `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}`
+			? `${CustomId.CatalogueViewSeason}§${currentSeason.id}`
 			: // This would not happen, but it's here to satisfy the API.
-				CATALOGUE_VIEW_SEASONS_CUSTOM_ID,
+				CustomId.CatalogueViewSeasons,
 		disabled: !currentSeason,
 		label: currentSeason
 			? t(`seasons.${currentSeason.id}`, { lng: locale, ns: "general" })
@@ -594,7 +555,7 @@ async function start({
 						type: ComponentType.Button,
 						style: ButtonStyle.Secondary,
 						// This would not happen, but it's here to satisfy the API.
-						custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewEvent,
 						label: t("catalogue.current-event-fallback", { lng: locale, ns: "features" }),
 						disabled: true,
 					},
@@ -603,7 +564,7 @@ async function start({
 					const button: APIButtonComponentWithCustomId = {
 						type: ComponentType.Button,
 						style: ButtonStyle.Success,
-						custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${event.id}`,
+						custom_id: `${CustomId.CatalogueViewEvent}§${event.id}`,
 						label: t(`events.${event.id}`, { lng: locale, ns: "general" }),
 					};
 
@@ -620,9 +581,9 @@ async function start({
 	const currentTravellingSpiritButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: currentTravellingSpirit
-			? `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${currentTravellingSpirit.id}`
+			? `${CustomId.CatalogueViewSpirit}§${currentTravellingSpirit.id}`
 			: // This would not happen, but it's here to satisfy the API.
-				`${CATALOGUE_VIEW_START_CUSTOM_ID}-travelling`,
+				`${CustomId.CatalogueViewStart}-travelling`,
 
 		disabled: !currentTravellingSpirit,
 		label: t("catalogue.travelling-spirit", { lng: locale, ns: "features" }),
@@ -639,9 +600,9 @@ async function start({
 	const currentReturningSpiritsButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: currentReturningSpirits
-			? CATALOGUE_VIEW_RETURNING_SPIRITS_CUSTOM_ID
+			? CustomId.CatalogueViewReturningSpirits
 			: // This would not happen, but it's here to satisfy the API.
-				`${CATALOGUE_VIEW_START_CUSTOM_ID}-returning`,
+				`${CustomId.CatalogueViewStart}-returning`,
 		disabled: !currentReturningSpirits,
 		label: t("catalogue.returning-spirits", { lng: locale, ns: "features" }),
 		style: currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary,
@@ -678,7 +639,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Secondary,
-						custom_id: CATALOGUE_SETTINGS_CUSTOM_ID,
+						custom_id: CustomId.CatalogueSettings,
 						emoji: MISCELLANEOUS_EMOJIS.Settings,
 					},
 					components: [
@@ -693,7 +654,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewRealms,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -708,7 +669,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CATALOGUE_VIEW_ELDERS_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewElders,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -723,7 +684,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§1`,
+						custom_id: `${CustomId.CatalogueViewSeasons}§1`,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -738,7 +699,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewEventYears,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -753,7 +714,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CATALOGUE_VIEW_STARTER_PACKS_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewStarterPacks,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -768,7 +729,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CATALOGUE_VIEW_SECRET_AREA_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewSecretArea,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -783,7 +744,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CATALOGUE_VIEW_PERMANENT_EVENT_STORE_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewPermanentEventStore,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -798,7 +759,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CATALOGUE_VIEW_NESTING_WORKSHOP_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewNestingWorkshop,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -860,7 +821,7 @@ export async function viewSettings(interaction: APIMessageComponentButtonInterac
 	const everythingSetting: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		style: catalogue?.show_everything_button ? ButtonStyle.Danger : ButtonStyle.Success,
-		custom_id: `${CATALOGUE_SETTINGS_EVERYTHING_CUSTOM_ID}§${Number(catalogue?.show_everything_button ?? true)}`,
+		custom_id: `${CustomId.CatalogueSettingsEverything}§${Number(catalogue?.show_everything_button ?? true)}`,
 		label: catalogue?.show_everything_button
 			? t("catalogue.settings-button-label-disable", { lng: locale, ns: "features" })
 			: t("catalogue.settings-button-label-enable", { lng: locale, ns: "features" }),
@@ -901,7 +862,7 @@ export async function viewSettings(interaction: APIMessageComponentButtonInterac
 							backToStartButton(locale),
 							{
 								type: ComponentType.Button,
-								custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+								custom_id: CustomId.CatalogueViewStart,
 								emoji: { name: "⏪" },
 								label: t("navigation-back", { lng: locale, ns: "general" }),
 								style: ButtonStyle.Secondary,
@@ -950,7 +911,7 @@ export async function viewRealms(
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Primary,
-				custom_id: `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${realm.name}`,
+				custom_id: `${CustomId.CatalogueViewRealm}§${realm.name}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content }],
@@ -973,7 +934,7 @@ export async function viewRealms(
 				backToStartButton(locale),
 				{
 					type: ComponentType.Button,
-					custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+					custom_id: CustomId.CatalogueViewStart,
 					emoji: { name: "⏪" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
@@ -1040,7 +1001,7 @@ export async function viewRealm(
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Primary,
-				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+				custom_id: `${CustomId.CatalogueViewSpirit}§${id}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: text }],
@@ -1051,7 +1012,7 @@ export async function viewRealm(
 		backToStartButton(locale),
 		{
 			type: ComponentType.Button,
-			custom_id: CATALOGUE_VIEW_REALMS_CUSTOM_ID,
+			custom_id: CustomId.CatalogueViewRealms,
 			emoji: { name: "⏪" },
 			label: t("navigation-back", { lng: locale, ns: "general" }),
 			style: ButtonStyle.Secondary,
@@ -1061,7 +1022,7 @@ export async function viewRealm(
 	if (catalogue?.show_everything_button) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
-			custom_id: `${CATALOGUE_REALM_EVERYTHING_CUSTOM_ID}§${realm}`,
+			custom_id: `${CustomId.CatalogueRealmEverything}§${realm}`,
 			disabled: hasEverything,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -1134,7 +1095,7 @@ export async function viewElders(
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Primary,
-				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+				custom_id: `${CustomId.CatalogueViewSpirit}§${id}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: text }],
@@ -1145,7 +1106,7 @@ export async function viewElders(
 		backToStartButton(locale),
 		{
 			type: ComponentType.Button,
-			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			custom_id: CustomId.CatalogueViewStart,
 			emoji: { name: "⏪" },
 			label: t("navigation-back", { lng: locale, ns: "general" }),
 			style: ButtonStyle.Secondary,
@@ -1155,7 +1116,7 @@ export async function viewElders(
 	if (catalogue?.show_everything_button) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
-			custom_id: CATALOGUE_ELDERS_EVERYTHING_CUSTOM_ID,
+			custom_id: CustomId.CatalogueEldersEverything,
 			disabled: hasEverything,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -1196,7 +1157,7 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 		const accessory: APIButtonComponentWithCustomId = {
 			type: ComponentType.Button,
 			// The § at the end is to prevent the API throwing a duplicate custom id error.
-			custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${currentSeason.id}§`,
+			custom_id: `${CustomId.CatalogueViewSeason}§${currentSeason.id}§`,
 			style: ButtonStyle.Primary,
 		};
 
@@ -1254,7 +1215,7 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 		const accessory: APIButtonComponentWithCustomId = {
 			type: ComponentType.Button,
 			style: ButtonStyle.Secondary,
-			custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${season.id}`,
+			custom_id: `${CustomId.CatalogueViewSeason}§${season.id}`,
 			label: t("view", { lng: locale, ns: "general" }),
 		};
 
@@ -1287,14 +1248,14 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§${page === 1 ? maximumPage : page - 1}`,
+					custom_id: `${CustomId.CatalogueViewSeasons}§${page === 1 ? maximumPage : page - 1}`,
 					emoji: { name: "⬅️" },
 					label: t("catalogue.seasons-previous-seasons", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Secondary,
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§${page === maximumPage ? 1 : page + 1}`,
+					custom_id: `${CustomId.CatalogueViewSeasons}§${page === maximumPage ? 1 : page + 1}`,
 					emoji: { name: "➡️" },
 					label: t("catalogue.seasons-next-seasons", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Secondary,
@@ -1307,7 +1268,7 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 				backToStartButton(locale),
 				{
 					type: ComponentType.Button,
-					custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+					custom_id: CustomId.CatalogueViewStart,
 					emoji: { name: "⏪" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
@@ -1389,7 +1350,7 @@ export async function viewSeason(
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Primary,
-				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+				custom_id: `${CustomId.CatalogueViewSpirit}§${id}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: text }],
@@ -1426,7 +1387,7 @@ export async function viewSeason(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: `${CATALOGUE_SET_SEASON_ITEMS_CUSTOM_ID}§${seasonId}`,
+					custom_id: `${CustomId.CatalogueSetSeasonItems}§${seasonId}`,
 					max_values: itemsOptions.length,
 					min_values: 0,
 					options: itemsOptions,
@@ -1448,7 +1409,7 @@ export async function viewSeason(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_SEASON_EVERYTHING_CUSTOM_ID}§${seasonId}`,
+					custom_id: `${CustomId.CatalogueSeasonEverything}§${seasonId}`,
 					disabled: hasEverything,
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -1460,7 +1421,7 @@ export async function viewSeason(
 
 	const previousSeasonButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${before?.id}`,
+		custom_id: `${CustomId.CatalogueViewSeason}§${before?.id}`,
 		disabled: !before,
 		label: t("catalogue.season-previous-season", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Secondary,
@@ -1468,7 +1429,7 @@ export async function viewSeason(
 
 	const nextSeasonButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${after?.id}`,
+		custom_id: `${CustomId.CatalogueViewSeason}§${after?.id}`,
 		disabled: !after,
 		label: t("catalogue.season-next-season", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Secondary,
@@ -1510,7 +1471,7 @@ export async function viewSeason(
 				backToStartButton(locale),
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_SEASONS_CUSTOM_ID}§${Math.ceil((season.id + 1) / MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
+					custom_id: `${CustomId.CatalogueViewSeasons}§${Math.ceil((season.id + 1) / MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
 					emoji: { name: "⏪" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
@@ -1558,7 +1519,7 @@ export async function viewEventYears(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID,
+								custom_id: CustomId.CatalogueViewEventYear,
 								max_values: 1,
 								min_values: 0,
 								options: skyEventYears().map((year) => {
@@ -1595,7 +1556,7 @@ export async function viewEventYears(
 							backToStartButton(locale),
 							{
 								type: ComponentType.Button,
-								custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+								custom_id: CustomId.CatalogueViewStart,
 								emoji: { name: "⏪" },
 								label: t("navigation-back", { lng: locale, ns: "general" }),
 								style: ButtonStyle.Secondary,
@@ -1657,7 +1618,7 @@ export async function viewEvents(
 				components: [
 					{
 						type: ComponentType.StringSelect,
-						custom_id: CATALOGUE_VIEW_EVENT_CUSTOM_ID,
+						custom_id: CustomId.CatalogueViewEvent,
 						max_values: 1,
 						min_values: 0,
 						options: events.map((event) => {
@@ -1691,7 +1652,7 @@ export async function viewEvents(
 				accessory: {
 					type: ComponentType.Button,
 					style: ButtonStyle.Primary,
-					custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${id}`,
+					custom_id: `${CustomId.CatalogueViewEvent}§${id}`,
 					label: t("view", { lng: locale, ns: "general" }),
 				},
 				components: [{ type: ComponentType.TextDisplay, content: text }],
@@ -1710,7 +1671,7 @@ export async function viewEvents(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${before}`,
+					custom_id: `${CustomId.CatalogueViewEventYear}§${before}`,
 					disabled: !before,
 					emoji: { name: "⬅️" },
 					label: t("catalogue.events-previous-year", { lng: locale, ns: "features" }),
@@ -1718,7 +1679,7 @@ export async function viewEvents(
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${after}`,
+					custom_id: `${CustomId.CatalogueViewEventYear}§${after}`,
 					disabled: !after,
 					emoji: { name: "➡️" },
 					label: t("catalogue.events-next-year", { lng: locale, ns: "features" }),
@@ -1732,7 +1693,7 @@ export async function viewEvents(
 				backToStartButton(locale),
 				{
 					type: ComponentType.Button,
-					custom_id: CATALOGUE_VIEW_EVENT_YEARS_CUSTOM_ID,
+					custom_id: CustomId.CatalogueViewEventYears,
 					emoji: { name: "⏪" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
@@ -1796,7 +1757,7 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 			accessory: {
 				type: ComponentType.Button,
 				style: ButtonStyle.Primary,
-				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${id}`,
+				custom_id: `${CustomId.CatalogueViewSpirit}§${id}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: text }],
@@ -1982,7 +1943,7 @@ async function viewSpirit(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§spirit:${spirit.id}`,
+					custom_id: `${CustomId.CatalogueViewOffer1}§spirit:${spirit.id}`,
 					max_values: itemSelectionOptionsMaximumLimit.length,
 					min_values: 0,
 					options: itemSelectionOptionsMaximumLimit,
@@ -2004,7 +1965,7 @@ async function viewSpirit(
 				components: [
 					{
 						type: ComponentType.StringSelect,
-						custom_id: `${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§spirit:${spirit.id}`,
+						custom_id: `${CustomId.CatalogueViewOffer2}§spirit:${spirit.id}`,
 						max_values: itemSelectionOverflowOptionsMaximumLimit.length,
 						min_values: 0,
 						options: itemSelectionOverflowOptionsMaximumLimit,
@@ -2035,7 +1996,7 @@ async function viewSpirit(
 		const actionRowComponents: APIComponentInMessageActionRow[] = [
 			{
 				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${before?.id ?? "before"}`,
+				custom_id: `${CustomId.CatalogueViewSpirit}§${before?.id ?? "before"}`,
 				disabled: !before,
 				emoji: { name: "⬅️" },
 				label: t("catalogue.spirit-previous-spirit", { lng: locale, ns: "features" }),
@@ -2043,7 +2004,7 @@ async function viewSpirit(
 			},
 			{
 				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_VIEW_SPIRIT_CUSTOM_ID}§${after?.id ?? "after"}`,
+				custom_id: `${CustomId.CatalogueViewSpirit}§${after?.id ?? "after"}`,
 				disabled: !after,
 				emoji: { name: "➡️" },
 				label: t("catalogue.spirit-next-spirit", { lng: locale, ns: "features" }),
@@ -2054,7 +2015,7 @@ async function viewSpirit(
 		if (showEverythingButton) {
 			actionRowComponents.push({
 				type: ComponentType.Button,
-				custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§spirit:${spirit.id}`,
+				custom_id: `${CustomId.CatalogueItemsEverything}§spirit:${spirit.id}`,
 				disabled: hasEverything,
 				emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 				label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -2072,10 +2033,10 @@ async function viewSpirit(
 			{
 				type: ComponentType.Button,
 				custom_id: isElderSpirit
-					? CATALOGUE_VIEW_ELDERS_CUSTOM_ID
+					? CustomId.CatalogueViewElders
 					: isStandardSpirit
-						? `${CATALOGUE_VIEW_REALM_CUSTOM_ID}§${spirit.realm}`
-						: `${CATALOGUE_VIEW_SEASON_CUSTOM_ID}§${spirit.seasonId}`,
+						? `${CustomId.CatalogueViewRealm}§${spirit.realm}`
+						: `${CustomId.CatalogueViewSeason}§${spirit.seasonId}`,
 				emoji:
 					isSeasonalSpirit || isGuideSpirit
 						? (SeasonIdToSeasonalEmoji[spirit.seasonId] ?? { name: "⏪" })
@@ -2219,7 +2180,7 @@ async function viewEvent(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§event:${id}`,
+					custom_id: `${CustomId.CatalogueViewOffer1}§event:${id}`,
 					max_values: itemSelectionOptions.length,
 					min_values: 0,
 					options: itemSelectionOptions,
@@ -2241,7 +2202,7 @@ async function viewEvent(
 	const actionRowComponents: APIComponentInMessageActionRow[] = [
 		{
 			type: ComponentType.Button,
-			custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${before?.id ?? "before"}`,
+			custom_id: `${CustomId.CatalogueViewEvent}§${before?.id ?? "before"}`,
 			disabled: !before,
 			emoji: { name: "⬅️" },
 			label: t("catalogue.event-previous-event", { lng: locale, ns: "features" }),
@@ -2249,7 +2210,7 @@ async function viewEvent(
 		},
 		{
 			type: ComponentType.Button,
-			custom_id: `${CATALOGUE_VIEW_EVENT_CUSTOM_ID}§${after?.id ?? "after"}`,
+			custom_id: `${CustomId.CatalogueViewEvent}§${after?.id ?? "after"}`,
 			disabled: !after,
 			emoji: { name: "➡️" },
 			label: t("catalogue.event-next-event", { lng: locale, ns: "features" }),
@@ -2260,7 +2221,7 @@ async function viewEvent(
 	if (showEverythingButton) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
-			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§event:${id}`,
+			custom_id: `${CustomId.CatalogueItemsEverything}§event:${id}`,
 			disabled: eventProgress([event], data) === 100,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -2284,7 +2245,7 @@ async function viewEvent(
 				backToStartButton(locale),
 				{
 					type: ComponentType.Button,
-					custom_id: `${CATALOGUE_VIEW_EVENT_YEAR_CUSTOM_ID}§${start.year}`,
+					custom_id: `${CustomId.CatalogueViewEventYear}§${start.year}`,
 					emoji: { name: "⏪" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
@@ -2336,7 +2297,7 @@ export async function viewStarterPacks(
 		backToStartButton(locale),
 		{
 			type: ComponentType.Button,
-			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			custom_id: CustomId.CatalogueViewStart,
 			emoji: { name: "⏪" },
 			label: t("navigation-back", { lng: locale, ns: "general" }),
 			style: ButtonStyle.Secondary,
@@ -2346,7 +2307,7 @@ export async function viewStarterPacks(
 	if (catalogue?.show_everything_button) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
-			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
+			custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.StarterPacks}`,
 			disabled: starterPackProgress(catalogue?.data) === 100,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -2381,7 +2342,7 @@ export async function viewStarterPacks(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.StarterPacks}`,
+								custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.StarterPacks}`,
 								max_values: itemSelectionOptions.length,
 								min_values: 0,
 								options: itemSelectionOptions,
@@ -2439,7 +2400,7 @@ export async function viewSecretArea(
 		backToStartButton(locale),
 		{
 			type: ComponentType.Button,
-			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			custom_id: CustomId.CatalogueViewStart,
 			emoji: { name: "⏪" },
 			label: t("navigation-back", { lng: locale, ns: "general" }),
 			style: ButtonStyle.Secondary,
@@ -2449,7 +2410,7 @@ export async function viewSecretArea(
 	if (catalogue?.show_everything_button) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
-			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.SecretArea}`,
+			custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.SecretArea}`,
 			disabled: secretAreaProgress(catalogue?.data) === 100,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -2484,7 +2445,7 @@ export async function viewSecretArea(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.SecretArea}`,
+								custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.SecretArea}`,
 								max_values: itemSelectionOptions.length,
 								min_values: 0,
 								options: itemSelectionOptions,
@@ -2542,7 +2503,7 @@ export async function viewPermanentEventStore(
 		backToStartButton(locale),
 		{
 			type: ComponentType.Button,
-			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			custom_id: CustomId.CatalogueViewStart,
 			emoji: { name: "⏪" },
 			label: t("navigation-back", { lng: locale, ns: "general" }),
 			style: ButtonStyle.Secondary,
@@ -2552,7 +2513,7 @@ export async function viewPermanentEventStore(
 	if (catalogue?.show_everything_button) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
-			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
+			custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.PermanentEventStore}`,
 			disabled: permanentEventStoreProgress(catalogue?.data) === 100,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -2587,7 +2548,7 @@ export async function viewPermanentEventStore(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.PermanentEventStore}`,
+								custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.PermanentEventStore}`,
 								max_values: itemSelectionOptions.length,
 								min_values: 0,
 								options: itemSelectionOptions,
@@ -2657,7 +2618,7 @@ export async function viewNestingWorkshop(
 		backToStartButton(locale),
 		{
 			type: ComponentType.Button,
-			custom_id: CATALOGUE_VIEW_START_CUSTOM_ID,
+			custom_id: CustomId.CatalogueViewStart,
 			emoji: { name: "⏪" },
 			label: t("navigation-back", { lng: locale, ns: "general" }),
 			style: ButtonStyle.Secondary,
@@ -2667,7 +2628,7 @@ export async function viewNestingWorkshop(
 	if (catalogue?.show_everything_button) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
-			custom_id: `${CATALOGUE_ITEMS_EVERYTHING_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+			custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.NestingWorkshop}`,
 			disabled: nestingWorkshopProgress(catalogue?.data) === 100,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
@@ -2702,7 +2663,7 @@ export async function viewNestingWorkshop(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: `${CATALOGUE_VIEW_OFFER_1_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+								custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.NestingWorkshop}`,
 								max_values: itemSelectionOptions1.length,
 								min_values: 0,
 								options: itemSelectionOptions1,
@@ -2718,7 +2679,7 @@ export async function viewNestingWorkshop(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: `${CATALOGUE_VIEW_OFFER_2_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+								custom_id: `${CustomId.CatalogueViewOffer2}§${CatalogueType.NestingWorkshop}`,
 								max_values: itemSelectionOptions2.length,
 								min_values: 0,
 								options: itemSelectionOptions2,
@@ -2734,7 +2695,7 @@ export async function viewNestingWorkshop(
 						components: [
 							{
 								type: ComponentType.StringSelect,
-								custom_id: `${CATALOGUE_VIEW_OFFER_3_CUSTOM_ID}§${CatalogueType.NestingWorkshop}`,
+								custom_id: `${CustomId.CatalogueViewOffer3}§${CatalogueType.NestingWorkshop}`,
 								max_values: itemSelectionOptions3.length,
 								min_values: 0,
 								options: itemSelectionOptions3,

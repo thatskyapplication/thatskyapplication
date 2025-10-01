@@ -7,7 +7,7 @@ import {
 } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../../discord.js";
-import { DATA_DELETION_CUSTOM_ID } from "../../utility/constants.js";
+import { CustomId } from "../../utility/custom-id.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -24,7 +24,7 @@ export default {
 							components: [
 								{
 									type: ComponentType.Button,
-									custom_id: DATA_DELETION_CUSTOM_ID,
+									custom_id: CustomId.DataDelete,
 									label: t("data.delete-my-data", { lng: interaction.locale, ns: "features" }),
 									style: ButtonStyle.Danger,
 								},

@@ -16,14 +16,11 @@ import { client } from "../discord.js";
 import pino from "../pino.js";
 import { SHOP_SUGGESTIONS_CHANNEL_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
 import { DEFAULT_EMBED_COLOUR, SKY_PROFILES_URL } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { avatarURL, interactionInvoker, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
-
-export const SHOP_SUGGEST_CUSTOM_ID = "SHOP_SUGGEST_CUSTOM_ID" as const;
-export const SHOP_SUGGESTION_MODAL_CUSTOM_ID = "SHOP_SUGGESTION_MODAL_CUSTOM_ID" as const;
-const SHOP_SUGGESTION_TEXT_INPUT_CUSTOM_ID = "SHOP_SUGGESTION_TEXT_INPUT_CUSTOM_ID" as const;
 
 export function shop(): [APIMessageTopLevelComponent] {
 	return [
@@ -50,7 +47,7 @@ export function shop(): [APIMessageTopLevelComponent] {
 							type: ComponentType.Button,
 							style: ButtonStyle.Primary,
 							label: "Suggest",
-							custom_id: SHOP_SUGGEST_CUSTOM_ID,
+							custom_id: CustomId.ShopSuggest,
 							emoji: { name: "💬" },
 						},
 					],
@@ -67,7 +64,7 @@ export async function shopSuggestionModal(interaction: APIMessageComponentButton
 				type: ComponentType.Label,
 				component: {
 					type: ComponentType.TextInput,
-					custom_id: SHOP_SUGGESTION_TEXT_INPUT_CUSTOM_ID,
+					custom_id: CustomId.ShopSuggestionModalSuggestion,
 					style: TextInputStyle.Paragraph,
 					placeholder: "A cool thing to have would be...",
 					max_length: 1000,
@@ -78,7 +75,7 @@ export async function shopSuggestionModal(interaction: APIMessageComponentButton
 				description: "Enter a suggestion! Anything that comes to mind! Don't be shy!",
 			},
 		],
-		custom_id: SHOP_SUGGESTION_MODAL_CUSTOM_ID,
+		custom_id: CustomId.ShopSuggestionModal,
 		title: "Shop Suggestion",
 	});
 }
@@ -134,7 +131,7 @@ export async function shopSuggestionSubmission(interaction: APIModalSubmitIntera
 	}
 
 	const components = new ModalResolver(interaction.data.components);
-	const text = components.getTextInputValue(SHOP_SUGGESTION_TEXT_INPUT_CUSTOM_ID);
+	const text = components.getTextInputValue(CustomId.ShopSuggestionModalSuggestion);
 	const invoker = interactionInvoker(interaction);
 
 	await client.api.channels.createMessage(channel.id, {

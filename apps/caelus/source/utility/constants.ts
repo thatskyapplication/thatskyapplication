@@ -91,14 +91,6 @@ export const LOCALES = [
 export const CATALOGUE_EVENTS_THRESHOLD = 10 as const;
 
 // Daily guides.
-export const DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID =
-	"DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID" as const;
-
-export const DAILY_GUIDES_LOCALE_CUSTOM_ID = "DAILY_GUIDES_LOCALE_CUSTOM_ID" as const;
-
-export const DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID =
-	"DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID" as const;
-
 export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
 	label: locale,
 	value: locale,
@@ -110,19 +102,9 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 	ChannelType.PublicThread,
 ] as const;
 
-// Data.
-export const DATA_DELETION_CUSTOM_ID = "DATA_DELETION_CUSTOM_ID" as const;
-
 // Guess.
 export const GUESS_TIMEOUT = 30_000 as const;
-export const GUESS_ANSWER_1 = "GUESS_ANSWER_1" as const;
-export const GUESS_ANSWER_2 = "GUESS_ANSWER_2" as const;
-export const GUESS_ANSWER_3 = "GUESS_ANSWER_3" as const;
-export const GUESS_END_GAME = "GUESS_END_GAME_CUSTOM_ID" as const;
-export const GUESS_TRY_AGAIN = "GUESS_TRY_AGAIN_CUSTOM_ID" as const;
 export const GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER = 10 as const;
-export const GUESS_LEADERBOARD_BACK_CUSTOM_ID = "GUESS_LEADERBOARD_BACK_CUSTOM_ID" as const;
-export const GUESS_LEADERBOARD_NEXT_CUSTOM_ID = "GUESS_LEADERBOARD_NEXT_CUSTOM_ID" as const;
 
 // Heart.
 export const DELETED_USER_TEXT = "<deleted>" as const;

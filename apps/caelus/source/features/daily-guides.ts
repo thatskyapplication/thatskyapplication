@@ -72,15 +72,13 @@ import {
 	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/configuration.js";
 import {
-	DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
-	DAILY_GUIDES_LOCALE_CUSTOM_ID,
-	DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
 	DAILY_GUIDES_URL,
 	INFORMATION_ACCENT_COLOUR,
 	LOCALE_OPTIONS,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 } from "../utility/constants.js";
+import { CustomId } from "../utility/custom-id.js";
 import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
@@ -114,7 +112,6 @@ type DailyGuidesDistributionAllowedChannel =
 
 const distributeQueue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
 let distributionLock: Promise<unknown> | null = null;
-export const DAILY_GUIDES_SETUP_CUSTOM_ID = "DAILY_GUIDES_SETUP_CUSTOM_ID" as const;
 
 export function questAutocomplete(focused: string, locale: Locale) {
 	return focused === ""
@@ -388,7 +385,7 @@ export async function setupResponse(guild: Guild): Promise<APIInteractionRespons
 						components: [
 							{
 								type: ComponentType.ChannelSelect,
-								custom_id: DAILY_GUIDES_SETUP_CUSTOM_ID,
+								custom_id: CustomId.DailyGuidesSetup,
 								// @ts-expect-error The mutable array error is fine.
 								channel_types: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 								default_values: channelId
@@ -965,7 +962,7 @@ export async function interactive(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: DAILY_GUIDES_QUESTS_REORDER_SELECT_MENU_CUSTOM_ID,
+					custom_id: CustomId.DailyGuidesQuestsReorder,
 					max_values: questOptions.length,
 					min_values: questOptions.length,
 					options: questOptions,
@@ -981,7 +978,7 @@ export async function interactive(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: DAILY_GUIDES_LOCALE_CUSTOM_ID,
+					custom_id: CustomId.DailyGuidesLocale,
 					max_values: 1,
 					min_values: 1,
 					options: LOCALE_OPTIONS,
@@ -1001,7 +998,7 @@ export async function interactive(
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Success,
-					custom_id: DAILY_GUIDES_DISTRIBUTE_BUTTON_CUSTOM_ID,
+					custom_id: CustomId.DailyGuidesDistribute,
 					label: "Distribute",
 					disabled: type === InteractiveType.Distributing,
 				},

@@ -38,6 +38,7 @@ import {
 import pg from "../pg.js";
 import pino from "../pino.js";
 import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
+import { CustomId } from "../utility/custom-id.js";
 import { can } from "../utility/permissions.js";
 import type { GuildChannel } from "./discord/guild.js";
 import type { GuildMember } from "./discord/guild-member.js";
@@ -69,8 +70,6 @@ type AIFrequencyValues = (typeof AIFrequencyTypeToValue)[keyof typeof AIFrequenc
 function isAIFrequency(frequencyType: number): frequencyType is AIFrequencyTypes {
 	return AI_FREQUENCY_TYPE_VALUES.includes(frequencyType as AIFrequencyTypes);
 }
-
-export const AI_FREQUENCY_SELECT_MENU_CUSTOM_ID = "AI_FREQUENCY_SELECT_MENU_CUSTOM_ID" as const;
 
 export default class AI {
 	public static readonly cache = new Collection<Snowflake, AI>();
@@ -213,7 +212,7 @@ export default class AI {
 					components: [
 						{
 							type: ComponentType.StringSelect,
-							custom_id: AI_FREQUENCY_SELECT_MENU_CUSTOM_ID,
+							custom_id: CustomId.AIFrequency,
 							max_values: 1,
 							min_values: 1,
 							options: AI_FREQUENCY_TYPE_VALUES.map((aIFrequencyValue) => ({

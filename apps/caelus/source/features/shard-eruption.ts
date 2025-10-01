@@ -19,19 +19,11 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
+import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
 	resolveShardEruptionEmoji,
-	SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS,
-	SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH,
-	SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
-	SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID,
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
@@ -115,21 +107,21 @@ export function todayData(
 
 	const buttonYesterday: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${SHARD_ERUPTION_BACK_BUTTON_CUSTOM_ID}§${offset - 1}`,
+		custom_id: `${CustomId.ShardEruptionTodayBack}§${offset - 1}`,
 		label: t("navigation-back", { lng: locale, ns: "general" }),
 		style: ButtonStyle.Secondary,
 	};
 
 	const button: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: SHARD_ERUPTION_TODAY_BUTTON_CUSTOM_ID,
+		custom_id: CustomId.ShardEruptionTodayToday,
 		label: t("shard-eruption.today", { lng: locale, ns: "features" }),
 		style: ButtonStyle.Primary,
 	};
 
 	const buttonTomorrow: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${SHARD_ERUPTION_NEXT_BUTTON_CUSTOM_ID}§${offset + 1}`,
+		custom_id: `${CustomId.ShardEruptionTodayNext}§${offset + 1}`,
 		label: t("navigation-next", { lng: locale, ns: "general" }),
 		style: ButtonStyle.Secondary,
 	};
@@ -196,7 +188,7 @@ export function todayData(
 					buttonTomorrow,
 					{
 						type: ComponentType.Button,
-						custom_id: `${SHARD_ERUPTION_TODAY_TO_BROWSE_BUTTON_CUSTOM_ID}§${offset}`,
+						custom_id: `${CustomId.ShardEruptionBrowse}§${offset}`,
 						emoji: { name: "🌐" },
 						label: t("shard-eruption.browse", { lng: locale, ns: "features" }),
 						style: ButtonStyle.Secondary,
@@ -214,7 +206,7 @@ export async function browse(
 	offset = 0,
 ) {
 	const { locale } = interaction;
-	const components = browseData(locale, offset, true);
+	const components = browseData(locale, offset);
 
 	if (isChatInputCommand(interaction)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -226,100 +218,100 @@ export async function browse(
 	}
 }
 
-function browseData(locale: Locale, offset = 0, navigation = true): [APIMessageTopLevelComponent] {
+function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 	const shardToday = skyToday().plus({ days: offset });
 
-	const containerComponents: APIComponentInContainer[] = [
+	return [
 		{
-			type: ComponentType.TextDisplay,
-			content: `## ${t("shard-eruption.name-plural", { lng: locale, ns: "features" })}`,
-		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: t("shard-eruption.browse-description", { lng: locale, ns: "features" }),
-		},
-		...SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS.map(
-			(customId, index): APIActionRowComponent<APISelectMenuComponent> => {
-				const currentIndex = MAXIMUM_OPTION_NUMBER * index;
+			type: ComponentType.Container,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `## ${t("shard-eruption.name-plural", { lng: locale, ns: "features" })}`,
+				},
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: t("shard-eruption.browse-description", { lng: locale, ns: "features" }),
+				},
+				...SHARD_ERUPTION_DATES.map(
+					(customId, index): APIActionRowComponent<APISelectMenuComponent> => {
+						const currentIndex = MAXIMUM_OPTION_NUMBER * index;
 
-				const placeholderStartDate = Intl.DateTimeFormat(locale, {
-					timeZone: TIME_ZONE,
-					dateStyle: "short",
-				}).format(shardToday.plus({ days: currentIndex }).toMillis());
+						const placeholderStartDate = Intl.DateTimeFormat(locale, {
+							timeZone: TIME_ZONE,
+							dateStyle: "short",
+						}).format(shardToday.plus({ days: currentIndex }).toMillis());
 
-				const placeholderEndDate = Intl.DateTimeFormat(locale, {
-					timeZone: TIME_ZONE,
-					dateStyle: "short",
-				}).format(shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }).toMillis());
+						const placeholderEndDate = Intl.DateTimeFormat(locale, {
+							timeZone: TIME_ZONE,
+							dateStyle: "short",
+						}).format(
+							shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }).toMillis(),
+						);
 
-				return {
+						return {
+							type: ComponentType.ActionRow,
+							components: [
+								{
+									type: ComponentType.StringSelect,
+									custom_id: customId,
+									max_values: 1,
+									min_values: 1,
+									options: generateShardEruptionSelectMenuOptions(
+										shardToday,
+										currentIndex,
+										offset,
+										locale,
+									),
+									placeholder: t("time-range", {
+										lng: locale,
+										ns: "general",
+										start: placeholderStartDate,
+										end: placeholderEndDate,
+									}),
+								},
+							],
+						};
+					},
+				),
+				{
+					type: ComponentType.Separator,
+					divider: true,
+					spacing: SeparatorSpacingSize.Small,
+				},
+				{
 					type: ComponentType.ActionRow,
 					components: [
 						{
-							type: ComponentType.StringSelect,
-							custom_id: customId,
-							max_values: 1,
-							min_values: 1,
-							options: generateShardEruptionSelectMenuOptions(
-								shardToday,
-								currentIndex,
-								offset,
-								locale,
-							),
-							placeholder: t("time-range", {
-								lng: locale,
-								ns: "general",
-								start: placeholderStartDate,
-								end: placeholderEndDate,
-							}),
+							type: ComponentType.Button,
+							custom_id: `${CustomId.ShardEruptionBrowseBack}§${
+								offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES.length
+							}`,
+							label: t("navigation-back", { lng: locale, ns: "general" }),
+							style: ButtonStyle.Secondary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: CustomId.ShardEruptionBrowseToday,
+							label: t("shard-eruption.today", { lng: locale, ns: "features" }),
+							style: ButtonStyle.Primary,
+						},
+						{
+							type: ComponentType.Button,
+							custom_id: `${CustomId.ShardEruptionBrowseNext}§${
+								offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES.length
+							}`,
+							label: t("navigation-next", { lng: locale, ns: "general" }),
+							style: ButtonStyle.Secondary,
 						},
 					],
-				};
-			},
-		),
+				},
+			],
+		},
 	];
-
-	if (navigation) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${SHARD_ERUPTION_BROWSE_BACK_BUTTON_CUSTOM_ID}§${
-							offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
-						}`,
-						label: t("navigation-back", { lng: locale, ns: "general" }),
-						style: ButtonStyle.Secondary,
-					},
-					{
-						type: ComponentType.Button,
-						custom_id: SHARD_ERUPTION_BROWSE_TODAY_BUTTON_CUSTOM_ID,
-						label: t("shard-eruption.today", { lng: locale, ns: "features" }),
-						style: ButtonStyle.Primary,
-					},
-					{
-						type: ComponentType.Button,
-						custom_id: `${SHARD_ERUPTION_BROWSE_NEXT_BUTTON_CUSTOM_ID}§${
-							offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_BROWSE_SELECT_MENU_CUSTOM_IDS_LENGTH
-						}`,
-						label: t("navigation-next", { lng: locale, ns: "general" }),
-						style: ButtonStyle.Secondary,
-					},
-				],
-			},
-		);
-	}
-
-	return [{ type: ComponentType.Container, components: containerComponents }];
 }

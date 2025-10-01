@@ -34,11 +34,9 @@ import {
 import { t } from "i18next";
 import { client } from "../discord.js";
 import { resolveCostToString } from "../utility/catalogue.js";
+import { CustomId } from "../utility/custom-id.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 
-export const SPIRITS_VIEW_SPIRIT_CUSTOM_ID = "SPIRITS_VIEW_SPIRIT_CUSTOM_ID";
-export const SPIRITS_HISTORY_BACK_CUSTOM_ID = "SPIRITS_HISTORY_BACK_CUSTOM_ID";
-export const SPIRITS_HISTORY_NEXT_CUSTOM_ID = "SPIRITS_HISTORY_NEXT_CUSTOM_ID";
 const MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER = 10 as const;
 
 export async function searchAutocomplete<
@@ -262,22 +260,36 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
-export async function handleSearchButton(interaction: APIMessageComponentButtonInteraction) {
-	const [, spiritId] = interaction.data.custom_id.split("§") as [string, string, string];
-	const spirit = spirits().get(Number(spiritId) as SpiritIds);
+interface SpiritsViewSpiritOptions {
+	flags?: MessageFlags;
+}
+
+export async function spiritsViewSpirit(
+	interaction: APIMessageComponentButtonInteraction,
+	spiritId: SpiritIds,
+	{ flags }: SpiritsViewSpiritOptions = {},
+) {
+	const { locale } = interaction;
+	const spirit = spirits().get(spiritId);
 
 	if (!spirit) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("spirits.not-encountered-spirit", { lng: interaction.locale, ns: "features" }),
+			content: t("spirits.not-encountered-spirit", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 
 		return;
 	}
 
+	let resolvedFlags = MessageFlags.IsComponentsV2;
+
+	if (flags) {
+		resolvedFlags |= flags;
+	}
+
 	await client.api.interactions.reply(interaction.id, interaction.token, {
-		components: search({ spirit, locale: interaction.locale }),
-		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		components: search({ spirit, locale }),
+		flags: resolvedFlags,
 	});
 }
 
@@ -379,7 +391,7 @@ export async function spiritsHistory(
 				type: ComponentType.Button,
 				style: ButtonStyle.Secondary,
 				// We add the index to prevent custom id duplication.
-				custom_id: `${SPIRITS_VIEW_SPIRIT_CUSTOM_ID}§${spiritId}§${index}`,
+				custom_id: `${CustomId.SpiritsViewSpirit}§${spiritId}§${index}`,
 				label: t("view", { lng: locale, ns: "general" }),
 			},
 			components: [{ type: ComponentType.TextDisplay, content: `${heading}\n\n${lastVisited}` }],
@@ -402,7 +414,7 @@ export async function spiritsHistory(
 				{
 					type: ComponentType.Button,
 					custom_id: generateSpiritsHistoryCustomId({
-						prefix: SPIRITS_HISTORY_BACK_CUSTOM_ID,
+						prefix: CustomId.SpiritsHistoryBack,
 						type,
 						page: page === 1 ? maximumPage : page - 1,
 					}),
@@ -413,7 +425,7 @@ export async function spiritsHistory(
 				{
 					type: ComponentType.Button,
 					custom_id: generateSpiritsHistoryCustomId({
-						prefix: SPIRITS_HISTORY_NEXT_CUSTOM_ID,
+						prefix: CustomId.SpiritsHistoryNext,
 						type:
 							type === SpiritsHistoryOrderType.Natural
 								? SpiritsHistoryOrderType.Rarity
@@ -429,7 +441,7 @@ export async function spiritsHistory(
 				{
 					type: ComponentType.Button,
 					custom_id: generateSpiritsHistoryCustomId({
-						prefix: SPIRITS_HISTORY_NEXT_CUSTOM_ID,
+						prefix: CustomId.SpiritsHistoryNext,
 						type,
 						page: page === maximumPage ? 1 : page + 1,
 					}),
