@@ -93,6 +93,47 @@ export const enum CustomId {
 	ShopSuggest = "88",
 	ShopSuggestionModal = "89",
 	ShopSuggestionModalSuggestion = "90",
+	SkyProfileEdit = "91",
+	SkyProfileViewReset = "92",
+	SkyProfileExplorer1 = "93",
+	SkyProfileExplorer2 = "94",
+	SkyProfileExplorer3 = "95",
+	SkyProfileExplorer4 = "96",
+	SkyProfileExplorerBack = "97",
+	SkyProfileExplorerNext = "98",
+	SkyProfileExplorerViewLikes = "99",
+	SkyProfileExplorerProfileBack = "100",
+	SkyProfileExplorerProfileNext = "101",
+	SkyProfileExplorerProfileLike = "102",
+	SkyProfileViewExplorer = "103",
+	SkyProfileExplorerProfileReport = "104",
+	SkyProfileExplorerLikes1 = "105",
+	SkyProfileExplorerLikes2 = "106",
+	SkyProfileExplorerLikes3 = "107",
+	SkyProfileExplorerLikes4 = "108",
+	SkyProfileExplorerLikesBack = "109",
+	SkyProfileExplorerLikesNext = "110",
+	SkyProfileExplorerLikesProfileBack = "111",
+	SkyProfileExplorerLikesProfileNext = "112",
+	SkyProfileExplorerLikesProfileLike = "113",
+	SkyProfileExplorerLikesProfileReport = "114",
+	SkyProfileExplorerViewProfile = "115",
+	SkyProfileExplorerLikesViewProfile = "116",
+	SkyProfileExplorerConfirmReport = "117",
+	SkyProfileReportModal = "118",
+	SkyProfileReportModalReason = "119",
+	SkyProfileNameModal = "120",
+	SkyProfileNameModalName = "121",
+	SkyProfileDescriptionModal = "122",
+	SkyProfileDescriptionModalDescription = "123",
+	SkyProfileWingedLight = "124",
+	SkyProfileViewEdit = "125",
+	SkyProfileHangoutModal = "126",
+	SkyProfileHangoutModalHangout = "127",
+	SkyProfileSeasons1 = "128",
+	SkyProfileSeasons2 = "129",
+	SkyProfilePlatforms = "130",
+	SkyProfileReset = "131",
 }
 
 export const SHARD_ERUPTION_DATES = [
@@ -103,4 +144,16 @@ export const SHARD_ERUPTION_DATES = [
 	CustomId.ShardEruptionBrowseDates5,
 ] as const satisfies readonly CustomId[];
 
-export const SHARD_ERUPTION_DATES_LENGTH = SHARD_ERUPTION_DATES.length;
+export const SKY_PROFILE_EXPLORERS = [
+	CustomId.SkyProfileExplorer1,
+	CustomId.SkyProfileExplorer2,
+	CustomId.SkyProfileExplorer3,
+	CustomId.SkyProfileExplorer4,
+] as const satisfies readonly CustomId[];
+
+export const SKY_PROFILE_EXPLORER_LIKES = [
+	CustomId.SkyProfileExplorerLikes1,
+	CustomId.SkyProfileExplorerLikes2,
+	CustomId.SkyProfileExplorerLikes3,
+	CustomId.SkyProfileExplorerLikes4,
+] as const satisfies readonly CustomId[];

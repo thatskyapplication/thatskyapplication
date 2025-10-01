@@ -19,11 +19,7 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
-import {
-	CustomId,
-	SHARD_ERUPTION_DATES,
-	SHARD_ERUPTION_DATES_LENGTH,
-} from "../utility/custom-id.js";
+import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
 import { isChatInputCommand } from "../utility/functions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
@@ -294,7 +290,7 @@ function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 						{
 							type: ComponentType.Button,
 							custom_id: `${CustomId.ShardEruptionBrowseBack}§${
-								offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES_LENGTH
+								offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES.length
 							}`,
 							label: t("navigation-back", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
@@ -308,7 +304,7 @@ function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 						{
 							type: ComponentType.Button,
 							custom_id: `${CustomId.ShardEruptionBrowseNext}§${
-								offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES_LENGTH
+								offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES.length
 							}`,
 							label: t("navigation-next", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,

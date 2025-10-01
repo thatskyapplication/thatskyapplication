@@ -104,37 +104,6 @@ import { scheduleDetailedBreakdown, scheduleOverview } from "../features/schedul
 import { browse, today } from "../features/shard-eruption.js";
 import { shopSuggestionModal, shopSuggestionSubmission } from "../features/shop.js";
 import {
-	SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID,
-	SKY_PROFILE_EDIT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS,
-	SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS,
-	SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID,
-	SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID,
-	SKY_PROFILE_REPORT_MODAL_CUSTOM_ID,
-	SKY_PROFILE_RESET_CUSTOM_ID,
-	SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID,
-	SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID,
-	SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID,
-	SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID,
-	SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID,
-	SKY_PROFILE_SHOW_RESET_CUSTOM_ID,
 	skyProfileEdit,
 	skyProfileExplore,
 	skyProfileExploreLikedProfile,
@@ -188,7 +157,12 @@ import {
 import AI, { AI_FREQUENCY_SELECT_MENU_CUSTOM_ID } from "../models/AI.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
-import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
+import {
+	CustomId,
+	SHARD_ERUPTION_DATES,
+	SKY_PROFILE_EXPLORER_LIKES,
+	SKY_PROFILE_EXPLORERS,
+} from "../utility/custom-id.js";
 import {
 	interactionInvoker,
 	isAutocomplete,
@@ -733,73 +707,73 @@ export default {
 					return;
 				}
 
-				if (id === SKY_PROFILE_SHOW_RESET_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileViewReset) {
 					await skyProfileShowReset(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_BACK_TO_START_BUTTON_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileViewEdit) {
 					await skyProfileShowEdit(interaction);
 					return;
 				}
 
 				if (
-					id === SKY_PROFILE_EXPLORE_VIEW_START_CUSTOM_ID ||
-					id === SKY_PROFILE_EXPLORE_BACK_CUSTOM_ID ||
-					id === SKY_PROFILE_EXPLORE_NEXT_CUSTOM_ID
+					id === CustomId.SkyProfileViewExplorer ||
+					id === CustomId.SkyProfileExplorerBack ||
+					id === CustomId.SkyProfileExplorerNext
 				) {
 					await skyProfileExplore(interaction);
 					return;
 				}
 
 				if (
-					id === SKY_PROFILE_EXPLORE_LIKES_CUSTOM_ID ||
-					id === SKY_PROFILE_EXPLORE_LIKES_BACK_CUSTOM_ID ||
-					id === SKY_PROFILE_EXPLORE_LIKES_NEXT_CUSTOM_ID
+					id === CustomId.SkyProfileExplorerViewLikes ||
+					id === CustomId.SkyProfileExplorerLikesBack ||
+					id === CustomId.SkyProfileExplorerLikesNext
 				) {
 					await skyProfileExploreLikes(interaction);
 					return;
 				}
 
 				if (
-					id === SKY_PROFILE_EXPLORE_PROFILE_BACK_CUSTOM_ID ||
-					id === SKY_PROFILE_EXPLORE_PROFILE_NEXT_CUSTOM_ID ||
-					id === SKY_PROFILE_EXPLORE_VIEW_PROFILE_CUSTOM_ID
+					id === CustomId.SkyProfileExplorerProfileBack ||
+					id === CustomId.SkyProfileExplorerProfileNext ||
+					id === CustomId.SkyProfileExplorerViewProfile
 				) {
 					await skyProfileExploreProfile(interaction, parts[0]!);
 					return;
 				}
 
 				if (
-					id === SKY_PROFILE_EXPLORE_LIKES_PROFILE_BACK_CUSTOM_ID ||
-					id === SKY_PROFILE_EXPLORE_LIKES_PROFILE_NEXT_CUSTOM_ID ||
-					id === SKY_PROFILE_EXPLORE_LIKES_VIEW_PROFILE_CUSTOM_ID
+					id === CustomId.SkyProfileExplorerLikesProfileBack ||
+					id === CustomId.SkyProfileExplorerLikesProfileNext ||
+					id === CustomId.SkyProfileExplorerLikesViewProfile
 				) {
 					await skyProfileExploreLikedProfile(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_EXPLORE_PROFILE_LIKE_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileExplorerProfileLike) {
 					await skyProfileLike(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_EXPLORE_LIKES_PROFILE_LIKE_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileExplorerLikesProfileLike) {
 					await skyProfileLike(interaction, true);
 					return;
 				}
 
-				if (id === SKY_PROFILE_EXPLORE_REPORT_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileExplorerProfileReport) {
 					await skyProfileReport(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_EXPLORE_LIKES_REPORT_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileExplorerLikesProfileReport) {
 					await skyProfileReport(interaction, true);
 					return;
 				}
 
-				if (id === SKY_PROFILE_EXPLORE_REPORT_CONFIRM_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileExplorerConfirmReport) {
 					await skyProfileReportModalPrompt(interaction);
 					return;
 				}
@@ -1047,47 +1021,38 @@ export default {
 					return;
 				}
 
-				if (id === SKY_PROFILE_EDIT_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileEdit) {
 					await skyProfileEdit(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_RESET_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileReset) {
 					await skyProfileReset(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_SET_WINGED_LIGHT_SELECT_MENU_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileWingedLight) {
 					await skyProfileSetWingedLight(interaction);
 					return;
 				}
 
-				if (
-					id === SKY_PROFILE_SET_SEASONS_SELECT_MENU_1_CUSTOM_ID ||
-					id === SKY_PROFILE_SET_SEASONS_SELECT_MENU_2_CUSTOM_ID
-				) {
+				if (id === CustomId.SkyProfileSeasons1 || id === CustomId.SkyProfileSeasons2) {
 					await skyProfileSetSeasons(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_SET_PLATFORMS_SELECT_MENU_CUSTOM_ID) {
+				if (id === CustomId.SkyProfilePlatforms) {
 					await skyProfileSetPlatform(interaction);
 					return;
 				}
 
-				if (
-					SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS.includes(
-						id as (typeof SKY_PROFILE_EXPLORE_SELECT_MENU_CUSTOM_IDS)[number],
-					)
-				) {
+				if (SKY_PROFILE_EXPLORERS.includes(id as (typeof SKY_PROFILE_EXPLORERS)[number])) {
 					await skyProfileExploreProfile(interaction, value0);
 					return;
 				}
 
 				if (
-					SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS.includes(
-						id as (typeof SKY_PROFILE_EXPLORE_LIKES_SELECT_MENU_CUSTOM_IDS)[number],
-					)
+					SKY_PROFILE_EXPLORER_LIKES.includes(id as (typeof SKY_PROFILE_EXPLORER_LIKES)[number])
 				) {
 					await skyProfileExploreLikedProfile(interaction);
 					return;
@@ -1291,22 +1256,22 @@ export default {
 					return;
 				}
 
-				if (id === SKY_PROFILE_SET_NAME_MODAL_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileNameModal) {
 					await skyProfileSetName(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_SET_DESCRIPTION_MODAL_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileDescriptionModal) {
 					await skyProfileSetDescription(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_SET_HANGOUT_MODAL_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileHangoutModal) {
 					await skyProfileSetHangout(interaction);
 					return;
 				}
 
-				if (id === SKY_PROFILE_REPORT_MODAL_CUSTOM_ID) {
+				if (id === CustomId.SkyProfileReportModal) {
 					await skyProfileSendReport(interaction);
 					return;
 				}
