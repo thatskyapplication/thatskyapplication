@@ -36,9 +36,11 @@ export function resolveCostToString(cost: ItemCost) {
 
 	if (cost.seasonalCandles) {
 		for (const seasonalCandles of cost.seasonalCandles) {
+			const emoji = SeasonIdToSeasonalCandleEmoji[seasonalCandles.seasonId];
+
 			totalCost.push(
 				resolveCurrencyEmoji({
-					emoji: SeasonIdToSeasonalCandleEmoji[seasonalCandles.seasonId],
+					emoji: emoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
 					number: seasonalCandles.cost,
 				}),
 			);
@@ -53,7 +55,7 @@ export function resolveCostToString(cost: ItemCost) {
 				resolveCurrencyEmoji({
 					emoji:
 						seasonId !== SeasonId.Gratitude && seasonId !== SeasonId.Lightseekers
-							? SeasonIdToSeasonalHeartEmoji[seasonId]
+							? (SeasonIdToSeasonalHeartEmoji[seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalHeart)
 							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
 					number: seasonalHearts.cost,
 				}),

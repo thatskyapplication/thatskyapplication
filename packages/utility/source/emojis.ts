@@ -8124,6 +8124,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBird,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1,
+		[SeasonId.Migration]: null,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
@@ -8153,6 +8154,8 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Radiance]: SEASON_EMOJIS.RadianceCandle,
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdCandle,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Candle,
+		// @ts-expect-error Not yet announced.
+		[SeasonId.Migration]: null,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 	const SeasonIdToSeasonalHeartEmoji = {
@@ -8180,6 +8183,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdHeart,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Heart,
+		[SeasonId.Migration]: null,
 	} as const satisfies Readonly<
 		Record<
 			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,

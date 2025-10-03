@@ -258,6 +258,9 @@ export const SpiritId = {
 	SternShepherd: 189,
 	ResourcefulRecluse: 190,
 	CaringCompanion: 191,
+
+	// Season of Migration.
+	MigrationGuide: 192,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);

@@ -325,7 +325,7 @@ export async function seasonalCandles(
 		return;
 	}
 
-	const emoji = SeasonIdToSeasonalCandleEmoji[season.id];
+	const emoji = SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 	const amountRequired = goal - start;
 	let result = 0;
 	let days = 0;

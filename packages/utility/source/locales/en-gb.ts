@@ -553,6 +553,7 @@ export default {
 			[SeasonId.Radiance]: "Season of Radiance",
 			[SeasonId.BlueBird]: "Season of the Blue Bird",
 			[SeasonId.TwoEmbersPart1]: "Season of The Two Embers - Part 1",
+			[SeasonId.Migration]: "Season of Migration",
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -585,6 +586,7 @@ export default {
 			[SeasonId.BlueBird]: "https://sky-children-of-the-light.fandom.com/Season_of_the_Blue_Bird",
 			[SeasonId.TwoEmbersPart1]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1",
+			[SeasonId.Migration]: "https://sky-children-of-the-light.fandom.com/Season_of_Migration",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",
@@ -964,6 +966,7 @@ export default {
 			[SpiritId.SternShepherd]: "Stern Shepherd",
 			[SpiritId.ResourcefulRecluse]: "Resourceful Recluse",
 			[SpiritId.CaringCompanion]: "Caring Companion",
+			[SpiritId.MigrationGuide]: "Migration Guide",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1231,6 +1234,7 @@ export default {
 			[SpiritId.ResourcefulRecluse]:
 				"https://sky-children-of-the-light.fandom.com/Resourceful_Recluse",
 			[SpiritId.CaringCompanion]: "https://sky-children-of-the-light.fandom.com/Caring_Companion",
+			[SpiritId.MigrationGuide]: "https://sky-children-of-the-light.fandom.com/Migration_Guide",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

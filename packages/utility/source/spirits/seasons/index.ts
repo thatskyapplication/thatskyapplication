@@ -17,6 +17,7 @@ import Flight from "./flight/index.js";
 import Gratitude from "./gratitude/index.js";
 import Lightseekers from "./lightseekers/index.js";
 import LittlePrince from "./little-prince/index.js";
+import migration from "./migration/index.js";
 import Moments from "./moments/index.js";
 import Moomin from "./moomin/index.js";
 import Nesting from "./nesting/index.js";
@@ -59,6 +60,7 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	Radiance,
 	BlueBird,
 	twoEmbersPart1,
+	migration,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
 enum VisitType {

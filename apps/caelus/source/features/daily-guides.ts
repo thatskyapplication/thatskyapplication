@@ -685,7 +685,8 @@ async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComp
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
-		const candleEmoji = SeasonIdToSeasonalCandleEmoji[season.id];
+		const candleEmoji =
+			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 
 		values.push(
 			t("daily-guides.seasonal-candles-remain", {

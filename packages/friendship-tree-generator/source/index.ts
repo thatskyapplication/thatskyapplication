@@ -195,7 +195,9 @@ async function createNode({
 			emojiAssetId = MISCELLANEOUS_EMOJIS.AscendedCandle.id;
 			currency = cost.ascendedCandles;
 		} else if (seasonId !== undefined && cost.seasonalCandles.length > 0) {
-			emojiAssetId = SeasonIdToSeasonalCandleEmoji[seasonId].id;
+			emojiAssetId =
+				SeasonIdToSeasonalCandleEmoji[seasonId]?.id ?? MISCELLANEOUS_EMOJIS.SeasonalCandle.id;
+
 			currency = cost.seasonalCandles[0]!.cost;
 		} else if (
 			seasonId !== undefined &&
@@ -203,7 +205,9 @@ async function createNode({
 			seasonId !== SeasonId.Lightseekers &&
 			cost.seasonalHearts.length > 0
 		) {
-			emojiAssetId = SeasonIdToSeasonalHeartEmoji[seasonId].id;
+			emojiAssetId =
+				SeasonIdToSeasonalHeartEmoji[seasonId]?.id ?? MISCELLANEOUS_EMOJIS.SeasonalHeart.id;
+
 			currency = cost.seasonalHearts[0]!.cost;
 		} else {
 			throw new Error("A cost was specified with no currency.");
@@ -236,15 +240,17 @@ async function createNode({
 	}
 
 	if (node.seasonPass && seasonId !== undefined) {
-		context.drawImage(
-			await loadImage(
-				await (await fetch(formatEmojiURL(SeasonIdToSeasonalEmoji[seasonId].id))).arrayBuffer(),
-			),
-			dx - seasonIconOffsetX,
-			dy - seasonIconOffsetY,
-			ASSET_SIZE,
-			ASSET_SIZE,
-		);
+		const seasonEmojiId = SeasonIdToSeasonalEmoji[seasonId]?.id;
+
+		if (seasonEmojiId) {
+			context.drawImage(
+				await loadImage(await (await fetch(formatEmojiURL(seasonEmojiId))).arrayBuffer()),
+				dx - seasonIconOffsetX,
+				dy - seasonIconOffsetY,
+				ASSET_SIZE,
+				ASSET_SIZE,
+			);
+		}
 	}
 
 	if (level) {
