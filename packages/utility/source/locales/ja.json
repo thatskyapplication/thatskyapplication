@@ -65,7 +65,7 @@
 			"2": "国際宇宙ステーション",
 			"3": "",
 			"4": "間欠泉",
-			"5": "おばあちゃん",
+			"5": "パン焼き",
 			"6": "亀",
 			"7": "闇の破片(黒)",
 			"8": "闇の破片(赤)",
@@ -2579,10 +2579,6 @@
 		"Gift-Heart": {
 			"command-name": ""
 		},
-		"giveaway": {
-			"command-name": "",
-			"command-description": ""
-		},
 		"guess": {
 			"command-name": "",
 			"command-description": "",
@@ -2610,10 +2606,10 @@
 			}
 		},
 		"hair-tousle": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-name": "なでなで",
+			"command-description": "誰かをなでなでしましょう！",
+			"command-option-user-name": "ユーザー",
+			"command-option-user-description": "髪がくしゃくしゃになるまで撫でたい相手。"
 		},
 		"heart": {
 			"command-name": "ハート",
@@ -2632,26 +2628,26 @@
 		"high-five": {
 			"command-name": "ハイタッチ",
 			"command-description": "誰かとハイタッチしましょう！",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-option-user-name": "ユーザー",
+			"command-option-user-description": "ハイタッチしたい相手。"
 		},
 		"hug": {
 			"command-name": "ハグ",
 			"command-description": "誰かとハグしましょう！",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-option-user-name": "ユーザー",
+			"command-option-user-description": "ぎゅーっと抱きしめたい相手。"
 		},
 		"krill": {
-			"command-name": "",
+			"command-name": "エビ",
 			"command-description": "相手に暗黒竜をぶつけましょう！",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-option-user-name": "ユーザー",
+			"command-option-user-description": "エビの犠牲者を選ぶ。"
 		},
 		"play-fight": {
-			"command-name": "",
-			"command-description": "",
-			"command-option-user-name": "",
-			"command-option-user-description": ""
+			"command-name": "けんかごっこ",
+			"command-description": "誰かとけんかごっこをしましょう！",
+			"command-option-user-name": "ユーザー",
+			"command-option-user-description": "けんかごっこをふっかける相手。"
 		},
 		"quest": {
 			"command-name": "クエスト",
@@ -2708,7 +2704,7 @@
 				"command-option-name-description": "",
 				"command-option-icon-name": "",
 				"command-option-icon-description": "",
-				"command-option-banner-name": "",
+				"command-option-banner-name": "バナー",
 				"command-option-banner-description": "",
 				"command-option-winged-light-name": "",
 				"command-option-winged-light-description": "",
@@ -2798,7 +2794,7 @@
 				"4": "",
 				"5": ""
 			},
-			"title": "",
+			"title": "Caelus AI",
 			"frequency-description": "",
 			"frequency-description-no-monetisation": "",
 			"frequency-type-string-select-menu-placeholder": "",
@@ -2960,7 +2956,7 @@
 			"delete-success": ""
 		},
 		"friendship-actions": {
-			"hug-self": "",
+			"hug-self": "そんな日もありますよね、わたしがあなたを抱きしめます！さあ、他の人にもたくさんハグをしましょう！",
 			"hug-missing-external-apps-permission": "",
 			"hug-not-in-server": "",
 			"hug-not-around": "",
@@ -2986,9 +2982,9 @@
 			"play-fight-message": "",
 			"krill-self": "",
 			"krill-missing-external-apps-permission": "",
-			"krill-not-in-server": "",
+			"krill-not-in-server": "{{user}}がこのサーバーに居ないのでエビを持て余してしまいました。",
 			"krill-not-around": "",
-			"krill-app": "",
+			"krill-app": "{{user}}はBot、強い子です。なんと、暗黒竜は捨て地に帰ってしまいました。",
 			"krill-message": ""
 		},
 		"guess": {
