@@ -2579,10 +2579,6 @@
 		"Gift-Heart": {
 			"command-name": "贈送愛心"
 		},
-		"giveaway": {
-			"command-name": "贈送",
-			"command-description": "在此查看贈品！"
-		},
 		"guess": {
 			"command-name": "猜測",
 			"command-description": "開始光遇知識猜謎！在這局中您能連續答對多少次？",

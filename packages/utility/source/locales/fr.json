@@ -2579,10 +2579,6 @@
 		"Gift-Heart": {
 			"command-name": "Offrir un cœur"
 		},
-		"giveaway": {
-			"command-name": "tirage-au-sort",
-			"command-description": "Voir le tirage au sort ici !"
-		},
 		"guess": {
 			"command-name": "devinettes",
 			"command-description": "Commencez un jeu de devinettes Sky ! Combien réussirez-vous à deviner d'affilée ?",

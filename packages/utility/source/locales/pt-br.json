@@ -2579,10 +2579,6 @@
 		"Gift-Heart": {
 			"command-name": "Dar Coração"
 		},
-		"giveaway": {
-			"command-name": "sorteio",
-			"command-description": "Veja o sorteio aqui!"
-		},
 		"guess": {
 			"command-name": "quiz",
 			"command-description": "Vamos jogar um quiz de Sky! Quantos seguidos você consegue acertar?",

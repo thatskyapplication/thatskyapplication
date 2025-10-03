@@ -2579,10 +2579,6 @@
 		"Gift-Heart": {
 			"command-name": ""
 		},
-		"giveaway": {
-			"command-name": "",
-			"command-description": ""
-		},
 		"guess": {
 			"command-name": "",
 			"command-description": "",
