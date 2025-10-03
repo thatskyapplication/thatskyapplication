@@ -18,44 +18,57 @@ export default new Season({
 	guide: vaultEldersLantern,
 	spirits: [tenderToymaker, scarredSentry, sternShepherd, resourcefulRecluse, caringCompanion],
 	seasonalCandlesRotation: (now) =>
-		now >= skyDate(2_025, 9, 5)
+		now >= skyDate(2_025, 10, 3)
 			? [
 					{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
-					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
+					{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 				]
-			: now >= skyDate(2_025, 8, 1)
+			: now >= skyDate(2_025, 9, 5)
 				? [
 						{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
+						{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 						{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
-						{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
+						{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 						{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
 						{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 					]
-				: [
-						{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
-						{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
-						{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
-						{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
-						{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
-						{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
-					],
+				: now >= skyDate(2_025, 8, 1)
+					? [
+							{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
+							{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
+							{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
+							{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
+							{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+						]
+					: [
+							{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
+							{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
+							{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
+							{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
+							{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
+							{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+						],
 	items: [
 		{
 			cosmetic: Cosmetic.ButterflyBlossomMemento,
