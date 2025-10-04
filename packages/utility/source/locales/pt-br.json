@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -365,7 +366,8 @@
 			"22": "Temporada dos Mumins",
 			"23": "Temporada do Resplendor",
 			"24": "Temporada do Pássaro Azul",
-			"25": "Temporada das Duas Fagulhas - Parte 1"
+			"25": "Temporada das Duas Fagulhas - Parte 1",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Gratid%C3%A3o",
@@ -393,7 +395,8 @@
 			"22": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_dos_Mumins",
 			"23": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_do_Resplendor",
 			"24": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_do_P%C3%A1ssaro_Azul",
-			"25": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_das_Duas_Fagulhas_-_Parte_1"
+			"25": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_das_Duas_Fagulhas_-_Parte_1",
+			"26": ""
 		},
 		"events": {
 			"0": "Evento de Halloween do Escritório",
@@ -476,7 +479,8 @@
 			"77": "Aniversário de Sky",
 			"78": "Dias Ensolarados",
 			"79": "Dias de Luar",
-			"80": ""
+			"80": "Evento do Resplendor",
+			"81": "Dias de Travessuras"
 		},
 		"event-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras#Outubro_de_2019",
@@ -559,7 +563,8 @@
 			"77": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Aniversário_do_Sky",
 			"78": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados",
 			"79": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar",
-			"80": ""
+			"80": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Eventos_de_Moeda_em_Dobro#Evento_do_Resplendor_-_Outubro_de_2025",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -757,7 +762,8 @@
 			"188": "Sentinela Marcado",
 			"189": "Pastor Rigoroso",
 			"190": "Recluso Ingenioso",
-			"191": "Companheiro Cuidadoso"
+			"191": "Companheiro Cuidadoso",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Candeeiro_Denotante",
@@ -951,7 +957,8 @@
 			"188": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Sentinela_Marcado",
 			"189": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Pastor_Rigoroso",
 			"190": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Recluso_Ingenioso",
-			"191": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acompanhante_Atencioso"
+			"191": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acompanhante_Atencioso",
+			"192": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

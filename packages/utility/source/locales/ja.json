@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "感謝の季節",
@@ -365,7 +366,8 @@
 			"22": "ムーミンの季節",
 			"23": "光に染まる季節",
 			"24": "青い鳥の季節",
-			"25": "ふたつの灯火の季節 −前篇−"
+			"25": "ふたつの灯火の季節 −前篇−",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%84%9F%E8%AC%9D%E3%81%AE%E5%AD%A3%E7%AF%80",
@@ -393,7 +395,8 @@
 			"22": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E3%83%A0%E3%83%BC%E3%83%9F%E3%83%B3%E3%81%AE%E5%AD%A3%E7%AF%80",
 			"23": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E5%85%89%E3%81%AB%E6%9F%93%E3%81%BE%E3%82%8B%E5%AD%A3%E7%AF%80",
 			"24": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%9D%92%E3%81%84%E9%B3%A5%E3%81%AE%E5%AD%A3%E7%AF%80",
-			"25": "https://sky-children-of-the-light.fandom.com/ja/wiki/ふたつの灯火の季節_−前篇−"
+			"25": "https://sky-children-of-the-light.fandom.com/ja/wiki/ふたつの灯火の季節_−前篇−",
+			"26": ""
 		},
 		"events": {
 			"0": "",
@@ -476,7 +479,8 @@
 			"77": "Skyアニバーサリー",
 			"78": "陽光の日々",
 			"79": "月灯りの日々",
-			"80": ""
+			"80": "光に染まるイベント",
+			"81": "いたずらな日々"
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々#2019/10",
@@ -559,7 +563,8 @@
 			"77": "",
 			"78": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%99%BD%E5%85%89%E3%81%AE%E6%97%A5%E3%80%85",
 			"79": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
-			"80": ""
+			"80": "",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -757,7 +762,8 @@
 			"188": "手負いの巡回兵",
 			"189": "厳格なマナティ飼い",
 			"190": "機知に富む隠とん者",
-			"191": "寄り添うお友だち"
+			"191": "寄り添うお友だち",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%8C%87%E5%B7%AE%E3%81%99%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%89%E3%83%AB%E8%81%B7%E4%BA%BA",
@@ -827,7 +833,7 @@
 			"64": "",
 			"65": "",
 			"66": "",
-			"67": "",
+			"67": "https://sky-children-of-the-light.fandom.com/ja/wiki/うっとりするような旅役者",
 			"68": "",
 			"69": "",
 			"70": "",
@@ -951,7 +957,8 @@
 			"188": "",
 			"189": "",
 			"190": "",
-			"191": ""
+			"191": "",
+			"192": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

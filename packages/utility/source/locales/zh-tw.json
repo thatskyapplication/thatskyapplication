@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -365,7 +366,8 @@
 			"22": "姆明季",
 			"23": "彩染季",
 			"24": "青羽季",
-			"25": "雙星季：暮星篇"
+			"25": "雙星季：暮星篇",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -393,7 +395,8 @@
 			"22": "https://sky-children-of-the-light.fandom.com/Season_of_Moomin",
 			"23": "https://sky-children-of-the-light.fandom.com/Season_of_Radiance",
 			"24": "https://sky-children-of-the-light.fandom.com/zh/wiki/%E9%9D%92%E7%BE%BD%E5%AD%A3",
-			"25": "https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1"
+			"25": "https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1",
+			"26": ""
 		},
 		"events": {
 			"0": "搗蛋節辦公室活動",
@@ -476,7 +479,8 @@
 			"77": "《Sky光·遇》週年慶",
 			"78": "陽光節",
 			"79": "月華節",
-			"80": ""
+			"80": "彩染活動",
+			"81": "搗蛋節"
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief",
@@ -559,7 +563,8 @@
 			"77": "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
 			"78": "",
 			"79": "https://sky-children-of-the-light.fandom.com/zh/wiki/%E6%9C%88%E8%8F%AF%E7%AF%80",
-			"80": ""
+			"80": "",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -757,7 +762,8 @@
 			"188": "刀疤士兵",
 			"189": "嚴厲牧牛人",
 			"190": "巧手隱士",
-			"191": "知心夥伴"
+			"191": "知心夥伴",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/Pointing_Candlemaker",
@@ -951,7 +957,8 @@
 			"188": "https://sky-children-of-the-light.fandom.com/Scarred_Sentry",
 			"189": "https://sky-children-of-the-light.fandom.com/Stern_Shepherd",
 			"190": "https://sky-children-of-the-light.fandom.com/Resourceful_Recluse",
-			"191": "https://sky-children-of-the-light.fandom.com/Caring_Companion"
+			"191": "https://sky-children-of-the-light.fandom.com/Caring_Companion",
+			"192": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -365,7 +366,8 @@
 			"22": "姆明季",
 			"23": "彩染季",
 			"24": "青鸟季",
-			"25": "双星季：暮星篇"
+			"25": "双星季：暮星篇",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "",
@@ -393,7 +395,8 @@
 			"22": "",
 			"23": "",
 			"24": "",
-			"25": ""
+			"25": "",
+			"26": ""
 		},
 		"events": {
 			"0": "",
@@ -476,7 +479,8 @@
 			"77": "《Sky光·遇》周年庆",
 			"78": "阳光节",
 			"79": "月华节",
-			"80": ""
+			"80": "彩染活动",
+			"81": "捣蛋节"
 		},
 		"event-wiki": {
 			"0": "",
@@ -559,7 +563,8 @@
 			"77": "",
 			"78": "",
 			"79": "",
-			"80": ""
+			"80": "",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -757,7 +762,8 @@
 			"188": "刀疤士兵",
 			"189": "严厉的牧牛人",
 			"190": "巧手隐士",
-			"191": "知心伙伴"
+			"191": "知心伙伴",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -951,7 +957,8 @@
 			"188": "",
 			"189": "",
 			"190": "",
-			"191": ""
+			"191": "",
+			"192": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

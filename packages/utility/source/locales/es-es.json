@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -365,7 +366,8 @@
 			"22": "Temporada de los Mumins",
 			"23": "Temporada de resplandor",
 			"24": "Temporada del Pájaro Azul",
-			"25": "Temporada de Las Dos Brasas: Parte 1"
+			"25": "Temporada de Las Dos Brasas: Parte 1",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "",
@@ -393,7 +395,8 @@
 			"22": "",
 			"23": "",
 			"24": "",
-			"25": ""
+			"25": "",
+			"26": ""
 		},
 		"events": {
 			"0": "",
@@ -476,7 +479,8 @@
 			"77": "Aniversario de Sky",
 			"78": "Días de Luz Solar",
 			"79": "Días de Luz de Luna",
-			"80": ""
+			"80": "Evento de resplandor",
+			"81": "Días de Travesuras"
 		},
 		"event-wiki": {
 			"0": "",
@@ -559,7 +563,8 @@
 			"77": "",
 			"78": "",
 			"79": "",
-			"80": ""
+			"80": "",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -757,7 +762,8 @@
 			"188": "Centinela herido",
 			"189": "Pastor austero",
 			"190": "Ermitaño ingenioso",
-			"191": "Compañero cariñoso"
+			"191": "Compañero cariñoso",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -951,7 +957,8 @@
 			"188": "",
 			"189": "",
 			"190": "",
-			"191": ""
+			"191": "",
+			"192": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
