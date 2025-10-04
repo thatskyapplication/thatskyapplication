@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "감사의 시즌",
@@ -365,7 +366,8 @@
 			"22": "무민의 시즌",
 			"23": "비밀의 숲",
 			"24": "파랑새의 시즌",
-			"25": "Sky: 두 개의 불씨 - 1부 시즌"
+			"25": "Sky: 두 개의 불씨 - 1부 시즌",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "",
@@ -393,7 +395,8 @@
 			"22": "",
 			"23": "",
 			"24": "",
-			"25": ""
+			"25": "",
+			"26": ""
 		},
 		"events": {
 			"0": "",
@@ -476,7 +479,8 @@
 			"77": "Sky 기념일",
 			"78": "햇빛의 날",
 			"79": "달빛의 날",
-			"80": ""
+			"80": "광채 이벤트",
+			"81": "장난꾸러기의 날"
 		},
 		"event-wiki": {
 			"0": "",
@@ -559,7 +563,8 @@
 			"77": "",
 			"78": "",
 			"79": "",
-			"80": ""
+			"80": "",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -757,7 +762,8 @@
 			"188": "상처 입은 파수꾼",
 			"189": "엄격한 목자",
 			"190": "지략 있는 은둔자",
-			"191": "다정한 친구"
+			"191": "다정한 친구",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -951,7 +957,8 @@
 			"188": "",
 			"189": "",
 			"190": "",
-			"191": ""
+			"191": "",
+			"192": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

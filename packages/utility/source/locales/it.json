@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
@@ -365,7 +366,8 @@
 			"22": "Stagione dei Mumin",
 			"23": "Stagione dello Splendore",
 			"24": "Stagione dell'Uccello Azzurro",
-			"25": "Stagione \"Le due braci - Parte 1\""
+			"25": "Stagione \"Le due braci - Parte 1\"",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "",
@@ -393,7 +395,8 @@
 			"22": "",
 			"23": "",
 			"24": "",
-			"25": ""
+			"25": "",
+			"26": ""
 		},
 		"events": {
 			"0": "",
@@ -476,7 +479,8 @@
 			"77": "Anniversario di Sky",
 			"78": "Giorni Solari",
 			"79": "Giorni del Chiaro di Luna",
-			"80": ""
+			"80": "Evento dello Splendore",
+			"81": "Giorni degli Scherzetti"
 		},
 		"event-wiki": {
 			"0": "",
@@ -559,7 +563,8 @@
 			"77": "",
 			"78": "",
 			"79": "",
-			"80": ""
+			"80": "",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -757,7 +762,8 @@
 			"188": "Sentinella traumatizzata",
 			"189": "Pastore severo",
 			"190": "Eremita ingegnoso",
-			"191": "Compagno premuroso"
+			"191": "Compagno premuroso",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -951,7 +957,8 @@
 			"188": "",
 			"189": "",
 			"190": "",
-			"191": ""
+			"191": "",
+			"192": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

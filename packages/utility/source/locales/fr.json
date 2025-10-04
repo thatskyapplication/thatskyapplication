@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -365,7 +366,8 @@
 			"22": "Saison des Moomins",
 			"23": "Saison de l'Éclat",
 			"24": "Saison de l'Oiseau bleu",
-			"25": "Saison des Deux braises (partie 1)"
+			"25": "Saison des Deux braises (partie 1)",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_la_Gratitude",
@@ -393,7 +395,8 @@
 			"22": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_des_Moomins",
 			"23": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_l%27%C3%89clat",
 			"24": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_l%27Oiseau_Bleu",
-			"25": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_des_Deux_Braises_-_Partie_1"
+			"25": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_des_Deux_Braises_-_Partie_1",
+			"26": ""
 		},
 		"events": {
 			"0": "",
@@ -476,7 +479,8 @@
 			"77": "Anniversaire de Sky",
 			"78": "Jours Ensoleillés",
 			"79": "Jours du Clair de Lune",
-			"80": "Événement de l'Éclat"
+			"80": "Événement de Splendeur",
+			"81": "Jours de la malice"
 		},
 		"event-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice#2019",
@@ -559,7 +563,8 @@
 			"77": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Anniversaire_de_Sky",
 			"78": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_Ensoleillés",
 			"79": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_du_Clair_de_Lune",
-			"80": ""
+			"80": "",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -757,7 +762,8 @@
 			"188": "Sentinelle marquée",
 			"189": "Berger sévère",
 			"190": "Reclus ingénieux",
-			"191": "Compagnon attentionné"
+			"191": "Compagnon attentionné",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cirier_pointant",
@@ -951,7 +957,8 @@
 			"188": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Sentinelle_marquée",
 			"189": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Berger_sévère",
 			"190": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Reclus_ingénieux",
-			"191": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Compagnon_attentionné"
+			"191": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Compagnon_attentionné",
+			"192": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

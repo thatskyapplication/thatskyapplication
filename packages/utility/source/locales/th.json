@@ -337,7 +337,8 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})"
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})"
 		},
 		"seasons": {
 			"0": "ฤดูกาลแห่งความกตัญญู",
@@ -365,7 +366,8 @@
 			"22": "ฤดูกาลแห่งมูมิน",
 			"23": "ฤดูกาลแสงเรืองรอง",
 			"24": "ฤดูกาลแห่งเจ้านกสีฟ้า",
-			"25": "ฤดูกาลถ่านเพลิงคู่ - ส่วนที่ 1"
+			"25": "ฤดูกาลถ่านเพลิงคู่ - ส่วนที่ 1",
+			"26": ""
 		},
 		"season-wiki": {
 			"0": "",
@@ -393,7 +395,8 @@
 			"22": "",
 			"23": "",
 			"24": "",
-			"25": ""
+			"25": "",
+			"26": ""
 		},
 		"events": {
 			"0": "",
@@ -476,7 +479,8 @@
 			"77": "วันฉลองครบรอบของ Sky",
 			"78": "วันแห่งแสงตะวัน",
 			"79": "วันแห่งแสงจันทร์",
-			"80": ""
+			"80": "อีเวนต์แสงเรืองรอง",
+			"81": "วันแห่งความซุกซน"
 		},
 		"event-wiki": {
 			"0": "",
@@ -559,7 +563,8 @@
 			"77": "",
 			"78": "",
 			"79": "",
-			"80": ""
+			"80": "",
+			"81": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -757,7 +762,8 @@
 			"188": "ผู้พิทักษ์ที่มีรอยแผลเป็น",
 			"189": "ผู้เลี้ยงแกะเข้มงวด",
 			"190": "ผู้สันโดษมากไหวพริบ",
-			"191": "เพื่อนร่วมทางแสนห่วงใย"
+			"191": "เพื่อนร่วมทางแสนห่วงใย",
+			"192": ""
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -951,7 +957,8 @@
 			"188": "",
 			"189": "",
 			"190": "",
-			"191": ""
+			"191": "",
+			"192": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
