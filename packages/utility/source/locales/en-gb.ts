@@ -525,6 +525,10 @@ export default {
 				SpiritId.TroupeJuggler,
 				RealmName.GoldenWasteland,
 			),
+			[DailyQuest.MeetUpWithThoughtfulDirectorInRepositoryOfRefuge]: questsMeetUpWith(
+				SpiritId.ThoughtfulDirector,
+				SkyMap.RepositoryOfRefuge,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

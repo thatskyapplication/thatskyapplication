@@ -268,6 +268,7 @@ export const DailyQuest = {
 	MeetUpWithFestivalSpinDancerInForestBrook: 254,
 	MeetUpWithAdmiringActorInBirdNest: 255,
 	MeetUpWithTroupeJugglerInGoldenWasteland: 256,
+	MeetUpWithThoughtfulDirectorInRepositoryOfRefuge: 257,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -677,4 +678,5 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithFestivalSpinDancerInForestBrook]: null,
 	[DailyQuest.MeetUpWithAdmiringActorInBirdNest]: null,
 	[DailyQuest.MeetUpWithTroupeJugglerInGoldenWasteland]: null,
+	[DailyQuest.MeetUpWithThoughtfulDirectorInRepositoryOfRefuge]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
