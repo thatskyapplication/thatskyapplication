@@ -136,13 +136,13 @@ export default function DailyGuides() {
 			remainingWithPass: seasonalCandlesLeftWithSeasonPass,
 			url: seasonalCandlesURL,
 		};
-	} else {
-		const next = skyUpcomingSeason(today);
+	}
 
-		if (next) {
-			const daysUntilStart = next.start.diff(today, "days").days;
-			daysCount.push(t("daily-guides.season-upcoming", { ns: "features", count: daysUntilStart }));
-		}
+	const next = skyUpcomingSeason(today);
+
+	if (next) {
+		const daysUntilStart = next.start.diff(today, "days").days;
+		daysCount.push(t("daily-guides.season-upcoming", { ns: "features", count: daysUntilStart }));
 	}
 
 	for (const { id, start, end } of skyNotEndedEvents(today).values()) {

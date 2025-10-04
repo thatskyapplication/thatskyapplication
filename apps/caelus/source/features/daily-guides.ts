@@ -704,17 +704,17 @@ async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComp
 			type: ComponentType.TextDisplay,
 			content: `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n${values.join("\n")}`,
 		});
-	} else {
-		const next = skyUpcomingSeason(today);
+	}
 
-		if (next) {
-			const daysUntilStart = next.start.diff(today, "days").days;
-			const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
+	const next = skyUpcomingSeason(today);
 
-			footerText.push(
-				`${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: daysUntilStart })}`,
-			);
-		}
+	if (next) {
+		const daysUntilStart = next.start.diff(today, "days").days;
+		const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
+
+		footerText.push(
+			`${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: daysUntilStart })}`,
+		);
 	}
 
 	const eventData = dailyGuidesEventData(today, locale);
