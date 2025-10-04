@@ -16,7 +16,7 @@
 	"packageManager": "pnpm@10.14.0",
 	"pnpm": {
 		"overrides": {
-			"discord-api-types": "0.38.24"
+			"discord-api-types": "0.38.26-next.93decca.1758147813"
 		}
 	}
 }

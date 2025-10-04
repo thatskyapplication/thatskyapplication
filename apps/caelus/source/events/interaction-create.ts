@@ -90,7 +90,11 @@ import {
 	tryAgain,
 } from "../features/guess.js";
 import { history } from "../features/heart.js";
-import { meHandleDeleteButton, meHandleSetBioButton, meHandleSetBioModal } from "../features/me.js";
+import {
+	meHandleCustomiseMeButton,
+	meHandleCustomiseMeModal,
+	meHandleDeleteButton,
+} from "../features/me.js";
 import {
 	displayNotificationType,
 	handleChannelSelectMenu as handleNotificationsChannelSelectMenu,
@@ -113,8 +117,10 @@ import {
 	skyProfileReportModalPrompt,
 	skyProfileReset,
 	skyProfileSendReport,
+	skyProfileSetBanner,
 	skyProfileSetDescription,
 	skyProfileSetHangout,
+	skyProfileSetIcon,
 	skyProfileSetName,
 	skyProfileSetPlatform,
 	skyProfileSetSeasons,
@@ -128,16 +134,10 @@ import {
 	spiritsViewSpirit,
 } from "../features/spirits.js";
 import {
-	handleChannelSelectMenu as handleWelcomeChannelSelectMenu,
-	welcomeHandleAccentColourSettingButton,
-	welcomeHandleAccentColourSettingDeleteButton,
-	welcomeHandleAccentColourSettingModal,
 	welcomeHandleAssetSettingDeleteButton,
+	welcomeHandleEditButton,
+	welcomeHandleEditModal,
 	welcomeHandleHugButton,
-	welcomeHandleHugSettingButton,
-	welcomeHandleMessageSettingButton,
-	welcomeHandleMessageSettingDeleteButton,
-	welcomeHandleMessageSettingModal,
 } from "../features/welcome.js";
 import AI from "../models/AI.js";
 import pino from "../pino.js";
@@ -871,8 +871,8 @@ export default {
 						return;
 					}
 
-					if (id === CustomId.MeSetBio) {
-						await meHandleSetBioButton(interaction);
+					if (id === CustomId.MeCustomiseMe) {
+						await meHandleCustomiseMeButton(interaction);
 						return;
 					}
 
@@ -918,33 +918,13 @@ export default {
 						return;
 					}
 
-					if (id === CustomId.WelcomeHugEdit) {
-						await welcomeHandleHugSettingButton(interaction, !Number(parts[0]));
-						return;
-					}
-
-					if (id === CustomId.WelcomeMessage) {
-						await welcomeHandleMessageSettingButton(interaction);
-						return;
-					}
-
-					if (id === CustomId.WelcomeMessageDelete) {
-						await welcomeHandleMessageSettingDeleteButton(interaction);
+					if (id === CustomId.WelcomeEdit) {
+						await welcomeHandleEditButton(interaction);
 						return;
 					}
 
 					if (id === CustomId.WelcomeAssetDelete) {
 						await welcomeHandleAssetSettingDeleteButton(interaction);
-						return;
-					}
-
-					if (id === CustomId.WelcomeAccentColour) {
-						await welcomeHandleAccentColourSettingButton(interaction);
-						return;
-					}
-
-					if (id === CustomId.WelcomeAccentColourDelete) {
-						await welcomeHandleAccentColourSettingDeleteButton(interaction);
 						return;
 					}
 
@@ -1205,14 +1185,6 @@ export default {
 					await handleNotificationsChannelSelectMenu(interaction);
 					return;
 				}
-
-				if (id === CustomId.WelcomeChannel) {
-					await handleWelcomeChannelSelectMenu(interaction, {
-						welcomeChannelId: interaction.data.values[0] ?? null,
-					});
-
-					return;
-				}
 			} catch (error) {
 				addBreadcrumb({
 					type: "user",
@@ -1288,6 +1260,16 @@ export default {
 					return;
 				}
 
+				if (id === CustomId.SkyProfileIconModal) {
+					await skyProfileSetIcon(interaction);
+					return;
+				}
+
+				if (id === CustomId.SkyProfileBannerModal) {
+					await skyProfileSetBanner(interaction);
+					return;
+				}
+
 				if (id === CustomId.SkyProfileHangoutModal) {
 					await skyProfileSetHangout(interaction);
 					return;
@@ -1304,18 +1286,13 @@ export default {
 				}
 
 				if (isGuildModalSubmit(interaction)) {
-					if (id === CustomId.MeSetBioModal) {
-						await meHandleSetBioModal(interaction);
+					if (id === CustomId.MeCustomiseMeModal) {
+						await meHandleCustomiseMeModal(interaction);
 						return;
 					}
 
-					if (id === CustomId.WelcomeMessageModal) {
-						await welcomeHandleMessageSettingModal(interaction);
-						return;
-					}
-
-					if (id === CustomId.WelcomeAccentColourModal) {
-						await welcomeHandleAccentColourSettingModal(interaction);
+					if (id === CustomId.WelcomeEditModal) {
+						await welcomeHandleEditModal(interaction);
 						return;
 					}
 				}
