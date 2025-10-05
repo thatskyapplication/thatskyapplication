@@ -1,4 +1,4 @@
-name: Deploy Socials
+name: Deploy socials
 on:
   push:
     branches:
@@ -16,10 +16,53 @@ jobs:
     name: Deploy app
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-
-      - run: flyctl deploy --config apps/socials/fly.toml --dockerfile apps/socials/Dockerfile --remote-only --access-token $FLY_DEPLOY_TOKEN
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/socials/Dockerfile
+          tags: thatskyapplication-socials:latest
+          load: true
+          platforms: linux/amd64
+          cache-from: type=gha,scope=deploy-thatskyapplication-socials
+          cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-socials
+      
+      - name: Install docker-pussh
+        run: |
+          mkdir -p ~/.docker/cli-plugins
+          curl -sSL https://raw.githubusercontent.com/psviderski/unregistry/v0.3.1/docker-pussh \
+            -o ~/.docker/cli-plugins/docker-pussh
+          chmod +x ~/.docker/cli-plugins/docker-pussh
+      
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY_SERVER }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      
+      - name: Push image to server
+        run: docker pussh --ssh-key ~/.ssh/id_rsa thatskyapplication-socials:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+      
+      - name: Install Uncloud CLI
+        run: |
+          curl -fsS https://get.uncloud.run/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      
+      - name: Deploy to Uncloud
         env:
-          FLY_DEPLOY_TOKEN: ${{ secrets.FLY_DEPLOY_THATSKYAPPLICATION_SOCIALS_TOKEN }}
+          DATABASE_URL_CAELUS: postgres://${{secrets.POSTGRES_USER}}:${{secrets.POSTGRES_PASSWORD}}@${{secrets.POSTGRES_HOST}}:5432/${{secrets.POSTGRES_DB_CAELUS}}
+          BETTER_STACK_TOKEN_SOCIALS: ${{secrets.BETTER_STACK_TOKEN_SOCIALS}}
+          BETTER_STACK_ENDPOINT_URL_SOCIALS: ${{secrets.BETTER_STACK_ENDPOINT_URL_SOCIALS}}
+          REDDIT_APPLICATION_ID: ${{secrets.REDDIT_APPLICATION_ID}}
+          REDDIT_APPLICATION_SECRET: ${{secrets.REDDIT_APPLICATION_SECRET}}
+        run: |
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/id_rsa
+          uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-socials --recreate --yes

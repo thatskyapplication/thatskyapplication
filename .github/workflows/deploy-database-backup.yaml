@@ -9,21 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       
       - name: Build image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile.backup
           tags: database-backup:latest
           load: true
           platforms: linux/amd64
-          cache-from: type=gha,scope=deploy-database-backup
-          cache-to: type=gha,mode=max,scope=deploy-database-backup
+          cache-from: type=gha,scope=deploy-socials
+          cache-to: type=gha,mode=max,scope=deploy-socials
       
       - name: Install docker-pussh
         run: |
@@ -55,7 +55,7 @@ jobs:
           S3_DEFAULT_REGION: ${{secrets.S3_DEFAULT_REGION }}
           POSTGRES_USER: ${{secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{secrets.POSTGRES_DB }}
+          POSTGRES_DB_CAELUS: ${{secrets.POSTGRES_DB_CAELUS }}
           POSTGRES_HOST: ${{secrets.POSTGRES_HOST }}
           S3_BUCKET: ${{secrets.S3_BUCKET }}
         run: |
