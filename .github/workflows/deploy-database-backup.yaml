@@ -1,0 +1,64 @@
+name: Deploy database backup
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deploy:
+    name: Deploy database backup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.backup
+          tags: database-backup:latest
+          load: true
+          platforms: linux/amd64
+          cache-from: type=gha,scope=deploy-database-backup
+          cache-to: type=gha,mode=max,scope=deploy-database-backup
+      
+      - name: Install docker-pussh
+        run: |
+          mkdir -p ~/.docker/cli-plugins
+          curl -sSL https://raw.githubusercontent.com/psviderski/unregistry/v0.3.1/docker-pussh \
+            -o ~/.docker/cli-plugins/docker-pussh
+          chmod +x ~/.docker/cli-plugins/docker-pussh
+      
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY_SERVER }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      
+      - name: Push image to server
+        run: docker pussh --ssh-key ~/.ssh/id_rsa database-backup:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+      
+      - name: Install Uncloud CLI
+        run: |
+          curl -fsS https://get.uncloud.run/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      
+      - name: Deploy to Uncloud
+        env:
+          S3_ACCESS_KEY_ID: ${{secrets.S3_ACCESS_KEY_ID }}
+          S3_SECRET_ACCESS_KEY: ${{secrets.S3_SECRET_ACCESS_KEY }}
+          S3_ENDPOINT: https://${{secrets.S3_ACCOUNT_ID}}.r2.cloudflarestorage.com
+          S3_DEFAULT_REGION: ${{secrets.S3_DEFAULT_REGION }}
+          POSTGRES_USER: ${{secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{secrets.POSTGRES_DB }}
+          POSTGRES_HOST: ${{secrets.POSTGRES_HOST }}
+          S3_BUCKET: ${{secrets.S3_BUCKET }}
+        run: |
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/id_rsa
+          uc deploy --profile database-backup --recreate --yes

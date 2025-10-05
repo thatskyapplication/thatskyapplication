@@ -1,0 +1,14 @@
+FROM postgres:16
+
+# Install AWS CLI.
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends \
+	awscli \
+	&& rm -rf /var/lib/apt/lists/*
+
+# Copy and set up the backup script.
+COPY backup.sh /usr/local/bin/backup.sh
+RUN chmod +x /usr/local/bin/backup.sh
+
+# Set the backup script as the container's entry point.
+CMD ["/usr/local/bin/backup.sh"]
