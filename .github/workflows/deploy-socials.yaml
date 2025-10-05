@@ -49,12 +49,10 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
 
       - name: Add server to known hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+        run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Push image to server
-        run: docker pussh thatskyapplication-notifications:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+        run: docker pussh thatskyapplication-socials:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
 
       - name: Install Uncloud CLI
         run: |
