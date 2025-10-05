@@ -61,4 +61,4 @@ jobs:
         run: |
           eval $(ssh-agent -s)
           ssh-add ~/.ssh/id_rsa
-          uc deploy --profile database-backup --recreate --yes
+          uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile database-backup --recreate --yes
