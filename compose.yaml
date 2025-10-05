@@ -20,7 +20,6 @@ services:
       - thatskyapplication-notifications
     restart: unless-stopped
     environment:
-      NODE_ENV: production
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DATABASE_URL: ${DATABASE_URL_CAELUS}
       BETTER_STACK_TOKEN: ${BETTER_STACK_TOKEN_NOTIFICATIONS}
@@ -31,7 +30,6 @@ services:
       - thatskyapplication-socials
     restart: unless-stopped
     environment:
-      NODE_ENV: production
       DATABASE_URL: ${DATABASE_URL_CAELUS}
       BETTER_STACK_TOKEN: ${BETTER_STACK_TOKEN_SOCIALS}
       BETTER_STACK_ENDPOINT_URL: ${BETTER_STACK_ENDPOINT_URL_SOCIALS}
