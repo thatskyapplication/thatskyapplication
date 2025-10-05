@@ -20,7 +20,7 @@ RUN pnpm prune --prod
 
 # Final stage.
 FROM node:lts-alpine
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 # Copy built files and production dependencies from builder stage.
 COPY --from=builder /thatskyapplication/node_modules /thatskyapplication/node_modules
