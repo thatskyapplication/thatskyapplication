@@ -81,7 +81,7 @@ services:
     profiles:
       - thatskyapplication-website
     x-ports:
-      - elizabeth-you-need-more-mexico.thatskyapplication.com:80/https
+      - thatskyapplication.com:80/https
     restart: unless-stopped
     environment:
       SESSION_SECRET: ${SESSION_SECRET}
