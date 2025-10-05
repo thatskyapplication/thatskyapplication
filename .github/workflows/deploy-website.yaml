@@ -18,8 +18,59 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - run: flyctl deploy --config apps/website/fly.toml --dockerfile apps/website/Dockerfile --remote-only --access-token $FLY_DEPLOY_TOKEN
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/website/Dockerfile
+          tags: thatskyapplication-website:latest
+          load: true
+          platforms: linux/amd64
+          cache-from: type=gha,scope=deploy-thatskyapplication-website
+          cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-website
         env:
-          FLY_DEPLOY_TOKEN: ${{ secrets.FLY_DEPLOY_THATSKYAPPLICATION_WEBSITE_TOKEN }}
+          DOCKER_BUILD_SUMMARY: false
+          DOCKER_BUILD_RECORD_UPLOAD: false
+
+      - name: Install docker-pussh
+        run: |
+          mkdir -p ~/.docker/cli-plugins
+          curl -sSL https://raw.githubusercontent.com/psviderski/unregistry/v0.3.1/docker-pussh \
+            -o ~/.docker/cli-plugins/docker-pussh
+          chmod +x ~/.docker/cli-plugins/docker-pussh
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
+
+      - name: Add server to known hosts
+        run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Push image to server
+        run: docker pussh thatskyapplication-website:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+
+      - name: Install Uncloud CLI
+        run: |
+          curl -fsS https://get.uncloud.run/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Deploy to Uncloud
+        env:
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          DATABASE_URL_CAELUS: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:5432/${{ secrets.POSTGRES_DB_CAELUS }}
+          DISCORD_TOKEN_CAELUS: ${{ secrets.DISCORD_TOKEN }}
+          APPLICATION_ID: ${{ vars.DISCORD_APPLICATION_ID }}
+          DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
+          SUPPORT_SERVER_GUILD_ID: ${{ vars.SUPPORT_SERVER_GUILD_ID }}
+          TRANSLATOR_ROLE_ID: ${{ vars.TRANSLATOR_ROLE_ID }}
+          CROWDIN_CLIENT_ID: ${{ secrets.CROWDIN_CLIENT_ID }}
+          CROWDIN_CLIENT_SECRET: ${{ secrets.CROWDIN_CLIENT_SECRET }}
+          REDIRECT_URI_LOGIN: ${{ vars.REDIRECT_URI_LOGIN }}
+          REDIRECT_URI_DISCORD_CROWDIN: ${{ vars.REDIRECT_URI_DISCORD_CROWDIN }}
+          BETTER_STACK_TOKEN_WEBSITE: ${{ secrets.BETTER_STACK_TOKEN_WEBSITE }}
+          BETTER_STACK_ENDPOINT_URL_WEBSITE: ${{ secrets.BETTER_STACK_ENDPOINT_URL_WEBSITE }}
+        run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-website --recreate --yes

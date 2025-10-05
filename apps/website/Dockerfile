@@ -1,6 +1,4 @@
-FROM node:lts-alpine as base
-
-LABEL fly_launch_runtime="Remix"
+FROM node:lts-alpine AS base
 
 WORKDIR /thatskyapplication
 ENV NODE_ENV="production"
@@ -8,7 +6,7 @@ ENV NODE_ENV="production"
 # Install pnpm.
 RUN npm install --global pnpm@10.14.0
 
-FROM base as build
+FROM base AS build
 
 # Copy monorepo files required for dependency resolution.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -31,6 +29,6 @@ FROM base
 COPY --from=build /thatskyapplication /thatskyapplication
 
 ENV HOST=0.0.0.0
-EXPOSE 3000
+ENV PORT=80
 WORKDIR /thatskyapplication/apps/website
 CMD [ "pnpm", "run", "start" ]
