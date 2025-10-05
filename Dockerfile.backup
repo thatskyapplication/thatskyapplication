@@ -1,10 +1,9 @@
-FROM postgres:16
+FROM alpine:3
 
-# Install AWS CLI.
-RUN apt-get update && \
-	apt-get install -y --no-install-recommends \
-	awscli \
-	&& rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache \
+    postgresql16-client \
+    aws-cli \
+    bash
 
 # Copy and set up the backup script.
 COPY backup.sh /usr/local/bin/backup.sh
