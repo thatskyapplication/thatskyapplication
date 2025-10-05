@@ -22,8 +22,8 @@ jobs:
           tags: database-backup:latest
           load: true
           platforms: linux/amd64
-          cache-from: type=gha,scope=deploy-socials
-          cache-to: type=gha,mode=max,scope=deploy-socials
+          cache-from: type=gha,scope=deploy-database-backup
+          cache-to: type=gha,mode=max,scope=deploy-database-backup
         env:
           DOCKER_BUILD_SUMMARY: false
           DOCKER_BUILD_RECORD_UPLOAD: false
@@ -35,15 +35,16 @@ jobs:
             -o ~/.docker/cli-plugins/docker-pussh
           chmod +x ~/.docker/cli-plugins/docker-pussh
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY_SERVER }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
+
+      - name: Add server to known hosts
+        run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Push image to server
-        run: docker pussh --ssh-key ~/.ssh/id_rsa database-backup:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+        run: docker pussh database-backup:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
 
       - name: Install Uncloud CLI
         run: |
@@ -61,7 +62,4 @@ jobs:
           POSTGRES_DB_CAELUS: ${{secrets.POSTGRES_DB_CAELUS }}
           POSTGRES_HOST: ${{secrets.POSTGRES_HOST }}
           S3_BUCKET: ${{secrets.S3_BUCKET }}
-        run: |
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/id_rsa
-          uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile database-backup --recreate --yes
+        run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile database-backup --recreate --yes

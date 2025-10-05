@@ -45,15 +45,16 @@ jobs:
             -o ~/.docker/cli-plugins/docker-pussh
           chmod +x ~/.docker/cli-plugins/docker-pussh
 
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY_SERVER }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
+
+      - name: Add server to known hosts
+        run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Push image to server
-        run: docker pussh --ssh-key ~/.ssh/id_rsa thatskyapplication-notifications:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+        run: docker pussh thatskyapplication-notifications:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
 
       - name: Install Uncloud CLI
         run: |
@@ -66,7 +67,4 @@ jobs:
           DATABASE_URL_CAELUS: postgresql://${{secrets.POSTGRES_USER}}:${{secrets.POSTGRES_PASSWORD}}@${{secrets.POSTGRES_HOST}}:5432/${{secrets.POSTGRES_DB_CAELUS}}
           BETTER_STACK_TOKEN_NOTIFICATIONS: ${{secrets.BETTER_STACK_TOKEN_NOTIFICATIONS}}
           BETTER_STACK_ENDPOINT_URL_NOTIFICATIONS: ${{secrets.BETTER_STACK_ENDPOINT_URL_NOTIFICATIONS}}
-        run: |
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/id_rsa
-          uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-notifications --recreate --yes
+        run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-notifications --recreate --yes
