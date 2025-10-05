@@ -32,6 +32,9 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha,scope=deploy-thatskyapplication-socials
           cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-socials
+        env:
+          DOCKER_BUILD_SUMMARY: false
+          DOCKER_BUILD_RECORD_UPLOAD: false
 
       - name: Install docker-pussh
         run: |

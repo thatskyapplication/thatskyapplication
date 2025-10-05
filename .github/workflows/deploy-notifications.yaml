@@ -20,10 +20,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-      
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      
+
       - name: Build image
         uses: docker/build-push-action@v6
         with:
@@ -34,29 +34,32 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha,scope=deploy-thatskyapplication-notifications
           cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-notifications
-      
+        env:
+          DOCKER_BUILD_SUMMARY: false
+          DOCKER_BUILD_RECORD_UPLOAD: false
+
       - name: Install docker-pussh
         run: |
           mkdir -p ~/.docker/cli-plugins
           curl -sSL https://raw.githubusercontent.com/psviderski/unregistry/v0.3.1/docker-pussh \
             -o ~/.docker/cli-plugins/docker-pussh
           chmod +x ~/.docker/cli-plugins/docker-pussh
-      
+
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY_SERVER }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-      
+
       - name: Push image to server
         run: docker pussh --ssh-key ~/.ssh/id_rsa thatskyapplication-notifications:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
-      
+
       - name: Install Uncloud CLI
         run: |
           curl -fsS https://get.uncloud.run/install.sh | sh
           echo "$HOME/.local/bin" >> $GITHUB_PATH
-      
+
       - name: Deploy to Uncloud
         env:
           DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN }}
