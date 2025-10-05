@@ -18,8 +18,51 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - run: flyctl deploy --config apps/servare/fly.toml --dockerfile apps/servare/Dockerfile --remote-only --access-token $FLY_DEPLOY_TOKEN
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/servare/Dockerfile
+          tags: thatskyapplication-servare:latest
+          load: true
+          platforms: linux/amd64
+          cache-from: type=gha,scope=deploy-thatskyapplication-servare
+          cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-servare
         env:
-          FLY_DEPLOY_TOKEN: ${{ secrets.FLY_DEPLOY_SERVARE_TOKEN }}
+          DOCKER_BUILD_SUMMARY: false
+          DOCKER_BUILD_RECORD_UPLOAD: false
+
+      - name: Install docker-pussh
+        run: |
+          mkdir -p ~/.docker/cli-plugins
+          curl -sSL https://raw.githubusercontent.com/psviderski/unregistry/v0.3.1/docker-pussh \
+            -o ~/.docker/cli-plugins/docker-pussh
+          chmod +x ~/.docker/cli-plugins/docker-pussh
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
+
+      - name: Add server to known hosts
+        run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Push image to server
+        run: docker pussh thatskyapplication-servare:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+
+      - name: Install Uncloud CLI
+        run: |
+          curl -fsS https://get.uncloud.run/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Deploy to Uncloud
+        env:
+          DISCORD_TOKEN_SERVARE: ${{ secrets.DISCORD_TOKEN_SERVARE }}
+          APPLICATION_ID: ${{ vars.DISCORD_APPLICATION_ID_SERVARE }}
+          DATABASE_URL_SERVARE: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:5432/${{ secrets.POSTGRES_DB_SERVARE }}
+          BETTER_STACK_TOKEN_SERVARE: ${{ secrets.BETTER_STACK_TOKEN_SERVARE }}
+          BETTER_STACK_ENDPOINT_URL_SERVARE: ${{ secrets.BETTER_STACK_ENDPOINT_URL_SERVARE }}
+        run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-servare --recreate --yes

@@ -24,6 +24,17 @@ services:
       DATABASE_URL: ${DATABASE_URL_CAELUS}
       BETTER_STACK_TOKEN: ${BETTER_STACK_TOKEN_NOTIFICATIONS}
       BETTER_STACK_ENDPOINT_URL: ${BETTER_STACK_ENDPOINT_URL_NOTIFICATIONS}
+  thatskyapplication-servare:
+    image: thatskyapplication-servare:latest
+    profiles:
+      - thatskyapplication-servare
+    restart: unless-stopped
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN_SERVARE}
+      APPLICATION_ID: ${APPLICATION_ID}
+      DATABASE_URL: ${DATABASE_URL_SERVARE}
+      BETTER_STACK_TOKEN: ${BETTER_STACK_TOKEN_SERVARE}
+      BETTER_STACK_ENDPOINT_URL: ${BETTER_STACK_ENDPOINT_URL_SERVARE}
   thatskyapplication-socials:
     image: thatskyapplication-socials:latest
     profiles:
