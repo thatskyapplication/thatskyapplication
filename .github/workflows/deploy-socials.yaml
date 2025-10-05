@@ -60,9 +60,9 @@ jobs:
 
       - name: Deploy to Uncloud
         env:
-          DATABASE_URL_CAELUS: postgresql://${{secrets.POSTGRES_USER}}:${{secrets.POSTGRES_PASSWORD}}@${{secrets.POSTGRES_HOST}}:5432/${{secrets.POSTGRES_DB_CAELUS}}
-          BETTER_STACK_TOKEN_SOCIALS: ${{secrets.BETTER_STACK_TOKEN_SOCIALS}}
-          BETTER_STACK_ENDPOINT_URL_SOCIALS: ${{secrets.BETTER_STACK_ENDPOINT_URL_SOCIALS}}
-          REDDIT_APPLICATION_ID: ${{secrets.REDDIT_APPLICATION_ID}}
-          REDDIT_APPLICATION_SECRET: ${{secrets.REDDIT_APPLICATION_SECRET}}
+          DATABASE_URL_CAELUS: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:5432/${{ secrets.POSTGRES_DB_CAELUS }}
+          BETTER_STACK_TOKEN_SOCIALS: ${{ secrets.BETTER_STACK_TOKEN_SOCIALS }}
+          BETTER_STACK_ENDPOINT_URL_SOCIALS: ${{ secrets.BETTER_STACK_ENDPOINT_URL_SOCIALS }}
+          REDDIT_APPLICATION_ID: ${{ secrets.REDDIT_APPLICATION_ID }}
+          REDDIT_APPLICATION_SECRET: ${{ secrets.REDDIT_APPLICATION_SECRET }}
         run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-socials --recreate --yes

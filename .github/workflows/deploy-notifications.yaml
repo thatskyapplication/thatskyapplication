@@ -62,8 +62,8 @@ jobs:
 
       - name: Deploy to Uncloud
         env:
-          DISCORD_TOKEN: ${{secrets.DISCORD_TOKEN }}
-          DATABASE_URL_CAELUS: postgresql://${{secrets.POSTGRES_USER}}:${{secrets.POSTGRES_PASSWORD}}@${{secrets.POSTGRES_HOST}}:5432/${{secrets.POSTGRES_DB_CAELUS}}
-          BETTER_STACK_TOKEN_NOTIFICATIONS: ${{secrets.BETTER_STACK_TOKEN_NOTIFICATIONS}}
-          BETTER_STACK_ENDPOINT_URL_NOTIFICATIONS: ${{secrets.BETTER_STACK_ENDPOINT_URL_NOTIFICATIONS}}
-        run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-notifications --recreate --yes
+          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+          DATABASE_URL_CAELUS: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:5432/${{ secrets.POSTGRES_DB_CAELUS }}
+          BETTER_STACK_TOKEN_NOTIFICATIONS: ${{ secrets.BETTER_STACK_TOKEN_NOTIFICATIONS }}
+          BETTER_STACK_ENDPOINT_URL_NOTIFICATIONS: ${{ secrets.BETTER_STACK_ENDPOINT_URL_NOTIFICATIONS }}
+        run: uc deploy --connect ${{  secrets.SERVER_USER }}@${{  secrets.SERVER_IP }} --profile thatskyapplication-notifications --recreate --yes
