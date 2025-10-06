@@ -7,7 +7,7 @@ export default new Season({
 	id: SeasonId.Migration,
 	start: skyDate(2_025, 10, 20),
 	// Assuming 77 days after since this is not yet announced.
-	end: skyDate(2025, 12, 6),
+	end: skyDate(2_026, 1, 5),
 	guide: migrationGuide,
 	spirits: [],
 });
