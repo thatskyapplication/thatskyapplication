@@ -1571,7 +1571,7 @@ async function skyProfileShowIconModal(interaction: APIMessageComponentSelectMen
 					custom_id: CustomId.SkyProfileIconModalIcon,
 					max_values: 1,
 					min_values: 1,
-					required: false,
+					required: true,
 				},
 				label: t("sky-profile.edit-modal-label-icon-label", { lng: locale, ns: "features" }),
 				description: t("sky-profile.edit-modal-label-icon-description", {
@@ -1597,7 +1597,7 @@ async function skyProfileShowBannerModal(interaction: APIMessageComponentSelectM
 					custom_id: CustomId.SkyProfileBannerModalBanner,
 					max_values: 1,
 					min_values: 1,
-					required: false,
+					required: true,
 				},
 				label: t("sky-profile.edit-modal-label-banner-label", { lng: locale, ns: "features" }),
 				description: t("sky-profile.edit-modal-label-banner-description", {
