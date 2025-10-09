@@ -63,6 +63,5 @@ jobs:
           DISCORD_TOKEN_SERVARE: ${{ secrets.DISCORD_TOKEN_SERVARE }}
           APPLICATION_ID: ${{ vars.DISCORD_APPLICATION_ID_SERVARE }}
           DATABASE_URL_SERVARE: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:5432/${{ secrets.POSTGRES_DB_SERVARE }}
-          BETTER_STACK_TOKEN_SERVARE: ${{ secrets.BETTER_STACK_TOKEN_SERVARE }}
-          BETTER_STACK_ENDPOINT_URL_SERVARE: ${{ secrets.BETTER_STACK_ENDPOINT_URL_SERVARE }}
+          SENTRY_DATA_SOURCE_NAME_SERVARE: ${{ secrets.SENTRY_DATA_SOURCE_NAME_SERVARE }}
         run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-servare --recreate --yes

@@ -7,7 +7,7 @@ export const PRODUCTION = process.env.NODE_ENV === "production";
 // Environment variables.
 if (
 	!(process.env.DISCORD_TOKEN && process.env.DATABASE_URL && process.env.APPLICATION_ID) ||
-	(PRODUCTION && !(process.env.BETTER_STACK_TOKEN && process.env.BETTER_STACK_ENDPOINT_URL))
+	(PRODUCTION && !process.env.SENTRY_DATA_SOURCE_NAME)
 ) {
 	throw new Error("Missing environment variables.");
 }
@@ -15,8 +15,7 @@ if (
 export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 export const APPLICATION_ID = process.env.APPLICATION_ID;
 export const DATABASE_URL = process.env.DATABASE_URL;
-export const BETTER_STACK_TOKEN = process.env.BETTER_STACK_TOKEN;
-export const BETTER_STACK_ENDPOINT_URL = process.env.BETTER_STACK_ENDPOINT_URL;
+export const SENTRY_DATA_SOURCE_NAME = process.env.SENTRY_DATA_SOURCE_NAME;
 export const DEFAULT_ACCENT_COLOUR = 0xc0c0ba;
 export const SUPPORT_SERVER_INVITE_URL = "https://thatskyapplication.com/support";
 
