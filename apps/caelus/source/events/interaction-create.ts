@@ -1,10 +1,7 @@
 import {
-	type APIChatInputApplicationCommandInteraction,
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
-	type APIModalSubmitInteraction,
-	type APIUserApplicationCommandInteraction,
 	ApplicationCommandType,
 	ComponentType,
 	GatewayDispatchEvents,
@@ -13,7 +10,6 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 	RESTJSONErrorCodes,
-	type Snowflake,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
@@ -304,87 +300,15 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 	}
 }
 
-function logCommand(
-	interaction: APIChatInputApplicationCommandInteraction | APIUserApplicationCommandInteraction,
-) {
-	let command: string;
-	let targetUser: Snowflake | undefined;
-
-	if (isChatInputCommand(interaction)) {
-		const options = new OptionResolver(interaction);
-		command = options.chatInputCommandText();
-	} else {
-		command = interaction.data.name;
-		targetUser = interaction.data.target_id;
-	}
-
-	const invoker = interactionInvoker(interaction);
-
-	pino.info(
-		{
-			user: { id: invoker.id, username: invoker.username },
-			command,
-			guildId: interaction.guild_id,
-			channelId: interaction.channel.id,
-			targetUser,
-			permissions: interaction.app_permissions,
-			authorizingIntegrationOwners: interaction.authorizing_integration_owners,
-			context: interaction.context,
-			locale: { user: interaction.locale, guild: interaction.guild_locale },
-		},
-		`Command: ${command}`,
-	);
-}
-
-function logMessageComponent(
-	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-) {
-	const customId = interaction.data.custom_id;
-	const invoker = interactionInvoker(interaction);
-
-	pino.info(
-		{
-			user: { id: invoker.id, invokername: invoker.username },
-			customId,
-			values: "values" in interaction.data ? interaction.data.values : null,
-			guildId: interaction.guild_id,
-			channelId: interaction.channel.id,
-			messageId: interaction.message.id,
-			permissions: interaction.app_permissions,
-			authorizingIntegrationOwners: interaction.authorizing_integration_owners,
-			context: interaction.context,
-			locale: { user: interaction.locale, guild: interaction.guild_locale },
-		},
-		`Component custom id: ${customId}`,
-	);
-}
-
-function logModalSubmit(interaction: APIModalSubmitInteraction) {
-	const customId = interaction.data.custom_id;
-	const invoker = interactionInvoker(interaction);
-
-	pino.info(
-		{
-			user: { id: invoker.id, invokername: invoker.username },
-			customId,
-			components: interaction.data.components,
-			guildId: interaction.guild_id,
-			channelId: "channel" in interaction ? interaction.channel.id : null,
-			messageId: "message" in interaction ? interaction.message.id : null,
-			permissions: interaction.app_permissions,
-			authorizingIntegrationOwners: interaction.authorizing_integration_owners,
-			context: interaction.context,
-			locale: { user: interaction.locale, guild: interaction.guild_locale },
-		},
-		`Modal submit custom id: ${customId}`,
-	);
-}
-
 export default {
 	name,
 	async fire({ api, data: interaction }) {
 		if (isChatInputCommand(interaction)) {
-			logCommand(interaction);
+			pino.info(
+				interaction,
+				`Chat input command: ${new OptionResolver(interaction).chatInputCommandText()}`,
+			);
+
 			const command = CHAT_INPUT_COMMANDS.find(({ name }) => name === interaction.data.name);
 
 			if (!command) {
@@ -418,7 +342,7 @@ export default {
 		}
 
 		if (isUserContextMenuCommand(interaction)) {
-			logCommand(interaction);
+			pino.info(interaction, `User context menu command: ${interaction.data.name}`);
 			const command = USER_CONTEXT_MENU_COMMANDS.find(({ name }) => name === interaction.data.name);
 
 			if (!command) {
@@ -452,7 +376,7 @@ export default {
 		}
 
 		if (isButton(interaction)) {
-			logMessageComponent(interaction);
+			pino.info(interaction, `Button: ${interaction.data.custom_id}`);
 			const [id, ...parts] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			if (await isOldId(interaction, id)) {
@@ -967,7 +891,7 @@ export default {
 		}
 
 		if (isStringSelectMenu(interaction)) {
-			logMessageComponent(interaction);
+			pino.info(interaction, `String select: ${interaction.data.custom_id}`);
 			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			if (await isOldId(interaction, id)) {
@@ -1139,7 +1063,7 @@ export default {
 		}
 
 		if (isGuildRoleSelectMenu(interaction)) {
-			logMessageComponent(interaction);
+			pino.info(interaction, `Role select: ${interaction.data.custom_id}`);
 			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
@@ -1175,7 +1099,7 @@ export default {
 		}
 
 		if (isGuildChannelSelectMenu(interaction)) {
-			logMessageComponent(interaction);
+			pino.info(interaction, `Channel select: ${interaction.data.custom_id}`);
 			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
@@ -1246,7 +1170,7 @@ export default {
 		}
 
 		if (isModalSubmit(interaction)) {
-			logModalSubmit(interaction);
+			pino.info(interaction, `Modal submit: ${interaction.data.custom_id}`);
 			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
 
 			try {

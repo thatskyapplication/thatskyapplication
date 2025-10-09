@@ -1,7 +1,6 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { MESSAGE_CACHE } from "../caches/messages.js";
-import { logGuild } from "../features/log.js";
 import { checkSendable } from "../features/notifications.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
@@ -41,7 +40,7 @@ export default {
 		}
 
 		GUILD_CACHE.delete(data.id);
-		logGuild(guild ?? data);
+		pino.info(guild ?? data, "Guild left.");
 		await checkSendable(data.id);
 	},
 } satisfies Event<typeof name>;
