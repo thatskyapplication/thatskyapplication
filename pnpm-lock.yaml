@@ -227,9 +227,9 @@ importers:
       '@discordjs/rest':
         specifier: dev
         version: 3.0.0-dev.1759968109-7f2935695
-      '@logtail/pino':
-        specifier: ^0.5.5
-        version: 0.5.5(pino@9.9.0)
+      '@sentry/node':
+        specifier: ^10.18.0
+        version: 10.18.0
       '@skyware/jetstream':
         specifier: 0.2.5
         version: 0.2.5
@@ -4967,13 +4967,6 @@ snapshots:
       '@logtail/node': 0.5.5
       '@logtail/types': 0.5.3
       pino: 9.11.0
-      pino-abstract-transport: 1.2.0
-
-  '@logtail/pino@0.5.5(pino@9.9.0)':
-    dependencies:
-      '@logtail/node': 0.5.5
-      '@logtail/types': 0.5.3
-      pino: 9.9.0
       pino-abstract-transport: 1.2.0
 
   '@logtail/tools@0.5.4':

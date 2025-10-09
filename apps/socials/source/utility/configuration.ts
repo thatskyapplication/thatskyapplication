@@ -10,13 +10,12 @@ if (
 		process.env.REDDIT_APPLICATION_ID &&
 		process.env.REDDIT_APPLICATION_SECRET
 	) ||
-	(PRODUCTION && !(process.env.BETTER_STACK_TOKEN && process.env.BETTER_STACK_ENDPOINT_URL))
+	(PRODUCTION && !process.env.SENTRY_DATA_SOURCE_NAME)
 ) {
 	throw new Error("Missing environment variables.");
 }
 
 export const DATABASE_URL = process.env.DATABASE_URL;
-export const BETTER_STACK_TOKEN = process.env.BETTER_STACK_TOKEN;
-export const BETTER_STACK_ENDPOINT_URL = process.env.BETTER_STACK_ENDPOINT_URL;
+export const SENTRY_DATA_SOURCE_NAME = process.env.SENTRY_DATA_SOURCE_NAME;
 export const REDDIT_APPLICATION_ID = process.env.REDDIT_APPLICATION_ID;
 export const REDDIT_APPLICATION_SECRET = process.env.REDDIT_APPLICATION_SECRET;

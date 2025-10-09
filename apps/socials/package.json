@@ -8,14 +8,14 @@
 		"format": "biome check --write",
 		"lint": "biome check",
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
-		"start": "node distribution/index.js",
+		"start": "node --import ./distribution/sentry.js distribution/index.js",
 		"knip": "knip"
 	},
 	"dependencies": {
 		"@atproto/api": "^0.16.2",
 		"@discordjs/core": "dev",
 		"@discordjs/rest": "dev",
-		"@logtail/pino": "^0.5.5",
+		"@sentry/node": "^10.18.0",
 		"@skyware/jetstream": "0.2.5",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
