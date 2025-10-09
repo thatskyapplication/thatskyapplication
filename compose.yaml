@@ -48,6 +48,8 @@ services:
     profiles:
       - thatskyapplication-notifications
     restart: unless-stopped
+    logging:
+      driver: none
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DATABASE_URL: ${DATABASE_URL_CAELUS}
