@@ -365,6 +365,6 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		monitorSlug: "notifications",
 		status: "ok",
 		checkInId,
-		duration: now.diff(DateTime.now(), "seconds").seconds,
+		duration: DateTime.now().diff(now, "seconds").seconds,
 	});
 });
