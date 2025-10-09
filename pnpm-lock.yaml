@@ -108,9 +108,9 @@ importers:
       '@discordjs/rest':
         specifier: dev
         version: 3.0.0-dev.1759968109-7f2935695
-      '@logtail/pino':
-        specifier: ^0.5.5
-        version: 0.5.5(pino@9.9.0)
+      '@sentry/node':
+        specifier: ^10.18.0
+        version: 10.18.0
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../packages/utility

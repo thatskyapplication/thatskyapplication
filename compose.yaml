@@ -51,8 +51,7 @@ services:
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DATABASE_URL: ${DATABASE_URL_CAELUS}
-      BETTER_STACK_TOKEN: ${BETTER_STACK_TOKEN_NOTIFICATIONS}
-      BETTER_STACK_ENDPOINT_URL: ${BETTER_STACK_ENDPOINT_URL_NOTIFICATIONS}
+      SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME_NOTIFICATIONS}
   thatskyapplication-servare:
     image: thatskyapplication-servare:latest
     profiles:
