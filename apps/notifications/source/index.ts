@@ -1,5 +1,6 @@
 import { API, Locale, MessageFlags } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
+import { captureCheckIn } from "@sentry/node";
 import {
 	de,
 	enGB,
@@ -101,6 +102,7 @@ function isNotificationShardEruptionData(
 }
 
 new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
+	const checkInId = captureCheckIn({ monitorSlug: "notifications", status: "in_progress" });
 	const date = DateTime.now().setZone(TIME_ZONE).set({ second: 0, millisecond: 0 });
 	const { day, weekday, hour, minute } = date;
 	const notifications: NotificationsData[] = [];
@@ -357,4 +359,6 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			pino.error(errors, "Error whilst sending notifications.");
 		}
 	}
+
+	captureCheckIn({ monitorSlug: "notifications", status: "ok", checkInId });
 });
