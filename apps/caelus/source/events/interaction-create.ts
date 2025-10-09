@@ -70,7 +70,6 @@ import {
 	checklistHandleSeasonalCandles,
 	checklistHandleShardEruptions,
 } from "../features/checklist.js";
-import { commandAnalyticsSend } from "../features/command-analytics.js";
 import {
 	dailyGuidesResponse,
 	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
@@ -320,17 +319,6 @@ function logCommand(
 	}
 
 	const invoker = interactionInvoker(interaction);
-
-	void commandAnalyticsSend({
-		userId: invoker.id,
-		guildId: interaction.guild_id,
-		channelId: interaction.channel.id,
-		commandId: interaction.data.id,
-		commandString: command,
-		userLocale: interaction.locale,
-		guildLocale: interaction.guild_locale,
-		date: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-	});
 
 	pino.info(
 		{

@@ -23,10 +23,6 @@ export default function TermsPrivacy() {
 				<li>Content in Sky profiles.</li>
 			</ul>
 			<p>
-				Interactions are stored primarily for audit and analytical purposes for a maximum of 30
-				days.
-			</p>
-			<p>
 				The AI of {APPLICATION_NAME} does <strong>not</strong> store any data.
 			</p>
 			<h2>What data is shared?</h2>

@@ -16,7 +16,6 @@ import {
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
 import { interactionInvoker } from "../utility/functions.js";
-import type { CommandAnalyticsPacket } from "./command-analytics.js";
 import type { GuessPacket } from "./guess.js";
 import type { HeartPacket } from "./heart.js";
 import { skyProfileDelete } from "./sky-profile.js";
@@ -29,7 +28,6 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 	const promises = [
 		pg<CataloguePacket>(Table.Catalogue).delete().where({ user_id: userId }),
 		pg<ChecklistPacket>(Table.Checklist).delete().where({ user_id: userId }),
-		pg<CommandAnalyticsPacket>(Table.CommandAnalytics).delete().where({ user_id: userId }),
 		pg<HeartPacket>(Table.Hearts).update({ gifter_id: null }).where({ gifter_id: userId }),
 		pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: userId }),
 		pg<GuessPacket>(Table.Guess).delete().where({ user_id: userId }),

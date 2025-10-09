@@ -2,7 +2,6 @@ import { captureCheckIn } from "@sentry/node";
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { GUILD_CACHE } from "./caches/guilds.js";
-import { commandAnalyticsDeleteOld } from "./features/command-analytics.js";
 import {
 	distribute,
 	resetDailyGuides,
@@ -18,19 +17,16 @@ export default function croner() {
 		{ catch: (error) => pino.error(error, "Error during changing days."), timezone: TIME_ZONE },
 		async () => {
 			const today = skyToday();
-			const independentPromises = [commandAnalyticsDeleteOld()];
 			const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 			if (!guild) {
 				pino.error("Could not find the support server whilst resetting daily guides.");
-				await Promise.all(independentPromises);
 				return;
 			}
 
 			const me = await guild.fetchMe();
 
 			await Promise.all([
-				...independentPromises,
 				resetDailyGuides({ user: me.user, lastUpdatedAt: today.toJSDate() }),
 				resetDailyGuidesDistribution(),
 			]);

@@ -3,7 +3,6 @@ export enum Table {
 	BlueskyWebhooks = "bluesky_webhooks",
 	Catalogue = "catalogue",
 	Checklist = "checklist",
-	CommandAnalytics = "command_analytics",
 	Configuration = "configuration",
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
