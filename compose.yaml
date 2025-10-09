@@ -9,6 +9,7 @@ services:
       options:
         max-size: 1m
         max-file: 1
+        compress: "false"
     environment:
       AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
@@ -29,6 +30,7 @@ services:
       options:
         max-size: 1m
         max-file: 1
+        compress: "false"
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       MAXIMUM_CONCURRENCY_LIMIT: ${MAXIMUM_CONCURRENCY_LIMIT}
@@ -63,6 +65,7 @@ services:
       options:
         max-size: 1m
         max-file: 1
+        compress: "false"
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DATABASE_URL: ${DATABASE_URL_CAELUS}
@@ -77,6 +80,7 @@ services:
       options:
         max-size: 1m
         max-file: 1
+        compress: "false"
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN_SERVARE}
       APPLICATION_ID: ${APPLICATION_ID}
@@ -92,6 +96,7 @@ services:
       options:
         max-size: 1m
         max-file: 1
+        compress: "false"
     environment:
       DATABASE_URL: ${DATABASE_URL_CAELUS}
       SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME_SOCIALS}
@@ -109,6 +114,7 @@ services:
       options:
         max-size: 1m
         max-file: 1
+        compress: "false"
     environment:
       SESSION_SECRET: ${SESSION_SECRET}
       DATABASE_URL: ${DATABASE_URL_CAELUS}
