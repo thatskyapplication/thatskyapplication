@@ -17,7 +17,7 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { addBreadcrumb, captureException } from "@sentry/node";
+import { addBreadcrumb } from "@sentry/node";
 import {
 	isRealm,
 	isSeasonId,
@@ -423,7 +423,6 @@ export default {
 					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
 				});
 
-				captureException(error);
 				void recoverInteractionError(interaction, error);
 			}
 
@@ -458,7 +457,6 @@ export default {
 					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
 				});
 
-				captureException(error);
 				void recoverInteractionError(interaction, error);
 			}
 
@@ -963,7 +961,6 @@ export default {
 					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
 				});
 
-				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
@@ -1136,7 +1133,6 @@ export default {
 					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
 				});
 
-				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
@@ -1173,7 +1169,6 @@ export default {
 					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
 				});
 
-				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
@@ -1223,7 +1218,6 @@ export default {
 					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
 				});
 
-				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
@@ -1329,7 +1323,6 @@ export default {
 					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
 				});
 
-				captureException(error);
 				void recoverInteractionError(interaction, error);
 				return;
 			}
