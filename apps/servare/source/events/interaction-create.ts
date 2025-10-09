@@ -1,4 +1,6 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
+import { addBreadcrumb } from "@sentry/node";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { CHAT_INPUT_COMMANDS, MESSAGE_CONTEXT_MENU_COMMANDS } from "../commands/index.js";
 import { client } from "../discord.js";
@@ -53,6 +55,15 @@ export default {
 			try {
 				await command.chatInput(data, guild);
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data,
+					category: "Interaction",
+					message: "Chat input command failed.",
+					timestamp: DiscordSnowflake.timestampFrom(data.id) / 1000,
+				});
+
 				pino.error(error, "Error whilst executing chat input command.");
 			}
 
@@ -71,6 +82,15 @@ export default {
 			try {
 				await command.messageContextMenu(data, guild);
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data,
+					category: "Interaction",
+					message: "Message context menu command failed.",
+					timestamp: DiscordSnowflake.timestampFrom(data.id) / 1000,
+				});
+
 				pino.error(error, "Error whilst executing message context menu command.");
 			}
 
@@ -91,6 +111,15 @@ export default {
 					return;
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data,
+					category: "Interaction",
+					message: "Button interaction failed.",
+					timestamp: DiscordSnowflake.timestampFrom(data.id) / 1000,
+				});
+
 				pino.error(error, "Error whilst handling a button interaction.");
 				return;
 			}
@@ -109,6 +138,15 @@ export default {
 					return;
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data,
+					category: "Interaction",
+					message: "String select interaction failed.",
+					timestamp: DiscordSnowflake.timestampFrom(data.id) / 1000,
+				});
+
 				pino.error(error, "Error whilst executing string select menu interaction.");
 				return;
 			}
@@ -147,6 +185,15 @@ export default {
 					return;
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data,
+					category: "Interaction",
+					message: "Channel select failed.",
+					timestamp: DiscordSnowflake.timestampFrom(data.id) / 1000,
+				});
+
 				pino.error(error, "Error whilst executing channel select menu interaction.");
 				return;
 			}
@@ -165,6 +212,15 @@ export default {
 					return;
 				}
 			} catch (error) {
+				addBreadcrumb({
+					type: "user",
+					level: "error",
+					data,
+					category: "Interaction",
+					message: "Modal submit failed.",
+					timestamp: DiscordSnowflake.timestampFrom(data.id) / 1000,
+				});
+
 				pino.error(error, "Error whilst handling a modal submit interaction.");
 				return;
 			}
