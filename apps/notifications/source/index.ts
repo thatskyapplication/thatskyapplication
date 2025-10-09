@@ -102,8 +102,9 @@ function isNotificationShardEruptionData(
 }
 
 new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
+	const now = DateTime.now();
 	const checkInId = captureCheckIn({ monitorSlug: "notifications", status: "in_progress" });
-	const date = DateTime.now().setZone(TIME_ZONE).set({ second: 0, millisecond: 0 });
+	const date = now.setZone(TIME_ZONE).startOf("minute");
 	const { day, weekday, hour, minute } = date;
 	const notifications: NotificationsData[] = [];
 
@@ -360,5 +361,10 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		}
 	}
 
-	captureCheckIn({ monitorSlug: "notifications", status: "ok", checkInId });
+	captureCheckIn({
+		monitorSlug: "notifications",
+		status: "ok",
+		checkInId,
+		duration: now.diff(DateTime.now(), "seconds").seconds,
+	});
 });
