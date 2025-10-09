@@ -4,6 +4,11 @@ services:
     profiles:
       - database-backup
     restart: unless-stopped
+    logging:
+      driver: local
+      options:
+        max-size: 1m
+        max-file: 1
     environment:
       AWS_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
       AWS_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
@@ -19,6 +24,11 @@ services:
     profiles:
       - thatskyapplication-caelus
     restart: unless-stopped
+    logging:
+      driver: local
+      options:
+        max-size: 1m
+        max-file: 1
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       MAXIMUM_CONCURRENCY_LIMIT: ${MAXIMUM_CONCURRENCY_LIMIT}
@@ -49,7 +59,10 @@ services:
       - thatskyapplication-notifications
     restart: unless-stopped
     logging:
-      driver: none
+      driver: local
+      options:
+        max-size: 1m
+        max-file: 1
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DATABASE_URL: ${DATABASE_URL_CAELUS}
@@ -59,6 +72,11 @@ services:
     profiles:
       - thatskyapplication-servare
     restart: unless-stopped
+    logging:
+      driver: local
+      options:
+        max-size: 1m
+        max-file: 1
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN_SERVARE}
       APPLICATION_ID: ${APPLICATION_ID}
@@ -69,6 +87,11 @@ services:
     profiles:
       - thatskyapplication-socials
     restart: unless-stopped
+    logging:
+      driver: local
+      options:
+        max-size: 1m
+        max-file: 1
     environment:
       DATABASE_URL: ${DATABASE_URL_CAELUS}
       BETTER_STACK_TOKEN: ${BETTER_STACK_TOKEN_SOCIALS}
@@ -82,6 +105,11 @@ services:
     x-ports:
       - thatskyapplication.com:80/https
     restart: unless-stopped
+    logging:
+      driver: local
+      options:
+        max-size: 1m
+        max-file: 1
     environment:
       SESSION_SECRET: ${SESSION_SECRET}
       DATABASE_URL: ${DATABASE_URL_CAELUS}
