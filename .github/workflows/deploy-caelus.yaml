@@ -85,5 +85,4 @@ jobs:
           S3_ACCOUNT_ID: ${{ secrets.S3_ACCOUNT_ID }}
           S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
           SENTRY_DATA_SOURCE_NAME: ${{ secrets.SENTRY_DATA_SOURCE_NAME }}
-          BETTER_STACK_TOKEN_CAELUS: ${{ secrets.BETTER_STACK_TOKEN_CAELUS }}
         run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-caelus --recreate --yes

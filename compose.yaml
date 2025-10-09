@@ -43,7 +43,6 @@ services:
       S3_ACCOUNT_ID: ${S3_ACCOUNT_ID}
       S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
       SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME}
-      BETTER_STACK_TOKEN: ${BETTER_STACK_TOKEN_CAELUS}
   thatskyapplication-notifications:
     image: thatskyapplication-notifications:latest
     profiles:

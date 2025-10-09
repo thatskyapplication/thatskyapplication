@@ -35,9 +35,6 @@ importers:
       '@discordjs/ws':
         specifier: dev
         version: 3.0.0-dev.1757851336-b66f52f9a
-      '@logtail/pino':
-        specifier: ^0.5.5
-        version: 0.5.5(pino@9.9.0)
       '@sapphire/snowflake':
         specifier: ^3.5.5
         version: 3.5.5

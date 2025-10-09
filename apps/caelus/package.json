@@ -19,7 +19,6 @@
 		"@discordjs/core": "dev",
 		"@discordjs/rest": "dev",
 		"@discordjs/ws": "dev",
-		"@logtail/pino": "^0.5.5",
 		"@sapphire/snowflake": "^3.5.5",
 		"@sentry/node": "^10.18.0",
 		"@thatskyapplication/utility": "workspace:^",
