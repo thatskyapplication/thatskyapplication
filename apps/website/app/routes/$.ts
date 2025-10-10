@@ -4,6 +4,10 @@ export function loader() {
 	throw data(null, { status: 404 });
 }
 
+export function action() {
+	throw data(null, { status: 404 });
+}
+
 export default function CatchAll() {
 	return null;
 }
