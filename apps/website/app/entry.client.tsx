@@ -1,4 +1,5 @@
 import { Locale } from "@discordjs/core/http-only";
+import { init } from "@sentry/react-router";
 import {
 	de,
 	enGB,
@@ -53,6 +54,12 @@ async function main() {
 			returnEmptyString: false,
 			saveMissing: true,
 		});
+
+	init({
+		// @ts-expect-error Until there is more, this is fine.
+		dsn: window.ENV.SENTRY_DATA_SOURCE_NAME,
+		sendDefaultPii: true,
+	});
 
 	startTransition(() => {
 		hydrateRoot(

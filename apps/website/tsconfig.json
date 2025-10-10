@@ -40,6 +40,7 @@
 		"**/.client/**/*.tsx",
 		"postcss.config.js",
 		"vite.config.ts",
-		".react-router/types/**/*"
+		".react-router/types/**/*",
+		"app/sentry.server.ts"
 	]
 }

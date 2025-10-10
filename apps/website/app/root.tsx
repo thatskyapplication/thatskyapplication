@@ -1,9 +1,11 @@
 import "./tailwind.css";
+import { captureException } from "@sentry/react-router";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import type React from "react";
 import { useTranslation } from "react-i18next";
 import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "react-router";
 import {
+	isRouteErrorResponse,
 	Link,
 	Links,
 	Meta,
@@ -11,7 +13,6 @@ import {
 	Scripts,
 	ScrollRestoration,
 	useLoaderData,
-	useRouteError,
 } from "react-router";
 import { useChangeLanguage } from "remix-i18next/react";
 import ConditionalLayout from "~/components/ConditionalLayout";
@@ -22,6 +23,8 @@ import {
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
 } from "~/utility/constants";
+import type { Route } from "./+types/root.js";
+import { SENTRY_DATA_SOURCE_NAME } from "./config.server";
 
 export const middleware = [i18nextMiddleware];
 
@@ -61,8 +64,14 @@ export const links: LinksFunction = () => [
 	},
 ];
 
-export function ErrorBoundary() {
-	const { status } = useRouteError() as { status: number };
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+	let status: number | undefined;
+
+	if (isRouteErrorResponse(error)) {
+		({ status } = error);
+	} else if (error instanceof Error) {
+		captureException(error);
+	}
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center">
@@ -93,6 +102,7 @@ export function ErrorBoundary() {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
+	const { ENV } = useLoaderData<typeof loader>();
 	const { i18n } = useTranslation();
 
 	return (
@@ -104,6 +114,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			<body>
 				{children}
 				<ScrollRestoration />
+				<script
+					// biome-ignore lint/security/noDangerouslySetInnerHtml: https://v2.remix.run/docs/guides/envvars
+					dangerouslySetInnerHTML={{
+						__html: `window.ENV = ${JSON.stringify(ENV)};`,
+					}}
+				/>
 				<Scripts />
 			</body>
 		</html>
@@ -114,7 +130,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 	const locale = getLocale(context);
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;
-	return { locale, user };
+	return { locale, user, ENV: { SENTRY_DATA_SOURCE_NAME } };
 }
 
 export default function App() {
