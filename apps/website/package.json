@@ -7,7 +7,7 @@
 		"build": "react-router build",
 		"test": "react-router typegen && tsc",
 		"dev": "react-router dev | pino-pretty",
-		"start": "NODE_OPTIONS='--import ./app/sentry.server.ts' react-router-serve ./build/server/index.js",
+		"start": "node --import ./app/sentry.server.ts ./build/server/index.js",
 		"lint": "biome check",
 		"format": "biome check --write"
 	},
@@ -33,6 +33,7 @@
 		"react-dom": "^19.1.1",
 		"react-i18next": "^15.7.3",
 		"react-router": "^7.9.1",
+		"react-router-hono-server": "^2.21.0",
 		"remix-i18next": "^7.4.0"
 	},
 	"devDependencies": {

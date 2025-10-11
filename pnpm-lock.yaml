@@ -28,13 +28,13 @@ importers:
         version: 2.1.1
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@discordjs/ws':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@sapphire/snowflake':
         specifier: ^3.5.5
         version: 3.5.5
@@ -104,10 +104,10 @@ importers:
     dependencies:
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@sentry/node':
         specifier: ^10.18.0
         version: 10.18.0
@@ -162,13 +162,13 @@ importers:
         version: 2.1.1
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@discordjs/ws':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@sapphire/snowflake':
         specifier: ^3.5.5
         version: 3.5.5
@@ -223,10 +223,10 @@ importers:
         version: 0.16.2
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@sentry/node':
         specifier: ^10.18.0
         version: 10.18.0
@@ -275,10 +275,10 @@ importers:
     dependencies:
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1760054515-a97ac8261
+        version: 3.0.0-dev.1760184101-dd795252d
       '@icons-pack/react-simple-icons':
         specifier: 10.2.0
         version: 10.2.0(react@19.1.1)
@@ -336,6 +336,9 @@ importers:
       react-router:
         specifier: ^7.9.1
         version: 7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react-router-hono-server:
+        specifier: ^2.21.0
+        version: 2.21.0(@hono/node-server@1.19.5(hono@4.9.11))(@react-router/dev@7.9.1(@react-router/serve@7.9.1(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2))(@types/node@22.17.1)(@vitejs/plugin-rsc@0.4.11(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(vite@7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1)))(jiti@2.5.1)(lightningcss@1.30.1)(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(tsx@4.20.4)(typescript@5.9.2)(vite@7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1))(yaml@2.8.1))(@types/react@19.1.13)(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(vite@7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1))
       remix-i18next:
         specifier: ^7.4.0
         version: 7.4.0(i18next@25.5.2(typescript@5.9.2))(react-i18next@15.7.3(i18next@25.5.2(typescript@5.9.2))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2))(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
@@ -820,25 +823,28 @@ packages:
     resolution: {integrity: sha512-LiSusze9Tc7qF03sLCujF5iZp7K+vRNEDBZ86FT9aQAv3vxMLihUvKvpsCWiQ2DJq1tVckopKm1rxomgNUc9hg==}
     engines: {node: '>=18'}
 
-  '@discordjs/collection@3.0.0-dev.1760054515-a97ac8261':
-    resolution: {integrity: sha512-juP6dD5xazoHNnh1m3PQZDL4YC/8Pbs5XOILtQToE+HHp3qnG5ce6Fn75RCoW3BvZoyo91eV/LJJXe4lPSlbdg==}
+  '@discordjs/collection@3.0.0-dev.1760184101-dd795252d':
+    resolution: {integrity: sha512-lbo82Hs3xRcccPTX8AvvtiMplBkmt37k8mZy5W5wWmRcLR/k6sHuXPwWGDqE9RxU3dSf3xnU55/LvDgv0kqrng==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/core@3.0.0-dev.1760054515-a97ac8261':
-    resolution: {integrity: sha512-ZIL3ye53q3RR8fkVDVSRsBXOlLOwBahb5NjABR4Bx/4bBq6jMyCQJbmBm56XwO6XVs3kUaO5xHVpaYt2ZQ9E+Q==}
+  '@discordjs/core@3.0.0-dev.1760184101-dd795252d':
+    resolution: {integrity: sha512-4i6SIVLZg2hVJtsEwIyUMrPpdP1B10Ly2MfJwgQMzMhp5OFUhmS/bnOVGmSl3/jPhdH27ze1xu4a8L7GwXiE1Q==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/rest@3.0.0-dev.1760054515-a97ac8261':
-    resolution: {integrity: sha512-sEP3rNbEz0Mri6WLRqZLOZamh3czI31hMnWFI+b/6OPAVK5V3ZwB0d8e57sUw42nlrkfAcdNSqXGvNB6RC7jqQ==}
+  '@discordjs/rest@3.0.0-dev.1760184101-dd795252d':
+    resolution: {integrity: sha512-Cglx/yO+9NqBBJimb13y5OyBHFDAQb6niaXQlPt/ALeBuYvSxec0OAkEAb4dOeNJPBkjsx/91sW8ous3VrDfMA==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/util@2.0.0-dev.1760054515-a97ac8261':
-    resolution: {integrity: sha512-1BuZqkCrKzMSGYl+7PfaGtqhxDUurJjz9yBcc3dKUxMDxw+KMl9HM5ocxJZTN7u38IapoT1AfijoeMsy15vA7Q==}
+  '@discordjs/util@2.0.0-dev.1760184101-dd795252d':
+    resolution: {integrity: sha512-U+fFxTvo/FP24k/GdTu2N9iOFqb7BmZgGUTdrGe7g1nuvYIGsV8wlywiXhzXL9t6uIOwIvwqrMg+NKYEpuvLog==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/ws@3.0.0-dev.1760054515-a97ac8261':
-    resolution: {integrity: sha512-BLadaVdrixxYUIVTisDeQCv0du0Epu+89CDeqGHmGmS4dYcWj2tCYAw2nBan31IwES4U/Kxsvmme5zWIch//bw==}
+  '@discordjs/ws@3.0.0-dev.1760184101-dd795252d':
+    resolution: {integrity: sha512-j9YOVJ/o6pU3uQXQRRjvffpZkC4uzsENuaLzUwjD4FfZUyeabv8zK9nL+3e6GLAXz+Fn9i/0dXAJo3tEd5++tw==}
     engines: {node: '>=22.12.0'}
+
+  '@drizzle-team/brocli@0.11.0':
+    resolution: {integrity: sha512-hD3pekGiPg0WPCCGAZmusBBJsDqGUR66Y452YgQsZOnkdQ7ViEPKuyP4huUGEZQefp8g34RRodXYmJ2TbCH+tg==}
 
   '@emnapi/core@1.4.5':
     resolution: {integrity: sha512-XsLw1dEOpkSX/WucdqUhPWP7hDxSvZiY+fsUC14h+FtQ2Ifni4znbBt8punRX+Uj2JG/uDb8nEHVKvrVlvdZ5Q==}
@@ -1004,6 +1010,32 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@hono/node-server@1.19.5':
+    resolution: {integrity: sha512-iBuhh+uaaggeAuf+TftcjZyWh2GEgZcVGXkNtskLVoWaXhnJtC5HLHrU8W1KHDoucqO1MswwglmkWLFyiDn4WQ==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: ^4
+
+  '@hono/node-ws@1.2.0':
+    resolution: {integrity: sha512-OBPQ8OSHBw29mj00wT/xGYtB6HY54j0fNSdVZ7gZM3TUeq0So11GXaWtFf1xWxQNfumKIsj0wRuLKWfVsO5GgQ==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      '@hono/node-server': ^1.11.1
+      hono: ^4.6.0
+
+  '@hono/vite-dev-server@0.20.1':
+    resolution: {integrity: sha512-wXikV0C5tPqwH6udA68VTsmnFKWGhIeBuhuxgdGDQIbVNbv5gD0vqKLhx4nG1o4dhksaWPiiSqZV58sTKUzNxA==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: '*'
+      miniflare: '*'
+      wrangler: '*'
+    peerDependenciesMeta:
+      miniflare:
+        optional: true
+      wrangler:
+        optional: true
 
   '@icons-pack/react-simple-icons@10.2.0':
     resolution: {integrity: sha512-QDUxup8D3GdIIzwGpxQs6bjeFV5mJes25qqf4aqP/PaBYQNCar7AiyD8C14636TosCG0A/QqAUwm/Hviep4d4g==}
@@ -2813,6 +2845,10 @@ packages:
   hoist-non-react-statics@3.3.2:
     resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
 
+  hono@4.9.11:
+    resolution: {integrity: sha512-MyJ4xop3boTyXl8bJBh4i20AAZTLM3AXUJphyrUb0CpgTKYb1N703z53XiKUKchGUpcPqiiYkiLOXA3kqK3icA==}
+    engines: {node: '>=16.9.0'}
+
   hosted-git-info@6.1.3:
     resolution: {integrity: sha512-HVJyzUrLIL1c0QmviVh5E8VGyUS7xCFPS6yydaVd1UegW+ibV/CohqTH9MkOLDp5o+rb82DMo77PTuc9F/8GKw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -3560,6 +3596,27 @@ packages:
   react-refresh@0.14.2:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
+
+  react-router-hono-server@2.21.0:
+    resolution: {integrity: sha512-Sq5W6Kv8ttNUScgE+zHPbJEGw4ZXdlmuGpkpeskqi0yv263joDwESIKYU47WMmz5CTpFoSL/QyQ/TzHn3n1Edw==}
+    engines: {node: '>=22.12.0'}
+    hasBin: true
+    peerDependencies:
+      '@cloudflare/workers-types': ^4.20250317.0
+      '@hono/node-server': ^1.18.1
+      '@react-router/dev': ^7.8.0
+      '@types/react': ^18.3.10 || ^19.0.0
+      miniflare: ^3.20241205.0
+      react-router: ^7.2.0
+      vite: ^6.0.0 || ^7.0.0
+      wrangler: ^4.2.0
+    peerDependenciesMeta:
+      '@cloudflare/workers-types':
+        optional: true
+      miniflare:
+        optional: true
+      wrangler:
+        optional: true
 
   react-router@7.9.1:
     resolution: {integrity: sha512-pfAByjcTpX55mqSDGwGnY9vDCpxqBLASg0BMNAuMmpSGESo/TaOUG6BllhAtAkCGx8Rnohik/XtaqiYUJtgW2g==}
@@ -4896,13 +4953,13 @@ snapshots:
 
   '@discordjs/collection@2.1.1': {}
 
-  '@discordjs/collection@3.0.0-dev.1760054515-a97ac8261': {}
+  '@discordjs/collection@3.0.0-dev.1760184101-dd795252d': {}
 
-  '@discordjs/core@3.0.0-dev.1760054515-a97ac8261':
+  '@discordjs/core@3.0.0-dev.1760184101-dd795252d':
     dependencies:
-      '@discordjs/rest': 3.0.0-dev.1760054515-a97ac8261
-      '@discordjs/util': 2.0.0-dev.1760054515-a97ac8261
-      '@discordjs/ws': 3.0.0-dev.1760054515-a97ac8261
+      '@discordjs/rest': 3.0.0-dev.1760184101-dd795252d
+      '@discordjs/util': 2.0.0-dev.1760184101-dd795252d
+      '@discordjs/ws': 3.0.0-dev.1760184101-dd795252d
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
       discord-api-types: 0.38.24
@@ -4910,10 +4967,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@discordjs/rest@3.0.0-dev.1760054515-a97ac8261':
+  '@discordjs/rest@3.0.0-dev.1760184101-dd795252d':
     dependencies:
-      '@discordjs/collection': 3.0.0-dev.1760054515-a97ac8261
-      '@discordjs/util': 2.0.0-dev.1760054515-a97ac8261
+      '@discordjs/collection': 3.0.0-dev.1760184101-dd795252d
+      '@discordjs/util': 2.0.0-dev.1760184101-dd795252d
       '@sapphire/async-queue': 1.5.5
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
@@ -4923,12 +4980,12 @@ snapshots:
       undici: 7.16.0
       uuid: 11.1.0
 
-  '@discordjs/util@2.0.0-dev.1760054515-a97ac8261': {}
+  '@discordjs/util@2.0.0-dev.1760184101-dd795252d': {}
 
-  '@discordjs/ws@3.0.0-dev.1760054515-a97ac8261':
+  '@discordjs/ws@3.0.0-dev.1760184101-dd795252d':
     dependencies:
-      '@discordjs/collection': 3.0.0-dev.1760054515-a97ac8261
-      '@discordjs/util': 2.0.0-dev.1760054515-a97ac8261
+      '@discordjs/collection': 3.0.0-dev.1760184101-dd795252d
+      '@discordjs/util': 2.0.0-dev.1760184101-dd795252d
       '@sapphire/async-queue': 1.5.5
       '@types/ws': 8.18.1
       '@vladfrangu/async_event_emitter': 2.4.7
@@ -4938,6 +4995,8 @@ snapshots:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+
+  '@drizzle-team/brocli@0.11.0': {}
 
   '@emnapi/core@1.4.5':
     dependencies:
@@ -5032,6 +5091,25 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.9':
     optional: true
+
+  '@hono/node-server@1.19.5(hono@4.9.11)':
+    dependencies:
+      hono: 4.9.11
+
+  '@hono/node-ws@1.2.0(@hono/node-server@1.19.5(hono@4.9.11))(hono@4.9.11)':
+    dependencies:
+      '@hono/node-server': 1.19.5(hono@4.9.11)
+      hono: 4.9.11
+      ws: 8.18.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  '@hono/vite-dev-server@0.20.1(hono@4.9.11)':
+    dependencies:
+      '@hono/node-server': 1.19.5(hono@4.9.11)
+      hono: 4.9.11
+      minimatch: 9.0.5
 
   '@icons-pack/react-simple-icons@10.2.0(react@19.1.1)':
     dependencies:
@@ -7053,6 +7131,8 @@ snapshots:
     dependencies:
       react-is: 16.13.1
 
+  hono@4.9.11: {}
+
   hosted-git-info@6.1.3:
     dependencies:
       lru-cache: 7.18.3
@@ -7771,6 +7851,21 @@ snapshots:
   react-is@16.13.1: {}
 
   react-refresh@0.14.2: {}
+
+  react-router-hono-server@2.21.0(@hono/node-server@1.19.5(hono@4.9.11))(@react-router/dev@7.9.1(@react-router/serve@7.9.1(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2))(@types/node@22.17.1)(@vitejs/plugin-rsc@0.4.11(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(vite@7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1)))(jiti@2.5.1)(lightningcss@1.30.1)(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(tsx@4.20.4)(typescript@5.9.2)(vite@7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1))(yaml@2.8.1))(@types/react@19.1.13)(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(vite@7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1)):
+    dependencies:
+      '@drizzle-team/brocli': 0.11.0
+      '@hono/node-server': 1.19.5(hono@4.9.11)
+      '@hono/node-ws': 1.2.0(@hono/node-server@1.19.5(hono@4.9.11))(hono@4.9.11)
+      '@hono/vite-dev-server': 0.20.1(hono@4.9.11)
+      '@react-router/dev': 7.9.1(@react-router/serve@7.9.1(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2))(@types/node@22.17.1)(@vitejs/plugin-rsc@0.4.11(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(vite@7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1)))(jiti@2.5.1)(lightningcss@1.30.1)(react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(tsx@4.20.4)(typescript@5.9.2)(vite@7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1))(yaml@2.8.1)
+      '@types/react': 19.1.13
+      hono: 4.9.11
+      react-router: 7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      vite: 7.1.2(@types/node@22.17.1)(jiti@2.5.1)(lightningcss@1.30.1)(tsx@4.20.4)(yaml@2.8.1)
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
 
   react-router@7.9.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
