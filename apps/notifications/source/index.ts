@@ -265,10 +265,10 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	}
 
 	if (
-		((weekday === 5 || weekday === 6 || weekday === 7) && hour % 2 === 0 && minute >= 50) ||
-		(hour % 2 === 1 && minute === 0)
+		(weekday === 5 || weekday === 6 || weekday === 7) &&
+		(hour % 2 === 0 ? minute >= 50 : minute === 0)
 	) {
-		const timeUntilStart = 60 - minute;
+		const timeUntilStart = (60 - minute) % 60;
 		const startTime = date.plus({ minutes: timeUntilStart });
 
 		notifications.push({
