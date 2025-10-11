@@ -308,7 +308,9 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 
 	for (const notification of notifications) {
 		const { type, timeUntilStart } = notification;
-		pino.info({ type, until: timeUntilStart }, "Queueing notification.");
+		pino.info(
+			`Notification ${notification.type} queued (${notification.timeUntilStart} mins until).`,
+		);
 
 		const notificationsSettled = await Promise.allSettled(
 			(
@@ -352,12 +354,26 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			}),
 		);
 
-		const errors = notificationsSettled
-			.filter((result) => result.status === "rejected")
-			.map((result) => result.reason);
+		const errors = [];
+
+		for (const result of notificationsSettled) {
+			if (result.status !== "rejected") {
+				continue;
+			}
+
+			errors.push(result.reason);
+		}
+
+		const successful = notificationsSettled.length - errors.length;
+		const message = `Notification ${notification.type} delivered to ${successful === 1 ? `${successful} guild` : `${successful} guilds`}.`;
 
 		if (errors.length > 0) {
-			pino.error(errors, "Error whilst sending notifications.");
+			pino.error(
+				new AggregateError(errors, "Error whilst sending notifications."),
+				`${message} Errors: ${errors.length}`,
+			);
+		} else {
+			pino.info(message);
 		}
 	}
 
