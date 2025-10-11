@@ -205,9 +205,9 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		(minute >= 10 && minute <= 15) ||
 		(minute >= 25 && minute <= 30) ||
 		(minute >= 40 && minute <= 45) ||
-		(minute >= 55 && minute <= 59)
+		minute >= 55
 	) {
-		const timeUntilStart = (15 - minute) % 15;
+		const timeUntilStart = (15 - (minute % 15)) % 15;
 		const startTime = date.plus({ minutes: timeUntilStart });
 
 		notifications.push({
