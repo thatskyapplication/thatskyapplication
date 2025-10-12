@@ -3212,7 +3212,7 @@
 		},
 		"sky-profile": {
 			"name": "Skyプロフィール",
-			"name-plural": "",
+			"name-plural": "Skyプロフィール",
 			"description-short": "",
 			"description-website": "検索メニューから、コミュニティ内のSkyプロフィールを発見しましょう！",
 			"search-by-name": "名前で調べる…",
