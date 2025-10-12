@@ -52,6 +52,14 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const name = url.searchParams.get("name");
 	const country = url.searchParams.get("country");
 
+	// Get all available countries.
+	const countries = await pg<
+		SkyProfilePacket & _NonNullableFields<Pick<SkyProfilePacket, "country">>
+	>(Table.Profiles)
+		.distinct("country")
+		.whereNotNull("name")
+		.and.whereNotNull("country");
+
 	if (name || country) {
 		let profilesQuery = pg<SkyProfilePacket>(Table.Profiles).whereNotNull("name");
 
@@ -71,14 +79,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 		const profiles = await profilesQuery;
 
-		// Get all available countries.
-		const countries = await pg<
-			SkyProfilePacket & _NonNullableFields<Pick<SkyProfilePacket, "country">>
-		>(Table.Profiles)
-			.distinct("country")
-			.whereNotNull("name")
-			.and.whereNotNull("country");
-
 		return data(
 			{ profiles, name, country, countries },
 			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
@@ -86,7 +86,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	}
 
 	return data(
-		{ profiles: [] },
+		{ profiles: [], countries },
 		{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 	);
 };
@@ -174,10 +174,9 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 
 export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
-	const { profiles } = data;
+	const { profiles, countries } = data;
 	const name = "name" in data ? data.name : null;
 	const country = "country" in data ? data.country : null;
-	const countries = "countries" in data ? data.countries : [];
 	const locale = useLocale();
 	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
 	const [_, setSearchParams] = useSearchParams();
