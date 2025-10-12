@@ -13,6 +13,7 @@ import { useLocale } from "remix-i18next/react";
 import Pagination from "~/components/Pagination";
 import Select from "~/components/Select";
 import pg from "~/pg.server";
+import { getSession } from "~/session.server";
 import {
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
@@ -52,6 +53,8 @@ export const meta: MetaFunction = ({ location }) => {
 };
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+	const session = await getSession(request.headers.get("Cookie"));
+	const discordUser = session.get("discord_user") ?? null;
 	const url = new URL(request.url);
 	const name = url.searchParams.get("name");
 	const country = url.searchParams.get("country");
@@ -99,13 +102,22 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		const profiles = await profilesQuery.limit(PROFILES_PER_PAGE).offset(offset);
 
 		return data(
-			{ profiles, name, country, countries, currentPage: page, maximumPage, totalCount },
+			{
+				profiles,
+				name,
+				country,
+				countries,
+				currentPage: page,
+				maximumPage,
+				totalCount,
+				discordUser,
+			},
 			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 		);
 	}
 
 	return data(
-		{ profiles: [], countries, currentPage: 1, maximumPage: 1, totalCount: 0 },
+		{ profiles: [], countries, currentPage: 1, maximumPage: 1, totalCount: 0, discordUser },
 		{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 	);
 };
@@ -194,7 +206,7 @@ function SkyProfileCard(profile: SkyProfilePacket, returnParams: string) {
 export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
 	const locale = useLocale();
-	const { profiles, currentPage, maximumPage } = data;
+	const { profiles, currentPage, maximumPage, discordUser } = data;
 	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
 
 	const countries = data.countries.sort((a, b) =>
@@ -263,6 +275,22 @@ export default function SkyProfiles() {
 						/>
 						<span>Random</span>
 					</Link>
+					{discordUser && (
+						<Link
+							className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+							to={`/sky-profiles/${discordUser.id}`}
+						>
+							<div
+								aria-label="Sky kid icon."
+								className="w-6 h-6 mr-2 bg-cover bg-center"
+								role="img"
+								style={{
+									backgroundImage: `url(${SKY_KID_ICON_URL})`,
+								}}
+							/>
+							<span>Me</span>
+						</Link>
+					)}
 				</div>
 			</div>
 			{profiles.length > 0 ? (
