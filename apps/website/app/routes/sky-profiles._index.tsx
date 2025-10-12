@@ -20,6 +20,8 @@ import {
 } from "~/utility/constants";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
+const NO_COUNTRY_VALUE = "none" as const;
+
 export const meta: MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
@@ -74,7 +76,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		}
 
 		if (country) {
-			profilesQuery = profilesQuery.where("country", country);
+			if (country === NO_COUNTRY_VALUE) {
+				profilesQuery = profilesQuery.whereNull("country");
+			} else {
+				profilesQuery = profilesQuery.where("country", country);
+			}
 		}
 
 		const profiles = await profilesQuery;
@@ -217,10 +223,13 @@ export default function SkyProfiles() {
 								return newParams;
 							});
 						}}
-						options={countries.map((skyProfilePacket) => ({
-							value: skyProfilePacket.country,
-							label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
-						}))}
+						options={[
+							{ label: "Unspecified", value: NO_COUNTRY_VALUE },
+							...countries.map((skyProfilePacket) => ({
+								label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
+								value: skyProfilePacket.country,
+							})),
+						]}
 						placeholder="Select a country"
 						value={country ?? ""}
 					/>
