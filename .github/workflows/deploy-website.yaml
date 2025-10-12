@@ -35,10 +35,12 @@ jobs:
           DOCKER_BUILD_SUMMARY: false
           DOCKER_BUILD_RECORD_UPLOAD: false
 
-      - name: Install Uncloud CLI
+      - name: Install docker-pussh
         run: |
-          curl -fsS https://get.uncloud.run/install.sh | sh
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+          mkdir -p ~/.docker/cli-plugins
+          curl -sSL https://raw.githubusercontent.com/psviderski/unregistry/v0.3.1/docker-pussh \
+            -o ~/.docker/cli-plugins/docker-pussh
+          chmod +x ~/.docker/cli-plugins/docker-pussh
 
       - name: Set up SSH agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -49,7 +51,12 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Push image to server
-        run: uc image push thatskyapplication-website:latest --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+        run: docker pussh thatskyapplication-website:latest ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
+
+      - name: Install Uncloud CLI
+        run: |
+          curl -fsS https://get.uncloud.run/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
 
       - name: Deploy to Uncloud
         env:
