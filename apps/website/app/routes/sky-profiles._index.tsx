@@ -174,11 +174,16 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 
 export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
-	const { profiles, countries } = data;
+	const locale = useLocale();
+	const { profiles } = data;
+	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
+
+	const countries = data.countries.sort((a, b) =>
+		displayNames.of(a.country)!.localeCompare(displayNames.of(b.country)!),
+	);
+
 	const name = "name" in data ? data.name : null;
 	const country = "country" in data ? data.country : null;
-	const locale = useLocale();
-	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
 	const [_, setSearchParams] = useSearchParams();
 
 	return (
