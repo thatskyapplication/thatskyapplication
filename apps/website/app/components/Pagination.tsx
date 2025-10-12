@@ -4,7 +4,7 @@ import {
 	ChevronsLeftIcon,
 	ChevronsRightIcon,
 } from "lucide-react";
-import { Form, Link } from "react-router";
+import { Form, Link, useSearchParams } from "react-router";
 
 interface PaginationProps {
 	currentPage: number;
@@ -13,6 +13,15 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }: PaginationProps) {
+	const [searchParams] = useSearchParams();
+
+	// Avoids resetting query parameters.
+	const createPageURL = (page: number) => {
+		const params = new URLSearchParams(searchParams);
+		params.set("page", page.toString());
+		return `?${params.toString()}`;
+	};
+
 	const back2 = currentPage - 2;
 	const back1 = currentPage - 1;
 	const next1 = currentPage + 1;
@@ -36,7 +45,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 							event.preventDefault();
 						}
 					}}
-					to={`?page=${minimumPage}`}
+					to={createPageURL(minimumPage)}
 				>
 					<ChevronsLeftIcon className="w-6 h-6" />
 					<span className="hidden md:block ml-1">Start</span>
@@ -51,7 +60,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 						event.preventDefault();
 					}
 				}}
-				to={`?page=${back1}`}
+				to={createPageURL(back1)}
 			>
 				<ChevronLeftIcon className="w-6 h-6" />
 			</Link>
@@ -59,7 +68,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 				{back2 >= minimumPage && (
 					<Link
 						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
-						to={`?page=${back2}`}
+						to={createPageURL(back2)}
 					>
 						<span>{back2}</span>
 					</Link>
@@ -67,7 +76,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 				{back1 >= minimumPage && (
 					<Link
 						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
-						to={`?page=${back1}`}
+						to={createPageURL(back1)}
 					>
 						<span>{back1}</span>
 					</Link>
@@ -108,7 +117,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 				{next1 <= maximumPage && (
 					<Link
 						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
-						to={`?page=${next1}`}
+						to={createPageURL(next1)}
 					>
 						<span>{next1}</span>
 					</Link>
@@ -116,7 +125,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 				{next2 <= maximumPage && (
 					<Link
 						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
-						to={`?page=${next2}`}
+						to={createPageURL(next2)}
 					>
 						<span>{next2}</span>
 					</Link>
@@ -131,7 +140,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 						event.preventDefault();
 					}
 				}}
-				to={`?page=${next1}`}
+				to={createPageURL(next1)}
 			>
 				<ChevronRightIcon className="w-6 h-6" />
 			</Link>
@@ -145,7 +154,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 							event.preventDefault();
 						}
 					}}
-					to={`?page=${maximumPage}`}
+					to={createPageURL(maximumPage)}
 				>
 					<span className="hidden md:block mr-1">End</span>
 					<ChevronsRightIcon className="w-6 h-6" />

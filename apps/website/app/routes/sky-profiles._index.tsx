@@ -10,6 +10,7 @@ import {
 import type { LoaderFunctionArgs } from "react-router";
 import { data, Link, type MetaFunction, useLoaderData, useSearchParams } from "react-router";
 import { useLocale } from "remix-i18next/react";
+import Pagination from "~/components/Pagination";
 import Select from "~/components/Select";
 import pg from "~/pg.server";
 import {
@@ -21,6 +22,7 @@ import {
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
 const NO_COUNTRY_VALUE = "none" as const;
+const PROFILES_PER_PAGE = 24 as const;
 
 export const meta: MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
@@ -53,6 +55,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const url = new URL(request.url);
 	const name = url.searchParams.get("name");
 	const country = url.searchParams.get("country");
+	const page = Math.max(1, Number(url.searchParams.get("page")) || 1);
 
 	// Get all available countries.
 	const countries = await pg<
@@ -67,12 +70,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 		if (name) {
 			const queryLowerCase = name.toLowerCase();
-
-			profilesQuery = profilesQuery
-				.whereRaw("lower(name) % ?", [queryLowerCase])
-				.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase]);
-		} else {
-			profilesQuery = profilesQuery.orderBy("name", "asc").orderBy("user_id", "asc");
+			profilesQuery = profilesQuery.whereRaw("lower(name) % ?", [queryLowerCase]);
 		}
 
 		if (country) {
@@ -83,16 +81,31 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			}
 		}
 
-		const profiles = await profilesQuery;
+		// Get total count for pagination (before applying ordering).
+		const countResult = (await profilesQuery.clone().count("* as count")) as { count: string }[];
+		const totalCount = Number(countResult[0]?.count ?? 0);
+		const maximumPage = Math.max(1, Math.ceil(totalCount / PROFILES_PER_PAGE));
+
+		// Apply ordering.
+		if (name) {
+			const queryLowerCase = name.toLowerCase();
+			profilesQuery = profilesQuery.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase]);
+		} else {
+			profilesQuery = profilesQuery.orderBy("name", "asc").orderBy("user_id", "asc");
+		}
+
+		// Apply pagination.
+		const offset = (page - 1) * PROFILES_PER_PAGE;
+		const profiles = await profilesQuery.limit(PROFILES_PER_PAGE).offset(offset);
 
 		return data(
-			{ profiles, name, country, countries },
+			{ profiles, name, country, countries, currentPage: page, maximumPage, totalCount },
 			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 		);
 	}
 
 	return data(
-		{ profiles: [], countries },
+		{ profiles: [], countries, currentPage: 1, maximumPage: 1, totalCount: 0 },
 		{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 	);
 };
@@ -181,7 +194,7 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
 	const locale = useLocale();
-	const { profiles } = data;
+	const { profiles, currentPage, maximumPage } = data;
 	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
 
 	const countries = data.countries.sort((a, b) =>
@@ -206,6 +219,7 @@ export default function SkyProfiles() {
 								setSearchParams((prev) => {
 									const newParams = new URLSearchParams(prev);
 									value ? newParams.set("name", value) : newParams.delete("name");
+									newParams.delete("page");
 									return newParams;
 								});
 							}
@@ -220,6 +234,7 @@ export default function SkyProfiles() {
 							setSearchParams((prev) => {
 								const newParams = new URLSearchParams(prev);
 								value ? newParams.set("country", value) : newParams.delete("country");
+								newParams.delete("page");
 								return newParams;
 							});
 						}}
@@ -251,9 +266,14 @@ export default function SkyProfiles() {
 				</div>
 			</div>
 			{profiles.length > 0 ? (
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{profiles.map((profile) => SkyProfileCard(profile))}
-				</div>
+				<>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						{profiles.map((profile) => SkyProfileCard(profile))}
+					</div>
+					{maximumPage > 1 && (
+						<Pagination currentPage={currentPage} maximumPage={maximumPage} />
+					)}
+				</>
 			) : name || country ? (
 				<div className="text-center py-12">
 					<p className="text-gray-600 dark:text-gray-400">No Sky profiles.</p>
