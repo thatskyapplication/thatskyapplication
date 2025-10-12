@@ -2918,6 +2918,7 @@
 		"checklist": {
 			"title": "",
 			"description": "",
+			"description-short": "",
 			"complete": "",
 			"reset": "",
 			"daily-quests-message-incomplete": "",
@@ -3210,8 +3211,16 @@
 			"realm-map": ""
 		},
 		"sky-profile": {
+			"name": "",
 			"name-plural": "",
 			"description-short": "",
+			"description-website": "",
+			"search-by-name": "",
+			"select-a-country": "",
+			"random": "",
+			"me": "",
+			"country-unspecified": "",
+			"search-none": "",
 			"unknown-country": "",
 			"unknown-profile-edit-type": "",
 			"unknown-profile-reset-type": "",
