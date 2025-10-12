@@ -30,6 +30,32 @@
 			color-scheme: dark;
 		}
 	}
+
+	:root {
+		--select-bg: white;
+		--select-border: #e5e7eb;
+		--select-border-hover: #d1d5db;
+		--select-menu-bg: white;
+		--select-option-bg: white;
+		--select-option-hover: #f3f4f6;
+		--select-option-active: #e5e7eb;
+		--select-text: black;
+		--select-placeholder: #9ca3af;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--select-bg: #1f2937;
+			--select-border: #4b5563;
+			--select-border-hover: #6b7280;
+			--select-menu-bg: #1f2937;
+			--select-option-bg: #1f2937;
+			--select-option-hover: #374151;
+			--select-option-active: #4b5563;
+			--select-text: white;
+			--select-placeholder: #9ca3af;
+		}
+	}
 }
 
 @layer base {

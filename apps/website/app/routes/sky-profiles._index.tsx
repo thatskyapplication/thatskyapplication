@@ -1,16 +1,20 @@
 import {
+	COUNTRY_VALUES,
+	CountryToEmoji,
 	isPlatformId,
 	type SkyProfilePacket,
 	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import type { LoaderFunctionArgs } from "react-router";
-import { data, Form, Link, type MetaFunction, useLoaderData } from "react-router";
-import Pagination from "~/components/Pagination.js";
+import { data, Link, type MetaFunction, useLoaderData, useSearchParams } from "react-router";
+import { useLocale } from "remix-i18next/react";
+import Select from "~/components/Select";
 import pg from "~/pg.server";
 import {
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
+	SKY_KID_ICON_URL,
 	SKY_PROFILES_DESCRIPTION,
 	SKY_PROFILES_PAGE_LIMIT,
 } from "~/utility/constants";
@@ -45,53 +49,36 @@ export const meta: MetaFunction = ({ location }) => {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const url = new URL(request.url);
-	const query = url.searchParams.get("query");
+	const name = url.searchParams.get("name");
+	const country = url.searchParams.get("country");
 
-	if (query) {
-		const queryLowerCase = query.toLowerCase();
+	if (name || country) {
+		let profilesQuery = pg<SkyProfilePacket>(Table.Profiles).whereNotNull("name");
 
-		const profiles = await pg<SkyProfilePacket>(Table.Profiles)
-			.whereRaw("lower(name) % ?", [queryLowerCase])
-			.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase])
-			.limit(SKY_PROFILES_PAGE_LIMIT);
+		if (name) {
+			const queryLowerCase = name.toLowerCase();
+
+			profilesQuery = profilesQuery
+				.whereRaw("lower(name) % ?", [queryLowerCase])
+				.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase]);
+		} else {
+			profilesQuery = profilesQuery.orderBy("name", "asc").orderBy("user_id", "asc");
+		}
+
+		if (country) {
+			profilesQuery = profilesQuery.where("country", country);
+		}
+
+		const profiles = await profilesQuery.limit(SKY_PROFILES_PAGE_LIMIT);
 
 		return data(
-			{ profiles, query },
+			{ profiles, name, country },
 			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 		);
 	}
 
-	const pageParameter = url.searchParams.get("page") ?? "1";
-	let page = Number(pageParameter);
-
-	if (!Number.isInteger(page) || page < 1) {
-		page = 1;
-	}
-
-	const currentPage = Math.max(1, Number(page));
-	const offset = (currentPage - 1) * SKY_PROFILES_PAGE_LIMIT;
-
-	const countResult = await pg<SkyProfilePacket>(Table.Profiles)
-		.whereNotNull("name")
-		.count({ total: "*" })
-		.first();
-
-	const totalProfiles = Number(countResult!.total!);
-	const maximumPage = Math.ceil(totalProfiles / SKY_PROFILES_PAGE_LIMIT);
-
-	if (currentPage > maximumPage) {
-		throw new Response(null, { status: 404 });
-	}
-
-	const profiles = await pg<SkyProfilePacket>(Table.Profiles)
-		.whereNotNull("name")
-		.orderBy("name", "asc")
-		.orderBy("user_id", "asc")
-		.limit(SKY_PROFILES_PAGE_LIMIT)
-		.offset(offset);
-
 	return data(
-		{ profiles, currentPage, maximumPage },
+		{ profiles: [] },
 		{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 	);
 };
@@ -180,55 +167,90 @@ function SkyProfileCard(profile: SkyProfilePacket) {
 export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
 	const { profiles } = data;
-	const query = "query" in data ? data.query : undefined;
-	const currentPage = "currentPage" in data ? data.currentPage : undefined;
-	const maximumPage = "maximumPage" in data ? data.maximumPage : undefined;
+	const name = "name" in data ? data.name : null;
+	const country = "country" in data ? data.country : null;
+	const locale = useLocale();
+	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
+	const [_, setSearchParams] = useSearchParams();
 
 	return (
 		<div className="container mx-auto px-4">
-			<div className="flex items-center mb-4">
-				<Form className="mr-4" method="get">
+			<div className="flex flex-col items-center mb-8 gap-4">
+				<div className="flex flex-wrap items-center justify-center gap-4">
 					<input
-						className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm my-2 w-48"
-						defaultValue={query}
-						name="query"
-						onChange={(event) => {
-							const value = event.currentTarget.value;
-							if (value !== value.trim()) {
-								return;
+						className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
+						defaultValue={name ?? ""}
+						onKeyDown={(event) => {
+							if (event.key === "Enter") {
+								const value = event.currentTarget.value.trim();
+
+								setSearchParams((prev) => {
+									const newParams = new URLSearchParams(prev);
+									value ? newParams.set("name", value) : newParams.delete("name");
+									return newParams;
+								});
 							}
-							return event.currentTarget.form!.requestSubmit();
 						}}
-						placeholder="Search..."
+						placeholder="Search by name..."
 						type="search"
 					/>
-				</Form>
-				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-					to="/sky-profiles/random"
-				>
+					<Select
+						className="w-64"
+						isClearable={true}
+						onChange={(value) => {
+							setSearchParams((prev) => {
+								const newParams = new URLSearchParams(prev);
+								value ? newParams.set("country", value) : newParams.delete("country");
+								return newParams;
+							});
+						}}
+						options={COUNTRY_VALUES.map((code) => ({
+							value: code,
+							label: `${CountryToEmoji[code]} ${displayNames.of(code)}`,
+						}))}
+						placeholder="Select a country"
+						value={country ?? ""}
+					/>
+					<Link
+						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+						to="/sky-profiles/random"
+					>
+						<div
+							aria-label="Question mark icon."
+							className="w-6 h-6 mr-2 bg-cover bg-center"
+							role="img"
+							style={{
+								backgroundImage:
+									"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
+							}}
+						/>
+						<span>Random</span>
+					</Link>
+				</div>
+			</div>
+			{profiles.length > 0 ? (
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					{profiles.map((profile) => SkyProfileCard(profile))}
+				</div>
+			) : name || country ? (
+				<div className="text-center py-12">
+					<p className="text-gray-600 dark:text-gray-400">No Sky profiles.</p>
+				</div>
+			) : (
+				<div className="text-center py-12 space-y-4">
 					<div
-						aria-label="Question mark icon."
-						className="w-6 h-6 mr-2 bg-cover bg-center"
+						aria-label="Sky kid icon."
+						className="w-32 h-32 mx-auto bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
+							backgroundImage: `url(${SKY_KID_ICON_URL})`,
 						}}
 					/>
-					<span>Random</span>
-				</Link>
-			</div>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-				{profiles.length > 0 ? (
-					profiles.map((profile) => SkyProfileCard(profile))
-				) : currentPage !== undefined && maximumPage !== undefined ? (
-					<p>Oh. No Sky profiles? Why not be the first time make one?</p>
-				) : (
-					<p>No results.</p>
-				)}
-			</div>
-			{currentPage !== undefined && maximumPage !== undefined && (
-				<Pagination currentPage={currentPage} maximumPage={maximumPage} />
+					<h1>Sky profiles</h1>
+					<p className="text-gray-600 dark:text-gray-400">
+						Discover Sky profiles by the community by searching above!
+					</p>
+				</div>
 			)}
 		</div>
 	);
