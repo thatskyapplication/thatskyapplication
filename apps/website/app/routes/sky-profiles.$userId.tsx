@@ -416,7 +416,10 @@ export default function SkyProfile() {
 				<button
 					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded-sm transition-colors duration-300 overflow-auto`}
 					onClick={async () => {
-						await navigator.clipboard.writeText(window.location.href);
+						await navigator.clipboard.writeText(
+							`${window.location.origin}${window.location.pathname}`,
+						);
+
 						setCopied(true);
 						setTimeout(() => setCopied(false), 2000);
 					}}
