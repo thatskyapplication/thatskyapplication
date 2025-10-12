@@ -89,7 +89,7 @@ export const DailyQuest = {
 	CollectBlueLight: 75,
 	CollectRedLight: 76,
 	CollectPurpleLight: 77,
-	PracticeWithTheSkater: 78,
+	PractiseWithTheSkater: 78,
 	RaceDownTheSlopesWithTheSkater: 79,
 	RaceDownTheMountainWithTheSkater: 80,
 	RehearseForAPerformanceWithTheSkater: 81,
@@ -455,8 +455,8 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.CollectPurpleLight]: dailyGuidesQuestRoute(
 		"season_of_enchantment/collect_purple_light",
 	),
-	[DailyQuest.PracticeWithTheSkater]: dailyGuidesQuestRoute(
-		"season_of_dreams/practice_with_the_skater",
+	[DailyQuest.PractiseWithTheSkater]: dailyGuidesQuestRoute(
+		"season_of_dreams/practise_with_the_skater",
 	),
 	[DailyQuest.RaceDownTheSlopesWithTheSkater]: dailyGuidesQuestRoute(
 		"season_of_dreams/race_down_the_slopes_with_the_skater",

@@ -160,7 +160,7 @@ export default {
 			[DailyQuest.CollectBlueLight]: "Collect blue light",
 			[DailyQuest.CollectRedLight]: "Collect red light",
 			[DailyQuest.CollectPurpleLight]: "Collect purple light",
-			[DailyQuest.PracticeWithTheSkater]: "Practice with the skater",
+			[DailyQuest.PractiseWithTheSkater]: "Practise with the skater",
 			[DailyQuest.RaceDownTheSlopesWithTheSkater]: "Race down the slopes with the skater",
 			[DailyQuest.RaceDownTheMountainWithTheSkater]: "Race down the mountain with the skater",
 			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
