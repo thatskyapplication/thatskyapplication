@@ -2918,6 +2918,7 @@
 		"checklist": {
 			"title": "Liste à cocher",
 			"description": "Gardez un suivi de vos activités, {{user}} !",
+			"description-short": "Suivez vos activités Sky.",
 			"complete": "Compléter",
 			"reset": "Réinitialiser",
 			"daily-quests-message-incomplete": "Avez-vous complété les quêtes journalières ?",
@@ -3220,8 +3221,16 @@
 			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))"
 		},
 		"sky-profile": {
+			"name": "Profil Sky",
 			"name-plural": "Profils Sky",
 			"description-short": "Explorer les profils Sky de tout le monde.",
+			"description-website": "Découvrez les profils Sky de la communauté en cherchant ci-dessus !",
+			"search-by-name": "Chercher par nom...",
+			"select-a-country": "Sélectionnez un pays",
+			"random": "Aléatoire",
+			"me": "Moi",
+			"country-unspecified": "Non précisé",
+			"search-none": "Pas de profils Sky.",
 			"unknown-country": "Sélectionnez un pays !",
 			"unknown-profile-edit-type": "Erreur d'édition du profil. Veuillez réessayer s'il vous plait !",
 			"unknown-profile-reset-type": "Erreur de réinitialisation du profil. Veuillez réessayer s'il vous plaît !",
