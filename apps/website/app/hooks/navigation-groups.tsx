@@ -1,5 +1,14 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
-import { AlarmClock, Bot, Clock, ExternalLinkIcon, LinkIcon, Users, Zap } from "lucide-react";
+import {
+	AlarmClock,
+	Bot,
+	CheckSquare,
+	Clock,
+	ExternalLinkIcon,
+	LinkIcon,
+	Users,
+	Zap,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { INVITE_APPLICATION_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 
@@ -46,6 +55,12 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					label: t("schedule.name", { ns: "features" }),
 					icon: <AlarmClock className="h-5 w-5" />,
 					description: t("schedule.description-short", { ns: "features" }),
+				},
+				{
+					to: "/checklist",
+					label: t("checklist.title", { ns: "features" }),
+					icon: <CheckSquare className="h-5 w-5" />,
+					description: t("checklist.description-short", { ns: "features" }),
 				},
 			],
 		},

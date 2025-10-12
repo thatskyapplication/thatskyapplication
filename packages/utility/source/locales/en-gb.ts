@@ -3206,6 +3206,7 @@ export default {
 		checklist: {
 			title: "Checklist",
 			description: "Keep track of your Sky activities, {{user}}!",
+			"description-short": "Keep track of your Sky activities.",
 			complete: "Complete",
 			reset: "Reset",
 			"daily-quests-message-incomplete": "Have you completed daily quests?",
