@@ -411,7 +411,7 @@ export default function SkyProfile() {
 							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 						}}
 					/>
-					<span>Random</span>
+					<span>{t("sky-profile.random", { ns: "features" })}</span>
 				</Link>
 				<button
 					className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded-sm transition-colors duration-300 overflow-auto`}
