@@ -7,6 +7,7 @@ import {
 	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, Link, type MetaFunction, useLoaderData, useSearchParams } from "react-router";
 import { useLocale } from "remix-i18next/react";
@@ -205,6 +206,7 @@ function SkyProfileCard(profile: SkyProfilePacket, returnParams: string) {
 
 export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
+	const { t } = useTranslation();
 	const locale = useLocale();
 	const { profiles, currentPage, maximumPage, discordUser } = data;
 	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
@@ -236,7 +238,7 @@ export default function SkyProfiles() {
 								});
 							}
 						}}
-						placeholder="Search by name..."
+						placeholder={t("sky-profile.search-by-name", { ns: "features" })}
 						type="search"
 					/>
 					<Select
@@ -251,13 +253,16 @@ export default function SkyProfiles() {
 							});
 						}}
 						options={[
-							{ label: "Unspecified", value: NO_COUNTRY_VALUE },
+							{
+								label: t("sky-profile.country-unspecified", { ns: "features" }),
+								value: NO_COUNTRY_VALUE,
+							},
 							...countries.map((skyProfilePacket) => ({
 								label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
 								value: skyProfilePacket.country,
 							})),
 						]}
-						placeholder="Select a country"
+						placeholder={t("sky-profile.select-a-country", { ns: "features" })}
 						value={country ?? ""}
 					/>
 					<Link
@@ -273,7 +278,7 @@ export default function SkyProfiles() {
 									"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 							}}
 						/>
-						<span>Random</span>
+						<span>{t("sky-profile.random", { ns: "features" })}</span>
 					</Link>
 					{discordUser && (
 						<Link
@@ -288,7 +293,7 @@ export default function SkyProfiles() {
 									backgroundImage: `url(${SKY_KID_ICON_URL})`,
 								}}
 							/>
-							<span>Me</span>
+							<span>{t("sky-profile.me", { ns: "features" })}</span>
 						</Link>
 					)}
 				</div>
@@ -319,7 +324,9 @@ export default function SkyProfiles() {
 				</>
 			) : name || country ? (
 				<div className="text-center py-12">
-					<p className="text-gray-600 dark:text-gray-400">No Sky profiles.</p>
+					<p className="text-gray-600 dark:text-gray-400">
+						{t("sky-profile.search-none", { ns: "features" })}
+					</p>
 				</div>
 			) : (
 				<div className="text-center py-12 space-y-4">
@@ -331,9 +338,9 @@ export default function SkyProfiles() {
 							backgroundImage: `url(${SKY_KID_ICON_URL})`,
 						}}
 					/>
-					<h1>Sky profiles</h1>
+					<h1>{t("sky-profile.name-plural", { ns: "features" })}</h1>
 					<p className="text-gray-600 dark:text-gray-400">
-						Discover Sky profiles by the community by searching above!
+						{t("sky-profile.description-website", { ns: "features" })}
 					</p>
 				</div>
 			)}

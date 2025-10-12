@@ -142,7 +142,7 @@ function UserMenu({ user }: UserMenuProps) {
 							to={`/sky-profiles/${user.id}`}
 						>
 							<User className="h-4 w-4" />
-							<span>Sky profile</span>
+							<span>{t("sky-profile.name", { ns: "features" })}</span>
 						</Link>
 						<div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
 							<Link
@@ -326,7 +326,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 									to={`/sky-profiles/${user.id}`}
 								>
 									<User className="h-4 w-4" />
-									Sky Profile
+									{t("sky-profile.name", { ns: "features" })}
 								</Link>
 								<Link
 									className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
