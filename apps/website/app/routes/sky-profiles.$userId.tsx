@@ -24,6 +24,7 @@ import {
 	type MetaFunction,
 	useLoaderData,
 	useRouteError,
+	useSearchParams,
 } from "react-router";
 import pg from "~/pg.server";
 import { APPLICATION_NAME } from "~/utility/constants.js";
@@ -237,8 +238,31 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 
 export default function SkyProfile() {
 	const { data, maximumWingedLight } = useLoaderData<typeof loader>();
+	const [searchParams] = useSearchParams();
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
+
+	// Preserve relevant search parameters for the main page.
+	const returnParams = new URLSearchParams();
+	const name = searchParams.get("name");
+	const country = searchParams.get("country");
+	const page = searchParams.get("page");
+
+	if (name) {
+		returnParams.set("name", name);
+	}
+
+	if (country) {
+		returnParams.set("country", country);
+	}
+
+	if (page) {
+		returnParams.set("page", page);
+	}
+
+	const backURL = returnParams.toString()
+		? `/sky-profiles?${returnParams.toString()}`
+		: "/sky-profiles";
 
 	return (
 		<div className="mx-auto px-4 max-w-3xl mb-4">
@@ -370,7 +394,7 @@ export default function SkyProfile() {
 			<div className="flex items-center justify-start mt-6 space-x-2">
 				<Link
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-					to="/sky-profiles"
+					to={backURL}
 				>
 					<ChevronLeftIcon className="w-6 h-6 mr-2" />
 					<span>Back</span>
