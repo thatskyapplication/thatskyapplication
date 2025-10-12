@@ -270,9 +270,7 @@ export default function SkyProfiles() {
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 						{profiles.map((profile) => SkyProfileCard(profile))}
 					</div>
-					{maximumPage > 1 && (
-						<Pagination currentPage={currentPage} maximumPage={maximumPage} />
-					)}
+					{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
 				</>
 			) : name || country ? (
 				<div className="text-center py-12">
