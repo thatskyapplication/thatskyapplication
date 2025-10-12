@@ -33,7 +33,6 @@ export const INVITE_APPLICATION_URL =
 
 export const INVITE_SUPPORT_SERVER_URL = "https://discord.gg/BFT7EAhrNz" as const;
 export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp", CDN_URL));
-export const SKY_PROFILES_PAGE_LIMIT = 24 as const;
 
 export const LOCALES = [
 	Locale.German,

@@ -1,5 +1,6 @@
+import type { _NonNullableFields } from "@discordjs/core/http-only";
 import {
-	COUNTRY_VALUES,
+	type Country,
 	CountryToEmoji,
 	isPlatformId,
 	type SkyProfilePacket,
@@ -16,7 +17,6 @@ import {
 	APPLICATION_NAME,
 	SKY_KID_ICON_URL,
 	SKY_PROFILES_DESCRIPTION,
-	SKY_PROFILES_PAGE_LIMIT,
 } from "~/utility/constants";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
@@ -69,10 +69,18 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			profilesQuery = profilesQuery.where("country", country);
 		}
 
-		const profiles = await profilesQuery.limit(SKY_PROFILES_PAGE_LIMIT);
+		const profiles = await profilesQuery;
+
+		// Get all available countries.
+		const countries = await pg<
+			SkyProfilePacket & _NonNullableFields<Pick<SkyProfilePacket, "country">>
+		>(Table.Profiles)
+			.distinct("country")
+			.whereNotNull("name")
+			.and.whereNotNull("country");
 
 		return data(
-			{ profiles, name, country },
+			{ profiles, name, country, countries },
 			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
 		);
 	}
@@ -169,6 +177,7 @@ export default function SkyProfiles() {
 	const { profiles } = data;
 	const name = "name" in data ? data.name : null;
 	const country = "country" in data ? data.country : null;
+	const countries = "countries" in data ? data.countries : [];
 	const locale = useLocale();
 	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
 	const [_, setSearchParams] = useSearchParams();
@@ -204,9 +213,9 @@ export default function SkyProfiles() {
 								return newParams;
 							});
 						}}
-						options={COUNTRY_VALUES.map((code) => ({
-							value: code,
-							label: `${CountryToEmoji[code]} ${displayNames.of(code)}`,
+						options={countries.map((skyProfilePacket) => ({
+							value: skyProfilePacket.country,
+							label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
 						}))}
 						placeholder="Select a country"
 						value={country ?? ""}
