@@ -40,7 +40,7 @@ import { interactionInvoker, isChatInputCommand } from "../utility/functions.js"
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 
 export interface HeartPacket {
-	gifter_id: Snowflake | null;
+	user_id: Snowflake | null;
 	giftee_id: Snowflake | null;
 	timestamp: Date;
 	count: number;
@@ -75,7 +75,7 @@ async function totalGifted(userId: Snowflake) {
 	// The types are wrong.
 	// A row is always returned and the count is a string or null.
 	const result = (await pg<HeartPacket>(Table.Hearts)
-		.where({ gifter_id: userId })
+		.where({ user_id: userId })
 		.sum("count")
 		.first()) as unknown as { sum: string | null };
 
@@ -183,7 +183,7 @@ export async function gift(
 	const tomorrowTimestamp = `<t:${Math.floor(today.plus({ day: 1 }).toUnixInteger())}:R>`;
 
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
-		.where({ gifter_id: invoker.id })
+		.where({ user_id: invoker.id })
 		.andWhere("timestamp", ">=", today.toISO());
 
 	if (heartPackets.some((heartPacket) => heartPacket.giftee_id === user.id)) {
@@ -216,7 +216,7 @@ export async function gift(
 	}
 
 	await pg<HeartPacket>(Table.Hearts).insert({
-		gifter_id: invoker.id,
+		user_id: invoker.id,
 		giftee_id: user.id,
 		timestamp: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 		count: 1 + (extraHearts?.count ?? 0),
@@ -296,7 +296,7 @@ export async function history(
 	const offset = (page - 1) * HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
 
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
-		.where({ gifter_id: invoker.id })
+		.where({ user_id: invoker.id })
 		.orWhere({ giftee_id: invoker.id })
 		.orderBy("timestamp", "desc")
 		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER)
@@ -332,7 +332,7 @@ export async function history(
 		totalGifted(invoker.id),
 		totalReceived(invoker.id),
 		pg<HeartPacket>(Table.Hearts)
-			.where({ gifter_id: invoker.id })
+			.where({ user_id: invoker.id })
 			.orWhere({ giftee_id: invoker.id })
 			.count({ totalRows: "*" })
 			.first()
@@ -365,7 +365,7 @@ export async function history(
 			type: ComponentType.TextDisplay,
 			content: heartPackets
 				.map((heartPacket) => {
-					const gifted = heartPacket.gifter_id === invoker.id;
+					const gifted = heartPacket.user_id === invoker.id;
 					const timestamp = Math.floor(heartPacket.timestamp.getTime() / 1_000);
 
 					const message = t(
@@ -385,8 +385,8 @@ export async function history(
 								? heartPacket.giftee_id
 									? `<@${heartPacket.giftee_id}>`
 									: DELETED_USER_TEXT
-								: heartPacket.gifter_id
-									? `<@${heartPacket.gifter_id}>`
+								: heartPacket.user_id
+									? `<@${heartPacket.user_id}>`
 									: DELETED_USER_TEXT,
 							timestamp1: `<t:${timestamp}:d>`,
 							timestamp2: `<t:${timestamp}:R>`,

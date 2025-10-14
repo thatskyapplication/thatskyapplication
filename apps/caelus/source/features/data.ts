@@ -28,7 +28,7 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 	const promises = [
 		pg<CataloguePacket>(Table.Catalogue).delete().where({ user_id: userId }),
 		pg<ChecklistPacket>(Table.Checklist).delete().where({ user_id: userId }),
-		pg<HeartPacket>(Table.Hearts).update({ gifter_id: null }).where({ gifter_id: userId }),
+		pg<HeartPacket>(Table.Hearts).update({ user_id: null }).where({ user_id: userId }),
 		pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: userId }),
 		pg<GuessPacket>(Table.Guess).delete().where({ user_id: userId }),
 		skyProfileDelete(userId),
