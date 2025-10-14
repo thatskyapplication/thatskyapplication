@@ -43,7 +43,7 @@ export interface HeartPacket {
 	gifter_id: Snowflake | null;
 	giftee_id: Snowflake | null;
 	timestamp: Date;
-	hearts_extra: number;
+	count: number;
 }
 
 interface HeartsExtra {
@@ -72,35 +72,25 @@ const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>()
 	});
 
 async function totalGifted(userId: Snowflake) {
-	const result = await pg<HeartPacket>(Table.Hearts)
+	// The types are wrong.
+	// A row is always returned and the count is a string or null.
+	const result = (await pg<HeartPacket>(Table.Hearts)
 		.where({ gifter_id: userId })
-		.sum({ heartsExtra: "hearts_extra" })
-		.count({ totalRows: "*" })
-		.first();
+		.sum("count")
+		.first()) as unknown as { sum: string | null };
 
-	if (!result) {
-		return 0;
-	}
-
-	const totalRows = Number(result.totalRows);
-	const heartsExtra = Number(result.heartsExtra ?? 0);
-	return totalRows + heartsExtra;
+	return Number(result.sum ?? 0);
 }
 
 export async function totalReceived(userId: Snowflake) {
-	const result = await pg<HeartPacket>(Table.Hearts)
+	// The types are wrong.
+	// A row is always returned and the count is a string or null.
+	const result = (await pg<HeartPacket>(Table.Hearts)
 		.where({ giftee_id: userId })
-		.sum({ heartsExtra: "hearts_extra" })
-		.count({ totalRows: "*" })
-		.first();
+		.sum("count")
+		.first()) as unknown as { sum: string | null };
 
-	if (!result) {
-		return 0;
-	}
-
-	const totalRows = Number(result.totalRows);
-	const heartsExtra = Number(result.heartsExtra ?? 0);
-	return totalRows + heartsExtra;
+	return Number(result.sum ?? 0);
 }
 
 export async function gift(
@@ -229,7 +219,7 @@ export async function gift(
 		gifter_id: invoker.id,
 		giftee_id: user.id,
 		timestamp: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		hearts_extra: extraHearts?.count ?? 0,
+		count: 1 + (extraHearts?.count ?? 0),
 	});
 
 	const hearts = await totalReceived(user.id);
@@ -379,7 +369,7 @@ export async function history(
 					const timestamp = Math.floor(heartPacket.timestamp.getTime() / 1_000);
 
 					const message = t(
-						heartPacket.hearts_extra > 0
+						heartPacket.count > 1
 							? gifted
 								? "heart.history-gifted-message-extra"
 								: "heart.history-received-message-extra"
@@ -389,7 +379,7 @@ export async function history(
 						{
 							lng: locale,
 							ns: "features",
-							amount: heartPacket.hearts_extra + 1,
+							amount: heartPacket.count,
 							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
 							user: gifted
 								? heartPacket.giftee_id
