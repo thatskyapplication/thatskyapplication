@@ -13,6 +13,7 @@ import {
 	type NotificationTypes,
 	ptBR,
 	ru,
+	skyDate,
 	th,
 	vi,
 	WEBSITE_URL,
@@ -102,6 +103,21 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 	ChannelType.GuildAnnouncement,
 	ChannelType.PublicThread,
 ] as const;
+
+// Giveaway.
+export const GIVEAWAY_START_DATE = skyDate(2025, 10, 17);
+const GIVEAWAY_START_TIMESTAMP_SECONDS = GIVEAWAY_START_DATE.toUnixInteger();
+export const GIVEAWAY_END_DATE = skyDate(2025, 10, 27);
+export const GIVEAWAY_END_TIMESTAMP_SECONDS = GIVEAWAY_END_DATE.toUnixInteger();
+export const GIVEAWAY_INVITE_URL = "https://discord.gg/dVekyau2gN" as const;
+
+export const GIVEAWAY_NOT_STARTED_TEXT =
+	`There is an upcoming giveaway in the [support server](${GIVEAWAY_INVITE_URL}) starting on <t:${GIVEAWAY_START_TIMESTAMP_SECONDS}:F> (<t:${GIVEAWAY_START_TIMESTAMP_SECONDS}:R>).` as const;
+
+export const GIVEAWAY_OVER_TEXT = "There is currently no giveaway." as const;
+
+export const GIVEAWAY_NOT_IN_SERVER_TEXT =
+	`There is a giveaway in the [support server](${GIVEAWAY_INVITE_URL})! The prize is an in-app purchase of your choice for Days of Colour 2025. Interested? Come on by!` as const;
 
 // Guess.
 export const GUESS_TIMEOUT = 30_000 as const;

@@ -1,7 +1,8 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
-import { Table, type UsersPacket } from "@thatskyapplication/utility";
+import { isDuring, skyNow, Table, type UsersPacket } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
+import { eligible } from "../features/giveaway.js";
 import { sendWelcomeMessage, type WelcomePacketWithChannel } from "../features/welcome.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
@@ -11,6 +12,7 @@ import {
 	SUPPORTER_ROLE_ID,
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
+import { GIVEAWAY_END_DATE, GIVEAWAY_START_DATE } from "../utility/constants.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.GuildMemberAdd;
@@ -40,6 +42,10 @@ export default {
 		}
 
 		if (data.guild_id === SUPPORT_SERVER_GUILD_ID) {
+			if (isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())) {
+				await eligible({ userId: data.user.id });
+			}
+
 			const usersPacket = await pg<UsersPacket>(Table.Users)
 				.where({ discord_user_id: data.user.id })
 				.first();

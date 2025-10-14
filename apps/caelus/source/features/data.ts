@@ -16,6 +16,7 @@ import {
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
 import { interactionInvoker } from "../utility/functions.js";
+import type { GiveawayPacket, GiveawayUpsellPacket } from "./giveaway.js";
 import type { GuessPacket } from "./guess.js";
 import type { HeartPacket } from "./heart.js";
 import { skyProfileDelete } from "./sky-profile.js";
@@ -31,6 +32,8 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 		pg<HeartPacket>(Table.Hearts).update({ user_id: null }).where({ user_id: userId }),
 		pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: userId }),
 		pg<GuessPacket>(Table.Guess).delete().where({ user_id: userId }),
+		pg<GiveawayPacket>(Table.Giveaway).delete().where({ user_id: userId }),
+		pg<GiveawayUpsellPacket>(Table.GiveawayUpsell).delete().where({ user_id: userId }),
 		skyProfileDelete(userId),
 		pg<UsersPacket>(Table.Users).delete().where({ discord_user_id: userId }),
 	];

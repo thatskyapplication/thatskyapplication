@@ -15,11 +15,13 @@ import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { addBreadcrumb } from "@sentry/node";
 import {
+	isDuring,
 	isRealm,
 	isSeasonId,
 	type ScheduleTypes,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
+	skyNow,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -76,6 +78,13 @@ import {
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
 import { friendshipActionsCreateThread } from "../features/friendship-actions.js";
+import {
+	claimTicket,
+	GIVEAWAY_BUTTON_CUSTOM_ID,
+	GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID,
+	giveaway,
+	upsell,
+} from "../features/giveaway.js";
 import {
 	guessEventAnswer,
 	guessHandleEndGame,
@@ -137,6 +146,7 @@ import {
 import AI from "../models/AI.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
+import { GIVEAWAY_END_DATE, GIVEAWAY_START_DATE } from "../utility/constants.js";
 import {
 	CustomId,
 	SHARD_ERUPTION_DATES,
@@ -325,6 +335,11 @@ export default {
 
 			try {
 				await command.chatInput(interaction);
+
+				if (isDuring(GIVEAWAY_START_DATE, GIVEAWAY_END_DATE, skyNow())) {
+					// Upsell for the giveaway.
+					await upsell(interaction);
+				}
 			} catch (error) {
 				addBreadcrumb({
 					type: "user",
@@ -778,6 +793,24 @@ export default {
 				if (isGuildButton(interaction)) {
 					if (id === CustomId.FriendshipActionsContribute) {
 						await friendshipActionsCreateThread(interaction);
+						return;
+					}
+
+					if (customId.startsWith(GIVEAWAY_BUTTON_CUSTOM_ID)) {
+						await claimTicket(interaction, Number(customId.slice(customId.indexOf("§") + 1)) === 1);
+						return;
+					}
+
+					if (customId.startsWith(GIVEAWAY_INFORMATION_TEXT_CUSTOM_ID)) {
+						await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+							components: await giveaway({
+								userId: interaction.member.user.id,
+								createdTimestamp: DiscordSnowflake.timestampFrom(interaction.member.user.id),
+								viewInformation: Number(customId.slice(customId.indexOf("§") + 1)) === 1,
+								guildId: interaction.guild_id,
+							}),
+						});
+
 						return;
 					}
 
