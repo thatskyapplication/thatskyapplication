@@ -411,7 +411,7 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 			editReply = true;
 			data.asset = await welcomeSetAsset(interaction, asset);
 		} else {
-			errors.push(t("asset-invalid", { lng: locale, ns: "features" }));
+			errors.push(t("asset-invalid", { lng: locale, ns: "general" }));
 		}
 	}
 

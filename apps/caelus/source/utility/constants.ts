@@ -79,6 +79,13 @@ export const ALLOWED_MEDIA_TYPES = [
 	"video/quicktime",
 ] as const satisfies readonly string[];
 
+export const ALLOWED_IMAGE_MEDIA_TYPES = [
+	"image/gif",
+	"image/jpeg",
+	"image/png",
+	"image/webp",
+] as const satisfies readonly string[];
+
 export const LOCALES = [
 	Locale.German,
 	Locale.EnglishGB,

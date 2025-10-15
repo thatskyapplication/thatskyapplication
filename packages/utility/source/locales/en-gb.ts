@@ -30,7 +30,7 @@ function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | SkyMap) {
 export default {
 	general: {
 		"asset-invalid":
-			"Please upload a valid attachment! It must be less than or equal to 5 megabytes and be a GIF, JPEG, PNG, WebP, MP4, or MOV file.",
+			"Please upload a valid attachment! It must be less than or equal to 5 megabytes and be a GIF, JPEG, PNG, or WebP file.",
 		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -3751,7 +3751,7 @@ export default {
 			"edit-modal-label-hug-string-select-menu-option-no": "Do not show a hug button.",
 			"edit-modal-label-asset-label": "Media",
 			"edit-modal-label-asset-description":
-				"You may set an image, GIF, video, etc. which will be displayed.",
+				"You may set an image (including a GIF) which will be displayed.",
 			"asset-remove": "Delete media",
 			"accent-colour-invalid":
 				"Invalid hexadecimal colour code. Look up a colour picker tool for ease!",

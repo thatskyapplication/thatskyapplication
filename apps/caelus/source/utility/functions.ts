@@ -27,7 +27,11 @@ import {
 	APPLICATION_INVITE_URL,
 	SUPPORT_SERVER_INVITE_URL,
 } from "./configuration.js";
-import { ALLOWED_MEDIA_TYPES, ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "./constants.js";
+import {
+	ALLOWED_IMAGE_MEDIA_TYPES,
+	ANIMATED_HASH_PREFIX,
+	MAXIMUM_ASSET_SIZE,
+} from "./constants.js";
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
@@ -191,7 +195,7 @@ export function notInCachedGuildResponse(locale: Locale) {
 export function isValidAttachment(attachment: APIAttachment) {
 	return (
 		attachment.size <= MAXIMUM_ASSET_SIZE &&
-		ALLOWED_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
+		ALLOWED_IMAGE_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
 	);
 }
 
