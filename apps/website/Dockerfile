@@ -1,5 +1,6 @@
 FROM node:lts-alpine AS base
 
+ARG SENTRY_RELEASE
 WORKDIR /thatskyapplication
 ENV NODE_ENV="production"
 
@@ -17,7 +18,6 @@ COPY ./packages/utility ./packages/utility
 RUN pnpm install --frozen-lockfile
 
 # Build the application.
-ARG SENTRY_RELEASE
 COPY . .
 RUN --mount=type=secret,id=sentry_auth_token,env=SENTRY_AUTH_TOKEN \
   export SENTRY_RELEASE=$SENTRY_RELEASE && \
@@ -33,5 +33,6 @@ COPY --from=build /thatskyapplication /thatskyapplication
 
 ENV HOST=0.0.0.0
 ENV PORT=80
+ENV SENTRY_RELEASE=${SENTRY_RELEASE}
 WORKDIR /thatskyapplication/apps/website
 CMD [ "pnpm", "run", "start" ]
