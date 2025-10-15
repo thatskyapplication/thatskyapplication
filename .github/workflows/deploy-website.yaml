@@ -64,5 +64,6 @@ jobs:
           CROWDIN_CLIENT_SECRET: ${{ secrets.CROWDIN_CLIENT_SECRET }}
           REDIRECT_URI_LOGIN: ${{ vars.REDIRECT_URI_LOGIN }}
           REDIRECT_URI_DISCORD_CROWDIN: ${{ vars.REDIRECT_URI_DISCORD_CROWDIN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_DATA_SOURCE_NAME_WEBSITE: ${{ secrets.SENTRY_DATA_SOURCE_NAME_WEBSITE }}
         run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-website --recreate --yes
