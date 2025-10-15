@@ -308,9 +308,6 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 
 	for (const notification of notifications) {
 		const { type, timeUntilStart } = notification;
-		pino.info(
-			`Notification ${notification.type} queued (${notification.timeUntilStart} mins until).`,
-		);
 
 		const notificationsSettled = await Promise.allSettled(
 			(
@@ -365,7 +362,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		}
 
 		const successful = notificationsSettled.length - errors.length;
-		const message = `Notification ${notification.type} delivered to ${successful === 1 ? `${successful} guild` : `${successful} guilds`}.`;
+		const message = `Notification ${notification.type} (${notification.timeUntilStart} mins until) delivered to ${successful === 1 ? `${successful} guild` : `${successful} guilds`}.`;
 
 		if (errors.length > 0) {
 			pino.error(
