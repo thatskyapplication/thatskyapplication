@@ -17,8 +17,11 @@ COPY ./packages/utility ./packages/utility
 RUN pnpm install --frozen-lockfile
 
 # Build the application.
+ARG SENTRY_RELEASE
 COPY . .
-RUN pnpm --filter @thatskyapplication/website... run build
+RUN --mount=type=secret,id=sentry_auth_token,env=SENTRY_AUTH_TOKEN \
+  export SENTRY_RELEASE=$SENTRY_RELEASE && \
+	pnpm --filter @thatskyapplication/website... run build
 
 # Prune unnecessary dependencies.
 RUN pnpm prune --prod

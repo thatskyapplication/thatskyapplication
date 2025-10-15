@@ -31,6 +31,8 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha,scope=deploy-thatskyapplication-website
           cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-website
+          build-args: SENTRY_RELEASE=${{ github.sha }}
+          secrets: sentry_auth_token=${{ secrets.SENTRY_AUTH_TOKEN }}
         env:
           DOCKER_BUILD_SUMMARY: false
           DOCKER_BUILD_RECORD_UPLOAD: false
@@ -64,6 +66,5 @@ jobs:
           CROWDIN_CLIENT_SECRET: ${{ secrets.CROWDIN_CLIENT_SECRET }}
           REDIRECT_URI_LOGIN: ${{ vars.REDIRECT_URI_LOGIN }}
           REDIRECT_URI_DISCORD_CROWDIN: ${{ vars.REDIRECT_URI_DISCORD_CROWDIN }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_DATA_SOURCE_NAME_WEBSITE: ${{ secrets.SENTRY_DATA_SOURCE_NAME_WEBSITE }}
         run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-website --recreate --yes

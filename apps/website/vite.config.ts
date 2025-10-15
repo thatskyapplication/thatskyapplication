@@ -20,6 +20,13 @@ export default defineConfig((config) => ({
 					enabled: true,
 					filesToDeleteAfterUpload: "**/*.map",
 				},
+				unstable_sentryVitePluginOptions: {
+					release: {
+						// Creating a release above does not work.
+						create: true,
+						name: process.env.SENTRY_RELEASE ?? "Unknown",
+					},
+				},
 			},
 			config,
 		),
