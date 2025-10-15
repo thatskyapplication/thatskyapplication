@@ -13,10 +13,5 @@
 		"@biomejs/biome": "2.2.0",
 		"typescript": "^5.9.2"
 	},
-	"packageManager": "pnpm@10.14.0",
-	"pnpm": {
-		"overrides": {
-			"discord-api-types": "0.38.26-next.93decca.1758147813"
-		}
-	}
+	"packageManager": "pnpm@10.14.0"
 }
