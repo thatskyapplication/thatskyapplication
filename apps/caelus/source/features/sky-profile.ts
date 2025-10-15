@@ -106,7 +106,7 @@ import {
 	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
-	isValidAttachment,
+	isValidImageAttachment,
 	resolveStringSelectMenu,
 	userLogFormat,
 } from "../utility/functions.js";
@@ -1894,12 +1894,12 @@ export async function skyProfileSetIcon(interaction: APIModalSubmitInteraction) 
 	let editReply = false;
 	let error = null;
 
-	if (isValidAttachment(icon)) {
+	if (isValidImageAttachment(icon)) {
 		await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
 		editReply = true;
 		payload.icon = await skyProfileSetAsset(interaction, icon, AssetType.Icon);
 	} else {
-		error = t("asset-invalid", { lng: interaction.locale, ns: "general" });
+		error = t("asset-image-invalid", { lng: interaction.locale, ns: "general" });
 	}
 
 	await skyProfileSet(interaction, payload, { editReply });
@@ -1919,12 +1919,12 @@ export async function skyProfileSetBanner(interaction: APIModalSubmitInteraction
 	let editReply = false;
 	let error = null;
 
-	if (isValidAttachment(banner)) {
+	if (isValidImageAttachment(banner)) {
 		await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
 		editReply = true;
 		payload.banner = await skyProfileSetAsset(interaction, banner, AssetType.Banner);
 	} else {
-		error = t("asset-invalid", { lng: interaction.locale, ns: "general" });
+		error = t("asset-image-invalid", { lng: interaction.locale, ns: "general" });
 	}
 
 	await skyProfileSet(interaction, payload, { editReply });

@@ -39,7 +39,7 @@ import { APPLICATION_ID, CDN_BUCKET, CDN_URL } from "../utility/configuration.js
 import { ANIMATED_HASH_PREFIX } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { isAnimatedHash, isValidAttachment } from "../utility/functions.js";
+import { isAnimatedHash, isValidImageAttachment } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { friendshipActionComponents } from "./friendship-actions.js";
@@ -406,12 +406,12 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 	}
 
 	if (asset) {
-		if (isValidAttachment(asset)) {
+		if (isValidImageAttachment(asset)) {
 			await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
 			editReply = true;
 			data.asset = await welcomeSetAsset(interaction, asset);
 		} else {
-			errors.push(t("asset-invalid", { lng: locale, ns: "general" }));
+			errors.push(t("asset-image-invalid", { lng: locale, ns: "general" }));
 		}
 	}
 

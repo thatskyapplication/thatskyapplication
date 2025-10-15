@@ -29,7 +29,7 @@ function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | SkyMap) {
 
 export default {
 	general: {
-		"asset-invalid":
+		"asset-image-invalid":
 			"Please upload a valid attachment! It must be less than or equal to 5 megabytes and be a GIF, JPEG, PNG, or WebP file.",
 		"daily-quests": "Daily quests",
 		"days-left": {
@@ -3072,6 +3072,8 @@ export default {
 			"issue-modal-label-attachments-label": "Attachments",
 			"issue-modal-label-attachments-description": "Screenshots are helpful and appreciated! 🩵",
 			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
+			"issue-submission-with-errors":
+				"Thank you for reporting your issue! {{emoji}}\n\nNote that the following assets were not sent as they were too big:\n{{errors}}\nYou are welcome to join the [support server]({{supportServerInviteURL}}) and report without limits!",
 		},
 		ai: {
 			"frequency-type": {

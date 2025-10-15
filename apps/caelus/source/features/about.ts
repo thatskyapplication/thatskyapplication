@@ -40,7 +40,6 @@ import {
 	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/configuration.js";
 import {
-	ALLOWED_MEDIA_TYPES,
 	DEFAULT_EMBED_COLOUR,
 	GITHUB_SPONSORS_URL,
 	KO_FI_URL,
@@ -53,7 +52,7 @@ import {
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOTE_EMOJIS } from "../utility/emojis.js";
-import { avatarURL, interactionInvoker, userTag } from "../utility/functions.js";
+import { avatarURL, interactionInvoker, isValidAttachment, userTag } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { skyProfileIconURL } from "./sky-profile.js";
@@ -429,12 +428,18 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 	const components = new ModalResolver(interaction.data);
 	const title = components.getTextInputValue(CustomId.AboutIssueModalTitle);
 	const description = components.getTextInputValue(CustomId.AboutIssueModalDescription);
+	const fileUploads = components.getFileUploadValues(CustomId.AboutIssueModalAttachments);
+	const attachments = [];
+	const errors = [];
 
-	const attachments = components
-		.getFileUploadValues(CustomId.AboutIssueModalAttachments)
-		.filter((attachment) =>
-			ALLOWED_MEDIA_TYPES.includes(attachment.content_type as (typeof ALLOWED_MEDIA_TYPES)[number]),
-		);
+	for (const fileUpload of fileUploads) {
+		if (isValidAttachment(fileUpload)) {
+			attachments.push(fileUpload);
+			continue;
+		}
+
+		errors.push(`- ${fileUpload.filename} (${fileUpload.size} bytes)`);
+	}
 
 	const invoker = interactionInvoker(interaction);
 
@@ -547,11 +552,20 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 	});
 
 	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-		content: t("about.issue-submission", {
-			lng: interaction.locale,
-			ns: "features",
-			emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
-		}),
+		content:
+			errors.length > 0
+				? t("about.issue-submission-with-errors", {
+						lng: interaction.locale,
+						ns: "features",
+						emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+						errors: errors.join("\n"),
+						supportServerInviteURL: SUPPORT_SERVER_INVITE_URL,
+					})
+				: t("about.issue-submission", {
+						lng: interaction.locale,
+						ns: "features",
+						emoji: formatEmoji(EMOTE_EMOJIS.BlowKiss),
+					}),
 		flags: MessageFlags.Ephemeral,
 	});
 }

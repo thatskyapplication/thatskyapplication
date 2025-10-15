@@ -29,6 +29,7 @@ import {
 } from "./configuration.js";
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
+	ALLOWED_MEDIA_TYPES,
 	ANIMATED_HASH_PREFIX,
 	MAXIMUM_ASSET_SIZE,
 } from "./constants.js";
@@ -195,20 +196,27 @@ export function notInCachedGuildResponse(locale: Locale) {
 export function isValidAttachment(attachment: APIAttachment) {
 	return (
 		attachment.size <= MAXIMUM_ASSET_SIZE &&
+		ALLOWED_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
+	);
+}
+
+export function isValidImageAttachment(attachment: APIAttachment) {
+	return (
+		attachment.size <= MAXIMUM_ASSET_SIZE &&
 		ALLOWED_IMAGE_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
 	);
 }
 
-export async function validateAttachment(
+export async function validateImageAttachment(
 	interaction: APIChatInputApplicationCommandInteraction | APIModalSubmitInteraction,
 	attachment: APIAttachment,
 ) {
-	if (isValidAttachment(attachment)) {
+	if (isValidImageAttachment(attachment)) {
 		return true;
 	}
 
 	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-		content: t("asset-invalid", { lng: interaction.locale, ns: "general" }),
+		content: t("asset-image-invalid", { lng: interaction.locale, ns: "general" }),
 	});
 
 	return false;

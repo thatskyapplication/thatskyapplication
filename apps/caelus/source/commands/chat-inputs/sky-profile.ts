@@ -27,7 +27,7 @@ import {
 } from "../../features/sky-profile.js";
 import { searchAutocomplete } from "../../features/spirits.js";
 import { APPLICATION_ID } from "../../utility/configuration.js";
-import { interactionInvoker, validateAttachment } from "../../utility/functions.js";
+import { interactionInvoker, validateImageAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -117,7 +117,7 @@ export default {
 			}
 
 			if (banner) {
-				if (!(await validateAttachment(interaction, banner))) {
+				if (!(await validateImageAttachment(interaction, banner))) {
 					return;
 				}
 
@@ -128,7 +128,7 @@ export default {
 			}
 
 			if (icon) {
-				if (!(await validateAttachment(interaction, icon))) {
+				if (!(await validateImageAttachment(interaction, icon))) {
 					return;
 				}
 
