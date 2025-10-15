@@ -1,5 +1,6 @@
 {
 	"general": {
+		"asset-image-invalid": "",
 		"daily-quests": "デイリークエスト",
 		"days-left": {
 			"season_zero": "このシーズンは本日で終了します。",
@@ -367,7 +368,7 @@
 			"23": "光に染まる季節",
 			"24": "青い鳥の季節",
 			"25": "ふたつの灯火の季節 −前篇−",
-			"26": ""
+			"26": "渡りの季節"
 		},
 		"season-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%84%9F%E8%AC%9D%E3%81%AE%E5%AD%A3%E7%AF%80",
@@ -396,7 +397,7 @@
 			"23": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E5%85%89%E3%81%AB%E6%9F%93%E3%81%BE%E3%82%8B%E5%AD%A3%E7%AF%80",
 			"24": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%9D%92%E3%81%84%E9%B3%A5%E3%81%AE%E5%AD%A3%E7%AF%80",
 			"25": "https://sky-children-of-the-light.fandom.com/ja/wiki/ふたつの灯火の季節_−前篇−",
-			"26": ""
+			"26": "https://sky-children-of-the-light.fandom.com/ja/wiki/渡りの季節"
 		},
 		"events": {
 			"0": "",
@@ -564,7 +565,7 @@
 			"78": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%99%BD%E5%85%89%E3%81%AE%E6%97%A5%E3%80%85",
 			"79": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
 			"80": "",
-			"81": ""
+			"81": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々"
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -763,7 +764,7 @@
 			"189": "厳格なマナティ飼い",
 			"190": "機知に富む隠とん者",
 			"191": "寄り添うお友だち",
-			"192": ""
+			"192": "渡りの案内人"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%8C%87%E5%B7%AE%E3%81%99%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%89%E3%83%AB%E8%81%B7%E4%BA%BA",
@@ -1990,7 +1991,7 @@
 			"1768": "",
 			"1769": "お洒落ファイアサングラス",
 			"1770": "",
-			"1771": "",
+			"1771": "お洒落バニーシューズ",
 			"1772": "",
 			"1775": "",
 			"1776": "",
@@ -2476,9 +2477,9 @@
 			"2496": "",
 			"2497": "",
 			"2498": "記憶の映写機",
-			"2499": "",
-			"2500": "",
-			"2501": "",
+			"2499": "月灯り壁掛け",
+			"2500": "月灯りしっぽアクセサリー",
+			"2501": "月灯りバスタブ",
 			"2502": "月灯り羽衣ケープ"
 		},
 		"interaction-error": "",
@@ -2554,11 +2555,7 @@
 			},
 			"me": {
 				"command-name": "わたし",
-				"command-description": "サーバー内でのわたしの見え方を設定しましょう！",
-				"command-option-avatar-name": "アバター",
-				"command-option-avatar-description": "わたしの新しいアバターを設定してください。",
-				"command-option-banner-name": "バナー",
-				"command-option-banner-description": "わたしの新しいバナーを設定してください。"
+				"command-description": "サーバー内でのわたしの見え方を設定しましょう！"
 			},
 			"notifications": {
 				"command-name": "通知",
@@ -2566,9 +2563,7 @@
 			},
 			"welcome": {
 				"command-name": "ウェルカム",
-				"command-description": "このサーバーの新メンバーへのウェルカムメッセージを設定するコマンドです。",
-				"command-option-asset-name": "メディア",
-				"command-option-asset-description": "ウェルカムメッセージに含める画像、GIF、ビデオなどをアップロードします。"
+				"command-description": "このサーバーの新メンバーへのウェルカムメッセージを設定するコマンドです。"
 			}
 		},
 		"daily-guides": {
@@ -2790,7 +2785,10 @@
 			"issue-modal-label-description-label": "",
 			"issue-modal-label-description-description": "",
 			"issue-modal-label-description-text-input-placeholder": "頑張って試したのですが…\nどんなに経っても動きません…",
-			"issue-submission": ""
+			"issue-modal-label-attachments-label": "",
+			"issue-modal-label-attachments-description": "",
+			"issue-submission": "",
+			"issue-submission-with-errors": ""
 		},
 		"ai": {
 			"frequency-type": {
@@ -3038,15 +3036,18 @@
 		"me": {
 			"title": "Me",
 			"upsell-message": "これはプレミアム機能です！\n\nあなたのサーバー上で、わたしのプロフィール・バナー・アバターを自由にカスタマイズできます！\n\n始めるには、下のボタンをクリックしてください。",
-			"message-mention": "わたしをカスタマイズしてみませんか？✨\n- 下のボタンからbioを設定しましょう！\n- {{mention}} を使ってアバターとバナーを設定できます！ 削除ボタンで設定済みの項目をデフォルトの状態に戻します。",
-			"message-text": "わたしをカスタマイズしてみませんか？✨\n- 下のボタンからbioを設定しましょう！\n- コマンドを使ってアバターとバナーが設定できます！ 削除ボタンで設定済みの項目をデフォルトの状態に戻します。",
-			"set-bio-button-label": "bioを書く",
+			"message": "",
+			"customise-me-button-label": "",
+			"customise-me-modal-title": "",
+			"customise-me-modal-label-bio-label": "",
+			"customise-me-modal-label-bio-description": "",
+			"customise-me-modal-label-avatar-label": "",
+			"customise-me-modal-label-avatar-description": "",
+			"customise-me-modal-label-banner-label": "",
+			"customise-me-modal-label-banner-description": "",
 			"delete-bio-button-label": "bioの削除",
 			"delete-avatar-button-label": "アバターの削除",
-			"delete-banner-button-label": "バナーの削除",
-			"set-bio-modal-title": "My bio",
-			"set-bio-modal-label-bio-label": "わたしのbioを書きましょう！",
-			"set-bio-modal-label-bio-description": "あなたのサーバーに表示するわたしのプロフィールを選択できます。"
+			"delete-banner-button-label": "バナーの削除"
 		},
 		"notifications": {
 			"back": "",
@@ -3258,7 +3259,9 @@
 				"4": "",
 				"5": "",
 				"6": "",
-				"7": ""
+				"7": "",
+				"8": "",
+				"9": ""
 			},
 			"edit-type-description": {
 				"0": "",
@@ -3268,13 +3271,19 @@
 				"4": "",
 				"5": "",
 				"6": "",
-				"7": ""
+				"7": "",
+				"8": "",
+				"9": ""
 			},
 			"edit-modal-title": "",
 			"edit-modal-label-name-label": "",
 			"edit-modal-label-name-description": "",
 			"edit-modal-label-description-label": "",
 			"edit-modal-label-description-description": "",
+			"edit-modal-label-icon-label": "",
+			"edit-modal-label-icon-description": "",
+			"edit-modal-label-banner-label": "",
+			"edit-modal-label-banner-description": "",
 			"edit-winged-light-description": "",
 			"edit-winged-light-string-select-menu-placeholder": "",
 			"edit-modal-label-hangout-label": "",
@@ -3323,11 +3332,9 @@
 			"supporter-support-server": "",
 			"supporter-other-server": "",
 			"missing-name": "",
-			"missing-icon-mention": "",
-			"missing-icon-text": "",
-			"missing-banner-mention": "",
-			"missing-banner-text": "",
 			"missing-description": "",
+			"missing-icon": "",
+			"missing-banner": "",
 			"missing-country-mention": "",
 			"missing-country-text": "",
 			"missing-winged-light": "",
@@ -3351,33 +3358,28 @@
 		"welcome": {
 			"preview": "",
 			"title": "",
-			"channel-description": "",
+			"main-description": "",
+			"edit-button-label": "",
+			"missing-permissions-description": "",
 			"channel-description-missing-permissions": "",
-			"welcome-channel-select-menu-placeholder": "",
-			"message-description": "",
-			"message-remove": "",
-			"message-edit": "",
-			"message-use": "",
-			"message-modal-title": "",
-			"message-modal-label-welcome-message-label": "",
-			"message-modal-label-welcome-message-description": "",
-			"message-modal-label-welcome-message-text-input-placeholder": "",
-			"asset-description-mention": "",
-			"asset-description-text": "",
-			"asset-remove": "",
-			"hug-description": "",
 			"hug-description-missing-permissions": "",
-			"hug-remove": "",
-			"hug-add": "",
-			"accent-colour-description": "",
-			"accent-colour-remove": "",
-			"accent-colour-edit": "",
-			"accent-colour-use": "",
-			"accent-colour-modal-title": "",
-			"accent-colour-modal-label-accent-colour-label": "",
-			"accent-colour-modal-label-accent-colour-description": "",
+			"edit-modal-title": "",
+			"edit-modal-label-channel-label": "",
+			"edit-modal-label-channel-description": "",
+			"edit-modal-channel-select-menu-placeholder": "",
+			"edit-modal-label-welcome-message-label": "",
+			"edit-modal-label-welcome-message-description": "",
+			"edit-modal-label-welcome-message-text-input-placeholder": "",
+			"edit-modal-label-accent-colour-label": "",
+			"edit-modal-label-accent-colour-description": "",
+			"edit-modal-label-hug-label": "",
+			"edit-modal-label-hug-description": "",
+			"edit-modal-label-hug-string-select-menu-option-yes": "",
+			"edit-modal-label-hug-string-select-menu-option-no": "",
+			"edit-modal-label-asset-label": "",
+			"edit-modal-label-asset-description": "",
+			"asset-remove": "",
 			"accent-colour-invalid": "",
-			"missing-permissions": "",
 			"welcome-with-a-hug": "",
 			"hug-self": "",
 			"hug-disabled": "",

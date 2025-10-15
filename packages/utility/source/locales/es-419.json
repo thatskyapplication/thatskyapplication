@@ -1,5 +1,6 @@
 {
 	"general": {
+		"asset-image-invalid": "",
 		"daily-quests": "",
 		"days-left": {
 			"season_zero": "La temporada termina hoy.",
@@ -2554,11 +2555,7 @@
 			},
 			"me": {
 				"command-name": "",
-				"command-description": "",
-				"command-option-avatar-name": "",
-				"command-option-avatar-description": "",
-				"command-option-banner-name": "",
-				"command-option-banner-description": ""
+				"command-description": ""
 			},
 			"notifications": {
 				"command-name": "",
@@ -2566,9 +2563,7 @@
 			},
 			"welcome": {
 				"command-name": "",
-				"command-description": "",
-				"command-option-asset-name": "",
-				"command-option-asset-description": ""
+				"command-description": ""
 			}
 		},
 		"daily-guides": {
@@ -2790,7 +2785,10 @@
 			"issue-modal-label-description-label": "",
 			"issue-modal-label-description-description": "",
 			"issue-modal-label-description-text-input-placeholder": "",
-			"issue-submission": ""
+			"issue-modal-label-attachments-label": "",
+			"issue-modal-label-attachments-description": "",
+			"issue-submission": "",
+			"issue-submission-with-errors": ""
 		},
 		"ai": {
 			"frequency-type": {
@@ -3038,15 +3036,18 @@
 		"me": {
 			"title": "",
 			"upsell-message": "",
-			"message-mention": "",
-			"message-text": "",
-			"set-bio-button-label": "",
+			"message": "",
+			"customise-me-button-label": "",
+			"customise-me-modal-title": "",
+			"customise-me-modal-label-bio-label": "",
+			"customise-me-modal-label-bio-description": "",
+			"customise-me-modal-label-avatar-label": "",
+			"customise-me-modal-label-avatar-description": "",
+			"customise-me-modal-label-banner-label": "",
+			"customise-me-modal-label-banner-description": "",
 			"delete-bio-button-label": "",
 			"delete-avatar-button-label": "",
-			"delete-banner-button-label": "",
-			"set-bio-modal-title": "",
-			"set-bio-modal-label-bio-label": "",
-			"set-bio-modal-label-bio-description": ""
+			"delete-banner-button-label": ""
 		},
 		"notifications": {
 			"back": "",
@@ -3258,7 +3259,9 @@
 				"4": "",
 				"5": "",
 				"6": "",
-				"7": ""
+				"7": "",
+				"8": "",
+				"9": ""
 			},
 			"edit-type-description": {
 				"0": "",
@@ -3268,13 +3271,19 @@
 				"4": "",
 				"5": "",
 				"6": "",
-				"7": ""
+				"7": "",
+				"8": "",
+				"9": ""
 			},
 			"edit-modal-title": "",
 			"edit-modal-label-name-label": "",
 			"edit-modal-label-name-description": "",
 			"edit-modal-label-description-label": "",
 			"edit-modal-label-description-description": "",
+			"edit-modal-label-icon-label": "",
+			"edit-modal-label-icon-description": "",
+			"edit-modal-label-banner-label": "",
+			"edit-modal-label-banner-description": "",
 			"edit-winged-light-description": "",
 			"edit-winged-light-string-select-menu-placeholder": "",
 			"edit-modal-label-hangout-label": "",
@@ -3323,11 +3332,9 @@
 			"supporter-support-server": "",
 			"supporter-other-server": "",
 			"missing-name": "",
-			"missing-icon-mention": "",
-			"missing-icon-text": "",
-			"missing-banner-mention": "",
-			"missing-banner-text": "",
 			"missing-description": "",
+			"missing-icon": "",
+			"missing-banner": "",
 			"missing-country-mention": "",
 			"missing-country-text": "",
 			"missing-winged-light": "",
@@ -3351,33 +3358,28 @@
 		"welcome": {
 			"preview": "",
 			"title": "",
-			"channel-description": "",
+			"main-description": "",
+			"edit-button-label": "",
+			"missing-permissions-description": "",
 			"channel-description-missing-permissions": "",
-			"welcome-channel-select-menu-placeholder": "",
-			"message-description": "",
-			"message-remove": "",
-			"message-edit": "",
-			"message-use": "",
-			"message-modal-title": "",
-			"message-modal-label-welcome-message-label": "",
-			"message-modal-label-welcome-message-description": "",
-			"message-modal-label-welcome-message-text-input-placeholder": "",
-			"asset-description-mention": "",
-			"asset-description-text": "",
-			"asset-remove": "",
-			"hug-description": "",
 			"hug-description-missing-permissions": "",
-			"hug-remove": "",
-			"hug-add": "",
-			"accent-colour-description": "",
-			"accent-colour-remove": "",
-			"accent-colour-edit": "",
-			"accent-colour-use": "",
-			"accent-colour-modal-title": "",
-			"accent-colour-modal-label-accent-colour-label": "",
-			"accent-colour-modal-label-accent-colour-description": "",
+			"edit-modal-title": "",
+			"edit-modal-label-channel-label": "",
+			"edit-modal-label-channel-description": "",
+			"edit-modal-channel-select-menu-placeholder": "",
+			"edit-modal-label-welcome-message-label": "",
+			"edit-modal-label-welcome-message-description": "",
+			"edit-modal-label-welcome-message-text-input-placeholder": "",
+			"edit-modal-label-accent-colour-label": "",
+			"edit-modal-label-accent-colour-description": "",
+			"edit-modal-label-hug-label": "",
+			"edit-modal-label-hug-description": "",
+			"edit-modal-label-hug-string-select-menu-option-yes": "",
+			"edit-modal-label-hug-string-select-menu-option-no": "",
+			"edit-modal-label-asset-label": "",
+			"edit-modal-label-asset-description": "",
+			"asset-remove": "",
 			"accent-colour-invalid": "",
-			"missing-permissions": "",
 			"welcome-with-a-hug": "",
 			"hug-self": "",
 			"hug-disabled": "",
