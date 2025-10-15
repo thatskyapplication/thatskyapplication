@@ -1173,7 +1173,7 @@ export async function set(
 				Key: `daily_guides/travelling_rocks/${hashedBuffer}.webp`,
 				Body: buffer,
 				ContentDisposition: "inline",
-				ContentType: fetchedURL.headers.get("content-type")!,
+				ContentType: "image/webp",
 			}),
 		);
 
