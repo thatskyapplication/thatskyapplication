@@ -176,8 +176,8 @@ export async function meHandleCustomiseMeButton(
 					min_values: 1,
 					required: false,
 				},
-				label: t("me.set-bio-modal-label-avatar-label", { lng: locale, ns: "features" }),
-				description: t("me.set-bio-modal-label-avatar-description", {
+				label: t("me.customise-me-modal-label-avatar-label", { lng: locale, ns: "features" }),
+				description: t("me.customise-me-modal-label-avatar-description", {
 					lng: locale,
 					ns: "features",
 				}),
@@ -191,8 +191,8 @@ export async function meHandleCustomiseMeButton(
 					min_values: 1,
 					required: false,
 				},
-				label: t("me.set-bio-modal-label-banner-label", { lng: locale, ns: "features" }),
-				description: t("me.set-bio-modal-label-banner-description", {
+				label: t("me.customise-me-modal-label-banner-label", { lng: locale, ns: "features" }),
+				description: t("me.customise-me-modal-label-banner-description", {
 					lng: locale,
 					ns: "features",
 				}),

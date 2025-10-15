@@ -3360,7 +3360,7 @@ export default {
 			"customise-me-modal-label-avatar-label": "Avatar",
 			"customise-me-modal-label-avatar-description": "Upload an avatar to display in your server.",
 			"customise-me-modal-label-banner-label": "Banner",
-			"customise-me-modal-label-baner-description": "Upload a banner to display in your server.",
+			"customise-me-modal-label-banner-description": "Upload a banner to display in your server.",
 			"delete-bio-button-label": "Delete bio",
 			"delete-avatar-button-label": "Delete avatar",
 			"delete-banner-button-label": "Delete banner",
