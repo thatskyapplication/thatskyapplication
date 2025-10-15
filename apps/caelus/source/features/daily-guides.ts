@@ -85,7 +85,11 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
-import { notInCachedGuildResponse, userTag, validateAttachment } from "../utility/functions.js";
+import {
+	notInCachedGuildResponse,
+	userTag,
+	validateImageAttachment,
+} from "../utility/functions.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
 import {
@@ -1150,7 +1154,7 @@ export async function set(
 			flags: MessageFlags.Ephemeral,
 		});
 
-		if (!(await validateAttachment(interaction, travellingRock))) {
+		if (!(await validateImageAttachment(interaction, travellingRock))) {
 			return;
 		}
 
@@ -1169,7 +1173,7 @@ export async function set(
 				Key: `daily_guides/travelling_rocks/${hashedBuffer}.webp`,
 				Body: buffer,
 				ContentDisposition: "inline",
-				ContentType: fetchedURL.headers.get("content-type")!,
+				ContentType: "image/webp",
 			}),
 		);
 

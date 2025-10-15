@@ -29,6 +29,8 @@ function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | SkyMap) {
 
 export default {
 	general: {
+		"asset-image-invalid":
+			"Please upload a valid attachment! It must be less than or equal to 5 megabytes and be a GIF, JPEG, PNG, or WebP file.",
 		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -2846,10 +2848,6 @@ export default {
 			me: {
 				"command-name": "me",
 				"command-description": "Configure how I look in your server!",
-				"command-option-avatar-name": "avatar",
-				"command-option-avatar-description": "Set a new avatar for me to use.",
-				"command-option-banner-name": "banner",
-				"command-option-banner-description": "Set a new banner for me to use.",
 			},
 			notifications: {
 				"command-name": "notifications",
@@ -2859,9 +2857,6 @@ export default {
 				"command-name": "welcome",
 				"command-description":
 					"The command to set up welcome messages for new members of the server.",
-				"command-option-asset-name": "media",
-				"command-option-asset-description":
-					"Upload an image, GIF, video, etc. to include in the welcome message.",
 			},
 		},
 		"daily-guides": {
@@ -3074,7 +3069,11 @@ export default {
 			"issue-modal-label-description-description": "Describe your issue here.",
 			"issue-modal-label-description-text-input-placeholder":
 				"Every time I try to...\nNothing happens when...",
+			"issue-modal-label-attachments-label": "Attachments",
+			"issue-modal-label-attachments-description": "Screenshots are helpful and appreciated! 🩵",
 			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
+			"issue-submission-with-errors":
+				"Thank you for reporting your issue! {{emoji}}\n\nNote that the following assets were not sent as they were too big:\n{{errors}}\nYou are welcome to join the [support server]({{supportServerInviteURL}}) and report without limits!",
 		},
 		ai: {
 			"frequency-type": {
@@ -3354,18 +3353,19 @@ export default {
 			title: "Me",
 			"upsell-message":
 				"This is a premium feature!\n\nYou may fully customise me by editing my bio, my banner, and my avatar in your server to whatever you like!\n\nTo get started, interact with the button below.",
-			"message-mention":
-				"Want to customise me? ✨\n- Set my bio with the button below!\n- Set my avatar and banner using {{mention}}! You can remove the override with the buttons below.",
-			"message-text":
-				"Want to customise me? ✨\n- Set my bio with the button below!\n- Set my avatar and banner using the command! You can remove the override with the buttons below.",
-			"set-bio-button-label": "Set bio",
+			message:
+				"Want to customise me? ✨\n\nYou can set my bio, avatar, and banner in this server! Interact with the button below to get started!\n\nYou can remove the override with the buttons below.",
+			"customise-me-button-label": "Customise me!",
+			"customise-me-modal-title": "Customise me",
+			"customise-me-modal-label-bio-label": "Bio",
+			"customise-me-modal-label-bio-description": "Type a bio for me to display in your server.",
+			"customise-me-modal-label-avatar-label": "Avatar",
+			"customise-me-modal-label-avatar-description": "Upload an avatar to display in your server.",
+			"customise-me-modal-label-banner-label": "Banner",
+			"customise-me-modal-label-banner-description": "Upload a banner to display in your server.",
 			"delete-bio-button-label": "Delete bio",
 			"delete-avatar-button-label": "Delete avatar",
 			"delete-banner-button-label": "Delete banner",
-			"set-bio-modal-title": "My bio",
-			"set-bio-modal-label-bio-label": "Set my bio!",
-			"set-bio-modal-label-bio-description":
-				"You can choose a bio for me to display in your server.",
 		},
 		notifications: {
 			back: "Back",
@@ -3615,6 +3615,8 @@ export default {
 			"edit-type-label": {
 				[SkyProfileEditType.Name]: "Name",
 				[SkyProfileEditType.Description]: "Description",
+				[SkyProfileEditType.Icon]: "Icon",
+				[SkyProfileEditType.Banner]: "Banner",
 				[SkyProfileEditType.WingedLight]: "Winged Light",
 				[SkyProfileEditType.Hangout]: "Hangout",
 				[SkyProfileEditType.Seasons]: "Seasons",
@@ -3624,6 +3626,8 @@ export default {
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-type-description": {
 				[SkyProfileEditType.Name]: "What name do you go by?",
+				[SkyProfileEditType.Icon]: "Upload an icon?",
+				[SkyProfileEditType.Banner]: "Upload a banner (only visible on the website)?",
 				[SkyProfileEditType.Description]: "What's your story?",
 				[SkyProfileEditType.WingedLight]: "What's your maximum winged light?",
 				[SkyProfileEditType.Hangout]: "Where do you like to hang out?",
@@ -3637,6 +3641,11 @@ export default {
 			"edit-modal-label-name-description": "What's your in-game name?",
 			"edit-modal-label-description-label": "Description",
 			"edit-modal-label-description-description": "Type a lovely description about your Sky kid!",
+			"edit-modal-label-icon-label": "Icon",
+			"edit-modal-label-icon-description": "Upload an icon for your Sky kid!",
+			"edit-modal-label-banner-label": "Banner",
+			"edit-modal-label-banner-description":
+				"Upload a banner for your Sky kid! This is only used on the website.",
 			"edit-winged-light-description":
 				"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
 			"edit-winged-light-string-select-menu-placeholder":
@@ -3692,13 +3701,9 @@ export default {
 			"supporter-other-server":
 				"{{emoji1}} This Sky kid is supporting development! How nice of them! {{emoji2}}",
 			"missing-name": "Set your name!",
-			"missing-icon-mention": "Use {{mention}} to upload an icon!",
-			"missing-icon-text": "Use the command to upload an icon!",
-			"missing-banner-mention":
-				"Use {{mention}} to upload a banner!\n  - The banner is only used on the [website]({{url}}).",
-			"missing-banner-text":
-				"Use the command to upload a banner!\n  - The banner is only used on the [website]({{url}}).",
 			"missing-description": "Set a description!",
+			"missing-icon": "Set an icon!",
+			"missing-banner": "Set a banner!\n  - The banner is only used on the [website]({{url}}).",
 			"missing-country-mention": "Use {{mention}} to set the country you are from!",
 			"missing-country-text": "Use the command to set the country you are from!",
 			"missing-winged-light": "Set the winged light you have!",
@@ -3723,41 +3728,35 @@ export default {
 		welcome: {
 			preview: "This is the preview area for your welcome message. It is currently empty.",
 			title: "Welcome setup",
-			"channel-description": "You can set up messages for whenever a Sky kid joins your server.",
+			"main-description": "You can set up messages for whenever a Sky kid joins your server!",
+			"edit-button-label": "Edit",
+			"missing-permissions-description": "⚠️ There are permission issues with the current setup.",
 			"channel-description-missing-permissions":
-				"I require the following permissions for this to work:\n- `View Channels`\n- `Send Messages`",
-			"welcome-channel-select-menu-placeholder": "Select a welcome channel.",
-			"message-description":
-				"You can choose to display a message! To mention the user who joined, type `{{user}}`.",
-			"message-remove": "Remove the message?",
-			"message-edit": "Edit the message?",
-			"message-use": "Use a message?",
-			"message-modal-title": "Welcome message",
-			"message-modal-label-welcome-message-label": "Welcome message",
-			"message-modal-label-welcome-message-description": "Enter your welcome message.",
-			"message-modal-label-welcome-message-text-input-placeholder":
-				"Welcome to the server, {{user}}!",
-			"asset-description-mention":
-				"Use {{mention}} to upload media to display in the welcome message!",
-			"asset-description-text":
-				"Use the command to upload media to display in the welcome message!",
-			"asset-remove": "Remove the uploaded media?",
-			"hug-description": "You can show a hug button on the message for others to use!",
+				"To send messages into {{channel}}, I require the following permissions:\n  - `View Channels`\n  - `Send Messages`",
 			"hug-description-missing-permissions":
-				"I require the following permissions in {{channel}} for this to work:\n- `View Channels`\n- `Send Messages`\n- `Read Message History`",
-			"hug-remove": "Remove the hug button?",
-			"hug-add": "Add the hug button?",
-			"accent-colour-description":
-				"You can set an accent colour for the welcome message on the left side as a hexadecimal colour code (e.g. `#123456`).",
-			"accent-colour-remove": "Remove the accent colour?",
-			"accent-colour-edit": "Edit accent colour?",
-			"accent-colour-use": "Use an accent colour?",
-			"accent-colour-modal-title": "Welcome accent colour",
-			"accent-colour-modal-label-accent-colour-label": "Accent colour",
-			"accent-colour-modal-label-accent-colour-description": "Enter a hexadecimal colour code.",
+				"To attach a hug button, I require the following permissions in {{channel}}:\n  - `View Channels`\n  - `Send Messages`\n  - `Read Message History`",
+			"edit-modal-title": "Welcome customisation",
+			"edit-modal-label-channel-label": "Welcome channel",
+			"edit-modal-label-channel-description":
+				"Select a channel where welcome messages will be sent to.",
+			"edit-modal-channel-select-menu-placeholder": "Select a welcome channel.",
+			"edit-modal-label-welcome-message-label": "Welcome message",
+			"edit-modal-label-welcome-message-description": "Enter your welcome message here.",
+			"edit-modal-label-welcome-message-text-input-placeholder": "Welcome to the server, {{user}}!",
+			"edit-modal-label-accent-colour-label": "Accent colour",
+			"edit-modal-label-accent-colour-description":
+				"A hexadecimal colour code may be used to colour the left side of the container.",
+			"edit-modal-label-hug-label": "Hug",
+			"edit-modal-label-hug-description":
+				"A hug button may be attached to the welcome message! Do you wish to show a hug button?",
+			"edit-modal-label-hug-string-select-menu-option-yes": "Show a hug button!",
+			"edit-modal-label-hug-string-select-menu-option-no": "Do not show a hug button.",
+			"edit-modal-label-asset-label": "Media",
+			"edit-modal-label-asset-description":
+				"You may set an image (including a GIF) which will be displayed.",
+			"asset-remove": "Delete media",
 			"accent-colour-invalid":
 				"Invalid hexadecimal colour code. Look up a colour picker tool for ease!",
-			"missing-permissions": "`View Channel` & `Send Messages` are required.",
 			"welcome-with-a-hug": "Welcome with a hug!",
 			"hug-self": "This is you! Why not hug the others?",
 			"hug-disabled": "This server has disabled hugging.",

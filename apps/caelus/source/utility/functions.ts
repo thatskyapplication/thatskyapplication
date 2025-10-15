@@ -19,7 +19,7 @@ import {
 	MessageFlags,
 	type Snowflake,
 } from "@discordjs/core";
-import { ALLOWED_EXTENSIONS, calculateUserDefaultAvatarIndex } from "@discordjs/rest";
+import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import {
@@ -27,7 +27,12 @@ import {
 	APPLICATION_INVITE_URL,
 	SUPPORT_SERVER_INVITE_URL,
 } from "./configuration.js";
-import { ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "./constants.js";
+import {
+	ALLOWED_IMAGE_MEDIA_TYPES,
+	ALLOWED_MEDIA_TYPES,
+	ANIMATED_HASH_PREFIX,
+	MAXIMUM_ASSET_SIZE,
+} from "./constants.js";
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
@@ -188,24 +193,33 @@ export function notInCachedGuildResponse(locale: Locale) {
 	};
 }
 
-export async function validateAttachment(
-	interaction: APIChatInputApplicationCommandInteraction,
-	{ size, filename }: APIAttachment,
-) {
-	if (
-		size > MAXIMUM_ASSET_SIZE ||
-		!ALLOWED_EXTENSIONS.some((extension) => filename.endsWith(`.${extension}`))
-	) {
-		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
-			content: `Please upload a valid attachment! It must be less than 5 megabytes and in any of the following formats:\n${ALLOWED_EXTENSIONS.map(
-				(extension) => `- .${extension}`,
-			).join("\n")}`,
-		});
+export function isValidAttachment(attachment: APIAttachment) {
+	return (
+		attachment.size <= MAXIMUM_ASSET_SIZE &&
+		ALLOWED_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
+	);
+}
 
-		return false;
+export function isValidImageAttachment(attachment: APIAttachment) {
+	return (
+		attachment.size <= MAXIMUM_ASSET_SIZE &&
+		ALLOWED_IMAGE_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
+	);
+}
+
+export async function validateImageAttachment(
+	interaction: APIChatInputApplicationCommandInteraction | APIModalSubmitInteraction,
+	attachment: APIAttachment,
+) {
+	if (isValidImageAttachment(attachment)) {
+		return true;
 	}
 
-	return true;
+	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+		content: t("asset-image-invalid", { lng: interaction.locale, ns: "general" }),
+	});
+
+	return false;
 }
 
 export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
@@ -223,7 +237,7 @@ export function avatarURL(user: APIUser) {
 			: Number(user.discriminator) % 5;
 
 	return user.avatar
-		? client.rest.cdn.avatar(user.id, user.avatar)
+		? client.rest.cdn.avatar(user.id, user.avatar, { size: 4096 })
 		: client.rest.cdn.defaultAvatar(index);
 }
 

@@ -150,6 +150,23 @@ export const enum CustomId {
 	WelcomeMessageModalMessage = "145",
 	WelcomeAccentColourModal = "146",
 	WelcomeAccentColourModalAccentColour = "147",
+	AboutIssueModalAttachments = "148",
+	MeCustomiseMe = "149",
+	MeCustomiseMeModal = "150",
+	MeCustomiseMeModalBio = "151",
+	MeCustomiseMeModalAvatar = "152",
+	MeCustomiseMeModalBanner = "153",
+	SkyProfileIconModal = "154",
+	SkyProfileIconModalIcon = "155",
+	SkyProfileBannerModal = "156",
+	SkyProfileBannerModalBanner = "157",
+	WelcomeEdit = "158",
+	WelcomeEditModal = "159",
+	WelcomeEditModalChannel = "160",
+	WelcomeEditModalMessage = "161",
+	WelcomeEditModalAccentColour = "162",
+	WelcomeEditModalHug = "163",
+	WelcomeEditModalAsset = "164",
 }
 
 export const SHARD_ERUPTION_DATES = [

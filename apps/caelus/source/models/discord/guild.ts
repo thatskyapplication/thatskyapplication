@@ -6,6 +6,7 @@ import {
 	ChannelType,
 	type GatewayGuildCreateDispatchData,
 	type GuildChannelType,
+	GuildPremiumTier,
 	type Locale,
 	type Snowflake,
 	type ThreadChannelType,
@@ -34,6 +35,8 @@ export class Guild {
 
 	public readonly roles: Collection<Snowflake, Role>;
 
+	public premiumTier!: GuildPremiumTier;
+
 	public preferredLocale!: Locale;
 
 	public readonly joinedAt: Date;
@@ -59,6 +62,7 @@ export class Guild {
 			new Collection<Snowflake, Role>(),
 		);
 
+		this.premiumTier = data.premium_tier;
 		this.joinedAt = new Date(data.joined_at);
 		const me = data.members.find((member) => member.user.id === APPLICATION_ID);
 
@@ -97,6 +101,7 @@ export class Guild {
 	public patch(data: APIGuild) {
 		this.name = data.name;
 		this.ownerId = data.owner_id;
+		this.premiumTier = data.premium_tier;
 		this.preferredLocale = data.preferred_locale;
 	}
 
@@ -114,5 +119,17 @@ export class Guild {
 
 		this.me = new GuildMember(await client.api.guilds.getMember(this.id, APPLICATION_ID));
 		return this.me;
+	}
+
+	public get maximumUploadLimit() {
+		if (this.premiumTier === GuildPremiumTier.Tier3) {
+			return 104_857_600;
+		}
+
+		if (this.premiumTier === GuildPremiumTier.Tier2) {
+			return 52_428_800;
+		}
+
+		return 10_485_760;
 	}
 }

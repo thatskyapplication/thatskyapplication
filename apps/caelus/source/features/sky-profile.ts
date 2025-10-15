@@ -106,6 +106,7 @@ import {
 	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
+	isValidImageAttachment,
 	resolveStringSelectMenu,
 	userLogFormat,
 } from "../utility/functions.js";
@@ -215,7 +216,7 @@ export async function skyProfileSet(
 		| APIMessageComponentSelectMenuInteraction
 		| APIModalSubmitInteraction,
 	data: SkyProfileSetData,
-	deferred = false,
+	options: SkyProfileShowEditOptions = {},
 ) {
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.select("icon", "banner")
@@ -243,11 +244,11 @@ export async function skyProfileSet(
 	}
 
 	await pg<SkyProfilePacket>(Table.Profiles).insert(data).onConflict("user_id").merge();
-	await skyProfileShowEdit(interaction, deferred);
+	await skyProfileShowEdit(interaction, options);
 }
 
 export async function skyProfileSetAsset(
-	interaction: APIChatInputApplicationCommandInteraction,
+	interaction: APIChatInputApplicationCommandInteraction | APIModalSubmitInteraction,
 	attachment: APIAttachment,
 	type: AssetType,
 ) {
@@ -342,6 +343,14 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 			await skyProfileShowDescriptionModal(interaction);
 			return;
 		}
+		case SkyProfileEditType.Icon: {
+			await skyProfileShowIconModal(interaction);
+			return;
+		}
+		case SkyProfileEditType.Banner: {
+			await skyProfileShowBannerModal(interaction);
+			return;
+		}
 		case SkyProfileEditType.WingedLight: {
 			await skyProfileShowWingedLightSelectMenu(interaction);
 			return;
@@ -433,13 +442,18 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 	await skyProfileSet(interaction, data);
 }
 
+interface SkyProfileShowEditOptions {
+	reply?: boolean;
+	editReply?: boolean;
+}
+
 export async function skyProfileShowEdit(
 	interaction:
 		| APIChatInputApplicationCommandInteraction
 		| APIMessageComponentButtonInteraction
 		| APIMessageComponentSelectMenuInteraction
 		| APIModalSubmitInteraction,
-	defer?: boolean,
+	{ reply, editReply }: SkyProfileShowEditOptions = {},
 ) {
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
@@ -510,11 +524,17 @@ export async function skyProfileShowEdit(
 		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 	};
 
-	await (isChatInputCommand(interaction)
-		? defer
-			? client.api.interactions.editReply(APPLICATION_ID, interaction.token, baseReplyOptions)
-			: client.api.interactions.reply(interaction.id, interaction.token, baseReplyOptions)
-		: client.api.interactions.updateMessage(interaction.id, interaction.token, baseReplyOptions));
+	if (reply) {
+		await client.api.interactions.reply(interaction.id, interaction.token, baseReplyOptions);
+		return;
+	}
+
+	if (editReply) {
+		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, baseReplyOptions);
+		return;
+	}
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, baseReplyOptions);
 }
 
 export async function skyProfileDelete(userId: Snowflake) {
@@ -1435,7 +1455,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 		return;
 	}
 
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 	const text = components.getTextInputValue(CustomId.SkyProfileReportModalReason);
 	const invoker = interactionInvoker(interaction);
 
@@ -1535,6 +1555,58 @@ async function skyProfileShowDescriptionModal(
 			},
 		],
 		custom_id: CustomId.SkyProfileDescriptionModal,
+		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+	});
+}
+
+async function skyProfileShowIconModal(interaction: APIMessageComponentSelectMenuInteraction) {
+	const { locale } = interaction;
+
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.FileUpload,
+					custom_id: CustomId.SkyProfileIconModalIcon,
+					max_values: 1,
+					min_values: 1,
+					required: true,
+				},
+				label: t("sky-profile.edit-modal-label-icon-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.edit-modal-label-icon-description", {
+					lng: locale,
+					ns: "features",
+				}),
+			},
+		],
+		custom_id: CustomId.SkyProfileIconModal,
+		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+	});
+}
+
+async function skyProfileShowBannerModal(interaction: APIMessageComponentSelectMenuInteraction) {
+	const { locale } = interaction;
+
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Label,
+				component: {
+					type: ComponentType.FileUpload,
+					custom_id: CustomId.SkyProfileBannerModalBanner,
+					max_values: 1,
+					min_values: 1,
+					required: true,
+				},
+				label: t("sky-profile.edit-modal-label-banner-label", { lng: locale, ns: "features" }),
+				description: t("sky-profile.edit-modal-label-banner-description", {
+					lng: locale,
+					ns: "features",
+				}),
+			},
+		],
+		custom_id: CustomId.SkyProfileBannerModal,
 		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
 	});
 }
@@ -1801,7 +1873,7 @@ async function skyProfileShowPlatformsSelectMenu(
 }
 
 export function skyProfileSetName(interaction: APIModalSubmitInteraction) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 
 	// Mobile may use new lines.
 	const name = components.getTextInputValue(CustomId.SkyProfileNameModalName).replace(/\n/g, " ");
@@ -1810,9 +1882,59 @@ export function skyProfileSetName(interaction: APIModalSubmitInteraction) {
 }
 
 export function skyProfileSetDescription(interaction: APIModalSubmitInteraction) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 	const description = components.getTextInputValue(CustomId.SkyProfileDescriptionModalDescription);
 	return skyProfileSet(interaction, { user_id: interactionInvoker(interaction).id, description });
+}
+
+export async function skyProfileSetIcon(interaction: APIModalSubmitInteraction) {
+	const components = new ModalResolver(interaction.data);
+	const icon = components.getFileUploadValues(CustomId.SkyProfileIconModalIcon)[0]!;
+	const payload: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
+	let editReply = false;
+	let error = null;
+
+	if (isValidImageAttachment(icon)) {
+		await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+		editReply = true;
+		payload.icon = await skyProfileSetAsset(interaction, icon, AssetType.Icon);
+	} else {
+		error = t("asset-image-invalid", { lng: interaction.locale, ns: "general" });
+	}
+
+	await skyProfileSet(interaction, payload, { editReply });
+
+	if (error) {
+		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+			content: error,
+			flags: MessageFlags.Ephemeral,
+		});
+	}
+}
+
+export async function skyProfileSetBanner(interaction: APIModalSubmitInteraction) {
+	const components = new ModalResolver(interaction.data);
+	const banner = components.getFileUploadValues(CustomId.SkyProfileBannerModalBanner)[0]!;
+	const payload: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
+	let editReply = false;
+	let error = null;
+
+	if (isValidImageAttachment(banner)) {
+		await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
+		editReply = true;
+		payload.banner = await skyProfileSetAsset(interaction, banner, AssetType.Banner);
+	} else {
+		error = t("asset-image-invalid", { lng: interaction.locale, ns: "general" });
+	}
+
+	await skyProfileSet(interaction, payload, { editReply });
+
+	if (error) {
+		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+			content: error,
+			flags: MessageFlags.Ephemeral,
+		});
+	}
 }
 
 export async function skyProfileSetWingedLight(
@@ -1825,7 +1947,7 @@ export async function skyProfileSetWingedLight(
 }
 
 export function skyProfileSetHangout(interaction: APIModalSubmitInteraction) {
-	const components = new ModalResolver(interaction.data.components);
+	const components = new ModalResolver(interaction.data);
 
 	// Mobile may use new lines.
 	const hangout = components
@@ -2306,18 +2428,18 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 		missing.push(`- ${t("sky-profile.missing-name", options)}`);
 	}
 
+	if (!description) {
+		missing.push(`- ${t("sky-profile.missing-description", options)}`);
+	}
+
 	if (!icon) {
-		missing.push(`- ${t(`sky-profile.missing-icon-${suffix}`, options)}`);
+		missing.push(`- ${t("sky-profile.missing-icon", options)}`);
 	}
 
 	if (!banner) {
 		missing.push(
-			`- ${t(`sky-profile.missing-banner-${suffix}`, { ...options, url: `${SKY_PROFILES_URL}/${skyProfilePacket.user_id}` })}`,
+			`- ${t("sky-profile.missing-banner", { ...options, url: `${SKY_PROFILES_URL}/${skyProfilePacket.user_id}` })}`,
 		);
-	}
-
-	if (!description) {
-		missing.push(`- ${t("sky-profile.missing-description", options)}`);
 	}
 
 	if (!country) {
