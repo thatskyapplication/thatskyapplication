@@ -518,6 +518,7 @@ const SEASON_EMOJIS_PRODUCTION = {
 	TwoEmbersPart1: { id: "1392771944562163752", name: "two_embers_part_1" },
 	TwoEmbersPart1Candle: { id: "1396855475739558039", name: "two_embers_part_1_candle" },
 	TwoEmbersPart1Heart: { id: "1396855599152631839", name: "two_embers_part_1_heart" },
+	Migration: { id: "1428111864889348238", name: "migration" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -597,6 +598,7 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	TwoEmbersPart1: { id: "1392772065802719252", name: "two_embers_part_1" },
 	TwoEmbersPart1Candle: { id: "1396855483955941478", name: "two_embers_part_1_candle" },
 	TwoEmbersPart1Heart: { id: "1396855636632797245", name: "two_embers_part_1_heart" },
+	Migration: { id: "1428111900868214804", name: "migration" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -8124,7 +8126,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Radiance]: SEASON_EMOJIS.Radiance,
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBird,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1,
-		[SeasonId.Migration]: null,
+		[SeasonId.Migration]: SEASON_EMOJIS.Migration,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
