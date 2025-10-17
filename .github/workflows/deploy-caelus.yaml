@@ -33,6 +33,7 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha,scope=deploy-thatskyapplication-caelus
           cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-caelus
+          build-args: SENTRY_RELEASE=${{ github.sha }}
         env:
           DOCKER_BUILD_SUMMARY: false
           DOCKER_BUILD_RECORD_UPLOAD: false
