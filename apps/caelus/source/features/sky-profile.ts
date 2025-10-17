@@ -795,7 +795,7 @@ export async function skyProfileExploreAutocomplete(
 				: (
 						await pg<SkyProfilePacket>(Table.Profiles)
 							.select(["user_id", "name", "description"])
-							.where("name", "ilike", `%${focused}%`)
+							.whereRaw("upper(name) % ?", [focused])
 							.limit(25)
 					).map(({ user_id, name: skyProfileName, description }) => {
 						let name = `${skyProfileName}`;
