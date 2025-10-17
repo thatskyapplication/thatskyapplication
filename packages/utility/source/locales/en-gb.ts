@@ -531,6 +531,8 @@ export default {
 				SpiritId.ThoughtfulDirector,
 				SkyMap.RepositoryOfRefuge,
 			),
+			[DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace]:
+				"Catch the 3 lights during the Valley's sliding race",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
