@@ -267,7 +267,7 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 		case InteractionType.ApplicationCommandAutocomplete: {
 			const options = new OptionResolver(interaction);
 			const focused = options.getFocusedOption();
-			errorTypeString += `autocompleting \`/${interaction.data.name}\` (\`${focused.name}\`, \`${focused.value}\`).`;
+			errorTypeString += `autocompleting \`/${interaction.data.name}\` (\`${focused.name}\`).`;
 			break;
 		}
 		case InteractionType.ModalSubmit: {
