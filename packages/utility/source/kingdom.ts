@@ -34,7 +34,7 @@ export enum SkyMap {
 	// Daylight Prairie.
 	BirdNest = "Bird Nest",
 	ButterflyFields = "Butterfly Fields",
-	Cave = "Cave",
+	PrairieCave = "Prairie Cave",
 	PrairiePeaks = "Prairie Peaks",
 	KoiPond = "Koi Pond",
 	PrairieVillage = "Prairie Village",

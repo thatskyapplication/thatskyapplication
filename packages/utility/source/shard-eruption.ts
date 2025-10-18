@@ -50,7 +50,11 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		// 7 hours and 40 minutes.
 		offset: 27_600_000,
 		area: [
-			{ skyMap: SkyMap.Cave, url: resolveShardEruptionMapURL(SkyMap.Cave), reward: 2 },
+			{
+				skyMap: SkyMap.PrairieCave,
+				url: resolveShardEruptionMapURL(SkyMap.PrairieCave),
+				reward: 2,
+			},
 			{ skyMap: SkyMap.ForestEnd, url: resolveShardEruptionMapURL(SkyMap.ForestEnd), reward: 2.5 },
 			{
 				skyMap: SkyMap.VillageOfDreams,
