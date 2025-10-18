@@ -23,7 +23,7 @@
 		"maps": {
 			"Bird Nest": "Nido de pájaro",
 			"Butterfly Fields": "Campo de mariposas",
-			"Cave": "Cueva",
+			"Prairie Cave": "Cueva de la Planicie",
 			"Prairie Peaks": "Cumbres de la planicie",
 			"Koi Pond": "Estanque koi",
 			"Prairie Village": "Aldea de la planicie",
@@ -765,7 +765,7 @@
 			"189": "Pastor austero",
 			"190": "Ermitaño ingenioso",
 			"191": "Compañero cariñoso",
-			"192": ""
+			"192": "Guía de la Migración"
 		},
 		"spirit-wiki": {
 			"0": "",

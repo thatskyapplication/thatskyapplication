@@ -23,7 +23,7 @@
 		"maps": {
 			"Bird Nest": "浮石鸟巢",
 			"Butterfly Fields": "蝴蝶平原",
-			"Cave": "山洞",
+			"Prairie Cave": "云野山洞",
 			"Prairie Peaks": "云野峻岭",
 			"Koi Pond": "锦鲤池",
 			"Prairie Village": "云野村庄",
@@ -765,7 +765,7 @@
 			"189": "严厉的牧牛人",
 			"190": "巧手隐士",
 			"191": "知心伙伴",
-			"192": ""
+			"192": "迁徙向导"
 		},
 		"spirit-wiki": {
 			"0": "",

@@ -23,7 +23,7 @@
 		"maps": {
 			"Bird Nest": "Ninho do Pássaro",
 			"Butterfly Fields": "Campos de Borboletas",
-			"Cave": "Caverna",
+			"Prairie Cave": "Caverna da Campina",
 			"Prairie Peaks": "Picos da Campina",
 			"Koi Pond": "Lagoa de Carpas",
 			"Prairie Village": "Aldeia da Campina",
@@ -765,7 +765,7 @@
 			"189": "Pastor Rigoroso",
 			"190": "Recluso Ingenioso",
 			"191": "Companheiro Cuidadoso",
-			"192": ""
+			"192": "Guia da Migração"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Candeeiro_Denotante",

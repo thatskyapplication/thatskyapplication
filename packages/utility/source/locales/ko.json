@@ -23,7 +23,7 @@
 		"maps": {
 			"Bird Nest": "새 둥지",
 			"Butterfly Fields": "",
-			"Cave": "",
+			"Prairie Cave": "초원의 동굴",
 			"Prairie Peaks": "초원 봉우리",
 			"Koi Pond": "",
 			"Prairie Village": "초원 마을",
@@ -765,7 +765,7 @@
 			"189": "엄격한 목자",
 			"190": "지략 있는 은둔자",
 			"191": "다정한 친구",
-			"192": ""
+			"192": "이주 안내자"
 		},
 		"spirit-wiki": {
 			"0": "",

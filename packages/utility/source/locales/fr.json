@@ -23,7 +23,7 @@
 		"maps": {
 			"Bird Nest": "Nid",
 			"Butterfly Fields": "Champs de Papillons",
-			"Cave": "Grotte",
+			"Prairie Cave": "Grotte de prairie",
 			"Prairie Peaks": "Pics de la Prairie",
 			"Koi Pond": "Mare des Carpes Koï",
 			"Prairie Village": "Village des prairies",
@@ -765,7 +765,7 @@
 			"189": "Berger sévère",
 			"190": "Reclus ingénieux",
 			"191": "Compagnon attentionné",
-			"192": ""
+			"192": "Guide de migration"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cirier_pointant",

@@ -23,7 +23,7 @@
 		"maps": {
 			"Bird Nest": "浮石鳥巢",
 			"Butterfly Fields": "蝴蝶平原",
-			"Cave": "山洞",
+			"Prairie Cave": "雲野山洞",
 			"Prairie Peaks": "雲野峻嶺",
 			"Koi Pond": "鯉魚池",
 			"Prairie Village": "雲野村落",
@@ -765,7 +765,7 @@
 			"189": "嚴厲牧牛人",
 			"190": "巧手隱士",
 			"191": "知心夥伴",
-			"192": ""
+			"192": "遷徙嚮導"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/Pointing_Candlemaker",
