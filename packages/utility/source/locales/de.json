@@ -23,7 +23,7 @@
 		"maps": {
 			"Bird Nest": "Vogelnest",
 			"Butterfly Fields": "Schmetterlingsfelder",
-			"Cave": "Prärie-Höhlen",
+			"Prairie Cave": "Präriehöhle",
 			"Prairie Peaks": "Präriegipfel",
 			"Koi Pond": "Koiteich",
 			"Prairie Village": "Präriedorf",
@@ -765,7 +765,7 @@
 			"189": "Sternhirte",
 			"190": "Einfallsreicher Einsiedler",
 			"191": "Sorgender Gefährte",
-			"192": ""
+			"192": "Wander-Helfer"
 		},
 		"spirit-wiki": {
 			"0": "",

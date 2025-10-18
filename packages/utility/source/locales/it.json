@@ -23,7 +23,7 @@
 		"maps": {
 			"Bird Nest": "Nido d'uccello",
 			"Butterfly Fields": "",
-			"Cave": "",
+			"Prairie Cave": "Grotta della Prateria",
 			"Prairie Peaks": "Vette della Prateria",
 			"Koi Pond": "",
 			"Prairie Village": "Villaggio della Prateria",
@@ -765,7 +765,7 @@
 			"189": "Pastore severo",
 			"190": "Eremita ingegnoso",
 			"191": "Compagno premuroso",
-			"192": ""
+			"192": "Guida alla Migrazione"
 		},
 		"spirit-wiki": {
 			"0": "",
