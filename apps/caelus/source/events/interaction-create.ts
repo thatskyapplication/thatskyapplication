@@ -144,7 +144,6 @@ import {
 	SKY_PROFILE_EXPLORERS,
 } from "../utility/custom-id.js";
 import {
-	interactionInvoker,
 	isAutocomplete,
 	isButton,
 	isChatInputCommand,
@@ -251,8 +250,7 @@ async function isOldId(
 }
 
 async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
-	const invoker = interactionInvoker(interaction);
-	let errorTypeString = `Error from ${invoker.username} in ${interaction.channel!.id} from `;
+	let errorTypeString = "Error from ";
 
 	switch (interaction.type) {
 		case InteractionType.ApplicationCommand: {
