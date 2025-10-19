@@ -519,6 +519,8 @@ const SEASON_EMOJIS_PRODUCTION = {
 	TwoEmbersPart1Candle: { id: "1396855475739558039", name: "two_embers_part_1_candle" },
 	TwoEmbersPart1Heart: { id: "1396855599152631839", name: "two_embers_part_1_heart" },
 	Migration: { id: "1428111864889348238", name: "migration" },
+	MigrationCandle: { id: "1429514486049542334", name: "migration_candle" },
+	MigrationHeart: { id: "1429514579863670784", name: "migration_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -599,6 +601,8 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	TwoEmbersPart1Candle: { id: "1396855483955941478", name: "two_embers_part_1_candle" },
 	TwoEmbersPart1Heart: { id: "1396855636632797245", name: "two_embers_part_1_heart" },
 	Migration: { id: "1428111900868214804", name: "migration" },
+	MigrationCandle: { id: "1429514613476687933", name: "migration_candle" },
+	MigrationHeart: { id: "1429514640282488832", name: "migration_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -8156,8 +8160,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Radiance]: SEASON_EMOJIS.RadianceCandle,
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdCandle,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Candle,
-		// @ts-expect-error Not yet announced.
-		[SeasonId.Migration]: null,
+		[SeasonId.Migration]: SEASON_EMOJIS.MigrationCandle,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 	const SeasonIdToSeasonalHeartEmoji = {
@@ -8185,7 +8188,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.Radiance]: SEASON_EMOJIS.RadianceHeart,
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdHeart,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Heart,
-		[SeasonId.Migration]: null,
+		[SeasonId.Migration]: SEASON_EMOJIS.MigrationHeart,
 	} as const satisfies Readonly<
 		Record<
 			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,
