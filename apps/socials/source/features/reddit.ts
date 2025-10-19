@@ -172,7 +172,6 @@ export async function fetchSingleSubredditPosts(subreddit: string) {
 	});
 
 	if (!response.ok) {
-		pino.warn({ res: response }, "Bad Reddit response.");
 		throw new Error(await response.text());
 	}
 
