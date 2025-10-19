@@ -16,6 +16,7 @@ import {
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
 	SCHEDULE_TYPE_VALUES,
+	ScheduleType,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
@@ -801,7 +802,9 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					ns: "commands",
 				}),
 				description_localizations: localisations("schedule.command-option-type-description"),
-				choices: SCHEDULE_TYPE_VALUES.map((scheduleType) => ({
+				choices: SCHEDULE_TYPE_VALUES.filter(
+					(scheduleType) => scheduleType !== ScheduleType.Dragon,
+				).map((scheduleType) => ({
 					name: t(`schedule.command-option-type-choice-name.${scheduleType}`, {
 						lng: Locale.EnglishGB,
 						ns: "commands",
