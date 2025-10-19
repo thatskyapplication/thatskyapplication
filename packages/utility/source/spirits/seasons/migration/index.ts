@@ -3,6 +3,11 @@ import { RealmName } from "../../../kingdom.js";
 import { Season } from "../../../models/season.js";
 import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
+import migratingBellmaker from "./migrating-bellmaker.js";
+import migratingBirdWhisperer from "./migrating-bird-whisperer.js";
+import migratingButterflyCharmer from "./migrating-butterfly-charmer.js";
+import migratingJellyWhisperer from "./migrating-jelly-whisperer.js";
+import migratingMantaWhisperer from "./migrating-manta-whisperer.js";
 import migrationGuide from "./migration-guide.js";
 
 export default new Season({
@@ -10,7 +15,13 @@ export default new Season({
 	start: skyDate(2_025, 10, 20),
 	end: skyDate(2_026, 1, 5),
 	guide: migrationGuide,
-	spirits: [],
+	spirits: [
+		migratingBellmaker,
+		migratingBirdWhisperer,
+		migratingButterflyCharmer,
+		migratingJellyWhisperer,
+		migratingMantaWhisperer,
+	],
 	seasonalCandlesRotation: [
 		{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
 		{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },

@@ -977,6 +977,11 @@ export default {
 			[SpiritId.ResourcefulRecluse]: "Resourceful Recluse",
 			[SpiritId.CaringCompanion]: "Caring Companion",
 			[SpiritId.MigrationGuide]: "Migration Guide",
+			[SpiritId.MigratingBellmaker]: "Migrating Bellmaker",
+			[SpiritId.MigratingBirdWhisperer]: "Migrating Bird Whisperer",
+			[SpiritId.MigratingButterflyCharmer]: "Migrating Butterfly Charmer",
+			[SpiritId.MigratingJellyWhisperer]: "Migrating Jelly Whisperer",
+			[SpiritId.MigratingMantaWhisperer]: "Migrating Manta Whisperer",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1245,6 +1250,16 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Resourceful_Recluse",
 			[SpiritId.CaringCompanion]: "https://sky-children-of-the-light.fandom.com/Caring_Companion",
 			[SpiritId.MigrationGuide]: "https://sky-children-of-the-light.fandom.com/Migration_Guide",
+			[SpiritId.MigratingBellmaker]:
+				"https://sky-children-of-the-light.fandom.com/Migrating_Bellmaker",
+			[SpiritId.MigratingBirdWhisperer]:
+				"https://sky-children-of-the-light.fandom.com/Migrating_Bird_Whisperer",
+			[SpiritId.MigratingButterflyCharmer]:
+				"https://sky-children-of-the-light.fandom.com/Migrating_Butterfly_Charmer",
+			[SpiritId.MigratingJellyWhisperer]:
+				"https://sky-children-of-the-light.fandom.com/Migrating_Jelly_Whisperer",
+			[SpiritId.MigratingMantaWhisperer]:
+				"https://sky-children-of-the-light.fandom.com/Migrating_Manta_Whisperer",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
