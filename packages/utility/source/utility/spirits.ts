@@ -511,11 +511,17 @@ export interface ItemWithPossibleChildren extends ItemWithoutChildren {
 
 export type Item = ItemWithoutChildren | ItemWithPossibleChildren;
 
-export type FriendshipTree = readonly (
+export type LegacyFriendshipTree = readonly (
 	| readonly [ItemWithoutChildren]
 	| readonly [ItemWithoutChildren, ItemWithPossibleChildren]
 	| readonly [ItemWithoutChildren, ItemWithPossibleChildren | null, ItemWithPossibleChildren]
 )[];
+
+export type FriendshipTree = readonly (readonly [
+	ItemWithoutChildren | null,
+	(ItemWithoutChildren | null)?,
+	(ItemWithoutChildren | null)?,
+])[];
 
 export const SpiritsHistoryOrderType = {
 	Natural: 0,
@@ -532,7 +538,7 @@ export function isSpiritsHistoryOrderType(type: number): type is SpiritsHistoryO
 }
 
 export function friendshipTreeToItems(
-	friendshipTree: FriendshipTree,
+	friendshipTree: FriendshipTree | LegacyFriendshipTree,
 ): readonly ItemWithoutChildren[] {
 	const result = [];
 

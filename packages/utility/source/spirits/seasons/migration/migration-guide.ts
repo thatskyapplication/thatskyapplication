@@ -1,3 +1,4 @@
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
@@ -9,5 +10,19 @@ export default new GuideSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		inProgress: true,
+		hasInfographic: false,
+		current: [
+			[
+				{
+					translation: { key: CosmeticCommon.Quest },
+					cosmetic: Cosmetic.MigrationGuideQuest1,
+				},
+				null,
+				{
+					cosmetic: Cosmetic.MigrationPendant,
+					seasonPass: true,
+				},
+			],
+		],
 	},
 });

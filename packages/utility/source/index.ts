@@ -184,7 +184,6 @@ export {
 } from "./utility/functions.js";
 export {
 	FriendAction,
-	type FriendshipTree,
 	friendshipTreeToItems,
 	type Item,
 	type ItemCost,

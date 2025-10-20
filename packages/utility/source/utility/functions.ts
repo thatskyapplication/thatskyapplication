@@ -1,5 +1,5 @@
 import type { Cosmetic } from "../cosmetics.js";
-import type { FriendshipTreeRaw } from "../models/spirits.js";
+import type { FriendshipTreeRaw, LegacyFriendshipTreeRaw } from "../models/spirits.js";
 import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
 import type {
@@ -9,6 +9,7 @@ import type {
 	ItemRaw,
 	ItemWithoutChildren,
 	ItemWithPossibleChildren,
+	LegacyFriendshipTree,
 } from "./spirits.js";
 
 export function getRandomElement<const T extends readonly unknown[]>(
@@ -27,7 +28,9 @@ export function snakeCaseName(name: string) {
 		.toLowerCase();
 }
 
-export function resolveAllCosmetics(friendshipTree: FriendshipTree): readonly Cosmetic[] {
+export function resolveAllCosmetics(
+	friendshipTree: FriendshipTree | LegacyFriendshipTree,
+): readonly Cosmetic[] {
 	const result: Cosmetic[] = [];
 
 	for (const items of friendshipTree) {
@@ -47,7 +50,9 @@ export function resolveAllCosmetics(friendshipTree: FriendshipTree): readonly Co
 	return result;
 }
 
-export function resolveAllCosmeticsFromItems(items: readonly (ItemWithoutChildren | null)[]) {
+export function resolveAllCosmeticsFromItems(
+	items: readonly (ItemWithoutChildren | null | undefined)[],
+) {
 	const total = [];
 
 	for (const item of items) {
@@ -67,9 +72,9 @@ interface ResolveOfferOptions {
 }
 
 export function resolveOffer(
-	friendshipTree: FriendshipTreeRaw,
+	friendshipTree: FriendshipTreeRaw | LegacyFriendshipTreeRaw,
 	options?: ResolveOfferOptions,
-): FriendshipTree {
+): FriendshipTree | LegacyFriendshipTree {
 	return friendshipTree.map(
 		(items) =>
 			resolveOfferFromItems(items, options) as
@@ -85,58 +90,59 @@ export function resolveOfferFromItems(
 ): readonly Item[];
 
 export function resolveOfferFromItems(
-	items: readonly null[],
+	items: readonly (null | undefined)[],
 	options?: ResolveOfferOptions,
 ): readonly null[];
 
 export function resolveOfferFromItems(
-	items: readonly (ItemRaw | null)[],
+	items: readonly (ItemRaw | null | undefined)[],
 	options?: ResolveOfferOptions,
-): readonly (Item | null)[];
+): readonly (Item | null | undefined)[];
 
 export function resolveOfferFromItems(
-	items: readonly (ItemRaw | null)[],
+	items: readonly (ItemRaw | null | undefined)[],
 	options: ResolveOfferOptions = {},
-): readonly (Item | null)[] {
+): readonly (Item | null | undefined)[] {
 	const { seasonId, eventId } = options;
 
-	return items.map(
-		(item) =>
-			item && {
-				translation:
-					item.translation === undefined
-						? null
-						: typeof item.translation === "number"
-							? { key: `cosmetic-common-names.${item.translation}` }
-							: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
-				cosmetics: Array.isArray(item.cosmetic)
-					? // These assertions are necessary because the type is too complex to represent.
-						(item.cosmetic as readonly [Cosmetic, ...Cosmetic[]])
-					: ([item.cosmetic] as readonly [Cosmetic]),
-				cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
-				level: item.level ?? null,
-				seasonPass: item.seasonPass ?? false,
-				cost: item.cost
-					? {
-							...item.cost,
-							seasonalCandles:
-								typeof seasonId === "number" && item.cost.seasonalCandles
-									? [{ cost: item.cost.seasonalCandles, seasonId }]
-									: [],
-							seasonalHearts:
-								typeof seasonId === "number" && item.cost.seasonalHearts
-									? [{ cost: item.cost.seasonalHearts, seasonId }]
-									: [],
-							eventTickets:
-								typeof eventId === "number" && item.cost.eventTickets
-									? [{ cost: item.cost.eventTickets, eventId }]
-									: [],
-						}
-					: null,
-				regularHeart: "regularHeart" in item ? item.regularHeart : false,
-				thirdHeight: "thirdHeight" in item ? item.thirdHeight : false,
-				children: "children" in item ? resolveOfferFromItems(item.children, options) : [],
-			},
+	return items.map((item) =>
+		item
+			? {
+					translation:
+						item.translation === undefined
+							? null
+							: typeof item.translation === "number"
+								? { key: `cosmetic-common-names.${item.translation}` }
+								: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
+					cosmetics: Array.isArray(item.cosmetic)
+						? // These assertions are necessary because the type is too complex to represent.
+							(item.cosmetic as readonly [Cosmetic, ...Cosmetic[]])
+						: ([item.cosmetic] as readonly [Cosmetic]),
+					cosmeticDisplay: "cosmeticDisplay" in item ? item.cosmeticDisplay : item.cosmetic,
+					level: item.level ?? null,
+					seasonPass: item.seasonPass ?? false,
+					cost: item.cost
+						? {
+								...item.cost,
+								seasonalCandles:
+									typeof seasonId === "number" && item.cost.seasonalCandles
+										? [{ cost: item.cost.seasonalCandles, seasonId }]
+										: [],
+								seasonalHearts:
+									typeof seasonId === "number" && item.cost.seasonalHearts
+										? [{ cost: item.cost.seasonalHearts, seasonId }]
+										: [],
+								eventTickets:
+									typeof eventId === "number" && item.cost.eventTickets
+										? [{ cost: item.cost.eventTickets, eventId }]
+										: [],
+							}
+						: null,
+					regularHeart: "regularHeart" in item ? item.regularHeart : false,
+					thirdHeight: "thirdHeight" in item ? item.thirdHeight : false,
+					children: "children" in item ? resolveOfferFromItems(item.children, options) : [],
+				}
+			: null,
 	);
 }
 

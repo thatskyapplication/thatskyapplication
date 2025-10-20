@@ -51,7 +51,7 @@ if (!hind) {
 let canvasHeight = IMAGE_SIZE + HEIGHT_START_OFFSET;
 canvasHeight += NEXT_HEIGHT_LEVEL * NODES.length;
 const firstNode = NODES[0]!;
-const firstNodeHasCostAtStart = firstNode[0].cost !== null;
+const firstNodeHasCostAtStart = firstNode[0]?.cost !== null;
 
 if (firstNodeHasCostAtStart) {
 	canvasHeight += IMAGE_SIZE;
@@ -60,7 +60,7 @@ if (firstNodeHasCostAtStart) {
 const lastNode = NODES.at(-1)!;
 
 if (lastNode.length === 1) {
-	if (lastNode[0].seasonPass) {
+	if (lastNode[0]?.seasonPass) {
 		canvasHeight += SEASON_ICON_MIDDLE_OFFSET_Y;
 	}
 

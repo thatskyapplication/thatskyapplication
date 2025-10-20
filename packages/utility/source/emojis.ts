@@ -2092,6 +2092,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Moonlight Tufted Tail.
 	 */
 	Necklace51: { id: "1422146168137191435", name: "51_necklace" },
+	/**
+	 * Migration Pendant.
+	 */
+	Necklace52: { id: "1429825301658992761", name: "52_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2146,6 +2150,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace49: { id: "1399295025233395742", name: "49_necklace" },
 	Necklace50: { id: "1401818695403311175", name: "50_necklace" },
 	Necklace51: { id: "1422146174357471232", name: "51_necklace" },
+	Necklace52: { id: "1429825309015806094", name: "52_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -8101,6 +8106,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MoonlightTuftedTail]: NECKLACE_EMOJIS.Necklace51,
 		[Cosmetic.MoonlightBasin]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp93,
 		[Cosmetic.MoonlightGarlandCape]: CAPE_EMOJIS.Cape160,
+		[Cosmetic.MigrationGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.MigrationPendant]: NECKLACE_EMOJIS.Necklace52,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

@@ -3159,6 +3159,10 @@ export enum Cosmetic {
 	MoonlightTuftedTail = 2500,
 	MoonlightBasin = 2501,
 	MoonlightGarlandCape = 2502,
+
+	// 20/10/2025 | Season of Migration.
+	MigrationGuideQuest1 = 2503,
+	MigrationPendant = 2504,
 }
 
 export enum CosmeticCommon {

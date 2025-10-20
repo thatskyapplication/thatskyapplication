@@ -5,7 +5,7 @@ import type { Cosmetic } from "../cosmetics.js";
 import { skyDate } from "../dates.js";
 import type { RealmName } from "../kingdom.js";
 import { CDN_URL } from "../routes.js";
-import type { SeasonIds } from "../season.js";
+import type { SeasonId, SeasonIds } from "../season.js";
 import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
 import {
 	type FriendAction,
@@ -13,6 +13,7 @@ import {
 	type ItemCost,
 	type ItemRawWithoutChildren,
 	type ItemRawWithPossibleChildren,
+	type LegacyFriendshipTree,
 	type SpiritEmote,
 	type SpiritIds,
 	SpiritType,
@@ -46,7 +47,7 @@ const RETURNING_DATES = new Collection<number, ReturningDatesData>()
 	.set(9, { start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) })
 	.set(10, { start: skyDate(2_025, 8, 18), end: skyDate(2_025, 9, 1) });
 
-export type FriendshipTreeRaw = readonly (
+export type LegacyFriendshipTreeRaw = readonly (
 	| readonly [ItemRawWithoutChildren]
 	| readonly [ItemRawWithoutChildren, ItemRawWithPossibleChildren]
 	| readonly [
@@ -56,22 +57,32 @@ export type FriendshipTreeRaw = readonly (
 	  ]
 )[];
 
+export type FriendshipTreeRaw = readonly (readonly [
+	ItemRawWithoutChildren | null,
+	(ItemRawWithoutChildren | null)?,
+	(ItemRawWithoutChildren | null)?,
+])[];
+
 interface BaseFriendshipTreeOfferData {
 	hasInfographic?: boolean;
-	current?: FriendshipTreeRaw;
+	current?: SeasonIds extends typeof SeasonId.Migration
+		? FriendshipTreeRaw
+		: LegacyFriendshipTreeRaw;
 }
 
 interface StandardFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
-	current: FriendshipTreeRaw;
+	current: LegacyFriendshipTreeRaw;
 }
 
 interface ElderFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
-	current: FriendshipTreeRaw;
+	current: LegacyFriendshipTreeRaw;
 }
 
 interface SeasonalFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 	hasInfographicSeasonal?: boolean;
-	seasonal: FriendshipTreeRaw;
+	seasonal: SeasonIds extends typeof SeasonId.Migration
+		? FriendshipTreeRaw
+		: LegacyFriendshipTreeRaw;
 }
 
 interface GuideFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
@@ -157,7 +168,7 @@ interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
 	seasonId: SeasonIds;
 }
 
-function friendshipTreeWithCosts(friendshipTree: FriendshipTree) {
+function friendshipTreeWithCosts(friendshipTree: FriendshipTree | LegacyFriendshipTree) {
 	const costs = [];
 
 	for (const items of friendshipTree) {
@@ -172,7 +183,7 @@ function friendshipTreeWithCosts(friendshipTree: FriendshipTree) {
 }
 
 abstract class BaseFriendshipTree {
-	public readonly current: FriendshipTree;
+	public readonly current: FriendshipTree | LegacyFriendshipTree;
 
 	public readonly totalCost: Required<ItemCost>;
 
@@ -201,7 +212,7 @@ abstract class BaseFriendshipTree {
 }
 
 abstract class StandardFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: FriendshipTree;
+	public declare readonly current: FriendshipTree | LegacyFriendshipTree;
 
 	public declare readonly totalCost: Required<ItemCost>;
 
@@ -209,7 +220,7 @@ abstract class StandardFriendshipTree extends BaseFriendshipTree {
 }
 
 abstract class ElderFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: FriendshipTree;
+	public declare readonly current: FriendshipTree | LegacyFriendshipTree;
 
 	public declare readonly totalCost: Required<ItemCost>;
 
@@ -219,9 +230,9 @@ abstract class ElderFriendshipTree extends BaseFriendshipTree {
 abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
 	public override readonly allCosmetics: readonly Cosmetic[];
 
-	public readonly seasonal: FriendshipTree;
+	public readonly seasonal: FriendshipTree | LegacyFriendshipTree;
 
-	public readonly items: FriendshipTree;
+	public readonly items: FriendshipTree | LegacyFriendshipTree;
 
 	public readonly totalCostSeasonal: Required<ItemCost>;
 
@@ -393,7 +404,7 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 	public override readonly type = SpiritType.Guide;
 
-	public override readonly current: FriendshipTree;
+	public override readonly current: FriendshipTree | LegacyFriendshipTree;
 
 	public override readonly totalCost: Required<ItemCost>;
 
