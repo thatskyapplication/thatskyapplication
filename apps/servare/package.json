@@ -20,7 +20,7 @@
 		"@discordjs/ws": "dev",
 		"@sapphire/snowflake": "^3.5.5",
 		"@sapphire/string-store": "^2.0.0",
-		"@sentry/node": "^10.18.0",
+		"@sentry/node": "^10.20.0",
 		"croner": "^9.1.0",
 		"diff": "^7.0.0",
 		"knex": "^3.1.0",

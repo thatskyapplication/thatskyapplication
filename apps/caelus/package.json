@@ -20,7 +20,7 @@
 		"@discordjs/rest": "dev",
 		"@discordjs/ws": "dev",
 		"@sapphire/snowflake": "^3.5.5",
-		"@sentry/node": "^10.18.0",
+		"@sentry/node": "^10.20.0",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
 		"hasha": "^6.0.0",
