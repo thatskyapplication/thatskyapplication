@@ -30,7 +30,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.2.0",
 		"@types/diff": "^7.0.2",
-		"@types/node": "22.16.0",
+		"@types/node": "^22.18.11",
 		"knip": "^5.62.0",
 		"pino-pretty": "^13.1.1",
 		"tsx": "^4.20.4",
