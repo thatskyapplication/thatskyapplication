@@ -97,9 +97,9 @@ export const WINGED_LIGHT_THRESHOLDS = [
 ] as const satisfies Readonly<number[]>;
 
 export const AreaToWingedLight = {
-	[RealmName.IslesOfDawn]: 9,
+	[RealmName.IslesOfDawn]: 10,
 	[RealmName.DaylightPrairie]: 24,
-	[RealmName.HiddenForest]: 20,
+	[RealmName.HiddenForest]: 21,
 	[RealmName.ValleyOfTriumph]: 17,
 	[RealmName.GoldenWasteland]: 18,
 	[RealmName.VaultOfKnowledge]: 16,
