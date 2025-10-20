@@ -6,7 +6,7 @@ import { SpiritId } from "../../../utility/spirits.js";
 export default new SeasonalSpirit({
 	id: SpiritId.MigratingBellmaker,
 	seasonId: SeasonId.Migration,
-	realm: RealmName.HiddenForest,
+	realm: RealmName.IslesOfDawn,
 	offer: {
 		hasInfographic: false,
 		hasInfographicSeasonal: false,
