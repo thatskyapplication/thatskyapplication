@@ -7,11 +7,13 @@ import {
 	ButtonStyle,
 	ComponentType,
 	MessageFlags,
+	RESTJSONErrorCodes,
 	type RESTPatchAPICurrentGuildMemberJSONBody,
 	SeparatorSpacingSize,
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
+import { DiscordAPIError } from "@discordjs/rest";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
@@ -254,5 +256,18 @@ export async function meHandleDeleteButton(
 }
 
 export async function meDelete(guildId: Snowflake) {
-	await client.api.users.editCurrentGuildMember(guildId, { bio: null, avatar: null, banner: null });
+	try {
+		await client.api.users.editCurrentGuildMember(guildId, {
+			bio: null,
+			avatar: null,
+			banner: null,
+		});
+	} catch (error) {
+		if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownGuild) {
+			// Allow a guild that we may not be in to be absolutely sure. If we receive this, this is expected.
+			return;
+		}
+
+		throw error;
+	}
 }
