@@ -8,7 +8,8 @@
 		"format": "biome check --write",
 		"lint": "biome check",
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
-		"start": "node --import ./distribution/sentry.js distribution/index.js"
+		"start": "node --import ./distribution/sentry.js distribution/index.js",
+		"knip": "knip"
 	},
 	"dependencies": {
 		"@atproto/api": "^0.16.2",
@@ -26,6 +27,7 @@
 		"@biomejs/biome": "2.2.0",
 		"@types/luxon": "^3.7.1",
 		"@types/node": "22.16.0",
+		"knip": "^5.62.0",
 		"pino-pretty": "^13.1.1",
 		"tsx": "^4.20.4",
 		"typescript": "5.9.2"

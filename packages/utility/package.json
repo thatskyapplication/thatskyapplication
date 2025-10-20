@@ -12,7 +12,8 @@
 		"test": "tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
-		"crowdin": "tsx scripts/crowdin.ts"
+		"crowdin": "tsx scripts/crowdin.ts",
+		"knip": "knip"
 	},
 	"dependencies": {
 		"@discordjs/collection": "^2.1.1",
@@ -23,6 +24,7 @@
 		"@biomejs/biome": "2.2.0",
 		"@types/luxon": "^3.7.1",
 		"@types/node": "^22.17.1",
+		"knip": "^5.62.0",
 		"tsup": "^8.5.0",
 		"tsx": "^4.20.4",
 		"typescript": "5.9.2"
