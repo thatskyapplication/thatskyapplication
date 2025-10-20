@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "Atrapa las 3 luces durante la Carrera Deslizante del Valle"
+			"258": "Atrapa las 3 luces durante la Carrera Deslizante del Valle",
+			"259": "Invita a algún espíritu de la Temporada de la Migración a que hoy se embarque en una aventura contigo",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -765,7 +767,12 @@
 			"189": "Pastor austero",
 			"190": "Ermitaño ingenioso",
 			"191": "Compañero cariñoso",
-			"192": "Guía de la Migración"
+			"192": "Guía de la Migración",
+			"193": "Campanero migratorio",
+			"194": "Susurradora de aves migratoria",
+			"195": "Encantador de mariposas migratorio",
+			"196": "Susurrador de medusas migratorio",
+			"197": "Susurrador de mantas migratorio"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -960,7 +967,12 @@
 			"189": "",
 			"190": "",
 			"191": "",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

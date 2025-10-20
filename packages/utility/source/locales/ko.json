@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "계곡의 지상 경기장에서 빛 3개를 잡으세요"
+			"258": "계곡의 지상 경기장에서 빛 3개를 잡으세요",
+			"259": "오늘 이주의 시즌 영혼을 모험에 초대하세요",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "감사의 시즌",
@@ -765,7 +767,12 @@
 			"189": "엄격한 목자",
 			"190": "지략 있는 은둔자",
 			"191": "다정한 친구",
-			"192": "이주 안내자"
+			"192": "이주 안내자",
+			"193": "이주하는 종지기",
+			"194": "이주하는 새 소리꾼",
+			"195": "이주하는 나비 조련사",
+			"196": "이주하는 해파리 소리꾼",
+			"197": "이주하는 만타가오리 소리꾼"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -960,7 +967,12 @@
 			"189": "",
 			"190": "",
 			"191": "",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

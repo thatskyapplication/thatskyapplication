@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "在霞谷的滑行赛道捕捉 3 道光"
+			"258": "在霞谷的滑行赛道捕捉 3 道光",
+			"259": "邀请一位迁徙季先灵与你一同冒险",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -765,7 +767,12 @@
 			"189": "严厉的牧牛人",
 			"190": "巧手隐士",
 			"191": "知心伙伴",
-			"192": "迁徙向导"
+			"192": "迁徙向导",
+			"193": "迁徙钟匠",
+			"194": "迁徙鸟语者",
+			"195": "迁徙引蝶人",
+			"196": "迁徙水母语者",
+			"197": "迁徙鳐语者"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -960,7 +967,12 @@
 			"189": "",
 			"190": "",
 			"191": "",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
