@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "Fange die 3 Lichter während des Rutschrennens im Tal"
+			"258": "Fange die 3 Lichter während des Rutschrennens im Tal",
+			"259": "Lade einen Geist der Saison der Wanderung ein, heute mit dir Abenteuer zu erleben",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",
@@ -765,7 +767,12 @@
 			"189": "Sternhirte",
 			"190": "Einfallsreicher Einsiedler",
 			"191": "Sorgender Gefährte",
-			"192": "Wander-Helfer"
+			"192": "Wander-Helfer",
+			"193": "Wandernder Glockenmacher",
+			"194": "Wandernder Vogelsprecher",
+			"195": "Wandernder Schmetterlingszähmer",
+			"196": "Wandernder Quallenflüsterer",
+			"197": "Wandernder Riesenrochensprecher"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -960,7 +967,12 @@
 			"189": "",
 			"190": "",
 			"191": "",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

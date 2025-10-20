@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "在霞谷滑行賽道中捕捉 3 道光"
+			"258": "在霞谷滑行賽道中捕捉 3 道光",
+			"259": "邀請一位遷徙季的先靈與你一同冒險",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -765,7 +767,12 @@
 			"189": "嚴厲牧牛人",
 			"190": "巧手隱士",
 			"191": "知心夥伴",
-			"192": "遷徙嚮導"
+			"192": "遷徙嚮導",
+			"193": "遷徙鐘匠",
+			"194": "遷徙鳥語者",
+			"195": "遷徙引蝶人",
+			"196": "遷徙水母語者",
+			"197": "遷徙鰩語者"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/Pointing_Candlemaker",
@@ -960,7 +967,12 @@
 			"189": "https://sky-children-of-the-light.fandom.com/Stern_Shepherd",
 			"190": "https://sky-children-of-the-light.fandom.com/Resourceful_Recluse",
 			"191": "https://sky-children-of-the-light.fandom.com/Caring_Companion",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

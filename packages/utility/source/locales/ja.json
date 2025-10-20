@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "峡谷の陸のレースで3つの光をつかまえる"
+			"258": "峡谷の陸のレースで3つの光をつかまえる",
+			"259": "今日の冒険に渡りの季節の精霊を招待する",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "感謝の季節",
@@ -765,7 +767,12 @@
 			"189": "厳格なマナティ飼い",
 			"190": "機知に富む隠とん者",
 			"191": "寄り添うお友だち",
-			"192": "渡りの案内人"
+			"192": "渡りの案内人",
+			"193": "渡りの鐘職人",
+			"194": "渡りの鳥の語り部",
+			"195": "渡りの蝶々使い",
+			"196": "渡りの海月の語り部",
+			"197": "渡りのマンタの語り部"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%8C%87%E5%B7%AE%E3%81%99%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%89%E3%83%AB%E8%81%B7%E4%BA%BA",
@@ -960,7 +967,12 @@
 			"189": "",
 			"190": "",
 			"191": "",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

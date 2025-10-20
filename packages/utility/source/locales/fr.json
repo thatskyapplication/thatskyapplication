@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "Récupérez les 3 lumières durant la course en glissade de la vallée"
+			"258": "Récupérez les 3 lumières durant la course en glissade de la vallée",
+			"259": "Invitez un esprit de la saison de la migration à vous rejoindre dans votre aventure aujourd'hui",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -765,7 +767,12 @@
 			"189": "Berger sévère",
 			"190": "Reclus ingénieux",
 			"191": "Compagnon attentionné",
-			"192": "Guide de migration"
+			"192": "Guide de migration",
+			"193": "Fondateur de Cloches Migrateur",
+			"194": "Orateur d'oiseaux migrateur",
+			"195": "Charmeur de papillon migrateur",
+			"196": "Murmureur de méduse migrateur",
+			"197": "Orateur de Manta migrateur"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Cirier_pointant",
@@ -960,7 +967,12 @@
 			"189": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Berger_sévère",
 			"190": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Reclus_ingénieux",
 			"191": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Compagnon_attentionné",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

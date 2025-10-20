@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "Bắt lấy 3 Ánh Sáng trong cuộc đua đường trượt của Thung Lũng"
+			"258": "Bắt lấy 3 Ánh Sáng trong cuộc đua đường trượt của Thung Lũng",
+			"259": "Mời một tinh linh Mùa Di Cư cùng phiêu lưu với bạn hôm nay",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",
@@ -765,7 +767,12 @@
 			"189": "Người Chăn Cừu Cứng Rắn",
 			"190": "Ẩn Sĩ Tháo Vát",
 			"191": "Đồng Hành Dịu Dàng",
-			"192": "Hướng dẫn Di Cư"
+			"192": "Hướng dẫn Di Cư",
+			"193": "Thợ Chuông Di Cư",
+			"194": "Người Luyện Chim Di Cư",
+			"195": "Người Dụ Bướm Di Cư",
+			"196": "Người Luyện Sứa Di Cư",
+			"197": "Người Luyện Cá Đuối Di Cư"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -960,7 +967,12 @@
 			"189": "",
 			"190": "",
 			"191": "",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {

@@ -340,7 +340,9 @@
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(maps.Bird Nest)\"})",
 			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
-			"258": "Capture as 3 luzes durante a Corrida do Deslize no Vale"
+			"258": "Capture as 3 luzes durante a Corrida do Deslize no Vale",
+			"259": "Convide um espírito da Temporada da Migração para aventurar-se com você hoje",
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -765,7 +767,12 @@
 			"189": "Pastor Rigoroso",
 			"190": "Recluso Ingenioso",
 			"191": "Companheiro Cuidadoso",
-			"192": "Guia da Migração"
+			"192": "Guia da Migração",
+			"193": "Comunicador da Migração",
+			"194": "Comunicador de Aves Migratórias",
+			"195": "Encantador de Borboletas Migratórias",
+			"196": "Água-Viva Sussurrante Migratória",
+			"197": "Comunicador de Arraias Migratórias"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Candeeiro_Denotante",
@@ -960,7 +967,12 @@
 			"189": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Pastor_Rigoroso",
 			"190": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Recluso_Ingenioso",
 			"191": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acompanhante_Atencioso",
-			"192": ""
+			"192": "",
+			"193": "",
+			"194": "",
+			"195": "",
+			"196": "",
+			"197": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
