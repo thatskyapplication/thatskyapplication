@@ -270,6 +270,8 @@ export const DailyQuest = {
 	MeetUpWithTroupeJugglerInGoldenWasteland: 256,
 	MeetUpWithThoughtfulDirectorInRepositoryOfRefuge: 257,
 	CatchThe3LightsDuringTheValleysSlidingRace: 258,
+	InviteASeasonOfMigrationSpiritToAdventureWithYouToday: 259,
+	MeetUpWithTumblingTroublemakerInPrairieCave: 260,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -681,4 +683,6 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithTroupeJugglerInGoldenWasteland]: null,
 	[DailyQuest.MeetUpWithThoughtfulDirectorInRepositoryOfRefuge]: null,
 	[DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace]: null,
+	[DailyQuest.InviteASeasonOfMigrationSpiritToAdventureWithYouToday]: null,
+	[DailyQuest.MeetUpWithTumblingTroublemakerInPrairieCave]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;

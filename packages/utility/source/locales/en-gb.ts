@@ -533,6 +533,12 @@ export default {
 			),
 			[DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace]:
 				"Catch the 3 lights during the Valley's sliding race",
+			[DailyQuest.InviteASeasonOfMigrationSpiritToAdventureWithYouToday]:
+				"Invite a Season of Migration spirit to adventure with you today",
+			[DailyQuest.MeetUpWithTumblingTroublemakerInPrairieCave]: questsMeetUpWith(
+				SpiritId.TumblingTroublemaker,
+				SkyMap.PrairieCave,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
