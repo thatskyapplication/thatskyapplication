@@ -344,7 +344,18 @@
 			"259": "Convide um espírito da Temporada da Migração para aventurar-se com você hoje",
 			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
 			"261": "Use expressões com jogadores",
-			"262": "Capture as 3 luzes no Riacho da Floresta"
+			"262": "Capture as 3 luzes no Riacho da Floresta",
+			"263": "Capture as 3 luzes no Ninho de Pássaros na Campina",
+			"264": "Capture as 3 luzes no Vilarejo da Campina",
+			"265": "Capture as 3 luzes no Cemitério do Sertão Dourado",
+			"266": "Capture as 3 luzes dentro do mar no Recife do Tesouro",
+			"267": "Capture as 3 luzes no quarto andar do Relicário",
+			"268": "Capture as 3 luzes no Repositório do Refúgio no Relicário do Conhecimento",
+			"269": "Capture as 3 luzes na Casa da Árvore",
+			"270": "Capture as 3 luzes na Cidadela do Vale",
+			"271": "Monte uma arraia gigante nas Ilhas do Santuário",
+			"272": "",
+			"273": "Voe com muitas borboletas no Campo de Borboletas"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",

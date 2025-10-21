@@ -344,7 +344,18 @@
 			"259": "Lade einen Geist der Saison der Wanderung ein, heute mit dir Abenteuer zu erleben",
 			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
 			"261": "Benutze Ausdrücke gegenüwber Spielern",
-			"262": "Fange die 3 Lichter im Waldbach"
+			"262": "Fange die 3 Lichter im Waldbach",
+			"263": "Fange die 3 Lichter im Vogelnest der Prärie",
+			"264": "Fange die 3 Lichter im Prärie-Dorf",
+			"265": "Fange die 3 Lichter im Ödnisfriedhof",
+			"266": "Fange die 3 Lichter unter dem Meer im Schatzriff",
+			"267": "Fange die 3 Lichter im vierten Stock des Tresors",
+			"268": "Fange die 3 Lichter im Archiv der Zuflucht des Tresors",
+			"269": "Fange die 3 Lichter im großen Baumhaus",
+			"270": "Fange die 3 Lichter in der Zitadelle im Tal",
+			"271": "Reite auf einem riesigen Manta in den Zufluchtsinseln",
+			"272": "",
+			"273": "Fliege mit vielen Schmetterlingen im Schmetterlingsfeld"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",

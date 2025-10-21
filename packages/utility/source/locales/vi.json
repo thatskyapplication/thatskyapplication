@@ -344,7 +344,18 @@
 			"259": "Mời một tinh linh Mùa Di Cư cùng phiêu lưu với bạn hôm nay",
 			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
 			"261": "Dùng các biểu cảm với người chơi",
-			"262": "Bắt lấy 3 Ánh Sáng ở Suối Nhỏ Trong Rừng"
+			"262": "Bắt lấy 3 Ánh Sáng ở Suối Nhỏ Trong Rừng",
+			"263": "Bắt lấy 3 Ánh Sáng ở Tổ Chim ở Thảo Nguyên",
+			"264": "Bắt lấy 3 Ánh Sáng ở Làng Thảo Nguyên",
+			"265": "Bắt lấy 3 Ánh Sáng tại Nghĩa địa ở Hoang Mạc Hoàng Kim",
+			"266": "Bắt lấy 3 Ánh Sáng dưới biển ở Rạn San Hô Kho Báu",
+			"267": "Bắt lấy 3 Ánh Sáng ở tầng 4 của Kho Tri Thức",
+			"268": "Bắt lấy 3 Ánh Sáng ở Khu Ẩn Náu tại Kho Tri Thức",
+			"269": "Bắt lấy 3 Ánh Sáng ở Ngôi Nhà Trên Cây",
+			"270": "Bắt lấy 3 Ánh Sáng ở thành trì trong Thung Lũng",
+			"271": "Cưỡi một con cá đuối khổng lồ ở Quần Đảo Thánh Địa",
+			"272": "",
+			"273": "Bay với nhiều con bướm ở Cánh Đồng Bướm"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",
