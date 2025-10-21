@@ -342,7 +342,9 @@
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
 			"258": "Récupérez les 3 lumières durant la course en glissade de la vallée",
 			"259": "Invitez un esprit de la saison de la migration à vous rejoindre dans votre aventure aujourd'hui",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
+			"261": "Utilisez des expressions avec les joueurs",
+			"262": "Récupérez les 3 lumières dans le ruisseau de la forêt"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -2493,7 +2495,8 @@
 			"2499": "",
 			"2500": "",
 			"2501": "",
-			"2502": "Cape Guirlande de Clair de Lune"
+			"2502": "Cape Guirlande de Clair de Lune",
+			"2504": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "",

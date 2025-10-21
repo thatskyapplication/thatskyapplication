@@ -342,7 +342,9 @@
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
 			"258": "ไล่จับแสง 3 ดวงในระหว่างการแข่งสไลด์ในหุบเขา",
 			"259": "เชิญชวนสปิริตจากฤดูกาลแห่งการอพยพไปผจญภัยด้วยกันในวันนี้",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
+			"261": "ใช้การแสดงออกกับผู้เล่น",
+			"262": "ไล่จับแสง 3 ดวงในลำธารป่าไพร"
 		},
 		"seasons": {
 			"0": "ฤดูกาลแห่งความกตัญญู",
@@ -2493,7 +2495,8 @@
 			"2499": "",
 			"2500": "",
 			"2501": "",
-			"2502": "เสื้อคลุมมาลัยแสงจันทร์"
+			"2502": "เสื้อคลุมมาลัยแสงจันทร์",
+			"2504": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

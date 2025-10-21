@@ -342,7 +342,9 @@
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
 			"258": "Bắt lấy 3 Ánh Sáng trong cuộc đua đường trượt của Thung Lũng",
 			"259": "Mời một tinh linh Mùa Di Cư cùng phiêu lưu với bạn hôm nay",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
+			"261": "Dùng các biểu cảm với người chơi",
+			"262": "Bắt lấy 3 Ánh Sáng ở Suối Nhỏ Trong Rừng"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",
@@ -2493,7 +2495,8 @@
 			"2499": "",
 			"2500": "",
 			"2501": "",
-			"2502": "Áo Choàng Hoa Trăng"
+			"2502": "Áo Choàng Hoa Trăng",
+			"2504": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

@@ -342,7 +342,9 @@
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
 			"258": "Fange die 3 Lichter während des Rutschrennens im Tal",
 			"259": "Lade einen Geist der Saison der Wanderung ein, heute mit dir Abenteuer zu erleben",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
+			"261": "Benutze Ausdrücke gegenüwber Spielern",
+			"262": "Fange die 3 Lichter im Waldbach"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",
@@ -2493,7 +2495,8 @@
 			"2499": "",
 			"2500": "",
 			"2501": "",
-			"2502": "Mondlichtgirlanden-Umhang"
+			"2502": "Mondlichtgirlanden-Umhang",
+			"2504": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

@@ -342,7 +342,9 @@
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
 			"258": "Atrapa las 3 luces durante la Carrera Deslizante del Valle",
 			"259": "Invita a algún espíritu de la Temporada de la Migración a que hoy se embarque en una aventura contigo",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
+			"261": "Usa expresiones con los jugadores",
+			"262": "Atrapa las 3 luces en el Arroyo del Bosque"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -2493,7 +2495,8 @@
 			"2499": "",
 			"2500": "",
 			"2501": "",
-			"2502": "Capa de guirnaldas de luz de luna"
+			"2502": "Capa de guirnaldas de luz de luna",
+			"2504": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
