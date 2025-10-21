@@ -3398,7 +3398,7 @@ export default {
 			"upsell-message":
 				"This is a premium feature!\n\nYou may fully customise me by editing my bio, my banner, and my avatar in your server to whatever you like!\n\nTo get started, interact with the button below.",
 			message:
-				"Want to customise me? ✨\n\nYou can set my bio, avatar, and banner in this server! Interact with the button below to get started!\n\nYou can remove the override with the buttons below.",
+				"Want to customise me? ✨\n\nYou can set my bio, avatar, and banner in this server! Interact with the button below to get started!\n\nYou can remove overrides with the buttons below too.",
 			"customise-me-button-label": "Customise me!",
 			"customise-me-modal-title": "Customise me",
 			"customise-me-modal-label-bio-label": "Bio",
