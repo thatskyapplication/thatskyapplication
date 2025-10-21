@@ -274,6 +274,17 @@ export const DailyQuest = {
 	MeetUpWithTumblingTroublemakerInPrairieCave: 260,
 	UseExpressionsWithPlayers: 261,
 	CatchThe3LightsInTheForestBrook: 262,
+	CatchThe3LightsInThePrairiesBirdNest: 263,
+	CatchThe3LightsInPrairieVillage: 264,
+	CatchThe3LightsInTheWastelandsGraveyard: 265,
+	CatchThe3LightsUnderTheSeaInTreasureReef: 266,
+	CatchThe3LightsOnTheVaultsFourthFloor: 267,
+	CatchThe3LightsInTheVaultsRepositoryOfRefuge: 268,
+	CatchThe3LightsInTheBigTreehouse: 269,
+	CatchThe3LightsInTheValleysCitadel: 270,
+	RideAGiantMantaInSanctuaryIslands: 271,
+	AdmireSharedSpacesWithTalentedBuilder: 272,
+	FlyWithManyButterfliesInButterflyFields: 273,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -689,4 +700,15 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.MeetUpWithTumblingTroublemakerInPrairieCave]: null,
 	[DailyQuest.UseExpressionsWithPlayers]: null,
 	[DailyQuest.CatchThe3LightsInTheForestBrook]: null,
+	[DailyQuest.CatchThe3LightsInThePrairiesBirdNest]: null,
+	[DailyQuest.CatchThe3LightsInPrairieVillage]: null,
+	[DailyQuest.CatchThe3LightsInTheWastelandsGraveyard]: null,
+	[DailyQuest.CatchThe3LightsUnderTheSeaInTreasureReef]: null,
+	[DailyQuest.CatchThe3LightsOnTheVaultsFourthFloor]: null,
+	[DailyQuest.CatchThe3LightsInTheVaultsRepositoryOfRefuge]: null,
+	[DailyQuest.CatchThe3LightsInTheBigTreehouse]: null,
+	[DailyQuest.CatchThe3LightsInTheValleysCitadel]: null,
+	[DailyQuest.RideAGiantMantaInSanctuaryIslands]: null,
+	[DailyQuest.AdmireSharedSpacesWithTalentedBuilder]: null,
+	[DailyQuest.FlyWithManyButterfliesInButterflyFields]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;

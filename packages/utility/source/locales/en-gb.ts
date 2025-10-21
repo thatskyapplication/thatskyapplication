@@ -541,6 +541,24 @@ export default {
 			),
 			[DailyQuest.UseExpressionsWithPlayers]: "Use expressions with players",
 			[DailyQuest.CatchThe3LightsInTheForestBrook]: "Catch the 3 lights in the Forest Brook",
+			[DailyQuest.CatchThe3LightsInThePrairiesBirdNest]:
+				"Catch the 3 lights in the Prairies Bird Nest",
+			[DailyQuest.CatchThe3LightsInPrairieVillage]: "Catch the 3 lights in Prairie Village",
+			[DailyQuest.CatchThe3LightsInTheWastelandsGraveyard]:
+				"Catch the 3 lights in the Wasteland's Graveyard",
+			[DailyQuest.CatchThe3LightsUnderTheSeaInTreasureReef]:
+				"Catch the 3 lights under the sea in Treasure Reef",
+			[DailyQuest.CatchThe3LightsOnTheVaultsFourthFloor]:
+				"Catch the 3 lights on the Vault's Fourth Floor",
+			[DailyQuest.CatchThe3LightsInTheVaultsRepositoryOfRefuge]:
+				"Catch the 3 lights in the Vault's Repository of Refuge",
+			[DailyQuest.CatchThe3LightsInTheBigTreehouse]: "Catch the 3 lights in the big Treehouse",
+			[DailyQuest.CatchThe3LightsInTheValleysCitadel]: "Catch the 3 lights in the Valley's Citadel",
+			[DailyQuest.RideAGiantMantaInSanctuaryIslands]: "Ride a giant manta in Sanctuary Islands",
+			[DailyQuest.AdmireSharedSpacesWithTalentedBuilder]:
+				"Admire Shared Spaces with Talented Builder",
+			[DailyQuest.FlyWithManyButterfliesInButterflyFields]:
+				"Fly with many butterflies in Butterfly Fields",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
