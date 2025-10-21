@@ -344,7 +344,18 @@
 			"259": "Invita oggi lo spirito della Stagione delle Migrazioni a vivere un'avventura con te",
 			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
 			"261": "Usa le espressioni con i giocatori",
-			"262": "Cattura le 3 luci nel Ruscello della foresta"
+			"262": "Cattura le 3 luci nel Ruscello della foresta",
+			"263": "Cattura le 3 luci nel Nido d'uccello della Prateria",
+			"264": "Cattura le 3 luci nel Villaggio della Prateria",
+			"265": "Cattura le 3 luci nel Cimitero del Deserto",
+			"266": "Cattura le 3 luci sott'acqua nella Scogliera del Tesoro",
+			"267": "Cattura le 3 luci al quarto piano della Cupola",
+			"268": "Cattura le 3 luci nella Cripta di rifugio della Cupola",
+			"269": "Cattura le 3 luci nella grande Casa sull'albero",
+			"270": "Cattura le 3 luci nella Cittadella della Valle",
+			"271": "Cavalca una manta gigante nell'Arcipelago Paradiso",
+			"272": "",
+			"273": "Vola con tante farfalle nei campi di farfalle"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",

@@ -344,7 +344,18 @@
 			"259": "Invita a algún espíritu de la Temporada de la Migración a que hoy se embarque en una aventura contigo",
 			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
 			"261": "Usa expresiones con los jugadores",
-			"262": "Atrapa las 3 luces en el Arroyo del Bosque"
+			"262": "Atrapa las 3 luces en el Arroyo del Bosque",
+			"263": "Atrapa las 3 luces en el Nido de pájaro de la Planicie",
+			"264": "Atrapa las 3 luces en la aldea de la Planicie",
+			"265": "Atrapa las 3 luces en el cementerio del Páramo",
+			"266": "Atrapa las 3 luces bajo el mar en Coral del tesoro",
+			"267": "Atrapa las 3 luces en el cuarto piso de la Bóveda",
+			"268": "Atrapa las 3 luces en el Almacén de refugio de la Bóveda",
+			"269": "Atrapa las 3 luces en la gran Casa del árbol",
+			"270": "Atrapa las 3 luces en la ciudadela del Valle",
+			"271": "Monta una manta gigante en las Islas Santuario",
+			"272": "",
+			"273": "Vuela con muchas mariposas en Mariposas de la Planicie"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",

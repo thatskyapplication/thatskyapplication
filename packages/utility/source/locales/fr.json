@@ -344,7 +344,18 @@
 			"259": "Invitez un esprit de la saison de la migration à vous rejoindre dans votre aventure aujourd'hui",
 			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
 			"261": "Utilisez des expressions avec les joueurs",
-			"262": "Récupérez les 3 lumières dans le ruisseau de la forêt"
+			"262": "Récupérez les 3 lumières dans le ruisseau de la forêt",
+			"263": "Récupérez les 3 lumières dans le sanctuaire nid de la prairie",
+			"264": "Récupérez les 3 lumières dans le village des prairies",
+			"265": "Récupérez les 3 lumières dans le cimetière du désert",
+			"266": "Récupérez les 3 lumières sous la mer dans le récif du trésor",
+			"267": "Récupérez les 3 lumières au quatrième étage de la Chambre forte",
+			"268": "Récupérez les 3 lumières dans le dépôt du refuge",
+			"269": "Récupérez les 3 lumières dans la grande cabane dans l'arbre",
+			"270": "Récupérez les 3 lumières dans la citadelle de la vallée",
+			"271": "Chevauchez une raie mantra géante dans les îles du sanctuaire",
+			"272": "",
+			"273": "Volez avec les coléoptères dans le champ de papillons"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
