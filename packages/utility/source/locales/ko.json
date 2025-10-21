@@ -342,7 +342,9 @@
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
 			"258": "계곡의 지상 경기장에서 빛 3개를 잡으세요",
 			"259": "오늘 이주의 시즌 영혼을 모험에 초대하세요",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
+			"261": "플레이어들과 제스처 나누기",
+			"262": "숲의 개울에서 빛 3개를 잡으세요"
 		},
 		"seasons": {
 			"0": "감사의 시즌",
@@ -2493,7 +2495,8 @@
 			"2499": "",
 			"2500": "",
 			"2501": "",
-			"2502": "달빛 화환 망토"
+			"2502": "달빛 화환 망토",
+			"2504": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

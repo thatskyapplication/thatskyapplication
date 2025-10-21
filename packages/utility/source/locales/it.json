@@ -342,7 +342,9 @@
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
 			"258": "Cattura le 3 luci durante la gara di slittino nella Valle",
 			"259": "Invita oggi lo spirito della Stagione delle Migrazioni a vivere un'avventura con te",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
+			"261": "Usa le espressioni con i giocatori",
+			"262": "Cattura le 3 luci nel Ruscello della foresta"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
@@ -2493,7 +2495,8 @@
 			"2499": "",
 			"2500": "",
 			"2501": "",
-			"2502": "Chiaro di Luna - Mantello ghirlanda"
+			"2502": "Chiaro di Luna - Mantello ghirlanda",
+			"2504": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

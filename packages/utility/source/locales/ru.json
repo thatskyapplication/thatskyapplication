@@ -342,7 +342,9 @@
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(maps.Repository of Refuge)\"})",
 			"258": "Поймайте 3 огонька во время лыжной гонки в Долине",
 			"259": "Пригласите духа Сезона миграции отправиться с вами в путешествие сегодня",
-			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})"
+			"260": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.141)\",\"location\":\"$t(maps.Prairie Cave)\"})",
+			"261": "Используйте выражения для общения с игроками",
+			"262": "Поймайте 3 огонька в Лесном ручье"
 		},
 		"seasons": {
 			"0": "Сезон благодарности",
@@ -2493,7 +2495,8 @@
 			"2499": "",
 			"2500": "",
 			"2501": "",
-			"2502": "Накидка лунной гирлянды"
+			"2502": "Накидка лунной гирлянды",
+			"2504": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
