@@ -272,6 +272,8 @@ export const DailyQuest = {
 	CatchThe3LightsDuringTheValleysSlidingRace: 258,
 	InviteASeasonOfMigrationSpiritToAdventureWithYouToday: 259,
 	MeetUpWithTumblingTroublemakerInPrairieCave: 260,
+	UseExpressionsWithPlayers: 261,
+	CatchThe3LightsInTheForestBrook: 262,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -685,4 +687,6 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace]: null,
 	[DailyQuest.InviteASeasonOfMigrationSpiritToAdventureWithYouToday]: null,
 	[DailyQuest.MeetUpWithTumblingTroublemakerInPrairieCave]: null,
+	[DailyQuest.UseExpressionsWithPlayers]: null,
+	[DailyQuest.CatchThe3LightsInTheForestBrook]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;

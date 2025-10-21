@@ -539,6 +539,8 @@ export default {
 				SpiritId.TumblingTroublemaker,
 				SkyMap.PrairieCave,
 			),
+			[DailyQuest.UseExpressionsWithPlayers]: "Use expressions with players",
+			[DailyQuest.CatchThe3LightsInTheForestBrook]: "Catch the 3 lights in the Forest Brook",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
