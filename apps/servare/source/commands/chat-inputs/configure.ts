@@ -1,15 +1,8 @@
-import { type APIChatInputApplicationCommandGuildInteraction, MessageFlags } from "@discordjs/core";
+import type { APIChatInputApplicationCommandGuildInteraction } from "@discordjs/core";
 import { client } from "../../discord.js";
-import {
-	isMemberLogChannel,
-	isMemberLogSendable,
-	setup as setupMemberLog,
-	setupResponse as setupResponseMemberLog,
-} from "../../features/member-log.js";
 import { setupResponse as setupResponseMessageLog } from "../../features/message-log.js";
 import { setupResponse as setupResponseReport } from "../../features/report.js";
 import type { Guild } from "../../models/discord/guild.js";
-import pino from "../../pino.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 async function report(interaction: APIChatInputApplicationCommandGuildInteraction, guild: Guild) {
@@ -17,48 +10,6 @@ async function report(interaction: APIChatInputApplicationCommandGuildInteractio
 		interaction.id,
 		interaction.token,
 		await setupResponseReport(guild),
-	);
-}
-
-async function memberLog(
-	interaction: APIChatInputApplicationCommandGuildInteraction,
-	guild: Guild,
-	options: OptionResolver,
-) {
-	const channel = options.getChannel("channel");
-
-	if (channel) {
-		const cachedChannel = guild.channels.get(channel.id);
-
-		if (!(cachedChannel && isMemberLogChannel(cachedChannel))) {
-			pino.error(interaction, "Received an unknown channel type whilst setting up the member log.");
-
-			throw new Error("Received an unknown channel type whilst setting up the member log.");
-		}
-
-		const memberLogSendable = isMemberLogSendable(
-			guild,
-			cachedChannel,
-			await guild.fetchMe(),
-			true,
-		);
-
-		if (memberLogSendable.length > 0) {
-			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: memberLogSendable.join("\n"),
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-
-		await setupMemberLog({ guildId: guild.id, channelId: channel.id });
-	}
-
-	await client.api.interactions.reply(
-		interaction.id,
-		interaction.token,
-		await setupResponseMemberLog(guild.id),
 	);
 }
 
@@ -78,10 +29,6 @@ export default {
 		switch (options.getSubcommand()) {
 			case "report": {
 				await report(interaction, guild);
-				return;
-			}
-			case "member-log": {
-				await memberLog(interaction, guild, options);
 				return;
 			}
 			case "message-log": {

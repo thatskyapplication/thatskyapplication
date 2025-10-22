@@ -1,6 +1,5 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { sendJoinLeave } from "../features/member-log.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
 
@@ -13,7 +12,6 @@ export default {
 
 		if (guild) {
 			guild.memberCount++;
-			await sendJoinLeave(data);
 		} else {
 			pino.warn({ data }, `Received a ${name} packet on an uncached guild.`);
 		}

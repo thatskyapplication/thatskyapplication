@@ -4,7 +4,6 @@ import { addBreadcrumb } from "@sentry/node";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { CHAT_INPUT_COMMANDS, MESSAGE_CONTEXT_MENU_COMMANDS } from "../commands/index.js";
 import { client } from "../discord.js";
-import { handleChannelSelectMenu as handleMemberLogChannelSelectMenu } from "../features/member-log.js";
 import {
 	handleMessageLogAllowChannelSelectMenu,
 	handleMessageLogChannelSelectMenu,
@@ -159,11 +158,6 @@ export default {
 		if (isGuildChannelSelectMenu(data)) {
 			try {
 				const schemaData = schemaStore.deserialize(data.data.custom_id);
-
-				if (schemaData.id === CustomId.MemberLog) {
-					await handleMemberLogChannelSelectMenu(data, guild);
-					return;
-				}
 
 				if (schemaData.id === CustomId.MessageLogChannelId) {
 					await handleMessageLogChannelSelectMenu(data, guild);

@@ -2,6 +2,7 @@ import { GatewayDispatchEvents } from "@discordjs/core";
 import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
+import { memberLogSendJoinLeave } from "../features/member-log.js";
 import { sendWelcomeMessage, type WelcomePacketWithChannel } from "../features/welcome.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
@@ -22,6 +23,10 @@ export default {
 
 		if (guild) {
 			guild.memberCount++;
+
+			if (guild.id === SUPPORT_SERVER_GUILD_ID) {
+				await memberLogSendJoinLeave({ guild, member: data });
+			}
 
 			const welcomePacket = await pg<WelcomePacketWithChannel>(Table.Welcome)
 				.where({ guild_id: data.guild_id })

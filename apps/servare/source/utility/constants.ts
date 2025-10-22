@@ -31,8 +31,6 @@ export const NOT_IN_CACHED_GUILD_RESPONSE = {
 	flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 } as const;
 
-export const MEMBER_LOG_CHANNEL_TYPES = [ChannelType.GuildText] as const;
-export const MEMBER_LOG_LEAVE_COLOUR = 0x000000 as const;
 export const MESSAGE_LOG_CHANNEL_TYPES = [ChannelType.GuildText] as const;
 
 export const MESSAGE_LOG_IGNORE_ALLOW_CHANNEL_TYPES = [
