@@ -1046,6 +1046,7 @@ export default {
 		}
 
 		if (isAutocomplete(data)) {
+			pino.info(data, `Autocomplete: ${new OptionResolver(data).chatInputCommandText()}`);
 			const command = AUTOCOMPLETE_COMMANDS.find(({ name }) => name === data.data.name);
 
 			if (!command) {
