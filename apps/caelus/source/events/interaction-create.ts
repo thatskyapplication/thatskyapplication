@@ -301,14 +301,11 @@ export default {
 	async fire({ api, data }) {
 		if (isChatInputCommand(data)) {
 			pino.info(data, `Chat input command: ${new OptionResolver(data).chatInputCommandText()}`);
-
 			const command = CHAT_INPUT_COMMANDS.find(({ name }) => name === data.data.name);
 
 			if (!command) {
 				pino.warn(data, "Received an unknown chat input command interaction.");
-
 				await api.interactions.reply(data.id, data.token, errorResponseV2(data.locale));
-
 				return;
 			}
 
@@ -327,9 +324,7 @@ export default {
 
 			if (!command) {
 				pino.warn(data, "Received an unknown user context menu command interaction.");
-
 				await api.interactions.reply(data.id, data.token, errorResponseV2(data.locale));
-
 				return;
 			}
 
@@ -1139,7 +1134,6 @@ export default {
 			}
 
 			pino.warn(data, "Received an unknown modal interaction.");
-
 			await api.interactions.reply(data.id, data.token, errorResponseV2(data.locale));
 		}
 	},
