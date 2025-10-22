@@ -22,11 +22,7 @@ import {
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import {
-	APPLICATION_ID,
-	APPLICATION_INVITE_URL,
-	SUPPORT_SERVER_INVITE_URL,
-} from "./configuration.js";
+import { APPLICATION_INVITE_URL, SUPPORT_SERVER_INVITE_URL } from "./configuration.js";
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
 	ALLOWED_MEDIA_TYPES,
@@ -215,7 +211,7 @@ export async function validateImageAttachment(
 		return true;
 	}
 
-	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+	await client.api.interactions.editReply(interaction.application_id, interaction.token, {
 		content: t("asset-image-invalid", { lng: interaction.locale, ns: "general" }),
 	});
 

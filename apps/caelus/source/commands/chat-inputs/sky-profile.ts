@@ -26,7 +26,6 @@ import {
 	skyProfileShowEdit,
 } from "../../features/sky-profile.js";
 import { searchAutocomplete } from "../../features/spirits.js";
-import { APPLICATION_ID } from "../../utility/configuration.js";
 import { interactionInvoker, validateImageAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -146,7 +145,7 @@ export default {
 				const spirit = spirits().get(spiritId as SpiritIds);
 
 				if (!spirit) {
-					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+					await client.api.interactions.editReply(interaction.application_id, interaction.token, {
 						content: t("spirits.not-encountered-spirit", {
 							lng: interaction.locale,
 							ns: "features",
@@ -161,7 +160,7 @@ export default {
 
 			if (country) {
 				if (!isCountry(country)) {
-					await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+					await client.api.interactions.editReply(interaction.application_id, interaction.token, {
 						content: t("sky-profile.unknown-country", { lng: interaction.locale, ns: "features" }),
 					});
 

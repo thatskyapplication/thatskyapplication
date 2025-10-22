@@ -1018,7 +1018,12 @@ export async function interactive(
 	};
 
 	if (type === InteractiveType.Distributed || type === InteractiveType.Uploading) {
-		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, response);
+		await client.api.interactions.editReply(
+			interaction.application_id,
+			interaction.token,
+			response,
+		);
+
 		return;
 	}
 

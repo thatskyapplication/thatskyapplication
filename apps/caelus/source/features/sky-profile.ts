@@ -71,7 +71,6 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import {
-	APPLICATION_ID,
 	ARTIST_ROLE_ID,
 	CDN_BUCKET,
 	CDN_URL,
@@ -530,7 +529,12 @@ export async function skyProfileShowEdit(
 	}
 
 	if (editReply) {
-		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, baseReplyOptions);
+		await client.api.interactions.editReply(
+			interaction.application_id,
+			interaction.token,
+			baseReplyOptions,
+		);
+
 		return;
 	}
 
@@ -1905,7 +1909,7 @@ export async function skyProfileSetIcon(interaction: APIModalSubmitInteraction) 
 	await skyProfileSet(interaction, payload, { editReply });
 
 	if (error) {
-		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+		await client.api.interactions.followUp(interaction.application_id, interaction.token, {
 			content: error,
 			flags: MessageFlags.Ephemeral,
 		});
@@ -1930,7 +1934,7 @@ export async function skyProfileSetBanner(interaction: APIModalSubmitInteraction
 	await skyProfileSet(interaction, payload, { editReply });
 
 	if (error) {
-		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+		await client.api.interactions.followUp(interaction.application_id, interaction.token, {
 			content: error,
 			flags: MessageFlags.Ephemeral,
 		});

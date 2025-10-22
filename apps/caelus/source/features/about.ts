@@ -29,7 +29,6 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import {
-	APPLICATION_ID,
 	APPLICATION_INVITE_URL,
 	CDN_BUCKET,
 	CDN_URL,
@@ -551,7 +550,7 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 		name: title,
 	});
 
-	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+	await client.api.interactions.editReply(interaction.application_id, interaction.token, {
 		content:
 			errors.length > 0
 				? t("about.issue-submission-with-errors", {

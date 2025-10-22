@@ -25,7 +25,6 @@ import type { GuildMember } from "../models/discord/guild-member.js";
 import pg, { Table } from "../pg.js";
 import pino from "../pino.js";
 import {
-	APPLICATION_ID,
 	DEFAULT_ACCENT_COLOUR,
 	REPORT_CHANNEL_TYPE,
 	REPORT_MAXIMUM_REASON_LENGTH,
@@ -86,12 +85,13 @@ function isReportCreatableAndSendable(
 }
 
 interface ReportSetupOptions {
+	applicationId: Snowflake;
 	guildId: Snowflake;
 	channelId?: Snowflake | null;
 	tagId?: Snowflake | null;
 }
 
-async function setup({ guildId, channelId, tagId }: ReportSetupOptions) {
+async function setup({ applicationId, guildId, channelId, tagId }: ReportSetupOptions) {
 	let reportCommandId: Snowflake | null | undefined;
 	let reportTagId = tagId;
 
@@ -100,7 +100,7 @@ async function setup({ guildId, channelId, tagId }: ReportSetupOptions) {
 
 		if (channelId) {
 			reportCommandId = (
-				await client.api.applicationCommands.createGuildCommand(APPLICATION_ID, guildId, {
+				await client.api.applicationCommands.createGuildCommand(applicationId, guildId, {
 					name: "Report",
 					type: ApplicationCommandType.Message,
 				})
@@ -113,7 +113,7 @@ async function setup({ guildId, channelId, tagId }: ReportSetupOptions) {
 
 			if (guildSettingsPacket?.report_command_id) {
 				await client.api.applicationCommands.deleteGuildCommand(
-					APPLICATION_ID,
+					applicationId,
 					guildId,
 					guildSettingsPacket.report_command_id,
 				);
@@ -220,7 +220,11 @@ export async function handleStringSelectMenu(
 	guild: Guild,
 ) {
 	const [tagId] = interaction.data.values;
-	await setup({ guildId: guild.id, tagId: tagId ?? null });
+	await setup({
+		applicationId: interaction.application_id,
+		guildId: guild.id,
+		tagId: tagId ?? null,
+	});
 
 	await client.api.interactions.updateMessage(
 		interaction.id,
@@ -264,7 +268,11 @@ export async function handleChannelSelectMenu(
 		}
 	}
 
-	await setup({ guildId: interaction.guild_id, channelId: channelId ?? null });
+	await setup({
+		applicationId: interaction.application_id,
+		guildId: interaction.guild_id,
+		channelId: channelId ?? null,
+	});
 
 	await client.api.interactions.updateMessage(
 		interaction.id,
@@ -295,7 +303,7 @@ export async function reportModalResponse(
 		);
 
 		await client.api.applicationCommands.deleteGuildCommand(
-			APPLICATION_ID,
+			interaction.application_id,
 			guild.id,
 			interaction.data.id,
 		);
@@ -512,7 +520,11 @@ export async function create(
 			"Attempted to create a report without a report channel. Removing command.",
 		);
 
-		await client.api.applicationCommands.deleteGuildCommand(APPLICATION_ID, guild.id, commandId);
+		await client.api.applicationCommands.deleteGuildCommand(
+			interaction.application_id,
+			guild.id,
+			commandId,
+		);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			content: "This server does not have the report feature set up.",

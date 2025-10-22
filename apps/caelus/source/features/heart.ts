@@ -28,7 +28,6 @@ import { t } from "i18next";
 import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import pg from "../pg.js";
-import { APPLICATION_ID } from "../utility/configuration.js";
 import {
 	DELETED_USER_TEXT,
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
@@ -248,7 +247,7 @@ export async function gift(
 
 	const heartsLeftToGift = MAXIMUM_HEARTS_PER_DAY - heartPackets.length - 1;
 
-	await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+	await client.api.interactions.followUp(interaction.application_id, interaction.token, {
 		content:
 			heartsLeftToGift === 0
 				? t("heart.gift-no-hearts-left", {

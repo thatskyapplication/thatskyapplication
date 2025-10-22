@@ -29,7 +29,6 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { APPLICATION_ID } from "../utility/configuration.js";
 import { ASCENDED_CANDLES_PER_WEEK, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import {
 	EventIdToEventTicketEmoji,
@@ -100,7 +99,7 @@ export async function ascendedCandles(
 
 	const timestamp = day.toUnixInteger();
 
-	await client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+	await client.api.interactions.editReply(interaction.application_id, interaction.token, {
 		components: [
 			{
 				type: ComponentType.Container,

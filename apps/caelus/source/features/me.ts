@@ -16,7 +16,7 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
+import { SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
@@ -97,7 +97,7 @@ export async function meOverview(
 	];
 
 	await (editReply
-		? client.api.interactions.editReply(APPLICATION_ID, interaction.token, {
+		? client.api.interactions.editReply(interaction.application_id, interaction.token, {
 				components,
 				flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 			})

@@ -35,7 +35,7 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
-import { APPLICATION_ID, CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
+import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
 import { ANIMATED_HASH_PREFIX } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
@@ -224,7 +224,12 @@ export async function welcomeSetup({ interaction, locale, reply, editReply }: We
 	}
 
 	if (editReply) {
-		await client.api.interactions.editReply(APPLICATION_ID, interaction.token, responseOptions);
+		await client.api.interactions.editReply(
+			interaction.application_id,
+			interaction.token,
+			responseOptions,
+		);
+
 		return;
 	}
 
@@ -419,7 +424,7 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 	await welcomeSetup({ interaction, locale: interaction.guild_locale!, editReply });
 
 	if (errors.length > 0) {
-		await client.api.interactions.followUp(APPLICATION_ID, interaction.token, {
+		await client.api.interactions.followUp(interaction.application_id, interaction.token, {
 			content: errors.length === 1 ? errors[0]! : errors.map((error) => `- ${error}`).join("\n"),
 			flags: MessageFlags.Ephemeral,
 		});
