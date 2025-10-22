@@ -12,8 +12,6 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { DiscordSnowflake } from "@sapphire/snowflake";
-import { addBreadcrumb } from "@sentry/node";
 import {
 	isRealm,
 	isSeasonId,
@@ -300,120 +298,91 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 
 export default {
 	name,
-	async fire({ api, data: interaction }) {
-		if (isChatInputCommand(interaction)) {
-			pino.info(
-				interaction,
-				`Chat input command: ${new OptionResolver(interaction).chatInputCommandText()}`,
-			);
+	async fire({ api, data }) {
+		if (isChatInputCommand(data)) {
+			pino.info(data, `Chat input command: ${new OptionResolver(data).chatInputCommandText()}`);
 
-			const command = CHAT_INPUT_COMMANDS.find(({ name }) => name === interaction.data.name);
+			const command = CHAT_INPUT_COMMANDS.find(({ name }) => name === data.data.name);
 
 			if (!command) {
-				pino.warn(interaction, "Received an unknown chat input command interaction.");
+				pino.warn(data, "Received an unknown chat input command interaction.");
 
-				await api.interactions.reply(
-					interaction.id,
-					interaction.token,
-					errorResponseV2(interaction.locale),
-				);
+				await api.interactions.reply(data.id, data.token, errorResponseV2(data.locale));
 
 				return;
 			}
 
 			try {
-				await command.chatInput(interaction);
+				await command.chatInput(data);
 			} catch (error) {
-				addBreadcrumb({
-					type: "user",
-					level: "error",
-					data: interaction,
-					category: "Interaction",
-					message: "Chat input command failed.",
-					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
-				});
-
-				void recoverInteractionError(interaction, error);
+				void recoverInteractionError(data, error);
 			}
 
 			return;
 		}
 
-		if (isUserContextMenuCommand(interaction)) {
-			pino.info(interaction, `User context menu command: ${interaction.data.name}`);
-			const command = USER_CONTEXT_MENU_COMMANDS.find(({ name }) => name === interaction.data.name);
+		if (isUserContextMenuCommand(data)) {
+			pino.info(data, `User context menu command: ${data.data.name}`);
+			const command = USER_CONTEXT_MENU_COMMANDS.find(({ name }) => name === data.data.name);
 
 			if (!command) {
-				pino.warn(interaction, "Received an unknown user context menu command interaction.");
+				pino.warn(data, "Received an unknown user context menu command interaction.");
 
-				await api.interactions.reply(
-					interaction.id,
-					interaction.token,
-					errorResponseV2(interaction.locale),
-				);
+				await api.interactions.reply(data.id, data.token, errorResponseV2(data.locale));
 
 				return;
 			}
 
 			try {
-				await command.userContextMenu(interaction);
+				await command.userContextMenu(data);
 			} catch (error) {
-				addBreadcrumb({
-					type: "user",
-					level: "error",
-					data: interaction,
-					category: "Interaction",
-					message: "User context menu command failed.",
-					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
-				});
-
-				void recoverInteractionError(interaction, error);
+				void recoverInteractionError(data, error);
 			}
 
 			return;
 		}
 
-		if (isButton(interaction)) {
-			pino.info(interaction, `Button: ${interaction.data.custom_id}`);
-			const [id, ...parts] = interaction.data.custom_id.split("§") as [string, ...string[]];
+		if (isButton(data)) {
+			pino.info(data, `Button: ${data.data.custom_id}`);
+			const [id, ...parts] = data.data.custom_id.split("§") as [string, ...string[]];
 
-			if (await isOldId(interaction, id)) {
+			if (await isOldId(data, id)) {
 				return;
 			}
 
 			try {
 				if (id === CustomId.DataDelete) {
-					await deleteUserData(interaction);
+					await deleteUserData(data);
 					return;
 				}
 
 				if (id === CustomId.AboutFeedback) {
-					await feedbackModalResponse(interaction);
+					await feedbackModalResponse(data);
 					return;
 				}
 
 				if (id === CustomId.AboutIssue) {
-					await issueModalResponse(interaction);
+					await issueModalResponse(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewStart || id === CustomId.CatalogueBackToStart) {
-					await viewStart(interaction);
+					await viewStart(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueSettings) {
-					await viewSettings(interaction);
+					await viewSettings(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueSettingsEverything) {
-					await updateEverythingButtonSetting(interaction);
+					await updateEverythingButtonSetting(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewRealms) {
-					await viewRealms(interaction);
+					await viewRealms(data);
 					return;
 				}
 
@@ -421,18 +390,18 @@ export default {
 					const realmName = parts[0]!;
 
 					if (isRealm(realmName)) {
-						await viewRealm(interaction, realmName);
+						await viewRealm(data, realmName);
 						return;
 					}
 				}
 
 				if (id === CustomId.CatalogueViewElders) {
-					await viewElders(interaction);
+					await viewElders(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewSeasons) {
-					await viewSeasons(interaction);
+					await viewSeasons(data);
 					return;
 				}
 
@@ -440,103 +409,103 @@ export default {
 					const seasonId = Number(parts[0]!);
 
 					if (isSeasonId(seasonId)) {
-						await viewSeason(interaction, seasonId);
+						await viewSeason(data, seasonId);
 						return;
 					}
 				}
 
 				if (id === CustomId.CatalogueViewEventYears) {
-					await viewEventYears(interaction);
+					await viewEventYears(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewEventYear) {
-					await viewEvents(interaction, parts[0]!);
+					await viewEvents(data, parts[0]!);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewEvent) {
-					await parseViewEvent(interaction);
+					await parseViewEvent(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewStarterPacks) {
-					await viewStarterPacks(interaction);
+					await viewStarterPacks(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewSecretArea) {
-					await viewSecretArea(interaction);
+					await viewSecretArea(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewPermanentEventStore) {
-					await viewPermanentEventStore(interaction);
+					await viewPermanentEventStore(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewNestingWorkshop) {
-					await viewNestingWorkshop(interaction);
+					await viewNestingWorkshop(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewReturningSpirits) {
-					await viewReturningSpirits(interaction);
+					await viewReturningSpirits(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewSpirit) {
-					await parseViewSpirit(interaction);
+					await parseViewSpirit(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueRealmEverything) {
-					await setRealm(interaction);
+					await setRealm(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueEldersEverything) {
-					await setElders(interaction);
+					await setElders(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueSeasonEverything) {
-					await setSeason(interaction);
+					await setSeason(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueItemsEverything) {
-					await parseSetItems(interaction);
+					await parseSetItems(data);
 					return;
 				}
 
 				if (id === CustomId.ScheduleViewOverview) {
-					await scheduleOverview(interaction);
+					await scheduleOverview(data);
 					return;
 				}
 
 				if (id === CustomId.ChecklistDailyQuestsComplete) {
-					await checklistHandleDailyQuests(interaction);
+					await checklistHandleDailyQuests(data);
 					return;
 				}
 
 				if (id === CustomId.ChecklistSeasonalCandlesComplete) {
-					await checklistHandleSeasonalCandles(interaction);
+					await checklistHandleSeasonalCandles(data);
 					return;
 				}
 
 				if (id === CustomId.ChecklistEyeOfEdenComplete) {
-					await checklistHandleEyeOfEden(interaction);
+					await checklistHandleEyeOfEden(data);
 					return;
 				}
 
 				if (id === CustomId.ChecklistEventTicketsComplete) {
-					await checklistHandleEventTickets(interaction);
+					await checklistHandleEventTickets(data);
 					return;
 				}
 
 				if (id === CustomId.ChecklistShardEruptionsComplete) {
-					await checklistHandleShardEruptions(interaction);
+					await checklistHandleShardEruptions(data);
 					return;
 				}
 
@@ -544,7 +513,7 @@ export default {
 					id === CustomId.ChecklistDailyQuestsShow ||
 					id === CustomId.ScheduleDetailedBreakdownViewDailyGuides
 				) {
-					await dailyGuidesResponse(interaction);
+					await dailyGuidesResponse(data);
 					return;
 				}
 
@@ -552,10 +521,10 @@ export default {
 					id === CustomId.ChecklistShardEruptionsShow ||
 					id === CustomId.ScheduleDetailedBreakdownViewShardEruptions
 				) {
-					await today(interaction, {
+					await today(data, {
 						ephemeral:
-							interaction.message.flags &&
-							(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral,
+							data.message.flags &&
+							(data.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral,
 						newMessage: true,
 					});
 
@@ -566,23 +535,23 @@ export default {
 					let flags = MessageFlags.IsComponentsV2;
 
 					if (
-						interaction.message.flags &&
-						(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral
+						data.message.flags &&
+						(data.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral
 					) {
 						flags |= MessageFlags.Ephemeral;
 					}
 
-					await spiritsViewSpirit(interaction, Number(parts[0]) as SpiritIds, { flags });
+					await spiritsViewSpirit(data, Number(parts[0]) as SpiritIds, { flags });
 					return;
 				}
 
 				if (id === CustomId.ScheduleDetailedBreakdownViewSpiritHistory) {
-					await spiritsHistory(interaction, {
+					await spiritsHistory(data, {
 						type: SpiritsHistoryOrderType.Natural,
 						page: 1,
 						ephemeral:
-							interaction.message.flags &&
-							(interaction.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral,
+							data.message.flags &&
+							(data.message.flags & MessageFlags.Ephemeral) === MessageFlags.Ephemeral,
 						newMessage: true,
 					});
 
@@ -590,29 +559,29 @@ export default {
 				}
 
 				if (id === CustomId.ShardEruptionTodayToday) {
-					if (await isNotComponentsV2(interaction)) {
+					if (await isNotComponentsV2(data)) {
 						return;
 					}
 
-					await today(interaction);
+					await today(data);
 					return;
 				}
 
 				if (id === CustomId.ShardEruptionTodayBack || id === CustomId.ShardEruptionTodayNext) {
-					if (await isNotComponentsV2(interaction)) {
+					if (await isNotComponentsV2(data)) {
 						return;
 					}
 
-					await today(interaction, { offset: Number(parts[0]) });
+					await today(data, { offset: Number(parts[0]) });
 					return;
 				}
 
 				if (id === CustomId.ShardEruptionBrowseToday) {
-					if (await isNotComponentsV2(interaction)) {
+					if (await isNotComponentsV2(data)) {
 						return;
 					}
 
-					await browse(interaction);
+					await browse(data);
 					return;
 				}
 
@@ -621,21 +590,21 @@ export default {
 					id === CustomId.ShardEruptionBrowseNext ||
 					id === CustomId.ShardEruptionBrowse
 				) {
-					if (await isNotComponentsV2(interaction)) {
+					if (await isNotComponentsV2(data)) {
 						return;
 					}
 
-					await browse(interaction, Number(parts[0]));
+					await browse(data, Number(parts[0]));
 					return;
 				}
 
 				if (id === CustomId.SkyProfileViewReset) {
-					await skyProfileShowReset(interaction);
+					await skyProfileShowReset(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileViewEdit) {
-					await skyProfileShowEdit(interaction);
+					await skyProfileShowEdit(data);
 					return;
 				}
 
@@ -644,7 +613,7 @@ export default {
 					id === CustomId.SkyProfileExplorerBack ||
 					id === CustomId.SkyProfileExplorerNext
 				) {
-					await skyProfileExplore(interaction);
+					await skyProfileExplore(data);
 					return;
 				}
 
@@ -653,7 +622,7 @@ export default {
 					id === CustomId.SkyProfileExplorerLikesBack ||
 					id === CustomId.SkyProfileExplorerLikesNext
 				) {
-					await skyProfileExploreLikes(interaction);
+					await skyProfileExploreLikes(data);
 					return;
 				}
 
@@ -662,7 +631,7 @@ export default {
 					id === CustomId.SkyProfileExplorerProfileNext ||
 					id === CustomId.SkyProfileExplorerViewProfile
 				) {
-					await skyProfileExploreProfile(interaction, parts[0]!);
+					await skyProfileExploreProfile(data, parts[0]!);
 					return;
 				}
 
@@ -671,43 +640,43 @@ export default {
 					id === CustomId.SkyProfileExplorerLikesProfileNext ||
 					id === CustomId.SkyProfileExplorerLikesViewProfile
 				) {
-					await skyProfileExploreLikedProfile(interaction);
+					await skyProfileExploreLikedProfile(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileExplorerProfileLike) {
-					await skyProfileLike(interaction);
+					await skyProfileLike(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileExplorerLikesProfileLike) {
-					await skyProfileLike(interaction, true);
+					await skyProfileLike(data, true);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileExplorerProfileReport) {
-					await skyProfileReport(interaction);
+					await skyProfileReport(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileExplorerLikesProfileReport) {
-					await skyProfileReport(interaction, true);
+					await skyProfileReport(data, true);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileExplorerConfirmReport) {
-					await skyProfileReportModalPrompt(interaction);
+					await skyProfileReportModalPrompt(data);
 					return;
 				}
 
 				if (id === CustomId.SpiritsHistoryBack || id === CustomId.SpiritsHistoryNext) {
-					const { type, page } = spiritsParseSpiritsHistoryCustomId(interaction.data.custom_id);
-					await spiritsHistory(interaction, { type, page });
+					const { type, page } = spiritsParseSpiritsHistoryCustomId(data.data.custom_id);
+					await spiritsHistory(data, { type, page });
 					return;
 				}
 
 				if (id === CustomId.SpiritsViewSpirit) {
-					await spiritsViewSpirit(interaction, Number(parts[0]) as SpiritIds, {
+					await spiritsViewSpirit(data, Number(parts[0]) as SpiritIds, {
 						flags: MessageFlags.Ephemeral,
 					});
 
@@ -715,7 +684,7 @@ export default {
 				}
 
 				if (id === CustomId.HeartHistoryBack || id === CustomId.HeartHistoryNext) {
-					await history(interaction);
+					await history(data);
 					return;
 				}
 
@@ -724,7 +693,7 @@ export default {
 					id === CustomId.GuessSpiritOption2 ||
 					id === CustomId.GuessSpiritOption3
 				) {
-					await guessSpiritAnswer(interaction);
+					await guessSpiritAnswer(data);
 					return;
 				}
 
@@ -733,171 +702,162 @@ export default {
 					id === CustomId.GuessEventOption2 ||
 					id === CustomId.GuessEventOption3
 				) {
-					await guessEventAnswer(interaction);
+					await guessEventAnswer(data);
 					return;
 				}
 
 				if (id === CustomId.GuessEnd) {
-					if (await isNotComponentsV2(interaction)) {
+					if (await isNotComponentsV2(data)) {
 						return;
 					}
 
-					await guessHandleEndGame(interaction);
+					await guessHandleEndGame(data);
 					return;
 				}
 
 				if (id === CustomId.GuessTryAgain) {
-					if (await isNotComponentsV2(interaction)) {
+					if (await isNotComponentsV2(data)) {
 						return;
 					}
 
-					await tryAgain(interaction);
+					await tryAgain(data);
 					return;
 				}
 
 				if (id === CustomId.GuessLeaderboardBack || id === CustomId.GuessLeaderboardNext) {
-					if (await isNotComponentsV2(interaction)) {
+					if (await isNotComponentsV2(data)) {
 						return;
 					}
 
 					const guessType = Number(parts[0]);
 
 					if (isGuessType(guessType)) {
-						await leaderboard(interaction, guessType);
+						await leaderboard(data, guessType);
 						return;
 					}
 				}
 
 				if (id === CustomId.ShopSuggest) {
-					await shopSuggestionModal(interaction);
+					await shopSuggestionModal(data);
 					return;
 				}
 
-				if (isGuildButton(interaction)) {
+				if (isGuildButton(data)) {
 					if (id === CustomId.FriendshipActionsContribute) {
-						await friendshipActionsCreateThread(interaction);
+						await friendshipActionsCreateThread(data);
 						return;
 					}
 
 					if (id === CustomId.MeCustomiseMe) {
-						await meHandleCustomiseMeButton(interaction);
+						await meHandleCustomiseMeButton(data);
 						return;
 					}
 
 					if (id === CustomId.MeDeleteBio) {
-						await meHandleDeleteButton(interaction, { bio: null });
+						await meHandleDeleteButton(data, { bio: null });
 						return;
 					}
 
 					if (id === CustomId.MeDeleteAvatar) {
-						await meHandleDeleteButton(interaction, { avatar: null });
+						await meHandleDeleteButton(data, { avatar: null });
 						return;
 					}
 
 					if (id === CustomId.MeDeleteBanner) {
-						await meHandleDeleteButton(interaction, { banner: null });
+						await meHandleDeleteButton(data, { banner: null });
 						return;
 					}
 
 					if (id === CustomId.NotificationsViewSetup) {
-						const guild = GUILD_CACHE.get(interaction.guild_id);
+						const guild = GUILD_CACHE.get(data.guild_id);
 
 						if (!guild) {
 							await client.api.interactions.updateMessage(
-								interaction.id,
-								interaction.token,
-								notInCachedGuildResponse(interaction.locale),
+								data.id,
+								data.token,
+								notInCachedGuildResponse(data.locale),
 							);
 
 							return;
 						}
 
 						await client.api.interactions.updateMessage(
-							interaction.id,
-							interaction.token,
-							await setupResponse(interaction, guild),
+							data.id,
+							data.token,
+							await setupResponse(data, guild),
 						);
 
 						return;
 					}
 
 					if (id === CustomId.DailyGuidesDistribute) {
-						await handleDistributeButton(interaction);
+						await handleDistributeButton(data);
 						return;
 					}
 
 					if (id === CustomId.WelcomeEdit) {
-						await welcomeHandleEditButton(interaction);
+						await welcomeHandleEditButton(data);
 						return;
 					}
 
 					if (id === CustomId.WelcomeAssetDelete) {
-						await welcomeHandleAssetSettingDeleteButton(interaction);
+						await welcomeHandleAssetSettingDeleteButton(data);
 						return;
 					}
 
 					if (id === CustomId.WelcomeHugSend) {
-						await welcomeHandleHugButton(interaction, parts[0]!);
+						await welcomeHandleHugButton(data, parts[0]!);
 						return;
 					}
 				}
 			} catch (error) {
-				addBreadcrumb({
-					type: "user",
-					level: "error",
-					data: interaction,
-					category: "Interaction",
-					message: "Button interaction failed.",
-					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
-				});
-
-				void recoverInteractionError(interaction, error);
+				void recoverInteractionError(data, error);
 				return;
 			}
 
-			pino.warn(interaction, "Received an unknown button interaction.");
+			pino.warn(data, "Received an unknown button interaction.");
 
 			await api.interactions.updateMessage(
-				interaction.id,
-				interaction.token,
-				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
-					? errorResponse(interaction.locale)
-					: errorResponseV2(interaction.locale),
+				data.id,
+				data.token,
+				data.message.flags && (data.message.flags & MessageFlags.IsComponentsV2) === 0
+					? errorResponse(data.locale)
+					: errorResponseV2(data.locale),
 			);
 
 			return;
 		}
 
-		if (isStringSelectMenu(interaction)) {
-			pino.info(interaction, `String select: ${interaction.data.custom_id}`);
-			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
+		if (isStringSelectMenu(data)) {
+			pino.info(data, `String select: ${data.data.custom_id}`);
+			const [id] = data.data.custom_id.split("§") as [string, ...string[]];
 
-			if (await isOldId(interaction, id)) {
+			if (await isOldId(data, id)) {
 				return;
 			}
 
-			const values = interaction.data.values;
+			const values = data.data.values;
 
 			try {
 				const value0 = values[0]!;
 
 				if (id === CustomId.CatalogueViewRealm && isRealm(value0)) {
-					await viewRealm(interaction, value0);
+					await viewRealm(data, value0);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewEventYear) {
-					await viewEvents(interaction, value0);
+					await viewEvents(data, value0);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewSpirit) {
-					await parseViewSpirit(interaction);
+					await parseViewSpirit(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueViewEvent) {
-					await parseViewEvent(interaction);
+					await parseViewEvent(data);
 					return;
 				}
 
@@ -906,101 +866,101 @@ export default {
 					id === CustomId.CatalogueViewOffer2 ||
 					id === CustomId.CatalogueViewOffer3
 				) {
-					await parseSetItems(interaction);
+					await parseSetItems(data);
 					return;
 				}
 
 				if (id === CustomId.CatalogueSetSeasonItems) {
-					await setSeasonItems(interaction);
+					await setSeasonItems(data);
 					return;
 				}
 
 				if (id === CustomId.ScheduleViewDetailedBreakdown) {
-					await scheduleDetailedBreakdown(interaction, { type: Number(value0) as ScheduleTypes });
+					await scheduleDetailedBreakdown(data, { type: Number(value0) as ScheduleTypes });
 					return;
 				}
 
 				if (SHARD_ERUPTION_DATES.includes(id as (typeof SHARD_ERUPTION_DATES)[number])) {
-					if (await isNotComponentsV2(interaction)) {
+					if (await isNotComponentsV2(data)) {
 						return;
 					}
 
-					await today(interaction, { offset: Number(value0) });
+					await today(data, { offset: Number(value0) });
 					return;
 				}
 
 				if (id === CustomId.SkyProfileEdit) {
-					await skyProfileEdit(interaction);
+					await skyProfileEdit(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileReset) {
-					await skyProfileReset(interaction);
+					await skyProfileReset(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileWingedLight) {
-					await skyProfileSetWingedLight(interaction);
+					await skyProfileSetWingedLight(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileSeasons1 || id === CustomId.SkyProfileSeasons2) {
-					await skyProfileSetSeasons(interaction);
+					await skyProfileSetSeasons(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfilePlatforms) {
-					await skyProfileSetPlatform(interaction);
+					await skyProfileSetPlatform(data);
 					return;
 				}
 
 				if (SKY_PROFILE_EXPLORERS.includes(id as (typeof SKY_PROFILE_EXPLORERS)[number])) {
-					await skyProfileExploreProfile(interaction, value0);
+					await skyProfileExploreProfile(data, value0);
 					return;
 				}
 
 				if (
 					SKY_PROFILE_EXPLORER_LIKES.includes(id as (typeof SKY_PROFILE_EXPLORER_LIKES)[number])
 				) {
-					await skyProfileExploreLikedProfile(interaction);
+					await skyProfileExploreLikedProfile(data);
 					return;
 				}
 
-				if (isGuildStringSelectMenu(interaction)) {
+				if (isGuildStringSelectMenu(data)) {
 					if (id === CustomId.NotificationsSetup) {
 						const notificationType = Number(value0);
 
 						if (!isNotificationType(notificationType)) {
 							pino.error(
-								interaction,
+								data,
 								"Received an unknown notification type whilst setting up notifications.",
 							);
 
 							await client.api.interactions.updateMessage(
-								interaction.id,
-								interaction.token,
-								errorResponseV2(interaction.locale),
+								data.id,
+								data.token,
+								errorResponseV2(data.locale),
 							);
 
 							return;
 						}
 
-						await displayNotificationType(interaction, notificationType);
+						await displayNotificationType(data, notificationType);
 						return;
 					}
 
 					if (id === CustomId.NotificationsSetupOffset) {
-						await handleNotificationsStringSelectMenu(interaction);
+						await handleNotificationsStringSelectMenu(data);
 						return;
 					}
 
 					if (id === CustomId.DailyGuidesQuestsReorder) {
-						await questsReorder(interaction);
+						await questsReorder(data);
 						return;
 					}
 
 					if (id === CustomId.DailyGuidesLocale) {
-						await interactive(interaction, {
+						await interactive(data, {
 							type: InteractiveType.Locale,
 							locale: value0 as Locale,
 						});
@@ -1009,121 +969,94 @@ export default {
 					}
 
 					if (id === CustomId.AIFrequency) {
-						await AI.set(interaction);
+						await AI.set(data);
 						return;
 					}
 				}
 			} catch (error) {
-				addBreadcrumb({
-					type: "user",
-					level: "error",
-					data: interaction,
-					category: "Interaction",
-					message: "String select interaction failed.",
-					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
-				});
-
-				void recoverInteractionError(interaction, error);
+				void recoverInteractionError(data, error);
 				return;
 			}
 
-			pino.warn(interaction, "Received an unknown select menu interaction.");
+			pino.warn(data, "Received an unknown select menu interaction.");
 
 			await api.interactions.updateMessage(
-				interaction.id,
-				interaction.token,
-				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
-					? errorResponse(interaction.locale)
-					: errorResponseV2(interaction.locale),
+				data.id,
+				data.token,
+				data.message.flags && (data.message.flags & MessageFlags.IsComponentsV2) === 0
+					? errorResponse(data.locale)
+					: errorResponseV2(data.locale),
 			);
 
 			return;
 		}
 
-		if (isGuildRoleSelectMenu(interaction)) {
-			pino.info(interaction, `Role select: ${interaction.data.custom_id}`);
-			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
+		if (isGuildRoleSelectMenu(data)) {
+			pino.info(data, `Role select: ${data.data.custom_id}`);
+			const [id] = data.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
 				if (id === CustomId.NotificationsSetupRole) {
-					await handleNotificationsRoleSelectMenu(interaction);
+					await handleNotificationsRoleSelectMenu(data);
 					return;
 				}
 			} catch (error) {
-				addBreadcrumb({
-					type: "user",
-					level: "error",
-					data: interaction,
-					category: "Interaction",
-					message: "Role select failed.",
-					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
-				});
-
-				void recoverInteractionError(interaction, error);
+				void recoverInteractionError(data, error);
 				return;
 			}
 
-			pino.warn(interaction, "Received an unknown role select menu interaction.");
+			pino.warn(data, "Received an unknown role select menu interaction.");
 
 			await api.interactions.updateMessage(
-				interaction.id,
-				interaction.token,
-				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
-					? errorResponse(interaction.locale)
-					: errorResponseV2(interaction.locale),
+				data.id,
+				data.token,
+				data.message.flags && (data.message.flags & MessageFlags.IsComponentsV2) === 0
+					? errorResponse(data.locale)
+					: errorResponseV2(data.locale),
 			);
 
 			return;
 		}
 
-		if (isGuildChannelSelectMenu(interaction)) {
-			pino.info(interaction, `Channel select: ${interaction.data.custom_id}`);
-			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
+		if (isGuildChannelSelectMenu(data)) {
+			pino.info(data, `Channel select: ${data.data.custom_id}`);
+			const [id] = data.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
 				if (id === CustomId.DailyGuidesSetup) {
-					await handleDailyGuidesChannelSelectMenu(interaction);
+					await handleDailyGuidesChannelSelectMenu(data);
 					return;
 				}
 
 				if (id === CustomId.NotificationsSetupChannel) {
-					await handleNotificationsChannelSelectMenu(interaction);
+					await handleNotificationsChannelSelectMenu(data);
 					return;
 				}
 			} catch (error) {
-				addBreadcrumb({
-					type: "user",
-					level: "error",
-					data: interaction,
-					category: "Interaction",
-					message: "Channel select failed.",
-					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
-				});
-
-				void recoverInteractionError(interaction, error);
+				void recoverInteractionError(data, error);
 				return;
 			}
 
-			pino.warn(interaction, "Received an unknown channel select menu interaction.");
+			pino.warn(data, "Received an unknown channel select menu interaction.");
 
 			await api.interactions.updateMessage(
-				interaction.id,
-				interaction.token,
-				interaction.message.flags && (interaction.message.flags & MessageFlags.IsComponentsV2) === 0
-					? errorResponse(interaction.locale)
-					: errorResponseV2(interaction.locale),
+				data.id,
+				data.token,
+				data.message.flags && (data.message.flags & MessageFlags.IsComponentsV2) === 0
+					? errorResponse(data.locale)
+					: errorResponseV2(data.locale),
 			);
 
 			return;
 		}
 
-		if (isAutocomplete(interaction)) {
-			const command = AUTOCOMPLETE_COMMANDS.find(({ name }) => name === interaction.data.name);
+		if (isAutocomplete(data)) {
+			const command = AUTOCOMPLETE_COMMANDS.find(({ name }) => name === data.data.name);
 
 			if (!command) {
-				pino.warn(interaction, "Received an unknown command autocomplete interaction.");
+				pino.warn(data, "Received an unknown command autocomplete interaction.");
 
-				await api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+				await api.interactions.createAutocompleteResponse(data.id, data.token, {
 					choices: [],
 				});
 
@@ -1131,96 +1064,83 @@ export default {
 			}
 
 			try {
-				await command.autocomplete(interaction);
+				await command.autocomplete(data);
 			} catch (error) {
-				void recoverInteractionError(interaction, error);
+				void recoverInteractionError(data, error);
 			}
 
 			return;
 		}
 
-		if (isModalSubmit(interaction)) {
-			pino.info(interaction, `Modal submit: ${interaction.data.custom_id}`);
-			const [id] = interaction.data.custom_id.split("§") as [string, ...string[]];
+		if (isModalSubmit(data)) {
+			pino.info(data, `Modal submit: ${data.data.custom_id}`);
+			const [id] = data.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
 				if (id === CustomId.AboutFeedbackModal) {
-					await feedbackSubmission(interaction);
+					await feedbackSubmission(data);
 					return;
 				}
 
 				if (id === CustomId.AboutIssueModal) {
-					await issueSubmission(interaction);
+					await issueSubmission(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileNameModal) {
-					await skyProfileSetName(interaction);
+					await skyProfileSetName(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileDescriptionModal) {
-					await skyProfileSetDescription(interaction);
+					await skyProfileSetDescription(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileIconModal) {
-					await skyProfileSetIcon(interaction);
+					await skyProfileSetIcon(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileBannerModal) {
-					await skyProfileSetBanner(interaction);
+					await skyProfileSetBanner(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileHangoutModal) {
-					await skyProfileSetHangout(interaction);
+					await skyProfileSetHangout(data);
 					return;
 				}
 
 				if (id === CustomId.SkyProfileReportModal) {
-					await skyProfileSendReport(interaction);
+					await skyProfileSendReport(data);
 					return;
 				}
 
 				if (id === CustomId.ShopSuggestionModal) {
-					await shopSuggestionSubmission(interaction);
+					await shopSuggestionSubmission(data);
 					return;
 				}
 
-				if (isGuildModalSubmit(interaction)) {
+				if (isGuildModalSubmit(data)) {
 					if (id === CustomId.MeCustomiseMeModal) {
-						await meHandleCustomiseMeModal(interaction);
+						await meHandleCustomiseMeModal(data);
 						return;
 					}
 
 					if (id === CustomId.WelcomeEditModal) {
-						await welcomeHandleEditModal(interaction);
+						await welcomeHandleEditModal(data);
 						return;
 					}
 				}
 			} catch (error) {
-				addBreadcrumb({
-					type: "user",
-					level: "error",
-					data: interaction,
-					category: "Interaction",
-					message: "Modal submit failed.",
-					timestamp: DiscordSnowflake.timestampFrom(interaction.id) / 1000,
-				});
-
-				void recoverInteractionError(interaction, error);
+				void recoverInteractionError(data, error);
 				return;
 			}
 
-			pino.warn(interaction, "Received an unknown modal interaction.");
+			pino.warn(data, "Received an unknown modal interaction.");
 
-			await api.interactions.reply(
-				interaction.id,
-				interaction.token,
-				errorResponseV2(interaction.locale),
-			);
+			await api.interactions.reply(data.id, data.token, errorResponseV2(data.locale));
 		}
 	},
 } satisfies Event<typeof name>;
