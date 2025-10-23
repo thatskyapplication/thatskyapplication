@@ -3163,6 +3163,9 @@ export enum Cosmetic {
 	// 20/10/2025 | Season of Migration.
 	MigrationGuideQuest1 = 2503,
 	MigrationPendant = 2504,
+
+	// 23/10/2025 | Travelling Spirit #152.
+	NightbirdWhispererWingBuff = 2584,
 }
 
 export enum CosmeticCommon {
@@ -3314,4 +3317,5 @@ export const WING_BUFFS = [
 	Cosmetic.JollyGeologistWingBuff,
 	Cosmetic.TiptoeingTeaBrewerWingBuff,
 	Cosmetic.WoundedWarriorWingBuff,
+	Cosmetic.NightbirdWhispererWingBuff,
 ] as const satisfies Readonly<Cosmetic[]>;

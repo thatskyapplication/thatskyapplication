@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	call: Cosmetic.CallNightbird,
 	realm: RealmName.DaylightPrairie,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[{ cosmetic: Cosmetic.CallNightbird }],
 			[
@@ -65,6 +64,56 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.NightbirdWhispererSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[{ cosmetic: Cosmetic.CallNightbird }],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.NightbirdWhispererBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.NightbirdWhispererHair,
+					cost: { candles: 48 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.NightbirdWhispererSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.NightbirdWhispererWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.NightbirdWhispererBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Shoes,
+					cosmetic: Cosmetic.NightbirdWhispererShoes,
+					cost: { candles: 24 },
+				},
+				{
+					cosmetic: Cosmetic.NightbirdWhispererHairAccessory,
+					cost: { candles: 44 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.NightbirdWhispererOutfit,
+					cost: { candles: 46 },
 				},
 			],
 		],

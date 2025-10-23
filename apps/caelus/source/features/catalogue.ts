@@ -20,6 +20,7 @@ import {
 	type CataloguePacket,
 	ELDER_SPIRITS,
 	type ElderSpirit,
+	type Emoji,
 	type Event,
 	type EventIds,
 	formatEmoji,
@@ -1912,7 +1913,7 @@ async function viewSpirit(
 
 	if (friendshipTree.length > 0) {
 		const itemSelectionOptions = friendshipTreeToItems(friendshipTree).map(
-			({ translation, cosmetics, cosmeticDisplay }) => {
+			({ translation, cosmetics, cosmeticDisplay, regularHeart }) => {
 				const stringSelectMenuOption: APISelectMenuOption = {
 					default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
 					label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
@@ -1923,7 +1924,10 @@ async function viewSpirit(
 					value: JSON.stringify(cosmetics),
 				};
 
-				const emoji = CosmeticToEmoji[cosmeticDisplay];
+				// Too complex to represent. Assert.
+				const emoji = regularHeart
+					? (MISCELLANEOUS_EMOJIS.Heart as Emoji)
+					: (CosmeticToEmoji[cosmeticDisplay] as Emoji);
 
 				if (emoji) {
 					stringSelectMenuOption.emoji = emoji;
