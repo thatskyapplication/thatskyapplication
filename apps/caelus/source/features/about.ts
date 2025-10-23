@@ -46,12 +46,17 @@ import {
 	MAXIMUM_FEEDBACK_TITLE_LENGTH,
 	MINIMUM_FEEDBACK_TITLE_LENGTH,
 	PATREON_URL,
-	SKY_PROFILES_URL,
 	THATSKYGAME_URL,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOTE_EMOJIS } from "../utility/emojis.js";
-import { avatarURL, interactionInvoker, isValidAttachment, userTag } from "../utility/functions.js";
+import {
+	avatarURL,
+	interactionInvoker,
+	isValidAttachment,
+	skyProfileWebsiteURL,
+	userTag,
+} from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { skyProfileIconURL } from "./sky-profile.js";
@@ -269,7 +274,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 							invoker.id && skyProfilePacket?.icon
 								? skyProfileIconURL(invoker.id, skyProfilePacket.icon)
 								: avatarURL(invoker),
-						url: `${SKY_PROFILES_URL}/${invoker.id}`,
+						url: skyProfileWebsiteURL(invoker.id),
 					},
 					color: DEFAULT_EMBED_COLOUR,
 					description,
@@ -461,7 +466,7 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `## [${skyProfilePacket?.name ?? userTag(invoker)}](${SKY_PROFILES_URL}/${invoker.id})`,
+					content: `## [${skyProfilePacket?.name ?? userTag(invoker)}](${skyProfileWebsiteURL(invoker.id)})`,
 				},
 			],
 		},

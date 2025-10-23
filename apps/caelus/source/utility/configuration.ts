@@ -5,6 +5,19 @@ import { z } from "zod/v4";
 // Production detection.
 export const PRODUCTION = process.env.NODE_ENV === "production";
 
+const messageLogChannelIdsSchema = z
+	.string()
+	.min(2)
+	.transform((arg, ctx) => {
+		try {
+			return JSON.parse(arg);
+		} catch {
+			ctx.addIssue({ code: "custom", message: "Invalid JSON format.", input: arg });
+			return z.NEVER;
+		}
+	})
+	.pipe(z.array(z.string()).readonly());
+
 const envSchema = z.object({
 	DISCORD_TOKEN: z.string().min(1),
 	MAXIMUM_CONCURRENCY_LIMIT: z.coerce.number().int().min(1),
@@ -16,6 +29,9 @@ const envSchema = z.object({
 	SHOP_SUGGESTIONS_CHANNEL_ID: z.string().min(1),
 	DAILY_GUIDES_LOG_CHANNEL_ID: z.string().min(1),
 	MEMBER_LOG_CHANNEL_ID: z.string().min(1),
+	MESSAGE_LOG_CHANNEL_ID: z.string().min(1),
+	MESSAGE_LOG_EXPLICIT_ALLOWED_CHANNEL_IDS: messageLogChannelIdsSchema,
+	MESSAGE_LOG_EXPLICIT_DISALLOWED_CHANNEL_IDS: messageLogChannelIdsSchema,
 	IDEA_TAG_ID: z.string().min(1),
 	ISSUE_TAG_ID: z.string().min(1),
 	DEVELOPER_ROLE_ID: z.string().min(1),
@@ -50,6 +66,9 @@ export const {
 	SHOP_SUGGESTIONS_CHANNEL_ID,
 	DAILY_GUIDES_LOG_CHANNEL_ID,
 	MEMBER_LOG_CHANNEL_ID,
+	MESSAGE_LOG_CHANNEL_ID,
+	MESSAGE_LOG_EXPLICIT_ALLOWED_CHANNEL_IDS,
+	MESSAGE_LOG_EXPLICIT_DISALLOWED_CHANNEL_IDS,
 	IDEA_TAG_ID,
 	ISSUE_TAG_ID,
 	DEVELOPER_ROLE_ID,

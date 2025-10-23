@@ -10,6 +10,7 @@ export enum Table {
 	GiveawayUpsell = "giveaway_upsell",
 	Guess = "guess",
 	Hearts = "hearts",
+	Messages = "messages",
 	Notifications = "notifications",
 	Profiles = "profiles",
 	RedditWebhooks = "reddit_webhooks",

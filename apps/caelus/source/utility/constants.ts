@@ -48,7 +48,7 @@ export const I18_NEXT_OPTIONS = {
 // Website URLs.
 export const DAILY_GUIDES_URL = String(new URL("daily-guides", WEBSITE_URL));
 export const SHARD_ERUPTION_URL = String(new URL("shard-eruption", WEBSITE_URL));
-export const SKY_PROFILES_URL = String(new URL("sky-profiles", WEBSITE_URL));
+export const SKY_PROFILES_URL = `${WEBSITE_URL}/sky-profiles` as const;
 
 // Quest numbers.
 export const QUEST_NUMBER = [1, 2, 3, 4] as const;

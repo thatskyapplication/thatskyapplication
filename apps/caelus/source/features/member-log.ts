@@ -27,27 +27,27 @@ type MemberLogAllowedChannel = Extract<
 	{ type: (typeof MEMBER_LOG_CHANNEL_TYPES)[number] }
 >;
 
-export function isMemberLogChannel(channel: APIChannel): channel is MemberLogAllowedChannel {
+function isMemberLogChannel(channel: APIChannel): channel is MemberLogAllowedChannel {
 	return MEMBER_LOG_CHANNEL_TYPES.includes(
 		channel.type as (typeof MEMBER_LOG_CHANNEL_TYPES)[number],
 	);
 }
 
-export function isMemberLogSendable(
+function isMemberLogSendable(
 	guild: Guild,
 	channel: MemberLogAllowedChannel,
 	me: GuildMember,
 	returnErrors: true,
 ): string[];
 
-export function isMemberLogSendable(
+function isMemberLogSendable(
 	guild: Guild,
 	channel: MemberLogAllowedChannel,
 	me: GuildMember,
 	returnErrors?: false,
 ): boolean;
 
-export function isMemberLogSendable(
+function isMemberLogSendable(
 	guild: Guild,
 	channel: MemberLogAllowedChannel,
 	me: GuildMember,

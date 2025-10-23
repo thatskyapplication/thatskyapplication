@@ -2,7 +2,6 @@ import { Collection } from "@discordjs/collection";
 import type {
 	APIMessage,
 	GatewayMessageCreateDispatchData,
-	GatewayMessageDeleteDispatchData,
 	GatewayMessageUpdateDispatchData,
 	Snowflake,
 } from "@discordjs/core";
@@ -28,8 +27,8 @@ export function addMessageToCache(message: GatewayMessageCreateDispatchData) {
 	messages.set(message.id, message);
 }
 
-export function removeMessageFromCache(message: GatewayMessageDeleteDispatchData) {
-	MESSAGE_CACHE.get(message.channel_id)?.delete(message.id);
+export function removeMessageFromCache(channelId: Snowflake, messageId: Snowflake) {
+	MESSAGE_CACHE.get(channelId)?.delete(messageId);
 }
 
 export function updateMessageCache(

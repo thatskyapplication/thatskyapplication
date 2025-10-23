@@ -6,7 +6,6 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	ButtonStyle,
-	ChannelType,
 	ComponentType,
 	type GatewayMessageCreateDispatchData,
 	MessageFlags,
@@ -39,6 +38,7 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
+import { isThreadChannel } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 import type { GuildChannel } from "./discord/guild.js";
 import type { GuildMember } from "./discord/guild-member.js";
@@ -272,11 +272,7 @@ export default class AI {
 		const entitlement = await fetchEntitlement(guild.id);
 		let resolvedChannelForPermission: GuildChannel;
 
-		if (
-			channel.type === ChannelType.AnnouncementThread ||
-			channel.type === ChannelType.PublicThread ||
-			channel.type === ChannelType.PrivateThread
-		) {
+		if (isThreadChannel(channel)) {
 			const parentChannel = guild.channels.get(channel.parentId);
 
 			if (!parentChannel) {

@@ -13,6 +13,7 @@ import {
 	type APIUser,
 	type APIUserApplicationCommandInteraction,
 	ApplicationCommandType,
+	ChannelType,
 	ComponentType,
 	InteractionType,
 	type Locale,
@@ -22,12 +23,15 @@ import {
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import { t } from "i18next";
 import { client } from "../discord.js";
+import type { GuildChannel } from "../models/discord/guild.js";
+import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import { APPLICATION_INVITE_URL, SUPPORT_SERVER_INVITE_URL } from "./configuration.js";
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
 	ALLOWED_MEDIA_TYPES,
 	ANIMATED_HASH_PREFIX,
 	MAXIMUM_ASSET_SIZE,
+	SKY_PROFILES_URL,
 } from "./constants.js";
 
 export function chatInputApplicationCommandMention(
@@ -222,6 +226,16 @@ export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PR
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }
 
+export function isThreadChannel(
+	channel: GuildChannel | AnnouncementThread | PublicThread | PrivateThread,
+) {
+	return (
+		channel.type === ChannelType.AnnouncementThread ||
+		channel.type === ChannelType.PublicThread ||
+		channel.type === ChannelType.PrivateThread
+	);
+}
+
 export function userTag(user: Pick<APIUser, "username" | "discriminator">) {
 	return user.discriminator === "0" ? user.username : `${user.username}#${user.discriminator}`;
 }
@@ -237,6 +251,10 @@ export function avatarURL(user: APIUser) {
 		: client.rest.cdn.defaultAvatar(index);
 }
 
+export function messageLink(guildId: Snowflake, channelId: Snowflake, messageId: Snowflake) {
+	return `https://discord.com/channels/${guildId}/${channelId}/${messageId}`;
+}
+
 export function equalSet<T>(set1: Set<T>, set2: Set<T>) {
 	if (set1.size !== set2.size) {
 		return false;
@@ -249,4 +267,10 @@ export function equalSet<T>(set1: Set<T>, set2: Set<T>) {
 	}
 
 	return true;
+}
+
+export function skyProfileWebsiteURL<UserId extends Snowflake>(
+	userId: UserId,
+): `${typeof SKY_PROFILES_URL}/${UserId}` {
+	return `${SKY_PROFILES_URL}/${userId}`;
 }

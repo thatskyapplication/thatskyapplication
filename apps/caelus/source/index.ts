@@ -22,6 +22,7 @@ import type { Event } from "./events/index.js";
 import interactionCreate from "./events/interaction-create.js";
 import messageCreate from "./events/message-create.js";
 import messageDelete from "./events/message-delete.js";
+import messageDeleteBulk from "./events/message-delete-bulk.js";
 import messageUpdate from "./events/message-update.js";
 import ready from "./events/ready.js";
 import threadCreate from "./events/thread-create.js";
@@ -50,6 +51,7 @@ for (const event of [
 	guildUpdate,
 	interactionCreate,
 	messageCreate,
+	messageDeleteBulk,
 	messageDelete,
 	messageUpdate,
 	ready,

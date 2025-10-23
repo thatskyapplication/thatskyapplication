@@ -107,6 +107,7 @@ import {
 	isChatInputCommand,
 	isValidImageAttachment,
 	resolveStringSelectMenu,
+	skyProfileWebsiteURL,
 	userLogFormat,
 } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
@@ -2166,7 +2167,7 @@ async function skyProfileComponents(
 	if (name) {
 		const textDisplay: APITextDisplayComponent = {
 			type: ComponentType.TextDisplay,
-			content: `## [${name}](${SKY_PROFILES_URL}/${userId})`,
+			content: `## [${name}](${skyProfileWebsiteURL(userId)})`,
 		};
 
 		if (icon) {
@@ -2442,7 +2443,7 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 
 	if (!banner) {
 		missing.push(
-			`- ${t("sky-profile.missing-banner", { ...options, url: `${SKY_PROFILES_URL}/${skyProfilePacket.user_id}` })}`,
+			`- ${t("sky-profile.missing-banner", { ...options, url: skyProfileWebsiteURL(skyProfilePacket.user_id) })}`,
 		);
 	}
 

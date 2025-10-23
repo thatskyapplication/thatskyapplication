@@ -15,10 +15,15 @@ import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pino from "../pino.js";
 import { SHOP_SUGGESTIONS_CHANNEL_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
-import { DEFAULT_EMBED_COLOUR, SKY_PROFILES_URL } from "../utility/constants.js";
+import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { avatarURL, interactionInvoker, userTag } from "../utility/functions.js";
+import {
+	avatarURL,
+	interactionInvoker,
+	skyProfileWebsiteURL,
+	userTag,
+} from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 
@@ -140,7 +145,7 @@ export async function shopSuggestionSubmission(interaction: APIModalSubmitIntera
 				author: {
 					name: `${userTag(invoker)} (${invoker.id})`,
 					icon_url: avatarURL(invoker),
-					url: `${SKY_PROFILES_URL}/${invoker.id}`,
+					url: skyProfileWebsiteURL(invoker.id),
 				},
 				color: DEFAULT_EMBED_COLOUR,
 				description: text,

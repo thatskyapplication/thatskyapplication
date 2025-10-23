@@ -1,11 +1,13 @@
-import { ChannelType, GatewayDispatchEvents, PermissionFlagsBits } from "@discordjs/core";
+import { GatewayDispatchEvents, PermissionFlagsBits } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { addMessageToCache } from "../caches/messages.js";
+import { messageLogUpsert } from "../features/message-log.js";
 import AI from "../models/AI.js";
 import Configuration from "../models/Configuration.js";
 import type { GuildChannel } from "../models/discord/guild.js";
 import pino from "../pino.js";
-import { APPLICATION_ID } from "../utility/configuration.js";
+import { APPLICATION_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
+import { isThreadChannel } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 import type { Event } from "./index.js";
 
@@ -20,17 +22,17 @@ export default {
 			return;
 		}
 
+		if (guild.id === SUPPORT_SERVER_GUILD_ID && !data.author.bot && data.content !== "") {
+			await messageLogUpsert(data, guild);
+		}
+
 		const channel = guild.channels.get(data.channel_id) ?? guild.threads.get(data.channel_id);
 
 		if (!channel) {
 			return;
 		}
 
-		const isThreadChannelType =
-			channel.type === ChannelType.AnnouncementThread ||
-			channel.type === ChannelType.PublicThread ||
-			channel.type === ChannelType.PrivateThread;
-
+		const isThreadChannelType = isThreadChannel(channel);
 		let resolvedChannelForPermission: GuildChannel;
 
 		if (isThreadChannelType) {
