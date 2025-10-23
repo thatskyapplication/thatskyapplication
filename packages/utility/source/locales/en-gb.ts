@@ -2809,6 +2809,7 @@ export default {
 			[Cosmetic.MoonlightBasin]: "Moonlight Basin",
 			[Cosmetic.MoonlightGarlandCape]: "Moonlight Garland Cape",
 			[Cosmetic.MigrationPendant]: "Pendant",
+			[Cosmetic.MigrationGuideUltimateShoes]: "Ultimate shoes",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

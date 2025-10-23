@@ -5,7 +5,7 @@ import type { Cosmetic } from "../cosmetics.js";
 import { skyDate } from "../dates.js";
 import type { RealmName } from "../kingdom.js";
 import { CDN_URL } from "../routes.js";
-import type { SeasonId, SeasonIds } from "../season.js";
+import type { SeasonIds } from "../season.js";
 import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
 import {
 	type FriendAction,
@@ -65,9 +65,7 @@ export type FriendshipTreeRaw = readonly (readonly [
 
 interface BaseFriendshipTreeOfferData {
 	hasInfographic?: boolean;
-	current?: SeasonIds extends typeof SeasonId.Migration
-		? FriendshipTreeRaw
-		: LegacyFriendshipTreeRaw;
+	current?: FriendshipTreeRaw | LegacyFriendshipTreeRaw;
 }
 
 interface StandardFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
@@ -80,9 +78,7 @@ interface ElderFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 
 interface SeasonalFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 	hasInfographicSeasonal?: boolean;
-	seasonal: SeasonIds extends typeof SeasonId.Migration
-		? FriendshipTreeRaw
-		: LegacyFriendshipTreeRaw;
+	seasonal: FriendshipTreeRaw | LegacyFriendshipTreeRaw;
 }
 
 interface GuideFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {

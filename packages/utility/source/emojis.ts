@@ -1207,6 +1207,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Anniversary Gown Ensemble Shoes.
 	 */
 	Shoe23: { id: "1404327902828560456", name: "23_shoe" },
+	/**
+	 * Migration Guide (ultimate).
+	 */
+	Shoe24: { id: "1431028995335389225", name: "24_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1233,6 +1237,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe21: { id: "1366371897792532620", name: "21_shoe" },
 	Shoe22: { id: "1396917426486247454", name: "22_shoe" },
 	Shoe23: { id: "1404327909891641480", name: "23_shoe" },
+	Shoe24: { id: "1431029005762691394", name: "24_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -8109,6 +8114,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigrationGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationPendant]: NECKLACE_EMOJIS.Necklace52,
 		[Cosmetic.NightbirdWhispererWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.MigrationGuideUltimateShoes]: SHOE_EMOJIS.Shoe24,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

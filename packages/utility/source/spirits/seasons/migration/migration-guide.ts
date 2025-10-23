@@ -23,6 +23,15 @@ export default new GuideSpirit({
 					seasonPass: true,
 				},
 			],
+			[
+				null,
+				null,
+				{
+					cosmetic: Cosmetic.MigrationGuideUltimateShoes,
+					cost: { seasonalHearts: 1 },
+					seasonPass: true,
+				},
+			],
 		],
 	},
 });
