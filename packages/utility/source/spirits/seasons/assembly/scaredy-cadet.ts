@@ -83,6 +83,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 24 },
 				},
 				{
+					translation: CosmeticCommon.Heart,
 					cosmetic: Cosmetic.ScaredyCadetSeasonalHeart,
 					cost: { candles: 3 },
 					regularHeart: true,

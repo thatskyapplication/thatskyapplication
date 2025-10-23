@@ -62,6 +62,7 @@ export default new SeasonalSpirit({
 					level: 2,
 				},
 				{
+					translation: CosmeticCommon.Heart,
 					cosmetic: Cosmetic.StretchingLamplighterSeasonalHeart,
 					cost: { candles: 3 },
 					regularHeart: true,

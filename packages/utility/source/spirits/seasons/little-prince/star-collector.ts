@@ -73,6 +73,7 @@ export default new SeasonalSpirit({
 					level: 2,
 				},
 				{
+					translation: CosmeticCommon.Heart,
 					cosmetic: Cosmetic.StarCollectorSeasonalHeart,
 					cost: { candles: 3 },
 					regularHeart: true,

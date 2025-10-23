@@ -74,6 +74,7 @@ export default new SeasonalSpirit({
 				},
 				{ cosmetic: Cosmetic.TumblingTroublemakerHair, cost: { candles: 40 } },
 				{
+					translation: CosmeticCommon.Heart,
 					cosmetic: Cosmetic.TumblingTroublemakerSeasonalHeart,
 					cost: { candles: 3 },
 					regularHeart: true,

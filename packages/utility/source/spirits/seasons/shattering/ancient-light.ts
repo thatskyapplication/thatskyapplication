@@ -62,6 +62,7 @@ export default [
 						cost: { candles: 45 },
 					},
 					{
+						translation: CosmeticCommon.Heart,
 						cosmetic: Cosmetic.AncientLightJellyfishSeasonalHeart,
 						cost: { candles: 3 },
 						regularHeart: true,
@@ -173,6 +174,7 @@ export default [
 						cost: { candles: 15 },
 					},
 					{
+						translation: CosmeticCommon.Heart,
 						cosmetic: Cosmetic.AncientLightMantaSeasonalHeart,
 						cost: { candles: 3 },
 						regularHeart: true,

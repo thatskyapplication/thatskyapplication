@@ -74,6 +74,7 @@ export default new SeasonalSpirit({
 				},
 				{ cosmetic: Cosmetic.JollyGeologistProp, cost: { candles: 36 } },
 				{
+					translation: CosmeticCommon.Heart,
 					cosmetic: Cosmetic.JollyGeologistSeasonalHeart,
 					cost: { candles: 3 },
 					regularHeart: true,

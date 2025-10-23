@@ -77,6 +77,7 @@ export default new SeasonalSpirit({
 				},
 				{ cosmetic: Cosmetic.TiptoeingTeaBrewerHair, cost: { candles: 40 } },
 				{
+					translation: CosmeticCommon.Heart,
 					cosmetic: Cosmetic.TiptoeingTeaBrewerSeasonalHeart,
 					cost: { candles: 3 },
 					regularHeart: true,
