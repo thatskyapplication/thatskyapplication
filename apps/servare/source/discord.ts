@@ -1,4 +1,9 @@
-import { Client, GatewayIntentBits, type RESTGetAPIGatewayBotResult } from "@discordjs/core";
+import {
+	Client,
+	GatewayIntentBits,
+	type RESTGetAPIGatewayBotResult,
+	Routes,
+} from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import { WebSocketManager } from "@discordjs/ws";
 import { DISCORD_TOKEN } from "./utility/constants.js";
@@ -11,7 +16,8 @@ export const gateway = new WebSocketManager({
 		GatewayIntentBits.GuildMembers |
 		GatewayIntentBits.GuildMessages |
 		GatewayIntentBits.MessageContent,
-	fetchGatewayInformation: () => rest.get("/gateway/bot") as Promise<RESTGetAPIGatewayBotResult>,
+	fetchGatewayInformation: () =>
+		rest.get(Routes.gatewayBot()) as Promise<RESTGetAPIGatewayBotResult>,
 	token: DISCORD_TOKEN,
 });
 
