@@ -384,7 +384,7 @@
 			"23": "Temporada do Resplendor",
 			"24": "Temporada do Pássaro Azul",
 			"25": "Temporada das Duas Fagulhas - Parte 1",
-			"26": ""
+			"26": "Temporada da Migração"
 		},
 		"season-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Gratid%C3%A3o",
@@ -3073,7 +3073,7 @@
 		"me": {
 			"title": "Eu",
 			"upsell-message": "Este é um recurso premium!\n\nVocê pode me personalizar totalmente editando minha bio, meu banner e meu avatar no seu servidor — do jeitinho que quiser!\n\nPara começar, é só interagir com o botão abaixo.",
-			"message": "Gostaria de me personalizar? ✨\n\nVocê pode definir minha bio, avatar e banner neste servidor! Interaja com os botões abaixo para iniciar!\n\nVocê pode remover as alterações personalizadas utilizando os botões abaixo.",
+			"message": "",
 			"customise-me-button-label": "Personalize-me!",
 			"customise-me-modal-title": "Personalize-me",
 			"customise-me-modal-label-bio-label": "Bio",
