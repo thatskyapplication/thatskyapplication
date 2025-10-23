@@ -74,22 +74,6 @@ services:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       DATABASE_URL: ${DATABASE_URL_CAELUS}
       SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME_NOTIFICATIONS}
-  thatskyapplication-servare:
-    image: thatskyapplication-servare:latest
-    profiles:
-      - thatskyapplication-servare
-    restart: unless-stopped
-    logging:
-      driver: local
-      options:
-        max-size: 1m
-        max-file: 1
-        compress: "false"
-    environment:
-      DISCORD_TOKEN: ${DISCORD_TOKEN_SERVARE}
-      APPLICATION_ID: ${APPLICATION_ID}
-      DATABASE_URL: ${DATABASE_URL_SERVARE}
-      SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME_SERVARE}
   thatskyapplication-socials:
     image: thatskyapplication-socials:latest
     profiles:

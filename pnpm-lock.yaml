@@ -158,67 +158,6 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
-  apps/servare:
-    dependencies:
-      '@discordjs/collection':
-        specifier: ^2.1.1
-        version: 2.1.1
-      '@discordjs/core':
-        specifier: dev
-        version: 3.0.0-dev.1761177718-886d4a7fc
-      '@discordjs/rest':
-        specifier: dev
-        version: 3.0.0-dev.1761177718-886d4a7fc
-      '@discordjs/ws':
-        specifier: dev
-        version: 3.0.0-dev.1761177718-886d4a7fc
-      '@sapphire/snowflake':
-        specifier: ^3.5.5
-        version: 3.5.5
-      '@sapphire/string-store':
-        specifier: ^2.0.0
-        version: 2.0.0
-      '@sentry/node':
-        specifier: ^10.20.0
-        version: 10.20.0
-      croner:
-        specifier: ^9.1.0
-        version: 9.1.0
-      diff:
-        specifier: ^7.0.0
-        version: 7.0.0
-      knex:
-        specifier: ^3.1.0
-        version: 3.1.0(pg@8.16.3)
-      pg:
-        specifier: ^8.16.3
-        version: 8.16.3
-      pino:
-        specifier: ^9.9.0
-        version: 9.9.0
-    devDependencies:
-      '@biomejs/biome':
-        specifier: 2.2.0
-        version: 2.2.0
-      '@types/diff':
-        specifier: ^7.0.2
-        version: 7.0.2
-      '@types/node':
-        specifier: ^22.18.11
-        version: 22.18.11
-      knip:
-        specifier: ^5.62.0
-        version: 5.66.1(@types/node@22.18.11)(typescript@5.9.2)
-      pino-pretty:
-        specifier: ^13.1.1
-        version: 13.1.1
-      tsx:
-        specifier: ^4.20.4
-        version: 4.20.4
-      typescript:
-        specifier: 5.9.2
-        version: 5.9.2
-
   apps/socials:
     dependencies:
       '@atproto/api':
@@ -1799,10 +1738,6 @@ packages:
   '@sapphire/snowflake@3.5.5':
     resolution: {integrity: sha512-xzvBr1Q1c4lCe7i6sRnrofxeO1QTP/LKQ6A6qy0iB4x5yfiSfARMEQEghojzTNALDTcv8En04qYNIco9/K9eZQ==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
-
-  '@sapphire/string-store@2.0.0':
-    resolution: {integrity: sha512-Ba6HQqzvtTu+8Ye4Vmd51lU2+L9C3KAWbvtIbkJlVEC9iKC98hAvDronE/qOgMDZfYI8KgT9dsLXtGuA8sFneQ==}
-    engines: {node: '>=v20', npm: '>=10'}
 
   '@sentry-internal/browser-utils@10.20.0':
     resolution: {integrity: sha512-9+NybrYs+dEM2iW5uRAYEhKkNK0XhDea5jovtDUXEvdSCMJFcdR88uztkftnCur45/hpvbgSULsGPUdHPb5ITw==}
@@ -5981,8 +5916,6 @@ snapshots:
   '@sapphire/async-queue@1.5.5': {}
 
   '@sapphire/snowflake@3.5.5': {}
-
-  '@sapphire/string-store@2.0.0': {}
 
   '@sentry-internal/browser-utils@10.20.0':
     dependencies:
