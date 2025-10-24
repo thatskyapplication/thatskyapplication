@@ -15,7 +15,7 @@
 		"@atproto/api": "^0.16.2",
 		"@discordjs/core": "dev",
 		"@discordjs/rest": "dev",
-		"@sentry/node": "^10.20.0",
+		"@sentry/node": "^10.22.0",
 		"@skyware/jetstream": "0.2.5",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
