@@ -4,23 +4,17 @@ import {
 	type GatewayGuildMemberAddDispatchData,
 	type GatewayGuildMemberRemoveDispatchData,
 	PermissionFlagsBits,
-	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { WEBSITE_URL } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import { MEMBER_LOG_CHANNEL_ID } from "../utility/configuration.js";
-import { avatarURL, userTag } from "../utility/functions.js";
+import { avatarURL, skyProfileWebsiteURL, userTag } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 
 const MEMBER_LOG_CHANNEL_TYPES = [ChannelType.GuildText] as const;
 const MEMBER_LOG_LEAVE_COLOUR = 0x000000 as const;
-
-function skyProfileURL(userId: Snowflake) {
-	return new URL(userId, WEBSITE_URL).href;
-}
 
 type MemberLogAllowedChannel = Extract<
 	APIChannel,
@@ -148,7 +142,7 @@ export async function memberLogSendJoinLeave({
 				author: {
 					name: user.username,
 					icon_url: avatarURL(user),
-					url: skyProfileURL(user.id),
+					url: skyProfileWebsiteURL(user.id),
 				},
 				description: description.join("\n"),
 				color: leftTimestamp
