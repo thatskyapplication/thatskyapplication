@@ -63,7 +63,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MigratingBellmakerTrust,
 				},
 				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 					cosmetic: Cosmetic.MigratingBellmakerBlessing3,
 					seasonPass: true,
 				},
