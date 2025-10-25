@@ -1,15 +1,82 @@
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { RealmName } from "../../../kingdom.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
 
+const call = Cosmetic.CallLighthorn;
+
 export default new SeasonalSpirit({
 	id: SpiritId.MigratingBellmaker,
 	seasonId: SeasonId.Migration,
+	call,
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		hasInfographic: false,
 		hasInfographicSeasonal: false,
-		seasonal: [],
+		seasonal: [
+			[
+				{
+					cosmetic: call,
+				},
+				{
+					cosmetic: Cosmetic.MusicSheetAncientEcho,
+					cost: { seasonalCandles: 18 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MigratingBellmakerHair,
+					cost: { seasonalCandles: 23 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MigratingBellmakerBlessing1,
+					cost: { seasonalCandles: 4 },
+				},
+				{
+					cosmetic: Cosmetic.MigratingBellmakerDye,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MigratingBellmakerBlueDye,
+					cost: { seasonalCandles: 9 },
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MigratingBellmakerBlessing2,
+					cost: { seasonalCandles: 6 },
+				},
+				{
+					cosmetic: Cosmetic.MigratingBellmakerHeadAccessory,
+					seasonPass: true,
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MigratingBellmakerCape,
+					cost: { seasonalCandles: 36 },
+				},
+				{
+					cosmetic: Cosmetic.MigratingBellmakerTrust,
+				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MigratingBellmakerBlessing3,
+					seasonPass: true,
+				},
+			],
+			[
+				null,
+				null,
+				{
+					cosmetic: Cosmetic.MigratingBellmakerSeasonalHeart,
+					cost: { seasonalCandles: 3 },
+					seasonPass: true,
+				},
+			],
+		],
 	},
 });
