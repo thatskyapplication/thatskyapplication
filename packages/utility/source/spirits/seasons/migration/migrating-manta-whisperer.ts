@@ -82,6 +82,7 @@ export default new SeasonalSpirit({
 				null,
 				null,
 				{
+					translation: CosmeticCommon.SeasonalHeart,
 					cosmetic: Cosmetic.MigratingMantaWhispererSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,

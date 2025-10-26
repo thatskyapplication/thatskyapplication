@@ -46,6 +46,7 @@ export default [
 				],
 				[
 					{
+						translation: CosmeticCommon.SeasonalHeart,
 						cosmetic: Cosmetic.AncientLightJellyfishSeasonalHeart,
 						cost: { seasonalCandles: 3 },
 						seasonPass: true,
@@ -164,6 +165,7 @@ export default [
 				],
 				[
 					{
+						translation: CosmeticCommon.SeasonalHeart,
 						cosmetic: Cosmetic.AncientLightMantaSeasonalHeart,
 						cost: { seasonalCandles: 3 },
 						seasonPass: true,

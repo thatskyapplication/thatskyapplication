@@ -45,6 +45,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.SeasonalHeart,
 					cosmetic: Cosmetic.TheMusiciansLegacySeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,

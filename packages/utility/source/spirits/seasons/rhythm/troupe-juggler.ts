@@ -74,6 +74,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.SeasonalHeart,
 					cosmetic: Cosmetic.TroupeJugglerSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
