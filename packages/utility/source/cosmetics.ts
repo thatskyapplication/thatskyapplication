@@ -3229,7 +3229,7 @@ export enum Cosmetic {
 	MigratingMantaWhispererSeasonalHeart = 2568,
 
 	// 23/10/2025 | Travelling Spirit #152.
-	NightbirdWhispererWingBuff = 2584,
+	NightbirdWhispererWingBuff = 2569,
 }
 
 export enum CosmeticCommon {
