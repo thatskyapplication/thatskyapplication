@@ -234,6 +234,7 @@ const EMOTE_EMOJIS_PRODUCTION = {
 	HeartGesture: { id: "1330656137174978560", name: "heart_gesture" },
 	Cough: { id: "1363812372510150676", name: "cough" },
 	Amazed: { id: "1365270363428360304", name: "amazed" },
+	FlagSignal: { id: "1431952765734617181", name: "flag_signal" },
 	FlightRun: { id: "1431815492737306715", name: "flight_run" },
 	JellyfishDance: { id: "1431949581221888150", name: "jellyfish_dance" },
 	Dizzy: { id: "1431943071666540554", name: "dizzy" },
@@ -348,6 +349,7 @@ const EMOTE_EMOJIS_DEVELOPMENT = {
 	HeartGesture: { id: "1330656144921985115", name: "heart_gesture" },
 	Cough: { id: "1363812384329699408", name: "cough" },
 	Amazed: { id: "1365270370436780152", name: "amazed" },
+	FlagSignal: { id: "1431952776078037062", name: "flag_signal" },
 	FlightRun: { id: "1431815498953261056", name: "flight_run" },
 	JellyfishDance: { id: "1431949589807759423", name: "jellyfish_dance" },
 	Dizzy: { id: "1431943075508256860", name: "dizzy" },
@@ -1040,6 +1042,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Migrating Jellyfish Whisperer.
 	 */
 	Outfit94: { id: "1431949634774761649", name: "94_outfit" },
+	/**
+	 * Migrating Manta Whisperer.
+	 */
+	Outfit95: { id: "1431952759711862907", name: "95_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1137,6 +1143,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit92: { id: "1431638770482151445", name: "92_outfit" },
 	Outfit93: { id: "1431816173930151956", name: "93_outfit" },
 	Outfit94: { id: "1431949644669390898", name: "94_outfit" },
+	Outfit95: { id: "1431952770440892518", name: "95_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -2865,6 +2872,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Migrating Bellmaker.
 	 */
 	Hair169: { id: "1431662851990224957", name: "169_hair" },
+	/**
+	 * Migrating Manta Whisperer.
+	 */
+	Hair170: { id: "1431952763998441492", name: "170_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3037,6 +3048,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair167: { id: "1396916710698909706", name: "167_hair" },
 	Hair168: { id: "1396949348863971441", name: "168_hair" },
 	Hair169: { id: "1431662859770658916", name: "169_hair" },
+	Hair170: { id: "1431952774568087552", name: "170_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4134,6 +4146,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Migrating Butterfly Charmer.
 	 */
 	Cape163: { id: "1431943063403499630", name: "163_cape" },
+	/**
+	 * Migrating Manta Whisperer.
+	 */
+	Cape164: { id: "1431952761573998751", name: "164_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4300,6 +4316,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape161: { id: "1431664163591290960", name: "161_cape" },
 	Cape162: { id: "1431816413571711228", name: "162_cape" },
 	Cape163: { id: "1431943073579012138", name: "163_cape" },
+	Cape164: { id: "1431952772332392589", name: "164_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -8230,6 +8247,19 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.EmoteJellyfishDance4]: EMOTE_EMOJIS.JellyfishDance,
 		[Cosmetic.MigratingJellyWhispererBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.MigratingJellyWhispererSeasonalHeart]: SEASON_EMOJIS.MigrationHeart,
+		[Cosmetic.EmoteFlagSignal1]: EMOTE_EMOJIS.FlagSignal,
+		[Cosmetic.MigratingMantaWhispererBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.MigratingMantaWhispererHair]: HAIR_EMOJIS.Hair170,
+		[Cosmetic.MigratingMantaWhispererBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.EmoteFlagSignal2]: EMOTE_EMOJIS.FlagSignal,
+		[Cosmetic.EmoteFlagSignal3]: EMOTE_EMOJIS.FlagSignal,
+		[Cosmetic.MigratingMantaWhispererBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.MigratingMantaWhispererCape]: CAPE_EMOJIS.Cape164,
+		[Cosmetic.MigratingMantaWhispererWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
+		[Cosmetic.MigratingMantaWhispererTrust]: MISCELLANEOUS_EMOJIS.Trust,
+		[Cosmetic.EmoteFlagSignal4]: EMOTE_EMOJIS.FlagSignal,
+		[Cosmetic.MigratingMantaWhispererOutfit]: OUTFIT_EMOJIS.Outfit95,
+		[Cosmetic.MigratingMantaWhispererSeasonalHeart]: SEASON_EMOJIS.MigrationHeart,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

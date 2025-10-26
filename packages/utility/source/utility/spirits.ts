@@ -384,6 +384,7 @@ export enum SpiritEmote {
 	HeartGesture = "Heart gesture",
 	Cough = "Cough",
 	Amazed = "Amazed",
+	FlagSignal = "Flag signal",
 	FlightRun = "Flight run",
 	JellyfishDance = "Jellyfish dance",
 	Dizzy = "Dizzy",
