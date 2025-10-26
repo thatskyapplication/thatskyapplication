@@ -10,7 +10,6 @@ export default new GuideSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		inProgress: true,
-		hasInfographic: false,
 		current: [
 			[
 				{

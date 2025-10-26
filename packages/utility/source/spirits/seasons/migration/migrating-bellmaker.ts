@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	realm: RealmName.IslesOfDawn,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			[
 				{

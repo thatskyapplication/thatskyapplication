@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	realm: RealmName.HiddenForest,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			[
 				{
