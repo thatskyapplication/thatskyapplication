@@ -59,6 +59,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.FaceAccessory,
 					cosmetic: Cosmetic.ExhaustedDockWorkerFaceAccessory,
 					cost: { hearts: 3 },
 				},

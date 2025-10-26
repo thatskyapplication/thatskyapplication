@@ -25,6 +25,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 16 },
 				},
 				{
+					translation: CosmeticCommon.FaceAccessory,
 					cosmetic: Cosmetic.ChillSunbatherFaceAccessory,
 					seasonPass: true,
 				},
@@ -88,6 +89,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.FaceAccessory,
 					cosmetic: Cosmetic.ChillSunbatherFaceAccessory,
 					cost: { candles: 66 },
 				},

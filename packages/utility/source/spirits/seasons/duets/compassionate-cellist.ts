@@ -14,6 +14,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.CompassionateCellistSharedMemorySpell,
 				},
 				{
+					translation: CosmeticCommon.FaceAccessory,
 					cosmetic: Cosmetic.CompassionateCellistFaceAccessory,
 					cost: { candles: 85 },
 				},

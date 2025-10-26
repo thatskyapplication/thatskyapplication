@@ -64,6 +64,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.FaceAccessory,
 					cosmetic: Cosmetic.ApologeticLumberjackFaceAccessory,
 					cost: { hearts: 5 },
 				},

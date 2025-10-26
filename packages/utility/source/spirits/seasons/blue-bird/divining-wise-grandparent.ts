@@ -20,6 +20,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.FaceAccessory,
 					cosmetic: Cosmetic.DiviningWiseGrandparentFaceAccessory,
 					cost: { seasonalCandles: 14 },
 				},

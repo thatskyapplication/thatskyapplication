@@ -17,6 +17,7 @@ export default new ElderSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.FaceAccessory,
 					cosmetic: Cosmetic.ElderOfThePrairieFaceAccessory,
 					cost: { ascendedCandles: 75 },
 				},

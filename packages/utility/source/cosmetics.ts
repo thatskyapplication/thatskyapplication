@@ -3248,6 +3248,7 @@ export enum CosmeticCommon {
 	Mask = 12,
 	Hair = 13,
 	Cape = 14,
+	FaceAccessory = 15,
 }
 
 export const WING_BUFFS = [

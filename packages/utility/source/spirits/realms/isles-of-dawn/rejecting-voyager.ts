@@ -55,6 +55,7 @@ export default new StandardSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.FaceAccessory,
 					cosmetic: Cosmetic.RejectingVoyagerFaceAccessory,
 					cost: { hearts: 3 },
 				},
