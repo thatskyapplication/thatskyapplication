@@ -1,4 +1,5 @@
 import process from "node:process";
+import { info, setFailed, summary } from "@actions/core";
 import {
 	API,
 	ApplicationCommandOptionType,
@@ -22,7 +23,6 @@ import {
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
 import { init, t } from "i18next";
-import pino from "pino";
 import { z } from "zod/v4";
 import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
@@ -35,21 +35,25 @@ import {
 } from "./constants.js";
 
 const envSchema = z.object({
-	NODE_ENV: z.enum(["development", "production"]).default("development"),
+	GITHUB_ACTIONS: z
+		.string()
+		.optional()
+		.transform((value) => value === "true"),
 	DISCORD_TOKEN: z.string().min(1),
 	SUPPORT_SERVER_GUILD_ID: z.string().min(1),
 	TOP_GG_TOKEN: z.string().optional(),
 });
 
-const { NODE_ENV, DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID, TOP_GG_TOKEN } = envSchema.parse(
+const { GITHUB_ACTIONS, DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID, TOP_GG_TOKEN } = envSchema.parse(
 	process.env,
 );
-const logger = pino({ errorKey: "error" });
+
+const errors = [];
 
 await init({
 	...I18_NEXT_OPTIONS,
 	missingKeyHandler: (locale, namespace, key) =>
-		logger.error(
+		errors.push(
 			`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,
 		),
 });
@@ -1321,7 +1325,7 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 const api = new API(rest);
 const applicationId = (await api.users.getCurrent()).id;
-logger.info("Setting application commands...");
+info("Setting application commands...");
 
 const commands = [
 	api.applicationCommands.bulkOverwriteGlobalCommands(applicationId, COMMANDS),
@@ -1334,16 +1338,23 @@ const commands = [
 
 const settled = await Promise.allSettled(commands);
 
-const errors = settled
-	.filter((result) => result.status === "rejected")
-	.map((result) => result.reason);
+for (const result of settled) {
+	if (result.status === "fulfilled") {
+		continue;
+	}
 
-if (errors.length > 0) {
-	logger.error({ error: new AggregateError(errors, "Error setting commands.") });
-	process.exit(1);
+	errors.push(result.reason);
 }
 
-if (NODE_ENV === "production") {
+const deploymentResults = [];
+
+if (errors.length > 0) {
+	deploymentResults.push(["Discord", "Failed", `${errors.length} error(s).`]);
+} else {
+	deploymentResults.push(["Discord", "Success", `${COMMANDS.length} command(s).`]);
+}
+
+if (GITHUB_ACTIONS) {
 	if (TOP_GG_TOKEN) {
 		const response = await fetch("https://top.gg/api/v1/projects/@me/commands", {
 			method: "POST",
@@ -1354,13 +1365,37 @@ if (NODE_ENV === "production") {
 			body: JSON.stringify(COMMANDS),
 		});
 
-		if (!response.ok) {
-			logger.error(await response.json(), "Failed to deploy commands to Top.gg.");
-			process.exit(1);
+		if (response.ok) {
+			deploymentResults.push(["Top.gg", "Success", `${COMMANDS.length} command(s).`]);
+		} else {
+			errors.push(await response.json());
+			deploymentResults.push(["Top.gg", "Failed", "Deployment error."]);
 		}
 	} else {
-		logger.warn("No Top.gg token provided; skipping Top.gg command deployment.");
+		deploymentResults.push(["Top.gg", "Skipped", "No token."]);
 	}
 }
 
-logger.info("Successfully set application commands.");
+const result = summary.addHeading("Commands deployment").addTable([
+	[
+		{ data: "Platform", header: true },
+		{ data: "Status", header: true },
+		{ data: "Details", header: true },
+	],
+	...deploymentResults,
+]);
+
+if (errors.length > 0) {
+	result.addDetails("Errors", `\`\`\`\n${errors.join("\n\n")}\n\`\`\``);
+}
+
+if (GITHUB_ACTIONS) {
+	await result.write();
+} else {
+	info(result.stringify());
+}
+
+if (errors.length > 0) {
+	setFailed("Command deployment failed.");
+	process.exit(1);
+}

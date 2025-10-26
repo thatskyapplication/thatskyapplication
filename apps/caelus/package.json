@@ -36,6 +36,7 @@
 		"zod": "^3.25.71"
 	},
 	"devDependencies": {
+		"@actions/core": "^1.11.1",
 		"@biomejs/biome": "2.2.0",
 		"@types/diff": "^7.0.2",
 		"@types/luxon": "^3.7.1",

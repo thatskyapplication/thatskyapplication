@@ -27,7 +27,7 @@ jobs:
       - name: Deploy commands
         run: pnpm --filter @thatskyapplication/caelus run deploy-commands
         env:
-          NODE_ENV: "production"
+          GITHUB_ACTIONS: true
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SUPPORT_SERVER_GUILD_ID: ${{ vars.SUPPORT_SERVER_GUILD_ID }}
           TOP_GG_TOKEN: ${{ secrets.TOP_GG_TOKEN }}
