@@ -1,6 +1,8 @@
 import { emojiConstants } from "@thatskyapplication/utility";
 
+export const BACKGROUND_PADDING = 20 as const;
 export const LINE_WIDTH = 5 as const;
+export const TEXT_COLOUR = "#FFFFFF" as const;
 export const LINE_COLOUR = "#FFFFFF" as const;
 export const IMAGE_SIZE = 100 as const;
 export const WIDTH_MODIFIER = 200 as const;

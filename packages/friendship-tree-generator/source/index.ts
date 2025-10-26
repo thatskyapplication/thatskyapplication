@@ -13,12 +13,12 @@ import {
 import { fetch } from "undici";
 import {
 	ASSET_SIZE,
+	BACKGROUND_PADDING,
 	CosmeticToEmoji,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
 	LEVEL_OFFSET_X,
 	LEVEL_OFFSET_Y,
-	LINE_COLOUR,
 	MISCELLANEOUS_EMOJIS,
 	NEXT_HEIGHT_LEVEL,
 	SEASON_ICON_MIDDLE_OFFSET_Y,
@@ -26,12 +26,13 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 	SeasonIdToSeasonalHeartEmoji,
+	TEXT_COLOUR,
 	WIDTH_MODIFIER,
 } from "./constants.js";
 
-const spirit = spirits().get(SpiritId.MigratingBirdWhisperer) as SeasonalSpirit;
-const NODES = spirit.seasonal;
-// const NODES = spirit.current;
+const spirit = spirits().get(SpiritId.MigrationGuide) as SeasonalSpirit;
+// const NODES = spirit.seasonal;
+const NODES = spirit.current;
 const hind = GlobalFonts.registerFromPath("./assets/Hind-Regular.ttf");
 
 if (!hind) {
@@ -60,7 +61,16 @@ if (lastLevel.length > 0) {
 const canvas = createCanvas(WIDTH_MODIFIER * 3.5, canvasHeight);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
-context.fillStyle = LINE_COLOUR;
+const bgLeft = BACKGROUND_PADDING;
+const bgTop = BACKGROUND_PADDING;
+const bgWidth = canvas.width - BACKGROUND_PADDING * 2;
+const bgHeight = canvas.height - BACKGROUND_PADDING * 2;
+const bgRadius = 50;
+context.fillStyle = "rgba(0, 0, 0, 0.6)";
+context.beginPath();
+context.roundRect(bgLeft, bgTop, bgWidth, bgHeight, bgRadius);
+context.fill();
+context.fillStyle = TEXT_COLOUR;
 const imageSizeHalf = IMAGE_SIZE / 2;
 const widthMiddle = canvas.width / 2;
 const widthStartMiddle = widthMiddle - imageSizeHalf;

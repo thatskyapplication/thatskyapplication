@@ -36,6 +36,7 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 	SeasonIdToSeasonalHeartEmoji,
+	TEXT_COLOUR,
 	WIDTH_MODIFIER,
 } from "./constants.js";
 
@@ -71,7 +72,7 @@ const canvas = createCanvas(WIDTH_MODIFIER * 3.5, canvasHeight);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
 context.lineWidth = LINE_WIDTH;
-context.strokeStyle = LINE_COLOUR;
+context.strokeStyle = TEXT_COLOUR;
 context.fillStyle = LINE_COLOUR;
 const imageSizeHalf = IMAGE_SIZE / 2;
 const widthMiddle = canvas.width / 2;
