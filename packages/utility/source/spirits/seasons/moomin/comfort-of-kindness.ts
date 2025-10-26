@@ -63,6 +63,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 32 },
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.ComfortOfKindnessCape,
 					seasonPass: true,
 				},

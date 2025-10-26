@@ -56,7 +56,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.AnxiousAnglerBlessing3,
 					cost: { seasonalCandles: 22 },
 				},
-				{ cosmetic: Cosmetic.AnxiousAnglerCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.AnxiousAnglerCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -136,6 +140,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.AnxiousAnglerCape,
 					cost: { candles: 70 },
 				},

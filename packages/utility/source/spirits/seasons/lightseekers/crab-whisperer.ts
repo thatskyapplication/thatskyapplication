@@ -53,7 +53,13 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 18 },
 				},
 			],
-			[{ cosmetic: Cosmetic.CrabWhispererCape, seasonPass: true }],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.CrabWhispererCape,
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
 			[
@@ -106,6 +112,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.CrabWhispererCape,
 					cost: { candles: 70 },
 				},

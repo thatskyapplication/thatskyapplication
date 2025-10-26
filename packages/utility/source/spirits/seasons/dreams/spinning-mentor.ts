@@ -58,7 +58,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.SpinningMentorBlessing3,
 					cost: { seasonalCandles: 29 },
 				},
-				{ cosmetic: Cosmetic.SpinningMentorCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.SpinningMentorCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -128,6 +132,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.SpinningMentorCape,
 					cost: { candles: 70 },
 				},

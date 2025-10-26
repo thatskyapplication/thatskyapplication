@@ -64,6 +64,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.ForgetfulStorytellerCape,
 					cost: { seasonalCandles: 34 },
 				},
@@ -138,6 +139,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.ForgetfulStorytellerCape,
 					cost: { candles: 70 },
 				},

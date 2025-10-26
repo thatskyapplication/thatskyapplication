@@ -41,7 +41,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.DiviningWiseGrandparentCyanDye,
 					cost: { seasonalCandles: 21 },
 				},
-				{ cosmetic: Cosmetic.DiviningWiseGrandparentCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.DiviningWiseGrandparentCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{

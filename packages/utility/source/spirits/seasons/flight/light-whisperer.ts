@@ -41,7 +41,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.LightWhispererTrailSpell1,
 					cost: { seasonalCandles: 26 },
 				},
-				{ cosmetic: Cosmetic.LightWhispererCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.LightWhispererCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -104,6 +108,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.LightWhispererCape,
 					cost: { candles: 70 },
 				},

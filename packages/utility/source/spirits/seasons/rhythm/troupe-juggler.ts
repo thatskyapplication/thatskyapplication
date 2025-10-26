@@ -54,7 +54,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.TroupeJugglerBlessing2,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.TroupeJugglerCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.TroupeJugglerCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -135,6 +139,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.TroupeJugglerCape,
 					cost: { candles: 75 },
 				},

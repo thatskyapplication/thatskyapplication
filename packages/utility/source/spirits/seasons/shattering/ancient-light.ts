@@ -34,6 +34,7 @@ export default [
 				],
 				[
 					{
+						translation: CosmeticCommon.Cape,
 						cosmetic: Cosmetic.AncientLightJellyfishCape,
 						cost: { seasonalCandles: 42 },
 					},
@@ -97,6 +98,7 @@ export default [
 				],
 				[
 					{
+						translation: CosmeticCommon.Cape,
 						cosmetic: Cosmetic.AncientLightJellyfishCape,
 						cost: { candles: 80 },
 					},
@@ -138,6 +140,7 @@ export default [
 				],
 				[
 					{
+						translation: CosmeticCommon.Cape,
 						cosmetic: Cosmetic.AncientLightMantaCape,
 						cost: { seasonalCandles: 35 },
 					},
@@ -219,6 +222,7 @@ export default [
 				],
 				[
 					{
+						translation: CosmeticCommon.Cape,
 						cosmetic: Cosmetic.AncientLightMantaCape,
 						cost: { candles: 80 },
 					},

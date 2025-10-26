@@ -70,6 +70,7 @@ export default new SeasonalSpirit({
 				null,
 				null,
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.MigratingBirdWhispererCape,
 					seasonPass: true,
 				},

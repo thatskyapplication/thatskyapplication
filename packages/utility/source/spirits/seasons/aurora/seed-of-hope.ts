@@ -63,7 +63,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.SeedOfHopeBlessing4,
 					cost: { seasonalCandles: 26 },
 				},
-				{ cosmetic: Cosmetic.SeedOfHopeCape, seasonPass: true },
+				{ translation: CosmeticCommon.Cape, cosmetic: Cosmetic.SeedOfHopeCape, seasonPass: true },
 			],
 			[
 				{
@@ -128,7 +128,13 @@ export default new SeasonalSpirit({
 					cost: { candles: 15 },
 				},
 			],
-			[{ cosmetic: Cosmetic.SeedOfHopeCape, cost: { candles: 75 } }],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.SeedOfHopeCape,
+					cost: { candles: 75 },
+				},
+			],
 		],
 	},
 	visits: {

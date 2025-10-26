@@ -50,7 +50,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.RoyalHairtousleTeenWhiteDye,
 					cost: { seasonalCandles: 29 },
 				},
-				{ cosmetic: Cosmetic.RoyalHairtousleTeenCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.RoyalHairtousleTeenCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{

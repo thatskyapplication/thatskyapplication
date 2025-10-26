@@ -51,6 +51,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 6 },
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.MigratingMantaWhispererCape,
 					seasonPass: true,
 				},

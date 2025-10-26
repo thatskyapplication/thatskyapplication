@@ -51,7 +51,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.WiseGrandparentBlessing5,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.WiseGrandparentCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.WiseGrandparentCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -97,6 +101,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.WiseGrandparentCape,
 					cost: { candles: 70 },
 				},

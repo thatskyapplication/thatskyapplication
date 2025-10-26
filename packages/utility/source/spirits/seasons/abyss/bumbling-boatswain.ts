@@ -57,7 +57,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.BumblingBoatswainBlessing3,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.BumblingBoatswainCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.BumblingBoatswainCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -134,6 +138,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.BumblingBoatswainCape,
 					cost: { candles: 70 },
 				},

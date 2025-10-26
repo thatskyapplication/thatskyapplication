@@ -46,7 +46,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.SneezingGeographerBlessing2,
 					cost: { seasonalCandles: 22 },
 				},
-				{ cosmetic: Cosmetic.SneezingGeographerCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.SneezingGeographerCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -111,6 +115,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.SneezingGeographerCape,
 					cost: { candles: 70 },
 				},

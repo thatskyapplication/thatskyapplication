@@ -50,7 +50,11 @@ export default [
 						cosmetic: Cosmetic.AncientDarknessPlantBlessing4,
 						cost: { seasonalCandles: 16 },
 					},
-					{ cosmetic: Cosmetic.AncientDarknessPlantCape, seasonPass: true },
+					{
+						translation: CosmeticCommon.Cape,
+						cosmetic: Cosmetic.AncientDarknessPlantCape,
+						seasonPass: true,
+					},
 				],
 				[
 					{
@@ -111,6 +115,7 @@ export default [
 				],
 				[
 					{
+						translation: CosmeticCommon.Cape,
 						cosmetic: Cosmetic.AncientDarknessPlantCape,
 						cost: { candles: 80 },
 					},

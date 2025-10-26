@@ -41,6 +41,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 24 },
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.MigratingButterflyCharmerCape,
 					cost: { seasonalCandles: 30 },
 				},

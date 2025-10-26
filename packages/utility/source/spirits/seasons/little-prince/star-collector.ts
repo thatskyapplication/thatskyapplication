@@ -43,7 +43,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.StarCollectorBlessing2,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.StarCollectorCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.StarCollectorCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -116,6 +120,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.StarCollectorCape,
 					cost: { candles: 75 },
 				},

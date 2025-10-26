@@ -39,6 +39,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.OveractiveOverachieverCape,
 					cost: { seasonalCandles: 30 },
 				},

@@ -39,7 +39,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing3,
 					cost: { seasonalCandles: 32 },
 				},
-				{ cosmetic: Cosmetic.EchoOfAnAbandonedRefugeCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{

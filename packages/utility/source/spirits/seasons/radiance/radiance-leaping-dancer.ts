@@ -55,6 +55,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.RadianceLeapingDancerCape,
 					cost: { seasonalCandles: 28 },
 				},

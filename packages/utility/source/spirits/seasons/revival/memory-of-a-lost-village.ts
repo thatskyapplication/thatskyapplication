@@ -15,7 +15,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MemoryOfALostVillageBlessing1,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.MemoryOfALostVillageCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.MemoryOfALostVillageCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{

@@ -40,7 +40,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.TimidBookwormBlessing3,
 					cost: { seasonalCandles: 12 },
 				},
-				{ cosmetic: Cosmetic.TimidBookwormCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.TimidBookwormCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -93,6 +97,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.TimidBookwormCape,
 					cost: { candles: 70 },
 				},

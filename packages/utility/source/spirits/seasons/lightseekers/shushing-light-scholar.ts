@@ -46,7 +46,13 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 20 },
 				},
 			],
-			[{ cosmetic: Cosmetic.ShushingLightScholarCape, seasonPass: true }],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.ShushingLightScholarCape,
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
 			[
@@ -102,6 +108,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.ShushingLightScholarCape,
 					cost: { candles: 65 },
 				},

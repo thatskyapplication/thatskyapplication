@@ -48,6 +48,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.StretchingGuruCape,
 					cost: { hearts: 5 },
 					seasonPass: true,
@@ -96,6 +97,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.StretchingGuruCape,
 					cost: { candles: 65 },
 				},

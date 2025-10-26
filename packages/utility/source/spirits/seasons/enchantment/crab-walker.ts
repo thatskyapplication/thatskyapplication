@@ -46,7 +46,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.CrabWalkerBlessing2,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.CrabWalkerCape, seasonPass: true },
+				{ translation: CosmeticCommon.Cape, cosmetic: Cosmetic.CrabWalkerCape, seasonPass: true },
 			],
 			[
 				{
@@ -111,6 +111,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.CrabWalkerCape,
 					cost: { candles: 60 },
 				},

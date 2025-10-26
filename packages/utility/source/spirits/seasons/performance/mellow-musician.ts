@@ -36,7 +36,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MellowMusicianBlessing2,
 					cost: { seasonalCandles: 14 },
 				},
-				{ cosmetic: Cosmetic.MellowMusicianCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.MellowMusicianCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -120,6 +124,7 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.MellowMusicianCape,
 					cost: { candles: 70 },
 				},

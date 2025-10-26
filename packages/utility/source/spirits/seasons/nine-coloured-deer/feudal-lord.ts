@@ -47,7 +47,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.FeudalLordBlessing3,
 					cost: { seasonalCandles: 26 },
 				},
-				{ cosmetic: Cosmetic.FeudalLordCape, seasonPass: true },
+				{ translation: CosmeticCommon.Cape, cosmetic: Cosmetic.FeudalLordCape, seasonPass: true },
 			],
 			[
 				{

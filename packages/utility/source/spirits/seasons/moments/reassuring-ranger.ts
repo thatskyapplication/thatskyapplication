@@ -47,7 +47,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ReassuringRangerBlessing3,
 					cost: { seasonalCandles: 30 },
 				},
-				{ cosmetic: Cosmetic.ReassuringRangerCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.ReassuringRangerCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{

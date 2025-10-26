@@ -57,7 +57,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ScoldingStudentBlessing3,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.ScoldingStudentCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.ScoldingStudentCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -127,6 +131,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.ScoldingStudentCape,
 					cost: { candles: 70 },
 				},

@@ -102,6 +102,7 @@ export default new GuideSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.RadianceGuideCape,
 					cost: { hearts: 12 },
 				},

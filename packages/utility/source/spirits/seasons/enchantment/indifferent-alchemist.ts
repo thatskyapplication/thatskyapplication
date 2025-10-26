@@ -57,7 +57,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.IndifferentAlchemistBlessing3,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.IndifferentAlchemistCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.IndifferentAlchemistCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -127,6 +131,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.IndifferentAlchemistCape,
 					cost: { candles: 70 },
 				},

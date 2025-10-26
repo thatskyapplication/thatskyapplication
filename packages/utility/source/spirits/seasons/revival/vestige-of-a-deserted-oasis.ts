@@ -27,7 +27,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing2,
 					cost: { seasonalCandles: 28 },
 				},
-				{ cosmetic: Cosmetic.VestigeOfADesertedOasisCape, seasonPass: true },
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.VestigeOfADesertedOasisCape,
+					seasonPass: true,
+				},
 			],
 			[
 				{

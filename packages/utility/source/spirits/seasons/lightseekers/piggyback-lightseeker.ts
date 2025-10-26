@@ -44,7 +44,13 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 20 },
 				},
 			],
-			[{ cosmetic: Cosmetic.PiggybackLightseekerCape, seasonPass: true }],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.PiggybackLightseekerCape,
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
 			[{ cosmetic: Cosmetic.FriendActionCarry1 }],
@@ -91,6 +97,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.PiggybackLightseekerCape,
 					cost: { candles: 60 },
 				},

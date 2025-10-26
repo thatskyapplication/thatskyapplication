@@ -34,7 +34,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.NestingLoftBlessing3,
 					cost: { seasonalCandles: 28 },
 				},
-				{ cosmetic: Cosmetic.NestingLoftCape, seasonPass: true },
+				{ translation: CosmeticCommon.Cape, cosmetic: Cosmetic.NestingLoftCape, seasonPass: true },
 			],
 			[
 				{

@@ -31,6 +31,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 16 },
 				},
 				{
+					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.ScarredSentryCape,
 					seasonPass: true,
 				},
