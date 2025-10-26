@@ -4,12 +4,10 @@ import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
 
-const emote = SpiritEmote.Dizzy;
-
 export default new SeasonalSpirit({
 	id: SpiritId.MigratingButterflyCharmer,
 	seasonId: SeasonId.Migration,
-	emote,
+	emote: SpiritEmote.Dizzy,
 	realm: RealmName.HiddenForest,
 	offer: {
 		hasInfographic: false,

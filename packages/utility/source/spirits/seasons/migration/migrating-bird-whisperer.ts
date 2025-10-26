@@ -4,12 +4,10 @@ import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
 
-const emote = SpiritEmote.FlightRun;
-
 export default new SeasonalSpirit({
 	id: SpiritId.MigratingBirdWhisperer,
 	seasonId: SeasonId.Migration,
-	emote,
+	emote: SpiritEmote.FlightRun,
 	realm: RealmName.HiddenForest,
 	offer: {
 		hasInfographic: false,
