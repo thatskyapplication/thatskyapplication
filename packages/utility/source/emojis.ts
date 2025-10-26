@@ -232,8 +232,9 @@ const EMOTE_EMOJIS_PRODUCTION = {
 	Cartwheel: { id: "1330496618889482411", name: "cartwheel" },
 	HypeDance: { id: "1330568867986014218", name: "hype_dance" },
 	HeartGesture: { id: "1330656137174978560", name: "heart_gesture" },
-	Cough: { id: "1363812372510150676", name: "Cough" },
-	Amazed: { id: "1365270363428360304", name: "Amazed" },
+	Cough: { id: "1363812372510150676", name: "cough" },
+	Amazed: { id: "1365270363428360304", name: "amazed" },
+	FlightRun: { id: "1431815492737306715", name: "flight_run" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_DEVELOPMENT = {
@@ -343,8 +344,9 @@ const EMOTE_EMOJIS_DEVELOPMENT = {
 	Cartwheel: { id: "1330496633737318460", name: "cartwheel" },
 	HypeDance: { id: "1330568876974542949", name: "hype_dance" },
 	HeartGesture: { id: "1330656144921985115", name: "heart_gesture" },
-	Cough: { id: "1363812384329699408", name: "Cough" },
-	Amazed: { id: "1365270370436780152", name: "Amazed" },
+	Cough: { id: "1363812384329699408", name: "cough" },
+	Amazed: { id: "1365270370436780152", name: "amazed" },
+	FlightRun: { id: "1431815498953261056", name: "flight_run" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS_PRODUCTION = {
@@ -1026,6 +1028,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Migration Guide (ultimate).
 	 */
 	Outfit92: { id: "1431638759744606258", name: "92_outfit" },
+	/**
+	 * Migrating Bird Whisperer.
+	 */
+	Outfit93: { id: "1431816159728242782", name: "93_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1121,6 +1127,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit90: { id: "1404327674553303211", name: "90_outfit" },
 	Outfit91: { id: "1412357412500934696", name: "91_outfit" },
 	Outfit92: { id: "1431638770482151445", name: "92_outfit" },
+	Outfit93: { id: "1431816173930151956", name: "93_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -4100,6 +4107,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Migrating Bellmaker.
 	 */
 	Cape161: { id: "1431664156876210206", name: "161_cape" },
+	/**
+	 * Migrating Bird Whisperer.
+	 */
+	Cape162: { id: "1431816406302724269", name: "162_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4264,6 +4275,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape159: { id: "1412354192940728402", name: "159_cape" },
 	Cape160: { id: "1422146401189494915", name: "160_cape" },
 	Cape161: { id: "1431664163591290960", name: "161_cape" },
+	Cape162: { id: "1431816413571711228", name: "162_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -8158,6 +8170,18 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigratingBellmakerTrust]: MISCELLANEOUS_EMOJIS.Trust,
 		[Cosmetic.MigratingBellmakerBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.MigratingBellmakerSeasonalHeart]: SEASON_EMOJIS.MigrationHeart,
+		[Cosmetic.EmoteFlightRun1]: EMOTE_EMOJIS.FlightRun,
+		[Cosmetic.MigratingBirdWhispererBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.MigratingBirdWhispererBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.EmoteFlightRun2]: EMOTE_EMOJIS.FlightRun,
+		[Cosmetic.EmoteFlightRun3]: EMOTE_EMOJIS.FlightRun,
+		[Cosmetic.MigratingBirdWhispererOutfit]: OUTFIT_EMOJIS.Outfit93,
+		[Cosmetic.MigratingBirdWhispererBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.MigratingBirdWhispererBlueDye]: MISCELLANEOUS_EMOJIS.DyeBlue,
+		[Cosmetic.MigratingBirdWhispererTrust]: MISCELLANEOUS_EMOJIS.Trust,
+		[Cosmetic.EmoteFlightRun4]: EMOTE_EMOJIS.FlightRun,
+		[Cosmetic.MigratingBirdWhispererCape]: CAPE_EMOJIS.Cape162,
+		[Cosmetic.MigratingBirdWhispererSeasonalHeart]: SEASON_EMOJIS.MigrationHeart,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
