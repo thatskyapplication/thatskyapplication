@@ -355,7 +355,8 @@
 			"270": "Atrapa las 3 luces en la ciudadela del Valle",
 			"271": "Monta una manta gigante en las Islas Santuario",
 			"272": "",
-			"273": "Vuela con muchas mariposas en Mariposas de la Planicie"
+			"273": "Vuela con muchas mariposas en Mariposas de la Planicie",
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -2507,7 +2508,27 @@
 			"2500": "",
 			"2501": "",
 			"2502": "Capa de guirnaldas de luz de luna",
-			"2504": ""
+			"2504": "",
+			"2505": "",
+			"2506": "",
+			"2507": "",
+			"2508": "",
+			"2509": "Eco ancestral",
+			"2510": "",
+			"2512": "",
+			"2513": "",
+			"2515": "",
+			"2516": "",
+			"2517": "",
+			"2519": "",
+			"2520": "",
+			"2523": "",
+			"2524": "",
+			"2527": "",
+			"2528": "",
+			"2529": "",
+			"2530": "",
+			"2531": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

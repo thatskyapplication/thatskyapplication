@@ -355,7 +355,8 @@
 			"270": "Capture as 3 luzes na Cidadela do Vale",
 			"271": "Monte uma arraia gigante nas Ilhas do Santuário",
 			"272": "",
-			"273": "Voe com muitas borboletas no Campo de Borboletas"
+			"273": "Voe com muitas borboletas no Campo de Borboletas",
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -2507,7 +2508,27 @@
 			"2500": "Cauda Tufada do Luar",
 			"2501": "Bacia do Luar",
 			"2502": "Capa Grinalda do Luar",
-			"2504": ""
+			"2504": "",
+			"2505": "",
+			"2506": "",
+			"2507": "",
+			"2508": "",
+			"2509": "Eco Antigo",
+			"2510": "",
+			"2512": "",
+			"2513": "",
+			"2515": "",
+			"2516": "",
+			"2517": "",
+			"2519": "",
+			"2520": "",
+			"2523": "",
+			"2524": "",
+			"2527": "",
+			"2528": "",
+			"2529": "",
+			"2530": "",
+			"2531": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",

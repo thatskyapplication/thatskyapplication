@@ -355,7 +355,8 @@
 			"270": "Fange die 3 Lichter in der Zitadelle im Tal",
 			"271": "Reite auf einem riesigen Manta in den Zufluchtsinseln",
 			"272": "",
-			"273": "Fliege mit vielen Schmetterlingen im Schmetterlingsfeld"
+			"273": "Fliege mit vielen Schmetterlingen im Schmetterlingsfeld",
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",
@@ -2507,7 +2508,27 @@
 			"2500": "",
 			"2501": "",
 			"2502": "Mondlichtgirlanden-Umhang",
-			"2504": ""
+			"2504": "",
+			"2505": "",
+			"2506": "",
+			"2507": "",
+			"2508": "",
+			"2509": "Uraltes Echo",
+			"2510": "",
+			"2512": "",
+			"2513": "",
+			"2515": "",
+			"2516": "",
+			"2517": "",
+			"2519": "",
+			"2520": "",
+			"2523": "",
+			"2524": "",
+			"2527": "",
+			"2528": "",
+			"2529": "",
+			"2530": "",
+			"2531": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
