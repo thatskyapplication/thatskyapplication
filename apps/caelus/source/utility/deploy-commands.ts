@@ -35,11 +35,15 @@ import {
 } from "./constants.js";
 
 const envSchema = z.object({
+	NODE_ENV: z.enum(["development", "production"]).default("development"),
 	DISCORD_TOKEN: z.string().min(1),
 	SUPPORT_SERVER_GUILD_ID: z.string().min(1),
+	TOP_GG_TOKEN: z.string().optional(),
 });
 
-const { DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID } = envSchema.parse(process.env);
+const { NODE_ENV, DISCORD_TOKEN, SUPPORT_SERVER_GUILD_ID, TOP_GG_TOKEN } = envSchema.parse(
+	process.env,
+);
 const logger = pino({ errorKey: "error" });
 
 await init({
@@ -1336,6 +1340,27 @@ const errors = settled
 
 if (errors.length > 0) {
 	logger.error({ error: new AggregateError(errors, "Error setting commands.") });
-} else {
-	logger.info("Successfully set application commands.");
+	process.exit(1);
 }
+
+if (NODE_ENV === "production") {
+	if (TOP_GG_TOKEN) {
+		const response = await fetch("https://top.gg/api/v1/projects/@me/commands", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${TOP_GG_TOKEN}`,
+			},
+			body: JSON.stringify(COMMANDS),
+		});
+
+		if (!response.ok) {
+			logger.error(await response.json(), "Failed to deploy commands to Top.gg.");
+			process.exit(1);
+		}
+	} else {
+		logger.warn("No Top.gg token provided; skipping Top.gg command deployment.");
+	}
+}
+
+logger.info("Successfully set application commands.");

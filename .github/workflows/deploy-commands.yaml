@@ -23,10 +23,11 @@ jobs:
 
       - name: Build dependencies
         run: pnpm --filter @thatskyapplication/caelus^... run build
-          
+
       - name: Deploy commands
         run: pnpm --filter @thatskyapplication/caelus run deploy-commands
         env:
+          NODE_ENV: "production"
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           SUPPORT_SERVER_GUILD_ID: ${{ vars.SUPPORT_SERVER_GUILD_ID }}
-
+          TOP_GG_TOKEN: ${{ secrets.TOP_GG_TOKEN }}
