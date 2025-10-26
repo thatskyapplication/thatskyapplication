@@ -21,7 +21,7 @@ export default new SeasonalSpirit({
 				},
 				{
 					cosmetic: Cosmetic.MusicSheetAncientEcho,
-					cost: { seasonalCandles: 18 },
+					cost: { seasonalCandles: 17 },
 				},
 			],
 			[

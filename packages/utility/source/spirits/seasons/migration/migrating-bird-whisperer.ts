@@ -27,7 +27,7 @@ export default new SeasonalSpirit({
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
 					cosmetic: Cosmetic.MigratingBirdWhispererBlessing2,
-					cost: { seasonalCandles: 2 },
+					cost: { seasonalCandles: 4 },
 				},
 				null,
 				{
