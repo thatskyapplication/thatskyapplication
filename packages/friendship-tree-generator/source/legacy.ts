@@ -12,17 +12,27 @@ import {
 } from "@thatskyapplication/utility";
 import { fetch } from "undici";
 import {
+	ASSET_OFFSET,
 	ASSET_SIZE,
+	ASSET_TEXT_DOUBLE_OFFSET,
+	ASSET_TEXT_SINGLE_OFFSET,
+	ASSET_TEXT_TRIPLE_OFFSET,
 	CosmeticToEmoji,
+	CURRENCY_TEXT_OFFSET,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
 	LEVEL_OFFSET_X,
 	LEVEL_OFFSET_Y,
 	LINE_COLOUR,
+	LINE_OFFSET,
+	LINE_WIDTH,
 	MISCELLANEOUS_EMOJIS,
 	NEXT_HEIGHT_LEVEL,
+	NEXT_HEIGHT_LEVEL_SIDES_OFFSET,
+	SEASON_ICON_MIDDLE_OFFSET_X,
 	SEASON_ICON_MIDDLE_OFFSET_Y,
 	SEASON_ICON_SIDES_OFFSET_X,
+	SEASON_ICON_SIDES_OFFSET_Y,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 	SeasonIdToSeasonalHeartEmoji,
@@ -40,17 +50,17 @@ if (!hind) {
 
 let canvasHeight = IMAGE_SIZE + HEIGHT_START_OFFSET;
 canvasHeight += NEXT_HEIGHT_LEVEL * NODES.length;
-const firstLevel = NODES[0]!;
-const firstLevelHasCostAtStart = firstLevel.some((node) => node);
+const firstNode = NODES[0]!;
+const firstNodeHasCostAtStart = firstNode[0]?.cost !== null;
 
-if (firstLevelHasCostAtStart) {
-	canvasHeight += ASSET_SIZE;
+if (firstNodeHasCostAtStart) {
+	canvasHeight += IMAGE_SIZE;
 }
 
-const lastLevel = NODES.at(-1)!;
+const lastNode = NODES.at(-1)!;
 
-if (lastLevel.length > 0) {
-	if (lastLevel.some((node) => node?.seasonPass)) {
+if (lastNode.length === 1) {
+	if (lastNode[0]?.seasonPass) {
 		canvasHeight += SEASON_ICON_MIDDLE_OFFSET_Y;
 	}
 
@@ -60,6 +70,8 @@ if (lastLevel.length > 0) {
 const canvas = createCanvas(WIDTH_MODIFIER * 3.5, canvasHeight);
 const context = canvas.getContext("2d");
 context.translate(0.5, 0.5);
+context.lineWidth = LINE_WIDTH;
+context.strokeStyle = LINE_COLOUR;
 context.fillStyle = LINE_COLOUR;
 const imageSizeHalf = IMAGE_SIZE / 2;
 const widthMiddle = canvas.width / 2;
@@ -67,37 +79,93 @@ const widthStartMiddle = widthMiddle - imageSizeHalf;
 const widthStartLeft = widthStartMiddle - WIDTH_MODIFIER;
 const widthStartRight = widthStartMiddle + WIDTH_MODIFIER;
 
-let levelHeight =
-	canvas.height - IMAGE_SIZE - (firstLevelHasCostAtStart ? ASSET_SIZE : 0) - HEIGHT_START_OFFSET;
+let heightStartMiddle =
+	canvas.height - IMAGE_SIZE * (firstNodeHasCostAtStart ? 2 : 1) - HEIGHT_START_OFFSET;
+
+let heightStartSides = heightStartMiddle - NEXT_HEIGHT_LEVEL + NEXT_HEIGHT_LEVEL_SIDES_OFFSET;
 
 interface CreateNodeOptions {
 	node: Item;
 	nodeIndex: number;
 	seasonId?: SeasonIds | undefined;
+	sideLineUpX?: number;
+	sideLineUpY?: number;
+	customY?: number;
 }
 
-async function createNode({ node, nodeIndex, seasonId }: CreateNodeOptions) {
+async function createNode({
+	node,
+	nodeIndex,
+	seasonId,
+	sideLineUpX,
+	sideLineUpY,
+	customY,
+}: CreateNodeOptions) {
 	const { cost, level } = node;
 	let dx: number;
-	const dy = levelHeight;
+	let dy: number;
+	let assetXOffset: number;
+	let currencyTextXOffset: number;
+	let seasonIconOffsetX: number;
+	let seasonIconOffsetY: number;
 
 	switch (nodeIndex) {
 		case 0: {
-			dx = widthStartLeft;
+			dx = widthStartMiddle;
+			dy = heightStartMiddle;
+			assetXOffset = imageSizeHalf + LINE_OFFSET + ASSET_OFFSET;
+			currencyTextXOffset = ASSET_SIZE;
+			seasonIconOffsetX = SEASON_ICON_MIDDLE_OFFSET_X;
+			seasonIconOffsetY = SEASON_ICON_MIDDLE_OFFSET_Y;
 			break;
 		}
 		case 1: {
-			dx = widthStartMiddle;
+			dx = widthStartLeft;
+			dy = customY ?? heightStartSides;
+			assetXOffset = -(LINE_OFFSET + ASSET_OFFSET);
+			currencyTextXOffset = 0;
+			seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
+			seasonIconOffsetY = SEASON_ICON_SIDES_OFFSET_Y;
 			break;
 		}
 		case 2: {
 			dx = widthStartRight;
+			dy = customY ?? heightStartSides;
+			assetXOffset = imageSizeHalf + LINE_OFFSET + ASSET_OFFSET;
+			currencyTextXOffset = ASSET_SIZE;
+			seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
+			seasonIconOffsetY = SEASON_ICON_SIDES_OFFSET_Y;
 			break;
 		}
 		default:
 			throw new Error(
 				"Encountered an excess amount of friendship tree nodes on a particular level. A level has one base node that may have two extra nodes.",
 			);
+	}
+
+	if (nodeIndex > 0) {
+		context.beginPath();
+
+		if (nodeIndex === 1) {
+			context.moveTo(
+				sideLineUpX ?? widthMiddle - (imageSizeHalf + LINE_OFFSET),
+				sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
+			);
+
+			context.lineTo(
+				sideLineUpX ?? widthStartLeft + IMAGE_SIZE + LINE_OFFSET,
+				dy + IMAGE_SIZE + LINE_OFFSET,
+			);
+		} else {
+			context.moveTo(
+				sideLineUpX ?? widthMiddle + (imageSizeHalf + LINE_OFFSET),
+				sideLineUpY ?? heightStartMiddle + LINE_OFFSET,
+			);
+
+			context.lineTo(sideLineUpX ?? widthStartRight - LINE_OFFSET, dy + IMAGE_SIZE + LINE_OFFSET);
+		}
+
+		context.stroke();
 	}
 
 	const emojiId = node.regularHeart
@@ -145,23 +213,8 @@ async function createNode({ node, nodeIndex, seasonId }: CreateNodeOptions) {
 			throw new Error("A cost was specified with no currency.");
 		}
 
-		const currencyString = currency.toString();
-		let assetX = dx;
-		const assetY = dy + IMAGE_SIZE;
-
-		switch (currencyString.length) {
-			case 1:
-				assetX += 8;
-				break;
-			case 2:
-				assetX += 0;
-				break;
-			case 3:
-				assetX -= 8;
-				break;
-			default:
-				throw new Error("Currency is too big. Is this truly correct?");
-		}
+		const assetX = dx + assetXOffset;
+		const assetY = dy + IMAGE_SIZE + LINE_OFFSET;
 
 		context.drawImage(
 			await loadImage(await (await fetch(formatEmojiURL(emojiAssetId))).arrayBuffer()),
@@ -171,13 +224,23 @@ async function createNode({ node, nodeIndex, seasonId }: CreateNodeOptions) {
 			ASSET_SIZE,
 		);
 
-		context.fillText(currencyString, assetX + ASSET_SIZE, assetY + 45);
+		let currencyX = assetX + currencyTextXOffset;
+
+		if (nodeIndex === 1) {
+			if (currency >= 100) {
+				currencyX -= ASSET_TEXT_TRIPLE_OFFSET;
+			} else if (currency >= 10) {
+				currencyX -= ASSET_TEXT_DOUBLE_OFFSET;
+			} else {
+				currencyX -= ASSET_TEXT_SINGLE_OFFSET;
+			}
+		}
+
+		context.fillText(String(currency), currencyX, assetY + ASSET_SIZE + CURRENCY_TEXT_OFFSET);
 	}
 
 	if (node.seasonPass && seasonId !== undefined) {
 		const seasonEmojiId = SeasonIdToSeasonalEmoji[seasonId]?.id;
-		const seasonIconOffsetX = SEASON_ICON_SIDES_OFFSET_X;
-		const seasonIconOffsetY = SEASON_ICON_MIDDLE_OFFSET_Y;
 
 		if (seasonEmojiId) {
 			context.drawImage(
@@ -193,6 +256,36 @@ async function createNode({ node, nodeIndex, seasonId }: CreateNodeOptions) {
 	if (level) {
 		context.fillText(`Lv${level}`, dx + IMAGE_SIZE - LEVEL_OFFSET_X, dy - LEVEL_OFFSET_Y);
 	}
+
+	if ("children" in node && node.children.length > 0) {
+		let sideLineUpYCalculation: number;
+		let customHeightLevel: number;
+		let heightIteration: number;
+
+		if (node.thirdHeight) {
+			sideLineUpYCalculation = dy - LINE_OFFSET / 1.5;
+			customHeightLevel = dy - NEXT_HEIGHT_LEVEL / 1.5;
+			heightIteration = NEXT_HEIGHT_LEVEL / 1.5;
+		} else {
+			sideLineUpYCalculation = dy - LINE_OFFSET;
+			customHeightLevel = dy - NEXT_HEIGHT_LEVEL;
+			heightIteration = NEXT_HEIGHT_LEVEL;
+		}
+
+		for (const child of node.children) {
+			await createNode({
+				node: child,
+				nodeIndex: nodeIndex,
+				seasonId,
+				sideLineUpX: dx + imageSizeHalf,
+				sideLineUpY: sideLineUpYCalculation,
+				customY: customHeightLevel,
+			});
+
+			sideLineUpYCalculation -= heightIteration;
+			customHeightLevel -= heightIteration;
+		}
+	}
 }
 
 let nodesIndex = 0;
@@ -206,7 +299,17 @@ for (const nodes of NODES) {
 		}
 
 		if (++nodeIndex === nodes.length && ++nodesIndex !== NODES.length) {
-			levelHeight -= NEXT_HEIGHT_LEVEL;
+			context.beginPath();
+			context.moveTo(widthMiddle, heightStartMiddle - LINE_OFFSET);
+
+			context.lineTo(
+				widthMiddle,
+				heightStartMiddle - (NEXT_HEIGHT_LEVEL - IMAGE_SIZE - LINE_OFFSET),
+			);
+
+			context.stroke();
+			heightStartMiddle -= NEXT_HEIGHT_LEVEL;
+			heightStartSides -= NEXT_HEIGHT_LEVEL;
 		}
 	}
 }
