@@ -285,6 +285,7 @@ export const DailyQuest = {
 	RideAGiantMantaInSanctuaryIslands: 271,
 	AdmireSharedSpacesWithTalentedBuilder: 272,
 	FlyWithManyButterfliesInButterflyFields: 273,
+	MeetUpWithMelancholyMopeInForestBrook: 274,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -711,4 +712,5 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.RideAGiantMantaInSanctuaryIslands]: null,
 	[DailyQuest.AdmireSharedSpacesWithTalentedBuilder]: null,
 	[DailyQuest.FlyWithManyButterfliesInButterflyFields]: null,
+	[DailyQuest.MeetUpWithMelancholyMopeInForestBrook]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;

@@ -559,6 +559,10 @@ export default {
 				"Admire Shared Spaces with Talented Builder",
 			[DailyQuest.FlyWithManyButterfliesInButterflyFields]:
 				"Fly with many butterflies in Butterfly Fields",
+			[DailyQuest.MeetUpWithMelancholyMopeInForestBrook]: questsMeetUpWith(
+				SpiritId.MelancholyMope,
+				SkyMap.ForestBrook,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
