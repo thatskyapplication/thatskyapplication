@@ -7,8 +7,7 @@
 		"format": "biome check --write",
 		"lint": "biome check",
 		"start": "tsx --watch source/index.ts",
-		"start-legacy": "tsx --watch source/legacy.ts",
-		"generate-watch-urls": "tsx scripts/generateWatchUrls.ts"
+		"start-legacy": "tsx --watch source/legacy.ts"
 	},
 	"dependencies": {
 		"@napi-rs/canvas": "^0.1.68",
