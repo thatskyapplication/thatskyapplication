@@ -36,7 +36,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.BereftVeteranBlessing2,
 					cost: { seasonalCandles: 18 },
 				},
-				{ cosmetic: Cosmetic.BereftVeteranHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.BereftVeteranHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -109,7 +113,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.BereftVeteranBlessing2,
 					cost: { candles: 5 },
 				},
-				{ cosmetic: Cosmetic.BereftVeteranHair, cost: { candles: 60 } },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.BereftVeteranHair,
+					cost: { candles: 60 },
+				},
 			],
 			[
 				{

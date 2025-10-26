@@ -36,7 +36,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.WarriorOfLoveBlessing2,
 					cost: { seasonalCandles: 12 },
 				},
-				{ cosmetic: Cosmetic.WarriorOfLoveHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.WarriorOfLoveHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -120,6 +124,7 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.WarriorOfLoveHair,
 					cost: { candles: 40 },
 				},

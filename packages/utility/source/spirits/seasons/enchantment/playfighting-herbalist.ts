@@ -48,7 +48,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.PlayfightingHerbalistMusicSheet,
 					cost: { seasonalCandles: 18 },
 				},
-				{ cosmetic: Cosmetic.PlayfightingHerbalistHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.PlayfightingHerbalistHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -120,6 +124,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.PlayfightingHerbalistHair,
 					cost: { candles: 42 },
 				},

@@ -36,7 +36,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.PrincessBlessing2,
 					cost: { seasonalCandles: 18 },
 				},
-				{ cosmetic: Cosmetic.PrincessHair, seasonPass: true },
+				{ translation: CosmeticCommon.Hair, cosmetic: Cosmetic.PrincessHair, seasonPass: true },
 			],
 			[
 				{

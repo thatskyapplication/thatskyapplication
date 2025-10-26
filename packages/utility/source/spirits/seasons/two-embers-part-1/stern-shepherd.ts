@@ -22,6 +22,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 12 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.SternShepherdHair,
 					seasonPass: true,
 				},

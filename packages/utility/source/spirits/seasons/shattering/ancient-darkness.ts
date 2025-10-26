@@ -147,6 +147,7 @@ export default [
 				],
 				[
 					{
+						translation: CosmeticCommon.Hair,
 						cosmetic: Cosmetic.AncientDarknessDragonHair,
 						cost: { seasonalCandles: 42 },
 					},
@@ -203,6 +204,7 @@ export default [
 						cost: { candles: 5 },
 					},
 					{
+						translation: CosmeticCommon.Hair,
 						cosmetic: Cosmetic.AncientDarknessDragonHair,
 						cost: { candles: 70 },
 					},

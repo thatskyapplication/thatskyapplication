@@ -24,7 +24,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.StretchingLamplighterBlessing1,
 					cost: { seasonalCandles: 10 },
 				},
-				{ cosmetic: Cosmetic.StretchingLamplighterHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.StretchingLamplighterHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -75,6 +79,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.StretchingLamplighterHair,
 					cost: { candles: 44 },
 				},

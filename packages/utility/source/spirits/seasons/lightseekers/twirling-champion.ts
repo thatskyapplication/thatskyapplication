@@ -40,6 +40,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.TwirlingChampionHair,
 					cost: { seasonalCandles: 16 },
 				},
@@ -104,6 +105,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.TwirlingChampionHair,
 					cost: { candles: 34 },
 				},

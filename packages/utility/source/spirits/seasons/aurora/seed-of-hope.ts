@@ -47,6 +47,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.SeedOfHopeHair,
 					cost: { seasonalCandles: 20 },
 				},
@@ -110,6 +111,7 @@ export default new SeasonalSpirit({
 				},
 				{ cosmetic: Cosmetic.EmoteRhythmicClap4, cost: { hearts: 6 }, level: 4 },
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.SeedOfHopeHair,
 					cost: { candles: 40 },
 				},

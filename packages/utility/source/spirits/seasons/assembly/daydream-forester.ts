@@ -56,7 +56,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.DaydreamForesterBlessing3,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.DaydreamForesterHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.DaydreamForesterHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -126,6 +130,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.DaydreamForesterHair,
 					cost: { candles: 44 },
 				},

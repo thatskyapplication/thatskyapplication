@@ -26,6 +26,7 @@ export default new GuideSpirit({
 					thirdHeight: true,
 					children: [
 						{
+							translation: CosmeticCommon.Hair,
 							cosmetic: Cosmetic.AURORAAuroraHair,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,

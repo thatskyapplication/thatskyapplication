@@ -43,7 +43,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ConfettiCousinCape,
 					cost: { seasonalCandles: 12 },
 				},
-				{ cosmetic: Cosmetic.ConfettiCousinHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.ConfettiCousinHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -69,6 +73,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.ConfettiCousinHair,
 					cost: { candles: 42 },
 				},

@@ -36,6 +36,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.LaidbackPioneerHair,
 					cost: { seasonalCandles: 10 },
 				},
@@ -92,6 +93,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 15 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.LaidbackPioneerHair,
 					cost: { candles: 18 },
 				},

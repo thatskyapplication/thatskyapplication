@@ -25,6 +25,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.MigratingBellmakerHair,
 					cost: { seasonalCandles: 23 },
 				},

@@ -44,7 +44,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.HunterBlessing2,
 					cost: { seasonalCandles: 28 },
 				},
-				{ cosmetic: Cosmetic.HunterHair, seasonPass: true },
+				{ translation: CosmeticCommon.Hair, cosmetic: Cosmetic.HunterHair, seasonPass: true },
 			],
 			[
 				{

@@ -54,7 +54,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.OveractiveOverachieverBlessing3,
 					cost: { seasonalCandles: 32 },
 				},
-				{ cosmetic: Cosmetic.OveractiveOverachieverHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.OveractiveOverachieverHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{

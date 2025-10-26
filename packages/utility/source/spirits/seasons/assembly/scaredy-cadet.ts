@@ -45,7 +45,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ScaredyCadetMusicSheet,
 					cost: { seasonalCandles: 15 },
 				},
-				{ cosmetic: Cosmetic.ScaredyCadetHair, seasonPass: true },
+				{ translation: CosmeticCommon.Hair, cosmetic: Cosmetic.ScaredyCadetHair, seasonPass: true },
 			],
 			[
 				{
@@ -112,6 +112,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.ScaredyCadetHair,
 					cost: { candles: 45 },
 				},

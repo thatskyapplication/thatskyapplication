@@ -26,7 +26,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.SnoozingCarpenterBlessing1,
 					cost: { seasonalCandles: 10 },
 				},
-				{ cosmetic: Cosmetic.SnoozingCarpenterHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.SnoozingCarpenterHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -67,6 +71,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.SnoozingCarpenterHair,
 					cost: { candles: 34 },
 				},

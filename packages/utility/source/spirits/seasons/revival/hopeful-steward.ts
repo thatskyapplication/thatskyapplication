@@ -110,6 +110,7 @@ export default new GuideSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.HopefulStewardHair,
 					cost: { candles: 46 },
 				},

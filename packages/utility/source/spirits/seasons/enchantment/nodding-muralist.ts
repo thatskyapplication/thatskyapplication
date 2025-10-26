@@ -46,7 +46,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.NoddingMuralistBlessing2,
 					cost: { seasonalCandles: 10 },
 				},
-				{ cosmetic: Cosmetic.NoddingMuralistHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.NoddingMuralistHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -103,6 +107,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.NoddingMuralistHair,
 					cost: { candles: 34 },
 				},

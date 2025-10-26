@@ -12,6 +12,7 @@ export default new StandardSpirit({
 			[
 				{ cosmetic: Cosmetic.StanceCourageous },
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.CourageousSoldierHair,
 					cost: { hearts: 4 },
 				},

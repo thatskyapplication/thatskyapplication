@@ -14,6 +14,7 @@ export default new StandardSpirit({
 			[
 				{ cosmetic: Cosmetic.EmoteHideAndSeek },
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.HideAndSeekPioneerHair,
 					cost: { hearts: 2 },
 				},

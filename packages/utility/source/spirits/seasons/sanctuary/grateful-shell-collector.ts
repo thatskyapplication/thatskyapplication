@@ -26,7 +26,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.GratefulShellCollectorBlessing1,
 					cost: { seasonalCandles: 14 },
 				},
-				{ cosmetic: Cosmetic.GratefulShellCollectorHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.GratefulShellCollectorHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -75,6 +79,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.GratefulShellCollectorHair,
 					cost: { candles: 34 },
 				},

@@ -24,7 +24,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.LivelyNavigatorBlessing1,
 					cost: { seasonalCandles: 12 },
 				},
-				{ cosmetic: Cosmetic.LivelyNavigatorHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.LivelyNavigatorHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -125,6 +129,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.LivelyNavigatorHair,
 					cost: { candles: 55 },
 				},

@@ -35,7 +35,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.RunningWayfarerBlessing2,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.RunningWayfarerHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.RunningWayfarerHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -109,7 +113,11 @@ export default new SeasonalSpirit({
 					level: 3,
 				},
 				{ cosmetic: Cosmetic.EmoteWavingLight4, cost: { hearts: 6 }, level: 4 },
-				{ cosmetic: Cosmetic.RunningWayfarerHair, cost: { candles: 40 } },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.RunningWayfarerHair,
+					cost: { candles: 40 },
+				},
 			],
 			[
 				{

@@ -48,7 +48,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ModestDancerOutfit,
 					cost: { seasonalCandles: 30 },
 				},
-				{ cosmetic: Cosmetic.ModestDancerHair, seasonPass: true },
+				{ translation: CosmeticCommon.Hair, cosmetic: Cosmetic.ModestDancerHair, seasonPass: true },
 			],
 			[
 				{
@@ -104,6 +104,7 @@ export default new SeasonalSpirit({
 					level: 2,
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.ModestDancerHair,
 					cost: { candles: 40 },
 				},

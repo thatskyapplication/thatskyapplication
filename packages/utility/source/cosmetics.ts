@@ -3246,6 +3246,7 @@ export enum CosmeticCommon {
 	Outfit = 10,
 	Shoes = 11,
 	Mask = 12,
+	Hair = 13,
 }
 
 export const WING_BUFFS = [

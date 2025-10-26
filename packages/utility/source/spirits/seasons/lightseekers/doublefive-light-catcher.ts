@@ -22,7 +22,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.DoublefiveLightCatcherBlessing1,
 					cost: { seasonalCandles: 4 },
 				},
-				{ cosmetic: Cosmetic.DoublefiveLightCatcherHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.DoublefiveLightCatcherHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -85,6 +89,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.DoublefiveLightCatcherHair,
 					cost: { candles: 34 },
 				},

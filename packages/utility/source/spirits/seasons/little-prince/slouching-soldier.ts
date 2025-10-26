@@ -26,7 +26,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.SlouchingSoldierBlessing1,
 					cost: { seasonalCandles: 10 },
 				},
-				{ cosmetic: Cosmetic.SlouchingSoldierHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.SlouchingSoldierHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -90,6 +94,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 15 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.SlouchingSoldierHair,
 					cost: { candles: 42 },
 				},

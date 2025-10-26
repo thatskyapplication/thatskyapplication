@@ -36,6 +36,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.MindfulMinerHair,
 					cost: { seasonalCandles: 24 },
 				},
@@ -122,6 +123,7 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.MindfulMinerHair,
 					cost: { candles: 40 },
 				},

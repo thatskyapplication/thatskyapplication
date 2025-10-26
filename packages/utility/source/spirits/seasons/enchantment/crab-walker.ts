@@ -22,6 +22,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.CrabWalkerHair,
 					cost: { seasonalCandles: 12 },
 				},
@@ -71,6 +72,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.CrabWalkerHair,
 					cost: { candles: 42 },
 				},

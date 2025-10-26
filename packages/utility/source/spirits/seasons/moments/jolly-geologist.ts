@@ -23,7 +23,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.JollyGeologistFaceAccessory,
 					cost: { seasonalCandles: 8 },
 				},
-				{ cosmetic: Cosmetic.JollyGeologistHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.JollyGeologistHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -111,7 +115,13 @@ export default new SeasonalSpirit({
 					cost: { candles: 15 },
 				},
 			],
-			[{ cosmetic: Cosmetic.JollyGeologistHair, cost: { candles: 48 } }],
+			[
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.JollyGeologistHair,
+					cost: { candles: 48 },
+				},
+			],
 		],
 	},
 	visits: {

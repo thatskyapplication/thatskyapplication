@@ -54,6 +54,7 @@ export default new StandardSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.LaughingLightCollectorHair,
 					cost: { hearts: 5 },
 				},

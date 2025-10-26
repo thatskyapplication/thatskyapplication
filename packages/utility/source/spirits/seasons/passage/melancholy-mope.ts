@@ -35,7 +35,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MelancholyMopeBlessing2,
 					cost: { seasonalCandles: 18 },
 				},
-				{ cosmetic: Cosmetic.MelancholyMopeHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.MelancholyMopeHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{

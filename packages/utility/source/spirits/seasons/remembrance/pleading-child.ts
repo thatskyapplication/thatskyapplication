@@ -34,7 +34,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.PleadingChildBlessing2,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.PleadingChildHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.PleadingChildHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -128,6 +132,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.PleadingChildHair,
 					cost: { candles: 60 },
 				},

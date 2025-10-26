@@ -11,6 +11,7 @@ export default [
 			seasonal: [
 				[
 					{
+						translation: CosmeticCommon.Hair,
 						cosmetic: Cosmetic.AncientLightJellyfishHair,
 						cost: { seasonalCandles: 35 },
 					},
@@ -58,6 +59,7 @@ export default [
 						cost: { candles: 5 },
 					},
 					{
+						translation: CosmeticCommon.Hair,
 						cosmetic: Cosmetic.AncientLightJellyfishHair,
 						cost: { candles: 45 },
 					},
@@ -128,7 +130,11 @@ export default [
 						cosmetic: Cosmetic.AncientLightMantaBlessing2,
 						cost: { seasonalCandles: 16 },
 					},
-					{ cosmetic: Cosmetic.AncientLightMantaHair, seasonPass: true },
+					{
+						translation: CosmeticCommon.Hair,
+						cosmetic: Cosmetic.AncientLightMantaHair,
+						seasonPass: true,
+					},
 				],
 				[
 					{
@@ -187,6 +193,7 @@ export default [
 						cost: { candles: 5 },
 					},
 					{
+						translation: CosmeticCommon.Hair,
 						cosmetic: Cosmetic.AncientLightMantaHair,
 						cost: { candles: 50 },
 					},

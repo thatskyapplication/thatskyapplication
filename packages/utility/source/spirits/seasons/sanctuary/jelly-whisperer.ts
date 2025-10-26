@@ -27,6 +27,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.JellyWhispererHair,
 					cost: { seasonalCandles: 8 },
 				},
@@ -94,6 +95,7 @@ export default new SeasonalSpirit({
 					cost: { hearts: 15 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.JellyWhispererHair,
 					cost: { candles: 42 },
 				},

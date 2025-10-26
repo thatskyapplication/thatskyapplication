@@ -11,6 +11,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.TheCellistsBeginningsHair,
 					cost: { seasonalCandles: 20 },
 				},

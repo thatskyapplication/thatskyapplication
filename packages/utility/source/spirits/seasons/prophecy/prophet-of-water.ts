@@ -26,7 +26,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.ProphetOfWaterBlessing1,
 					cost: { seasonalCandles: 12 },
 				},
-				{ cosmetic: Cosmetic.ProphetOfWaterHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.ProphetOfWaterHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -84,6 +88,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.ProphetOfWaterHair,
 					cost: { candles: 44 },
 				},

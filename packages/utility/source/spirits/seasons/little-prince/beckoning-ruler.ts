@@ -26,7 +26,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.BeckoningRulerBlessing1,
 					cost: { seasonalCandles: 14 },
 				},
-				{ cosmetic: Cosmetic.BeckoningRulerHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.BeckoningRulerHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -109,6 +113,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.BeckoningRulerHair,
 					cost: { candles: 48 },
 				},

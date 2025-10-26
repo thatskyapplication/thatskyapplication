@@ -62,7 +62,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.CacklingCannoneerBlessing4,
 					cost: { seasonalCandles: 34 },
 				},
-				{ cosmetic: Cosmetic.CacklingCannoneerHair, seasonPass: true },
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.CacklingCannoneerHair,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -118,6 +122,7 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
+					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.CacklingCannoneerHair,
 					cost: { candles: 50 },
 				},

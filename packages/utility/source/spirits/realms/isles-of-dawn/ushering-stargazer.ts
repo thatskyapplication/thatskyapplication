@@ -18,7 +18,7 @@ export default new StandardSpirit({
 					cost: { candles: 1 },
 					level: 2,
 				},
-				{ cosmetic: Cosmetic.UsheringStargazerHair },
+				{ translation: CosmeticCommon.Hair, cosmetic: Cosmetic.UsheringStargazerHair },
 			],
 			[
 				{
