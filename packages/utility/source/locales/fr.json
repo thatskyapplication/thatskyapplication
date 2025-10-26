@@ -355,7 +355,8 @@
 			"270": "Récupérez les 3 lumières dans la citadelle de la vallée",
 			"271": "Chevauchez une raie mantra géante dans les îles du sanctuaire",
 			"272": "",
-			"273": "Volez avec les coléoptères dans le champ de papillons"
+			"273": "Volez avec les coléoptères dans le champ de papillons",
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -2507,7 +2508,27 @@
 			"2500": "",
 			"2501": "",
 			"2502": "Cape Guirlande de Clair de Lune",
-			"2504": "Pendentif"
+			"2504": "Pendentif",
+			"2505": "",
+			"2506": "",
+			"2507": "",
+			"2508": "",
+			"2509": "Écho ancien",
+			"2510": "",
+			"2512": "",
+			"2513": "",
+			"2515": "",
+			"2516": "",
+			"2517": "",
+			"2519": "",
+			"2520": "",
+			"2523": "",
+			"2524": "",
+			"2527": "",
+			"2528": "",
+			"2529": "",
+			"2530": "",
+			"2531": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "",
