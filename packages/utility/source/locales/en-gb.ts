@@ -2544,7 +2544,6 @@ export default {
 			[Cosmetic.MigratingMantaWhispererWhiteDye]: "White dye",
 			[Cosmetic.MigratingMantaWhispererTrust]: "Trust",
 			[Cosmetic.EmoteFlagSignal4]: "Flag signal 4",
-			[Cosmetic.MigratingMantaWhispererOutfit]: "Outfit",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
