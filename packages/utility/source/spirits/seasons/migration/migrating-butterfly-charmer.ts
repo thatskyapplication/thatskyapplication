@@ -70,6 +70,7 @@ export default new SeasonalSpirit({
 				null,
 				null,
 				{
+					translation: CosmeticCommon.HairAccessory,
 					cosmetic: Cosmetic.MigratingButterflyCharmerHairAccessory,
 					seasonPass: true,
 				},

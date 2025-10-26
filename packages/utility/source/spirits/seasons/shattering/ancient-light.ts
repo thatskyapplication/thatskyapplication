@@ -28,6 +28,7 @@ export default [
 						cost: { seasonalCandles: 16 },
 					},
 					{
+						translation: CosmeticCommon.HairAccessory,
 						cosmetic: Cosmetic.AncientLightJellyfishHairAccessory,
 						seasonPass: true,
 					},
@@ -93,6 +94,7 @@ export default [
 						cost: { candles: 5 },
 					},
 					{
+						translation: CosmeticCommon.HairAccessory,
 						cosmetic: Cosmetic.AncientLightJellyfishHairAccessory,
 						cost: { candles: 50 },
 					},

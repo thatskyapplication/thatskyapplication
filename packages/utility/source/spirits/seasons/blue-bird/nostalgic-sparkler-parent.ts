@@ -16,7 +16,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.NostalgicSparklerParentDye1,
 					cost: { seasonalCandles: 9 },
 				},
-				{ cosmetic: Cosmetic.NostalgicSparklerParentHairAccessory, seasonPass: true },
+				{
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.NostalgicSparklerParentHairAccessory,
+					seasonPass: true,
+				},
 			],
 			[
 				{

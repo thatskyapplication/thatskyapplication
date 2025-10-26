@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -10,6 +10,7 @@ export default new Event({
 	end: skyDate(2_023, 7, 31),
 	offer: [
 		{
+			translation: CosmeticCommon.HairAccessory,
 			cosmetic: Cosmetic.SkyAnniversaryHairAccessory4,
 			cost: { eventTickets: 8 },
 		},

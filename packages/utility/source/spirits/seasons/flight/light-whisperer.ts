@@ -20,6 +20,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 14 },
 				},
 				{
+					translation: CosmeticCommon.HairAccessory,
 					cosmetic: Cosmetic.LightWhispererHairAccessory,
 					seasonPass: true,
 				},
@@ -73,6 +74,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.HairAccessory,
 					cosmetic: Cosmetic.LightWhispererHairAccessory,
 					cost: { candles: 45 },
 				},

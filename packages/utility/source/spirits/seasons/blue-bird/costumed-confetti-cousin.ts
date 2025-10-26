@@ -13,6 +13,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			[
 				{
+					translation: CosmeticCommon.HairAccessory,
 					cosmetic: Cosmetic.CostumedConfettiCousinHairAccessory,
 					cost: { seasonalCandles: 12 },
 				},

@@ -10,6 +10,7 @@ export default new Event({
 	end: skyDate(2_022, 6, 6),
 	offer: [
 		{
+			translation: CosmeticCommon.HairAccessory,
 			cosmetic: Cosmetic.HarmonyHallGrandOpeningHairAccessory,
 			cost: { candles: 50 },
 		},

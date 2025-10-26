@@ -11,6 +11,7 @@ export default [
 			seasonal: [
 				[
 					{
+						translation: CosmeticCommon.HairAccessory,
 						cosmetic: Cosmetic.AncientDarknessPlantHairAccessory,
 						cost: { seasonalCandles: 27 },
 					},
@@ -91,6 +92,7 @@ export default [
 						cost: { candles: 5 },
 					},
 					{
+						translation: CosmeticCommon.HairAccessory,
 						cosmetic: Cosmetic.AncientDarknessPlantHairAccessory,
 						cost: { candles: 45 },
 					},
