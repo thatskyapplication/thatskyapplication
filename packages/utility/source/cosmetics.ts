@@ -3190,6 +3190,18 @@ export enum Cosmetic {
 	EmoteFlightRun4 = 2529,
 	MigratingBirdWhispererCape = 2530,
 	MigratingBirdWhispererSeasonalHeart = 2531,
+	EmoteDizzy1 = 2532,
+	MigratingButterflyCharmerBlessing1 = 2533,
+	MigratingButterflyCharmerYellowDye = 2534,
+	EmoteDizzy2 = 2535,
+	EmoteDizzy3 = 2536,
+	MigratingButterflyCharmerCape = 2537,
+	MigratingButterflyCharmerBlessing2 = 2538,
+	MigratingButterflyCharmerBlessing3 = 2539,
+	MigratingButterflyCharmerTrust = 2540,
+	EmoteDizzy4 = 2541,
+	MigratingButterflyCharmerHairAccessory = 2542,
+	MigratingButterflyCharmerSeasonalHeart = 2543,
 
 	// 23/10/2025 | Travelling Spirit #152.
 	NightbirdWhispererWingBuff = 2584,

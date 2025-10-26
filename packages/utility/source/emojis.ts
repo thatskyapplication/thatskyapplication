@@ -235,6 +235,7 @@ const EMOTE_EMOJIS_PRODUCTION = {
 	Cough: { id: "1363812372510150676", name: "cough" },
 	Amazed: { id: "1365270363428360304", name: "amazed" },
 	FlightRun: { id: "1431815492737306715", name: "flight_run" },
+	Dizzy: { id: "1431943071666540554", name: "dizzy" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_DEVELOPMENT = {
@@ -347,6 +348,7 @@ const EMOTE_EMOJIS_DEVELOPMENT = {
 	Cough: { id: "1363812384329699408", name: "cough" },
 	Amazed: { id: "1365270370436780152", name: "amazed" },
 	FlightRun: { id: "1431815498953261056", name: "flight_run" },
+	Dizzy: { id: "1431943075508256860", name: "dizzy" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS_PRODUCTION = {
@@ -3275,6 +3277,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Sunlight Bonnet Jellyfish Hat.
 	 */
 	HairAccessory61: { id: "1412360698922537072", name: "61_hair_accessory" },
+	/**
+	 * Migrating Butterfly Charmer.
+	 */
+	HairAccessory62: { id: "1431943061776109709", name: "62_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3339,6 +3345,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory59: { id: "1396910423139156088", name: "59_hair_accessory" },
 	HairAccessory60: { id: "1396895798465134765", name: "60_hair_accessory" },
 	HairAccessory61: { id: "1412360710121324624", name: "61_hair_accessory" },
+	HairAccessory62: { id: "1431943071637180528", name: "62_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4111,6 +4118,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Migrating Bird Whisperer.
 	 */
 	Cape162: { id: "1431816406302724269", name: "162_cape" },
+	/**
+	 * Migrating Butterfly Charmer.
+	 */
+	Cape163: { id: "1431943063403499630", name: "163_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4276,6 +4287,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape160: { id: "1422146401189494915", name: "160_cape" },
 	Cape161: { id: "1431664163591290960", name: "161_cape" },
 	Cape162: { id: "1431816413571711228", name: "162_cape" },
+	Cape163: { id: "1431943073579012138", name: "163_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -8182,6 +8194,18 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.EmoteFlightRun4]: EMOTE_EMOJIS.FlightRun,
 		[Cosmetic.MigratingBirdWhispererCape]: CAPE_EMOJIS.Cape162,
 		[Cosmetic.MigratingBirdWhispererSeasonalHeart]: SEASON_EMOJIS.MigrationHeart,
+		[Cosmetic.EmoteDizzy1]: EMOTE_EMOJIS.Dizzy,
+		[Cosmetic.MigratingButterflyCharmerBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.MigratingButterflyCharmerYellowDye]: MISCELLANEOUS_EMOJIS.DyeYellow,
+		[Cosmetic.EmoteDizzy2]: EMOTE_EMOJIS.Dizzy,
+		[Cosmetic.EmoteDizzy3]: EMOTE_EMOJIS.Dizzy,
+		[Cosmetic.MigratingButterflyCharmerCape]: CAPE_EMOJIS.Cape163,
+		[Cosmetic.MigratingButterflyCharmerBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.MigratingButterflyCharmerBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.MigratingButterflyCharmerTrust]: MISCELLANEOUS_EMOJIS.Trust,
+		[Cosmetic.EmoteDizzy4]: EMOTE_EMOJIS.Dizzy,
+		[Cosmetic.MigratingButterflyCharmerHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory62,
+		[Cosmetic.MigratingButterflyCharmerSeasonalHeart]: SEASON_EMOJIS.MigrationHeart,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
