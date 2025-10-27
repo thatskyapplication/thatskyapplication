@@ -3235,6 +3235,25 @@ export enum Cosmetic {
 	MigrationGuideQuest2 = 2570,
 	MigrationGuideHeart1 = 2571,
 	MigrationGuideHeart2 = 2572,
+
+	// 27/10/2025 | Days of Mischief.
+	MischiefPuzzlewrightsBrimmedHat = 2573,
+	MischiefFelineEars = 2574,
+	MischiefFelineTail = 2575,
+	MischiefBeakMask = 2576,
+	MischiefGothCape = 2577,
+	MischiefLeafHat = 2578,
+	MischiefCrabkinLamp = 2579,
+	MischiefCobwebDecor = 2580,
+	MischiefDarkDragonRug = 2581,
+	MischiefWitheredSapling = 2582,
+	MischiefSymbol1 = 2583,
+	MischiefSymbol2 = 2584,
+	MischiefSymbol3 = 2585,
+	MischiefSymbol4 = 2586,
+	PuzzleBox = 2587,
+	PuzzleChest = 2588,
+	PuzzleCage = 2589,
 }
 
 export enum CosmeticCommon {

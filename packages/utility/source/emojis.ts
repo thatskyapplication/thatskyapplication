@@ -2876,6 +2876,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Migrating Manta Whisperer.
 	 */
 	Hair170: { id: "1431952763998441492", name: "170_hair" },
+	/**
+	 * Mischief Puzzlewright's Brimmed Hat.
+	 */
+	Hair171: { id: "1432488576129568908", name: "171_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3049,6 +3053,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair168: { id: "1396949348863971441", name: "168_hair" },
 	Hair169: { id: "1431662859770658916", name: "169_hair" },
 	Hair170: { id: "1431952774568087552", name: "170_hair" },
+	Hair171: { id: "1432488588137861232", name: "171_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -8263,6 +8268,23 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigrationGuideQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.MigrationGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.MischiefPuzzlewrightsBrimmedHat]: HAIR_EMOJIS.Hair171,
+		[Cosmetic.MischiefFelineEars]: null,
+		[Cosmetic.MischiefFelineTail]: null,
+		[Cosmetic.MischiefBeakMask]: null,
+		[Cosmetic.MischiefGothCape]: null,
+		[Cosmetic.MischiefLeafHat]: null,
+		[Cosmetic.MischiefCrabkinLamp]: null,
+		[Cosmetic.MischiefCobwebDecor]: null,
+		[Cosmetic.MischiefDarkDragonRug]: null,
+		[Cosmetic.MischiefWitheredSapling]: null,
+		[Cosmetic.MischiefSymbol1]: null,
+		[Cosmetic.MischiefSymbol2]: null,
+		[Cosmetic.MischiefSymbol3]: null,
+		[Cosmetic.MischiefSymbol4]: null,
+		[Cosmetic.PuzzleBox]: null,
+		[Cosmetic.PuzzleChest]: null,
+		[Cosmetic.PuzzleCage]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
