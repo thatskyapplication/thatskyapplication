@@ -286,6 +286,7 @@ export const DailyQuest = {
 	AdmireSharedSpacesWithTalentedBuilder: 272,
 	FlyWithManyButterfliesInButterflyFields: 273,
 	MeetUpWithMelancholyMopeInForestBrook: 274,
+	FinishNatsBroomstickRaceInCacklingCrab: 275,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -713,4 +714,5 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.AdmireSharedSpacesWithTalentedBuilder]: null,
 	[DailyQuest.FlyWithManyButterfliesInButterflyFields]: null,
 	[DailyQuest.MeetUpWithMelancholyMopeInForestBrook]: null,
+	[DailyQuest.FinishNatsBroomstickRaceInCacklingCrab]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;

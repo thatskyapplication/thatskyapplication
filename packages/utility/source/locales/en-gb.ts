@@ -563,6 +563,8 @@ export default {
 				SpiritId.MelancholyMope,
 				SkyMap.ForestBrook,
 			),
+			[DailyQuest.FinishNatsBroomstickRaceInCacklingCrab]:
+				"Finish Nat's broomstick race in Cackling Crab",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
