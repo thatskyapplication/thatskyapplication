@@ -356,7 +356,8 @@
 			"271": "낙원의 섬에서 거대한 만타가오리를 타세요",
 			"272": "",
 			"273": "나비 들판에서 많은 나비들과 함께 날아오르세요",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "수다쟁이 게에서 냇의 빗자루 경주를 완료하세요"
 		},
 		"seasons": {
 			"0": "감사의 시즌",

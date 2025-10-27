@@ -356,7 +356,8 @@
 			"271": "Monta una manta gigante en las Islas Santuario",
 			"272": "",
 			"273": "Vuela con muchas mariposas en Mariposas de la Planicie",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "Completa la carrera de escobas voladoras de Nat en El cangrejo carcajeante"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",

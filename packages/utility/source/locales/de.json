@@ -356,7 +356,8 @@
 			"271": "Reite auf einem riesigen Manta in den Zufluchtsinseln",
 			"272": "",
 			"273": "Fliege mit vielen Schmetterlingen im Schmetterlingsfeld",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "Beende Nats Besenrennen im gackernden Krebs"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",
