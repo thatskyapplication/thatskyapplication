@@ -356,7 +356,8 @@
 			"271": "Cưỡi một con cá đuối khổng lồ ở Quần Đảo Thánh Địa",
 			"272": "",
 			"273": "Bay với nhiều con bướm ở Cánh Đồng Bướm",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "Hoàn thành đua chổi của Nat ở Khu vực Cua kêu Thần bí"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",

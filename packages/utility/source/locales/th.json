@@ -356,7 +356,8 @@
 			"271": "ขี่กระเบนยักษ์ในเกาะสวรรค์",
 			"272": "",
 			"273": "โบยบินไปกับฝูงผีเสื้อในทุ่งผีเสื้อ",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "แข่งขี่ไม้กวาดของแนทให้จบในปูผู้ขบขัน"
 		},
 		"seasons": {
 			"0": "ฤดูกาลแห่งความกตัญญู",

@@ -356,7 +356,8 @@
 			"271": "在聖域群島乘坐一隻巨大光鰩",
 			"272": "",
 			"273": "在蝴蝶原野與眾多蝴蝶一同飛翔",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "完成 Nat 在嘎吱嘎吱的螃蟹中的飛天掃帚比賽"
 		},
 		"seasons": {
 			"0": "感恩季",

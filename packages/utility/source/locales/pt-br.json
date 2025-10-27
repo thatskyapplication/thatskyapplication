@@ -356,7 +356,8 @@
 			"271": "Monte uma arraia gigante nas Ilhas do Santuário",
 			"272": "Admire os Espaços Compartilhados com o Construtor Engenhoso",
 			"273": "Voe com muitas borboletas no Campo de Borboletas",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "Termine a corrida de vassouras da Nat no Caranguejo Cacarejante"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",

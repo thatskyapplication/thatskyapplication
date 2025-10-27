@@ -356,7 +356,8 @@
 			"271": "Cavalca una manta gigante nell'Arcipelago Paradiso",
 			"272": "",
 			"273": "Vola con tante farfalle nei campi di farfalle",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "Completa la gara di scope di Nat al Granchio schiamazzante"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",

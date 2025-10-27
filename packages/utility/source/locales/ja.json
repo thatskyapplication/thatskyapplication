@@ -356,7 +356,8 @@
 			"271": "",
 			"272": "",
 			"273": "",
-			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})"
+			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
+			"275": "カチカチ蟹穴でナットの箒レースを完了する"
 		},
 		"seasons": {
 			"0": "感謝の季節",
