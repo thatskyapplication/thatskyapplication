@@ -3230,6 +3230,11 @@ export enum Cosmetic {
 
 	// 23/10/2025 | Travelling Spirit #152.
 	NightbirdWhispererWingBuff = 2569,
+
+	// 27/10/2025 | Season of Migration Quest 2.
+	MigrationGuideQuest2 = 2570,
+	MigrationGuideHeart1 = 2571,
+	MigrationGuideHeart2 = 2572,
 }
 
 export enum CosmeticCommon {

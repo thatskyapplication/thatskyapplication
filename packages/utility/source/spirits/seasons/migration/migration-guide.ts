@@ -13,7 +13,7 @@ export default new GuideSpirit({
 		current: [
 			[
 				{
-					translation: { key: CosmeticCommon.Quest },
+					translation: { key: CosmeticCommon.QuestMultiple, number: 1 },
 					cosmetic: Cosmetic.MigrationGuideQuest1,
 				},
 				null,
@@ -23,7 +23,10 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				null,
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
+					cosmetic: Cosmetic.MigrationGuideQuest2,
+				},
 				null,
 				{
 					cosmetic: Cosmetic.MigrationGuideUltimateShoes,
@@ -33,7 +36,10 @@ export default new GuideSpirit({
 			],
 			[
 				null,
-				null,
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+					cosmetic: Cosmetic.MigrationGuideHeart1,
+				},
 				{
 					cosmetic: Cosmetic.MigrationGuideUltimateOutfit,
 					cost: { seasonalHearts: 2 },
@@ -42,7 +48,10 @@ export default new GuideSpirit({
 			],
 			[
 				null,
-				null,
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
+					cosmetic: Cosmetic.MigrationGuideHeart2,
+				},
 				{
 					cosmetic: Cosmetic.MigrationGuideUltimateFaceAccessory,
 					cost: { seasonalHearts: 2 },
