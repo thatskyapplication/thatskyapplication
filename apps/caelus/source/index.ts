@@ -64,6 +64,8 @@ for (const event of [
 	client[once ? "once" : "on"](name, fire);
 }
 
+client.on("error", (error) => pino.error(error));
+
 // Populate the command cache.
 const applicationCommands = await client.api.applicationCommands.getGlobalCommands(APPLICATION_ID);
 
