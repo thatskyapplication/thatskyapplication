@@ -357,7 +357,8 @@
 			"272": "Admire os Espaços Compartilhados com o Construtor Engenhoso",
 			"273": "Voe com muitas borboletas no Campo de Borboletas",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
-			"275": "Termine a corrida de vassouras da Nat no Caranguejo Cacarejante"
+			"275": "Termine a corrida de vassouras da Nat no Caranguejo Cacarejante",
+			"276": "Ajude Austin a pegar 5 caranguejos no porão do Caranguejo Cacarejante"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -2214,7 +2215,24 @@
 			"2561": "Sinal de bandeira 3",
 			"2564": "Tinta branca",
 			"2565": "Confiar",
-			"2566": "Sinal de bandeira 4"
+			"2566": "Sinal de bandeira 4",
+			"2573": "Chapéu de Criador de Travessuras",
+			"2574": "",
+			"2575": "",
+			"2576": "",
+			"2577": "",
+			"2578": "",
+			"2579": "",
+			"2580": "",
+			"2581": "",
+			"2582": "",
+			"2583": "",
+			"2584": "",
+			"2585": "",
+			"2586": "",
+			"2587": "",
+			"2588": "",
+			"2589": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",

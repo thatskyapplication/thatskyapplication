@@ -357,7 +357,8 @@
 			"272": "",
 			"273": "Volez avec les coléoptères dans le champ de papillons",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
-			"275": "Terminez la course des balais de Nat au Crabe Caquetant"
+			"275": "Terminez la course des balais de Nat au Crabe Caquetant",
+			"276": "Aidez Austin à obtenir 5 crabes dans le sous-sol du Crabe Caquetant"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -2214,7 +2215,24 @@
 			"2561": "",
 			"2564": "Teinture blanche",
 			"2565": "Confiance",
-			"2566": ""
+			"2566": "",
+			"2573": "Chapeau large de pro des énigmes malicieux",
+			"2574": "",
+			"2575": "",
+			"2576": "",
+			"2577": "",
+			"2578": "",
+			"2579": "",
+			"2580": "",
+			"2581": "",
+			"2582": "",
+			"2583": "",
+			"2584": "",
+			"2585": "",
+			"2586": "",
+			"2587": "",
+			"2588": "",
+			"2589": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "",

@@ -357,7 +357,8 @@
 			"272": "",
 			"273": "Bay với nhiều con bướm ở Cánh Đồng Bướm",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
-			"275": "Hoàn thành đua chổi của Nat ở Khu vực Cua kêu Thần bí"
+			"275": "Hoàn thành đua chổi của Nat ở Khu vực Cua kêu Thần bí",
+			"276": "Giúp Austin thu thập 5 con cua trong tầng hầm tại Khu vực Cua kêu Thần bí"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",
@@ -2214,7 +2215,24 @@
 			"2561": "",
 			"2564": "",
 			"2565": "",
-			"2566": ""
+			"2566": "",
+			"2573": "Mũ Tinh Nghịch Của Chủ Nhân Câu Đố",
+			"2574": "",
+			"2575": "",
+			"2576": "",
+			"2577": "",
+			"2578": "",
+			"2579": "",
+			"2580": "",
+			"2581": "",
+			"2582": "",
+			"2583": "",
+			"2584": "",
+			"2585": "",
+			"2586": "",
+			"2587": "",
+			"2588": "",
+			"2589": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
