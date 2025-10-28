@@ -358,7 +358,9 @@
 			"273": "Voe com muitas borboletas no Campo de Borboletas",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"275": "Termine a corrida de vassouras da Nat no Caranguejo Cacarejante",
-			"276": "Ajude Austin a pegar 5 caranguejos no porão do Caranguejo Cacarejante"
+			"276": "Ajude Austin a pegar 5 caranguejos no porão do Caranguejo Cacarejante",
+			"277": "Ajude Skidmore a disparar os canhões 3 vezes no Caranguejo Cacarejante",
+			"278": "Ajude Yoshi a acender o caldeirão no Caranguejo Cacarejante"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",

@@ -358,7 +358,9 @@
 			"273": "Bay với nhiều con bướm ở Cánh Đồng Bướm",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"275": "Hoàn thành đua chổi của Nat ở Khu vực Cua kêu Thần bí",
-			"276": "Giúp Austin thu thập 5 con cua trong tầng hầm tại Khu vực Cua kêu Thần bí"
+			"276": "Giúp Austin thu thập 5 con cua trong tầng hầm tại Khu vực Cua kêu Thần bí",
+			"277": "Giúp Skidmore bắn đại bác 3 lần ở Khu vực Cua kêu Thần bí",
+			"278": "Giúp Yoshi thắp sáng nồi quai vạc trong Khu vực Cua kêu Thần bí"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",

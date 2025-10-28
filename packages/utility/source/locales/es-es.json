@@ -358,7 +358,9 @@
 			"273": "Vuela con muchas mariposas en Mariposas de la Planicie",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"275": "Completa la carrera de escobas voladoras de Nat en El cangrejo carcajeante",
-			"276": "Ayuda a Austin a reunir 5 cangrejos en el sótano de El cangrejo carcajeante"
+			"276": "Ayuda a Austin a reunir 5 cangrejos en el sótano de El cangrejo carcajeante",
+			"277": "Ayuda a Skidmore a disparar los cañones 3 veces en El cangrejo carcajeante",
+			"278": "Ayuda a Yoshi encender el caldero en El cangrejo carcajeante"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
