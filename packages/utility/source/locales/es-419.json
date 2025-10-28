@@ -357,7 +357,8 @@
 			"272": "",
 			"273": "Vuela con muchas mariposas en Mariposas de la Planicie",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
-			"275": "Completa la carrera de escobas voladoras de Nat en El cangrejo carcajeante"
+			"275": "Completa la carrera de escobas voladoras de Nat en El cangrejo carcajeante",
+			"276": "Ayuda a Austin a reunir 5 cangrejos en el sótano de El cangrejo carcajeante"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -2214,7 +2215,24 @@
 			"2561": "",
 			"2564": "",
 			"2565": "",
-			"2566": ""
+			"2566": "",
+			"2573": "Sombrero con ala del puzleturgo de las travesuras",
+			"2574": "",
+			"2575": "",
+			"2576": "",
+			"2577": "",
+			"2578": "",
+			"2579": "",
+			"2580": "",
+			"2581": "",
+			"2582": "",
+			"2583": "",
+			"2584": "",
+			"2585": "",
+			"2586": "",
+			"2587": "",
+			"2588": "",
+			"2589": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

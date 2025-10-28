@@ -357,7 +357,8 @@
 			"272": "",
 			"273": "Vola con tante farfalle nei campi di farfalle",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
-			"275": "Completa la gara di scope di Nat al Granchio schiamazzante"
+			"275": "Completa la gara di scope di Nat al Granchio schiamazzante",
+			"276": "Aiuta Austin a raccogliere 5 granchi nel seminterrato del Granchio schiamazzante"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
@@ -2214,7 +2215,24 @@
 			"2561": "",
 			"2564": "",
 			"2565": "",
-			"2566": ""
+			"2566": "",
+			"2573": "Scherzetti - Cappello a tesa larga dell'enigmista",
+			"2574": "",
+			"2575": "",
+			"2576": "",
+			"2577": "",
+			"2578": "",
+			"2579": "",
+			"2580": "",
+			"2581": "",
+			"2582": "",
+			"2583": "",
+			"2584": "",
+			"2585": "",
+			"2586": "",
+			"2587": "",
+			"2588": "",
+			"2589": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
