@@ -358,7 +358,9 @@
 			"273": "Vola con tante farfalle nei campi di farfalle",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"275": "Completa la gara di scope di Nat al Granchio schiamazzante",
-			"276": "Aiuta Austin a raccogliere 5 granchi nel seminterrato del Granchio schiamazzante"
+			"276": "Aiuta Austin a raccogliere 5 granchi nel seminterrato del Granchio schiamazzante",
+			"277": "Aiuta Skidmore a sparare 3 volte i cannoni nel Granchio schiamazzante",
+			"278": "Aiuta Yoshi ad accendere il calderone nel Granchio schiamazzante"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",

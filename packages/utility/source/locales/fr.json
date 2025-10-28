@@ -358,7 +358,9 @@
 			"273": "Volez avec les coléoptères dans le champ de papillons",
 			"274": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.142)\",\"location\":\"$t(maps.Forest Brook)\"})",
 			"275": "Terminez la course des balais de Nat au Crabe Caquetant",
-			"276": "Aidez Austin à obtenir 5 crabes dans le sous-sol du Crabe Caquetant"
+			"276": "Aidez Austin à obtenir 5 crabes dans le sous-sol du Crabe Caquetant",
+			"277": "Aidez Skidmore à tirer 3 fois le canon au Crabe Caquetant",
+			"278": "Aidez Yoshi à allumer le chaudron au Crabe Caquetant"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
