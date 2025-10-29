@@ -564,13 +564,13 @@ export default {
 				SkyMap.ForestBrook,
 			),
 			[DailyQuest.FinishNatsBroomstickRaceInCacklingCrab]:
-				"Finish Nat's broomstick race in Cackling Crab",
+				"Finish Nat's broomstick race in the Cackling Crab",
 			[DailyQuest.HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab]:
 				"Help Austin collect 5 crabs in the basement of the Cackling Crab",
 			[DailyQuest.HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab]:
 				"Help Skidmore fire the cannons 3 times in the Cackling Crab",
-			[DailyQuest.HelpYoshiLightTheCauldronInTheCacklingCrab]:
-				"Help Yoshi light the cauldron in the Cackling Crab",
+			[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]:
+				"Hop into Yoshi's cauldron brew in the Cackling Crab",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
