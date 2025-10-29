@@ -1685,6 +1685,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Resourceful Recluse.
 	 */
 	Mask103: { id: "1396955699723894906", name: "103_mask" },
+	/**
+	 * Mischief Beak MAsk.
+	 */
+	Mask104: { id: "1433198715879035090", name: "104_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1791,6 +1795,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask101: { id: "1376530178947153970", name: "101_mask" },
 	Mask102: { id: "1396951030150987816", name: "102_mask" },
 	Mask103: { id: "1396955708032811099", name: "103_mask" },
+	Mask104: { id: "1433198725970526331", name: "104_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -2138,6 +2143,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Migration Pendant.
 	 */
 	Necklace52: { id: "1429825301658992761", name: "52_necklace" },
+	/**
+	 * Mischief Feline Tail.
+	 */
+	Necklace53: { id: "1433197642007183430", name: "53_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2193,6 +2202,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace50: { id: "1401818695403311175", name: "50_necklace" },
 	Necklace51: { id: "1422146174357471232", name: "51_necklace" },
 	Necklace52: { id: "1429825309015806094", name: "52_necklace" },
+	Necklace53: { id: "1433197656137666721", name: "53_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -3309,6 +3319,14 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Migrating Jellyfish Whisperer.
 	 */
 	HairAccessory63: { id: "1431949633084588195", name: "63_hair_accessory" },
+	/**
+	 * Mischief Feline Ears.
+	 */
+	HairAccessory64: { id: "1433197643969855568", name: "64_hair_accessory" },
+	/**
+	 * Mischief Leaf Hat.
+	 */
+	HairAccessory65: { id: "1433200193825800333", name: "65_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3375,6 +3393,8 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory61: { id: "1412360710121324624", name: "61_hair_accessory" },
 	HairAccessory62: { id: "1431943071637180528", name: "62_hair_accessory" },
 	HairAccessory63: { id: "1431949642672898080", name: "63_hair_accessory" },
+	HairAccessory64: { id: "1433197658490667008", name: "64_hair_accessory" },
+	HairAccessory65: { id: "1433200211278172282", name: "65_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4155,6 +4175,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Migrating Manta Whisperer.
 	 */
 	Cape164: { id: "1431952761573998751", name: "164_cape" },
+	/**
+	 * Mischief Goth Cape.
+	 */
+	Cape165: { id: "1433199881626849413", name: "165_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4322,6 +4346,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape162: { id: "1431816413571711228", name: "162_cape" },
 	Cape163: { id: "1431943073579012138", name: "163_cape" },
 	Cape164: { id: "1431952772332392589", name: "164_cape" },
+	Cape165: { id: "1433199898483888149", name: "165_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -8269,11 +8294,11 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigrationGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.MigrationGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.MischiefPuzzlewrightsBrimmedHat]: HAIR_EMOJIS.Hair171,
-		[Cosmetic.MischiefFelineEars]: null,
-		[Cosmetic.MischiefFelineTail]: null,
-		[Cosmetic.MischiefBeakMask]: null,
-		[Cosmetic.MischiefGothCape]: null,
-		[Cosmetic.MischiefLeafHat]: null,
+		[Cosmetic.MischiefFelineEars]: HAIR_ACCESSORY_EMOJIS.HairAccessory64,
+		[Cosmetic.MischiefFelineTail]: NECKLACE_EMOJIS.Necklace53,
+		[Cosmetic.MischiefBeakMask]: MASK_EMOJIS.Mask104,
+		[Cosmetic.MischiefGothCape]: CAPE_EMOJIS.Cape165,
+		[Cosmetic.MischiefLeafHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory65,
 		[Cosmetic.MischiefCrabkinLamp]: null,
 		[Cosmetic.MischiefCobwebDecor]: null,
 		[Cosmetic.MischiefDarkDragonRug]: null,
