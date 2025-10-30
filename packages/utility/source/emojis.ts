@@ -5018,6 +5018,22 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Moonlight Basin.
 	 */
 	LargePlaceableProp93: { id: "1422145351481036862", name: "93_large_placeable_prop" },
+	/**
+	 * Mischief Withered Sapling.
+	 */
+	LargePlaceableProp94: { id: "1433424877750190100", name: "94_large_placeable_prop" },
+	/**
+	 * Puzzle Box.
+	 */
+	LargePlaceableProp95: { id: "1433424881311027362", name: "95_large_placeable_prop" },
+	/**
+	 * Puzzle Chest.
+	 */
+	LargePlaceableProp96: { id: "1433424885493006416", name: "96_large_placeable_prop" },
+	/**
+	 * Puzzle Cage.
+	 */
+	LargePlaceableProp97: { id: "1433424887216607383", name: "97_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5114,6 +5130,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp91: { id: "1401821020276523038", name: "91_large_placeable_prop" },
 	LargePlaceableProp92: { id: "1401820190467162163", name: "92_large_placeable_prop" },
 	LargePlaceableProp93: { id: "1422145359089500261", name: "93_large_placeable_prop" },
+	LargePlaceableProp94: { id: "1433424889271816295", name: "94_large_placeable_prop" },
+	LargePlaceableProp95: { id: "1433424891247591455", name: "95_large_placeable_prop" },
+	LargePlaceableProp96: { id: "1433424893403336826", name: "96_large_placeable_prop" },
+	LargePlaceableProp97: { id: "1433424895341101137", name: "97_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -8302,14 +8322,14 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MischiefCrabkinLamp]: null,
 		[Cosmetic.MischiefCobwebDecor]: null,
 		[Cosmetic.MischiefDarkDragonRug]: null,
-		[Cosmetic.MischiefWitheredSapling]: null,
+		[Cosmetic.MischiefWitheredSapling]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp94,
 		[Cosmetic.MischiefSymbol1]: null,
 		[Cosmetic.MischiefSymbol2]: null,
 		[Cosmetic.MischiefSymbol3]: null,
 		[Cosmetic.MischiefSymbol4]: null,
-		[Cosmetic.PuzzleBox]: null,
-		[Cosmetic.PuzzleChest]: null,
-		[Cosmetic.PuzzleCage]: null,
+		[Cosmetic.PuzzleBox]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp95,
+		[Cosmetic.PuzzleChest]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp96,
+		[Cosmetic.PuzzleCage]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp97,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
