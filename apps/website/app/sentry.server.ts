@@ -11,6 +11,7 @@ if (
 		integrations: [pinoIntegration({ error: { levels: ["error", "fatal"] } })],
 		maxBreadcrumbs: 25,
 		sendDefaultPii: true,
+		tracesSampleRate: 1,
 		release: process.env.SENTRY_RELEASE,
 	});
 }

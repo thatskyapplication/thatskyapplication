@@ -1,5 +1,5 @@
 import { Locale } from "@discordjs/core/http-only";
-import { init } from "@sentry/react-router";
+import { init, reactRouterTracingIntegration } from "@sentry/react-router";
 import {
 	de,
 	enGB,
@@ -58,7 +58,9 @@ async function main() {
 	init({
 		// @ts-expect-error Until there is more, this is fine.
 		dsn: window.ENV.SENTRY_DATA_SOURCE_NAME,
+		integrations: [reactRouterTracingIntegration()],
 		sendDefaultPii: true,
+		tracesSampleRate: 1,
 	});
 
 	startTransition(() => {
