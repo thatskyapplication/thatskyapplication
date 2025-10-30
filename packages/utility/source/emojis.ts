@@ -5561,6 +5561,18 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Moonlight Banner.
 	 */
 	SmallPlaceableProp107: { id: "1422145740154736803", name: "107_small_placeable_prop" },
+	/**
+	 * Mischief Crabkin Lamp.
+	 */
+	SmallPlaceableProp108: { id: "1433429774738391040", name: "108_small_placeable_prop" },
+	/**
+	 * Mischief Cobweb Decor.
+	 */
+	SmallPlaceableProp109: { id: "1433429752865357945", name: "109_small_placeable_prop" },
+	/**
+	 * Mischief Dark Dragon Rug.
+	 */
+	SmallPlaceableProp110: { id: "1433429754832228474", name: "110_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5670,6 +5682,9 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp105: { id: "1412363066477379604", name: "105_small_placeable_prop" },
 	SmallPlaceableProp106: { id: "1413962458145751163", name: "106_small_placeable_prop" },
 	SmallPlaceableProp107: { id: "1422145747624792074", name: "107_small_placeable_prop" },
+	SmallPlaceableProp108: { id: "1433429764848226346", name: "108_small_placeable_prop" },
+	SmallPlaceableProp109: { id: "1433429766777737287", name: "109_small_placeable_prop" },
+	SmallPlaceableProp110: { id: "1433429769617277048", name: "110_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -8319,9 +8334,9 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MischiefBeakMask]: MASK_EMOJIS.Mask104,
 		[Cosmetic.MischiefGothCape]: CAPE_EMOJIS.Cape165,
 		[Cosmetic.MischiefLeafHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory65,
-		[Cosmetic.MischiefCrabkinLamp]: null,
-		[Cosmetic.MischiefCobwebDecor]: null,
-		[Cosmetic.MischiefDarkDragonRug]: null,
+		[Cosmetic.MischiefCrabkinLamp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp108,
+		[Cosmetic.MischiefCobwebDecor]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp109,
+		[Cosmetic.MischiefDarkDragonRug]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp110,
 		[Cosmetic.MischiefWitheredSapling]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp94,
 		[Cosmetic.MischiefSymbol1]: null,
 		[Cosmetic.MischiefSymbol2]: null,
