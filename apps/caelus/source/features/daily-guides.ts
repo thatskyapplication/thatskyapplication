@@ -86,6 +86,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
 import {
+	diffJSON,
 	notInCachedGuildResponse,
 	userTag,
 	validateImageAttachment,
@@ -1147,7 +1148,7 @@ export async function set(
 		quest4: newQuest4 === null ? null : t(`quests.${newQuest4}`, { ns: "general" }),
 	};
 
-	let logMessage = `set daily guides.\nOld:\n\`\`\`JSON\n${JSON.stringify(oldQuests)}\n\`\`\`\nNew:\n\`\`\`JSON\n${JSON.stringify(newQuests)}\n\`\`\``;
+	let logMessage = `set daily guides.\n\`\`\`diff\n${diffJSON(oldQuests, newQuests)}\n\`\`\``;
 
 	const data: DailyGuidesSetData = {
 		last_updated_user_id: interaction.member.user.id,
@@ -1246,7 +1247,7 @@ export async function questsReorder(
 
 	await logModification({
 		user: interaction.member.user,
-		content: `reordered daily quests.\nOld:\n\`\`\`JSON\n${JSON.stringify(oldQuests)}\n\`\`\`\nNew:\n\`\`\`JSON\n${JSON.stringify(newQuests)}\n\`\`\``,
+		content: `reordered daily quests.\n\`\`\`diff\n${diffJSON(oldQuests, newQuests)}\n\`\`\``,
 	});
 
 	await updateDailyGuides(data);

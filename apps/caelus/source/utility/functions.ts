@@ -21,6 +21,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
+import { diffJson } from "diff";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { GuildChannel } from "../models/discord/guild.js";
@@ -273,4 +274,16 @@ export function skyProfileWebsiteURL<UserId extends Snowflake>(
 	userId: UserId,
 ): `${typeof SKY_PROFILES_URL}/${UserId}` {
 	return `${SKY_PROFILES_URL}/${userId}`;
+}
+
+export function diffJSON(old: Record<string, unknown>, updated: Record<string, unknown>) {
+	const diffedJSON = diffJson(old, updated, { oneChangePerToken: true });
+	let diffResult = "";
+
+	for (const part of diffedJSON) {
+		const text = part.added ? "+" : part.removed ? "-" : "";
+		diffResult += `${text}${part.value.slice(part.added || part.removed ? 1 : 0)}`;
+	}
+
+	return diffResult;
 }
