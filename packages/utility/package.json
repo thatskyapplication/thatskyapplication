@@ -17,16 +17,16 @@
 	},
 	"dependencies": {
 		"@discordjs/collection": "^2.1.1",
-		"luxon": "^3.7.1",
+		"luxon": "^3.7.2",
 		"ts-mixer": "^6.0.4"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.0",
+		"@biomejs/biome": "2.3.2",
 		"@types/luxon": "^3.7.1",
 		"@types/node": "^22.18.11",
-		"knip": "^5.62.0",
+		"knip": "^5.66.4",
 		"tsup": "^8.5.0",
-		"tsx": "^4.20.4",
-		"typescript": "5.9.2"
+		"tsx": "^4.20.6",
+		"typescript": "5.9.3"
 	}
 }

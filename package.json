@@ -10,8 +10,8 @@
 		"update": "pnpm update --interactive --latest --recursive && pre-commit autoupdate"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.0",
-		"typescript": "^5.9.2"
+		"@biomejs/biome": "2.3.2",
+		"typescript": "^5.9.3"
 	},
 	"packageManager": "pnpm@10.14.0"
 }
