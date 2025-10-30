@@ -257,9 +257,6 @@ importers:
       luxon:
         specifier: ^3.7.2
         version: 3.7.2
-      media-chrome:
-        specifier: ^4.15.0
-        version: 4.15.0(react@19.2.0)
       pg:
         specifier: ^8.16.3
         version: 8.16.3
@@ -2729,11 +2726,6 @@ packages:
   caniuse-lite@1.0.30001735:
     resolution: {integrity: sha512-EV/laoX7Wq2J9TQlyIXRxTJqIw4sxfXS4OYgudGxBYRuTv0q7AM6yMEpU/Vo1I94thg9U6EZ2NfZx9GJq83u7w==}
 
-  ce-la-react@0.3.1:
-    resolution: {integrity: sha512-g0YwpZDPIwTwFumGTzNHcgJA6VhFfFCJkSNdUdC04br2UfU+56JDrJrJva3FZ7MToB4NDHAFBiPE/PZdNl1mQA==}
-    peerDependencies:
-      react: '>=17.0.0'
-
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
@@ -3505,9 +3497,6 @@ packages:
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
-
-  media-chrome@4.15.0:
-    resolution: {integrity: sha512-OgC6m3Ss4cCUEVhvmRdUbnExqVKf8CDRDmbVTjIuRGAXdmz/vc34fL3onSsOm2uDZbhDB4Lb4KArGA48wG8Puw==}
 
   media-typer@0.3.0:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
@@ -7329,10 +7318,6 @@ snapshots:
 
   caniuse-lite@1.0.30001735: {}
 
-  ce-la-react@0.3.1(react@19.2.0):
-    dependencies:
-      react: 19.2.0
-
   chokidar@3.6.0:
     dependencies:
       anymatch: 3.1.3
@@ -8100,12 +8085,6 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   math-intrinsics@1.1.0: {}
-
-  media-chrome@4.15.0(react@19.2.0):
-    dependencies:
-      ce-la-react: 0.3.1(react@19.2.0)
-    transitivePeerDependencies:
-      - react
 
   media-typer@0.3.0: {}
 
