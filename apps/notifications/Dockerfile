@@ -4,7 +4,7 @@ FROM node:lts-alpine AS builder
 WORKDIR /thatskyapplication
 
 # Install pnpm and copy the monorepo files required for dependency resolution.
-RUN npm install --global pnpm@10.14.0
+RUN npm install --global pnpm@10.20.0
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY ./apps/notifications ./apps/notifications
 COPY ./packages/utility ./packages/utility
@@ -17,7 +17,7 @@ COPY . .
 RUN pnpm --filter @thatskyapplication/notifications... run build
 
 # Remove unnecessary dependencies.
-RUN pnpm prune --prod
+RUN CI=true pnpm prune --prod
 
 # Final stage.
 FROM node:lts-alpine

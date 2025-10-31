@@ -5,7 +5,7 @@ WORKDIR /thatskyapplication
 ENV NODE_ENV="production"
 
 # Install pnpm.
-RUN npm install --global pnpm@10.14.0
+RUN npm install --global pnpm@10.20.0
 
 FROM base AS build
 
@@ -24,7 +24,7 @@ RUN --mount=type=secret,id=sentry_auth_token,env=SENTRY_AUTH_TOKEN \
 	pnpm --filter @thatskyapplication/website... run build
 
 # Prune unnecessary dependencies.
-RUN pnpm prune --prod
+RUN CI=true pnpm prune --prod
 
 FROM base
 
