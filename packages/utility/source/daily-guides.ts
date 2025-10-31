@@ -290,6 +290,7 @@ export const DailyQuest = {
 	HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab: 276,
 	HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab: 277,
 	HopIntoYoshisCauldronBrewInTheCacklingCrab: 278,
+	MeetUpWithOddballOutcastInHiddenForest: 279,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -721,4 +722,5 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.HelpAustinCollect5CrabsInTheBasementOfTheCacklingCrab]: null,
 	[DailyQuest.HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab]: null,
 	[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]: null,
+	[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;

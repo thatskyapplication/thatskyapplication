@@ -571,6 +571,10 @@ export default {
 				"Help Skidmore fire the cannons 3 times in the Cackling Crab",
 			[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]:
 				"Hop into Yoshi's cauldron brew in the Cackling Crab",
+			[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: questsMeetUpWith(
+				SpiritId.OddballOutcast,
+				RealmName.HiddenForest,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
