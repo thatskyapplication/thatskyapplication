@@ -360,7 +360,8 @@
 			"275": "Terminez la course des balais de Nat au Crabe Caquetant",
 			"276": "Aidez Austin à obtenir 5 crabes dans le sous-sol du Crabe Caquetant",
 			"277": "Aidez Skidmore à tirer 3 fois le canon au Crabe Caquetant",
-			"278": "Plonge dans la potion du chaudron de Yoshi au Crabe Caquetant"
+			"278": "Plonge dans la potion du chaudron de Yoshi au Crabe Caquetant",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",

@@ -360,7 +360,8 @@
 			"275": "完成 Nat 在嘎吱嘎吱的螃蟹中的飛天掃帚比賽",
 			"276": "幫助 Austin 在嘎吱嘎吱的螃蟹地下室收集 5 隻螃蟹",
 			"277": "幫助 Skidmore 在嘎吱嘎吱的螃蟹中發射 3 次大砲",
-			"278": "跳進Yoshi的魔釜，在嘎吱嘎吱的螃蟹裡冒險吧"
+			"278": "跳進Yoshi的魔釜，在嘎吱嘎吱的螃蟹裡冒險吧",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",

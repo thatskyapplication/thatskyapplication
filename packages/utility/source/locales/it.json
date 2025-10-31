@@ -360,7 +360,8 @@
 			"275": "Completa la gara di scope di Nat al Granchio schiamazzante",
 			"276": "Aiuta Austin a raccogliere 5 granchi nel seminterrato del Granchio schiamazzante",
 			"277": "Aiuta Skidmore a sparare 3 volte i cannoni nel Granchio schiamazzante",
-			"278": "Tuffati nella pozione del calderone di Yoshi al Granchio schiamazzante"
+			"278": "Tuffati nella pozione del calderone di Yoshi al Granchio schiamazzante",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
