@@ -360,7 +360,8 @@
 			"275": "Hoàn thành đua chổi của Nat ở Khu vực Cua kêu Thần bí",
 			"276": "Giúp Austin thu thập 5 con cua trong tầng hầm tại Khu vực Cua kêu Thần bí",
 			"277": "Giúp Skidmore bắn đại bác 3 lần ở Khu vực Cua kêu Thần bí",
-			"278": "Nhảy vào nồi phép của Yoshi tại Quán Cua Cười Khúc Khích"
+			"278": "Nhảy vào nồi phép của Yoshi tại Quán Cua Cười Khúc Khích",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",

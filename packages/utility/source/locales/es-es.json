@@ -360,7 +360,8 @@
 			"275": "Completa la carrera de escobas voladoras de Nat en El cangrejo carcajeante",
 			"276": "Ayuda a Austin a reunir 5 cangrejos en el sótano de El cangrejo carcajeante",
 			"277": "Ayuda a Skidmore a disparar los cañones 3 veces en El cangrejo carcajeante",
-			"278": "Salta al brebaje del caldero de Yoshi en el Cangrejo Carcajeante"
+			"278": "Salta al brebaje del caldero de Yoshi en el Cangrejo Carcajeante",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
