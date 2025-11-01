@@ -1,6 +1,6 @@
 import { DiscordAPIError } from "@discordjs/rest";
 import type { HeadersArgs, LoaderFunctionArgs } from "react-router";
-import { redirect, useLoaderData } from "react-router";
+import { Link, redirect, useLoaderData } from "react-router";
 import pino from "~/pino";
 import { guildIconURL } from "~/utility/functions.js";
 import { hasAnyHeaders, requireDiscordAuthentication } from "~/utility/functions.server.js";
@@ -70,9 +70,10 @@ export default function Dashboard() {
 						) : (
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 								{guilds.map((guild) => (
-									<div
+									<Link
 										className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-200 hover:-translate-y-1"
 										key={guild.id}
+										to={`/caelus/dashboard/${guild.id}`}
 									>
 										<div className="flex items-center gap-4 mb-4">
 											{guild.icon ? (
@@ -92,7 +93,7 @@ export default function Dashboard() {
 												</h3>
 											</div>
 										</div>
-									</div>
+									</Link>
 								))}
 							</div>
 						)}
