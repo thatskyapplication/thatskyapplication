@@ -117,7 +117,7 @@ function eyeOfEdenNext(now: DateTime, locale: Locale) {
 	return t("schedule.next-eye-of-eden", {
 		lng: locale,
 		ns: "features",
-		timestamp1: `<t:${timestamp}:f>`,
+		timestamp1: `<t:${timestamp}:s>`,
 		timestamp2: `<t:${timestamp}:R>`,
 	});
 }
@@ -856,7 +856,7 @@ function nestingWorkshopNext(now: DateTime, locale: Locale) {
 	return t("schedule.next-nesting-workshop", {
 		lng: locale,
 		ns: "features",
-		timestamp1: `<t:${timestamp}:f>`,
+		timestamp1: `<t:${timestamp}:s>`,
 		timestamp2: `<t:${timestamp}:R>`,
 	});
 }

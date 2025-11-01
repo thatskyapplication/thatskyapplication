@@ -101,7 +101,6 @@ export async function searchAutocomplete<
 
 function visitField(
 	seasonalSpiritVisit: typeof TRAVELLING_DATES | SeasonalSpiritVisitReturningData,
-	locale: Locale,
 ) {
 	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
 	const visits = [];
@@ -116,28 +115,20 @@ function visitField(
 			startFormatOptions.timeStyle = "short";
 		}
 
-		const dateString = Intl.DateTimeFormat(locale, startFormatOptions).format(start.toMillis());
-
+		const startUnix = start.toUnixInteger();
 		visits.push(
-			`\`#${String(visit).padStart(maxLength, "0")}\` \`${dateString}\` (<t:${start.toUnixInteger()}:R>)`,
+			`\`#${String(visit).padStart(maxLength, "0")}\` <t:${startUnix}:s> (<t:${startUnix}:R>)`,
 		);
 	}
 
 	return visits.join("\n");
 }
 
-function visitErrorField(
-	seasonalSpiritVisit: SeasonalSpiritVisitTravellingErrorData,
-	locale: Locale,
-) {
+function visitErrorField(seasonalSpiritVisit: SeasonalSpiritVisitTravellingErrorData) {
 	return seasonalSpiritVisit
 		.reduce<string[]>((visits, start) => {
-			const dateString = Intl.DateTimeFormat(locale, {
-				timeZone: TIME_ZONE,
-				dateStyle: "short",
-			}).format(start.toMillis());
-
-			visits.push(`\`Error\` \`${dateString}\` (<t:${start.toUnixInteger()}:R>)`);
+			const startUnix = start.toUnixInteger();
+			visits.push(`\`Error\` <t:${start.toUnixInteger()}:s> (<t:${startUnix}:R>)`);
 			return visits;
 		}, [])
 		.join("\n");
@@ -161,11 +152,11 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 		const travellingValue = [];
 
 		if (travelling.size > 0) {
-			travellingValue.push(visitField(travelling, locale));
+			travellingValue.push(visitField(travelling));
 		}
 
 		if (travellingErrors.size > 0) {
-			travellingValue.push(visitErrorField(travellingErrors, locale));
+			travellingValue.push(visitErrorField(travellingErrors));
 		}
 
 		if (travellingValue.length > 0) {
@@ -173,7 +164,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 		}
 
 		if (returning.size > 0) {
-			visits.push(`### Returning\n${visitField(returning, locale)}`);
+			visits.push(`### Returning\n${visitField(returning)}`);
 		}
 
 		if (!spirit.visit(skyNow()).visited) {
@@ -382,8 +373,8 @@ export async function spiritsHistory(
 			startFormatOptions.timeStyle = "short";
 		}
 
-		const dateString = Intl.DateTimeFormat(locale, startFormatOptions).format(start.toMillis());
-		const lastVisited = `\`${dateString}\` (<t:${start.toUnixInteger()}:R>)`;
+		const startUnix = start.toUnixInteger();
+		const lastVisited = `<t:${startUnix}:s> (<t:${startUnix}:R>)`;
 
 		containerComponents.push({
 			type: ComponentType.Section,
