@@ -1,6 +1,4 @@
 import { DiscordAPIError } from "@discordjs/rest";
-import { Server, Settings } from "lucide-react";
-import { useState } from "react";
 import type { HeadersArgs, LoaderFunctionArgs } from "react-router";
 import { redirect, useLoaderData } from "react-router";
 import pino from "~/pino";
@@ -31,12 +29,6 @@ export function headers({ actionHeaders, loaderHeaders }: HeadersArgs) {
 
 export default function Dashboard() {
 	const { guilds, error } = useLoaderData<typeof loader>();
-	const [searchQuery, setSearchQuery] = useState("");
-
-	const filteredGuilds = guilds.filter(
-		({ id, name }) =>
-			id.includes(searchQuery) || name.toLowerCase().includes(searchQuery.toLowerCase()),
-	);
 
 	return (
 		<div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -51,9 +43,6 @@ export default function Dashboard() {
 					</div>
 					<div className="relative z-10">
 						<div className="text-center mb-8">
-							<div className="inline-flex items-center justify-center w-16 h-16 bg-linear-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full mb-4">
-								<Settings className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-							</div>
 							<h1 className="bg-linear-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
 								Dashboard
 							</h1>
@@ -64,32 +53,23 @@ export default function Dashboard() {
 								<p className="text-sm">Something went wrong. Please report this!</p>
 							</div>
 						)}
-						<div className="mb-6">
-							<input
-								className="w-full max-w-md mx-auto block px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-								onChange={(event) => setSearchQuery(event.target.value)}
-								placeholder="Search servers..."
-								type="search"
-								value={searchQuery}
-							/>
-						</div>
 						{guilds.length === 0 ? (
 							<div className="text-center py-12">
-								<Server className="w-16 h-16 text-gray-400 mx-auto mb-4" />
 								<h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
-									No servers found
+									No servers found.
 								</h2>
 								<p className="text-gray-600 dark:text-gray-400">
-									You need the <code>Administrator</code> permission to use this dashboard.
+									Keep in mind you need the <code>Administrator</code> permission to use this
+									dashboard.
 								</p>
 							</div>
-						) : filteredGuilds.length === 0 ? (
+						) : guilds.length === 0 ? (
 							<div className="text-center py-12">
 								<p className="text-gray-600 dark:text-gray-400">No servers found.</p>
 							</div>
 						) : (
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-								{filteredGuilds.map((guild) => (
+								{guilds.map((guild) => (
 									<div
 										className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-200 hover:-translate-y-1"
 										key={guild.id}
