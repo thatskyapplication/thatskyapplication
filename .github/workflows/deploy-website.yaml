@@ -58,6 +58,7 @@ jobs:
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           DATABASE_URL_CAELUS: postgresql://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@${{ secrets.POSTGRES_HOST }}:5432/${{ secrets.POSTGRES_DB_CAELUS }}
           DISCORD_TOKEN_CAELUS: ${{ secrets.DISCORD_TOKEN }}
+          INTERNAL_URL_CAELUS: ${{ secrets.INTERNAL_URL_CAELUS }}
           APPLICATION_ID: ${{ vars.DISCORD_APPLICATION_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.DISCORD_CLIENT_SECRET }}
           SUPPORT_SERVER_GUILD_ID: ${{ vars.SUPPORT_SERVER_GUILD_ID }}

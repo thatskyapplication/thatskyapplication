@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import type { LoaderFunctionArgs } from "react-router";
 import { Link, redirect, useLoaderData } from "react-router";
 import pino from "~/pino";
+import { getCaelusGuildData } from "~/utility/caelus.server.js";
 import { guildIconURL } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
@@ -23,7 +24,8 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 			return redirect("/caelus/dashboard");
 		}
 
-		return { guild };
+		const caelusGuildData = await getCaelusGuildData(guildId);
+		return { guild, caelusGuildData };
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);
@@ -36,7 +38,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 };
 
 export default function ServerDashboard() {
-	const { guild } = useLoaderData<typeof loader>();
+	const { guild, caelusGuildData } = useLoaderData<typeof loader>();
 
 	return (
 		<div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -67,14 +69,19 @@ export default function ServerDashboard() {
 							)}
 							<div>
 								<h1 className="mb-2">{guild.name}</h1>
+								{caelusGuildData && (
+									<div className="flex items-center gap-2">
+										<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+											<span className="w-1.5 h-1.5 rounded-full bg-green-600 dark:bg-green-400" />
+											Caelus Active
+										</span>
+										<span className="text-sm text-gray-600 dark:text-gray-400">
+											{JSON.stringify(caelusGuildData)}
+										</span>
+									</div>
+								)}
 							</div>
 						</div>
-
-						<hr className="my-8" />
-						<img
-							alt="This is pain. No Spain. Just pain."
-							src="https://media1.tenor.com/m/g02Xs9DcGt0AAAAd/piddel-piddel-meme.gif"
-						/>
 					</div>
 				</div>
 			</div>

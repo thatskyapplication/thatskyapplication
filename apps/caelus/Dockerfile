@@ -27,6 +27,7 @@ RUN pnpm --filter @thatskyapplication/caelus deploy --prod /thatskyapplication-p
 # Final stage.
 FROM node:lts-alpine
 ENV NODE_ENV=production
+ENV HONO_PORT=3000
 ARG SENTRY_RELEASE
 ENV SENTRY_RELEASE=${SENTRY_RELEASE}
 
