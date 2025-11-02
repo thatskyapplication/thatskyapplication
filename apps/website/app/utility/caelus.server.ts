@@ -1,11 +1,13 @@
 import type { Snowflake } from "@discordjs/core/http-only";
 import {
+	type APIError,
 	type APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
 	type APIGuildsDailyGuidesChannelCheckPermissionsOKResponse,
 	type APIGuildsDailyGuidesChannelsResponse,
 	type APIGuildsMeResponse,
 	type APIPutGuildsDailyGuidesBody,
 	type APIPutGuildsDailyGuidesResponse,
+	CaelusAPIError,
 	guildsDailyGuides,
 	guildsDailyGuidesChannelCheckPermissions,
 	guildsDailyGuidesChannels,
@@ -31,21 +33,18 @@ export async function caelusInGuild(guildId: Snowflake) {
 	}
 }
 
-export async function getCaelusGuildChannels(guildId: Snowflake) {
-	try {
-		const response = await fetch(`${INTERNAL_URL_CAELUS}${guildsDailyGuidesChannels(guildId)}`, {
-			signal: AbortSignal.timeout(5000),
-		});
+export async function getGuildsDailyGuidesChannels(guildId: Snowflake) {
+	const response = await fetch(`${INTERNAL_URL_CAELUS}${guildsDailyGuidesChannels(guildId)}`, {
+		signal: AbortSignal.timeout(5000),
+	});
 
-		if (!response.ok) {
-			return [];
-		}
+	const json = await response.json();
 
-		return (await response.json()) as APIGuildsDailyGuidesChannelsResponse;
-	} catch (error) {
-		pino.error({ error, guildId }, "Error fetching guild channels from Caelus.");
-		return [];
+	if (!response.ok) {
+		throw new CaelusAPIError(json as APIError);
 	}
+
+	return json as APIGuildsDailyGuidesChannelsResponse;
 }
 
 export async function setGuildsDailyGuidesChannel(guildId: Snowflake, channelId: Snowflake | null) {

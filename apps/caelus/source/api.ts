@@ -1,11 +1,13 @@
 import { serve } from "@hono/node-server";
-import type {
-	APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
-	APIGuildsDailyGuidesChannelCheckPermissionsOKResponse,
-	APIGuildsDailyGuidesChannelsResponse,
-	APIGuildsMeResponse,
-	APIPutGuildsDailyGuidesBody,
-	APIPutGuildsDailyGuidesResponse,
+import {
+	APIErrorCode,
+	type APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
+	type APIGuildsDailyGuidesChannelCheckPermissionsOKResponse,
+	type APIGuildsDailyGuidesChannelsResponse,
+	type APIGuildsMeResponse,
+	type APIPutGuildsDailyGuidesBody,
+	type APIPutGuildsDailyGuidesResponse,
+	createAPIError,
 } from "@thatskyapplication/utility";
 import { Hono } from "hono";
 import { GUILD_CACHE } from "./caches/guilds.js";
@@ -81,7 +83,7 @@ hono.get("/api/guilds/:guildId/daily-guides/channels", (context) => {
 	const guild = GUILD_CACHE.get(guildId);
 
 	if (!guild) {
-		return context.json(null, 404);
+		return context.json(createAPIError(APIErrorCode.UnknownGuild), 404);
 	}
 
 	const channels = [];

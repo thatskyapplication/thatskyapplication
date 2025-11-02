@@ -18,6 +18,8 @@ export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
 export { AI_FREQUENCY_TYPE_VALUES, AIFrequencyType, type AIFrequencyTypes } from "./ai.js";
 export {
+	type APIError,
+	APIErrorCode,
 	type APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
 	type APIGuildsDailyGuidesChannelCheckPermissionsOKResponse,
 	type APIGuildsDailyGuidesChannelCheckPermissionsResponse,
@@ -25,6 +27,8 @@ export {
 	type APIGuildsMeResponse,
 	type APIPutGuildsDailyGuidesBody,
 	type APIPutGuildsDailyGuidesResponse,
+	CaelusAPIError,
+	createAPIError,
 	guildsDailyGuides,
 	guildsDailyGuidesChannelCheckPermissions,
 	guildsDailyGuidesChannels,

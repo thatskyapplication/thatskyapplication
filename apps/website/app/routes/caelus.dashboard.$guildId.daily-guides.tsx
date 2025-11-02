@@ -1,6 +1,12 @@
 import { ChannelType, type Snowflake } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
-import { type DailyGuidesDistributionPacket, Table } from "@thatskyapplication/utility";
+import {
+	APIErrorCode,
+	type APIGuildsDailyGuidesChannelsResponse,
+	CaelusAPIError,
+	type DailyGuidesDistributionPacket,
+	Table,
+} from "@thatskyapplication/utility";
 import { ArrowLeft, Check } from "lucide-react";
 import { useState } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
@@ -11,7 +17,7 @@ import pino from "~/pino";
 import {
 	caelusInGuild,
 	checkDailyGuidesChannelPermissions,
-	getCaelusGuildChannels,
+	getGuildsDailyGuidesChannels,
 	setGuildsDailyGuidesChannel,
 } from "~/utility/caelus.server.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
@@ -47,13 +53,23 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 			return redirect(`/caelus/dashboard/${guildId}`);
 		}
 
-		const [currentChannelId, channels] = await Promise.all([
-			pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
-				.where({ guild_id: guildId })
-				.first()
-				.then((result) => result?.channel_id),
-			getCaelusGuildChannels(guildId),
-		]);
+		let channels: APIGuildsDailyGuidesChannelsResponse;
+
+		try {
+			channels = await getGuildsDailyGuidesChannels(guildId);
+		} catch (error) {
+			if (error instanceof CaelusAPIError && error.code === APIErrorCode.UnknownGuild) {
+				return redirect("/caelus/dashboard");
+			}
+
+			throw error;
+		}
+
+		const currentChannelId = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
+			.select("channel_id")
+			.where({ guild_id: guildId })
+			.first()
+			.then((result) => result?.channel_id);
 
 		// If we have a channel id, check the permissions of it.
 		let permissionError: string | null = null;
