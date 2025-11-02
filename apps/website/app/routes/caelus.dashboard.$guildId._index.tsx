@@ -1,9 +1,11 @@
 import { DiscordAPIError } from "@discordjs/rest";
+import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { ArrowLeft } from "lucide-react";
 import type { LoaderFunctionArgs } from "react-router";
 import { Link, redirect, useLoaderData } from "react-router";
 import pino from "~/pino";
-import { getCaelusGuildData } from "~/utility/caelus.server.js";
+import { caelusInGuild } from "~/utility/caelus.server.js";
+import { APPLICATION_NAME, INVITE_APPLICATION_URL } from "~/utility/constants.js";
 import { guildIconURL } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
@@ -24,8 +26,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 			return redirect("/caelus/dashboard");
 		}
 
-		const caelusGuildData = await getCaelusGuildData(guildId);
-		return { guild, caelusGuildData };
+		return { guild, meInServer: await caelusInGuild(guild.id) };
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);
@@ -38,7 +39,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 };
 
 export default function ServerDashboard() {
-	const { guild, caelusGuildData } = useLoaderData<typeof loader>();
+	const { guild, meInServer } = useLoaderData<typeof loader>();
 
 	return (
 		<div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -69,19 +70,31 @@ export default function ServerDashboard() {
 							)}
 							<div>
 								<h1 className="mb-2">{guild.name}</h1>
-								{caelusGuildData && (
-									<div className="flex items-center gap-2">
-										<span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-											<span className="w-1.5 h-1.5 rounded-full bg-green-600 dark:bg-green-400" />
-											Caelus Active
-										</span>
-										<span className="text-sm text-gray-600 dark:text-gray-400">
-											{JSON.stringify(caelusGuildData)}
-										</span>
-									</div>
-								)}
 							</div>
 						</div>
+
+						{meInServer ? (
+							<div className="mt-8">
+								<h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+									Oh my gosh, I am here!
+								</h2>
+							</div>
+						) : (
+							<div className="mt-12 flex flex-col items-center justify-center">
+								<p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+									{APPLICATION_NAME} is not in this server. Why not spread the love?
+								</p>
+								<a
+									className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-shadow"
+									href={INVITE_APPLICATION_URL}
+									rel="noopener noreferrer"
+									target="_blank"
+								>
+									<SiDiscord className="h-5 w-5 text-white" />
+									<span className="font-medium">Invite {APPLICATION_NAME}</span>
+								</a>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>
