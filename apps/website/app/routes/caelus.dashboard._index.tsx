@@ -77,10 +77,11 @@ export default function Dashboard() {
 									>
 										<div className="flex items-center gap-4 mb-4">
 											{guild.icon ? (
-												<img
-													alt={`${guild.name} icon.`}
-													className="w-12 h-12 rounded-full"
-													src={guildIconURL(guild.id, guild.icon)}
+												<div
+													aria-label={`${guild.name} icon.`}
+													className="w-12 h-12 bg-cover bg-center rounded-full"
+													role="img"
+													style={{ backgroundImage: `url(${guildIconURL(guild.id, guild.icon)})` }}
 												/>
 											) : (
 												<div className="w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">

@@ -58,10 +58,11 @@ export default function ServerDashboard() {
 
 						<div className="flex items-center gap-4 mb-8">
 							{guild.icon ? (
-								<img
-									alt={`${guild.name} icon.`}
-									className="w-16 h-16 rounded-full border-2 border-gray-200 dark:border-gray-600"
-									src={guildIconURL(guild.id, guild.icon)}
+								<div
+									aria-label={`${guild.name} icon.`}
+									className="w-16 h-16 bg-cover bg-center rounded-full"
+									role="img"
+									style={{ backgroundImage: `url(${guildIconURL(guild.id, guild.icon)})` }}
 								/>
 							) : (
 								<div className="w-16 h-16 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl border-2 border-gray-200 dark:border-gray-600">
