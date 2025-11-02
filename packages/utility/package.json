@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@discordjs/collection": "^2.1.1",
+		"discord-api-types": "^0.38.31",
 		"luxon": "^3.7.2",
 		"ts-mixer": "^6.0.4"
 	},

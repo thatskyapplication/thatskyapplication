@@ -13,6 +13,7 @@ import {
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	GUESS_TYPE_VALUES,
 	MAXIMUM_WINGED_LIGHT,
 	MINIMUM_WINGED_LIGHT,
@@ -25,7 +26,6 @@ import {
 import { init, t } from "i18next";
 import { z } from "zod/v4";
 import {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	I18_NEXT_OPTIONS,
 	LOCALES,
 	QUEST_NUMBER,

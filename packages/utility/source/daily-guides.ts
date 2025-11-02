@@ -1,3 +1,4 @@
+import { ChannelType, type Snowflake } from "discord-api-types/v10";
 import { dailyGuidesQuestRoute } from "./routes.js";
 
 export interface DailyGuidesPacket {
@@ -6,8 +7,14 @@ export interface DailyGuidesPacket {
 	quest3: number | null;
 	quest4: number | null;
 	travelling_rock: string | null;
-	last_updated_user_id: string;
+	last_updated_user_id: Snowflake;
 	last_updated_at: Date;
+}
+
+export interface DailyGuidesDistributionPacket {
+	guild_id: Snowflake;
+	channel_id: Snowflake | null;
+	message_id: Snowflake | null;
 }
 
 export const DailyQuest = {
@@ -724,3 +731,9 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]: null,
 	[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
+
+export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
+	ChannelType.GuildText,
+	ChannelType.GuildAnnouncement,
+	ChannelType.PublicThread,
+] as const;

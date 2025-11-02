@@ -12,6 +12,7 @@ interface SelectProps {
 	value: string;
 	options: readonly SelectOption[];
 	onChange: (value: string) => void;
+	error?: string | null;
 	placeholder?: string;
 	className?: string;
 }
@@ -22,6 +23,7 @@ export default function Select({
 	isClearable = false,
 	options,
 	onChange,
+	error,
 	placeholder,
 	className,
 }: SelectProps) {
@@ -31,7 +33,11 @@ export default function Select({
 		control: (provided, state) => ({
 			...provided,
 			backgroundColor: "var(--select-bg)",
-			borderColor: state.isFocused ? "var(--select-border-hover)" : "var(--select-border)",
+			borderColor: error
+				? "#dc2626"
+				: state.isFocused
+					? "var(--select-border-hover)"
+					: "var(--select-border)",
 			borderWidth: "1px",
 			borderRadius: "0.125rem",
 			minHeight: "40px",
@@ -39,7 +45,7 @@ export default function Select({
 			outline: "none",
 			cursor: "pointer",
 			"&:hover": {
-				borderColor: "var(--select-border-hover)",
+				borderColor: error ? "#dc2626" : "var(--select-border-hover)",
 			},
 		}),
 		menu: (provided) => ({
@@ -126,6 +132,7 @@ export default function Select({
 					value={options.find((option) => option.value === value) || null}
 				/>
 			</div>
+			{error && <span className="text-sm text-red-600 dark:text-red-400">{error}</span>}
 		</div>
 	);
 }

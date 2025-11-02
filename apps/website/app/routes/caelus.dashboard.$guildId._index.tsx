@@ -1,6 +1,6 @@
 import { DiscordAPIError } from "@discordjs/rest";
 import { SiDiscord } from "@icons-pack/react-simple-icons";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Clock } from "lucide-react";
 import type { LoaderFunctionArgs } from "react-router";
 import { Link, redirect, useLoaderData } from "react-router";
 import pino from "~/pino";
@@ -26,7 +26,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 			return redirect("/caelus/dashboard");
 		}
 
-		return { guild, meInServer: await caelusInGuild(guild.id) };
+		return { guild, meInGuild: await caelusInGuild(guild.id) };
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);
@@ -39,7 +39,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 };
 
 export default function ServerDashboard() {
-	const { guild, meInServer } = useLoaderData<typeof loader>();
+	const { guild, meInGuild } = useLoaderData<typeof loader>();
 
 	return (
 		<div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -74,11 +74,27 @@ export default function ServerDashboard() {
 							</div>
 						</div>
 
-						{meInServer ? (
+						{meInGuild ? (
 							<div className="mt-8">
 								<h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-									Oh my gosh, I am here!
+									Settings
 								</h2>
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+									<Link
+										className="group block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-lg hover:border-blue-500 dark:hover:border-blue-500 transition-all"
+										to={`/caelus/dashboard/${guild.id}/daily-guides`}
+									>
+										<div className="flex items-center gap-3 mb-2">
+											<Clock className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+											<h3 className="font-semibold text-gray-900 dark:text-gray-100">
+												Daily Guides
+											</h3>
+										</div>
+										<p className="text-sm text-gray-600 dark:text-gray-400 ml-8">
+											Have daily guides delivered to your server.
+										</p>
+									</Link>
+								</div>
 							</div>
 						) : (
 							<div className="mt-12 flex flex-col items-center justify-center">

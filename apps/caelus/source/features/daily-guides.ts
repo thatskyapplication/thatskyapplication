@@ -27,7 +27,9 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_QUEST_VALUES,
+	type DailyGuidesDistributionPacket,
 	type DailyGuidesPacket,
 	type DailyQuests,
 	DailyQuestToInfographicURL,
@@ -72,7 +74,6 @@ import {
 	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/configuration.js";
 import {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_URL,
 	INFORMATION_ACCENT_COLOUR,
 	LOCALE_OPTIONS,
@@ -100,12 +101,6 @@ import {
 
 type DailyGuidesSetData = Partial<DailyGuidesPacket> &
 	Pick<DailyGuidesPacket, "last_updated_user_id" | "last_updated_at">;
-
-export interface DailyGuidesDistributionPacket {
-	guild_id: Snowflake;
-	channel_id: Snowflake | null;
-	message_id: Snowflake | null;
-}
 
 type DailyGuidesDistributionAllowedChannel =
 	| Extract<
