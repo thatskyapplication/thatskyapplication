@@ -21,11 +21,6 @@ export async function caelusInGuild(guildId: Snowflake) {
 		});
 
 		if (!response.ok) {
-			if (response.status === 404) {
-				return null;
-			}
-
-			pino.error({ guildId, response }, "Failed to fetch guild data from Caelus.");
 			return null;
 		}
 
@@ -43,11 +38,6 @@ export async function getCaelusGuildChannels(guildId: Snowflake) {
 		});
 
 		if (!response.ok) {
-			if (response.status === 404) {
-				return [];
-			}
-
-			pino.error({ guildId, response }, "Failed to fetch guild channels from Caelus.");
 			return [];
 		}
 
@@ -69,12 +59,7 @@ export async function setGuildsDailyGuidesChannel(guildId: Snowflake, channelId:
 			signal: AbortSignal.timeout(5000),
 		});
 
-		if (!response.ok) {
-			pino.error({ guildId, response }, "Failed to update daily guides channel in Caelus.");
-			return (await response.json()) as APIPutGuildsDailyGuidesResponse<false>;
-		}
-
-		return (await response.json()) as APIPutGuildsDailyGuidesResponse<true>;
+		return (await response.json()) as APIPutGuildsDailyGuidesResponse;
 	} catch (error) {
 		pino.error({ error, guildId }, "Error updating daily guides channel in Caelus.");
 		return null;
@@ -89,11 +74,6 @@ export async function checkDailyGuidesChannelPermissions(guildId: Snowflake, cha
 		);
 
 		if (!response.ok) {
-			if (response.status === 404) {
-				return (await response.json()) as APIGuildsDailyGuidesChannelCheckPermissionsBadResponse;
-			}
-
-			pino.error({ guildId, response }, "Failed to fetch guild channels from Caelus.");
 			return (await response.json()) as APIGuildsDailyGuidesChannelCheckPermissionsBadResponse;
 		}
 
