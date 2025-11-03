@@ -1,4 +1,8 @@
-import { ChannelType, type Snowflake } from "@discordjs/core/http-only";
+import {
+	ChannelType,
+	type RESTGetAPICurrentUserGuildsResult,
+	type Snowflake,
+} from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
 import {
 	APIErrorCode,
@@ -35,80 +39,77 @@ export const loader = async ({ request, params, context }: LoaderFunctionArgs) =
 	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request);
 	const { guildId } = params;
 	const locale = getLocale(context);
-
-	if (!guildId) {
-		throw new Response(null, { status: 400 });
-	}
+	let oAuthGuilds: RESTGetAPICurrentUserGuildsResult;
 
 	try {
-		const oAuthGuilds = await getUserAdminGuilds(discordUser, tokenExchange);
-		const oAuthGuild = oAuthGuilds.find((oAuthGuild) => oAuthGuild.id === guildId);
-
-		if (!oAuthGuild) {
-			return redirect("/caelus/dashboard");
-		}
-
-		let channels: APIGuildsDailyGuidesChannelsResponse;
-
-		try {
-			channels = await getGuildsDailyGuidesChannels(guildId);
-		} catch (error) {
-			if (error instanceof CaelusAPIError && error.code === APIErrorCode.UnknownGuild) {
-				return redirect("/caelus/dashboard");
-			}
-
-			throw error;
-		}
-
-		const currentChannelId = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
-			.select("channel_id")
-			.where({ guild_id: guildId })
-			.first()
-			.then((result) => result?.channel_id);
-
-		// If we have a channel id, check the permissions of it.
-		let permissionError: string | null = null;
-
-		if (currentChannelId) {
-			try {
-				const permissionResponse = await checkDailyGuidesChannelPermissions(
-					guildId,
-					currentChannelId,
-					locale,
-				);
-
-				permissionError =
-					permissionResponse.length === 1 ? permissionResponse[0]! : permissionResponse.join("\n");
-			} catch (error) {
-				if (error instanceof CaelusAPIError) {
-					switch (error.code) {
-						case APIErrorCode.UnknownGuild:
-							return redirect("/caelus/dashboard");
-						case APIErrorCode.UnknownChannel:
-							permissionError = "Channel not found. Does it still exist?";
-							break;
-						case APIErrorCode.InvalidChannel:
-							permissionError = "Channel is invalid. Please choose a valid channel.";
-							break;
-						default:
-							throw error;
-					}
-				} else {
-					throw error;
-				}
-			}
-		}
-
-		return { guild: oAuthGuild, currentChannelId, permissionError, channels };
+		oAuthGuilds = await getUserAdminGuilds(discordUser, tokenExchange);
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);
 			return redirect(`/login?returnTo=${returnTo}`);
 		}
 
-		pino.error({ request, error }, "Failed to load daily guides settings.");
-		throw new Response(null, { status: 500 });
+		throw error;
 	}
+
+	const oAuthGuild = oAuthGuilds.find((oAuthGuild) => oAuthGuild.id === guildId);
+
+	if (!oAuthGuild) {
+		return redirect("/caelus/dashboard");
+	}
+
+	let channels: APIGuildsDailyGuidesChannelsResponse;
+
+	try {
+		channels = await getGuildsDailyGuidesChannels(oAuthGuild.id);
+	} catch (error) {
+		if (error instanceof CaelusAPIError && error.code === APIErrorCode.UnknownGuild) {
+			return redirect("/caelus/dashboard");
+		}
+
+		throw error;
+	}
+
+	const currentChannelId = await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
+		.select("channel_id")
+		.where({ guild_id: oAuthGuild.id })
+		.first()
+		.then((result) => result?.channel_id);
+
+	// If we have a channel id, check the permissions of it.
+	let permissionError: string | null = null;
+
+	if (currentChannelId) {
+		try {
+			const permissionResponse = await checkDailyGuidesChannelPermissions(
+				oAuthGuild.id,
+				currentChannelId,
+				locale,
+			);
+
+			permissionError =
+				permissionResponse.length === 1 ? permissionResponse[0]! : permissionResponse.join("\n");
+		} catch (error) {
+			if (error instanceof CaelusAPIError) {
+				switch (error.code) {
+					case APIErrorCode.UnknownGuild:
+						return redirect("/caelus/dashboard");
+					case APIErrorCode.UnknownChannel:
+						permissionError = "Channel not found. Does it still exist?";
+						break;
+					case APIErrorCode.InvalidChannel:
+						permissionError = "Channel is invalid. Please choose a valid channel.";
+						break;
+					default:
+						throw error;
+				}
+			} else {
+				throw error;
+			}
+		}
+	}
+
+	return { guild: oAuthGuild, currentChannelId, permissionError, channels };
 };
 
 export const action = async ({ request, params, context }: ActionFunctionArgs) => {
