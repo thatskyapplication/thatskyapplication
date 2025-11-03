@@ -35,7 +35,10 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				null,
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+					cosmetic: Cosmetic.MigrationGuideQuest3,
+				},
 				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 					cosmetic: Cosmetic.MigrationGuideHeart1,

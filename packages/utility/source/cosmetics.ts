@@ -3254,6 +3254,9 @@ export enum Cosmetic {
 	PuzzleBox = 2587,
 	PuzzleChest = 2588,
 	PuzzleCage = 2589,
+
+	// 03/11/2025 | Season of Migration Quest 3.
+	MigrationGuideQuest3 = 2590,
 }
 
 export enum CosmeticCommon {

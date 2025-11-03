@@ -8345,6 +8345,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.PuzzleBox]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp95,
 		[Cosmetic.PuzzleChest]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp96,
 		[Cosmetic.PuzzleCage]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp97,
+		[Cosmetic.MigrationGuideQuest3]: MISCELLANEOUS_EMOJIS.Quest,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
