@@ -16,7 +16,6 @@ import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server.js";
 import pino from "~/pino";
 import {
-	caelusInGuild,
 	checkDailyGuidesChannelPermissions,
 	getGuildsDailyGuidesChannels,
 	setGuildsDailyGuidesChannel,
@@ -47,12 +46,6 @@ export const loader = async ({ request, params, context }: LoaderFunctionArgs) =
 
 		if (!oAuthGuild) {
 			return redirect("/caelus/dashboard");
-		}
-
-		const meInGuild = await caelusInGuild(guildId);
-
-		if (!meInGuild) {
-			return redirect(`/caelus/dashboard/${guildId}`);
 		}
 
 		let channels: APIGuildsDailyGuidesChannelsResponse;
