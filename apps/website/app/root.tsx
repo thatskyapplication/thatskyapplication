@@ -2,6 +2,7 @@ import "./tailwind.css";
 import { captureException } from "@sentry/react-router";
 import { WEBSITE_URL } from "@thatskyapplication/utility";
 import type React from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "react-router";
 import {
@@ -14,7 +15,6 @@ import {
 	ScrollRestoration,
 	useLoaderData,
 } from "react-router";
-import { useChangeLanguage } from "remix-i18next/react";
 import ConditionalLayout from "~/components/ConditionalLayout";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
 import { getSession } from "~/session.server";
@@ -133,9 +133,15 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 	return { locale, user, ENV: { SENTRY_DATA_SOURCE_NAME } };
 }
 
-export default function App() {
-	const { locale, user } = useLoaderData<typeof loader>();
-	useChangeLanguage(locale);
+export default function App({ loaderData }: Route.ComponentProps) {
+	const { locale, user } = loaderData;
+	const { i18n } = useTranslation();
+
+	useEffect(() => {
+		if (i18n.language !== locale) {
+			i18n.changeLanguage(locale);
+		}
+	}, [locale, i18n]);
 
 	return (
 		<ConditionalLayout locale={locale} user={user}>
