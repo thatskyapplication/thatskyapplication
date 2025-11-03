@@ -12,7 +12,6 @@ import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
 import { getLocale } from "~/middleware/i18next.js";
-import pino from "~/pino.js";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
