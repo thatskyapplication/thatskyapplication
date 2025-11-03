@@ -40,6 +40,7 @@ export default {
 			event_one: "{{count}} day left in {{name}}.",
 			event_other: "{{count}} days left in {{name}}.",
 		},
+		"error-timed-out": "I am timed out.",
 		"event-tickets": "Event tickets",
 		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
 		maps: Object.fromEntries(SKY_MAP_VALUES.map((skyMap) => [skyMap, skyMap])),
@@ -3027,6 +3028,13 @@ export default {
 			infographic: "Infographic",
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!",
+			"error-thread-archived": "The thread is archived.",
+			"error-thread-locked": "The thread is locked.",
+			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
+			"error-missing-permissions-website": `View Channel & Send Messages are required for "{{channel}}".`,
+			"error-missing-permissions-thread":
+				"`View Channel` & `Send Messages in Threads` are required for {{channel}}.",
+			"error-missing-permissions-thread-website": `View Channel & Send Messages in Threads are required for "{{channel}}".`,
 			"quest-unknown": "Woah, that's a daily we do not know. Maybe try another?",
 			"quest-no-infographic": "This quest does not have an infographic.",
 		},

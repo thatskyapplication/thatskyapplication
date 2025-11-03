@@ -19,7 +19,11 @@ import { welcomeSetup } from "../../features/welcome.js";
 import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
 import { SERVER_UPGRADE_SKU_ID } from "../../utility/configuration.js";
-import { isGuildChatInputCommand, notInCachedGuildResponse } from "../../utility/functions.js";
+import {
+	formatArrayErrors,
+	isGuildChatInputCommand,
+	notInCachedGuildResponse,
+} from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 async function dailyGuides(
@@ -27,6 +31,7 @@ async function dailyGuides(
 	options: OptionResolver,
 	guild: Guild,
 ) {
+	const { locale } = interaction;
 	const channel = options.getChannel("channel");
 
 	if (channel) {
@@ -36,16 +41,16 @@ async function dailyGuides(
 			throw new Error("Received an unknown channel type whilst setting up daily guides.");
 		}
 
-		const dailyGuidesDistributable = isDailyGuidesDistributable(
+		const dailyGuidesDistributable = isDailyGuidesDistributable({
 			guild,
-			cachedChannel,
-			await guild.fetchMe(),
-			true,
-		);
+			channel: cachedChannel,
+			me: await guild.fetchMe(),
+			locale,
+		});
 
 		if (dailyGuidesDistributable.length > 0) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: dailyGuidesDistributable.join("\n"),
+				content: formatArrayErrors(dailyGuidesDistributable),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -58,7 +63,7 @@ async function dailyGuides(
 	await client.api.interactions.reply(
 		interaction.id,
 		interaction.token,
-		await setupResponseDailyGuides(guild),
+		await setupResponseDailyGuides(guild, locale),
 	);
 }
 

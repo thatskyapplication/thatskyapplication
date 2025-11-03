@@ -12,6 +12,7 @@ import { useState } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Form, Link, redirect, useActionData, useLoaderData } from "react-router";
 import Select from "~/components/Select";
+import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server.js";
 import pino from "~/pino";
 import {
@@ -31,9 +32,10 @@ const ChannelTypeToIcon = {
 	[ChannelType.PublicThread]: "🗨️",
 } as const;
 
-export const loader = async ({ request, params }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params, context }: LoaderFunctionArgs) => {
 	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request);
 	const { guildId } = params;
+	const locale = getLocale(context);
 
 	if (!guildId) {
 		throw new Response(null, { status: 400 });
@@ -78,6 +80,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 			const permissionResponse = await checkDailyGuidesChannelPermissions(
 				guildId,
 				currentChannelId,
+				locale,
 			);
 
 			if (permissionResponse !== null) {
@@ -102,9 +105,10 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 	}
 };
 
-export const action = async ({ request, params }: ActionFunctionArgs) => {
+export const action = async ({ request, params, context }: ActionFunctionArgs) => {
 	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request);
 	const { guildId } = params;
+	const locale = getLocale(context);
 
 	if (!guildId) {
 		throw new Response(null, { status: 400 });
@@ -126,7 +130,7 @@ export const action = async ({ request, params }: ActionFunctionArgs) => {
 
 		const formData = await request.formData();
 		const channelId = formData.get("channelId") as Snowflake | null;
-		const response = await setGuildsDailyGuidesChannel(guildId, channelId);
+		const response = await setGuildsDailyGuidesChannel(guildId, channelId, locale);
 
 		return {
 			success: response?.success,

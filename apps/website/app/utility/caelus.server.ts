@@ -1,4 +1,5 @@
 import type { Snowflake } from "@discordjs/core/http-only";
+import { makeURLSearchParams } from "@discordjs/rest";
 import {
 	type APIError,
 	type APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
@@ -33,6 +34,31 @@ export async function caelusInGuild(guildId: Snowflake) {
 	}
 }
 
+export async function setGuildsDailyGuidesChannel(
+	guildId: Snowflake,
+	channelId: Snowflake | null,
+	locale: string,
+) {
+	try {
+		const response = await fetch(
+			`${INTERNAL_URL_CAELUS}${guildsDailyGuides(guildId)}?${makeURLSearchParams({ locale })}`,
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ channel_id: channelId } satisfies APIPutGuildsDailyGuidesBody),
+				signal: AbortSignal.timeout(5000),
+			},
+		);
+
+		return (await response.json()) as APIPutGuildsDailyGuidesResponse;
+	} catch (error) {
+		pino.error({ error, guildId }, "Error updating daily guides channel in Caelus.");
+		return null;
+	}
+}
+
 export async function getGuildsDailyGuidesChannels(guildId: Snowflake) {
 	const response = await fetch(`${INTERNAL_URL_CAELUS}${guildsDailyGuidesChannels(guildId)}`, {
 		signal: AbortSignal.timeout(5000),
@@ -47,28 +73,14 @@ export async function getGuildsDailyGuidesChannels(guildId: Snowflake) {
 	return json as APIGuildsDailyGuidesChannelsResponse;
 }
 
-export async function setGuildsDailyGuidesChannel(guildId: Snowflake, channelId: Snowflake | null) {
-	try {
-		const response = await fetch(`${INTERNAL_URL_CAELUS}${guildsDailyGuides(guildId)}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ channel_id: channelId } satisfies APIPutGuildsDailyGuidesBody),
-			signal: AbortSignal.timeout(5000),
-		});
-
-		return (await response.json()) as APIPutGuildsDailyGuidesResponse;
-	} catch (error) {
-		pino.error({ error, guildId }, "Error updating daily guides channel in Caelus.");
-		return null;
-	}
-}
-
-export async function checkDailyGuidesChannelPermissions(guildId: Snowflake, channelId: Snowflake) {
+export async function checkDailyGuidesChannelPermissions(
+	guildId: Snowflake,
+	channelId: Snowflake,
+	locale: string,
+) {
 	try {
 		const response = await fetch(
-			`${INTERNAL_URL_CAELUS}${guildsDailyGuidesChannelCheckPermissions(guildId, channelId)}`,
+			`${INTERNAL_URL_CAELUS}${guildsDailyGuidesChannelCheckPermissions(guildId, channelId)}?${makeURLSearchParams({ locale })}`,
 			{ signal: AbortSignal.timeout(5000) },
 		);
 

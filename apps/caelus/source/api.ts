@@ -1,3 +1,4 @@
+import type { Locale } from "@discordjs/core";
 import { serve } from "@hono/node-server";
 import {
 	APIErrorCode,
@@ -29,8 +30,7 @@ hono.get("/api/guilds/:guildId/@me", (context) => {
 });
 
 hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
-	const guildId = context.req.param("guildId");
-	const guild = GUILD_CACHE.get(guildId);
+	const guild = GUILD_CACHE.get(context.req.param("guildId"));
 
 	if (!guild) {
 		return context.json(null, 404);
@@ -52,12 +52,14 @@ hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
 			);
 		}
 
-		const dailyGuidesDistributable = isDailyGuidesDistributable(
+		const locale = context.req.query("locale") as Locale | undefined;
+
+		const dailyGuidesDistributable = isDailyGuidesDistributable({
 			guild,
-			cachedChannel,
-			await guild.fetchMe(),
-			true,
-		);
+			channel: cachedChannel,
+			me: await guild.fetchMe(),
+			locale,
+		});
 
 		if (dailyGuidesDistributable.length > 0) {
 			return context.json(
@@ -70,7 +72,7 @@ hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
 		}
 	}
 
-	await setupDailyGuides({ guildId, channelId: body.channel_id });
+	await setupDailyGuides({ guildId: guild.id, channelId: body.channel_id });
 
 	return context.json(
 		{ success: true, message: null } satisfies APIPutGuildsDailyGuidesResponse<true>,
@@ -106,9 +108,7 @@ hono.get("/api/guilds/:guildId/daily-guides/channels", (context) => {
 hono.get(
 	"/api/guilds/:guildId/daily-guides/channel/:channelId/check-permissions",
 	async (context) => {
-		const guildId = context.req.param("guildId");
-		const channelId = context.req.param("channelId");
-		const guild = GUILD_CACHE.get(guildId);
+		const guild = GUILD_CACHE.get(context.req.param("guildId"));
 
 		if (!guild) {
 			return context.json(
@@ -119,6 +119,7 @@ hono.get(
 			);
 		}
 
+		const channelId = context.req.param("channelId");
 		const channel = guild.channels.get(channelId) ?? guild.threads.get(channelId);
 
 		if (!channel) {
@@ -139,8 +140,15 @@ hono.get(
 			);
 		}
 
-		const me = await guild.fetchMe();
-		const distributable = isDailyGuidesDistributable(guild, channel, me, true);
+		const locale = context.req.query("locale") as Locale | undefined;
+
+		const distributable = isDailyGuidesDistributable({
+			guild,
+			channel,
+			me: await guild.fetchMe(),
+			locale,
+			website: true,
+		});
 
 		if (distributable.length > 0) {
 			return context.json(
