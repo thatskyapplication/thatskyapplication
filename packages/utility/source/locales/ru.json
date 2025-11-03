@@ -10,6 +10,7 @@
 			"event_one": "{{count}} дней/день осталось в {{name}}.",
 			"event_other": "{{count}} дней/день осталось до {{name}}."
 		},
+		"error-timed-out": "",
 		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "Остров рассвета",
@@ -2707,6 +2708,12 @@
 			"event-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
 		},

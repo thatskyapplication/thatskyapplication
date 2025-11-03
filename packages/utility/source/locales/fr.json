@@ -10,6 +10,7 @@
 			"event_one": "{{count}} jour restant avant {{name}}.",
 			"event_other": "{{count}} jours restants pour {{name}}."
 		},
+		"error-timed-out": "",
 		"event-tickets": "Tickets d'événement",
 		"realms": {
 			"Isles of Dawn": "Île de l'Aube",
@@ -2707,6 +2708,12 @@
 			"event-upcoming_other": "{{event}} commence dans {{count}} jours.",
 			"infographic": "",
 			"not-yet-updated": "Les guides journaliers attendent qu'un incroyable enfant de Sky les mettent à jour. Vous avez l'information dont nous avons besoin ? Rejoignez le [serveur d'assistance]({{url}}) et mettez-les à jour pour la communauté !",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
 		},
