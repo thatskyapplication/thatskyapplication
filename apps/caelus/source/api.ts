@@ -53,6 +53,7 @@ hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
 			channel: cachedChannel,
 			me: await guild.fetchMe(),
 			locale,
+			website: true,
 		});
 
 		if (dailyGuidesDistributable.length > 0) {
