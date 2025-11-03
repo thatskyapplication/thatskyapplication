@@ -70,23 +70,36 @@ export const loader = async ({ request, params, context }: LoaderFunctionArgs) =
 		let permissionError: string | null = null;
 
 		if (currentChannelId) {
-			const permissionResponse = await checkDailyGuidesChannelPermissions(
-				guildId,
-				currentChannelId,
-				locale,
-			);
+			try {
+				const permissionResponse = await checkDailyGuidesChannelPermissions(
+					guildId,
+					currentChannelId,
+					locale,
+				);
 
-			if (permissionResponse !== null) {
-				permissionError = permissionResponse.message;
+				permissionError =
+					permissionResponse.length === 1 ? permissionResponse[0]! : permissionResponse.join("\n");
+			} catch (error) {
+				if (error instanceof CaelusAPIError) {
+					switch (error.code) {
+						case APIErrorCode.UnknownGuild:
+							return redirect("/caelus/dashboard");
+						case APIErrorCode.UnknownChannel:
+							permissionError = "Channel not found. Does it still exist?";
+							break;
+						case APIErrorCode.InvalidChannel:
+							permissionError = "Channel is invalid. Please choose a valid channel.";
+							break;
+						default:
+							throw error;
+					}
+				} else {
+					throw error;
+				}
 			}
 		}
 
-		return {
-			guild: oAuthGuild,
-			currentChannelId,
-			permissionError,
-			channels,
-		};
+		return { guild: oAuthGuild, currentChannelId, permissionError, channels };
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);

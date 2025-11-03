@@ -5,12 +5,14 @@ export enum APIErrorCode {
 	UnknownGuild = 0,
 	UnknownChannel = 1,
 	MissingPermissions = 2,
+	InvalidChannel = 3,
 }
 
 const APIErrorCodeToMessage = {
 	[APIErrorCode.UnknownGuild]: "Unknown guild.",
 	[APIErrorCode.UnknownChannel]: "Unknown channel.",
 	[APIErrorCode.MissingPermissions]: "Missing permissions.",
+	[APIErrorCode.InvalidChannel]: "Invalid channel.",
 } as const satisfies Readonly<Record<APIErrorCode, string>>;
 
 export interface APIError {
@@ -62,15 +64,7 @@ export function guildsDailyGuidesChannelCheckPermissions(guildId: Snowflake, cha
 	return `/api/guilds/${guildId}/daily-guides/channel/${channelId}/check-permissions` as const;
 }
 
-export interface APIGuildsDailyGuidesChannelCheckPermissionsBadResponse {
-	message: string;
-}
-
-export type APIGuildsDailyGuidesChannelCheckPermissionsOKResponse = null;
-
-export type APIGuildsDailyGuidesChannelCheckPermissionsResponse =
-	| APIGuildsDailyGuidesChannelCheckPermissionsOKResponse
-	| APIGuildsDailyGuidesChannelCheckPermissionsBadResponse;
+export type APIGuildsDailyGuidesChannelCheckPermissionsResponse = readonly string[];
 
 export function guildsDailyGuides(guildId: Snowflake) {
 	return `/api/guilds/${guildId}/daily-guides` as const;

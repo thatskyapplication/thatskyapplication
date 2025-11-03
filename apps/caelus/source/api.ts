@@ -2,8 +2,7 @@ import type { Locale } from "@discordjs/core";
 import { serve } from "@hono/node-server";
 import {
 	APIErrorCode,
-	type APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
-	type APIGuildsDailyGuidesChannelCheckPermissionsOKResponse,
+	type APIGuildsDailyGuidesChannelCheckPermissionsResponse,
 	type APIGuildsDailyGuidesChannelsResponse,
 	type APIGuildsMeResponse,
 	type APIPutGuildsDailyGuidesBody,
@@ -42,7 +41,7 @@ hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
 		const cachedChannel = guild.channels.get(channel.id);
 
 		if (!(cachedChannel && isDailyGuidesDistributionChannel(cachedChannel))) {
-			return context.json(createAPIError(APIErrorCode.UnknownChannel), 400);
+			return context.json(createAPIError(APIErrorCode.UnknownChannel), 404);
 		}
 
 		const locale = context.req.query("locale") as Locale | undefined;
@@ -98,33 +97,18 @@ hono.get(
 		const guild = GUILD_CACHE.get(context.req.param("guildId"));
 
 		if (!guild) {
-			return context.json(
-				{
-					message: "Unknown guild.",
-				} satisfies APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
-				404,
-			);
+			return context.json(createAPIError(APIErrorCode.UnknownGuild), 404);
 		}
 
 		const channelId = context.req.param("channelId");
 		const channel = guild.channels.get(channelId) ?? guild.threads.get(channelId);
 
 		if (!channel) {
-			return context.json(
-				{
-					message: "Unknown channel.",
-				} satisfies APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
-				404,
-			);
+			return context.json(createAPIError(APIErrorCode.UnknownChannel), 404);
 		}
 
 		if (!isDailyGuidesDistributionChannel(channel)) {
-			return context.json(
-				{
-					message: "Invalid channel type.",
-				} satisfies APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
-				400,
-			);
+			return context.json(createAPIError(APIErrorCode.InvalidChannel), 400);
 		}
 
 		const locale = context.req.query("locale") as Locale | undefined;
@@ -137,16 +121,10 @@ hono.get(
 			website: true,
 		});
 
-		if (distributable.length > 0) {
-			return context.json(
-				{
-					message: distributable.join("\n"),
-				} satisfies APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
-				400,
-			);
-		}
-
-		return context.body(null satisfies APIGuildsDailyGuidesChannelCheckPermissionsOKResponse, 204);
+		return context.json(
+			distributable satisfies APIGuildsDailyGuidesChannelCheckPermissionsResponse,
+			200,
+		);
 	},
 );
 

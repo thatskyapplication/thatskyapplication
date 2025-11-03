@@ -2,8 +2,7 @@ import type { Snowflake } from "@discordjs/core/http-only";
 import { makeURLSearchParams } from "@discordjs/rest";
 import {
 	type APIError,
-	type APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
-	type APIGuildsDailyGuidesChannelCheckPermissionsOKResponse,
+	type APIGuildsDailyGuidesChannelCheckPermissionsResponse,
 	type APIGuildsDailyGuidesChannelsResponse,
 	type APIGuildsMeResponse,
 	type APIPutGuildsDailyGuidesBody,
@@ -15,10 +14,14 @@ import {
 	guildsMeRoute,
 } from "@thatskyapplication/utility";
 import { INTERNAL_URL_CAELUS } from "~/config.server.js";
-import pino from "~/pino.js";
+
+const ABORT_SIGNAL_TIMEOUT = 5_000 as const;
 
 export async function caelusInGuild(guildId: Snowflake) {
-	const response = await fetch(`${INTERNAL_URL_CAELUS}${guildsMeRoute(guildId)}`);
+	const response = await fetch(`${INTERNAL_URL_CAELUS}${guildsMeRoute(guildId)}`, {
+		signal: AbortSignal.timeout(ABORT_SIGNAL_TIMEOUT),
+	});
+
 	return ((await response.json()) as APIGuildsMeResponse).present;
 }
 
@@ -35,7 +38,7 @@ export async function setGuildsDailyGuidesChannel(
 				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({ channel_id: channelId } satisfies APIPutGuildsDailyGuidesBody),
-			signal: AbortSignal.timeout(5000),
+			signal: AbortSignal.timeout(ABORT_SIGNAL_TIMEOUT),
 		},
 	);
 
@@ -49,7 +52,7 @@ export async function setGuildsDailyGuidesChannel(
 
 export async function getGuildsDailyGuidesChannels(guildId: Snowflake) {
 	const response = await fetch(`${INTERNAL_URL_CAELUS}${guildsDailyGuidesChannels(guildId)}`, {
-		signal: AbortSignal.timeout(5000),
+		signal: AbortSignal.timeout(ABORT_SIGNAL_TIMEOUT),
 	});
 
 	const json = await response.json();
@@ -66,19 +69,16 @@ export async function checkDailyGuidesChannelPermissions(
 	channelId: Snowflake,
 	locale: string,
 ) {
-	try {
-		const response = await fetch(
-			`${INTERNAL_URL_CAELUS}${guildsDailyGuidesChannelCheckPermissions(guildId, channelId)}?${makeURLSearchParams({ locale })}`,
-			{ signal: AbortSignal.timeout(5000) },
-		);
+	const response = await fetch(
+		`${INTERNAL_URL_CAELUS}${guildsDailyGuidesChannelCheckPermissions(guildId, channelId)}?${makeURLSearchParams({ locale })}`,
+		{ signal: AbortSignal.timeout(ABORT_SIGNAL_TIMEOUT) },
+	);
 
-		if (!response.ok) {
-			return (await response.json()) as APIGuildsDailyGuidesChannelCheckPermissionsBadResponse;
-		}
+	const json = await response.json();
 
-		return null as APIGuildsDailyGuidesChannelCheckPermissionsOKResponse;
-	} catch (error) {
-		pino.error({ error, guildId }, "Error fetching guild channels from Caelus.");
-		return null;
+	if (!response.ok) {
+		throw new CaelusAPIError(json as APIError);
 	}
+
+	return json as APIGuildsDailyGuidesChannelCheckPermissionsResponse;
 }

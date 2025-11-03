@@ -20,8 +20,6 @@ export { AI_FREQUENCY_TYPE_VALUES, AIFrequencyType, type AIFrequencyTypes } from
 export {
 	type APIError,
 	APIErrorCode,
-	type APIGuildsDailyGuidesChannelCheckPermissionsBadResponse,
-	type APIGuildsDailyGuidesChannelCheckPermissionsOKResponse,
 	type APIGuildsDailyGuidesChannelCheckPermissionsResponse,
 	type APIGuildsDailyGuidesChannelsResponse,
 	type APIGuildsMeResponse,
