@@ -3,7 +3,6 @@ import {
 	AllowedMentionsTypes,
 	type APIUser,
 	type GatewayMessageCreateDispatchData,
-	Locale,
 	MessageFlags,
 	MessageReferenceType,
 	type Snowflake,
@@ -96,13 +95,13 @@ function systemPromptContext(
 
 	if (seasons.size > 0) {
 		seasonsText.push(
-			`- The seasons in Sky are: ${seasons.map((season) => ({ name: t(`seasons.${season.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: season.start.toISO(), end: season.end.toISO() })).join(", ")}.`,
+			`- The seasons in Sky are: ${seasons.map((season) => ({ name: t(`seasons.${season.id}`, { ns: "general" }), start: season.start.toISO(), end: season.end.toISO() })).join(", ")}.`,
 		);
 	}
 
 	if (upcomingSeason) {
 		seasonsText.push(
-			`- The upcoming season in Sky is: ${{ name: t(`seasons.${upcomingSeason.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: upcomingSeason.start.toISO(), end: upcomingSeason.end.toISO() }}.`,
+			`- The upcoming season in Sky is: ${{ name: t(`seasons.${upcomingSeason.id}`, { ns: "general" }), start: upcomingSeason.start.toISO(), end: upcomingSeason.end.toISO() }}.`,
 		);
 	}
 
@@ -112,13 +111,13 @@ function systemPromptContext(
 
 	if (events.size > 0) {
 		eventText.push(
-			`- The current events in Sky are: ${events.map((event) => ({ name: t(`events.${event.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: event.start.toISO(), end: event.end.toISO() })).join(", ")}.`,
+			`- The current events in Sky are: ${events.map((event) => ({ name: t(`events.${event.id}`, { ns: "general" }), start: event.start.toISO(), end: event.end.toISO() })).join(", ")}.`,
 		);
 	}
 
 	if (upcoming.size > 0) {
 		eventText.push(
-			`- The upcoming events in Sky are: ${upcoming.map((event) => ({ name: t(`events.${event.id}`, { lng: Locale.EnglishGB, ns: "general" }), start: event.start.toISO(), end: event.end.toISO() })).join(", ")}.`,
+			`- The upcoming events in Sky are: ${upcoming.map((event) => ({ name: t(`events.${event.id}`, { ns: "general" }), start: event.start.toISO(), end: event.end.toISO() })).join(", ")}.`,
 		);
 	}
 

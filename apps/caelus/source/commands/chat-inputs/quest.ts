@@ -1,7 +1,6 @@
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandInteraction,
-	Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import { isDailyQuest } from "@thatskyapplication/utility";
@@ -11,7 +10,7 @@ import { questAutocomplete, questResponse } from "../../features/daily-guides.js
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("quest.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("quest.command-name", { ns: "commands" }),
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
 			choices: questAutocomplete(

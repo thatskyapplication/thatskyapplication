@@ -2,7 +2,6 @@ import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandInteraction,
 	ApplicationCommandOptionType,
-	Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import {
@@ -30,7 +29,7 @@ import { interactionInvoker, validateImageAttachment } from "../../utility/funct
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("sky-profile.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("sky-profile.command-name", { ns: "commands" }),
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		const options = new OptionResolver(interaction);
 
@@ -70,11 +69,7 @@ export default {
 		const option = options.getFocusedOption();
 
 		if (
-			option.name ===
-				t("sky-profile.edit.command-option-country-name", {
-					lng: Locale.EnglishGB,
-					ns: "commands",
-				}) &&
+			option.name === t("sky-profile.edit.command-option-country-name", { ns: "commands" }) &&
 			option.type === ApplicationCommandOptionType.String
 		) {
 			await skyProfileCountryAutocomplete(interaction, option);
@@ -82,11 +77,7 @@ export default {
 		}
 
 		if (
-			option.name ===
-				t("sky-profile.edit.command-option-spirit-name", {
-					lng: Locale.EnglishGB,
-					ns: "commands",
-				}) &&
+			option.name === t("sky-profile.edit.command-option-spirit-name", { ns: "commands" }) &&
 			option.type === ApplicationCommandOptionType.Integer
 		) {
 			await searchAutocomplete(interaction, option);

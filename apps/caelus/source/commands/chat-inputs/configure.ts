@@ -1,7 +1,6 @@
 import {
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
-	Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import { t } from "i18next";
@@ -90,7 +89,7 @@ async function notifications(
 }
 
 export default {
-	name: t("configure.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("configure.command-name", { ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const guild = isGuildChatInputCommand(interaction) && GUILD_CACHE.get(interaction.guild_id);
 
@@ -107,7 +106,7 @@ export default {
 		const options = new OptionResolver(interaction);
 
 		switch (options.getSubcommand(true)) {
-			case t("configure.ai.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
+			case t("configure.ai.command-name", { ns: "commands" }): {
 				const ai = AI.cache.get(interaction.guild_id);
 
 				await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -117,19 +116,19 @@ export default {
 
 				break;
 			}
-			case t("configure.daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
+			case t("configure.daily-guides.command-name", { ns: "commands" }): {
 				await dailyGuides(interaction, options, guild);
 				return;
 			}
-			case t("configure.me.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
+			case t("configure.me.command-name", { ns: "commands" }): {
 				await me(interaction);
 				return;
 			}
-			case t("configure.notifications.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
+			case t("configure.notifications.command-name", { ns: "commands" }): {
 				await notifications(interaction, guild);
 				return;
 			}
-			case t("configure.welcome.command-name", { lng: Locale.EnglishGB, ns: "commands" }): {
+			case t("configure.welcome.command-name", { ns: "commands" }): {
 				await welcomeSetup({ interaction, locale: guild.preferredLocale, reply: true });
 				return;
 			}

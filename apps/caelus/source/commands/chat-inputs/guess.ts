@@ -1,11 +1,11 @@
-import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
+import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
 import { GuessType, type GuessTypes } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { guessEvent, guessSpirit, leaderboard } from "../../features/guess.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("guess.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("guess.command-name", { ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
 
