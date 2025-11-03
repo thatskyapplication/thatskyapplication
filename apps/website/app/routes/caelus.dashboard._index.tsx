@@ -1,7 +1,6 @@
 import { DiscordAPIError } from "@discordjs/rest";
 import type { HeadersArgs, LoaderFunctionArgs } from "react-router";
 import { Link, redirect, useLoaderData } from "react-router";
-import pino from "~/pino";
 import { guildIconURL } from "~/utility/functions.js";
 import { hasAnyHeaders, requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
@@ -11,15 +10,14 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 	try {
 		const guilds = await getUserAdminGuilds(discordUser, tokenExchange);
-		return { guilds };
+		return guilds;
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);
 			return redirect(`/login?returnTo=${returnTo}`);
 		}
 
-		pino.error({ request, error }, "Failed to load dashboard.");
-		return { guilds: [], error: true };
+		throw error;
 	}
 };
 
@@ -28,7 +26,7 @@ export function headers({ actionHeaders, loaderHeaders }: HeadersArgs) {
 }
 
 export default function Dashboard() {
-	const { guilds, error } = useLoaderData<typeof loader>();
+	const guilds = useLoaderData<typeof loader>();
 
 	return (
 		<div className="container mx-auto px-4 py-8 max-w-7xl">
@@ -48,11 +46,6 @@ export default function Dashboard() {
 							</h1>
 						</div>
 						<hr className="my-8" />
-						{error && (
-							<div className="bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-sm mb-6">
-								<p className="text-sm">Something went wrong. Please report this!</p>
-							</div>
-						)}
 						{guilds.length === 0 ? (
 							<div className="text-center py-12">
 								<h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
@@ -62,10 +55,6 @@ export default function Dashboard() {
 									Keep in mind you need the <code>Administrator</code> permission to use this
 									dashboard.
 								</p>
-							</div>
-						) : guilds.length === 0 ? (
-							<div className="text-center py-12">
-								<p className="text-gray-600 dark:text-gray-400">No servers found.</p>
 							</div>
 						) : (
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
