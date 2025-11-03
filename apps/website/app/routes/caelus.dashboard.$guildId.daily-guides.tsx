@@ -122,20 +122,26 @@ export const action = async ({ request, params, context }: ActionFunctionArgs) =
 			return { error: "Guild not found." };
 		}
 
-		const meInGuild = await caelusInGuild(guildId);
-
-		if (!meInGuild) {
-			return { error: `${APPLICATION_NAME} is not in this server.` };
-		}
-
 		const formData = await request.formData();
 		const channelId = formData.get("channelId") as Snowflake | null;
-		const response = await setGuildsDailyGuidesChannel(guildId, channelId, locale);
 
-		return {
-			success: response?.success,
-			error: response?.message,
-		};
+		try {
+			await setGuildsDailyGuidesChannel(guildId, channelId, locale);
+			return { success: true };
+		} catch (error) {
+			if (error instanceof CaelusAPIError) {
+				switch (error.code) {
+					case APIErrorCode.UnknownGuild:
+						return redirect("/caelus/dashboard");
+					case APIErrorCode.UnknownChannel:
+						return { error: "Channel not found. Reload to see the latest changes." };
+					case APIErrorCode.MissingPermissions:
+						return { error: (error.description as readonly string[]).join("\n") };
+				}
+			}
+
+			throw error;
+		}
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);
@@ -204,17 +210,11 @@ export default function DailyGuides() {
 								</div>
 							)}
 
-							{actionData?.error && (
-								<div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg p-4">
-									<span className="text-sm text-red-800 dark:text-red-200">{actionData.error}</span>
-								</div>
-							)}
-
 							<Form method="post">
 								<input name="channelId" type="hidden" value={selectedChannelId} />
 								<div className="mb-6">
 									<Select
-										error={permissionError}
+										error={actionData?.error ?? permissionError}
 										isClearable
 										label="Channel"
 										onChange={setSelectedChannelId}

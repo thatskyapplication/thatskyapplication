@@ -33,7 +33,7 @@ hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
 	const guild = GUILD_CACHE.get(context.req.param("guildId"));
 
 	if (!guild) {
-		return context.json(null, 404);
+		return context.json(createAPIError(APIErrorCode.UnknownGuild), 404);
 	}
 
 	const body = await context.req.json<APIPutGuildsDailyGuidesBody>();
@@ -43,13 +43,7 @@ hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
 		const cachedChannel = guild.channels.get(channel.id);
 
 		if (!(cachedChannel && isDailyGuidesDistributionChannel(cachedChannel))) {
-			return context.json(
-				{
-					success: false,
-					message: ["Invalid channel."],
-				} satisfies APIPutGuildsDailyGuidesResponse<false>,
-				400,
-			);
+			return context.json(createAPIError(APIErrorCode.UnknownChannel), 400);
 		}
 
 		const locale = context.req.query("locale") as Locale | undefined;
@@ -63,21 +57,14 @@ hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
 
 		if (dailyGuidesDistributable.length > 0) {
 			return context.json(
-				{
-					success: false,
-					message: dailyGuidesDistributable,
-				} satisfies APIPutGuildsDailyGuidesResponse<false>,
+				createAPIError(APIErrorCode.MissingPermissions, dailyGuidesDistributable),
 				400,
 			);
 		}
 	}
 
 	await setupDailyGuides({ guildId: guild.id, channelId: body.channel_id });
-
-	return context.json(
-		{ success: true, message: null } satisfies APIPutGuildsDailyGuidesResponse<true>,
-		200,
-	);
+	return context.body(null satisfies APIPutGuildsDailyGuidesResponse, 204);
 });
 
 hono.get("/api/guilds/:guildId/daily-guides/channels", (context) => {

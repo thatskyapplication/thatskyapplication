@@ -39,24 +39,24 @@ export async function setGuildsDailyGuidesChannel(
 	channelId: Snowflake | null,
 	locale: string,
 ) {
-	try {
-		const response = await fetch(
-			`${INTERNAL_URL_CAELUS}${guildsDailyGuides(guildId)}?${makeURLSearchParams({ locale })}`,
-			{
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ channel_id: channelId } satisfies APIPutGuildsDailyGuidesBody),
-				signal: AbortSignal.timeout(5000),
+	const response = await fetch(
+		`${INTERNAL_URL_CAELUS}${guildsDailyGuides(guildId)}?${makeURLSearchParams({ locale })}`,
+		{
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
 			},
-		);
+			body: JSON.stringify({ channel_id: channelId } satisfies APIPutGuildsDailyGuidesBody),
+			signal: AbortSignal.timeout(5000),
+		},
+	);
 
-		return (await response.json()) as APIPutGuildsDailyGuidesResponse;
-	} catch (error) {
-		pino.error({ error, guildId }, "Error updating daily guides channel in Caelus.");
-		return null;
+	if (!response.ok) {
+		const json = await response.json();
+		throw new CaelusAPIError(json as APIError);
 	}
+
+	return null as APIPutGuildsDailyGuidesResponse;
 }
 
 export async function getGuildsDailyGuidesChannels(guildId: Snowflake) {

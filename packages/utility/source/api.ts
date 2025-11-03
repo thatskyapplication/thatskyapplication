@@ -3,19 +3,28 @@ import type { DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES } from "./daily-guides.js"
 
 export enum APIErrorCode {
 	UnknownGuild = 0,
+	UnknownChannel = 1,
+	MissingPermissions = 2,
 }
 
 const APIErrorCodeToMessage = {
 	[APIErrorCode.UnknownGuild]: "Unknown guild.",
+	[APIErrorCode.UnknownChannel]: "Unknown channel.",
+	[APIErrorCode.MissingPermissions]: "Missing permissions.",
 } as const satisfies Readonly<Record<APIErrorCode, string>>;
 
 export interface APIError {
 	message: string;
 	code: APIErrorCode;
+	description: unknown | null;
 }
 
-export function createAPIError(errorCode: APIErrorCode): APIError {
-	return { message: APIErrorCodeToMessage[errorCode], code: errorCode };
+export function createAPIError(errorCode: APIErrorCode, description?: unknown): APIError {
+	return {
+		message: APIErrorCodeToMessage[errorCode],
+		code: errorCode,
+		description,
+	};
 }
 
 export class CaelusAPIError extends Error {
@@ -23,9 +32,12 @@ export class CaelusAPIError extends Error {
 
 	public readonly code: APIErrorCode;
 
-	public constructor({ code }: APIError) {
+	public readonly description: unknown;
+
+	public constructor({ code, description }: APIError) {
 		super(APIErrorCodeToMessage[code]);
 		this.code = code;
+		this.description = description;
 	}
 }
 
@@ -68,7 +80,4 @@ export interface APIPutGuildsDailyGuidesBody {
 	channel_id: Snowflake | null;
 }
 
-export interface APIPutGuildsDailyGuidesResponse<Success extends boolean = boolean> {
-	success: Success;
-	message: Success extends true ? null : readonly string[];
-}
+export type APIPutGuildsDailyGuidesResponse = null;
