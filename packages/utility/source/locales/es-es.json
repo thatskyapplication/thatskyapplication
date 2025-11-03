@@ -10,6 +10,7 @@
 			"event_one": "Quedan {{count}} días de {{name}}.",
 			"event_other": "Quedan {{count}} días de {{name}}."
 		},
+		"error-timed-out": "",
 		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "Isla del Amanecer",
@@ -2707,6 +2708,12 @@
 			"event-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "Las guías diarias están esperando a un increíble niño de la luz para que las actualice. ¿Tienes la información que necesitamos? ¡Únete al [servidor de apoyo]({{url}}) y actualízalas tú mismo para la comunidad!",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "Vaya, esa es una diaria que no conocemos. ¿Mejor prueba otra?",
 			"quest-no-infographic": "Esta misión no tiene una infografía."
 		},

@@ -10,6 +10,7 @@
 			"event_one": "{{name}}終了まであと{{count}}日。",
 			"event_other": "{{name}}終了まであと{{count}}日。"
 		},
+		"error-timed-out": "",
 		"event-tickets": "イベントチケット",
 		"realms": {
 			"Isles of Dawn": "孤島",
@@ -2707,6 +2708,12 @@
 			"event-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
 		},
