@@ -19,55 +19,49 @@ import type { LoaderFunctionArgs } from "react-router";
 import { data, useLoaderData } from "react-router";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
-import pino from "~/pino.js";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-	try {
-		const locale = getLocale(context);
-		const dailyGuides = await pg<DailyGuidesPacket>(Table.DailyGuides);
-		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
-		const shard = shardEruption();
+	const locale = getLocale(context);
+	const dailyGuides = await pg<DailyGuidesPacket>(Table.DailyGuides);
+	const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
+	const shard = shardEruption();
 
-		return data(
-			{
-				dailyGuides: dailyGuides[0]!,
-				todayString: new Intl.DateTimeFormat(locale, {
-					timeZone: TIME_ZONE,
-					dateStyle: "full",
-				}).format(new Date()),
-				shard: shard
-					? {
-							...shard,
-							timestamps: shard.timestamps.map(({ start, end }) => ({
-								start: {
-									unix: start.toUnixInteger(),
-									format: new Intl.DateTimeFormat(locale, {
-										timeZone,
-										hour: "2-digit",
-										minute: "2-digit",
-										second: "2-digit",
-									}).format(start.toMillis()),
-								},
-								end: {
-									unix: end.toUnixInteger(),
-									format: new Intl.DateTimeFormat(locale, {
-										timeZone,
-										hour: "2-digit",
-										minute: "2-digit",
-										second: "2-digit",
-									}).format(end.toMillis()),
-								},
-							})),
-						}
-					: shard,
-			},
-			{ headers: { "Cache-Control": "public, max-age=300, s-maxage=300" } },
-		);
-	} catch (error) {
-		pino.error({ request, error }, "Unable to fetch daily guides.");
-		throw new Response(null, { status: 500 });
-	}
+	return data(
+		{
+			dailyGuides: dailyGuides[0]!,
+			todayString: new Intl.DateTimeFormat(locale, {
+				timeZone: TIME_ZONE,
+				dateStyle: "full",
+			}).format(new Date()),
+			shard: shard
+				? {
+						...shard,
+						timestamps: shard.timestamps.map(({ start, end }) => ({
+							start: {
+								unix: start.toUnixInteger(),
+								format: new Intl.DateTimeFormat(locale, {
+									timeZone,
+									hour: "2-digit",
+									minute: "2-digit",
+									second: "2-digit",
+								}).format(start.toMillis()),
+							},
+							end: {
+								unix: end.toUnixInteger(),
+								format: new Intl.DateTimeFormat(locale, {
+									timeZone,
+									hour: "2-digit",
+									minute: "2-digit",
+									second: "2-digit",
+								}).format(end.toMillis()),
+							},
+						})),
+					}
+				: shard,
+		},
+		{ headers: { "Cache-Control": "public, max-age=300, s-maxage=300" } },
+	);
 };
 
 export default function DailyGuides() {
