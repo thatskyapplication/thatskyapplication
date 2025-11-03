@@ -1,9 +1,9 @@
+import type { RESTGetAPICurrentUserGuildsResult } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { ArrowLeft, Clock } from "lucide-react";
 import type { LoaderFunctionArgs } from "react-router";
 import { Link, redirect, useLoaderData } from "react-router";
-import pino from "~/pino";
 import { caelusInGuild } from "~/utility/caelus.server.js";
 import { APPLICATION_NAME, INVITE_APPLICATION_URL } from "~/utility/constants.js";
 import { guildIconURL } from "~/utility/functions.js";
@@ -13,29 +13,26 @@ import { getUserAdminGuilds } from "~/utility/guilds.server.js";
 export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request);
 	const { guildId } = params;
-
-	if (!guildId) {
-		throw new Response(null, { status: 400 });
-	}
+	let oAuthGuilds: RESTGetAPICurrentUserGuildsResult;
 
 	try {
-		const guilds = await getUserAdminGuilds(discordUser, tokenExchange);
-		const guild = guilds.find((guild) => guild.id === guildId);
-
-		if (!guild) {
-			return redirect("/caelus/dashboard");
-		}
-
-		return { guild, meInGuild: await caelusInGuild(guild.id) };
+		oAuthGuilds = await getUserAdminGuilds(discordUser, tokenExchange);
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
 			const returnTo = encodeURIComponent(request.url);
 			return redirect(`/login?returnTo=${returnTo}`);
 		}
 
-		pino.error({ request, error }, "Failed to load user guilds.");
-		throw new Response(null, { status: 500 });
+		throw error;
 	}
+
+	const oAuthGuild = oAuthGuilds.find((oAuthGuild) => oAuthGuild.id === guildId);
+
+	if (!oAuthGuild) {
+		return redirect("/caelus/dashboard");
+	}
+
+	return { guild: oAuthGuild, meInGuild: await caelusInGuild(oAuthGuild.id) };
 };
 
 export default function ServerDashboard() {
