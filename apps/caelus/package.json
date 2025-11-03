@@ -10,8 +10,7 @@
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
 		"start": "node --import ./distribution/sentry.js distribution/index.js",
 		"deploy-commands-dev": "tsx --env-file=.env.development source/utility/deploy-commands.ts | pino-pretty",
-		"deploy-commands": "tsx source/utility/deploy-commands.ts",
-		"knip": "knip"
+		"deploy-commands": "tsx source/utility/deploy-commands.ts"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.920.0",
@@ -42,7 +41,6 @@
 		"@biomejs/biome": "2.3.2",
 		"@types/luxon": "^3.7.1",
 		"@types/pg": "^8.15.6",
-		"knip": "^5.66.4",
 		"pino-pretty": "^13.1.2",
 		"tsx": "^4.20.6",
 		"typescript": "5.9.3"

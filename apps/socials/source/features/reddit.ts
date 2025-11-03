@@ -157,7 +157,7 @@ interface SubredditPostsResponse {
 	data: SubredditPostsData;
 }
 
-export async function fetchSingleSubredditPosts(subreddit: string) {
+async function fetchSingleSubredditPosts(subreddit: string) {
 	await ensureValidToken();
 	const seenPostsMap = seenPosts.get(subreddit);
 	const url = new URL(`https://oauth.reddit.com/r/${subreddit}/new`);
@@ -215,7 +215,7 @@ export async function fetchSingleSubredditPosts(subreddit: string) {
 	return newPosts.reverse();
 }
 
-export async function fetchSubredditPosts() {
+async function fetchSubredditPosts() {
 	return [
 		...(await fetchSingleSubredditPosts("SkyGame")),
 		...(await fetchSingleSubredditPosts("SkyChildrenOfLight")),

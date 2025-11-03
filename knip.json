@@ -1,0 +1,35 @@
+{
+	"$schema": "node_modules/knip/schema.json",
+	"ignoreBinaries": ["pre-commit"],
+	"ignoreDependencies": ["@types/*", "pg", "tailwindcss"],
+	"workspaces": {
+		"apps/{notifications,socials}": {
+			"entry": "source/sentry.ts"
+		},
+		"apps/caelus": {
+			"entry": "source/sentry.ts",
+			"ignoreMembers": [
+				"StandardSpirits",
+				"Elders",
+				"SeasonalSpirits",
+				"Events",
+				"MeSetBio",
+				"MeSetBioModal",
+				"MeSetBioModalBio",
+				"WelcomeChannel",
+				"WelcomeMessage",
+				"WelcomeMessageDelete",
+				"WelcomeHugEdit",
+				"WelcomeAccentColour",
+				"WelcomeAccentColourDelete",
+				"WelcomeMessageModal",
+				"WelcomeMessageModalMessage",
+				"WelcomeAccentColourModal",
+				"WelcomeAccentColourModalAccentColour"
+			]
+		},
+		"apps/website": {
+			"entry": ["app/server.ts"]
+		}
+	}
+}
