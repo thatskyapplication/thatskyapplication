@@ -558,11 +558,11 @@ export default function Schedule() {
 						<div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 							{active.map((schedule) => (
 								<div
-									className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-br ${getEventColor(schedule.now)}`}
+									className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-linear-to-br ${getEventColor(schedule.now)}`}
 									key={schedule.type}
 								>
 									<div className="absolute top-0 right-0 w-20 h-20 opacity-10">
-										<div className="absolute inset-0 bg-gradient-to-br from-current to-transparent rounded-full blur-xl" />
+										<div className="absolute inset-0 bg-linear-to-br from-current to-transparent rounded-full blur-xl" />
 									</div>
 									<div className="relative z-10">
 										<div className="flex items-center justify-between mb-3">
@@ -619,7 +619,7 @@ export default function Schedule() {
 						<div className="md:hidden space-y-3">
 							{active.map((schedule) => (
 								<div
-									className={`rounded-lg border p-4 bg-gradient-to-r ${getEventColor(schedule.now)}`}
+									className={`rounded-lg border p-4 bg-linear-to-r ${getEventColor(schedule.now)}`}
 									key={schedule.type}
 								>
 									<div className="flex items-center justify-between mb-2">
@@ -677,11 +677,11 @@ export default function Schedule() {
 					<div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 						{upcoming.map((schedule) => (
 							<div
-								className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-gradient-to-br ${getEventColor(schedule.now)}`}
+								className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 bg-linear-to-br ${getEventColor(schedule.now)}`}
 								key={schedule.type}
 							>
 								<div className="absolute top-0 right-0 w-20 h-20 opacity-5">
-									<div className="absolute inset-0 bg-gradient-to-br from-current to-transparent rounded-full blur-xl" />
+									<div className="absolute inset-0 bg-linear-to-br from-current to-transparent rounded-full blur-xl" />
 								</div>
 								<div className="relative z-10">
 									<div className="flex items-center justify-between mb-3">
@@ -719,7 +719,7 @@ export default function Schedule() {
 					<div className="md:hidden space-y-3">
 						{upcoming.map((schedule) => (
 							<div
-								className={`rounded-lg border p-4 bg-gradient-to-r ${getEventColor(schedule.now)}`}
+								className={`rounded-lg border p-4 bg-linear-to-r ${getEventColor(schedule.now)}`}
 								key={schedule.type}
 							>
 								<div className="flex items-center justify-between mb-2">
