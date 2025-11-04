@@ -126,6 +126,7 @@ const TREASURE_CANDLES_DOUBLE_DATES = [
 	{ start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) },
 	{ start: skyDate(2_025, 8, 19), end: skyDate(2_025, 9, 2) },
 	{ start: skyDate(2_025, 9, 22), end: skyDate(2_025, 9, 29) },
+	{ start: skyDate(2_025, 11, 17), end: skyDate(2_025, 12, 1) },
 ];
 
 const TREASURE_CANDLES_ROTATION = {
