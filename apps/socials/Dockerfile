@@ -26,6 +26,8 @@ RUN pnpm --filter @thatskyapplication/socials deploy --prod /thatskyapplication-
 # Final stage.
 FROM node:lts-alpine
 ENV NODE_ENV=production
+ARG SENTRY_RELEASE
+ENV SENTRY_RELEASE=${SENTRY_RELEASE}
 
 # Copy the deployed application.
 COPY --from=builder /thatskyapplication-production/socials /thatskyapplication/apps/socials

@@ -1,6 +1,5 @@
 # Builder stage.
 FROM node:lts-alpine AS builder
-ARG SENTRY_RELEASE
 
 WORKDIR /thatskyapplication
 
@@ -19,7 +18,7 @@ RUN pnpm install --frozen-lockfile
 # Build the application.
 COPY ./apps/caelus ./apps/caelus
 COPY ./packages/utility ./packages/utility
-RUN export SENTRY_RELEASE=$SENTRY_RELEASE && pnpm --filter @thatskyapplication/caelus... run build
+RUN pnpm --filter @thatskyapplication/caelus... run build
 
 # Deploy to a clean directory.
 RUN pnpm --filter @thatskyapplication/caelus deploy --prod /thatskyapplication-production/caelus
