@@ -33,6 +33,7 @@ import { DateTime } from "luxon";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
+import { captureError } from "./utility/functions.js";
 
 void init({
 	fallbackLng: Locale.EnglishGB,
@@ -365,7 +366,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		const message = `Notification ${notification.type} (${notification.timeUntilStart} mins until) delivered to ${successful === 1 ? `${successful} guild` : `${successful} guilds`}.`;
 
 		if (errors.length > 0) {
-			pino.error(
+			captureError(
 				new AggregateError(errors, "Error whilst sending notifications."),
 				`${message} Errors: ${errors.length}`,
 			);

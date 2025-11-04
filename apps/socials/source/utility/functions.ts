@@ -1,4 +1,11 @@
 import { AppBskyRichtextFacet, type Facet, RichText } from "@atproto/api";
+import { captureException } from "@sentry/node";
+import pino from "../pino.js";
+
+export function captureError(error: unknown, message?: string) {
+	pino.error(error, message);
+	captureException(error);
+}
 
 export function embedLinksInText(text: string, facets: Facet[]): string {
 	const richText = new RichText({ text, facets });

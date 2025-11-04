@@ -1,9 +1,8 @@
 import { type LoaderFunction, redirect } from "react-router";
 import { APPLICATION_ID, DISCORD_CLIENT_SECRET, REDIRECT_URI_LOGIN } from "~/config.server";
 import discord from "~/discord";
-import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
-import { generateState } from "~/utility/functions.server";
+import { captureError, generateState } from "~/utility/functions.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
 	const url = new URL(request.url);
@@ -64,7 +63,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 				},
 			});
 		} catch (error) {
-			pino.error({ request, error }, "Failed to log in.");
+			captureError({ request, error }, "Failed to log in.");
 
 			return redirect(storedReturnTo, {
 				headers: {

@@ -1,7 +1,7 @@
 import { Cron } from "croner";
 import { jetstream } from "./features/bluesky.js";
 import { reddit } from "./features/reddit.js";
-import pino from "./pino.js";
+import { captureError } from "./utility/functions.js";
 
 new Cron(
 	"* * * * *",
@@ -17,7 +17,7 @@ new Cron(
 				return;
 			}
 
-			pino.error(error, "Reddit error.");
+			captureError(error, "Reddit error.");
 		},
 		protect: true,
 	},

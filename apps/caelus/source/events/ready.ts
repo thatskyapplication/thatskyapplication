@@ -13,6 +13,7 @@ import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
+import { captureError, captureFatal } from "../utility/functions.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.Ready;
@@ -21,10 +22,9 @@ const LOST_GUILD_IDS = new Set<Snowflake>();
 
 async function collectFromDatabase() {
 	try {
-		await collectConfigurations();
-		await AI.populateCache();
+		await Promise.all([collectConfigurations(), AI.populateCache()]);
 	} catch (error) {
-		pino.fatal(error, "Error collecting configurations from the database.");
+		captureFatal(error, "Error collecting configurations from the database.");
 		process.exit(1);
 	}
 }
@@ -81,12 +81,18 @@ export default {
 				]),
 			);
 
-			const errors = settled
-				.filter((result) => result.status === "rejected")
-				.map((result) => result.reason);
+			const errors = [];
+
+			for (const result of settled) {
+				if (result.status === "fulfilled") {
+					continue;
+				}
+
+				errors.push(result.reason);
+			}
 
 			if (errors.length > 0) {
-				pino.error(errors, "Error whilst removing guild configurations.");
+				captureError(new AggregateError(errors, "Error whilst removing guild configurations."));
 			}
 		}
 

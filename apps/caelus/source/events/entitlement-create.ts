@@ -3,8 +3,8 @@ import { DiscordAPIError } from "@discordjs/rest";
 import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import pg from "../pg.js";
-import pino from "../pino.js";
 import { SUPPORT_SERVER_GUILD_ID, SUPPORTER_ROLE_ID } from "../utility/configuration.js";
+import { captureError } from "../utility/functions.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.EntitlementCreate;
@@ -29,7 +29,7 @@ export default {
 				if (
 					!(error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownMember)
 				) {
-					pino.error(error, "Error adding supporter state to member.");
+					captureError(error, "Error adding supporter state to member.");
 				}
 			}
 		}

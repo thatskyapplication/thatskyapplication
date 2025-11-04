@@ -23,6 +23,7 @@ import pino from "../pino.js";
 import { MAXIMUM_IMAGE_DESCRIPTION_LIMIT } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
+	captureError,
 	embedLinksInText,
 	fetchBlueskyProfile,
 	formatBlueskyImageURL,
@@ -68,7 +69,7 @@ jetstream.on(EventType.Commit, async (event) => {
 		try {
 			({ displayName, handle } = await fetchBlueskyProfile(did));
 		} catch (error) {
-			pino.error(error);
+			captureError(error);
 			return;
 		}
 
@@ -187,7 +188,7 @@ jetstream.on(EventType.Commit, async (event) => {
 		}
 
 		if (errors.length > 0) {
-			pino.error(
+			captureError(
 				{ event, error: new AggregateError(errors, "Failed to execute webooks.") },
 				"Failed to execute webhooks.",
 			);
@@ -195,4 +196,4 @@ jetstream.on(EventType.Commit, async (event) => {
 	}
 });
 
-jetstream.on("error", (error) => pino.error(error, "Jetstream error."));
+jetstream.on("error", (error) => captureError(error, "Jetstream error."));

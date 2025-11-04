@@ -26,7 +26,6 @@ import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
-import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import {
 	APPLICATION_INVITE_URL,
@@ -52,6 +51,7 @@ import { CustomId } from "../utility/custom-id.js";
 import { EMOTE_EMOJIS } from "../utility/emojis.js";
 import {
 	avatarURL,
+	captureError,
 	interactionInvoker,
 	isValidAttachment,
 	skyProfileWebsiteURL,
@@ -198,7 +198,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
-		pino.error(interaction, "Could not find the developer guild.");
+		captureError(interaction, "Could not find the developer guild.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("about.feedback-submission", {
@@ -215,7 +215,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 	const channel = guild.channels.get(FEEDBACK_CHANNEL_ID);
 
 	if (channel?.type !== ChannelType.GuildForum) {
-		pino.error(interaction, "Could not find the feedback channel.");
+		captureError(interaction, "Could not find the feedback channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("about.feedback-submission", {
@@ -239,7 +239,7 @@ export async function feedbackSubmission(interaction: APIModalSubmitInteraction)
 			channel,
 		})
 	) {
-		pino.error(interaction, "Missing permissions to post in the feedback channel.");
+		captureError(interaction, "Missing permissions to post in the feedback channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("about.feedback-submission", {
@@ -370,7 +370,7 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
-		pino.error(interaction, "Could not find the developer guild.");
+		captureError(interaction, "Could not find the developer guild.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("about.issue-submission", {
@@ -387,7 +387,7 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 	const channel = guild.channels.get(FEEDBACK_CHANNEL_ID);
 
 	if (channel?.type !== ChannelType.GuildForum) {
-		pino.error(interaction, "Could not find the feedback channel.");
+		captureError(interaction, "Could not find the feedback channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("about.issue-submission", {
@@ -411,7 +411,7 @@ export async function issueSubmission(interaction: APIModalSubmitInteraction) {
 			channel,
 		})
 	) {
-		pino.error(interaction, "Missing permissions to post in the feedback channel.");
+		captureError(interaction, "Missing permissions to post in the feedback channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("about.issue-submission", {

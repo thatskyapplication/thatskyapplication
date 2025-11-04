@@ -87,6 +87,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
 import {
+	captureError,
 	diffJSON,
 	formatArrayErrors,
 	notInCachedGuildResponse,
@@ -830,17 +831,11 @@ async function distributeLogic({
 	}
 
 	if (errors.length > 0) {
-		pino.error(
-			new AggregateError(errors, "Errors whilst distributing daily guides."),
-			"Daily guides distribution error.",
-		);
+		captureError(new AggregateError(errors, "Errors whilst distributing daily guides."));
 	}
 
 	if (knownErrors.length > 0) {
-		pino.info(
-			new AggregateError(knownErrors, "Errors (known) whilst distributing daily guides."),
-			"Daily guides distribution error (known).",
-		);
+		pino.info(new AggregateError(knownErrors, "Errors (known) whilst distributing daily guides."));
 	}
 }
 
@@ -1046,14 +1041,17 @@ async function logModification({ user, content }: LogModificationOptions) {
 	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
-		pino.error("Could not find the support server whilst logging a daily guides modification.");
+		captureError(
+			new Error("Could not find the support server whilst logging a daily guides modification."),
+		);
+
 		return;
 	}
 
 	const channel = guild.channels.get(DAILY_GUIDES_LOG_CHANNEL_ID);
 
 	if (channel?.type !== ChannelType.GuildText) {
-		pino.error("Could not find the daily guides log channel.");
+		captureError(new Error("Could not find the daily guides log channel."));
 		return;
 	}
 
@@ -1067,7 +1065,7 @@ async function logModification({ user, content }: LogModificationOptions) {
 			channel,
 		})
 	) {
-		pino.error("Missing permissions to post in the daily guides log channel.");
+		captureError(new Error("Missing permissions to post in the daily guides log channel."));
 		return;
 	}
 

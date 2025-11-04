@@ -142,6 +142,7 @@ import {
 	SKY_PROFILE_EXPLORERS,
 } from "../utility/custom-id.js";
 import {
+	captureError,
 	isAutocomplete,
 	isButton,
 	isChatInputCommand,
@@ -272,7 +273,7 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 		}
 	}
 
-	pino.error(error, errorTypeString);
+	captureError(error, errorTypeString);
 
 	// We cannot respond to this.
 	if (
@@ -292,7 +293,7 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 			return;
 		}
 	} catch (error) {
-		pino.error(error, "Failed to respond from recovering an interaction error.");
+		captureError(error, "Failed to respond from recovering an interaction error.");
 	}
 }
 
@@ -926,7 +927,7 @@ export default {
 						const notificationType = Number(value0);
 
 						if (!isNotificationType(notificationType)) {
-							pino.error(
+							captureError(
 								data,
 								"Received an unknown notification type whilst setting up notifications.",
 							);

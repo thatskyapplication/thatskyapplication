@@ -9,20 +9,20 @@ import {
 } from "./features/daily-guides.js";
 import { messageLogDeleteOldMessages } from "./features/message-log.js";
 import pg from "./pg.js";
-import pino from "./pino.js";
 import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
+import { captureError } from "./utility/functions.js";
 
 export default function croner() {
 	new Cron(
 		"0 0 0 * * *",
-		{ catch: (error) => pino.error(error, "Error during changing days."), timezone: TIME_ZONE },
+		{ catch: (error) => captureError(error, "Error during changing days."), timezone: TIME_ZONE },
 		async () => {
 			const independentPromises = [messageLogDeleteOldMessages()];
 			const today = skyToday();
 			const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 			if (!guild) {
-				pino.error("Could not find the support server whilst resetting daily guides.");
+				captureError(new Error("Could not find the support server whilst resetting daily guides."));
 				await Promise.all(independentPromises);
 				return;
 			}

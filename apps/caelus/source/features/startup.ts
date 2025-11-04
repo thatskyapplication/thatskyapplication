@@ -1,7 +1,7 @@
 import type { NotificationPacket } from "@thatskyapplication/utility";
 import { Table } from "@thatskyapplication/utility";
 import pg from "../pg.js";
-import pino from "../pino.js";
+import { captureError } from "../utility/functions.js";
 import { checkSendable } from "./notifications.js";
 
 async function notifications() {
@@ -12,12 +12,23 @@ async function notifications() {
 		),
 	);
 
-	const notificationsErrors = notificationsSettled
-		.filter((result) => result.status === "rejected")
-		.map((result) => result.reason);
+	const notificationsErrors = [];
+
+	for (const result of notificationsSettled) {
+		if (result.status === "fulfilled") {
+			continue;
+		}
+
+		notificationsErrors.push(result.reason);
+	}
 
 	if (notificationsErrors.length > 0) {
-		pino.error(notificationsErrors, "Error whilst performing the notification health check.");
+		captureError(
+			new AggregateError(
+				notificationsErrors,
+				"Error whilst performing the notification health check.",
+			),
+		);
 	}
 }
 

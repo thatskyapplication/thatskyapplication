@@ -38,6 +38,7 @@ import {
 	OPENAI_BASE_URL,
 } from "./utility/configuration.js";
 import { MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
+import { captureError } from "./utility/functions.js";
 
 const enum ShardEruptionIntent {
 	Current = 0,
@@ -225,7 +226,7 @@ export async function messageCreateEmojiResponse(message: GatewayMessageCreateDi
 		});
 	} catch (error) {
 		if (!(error instanceof APIUserAbortError)) {
-			pino.error(error, "AI error.");
+			captureError(error, "AI error.");
 		}
 	} finally {
 		clearTimeout(timeout);
@@ -296,7 +297,7 @@ export async function messageCreateStickerResponse(
 		});
 	} catch (error) {
 		if (!(error instanceof APIUserAbortError)) {
-			pino.error(error, "AI error.");
+			captureError(error, "AI error.");
 		}
 	} finally {
 		clearTimeout(timeout);
@@ -359,7 +360,7 @@ export async function messageCreateReactionResponse(message: GatewayMessageCreat
 		);
 	} catch (error) {
 		if (!(error instanceof APIUserAbortError)) {
-			pino.error(error, "AI error.");
+			captureError(error, "AI error.");
 		}
 	} finally {
 		clearTimeout(timeout);
@@ -373,7 +374,7 @@ export async function messageCreateResponse(
 	const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
 
 	if (!guild) {
-		pino.error(message, "Failed to find a guild to start an AI message create response in.");
+		captureError(message, "Failed to find a guild to start an AI message create response in.");
 		return;
 	}
 
@@ -548,7 +549,7 @@ export async function messageCreateResponse(
 		}
 	} catch (error) {
 		if (!(error instanceof APIUserAbortError)) {
-			pino.error(error, "AI error.");
+			captureError(error, "AI error.");
 		}
 	} finally {
 		clearTimeout(timeout);

@@ -13,13 +13,13 @@ import {
 import { formatEmoji } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
-import pino from "../pino.js";
 import { SHOP_SUGGESTIONS_CHANNEL_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
 import { DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {
 	avatarURL,
+	captureError,
 	interactionInvoker,
 	skyProfileWebsiteURL,
 	userTag,
@@ -89,7 +89,7 @@ export async function shopSuggestionSubmission(interaction: APIModalSubmitIntera
 	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
-		pino.error(interaction, "Could not find the guild of the shop suggestions channel.");
+		captureError(interaction, "Could not find the guild of the shop suggestions channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "Thank you for your suggestion!",
@@ -102,7 +102,7 @@ export async function shopSuggestionSubmission(interaction: APIModalSubmitIntera
 	const channel = guild.channels.get(SHOP_SUGGESTIONS_CHANNEL_ID);
 
 	if (channel?.type !== ChannelType.GuildText) {
-		pino.error(interaction, "Could not find the shop suggestions channel.");
+		captureError(interaction, "Could not find the shop suggestions channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "Thank you for your suggestion!",
@@ -125,7 +125,7 @@ export async function shopSuggestionSubmission(interaction: APIModalSubmitIntera
 			channel,
 		})
 	) {
-		pino.error(interaction, "Missing permissions to post in the shop suggestions channel.");
+		captureError(interaction, "Missing permissions to post in the shop suggestions channel.");
 
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "Thank you for your suggestion!",
