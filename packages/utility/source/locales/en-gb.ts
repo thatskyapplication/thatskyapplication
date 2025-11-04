@@ -722,6 +722,7 @@ export default {
 			[EventId.DaysOfMoonlight2025]: "Days of Moonlight",
 			[EventId.RadianceEvent2025]: "Radiance Event",
 			[EventId.DaysOfMischief2025]: "Days of Mischief",
+			[EventId.DaysOfGiving2025]: "Days of Giving",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -821,6 +822,7 @@ export default {
 			[EventId.RadianceEvent2025]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event",
 			[EventId.DaysOfMischief2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
+			[EventId.DaysOfGiving2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
