@@ -35,4 +35,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
 	],
 	patchNotesURL: patchNotesRoute("31"),
+	doubleSeasonalLight: [{ start: skyDate(2_025, 11, 17), end: skyDate(2_025, 12, 1) }],
 });
