@@ -1,13 +1,6 @@
 import { randomBytes } from "node:crypto";
-import { captureException } from "@sentry/react-router";
 import { redirect } from "react-router";
 import { getSession } from "~/session.server.js";
-import pino from "../pino.js";
-
-export function captureError(error: unknown, message?: string) {
-	pino.error(error, message);
-	captureException(error);
-}
 
 export function generateState() {
 	return randomBytes(16).toString("hex");

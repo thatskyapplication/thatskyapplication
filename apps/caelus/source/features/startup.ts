@@ -1,7 +1,7 @@
 import type { NotificationPacket } from "@thatskyapplication/utility";
 import { Table } from "@thatskyapplication/utility";
 import pg from "../pg.js";
-import { captureError } from "../utility/functions.js";
+import pino from "../pino.js";
 import { checkSendable } from "./notifications.js";
 
 async function notifications() {
@@ -23,7 +23,7 @@ async function notifications() {
 	}
 
 	if (notificationsErrors.length > 0) {
-		captureError(
+		pino.error(
 			new AggregateError(
 				notificationsErrors,
 				"Error whilst performing the notification health check.",

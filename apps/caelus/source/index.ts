@@ -32,7 +32,6 @@ import threadListSync from "./events/thread-list-sync.js";
 import threadUpdate from "./events/thread-update.js";
 import pino from "./pino.js";
 import { APPLICATION_ID } from "./utility/configuration.js";
-import { captureError } from "./utility/functions.js";
 
 for (const event of [
 	channelCreate,
@@ -66,7 +65,7 @@ for (const event of [
 	client[once ? "once" : "on"](name, fire);
 }
 
-client.on("error", (error) => captureError(error));
+client.on("error", (error) => pino.error(error));
 
 // Populate the command cache.
 const applicationCommands = await client.api.applicationCommands.getGlobalCommands(APPLICATION_ID);

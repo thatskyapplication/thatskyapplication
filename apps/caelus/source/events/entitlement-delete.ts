@@ -5,12 +5,12 @@ import { client } from "../discord.js";
 import { meDelete } from "../features/me.js";
 import AI from "../models/AI.js";
 import pg from "../pg.js";
+import pino from "../pino.js";
 import {
 	SERVER_UPGRADE_SKU_ID,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORTER_ROLE_ID,
 } from "../utility/configuration.js";
-import { captureError } from "../utility/functions.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.EntitlementDelete;
@@ -40,7 +40,7 @@ export default {
 				if (
 					!(error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownMember)
 				) {
-					captureError(error, "Error removing supporter state from member.");
+					pino.error(error, "Error removing supporter state from member.");
 				}
 			}
 		}

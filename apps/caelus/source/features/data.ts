@@ -9,12 +9,13 @@ import { type ChecklistPacket, Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import pg from "../pg.js";
+import pino from "../pino.js";
 import {
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORT_SERVER_INVITE_URL,
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
-import { captureError, interactionInvoker } from "../utility/functions.js";
+import { interactionInvoker } from "../utility/functions.js";
 import type { GuessPacket } from "./guess.js";
 import type { HeartPacket } from "./heart.js";
 import { skyProfileDelete } from "./sky-profile.js";
@@ -50,7 +51,7 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 			}
 		}
 	} catch (error) {
-		captureError(error, `Error deleting user data for ${userId}.`);
+		pino.error(error, `Error deleting user data for ${userId}.`);
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [],

@@ -100,7 +100,6 @@ import {
 } from "../utility/custom-id.js";
 import { EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 import {
-	captureError,
 	chatInputApplicationCommandMention,
 	interactionInvoker,
 	isAnimatedHash,
@@ -1391,7 +1390,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
-		captureError(interaction, "Could not find the guild of the Sky profile reports channel.");
+		pino.error(interaction, "Could not find the guild of the Sky profile reports channel.");
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
@@ -1408,7 +1407,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 	const channel = guild.channels.get(SKY_PROFILE_REPORTS_CHANNEL_ID);
 
 	if (channel?.type !== ChannelType.GuildText) {
-		captureError(interaction, "Could not find the Sky profile reports channel.");
+		pino.error(interaction, "Could not find the Sky profile reports channel.");
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
@@ -1432,7 +1431,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 			channel,
 		})
 	) {
-		captureError(interaction, "Missing permissions to post in the Sky profile reports channel.");
+		pino.error(interaction, "Missing permissions to post in the Sky profile reports channel.");
 
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 			components: [
@@ -2247,7 +2246,7 @@ async function skyProfileComponents(
 				`**${t("sky-profile.country", { lng: locale, ns: "features" })}** ${CountryToEmoji[country]} ${new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!}`,
 			);
 		} else {
-			captureError(interaction, `Invalid country code in Sky Profile: ${country}`);
+			pino.error(interaction, `Invalid country code in Sky Profile: ${country}`);
 		}
 	}
 

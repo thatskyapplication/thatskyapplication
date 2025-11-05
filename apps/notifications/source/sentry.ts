@@ -5,7 +5,7 @@ if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
 	init({
 		dsn: SENTRY_DATA_SOURCE_NAME,
 		enableLogs: true,
-		integrations: [pinoIntegration()],
+		integrations: [pinoIntegration({ error: { levels: ["error", "fatal"] } })],
 		maxBreadcrumbs: 10,
 		sendDefaultPii: true,
 		release: SENTRY_RELEASE,

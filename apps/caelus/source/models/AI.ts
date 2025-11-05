@@ -38,7 +38,7 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import { APPLICATION_ID, SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
-import { captureError, isThreadChannel } from "../utility/functions.js";
+import { isThreadChannel } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";
 import type { GuildChannel } from "./discord/guild.js";
 import type { GuildMember } from "./discord/guild-member.js";
@@ -258,14 +258,14 @@ export default class AI {
 		const guild = message.guild_id && GUILD_CACHE.get(message.guild_id);
 
 		if (!guild) {
-			captureError(message, "Failed to find a guild to respond in.");
+			pino.error(message, "Failed to find a guild to respond in.");
 			return;
 		}
 
 		const channel = guild.channels.get(message.channel_id) ?? guild.threads.get(message.channel_id);
 
 		if (!channel) {
-			captureError(message, "Failed to find a channel to respond in.");
+			pino.error(message, "Failed to find a channel to respond in.");
 			return;
 		}
 

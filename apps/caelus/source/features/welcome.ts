@@ -32,13 +32,14 @@ import sharp from "sharp";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
+import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
 import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
 import { ANIMATED_HASH_PREFIX } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { captureError, isAnimatedHash, isValidImageAttachment } from "../utility/functions.js";
+import { isAnimatedHash, isValidImageAttachment } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { friendshipActionComponents } from "./friendship-actions.js";
@@ -447,7 +448,11 @@ export async function sendWelcomeMessage({ userId, welcomePacket, locale }: Welc
 	const guild = GUILD_CACHE.get(welcomePacket.guild_id);
 
 	if (!guild) {
-		captureError(new Error("Could not find the guild of a welcome message."));
+		pino.error(
+			new Error("Could not find the guild of a welcome message."),
+			"Failed to send welcome message.",
+		);
+
 		return;
 	}
 
@@ -477,7 +482,7 @@ export async function sendWelcomeMessage({ userId, welcomePacket, locale }: Welc
 			flags: MessageFlags.IsComponentsV2,
 		});
 	} catch (error) {
-		captureError(error, "Failed to send welcome message.");
+		pino.error(error, "Failed to send welcome message.");
 	}
 }
 
@@ -610,7 +615,7 @@ export async function welcomeHandleHugButton(
 			return;
 		}
 
-		captureError(error, "Failed to send welcome hug.");
+		pino.error(error, "Failed to send welcome hug.");
 	} finally {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, {});
 	}

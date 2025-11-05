@@ -21,13 +21,11 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
-import { captureException } from "@sentry/node";
 import { diffJson } from "diff";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
-import pino from "../pino.js";
 import { APPLICATION_INVITE_URL, SUPPORT_SERVER_INVITE_URL } from "./configuration.js";
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
@@ -36,16 +34,6 @@ import {
 	MAXIMUM_ASSET_SIZE,
 	SKY_PROFILES_URL,
 } from "./constants.js";
-
-export function captureError(error: unknown, message?: string) {
-	pino.error(error, message);
-	captureException(error);
-}
-
-export function captureFatal(error: unknown, message?: string) {
-	pino.fatal(error, message);
-	captureException(error);
-}
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,

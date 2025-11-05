@@ -8,7 +8,7 @@ if (
 	init({
 		dsn: process.env.SENTRY_DATA_SOURCE_NAME,
 		enableLogs: true,
-		integrations: [pinoIntegration()],
+		integrations: [pinoIntegration({ error: { levels: ["error", "fatal"] } })],
 		maxBreadcrumbs: 25,
 		sendDefaultPii: true,
 		tracesSampleRate: 1,

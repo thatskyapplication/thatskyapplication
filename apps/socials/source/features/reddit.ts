@@ -30,7 +30,6 @@ import {
 	USER_AGENT,
 } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { captureError } from "../utility/functions.js";
 
 let accessToken: string | null = null;
 let tokenExpiry: number | null = null;
@@ -377,7 +376,7 @@ export async function reddit() {
 	}
 
 	if (payloadsErrors.length > 0) {
-		captureError({ payloadsErrors }, "Failed to generate Reddit payloads.");
+		pino.error({ payloadsErrors }, "Failed to generate Reddit payloads.");
 	}
 
 	// Execute webhooks.
@@ -428,7 +427,7 @@ export async function reddit() {
 		}
 
 		if (errors.length > 0) {
-			captureError(
+			pino.error(
 				{ posts, error: new AggregateError(errors, "Failed to execute webooks.") },
 				"Failed to execute webhooks.",
 			);

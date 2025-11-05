@@ -11,13 +11,10 @@ import {
 } from "~/config.server.js";
 import discord from "~/discord.js";
 import pg from "~/pg.server";
+import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
-import {
-	captureError,
-	generateState,
-	requireDiscordAuthentication,
-} from "~/utility/functions.server";
+import { generateState, requireDiscordAuthentication } from "~/utility/functions.server";
 import type { CrowdinUser } from "~/utility/types.js";
 
 interface AuthState {
@@ -204,7 +201,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		session.set("crowdin_user", authenticationState.crowdinUser);
 		session.unset("discord_crowdin_auth_error");
 	} catch (error) {
-		captureError({ request, error }, "Failed to authorise with Crowdin.");
+		pino.error({ request, error }, "Failed to authorise with Crowdin.");
 		authenticationState.error = "Failed to authorise with Crowdin.";
 		session.set("discord_crowdin_auth_error", authenticationState.error);
 	}

@@ -13,7 +13,6 @@ import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import { captureError, captureFatal } from "../utility/functions.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.Ready;
@@ -24,7 +23,7 @@ async function collectFromDatabase() {
 	try {
 		await Promise.all([collectConfigurations(), AI.populateCache()]);
 	} catch (error) {
-		captureFatal(error, "Error collecting configurations from the database.");
+		pino.fatal(error, "Error collecting configurations from the database.");
 		process.exit(1);
 	}
 }
@@ -92,7 +91,7 @@ export default {
 			}
 
 			if (errors.length > 0) {
-				captureError(new AggregateError(errors, "Error whilst removing guild configurations."));
+				pino.error(new AggregateError(errors, "Error whilst removing guild configurations."));
 			}
 		}
 

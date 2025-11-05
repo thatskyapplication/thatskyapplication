@@ -18,6 +18,7 @@ import { Form, Link, redirect, useActionData, useLoaderData } from "react-router
 import Select from "~/components/Select";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server.js";
+import pino from "~/pino";
 import {
 	checkDailyGuidesChannelPermissions,
 	getGuildsDailyGuidesChannels,
@@ -25,7 +26,7 @@ import {
 } from "~/utility/caelus.server.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { guildIconURL } from "~/utility/functions.js";
-import { captureError, requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
 
 const ChannelTypeToIcon = {
@@ -154,7 +155,7 @@ export const action = async ({ request, params, context }: ActionFunctionArgs) =
 			return redirect(`/login?returnTo=${returnTo}`);
 		}
 
-		captureError({ request, error }, "Failed to update daily guides settings.");
+		pino.error({ request, error }, "Failed to update daily guides settings.");
 		return { error: "Something didn't quite work. Please report this!" };
 	}
 };
