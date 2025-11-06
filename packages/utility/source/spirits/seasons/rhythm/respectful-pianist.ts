@@ -135,7 +135,8 @@ export default new SeasonalSpirit({
 	visits: {
 		travelling: [
 			{ start: skyDate(2021, 2, 4), end: skyDate(2021, 2, 8) },
-			{ start: skyDate(2025, 11, 6), end: skyDate(2025, 11, 10) },
+			// https://discord.com/channels/575762611111592007/628684058414678026/1436078306066694164
+			{ start: skyDate(2025, 11, 6, 11, 42), end: skyDate(2025, 11, 10) },
 		],
 		returning: [3],
 	},
