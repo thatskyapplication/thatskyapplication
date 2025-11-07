@@ -202,6 +202,16 @@ async function fetchSingleSubredditPosts(subreddit: string) {
 			),
 	);
 
+	pino.info(
+		{
+			subreddit,
+			receivedPosts: posts,
+			seenPosts: Object.fromEntries(seenPostsMap.entries()),
+			newPosts,
+		},
+		`Found ${newPosts.length} new posts in r/${subreddit}.`,
+	);
+
 	for (const newPost of newPosts) {
 		seenPostsMap.set(newPost.data.name, newPost.data.created_utc);
 	}
