@@ -58,4 +58,7 @@ jobs:
           SENTRY_DATA_SOURCE_NAME_SOCIALS: ${{ secrets.SENTRY_DATA_SOURCE_NAME_SOCIALS }}
           REDDIT_APPLICATION_ID: ${{ secrets.REDDIT_APPLICATION_ID }}
           REDDIT_APPLICATION_SECRET: ${{ secrets.REDDIT_APPLICATION_SECRET }}
+          TWITCH_CLIENT_ID: ${{ secrets.TWITCH_CLIENT_ID }}
+          TWITCH_CLIENT_SECRET: ${{ secrets.TWITCH_CLIENT_SECRET }}
+          TWITCH_USER_ID: ${{ secrets.TWITCH_USER_ID }}
         run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-socials --recreate --yes

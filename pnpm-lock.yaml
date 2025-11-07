@@ -182,6 +182,15 @@ importers:
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../packages/utility
+      '@twurple/api':
+        specifier: ^7.4.0
+        version: 7.4.0(@twurple/auth@7.4.0)
+      '@twurple/auth':
+        specifier: ^7.4.0
+        version: 7.4.0
+      '@twurple/eventsub-ws':
+        specifier: ^7.4.0
+        version: 7.4.0(@twurple/api@7.4.0(@twurple/auth@7.4.0))
       croner:
         specifier: ^9.1.0
         version: 9.1.0
@@ -802,6 +811,39 @@ packages:
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
+
+  '@d-fischer/cache-decorators@4.0.1':
+    resolution: {integrity: sha512-HNYLBLWs/t28GFZZeqdIBqq8f37mqDIFO6xNPof94VjpKvuP6ROqCZGafx88dk5zZUlBfViV9jD8iNNlXfc4CA==}
+
+  '@d-fischer/connection@9.0.0':
+    resolution: {integrity: sha512-Mljp/EbaE+eYWfsFXUOk+RfpbHgrWGL/60JkAvjYixw6KREfi5r17XdUiXe54ByAQox6jwgdN2vebdmW1BT+nQ==}
+
+  '@d-fischer/cross-fetch@5.0.5':
+    resolution: {integrity: sha512-symjDUPInTrkfIsZc2n2mo9hiAJLcTJsZkNICjZajEWnWpJ3s3zn50/FY8xpNUAf5w3eFuQii2wxztTGpvG1Xg==}
+
+  '@d-fischer/detect-node@3.0.1':
+    resolution: {integrity: sha512-0Rf3XwTzuTh8+oPZW9SfxTIiL+26RRJ0BRPwj5oVjZFyFKmsj9RGfN2zuTRjOuA3FCK/jYm06HOhwNK+8Pfv8w==}
+
+  '@d-fischer/isomorphic-ws@7.0.2':
+    resolution: {integrity: sha512-xK+qIJUF0ne3dsjq5Y3BviQ4M+gx9dzkN+dPP7abBMje4YRfow+X9jBgeEoTe5e+Q6+8hI9R0b37Okkk8Vf0hQ==}
+    peerDependencies:
+      ws: ^8.2.0
+
+  '@d-fischer/logger@4.2.4':
+    resolution: {integrity: sha512-TFMZ/SVW8xyQtyJw9Rcuci4betSKy0qbQn2B5+1+72vVXeO8Qb1pYvuwF5qr0vDGundmSWq7W8r19nVPnXXSvA==}
+
+  '@d-fischer/qs@7.0.2':
+    resolution: {integrity: sha512-yAu3xDooiL+ef84Jo8nLjDjWBRk7RXk163Y6aTvRB7FauYd3spQD/dWvgT7R4CrN54Juhrrc3dMY7mc+jZGurQ==}
+    engines: {node: '>=0.6'}
+
+  '@d-fischer/rate-limiter@1.1.0':
+    resolution: {integrity: sha512-O5HgACwApyCZhp4JTEBEtbv/W3eAwEkrARFvgWnEsDmXgCMWjIHwohWoHre5BW6IYXFSHBGsuZB/EvNL3942kQ==}
+
+  '@d-fischer/shared-utils@3.6.4':
+    resolution: {integrity: sha512-BPkVLHfn2Lbyo/ENDBwtEB8JVQ+9OzkjJhUunLaxkw4k59YFlQxUUwlDBejVSFcpQT0t+D3CQlX+ySZnQj0wxw==}
+
+  '@d-fischer/typed-event-emitter@3.3.3':
+    resolution: {integrity: sha512-OvSEOa8icfdWDqcRtjSEZtgJTFOFNgTjje7zaL0+nAtu2/kZtRCSK5wUMrI/aXtCH8o0Qz2vA8UqkhWUTARFQQ==}
 
   '@discordjs/collection@2.1.1':
     resolution: {integrity: sha512-LiSusze9Tc7qF03sLCujF5iZp7K+vRNEDBZ86FT9aQAv3vxMLihUvKvpsCWiQ2DJq1tVckopKm1rxomgNUc9hg==}
@@ -2575,6 +2617,28 @@ packages:
   '@tailwindcss/postcss@4.1.16':
     resolution: {integrity: sha512-Qn3SFGPXYQMKR/UtqS+dqvPrzEeBZHrFA92maT4zijCVggdsXnDBMsPFJo1eArX3J+O+Gi+8pV4PkqjLCNBk3A==}
 
+  '@twurple/api-call@7.4.0':
+    resolution: {integrity: sha512-WNxvjp/hMqZREElbvE4rHMyUIrHdGY5cbG8xbqgSM9CESFvJ1wm5BubhyANOyKd1TxABacLddbfbO//Fz9YHgA==}
+
+  '@twurple/api@7.4.0':
+    resolution: {integrity: sha512-RlXLs4ZvS8n0+iIk7YyVDwrjhlwpn+N+h7fX5Q61HoxlmzoCShmnnFo03abYw9i8Cc3deGpbQATOSVmigXM4qg==}
+    peerDependencies:
+      '@twurple/auth': 7.4.0
+
+  '@twurple/auth@7.4.0':
+    resolution: {integrity: sha512-WAQV6nJGkfY7r2BkRYhnzUpdfozLvjNsCxkyNVprl4dCWdJzccnTvqkKTdDRJc5ZJxDVaB9Drzwx9/fCp/gRDA==}
+
+  '@twurple/common@7.4.0':
+    resolution: {integrity: sha512-lX5cVkYar6jGvni6iLmMYjhxH1oPSl2v7XVeZ4C7U1GbLz/Jwk0L0uldQNGUIf9gpRHPY+TXRlk0UIpz2yo8DA==}
+
+  '@twurple/eventsub-base@7.4.0':
+    resolution: {integrity: sha512-Umx0kNZKxBUTF2/MHAlnnCuNPs8Tl1Aw8EzDJI2AW10tOiWvgeCR889fKCFBPlHXvcMYSEvsItkX+pXeZ8GkeQ==}
+
+  '@twurple/eventsub-ws@7.4.0':
+    resolution: {integrity: sha512-tA5zGmb2kK4w//V0mK5P9WXl+KwNjkXXRTv3YO8AK9sCObFag9rsqJdrBNNyx6G58NJvQzQIDtHI1U2M9q1h5w==}
+    peerDependencies:
+      '@twurple/api': 7.4.0
+
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
 
@@ -3378,6 +3442,10 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  klona@2.0.6:
+    resolution: {integrity: sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==}
+    engines: {node: '>= 8'}
+
   knex@3.1.0:
     resolution: {integrity: sha512-GLoII6hR0c4ti243gMs5/1Rb3B+AjwMOfjYm97pu0FOQa7JH56hgBxYf5WK2525ceSbBY1cjeZ9yk99GPMB6Kw==}
     engines: {node: '>=16'}
@@ -4106,6 +4174,10 @@ packages:
 
   retry@0.12.0:
     resolution: {integrity: sha512-9LkiTwjUh6rT555DtE9rTX+BKByPfrMzEAtnlEtdEwr3Nkffwiihqe2bWADg+OQRjt9gl6ICdmB/ZFDCGAtSow==}
+    engines: {node: '>= 4'}
+
+  retry@0.13.1:
+    resolution: {integrity: sha512-XQBQ3I8W1Cge0Seh+6gjj03LbmRFWuoszgK9ooCpwYIrhhoO80pfq4cUkU5DkknwfOfFteRwlZ56PYOGYyFWdg==}
     engines: {node: '>= 4'}
 
   reusify@1.1.0:
@@ -5438,6 +5510,58 @@ snapshots:
 
   '@biomejs/cli-win32-x64@2.3.2':
     optional: true
+
+  '@d-fischer/cache-decorators@4.0.1':
+    dependencies:
+      '@d-fischer/shared-utils': 3.6.4
+      tslib: 2.8.1
+
+  '@d-fischer/connection@9.0.0':
+    dependencies:
+      '@d-fischer/isomorphic-ws': 7.0.2(ws@8.18.3)
+      '@d-fischer/logger': 4.2.4
+      '@d-fischer/shared-utils': 3.6.4
+      '@d-fischer/typed-event-emitter': 3.3.3
+      '@types/ws': 8.18.1
+      tslib: 2.8.1
+      ws: 8.18.3
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
+  '@d-fischer/cross-fetch@5.0.5':
+    dependencies:
+      node-fetch: 2.7.0
+    transitivePeerDependencies:
+      - encoding
+
+  '@d-fischer/detect-node@3.0.1': {}
+
+  '@d-fischer/isomorphic-ws@7.0.2(ws@8.18.3)':
+    dependencies:
+      ws: 8.18.3
+
+  '@d-fischer/logger@4.2.4':
+    dependencies:
+      '@d-fischer/detect-node': 3.0.1
+      '@d-fischer/shared-utils': 3.6.4
+      tslib: 2.8.1
+
+  '@d-fischer/qs@7.0.2': {}
+
+  '@d-fischer/rate-limiter@1.1.0':
+    dependencies:
+      '@d-fischer/logger': 4.2.4
+      '@d-fischer/shared-utils': 3.6.4
+      tslib: 2.8.1
+
+  '@d-fischer/shared-utils@3.6.4':
+    dependencies:
+      tslib: 2.8.1
+
+  '@d-fischer/typed-event-emitter@3.3.3':
+    dependencies:
+      tslib: 2.8.1
 
   '@discordjs/collection@2.1.1': {}
 
@@ -7139,6 +7263,78 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.16
 
+  '@twurple/api-call@7.4.0':
+    dependencies:
+      '@d-fischer/cross-fetch': 5.0.5
+      '@d-fischer/qs': 7.0.2
+      '@d-fischer/shared-utils': 3.6.4
+      '@twurple/common': 7.4.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - encoding
+
+  '@twurple/api@7.4.0(@twurple/auth@7.4.0)':
+    dependencies:
+      '@d-fischer/cache-decorators': 4.0.1
+      '@d-fischer/cross-fetch': 5.0.5
+      '@d-fischer/detect-node': 3.0.1
+      '@d-fischer/logger': 4.2.4
+      '@d-fischer/rate-limiter': 1.1.0
+      '@d-fischer/shared-utils': 3.6.4
+      '@d-fischer/typed-event-emitter': 3.3.3
+      '@twurple/api-call': 7.4.0
+      '@twurple/auth': 7.4.0
+      '@twurple/common': 7.4.0
+      retry: 0.13.1
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - encoding
+
+  '@twurple/auth@7.4.0':
+    dependencies:
+      '@d-fischer/logger': 4.2.4
+      '@d-fischer/shared-utils': 3.6.4
+      '@d-fischer/typed-event-emitter': 3.3.3
+      '@twurple/api-call': 7.4.0
+      '@twurple/common': 7.4.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - encoding
+
+  '@twurple/common@7.4.0':
+    dependencies:
+      '@d-fischer/shared-utils': 3.6.4
+      klona: 2.0.6
+      tslib: 2.8.1
+
+  '@twurple/eventsub-base@7.4.0':
+    dependencies:
+      '@d-fischer/logger': 4.2.4
+      '@d-fischer/shared-utils': 3.6.4
+      '@d-fischer/typed-event-emitter': 3.3.3
+      '@twurple/api': 7.4.0(@twurple/auth@7.4.0)
+      '@twurple/auth': 7.4.0
+      '@twurple/common': 7.4.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - encoding
+
+  '@twurple/eventsub-ws@7.4.0(@twurple/api@7.4.0(@twurple/auth@7.4.0))':
+    dependencies:
+      '@d-fischer/connection': 9.0.0
+      '@d-fischer/logger': 4.2.4
+      '@d-fischer/shared-utils': 3.6.4
+      '@d-fischer/typed-event-emitter': 3.3.3
+      '@twurple/api': 7.4.0(@twurple/auth@7.4.0)
+      '@twurple/auth': 7.4.0
+      '@twurple/common': 7.4.0
+      '@twurple/eventsub-base': 7.4.0
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - bufferutil
+      - encoding
+      - utf-8-validate
+
   '@tybys/wasm-util@0.10.1':
     dependencies:
       tslib: 2.8.1
@@ -7973,6 +8169,8 @@ snapshots:
 
   json5@2.2.3: {}
 
+  klona@2.0.6: {}
+
   knex@3.1.0(pg@8.16.3):
     dependencies:
       colorette: 2.0.19
@@ -8634,6 +8832,8 @@ snapshots:
       supports-preserve-symlinks-flag: 1.0.0
 
   retry@0.12.0: {}
+
+  retry@0.13.1: {}
 
   reusify@1.1.0: {}
 

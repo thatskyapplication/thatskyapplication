@@ -15,6 +15,8 @@ export enum Table {
 	Profiles = "profiles",
 	RedditWebhooks = "reddit_webhooks",
 	SkyProfileLikes = "sky_profile_likes",
+	TwitchSettings = "twitch_settings",
+	TwitchWebhooks = "twitch_webhooks",
 	Users = "users",
 	Welcome = "welcome",
 }
@@ -27,6 +29,17 @@ export interface BlueskyWebhooksPacket {
 }
 
 export interface RedditWebhooksPacket {
+	guild_id: string;
+	webhook_id: string;
+	webhook_token: string;
+}
+
+export interface TwitchSettingsPacket {
+	refresh_token: string;
+	access_token: string;
+}
+
+export interface TwitchWebhooksPacket {
 	guild_id: string;
 	webhook_id: string;
 	webhook_token: string;

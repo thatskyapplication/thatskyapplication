@@ -8,7 +8,10 @@ if (
 	!(
 		process.env.DATABASE_URL &&
 		process.env.REDDIT_APPLICATION_ID &&
-		process.env.REDDIT_APPLICATION_SECRET
+		process.env.REDDIT_APPLICATION_SECRET &&
+		process.env.TWITCH_CLIENT_ID &&
+		process.env.TWITCH_CLIENT_SECRET &&
+		process.env.TWITCH_USER_ID
 	) ||
 	(PRODUCTION && !(process.env.SENTRY_DATA_SOURCE_NAME && process.env.SENTRY_RELEASE))
 ) {
@@ -18,5 +21,8 @@ if (
 export const DATABASE_URL = process.env.DATABASE_URL;
 export const REDDIT_APPLICATION_ID = process.env.REDDIT_APPLICATION_ID;
 export const REDDIT_APPLICATION_SECRET = process.env.REDDIT_APPLICATION_SECRET;
+export const TWITCH_CLIENT_ID = process.env.TWITCH_CLIENT_ID;
+export const TWITCH_CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET;
+export const TWITCH_USER_ID = process.env.TWITCH_USER_ID;
 export const SENTRY_DATA_SOURCE_NAME = process.env.SENTRY_DATA_SOURCE_NAME;
 export const SENTRY_RELEASE = process.env.SENTRY_RELEASE;

@@ -1,8 +1,12 @@
-import type { BlueskyWebhooksPacket, RedditWebhooksPacket } from "@thatskyapplication/utility";
+import type {
+	BlueskyWebhooksPacket,
+	RedditWebhooksPacket,
+	TwitchWebhooksPacket,
+} from "@thatskyapplication/utility";
 
 export class WebhookExecuteError extends Error {
 	public readonly webhook: Pick<
-		BlueskyWebhooksPacket & RedditWebhooksPacket,
+		BlueskyWebhooksPacket & RedditWebhooksPacket & TwitchWebhooksPacket,
 		"webhook_id" | "webhook_token"
 	>;
 
@@ -11,7 +15,10 @@ export class WebhookExecuteError extends Error {
 	public override readonly cause: unknown;
 
 	public constructor(
-		webhook: Pick<BlueskyWebhooksPacket & RedditWebhooksPacket, "webhook_id" | "webhook_token">,
+		webhook: Pick<
+			BlueskyWebhooksPacket & RedditWebhooksPacket & TwitchWebhooksPacket,
+			"webhook_id" | "webhook_token"
+		>,
 		error: unknown,
 	) {
 		super(`Failed to execute webhook ${webhook.webhook_id}.`);

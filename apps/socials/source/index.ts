@@ -1,6 +1,7 @@
 import { Cron } from "croner";
 import { jetstream } from "./features/bluesky.js";
 import { reddit } from "./features/reddit.js";
+import { eventSub } from "./features/twitch.js";
 import pino from "./pino.js";
 
 new Cron(
@@ -25,3 +26,4 @@ new Cron(
 );
 
 jetstream.start();
+eventSub.start();
