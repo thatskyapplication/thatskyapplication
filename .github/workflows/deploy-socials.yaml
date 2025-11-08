@@ -40,6 +40,7 @@ jobs:
         uses: thatskyapplication/uncloud-action@v1
         with:
           image-tag: thatskyapplication-socials:latest
+          compose-files: compose.yaml
           uncloud-profile: thatskyapplication-socials
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
           server-user: ${{ secrets.SERVER_USER }}

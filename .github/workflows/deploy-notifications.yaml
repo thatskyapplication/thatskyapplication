@@ -42,6 +42,7 @@ jobs:
         uses: thatskyapplication/uncloud-action@v1
         with:
           image-tag: thatskyapplication-notifications:latest
+          compose-files: compose.yaml
           uncloud-profile: thatskyapplication-notifications
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
           server-user: ${{ secrets.SERVER_USER }}
