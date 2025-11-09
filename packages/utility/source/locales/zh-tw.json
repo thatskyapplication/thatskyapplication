@@ -504,7 +504,8 @@
 			"78": "陽光節",
 			"79": "月華節",
 			"80": "彩染活動",
-			"81": "搗蛋節"
+			"81": "搗蛋節",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief",
@@ -588,7 +589,8 @@
 			"78": "",
 			"79": "https://sky-children-of-the-light.fandom.com/zh/wiki/%E6%9C%88%E8%8F%AF%E7%AF%80",
 			"80": "",
-			"81": ""
+			"81": "",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",

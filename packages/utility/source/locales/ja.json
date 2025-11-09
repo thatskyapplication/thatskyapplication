@@ -504,7 +504,8 @@
 			"78": "陽光の日々",
 			"79": "月灯りの日々",
 			"80": "光に染まるイベント",
-			"81": "いたずらな日々"
+			"81": "いたずらな日々",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々#2019/10",
@@ -588,7 +589,8 @@
 			"78": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E9%99%BD%E5%85%89%E3%81%AE%E6%97%A5%E3%80%85",
 			"79": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
 			"80": "",
-			"81": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々"
+			"81": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "カタログから推測する",
@@ -1224,7 +1226,7 @@
 			"471": "",
 			"475": "",
 			"477": "",
-			"478": "",
+			"478": "ウクレレ",
 			"481": "",
 			"482": "",
 			"485": "",
