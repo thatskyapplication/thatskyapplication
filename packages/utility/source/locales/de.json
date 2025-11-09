@@ -504,7 +504,8 @@
 			"78": "Tage des Sonnenlichts",
 			"79": "Tage des Mondlichts",
 			"80": "Leuchten-Event",
-			"81": "Tage des Schalks"
+			"81": "Tage des Schalks",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -588,7 +589,8 @@
 			"78": "https://sky-kinder-des-lichts.fandom.com/de/wiki/Tage_des_Sonnenlichts",
 			"79": "",
 			"80": "",
-			"81": ""
+			"81": "",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -1224,7 +1226,7 @@
 			"471": "",
 			"475": "",
 			"477": "",
-			"478": "",
+			"478": "Ukulele",
 			"481": "",
 			"482": "",
 			"485": "",

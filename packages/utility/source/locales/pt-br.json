@@ -504,7 +504,8 @@
 			"78": "Dias Ensolarados",
 			"79": "Dias de Luar",
 			"80": "Evento do Resplendor",
-			"81": "Dias de Travessuras"
+			"81": "Dias de Travessuras",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras#Outubro_de_2019",
@@ -588,7 +589,8 @@
 			"78": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados",
 			"79": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar",
 			"80": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Eventos_de_Moeda_em_Dobro#Evento_do_Resplendor_-_Outubro_de_2025",
-			"81": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras"
+			"81": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -1224,7 +1226,7 @@
 			"471": "Cafuné 1",
 			"475": "Cafuné 2",
 			"477": "Protetores de orelha",
-			"478": "Ukelele",
+			"478": "Ukulele",
 			"481": "Faísca 1",
 			"482": "Faísca 2",
 			"485": "Faísca 3",
