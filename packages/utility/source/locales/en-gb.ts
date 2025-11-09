@@ -1536,7 +1536,7 @@ export default {
 			[Cosmetic.FriendActionHairTousle1]: "Hair tousle 1",
 			[Cosmetic.FriendActionHairTousle2]: "Hair tousle 2",
 			[Cosmetic.HairtousleTeenEarmuffs]: "Earmuffs",
-			[Cosmetic.HairtousleTeenUkulele]: "Ukelele",
+			[Cosmetic.HairtousleTeenUkulele]: "Ukulele",
 			[Cosmetic.EmoteSparkler1]: "Sparkler 1",
 			[Cosmetic.EmoteSparkler2]: "Sparkler 2",
 			[Cosmetic.EmoteSparkler3]: "Sparkler 3",
