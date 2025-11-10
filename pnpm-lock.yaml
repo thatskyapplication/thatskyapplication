@@ -194,6 +194,9 @@ importers:
       pino:
         specifier: ^10.1.0
         version: 10.1.0
+      ws:
+        specifier: ^8.18.3
+        version: 8.18.3
     devDependencies:
       '@biomejs/biome':
         specifier: 2.3.2
@@ -204,6 +207,9 @@ importers:
       '@types/node':
         specifier: ^24
         version: 24.9.2
+      '@types/ws':
+        specifier: ^8.18.1
+        version: 8.18.1
       pino-pretty:
         specifier: ^13.1.2
         version: 13.1.2
