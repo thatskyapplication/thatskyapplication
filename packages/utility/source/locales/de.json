@@ -289,7 +289,7 @@
 			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(maps.Sanctuary Islands)\"})",
 			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"206": "",
+			"206": "Hilf der Ängstlichen Anglerin oder der Schimpfenden Schülerin dabei, einen Schatz in der Sternenlichtwüste zu finden",
 			"207": "Hilf der Kicher-Kanonierin oder dem Kichernden Pfadfinder dabei, einen Schatz auf den Zufluchtsinseln zu finden",
 			"208": "Hilf dem Stümperhaften Schiffsjungen oder dem Zusammenbauhelfer dabei, einen Schatz im Verborgenen Wald zu finden",
 			"209": "Hilf dem Kommando-Kapitän oder dem Tagträumenden Förster dabei, einen Schatz im Dorf der Träume zu finden",
