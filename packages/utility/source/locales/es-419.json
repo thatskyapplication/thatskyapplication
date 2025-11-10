@@ -289,7 +289,7 @@
 			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(maps.Sanctuary Islands)\"})",
 			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"206": "",
+			"206": "Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el desierto Luz de Estrellas",
 			"207": "Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario",
 			"208": "Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el Bosque Escondido",
 			"209": "Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en la Aldea de los Sueños",
