@@ -33,13 +33,7 @@ import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 
 let accessToken: string | null = null;
 let tokenExpiry: number | null = null;
-
-interface SubredditTracker {
-	seen: Map<string, number>;
-	boundary: string;
-}
-
-const seenPosts = new Map<string, SubredditTracker>();
+const seenPosts = new Map<string, Map<string, number>>();
 
 interface AccessTokenResponse {
 	access_token: string;
@@ -163,40 +157,12 @@ interface SubredditPostsResponse {
 	data: SubredditPostsData;
 }
 
-function calculateBoundary(posts: readonly Post[], previousBoundary?: string) {
-	for (let index = posts.length - 1; index >= 0; index--) {
-		const post = posts[index]!;
-
-		const isValid = Object.values(post.data.media_metadata ?? {}).every(
-			(mediaMetadataItem) => mediaMetadataItem.status === "valid",
-		);
-
-		if (!isValid) {
-			const postAfter = posts[index + 1];
-
-			if (postAfter) {
-				return postAfter.data.name;
-			}
-
-			// Unprocessed post at the end of a batch. Use the previous boundary to retry.
-			return previousBoundary ?? posts[0]!.data.name;
-		}
-	}
-
-	// All posts are valid. Use the newest post.
-	return posts[0]!.data.name;
-}
-
 async function fetchSingleSubredditPosts(subreddit: string) {
 	await ensureValidToken();
-	const tracker = seenPosts.get(subreddit);
+	const seenPostsMap = seenPosts.get(subreddit);
 	const url = new URL(`https://oauth.reddit.com/r/${subreddit}/new`);
-	url.searchParams.set("limit", tracker === undefined ? "100" : "50");
+	url.searchParams.set("limit", seenPostsMap === undefined ? "100" : "50");
 	url.searchParams.set("raw_json", "1");
-
-	if (tracker?.boundary) {
-		url.searchParams.set("before", tracker.boundary);
-	}
 
 	const response = await fetch(url, {
 		headers: {
@@ -215,49 +181,45 @@ async function fetchSingleSubredditPosts(subreddit: string) {
 		return [];
 	}
 
-	if (!tracker) {
-		const seenMap = posts.reduce(
-			(map, post) => map.set(post.data.name, post.data.created_utc),
-			new Map<string, number>(),
+	if (!seenPostsMap) {
+		// First run.
+		seenPosts.set(
+			subreddit,
+			posts.reduce(
+				(map, post) => map.set(post.data.name, post.data.created_utc),
+				new Map<string, number>(),
+			),
 		);
 
-		seenPosts.set(subreddit, { seen: seenMap, boundary: calculateBoundary(posts) });
 		return [];
 	}
 
-	for (const post of posts) {
-		tracker.seen.set(post.data.name, post.data.created_utc);
-	}
-
-	// Only return posts with valid media.
-	const newPosts = posts.filter((post): post is Post<true> =>
-		Object.values(post.data.media_metadata ?? {}).every(
-			(mediaMetadataItem) => mediaMetadataItem.status === "valid",
-		),
+	const newPosts = posts.filter(
+		(post): post is Post<true> =>
+			!seenPostsMap.has(post.data.name) &&
+			Object.values(post.data.media_metadata ?? {}).every(
+				(mediaMetadataItem) => mediaMetadataItem.status === "valid",
+			),
 	);
 
 	pino.info(
 		{
 			subreddit,
 			receivedPosts: posts,
-			seenPosts: Object.fromEntries(tracker.seen.entries()),
-			boundary: tracker.boundary,
+			seenPosts: Object.fromEntries(seenPostsMap.entries()),
 			newPosts,
 		},
 		`Found ${newPosts.length} new posts in r/${subreddit}.`,
 	);
 
-	tracker.boundary = calculateBoundary(posts, tracker.boundary);
+	for (const newPost of newPosts) {
+		seenPostsMap.set(newPost.data.name, newPost.data.created_utc);
+	}
 
-	if (tracker.seen.size > 100) {
+	if (seenPostsMap.size > 100) {
 		// Keep only the most recent 100 post names.
-		const recentPosts = [...tracker.seen.entries()].slice(0, 100);
-		tracker.seen = new Map(recentPosts);
-
-		// Ensure boundary is still in the cache, otherwise update it.
-		if (!tracker.seen.has(tracker.boundary)) {
-			tracker.boundary = recentPosts[0]![0];
-		}
+		const sortedPosts = [...seenPostsMap.entries()].sort((a, b) => b[1] - a[1]).slice(0, 100);
+		seenPosts.set(subreddit, new Map(sortedPosts));
 	}
 
 	return newPosts.reverse();
