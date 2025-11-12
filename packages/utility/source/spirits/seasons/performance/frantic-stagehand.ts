@@ -123,6 +123,6 @@ export default new SeasonalSpirit({
 		],
 	},
 	visits: {
-		returning: [5],
+		returning: [5, 11],
 	},
 });
