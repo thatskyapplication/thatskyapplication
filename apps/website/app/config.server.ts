@@ -7,6 +7,7 @@ if (
 	!(
 		process.env.SESSION_SECRET &&
 		process.env.DATABASE_URL &&
+		process.env.INTERNAL_URL_CAELUS &&
 		process.env.DISCORD_TOKEN &&
 		process.env.APPLICATION_ID &&
 		process.env.DISCORD_CLIENT_SECRET &&
@@ -24,6 +25,7 @@ if (
 
 export const SESSION_SECRET = process.env.SESSION_SECRET;
 export const DATABASE_URL = process.env.DATABASE_URL;
+export const INTERNAL_URL_CAELUS = process.env.INTERNAL_URL_CAELUS;
 export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 export const APPLICATION_ID = process.env.APPLICATION_ID;
 export const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;

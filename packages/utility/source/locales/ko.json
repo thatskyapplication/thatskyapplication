@@ -10,6 +10,7 @@
 			"event_one": "",
 			"event_other": ""
 		},
+		"error-timed-out": "",
 		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "여명의 섬",
@@ -288,7 +289,7 @@
 			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(maps.Sanctuary Islands)\"})",
 			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"206": "",
+			"206": "별빛사막에서 안절부절 낚시꾼 또는 야단치는 학생이 보물을 찾는 걸 도와주세요",
 			"207": "낙원의 섬에서 낄낄 웃는 포수 또는 키득거리는 스카우트가 보물을 찾는 걸 도와주세요",
 			"208": "비밀의 숲에서 우왕좌왕 갑판장 또는 협력의 안내자가 보물을 찾는 걸 돕기",
 			"209": "꿈의 마을에서 위풍당당 선장 또는 몽상하는 숲지기가 보물을 찾는 걸 도와주세요",
@@ -360,7 +361,8 @@
 			"275": "수다쟁이 게에서 냇의 빗자루 경주를 완료하세요",
 			"276": "수다쟁이 게의 지하실에서 오스틴이 게 5마리를 모을 수 있게 도와주세요",
 			"277": "수다쟁이의 게에서 스키드모어가 대포를 3번 쏠 수 있게 도와주세요",
-			"278": "수다쟁이 게들과 함께 요시의 마법 가마솥에 뛰어들어요"
+			"278": "수다쟁이 게들과 함께 요시의 마법 가마솥에 뛰어들어요",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "감사의 시즌",
@@ -502,7 +504,8 @@
 			"78": "햇빛의 날",
 			"79": "달빛의 날",
 			"80": "광채 이벤트",
-			"81": "장난꾸러기의 날"
+			"81": "장난꾸러기의 날",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -586,7 +589,8 @@
 			"78": "",
 			"79": "",
 			"80": "",
-			"81": ""
+			"81": "",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -1222,7 +1226,7 @@
 			"471": "",
 			"475": "",
 			"477": "",
-			"478": "",
+			"478": "우쿨렐레",
 			"481": "",
 			"482": "",
 			"485": "",
@@ -2706,6 +2710,12 @@
 			"event-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
 		},

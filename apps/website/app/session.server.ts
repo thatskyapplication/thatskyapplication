@@ -16,7 +16,10 @@ interface FlashData {
 	crowdin_state?: string;
 }
 
-export const sessionStorage = createCookieSessionStorage<SessionData, FlashData>({
+export const { getSession, commitSession, destroySession } = createCookieSessionStorage<
+	SessionData,
+	FlashData
+>({
 	cookie: {
 		name: "__session",
 		httpOnly: true,
@@ -26,5 +29,3 @@ export const sessionStorage = createCookieSessionStorage<SessionData, FlashData>
 		secrets: [SESSION_SECRET],
 	},
 });
-
-export const { getSession, commitSession, destroySession } = sessionStorage;

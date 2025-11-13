@@ -10,6 +10,7 @@
 			"event_one": "{{name}}還剩{{count}}天。",
 			"event_other": "{{name}}還剩{{count}}天。"
 		},
+		"error-timed-out": "",
 		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "晨島",
@@ -360,7 +361,8 @@
 			"275": "完成 Nat 在嘎吱嘎吱的螃蟹中的飛天掃帚比賽",
 			"276": "幫助 Austin 在嘎吱嘎吱的螃蟹地下室收集 5 隻螃蟹",
 			"277": "幫助 Skidmore 在嘎吱嘎吱的螃蟹中發射 3 次大砲",
-			"278": "跳進Yoshi的魔釜，在嘎吱嘎吱的螃蟹裡冒險吧"
+			"278": "跳進Yoshi的魔釜，在嘎吱嘎吱的螃蟹裡冒險吧",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "感恩季",
@@ -502,7 +504,8 @@
 			"78": "陽光節",
 			"79": "月華節",
 			"80": "彩染活動",
-			"81": "搗蛋節"
+			"81": "搗蛋節",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief",
@@ -586,7 +589,8 @@
 			"78": "",
 			"79": "https://sky-children-of-the-light.fandom.com/zh/wiki/%E6%9C%88%E8%8F%AF%E7%AF%80",
 			"80": "",
-			"81": ""
+			"81": "",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -2706,6 +2710,12 @@
 			"event-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
 		},

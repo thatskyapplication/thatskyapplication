@@ -1,8 +1,9 @@
 import pino from "pino";
 
 export default pino({
-	errorKey: "error",
 	serializers: {
+		error: pino.stdSerializers.err,
 		request: pino.stdSerializers.req,
+		response: pino.stdSerializers.res,
 	},
 });

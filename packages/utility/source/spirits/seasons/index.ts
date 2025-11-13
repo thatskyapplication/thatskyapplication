@@ -4,6 +4,7 @@ import { skyNow } from "../../dates.js";
 import type { Season } from "../../models/season.js";
 import type { GuideSpirit, SeasonalSpirit } from "../../models/spirits.js";
 import type { SeasonIds } from "../../season.js";
+import { type Visit, VisitType } from "../../types/index.js";
 import type { SpiritIds } from "../../utility/spirits.js";
 import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
@@ -62,19 +63,6 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	twoEmbersPart1,
 	migration,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
-
-enum VisitType {
-	Travelling = 0,
-	Returning = 1,
-}
-
-export interface Visit {
-	type: VisitType;
-	spiritId: SpiritIds;
-	visit: number;
-	start: DateTime;
-	end: DateTime;
-}
 
 export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collection<number, Visit>(
 	SEASONS.reduce<Omit<Visit, "visit">[]>((travellingDates, season) => {

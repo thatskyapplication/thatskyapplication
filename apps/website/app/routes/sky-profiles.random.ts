@@ -17,7 +17,7 @@ export const loader: LoaderFunction = async () => {
 		.first();
 
 	if (!skyProfilePacket) {
-		throw new Response("No profile found.", { status: 404 });
+		throw new Response(null, { status: 404 });
 	}
 
 	return redirect(`/sky-profiles/${skyProfilePacket.user_id}`);

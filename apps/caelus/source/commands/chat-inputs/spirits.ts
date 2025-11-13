@@ -2,7 +2,6 @@ import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIChatInputApplicationCommandInteraction,
 	ApplicationCommandOptionType,
-	Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import {
@@ -17,7 +16,7 @@ import { search, searchAutocomplete, spiritsHistory } from "../../features/spiri
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("spirits.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("spirits.command-name", { ns: "commands" }),
 
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);

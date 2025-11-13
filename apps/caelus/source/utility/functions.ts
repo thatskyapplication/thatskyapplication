@@ -276,6 +276,10 @@ export function skyProfileWebsiteURL<UserId extends Snowflake>(
 	return `${SKY_PROFILES_URL}/${userId}`;
 }
 
+export function formatArrayErrors(errors: readonly string[]) {
+	return errors.length === 1 ? errors[0]! : errors.map((error) => `- ${error}`).join("\n");
+}
+
 export function diffJSON(old: Record<string, unknown>, updated: Record<string, unknown>) {
 	const diffedJSON = diffJson(old, updated, { oneChangePerToken: true });
 	let diffResult = "";

@@ -1,38 +1,43 @@
-FROM node:lts-alpine AS base
-
+# Builder stage.
+FROM node:lts-alpine AS builder
 ARG SENTRY_RELEASE
+
 WORKDIR /thatskyapplication
-ENV NODE_ENV="production"
 
 # Install pnpm.
-RUN npm install --global pnpm@10.14.0
+RUN npm install --global pnpm@10.20.0
 
-FROM base AS build
-
-# Copy monorepo files required for dependency resolution.
+# Copy the monorepo files required for dependency resolution.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY ./apps/website ./apps/website
-COPY ./packages/utility ./packages/utility
+COPY .npmrc ./
+COPY ./apps/website/package.json ./apps/website/package.json
+COPY ./packages/utility/package.json ./packages/utility/package.json
 
-# Install only dependencies for the current application.
+# Install dependencies.
 RUN pnpm install --frozen-lockfile
 
 # Build the application.
-COPY . .
+COPY ./apps/website ./apps/website
+COPY ./packages/utility ./packages/utility
 RUN --mount=type=secret,id=sentry_auth_token,env=SENTRY_AUTH_TOKEN \
   export SENTRY_RELEASE=$SENTRY_RELEASE && \
 	pnpm --filter @thatskyapplication/website... run build
 
-# Prune unnecessary dependencies.
-RUN pnpm prune --prod
+# Deploy to a clean directory.
+RUN pnpm --filter @thatskyapplication/website deploy --prod /thatskyapplication-production/website
 
-FROM base
+# Final stage.
+FROM node:lts-alpine
+ENV NODE_ENV=production
+ARG SENTRY_RELEASE
+ENV SENTRY_RELEASE=${SENTRY_RELEASE}
 
-# Copy the built application.
-COPY --from=build /thatskyapplication /thatskyapplication
+# Copy the deployed application.
+COPY --from=builder /thatskyapplication-production/website /thatskyapplication/apps/website
 
+# Start the application.
 ENV HOST=0.0.0.0
 ENV PORT=80
 ENV SENTRY_RELEASE=${SENTRY_RELEASE}
 WORKDIR /thatskyapplication/apps/website
-CMD [ "pnpm", "run", "start" ]
+CMD ["npm", "run-script", "start"]

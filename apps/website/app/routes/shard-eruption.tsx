@@ -12,7 +12,6 @@ import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
 import Pagination from "~/components/Pagination.js";
 import { getLocale } from "~/middleware/i18next.js";
-import pino from "~/pino.js";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
@@ -62,65 +61,60 @@ export const meta: MetaFunction = ({ location }) => {
 };
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-	try {
-		const url = new URL(request.url);
-		const pageParameter = url.searchParams.get("page");
-		const shards = [];
-		const locale = getLocale(context);
-		const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
-		let page = pageParameter ? Number(pageParameter) : 0;
+	const url = new URL(request.url);
+	const pageParameter = url.searchParams.get("page");
+	const shards = [];
+	const locale = getLocale(context);
+	const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
+	let page = pageParameter ? Number(pageParameter) : 0;
 
-		if (!Number.isInteger(page)) {
-			page = 0;
-		}
-
-		page = Math.max(SHARD_ERUPTION_MINIMUM_PAGE, Math.min(SHARD_ERUPTION_MAXIMUM_PAGE, page));
-
-		const amount = page === 0 ? 31 : 30;
-		const startIndex = page * amount + (page <= 0 ? 0 : 1);
-		const endIndex = startIndex + amount;
-
-		for (let index = startIndex; index < endIndex; index++) {
-			const shard = shardEruption(index);
-
-			const todayFormat = new Intl.DateTimeFormat(locale, {
-				timeZone,
-				dateStyle: "full",
-			}).format(skyToday().plus({ days: index }).toMillis());
-
-			shards.push({
-				shard: shard && {
-					...shard,
-					timestamps: shard.timestamps.map(({ start, end }) => ({
-						start: {
-							unix: start.toUnixInteger(),
-							format: new Intl.DateTimeFormat(locale, {
-								timeZone,
-								hour: "2-digit",
-								minute: "2-digit",
-								second: "2-digit",
-							}).format(start.toMillis()),
-						},
-						end: {
-							unix: end.toUnixInteger(),
-							format: new Intl.DateTimeFormat(locale, {
-								timeZone,
-								hour: "2-digit",
-								minute: "2-digit",
-								second: "2-digit",
-							}).format(end.toMillis()),
-						},
-					})),
-				},
-				todayFormat,
-			});
-		}
-
-		return { shards, page };
-	} catch (error) {
-		pino.error({ request, error }, "Unable to load shard eruptions.");
-		throw new Response(null, { status: 500 });
+	if (!Number.isInteger(page)) {
+		page = 0;
 	}
+
+	page = Math.max(SHARD_ERUPTION_MINIMUM_PAGE, Math.min(SHARD_ERUPTION_MAXIMUM_PAGE, page));
+
+	const amount = page === 0 ? 31 : 30;
+	const startIndex = page * amount + (page <= 0 ? 0 : 1);
+	const endIndex = startIndex + amount;
+
+	for (let index = startIndex; index < endIndex; index++) {
+		const shard = shardEruption(index);
+
+		const todayFormat = new Intl.DateTimeFormat(locale, {
+			timeZone,
+			dateStyle: "full",
+		}).format(skyToday().plus({ days: index }).toMillis());
+
+		shards.push({
+			shard: shard && {
+				...shard,
+				timestamps: shard.timestamps.map(({ start, end }) => ({
+					start: {
+						unix: start.toUnixInteger(),
+						format: new Intl.DateTimeFormat(locale, {
+							timeZone,
+							hour: "2-digit",
+							minute: "2-digit",
+							second: "2-digit",
+						}).format(start.toMillis()),
+					},
+					end: {
+						unix: end.toUnixInteger(),
+						format: new Intl.DateTimeFormat(locale, {
+							timeZone,
+							hour: "2-digit",
+							minute: "2-digit",
+							second: "2-digit",
+						}).format(end.toMillis()),
+					},
+				})),
+			},
+			todayFormat,
+		});
+	}
+
+	return { shards, page };
 };
 
 function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) {

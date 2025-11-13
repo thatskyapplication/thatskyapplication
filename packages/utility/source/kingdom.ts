@@ -126,39 +126,40 @@ const TREASURE_CANDLES_DOUBLE_DATES = [
 	{ start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) },
 	{ start: skyDate(2_025, 8, 19), end: skyDate(2_025, 9, 2) },
 	{ start: skyDate(2_025, 9, 22), end: skyDate(2_025, 9, 29) },
+	{ start: skyDate(2_025, 11, 17), end: skyDate(2_025, 12, 1) },
 ];
 
 const TREASURE_CANDLES_ROTATION = {
 	[RealmName.DaylightPrairie]: [
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
 	],
 	[RealmName.HiddenForest]: [
-		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
 	],
 	[RealmName.ValleyOfTriumph]: [
 		String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
 	],
 	[RealmName.GoldenWasteland]: [
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
 	],
 	[RealmName.VaultOfKnowledge]: [
-		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
 	],
 } as const;
 
 const TREASURE_CANDLES_DOUBLE_ROTATION = {
 	[RealmName.DaylightPrairie]: [
-		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
 	],
 	[RealmName.HiddenForest]: [
 		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
@@ -170,9 +171,9 @@ const TREASURE_CANDLES_DOUBLE_ROTATION = {
 		String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
 	],
 	[RealmName.GoldenWasteland]: [
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 	],
 	[RealmName.VaultOfKnowledge]: [
 		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),

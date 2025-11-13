@@ -12,19 +12,18 @@
 		"test": "tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
-		"crowdin": "tsx scripts/crowdin.ts",
-		"knip": "knip"
+		"crowdin": "tsx scripts/crowdin.ts"
 	},
 	"dependencies": {
 		"@discordjs/collection": "^2.1.1",
+		"discord-api-types": "^0.38.31",
 		"luxon": "^3.7.2",
 		"ts-mixer": "^6.0.4"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.2",
 		"@types/luxon": "^3.7.1",
-		"@types/node": "^22.18.11",
-		"knip": "^5.66.4",
+		"@types/node": "^24",
 		"tsup": "^8.5.0",
 		"tsx": "^4.20.6",
 		"typescript": "5.9.3"

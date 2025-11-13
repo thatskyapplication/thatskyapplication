@@ -3,8 +3,8 @@ on: push
 permissions:
   contents: read
 jobs:
-  typescript:
-    name: TypeScript
+  testing:
+    name: Testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -13,9 +13,10 @@ jobs:
         uses: pnpm/action-setup@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          cache: pnpm
+          node-version: 24
 
       - name: Install dependencies
         run: pnpm install
@@ -25,6 +26,9 @@ jobs:
 
       - name: Validate TypeScript
         run: pnpm run test
+
+      - name: Run Knip
+        run: pnpm run knip
   style:
     name: Styling
     runs-on: ubuntu-latest

@@ -1,3 +1,3 @@
 import pino from "pino";
 
-export default pino({ errorKey: "error" });
+export default pino({ serializers: { error: pino.stdSerializers.err } });

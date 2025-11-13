@@ -16,7 +16,7 @@ import {
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
-	type Locale,
+	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
 	RESTJSONErrorCodes,
@@ -27,7 +27,9 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_QUEST_VALUES,
+	type DailyGuidesDistributionPacket,
 	type DailyGuidesPacket,
 	type DailyQuests,
 	DailyQuestToInfographicURL,
@@ -72,7 +74,6 @@ import {
 	SUPPORT_SERVER_INVITE_URL,
 } from "../utility/configuration.js";
 import {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_URL,
 	INFORMATION_ACCENT_COLOUR,
 	LOCALE_OPTIONS,
@@ -87,6 +88,7 @@ import {
 } from "../utility/emojis.js";
 import {
 	diffJSON,
+	formatArrayErrors,
 	notInCachedGuildResponse,
 	userTag,
 	validateImageAttachment,
@@ -100,12 +102,6 @@ import {
 
 type DailyGuidesSetData = Partial<DailyGuidesPacket> &
 	Pick<DailyGuidesPacket, "last_updated_user_id" | "last_updated_at">;
-
-export interface DailyGuidesDistributionPacket {
-	guild_id: Snowflake;
-	channel_id: Snowflake | null;
-	message_id: Snowflake | null;
-}
 
 type DailyGuidesDistributionAllowedChannel =
 	| Extract<
@@ -206,30 +202,25 @@ export function isDailyGuidesDistributionChannel(
 	);
 }
 
-export function isDailyGuidesDistributable(
-	guild: Guild,
-	channel: DailyGuidesDistributionAllowedChannel,
-	me: GuildMember,
-	returnErrors: true,
-): string[];
+interface DailyGuidesIsDailyGuidesDistributableOptions {
+	guild: Guild;
+	channel: DailyGuidesDistributionAllowedChannel;
+	me: GuildMember;
+	locale?: Locale | undefined;
+	website?: boolean;
+}
 
-export function isDailyGuidesDistributable(
-	guild: Guild,
-	channel: DailyGuidesDistributionAllowedChannel,
-	me: GuildMember,
-	returnErrors?: false,
-): boolean;
-
-export function isDailyGuidesDistributable(
-	guild: Guild,
-	channel: DailyGuidesDistributionAllowedChannel,
-	me: GuildMember,
-	returnErrors = false,
-) {
+export function isDailyGuidesDistributable({
+	guild,
+	channel,
+	me,
+	website,
+	locale = Locale.EnglishGB,
+}: DailyGuidesIsDailyGuidesDistributableOptions): readonly string[] {
 	const errors = [];
 
 	if (me.isCommunicationDisabled()) {
-		errors.push("I am timed out.");
+		errors.push(t("error-timed-out", { lng: locale, ns: "general" }));
 	}
 
 	const isThread = channel.type === ChannelType.PublicThread;
@@ -237,7 +228,7 @@ export function isDailyGuidesDistributable(
 
 	if (isThread) {
 		if (channel.threadMetadata?.archived) {
-			errors.push("The thread is archived.");
+			errors.push(t("daily-guides.error-thread-archived", { lng: locale, ns: "features" }));
 		}
 
 		const parentChannel = guild.channels.get(channel.parentId);
@@ -246,11 +237,7 @@ export function isDailyGuidesDistributable(
 			pino.warn(channel, `Could not resolve a daily guides thread's parent channel.`);
 
 			// Early exit.
-			return returnErrors
-				? errors.length > 1
-					? errors.map((error) => `- ${error}`)
-					: errors
-				: errors.length === 0;
+			return errors.length > 1 ? errors.map((error) => `- ${error}`) : errors;
 		}
 
 		resolvedChannelForPermission = parentChannel;
@@ -265,7 +252,7 @@ export function isDailyGuidesDistributable(
 			}) &&
 			channel.threadMetadata?.locked
 		) {
-			errors.push("The thread is locked.");
+			errors.push(t("daily-guides.error-thread-locked", { lng: locale, ns: "features" }));
 		}
 	} else {
 		resolvedChannelForPermission = channel;
@@ -273,22 +260,25 @@ export function isDailyGuidesDistributable(
 
 	const permissions =
 		PermissionFlagsBits.ViewChannel |
-		(isThread ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages) |
-		PermissionFlagsBits.EmbedLinks;
+		(isThread ? PermissionFlagsBits.SendMessagesInThreads : PermissionFlagsBits.SendMessages);
 
 	if (!can({ permission: permissions, guild, member: me, channel: resolvedChannelForPermission })) {
 		errors.push(
-			`\`View Channel\` & \`${
-				isThread ? "Send Messages in Threads" : "Send Messages"
-			}\` & \`Embed Links\` are required for <#${channel.id}>.`,
+			isThread
+				? t(`daily-guides.error-missing-permissions-thread${website ? "-website" : ""}`, {
+						lng: locale,
+						ns: "features",
+						channel: website ? channel.name : `<#${channel.id}>`,
+					})
+				: t(`daily-guides.error-missing-permissions${website ? "-website" : ""}`, {
+						lng: locale,
+						ns: "features",
+						channel: website ? channel.name : `<#${channel.id}>`,
+					}),
 		);
 	}
 
-	return returnErrors
-		? errors.length > 1
-			? errors.map((error) => `- ${error}`)
-			: errors
-		: errors.length === 0;
+	return errors;
 }
 
 interface DailyGuidesSetupOptions {
@@ -344,7 +334,10 @@ export async function setup({ guildId, channelId }: DailyGuidesSetupOptions) {
 	}
 }
 
-export async function setupResponse(guild: Guild): Promise<APIInteractionResponseCallbackData> {
+export async function setupResponse(
+	guild: Guild,
+	locale: Locale,
+): Promise<APIInteractionResponseCallbackData> {
 	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	)
@@ -358,7 +351,9 @@ export async function setupResponse(guild: Guild): Promise<APIInteractionRespons
 
 	if (channel) {
 		if (isDailyGuidesDistributionChannel(channel)) {
-			feedback.push(...isDailyGuidesDistributable(guild, channel, await guild.fetchMe(), true));
+			feedback.push(
+				...isDailyGuidesDistributable({ guild, channel, me: await guild.fetchMe(), locale }),
+			);
 		} else {
 			feedback.push("No channel detected. Was it deleted?");
 		}
@@ -419,6 +414,7 @@ export async function setupResponse(guild: Guild): Promise<APIInteractionRespons
 export async function handleChannelSelectMenu(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
+	const { locale } = interaction;
 	const guild = GUILD_CACHE.get(interaction.guild_id);
 
 	if (!guild) {
@@ -427,7 +423,7 @@ export async function handleChannelSelectMenu(
 		await client.api.interactions.reply(
 			interaction.id,
 			interaction.token,
-			notInCachedGuildResponse(interaction.locale),
+			notInCachedGuildResponse(locale),
 		);
 
 		return;
@@ -442,16 +438,16 @@ export async function handleChannelSelectMenu(
 			throw new Error("Received an unknown channel type whilst setting up daily guides.");
 		}
 
-		const dailyGuidesDistributable = isDailyGuidesDistributable(
+		const dailyGuidesDistributable = isDailyGuidesDistributable({
 			guild,
 			channel,
-			await guild.fetchMe(),
-			true,
-		);
+			me: await guild.fetchMe(),
+			locale,
+		});
 
 		if (dailyGuidesDistributable.length > 0) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: dailyGuidesDistributable.join("\n"),
+				content: formatArrayErrors(dailyGuidesDistributable),
 				flags: MessageFlags.Ephemeral,
 			});
 
@@ -464,7 +460,7 @@ export async function handleChannelSelectMenu(
 	await client.api.interactions.updateMessage(
 		interaction.id,
 		interaction.token,
-		await setupResponse(guild),
+		await setupResponse(guild, locale),
 	);
 }
 
@@ -511,10 +507,11 @@ async function send({ guildId, channelId, messageId, enforceNonce }: DailyGuides
 	}
 
 	const me = await guild.fetchMe();
+	const dailyGuidesDistributable = isDailyGuidesDistributable({ guild, channel, me });
 
-	if (!isDailyGuidesDistributable(guild, channel, me)) {
+	if (dailyGuidesDistributable.length > 0) {
 		throw new Error(
-			`Did not distribute daily guides to guild id ${guildId} as it did not have suitable permissions in channel id ${channelId}.`,
+			`Did not distribute daily guides to guild id ${guildId} as there were check errors in channel id ${channelId}: ${formatArrayErrors(dailyGuidesDistributable)}`,
 		);
 	}
 

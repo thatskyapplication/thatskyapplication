@@ -10,6 +10,7 @@
 			"event_one": "{{count}} jour restant avant {{name}}.",
 			"event_other": "{{count}} jours restants pour {{name}}."
 		},
+		"error-timed-out": "Je suis temporairement exclu.",
 		"event-tickets": "Tickets d'événement",
 		"realms": {
 			"Isles of Dawn": "Île de l'Aube",
@@ -288,7 +289,7 @@
 			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(maps.Sanctuary Islands)\"})",
 			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"206": "",
+			"206": "Aidez la Pêcheuse angoissée ou l'Étudiante moralisatrice à trouver des trésors dans le Désert stellaire",
 			"207": "Aidez la Canonnière caquetante ou le Scout ricanant à trouver des trésors sur les Îles du Sanctuaire",
 			"208": "Aidez le Maître d'équipage maladroit ou le Guide du Rassemblement à trouver des trésors dans la Forêt cachée",
 			"209": "Aidez le Commodore commandant ou le Forestier rêveur à trouver des trésors dans le Village des Rêves",
@@ -360,7 +361,8 @@
 			"275": "Terminez la course des balais de Nat au Crabe Caquetant",
 			"276": "Aidez Austin à obtenir 5 crabes dans le sous-sol du Crabe Caquetant",
 			"277": "Aidez Skidmore à tirer 3 fois le canon au Crabe Caquetant",
-			"278": "Plonge dans la potion du chaudron de Yoshi au Crabe Caquetant"
+			"278": "Plonge dans la potion du chaudron de Yoshi au Crabe Caquetant",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -502,7 +504,8 @@
 			"78": "Jours Ensoleillés",
 			"79": "Jours du Clair de Lune",
 			"80": "Événement de Splendeur",
-			"81": "Jours de la malice"
+			"81": "Jours de la malice",
+			"82": "Jours du Don"
 		},
 		"event-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice#2019",
@@ -586,7 +589,8 @@
 			"78": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_Ensoleillés",
 			"79": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_du_Clair_de_Lune",
 			"80": "",
-			"81": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice"
+			"81": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice",
+			"82": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_du_Don"
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -2706,6 +2710,12 @@
 			"event-upcoming_other": "{{event}} commence dans {{count}} jours.",
 			"infographic": "",
 			"not-yet-updated": "Les guides journaliers attendent qu'un incroyable enfant de Sky les mettent à jour. Vous avez l'information dont nous avons besoin ? Rejoignez le [serveur d'assistance]({{url}}) et mettez-les à jour pour la communauté !",
+			"error-thread-archived": "Le fil est archivé.",
+			"error-thread-locked": "Le fil est verrouillé.",
+			"error-missing-permissions": "`Voir les salons` & `Envoyer des messages` sont nécessaires pour {{channel}}.",
+			"error-missing-permissions-website": "Voir les salons & Envoyer des messages sont nécessaires pour \"{{channel}}\".",
+			"error-missing-permissions-thread": "`Voir les salons` & `Envoyer des messages dans les fils` sont nécessaires pour {{channel}}.",
+			"error-missing-permissions-thread-website": "Voir les salons & Envoyer des messages dans les fils sont nécessaires pour \"{{channel}}\".",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
 		},

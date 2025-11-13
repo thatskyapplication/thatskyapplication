@@ -68,6 +68,11 @@ const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>()
 		start: skyDate(2_025, 2, 10),
 		end: skyDate(2_025, 2, 24),
 		count: 1,
+	})
+	.set(3, {
+		start: skyDate(2_025, 11, 17),
+		end: skyDate(2_025, 12, 1),
+		count: 1,
 	});
 
 async function totalGifted(userId: Snowflake) {

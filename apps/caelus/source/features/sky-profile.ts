@@ -1425,10 +1425,7 @@ export async function skyProfileSendReport(interaction: APIModalSubmitInteractio
 
 	if (
 		!can({
-			permission:
-				PermissionFlagsBits.EmbedLinks |
-				PermissionFlagsBits.SendMessages |
-				PermissionFlagsBits.ViewChannel,
+			permission: PermissionFlagsBits.SendMessages | PermissionFlagsBits.ViewChannel,
 			guild,
 			member: me,
 			channel,

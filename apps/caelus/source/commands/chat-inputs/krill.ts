@@ -1,10 +1,10 @@
-import { type APIChatInputApplicationCommandInteraction, Locale } from "@discordjs/core";
+import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
 import { t } from "i18next";
 import { friendshipAction } from "../../features/friendship-actions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("krill.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("krill.command-name", { ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
 

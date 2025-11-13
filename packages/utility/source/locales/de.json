@@ -10,6 +10,7 @@
 			"event_one": "",
 			"event_other": ""
 		},
+		"error-timed-out": "",
 		"event-tickets": "Event Tickets",
 		"realms": {
 			"Isles of Dawn": "Insel der Dämmerung",
@@ -288,7 +289,7 @@
 			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(maps.Sanctuary Islands)\"})",
 			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"206": "",
+			"206": "Hilf der Ängstlichen Anglerin oder der Schimpfenden Schülerin dabei, einen Schatz in der Sternenlichtwüste zu finden",
 			"207": "Hilf der Kicher-Kanonierin oder dem Kichernden Pfadfinder dabei, einen Schatz auf den Zufluchtsinseln zu finden",
 			"208": "Hilf dem Stümperhaften Schiffsjungen oder dem Zusammenbauhelfer dabei, einen Schatz im Verborgenen Wald zu finden",
 			"209": "Hilf dem Kommando-Kapitän oder dem Tagträumenden Förster dabei, einen Schatz im Dorf der Träume zu finden",
@@ -360,7 +361,8 @@
 			"275": "Beende Nats Besenrennen im gackernden Krebs",
 			"276": "Hilf Austin, 5 Krebse im Keller des gackernden Krebses zu sammeln",
 			"277": "Hilf Skidmore, die Kanonen im gackernden Krebs 3 Mal abzufeuern",
-			"278": "Spring in Yoshi Kesselgebräu im Gackernden Krebs"
+			"278": "Spring in Yoshi Kesselgebräu im Gackernden Krebs",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",
@@ -502,7 +504,8 @@
 			"78": "Tage des Sonnenlichts",
 			"79": "Tage des Mondlichts",
 			"80": "Leuchten-Event",
-			"81": "Tage des Schalks"
+			"81": "Tage des Schalks",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -586,7 +589,8 @@
 			"78": "https://sky-kinder-des-lichts.fandom.com/de/wiki/Tage_des_Sonnenlichts",
 			"79": "",
 			"80": "",
-			"81": ""
+			"81": "",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -1222,7 +1226,7 @@
 			"471": "",
 			"475": "",
 			"477": "",
-			"478": "",
+			"478": "Ukulele",
 			"481": "",
 			"482": "",
 			"485": "",
@@ -2706,6 +2710,12 @@
 			"event-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
 		},

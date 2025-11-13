@@ -10,7 +10,6 @@ import {
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, Link, type MetaFunction, useLoaderData, useSearchParams } from "react-router";
-import { useLocale } from "remix-i18next/react";
 import Pagination from "~/components/Pagination";
 import Select from "~/components/Select";
 import pg from "~/pg.server";
@@ -207,7 +206,7 @@ function SkyProfileCard(profile: SkyProfilePacket, returnParams: string) {
 export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
 	const { t } = useTranslation();
-	const locale = useLocale();
+	const locale = useTranslation().i18n.language;
 	const { profiles, currentPage, maximumPage, discordUser } = data;
 	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
 

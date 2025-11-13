@@ -10,6 +10,7 @@
 			"event_one": "",
 			"event_other": ""
 		},
+		"error-timed-out": "",
 		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "Đảo Bình Minh",
@@ -288,7 +289,7 @@
 			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(maps.Sanctuary Islands)\"})",
 			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"206": "",
+			"206": "Giúp Ngư Dân Lo Lắng hoặc Đội Trưởng Quản Lý tìm kho báu tại Sa Mạc Ánh Sao",
 			"207": "Giúp Xạ Thủ Vui Nhộn hoặc Hướng Đạo Sinh Khúc Khích tìm kho báu tại Quần Đảo Thánh Địa",
 			"208": "Giúp Thủy Thủ Hậu Đậu hoặc Người Dẫn Đoàn tìm kho báu tại Rừng Mưa",
 			"209": "Giúp Thuyền Trưởng Uy Nghiêm hoặc Người Đi Rừng Mộng Du tìm kho báu tại Làng Giấc Mơ",
@@ -360,7 +361,8 @@
 			"275": "Hoàn thành đua chổi của Nat ở Khu vực Cua kêu Thần bí",
 			"276": "Giúp Austin thu thập 5 con cua trong tầng hầm tại Khu vực Cua kêu Thần bí",
 			"277": "Giúp Skidmore bắn đại bác 3 lần ở Khu vực Cua kêu Thần bí",
-			"278": "Nhảy vào nồi phép của Yoshi tại Quán Cua Cười Khúc Khích"
+			"278": "Nhảy vào nồi phép của Yoshi tại Quán Cua Cười Khúc Khích",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",
@@ -502,7 +504,8 @@
 			"78": "Ngày Của Ánh Dương",
 			"79": "Ngày Của Ánh Trăng",
 			"80": "Sự Kiện Rực Rỡ",
-			"81": "Halloween"
+			"81": "Halloween",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -586,7 +589,8 @@
 			"78": "",
 			"79": "",
 			"80": "",
-			"81": ""
+			"81": "",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -1222,7 +1226,7 @@
 			"471": "",
 			"475": "",
 			"477": "",
-			"478": "",
+			"478": "Ukulele",
 			"481": "",
 			"482": "",
 			"485": "",
@@ -2706,6 +2710,12 @@
 			"event-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "",
 			"quest-no-infographic": ""
 		},

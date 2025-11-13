@@ -8345,6 +8345,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.PuzzleBox]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp95,
 		[Cosmetic.PuzzleChest]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp96,
 		[Cosmetic.PuzzleCage]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp97,
+		[Cosmetic.MigrationGuideQuest3]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.MigrationGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.MigrationGuideHeart3]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.MigrationGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
@@ -8536,6 +8540,7 @@ export function emojiConstants(production: boolean) {
 		[EventId.DaysOfMoonlight2025]: EVENT_EMOJIS.Moonlight,
 		[EventId.RadianceEvent2025]: null,
 		[EventId.DaysOfMischief2025]: EVENT_EMOJIS.Mischief,
+		[EventId.DaysOfGiving2025]: null,
 	} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 	return {

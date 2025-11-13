@@ -57,7 +57,7 @@ export default function DailyGuides() {
 					src="https://cdn.thatskyapplication.com/assets/daily_guides_example.webp"
 				/>
 				<p>
-					The time zone in this image is UTC+01:00, which is why the timestamp states 08:00 (Sky is
+					The time zone in this image is UTC+00:00, which is why the timestamp states 08:00 (Sky is
 					8 or 7 hours behind, depending on daylight savings).
 				</p>
 				<p>You can also see an example of what shard eruptions look like here!</p>

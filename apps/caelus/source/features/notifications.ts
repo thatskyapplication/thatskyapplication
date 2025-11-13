@@ -382,6 +382,13 @@ export async function displayNotificationType(
 						],
 					},
 					{
+						type: ComponentType.TextDisplay,
+						content:
+							feedback.length > 0
+								? `Stopped ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
+								: `Sending ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`,
+					},
+					{
 						type: ComponentType.ActionRow,
 						components: [
 							{
@@ -392,13 +399,6 @@ export async function displayNotificationType(
 								label: t("notifications.back", { lng: interaction.locale, ns: "features" }),
 							},
 						],
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content:
-							feedback.length > 0
-								? `Stopped ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
-								: `Sending ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`,
 					},
 				],
 			},

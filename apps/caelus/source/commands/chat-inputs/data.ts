@@ -2,7 +2,6 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	ButtonStyle,
 	ComponentType,
-	Locale,
 	MessageFlags,
 } from "@discordjs/core";
 import { t } from "i18next";
@@ -11,7 +10,7 @@ import { CustomId } from "../../utility/custom-id.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("data.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("data.command-name", { ns: "commands" }),
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
 

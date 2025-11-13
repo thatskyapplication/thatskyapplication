@@ -130,5 +130,6 @@ export default new SeasonalSpirit({
 	keywords: ["rabbit", "rabbit mask"],
 	visits: {
 		travelling: [{ start: skyDate(2022, 6, 23), end: skyDate(2022, 6, 27) }],
+		returning: [11],
 	},
 });

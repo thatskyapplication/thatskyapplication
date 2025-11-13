@@ -17,12 +17,29 @@ import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
 export { AI_FREQUENCY_TYPE_VALUES, AIFrequencyType, type AIFrequencyTypes } from "./ai.js";
+export {
+	type APIError,
+	APIErrorCode,
+	type APIGuildsDailyGuidesChannelCheckPermissionsResponse,
+	type APIGuildsDailyGuidesChannelsResponse,
+	type APIGuildsMeResponse,
+	type APIPutGuildsDailyGuidesBody,
+	type APIPutGuildsDailyGuidesResponse,
+	CaelusAPIError,
+	createAPIError,
+	guildsDailyGuides,
+	guildsDailyGuidesChannelCheckPermissions,
+	guildsDailyGuidesChannels,
+	guildsMeRoute,
+} from "./api.js";
 export type { CataloguePacket } from "./catalogue.js";
 export type { ChecklistPacket, ChecklistSetData } from "./checklist.js";
 export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export {
+	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_QUEST_VALUES,
+	type DailyGuidesDistributionPacket,
 	type DailyGuidesPacket,
 	DailyQuest,
 	type DailyQuests,

@@ -126,7 +126,7 @@ export default function Checklist() {
 		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
 			<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-8 w-full max-w-lg">
 				<div className="text-center mb-6">
-					<h1 className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+					<h1 className="bg-linear-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
 						{t("checklist.title", { ns: "features" })}
 					</h1>
 					<p className="text-gray-600 dark:text-gray-300 text-sm">

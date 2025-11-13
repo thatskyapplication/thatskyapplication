@@ -38,23 +38,16 @@ jobs:
           DOCKER_BUILD_SUMMARY: false
           DOCKER_BUILD_RECORD_UPLOAD: false
 
-      - name: Install Uncloud CLI
-        run: |
-          curl -fsS https://get.uncloud.run/install.sh | sh
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-      - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Deploy via Uncloud
+        uses: thatskyapplication/uncloud-action@v1
         with:
+          image-tag: thatskyapplication-caelus:latest
+          compose-files: compose.yaml
+          uncloud-profile: thatskyapplication-caelus
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
-
-      - name: Add server to known hosts
-        run: ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-
-      - name: Push image to server
-        run: uc image push thatskyapplication-caelus:latest --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}
-
-      - name: Deploy to Uncloud
+          server-user: ${{ secrets.SERVER_USER }}
+          server-host: ${{ secrets.SERVER_IP }}
+          recreate: true
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           MAXIMUM_CONCURRENCY_LIMIT: ${{ vars.MAXIMUM_CONCURRENCY_LIMIT }}
@@ -83,4 +76,3 @@ jobs:
           S3_ACCOUNT_ID: ${{ secrets.S3_ACCOUNT_ID }}
           S3_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
           SENTRY_DATA_SOURCE_NAME: ${{ secrets.SENTRY_DATA_SOURCE_NAME }}
-        run: uc deploy --connect ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} --profile thatskyapplication-caelus --recreate --yes

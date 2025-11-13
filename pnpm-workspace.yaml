@@ -1,3 +1,10 @@
 packages:
   - "apps/*"
   - "packages/*"
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - "@discordjs/collection"
+  - "@discordjs/core"
+  - "@discordjs/rest"
+  - "@discordjs/util"
+  - "@discordjs/ws"

@@ -1,13 +1,13 @@
 import process from "node:process";
 import { GatewayDispatchEvents, type Snowflake } from "@discordjs/core";
-import type { NotificationPacket } from "@thatskyapplication/utility";
+import type {
+	DailyGuidesDistributionPacket,
+	NotificationPacket,
+} from "@thatskyapplication/utility";
 import { Table } from "@thatskyapplication/utility";
 import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import croner from "../croner.js";
-import {
-	type DailyGuidesDistributionPacket,
-	deleteDailyGuidesDistribution,
-} from "../features/daily-guides.js";
+import { deleteDailyGuidesDistribution } from "../features/daily-guides.js";
 import { deleteNotifications } from "../features/notifications.js";
 import AI, { type AIPacket } from "../models/AI.js";
 import Configuration, { type ConfigurationPacket } from "../models/Configuration.js";
@@ -21,8 +21,7 @@ const LOST_GUILD_IDS = new Set<Snowflake>();
 
 async function collectFromDatabase() {
 	try {
-		await collectConfigurations();
-		await AI.populateCache();
+		await Promise.all([collectConfigurations(), AI.populateCache()]);
 	} catch (error) {
 		pino.fatal(error, "Error collecting configurations from the database.");
 		process.exit(1);
@@ -81,12 +80,18 @@ export default {
 				]),
 			);
 
-			const errors = settled
-				.filter((result) => result.status === "rejected")
-				.map((result) => result.reason);
+			const errors = [];
+
+			for (const result of settled) {
+				if (result.status === "fulfilled") {
+					continue;
+				}
+
+				errors.push(result.reason);
+			}
 
 			if (errors.length > 0) {
-				pino.error(errors, "Error whilst removing guild configurations.");
+				pino.error(new AggregateError(errors, "Error whilst removing guild configurations."));
 			}
 		}
 

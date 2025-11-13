@@ -10,8 +10,7 @@
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
 		"start": "node --import ./distribution/sentry.js distribution/index.js",
 		"deploy-commands-dev": "tsx --env-file=.env.development source/utility/deploy-commands.ts | pino-pretty",
-		"deploy-commands": "tsx source/utility/deploy-commands.ts",
-		"knip": "knip"
+		"deploy-commands": "tsx source/utility/deploy-commands.ts"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.920.0",
@@ -19,19 +18,21 @@
 		"@discordjs/core": "dev",
 		"@discordjs/rest": "dev",
 		"@discordjs/ws": "dev",
+		"@hono/node-server": "^1.19.6",
 		"@sapphire/snowflake": "^3.5.5",
 		"@sentry/node": "^10.22.0",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
 		"diff": "^8.0.2",
 		"hasha": "^6.0.0",
+		"hono": "^4.10.4",
 		"i18next": "^25.6.0",
 		"knex": "^3.1.0",
 		"luxon": "^3.7.2",
 		"openai": "^4.59.0",
 		"p-queue": "^9.0.0",
 		"pg": "^8.16.3",
-		"pino": "^9.9.0",
+		"pino": "^10.1.0",
 		"sharp": "^0.34.4",
 		"zod": "^4.1.12"
 	},
@@ -40,7 +41,6 @@
 		"@biomejs/biome": "2.3.2",
 		"@types/luxon": "^3.7.1",
 		"@types/pg": "^8.15.6",
-		"knip": "^5.66.4",
 		"pino-pretty": "^13.1.2",
 		"tsx": "^4.20.6",
 		"typescript": "5.9.3"

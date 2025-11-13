@@ -10,6 +10,7 @@
 			"event_one": "{{count}} dia restante em {{name}}.",
 			"event_other": "{{count}} dias restantes em {{name}}."
 		},
+		"error-timed-out": "O tempo limite expirou.",
 		"event-tickets": "Tíquetes de Evento",
 		"realms": {
 			"Isles of Dawn": "Ilha do Alvorecer",
@@ -288,7 +289,7 @@
 			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(maps.Sanctuary Islands)\"})",
 			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"206": "Ajude a Pescadora Ansiosa ou a Estudante Esbravejante a achar o tesouro no Deserto da Luz Estelar",
+			"206": "Ajude a Pescadora Ansiosa ou o Estudante Esbravejante a encontrar tesouros no Deserto da Luz Estelar",
 			"207": "Ajude a Canhoneira Sorridente ou o Batedor Risonho a encontrar tesouros nas Ilhas do Santuário",
 			"208": "Ajude o Contramestre Trapalhão ou o Guia da União a encontrar tesouros na Floresta Oculta",
 			"209": "Ajude o Comodoro Abandonado ou o Silvicultor Sonhador a encontrar tesouros na Aldeia dos Sonhos",
@@ -360,7 +361,8 @@
 			"275": "Termine a corrida de vassouras da Nat no Caranguejo Cacarejante",
 			"276": "Ajude Austin a pegar 5 caranguejos no porão do Caranguejo Cacarejante",
 			"277": "Ajude Skidmore a disparar os canhões 3 vezes no Caranguejo Cacarejante",
-			"278": "Entre no caldeirão do Yoshi no Caranguejo Cacarejante"
+			"278": "Entre no caldeirão do Yoshi no Caranguejo Cacarejante",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -502,7 +504,8 @@
 			"78": "Dias Ensolarados",
 			"79": "Dias de Luar",
 			"80": "Evento do Resplendor",
-			"81": "Dias de Travessuras"
+			"81": "Dias de Travessuras",
+			"82": "Dias de Presentear"
 		},
 		"event-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras#Outubro_de_2019",
@@ -586,7 +589,8 @@
 			"78": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados",
 			"79": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar",
 			"80": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Eventos_de_Moeda_em_Dobro#Evento_do_Resplendor_-_Outubro_de_2025",
-			"81": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras"
+			"81": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras",
+			"82": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Presentear"
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -1222,7 +1226,7 @@
 			"471": "Cafuné 1",
 			"475": "Cafuné 2",
 			"477": "Protetores de orelha",
-			"478": "Ukelele",
+			"478": "Ukulele",
 			"481": "Faísca 1",
 			"482": "Faísca 2",
 			"485": "Faísca 3",
@@ -2219,22 +2223,22 @@
 			"2565": "Confiar",
 			"2566": "Sinal de bandeira 4",
 			"2573": "Chapéu de Criador de Travessuras",
-			"2574": "",
-			"2575": "",
-			"2576": "",
-			"2577": "",
-			"2578": "",
-			"2579": "",
-			"2580": "",
-			"2581": "",
-			"2582": "",
-			"2583": "",
-			"2584": "",
-			"2585": "",
-			"2586": "",
-			"2587": "",
-			"2588": "",
-			"2589": ""
+			"2574": "Orelhas de Felino da Travessura",
+			"2575": "Cauda de Felino da Travessura",
+			"2576": "Máscara de Bico da Travessura",
+			"2577": "Capa Gótica da Travessura",
+			"2578": "Chapéu de Folha da Travessura",
+			"2579": "Lâmpada de Caranguejo-Abóbora",
+			"2580": "Decoração de Teia de Aranha",
+			"2581": "Tapete de Dragão Sombrio da Travessura",
+			"2582": "Árvore Seca da Travessura",
+			"2583": "Símbolo da Travessura 1",
+			"2584": "Símbolo da Travessura 2",
+			"2585": "Símbolo da Travessura 3",
+			"2586": "Símbolo da Travessura 4",
+			"2587": "Caixa de Quebra-Cabeça",
+			"2588": "Baú de Quebra-Cabeça",
+			"2589": "Gaiola de Quebra-Cabeça"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -2706,6 +2710,12 @@
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
 			"infographic": "Infográfico",
 			"not-yet-updated": "Os guias diários estão esperando por um incrível Filho da Luz para serem atualizados!\nPossui as informações que precisamos? Entre no [servidor de suporte]({{url}}) e atualize os guias você mesmo, ajudando a galera!",
+			"error-thread-archived": "O tópico foi arquivado.",
+			"error-thread-locked": "O tópico está bloqueado.",
+			"error-missing-permissions": "`Ver Canal` & `Enviar Mensagens` são obrigatórios para {{channel}}.",
+			"error-missing-permissions-website": "Ver Canal & Enviar Mensagens são obrigatórios para \"{{channel}}\".",
+			"error-missing-permissions-thread": "`Ver Canal` & `Enviar Mensagens em Tópicos` são obrigatórios para {{channel}}.",
+			"error-missing-permissions-thread-website": "Ver Canal & Enviar Mensagens em Tópicos são obrigatórios para \"{{channel}}\".",
 			"quest-unknown": "Uou, essa é uma missão diária que não conhecemos. Talvez tente outra?",
 			"quest-no-infographic": "Essa missão não possui um infográfico."
 		},

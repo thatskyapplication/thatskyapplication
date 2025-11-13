@@ -10,6 +10,7 @@
 			"event_one": "",
 			"event_other": ""
 		},
+		"error-timed-out": "",
 		"event-tickets": "",
 		"realms": {
 			"Isles of Dawn": "Isla del Amanecer",
@@ -288,7 +289,7 @@
 			"203": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.147)\",\"location\":\"$t(maps.Sanctuary Islands)\"})",
 			"204": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.148)\",\"location\":\"$t(maps.Prairie Village)\"})",
 			"205": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.146)\",\"location\":\"$t(maps.Prairie Village)\"})",
-			"206": "",
+			"206": "Ayuda al Pescador ansioso o al Estudiante gruñona a buscar tesoros en el desierto Luz de Estrellas",
 			"207": "Ayuda al Cañonero tentado o al Explorador risueño a buscar tesoros en las Islas Santuario",
 			"208": "Ayuda al Contramaestre torpe o al Guía del Ensamblaje a buscar tesoros en el Bosque Escondido",
 			"209": "Ayuda al Capitán de navío cesante o al Guardabosques soñador a buscar tesoros en la Aldea de los Sueños",
@@ -360,7 +361,8 @@
 			"275": "Completa la carrera de escobas voladoras de Nat en El cangrejo carcajeante",
 			"276": "Ayuda a Austin a reunir 5 cangrejos en el sótano de El cangrejo carcajeante",
 			"277": "Ayuda a Skidmore a disparar los cañones 3 veces en El cangrejo carcajeante",
-			"278": "Salta al brebaje del caldero de Yoshi en el Cangrejo Carcajeante"
+			"278": "Salta al brebaje del caldero de Yoshi en el Cangrejo Carcajeante",
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -502,7 +504,8 @@
 			"78": "Días de Luz Solar",
 			"79": "Días de Luz de Luna",
 			"80": "Evento de resplandor",
-			"81": "Días de Travesuras"
+			"81": "Días de Travesuras",
+			"82": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -586,7 +589,8 @@
 			"78": "",
 			"79": "",
 			"80": "",
-			"81": ""
+			"81": "",
+			"82": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -1222,7 +1226,7 @@
 			"471": "",
 			"475": "",
 			"477": "",
-			"478": "",
+			"478": "Ukelele",
 			"481": "",
 			"482": "",
 			"485": "",
@@ -2706,6 +2710,12 @@
 			"event-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "Las guías diarias están esperando a un increíble niño de la luz para que las actualice. ¿Tienes la información que necesitamos? ¡Únete al [servidor de apoyo]({{url}}) y actualízalas tú mismo para la comunidad!",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
 			"quest-unknown": "Vaya, esa es una diaria que no conocemos. ¿Mejor prueba otra?",
 			"quest-no-infographic": "Esta misión no tiene una infografía."
 		},

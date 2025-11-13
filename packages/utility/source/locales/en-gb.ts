@@ -40,6 +40,7 @@ export default {
 			event_one: "{{count}} day left in {{name}}.",
 			event_other: "{{count}} days left in {{name}}.",
 		},
+		"error-timed-out": "I am timed out.",
 		"event-tickets": "Event tickets",
 		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
 		maps: Object.fromEntries(SKY_MAP_VALUES.map((skyMap) => [skyMap, skyMap])),
@@ -571,6 +572,10 @@ export default {
 				"Help Skidmore fire the cannons 3 times in the Cackling Crab",
 			[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]:
 				"Hop into Yoshi's cauldron brew in the Cackling Crab",
+			[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: questsMeetUpWith(
+				SpiritId.OddballOutcast,
+				RealmName.HiddenForest,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
@@ -717,6 +722,7 @@ export default {
 			[EventId.DaysOfMoonlight2025]: "Days of Moonlight",
 			[EventId.RadianceEvent2025]: "Radiance Event",
 			[EventId.DaysOfMischief2025]: "Days of Mischief",
+			[EventId.DaysOfGiving2025]: "Days of Giving",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -816,6 +822,7 @@ export default {
 			[EventId.RadianceEvent2025]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event",
 			[EventId.DaysOfMischief2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
+			[EventId.DaysOfGiving2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
@@ -1529,7 +1536,7 @@ export default {
 			[Cosmetic.FriendActionHairTousle1]: "Hair tousle 1",
 			[Cosmetic.FriendActionHairTousle2]: "Hair tousle 2",
 			[Cosmetic.HairtousleTeenEarmuffs]: "Earmuffs",
-			[Cosmetic.HairtousleTeenUkulele]: "Ukelele",
+			[Cosmetic.HairtousleTeenUkulele]: "Ukulele",
 			[Cosmetic.EmoteSparkler1]: "Sparkler 1",
 			[Cosmetic.EmoteSparkler2]: "Sparkler 2",
 			[Cosmetic.EmoteSparkler3]: "Sparkler 3",
@@ -3023,6 +3030,13 @@ export default {
 			infographic: "Infographic",
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!",
+			"error-thread-archived": "The thread is archived.",
+			"error-thread-locked": "The thread is locked.",
+			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
+			"error-missing-permissions-website": `View Channel & Send Messages are required for "{{channel}}".`,
+			"error-missing-permissions-thread":
+				"`View Channel` & `Send Messages in Threads` are required for {{channel}}.",
+			"error-missing-permissions-thread-website": `View Channel & Send Messages in Threads are required for "{{channel}}".`,
 			"quest-unknown": "Woah, that's a daily we do not know. Maybe try another?",
 			"quest-no-infographic": "This quest does not have an infographic.",
 		},

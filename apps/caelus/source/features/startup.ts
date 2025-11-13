@@ -12,12 +12,23 @@ async function notifications() {
 		),
 	);
 
-	const notificationsErrors = notificationsSettled
-		.filter((result) => result.status === "rejected")
-		.map((result) => result.reason);
+	const notificationsErrors = [];
+
+	for (const result of notificationsSettled) {
+		if (result.status === "fulfilled") {
+			continue;
+		}
+
+		notificationsErrors.push(result.reason);
+	}
 
 	if (notificationsErrors.length > 0) {
-		pino.error(notificationsErrors, "Error whilst performing the notification health check.");
+		pino.error(
+			new AggregateError(
+				notificationsErrors,
+				"Error whilst performing the notification health check.",
+			),
+		);
 	}
 }
 

@@ -1,8 +1,7 @@
-import {
-	type APIApplicationCommandAutocompleteInteraction,
-	type APIChatInputApplicationCommandGuildInteraction,
-	type APIChatInputApplicationCommandInteraction,
-	Locale,
+import type {
+	APIApplicationCommandAutocompleteInteraction,
+	APIChatInputApplicationCommandGuildInteraction,
+	APIChatInputApplicationCommandInteraction,
 } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../../discord.js";
@@ -11,7 +10,7 @@ import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
-	name: t("daily-guides.command-name", { lng: Locale.EnglishGB, ns: "commands" }),
+	name: t("daily-guides.command-name", { ns: "commands" }),
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		const options = new OptionResolver(interaction);
 

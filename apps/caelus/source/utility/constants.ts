@@ -113,12 +113,6 @@ export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
 	value: locale,
 }));
 
-export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
-	ChannelType.GuildText,
-	ChannelType.GuildAnnouncement,
-	ChannelType.PublicThread,
-] as const;
-
 // Guess.
 export const GUESS_TIMEOUT = 30_000 as const;
 export const GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER = 10 as const;
