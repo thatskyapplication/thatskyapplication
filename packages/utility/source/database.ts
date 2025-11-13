@@ -4,6 +4,8 @@ export enum Table {
 	Checklist = "checklist",
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
+	Feedback = "feedback",
+	FeedbackUpsell = "feedback_upsell",
 	Giveaway = "giveaway",
 	GiveawayUpsell = "giveaway_upsell",
 	Guess = "guess",

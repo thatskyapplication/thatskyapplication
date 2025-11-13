@@ -194,7 +194,7 @@ export async function feedbackModalResponse(interaction: APIMessageComponentButt
 	});
 }
 
-export async function feedbackSubmission(interaction: APIModalSubmitInteraction) {
+export async function aboutFeedbackSubmission(interaction: APIModalSubmitInteraction) {
 	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {

@@ -113,6 +113,13 @@ export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
 	value: locale,
 }));
 
+// Feedback.
+export const FEEDBACK_INVITE_URL = "https://discord.gg/4AeQ5zKBu8" as const;
+export const FEEDBACK_Q1_LABEL = "What do you like about Caelus?" as const;
+export const FEEDBACK_Q2_LABEL = "What do you think could be improved?" as const;
+export const FEEDBACK_Q3_LABEL = "Do you consider yourself a Sky veteran?" as const;
+export const FEEDBACK_Q4_LABEL = "Anything else you wish to say?" as const;
+
 // Guess.
 export const GUESS_TIMEOUT = 30_000 as const;
 export const GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER = 10 as const;

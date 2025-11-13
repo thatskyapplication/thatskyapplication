@@ -169,6 +169,15 @@ export const enum CustomId {
 	WelcomeEditModalAsset = "164",
 }
 
+export const enum CustomIdFeedback {
+	FeedbackStart = "f1",
+	FeedbackModal = "f2",
+	FeedbackModalQ1 = "f3",
+	FeedbackModalQ2 = "f4",
+	FeedbackModalQ3 = "f5",
+	FeedbackModalQ4 = "f6",
+}
+
 export const SHARD_ERUPTION_DATES = [
 	CustomId.ShardEruptionBrowseDates1,
 	CustomId.ShardEruptionBrowseDates2,
