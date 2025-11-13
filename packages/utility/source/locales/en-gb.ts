@@ -30,7 +30,7 @@ function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | SkyMap) {
 export default {
 	general: {
 		"asset-image-invalid":
-			"Please upload a valid attachment! It must be less than or equal to 5 megabytes and be a GIF, JPEG, PNG, or WebP file.",
+			"Please upload a valid attachment! It must be less than or equal to {{size}} megabytes and be a GIF, JPEG, PNG, or WebP file.",
 		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",

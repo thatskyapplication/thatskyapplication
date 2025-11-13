@@ -1157,7 +1157,8 @@ export async function set(
 			flags: MessageFlags.Ephemeral,
 		});
 
-		if (!(await validateImageAttachment(interaction, travellingRock))) {
+		// Allow up to 10 MB.
+		if (!(await validateImageAttachment(interaction, travellingRock, 10_000_000))) {
 			return;
 		}
 

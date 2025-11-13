@@ -81,6 +81,7 @@ import {
 } from "../utility/configuration.js";
 import {
 	ANIMATED_HASH_PREFIX,
+	MAXIMUM_ASSET_SIZE,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
@@ -1896,12 +1897,16 @@ export async function skyProfileSetIcon(interaction: APIModalSubmitInteraction) 
 	let editReply = false;
 	let error = null;
 
-	if (isValidImageAttachment(icon)) {
+	if (isValidImageAttachment(icon, MAXIMUM_ASSET_SIZE)) {
 		await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
 		editReply = true;
 		payload.icon = await skyProfileSetAsset(interaction, icon, AssetType.Icon);
 	} else {
-		error = t("asset-image-invalid", { lng: interaction.locale, ns: "general" });
+		error = t("asset-image-invalid", {
+			lng: interaction.locale,
+			ns: "general",
+			size: MAXIMUM_ASSET_SIZE / 1_000_000,
+		});
 	}
 
 	await skyProfileSet(interaction, payload, { editReply });
@@ -1921,12 +1926,16 @@ export async function skyProfileSetBanner(interaction: APIModalSubmitInteraction
 	let editReply = false;
 	let error = null;
 
-	if (isValidImageAttachment(banner)) {
+	if (isValidImageAttachment(banner, MAXIMUM_ASSET_SIZE)) {
 		await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
 		editReply = true;
 		payload.banner = await skyProfileSetAsset(interaction, banner, AssetType.Banner);
 	} else {
-		error = t("asset-image-invalid", { lng: interaction.locale, ns: "general" });
+		error = t("asset-image-invalid", {
+			lng: interaction.locale,
+			ns: "general",
+			size: MAXIMUM_ASSET_SIZE / 1_000_000,
+		});
 	}
 
 	await skyProfileSet(interaction, payload, { editReply });
