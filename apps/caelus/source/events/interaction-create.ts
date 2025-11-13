@@ -28,8 +28,8 @@ import {
 } from "../commands/index.js";
 import { client } from "../discord.js";
 import {
+	aboutFeedbackSubmission,
 	feedbackModalResponse,
-	feedbackSubmission,
 	issueModalResponse,
 	issueSubmission,
 } from "../features/about.js";
@@ -73,6 +73,7 @@ import {
 	questsReorder,
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
+import { feedbackModal, feedbackSubmission, feedbackUpsell } from "../features/feedback.js";
 import { friendshipActionsCreateThread } from "../features/friendship-actions.js";
 import {
 	guessEventAnswer,
@@ -137,6 +138,7 @@ import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
 	CustomId,
+	CustomIdFeedback,
 	SHARD_ERUPTION_DATES,
 	SKY_PROFILE_EXPLORER_LIKES,
 	SKY_PROFILE_EXPLORERS,
@@ -221,7 +223,10 @@ async function isOldId(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 	id: string,
 ) {
-	if (Number.isInteger(Number(id))) {
+	// Feedback custom ids start with "f".
+	const resolvedId = id.startsWith("f") ? id.slice(1) : id;
+
+	if (Number.isInteger(Number(resolvedId))) {
 		return false;
 	}
 
@@ -311,6 +316,7 @@ export default {
 
 			try {
 				await command.chatInput(data);
+				await feedbackUpsell(data);
 			} catch (error) {
 				void recoverInteractionError(data, error);
 			}
@@ -330,6 +336,7 @@ export default {
 
 			try {
 				await command.userContextMenu(data);
+				await feedbackUpsell(data);
 			} catch (error) {
 				void recoverInteractionError(data, error);
 			}
@@ -737,6 +744,11 @@ export default {
 					return;
 				}
 
+				if (id === CustomIdFeedback.FeedbackStart) {
+					await feedbackModal(data);
+					return;
+				}
+
 				if (isGuildButton(data)) {
 					if (id === CustomId.FriendshipActionsContribute) {
 						await friendshipActionsCreateThread(data);
@@ -1074,7 +1086,7 @@ export default {
 
 			try {
 				if (id === CustomId.AboutFeedbackModal) {
-					await feedbackSubmission(data);
+					await aboutFeedbackSubmission(data);
 					return;
 				}
 
@@ -1115,6 +1127,11 @@ export default {
 
 				if (id === CustomId.ShopSuggestionModal) {
 					await shopSuggestionSubmission(data);
+					return;
+				}
+
+				if (id === CustomIdFeedback.FeedbackModal) {
+					await feedbackSubmission(data);
 					return;
 				}
 
