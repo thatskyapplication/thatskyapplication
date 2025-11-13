@@ -201,9 +201,9 @@ export function isValidAttachment(attachment: APIAttachment) {
 	);
 }
 
-export function isValidImageAttachment(attachment: APIAttachment) {
+export function isValidImageAttachment(attachment: APIAttachment, maximumSize: number) {
 	return (
-		attachment.size <= MAXIMUM_ASSET_SIZE &&
+		attachment.size <= maximumSize &&
 		ALLOWED_IMAGE_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
 	);
 }
@@ -211,13 +211,18 @@ export function isValidImageAttachment(attachment: APIAttachment) {
 export async function validateImageAttachment(
 	interaction: APIChatInputApplicationCommandInteraction | APIModalSubmitInteraction,
 	attachment: APIAttachment,
+	maximumSize: number = MAXIMUM_ASSET_SIZE,
 ) {
-	if (isValidImageAttachment(attachment)) {
+	if (isValidImageAttachment(attachment, maximumSize)) {
 		return true;
 	}
 
 	await client.api.interactions.editReply(interaction.application_id, interaction.token, {
-		content: t("asset-image-invalid", { lng: interaction.locale, ns: "general" }),
+		content: t("asset-image-invalid", {
+			lng: interaction.locale,
+			ns: "general",
+			size: maximumSize / 1_000_000,
+		}),
 	});
 
 	return false;

@@ -36,7 +36,7 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
 import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
-import { ANIMATED_HASH_PREFIX } from "../utility/constants.js";
+import { ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { isAnimatedHash, isValidImageAttachment } from "../utility/functions.js";
@@ -411,12 +411,18 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 	}
 
 	if (asset) {
-		if (isValidImageAttachment(asset)) {
+		if (isValidImageAttachment(asset, MAXIMUM_ASSET_SIZE)) {
 			await client.api.interactions.deferMessageUpdate(interaction.id, interaction.token);
 			editReply = true;
 			data.asset = await welcomeSetAsset(interaction, asset);
 		} else {
-			errors.push(t("asset-image-invalid", { lng: locale, ns: "general" }));
+			errors.push(
+				t("asset-image-invalid", {
+					lng: locale,
+					ns: "general",
+					size: MAXIMUM_ASSET_SIZE / 1_000_000,
+				}),
+			);
 		}
 	}
 
