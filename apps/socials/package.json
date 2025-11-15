@@ -14,7 +14,7 @@
 		"@atproto/api": "^0.16.2",
 		"@discordjs/core": "dev",
 		"@discordjs/rest": "dev",
-		"@sentry/node": "^10.22.0",
+		"@sentry/node": "^10.25.0",
 		"@skyware/jetstream": "0.2.5",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
@@ -26,7 +26,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.3.5",
 		"@types/luxon": "^3.7.1",
-		"@types/node": "^24",
+		"@types/node": "^24.10.1",
 		"@types/ws": "^8.18.1",
 		"pino-pretty": "^13.1.2",
 		"tsx": "^4.20.6",
