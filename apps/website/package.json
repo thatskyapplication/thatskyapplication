@@ -37,7 +37,7 @@
 		"remix-i18next": "^7.4.2"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.3.2",
+		"@biomejs/biome": "2.3.5",
 		"@react-router/dev": "^7.9.5",
 		"@tailwindcss/postcss": "^4.1.16",
 		"@types/luxon": "^3.7.1",
