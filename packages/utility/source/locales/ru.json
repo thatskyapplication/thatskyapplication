@@ -1,6 +1,6 @@
 {
 	"general": {
-		"asset-image-invalid": "Пожалуйста, загрузите действительное вложение! Оно должно быть до 5 мегабайт и быть в формате GIF, JPEG, PNG или WebP-файл.",
+		"asset-image-invalid": "",
 		"daily-quests": "Ежедневные квесты",
 		"days-left": {
 			"season_zero": "Сезон заканчивается сегодня.",

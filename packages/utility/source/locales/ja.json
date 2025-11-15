@@ -1,6 +1,6 @@
 {
 	"general": {
-		"asset-image-invalid": "添付ファイルをアップロードしてください。\nファイル形式：GIF、JPEG、PNG、WebP\nサイズ：5MB以下",
+		"asset-image-invalid": "",
 		"daily-quests": "デイリークエスト",
 		"days-left": {
 			"season_zero": "このシーズンは本日で終了します。",

@@ -1,6 +1,6 @@
 {
 	"general": {
-		"asset-image-invalid": "Téléchargez une pièce jointe ! Elle doit être moindre ou égal à 5 Mo et être un GIF, JPEG, PNG ou WebP.",
+		"asset-image-invalid": "",
 		"daily-quests": "Quêtes journalières",
 		"days-left": {
 			"season_zero": "La saison finit aujourd'hui.",

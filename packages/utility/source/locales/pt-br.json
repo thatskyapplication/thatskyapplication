@@ -1,6 +1,6 @@
 {
 	"general": {
-		"asset-image-invalid": "Por favor faço o upload de um anexo válido! Precisa ser menor ou igual a 5 megabytes e ser um arquivo GIF, JPEG, PNG ou WebP.",
+		"asset-image-invalid": "",
 		"daily-quests": "Missões diárias",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
