@@ -199,8 +199,18 @@ async function fetchSingleSubredditPosts(subreddit: string) {
 	url.searchParams.set("limit", tracker === undefined ? "100" : "50");
 	url.searchParams.set("raw_json", "1");
 
-	if (tracker?.boundary) {
+	// Only use the boundary if it still exists in our seen cache.
+	// If the boundary was evicted or is invalid, don't use it.
+	if (tracker?.boundary && tracker.seen.has(tracker.boundary)) {
 		url.searchParams.set("before", tracker.boundary);
+	} else if (tracker?.boundary) {
+		// Boundary exists but not in cache. Reset it.
+		pino.warn(
+			{ subreddit, boundary: tracker.boundary },
+			"Boundary not found in cache. Resetting boundary.",
+		);
+
+		tracker.boundary = "";
 	}
 
 	const response = await fetch(url, {
@@ -218,6 +228,43 @@ async function fetchSingleSubredditPosts(subreddit: string) {
 
 	if (posts.length === 0) {
 		return [];
+	}
+
+	// Detect if the boundary is invalid (e.g. deleted post).
+	// If we have a boundary and Reddit returned posts, but all returned posts are older than
+	// what we expect, it likely means Reddit ignored our "before" query parameter.
+	if (tracker?.boundary && posts.length > 0) {
+		const boundaryEntry = tracker.seen.get(tracker.boundary);
+		const newestReturnedPost = posts[0]!;
+
+		// If the boundary exists in our cache and the newest returned post is significantly
+		// older than the boundary, the boundary is likely invalid (deleted/removed).
+		if (boundaryEntry && newestReturnedPost.data.created_utc < boundaryEntry.createdAt - 60) {
+			pino.warn(
+				{
+					subreddit,
+					invalidBoundary: tracker.boundary,
+					boundaryTimestamp: boundaryEntry.createdAt,
+					newestReturnedTimestamp: newestReturnedPost.data.created_utc,
+				},
+				"Boundary appears to be invalid (possibly deleted). Resetting to newest returned post.",
+			);
+
+			// Reset the boundary to the newest post we just received.
+			tracker.boundary = newestReturnedPost.data.name;
+
+			// Mark all returned posts as already seen to avoid reprocessing.
+			for (const post of posts) {
+				if (!tracker.seen.has(post.data.name)) {
+					tracker.seen.set(post.data.name, {
+						createdAt: post.data.created_utc,
+						processed: true,
+					});
+				}
+			}
+
+			return [];
+		}
 	}
 
 	if (!tracker) {
@@ -275,11 +322,14 @@ async function fetchSingleSubredditPosts(subreddit: string) {
 	tracker.boundary = calculateBoundary(posts, tracker.boundary);
 
 	if (tracker.seen.size > 100) {
-		// Keep only the most recent 100 post names.
-		const recentPosts = [...tracker.seen.entries()].slice(-100);
+		// Keep only the most recent 100 post names, sorted by creation timestamp.
+		const recentPosts = [...tracker.seen.entries()]
+			.sort((a, b) => b[1].createdAt - a[1].createdAt)
+			.slice(0, 100);
+
 		tracker.seen = new Map(recentPosts);
 
-		// Ensure boundary is still in the cache, otherwise update it.
+		// Ensure boundary is still in the cache, otherwise update it to the newest post.
 		if (!tracker.seen.has(tracker.boundary)) {
 			tracker.boundary = recentPosts[0]![0];
 		}
