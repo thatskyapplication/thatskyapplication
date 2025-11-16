@@ -47,6 +47,13 @@ f:daily-guides:
      - apps/website/app/routes/caelus.guides.daily-guides.tsx
      - apps/website/app/routes/daily-guides.tsx
      - packages/utility/source/daily-guides.ts
+f:friendship-actions:
+ - changed-files:
+   - any-glob-to-any-file:
+     - apps/caelus/source/commands/chat-inputs/{hair-tousle,high-five,hug,krill,play-fight}.ts
+     - apps/caelus/source/features/friendship-actions.ts
+     - apps/website/app/routes/caelus.guides.friendship-actions.tsx
+     - packages/utility/source/friendship-actions.ts
 f:guess:
  - changed-files:
    - any-glob-to-any-file:
