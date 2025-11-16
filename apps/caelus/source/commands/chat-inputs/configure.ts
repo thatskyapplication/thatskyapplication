@@ -19,6 +19,7 @@ import type { Guild } from "../../models/discord/guild.js";
 import {
 	formatArrayErrors,
 	isGuildChatInputCommand,
+	isThreadChannelType,
 	notInCachedGuildResponse,
 } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
@@ -32,7 +33,16 @@ async function dailyGuides(
 	const channel = options.getChannel("channel");
 
 	if (channel) {
-		const cachedChannel = guild.channels.get(channel.id);
+		const cachedChannel = guild.channels.get(channel.id) ?? guild.threads.get(channel.id);
+
+		if (!cachedChannel && isThreadChannelType(channel.type)) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: t("cannot-view-thread", { ns: "general", lng: locale }),
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
 
 		if (!(cachedChannel && isDailyGuidesDistributionChannel(cachedChannel))) {
 			throw new Error("Received an unknown channel type whilst setting up daily guides.");

@@ -141,7 +141,10 @@ export const action = async ({ request, params, context }: ActionFunctionArgs) =
 					case APIErrorCode.UnknownGuild:
 						return redirect("/caelus/dashboard");
 					case APIErrorCode.UnknownChannel:
-						return { error: "Channel not found. Reload to see the latest changes." };
+						return {
+							error:
+								"Channel not found. This may be a thread we cannot view. Reload to see the latest changes.",
+						};
 					case APIErrorCode.MissingPermissions:
 						return { error: (error.description as readonly string[]).join("\n") };
 				}

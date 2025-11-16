@@ -232,14 +232,18 @@ export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PR
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }
 
+export function isThreadChannelType(type: ChannelType) {
+	return (
+		type === ChannelType.AnnouncementThread ||
+		type === ChannelType.PublicThread ||
+		type === ChannelType.PrivateThread
+	);
+}
+
 export function isThreadChannel(
 	channel: GuildChannel | AnnouncementThread | PublicThread | PrivateThread,
-) {
-	return (
-		channel.type === ChannelType.AnnouncementThread ||
-		channel.type === ChannelType.PublicThread ||
-		channel.type === ChannelType.PrivateThread
-	);
+): channel is AnnouncementThread | PublicThread | PrivateThread {
+	return isThreadChannelType(channel.type);
 }
 
 export function userTag(user: Pick<APIUser, "username" | "discriminator">) {

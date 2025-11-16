@@ -27,9 +27,7 @@ export default {
 			return;
 		}
 
-		const isThreadChannelType = isThreadChannel(channel);
-
-		if (isThreadChannelType) {
+		if (isThreadChannel(channel)) {
 			const parentChannel = guild.channels.get(channel.parentId);
 
 			if (!parentChannel) {

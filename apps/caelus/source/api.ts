@@ -35,10 +35,9 @@ hono.put("/api/guilds/:guildId/daily-guides", async (context) => {
 	}
 
 	const body = await context.req.json<APIPutGuildsDailyGuidesBody>();
-	const channel = guild.channels.get(body.channel_id!);
 
-	if (channel) {
-		const cachedChannel = guild.channels.get(channel.id);
+	if (body.channel_id) {
+		const cachedChannel = guild.channels.get(body.channel_id) ?? guild.threads.get(body.channel_id);
 
 		if (!(cachedChannel && isDailyGuidesDistributionChannel(cachedChannel))) {
 			return context.json(createAPIError(APIErrorCode.UnknownChannel), 404);

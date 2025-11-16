@@ -6,6 +6,7 @@ import {
 	type APIComponentInContainer,
 	type APIGuildInteractionWrapper,
 	type APIInteractionResponseCallbackData,
+	type APIMessageChannelSelectInteractionData,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
@@ -89,6 +90,7 @@ import {
 import {
 	diffJSON,
 	formatArrayErrors,
+	isThreadChannelType,
 	notInCachedGuildResponse,
 	userTag,
 	validateImageAttachment,
@@ -346,7 +348,11 @@ export async function setupResponse(
 		.first();
 
 	const channelId = dailyGuidesDistributionPacket?.channel_id;
-	const channel = channelId ? guild.channels.get(channelId) : null;
+
+	const channel = channelId
+		? (guild.channels.get(channelId) ?? guild.threads.get(channelId))
+		: null;
+
 	const feedback = [];
 
 	if (channel) {
@@ -432,7 +438,22 @@ export async function handleChannelSelectMenu(
 	const [channelId] = interaction.data.values;
 
 	if (channelId) {
-		const channel = guild.channels.get(channelId);
+		const channel = guild.channels.get(channelId) ?? guild.threads.get(channelId);
+
+		if (
+			!channel &&
+			isThreadChannelType(
+				(interaction.data as APIMessageChannelSelectInteractionData).resolved.channels[channelId]!
+					.type,
+			)
+		) {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: t("cannot-view-thread", { ns: "general", lng: locale }),
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
 
 		if (!(channel && isDailyGuidesDistributionChannel(channel))) {
 			throw new Error("Received an unknown channel type whilst setting up daily guides.");
