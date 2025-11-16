@@ -1,7 +1,7 @@
 {
 	"$schema": "node_modules/knip/schema.json",
 	"ignoreBinaries": ["pre-commit"],
-	"ignoreDependencies": ["@types/*", "pg", "tailwindcss"],
+	"ignoreDependencies": ["@types/*", "pg"],
 	"workspaces": {
 		"apps/{notifications,socials}": {
 			"entry": "source/sentry.ts"
@@ -13,6 +13,7 @@
 				"Elders",
 				"SeasonalSpirits",
 				"Events",
+				"AIFrequency",
 				"MeSetBio",
 				"MeSetBioModal",
 				"MeSetBioModalBio",

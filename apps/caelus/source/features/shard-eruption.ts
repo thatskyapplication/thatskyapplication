@@ -95,11 +95,7 @@ export async function today(
 	}
 }
 
-export function todayData(
-	locale: Locale,
-	offset = 0,
-	navigation = true,
-): [APIMessageTopLevelComponent] {
+function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTopLevelComponent] {
 	const shardYesterday = shardEruption(offset - 1);
 	const shardToday = shardEruption(offset);
 	const shard = shardEruption();

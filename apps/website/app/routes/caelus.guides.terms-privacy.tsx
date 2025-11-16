@@ -22,16 +22,8 @@ export default function TermsPrivacy() {
 				<li>Server ids (notifications, daily guides, etc.).</li>
 				<li>Content in Sky profiles.</li>
 			</ul>
-			<p>
-				The AI of {APPLICATION_NAME} does <strong>not</strong> store any data.
-			</p>
 			<h2>What data is shared?</h2>
-			<p>
-				OpenAI's API is utilised to generate random responses. Message content provided is sent to
-				OpenAI as context. This setting may be turned off by server moderators and as such, no data
-				would be shared.
-			</p>
-			<p>No other data is shared.</p>
+			<p>None.</p>
 			<h2>How can I delete my data?</h2>
 			<p>
 				Use the <code>/data delete</code> command. If you do not wish to use this command, please

@@ -1,6 +1,5 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { MESSAGE_CACHE } from "../caches/messages.js";
 import { createThread } from "../models/discord/thread.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
@@ -21,7 +20,6 @@ export default {
 			for (const thread of guild.threads.values()) {
 				if (thread.threadMetadata && !thread.threadMetadata.archived && thread.parentId === id) {
 					guild.threads.delete(thread.id);
-					MESSAGE_CACHE.delete(thread.id);
 				}
 			}
 		}

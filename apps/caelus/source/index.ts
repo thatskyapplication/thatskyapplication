@@ -17,7 +17,6 @@ import guildMemberUpdate from "./events/guild-member-update.js";
 import guildRoleCreate from "./events/guild-role-create.js";
 import guildRoleDelete from "./events/guild-role-delete.js";
 import guildRoleUpdate from "./events/guild-role-update.js";
-import guildStickersUpdate from "./events/guild-stickers-update.js";
 import guildUpdate from "./events/guild-update.js";
 import type { Event } from "./events/index.js";
 import interactionCreate from "./events/interaction-create.js";
@@ -48,7 +47,6 @@ for (const event of [
 	guildRoleCreate,
 	guildRoleDelete,
 	guildRoleUpdate,
-	guildStickersUpdate,
 	guildUpdate,
 	interactionCreate,
 	messageCreate,

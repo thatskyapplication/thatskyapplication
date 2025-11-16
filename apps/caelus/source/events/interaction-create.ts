@@ -132,7 +132,6 @@ import {
 	welcomeHandleEditModal,
 	welcomeHandleHugButton,
 } from "../features/welcome.js";
-import AI from "../models/AI.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import {
@@ -960,11 +959,6 @@ export default {
 							locale: value0 as Locale,
 						});
 
-						return;
-					}
-
-					if (id === CustomId.AIFrequency) {
-						await AI.set(data);
 						return;
 					}
 				}

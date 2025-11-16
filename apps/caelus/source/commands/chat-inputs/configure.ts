@@ -12,12 +12,10 @@ import {
 	setup as setupDailyGuides,
 	setupResponse as setupResponseDailyGuides,
 } from "../../features/daily-guides.js";
-import { meOverview, meUpsell } from "../../features/me.js";
+import { meOverview } from "../../features/me.js";
 import { setupResponse as setupResponseNotifications } from "../../features/notifications.js";
 import { welcomeSetup } from "../../features/welcome.js";
-import AI from "../../models/AI.js";
 import type { Guild } from "../../models/discord/guild.js";
-import { SERVER_UPGRADE_SKU_ID } from "../../utility/configuration.js";
 import {
 	formatArrayErrors,
 	isGuildChatInputCommand,
@@ -66,17 +64,6 @@ async function dailyGuides(
 	);
 }
 
-async function me(interaction: APIChatInputApplicationCommandGuildInteraction) {
-	if (
-		!interaction.entitlements.some((entitlement) => entitlement.sku_id === SERVER_UPGRADE_SKU_ID)
-	) {
-		await meUpsell(interaction);
-		return;
-	}
-
-	await meOverview(interaction);
-}
-
 async function notifications(
 	interaction: APIChatInputApplicationCommandGuildInteraction,
 	guild: Guild,
@@ -106,22 +93,12 @@ export default {
 		const options = new OptionResolver(interaction);
 
 		switch (options.getSubcommand(true)) {
-			case t("configure.ai.command-name", { ns: "commands" }): {
-				const ai = AI.cache.get(interaction.guild_id);
-
-				await client.api.interactions.reply(interaction.id, interaction.token, {
-					components: AI.response(interaction, ai),
-					flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-				});
-
-				break;
-			}
 			case t("configure.daily-guides.command-name", { ns: "commands" }): {
 				await dailyGuides(interaction, options, guild);
 				return;
 			}
 			case t("configure.me.command-name", { ns: "commands" }): {
-				await me(interaction);
+				await meOverview(interaction);
 				return;
 			}
 			case t("configure.notifications.command-name", { ns: "commands" }): {

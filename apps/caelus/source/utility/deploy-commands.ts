@@ -341,15 +341,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("configure.ai.command-name", { ns: "commands" }),
-				name_localizations: localisations("configure.ai.command-name"),
-				description: t("configure.ai.command-description", {
-					ns: "commands",
-				}),
-				description_localizations: localisations("configure.ai.command-description"),
-			},
-			{
-				type: ApplicationCommandOptionType.Subcommand,
 				name: t("configure.daily-guides.command-name", { ns: "commands" }),
 				name_localizations: localisations("configure.daily-guides.command-name"),
 				description: t("configure.daily-guides.command-description", {
@@ -1175,19 +1166,6 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 		description: "Developer-specific commands.",
 		type: ApplicationCommandType.ChatInput,
 		options: [
-			{
-				type: ApplicationCommandOptionType.Subcommand,
-				name: "ai",
-				description: "Toggles the AI feature.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.Boolean,
-						name: "enable",
-						description: "Whether the AI feature should be enabled.",
-						required: true,
-					},
-				],
-			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "custom-status",

@@ -1,6 +1,5 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { MESSAGE_CACHE } from "../caches/messages.js";
 import { checkSendable } from "../features/notifications.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
@@ -25,18 +24,6 @@ export default {
 			}
 
 			return;
-		}
-
-		if (guild) {
-			for (const channel of guild.channels.values()) {
-				if (channel.guild_id === data.id) {
-					MESSAGE_CACHE.delete(channel.id);
-				}
-			}
-
-			for (const thread of guild.threads.values()) {
-				MESSAGE_CACHE.delete(thread.id);
-			}
 		}
 
 		GUILD_CACHE.delete(data.id);

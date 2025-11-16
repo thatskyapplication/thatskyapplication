@@ -39,9 +39,6 @@ const envSchema = z.object({
 	ARTIST_ROLE_ID: z.string().min(1),
 	TRANSLATOR_ROLE_ID: z.string().min(1),
 	DATABASE_URL: z.url(),
-	OPENAI_API_KEY: z.string().min(1),
-	OPENAI_BASE_URL: z.url(),
-	AI_GATEWAY_TOKEN: z.string().min(1),
 	S3_ACCESS_KEY_ID: z.string().min(1),
 	S3_ACCOUNT_ID: z.string().min(1),
 	S3_SECRET_ACCESS_KEY: z.string().min(1),
@@ -76,9 +73,6 @@ export const {
 	ARTIST_ROLE_ID,
 	TRANSLATOR_ROLE_ID,
 	DATABASE_URL,
-	OPENAI_API_KEY,
-	OPENAI_BASE_URL,
-	AI_GATEWAY_TOKEN,
 	S3_ACCESS_KEY_ID,
 	S3_ACCOUNT_ID,
 	S3_SECRET_ACCESS_KEY,
@@ -97,11 +91,3 @@ export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
 // Application invite URL.
 export const APPLICATION_INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${APPLICATION_ID}`;
-
-// SKU ids.
-const SERVER_UPGRADE_SKU_ID_DEVELOPMENT = "1270975828481806428" as const;
-const SERVER_UPGRADE_SKU_ID_PRODUCTION = "1270871254316089515" as const;
-
-export const SERVER_UPGRADE_SKU_ID = PRODUCTION
-	? SERVER_UPGRADE_SKU_ID_PRODUCTION
-	: SERVER_UPGRADE_SKU_ID_DEVELOPMENT;

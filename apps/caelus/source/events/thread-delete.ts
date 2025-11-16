@@ -1,7 +1,6 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { MESSAGE_CACHE } from "../caches/messages.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
 
@@ -18,7 +17,6 @@ export default {
 		}
 
 		guild.threads.delete(data.id);
-		MESSAGE_CACHE.delete(data.id);
 		FRIENDSHIP_ACTIONS_CACHE.delete(data.id);
 	},
 } satisfies Event<typeof name>;

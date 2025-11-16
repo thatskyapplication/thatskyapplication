@@ -1,6 +1,5 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE } from "../caches/guilds.js";
-import { updateMessageCache } from "../caches/messages.js";
 import { messageLogHandleMessageUpdate } from "../features/message-log.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
@@ -20,7 +19,5 @@ export default {
 		} else {
 			pino.warn({ data }, `Received a ${name} packet for an uncached guild.`);
 		}
-
-		updateMessageCache(data);
 	},
 } satisfies Event<typeof name>;

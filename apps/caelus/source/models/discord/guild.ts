@@ -1,8 +1,7 @@
-import { Collection, type ReadonlyCollection } from "@discordjs/collection";
+import { Collection } from "@discordjs/collection";
 import {
 	type APIChannel,
 	type APIGuild,
-	type APISticker,
 	ChannelType,
 	type GatewayGuildCreateDispatchData,
 	type GuildChannelType,
@@ -16,7 +15,6 @@ import { client } from "../../discord.js";
 import { APPLICATION_ID } from "../../utility/configuration.js";
 import { GuildMember } from "./guild-member.js";
 import { Role } from "./role.js";
-import { Sticker } from "./sticker.js";
 import { AnnouncementThread, PrivateThread, PublicThread } from "./thread.js";
 
 export type GuildChannel = APIChannel & {
@@ -47,8 +45,6 @@ export class Guild {
 
 	public me?: GuildMember;
 
-	public stickers: ReadonlyCollection<Snowflake, Sticker>;
-
 	public readonly channels: Collection<Snowflake, GuildChannel>;
 
 	public readonly threads: Collection<Snowflake, AnnouncementThread | PublicThread | PrivateThread>;
@@ -72,11 +68,6 @@ export class Guild {
 
 		this.unavailable = data.unavailable ?? false;
 		this.memberCount = data.member_count;
-
-		this.stickers = data.stickers.reduce(
-			(stickers, sticker) => stickers.set(sticker.id, new Sticker(sticker)),
-			new Collection<Snowflake, Sticker>(),
-		);
 
 		this.channels = data.channels.reduce(
 			(channels, channel) => channels.set(channel.id, { ...channel, guild_id: data.id }),
@@ -103,13 +94,6 @@ export class Guild {
 		this.ownerId = data.owner_id;
 		this.premiumTier = data.premium_tier;
 		this.preferredLocale = data.preferred_locale;
-	}
-
-	public patchStickers(data: APISticker[]) {
-		this.stickers = data.reduce(
-			(stickers, sticker) => stickers.set(sticker.id, new Sticker(sticker)),
-			new Collection<Snowflake, Sticker>(),
-		);
 	}
 
 	public async fetchMe() {

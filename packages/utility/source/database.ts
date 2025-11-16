@@ -1,9 +1,7 @@
 export enum Table {
-	AI = "ai",
 	BlueskyWebhooks = "bluesky_webhooks",
 	Catalogue = "catalogue",
 	Checklist = "checklist",
-	Configuration = "configuration",
 	DailyGuides = "daily_guides",
 	DailyGuidesDistribution = "daily_guides_distribution",
 	Giveaway = "giveaway",

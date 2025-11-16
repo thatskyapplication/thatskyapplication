@@ -1,4 +1,3 @@
-import { AIFrequencyType, type AIFrequencyTypes } from "../ai.js";
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
 import { DailyQuest, type DailyQuests } from "../daily-guides.js";
 import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
@@ -2620,10 +2619,6 @@ export default {
 		configure: {
 			"command-name": "configure",
 			"command-description": "Configure settings for the server.",
-			ai: {
-				"command-name": "ai",
-				"command-description": "Configure the AI.",
-			},
 			"daily-guides": {
 				"command-name": "daily-guides",
 				"command-description": "The command to set up daily guides in the server.",
@@ -2859,23 +2854,6 @@ export default {
 			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
 			"issue-submission-with-errors":
 				"Thank you for reporting your issue! {{emoji}}\n\nNote that the following assets were not sent as they were too big:\n{{errors}}\nYou are welcome to join the [support server]({{supportServerInviteURL}}) and report without limits!",
-		},
-		ai: {
-			"frequency-type": {
-				[AIFrequencyType.Disabled]: "Disabled",
-				[AIFrequencyType.VeryRare]: "Very rare",
-				[AIFrequencyType.Rare]: "Rare",
-				[AIFrequencyType.Normal]: "Normal",
-				[AIFrequencyType.Common]: "Common",
-				[AIFrequencyType.VeryCommon]: "Very common",
-			} satisfies Record<AIFrequencyTypes, string>,
-			title: "Caelus AI",
-			"frequency-description":
-				"I have the ability to engage in conversation, be it sporadically or when you mention me!\n\nThe frequency at which I will sporadically respond may be configured. The higher the frequency, the more likely I will respond.\n\nYou can disable the frequency to turn this feature off and I will no longer sporadically reply.",
-			"frequency-description-no-monetisation":
-				"I have the ability to engage in conversation, be it sporadically or when you mention me! I can choose to respond in certain frequencies too!\n\nTo use this feature though, it must be purchased.",
-			"frequency-type-string-select-menu-placeholder": "Set the frequency.",
-			"frequency-unknown": "Unknown frequency. Please try again.",
 		},
 		calculate: {
 			"goal-already-achieved": "You have already achieved your goal!",
@@ -3143,8 +3121,6 @@ export default {
 		},
 		me: {
 			title: "Me",
-			"upsell-message":
-				"This is a premium feature!\n\nYou may fully customise me by editing my bio, my banner, and my avatar in your server to whatever you like!\n\nTo get started, interact with the button below.",
 			message:
 				"Want to customise me? ✨\n\nYou can set my bio, avatar, and banner in this server! Interact with the button below to get started!\n\nYou can remove overrides with the buttons below too.",
 			"customise-me-button-label": "Customise me!",

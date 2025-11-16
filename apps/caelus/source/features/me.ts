@@ -7,16 +7,12 @@ import {
 	ButtonStyle,
 	ComponentType,
 	MessageFlags,
-	RESTJSONErrorCodes,
 	type RESTPatchAPICurrentGuildMemberJSONBody,
 	SeparatorSpacingSize,
-	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
-import { DiscordAPIError } from "@discordjs/rest";
 import { t } from "i18next";
 import { client } from "../discord.js";
-import { SERVER_UPGRADE_SKU_ID } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
@@ -107,44 +103,6 @@ export async function meOverview(
 					components,
 					flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 				}));
-}
-
-export async function meUpsell(interaction: APIChatInputApplicationCommandGuildInteraction) {
-	const { locale } = interaction;
-
-	await client.api.interactions.reply(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: `## ${t("me.title", { lng: locale, ns: "features" })}`,
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: t("me.upsell-message", { lng: locale, ns: "features" }),
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.Button,
-								style: ButtonStyle.Premium,
-								sku_id: SERVER_UPGRADE_SKU_ID,
-							},
-						],
-					},
-				],
-			},
-		],
-		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
-	});
 }
 
 export async function meHandleCustomiseMeButton(
@@ -253,21 +211,4 @@ export async function meHandleDeleteButton(
 ) {
 	await client.api.users.editCurrentGuildMember(interaction.guild_id, options);
 	await meOverview(interaction, { updateMessage: true });
-}
-
-export async function meDelete(guildId: Snowflake) {
-	try {
-		await client.api.users.editCurrentGuildMember(guildId, {
-			bio: null,
-			avatar: null,
-			banner: null,
-		});
-	} catch (error) {
-		if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownGuild) {
-			// Allow a guild that we may not be in to be absolutely sure. If we receive this, this is expected.
-			return;
-		}
-
-		throw error;
-	}
 }

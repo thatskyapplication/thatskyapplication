@@ -16,7 +16,6 @@ import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
 
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
-export { AI_FREQUENCY_TYPE_VALUES, AIFrequencyType, type AIFrequencyTypes } from "./ai.js";
 export {
 	type APIError,
 	APIErrorCode,
