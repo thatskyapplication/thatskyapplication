@@ -41,7 +41,7 @@ interface SeenEntry {
 
 interface SubredditTracker {
 	seen: Map<string, SeenEntry>;
-	boundary: string;
+	boundary: string | null;
 }
 
 const seenPosts = new Map<string, SubredditTracker>();
@@ -168,7 +168,7 @@ interface SubredditPostsResponse {
 	data: SubredditPostsData;
 }
 
-function calculateBoundary(posts: readonly Post[], previousBoundary?: string) {
+function calculateBoundary(posts: readonly Post[], previousBoundary?: string | null) {
 	for (let index = posts.length - 1; index >= 0; index--) {
 		const post = posts[index]!;
 
@@ -210,7 +210,7 @@ async function fetchSingleSubredditPosts(subreddit: string) {
 			"Boundary not found in cache. Resetting boundary.",
 		);
 
-		tracker.boundary = "";
+		tracker.boundary = null;
 	}
 
 	const response = await fetch(url, {
@@ -238,31 +238,19 @@ async function fetchSingleSubredditPosts(subreddit: string) {
 		const newestReturnedPost = posts[0]!;
 
 		// If the boundary exists in our cache and the newest returned post is significantly
-		// older than the boundary, the boundary is likely invalid (deleted/removed).
+		// older than the boundary, Reddit definitely screwed up.
 		if (boundaryEntry && newestReturnedPost.data.created_utc < boundaryEntry.createdAt - 60) {
-			pino.warn(
+			pino.info(
 				{
 					subreddit,
 					invalidBoundary: tracker.boundary,
 					boundaryTimestamp: boundaryEntry.createdAt,
 					newestReturnedTimestamp: newestReturnedPost.data.created_utc,
 				},
-				"Boundary appears to be invalid (possibly deleted). Resetting to newest returned post.",
+				"Reddit screwed up the API response. Skipping.",
 			);
 
-			// Reset the boundary to the newest post we just received.
-			tracker.boundary = newestReturnedPost.data.name;
-
-			// Mark all returned posts as already seen to avoid reprocessing.
-			for (const post of posts) {
-				if (!tracker.seen.has(post.data.name)) {
-					tracker.seen.set(post.data.name, {
-						createdAt: post.data.created_utc,
-						processed: true,
-					});
-				}
-			}
-
+			tracker.boundary = null;
 			return [];
 		}
 	}
