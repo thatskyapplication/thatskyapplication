@@ -2242,6 +2242,7 @@
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "",
+		"cannot-view-thread": "",
 		"view": "Voir",
 		"navigation-back": "Retour",
 		"navigation-next": "Suivant",
@@ -2301,10 +2302,6 @@
 		"configure": {
 			"command-name": "configurer",
 			"command-description": "Configurer les paramètres pour le serveur.",
-			"ai": {
-				"command-name": "ia",
-				"command-description": "Configurer l'IA."
-			},
 			"daily-guides": {
 				"command-name": "guides-journaliers",
 				"command-description": "La commande pour mettre en place un guide journalier sur le serveur.",
@@ -2547,21 +2544,6 @@
 			"issue-modal-label-attachments-description": "Les captures d'écran aident énormément et sont très appréciées ! 🩵",
 			"issue-submission": "Merci d'avoir reporté votre problème ! {{emoji}}",
 			"issue-submission-with-errors": "Merci d'avoir reporté votre problème ! {{emoji}}\n\nVeuillez noter que le contenu suivant n'a pas pu être envoyé car sa taille dépasse celle supportée :\n{{errors}}\nNous vous recommandons de rejoindre le [serveur de support]({{supportServerInviteURL}}) et de reporter sans limites !"
-		},
-		"ai": {
-			"frequency-type": {
-				"0": "Désactiver",
-				"1": "Très rare",
-				"2": "Rare",
-				"3": "Standard",
-				"4": "Fréquent",
-				"5": "Très fréquent"
-			},
-			"title": "IA Caelus",
-			"frequency-description": "J'ai la capacité de m'engager dans les conversations, que ce soit occasionnellement ou lorsque vous me mentionnez !\n\nLa fréquence à laquelle je répondrai occasionnellement peut être configurée. Plus haute est la fréquence, plus je répondrai.\n\nVous pouvez désactiver la fréquence pour désactiver cette fonctionnalité et je ne répondrai plus occasionnellement.",
-			"frequency-description-no-monetisation": "J'ai la capacité de m'engager dans les conversations, que ce soit occasionnellement ou lorsque vous me mentionnez ! Je peux également choisir de répondre à certaines fréquences !\n\nCependant, pour utiliser cette fonctionnalité, il faut l'acheter.",
-			"frequency-type-string-select-menu-placeholder": "Choisissez la fréquence.",
-			"frequency-unknown": "Fréquence inconnue. Essayez de nouveau s'il vous plaît."
 		},
 		"calculate": {
 			"goal-already-achieved": "Vous avez déjà atteint votre objectif !",
@@ -2809,7 +2791,6 @@
 		},
 		"me": {
 			"title": "Moi",
-			"upsell-message": "C'est une fonctionnalité premium !\n\nVous pouvez complètement me customiser en éditant ma bio, ma bannière et mon avatar sur votre serveur pour ce que vous voulez !\n\nPour commencer, interagissez avec le bouton ci-dessous.",
 			"message": "Vous voulez me customiser ? ✨\n\nVous pouvez changer ma bio, mon avatar et ma bannière dans ce serveur ! Interagissez avec le bouton ci-dessous pour commencer !\n\nVous pouvez également supprimer les informations déjà existantes avec les boutons ci-dessous.",
 			"customise-me-button-label": "Customisez-moi !",
 			"customise-me-modal-title": "Customiser moi",
