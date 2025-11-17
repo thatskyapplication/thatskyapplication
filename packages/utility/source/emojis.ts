@@ -8350,6 +8350,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigrationGuideHeart3]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.MigrationGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.MigrationGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.MigrationGuideHeart5]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.MigrationGuideHeart6]: MISCELLANEOUS_EMOJIS.Heart,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
