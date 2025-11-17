@@ -2242,6 +2242,7 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
+		"cannot-view-thread": "",
 		"view": "",
 		"navigation-back": "",
 		"navigation-next": "",
@@ -2301,10 +2302,6 @@
 		"configure": {
 			"command-name": "設定",
 			"command-description": "このサーバーの通知設定をします。",
-			"ai": {
-				"command-name": "ai",
-				"command-description": "AI機能の設定をします。"
-			},
 			"daily-guides": {
 				"command-name": "デイリーガイド",
 				"command-description": "このサーバーにデイリーガイドを設置するコマンドです。",
@@ -2548,21 +2545,6 @@
 			"issue-submission": "",
 			"issue-submission-with-errors": "不具合をご報告いただき、誠にありがとうございます！ {{emoji}}\n\n以下の添付ファイルは容量が大きいため、送信されませんでした。\n{{errors}}\n[サポートサーバー]({{supportServerInviteURL}})にご参加いただき、制限なくご報告ください！"
 		},
-		"ai": {
-			"frequency-type": {
-				"0": "",
-				"1": "",
-				"2": "",
-				"3": "",
-				"4": "",
-				"5": ""
-			},
-			"title": "Caelus AI",
-			"frequency-description": "",
-			"frequency-description-no-monetisation": "",
-			"frequency-type-string-select-menu-placeholder": "",
-			"frequency-unknown": ""
-		},
 		"calculate": {
 			"goal-already-achieved": "",
 			"start": "",
@@ -2799,7 +2781,6 @@
 		},
 		"me": {
 			"title": "Me",
-			"upsell-message": "これはプレミアム機能です！\n\nあなたのサーバー上で、わたしのbio・アバター・バナーを自由にカスタマイズできます！\n\n始めるには、下のボタンをクリックしてください。",
 			"message": "わたしをカスタマイズしてみませんか？✨\n\nこのサーバー上で、わたしのbio・アバター・バナーの変更ができます。カスタマイズボタンを押して、わたしの見え方を設定しましょう！\n\n下の削除ボタンを押して、設定済みの各項目をデフォルトの状態に戻します。",
 			"customise-me-button-label": "わたしのカスタマイズ！",
 			"customise-me-modal-title": "わたしのカスタマイズ",

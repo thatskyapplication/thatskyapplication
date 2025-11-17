@@ -2242,6 +2242,7 @@
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
+		"cannot-view-thread": "",
 		"view": "Exibir",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar",
@@ -2301,10 +2302,6 @@
 		"configure": {
 			"command-name": "configurar",
 			"command-description": "Configurar definições para o servidor.",
-			"ai": {
-				"command-name": "ia",
-				"command-description": "Configurar a IA."
-			},
 			"daily-guides": {
 				"command-name": "guias-diários",
 				"command-description": "O comando para definir os guias diários no servidor.",
@@ -2547,21 +2544,6 @@
 			"issue-modal-label-attachments-description": "Screenshots ajudam bastante e são sempre bem-vindas! 🩵",
 			"issue-submission": "Agradecemos por reportar seu problema! {{emoji}}",
 			"issue-submission-with-errors": "Obrigado por reportar seu problema! {{emoji}}\n\nNote que os seguintes arquivos não foram enviados por serem muito grandes:\n{{errors}}\nVocê é bem-vindo para entrar no [servidor de suporte] ({{supportServerInviteURL}}) e reportar sem limites!"
-		},
-		"ai": {
-			"frequency-type": {
-				"0": "Desabilitado",
-				"1": "Muito raro",
-				"2": "Raro",
-				"3": "Padrão",
-				"4": "Frequente",
-				"5": "Muito frequente"
-			},
-			"title": "IA Caelus",
-			"frequency-description": "Posso conversar com você — às vezes de surpresa, ou sempre que me chamar!\n\nA frequência com que apareço pode ser ajustada. Quanto mais alta, é mais provável que eu responda.\n\nSe preferir, você pode desligar essa função. Assim, só falo quando for chamado.",
-			"frequency-description-no-monetisation": "Posso conversar com você — às vezes de surpresa, ou sempre que você me chamar! Também posso escolher com que frequência apareço.\n\nMas para usar essa habilidade, é preciso comprá-la.",
-			"frequency-type-string-select-menu-placeholder": "Escolha a frequência.",
-			"frequency-unknown": "Frequência desconhecida. Por favor, tente novamente."
 		},
 		"calculate": {
 			"goal-already-achieved": "Você já conquistou seu objetivo!",
@@ -2809,7 +2791,6 @@
 		},
 		"me": {
 			"title": "Eu",
-			"upsell-message": "Este é um recurso premium!\n\nVocê pode me personalizar totalmente editando minha bio, meu banner e meu avatar no seu servidor — do jeitinho que quiser!\n\nPara começar, é só interagir com o botão abaixo.",
 			"message": "Gostaria de me personalizar? ✨\n\nVocê pode definir minha bio, avatar e banner neste servidor! Interaja com os botões abaixo para iniciar!\n\nVocê pode remover as alterações personalizadas com os botões abaixo também.",
 			"customise-me-button-label": "Personalize-me!",
 			"customise-me-modal-title": "Personalize-me",

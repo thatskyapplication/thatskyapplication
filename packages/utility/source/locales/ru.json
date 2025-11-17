@@ -2242,6 +2242,7 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
+		"cannot-view-thread": "",
 		"view": "Вид",
 		"navigation-back": "",
 		"navigation-next": "",
@@ -2301,10 +2302,6 @@
 		"configure": {
 			"command-name": "",
 			"command-description": "",
-			"ai": {
-				"command-name": "",
-				"command-description": ""
-			},
 			"daily-guides": {
 				"command-name": "",
 				"command-description": "",
@@ -2548,21 +2545,6 @@
 			"issue-submission": "",
 			"issue-submission-with-errors": ""
 		},
-		"ai": {
-			"frequency-type": {
-				"0": "",
-				"1": "",
-				"2": "",
-				"3": "",
-				"4": "",
-				"5": ""
-			},
-			"title": "",
-			"frequency-description": "",
-			"frequency-description-no-monetisation": "",
-			"frequency-type-string-select-menu-placeholder": "",
-			"frequency-unknown": ""
-		},
 		"calculate": {
 			"goal-already-achieved": "",
 			"start": "",
@@ -2799,7 +2781,6 @@
 		},
 		"me": {
 			"title": "",
-			"upsell-message": "",
 			"message": "",
 			"customise-me-button-label": "",
 			"customise-me-modal-title": "",
