@@ -125,7 +125,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					translation: CosmeticCommon.Outfit,
+					translation: CosmeticCommon.Shoes,
 					cosmetic: Cosmetic.PeekingPostmanShoes,
 					cost: { candles: 36 },
 				},
