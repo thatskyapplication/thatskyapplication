@@ -1164,85 +1164,89 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 */
 	Shoe04: { id: "1313934744110628885", name: "04_shoe" },
 	/**
+	 * Peeking Postman.
+	 */
+	Shoe05: { id: "1439909617068015636", name: "05_shoe" },
+	/**
 	 * Musical Voyage Sneakers.
 	 */
-	Shoe05: { id: "1313934741107376200", name: "05_shoe" },
+	Shoe06: { id: "1313934741107376200", name: "06_shoe" },
 	/**
 	 * Sunlight Chunky Sandals.
 	 */
-	Shoe06: { id: "1313934735218839563", name: "06_shoe" },
+	Shoe07: { id: "1313934735218839563", name: "07_shoe" },
 	/**
 	 * Style Silk Ballet Slippers.
 	 */
-	Shoe07: { id: "1313934748933947473", name: "07_shoe" },
+	Shoe08: { id: "1313934748933947473", name: "08_shoe" },
 	/**
 	 * Style Bunny Slippers.
 	 */
-	Shoe08: { id: "1313934745662525580", name: "08_shoe" },
+	Shoe09: { id: "1313934745662525580", name: "09_shoe" },
 	/**
 	 * Vestige of a Deserted Oasis.
 	 */
-	Shoe09: { id: "1313934733821870100", name: "09_shoe" },
+	Shoe10: { id: "1313934733821870100", name: "10_shoe" },
 	/**
 	 * Echo of an Abandoned Refuge.
 	 */
-	Shoe10: { id: "1313934747155697756", name: "10_shoe" },
+	Shoe11: { id: "1313934747155697756", name: "11_shoe" },
 	/**
 	 * Remnant of a Forgotten Haven.
 	 */
-	Shoe11: { id: "1313934736577531957", name: "11_shoe" },
+	Shoe12: { id: "1313934736577531957", name: "12_shoe" },
 	/**
 	 * Mischief Goth Boots.
 	 */
-	Shoe12: { id: "1313934751836540979", name: "12_shoe" },
+	Shoe13: { id: "1313934751836540979", name: "13_shoe" },
 	/**
 	 * Cosy Hermit Boots.
 	 */
-	Shoe13: { id: "1313934750020538499", name: "13_shoe" },
+	Shoe14: { id: "1313934750020538499", name: "14_shoe" },
 	/**
 	 * Dark Rainbow Loafers.
 	 */
-	Shoe14: { id: "1313934731120873522", name: "14_shoe" },
+	Shoe15: { id: "1313934731120873522", name: "15_shoe" },
 	/**
 	 * The Pianist's Flourishing.
 	 */
-	Shoe15: { id: "1313934742717988874", name: "15_shoe" },
+	Shoe16: { id: "1313934742717988874", name: "16_shoe" },
 	/**
 	 * Sense of Self.
 	 */
-	Shoe16: { id: "1313934738477813800", name: "16_shoe" },
+	Shoe17: { id: "1313934738477813800", name: "17_shoe" },
 	/**
 	 * Radiance Leaping Dancer.
 	 */
-	Shoe17: { id: "1330515567882276934", name: "17_shoe" },
+	Shoe18: { id: "1330515567882276934", name: "18_shoe" },
 	/**
 	 * Radiance Provoking Performer.
 	 */
-	Shoe18: { id: "1330646393114722365", name: "18_shoe" },
+	Shoe19: { id: "1330646393114722365", name: "19_shoe" },
 	/**
 	 * Treasure Cavalier Boots.
 	 */
-	Shoe19: { id: "1345896918710095912", name: "19_shoe" },
+	Shoe20: { id: "1345896918710095912", name: "20_shoe" },
 	/**
 	 * Woodcutting Pleaful Parent.
 	 */
-	Shoe20: { id: "1365257777966092298", name: "20_shoe" },
+	Shoe21: { id: "1365257777966092298", name: "21_shoe" },
 	/**
 	 * Ocean Sea Foam Boots.
 	 */
-	Shoe21: { id: "1366371889743921182", name: "21_shoe" },
+	Shoe22: { id: "1366371889743921182", name: "22_shoe" },
 	/**
 	 * Scarred Sentry.
 	 */
-	Shoe22: { id: "1396917421683511466", name: "22_shoe" },
+	Shoe23: { id: "1396917421683511466", name: "23_shoe" },
 	/**
 	 * Anniversary Gown Ensemble Shoes.
 	 */
-	Shoe23: { id: "1404327902828560456", name: "23_shoe" },
+	Shoe24: { id: "1404327902828560456", name: "24_shoe" },
 	/**
 	 * Migration Guide (ultimate).
 	 */
-	Shoe24: { id: "1431028995335389225", name: "24_shoe" },
+	Shoe25: { id: "1431028995335389225", name: "25_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1250,26 +1254,27 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe02: { id: "1313919688484454570", name: "02_shoe" },
 	Shoe03: { id: "1313919699360415885", name: "03_shoe" },
 	Shoe04: { id: "1313919691462283387", name: "04_shoe" },
-	Shoe05: { id: "1313919692313726998", name: "05_shoe" },
-	Shoe06: { id: "1313919702002565190", name: "06_shoe" },
-	Shoe07: { id: "1313919704959811724", name: "07_shoe" },
-	Shoe08: { id: "1313919708612923473", name: "08_shoe" },
-	Shoe09: { id: "1313919696440922133", name: "09_shoe" },
-	Shoe10: { id: "1313919689709060147", name: "10_shoe" },
-	Shoe11: { id: "1313919697946804344", name: "11_shoe" },
-	Shoe12: { id: "1313919710139519006", name: "12_shoe" },
-	Shoe13: { id: "1313919695229026358", name: "13_shoe" },
-	Shoe14: { id: "1313919700844937296", name: "14_shoe" },
-	Shoe15: { id: "1313919706809241681", name: "15_shoe" },
-	Shoe16: { id: "1313919693664288770", name: "16_shoe" },
-	Shoe17: { id: "1330515583351001182", name: "17_shoe" },
-	Shoe18: { id: "1330646401532559402", name: "18_shoe" },
-	Shoe19: { id: "1345896926830133379", name: "19_shoe" },
-	Shoe20: { id: "1365257785629216768", name: "20_shoe" },
-	Shoe21: { id: "1366371897792532620", name: "21_shoe" },
-	Shoe22: { id: "1396917426486247454", name: "22_shoe" },
-	Shoe23: { id: "1404327909891641480", name: "23_shoe" },
-	Shoe24: { id: "1431029005762691394", name: "24_shoe" },
+	Shoe05: { id: "1439911388439908513", name: "05_shoe" },
+	Shoe06: { id: "1313919692313726998", name: "06_shoe" },
+	Shoe07: { id: "1313919702002565190", name: "07_shoe" },
+	Shoe08: { id: "1313919704959811724", name: "08_shoe" },
+	Shoe09: { id: "1313919708612923473", name: "09_shoe" },
+	Shoe10: { id: "1313919696440922133", name: "10_shoe" },
+	Shoe11: { id: "1313919689709060147", name: "11_shoe" },
+	Shoe12: { id: "1313919697946804344", name: "12_shoe" },
+	Shoe13: { id: "1313919710139519006", name: "13_shoe" },
+	Shoe14: { id: "1313919695229026358", name: "14_shoe" },
+	Shoe15: { id: "1313919700844937296", name: "15_shoe" },
+	Shoe16: { id: "1313919706809241681", name: "16_shoe" },
+	Shoe17: { id: "1313919693664288770", name: "17_shoe" },
+	Shoe18: { id: "1330515583351001182", name: "18_shoe" },
+	Shoe19: { id: "1330646401532559402", name: "19_shoe" },
+	Shoe20: { id: "1345896926830133379", name: "20_shoe" },
+	Shoe21: { id: "1365257785629216768", name: "21_shoe" },
+	Shoe22: { id: "1366371897792532620", name: "22_shoe" },
+	Shoe23: { id: "1396917426486247454", name: "23_shoe" },
+	Shoe24: { id: "1404327909891641480", name: "24_shoe" },
+	Shoe25: { id: "1431029005762691394", name: "25_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -7509,13 +7514,13 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.LivelyNavigatorWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.EmoteCureForMe1]: EMOTE_EMOJIS.CureForMeDance,
 		[Cosmetic.EmoteCureForMe2]: EMOTE_EMOJIS.CureForMeDance,
-		[Cosmetic.MusicalVoyageSneakers]: SHOE_EMOJIS.Shoe05,
+		[Cosmetic.MusicalVoyageSneakers]: SHOE_EMOJIS.Shoe06,
 		[Cosmetic.MomentsGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MomentsGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.SunlightPinkBeachTowelCape]: CAPE_EMOJIS.Cape108,
 		[Cosmetic.SunlightYellowBeachTowelCape]: CAPE_EMOJIS.Cape109,
 		[Cosmetic.SunlightBlueBeachTowelCape]: CAPE_EMOJIS.Cape110,
-		[Cosmetic.SunlightChunkySandals]: SHOE_EMOJIS.Shoe06,
+		[Cosmetic.SunlightChunkySandals]: SHOE_EMOJIS.Shoe07,
 		[Cosmetic.SunlightSurfboard]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp32,
 		[Cosmetic.StarCollectorWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.MomentsGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
@@ -7523,10 +7528,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.StyleTopHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory29,
 		[Cosmetic.StyleRunwayMask]: MASK_EMOJIS.Mask83,
 		[Cosmetic.StyleStarSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory17,
-		[Cosmetic.StyleSilkBalletSlippers]: SHOE_EMOJIS.Shoe07,
+		[Cosmetic.StyleSilkBalletSlippers]: SHOE_EMOJIS.Shoe08,
 		[Cosmetic.StyleFlameSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory18,
 		[Cosmetic.StyleHeartSunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory19,
-		[Cosmetic.StyleBunnySlippers]: SHOE_EMOJIS.Shoe08,
+		[Cosmetic.StyleBunnySlippers]: SHOE_EMOJIS.Shoe09,
 		[Cosmetic.StyleWideLegJeans]: OUTFIT_EMOJIS.Outfit50,
 		[Cosmetic.HopefulStewardQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.HopefulStewardHeart1]: MISCELLANEOUS_EMOJIS.Heart,
@@ -7537,7 +7542,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.VestigeOfADesertedOasisBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.VestigeOfADesertedOasisBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.VestigeOfADesertedOasisCape]: CAPE_EMOJIS.Cape111,
-		[Cosmetic.VestigeOfADesertedOasisShoes]: SHOE_EMOJIS.Shoe09,
+		[Cosmetic.VestigeOfADesertedOasisShoes]: SHOE_EMOJIS.Shoe10,
 		[Cosmetic.VestigeOfADesertedOasisBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.VestigeOfADesertedOasisSeasonalHeart]: SEASON_EMOJIS.RevivalHeart,
 		[Cosmetic.MemoryOfALostVillageBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -7548,7 +7553,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MemoryOfALostVillageHair]: HAIR_EMOJIS.Hair131,
 		[Cosmetic.MemoryOfALostVillageSeasonalHeart]: SEASON_EMOJIS.RevivalHeart,
 		[Cosmetic.EchoOfAnAbandonedRefugeBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
-		[Cosmetic.EchoOfAnAbandonedRefugeShoes]: SHOE_EMOJIS.Shoe10,
+		[Cosmetic.EchoOfAnAbandonedRefugeShoes]: SHOE_EMOJIS.Shoe11,
 		[Cosmetic.EchoOfAnAbandonedRefugeMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
 		[Cosmetic.EchoOfAnAbandonedRefugeBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.EchoOfAnAbandonedRefugeBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -7557,7 +7562,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.EchoOfAnAbandonedRefugeBlessing4]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.EchoOfAnAbandonedRefugeSeasonalHeart]: SEASON_EMOJIS.RevivalHeart,
 		[Cosmetic.RemnantOfAForgottenHavenBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
-		[Cosmetic.RemnantOfAForgottenHavenShoes]: SHOE_EMOJIS.Shoe11,
+		[Cosmetic.RemnantOfAForgottenHavenShoes]: SHOE_EMOJIS.Shoe12,
 		[Cosmetic.RemnantOfAForgottenHavenCape]: CAPE_EMOJIS.Cape113,
 		[Cosmetic.RemnantOfAForgottenHavenBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.RemnantOfAForgottenHavenBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -7566,7 +7571,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.HopefulStewardQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.HopefulStewardHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.MischiefCrabkinAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory32,
-		[Cosmetic.MischiefGothBoots]: SHOE_EMOJIS.Shoe12,
+		[Cosmetic.MischiefGothBoots]: SHOE_EMOJIS.Shoe13,
 		[Cosmetic.MischiefGothGarment]: OUTFIT_EMOJIS.Outfit52,
 		[Cosmetic.MischiefGossamerCape]: CAPE_EMOJIS.Cape116,
 		[Cosmetic.MischiefCrabulaCloak]: CAPE_EMOJIS.Cape117,
@@ -7598,7 +7603,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.WinterFeastSnowboard]: HELD_PROPS_EMOJIS.HeldProp40,
 		[Cosmetic.WinterPineConeHairClip]: HAIR_ACCESSORY_EMOJIS.HairAccessory34,
 		[Cosmetic.CourseCreationProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp33,
-		[Cosmetic.CosyHermitBoots]: SHOE_EMOJIS.Shoe13,
+		[Cosmetic.CosyHermitBoots]: SHOE_EMOJIS.Shoe14,
 		[Cosmetic.WinterQuiltedCape]: CAPE_EMOJIS.Cape120,
 		[Cosmetic.HopefulStewardQuest10]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.GiftOfTheNineColouredDeer]: HEAD_ACCESSORY_EMOJIS.HeadAccessory15,
@@ -7788,7 +7793,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MediumArgyleRug]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp62,
 		[Cosmetic.DarkRainbowMask]: MASK_EMOJIS.Mask92,
 		[Cosmetic.ColourGlamCut]: HAIR_EMOJIS.Hair145,
-		[Cosmetic.DarkRainbowLoafers]: SHOE_EMOJIS.Shoe14,
+		[Cosmetic.DarkRainbowLoafers]: SHOE_EMOJIS.Shoe15,
 		[Cosmetic.ColourBubbleMachine]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp63,
 		[Cosmetic.StoneWallMugRack]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp64,
 		[Cosmetic.StoneWallTowelRack]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp65,
@@ -7846,7 +7851,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.TheCellistsFlourishingSeasonalHeart]: SEASON_EMOJIS.DuetsHeart,
 		[Cosmetic.ThePianistsFlourishingBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.ThePianistsFlourishingProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp79,
-		[Cosmetic.ThePianistsFlourishingShoes]: SHOE_EMOJIS.Shoe15,
+		[Cosmetic.ThePianistsFlourishingShoes]: SHOE_EMOJIS.Shoe16,
 		[Cosmetic.ThePianistsFlourishingBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.ThePianistsFlourishingBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.ThePianistsFlourishingOutfit]: OUTFIT_EMOJIS.Outfit63,
@@ -7914,7 +7919,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.SenseOfSelfMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
 		[Cosmetic.SenseOfSelfBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.SenseOfSelfBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
-		[Cosmetic.SenseOfSelfShoes]: SHOE_EMOJIS.Shoe16,
+		[Cosmetic.SenseOfSelfShoes]: SHOE_EMOJIS.Shoe17,
 		[Cosmetic.SenseOfSelfNeckAccessory]: NECKLACE_EMOJIS.Necklace44,
 		[Cosmetic.SenseOfSelfBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.SenseOfSelfBlessing4]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -7994,7 +7999,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceLeapingDancerCape]: CAPE_EMOJIS.Cape142,
 		[Cosmetic.RadianceLeapingDancerYellowDye1]: MISCELLANEOUS_EMOJIS.DyeYellow,
 		[Cosmetic.RadianceLeapingDancerYellowDye2]: MISCELLANEOUS_EMOJIS.DyeYellow,
-		[Cosmetic.RadianceLeapingDancerShoes]: SHOE_EMOJIS.Shoe17,
+		[Cosmetic.RadianceLeapingDancerShoes]: SHOE_EMOJIS.Shoe18,
 		[Cosmetic.RadianceLeapingDancerSeasonalHeart]: SEASON_EMOJIS.RadianceHeart,
 		[Cosmetic.HypeDance1]: EMOTE_EMOJIS.HypeDance,
 		[Cosmetic.HypeDance2]: EMOTE_EMOJIS.HypeDance,
@@ -8008,7 +8013,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceProvokingPerformerYellowDye1]: MISCELLANEOUS_EMOJIS.DyeYellow,
 		[Cosmetic.RadianceProvokingPerformerYellowDye2]: MISCELLANEOUS_EMOJIS.DyeYellow,
 		[Cosmetic.RadianceProvokingPerformerCape]: CAPE_EMOJIS.Cape143,
-		[Cosmetic.RadianceProvokingPerformerShoes]: SHOE_EMOJIS.Shoe18,
+		[Cosmetic.RadianceProvokingPerformerShoes]: SHOE_EMOJIS.Shoe19,
 		[Cosmetic.RadianceProvokingPerformerWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
 		[Cosmetic.RadianceProvokingPerformerSeasonalHeart]: SEASON_EMOJIS.RadianceHeart,
 		[Cosmetic.HeartGesture1]: EMOTE_EMOJIS.HeartGesture,
@@ -8051,7 +8056,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.RadianceGuideBlueDye]: MISCELLANEOUS_EMOJIS.DyeBlue,
 		[Cosmetic.RadianceGuidePurpleDye]: MISCELLANEOUS_EMOJIS.DyePurple,
 		[Cosmetic.MindfulMinerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
-		[Cosmetic.TreasureCavalierBoots]: SHOE_EMOJIS.Shoe19,
+		[Cosmetic.TreasureCavalierBoots]: SHOE_EMOJIS.Shoe20,
 		[Cosmetic.TreasureShovel]: HELD_PROPS_EMOJIS.HeldProp52,
 		[Cosmetic.TreasureSeekersEyepatch]: MASK_EMOJIS.Mask96,
 		[Cosmetic.TreasureSeekersOutfit]: OUTFIT_EMOJIS.Outfit79,
@@ -8102,7 +8107,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.WoodcuttingPleafulParentMusicSheet]: MISCELLANEOUS_EMOJIS.MusicSheet,
 		[Cosmetic.WoodcuttingPleafulParentBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.WoodcuttingPleafulParentBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
-		[Cosmetic.WoodcuttingPleafulParentShoes]: SHOE_EMOJIS.Shoe20,
+		[Cosmetic.WoodcuttingPleafulParentShoes]: SHOE_EMOJIS.Shoe21,
 		[Cosmetic.WoodcuttingPleafulParentGreenDye1]: MISCELLANEOUS_EMOJIS.DyeGreen,
 		[Cosmetic.WoodcuttingPleafulParentGreenDye2]: MISCELLANEOUS_EMOJIS.DyeGreen,
 		[Cosmetic.WoodcuttingPleafulParentOutfit]: OUTFIT_EMOJIS.Outfit81,
@@ -8131,7 +8136,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.OceanWavesOutfit]: OUTFIT_EMOJIS.Outfit83,
 		[Cosmetic.OceanMantaHair]: HAIR_EMOJIS.Hair163,
 		[Cosmetic.OceanSeaFoamCape]: CAPE_EMOJIS.Cape152,
-		[Cosmetic.OceanSeaFoamBoots]: SHOE_EMOJIS.Shoe21,
+		[Cosmetic.OceanSeaFoamBoots]: SHOE_EMOJIS.Shoe22,
 		[Cosmetic.OceanWavesMask]: MASK_EMOJIS.Mask100,
 		[Cosmetic.BlueBirdGuideQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.BlueBirdGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
@@ -8190,7 +8195,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.ScarredSentryPurpleDye]: MISCELLANEOUS_EMOJIS.DyePurple,
 		[Cosmetic.ScarredSentryCape]: CAPE_EMOJIS.Cape157,
 		[Cosmetic.ScarredSentryOutfit]: OUTFIT_EMOJIS.Outfit86,
-		[Cosmetic.ScarredSentryShoes]: SHOE_EMOJIS.Shoe22,
+		[Cosmetic.ScarredSentryShoes]: SHOE_EMOJIS.Shoe23,
 		[Cosmetic.ScarredSentryProp1]: HELD_PROPS_EMOJIS.HeldProp56,
 		[Cosmetic.ScarredSentryDye]: MISCELLANEOUS_EMOJIS.Dye,
 		[Cosmetic.ScarredSentryWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
@@ -8231,7 +8236,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.VaultEldersLanternQuest4]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaultEldersLanternHeart4]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.AnniversaryGown]: OUTFIT_EMOJIS.Outfit90,
-		[Cosmetic.AnniversaryShoes]: SHOE_EMOJIS.Shoe23,
+		[Cosmetic.AnniversaryShoes]: SHOE_EMOJIS.Shoe24,
 		[Cosmetic.AnniversaryTuxedoCape]: CAPE_EMOJIS.Cape158,
 		[Cosmetic.SkyCreatorAward]: null,
 		[Cosmetic.TiptoeingTeaBrewerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
@@ -8261,7 +8266,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigrationGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationPendant]: NECKLACE_EMOJIS.Necklace52,
 		[Cosmetic.NightbirdWhispererWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
-		[Cosmetic.MigrationGuideUltimateShoes]: SHOE_EMOJIS.Shoe24,
+		[Cosmetic.MigrationGuideUltimateShoes]: SHOE_EMOJIS.Shoe25,
 		[Cosmetic.MigrationGuideUltimateOutfit]: OUTFIT_EMOJIS.Outfit92,
 		[Cosmetic.MigrationGuideUltimateFaceAccessory]: FACE_ACCESSORY_EMOJIS.FaceAccessory26,
 		[Cosmetic.CallLighthorn]: CALL_EMOJIS.Lighthorn,
@@ -8352,6 +8357,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigrationGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationGuideHeart5]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.MigrationGuideHeart6]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.PeekingPostmanShoes]: SHOE_EMOJIS.Shoe05,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

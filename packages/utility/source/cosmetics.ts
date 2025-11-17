@@ -3267,6 +3267,9 @@ export enum Cosmetic {
 	MigrationGuideQuest5 = 2594,
 	MigrationGuideHeart5 = 2595,
 	MigrationGuideHeart6 = 2596,
+
+	// 17/11/2025 | Returning Spirits #11.
+	PeekingPostmanShoes = 2597,
 }
 
 export enum CosmeticCommon {
