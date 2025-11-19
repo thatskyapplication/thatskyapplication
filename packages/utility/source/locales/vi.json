@@ -1,7 +1,7 @@
 {
 	"general": {
 		"asset-image-invalid": "",
-		"daily-quests": "",
+		"daily-quests": "Nhiệm vụ hàng ngày",
 		"days-left": {
 			"season_zero": "",
 			"season_one": "Mùa này kết thúc sau {{count}} ngày.",
