@@ -163,8 +163,8 @@ const TREASURE_CANDLES_DOUBLE_ROTATION = {
 	],
 	[RealmName.HiddenForest]: [
 		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
 	],
 	[RealmName.ValleyOfTriumph]: [
 		String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
