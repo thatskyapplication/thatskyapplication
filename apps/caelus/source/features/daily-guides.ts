@@ -1,3 +1,4 @@
+import { URL } from "node:url";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIChannel,
@@ -17,6 +18,7 @@ import {
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
+	type CreateMessageOptions,
 	Locale,
 	MessageFlags,
 	PermissionFlagsBits,
@@ -1061,9 +1063,11 @@ export async function interactive(
 interface LogModificationOptions {
 	user: Pick<APIUser, "id" | "username" | "discriminator">;
 	content: string;
+	diff?: string;
+	travellingRock?: string | null | undefined;
 }
 
-async function logModification({ user, content }: LogModificationOptions) {
+async function logModification({ user, content, diff, travellingRock }: LogModificationOptions) {
 	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
 
 	if (!guild) {
@@ -1092,11 +1096,47 @@ async function logModification({ user, content }: LogModificationOptions) {
 		return;
 	}
 
-	await client.api.channels.createMessage(channel.id, {
+	const createMessageOptions: CreateMessageOptions = {
 		allowed_mentions: { parse: [] },
-		content: `<@${user.id}> (${userTag(user)}) ${content}`,
-		flags: MessageFlags.SuppressEmbeds,
-	});
+	};
+
+	const logContent = `<@${user.id}> (${userTag(user)}) ${content}`;
+
+	if (diff && travellingRock) {
+		createMessageOptions.components = [
+			{
+				type: ComponentType.TextDisplay,
+				content: logContent,
+			},
+			{
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Thumbnail,
+					media: {
+						url: new URL(
+							`daily_guides/travelling_rocks/${travellingRock}.webp`,
+							CDN_URL,
+						).toString(),
+					},
+					description: `Travelling rock uploaded by ${user.username}.`,
+				},
+				components: [
+					{
+						type: ComponentType.TextDisplay,
+						content: diff,
+					},
+				],
+			},
+		];
+
+		createMessageOptions.flags = MessageFlags.IsComponentsV2;
+	} else if (diff) {
+		createMessageOptions.content = `${logContent}\n${diff}`;
+	} else {
+		createMessageOptions.content = logContent;
+	}
+
+	await client.api.channels.createMessage(channel.id, createMessageOptions);
 }
 
 export async function handleDistributeButton(
@@ -1126,7 +1166,13 @@ export async function set(
 	}
 
 	const interactiveOptions: InteractiveOptions = { locale };
-	const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
+	const {
+		quest1,
+		quest2,
+		quest3,
+		quest4,
+		travelling_rock: travellingRock,
+	} = await fetchDailyGuides();
 	const oldQuest1 = quest1;
 	const oldQuest2 = quest2;
 	const oldQuest3 = quest3;
@@ -1135,10 +1181,10 @@ export async function set(
 	const newQuest2 = options.getInteger("quest-2") ?? oldQuest2;
 	const newQuest3 = options.getInteger("quest-3") ?? oldQuest3;
 	const newQuest4 = options.getInteger("quest-4") ?? oldQuest4;
-	const travellingRock = options.getAttachment("travelling-rock");
+	const newTravellingRock = options.getAttachment("travelling-rock");
 
 	if (
-		!travellingRock &&
+		!newTravellingRock &&
 		oldQuest1 === newQuest1 &&
 		oldQuest2 === newQuest2 &&
 		oldQuest3 === newQuest3 &&
@@ -1152,39 +1198,31 @@ export async function set(
 		return;
 	}
 
-	const oldQuests = {
+	const oldData = {
 		quest1: oldQuest1 === null ? null : t(`quests.${oldQuest1}`, { ns: "general" }),
 		quest2: oldQuest2 === null ? null : t(`quests.${oldQuest2}`, { ns: "general" }),
 		quest3: oldQuest3 === null ? null : t(`quests.${oldQuest3}`, { ns: "general" }),
 		quest4: oldQuest4 === null ? null : t(`quests.${oldQuest4}`, { ns: "general" }),
+		travellingRock,
 	};
-
-	const newQuests = {
-		quest1: newQuest1 === null ? null : t(`quests.${newQuest1}`, { ns: "general" }),
-		quest2: newQuest2 === null ? null : t(`quests.${newQuest2}`, { ns: "general" }),
-		quest3: newQuest3 === null ? null : t(`quests.${newQuest3}`, { ns: "general" }),
-		quest4: newQuest4 === null ? null : t(`quests.${newQuest4}`, { ns: "general" }),
-	};
-
-	let logMessage = `set daily guides.\n\`\`\`diff\n${diffJSON(oldQuests, newQuests)}\n\`\`\``;
 
 	const data: DailyGuidesSetData = {
 		last_updated_user_id: interaction.member.user.id,
 		last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 	};
 
-	if (travellingRock) {
+	if (newTravellingRock) {
 		await client.api.interactions.defer(interaction.id, interaction.token, {
 			flags: MessageFlags.Ephemeral,
 		});
 
 		// Allow up to 10 MB.
-		if (!(await validateImageAttachment(interaction, travellingRock, 10_000_000))) {
+		if (!(await validateImageAttachment(interaction, newTravellingRock, 10_000_000))) {
 			return;
 		}
 
 		interactiveOptions.type = InteractiveType.Uploading;
-		const fetchedURL = await fetch(travellingRock.url);
+		const fetchedURL = await fetch(newTravellingRock.url);
 
 		const buffer = await sharp(await fetchedURL.arrayBuffer())
 			.webp()
@@ -1202,15 +1240,29 @@ export async function set(
 			}),
 		);
 
-		logMessage += `\nTravelling rock is now:\n${new URL(`daily_guides/travelling_rocks/${hashedBuffer}.webp`, CDN_URL)}`;
 		data.travelling_rock = hashedBuffer;
 	}
+
+	const newData = {
+		quest1: newQuest1 === null ? null : t(`quests.${newQuest1}`, { ns: "general" }),
+		quest2: newQuest2 === null ? null : t(`quests.${newQuest2}`, { ns: "general" }),
+		quest3: newQuest3 === null ? null : t(`quests.${newQuest3}`, { ns: "general" }),
+		quest4: newQuest4 === null ? null : t(`quests.${newQuest4}`, { ns: "general" }),
+		travellingRock: data.travelling_rock ?? travellingRock,
+	};
 
 	data.quest1 = newQuest1 === null ? null : newQuest1;
 	data.quest2 = newQuest2 === null ? null : newQuest2;
 	data.quest3 = newQuest3 === null ? null : newQuest3;
 	data.quest4 = newQuest4 === null ? null : newQuest4;
-	await logModification({ user: interaction.member.user, content: logMessage });
+
+	await logModification({
+		user: interaction.member.user,
+		content: "set daily guides.",
+		diff: `\`\`\`diff\n${diffJSON(oldData, newData)}\n\`\`\``,
+		travellingRock: data.travelling_rock ?? travellingRock,
+	});
+
 	await updateDailyGuides(data);
 	await interactive(interaction, interactiveOptions);
 }
@@ -1266,7 +1318,8 @@ export async function questsReorder(
 
 	await logModification({
 		user: interaction.member.user,
-		content: `reordered daily quests.\n\`\`\`diff\n${diffJSON(oldQuests, newQuests)}\n\`\`\``,
+		content: "reordered daily quests.",
+		diff: `\`\`\`diff\n${diffJSON(oldQuests, newQuests)}\n\`\`\``,
 	});
 
 	await updateDailyGuides(data);
