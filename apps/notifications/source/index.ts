@@ -30,6 +30,7 @@ import {
 import { Cron } from "croner";
 import { init, t } from "i18next";
 import { DateTime } from "luxon";
+import { NotificationError } from "./models/notification-error.js";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
@@ -312,7 +313,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		const notificationsSettled = await Promise.allSettled(
 			(
 				await pg<NotificationPacket & { channel_id: string; role_id: string }>(Table.Notifications)
-					.select("channel_id", "role_id", "locale")
+					.select("guild_id", "channel_id", "role_id", "locale")
 					.where({
 						type,
 						offset: timeUntilStart,
@@ -320,7 +321,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					})
 					.and.whereNotNull("channel_id")
 					.and.whereNotNull("role_id")
-			).map((notificationPacket) => {
+			).map(async (notificationPacket) => {
 				const key = timeUntilStart === 0 ? "now" : "future";
 
 				const message = isNotificationShardEruptionData(notification)
@@ -341,17 +342,21 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 							}),
 						});
 
-				return client.channels.createMessage(notificationPacket.channel_id, {
-					allowed_mentions: { roles: [notificationPacket.role_id] },
-					content: `<@&${notificationPacket.role_id}> ${message}`,
-					enforce_nonce: true,
-					flags: MessageFlags.SuppressEmbeds,
-					nonce: `${type}-${notificationPacket.channel_id}`,
-				});
+				try {
+					return await client.channels.createMessage(notificationPacket.channel_id, {
+						allowed_mentions: { roles: [notificationPacket.role_id] },
+						content: `<@&${notificationPacket.role_id}> ${message}`,
+						enforce_nonce: true,
+						flags: MessageFlags.SuppressEmbeds,
+						nonce: `${type}-${notificationPacket.channel_id}`,
+					});
+				} catch (error) {
+					throw new NotificationError(notificationPacket, error);
+				}
 			}),
 		);
 
-		const errors = [];
+		const errors: NotificationError[] = [];
 
 		for (const result of notificationsSettled) {
 			if (result.status !== "rejected") {
