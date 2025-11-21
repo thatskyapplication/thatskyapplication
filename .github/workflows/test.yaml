@@ -7,7 +7,7 @@ jobs:
     name: Testing
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -33,7 +33,7 @@ jobs:
     name: Styling
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - uses: biomejs/setup-biome@v2
 
@@ -43,7 +43,7 @@ jobs:
     name: Typographical errors
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Scan for typographical errors
         uses: crate-ci/typos@master

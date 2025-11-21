@@ -16,7 +16,7 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: thatskyapplication
           repositories: thatskyapplication
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           token: ${{ steps.create-token.outputs.token }}
           persist-credentials: false
