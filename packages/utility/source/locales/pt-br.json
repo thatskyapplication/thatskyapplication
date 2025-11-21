@@ -1,6 +1,6 @@
 {
 	"general": {
-		"asset-image-invalid": "",
+		"asset-image-invalid": "Por favor faça o upload de um anexo válido! Precisa ser menor ou igual a {{size}} megabytes e ser um arquivo GIF, JPEG, PNG ou WebP.",
 		"daily-quests": "Missões diárias",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
@@ -2242,7 +2242,7 @@
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
-		"cannot-view-thread": "",
+		"cannot-view-thread": "Não tenho permissões para visualizar este tópico.",
 		"view": "Exibir",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar",
