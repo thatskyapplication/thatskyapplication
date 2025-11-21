@@ -5579,6 +5579,22 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Mischief Dark Dragon Rug.
 	 */
 	SmallPlaceableProp110: { id: "1433429754832228474", name: "110_small_placeable_prop" },
+	/**
+	 * Mischief Symbol 1.
+	 */
+	SmallPlaceableProp111: { id: "1441416741791203378", name: "111_small_placeable_prop" },
+	/**
+	 * Mischief Symbol 2.
+	 */
+	SmallPlaceableProp112: { id: "1441416743888359454", name: "112_small_placeable_prop" },
+	/**
+	 * Mischief Symbol 3.
+	 */
+	SmallPlaceableProp113: { id: "1441416746245423267", name: "113_small_placeable_prop" },
+	/**
+	 * Mischief Symbol 4.
+	 */
+	SmallPlaceableProp114: { id: "1441416748116217977", name: "114_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5691,6 +5707,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp108: { id: "1433429764848226346", name: "108_small_placeable_prop" },
 	SmallPlaceableProp109: { id: "1433429766777737287", name: "109_small_placeable_prop" },
 	SmallPlaceableProp110: { id: "1433429769617277048", name: "110_small_placeable_prop" },
+	SmallPlaceableProp111: { id: "1441416756836171870", name: "111_small_placeable_prop" },
+	SmallPlaceableProp112: { id: "1441416764645707806", name: "112_small_placeable_prop" },
+	SmallPlaceableProp113: { id: "1441416773701468260", name: "113_small_placeable_prop" },
+	SmallPlaceableProp114: { id: "1441416775349833780", name: "114_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean) {
@@ -8344,10 +8364,10 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MischiefCobwebDecor]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp109,
 		[Cosmetic.MischiefDarkDragonRug]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp110,
 		[Cosmetic.MischiefWitheredSapling]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp94,
-		[Cosmetic.MischiefSymbol1]: null,
-		[Cosmetic.MischiefSymbol2]: null,
-		[Cosmetic.MischiefSymbol3]: null,
-		[Cosmetic.MischiefSymbol4]: null,
+		[Cosmetic.MischiefSymbol1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp111,
+		[Cosmetic.MischiefSymbol2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp112,
+		[Cosmetic.MischiefSymbol3]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp113,
+		[Cosmetic.MischiefSymbol4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp114,
 		[Cosmetic.PuzzleBox]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp95,
 		[Cosmetic.PuzzleChest]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp96,
 		[Cosmetic.PuzzleCage]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp97,
