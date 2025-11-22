@@ -3109,7 +3109,7 @@ export default {
 			"gift-message-heart-result": "{{user}} now has {{number}}{{emoji}}.",
 			"gift-hearts-left-to-gift": "You can gift {{number}} more {{emoji}} today.",
 			"gift-hearts-left-to-gift-double":
-				"You can gift {{number}} more {{emoji}} today.\nThere is currently a double heart event from {{date1}} to {{date2}}",
+				"You can gift {{number}} more {{emoji}} today.\nThere is currently a double heart event from {{date1}} to {{date2}}!",
 			"history-no-hearts": "You have 0{{emoji}}.",
 			"history-title": "Heart history",
 			"history-summary": "Gifted: {{gifted}}{{emoji}}\nReceived: {{received}}{{emoji}}",
