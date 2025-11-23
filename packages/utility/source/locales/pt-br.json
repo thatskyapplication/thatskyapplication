@@ -2780,7 +2780,7 @@
 			],
 			"gift-message-heart-result": "{{user}} agora tem {{number}}{{emoji}}.",
 			"gift-hearts-left-to-gift": "Você pode presentear mais {{number}} {{emoji}} hoje.",
-			"gift-hearts-left-to-gift-double": "Você pode presentear mais {{number}} {{emoji}} hoje.\nAtualmente, está acontecendo um evento de corações em dobro de {{date1}} até {{date2}}",
+			"gift-hearts-left-to-gift-double": "Você pode presentear mais {{number}} {{emoji}} hoje.\nAtualmente, está acontecendo um evento de corações em dobro de {{date1}} até {{date2}}!",
 			"history-no-hearts": "Você possui 0{{emoji}}.",
 			"history-title": "Histórico de corações",
 			"history-summary": "Oferecido: {{gifted}}{{emoji}}\nRecebido: {{received}}{{emoji}}",
