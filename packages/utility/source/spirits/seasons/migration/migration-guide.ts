@@ -92,6 +92,14 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.MigrationGuideHeart6,
 				},
 			],
+			[null],
+			[
+				null,
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 7 },
+					cosmetic: Cosmetic.MigrationGuideHeart7,
+				},
+			],
 		],
 	},
 });
