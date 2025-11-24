@@ -3271,6 +3271,9 @@ export enum Cosmetic {
 
 	// 17/11/2025 | Returning Spirits #11.
 	PeekingPostmanShoes = 2597,
+
+	// 24/11/2025 | Season of Migration Quest 6.
+	MigrationGuideQuest6 = 2599,
 }
 
 export enum CosmeticCommon {
