@@ -2826,35 +2826,12 @@ export default {
 	},
 	features: {
 		about: {
-			description: `### Description\n\nWelcome to the lovely Discord application for [Sky: Children of the Light]({{url}} "thatskygame")!\n\nSo you'd like to know about me, huh? Well, I like long walks across the Sanctuary Islands. Oh, and don't forget about gliding all over the Starlight Desert. Also... JELLYFISH!\n\nCheck out these useful links:`,
+			description:
+				"### Translating\n\nWilling to help translate? Spotted a translation mistake? We translate over at [Crowdin]({{crowdinURL}}), and your contributions will help everyone!\n### Daily guides\n\nDo you look up the daily guides? They're manually filled in every day at reset. Why not be one of those awesome people?\n### Friendship actions\n\nThe GIFs you see for hugging, hair tousling, krilling, etc. are all contributed by the community. Submit your own into the mix!\n### Reporting issues & giving feedback\n\nFound a bug? Want to give feedback? Join the [support server]({{supportServerInviteURL}}) and let us know all about it!\n### Sponsoring\n\nYou can help keep Caelus afloat by sponsoring! You can sponsor via [GitHub]({{githubSponsorsURL}}) or within Discord itself via the button below!",
+			"magical-companion": "Your magical companion for [Sky: Children of the Light]({{url}}).",
 			links:
-				"- [Invite]({{applicationInviteURL}})\n- [Support]({{supportServerInviteURL}})\n- [Website]({{websiteURL}})",
-			sponsor:
-				"### Sponsoring\n\nWant to give support? There are ways you can do that! Thank you in advance!\n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
-			"issues-feedback":
-				"### Reporting issues & giving feedback\n\nYou may join the [support server]({{supportServerInviteURL}}) to do this.\n\nYou may also use the buttons below to do this without joining the server, if that's more your style.",
-			"feedback-button": "Submit feedback",
-			"issue-button": "Report an issue",
-			"feedback-modal-title": "Submit feedback",
-			"feedback-modal-label-title-label": "Title",
-			"feedback-modal-label-title-description": "Enter a suitable title for your feedback.",
-			"feedback-modal-label-description-label": "Feedback",
-			"feedback-modal-label-description-description": "Type your feedback here!",
-			"feedback-modal-label-description-text-input-placeholder":
-				"It would be cool to...\nI wish we could...",
-			"feedback-submission": "Thank you for your feedback! {{emoji}}",
-			"issue-modal-title": "Report issue",
-			"issue-modal-label-title-label": "Title",
-			"issue-modal-label-title-description": "Enter a suitable title for your issue.",
-			"issue-modal-label-description-label": "Description",
-			"issue-modal-label-description-description": "Describe your issue here.",
-			"issue-modal-label-description-text-input-placeholder":
-				"Every time I try to...\nNothing happens when...",
-			"issue-modal-label-attachments-label": "Attachments",
-			"issue-modal-label-attachments-description": "Screenshots are helpful and appreciated! 🩵",
-			"issue-submission": "Thank you for reporting your issue! {{emoji}}",
-			"issue-submission-with-errors":
-				"Thank you for reporting your issue! {{emoji}}\n\nNote that the following assets were not sent as they were too big:\n{{errors}}\nYou are welcome to join the [support server]({{supportServerInviteURL}}) and report without limits!",
+				"[Invite]({{applicationInviteURL}}) | [Support]({{supportServerInviteURL}}) | [Website]({{websiteURL}})",
+			"final-message": `Join the [support server]({{url}}) if you're interested in anything here! We're always here to lend a helping hand! 🩵`,
 		},
 		calculate: {
 			"goal-already-achieved": "You have already achieved your goal!",
