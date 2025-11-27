@@ -29,7 +29,6 @@ import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/
 import { APPLICATION_INVITE_URL, SUPPORT_SERVER_INVITE_URL } from "./configuration.js";
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
-	ALLOWED_MEDIA_TYPES,
 	ANIMATED_HASH_PREFIX,
 	MAXIMUM_ASSET_SIZE,
 	SKY_PROFILES_URL,
@@ -192,13 +191,6 @@ export function notInCachedGuildResponse(locale: Locale) {
 		}),
 		flags: MessageFlags.SuppressEmbeds | MessageFlags.Ephemeral,
 	};
-}
-
-export function isValidAttachment(attachment: APIAttachment) {
-	return (
-		attachment.size <= MAXIMUM_ASSET_SIZE &&
-		ALLOWED_MEDIA_TYPES.some((mediaType) => attachment.content_type === mediaType)
-	);
 }
 
 export function isValidImageAttachment(attachment: APIAttachment, maximumSize: number) {

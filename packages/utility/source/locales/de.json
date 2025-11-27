@@ -2521,29 +2521,10 @@
 	},
 	"features": {
 		"about": {
-			"description": "### Beschreibung\n\nWillkommen zur Discord App für [Sky: Kinder des Lichts] ({{url}} \"thatskygame\")!\n\nDu willst also etwas über mich wissen, hm? Ich mag lange Spaziergänge auf den Zufluchtsinseln. Oh, und nicht zu vergessen, ich liebe es, über die Sternenlichtwüste zu fliegen. Und natürlich.... QUALLEN!\n\nSchau dir diese nützlichen Links an:",
-			"links": "- [Invite]({{applicationInviteURL}})\n- [Support]({{supportServerInviteURL}})\n- [Website]({{websiteURL}})",
-			"sponsor": "### Sponsoring\n\nDu möchtest mich unterstützen? Dafür gibt es mehrere Möglichkeiten. Vielen Dank im Voraus! \n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
-			"issues-feedback": "### Fehler melden & Feedback geben\n\nDu kannst dafür den [Support Server]({{supportServerInviteURL}}) beitreten.\n\nOder du benutzt den unteren Button dafür, ohne den Server beitreten zu müssen - wenn dir das mehr zusagt.",
-			"feedback-button": "Feedback einreichen",
-			"issue-button": "Einen Fehler melden",
-			"feedback-modal-title": "Feedback einreichen",
-			"feedback-modal-label-title-label": "",
-			"feedback-modal-label-title-description": "Gib einen passenden Titel für dein Feedback ein.",
-			"feedback-modal-label-description-label": "",
-			"feedback-modal-label-description-description": "Schreibe dein Feedback in dieses Feld!",
-			"feedback-modal-label-description-text-input-placeholder": "Es wäre cool, wenn... \nIch wünschte, wir könnten...",
-			"feedback-submission": "Dankeschön für dein Feedback! {{emoji}}",
-			"issue-modal-title": "Fehler melden",
-			"issue-modal-label-title-label": "",
-			"issue-modal-label-title-description": "Gib einen passenden Titel für den Fehler ein.",
-			"issue-modal-label-description-label": "",
-			"issue-modal-label-description-description": "Beschreibe den Fehler.",
-			"issue-modal-label-description-text-input-placeholder": "Jedes Mal, wenn ich versuche...\nNichts geschieht, wenn...",
-			"issue-modal-label-attachments-label": "",
-			"issue-modal-label-attachments-description": "",
-			"issue-submission": "Dankeschön für das Melden des Fehlers! {{emoji}}",
-			"issue-submission-with-errors": ""
+			"description": "",
+			"magical-companion": "",
+			"links": "",
+			"final-message": ""
 		},
 		"calculate": {
 			"goal-already-achieved": "",

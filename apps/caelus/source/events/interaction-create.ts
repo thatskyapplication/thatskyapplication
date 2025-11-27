@@ -28,12 +28,6 @@ import {
 } from "../commands/index.js";
 import { client } from "../discord.js";
 import {
-	feedbackModalResponse,
-	feedbackSubmission,
-	issueModalResponse,
-	issueSubmission,
-} from "../features/about.js";
-import {
 	parseSetItems,
 	parseViewEvent,
 	parseViewSpirit,
@@ -347,16 +341,6 @@ export default {
 			try {
 				if (id === CustomId.DataDelete) {
 					await deleteUserData(data);
-					return;
-				}
-
-				if (id === CustomId.AboutFeedback) {
-					await feedbackModalResponse(data);
-					return;
-				}
-
-				if (id === CustomId.AboutIssue) {
-					await issueModalResponse(data);
 					return;
 				}
 
@@ -1067,16 +1051,6 @@ export default {
 			const [id] = data.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
-				if (id === CustomId.AboutFeedbackModal) {
-					await feedbackSubmission(data);
-					return;
-				}
-
-				if (id === CustomId.AboutIssueModal) {
-					await issueSubmission(data);
-					return;
-				}
-
 				if (id === CustomId.SkyProfileNameModal) {
 					await skyProfileSetName(data);
 					return;

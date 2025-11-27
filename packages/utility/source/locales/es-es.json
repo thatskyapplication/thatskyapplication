@@ -2521,29 +2521,10 @@
 	},
 	"features": {
 		"about": {
-			"description": "### Descripción\n\n¡Bienvenido a la agradable aplicación de Discord para [Sky: Niños de la Luz]({{url}} \"thatskygame\")!\n\nAsí que te gustaría saber más sobre mí, ¿eh? Bueno, me gustan los paseos largos por las Islas Santuario. Oh, y no puedo olvidar el deslizarme por todo el Desierto Luz de Estrellas. También...¡LAS MEDUSAS!\n\nMira estos útiles links:\n",
-			"links": "- [Invitar]({{applicationInviteURL}})\n- [Soporte]({{supportServerInviteURL}})\n- [Web]({{websiteURL}})",
-			"sponsor": "### Patrocinar\n\n¿Te gustaría apoyarnos? ¡Hay formas de hacerlo! ¡Gracias de antemano!\n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
-			"issues-feedback": "### Reportar problemas y hacer comentarios\n\nPuedes unirte al [servidor de soporte]({{supportServerInviteURL}}) para hacerlo.\n\nTambién puedes utilizar los botones de abajo para hacerlo sin unirte al servidor, si lo prefieres.",
-			"feedback-button": "Enviar comentario",
-			"issue-button": "Reportar un problema",
-			"feedback-modal-title": "Enviar feedback",
-			"feedback-modal-label-title-label": "",
-			"feedback-modal-label-title-description": "Introduce un título acorde a tu comentario.",
-			"feedback-modal-label-description-label": "",
-			"feedback-modal-label-description-description": "¡Escribe tu comentario aquí!",
-			"feedback-modal-label-description-text-input-placeholder": "Estaría bien que...\nMe gustaría poder...",
-			"feedback-submission": "¡Gracias por tu comentario! {{emoji}}",
-			"issue-modal-title": "Reportar problema",
-			"issue-modal-label-title-label": "",
-			"issue-modal-label-title-description": "Introduce un título acorde a tu problema.",
-			"issue-modal-label-description-label": "",
-			"issue-modal-label-description-description": "Describe tu problema aquí.",
-			"issue-modal-label-description-text-input-placeholder": "Cada vez que intento...\nNo pasa nada cuando...",
-			"issue-modal-label-attachments-label": "",
-			"issue-modal-label-attachments-description": "",
-			"issue-submission": "¡Gracias por reportar tu problema! {{emoji}}",
-			"issue-submission-with-errors": ""
+			"description": "",
+			"magical-companion": "",
+			"links": "",
+			"final-message": ""
 		},
 		"calculate": {
 			"goal-already-achieved": "¡Ya has alcanzado tu objetivo!",

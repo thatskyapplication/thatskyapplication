@@ -2496,6 +2496,6 @@ function skyProfileIconRoute(userId: Snowflake, hash: string) {
 	return `sky_profiles/icons/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 }
 
-export function skyProfileIconURL(userId: Snowflake, icon: string) {
+function skyProfileIconURL(userId: Snowflake, icon: string) {
 	return new URL(skyProfileIconRoute(userId, icon), CDN_URL).href;
 }

@@ -2522,28 +2522,9 @@
 	"features": {
 		"about": {
 			"description": "",
+			"magical-companion": "",
 			"links": "",
-			"sponsor": "",
-			"issues-feedback": "",
-			"feedback-button": "",
-			"issue-button": "",
-			"feedback-modal-title": "",
-			"feedback-modal-label-title-label": "",
-			"feedback-modal-label-title-description": "",
-			"feedback-modal-label-description-label": "",
-			"feedback-modal-label-description-description": "",
-			"feedback-modal-label-description-text-input-placeholder": "",
-			"feedback-submission": "",
-			"issue-modal-title": "",
-			"issue-modal-label-title-label": "",
-			"issue-modal-label-title-description": "",
-			"issue-modal-label-description-label": "",
-			"issue-modal-label-description-description": "",
-			"issue-modal-label-description-text-input-placeholder": "",
-			"issue-modal-label-attachments-label": "",
-			"issue-modal-label-attachments-description": "",
-			"issue-submission": "",
-			"issue-submission-with-errors": ""
+			"final-message": ""
 		},
 		"calculate": {
 			"goal-already-achieved": "¡Ya has alcanzado tu objetivo!",
