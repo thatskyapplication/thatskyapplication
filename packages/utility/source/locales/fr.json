@@ -2521,29 +2521,10 @@
 	},
 	"features": {
 		"about": {
-			"description": "### Description\n\nBienvenue sur la charmante application Discord pour [Sky: Enfants de la Lumière]({{url}} \"thatskygame\") !\n\nTu aimerais en savoir plus sur moi, hein ? Eh bien, j'apprécie les longues marches à travers les Îles du Sanctuaire. Oh, et sans oublier planer dans tout le Désert Stellaire. Et aussi... LES MÉDUSES !\n\nJetez un coup d'œil à ces liens utiles :",
-			"links": "- [Invitation]({{applicationInviteURL}})\n- [Assistance]({{supportServerInviteURL}})\n- [Site Web]({{websiteURL}})",
-			"sponsor": "### Parrainage\n\nEnvie d'envoyer du soutien ? Il y a pleins de façon de le faire ! Merci d'avance !\n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
-			"issues-feedback": "### Reporter un problème & envoyer un retour\n\nVous pouvez rejoindre le [serveur d'assistance]({{supportServerInviteURL}}) pour faire ça.\n\nVous pouvez également utiliser les boutons en dessous pour le faire sans rejoindre le serveur, si cela vous convient mieux.",
-			"feedback-button": "Soumettre un retour",
-			"issue-button": "Reporter un problème",
-			"feedback-modal-title": "Soumettre un retour",
-			"feedback-modal-label-title-label": "Titre",
-			"feedback-modal-label-title-description": "Entrer un titre convenable pour votre retour.",
-			"feedback-modal-label-description-label": "Retour",
-			"feedback-modal-label-description-description": "Écrivez votre retour ici !",
-			"feedback-modal-label-description-text-input-placeholder": "Ce serait bien de...\nJ'aimerais que nous puissions...",
-			"feedback-submission": "Merci de votre retour ! {{emoji}}",
-			"issue-modal-title": "Reporter un problème",
-			"issue-modal-label-title-label": "Titre",
-			"issue-modal-label-title-description": "Entrer un titre convenable pour votre problème.",
-			"issue-modal-label-description-label": "Description",
-			"issue-modal-label-description-description": "Décrivez votre problème ici.",
-			"issue-modal-label-description-text-input-placeholder": "Chaque fois que j'essaie...\nRien ne ce passe quand...",
-			"issue-modal-label-attachments-label": "Pièce jointe",
-			"issue-modal-label-attachments-description": "Les captures d'écran aident énormément et sont très appréciées ! 🩵",
-			"issue-submission": "Merci d'avoir reporté votre problème ! {{emoji}}",
-			"issue-submission-with-errors": "Merci d'avoir reporté votre problème ! {{emoji}}\n\nVeuillez noter que le contenu suivant n'a pas pu être envoyé car sa taille dépasse celle supportée :\n{{errors}}\nNous vous recommandons de rejoindre le [serveur de support]({{supportServerInviteURL}}) et de reporter sans limites !"
+			"description": "",
+			"magical-companion": "",
+			"links": "",
+			"final-message": ""
 		},
 		"calculate": {
 			"goal-already-achieved": "Vous avez déjà atteint votre objectif !",

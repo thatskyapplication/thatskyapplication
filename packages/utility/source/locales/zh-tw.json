@@ -2522,28 +2522,9 @@
 	"features": {
 		"about": {
 			"description": "",
+			"magical-companion": "",
 			"links": "",
-			"sponsor": "",
-			"issues-feedback": "### 報告問題並提供回饋\n\n您可以加入[支援伺服器]({{supportServerInviteURL}})來執行此操作。\n\n如果您喜歡這種方式，您也可以使用下面的按鈕來執行此操作而無需加入伺服器。",
-			"feedback-button": "提交回饋",
-			"issue-button": "報告問題",
-			"feedback-modal-title": "提交回饋",
-			"feedback-modal-label-title-label": "",
-			"feedback-modal-label-title-description": "輸入適合您的回饋的標題。",
-			"feedback-modal-label-description-label": "",
-			"feedback-modal-label-description-description": "在此輸入您的回饋！",
-			"feedback-modal-label-description-text-input-placeholder": "很酷的…\n我希望我們可以……",
-			"feedback-submission": "感謝您的回饋！ {{emoji}}",
-			"issue-modal-title": "報告問題",
-			"issue-modal-label-title-label": "",
-			"issue-modal-label-title-description": "輸入適合您的問題的標題。",
-			"issue-modal-label-description-label": "",
-			"issue-modal-label-description-description": "在此描述您的問題。",
-			"issue-modal-label-description-text-input-placeholder": "每次我嘗試…\n都沒有任何反應…",
-			"issue-modal-label-attachments-label": "",
-			"issue-modal-label-attachments-description": "",
-			"issue-submission": "感謝您回報問題！ {{emoji}}",
-			"issue-submission-with-errors": ""
+			"final-message": ""
 		},
 		"calculate": {
 			"goal-already-achieved": "你已達成你的目標！",
