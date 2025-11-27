@@ -2521,29 +2521,10 @@
 	},
 	"features": {
 		"about": {
-			"description": "### Descrição\n\nBem-vindo(a) à amada aplicação do Discord para [Sky: Filhos da Luz]({{url}} \"thatskygame\")!\n\nQuer saber sobre mim, hã? Bem, eu adoro longas caminhadas pelas Ilhas do Santuário. Ah, e não esqueça de planear por todo o Deserto Estelar. E também... ÁGUA-VIVAS!\n\nConfira estes links úteis:",
-			"links": "- [Convidar]({{applicationInviteURL}})\n- [Suporte]({{supportServerInviteURL}})\n- [Website]({{websiteURL}})",
-			"sponsor": "### Patrocínio\n\nQuer ajudar a apoiar? Existem várias formas de fazer isso!\nAgradecemos desde já!\n- [Patreon]({{patreonURL}})\n- [Ko-fi]({{koFiURL}})\n- [GitHub]({{githubSponsorsURL}})",
-			"issues-feedback": "### Reportar problemas & enviar feedback\n\nVocê pode entrar no [servidor de suporte]({{supportServerInviteURL}}) para fazer isso.\n\nTambém pode usar os botões abaixo para isso, sem precisar entrar no servidor, se preferir.",
-			"feedback-button": "Enviar feedback",
-			"issue-button": "Relatar um problema",
-			"feedback-modal-title": "Enviar feedback",
-			"feedback-modal-label-title-label": "Título",
-			"feedback-modal-label-title-description": "Insira um título apropriado para seu feedback.",
-			"feedback-modal-label-description-label": "Feedback",
-			"feedback-modal-label-description-description": "Digite seu Feedback aqui!",
-			"feedback-modal-label-description-text-input-placeholder": "Seria bacana poder...\nGostaria que pudéssemos...",
-			"feedback-submission": "Agradecemos pelo seu feedback! {{emoji}}",
-			"issue-modal-title": "Reportar problema",
-			"issue-modal-label-title-label": "Título",
-			"issue-modal-label-title-description": "Insira um título apropriado para seu problema.",
-			"issue-modal-label-description-label": "Descrição",
-			"issue-modal-label-description-description": "Descreva seu problema aqui.",
-			"issue-modal-label-description-text-input-placeholder": "Toda vez eu tento...\nNada acontece quando...",
-			"issue-modal-label-attachments-label": "Anexos",
-			"issue-modal-label-attachments-description": "Screenshots ajudam bastante e são sempre bem-vindas! 🩵",
-			"issue-submission": "Agradecemos por reportar seu problema! {{emoji}}",
-			"issue-submission-with-errors": "Obrigado por reportar seu problema! {{emoji}}\n\nNote que os seguintes arquivos não foram enviados por serem muito grandes:\n{{errors}}\nVocê é bem-vindo para entrar no [servidor de suporte] ({{supportServerInviteURL}}) e reportar sem limites!"
+			"description": "",
+			"magical-companion": "",
+			"links": "",
+			"final-message": ""
 		},
 		"calculate": {
 			"goal-already-achieved": "Você já conquistou seu objetivo!",
