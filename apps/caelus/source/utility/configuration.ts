@@ -32,8 +32,6 @@ const envSchema = z.object({
 	MESSAGE_LOG_CHANNEL_ID: z.string().min(1),
 	MESSAGE_LOG_EXPLICIT_ALLOWED_CHANNEL_IDS: messageLogChannelIdsSchema,
 	MESSAGE_LOG_EXPLICIT_DISALLOWED_CHANNEL_IDS: messageLogChannelIdsSchema,
-	IDEA_TAG_ID: z.string().min(1),
-	ISSUE_TAG_ID: z.string().min(1),
 	DEVELOPER_ROLE_ID: z.string().min(1),
 	SUPPORTER_ROLE_ID: z.string().min(1),
 	ARTIST_ROLE_ID: z.string().min(1),
