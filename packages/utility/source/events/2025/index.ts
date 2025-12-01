@@ -1,6 +1,7 @@
 import auroraHomecoming from "./aurora-homecoming.js";
 import DaysOfBloom from "./days-of-bloom.js";
 import DaysOfColour from "./days-of-colour.js";
+import daysOfFeast from "./days-of-feast.js";
 import DaysOfFortune from "./days-of-fortune.js";
 import daysOfGiving from "./days-of-giving.js";
 import DaysOfLove from "./days-of-love.js";
@@ -28,4 +29,5 @@ export default [
 	radianceEvent,
 	daysOfMischief,
 	daysOfGiving,
+	daysOfFeast,
 ] as const;
