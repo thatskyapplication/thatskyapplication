@@ -722,6 +722,7 @@ export default {
 			[EventId.RadianceEvent2025]: "Radiance Event",
 			[EventId.DaysOfMischief2025]: "Days of Mischief",
 			[EventId.DaysOfGiving2025]: "Days of Giving",
+			[EventId.RadianceEvent22025]: "Radiance Event",
 			[EventId.DaysOfFeast2025]: "Days of Feast",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
@@ -820,9 +821,11 @@ export default {
 			[EventId.DaysOfMoonlight2025]:
 				"https://sky-children-of-the-light.fandom.com/Days_of_Moonlight",
 			[EventId.RadianceEvent2025]:
-				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event",
+				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event_-_October_2025",
 			[EventId.DaysOfMischief2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
 			[EventId.DaysOfGiving2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
+			[EventId.RadianceEvent22025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event_-_December_2025",
 			[EventId.DaysOfFeast2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
