@@ -102,6 +102,10 @@ export default new GuideSpirit({
 			[
 				null,
 				{
+					cosmetic: Cosmetic.MigrationGuideProp,
+					cost: { candles: 32 },
+				},
+				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 7 },
 					cosmetic: Cosmetic.MigrationGuideHeart7,
 				},

@@ -3277,6 +3277,9 @@ export enum Cosmetic {
 
 	// 01/12/2025 | Season of Migration Quest 7.
 	MigrationGuideQuest7 = 2600,
+
+	// 01/12/2025 | Version 0.31.5.
+	MigrationGuideProp = 2601,
 }
 
 export enum CosmeticCommon {

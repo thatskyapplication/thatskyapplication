@@ -2549,6 +2549,7 @@ export default {
 			[Cosmetic.PuzzleBox]: "Puzzle Box",
 			[Cosmetic.PuzzleChest]: "Puzzle Chest",
 			[Cosmetic.PuzzleCage]: "Puzzle Cage",
+			[Cosmetic.MigrationGuideProp]: "Prop",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
