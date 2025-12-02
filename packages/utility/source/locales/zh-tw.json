@@ -13,7 +13,7 @@
 		"error-timed-out": "",
 		"event-tickets": "",
 		"realms": {
-			"Isles of Dawn": "晨島",
+			"Isle of Dawn": "晨島",
 			"Daylight Prairie": "雲野",
 			"Hidden Forest": "雨林",
 			"Valley of Triumph": "霞谷",
@@ -505,7 +505,9 @@
 			"79": "月華節",
 			"80": "彩染活動",
 			"81": "搗蛋節",
-			"82": ""
+			"82": "",
+			"83": "",
+			"84": "盛宴節"
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief",
@@ -590,7 +592,9 @@
 			"79": "https://sky-children-of-the-light.fandom.com/zh/wiki/%E6%9C%88%E8%8F%AF%E7%AF%80",
 			"80": "",
 			"81": "",
-			"82": ""
+			"82": "",
+			"83": "",
+			"84": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -2238,7 +2242,8 @@
 			"2586": "",
 			"2587": "",
 			"2588": "",
-			"2589": ""
+			"2589": "",
+			"2601": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

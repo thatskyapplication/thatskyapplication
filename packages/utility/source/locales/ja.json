@@ -13,7 +13,7 @@
 		"error-timed-out": "",
 		"event-tickets": "イベントチケット",
 		"realms": {
-			"Isles of Dawn": "孤島",
+			"Isle of Dawn": "孤島",
 			"Daylight Prairie": "草原",
 			"Hidden Forest": "雨林",
 			"Valley of Triumph": "峡谷",
@@ -505,7 +505,9 @@
 			"79": "月灯りの日々",
 			"80": "光に染まるイベント",
 			"81": "いたずらな日々",
-			"82": ""
+			"82": "",
+			"83": "",
+			"84": "聖なる星の日々"
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々#2019/10",
@@ -590,7 +592,9 @@
 			"79": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%9C%88%E7%81%AF%E3%82%8A%E3%81%AE%E6%97%A5%E3%80%85",
 			"80": "",
 			"81": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々",
-			"82": ""
+			"82": "",
+			"83": "",
+			"84": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "カタログから推測する",
@@ -2238,7 +2242,8 @@
 			"2586": "",
 			"2587": "",
 			"2588": "",
-			"2589": ""
+			"2589": "",
+			"2601": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
