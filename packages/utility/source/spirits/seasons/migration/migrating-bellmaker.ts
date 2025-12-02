@@ -10,7 +10,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.MigratingBellmaker,
 	seasonId: SeasonId.Migration,
 	call,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

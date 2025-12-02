@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.TumblingTroublemaker,
 	seasonId: SeasonId.Passage,
 	emote,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	offer: {
 		seasonal: [
 			[

@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.PiggybackLightseeker,
 	seasonId: SeasonId.Lightseekers,
 	action,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,

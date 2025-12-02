@@ -4,12 +4,12 @@ import type { SpiritIds } from "../../utility/spirits.js";
 import DaylightPrairie from "./daylight-prairie/index.js";
 import GoldenWasteland from "./golden-wasteland/index.js";
 import HiddenForest from "./hidden-forest/index.js";
-import IslesOfDawn from "./isles-of-dawn/index.js";
+import IsleOfDawn from "./isle-of-dawn/index.js";
 import ValleyOfTriumph from "./valley-of-triumph/index.js";
 import VaultOfKnowledge from "./vault-of-knowledge/index.js";
 
 export const REALMS = [
-	IslesOfDawn,
+	IsleOfDawn,
 	DaylightPrairie,
 	HiddenForest,
 	ValleyOfTriumph,
@@ -17,7 +17,7 @@ export const REALMS = [
 	VaultOfKnowledge,
 ] as const;
 
-export const STANDARD_SPIRITS = IslesOfDawn.spirits.concat(
+export const STANDARD_SPIRITS = IsleOfDawn.spirits.concat(
 	DaylightPrairie.spirits,
 	HiddenForest.spirits,
 	ValleyOfTriumph.spirits,
@@ -26,7 +26,7 @@ export const STANDARD_SPIRITS = IslesOfDawn.spirits.concat(
 );
 
 export const ELDER_SPIRITS = [
-	IslesOfDawn.elder,
+	IsleOfDawn.elder,
 	DaylightPrairie.elder,
 	HiddenForest.elder,
 	ValleyOfTriumph.elder,

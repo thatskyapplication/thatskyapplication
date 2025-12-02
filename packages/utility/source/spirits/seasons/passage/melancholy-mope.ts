@@ -10,7 +10,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.MelancholyMope,
 	seasonId: SeasonId.Passage,
 	emote,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

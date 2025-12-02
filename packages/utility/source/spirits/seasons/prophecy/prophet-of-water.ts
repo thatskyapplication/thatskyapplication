@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.ProphetOfWater,
 	seasonId: SeasonId.Prophecy,
 	emote,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,

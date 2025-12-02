@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.BoogieKid,
 	seasonId: SeasonId.Belonging,
 	emote,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,

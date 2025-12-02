@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.TroupeGreeter,
 	seasonId: SeasonId.Rhythm,
 	emote,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [

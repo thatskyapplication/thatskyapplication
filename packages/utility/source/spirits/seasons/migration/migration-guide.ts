@@ -7,7 +7,7 @@ import { SpiritId } from "../../../utility/spirits.js";
 export default new GuideSpirit({
 	id: SpiritId.MigrationGuide,
 	seasonId: SeasonId.Migration,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	offer: {
 		inProgress: true,
 		current: [

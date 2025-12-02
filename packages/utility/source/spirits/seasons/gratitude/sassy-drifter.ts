@@ -9,7 +9,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.SassyDrifter,
 	seasonId: SeasonId.Gratitude,
 	stance: Cosmetic.StanceSassy,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	hasMarketingVideo: true,
 	offer: {
 		seasonal: [

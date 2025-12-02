@@ -4,7 +4,7 @@ import { skyDate } from "./dates.js";
 import { CDN_URL } from "./routes.js";
 
 export enum RealmName {
-	IslesOfDawn = "Isles of Dawn",
+	IsleOfDawn = "Isle of Dawn",
 	DaylightPrairie = "Daylight Prairie",
 	HiddenForest = "Hidden Forest",
 	ValleyOfTriumph = "Valley of Triumph",
@@ -97,7 +97,7 @@ export const WINGED_LIGHT_THRESHOLDS = [
 ] as const satisfies Readonly<number[]>;
 
 export const AreaToWingedLight = {
-	[RealmName.IslesOfDawn]: 10,
+	[RealmName.IsleOfDawn]: 10,
 	[RealmName.DaylightPrairie]: 24,
 	[RealmName.HiddenForest]: 21,
 	[RealmName.ValleyOfTriumph]: 17,

@@ -3,7 +3,7 @@ import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
 
 export const SpiritId = {
-	// Isles of Dawn.
+	// Isle of Dawn.
 	PointingCandlemaker: 0,
 	UsheringStargazer: 1,
 	RejectingVoyager: 2,

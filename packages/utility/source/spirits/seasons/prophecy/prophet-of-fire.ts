@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.ProphetOfFire,
 	seasonId: SeasonId.Prophecy,
 	emote,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	offer: {
 		seasonal: [
 			[

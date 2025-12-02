@@ -5,7 +5,7 @@ import { SpiritId } from "../../../utility/spirits.js";
 
 export default new ElderSpirit({
 	id: SpiritId.ElderOfTheIsle,
-	realm: RealmName.IslesOfDawn,
+	realm: RealmName.IsleOfDawn,
 	offer: {
 		current: [
 			[
