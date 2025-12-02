@@ -13,7 +13,7 @@
 		"error-timed-out": "Je suis temporairement exclu.",
 		"event-tickets": "Tickets d'événement",
 		"realms": {
-			"Isles of Dawn": "Île de l'Aube",
+			"Isle of Dawn": "Île de l'aube",
 			"Daylight Prairie": "Prairie Illuminée",
 			"Hidden Forest": "Forêt Cachée",
 			"Valley of Triumph": "Vallée du Triomphe",
@@ -505,7 +505,9 @@
 			"79": "Jours du Clair de Lune",
 			"80": "Événement de Splendeur",
 			"81": "Jours de la malice",
-			"82": "Jours du Don"
+			"82": "Jours du Don",
+			"83": "",
+			"84": "Jours de Fête"
 		},
 		"event-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice#2019",
@@ -590,7 +592,9 @@
 			"79": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_du_Clair_de_Lune",
 			"80": "",
 			"81": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice",
-			"82": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_du_Don"
+			"82": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_du_Don",
+			"83": "",
+			"84": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -2238,7 +2242,8 @@
 			"2586": "",
 			"2587": "",
 			"2588": "",
-			"2589": ""
+			"2589": "",
+			"2601": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "",

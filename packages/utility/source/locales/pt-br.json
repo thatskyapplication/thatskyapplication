@@ -13,7 +13,7 @@
 		"error-timed-out": "O tempo limite expirou.",
 		"event-tickets": "Tíquetes de Evento",
 		"realms": {
-			"Isles of Dawn": "Ilha do Alvorecer",
+			"Isle of Dawn": "Ilha do Alvorecer",
 			"Daylight Prairie": "Campina da Aurora",
 			"Hidden Forest": "Floresta Oculta",
 			"Valley of Triumph": "Vale do Triunfo",
@@ -505,7 +505,9 @@
 			"79": "Dias de Luar",
 			"80": "Evento do Resplendor",
 			"81": "Dias de Travessuras",
-			"82": "Dias de Presentear"
+			"82": "Dias de Presentear",
+			"83": "",
+			"84": "Dias de Festa"
 		},
 		"event-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras#Outubro_de_2019",
@@ -588,9 +590,11 @@
 			"77": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Aniversário_do_Sky",
 			"78": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados",
 			"79": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar",
-			"80": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Eventos_de_Moeda_em_Dobro#Evento_do_Resplendor_-_Outubro_de_2025",
+			"80": "",
 			"81": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras",
-			"82": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Presentear"
+			"82": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Presentear",
+			"83": "",
+			"84": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -2238,7 +2242,8 @@
 			"2586": "Símbolo da Travessura 4",
 			"2587": "Caixa de Quebra-Cabeça",
 			"2588": "Baú de Quebra-Cabeça",
-			"2589": "Gaiola de Quebra-Cabeça"
+			"2589": "Gaiola de Quebra-Cabeça",
+			"2601": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",

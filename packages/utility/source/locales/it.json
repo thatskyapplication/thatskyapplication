@@ -13,7 +13,7 @@
 		"error-timed-out": "",
 		"event-tickets": "",
 		"realms": {
-			"Isles of Dawn": "Isola dell'Alba",
+			"Isle of Dawn": "Isola dell'Alba",
 			"Daylight Prairie": "Prateria Diurna",
 			"Hidden Forest": "Foresta Nascosta",
 			"Valley of Triumph": "Valle del Trionfo",
@@ -425,7 +425,7 @@
 		"events": {
 			"0": "",
 			"1": "",
-			"2": "",
+			"2": "Giorni di Festa",
 			"3": "",
 			"4": "Giorni dell'Amore",
 			"5": "",
@@ -436,7 +436,7 @@
 			"10": "",
 			"11": "Giorni degli Scherzetti",
 			"12": "",
-			"13": "",
+			"13": "Giorni di Festa",
 			"14": "Giorni della Buona Stella",
 			"15": "Giorni dell'Amore",
 			"16": "Giorni della Fioritura",
@@ -448,7 +448,7 @@
 			"22": "",
 			"23": "",
 			"24": "Giorni degli Scherzetti",
-			"25": "",
+			"25": "Giorni di Festa",
 			"26": "Giorni della Buona Stella",
 			"27": "Giorni dell'Amore",
 			"28": "",
@@ -461,7 +461,7 @@
 			"35": "",
 			"36": "Giorni degli Scherzetti",
 			"37": "",
-			"38": "",
+			"38": "Giorni di Festa",
 			"39": "Giorni della Buona Stella",
 			"40": "Giorni dell'Amore",
 			"41": "Giorni della Fioritura",
@@ -475,7 +475,7 @@
 			"49": "Giorni degli Scherzetti",
 			"50": "",
 			"51": "",
-			"52": "",
+			"52": "Giorni di Festa",
 			"53": "Giorni della Buona Stella",
 			"54": "Giorni dell'Amore",
 			"55": "",
@@ -505,7 +505,9 @@
 			"79": "Giorni del Chiaro di Luna",
 			"80": "Evento dello Splendore",
 			"81": "Giorni degli Scherzetti",
-			"82": ""
+			"82": "",
+			"83": "",
+			"84": "Giorni di Festa"
 		},
 		"event-wiki": {
 			"0": "",
@@ -590,7 +592,9 @@
 			"79": "",
 			"80": "",
 			"81": "",
-			"82": ""
+			"82": "",
+			"83": "",
+			"84": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2238,7 +2242,8 @@
 			"2586": "",
 			"2587": "",
 			"2588": "",
-			"2589": ""
+			"2589": "",
+			"2601": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
