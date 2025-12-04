@@ -506,7 +506,7 @@
 			"80": "Evento do Resplendor",
 			"81": "Dias de Travessuras",
 			"82": "Dias de Presentear",
-			"83": "",
+			"83": "Evento do Resplendor",
 			"84": "Dias de Festa"
 		},
 		"event-wiki": {
@@ -590,11 +590,11 @@
 			"77": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Aniversário_do_Sky",
 			"78": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados",
 			"79": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Luar",
-			"80": "",
+			"80": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Eventos_de_Moeda_em_Dobro#Evento_do_Resplendor_-_Outubro_de_2025",
 			"81": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras",
 			"82": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Presentear",
 			"83": "",
-			"84": ""
+			"84": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Festa"
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -2243,7 +2243,7 @@
 			"2587": "Caixa de Quebra-Cabeça",
 			"2588": "Baú de Quebra-Cabeça",
 			"2589": "Gaiola de Quebra-Cabeça",
-			"2601": ""
+			"2601": "Apetrecho"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -2526,10 +2526,10 @@
 	},
 	"features": {
 		"about": {
-			"description": "",
-			"magical-companion": "",
-			"links": "",
-			"final-message": ""
+			"description": "### Tradução\n\nQuer ajudar a traduzir? Encontrou algum erro de tradução? Nós traduzimos tudo pelo [Crowdin]({{crowdinURL}}), e suas contribuições ajudarão a todos!\n### Guias diários\n\nVocê consulta os guias diários? Eles são preenchidos manualmente todos os dias no reset. Que tal se tornar uma dessas pessoas incríveis?\n### Ações de amizade\n\nOs GIFs que você vê para abraçar, bagunçar o cabelo, krillar etc. são todos contribuídos pela comunidade. Envie os seus também!\n### Reportando problemas e dando feedback\n\nEncontrou um bug? Quer dar algum feedback? Entre no [servidor de suporte]({{supportServerInviteURL}}) e conte tudo pra gente!\n### Patrocínio\n\nVocê pode ajudar a manter o Caelus funcionando ao patrocinar! Você pode patrocinar pelo [GitHub]({{githubSponsorsURL}}) ou diretamente no Discord através do botão abaixo!",
+			"magical-companion": "Seu companheiro mágico para [Sky: Children of the Light]({{url}}).",
+			"links": "[Convidar]({{applicationInviteURL}}) | [Suporte]({{supportServerInviteURL}}) | [Website]({{websiteURL}})",
+			"final-message": "Entre no servidor de suporte]({{url}}) se você estiver interessado em qualquer coisa aqui! Estamos sempre aqui para dar uma mãozinha! 🩵"
 		},
 		"calculate": {
 			"goal-already-achieved": "Você já conquistou seu objetivo!",
