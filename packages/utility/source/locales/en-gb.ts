@@ -269,8 +269,10 @@ export default {
 				SpiritId.ModestDancer,
 				SkyMap.VillageOfDreams,
 			),
-			[DailyQuest.ForgetfulStorytellerNeedsHelpWithSomethingInVillageOfDreams]:
-				"Forgetful Storyteller needs help with something in Village of Dreams",
+			[DailyQuest.MeetUpWithForgetfulStorytellerInVillageOfDreams]: questsMeetUpWith(
+				SpiritId.ForgetfulStoryteller,
+				SkyMap.VillageOfDreams,
+			),
 			[DailyQuest.MeetUpWithFranticStagehandInVillageTheatre]: questsMeetUpWith(
 				SpiritId.FranticStagehand,
 				SkyMap.VillageTheatre,
