@@ -254,7 +254,7 @@
 			"168": "在雲巢與大耳狗喜拿一起在水中嬉戲",
 			"169": "參加任何一項錦標賽事",
 			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(maps.Village of Dreams)\"})",
-			"171": "健忘說書人在圓夢村需要幫助",
+			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(maps.Village of Dreams)\"})",
 			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(maps.Village Theatre)\"})",
 			"173": "鄉村劇院的沉穩音樂家需要幫助",
 			"174": "更換你的髮型",

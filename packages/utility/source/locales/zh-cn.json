@@ -254,7 +254,7 @@
 			"168": "在云巢与Cinnamoroll一起跃入水中",
 			"169": "参与任何一项锦标赛赛事",
 			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(maps.Village of Dreams)\"})",
-			"171": "健忘说书人在圆梦村需要帮助",
+			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(maps.Village of Dreams)\"})",
 			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(maps.Village Theatre)\"})",
 			"173": "老练音乐家在圆梦村剧场需要帮助",
 			"174": "更换你的发型",

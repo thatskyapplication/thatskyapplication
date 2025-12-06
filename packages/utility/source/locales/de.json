@@ -254,7 +254,7 @@
 			"168": "Plansche im Wasser mit Cinnamoroll im Volieren-Dorf",
 			"169": "Spiele einen beliebigen Turniersport",
 			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(maps.Village of Dreams)\"})",
-			"171": "",
+			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(maps.Village of Dreams)\"})",
 			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(maps.Village Theatre)\"})",
 			"173": "",
 			"174": "Ändere deine Frisur",

@@ -254,7 +254,7 @@
 			"168": "Pule na água com Cinnamoroll na Aldeia Aviária",
 			"169": "Jogue qualquer esporte do torneio",
 			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(maps.Village of Dreams)\"})",
-			"171": "A Contadora de Histórias Esquecida precisa de ajuda com algo na Vila dos Sonhos",
+			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(maps.Village of Dreams)\"})",
 			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(maps.Village Theatre)\"})",
 			"173": "O Músico Meloso precisa de ajuda com algo no Teatro da Vila",
 			"174": "Trocar de corte de cabelo",

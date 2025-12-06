@@ -254,7 +254,7 @@
 			"168": "Hãy té nước cùng Cinnamoroll tại Làng Chuồng Chim",
 			"169": "Tham gia bất kỳ trò chơi nào trong Giải đấu",
 			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(maps.Village of Dreams)\"})",
-			"171": "",
+			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(maps.Village of Dreams)\"})",
 			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(maps.Village Theatre)\"})",
 			"173": "",
 			"174": "Thay kiểu tóc",
