@@ -254,7 +254,7 @@
 			"168": "Отправляйтесь плескаться вместе с Синаморолом в Птичьей деревне",
 			"169": "Поучаствуйте в любом турнире",
 			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(maps.Village of Dreams)\"})",
-			"171": "Встретьтесь с Забывчивой Рассказчицей в Деревушке Мечтаний",
+			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(maps.Village of Dreams)\"})",
 			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(maps.Village Theatre)\"})",
 			"173": "Благодушному музыканту требуется помощь с чем-то в Деревенском Театре",
 			"174": "Смените прическу",

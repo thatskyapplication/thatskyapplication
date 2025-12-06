@@ -254,7 +254,7 @@
 			"168": "สาดน้ำไปกับซินามอโรลในหมู่บ้านเอเวียรี",
 			"169": "เล่นกีฬาทัวร์นาเมนต์ใดก็ได้",
 			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(maps.Village of Dreams)\"})",
-			"171": "",
+			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(maps.Village of Dreams)\"})",
 			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(maps.Village Theatre)\"})",
 			"173": "",
 			"174": "เปลี่ยนทรงผมของคุณ",

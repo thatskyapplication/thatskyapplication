@@ -254,7 +254,7 @@
 			"168": "花鳥郷でシナモンといっしょに水遊びする",
 			"169": "大競技会のいずれかの競技をプレーする",
 			"170": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.123)\",\"location\":\"$t(maps.Village of Dreams)\"})",
-			"171": "忘れっぽい劇作家が夢見の町で物語を思い出すのを手伝って欲しいそうです",
+			"171": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.121)\",\"location\":\"$t(maps.Village of Dreams)\"})",
 			"172": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.120)\",\"location\":\"$t(maps.Village Theatre)\"})",
 			"173": "のんびり屋の音楽家が夢見の劇場で助けを必要としているようです",
 			"174": "ヘアスタイルを変える",
