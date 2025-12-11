@@ -1,9 +1,29 @@
 import { skyDate } from "../../dates.js";
-import { Event } from "../../models/event.js";
+import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventId } from "../../utility/event.js";
+
+const eventTicketAmount: EventTicketsAmountData[] = [];
+
+for (
+	let start = skyDate(2025, 12, 12), end = skyDate(2026, 1, 2);
+	start < end;
+	start = start.plus({ days: 1 })
+) {
+	eventTicketAmount.push({ date: start, amount: 5 });
+}
 
 export default new Event({
 	id: EventId.DaysOfFeast2025,
 	start: skyDate(2025, 12, 12),
 	end: skyDate(2026, 1, 2),
+	eventTickets: {
+		amount: eventTicketAmount,
+		pool: [
+			{
+				amount: 15,
+				start: skyDate(2025, 12, 12),
+				end: skyDate(2026, 1, 1),
+			},
+		],
+	},
 });
