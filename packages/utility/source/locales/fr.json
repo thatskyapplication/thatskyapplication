@@ -362,7 +362,12 @@
 			"276": "Aidez Austin à obtenir 5 crabes dans le sous-sol du Crabe Caquetant",
 			"277": "Aidez Skidmore à tirer 3 fois le canon au Crabe Caquetant",
 			"278": "Plonge dans la potion du chaudron de Yoshi au Crabe Caquetant",
-			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})",
+			"280": "Attrapez quelque chose de bien avec une canne à pêche au Village des Rêves",
+			"281": "Trouvez le Yéti du Câlin dans le Village des Rêves et faites la course",
+			"282": "Jouez à Skyball pendant 60 secondes dans le Village des Rêves",
+			"283": "Jetez une boule de neige sur quelqu'un",
+			"284": "Rangez la table de l'Appartenance de l'ancêtre dans la clairière élevée de la Forêt cachée"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",

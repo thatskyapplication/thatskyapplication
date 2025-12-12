@@ -362,7 +362,12 @@
 			"276": "帮助Austin在嘎吱嘎吱的螃蟹地下室收集 5 只螃蟹",
 			"277": "帮助Skidmore在嘎吱嘎吱的螃蟹中发射 3 次大炮",
 			"278": "跳进Yoshi的魔锅，在嘎吱嘎吱的螃蟹中冒险吧",
-			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})",
+			"280": "在圆梦村使用鱼竿钓一些好东西",
+			"281": "在圆梦村找到熊抱雪人，并进行一场比赛",
+			"282": "在圆梦村玩60秒光遇球",
+			"283": "向其他玩家丢出一颗雪球",
+			"284": "在雨林的树林高处整理归属季的先祖团聚长桌"
 		},
 		"seasons": {
 			"0": "感恩季",

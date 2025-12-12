@@ -362,7 +362,12 @@
 			"276": "Hilf Austin, 5 Krebse im Keller des gackernden Krebses zu sammeln",
 			"277": "Hilf Skidmore, die Kanonen im gackernden Krebs 3 Mal abzufeuern",
 			"278": "Spring in Yoshi Kesselgebräu im Gackernden Krebs",
-			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})",
+			"280": "Fange etwas Gutes mit der Angelrute im Dorf der Träume",
+			"281": "Finde den Großen Yeti im Dorf der Träume und spiele ein Rennen",
+			"282": "Spiele 60 Sekunden lang Skyball im Dorf der Träume",
+			"283": "Wirf einen Schneeball auf jemanden",
+			"284": "Reinige den Vorfahrentisch des Zusammengehörens in der höhergelegenen Lichtung des Verborgenen Walds"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",

@@ -362,7 +362,12 @@
 			"276": "Ayuda a Austin a reunir 5 cangrejos en el sótano de El cangrejo carcajeante",
 			"277": "Ayuda a Skidmore a disparar los cañones 3 veces en El cangrejo carcajeante",
 			"278": "Salta al brebaje del caldero de Yoshi en el Cangrejo Carcajeante",
-			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})",
+			"280": "Atrapa algo bueno con una caña en la Aldea de los sueños",
+			"281": "Encuentra al Yeti Abrazoso en la Aldea de los sueños y corre una carrera",
+			"282": "Juega Skybol durante 60 segundos en la Aldea de los sueños",
+			"283": "Arrójale una bola de nueve a alguien",
+			"284": "Ordena la mesa de la pertenencia de los ancestros en el Claro Elevado del Bosque Escondido"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
