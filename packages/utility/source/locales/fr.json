@@ -2728,7 +2728,8 @@
 			"krill-not-in-server": "{{user}} n'est pas dans ce serveur pour ce faire attaquer par un krill.",
 			"krill-not-around": "{{user}} n'est pas dans les alentours pour se faire attaquer par un krill !",
 			"krill-app": "{{user}} est un robot. Il est très fort. Immunisé aux krills, je dirais.",
-			"krill-message": "{{user}} s'est fait attaquer par un krill par {{invoker}} !"
+			"krill-message": "{{user}} s'est fait attaquer par un krill par {{invoker}} !",
+			"hug-back-button-label": ""
 		},
 		"guess": {
 			"type": {

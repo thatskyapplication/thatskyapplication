@@ -2728,7 +2728,8 @@
 			"krill-not-in-server": "{{user}}がこのサーバーに居ないのでエビを持て余してしまいました。",
 			"krill-not-around": "",
 			"krill-app": "{{user}}はBot、強い子です。なんと、暗黒竜は捨て地に帰ってしまいました。",
-			"krill-message": ""
+			"krill-message": "",
+			"hug-back-button-label": ""
 		},
 		"guess": {
 			"type": {
