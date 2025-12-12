@@ -201,9 +201,8 @@ export async function friendshipActionsHugBack(
 	interaction: APIDMInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
 	const invoker = interaction.user;
-	const user = interaction.message.mentions[0]!;
 
-	if (invoker.id === user.id) {
+	if (invoker.id === interaction.message.interaction_metadata!.user.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("friendship-actions.hug-self", { lng: interaction.locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
@@ -212,7 +211,9 @@ export async function friendshipActionsHugBack(
 		return;
 	}
 
-	await client.api.channels.editMessage(interaction.channel.id, interaction.message.id, {
+	const user = interaction.message.mentions[0]!;
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: friendshipActionComponents({
 			invoker: user,
 			user: invoker,
@@ -222,7 +223,7 @@ export async function friendshipActionsHugBack(
 		}),
 	});
 
-	await client.api.interactions.reply(interaction.id, interaction.token, {
+	await client.api.interactions.followUp(interaction.application_id, interaction.token, {
 		allowed_mentions: { users: [user.id] },
 		components: friendshipActionComponents({
 			invoker,
