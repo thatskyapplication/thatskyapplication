@@ -577,6 +577,15 @@ export default {
 				SpiritId.OddballOutcast,
 				RealmName.HiddenForest,
 			),
+			[DailyQuest.CatchSomethingGoodWithAFishingPoleInVillageOfDreams]:
+				"Catch something good with a fishing pole in Village of Dreams",
+			[DailyQuest.FindBearhugHermitInVillageOfDreamsAndPlayARace]:
+				"Find Bearhug Hermit in Village of Dreams and play a race",
+			[DailyQuest.PlaySkyballFor60SecondsInVillageOfDreams]:
+				"Play Skyball for 60 seconds in Village of Dreams",
+			[DailyQuest.ThrowASnowballAtSomeone]: "Throw a snowball at someone",
+			[DailyQuest.TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing]:
+				"Tidy up the Ancestor's Table of Belonging in Hidden Forest's elevated clearing",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

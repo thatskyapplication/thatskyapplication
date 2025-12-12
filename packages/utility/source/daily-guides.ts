@@ -298,6 +298,11 @@ export const DailyQuest = {
 	HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab: 277,
 	HopIntoYoshisCauldronBrewInTheCacklingCrab: 278,
 	MeetUpWithOddballOutcastInHiddenForest: 279,
+	CatchSomethingGoodWithAFishingPoleInVillageOfDreams: 280,
+	FindBearhugHermitInVillageOfDreamsAndPlayARace: 281,
+	PlaySkyballFor60SecondsInVillageOfDreams: 282,
+	ThrowASnowballAtSomeone: 283,
+	TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing: 284,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -730,6 +735,11 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.HelpSkidmoreFireTheCannons3TimesInTheCacklingCrab]: null,
 	[DailyQuest.HopIntoYoshisCauldronBrewInTheCacklingCrab]: null,
 	[DailyQuest.MeetUpWithOddballOutcastInHiddenForest]: null,
+	[DailyQuest.CatchSomethingGoodWithAFishingPoleInVillageOfDreams]: null,
+	[DailyQuest.FindBearhugHermitInVillageOfDreamsAndPlayARace]: null,
+	[DailyQuest.PlaySkyballFor60SecondsInVillageOfDreams]: null,
+	[DailyQuest.ThrowASnowballAtSomeone]: null,
+	[DailyQuest.TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
