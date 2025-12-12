@@ -1,10 +1,13 @@
 import {
 	type APIChatInputApplicationCommandInteraction,
+	type APIComponentInContainer,
+	type APIDMInteractionWrapper,
 	type APIGuildInteractionWrapper,
 	type APIInteractionDataResolvedGuildMember,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageTopLevelComponent,
 	type APIUser,
+	ButtonStyle,
 	ChannelType,
 	ComponentType,
 	Locale,
@@ -25,7 +28,8 @@ import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
-import { EMOTE_EMOJIS } from "../utility/emojis.js";
+import { CustomId } from "../utility/custom-id.js";
+import { EMOTE_EMOJIS, FRIEND_ACTION_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, userTag } from "../utility/functions.js";
 import { can, cannotUseUserInstallable } from "../utility/permissions.js";
 
@@ -130,6 +134,7 @@ export async function friendshipAction({
 			user,
 			key,
 			locale: interaction.guild_locale ?? Locale.EnglishGB,
+			showHugBack: interaction.channel.type === ChannelType.DM,
 		}),
 		flags: MessageFlags.IsComponentsV2,
 	});
@@ -140,6 +145,7 @@ interface FriendshipActionComponentOptions {
 	user: APIUser;
 	key: keyof typeof KeyToData;
 	locale: Locale;
+	showHugBack?: boolean;
 }
 
 export function friendshipActionComponents({
@@ -147,27 +153,86 @@ export function friendshipActionComponents({
 	user,
 	key,
 	locale,
+	showHugBack = false,
 }: FriendshipActionComponentOptions): [APIMessageTopLevelComponent] {
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: t(`friendship-actions.${key}-message`, {
+				lng: locale,
+				ns: "features",
+				user: `<@${user.id}>`,
+				invoker: `<@${invoker.id}>`,
+			}),
+		},
+		{
+			type: ComponentType.MediaGallery,
+			items: [{ media: { url: getRandomElement(KeyToData[key])!.url } }],
+		},
+	];
+
+	if (showHugBack) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					style: ButtonStyle.Primary,
+					custom_id: CustomId.FriendshipActionsHugBack,
+					emoji: FRIEND_ACTION_EMOJIS.Hug,
+					label: t("friendship-actions.hug-back-button-label", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
+		});
+	}
+
 	return [
 		{
 			type: ComponentType.Container,
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t(`friendship-actions.${key}-message`, {
-						lng: locale,
-						ns: "features",
-						user: `<@${user.id}>`,
-						invoker: `<@${invoker.id}>`,
-					}),
-				},
-				{
-					type: ComponentType.MediaGallery,
-					items: [{ media: { url: getRandomElement(KeyToData[key])!.url } }],
-				},
-			],
+			components: containerComponents,
 		},
 	];
+}
+
+export async function friendshipActionsHugBack(
+	interaction: APIDMInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	const invoker = interaction.user;
+
+	if (invoker.id === interaction.message.interaction_metadata!.user.id) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("friendship-actions.hug-self", { lng: interaction.locale, ns: "features" }),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	const user = interaction.message.mentions[0]!;
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: friendshipActionComponents({
+			invoker: user,
+			user: invoker,
+			key: "hug",
+			locale: Locale.EnglishGB,
+			showHugBack: false,
+		}),
+	});
+
+	await client.api.interactions.followUp(interaction.application_id, interaction.token, {
+		allowed_mentions: { users: [user.id] },
+		components: friendshipActionComponents({
+			invoker,
+			user,
+			key: "hug",
+			locale: Locale.EnglishGB,
+		}),
+		flags: MessageFlags.IsComponentsV2,
+	});
 }
 
 export async function friendshipActionsCreateThread(

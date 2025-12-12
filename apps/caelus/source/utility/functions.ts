@@ -3,6 +3,7 @@ import {
 	type APIAttachment,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
+	type APIDMInteractionWrapper,
 	type APIGuildInteractionWrapper,
 	type APIInteraction,
 	type APIMessageComponentButtonInteraction,
@@ -110,6 +111,12 @@ export function isButton(
 		interaction.type === InteractionType.MessageComponent &&
 		interaction.data.component_type === ComponentType.Button
 	);
+}
+
+export function isDMButton(
+	interaction: APIInteraction,
+): interaction is APIDMInteractionWrapper<APIMessageComponentButtonInteraction> {
+	return isButton(interaction) && !("guild_id" in interaction);
 }
 
 export function isGuildButton(
