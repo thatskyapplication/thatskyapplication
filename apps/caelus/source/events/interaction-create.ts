@@ -67,7 +67,10 @@ import {
 	questsReorder,
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
-import { friendshipActionsCreateThread } from "../features/friendship-actions.js";
+import {
+	friendshipActionsCreateThread,
+	friendshipActionsHugBack,
+} from "../features/friendship-actions.js";
 import {
 	guessEventAnswer,
 	guessHandleEndGame,
@@ -138,6 +141,7 @@ import {
 	isAutocomplete,
 	isButton,
 	isChatInputCommand,
+	isDMButton,
 	isGuildButton,
 	isGuildChannelSelectMenu,
 	isGuildModalSubmit,
@@ -717,6 +721,11 @@ export default {
 
 				if (id === CustomId.ShopSuggest) {
 					await shopSuggestionModal(data);
+					return;
+				}
+
+				if (isDMButton(data) && id === CustomId.FriendshipActionsHugBack) {
+					await friendshipActionsHugBack(data);
 					return;
 				}
 

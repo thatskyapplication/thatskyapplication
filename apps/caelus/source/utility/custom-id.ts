@@ -167,6 +167,7 @@ export const enum CustomId {
 	WelcomeEditModalAccentColour = "162",
 	WelcomeEditModalHug = "163",
 	WelcomeEditModalAsset = "164",
+	FriendshipActionsHugBack = "165",
 }
 
 export const SHARD_ERUPTION_DATES = [

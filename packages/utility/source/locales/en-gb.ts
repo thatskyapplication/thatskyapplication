@@ -3057,6 +3057,7 @@ export default {
 			"krill-not-around": "{{user}} is not around to be krilled!",
 			"krill-app": "{{user}} is a bot. They're pretty strong. Immune to krills, I'd say.",
 			"krill-message": "{{user}} has been krilled by {{invoker}}!",
+			"hug-back-button-label": "Hug back",
 		},
 		guess: {
 			type: {
