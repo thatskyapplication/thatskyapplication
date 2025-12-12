@@ -362,7 +362,12 @@
 			"276": "Ajude Austin a pegar 5 caranguejos no porão do Caranguejo Cacarejante",
 			"277": "Ajude Skidmore a disparar os canhões 3 vezes no Caranguejo Cacarejante",
 			"278": "Entre no caldeirão do Yoshi no Caranguejo Cacarejante",
-			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})"
+			"279": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.140)\",\"location\":\"$t(realms.Hidden Forest)\"})",
+			"280": "Pegue algo bom com uma vara de pesca na Aldeia dos Sonhos",
+			"281": "Encontre o Iéti do Abraço de Urso na Aldeia dos Sonhos e jogue uma corrida",
+			"282": "Jogue Skyball por 60 segundos na Aldeia dos Sonhos",
+			"283": "Jogue uma bola de neve em alguém",
+			"284": "Organize a mesa Ancestral do Pertencer na Clareira Elevada da Floresta Oculta"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
