@@ -2728,7 +2728,8 @@
 			"krill-not-in-server": "",
 			"krill-not-around": "",
 			"krill-app": "",
-			"krill-message": ""
+			"krill-message": "",
+			"hug-back-button-label": ""
 		},
 		"guess": {
 			"type": {
