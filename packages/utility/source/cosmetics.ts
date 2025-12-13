@@ -3289,6 +3289,8 @@ export enum Cosmetic {
 	FluffyWinterWearHairAccessory = 2604,
 	FluffyWinterWearShoes = 2605,
 	SnowkidAccessory = 2606,
+	DaysOfFeast2025Cape = 2607,
+	DaysOfFeast2025Outfit = 2608,
 }
 
 export enum CosmeticCommon {

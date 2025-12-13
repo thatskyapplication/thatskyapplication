@@ -8388,6 +8388,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.FluffyWinterWearHairAccessory]: null,
 		[Cosmetic.FluffyWinterWearShoes]: null,
 		[Cosmetic.SnowkidAccessory]: null,
+		[Cosmetic.DaysOfFeast2025Cape]: null,
+		[Cosmetic.DaysOfFeast2025Outfit]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
