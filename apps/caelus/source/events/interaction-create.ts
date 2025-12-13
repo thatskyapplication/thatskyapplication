@@ -725,7 +725,7 @@ export default {
 				}
 
 				if (isDMButton(data) && id === CustomId.FriendshipActionsHugBack) {
-					await friendshipActionsHugBack(data);
+					await friendshipActionsHugBack(data, Number(parts[0]));
 					return;
 				}
 

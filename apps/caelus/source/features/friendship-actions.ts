@@ -16,7 +16,6 @@ import {
 } from "@discordjs/core";
 import {
 	formatEmoji,
-	getRandomElement,
 	HAIR_TOUSLES,
 	HIGH_FIVES,
 	HUGS,
@@ -146,6 +145,7 @@ interface FriendshipActionComponentOptions {
 	key: keyof typeof KeyToData;
 	locale: Locale;
 	showHugBack?: boolean;
+	number?: number;
 }
 
 export function friendshipActionComponents({
@@ -154,6 +154,7 @@ export function friendshipActionComponents({
 	key,
 	locale,
 	showHugBack = false,
+	number = Math.floor(Math.random() * KeyToData[key].length),
 }: FriendshipActionComponentOptions): [APIMessageTopLevelComponent] {
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -167,7 +168,7 @@ export function friendshipActionComponents({
 		},
 		{
 			type: ComponentType.MediaGallery,
-			items: [{ media: { url: getRandomElement(KeyToData[key])!.url } }],
+			items: [{ media: { url: KeyToData[key][number]!.url } }],
 		},
 	];
 
@@ -178,7 +179,7 @@ export function friendshipActionComponents({
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Primary,
-					custom_id: CustomId.FriendshipActionsHugBack,
+					custom_id: `${CustomId.FriendshipActionsHugBack}§${number}`,
 					emoji: FRIEND_ACTION_EMOJIS.Hug,
 					label: t("friendship-actions.hug-back-button-label", {
 						lng: locale,
@@ -199,6 +200,7 @@ export function friendshipActionComponents({
 
 export async function friendshipActionsHugBack(
 	interaction: APIDMInteractionWrapper<APIMessageComponentButtonInteraction>,
+	number: number,
 ) {
 	const originalInvoker = interaction.message.interaction_metadata!.user;
 	const invoker = interaction.user;
@@ -219,6 +221,7 @@ export async function friendshipActionsHugBack(
 			key: "hug",
 			locale: Locale.EnglishGB,
 			showHugBack: false,
+			number,
 		}),
 	});
 
