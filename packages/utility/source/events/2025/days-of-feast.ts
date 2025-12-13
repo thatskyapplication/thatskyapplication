@@ -1,3 +1,4 @@
+import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventId } from "../../utility/event.js";
@@ -26,4 +27,19 @@ export default new Event({
 			},
 		],
 	},
+	offer: [
+		{
+			cosmetic: Cosmetic.WinterScarfCape,
+			cost: { money: 14.99 },
+		},
+		{
+			cosmetic: [Cosmetic.FluffyWinterWearHairAccessory, Cosmetic.FluffyWinterWearShoes],
+			cosmeticDisplay: Cosmetic.FluffyWinterWearHairAccessory,
+			cost: { money: 6.99 },
+		},
+		{
+			cosmetic: Cosmetic.SnowkidAccessory,
+			cost: { money: 1.99 },
+		},
+	],
 });
