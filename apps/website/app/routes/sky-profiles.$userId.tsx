@@ -178,7 +178,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 function RecognitionBadges({ data }: { data: SkyProfileData }) {
 	const badges = [];
 
-	if (data.crowdin_user_id) {
+	if (data.translator) {
 		badges.push({
 			label: "Translator",
 			icon: <Globe className="w-4 h-4" />,

@@ -204,7 +204,7 @@ function generateLabelLetter(label: string) {
 
 async function skyProfileFetch(userId: Snowflake) {
 	return await pg
-		.select<SkyProfileData>(["p.*", "u.crowdin_user_id", "u.supporter", "u.artist"])
+		.select<SkyProfileData>(["p.*", "u.translator", "u.supporter", "u.artist"])
 		.from(`${Table.Profiles} as p`)
 		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
 		.where("p.user_id", userId)
@@ -2132,9 +2132,9 @@ async function skyProfileComponents(
 		hangout,
 		catalogue_progression: catalogueProgression,
 		guess_rank: guessRank,
-		crowdin_user_id,
 		supporter,
 		artist,
+		translator,
 	} = data;
 
 	const components: APIMessageTopLevelComponent[] = [];
@@ -2356,7 +2356,7 @@ async function skyProfileComponents(
 	const userDataContent = [];
 	const suffix = guildId === SUPPORT_SERVER_GUILD_ID ? "support-server" : "other-server";
 
-	if (crowdin_user_id) {
+	if (translator) {
 		userDataContent.push(
 			t(`sky-profile.crowdin-${suffix}`, {
 				lng: locale,
