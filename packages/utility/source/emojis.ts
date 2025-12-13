@@ -1046,6 +1046,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Migrating Manta Whisperer.
 	 */
 	Outfit95: { id: "1431952759711862907", name: "95_outfit" },
+	/**
+	 * Days of Feast 2025.
+	 */
+	Outfit96: { id: "1449477359920218124", name: "96_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1144,6 +1148,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit93: { id: "1431816173930151956", name: "93_outfit" },
 	Outfit94: { id: "1431949644669390898", name: "94_outfit" },
 	Outfit95: { id: "1431952770440892518", name: "95_outfit" },
+	Outfit96: { id: "1449477368723804382", name: "96_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1247,6 +1252,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Migration Guide (ultimate).
 	 */
 	Shoe25: { id: "1431028995335389225", name: "25_shoe" },
+	/**
+	 * Fluffy Winter Wear shoes.
+	 */
+	Shoe26: { id: "1449475133520740466", name: "26_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1275,6 +1284,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe23: { id: "1396917426486247454", name: "23_shoe" },
 	Shoe24: { id: "1404327909891641480", name: "24_shoe" },
 	Shoe25: { id: "1431029005762691394", name: "25_shoe" },
+	Shoe26: { id: "1449475145600208897", name: "26_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -3332,6 +3342,14 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Mischief Leaf Hat.
 	 */
 	HairAccessory65: { id: "1433200193825800333", name: "65_hair_accessory" },
+	/**
+	 * Fluffy Winter Wear hair accessory.
+	 */
+	HairAccessory66: { id: "1449475135181688942", name: "66_hair_accessory" },
+	/**
+	 * Snowkid Accessory.
+	 */
+	HairAccessory67: { id: "1449475137987416084", name: "67_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3400,6 +3418,8 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory63: { id: "1431949642672898080", name: "63_hair_accessory" },
 	HairAccessory64: { id: "1433197658490667008", name: "64_hair_accessory" },
 	HairAccessory65: { id: "1433200211278172282", name: "65_hair_accessory" },
+	HairAccessory66: { id: "1449475147424727062", name: "66_hair_accessory" },
+	HairAccessory67: { id: "1449475149337329896", name: "67_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4184,6 +4204,14 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Mischief Goth Cape.
 	 */
 	Cape165: { id: "1433199881626849413", name: "165_cape" },
+	/**
+	 * Winter Scarf Cape.
+	 */
+	Cape166: { id: "1449475139459747860", name: "166_cape" },
+	/**
+	 * Days of Feast 2025.
+	 */
+	Cape167: { id: "1449477616062173316", name: "167_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4352,6 +4380,8 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape163: { id: "1431943073579012138", name: "163_cape" },
 	Cape164: { id: "1431952772332392589", name: "164_cape" },
 	Cape165: { id: "1433199898483888149", name: "165_cape" },
+	Cape166: { id: "1449475151178633477", name: "166_cape" },
+	Cape167: { id: "1449477634466775062", name: "167_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -8384,12 +8414,12 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigrationGuideQuest7]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationGuideProp]: null,
 		[Cosmetic.MigrationGuideQuest8]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.WinterScarfCape]: null,
-		[Cosmetic.FluffyWinterWearHairAccessory]: null,
-		[Cosmetic.FluffyWinterWearShoes]: null,
-		[Cosmetic.SnowkidAccessory]: null,
-		[Cosmetic.DaysOfFeast2025Cape]: null,
-		[Cosmetic.DaysOfFeast2025Outfit]: null,
+		[Cosmetic.WinterScarfCape]: CAPE_EMOJIS.Cape166,
+		[Cosmetic.FluffyWinterWearHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory66,
+		[Cosmetic.FluffyWinterWearShoes]: SHOE_EMOJIS.Shoe26,
+		[Cosmetic.SnowkidAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory67,
+		[Cosmetic.DaysOfFeast2025Cape]: CAPE_EMOJIS.Cape167,
+		[Cosmetic.DaysOfFeast2025Outfit]: OUTFIT_EMOJIS.Outfit96,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
