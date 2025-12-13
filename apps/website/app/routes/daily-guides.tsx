@@ -170,10 +170,10 @@ export default function DailyGuides() {
 		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center p-4">
 			<div
 				className={`flex gap-6 w-full max-w-6xl transition-all duration-300 ${
-					selectedImage ? "justify-between" : "justify-center"
+					selectedImage ? "justify-between items-center" : "justify-center"
 				}`}
 			>
-				<div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-6 w-full max-w-lg">
+				<div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-6 w-full max-w-lg shrink-0">
 					<div className="mb-6 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
 						<h1 className="text-lg font-bold text-gray-900 dark:text-white m-0">{todayString}</h1>
 					</div>
