@@ -157,8 +157,8 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		return null;
 	}
 
-	const realmIndex = (dayOfMonth - 1) % 5;
-	const { skyMap, url, reward } = area[realmIndex]!;
+	let realmIndex = (dayOfMonth - 1) % 5;
+	let { skyMap, url, reward } = area[realmIndex]!;
 	const currentEvents = skyCurrentEvents(date);
 
 	// No shard eruption in Jellyfish Cove during Days of Love.
@@ -177,6 +177,15 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		currentEvents.some((event) => event.id === EventId.DaysOfBloom2025)
 	) {
 		return null;
+	}
+
+	// On 13/12/2025, this was moved to the Prairie Cave.
+	if (
+		skyMap === SkyMap.VillageOfDreams &&
+		currentEvents.some((event) => event.id === EventId.DaysOfFeast2025)
+	) {
+		realmIndex = 0;
+		({ skyMap, url, reward } = area[realmIndex]!);
 	}
 
 	const timestamps: ShardEruptionTimestampsData[] = [];
