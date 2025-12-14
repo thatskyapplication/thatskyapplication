@@ -637,7 +637,7 @@ async function start({
 	spentCosts.push(...nestingWorkshopOwnedProgressResult.spentCosts);
 
 	const totalSpent = addCosts(spentCosts);
-	const totalSpentString = resolveCostToString(totalSpent, true);
+	const totalSpentString = resolveCostToString(totalSpent, { formatNumber: true, locale });
 	const now = skyNow();
 	const currentSeason = skyCurrentSeason(now);
 	const events = skyCurrentEvents(now);

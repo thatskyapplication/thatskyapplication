@@ -48,6 +48,7 @@ export {
 export { type BlueskyWebhooksPacket, type RedditWebhooksPacket, Table } from "./database.js";
 export { isDuring, skyDate, skyNow, skyToday, TIME_ZONE } from "./dates.js";
 export {
+	type CurrencyEmojiOptions,
 	type Emoji,
 	emojiConstants,
 	formatEmoji,

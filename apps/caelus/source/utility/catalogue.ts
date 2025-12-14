@@ -1,4 +1,9 @@
-import { type ItemCost, resolveCurrencyEmoji, SeasonId } from "@thatskyapplication/utility";
+import {
+	type CurrencyEmojiOptions,
+	type ItemCost,
+	resolveCurrencyEmoji,
+	SeasonId,
+} from "@thatskyapplication/utility";
 import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
@@ -6,11 +11,14 @@ import {
 	SeasonIdToSeasonalHeartEmoji,
 } from "./emojis.js";
 
-export function resolveCostToString(cost: ItemCost, formatNumber = false) {
+export function resolveCostToString(
+	cost: ItemCost,
+	{ formatNumber, locale }: Pick<CurrencyEmojiOptions, "formatNumber" | "locale"> = {},
+) {
 	const totalCost = [];
 
 	if (cost.money) {
-		totalCost.push(`$${formatNumber ? cost.money.toLocaleString() : cost.money} `);
+		totalCost.push(`$${formatNumber ? cost.money.toLocaleString(locale) : cost.money} `);
 	}
 
 	if (cost.candles) {
@@ -19,6 +27,7 @@ export function resolveCostToString(cost: ItemCost, formatNumber = false) {
 				emoji: MISCELLANEOUS_EMOJIS.Candle,
 				number: cost.candles,
 				formatNumber,
+				locale,
 			}),
 		);
 	}
@@ -29,6 +38,7 @@ export function resolveCostToString(cost: ItemCost, formatNumber = false) {
 				emoji: MISCELLANEOUS_EMOJIS.Heart,
 				number: cost.hearts,
 				formatNumber,
+				locale,
 			}),
 		);
 	}
@@ -39,6 +49,7 @@ export function resolveCostToString(cost: ItemCost, formatNumber = false) {
 				emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
 				number: cost.ascendedCandles,
 				formatNumber,
+				locale,
 			}),
 		);
 	}
@@ -52,6 +63,7 @@ export function resolveCostToString(cost: ItemCost, formatNumber = false) {
 					emoji: emoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
 					number: seasonalCandles.cost,
 					formatNumber,
+					locale,
 				}),
 			);
 		}
@@ -69,6 +81,7 @@ export function resolveCostToString(cost: ItemCost, formatNumber = false) {
 							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
 					number: seasonalHearts.cost,
 					formatNumber,
+					locale,
 				}),
 			);
 		}
@@ -81,6 +94,7 @@ export function resolveCostToString(cost: ItemCost, formatNumber = false) {
 					emoji: EventIdToEventTicketEmoji[event.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket,
 					number: event.cost,
 					formatNumber,
+					locale,
 				}),
 			);
 		}

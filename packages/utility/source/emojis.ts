@@ -1,3 +1,4 @@
+import type { Locale } from "discord-api-types/v10";
 import { Cosmetic } from "./cosmetics.js";
 import { SeasonId, type SeasonIds } from "./season.js";
 import type { Snowflake } from "./types/index.js";
@@ -8634,11 +8635,12 @@ export function formatEmojiURL(id: Snowflake) {
 	return `https://cdn.discordapp.com/emojis/${id}.webp`;
 }
 
-interface CurrencyEmojiOptions {
+export interface CurrencyEmojiOptions {
 	emoji: Emoji;
 	number: number;
 	includeSpaceInEmoji?: boolean;
-	formatNumber?: boolean;
+	formatNumber?: boolean | undefined;
+	locale?: Locale | undefined;
 }
 
 export function resolveCurrencyEmoji({
@@ -8646,6 +8648,7 @@ export function resolveCurrencyEmoji({
 	number,
 	includeSpaceInEmoji = false,
 	formatNumber = false,
+	locale,
 }: CurrencyEmojiOptions) {
-	return `${formatNumber ? number.toLocaleString() : number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
+	return `${formatNumber ? number.toLocaleString(locale) : number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
 }
