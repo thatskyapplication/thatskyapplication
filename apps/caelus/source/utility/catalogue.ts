@@ -6,22 +6,30 @@ import {
 	SeasonIdToSeasonalHeartEmoji,
 } from "./emojis.js";
 
-export function resolveCostToString(cost: ItemCost) {
+export function resolveCostToString(cost: ItemCost, formatNumber = false) {
 	const totalCost = [];
 
 	if (cost.money) {
-		totalCost.push(`$${cost.money} `);
+		totalCost.push(`$${formatNumber ? cost.money.toLocaleString() : cost.money} `);
 	}
 
 	if (cost.candles) {
 		totalCost.push(
-			resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: cost.candles }),
+			resolveCurrencyEmoji({
+				emoji: MISCELLANEOUS_EMOJIS.Candle,
+				number: cost.candles,
+				formatNumber,
+			}),
 		);
 	}
 
 	if (cost.hearts) {
 		totalCost.push(
-			resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: cost.hearts }),
+			resolveCurrencyEmoji({
+				emoji: MISCELLANEOUS_EMOJIS.Heart,
+				number: cost.hearts,
+				formatNumber,
+			}),
 		);
 	}
 
@@ -30,6 +38,7 @@ export function resolveCostToString(cost: ItemCost) {
 			resolveCurrencyEmoji({
 				emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
 				number: cost.ascendedCandles,
+				formatNumber,
 			}),
 		);
 	}
@@ -42,6 +51,7 @@ export function resolveCostToString(cost: ItemCost) {
 				resolveCurrencyEmoji({
 					emoji: emoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
 					number: seasonalCandles.cost,
+					formatNumber,
 				}),
 			);
 		}
@@ -58,6 +68,7 @@ export function resolveCostToString(cost: ItemCost) {
 							? (SeasonIdToSeasonalHeartEmoji[seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalHeart)
 							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
 					number: seasonalHearts.cost,
+					formatNumber,
 				}),
 			);
 		}
@@ -69,6 +80,7 @@ export function resolveCostToString(cost: ItemCost) {
 				resolveCurrencyEmoji({
 					emoji: EventIdToEventTicketEmoji[event.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket,
 					number: event.cost,
+					formatNumber,
 				}),
 			);
 		}

@@ -8638,12 +8638,14 @@ interface CurrencyEmojiOptions {
 	emoji: Emoji;
 	number: number;
 	includeSpaceInEmoji?: boolean;
+	formatNumber?: boolean;
 }
 
 export function resolveCurrencyEmoji({
 	emoji,
 	number,
 	includeSpaceInEmoji = false,
+	formatNumber = false,
 }: CurrencyEmojiOptions) {
-	return `${number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
+	return `${formatNumber ? number.toLocaleString() : number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
 }
