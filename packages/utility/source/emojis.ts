@@ -2352,11 +2352,11 @@ const HAIR_EMOJIS_PRODUCTION = {
 	/**
 	 * Elder of the Valley 1.
 	 */
-	Hair33: { id: "1313936106827550861", name: "33_hair" },
+	Hair33: { id: "1313936073600274452", name: "33_hair" },
 	/**
 	 * Elder of the Valley 2.
 	 */
-	Hair34: { id: "1313936073600274452", name: "34_hair" },
+	Hair34: { id: "1313936106827550861", name: "34_hair" },
 	/**
 	 * Elder of the Wasteland.
 	 */
@@ -2940,8 +2940,8 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair30: { id: "1313921291161571479", name: "30_hair" },
 	Hair31: { id: "1313921252788015124", name: "31_hair" },
 	Hair32: { id: "1313921264959754341", name: "32_hair" },
-	Hair33: { id: "1313921272383668235", name: "33_hair" },
-	Hair34: { id: "1313921274472431626", name: "34_hair" },
+	Hair33: { id: "1313921274472431626", name: "33_hair" },
+	Hair34: { id: "1313921272383668235", name: "34_hair" },
 	Hair35: { id: "1313921253941448835", name: "35_hair" },
 	Hair36: { id: "1313921251324203109", name: "36_hair" },
 	Hair37: { id: "1313921292486967397", name: "37_hair" },
