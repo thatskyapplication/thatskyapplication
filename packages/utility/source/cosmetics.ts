@@ -3280,6 +3280,8 @@ export enum Cosmetic {
 
 	// 01/12/2025 | Version 0.31.5.
 	MigrationGuideProp = 2601,
+	ElderOfTheValleyBlessing1 = 2609,
+	ElderOfTheValleyBlessing2 = 2610,
 
 	// 08/12/2025 | Season of Migration Quest 8.
 	MigrationGuideQuest8 = 2602,

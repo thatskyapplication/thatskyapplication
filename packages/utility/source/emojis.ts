@@ -8413,6 +8413,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.MigrationGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationGuideQuest7]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationGuideProp]: null,
+		[Cosmetic.ElderOfTheValleyBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.ElderOfTheValleyBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.MigrationGuideQuest8]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.WinterScarfCape]: CAPE_EMOJIS.Cape166,
 		[Cosmetic.FluffyWinterWearHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory66,
