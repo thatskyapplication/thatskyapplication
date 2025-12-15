@@ -8422,6 +8422,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.SnowkidAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory67,
 		[Cosmetic.DaysOfFeast2025Cape]: CAPE_EMOJIS.Cape167,
 		[Cosmetic.DaysOfFeast2025Outfit]: OUTFIT_EMOJIS.Outfit96,
+		[Cosmetic.MigrationGuideQuest9]: MISCELLANEOUS_EMOJIS.Quest,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
