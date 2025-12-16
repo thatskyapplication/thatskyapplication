@@ -38,8 +38,11 @@
 				"WelcomeAccentColourModalAccentColour"
 			]
 		},
+		"apps/sky-elder": {
+			"entry": ["source/server/index.ts", "source/server/vite.config.ts"]
+		},
 		"apps/website": {
-			"entry": ["app/server.ts"]
+			"entry": "app/server.ts"
 		}
 	}
 }

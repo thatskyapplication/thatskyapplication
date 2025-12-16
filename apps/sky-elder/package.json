@@ -17,9 +17,9 @@
 		"@devvit/web": "next",
 		"@thatskyapplication/utility": "workspace:^",
 		"devvit": "next",
-		"discord-api-types": "^0.38.36",
+		"discord-api-types": "^0.38.37",
 		"express": "^5.2.1",
-		"i18next": "^25.7.1"
+		"i18next": "^25.7.3"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.6",

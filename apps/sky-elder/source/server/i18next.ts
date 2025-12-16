@@ -17,6 +17,7 @@ import {
 import { Locale } from "discord-api-types/v10";
 import { init } from "i18next";
 
+// biome-ignore lint/nursery/noFloatingPromises: Reddit cannot use top-level await.
 (async () =>
 	init({
 		fallbackLng: Locale.EnglishGB,

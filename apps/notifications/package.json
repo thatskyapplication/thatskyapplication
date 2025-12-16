@@ -13,10 +13,10 @@
 	"dependencies": {
 		"@discordjs/core": "dev",
 		"@discordjs/rest": "dev",
-		"@sentry/node": "^10.28.0",
+		"@sentry/node": "^10.31.0",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "^9.1.0",
-		"i18next": "^25.7.1",
+		"i18next": "^25.7.3",
 		"knex": "^3.1.0",
 		"luxon": "^3.7.2",
 		"pg": "^8.16.3",

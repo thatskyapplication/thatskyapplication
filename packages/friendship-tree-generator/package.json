@@ -10,7 +10,7 @@
 		"start-legacy": "tsx --watch source/legacy.ts"
 	},
 	"dependencies": {
-		"@napi-rs/canvas": "^0.1.83",
+		"@napi-rs/canvas": "^0.1.84",
 		"@thatskyapplication/utility": "workspace:^",
 		"undici": "^7.16.0"
 	},
