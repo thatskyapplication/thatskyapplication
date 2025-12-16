@@ -1,0 +1,31 @@
+{
+	"$schema": "https://developers.reddit.com/schema/config-file.v1.json",
+	"name": "sky-elder",
+	"server": {
+		"dir": "distribution/server",
+		"entry": "index.cjs"
+	},
+	"menu": {
+		"items": [
+			{
+				"label": "Trigger daily guides update",
+				"description": "Triggers an update of the daily guides.",
+				"location": "subreddit",
+				"forUserType": "moderator",
+				"endpoint": "/internal/menu/daily-guides"
+			}
+		]
+	},
+	"scheduler": {
+		"tasks": {
+			"daily-guides": {
+				"endpoint": "/internal/scheduler/daily-guides",
+				"cron": "* * * * *"
+			}
+		}
+	},
+	"permissions": {
+		"reddit": true,
+		"redis": true
+	}
+}

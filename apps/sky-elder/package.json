@@ -1,0 +1,30 @@
+{
+	"name": "@thatskyapplication/sky-elder",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "cd source/server && vite build",
+		"test": "tsc --build --noEmit",
+		"format": "biome check --write",
+		"lint": "biome check",
+		"dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"SERVER,DEVVIT\" -c \"green,magenta\" \"pnpm run dev:server\" \"pnpm run dev:devvit\"",
+		"dev:devvit": "devvit playtest",
+		"dev:server": "cd source/server && vite build --watch",
+		"login": "devvit login",
+		"deploy": "pnpm run build && devvit upload && devvit publish"
+	},
+	"dependencies": {
+		"@devvit/web": "next",
+		"@thatskyapplication/utility": "workspace:^",
+		"devvit": "next",
+		"discord-api-types": "^0.38.36",
+		"express": "^5.2.1",
+		"i18next": "^25.7.1"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.6",
+		"concurrently": "^9.2.1",
+		"typescript": "^5.9.3",
+		"vite": "^7.3.0"
+	}
+}
