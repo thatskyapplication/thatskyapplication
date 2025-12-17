@@ -183,7 +183,7 @@ router.post("/internal/triggers/on-comment-create", async (req, res) => {
 							},
 							{
 								type: ComponentType.TextDisplay,
-								content: `-# Karma: ${author.karma}`,
+								content: `-# Karma: ${author.karma.toLocaleString()}`,
 							},
 						],
 					},
