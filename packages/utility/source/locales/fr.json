@@ -367,7 +367,8 @@
 			"281": "Trouvez le Yéti du Câlin dans le Village des Rêves et faites la course",
 			"282": "Jouez à Skyball pendant 60 secondes dans le Village des Rêves",
 			"283": "Jetez une boule de neige sur quelqu'un",
-			"284": "Rangez la table de l'Appartenance de l'ancêtre dans la clairière élevée de la Forêt cachée"
+			"284": "Rangez la table de l'Appartenance de l'ancêtre dans la clairière élevée de la Forêt cachée",
+			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",

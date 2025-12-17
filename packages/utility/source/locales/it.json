@@ -367,7 +367,8 @@
 			"281": "Trova lo Yeti caldo abbraccio nel Villaggio dei Sogni e partecipa a una gara di corsa",
 			"282": "Gioca a Skycalcio per 60 secondi nel Villaggio dei Sogni",
 			"283": "Lancia una palla di neve a qualcuno",
-			"284": "Riordina la Tavola degli affetti degli Antenati nel punto sopraelevato della Foresta Nascosta"
+			"284": "Riordina la Tavola degli affetti degli Antenati nel punto sopraelevato della Foresta Nascosta",
+			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",
