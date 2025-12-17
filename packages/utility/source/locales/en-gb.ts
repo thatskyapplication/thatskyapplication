@@ -586,6 +586,10 @@ export default {
 			[DailyQuest.ThrowASnowballAtSomeone]: "Throw a snowball at someone",
 			[DailyQuest.TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing]:
 				"Tidy up the Ancestor's Table of Belonging in Hidden Forest's elevated clearing",
+			[DailyQuest.MeetUpWithCrabWhispererInCrabFields]: questsMeetUpWith(
+				SpiritId.CrabWhisperer,
+				SkyMap.CrabFields,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

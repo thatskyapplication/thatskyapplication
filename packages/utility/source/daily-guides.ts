@@ -303,6 +303,7 @@ export const DailyQuest = {
 	PlaySkyballFor60SecondsInVillageOfDreams: 282,
 	ThrowASnowballAtSomeone: 283,
 	TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing: 284,
+	MeetUpWithCrabWhispererInCrabFields: 285,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -740,6 +741,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.PlaySkyballFor60SecondsInVillageOfDreams]: null,
 	[DailyQuest.ThrowASnowballAtSomeone]: null,
 	[DailyQuest.TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing]: null,
+	[DailyQuest.MeetUpWithCrabWhispererInCrabFields]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
