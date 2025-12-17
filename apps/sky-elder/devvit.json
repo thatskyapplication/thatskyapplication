@@ -27,5 +27,17 @@
 	"permissions": {
 		"reddit": true,
 		"redis": true
+	},
+	"triggers": {
+		"onCommentCreate": "/internal/triggers/on-comment-create"
+	},
+	"settings": {
+		"global": {
+			"DISCORD_WEBHOOK_URL": {
+				"type": "string",
+				"isSecret": true,
+				"label": "Discord webhook URL."
+			}
+		}
 	}
 }

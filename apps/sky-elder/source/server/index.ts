@@ -1,6 +1,6 @@
 import "./i18next.js";
-import { context, createServer, getServerPort, reddit, redis } from "@devvit/web/server";
-import type { Toast } from "@devvit/web/shared";
+import { context, createServer, getServerPort, reddit, redis, settings } from "@devvit/web/server";
+import type { OnCommentCreateRequest, Toast } from "@devvit/web/shared";
 import {
 	skyCurrentSeason,
 	skyNotEndedEvents,
@@ -8,11 +8,17 @@ import {
 	skyToday,
 	skyUpcomingSeason,
 } from "@thatskyapplication/utility";
+import {
+	ButtonStyle,
+	ComponentType,
+	MessageFlags,
+	SeparatorSpacingSize,
+} from "discord-api-types/v10";
 import express from "express";
 import { t } from "i18next";
-import { REDIS_WIDGET_DAILY_GUIDES_KEY } from "./utility/constants.js";
+import { REDDIT_COLOUR, REDIS_WIDGET_DAILY_GUIDES_KEY } from "./utility/constants.js";
 
-const app = express();
+const app = express().use(express.json());
 const router = express.Router();
 
 async function dailyGuidesWidgetUpdate() {
@@ -91,7 +97,7 @@ async function dailyGuidesWidgetUpdate() {
 	}
 }
 
-router.post("/internal/menu/daily-guides", async (_req, res): Promise<void> => {
+router.post("/internal/menu/daily-guides", async (_, res) => {
 	try {
 		await dailyGuidesWidgetUpdate();
 
@@ -110,7 +116,7 @@ router.post("/internal/menu/daily-guides", async (_req, res): Promise<void> => {
 	}
 });
 
-router.post("/internal/scheduler/daily-guides", async (_req, res): Promise<void> => {
+router.post("/internal/scheduler/daily-guides", async (_, res) => {
 	try {
 		await dailyGuidesWidgetUpdate();
 	} catch (error) {
@@ -118,6 +124,78 @@ router.post("/internal/scheduler/daily-guides", async (_req, res): Promise<void>
 
 		res.status(400).json({
 			message: "Failed to schedule daily guides.",
+		});
+	}
+});
+
+router.post("/internal/triggers/on-comment-create", async (req, res) => {
+	const body = req.body as OnCommentCreateRequest;
+
+	try {
+		const discordWebhookURL = await settings.get("DISCORD_WEBHOOK_URL");
+
+		if (typeof discordWebhookURL !== "string") {
+			console.warn("Discord webhook URL is not set.");
+			return;
+		}
+
+		const { comment, subreddit, author, post } = body;
+
+		if (!(comment && subreddit && author && post)) {
+			throw new Error("Comment, subreddit, or author is missing from the request body.");
+		}
+
+		await fetch(`${discordWebhookURL}?wait=true&with_components=true`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				allowed_mentions: { parse: [] },
+				components: [
+					{
+						type: ComponentType.Container,
+						accent_color: REDDIT_COLOUR,
+						components: [
+							{
+								type: ComponentType.Section,
+								accessory: {
+									type: ComponentType.Button,
+									style: ButtonStyle.Link,
+									url: `https://reddit.com${comment.permalink}`,
+									label: "View",
+								},
+								components: [
+									{
+										type: ComponentType.TextDisplay,
+										content: `[u/${author.name}](${author.url}) commented on [${post.title}](https://reddit.com${post.url}).`,
+									},
+								],
+							},
+							{
+								type: ComponentType.TextDisplay,
+								content: comment.body,
+							},
+							{
+								type: ComponentType.Separator,
+								divider: true,
+								spacing: SeparatorSpacingSize.Small,
+							},
+							{
+								type: ComponentType.TextDisplay,
+								content: `-# Karma: ${author.karma}`,
+							},
+						],
+					},
+				],
+				flags: MessageFlags.IsComponentsV2,
+			}),
+		});
+	} catch (error) {
+		console.error(error);
+
+		res.status(400).json({
+			message: "Failed to trigger comment create.",
 		});
 	}
 });
