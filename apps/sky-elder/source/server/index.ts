@@ -168,7 +168,7 @@ router.post("/internal/triggers/on-comment-create", async (req, res) => {
 								components: [
 									{
 										type: ComponentType.TextDisplay,
-										content: `[u/${author.name}](${author.url}) commented on [${post.title}](https://reddit.com${post.permalink}).`,
+										content: `[u/${author.name}](${author.url}) commented on [${post.title}](https://reddit.com${post.permalink})`,
 									},
 								],
 							},
