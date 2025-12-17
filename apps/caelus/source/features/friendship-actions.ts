@@ -133,7 +133,7 @@ export async function friendshipAction({
 			user,
 			key,
 			locale: interaction.guild_locale ?? Locale.EnglishGB,
-			showHugBack: interaction.channel.type === ChannelType.DM,
+			showHugBack: key === "hug" && interaction.channel.type === ChannelType.DM,
 		}),
 		flags: MessageFlags.IsComponentsV2,
 	});
