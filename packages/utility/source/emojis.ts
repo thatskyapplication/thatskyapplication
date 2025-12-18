@@ -5069,6 +5069,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Puzzle Cage.
 	 */
 	LargePlaceableProp97: { id: "1433424887216607383", name: "97_large_placeable_prop" },
+	/**
+	 * Migration Guide (non-ultimate).
+	 */
+	LargePlaceableProp98: { id: "1451111865974259794", name: "98_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5169,6 +5173,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp95: { id: "1433424891247591455", name: "95_large_placeable_prop" },
 	LargePlaceableProp96: { id: "1433424893403336826", name: "96_large_placeable_prop" },
 	LargePlaceableProp97: { id: "1433424895341101137", name: "97_large_placeable_prop" },
+	LargePlaceableProp98: { id: "1451111873188593756", name: "98_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -8412,7 +8417,7 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.PeekingPostmanShoes]: SHOE_EMOJIS.Shoe05,
 		[Cosmetic.MigrationGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationGuideQuest7]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.MigrationGuideProp]: null,
+		[Cosmetic.MigrationGuideProp]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp98,
 		[Cosmetic.ElderOfTheValleyBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.ElderOfTheValleyBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.MigrationGuideQuest8]: MISCELLANEOUS_EMOJIS.Quest,
