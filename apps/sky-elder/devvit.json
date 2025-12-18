@@ -30,7 +30,9 @@
 	},
 	"triggers": {
 		"onCommentCreate": "/internal/triggers/on-comment-create",
-		"onCommentDelete": "/internal/triggers/on-comment-delete"
+		"onCommentDelete": "/internal/triggers/on-comment-delete",
+		"onPostFlairUpdate": "/internal/triggers/on-post-flair-update",
+		"onPostSubmit": "/internal/triggers/on-post-submit"
 	},
 	"settings": {
 		"global": {
@@ -38,6 +40,11 @@
 				"type": "string",
 				"isSecret": true,
 				"label": "Discord webhook URL."
+			},
+			"DISCORD_WEBHOOK_POST_FLAIRS_URL": {
+				"type": "string",
+				"isSecret": true,
+				"label": "Discord webhook URL for post flairs."
 			}
 		}
 	}

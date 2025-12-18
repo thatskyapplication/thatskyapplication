@@ -3,6 +3,8 @@ import { context, createServer, getServerPort, reddit, redis, settings } from "@
 import type {
 	OnCommentCreateRequest,
 	OnCommentDeleteRequest,
+	OnPostFlairUpdateRequest,
+	OnPostSubmitRequest,
 	T1,
 	T3,
 	Toast,
@@ -22,10 +24,14 @@ import {
 } from "discord-api-types/v10";
 import express from "express";
 import { t } from "i18next";
+import { postFlairsUpdate } from "./features/post-flairs.js";
 import {
 	COMMENT_CREATE_COLOUR,
 	COMMENT_DELETE_COLOUR,
+	REDIS_POST_FLAIRS_BY_POST_KEY,
+	REDIS_POST_FLAIRS_KEY,
 	REDIS_WIDGET_DAILY_GUIDES_KEY,
+	SETTINGS_COMMENTS_WEBHOOK_URL,
 } from "./utility/constants.js";
 
 const app = express().use(express.json());
@@ -142,7 +148,7 @@ router.post("/internal/triggers/on-comment-create", async (req, res) => {
 	const body = req.body as OnCommentCreateRequest;
 
 	try {
-		const discordWebhookURL = await settings.get("DISCORD_WEBHOOK_URL");
+		const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
 
 		if (typeof discordWebhookURL !== "string") {
 			console.warn("Discord webhook URL is not set.");
@@ -220,7 +226,7 @@ router.post("/internal/triggers/on-comment-delete", async (req, res) => {
 	const body = req.body as OnCommentDeleteRequest;
 
 	try {
-		const discordWebhookURL = await settings.get("DISCORD_WEBHOOK_URL");
+		const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
 
 		if (typeof discordWebhookURL !== "string") {
 			console.warn("Discord webhook URL is not set.");
@@ -296,7 +302,82 @@ router.post("/internal/triggers/on-comment-delete", async (req, res) => {
 		console.error(error);
 
 		res.status(400).json({
-			message: "Failed to trigger comment create.",
+			message: "Failed to trigger comment delete.",
+		});
+	}
+});
+
+router.post("/internal/triggers/on-post-flair-update", async (req, res) => {
+	const body = req.body as OnPostFlairUpdateRequest;
+
+	try {
+		const { subreddit, post } = body;
+
+		if (!(subreddit && post)) {
+			throw new Error("Subreddit or post is missing from the request body.");
+		}
+
+		// Get the prior post flair if we have it.
+		const priorFlair = await redis.hGet(REDIS_POST_FLAIRS_BY_POST_KEY, post.id);
+
+		if (priorFlair) {
+			// If there is a prior flair, we should decrement its count, but only if it exists.
+			const priorFlairCount = await redis.hGet(REDIS_POST_FLAIRS_KEY, priorFlair);
+
+			if (priorFlairCount) {
+				await redis.hIncrBy(REDIS_POST_FLAIRS_KEY, priorFlair, -1);
+			}
+		}
+
+		// If there is a new flair, increment it. Else, remove it.
+		// The payload would be present with empty values if removed.
+		if (post.linkFlair?.templateId) {
+			await Promise.all([
+				redis.hIncrBy(REDIS_POST_FLAIRS_KEY, post.linkFlair.templateId, 1),
+				redis.hSet(REDIS_POST_FLAIRS_BY_POST_KEY, { [post.id]: post.linkFlair.templateId }),
+			]);
+		} else {
+			await redis.hDel(REDIS_POST_FLAIRS_BY_POST_KEY, [post.id]);
+		}
+
+		// Update on Discord.
+		await postFlairsUpdate(subreddit.name);
+	} catch (error) {
+		console.error(error);
+
+		res.status(400).json({
+			message: "Failed to trigger post flair update.",
+		});
+	}
+});
+
+router.post("/internal/triggers/on-post-submit", async (req, res) => {
+	const body = req.body as OnPostSubmitRequest;
+
+	try {
+		const { subreddit, post } = body;
+
+		if (!(subreddit && post)) {
+			throw new Error("Subreddit or post is missing from the request body.");
+		}
+
+		// The payload would be present with empty values if removed.
+		if (!post.linkFlair?.templateId) {
+			return;
+		}
+
+		await Promise.all([
+			redis.hIncrBy(REDIS_POST_FLAIRS_KEY, post.linkFlair.templateId, 1),
+			// The post flair update trigger does not contain the prior flair. Store it for future use.
+			redis.hSet(REDIS_POST_FLAIRS_BY_POST_KEY, { [post.id]: post.linkFlair.templateId }),
+		]);
+
+		await postFlairsUpdate(subreddit.name);
+	} catch (error) {
+		console.error(error);
+
+		res.status(400).json({
+			message: "Failed to trigger post submit.",
 		});
 	}
 });
