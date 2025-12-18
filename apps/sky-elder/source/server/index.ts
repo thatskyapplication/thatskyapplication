@@ -361,7 +361,7 @@ router.post("/internal/triggers/on-post-submit", async (req, res) => {
 			throw new Error("Subreddit or post is missing from the request body.");
 		}
 
-		// The payload would be present with empty values if removed.
+		// The payload would be present with empty values if not set.
 		if (!post.linkFlair?.templateId) {
 			return;
 		}
