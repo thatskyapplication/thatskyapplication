@@ -1,6 +1,12 @@
 import "./i18next.js";
 import { context, createServer, getServerPort, reddit, redis, settings } from "@devvit/web/server";
-import type { OnCommentCreateRequest, Toast } from "@devvit/web/shared";
+import type {
+	OnCommentCreateRequest,
+	OnCommentDeleteRequest,
+	T1,
+	T3,
+	Toast,
+} from "@devvit/web/shared";
 import {
 	skyCurrentSeason,
 	skyNotEndedEvents,
@@ -16,7 +22,11 @@ import {
 } from "discord-api-types/v10";
 import express from "express";
 import { t } from "i18next";
-import { REDDIT_COLOUR, REDIS_WIDGET_DAILY_GUIDES_KEY } from "./utility/constants.js";
+import {
+	COMMENT_CREATE_COLOUR,
+	COMMENT_DELETE_COLOUR,
+	REDIS_WIDGET_DAILY_GUIDES_KEY,
+} from "./utility/constants.js";
 
 const app = express().use(express.json());
 const router = express.Router();
@@ -145,52 +155,143 @@ router.post("/internal/triggers/on-comment-create", async (req, res) => {
 			throw new Error("Comment, subreddit, or author is missing from the request body.");
 		}
 
-		await fetch(`${discordWebhookURL}?wait=true&with_components=true`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				allowed_mentions: { parse: [] },
-				components: [
-					{
-						type: ComponentType.Container,
-						accent_color: REDDIT_COLOUR,
-						components: [
-							{
-								type: ComponentType.Section,
-								accessory: {
-									type: ComponentType.Button,
-									style: ButtonStyle.Link,
-									url: `https://reddit.com${comment.permalink}`,
-									label: "View",
-								},
-								components: [
-									{
-										type: ComponentType.TextDisplay,
-										content: `[u/${author.name}](${author.url}) commented on [${post.title}](https://reddit.com${post.permalink})`,
+		const date = new Date();
+		date.setUTCDate(date.getUTCDate() + 7);
+
+		await Promise.all([
+			redis.set(comment.id, comment.body, { expiration: date }),
+			fetch(`${discordWebhookURL}?wait=true&with_components=true`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					allowed_mentions: { parse: [] },
+					components: [
+						{
+							type: ComponentType.Container,
+							accent_color: COMMENT_CREATE_COLOUR,
+							components: [
+								{
+									type: ComponentType.Section,
+									accessory: {
+										type: ComponentType.Button,
+										style: ButtonStyle.Link,
+										url: `https://reddit.com${comment.permalink}`,
+										label: "View",
 									},
-								],
-							},
-							{
-								type: ComponentType.TextDisplay,
-								content: comment.body,
-							},
-							{
-								type: ComponentType.Separator,
-								divider: true,
-								spacing: SeparatorSpacingSize.Small,
-							},
-							{
-								type: ComponentType.TextDisplay,
-								content: `-# Karma: ${author.karma.toLocaleString()}`,
-							},
-						],
-					},
-				],
-				flags: MessageFlags.IsComponentsV2,
+									components: [
+										{
+											type: ComponentType.TextDisplay,
+											content: `[u/${author.name}](${author.url}) commented on [${post.title}](https://reddit.com${post.permalink})`,
+										},
+									],
+								},
+								{
+									type: ComponentType.TextDisplay,
+									content: comment.body,
+								},
+								{
+									type: ComponentType.Separator,
+									divider: true,
+									spacing: SeparatorSpacingSize.Small,
+								},
+								{
+									type: ComponentType.TextDisplay,
+									content: `-# Karma: ${author.karma.toLocaleString()}`,
+								},
+							],
+						},
+					],
+					flags: MessageFlags.IsComponentsV2,
+				}),
 			}),
+		]);
+	} catch (error) {
+		console.error(error);
+
+		res.status(400).json({
+			message: "Failed to trigger comment create.",
 		});
+	}
+});
+
+router.post("/internal/triggers/on-comment-delete", async (req, res) => {
+	const body = req.body as OnCommentDeleteRequest;
+
+	try {
+		const discordWebhookURL = await settings.get("DISCORD_WEBHOOK_URL");
+
+		if (typeof discordWebhookURL !== "string") {
+			console.warn("Discord webhook URL is not set.");
+			return;
+		}
+
+		const { commentId, subreddit, author, postId } = body;
+
+		if (!(subreddit && author)) {
+			throw new Error("Subreddit or author is missing from the request body.");
+		}
+
+		const [post, comment, commentBody] = await Promise.all([
+			reddit.getPostById(postId as T3),
+			reddit.getCommentById(commentId as T1),
+			redis.get(commentId as T1),
+		]);
+
+		if (!commentBody) {
+			return;
+		}
+
+		await Promise.all([
+			redis.del(commentId as T1),
+			fetch(`${discordWebhookURL}?wait=true&with_components=true`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					allowed_mentions: { parse: [] },
+					components: [
+						{
+							type: ComponentType.Container,
+							accent_color: COMMENT_DELETE_COLOUR,
+							components: [
+								{
+									type: ComponentType.Section,
+									accessory: {
+										type: ComponentType.Button,
+										style: ButtonStyle.Link,
+										url: `https://reddit.com${comment.permalink}`,
+										label: "View",
+									},
+									components: [
+										{
+											type: ComponentType.TextDisplay,
+											content: `[u/${author.name}](${author.url}) deleted their comment on [${post.title}](https://reddit.com${post.permalink})`,
+										},
+									],
+								},
+								{
+									type: ComponentType.TextDisplay,
+									content: commentBody,
+								},
+								{
+									type: ComponentType.Separator,
+									divider: true,
+									spacing: SeparatorSpacingSize.Small,
+								},
+								{
+									type: ComponentType.TextDisplay,
+									content: `-# Karma: ${author.karma.toLocaleString()} | Reports: ${comment.numReports.toLocaleString()}`,
+								},
+							],
+						},
+					],
+					flags: MessageFlags.IsComponentsV2,
+				}),
+			}),
+		]);
 	} catch (error) {
 		console.error(error);
 
