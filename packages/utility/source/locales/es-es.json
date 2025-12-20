@@ -368,7 +368,8 @@
 			"282": "Juega Skybol durante 60 segundos en la Aldea de los sueños",
 			"283": "Arrójale una bola de nueve a alguien",
 			"284": "Ordena la mesa de la pertenencia de los ancestros en el Claro Elevado del Bosque Escondido",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})"
+			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
+			"286": "Rescata a una Manta de la oscuridad"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",

@@ -368,7 +368,8 @@
 			"282": "在圆梦村玩60秒光遇球",
 			"283": "向其他玩家丢出一颗雪球",
 			"284": "在雨林的树林高处整理归属季的先祖团聚长桌",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})"
+			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
+			"286": "拯救一只被黑暗腐植困住的光鳐"
 		},
 		"seasons": {
 			"0": "感恩季",

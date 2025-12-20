@@ -368,7 +368,8 @@
 			"282": "Jogue Skyball por 60 segundos na Aldeia dos Sonhos",
 			"283": "Jogue uma bola de neve em alguém",
 			"284": "Organize a mesa Ancestral do Pertencer na Clareira Elevada da Floresta Oculta",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})"
+			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
+			"286": "Resgatar uma arraia da escuridão"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
