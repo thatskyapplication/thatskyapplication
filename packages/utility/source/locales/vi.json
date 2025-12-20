@@ -368,7 +368,8 @@
 			"282": "Chơi Thiên Cầu trong 60 giây ở Làng Mộng Mơ",
 			"283": "Ném một quả cầu tuyết vào ai đó",
 			"284": "Dọn dẹp Bàn Sở Hữu của Tổ tiên ở bãi đất cao trong Rừng Mưa",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})"
+			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
+			"286": "Giải cứu một con Cá Đuối khỏi bóng tối"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",

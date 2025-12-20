@@ -368,7 +368,8 @@
 			"282": "꿈의 마을에서 60초 동안 Sky 공놀이를 플레이하세요",
 			"283": "누군가에게 눈덩이를 던지세요",
 			"284": "비밀의 숲의 숲 속 높은 공터에서 선조의 친밀의 테이블을 정리하세요",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})"
+			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
+			"286": "어둠으로부터 만타가오리를 구출하기"
 		},
 		"seasons": {
 			"0": "감사의 시즌",

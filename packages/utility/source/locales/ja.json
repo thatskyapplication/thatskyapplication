@@ -368,7 +368,8 @@
 			"282": "夢見の町で、60秒間Skyボールをプレイする",
 			"283": "誰かに雪玉を投げる",
 			"284": "雨林の高台広場で想いを編む先祖の食卓を片付ける",
-			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})"
+			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
+			"286": "光のマンタを蝕む闇から解放する"
 		},
 		"seasons": {
 			"0": "感謝の季節",
