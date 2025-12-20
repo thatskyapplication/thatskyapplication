@@ -590,6 +590,7 @@ export default {
 				SpiritId.CrabWhisperer,
 				SkyMap.CrabFields,
 			),
+			[DailyQuest.RescueAMantaFromDarkness]: "Rescue a manta from darkness",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
