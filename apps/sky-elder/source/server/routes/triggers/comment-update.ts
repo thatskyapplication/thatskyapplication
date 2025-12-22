@@ -18,10 +18,10 @@ export async function postTriggersCommentUpdate(req: Request) {
 		return;
 	}
 
-	const { comment, subreddit, author, post, previousBody } = body;
+	const { comment, author, post, previousBody } = body;
 
-	if (!(comment && subreddit && author && post)) {
-		throw new Error("Comment, subreddit, author, or post is missing from the request body.");
+	if (!(comment && author && post)) {
+		throw new Error("Comment, author, or post is missing from the request body.");
 	}
 
 	const storedComment = redis.get(comment.id as T1);
