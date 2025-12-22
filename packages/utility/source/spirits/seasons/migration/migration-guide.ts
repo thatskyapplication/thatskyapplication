@@ -9,7 +9,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Migration,
 	realm: RealmName.IsleOfDawn,
 	offer: {
-		inProgress: true,
 		current: [
 			[
 				{
@@ -116,6 +115,12 @@ export default new GuideSpirit({
 				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 7 },
 					cosmetic: Cosmetic.MigrationGuideHeart7,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 10 },
+					cosmetic: Cosmetic.MigrationGuideQuest10,
 				},
 			],
 		],

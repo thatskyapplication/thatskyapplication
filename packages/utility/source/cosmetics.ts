@@ -3296,6 +3296,9 @@ export enum Cosmetic {
 
 	// 15/12/2025 | Season of Migration Quest 9.
 	MigrationGuideQuest9 = 2611,
+
+	// 22/12/2025 | Season of Migration Quest 10.
+	MigrationGuideQuest10 = 2612,
 }
 
 export enum CosmeticCommon {
