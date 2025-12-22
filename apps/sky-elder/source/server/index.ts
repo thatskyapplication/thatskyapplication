@@ -5,6 +5,7 @@ import { postMenuDailyGuides } from "./routes/menu/daily-guides.js";
 import { postSchedulerDailyGuides } from "./routes/scheduler/daily-guides.js";
 import { postTriggersCommentCreate } from "./routes/triggers/comment-create.js";
 import { postTriggersCommentDelete } from "./routes/triggers/comment-delete.js";
+import { postTriggersCommentUpdate } from "./routes/triggers/comment-update.js";
 import { postTriggersPostFlairUpdate } from "./routes/triggers/post-flair-update.js";
 import { postTriggersPostSubmit } from "./routes/triggers/post-submit.js";
 
@@ -14,6 +15,7 @@ router.post("/internal/menu/daily-guides", postMenuDailyGuides);
 router.post("/internal/scheduler/daily-guides", postSchedulerDailyGuides);
 router.post("/internal/triggers/on-comment-create", postTriggersCommentCreate);
 router.post("/internal/triggers/on-comment-delete", postTriggersCommentDelete);
+router.post("/internal/triggers/on-comment-update", postTriggersCommentUpdate);
 router.post("/internal/triggers/on-post-flair-update", postTriggersPostFlairUpdate);
 router.post("/internal/triggers/on-post-submit", postTriggersPostSubmit);
 app.use(router);

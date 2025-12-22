@@ -12,3 +12,4 @@ export const REDIS_WIDGET_DAILY_GUIDES_KEY = "widget-daily-guides" as const;
 // Miscellaneous.
 export const COMMENT_CREATE_COLOUR = 0x4de063 as const;
 export const COMMENT_DELETE_COLOUR = 0xdf0a0e as const;
+export const COMMENT_UPDATE_COLOUR = 0xe7d881 as const;

@@ -1,5 +1,5 @@
-import { reddit, redis, settings } from "@devvit/web/server";
-import type { OnCommentDeleteRequest, T1, T3 } from "@devvit/web/shared";
+import { redis, settings } from "@devvit/web/server";
+import type { OnCommentUpdateRequest, T1 } from "@devvit/web/shared";
 import {
 	ButtonStyle,
 	ComponentType,
@@ -7,10 +7,10 @@ import {
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
 import type { Request } from "express";
-import { COMMENT_DELETE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
+import { COMMENT_UPDATE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
-export async function postTriggersCommentDelete(req: Request) {
-	const body = req.body as OnCommentDeleteRequest;
+export async function postTriggersCommentUpdate(req: Request) {
+	const body = req.body as OnCommentUpdateRequest;
 	const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
 
 	if (typeof discordWebhookURL !== "string") {
@@ -18,24 +18,23 @@ export async function postTriggersCommentDelete(req: Request) {
 		return;
 	}
 
-	const { commentId, subreddit, author, postId } = body;
+	const { comment, subreddit, author, post, previousBody } = body;
 
-	if (!(subreddit && author)) {
-		throw new Error("Subreddit or author is missing from the request body.");
+	if (!(comment && subreddit && author && post)) {
+		throw new Error("Comment, subreddit, author, or post is missing from the request body.");
 	}
 
-	const [post, comment, commentBody] = await Promise.all([
-		reddit.getPostById(postId as T3),
-		reddit.getCommentById(commentId as T1),
-		redis.get(commentId as T1),
-	]);
+	const storedComment = redis.get(comment.id as T1);
 
-	if (!commentBody) {
+	if (!storedComment) {
 		return;
 	}
 
+	const date = new Date();
+	date.setUTCDate(date.getUTCDate() + 7);
+
 	await Promise.all([
-		redis.del(commentId),
+		redis.set(comment.id, comment.body, { expiration: date }),
 		fetch(`${discordWebhookURL}?wait=true&with_components=true`, {
 			method: "POST",
 			headers: {
@@ -46,7 +45,7 @@ export async function postTriggersCommentDelete(req: Request) {
 				components: [
 					{
 						type: ComponentType.Container,
-						accent_color: COMMENT_DELETE_COLOUR,
+						accent_color: COMMENT_UPDATE_COLOUR,
 						components: [
 							{
 								type: ComponentType.Section,
@@ -59,13 +58,17 @@ export async function postTriggersCommentDelete(req: Request) {
 								components: [
 									{
 										type: ComponentType.TextDisplay,
-										content: `[u/${author.name}](${author.url}) deleted their comment on [${post.title}](https://reddit.com${post.permalink})`,
+										content: `[u/${author.name}](${author.url}) updated their comment on [${post.title}](https://reddit.com${post.permalink})`,
 									},
 								],
 							},
 							{
 								type: ComponentType.TextDisplay,
-								content: commentBody,
+								content: `### Old\n\n${previousBody}`,
+							},
+							{
+								type: ComponentType.TextDisplay,
+								content: `### New\n\n${comment.body}`,
 							},
 							{
 								type: ComponentType.Separator,
