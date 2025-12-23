@@ -2254,7 +2254,13 @@
 			"2603": "Capa de cachecol de inverno",
 			"2604": "",
 			"2605": "",
-			"2606": "Acessório de criança de neve"
+			"2606": "Acessório de criança de neve",
+			"2613": "Bloco de gelo horizontal",
+			"2614": "Bloco de gelo vertical",
+			"2615": "Escorregador côncavo de gelo",
+			"2616": "Escorregador convexo de gelo",
+			"2617": "Banco de gelo",
+			"2618": "Mesa pequena de gelo"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
