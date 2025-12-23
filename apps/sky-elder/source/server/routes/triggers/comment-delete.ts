@@ -59,7 +59,7 @@ export async function postTriggersCommentDelete(req: Request) {
 								components: [
 									{
 										type: ComponentType.TextDisplay,
-										content: `[u/${author.name}](${author.url}) deleted their comment on [${post.title}](https://reddit.com${post.permalink})`,
+										content: `[u/${author.name}](${author.url})'s comment was deleted on [${post.title}](https://reddit.com${post.permalink})`,
 									},
 								],
 							},
