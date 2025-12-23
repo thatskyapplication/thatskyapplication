@@ -51,5 +51,29 @@ export default new Event({
 			cosmetic: Cosmetic.DaysOfFeast2025Outfit,
 			cost: { eventTickets: 39 },
 		},
+		{
+			cosmetic: Cosmetic.HorizontalIceBlock,
+			cost: { candles: 11 },
+		},
+		{
+			cosmetic: Cosmetic.VerticalIceBlock,
+			cost: { candles: 12 },
+		},
+		{
+			cosmetic: Cosmetic.IceConcaveSlide,
+			cost: { candles: 13 },
+		},
+		{
+			cosmetic: Cosmetic.IceConvexSlide,
+			cost: { candles: 13 },
+		},
+		{
+			cosmetic: Cosmetic.IceStool,
+			cost: { candles: 6 },
+		},
+		{
+			cosmetic: Cosmetic.IceSmallTable,
+			cost: { candles: 21 },
+		},
 	],
 });

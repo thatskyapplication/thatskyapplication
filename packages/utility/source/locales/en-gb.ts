@@ -2575,6 +2575,12 @@ export default {
 			[Cosmetic.FluffyWinterWearHairAccessory]: "Fluffy Winter Wear Hair Accessory",
 			[Cosmetic.FluffyWinterWearShoes]: "Fluffy Winter Wear Shoes",
 			[Cosmetic.SnowkidAccessory]: "Snowkid Accessory",
+			[Cosmetic.HorizontalIceBlock]: "Horizontal ice Block",
+			[Cosmetic.VerticalIceBlock]: "Vertical ice block",
+			[Cosmetic.IceConcaveSlide]: "Ice concave slide",
+			[Cosmetic.IceConvexSlide]: "Ice convex slide",
+			[Cosmetic.IceStool]: "Ice stool",
+			[Cosmetic.IceSmallTable]: "Ice small table",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

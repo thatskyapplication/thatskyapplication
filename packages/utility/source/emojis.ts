@@ -5073,6 +5073,30 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Migration Guide (non-ultimate).
 	 */
 	LargePlaceableProp98: { id: "1451111865974259794", name: "98_large_placeable_prop" },
+	/**
+	 * Horizontal ice block.
+	 */
+	LargePlaceableProp99: { id: "1453075356826337372", name: "99_large_placeable_prop" },
+	/**
+	 * Vertical ice block.
+	 */
+	LargePlaceableProp100: { id: "1453075360055824524", name: "100_large_placeable_prop" },
+	/**
+	 * Ice concave slide.
+	 */
+	LargePlaceableProp101: { id: "1453075364028088572", name: "101_large_placeable_prop" },
+	/**
+	 * Ice convex slide.
+	 */
+	LargePlaceableProp102: { id: "1453075367891042473", name: "102_large_placeable_prop" },
+	/**
+	 * Ice stool.
+	 */
+	LargePlaceableProp103: { id: "1453075371514794106", name: "103_large_placeable_prop" },
+	/**
+	 * Ice small table.
+	 */
+	LargePlaceableProp104: { id: "1453075375251787908", name: "104_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5174,6 +5198,12 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp96: { id: "1433424893403336826", name: "96_large_placeable_prop" },
 	LargePlaceableProp97: { id: "1433424895341101137", name: "97_large_placeable_prop" },
 	LargePlaceableProp98: { id: "1451111873188593756", name: "98_large_placeable_prop" },
+	LargePlaceableProp99: { id: "1453075366540476579", name: "99_large_placeable_prop" },
+	LargePlaceableProp100: { id: "1453075370147315965", name: "100_large_placeable_prop" },
+	LargePlaceableProp101: { id: "1453075374169657436", name: "101_large_placeable_prop" },
+	LargePlaceableProp102: { id: "1453075377613181079", name: "102_large_placeable_prop" },
+	LargePlaceableProp103: { id: "1453075380981465191", name: "103_large_placeable_prop" },
+	LargePlaceableProp104: { id: "1453075385473569009", name: "104_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -8427,6 +8457,12 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.SnowkidAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory67,
 		[Cosmetic.DaysOfFeast2025Cape]: CAPE_EMOJIS.Cape167,
 		[Cosmetic.DaysOfFeast2025Outfit]: OUTFIT_EMOJIS.Outfit96,
+		[Cosmetic.HorizontalIceBlock]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp99,
+		[Cosmetic.VerticalIceBlock]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp100,
+		[Cosmetic.IceConcaveSlide]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp101,
+		[Cosmetic.IceConvexSlide]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp102,
+		[Cosmetic.IceStool]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp103,
+		[Cosmetic.IceSmallTable]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp104,
 		[Cosmetic.MigrationGuideQuest9]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationGuideQuest10]: MISCELLANEOUS_EMOJIS.Quest,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;

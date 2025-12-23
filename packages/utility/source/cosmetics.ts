@@ -3293,6 +3293,12 @@ export enum Cosmetic {
 	SnowkidAccessory = 2606,
 	DaysOfFeast2025Cape = 2607,
 	DaysOfFeast2025Outfit = 2608,
+	HorizontalIceBlock = 2613,
+	VerticalIceBlock = 2614,
+	IceConcaveSlide = 2615,
+	IceConvexSlide = 2616,
+	IceStool = 2617,
+	IceSmallTable = 2618,
 
 	// 15/12/2025 | Season of Migration Quest 9.
 	MigrationGuideQuest9 = 2611,
