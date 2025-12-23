@@ -2254,7 +2254,13 @@
 			"2603": "Cape écharpe hivernale",
 			"2604": "",
 			"2605": "",
-			"2606": "Accessoire d'enfant des neiges"
+			"2606": "Accessoire d'enfant des neiges",
+			"2613": "",
+			"2614": "",
+			"2615": "",
+			"2616": "",
+			"2617": "",
+			"2618": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "",
