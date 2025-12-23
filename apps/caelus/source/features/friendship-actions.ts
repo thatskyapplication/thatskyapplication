@@ -145,7 +145,7 @@ interface FriendshipActionComponentOptions {
 	key: keyof typeof KeyToData;
 	locale: Locale;
 	showHugBack?: boolean;
-	number?: number;
+	number?: number | undefined;
 }
 
 export function friendshipActionComponents({
@@ -200,7 +200,7 @@ export function friendshipActionComponents({
 
 export async function friendshipActionsHugBack(
 	interaction: APIDMInteractionWrapper<APIMessageComponentButtonInteraction>,
-	number: number,
+	number: number | undefined,
 ) {
 	const originalInvoker = interaction.message.interaction_metadata!.user;
 	const invoker = interaction.user;
