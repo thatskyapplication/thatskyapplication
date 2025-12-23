@@ -7,6 +7,9 @@ a:friendship-tree-generator:
 a:notifications:
  - changed-files:
    - any-glob-to-any-file: apps/notifications/**/*
+a:sky-elder:
+ - changed-files:
+   - any-glob-to-any-file: apps/sky-elder/**/*
 a:socials:
  - changed-files:
    - any-glob-to-any-file: apps/socials/**/*
