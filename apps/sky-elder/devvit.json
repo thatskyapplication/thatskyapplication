@@ -29,8 +29,8 @@
 		"redis": true
 	},
 	"triggers": {
-		"onCommentCreate": "/internal/triggers/on-comment-create",
 		"onCommentDelete": "/internal/triggers/on-comment-delete",
+		"onCommentSubmit": "/internal/triggers/on-comment-submit",
 		"onCommentUpdate": "/internal/triggers/on-comment-update",
 		"onPostFlairUpdate": "/internal/triggers/on-post-flair-update",
 		"onPostSubmit": "/internal/triggers/on-post-submit"

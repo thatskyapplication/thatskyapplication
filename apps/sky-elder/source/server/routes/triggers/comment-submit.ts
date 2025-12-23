@@ -1,5 +1,5 @@
 import { redis, settings } from "@devvit/web/server";
-import type { OnCommentCreateRequest } from "@devvit/web/shared";
+import type { OnCommentSubmitRequest } from "@devvit/web/shared";
 import {
 	ButtonStyle,
 	ComponentType,
@@ -9,8 +9,8 @@ import {
 import type { Request } from "express";
 import { COMMENT_CREATE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
-export async function postTriggersCommentCreate(req: Request) {
-	const body = req.body as OnCommentCreateRequest;
+export async function postTriggersCommentSubmit(req: Request) {
+	const body = req.body as OnCommentSubmitRequest;
 	const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
 
 	if (typeof discordWebhookURL !== "string") {
@@ -18,10 +18,10 @@ export async function postTriggersCommentCreate(req: Request) {
 		return;
 	}
 
-	const { comment, subreddit, author, post } = body;
+	const { comment, author, post } = body;
 
-	if (!(comment && subreddit && author && post)) {
-		throw new Error("Comment, subreddit, or author is missing from the request body.");
+	if (!(comment && author && post)) {
+		throw new Error("Comment, author, or post is missing from the request body.");
 	}
 
 	const date = new Date();
