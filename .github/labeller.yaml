@@ -1,33 +1,21 @@
 a:caelus:
  - changed-files:
-   - any-glob-to-any-file:
-     - apps/caelus/*
-     - apps/caelus/**/*
+   - any-glob-to-any-file: apps/caelus/**/*
 a:friendship-tree-generator:
  - changed-files:
-   - any-glob-to-any-file:
-     - packages/friendship-tree-generator/*
-     - packages/friendship-tree-generator/**/*
+   - any-glob-to-any-file: packages/friendship-tree-generator/**/*
 a:notifications:
  - changed-files:
-   - any-glob-to-any-file:
-     - apps/notifications/*
-     - apps/notifications/**/*
+   - any-glob-to-any-file: apps/notifications/**/*
 a:socials:
  - changed-files:
-   - any-glob-to-any-file:
-     - apps/socials/*
-     - apps/socials/**/*
+   - any-glob-to-any-file: apps/socials/**/*
 a:utility:
  - changed-files:
-   - any-glob-to-any-file:
-     - packages/utility/*
-     - packages/utility/**/*
+   - any-glob-to-any-file: packages/utility/**/*
 a:website:
  - changed-files:
-   - any-glob-to-any-file:
-     - apps/website/*
-     - apps/website/**/*
+   - any-glob-to-any-file: apps/website/**/*
 f:catalogue:
  - changed-files:
    - any-glob-to-any-file:
