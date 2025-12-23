@@ -482,8 +482,8 @@ function offerData({
 			}
 		}
 
-		// Days of Mischief 2025 is pretty big. Remove the preview until there is a better solution.
-		if (offerProgress.events.has(EventId.DaysOfMischief2025)) {
+		// Days of Mischief 2025 onwards makes 2025 pretty big. Remove the preview until there is a better solution.
+		if (offerProgress.events.hasAny(EventId.DaysOfMischief2025, EventId.DaysOfFeast2025)) {
 			const event = offerProgress.events.get(EventId.DaysOfMischief2025)!;
 			offerProgress.events.set(
 				EventId.DaysOfMischief2025,
