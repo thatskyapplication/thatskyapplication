@@ -10,8 +10,7 @@
 		"dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"SERVER,DEVVIT\" -c \"green,magenta\" \"pnpm run dev:server\" \"pnpm run dev:devvit\"",
 		"dev:devvit": "devvit playtest",
 		"dev:server": "cd source/server && vite build --watch",
-		"login": "devvit login",
-		"deploy": "pnpm run build && devvit upload && devvit publish"
+		"login": "devvit login"
 	},
 	"dependencies": {
 		"@devvit/web": "next",
