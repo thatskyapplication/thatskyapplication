@@ -75,7 +75,7 @@ export async function dailyGuidesWidgetUpdate() {
 			text: text.join("\n"),
 		});
 	} catch (error) {
-		if (Error.isError(error) && error.message.includes("Invalid value for widget_id")) {
+		if (error instanceof Error && error.message.includes("Invalid value for widget_id")) {
 			console.info("Daily guides widget id found but widget does not exist. Removing Redis key.");
 			await redis.del(REDIS_WIDGET_DAILY_GUIDES_KEY);
 			return;
