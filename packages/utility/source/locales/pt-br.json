@@ -2252,8 +2252,8 @@
 			"2589": "Gaiola de Quebra-Cabeça",
 			"2601": "Apetrecho",
 			"2603": "Capa de cachecol de inverno",
-			"2604": "",
-			"2605": "",
+			"2604": "Acessórios de Cabelo de Inverno Fofinhos",
+			"2605": "Sapatos de Inverno Fofinhos",
 			"2606": "Acessório de criança de neve",
 			"2613": "Bloco de gelo horizontal",
 			"2614": "Bloco de gelo vertical",
@@ -2741,7 +2741,7 @@
 			"krill-not-around": "{{user}} não está por perto para ser atacado pelos krills!",
 			"krill-app": "{{user}} É um bot. Eles são fortes. Imunes aos krills, eu diria.",
 			"krill-message": "{{user}} foi atacado por um krill por {{invoker}}!",
-			"hug-back-button-label": ""
+			"hug-back-button-label": "Retribuir o abraço"
 		},
 		"guess": {
 			"type": {
