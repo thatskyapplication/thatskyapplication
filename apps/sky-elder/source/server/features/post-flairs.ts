@@ -57,8 +57,7 @@ async function postFlairsBody(subredditName: string, statistics: Record<string, 
 					},
 					{
 						type: ComponentType.TextDisplay,
-						// https://redd.it/1pux7h7
-						content: "-# Since <t:1766609955:s>",
+						content: "-# Since 18/12/2025",
 					},
 				],
 			},
