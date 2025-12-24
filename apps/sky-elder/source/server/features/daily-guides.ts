@@ -1,19 +1,81 @@
 import { context, reddit, redis } from "@devvit/web/server";
 import {
+	shardEruption,
 	skyCurrentSeason,
 	skyNotEndedEvents,
 	skyNow,
 	skyToday,
 	skyUpcomingSeason,
+	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { REDIS_WIDGET_DAILY_GUIDES_KEY } from "../utility/constants.js";
 
+function formatRelativeTime(date: ReturnType<typeof skyToday>, now: ReturnType<typeof skyToday>) {
+	const rtf = new Intl.RelativeTimeFormat("en-GB", { numeric: "always" });
+	const diffMinutes = Math.round(date.diff(now, "minutes").minutes);
+	const diffHours = Math.round(date.diff(now, "hours").hours);
+
+	if (Math.abs(diffMinutes) < 60) {
+		return rtf.format(diffMinutes, "minute");
+	}
+
+	return rtf.format(diffHours, "hour");
+}
+
 export async function dailyGuidesWidgetUpdate() {
 	const today = skyToday();
 	const now = skyNow();
+	const shard = shardEruption();
 	const season = skyCurrentSeason(today);
-	const text = [];
+
+	const text = [
+		`Time (PT): ${new Intl.DateTimeFormat("en-GB", {
+			dateStyle: "short",
+			timeStyle: "short",
+			timeZone: TIME_ZONE,
+		}).format(now.toJSDate())}\n`,
+	];
+
+	if (shard) {
+		const { realm, skyMap, strong, reward, timestamps, url } = shard;
+
+		const timestampsString = timestamps
+			.map(({ start, end }) => {
+				let string = t("time-range", {
+					ns: "general",
+					start: new Intl.DateTimeFormat("en-GB", {
+						timeStyle: "short",
+						timeZone: TIME_ZONE,
+					}).format(start.toJSDate()),
+					end: new Intl.DateTimeFormat("en-GB", {
+						timeStyle: "short",
+						timeZone: TIME_ZONE,
+					}).format(end.toJSDate()),
+				});
+
+				if (start > now) {
+					string += ` (${formatRelativeTime(start, now)})`;
+				}
+
+				if (now >= start) {
+					string += " (Now!)";
+				}
+
+				if (now >= end) {
+					string = `~~${string}~~`;
+				}
+
+				return string;
+			})
+			.join("\n        - ");
+
+		text.push(
+			`- ${strong ? "Strong" : "Regular"} shard eruption\n    - Location: [${t("shard-eruption.realm-map", { ns: "features", realm, map: skyMap })}](${url})\n    - Reward: ${reward === 200 ? "200 pieces of light" : `${reward} ascended candles`}\n    - Timestamps (PT):\n        - ${timestampsString}`,
+		);
+	} else {
+		text.push(`- ${t("shard-eruption.no-shard-eruptions-today", { ns: "features" })}`);
+	}
 
 	if (season) {
 		text.push(
@@ -50,7 +112,7 @@ export async function dailyGuidesWidgetUpdate() {
 		}
 	}
 
-	const widgetId = await redis.get(REDIS_WIDGET_DAILY_GUIDES_KEY);
+	let widgetId = await redis.get(REDIS_WIDGET_DAILY_GUIDES_KEY);
 
 	if (!widgetId) {
 		console.info("Daily guides widget not found. Creating one.");
@@ -63,7 +125,7 @@ export async function dailyGuidesWidgetUpdate() {
 		});
 
 		await redis.set(REDIS_WIDGET_DAILY_GUIDES_KEY, widget.id);
-		return;
+		widgetId = widget.id;
 	}
 
 	try {
