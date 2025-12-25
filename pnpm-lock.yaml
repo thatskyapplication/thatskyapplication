@@ -14,7 +14,7 @@ importers:
         version: 2.3.8
       knip:
         specifier: ^5.74.0
-        version: 5.74.0(@types/node@24.10.4)(typescript@5.9.3)
+        version: 5.74.0(@types/node@25.0.3)(typescript@5.9.3)
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -29,13 +29,13 @@ importers:
         version: 2.1.1
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@discordjs/ws':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@hono/node-server':
         specifier: ^1.19.7
         version: 1.19.7(hono@4.11.1)
@@ -111,10 +111,10 @@ importers:
     dependencies:
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@sentry/node':
         specifier: ^10.31.0
         version: 10.31.0
@@ -163,13 +163,13 @@ importers:
     dependencies:
       '@devvit/web':
         specifier: next
-        version: 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+        version: 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../packages/utility
       devvit:
         specifier: next
-        version: 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@devvit/shared@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@types/node@24.10.4)(google-protobuf@3.21.4)(typescript@5.9.3)
+        version: 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@devvit/shared@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@types/node@25.0.3)(google-protobuf@3.21.4)(typescript@5.9.3)
       discord-api-types:
         specifier: ^0.38.37
         version: 0.38.37
@@ -191,7 +191,7 @@ importers:
         version: 5.9.3
       vite:
         specifier: ^7.3.0
-        version: 7.3.0(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
+        version: 7.3.0(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0)
 
   apps/socials:
     dependencies:
@@ -200,10 +200,10 @@ importers:
         version: 0.16.11
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@sentry/node':
         specifier: ^10.31.0
         version: 10.31.0
@@ -255,10 +255,10 @@ importers:
     dependencies:
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1765584117-c4fc79a3c
+        version: 3.0.0-dev.1766552010-7884ecd3a
       '@icons-pack/react-simple-icons':
         specifier: 10.2.0
         version: 10.2.0(react@19.2.3)
@@ -859,113 +859,113 @@ packages:
     resolution: {integrity: sha512-Vd/9EVDiu6PPJt9yAh6roZP6El1xHrdvIVGjyBsHR0RYwNHgL7FJPyIIW4fANJNG6FtyZfvlRPpFI4ZM/lubvw==}
     engines: {node: '>=18'}
 
-  '@devvit/build-pack@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-TYoxVnl55dePBnRQgoEvKMF0lwd7ZRFvlub9jjzj4uEbK5aXsw5hRYdMVaVZdXFdPucWYATS3ihdsrwv+Xh69w==}
+  '@devvit/build-pack@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-PqP8/iQMleX7+7zteI+BAZc+mf3+WLlp5xk0BE/MbeT8+M1TRCM4Iiu+CAz1S1ZmCNjg16EBmAPUbqof5sfFGQ==}
     peerDependencies:
       '@devvit/server': '*'
       '@devvit/shared': '*'
 
-  '@devvit/cache@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-lyYRiUEWeJuE7k0AuJ62NAgnIHTF4ulnfTv2+kSClT1BksZ1/YRDoNkuc4f+p/P0srg15aHYJTaF49N3QcBOnQ==}
+  '@devvit/cache@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-lj6ouh1tQOKw6ZygXKyZQBo3tYOR5Pjpa71d7p6e+Xk/zE6aad03EN2v6wUcBbvJ0fsP4NLaApmrmBup21R+JQ==}
 
-  '@devvit/cli@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-inehsqmn+HD8Ay6v5ZOA8Y8Dj+i4bgANb9xDxxxlfUy4qp5iC//QQeLlnoGLsjJHZVbNGd3spmn73usCZ8fMmw==}
+  '@devvit/cli@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-JUsjchnNOhgr6kRv8nc3Ev5z5COlJs+dNdPv7nF4XzwfHb6R9D+VBvpDgPhcwHJQPzG/Ss6UJ5sWr38ErfGJrg==}
     engines: {node: '>=20'}
     hasBin: true
 
-  '@devvit/client@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-6QDnpRM8dKKeurR+2n+RmDm/Z3ils+VQlj6CGhpTG/UVVPcRDkSSs2wSNmw11pD0w9w84N+BWOwqXrV0I92YZA==}
+  '@devvit/client@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-gU2IrfU7ad7ZpqUsJgu1xYQwJaNnNymBZDTRJeuE2/+HG79xu4dyCAqvaEkb+I16mKSShGLOlzDaNu4OHihntw==}
 
-  '@devvit/media@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-SjlPFJWKqQ9/7xQ8sJdiEuqLDct2sOAJ9RpgvWUYeNzgqJxHDD8rnfx45aXTVNY71vBeWoCBmI/8O8YYhtDIuQ==}
+  '@devvit/media@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-W3C87RiCNiQrV3WdFFGb/UgxDS5mmCSjmL/nMOqYNTPnzRYbRr54sqvH40rdzouPLoRW+oYS5yb+O3GjsCgtPA==}
     peerDependencies:
       '@devvit/server': '*'
 
-  '@devvit/metrics@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-ZQjIZqZiS0JzyBK6UnDF1G8Tl6tHX4oSQceHd4zVkV8vPjoya5W6BXU9mhLOCrwq9gaxo2HQn73ZTgRtcvzq7w==}
+  '@devvit/metrics@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-7OU3dCpAf93aYHNZAaQH/EcYUXluJZYq4zPnjOl4Kubhj9ooGxgcbrTOXlFgmXDG62sTBTvzJSZzs3trecOfRw==}
 
-  '@devvit/notifications@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-90ISg709xLfr0NYpLSWKUGgqjePAQkxRjNHvyvsjlxY7zCmAi/QHSsFtohibMB7B4J6caeDLRTt6st7ooUqqFw==}
+  '@devvit/notifications@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-Y0NGOIK6VtwAwjaUSrTinB4LC9eAU3Zgvv+McylQNq8bglYZm34Jh7nJLFkut6habeCFX/tpyhqzYNmuvi8iPg==}
     peerDependencies:
       '@devvit/server': '*'
 
-  '@devvit/payments@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-63DTfKV8H79tmkRo+AvFZj8ZzlpKnP8pMaiZZeTmwXr+IAMhgx5hC794smoT+UkZ0BbvCA11cRLXtGLx1e5Nsg==}
+  '@devvit/payments@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-elM8UisDzs6WTTxfenWVrXWLsIERUHa8PpGPZ2sgXq/5xXcjfLNjn6F2FqLImdqlliNp4zniN38zXinN7yMeug==}
 
-  '@devvit/protos@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-rZekCriGtUzqyfbAWoFRZHGinBTqm8Ljl31f547ruK58X2W5kw6ej0TNrlUBEeDhY26otA8ukltblWMU4CJiQQ==}
+  '@devvit/protos@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-rUKKcxmr1e18KlVT57U196Rpvd8qTomLDnwMDPuVJ2sOD9e1fj04MGvREFIwLJO7A8LVUCz/AJ5MtVkGEtoQDw==}
     peerDependencies:
       twirp-ts: ^2.5.0
     peerDependenciesMeta:
       twirp-ts:
         optional: true
 
-  '@devvit/public-api@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-v1AY1KHasNmspKvzTYhsBnKYB3AHx7ftg4082KeQxbe+I2ukmFSpfmziHv9s2KNgZfZ+QpcSnIGuwDk3O3hHxQ==}
+  '@devvit/public-api@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-V8c7OKjVANhhQZCAcCVMgzHYueuueuSHEqhc5Y6umr7zgx4EOinDKsSchEewJomsq8k5f5k35+wbmkePQT9B/g==}
 
-  '@devvit/realtime@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-d79UDRVlG00GkbMv4b9GnWwm5iKzXkxLQ9IQgwLV4ZEDk0ifKILGo8aKaeHJQGMNFXQPciQsZCwhyqyw93eyQQ==}
+  '@devvit/realtime@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-EfXTvWnawcuNZMv7vNjQd7UgvkHbjjzWNdqai6ZJ8VF3oeGhWDtfZ8SKezOUMVweTV/NwE6oEObdFhiJ9ta8qg==}
     peerDependencies:
       '@devvit/client': '*'
       '@devvit/server': '*'
 
-  '@devvit/reddit@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-C8lzV63FntN7E/l7hydeWP5ZR0zAW5/jj6lluf0hR8TO7MED+YqDelPOeAgqJ4MnPj5W83eH4tAKaDRQE3zzfA==}
+  '@devvit/reddit@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-Z6VyxudNi9VSOgvmIWBi7dApCowWvHRyEdrgdIvqMOU+1DkQDZp7rA0QEliF0XZNpBLtLVNAFjjrixSUxzaHSw==}
     peerDependencies:
       '@devvit/server': '*'
 
-  '@devvit/redis@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-oFEa92odDLF1k5TuaJ8lUw19pPiwpu7LdNUBzG2t3m+KrqNzq+noxi/j1vM2EfI5/Sw3+Pt53Mm1mBLEduQQiQ==}
+  '@devvit/redis@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-xxARc5gWVQQ9YKe1tfW5pZBEuCJygXZD540lY5DQL9tXe+rPSyjWOaTxkpbVAz53/G0b20eD5u+twJ0V65MJtQ==}
     peerDependencies:
       '@devvit/server': '*'
 
-  '@devvit/scheduler@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-ISuUf3A+NQHxH0XvTuSV+QvHK7mZnWJOG1r5y8J2MirFffs0PiKOsiVJBvvXhRyNhi4BQ2xnG2HPoPaUviecyA==}
+  '@devvit/scheduler@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-38g3FOaDUqK1WWgj9WHg63IVhc+7EvHvG6tmW1uttrhOSdXM2LkYpkf15e0dAcqILQ5j76fsZ2FSIFOnraTe7A==}
     peerDependencies:
       '@devvit/server': '*'
 
-  '@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-kRi+ut7jzsLNV6etv5mQQ0+DkO1Vlbu3IROD8ohuf2GxfI+2m6jStYCqr1DdC/luos7HCA6GoVuzOXkuN+pB6w==}
+  '@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-/ttXq0NJ/WpM1/6Yu3j9HaHkgu1ekNj+QDA/rAr0atkz0A/VJcNyHHTL5+ku8Inydb4zA8bzgfi6PwKNEMfzyw==}
 
-  '@devvit/settings@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-QmOb+tUtboYEyvAGXhZZKdU8A7C+AgAAztagfulrj9l+HOyl7N4Fc8T5XnVsg2Dn3GbjRaQjlyGS2p6W2LCv7g==}
+  '@devvit/settings@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-48/aeXf4x691jWJXZvX4pApOdqzAViFrIISCc6v2d/rkTyHLM+bdOocwH9bnMjD11yPxv0ur3WOaedol7QdQtQ==}
     peerDependencies:
       '@devvit/server': '*'
 
-  '@devvit/shared-types@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-0BuL57Ldwp9ZRtfT0A0V+V1Lu3j05+UPN/f7ymbZD5WGjTFpGfa15R8eAqIJNueaBIZ8EGek+7fWAVdW0TBZAw==}
+  '@devvit/shared-types@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-FCRfHQowezZG0VdvDgul+eG4I3x6kMTbJbmEZ5p7aZqVeHVMZ6UwPJR8sAYzD4uhaEMhxCNQA7PvLwT62+ioPg==}
 
-  '@devvit/shared@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-1xHBXJ97M4OpvvQ8BR7POvfGEIOom96gUdEx1mFBWTRXMjJU7iFbfC83kvZqmiT2QEuScClm2iH2pNasitZWXA==}
+  '@devvit/shared@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-upkYsO+n2iXsMxk6l25AEJ6ikb99CAjEFBGdHHRbQ+WAYIe/9qO4Sl5zdi/dDOQqtTvyDlAMYFNTwe0cpBBPpQ==}
 
-  '@devvit/splash@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-1Ov+SYNNl2+s/lDUzkr9i0GDT/spF0hKU7V/2CkdFdO5mfFs6rSZDygKqma9vu1EYrLJndzGRsNT9mdLemS8GQ==}
+  '@devvit/splash@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-zyLukBw4RJQL9c7MJNQMPfiWN3JCGJK1lUnX97JG4tEIsJXNn4Nc4EfGlJmec88eYcFSQTSnVVku7QZ6x2WE1A==}
 
-  '@devvit/web@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0':
-    resolution: {integrity: sha512-Vb92ATwj8VR8OA//sPsIMLe4qKEx4fdDUaZqzxbDdwvyIwYpAOUOYrFbKj/CFLbcs6SeF2BPbh4I9jFyVdxWfg==}
+  '@devvit/web@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0':
+    resolution: {integrity: sha512-TkyySosXRhHoDDSf3waZzFwOLqWxHwBlCjZPjhAmu8q6cK31txqf9bLWZGd/3ItTZvW4+ocOjimEb17fSxNw7g==}
 
   '@discordjs/collection@2.1.1':
     resolution: {integrity: sha512-LiSusze9Tc7qF03sLCujF5iZp7K+vRNEDBZ86FT9aQAv3vxMLihUvKvpsCWiQ2DJq1tVckopKm1rxomgNUc9hg==}
     engines: {node: '>=18'}
 
-  '@discordjs/collection@3.0.0-dev.1765584117-c4fc79a3c':
-    resolution: {integrity: sha512-GilvHa6nCMLH/wx3Kz0ys8Aq+D+atQASfCHdPOVlkQU+Lx7ZfE9twEeddKsZq9mADj5uIXRtizlTgcAXNqbtyA==}
+  '@discordjs/collection@3.0.0-dev.1766534522-7884ecd3a':
+    resolution: {integrity: sha512-Ad1FF1PEcTL5uL0vwZL2cIPj85TN3qJceovxB3qR7j4IzOYgrXeP/xDAfkz5bwXATsGHSSLRQFXVX2vYC4bhgA==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/core@3.0.0-dev.1765584117-c4fc79a3c':
-    resolution: {integrity: sha512-Hr9MMFSGwHnYTqOVVC/n8gC+6Pc+6CabCPuDC6fPKfAA5oP88y06N5N6Yz1Y0y1l548hSJCrR8IywpxBAy4hxw==}
+  '@discordjs/core@3.0.0-dev.1766552010-7884ecd3a':
+    resolution: {integrity: sha512-EyTn0psAAQQp44oW4sY2IJlh2miH6PCrnGLeRN/5Fzvw33Uvu9povWy+wZFR7/VdqPN4eBewecShJQa5Y+TeBQ==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/rest@3.0.0-dev.1765584117-c4fc79a3c':
-    resolution: {integrity: sha512-43LmjfOD38iDG+Id+DzNijst8TS3EBisarn5vI7JVBrfkh4ybCMAK+fwYkpuTbIrSNI1xhGyKaF8V72FnenVpw==}
+  '@discordjs/rest@3.0.0-dev.1766552010-7884ecd3a':
+    resolution: {integrity: sha512-cvqlvmI+0cZPfgvwLKWCfq7kyYVO9HXEio0cV0lRVddvnzt758i378dWnNHKbtt3bWaPCE1iiKRldFcv+OCHgQ==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/util@2.0.0-dev.1765584117-c4fc79a3c':
-    resolution: {integrity: sha512-n8SmZKwosYW4Rc4Q4JVkMXO+tSfmW/NieGSEWGyxspa7vyR+nhyLr9WWv90nS5w3oknTSGzNoneILtG8dg5GCA==}
+  '@discordjs/util@2.0.0-dev.1766534522-7884ecd3a':
+    resolution: {integrity: sha512-7i5qMLO/opOudv7xpF1DLZvnFHIdJQabStWQHHTZXxOGlM46qqUvfoO0jI3c1W4jR6UyzudhJ8RlKiK7ZKrswQ==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/ws@3.0.0-dev.1765584117-c4fc79a3c':
-    resolution: {integrity: sha512-Q9yXXpUjq3fbTfr/wApcBdaMqd6UL7EtH8kb6U1HOiVk1KGroj5YtClqBTc2wd/zGT/x4JbtF5cpUZefX0FNPg==}
+  '@discordjs/ws@3.0.0-dev.1766552010-7884ecd3a':
+    resolution: {integrity: sha512-AtK7QCf3R5y4GwAZd9neK3/KktZzPwARoa4EdJu+a5d2U5aWhqjRp8yd18NbBxNX00+pF4yqWB8GVJz74kI76g==}
     engines: {node: '>=22.12.0'}
 
   '@drizzle-team/brocli@0.11.0':
@@ -2173,6 +2173,9 @@ packages:
     resolution: {integrity: sha512-xzvBr1Q1c4lCe7i6sRnrofxeO1QTP/LKQ6A6qy0iB4x5yfiSfARMEQEghojzTNALDTcv8En04qYNIco9/K9eZQ==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
 
+  '@sec-ant/readable-stream@0.4.1':
+    resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
+
   '@sentry-internal/browser-utils@10.31.0':
     resolution: {integrity: sha512-2Pvk0aRA0M/wiUj2K00mhw8dhD/zRhGKK9xQVAPtSz9cbKO/0WIS5dMAX0bfNvYVVMQPrQM46BmEwxeMMuY6HQ==}
     engines: {node: '>=18'}
@@ -2300,6 +2303,10 @@ packages:
   '@sentry/vite-plugin@4.6.1':
     resolution: {integrity: sha512-Qvys1y3o8/bfL3ikrHnJS9zxdjt0z3POshdBl3967UcflrTqBmnGNkcVk53SlmtJWIfh85fgmrLvGYwZ2YiqNg==}
     engines: {node: '>= 14'}
+
+  '@sindresorhus/merge-streams@4.0.0':
+    resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
+    engines: {node: '>=18'}
 
   '@skyware/jetstream@0.2.5':
     resolution: {integrity: sha512-fM/zs03DLwqRyzZZJFWN20e76KrdqIp97Tlm8Cek+vxn96+tu5d/fx79V6H85L0QN6HvGiX2l9A8hWFqHvYlOA==}
@@ -2661,6 +2668,9 @@ packages:
 
   '@types/node@24.10.4':
     resolution: {integrity: sha512-vnDVpYPMzs4wunl27jHrfmwojOGKya0xyM3sH+UE5iv5uPS6vX7UIoh6m+vQc5LGBq52HBKPIn/zcSZVzeDEZg==}
+
+  '@types/node@25.0.3':
+    resolution: {integrity: sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==}
 
   '@types/parse-json@4.0.2':
     resolution: {integrity: sha512-dISoDXWWQwUquiKsyZ4Ng+HX2KsPL7LyHKHQwgGFEA3IaKac4Obd+h2a/a6waisAoepJlBcx9paWqjA8/HVjCw==}
@@ -3204,8 +3214,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  devvit@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0:
-    resolution: {integrity: sha512-qdfvMXfwHJG9sRduoFocMvOT9o29oMtB7H2N78L994E+wam6Vy5WlNRcSiv4k10o32b8cmnx+8eqP5HErYW3PA==}
+  devvit@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0:
+    resolution: {integrity: sha512-c2HYWa7NM7F8HmHNY9QhvoLP5xr0feYj0Gmkzhdda9GauBDqHPeuq2R+eS59AZk/Q1jAnAKSd8XZNiaG5dxQuw==}
     hasBin: true
 
   diff3@0.0.3:
@@ -3357,6 +3367,10 @@ packages:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
 
+  execa@9.6.1:
+    resolution: {integrity: sha512-9Be3ZoN4LmYR90tUoVu2te2BsbzHfhJyfEiAVfz7N5/zv+jduIfLrV2xdQXOHbaD6KgpGdO9PRPM1Y4Q9QkPkA==}
+    engines: {node: ^18.19.0 || >=20.5.0}
+
   exit-hook@2.2.1:
     resolution: {integrity: sha512-eNTPlAD67BmP31LDINZ3U7HSF8l57TxOY2PmBJ1shpCvpnxBF93mWCE8YHBnXs8qiUZJc9WDcWIeC3a2HIAMfw==}
     engines: {node: '>=6'}
@@ -3415,6 +3429,10 @@ packages:
   figures@5.0.0:
     resolution: {integrity: sha512-ej8ksPF4x6e5wvK9yevct0UCXh8TTFlWGVLlgjZuoBH1HwjIfKE/IdL5mq89sFA7zELi1VhKpmtDnrs7zWyeyg==}
     engines: {node: '>=14'}
+
+  figures@6.1.0:
+    resolution: {integrity: sha512-d+l3qxjSesT4V7v2fh+QnmFnUWv9lSpjarhShNTgBOfA0ttejbQUAlHLitbjkoRiDulW0OPoQPYIGhIC8ohejg==}
+    engines: {node: '>=18'}
 
   file-type@18.2.1:
     resolution: {integrity: sha512-Yw5MtnMv7vgD2/6Bjmmuegc8bQEVA9GmAyaR18bMYWKqsWDG9wgYZ1j4I6gNMF5Y5JBDcUcjRQqNQx7Y8uotcg==}
@@ -3515,6 +3533,10 @@ packages:
   get-proto@1.0.1:
     resolution: {integrity: sha512-sTSfBjoXBp89JvIKIefqw7U2CCebsc74kiY6awiGogKtoSGbgjYE/G/+l9sF3MWFPNc9IcoOC4ODfKHfxFmp0g==}
     engines: {node: '>= 0.4'}
+
+  get-stream@9.0.1:
+    resolution: {integrity: sha512-kVCxPF3vQM/N0B1PmoqVUqgHP+EeVjmZSQn+1oCRPxd2P21P2F19lIgbR3HBosbB1PUhOAoctJnfEn2GbN2eZA==}
+    engines: {node: '>=18'}
 
   get-tsconfig@4.13.0:
     resolution: {integrity: sha512-1VKTZJCwBrvbd+Wn3AOgQP/2Av+TfTCOlE4AcRJE72W1ksZXbAx8PPBR9RzgTeSPzlPMHrbANMH3LbltH73wxQ==}
@@ -3621,6 +3643,10 @@ packages:
   https-proxy-agent@7.0.6:
     resolution: {integrity: sha512-vK9P5/iUfdl95AI+JVyUuIcVtd4ofvtrOr3HNtM2yxC9bnMbEdp3x01OhQNnjb8IJYi38VlTE3mBXwcfvywuSw==}
     engines: {node: '>= 14'}
+
+  human-signals@8.0.1:
+    resolution: {integrity: sha512-eKCa6bwnJhvxj14kZk5NCPc6Hb6BdsU9DZcOnmQKSnO1VKrfV0zCvtttPZUsBvjmNDn8rpcJfpwSYnHBjc95MQ==}
+    engines: {node: '>=18.18.0'}
 
   hyperlinker@1.0.0:
     resolution: {integrity: sha512-Ty8UblRWFEcfSuIaajM34LdPXIhbs1ajEX/BBPv24J+enSVaEVY63xQ6lTO9VRYS5LAoghIG0IDJ+p+IPzKUQQ==}
@@ -3744,6 +3770,10 @@ packages:
     resolution: {integrity: sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==}
     engines: {node: '>=0.12.0'}
 
+  is-plain-obj@4.1.0:
+    resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
+    engines: {node: '>=12'}
+
   is-plain-object@2.0.4:
     resolution: {integrity: sha512-h5PpgXkWitc38BBMYawTYMWJHFZJVnBquFE57xFpjB8pJFiF6gZ+bU+WyI/yqXiFR5mdLsgYNaPe8uao6Uv9Og==}
     engines: {node: '>=0.10.0'}
@@ -3773,6 +3803,10 @@ packages:
   is-unicode-supported@1.3.0:
     resolution: {integrity: sha512-43r2mRvz+8JRIKnWJ+3j8JtjRKZ6GmjzfaE/qiBJnikNnYv/6bagRJ1kUhNk8R5EX/GkobD+r+sfxCPJsiKBLQ==}
     engines: {node: '>=12'}
+
+  is-unicode-supported@2.1.0:
+    resolution: {integrity: sha512-mE00Gnza5EEB3Ds0HfMyllZzbBrmLOX3vfWoj9A9PEnTfratQ/BcaJOuMhnkhjXvb2+FkY3VuHqtAGpTPmglFQ==}
+    engines: {node: '>=18'}
 
   is-wsl@2.2.0:
     resolution: {integrity: sha512-fKzAra0rGJUUBwGBgNkHZuToZcn+TtXHpeCgmkMJMMYx1sQDYaCSyjJBSCa2nH1DGm7s3n1oBnohoVTBaN7Lww==}
@@ -4212,6 +4246,10 @@ packages:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
 
+  npm-run-path@6.0.0:
+    resolution: {integrity: sha512-9qny7Z9DsQU8Ou39ERsPU4OZQlSTP47ShQzuKZ6PRXpYLtIFgl/DEBYEXKlvcEa+9tHVcK8CF81Y2V72qaZhWA==}
+    engines: {node: '>=18'}
+
   nwsapi@2.2.23:
     resolution: {integrity: sha512-7wfH4sLbt4M0gCDzGE6vzQBo0bfTKjU7Sfpqy/7gs1qBfYz2vEJH6vXcBKpO3+6Yu1telwd0t9HpyOoLEQQbIQ==}
 
@@ -4303,6 +4341,10 @@ packages:
     resolution: {integrity: sha512-ayCKvm/phCGxOkYRSCM82iDwct8/EonSEgCSxWxD7ve6jHggsFl4fZVQBPRNgQoKiuV/odhFrGzQXZwbifC8Rg==}
     engines: {node: '>=8'}
 
+  parse-ms@4.0.0:
+    resolution: {integrity: sha512-TXfryirbmq34y8QBwgqCVLi+8oA3oWx2eAnSn62ITyEhEYaWRlVZ2DvMM9eZbMs/RfxPu/PK/aBLyGj4IrqMHw==}
+    engines: {node: '>=18'}
+
   parse5@7.3.0:
     resolution: {integrity: sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==}
 
@@ -4333,6 +4375,10 @@ packages:
   path-key@3.1.1:
     resolution: {integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==}
     engines: {node: '>=8'}
+
+  path-key@4.0.0:
+    resolution: {integrity: sha512-haREypq7xkM7ErfgIyA0z+Bj4AGKlMSdlQE2jvJo6huWD1EdkKYV+G/T4nq0YEF2vgTT8kqMFKo1uHn950r4SQ==}
+    engines: {node: '>=12'}
 
   path-parse@1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
@@ -4498,6 +4544,10 @@ packages:
     resolution: {integrity: sha512-v6UNi1+3hSlVvv8fSaoUbggEM5VErKmmpGA7Pl3HF8V6uKY7rvClBOJlH6yNwQtfTueNkGVpOv/mtWL9L4bgRA==}
     engines: {node: '>=14'}
     hasBin: true
+
+  pretty-ms@9.3.0:
+    resolution: {integrity: sha512-gjVS5hOP+M3wMm5nmNOucbIrqudzs9v/57bWRHQWLYklXqoXKrVfYW2W9+glfGsqtPgpiz5WwyEEB+ksXIx3gQ==}
+    engines: {node: '>=18'}
 
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
@@ -4942,6 +4992,10 @@ packages:
     resolution: {integrity: sha512-gmBGslpoQJtgnMAvOVqGZpEz9dyoKTCzy2nfz/n8aIFhN/jCE/rCmcxabB6jOOHV+0WNnylOxaxBQPSvcWklhA==}
     engines: {node: '>=12'}
 
+  strip-final-newline@4.0.0:
+    resolution: {integrity: sha512-aulFJcD6YK8V1G7iRB5tigAP4TsHBZZrOV8pjV++zdUwmeV8uzbY7yn6h9MswN62adStNZFuCIx4haBnRuMDaw==}
+    engines: {node: '>=18'}
+
   strip-json-comments@5.0.3:
     resolution: {integrity: sha512-1tB5mhVo7U+ETBKNf92xT4hrQa3pm0MZ0PQvuDnWgAAGHDsfp4lPSpiS6psrSiet87wyGPh9ft6wmhOMQ0hDiw==}
     engines: {node: '>=14.16'}
@@ -5204,6 +5258,10 @@ packages:
   unicode-segmenter@0.14.4:
     resolution: {integrity: sha512-pR5VCiCrLrKOL6FRW61jnk9+wyMtKKowq+jyFY9oc6uHbWKhDL4yVRiI4YZPksGMK72Pahh8m0cn/0JvbDDyJg==}
 
+  unicorn-magic@0.3.0:
+    resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
+    engines: {node: '>=18'}
+
   universalify@0.2.0:
     resolution: {integrity: sha512-CJ1QgKmNg3CwvAv/kOFmtnEN05f0D/cn9QntgNOQlQF9dgvVTHj3t+8JPdjqawCHk7V/KA+fbUqzZ9XWhcqPUg==}
     engines: {node: '>= 4.0.0'}
@@ -5457,6 +5515,10 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  yoctocolors@2.1.2:
+    resolution: {integrity: sha512-CzhO+pFNo8ajLM2d2IW/R93ipy99LWjtwblvC1RsoSUMZgyLbYFr221TnSNT7GjGdYui6P459mw9JH/g/zW2ug==}
+    engines: {node: '>=18'}
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
@@ -6295,14 +6357,14 @@ snapshots:
 
   '@csstools/css-tokenizer@3.0.4': {}
 
-  '@devvit/build-pack@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@devvit/shared@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/build-pack@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@devvit/shared@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/payments': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/splash': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/payments': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/splash': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
       '@types/node': 20.14.12
       esbuild: 0.25.9
       rxjs: 7.8.1
@@ -6311,32 +6373,33 @@ snapshots:
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/cache@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/cache@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/redis': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/redis': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - '@devvit/server'
       - twirp-ts
 
-  '@devvit/cli@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@devvit/shared@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@types/node@24.10.4)(google-protobuf@3.21.4)(typescript@5.9.3)':
+  '@devvit/cli@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@devvit/shared@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@types/node@25.0.3)(google-protobuf@3.21.4)(typescript@5.9.3)':
     dependencies:
-      '@devvit/build-pack': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@devvit/shared@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/public-api': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/build-pack': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@devvit/shared@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/public-api': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
       '@improbable-eng/grpc-web': 0.15.0(google-protobuf@3.21.4)
       '@improbable-eng/grpc-web-node-http-transport': 0.15.0(@improbable-eng/grpc-web@0.15.0(google-protobuf@3.21.4))
-      '@oclif/core': 2.9.4(@types/node@24.10.4)(typescript@5.9.3)
-      '@oclif/plugin-autocomplete': 2.3.3(@types/node@24.10.4)(typescript@5.9.3)
-      '@oclif/plugin-help': 5.2.14(@types/node@24.10.4)(typescript@5.9.3)
-      '@oclif/plugin-not-found': 2.3.34(@types/node@24.10.4)(typescript@5.9.3)
-      '@oclif/plugin-warn-if-update-available': 2.0.45(@types/node@24.10.4)(typescript@5.9.3)
+      '@oclif/core': 2.9.4(@types/node@25.0.3)(typescript@5.9.3)
+      '@oclif/plugin-autocomplete': 2.3.3(@types/node@25.0.3)(typescript@5.9.3)
+      '@oclif/plugin-help': 5.2.14(@types/node@25.0.3)(typescript@5.9.3)
+      '@oclif/plugin-not-found': 2.3.34(@types/node@25.0.3)(typescript@5.9.3)
+      '@oclif/plugin-warn-if-update-available': 2.0.45(@types/node@25.0.3)(typescript@5.9.3)
       '@types/ws': 8.5.12
       chalk: 4.1.2
       chokidar: 3.5.3
       date-fns: 2.29.3
       dotenv: 16.5.0
+      execa: 9.6.1
       file-type: 18.2.1
       image-size: 2.0.2
       inquirer: 9.1.4
@@ -6367,167 +6430,167 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@devvit/client@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/client@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/media@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/media@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/metrics@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/metrics@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/notifications@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/notifications@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/payments@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/payments@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/public-api': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/public-api': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/protos@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/protos@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
       protobufjs: 7.5.4
       rxjs: 7.8.1
     optionalDependencies:
       twirp-ts: 2.5.0
 
-  '@devvit/public-api@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/public-api@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/metrics': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/metrics': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
       base64-js: 1.5.1
       clone-deep: 4.0.1
       moderndash: 4.0.0
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/realtime@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/client@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/realtime@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/client@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/client': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/client': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
       rxjs: 7.8.1
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/reddit@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/reddit@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/public-api': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/splash': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/public-api': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/splash': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/redis@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/redis@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/scheduler@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/scheduler@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/public-api': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/public-api': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/settings@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
+  '@devvit/settings@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/shared-types@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/shared-types@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
       jsonschema: 1.4.1
       uuid: 9.0.0
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/shared@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/shared@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/protos': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/shared-types': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/protos': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/shared-types': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/splash@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/splash@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/public-api': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/public-api': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
-  '@devvit/web@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)':
+  '@devvit/web@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)':
     dependencies:
-      '@devvit/cache': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/client': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/media': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/notifications': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/payments': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/realtime': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/client@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/reddit': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/redis': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/scheduler': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/server': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
-      '@devvit/settings': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
-      '@devvit/shared': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0)
+      '@devvit/cache': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/client': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/media': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/notifications': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/payments': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/realtime': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/client@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/reddit': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/redis': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/scheduler': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/server': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
+      '@devvit/settings': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(twirp-ts@2.5.0)
+      '@devvit/shared': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0)
     transitivePeerDependencies:
       - twirp-ts
 
   '@discordjs/collection@2.1.1': {}
 
-  '@discordjs/collection@3.0.0-dev.1765584117-c4fc79a3c': {}
+  '@discordjs/collection@3.0.0-dev.1766534522-7884ecd3a': {}
 
-  '@discordjs/core@3.0.0-dev.1765584117-c4fc79a3c':
+  '@discordjs/core@3.0.0-dev.1766552010-7884ecd3a':
     dependencies:
-      '@discordjs/rest': 3.0.0-dev.1765584117-c4fc79a3c
-      '@discordjs/util': 2.0.0-dev.1765584117-c4fc79a3c
-      '@discordjs/ws': 3.0.0-dev.1765584117-c4fc79a3c
+      '@discordjs/rest': 3.0.0-dev.1766552010-7884ecd3a
+      '@discordjs/util': 2.0.0-dev.1766534522-7884ecd3a
+      '@discordjs/ws': 3.0.0-dev.1766552010-7884ecd3a
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
       discord-api-types: 0.38.37
@@ -6535,10 +6598,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@discordjs/rest@3.0.0-dev.1765584117-c4fc79a3c':
+  '@discordjs/rest@3.0.0-dev.1766552010-7884ecd3a':
     dependencies:
-      '@discordjs/collection': 3.0.0-dev.1765584117-c4fc79a3c
-      '@discordjs/util': 2.0.0-dev.1765584117-c4fc79a3c
+      '@discordjs/collection': 3.0.0-dev.1766534522-7884ecd3a
+      '@discordjs/util': 2.0.0-dev.1766534522-7884ecd3a
       '@sapphire/async-queue': 1.5.5
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
@@ -6548,14 +6611,14 @@ snapshots:
       undici: 7.16.0
       uuid: 13.0.0
 
-  '@discordjs/util@2.0.0-dev.1765584117-c4fc79a3c':
+  '@discordjs/util@2.0.0-dev.1766534522-7884ecd3a':
     dependencies:
       discord-api-types: 0.38.37
 
-  '@discordjs/ws@3.0.0-dev.1765584117-c4fc79a3c':
+  '@discordjs/ws@3.0.0-dev.1766552010-7884ecd3a':
     dependencies:
-      '@discordjs/collection': 3.0.0-dev.1765584117-c4fc79a3c
-      '@discordjs/util': 2.0.0-dev.1765584117-c4fc79a3c
+      '@discordjs/collection': 3.0.0-dev.1766534522-7884ecd3a
+      '@discordjs/util': 2.0.0-dev.1766534522-7884ecd3a
       '@sapphire/async-queue': 1.5.5
       '@types/ws': 8.18.1
       '@vladfrangu/async_event_emitter': 2.4.7
@@ -7056,7 +7119,7 @@ snapshots:
       supports-color: 8.1.1
       tslib: 2.8.1
 
-  '@oclif/core@2.9.4(@types/node@24.10.4)(typescript@5.9.3)':
+  '@oclif/core@2.9.4(@types/node@25.0.3)(typescript@5.9.3)':
     dependencies:
       '@types/cli-progress': 3.11.6
       ansi-escapes: 4.3.2
@@ -7083,7 +7146,7 @@ snapshots:
       strip-ansi: 6.0.1
       supports-color: 8.1.1
       supports-hyperlinks: 2.3.0
-      ts-node: 10.9.2(@types/node@24.10.4)(typescript@5.9.3)
+      ts-node: 10.9.2(@types/node@25.0.3)(typescript@5.9.3)
       tslib: 2.8.1
       widest-line: 3.1.0
       wordwrap: 1.0.0
@@ -7094,9 +7157,9 @@ snapshots:
       - '@types/node'
       - typescript
 
-  '@oclif/plugin-autocomplete@2.3.3(@types/node@24.10.4)(typescript@5.9.3)':
+  '@oclif/plugin-autocomplete@2.3.3(@types/node@25.0.3)(typescript@5.9.3)':
     dependencies:
-      '@oclif/core': 2.9.4(@types/node@24.10.4)(typescript@5.9.3)
+      '@oclif/core': 2.9.4(@types/node@25.0.3)(typescript@5.9.3)
       chalk: 4.1.2
       debug: 4.4.3(supports-color@8.1.1)
       fs-extra: 9.1.0
@@ -7107,19 +7170,19 @@ snapshots:
       - supports-color
       - typescript
 
-  '@oclif/plugin-help@5.2.14(@types/node@24.10.4)(typescript@5.9.3)':
+  '@oclif/plugin-help@5.2.14(@types/node@25.0.3)(typescript@5.9.3)':
     dependencies:
-      '@oclif/core': 2.9.4(@types/node@24.10.4)(typescript@5.9.3)
+      '@oclif/core': 2.9.4(@types/node@25.0.3)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
       - '@types/node'
       - typescript
 
-  '@oclif/plugin-not-found@2.3.34(@types/node@24.10.4)(typescript@5.9.3)':
+  '@oclif/plugin-not-found@2.3.34(@types/node@25.0.3)(typescript@5.9.3)':
     dependencies:
       '@oclif/color': 1.0.13
-      '@oclif/core': 2.9.4(@types/node@24.10.4)(typescript@5.9.3)
+      '@oclif/core': 2.9.4(@types/node@25.0.3)(typescript@5.9.3)
       fast-levenshtein: 3.0.0
     transitivePeerDependencies:
       - '@swc/core'
@@ -7127,9 +7190,9 @@ snapshots:
       - '@types/node'
       - typescript
 
-  '@oclif/plugin-warn-if-update-available@2.0.45(@types/node@24.10.4)(typescript@5.9.3)':
+  '@oclif/plugin-warn-if-update-available@2.0.45(@types/node@25.0.3)(typescript@5.9.3)':
     dependencies:
-      '@oclif/core': 2.9.4(@types/node@24.10.4)(typescript@5.9.3)
+      '@oclif/core': 2.9.4(@types/node@25.0.3)(typescript@5.9.3)
       chalk: 4.1.2
       debug: 4.4.3(supports-color@8.1.1)
       fs-extra: 9.1.0
@@ -7637,6 +7700,8 @@ snapshots:
 
   '@sapphire/snowflake@3.5.5': {}
 
+  '@sec-ant/readable-stream@0.4.1': {}
+
   '@sentry-internal/browser-utils@10.31.0':
     dependencies:
       '@sentry/core': 10.31.0
@@ -7824,6 +7889,8 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  '@sindresorhus/merge-streams@4.0.0': {}
 
   '@skyware/jetstream@0.2.5':
     dependencies:
@@ -8264,7 +8331,7 @@ snapshots:
 
   '@types/cli-progress@3.11.6':
     dependencies:
-      '@types/node': 24.10.4
+      '@types/node': 25.0.3
 
   '@types/connect@3.4.38':
     dependencies:
@@ -8298,6 +8365,10 @@ snapshots:
       undici-types: 5.26.5
 
   '@types/node@24.10.4':
+    dependencies:
+      undici-types: 7.16.0
+
+  '@types/node@25.0.3':
     dependencies:
       undici-types: 7.16.0
 
@@ -8354,7 +8425,7 @@ snapshots:
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 24.10.4
+      '@types/node': 25.0.3
 
   '@vladfrangu/async_event_emitter@2.4.7': {}
 
@@ -8822,9 +8893,9 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  devvit@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@devvit/shared@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@types/node@24.10.4)(google-protobuf@3.21.4)(typescript@5.9.3):
+  devvit@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@devvit/shared@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@types/node@25.0.3)(google-protobuf@3.21.4)(typescript@5.9.3):
     dependencies:
-      '@devvit/cli': 0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(@devvit/server@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@devvit/shared@0.12.7-next-2025-12-16-19-35-04-22e0912f4.0(twirp-ts@2.5.0))(@types/node@24.10.4)(google-protobuf@3.21.4)(typescript@5.9.3)
+      '@devvit/cli': 0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(@devvit/server@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@devvit/shared@0.12.8-next-2025-12-22-22-32-17-484c84a9e.0(twirp-ts@2.5.0))(@types/node@25.0.3)(google-protobuf@3.21.4)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@devvit/server'
       - '@devvit/shared'
@@ -9002,6 +9073,21 @@ snapshots:
 
   events@3.3.0: {}
 
+  execa@9.6.1:
+    dependencies:
+      '@sindresorhus/merge-streams': 4.0.0
+      cross-spawn: 7.0.6
+      figures: 6.1.0
+      get-stream: 9.0.1
+      human-signals: 8.0.1
+      is-plain-obj: 4.1.0
+      is-stream: 4.0.1
+      npm-run-path: 6.0.0
+      pretty-ms: 9.3.0
+      signal-exit: 4.1.0
+      strip-final-newline: 4.0.0
+      yoctocolors: 2.1.2
+
   exit-hook@2.2.1: {}
 
   express@4.22.1:
@@ -9119,6 +9205,10 @@ snapshots:
     dependencies:
       escape-string-regexp: 5.0.0
       is-unicode-supported: 1.3.0
+
+  figures@6.1.0:
+    dependencies:
+      is-unicode-supported: 2.1.0
 
   file-type@18.2.1:
     dependencies:
@@ -9238,6 +9328,11 @@ snapshots:
     dependencies:
       dunder-proto: 1.0.1
       es-object-atoms: 1.1.1
+
+  get-stream@9.0.1:
+    dependencies:
+      '@sec-ant/readable-stream': 0.4.1
+      is-stream: 4.0.1
 
   get-tsconfig@4.13.0:
     dependencies:
@@ -9374,6 +9469,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  human-signals@8.0.1: {}
+
   hyperlinker@1.0.0: {}
 
   i18next-browser-languagedetector@8.2.0:
@@ -9481,6 +9578,8 @@ snapshots:
 
   is-number@7.0.0: {}
 
+  is-plain-obj@4.1.0: {}
+
   is-plain-object@2.0.4:
     dependencies:
       isobject: 3.0.1
@@ -9500,6 +9599,8 @@ snapshots:
       which-typed-array: 1.1.19
 
   is-unicode-supported@1.3.0: {}
+
+  is-unicode-supported@2.1.0: {}
 
   is-wsl@2.2.0:
     dependencies:
@@ -9588,7 +9689,7 @@ snapshots:
       whatwg-encoding: 3.1.1
       whatwg-mimetype: 4.0.0
       whatwg-url: 14.2.0
-      ws: 8.18.3
+      ws: 8.18.0
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -9641,10 +9742,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  knip@5.74.0(@types/node@24.10.4)(typescript@5.9.3):
+  knip@5.74.0(@types/node@25.0.3)(typescript@5.9.3):
     dependencies:
       '@nodelib/fs.walk': 1.2.8
-      '@types/node': 24.10.4
+      '@types/node': 25.0.3
       fast-glob: 3.3.3
       formatly: 0.3.0
       jiti: 2.6.1
@@ -9892,6 +9993,11 @@ snapshots:
 
   normalize-path@3.0.0: {}
 
+  npm-run-path@6.0.0:
+    dependencies:
+      path-key: 4.0.0
+      unicorn-magic: 0.3.0
+
   nwsapi@2.2.23: {}
 
   object-assign@4.1.1: {}
@@ -10001,6 +10107,8 @@ snapshots:
       json-parse-even-better-errors: 2.3.1
       lines-and-columns: 1.2.4
 
+  parse-ms@4.0.0: {}
+
   parse5@7.3.0:
     dependencies:
       entities: 6.0.1
@@ -10028,6 +10136,8 @@ snapshots:
   path-is-absolute@1.0.1: {}
 
   path-key@3.1.1: {}
+
+  path-key@4.0.0: {}
 
   path-parse@1.0.7: {}
 
@@ -10184,6 +10294,10 @@ snapshots:
 
   prettier@3.7.4: {}
 
+  pretty-ms@9.3.0:
+    dependencies:
+      parse-ms: 4.0.0
+
   process-nextick-args@2.0.1: {}
 
   process-warning@5.0.0: {}
@@ -10210,7 +10324,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 24.10.4
+      '@types/node': 25.0.3
       long: 5.3.2
 
   proxy-addr@2.0.7:
@@ -10715,6 +10829,8 @@ snapshots:
     dependencies:
       ansi-regex: 6.2.2
 
+  strip-final-newline@4.0.0: {}
+
   strip-json-comments@5.0.3: {}
 
   strnum@2.1.2: {}
@@ -10831,14 +10947,14 @@ snapshots:
 
   ts-mixer@6.0.4: {}
 
-  ts-node@10.9.2(@types/node@24.10.4)(typescript@5.9.3):
+  ts-node@10.9.2(@types/node@25.0.3)(typescript@5.9.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.12
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 24.10.4
+      '@types/node': 25.0.3
       acorn: 8.15.0
       acorn-walk: 8.3.4
       arg: 4.1.3
@@ -10959,6 +11075,8 @@ snapshots:
 
   unicode-segmenter@0.14.4: {}
 
+  unicorn-magic@0.3.0: {}
+
   universalify@0.2.0: {}
 
   universalify@2.0.1: {}
@@ -11051,6 +11169,21 @@ snapshots:
       tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 24.10.4
+      fsevents: 2.3.3
+      jiti: 2.6.1
+      lightningcss: 1.30.2
+      tsx: 4.21.0
+
+  vite@7.3.0(@types/node@25.0.3)(jiti@2.6.1)(lightningcss@1.30.2)(tsx@4.21.0):
+    dependencies:
+      esbuild: 0.27.1
+      fdir: 6.5.0(picomatch@4.0.3)
+      picomatch: 4.0.3
+      postcss: 8.5.6
+      rollup: 4.53.5
+      tinyglobby: 0.2.15
+    optionalDependencies:
+      '@types/node': 25.0.3
       fsevents: 2.3.3
       jiti: 2.6.1
       lightningcss: 1.30.2
@@ -11157,6 +11290,8 @@ snapshots:
   yn@3.1.1: {}
 
   yocto-queue@0.1.0: {}
+
+  yoctocolors@2.1.2: {}
 
   zod@3.25.76: {}
 
