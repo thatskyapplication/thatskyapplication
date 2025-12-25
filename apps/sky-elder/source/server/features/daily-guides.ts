@@ -56,13 +56,9 @@ export async function dailyGuidesWidgetUpdate() {
 
 				if (start > now) {
 					string += ` (${formatRelativeTime(start, now)})`;
-				}
-
-				if (now >= start) {
-					string += " (Now!)";
-				}
-
-				if (now >= end) {
+				} else if (now >= start && now < end) {
+					string = `**${string} (Now!)**`;
+				} else {
 					string = `~~${string}~~`;
 				}
 
