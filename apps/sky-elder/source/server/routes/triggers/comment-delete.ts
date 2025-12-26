@@ -10,25 +10,24 @@ import type { Request } from "express";
 import { COMMENT_DELETE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
 export async function postTriggersCommentDelete(req: Request) {
-	const body = req.body as OnCommentDeleteRequest;
-	const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
-
-	if (typeof discordWebhookURL !== "string") {
-		console.warn("Discord webhook URL is not set.");
-		return;
-	}
-
-	const { commentId, subreddit, author, postId } = body;
+	const { commentId, subreddit, author, postId } = req.body as OnCommentDeleteRequest;
 
 	if (!(subreddit && author)) {
 		throw new Error("Subreddit or author is missing from the request body.");
 	}
 
-	const [post, comment, commentBody] = await Promise.all([
+	const [discordWebhookURL, post, comment, commentBody, subredditKarma] = await Promise.all([
+		settings.get(SETTINGS_COMMENTS_WEBHOOK_URL),
 		reddit.getPostById(postId as T3),
 		reddit.getCommentById(commentId as T1),
 		redis.get(commentId as T1),
+		reddit.getUserKarmaFromCurrentSubreddit(author.name),
 	]);
+
+	if (typeof discordWebhookURL !== "string") {
+		console.warn("Discord webhook URL is not set.");
+		return;
+	}
 
 	if (!commentBody) {
 		return;
@@ -74,7 +73,7 @@ export async function postTriggersCommentDelete(req: Request) {
 							},
 							{
 								type: ComponentType.TextDisplay,
-								content: `-# Karma: ${author.karma.toLocaleString()} | Reports: ${comment.numReports.toLocaleString()}`,
+								content: `-# Post karma: ${subredditKarma.fromPosts?.toLocaleString() ?? "Unknown"} | Comment karma: ${subredditKarma.fromComments?.toLocaleString() ?? "Unknown"}| Reports: ${comment.numReports.toLocaleString()}`,
 							},
 						],
 					},

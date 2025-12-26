@@ -1,4 +1,4 @@
-import { redis, settings } from "@devvit/web/server";
+import { reddit, redis, settings } from "@devvit/web/server";
 import type { OnCommentSubmitRequest } from "@devvit/web/shared";
 import {
 	ButtonStyle,
@@ -10,18 +10,20 @@ import type { Request } from "express";
 import { COMMENT_CREATE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
 export async function postTriggersCommentSubmit(req: Request) {
-	const body = req.body as OnCommentSubmitRequest;
-	const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
+	const { comment, author, post } = req.body as OnCommentSubmitRequest;
+
+	if (!(comment && author && post)) {
+		throw new Error("Comment, author, or post is missing from the request body.");
+	}
+
+	const [discordWebhookURL, subredditKarma] = await Promise.all([
+		settings.get(SETTINGS_COMMENTS_WEBHOOK_URL),
+		reddit.getUserKarmaFromCurrentSubreddit(author.name),
+	]);
 
 	if (typeof discordWebhookURL !== "string") {
 		console.warn("Discord webhook URL is not set.");
 		return;
-	}
-
-	const { comment, author, post } = body;
-
-	if (!(comment && author && post)) {
-		throw new Error("Comment, author, or post is missing from the request body.");
 	}
 
 	const date = new Date();
@@ -67,7 +69,7 @@ export async function postTriggersCommentSubmit(req: Request) {
 							},
 							{
 								type: ComponentType.TextDisplay,
-								content: `-# Karma: ${author.karma.toLocaleString()}`,
+								content: `-# Post karma: ${subredditKarma.fromPosts?.toLocaleString() ?? "Unknown"} | Comment karma: ${subredditKarma.fromComments?.toLocaleString() ?? "Unknown"}`,
 							},
 						],
 					},
