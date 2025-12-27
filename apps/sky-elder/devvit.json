@@ -13,6 +13,13 @@
 				"location": "subreddit",
 				"forUserType": "moderator",
 				"endpoint": "/internal/menu/daily-guides"
+			},
+			{
+				"label": "Create new friend codes megathread",
+				"description": "Forcibly creates a new friend codes megathread.",
+				"location": "subreddit",
+				"forUserType": "moderator",
+				"endpoint": "/internal/menu/megathread-friend-codes"
 			}
 		]
 	},
@@ -21,6 +28,10 @@
 			"daily-guides": {
 				"endpoint": "/internal/scheduler/daily-guides",
 				"cron": "* * * * *"
+			},
+			"megathread-friend-codes": {
+				"endpoint": "/internal/scheduler/megathread-friend-codes",
+				"cron": "0 8 * * *"
 			}
 		}
 	},
@@ -48,6 +59,24 @@
 				"label": "Discord webhook post flairs URL",
 				"helpText": "Displays post flair statistics.",
 				"validationEndpoint": "/internal/settings/discord-webhook-post-link-flairs-url"
+			},
+			"MEGATHREAD_FRIEND_CODES_TITLE": {
+				"type": "string",
+				"label": "Friend codes megathread title",
+				"helpText": "The title to use for the friend codes megathread.",
+				"validationEndpoint": "/internal/settings/megathread-friend-codes-title"
+			},
+			"MEGATHREAD_FRIEND_CODES_TEXT": {
+				"type": "paragraph",
+				"label": "Friend codes megathread body",
+				"helpText": "The body to use for the friend codes megathread.",
+				"validationEndpoint": "/internal/settings/megathread-friend-codes-text"
+			},
+			"MEGATHREAD_FRIEND_CODES_POST_FLAIR_ID": {
+				"type": "string",
+				"label": "Friend codes megathread post flair id",
+				"helpText": "The post flair id to use for the friend codes megathread.",
+				"validationEndpoint": "/internal/settings/megathread-friend-codes-post-flair-id"
 			}
 		}
 	}
