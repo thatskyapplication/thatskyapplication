@@ -2,6 +2,7 @@ import { reddit, redis, settings } from "@devvit/web/server";
 import {
 	ComponentType,
 	MessageFlags,
+	RESTJSONErrorCodes,
 	type RESTPatchAPIWebhookWithTokenMessageJSONBody,
 	type RESTPatchAPIWebhookWithTokenMessageResult,
 	type RESTPostAPIWebhookWithTokenJSONBody,
@@ -11,7 +12,7 @@ import {
 import {
 	REDIS_POST_FLAIRS_KEY,
 	REDIS_POST_FLAIRS_MESSAGE_ID_KEY,
-	SETTINGS_POST_FLAIRS_WEBHOOK_URL,
+	SETTINGS_POST_LINK_FLAIRS_WEBHOOK_URL,
 } from "../utility/constants.js";
 
 async function postFlairsBody(subredditName: string, statistics: Record<string, string>) {
@@ -67,7 +68,7 @@ async function postFlairsBody(subredditName: string, statistics: Record<string, 
 }
 
 export async function postFlairsUpdate(subredditName: string) {
-	const discordWebhookURL = await settings.get(SETTINGS_POST_FLAIRS_WEBHOOK_URL);
+	const discordWebhookURL = await settings.get(SETTINGS_POST_LINK_FLAIRS_WEBHOOK_URL);
 
 	if (!discordWebhookURL) {
 		console.warn("Discord webhook URL for post flairs is not set.");
@@ -86,23 +87,38 @@ export async function postFlairsUpdate(subredditName: string) {
 		method = "POST";
 	}
 
-	const response = await fetch(url, {
-		method,
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(
-			await postFlairsBody(subredditName, await redis.hGetAll(REDIS_POST_FLAIRS_KEY)),
-		),
-	});
+	try {
+		const response = await fetch(url, {
+			method,
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(
+				await postFlairsBody(subredditName, await redis.hGetAll(REDIS_POST_FLAIRS_KEY)),
+			),
+		});
 
-	const json = (await response.json()) as
-		| RESTPostAPIWebhookWithTokenWaitResult
-		| RESTPatchAPIWebhookWithTokenMessageResult;
+		const json = (await response.json()) as
+			| RESTPostAPIWebhookWithTokenWaitResult
+			| RESTPatchAPIWebhookWithTokenMessageResult;
 
-	if (!response.ok) {
-		throw json;
+		if (!response.ok) {
+			throw json;
+		}
+
+		await redis.set(REDIS_POST_FLAIRS_MESSAGE_ID_KEY, json.id);
+	} catch (error) {
+		// Words cannot describe how terrible the errors are.
+		if (
+			error instanceof Error &&
+			"code" in error &&
+			error.message.includes(`: ${RESTJSONErrorCodes.UnknownMessage}`)
+		) {
+			console.warn("Post flairs message not found. Resetting message id.");
+			await redis.del(REDIS_POST_FLAIRS_MESSAGE_ID_KEY);
+			return;
+		}
+
+		throw error;
 	}
-
-	await redis.set(REDIS_POST_FLAIRS_MESSAGE_ID_KEY, json.id);
 }

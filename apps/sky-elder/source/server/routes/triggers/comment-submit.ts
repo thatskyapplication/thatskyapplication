@@ -7,7 +7,7 @@ import {
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
 import type { Request } from "express";
-import { COMMENT_CREATE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
+import { COMMENT_SUBMIT_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
 export async function postTriggersCommentSubmit(req: Request) {
 	const body = req.body as OnCommentSubmitRequest;
@@ -39,7 +39,7 @@ export async function postTriggersCommentSubmit(req: Request) {
 				components: [
 					{
 						type: ComponentType.Container,
-						accent_color: COMMENT_CREATE_COLOUR,
+						accent_color: COMMENT_SUBMIT_COLOUR,
 						components: [
 							{
 								type: ComponentType.Section,

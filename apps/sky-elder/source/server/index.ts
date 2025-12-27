@@ -3,6 +3,8 @@ import { createServer, getServerPort } from "@devvit/web/server";
 import express, { type ErrorRequestHandler } from "express";
 import { postMenuDailyGuides } from "./routes/menu/daily-guides.js";
 import { postSchedulerDailyGuides } from "./routes/scheduler/daily-guides.js";
+import { postSettingsDiscordWebhookCommentsURL } from "./routes/settings/discord-webhook-comments-url.js";
+import { postSettingsDiscordWebhookPostLinkFlairsURL } from "./routes/settings/discord-webhook-post-link-flairs-url.js";
 import { postTriggersCommentDelete } from "./routes/triggers/comment-delete.js";
 import { postTriggersCommentSubmit } from "./routes/triggers/comment-submit.js";
 import { postTriggersCommentUpdate } from "./routes/triggers/comment-update.js";
@@ -13,6 +15,17 @@ const app = express().use(express.json());
 const router = express.Router();
 router.post("/internal/menu/daily-guides", postMenuDailyGuides);
 router.post("/internal/scheduler/daily-guides", postSchedulerDailyGuides);
+
+router.post(
+	"/internal/settings/discord-webhook-comments-url",
+	postSettingsDiscordWebhookCommentsURL,
+);
+
+router.post(
+	"/internal/settings/discord-webhook-post-link-flairs-url",
+	postSettingsDiscordWebhookPostLinkFlairsURL,
+);
+
 router.post("/internal/triggers/on-comment-delete", postTriggersCommentDelete);
 router.post("/internal/triggers/on-comment-submit", postTriggersCommentSubmit);
 router.post("/internal/triggers/on-comment-update", postTriggersCommentUpdate);

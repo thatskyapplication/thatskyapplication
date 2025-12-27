@@ -36,16 +36,18 @@
 		"onPostSubmit": "/internal/triggers/on-post-submit"
 	},
 	"settings": {
-		"global": {
-			"DISCORD_WEBHOOK_URL": {
+		"subreddit": {
+			"DISCORD_WEBHOOK_COMMENTS_URL": {
 				"type": "string",
-				"isSecret": true,
-				"label": "Discord webhook URL."
+				"label": "Discord webhook comments URL",
+				"helpText": "Comment triggers execute this webhook.",
+				"validationEndpoint": "/internal/settings/discord-webhook-comments-url"
 			},
-			"DISCORD_WEBHOOK_POST_FLAIRS_URL": {
+			"DISCORD_WEBHOOK_POST_LINK_FLAIRS_URL": {
 				"type": "string",
-				"isSecret": true,
-				"label": "Discord webhook URL for post flairs."
+				"label": "Discord webhook post flairs URL",
+				"helpText": "Displays post flair statistics.",
+				"validationEndpoint": "/internal/settings/discord-webhook-post-link-flairs-url"
 			}
 		}
 	}
