@@ -369,7 +369,8 @@
 			"283": "Jogue uma bola de neve em alguém",
 			"284": "Organize a mesa Ancestral do Pertencer na Clareira Elevada da Floresta Oculta",
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
-			"286": "Resgatar uma arraia da escuridão"
+			"286": "Resgatar uma arraia da escuridão",
+			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",

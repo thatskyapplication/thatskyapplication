@@ -369,7 +369,8 @@
 			"283": "누군가에게 눈덩이를 던지세요",
 			"284": "비밀의 숲의 숲 속 높은 공터에서 선조의 친밀의 테이블을 정리하세요",
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
-			"286": "어둠으로부터 만타가오리를 구출하기"
+			"286": "어둠으로부터 만타가오리를 구출하기",
+			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})"
 		},
 		"seasons": {
 			"0": "감사의 시즌",
