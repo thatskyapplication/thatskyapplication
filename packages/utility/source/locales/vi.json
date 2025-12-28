@@ -369,7 +369,8 @@
 			"283": "Ném một quả cầu tuyết vào ai đó",
 			"284": "Dọn dẹp Bàn Sở Hữu của Tổ tiên ở bãi đất cao trong Rừng Mưa",
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
-			"286": "Giải cứu một con Cá Đuối khỏi bóng tối"
+			"286": "Giải cứu một con Cá Đuối khỏi bóng tối",
+			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})"
 		},
 		"seasons": {
 			"0": "Mùa Tri Ân",

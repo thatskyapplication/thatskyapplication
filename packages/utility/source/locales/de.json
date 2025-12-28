@@ -369,7 +369,8 @@
 			"283": "Wirf einen Schneeball auf jemanden",
 			"284": "Reinige den Vorfahrentisch des Zusammengehörens in der höhergelegenen Lichtung des Verborgenen Walds",
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
-			"286": "Rette einen Riesenrochen vor der Dunkelheit"
+			"286": "Rette einen Riesenrochen vor der Dunkelheit",
+			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})"
 		},
 		"seasons": {
 			"0": "Saison der Dankbarkeit",

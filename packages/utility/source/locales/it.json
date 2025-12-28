@@ -369,7 +369,8 @@
 			"283": "Lancia una palla di neve a qualcuno",
 			"284": "Riordina la Tavola degli affetti degli Antenati nel punto sopraelevato della Foresta Nascosta",
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
-			"286": "Salva una manta dalle tenebre"
+			"286": "Salva una manta dalle tenebre",
+			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})"
 		},
 		"seasons": {
 			"0": "Stagione della Gratitudine",

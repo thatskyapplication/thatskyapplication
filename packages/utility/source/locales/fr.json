@@ -369,7 +369,8 @@
 			"283": "Jetez une boule de neige sur quelqu'un",
 			"284": "Rangez la table de l'Appartenance de l'ancêtre dans la clairière élevée de la Forêt cachée",
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
-			"286": "Sauvez une raie manta de l’obscurité"
+			"286": "Sauvez une raie manta de l’obscurité",
+			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
