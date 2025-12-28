@@ -179,6 +179,9 @@ importers:
       i18next:
         specifier: ^25.7.3
         version: 25.7.3(typescript@5.9.3)
+      obscenity:
+        specifier: ^0.4.5
+        version: 0.4.5
     devDependencies:
       '@types/express':
         specifier: ^5.0.6
@@ -4274,6 +4277,10 @@ packages:
   object-treeify@1.1.33:
     resolution: {integrity: sha512-EFVjAYfzWqWsBMRHPMAXLCDIJnpMhdWAqR7xG6M6a2cs6PMFpl/+Z20w9zDW4vkxOFfddegBKq9Rehd0bxWE7A==}
     engines: {node: '>= 10'}
+
+  obscenity@0.4.5:
+    resolution: {integrity: sha512-5NNZIolweauL3pDmSbScAa39LBm70ozdtffnUlPnM+MVNYx8KIchKVa7KY8aYOggWTF+O7Ih18UU5Y9kyIqBPQ==}
+    engines: {node: '>=18.0.0'}
 
   on-exit-leak-free@2.1.2:
     resolution: {integrity: sha512-0eJJY6hXLGf1udHwfNftBqH+g73EU4B504nZeKpz1sYRKafAghwxEJunB2O7rDZkL4PGfsMVnTXZ2EjibbqcsA==}
@@ -10021,6 +10028,8 @@ snapshots:
   object-inspect@1.13.4: {}
 
   object-treeify@1.1.33: {}
+
+  obscenity@0.4.5: {}
 
   on-exit-leak-free@2.1.2: {}
 

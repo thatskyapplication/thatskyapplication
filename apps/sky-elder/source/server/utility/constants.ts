@@ -9,6 +9,9 @@ export const SETTINGS_MEGATHREAD_FRIEND_CODES_POST_FLAIR_ID =
 export const SETTINGS_POST_LINK_FLAIRS_WEBHOOK_URL =
 	"DISCORD_WEBHOOK_POST_LINK_FLAIRS_URL" as const;
 
+export const SETTINGS_USER_LINK_FLAIRS_WEBHOOK_URL =
+	"DISCORD_WEBHOOK_USER_LINK_FLAIRS_URL" as const;
+
 // Redis.
 export const REDIS_MEGATHREAD_FRIEND_CODES_KEY = "megathread-friend-codes";
 export const REDIS_POST_FLAIRS_KEY = "post-flairs" as const;

@@ -7,21 +7,25 @@ import {
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
 import type { Request } from "express";
+import { userFlairsCheckFlair } from "../../features/user-flairs.js";
 import { COMMENT_DELETE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
 export async function postTriggersCommentDelete(req: Request) {
-	const body = req.body as OnCommentDeleteRequest;
+	const { commentId, subreddit, author, postId } = req.body as OnCommentDeleteRequest;
+
+	if (author) {
+		await userFlairsCheckFlair(author);
+	}
+
+	if (!(subreddit && author)) {
+		throw new Error("Subreddit or author is missing from the request body.");
+	}
+
 	const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
 
 	if (typeof discordWebhookURL !== "string") {
 		console.warn("Discord webhook URL is not set.");
 		return;
-	}
-
-	const { commentId, subreddit, author, postId } = body;
-
-	if (!(subreddit && author)) {
-		throw new Error("Subreddit or author is missing from the request body.");
 	}
 
 	const [post, comment, commentBody] = await Promise.all([

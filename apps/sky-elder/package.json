@@ -18,7 +18,8 @@
 		"devvit": "next",
 		"discord-api-types": "^0.38.37",
 		"express": "^5.2.1",
-		"i18next": "^25.7.3"
+		"i18next": "^25.7.3",
+		"obscenity": "^0.4.5"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.6",

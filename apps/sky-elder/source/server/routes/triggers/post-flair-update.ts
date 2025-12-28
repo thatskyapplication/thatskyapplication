@@ -2,11 +2,15 @@ import { redis } from "@devvit/web/server";
 import type { OnPostFlairUpdateRequest } from "@devvit/web/shared";
 import type { Request } from "express";
 import { postFlairsUpdate } from "../../features/post-flairs.js";
+import { userFlairsCheckFlair } from "../../features/user-flairs.js";
 import { REDIS_POST_FLAIRS_BY_POST_KEY, REDIS_POST_FLAIRS_KEY } from "../../utility/constants.js";
 
 export async function postTriggersPostFlairUpdate(req: Request) {
-	const body = req.body as OnPostFlairUpdateRequest;
-	const { subreddit, post } = body;
+	const { subreddit, post, author } = req.body as OnPostFlairUpdateRequest;
+
+	if (author) {
+		await userFlairsCheckFlair(author);
+	}
 
 	if (!(subreddit && post)) {
 		throw new Error("Subreddit or post is missing from the request body.");

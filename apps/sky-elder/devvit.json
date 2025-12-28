@@ -43,8 +43,10 @@
 		"onCommentDelete": "/internal/triggers/on-comment-delete",
 		"onCommentSubmit": "/internal/triggers/on-comment-submit",
 		"onCommentUpdate": "/internal/triggers/on-comment-update",
+		"onPostDelete": "/internal/triggers/on-post-delete",
 		"onPostFlairUpdate": "/internal/triggers/on-post-flair-update",
-		"onPostSubmit": "/internal/triggers/on-post-submit"
+		"onPostSubmit": "/internal/triggers/on-post-submit",
+		"onPostUpdate": "/internal/triggers/on-post-update"
 	},
 	"settings": {
 		"subreddit": {
@@ -59,6 +61,12 @@
 				"label": "Discord webhook post flairs URL",
 				"helpText": "Displays post flair statistics.",
 				"validationEndpoint": "/internal/settings/discord-webhook-post-link-flairs-url"
+			},
+			"DISCORD_WEBHOOK_USER_LINK_FLAIRS_URL": {
+				"type": "string",
+				"label": "Discord webhook user flairs URL",
+				"helpText": "Detection of bad user flairs execute this webhook.",
+				"validationEndpoint": "/internal/settings/discord-webhook-user-link-flairs-url"
 			},
 			"MEGATHREAD_FRIEND_CODES_TITLE": {
 				"type": "string",
