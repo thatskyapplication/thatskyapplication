@@ -591,6 +591,10 @@ export default {
 				SkyMap.CrabFields,
 			),
 			[DailyQuest.RescueAMantaFromDarkness]: "Rescue a manta from darkness",
+			[DailyQuest.MeetUpWithDuetsGuideInStarlightDesert]: questsMeetUpWith(
+				SpiritId.DuetsGuide,
+				SkyMap.StarlightDesert,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
