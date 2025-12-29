@@ -3305,6 +3305,10 @@ export enum Cosmetic {
 
 	// 22/12/2025 | Season of Migration Quest 10.
 	MigrationGuideQuest10 = 2612,
+
+	// 01/01/2026 | Version 0.31.6.
+	ElderOfTheValleyFaceAccessory1 = 2619,
+	ElderOfTheValleyFaceAccessory2 = 2620,
 }
 
 export enum CosmeticCommon {
