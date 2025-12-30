@@ -2694,6 +2694,7 @@
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
+			"event-upcoming-time": "{{event}} começa às {{time}}.",
 			"infographic": "Infográfico",
 			"not-yet-updated": "Os guias diários estão esperando por um incrível Filho da Luz para serem atualizados!\nPossui as informações que precisamos? Entre no [servidor de suporte]({{url}}) e atualize os guias você mesmo, ajudando a galera!",
 			"error-thread-archived": "O tópico foi arquivado.",
