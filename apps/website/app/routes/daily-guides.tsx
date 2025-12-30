@@ -1,4 +1,5 @@
 import {
+	communityUpcomingEvents,
 	type DailyGuidesPacket,
 	DailyQuestToInfographicURL,
 	isDailyQuest,
@@ -12,8 +13,8 @@ import {
 	TIME_ZONE,
 	treasureCandles,
 } from "@thatskyapplication/utility";
-import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ExternalLinkIcon, X } from "lucide-react";
+import { type JSX, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, useLoaderData } from "react-router";
@@ -29,6 +30,8 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 
 	return data(
 		{
+			locale,
+			timeZone,
 			dailyGuides: dailyGuides[0]!,
 			todayString: new Intl.DateTimeFormat(locale, {
 				timeZone: TIME_ZONE,
@@ -65,7 +68,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 };
 
 export default function DailyGuides() {
-	const { dailyGuides, todayString, shard } = useLoaderData<typeof loader>();
+	const { locale, timeZone, dailyGuides, todayString, shard } = useLoaderData<typeof loader>();
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
 	const { t } = useTranslation();
 	const now = skyNow();
@@ -99,7 +102,7 @@ export default function DailyGuides() {
 	const treasureCandleURLs = treasureCandles(today);
 	let seasonalCandles = null;
 	let seasonalCandlesURL = null;
-	const daysCount = [];
+	const daysCount: (string | JSX.Element)[] = [];
 
 	if (season) {
 		const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
@@ -158,6 +161,52 @@ export default function DailyGuides() {
 				name,
 			}),
 		);
+	}
+
+	const communityEvents = communityUpcomingEvents(today);
+
+	if (communityEvents.length > 0) {
+		for (const { start, name, marketingURL } of communityEvents) {
+			const daysUntilStart = start.diff(today, "days").days;
+
+			const translatedText =
+				daysUntilStart >= 1
+					? t("daily-guides.event-upcoming", {
+							ns: "features",
+							event: name,
+							count: Math.floor(daysUntilStart),
+						})
+					: t("daily-guides.event-upcoming-time", {
+							ns: "features",
+							event: name,
+							time: new Intl.DateTimeFormat(locale, {
+								timeZone,
+								timeStyle: "short",
+							}).format(start.toMillis()),
+						});
+
+			if (marketingURL) {
+				const parts = translatedText.split(name);
+
+				daysCount.push(
+					<span key={`community-event-${name}`}>
+						{parts[0]}
+						<a
+							className="regular-link inline-flex items-center gap-1"
+							href={marketingURL}
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							{name}
+							<ExternalLinkIcon className="w-3 h-3" />
+						</a>
+						{parts[1]}
+					</span>,
+				);
+			} else {
+				daysCount.push(translatedText);
+			}
+		}
 	}
 
 	const handleImageClick = (url: string | null) => {
@@ -400,12 +449,12 @@ export default function DailyGuides() {
 					)}
 					{daysCount.length > 0 && (
 						<div className="pt-4 border-t-2 border-gray-200 dark:border-gray-700">
-							{daysCount.map((text) => (
+							{daysCount.map((item, index) => (
 								<p
 									className="text-xs text-gray-500 dark:text-gray-400 m-0 mb-1 last:mb-0"
-									key={text}
+									key={typeof item === "string" ? item : `event-${index}`}
 								>
-									{text}
+									{item}
 								</p>
 							))}
 						</div>

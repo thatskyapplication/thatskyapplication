@@ -54,7 +54,9 @@ export {
 	formatEmojiURL,
 	resolveCurrencyEmoji,
 } from "./emojis.js";
+export { COMMUNITY_EVENTS } from "./events/community.js";
 export {
+	communityUpcomingEvents,
 	skyCurrentEvents,
 	skyEvents,
 	skyEventYears,

@@ -1,5 +1,6 @@
 import { context, reddit, redis } from "@devvit/web/server";
 import {
+	communityUpcomingEvents,
 	shardEruption,
 	skyCurrentSeason,
 	skyNotEndedEvents,
@@ -104,6 +105,34 @@ export async function dailyGuidesWidgetUpdate() {
 					count: Math.ceil(end.diff(today, "days").days) - 1,
 					name,
 				})}`,
+			);
+		}
+	}
+
+	const communityEvents = communityUpcomingEvents(today);
+
+	if (communityEvents.length > 0) {
+		for (const { start, name, marketingURL } of communityEvents) {
+			const untilStart = start.diff(today, "days").days;
+			const formattedName = marketingURL ? `[${name}](${marketingURL})` : name;
+
+			text.push(
+				`- ${
+					untilStart >= 1
+						? t("daily-guides.event-upcoming", {
+								ns: "features",
+								event: formattedName,
+								count: Math.floor(untilStart),
+							})
+						: t("daily-guides.event-upcoming-time", {
+								ns: "features",
+								event: formattedName,
+								time: new Intl.DateTimeFormat("en-GB", {
+									timeZone: TIME_ZONE,
+									timeStyle: "short",
+								}).format(start.toMillis()),
+							})
+				}`,
 			);
 		}
 	}

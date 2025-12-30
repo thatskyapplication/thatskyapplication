@@ -30,6 +30,7 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
+	communityUpcomingEvents,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_QUEST_VALUES,
 	type DailyGuidesDistributionPacket,
@@ -771,6 +772,31 @@ async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComp
 			type: ComponentType.TextDisplay,
 			content: `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n[${t("view", { lng: locale, ns: "general" })}](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
 		});
+	}
+
+	const communityEvents = communityUpcomingEvents(today);
+
+	if (communityEvents.length > 0) {
+		for (const { start, name, marketingURL } of communityEvents) {
+			const untilStart = start.diff(today, "days").days;
+			const formattedName = marketingURL ? `[${name}](${marketingURL})` : name;
+
+			footerText.push(
+				untilStart >= 1
+					? t("daily-guides.event-upcoming", {
+							lng: locale,
+							ns: "features",
+							event: formattedName,
+							count: Math.floor(untilStart),
+						})
+					: t("daily-guides.event-upcoming-time", {
+							lng: locale,
+							ns: "features",
+							event: formattedName,
+							time: `<t:${start.toUnixInteger()}:t>`,
+						}),
+			);
+		}
 	}
 
 	if (footerText.length > 0) {
