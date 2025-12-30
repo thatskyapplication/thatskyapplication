@@ -2694,6 +2694,7 @@
 			"season-upcoming_other": "La nueva temporada empieza en {{count}} días.",
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
+			"event-upcoming-time": "",
 			"infographic": "",
 			"not-yet-updated": "Las guías diarias están esperando a un increíble niño de la luz para que las actualice. ¿Tienes la información que necesitamos? ¡Únete al [servidor de apoyo]({{url}}) y actualízalas tú mismo para la comunidad!",
 			"error-thread-archived": "",
