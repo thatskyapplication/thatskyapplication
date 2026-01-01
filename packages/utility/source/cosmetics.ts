@@ -2860,7 +2860,7 @@ export enum Cosmetic {
 	FortuneSnakeCoif = 2279,
 	FortuneSnakeCloak = 2280,
 
-	// 30/01/2025 | Travelling spirit #133.
+	// 30/01/2025 | Travelling spirit #134.
 	ForgetfulStorytellerWingBuff = 2281,
 
 	// 03/02/2025 | Season of Radiance Quest 2.
@@ -2882,7 +2882,7 @@ export enum Cosmetic {
 	RadianceGuideBlueDye = 2293,
 	RadianceGuidePurpleDye = 2294,
 
-	// 27/02/2025 | Travelling Spirit #135.
+	// 27/02/2025 | Travelling Spirit #136.
 	MindfulMinerWingBuff = 2295,
 
 	// 03/03/2025 | Days of Treasure.
@@ -2898,7 +2898,7 @@ export enum Cosmetic {
 	RadianceGuideWhiteDye = 2303,
 	RadianceGuideBlackDye = 2304,
 
-	// 13/03/2025 | Travelling Spirit #136.
+	// 13/03/2025 | Travelling Spirit #137.
 	ChucklingScoutShoes = 2305,
 
 	// 17/03/2025 | Season of Radiance Quest 5.
@@ -2975,7 +2975,7 @@ export enum Cosmetic {
 	RoyalHairtousleTeenCape = 2370,
 	RoyalHairtousleTeenSeasonalHeart = 2371,
 
-	// 24/04/2025 | Travelling Spirit #139.
+	// 24/04/2025 | Travelling Spirit #140.
 	TumblingTroublemakerWingBuff = 2372,
 
 	// 28/04/2025 | Days of Nature.
@@ -2995,7 +2995,7 @@ export enum Cosmetic {
 	BlueBirdGuideQuest3 = 2382,
 	BlueBirdGuideHeart3 = 2383,
 
-	// 22/05/2025 | Travelling Spirit #141.
+	// 22/05/2025 | Travelling Spirit #142.
 	BereftVeternWingBuff = 2384,
 
 	// 26/05/2025 | Days of Colour.
@@ -3038,7 +3038,7 @@ export enum Cosmetic {
 	AnniversaryCinemaPopcorn = 2409,
 	TGCWireframeCape = 2410,
 
-	// 17/07/2025 | Travelling Spirit #145.
+	// 17/07/2025 | Travelling Spirit #146.
 	JollyGeologistWingBuff = 2411,
 
 	// 21/07/2025 | Season of The Two Embers - Part 1.
@@ -3228,7 +3228,7 @@ export enum Cosmetic {
 	MigratingMantaWhispererOutfit = 2567,
 	MigratingMantaWhispererSeasonalHeart = 2568,
 
-	// 23/10/2025 | Travelling Spirit #152.
+	// 23/10/2025 | Travelling Spirit #153.
 	NightbirdWhispererWingBuff = 2569,
 
 	// 27/10/2025 | Season of Migration Quest 2.
