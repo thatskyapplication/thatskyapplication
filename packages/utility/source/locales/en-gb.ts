@@ -1350,6 +1350,7 @@ export default {
 			[CosmeticCommon.FaceAccessory]: "Face accessory",
 			[CosmeticCommon.SeasonalHeart]: "Seasonal heart",
 			[CosmeticCommon.HairAccessory]: "Hair accessory",
+			[CosmeticCommon.FaceAccessoryMultiple]: "Face accessory {{number}}",
 		} satisfies Record<CosmeticCommon, string>,
 		"cosmetic-names": {
 			[Cosmetic.EmoteSit]: "Sit",

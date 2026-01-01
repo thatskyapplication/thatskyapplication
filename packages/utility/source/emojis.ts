@@ -1918,6 +1918,14 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Migration Guide (ultimate).
 	 */
 	FaceAccessory26: { id: "1431639054042271786", name: "26_face_accessory" },
+	/**
+	 * Elder of the Valley 1.
+	 */
+	FaceAccessory27: { id: "1456314912082231399", name: "27_face_accessory" },
+	/**
+	 * Elder of the Valley 2.
+	 */
+	FaceAccessory28: { id: "1456314918012981268", name: "28_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -1947,6 +1955,8 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory24: { id: "1365251466738139169", name: "24_face_accessory" },
 	FaceAccessory25: { id: "1391821700949082252", name: "25_face_accessory" },
 	FaceAccessory26: { id: "1431639061537488918", name: "26_face_accessory" },
+	FaceAccessory27: { id: "1456314922425254031", name: "27_face_accessory" },
+	FaceAccessory28: { id: "1456314924509696114", name: "28_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -8465,8 +8475,8 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.IceSmallTable]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp104,
 		[Cosmetic.MigrationGuideQuest9]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.MigrationGuideQuest10]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.ElderOfTheValleyFaceAccessory1]: null,
-		[Cosmetic.ElderOfTheValleyFaceAccessory2]: null,
+		[Cosmetic.ElderOfTheValleyFaceAccessory1]: FACE_ACCESSORY_EMOJIS.FaceAccessory27,
+		[Cosmetic.ElderOfTheValleyFaceAccessory2]: FACE_ACCESSORY_EMOJIS.FaceAccessory28,
 		[Cosmetic.AsceticMonkWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 

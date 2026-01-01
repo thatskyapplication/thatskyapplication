@@ -52,7 +52,7 @@ export type LegacyFriendshipTreeRaw = readonly (
 	| readonly [ItemRawWithoutChildren]
 	| readonly [ItemRawWithoutChildren, ItemRawWithPossibleChildren]
 	| readonly [
-			ItemRawWithPossibleChildren,
+			ItemRawWithoutChildren,
 			ItemRawWithPossibleChildren | null,
 			ItemRawWithPossibleChildren,
 	  ]

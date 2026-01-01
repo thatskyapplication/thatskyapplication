@@ -3333,6 +3333,7 @@ export enum CosmeticCommon {
 	FaceAccessory = 15,
 	SeasonalHeart = 16,
 	HairAccessory = 17,
+	FaceAccessoryMultiple = 18,
 }
 
 export const WING_BUFFS = [

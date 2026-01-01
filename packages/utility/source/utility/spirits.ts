@@ -445,6 +445,7 @@ interface ItemRawSingleCosmeticWithoutChildren extends BaseItemRawWithoutChildre
 				| CosmeticCommon.QuestMultiple
 				| CosmeticCommon.HeartMultiple
 				| CosmeticCommon.MusicSheetMultiple
+				| CosmeticCommon.FaceAccessoryMultiple
 		  >
 		| ItemRawTranslation;
 	cosmetic: Cosmetic;
@@ -518,7 +519,7 @@ export type Item = ItemWithoutChildren | ItemWithPossibleChildren;
 export type LegacyFriendshipTree = readonly (
 	| readonly [ItemWithoutChildren]
 	| readonly [ItemWithoutChildren, ItemWithPossibleChildren]
-	| readonly [ItemWithPossibleChildren, ItemWithPossibleChildren | null, ItemWithPossibleChildren]
+	| readonly [ItemWithoutChildren, ItemWithPossibleChildren | null, ItemWithPossibleChildren]
 )[];
 
 export type FriendshipTree = readonly (readonly [
