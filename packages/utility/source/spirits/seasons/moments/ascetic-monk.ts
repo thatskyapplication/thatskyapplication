@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.DaylightPrairie,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose1 },
@@ -65,6 +64,64 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.AsceticMonkSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose1 },
+				{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose2, level: 2, cost: { hearts: 4 } },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.AsceticMonkBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Mask,
+					cost: { candles: 45 },
+					cosmetic: Cosmetic.AsceticMonkMask,
+				},
+				{
+					translation: CosmeticCommon.SeasonalHeart,
+					cosmetic: Cosmetic.AsceticMonkSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.AsceticMonkWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteBlindfoldBalancePose3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{ cosmetic: Cosmetic.EmoteBlindfoldBalancePose4, cost: { hearts: 6 }, level: 4 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.AsceticMonkBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.AsceticMonkHair,
+					cost: { candles: 32 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.AsceticMonkOutfit,
+					cost: { candles: 75 },
 				},
 			],
 		],

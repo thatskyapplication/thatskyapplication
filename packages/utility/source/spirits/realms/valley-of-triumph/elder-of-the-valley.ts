@@ -13,6 +13,13 @@ export default new ElderSpirit({
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
 					cosmetic: Cosmetic.ElderOfTheValleyBlessing1,
 					cost: { ascendedCandles: 2 },
+					children: [
+						{
+							translation: { key: CosmeticCommon.FaceAccessory, number: 1 },
+							cosmetic: Cosmetic.ElderOfTheValleyFaceAccessory1,
+							cost: { ascendedCandles: 150 },
+						},
+					],
 				},
 				{
 					cosmetic: Cosmetic.ElderOfTheValleyHair1,
@@ -21,6 +28,13 @@ export default new ElderSpirit({
 				{
 					cosmetic: Cosmetic.ElderOfTheValleyHair2,
 					cost: { ascendedCandles: 6 },
+					children: [
+						{
+							translation: { key: CosmeticCommon.FaceAccessory, number: 2 },
+							cosmetic: Cosmetic.ElderOfTheValleyFaceAccessory2,
+							cost: { ascendedCandles: 150 },
+						},
+					],
 				},
 			],
 			[

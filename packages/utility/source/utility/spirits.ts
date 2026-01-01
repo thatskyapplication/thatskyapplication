@@ -518,7 +518,7 @@ export type Item = ItemWithoutChildren | ItemWithPossibleChildren;
 export type LegacyFriendshipTree = readonly (
 	| readonly [ItemWithoutChildren]
 	| readonly [ItemWithoutChildren, ItemWithPossibleChildren]
-	| readonly [ItemWithoutChildren, ItemWithPossibleChildren | null, ItemWithPossibleChildren]
+	| readonly [ItemWithPossibleChildren, ItemWithPossibleChildren | null, ItemWithPossibleChildren]
 )[];
 
 export type FriendshipTree = readonly (readonly [

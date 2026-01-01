@@ -3309,6 +3309,9 @@ export enum Cosmetic {
 	// 01/01/2026 | Version 0.31.6.
 	ElderOfTheValleyFaceAccessory1 = 2619,
 	ElderOfTheValleyFaceAccessory2 = 2620,
+
+	// 01/01/2026 | Travelling Spirit #157.
+	AsceticMonkWingBuff = 2621,
 }
 
 export enum CosmeticCommon {
@@ -3466,4 +3469,5 @@ export const WING_BUFFS = [
 	Cosmetic.TiptoeingTeaBrewerWingBuff,
 	Cosmetic.WoundedWarriorWingBuff,
 	Cosmetic.NightbirdWhispererWingBuff,
+	Cosmetic.AsceticMonkWingBuff,
 ] as const satisfies Readonly<Cosmetic[]>;
