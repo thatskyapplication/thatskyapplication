@@ -2579,8 +2579,6 @@
 				"day-season-pass_one": "({{count}} dia com o Passe de Temporada).",
 				"day-season-pass_other": "({{count}} dias com o Passe de Temporada).",
 				"title": "Calculadora de Velas de Temporada",
-				"remain-in-the-season": "restantes na temporada.",
-				"remain-in-the-season-with-a-season-pass": "restantes na temporada com o Passe de Temporada.",
 				"double-seasonal-light-calculation": "Evento de Luz Sazonal em Dobro incluído no cálculo.\n{{start}}–{{end}} (fim {{relative}})"
 			},
 			"winged-light": {
@@ -2685,7 +2683,8 @@
 			"quests-heading": "Missões",
 			"treasure-candles": "Velas do Tesouro",
 			"seasonal-candles": "Velas de temporada",
-			"seasonal-candles-remain": "{{remaining}} restantes ({{remainingSeasonPass}} com o Passe de Temporada)",
+			"seasonal-candles-remain": "",
+			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} com o Passe de Temporada)",
 			"shard-eruption": "Erupções de Fragmentos",
 			"shard-eruption-data": "Dados",
 			"shard-eruption-timestamps": "Marcação de data/hora",

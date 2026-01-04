@@ -2579,8 +2579,6 @@
 				"day-season-pass_one": "",
 				"day-season-pass_other": "",
 				"title": "",
-				"remain-in-the-season": "",
-				"remain-in-the-season-with-a-season-pass": "",
 				"double-seasonal-light-calculation": ""
 			},
 			"winged-light": {
@@ -2686,6 +2684,7 @@
 			"treasure-candles": "キャンドルのかたまり",
 			"seasonal-candles": "シーズンキャンドル",
 			"seasonal-candles-remain": "",
+			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
