@@ -2579,8 +2579,6 @@
 				"day-season-pass_one": "(持有季票還剩 {{count}} 天)。",
 				"day-season-pass_other": "(持有季票還剩 {{count}} 天)。",
 				"title": "季節蠟燭計算器",
-				"remain-in-the-season": "在本賽季。",
-				"remain-in-the-season-with-a-season-pass": "持有季票在本賽季。",
 				"double-seasonal-light-calculation": ""
 			},
 			"winged-light": {
@@ -2686,6 +2684,7 @@
 			"treasure-candles": "",
 			"seasonal-candles": "",
 			"seasonal-candles-remain": "",
+			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption": "碎片噴發",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "時間戳",
