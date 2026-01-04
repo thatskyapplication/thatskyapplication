@@ -2899,8 +2899,6 @@ export default {
 				"day-season-pass_one": "({{count}} day with a Season Pass).",
 				"day-season-pass_other": "({{count}} days with a Season Pass).",
 				title: "Seasonal candle calculator",
-				"remain-in-the-season": "remain in the season.",
-				"remain-in-the-season-with-a-season-pass": "remain in the season with a Season Pass.",
 				"double-seasonal-light-calculation":
 					"Double Seasonal Light event included in calculation.\n{{start}}–{{end}} (ends {{relative}})",
 			},
@@ -3009,7 +3007,8 @@ export default {
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure Candles",
 			"seasonal-candles": "Seasonal Candles",
-			"seasonal-candles-remain":
+			"seasonal-candles-remain": "{{remaining}} remain",
+			"seasonal-candles-remain-with-season-pass":
 				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
 			"shard-eruption": "Shard Eruption",
 			"shard-eruption-data": "Data",

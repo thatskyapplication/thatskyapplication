@@ -379,15 +379,21 @@ export async function seasonalCandles(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: `${resolveCurrencyEmoji({
-				emoji,
-				number: seasonalCandlesLeft,
-			})} ${t("calculate.seasonal-candles.remain-in-the-season", { lng: locale, ns: "features" })}\n${resolveCurrencyEmoji(
+			content: t(
+				`daily-guides.${seasonalCandlesLeft === seasonalCandlesLeftWithSeasonPass ? "seasonal-candles-remain" : "seasonal-candles-remain-with-season-pass"}`,
 				{
-					emoji,
-					number: seasonalCandlesLeftWithSeasonPass,
+					lng: locale,
+					ns: "features",
+					remaining: resolveCurrencyEmoji({
+						emoji,
+						number: seasonalCandlesLeft,
+					}),
+					remainingSeasonPass: resolveCurrencyEmoji({
+						emoji,
+						number: seasonalCandlesLeftWithSeasonPass,
+					}),
 				},
-			)} ${t("calculate.seasonal-candles.remain-in-the-season-with-a-season-pass", { lng: locale, ns: "features" })}`,
+			),
 		},
 	];
 

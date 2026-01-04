@@ -306,11 +306,14 @@ export default function DailyGuides() {
 								<div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
 									<img alt="Seasonal candle" className="h-4 w-4" src={SEASONAL_CANDLE_ICON} />
 									<span>
-										{t("daily-guides.seasonal-candles-remain", {
-											ns: "features",
-											remaining: seasonalCandles.remaining,
-											remainingSeasonPass: seasonalCandles.remainingWithPass,
-										})}
+										{t(
+											`daily-guides.${seasonalCandles.remaining === seasonalCandles.remainingWithPass ? "seasonal-candles-remain" : "seasonal-candles-remain-with-season-pass"}`,
+											{
+												ns: "features",
+												remaining: seasonalCandles.remaining,
+												remainingSeasonPass: seasonalCandles.remainingWithPass,
+											},
+										)}
 									</span>
 								</div>
 							</div>
