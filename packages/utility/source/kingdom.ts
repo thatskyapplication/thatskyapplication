@@ -45,22 +45,18 @@ export enum SkyMap {
 	Boneyard = "Boneyard",
 	ElevatedClearing = "Elevated Clearing",
 	ForestBrook = "Forest Brook",
-	ForestClearing = "Forest Clearing",
-	ForestEnd = "Forest End",
-	Treehouse = "Treehouse",
-	WindPaths = "Wind Paths",
+	SacredPond = "Sacred Pond",
+	TheTreehouse = "The Treehouse",
 
 	// Valley of Triumph.
-	IceRink = "Ice Rink",
-	Citadel = "Citadel",
+	FrozenLake = "Frozen Lake",
 	Coliseum = "Coliseum",
 	HermitValley = "Hermit Valley",
 	VillageOfDreams = "Village of Dreams",
 	VillageTheatre = "Village Theatre",
 
 	// Golden Wasteland.
-	Battlefield = "Battlefield",
-	Boat = "Boat",
+	WastelandBattlefield = "Wasteland Battlefield",
 	BrokenTemple = "Broken Temple",
 	CrabFields = "Crab Fields",
 	ForgottenArk = "Forgotten Ark",
@@ -68,12 +64,9 @@ export enum SkyMap {
 	TreasureReef = "Treasure Reef",
 
 	// Vault of Knowledge.
-	VaultEntrance = "Vault Entrance",
 	JellyfishCove = "Jellyfish Cove",
 	StarlightDesert = "Starlight Desert",
 	RepositoryOfRefuge = "Repository of Refuge",
-	VaultSecondFloor = "Vault Second Floor",
-	VaultSummit = "Vault Summit",
 
 	// Eye of Eden.
 	StormEnd = "Eye of Eden",

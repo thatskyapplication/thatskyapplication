@@ -18,7 +18,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		area: [
 			SkyMap.ButterflyFields,
 			SkyMap.ForestBrook,
-			SkyMap.IceRink,
+			SkyMap.FrozenLake,
 			SkyMap.BrokenTemple,
 			SkyMap.StarlightDesert,
 		].map((map) => ({
@@ -35,8 +35,8 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		area: [
 			SkyMap.KoiPond,
 			SkyMap.Boneyard,
-			SkyMap.IceRink,
-			SkyMap.Battlefield,
+			SkyMap.FrozenLake,
+			SkyMap.WastelandBattlefield,
 			SkyMap.StarlightDesert,
 		].map((map) => ({
 			skyMap: map,
@@ -55,7 +55,11 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 				url: resolveShardEruptionMapURL(SkyMap.PrairieCave),
 				reward: 2,
 			},
-			{ skyMap: SkyMap.ForestEnd, url: resolveShardEruptionMapURL(SkyMap.ForestEnd), reward: 2.5 },
+			{
+				skyMap: SkyMap.SacredPond,
+				url: resolveShardEruptionMapURL(SkyMap.SacredPond),
+				reward: 2.5,
+			},
 			{
 				skyMap: SkyMap.VillageOfDreams,
 				url: resolveShardEruptionMapURL(SkyMap.VillageOfDreams),
@@ -76,7 +80,11 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		offset: 8_400_000,
 		area: [
 			{ skyMap: SkyMap.BirdNest, url: resolveShardEruptionMapURL(SkyMap.BirdNest), reward: 2.5 },
-			{ skyMap: SkyMap.Treehouse, url: resolveShardEruptionMapURL(SkyMap.Treehouse), reward: 3.5 },
+			{
+				skyMap: SkyMap.TheTreehouse,
+				url: resolveShardEruptionMapURL(SkyMap.TheTreehouse),
+				reward: 3.5,
+			},
 			{
 				skyMap: SkyMap.VillageOfDreams,
 				url: resolveShardEruptionMapURL(SkyMap.VillageOfDreams),
