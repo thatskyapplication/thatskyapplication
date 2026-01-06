@@ -750,6 +750,7 @@ export default {
 			[EventId.RadianceEvent22025]: "Radiance Event",
 			[EventId.DaysOfFeast2025]: "Days of Feast",
 			[EventId.PersonalityQuizEvent2026]: "Personality Quiz Event",
+			[EventId.TournamentOfTriumph2026]: "Tournament of Triumph",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -855,6 +856,8 @@ export default {
 			[EventId.DaysOfFeast2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
 			[EventId.PersonalityQuizEvent2026]:
 				"https://sky-children-of-the-light.fandom.com/Personality_Quiz_Event",
+			[EventId.TournamentOfTriumph2026]:
+				"https://sky-children-of-the-light.fandom.com/Tournament_of_Triumph",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
