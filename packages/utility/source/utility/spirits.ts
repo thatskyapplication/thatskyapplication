@@ -405,6 +405,9 @@ export enum FriendAction {
 	SideHug = "Side hug",
 	CradleCarry = "Cradle carry",
 	DuetBow = "Duet bow",
+	Whisper = "Whisper",
+	RevolvingDance = "Revolving dance",
+	SecretHandshake = "Secret handshake",
 }
 
 export enum SpiritType {
