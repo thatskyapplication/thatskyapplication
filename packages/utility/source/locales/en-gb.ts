@@ -102,8 +102,8 @@ export default {
 			[DailyQuest.CatchTheLightInTheVaultOfKnowledge]: "Catch the light in the Vault of Knowledge",
 			[DailyQuest.VisitTheCosyHideoutInTheDaylightPrairie]:
 				"Visit the cosy hideout in the Daylight Prairie",
-			[DailyQuest.VisitTheAncestorsTableOfBelongingInTheHiddenForest]:
-				"Visit the Ancestor's Table of Belonging in the Hidden Forest",
+			[DailyQuest.VisitTheAncestorsTableInTheElevatedClearing]:
+				"Visit the Ancestor's table in the Elevated Clearing",
 			[DailyQuest.VisitTheHotSpringInTheValleyOfTriumph]:
 				"Visit the hot spring in the Village of Dreams",
 			[DailyQuest.VisitTheBonfireAtTheGoldenWasteland]: "Visit the bonfire at the Golden Wasteland",
@@ -135,28 +135,28 @@ export default {
 			[DailyQuest.AdmireTheRainbowInTheTreasureReef]: "Admire the rainbow in the Treasure Reef",
 			[DailyQuest.AdmireTheRainbowInTheStarlightDesert]:
 				"Admire the rainbow in the Starlight Desert",
-			[DailyQuest.MeditateAtTheBirdNest]: "Meditate at the Bird Nest",
-			[DailyQuest.MeditateInTheButterflyFields]: "Meditate in the Butterfly Fields",
+			[DailyQuest.MeditateByTheBirdNest]: "Meditate by the Bird Nest",
+			[DailyQuest.MeditateInButterflyFields]: "Meditate in Butterfly Fields",
 			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Meditate at the Sanctuary Islands",
-			[DailyQuest.MeditateInTheCave]: "Meditate in the Cave",
-			[DailyQuest.MeditateByTheKoiPond]: "Meditate by the Koi Pond",
-			[DailyQuest.MeditateAtTheForestClearing]: "Meditate at the Forest Clearing",
-			[DailyQuest.MeditateAtTheForestBrook]: "Meditate at the Forest Brook",
-			[DailyQuest.MeditateAtTheElevatedClearing]: "Meditate at the Elevated Clearing",
-			[DailyQuest.MeditateAtTheForestEnd]: "Meditate at the Forest End",
-			[DailyQuest.MeditateAtTheBoneyard]: "Meditate at the Boneyard",
-			[DailyQuest.MeditateByTheIceRink]: "Meditate by the Ice Rink",
-			[DailyQuest.MeditateAboveTheCitadelsArch]: "Meditate above the Citadel's Arch",
-			[DailyQuest.MeditateHighAboveTheCitadel]: "Meditate high above the Citadel",
-			[DailyQuest.MeditateAtTheColiseum]: "Meditate at the Coliseum",
+			[DailyQuest.MeditateInPrairieCave]: "Meditate in Prairie Cave",
+			[DailyQuest.MeditateByPrairieTemplesKoiPond]: "Meditate by Prairie Temple's koi pond",
+			[DailyQuest.MeditateOutsideTheForestCourtyard]: "Meditate outside the Forest Courtyard",
+			[DailyQuest.MeditateAboveTheForestBrook]: "Meditate above the Forest Brook",
+			[DailyQuest.MeditateInTheElevatedClearing]: "Meditate in the Elevated Clearing",
+			[DailyQuest.MeditateAtTheSacredPond]: "Meditate at the Sacred Pond",
+			[DailyQuest.MeditateByTheForestsBoneyard]: "Meditate by the Forest's Boneyard",
+			[DailyQuest.MeditateOverlookingTheFrozenLake]: "Meditate overlooking the Frozen Lake",
+			[DailyQuest.MeditateAtopTheEntranceToTheCitadel]: "Meditate atop the entrance to The Citadel",
+			[DailyQuest.MeditateHighAboveTheCitadel]: "Meditate high above The Citadel",
+			[DailyQuest.MeditateInTheColiseum]: "Meditate in the Coliseum",
 			[DailyQuest.MeditateInTheBrokenTemple]: "Meditate in the Broken Temple",
-			[DailyQuest.MeditateInTheForgottenArk]: "Meditate in the Forgotten Ark",
+			[DailyQuest.MeditateByTheForgottenArk]: "Meditate by the Forgotten Ark",
 			[DailyQuest.MeditateInTheGraveyard]: "Meditate in the Graveyard",
-			[DailyQuest.MeditateOnTheBoat]: "Meditate on the Boat",
+			[DailyQuest.MeditateInTheCrabFields]: "Meditate in the Crab Fields",
 			[DailyQuest.MeditateOnTheBattlefield]: "Meditate on the Battlefield",
-			[DailyQuest.MeditateAtTheVaultEntrance]: "Meditate at the Vault Entrance",
-			[DailyQuest.MeditateInTheVaultSecondFloor]: "Meditate in the Vault Second Floor",
-			[DailyQuest.MeditateAtTheVaultSummit]: "Meditate at the Vault Summit",
+			[DailyQuest.MeditateAtTheVaultsEntrance]: "Meditate at the Vault's entrance",
+			[DailyQuest.MeditateOnTheSecondFloorOfTheVault]: "Meditate on the second floor of the Vault",
+			[DailyQuest.MeditateAtTheVaultTemple]: "Meditate at the Vault Temple",
 			[DailyQuest.CollectGreenLight]: "Collect green light",
 			[DailyQuest.CollectOrangeLight]: "Collect orange light",
 			[DailyQuest.CollectBlueLight]: "Collect blue light",
@@ -429,16 +429,16 @@ export default {
 				SpiritId.BlushingProspector,
 				RealmName.ValleyOfTriumph,
 			),
-			[DailyQuest.InvestigateABlueBirdSightingInTheIceRink]:
-				"Investigate a blue bird sighting in the Ice Rink",
+			[DailyQuest.InvestigateABlueBirdSightingInTheFrozenLake]:
+				"Investigate a blue bird sighting in the Frozen Lake",
 			[DailyQuest.InvestigateABlueBirdSightingInTheVaultRepository]:
 				"Investigate a blue bird sighting in the Vault Repository",
 			[DailyQuest.InvestigateABlueBirdSightingInVillageTheatre]:
 				"Investigate a blue bird sighting in Village Theatre",
 			[DailyQuest.InvestigateABlueBirdSightingInTheForestClearing]:
 				"Investigate a blue bird sighting in the Forest Clearing",
-			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheIceRink]:
-				"Find a clue of the Blue Bird's whereabouts in the Ice Rink",
+			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheFrozenLake]:
+				"Find a clue of the Blue Bird's whereabouts in the Frozen Lake",
 			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInTheVaultRepository]:
 				"Find a clue of the Blue Bird's whereabouts in the Vault Repository",
 			[DailyQuest.FindAClueOfTheBlueBirdsWhereaboutsInVillageTheatre]:
@@ -542,20 +542,23 @@ export default {
 				SkyMap.PrairieCave,
 			),
 			[DailyQuest.UseExpressionsWithPlayers]: "Use expressions with players",
-			[DailyQuest.CatchThe3LightsInTheForestBrook]: "Catch the 3 lights in the Forest Brook",
-			[DailyQuest.CatchThe3LightsInThePrairiesBirdNest]:
-				"Catch the 3 lights in the Prairies Bird Nest",
-			[DailyQuest.CatchThe3LightsInPrairieVillage]: "Catch the 3 lights in Prairie Village",
-			[DailyQuest.CatchThe3LightsInTheWastelandsGraveyard]:
-				"Catch the 3 lights in the Wasteland's Graveyard",
-			[DailyQuest.CatchThe3LightsUnderTheSeaInTreasureReef]:
-				"Catch the 3 lights under the sea in Treasure Reef",
-			[DailyQuest.CatchThe3LightsOnTheVaultsFourthFloor]:
-				"Catch the 3 lights on the Vault's Fourth Floor",
-			[DailyQuest.CatchThe3LightsInTheVaultsRepositoryOfRefuge]:
-				"Catch the 3 lights in the Vault's Repository of Refuge",
-			[DailyQuest.CatchThe3LightsInTheBigTreehouse]: "Catch the 3 lights in the big Treehouse",
-			[DailyQuest.CatchThe3LightsInTheValleysCitadel]: "Catch the 3 lights in the Valley's Citadel",
+			[DailyQuest.CatchTheWanderingLightsInTheForestBrook]:
+				"Catch the wandering lights in the Forest Brook",
+			[DailyQuest.CatchTheWanderingLightsAroundTheBirdNest]:
+				"Catch the wandering lights around the Bird Nest",
+			[DailyQuest.CatchTheWanderingLightsInPrairieVillage]:
+				"Catch the wandering lights in Prairie Village",
+			[DailyQuest.CatchTheWanderingLightsInTheGraveyard]:
+				"Catch the wandering lights in the Graveyard",
+			[DailyQuest.CatchTheWanderingLightsUnderTheSeaInTreasureReef]:
+				"Catch the wandering lights under the sea in Treasure Reef",
+			[DailyQuest.CatchTheWanderingLightsInTheUpperVault]:
+				"Catch the wandering lights in the Upper Vault",
+			[DailyQuest.CatchTheWanderingLightsInTheVaultsRepository]:
+				"Catch the wandering lights in the Vault's Repository",
+			[DailyQuest.CatchTheWanderingLightsInTheTreehouse]:
+				"Catch the wandering lights in the Treehouse",
+			[DailyQuest.CatchTheWanderingLightsInTheCitadel]: "Catch the wandering lights in The Citadel",
 			[DailyQuest.RideAGiantMantaInSanctuaryIslands]: "Ride a giant manta in Sanctuary Islands",
 			[DailyQuest.AdmireSharedSpacesWithTalentedBuilder]:
 				"Admire Shared Spaces with Talented Builder",
@@ -595,6 +598,8 @@ export default {
 				SpiritId.DuetsGuide,
 				SkyMap.StarlightDesert,
 			),
+			[DailyQuest.CatchTheWanderingLightsAtopHermitValley]:
+				"Catch the wandering lights atop Hermit Valley",
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
