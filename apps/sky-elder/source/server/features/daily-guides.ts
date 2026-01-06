@@ -96,7 +96,7 @@ export async function dailyGuidesWidgetUpdate() {
 
 		if (daysUntilStart > 0) {
 			text.push(
-				`${t("daily-guides.event-upcoming", { ns: "features", event: name, count: daysUntilStart })}`,
+				`- ${t("daily-guides.event-upcoming", { ns: "features", event: name, count: daysUntilStart })}`,
 			);
 		} else {
 			text.push(
