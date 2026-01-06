@@ -38,6 +38,7 @@ export const SeasonId = {
 	BlueBird: 24,
 	TwoEmbersPart1: 25,
 	Migration: 26,
+	Lightmending: 27,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SEASON_ID_VALUES = Object.values(SeasonId);

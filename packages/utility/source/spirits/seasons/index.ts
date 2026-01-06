@@ -16,6 +16,7 @@ import Duets from "./duets/index.js";
 import Enchantment from "./enchantment/index.js";
 import Flight from "./flight/index.js";
 import Gratitude from "./gratitude/index.js";
+import lightmending from "./lightmending/index.js";
 import Lightseekers from "./lightseekers/index.js";
 import LittlePrince from "./little-prince/index.js";
 import migration from "./migration/index.js";
@@ -62,6 +63,7 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	BlueBird,
 	twoEmbersPart1,
 	migration,
+	lightmending,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
 export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collection<number, Visit>(

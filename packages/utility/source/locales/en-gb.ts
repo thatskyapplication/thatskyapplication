@@ -629,6 +629,7 @@ export default {
 			[SeasonId.BlueBird]: "Season of the Blue Bird",
 			[SeasonId.TwoEmbersPart1]: "Season of The Two Embers - Part 1",
 			[SeasonId.Migration]: "Season of Migration",
+			[SeasonId.Lightmending]: "Season of Lightmending",
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -662,6 +663,8 @@ export default {
 			[SeasonId.TwoEmbersPart1]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1",
 			[SeasonId.Migration]: "https://sky-children-of-the-light.fandom.com/Season_of_Migration",
+			[SeasonId.Lightmending]:
+				"https://sky-children-of-the-light.fandom.com/Season_of_Lightmending",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",
@@ -1062,6 +1065,7 @@ export default {
 			[SpiritId.MigratingButterflyCharmer]: "Migrating Butterfly Charmer",
 			[SpiritId.MigratingJellyWhisperer]: "Migrating Jelly Whisperer",
 			[SpiritId.MigratingMantaWhisperer]: "Migrating Manta Whisperer",
+			[SpiritId.LightmendingGuide]: "Lightmending Guide",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1340,6 +1344,8 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Migrating_Jelly_Whisperer",
 			[SpiritId.MigratingMantaWhisperer]:
 				"https://sky-children-of-the-light.fandom.com/Migrating_Manta_Whisperer",
+			[SpiritId.LightmendingGuide]:
+				"https://sky-children-of-the-light.fandom.com/Lightmending_Guide",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {

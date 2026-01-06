@@ -266,6 +266,9 @@ export const SpiritId = {
 	MigratingButterflyCharmer: 195,
 	MigratingJellyWhisperer: 196,
 	MigratingMantaWhisperer: 197,
+
+	// Season of Lightmending.
+	LightmendingGuide: 198,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);
