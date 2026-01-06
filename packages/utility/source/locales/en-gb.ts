@@ -744,6 +744,7 @@ export default {
 			[EventId.DaysOfGiving2025]: "Days of Giving",
 			[EventId.RadianceEvent22025]: "Radiance Event",
 			[EventId.DaysOfFeast2025]: "Days of Feast",
+			[EventId.PersonalityQuizEvent2026]: "Personality Quiz Event",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -847,6 +848,8 @@ export default {
 			[EventId.RadianceEvent22025]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event_-_December_2025",
 			[EventId.DaysOfFeast2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
+			[EventId.PersonalityQuizEvent2026]:
+				"https://sky-children-of-the-light.fandom.com/Personality_Quiz_Event",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",

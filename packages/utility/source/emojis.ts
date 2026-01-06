@@ -8672,6 +8672,9 @@ export function emojiConstants(production: boolean) {
 		[EventId.DaysOfGiving2025]: null,
 		[EventId.RadianceEvent22025]: null,
 		[EventId.DaysOfFeast2025]: EVENT_EMOJIS.Feast,
+
+		// 2026.
+		[EventId.PersonalityQuizEvent2026]: null,
 	} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 	return {

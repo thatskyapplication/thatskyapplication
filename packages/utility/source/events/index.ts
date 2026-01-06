@@ -10,12 +10,19 @@ import Year4 from "./2022/index.js";
 import Year5 from "./2023/index.js";
 import Year6 from "./2024/index.js";
 import Year7 from "./2025/index.js";
+import Year8 from "./2026/index.js";
 import { COMMUNITY_EVENTS } from "./community.js";
 
-const EVENTS = [...Year1, ...Year2, ...Year3, ...Year4, ...Year5, ...Year6, ...Year7].reduce(
-	(events, event) => events.set(event.id, event),
-	new Collection<EventIds, Event>(),
-);
+const EVENTS: ReadonlyCollection<EventIds, Event> = [
+	...Year1,
+	...Year2,
+	...Year3,
+	...Year4,
+	...Year5,
+	...Year6,
+	...Year7,
+	...Year8,
+].reduce((events, event) => events.set(event.id, event), new Collection<EventIds, Event>());
 
 export function skyEvents(): ReadonlyCollection<EventIds, Event> {
 	return EVENTS.filter((event) => skyNow() >= event.start);
