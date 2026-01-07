@@ -23,7 +23,7 @@
 		},
 		"maps": {
 			"Bird Nest": "浮石鳥巢",
-			"Butterfly Fields": "蝴蝶平原",
+			"Butterfly Fields": "蝴蝶原野",
 			"Prairie Cave": "雲野山洞",
 			"Prairie Peaks": "雲野峻嶺",
 			"Koi Pond": "鯉魚池",
@@ -36,7 +36,6 @@
 			"Sacred Pond": "聖池",
 			"The Treehouse": "大樹屋",
 			"Frozen Lake": "冰封湖",
-			"Coliseum": "競技場",
 			"Hermit Valley": "隱士山谷",
 			"Village of Dreams": "圓夢村",
 			"Village Theatre": "鄉村劇院",
@@ -50,7 +49,7 @@
 			"Starlight Desert": "星漠",
 			"Repository of Refuge": "知識庫避難所",
 			"Eye of Eden": "暴風眼",
-			"Orbit": "重生之路",
+			"The Passage": "",
 			"Ancient Memory": "上古記憶",
 			"Aviary Village": "雲巢"
 		},
