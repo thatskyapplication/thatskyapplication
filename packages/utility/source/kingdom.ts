@@ -50,7 +50,6 @@ export enum SkyMap {
 
 	// Valley of Triumph.
 	FrozenLake = "Frozen Lake",
-	Coliseum = "Coliseum",
 	HermitValley = "Hermit Valley",
 	VillageOfDreams = "Village of Dreams",
 	VillageTheatre = "Village Theatre",
@@ -71,8 +70,8 @@ export enum SkyMap {
 	// Eye of Eden.
 	StormEnd = "Eye of Eden",
 
-	// Orbit.
-	Orbit = "Orbit",
+	// The Passage.
+	ThePassage = "The Passage",
 
 	// Season of Shattering.
 	AncientMemory = "Ancient Memory",
@@ -98,8 +97,8 @@ export const AreaToWingedLight = {
 	[RealmName.VaultOfKnowledge]: 16,
 	[RealmName.EyeOfEden]: 10,
 	[SkyMap.AncientMemory]: 6,
-	[SkyMap.Orbit]: 1,
-} as const satisfies Readonly<Record<WingedLightAreas | SkyMap.Orbit, number>>;
+	[SkyMap.ThePassage]: 1,
+} as const satisfies Readonly<Record<WingedLightAreas | SkyMap.ThePassage, number>>;
 
 export const WINGED_LIGHT_IN_AREAS = Object.values(AreaToWingedLight).reduce(
 	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,

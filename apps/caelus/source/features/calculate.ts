@@ -475,10 +475,10 @@ export async function wingedLight(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-				number: (accumulation += AreaToWingedLight[SkyMap.Orbit]),
+				number: (accumulation += AreaToWingedLight[SkyMap.ThePassage]),
 				includeSpaceInEmoji: true,
 			},
-		)} (+${AreaToWingedLight[SkyMap.Orbit]}).`,
+		)} (+${AreaToWingedLight[SkyMap.ThePassage]}).`,
 		title: t("calculate.winged-light.title", { lng: locale, ns: "features" }),
 	};
 
