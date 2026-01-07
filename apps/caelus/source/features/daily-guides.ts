@@ -1212,6 +1212,21 @@ export async function set(
 	const newQuest4 = options.getInteger("quest-4") ?? oldQuest4;
 	const newTravellingRock = options.getAttachment("travelling-rock");
 
+	const questNumbers = [newQuest1, newQuest2, newQuest3, newQuest4].filter(
+		(quest): quest is number => quest !== null,
+	);
+
+	const uniqueQuestNumbers = new Set<number>(questNumbers);
+
+	if (questNumbers.length !== uniqueQuestNumbers.size) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "Duplicate quests detected. Double-check what the final result will be!",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
 	if (
 		!newTravellingRock &&
 		oldQuest1 === newQuest1 &&
@@ -1273,17 +1288,29 @@ export async function set(
 	}
 
 	const newData = {
-		quest1: newQuest1 === null ? null : t(`quests.${newQuest1}`, { ns: "general" }),
-		quest2: newQuest2 === null ? null : t(`quests.${newQuest2}`, { ns: "general" }),
-		quest3: newQuest3 === null ? null : t(`quests.${newQuest3}`, { ns: "general" }),
-		quest4: newQuest4 === null ? null : t(`quests.${newQuest4}`, { ns: "general" }),
+		quest1:
+			newQuest1 === null || !isDailyQuest(newQuest1)
+				? null
+				: t(`quests.${newQuest1}`, { ns: "general" }),
+		quest2:
+			newQuest2 === null || !isDailyQuest(newQuest2)
+				? null
+				: t(`quests.${newQuest2}`, { ns: "general" }),
+		quest3:
+			newQuest3 === null || !isDailyQuest(newQuest3)
+				? null
+				: t(`quests.${newQuest3}`, { ns: "general" }),
+		quest4:
+			newQuest4 === null || !isDailyQuest(newQuest4)
+				? null
+				: t(`quests.${newQuest4}`, { ns: "general" }),
 		travellingRock: data.travelling_rock ?? travellingRock,
 	};
 
-	data.quest1 = newQuest1 === null ? null : newQuest1;
-	data.quest2 = newQuest2 === null ? null : newQuest2;
-	data.quest3 = newQuest3 === null ? null : newQuest3;
-	data.quest4 = newQuest4 === null ? null : newQuest4;
+	data.quest1 = newQuest1 === null || !isDailyQuest(newQuest1) ? null : newQuest1;
+	data.quest2 = newQuest2 === null || !isDailyQuest(newQuest2) ? null : newQuest2;
+	data.quest3 = newQuest3 === null || !isDailyQuest(newQuest3) ? null : newQuest3;
+	data.quest4 = newQuest4 === null || !isDailyQuest(newQuest4) ? null : newQuest4;
 
 	await logModification({
 		user: interaction.member.user,
