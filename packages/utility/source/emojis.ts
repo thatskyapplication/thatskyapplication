@@ -533,6 +533,7 @@ const SEASON_EMOJIS_PRODUCTION = {
 	Migration: { id: "1428111864889348238", name: "migration" },
 	MigrationCandle: { id: "1429514486049542334", name: "migration_candle" },
 	MigrationHeart: { id: "1429514579863670784", name: "migration_heart" },
+	Lightmending: { id: "1458424276267958325", name: "lightmending" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -615,6 +616,7 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	Migration: { id: "1428111900868214804", name: "migration" },
 	MigrationCandle: { id: "1429514613476687933", name: "migration_candle" },
 	MigrationHeart: { id: "1429514640282488832", name: "migration_heart" },
+	Lightmending: { id: "1458424286401265725", name: "lightmending" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -2172,6 +2174,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Mischief Feline Tail.
 	 */
 	Necklace53: { id: "1433197642007183430", name: "53_necklace" },
+	/**
+	 * Migration Pendant.
+	 */
+	Necklace54: { id: "1458424276267958325", name: "54_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2228,6 +2234,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace51: { id: "1422146174357471232", name: "51_necklace" },
 	Necklace52: { id: "1429825309015806094", name: "52_necklace" },
 	Necklace53: { id: "1433197656137666721", name: "53_necklace" },
+	Necklace54: { id: "1458424286401265725", name: "54_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -8508,7 +8515,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBird,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1,
 		[SeasonId.Migration]: SEASON_EMOJIS.Migration,
-		[SeasonId.Lightmending]: null,
+		[SeasonId.Lightmending]: SEASON_EMOJIS.Lightmending,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
