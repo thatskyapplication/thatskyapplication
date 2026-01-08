@@ -2684,7 +2684,7 @@
 			"quests-heading": "Quêtes",
 			"treasure-candles": "Bougies au trésor",
 			"seasonal-candles": "Bougies saisonnières",
-			"seasonal-candles-remain": "",
+			"seasonal-candles-remain": "{{remaining}} restante",
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} avec un Passe Saisonnier)",
 			"shard-eruption": "Éruption d'Éclats",
 			"shard-eruption-data": "Données",
