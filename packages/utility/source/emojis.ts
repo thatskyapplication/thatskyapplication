@@ -1928,6 +1928,18 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Elder of the Valley 2.
 	 */
 	FaceAccessory28: { id: "1456314918012981268", name: "28_face_accessory" },
+	/**
+	 * Personality Quiz Event 1.
+	 */
+	FaceAccessory29: { id: "1459119275548741683", name: "29_face_accessory" },
+	/**
+	 * Personality Quiz Event 2.
+	 */
+	FaceAccessory30: { id: "1459119279403302944", name: "30_face_accessory" },
+	/**
+	 * Purple Spectacles.
+	 */
+	FaceAccessory31: { id: "1459119281328619530", name: "31_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -1959,6 +1971,9 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory26: { id: "1431639061537488918", name: "26_face_accessory" },
 	FaceAccessory27: { id: "1456314922425254031", name: "27_face_accessory" },
 	FaceAccessory28: { id: "1456314924509696114", name: "28_face_accessory" },
+	FaceAccessory29: { id: "1459119286248411198", name: "29_face_accessory" },
+	FaceAccessory30: { id: "1459119288194437336", name: "30_face_accessory" },
+	FaceAccessory31: { id: "1459119290052513854", name: "31_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -3367,6 +3382,26 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Snowkid Accessory.
 	 */
 	HairAccessory67: { id: "1449475137987416084", name: "67_hair_accessory" },
+	/**
+	 * Personality Quiz Event 1.
+	 */
+	HairAccessory68: { id: "1459119282951819507", name: "68_hair_accessory" },
+	/**
+	 * Personality Quiz Event 2.
+	 */
+	HairAccessory69: { id: "1459119286512521216", name: "69_hair_accessory" },
+	/**
+	 * Blue Pinned Cap.
+	 */
+	HairAccessory70: { id: "1459119288538501151", name: "70_hair_accessory" },
+	/**
+	 * Green Folded Ears.
+	 */
+	HairAccessory71: { id: "1459119290165891093", name: "71_hair_accessory" },
+	/**
+	 * Yellow Paintbrush.
+	 */
+	HairAccessory72: { id: "1459119292107984906", name: "72_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3437,6 +3472,11 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory65: { id: "1433200211278172282", name: "65_hair_accessory" },
 	HairAccessory66: { id: "1449475147424727062", name: "66_hair_accessory" },
 	HairAccessory67: { id: "1449475149337329896", name: "67_hair_accessory" },
+	HairAccessory68: { id: "1459119291973636247", name: "68_hair_accessory" },
+	HairAccessory69: { id: "1459119293806416023", name: "69_hair_accessory" },
+	HairAccessory70: { id: "1459119295853494315", name: "70_hair_accessory" },
+	HairAccessory71: { id: "1459119297690603631", name: "71_hair_accessory" },
+	HairAccessory72: { id: "1459119299699675188", name: "72_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -8485,6 +8525,14 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.ElderOfTheValleyFaceAccessory1]: FACE_ACCESSORY_EMOJIS.FaceAccessory27,
 		[Cosmetic.ElderOfTheValleyFaceAccessory2]: FACE_ACCESSORY_EMOJIS.FaceAccessory28,
 		[Cosmetic.AsceticMonkWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.PersonalityQuizEventFaceAccessory1]: FACE_ACCESSORY_EMOJIS.FaceAccessory29,
+		[Cosmetic.PersonalityQuizEventFaceAccessory2]: FACE_ACCESSORY_EMOJIS.FaceAccessory30,
+		[Cosmetic.PersonalityQuizEventHairAccessory1]: HAIR_ACCESSORY_EMOJIS.HairAccessory68,
+		[Cosmetic.PersonalityQuizEventHairAccessory2]: HAIR_ACCESSORY_EMOJIS.HairAccessory69,
+		[Cosmetic.BluePinnedCap]: HAIR_ACCESSORY_EMOJIS.HairAccessory70,
+		[Cosmetic.PurpleSpectacles]: FACE_ACCESSORY_EMOJIS.FaceAccessory31,
+		[Cosmetic.GreenFoldedEars]: HAIR_ACCESSORY_EMOJIS.HairAccessory71,
+		[Cosmetic.YellowPaintbrush]: HAIR_ACCESSORY_EMOJIS.HairAccessory72,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

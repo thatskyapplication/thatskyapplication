@@ -452,6 +452,7 @@ interface ItemRawSingleCosmeticWithoutChildren extends BaseItemRawWithoutChildre
 				| CosmeticCommon.HeartMultiple
 				| CosmeticCommon.MusicSheetMultiple
 				| CosmeticCommon.FaceAccessoryMultiple
+				| CosmeticCommon.HairAccessoryMultiple
 		  >
 		| ItemRawTranslation;
 	cosmetic: Cosmetic;

@@ -3312,6 +3312,16 @@ export enum Cosmetic {
 
 	// 01/01/2026 | Travelling Spirit #157.
 	AsceticMonkWingBuff = 2621,
+
+	// 09/01/2026 | Personality Quiz Event.
+	PersonalityQuizEventFaceAccessory1 = 2622,
+	PersonalityQuizEventFaceAccessory2 = 2623,
+	PersonalityQuizEventHairAccessory1 = 2624,
+	PersonalityQuizEventHairAccessory2 = 2625,
+	BluePinnedCap = 2626,
+	PurpleSpectacles = 2627,
+	GreenFoldedEars = 2628,
+	YellowPaintbrush = 2629,
 }
 
 export enum CosmeticCommon {
@@ -3334,6 +3344,7 @@ export enum CosmeticCommon {
 	SeasonalHeart = 16,
 	HairAccessory = 17,
 	FaceAccessoryMultiple = 18,
+	HairAccessoryMultiple = 19,
 }
 
 export const WING_BUFFS = [

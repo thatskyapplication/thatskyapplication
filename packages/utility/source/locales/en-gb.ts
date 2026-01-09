@@ -1377,6 +1377,7 @@ export default {
 			[CosmeticCommon.SeasonalHeart]: "Seasonal heart",
 			[CosmeticCommon.HairAccessory]: "Hair accessory",
 			[CosmeticCommon.FaceAccessoryMultiple]: "Face accessory {{number}}",
+			[CosmeticCommon.HairAccessoryMultiple]: "Hair accessory {{number}}",
 		} satisfies Record<CosmeticCommon, string>,
 		"cosmetic-names": {
 			[Cosmetic.EmoteSit]: "Sit",
@@ -2612,6 +2613,10 @@ export default {
 			[Cosmetic.IceConvexSlide]: "Ice convex slide",
 			[Cosmetic.IceStool]: "Ice stool",
 			[Cosmetic.IceSmallTable]: "Ice small table",
+			[Cosmetic.BluePinnedCap]: "Blue Pinned Cap",
+			[Cosmetic.PurpleSpectacles]: "Purple Spectacles",
+			[Cosmetic.GreenFoldedEars]: "Green Folded Ears",
+			[Cosmetic.YellowPaintbrush]: "Yellow Paintbrush",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
