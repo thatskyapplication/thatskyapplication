@@ -1036,7 +1036,8 @@
 			"15": "",
 			"16": "",
 			"17": "",
-			"18": ""
+			"18": "",
+			"19": ""
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2270,7 +2271,11 @@
 			"2615": "",
 			"2616": "",
 			"2617": "",
-			"2618": ""
+			"2618": "",
+			"2626": "Blaue Mütze",
+			"2627": "Lila Brille",
+			"2628": "Grüne Gefaltete Ohren",
+			"2629": "Gelber Pinsel"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
