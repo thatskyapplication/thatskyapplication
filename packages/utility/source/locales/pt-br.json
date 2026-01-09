@@ -1036,7 +1036,8 @@
 			"15": "Acessório Facial",
 			"16": "Coração sazonal",
 			"17": "Acessório de cabelo",
-			"18": ""
+			"18": "",
+			"19": ""
 		},
 		"cosmetic-names": {
 			"0": "Sentar",
@@ -2270,7 +2271,11 @@
 			"2615": "Escorregador côncavo de gelo",
 			"2616": "Escorregador convexo de gelo",
 			"2617": "Banco de gelo",
-			"2618": "Mesa pequena de gelo"
+			"2618": "Mesa pequena de gelo",
+			"2626": "Boina Presa Azul",
+			"2627": "Óculos Roxo",
+			"2628": "Orelhas de Cachorrinho Verde",
+			"2629": "Tiara de Pincel Amarela"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
