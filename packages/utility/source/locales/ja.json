@@ -35,6 +35,7 @@
 			"Forest Brook": "雨林の小川",
 			"Sacred Pond": "聖なる池",
 			"The Treehouse": "ツリーハウス",
+			"The Wind Paths": "風の街道",
 			"Frozen Lake": "凍った湖",
 			"Hermit Valley": "隠者の峠",
 			"Village of Dreams": "夢見の町",
@@ -363,7 +364,9 @@
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
 			"286": "光のマンタを蝕む闇から解放する",
 			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})",
-			"288": "隠者の峠で彷徨う光をつかまえる"
+			"288": "隠者の峠で彷徨う光をつかまえる",
+			"289": "風の街道で3つの光をつかまえる",
+			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
 		"seasons": {
 			"0": "感謝の季節",
@@ -512,7 +515,9 @@
 			"83": "",
 			"84": "聖なる星の日々",
 			"85": "パーソナリティチェック",
-			"86": "凱旋の大競技会"
+			"86": "凱旋の大競技会",
+			"87": "愛しみの日々",
+			"88": "来福の日々"
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々#2019/10",
@@ -541,7 +546,7 @@
 			"23": "",
 			"24": "",
 			"25": "",
-			"26": "",
+			"26": "https://sky-children-of-the-light.fandom.com/ja/wiki/来福の日々",
 			"27": "",
 			"28": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E3%82%AD%E3%82%BA%E3%83%8A%E3%82%A2%E3%82%A4",
 			"29": "",
@@ -554,7 +559,7 @@
 			"36": "",
 			"37": "",
 			"38": "",
-			"39": "",
+			"39": "https://sky-children-of-the-light.fandom.com/ja/wiki/来福の日々",
 			"40": "",
 			"41": "",
 			"42": "",
@@ -568,7 +573,7 @@
 			"50": "",
 			"51": "",
 			"52": "",
-			"53": "",
+			"53": "https://sky-children-of-the-light.fandom.com/ja/wiki/来福の日々",
 			"54": "",
 			"55": "",
 			"56": "",
@@ -584,7 +589,7 @@
 			"66": "",
 			"67": "",
 			"68": "",
-			"69": "",
+			"69": "https://sky-children-of-the-light.fandom.com/ja/wiki/来福の日々",
 			"70": "",
 			"71": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E5%AE%9D%E6%8E%A2%E3%81%97%E3%81%AE%E6%97%A5%E3%80%85",
 			"72": "",
@@ -601,7 +606,9 @@
 			"83": "",
 			"84": "",
 			"85": "",
-			"86": ""
+			"86": "",
+			"87": "",
+			"88": "https://sky-children-of-the-light.fandom.com/ja/wiki/来福の日々"
 		},
 		"sky-profile-winged-light-types": {
 			"0": "カタログから推測する",

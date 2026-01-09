@@ -35,6 +35,7 @@
 			"Forest Brook": "숲의 개울",
 			"Sacred Pond": "신성한 연못",
 			"The Treehouse": "나무집",
+			"The Wind Paths": "바람길",
 			"Frozen Lake": "얼어붙은 호수",
 			"Hermit Valley": "은둔자의 언덕",
 			"Village of Dreams": "꿈의 마을",
@@ -363,7 +364,9 @@
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
 			"286": "어둠으로부터 만타가오리를 구출하기",
 			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})",
-			"288": "은둔자의 언덕 꼭대기에서 떠도는 빛 잡기"
+			"288": "은둔자의 언덕 꼭대기에서 떠도는 빛 잡기",
+			"289": "​바람길에서 빛 3개를 잡기",
+			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
 		"seasons": {
 			"0": "감사의 시즌",
@@ -512,7 +515,9 @@
 			"83": "",
 			"84": "연회의 날",
 			"85": "성격 퀴즈 이벤트",
-			"86": "승리의 토너먼트"
+			"86": "승리의 토너먼트",
+			"87": "사랑의 날",
+			"88": "행복의 날"
 		},
 		"event-wiki": {
 			"0": "",
@@ -601,7 +606,9 @@
 			"83": "",
 			"84": "",
 			"85": "",
-			"86": ""
+			"86": "",
+			"87": "",
+			"88": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
