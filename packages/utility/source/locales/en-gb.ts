@@ -600,6 +600,11 @@ export default {
 			),
 			[DailyQuest.CatchTheWanderingLightsAtopHermitValley]:
 				"Catch the wandering lights atop Hermit Valley",
+			[DailyQuest.CatchThe3LightsInTheWindPaths]: "Catch the 3 lights in The Wind Paths",
+			[DailyQuest.MeetUpWithTalentedBuilderInTheWindPaths]: questsMeetUpWith(
+				SpiritId.TalentedBuilder,
+				SkyMap.TheWindPaths,
+			),
 		} satisfies Record<DailyQuests, string>,
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",

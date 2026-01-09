@@ -307,6 +307,8 @@ export const DailyQuest = {
 	RescueAMantaFromDarkness: 286,
 	MeetUpWithDuetsGuideInStarlightDesert: 287,
 	CatchTheWanderingLightsAtopHermitValley: 288,
+	CatchThe3LightsInTheWindPaths: 289,
+	MeetUpWithTalentedBuilderInTheWindPaths: 290,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -754,6 +756,8 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.RescueAMantaFromDarkness]: null,
 	[DailyQuest.MeetUpWithDuetsGuideInStarlightDesert]: null,
 	[DailyQuest.CatchTheWanderingLightsAtopHermitValley]: null,
+	[DailyQuest.CatchThe3LightsInTheWindPaths]: null,
+	[DailyQuest.MeetUpWithTalentedBuilderInTheWindPaths]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [

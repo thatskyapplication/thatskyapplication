@@ -47,6 +47,7 @@ export enum SkyMap {
 	ForestBrook = "Forest Brook",
 	SacredPond = "Sacred Pond",
 	TheTreehouse = "The Treehouse",
+	TheWindPaths = "The Wind Paths",
 
 	// Valley of Triumph.
 	FrozenLake = "Frozen Lake",
