@@ -35,6 +35,7 @@
 			"Forest Brook": "Ruisseau de la forêt",
 			"Sacred Pond": "Étang sacré",
 			"The Treehouse": "La cabane dans l'arbre",
+			"The Wind Paths": "Les Chemins de vent",
 			"Frozen Lake": "Lac gelé",
 			"Hermit Valley": "Pente du Yéti",
 			"Village of Dreams": "Village des Rêves",
@@ -363,7 +364,9 @@
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
 			"286": "Sauvez une raie manta de l’obscurité",
 			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})",
-			"288": "Récupérez les lumières errantes au sommet de la pente du Yéti"
+			"288": "Récupérez les lumières errantes au sommet de la pente du Yéti",
+			"289": "Récupérez les 3 lumières sur les Chemins de vent",
+			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
 		"seasons": {
 			"0": "Saison de la gratitude",
@@ -512,7 +515,9 @@
 			"83": "",
 			"84": "Jours de Fête",
 			"85": "Événement Quiz de personnalité",
-			"86": "Tournoi du Triomphe"
+			"86": "Tournoi du Triomphe",
+			"87": "Jours de l'amour",
+			"88": "Jours de chance"
 		},
 		"event-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice#2019",
@@ -601,7 +606,9 @@
 			"83": "",
 			"84": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_Fête",
 			"85": "",
-			"86": ""
+			"86": "",
+			"87": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_l'Amour",
+			"88": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_Chance"
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",

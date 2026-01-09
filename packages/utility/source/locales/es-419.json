@@ -35,6 +35,7 @@
 			"Forest Brook": "Arroyo del Bosque",
 			"Sacred Pond": "Estanque Sagrado",
 			"The Treehouse": "La casa del árbol",
+			"The Wind Paths": "Los Caminos del viento",
 			"Frozen Lake": "Lago Congelado",
 			"Hermit Valley": "Ladera del yeti",
 			"Village of Dreams": "Aldea de los sueños",
@@ -363,7 +364,9 @@
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
 			"286": "Rescata a una Manta de la oscuridad",
 			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})",
-			"288": "Atrapa las luces errantes en la cima de la Ladera del yeti"
+			"288": "Atrapa las luces errantes en la cima de la Ladera del yeti",
+			"289": "Atrapa las 3 luces en Los Caminos del viento",
+			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
 		"seasons": {
 			"0": "Temporada de la gratitud",
@@ -512,7 +515,9 @@
 			"83": "",
 			"84": "Día de festividades",
 			"85": "Evento Prueba de Personalidad",
-			"86": "Torneo del Triunfo"
+			"86": "Torneo del Triunfo",
+			"87": "Días de amor",
+			"88": "Días de la buena fortuna"
 		},
 		"event-wiki": {
 			"0": "",
@@ -601,7 +606,9 @@
 			"83": "",
 			"84": "",
 			"85": "",
-			"86": ""
+			"86": "",
+			"87": "",
+			"88": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",

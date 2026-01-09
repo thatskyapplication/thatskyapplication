@@ -35,6 +35,7 @@
 			"Forest Brook": "Riacho da Floresta",
 			"Sacred Pond": "Lagoa Sagrada",
 			"The Treehouse": "Casa da Árvore",
+			"The Wind Paths": "As Trilhas do Vento",
 			"Frozen Lake": "Lago Congelado",
 			"Hermit Valley": "Desfiladeiro do Iéti",
 			"Village of Dreams": "Aldeia dos Sonhos",
@@ -363,7 +364,9 @@
 			"285": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.55)\",\"location\":\"$t(maps.Crab Fields)\"})",
 			"286": "Resgatar uma arraia da escuridão",
 			"287": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.164)\",\"location\":\"$t(maps.Starlight Desert)\"})",
-			"288": "Pegue as luzes flutuantes no topo do Desfiladeiro do Iéti"
+			"288": "Pegue as luzes flutuantes no topo do Desfiladeiro do Iéti",
+			"289": "Capture as 3 luzes nas Trilhas do Vento",
+			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
 		"seasons": {
 			"0": "Temporada da Gratidão",
@@ -512,7 +515,9 @@
 			"83": "Evento do Resplendor",
 			"84": "Dias de Festa",
 			"85": "Evento de Quiz de Personalidade",
-			"86": "Torneio do Triunfo"
+			"86": "Torneio do Triunfo",
+			"87": "Dias de Amor",
+			"88": "Dias de Felicidade"
 		},
 		"event-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras#Outubro_de_2019",
@@ -601,7 +606,9 @@
 			"83": "",
 			"84": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Festa",
 			"85": "",
-			"86": ""
+			"86": "",
+			"87": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Amor",
+			"88": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Felicidade"
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
