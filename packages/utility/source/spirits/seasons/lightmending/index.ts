@@ -7,8 +7,7 @@ import lightmendingGuide from "./lightmending-guide.js";
 export default new Season({
 	id: SeasonId.Lightmending,
 	start: skyDate(2026, 1, 16),
-	// Double-check this (unannounced).
-	end: skyDate(2026, 4, 4),
+	end: skyDate(2026, 4, 3),
 	guide: lightmendingGuide,
 	spirits: [],
 	seasonalCandlesRotation: [
