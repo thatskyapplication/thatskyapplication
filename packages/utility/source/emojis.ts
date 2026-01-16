@@ -533,7 +533,9 @@ const SEASON_EMOJIS_PRODUCTION = {
 	Migration: { id: "1428111864889348238", name: "migration" },
 	MigrationCandle: { id: "1429514486049542334", name: "migration_candle" },
 	MigrationHeart: { id: "1429514579863670784", name: "migration_heart" },
-	Lightmending: { id: "1458424276267958325", name: "lightmending" },
+	Lightmending: { id: "1461598394907758592", name: "lightmending" },
+	LightmendingCandle: { id: "1461598409705259029", name: "lightmending_candle" },
+	LightmendingHeart: { id: "1461598427505885317", name: "lightmending_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -616,7 +618,9 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	Migration: { id: "1428111900868214804", name: "migration" },
 	MigrationCandle: { id: "1429514613476687933", name: "migration_candle" },
 	MigrationHeart: { id: "1429514640282488832", name: "migration_heart" },
-	Lightmending: { id: "1458424286401265725", name: "lightmending" },
+	Lightmending: { id: "1461598440256438404", name: "lightmending" },
+	LightmendingCandle: { id: "1461598454055829605", name: "lightmending_candle" },
+	LightmendingHeart: { id: "1461598469583147058", name: "lightmending_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -8594,8 +8598,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdCandle,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Candle,
 		[SeasonId.Migration]: SEASON_EMOJIS.MigrationCandle,
-		// @ts-expect-error Not yet made.
-		[SeasonId.Lightmending]: null,
+		[SeasonId.Lightmending]: SEASON_EMOJIS.LightmendingCandle,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 	const SeasonIdToSeasonalHeartEmoji = {
