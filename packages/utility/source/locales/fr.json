@@ -606,7 +606,7 @@
 			"83": "",
 			"84": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_Fête",
 			"85": "",
-			"86": "",
+			"86": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Tournoi_du_Triomphe",
 			"87": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_l'Amour",
 			"88": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_Chance"
 		},
@@ -1037,7 +1037,7 @@
 			"16": "Cœur saisonnier",
 			"17": "Accessoire de cheveux",
 			"18": "Accessoire faciale {{number}}",
-			"19": ""
+			"19": "Accessoire pour cheveux {{number}}"
 		},
 		"cosmetic-names": {
 			"0": "S'assoir",

@@ -603,10 +603,10 @@
 			"80": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Eventos_de_Moeda_em_Dobro#Evento_do_Resplendor_-_Outubro_de_2025",
 			"81": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras",
 			"82": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Presentear",
-			"83": "",
+			"83": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Eventos_de_Moeda_em_Dobro#Evento_de_Luz_e_Corações_em_Dobro_-_Dezembro_de_2025",
 			"84": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Festa",
-			"85": "",
-			"86": "",
+			"85": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Evento_Quiz_de_Personalidade",
+			"86": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Torneio_do_Triunfo",
 			"87": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Amor",
 			"88": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Felicidade"
 		},
@@ -1036,8 +1036,8 @@
 			"15": "Acessório Facial",
 			"16": "Coração sazonal",
 			"17": "Acessório de cabelo",
-			"18": "",
-			"19": ""
+			"18": "Acessório facial {{number}}",
+			"19": "Acessório de cabelo {{number}}"
 		},
 		"cosmetic-names": {
 			"0": "Sentar",
@@ -2696,7 +2696,7 @@
 			"quests-heading": "Missões",
 			"treasure-candles": "Velas do Tesouro",
 			"seasonal-candles": "Velas de temporada",
-			"seasonal-candles-remain": "",
+			"seasonal-candles-remain": "{{remaining}} restantes",
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} com o Passe de Temporada)",
 			"shard-eruption": "Erupções de Fragmentos",
 			"shard-eruption-data": "Dados",
