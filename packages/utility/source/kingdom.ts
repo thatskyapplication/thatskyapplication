@@ -130,8 +130,8 @@ const TREASURE_CANDLES_ROTATION = {
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
 	],
 	[RealmName.HiddenForest]: [
-		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
 	],
 	[RealmName.ValleyOfTriumph]: [
@@ -156,9 +156,9 @@ const TREASURE_CANDLES_DOUBLE_ROTATION = {
 		String(new URL("daily_guides/treasure_candles/daylight_prairie/2.webp", CDN_URL)),
 	],
 	[RealmName.HiddenForest]: [
-		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
 	],
 	[RealmName.ValleyOfTriumph]: [
 		String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
