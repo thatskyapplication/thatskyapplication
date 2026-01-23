@@ -103,7 +103,11 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 
 					return emoji
 						? formatEmoji(emoji)
-						: t(translation?.key ?? `cosmetic-names.${cosmetic}`, { lng: locale, ns: "general" });
+						: t(translation?.key ?? `cosmetic-names.${cosmetic}`, {
+								lng: locale,
+								ns: "general",
+								number: translation?.number,
+							});
 				});
 
 		if (cosmetics.every((cosmetic) => data.has(cosmetic))) {

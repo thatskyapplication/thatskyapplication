@@ -1075,6 +1075,10 @@ export default {
 			[SpiritId.MigratingJellyWhisperer]: "Migrating Jelly Whisperer",
 			[SpiritId.MigratingMantaWhisperer]: "Migrating Manta Whisperer",
 			[SpiritId.LightmendingGuide]: "Lightmending Guide",
+			[SpiritId.LightmendingChampion]: "Lightmending Champion",
+			[SpiritId.LightmendingLightCatcher]: "Lightmending Light Catcher",
+			[SpiritId.LightmendingLightScholar]: "Lightmending Light Scholar",
+			[SpiritId.LightmendingPioneer]: "Lightmending Pioneer",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1355,6 +1359,14 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Migrating_Manta_Whisperer",
 			[SpiritId.LightmendingGuide]:
 				"https://sky-children-of-the-light.fandom.com/Lightmending_Guide",
+			[SpiritId.LightmendingChampion]:
+				"https://sky-children-of-the-light.fandom.com/Lightmending_Champion",
+			[SpiritId.LightmendingLightCatcher]:
+				"https://sky-children-of-the-light.fandom.com/Lightmending_Light_Catcher",
+			[SpiritId.LightmendingLightScholar]:
+				"https://sky-children-of-the-light.fandom.com/Lightmending_Light_Scholar",
+			[SpiritId.LightmendingPioneer]:
+				"https://sky-children-of-the-light.fandom.com/Lightmending_Pioneer",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
@@ -2617,6 +2629,35 @@ export default {
 			[Cosmetic.PurpleSpectacles]: "Purple Spectacles",
 			[Cosmetic.GreenFoldedEars]: "Green Folded Ears",
 			[Cosmetic.YellowPaintbrush]: "Yellow Paintbrush",
+			[Cosmetic.LightmendingPendant]: "Pendant",
+			[Cosmetic.LightmendingGuideUltimateMask]: "Ultimate mask",
+			[Cosmetic.LightmendingGuideUltimateHair]: "Ultimate hair",
+			[Cosmetic.LightmendingGuideUltimateCape]: "Ultimate cape",
+			[Cosmetic.FriendActionRevolvingDance1]: "Revolving dance 1",
+			[Cosmetic.FriendActionRevolvingDance2]: "Revolving dance 2",
+			[Cosmetic.FriendActionRevolvingDance3]: "Revolving dance 3",
+			[Cosmetic.LightmendingChampionHeadAccessory]: "Head accessory",
+			[Cosmetic.LightmendingChampionWhiteDye]: "White dye",
+			[Cosmetic.LightmendingChampionTrust]: "Trust",
+			[Cosmetic.FriendActionRevolvingDance4]: "Revolving dance 4",
+			[Cosmetic.FriendActionSecretHandshake1]: "Secret handshake 1",
+			[Cosmetic.FriendActionSecretHandshake2]: "Secret handshake 2",
+			[Cosmetic.FriendActionSecretHandshake3]: "Secret handshake 3",
+			[Cosmetic.LightmendingLightCatcherCyanDye]: "Cyan dye",
+			[Cosmetic.LightmendingLightCatcherTrust]: "Trust",
+			[Cosmetic.FriendActionSecretHandshake4]: "Secret handshake 4",
+			[Cosmetic.LightmendingLightCatcherTransverseFlute]: "Transverse flute",
+			[Cosmetic.FriendActionWhisper1]: "Whisper 1",
+			[Cosmetic.FriendActionWhisper2]: "Whisper 2",
+			[Cosmetic.FriendActionWhisper3]: "Whisper 3",
+			[Cosmetic.LightmendingLightScholarTrust]: "Trust",
+			[Cosmetic.FriendActionWhisper4]: "Whisper 4",
+			[Cosmetic.EmoteCuteClap1]: "Cute clap 1",
+			[Cosmetic.EmoteCuteClap2]: "Cute clap 2",
+			[Cosmetic.EmoteCuteClap3]: "Cute clap 3",
+			[Cosmetic.LightmendingPioneerBlueDye]: "Blue dye",
+			[Cosmetic.LightmendingPioneerTrust]: "Trust",
+			[Cosmetic.EmoteCuteClap4]: "Cute clap 4",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

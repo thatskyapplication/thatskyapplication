@@ -238,6 +238,7 @@ const EMOTE_EMOJIS_PRODUCTION = {
 	FlightRun: { id: "1431815492737306715", name: "flight_run" },
 	JellyfishDance: { id: "1431949581221888150", name: "jellyfish_dance" },
 	Dizzy: { id: "1431943071666540554", name: "dizzy" },
+	CuteClap: { id: "1464068296121913491", name: "cute_clap" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_DEVELOPMENT = {
@@ -353,6 +354,7 @@ const EMOTE_EMOJIS_DEVELOPMENT = {
 	FlightRun: { id: "1431815498953261056", name: "flight_run" },
 	JellyfishDance: { id: "1431949589807759423", name: "jellyfish_dance" },
 	Dizzy: { id: "1431943075508256860", name: "dizzy" },
+	CuteClap: { id: "1464068302279278664", name: "cute_clap" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS_PRODUCTION = {
@@ -434,6 +436,9 @@ const FRIEND_ACTION_EMOJIS_PRODUCTION = {
 	SideHug: { id: "1313932813950521446", name: "side_hug" },
 	CradleCarry: { id: "1313932802646867978", name: "cradle_carry" },
 	DuetBow: { id: "1313932801074004042", name: "duet_bow" },
+	RevolvingDance: { id: "1464062658297860147", name: "revolving_dance" },
+	SecretHandshake: { id: "1464064360862191820", name: "secret_handshake" },
+	Whisper: { id: "1464066210638598343", name: "whisper" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FRIEND_ACTION_EMOJIS_DEVELOPMENT = {
@@ -451,6 +456,9 @@ const FRIEND_ACTION_EMOJIS_DEVELOPMENT = {
 	SideHug: { id: "1313867563146416260", name: "side_hug" },
 	CradleCarry: { id: "1313867570016944198", name: "cradle_carry" },
 	DuetBow: { id: "1313867566653116467", name: "duet_bow" },
+	RevolvingDance: { id: "1464062667353358397", name: "revolving_dance" },
+	SecretHandshake: { id: "1464064370349707357", name: "secret_handshake" },
+	Whisper: { id: "1464066219480056034", name: "whisper" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_PRODUCTION = {
@@ -1056,6 +1064,18 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Days of Feast 2025.
 	 */
 	Outfit96: { id: "1449477359920218124", name: "96_outfit" },
+	/**
+	 * Lightmending Champion.
+	 */
+	Outfit97: { id: "1464063594055336079", name: "97_outfit" },
+	/**
+	 * Lightmending Light Scholar.
+	 */
+	Outfit98: { id: "1464067775189356666", name: "98_outfit" },
+	/**
+	 * Lightmending Pioneer.
+	 */
+	Outfit99: { id: "1464069073997533184", name: "99_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1155,6 +1175,9 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit94: { id: "1431949644669390898", name: "94_outfit" },
 	Outfit95: { id: "1431952770440892518", name: "95_outfit" },
 	Outfit96: { id: "1449477368723804382", name: "96_outfit" },
+	Outfit97: { id: "1464063601672192116", name: "97_outfit" },
+	Outfit98: { id: "1464067784949498034", name: "98_outfit" },
+	Outfit99: { id: "1464069081366794457", name: "99_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1710,6 +1733,26 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Mischief Beak MAsk.
 	 */
 	Mask104: { id: "1433198715879035090", name: "104_mask" },
+	/**
+	 * Lightmending Guide (ultimate).
+	 */
+	Mask105: { id: "1464005109485928663", name: "105_mask" },
+	/**
+	 * Lightmending Champion.
+	 */
+	Mask106: { id: "1464063047474872514", name: "106_mask" },
+	/**
+	 * Lightmending Light Catcher.
+	 */
+	Mask107: { id: "1464064636205666376", name: "107_mask" },
+	/**
+	 * Lightmending Light Scholar.
+	 */
+	Mask108: { id: "1464067051474911355", name: "108_mask" },
+	/**
+	 * Lightmending Pioneer.
+	 */
+	Mask109: { id: "1464068850210308169", name: "109_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1817,6 +1860,11 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask102: { id: "1396951030150987816", name: "102_mask" },
 	Mask103: { id: "1396955708032811099", name: "103_mask" },
 	Mask104: { id: "1433198725970526331", name: "104_mask" },
+	Mask105: { id: "1464005122660110521", name: "105_mask" },
+	Mask106: { id: "1464063054667972639", name: "106_mask" },
+	Mask107: { id: "1464064645303238850", name: "107_mask" },
+	Mask108: { id: "1464067060291207270", name: "108_mask" },
+	Mask109: { id: "1464068856409489429", name: "109_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -2194,7 +2242,7 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 */
 	Necklace53: { id: "1433197642007183430", name: "53_necklace" },
 	/**
-	 * Migration Pendant.
+	 * Lightmending Pendant.
 	 */
 	Necklace54: { id: "1458424276267958325", name: "54_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
@@ -2941,6 +2989,18 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Mischief Puzzlewright's Brimmed Hat.
 	 */
 	Hair171: { id: "1432488576129568908", name: "171_hair" },
+	/**
+	 * Lightmending Guide (ultimate).
+	 */
+	Hair172: { id: "1464005115424936119", name: "172_hair" },
+	/**
+	 * Lightmending Light Scholar.
+	 */
+	Hair173: { id: "1464066526289199256", name: "173_hair" },
+	/**
+	 * Lightmending Pioneer.
+	 */
+	Hair174: { id: "1464068537059381248", name: "174_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3115,6 +3175,9 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair169: { id: "1431662859770658916", name: "169_hair" },
 	Hair170: { id: "1431952774568087552", name: "170_hair" },
 	Hair171: { id: "1432488588137861232", name: "171_hair" },
+	Hair172: { id: "1464005126481248513", name: "172_hair" },
+	Hair173: { id: "1464066536607322243", name: "173_hair" },
+	Hair174: { id: "1464068545645121659", name: "174_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3406,6 +3469,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Yellow Paintbrush.
 	 */
 	HairAccessory72: { id: "1459119292107984906", name: "72_hair_accessory" },
+	/**
+	 * Lightmending Light Catcher.
+	 */
+	HairAccessory73: { id: "1464064960127697088", name: "73_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3481,6 +3548,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory70: { id: "1459119295853494315", name: "70_hair_accessory" },
 	HairAccessory71: { id: "1459119297690603631", name: "71_hair_accessory" },
 	HairAccessory72: { id: "1459119299699675188", name: "72_hair_accessory" },
+	HairAccessory73: { id: "1464064974996639754", name: "73_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3576,6 +3644,10 @@ const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Migrating Bellmaker.
 	 */
 	HeadAccessory23: { id: "1431663764666716212", name: "23_head_accessory" },
+	/**
+	 * Lightmending Champion.
+	 */
+	HeadAccessory24: { id: "1464063372784963715", name: "24_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3602,6 +3674,7 @@ const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HeadAccessory21: { id: "1399295009513279508", name: "21_head_accessory" },
 	HeadAccessory22: { id: "1401818096985182218", name: "22_head_accessory" },
 	HeadAccessory23: { id: "1431663772413726841", name: "23_head_accessory" },
+	HeadAccessory24: { id: "1464063379953156177", name: "24_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -4273,6 +4346,18 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Days of Feast 2025.
 	 */
 	Cape167: { id: "1449477616062173316", name: "167_cape" },
+	/**
+	 * Lightmending Guide (ultimate).
+	 */
+	Cape168: { id: "1464005113206280354", name: "168_cape" },
+	/**
+	 * Lightmending Light Catcher.
+	 */
+	Cape169: { id: "1464065278714314999", name: "169_cape" },
+	/**
+	 * Lightmending Light Scholar.
+	 */
+	Cape170: { id: "1464066824369999953", name: "170_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4443,6 +4528,9 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape165: { id: "1433199898483888149", name: "165_cape" },
 	Cape166: { id: "1449475151178633477", name: "166_cape" },
 	Cape167: { id: "1449477634466775062", name: "167_cape" },
+	Cape168: { id: "1464005124577038559", name: "168_cape" },
+	Cape169: { id: "1464065287455510668", name: "169_cape" },
+	Cape170: { id: "1464066831659569266", name: "170_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -4678,6 +4766,10 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Stern Shepherd.
 	 */
 	HeldProp58: { id: "1396950649765105705", name: "58_held_prop" },
+	/**
+	 * Lightmending Light Catcher.
+	 */
+	HeldProp59: { id: "1464065540283961476", name: "59_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4739,6 +4831,7 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp56: { id: "1396920113374040204", name: "56_held_prop" },
 	HeldProp57: { id: "1396917858767863828", name: "57_held_prop" },
 	HeldProp58: { id: "1396950659575844996", name: "58_held_prop" },
+	HeldProp59: { id: "1464065547837640903", name: "59_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5839,7 +5932,51 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp114: { id: "1441416775349833780", name: "114_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
-export function emojiConstants(production: boolean) {
+export function emojiConstants(production: boolean): {
+	MISCELLANEOUS_EMOJIS:
+		| typeof MISCELLANEOUS_EMOJIS_PRODUCTION
+		| typeof MISCELLANEOUS_EMOJIS_DEVELOPMENT;
+	EMOTE_EMOJIS: typeof EMOTE_EMOJIS_PRODUCTION | typeof EMOTE_EMOJIS_DEVELOPMENT;
+	STANCE_EMOJIS: typeof STANCE_EMOJIS_PRODUCTION | typeof STANCE_EMOJIS_DEVELOPMENT;
+	CALL_EMOJIS: typeof CALL_EMOJIS_PRODUCTION | typeof CALL_EMOJIS_DEVELOPMENT;
+	FRIEND_ACTION_EMOJIS:
+		| typeof FRIEND_ACTION_EMOJIS_PRODUCTION
+		| typeof FRIEND_ACTION_EMOJIS_DEVELOPMENT;
+	SEASON_EMOJIS: typeof SEASON_EMOJIS_PRODUCTION | typeof SEASON_EMOJIS_DEVELOPMENT;
+	EVENT_EMOJIS: typeof EVENT_EMOJIS_PRODUCTION | typeof EVENT_EMOJIS_DEVELOPMENT;
+	OUTFIT_EMOJIS: typeof OUTFIT_EMOJIS_PRODUCTION | typeof OUTFIT_EMOJIS_DEVELOPMENT;
+	SHOE_EMOJIS: typeof SHOE_EMOJIS_PRODUCTION | typeof SHOE_EMOJIS_DEVELOPMENT;
+	MASK_EMOJIS: typeof MASK_EMOJIS_PRODUCTION | typeof MASK_EMOJIS_DEVELOPMENT;
+	FACE_ACCESSORY_EMOJIS:
+		| typeof FACE_ACCESSORY_EMOJIS_PRODUCTION
+		| typeof FACE_ACCESSORY_EMOJIS_DEVELOPMENT;
+	NECKLACE_EMOJIS: typeof NECKLACE_EMOJIS_PRODUCTION | typeof NECKLACE_EMOJIS_DEVELOPMENT;
+	HAIR_EMOJIS: typeof HAIR_EMOJIS_PRODUCTION | typeof HAIR_EMOJIS_DEVELOPMENT;
+	HAIR_ACCESSORY_EMOJIS:
+		| typeof HAIR_ACCESSORY_EMOJIS_PRODUCTION
+		| typeof HAIR_ACCESSORY_EMOJIS_DEVELOPMENT;
+	HEAD_ACCESSORY_EMOJIS:
+		| typeof HEAD_ACCESSORY_EMOJIS_PRODUCTION
+		| typeof HEAD_ACCESSORY_EMOJIS_DEVELOPMENT;
+	CAPE_EMOJIS: typeof CAPE_EMOJIS_PRODUCTION | typeof CAPE_EMOJIS_DEVELOPMENT;
+	HELD_PROPS_EMOJIS: typeof HELD_PROPS_EMOJIS_PRODUCTION | typeof HELD_PROPS_EMOJIS_DEVELOPMENT;
+	LARGE_PLACEABLE_PROPS_EMOJIS:
+		| typeof LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION
+		| typeof LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT;
+	SMALL_PLACEABLE_PROPS_EMOJIS:
+		| typeof SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION
+		| typeof SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT;
+	CosmeticToEmoji: Readonly<Record<Cosmetic, Emoji | null>>;
+	SeasonIdToSeasonalEmoji: Readonly<Record<SeasonIds, Emoji | null>>;
+	SeasonIdToSeasonalCandleEmoji: Readonly<Record<SeasonIds, Emoji>>;
+	SeasonIdToSeasonalHeartEmoji: Readonly<
+		Record<
+			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,
+			Emoji | null
+		>
+	>;
+	EventIdToEventTicketEmoji: Readonly<Record<EventIds, Emoji | null>>;
+} {
 	const emojis = production
 		? {
 				MISCELLANEOUS_EMOJIS: MISCELLANEOUS_EMOJIS_PRODUCTION,
@@ -8537,6 +8674,66 @@ export function emojiConstants(production: boolean) {
 		[Cosmetic.PurpleSpectacles]: FACE_ACCESSORY_EMOJIS.FaceAccessory31,
 		[Cosmetic.GreenFoldedEars]: HAIR_ACCESSORY_EMOJIS.HairAccessory71,
 		[Cosmetic.YellowPaintbrush]: HAIR_ACCESSORY_EMOJIS.HairAccessory72,
+		[Cosmetic.LightmendingGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.LightmendingPendant]: NECKLACE_EMOJIS.Necklace54,
+		[Cosmetic.LightmendingGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.LightmendingGuideUltimateMask]: MASK_EMOJIS.Mask105,
+		[Cosmetic.LightmendingGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.LightmendingGuideUltimateHair]: HAIR_EMOJIS.Hair172,
+		[Cosmetic.LightmendingGuideHeart3]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.LightmendingGuideUltimateCape]: CAPE_EMOJIS.Cape168,
+		[Cosmetic.LightmendingGuideHeart4]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.LightmendingGuideHeart5]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.FriendActionRevolvingDance1]: FRIEND_ACTION_EMOJIS.RevolvingDance,
+		[Cosmetic.LightmendingChampionBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.LightmendingChampionMask]: MASK_EMOJIS.Mask106,
+		[Cosmetic.LightmendingChampionBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.FriendActionRevolvingDance2]: FRIEND_ACTION_EMOJIS.RevolvingDance,
+		[Cosmetic.FriendActionRevolvingDance3]: FRIEND_ACTION_EMOJIS.RevolvingDance,
+		[Cosmetic.LightmendingChampionBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.LightmendingChampionHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory24,
+		[Cosmetic.LightmendingChampionWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
+		[Cosmetic.LightmendingChampionTrust]: MISCELLANEOUS_EMOJIS.Trust,
+		[Cosmetic.FriendActionRevolvingDance4]: FRIEND_ACTION_EMOJIS.RevolvingDance,
+		[Cosmetic.LightmendingChampionOutfit]: OUTFIT_EMOJIS.Outfit97,
+		[Cosmetic.LightmendingChampionSeasonalHeart]: SEASON_EMOJIS.LightmendingHeart,
+		[Cosmetic.FriendActionSecretHandshake1]: FRIEND_ACTION_EMOJIS.SecretHandshake,
+		[Cosmetic.LightmendingLightCatcherMask]: MASK_EMOJIS.Mask107,
+		[Cosmetic.LightmendingLightCatcherBlessing]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.FriendActionSecretHandshake2]: FRIEND_ACTION_EMOJIS.SecretHandshake,
+		[Cosmetic.FriendActionSecretHandshake3]: FRIEND_ACTION_EMOJIS.SecretHandshake,
+		[Cosmetic.LightmendingLightCatcherCyanDye]: MISCELLANEOUS_EMOJIS.DyeCyan,
+		[Cosmetic.LightmendingLightCatcherHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory73,
+		[Cosmetic.LightmendingLightCatcherCape]: CAPE_EMOJIS.Cape169,
+		[Cosmetic.LightmendingLightCatcherTrust]: MISCELLANEOUS_EMOJIS.Trust,
+		[Cosmetic.FriendActionSecretHandshake4]: FRIEND_ACTION_EMOJIS.SecretHandshake,
+		[Cosmetic.LightmendingLightCatcherTransverseFlute]: HELD_PROPS_EMOJIS.HeldProp59,
+		[Cosmetic.LightmendingLightCatcherSeasonalHeart]: SEASON_EMOJIS.LightmendingHeart,
+		[Cosmetic.FriendActionWhisper1]: FRIEND_ACTION_EMOJIS.Whisper,
+		[Cosmetic.LightmendingLightScholarBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.LightmendingLightScholarHair]: HAIR_EMOJIS.Hair173,
+		[Cosmetic.FriendActionWhisper2]: FRIEND_ACTION_EMOJIS.Whisper,
+		[Cosmetic.FriendActionWhisper3]: FRIEND_ACTION_EMOJIS.Whisper,
+		[Cosmetic.LightmendingLightScholarCape]: CAPE_EMOJIS.Cape170,
+		[Cosmetic.LightmendingLightScholarMask]: MASK_EMOJIS.Mask108,
+		[Cosmetic.LightmendingLightScholarBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.LightmendingLightScholarTrust]: MISCELLANEOUS_EMOJIS.Trust,
+		[Cosmetic.FriendActionWhisper4]: FRIEND_ACTION_EMOJIS.Whisper,
+		[Cosmetic.LightmendingLightScholarOutfit]: OUTFIT_EMOJIS.Outfit98,
+		[Cosmetic.LightmendingLightScholarSeasonalHeart]: SEASON_EMOJIS.LightmendingHeart,
+		[Cosmetic.EmoteCuteClap1]: EMOTE_EMOJIS.CuteClap,
+		[Cosmetic.LightmendingPioneerBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.LightmendingPioneerBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.EmoteCuteClap2]: EMOTE_EMOJIS.CuteClap,
+		[Cosmetic.EmoteCuteClap3]: EMOTE_EMOJIS.CuteClap,
+		[Cosmetic.LightmendingPioneerHair]: HAIR_EMOJIS.Hair174,
+		[Cosmetic.LightmendingPioneerMask]: MASK_EMOJIS.Mask109,
+		[Cosmetic.LightmendingPioneerBlueDye]: MISCELLANEOUS_EMOJIS.DyeBlue,
+		[Cosmetic.LightmendingPioneerTrust]: MISCELLANEOUS_EMOJIS.Trust,
+		[Cosmetic.EmoteCuteClap4]: EMOTE_EMOJIS.CuteClap,
+		[Cosmetic.LightmendingPioneerOutfit]: OUTFIT_EMOJIS.Outfit99,
+		[Cosmetic.LightmendingPioneerSeasonalHeart]: SEASON_EMOJIS.LightmendingHeart,
+		[Cosmetic.LightmendingGuideQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
@@ -8627,7 +8824,7 @@ export function emojiConstants(production: boolean) {
 		[SeasonId.BlueBird]: SEASON_EMOJIS.BlueBirdHeart,
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Heart,
 		[SeasonId.Migration]: SEASON_EMOJIS.MigrationHeart,
-		[SeasonId.Lightmending]: null,
+		[SeasonId.Lightmending]: SEASON_EMOJIS.LightmendingHeart,
 	} as const satisfies Readonly<
 		Record<
 			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,

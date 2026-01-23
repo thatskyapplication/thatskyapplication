@@ -269,6 +269,10 @@ export const SpiritId = {
 
 	// Season of Lightmending.
 	LightmendingGuide: 198,
+	LightmendingChampion: 199,
+	LightmendingLightCatcher: 200,
+	LightmendingLightScholar: 201,
+	LightmendingPioneer: 202,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);
@@ -391,6 +395,7 @@ export enum SpiritEmote {
 	FlightRun = "Flight run",
 	JellyfishDance = "Jellyfish dance",
 	Dizzy = "Dizzy",
+	CuteClap = "Cute clap",
 }
 
 export enum FriendAction {
