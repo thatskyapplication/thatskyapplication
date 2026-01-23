@@ -10,7 +10,7 @@
 		}
 	},
 	"files": {
-		"includes": ["**", "!.react-router", "!distribution", "!build"]
+		"includes": ["**", "!.react-router", "!distribution", "!build", "!apps/guide"]
 	},
 	"formatter": {
 		"lineWidth": 100,
