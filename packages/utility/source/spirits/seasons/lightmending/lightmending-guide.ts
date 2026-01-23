@@ -38,7 +38,12 @@ export default new GuideSpirit({
 					seasonPass: true,
 				},
 			],
-			[null],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+					cosmetic: Cosmetic.LightmendingGuideQuest3,
+				},
+			],
 			[
 				null,
 				{
