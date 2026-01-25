@@ -139,8 +139,8 @@ const TREASURE_CANDLES_ROTATION = {
 		String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
 	],
 	[RealmName.GoldenWasteland]: [
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
 	],
 	[RealmName.VaultOfKnowledge]: [
@@ -166,8 +166,8 @@ const TREASURE_CANDLES_DOUBLE_ROTATION = {
 	],
 	[RealmName.GoldenWasteland]: [
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
-		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 		String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+		String(new URL("daily_guides/treasure_candles/golden_wasteland/1.webp", CDN_URL)),
 	],
 	[RealmName.VaultOfKnowledge]: [
 		String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
