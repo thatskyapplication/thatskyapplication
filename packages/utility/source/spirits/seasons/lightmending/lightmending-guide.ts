@@ -10,7 +10,6 @@ export default new GuideSpirit({
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
 		inProgress: true,
-		hasInfographic: false,
 		current: [
 			[
 				{
