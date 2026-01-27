@@ -28,6 +28,7 @@ import {
 } from "../commands/index.js";
 import { client } from "../discord.js";
 import {
+	catalogueTraversal,
 	parseSetItems,
 	parseViewEvent,
 	parseViewSpirit,
@@ -382,7 +383,11 @@ export default {
 				}
 
 				if (id === CustomId.CatalogueViewSeasons) {
-					await viewSeasons(data);
+					await viewSeasons(
+						data,
+						Number(data.data.custom_id.slice(data.data.custom_id.indexOf("§") + 1)),
+					);
+
 					return;
 				}
 
@@ -396,7 +401,11 @@ export default {
 				}
 
 				if (id === CustomId.CatalogueViewEvents) {
-					await viewEvents(data);
+					await viewEvents(
+						data,
+						Number(data.data.custom_id.slice(data.data.custom_id.indexOf("§") + 1)),
+					);
+
 					return;
 				}
 
@@ -828,6 +837,11 @@ export default {
 
 			try {
 				const value0 = values[0]!;
+
+				if (id === CustomId.CatalogueTraversal) {
+					await catalogueTraversal(data, value0);
+					return;
+				}
 
 				if (id === CustomId.CatalogueViewRealm && isRealm(value0)) {
 					await viewRealm(data, value0);

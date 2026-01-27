@@ -1,5 +1,5 @@
 export const enum CustomId {
-	AboutFeedback = "0",
+	CatalogueTraversal = "0",
 	AboutIssue = "1",
 	AboutFeedbackModal = "2",
 	AboutFeedbackModalTitle = "3",

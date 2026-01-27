@@ -2997,7 +2997,7 @@ export default {
 			"nesting-workshop": "Nesting Workshop",
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
-			"quick-access": "Quick access",
+			"traversal-string-select-menu-placeholder": "Where would you like to go?",
 			"current-season-fallback": "Season",
 			"current-event-fallback": "Event",
 			"travelling-spirit": "Travelling Spirit",
