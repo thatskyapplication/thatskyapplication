@@ -59,7 +59,6 @@ export {
 	communityUpcomingEvents,
 	skyCurrentEvents,
 	skyEvents,
-	skyEventYears,
 	skyNotEndedEvents,
 	skyUpcomingEvents,
 } from "./events/index.js";

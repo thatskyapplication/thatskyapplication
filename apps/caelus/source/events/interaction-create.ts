@@ -38,7 +38,6 @@ import {
 	updateEverythingButtonSetting,
 	viewElders,
 	viewEvents,
-	viewEventYears,
 	viewNestingWorkshop,
 	viewPermanentEventStore,
 	viewRealm,
@@ -396,13 +395,8 @@ export default {
 					}
 				}
 
-				if (id === CustomId.CatalogueViewEventYears) {
-					await viewEventYears(data);
-					return;
-				}
-
-				if (id === CustomId.CatalogueViewEventYear) {
-					await viewEvents(data, parts[0]!);
+				if (id === CustomId.CatalogueViewEvents) {
+					await viewEvents(data);
 					return;
 				}
 
@@ -837,11 +831,6 @@ export default {
 
 				if (id === CustomId.CatalogueViewRealm && isRealm(value0)) {
 					await viewRealm(data, value0);
-					return;
-				}
-
-				if (id === CustomId.CatalogueViewEventYear) {
-					await viewEvents(data, value0);
 					return;
 				}
 

@@ -12,7 +12,7 @@ export const enum CustomId {
 	CatalogueViewRealms = "10",
 	CatalogueViewElders = "11",
 	CatalogueViewSeasons = "12",
-	CatalogueViewEventYears = "13",
+	CatalogueViewEvents = "13",
 	CatalogueViewStarterPacks = "14",
 	CatalogueViewSecretArea = "15",
 	CatalogueViewPermanentEventStore = "16",
