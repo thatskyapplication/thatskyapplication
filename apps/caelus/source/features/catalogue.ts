@@ -958,7 +958,6 @@ function traversalContainer({
 	const permanentEventStore: APISelectMenuOption = {
 		label: t("catalogue.permanent-event-store", { lng: locale, ns: "features" }),
 		value: CustomId.CatalogueViewPermanentEventStore,
-		default: isInPermanentEventStore,
 	};
 
 	if (isInPermanentEventStore) {
@@ -968,7 +967,6 @@ function traversalContainer({
 	const nestingWorkshop: APISelectMenuOption = {
 		label: t("catalogue.nesting-workshop", { lng: locale, ns: "features" }),
 		value: CustomId.CatalogueViewNestingWorkshop,
-		default: isInNestingWorkshop,
 	};
 
 	if (isInNestingWorkshop) {
