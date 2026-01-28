@@ -2653,7 +2653,7 @@
 			"nesting-workshop": "Oficina do Ninho",
 			"main-no-progress": "Sem progresso",
 			"main-progress": "Progresso: {{number}}%",
-			"quick-access": "Acesso rápido",
+			"traversal-string-select-menu-placeholder": "",
 			"current-season-fallback": "Temporada",
 			"current-event-fallback": "Evento",
 			"travelling-spirit": "Espírito Viajante",

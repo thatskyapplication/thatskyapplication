@@ -2653,7 +2653,7 @@
 			"nesting-workshop": "Nest-Werkstatt",
 			"main-no-progress": "Kein Fortschritt",
 			"main-progress": "Fortschritt: {{number}}%",
-			"quick-access": "Schnellzugriff",
+			"traversal-string-select-menu-placeholder": "",
 			"current-season-fallback": "Saison",
 			"current-event-fallback": "Event",
 			"travelling-spirit": "Reisende Geister",

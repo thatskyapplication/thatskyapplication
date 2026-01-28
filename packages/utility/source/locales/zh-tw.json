@@ -2653,7 +2653,7 @@
 			"nesting-workshop": "雲巢工作坊",
 			"main-no-progress": "沒有進展",
 			"main-progress": "進度: {{number}}%",
-			"quick-access": "快速存取",
+			"traversal-string-select-menu-placeholder": "",
 			"current-season-fallback": "季節",
 			"current-event-fallback": "活動",
 			"travelling-spirit": "旅行先靈",
