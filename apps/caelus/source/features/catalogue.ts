@@ -2249,19 +2249,6 @@ async function viewEvent(
 			type: ComponentType.ActionRow,
 			components: actionRowComponents,
 		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				backToStartButton(locale),
-				{
-					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewEvents}§${Math.ceil((id + 1) / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT)}`,
-					emoji: { name: "⏪" },
-					label: t("navigation-back", { lng: locale, ns: "general" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
 	);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
