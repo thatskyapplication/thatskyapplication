@@ -2986,7 +2986,7 @@ export default {
 		catalogue: {
 			"main-title": "Catalogue",
 			"main-description":
-				"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal progress: {{progress}}%",
+				"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.",
 			"standard-spirits": "Standard spirits",
 			elders: "Elders",
 			seasons: "Seasons",
@@ -2997,6 +2997,10 @@ export default {
 			"nesting-workshop": "Nesting Workshop",
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
+			"main-total-spent": "Total spent",
+			"main-total-spent-subtext": "This reflects the _current_ prices of obtained cosmetics.",
+			"main-total-spent-nothing": "Nothing yet",
+			"main-total-progress": "Total progress: {{progress}}%",
 			"quick-access": "Quick access",
 			"current-season-fallback": "Season",
 			"current-event-fallback": "Event",

@@ -135,10 +135,22 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	return { remainingCurrencyResult, offerDescription };
 }
 
-function ownedProgress(items: readonly Item[], data: ReadonlySet<number>) {
+function ownedProgress(items: readonly Item[], data: ReadonlySet<number> = new Set()) {
+	const spentCosts: ItemCost[] = [];
+	let total = 0;
+
+	for (const { cosmetics, cost } of items) {
+		total += cosmetics.length;
+
+		if (cost && cosmetics.every((cosmetic) => data.has(cosmetic))) {
+			spentCosts.push(cost);
+		}
+	}
+
 	return {
 		owned: resolveAllCosmeticsFromItems(items).filter((cosmetic) => data.has(cosmetic)),
-		total: items.reduce((total, item) => total + item.cosmetics.length, 0),
+		total,
+		spentCosts,
 	};
 }
 
@@ -248,38 +260,38 @@ function eventProgress(
 	return progressPercentage(owned, total, round);
 }
 
-function starterPackOwnedProgress(data: ReadonlySet<number>) {
+function starterPackOwnedProgress(data: ReadonlySet<number> = new Set()) {
 	return ownedProgress(STARTER_PACKS.items, data);
 }
 
-function starterPackProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
+function starterPackProgress(data: ReadonlySet<number>, round?: boolean) {
 	const { owned, total } = starterPackOwnedProgress(data);
 	return progressPercentage(owned, total, round);
 }
 
-function secretAreaOwnedProgress(data: ReadonlySet<number>) {
+function secretAreaOwnedProgress(data: ReadonlySet<number> = new Set()) {
 	return ownedProgress(SECRET_AREA.items, data);
 }
 
-function secretAreaProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
+function secretAreaProgress(data: ReadonlySet<number>, round?: boolean) {
 	const { owned, total } = secretAreaOwnedProgress(data);
 	return progressPercentage(owned, total, round);
 }
 
-function permanentEventStoreOwnedProgress(data: ReadonlySet<number>) {
+function permanentEventStoreOwnedProgress(data: ReadonlySet<number> = new Set()) {
 	return ownedProgress(PERMANENT_EVENT_STORE.items, data);
 }
 
-function permanentEventStoreProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
+function permanentEventStoreProgress(data: ReadonlySet<number>, round?: boolean) {
 	const { owned, total } = permanentEventStoreOwnedProgress(data);
 	return progressPercentage(owned, total, round);
 }
 
-function nestingWorkshopOwnedProgress(data: ReadonlySet<number>) {
+function nestingWorkshopOwnedProgress(data: ReadonlySet<number> = new Set()) {
 	return ownedProgress(NESTING_WORKSHOP.items, data);
 }
 
-function nestingWorkshopProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
+function nestingWorkshopProgress(data: ReadonlySet<number>, round?: boolean) {
 	const { owned, total } = nestingWorkshopOwnedProgress(data);
 	return progressPercentage(owned, total, round);
 }
@@ -530,14 +542,106 @@ async function start({
 }: CatalogueStartOptions): Promise<[APIMessageTopLevelComponent]> {
 	const catalogue = await fetchCatalogue(userId);
 	const data = catalogue?.data;
-	const standardProgress = spiritProgress([...STANDARD_SPIRITS.values()], data, true);
-	const elderProgress = spiritProgress([...ELDER_SPIRITS.values()], data, true);
-	const seasonalProgress = seasonProgress([...skySeasons().values()], data, true);
-	const eventProgressResult = eventProgress([...skyEvents().values()], data, true);
-	const starterPackProgressResult = starterPackProgress(data, true);
-	const secretAreaProgressResult = secretAreaProgress(data, true);
-	const permanentEventStoreProgressResult = permanentEventStoreProgress(data, true);
-	const nestingWorkshopProgressResult = nestingWorkshopProgress(data, true);
+	const spentCosts: ItemCost[] = [];
+	const standardOwned = [];
+	let standardTotal = 0;
+	const elderOwned = [];
+	let elderTotal = 0;
+	const seasonalOwned = [];
+	let seasonalTotal = 0;
+	const eventOwned = [];
+	let eventTotal = 0;
+
+	for (const spirit of STANDARD_SPIRITS.values()) {
+		const items = friendshipTreeToItems(spirit.current);
+		const { owned, total, spentCosts: itemSpentCosts } = ownedProgress(items, data);
+		standardOwned.push(...owned);
+		standardTotal += total;
+		spentCosts.push(...itemSpentCosts);
+	}
+
+	const standardProgress = progressPercentage(standardOwned, standardTotal, true);
+
+	for (const spirit of ELDER_SPIRITS.values()) {
+		const items = friendshipTreeToItems(spirit.current);
+		const { owned, total, spentCosts: itemSpentCosts } = ownedProgress(items, data);
+		elderOwned.push(...owned);
+		elderTotal += total;
+		spentCosts.push(...itemSpentCosts);
+	}
+
+	const elderProgress = progressPercentage(elderOwned, elderTotal, true);
+
+	for (const season of skySeasons().values()) {
+		const guideItems = friendshipTreeToItems(season.guide.current);
+		const guideOwnedProgress = ownedProgress(guideItems, data);
+		seasonalOwned.push(...guideOwnedProgress.owned);
+		seasonalTotal += guideOwnedProgress.total;
+		spentCosts.push(...guideOwnedProgress.spentCosts);
+
+		for (const spirit of season.spirits.values()) {
+			const items = friendshipTreeToItems(spirit.items);
+			const spiritOwnedProgress = ownedProgress(items, data);
+			seasonalOwned.push(...spiritOwnedProgress.owned);
+			seasonalTotal += spiritOwnedProgress.total;
+			spentCosts.push(...spiritOwnedProgress.spentCosts);
+		}
+
+		const seasonItemsOwnedProgress = ownedProgress(season.items, data);
+		seasonalOwned.push(...seasonItemsOwnedProgress.owned);
+		seasonalTotal += seasonItemsOwnedProgress.total;
+		spentCosts.push(...seasonItemsOwnedProgress.spentCosts);
+	}
+
+	const seasonalProgress = progressPercentage(seasonalOwned, seasonalTotal, true);
+
+	for (const event of skyEvents().values()) {
+		const eventOwnedProgress = ownedProgress(event.offer, data);
+		eventOwned.push(...eventOwnedProgress.owned);
+		eventTotal += eventOwnedProgress.total;
+		spentCosts.push(...eventOwnedProgress.spentCosts);
+	}
+
+	const eventProgressResult = progressPercentage(eventOwned, eventTotal, true);
+	const starterPackOwnedProgressResult = starterPackOwnedProgress(data);
+
+	const starterPackProgressResult = progressPercentage(
+		starterPackOwnedProgressResult.owned,
+		starterPackOwnedProgressResult.total,
+		true,
+	);
+
+	spentCosts.push(...starterPackOwnedProgressResult.spentCosts);
+	const secretAreaOwnedProgressResult = secretAreaOwnedProgress(data);
+
+	const secretAreaProgressResult = progressPercentage(
+		secretAreaOwnedProgressResult.owned,
+		secretAreaOwnedProgressResult.total,
+		true,
+	);
+
+	spentCosts.push(...secretAreaOwnedProgressResult.spentCosts);
+	const permanentEventStoreOwnedProgressResult = permanentEventStoreOwnedProgress(data);
+
+	const permanentEventStoreProgressResult = progressPercentage(
+		permanentEventStoreOwnedProgressResult.owned,
+		permanentEventStoreOwnedProgressResult.total,
+		true,
+	);
+
+	spentCosts.push(...permanentEventStoreOwnedProgressResult.spentCosts);
+	const nestingWorkshopOwnedProgressResult = nestingWorkshopOwnedProgress(data);
+
+	const nestingWorkshopProgressResult = progressPercentage(
+		nestingWorkshopOwnedProgressResult.owned,
+		nestingWorkshopOwnedProgressResult.total,
+		true,
+	);
+
+	spentCosts.push(...nestingWorkshopOwnedProgressResult.spentCosts);
+
+	const totalSpent = addCosts(spentCosts);
+	const totalSpentString = resolveCostToString(totalSpent, { formatNumber: true, locale });
 	const now = skyNow();
 	const currentSeason = skyCurrentSeason(now);
 	const events = skyCurrentEvents(now);
@@ -660,9 +764,13 @@ async function start({
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: allProgress(data, true) })}`,
+							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features" })}`,
 						},
 					],
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.main-total-spent", { lng: locale, ns: "features" })}\n\n${totalSpentString.length > 0 ? `${totalSpentString.join(" ")}\n-# ${t("catalogue.main-total-spent-subtext", { lng: locale, ns: "features" })}` : t("catalogue.main-total-spent-nothing", { lng: locale, ns: "features" })}\n\n${t("catalogue.main-total-progress", { lng: locale, ns: "features", progress: allProgress(data, true) })}`,
 				},
 				{
 					type: ComponentType.Section,
