@@ -45,7 +45,6 @@ import {
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyEvents,
-	skyEventYears,
 	skyNow,
 	skySeasons,
 	spirits,
@@ -59,7 +58,11 @@ import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
 import { CatalogueType, resolveCostToString } from "../utility/catalogue.js";
-import { CATALOGUE_EVENTS_THRESHOLD, MAXIMUM_TEXT_DISPLAY_LENGTH } from "../utility/constants.js";
+import {
+	CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT,
+	CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT,
+	MAXIMUM_TEXT_DISPLAY_LENGTH,
+} from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
 	CosmeticToEmoji,
@@ -87,8 +90,6 @@ function backToStartButton(locale: Locale): APIButtonComponentWithCustomId {
 		style: ButtonStyle.Secondary,
 	};
 }
-
-const MAXIMUM_SEASONS_DISPLAY_LIMIT = 9 as const;
 
 function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<number> = new Set()) {
 	const offerDescription = [];
@@ -414,10 +415,6 @@ function offerData({
 	}
 
 	for (const event of events) {
-		if (event.offer.length === 0) {
-			continue;
-		}
-
 		const { remainingCurrencyResult, offerDescription } = progress(locale, event.offer, data);
 
 		if (includeTotalRemainingCurrency) {
@@ -430,14 +427,20 @@ function offerData({
 			hasEverything = false;
 		}
 
-		offerProgress.events.set(
-			event.id,
-			`${
-				includeTitles
-					? `### ${t(`events.${event.id}`, { lng: locale, ns: "general" })}${includePercentage ? (percentage === null ? "" : ` (${percentage}%)`) : ""}\n\n${offerDescription.join("\n")}`
-					: ""
-			}`,
-		);
+		let content = "";
+
+		if (includeTitles) {
+			content = `### ${t(`events.${event.id}`, { lng: locale, ns: "general" })}`;
+
+			if (includePercentage) {
+				content += percentage === null ? "" : ` (${percentage}%)`;
+			}
+
+			content += `\n\n-# ${t("time-range", { lng: locale, ns: "general", start: `<t:${event.start.toUnixInteger()}:s>`, end: `<t:${event.end.toUnixInteger()}:s>` })}`;
+			content += `\n${offerDescription.length > 0 ? offerDescription.join("\n") : `-# ${t("catalogue.event-no-cosmetics", { lng: locale, ns: "features" })}`}`;
+		}
+
+		offerProgress.events.set(event.id, content);
 	}
 
 	const { remainingCurrencyResult: itemsRemainingCurrency, offerDescription: itemsOfferProgress } =
@@ -714,7 +717,7 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CustomId.CatalogueViewEventYears,
+						custom_id: `${CustomId.CatalogueViewEvents}§1`,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
@@ -1197,9 +1200,9 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
 	);
 
-	const offset = (page - 1) * MAXIMUM_SEASONS_DISPLAY_LIMIT;
-	const limit = offset + MAXIMUM_SEASONS_DISPLAY_LIMIT;
-	const maximumPage = Math.ceil(seasons.size / MAXIMUM_SEASONS_DISPLAY_LIMIT);
+	const offset = (page - 1) * CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT;
+	const limit = offset + CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT;
+	const maximumPage = Math.ceil(seasons.size / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT);
 
 	containerComponents.push(
 		{
@@ -1486,7 +1489,7 @@ export async function viewSeason(
 				backToStartButton(locale),
 				{
 					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewSeasons}§${Math.ceil((season.id + 1) / MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
+					custom_id: `${CustomId.CatalogueViewSeasons}§${Math.ceil((season.id + 1) / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
 					emoji: { name: "⏪" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
@@ -1505,98 +1508,10 @@ export async function viewSeason(
 	});
 }
 
-export async function viewEventYears(
-	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-) {
+export async function viewEvents(interaction: APIMessageComponentButtonInteraction) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: [
-			{
-				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("catalogue.event-years-title", { lng: locale, ns: "features" }),
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: t("catalogue.event-years-description", { lng: locale, ns: "features" }),
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: CustomId.CatalogueViewEventYear,
-								max_values: 1,
-								min_values: 0,
-								options: skyEventYears().map((year) => {
-									const percentage = eventProgress(
-										[
-											...skyEvents()
-												.filter((event) => event.start.year === year)
-												.values(),
-										],
-										catalogue?.data,
-										true,
-									);
-
-									return {
-										label: `${year}${percentage === null ? "" : ` (${percentage}%)`}`,
-										value: String(year),
-									};
-								}),
-								placeholder: t("catalogue.event-years-select-year-string-select-menu-placeholder", {
-									lng: locale,
-									ns: "features",
-								}),
-							},
-						],
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							backToStartButton(locale),
-							{
-								type: ComponentType.Button,
-								custom_id: CustomId.CatalogueViewStart,
-								emoji: { name: "⏪" },
-								label: t("navigation-back", { lng: locale, ns: "general" }),
-								style: ButtonStyle.Secondary,
-							},
-						],
-					},
-				],
-			},
-		],
-	});
-}
-
-export async function viewEvents(
-	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-	yearString: string,
-) {
-	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
-	const { locale } = interaction;
-	const year = Number(yearString);
-	const events = skyEvents().filter((event) => event.start.year === year);
-	const eventsYears = skyEventYears();
-	const index = eventsYears.indexOf(year);
-	const before = eventsYears[index - 1];
-	const after = eventsYears[index + 1];
-	const title = t("catalogue.events-title", { lng: locale, ns: "features", year });
+	const title = t("catalogue.events-title", { lng: locale, ns: "features" });
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -1610,69 +1525,60 @@ export async function viewEvents(
 		},
 	];
 
+	const events = skyEvents();
+
+	const page = Number(
+		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
+	);
+
+	const offset = (page - 1) * CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT;
+	const limit = offset + CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT;
+	const maximumPage = Math.ceil(events.size / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT);
+	const eventsFiltered = [];
+
+	for (let index = offset; index < limit; index++) {
+		const event = events.get(index as EventIds);
+
+		if (!event) {
+			continue;
+		}
+
+		eventsFiltered.push(event);
+	}
+
 	const { offerProgress } = offerData({
 		data: catalogue?.data,
-		events: [...events.values()],
+		events: eventsFiltered,
 		locale,
-		limit:
-			MAXIMUM_TEXT_DISPLAY_LENGTH -
-			title.length -
-			(events.size > CATALOGUE_EVENTS_THRESHOLD ? "\n".length * events.size : 0),
+		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
 		includePercentage: true,
 		includeTitles: true,
 	});
 
-	if (offerProgress.events.size > CATALOGUE_EVENTS_THRESHOLD) {
-		containerComponents.push(
-			{
-				type: ComponentType.TextDisplay,
-				content: [...offerProgress.events.values()].join("\n"),
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.StringSelect,
-						custom_id: CustomId.CatalogueViewEvent,
-						max_values: 1,
-						min_values: 0,
-						options: events.map((event) => {
-							const { id } = event;
+	for (const [id, text] of offerProgress.events) {
+		const accessory: APIButtonComponentWithCustomId = {
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: `${CustomId.CatalogueViewEvent}§${id}`,
+			label: t("view", { lng: locale, ns: "general" }),
+		};
 
-							const stringSelectMenuOption: APISelectMenuOption = {
-								label: t(`events.${id}`, { lng: locale, ns: "general" }),
-								value: String(id),
-							};
+		const eventEmoji = EventIdToEventTicketEmoji[id];
 
-							const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-
-							if (eventTicketEmoji) {
-								stringSelectMenuOption.emoji = eventTicketEmoji;
-							}
-
-							return stringSelectMenuOption;
-						}),
-						placeholder: t("catalogue.events-select-event-string-select-menu-placeholder", {
-							lng: locale,
-							ns: "features",
-						}),
-					},
-				],
-			},
-		);
-	} else {
-		for (const [id, text] of offerProgress.events) {
-			containerComponents.push({
-				type: ComponentType.Section,
-				accessory: {
-					type: ComponentType.Button,
-					style: ButtonStyle.Primary,
-					custom_id: `${CustomId.CatalogueViewEvent}§${id}`,
-					label: t("view", { lng: locale, ns: "general" }),
-				},
-				components: [{ type: ComponentType.TextDisplay, content: text }],
-			});
+		if (eventEmoji) {
+			accessory.emoji = eventEmoji;
 		}
+
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory,
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: text,
+				},
+			],
+		});
 	}
 
 	containerComponents.push(
@@ -1686,18 +1592,16 @@ export async function viewEvents(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewEventYear}§${before}`,
-					disabled: !before,
+					custom_id: `${CustomId.CatalogueViewEvents}§${page === 1 ? maximumPage : page - 1}`,
 					emoji: { name: "⬅️" },
-					label: t("catalogue.events-previous-year", { lng: locale, ns: "features" }),
+					label: t("catalogue.events-previous-events", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Secondary,
 				},
 				{
 					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewEventYear}§${after}`,
-					disabled: !after,
+					custom_id: `${CustomId.CatalogueViewEvents}§${page === maximumPage ? 1 : page + 1}`,
 					emoji: { name: "➡️" },
-					label: t("catalogue.events-next-year", { lng: locale, ns: "features" }),
+					label: t("catalogue.events-next-events", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Secondary,
 				},
 			],
@@ -1708,7 +1612,7 @@ export async function viewEvents(
 				backToStartButton(locale),
 				{
 					type: ComponentType.Button,
-					custom_id: CustomId.CatalogueViewEventYears,
+					custom_id: CustomId.CatalogueViewStart,
 					emoji: { name: "⏪" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,
@@ -2109,13 +2013,12 @@ async function viewEvent(
 	{ data, showEverythingButton }: CatalogueViewEventOptions,
 ) {
 	const { locale } = interaction;
-	const { id, start, offer, offerInfographicURL, patchNotesURL } = event;
+	const { id, offer, offerInfographicURL, patchNotesURL } = event;
 
 	const titleEvent = t("catalogue.event-title", {
 		lng: locale,
 		ns: "features",
 		event: `[${t(`events.${id}`, { lng: locale, ns: "general" })}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`,
-		year: event.start.year,
 	});
 
 	const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
@@ -2211,16 +2114,14 @@ async function viewEvent(
 		});
 	}
 
-	const events = skyEvents().filter((event) => event.start.year === start.year);
+	const events = skyEvents();
 	const before = events.get((id - 1) as EventIds);
 	const after = events.get((id + 1) as EventIds);
 
-	// It is possible that for the first event of a year, the custom ids will be the same, leading to an error.
-	// We use the nullish coalescing operator to fallback to some default values to mitigate this.
 	const actionRowComponents: APIComponentInMessageActionRow[] = [
 		{
 			type: ComponentType.Button,
-			custom_id: `${CustomId.CatalogueViewEvent}§${before?.id ?? "before"}`,
+			custom_id: `${CustomId.CatalogueViewEvent}§${before?.id}`,
 			disabled: !before,
 			emoji: { name: "⬅️" },
 			label: t("catalogue.event-previous-event", { lng: locale, ns: "features" }),
@@ -2228,7 +2129,7 @@ async function viewEvent(
 		},
 		{
 			type: ComponentType.Button,
-			custom_id: `${CustomId.CatalogueViewEvent}§${after?.id ?? "after"}`,
+			custom_id: `${CustomId.CatalogueViewEvent}§${after?.id}`,
 			disabled: !after,
 			emoji: { name: "➡️" },
 			label: t("catalogue.event-next-event", { lng: locale, ns: "features" }),
@@ -2263,7 +2164,7 @@ async function viewEvent(
 				backToStartButton(locale),
 				{
 					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewEventYear}§${start.year}`,
+					custom_id: `${CustomId.CatalogueViewEvents}§${Math.ceil((id + 1) / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT)}`,
 					emoji: { name: "⏪" },
 					label: t("navigation-back", { lng: locale, ns: "general" }),
 					style: ButtonStyle.Secondary,

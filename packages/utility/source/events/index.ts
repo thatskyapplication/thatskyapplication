@@ -28,10 +28,6 @@ export function skyEvents(): ReadonlyCollection<EventIds, Event> {
 	return EVENTS.filter((event) => skyNow() >= event.start);
 }
 
-export function skyEventYears() {
-	return [...new Set(skyEvents().map(({ start: { year } }) => year))];
-}
-
 export function skyCurrentEvents(date: DateTime): ReadonlyCollection<EventIds, Event> {
 	return EVENTS.filter(({ start, end }) => date >= start && date < end);
 }
