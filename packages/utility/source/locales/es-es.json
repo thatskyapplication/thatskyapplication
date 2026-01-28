@@ -2653,7 +2653,7 @@
 			"nesting-workshop": "Taller acogedor",
 			"main-no-progress": "Sin progreso",
 			"main-progress": "Progreso: {{number}}%",
-			"quick-access": "Acceso rápido",
+			"traversal-string-select-menu-placeholder": "",
 			"current-season-fallback": "Temporada",
 			"current-event-fallback": "Evento",
 			"travelling-spirit": "Espíritu Viajero",

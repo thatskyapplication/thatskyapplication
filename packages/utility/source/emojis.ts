@@ -65,6 +65,7 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	DailyQuest: { id: "1415342214581850182", name: "daily_quest" },
 	DailyReset: { id: "1415788534908063784", animated: true, name: "daily_reset" },
 	Trust: { id: "1431662227202641930", name: "trust" },
+	CurrentPosition: { id: "1466208837492146299", name: "current_position" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -123,6 +124,7 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	DailyQuest: { id: "1415342223272185938", name: "daily_quest" },
 	DailyReset: { id: "1415788543141347458", animated: true, name: "daily_reset" },
 	Trust: { id: "1431662235343651089", name: "trust" },
+	CurrentPosition: { id: "1466208892735197297", name: "current_position" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {

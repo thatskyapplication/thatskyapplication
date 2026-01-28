@@ -4,7 +4,9 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIComponentInMessageActionRow,
+	type APIContainerComponent,
 	type APIMessageComponentButtonInteraction,
+	type APIMessageComponentEmoji,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	type APISelectMenuOption,
@@ -530,7 +532,7 @@ interface CatalogueStartOptions {
 async function start({
 	userId,
 	locale,
-}: CatalogueStartOptions): Promise<[APIMessageTopLevelComponent]> {
+}: CatalogueStartOptions): Promise<APIMessageTopLevelComponent[]> {
 	const catalogue = await fetchCatalogue(userId);
 	const data = catalogue?.data;
 	const standardProgress = spiritProgress([...STANDARD_SPIRITS.values()], data, true);
@@ -787,15 +789,11 @@ async function start({
 						},
 					],
 				},
-				{
-					type: ComponentType.Separator,
-					divider: true,
-					spacing: SeparatorSpacingSize.Small,
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.quick-access", { lng: locale, ns: "features" })}`,
-				},
+			],
+		},
+		{
+			type: ComponentType.Container,
+			components: [
 				{
 					type: ComponentType.ActionRow,
 					// Limit the potential current event buttons to 4 to not exceed the limit.
@@ -869,28 +867,181 @@ export async function viewSettings(interaction: APIMessageComponentButtonInterac
 							},
 						],
 					},
+				],
+			},
+			traversalContainer({ locale, navigationBackCustomId: CustomId.CatalogueViewStart }),
+		],
+	});
+}
+
+interface CatalogueTraversalContainerOptions {
+	locale: Locale;
+	navigationBackCustomId: CustomId | `${CustomId}§${string}`;
+	navigationBackEmoji?: APIMessageComponentEmoji | undefined;
+	isInStandardSpirits?: boolean;
+	isInElders?: boolean;
+	isInSeasons?: boolean;
+	isInEvents?: boolean;
+	isInStarterPacks?: boolean;
+	isInSecretArea?: boolean;
+	isInPermanentEventStore?: boolean;
+	isInNestingWorkshop?: boolean;
+}
+
+function traversalContainer({
+	locale,
+	navigationBackCustomId,
+	navigationBackEmoji = { name: "⏪" },
+	isInStandardSpirits = false,
+	isInElders = false,
+	isInSeasons = false,
+	isInEvents = false,
+	isInStarterPacks = false,
+	isInSecretArea = false,
+	isInPermanentEventStore = false,
+	isInNestingWorkshop = false,
+}: CatalogueTraversalContainerOptions): APIContainerComponent {
+	const standardSpirits: APISelectMenuOption = {
+		label: t("catalogue.standard-spirits", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewRealms,
+	};
+
+	if (isInStandardSpirits) {
+		standardSpirits.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const elders: APISelectMenuOption = {
+		label: t("catalogue.elders", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewElders,
+	};
+
+	if (isInElders) {
+		elders.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const seasons: APISelectMenuOption = {
+		label: t("catalogue.seasons", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewSeasons,
+	};
+
+	if (isInSeasons) {
+		seasons.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const events: APISelectMenuOption = {
+		label: t("catalogue.events", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewEvents,
+	};
+
+	if (isInEvents) {
+		events.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const starterPacks: APISelectMenuOption = {
+		label: t("catalogue.starter-packs", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewStarterPacks,
+	};
+
+	if (isInStarterPacks) {
+		starterPacks.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const secretArea: APISelectMenuOption = {
+		label: t("catalogue.secret-area", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewSecretArea,
+	};
+
+	if (isInSecretArea) {
+		secretArea.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const permanentEventStore: APISelectMenuOption = {
+		label: t("catalogue.permanent-event-store", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewPermanentEventStore,
+	};
+
+	if (isInPermanentEventStore) {
+		permanentEventStore.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const nestingWorkshop: APISelectMenuOption = {
+		label: t("catalogue.nesting-workshop", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewNestingWorkshop,
+	};
+
+	if (isInNestingWorkshop) {
+		nestingWorkshop.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	return {
+		type: ComponentType.Container,
+		components: [
+			{
+				type: ComponentType.ActionRow,
+				components: [
 					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							backToStartButton(locale),
-							{
-								type: ComponentType.Button,
-								custom_id: CustomId.CatalogueViewStart,
-								emoji: { name: "⏪" },
-								label: t("navigation-back", { lng: locale, ns: "general" }),
-								style: ButtonStyle.Secondary,
-							},
+						type: ComponentType.StringSelect,
+						custom_id: CustomId.CatalogueTraversal,
+						options: [
+							standardSpirits,
+							elders,
+							seasons,
+							events,
+							starterPacks,
+							secretArea,
+							permanentEventStore,
+							nestingWorkshop,
 						],
+						max_values: 1,
+						min_values: 1,
+						placeholder: t("catalogue.traversal-string-select-menu-placeholder", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					backToStartButton(locale),
+					{
+						type: ComponentType.Button,
+						custom_id: navigationBackCustomId,
+						emoji: navigationBackEmoji,
+						label: t("navigation-back", { lng: locale, ns: "general" }),
+						style: ButtonStyle.Secondary,
 					},
 				],
 			},
 		],
-	});
+	};
+}
+
+export async function catalogueTraversal(
+	interaction: APIMessageComponentSelectMenuInteraction,
+	value: string,
+) {
+	switch (value) {
+		case CustomId.CatalogueViewRealms:
+			return viewRealms(interaction);
+		case CustomId.CatalogueViewElders:
+			return viewElders(interaction);
+		case CustomId.CatalogueViewSeasons:
+			return viewSeasons(interaction, 1);
+		case CustomId.CatalogueViewEvents:
+			return viewEvents(interaction, 1);
+		case CustomId.CatalogueViewStarterPacks:
+			return viewStarterPacks(interaction);
+		case CustomId.CatalogueViewSecretArea:
+			return viewSecretArea(interaction);
+		case CustomId.CatalogueViewPermanentEventStore:
+			return viewPermanentEventStore(interaction);
+		case CustomId.CatalogueViewNestingWorkshop:
+			return viewNestingWorkshop(interaction);
+		default:
+			throw new Error("Unknown catalogue traversal.");
+	}
 }
 
 export async function viewRealms(
@@ -936,30 +1087,10 @@ export async function viewRealms(
 		});
 	}
 
-	containerComponents.push(
-		{
-			type: ComponentType.TextDisplay,
-			content: `-# ${t("catalogue.realms-percentage-note", { lng: locale, ns: "features" })}`,
-		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				backToStartButton(locale),
-				{
-					type: ComponentType.Button,
-					custom_id: CustomId.CatalogueViewStart,
-					emoji: { name: "⏪" },
-					label: t("navigation-back", { lng: locale, ns: "general" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
-	);
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: `-# ${t("catalogue.realms-percentage-note", { lng: locale, ns: "features" })}`,
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -967,6 +1098,11 @@ export async function viewRealms(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInStandardSpirits: true,
+			}),
 		],
 	});
 }
@@ -1026,43 +1162,33 @@ export async function viewRealm(
 		});
 	}
 
-	const actionRowComponents: APIComponentInMessageActionRow[] = [
-		backToStartButton(locale),
-		{
-			type: ComponentType.Button,
-			custom_id: CustomId.CatalogueViewRealms,
-			emoji: { name: "⏪" },
-			label: t("navigation-back", { lng: locale, ns: "general" }),
-			style: ButtonStyle.Secondary,
-		},
-	];
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: percentageNote,
+	});
 
 	if (catalogue?.show_everything_button) {
-		actionRowComponents.push({
-			type: ComponentType.Button,
-			custom_id: `${CustomId.CatalogueRealmEverything}§${realm}`,
-			disabled: hasEverything,
-			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-			style: ButtonStyle.Success,
-		});
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${CustomId.CatalogueRealmEverything}§${realm}`,
+						disabled: hasEverything,
+						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+						label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+						style: ButtonStyle.Success,
+					},
+				],
+			},
+		);
 	}
-
-	containerComponents.push(
-		{
-			type: ComponentType.TextDisplay,
-			content: percentageNote,
-		},
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: actionRowComponents,
-		},
-	);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1070,6 +1196,11 @@ export async function viewRealm(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewRealms,
+				isInStandardSpirits: true,
+			}),
 		],
 	});
 }
@@ -1120,39 +1251,28 @@ export async function viewElders(
 		});
 	}
 
-	const actionRowComponents: APIComponentInMessageActionRow[] = [
-		backToStartButton(locale),
-		{
-			type: ComponentType.Button,
-			custom_id: CustomId.CatalogueViewStart,
-			emoji: { name: "⏪" },
-			label: t("navigation-back", { lng: locale, ns: "general" }),
-			style: ButtonStyle.Secondary,
-		},
-	];
-
 	if (catalogue?.show_everything_button) {
-		actionRowComponents.push({
-			type: ComponentType.Button,
-			custom_id: CustomId.CatalogueEldersEverything,
-			disabled: hasEverything,
-			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-			style: ButtonStyle.Success,
-		});
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: CustomId.CatalogueEldersEverything,
+						disabled: hasEverything,
+						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+						label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+						style: ButtonStyle.Success,
+					},
+				],
+			},
+		);
 	}
-
-	containerComponents.push(
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: actionRowComponents,
-		},
-	);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1160,11 +1280,19 @@ export async function viewElders(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInElders: true,
+			}),
 		],
 	});
 }
 
-export async function viewSeasons(interaction: APIMessageComponentButtonInteraction) {
+export async function viewSeasons(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	page: number,
+) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 	const currentSeason = skyCurrentSeason(skyNow());
@@ -1195,11 +1323,6 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 	}
 
 	const seasons = skySeasons();
-
-	const page = Number(
-		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
-	);
-
 	const offset = (page - 1) * CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT;
 	const limit = offset + CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT;
 	const maximumPage = Math.ceil(seasons.size / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT);
@@ -1280,19 +1403,6 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 				},
 			],
 		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				backToStartButton(locale),
-				{
-					type: ComponentType.Button,
-					custom_id: CustomId.CatalogueViewStart,
-					emoji: { name: "⏪" },
-					label: t("navigation-back", { lng: locale, ns: "general" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
 	);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1301,6 +1411,11 @@ export async function viewSeasons(interaction: APIMessageComponentButtonInteract
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInSeasons: true,
+			}),
 		],
 	});
 }
@@ -1483,19 +1598,6 @@ export async function viewSeason(
 			type: ComponentType.ActionRow,
 			components: [previousSeasonButton, nextSeasonButton],
 		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				backToStartButton(locale),
-				{
-					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewSeasons}§${Math.ceil((season.id + 1) / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
-					emoji: { name: "⏪" },
-					label: t("navigation-back", { lng: locale, ns: "general" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
 	);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1504,11 +1606,19 @@ export async function viewSeason(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: `${CustomId.CatalogueViewSeasons}§${Math.ceil((season.id + 1) / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
+				isInSeasons: true,
+			}),
 		],
 	});
 }
 
-export async function viewEvents(interaction: APIMessageComponentButtonInteraction) {
+export async function viewEvents(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	page: number,
+) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 	const title = t("catalogue.events-title", { lng: locale, ns: "features" });
@@ -1526,11 +1636,6 @@ export async function viewEvents(interaction: APIMessageComponentButtonInteracti
 	];
 
 	const events = skyEvents();
-
-	const page = Number(
-		interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1),
-	);
-
 	const offset = (page - 1) * CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT;
 	const limit = offset + CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT;
 	const maximumPage = Math.ceil(events.size / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT);
@@ -1606,19 +1711,6 @@ export async function viewEvents(interaction: APIMessageComponentButtonInteracti
 				},
 			],
 		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				backToStartButton(locale),
-				{
-					type: ComponentType.Button,
-					custom_id: CustomId.CatalogueViewStart,
-					emoji: { name: "⏪" },
-					label: t("navigation-back", { lng: locale, ns: "general" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
 	);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1627,6 +1719,11 @@ export async function viewEvents(interaction: APIMessageComponentButtonInteracti
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInEvents: true,
+			}),
 		],
 	});
 }
@@ -1948,33 +2045,27 @@ async function viewSpirit(
 		containerComponents.push({ type: ComponentType.ActionRow, components: actionRowComponents });
 	}
 
-	containerComponents.push({
-		type: ComponentType.ActionRow,
-		components: [
-			backToStartButton(locale),
-			{
-				type: ComponentType.Button,
-				custom_id: isElderSpirit
-					? CustomId.CatalogueViewElders
-					: isStandardSpirit
-						? `${CustomId.CatalogueViewRealm}§${spirit.realm}`
-						: `${CustomId.CatalogueViewSeason}§${spirit.seasonId}`,
-				emoji:
-					isSeasonalSpirit || isGuideSpirit
-						? (SeasonIdToSeasonalEmoji[spirit.seasonId] ?? { name: "⏪" })
-						: { name: "⏪" },
-				label: t("navigation-back", { lng: locale, ns: "general" }),
-				style: ButtonStyle.Secondary,
-			},
-		],
-	});
-
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
 			{
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: isElderSpirit
+					? CustomId.CatalogueViewElders
+					: isStandardSpirit
+						? `${CustomId.CatalogueViewRealm}§${spirit.realm}`
+						: `${CustomId.CatalogueViewSeason}§${spirit.seasonId}`,
+				navigationBackEmoji:
+					isSeasonalSpirit || isGuideSpirit
+						? (SeasonIdToSeasonalEmoji[spirit.seasonId] ?? undefined)
+						: undefined,
+				isInElders: isElderSpirit,
+				isInStandardSpirits: isStandardSpirit,
+				isInSeasons: isSeasonalSpirit || isGuideSpirit,
+			}),
 		],
 	});
 }
@@ -2179,6 +2270,11 @@ async function viewEvent(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: `${CustomId.CatalogueViewEvents}§${Math.ceil((id + 1) / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT)}`,
+				isInEvents: true,
+			}),
 		],
 	});
 }
@@ -2212,77 +2308,76 @@ export async function viewStarterPacks(
 		},
 	);
 
-	const actionRowComponents: APIComponentInMessageActionRow[] = [
-		backToStartButton(locale),
+	const containerComponents: APIComponentInContainer[] = [
 		{
-			type: ComponentType.Button,
-			custom_id: CustomId.CatalogueViewStart,
-			emoji: { name: "⏪" },
-			label: t("navigation-back", { lng: locale, ns: "general" }),
-			style: ButtonStyle.Secondary,
+			type: ComponentType.TextDisplay,
+			content: t("catalogue.starter-packs-title", { lng: locale, ns: "features" }),
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: progress(
+				interaction.locale,
+				STARTER_PACKS.items,
+				catalogue?.data,
+			).offerDescription.join("\n"),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.StarterPacks}`,
+					max_values: itemSelectionOptions.length,
+					min_values: 0,
+					options: itemSelectionOptions,
+					placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
 		},
 	];
 
 	if (catalogue?.show_everything_button) {
-		actionRowComponents.push({
-			type: ComponentType.Button,
-			custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.StarterPacks}`,
-			disabled: starterPackProgress(catalogue?.data) === 100,
-			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-			style: ButtonStyle.Success,
-		});
+		containerComponents.push(
+			{
+				type: ComponentType.Separator,
+				divider: true,
+				spacing: SeparatorSpacingSize.Small,
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.StarterPacks}`,
+						disabled: starterPackProgress(catalogue?.data) === 100,
+						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+						label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+						style: ButtonStyle.Success,
+					},
+				],
+			},
+		);
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
 			{
 				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("catalogue.starter-packs-title", { lng: locale, ns: "features" }),
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: progress(
-							interaction.locale,
-							STARTER_PACKS.items,
-							catalogue?.data,
-						).offerDescription.join("\n"),
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.StarterPacks}`,
-								max_values: itemSelectionOptions.length,
-								min_values: 0,
-								options: itemSelectionOptions,
-								placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
-									lng: locale,
-									ns: "features",
-								}),
-							},
-						],
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: actionRowComponents,
-					},
-				],
+				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInStarterPacks: true,
+			}),
 		],
 	});
 }
@@ -2315,25 +2410,55 @@ export async function viewSecretArea(
 		},
 	);
 
-	const actionRowComponents: APIComponentInMessageActionRow[] = [
-		backToStartButton(locale),
+	const containerComponents: APIComponentInContainer[] = [
 		{
-			type: ComponentType.Button,
-			custom_id: CustomId.CatalogueViewStart,
-			emoji: { name: "⏪" },
-			label: t("navigation-back", { lng: locale, ns: "general" }),
-			style: ButtonStyle.Secondary,
+			type: ComponentType.TextDisplay,
+			content: t("catalogue.secret-area-title", { lng: locale, ns: "features" }),
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: progress(
+				interaction.locale,
+				SECRET_AREA.items,
+				catalogue?.data,
+			).offerDescription.join("\n"),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.SecretArea}`,
+					max_values: itemSelectionOptions.length,
+					min_values: 0,
+					options: itemSelectionOptions,
+					placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
 		},
 	];
 
 	if (catalogue?.show_everything_button) {
-		actionRowComponents.push({
-			type: ComponentType.Button,
-			custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.SecretArea}`,
-			disabled: secretAreaProgress(catalogue?.data) === 100,
-			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-			style: ButtonStyle.Success,
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.SecretArea}`,
+					disabled: secretAreaProgress(catalogue?.data) === 100,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Success,
+				},
+			],
 		});
 	}
 
@@ -2341,51 +2466,13 @@ export async function viewSecretArea(
 		components: [
 			{
 				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("catalogue.secret-area-title", { lng: locale, ns: "features" }),
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: progress(
-							interaction.locale,
-							SECRET_AREA.items,
-							catalogue?.data,
-						).offerDescription.join("\n"),
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.SecretArea}`,
-								max_values: itemSelectionOptions.length,
-								min_values: 0,
-								options: itemSelectionOptions,
-								placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
-									lng: locale,
-									ns: "features",
-								}),
-							},
-						],
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: actionRowComponents,
-					},
-				],
+				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInSecretArea: true,
+			}),
 		],
 	});
 }
@@ -2418,25 +2505,55 @@ export async function viewPermanentEventStore(
 		},
 	);
 
-	const actionRowComponents: APIComponentInMessageActionRow[] = [
-		backToStartButton(locale),
+	const containerComponents: APIComponentInContainer[] = [
 		{
-			type: ComponentType.Button,
-			custom_id: CustomId.CatalogueViewStart,
-			emoji: { name: "⏪" },
-			label: t("navigation-back", { lng: locale, ns: "general" }),
-			style: ButtonStyle.Secondary,
+			type: ComponentType.TextDisplay,
+			content: t("catalogue.permanent-event-store-title", { lng: locale, ns: "features" }),
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: progress(
+				interaction.locale,
+				PERMANENT_EVENT_STORE.items,
+				catalogue?.data,
+			).offerDescription.join("\n"),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.PermanentEventStore}`,
+					max_values: itemSelectionOptions.length,
+					min_values: 0,
+					options: itemSelectionOptions,
+					placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
 		},
 	];
 
 	if (catalogue?.show_everything_button) {
-		actionRowComponents.push({
-			type: ComponentType.Button,
-			custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.PermanentEventStore}`,
-			disabled: permanentEventStoreProgress(catalogue?.data) === 100,
-			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-			style: ButtonStyle.Success,
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.PermanentEventStore}`,
+					disabled: permanentEventStoreProgress(catalogue?.data) === 100,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Success,
+				},
+			],
 		});
 	}
 
@@ -2444,51 +2561,13 @@ export async function viewPermanentEventStore(
 		components: [
 			{
 				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("catalogue.permanent-event-store-title", { lng: locale, ns: "features" }),
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: progress(
-							interaction.locale,
-							PERMANENT_EVENT_STORE.items,
-							catalogue?.data,
-						).offerDescription.join("\n"),
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.PermanentEventStore}`,
-								max_values: itemSelectionOptions.length,
-								min_values: 0,
-								options: itemSelectionOptions,
-								placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
-									lng: locale,
-									ns: "features",
-								}),
-							},
-						],
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: actionRowComponents,
-					},
-				],
+				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInPermanentEventStore: true,
+			}),
 		],
 	});
 }
@@ -2533,25 +2612,87 @@ export async function viewNestingWorkshop(
 		CATALOGUE_MAXIMUM_OPTIONS_LIMIT * 3,
 	);
 
-	const actionRowComponents: APIComponentInMessageActionRow[] = [
-		backToStartButton(locale),
+	const containerComponents: APIComponentInContainer[] = [
 		{
-			type: ComponentType.Button,
-			custom_id: CustomId.CatalogueViewStart,
-			emoji: { name: "⏪" },
-			label: t("navigation-back", { lng: locale, ns: "general" }),
-			style: ButtonStyle.Secondary,
+			type: ComponentType.TextDisplay,
+			content: t("catalogue.nesting-workshop-title", { lng: locale, ns: "features" }),
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: progress(
+				interaction.locale,
+				NESTING_WORKSHOP.items,
+				catalogue?.data,
+			).offerDescription.join("\n"),
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.NestingWorkshop}`,
+					max_values: itemSelectionOptions1.length,
+					min_values: 0,
+					options: itemSelectionOptions1,
+					placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.CatalogueViewOffer2}§${CatalogueType.NestingWorkshop}`,
+					max_values: itemSelectionOptions2.length,
+					min_values: 0,
+					options: itemSelectionOptions2,
+					placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: `${CustomId.CatalogueViewOffer3}§${CatalogueType.NestingWorkshop}`,
+					max_values: itemSelectionOptions3.length,
+					min_values: 0,
+					options: itemSelectionOptions3,
+					placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
 		},
 	];
 
 	if (catalogue?.show_everything_button) {
-		actionRowComponents.push({
-			type: ComponentType.Button,
-			custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.NestingWorkshop}`,
-			disabled: nestingWorkshopProgress(catalogue?.data) === 100,
-			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-			style: ButtonStyle.Success,
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.NestingWorkshop}`,
+					disabled: nestingWorkshopProgress(catalogue?.data) === 100,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Success,
+				},
+			],
 		});
 	}
 
@@ -2559,83 +2700,13 @@ export async function viewNestingWorkshop(
 		components: [
 			{
 				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("catalogue.nesting-workshop-title", { lng: locale, ns: "features" }),
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: progress(
-							interaction.locale,
-							NESTING_WORKSHOP.items,
-							catalogue?.data,
-						).offerDescription.join("\n"),
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.NestingWorkshop}`,
-								max_values: itemSelectionOptions1.length,
-								min_values: 0,
-								options: itemSelectionOptions1,
-								placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
-									lng: locale,
-									ns: "features",
-								}),
-							},
-						],
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: `${CustomId.CatalogueViewOffer2}§${CatalogueType.NestingWorkshop}`,
-								max_values: itemSelectionOptions2.length,
-								min_values: 0,
-								options: itemSelectionOptions2,
-								placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
-									lng: locale,
-									ns: "features",
-								}),
-							},
-						],
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: [
-							{
-								type: ComponentType.StringSelect,
-								custom_id: `${CustomId.CatalogueViewOffer3}§${CatalogueType.NestingWorkshop}`,
-								max_values: itemSelectionOptions3.length,
-								min_values: 0,
-								options: itemSelectionOptions3,
-								placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
-									lng: locale,
-									ns: "features",
-								}),
-							},
-						],
-					},
-					{
-						type: ComponentType.Separator,
-						divider: true,
-						spacing: SeparatorSpacingSize.Small,
-					},
-					{
-						type: ComponentType.ActionRow,
-						components: actionRowComponents,
-					},
-				],
+				components: containerComponents,
 			},
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInNestingWorkshop: true,
+			}),
 		],
 	});
 }

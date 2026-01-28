@@ -91,7 +91,7 @@ export const LOCALES = [
 ] as const satisfies Readonly<Locale[]>;
 
 // Catalogue.
-export const CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT = 9 as const;
+export const CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT = 8 as const;
 export const CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT = 9 as const;
 
 // Daily guides.
