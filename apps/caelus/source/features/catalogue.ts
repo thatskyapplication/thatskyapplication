@@ -869,16 +869,112 @@ export async function viewSettings(interaction: APIMessageComponentButtonInterac
 					},
 				],
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({ locale, navigationBackCustomId: CustomId.CatalogueViewStart }),
 		],
 	});
 }
 
-function traversalContainer(
-	locale: Locale,
-	navigationBackCustomId: string,
-	emoji: APIMessageComponentEmoji = { name: "⏪" },
-): APIContainerComponent {
+interface CatalogueTraversalContainerOptions {
+	locale: Locale;
+	navigationBackCustomId: CustomId | `${CustomId}§${string}`;
+	navigationBackEmoji?: APIMessageComponentEmoji | undefined;
+	isInStandardSpirits?: boolean;
+	isInElders?: boolean;
+	isInSeasons?: boolean;
+	isInEvents?: boolean;
+	isInStarterPacks?: boolean;
+	isInSecretArea?: boolean;
+	isInPermanentEventStore?: boolean;
+	isInNestingWorkshop?: boolean;
+}
+
+function traversalContainer({
+	locale,
+	navigationBackCustomId,
+	navigationBackEmoji = { name: "⏪" },
+	isInStandardSpirits = false,
+	isInElders = false,
+	isInSeasons = false,
+	isInEvents = false,
+	isInStarterPacks = false,
+	isInSecretArea = false,
+	isInPermanentEventStore = false,
+	isInNestingWorkshop = false,
+}: CatalogueTraversalContainerOptions): APIContainerComponent {
+	const standardSpirits: APISelectMenuOption = {
+		label: t("catalogue.standard-spirits", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewRealms,
+	};
+
+	if (isInStandardSpirits) {
+		standardSpirits.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const elders: APISelectMenuOption = {
+		label: t("catalogue.elders", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewElders,
+	};
+
+	if (isInElders) {
+		elders.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const seasons: APISelectMenuOption = {
+		label: t("catalogue.seasons", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewSeasons,
+	};
+
+	if (isInSeasons) {
+		seasons.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const events: APISelectMenuOption = {
+		label: t("catalogue.events", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewEvents,
+	};
+
+	if (isInEvents) {
+		events.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const starterPacks: APISelectMenuOption = {
+		label: t("catalogue.starter-packs", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewStarterPacks,
+	};
+
+	if (isInStarterPacks) {
+		starterPacks.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const secretArea: APISelectMenuOption = {
+		label: t("catalogue.secret-area", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewSecretArea,
+	};
+
+	if (isInSecretArea) {
+		secretArea.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const permanentEventStore: APISelectMenuOption = {
+		label: t("catalogue.permanent-event-store", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewPermanentEventStore,
+		default: isInPermanentEventStore,
+	};
+
+	if (isInPermanentEventStore) {
+		permanentEventStore.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
+	const nestingWorkshop: APISelectMenuOption = {
+		label: t("catalogue.nesting-workshop", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewNestingWorkshop,
+		default: isInNestingWorkshop,
+	};
+
+	if (isInNestingWorkshop) {
+		nestingWorkshop.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	}
+
 	return {
 		type: ComponentType.Container,
 		components: [
@@ -889,38 +985,14 @@ function traversalContainer(
 						type: ComponentType.StringSelect,
 						custom_id: CustomId.CatalogueTraversal,
 						options: [
-							{
-								label: t("catalogue.standard-spirits", { lng: locale, ns: "features" }),
-								value: CustomId.CatalogueViewRealms,
-							},
-							{
-								label: t("catalogue.elders", { lng: locale, ns: "features" }),
-								value: CustomId.CatalogueViewElders,
-							},
-							{
-								label: t("catalogue.seasons", { lng: locale, ns: "features" }),
-								value: CustomId.CatalogueViewSeasons,
-							},
-							{
-								label: t("catalogue.events", { lng: locale, ns: "features" }),
-								value: CustomId.CatalogueViewEvents,
-							},
-							{
-								label: t("catalogue.starter-packs", { lng: locale, ns: "features" }),
-								value: CustomId.CatalogueViewStarterPacks,
-							},
-							{
-								label: t("catalogue.secret-area", { lng: locale, ns: "features" }),
-								value: CustomId.CatalogueViewSecretArea,
-							},
-							{
-								label: t("catalogue.permanent-event-store", { lng: locale, ns: "features" }),
-								value: CustomId.CatalogueViewPermanentEventStore,
-							},
-							{
-								label: t("catalogue.nesting-workshop", { lng: locale, ns: "features" }),
-								value: CustomId.CatalogueViewNestingWorkshop,
-							},
+							standardSpirits,
+							elders,
+							seasons,
+							events,
+							starterPacks,
+							secretArea,
+							permanentEventStore,
+							nestingWorkshop,
 						],
 						max_values: 1,
 						min_values: 1,
@@ -938,7 +1010,7 @@ function traversalContainer(
 					{
 						type: ComponentType.Button,
 						custom_id: navigationBackCustomId,
-						emoji,
+						emoji: navigationBackEmoji,
 						label: t("navigation-back", { lng: locale, ns: "general" }),
 						style: ButtonStyle.Secondary,
 					},
@@ -1028,7 +1100,11 @@ export async function viewRealms(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInStandardSpirits: true,
+			}),
 		],
 	});
 }
@@ -1122,7 +1198,11 @@ export async function viewRealm(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewRealms),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewRealms,
+				isInStandardSpirits: true,
+			}),
 		],
 	});
 }
@@ -1202,7 +1282,11 @@ export async function viewElders(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInElders: true,
+			}),
 		],
 	});
 }
@@ -1329,7 +1413,11 @@ export async function viewSeasons(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInSeasons: true,
+			}),
 		],
 	});
 }
@@ -1520,10 +1608,11 @@ export async function viewSeason(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(
+			traversalContainer({
 				locale,
-				`${CustomId.CatalogueViewSeasons}§${Math.ceil((season.id + 1) / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
-			),
+				navigationBackCustomId: `${CustomId.CatalogueViewSeasons}§${Math.ceil((season.id + 1) / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
+				isInSeasons: true,
+			}),
 		],
 	});
 }
@@ -1632,7 +1721,11 @@ export async function viewEvents(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInEvents: true,
+			}),
 		],
 	});
 }
@@ -1960,17 +2053,21 @@ async function viewSpirit(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(
+			traversalContainer({
 				locale,
-				isElderSpirit
+				navigationBackCustomId: isElderSpirit
 					? CustomId.CatalogueViewElders
 					: isStandardSpirit
 						? `${CustomId.CatalogueViewRealm}§${spirit.realm}`
 						: `${CustomId.CatalogueViewSeason}§${spirit.seasonId}`,
-				isSeasonalSpirit || isGuideSpirit
-					? (SeasonIdToSeasonalEmoji[spirit.seasonId] ?? undefined)
-					: undefined,
-			),
+				navigationBackEmoji:
+					isSeasonalSpirit || isGuideSpirit
+						? (SeasonIdToSeasonalEmoji[spirit.seasonId] ?? undefined)
+						: undefined,
+				isInElders: isElderSpirit,
+				isInStandardSpirits: isStandardSpirit,
+				isInSeasons: isSeasonalSpirit || isGuideSpirit,
+			}),
 		],
 	});
 }
@@ -2175,10 +2272,11 @@ async function viewEvent(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(
+			traversalContainer({
 				locale,
-				`${CustomId.CatalogueViewEvents}§${Math.ceil((id + 1) / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT)}`,
-			),
+				navigationBackCustomId: `${CustomId.CatalogueViewEvents}§${Math.ceil((id + 1) / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT)}`,
+				isInEvents: true,
+			}),
 		],
 	});
 }
@@ -2277,7 +2375,11 @@ export async function viewStarterPacks(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInStarterPacks: true,
+			}),
 		],
 	});
 }
@@ -2368,7 +2470,11 @@ export async function viewSecretArea(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInSecretArea: true,
+			}),
 		],
 	});
 }
@@ -2459,7 +2565,11 @@ export async function viewPermanentEventStore(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInPermanentEventStore: true,
+			}),
 		],
 	});
 }
@@ -2594,7 +2704,11 @@ export async function viewNestingWorkshop(
 				type: ComponentType.Container,
 				components: containerComponents,
 			},
-			traversalContainer(locale, CustomId.CatalogueViewStart),
+			traversalContainer({
+				locale,
+				navigationBackCustomId: CustomId.CatalogueViewStart,
+				isInNestingWorkshop: true,
+			}),
 		],
 	});
 }
