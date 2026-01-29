@@ -2,6 +2,7 @@
 BA = "BA"
 FO = "FO"
 PN = "PN"
+INFP = "INFP"
 
 [files]
 extend-exclude = ["biome.json", "packages/utility/source/locales/de.json", "packages/utility/source/locales/es-419.json", "packages/utility/source/locales/es-es.json", "packages/utility/source/locales/fr.json", "packages/utility/source/locales/it.json", "packages/utility/source/locales/ja.json", "packages/utility/source/locales/ko.json", "packages/utility/source/locales/pt-br.json", "packages/utility/source/locales/ru.json", "packages/utility/source/locales/th.json", "packages/utility/source/locales/vi.json", "packages/utility/source/locales/zh-cn.json", "packages/utility/source/locales/zh-tw.json"]
