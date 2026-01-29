@@ -3490,8 +3490,7 @@ export default {
 				[SkyProfileEditType.Platforms]: "What platforms do you play on?",
 				[SkyProfileEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
 				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
-				[SkyProfileEditType.Personality]:
-					"What's your personality from the personality quiz in Sky?",
+				[SkyProfileEditType.Personality]: "What's your personality?",
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-modal-title": "Sky Profile",
 			"edit-modal-label-name-label": "Name",
