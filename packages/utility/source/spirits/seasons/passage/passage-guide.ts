@@ -9,7 +9,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Passage,
 	realm: RealmName.IsleOfDawn,
 	offer: {
-		hasInfographic: false,
 		current: [
 			[
 				{
