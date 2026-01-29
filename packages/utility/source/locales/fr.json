@@ -3068,7 +3068,8 @@
 				"6": "Saisons",
 				"7": "Plateformes",
 				"8": "Progression du Catalogue",
-				"9": "Rang de Devinettes"
+				"9": "Rang de Devinettes",
+				"10": ""
 			},
 			"edit-type-description": {
 				"0": "Comment souhaitez-vous vous faire appeler ?",
@@ -3080,7 +3081,8 @@
 				"6": "Durant quelles saisons avez-vous joué ?",
 				"7": "Sur quelles plateformes jouez-vous ?",
 				"8": "Montrer votre progression de catalogue ?",
-				"9": "Montrer votre rang de jeu des devinettes ?"
+				"9": "Montrer votre rang de jeu des devinettes ?",
+				"10": ""
 			},
 			"edit-modal-title": "Profil Sky",
 			"edit-modal-label-name-label": "Pseudo",
@@ -3097,6 +3099,7 @@
 			"edit-modal-label-hangout-description": "Quelle est votre endroit favori où passer du temps ?",
 			"edit-seasons-string-select-menu-placeholder": "Sélectionnez les saisons auxquelles vous avez participé !",
 			"edit-platforms-string-select-menu-placeholder": "Sélectionnez les plateformes sur lesquelles vous jouez !",
+			"edit-personality-string-select-menu-placeholder": "",
 			"platform-label": {
 				"0": "iOS",
 				"1": "Android",
@@ -3106,6 +3109,26 @@
 				"5": "Steam"
 			},
 			"edit-platform-invalid": "Plateforme sélectionnée invalide. Veuillez réessayer.",
+			"edit-personality-invalid": "",
+			"personality-types": {
+				"0": "Conseiller",
+				"1": "Champion",
+				"2": "Professeur",
+				"3": "Guérisseur",
+				"4": "Architecte",
+				"5": "Maréchal",
+				"6": "Perfectionniste",
+				"7": "Inventeur",
+				"8": "Promoteur",
+				"9": "Compositeur",
+				"10": "Interprète",
+				"11": "Praticien",
+				"12": "Inspecteur",
+				"13": "Superviseur",
+				"14": "Protecteur",
+				"15": "Fournisseur"
+			},
+			"personality-with-mbti": "$t(sky-profile.personality-types.{{personality}}) ({{mbti}})",
 			"reset-type-label": {
 				"0": "Description",
 				"1": "Icône de profil",
@@ -3117,7 +3140,8 @@
 				"7": "Plateformes",
 				"8": "Esprit",
 				"9": "Progression du Catalogue",
-				"10": "Rang des devinettes"
+				"10": "Rang des devinettes",
+				"11": ""
 			},
 			"no-sky-profile-reset": "Vous n'avez pas de profil Sky à réinitialiser.",
 			"reset-string-select-menu-placeholder": "Que souhaitez-vous réinitialiser ?",
@@ -3150,6 +3174,7 @@
 			"missing-spirit-mention": "Utilisez {{mention}} pour indiquer votre esprit favori !",
 			"missing-spirit-text": "Utilisez la commande pour indiquer votre esprit favori !",
 			"missing-hangout": "Indiquez l'endroit où vous aimez passer du temps !",
+			"missing-personality": "",
 			"missing-catalogue-progression": "Montrez votre progression de catalogue !",
 			"missing-guess-rank": "Montrez votre rang de jeu des devinettes !"
 		},

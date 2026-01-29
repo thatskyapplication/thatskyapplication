@@ -3058,7 +3058,8 @@
 				"6": "",
 				"7": "",
 				"8": "",
-				"9": ""
+				"9": "",
+				"10": ""
 			},
 			"edit-type-description": {
 				"0": "",
@@ -3070,7 +3071,8 @@
 				"6": "",
 				"7": "",
 				"8": "",
-				"9": ""
+				"9": "",
+				"10": ""
 			},
 			"edit-modal-title": "",
 			"edit-modal-label-name-label": "",
@@ -3087,6 +3089,7 @@
 			"edit-modal-label-hangout-description": "",
 			"edit-seasons-string-select-menu-placeholder": "",
 			"edit-platforms-string-select-menu-placeholder": "",
+			"edit-personality-string-select-menu-placeholder": "",
 			"platform-label": {
 				"0": "",
 				"1": "",
@@ -3096,6 +3099,26 @@
 				"5": ""
 			},
 			"edit-platform-invalid": "",
+			"edit-personality-invalid": "",
+			"personality-types": {
+				"0": "Berater/Beraterin",
+				"1": "Champion",
+				"2": "Lehrer/Lehrerin",
+				"3": "Heiler/Heilerin",
+				"4": "Architekt/Architektin",
+				"5": "Marshall",
+				"6": "Mastermind",
+				"7": "Erfinder/Erfinderin",
+				"8": "Förderer/Förderin",
+				"9": "Komponist/Komponistin",
+				"10": "Darsteller/Darstellerin",
+				"11": "Operator/Operatorin",
+				"12": "Inspektor/Inspektorin",
+				"13": "Vorgesetzte/r",
+				"14": "Beschützer/Beschützerin",
+				"15": "Versorger/Versorgerin"
+			},
+			"personality-with-mbti": "$t(sky-profile.personality-types.{{personality}}) ({{mbti}})",
 			"reset-type-label": {
 				"0": "",
 				"1": "",
@@ -3107,7 +3130,8 @@
 				"7": "",
 				"8": "",
 				"9": "",
-				"10": ""
+				"10": "",
+				"11": ""
 			},
 			"no-sky-profile-reset": "",
 			"reset-string-select-menu-placeholder": "",
@@ -3140,6 +3164,7 @@
 			"missing-spirit-mention": "",
 			"missing-spirit-text": "",
 			"missing-hangout": "",
+			"missing-personality": "",
 			"missing-catalogue-progression": "",
 			"missing-guess-rank": ""
 		},
