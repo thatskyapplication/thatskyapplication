@@ -3511,7 +3511,7 @@ export default {
 			"edit-modal-label-hangout-description": "Where's your favourite place to hang out?",
 			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",
 			"edit-platforms-string-select-menu-placeholder": "Select the platforms you play on!",
-			"edit-personality-string-select-menu-placeholder": "Select your personality from the personality quiz!",
+			"edit-personality-string-select-menu-placeholder": "Select your personality!",
 			"platform-label": {
 				[PlatformId.iOS]: "iOS",
 				[PlatformId.Android]: "Android",
@@ -3591,7 +3591,7 @@ export default {
 			"missing-spirit-mention": "Use {{mention}} to set your favourite spirit!",
 			"missing-spirit-text": "Use the command to set your favourite spirit!",
 			"missing-hangout": "Set the place you like to hang out in!",
-			"missing-personality": "Use the select menu to set your personality from the personality quiz!",
+			"missing-personality": "Use the select menu to set your personality!",
 			"missing-catalogue-progression": "Toggle showing your catalogue progression!",
 			"missing-guess-rank": "Toggle showing your guessing game rank!",
 		},

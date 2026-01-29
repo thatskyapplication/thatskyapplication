@@ -405,9 +405,7 @@ export default function SkyProfile() {
 					</div>
 				) : null}
 				{data.hangout && (
-					<div
-						className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2"
-					>
+					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
 						<MapPinIcon className="w-6 h-6 mr-2" />
 						<div className="flex-1">
 							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Hangout</p>
