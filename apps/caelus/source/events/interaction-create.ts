@@ -112,6 +112,7 @@ import {
 	skyProfileSetHangout,
 	skyProfileSetIcon,
 	skyProfileSetName,
+	skyProfileSetPersonality,
 	skyProfileSetPlatform,
 	skyProfileSetSeasons,
 	skyProfileSetWingedLight,
@@ -908,6 +909,11 @@ export default {
 
 				if (id === CustomId.SkyProfilePlatforms) {
 					await skyProfileSetPlatform(data);
+					return;
+				}
+
+				if (id === CustomId.SkyProfilePersonality) {
+					await skyProfileSetPersonality(data);
 					return;
 				}
 

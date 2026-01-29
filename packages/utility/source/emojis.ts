@@ -1,5 +1,6 @@
 import { Cosmetic } from "./cosmetics.js";
 import { SeasonId, type SeasonIds } from "./season.js";
+import { SkyProfilePersonalityType, type SkyProfilePersonalityTypes } from "./sky-profile.js";
 import type { Snowflake } from "./types/index.js";
 import { EventId, type EventIds } from "./utility/event.js";
 
@@ -66,6 +67,22 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	DailyReset: { id: "1415788534908063784", animated: true, name: "daily_reset" },
 	Trust: { id: "1431662227202641930", name: "trust" },
 	CurrentPosition: { id: "1466208837492146299", name: "current_position" },
+	Counsellor: { id: "1466368079058440255", name: "counsellor" },
+	Champion: { id: "1466368074201432104", name: "champion" },
+	Teacher: { id: "1466368110570508419", name: "teacher" },
+	Healer: { id: "1466368080904196185", name: "healer" },
+	Architect: { id: "1466368071747895316", name: "architect" },
+	Marshall: { id: "1466368090005569648", name: "marshall" },
+	Mastermind: { id: "1466368092404842637", name: "mastermind" },
+	Inventor: { id: "1466368087795306591", name: "inventor" },
+	Promoter: { id: "1466368100701310996", name: "promoter" },
+	Composer: { id: "1466368077154484247", name: "composer" },
+	Performer: { id: "1466368097924681768", name: "performer" },
+	Operator: { id: "1466368095030607884", name: "operator" },
+	Inspector: { id: "1466368085740093622", name: "inspector" },
+	Supervisor: { id: "1466368108808765574", name: "supervisor" },
+	Protector: { id: "1466368102760579218", name: "protector" },
+	Provider: { id: "1466368104752873658", name: "provider" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -125,6 +142,22 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	DailyReset: { id: "1415788543141347458", animated: true, name: "daily_reset" },
 	Trust: { id: "1431662235343651089", name: "trust" },
 	CurrentPosition: { id: "1466208892735197297", name: "current_position" },
+	Counsellor: { id: "1466368095546507380", name: "counsellor" },
+	Champion: { id: "1466368091981353003", name: "champion" },
+	Teacher: { id: "1466368126546608192", name: "teacher" },
+	Healer: { id: "1466368097643532452", name: "healer" },
+	Architect: { id: "1466368088696946689", name: "architect" },
+	Marshall: { id: "1466368104346157274", name: "marshall" },
+	Mastermind: { id: "1466368108745982186", name: "mastermind" },
+	Inventor: { id: "1466368102227906582", name: "inventor" },
+	Promoter: { id: "1466368117138653234", name: "promoter" },
+	Composer: { id: "1466368094044950569", name: "composer" },
+	Performer: { id: "1466368112860598439", name: "performer" },
+	Operator: { id: "1466368110905790545", name: "operator" },
+	Inspector: { id: "1466368100394864640", name: "inspector" },
+	Supervisor: { id: "1466368124163985573", name: "supervisor" },
+	Protector: { id: "1466368120963727360", name: "protector" },
+	Provider: { id: "1466368122461094055", name: "provider" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {
@@ -5978,6 +6011,7 @@ export function emojiConstants(production: boolean): {
 		>
 	>;
 	EventIdToEventTicketEmoji: Readonly<Record<EventIds, Emoji | null>>;
+	SkyProfilePersonalityToEmoji: Readonly<Record<SkyProfilePersonalityTypes, Emoji>>;
 } {
 	const emojis = production
 		? {
@@ -8943,6 +8977,25 @@ export function emojiConstants(production: boolean): {
 		[EventId.DaysOfFortune2026]: EVENT_EMOJIS.Fortune,
 	} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
+	const SkyProfilePersonalityToEmoji = {
+		[SkyProfilePersonalityType.Counsellor]: MISCELLANEOUS_EMOJIS.Counsellor,
+		[SkyProfilePersonalityType.Champion]: MISCELLANEOUS_EMOJIS.Champion,
+		[SkyProfilePersonalityType.Teacher]: MISCELLANEOUS_EMOJIS.Teacher,
+		[SkyProfilePersonalityType.Healer]: MISCELLANEOUS_EMOJIS.Healer,
+		[SkyProfilePersonalityType.Architect]: MISCELLANEOUS_EMOJIS.Architect,
+		[SkyProfilePersonalityType.Marshall]: MISCELLANEOUS_EMOJIS.Marshall,
+		[SkyProfilePersonalityType.Mastermind]: MISCELLANEOUS_EMOJIS.Mastermind,
+		[SkyProfilePersonalityType.Inventor]: MISCELLANEOUS_EMOJIS.Inventor,
+		[SkyProfilePersonalityType.Promoter]: MISCELLANEOUS_EMOJIS.Promoter,
+		[SkyProfilePersonalityType.Composer]: MISCELLANEOUS_EMOJIS.Composer,
+		[SkyProfilePersonalityType.Performer]: MISCELLANEOUS_EMOJIS.Performer,
+		[SkyProfilePersonalityType.Operator]: MISCELLANEOUS_EMOJIS.Operator,
+		[SkyProfilePersonalityType.Inspector]: MISCELLANEOUS_EMOJIS.Inspector,
+		[SkyProfilePersonalityType.Supervisor]: MISCELLANEOUS_EMOJIS.Supervisor,
+		[SkyProfilePersonalityType.Protector]: MISCELLANEOUS_EMOJIS.Protector,
+		[SkyProfilePersonalityType.Provider]: MISCELLANEOUS_EMOJIS.Provider,
+	} as const satisfies Readonly<Record<SkyProfilePersonalityTypes, Emoji>>;
+
 	return {
 		...emojis,
 		CosmeticToEmoji,
@@ -8950,6 +9003,7 @@ export function emojiConstants(production: boolean): {
 		SeasonIdToSeasonalCandleEmoji,
 		SeasonIdToSeasonalHeartEmoji,
 		EventIdToEventTicketEmoji,
+		SkyProfilePersonalityToEmoji,
 	};
 }
 

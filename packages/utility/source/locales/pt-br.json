@@ -3068,7 +3068,8 @@
 				"6": "Temporadas",
 				"7": "Plataformas",
 				"8": "Progresso no Catálogo",
-				"9": "Ranking no Quiz"
+				"9": "Ranking no Quiz",
+				"10": ""
 			},
 			"edit-type-description": {
 				"0": "Por qual nome você gostaria de ser chamado(a)?",
@@ -3080,7 +3081,8 @@
 				"6": "Quais temporadas você já jogou?",
 				"7": "Em quais plataformas você joga?",
 				"8": "Mostrar seu progresso no catálogo?",
-				"9": "Exibir seu ranking no jogo de quiz?"
+				"9": "Exibir seu ranking no jogo de quiz?",
+				"10": ""
 			},
 			"edit-modal-title": "Perfil Sky",
 			"edit-modal-label-name-label": "Nome",
@@ -3097,6 +3099,7 @@
 			"edit-modal-label-hangout-description": "Onde você mais gosta de ficar?",
 			"edit-seasons-string-select-menu-placeholder": "Selecione as temporadas das quais você participou!",
 			"edit-platforms-string-select-menu-placeholder": "Selecione as plataformas nas quais você joga!",
+			"edit-personality-string-select-menu-placeholder": "",
 			"platform-label": {
 				"0": "iOS",
 				"1": "Android",
@@ -3106,6 +3109,26 @@
 				"5": "Steam"
 			},
 			"edit-platform-invalid": "Plataforma selecionada não é válida. Por favor, tente novamente.",
+			"edit-personality-invalid": "",
+			"personality-types": {
+				"0": "Conselheiro",
+				"1": "Campeão",
+				"2": "Professor",
+				"3": "Curandeiro",
+				"4": "Arquiteto",
+				"5": "Marechal",
+				"6": "Estrategista",
+				"7": "Inventor",
+				"8": "Promotor",
+				"9": "Compositor",
+				"10": "Artista",
+				"11": "Operador",
+				"12": "Inspetor",
+				"13": "Supervisor",
+				"14": "Protetor",
+				"15": "Provedor"
+			},
+			"personality-with-mbti": "$t(sky-profile.personality-types.{{personality}}) ({{mbti}})",
 			"reset-type-label": {
 				"0": "Descrição",
 				"1": "Ícone",
@@ -3117,7 +3140,8 @@
 				"7": "Plataformas",
 				"8": "Espírito",
 				"9": "Progresso no Catálogo",
-				"10": "Ranking no Quiz"
+				"10": "Ranking no Quiz",
+				"11": ""
 			},
 			"no-sky-profile-reset": "Você não tem um perfil Sky para redefinir.",
 			"reset-string-select-menu-placeholder": "O que você deseja redefinir?",
@@ -3150,6 +3174,7 @@
 			"missing-spirit-mention": "Use {{mention}} para escolher seu espírito favorito!",
 			"missing-spirit-text": "Use o comando para escolher seu espírito favorito!",
 			"missing-hangout": "Indique o lugar onde você gosta de passar o tempo!",
+			"missing-personality": "",
 			"missing-catalogue-progression": "Mostrar seu progresso no catálogo!",
 			"missing-guess-rank": "Exibir seu ranking no jogo de quiz!"
 		},
