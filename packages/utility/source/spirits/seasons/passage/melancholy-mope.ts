@@ -71,6 +71,73 @@ export default new SeasonalSpirit({
 				},
 			],
 		],
+		current: [
+			[
+				{
+					cosmetic: Cosmetic.EmoteMoping1,
+				},
+				{
+					cosmetic: Cosmetic.EmoteMoping2,
+					cost: { hearts: 4 },
+					level: 2,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MelancholyMopeBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.MelancholyMopeHeadAccessory,
+					cost: { candles: 35 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.MelancholyMopeSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.MelancholyMopeWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmoteMoping3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmoteMoping4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.MelancholyMopeBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.MelancholyMopeHair,
+					cost: { candles: 40 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.MelancholyMopeOutfit,
+					cost: { candles: 70 },
+				},
+			],
+		],
 	},
 	visits: {
 		travelling: [{ start: skyDate(2026, 1, 29), end: skyDate(2026, 2, 2) }],

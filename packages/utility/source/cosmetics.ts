@@ -3389,6 +3389,9 @@ export enum Cosmetic {
 
 	// 23/01/2026 | Season of Lightmending Quest 3.
 	LightmendingGuideQuest3 = 2690,
+
+	// 29/01/2026 | Travelling Spirit #159.
+	MelancholyMopeWingBuff = 2691,
 }
 
 export enum CosmeticCommon {
@@ -3549,4 +3552,5 @@ export const WING_BUFFS = [
 	Cosmetic.WoundedWarriorWingBuff,
 	Cosmetic.NightbirdWhispererWingBuff,
 	Cosmetic.AsceticMonkWingBuff,
+	Cosmetic.MelancholyMopeWingBuff,
 ] as const satisfies Readonly<Cosmetic[]>;
