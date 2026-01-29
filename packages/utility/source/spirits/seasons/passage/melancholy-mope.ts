@@ -127,7 +127,7 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.MelancholyMopeHair,
-					cost: { candles: 40 },
+					cost: { candles: 55 },
 				},
 			],
 			[
