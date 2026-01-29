@@ -2275,7 +2275,7 @@ async function skyProfileComponents(
 		let nameText = `## [${name}](${skyProfileWebsiteURL(userId)})`;
 
 		if (personality !== null && isSkyProfilePersonalityType(personality)) {
-			nameText += `\n\n${formatEmoji(SkyProfilePersonalityToEmoji[personality])} ${t(`sky-profile.personality-types.${personality}`, { lng: locale, ns: "features" })}`;
+			nameText += `\n\n${formatEmoji(SkyProfilePersonalityToEmoji[personality])} ${t("sky-profile.personality-with-mbti", { lng: locale, ns: "features", personality, mbti: SkyProfilePersonalityToMBTI[personality] })}`;
 		}
 
 		const textDisplay: APITextDisplayComponent = {
