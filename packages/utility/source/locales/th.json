@@ -3058,7 +3058,8 @@
 				"6": "",
 				"7": "",
 				"8": "",
-				"9": ""
+				"9": "",
+				"10": ""
 			},
 			"edit-type-description": {
 				"0": "",
@@ -3070,7 +3071,8 @@
 				"6": "",
 				"7": "",
 				"8": "",
-				"9": ""
+				"9": "",
+				"10": ""
 			},
 			"edit-modal-title": "",
 			"edit-modal-label-name-label": "",
@@ -3087,6 +3089,7 @@
 			"edit-modal-label-hangout-description": "",
 			"edit-seasons-string-select-menu-placeholder": "",
 			"edit-platforms-string-select-menu-placeholder": "",
+			"edit-personality-string-select-menu-placeholder": "",
 			"platform-label": {
 				"0": "",
 				"1": "",
@@ -3096,6 +3099,26 @@
 				"5": ""
 			},
 			"edit-platform-invalid": "",
+			"edit-personality-invalid": "",
+			"personality-types": {
+				"0": "ที่ปรึกษา",
+				"1": "ผู้ชนะใจคน",
+				"2": "ครูผู้ให้ความรู้",
+				"3": "ผู้เยียวยา",
+				"4": "นักออกแบบ",
+				"5": "จอมทัพ",
+				"6": "จอมวางแผน",
+				"7": "นักประดิษฐ์",
+				"8": "นักโปรโมต",
+				"9": "นักประพันธ์",
+				"10": "นักแสดง",
+				"11": "ผู้ปฏิบัติการ",
+				"12": "ผู้ตรวจสอบ",
+				"13": "ผู้คุมกฎ",
+				"14": "ผู้พิทักษ์",
+				"15": "ผู้ให้"
+			},
+			"personality-with-mbti": "$t(sky-profile.personality-types.{{personality}}) ({{mbti}})",
 			"reset-type-label": {
 				"0": "",
 				"1": "",
@@ -3107,7 +3130,8 @@
 				"7": "",
 				"8": "",
 				"9": "",
-				"10": ""
+				"10": "",
+				"11": ""
 			},
 			"no-sky-profile-reset": "",
 			"reset-string-select-menu-placeholder": "",
@@ -3140,6 +3164,7 @@
 			"missing-spirit-mention": "",
 			"missing-spirit-text": "",
 			"missing-hangout": "",
+			"missing-personality": "",
 			"missing-catalogue-progression": "",
 			"missing-guess-rank": ""
 		},
