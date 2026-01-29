@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	emote,
 	realm: RealmName.IsleOfDawn,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.EmoteMoping1 },
