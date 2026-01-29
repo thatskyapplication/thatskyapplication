@@ -3521,6 +3521,7 @@ export default {
 			} satisfies Record<PlatformIds, string>,
 			"edit-platform-invalid": "Invalid platform selected. Please try again.",
 			"edit-personality-invalid": "Invalid personality selected. Please try again.",
+			personality: "Personality",
 			"personality-types": {
 				[SkyProfilePersonalityType.Counsellor]: "Counsellor",
 				[SkyProfilePersonalityType.Champion]: "Champion",
