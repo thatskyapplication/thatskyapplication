@@ -4,9 +4,11 @@ import {
 	CROWDIN_URL,
 	isCountry,
 	isPlatformId,
+	isSkyProfilePersonalityType,
 	isSpiritId,
 	MAXIMUM_WINGED_LIGHT,
 	type SkyProfileData,
+	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
 	type Snowflake,
 	Table,
@@ -28,6 +30,7 @@ import {
 } from "react-router";
 import pg from "~/pg.server";
 import { APPLICATION_NAME } from "~/utility/constants.js";
+import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
 const BADGES_CLASS_NAME =
@@ -348,7 +351,7 @@ export default function SkyProfile() {
 			</div>
 			<div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 				{maximumWingedLight && (
-					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
+					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
 						<div
 							aria-label="Winged light icon."
 							className="w-6 h-6 mr-2 bg-cover bg-center"
@@ -364,7 +367,7 @@ export default function SkyProfile() {
 					</div>
 				)}
 				{data.spirit !== null && isSpiritId(data.spirit) ? (
-					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
+					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
 						<div
 							aria-label="Favourite spirit icon."
 							className="w-6 h-6 mr-2 bg-cover bg-center"
@@ -379,9 +382,31 @@ export default function SkyProfile() {
 						</div>
 					</div>
 				) : null}
+				{data.personality !== null && isSkyProfilePersonalityType(data.personality) ? (
+					<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
+						<div
+							aria-label="Personality icon."
+							className="w-6 h-6 mr-2 bg-cover bg-center"
+							role="img"
+							style={{
+								backgroundImage: `url(https://cdn.discordapp.com/emojis/${SkyProfilePersonalityToEmoji[data.personality].id}.webp)`,
+							}}
+						/>
+						<div className="flex-1">
+							<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Personality</p>
+							<p className="my-0">
+								{t("sky-profile.personality-with-mbti", {
+									ns: "features",
+									personality: data.personality,
+									mbti: SkyProfilePersonalityToMBTI[data.personality],
+								})}
+							</p>
+						</div>
+					</div>
+				) : null}
 				{data.hangout && (
 					<div
-						className={`group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 ${(data.winged_light === null && data.spirit === null) || (data.winged_light !== null && data.spirit) ? "md:col-span-2" : ""}`}
+						className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2"
 					>
 						<MapPinIcon className="w-6 h-6 mr-2" />
 						<div className="flex-1">

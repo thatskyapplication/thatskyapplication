@@ -161,13 +161,18 @@ export {
 } from "./season.js";
 export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
 export {
+	isSkyProfilePersonalityType,
 	SKY_PROFILE_EDIT_TYPE_VALUES,
+	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
 	SKY_PROFILE_RESET_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	type SkyProfileData,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
 	type SkyProfilePacket,
+	SkyProfilePersonalityToMBTI,
+	SkyProfilePersonalityType,
+	type SkyProfilePersonalityTypes,
 	SkyProfileResetType,
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,

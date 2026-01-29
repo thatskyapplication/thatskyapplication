@@ -39,6 +39,7 @@ import {
 	GuessType,
 	isCountry,
 	isPlatformId,
+	isSkyProfilePersonalityType,
 	MAXIMUM_WINGED_LIGHT,
 	PLATFORM_ID_VALUES,
 	PlatformId,
@@ -46,12 +47,15 @@ import {
 	resolveCurrencyEmoji,
 	type SeasonIds,
 	SKY_PROFILE_EDIT_TYPE_VALUES,
+	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
 	SKY_PROFILE_RESET_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	type SkyProfileData,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
 	type SkyProfilePacket,
+	SkyProfilePersonalityToMBTI,
+	type SkyProfilePersonalityTypes,
 	SkyProfileResetType,
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
@@ -99,7 +103,12 @@ import {
 	SKY_PROFILE_EXPLORER_LIKES,
 	SKY_PROFILE_EXPLORERS,
 } from "../utility/custom-id.js";
-import { EMOTE_EMOJIS, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
+import {
+	EMOTE_EMOJIS,
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalEmoji,
+	SkyProfilePersonalityToEmoji,
+} from "../utility/emojis.js";
 import {
 	chatInputApplicationCommandMention,
 	interactionInvoker,
@@ -128,6 +137,7 @@ export type SkyProfileSetData = Partial<SkyProfilePacket> &
 		country?: Country | null;
 		seasons?: readonly SeasonIds[] | null;
 		platform?: readonly PlatformIds[] | null;
+		personality?: SkyProfilePersonalityTypes | null;
 	};
 
 function isSkyProfileEditType(value: number): value is SkyProfileEditTypes {
@@ -376,6 +386,10 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 			await skyProfileSetGuessRank(interaction);
 			return;
 		}
+		case SkyProfileEditType.Personality: {
+			await skyProfileShowPersonalitySelectMenu(interaction);
+			return;
+		}
 	}
 }
 
@@ -436,6 +450,9 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 				continue;
 			case SkyProfileResetType.GuessRank:
 				data.guess_rank = null;
+				continue;
+			case SkyProfileResetType.Personality:
+				data.personality = null;
 				continue;
 		}
 	}
@@ -1875,6 +1892,66 @@ async function skyProfileShowPlatformsSelectMenu(
 	});
 }
 
+async function skyProfileShowPersonalitySelectMenu(
+	interaction: APIMessageComponentSelectMenuInteraction,
+) {
+	const { locale } = interaction;
+	const invoker = interactionInvoker(interaction);
+
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+		.where({ user_id: invoker.id })
+		.first();
+
+	const currentPersonality = skyProfilePacket?.personality;
+
+	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		components: [
+			{
+				type: ComponentType.Container,
+				components: [
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: CustomId.SkyProfilePersonality,
+								max_values: 1,
+								min_values: 0,
+								options: SKY_PROFILE_PERSONALITY_TYPE_VALUES.map((personality) => ({
+									default: personality === currentPersonality,
+									emoji: SkyProfilePersonalityToEmoji[personality],
+									label: t(`sky-profile.personality-types.${personality}`, {
+										lng: locale,
+										ns: "features",
+									}),
+									value: String(personality),
+									description: SkyProfilePersonalityToMBTI[personality],
+								})),
+								placeholder: t("sky-profile.edit-personality-string-select-menu-placeholder", {
+									lng: locale,
+									ns: "features",
+								}),
+							},
+						],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.Button,
+								custom_id: CustomId.SkyProfileViewEdit,
+								emoji: { name: "⏮️" },
+								label: t("navigation-back", { lng: locale, ns: "general" }),
+								style: ButtonStyle.Primary,
+							},
+						],
+					},
+				],
+			},
+		],
+	});
+}
+
 export function skyProfileSetName(interaction: APIModalSubmitInteraction) {
 	const components = new ModalResolver(interaction.data);
 
@@ -2021,6 +2098,29 @@ export async function skyProfileSetPlatform(interaction: APIMessageComponentSele
 	});
 }
 
+export async function skyProfileSetPersonality(
+	interaction: APIMessageComponentSelectMenuInteraction,
+) {
+	const personality = Number(interaction.data.values[0]);
+
+	if (!isSkyProfilePersonalityType(personality)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("sky-profile.edit-personality-invalid", {
+				lng: interaction.locale,
+				ns: "features",
+			}),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	return skyProfileSet(interaction, {
+		user_id: interactionInvoker(interaction).id,
+		personality,
+	});
+}
+
 async function skyProfileSetCatalogueProgression(
 	interaction: APIMessageComponentSelectMenuInteraction,
 ) {
@@ -2135,6 +2235,7 @@ async function skyProfileComponents(
 		supporter,
 		artist,
 		translator,
+		personality,
 	} = data;
 
 	const components: APIMessageTopLevelComponent[] = [];
@@ -2171,9 +2272,15 @@ async function skyProfileComponents(
 	}
 
 	if (name) {
+		let nameText = `## [${name}](${skyProfileWebsiteURL(userId)})`;
+
+		if (personality !== null && isSkyProfilePersonalityType(personality)) {
+			nameText += `\n\n${formatEmoji(SkyProfilePersonalityToEmoji[personality])} ${t(`sky-profile.personality-types.${personality}`, { lng: locale, ns: "features" })}`;
+		}
+
 		const textDisplay: APITextDisplayComponent = {
 			type: ComponentType.TextDisplay,
-			content: `## [${name}](${skyProfileWebsiteURL(userId)})`,
+			content: nameText,
 		};
 
 		if (icon) {
@@ -2415,6 +2522,7 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 		hangout,
 		catalogue_progression: catalogueProgression,
 		guess_rank: guessRank,
+		personality,
 	} = skyProfilePacket;
 
 	const missing = [];
@@ -2475,6 +2583,10 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 
 	if (!hangout) {
 		missing.push(`- ${t("sky-profile.missing-hangout", options)}`);
+	}
+
+	if (!personality) {
+		missing.push(`- ${t("sky-profile.missing-personality", options)}`);
 	}
 
 	if (catalogueProgression === null) {

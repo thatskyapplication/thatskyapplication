@@ -1,6 +1,6 @@
 export const enum CustomId {
 	CatalogueTraversal = "0",
-	AboutIssue = "1",
+	SkyProfilePersonality = "1",
 	AboutFeedbackModal = "2",
 	AboutFeedbackModalTitle = "3",
 	AboutFeedbackModalDescription = "4",
