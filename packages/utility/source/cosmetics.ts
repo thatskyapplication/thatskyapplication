@@ -3392,6 +3392,10 @@ export enum Cosmetic {
 
 	// 29/01/2026 | Travelling Spirit #159.
 	MelancholyMopeWingBuff = 2691,
+
+	// 30/01/2026 | Season of Lightmending Quest 4.
+	LightmendingGuideQuest4 = 2692,
+	LightmendingGuideHeart6 = 2693,
 }
 
 export enum CosmeticCommon {

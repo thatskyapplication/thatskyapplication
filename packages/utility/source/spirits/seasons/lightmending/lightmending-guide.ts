@@ -44,7 +44,10 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				null,
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+					cosmetic: Cosmetic.LightmendingGuideQuest4,
+				},
 				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 					cosmetic: Cosmetic.LightmendingGuideHeart2,
@@ -61,6 +64,14 @@ export default new GuideSpirit({
 					translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 					cosmetic: Cosmetic.LightmendingGuideHeart3,
 				},
+			],
+			[null],
+			[
+				null,
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
+					cosmetic: Cosmetic.LightmendingGuideHeart4,
+				},
 				{
 					cosmetic: Cosmetic.LightmendingGuideUltimateCape,
 					cost: { seasonalHearts: 2 },
@@ -70,12 +81,12 @@ export default new GuideSpirit({
 			[
 				null,
 				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 4 },
-					cosmetic: Cosmetic.LightmendingGuideHeart4,
-				},
-				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
 					cosmetic: Cosmetic.LightmendingGuideHeart5,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 6 },
+					cosmetic: Cosmetic.LightmendingGuideHeart6,
 				},
 			],
 		],
