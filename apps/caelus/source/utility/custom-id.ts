@@ -1,7 +1,7 @@
 export const enum CustomId {
 	CatalogueTraversal = "0",
 	SkyProfilePersonality = "1",
-	AboutFeedbackModal = "2",
+	WelcomeSuppressJoinNotifications = "2",
 	AboutFeedbackModalTitle = "3",
 	AboutFeedbackModalDescription = "4",
 	AboutIssueModal = "5",
