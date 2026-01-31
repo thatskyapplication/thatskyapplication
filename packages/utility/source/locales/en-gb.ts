@@ -3093,6 +3093,8 @@ export default {
 			infographic: "Infographic",
 			"not-yet-updated-title":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!\n\nWe're currently missing the following:",
+			"not-yet-updated-title-support-server":
+				"Daily guides are waiting for an awesome Sky kid to update them. See {{channel}} to find out how to update them for the community!\n\nWe're currently missing the following:",
 			"error-thread-archived": "The thread is archived.",
 			"error-thread-locked": "The thread is locked.",
 			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",

@@ -76,6 +76,7 @@ import {
 	MAXIMUM_CONCURRENCY_LIMIT,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORT_SERVER_INVITE_URL,
+	UPDATING_DAILY_GUIDES_CHANNEL_ID,
 } from "../utility/configuration.js";
 import {
 	DAILY_GUIDES_URL,
@@ -953,11 +954,17 @@ export async function dailyGuidesResponse(
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `${t("daily-guides.not-yet-updated-title", {
-						lng: locale,
-						ns: "features",
-						url: SUPPORT_SERVER_INVITE_URL,
-					})}\n${missing.join("\n")}`,
+					content: `${t(
+						interaction.guild_id === SUPPORT_SERVER_GUILD_ID
+							? "daily-guides.not-yet-updated-title-support-server"
+							: "daily-guides.not-yet-updated-title",
+						{
+							lng: locale,
+							ns: "features",
+							url: SUPPORT_SERVER_INVITE_URL,
+							channel: `<#${UPDATING_DAILY_GUIDES_CHANNEL_ID}>`,
+						},
+					)}\n${missing.join("\n")}`,
 				},
 			],
 		});
