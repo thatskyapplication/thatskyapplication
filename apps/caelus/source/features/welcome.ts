@@ -550,7 +550,7 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 	await welcomeSetup({
 		interaction,
 		guild,
-		locale: guild.preferredLocale!,
+		locale: guild.preferredLocale,
 		editReply,
 	});
 
