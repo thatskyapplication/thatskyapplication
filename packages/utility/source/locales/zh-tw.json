@@ -3100,6 +3100,7 @@
 			},
 			"edit-platform-invalid": "",
 			"edit-personality-invalid": "",
+			"personality": "",
 			"personality-types": {
 				"0": "諮商師",
 				"1": "優勝者",

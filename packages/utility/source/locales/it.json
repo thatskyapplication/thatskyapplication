@@ -3100,6 +3100,7 @@
 			},
 			"edit-platform-invalid": "",
 			"edit-personality-invalid": "",
+			"personality": "",
 			"personality-types": {
 				"0": "Consigliere",
 				"1": "Campione",

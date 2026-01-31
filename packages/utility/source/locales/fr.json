@@ -3110,6 +3110,7 @@
 			},
 			"edit-platform-invalid": "Plateforme sélectionnée invalide. Veuillez réessayer.",
 			"edit-personality-invalid": "",
+			"personality": "",
 			"personality-types": {
 				"0": "Conseiller",
 				"1": "Champion",
