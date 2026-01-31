@@ -14,6 +14,7 @@ import {
 	ButtonStyle,
 	ChannelType,
 	ComponentType,
+	GuildSystemChannelFlags,
 	Locale,
 	MessageFlags,
 	MessageReferenceType,
@@ -31,6 +32,7 @@ import { t } from "i18next";
 import sharp from "sharp";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
+import type { Guild } from "../models/discord/guild.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
@@ -39,7 +41,11 @@ import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
 import { ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { isAnimatedHash, isValidImageAttachment } from "../utility/functions.js";
+import {
+	isAnimatedHash,
+	isValidImageAttachment,
+	notInCachedGuildResponse,
+} from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { friendshipActionComponents } from "./friendship-actions.js";
@@ -77,12 +83,19 @@ interface WelcomeSetupOptions {
 		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
 		| APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>
 		| APIModalSubmitGuildInteraction;
+	guild: Guild;
 	locale: Locale;
 	reply?: boolean;
 	editReply?: boolean;
 }
 
-export async function welcomeSetup({ interaction, locale, reply, editReply }: WelcomeSetupOptions) {
+export async function welcomeSetup({
+	interaction,
+	guild,
+	locale,
+	reply,
+	editReply,
+}: WelcomeSetupOptions) {
 	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
 		.where({ guild_id: interaction.guild_id })
 		.first();
@@ -196,6 +209,50 @@ export async function welcomeSetup({ interaction, locale, reply, editReply }: We
 			components: actionRowComponents,
 		},
 	];
+
+	if (
+		welcomePacket &&
+		(guild.systemChannelFlags & GuildSystemChannelFlags.SuppressJoinNotifications) === 0
+	) {
+		const appMissingPermission =
+			(BigInt(interaction.app_permissions) & PermissionFlagsBits.ManageGuild) === 0n;
+
+		containerComponents.push(
+			{
+				type: ComponentType.TextDisplay,
+				content: appMissingPermission
+					? (BigInt(interaction.member.permissions) & PermissionFlagsBits.ManageGuild) === 0n
+						? t("welcome.suppress-join-notifications-app-missing-member-missing", {
+								lng: locale,
+								ns: "features",
+							})
+						: t("welcome.suppress-join-notifications-app-missing-member-not-missing", {
+								lng: locale,
+								ns: "features",
+							})
+					: t("welcome.suppress-join-notifications-app-not-missing", {
+							lng: locale,
+							ns: "features",
+						}),
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: CustomId.WelcomeSuppressJoinNotifications,
+						label: t("welcome.suppress-join-notifications-button-label", {
+							lng: locale,
+							ns: "features",
+						}),
+						emoji: MISCELLANEOUS_EMOJIS.Edit,
+						disabled: appMissingPermission,
+					},
+				],
+			},
+		);
+	}
 
 	if (missingPermissions.length > 0) {
 		containerComponents.push(
@@ -374,9 +431,71 @@ export async function welcomeHandleEditButton(
 	});
 }
 
+export async function welcomeHandleSuppressJoinNotificationsButton(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
+) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			notInCachedGuildResponse(interaction.locale),
+		);
+
+		return;
+	}
+
+	if (
+		(BigInt(interaction.app_permissions) & PermissionFlagsBits.ManageGuild) ===
+		PermissionFlagsBits.ManageGuild
+	) {
+		await client.api.guilds.edit(interaction.guild_id, {
+			system_channel_flags:
+				guild.systemChannelFlags | GuildSystemChannelFlags.SuppressJoinNotifications,
+		});
+
+		await welcomeSetup({
+			interaction,
+			guild,
+			locale: guild.preferredLocale,
+		});
+	} else {
+		await welcomeSetup({
+			interaction,
+			guild,
+			locale: guild.preferredLocale,
+		});
+
+		await client.api.interactions.followUp(interaction.application_id, interaction.token, {
+			content: t("welcome.suppress-join-notifications-missing-permissions", {
+				lng: interaction.locale,
+				ns: "features",
+			}),
+			flags: MessageFlags.Ephemeral,
+		});
+	}
+}
+
 export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInteraction) {
-	let editReply = false;
 	const { locale } = interaction;
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			notInCachedGuildResponse(locale),
+		);
+
+		return;
+	}
+
+	let editReply = false;
 	const components = new ModalResolver(interaction.data);
 	const channel = components.getChannelValues(CustomId.WelcomeEditModalChannel);
 	const message = components.getTextInputValue(CustomId.WelcomeEditModalMessage);
@@ -427,7 +546,13 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 	}
 
 	await pg<WelcomePacket>(Table.Welcome).insert(data).onConflict("guild_id").merge();
-	await welcomeSetup({ interaction, locale: interaction.guild_locale!, editReply });
+
+	await welcomeSetup({
+		interaction,
+		guild,
+		locale: guild.preferredLocale,
+		editReply,
+	});
 
 	if (errors.length > 0) {
 		await client.api.interactions.followUp(interaction.application_id, interaction.token, {
@@ -630,6 +755,20 @@ export async function welcomeHandleHugButton(
 export async function welcomeHandleAssetSettingDeleteButton(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			notInCachedGuildResponse(interaction.locale),
+		);
+
+		return;
+	}
+
 	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
 		.select("asset")
 		.where({ guild_id: interaction.guild_id })
@@ -649,7 +788,7 @@ export async function welcomeHandleAssetSettingDeleteButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await welcomeSetup({ interaction, locale: interaction.guild_locale! });
+	await welcomeSetup({ interaction, guild, locale: guild.preferredLocale });
 }
 
 async function welcomeSetAsset(

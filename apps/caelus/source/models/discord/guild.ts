@@ -6,6 +6,7 @@ import {
 	type GatewayGuildCreateDispatchData,
 	type GuildChannelType,
 	GuildPremiumTier,
+	type GuildSystemChannelFlags,
 	type Locale,
 	type Snowflake,
 	type ThreadChannelType,
@@ -33,6 +34,8 @@ export class Guild {
 
 	public readonly roles: Collection<Snowflake, Role>;
 
+	public systemChannelFlags: GuildSystemChannelFlags;
+
 	public premiumTier!: GuildPremiumTier;
 
 	public preferredLocale!: Locale;
@@ -58,6 +61,7 @@ export class Guild {
 			new Collection<Snowflake, Role>(),
 		);
 
+		this.systemChannelFlags = data.system_channel_flags;
 		this.premiumTier = data.premium_tier;
 		this.joinedAt = new Date(data.joined_at);
 		const me = data.members.find((member) => member.user.id === APPLICATION_ID);
@@ -92,6 +96,7 @@ export class Guild {
 	public patch(data: APIGuild) {
 		this.name = data.name;
 		this.ownerId = data.owner_id;
+		this.systemChannelFlags = data.system_channel_flags;
 		this.premiumTier = data.premium_tier;
 		this.preferredLocale = data.preferred_locale;
 	}

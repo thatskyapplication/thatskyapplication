@@ -116,7 +116,7 @@ export default {
 				return;
 			}
 			case t("configure.welcome.command-name", { ns: "commands" }): {
-				await welcomeSetup({ interaction, locale: guild.preferredLocale, reply: true });
+				await welcomeSetup({ interaction, guild, locale: guild.preferredLocale, reply: true });
 				return;
 			}
 		}

@@ -3635,6 +3635,15 @@ export default {
 			"edit-modal-label-asset-description":
 				"You may set an image (including a GIF) which will be displayed.",
 			"asset-remove": "Delete media",
+			"suppress-join-notifications-button-label": "Disable Discord join messages",
+			"suppress-join-notifications-app-missing-member-missing":
+				"It is recommended to disable Discord's default join messages to reduce clutter. Seek out help from someone who has the `Manage Server` permission.",
+			"suppress-join-notifications-app-missing-member-not-missing":
+				"It is recommended to disable Discord's default join messages to reduce clutter. You can find this in server settings.",
+			"suppress-join-notifications-app-not-missing":
+				"It is recommended to disable Discord's default join messages to reduce clutter. You can do this by interacting with the button below.",
+			"suppress-join-notifications-missing-permissions":
+				"Missing permissions to manage server settings. Seek out help from someone who has the `Manage Server` permission.",
 			"accent-colour-invalid":
 				"Invalid hexadecimal colour code. Look up a colour picker tool for ease!",
 			"welcome-with-a-hug": "Welcome with a hug!",

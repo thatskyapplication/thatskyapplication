@@ -129,6 +129,7 @@ import {
 	welcomeHandleEditButton,
 	welcomeHandleEditModal,
 	welcomeHandleHugButton,
+	welcomeHandleSuppressJoinNotificationsButton,
 } from "../features/welcome.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
@@ -795,6 +796,11 @@ export default {
 
 					if (id === CustomId.WelcomeEdit) {
 						await welcomeHandleEditButton(data);
+						return;
+					}
+
+					if (id === CustomId.WelcomeSuppressJoinNotifications) {
+						await welcomeHandleSuppressJoinNotificationsButton(data);
 						return;
 					}
 
