@@ -470,7 +470,10 @@ export async function welcomeHandleSuppressJoinNotificationsButton(
 		});
 
 		await client.api.interactions.followUp(interaction.application_id, interaction.token, {
-			content: "Missing permissions to manage server settings.",
+			content: t("welcome.suppress-join-notifications-missing-permissions", {
+				lng: interaction.locale,
+				ns: "features",
+			}),
 			flags: MessageFlags.Ephemeral,
 		});
 	}
