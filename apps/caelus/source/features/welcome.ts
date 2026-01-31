@@ -456,18 +456,24 @@ export async function welcomeHandleSuppressJoinNotificationsButton(
 			system_channel_flags:
 				guild.systemChannelFlags | GuildSystemChannelFlags.SuppressJoinNotifications,
 		});
+
+		await welcomeSetup({
+			interaction,
+			guild,
+			locale: guild.preferredLocale,
+		});
 	} else {
-		await client.api.interactions.reply(interaction.id, interaction.token, {
+		await welcomeSetup({
+			interaction,
+			guild,
+			locale: guild.preferredLocale,
+		});
+
+		await client.api.interactions.followUp(interaction.application_id, interaction.token, {
 			content: "Missing permissions to manage server settings.",
 			flags: MessageFlags.Ephemeral,
 		});
 	}
-
-	await welcomeSetup({
-		interaction,
-		guild,
-		locale: guild.preferredLocale,
-	});
 }
 
 export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInteraction) {
