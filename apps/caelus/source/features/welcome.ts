@@ -466,7 +466,7 @@ export async function welcomeHandleSuppressJoinNotificationsButton(
 	await welcomeSetup({
 		interaction,
 		guild,
-		locale: interaction.guild_locale!,
+		locale: guild.preferredLocale,
 	});
 }
 
@@ -541,7 +541,7 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 	await welcomeSetup({
 		interaction,
 		guild,
-		locale: interaction.guild_locale!,
+		locale: guild.preferredLocale!,
 		editReply,
 	});
 
@@ -779,7 +779,7 @@ export async function welcomeHandleAssetSettingDeleteButton(
 		.onConflict("guild_id")
 		.merge();
 
-	await welcomeSetup({ interaction, guild, locale: interaction.guild_locale! });
+	await welcomeSetup({ interaction, guild, locale: guild.preferredLocale });
 }
 
 async function welcomeSetAsset(
