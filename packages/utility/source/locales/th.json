@@ -3100,6 +3100,7 @@
 			},
 			"edit-platform-invalid": "",
 			"edit-personality-invalid": "",
+			"personality": "",
 			"personality-types": {
 				"0": "ที่ปรึกษา",
 				"1": "ผู้ชนะใจคน",
