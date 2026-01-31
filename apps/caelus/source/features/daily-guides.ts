@@ -540,7 +540,7 @@ async function send({ guildId, channelId, messageId, enforceNonce }: DailyGuides
 	}
 
 	// Retrieve our data.
-	const components = await distributionData(guild.preferredLocale);
+	const { components } = await distributionData(guild.preferredLocale);
 
 	// Update the embed if a message exists.
 	if (messageId) {
@@ -620,7 +620,12 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	return { eventEndText, iconURL, eventTickets };
 }
 
-async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComponent]> {
+interface DailyGuidesDistributionDataResponse {
+	components: APIMessageTopLevelComponent[];
+	missingData: boolean;
+}
+
+async function distributionData(locale: Locale): Promise<DailyGuidesDistributionDataResponse> {
 	const today = skyToday();
 	const now = skyNow();
 
@@ -645,10 +650,13 @@ async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComp
 	} = await fetchDailyGuides();
 
 	const quests = [];
+	let missingData = false;
 
 	for (const quest of [quest1, quest2, quest3, quest4]) {
 		if (quest !== null && isDailyQuest(quest)) {
 			quests.push({ quest, url: DailyQuestToInfographicURL[quest] });
+		} else {
+			missingData = true;
 		}
 	}
 
@@ -662,6 +670,8 @@ async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComp
 				)
 				.join("\n")}`,
 		});
+	} else {
+		missingData = true;
 	}
 
 	const treasureCandleURLs = treasureCandles(today);
@@ -816,7 +826,10 @@ async function distributionData(locale: Locale): Promise<[APIMessageTopLevelComp
 		);
 	}
 
-	return [{ type: ComponentType.Container, components: containerComponents }];
+	return {
+		components: [{ type: ComponentType.Container, components: containerComponents }],
+		missingData,
+	};
 }
 
 interface DailyGuidesDistributionOptions {
@@ -914,10 +927,9 @@ export async function dailyGuidesResponse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 ) {
 	const { locale } = interaction;
-	const components = await distributionData(locale);
-	const { quest1, quest2, quest3, quest4 } = await fetchDailyGuides();
+	const { components, missingData } = await distributionData(locale);
 
-	if ([quest1, quest2, quest3, quest4].some((quest) => quest === null)) {
+	if (missingData) {
 		components.push({
 			type: ComponentType.Container,
 			accent_color: INFORMATION_ACCENT_COLOUR,
@@ -985,7 +997,7 @@ export async function interactive(
 	const containerComponents: APIComponentInContainer[] = [];
 
 	const components: APIMessageTopLevelComponent[] = [
-		...(await distributionData(locale)),
+		...(await distributionData(locale)).components,
 		{
 			type: ComponentType.Container,
 			components: containerComponents,
