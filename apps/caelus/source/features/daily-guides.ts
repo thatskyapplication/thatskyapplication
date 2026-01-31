@@ -621,7 +621,7 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 }
 
 interface DailyGuidesDistributionDataResponse {
-	components: [APIMessageTopLevelComponent];
+	components: APIMessageTopLevelComponent[];
 	missingData: boolean;
 }
 
