@@ -956,8 +956,8 @@ export async function dailyGuidesResponse(
 					type: ComponentType.TextDisplay,
 					content: `${t(
 						interaction.guild_id === SUPPORT_SERVER_GUILD_ID
-							? "daily-guides.not-yet-updated-title-support-server"
-							: "daily-guides.not-yet-updated-title",
+							? "daily-guides.not-yet-updated-support-server"
+							: "daily-guides.not-yet-updated",
 						{
 							lng: locale,
 							ns: "features",
