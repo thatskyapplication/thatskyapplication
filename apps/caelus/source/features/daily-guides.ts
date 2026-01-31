@@ -650,18 +650,17 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 	} = await fetchDailyGuides();
 
 	const quests = [];
+	let missingData = false;
 
 	for (const quest of [quest1, quest2, quest3, quest4]) {
 		if (quest !== null && isDailyQuest(quest)) {
 			quests.push({ quest, url: DailyQuestToInfographicURL[quest] });
+		} else {
+			missingData = true;
 		}
 	}
 
-	let missingData: boolean;
-
 	if (quests.length > 0) {
-		missingData = false;
-
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
