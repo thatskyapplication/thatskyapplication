@@ -76,6 +76,7 @@ import {
 	MAXIMUM_CONCURRENCY_LIMIT,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORT_SERVER_INVITE_URL,
+	UPDATING_DAILY_GUIDES_CHANNEL_ID,
 } from "../utility/configuration.js";
 import {
 	DAILY_GUIDES_URL,
@@ -622,7 +623,8 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 
 interface DailyGuidesDistributionDataResponse {
 	components: APIMessageTopLevelComponent[];
-	missingData: boolean;
+	missingDailyQuests: boolean;
+	missingTravellingRock: boolean;
 }
 
 async function distributionData(locale: Locale): Promise<DailyGuidesDistributionDataResponse> {
@@ -650,13 +652,13 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 	} = await fetchDailyGuides();
 
 	const quests = [];
-	let missingData = false;
+	let missingDailyQuests = false;
 
 	for (const quest of [quest1, quest2, quest3, quest4]) {
 		if (quest !== null && isDailyQuest(quest)) {
 			quests.push({ quest, url: DailyQuestToInfographicURL[quest] });
 		} else {
-			missingData = true;
+			missingDailyQuests = true;
 		}
 	}
 
@@ -671,7 +673,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 				.join("\n")}`,
 		});
 	} else {
-		missingData = true;
+		missingDailyQuests = true;
 	}
 
 	const treasureCandleURLs = treasureCandles(today);
@@ -780,11 +782,17 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		});
 	}
 
+	let missingTravellingRock: boolean;
+
 	if (travellingRock) {
+		missingTravellingRock = false;
+
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n[${t("view", { lng: locale, ns: "general" })}](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
 		});
+	} else {
+		missingTravellingRock = true;
 	}
 
 	const communityEvents = communityUpcomingEvents(today);
@@ -828,7 +836,8 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 
 	return {
 		components: [{ type: ComponentType.Container, components: containerComponents }],
-		missingData,
+		missingDailyQuests,
+		missingTravellingRock,
 	};
 }
 
@@ -927,20 +936,35 @@ export async function dailyGuidesResponse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
 ) {
 	const { locale } = interaction;
-	const { components, missingData } = await distributionData(locale);
+	const { components, missingDailyQuests, missingTravellingRock } = await distributionData(locale);
+	const missing = [];
 
-	if (missingData) {
+	if (missingDailyQuests) {
+		missing.push(`- ${t("daily-quests", { lng: locale, ns: "general" })}`);
+	}
+
+	if (missingTravellingRock) {
+		missing.push(`- ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}`);
+	}
+
+	if (missing.length > 0) {
 		components.push({
 			type: ComponentType.Container,
 			accent_color: INFORMATION_ACCENT_COLOUR,
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: t("daily-guides.not-yet-updated", {
-						lng: locale,
-						ns: "features",
-						url: SUPPORT_SERVER_INVITE_URL,
-					}),
+					content: `${t(
+						interaction.guild_id === SUPPORT_SERVER_GUILD_ID
+							? "daily-guides.not-yet-updated-support-server"
+							: "daily-guides.not-yet-updated",
+						{
+							lng: locale,
+							ns: "features",
+							url: SUPPORT_SERVER_INVITE_URL,
+							channel: `<#${UPDATING_DAILY_GUIDES_CHANNEL_ID}>`,
+						},
+					)}\n${missing.join("\n")}`,
 				},
 			],
 		});
