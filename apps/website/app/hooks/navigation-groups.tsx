@@ -93,7 +93,7 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					external: true,
 				},
 				{
-					to: "/caelus/guides/terms-privacy",
+					to: "/caelus/terms-privacy",
 					label: "Terms & privacy",
 					icon: <ExternalLinkIcon className="h-5 w-5" />,
 					description: "Terms of service and privacy policy.",
