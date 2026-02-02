@@ -356,7 +356,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 						<Link
 							className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
 							onClick={onClose}
-							to={GUIDE_URL}
+							to="/caelus"
 						>
 							<Bot className="h-5 w-5" />
 							<div>
@@ -468,7 +468,7 @@ export function SiteTopBar({ user, locale }: SiteTopBarProps) {
 											? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
 											: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
 									}`}
-									to={GUIDE_URL}
+									to="/caelus"
 								>
 									<Bot className="h-5 w-5" />
 									<span>{APPLICATION_NAME}</span>
