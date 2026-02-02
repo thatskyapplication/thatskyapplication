@@ -3,6 +3,7 @@ import { CDN_URL } from "@thatskyapplication/utility";
 
 export const EXCLUDE_TOP_BAR_AND_FOOTER = ["/"] as const;
 export const APPLICATION_NAME = "Caelus" as const;
+export const GUIDE_URL = "https://guide.thatskyapplication.com" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com" as const;
 
 export const APPLICATION_DESCRIPTION =

@@ -1,14 +1,6 @@
 import type { APIUser } from "@discordjs/core/http-only";
 import { CDN, calculateUserDefaultAvatarIndex } from "@discordjs/rest";
-import {
-	getRandomElement,
-	HAIR_TOUSLES,
-	HIGH_FIVES,
-	HUGS_SQUARE,
-	KRILLS,
-	PLAY_FIGHTS,
-	TIME_ZONE,
-} from "@thatskyapplication/utility";
+import { TIME_ZONE } from "@thatskyapplication/utility";
 
 const cdn = new CDN();
 
@@ -35,37 +27,6 @@ export function timeString(locale: string | string[]) {
 	}).format(date);
 
 	return { lg, sm };
-}
-
-function hairTousleGIF() {
-	return getRandomElement(HAIR_TOUSLES)!.url;
-}
-
-function highFiveGIF() {
-	return getRandomElement(HIGH_FIVES)!.url;
-}
-
-function huggingGIF() {
-	return getRandomElement(HUGS_SQUARE)!.url;
-}
-
-function playFightGIF() {
-	return getRandomElement(PLAY_FIGHTS)!.url;
-}
-
-function krillingGIF() {
-	return getRandomElement(KRILLS)!.url;
-}
-
-export function friendshipActionGIFs() {
-	return [
-		hairTousleGIF(),
-		highFiveGIF(),
-		huggingGIF(),
-		huggingGIF(),
-		playFightGIF(),
-		krillingGIF(),
-	].sort(() => Math.random() - 0.5);
 }
 
 export function avatarURL(user: Pick<APIUser, "id" | "avatar" | "discriminator">) {

@@ -13,14 +13,6 @@ const HOME_ITEMS = [
 	{ title: "Acknowledgements", path: "/caelus/guides/acknowledgements" },
 ] as const satisfies Readonly<SidebarItem[]>;
 
-const GUIDE_ITEMS = [
-	{ title: "Daily Guides", path: "/caelus/guides/daily-guides" },
-	{ title: "Friendship Actions", path: "/caelus/guides/friendship-actions" },
-	{ title: "Hearts", path: "/caelus/guides/hearts" },
-	{ title: "Notifications", path: "/caelus/guides/notifications" },
-	{ title: "Spirits", path: "/caelus/guides/spirits" },
-] as const satisfies Readonly<SidebarItem[]>;
-
 function SidebarSection({
 	title,
 	items,
@@ -101,7 +93,6 @@ export default function CaelusGuidesLayout() {
 								</div>
 							</div>
 							<SidebarSection currentPath={location.pathname} items={HOME_ITEMS} title="Home" />
-							<SidebarSection currentPath={location.pathname} items={GUIDE_ITEMS} title="Guides" />
 						</div>
 					</div>
 				</aside>
@@ -155,12 +146,6 @@ export default function CaelusGuidesLayout() {
 								items={HOME_ITEMS}
 								onItemClick={() => setSidebarOpen(false)}
 								title="Home"
-							/>
-							<SidebarSection
-								currentPath={location.pathname}
-								items={GUIDE_ITEMS}
-								onItemClick={() => setSidebarOpen(false)}
-								title="Guides"
 							/>
 						</div>
 					</div>

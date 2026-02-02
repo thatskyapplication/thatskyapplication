@@ -2,7 +2,7 @@ import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { AlarmClock, Clock, LinkIcon, UsersIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { APPLICATION_NAME } from "~/utility/constants";
+import { APPLICATION_NAME, GUIDE_URL } from "~/utility/constants";
 
 export default function Index() {
 	const { t } = useTranslation();
@@ -16,7 +16,7 @@ export default function Index() {
 			<div className="flex flex-wrap justify-center gap-6 max-w-6xl w-full">
 				<Link
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
-					to="/caelus/guides/home"
+					to={GUIDE_URL}
 				>
 					<SiDiscord className="h-8 w-8 mb-4" />
 					<h2 className="font-medium text-lg">{APPLICATION_NAME}</h2>

@@ -52,9 +52,15 @@ export default function Acknowledgements() {
 							<h2 className="mt-0">Friendship actions contributors</h2>
 							<p className="text-gray-700 dark:text-gray-300 mb-6">
 								These wonderful people have contributed to{" "}
-								<Link className="regular-link" to="/caelus/guides/friendship-actions">
+								<a
+									className="regular-link inline-flex items-center"
+									href="https://guide.thatskyapplication.com/caelus/friendship-actions"
+									rel="noopener noreferrer"
+									target="_blank"
+								>
 									friendship actions
-								</Link>{" "}
+									<ExternalLinkIcon className="ml-1 w-4 h-4" />
+								</a>{" "}
 								for everyone to enjoy!
 							</p>
 							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

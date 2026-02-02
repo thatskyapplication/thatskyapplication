@@ -11,7 +11,7 @@ import {
 	type DailyGuidesDistributionPacket,
 	Table,
 } from "@thatskyapplication/utility";
-import { ArrowLeft, Check } from "lucide-react";
+import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
 import { useState } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Form, Link, redirect, useActionData, useLoaderData } from "react-router";
@@ -205,9 +205,15 @@ export default function DailyGuides() {
 							<h2 className="text-lg font-semibold mb-2">Daily guides</h2>
 							<p className="mb-6">
 								All you need is a channel {APPLICATION_NAME} can send daily guides in. You can visit{" "}
-								<Link className="regular-link" to="/caelus/guides/daily-guides">
+								<a
+									className="regular-link inline-flex items-center"
+									href="https://guide.thatskyapplication.com/caelus/daily-guides"
+									rel="noopener noreferrer"
+									target="_blank"
+								>
 									the guide
-								</Link>{" "}
+									<ExternalLinkIcon className="ml-1 w-4 h-4" />
+								</a>{" "}
 								to see how to set it up in Discord too!
 							</p>
 
