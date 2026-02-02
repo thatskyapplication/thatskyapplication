@@ -378,7 +378,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `## [Daily guides](${new URL("caelus/guides/daily-guides", WEBSITE_URL)})`,
+						content: "## [Daily guides](https://guide.thatskyapplication.com/caelus/daily-guides)",
 					},
 					{
 						type: ComponentType.Separator,

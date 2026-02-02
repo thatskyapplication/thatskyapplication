@@ -198,7 +198,8 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `## [Notifications](${new URL("caelus/guides/notifications", WEBSITE_URL)})`,
+						content:
+							"## [Notifications](https://guide.thatskyapplication.com/caelus/notifications)",
 					},
 					{
 						type: ComponentType.Separator,
