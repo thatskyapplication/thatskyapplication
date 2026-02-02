@@ -21,7 +21,6 @@ import {
 	type NotificationPacket,
 	type NotificationTypes,
 	Table,
-	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";

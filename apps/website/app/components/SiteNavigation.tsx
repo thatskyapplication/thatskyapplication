@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import { type NavigationGroup, useNavigationGroups } from "~/hooks/navigation-groups";
-import { APPLICATION_NAME, GUIDE_URL, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
+import { APPLICATION_NAME, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL, timeString } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
 

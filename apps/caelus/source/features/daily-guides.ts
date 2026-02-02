@@ -52,7 +52,6 @@ import {
 	Table,
 	TIME_ZONE,
 	treasureCandles,
-	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
