@@ -99,7 +99,7 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					description: "Terms of service and privacy policy.",
 				},
 				{
-					to: "/caelus/guides/acknowledgements",
+					to: "/acknowledgements",
 					label: "Acknowledgements",
 					icon: <ExternalLinkIcon className="h-5 w-5" />,
 					description: "Community contributors and credits.",

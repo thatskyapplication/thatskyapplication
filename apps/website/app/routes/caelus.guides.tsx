@@ -8,10 +8,9 @@ interface SidebarItem {
 	path: string;
 }
 
-const HOME_ITEMS = [
-	{ title: "Home", path: "/caelus/guides/home" },
-	{ title: "Acknowledgements", path: "/caelus/guides/acknowledgements" },
-] as const satisfies Readonly<SidebarItem[]>;
+const HOME_ITEMS = [{ title: "Home", path: "/caelus/guides/home" }] as const satisfies Readonly<
+	SidebarItem[]
+>;
 
 function SidebarSection({
 	title,
