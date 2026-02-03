@@ -56,6 +56,7 @@ export function travellingSpiritSchedule(date: DateTime) {
 	return {
 		start: spirit ? spirit.start : TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }),
 		visit: spirit ? (date >= spirit.start ? spirit : null) : null,
+		spirit: spirit ?? null,
 	};
 }
 

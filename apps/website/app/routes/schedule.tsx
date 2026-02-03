@@ -15,7 +15,10 @@ import {
 	type ScheduleTypes,
 	type SpiritIds,
 	shardEruptionSchedule,
+	skyCurrentSeason,
+	skyNotEndedEvents,
 	skyNow,
+	skyUpcomingSeason,
 	TIME_ZONE,
 	travellingSpiritSchedule,
 	turtleSchedule,
@@ -27,7 +30,7 @@ import type { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { getLocale } from "~/middleware/i18next.js";
 import {
 	APPLICATION_ICON_URL,
@@ -104,6 +107,7 @@ interface ScheduleWithEnd<
 
 interface ScheduleTravellingSpirit extends ScheduleWithEnd<typeof ScheduleType.TravellingSpirit> {
 	now: SpiritIds | false;
+	spiritId: SpiritIds | null;
 }
 
 function dailyResetNext(
@@ -189,6 +193,7 @@ function travellingSpiritOverview(
 	return {
 		type: ScheduleType.TravellingSpirit,
 		now: schedule.visit?.spiritId ?? false,
+		spiritId: schedule.spirit?.spiritId ?? null,
 		next: new Intl.DateTimeFormat(locale, startOptions).format(schedule.start.toMillis()),
 		nextUnix: schedule.start.toMillis(),
 		relative: formatRelativeTime(schedule.start, now, locale),
@@ -475,11 +480,21 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	return { locale: getLocale(context), timeZone: request.headers.get("cf-timezone") ?? TIME_ZONE };
 };
 
-function getEventColor(available: boolean | SpiritIds | undefined) {
-	return available === undefined || available === false
-		? "bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700"
-		: "bg-emerald-50 dark:bg-emerald-900 border-emerald-200 dark:border-emerald-700";
+interface DisplayCard {
+	kind: DisplayCardKind;
+	key: string;
+	label: string;
+	link?: { href: string; text: string } | undefined;
+	pageHref?: string | undefined;
+	active: boolean;
+	next: string;
+	nextUnix: number;
+	relative: string;
+	end?: string | null | undefined;
+	endRelative?: string | null | undefined;
 }
+
+type DisplayCardKind = "season" | "event" | "schedule";
 
 export default function Schedule() {
 	const { locale, timeZone } = useLoaderData<typeof loader>();
@@ -509,6 +524,7 @@ export default function Schedule() {
 	}, []);
 
 	const now = skyNow();
+	const today = now.startOf("day");
 
 	const schedules = [
 		dailyResetNext(now, timeZone, locale),
@@ -529,137 +545,192 @@ export default function Schedule() {
 		projectorOfMemoriesOverview(now, timeZone, locale),
 	] satisfies readonly BaseSchedule<ScheduleTypes>[];
 
-	const active = [];
-	const upcoming = [];
+	const allCards: DisplayCard[] = [];
 
 	for (const schedule of schedules) {
-		if (schedule.now === undefined || schedule.now === false) {
-			upcoming.push(schedule);
-			continue;
+		const label = t(`schedule.type.${schedule.type}`, { ns: "features" });
+		let link: DisplayCard["link"];
+		const isActive = schedule.now !== undefined && schedule.now !== false;
+
+		if (schedule.type === ScheduleType.TravellingSpirit && schedule.spiritId) {
+			const spiritName = t(`spirits.${schedule.spiritId}`, { ns: "general" });
+			link = { href: t(`spirit-wiki.${schedule.spiritId}`, { ns: "general" }), text: spiritName };
 		}
 
-		active.push(schedule);
+		allCards.push({
+			kind: "schedule",
+			key: `${schedule.type}`,
+			label,
+			link,
+			pageHref: schedule.type === ScheduleType.ShardEruption ? "/shard-eruption" : undefined,
+			active: isActive,
+			next: schedule.next,
+			nextUnix: schedule.nextUnix,
+			relative: schedule.relative,
+			end: schedule.end,
+			endRelative: schedule.endRelative,
+		});
 	}
 
-	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
+	const season = skyCurrentSeason(now);
+
+	if (season) {
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+		if (season.end.diff(now, "days").days > 1) {
+			options.dateStyle = "medium";
+		}
+
+		const seasonName = t(`seasons.${season.id}`, { ns: "general" });
+		allCards.push({
+			kind: "season",
+			key: `season-${season.id}`,
+			label: seasonName,
+			link: { href: t(`season-wiki.${season.id}`, { ns: "general" }), text: seasonName },
+			active: true,
+			next: new Intl.DateTimeFormat(locale, options).format(season.end.toMillis()),
+			nextUnix: season.end.toMillis(),
+			relative: formatRelativeTime(season.end, now, locale),
+			end: new Intl.DateTimeFormat(locale, options).format(season.end.toMillis()),
+			endRelative: formatRelativeTime(season.end, now, locale),
+		});
+	}
+
+	const nextSeason = skyUpcomingSeason(today);
+
+	if (nextSeason) {
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+		if (nextSeason.start.diff(now, "days").days > 1) {
+			options.dateStyle = "medium";
+		}
+
+		const nextSeasonName = t(`seasons.${nextSeason.id}`, { ns: "general" });
+		allCards.push({
+			kind: "season",
+			key: `season-${nextSeason.id}`,
+			label: nextSeasonName,
+			link: { href: t(`season-wiki.${nextSeason.id}`, { ns: "general" }), text: nextSeasonName },
+			active: false,
+			next: new Intl.DateTimeFormat(locale, options).format(nextSeason.start.toMillis()),
+			nextUnix: nextSeason.start.toMillis(),
+			relative: formatRelativeTime(nextSeason.start, now, locale),
+		});
+	}
+
+	for (const { id, start, end } of skyNotEndedEvents(today).values()) {
+		const daysUntilStart = start.diff(today, "days").days;
+		const name = t(`events.${id}`, { ns: "general" });
+		const isActive = daysUntilStart <= 0;
+
+		if (isActive) {
+			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+			if (end.diff(now, "days").days > 1) {
+				options.dateStyle = "medium";
+			}
+
+			allCards.push({
+				kind: "event",
+				key: `event-${id}`,
+				label: name,
+				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: name },
+				active: true,
+				next: new Intl.DateTimeFormat(locale, options).format(end.toMillis()),
+				nextUnix: end.toMillis(),
+				relative: formatRelativeTime(end, now, locale),
+				end: new Intl.DateTimeFormat(locale, options).format(end.toMillis()),
+				endRelative: formatRelativeTime(end, now, locale),
+			});
+		} else {
+			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+			if (start.diff(now, "days").days > 1) {
+				options.dateStyle = "medium";
+			}
+
+			allCards.push({
+				kind: "event",
+				key: `event-${id}`,
+				label: name,
+				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: name },
+				active: false,
+				next: new Intl.DateTimeFormat(locale, options).format(start.toMillis()),
+				nextUnix: start.toMillis(),
+				relative: formatRelativeTime(start, now, locale),
+			});
+		}
+	}
+
+	const active = allCards.filter((card) => card.active);
+	const upcoming = allCards.filter((card) => !card.active).sort((a, b) => a.nextUnix - b.nextUnix);
 
 	return (
-		<div className="px-4">
-			<div className="max-w-6xl mx-auto">
+		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
+			<div className="w-full max-w-2xl space-y-4">
 				{/* Active. */}
 				{active.length > 0 && (
-					<div className="mb-12">
-						<h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-3">
-							<span className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-							{t("schedule.overview-active", { ns: "features" })}
-						</h2>
-
-						{/* Desktop. */}
-						<div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-							{active.map((schedule) => (
-								<div
-									className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${getEventColor(schedule.now)}`}
-									key={schedule.type}
-								>
-									<div className="absolute top-0 right-0 w-20 h-20 opacity-10">
-										<div className="absolute inset-0 bg-linear-to-br from-current to-transparent rounded-full blur-xl" />
-									</div>
-									<div className="relative z-10">
-										<div className="flex items-center justify-between mb-3">
-											<h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg">
-												{schedule.type === ScheduleType.TravellingSpirit ? (
-													schedule.now === false ? (
-														t(`schedule.type.${schedule.type}`, { ns: "features" })
-													) : (
-														<a
-															className="inline-flex items-center regular-link"
-															href={t(`spirit-wiki.${schedule.now}`, { ns: "general" })}
-															rel="noopener noreferrer"
-															target="_blank"
-														>
-															{t(`spirits.${schedule.now}`, { ns: "general" })}
-															<ExternalLinkIcon className="ml-2 w-4 h-4" />
-														</a>
-													)
-												) : (
-													t(`schedule.type.${schedule.type}`, { ns: "features" })
-												)}
-											</h3>
-											<div className="flex items-center gap-2">
-												<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-												<span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wider">
-													{t("schedule.overview-active", { ns: "features" })}
-												</span>
-											</div>
-										</div>
-										<div className="space-y-2">
-											<div className="flex justify-between items-center">
-												<span className="text-sm text-gray-600 dark:text-gray-400">
-													{t("schedule.overview-ends", { ns: "features" })}
-												</span>
-												<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
-													{schedule.end}
-												</span>
-											</div>
-											<div className="flex justify-between items-center">
-												<span className="text-sm text-gray-600 dark:text-gray-400">
-													{t("schedule.overview-in", { ns: "features" })}
-												</span>
-												<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-													{schedule.endRelative}
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-							))}
+					<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-4">
+						<div className="mt-1 mb-2">
+							<span className="text-sm font-medium text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900 px-2 py-0.5 rounded">
+								{t("schedule.overview-active", { ns: "features" })}
+							</span>
 						</div>
-
-						{/* Mobile. */}
-						<div className="md:hidden space-y-3">
-							{active.map((schedule) => (
+						<div className="divide-y divide-gray-100 dark:divide-gray-800">
+							{active.map((item) => (
 								<div
-									className={`rounded-lg border p-4 ${getEventColor(schedule.now)}`}
-									key={schedule.type}
+									className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 gap-1 sm:gap-4"
+									key={item.key}
 								>
-									<div className="flex items-center justify-between mb-2">
-										<h3 className="font-bold text-gray-900 dark:text-gray-100">
-											{schedule.type === ScheduleType.TravellingSpirit ? (
-												schedule.now === false ? (
-													t(`schedule.type.${schedule.type}`, { ns: "features" })
-												) : (
+									<span className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2 flex-wrap">
+										{item.pageHref ? (
+											<Link className="regular-link" to={item.pageHref}>
+												{item.label}
+											</Link>
+										) : item.link && item.link.text === item.label ? (
+											<a
+												className="inline-flex items-center regular-link"
+												href={item.link.href}
+												rel="noopener noreferrer"
+												target="_blank"
+											>
+												{item.label}
+												<ExternalLinkIcon className="ml-1.5 w-3.5 h-3.5" />
+											</a>
+										) : (
+											<>
+												{item.label}
+												{item.link && (
 													<a
 														className="inline-flex items-center regular-link"
-														href={t(`spirit-wiki.${schedule.now}`, { ns: "general" })}
+														href={item.link.href}
 														rel="noopener noreferrer"
 														target="_blank"
 													>
-														{t(`spirits.${schedule.now}`, { ns: "general" })}
-														<ExternalLinkIcon className="ml-2 w-4 h-4" />
+														{item.link.text}
+														<ExternalLinkIcon className="ml-1.5 w-3.5 h-3.5" />
 													</a>
-												)
-											) : (
-												t(`schedule.type.${schedule.type}`, { ns: "features" })
-											)}
-										</h3>
-										<div className="flex items-center gap-2">
-											<span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-											<span className="text-xs font-medium text-green-700 dark:text-green-300 uppercase tracking-wider">
-												{t("schedule.overview-active", { ns: "features" })}
+												)}
+											</>
+										)}
+										{item.kind === "season" && (
+											<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
+												Season
 											</span>
-										</div>
-									</div>
-									<div className="flex justify-between items-center text-sm">
-										<span className="text-gray-600 dark:text-gray-400">
-											{t("schedule.overview-ends-timestamp", {
-												ns: "features",
-												timestamp: schedule.end,
-											})}
-										</span>
-										<span className="font-medium text-gray-700 dark:text-gray-300">
-											{schedule.endRelative}
-										</span>
-									</div>
+										)}
+										{item.kind === "event" && (
+											<span className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900 px-1.5 py-0.5 rounded">
+												Event
+											</span>
+										)}
+									</span>
+									<span className="text-sm text-gray-500 dark:text-gray-400 sm:text-right">
+										{t("schedule.overview-ends-timestamp", {
+											ns: "features",
+											timestamp: item.end,
+										})}{" "}
+										({item.endRelative})
+									</span>
 								</div>
 							))}
 						</div>
@@ -667,80 +738,64 @@ export default function Schedule() {
 				)}
 
 				{/* Upcoming. */}
-				<div className="mb-8">
-					<h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 flex items-center gap-3">
-						<span className="w-3 h-3 bg-gray-400 rounded-full" />
-						{t("schedule.overview-upcoming", { ns: "features" })}
-					</h2>
-
-					{/* Desktop. */}
-					<div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-						{upcoming.map((schedule) => (
-							<div
-								className={`relative overflow-hidden rounded-xl border p-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${getEventColor(schedule.now)}`}
-								key={schedule.type}
-							>
-								<div className="absolute top-0 right-0 w-20 h-20 opacity-5">
-									<div className="absolute inset-0 bg-linear-to-br from-current to-transparent rounded-full blur-xl" />
-								</div>
-								<div className="relative z-10">
-									<div className="flex items-center justify-between mb-3">
-										<h3 className="font-bold text-gray-900 dark:text-gray-100 text-lg">
-											{t(`schedule.type.${schedule.type}`, { ns: "features" })}
-										</h3>
-										<span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-											{t("schedule.overview-upcoming", { ns: "features" })}
-										</span>
-									</div>
-									<div className="space-y-2">
-										<div className="flex justify-between items-center">
-											<span className="text-sm text-gray-600 dark:text-gray-400">
-												{t("schedule.overview-next", { ns: "features" })}
-											</span>
-											<span className="font-mono text-sm font-medium text-gray-900 dark:text-gray-100">
-												{schedule.next}
-											</span>
-										</div>
-										<div className="flex justify-between items-center">
-											<span className="text-sm text-gray-600 dark:text-gray-400">
-												{t("schedule.overview-in", { ns: "features" })}
-											</span>
-											<span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-												{schedule.relative}
-											</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						))}
+				<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-4">
+					<div className="mt-1 mb-2">
+						<span className="text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
+							{t("schedule.overview-upcoming", { ns: "features" })}
+						</span>
 					</div>
-
-					{/* Mobile. */}
-					<div className="md:hidden space-y-3">
-						{upcoming.map((schedule) => (
+					<div className="divide-y divide-gray-100 dark:divide-gray-800">
+						{upcoming.map((item) => (
 							<div
-								className={`rounded-lg border p-4 ${getEventColor(schedule.now)}`}
-								key={schedule.type}
+								className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 gap-1 sm:gap-4"
+								key={item.key}
 							>
-								<div className="flex items-center justify-between mb-2">
-									<h3 className="font-bold text-gray-900 dark:text-gray-100">
-										{t(`schedule.type.${schedule.type}`, { ns: "features" })}
-									</h3>
-									<span className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-										{t("schedule.overview-upcoming", { ns: "features" })}
-									</span>
-								</div>
-								<div className="flex justify-between items-center text-sm">
-									<span className="text-gray-600 dark:text-gray-400">
-										{t("schedule.overview-next-timestamp", {
-											ns: "features",
-											timestamp: schedule.next,
-										})}
-									</span>
-									<span className="font-medium text-gray-700 dark:text-gray-300">
-										{schedule.relative}
-									</span>
-								</div>
+								<span className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2 flex-wrap">
+									{item.pageHref ? (
+										<Link className="regular-link" to={item.pageHref}>
+											{item.label}
+										</Link>
+									) : item.link && item.link.text === item.label ? (
+										<a
+											className="inline-flex items-center regular-link"
+											href={item.link.href}
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											{item.label}
+											<ExternalLinkIcon className="ml-1.5 w-3.5 h-3.5" />
+										</a>
+									) : (
+										<>
+											{item.label}
+											{item.link && (
+												<a
+													className="inline-flex items-center regular-link"
+													href={item.link.href}
+													rel="noopener noreferrer"
+													target="_blank"
+												>
+													{item.link.text}
+													<ExternalLinkIcon className="ml-1.5 w-3.5 h-3.5" />
+												</a>
+											)}
+										</>
+									)}
+									{item.kind === "season" && (
+										<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
+											Season
+										</span>
+									)}
+									{item.kind === "event" && (
+										<span className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900 px-1.5 py-0.5 rounded">
+											Event
+										</span>
+									)}
+								</span>
+								<span className="text-sm text-gray-500 dark:text-gray-400 sm:text-right">
+									{item.next}{" "}
+									<span className="text-gray-400 dark:text-gray-500">({item.relative})</span>
+								</span>
 							</div>
 						))}
 					</div>
