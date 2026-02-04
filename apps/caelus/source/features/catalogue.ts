@@ -1462,7 +1462,7 @@ export async function viewSeason(
 		},
 	];
 
-	const { hasEverything, remainingCurrency, offerProgress, itemsOfferProgress } = offerData({
+	const { /* hasEverything, */ remainingCurrency, offerProgress, itemsOfferProgress } = offerData({
 		data: catalogue?.data,
 		spirits: [season.guide, ...season.spirits.values()],
 		items: season.items,
@@ -1536,21 +1536,21 @@ export async function viewSeason(
 	const before = seasons.get((season.id - 1) as SeasonIds);
 	const after = seasons.get((season.id + 1) as SeasonIds);
 
-	if (catalogue?.show_everything_button) {
-		containerComponents.push({
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueSeasonEverything}§${seasonId}`,
-					disabled: hasEverything,
-					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-					style: ButtonStyle.Success,
-				},
-			],
-		});
-	}
+	// if (catalogue?.show_everything_button) {
+	// 	containerComponents.push({
+	// 		type: ComponentType.ActionRow,
+	// 		components: [
+	// 			{
+	// 				type: ComponentType.Button,
+	// 				custom_id: `${CustomId.CatalogueSeasonEverything}§${seasonId}`,
+	// 				disabled: hasEverything,
+	// 				emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+	// 				label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+	// 				style: ButtonStyle.Success,
+	// 			},
+	// 		],
+	// 	});
+	// }
 
 	const previousSeasonButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
