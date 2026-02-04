@@ -1168,26 +1168,19 @@ export async function viewRealm(
 	});
 
 	if (catalogue?.show_everything_button) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${CustomId.CatalogueRealmEverything}§${realm}`,
-						disabled: hasEverything,
-						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-						label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-						style: ButtonStyle.Success,
-					},
-				],
-			},
-		);
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CustomId.CatalogueRealmEverything}§${realm}`,
+					disabled: hasEverything,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Success,
+				},
+			],
+		});
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1252,26 +1245,19 @@ export async function viewElders(
 	}
 
 	if (catalogue?.show_everything_button) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: CustomId.CatalogueEldersEverything,
-						disabled: hasEverything,
-						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-						label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-						style: ButtonStyle.Success,
-					},
-				],
-			},
-		);
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: CustomId.CatalogueEldersEverything,
+					disabled: hasEverything,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Success,
+				},
+			],
+		});
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1378,32 +1364,25 @@ export async function viewSeasons(
 		});
 	}
 
-	containerComponents.push(
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewSeasons}§${page === 1 ? maximumPage : page - 1}`,
-					emoji: { name: "⬅️" },
-					label: t("catalogue.seasons-previous-seasons", { lng: locale, ns: "features" }),
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewSeasons}§${page === maximumPage ? 1 : page + 1}`,
-					emoji: { name: "➡️" },
-					label: t("catalogue.seasons-next-seasons", { lng: locale, ns: "features" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
-	);
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: [
+			{
+				type: ComponentType.Button,
+				custom_id: `${CustomId.CatalogueViewSeasons}§${page === 1 ? maximumPage : page - 1}`,
+				emoji: { name: "⬅️" },
+				label: t("catalogue.seasons-previous-seasons", { lng: locale, ns: "features" }),
+				style: ButtonStyle.Secondary,
+			},
+			{
+				type: ComponentType.Button,
+				custom_id: `${CustomId.CatalogueViewSeasons}§${page === maximumPage ? 1 : page + 1}`,
+				emoji: { name: "➡️" },
+				label: t("catalogue.seasons-next-seasons", { lng: locale, ns: "features" }),
+				style: ButtonStyle.Secondary,
+			},
+		],
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1462,7 +1441,7 @@ export async function viewSeason(
 		},
 	];
 
-	const { /* hasEverything, */ remainingCurrency, offerProgress, itemsOfferProgress } = offerData({
+	const { hasEverything, remainingCurrency, offerProgress, itemsOfferProgress } = offerData({
 		data: catalogue?.data,
 		spirits: [season.guide, ...season.spirits.values()],
 		items: season.items,
@@ -1536,22 +1515,6 @@ export async function viewSeason(
 	const before = seasons.get((season.id - 1) as SeasonIds);
 	const after = seasons.get((season.id + 1) as SeasonIds);
 
-	// if (catalogue?.show_everything_button) {
-	// 	containerComponents.push({
-	// 		type: ComponentType.ActionRow,
-	// 		components: [
-	// 			{
-	// 				type: ComponentType.Button,
-	// 				custom_id: `${CustomId.CatalogueSeasonEverything}§${seasonId}`,
-	// 				disabled: hasEverything,
-	// 				emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-	// 				label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-	// 				style: ButtonStyle.Success,
-	// 			},
-	// 		],
-	// 	});
-	// }
-
 	const previousSeasonButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: `${CustomId.CatalogueViewSeason}§${before?.id}`,
@@ -1588,17 +1551,26 @@ export async function viewSeason(
 		nextSeasonButton.emoji = MISCELLANEOUS_EMOJIS.No;
 	}
 
-	containerComponents.push(
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: [previousSeasonButton, nextSeasonButton],
-		},
-	);
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		previousSeasonButton,
+		nextSeasonButton,
+	];
+
+	if (catalogue?.show_everything_button) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: `${CustomId.CatalogueSeasonEverything}§${seasonId}`,
+			disabled: hasEverything,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+			style: ButtonStyle.Success,
+		});
+	}
+
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: actionRowComponents,
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1686,32 +1658,25 @@ export async function viewEvents(
 		});
 	}
 
-	containerComponents.push(
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: [
-				{
-					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewEvents}§${page === 1 ? maximumPage : page - 1}`,
-					emoji: { name: "⬅️" },
-					label: t("catalogue.events-previous-events", { lng: locale, ns: "features" }),
-					style: ButtonStyle.Secondary,
-				},
-				{
-					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueViewEvents}§${page === maximumPage ? 1 : page + 1}`,
-					emoji: { name: "➡️" },
-					label: t("catalogue.events-next-events", { lng: locale, ns: "features" }),
-					style: ButtonStyle.Secondary,
-				},
-			],
-		},
-	);
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: [
+			{
+				type: ComponentType.Button,
+				custom_id: `${CustomId.CatalogueViewEvents}§${page === 1 ? maximumPage : page - 1}`,
+				emoji: { name: "⬅️" },
+				label: t("catalogue.events-previous-events", { lng: locale, ns: "features" }),
+				style: ButtonStyle.Secondary,
+			},
+			{
+				type: ComponentType.Button,
+				custom_id: `${CustomId.CatalogueViewEvents}§${page === maximumPage ? 1 : page + 1}`,
+				emoji: { name: "➡️" },
+				label: t("catalogue.events-next-events", { lng: locale, ns: "features" }),
+				style: ButtonStyle.Secondary,
+			},
+		],
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1780,17 +1745,10 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 		});
 	}
 
-	containerComponents.push(
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: [backToStartButton(locale)],
-		},
-	);
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: [backToStartButton(locale)],
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1997,12 +1955,6 @@ async function viewSpirit(
 			});
 		}
 	}
-
-	containerComponents.push({
-		type: ComponentType.Separator,
-		divider: true,
-		spacing: SeparatorSpacingSize.Small,
-	});
 
 	if (spirits) {
 		const index = [...spirits.values()].findIndex(({ id }) => id === spirit.id);
@@ -2239,17 +2191,10 @@ async function viewEvent(
 		});
 	}
 
-	containerComponents.push(
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.ActionRow,
-			components: actionRowComponents,
-		},
-	);
+	containerComponents.push({
+		type: ComponentType.ActionRow,
+		components: actionRowComponents,
+	});
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -2332,26 +2277,19 @@ export async function viewStarterPacks(
 	];
 
 	if (catalogue?.show_everything_button) {
-		containerComponents.push(
-			{
-				type: ComponentType.Separator,
-				divider: true,
-				spacing: SeparatorSpacingSize.Small,
-			},
-			{
-				type: ComponentType.ActionRow,
-				components: [
-					{
-						type: ComponentType.Button,
-						custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.StarterPacks}`,
-						disabled: starterPackProgress(catalogue?.data) === 100,
-						emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-						label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-						style: ButtonStyle.Success,
-					},
-				],
-			},
-		);
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.StarterPacks}`,
+					disabled: starterPackProgress(catalogue?.data) === 100,
+					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Success,
+				},
+			],
+		});
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
