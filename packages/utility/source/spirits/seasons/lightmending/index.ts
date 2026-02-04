@@ -31,4 +31,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 	],
+	doubleSeasonalLight: [{ start: skyDate(2026, 2, 27), end: skyDate(2026, 3, 13) }],
 });
