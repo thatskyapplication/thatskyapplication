@@ -3396,6 +3396,22 @@ export enum Cosmetic {
 	// 30/01/2026 | Season of Lightmending Quest 4.
 	LightmendingGuideQuest4 = 2692,
 	LightmendingGuideHeart6 = 2693,
+
+	// 30/01/2026 | Tournament of Triumph.
+	TournamentOfTriumphHeldProp = 2694,
+	TournamentOfTriumphHair = 2695,
+	TournamentSleekSkatingOutfit = 2696,
+	TournamentSleekSkatingShoes = 2697,
+	TournamentCrystallineCape = 2698,
+	TournamentTeamPrairieCape = 2699,
+	TournamentTeamForestCape = 2700,
+	TournamentTeamValleyCape = 2701,
+	TournamentTeamWastelandCape = 2702,
+	TournamentPodium = 2703,
+	TournamentPrairieFlag = 2704,
+	TournamentForestFlag = 2705,
+	TournamentValleyFlag = 2706,
+	TournamentWastelandFlag = 2707,
 }
 
 export enum CosmeticCommon {

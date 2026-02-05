@@ -1,3 +1,4 @@
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventId } from "../../utility/event.js";
@@ -29,4 +30,60 @@ export default new Event({
 			},
 		],
 	},
+	offer: [
+		{
+			cosmetic: Cosmetic.TournamentOfTriumphHeldProp,
+			cost: { eventTickets: 48 },
+		},
+		{
+			translation: CosmeticCommon.Hair,
+			cosmetic: Cosmetic.TournamentOfTriumphHair,
+			cost: { eventTickets: 12 },
+		},
+		{
+			cosmetic: [Cosmetic.TournamentSleekSkatingOutfit, Cosmetic.TournamentSleekSkatingShoes],
+			cost: { money: 14.99 },
+			cosmeticDisplay: Cosmetic.TournamentSleekSkatingOutfit,
+		},
+		{
+			cosmetic: Cosmetic.TournamentCrystallineCape,
+			cost: { money: 19.99 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentTeamPrairieCape,
+			cost: { candles: 49 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentTeamForestCape,
+			cost: { candles: 49 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentTeamValleyCape,
+			cost: { candles: 49 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentTeamWastelandCape,
+			cost: { candles: 49 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentPodium,
+			cost: { candles: 35 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentPrairieFlag,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentForestFlag,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentValleyFlag,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.TournamentWastelandFlag,
+			cost: { candles: 15 },
+		},
+	],
 });
