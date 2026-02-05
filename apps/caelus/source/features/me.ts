@@ -39,7 +39,7 @@ export async function meOverview(
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `## ${t("me.title", { lng: locale, ns: "features" })}`,
+					content: `## [${t("me.title", { lng: locale, ns: "features" })}](https://guide.thatskyapplication.com/caelus/me)`,
 				},
 				{
 					type: ComponentType.Separator,

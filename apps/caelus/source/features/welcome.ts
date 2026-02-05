@@ -193,7 +193,7 @@ export async function welcomeSetup({
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t("welcome.title", { lng: locale, ns: "features" })}`,
+			content: `## [${t("welcome.title", { lng: locale, ns: "features" })}](https://guide.thatskyapplication.com/caelus/welcome)`,
 		},
 		{
 			type: ComponentType.Separator,
