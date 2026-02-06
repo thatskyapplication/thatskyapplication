@@ -173,7 +173,10 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	if (
 		skyMap === SkyMap.JellyfishCove &&
 		currentEvents.some(
-			(event) => event.id === EventId.DaysOfLove2024 || event.id === EventId.DaysOfLove2025,
+			(event) =>
+				event.id === EventId.DaysOfLove2024 ||
+				event.id === EventId.DaysOfLove2025 ||
+				event.id === EventId.DaysOfLove2026,
 		)
 	) {
 		return null;
