@@ -368,6 +368,7 @@
 			"289": "Поймайте 3 огонька в Путях ветра",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
+		"season": "",
 		"seasons": {
 			"0": "Сезон благодарности",
 			"1": "Сезон искателей света",
@@ -428,6 +429,7 @@
 			"26": "",
 			"27": ""
 		},
+		"event": "",
 		"events": {
 			"0": "",
 			"1": "Дни Дарения",
@@ -2521,7 +2523,8 @@
 				"13": "$t(features:schedule.type.13)",
 				"14": "$t(features:schedule.type.14)",
 				"15": "$t(features:schedule.type.15)",
-				"16": "$t(features:schedule.type.16)"
+				"16": "$t(features:schedule.type.16)",
+				"17": "$t(features:schedule.type.17)"
 			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
@@ -2667,8 +2670,6 @@
 			"main-no-progress": "",
 			"main-progress": "",
 			"traversal-string-select-menu-placeholder": "",
-			"current-season-fallback": "",
-			"current-event-fallback": "",
 			"travelling-spirit": "",
 			"returning-spirits": "",
 			"back-to-start-button-label": "",
@@ -2943,7 +2944,8 @@
 				"13": "",
 				"14": "",
 				"15": "",
-				"16": "$t(general:cosmetic-names.2498)"
+				"16": "$t(general:cosmetic-names.2498)",
+				"17": ""
 			},
 			"name": "",
 			"description": "",
@@ -2994,6 +2996,8 @@
 			"detailed-breakdown-passage-wiki-button-url": "",
 			"detailed-breakdown-passage-message": "",
 			"detailed-breakdown-aviarys-firework-festival-message": "",
+			"detailed-breakdown-meteor-shower-message": "",
+			"detailed-breakdown-meteor-shower-message-unavailable": "",
 			"detailed-breakdown-nine-coloured-deer-time-0": "",
 			"detailed-breakdown-nine-coloured-deer-time-120": "",
 			"detailed-breakdown-nine-coloured-deer-time-600": "",
