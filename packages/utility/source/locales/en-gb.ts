@@ -3400,7 +3400,7 @@ export default {
 			"detailed-breakdown-aviarys-firework-festival-message":
 				"Available every 4 hours from {{timestamp}} lasting 10 minutes only on the 1st of a month. See below for a list of dates:\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-meteor-shower-message":
-				"Available during Days of Love every 2 hours from {{timestamp1}} and {{timestamp2}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
+				"Available during Days of Love every hour from {{timestamp1}} and {{timestamp2}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-meteor-shower-message-unavailable":
 				"This event is only active during Days of Love.",
 			"detailed-breakdown-nine-coloured-deer-time-0": "{{timestamp}} (Appears)",
