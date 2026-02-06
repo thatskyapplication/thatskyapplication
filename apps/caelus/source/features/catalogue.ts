@@ -558,7 +558,7 @@ async function start({
 		disabled: !currentSeason,
 		label: currentSeason
 			? t(`seasons.${currentSeason.id}`, { lng: locale, ns: "general" })
-			: t("catalogue.current-season-fallback", { lng: locale, ns: "features" }),
+			: t("season", { lng: locale, ns: "general" }),
 		style: currentSeason ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 
@@ -576,7 +576,7 @@ async function start({
 						style: ButtonStyle.Secondary,
 						// This would not happen, but it's here to satisfy the API.
 						custom_id: CustomId.CatalogueViewEvent,
-						label: t("catalogue.current-event-fallback", { lng: locale, ns: "features" }),
+						label: t("event", { lng: locale, ns: "general" }),
 						disabled: true,
 					},
 				]

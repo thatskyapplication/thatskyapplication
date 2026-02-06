@@ -608,6 +608,7 @@ export default {
 				SkyMap.TheWindPaths,
 			),
 		} satisfies Record<DailyQuests, string>,
+		season: "Season",
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
 			[SeasonId.Lightseekers]: "Season of Lightseekers",
@@ -673,6 +674,7 @@ export default {
 			[SeasonId.Lightmending]:
 				"https://sky-children-of-the-light.fandom.com/Season_of_Lightmending",
 		} satisfies Record<SeasonIds, `https://${string}`>,
+		event: "Event",
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",
 			[EventId.DaysOfGiving2019]: "Days of Giving",
@@ -3013,8 +3015,6 @@ export default {
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
 			"traversal-string-select-menu-placeholder": "Where would you like to go?",
-			"current-season-fallback": "Season",
-			"current-event-fallback": "Event",
 			"travelling-spirit": "Travelling Spirit",
 			"returning-spirits": "Returning Spirits",
 			"back-to-start-button-label": "Start",

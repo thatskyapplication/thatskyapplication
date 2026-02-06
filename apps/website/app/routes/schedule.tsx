@@ -765,12 +765,12 @@ export default function Schedule() {
 										)}
 										{item.kind === "season" && (
 											<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
-												Season
+												{t("season", { ns: "general" })}
 											</span>
 										)}
 										{item.kind === "event" && (
 											<span className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900 px-1.5 py-0.5 rounded">
-												Event
+												{t("event", { ns: "general" })}
 											</span>
 										)}
 									</span>
@@ -833,12 +833,12 @@ export default function Schedule() {
 									)}
 									{item.kind === "season" && (
 										<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
-											Season
+											{t("season", { ns: "general" })}
 										</span>
 									)}
 									{item.kind === "event" && (
 										<span className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900 px-1.5 py-0.5 rounded">
-											Event
+											{t("event", { ns: "general" })}
 										</span>
 									)}
 								</span>
