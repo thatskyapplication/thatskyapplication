@@ -522,6 +522,7 @@ interface DisplayCard {
 	relative: string;
 	end?: string | null | undefined;
 	endRelative?: string | null | undefined;
+	endUnix?: number | null | undefined;
 }
 
 type DisplayCardKind = "season" | "event" | "schedule";
@@ -600,6 +601,7 @@ export default function Schedule() {
 			relative: schedule.relative,
 			end: schedule.end,
 			endRelative: schedule.endRelative,
+			endUnix: "endUnix" in schedule ? schedule.endUnix : undefined,
 		});
 	}
 
@@ -624,6 +626,7 @@ export default function Schedule() {
 			relative: formatRelativeTime(season.end, now, locale),
 			end: new Intl.DateTimeFormat(locale, options).format(season.end.toMillis()),
 			endRelative: formatRelativeTime(season.end, now, locale),
+			endUnix: season.end.toMillis(),
 		});
 	}
 
@@ -646,6 +649,7 @@ export default function Schedule() {
 			next: new Intl.DateTimeFormat(locale, options).format(nextSeason.start.toMillis()),
 			nextUnix: nextSeason.start.toMillis(),
 			relative: formatRelativeTime(nextSeason.start, now, locale),
+			endUnix: nextSeason.end.toMillis(),
 		});
 	}
 
@@ -672,6 +676,7 @@ export default function Schedule() {
 				relative: formatRelativeTime(end, now, locale),
 				end: new Intl.DateTimeFormat(locale, options).format(end.toMillis()),
 				endRelative: formatRelativeTime(end, now, locale),
+				endUnix: end.toMillis(),
 			});
 		} else {
 			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
@@ -693,8 +698,22 @@ export default function Schedule() {
 		}
 	}
 
-	const active = allCards.filter((card) => card.active);
-	const upcoming = allCards.filter((card) => !card.active).sort((a, b) => a.nextUnix - b.nextUnix);
+	const active: DisplayCard[] = [];
+	const upcoming: DisplayCard[] = [];
+
+	for (const card of allCards) {
+		if (card.active) {
+			active.push(card);
+		} else {
+			upcoming.push(card);
+		}
+	}
+
+	active.sort(
+		(a, b) => (b.endUnix ?? Number.POSITIVE_INFINITY) - (a.endUnix ?? Number.POSITIVE_INFINITY),
+	);
+
+	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
 
 	return (
 		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
