@@ -51,7 +51,7 @@ export default function CaelusIndex() {
 				/>
 				<h1 className="text-4xl sm:text-5xl font-bold mb-3">{APPLICATION_NAME}</h1>
 				<p className="text-lg text-gray-500 dark:text-gray-400 max-w-md">
-					Caelus is the Discord application for Sky: Children of the Light.
+					The Discord application for Sky: Children of the Light.
 				</p>
 				<div className="flex gap-3 mt-8">
 					<a
