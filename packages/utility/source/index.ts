@@ -135,6 +135,7 @@ export {
 	grandmaSchedule,
 	INTERNATIONAL_SPACE_STATION_DATES,
 	internationalSpaceStationSchedule,
+	meteorShowerSchedule,
 	nextDailyReset,
 	nextEyeOfEden,
 	nextNestingWorkshop,

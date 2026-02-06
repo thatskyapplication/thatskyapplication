@@ -4,6 +4,7 @@ import {
 	dreamsSkaterSchedule,
 	grandmaSchedule,
 	internationalSpaceStationSchedule,
+	meteorShowerSchedule,
 	nextDailyReset,
 	nextEyeOfEden,
 	nextNestingWorkshop,
@@ -387,6 +388,35 @@ function aviarysFireworkFestivalOverview(
 	};
 }
 
+function meteorShowerOverview(
+	now: DateTime,
+	timeZone: string,
+	locale: string,
+): ScheduleWithEnd<typeof ScheduleType.MeteorShower> | null {
+	const schedule = meteorShowerSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
+
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+	if (schedule.start.diff(now, "days").days > 1) {
+		options.dateStyle = "medium";
+	}
+
+	return {
+		type: ScheduleType.MeteorShower,
+		now: schedule.active,
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.toMillis()),
+		nextUnix: schedule.start.toMillis(),
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, options).format(schedule.end.toMillis()),
+		endUnix: schedule.end.toMillis(),
+		endRelative: formatRelativeTime(schedule.end, now, locale),
+	};
+}
+
 function nineColouredDeerOverview(
 	now: DateTime,
 	timeZone: string,
@@ -540,10 +570,11 @@ export default function Schedule() {
 		passageNext(now, timeZone, locale),
 		aviarysFireworkFestivalOverview(now, timeZone, locale),
 		nineColouredDeerOverview(now, timeZone, locale),
+		meteorShowerOverview(now, timeZone, locale),
 		nestingWorkshopNext(now, timeZone, locale),
 		vaultEldersBlessingOverview(now, timeZone, locale),
 		projectorOfMemoriesOverview(now, timeZone, locale),
-	] satisfies readonly BaseSchedule<ScheduleTypes>[];
+	].filter((schedule) => schedule !== null) satisfies readonly BaseSchedule<ScheduleTypes>[];
 
 	const allCards: DisplayCard[] = [];
 
