@@ -368,6 +368,7 @@
 			"289": "Atrapa las 3 luces en Los Caminos del viento",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
+		"season": "Temporada",
 		"seasons": {
 			"0": "Temporada de la gratitud",
 			"1": "Temporada de los buscadores de la luz",
@@ -428,6 +429,7 @@
 			"26": "",
 			"27": ""
 		},
+		"event": "Evento",
 		"events": {
 			"0": "",
 			"1": "",
@@ -2521,7 +2523,8 @@
 				"13": "$t(features:schedule.type.13)",
 				"14": "$t(features:schedule.type.14)",
 				"15": "$t(features:schedule.type.15)",
-				"16": "$t(features:schedule.type.16)"
+				"16": "$t(features:schedule.type.16)",
+				"17": "$t(features:schedule.type.17)"
 			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
@@ -2667,8 +2670,6 @@
 			"main-no-progress": "Sin progreso",
 			"main-progress": "Progreso: {{number}}%",
 			"traversal-string-select-menu-placeholder": "",
-			"current-season-fallback": "Temporada",
-			"current-event-fallback": "Evento",
 			"travelling-spirit": "Espíritu Viajero",
 			"returning-spirits": "Visitantes especiales",
 			"back-to-start-button-label": "",
@@ -2943,7 +2944,8 @@
 				"13": "",
 				"14": "",
 				"15": "",
-				"16": "$t(general:cosmetic-names.2498)"
+				"16": "$t(general:cosmetic-names.2498)",
+				"17": ""
 			},
 			"name": "",
 			"description": "",
@@ -2994,6 +2996,8 @@
 			"detailed-breakdown-passage-wiki-button-url": "",
 			"detailed-breakdown-passage-message": "",
 			"detailed-breakdown-aviarys-firework-festival-message": "",
+			"detailed-breakdown-meteor-shower-message": "",
+			"detailed-breakdown-meteor-shower-message-unavailable": "",
 			"detailed-breakdown-nine-coloured-deer-time-0": "",
 			"detailed-breakdown-nine-coloured-deer-time-120": "",
 			"detailed-breakdown-nine-coloured-deer-time-600": "",

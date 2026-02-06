@@ -368,6 +368,7 @@
 			"289": "Récupérez les 3 lumières sur les Chemins de vent",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
+		"season": "Saison",
 		"seasons": {
 			"0": "Saison de la gratitude",
 			"1": "Saison des Chercheurs de lumière",
@@ -428,6 +429,7 @@
 			"26": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_la_Migration",
 			"27": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_l'Éclairation"
 		},
+		"event": "Évènement",
 		"events": {
 			"0": "",
 			"1": "Jours du Don",
@@ -2521,7 +2523,8 @@
 				"13": "$t(features:schedule.type.13)",
 				"14": "$t(features:schedule.type.14)",
 				"15": "$t(features:schedule.type.15)",
-				"16": "$t(features:schedule.type.16)"
+				"16": "$t(features:schedule.type.16)",
+				"17": "$t(features:schedule.type.17)"
 			},
 			"command-option-hide-name": "cacher",
 			"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
@@ -2667,8 +2670,6 @@
 			"main-no-progress": "Aucun progrès",
 			"main-progress": "Progrès : {{number}}%",
 			"traversal-string-select-menu-placeholder": "",
-			"current-season-fallback": "Saison",
-			"current-event-fallback": "Évènement",
 			"travelling-spirit": "Esprit voyageur",
 			"returning-spirits": "Esprits de retour",
 			"back-to-start-button-label": "Début",
@@ -2953,7 +2954,8 @@
 				"13": "Cerf aux neuf couleurs",
 				"14": "Atelier de la Nidification",
 				"15": "Bénédiction de l'Ancienne de la Chambre forte",
-				"16": "$t(general:cosmetic-names.2498)"
+				"16": "$t(general:cosmetic-names.2498)",
+				"17": ""
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des évènements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
@@ -3004,6 +3006,8 @@
 			"detailed-breakdown-passage-wiki-button-url": "",
 			"detailed-breakdown-passage-message": "Disponible toutes les 15 minutes à partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-aviarys-firework-festival-message": "Disponible toutes les 4 heures à partir du {{timestamp}} et dure 10 minutes, uniquement le 1er du mois. Voir ci-dessous une liste des dates :\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-meteor-shower-message": "",
+			"detailed-breakdown-meteor-shower-message-unavailable": "",
 			"detailed-breakdown-nine-coloured-deer-time-0": "{{timestamp}} (Apparaît)",
 			"detailed-breakdown-nine-coloured-deer-time-120": "{{timestamp}} (Marche)",
 			"detailed-breakdown-nine-coloured-deer-time-600": "{{timestamp}} (Raies mantas et méduse apparaissent)",

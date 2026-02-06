@@ -368,6 +368,7 @@
 			"289": "在風之大道收集 3 道光",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
+		"season": "季節",
 		"seasons": {
 			"0": "感恩季",
 			"1": "追光季",
@@ -428,6 +429,7 @@
 			"26": "",
 			"27": ""
 		},
+		"event": "活動",
 		"events": {
 			"0": "搗蛋節辦公室活動",
 			"1": "贈與節",
@@ -2521,7 +2523,8 @@
 				"13": "$t(features:schedule.type.13)",
 				"14": "$t(features:schedule.type.14)",
 				"15": "$t(features:schedule.type.15)",
-				"16": "$t(features:schedule.type.16)"
+				"16": "$t(features:schedule.type.16)",
+				"17": "$t(features:schedule.type.17)"
 			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
@@ -2667,8 +2670,6 @@
 			"main-no-progress": "沒有進展",
 			"main-progress": "進度: {{number}}%",
 			"traversal-string-select-menu-placeholder": "",
-			"current-season-fallback": "季節",
-			"current-event-fallback": "活動",
 			"travelling-spirit": "旅行先靈",
 			"returning-spirits": "復刻先靈",
 			"back-to-start-button-label": "",
@@ -2943,7 +2944,8 @@
 				"13": "",
 				"14": "",
 				"15": "",
-				"16": "$t(general:cosmetic-names.2498)"
+				"16": "$t(general:cosmetic-names.2498)",
+				"17": ""
 			},
 			"name": "",
 			"description": "",
@@ -2994,6 +2996,8 @@
 			"detailed-breakdown-passage-wiki-button-url": "",
 			"detailed-breakdown-passage-message": "",
 			"detailed-breakdown-aviarys-firework-festival-message": "",
+			"detailed-breakdown-meteor-shower-message": "",
+			"detailed-breakdown-meteor-shower-message-unavailable": "",
 			"detailed-breakdown-nine-coloured-deer-time-0": "",
 			"detailed-breakdown-nine-coloured-deer-time-120": "",
 			"detailed-breakdown-nine-coloured-deer-time-600": "",

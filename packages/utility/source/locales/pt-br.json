@@ -368,6 +368,7 @@
 			"289": "Capture as 3 luzes nas Trilhas do Vento",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})"
 		},
+		"season": "Temporada",
 		"seasons": {
 			"0": "Temporada da Gratidão",
 			"1": "Temporada dos Caçadores de Luz",
@@ -428,6 +429,7 @@
 			"26": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Migração",
 			"27": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Restauração_da_Luz"
 		},
+		"event": "Evento",
 		"events": {
 			"0": "Evento de Halloween do Escritório",
 			"1": "Dias de Presentear",
@@ -2521,7 +2523,8 @@
 				"13": "$t(features:schedule.type.13)",
 				"14": "$t(features:schedule.type.14)",
 				"15": "$t(features:schedule.type.15)",
-				"16": "$t(features:schedule.type.16)"
+				"16": "$t(features:schedule.type.16)",
+				"17": "$t(features:schedule.type.17)"
 			},
 			"command-option-hide-name": "ocultar",
 			"command-option-hide-description": "Certifique-se de que só você veja a resposta."
@@ -2667,8 +2670,6 @@
 			"main-no-progress": "Sem progresso",
 			"main-progress": "Progresso: {{number}}%",
 			"traversal-string-select-menu-placeholder": "Para onde você gostaria de ir?",
-			"current-season-fallback": "Temporada",
-			"current-event-fallback": "Evento",
 			"travelling-spirit": "Espírito Viajante",
 			"returning-spirits": "Espíritos Retornantes",
 			"back-to-start-button-label": "Início",
@@ -2953,7 +2954,8 @@
 				"13": "Cervo de nove cores",
 				"14": "Oficina do Ninho",
 				"15": "Benção do Ancião do Relicário",
-				"16": "$t(general:cosmetic-names.2498)"
+				"16": "$t(general:cosmetic-names.2498)",
+				"17": ""
 			},
 			"name": "Programação",
 			"description": "Veja a programação de eventos como: o gêiser poluído, a vovó, a tartaruga, a bênção do Ancião do Relicário e muito mais!",
@@ -3004,6 +3006,8 @@
 			"detailed-breakdown-passage-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Passagem#Miss%C3%B5es_de_Mem%C3%B3ria_Espiritual",
 			"detailed-breakdown-passage-message": "Disponível a cada 15 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-aviarys-firework-festival-message": "Disponível a cada 4 horas a partir de {{timestamp}}, com duração de 10 minutos, somente no primeiro dia do mês. Veja abaixo a lista de datas:\n{{timestamps}}\n\n{{status}}",
+			"detailed-breakdown-meteor-shower-message": "",
+			"detailed-breakdown-meteor-shower-message-unavailable": "",
 			"detailed-breakdown-nine-coloured-deer-time-0": "{{timestamp}} (Aparece)",
 			"detailed-breakdown-nine-coloured-deer-time-120": "{{timestamp}} (Caminha)",
 			"detailed-breakdown-nine-coloured-deer-time-600": "{{timestamp}} (Arraias e águas-vivas aparecem)",
