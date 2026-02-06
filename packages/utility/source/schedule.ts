@@ -1,6 +1,8 @@
 import type { DateTime } from "luxon";
+import { skyNotEndedEvents } from "./events/index.js";
 import { shardEruption } from "./shard-eruption.js";
 import { TRAVELLING_DATES } from "./spirits/seasons/index.js";
+import { EventId } from "./utility/event.js";
 
 export const ScheduleType = {
 	DailyReset: 0,
@@ -20,6 +22,7 @@ export const ScheduleType = {
 	NestingWorkshop: 14,
 	VaultEldersBlessing: 15,
 	ProjectorOfMemories: 16,
+	MeteorShower: 17,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
@@ -164,6 +167,39 @@ export function aviarysFireworkFestivalSchedule(date: DateTime) {
 					.set({ hour: hour % 4 === 0 ? (minute < 10 ? hour : hour + 4) : hour + (4 - (hour % 4)) })
 					.startOf("hour")
 			: date.plus({ month: 1 }).startOf("month");
+
+	const end = start.plus({ minutes: 10 });
+	const active = date >= start && date < end;
+	return { start, end, active };
+}
+
+export function meteorShowerSchedule(date: DateTime) {
+	const events = skyNotEndedEvents(date).filter(
+		(event) =>
+			event.id === EventId.DaysOfLove2024 ||
+			event.id === EventId.DaysOfLove2025 ||
+			event.id === EventId.DaysOfLove2026,
+	);
+
+	if (events.size === 0) {
+		return null;
+	}
+
+	const activeEvent = events.find(({ start }) => date >= start);
+
+	if (!activeEvent) {
+		const soonest = events.reduce((a, b) => (a.start < b.start ? a : b));
+		const start = soonest.start.set({ minute: 5 }).startOf("minute");
+		const end = start.plus({ minutes: 10 });
+		return { start, end, active: false };
+	}
+
+	const { minute } = date;
+	const start = date.set({ minute: minute < 15 ? 5 : minute < 45 ? 35 : 65 }).startOf("minute");
+
+	if (start >= activeEvent.end) {
+		return null;
+	}
 
 	const end = start.plus({ minutes: 10 });
 	const active = date >= start && date < end;
