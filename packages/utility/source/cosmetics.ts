@@ -3412,6 +3412,9 @@ export enum Cosmetic {
 	TournamentForestFlag = 2705,
 	TournamentValleyFlag = 2706,
 	TournamentWastelandFlag = 2707,
+
+	// 06/02/2026 | Season of Lightmending Quest 5.
+	LightmendingGuideQuest5 = 2708,
 }
 
 export enum CosmeticCommon {
