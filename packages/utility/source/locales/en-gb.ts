@@ -3304,6 +3304,11 @@ export default {
 					"message-future": "The Nesting Workshop's stock will refresh {{timestamp}}!",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
+			"edit-information":
+				"Choose a channel for the notification to be sent in, a role to be mentioned, and an offset which indicates how many minutes before the event the notification will be sent.",
+			"edit-channel-channel-select-menu-placeholder": "Select a channel.",
+			"edit-role-role-select-menu-placeholder": "Select a role.",
+			"edit-offset-string-select-menu-placeholder": "Select an offset.",
 		},
 		schedule: {
 			type: {
