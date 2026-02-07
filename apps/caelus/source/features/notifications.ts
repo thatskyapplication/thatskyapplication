@@ -334,7 +334,10 @@ export async function displayNotificationType(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: "You may choose a channel, role, and offset.",
+						content: t("notifications.edit-information", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -349,7 +352,10 @@ export async function displayNotificationType(
 									: [],
 								max_values: 1,
 								min_values: 0,
-								placeholder: "Select a channel.",
+								placeholder: t("notifications.edit-channel-channel-select-menu-placeholder", {
+									lng: interaction.locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
@@ -364,7 +370,10 @@ export async function displayNotificationType(
 									: [],
 								max_values: 1,
 								min_values: 0,
-								placeholder: "Select a role.",
+								placeholder: t("notifications.edit-role-role-select-menu-placeholder", {
+									lng: interaction.locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
@@ -377,7 +386,10 @@ export async function displayNotificationType(
 								options: stringSelectMenuOptions,
 								max_values: 1,
 								min_values: 0,
-								placeholder: "Select an offset.",
+								placeholder: t("notifications.edit-offset-string-select-menu-placeholder", {
+									lng: interaction.locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
