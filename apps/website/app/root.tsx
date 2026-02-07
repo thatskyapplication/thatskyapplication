@@ -144,7 +144,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	}, [locale, i18n]);
 
 	return (
-		<ConditionalLayout locale={locale} user={user}>
+		<ConditionalLayout user={user}>
 			<Outlet />
 		</ConditionalLayout>
 	);

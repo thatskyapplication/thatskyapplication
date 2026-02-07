@@ -3335,6 +3335,8 @@ export default {
 			description:
 				"See a schedule of events such as the polluted geyser, grandma, turtle, Vault Elder's blessing, and more!",
 			"description-short": "View a schedule of events in Sky.",
+			"local-time-notice": "All times are shown in your local time.",
+			"sky-time": "Sky time",
 			"overview-active": "Active",
 			"overview-available": "{{emoji}} Available!",
 			"overview-upcoming": "Upcoming",

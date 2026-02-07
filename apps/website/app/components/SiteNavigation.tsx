@@ -6,12 +6,11 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import { type NavigationGroup, useNavigationGroups } from "~/hooks/navigation-groups";
 import { APPLICATION_NAME, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
-import { avatarURL, timeString } from "~/utility/functions";
+import { avatarURL } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
 
 interface SiteTopBarProps {
 	user: DiscordUser | null;
-	locale: string;
 }
 
 interface UserMenuProps {
@@ -22,47 +21,6 @@ interface MobileMenuProps {
 	isOpen: boolean;
 	onClose: () => void;
 	user?: DiscordUser | null;
-}
-
-interface TimeDisplayProps {
-	locale: string;
-}
-
-function TimeDisplay({ locale }: TimeDisplayProps) {
-	const [currentTime, setCurrentTime] = useState(() => timeString(locale));
-	const [error, setError] = useState<string | null>(null);
-
-	useEffect(() => {
-		const updateTime = () => {
-			try {
-				const time = timeString(locale);
-				setCurrentTime(time);
-				setError(null);
-			} catch (error) {
-				setError("Time unavailable.");
-				console.warn("Failed to update time.", error);
-			}
-		};
-
-		updateTime();
-		const interval = setInterval(updateTime, 1000);
-		return () => clearInterval(interval);
-	}, [locale]);
-
-	if (error) {
-		return (
-			<div className="text-sm font-mono text-red-400" title={error}>
-				--:--
-			</div>
-		);
-	}
-
-	return (
-		<div className="text-sm font-mono text-gray-600 dark:text-gray-400">
-			<div className="hidden lg:block">{currentTime.lg}</div>
-			<div className="lg:hidden">{currentTime.sm}</div>
-		</div>
-	);
 }
 
 function UserMenu({ user }: UserMenuProps) {
@@ -417,7 +375,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	);
 }
 
-export function SiteTopBar({ user, locale }: SiteTopBarProps) {
+export function SiteTopBar({ user }: SiteTopBarProps) {
 	const location = useLocation();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const navigationGroups = useNavigationGroups();
@@ -483,7 +441,6 @@ export function SiteTopBar({ user, locale }: SiteTopBarProps) {
 							</nav>
 						</div>
 						<div className="flex items-center gap-4">
-							<TimeDisplay locale={locale} />
 							<div className="hidden md:flex">
 								{user ? <UserMenu user={user} /> : <LoginButton />}
 							</div>

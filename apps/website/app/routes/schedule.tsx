@@ -26,7 +26,7 @@ import {
 	vaultEldersBlessingSchedule,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { ExternalLinkIcon } from "lucide-react";
+import { Clock, ExternalLinkIcon } from "lucide-react";
 import type { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -531,6 +531,7 @@ export default function Schedule() {
 	const { locale, timeZone } = useLoaderData<typeof loader>();
 	const { t } = useTranslation();
 	const [, setCurrentTime] = useState(() => Date.now());
+	const [isScrolled, setIsScrolled] = useState(false);
 
 	useEffect(() => {
 		let timeout: NodeJS.Timeout | null = null;
@@ -552,6 +553,13 @@ export default function Schedule() {
 				clearTimeout(timeout);
 			}
 		};
+	}, []);
+
+	useEffect(() => {
+		const handleScroll = () => setIsScrolled(window.scrollY > 50);
+		handleScroll();
+		window.addEventListener("scroll", handleScroll, { passive: true });
+		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
 	const now = skyNow();
@@ -715,9 +723,51 @@ export default function Schedule() {
 
 	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
 
+	const currentTimestamp = Date.now();
+
+	const localTime = new Intl.DateTimeFormat(locale, {
+		hour: "2-digit",
+		minute: "2-digit",
+		timeZoneName: "short",
+	}).format(currentTimestamp);
+
+	const skyTime = new Intl.DateTimeFormat(locale, {
+		timeZone: TIME_ZONE,
+		hour: "2-digit",
+		minute: "2-digit",
+		timeZoneName: "short",
+	}).format(currentTimestamp);
+
 	return (
 		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
 			<div className="w-full max-w-2xl space-y-4">
+				<div
+					className={`sticky top-24 md:top-28 z-20 flex gap-3 transition-opacity duration-300 ${isScrolled ? "opacity-60 hover:opacity-100" : ""}`}
+				>
+					<div className="flex-1 flex items-center gap-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg px-3 py-2">
+						<Clock className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" />
+						<div>
+							<div className="text-sm font-mono font-medium text-gray-900 dark:text-gray-100 leading-tight">
+								{localTime}
+							</div>
+							<div className="text-[11px] text-gray-400 dark:text-gray-500 leading-tight">
+								{t("schedule.local-time-notice", { ns: "features" })}
+							</div>
+						</div>
+					</div>
+					<div
+						className="flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg px-3 py-2"
+						title={t("schedule.sky-time", { ns: "features" })}
+					>
+						<div
+							className="h-4 w-4 shrink-0 rounded-[22.37%] bg-cover bg-center"
+							style={{
+								backgroundImage: "url(https://cdn.thatskyapplication.com/assets/sky_logo.webp)",
+							}}
+						/>
+						<div className="text-xs font-mono text-gray-500 dark:text-gray-400">{skyTime}</div>
+					</div>
+				</div>
 				{/* Active. */}
 				{active.length > 0 && (
 					<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-4">
