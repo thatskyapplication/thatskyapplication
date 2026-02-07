@@ -3334,6 +3334,8 @@ export enum Cosmetic {
 	LightmendingGuideUltimateCape = 2637,
 	LightmendingGuideHeart4 = 2638,
 	LightmendingGuideHeart5 = 2639,
+	LightmendingGuideHeart6 = 2693,
+	LightmendingGuideHeart7 = 2709,
 	FriendActionRevolvingDance1 = 2640,
 	LightmendingChampionBlessing1 = 2641,
 	LightmendingChampionMask = 2642,
@@ -3395,7 +3397,6 @@ export enum Cosmetic {
 
 	// 30/01/2026 | Season of Lightmending Quest 4.
 	LightmendingGuideQuest4 = 2692,
-	LightmendingGuideHeart6 = 2693,
 
 	// 30/01/2026 | Tournament of Triumph.
 	TournamentOfTriumphHeldProp = 2694,

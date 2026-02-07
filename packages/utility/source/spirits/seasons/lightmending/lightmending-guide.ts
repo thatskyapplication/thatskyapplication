@@ -87,9 +87,17 @@ export default new GuideSpirit({
 					translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
 					cosmetic: Cosmetic.LightmendingGuideHeart5,
 				},
+			],
+			[null],
+			[
+				null,
 				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 6 },
 					cosmetic: Cosmetic.LightmendingGuideHeart6,
+				},
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 7 },
+					cosmetic: Cosmetic.LightmendingGuideHeart7,
 				},
 			],
 		],
