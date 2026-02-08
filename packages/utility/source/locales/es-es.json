@@ -2924,7 +2924,11 @@
 					"message-now": "¡El stock en el Taller de Anidación se ha actualizado!",
 					"message-future": "¡El stock en el Taller de Anidación se actualizará {{timestamp}}!"
 				}
-			}
+			},
+			"edit-information": "",
+			"edit-channel-channel-select-menu-placeholder": "",
+			"edit-role-role-select-menu-placeholder": "",
+			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
 			"type": {
@@ -2950,6 +2954,8 @@
 			"name": "",
 			"description": "",
 			"description-short": "",
+			"local-time-notice": "",
+			"sky-time": "",
 			"overview-active": "",
 			"overview-available": "",
 			"overview-upcoming": "",
