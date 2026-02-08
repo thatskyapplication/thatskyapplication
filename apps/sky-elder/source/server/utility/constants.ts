@@ -18,8 +18,6 @@ export const REDIS_POST_FLAIRS_KEY = "post-flairs" as const;
 export const REDIS_POST_FLAIRS_BY_POST_KEY = "post-flairs-by-post" as const;
 export const REDIS_POST_FLAIRS_MESSAGE_ID_KEY = "post-flairs-message-id" as const;
 
-export const REDIS_WIDGET_DAILY_GUIDES_KEY = "widget-daily-guides" as const;
-
 // Miscellaneous.
 export const COMMENT_SUBMIT_COLOUR = 0x4de063 as const;
 export const COMMENT_DELETE_COLOUR = 0xdf0a0e as const;
