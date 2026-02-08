@@ -2934,7 +2934,11 @@
 					"message-now": "Les stocks de l'Atelier de la Nidification ont été rafraichis !",
 					"message-future": "Les stocks de l'Atelier de la Nidification seront rafraichis {{timestamp}} !"
 				}
-			}
+			},
+			"edit-information": "",
+			"edit-channel-channel-select-menu-placeholder": "",
+			"edit-role-role-select-menu-placeholder": "",
+			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
 			"type": {
@@ -2960,6 +2964,8 @@
 			"name": "Calendrier",
 			"description": "Voir les horaires des évènements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
 			"description-short": "Voir un détail horaire des évènements dans Sky.",
+			"local-time-notice": "",
+			"sky-time": "",
 			"overview-active": "Actif",
 			"overview-available": "{{emoji}} Disponible !",
 			"overview-upcoming": "À venir",

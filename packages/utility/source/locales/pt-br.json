@@ -2934,7 +2934,11 @@
 					"message-now": "A Oficina do Ninho foi atualizada!",
 					"message-future": "A Oficina do Ninho vai atualizar {{timestamp}}!"
 				}
-			}
+			},
+			"edit-information": "",
+			"edit-channel-channel-select-menu-placeholder": "",
+			"edit-role-role-select-menu-placeholder": "",
+			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
 			"type": {
@@ -2960,6 +2964,8 @@
 			"name": "Programação",
 			"description": "Veja a programação de eventos como: o gêiser poluído, a vovó, a tartaruga, a bênção do Ancião do Relicário e muito mais!",
 			"description-short": "Ver a programação de eventos em Sky.",
+			"local-time-notice": "",
+			"sky-time": "",
 			"overview-active": "Ativo",
 			"overview-available": "{{emoji}} Disponível!",
 			"overview-upcoming": "Está por vir",
