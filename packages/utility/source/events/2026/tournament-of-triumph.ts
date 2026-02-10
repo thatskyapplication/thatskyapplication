@@ -6,13 +6,25 @@ import { EventId } from "../../utility/event.js";
 const eventTicketAmount: EventTicketsAmountData[] = [];
 
 for (
-	let start = skyDate(2026, 1, 30), end = skyDate(2026, 2, 13);
+	let start = skyDate(2026, 1, 30), end = skyDate(2026, 2, 10);
 	start < end;
 	start = start.plus({ days: 1 })
 ) {
 	eventTicketAmount.push({
 		date: start,
 		amount: 5,
+	});
+}
+
+// Tournament ended, so no event ticket light is given for choosing a team.
+for (
+	let start = skyDate(2026, 2, 10), end = skyDate(2026, 2, 13);
+	start < end;
+	start = start.plus({ days: 1 })
+) {
+	eventTicketAmount.push({
+		date: start,
+		amount: 3,
 	});
 }
 
