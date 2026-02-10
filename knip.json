@@ -6,7 +6,7 @@
 		"apps/{notifications,socials}": {
 			"entry": "source/sentry.ts"
 		},
-		"apps/caelus": {
+		"apps/caelus/discord": {
 			"entry": "source/sentry.ts",
 			"ignoreMembers": [
 				"StandardSpirits",
@@ -35,6 +35,9 @@
 				"WelcomeAccentColourModal",
 				"WelcomeAccentColourModalAccentColour"
 			]
+		},
+		"apps/caelus/fluxer": {
+			"ignoreDependencies": ["@thatskyapplication/utility"]
 		},
 		"apps/sky-elder": {
 			"entry": ["source/server/index.ts", "source/server/vite.config.ts"]

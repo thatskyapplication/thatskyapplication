@@ -20,10 +20,10 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_CAELUS}
       POSTGRES_HOST: ${POSTGRES_HOST}
       S3_BUCKET: ${S3_BUCKET}
-  thatskyapplication-caelus:
-    image: thatskyapplication-caelus:latest
+  thatskyapplication-caelus-discord:
+    image: thatskyapplication-caelus-discord:latest
     profiles:
-      - thatskyapplication-caelus
+      - thatskyapplication-caelus-discord
     restart: unless-stopped
     logging:
       driver: local
@@ -55,6 +55,19 @@ services:
       S3_ACCOUNT_ID: ${S3_ACCOUNT_ID}
       S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
       SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME}
+  thatskyapplication-caelus-fluxer:
+    image: thatskyapplication-caelus-fluxer:latest
+    profiles:
+      - thatskyapplication-caelus-fluxer
+    restart: unless-stopped
+    logging:
+      driver: local
+      options:
+        max-size: 1m
+        max-file: 1
+        compress: "false"
+    environment:
+      FLUXER_TOKEN: ${FLUXER_TOKEN}
   thatskyapplication-notifications:
     image: thatskyapplication-notifications:latest
     profiles:

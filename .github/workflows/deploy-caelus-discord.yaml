@@ -1,15 +1,15 @@
-name: Deploy Caelus
+name: Deploy Caelus (Discord)
 on:
   push:
     branches:
       - main
     paths:
-      - apps/caelus/**/*
+      - apps/caelus/discord/**/*
       # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/spirits/**/*
   workflow_dispatch:
 concurrency:
-  group: deploy-caelus
+  group: deploy-caelus-discord
   cancel-in-progress: true
 permissions:
   contents: read
@@ -27,12 +27,12 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: apps/caelus/Dockerfile
-          tags: thatskyapplication-caelus:latest
+          file: apps/caelus/discord/Dockerfile
+          tags: thatskyapplication-caelus-discord:latest
           load: true
           platforms: linux/amd64
-          cache-from: type=gha,scope=deploy-thatskyapplication-caelus
-          cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-caelus
+          cache-from: type=gha,scope=deploy-thatskyapplication-caelus-discord
+          cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-caelus-discord
           build-args: SENTRY_RELEASE=${{ github.sha }}
         env:
           DOCKER_BUILD_SUMMARY: false
@@ -41,9 +41,9 @@ jobs:
       - name: Deploy via Uncloud
         uses: thatskyapplication/uncloud-action@v1
         with:
-          image-tag: thatskyapplication-caelus:latest
+          image-tag: thatskyapplication-caelus-discord:latest
           compose-files: compose.yaml
-          uncloud-profile: thatskyapplication-caelus
+          uncloud-profile: thatskyapplication-caelus-discord
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
           server-user: ${{ secrets.SERVER_USER }}
           server-host: ${{ secrets.SERVER_IP }}
