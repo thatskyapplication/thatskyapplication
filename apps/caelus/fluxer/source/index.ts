@@ -1,31 +1,17 @@
-import {
-	Client,
-	GatewayDispatchEvents,
-	type RESTGetAPIGatewayBotResult,
-	Routes,
-} from "@discordjs/core";
-import { REST } from "@discordjs/rest";
-import { WebSocketManager } from "@discordjs/ws";
-import { FLUXER_TOKEN } from "./utility/configuration.js";
+import { GatewayDispatchEvents } from "@discordjs/core";
+import { COMMANDS } from "./commands/index.js";
+import { client, gateway } from "./fluxer.js";
 
-const rest = new REST({
-	api: "https://api.fluxer.app",
-	version: "1",
-}).setToken(FLUXER_TOKEN);
+client.on(GatewayDispatchEvents.MessageCreate, async ({ data }) => {
+	if (!data.content.startsWith("/")) {
+		return;
+	}
 
-const gateway = new WebSocketManager({
-	token: FLUXER_TOKEN,
-	intents: 0,
-	fetchGatewayInformation: () =>
-		rest.get(Routes.gatewayBot()) as Promise<RESTGetAPIGatewayBotResult>,
-	version: "1",
-});
+	const name = data.content.slice(1).split(/\s/)[0];
+	const command = COMMANDS.find((command) => command.names.includes(name!));
 
-export const client = new Client({ rest, gateway });
-
-client.on(GatewayDispatchEvents.MessageCreate, async ({ api, data }) => {
-	if (data.content === "ping") {
-		await api.channels.createMessage(data.channel_id, { content: "pong" });
+	if (command) {
+		await command.execute(data);
 	}
 });
 

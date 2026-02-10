@@ -36,9 +36,6 @@
 				"WelcomeAccentColourModalAccentColour"
 			]
 		},
-		"apps/caelus/fluxer": {
-			"ignoreDependencies": ["@thatskyapplication/utility"]
-		},
 		"apps/sky-elder": {
 			"entry": ["source/server/index.ts", "source/server/vite.config.ts"]
 		},
