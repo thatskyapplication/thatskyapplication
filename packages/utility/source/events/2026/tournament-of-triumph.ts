@@ -40,6 +40,13 @@ export default new Event({
 				start: skyDate(2026, 1, 30),
 				end: skyDate(2026, 2, 12),
 			},
+			// Compensation due to an issue where no event ticket light was given after the tournament ended.
+			// It was made available in the box that provides free blessings.
+			{
+				amount: 10,
+				start: skyDate(2026, 1, 11),
+				end: skyDate(2026, 2, 12),
+			},
 		],
 	},
 	offer: [
