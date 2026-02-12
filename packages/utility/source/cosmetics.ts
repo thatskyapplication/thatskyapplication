@@ -3419,6 +3419,16 @@ export enum Cosmetic {
 
 	// 13/02/2026 | Season of Lightmending Quest 6.
 	LightmendingGuideQuest6 = 2710,
+
+	// 13/02/2026 | Days of Fortune.
+	// Double-check these!
+	DaysOfFortune2026Mask = 2711,
+	DaysOfFortune2026Cape = 2712,
+	DaysOfFortune2026CarosuelMusicBox = 2713,
+	FortunePlushMount = 2714,
+	FortunePleatedDress = 2715,
+	FortuneRibbonedPonytail = 2716,
+	FortuneTokenGlasses = 2717,
 }
 
 export enum CosmeticCommon {

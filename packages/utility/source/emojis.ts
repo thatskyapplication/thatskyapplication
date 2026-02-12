@@ -8836,6 +8836,13 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.TournamentWastelandFlag]: null,
 		[Cosmetic.LightmendingGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.DaysOfFortune2026Mask]: null,
+		[Cosmetic.DaysOfFortune2026Cape]: null,
+		[Cosmetic.DaysOfFortune2026CarosuelMusicBox]: null,
+		[Cosmetic.FortunePlushMount]: null,
+		[Cosmetic.FortunePleatedDress]: null,
+		[Cosmetic.FortuneRibbonedPonytail]: null,
+		[Cosmetic.FortuneTokenGlasses]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
