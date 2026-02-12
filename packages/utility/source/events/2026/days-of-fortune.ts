@@ -34,13 +34,16 @@ export default new Event({
 		{
 			translation: CosmeticCommon.Mask,
 			cosmetic: Cosmetic.DaysOfFortune2026Mask,
+			cost: { eventTickets: 12 },
 		},
 		{
 			translation: CosmeticCommon.Cape,
 			cosmetic: Cosmetic.DaysOfFortune2026Cape,
+			cost: { eventTickets: 48 },
 		},
 		{
 			cosmetic: Cosmetic.DaysOfFortune2026CarosuelMusicBox,
+			cost: { hearts: 22 },
 		},
 		{
 			cosmetic: Cosmetic.FortunePlushMount,
