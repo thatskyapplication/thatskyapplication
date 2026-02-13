@@ -3421,7 +3421,6 @@ export enum Cosmetic {
 	LightmendingGuideQuest6 = 2710,
 
 	// 13/02/2026 | Days of Fortune.
-	// Double-check these!
 	DaysOfFortune2026Mask = 2711,
 	DaysOfFortune2026Cape = 2712,
 	DaysOfFortune2026CarosuelMusicBox = 2713,
