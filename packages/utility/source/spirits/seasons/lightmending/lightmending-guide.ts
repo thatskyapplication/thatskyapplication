@@ -68,7 +68,12 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.LightmendingGuideHeart3,
 				},
 			],
-			[null],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 6 },
+					cosmetic: Cosmetic.LightmendingGuideQuest6,
+				},
+			],
 			[
 				null,
 				{

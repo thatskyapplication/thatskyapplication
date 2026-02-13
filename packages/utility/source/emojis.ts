@@ -8835,6 +8835,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.TournamentValleyFlag]: null,
 		[Cosmetic.TournamentWastelandFlag]: null,
 		[Cosmetic.LightmendingGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.LightmendingGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
