@@ -2675,7 +2675,7 @@ export default {
 			[Cosmetic.TournamentForestFlag]: "Tournament Forest Flag",
 			[Cosmetic.TournamentValleyFlag]: "Tournament Valley Flag",
 			[Cosmetic.TournamentWastelandFlag]: "Tournament Wasteland Flag",
-			[Cosmetic.DaysOfFortune2026CarosuelMusicBox]: "Prop", // Double-check this!
+			[Cosmetic.DaysOfFortune2026CarosuelMusicBox]: "Prop",
 			[Cosmetic.FortunePlushMount]: "Fortune Plush Mount",
 			[Cosmetic.FortunePleatedDress]: "Fortune Pleated Dress",
 			[Cosmetic.FortuneRibbonedPonytail]: "Fortune Ribboned Ponytail",
