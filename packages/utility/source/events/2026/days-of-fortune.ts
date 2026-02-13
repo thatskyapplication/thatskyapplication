@@ -42,7 +42,7 @@ export default new Event({
 			cost: { eventTickets: 48 },
 		},
 		{
-			cosmetic: Cosmetic.DaysOfFortune2026CarosuelMusicBox,
+			cosmetic: Cosmetic.DaysOfFortune2026CarouselMusicBox,
 			cost: { hearts: 22 },
 		},
 		{

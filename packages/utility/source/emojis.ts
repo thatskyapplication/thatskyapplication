@@ -8873,7 +8873,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.LightmendingGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.DaysOfFortune2026Mask]: MASK_EMOJIS.Mask110,
 		[Cosmetic.DaysOfFortune2026Cape]: CAPE_EMOJIS.Cape176,
-		[Cosmetic.DaysOfFortune2026CarosuelMusicBox]:
+		[Cosmetic.DaysOfFortune2026CarouselMusicBox]:
 			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp105,
 		[Cosmetic.FortunePlushMount]: HELD_PROPS_EMOJIS.HeldProp61,
 		[Cosmetic.FortunePleatedDress]: OUTFIT_EMOJIS.Outfit101,
