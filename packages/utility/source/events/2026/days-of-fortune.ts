@@ -1,3 +1,4 @@
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventId } from "../../utility/event.js";
@@ -29,4 +30,36 @@ export default new Event({
 			},
 		],
 	},
+	offer: [
+		{
+			translation: CosmeticCommon.Mask,
+			cosmetic: Cosmetic.DaysOfFortune2026Mask,
+			cost: { eventTickets: 12 },
+		},
+		{
+			translation: CosmeticCommon.Cape,
+			cosmetic: Cosmetic.DaysOfFortune2026Cape,
+			cost: { eventTickets: 48 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfFortune2026CarouselMusicBox,
+			cost: { hearts: 22 },
+		},
+		{
+			cosmetic: Cosmetic.FortunePlushMount,
+			cost: { money: 19.99 },
+		},
+		{
+			cosmetic: Cosmetic.FortunePleatedDress,
+			cost: { money: 9.99 },
+		},
+		{
+			cosmetic: Cosmetic.FortuneRibbonedPonytail,
+			cost: { money: 4.99 },
+		},
+		{
+			cosmetic: Cosmetic.FortuneTokenGlasses,
+			cost: { money: 2.99 },
+		},
+	],
 });

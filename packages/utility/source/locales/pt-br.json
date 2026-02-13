@@ -2327,7 +2327,12 @@
 			"2704": "Bandeira de Campina do Torneio",
 			"2705": "Bandeira de Floresta do Torneio",
 			"2706": "Bandeira de Vale do Torneio",
-			"2707": "Bandeira de Sertão do Torneio"
+			"2707": "Bandeira de Sertão do Torneio",
+			"2713": "",
+			"2714": "Montaria de Pelúcia da Felicidade",
+			"2715": "Vestido Plissado da Felicidade",
+			"2716": "Rabo de Cavalo com Fita da Felicidade",
+			"2717": "Óculos de Moeda da Felicidade"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",

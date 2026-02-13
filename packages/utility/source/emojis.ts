@@ -1115,6 +1115,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Tournament Sleek Skating Set.
 	 */
 	Outfit100: { id: "1469073919960154173", name: "100_outfit" },
+	/**
+	 * Fortune Pleated Dress.
+	 */
+	Outfit101: { id: "1471652521775861810", name: "101_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1218,6 +1222,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit98: { id: "1464067784949498034", name: "98_outfit" },
 	Outfit99: { id: "1464069081366794457", name: "99_outfit" },
 	Outfit100: { id: "1469073927048527963", name: "100_outfit" },
+	Outfit101: { id: "1471652523571155004", name: "101_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1798,6 +1803,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Lightmending Pioneer.
 	 */
 	Mask109: { id: "1464068850210308169", name: "109_mask" },
+	/**
+	 * Days of Fortune 2026.
+	 */
+	Mask110: { id: "1471652335695433728", name: "110_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1910,6 +1919,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask107: { id: "1464064645303238850", name: "107_mask" },
 	Mask108: { id: "1464067060291207270", name: "108_mask" },
 	Mask109: { id: "1464068856409489429", name: "109_mask" },
+	Mask110: { id: "1471652342888661238", name: "110_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -2037,6 +2047,10 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Purple Spectacles.
 	 */
 	FaceAccessory31: { id: "1459119281328619530", name: "31_face_accessory" },
+	/**
+	 * Fortune Token Glasses.
+	 */
+	FaceAccessory32: { id: "1471652959086575636", name: "32_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -2071,6 +2085,7 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory29: { id: "1459119286248411198", name: "29_face_accessory" },
 	FaceAccessory30: { id: "1459119288194437336", name: "30_face_accessory" },
 	FaceAccessory31: { id: "1459119290052513854", name: "31_face_accessory" },
+	FaceAccessory32: { id: "1471652968108396714", name: "32_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -3050,6 +3065,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Tournament of Triumph 2026.
 	 */
 	Hair175: { id: "1469073568871481487", name: "175_hair" },
+	/**
+	 * Fortune Ribboned Ponytail.
+	 */
+	Hair176: { id: "1471652711874298128", name: "176_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3228,6 +3247,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair173: { id: "1464066536607322243", name: "173_hair" },
 	Hair174: { id: "1464068545645121659", name: "174_hair" },
 	Hair175: { id: "1469073578262659244", name: "175_hair" },
+	Hair176: { id: "1471652719138705512", name: "176_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4428,6 +4448,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Tournament Team Wasteland Cape.
 	 */
 	Cape175: { id: "1469075168813908132", name: "175_cape" },
+	/**
+	 * Days of Fortune 2026.
+	 */
+	Cape176: { id: "1471652018610241772", name: "176_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4606,6 +4630,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape173: { id: "1469075177794044118", name: "173_cape" },
 	Cape174: { id: "1469075180306567363", name: "174_cape" },
 	Cape175: { id: "1469075182831407257", name: "175_cape" },
+	Cape176: { id: "1471652027850555526", name: "176_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -4849,6 +4874,10 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Tournament of Triumph 2026.
 	 */
 	HeldProp60: { id: "1469073215862079561", name: "60_held_prop" },
+	/**
+	 * Fortune Plush Mount.
+	 */
+	HeldProp61: { id: "1471653269909667912", name: "61_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4912,6 +4941,7 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp58: { id: "1396950659575844996", name: "58_held_prop" },
 	HeldProp59: { id: "1464065547837640903", name: "59_held_prop" },
 	HeldProp60: { id: "1469073223969800383", name: "60_held_prop" },
+	HeldProp61: { id: "1471653278457663528", name: "61_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5331,6 +5361,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Ice small table.
 	 */
 	LargePlaceableProp104: { id: "1453075375251787908", name: "104_large_placeable_prop" },
+	/**
+	 * Days of Fortune 2026.
+	 */
+	LargePlaceableProp105: { id: "1471653526777364491", name: "105_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5438,6 +5472,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp102: { id: "1453075377613181079", name: "102_large_placeable_prop" },
 	LargePlaceableProp103: { id: "1453075380981465191", name: "103_large_placeable_prop" },
 	LargePlaceableProp104: { id: "1453075385473569009", name: "104_large_placeable_prop" },
+	LargePlaceableProp105: { id: "1471653538588524634", name: "105_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -8836,6 +8871,14 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.TournamentWastelandFlag]: null,
 		[Cosmetic.LightmendingGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.DaysOfFortune2026Mask]: MASK_EMOJIS.Mask110,
+		[Cosmetic.DaysOfFortune2026Cape]: CAPE_EMOJIS.Cape176,
+		[Cosmetic.DaysOfFortune2026CarouselMusicBox]:
+			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp105,
+		[Cosmetic.FortunePlushMount]: HELD_PROPS_EMOJIS.HeldProp61,
+		[Cosmetic.FortunePleatedDress]: OUTFIT_EMOJIS.Outfit101,
+		[Cosmetic.FortuneRibbonedPonytail]: HAIR_EMOJIS.Hair176,
+		[Cosmetic.FortuneTokenGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory32,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
