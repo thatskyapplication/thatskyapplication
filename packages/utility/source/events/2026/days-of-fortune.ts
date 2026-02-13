@@ -47,12 +47,19 @@ export default new Event({
 		},
 		{
 			cosmetic: Cosmetic.FortunePlushMount,
+			cost: { money: 19.99 },
 		},
 		{
 			cosmetic: Cosmetic.FortunePleatedDress,
+			cost: { money: 9.99 },
 		},
 		{
 			cosmetic: Cosmetic.FortuneRibbonedPonytail,
+			cost: { money: 4.99 },
+		},
+		{
+			cosmetic: Cosmetic.FortuneTokenGlasses,
+			cost: { money: 2.99 },
 		},
 	],
 });
