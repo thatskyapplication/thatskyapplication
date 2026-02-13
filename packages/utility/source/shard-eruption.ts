@@ -190,12 +190,21 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		return null;
 	}
 
-	// On 13/12/2025, this was moved to the Prairie Cave.
+	// On 13/12/2025, this was moved to the Prairie Cave (clashed with event).
 	if (
 		skyMap === SkyMap.VillageOfDreams &&
 		currentEvents.some((event) => event.id === EventId.DaysOfFeast2025)
 	) {
 		realmIndex = 0;
+		({ skyMap, url, reward } = area[realmIndex]!);
+	}
+
+	// On 13/02/2026, this was moved to the Graveyard (clashed with event).
+	if (
+		skyMap === SkyMap.VillageOfDreams &&
+		currentEvents.some((event) => event.id === EventId.DaysOfFortune2026)
+	) {
+		realmIndex = 3;
 		({ skyMap, url, reward } = area[realmIndex]!);
 	}
 
