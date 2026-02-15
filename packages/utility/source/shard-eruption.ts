@@ -173,10 +173,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	if (
 		skyMap === SkyMap.JellyfishCove &&
 		currentEvents.some(
-			(event) =>
-				event.id === EventId.DaysOfLove2024 ||
-				event.id === EventId.DaysOfLove2025 ||
-				event.id === EventId.DaysOfLove2026,
+			(event) => event.id === EventId.DaysOfLove2024 || event.id === EventId.DaysOfLove2025,
 		)
 	) {
 		return null;
@@ -205,6 +202,15 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		currentEvents.some((event) => event.id === EventId.DaysOfFortune2026)
 	) {
 		realmIndex = 3;
+		({ skyMap, url, reward } = area[realmIndex]!);
+	}
+
+	// On 15/02/2026, this was moved to The Treehouse (clashed with event).
+	if (
+		skyMap === SkyMap.JellyfishCove &&
+		currentEvents.some((event) => event.id === EventId.DaysOfLove2026)
+	) {
+		realmIndex = 1;
 		({ skyMap, url, reward } = area[realmIndex]!);
 	}
 
