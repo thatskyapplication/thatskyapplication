@@ -2687,7 +2687,7 @@ export default {
 			"This command requires me to be present in the server. [Invite me]({{url1}}) with the bot scope and try again!\nIf you need help, join the [support server]({{url2}})!",
 		"cannot-view-thread": "I lack permissions to view this thread.",
 		view: "View",
-		"more": "More",
+		more: "More",
 		"navigation-back": "Back",
 		"navigation-next": "Next",
 		wiki: "Wiki",
