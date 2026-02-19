@@ -769,17 +769,23 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 
 	const shard = shardEruption();
 
-	if (shard) {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shard.timestamps, locale })}`,
-		});
-	} else {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${t("shard-eruption.none", { lng: locale, ns: "features" })}`,
-		});
-	}
+	containerComponents.push({
+		type: ComponentType.Section,
+		accessory: {
+			type: ComponentType.Button,
+			style: ButtonStyle.Secondary,
+			custom_id: CustomId.DailyGuidesShardEruptionsMore,
+			label: t("more", { lng: locale, ns: "general" }),
+		},
+		components: [
+			{
+				type: ComponentType.TextDisplay,
+				content: shard
+					? `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shard.timestamps, locale })}`
+					: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${t("shard-eruption.none", { lng: locale, ns: "features" })}`,
+			},
+		],
+	});
 
 	let missingTravellingRock: boolean;
 

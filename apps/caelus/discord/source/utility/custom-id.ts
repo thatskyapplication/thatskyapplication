@@ -2,7 +2,7 @@ export const enum CustomId {
 	CatalogueTraversal = "0",
 	SkyProfilePersonality = "1",
 	WelcomeSuppressJoinNotifications = "2",
-	AboutFeedbackModalTitle = "3",
+	DailyGuidesShardEruptionsMore = "3",
 	AboutFeedbackModalDescription = "4",
 	AboutIssueModal = "5",
 	AboutIssueModalTitle = "6",

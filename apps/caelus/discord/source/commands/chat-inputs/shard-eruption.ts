@@ -10,7 +10,7 @@ export default {
 
 		switch (options.getSubcommand()) {
 			case "browse": {
-				await browse(interaction, 0);
+				await browse(interaction, { newMessage: true });
 				return;
 			}
 			case "today": {
