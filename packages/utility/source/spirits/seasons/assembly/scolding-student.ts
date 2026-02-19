@@ -145,5 +145,6 @@ export default new SeasonalSpirit({
 			{ start: skyDate(2022, 8, 18), end: skyDate(2022, 8, 22) },
 			{ start: skyDate(2024, 12, 5), end: skyDate(2024, 12, 9) },
 		],
+		returning: [12],
 	},
 });

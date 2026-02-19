@@ -129,6 +129,6 @@ export default new SeasonalSpirit({
 	keywords: ["hammock"],
 	visits: {
 		travelling: [{ start: skyDate(2025, 8, 28), end: skyDate(2025, 9, 1) }],
-		returning: [1],
+		returning: [1, 12],
 	},
 });
