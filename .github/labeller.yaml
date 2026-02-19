@@ -22,60 +22,60 @@ a:website:
 f:catalogue:
  - changed-files:
    - any-glob-to-any-file:
-     - apps/caelus/source/commands/chat-inputs/catalogue.ts
-     - apps/caelus/source/features/catalogue.ts
+     - apps/caelus/discord/source/commands/chat-inputs/catalogue.ts
+     - apps/caelus/discord/source/features/catalogue.ts
 f:checklist:
  - changed-files:
    - any-glob-to-any-file:
      - apps/website/app/routes/checklist.tsx
-     - apps/caelus/source/features/checklist.ts
+     - apps/caelus/discord/source/features/checklist.ts
      - packages/utility/source/checklist.ts
 f:daily-guides:
  - changed-files:
    - any-glob-to-any-file:
-     - apps/caelus/source/commands/chat-inputs/daily-guides.ts
-     - apps/caelus/source/features/daily-guides.ts
+     - apps/caelus/discord/source/commands/chat-inputs/daily-guides.ts
+     - apps/caelus/discord/source/features/daily-guides.ts
      - apps/website/app/routes/caelus.guides.daily-guides.tsx
      - apps/website/app/routes/daily-guides.tsx
      - packages/utility/source/daily-guides.ts
 f:friendship-actions:
  - changed-files:
    - any-glob-to-any-file:
-     - apps/caelus/source/commands/chat-inputs/{hair-tousle,high-five,hug,krill,play-fight}.ts
-     - apps/caelus/source/features/friendship-actions.ts
+     - apps/caelus/discord/source/commands/chat-inputs/{hair-tousle,high-five,hug,krill,play-fight}.ts
+     - apps/caelus/discord/source/features/friendship-actions.ts
      - apps/website/app/routes/caelus.guides.friendship-actions.tsx
      - packages/utility/source/friendship-actions.ts
 f:guess:
  - changed-files:
    - any-glob-to-any-file:
-     - apps/caelus/source/commands/chat-inputs/guess.ts
-     - apps/caelus/source/features/guess.ts
-     - apps/caelus/source/utility/guess.ts
+     - apps/caelus/discord/source/commands/chat-inputs/guess.ts
+     - apps/caelus/discord/source/features/guess.ts
+     - apps/caelus/discord/source/utility/guess.ts
      - packages/utility/source/guess.ts
 f:heart:
  - changed-files:
    - any-glob-to-any-file:
-     - apps/caelus/source/commands/chat-inputs/heart.ts
-     - apps/caelus/source/commands/user-context-menus/gift-heart.ts
-     - apps/caelus/source/features/heart.ts
+     - apps/caelus/discord/source/commands/chat-inputs/heart.ts
+     - apps/caelus/discord/source/commands/user-context-menus/gift-heart.ts
+     - apps/caelus/discord/source/features/heart.ts
      - apps/website/app/routes/caelus.guides.hearts.tsx
 f:me:
  - changed-files:
-   - any-glob-to-any-file: apps/caelus/source/features/me.ts
+   - any-glob-to-any-file: apps/caelus/discord/source/features/me.ts
 f:schedule:
  - changed-files:
    - any-glob-to-any-file:
      - apps/website/app/routes/schedule.tsx
-     - apps/caelus/source/features/schedule.ts
+     - apps/caelus/discord/source/features/schedule.ts
      - packages/utility/source/schedule.ts
 f:sky-profile:
  - changed-files:
    - any-glob-to-any-file:
-     - apps/caelus/source/commands/chat-inputs/sky-profile.ts
-     - apps/caelus/source/commands/user-context-menus/sky-profile.ts
-     - apps/caelus/source/features/sky-profile.ts
+     - apps/caelus/discord/source/commands/chat-inputs/sky-profile.ts
+     - apps/caelus/discord/source/commands/user-context-menus/sky-profile.ts
+     - apps/caelus/discord/source/features/sky-profile.ts
      - apps/website/app/routes/sky-profiles.*.tsx
      - packages/utility/source/sky-profile.ts
 f:welcome:
  - changed-files:
-   - any-glob-to-any-file: apps/caelus/source/features/welcome.ts
+   - any-glob-to-any-file: apps/caelus/discord/source/features/welcome.ts
