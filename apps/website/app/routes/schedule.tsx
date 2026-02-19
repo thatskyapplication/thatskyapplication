@@ -770,7 +770,7 @@ export default function Schedule() {
 				</div>
 				{/* Active. */}
 				{active.length > 0 && (
-					<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-4">
+					<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl pt-2 px-4">
 						<div className="mt-1 mb-2">
 							<span className="text-sm font-medium text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900 px-2 py-0.5 rounded">
 								{t("schedule.overview-active", { ns: "features" })}
@@ -838,7 +838,7 @@ export default function Schedule() {
 				)}
 
 				{/* Upcoming. */}
-				<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-4">
+				<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl pt-2 px-4">
 					<div className="mt-1 mb-2">
 						<span className="text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
 							{t("schedule.overview-upcoming", { ns: "features" })}
