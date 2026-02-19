@@ -17,7 +17,7 @@ import { ExternalLinkIcon, X } from "lucide-react";
 import { type JSX, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
-import { data, useLoaderData } from "react-router";
+import { data, Link, useLoaderData } from "react-router";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
@@ -239,7 +239,7 @@ export default function DailyGuides() {
 										</span>
 										{url ? (
 											<button
-												className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors text-left flex-1"
+												className="regular-link text-sm font-medium transition-colors text-left"
 												onClick={() => handleImageClick(url)}
 												type="button"
 											>
@@ -273,7 +273,7 @@ export default function DailyGuides() {
 									{treasureCandleURLs.map((treasureCandleURL, index) => (
 										<span key={treasureCandleURL}>
 											<button
-												className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors"
+												className="regular-link font-medium transition-colors"
 												onClick={() => handleImageClick(treasureCandleURL)}
 												type="button"
 											>
@@ -321,7 +321,9 @@ export default function DailyGuides() {
 					)}
 					<div className="mb-5">
 						<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-							{t("daily-guides.shard-eruption", { ns: "features" })}
+							<Link className="regular-link" to="/shard-eruption">
+								{t("daily-guides.shard-eruption", { ns: "features" })}
+							</Link>
 						</h2>
 						{shard ? (
 							<div className="space-y-3">
@@ -331,7 +333,7 @@ export default function DailyGuides() {
 											{t("daily-guides.shard-eruption-data", { ns: "features" })}
 										</h3>
 										<button
-											className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors block mb-1"
+											className="regular-link text-sm font-medium transition-colors block mb-1"
 											onClick={() => handleImageClick(shard.url)}
 											type="button"
 										>
@@ -383,7 +385,7 @@ export default function DailyGuides() {
 								</div>
 								<div className="sm:hidden space-y-2">
 									<button
-										className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium transition-colors block"
+										className="regular-link text-sm font-medium transition-colors block"
 										onClick={() => handleImageClick(shard.url)}
 										type="button"
 									>
