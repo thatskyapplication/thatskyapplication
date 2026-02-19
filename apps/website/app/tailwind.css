@@ -80,7 +80,7 @@
 	}
 
 	.regular-link:focus-visible {
-		@apply outline-dashed outline-2 outline-yellow-400;
+		@apply outline-solid outline-2 outline-yellow-400;
 	}
 
 	p {
