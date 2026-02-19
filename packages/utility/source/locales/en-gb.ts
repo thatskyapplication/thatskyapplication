@@ -2688,6 +2688,7 @@ export default {
 		"cannot-view-thread": "I lack permissions to view this thread.",
 		view: "View",
 		more: "More",
+		maintenance: "Maintenance",
 		"navigation-back": "Back",
 		"navigation-next": "Next",
 		wiki: "Wiki",
@@ -3437,6 +3438,7 @@ export default {
 			"detailed-breakdown-projector-of-memories-message":
 				"Available every 80 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-requires": "-# Requires {{emoji}}",
+			"maintenance-description": "Sky may be temporarily unavailable during maintenance.",
 			back: "Back",
 		},
 		"shard-eruption": {

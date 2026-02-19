@@ -94,6 +94,7 @@ export {
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./kingdom.js";
+export { MAINTENANCE_PERIODS } from "./maintenance.js";
 export { CDN_URL } from "./routes.js";
 export const de = deLocale;
 export { default as enGB } from "./locales/en-gb.js";
