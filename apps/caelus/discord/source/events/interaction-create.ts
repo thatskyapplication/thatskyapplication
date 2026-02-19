@@ -466,6 +466,15 @@ export default {
 					return;
 				}
 
+				if (id === CustomId.DailyGuidesShardEruptionsMore) {
+					await browse(data, {
+						newMessage: true,
+						ephemeral: true,
+					});
+
+					return;
+				}
+
 				if (id === CustomId.ScheduleViewOverview) {
 					await scheduleOverview(data);
 					return;
@@ -581,7 +590,7 @@ export default {
 						return;
 					}
 
-					await browse(data, Number(parts[0]));
+					await browse(data, { offset: Number(parts[0]) });
 					return;
 				}
 

@@ -20,7 +20,6 @@ import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
-import { isChatInputCommand } from "../utility/functions.js";
 import {
 	MAXIMUM_OPTION_NUMBER,
 	resolveShardEruptionEmoji,
@@ -68,7 +67,7 @@ function generateShardEruptionSelectMenuOptions(
 	return options;
 }
 
-interface ShardEruptionTodayOptions {
+interface ShardEruptionOptions {
 	offset?: number;
 	ephemeral?: boolean | undefined;
 	newMessage?: boolean;
@@ -79,7 +78,7 @@ export async function today(
 		| APIChatInputApplicationCommandInteraction
 		| APIMessageComponentButtonInteraction
 		| APIMessageComponentSelectMenuInteraction,
-	{ offset = 0, ephemeral, newMessage }: ShardEruptionTodayOptions = {},
+	{ offset = 0, ephemeral, newMessage }: ShardEruptionOptions = {},
 ) {
 	const components = todayData(interaction.locale, offset);
 	let flags = MessageFlags.IsComponentsV2;
@@ -199,15 +198,20 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 
 export async function browse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	offset = 0,
+	{ offset = 0, ephemeral, newMessage }: ShardEruptionOptions = {},
 ) {
 	const { locale } = interaction;
 	const components = browseData(locale, offset);
+	let flags = MessageFlags.IsComponentsV2;
 
-	if (isChatInputCommand(interaction)) {
+	if (ephemeral) {
+		flags |= MessageFlags.Ephemeral;
+	}
+
+	if (newMessage) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			components,
-			flags: MessageFlags.IsComponentsV2,
+			flags,
 		});
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
@@ -223,7 +227,7 @@ function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `## ${t("shard-eruption.name-plural", { lng: locale, ns: "features" })}`,
+					content: `## [${t("shard-eruption.name-plural", { lng: locale, ns: "features" })}](${SHARD_ERUPTION_URL})`,
 				},
 				{
 					type: ComponentType.Separator,
