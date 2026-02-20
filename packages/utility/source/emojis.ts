@@ -8879,6 +8879,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.FortunePleatedDress]: OUTFIT_EMOJIS.Outfit101,
 		[Cosmetic.FortuneRibbonedPonytail]: HAIR_EMOJIS.Hair176,
 		[Cosmetic.FortuneTokenGlasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory32,
+		[Cosmetic.LightmendingGuideQuest7]: MISCELLANEOUS_EMOJIS.Quest,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

@@ -3428,6 +3428,9 @@ export enum Cosmetic {
 	FortunePleatedDress = 2715,
 	FortuneRibbonedPonytail = 2716,
 	FortuneTokenGlasses = 2717,
+
+	// 20/02/2026 | Season of Lightmending Quest 7.
+	LightmendingGuideQuest7 = 2718,
 }
 
 export enum CosmeticCommon {
