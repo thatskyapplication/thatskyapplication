@@ -2338,6 +2338,7 @@
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",
 		"cannot-view-thread": "Je n'ai pas les permissions nécessaires afin de voir ce fil.",
 		"view": "Voir",
+		"more": "",
 		"navigation-back": "Retour",
 		"navigation-next": "Suivant",
 		"wiki": "Wiki"
