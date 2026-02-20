@@ -83,4 +83,14 @@ export class ModalResolver {
 
 		return field.values.map((value) => this.resolved.attachments![value]!);
 	}
+
+	public getCheckboxValue(customId: string) {
+		const field = this.components.get(customId);
+
+		if (!(field && ComponentType.Checkbox === field.type)) {
+			throw new Error(`Custom id ${customId} is not a checkbox component.`);
+		}
+
+		return field.value;
+	}
 }
