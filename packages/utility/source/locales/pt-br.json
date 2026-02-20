@@ -2338,6 +2338,7 @@
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
 		"cannot-view-thread": "Não tenho permissões para visualizar este tópico.",
 		"view": "Exibir",
+		"more": "",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar",
 		"wiki": "Wiki"
