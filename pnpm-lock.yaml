@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
   injectWorkspacePackages: true
 
+overrides:
+  discord-api-types: 0.38.40
+
 importers:
 
   .:
@@ -202,8 +205,8 @@ importers:
         specifier: 0.12.9
         version: 0.12.9(@devvit/server@0.12.10-next-2026-01-22-22-08-59-4328e6a29.0(twirp-ts@2.5.0))(@devvit/shared@0.12.10-next-2026-01-22-22-08-59-4328e6a29.0(twirp-ts@2.5.0))(@types/node@24.10.4)(google-protobuf@3.21.4)(typescript@5.9.3)
       discord-api-types:
-        specifier: ^0.38.37
-        version: 0.38.37
+        specifier: 0.38.40
+        version: 0.38.40
       express:
         specifier: ^5.2.1
         version: 5.2.1
@@ -428,8 +431,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       discord-api-types:
-        specifier: ^0.38.37
-        version: 0.38.37
+        specifier: 0.38.40
+        version: 0.38.40
       luxon:
         specifier: ^3.7.2
         version: 3.7.2
@@ -3509,8 +3512,8 @@ packages:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
 
-  discord-api-types@0.38.37:
-    resolution: {integrity: sha512-Cv47jzY1jkGkh5sv0bfHYqGgKOWO1peOrGMkDFM4UmaGMOTgOW8QSexhvixa9sVOiz8MnVOBryWYyw/CEVhj7w==}
+  discord-api-types@0.38.40:
+    resolution: {integrity: sha512-P/His8cotqZgQqrt+hzrocp9L8RhQQz1GkrCnC9TMJ8Uw2q0tg8YyqJyGULxhXn/8kxHETN4IppmOv+P2m82lQ==}
 
   dom-helpers@5.2.1:
     resolution: {integrity: sha512-nRCa7CK3VTrM2NmGkIy4cbK7IZlgBE/PYMn55rrXefr5xXDP0LdtfPnblFDoVdcAfslJ7or6iqAUnx0CCGIWQA==}
@@ -7047,7 +7050,7 @@ snapshots:
       '@discordjs/ws': 3.0.0-dev.1766552010-7884ecd3a
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.37
+      discord-api-types: 0.38.40
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -7059,7 +7062,7 @@ snapshots:
       '@discordjs/ws': 3.0.0-dev.1770595415-a3e189df0
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.37
+      discord-api-types: 0.38.40
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -7071,7 +7074,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.5
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.37
+      discord-api-types: 0.38.40
       magic-bytes.js: 1.12.1
       tslib: 2.8.1
       undici: 7.16.0
@@ -7084,7 +7087,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.5
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.37
+      discord-api-types: 0.38.40
       magic-bytes.js: 1.12.1
       tslib: 2.8.1
       undici: 7.16.0
@@ -7092,11 +7095,11 @@ snapshots:
 
   '@discordjs/util@2.0.0-dev.1766534522-7884ecd3a':
     dependencies:
-      discord-api-types: 0.38.37
+      discord-api-types: 0.38.40
 
   '@discordjs/util@2.0.0-dev.1770595415-a3e189df0':
     dependencies:
-      discord-api-types: 0.38.37
+      discord-api-types: 0.38.40
 
   '@discordjs/ws@3.0.0-dev.1766552010-7884ecd3a':
     dependencies:
@@ -7105,7 +7108,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.5
       '@types/ws': 8.18.1
       '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.37
+      discord-api-types: 0.38.40
       tslib: 2.8.1
       ws: 8.18.3
     transitivePeerDependencies:
@@ -7119,7 +7122,7 @@ snapshots:
       '@sapphire/async-queue': 1.5.5
       '@types/ws': 8.18.1
       '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.37
+      discord-api-types: 0.38.40
       tslib: 2.8.1
       ws: 8.19.0
     transitivePeerDependencies:
@@ -9498,7 +9501,7 @@ snapshots:
     dependencies:
       path-type: 4.0.0
 
-  discord-api-types@0.38.37: {}
+  discord-api-types@0.38.40: {}
 
   dom-helpers@5.2.1:
     dependencies:

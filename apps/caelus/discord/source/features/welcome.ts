@@ -50,8 +50,6 @@ import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { friendshipActionComponents } from "./friendship-actions.js";
 
-const WELCOME_EDIT_MODAL_HUG_YES_VALUE = "1" as const;
-const WELCOME_EDIT_MODAL_HUG_NO_VALUE = "0" as const;
 const WELCOME_MESSAGE_MAXIMUM_LENGTH = 1000 as const;
 const hexadecimalRegularExpression = /^[0-9A-Fa-f]+$/;
 
@@ -380,29 +378,9 @@ export async function welcomeHandleEditButton(
 			{
 				type: ComponentType.Label,
 				component: {
-					type: ComponentType.StringSelect,
+					type: ComponentType.Checkbox,
 					custom_id: CustomId.WelcomeEditModalHug,
-					min_values: 0,
-					max_values: 1,
-					options: [
-						{
-							label: t("welcome.edit-modal-label-hug-string-select-menu-option-yes", {
-								lng: locale,
-								ns: "features",
-							}),
-							value: WELCOME_EDIT_MODAL_HUG_YES_VALUE,
-							default: welcomePacket?.hug === true,
-						},
-						{
-							label: t("welcome.edit-modal-label-hug-string-select-menu-option-no", {
-								lng: locale,
-								ns: "features",
-							}),
-							value: WELCOME_EDIT_MODAL_HUG_NO_VALUE,
-							default: welcomePacket?.hug === false,
-						},
-					],
-					required: false,
+					default: welcomePacket?.hug === true,
 				},
 				label: t("welcome.edit-modal-label-hug-label", { lng: locale, ns: "features" }),
 				description: t("welcome.edit-modal-label-hug-description", {
@@ -500,19 +478,14 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 	const channel = components.getChannelValues(CustomId.WelcomeEditModalChannel);
 	const message = components.getTextInputValue(CustomId.WelcomeEditModalMessage);
 	const accentColour = components.getTextInputValue(CustomId.WelcomeEditModalAccentColour);
-
-	const hug = components.getStringSelectValues(CustomId.WelcomeEditModalHug) as readonly (
-		| typeof WELCOME_EDIT_MODAL_HUG_YES_VALUE
-		| typeof WELCOME_EDIT_MODAL_HUG_NO_VALUE
-	)[];
-
+	const hug = components.getCheckboxValue(CustomId.WelcomeEditModalHug);
 	const asset = components.getFileUploadValues(CustomId.WelcomeEditModalAsset)[0];
 
 	const data: WelcomePacketSetData = {
 		guild_id: interaction.guild_id,
 		welcome_channel_id: channel.length === 0 ? null : channel[0]!.id,
 		message: message.length === 0 ? null : message,
-		hug: hug.length === 0 ? null : hug[0]! === WELCOME_EDIT_MODAL_HUG_YES_VALUE,
+		hug,
 	};
 
 	const errors = [];

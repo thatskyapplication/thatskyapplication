@@ -3659,11 +3659,8 @@ export default {
 			"edit-modal-label-accent-colour-label": "Accent colour",
 			"edit-modal-label-accent-colour-description":
 				"A hexadecimal colour code may be used to colour the left side of the container.",
-			"edit-modal-label-hug-label": "Hug",
-			"edit-modal-label-hug-description":
-				"A hug button may be attached to the welcome message! Do you wish to show a hug button?",
-			"edit-modal-label-hug-string-select-menu-option-yes": "Show a hug button!",
-			"edit-modal-label-hug-string-select-menu-option-no": "Do not show a hug button.",
+			"edit-modal-label-hug-label": "Show hug button",
+			"edit-modal-label-hug-description": "A hug button may be attached to the welcome message!",
 			"edit-modal-label-asset-label": "Media",
 			"edit-modal-label-asset-description":
 				"You may set an image (including a GIF) which will be displayed.",
