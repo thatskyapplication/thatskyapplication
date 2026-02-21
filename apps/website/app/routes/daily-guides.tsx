@@ -3,6 +3,7 @@ import {
 	type DailyGuidesPacket,
 	DailyQuestToInfographicURL,
 	isDailyQuest,
+	MAINTENANCE_PERIODS,
 	RotationIdentifier,
 	shardEruption,
 	skyCurrentSeason,
@@ -13,7 +14,7 @@ import {
 	TIME_ZONE,
 	treasureCandles,
 } from "@thatskyapplication/utility";
-import { ExternalLinkIcon, X } from "lucide-react";
+import { AlertTriangle, ExternalLinkIcon, X } from "lucide-react";
 import { type JSX, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
@@ -209,6 +210,40 @@ export default function DailyGuides() {
 		}
 	}
 
+	const todayMaintenance = [];
+
+	for (const maintenance of MAINTENANCE_PERIODS) {
+		const daysUntilStart = maintenance.start.diff(today, "days").days;
+
+		if (daysUntilStart < 1) {
+			if (maintenance.end > now) {
+				todayMaintenance.push(maintenance);
+			}
+
+			continue;
+		}
+
+		if (daysUntilStart >= 2) {
+			daysCount.push(
+				t("daily-guides.maintenance-upcoming", {
+					ns: "features",
+					count: Math.floor(daysUntilStart),
+				}),
+			);
+		} else {
+			daysCount.push(
+				t("daily-guides.maintenance-upcoming", {
+					ns: "features",
+					count: 1,
+					time: new Intl.DateTimeFormat(locale, {
+						timeZone,
+						timeStyle: "short",
+					}).format(maintenance.start.toMillis()),
+				}),
+			);
+		}
+	}
+
 	const handleImageClick = (url: string | null) => {
 		if (url) {
 			setSelectedImage(url);
@@ -226,6 +261,37 @@ export default function DailyGuides() {
 					<div className="mb-6 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
 						<h1 className="text-lg font-bold text-gray-900 dark:text-white m-0">{todayString}</h1>
 					</div>
+					{todayMaintenance.length > 0 && (
+						<div className="mb-5 bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-xl px-4 py-3 flex items-center gap-3">
+							<AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0" />
+							<div>
+								<p className="text-sm font-medium text-amber-800 dark:text-amber-200 m-0">
+									{t("maintenance", { ns: "general" })}
+								</p>
+								<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+									{t("schedule.maintenance-description", { ns: "features" })}
+								</p>
+								{todayMaintenance.map((maintenance) => (
+									<p
+										className="text-xs text-amber-600 dark:text-amber-400 m-0"
+										key={maintenance.start.toMillis()}
+									>
+										{t("time-range", {
+											ns: "general",
+											start: new Intl.DateTimeFormat(locale, {
+												timeStyle: "short",
+												timeZone,
+											}).format(maintenance.start.toMillis()),
+											end: new Intl.DateTimeFormat(locale, {
+												timeStyle: "short",
+												timeZone,
+											}).format(maintenance.end.toMillis()),
+										})}
+									</p>
+								))}
+							</div>
+						</div>
+					)}
 					{quests.length > 0 && (
 						<div className="mb-5">
 							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
