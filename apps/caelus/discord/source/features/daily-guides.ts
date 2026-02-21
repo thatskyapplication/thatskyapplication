@@ -40,6 +40,7 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
+	MAINTENANCE_PERIODS,
 	RotationIdentifier,
 	resolveCurrencyEmoji,
 	shardEruption,
@@ -642,6 +643,82 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		},
 	];
 
+	const todayMaintenance = [];
+	const upcomingMaintenance = [];
+	const seenMaintenanceDays = new Set<number>();
+
+	for (const maintenance of MAINTENANCE_PERIODS) {
+		const daysUntilStart = maintenance.start.diff(today, "days").days;
+
+		if (daysUntilStart < 1) {
+			if (maintenance.end > now) {
+				todayMaintenance.push(maintenance);
+			}
+
+			continue;
+		}
+
+		const floorDays = Math.floor(daysUntilStart);
+
+		if (floorDays >= 2) {
+			if (!seenMaintenanceDays.has(floorDays)) {
+				seenMaintenanceDays.add(floorDays);
+
+				upcomingMaintenance.push(
+					t("daily-guides.maintenance-upcoming", {
+						ns: "features",
+						count: floorDays,
+					}),
+				);
+			}
+		} else {
+			upcomingMaintenance.push(
+				t("daily-guides.maintenance-upcoming", {
+					ns: "features",
+					count: 1,
+					time: new Intl.DateTimeFormat(locale, {
+						timeZone: TIME_ZONE,
+						timeStyle: "short",
+					}).format(maintenance.start.toMillis()),
+				}),
+			);
+		}
+	}
+
+	if (todayMaintenance.length > 0) {
+		let maintenanceString: string;
+
+		if (todayMaintenance.length > 1) {
+			maintenanceString = t("maintenance-description-many-with-times", {
+				lng: locale,
+				ns: "general",
+				times: todayMaintenance
+					.map(
+						(maintenance) =>
+							`- ${t("time-range", {
+								lng: locale,
+								ns: "general",
+								start: `<t:${maintenance.start.toUnixInteger()}:t>`,
+								end: `<t:${maintenance.end.toUnixInteger()}:t>`,
+							})}`,
+					)
+					.join("\n"),
+			});
+		} else {
+			maintenanceString = t("maintenance-description-singular", {
+				lng: locale,
+				ns: "general",
+				start: `<t:${todayMaintenance[0]!.start.toUnixInteger()}:t>`,
+				end: `<t:${todayMaintenance[0]!.end.toUnixInteger()}:t>`,
+			});
+		}
+
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: `### ${t("maintenance", { lng: locale, ns: "general" })}\n\n${formatEmoji(MISCELLANEOUS_EMOJIS.Report)} ${maintenanceString}`,
+		});
+	}
+
 	const {
 		quest1,
 		quest2,
@@ -824,6 +901,8 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 			);
 		}
 	}
+
+	footerText.push(...upcomingMaintenance);
 
 	if (footerText.length > 0) {
 		containerComponents.push(

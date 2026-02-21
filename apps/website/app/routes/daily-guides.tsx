@@ -211,6 +211,7 @@ export default function DailyGuides() {
 	}
 
 	const todayMaintenance = [];
+	const seenMaintenanceDays = new Set<number>();
 
 	for (const maintenance of MAINTENANCE_PERIODS) {
 		const daysUntilStart = maintenance.start.diff(today, "days").days;
@@ -223,13 +224,19 @@ export default function DailyGuides() {
 			continue;
 		}
 
-		if (daysUntilStart >= 2) {
-			daysCount.push(
-				t("daily-guides.maintenance-upcoming", {
-					ns: "features",
-					count: Math.floor(daysUntilStart),
-				}),
-			);
+		const floorDays = Math.floor(daysUntilStart);
+
+		if (floorDays >= 2) {
+			if (!seenMaintenanceDays.has(floorDays)) {
+				seenMaintenanceDays.add(floorDays);
+
+				daysCount.push(
+					t("daily-guides.maintenance-upcoming", {
+						ns: "features",
+						count: floorDays,
+					}),
+				);
+			}
 		} else {
 			daysCount.push(
 				t("daily-guides.maintenance-upcoming", {
@@ -268,27 +275,43 @@ export default function DailyGuides() {
 								<p className="text-sm font-medium text-amber-800 dark:text-amber-200 m-0">
 									{t("maintenance", { ns: "general" })}
 								</p>
-								<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
-									{t("schedule.maintenance-description", { ns: "features" })}
-								</p>
-								{todayMaintenance.map((maintenance) => (
-									<p
-										className="text-xs text-amber-600 dark:text-amber-400 m-0"
-										key={maintenance.start.toMillis()}
-									>
-										{t("time-range", {
+								{todayMaintenance.length === 1 ? (
+									<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+										{t("maintenance-description-singular", {
 											ns: "general",
 											start: new Intl.DateTimeFormat(locale, {
 												timeStyle: "short",
 												timeZone,
-											}).format(maintenance.start.toMillis()),
-											end: new Intl.DateTimeFormat(locale, {
-												timeStyle: "short",
-												timeZone,
-											}).format(maintenance.end.toMillis()),
+											}).format(todayMaintenance[0]!.start.toMillis()),
+											end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+												todayMaintenance[0]!.end.toMillis(),
+											),
 										})}
 									</p>
-								))}
+								) : (
+									<>
+										<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+											{t("maintenance-description-many", { ns: "general" })}
+										</p>
+										<ul className="text-xs text-amber-600 dark:text-amber-400 m-0 list-disc ps-4">
+											{todayMaintenance.map((maintenance) => (
+												<li key={maintenance.start.toMillis()}>
+													{t("time-range", {
+														ns: "general",
+														start: new Intl.DateTimeFormat(locale, {
+															timeStyle: "short",
+															timeZone,
+														}).format(maintenance.start.toMillis()),
+														end: new Intl.DateTimeFormat(locale, {
+															timeStyle: "short",
+															timeZone,
+														}).format(maintenance.end.toMillis()),
+													})}
+												</li>
+											))}
+										</ul>
+									</>
+								)}
 							</div>
 						</div>
 					)}
