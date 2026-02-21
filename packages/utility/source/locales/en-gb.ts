@@ -3343,6 +3343,7 @@ export default {
 				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 				[ScheduleType.MeteorShower]: "Meteor shower",
+				[ScheduleType.Maintenance]: "$t(general:maintenance)",
 			} satisfies Record<ScheduleTypes, string>,
 			name: "Schedule",
 			description:

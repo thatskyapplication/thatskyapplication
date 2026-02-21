@@ -22,6 +22,7 @@ import {
 	grandmaSchedule,
 	INTERNATIONAL_SPACE_STATION_DATES,
 	internationalSpaceStationSchedule,
+	MAINTENANCE_PERIODS,
 	meteorShowerSchedule,
 	nextDailyReset,
 	nextEyeOfEden,
@@ -1110,6 +1111,150 @@ export async function scheduleOverview(
 		flags |= MessageFlags.Ephemeral;
 	}
 
+	const firstContainerComponents: APIComponentInContainer[] = [];
+	const activeMaintenance = MAINTENANCE_PERIODS.find((maintenance) => maintenance.end > now);
+
+	if (activeMaintenance) {
+		firstContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t(`schedule.type.${ScheduleType.Maintenance}`, { lng: locale, ns: "features" }),
+				details:
+					activeMaintenance.start <= now
+						? `${formatEmoji(MISCELLANEOUS_EMOJIS.Report)} ${t("time-range", {
+								lng: locale,
+								ns: "general",
+								start: `<t:${activeMaintenance.start.toUnixInteger()}:t>`,
+								end: `<t:${activeMaintenance.end.toUnixInteger()}:t>`,
+							})}`
+						: t("schedule.overview-next-available-timestamp", {
+								lng: locale,
+								ns: "features",
+								timestamp: `<t:${activeMaintenance.start.toUnixInteger()}:R>`,
+							}),
+			}),
+		});
+	}
+
+	firstContainerComponents.push(
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" }),
+				details: dailyResetNext(now, locale),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" }),
+				details: eyeOfEdenNext(now, locale),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t(`schedule.type.${ScheduleType.ShardEruption}`, {
+					lng: locale,
+					ns: "features",
+				}),
+				details: shardEruption.now
+					? t("schedule.overview-available", {
+							lng: locale,
+							ns: "features",
+							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+						})
+					: t("schedule.overview-next-available-timestamp", {
+							lng: locale,
+							ns: "features",
+							timestamp: shardEruption.next,
+						}),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
+					lng: locale,
+					ns: "features",
+				}),
+				details: travellingSpirit.now
+					? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${travellingSpirit.now}`
+					: t("schedule.overview-next-available-timestamp", {
+							lng: locale,
+							ns: "features",
+							timestamp: travellingSpirit.next,
+						}),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
+					lng: locale,
+					ns: "features",
+				}),
+				details: nestingWorkshopNext(now, locale),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
+					lng: locale,
+					ns: "features",
+				}),
+				details: aviarysFireworkFestival.now
+					? t("schedule.overview-available", {
+							lng: locale,
+							ns: "features",
+							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+						})
+					: t("schedule.overview-next-available-timestamp", {
+							lng: locale,
+							ns: "features",
+							timestamp: aviarysFireworkFestival.next,
+						}),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
+					lng: locale,
+					ns: "features",
+				}),
+				details: internationalSpaceStation.now
+					? t("schedule.overview-available", {
+							lng: locale,
+							ns: "features",
+							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+						})
+					: t("schedule.overview-next-available-timestamp", {
+							lng: locale,
+							ns: "features",
+							timestamp: internationalSpaceStation.next,
+						}),
+			}),
+		},
+	);
+
 	const secondContainerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
@@ -1333,261 +1478,13 @@ export async function scheduleOverview(
 		},
 	);
 
-	const options = [
-		{
-			label: t(`schedule.type.${ScheduleType.DailyReset}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.DailyReset.toString(),
-			emoji: MISCELLANEOUS_EMOJIS.DailyReset,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.EyeOfEden}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.EyeOfEden.toString(),
-			emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.ShardEruption}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.ShardEruption.toString(),
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.TravellingSpirit.toString(),
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.NestingWorkshop.toString(),
-			emoji: SEASON_EMOJIS.Nesting,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.AviarysFireworkFestival.toString(),
-			emoji: EVENT_EMOJIS.AviarysFireworkFestival,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.InternationalSpaceStation.toString(),
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.PollutedGeyser.toString(),
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.Grandma}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.Grandma.toString(),
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.Turtle}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.Turtle.toString(),
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.AURORA}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.AURORA.toString(),
-			emoji: CAPE_EMOJIS.Cape96,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.DreamsSkater.toString(),
-			emoji: SEASON_EMOJIS.Dreams,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.MeteorShower}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.MeteorShower.toString(),
-			emoji: EVENT_EMOJIS.Love,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.VaultEldersBlessing.toString(),
-			emoji: CAPE_EMOJIS.Cape156,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.Passage}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.Passage.toString(),
-			emoji: SEASON_EMOJIS.Passage,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.NineColouredDeer.toString(),
-			emoji: CAPE_EMOJIS.Cape125,
-		},
-		{
-			label: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.ProjectorOfMemories.toString(),
-			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
-		},
-	];
-
 	const response:
 		| Parameters<InteractionsAPI["reply"]>[2]
 		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
 		components: [
 			{
 				type: ComponentType.Container,
-				components: [
-					{
-						type: ComponentType.TextDisplay,
-						content: t("schedule.overview", {
-							lng: locale,
-							ns: "features",
-							type: t(`schedule.type.${ScheduleType.DailyReset}`, { lng: locale, ns: "features" }),
-							details: dailyResetNext(now, locale),
-						}),
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: t("schedule.overview", {
-							lng: locale,
-							ns: "features",
-							type: t(`schedule.type.${ScheduleType.EyeOfEden}`, { lng: locale, ns: "features" }),
-							details: eyeOfEdenNext(now, locale),
-						}),
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: t("schedule.overview", {
-							lng: locale,
-							ns: "features",
-							type: t(`schedule.type.${ScheduleType.ShardEruption}`, {
-								lng: locale,
-								ns: "features",
-							}),
-							details: shardEruption.now
-								? t("schedule.overview-available", {
-										lng: locale,
-										ns: "features",
-										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-									})
-								: t("schedule.overview-next-available-timestamp", {
-										lng: locale,
-										ns: "features",
-										timestamp: shardEruption.next,
-									}),
-						}),
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: t("schedule.overview", {
-							lng: locale,
-							ns: "features",
-							type: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
-								lng: locale,
-								ns: "features",
-							}),
-							details: travellingSpirit.now
-								? `${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)} ${travellingSpirit.now}`
-								: t("schedule.overview-next-available-timestamp", {
-										lng: locale,
-										ns: "features",
-										timestamp: travellingSpirit.next,
-									}),
-						}),
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: t("schedule.overview", {
-							lng: locale,
-							ns: "features",
-							type: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
-								lng: locale,
-								ns: "features",
-							}),
-							details: nestingWorkshopNext(now, locale),
-						}),
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: t("schedule.overview", {
-							lng: locale,
-							ns: "features",
-							type: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
-								lng: locale,
-								ns: "features",
-							}),
-							details: aviarysFireworkFestival.now
-								? t("schedule.overview-available", {
-										lng: locale,
-										ns: "features",
-										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-									})
-								: t("schedule.overview-next-available-timestamp", {
-										lng: locale,
-										ns: "features",
-										timestamp: aviarysFireworkFestival.next,
-									}),
-						}),
-					},
-					{
-						type: ComponentType.TextDisplay,
-						content: t("schedule.overview", {
-							lng: locale,
-							ns: "features",
-							type: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
-								lng: locale,
-								ns: "features",
-							}),
-							details: internationalSpaceStation.now
-								? t("schedule.overview-available", {
-										lng: locale,
-										ns: "features",
-										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-									})
-								: t("schedule.overview-next-available-timestamp", {
-										lng: locale,
-										ns: "features",
-										timestamp: internationalSpaceStation.next,
-									}),
-						}),
-					},
-				],
+				components: firstContainerComponents,
 			},
 			{
 				type: ComponentType.Container,
@@ -1609,7 +1506,138 @@ export async function scheduleOverview(
 							{
 								type: ComponentType.StringSelect,
 								custom_id: CustomId.ScheduleViewDetailedBreakdown,
-								options,
+								options: [
+									{
+										label: t(`schedule.type.${ScheduleType.DailyReset}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.DailyReset.toString(),
+										emoji: MISCELLANEOUS_EMOJIS.DailyReset,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.EyeOfEden}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.EyeOfEden.toString(),
+										emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.ShardEruption}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.ShardEruption.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.TravellingSpirit.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.NestingWorkshop.toString(),
+										emoji: SEASON_EMOJIS.Nesting,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.AviarysFireworkFestival.toString(),
+										emoji: EVENT_EMOJIS.AviarysFireworkFestival,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.InternationalSpaceStation.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.PollutedGeyser.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.Grandma}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.Grandma.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.Turtle}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.Turtle.toString(),
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.AURORA}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.AURORA.toString(),
+										emoji: CAPE_EMOJIS.Cape96,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.DreamsSkater.toString(),
+										emoji: SEASON_EMOJIS.Dreams,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.MeteorShower}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.MeteorShower.toString(),
+										emoji: EVENT_EMOJIS.Love,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.VaultEldersBlessing.toString(),
+										emoji: CAPE_EMOJIS.Cape156,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.Passage}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.Passage.toString(),
+										emoji: SEASON_EMOJIS.Passage,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.NineColouredDeer.toString(),
+										emoji: CAPE_EMOJIS.Cape125,
+									},
+									{
+										label: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
+											lng: locale,
+											ns: "features",
+										}),
+										value: ScheduleType.ProjectorOfMemories.toString(),
+										emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
+									},
+								],
 								max_values: 1,
 								min_values: 1,
 								placeholder: t(

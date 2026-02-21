@@ -23,6 +23,7 @@ export const ScheduleType = {
 	VaultEldersBlessing: 15,
 	ProjectorOfMemories: 16,
 	MeteorShower: 17,
+	Maintenance: 18,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
