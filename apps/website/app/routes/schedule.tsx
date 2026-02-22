@@ -4,6 +4,7 @@ import {
 	dreamsSkaterSchedule,
 	grandmaSchedule,
 	internationalSpaceStationSchedule,
+	MAINTENANCE_PERIODS,
 	meteorShowerSchedule,
 	nextDailyReset,
 	nextEyeOfEden,
@@ -26,7 +27,7 @@ import {
 	vaultEldersBlessingSchedule,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { Clock, ExternalLinkIcon } from "lucide-react";
+import { AlertTriangle, Clock, ExternalLinkIcon } from "lucide-react";
 import type { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -511,7 +512,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 };
 
 interface DisplayCard {
-	kind: DisplayCardKind;
+	type: DisplayCardType;
 	key: string;
 	label: string;
 	link?: { href: string; text: string } | undefined;
@@ -525,14 +526,17 @@ interface DisplayCard {
 	endUnix?: number | null | undefined;
 }
 
-type DisplayCardKind = "season" | "event" | "schedule";
+const enum DisplayCardType {
+	Season = 0,
+	Event = 1,
+	Schedule = 2,
+	Maintenance = 3,
+}
 
 export default function Schedule() {
 	const { locale, timeZone } = useLoaderData<typeof loader>();
 	const { t } = useTranslation();
 	const [, setCurrentTime] = useState(() => Date.now());
-	const [isScrolled, setIsScrolled] = useState(false);
-
 	useEffect(() => {
 		let timeout: NodeJS.Timeout | null = null;
 
@@ -553,13 +557,6 @@ export default function Schedule() {
 				clearTimeout(timeout);
 			}
 		};
-	}, []);
-
-	useEffect(() => {
-		const handleScroll = () => setIsScrolled(window.scrollY > 50);
-		handleScroll();
-		window.addEventListener("scroll", handleScroll, { passive: true });
-		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
 	const now = skyNow();
@@ -598,7 +595,7 @@ export default function Schedule() {
 		}
 
 		allCards.push({
-			kind: "schedule",
+			type: DisplayCardType.Schedule,
 			key: `${schedule.type}`,
 			label,
 			link,
@@ -624,7 +621,7 @@ export default function Schedule() {
 
 		const seasonName = t(`seasons.${season.id}`, { ns: "general" });
 		allCards.push({
-			kind: "season",
+			type: DisplayCardType.Season,
 			key: `season-${season.id}`,
 			label: seasonName,
 			link: { href: t(`season-wiki.${season.id}`, { ns: "general" }), text: seasonName },
@@ -649,7 +646,7 @@ export default function Schedule() {
 
 		const nextSeasonName = t(`seasons.${nextSeason.id}`, { ns: "general" });
 		allCards.push({
-			kind: "season",
+			type: DisplayCardType.Season,
 			key: `season-${nextSeason.id}`,
 			label: nextSeasonName,
 			link: { href: t(`season-wiki.${nextSeason.id}`, { ns: "general" }), text: nextSeasonName },
@@ -674,7 +671,7 @@ export default function Schedule() {
 			}
 
 			allCards.push({
-				kind: "event",
+				type: DisplayCardType.Event,
 				key: `event-${id}`,
 				label: name,
 				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: name },
@@ -694,7 +691,7 @@ export default function Schedule() {
 			}
 
 			allCards.push({
-				kind: "event",
+				type: DisplayCardType.Event,
 				key: `event-${id}`,
 				label: name,
 				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: name },
@@ -721,8 +718,33 @@ export default function Schedule() {
 		(a, b) => (b.endUnix ?? Number.POSITIVE_INFINITY) - (a.endUnix ?? Number.POSITIVE_INFINITY),
 	);
 
-	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
+	const activeMaintenance = MAINTENANCE_PERIODS.find(
+		(period) => now >= period.start && now < period.end,
+	);
 
+	const upcomingMaintenance = MAINTENANCE_PERIODS.find((period) => now < period.start);
+
+	if (upcomingMaintenance) {
+		const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+		if (upcomingMaintenance.start.diff(now, "days").days > 1) {
+			startOptions.dateStyle = "medium";
+		}
+
+		upcoming.push({
+			type: DisplayCardType.Maintenance,
+			key: "maintenance",
+			label: t("maintenance", { ns: "general" }),
+			active: false,
+			next: new Intl.DateTimeFormat(locale, startOptions).format(
+				upcomingMaintenance.start.toMillis(),
+			),
+			nextUnix: upcomingMaintenance.start.toMillis(),
+			relative: formatRelativeTime(upcomingMaintenance.start, now, locale),
+		});
+	}
+
+	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
 	const currentTimestamp = Date.now();
 
 	const localTime = new Intl.DateTimeFormat(locale, {
@@ -741,9 +763,7 @@ export default function Schedule() {
 	return (
 		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
 			<div className="w-full max-w-2xl space-y-4">
-				<div
-					className={`sticky top-24 md:top-28 z-20 flex gap-3 transition-opacity duration-300 ${isScrolled ? "opacity-60 hover:opacity-100" : ""}`}
-				>
+				<div className="sticky top-24 md:top-28 z-20 flex gap-3">
 					<div className="flex-1 flex items-center gap-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg px-3 py-2">
 						<Clock className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" />
 						<div>
@@ -768,6 +788,29 @@ export default function Schedule() {
 						<div className="text-xs font-mono text-gray-500 dark:text-gray-400">{skyTime}</div>
 					</div>
 				</div>
+				{activeMaintenance && (
+					<div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
+						<AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0" />
+						<div>
+							<p className="text-sm font-medium text-amber-800 dark:text-amber-200 m-0">
+								{t("maintenance", { ns: "general" })}
+							</p>
+							<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+								{t("schedule.maintenance-description", { ns: "features" })}
+							</p>
+							<p className="text-xs text-amber-600 dark:text-amber-400 m-0">
+								{t("schedule.overview-ends-timestamp", {
+									ns: "features",
+									timestamp: new Intl.DateTimeFormat(locale, {
+										timeStyle: "short",
+										timeZone,
+									}).format(activeMaintenance.end.toMillis()),
+								})}{" "}
+								({formatRelativeTime(activeMaintenance.end, now, locale)})
+							</p>
+						</div>
+					</div>
+				)}
 				{/* Active. */}
 				{active.length > 0 && (
 					<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl pt-2 px-4">
@@ -783,6 +826,9 @@ export default function Schedule() {
 									key={item.key}
 								>
 									<span className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2 flex-wrap">
+										{item.type === DisplayCardType.Maintenance && (
+											<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+										)}
 										{item.pageHref ? (
 											<Link className="regular-link" to={item.pageHref}>
 												{item.label}
@@ -813,12 +859,12 @@ export default function Schedule() {
 												)}
 											</>
 										)}
-										{item.kind === "season" && (
+										{item.type === DisplayCardType.Season && (
 											<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
 												{t("season", { ns: "general" })}
 											</span>
 										)}
-										{item.kind === "event" && (
+										{item.type === DisplayCardType.Event && (
 											<span className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900 px-1.5 py-0.5 rounded">
 												{t("event", { ns: "general" })}
 											</span>
@@ -851,6 +897,9 @@ export default function Schedule() {
 								key={item.key}
 							>
 								<span className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2 flex-wrap">
+									{item.type === DisplayCardType.Maintenance && (
+										<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+									)}
 									{item.pageHref ? (
 										<Link className="regular-link" to={item.pageHref}>
 											{item.label}
@@ -881,12 +930,12 @@ export default function Schedule() {
 											)}
 										</>
 									)}
-									{item.kind === "season" && (
+									{item.type === DisplayCardType.Season && (
 										<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
 											{t("season", { ns: "general" })}
 										</span>
 									)}
-									{item.kind === "event" && (
+									{item.type === DisplayCardType.Event && (
 										<span className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900 px-1.5 py-0.5 rounded">
 											{t("event", { ns: "general" })}
 										</span>

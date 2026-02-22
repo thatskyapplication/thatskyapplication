@@ -11,6 +11,7 @@ import {
 	it,
 	ja,
 	ko,
+	MAINTENANCE_PERIODS,
 	type NotificationPacket,
 	NotificationType,
 	type NotificationTypes,
@@ -86,13 +87,28 @@ interface NotificationsShardEruptionData {
 	timestampEnd: `<t:${number}:R>`;
 }
 
+interface NotificationsMaintenanceData {
+	type: typeof NotificationType.Maintenance;
+	timeUntilStart: number;
+	timestampStart: `<t:${number}:t>`;
+	timestampStartRelative: `<t:${number}:R>`;
+	timestampEnd: `<t:${number}:t>`;
+	timestampEndRelative: `<t:${number}:R>`;
+}
+
 interface NotificationsNotShardEruptionData {
-	type: Exclude<NotificationTypes, NotificationShardEruptionTypes>;
+	type: Exclude<
+		NotificationTypes,
+		NotificationShardEruptionTypes | typeof NotificationType.Maintenance
+	>;
 	timeUntilStart: number;
 	timestamp: `<t:${number}:R>`;
 }
 
-type NotificationsData = NotificationsShardEruptionData | NotificationsNotShardEruptionData;
+type NotificationsData =
+	| NotificationsShardEruptionData
+	| NotificationsMaintenanceData
+	| NotificationsNotShardEruptionData;
 
 function isNotificationShardEruptionData(
 	notification: NotificationsData,
@@ -112,6 +128,21 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	if (hour === 0 && minute === 0) {
 		// Update the shard eruption.
 		shardData = shardEruption();
+	}
+
+	for (const maintenancePeriod of MAINTENANCE_PERIODS) {
+		const timeUntilStart = Math.floor(maintenancePeriod.start.diff(date, "minutes").minutes);
+
+		if (timeUntilStart >= 0 && timeUntilStart <= 15) {
+			notifications.push({
+				type: NotificationType.Maintenance,
+				timeUntilStart,
+				timestampStart: `<t:${maintenancePeriod.start.toUnixInteger()}:t>`,
+				timestampStartRelative: `<t:${maintenancePeriod.start.toUnixInteger()}:R>`,
+				timestampEnd: `<t:${maintenancePeriod.end.toUnixInteger()}:t>`,
+				timestampEndRelative: `<t:${maintenancePeriod.end.toUnixInteger()}:R>`,
+			});
+		}
 	}
 
 	if (shardData) {
@@ -332,15 +363,24 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 							timestampStart: notification.timestampStart,
 							timestampEnd: notification.timestampEnd,
 						})
-					: t(`notifications.messages.${type}.message-${key}`, {
-							lng: notificationPacket.locale,
-							ns: "features",
-							timestamp: notification.timestamp,
-							spirit: t(`spirits.${travellingSpirit!.spiritId}`, {
+					: notification.type === NotificationType.Maintenance
+						? t(`notifications.messages.${type}.message-${key}`, {
 								lng: notificationPacket.locale,
-								ns: "general",
-							}),
-						});
+								ns: "features",
+								timestampStart: notification.timestampStart,
+								timestampStartRelative: notification.timestampStartRelative,
+								timestampEnd: notification.timestampEnd,
+								timestampEndRelative: notification.timestampEndRelative,
+							})
+						: t(`notifications.messages.${type}.message-${key}`, {
+								lng: notificationPacket.locale,
+								ns: "features",
+								timestamp: notification.timestamp,
+								spirit: t(`spirits.${travellingSpirit!.spiritId}`, {
+									lng: notificationPacket.locale,
+									ns: "general",
+								}),
+							});
 
 				try {
 					return await client.channels.createMessage(notificationPacket.channel_id, {

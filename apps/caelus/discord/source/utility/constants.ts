@@ -132,6 +132,7 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.TravellingSpirit]: 15,
 	[NotificationType.DreamsSkater]: 10,
 	[NotificationType.NestingWorkshop]: 15,
+	[NotificationType.Maintenance]: 15,
 } as const satisfies Readonly<Record<NotificationTypes, number>>;
 
 // Sky profiles.

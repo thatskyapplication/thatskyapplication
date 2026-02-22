@@ -61,6 +61,7 @@ export default {
 			[NotificationType.TravellingSpirit]: "Travelling spirit",
 			[NotificationType.DreamsSkater]: "Dreams skater",
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",
+			[NotificationType.Maintenance]: "$t(general:maintenance)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -2688,6 +2689,11 @@ export default {
 		"cannot-view-thread": "I lack permissions to view this thread.",
 		view: "View",
 		more: "More",
+		maintenance: "Maintenance",
+		"maintenance-description-singular": "Sky may be unavailable from {{start}} to {{end}}.",
+		"maintenance-description-many": "Sky may be unavailable during these times.",
+		"maintenance-description-many-with-times":
+			"Sky may be unavailable during these times.\n{{times}}",
 		"navigation-back": "Back",
 		"navigation-next": "Next",
 		wiki: "Wiki",
@@ -3109,6 +3115,8 @@ export default {
 			"event-upcoming_one": "{{event}} starts tomorrow.",
 			"event-upcoming_other": "{{event}} starts in {{count}} days.",
 			"event-upcoming-time": "{{event}} starts at {{time}}.",
+			"maintenance-upcoming_one": "Maintenance starts at {{time}} tomorrow.",
+			"maintenance-upcoming_other": "Maintenance starts in {{count}} days.",
 			infographic: "Infographic",
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!\n\nWe're currently missing the following:",
@@ -3309,6 +3317,12 @@ export default {
 					"message-now": "The Nesting Workshop's stock has refreshed!",
 					"message-future": "The Nesting Workshop's stock will refresh {{timestamp}}!",
 				},
+				[NotificationType.Maintenance]: {
+					"message-now":
+						"Maintenance is starting and is planned to end at {{timestampEnd}} ({{timestampEndRelative}}).",
+					"message-future":
+						"Maintenance will start at {{timestampStart}} ({{timestampStartRelative}}) and is planned to end {{timestampEnd}} ({{timestampEndRelative}}).",
+				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":
 				"Choose a channel for the notification to be sent in, a role to be mentioned, and an offset which indicates how many minutes before the event the notification will be sent.",
@@ -3336,6 +3350,7 @@ export default {
 				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 				[ScheduleType.MeteorShower]: "Meteor shower",
+				[ScheduleType.Maintenance]: "$t(general:maintenance)",
 			} satisfies Record<ScheduleTypes, string>,
 			name: "Schedule",
 			description:
