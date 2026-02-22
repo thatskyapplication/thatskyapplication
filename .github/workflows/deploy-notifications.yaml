@@ -7,6 +7,7 @@ on:
       - apps/notifications/**/*
       # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/spirits/**/*
+      - packages/utility/source/maintenance.ts
   workflow_dispatch:
 concurrency:
   group: deploy-notifications
