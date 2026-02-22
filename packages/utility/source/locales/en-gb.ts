@@ -61,6 +61,7 @@ export default {
 			[NotificationType.TravellingSpirit]: "Travelling spirit",
 			[NotificationType.DreamsSkater]: "Dreams skater",
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",
+			[NotificationType.Maintenance]: "$t(general:maintenance)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -3315,6 +3316,12 @@ export default {
 				[NotificationType.NestingWorkshop]: {
 					"message-now": "The Nesting Workshop's stock has refreshed!",
 					"message-future": "The Nesting Workshop's stock will refresh {{timestamp}}!",
+				},
+				[NotificationType.Maintenance]: {
+					"message-now":
+						"Maintenance is starting and is planned to end at {{timestampEnd}} ({{timestampEndRelative}}).",
+					"message-future":
+						"Maintenance will start at {{timestampStart}} ({{timestampStartRelative}}) and is planned to end {{timestampEnd}} ({{timestampEndRelative}}).",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":

@@ -14,8 +14,8 @@ export const MAINTENANCE_PERIODS = [
 		end: skyDate(2026, 2, 22, 23, 25),
 	},
 	{
-		start: skyDate(2026, 2, 22, 10),
-		end: skyDate(2026, 2, 22, 12),
+		start: skyDate(2026, 2, 22, 13, 5),
+		end: skyDate(2026, 2, 22, 14, 0),
 	},
 	{
 		start: skyDate(2026, 2, 23, 0),
