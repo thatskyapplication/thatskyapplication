@@ -5,6 +5,7 @@ import {
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
+	type APISelectMenuOption,
 	ButtonStyle,
 	ComponentType,
 	type InteractionsAPI,
@@ -1478,6 +1479,145 @@ export async function scheduleOverview(
 		},
 	);
 
+	const options: APISelectMenuOption[] = [
+		{
+			label: t(`schedule.type.${ScheduleType.DailyReset}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.DailyReset.toString(),
+			emoji: MISCELLANEOUS_EMOJIS.DailyReset,
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.EyeOfEden}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.EyeOfEden.toString(),
+			emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.ShardEruption}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.ShardEruption.toString(),
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.TravellingSpirit.toString(),
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.NestingWorkshop.toString(),
+			emoji: SEASON_EMOJIS.Nesting,
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.AviarysFireworkFestival.toString(),
+			emoji: EVENT_EMOJIS.AviarysFireworkFestival,
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.InternationalSpaceStation.toString(),
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.PollutedGeyser.toString(),
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.Grandma}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.Grandma.toString(),
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.Turtle}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.Turtle.toString(),
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.AURORA}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.AURORA.toString(),
+			emoji: CAPE_EMOJIS.Cape96,
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.DreamsSkater.toString(),
+			emoji: SEASON_EMOJIS.Dreams,
+		},
+	];
+
+	if (meteorShower) {
+		options.push({
+			label: t(`schedule.type.${ScheduleType.MeteorShower}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.MeteorShower.toString(),
+			emoji: EVENT_EMOJIS.Love,
+		});
+	}
+
+	options.push(
+		{
+			label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.VaultEldersBlessing.toString(),
+			emoji: CAPE_EMOJIS.Cape156,
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.Passage}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.Passage.toString(),
+			emoji: SEASON_EMOJIS.Passage,
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.NineColouredDeer.toString(),
+			emoji: CAPE_EMOJIS.Cape125,
+		},
+		{
+			label: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.ProjectorOfMemories.toString(),
+			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
+		},
+	);
+
 	const response:
 		| Parameters<InteractionsAPI["reply"]>[2]
 		| Parameters<InteractionsAPI["updateMessage"]>[2] = {
@@ -1506,138 +1646,7 @@ export async function scheduleOverview(
 							{
 								type: ComponentType.StringSelect,
 								custom_id: CustomId.ScheduleViewDetailedBreakdown,
-								options: [
-									{
-										label: t(`schedule.type.${ScheduleType.DailyReset}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.DailyReset.toString(),
-										emoji: MISCELLANEOUS_EMOJIS.DailyReset,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.EyeOfEden}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.EyeOfEden.toString(),
-										emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.ShardEruption}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.ShardEruption.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.TravellingSpirit}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.TravellingSpirit.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.NestingWorkshop.toString(),
-										emoji: SEASON_EMOJIS.Nesting,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.AviarysFireworkFestival.toString(),
-										emoji: EVENT_EMOJIS.AviarysFireworkFestival,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.InternationalSpaceStation.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.PollutedGeyser.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.Grandma}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.Grandma.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.Turtle}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.Turtle.toString(),
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.AURORA}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.AURORA.toString(),
-										emoji: CAPE_EMOJIS.Cape96,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.DreamsSkater.toString(),
-										emoji: SEASON_EMOJIS.Dreams,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.MeteorShower}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.MeteorShower.toString(),
-										emoji: EVENT_EMOJIS.Love,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.VaultEldersBlessing.toString(),
-										emoji: CAPE_EMOJIS.Cape156,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.Passage}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.Passage.toString(),
-										emoji: SEASON_EMOJIS.Passage,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.NineColouredDeer.toString(),
-										emoji: CAPE_EMOJIS.Cape125,
-									},
-									{
-										label: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
-											lng: locale,
-											ns: "features",
-										}),
-										value: ScheduleType.ProjectorOfMemories.toString(),
-										emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
-									},
-								],
+								options,
 								max_values: 1,
 								min_values: 1,
 								placeholder: t(
