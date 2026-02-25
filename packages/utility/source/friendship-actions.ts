@@ -497,6 +497,13 @@ export const HAIR_TOUSLES = [
 		square: true,
 		reference: "https://discord.com/channels/1017993798170726411/1416913514676617327",
 	},
+	{
+		url: hairTouslesRoute(5),
+		user1: "618976181026422814",
+		user2: "274238153525821450",
+		square: true,
+		reference: "https://discord.com/channels/1017993798170726411/1476186299810578482",
+	},
 ] as const satisfies Readonly<FriendshipAction[]>;
 
 export const PLAY_FIGHTS = [
