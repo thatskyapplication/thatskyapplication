@@ -3,6 +3,7 @@ import {
 	type APIAttachment,
 	type APIChatInputApplicationCommandGuildInteraction,
 	type APIChatInputApplicationCommandInteraction,
+	type APIComponentInActionRow,
 	type APIDMInteractionWrapper,
 	type APIGuildInteractionWrapper,
 	type APIInteraction,
@@ -74,6 +75,45 @@ export function resolveStringSelectMenu(
 	}
 
 	return null;
+}
+
+export function findComponentById<T extends ComponentType>(
+	components: (APIMessageTopLevelComponent | APIComponentInActionRow)[],
+	id: number,
+	type: T,
+): Extract<APIMessageTopLevelComponent | APIComponentInActionRow, { type: T }> | null {
+	let resolvedComponent: APIMessageTopLevelComponent | APIComponentInActionRow | null = null;
+
+	for (const component of components) {
+		if (component.id === id) {
+			resolvedComponent = component;
+		}
+
+		if (component.type === ComponentType.ActionRow) {
+			resolvedComponent = findComponentById(component.components, id, type);
+		}
+
+		if (component.type === ComponentType.Section) {
+			resolvedComponent = findComponentById(component.components, id, type);
+		}
+
+		if (component.type === ComponentType.Container) {
+			resolvedComponent = findComponentById(component.components, id, type);
+		}
+	}
+
+	if (!resolvedComponent) {
+		return null;
+	}
+
+	if (resolvedComponent.type === type) {
+		return resolvedComponent as Extract<
+			APIMessageTopLevelComponent | APIComponentInActionRow,
+			{ type: T }
+		>;
+	}
+
+	throw new Error(`Component with id ${id} is not of type ${type}.`);
 }
 
 export function userLogFormat(user: APIUser) {

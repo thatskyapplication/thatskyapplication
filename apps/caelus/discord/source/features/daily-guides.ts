@@ -93,6 +93,7 @@ import {
 } from "../utility/emojis.js";
 import {
 	diffJSON,
+	findComponentById,
 	formatArrayErrors,
 	isThreadChannelType,
 	notInCachedGuildResponse,
@@ -119,6 +120,23 @@ type DailyGuidesDistributionAllowedChannel =
 
 const distributeQueue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
 let distributionLock: Promise<unknown> | null = null;
+
+const enum DailyGuidesComponentId {
+	Container = 1,
+	Date = 2,
+	Separator1 = 3,
+	Maintenance = 4,
+	Quests = 5,
+	TreasureCandles = 6,
+	SeasonalCandles = 7,
+	EventTickets = 8,
+	ShardEruptionSection = 9,
+	ShardEruptionAccessory = 10,
+	ShardEruptionText = 11,
+	TravellingRock = 12,
+	Seperator2 = 13,
+	Countdown = 14,
+}
 
 export function questAutocomplete(focused: string, locale: Locale) {
 	return focused === ""
@@ -635,11 +653,13 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		{
 			type: ComponentType.TextDisplay,
 			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.toMillis())}](${DAILY_GUIDES_URL})`,
+			id: DailyGuidesComponentId.Date,
 		},
 		{
 			type: ComponentType.Separator,
 			divider: true,
 			spacing: SeparatorSpacingSize.Small,
+			id: DailyGuidesComponentId.Separator1,
 		},
 	];
 
@@ -716,6 +736,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `### ${t("maintenance", { lng: locale, ns: "general" })}\n\n${formatEmoji(MISCELLANEOUS_EMOJIS.Report)} ${maintenanceString}`,
+			id: DailyGuidesComponentId.Maintenance,
 		});
 	}
 
@@ -747,6 +768,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 						`${index + 1}. ${url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
 				)
 				.join("\n")}`,
+			id: DailyGuidesComponentId.Quests,
 		});
 	} else {
 		missingDailyQuests = true;
@@ -766,6 +788,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 						)
 						.join(" | ")
 		}`,
+		id: DailyGuidesComponentId.TreasureCandles,
 	});
 
 	const season = skyCurrentSeason(today);
@@ -820,6 +843,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n${values.join("\n")}`,
+			id: DailyGuidesComponentId.SeasonalCandles,
 		});
 	}
 
@@ -841,6 +865,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `### ${t("event-tickets", { lng: locale, ns: "general" })}\n${eventData.eventTickets}`,
+			id: DailyGuidesComponentId.EventTickets,
 		});
 	}
 
@@ -853,6 +878,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 			style: ButtonStyle.Secondary,
 			custom_id: CustomId.DailyGuidesShardEruptionsMore,
 			label: t("more", { lng: locale, ns: "general" }),
+			id: DailyGuidesComponentId.ShardEruptionAccessory,
 		},
 		components: [
 			{
@@ -860,8 +886,10 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 				content: shard
 					? `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shard.timestamps, locale })}`
 					: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${t("shard-eruption.none", { lng: locale, ns: "features" })}`,
+				id: DailyGuidesComponentId.ShardEruptionText,
 			},
 		],
+		id: DailyGuidesComponentId.ShardEruptionSection,
 	});
 
 	let missingTravellingRock: boolean;
@@ -872,6 +900,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n[${t("view", { lng: locale, ns: "general" })}](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
+			id: DailyGuidesComponentId.TravellingRock,
 		});
 	} else {
 		missingTravellingRock = true;
@@ -910,16 +939,24 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 				type: ComponentType.Separator,
 				divider: true,
 				spacing: SeparatorSpacingSize.Small,
+				id: DailyGuidesComponentId.Seperator2,
 			},
 			{
 				type: ComponentType.TextDisplay,
 				content: footerText.map((text) => `-# ${text}`).join("\n"),
+				id: DailyGuidesComponentId.Countdown,
 			},
 		);
 	}
 
 	return {
-		components: [{ type: ComponentType.Container, components: containerComponents }],
+		components: [
+			{
+				type: ComponentType.Container,
+				components: containerComponents,
+				id: DailyGuidesComponentId.Container,
+			},
+		],
 		missingDailyQuests,
 		missingTravellingRock,
 	};
@@ -1500,4 +1537,34 @@ export async function questsReorder(
 
 	await updateDailyGuides(data);
 	await interactive(interaction, { type: InteractiveType.Reorder, locale });
+}
+
+export async function dailyGuidesRepairTask() {
+	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
+
+	if (!guild) {
+		throw new Error("Could not find the support server guild.");
+	}
+
+	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
+		Table.DailyGuidesDistribution,
+	)
+		.where({ guild_id: SUPPORT_SERVER_GUILD_ID })
+		.first();
+
+	if (!(dailyGuidesDistributionPacket?.channel_id && dailyGuidesDistributionPacket?.message_id)) {
+		throw new Error("Support server did not have daily guides.");
+	}
+
+	const dailyGuidesMessage = await client.api.channels.getMessage(
+		dailyGuidesDistributionPacket.channel_id,
+		dailyGuidesDistributionPacket.message_id,
+	);
+
+	const { components } = await distributionData(guild.preferredLocale);
+
+	const existingQuests = findComponentById(components, DailyGuidesComponentId.Quests, ComponentType.TextDisplay);
+	// Just realised this may be revamped after https://github.com/thatskyapplication/thatskyapplication/issues/212.
+	// Also, there is a tweak I want to do to the existing structure...
+	// Leaving this on a branch for now.
 }

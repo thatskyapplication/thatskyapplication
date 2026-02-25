@@ -3,6 +3,7 @@ import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { GUILD_CACHE } from "./caches/guilds.js";
 import {
+	dailyGuidesRepairTask,
 	distribute,
 	resetDailyGuides,
 	resetDailyGuidesDistribution,
@@ -41,6 +42,17 @@ export default function croner() {
 				lastUpdatedAt: today.toJSDate(),
 				force: true,
 			});
+		},
+	);
+
+	new Cron(
+		"*/5,25,45 * * * *",
+		{
+			catch: (error) => pino.error(error, "Error during daily guides repair task."),
+			timezone: TIME_ZONE,
+		},
+		async () => {
+			await dailyGuidesRepairTask();
 		},
 	);
 
