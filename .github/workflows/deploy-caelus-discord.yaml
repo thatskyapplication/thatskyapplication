@@ -7,6 +7,7 @@ on:
       - apps/caelus/discord/**/*
       # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/spirits/**/*
+      - packages/utility/source/friendship-actions.ts
   workflow_dispatch:
 concurrency:
   group: deploy-caelus-discord
