@@ -464,6 +464,13 @@ export const HUGS = [
 		square: true,
 		reference: "https://discord.com/channels/1017993798170726411/1435431647330963559",
 	},
+	{
+		url: hugsRoute(45),
+		user1: "618976181026422814",
+		user2: "628363361637236767",
+		square: true,
+		reference: "https://discord.com/channels/1017993798170726411/1476612623381303419",
+	},
 ] as const satisfies Readonly<FriendshipAction[]>;
 
 export const HUGS_SQUARE = HUGS.filter(({ square }) => square);
