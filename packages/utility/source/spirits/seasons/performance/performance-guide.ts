@@ -16,7 +16,8 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.PerformanceGuideQuest1,
 				},
 				{
-					cosmetic: Cosmetic.PerformanceGuideSharedMemorySpell1,
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.PerformanceGuideBlessing1,
 				},
 				{
 					cosmetic: Cosmetic.PerformanceGuidePendant,
@@ -67,7 +68,8 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.PerformanceGuideQuest3,
 				},
 				{
-					cosmetic: Cosmetic.PerformanceGuideSharedMemorySpell2,
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.PerformanceGuideBlessing2,
 				},
 			],
 			[
@@ -86,7 +88,8 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.PerformanceGuideQuest4,
 				},
 				{
-					cosmetic: Cosmetic.PerformanceGuideSharedMemorySpell3,
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
+					cosmetic: Cosmetic.PerformanceGuideBlessing3,
 				},
 			],
 			[
@@ -105,7 +108,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.PerformanceGuideQuest5,
 				},
 				{
-					cosmetic: Cosmetic.PerformanceGuideSharedMemorySpell4,
+					cosmetic: Cosmetic.PerformanceGuideTrailSpell,
 				},
 			],
 			[
