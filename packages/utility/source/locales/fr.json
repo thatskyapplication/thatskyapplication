@@ -69,7 +69,8 @@
 			"11": "Feux d'artifices du Village Volière",
 			"12": "Esprit voyageur",
 			"13": "",
-			"14": "Atelier de la Nidification"
+			"14": "Atelier de la Nidification",
+			"15": ""
 		},
 		"page": "Page",
 		"quests-common": {
@@ -2339,6 +2340,10 @@
 		"cannot-view-thread": "Je n'ai pas les permissions nécessaires afin de voir ce fil.",
 		"view": "Voir",
 		"more": "",
+		"maintenance": "",
+		"maintenance-description-singular": "",
+		"maintenance-description-many": "",
+		"maintenance-description-many-with-times": "",
 		"navigation-back": "Retour",
 		"navigation-next": "Suivant",
 		"wiki": "Wiki"
@@ -2530,7 +2535,8 @@
 				"14": "$t(features:schedule.type.14)",
 				"15": "$t(features:schedule.type.15)",
 				"16": "$t(features:schedule.type.16)",
-				"17": "$t(features:schedule.type.17)"
+				"17": "$t(features:schedule.type.17)",
+				"18": "$t(features:schedule.type.18)"
 			},
 			"command-option-hide-name": "cacher",
 			"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
@@ -2761,6 +2767,8 @@
 			"event-upcoming_one": "{{event}} commence demain.",
 			"event-upcoming_other": "{{event}} commence dans {{count}} jours.",
 			"event-upcoming-time": "{{event}} commence à {{time}}.",
+			"maintenance-upcoming_one": "",
+			"maintenance-upcoming_other": "",
 			"infographic": "Infographie",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
@@ -2939,6 +2947,10 @@
 				"14": {
 					"message-now": "Les stocks de l'Atelier de la Nidification ont été rafraichis !",
 					"message-future": "Les stocks de l'Atelier de la Nidification seront rafraichis {{timestamp}} !"
+				},
+				"15": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "",
@@ -2965,7 +2977,8 @@
 				"14": "Atelier de la Nidification",
 				"15": "Bénédiction de l'Ancienne de la Chambre forte",
 				"16": "$t(general:cosmetic-names.2498)",
-				"17": ""
+				"17": "",
+				"18": "$t(general:maintenance)"
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des évènements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",

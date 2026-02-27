@@ -69,7 +69,8 @@
 			"11": "",
 			"12": "",
 			"13": "",
-			"14": ""
+			"14": "",
+			"15": ""
 		},
 		"page": "",
 		"quests-common": {
@@ -2339,6 +2340,10 @@
 		"cannot-view-thread": "",
 		"view": "",
 		"more": "",
+		"maintenance": "",
+		"maintenance-description-singular": "",
+		"maintenance-description-many": "",
+		"maintenance-description-many-with-times": "",
 		"navigation-back": "",
 		"navigation-next": "",
 		"wiki": ""
@@ -2530,7 +2535,8 @@
 				"14": "$t(features:schedule.type.14)",
 				"15": "$t(features:schedule.type.15)",
 				"16": "$t(features:schedule.type.16)",
-				"17": "$t(features:schedule.type.17)"
+				"17": "$t(features:schedule.type.17)",
+				"18": "$t(features:schedule.type.18)"
 			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
@@ -2761,6 +2767,8 @@
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
 			"event-upcoming-time": "",
+			"maintenance-upcoming_one": "",
+			"maintenance-upcoming_other": "",
 			"infographic": "",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
@@ -2929,6 +2937,10 @@
 				"14": {
 					"message-now": "¡El stock en el Taller de Anidación se ha actualizado!",
 					"message-future": "¡El stock en el Taller de Anidación se actualizará {{timestamp}}!"
+				},
+				"15": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "",
@@ -2955,7 +2967,8 @@
 				"14": "",
 				"15": "",
 				"16": "$t(general:cosmetic-names.2498)",
-				"17": ""
+				"17": "",
+				"18": "$t(general:maintenance)"
 			},
 			"name": "",
 			"description": "",

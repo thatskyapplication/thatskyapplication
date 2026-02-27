@@ -69,7 +69,8 @@
 			"11": "Festival Aviário de Fogos de Artifício",
 			"12": "Espírito viajante",
 			"13": "Patinadora dos sonhos",
-			"14": "Oficina de Nidificação"
+			"14": "Oficina de Nidificação",
+			"15": ""
 		},
 		"page": "Página",
 		"quests-common": {
@@ -2339,6 +2340,10 @@
 		"cannot-view-thread": "Não tenho permissões para visualizar este tópico.",
 		"view": "Exibir",
 		"more": "",
+		"maintenance": "",
+		"maintenance-description-singular": "",
+		"maintenance-description-many": "",
+		"maintenance-description-many-with-times": "",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar",
 		"wiki": "Wiki"
@@ -2530,7 +2535,8 @@
 				"14": "$t(features:schedule.type.14)",
 				"15": "$t(features:schedule.type.15)",
 				"16": "$t(features:schedule.type.16)",
-				"17": "$t(features:schedule.type.17)"
+				"17": "$t(features:schedule.type.17)",
+				"18": "$t(features:schedule.type.18)"
 			},
 			"command-option-hide-name": "ocultar",
 			"command-option-hide-description": "Certifique-se de que só você veja a resposta."
@@ -2761,6 +2767,8 @@
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
 			"event-upcoming-time": "{{event}} começa às {{time}}.",
+			"maintenance-upcoming_one": "",
+			"maintenance-upcoming_other": "",
 			"infographic": "Infográfico",
 			"not-yet-updated": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Junte-se ao [servidor de suporte]({{url}}) e atualize você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
 			"not-yet-updated-support-server": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Veja o {{channel}} para encontrar como atualizá-los você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
@@ -2939,6 +2947,10 @@
 				"14": {
 					"message-now": "A Oficina do Ninho foi atualizada!",
 					"message-future": "A Oficina do Ninho vai atualizar {{timestamp}}!"
+				},
+				"15": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",
@@ -2965,7 +2977,8 @@
 				"14": "Oficina do Ninho",
 				"15": "Benção do Ancião do Relicário",
 				"16": "$t(general:cosmetic-names.2498)",
-				"17": "Chuva de meteoros"
+				"17": "Chuva de meteoros",
+				"18": "$t(general:maintenance)"
 			},
 			"name": "Programação",
 			"description": "Veja a programação de eventos como: o gêiser poluído, a vovó, a tartaruga, a bênção do Ancião do Relicário e muito mais!",
