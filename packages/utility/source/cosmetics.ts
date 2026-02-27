@@ -3432,6 +3432,9 @@ export enum Cosmetic {
 	// 20/02/2026 | Season of Lightmending Quest 7.
 	LightmendingGuideQuest7 = 2718,
 
+	// 26/02/2026 | Version 0.32.5.
+	AssemblyGuideBlessing = 2720,
+
 	// 27/02/2026 | Season of Lightmending Quest 8.
 	LightmendingGuideQuest8 = 2719,
 }

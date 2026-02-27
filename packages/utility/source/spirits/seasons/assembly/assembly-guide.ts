@@ -13,7 +13,8 @@ export default new GuideSpirit({
 		current: [
 			[
 				{
-					cosmetic: Cosmetic.AssemblyGuideSharedSpaceSpell,
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.AssemblyGuideBlessing,
 				},
 			],
 			[
