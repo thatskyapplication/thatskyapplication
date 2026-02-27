@@ -52,7 +52,8 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.RemembranceGuideHighFive,
 				},
 				{
-					cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell1,
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.RemembranceGuideBlessing,
 				},
 			],
 			[
@@ -81,7 +82,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.RemembranceGuideDoubleFive,
 				},
 				{
-					cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell2,
+					cosmetic: Cosmetic.RemembranceGuideTrailSpell1,
 				},
 			],
 			[
@@ -135,7 +136,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.RemembranceGuideFriendActionHug,
 				},
 				{
-					cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell3,
+					cosmetic: Cosmetic.RemembranceGuideTrailSpell2,
 				},
 			],
 			[
@@ -144,7 +145,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.RemembranceGuideQuest9,
 				},
 				{
-					cosmetic: Cosmetic.RemembranceGuideSharedSpaceSpell4,
+					cosmetic: Cosmetic.RemembranceGuideTrailSpell3,
 				},
 			],
 			[

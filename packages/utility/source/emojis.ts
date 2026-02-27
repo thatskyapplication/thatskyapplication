@@ -8886,6 +8886,10 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.PerformanceGuideBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.PerformanceGuideBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.PerformanceGuideTrailSpell]: MISCELLANEOUS_EMOJIS.SpellColourTrail,
+		[Cosmetic.RemembranceGuideBlessing]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.RemembranceGuideTrailSpell1]: MISCELLANEOUS_EMOJIS.SpellColourTrail,
+		[Cosmetic.RemembranceGuideTrailSpell2]: MISCELLANEOUS_EMOJIS.SpellColourTrail,
+		[Cosmetic.RemembranceGuideTrailSpell3]: MISCELLANEOUS_EMOJIS.SpellColourTrail,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

@@ -2682,6 +2682,9 @@ export default {
 			[Cosmetic.FortuneRibbonedPonytail]: "Fortune Ribboned Ponytail",
 			[Cosmetic.FortuneTokenGlasses]: "Fortune Token Glasses",
 			[Cosmetic.PerformanceGuideTrailSpell]: "Trail spell",
+			[Cosmetic.RemembranceGuideTrailSpell1]: "Trail spell 1",
+			[Cosmetic.RemembranceGuideTrailSpell2]: "Trail spell 2",
+			[Cosmetic.RemembranceGuideTrailSpell3]: "Trail spell 3",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
