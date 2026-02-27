@@ -3431,6 +3431,9 @@ export enum Cosmetic {
 
 	// 20/02/2026 | Season of Lightmending Quest 7.
 	LightmendingGuideQuest7 = 2718,
+
+	// 27/02/2026 | Season of Lightmending Quest 8.
+	LightmendingGuideQuest8 = 2719,
 }
 
 export enum CosmeticCommon {
