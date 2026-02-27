@@ -3443,6 +3443,7 @@ export enum Cosmetic {
 	RemembranceGuideTrailSpell2 = 2727,
 	RemembranceGuideTrailSpell3 = 2728,
 	CompassionateCellistBlessing = 2729,
+	PointingCandlemakerTrailSpell = 2730,
 
 	// 27/02/2026 | Season of Lightmending Quest 8.
 	LightmendingGuideQuest8 = 2719,
