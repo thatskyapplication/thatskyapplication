@@ -10,6 +10,9 @@ node_modules
 .env.production
 .env.development
 
+# Locales
+packages/utility/locales
+
 # Miscellaneous
 .cache
 .DS_Store
