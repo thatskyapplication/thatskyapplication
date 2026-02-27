@@ -11,7 +11,8 @@ export default new SeasonalSpirit({
 		seasonal: [
 			[
 				{
-					cosmetic: Cosmetic.CompassionateCellistSharedMemorySpell,
+					translation: CosmeticCommon.Blessing,
+					cosmetic: Cosmetic.CompassionateCellistBlessing,
 				},
 				{
 					translation: CosmeticCommon.FaceAccessory,
