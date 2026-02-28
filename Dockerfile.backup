@@ -3,7 +3,8 @@ FROM alpine:3
 RUN apk add --no-cache \
     postgresql16-client \
     aws-cli \
-    bash
+    bash \
+    curl
 
 # Copy and set up the backup script.
 COPY backup.sh /usr/local/bin/backup.sh

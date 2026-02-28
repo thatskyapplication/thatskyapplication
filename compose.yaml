@@ -20,6 +20,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB_CAELUS}
       POSTGRES_HOST: ${POSTGRES_HOST}
       S3_BUCKET: ${S3_BUCKET}
+      SENTRY_CRONS: ${SENTRY_CRONS_DATABASE_BACKUP}
+
   thatskyapplication-caelus-discord:
     image: thatskyapplication-caelus-discord:latest
     profiles:

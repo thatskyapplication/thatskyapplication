@@ -47,3 +47,4 @@ jobs:
           POSTGRES_DB_CAELUS: ${{ secrets.POSTGRES_DB_CAELUS }}
           POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          SENTRY_CRONS_DATABASE_BACKUP: ${{ secrets.SENTRY_CRONS_DATABASE_BACKUP }}
