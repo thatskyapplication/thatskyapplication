@@ -1,15 +1,15 @@
 import { GatewayDispatchEvents, type Snowflake } from "@discordjs/core";
-import type {
-	DailyGuidesDistributionPacket,
-	NotificationPacket,
+import {
+	type DailyGuidesDistributionPacket,
+	type NotificationPacket,
+	Table,
 } from "@thatskyapplication/utility";
-import { Table } from "@thatskyapplication/utility";
 import { GUILD_IDS_FROM_READY } from "../caches/guilds.js";
 import croner from "../croner.js";
-import { deleteDailyGuidesDistribution } from "../features/daily-guides.js";
-import { deleteNotifications } from "../features/notifications.js";
+// import { deleteDailyGuidesDistribution } from "../features/daily-guides.js";
+// import { deleteNotifications } from "../features/notifications.js";
 import pg from "../pg.js";
-import pino from "../pino.js";
+// import pino from "../pino.js";
 import type { Event } from "./index.js";
 
 const name = GatewayDispatchEvents.Ready;
@@ -41,32 +41,32 @@ export default {
 			}
 		}
 
-		if (LOST_GUILD_IDS.size > 0) {
-			// Remove guild configurations we no longer have access to.
-			const lostGuildIds = [...LOST_GUILD_IDS];
-			pino.info({ lostGuildIds }, "Removing lost guild ids.");
+		// if (LOST_GUILD_IDS.size > 0) {
+		// 	// Remove guild configurations we no longer have access to.
+		// 	const lostGuildIds = [...LOST_GUILD_IDS];
+		// 	pino.info({ lostGuildIds }, "Removing lost guild ids.");
 
-			const settled = await Promise.allSettled(
-				lostGuildIds.map(async (guildId) => [
-					deleteDailyGuidesDistribution(guildId),
-					deleteNotifications(guildId),
-				]),
-			);
+		// 	const settled = await Promise.allSettled(
+		// 		lostGuildIds.map(async (guildId) => [
+		// 			deleteDailyGuidesDistribution(guildId),
+		// 			deleteNotifications(guildId),
+		// 		]),
+		// 	);
 
-			const errors = [];
+		// 	const errors = [];
 
-			for (const result of settled) {
-				if (result.status === "fulfilled") {
-					continue;
-				}
+		// 	for (const result of settled) {
+		// 		if (result.status === "fulfilled") {
+		// 			continue;
+		// 		}
 
-				errors.push(result.reason);
-			}
+		// 		errors.push(result.reason);
+		// 	}
 
-			if (errors.length > 0) {
-				pino.error(new AggregateError(errors, "Error whilst removing guild configurations."));
-			}
-		}
+		// 	if (errors.length > 0) {
+		// 		pino.error(new AggregateError(errors, "Error whilst removing guild configurations."));
+		// 	}
+		// }
 
 		croner();
 	},

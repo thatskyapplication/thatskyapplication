@@ -524,7 +524,7 @@ export async function handleStringSelectMenu(
 	await displayNotificationType(interaction, notificationType);
 }
 
-export async function deleteNotifications(guildId: Snowflake) {
+async function deleteNotifications(guildId: Snowflake) {
 	await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
 }
 

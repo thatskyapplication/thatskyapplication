@@ -495,11 +495,11 @@ export async function resetDailyGuidesDistribution() {
 	});
 }
 
-export async function deleteDailyGuidesDistribution(guildId: Snowflake) {
-	await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
-		.delete()
-		.where({ guild_id: guildId });
-}
+// export async function deleteDailyGuidesDistribution(guildId: Snowflake) {
+// 	await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
+// 		.delete()
+// 		.where({ guild_id: guildId });
+// }
 
 interface DailyGuidesSendOptions {
 	guildId: Snowflake;
