@@ -32,13 +32,13 @@ importers:
         version: 2.1.1
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1770595415-a3e189df0
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1770595415-a3e189df0
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@discordjs/ws':
         specifier: dev
-        version: 3.0.0-dev.1770595415-a3e189df0
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@hono/node-server':
         specifier: ^1.19.9
         version: 1.19.9(hono@4.11.5)
@@ -114,13 +114,13 @@ importers:
     dependencies:
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1770595415-a3e189df0
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1770595415-a3e189df0
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@discordjs/ws':
         specifier: dev
-        version: 3.0.0-dev.1770595415-a3e189df0
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../../packages/utility
@@ -145,10 +145,10 @@ importers:
     dependencies:
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1766552010-7884ecd3a
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1766552010-7884ecd3a
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@sentry/node':
         specifier: ^10.31.0
         version: 10.32.1
@@ -237,10 +237,10 @@ importers:
         version: 0.18.16
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1766552010-7884ecd3a
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1766552010-7884ecd3a
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@sentry/node':
         specifier: ^10.31.0
         version: 10.32.1
@@ -292,10 +292,10 @@ importers:
     dependencies:
       '@discordjs/core':
         specifier: dev
-        version: 3.0.0-dev.1766552010-7884ecd3a
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@discordjs/rest':
         specifier: dev
-        version: 3.0.0-dev.1766552010-7884ecd3a
+        version: 3.0.0-dev.1771286636-ccce987fa
       '@icons-pack/react-simple-icons':
         specifier: 10.2.0
         version: 10.2.0(react@19.2.3)
@@ -449,6 +449,9 @@ importers:
       '@types/node':
         specifier: ^24
         version: 24.10.4
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(tsx@4.21.0)(typescript@5.9.3)
@@ -1068,46 +1071,24 @@ packages:
     resolution: {integrity: sha512-LiSusze9Tc7qF03sLCujF5iZp7K+vRNEDBZ86FT9aQAv3vxMLihUvKvpsCWiQ2DJq1tVckopKm1rxomgNUc9hg==}
     engines: {node: '>=18'}
 
-  '@discordjs/collection@3.0.0-dev.1766534522-7884ecd3a':
-    resolution: {integrity: sha512-Ad1FF1PEcTL5uL0vwZL2cIPj85TN3qJceovxB3qR7j4IzOYgrXeP/xDAfkz5bwXATsGHSSLRQFXVX2vYC4bhgA==}
-    engines: {node: '>=22.12.0'}
-    deprecated: This version is deprecated. Please use a newer version.
-
-  '@discordjs/collection@3.0.0-dev.1770595415-a3e189df0':
-    resolution: {integrity: sha512-S3RWLue4Jspgq6JDdOONyfxVEPVBrj59ExGa6Eh56899i9qLqSe9k/1Lzgoi/6pgwMA+DeRoo7h2PzkJ130knA==}
+  '@discordjs/collection@3.0.0-dev.1771286636-ccce987fa':
+    resolution: {integrity: sha512-oVS8+gjfn9Dc2mHeazeIgcnhqkUbcfIlcDBixER7CouGPh/MYzoYPmoh9vZbE1DCWADk2vgrhvPHrWtOnhyzwA==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/core@3.0.0-dev.1766552010-7884ecd3a':
-    resolution: {integrity: sha512-EyTn0psAAQQp44oW4sY2IJlh2miH6PCrnGLeRN/5Fzvw33Uvu9povWy+wZFR7/VdqPN4eBewecShJQa5Y+TeBQ==}
+  '@discordjs/core@3.0.0-dev.1771286636-ccce987fa':
+    resolution: {integrity: sha512-4d9Ro4n5tYRNf3/K6VAnSqt4omAjma6coZvlEzVXb4EhR5WwSIp6qsh5AfbKuIjR2X5EMw1VvDvTHJmvY3K0PA==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/core@3.0.0-dev.1770595415-a3e189df0':
-    resolution: {integrity: sha512-X8Nww1F3MbG7Fz/PiA4VbecJokpykCwzMAbAk0F7T9LzKZUNC4N4jQzsOlADdzrIla/vAMDCps9t7f3DYbbyQA==}
+  '@discordjs/rest@3.0.0-dev.1771286636-ccce987fa':
+    resolution: {integrity: sha512-heH24twp/MBjSA677gMWDJyFH+rrRcbDP1kKvZVmSdosdEfoo0vglPVPdr0rV9BJYembBBh9C2ohB9XblNsoOg==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/rest@3.0.0-dev.1766552010-7884ecd3a':
-    resolution: {integrity: sha512-cvqlvmI+0cZPfgvwLKWCfq7kyYVO9HXEio0cV0lRVddvnzt758i378dWnNHKbtt3bWaPCE1iiKRldFcv+OCHgQ==}
+  '@discordjs/util@2.0.0-dev.1771286636-ccce987fa':
+    resolution: {integrity: sha512-U+EFoiaZ7iqywHq7E8Xx5JI6Q1mQH2VQn7MwuXblIWhWQE62Nh21WSyzbsTyp+ajmsN91FBcz6rgm9phUvG77w==}
     engines: {node: '>=22.12.0'}
 
-  '@discordjs/rest@3.0.0-dev.1770595415-a3e189df0':
-    resolution: {integrity: sha512-d/yrtTxuCRSLOcIpAiVcpS8Zj9OGr+Oz5McqOqU8n3X11eb39UdRaVmuCd/oT2s10h16zOSAFhNQgIls4yWE3A==}
-    engines: {node: '>=22.12.0'}
-
-  '@discordjs/util@2.0.0-dev.1766534522-7884ecd3a':
-    resolution: {integrity: sha512-7i5qMLO/opOudv7xpF1DLZvnFHIdJQabStWQHHTZXxOGlM46qqUvfoO0jI3c1W4jR6UyzudhJ8RlKiK7ZKrswQ==}
-    engines: {node: '>=22.12.0'}
-
-  '@discordjs/util@2.0.0-dev.1770595415-a3e189df0':
-    resolution: {integrity: sha512-oxqiYAe8JKXTA06DTs23dOnsacMBrLNpITNpO2azN17Z1gK3LuY56PYaYA2oV7UrtSlhfs5ZB1uiJHBcjlMLYw==}
-    engines: {node: '>=22.12.0'}
-
-  '@discordjs/ws@3.0.0-dev.1766552010-7884ecd3a':
-    resolution: {integrity: sha512-AtK7QCf3R5y4GwAZd9neK3/KktZzPwARoa4EdJu+a5d2U5aWhqjRp8yd18NbBxNX00+pF4yqWB8GVJz74kI76g==}
-    engines: {node: '>=22.12.0'}
-    deprecated: This version is deprecated. Please use a newer version.
-
-  '@discordjs/ws@3.0.0-dev.1770595415-a3e189df0':
-    resolution: {integrity: sha512-GabbIlPe9X+f5fKlDAjTTXzmoq15Oz3hf3io6GqZF+3W6MBwl/LYaTJGYzioHUSompgatDKKPvUiXeSdcGmeIg==}
+  '@discordjs/ws@3.0.0-dev.1771286636-ccce987fa':
+    resolution: {integrity: sha512-BIVxYs19rYSP7+DgEWQnjZ41jLUtb27N1aBpSLg2Nc0OcDfZUc5Lc+WEWVJk4yPGOIeMZTrTChUYJBvxUTXs1A==}
     engines: {node: '>=22.12.0'}
 
   '@drizzle-team/brocli@0.11.0':
@@ -3829,16 +3810,18 @@ packages:
 
   glob@10.5.0:
     resolution: {integrity: sha512-DfXN8DfhJ7NH3Oe7cFmu3NCu1wKbkReJ8TorzSAFbSKrlNaQSKfIzqYqVY8zlbs2NLBbWpRiU52GX2PbaBVNkg==}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@11.1.0:
     resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
     engines: {node: 20 || >=22}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   globalyzer@0.1.0:
     resolution: {integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==}
@@ -5760,18 +5743,6 @@ packages:
       utf-8-validate:
         optional: true
 
-  ws@8.18.3:
-    resolution: {integrity: sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-
   ws@8.19.0:
     resolution: {integrity: sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==}
     engines: {node: '>=10.0.0'}
@@ -7039,15 +7010,13 @@ snapshots:
 
   '@discordjs/collection@2.1.1': {}
 
-  '@discordjs/collection@3.0.0-dev.1766534522-7884ecd3a': {}
+  '@discordjs/collection@3.0.0-dev.1771286636-ccce987fa': {}
 
-  '@discordjs/collection@3.0.0-dev.1770595415-a3e189df0': {}
-
-  '@discordjs/core@3.0.0-dev.1766552010-7884ecd3a':
+  '@discordjs/core@3.0.0-dev.1771286636-ccce987fa':
     dependencies:
-      '@discordjs/rest': 3.0.0-dev.1766552010-7884ecd3a
-      '@discordjs/util': 2.0.0-dev.1766534522-7884ecd3a
-      '@discordjs/ws': 3.0.0-dev.1766552010-7884ecd3a
+      '@discordjs/rest': 3.0.0-dev.1771286636-ccce987fa
+      '@discordjs/util': 2.0.0-dev.1771286636-ccce987fa
+      '@discordjs/ws': 3.0.0-dev.1771286636-ccce987fa
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
       discord-api-types: 0.38.40
@@ -7055,22 +7024,10 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@discordjs/core@3.0.0-dev.1770595415-a3e189df0':
+  '@discordjs/rest@3.0.0-dev.1771286636-ccce987fa':
     dependencies:
-      '@discordjs/rest': 3.0.0-dev.1770595415-a3e189df0
-      '@discordjs/util': 2.0.0-dev.1770595415-a3e189df0
-      '@discordjs/ws': 3.0.0-dev.1770595415-a3e189df0
-      '@sapphire/snowflake': 3.5.5
-      '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.40
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  '@discordjs/rest@3.0.0-dev.1766552010-7884ecd3a':
-    dependencies:
-      '@discordjs/collection': 3.0.0-dev.1766534522-7884ecd3a
-      '@discordjs/util': 2.0.0-dev.1766534522-7884ecd3a
+      '@discordjs/collection': 3.0.0-dev.1771286636-ccce987fa
+      '@discordjs/util': 2.0.0-dev.1771286636-ccce987fa
       '@sapphire/async-queue': 1.5.5
       '@sapphire/snowflake': 3.5.5
       '@vladfrangu/async_event_emitter': 2.4.7
@@ -7080,45 +7037,14 @@ snapshots:
       undici: 7.16.0
       uuid: 13.0.0
 
-  '@discordjs/rest@3.0.0-dev.1770595415-a3e189df0':
-    dependencies:
-      '@discordjs/collection': 3.0.0-dev.1770595415-a3e189df0
-      '@discordjs/util': 2.0.0-dev.1770595415-a3e189df0
-      '@sapphire/async-queue': 1.5.5
-      '@sapphire/snowflake': 3.5.5
-      '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.40
-      magic-bytes.js: 1.12.1
-      tslib: 2.8.1
-      undici: 7.16.0
-      uuid: 13.0.0
-
-  '@discordjs/util@2.0.0-dev.1766534522-7884ecd3a':
+  '@discordjs/util@2.0.0-dev.1771286636-ccce987fa':
     dependencies:
       discord-api-types: 0.38.40
 
-  '@discordjs/util@2.0.0-dev.1770595415-a3e189df0':
+  '@discordjs/ws@3.0.0-dev.1771286636-ccce987fa':
     dependencies:
-      discord-api-types: 0.38.40
-
-  '@discordjs/ws@3.0.0-dev.1766552010-7884ecd3a':
-    dependencies:
-      '@discordjs/collection': 3.0.0-dev.1766534522-7884ecd3a
-      '@discordjs/util': 2.0.0-dev.1766534522-7884ecd3a
-      '@sapphire/async-queue': 1.5.5
-      '@types/ws': 8.18.1
-      '@vladfrangu/async_event_emitter': 2.4.7
-      discord-api-types: 0.38.40
-      tslib: 2.8.1
-      ws: 8.18.3
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
-
-  '@discordjs/ws@3.0.0-dev.1770595415-a3e189df0':
-    dependencies:
-      '@discordjs/collection': 3.0.0-dev.1770595415-a3e189df0
-      '@discordjs/util': 2.0.0-dev.1770595415-a3e189df0
+      '@discordjs/collection': 3.0.0-dev.1771286636-ccce987fa
+      '@discordjs/util': 2.0.0-dev.1771286636-ccce987fa
       '@sapphire/async-queue': 1.5.5
       '@types/ws': 8.18.1
       '@vladfrangu/async_event_emitter': 2.4.7
@@ -11856,8 +11782,6 @@ snapshots:
   wrappy@1.0.2: {}
 
   ws@8.18.0: {}
-
-  ws@8.18.3: {}
 
   ws@8.19.0: {}
 
