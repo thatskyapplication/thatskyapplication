@@ -142,7 +142,8 @@ export default {
 			[DailyQuest.MeditateInButterflyFields]: "Meditate in Butterfly Fields",
 			[DailyQuest.MeditateAtTheSanctuaryIslands]: "Meditate at the Sanctuary Islands",
 			[DailyQuest.MeditateInPrairieCave]: "Meditate in Prairie Cave",
-			[DailyQuest.MeditateByPrairieTemplesKoiPond]: "Meditate by Prairie Temple's koi pond",
+			[DailyQuest.MeditateByPrairieTemplesKoiPond]:
+				"Meditate by the koi pond outside the Temple of the Prairie",
 			[DailyQuest.MeditateOutsideTheForestCourtyard]: "Meditate outside the Forest Courtyard",
 			[DailyQuest.MeditateAboveTheForestBrook]: "Meditate above the Forest Brook",
 			[DailyQuest.MeditateInTheElevatedClearing]: "Meditate in the Elevated Clearing",
@@ -151,15 +152,15 @@ export default {
 			[DailyQuest.MeditateOverlookingTheFrozenLake]: "Meditate overlooking the Frozen Lake",
 			[DailyQuest.MeditateAtopTheEntranceToTheCitadel]: "Meditate atop the entrance to The Citadel",
 			[DailyQuest.MeditateHighAboveTheCitadel]: "Meditate high above The Citadel",
-			[DailyQuest.MeditateInTheColiseum]: "Meditate in the Coliseum",
+			[DailyQuest.MeditateInTheColiseum]: "Meditate at the Temple of the Valley",
 			[DailyQuest.MeditateInTheBrokenTemple]: "Meditate in the Broken Temple",
 			[DailyQuest.MeditateByTheForgottenArk]: "Meditate by the Forgotten Ark",
-			[DailyQuest.MeditateInTheGraveyard]: "Meditate in the Graveyard",
+			[DailyQuest.MeditateInTheGraveyard]: "Meditate at the edge of the Graveyard",
 			[DailyQuest.MeditateInTheCrabFields]: "Meditate in the Crab Fields",
 			[DailyQuest.MeditateOnTheBattlefield]: "Meditate on the Battlefield",
 			[DailyQuest.MeditateAtTheVaultsEntrance]: "Meditate at the Vault's entrance",
 			[DailyQuest.MeditateOnTheSecondFloorOfTheVault]: "Meditate on the second floor of the Vault",
-			[DailyQuest.MeditateAtTheVaultTemple]: "Meditate at the Vault Temple",
+			[DailyQuest.MeditateAtTheVaultTemple]: "Meditate at the Temple of the Vault",
 			[DailyQuest.CollectGreenLight]: "Collect green light",
 			[DailyQuest.CollectOrangeLight]: "Collect orange light",
 			[DailyQuest.CollectBlueLight]: "Collect blue light",
@@ -169,7 +170,7 @@ export default {
 			[DailyQuest.RaceDownTheSlopesWithTheSkater]: "Race down the slopes with the skater",
 			[DailyQuest.RaceDownTheMountainWithTheSkater]: "Race down the mountain with the skater",
 			[DailyQuest.RehearseForAPerformanceWithTheSkater]:
-				"Rehearse for a performance with the skater",
+				"Rehearse for a performance with the skater in the Temple of the Valley",
 			[DailyQuest.CompleteTheHoopScavengerHunt]: "Complete the hoop scavenger hunt",
 			[DailyQuest.ReliveTheButterflyCharmer]: "Relive the Butterfly Charmer",
 			[DailyQuest.ReliveTheApplaudingBellmaker]: "Relive the Applauding Bellmaker",
@@ -510,8 +511,8 @@ export default {
 				SpiritId.BackflippingChampion,
 				RealmName.ValleyOfTriumph,
 			),
-			[DailyQuest.HelpThePrayingAcolyteArchiveSummerIntheArchives]:
-				"Help the Praying Acolyte archive summer in the Archives",
+			[DailyQuest.HelpThePrayingAcolyteArchiveSummerInTheArchives]:
+				"Help Praying Acolyte archive summer in the Vault Archive",
 			[DailyQuest.MeetUpWithThoughtfulDirectorInVaultOfKnowledge]: questsMeetUpWith(
 				SpiritId.ThoughtfulDirector,
 				RealmName.VaultOfKnowledge,
@@ -537,7 +538,7 @@ export default {
 				SkyMap.RepositoryOfRefuge,
 			),
 			[DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace]:
-				"Catch the 3 lights during the Valley's sliding race",
+				"Catch the wandering lights along the Lower Valley Track",
 			[DailyQuest.InviteASeasonOfMigrationSpiritToAdventureWithYouToday]:
 				"Invite a Season of Migration spirit to adventure with you today",
 			[DailyQuest.MeetUpWithTumblingTroublemakerInPrairieCave]: questsMeetUpWith(
@@ -591,7 +592,7 @@ export default {
 				"Play Skyball for 60 seconds in Village of Dreams",
 			[DailyQuest.ThrowASnowballAtSomeone]: "Throw a snowball at someone",
 			[DailyQuest.TidyUpTheAncestorsTableOfBelongingInHiddenForestsElevatedClearing]:
-				"Tidy up the Ancestor's Table of Belonging in Hidden Forest's elevated clearing",
+				"Tidy up the Ancestor's table in the Elevated Clearing",
 			[DailyQuest.MeetUpWithCrabWhispererInCrabFields]: questsMeetUpWith(
 				SpiritId.CrabWhisperer,
 				SkyMap.CrabFields,
@@ -603,7 +604,7 @@ export default {
 			),
 			[DailyQuest.CatchTheWanderingLightsAtopHermitValley]:
 				"Catch the wandering lights atop Hermit Valley",
-			[DailyQuest.CatchThe3LightsInTheWindPaths]: "Catch the 3 lights in The Wind Paths",
+			[DailyQuest.CatchThe3LightsInTheWindPaths]: "Catch the wandering lights in The Wind Paths",
 			[DailyQuest.MeetUpWithTalentedBuilderInTheWindPaths]: questsMeetUpWith(
 				SpiritId.TalentedBuilder,
 				SkyMap.TheWindPaths,
