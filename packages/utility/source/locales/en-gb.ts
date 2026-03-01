@@ -609,6 +609,10 @@ export default {
 				SpiritId.TalentedBuilder,
 				SkyMap.TheWindPaths,
 			),
+			[DailyQuest.MeetUpWithBearhugHermitInHermitValley]: questsMeetUpWith(
+				SpiritId.BearhugHermit,
+				SkyMap.HermitValley,
+			),
 		} satisfies Record<DailyQuests, string>,
 		season: "Season",
 		seasons: {

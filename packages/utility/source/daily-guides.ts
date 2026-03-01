@@ -309,6 +309,7 @@ export const DailyQuest = {
 	CatchTheWanderingLightsAtopHermitValley: 288,
 	CatchThe3LightsInTheWindPaths: 289,
 	MeetUpWithTalentedBuilderInTheWindPaths: 290,
+	MeetUpWithBearhugHermitInHermitValley: 291,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -758,6 +759,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.CatchTheWanderingLightsAtopHermitValley]: null,
 	[DailyQuest.CatchThe3LightsInTheWindPaths]: null,
 	[DailyQuest.MeetUpWithTalentedBuilderInTheWindPaths]: null,
+	[DailyQuest.MeetUpWithBearhugHermitInHermitValley]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
