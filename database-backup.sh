@@ -2,6 +2,7 @@
 
 # Start an infinite loop!
 while true; do
+	CYCLE_START=$(date +%s)
 	TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 	BACKUP_FILE="/tmp/backup_${TIMESTAMP}.sql.gz"
 
@@ -35,6 +36,10 @@ while true; do
 		curl --silent --fail "${SENTRY_CRONS}?status=error" || echo "[$(date)] Warning: Sentry check-in failed."
 	fi
 
-	# Wait 8 hours before the next backup.
-	sleep 28800
+	ELAPSED=$(( $(date +%s) - CYCLE_START ))
+	SLEEP_TIME=$(( 28800 - ELAPSED )) # 8 hours.
+
+	if [ $SLEEP_TIME -gt 0 ]; then
+		sleep $SLEEP_TIME
+	fi
 done

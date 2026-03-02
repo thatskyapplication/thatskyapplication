@@ -1,5 +1,10 @@
 name: Deploy database backup
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - database-backup.sh
   workflow_dispatch:
 permissions:
   contents: read
