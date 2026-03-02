@@ -1,4 +1,5 @@
 import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
+import { FriendshipActionType } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { friendshipAction } from "../../features/friendship-actions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
@@ -12,7 +13,7 @@ export default {
 			interaction,
 			user: options.getUser("user", true),
 			member: options.getMember("user"),
-			key: "hair-tousle",
+			type: FriendshipActionType.HairTousle,
 		});
 	},
 } as const;

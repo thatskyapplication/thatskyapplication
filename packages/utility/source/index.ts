@@ -63,14 +63,14 @@ export {
 	skyUpcomingEvents,
 } from "./events/index.js";
 export {
-	FRIENDSHIP_ACTIONS_CONTRIBUTORS,
-	FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY,
-	HAIR_TOUSLES,
-	HIGH_FIVES,
-	HUGS,
-	HUGS_SQUARE,
-	KRILLS,
-	PLAY_FIGHTS,
+	type FriendshipActionsPacket,
+	FriendshipActionType,
+	type FriendshipActionTypes,
+	hairTouslesRoute,
+	highFivesRoute,
+	hugsRoute,
+	krillsRoute,
+	playFightsRoute,
 } from "./friendship-actions.js";
 export {
 	GUESS_TYPE_VALUES,

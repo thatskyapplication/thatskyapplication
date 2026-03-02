@@ -26,7 +26,7 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { Table } from "@thatskyapplication/utility";
+import { FriendshipActionType, Table } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
@@ -697,10 +697,10 @@ export async function welcomeHandleHugButton(
 
 		await client.api.channels.createMessage(channel.id, {
 			allowed_mentions: { users: [user.id] },
-			components: friendshipActionComponents({
+			components: await friendshipActionComponents({
 				invoker: interaction.member.user,
 				user,
-				key: "hug",
+				type: FriendshipActionType.Hug,
 				locale: interaction.guild_locale ?? Locale.EnglishGB,
 			}),
 			flags: MessageFlags.IsComponentsV2,

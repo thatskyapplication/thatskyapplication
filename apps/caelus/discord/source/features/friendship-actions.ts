@@ -15,17 +15,22 @@ import {
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import {
+	type FriendshipActionsPacket,
+	FriendshipActionType,
+	type FriendshipActionTypes,
 	formatEmoji,
-	HAIR_TOUSLES,
-	HIGH_FIVES,
-	HUGS,
-	KRILLS,
-	PLAY_FIGHTS,
+	hairTouslesRoute,
+	highFivesRoute,
+	hugsRoute,
+	krillsRoute,
+	playFightsRoute,
+	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
+import pg from "../pg.js";
 import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOTE_EMOJIS, FRIEND_ACTION_EMOJIS } from "../utility/emojis.js";
@@ -36,30 +41,34 @@ interface FriendshipActionOptions {
 	interaction: APIChatInputApplicationCommandInteraction;
 	user: APIUser;
 	member: APIInteractionDataResolvedGuildMember | null;
-	key: keyof typeof KeyToData;
+	type: FriendshipActionTypes;
 }
 
-const KeyToData = {
-	"high-five": HIGH_FIVES,
-	hug: HUGS,
-	"hair-tousle": HAIR_TOUSLES,
-	"play-fight": PLAY_FIGHTS,
-	krill: KRILLS,
-} as const satisfies Readonly<
-	Record<
-		string,
-		typeof HUGS | typeof HIGH_FIVES | typeof HAIR_TOUSLES | typeof PLAY_FIGHTS | typeof KRILLS
-	>
->;
+const FriendshipActionTypeToKey = {
+	[FriendshipActionType.HighFive]: "high-five",
+	[FriendshipActionType.Hug]: "hug",
+	[FriendshipActionType.HairTousle]: "hair-tousle",
+	[FriendshipActionType.PlayFight]: "play-fight",
+	[FriendshipActionType.Krill]: "krill",
+} as const satisfies Readonly<Record<FriendshipActionTypes, string>>;
+
+const FriendshipActionTypeToRoute = {
+	[FriendshipActionType.HighFive]: highFivesRoute,
+	[FriendshipActionType.Hug]: hugsRoute,
+	[FriendshipActionType.HairTousle]: hairTouslesRoute,
+	[FriendshipActionType.PlayFight]: playFightsRoute,
+	[FriendshipActionType.Krill]: krillsRoute,
+} as const satisfies Readonly<Record<FriendshipActionTypes, (id: number) => string>>;
 
 export async function friendshipAction({
 	interaction,
 	user,
 	member,
-	key,
+	type,
 }: FriendshipActionOptions) {
 	const invoker = interactionInvoker(interaction);
 	const userLocale = interaction.locale;
+	const key = FriendshipActionTypeToKey[type];
 
 	if (user.id === invoker.id) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -128,12 +137,12 @@ export async function friendshipAction({
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
 		allowed_mentions: { users: [user.id] },
-		components: friendshipActionComponents({
+		components: await friendshipActionComponents({
 			invoker,
 			user,
-			key,
+			type,
 			locale: interaction.guild_locale ?? Locale.EnglishGB,
-			showHugBack: key === "hug" && interaction.channel.type === ChannelType.DM,
+			showHugBack: type === FriendshipActionType.Hug && interaction.channel.type === ChannelType.DM,
 		}),
 		flags: MessageFlags.IsComponentsV2,
 	});
@@ -142,24 +151,41 @@ export async function friendshipAction({
 interface FriendshipActionComponentOptions {
 	invoker: APIUser;
 	user: APIUser;
-	key: keyof typeof KeyToData;
+	type: FriendshipActionTypes;
 	locale: Locale;
 	showHugBack?: boolean;
-	number?: number | undefined;
+	id?: number | undefined;
 }
 
-export function friendshipActionComponents({
+export async function friendshipActionComponents({
 	invoker,
 	user,
-	key,
+	type,
 	locale,
 	showHugBack = false,
-	number = Math.floor(Math.random() * KeyToData[key].length),
-}: FriendshipActionComponentOptions): [APIMessageTopLevelComponent] {
+	id,
+}: FriendshipActionComponentOptions): Promise<[APIMessageTopLevelComponent]> {
+	let resolvedId = id;
+
+	if (!resolvedId) {
+		const friendshipActionsPacket = await pg<FriendshipActionsPacket>(Table.FriendshipActions)
+			.select("id")
+			.where({ type })
+			.orderByRaw("random()")
+			.limit(1)
+			.first();
+
+		if (!friendshipActionsPacket?.id) {
+			throw new Error("Unknown friendship actions id.");
+		}
+
+		resolvedId = friendshipActionsPacket.id;
+	}
+
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: t(`friendship-actions.${key}-message`, {
+			content: t(`friendship-actions.${FriendshipActionTypeToKey[type]}-message`, {
 				lng: locale,
 				ns: "features",
 				user: `<@${user.id}>`,
@@ -168,7 +194,7 @@ export function friendshipActionComponents({
 		},
 		{
 			type: ComponentType.MediaGallery,
-			items: [{ media: { url: KeyToData[key][number]!.url } }],
+			items: [{ media: { url: FriendshipActionTypeToRoute[type](resolvedId) } }],
 		},
 	];
 
@@ -179,7 +205,7 @@ export function friendshipActionComponents({
 				{
 					type: ComponentType.Button,
 					style: ButtonStyle.Primary,
-					custom_id: `${CustomId.FriendshipActionsHugBack}§${number}`,
+					custom_id: `${CustomId.FriendshipActionsHugBack}§${resolvedId}`,
 					emoji: FRIEND_ACTION_EMOJIS.Hug,
 					label: t("friendship-actions.hug-back-button-label", {
 						lng: locale,
@@ -200,7 +226,7 @@ export function friendshipActionComponents({
 
 export async function friendshipActionsHugBack(
 	interaction: APIDMInteractionWrapper<APIMessageComponentButtonInteraction>,
-	number: number | undefined,
+	id: number | undefined,
 ) {
 	const originalInvoker = interaction.message.interaction_metadata!.user;
 	const invoker = interaction.user;
@@ -215,22 +241,22 @@ export async function friendshipActionsHugBack(
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: friendshipActionComponents({
+		components: await friendshipActionComponents({
 			invoker: originalInvoker,
 			user: invoker,
-			key: "hug",
+			type: FriendshipActionType.Hug,
 			locale: Locale.EnglishGB,
 			showHugBack: false,
-			number,
+			id,
 		}),
 	});
 
 	await client.api.interactions.followUp(interaction.application_id, interaction.token, {
 		allowed_mentions: { users: [originalInvoker.id] },
-		components: friendshipActionComponents({
+		components: await friendshipActionComponents({
 			invoker,
 			user: originalInvoker,
-			key: "hug",
+			type: FriendshipActionType.Hug,
 			locale: Locale.EnglishGB,
 		}),
 		flags: MessageFlags.IsComponentsV2,

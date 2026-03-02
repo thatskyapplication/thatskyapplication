@@ -1,22 +1,24 @@
-import {
-	FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY,
-	type SkyProfilePacket,
-	Table,
-} from "@thatskyapplication/utility";
+import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
 import { data, Link, useLoaderData } from "react-router";
 import pg from "~/pg.server";
 import { APPLICATION_NAME, WIKI_URL } from "~/utility/constants";
 
 export const loader = async () => {
-	const contributors = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("user_id", "name", "icon")
-		.whereIn("user_id", FRIENDSHIP_ACTIONS_CONTRIBUTORS_ARRAY)
-		.whereNotNull("name")
-		.orderBy("name", "asc")
-		.orderBy("user_id", "asc");
+	const { rows } = await pg.raw<{ rows: readonly SkyProfilePacket[] }>(
+		`
+			select ${Table.Profiles}.*
+			from (
+				select distinct unnest(${Table.FriendshipActions}.users) as user_id
+				from ${Table.FriendshipActions}
+			) unique_users
+			join ${Table.Profiles} on ${Table.Profiles}.user_id = unique_users.user_id
+			where profiles.name is not null
+			order by profiles.name asc, profiles.user_id asc
+		`,
+	);
 
-	return data(contributors, {
+	return data(rows, {
 		headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" },
 	});
 };
