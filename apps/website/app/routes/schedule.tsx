@@ -718,7 +718,7 @@ export default function Schedule() {
 		(a, b) => (b.endUnix ?? Number.POSITIVE_INFINITY) - (a.endUnix ?? Number.POSITIVE_INFINITY),
 	);
 
-	const activeMaintenance = MAINTENANCE_PERIODS.find(
+	const activeMaintenances = MAINTENANCE_PERIODS.filter(
 		(period) => now >= period.start && now < period.end,
 	);
 
@@ -788,26 +788,50 @@ export default function Schedule() {
 						<div className="text-xs font-mono text-gray-500 dark:text-gray-400">{skyTime}</div>
 					</div>
 				</div>
-				{activeMaintenance && (
+				{activeMaintenances.length > 0 && (
 					<div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
 						<AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0" />
 						<div>
 							<p className="text-sm font-medium text-amber-800 dark:text-amber-200 m-0">
 								{t("maintenance", { ns: "general" })}
 							</p>
-							<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
-								{t("schedule.maintenance-description", { ns: "features" })}
-							</p>
-							<p className="text-xs text-amber-600 dark:text-amber-400 m-0">
-								{t("schedule.overview-ends-timestamp", {
-									ns: "features",
-									timestamp: new Intl.DateTimeFormat(locale, {
-										timeStyle: "short",
-										timeZone,
-									}).format(activeMaintenance.end.toMillis()),
-								})}{" "}
-								({formatRelativeTime(activeMaintenance.end, now, locale)})
-							</p>
+							{activeMaintenances.length === 1 ? (
+								<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+									{t("maintenance-description-singular", {
+										ns: "general",
+										start: new Intl.DateTimeFormat(locale, {
+											timeStyle: "short",
+											timeZone,
+										}).format(activeMaintenances[0]!.start.toMillis()),
+										end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+											activeMaintenances[0]!.end.toMillis(),
+										),
+									})}
+								</p>
+							) : (
+								<>
+									<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+										{t("maintenance-description-many", { ns: "general" })}
+									</p>
+									<ul className="text-xs text-amber-600 dark:text-amber-400 m-0 list-disc ps-4">
+										{activeMaintenances.map((maintenance) => (
+											<li key={maintenance.start.toMillis()}>
+												{t("time-range", {
+													ns: "general",
+													start: new Intl.DateTimeFormat(locale, {
+														timeStyle: "short",
+														timeZone,
+													}).format(maintenance.start.toMillis()),
+													end: new Intl.DateTimeFormat(locale, {
+														timeStyle: "short",
+														timeZone,
+													}).format(maintenance.end.toMillis()),
+												})}
+											</li>
+										))}
+									</ul>
+								</>
+							)}
 						</div>
 					</div>
 				)}
