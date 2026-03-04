@@ -613,6 +613,14 @@ export default {
 				SpiritId.BearhugHermit,
 				SkyMap.HermitValley,
 			),
+			[DailyQuest.HarvestTheSunflowerSeedLightAtTheGardenInDaylightPrairie]:
+				"Harvest the Sunflower Seed Light at the Garden in Daylight Prairie",
+			[DailyQuest.PlantASunflowerMessageAtTheGardenInDaylightPrairie]:
+				"Plant a Sunflower message at the Garden in Daylight Prairie",
+			[DailyQuest.PlayMusicWithLaughingLightCatcherInDaylightPrairie]:
+				"Play music with Laughing Light Catcher in Daylight Prairie",
+			[DailyQuest.WaterTheSunflowerAtTheGardenInDaylightPrairie]:
+				"Water the Sunflower at the Garden in Daylight Prairie",
 		} satisfies Record<DailyQuests, string>,
 		season: "Season",
 		seasons: {

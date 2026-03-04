@@ -310,6 +310,10 @@ export const DailyQuest = {
 	CatchThe3LightsInTheWindPaths: 289,
 	MeetUpWithTalentedBuilderInTheWindPaths: 290,
 	MeetUpWithBearhugHermitInHermitValley: 291,
+	HarvestTheSunflowerSeedLightAtTheGardenInDaylightPrairie: 292,
+	PlantASunflowerMessageAtTheGardenInDaylightPrairie: 293,
+	PlayMusicWithLaughingLightCatcherInDaylightPrairie: 294,
+	WaterTheSunflowerAtTheGardenInDaylightPrairie: 295,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -760,6 +764,10 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.CatchThe3LightsInTheWindPaths]: null,
 	[DailyQuest.MeetUpWithTalentedBuilderInTheWindPaths]: null,
 	[DailyQuest.MeetUpWithBearhugHermitInHermitValley]: null,
+	[DailyQuest.HarvestTheSunflowerSeedLightAtTheGardenInDaylightPrairie]: null,
+	[DailyQuest.PlantASunflowerMessageAtTheGardenInDaylightPrairie]: null,
+	[DailyQuest.PlayMusicWithLaughingLightCatcherInDaylightPrairie]: null,
+	[DailyQuest.WaterTheSunflowerAtTheGardenInDaylightPrairie]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
