@@ -38,7 +38,7 @@ export enum SkyMap {
 	PrairiePeaks = "Prairie Peaks",
 	KoiPond = "Koi Pond",
 	PrairieVillage = "Prairie Village",
-	PrairieTemple = "Prairie Temple",
+	TempleOfThePrairie = "Temple of the Prairie",
 	SanctuaryIslands = "Sanctuary Islands",
 
 	// Hidden Forest.
@@ -56,11 +56,11 @@ export enum SkyMap {
 	VillageTheatre = "Village Theatre",
 
 	// Golden Wasteland.
-	WastelandBattlefield = "Wasteland Battlefield",
-	BrokenTemple = "Broken Temple",
+	TheBattlefield = "The Battlefield",
+	TheOuterBailey = "The Outer Bailey",
 	CrabFields = "Crab Fields",
 	ForgottenArk = "Forgotten Ark",
-	Graveyard = "Graveyard",
+	TheGraveyard = "The Graveyard",
 	TreasureReef = "Treasure Reef",
 
 	// Vault of Knowledge.

@@ -19,7 +19,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 			SkyMap.ButterflyFields,
 			SkyMap.ForestBrook,
 			SkyMap.FrozenLake,
-			SkyMap.BrokenTemple,
+			SkyMap.TheOuterBailey,
 			SkyMap.StarlightDesert,
 		].map((map) => ({
 			skyMap: map,
@@ -36,7 +36,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 			SkyMap.KoiPond,
 			SkyMap.Boneyard,
 			SkyMap.FrozenLake,
-			SkyMap.WastelandBattlefield,
+			SkyMap.TheBattlefield,
 			SkyMap.StarlightDesert,
 		].map((map) => ({
 			skyMap: map,
@@ -65,7 +65,11 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 				url: resolveShardEruptionMapURL(SkyMap.VillageOfDreams),
 				reward: 2.5,
 			},
-			{ skyMap: SkyMap.Graveyard, url: resolveShardEruptionMapURL(SkyMap.Graveyard), reward: 2 },
+			{
+				skyMap: SkyMap.TheGraveyard,
+				url: resolveShardEruptionMapURL(SkyMap.TheGraveyard),
+				reward: 2,
+			},
 			{
 				skyMap: SkyMap.JellyfishCove,
 				url: resolveShardEruptionMapURL(SkyMap.JellyfishCove),

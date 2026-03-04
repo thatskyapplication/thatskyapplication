@@ -327,7 +327,7 @@ export default {
 			),
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: questsMeetUpWith(
 				SpiritId.CacklingCannoneer,
-				SkyMap.Graveyard,
+				SkyMap.TheGraveyard,
 			),
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: questsMeetUpWith(
 				SpiritId.HideNSeekPioneer,
@@ -505,7 +505,7 @@ export default {
 			),
 			[DailyQuest.MeetUpWithFlightGuideInPrairieTemple]: questsMeetUpWith(
 				SpiritId.FlightGuide,
-				SkyMap.PrairieTemple,
+				SkyMap.TempleOfThePrairie,
 			),
 			[DailyQuest.MeetUpWithBackflippingChampionInValleyOfTriumph]: questsMeetUpWith(
 				SpiritId.BackflippingChampion,
