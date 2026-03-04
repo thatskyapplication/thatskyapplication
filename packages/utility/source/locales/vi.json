@@ -368,7 +368,11 @@
 			"288": "Bắt các ánh sáng lang thang trên Thung Lũng Ẩn Sĩ",
 			"289": "Bắt các ánh sáng lang thang ở Con Đường Gió",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})"
+			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})",
+			"292": "Thu hoạch Ánh Sáng Hạt Hoa Hướng Dương tại Vườn ở Thảo Nguyên Ánh Sáng",
+			"293": "Trồng một tin nhắn Hoa Hướng Dương tại Vườn ở Thảo Nguyên Ánh Sáng",
+			"294": "Chơi nhạc cùng Nông Dân Vui Vẻ ở Thảo Nguyên Ánh Sáng",
+			"295": "Tưới cho Hoa Hướng Dương tại Vườn ở Thảo Nguyên Ánh Sáng"
 		},
 		"season": "",
 		"seasons": {

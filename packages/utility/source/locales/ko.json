@@ -368,7 +368,11 @@
 			"288": "은둔자의 언덕 꼭대기에서 떠도는 빛 잡기",
 			"289": "바람길에서 떠도는 빛 잡기",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})"
+			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})",
+			"292": "햇빛 초원의 정원에서 해바라기 씨앗 빛을 수확하세요",
+			"293": "햇빛 초원의 정원에서 해바라기 메시지를 심으세요",
+			"294": "햇빛 초원에서 웃는 빛잡이와 함께 음악을 연주하세요",
+			"295": "햇빛 초원의 정원에서 해바라기에 물을 주세요"
 		},
 		"season": "",
 		"seasons": {

@@ -368,7 +368,11 @@
 			"288": "Récupérez les lumières errantes au sommet de la pente du Yéti",
 			"289": "Récupérez les lumières errantes sur les Chemins de Vent",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})"
+			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})",
+			"292": "Récoltez la Lumière de graine de tournesol dans le Jardin de la Prairie Illuminée",
+			"293": "Plantez un message tournesol dans le Jardin de la Prairie Illuminée",
+			"294": "Jouez une musique avec l'Attrapeuse de lumière riant dans la Prairie Illuminée",
+			"295": "Arrosez le tournesol dans le Jardin de la Prairie Illuminée"
 		},
 		"season": "Saison",
 		"seasons": {

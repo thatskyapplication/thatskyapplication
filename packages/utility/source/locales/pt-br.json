@@ -368,7 +368,11 @@
 			"288": "Pegue as luzes flutuantes no topo do Desfiladeiro do Iéti",
 			"289": "Pegue as luzes flutuantes nas Trilhas do Vento",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})"
+			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})",
+			"292": "Pegue luz de semente de girassol no Jardim na Campina da Aurora",
+			"293": "Plante uma mensagem de girassol no Jardim na Campina da Aurora",
+			"294": "Toque uma música com a Caçadora de Luz Risonha na Campina da Aurora",
+			"295": "Regue o girassol no Jardim na Campina da Aurora"
 		},
 		"season": "Temporada",
 		"seasons": {

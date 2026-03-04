@@ -368,7 +368,11 @@
 			"288": "在隱士山谷山頂捕捉四散的光",
 			"289": "在風之大道捕捉四散的光",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})"
+			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})",
+			"292": "在雲野的花園採集向日葵的種子之光",
+			"293": "在雲野的花園種下向日葵留言",
+			"294": "在雲野與歡笑光農一起演奏音樂",
+			"295": "在雲野的花園為向日葵澆水"
 		},
 		"season": "季節",
 		"seasons": {
