@@ -1142,6 +1142,7 @@ export async function interactive(
 					min_values: questOptions.length,
 					options: questOptions,
 					placeholder: "Reorder quests.",
+					disabled: type === InteractiveType.Distributing,
 				},
 			],
 		});
@@ -1158,6 +1159,7 @@ export async function interactive(
 					min_values: 1,
 					options: LOCALE_OPTIONS,
 					placeholder: "View in a locale.",
+					disabled: type === InteractiveType.Distributing,
 				},
 			],
 		},
