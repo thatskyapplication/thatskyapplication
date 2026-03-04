@@ -368,7 +368,11 @@
 			"288": "Atrapa las luces errantes en la cima de la Ladera del yeti",
 			"289": "Atrapa las luces errantes en los Caminos del Viento",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})"
+			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})",
+			"292": "Consigue luz de las semillas de girasol en el jardín de la Planicie Luz de Día",
+			"293": "Planta un mensaje de girasol en el jardín de la Planicie Luz de Día",
+			"294": "Toca música con la cazadora de luz risueña en la Planicie Luz de Día",
+			"295": "Riega girasoles en el jardín de la Planicie Luz de Día"
 		},
 		"season": "Temporada",
 		"seasons": {

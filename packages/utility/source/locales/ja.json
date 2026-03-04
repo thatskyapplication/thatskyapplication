@@ -368,7 +368,11 @@
 			"288": "隠者の峠で彷徨う光をつかまえる",
 			"289": "風の街道で彷徨う光をつかまえる",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})"
+			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})",
+			"292": "草原の庭園でひまわりの種のかけらを収穫する",
+			"293": "草原の庭園でメッセージ・ヒマワリを植える",
+			"294": "草原で笑う光採取者と音楽を演奏する",
+			"295": "草原の庭園でひまわりに水やりをする"
 		},
 		"season": "",
 		"seasons": {

@@ -368,7 +368,11 @@
 			"288": "Fange die wandernden Lichter auf dem Yetihang",
 			"289": "Fange die wandernden Lichter in den Windpfaden",
 			"290": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.113)\",\"location\":\"$t(maps.The Wind Paths)\"})",
-			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})"
+			"291": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.94)\",\"location\":\"$t(maps.Hermit Valley)\"})",
+			"292": "Ernte das Sonnenblumensamen-Licht im Garten in der Tageslichtprärie",
+			"293": "Pflanze eine Sonnenblumen-Nachricht im Garten in der Tageslichtprärie",
+			"294": "Spiele Musik mit der Lachenden Lichtfarmerin in der Tageslichtprärie",
+			"295": "Wässere die Sonnenblume im Garten in der Tageslichtprärie"
 		},
 		"season": "Saison",
 		"seasons": {
