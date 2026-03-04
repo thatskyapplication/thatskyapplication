@@ -4,6 +4,7 @@ import { join, resolve } from "node:path";
 import pc from "picocolors";
 import { Cosmetic } from "../source/cosmetics.js";
 import { DailyQuest } from "../source/daily-guides.js";
+import { SkyMap } from "../source/kingdom.js";
 
 // --update-en also updates en-gb.ts.
 
@@ -37,6 +38,7 @@ const LPROJ_TO_JSON: Record<string, string[]> = {
 const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> = {
 	Cosmetic,
 	DailyQuest,
+	SkyMap,
 };
 
 /**
@@ -45,6 +47,7 @@ const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> 
 const TS_KEY_JSON_PREFIXES: Record<string, string> = {
 	Cosmetic: "general.cosmetic-names",
 	DailyQuest: "general.quests",
+	SkyMap: "general.maps",
 };
 
 /**
@@ -64,7 +67,7 @@ function resolveJsonPath(tsKey: string): string {
 	// Numeric enums include reverse mappings (number → name); we only want named keys.
 	const value = obj[memberName];
 
-	if (typeof value !== "number") {
+	if (typeof value !== "number" && typeof value !== "string") {
 		throw new Error(`Unknown member "${memberName}" on ${objectName}`);
 	}
 
