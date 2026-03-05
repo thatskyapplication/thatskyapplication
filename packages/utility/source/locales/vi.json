@@ -1,6 +1,7 @@
 {
 	"general": {
 		"asset-image-invalid": "",
+		"support-server": "",
 		"daily-quests": "Nhiệm vụ hàng ngày",
 		"days-left": {
 			"season_zero": "",
@@ -525,7 +526,8 @@
 			"85": "Sự Kiện Trắc Nghiệm Tính Cách",
 			"86": "Giải Đấu Vinh Quang",
 			"87": "Ngày Tình Yêu",
-			"88": "Ngày May Mắn"
+			"88": "Ngày May Mắn",
+			"89": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -616,7 +618,8 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2883,7 +2886,8 @@
 			"customise-me-modal-label-banner-description": "",
 			"delete-bio-button-label": "",
 			"delete-avatar-button-label": "",
-			"delete-banner-button-label": ""
+			"delete-banner-button-label": "",
+			"rate-limit": ""
 		},
 		"notifications": {
 			"back": "",

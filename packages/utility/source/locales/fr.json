@@ -1,6 +1,7 @@
 {
 	"general": {
 		"asset-image-invalid": "Téléchargez une pièce jointe ! Elle doit être inférieure ou égale à {{size}} Mo et être un GIF, JPEG, PNG ou WebP.",
+		"support-server": "",
 		"daily-quests": "Quêtes journalières",
 		"days-left": {
 			"season_zero": "La saison finit aujourd'hui.",
@@ -525,7 +526,8 @@
 			"85": "Événement Quiz de personnalité",
 			"86": "Tournoi du Triomphe",
 			"87": "Jours de l'amour",
-			"88": "Jours de chance"
+			"88": "Jours de chance",
+			"89": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice#2019",
@@ -616,7 +618,8 @@
 			"85": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Événement_Quiz_de_personnalité",
 			"86": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Tournoi_du_Triomphe",
 			"87": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_l'Amour",
-			"88": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_Chance"
+			"88": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_Chance",
+			"89": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -2893,7 +2896,8 @@
 			"customise-me-modal-label-banner-description": "Télécharger une bannière à afficher dans votre serveur.",
 			"delete-bio-button-label": "Supprimer la bio",
 			"delete-avatar-button-label": "Supprimer l'avatar",
-			"delete-banner-button-label": "Supprimer la bannière"
+			"delete-banner-button-label": "Supprimer la bannière",
+			"rate-limit": ""
 		},
 		"notifications": {
 			"back": "Retour",

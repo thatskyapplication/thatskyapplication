@@ -1,6 +1,7 @@
 {
 	"general": {
 		"asset-image-invalid": "Por favor faça o upload de um anexo válido! Precisa ser menor ou igual a {{size}} megabytes e ser um arquivo GIF, JPEG, PNG ou WebP.",
+		"support-server": "",
 		"daily-quests": "Missões diárias",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
@@ -525,7 +526,8 @@
 			"85": "Evento de Quiz de Personalidade",
 			"86": "Torneio do Triunfo",
 			"87": "Dias de Amor",
-			"88": "Dias de Felicidade"
+			"88": "Dias de Felicidade",
+			"89": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras#Outubro_de_2019",
@@ -616,7 +618,8 @@
 			"85": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Evento_Quiz_de_Personalidade",
 			"86": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Torneio_do_Triunfo",
 			"87": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Amor",
-			"88": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Felicidade"
+			"88": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Felicidade",
+			"89": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -2893,7 +2896,8 @@
 			"customise-me-modal-label-banner-description": "Faça upload de um banner para exibir no seu servidor.",
 			"delete-bio-button-label": "Deletar bio",
 			"delete-avatar-button-label": "Deletar avatar",
-			"delete-banner-button-label": "Deletar banner"
+			"delete-banner-button-label": "Deletar banner",
+			"rate-limit": ""
 		},
 		"notifications": {
 			"back": "Retornar",
