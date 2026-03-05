@@ -1,6 +1,7 @@
 {
 	"general": {
 		"asset-image-invalid": "Пожалуйста, загрузите корректное вложение! Оно должно быть меньше или равно {{size}} мегабайт и быть в формате GIF, JPEG, PNG или WebP.",
+		"support-server": "",
 		"daily-quests": "Ежедневные квесты",
 		"days-left": {
 			"season_zero": "Сезон заканчивается сегодня.",
@@ -525,7 +526,8 @@
 			"85": "Событие «Викторина типов личности»",
 			"86": "Триумфальный турнир",
 			"87": "Дни любви",
-			"88": "Дни удачи"
+			"88": "Дни удачи",
+			"89": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -616,7 +618,8 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2883,7 +2886,8 @@
 			"customise-me-modal-label-banner-description": "",
 			"delete-bio-button-label": "",
 			"delete-avatar-button-label": "",
-			"delete-banner-button-label": ""
+			"delete-banner-button-label": "",
+			"rate-limit": ""
 		},
 		"notifications": {
 			"back": "Вернуться",
