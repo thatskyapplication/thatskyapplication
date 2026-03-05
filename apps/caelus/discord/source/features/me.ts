@@ -120,6 +120,7 @@ export async function meHandleCustomiseMeButton(
 					max_length: ME_BIO_MAX_LENGTH,
 					min_length: 1,
 					style: TextInputStyle.Paragraph,
+					required: false,
 				},
 				label: t("me.customise-me-modal-label-bio-label", { lng: locale, ns: "features" }),
 				description: t("me.customise-me-modal-label-bio-description", {
