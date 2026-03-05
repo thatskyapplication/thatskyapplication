@@ -779,6 +779,7 @@ export default {
 			[EventId.TournamentOfTriumph2026]: "Tournament of Triumph",
 			[EventId.DaysOfLove2026]: "Days of Love",
 			[EventId.DaysOfFortune2026]: "Days of Fortune",
+			[EventId.DaysOfBloom2026]: "Days of Bloom",
 		} satisfies Record<EventIds, string>,
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -888,6 +889,7 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Tournament_of_Triumph",
 			[EventId.DaysOfLove2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
 			[EventId.DaysOfFortune2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Fortune",
+			[EventId.DaysOfBloom2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
