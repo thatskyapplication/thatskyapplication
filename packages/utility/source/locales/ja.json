@@ -1,6 +1,7 @@
 {
 	"general": {
 		"asset-image-invalid": "",
+		"support-server": "",
 		"daily-quests": "デイリークエスト",
 		"days-left": {
 			"season_zero": "このシーズンは本日で終了します。",
@@ -525,7 +526,8 @@
 			"85": "パーソナリティチェック",
 			"86": "凱旋の大競技会",
 			"87": "愛しみの日々",
-			"88": "来福の日々"
+			"88": "来福の日々",
+			"89": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々#2019/10",
@@ -616,7 +618,8 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": "https://sky-children-of-the-light.fandom.com/ja/wiki/来福の日々"
+			"88": "https://sky-children-of-the-light.fandom.com/ja/wiki/来福の日々",
+			"89": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "カタログから推測する",
@@ -2883,7 +2886,8 @@
 			"customise-me-modal-label-banner-description": "このサーバーに表示するわたしのバナーをアップロードします。",
 			"delete-bio-button-label": "bioの削除",
 			"delete-avatar-button-label": "アバターの削除",
-			"delete-banner-button-label": "バナーの削除"
+			"delete-banner-button-label": "バナーの削除",
+			"rate-limit": ""
 		},
 		"notifications": {
 			"back": "",

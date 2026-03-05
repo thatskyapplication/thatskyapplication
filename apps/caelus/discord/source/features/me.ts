@@ -1,5 +1,6 @@
 import {
 	type APIChatInputApplicationCommandGuildInteraction,
+	type APIComponentInContainer,
 	type APIGuildInteractionWrapper,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageTopLevelComponent,
@@ -7,14 +8,18 @@ import {
 	ButtonStyle,
 	ComponentType,
 	MessageFlags,
+	RESTJSONErrorCodes,
 	type RESTPatchAPICurrentGuildMemberJSONBody,
 	SeparatorSpacingSize,
 	TextInputStyle,
 } from "@discordjs/core";
+import { DiscordAPIError } from "@discordjs/rest";
+import { formatEmoji } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
+import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
-import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { EMOTE_EMOJIS, FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 
 const ME_BIO_MAX_LENGTH = 190 as const;
@@ -22,6 +27,8 @@ const ME_BIO_MAX_LENGTH = 190 as const;
 interface MeOverviewOptions {
 	editReply?: boolean;
 	updateMessage?: boolean;
+	updating?: boolean;
+	rateLimit?: boolean;
 }
 
 export async function meOverview(
@@ -29,66 +36,97 @@ export async function meOverview(
 		| APIChatInputApplicationCommandGuildInteraction
 		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>
 		| APIModalSubmitGuildInteraction,
-	{ editReply, updateMessage }: MeOverviewOptions = {},
+	{ editReply, updateMessage, updating, rateLimit }: MeOverviewOptions = {},
 ) {
 	const { locale } = interaction;
+	const containerComponents: APIComponentInContainer[] = [
+		{
+			type: ComponentType.TextDisplay,
+			content: `## [${t("me.title", { lng: locale, ns: "features" })}](https://guide.thatskyapplication.com/caelus/me)`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+	];
+
+	if (rateLimit) {
+		containerComponents.push({
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: SUPPORT_SERVER_INVITE_URL,
+				label: t("support-server", { lng: locale, ns: "general" }),
+				emoji: FRIEND_ACTION_EMOJIS.HoldHand,
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: t("me.rate-limit", {
+						lng: locale,
+						ns: "features",
+						emoji: formatEmoji(EMOTE_EMOJIS.Bow),
+					}),
+				},
+			],
+		});
+	} else {
+		containerComponents.push(
+			{
+				type: ComponentType.TextDisplay,
+				content: t("me.message", { lng: locale, ns: "features" }),
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: CustomId.MeCustomiseMe,
+						label: t("me.customise-me-button-label", { lng: locale, ns: "features" }),
+						emoji: MISCELLANEOUS_EMOJIS.Edit,
+						disabled: updating === true,
+					},
+				],
+			},
+			{
+				type: ComponentType.ActionRow,
+				components: [
+					{
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: CustomId.MeDeleteBio,
+						label: t("me.delete-bio-button-label", { lng: locale, ns: "features" }),
+						emoji: MISCELLANEOUS_EMOJIS.Trash,
+						disabled: updating === true,
+					},
+					{
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: CustomId.MeDeleteAvatar,
+						label: t("me.delete-avatar-button-label", { lng: locale, ns: "features" }),
+						emoji: MISCELLANEOUS_EMOJIS.Trash,
+						disabled: updating === true,
+					},
+					{
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: CustomId.MeDeleteBanner,
+						label: t("me.delete-banner-button-label", { lng: locale, ns: "features" }),
+						emoji: MISCELLANEOUS_EMOJIS.Trash,
+						disabled: updating === true,
+					},
+				],
+			},
+		);
+	}
 
 	const components: APIMessageTopLevelComponent[] = [
 		{
 			type: ComponentType.Container,
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `## [${t("me.title", { lng: locale, ns: "features" })}](https://guide.thatskyapplication.com/caelus/me)`,
-				},
-				{
-					type: ComponentType.Separator,
-					divider: true,
-					spacing: SeparatorSpacingSize.Small,
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: t("me.message", { lng: locale, ns: "features" }),
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.Button,
-							style: ButtonStyle.Secondary,
-							custom_id: CustomId.MeCustomiseMe,
-							label: t("me.customise-me-button-label", { lng: locale, ns: "features" }),
-							emoji: MISCELLANEOUS_EMOJIS.Edit,
-						},
-					],
-				},
-				{
-					type: ComponentType.ActionRow,
-					components: [
-						{
-							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: CustomId.MeDeleteBio,
-							label: t("me.delete-bio-button-label", { lng: locale, ns: "features" }),
-							emoji: MISCELLANEOUS_EMOJIS.Trash,
-						},
-						{
-							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: CustomId.MeDeleteAvatar,
-							label: t("me.delete-avatar-button-label", { lng: locale, ns: "features" }),
-							emoji: MISCELLANEOUS_EMOJIS.Trash,
-						},
-						{
-							type: ComponentType.Button,
-							style: ButtonStyle.Danger,
-							custom_id: CustomId.MeDeleteBanner,
-							label: t("me.delete-banner-button-label", { lng: locale, ns: "features" }),
-							emoji: MISCELLANEOUS_EMOJIS.Trash,
-						},
-					],
-				},
-			],
+			components: containerComponents,
 		},
 	];
 
@@ -202,8 +240,24 @@ export async function meHandleCustomiseMeModal(interaction: APIModalSubmitGuildI
 		payload.banner = bannerURI;
 	}
 
-	await client.api.users.editCurrentGuildMember(interaction.guild_id, payload);
-	await meOverview(interaction, { updateMessage: true });
+	await meOverview(interaction, { updateMessage: true, updating: true });
+
+	try {
+		await client.api.users.editCurrentGuildMember(interaction.guild_id, payload);
+	} catch (error) {
+		if (
+			error instanceof DiscordAPIError &&
+			error.code === RESTJSONErrorCodes.InvalidFormBodyOrContentType &&
+			error.status === 400
+		) {
+			await meOverview(interaction, { editReply: true, rateLimit: true });
+			return;
+		}
+
+		throw error;
+	}
+
+	await meOverview(interaction, { editReply: true });
 }
 
 export async function meHandleDeleteButton(

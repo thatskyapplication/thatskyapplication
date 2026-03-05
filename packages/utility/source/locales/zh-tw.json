@@ -1,6 +1,7 @@
 {
 	"general": {
 		"asset-image-invalid": "",
+		"support-server": "",
 		"daily-quests": "",
 		"days-left": {
 			"season_zero": "本季節將在今天結束。",
@@ -525,7 +526,8 @@
 			"85": "光遇性格測驗活動",
 			"86": "凱旋錦標賽",
 			"87": "愛之慶典",
-			"88": "幸運節"
+			"88": "幸運節",
+			"89": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief",
@@ -616,7 +618,8 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -2883,7 +2886,8 @@
 			"customise-me-modal-label-banner-description": "",
 			"delete-bio-button-label": "",
 			"delete-avatar-button-label": "",
-			"delete-banner-button-label": ""
+			"delete-banner-button-label": "",
+			"rate-limit": ""
 		},
 		"notifications": {
 			"back": "",

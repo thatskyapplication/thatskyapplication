@@ -32,6 +32,7 @@ export default {
 	general: {
 		"asset-image-invalid":
 			"Please upload a valid attachment! It must be less than or equal to {{size}} megabytes and be a GIF, JPEG, PNG, or WebP file.",
+		"support-server": "Support server",
 		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -3269,6 +3270,8 @@ export default {
 			"delete-bio-button-label": "Delete bio",
 			"delete-avatar-button-label": "Delete avatar",
 			"delete-banner-button-label": "Delete banner",
+			"rate-limit":
+				"Updates are being performed too quickly. Please wait a while before trying again! {{emoji}}",
 		},
 		notifications: {
 			back: "Back",
