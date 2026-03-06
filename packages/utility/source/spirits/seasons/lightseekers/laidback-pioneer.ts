@@ -88,7 +88,6 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.LaidbackPioneerMusicSheet,
 					cost: { candles: 15 },
 				},

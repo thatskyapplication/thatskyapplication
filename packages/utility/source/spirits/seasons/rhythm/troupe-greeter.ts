@@ -21,7 +21,6 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.TroupeGreeterMusicSheet,
 					cost: { seasonalCandles: 8 },
 				},
@@ -76,7 +75,6 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.TroupeGreeterMusicSheet,
 					cost: { candles: 15 },
 				},

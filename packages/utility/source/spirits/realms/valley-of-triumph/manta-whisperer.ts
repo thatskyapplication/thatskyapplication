@@ -38,7 +38,6 @@ export default new StandardSpirit({
 			],
 			[
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.MantaWhispererMusicSheet,
 					cost: { hearts: 3 },
 				},
