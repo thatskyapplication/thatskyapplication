@@ -144,7 +144,6 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.CacklingCannoneerMusicSheet,
 					cost: { candles: 15 },
 				},

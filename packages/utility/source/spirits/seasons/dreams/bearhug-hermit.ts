@@ -65,7 +65,6 @@ export default new SeasonalSpirit({
 			[
 				{ cosmetic: Cosmetic.FriendActionBearhug1 },
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.BearhugHermitMusicSheet,
 					cost: { candles: 15 },
 				},

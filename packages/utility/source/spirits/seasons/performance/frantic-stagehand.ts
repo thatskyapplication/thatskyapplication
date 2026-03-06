@@ -24,7 +24,6 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.FranticStagehandMusicSheet,
 					cost: { seasonalCandles: 22 },
 				},
@@ -67,7 +66,6 @@ export default new SeasonalSpirit({
 			[
 				{ cosmetic: Cosmetic.FriendActionHandshake1 },
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.FranticStagehandMusicSheet,
 					cost: { candles: 22 },
 				},

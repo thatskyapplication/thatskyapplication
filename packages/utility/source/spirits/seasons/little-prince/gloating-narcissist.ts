@@ -90,7 +90,6 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.GloatingNarcissistMusicSheet,
 					cost: { candles: 15 },
 				},

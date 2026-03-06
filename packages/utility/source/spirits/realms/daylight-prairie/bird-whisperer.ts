@@ -12,7 +12,6 @@ export default new StandardSpirit({
 			[
 				{ cosmetic: Cosmetic.CallBird },
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.BirdWhispererMusicSheet,
 					cost: { hearts: 1 },
 				},

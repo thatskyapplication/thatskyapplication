@@ -33,7 +33,6 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.BumblingBoatswainMusicSheet,
 					cost: { seasonalCandles: 12 },
 				},
@@ -122,7 +121,6 @@ export default new SeasonalSpirit({
 				},
 				{ cosmetic: Cosmetic.EmoteOuch4, cost: { hearts: 6 }, level: 4 },
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.BumblingBoatswainMusicSheet,
 					cost: { candles: 15 },
 				},

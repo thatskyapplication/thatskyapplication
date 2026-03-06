@@ -59,7 +59,6 @@ export default new SeasonalSpirit({
 			[
 				{ cosmetic: Cosmetic.StanceTimid },
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.TimidBookwormMusicSheet,
 					cost: { candles: 15 },
 				},

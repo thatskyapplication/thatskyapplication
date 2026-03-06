@@ -118,7 +118,6 @@ export default new SeasonalSpirit({
 					level: 4,
 				},
 				{
-					translation: CosmeticCommon.MusicSheet,
 					cosmetic: Cosmetic.TalentedBuilderMusicSheet,
 					cost: { candles: 15 },
 				},

@@ -3458,8 +3458,8 @@ export enum CosmeticCommon {
 	QuestMultiple = 5,
 	Heart = 6,
 	HeartMultiple = 7,
-	MusicSheet = 8,
-	MusicSheetMultiple = 9,
+	MusicSheet = 8, // Unused.
+	MusicSheetMultiple = 9, // Unused.
 	Outfit = 10,
 	Shoes = 11,
 	Mask = 12,
