@@ -1,6 +1,5 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import { GUILD_CACHE, GUILD_IDS_FROM_READY } from "../caches/guilds.js";
-import { startup } from "../features/startup.js";
 import { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
 import type { Event } from "./index.js";
@@ -30,8 +29,8 @@ export default {
 			GUILD_IDS_FROM_READY.delete(data.id);
 
 			if (GUILD_IDS_FROM_READY.size === 0) {
-				// All guilds are cached. Perform our startup checks that need to occur when all guilds are cached.
-				await startup();
+				// All guilds are cached.
+				pino.info(`${GUILD_CACHE.size} guilds cached.`);
 			}
 
 			return;

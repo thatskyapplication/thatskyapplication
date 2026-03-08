@@ -524,17 +524,12 @@ export async function handleStringSelectMenu(
 	await displayNotificationType(interaction, notificationType);
 }
 
-async function deleteNotifications(guildId: Snowflake) {
-	await pg<NotificationPacket>(Table.Notifications).delete().where({ guild_id: guildId });
-}
-
 export async function checkSendable(guildId: Snowflake) {
 	// Can the guild be accessed?
 	const guild = GUILD_CACHE.get(guildId);
 
 	if (!guild) {
-		// Just nuke everything.
-		await deleteNotifications(guildId);
+		// Skip.
 		return;
 	}
 
