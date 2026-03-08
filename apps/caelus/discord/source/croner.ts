@@ -12,46 +12,44 @@ import pg from "./pg.js";
 import pino from "./pino.js";
 import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
 
-export default function croner() {
+new Cron(
+	"0 0 0 * * *",
+	{ catch: (error) => pino.error(error, "Error during changing days."), timezone: TIME_ZONE },
+	async () => {
+		const independentPromises = [messageLogDeleteOldMessages()];
+		const today = skyToday();
+		const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
+
+		if (!guild) {
+			pino.error("Could not find the support server whilst resetting daily guides.");
+			await Promise.all(independentPromises);
+			return;
+		}
+
+		const me = await guild.fetchMe();
+
+		await Promise.all([
+			...independentPromises,
+			resetDailyGuides({ user: me.user, lastUpdatedAt: today.toJSDate() }),
+			resetDailyGuidesDistribution(),
+		]);
+
+		await distribute({
+			user: me.user,
+			lastUpdatedUserId: APPLICATION_ID,
+			lastUpdatedAt: today.toJSDate(),
+			force: true,
+		});
+	},
+);
+
+if (PRODUCTION) {
 	new Cron(
-		"0 0 0 * * *",
-		{ catch: (error) => pino.error(error, "Error during changing days."), timezone: TIME_ZONE },
+		"*/5 * * * *",
+		{ catch: () => captureCheckIn({ monitorSlug: "caelus", status: "error" }) },
 		async () => {
-			const independentPromises = [messageLogDeleteOldMessages()];
-			const today = skyToday();
-			const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
-
-			if (!guild) {
-				pino.error("Could not find the support server whilst resetting daily guides.");
-				await Promise.all(independentPromises);
-				return;
-			}
-
-			const me = await guild.fetchMe();
-
-			await Promise.all([
-				...independentPromises,
-				resetDailyGuides({ user: me.user, lastUpdatedAt: today.toJSDate() }),
-				resetDailyGuidesDistribution(),
-			]);
-
-			await distribute({
-				user: me.user,
-				lastUpdatedUserId: APPLICATION_ID,
-				lastUpdatedAt: today.toJSDate(),
-				force: true,
-			});
+			await pg.select(1);
+			captureCheckIn({ monitorSlug: "caelus", status: "ok" });
 		},
 	);
-
-	if (PRODUCTION) {
-		new Cron(
-			"*/5 * * * *",
-			{ catch: () => captureCheckIn({ monitorSlug: "caelus", status: "error" }) },
-			async () => {
-				await pg.select(1);
-				captureCheckIn({ monitorSlug: "caelus", status: "ok" });
-			},
-		);
-	}
 }

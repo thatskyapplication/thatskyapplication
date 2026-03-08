@@ -18,7 +18,6 @@ import guildRoleCreate from "./events/guild-role-create.js";
 import guildRoleDelete from "./events/guild-role-delete.js";
 import guildRoleUpdate from "./events/guild-role-update.js";
 import guildUpdate from "./events/guild-update.js";
-import type { Event } from "./events/index.js";
 import interactionCreate from "./events/interaction-create.js";
 import messageCreate from "./events/message-create.js";
 import messageDelete from "./events/message-delete.js";
@@ -59,8 +58,7 @@ for (const event of [
 	threadListSync,
 	threadUpdate,
 ]) {
-	const { name, once, fire }: Event = event;
-	client[once ? "once" : "on"](name, fire);
+	client.on(event.name, event.fire);
 }
 
 client.on("error", (error) => pino.error(error));
