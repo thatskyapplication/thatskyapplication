@@ -313,9 +313,14 @@ function pollutedGeyserDetailedBreakdown(now: DateTime, locale: Locale): APIComp
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const startOfEvent = startOfDay.plus({ minutes: 5 });
-	const tomorrow = startOfDay.plus({ days: 1 });
 
-	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+	for (let hour = 0; hour < 24; hour += 2) {
+		const start = startOfDay.set({ hour, minute: 5 });
+
+		if (start.hour !== hour) {
+			continue;
+		}
+
 		let string = `<t:${start.toUnixInteger()}:t>`;
 
 		if (now >= start.plus({ minutes: 10 })) {
@@ -374,9 +379,14 @@ function grandmaDetailedBreakdown(now: DateTime, locale: Locale): APIComponentIn
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const startOfEvent = startOfDay.plus({ minutes: 35 });
-	const tomorrow = startOfDay.plus({ days: 1 });
 
-	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+	for (let hour = 0; hour < 24; hour += 2) {
+		const start = startOfDay.set({ hour, minute: 35 });
+
+		if (start.hour !== hour) {
+			continue;
+		}
+
 		let string = `<t:${start.toUnixInteger()}:t>`;
 
 		if (now >= start.plus({ minutes: 10 })) {
@@ -435,9 +445,14 @@ function turtleDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInC
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const startOfEvent = startOfDay.plus({ minutes: 50 });
-	const tomorrow = startOfDay.plus({ days: 1 });
 
-	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+	for (let hour = 0; hour < 24; hour += 2) {
+		const start = startOfDay.set({ hour, minute: 50 });
+
+		if (start.hour !== hour) {
+			continue;
+		}
+
 		let string = `<t:${start.toUnixInteger()}:t>`;
 
 		if (now >= start.plus({ minutes: 10 })) {
@@ -574,9 +589,14 @@ function dreamsSkaterDetailedBreakdown(now: DateTime, locale: Locale): APICompon
 	});
 
 	const startOfEvent = startOfDay.plus({ hours: 1 });
-	const tomorrow = startOfDay.plus({ days: 1 });
 
-	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+	for (let hour = 1; hour < 24; hour += 2) {
+		const start = startOfDay.set({ hour, minute: 0 });
+
+		if (start.hour !== hour) {
+			continue;
+		}
+
 		let string = `<t:${start.toUnixInteger()}:t>`;
 
 		if (now >= start.plus({ minutes: 15 })) {
@@ -635,9 +655,14 @@ function auroraDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInC
 	const timestamps = [];
 	const startOfDay = now.startOf("day");
 	const startOfEvent = startOfDay.plus({ minutes: 10 });
-	const tomorrow = startOfDay.plus({ days: 1 });
 
-	for (let start = startOfEvent; start < tomorrow; start = start.plus({ hours: 2 })) {
+	for (let hour = 0; hour < 24; hour += 2) {
+		const start = startOfDay.set({ hour, minute: 10 });
+
+		if (start.hour !== hour) {
+			continue;
+		}
+
 		let string = `<t:${start.toUnixInteger()}:t>`;
 
 		if (now >= start.plus({ minutes: 48 })) {
