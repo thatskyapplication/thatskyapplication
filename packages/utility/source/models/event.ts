@@ -14,7 +14,7 @@ interface EventData {
 	 */
 	id: EventIds;
 	/**
-	 * The translation key of the event's name without the "general.event-names." prefix.
+	 * The translation key of the event's name without the "event-names." prefix.
 	 */
 	name: string;
 	/**
@@ -84,7 +84,7 @@ interface EventTicketsPool {
 export class Event {
 	public readonly id: EventIds;
 
-	public readonly name: `general.event-names.${string}`;
+	public readonly name: `event-names.${string}`;
 
 	public readonly start: DateTime;
 
@@ -102,7 +102,7 @@ export class Event {
 
 	public constructor(data: EventData) {
 		this.id = data.id;
-		this.name = `general.event-names.${data.name}`;
+		this.name = `event-names.${data.name}`;
 		this.start = data.start;
 		this.end = data.end;
 
