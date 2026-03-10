@@ -691,6 +691,9 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Season_of_Lightmending",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		event: "Event",
+		"events-common": {
+			"radiance-event": "Radiance event",
+		},
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",
 			[EventId.DaysOfGiving2019]: "Days of Giving",
@@ -3423,6 +3426,7 @@ export default {
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 				[ScheduleType.MeteorShower]: "Meteor shower",
 				[ScheduleType.Maintenance]: "$t(general:maintenance)",
+				[ScheduleType.RadianceEvent]: "$t(general:events-common.radiance-event)",
 			} satisfies Record<ScheduleTypes, string>,
 			name: "Schedule",
 			description:
@@ -3524,6 +3528,10 @@ export default {
 			"detailed-breakdown-projector-of-memories-message":
 				"Available every 80 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-requires": "-# Requires {{emoji}}",
+			"detailed-breakdown-radiance-message":
+				"Radiance events increase the availability of certain dyes.\n\n{{result}}",
+			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
+			"detailed-breakdown-nothing-planned": "There are no upcoming events.",
 			back: "Back",
 		},
 		"shard-eruption": {

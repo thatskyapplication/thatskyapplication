@@ -1,4 +1,5 @@
 import { Cosmetic } from "./cosmetics.js";
+import { DyeType, type DyeTypes } from "./events/miscellaneous.js";
 import { SeasonId, type SeasonIds } from "./season.js";
 import { SkyProfilePersonalityType, type SkyProfilePersonalityTypes } from "./sky-profile.js";
 import type { Snowflake } from "./types/index.js";
@@ -55,7 +56,7 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	DyeBlue: { id: "1330476698310803486", name: "dye_blue" },
 	DyePurple: { id: "1330476718288277618", name: "dye_purple" },
 	DyeBlack: { id: "1330476749988827166", name: "dye_black" },
-	DyeWhite: { id: "1330476771614916769", name: "dye_red" },
+	DyeWhite: { id: "1330476771614916769", name: "dye_white" },
 	Dye: { id: "1365252158030745680", name: "dye" },
 	GiveawayTicket: { id: "1372542240563658782", name: "giveaway_ticket" },
 	Settings: { id: "1381212248856465428", name: "settings" },
@@ -130,7 +131,7 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	DyeBlue: { id: "1330476707244933190", name: "dye_blue" },
 	DyePurple: { id: "1330476726274359316", name: "dye_purple" },
 	DyeBlack: { id: "1330476758964899861", name: "dye_black" },
-	DyeWhite: { id: "1330476779365859328", name: "dye_red" },
+	DyeWhite: { id: "1330476779365859328", name: "dye_white" },
 	Dye: { id: "1365252165068656661", name: "dye" },
 	GiveawayTicket: { id: "1372542337623916614", name: "giveaway_ticket" },
 	Settings: { id: "1381212382121955329", name: "settings" },
@@ -6092,6 +6093,7 @@ export function emojiConstants(production: boolean): {
 	>;
 	EventIdToEventTicketEmoji: Readonly<Record<EventIds, Emoji | null>>;
 	SkyProfilePersonalityToEmoji: Readonly<Record<SkyProfilePersonalityTypes, Emoji>>;
+	DyeTypeToEmoji: Readonly<Record<DyeTypes, Emoji>>;
 } {
 	const emojis = production
 		? {
@@ -9118,6 +9120,17 @@ export function emojiConstants(production: boolean): {
 		[SkyProfilePersonalityType.Provider]: MISCELLANEOUS_EMOJIS.Provider,
 	} as const satisfies Readonly<Record<SkyProfilePersonalityTypes, Emoji>>;
 
+	const DyeTypeToEmoji = {
+		[DyeType.Red]: MISCELLANEOUS_EMOJIS.DyeRed,
+		[DyeType.Yellow]: MISCELLANEOUS_EMOJIS.DyeYellow,
+		[DyeType.Green]: MISCELLANEOUS_EMOJIS.DyeGreen,
+		[DyeType.Cyan]: MISCELLANEOUS_EMOJIS.DyeCyan,
+		[DyeType.Blue]: MISCELLANEOUS_EMOJIS.DyeBlue,
+		[DyeType.Purple]: MISCELLANEOUS_EMOJIS.DyePurple,
+		[DyeType.Black]: MISCELLANEOUS_EMOJIS.DyeBlack,
+		[DyeType.White]: MISCELLANEOUS_EMOJIS.DyeWhite,
+	} as const satisfies Readonly<Record<DyeTypes, Emoji>>;
+
 	return {
 		...emojis,
 		CosmeticToEmoji,
@@ -9126,6 +9139,7 @@ export function emojiConstants(production: boolean): {
 		SeasonIdToSeasonalHeartEmoji,
 		EventIdToEventTicketEmoji,
 		SkyProfilePersonalityToEmoji,
+		DyeTypeToEmoji,
 	};
 }
 

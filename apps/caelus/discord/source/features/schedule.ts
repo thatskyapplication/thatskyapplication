@@ -32,6 +32,7 @@ import {
 	nineColouredDeerSchedule,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
+	RADIANCE_EVENTS,
 	ScheduleType,
 	type ScheduleTypes,
 	shardEruption,
@@ -49,6 +50,7 @@ import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
 	CAPE_EMOJIS,
+	DyeTypeToEmoji,
 	EVENT_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
@@ -222,6 +224,52 @@ function internationalSpaceStationDetailedBreakdown(
 					}),
 				},
 			],
+		},
+	];
+}
+
+function radianceEventOverview(date: DateTime) {
+	return RADIANCE_EVENTS.filter(({ end }) => date < end).map((radianceEvent) => ({
+		now: date >= radianceEvent.start,
+		next: `<t:${radianceEvent.start.toUnixInteger()}:R>`,
+		dyeEmojis: radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join(""),
+	}));
+}
+
+function radianceEventDetailedBreakdown(date: DateTime, locale: Locale): APIComponentInContainer[] {
+	const upcoming = RADIANCE_EVENTS.filter(({ end }) => date < end);
+
+	const result =
+		upcoming.length > 0
+			? upcoming
+					.map(({ start, end, dyes }) => {
+						const range = t("time-range", {
+							lng: locale,
+							ns: "general",
+							start: `<t:${start.toUnixInteger()}:s>`,
+							end: `<t:${end.toUnixInteger()}:s>`,
+						});
+
+						const line = t("schedule.detailed-breakdown-radiance-event", {
+							lng: locale,
+							ns: "features",
+							range,
+							dyes: dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join(""),
+						});
+
+						return upcoming.length > 1 ? `- ${line}` : line;
+					})
+					.join("\n")
+			: t("schedule.detailed-breakdown-nothing-planned", { lng: locale, ns: "features" });
+
+	return [
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-radiance-message", {
+				lng: locale,
+				ns: "features",
+				result,
+			}),
 		},
 	];
 }
@@ -1119,6 +1167,7 @@ export async function scheduleOverview(
 	const now = skyNow();
 	const startOfDay = now.startOf("day");
 	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
+	const radianceEvents = radianceEventOverview(now);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
 	const pollutedGeyser = pollutedGeyserOverview(now);
 	const grandma = grandmaOverview(now);
@@ -1280,6 +1329,35 @@ export async function scheduleOverview(
 			}),
 		},
 	);
+
+	if (radianceEvents.length > 0) {
+		firstContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: radianceEvents
+				.map((radianceEvent) =>
+					t("schedule.overview", {
+						lng: locale,
+						ns: "features",
+						type: t(`schedule.type.${ScheduleType.RadianceEvent}`, {
+							lng: locale,
+							ns: "features",
+						}),
+						details: radianceEvent.now
+							? `${t("schedule.overview-available", {
+									lng: locale,
+									ns: "features",
+									emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+								})} ${radianceEvent.dyeEmojis}`
+							: t("schedule.overview-next-available-timestamp", {
+									lng: locale,
+									ns: "features",
+									timestamp: radianceEvent.next,
+								}),
+					}),
+				)
+				.join("\n"),
+		});
+	}
 
 	const secondContainerComponents: APIComponentInContainer[] = [
 		{
@@ -1558,6 +1636,17 @@ export async function scheduleOverview(
 			}),
 			value: ScheduleType.InternationalSpaceStation.toString(),
 		},
+	];
+
+	if (radianceEvents.length > 0) {
+		options.push({
+			label: t(`schedule.type.${ScheduleType.RadianceEvent}`, { lng: locale, ns: "features" }),
+			value: ScheduleType.RadianceEvent.toString(),
+			emoji: MISCELLANEOUS_EMOJIS.Dye,
+		});
+	}
+
+	options.push(
 		{
 			label: t(`schedule.type.${ScheduleType.PollutedGeyser}`, {
 				lng: locale,
@@ -1595,7 +1684,7 @@ export async function scheduleOverview(
 			value: ScheduleType.DreamsSkater.toString(),
 			emoji: SEASON_EMOJIS.Dreams,
 		},
-	];
+	);
 
 	if (meteorShower) {
 		options.push({
@@ -1777,6 +1866,10 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.MeteorShower: {
 			detailedBreakdown = meteorShowerDetailedBreakdown(now, locale);
+			break;
+		}
+		case ScheduleType.RadianceEvent: {
+			detailedBreakdown = radianceEventDetailedBreakdown(startOfDay, locale);
 			break;
 		}
 		default: {

@@ -4,6 +4,7 @@ import {
 	DailyQuestToInfographicURL,
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
+	RADIANCE_EVENTS,
 	RotationIdentifier,
 	shardEruption,
 	skyCurrentSeason,
@@ -161,6 +162,24 @@ export default function DailyGuides() {
 				count: Math.ceil(end.diff(today, "days").days) - 1,
 				name,
 			}),
+		);
+	}
+
+	for (const radianceEvent of RADIANCE_EVENTS.filter(({ end }) => end > today)) {
+		const daysUntilStart = radianceEvent.start.diff(today, "days").days;
+
+		daysCount.push(
+			daysUntilStart >= 1
+				? t("daily-guides.event-upcoming", {
+						ns: "features",
+						count: Math.floor(daysUntilStart),
+						event: t("events-common.radiance-event", { ns: "general" }),
+					})
+				: t("days-left.event", {
+						ns: "general",
+						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
+						name: t("events-common.radiance-event", { ns: "general" }),
+					}),
 		);
 	}
 

@@ -41,6 +41,7 @@ import {
 	formatEmojiURL,
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
+	RADIANCE_EVENTS,
 	RotationIdentifier,
 	resolveCurrencyEmoji,
 	shardEruption,
@@ -86,6 +87,7 @@ import {
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
+	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
@@ -875,6 +877,37 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		});
 	} else {
 		missingTravellingRock = true;
+	}
+
+	const radianceEvents = RADIANCE_EVENTS.filter(({ end }) => end > today);
+
+	if (radianceEvents.length > 0) {
+		const radianceName = t("events-common.radiance-event", { lng: locale, ns: "general" });
+		const dyePrefix = formatEmoji(MISCELLANEOUS_EMOJIS.Dye);
+
+		for (const radianceEvent of radianceEvents) {
+			const dyeEmojis = radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join("");
+
+			if (today >= radianceEvent.start) {
+				footerText.push(
+					`${dyePrefix} ${t("days-left.event", {
+						lng: locale,
+						ns: "general",
+						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
+						name: radianceName,
+					})} ${dyeEmojis}`,
+				);
+			} else {
+				footerText.push(
+					`${t("daily-guides.event-upcoming", {
+						lng: locale,
+						ns: "features",
+						event: `${dyePrefix} ${radianceName}`,
+						count: Math.floor(radianceEvent.start.diff(today, "days").days),
+					})} ${dyeEmojis}`,
+				);
+			}
+		}
 	}
 
 	const communityEvents = communityUpcomingEvents(today);

@@ -11,7 +11,7 @@ import Year5 from "./2023/index.js";
 import Year6 from "./2024/index.js";
 import Year7 from "./2025/index.js";
 import Year8 from "./2026/index.js";
-import { COMMUNITY_EVENTS } from "./community.js";
+import { COMMUNITY_EVENTS } from "./miscellaneous.js";
 
 const EVENTS: ReadonlyCollection<EventIds, Event> = [
 	...Year1,

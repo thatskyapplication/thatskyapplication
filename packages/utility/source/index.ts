@@ -54,7 +54,6 @@ export {
 	formatEmojiURL,
 	resolveCurrencyEmoji,
 } from "./emojis.js";
-export { COMMUNITY_EVENTS } from "./events/community.js";
 export {
 	communityUpcomingEvents,
 	skyCurrentEvents,
@@ -62,6 +61,12 @@ export {
 	skyNotEndedEvents,
 	skyUpcomingEvents,
 } from "./events/index.js";
+export {
+	COMMUNITY_EVENTS,
+	DyeType,
+	type DyeTypes,
+	RADIANCE_EVENTS,
+} from "./events/miscellaneous.js";
 export {
 	type FriendshipActionsPacket,
 	FriendshipActionType,

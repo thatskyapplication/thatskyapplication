@@ -13,6 +13,7 @@ import {
 	nineColouredDeerSchedule,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
+	RADIANCE_EVENTS,
 	ScheduleType,
 	type ScheduleTypes,
 	type SpiritIds,
@@ -701,6 +702,34 @@ export default function Schedule() {
 				relative: formatRelativeTime(start, now, locale),
 			});
 		}
+	}
+
+	for (const { start, end } of RADIANCE_EVENTS) {
+		if (end <= now) {
+			continue;
+		}
+
+		const label = `${t("events-common.radiance-event", { ns: "general" })}`;
+		const isActive = now >= start;
+		const relevantDate = isActive ? end : start;
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+		if (relevantDate.diff(now, "days").days > 1) {
+			options.dateStyle = "medium";
+		}
+
+		allCards.push({
+			type: DisplayCardType.Event,
+			key: `radiance-${start.toMillis()}`,
+			label,
+			active: isActive,
+			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.toMillis()),
+			nextUnix: relevantDate.toMillis(),
+			relative: formatRelativeTime(relevantDate, now, locale),
+			end: isActive ? new Intl.DateTimeFormat(locale, options).format(end.toMillis()) : undefined,
+			endRelative: isActive ? formatRelativeTime(end, now, locale) : undefined,
+			endUnix: isActive ? end.toMillis() : undefined,
+		});
 	}
 
 	const active: DisplayCard[] = [];
