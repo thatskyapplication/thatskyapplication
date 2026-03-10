@@ -173,12 +173,12 @@ export default function DailyGuides() {
 				? t("daily-guides.event-upcoming", {
 						ns: "features",
 						count: Math.floor(daysUntilStart),
-						event: t("events-common.radiance-event", { ns: "general" }),
+						event: t("event-names.radiance-event", { ns: "general" }),
 					})
 				: t("days-left.event", {
 						ns: "general",
 						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
-						name: t("events-common.radiance-event", { ns: "general" }),
+						name: t("event-names.radiance-event", { ns: "general" }),
 					}),
 		);
 	}

@@ -882,7 +882,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 	const radianceEvents = RADIANCE_EVENTS.filter(({ end }) => end > today);
 
 	if (radianceEvents.length > 0) {
-		const radianceName = t("events-common.radiance-event", { lng: locale, ns: "general" });
+		const radianceName = t("event-names.radiance-event", { lng: locale, ns: "general" });
 		const dyePrefix = formatEmoji(MISCELLANEOUS_EMOJIS.Dye);
 
 		for (const radianceEvent of radianceEvents) {

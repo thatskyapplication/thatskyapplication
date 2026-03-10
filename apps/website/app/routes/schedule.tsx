@@ -707,7 +707,7 @@ export default function Schedule() {
 			continue;
 		}
 
-		const label = `${t("events-common.radiance-event", { ns: "general" })}`;
+		const label = `${t("event-names.radiance-event", { ns: "general" })}`;
 		const isActive = now >= start;
 		const relevantDate = isActive ? end : start;
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };

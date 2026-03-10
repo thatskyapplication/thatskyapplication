@@ -3454,7 +3454,7 @@ export default {
 				[ScheduleType.ProjectorOfMemories]: `$t(general:cosmetic-names.${Cosmetic.ProjectorOfMemories})`,
 				[ScheduleType.MeteorShower]: "Meteor shower",
 				[ScheduleType.Maintenance]: "$t(general:maintenance)",
-				[ScheduleType.RadianceEvent]: "$t(general:events-common.radiance-event)",
+				[ScheduleType.RadianceEvent]: "$t(general:event-names.radiance-event)",
 			} satisfies Record<ScheduleTypes, string>,
 			name: "Schedule",
 			description:
