@@ -150,7 +150,11 @@ export default function DailyGuides() {
 
 		if (daysUntilStart > 0) {
 			daysCount.push(
-				t("daily-guides.event-upcoming", { ns: "features", event: eventName, count: daysUntilStart }),
+				t("daily-guides.event-upcoming", {
+					ns: "features",
+					event: eventName,
+					count: daysUntilStart,
+				}),
 			);
 
 			continue;
