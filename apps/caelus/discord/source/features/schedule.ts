@@ -17,10 +17,7 @@ import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
 	currentSeasonalSpirits,
-	DyeType,
-	type DyeTypes,
 	dreamsSkaterSchedule,
-	type Emoji,
 	EventId,
 	formatEmoji,
 	grandmaSchedule,
@@ -53,6 +50,7 @@ import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
 	CAPE_EMOJIS,
+	DyeTypeToEmoji,
 	EVENT_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
@@ -64,17 +62,6 @@ import {
 	resolveShardEruptionEmoji,
 	shardEruptionInformationString,
 } from "../utility/shard-eruption.js";
-
-const DyeTypeToEmoji = {
-	[DyeType.Red]: MISCELLANEOUS_EMOJIS.DyeRed,
-	[DyeType.Yellow]: MISCELLANEOUS_EMOJIS.DyeYellow,
-	[DyeType.Green]: MISCELLANEOUS_EMOJIS.DyeGreen,
-	[DyeType.Cyan]: MISCELLANEOUS_EMOJIS.DyeCyan,
-	[DyeType.Blue]: MISCELLANEOUS_EMOJIS.DyeBlue,
-	[DyeType.Purple]: MISCELLANEOUS_EMOJIS.DyePurple,
-	[DyeType.Black]: MISCELLANEOUS_EMOJIS.DyeBlack,
-	[DyeType.White]: MISCELLANEOUS_EMOJIS.DyeWhite,
-} as const satisfies Readonly<Record<DyeTypes, Emoji>>;
 
 function dailyResetNext(now: DateTime, locale: Locale) {
 	const timestamp = nextDailyReset(now).toUnixInteger();

@@ -1,4 +1,5 @@
 import { Cosmetic } from "./cosmetics.js";
+import { DyeType, type DyeTypes } from "./events/miscellaneous.js";
 import { SeasonId, type SeasonIds } from "./season.js";
 import { SkyProfilePersonalityType, type SkyProfilePersonalityTypes } from "./sky-profile.js";
 import type { Snowflake } from "./types/index.js";
@@ -6092,6 +6093,7 @@ export function emojiConstants(production: boolean): {
 	>;
 	EventIdToEventTicketEmoji: Readonly<Record<EventIds, Emoji | null>>;
 	SkyProfilePersonalityToEmoji: Readonly<Record<SkyProfilePersonalityTypes, Emoji>>;
+	DyeTypeToEmoji: Readonly<Record<DyeTypes, Emoji>>;
 } {
 	const emojis = production
 		? {
@@ -9118,6 +9120,17 @@ export function emojiConstants(production: boolean): {
 		[SkyProfilePersonalityType.Provider]: MISCELLANEOUS_EMOJIS.Provider,
 	} as const satisfies Readonly<Record<SkyProfilePersonalityTypes, Emoji>>;
 
+	const DyeTypeToEmoji = {
+		[DyeType.Red]: MISCELLANEOUS_EMOJIS.DyeRed,
+		[DyeType.Yellow]: MISCELLANEOUS_EMOJIS.DyeYellow,
+		[DyeType.Green]: MISCELLANEOUS_EMOJIS.DyeGreen,
+		[DyeType.Cyan]: MISCELLANEOUS_EMOJIS.DyeCyan,
+		[DyeType.Blue]: MISCELLANEOUS_EMOJIS.DyeBlue,
+		[DyeType.Purple]: MISCELLANEOUS_EMOJIS.DyePurple,
+		[DyeType.Black]: MISCELLANEOUS_EMOJIS.DyeBlack,
+		[DyeType.White]: MISCELLANEOUS_EMOJIS.DyeWhite,
+	} as const satisfies Readonly<Record<DyeTypes, Emoji>>;
+
 	return {
 		...emojis,
 		CosmeticToEmoji,
@@ -9126,6 +9139,7 @@ export function emojiConstants(production: boolean): {
 		SeasonIdToSeasonalHeartEmoji,
 		EventIdToEventTicketEmoji,
 		SkyProfilePersonalityToEmoji,
+		DyeTypeToEmoji,
 	};
 }
 

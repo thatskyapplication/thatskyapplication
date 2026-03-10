@@ -15,6 +15,7 @@ export const {
 	SeasonIdToSeasonalHeartEmoji,
 	EventIdToEventTicketEmoji,
 	SkyProfilePersonalityToEmoji,
+	DyeTypeToEmoji,
 } = emojiConstants(PRODUCTION);
 
 export const CUSTOM_EMOJI_REPLACEMENTS = [

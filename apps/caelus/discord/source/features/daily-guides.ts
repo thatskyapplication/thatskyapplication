@@ -37,8 +37,6 @@ import {
 	type DailyGuidesPacket,
 	type DailyQuests,
 	DailyQuestToInfographicURL,
-	DyeType,
-	type DyeTypes,
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
@@ -89,6 +87,7 @@ import {
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import {
+	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
@@ -108,20 +107,6 @@ import {
 	shardEruptionInformationString,
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
-
-const DYE_EMOJI_MAP: Record<
-	DyeTypes,
-	(typeof MISCELLANEOUS_EMOJIS)[keyof typeof MISCELLANEOUS_EMOJIS]
-> = {
-	[DyeType.Red]: MISCELLANEOUS_EMOJIS.DyeRed,
-	[DyeType.Yellow]: MISCELLANEOUS_EMOJIS.DyeYellow,
-	[DyeType.Green]: MISCELLANEOUS_EMOJIS.DyeGreen,
-	[DyeType.Cyan]: MISCELLANEOUS_EMOJIS.DyeCyan,
-	[DyeType.Blue]: MISCELLANEOUS_EMOJIS.DyeBlue,
-	[DyeType.Purple]: MISCELLANEOUS_EMOJIS.DyePurple,
-	[DyeType.Black]: MISCELLANEOUS_EMOJIS.DyeBlack,
-	[DyeType.White]: MISCELLANEOUS_EMOJIS.DyeWhite,
-};
 
 type DailyGuidesSetData = Partial<DailyGuidesPacket> &
 	Pick<DailyGuidesPacket, "last_updated_user_id" | "last_updated_at">;
@@ -901,7 +886,7 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		const dyePrefix = formatEmoji(MISCELLANEOUS_EMOJIS.Dye);
 
 		for (const radianceEvent of radianceEvents) {
-			const dyeEmojis = radianceEvent.dyes.map((dye) => formatEmoji(DYE_EMOJI_MAP[dye])).join("");
+			const dyeEmojis = radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join("");
 
 			if (today >= radianceEvent.start) {
 				footerText.push(
