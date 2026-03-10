@@ -314,6 +314,7 @@ export const DailyQuest = {
 	PlantASunflowerMessageAtTheGardenInDaylightPrairie: 293,
 	PlayMusicWithLaughingLightCatcherInDaylightPrairie: 294,
 	WaterTheSunflowerAtTheGardenInDaylightPrairie: 295,
+	CallTo5DifferentPlayers: 296,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -768,6 +769,7 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.PlantASunflowerMessageAtTheGardenInDaylightPrairie]: null,
 	[DailyQuest.PlayMusicWithLaughingLightCatcherInDaylightPrairie]: null,
 	[DailyQuest.WaterTheSunflowerAtTheGardenInDaylightPrairie]: null,
+	[DailyQuest.CallTo5DifferentPlayers]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [

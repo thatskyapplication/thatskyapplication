@@ -622,6 +622,7 @@ export default {
 				"Play music with Laughing Light Catcher in Daylight Prairie",
 			[DailyQuest.WaterTheSunflowerAtTheGardenInDaylightPrairie]:
 				"Water the Sunflower at the Garden in Daylight Prairie",
+			[DailyQuest.CallTo5DifferentPlayers]: "Call to 5 different players",
 		} satisfies Record<DailyQuests, string>,
 		season: "Season",
 		seasons: {
