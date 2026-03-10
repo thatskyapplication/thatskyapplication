@@ -10,8 +10,6 @@ import daysOfMoonlight from "./days-of-moonlight.js";
 import DaysOfNature from "./days-of-nature.js";
 import daysOfSunlight from "./days-of-sunlight.js";
 import DaysOfTreasure from "./days-of-treasure.js";
-import radianceEvent from "./radiance-event.js";
-import radianceEvent2 from "./radiance-event-2.js";
 import skyAnniversary from "./sky-anniversary.js";
 import workshopShowAndTell from "./workshop-show-and-tell.js";
 
@@ -27,9 +25,7 @@ export default [
 	skyAnniversary,
 	daysOfSunlight,
 	daysOfMoonlight,
-	radianceEvent,
 	daysOfMischief,
 	daysOfGiving,
-	radianceEvent2,
 	daysOfFeast,
 ] as const;

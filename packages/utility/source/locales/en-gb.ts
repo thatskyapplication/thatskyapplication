@@ -775,10 +775,8 @@ export default {
 			[EventId.SkyAnniversary2025]: "Sky Anniversary",
 			[EventId.DaysOfSunlight2025]: "Days of Sunlight",
 			[EventId.DaysOfMoonlight2025]: "Days of Moonlight",
-			[EventId.RadianceEvent2025]: "Radiance Event",
 			[EventId.DaysOfMischief2025]: "Days of Mischief",
 			[EventId.DaysOfGiving2025]: "Days of Giving",
-			[EventId.RadianceEvent22025]: "Radiance Event",
 			[EventId.DaysOfFeast2025]: "Days of Feast",
 			[EventId.PersonalityQuizEvent2026]: "Personality Quiz Event",
 			[EventId.TournamentOfTriumph2026]: "Tournament of Triumph",
@@ -881,12 +879,8 @@ export default {
 			[EventId.DaysOfSunlight2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
 			[EventId.DaysOfMoonlight2025]:
 				"https://sky-children-of-the-light.fandom.com/Days_of_Moonlight",
-			[EventId.RadianceEvent2025]:
-				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event_-_October_2025",
 			[EventId.DaysOfMischief2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
 			[EventId.DaysOfGiving2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
-			[EventId.RadianceEvent22025]:
-				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Radiance_Event_-_December_2025",
 			[EventId.DaysOfFeast2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
 			[EventId.PersonalityQuizEvent2026]:
 				"https://sky-children-of-the-light.fandom.com/Personality_Quiz_Event",

@@ -9087,10 +9087,8 @@ export function emojiConstants(production: boolean): {
 		[EventId.SkyAnniversary2025]: EVENT_EMOJIS.SkyFest,
 		[EventId.DaysOfSunlight2025]: EVENT_EMOJIS.Sunlight,
 		[EventId.DaysOfMoonlight2025]: EVENT_EMOJIS.Moonlight,
-		[EventId.RadianceEvent2025]: null,
 		[EventId.DaysOfMischief2025]: EVENT_EMOJIS.Mischief,
 		[EventId.DaysOfGiving2025]: null,
-		[EventId.RadianceEvent22025]: null,
 		[EventId.DaysOfFeast2025]: EVENT_EMOJIS.Feast,
 
 		// 2026.
