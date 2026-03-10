@@ -724,9 +724,9 @@ export default {
 			"sky-x-alices-wonderland-cafe": "Sky × Alice's Wonderland Cafe",
 			"days-of-treasure": "Days of Treasure",
 			"radiance-event": "Radiance event",
-			"aurora-homecoming": "AURORA Homecoming",
+			"aurora-homecoming": "AURORA: Homecoming",
 			"workshop-show-and-tell": "Workshop Show & Tell",
-			"personality-quiz-event": "Personality Quiz event",
+			"personality-quiz-event": "Personality Quiz Event",
 		},
 		events: {
 			[EventId.HalloweenOfficeEvent2019]: "Halloween Office Event",
