@@ -22,8 +22,8 @@ interface RadianceEvent {
 
 export const RADIANCE_EVENTS = [
 	{
-		start: skyDate(2_025, 10, 13),
-		end: skyDate(2_025, 10, 27),
+		start: skyDate(2025, 10, 13),
+		end: skyDate(2025, 10, 27),
 		dyes: [DyeType.Green, DyeType.Black],
 	},
 	{
