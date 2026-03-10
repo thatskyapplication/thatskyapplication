@@ -705,12 +705,12 @@ export default function Schedule() {
 	}
 
 	for (const { start, end } of RADIANCE_EVENTS) {
-		if (end <= today) {
+		if (end <= now) {
 			continue;
 		}
 
 		const label = `${t("events-common.radiance-event", { ns: "general" })}`;
-		const isActive = today >= start;
+		const isActive = now >= start;
 		const relevantDate = isActive ? end : start;
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 

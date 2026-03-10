@@ -1167,7 +1167,7 @@ export async function scheduleOverview(
 	const now = skyNow();
 	const startOfDay = now.startOf("day");
 	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
-	const radianceEvents = radianceEventOverview(startOfDay);
+	const radianceEvents = radianceEventOverview(now);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
 	const pollutedGeyser = pollutedGeyserOverview(now);
 	const grandma = grandmaOverview(now);
