@@ -561,7 +561,6 @@ export default function Schedule() {
 	}, []);
 
 	const now = skyNow();
-	const today = now.startOf("day");
 
 	const schedules = [
 		dailyResetNext(now, timeZone, locale),
@@ -636,7 +635,7 @@ export default function Schedule() {
 		});
 	}
 
-	const nextSeason = skyUpcomingSeason(today);
+	const nextSeason = skyUpcomingSeason(now);
 
 	if (nextSeason) {
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
@@ -659,12 +658,11 @@ export default function Schedule() {
 		});
 	}
 
-	for (const { id, start, end } of skyNotEndedEvents(today).values()) {
-		const daysUntilStart = start.diff(today, "days").days;
+	for (const { id, start, end } of skyNotEndedEvents(now).values()) {
+		const daysUntilStart = start.diff(now, "days").days;
 		const name = t(`events.${id}`, { ns: "general" });
-		const isActive = daysUntilStart <= 0;
 
-		if (isActive) {
+		if (daysUntilStart <= 0) {
 			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
 			if (end.diff(now, "days").days > 1) {
