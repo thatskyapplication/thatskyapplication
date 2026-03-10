@@ -438,6 +438,9 @@
 			"27": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_l'Éclairation"
 		},
 		"event": "Évènement",
+		"events-common": {
+			"radiance-event": "Événement de Splendeur"
+		},
 		"events": {
 			"0": "",
 			"1": "Jours du Don",
@@ -2598,7 +2601,8 @@
 				"15": "$t(features:schedule.type.15)",
 				"16": "$t(features:schedule.type.16)",
 				"17": "$t(features:schedule.type.17)",
-				"18": "$t(features:schedule.type.18)"
+				"18": "$t(features:schedule.type.18)",
+				"19": "$t(features:schedule.type.19)"
 			},
 			"command-option-hide-name": "cacher",
 			"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
@@ -3041,7 +3045,8 @@
 				"15": "Bénédiction de l'Ancienne de la Chambre forte",
 				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
-				"18": "$t(general:maintenance)"
+				"18": "$t(general:maintenance)",
+				"19": "$t(general:events-common.radiance-event)"
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des évènements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
@@ -3110,6 +3115,9 @@
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "",
 			"detailed-breakdown-projector-of-memories-message": "Disponible toutes les 80 minutes à partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-requires": "-# Nécessite {{emoji}}",
+			"detailed-breakdown-radiance-message": "",
+			"detailed-breakdown-radiance-event": "",
+			"detailed-breakdown-nothing-planned": "",
 			"back": "Précédent"
 		},
 		"shard-eruption": {

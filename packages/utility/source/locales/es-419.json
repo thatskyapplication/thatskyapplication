@@ -438,6 +438,9 @@
 			"27": ""
 		},
 		"event": "Evento",
+		"events-common": {
+			"radiance-event": "Evento de resplandor"
+		},
 		"events": {
 			"0": "",
 			"1": "",
@@ -2598,7 +2601,8 @@
 				"15": "$t(features:schedule.type.15)",
 				"16": "$t(features:schedule.type.16)",
 				"17": "$t(features:schedule.type.17)",
-				"18": "$t(features:schedule.type.18)"
+				"18": "$t(features:schedule.type.18)",
+				"19": "$t(features:schedule.type.19)"
 			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
@@ -3031,7 +3035,8 @@
 				"15": "",
 				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
-				"18": "$t(general:maintenance)"
+				"18": "$t(general:maintenance)",
+				"19": "$t(general:events-common.radiance-event)"
 			},
 			"name": "",
 			"description": "",
@@ -3100,6 +3105,9 @@
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "",
 			"detailed-breakdown-projector-of-memories-message": "",
 			"detailed-breakdown-projector-of-memories-requires": "",
+			"detailed-breakdown-radiance-message": "",
+			"detailed-breakdown-radiance-event": "",
+			"detailed-breakdown-nothing-planned": "",
 			"back": ""
 		},
 		"shard-eruption": {

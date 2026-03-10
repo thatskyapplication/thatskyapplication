@@ -438,6 +438,9 @@
 			"27": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Restauração_da_Luz"
 		},
 		"event": "Evento",
+		"events-common": {
+			"radiance-event": "Evento do Resplendor"
+		},
 		"events": {
 			"0": "Evento de Halloween do Escritório",
 			"1": "Dias de Presentear",
@@ -2598,7 +2601,8 @@
 				"15": "$t(features:schedule.type.15)",
 				"16": "$t(features:schedule.type.16)",
 				"17": "$t(features:schedule.type.17)",
-				"18": "$t(features:schedule.type.18)"
+				"18": "$t(features:schedule.type.18)",
+				"19": "$t(features:schedule.type.19)"
 			},
 			"command-option-hide-name": "ocultar",
 			"command-option-hide-description": "Certifique-se de que só você veja a resposta."
@@ -3041,7 +3045,8 @@
 				"15": "Benção do Ancião do Relicário",
 				"16": "$t(general:cosmetic-names.2498)",
 				"17": "Chuva de meteoros",
-				"18": "$t(general:maintenance)"
+				"18": "$t(general:maintenance)",
+				"19": "$t(general:events-common.radiance-event)"
 			},
 			"name": "Programação",
 			"description": "Veja a programação de eventos como: o gêiser poluído, a vovó, a tartaruga, a bênção do Ancião do Relicário e muito mais!",
@@ -3110,6 +3115,9 @@
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_das_Duas_Fagulhas_-_Parte_1#Projetor_de_Lembran%C3%A7as",
 			"detailed-breakdown-projector-of-memories-message": "Disponível a cada 80 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-requires": "-# Requer {{emoji}}",
+			"detailed-breakdown-radiance-message": "",
+			"detailed-breakdown-radiance-event": "",
+			"detailed-breakdown-nothing-planned": "",
 			"back": "Retornar"
 		},
 		"shard-eruption": {
