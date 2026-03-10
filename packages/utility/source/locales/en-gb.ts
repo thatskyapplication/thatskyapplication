@@ -721,6 +721,7 @@ export default {
 			"sky-x-cinnamoroll-pop-up-cafe": "Sky × Cinnamoroll Pop-Up Cafe",
 			skyfest: "SkyFest",
 			"tournament-of-triumph": "Tournament of Triumph",
+			"days-of-moonlight": "Days of Moonlight",
 			"sky-x-alices-wonderland-cafe": "Sky × Alice's Wonderland Cafe",
 			"days-of-treasure": "Days of Treasure",
 			"radiance-event": "Radiance event",
