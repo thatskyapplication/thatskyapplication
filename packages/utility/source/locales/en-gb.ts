@@ -3529,7 +3529,7 @@ export default {
 				"Available every 80 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-requires": "-# Requires {{emoji}}",
 			"detailed-breakdown-radiance-message":
-				"Radiance events increases the availability of certain dyes.\n\n{{result}}",
+				"Radiance events increase the availability of certain dyes.\n\n{{result}}",
 			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
 			"detailed-breakdown-nothing-planned": "There are no upcoming events.",
 			back: "Back",
