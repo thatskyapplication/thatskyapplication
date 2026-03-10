@@ -22,6 +22,7 @@ for (
 
 export default new Event({
 	id: EventId.DaysOfFeast2023,
+	name: "days-of-feast",
 	start: skyDate(2_023, 12, 18),
 	end: skyDate(2_024, 1, 8),
 	eventTickets: {

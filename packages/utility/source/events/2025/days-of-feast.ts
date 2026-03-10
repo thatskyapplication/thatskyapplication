@@ -15,6 +15,7 @@ for (
 
 export default new Event({
 	id: EventId.DaysOfFeast2025,
+	name: "days-of-feast",
 	start: skyDate(2025, 12, 12),
 	end: skyDate(2026, 1, 2),
 	eventTickets: {

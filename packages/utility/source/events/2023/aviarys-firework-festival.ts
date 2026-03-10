@@ -22,6 +22,7 @@ for (
 
 export default new Event({
 	id: EventId.AviarysFireworkFestival2023,
+	name: "aviarys-firework-festival",
 	start: skyDate(2_023, 11, 27),
 	end: skyDate(2_023, 12, 18),
 	eventTickets: {

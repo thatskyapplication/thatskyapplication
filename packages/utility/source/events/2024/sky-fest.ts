@@ -16,6 +16,7 @@ for (
 
 export default new Event({
 	id: EventId.SkyFest2024,
+	name: "skyfest",
 	start: skyDate(2_024, 7, 12, 17),
 	end: skyDate(2_024, 7, 27),
 	eventTickets: {

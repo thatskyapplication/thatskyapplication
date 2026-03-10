@@ -6,6 +6,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.KizunaAI2022,
+	name: "kizuna-ai",
 	start: skyDate(2_022, 2, 25),
 	end: skyDate(2_022, 3, 11),
 	offer: [

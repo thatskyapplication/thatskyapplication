@@ -19,6 +19,7 @@ for (
 
 export default new Event({
 	id: EventId.DaysOfSunlight2024,
+	name: "days-of-sunlight",
 	start: skyDate(2_024, 8, 26),
 	end: skyDate(2_024, 9, 13),
 	eventTickets: {

@@ -6,6 +6,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfMischief2022,
+	name: "days-of-mischief",
 	start: skyDate(2_022, 10, 24),
 	end: skyDate(2_022, 11, 14),
 	offer: [

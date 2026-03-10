@@ -6,6 +6,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.AURORAEncoreConcerts2023,
+	name: "aurora-encore-concerts",
 	start: skyDate(2_023, 8, 23),
 	end: skyDate(2_023, 9, 4),
 	offer: [

@@ -4,6 +4,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.ChildrensDay2021,
+	name: "childrens-day",
 	start: skyDate(2_021, 5, 3),
 	end: skyDate(2_021, 5, 10),
 });

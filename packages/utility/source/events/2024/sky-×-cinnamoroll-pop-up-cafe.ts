@@ -22,6 +22,7 @@ for (
 
 export default new Event({
 	id: EventId.SkyXCinnamorollPopUpCafe2024,
+	name: "sky-x-cinnamoroll-pop-up-cafe",
 	start: skyDate(2_024, 4, 27),
 	end: skyDate(2_024, 5, 18),
 	eventTickets: {

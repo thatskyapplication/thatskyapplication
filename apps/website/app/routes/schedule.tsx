@@ -658,9 +658,9 @@ export default function Schedule() {
 		});
 	}
 
-	for (const { id, start, end } of skyNotEndedEvents(now).values()) {
+	for (const { id, name, start, end } of skyNotEndedEvents(now).values()) {
 		const daysUntilStart = start.diff(now, "days").days;
-		const name = t(`events.${id}`, { ns: "general" });
+		const eventName = t(name, { ns: "general" });
 
 		if (daysUntilStart <= 0) {
 			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
@@ -672,8 +672,8 @@ export default function Schedule() {
 			allCards.push({
 				type: DisplayCardType.Event,
 				key: `event-${id}`,
-				label: name,
-				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: name },
+				label: eventName,
+				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: eventName },
 				active: true,
 				next: new Intl.DateTimeFormat(locale, options).format(end.toMillis()),
 				nextUnix: end.toMillis(),
@@ -692,8 +692,8 @@ export default function Schedule() {
 			allCards.push({
 				type: DisplayCardType.Event,
 				key: `event-${id}`,
-				label: name,
-				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: name },
+				label: eventName,
+				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: eventName },
 				active: false,
 				next: new Intl.DateTimeFormat(locale, options).format(start.toMillis()),
 				nextUnix: start.toMillis(),
@@ -707,7 +707,7 @@ export default function Schedule() {
 			continue;
 		}
 
-		const label = `${t("events-common.radiance-event", { ns: "general" })}`;
+		const label = `${t("event-names.radiance-event", { ns: "general" })}`;
 		const isActive = now >= start;
 		const relevantDate = isActive ? end : start;
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };

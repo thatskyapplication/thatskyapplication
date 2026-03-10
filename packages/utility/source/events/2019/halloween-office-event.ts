@@ -5,6 +5,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.HalloweenOfficeEvent2019,
+	name: "halloween-office-event",
 	start: skyDate(2_019, 10, 27),
 	end: skyDate(2_019, 11, 1),
 	offer: [

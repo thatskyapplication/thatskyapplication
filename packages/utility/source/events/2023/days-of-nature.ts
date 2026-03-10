@@ -6,6 +6,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfNature2023,
+	name: "days-of-nature",
 	start: skyDate(2_023, 4, 20),
 	end: skyDate(2_023, 5, 8),
 	offer: [

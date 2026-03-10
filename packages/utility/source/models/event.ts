@@ -14,6 +14,10 @@ interface EventData {
 	 */
 	id: EventIds;
 	/**
+	 * The translation key of the event's name without the "event-names." prefix.
+	 */
+	name: string;
+	/**
 	 * The start date of the event.
 	 */
 	start: DateTime;
@@ -80,6 +84,8 @@ interface EventTicketsPool {
 export class Event {
 	public readonly id: EventIds;
 
+	public readonly name: `event-names.${string}`;
+
 	public readonly start: DateTime;
 
 	public readonly end: DateTime;
@@ -96,6 +102,7 @@ export class Event {
 
 	public constructor(data: EventData) {
 		this.id = data.id;
+		this.name = `event-names.${data.name}`;
 		this.start = data.start;
 		this.end = data.end;
 

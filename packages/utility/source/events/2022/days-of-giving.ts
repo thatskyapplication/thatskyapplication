@@ -4,6 +4,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfGiving2022,
+	name: "days-of-giving",
 	start: skyDate(2_022, 11, 22),
 	end: skyDate(2_022, 11, 29),
 });

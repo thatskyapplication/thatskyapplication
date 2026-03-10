@@ -144,13 +144,17 @@ export default function DailyGuides() {
 		daysCount.push(t("daily-guides.season-upcoming", { ns: "features", count: daysUntilStart }));
 	}
 
-	for (const { id, start, end } of skyNotEndedEvents(today).values()) {
+	for (const { name, start, end } of skyNotEndedEvents(today).values()) {
 		const daysUntilStart = start.diff(today, "days").days;
-		const name = t(`events.${id}`, { ns: "general" });
+		const eventName = t(name, { ns: "general" });
 
 		if (daysUntilStart > 0) {
 			daysCount.push(
-				t("daily-guides.event-upcoming", { ns: "features", event: name, count: daysUntilStart }),
+				t("daily-guides.event-upcoming", {
+					ns: "features",
+					event: eventName,
+					count: daysUntilStart,
+				}),
 			);
 
 			continue;
@@ -160,7 +164,7 @@ export default function DailyGuides() {
 			t("days-left.event", {
 				ns: "general",
 				count: Math.ceil(end.diff(today, "days").days) - 1,
-				name,
+				name: eventName,
 			}),
 		);
 	}
@@ -173,12 +177,12 @@ export default function DailyGuides() {
 				? t("daily-guides.event-upcoming", {
 						ns: "features",
 						count: Math.floor(daysUntilStart),
-						event: t("events-common.radiance-event", { ns: "general" }),
+						event: t("event-names.radiance-event", { ns: "general" }),
 					})
 				: t("days-left.event", {
 						ns: "general",
 						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
-						name: t("events-common.radiance-event", { ns: "general" }),
+						name: t("event-names.radiance-event", { ns: "general" }),
 					}),
 		);
 	}

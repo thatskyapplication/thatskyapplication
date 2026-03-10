@@ -19,6 +19,7 @@ for (
 
 export default new Event({
 	id: EventId.SkyXAlicesWonderlandCafe2024,
+	name: "sky-x-alices-wonderland-cafe",
 	start: skyDate(2_024, 12, 23),
 	end: skyDate(2_025, 1, 13),
 	eventTickets: {

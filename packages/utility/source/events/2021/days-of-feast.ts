@@ -6,6 +6,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfFeast2021,
+	name: "days-of-feast",
 	start: skyDate(2_021, 12, 20),
 	end: skyDate(2_022, 1, 10),
 	offer: [

@@ -19,6 +19,7 @@ for (
 
 export default new Event({
 	id: EventId.DaysOfMusic2024,
+	name: "days-of-music",
 	start: skyDate(2_024, 11, 25),
 	end: skyDate(2_024, 12, 12),
 	eventTickets: {

@@ -5,6 +5,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.SpringCamping2024,
+	name: "spring-camping",
 	start: skyDate(2_024, 3, 4),
 	end: skyDate(2_024, 3, 11),
 	patchNotesURL: patchNotesRoute("0245"),

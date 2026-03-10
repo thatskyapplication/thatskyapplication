@@ -16,6 +16,7 @@ for (
 
 export default new Event({
 	id: EventId.DaysOfStyle2023,
+	name: "days-of-style",
 	start: skyDate(2_023, 10, 2),
 	end: skyDate(2_023, 10, 16),
 	eventTickets: {
