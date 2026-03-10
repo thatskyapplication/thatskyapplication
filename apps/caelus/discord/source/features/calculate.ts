@@ -205,7 +205,7 @@ export async function eventTickets(
 
 			return eventTicketEmoji
 				? formatEmoji(eventTicketEmoji)
-				: t(`events.${event.id}`, { lng: locale, ns: "general" });
+				: t(event.name, { lng: locale, ns: "general" });
 		})
 		.join("");
 
@@ -241,7 +241,7 @@ export async function eventTickets(
 			: t("calculate.event-tickets.result-event", {
 					lng: locale,
 					ns: "features",
-					event: t(`events.${event.id}`, { lng: locale, ns: "general" }),
+					event: t(event.name, { lng: locale, ns: "general" }),
 					total: dailyRemaining,
 				});
 
@@ -278,12 +278,12 @@ export async function eventTickets(
 					{
 						type: ComponentType.TextDisplay,
 						content: events
-							.map(({ id, end }) =>
+							.map(({ name, end }) =>
 								t("days-left.event", {
 									lng: locale,
 									ns: "general",
 									count: Math.ceil(end.diff(now, "days").days) - 1,
-									name: t(`events.${id}`, { lng: locale, ns: "general" }),
+									name: t(name, { lng: locale, ns: "general" }),
 								}),
 							)
 							.join("\n"),

@@ -432,7 +432,7 @@ function offerData({
 		let content = "";
 
 		if (includeTitles) {
-			content = `### ${t(`events.${event.id}`, { lng: locale, ns: "general" })}`;
+			content = `### ${t(event.name, { lng: locale, ns: "general" })}`;
 
 			if (includePercentage) {
 				content += percentage === null ? "" : ` (${percentage}%)`;
@@ -585,7 +585,7 @@ async function start({
 						type: ComponentType.Button,
 						style: ButtonStyle.Success,
 						custom_id: `${CustomId.CatalogueViewEvent}§${event.id}`,
-						label: t(`events.${event.id}`, { lng: locale, ns: "general" }),
+						label: t(event.name, { lng: locale, ns: "general" }),
 					};
 
 					const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
@@ -2061,7 +2061,7 @@ async function viewEvent(
 	const titleEvent = t("catalogue.event-title", {
 		lng: locale,
 		ns: "features",
-		event: `[${t(`events.${id}`, { lng: locale, ns: "general" })}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`,
+		event: `[${t(event.name, { lng: locale, ns: "general" })}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`,
 	});
 
 	const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];

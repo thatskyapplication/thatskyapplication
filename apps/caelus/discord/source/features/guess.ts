@@ -28,6 +28,7 @@ import {
 	type SeasonalSpirit,
 	type SpiritIds,
 	type StandardSpirit,
+	skyEvents,
 	skySeasons,
 	spirits,
 	Table,
@@ -578,11 +579,12 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 	const options = new Map<EventIds, string>();
 	const answerEmojiId = EVENT_COSMETIC_EMOJIS.randomKey()!;
 	const answerEventId = EVENT_COSMETIC_EMOJIS.get(answerEmojiId)!;
-	options.set(answerEventId, t(`events.${answerEventId}`, { lng: locale, ns: "general" }));
+	const events = skyEvents();
+	options.set(answerEventId, t(events.get(answerEventId)!.name, { lng: locale, ns: "general" }));
 
 	generateOtherOptions: while (options.size < 3) {
 		const option = EVENT_COSMETIC_EMOJIS.random()!;
-		const eventName = t(`events.${option}`, { lng: locale, ns: "general" });
+		const eventName = t(events.get(option)!.name, { lng: locale, ns: "general" });
 
 		// Ensure no duplicate labels.
 		for (const existingOption of options.values()) {
@@ -795,11 +797,12 @@ async function endEventGame({
 	timeRanOut,
 }: GuessEndEventGameOptions) {
 	const { locale } = interaction;
-	let description = `**${t("guess.answer", { lng: locale, ns: "features" })}** ${t(`events.${answer}`, { lng: locale, ns: "general" })}`;
+	const events = skyEvents();
+	let description = `**${t("guess.answer", { lng: locale, ns: "features" })}** ${t(events.get(answer)!.name, { lng: locale, ns: "general" })}`;
 
 	if (option !== undefined) {
 		description += `\n**${t("guess.your-guess", { lng: locale, ns: "features" })}** ${t(
-			`events.${option}`,
+			events.get(option)!.name,
 			{ lng: locale, ns: "general" },
 		)}`;
 

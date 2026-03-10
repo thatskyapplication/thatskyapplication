@@ -6,6 +6,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfHealing2020,
+	name: "days-of-healing",
 	start: skyDate(2_020, 5, 18, 12),
 	end: skyDate(2_020, 6, 22, 12),
 	offer: [

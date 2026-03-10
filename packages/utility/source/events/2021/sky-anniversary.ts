@@ -5,6 +5,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.SkyAnniversary2021,
+	name: "sky-anniversary",
 	start: skyDate(2_021, 7, 12),
 	end: skyDate(2_021, 7, 26),
 	offer: [

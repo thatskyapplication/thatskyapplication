@@ -6,6 +6,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.WorkshopShowAndTell2025,
+	name: "workshop-show-and-tell",
 	start: skyDate(2_025, 6, 23),
 	end: skyDate(2_025, 7, 7),
 	offer: [

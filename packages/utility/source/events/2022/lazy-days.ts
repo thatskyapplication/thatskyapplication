@@ -5,6 +5,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.LazyDays2022,
+	name: "lazy-days",
 	start: skyDate(2_022, 9, 26),
 	end: skyDate(2_022, 10, 17),
 	patchNotesURL: patchNotesRoute("0185"),

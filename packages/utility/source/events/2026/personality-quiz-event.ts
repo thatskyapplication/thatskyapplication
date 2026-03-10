@@ -5,6 +5,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.PersonalityQuizEvent2026,
+	name: "personality-quiz-event",
 	start: skyDate(2026, 1, 9),
 	end: skyDate(2026, 1, 24),
 	offer: [

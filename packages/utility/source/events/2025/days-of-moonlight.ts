@@ -16,6 +16,7 @@ for (
 
 export default new Event({
 	id: EventId.DaysOfMoonlight2025,
+	name: "days-of-moonlight",
 	start: skyDate(2_025, 9, 29),
 	end: skyDate(2_025, 10, 13),
 	eventTickets: {

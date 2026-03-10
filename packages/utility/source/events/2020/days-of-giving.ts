@@ -5,6 +5,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfGiving2020,
+	name: "days-of-giving",
 	start: skyDate(2_020, 11, 23, 12),
 	end: skyDate(2_020, 11, 30, 12),
 	patchNotesURL: patchNotesRoute("0114"),

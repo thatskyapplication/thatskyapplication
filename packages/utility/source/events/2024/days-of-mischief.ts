@@ -16,6 +16,7 @@ for (
 
 export default new Event({
 	id: EventId.DaysOfMischief2024,
+	name: "days-of-mischief",
 	start: skyDate(2_024, 10, 21),
 	end: skyDate(2_024, 11, 11),
 	eventTickets: {

@@ -20,6 +20,7 @@ for (
 
 export default new Event({
 	id: EventId.DaysOfTreasure2025,
+	name: "days-of-treasure",
 	start: skyDate(2_025, 3, 3),
 	end: skyDate(2_025, 3, 17),
 	eventTickets: {

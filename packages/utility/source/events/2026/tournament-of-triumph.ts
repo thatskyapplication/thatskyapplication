@@ -30,6 +30,7 @@ for (
 
 export default new Event({
 	id: EventId.TournamentOfTriumph2026,
+	name: "tournament-of-triumph",
 	start: skyDate(2026, 1, 30),
 	end: skyDate(2026, 2, 13),
 	eventTickets: {

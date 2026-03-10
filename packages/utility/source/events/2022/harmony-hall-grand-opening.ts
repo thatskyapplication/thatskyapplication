@@ -6,6 +6,7 @@ import { EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.HarmonyHallGrandOpening2022,
+	name: "harmony-hall-grand-opening",
 	start: skyDate(2_022, 5, 23),
 	end: skyDate(2_022, 6, 6),
 	offer: [

@@ -571,20 +571,20 @@ async function send({ guildId, channelId, messageId, enforceNonce }: DailyGuides
 function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	const events = skyCurrentEvents(date);
 
-	const eventEndText = skyNotEndedEvents(date).map(({ id, start, end }) => {
+	const eventEndText = skyNotEndedEvents(date).map(({ id, name, start, end }) => {
 		const daysUntilStart = start.diff(date, "days").days;
-		const name = t(`events.${id}`, { lng: locale, ns: "general" });
+		const eventName = t(name, { lng: locale, ns: "general" });
 		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
 		if (daysUntilStart > 0) {
-			return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("daily-guides.event-upcoming", { lng: locale, ns: "features", event: name, count: daysUntilStart })}`;
+			return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("daily-guides.event-upcoming", { lng: locale, ns: "features", event: eventName, count: daysUntilStart })}`;
 		}
 
 		return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("days-left.event", {
 			lng: locale,
 			ns: "general",
 			count: Math.ceil(end.diff(date, "days").days) - 1,
-			name,
+			name: eventName,
 		})}`;
 	});
 
@@ -615,7 +615,7 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 						return `[${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("view", {
 							lng: locale,
 							ns: "general",
-						})}](${event.resolveInfographicURL(date)!} "${t(`events.${event.id}`, { lng: locale, ns: "general" })}")`;
+						})}](${event.resolveInfographicURL(date)!} "${t(event.name, { lng: locale, ns: "general" })}")`;
 					})
 					.join(" | ")
 			: null;

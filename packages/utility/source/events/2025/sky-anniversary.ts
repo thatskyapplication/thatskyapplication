@@ -8,6 +8,7 @@ const eventTicketAmount: EventTicketsAmountData[] = [];
 
 export default new Event({
 	id: EventId.SkyAnniversary2025,
+	name: "sky-anniversary",
 	start: skyDate(2_025, 7, 7),
 	end: skyDate(2_025, 8, 19),
 	eventTickets: {
