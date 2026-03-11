@@ -1,5 +1,5 @@
-import { API, Locale, MessageFlags } from "@discordjs/core";
-import { REST } from "@discordjs/rest";
+import { API, Locale, MessageFlags, RESTJSONErrorCodes } from "@discordjs/core";
+import { DiscordAPIError, REST } from "@discordjs/rest";
 import { captureCheckIn } from "@sentry/node";
 import {
 	de,
@@ -338,13 +338,15 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		});
 	}
 
+	const updateErrors = [];
+
 	for (const notification of notifications) {
 		const { type, timeUntilStart } = notification;
 
 		const notificationsSettled = await Promise.allSettled(
 			(
 				await pg<NotificationPacket & { channel_id: string; role_id: string }>(Table.Notifications)
-					.select("guild_id", "channel_id", "role_id", "locale")
+					.select("guild_id", "type", "channel_id", "role_id", "locale")
 					.where({
 						type,
 						offset: timeUntilStart,
@@ -396,28 +398,48 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			}),
 		);
 
-		const errors: NotificationError[] = [];
+		let errors = 0;
+		const refinedErrors: NotificationError[] = [];
 
 		for (const result of notificationsSettled) {
 			if (result.status !== "rejected") {
 				continue;
 			}
 
-			errors.push(result.reason);
+			const reason: NotificationError = result.reason;
+
+			if (
+				reason.cause instanceof DiscordAPIError &&
+				(reason.cause.code === RESTJSONErrorCodes.UnknownChannel ||
+					reason.cause.code === RESTJSONErrorCodes.MissingPermissions)
+			) {
+				updateErrors.push(
+					pg<NotificationPacket>(Table.Notifications).update({ sendable: false }).where({
+						guild_id: reason.data.guild_id,
+						type: reason.data.type,
+					}),
+				);
+			} else {
+				refinedErrors.push(reason);
+			}
+
+			errors++;
 		}
 
-		const successful = notificationsSettled.length - errors.length;
+		const successful = notificationsSettled.length - errors;
 		const message = `Notification ${notification.type} (${notification.timeUntilStart} mins until) delivered to ${successful === 1 ? `${successful} guild` : `${successful} guilds`}.`;
 
-		if (errors.length > 0) {
+		if (refinedErrors.length > 0) {
 			pino.error(
-				new AggregateError(errors, "Error whilst sending notifications."),
-				`${message} Errors: ${errors.length}`,
+				new AggregateError(refinedErrors, "Error whilst sending notifications."),
+				`${message} Errors: ${refinedErrors.length}`,
 			);
 		} else {
 			pino.info(message);
 		}
 	}
+
+	await Promise.all(updateErrors);
 
 	captureCheckIn({
 		monitorSlug: "notifications",

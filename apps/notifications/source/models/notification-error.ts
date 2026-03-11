@@ -8,7 +8,7 @@ export class NotificationError extends Error {
 			channel_id: string;
 			role_id: string;
 		},
-		"guild_id" | "channel_id" | "role_id" | "locale"
+		"guild_id" | "type" | "channel_id" | "role_id" | "locale"
 	>;
 
 	public override readonly cause: unknown;
@@ -19,7 +19,7 @@ export class NotificationError extends Error {
 				channel_id: string;
 				role_id: string;
 			},
-			"guild_id" | "channel_id" | "role_id" | "locale"
+			"guild_id" | "type" | "channel_id" | "role_id" | "locale"
 		>,
 		error: unknown,
 	) {
