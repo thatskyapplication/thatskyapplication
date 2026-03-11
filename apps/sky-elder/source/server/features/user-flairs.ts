@@ -19,13 +19,6 @@ const matcher = new RegExpMatcher({
 });
 
 export async function userFlairsCheckFlair(user: UserV2) {
-	const discordWebhookURL = await settings.get(SETTINGS_USER_LINK_FLAIRS_WEBHOOK_URL);
-
-	if (typeof discordWebhookURL !== "string") {
-		console.warn("Discord webhook URL for user flairs is not set.");
-		return;
-	}
-
 	const subreddit = await reddit.getCurrentSubreddit();
 	const userFlair = await subreddit.getUserFlair({ usernames: [user.name] });
 	const userFlairText = userFlair.users[0]?.flairText;
@@ -34,9 +27,22 @@ export async function userFlairsCheckFlair(user: UserV2) {
 		return;
 	}
 
+	// "Custom" is the placeholder. Remove it if it is present.
+	if (userFlairText === "Custom") {
+		await reddit.removeUserFlair(subreddit.name, user.name);
+		return;
+	}
+
 	const matches = matcher.getAllMatches(userFlairText);
 
 	if (matches.length === 0) {
+		return;
+	}
+
+	const discordWebhookURL = await settings.get(SETTINGS_USER_LINK_FLAIRS_WEBHOOK_URL);
+
+	if (typeof discordWebhookURL !== "string") {
+		console.warn("Discord webhook URL for user flairs is not set.");
 		return;
 	}
 
