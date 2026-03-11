@@ -2543,7 +2543,7 @@
 				"16": "$t(features:schedule.type.16)",
 				"17": "$t(features:schedule.type.17)",
 				"18": "$t(features:schedule.type.18)",
-				"19": ""
+				"19": "$t(features:schedule.type.19)"
 			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
