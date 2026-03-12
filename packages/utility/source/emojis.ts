@@ -5363,9 +5363,13 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	LargePlaceableProp104: { id: "1453075375251787908", name: "104_large_placeable_prop" },
 	/**
+	 * Tournament podium.
+	 */
+	LargePlaceableProp105: { id: "1481575598416597002", name: "105_large_placeable_prop" },
+	/**
 	 * Days of Fortune 2026.
 	 */
-	LargePlaceableProp105: { id: "1471653526777364491", name: "105_large_placeable_prop" },
+	LargePlaceableProp106: { id: "1471653526777364491", name: "106_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5473,7 +5477,8 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp102: { id: "1453075377613181079", name: "102_large_placeable_prop" },
 	LargePlaceableProp103: { id: "1453075380981465191", name: "103_large_placeable_prop" },
 	LargePlaceableProp104: { id: "1453075385473569009", name: "104_large_placeable_prop" },
-	LargePlaceableProp105: { id: "1471653538588524634", name: "105_large_placeable_prop" },
+	LargePlaceableProp105: { id: "1481575606947807345", name: "105_large_placeable_prop" },
+	LargePlaceableProp106: { id: "1471653538588524634", name: "106_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5930,6 +5935,22 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Mischief Symbol 4.
 	 */
 	SmallPlaceableProp114: { id: "1441416748116217977", name: "114_small_placeable_prop" },
+	/**
+	 * Tournament Prairie Flag.
+	 */
+	SmallPlaceableProp115: { id: "1481576420881727580", name: "115_small_placeable_prop" },
+	/**
+	 * Tournament Forest Flag.
+	 */
+	SmallPlaceableProp116: { id: "1481576422312116254", name: "116_small_placeable_prop" },
+	/**
+	 * Tournament Valley Flag.
+	 */
+	SmallPlaceableProp117: { id: "1481576424061145109", name: "117_small_placeable_prop" },
+	/**
+	 * Tournament Wasteland Flag.
+	 */
+	SmallPlaceableProp118: { id: "1481576426523070626", name: "118_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6046,6 +6067,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp112: { id: "1441416764645707806", name: "112_small_placeable_prop" },
 	SmallPlaceableProp113: { id: "1441416773701468260", name: "113_small_placeable_prop" },
 	SmallPlaceableProp114: { id: "1441416775349833780", name: "114_small_placeable_prop" },
+	SmallPlaceableProp115: { id: "1481576435431903304", name: "115_small_placeable_prop" },
+	SmallPlaceableProp116: { id: "1481576437701152862", name: "116_small_placeable_prop" },
+	SmallPlaceableProp117: { id: "1481576440104489030", name: "117_small_placeable_prop" },
+	SmallPlaceableProp118: { id: "1481576442046447637", name: "118_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean): {
@@ -8866,17 +8891,17 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.TournamentTeamForestCape]: CAPE_EMOJIS.Cape173,
 		[Cosmetic.TournamentTeamValleyCape]: CAPE_EMOJIS.Cape174,
 		[Cosmetic.TournamentTeamWastelandCape]: CAPE_EMOJIS.Cape175,
-		[Cosmetic.TournamentPodium]: null,
-		[Cosmetic.TournamentPrairieFlag]: null,
-		[Cosmetic.TournamentForestFlag]: null,
-		[Cosmetic.TournamentValleyFlag]: null,
-		[Cosmetic.TournamentWastelandFlag]: null,
+		[Cosmetic.TournamentPodium]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp105,
+		[Cosmetic.TournamentPrairieFlag]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp115,
+		[Cosmetic.TournamentForestFlag]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp116,
+		[Cosmetic.TournamentValleyFlag]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp117,
+		[Cosmetic.TournamentWastelandFlag]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp118,
 		[Cosmetic.LightmendingGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.DaysOfFortune2026Mask]: MASK_EMOJIS.Mask110,
 		[Cosmetic.DaysOfFortune2026Cape]: CAPE_EMOJIS.Cape176,
 		[Cosmetic.DaysOfFortune2026CarouselMusicBox]:
-			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp105,
+			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp106,
 		[Cosmetic.FortunePlushMount]: HELD_PROPS_EMOJIS.HeldProp61,
 		[Cosmetic.FortunePleatedDress]: OUTFIT_EMOJIS.Outfit101,
 		[Cosmetic.FortuneRibbonedPonytail]: HAIR_EMOJIS.Hair176,
