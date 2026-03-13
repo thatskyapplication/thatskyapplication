@@ -9,7 +9,7 @@
 	],
 	"scripts": {
 		"build": "tsup",
-		"test": "tsc --noEmit",
+		"test": "tsx --test __tests__/*.test.ts && tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
 		"crowdin": "tsx scripts/crowdin.ts",
