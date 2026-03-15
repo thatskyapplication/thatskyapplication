@@ -13,6 +13,10 @@ const EXPECTED_ROTATIONS = [
 		date: skyDate(2026, 3, 14),
 		expected: [String(new URL("daily_guides/treasure_candles/hidden_forest/3.webp", CDN_URL))],
 	},
+	{
+		date: skyDate(2026, 3, 15),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
 ] as const;
 
 for (const { date, expected } of EXPECTED_ROTATIONS) {
