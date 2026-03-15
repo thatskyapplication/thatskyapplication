@@ -1120,6 +1120,14 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Fortune Pleated Dress.
 	 */
 	Outfit101: { id: "1471652521775861810", name: "101_outfit" },
+	/**
+	 * Days of Bloom 2026.
+	 */
+	Outfit102: { id: "1482684563519180921", name: "102_outfit" },
+	/**
+	 * Bloom Sunflower Sundress.
+	 */
+	Outfit103: { id: "1482684567012901069", name: "103_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1224,6 +1232,8 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit99: { id: "1464069081366794457", name: "99_outfit" },
 	Outfit100: { id: "1469073927048527963", name: "100_outfit" },
 	Outfit101: { id: "1471652523571155004", name: "101_outfit" },
+	Outfit102: { id: "1482684571320320010", name: "102_outfit" },
+	Outfit103: { id: "1482684573144846519", name: "103_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -3070,6 +3080,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Fortune Ribboned Ponytail.
 	 */
 	Hair176: { id: "1471652711874298128", name: "176_hair" },
+	/**
+	 * Days of Bloom 2026.
+	 */
+	Hair177: { id: "1482684921666600971", name: "177_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3249,6 +3263,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair174: { id: "1464068545645121659", name: "174_hair" },
 	Hair175: { id: "1469073578262659244", name: "175_hair" },
 	Hair176: { id: "1471652719138705512", name: "176_hair" },
+	Hair177: { id: "1482684929887178762", name: "177_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3719,6 +3734,10 @@ const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Lightmending Champion.
 	 */
 	HeadAccessory24: { id: "1464063372784963715", name: "24_head_accessory" },
+	/**
+	 * Bloom Sunflower Studs.
+	 */
+	HeadAccessory25: { id: "1482685936688173146", name: "25_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3746,6 +3765,7 @@ const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HeadAccessory22: { id: "1401818096985182218", name: "22_head_accessory" },
 	HeadAccessory23: { id: "1431663772413726841", name: "23_head_accessory" },
 	HeadAccessory24: { id: "1464063379953156177", name: "24_head_accessory" },
+	HeadAccessory25: { id: "1482685944338579567", name: "25_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -4453,6 +4473,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Days of Fortune 2026.
 	 */
 	Cape176: { id: "1471652018610241772", name: "176_cape" },
+	/**
+	 * Days of Bloom 2026.
+	 */
+	Cape177: { id: "1482683897224499302", name: "177_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4632,6 +4656,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape174: { id: "1469075180306567363", name: "174_cape" },
 	Cape175: { id: "1469075182831407257", name: "175_cape" },
 	Cape176: { id: "1471652027850555526", name: "176_cape" },
+	Cape177: { id: "1482683904417857638", name: "177_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -4879,6 +4904,10 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Fortune Plush Mount.
 	 */
 	HeldProp61: { id: "1471653269909667912", name: "61_held_prop" },
+	/**
+	 * Bloom Sunflower Umbrella.
+	 */
+	HeldProp62: { id: "1482685517727531130", name: "62_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -4943,6 +4972,7 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp59: { id: "1464065547837640903", name: "59_held_prop" },
 	HeldProp60: { id: "1469073223969800383", name: "60_held_prop" },
 	HeldProp61: { id: "1471653278457663528", name: "61_held_prop" },
+	HeldProp62: { id: "1482685524601999412", name: "62_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5370,6 +5400,14 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Days of Fortune 2026.
 	 */
 	LargePlaceableProp106: { id: "1471653526777364491", name: "106_large_placeable_prop" },
+	/**
+	 * Sunflower Round Table.
+	 */
+	LargePlaceableProp107: { id: "1482686827856003173", name: "107_large_placeable_prop" },
+	/**
+	 * Sunflower Ladder.
+	 */
+	LargePlaceableProp108: { id: "1482686829319688275", name: "108_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5479,6 +5517,8 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp104: { id: "1453075385473569009", name: "104_large_placeable_prop" },
 	LargePlaceableProp105: { id: "1481575606947807345", name: "105_large_placeable_prop" },
 	LargePlaceableProp106: { id: "1471653538588524634", name: "106_large_placeable_prop" },
+	LargePlaceableProp107: { id: "1482686836487884944", name: "107_large_placeable_prop" },
+	LargePlaceableProp108: { id: "1482686838035452079", name: "108_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5951,6 +5991,18 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Tournament Wasteland Flag.
 	 */
 	SmallPlaceableProp118: { id: "1481576426523070626", name: "118_small_placeable_prop" },
+	/**
+	 * Sunflower Small Pillow.
+	 */
+	SmallPlaceableProp119: { id: "1482687407349301320", name: "119_small_placeable_prop" },
+	/**
+	 * Sunflower Rug.
+	 */
+	SmallPlaceableProp120: { id: "1482687410956533921", name: "120_small_placeable_prop" },
+	/**
+	 * Sunflower Wall Shelf.
+	 */
+	SmallPlaceableProp121: { id: "1482687413384904815", name: "121_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6071,6 +6123,9 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp116: { id: "1481576437701152862", name: "116_small_placeable_prop" },
 	SmallPlaceableProp117: { id: "1481576440104489030", name: "117_small_placeable_prop" },
 	SmallPlaceableProp118: { id: "1481576442046447637", name: "118_small_placeable_prop" },
+	SmallPlaceableProp119: { id: "1482687420456767570", name: "119_small_placeable_prop" },
+	SmallPlaceableProp120: { id: "1482687422377492601", name: "120_small_placeable_prop" },
+	SmallPlaceableProp121: { id: "1482687424524980245", name: "121_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean): {
@@ -8921,17 +8976,20 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.PointingCandlemakerTrailSpell]: MISCELLANEOUS_EMOJIS.SpellColourTrail,
 		[Cosmetic.LightmendingGuideQuest9]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest10]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.DaysOfBloom2026Outfit]: null,
-		[Cosmetic.DaysOfBloom2026Hair]: null,
-		[Cosmetic.DaysOfBloom2026Cape]: null,
-		[Cosmetic.DaysOfBloom2026SunflowerRoundTable]: null,
-		[Cosmetic.DaysOfBloom2026SunflowerLadder]: null,
-		[Cosmetic.DaysOfBloom2026SunflowerSmallPillow]: null,
-		[Cosmetic.DaysOfBloom2026SunflowerRug]: null,
-		[Cosmetic.DaysOfBloom2026SunflowerWallShelf]: null,
-		[Cosmetic.BloomSunflowerSundress]: null,
-		[Cosmetic.BloomSunflowerUmbrella]: null,
-		[Cosmetic.BloomSunflowerStuds]: null,
+		[Cosmetic.DaysOfBloom2026Outfit]: OUTFIT_EMOJIS.Outfit102,
+		[Cosmetic.DaysOfBloom2026Hair]: HAIR_EMOJIS.Hair177,
+		[Cosmetic.DaysOfBloom2026Cape]: CAPE_EMOJIS.Cape177,
+		[Cosmetic.DaysOfBloom2026SunflowerRoundTable]:
+			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp107,
+		[Cosmetic.DaysOfBloom2026SunflowerLadder]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp108,
+		[Cosmetic.DaysOfBloom2026SunflowerSmallPillow]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp119,
+		[Cosmetic.DaysOfBloom2026SunflowerRug]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp120,
+		[Cosmetic.DaysOfBloom2026SunflowerWallShelf]:
+			SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp121,
+		[Cosmetic.BloomSunflowerSundress]: OUTFIT_EMOJIS.Outfit103,
+		[Cosmetic.BloomSunflowerUmbrella]: HELD_PROPS_EMOJIS.HeldProp62,
+		[Cosmetic.BloomSunflowerStuds]: HEAD_ACCESSORY_EMOJIS.HeadAccessory25,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
