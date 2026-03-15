@@ -8921,6 +8921,17 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.PointingCandlemakerTrailSpell]: MISCELLANEOUS_EMOJIS.SpellColourTrail,
 		[Cosmetic.LightmendingGuideQuest9]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest10]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.DaysOfBloom2026Outfit]: null,
+		[Cosmetic.DaysOfBloom2026Hair]: null,
+		[Cosmetic.DaysOfBloom2026Cape]: null,
+		[Cosmetic.DaysOfBloom2026SunflowerRoundTable]: null,
+		[Cosmetic.DaysOfBloom2026SunflowerLadder]: null,
+		[Cosmetic.DaysOfBloom2026SunflowerSmallPillow]: null,
+		[Cosmetic.DaysOfBloom2026SunflowerRug]: null,
+		[Cosmetic.DaysOfBloom2026SunflowerWallShelf]: null,
+		[Cosmetic.BloomSunflowerSundress]: null,
+		[Cosmetic.BloomSunflowerUmbrella]: null,
+		[Cosmetic.BloomSunflowerStuds]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

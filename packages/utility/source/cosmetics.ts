@@ -3453,6 +3453,19 @@ export enum Cosmetic {
 
 	// 13/03/2026 | Season of Lightmending Quest 10.
 	LightmendingGuideQuest10 = 2732,
+
+	// 13/03/2026 | Days of Bloom.
+	DaysOfBloom2026Outfit = 2733,
+	DaysOfBloom2026Hair = 2734,
+	DaysOfBloom2026Cape = 2735,
+	DaysOfBloom2026SunflowerRoundTable = 2736,
+	DaysOfBloom2026SunflowerLadder = 2737,
+	DaysOfBloom2026SunflowerSmallPillow = 2738,
+	DaysOfBloom2026SunflowerRug = 2739,
+	DaysOfBloom2026SunflowerWallShelf = 2740,
+	BloomSunflowerSundress = 2741,
+	BloomSunflowerUmbrella = 2742,
+	BloomSunflowerStuds = 2743,
 }
 
 export enum CosmeticCommon {
