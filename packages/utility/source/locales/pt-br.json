@@ -2339,7 +2339,15 @@
 			"2726": "",
 			"2727": "",
 			"2728": "",
-			"2730": ""
+			"2730": "",
+			"2736": "",
+			"2737": "",
+			"2738": "",
+			"2739": "",
+			"2740": "",
+			"2741": "",
+			"2742": "",
+			"2743": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
