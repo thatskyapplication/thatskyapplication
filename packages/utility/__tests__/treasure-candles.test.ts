@@ -17,6 +17,10 @@ const EXPECTED_ROTATIONS = [
 		date: skyDate(2026, 3, 15),
 		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
 	},
+	{
+		date: skyDate(2026, 3, 16),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
 ] as const;
 
 for (const { date, expected } of EXPECTED_ROTATIONS) {
