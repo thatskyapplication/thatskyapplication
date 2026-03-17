@@ -379,21 +379,18 @@ export async function seasonalCandles(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t(
-				`daily-guides.${seasonalCandlesLeft === seasonalCandlesLeftWithSeasonPass ? "seasonal-candles-remain" : "seasonal-candles-remain-with-season-pass"}`,
-				{
-					lng: locale,
-					ns: "features",
-					remaining: resolveCurrencyEmoji({
-						emoji,
-						number: seasonalCandlesLeft,
-					}),
-					remainingSeasonPass: resolveCurrencyEmoji({
-						emoji,
-						number: seasonalCandlesLeftWithSeasonPass,
-					}),
-				},
-			),
+			content: t("daily-guides.seasonal-candles-remain-with-season-pass", {
+				lng: locale,
+				ns: "features",
+				remaining: resolveCurrencyEmoji({
+					emoji,
+					number: seasonalCandlesLeft,
+				}),
+				remainingSeasonPass: resolveCurrencyEmoji({
+					emoji,
+					number: seasonalCandlesLeftWithSeasonPass,
+				}),
+			}),
 		},
 	];
 

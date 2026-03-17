@@ -797,18 +797,15 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 
 		values.push(
-			t(
-				`daily-guides.${seasonalCandlesLeft === seasonalCandlesLeftWithSeasonPass ? "seasonal-candles-remain" : "seasonal-candles-remain-with-season-pass"}`,
-				{
-					lng: locale,
-					ns: "features",
-					remaining: resolveCurrencyEmoji({ emoji: candleEmoji, number: seasonalCandlesLeft }),
-					remainingSeasonPass: resolveCurrencyEmoji({
-						emoji: candleEmoji,
-						number: seasonalCandlesLeftWithSeasonPass,
-					}),
-				},
-			),
+			t("daily-guides.seasonal-candles-remain-with-season-pass", {
+				lng: locale,
+				ns: "features",
+				remaining: resolveCurrencyEmoji({ emoji: candleEmoji, number: seasonalCandlesLeft }),
+				remainingSeasonPass: resolveCurrencyEmoji({
+					emoji: candleEmoji,
+					number: seasonalCandlesLeftWithSeasonPass,
+				}),
+			}),
 		);
 
 		containerComponents.push({

@@ -3122,7 +3122,6 @@ export default {
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
 			"seasonal-candles": "Seasonal candles",
-			"seasonal-candles-remain": "{{remaining}} remain",
 			"seasonal-candles-remain-with-season-pass":
 				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
 			"shard-eruption": "Shard eruption",

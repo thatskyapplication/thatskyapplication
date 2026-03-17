@@ -151,8 +151,8 @@ export class Season {
 			SEASON_PASS_SEASONAL_CANDLES_BONUS +
 			doubleSeasonalLightDuration;
 
-		// Calculate the amount of seasonal candles so far.
-		const daysSoFar = date.diff(start, "days").days + 1;
+		// Calculate the amount of seasonal candles so far, excluding the supplied date.
+		const daysSoFar = date.diff(start, "days").days;
 		let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
 
 		let seasonalCandlesSoFarWithSeasonPass =
@@ -160,11 +160,11 @@ export class Season {
 
 		for (const { start: doubleSeasonalLightStart, end: doubleSeasonalLightEnd } of this
 			.doubleSeasonalLight ?? []) {
-			if (date.diff(doubleSeasonalLightStart, "days").days < 0) {
+			if (date < doubleSeasonalLightStart) {
 				continue;
 			}
 
-			const difference = date.diff(doubleSeasonalLightStart, "days").days;
+			const difference = date.diff(doubleSeasonalLightEnd, "days").days;
 
 			const duration = Math.ceil(
 				doubleSeasonalLightEnd.diff(doubleSeasonalLightStart, "days").days,
