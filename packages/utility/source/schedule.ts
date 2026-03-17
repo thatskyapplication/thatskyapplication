@@ -72,7 +72,7 @@ export function pollutedGeyserSchedule(date: DateTime) {
 		.set({ minute: hour % 2 === 0 ? (minute < 15 ? 5 : 125) : 65 })
 		.startOf("minute");
 
-	const end = date.plus({ minutes: 10 });
+	const end = start.plus({ minutes: 10 });
 	const active = date >= start && date < end;
 	return { start, end, active };
 }
