@@ -159,7 +159,6 @@ export {
 } from "./schedule.js";
 export {
 	isSeasonId,
-	RotationIdentifier,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,

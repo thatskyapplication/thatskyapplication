@@ -5,7 +5,6 @@ import {
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
 	RADIANCE_EVENTS,
-	RotationIdentifier,
 	shardEruption,
 	skyCurrentSeason,
 	skyNotEndedEvents,
@@ -103,37 +102,22 @@ export default function DailyGuides() {
 
 	const treasureCandleURLs = treasureCandles(today);
 	let seasonalCandles = null;
-	let seasonalCandlesURL = null;
 	const daysCount: (string | JSX.Element)[] = [];
 
 	if (season) {
-		const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
-
 		const daysLeftText = t("days-left.season", {
 			ns: "general",
 			count: Math.ceil(season.end.diff(now, "days").days) - 1,
 		});
 
 		daysCount.push(daysLeftText);
-
-		if (seasonalCandlesRotation) {
-			const { rotation, realm } = seasonalCandlesRotation;
-			let rotationIdentifier: RotationIdentifier = rotation;
-
-			if (season.isDuringDoubleSeasonalLightEvent(today)) {
-				rotationIdentifier = RotationIdentifier.Double;
-			}
-
-			seasonalCandlesURL = season.seasonalCandlesRotationURL(realm, rotationIdentifier);
-		}
-
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
 		seasonalCandles = {
 			remaining: seasonalCandlesLeft,
 			remainingWithPass: seasonalCandlesLeftWithSeasonPass,
-			url: seasonalCandlesURL,
+			url: season.seasonalCandles(today),
 		};
 	}
 

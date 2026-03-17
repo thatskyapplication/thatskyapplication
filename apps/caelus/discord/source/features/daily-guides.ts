@@ -42,7 +42,6 @@ import {
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
 	RADIANCE_EVENTS,
-	RotationIdentifier,
 	resolveCurrencyEmoji,
 	shardEruption,
 	skyCurrentEvents,
@@ -774,7 +773,6 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 	const footerText = [];
 
 	if (season) {
-		const seasonalCandlesRotation = season.resolveSeasonalCandlesRotation(today);
 		const values = [];
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
@@ -786,16 +784,10 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 			})}`,
 		);
 
+		const seasonalCandlesRotation = season.seasonalCandles(today);
+
 		if (seasonalCandlesRotation) {
-			const { rotation, realm } = seasonalCandlesRotation;
-			let rotationIdentifier: RotationIdentifier = rotation;
-
-			if (season.isDuringDoubleSeasonalLightEvent(today)) {
-				rotationIdentifier = RotationIdentifier.Double;
-			}
-
-			const url = season.seasonalCandlesRotationURL(realm, rotationIdentifier);
-			values.push(`[${t("view", { lng: locale, ns: "general" })}](${url})`);
+			values.push(`[${t("view", { lng: locale, ns: "general" })}](${seasonalCandlesRotation})`);
 		}
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =

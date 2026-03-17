@@ -4,7 +4,7 @@ import type { Cosmetic } from "../cosmetics.js";
 import type { RealmName } from "../kingdom.js";
 import { CDN_URL } from "../routes.js";
 import {
-	type RotationIdentifier,
+	RotationIdentifier,
 	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
@@ -190,11 +190,22 @@ export class Season {
 		return this.doubleSeasonalLight?.some(({ start, end }) => date >= start && date < end) ?? false;
 	}
 
-	public resolveSeasonalCandlesRotation(date: DateTime) {
-		return this.seasonalCandlesRotation?.(date)[date.diff(this.start, "days").days % 10] ?? null;
+	public seasonalCandles(date: DateTime) {
+		if (this.seasonalCandlesRotation === null) {
+			return null;
+		}
+
+		const { rotation, realm } =
+			this.seasonalCandlesRotation(date)[date.diff(this.start, "days").days % 10]!;
+
+		if (this.isDuringDoubleSeasonalLightEvent(date)) {
+			return this.seasonalCandlesRotationURL(realm, RotationIdentifier.Double);
+		}
+
+		return this.seasonalCandlesRotationURL(realm, rotation);
 	}
 
-	public seasonalCandlesRotationURL(realm: RealmName, identifier: RotationIdentifier) {
+	private seasonalCandlesRotationURL(realm: RealmName, identifier: RotationIdentifier) {
 		return String(
 			new URL(
 				`daily_guides/seasonal_candles/${this.id}/${snakeCaseName(realm)}/${identifier}.webp`,
