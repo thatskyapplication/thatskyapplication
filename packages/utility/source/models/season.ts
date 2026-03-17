@@ -5,7 +5,6 @@ import type { RealmName } from "../kingdom.js";
 import { CDN_URL } from "../routes.js";
 import {
 	RotationIdentifier,
-	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	type SeasonIds,
@@ -134,55 +133,24 @@ export class Season {
 	}
 
 	public remainingSeasonalCandles(date: DateTime) {
-		const { start, end } = this;
-		const duration = Math.ceil(end.diff(start, "days").days);
+		const remainingDays = Math.ceil(this.end.diff(date, "days").days);
 
-		const doubleSeasonalLightDuration =
-			this.doubleSeasonalLight?.reduce(
-				(total, { start, end }) => total + Math.ceil(end.diff(start, "days").days),
-				0,
-			) ?? 0;
+		const remainingDoubleSeasonalLightDays =
+			this.doubleSeasonalLight?.reduce((total, { start, end }) => {
+				if (date >= end) {
+					return total;
+				}
 
-		// Calculate the total amount of seasonal candles.
-		const seasonalCandlesTotal = duration * SEASONAL_CANDLES_PER_DAY + doubleSeasonalLightDuration;
+				const remainingStart = date > start ? date : start;
+				return total + Math.ceil(end.diff(remainingStart, "days").days);
+			}, 0) ?? 0;
 
-		const seasonalCandlesTotalWithSeasonPass =
-			duration * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS +
-			SEASON_PASS_SEASONAL_CANDLES_BONUS +
-			doubleSeasonalLightDuration;
-
-		// Calculate the amount of seasonal candles so far, excluding the supplied date.
-		const daysSoFar = date.diff(start, "days").days;
-		let seasonalCandlesSoFar = daysSoFar * SEASONAL_CANDLES_PER_DAY;
-
-		let seasonalCandlesSoFarWithSeasonPass =
-			daysSoFar * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS + SEASON_PASS_SEASONAL_CANDLES_BONUS;
-
-		for (const { start: doubleSeasonalLightStart, end: doubleSeasonalLightEnd } of this
-			.doubleSeasonalLight ?? []) {
-			if (date < doubleSeasonalLightStart) {
-				continue;
-			}
-
-			const difference = date.diff(doubleSeasonalLightEnd, "days").days;
-
-			const duration = Math.ceil(
-				doubleSeasonalLightEnd.diff(doubleSeasonalLightStart, "days").days,
-			);
-
-			const extraSeasonalCandles =
-				// The difference will be a negative number if the event is still ongoing.
-				difference > 0 ? duration : duration + difference;
-
-			seasonalCandlesSoFar += extraSeasonalCandles;
-			seasonalCandlesSoFarWithSeasonPass += extraSeasonalCandles;
-		}
-
-		// Calculate the amount of seasonal candles left.
 		return {
-			seasonalCandlesLeft: seasonalCandlesTotal - seasonalCandlesSoFar,
+			seasonalCandlesLeft:
+				remainingDays * SEASONAL_CANDLES_PER_DAY + remainingDoubleSeasonalLightDays,
 			seasonalCandlesLeftWithSeasonPass:
-				seasonalCandlesTotalWithSeasonPass - seasonalCandlesSoFarWithSeasonPass,
+				remainingDays * SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS +
+				remainingDoubleSeasonalLightDays,
 		};
 	}
 
