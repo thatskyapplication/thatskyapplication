@@ -74,6 +74,7 @@ export {
 	hairTouslesRoute,
 	highFivesRoute,
 	hugsRoute,
+	isFriendshipActionType,
 	krillsRoute,
 	playFightsRoute,
 } from "./friendship-actions.js";

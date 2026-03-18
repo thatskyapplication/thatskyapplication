@@ -9,7 +9,7 @@ import {
 export class ModalResolver {
 	private components: ReadonlyCollection<string, ModalSubmitComponent>;
 
-	private resolved: Pick<APIInteractionDataResolved, "attachments" | "channels">;
+	private resolved: Pick<APIInteractionDataResolved, "attachments" | "users" | "channels">;
 
 	public constructor({ components: data, resolved }: APIModalSubmission) {
 		const components = new Collection<string, ModalSubmitComponent>();
@@ -29,6 +29,7 @@ export class ModalResolver {
 
 		this.components = components;
 		let attachments = {};
+		let users = {};
 		let channels = {};
 
 		if (resolved) {
@@ -36,12 +37,16 @@ export class ModalResolver {
 				attachments = resolved.attachments;
 			}
 
+			if (resolved.users) {
+				users = resolved.users;
+			}
+
 			if (resolved.channels) {
 				channels = resolved.channels;
 			}
 		}
 
-		this.resolved = { attachments, channels };
+		this.resolved = { attachments, users, channels };
 	}
 
 	public getTextInputValue(customId: string) {
@@ -64,6 +69,16 @@ export class ModalResolver {
 		return field.values;
 	}
 
+	public getUserValues(customId: string) {
+		const field = this.components.get(customId);
+
+		if (!(field && ComponentType.UserSelect === field.type)) {
+			throw new Error(`Custom id ${customId} is not a user select component.`);
+		}
+
+		return field.values.map((value) => this.resolved.users![value]!);
+	}
+
 	public getChannelValues(customId: string) {
 		const field = this.components.get(customId);
 
@@ -82,6 +97,24 @@ export class ModalResolver {
 		}
 
 		return field.values.map((value) => this.resolved.attachments![value]!);
+	}
+
+	public getRadioGroupValue(customId: string, required: true): string;
+
+	public getRadioGroupValue(customId: string, required?: boolean): string | null;
+
+	public getRadioGroupValue(customId: string, required = false) {
+		const field = this.components.get(customId);
+
+		if (!(field && ComponentType.RadioGroup === field.type)) {
+			throw new Error(`Custom id ${customId} is not a radio group component.`);
+		}
+
+		if (required && field.value === null) {
+			throw new Error(`Custom id ${customId} is required but no value was selected.`);
+		}
+
+		return field.value;
 	}
 
 	public getCheckboxValue(customId: string) {
