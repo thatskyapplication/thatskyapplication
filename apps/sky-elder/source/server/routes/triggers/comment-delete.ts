@@ -8,7 +8,11 @@ import {
 } from "discord-api-types/v10";
 import type { Request } from "express";
 import { userFlairsCheckFlair } from "../../features/user-flairs.js";
-import { COMMENT_DELETE_COLOUR, REDDIT_BASE_URL, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
+import {
+	COMMENT_DELETE_COLOUR,
+	REDDIT_BASE_URL,
+	SETTINGS_COMMENTS_WEBHOOK_URL,
+} from "../../utility/constants.js";
 
 export async function postTriggersCommentDelete(req: Request) {
 	const { commentId, subreddit, author, postId } = req.body as OnCommentDeleteRequest;

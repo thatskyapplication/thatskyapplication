@@ -7,7 +7,11 @@ import {
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
 import type { Request } from "express";
-import { COMMENT_UPDATE_COLOUR, REDDIT_BASE_URL, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
+import {
+	COMMENT_UPDATE_COLOUR,
+	REDDIT_BASE_URL,
+	SETTINGS_COMMENTS_WEBHOOK_URL,
+} from "../../utility/constants.js";
 
 export async function postTriggersCommentUpdate(req: Request) {
 	const body = req.body as OnCommentUpdateRequest;

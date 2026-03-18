@@ -8,7 +8,11 @@ import {
 } from "discord-api-types/v10";
 import type { Request } from "express";
 import { userFlairsCheckFlair } from "../../features/user-flairs.js";
-import { COMMENT_SUBMIT_COLOUR, REDDIT_BASE_URL, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
+import {
+	COMMENT_SUBMIT_COLOUR,
+	REDDIT_BASE_URL,
+	SETTINGS_COMMENTS_WEBHOOK_URL,
+} from "../../utility/constants.js";
 
 export async function postTriggersCommentSubmit(req: Request) {
 	const { comment, author, post } = req.body as OnCommentSubmitRequest;
