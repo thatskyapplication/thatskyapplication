@@ -460,7 +460,10 @@ export async function friendshipActionsUploadHandleModal(
 	}
 
 	if (asset.height && asset.width) {
-		if (asset.height > MAXIMUM_FRIENDSHIP_ACTIONS_DIMENSION_SIZE) {
+		if (
+			asset.height > MAXIMUM_FRIENDSHIP_ACTIONS_DIMENSION_SIZE ||
+			asset.width > MAXIMUM_FRIENDSHIP_ACTIONS_DIMENSION_SIZE
+		) {
 			errors.push(
 				`Asset dimensions are too large. Maximum is ${MAXIMUM_FRIENDSHIP_ACTIONS_DIMENSION_SIZE}x${MAXIMUM_FRIENDSHIP_ACTIONS_DIMENSION_SIZE}.`,
 			);
