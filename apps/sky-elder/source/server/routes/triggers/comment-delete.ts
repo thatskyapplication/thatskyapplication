@@ -8,7 +8,7 @@ import {
 } from "discord-api-types/v10";
 import type { Request } from "express";
 import { userFlairsCheckFlair } from "../../features/user-flairs.js";
-import { COMMENT_DELETE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
+import { COMMENT_DELETE_COLOUR, REDDIT_BASE_URL, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
 export async function postTriggersCommentDelete(req: Request) {
 	const { commentId, subreddit, author, postId } = req.body as OnCommentDeleteRequest;
@@ -57,13 +57,13 @@ export async function postTriggersCommentDelete(req: Request) {
 								accessory: {
 									type: ComponentType.Button,
 									style: ButtonStyle.Link,
-									url: `https://reddit.com${comment.permalink}`,
+									url: `${REDDIT_BASE_URL}${comment.permalink}`,
 									label: "View",
 								},
 								components: [
 									{
 										type: ComponentType.TextDisplay,
-										content: `[u/${author.name}](${author.url})'s comment was deleted on [${post.title}](https://reddit.com${post.permalink})`,
+										content: `[u/${author.name}](${author.url})'s comment was deleted on [${post.title}](${REDDIT_BASE_URL}${post.permalink})`,
 									},
 								],
 							},

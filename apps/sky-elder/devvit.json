@@ -32,6 +32,7 @@
 		"onCommentDelete": "/internal/triggers/on-comment-delete",
 		"onCommentSubmit": "/internal/triggers/on-comment-submit",
 		"onCommentUpdate": "/internal/triggers/on-comment-update",
+		"onPostCreate": "/internal/triggers/on-post-create",
 		"onPostDelete": "/internal/triggers/on-post-delete",
 		"onPostFlairUpdate": "/internal/triggers/on-post-flair-update",
 		"onPostSubmit": "/internal/triggers/on-post-submit",
@@ -44,6 +45,12 @@
 				"label": "Discord webhook comments URL",
 				"helpText": "Comment triggers execute this webhook.",
 				"validationEndpoint": "/internal/settings/discord-webhook-comments-url"
+			},
+			"DISCORD_WEBHOOK_POSTS_URL": {
+				"type": "string",
+				"label": "Discord webhook posts URL",
+				"helpText": "Post triggers execute this webhook.",
+				"validationEndpoint": "/internal/settings/discord-webhook-posts-url"
 			},
 			"DISCORD_WEBHOOK_POST_LINK_FLAIRS_URL": {
 				"type": "string",

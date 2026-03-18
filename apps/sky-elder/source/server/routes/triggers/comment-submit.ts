@@ -8,7 +8,7 @@ import {
 } from "discord-api-types/v10";
 import type { Request } from "express";
 import { userFlairsCheckFlair } from "../../features/user-flairs.js";
-import { COMMENT_SUBMIT_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
+import { COMMENT_SUBMIT_COLOUR, REDDIT_BASE_URL, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
 export async function postTriggersCommentSubmit(req: Request) {
 	const { comment, author, post } = req.body as OnCommentSubmitRequest;
@@ -50,13 +50,13 @@ export async function postTriggersCommentSubmit(req: Request) {
 								accessory: {
 									type: ComponentType.Button,
 									style: ButtonStyle.Link,
-									url: `https://reddit.com${comment.permalink}`,
+									url: `${REDDIT_BASE_URL}${comment.permalink}`,
 									label: "View",
 								},
 								components: [
 									{
 										type: ComponentType.TextDisplay,
-										content: `[u/${author.name}](${author.url}) commented on [${post.title}](https://reddit.com${post.permalink})`,
+										content: `[u/${author.name}](${author.url}) commented on [${post.title}](${REDDIT_BASE_URL}${post.permalink})`,
 									},
 								],
 							},

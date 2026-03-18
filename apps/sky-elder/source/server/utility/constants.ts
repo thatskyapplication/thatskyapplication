@@ -1,5 +1,6 @@
 // Settings.
 export const SETTINGS_COMMENTS_WEBHOOK_URL = "DISCORD_WEBHOOK_COMMENTS_URL" as const;
+export const SETTINGS_POSTS_WEBHOOK_URL = "DISCORD_WEBHOOK_POSTS_URL" as const;
 export const SETTINGS_MEGATHREAD_FRIEND_CODES_TITLE_KEY = "MEGATHREAD_FRIEND_CODES_TITLE" as const;
 export const SETTINGS_MEGATHREAD_FRIEND_CODES_TEXT_KEY = "MEGATHREAD_FRIEND_CODES_TEXT" as const;
 
@@ -19,9 +20,12 @@ export const REDIS_POST_FLAIRS_BY_POST_KEY = "post-flairs-by-post" as const;
 export const REDIS_POST_FLAIRS_MESSAGE_ID_KEY = "post-flairs-message-id" as const;
 
 // Miscellaneous.
+export const REDDIT_BASE_URL = "https://reddit.com" as const;
 export const COMMENT_SUBMIT_COLOUR = 0x4de063 as const;
 export const COMMENT_DELETE_COLOUR = 0xdf0a0e as const;
 export const COMMENT_UPDATE_COLOUR = 0xe7d881 as const;
+export const POST_CREATE_COLOUR = 0xff4500 as const;
+export const MAXIMUM_CHARACTER_LIMIT = 4_000 as const;
 
 export const DISCORD_WEBHOOK_URL_REGULAR_EXPRESSION =
 	/^https:\/\/(canary\.|ptb\.)?discord\.com\/api\/webhooks\/(?:0|[1-9]\d{16,18})\/[\w-]+$/;

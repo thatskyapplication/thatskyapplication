@@ -5,6 +5,7 @@ import { postMenuMegathreadFriendCodes } from "./routes/menu/friend-codes.js";
 import { postSchedulerMegathreadFriendCodes } from "./routes/scheduler/megathread-friend-codes.js";
 import { postSettingsDiscordWebhookCommentsURL } from "./routes/settings/discord-webhook-comments-url.js";
 import { postSettingsDiscordWebhookPostLinkFlairsURL } from "./routes/settings/discord-webhook-post-link-flairs-url.js";
+import { postSettingsDiscordWebhookPostsURL } from "./routes/settings/discord-webhook-posts-url.js";
 import { postSettingsDiscordWebhookUserLinkFlairsURL } from "./routes/settings/discord-webhook-user-link-flairs-url.js";
 import { postSettingsMegathreadFriendCodesPostFlairId } from "./routes/settings/megathread-friend-codes-post-flair-id.js";
 import { postSettingsMegathreadFriendCodesText } from "./routes/settings/megathread-friend-codes-text.js";
@@ -12,6 +13,7 @@ import { postSettingsMegathreadFriendCodesTitle } from "./routes/settings/megath
 import { postTriggersCommentDelete } from "./routes/triggers/comment-delete.js";
 import { postTriggersCommentSubmit } from "./routes/triggers/comment-submit.js";
 import { postTriggersCommentUpdate } from "./routes/triggers/comment-update.js";
+import { postTriggersPostCreate } from "./routes/triggers/post-create.js";
 import { postTriggersPostDelete } from "./routes/triggers/post-delete.js";
 import { postTriggersPostFlairUpdate } from "./routes/triggers/post-flair-update.js";
 import { postTriggersPostSubmit } from "./routes/triggers/post-submit.js";
@@ -31,6 +33,8 @@ router.post(
 	"/internal/settings/discord-webhook-post-link-flairs-url",
 	postSettingsDiscordWebhookPostLinkFlairsURL,
 );
+
+router.post("/internal/settings/discord-webhook-posts-url", postSettingsDiscordWebhookPostsURL);
 
 router.post(
 	"/internal/settings/discord-webhook-user-link-flairs-url",
@@ -55,6 +59,7 @@ router.post(
 router.post("/internal/triggers/on-comment-delete", postTriggersCommentDelete);
 router.post("/internal/triggers/on-comment-submit", postTriggersCommentSubmit);
 router.post("/internal/triggers/on-comment-update", postTriggersCommentUpdate);
+router.post("/internal/triggers/on-post-create", postTriggersPostCreate);
 router.post("/internal/triggers/on-post-delete", postTriggersPostDelete);
 router.post("/internal/triggers/on-post-flair-update", postTriggersPostFlairUpdate);
 router.post("/internal/triggers/on-post-submit", postTriggersPostSubmit);

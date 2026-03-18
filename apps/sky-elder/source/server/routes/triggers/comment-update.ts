@@ -7,7 +7,7 @@ import {
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
 import type { Request } from "express";
-import { COMMENT_UPDATE_COLOUR, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
+import { COMMENT_UPDATE_COLOUR, REDDIT_BASE_URL, SETTINGS_COMMENTS_WEBHOOK_URL } from "../../utility/constants.js";
 
 export async function postTriggersCommentUpdate(req: Request) {
 	const body = req.body as OnCommentUpdateRequest;
@@ -52,13 +52,13 @@ export async function postTriggersCommentUpdate(req: Request) {
 								accessory: {
 									type: ComponentType.Button,
 									style: ButtonStyle.Link,
-									url: `https://reddit.com${comment.permalink}`,
+									url: `${REDDIT_BASE_URL}${comment.permalink}`,
 									label: "View",
 								},
 								components: [
 									{
 										type: ComponentType.TextDisplay,
-										content: `[u/${author.name}](${author.url}) updated their comment on [${post.title}](https://reddit.com${post.permalink})`,
+										content: `[u/${author.name}](${author.url}) updated their comment on [${post.title}](${REDDIT_BASE_URL}${post.permalink})`,
 									},
 								],
 							},
