@@ -3,7 +3,8 @@ import { CDN_URL } from "./routes.js";
 export interface FriendshipActionsPacket {
 	id: number;
 	type: number;
-	users: string[];
+	users: readonly string[];
+	square: boolean;
 	reference: string;
 }
 
@@ -15,8 +16,15 @@ export const FriendshipActionType = {
 	Krill: 4,
 } as const satisfies Readonly<Record<string, number>>;
 
+const FRIENDSHIP_ACTION_TYPE_VALUES = Object.values(FriendshipActionType);
+
 export type FriendshipActionTypes =
 	(typeof FriendshipActionType)[keyof typeof FriendshipActionType];
+
+export function isFriendshipActionType(type: number): type is FriendshipActionTypes {
+	return FRIENDSHIP_ACTION_TYPE_VALUES.includes(type as FriendshipActionTypes);
+}
+
 type HighFivesRoute = `${typeof CDN_URL}/high_fives/${number}.gif`;
 
 export function highFivesRoute(id: number): HighFivesRoute {

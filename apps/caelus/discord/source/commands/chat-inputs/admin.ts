@@ -1,5 +1,6 @@
 import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
 import { customStatus } from "../../features/admin.js";
+import { friendshipActionsUpload } from "../../features/friendship-actions.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -15,6 +16,10 @@ export default {
 		switch (options.getSubcommandGroup(false) ?? options.getSubcommand()) {
 			case "custom-status": {
 				await customStatus(interaction, options);
+				return;
+			}
+			case "upload-friendship-action": {
+				await friendshipActionsUpload(interaction);
 				return;
 			}
 		}
