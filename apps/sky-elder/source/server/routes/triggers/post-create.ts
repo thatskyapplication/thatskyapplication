@@ -1,4 +1,4 @@
-import { type Post, reddit, settings } from "@devvit/web/server";
+import { reddit, settings } from "@devvit/web/server";
 import type { OnPostCreateRequest, T3 } from "@devvit/web/shared";
 import {
 	type APIComponentInContainer,
@@ -41,15 +41,16 @@ export async function postTriggersPostCreate(req: Request) {
 	const title = `## ${post.title.replace(/^#+/g, (match) => match.replace(/#/g, "\\#"))}`;
 	let authorText = `[u/${author.name}](${author.url}) in [r/${subreddit.name}](${REDDIT_BASE_URL}${subreddit.permalink})`;
 	const footer = `-# <t:${Math.floor(post.createdAt / 1000)}:R>`;
-	let originalPost: Post | null = null;
+	const postV2 = await reddit.getPostById(post.id as T3);
+	let resolvedPost = postV2;
 
 	if (post.crosspostParentId) {
-		originalPost = await reddit.getPostById(post.crosspostParentId as T3);
+		resolvedPost = await reddit.getPostById(post.crosspostParentId as T3);
 
 		authorText +=
-			author.name === originalPost.authorName
-				? ` crossposted their own post from [${originalPost.subredditName}](${originalPost.url})`
-				: ` crossposted from [${originalPost.subredditName}](${originalPost.url}) by [u/${originalPost.authorName}](${originalPost.url})`;
+			author.name === resolvedPost.authorName
+				? ` crossposted their own post from [${resolvedPost.subredditName}](${resolvedPost.url})`
+				: ` crossposted from [${resolvedPost.subredditName}](${resolvedPost.url}) by [u/${resolvedPost.authorName}](${resolvedPost.url})`;
 	}
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -82,9 +83,9 @@ export async function postTriggersPostCreate(req: Request) {
 	const limit = MAXIMUM_CHARACTER_LIMIT - title.length - authorText.length - footer.length;
 
 	// Text may be only new lines which Discord's API trims.
-	let text = originalPost?.body ?? post.selftext;
+	let text = resolvedPost.body;
 
-	if (text.trim().length > 0) {
+	if (text && text.trim().length > 0) {
 		if (text.length > limit) {
 			text = `${text.slice(0, limit - 3)}...`;
 		}
@@ -94,16 +95,16 @@ export async function postTriggersPostCreate(req: Request) {
 
 	const urls = [];
 
+	// `Post` doesn't seem to have a way to identify whether it's a single image.
+	// We'll use `PostV2` then.
 	if (post.isImage) {
 		urls.push(post.url);
 	}
 
-	if (originalPost?.gallery && originalPost.gallery.length > 0) {
-		for (const galleryMedia of originalPost.gallery) {
+	if (resolvedPost.gallery.length > 0) {
+		for (const galleryMedia of resolvedPost.gallery) {
 			urls.push(galleryMedia.url);
 		}
-	} else if (post.galleryImages.length > 0) {
-		urls.push(...post.galleryImages);
 	}
 
 	if (urls.length > 0) {
@@ -116,6 +117,12 @@ export async function postTriggersPostCreate(req: Request) {
 				items: chunk.map((url) => ({ media: { url } })),
 			});
 		}
+	}
+
+	// `Post` doesn't seem to have a way to identify whether it's a video.
+	// We'll use `PostV2` then.
+	if (post.isVideo && resolvedPost.secureMedia?.redditVideo?.fallbackUrl) {
+		urls.push(resolvedPost.secureMedia.redditVideo.fallbackUrl);
 	}
 
 	containerComponents.push(
