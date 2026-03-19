@@ -49,8 +49,8 @@ export async function postTriggersPostCreate(req: Request) {
 
 		authorText +=
 			author.name === resolvedPost.authorName
-				? ` crossposted their own post from [${resolvedPost.subredditName}](${resolvedPost.url})`
-				: ` crossposted from [${resolvedPost.subredditName}](${resolvedPost.url}) by [u/${resolvedPost.authorName}](${resolvedPost.url})`;
+				? ` crossposted their own post from [r/${resolvedPost.subredditName}](${resolvedPost.url})`
+				: ` crossposted from [r/${resolvedPost.subredditName}](${resolvedPost.url}) by [u/${resolvedPost.authorName}](${resolvedPost.url})`;
 	}
 
 	const containerComponents: APIComponentInContainer[] = [
