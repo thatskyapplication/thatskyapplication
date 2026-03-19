@@ -101,16 +101,17 @@ export async function postTriggersPostCreate(req: Request) {
 		urls.push(post.url);
 	}
 
-	if (resolvedPost.gallery.length > 0) {
-		for (const galleryMedia of resolvedPost.gallery) {
-			urls.push(galleryMedia.url);
-		}
-	}
-
 	// `Post` doesn't seem to have a way to identify whether it's a video.
 	// We'll use `PostV2` then.
 	if (post.isVideo && resolvedPost.secureMedia?.redditVideo?.fallbackUrl) {
 		urls.push(resolvedPost.secureMedia.redditVideo.fallbackUrl);
+	}
+
+	// Gallery check to ensure no thumbnails are
+	if (post.isGallery && resolvedPost.gallery.length > 0) {
+		for (const galleryMedia of resolvedPost.gallery) {
+			urls.push(galleryMedia.url);
+		}
 	}
 
 	if (urls.length > 0) {
