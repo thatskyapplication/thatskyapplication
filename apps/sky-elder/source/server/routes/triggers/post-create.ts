@@ -107,6 +107,12 @@ export async function postTriggersPostCreate(req: Request) {
 		}
 	}
 
+	// `Post` doesn't seem to have a way to identify whether it's a video.
+	// We'll use `PostV2` then.
+	if (post.isVideo && resolvedPost.secureMedia?.redditVideo?.fallbackUrl) {
+		urls.push(resolvedPost.secureMedia.redditVideo.fallbackUrl);
+	}
+
 	if (urls.length > 0) {
 		// Reddit has a maximum of 20 assets. Discord has a maximum of 10.
 		for (let index = 0; index < urls.length; index += 10) {
@@ -117,12 +123,6 @@ export async function postTriggersPostCreate(req: Request) {
 				items: chunk.map((url) => ({ media: { url } })),
 			});
 		}
-	}
-
-	// `Post` doesn't seem to have a way to identify whether it's a video.
-	// We'll use `PostV2` then.
-	if (post.isVideo && resolvedPost.secureMedia?.redditVideo?.fallbackUrl) {
-		urls.push(resolvedPost.secureMedia.redditVideo.fallbackUrl);
 	}
 
 	containerComponents.push(
