@@ -94,6 +94,10 @@ export async function postTriggersPostCreate(req: Request) {
 
 	const urls = [];
 
+	if (post.isImage) {
+		urls.push(post.url);
+	}
+
 	if (originalPost?.gallery && originalPost.gallery.length > 0) {
 		for (const galleryMedia of originalPost.gallery) {
 			urls.push(galleryMedia.url);
