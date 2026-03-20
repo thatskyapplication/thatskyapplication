@@ -3466,6 +3466,9 @@ export enum Cosmetic {
 	BloomSunflowerSundress = 2741,
 	BloomSunflowerUmbrella = 2742,
 	BloomSunflowerStuds = 2743,
+
+	// 20/03/2026 | Season of Lightmending Quest 11.
+	LightmendingGuideQuest11 = 2744,
 }
 
 export enum CosmeticCommon {
