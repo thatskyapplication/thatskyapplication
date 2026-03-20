@@ -116,17 +116,10 @@ export async function postTriggersPostCreate(req: Request) {
 		}
 	}
 
-	containerComponents.push(
-		{
-			type: ComponentType.Separator,
-			divider: true,
-			spacing: SeparatorSpacingSize.Small,
-		},
-		{
-			type: ComponentType.TextDisplay,
-			content: footer,
-		},
-	);
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: footer,
+	});
 
 	await fetch(`${discordWebhookURL}?wait=true&with_components=true`, {
 		method: "POST",
