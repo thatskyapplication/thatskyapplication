@@ -17,7 +17,6 @@
 		"@sentry/node": "^10.31.0",
 		"@skyware/jetstream": "0.2.5",
 		"@thatskyapplication/utility": "workspace:^",
-		"croner": "^9.1.0",
 		"knex": "^3.1.0",
 		"pg": "^8.17.2",
 		"pino": "^10.3.0",

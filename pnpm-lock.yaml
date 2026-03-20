@@ -247,9 +247,6 @@ importers:
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../packages/utility
-      croner:
-        specifier: ^9.1.0
-        version: 9.1.0
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.20.0)

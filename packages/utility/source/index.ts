@@ -45,7 +45,7 @@ export {
 	DailyQuestToInfographicURL,
 	isDailyQuest,
 } from "./daily-guides.js";
-export { type BlueskyWebhooksPacket, type RedditWebhooksPacket, Table } from "./database.js";
+export { type BlueskyWebhooksPacket, Table } from "./database.js";
 export { isDuring, skyDate, skyNow, skyToday, TIME_ZONE } from "./dates.js";
 export {
 	type Emoji,

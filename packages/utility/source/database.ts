@@ -24,9 +24,3 @@ export interface BlueskyWebhooksPacket {
 	webhook_token: string;
 	did: string;
 }
-
-export interface RedditWebhooksPacket {
-	guild_id: string;
-	webhook_id: string;
-	webhook_token: string;
-}
