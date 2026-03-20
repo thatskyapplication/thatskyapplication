@@ -95,20 +95,10 @@ export async function postTriggersPostCreate(req: Request) {
 
 	const urls = [];
 
-	// `Post` doesn't seem to have a way to identify whether it's a single image.
-	// We'll use `PostV2` then.
-	if (post.isImage) {
-		urls.push(post.url);
-	}
-
-	// `Post` doesn't seem to have a way to identify whether it's a video.
-	// We'll use `PostV2` then.
-	if (post.isVideo && resolvedPost.secureMedia?.redditVideo?.fallbackUrl) {
+	if (resolvedPost.secureMedia?.redditVideo?.fallbackUrl) {
 		urls.push(resolvedPost.secureMedia.redditVideo.fallbackUrl);
-	}
-
-	// Gallery check to ensure no thumbnails are
-	if (post.isGallery && resolvedPost.gallery.length > 0) {
+	} else {
+		// This handles single images and galleries.
 		for (const galleryMedia of resolvedPost.gallery) {
 			urls.push(galleryMedia.url);
 		}
