@@ -20,7 +20,6 @@ import {
 	shardEruptionSchedule,
 	skyCurrentSeason,
 	skyNotEndedEvents,
-	skyNow,
 	skyUpcomingSeason,
 	TIME_ZONE,
 	travellingSpiritSchedule,
@@ -29,7 +28,7 @@ import {
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { AlertTriangle, Clock, ExternalLinkIcon } from "lucide-react";
-import type { DateTime } from "luxon";
+import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
@@ -509,7 +508,11 @@ function projectorOfMemoriesOverview(
 }
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-	return { locale: getLocale(context), timeZone: request.headers.get("cf-timezone") ?? TIME_ZONE };
+	return {
+		initialTimestamp: Date.now(),
+		locale: getLocale(context),
+		timeZone: request.headers.get("cf-timezone") ?? TIME_ZONE,
+	};
 };
 
 interface DisplayCard {
@@ -535,9 +538,10 @@ const enum DisplayCardType {
 }
 
 export default function Schedule() {
-	const { locale, timeZone } = useLoaderData<typeof loader>();
+	const { initialTimestamp, locale, timeZone } = useLoaderData<typeof loader>();
 	const { t } = useTranslation();
-	const [, setCurrentTime] = useState(() => Date.now());
+	const [currentTimestamp, setCurrentTime] = useState(initialTimestamp);
+
 	useEffect(() => {
 		let timeout: NodeJS.Timeout | null = null;
 
@@ -560,7 +564,7 @@ export default function Schedule() {
 		};
 	}, []);
 
-	const now = skyNow();
+	const now = DateTime.fromMillis(currentTimestamp, { zone: TIME_ZONE });
 
 	const schedules = [
 		dailyResetNext(now, timeZone, locale),
@@ -772,7 +776,6 @@ export default function Schedule() {
 	}
 
 	upcoming.sort((a, b) => a.nextUnix - b.nextUnix);
-	const currentTimestamp = Date.now();
 
 	const localTime = new Intl.DateTimeFormat(locale, {
 		hour: "2-digit",
