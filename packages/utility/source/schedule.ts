@@ -217,7 +217,7 @@ export function nineColouredDeerSchedule(date: DateTime) {
 }
 
 export function nextNestingWorkshop(now: DateTime) {
-	return now.plus({ week: 1 }).set({ weekday: 5 }).startOf("day");
+	return now.plus({ days: (5 - now.weekday + 7) % 7 || 7 }).startOf("day");
 }
 
 export function vaultEldersBlessingSchedule(date: DateTime) {
