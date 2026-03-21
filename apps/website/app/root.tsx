@@ -13,7 +13,6 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
-	useLoaderData,
 } from "react-router";
 import ConditionalLayout from "~/components/ConditionalLayout";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
@@ -24,7 +23,6 @@ import {
 	APPLICATION_NAME,
 } from "~/utility/constants";
 import type { Route } from "./+types/root.js";
-import { SENTRY_DATA_SOURCE_NAME } from "./config.server";
 
 export const middleware = [i18nextMiddleware];
 
@@ -102,7 +100,6 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
-	const { ENV } = useLoaderData<typeof loader>();
 	const { i18n } = useTranslation();
 
 	return (
@@ -114,12 +111,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			<body>
 				{children}
 				<ScrollRestoration />
-				<script
-					// biome-ignore lint/security/noDangerouslySetInnerHtml: https://v2.remix.run/docs/guides/envvars
-					dangerouslySetInnerHTML={{
-						__html: `window.ENV = ${JSON.stringify(ENV)};`,
-					}}
-				/>
 				<Scripts />
 			</body>
 		</html>
@@ -130,7 +121,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 	const locale = getLocale(context);
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;
-	return { locale, user, ENV: { SENTRY_DATA_SOURCE_NAME } };
+	return { locale, user };
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {

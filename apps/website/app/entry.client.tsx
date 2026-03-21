@@ -24,6 +24,8 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import { HydratedRouter } from "react-router/dom";
 
 async function main() {
+	const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
+
 	await i18next
 		.use(initReactI18next)
 		.use(I18nextBrowserLanguageDetector)
@@ -55,13 +57,14 @@ async function main() {
 			saveMissing: true,
 		});
 
-	init({
-		// @ts-expect-error Until there is more, this is fine.
-		dsn: window.ENV.SENTRY_DATA_SOURCE_NAME,
-		integrations: [reactRouterTracingIntegration()],
-		sendDefaultPii: true,
-		tracesSampleRate: 1,
-	});
+	if (dsn) {
+		init({
+			dsn,
+			integrations: [reactRouterTracingIntegration()],
+			sendDefaultPii: true,
+			tracesSampleRate: 1,
+		});
+	}
 
 	startTransition(() => {
 		hydrateRoot(

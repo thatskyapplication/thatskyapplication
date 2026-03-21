@@ -33,7 +33,9 @@ jobs:
           platforms: linux/amd64
           cache-from: type=gha,scope=deploy-thatskyapplication-website
           cache-to: type=gha,mode=max,scope=deploy-thatskyapplication-website
-          build-args: SENTRY_RELEASE=${{ github.sha }}
+          build-args: |
+            SENTRY_RELEASE=${{ github.sha }}
+            SENTRY_DATA_SOURCE_NAME=${{ secrets.SENTRY_DATA_SOURCE_NAME_WEBSITE }}
           secrets: sentry_auth_token=${{ secrets.SENTRY_AUTH_TOKEN }}
         env:
           DOCKER_BUILD_SUMMARY: false
