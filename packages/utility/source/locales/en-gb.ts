@@ -3466,7 +3466,7 @@ export default {
 			"detailed-breakdown-nesting-workshop-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Nesting_Workshop",
 			"detailed-breakdown-nesting-workshop-message":
-				"Every Monday, a new set of cosmetics will appear in the Nesting Workshop. Next Monday is at {{timestamp}}.",
+				"Every Friday, a new set of cosmetics will appear in the Nesting Workshop. Next Friday is at {{timestamp}}.",
 			"detailed-breakdown-vault-elders-blessing-message":
 				"Available every 20 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-wiki-button-url":
