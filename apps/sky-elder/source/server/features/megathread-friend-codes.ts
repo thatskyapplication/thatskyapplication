@@ -21,6 +21,12 @@ export async function megathreadFriendCodes(force = false) {
 	// Fetch the megathread.
 	const post = await reddit.getPostById(postId as T3);
 
+	// If it's archived, create a new one.
+	if (post.isArchived()) {
+		await megathreadCreate(post);
+		return;
+	}
+
 	// Force check.
 	// If there was no post id, one would have been created anyway.
 	if (force) {
