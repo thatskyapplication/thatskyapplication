@@ -8,7 +8,7 @@ export const loader: LoaderFunction = async () => {
 		.count({ total: "*" })
 		.first();
 
-	const randomProfile = Math.floor(Math.random() * Number(countResult!.total!) + 1);
+	const randomProfile = Math.floor(Math.random() * Number(countResult!.total!));
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
 		.whereNotNull("name")
