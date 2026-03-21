@@ -92,6 +92,7 @@ async function megathreadCreate(post?: Post) {
 	}
 
 	// We would also add the new megathread to community highlights, but there is no way to do that.
+	await newMegathread.sticky(1);
 	await newMegathread.distinguish();
 	await newMegathread.setSuggestedCommentSort("NEW");
 
