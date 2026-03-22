@@ -1,5 +1,5 @@
-export const TIME_ZONE_COOKIE_NAME = "time_zone";
-export const TIME_ZONE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
+export const TIME_ZONE_COOKIE_NAME = "time_zone" as const;
+export const TIME_ZONE_COOKIE_MAX_AGE = 31536000 as const;
 
 export function isValidTimeZone(timeZone: string | null | undefined): timeZone is string {
 	if (!timeZone) {

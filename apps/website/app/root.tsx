@@ -22,6 +22,7 @@ import {
 	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
 } from "~/utility/constants";
+import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
 	getBrowserTimeZone,
 	TIME_ZONE_COOKIE_MAX_AGE,
@@ -146,15 +147,11 @@ export default function App({ loaderData }: Route.ComponentProps) {
 			return;
 		}
 
-		void cookieStore
-			.set({
-				name: TIME_ZONE_COOKIE_NAME,
-				value: browserTimeZone,
-				path: "/",
-				expires: Date.now() + TIME_ZONE_COOKIE_MAX_AGE * 1000,
-				sameSite: "lax",
-			})
-			.catch((error) => captureException(error));
+		void cookieStoreSet({
+			name: TIME_ZONE_COOKIE_NAME,
+			value: browserTimeZone,
+			maxAge: TIME_ZONE_COOKIE_MAX_AGE,
+		}).catch((error) => captureException(error));
 	}, []);
 
 	return (
