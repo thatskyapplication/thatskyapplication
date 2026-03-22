@@ -33,6 +33,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { Link, useLoaderData } from "react-router";
+import { CentredSitePage } from "~/components/PageLayout";
 import { getLocale } from "~/middleware/i18next.js";
 import {
 	APPLICATION_ICON_URL,
@@ -793,9 +794,12 @@ export default function Schedule() {
 	}).format(currentTimestamp);
 
 	return (
-		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
+		<CentredSitePage>
 			<div className="w-full max-w-2xl space-y-4">
-				<div className="sticky top-24 md:top-28 z-20 flex gap-3">
+				<div
+					className="sticky z-20 flex gap-3"
+					style={{ top: "calc(var(--site-top-bar-height, 0px) + 0.5rem)" }}
+				>
 					<div className="flex-1 flex items-center gap-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg px-3 py-2">
 						<Clock className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" />
 						<div>
@@ -1006,6 +1010,6 @@ export default function Schedule() {
 					</div>
 				</div>
 			</div>
-		</div>
+		</CentredSitePage>
 	);
 }

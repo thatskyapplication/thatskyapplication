@@ -10,6 +10,7 @@ import {
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, Link, type MetaFunction, useLoaderData, useSearchParams } from "react-router";
+import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
 import Select from "~/components/Select";
 import pg from "~/pg.server";
@@ -219,130 +220,132 @@ export default function SkyProfiles() {
 	const [_, setSearchParams] = useSearchParams();
 
 	return (
-		<div className="container mx-auto px-4">
-			<div className="flex flex-col items-center mb-8 gap-4">
-				<div className="flex flex-wrap items-center justify-center gap-4">
-					<input
-						className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
-						defaultValue={name ?? ""}
-						onKeyDown={(event) => {
-							if (event.key === "Enter") {
-								const value = event.currentTarget.value.trim();
+		<SitePage>
+			<div className="container mx-auto">
+				<div className="flex flex-col items-center mb-8 gap-4">
+					<div className="flex flex-wrap items-center justify-center gap-4">
+						<input
+							className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
+							defaultValue={name ?? ""}
+							onKeyDown={(event) => {
+								if (event.key === "Enter") {
+									const value = event.currentTarget.value.trim();
 
+									setSearchParams((prev) => {
+										const newParams = new URLSearchParams(prev);
+										value ? newParams.set("name", value) : newParams.delete("name");
+										newParams.delete("page");
+										return newParams;
+									});
+								}
+							}}
+							placeholder={t("sky-profile.search-by-name", { ns: "features" })}
+							type="search"
+						/>
+						<Select
+							className="w-64"
+							isClearable={true}
+							onChange={(value) => {
 								setSearchParams((prev) => {
 									const newParams = new URLSearchParams(prev);
-									value ? newParams.set("name", value) : newParams.delete("name");
+									value ? newParams.set("country", value) : newParams.delete("country");
 									newParams.delete("page");
 									return newParams;
 								});
-							}
-						}}
-						placeholder={t("sky-profile.search-by-name", { ns: "features" })}
-						type="search"
-					/>
-					<Select
-						className="w-64"
-						isClearable={true}
-						onChange={(value) => {
-							setSearchParams((prev) => {
-								const newParams = new URLSearchParams(prev);
-								value ? newParams.set("country", value) : newParams.delete("country");
-								newParams.delete("page");
-								return newParams;
-							});
-						}}
-						options={[
-							{
-								label: t("sky-profile.country-unspecified", { ns: "features" }),
-								value: NO_COUNTRY_VALUE,
-							},
-							...countries.map((skyProfilePacket) => ({
-								label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
-								value: skyProfilePacket.country,
-							})),
-						]}
-						placeholder={t("sky-profile.select-a-country", { ns: "features" })}
-						value={country ?? ""}
-					/>
-					<Link
-						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-						to="/sky-profiles/random"
-					>
-						<div
-							aria-label="Question mark icon."
-							className="w-6 h-6 mr-2 bg-cover bg-center"
-							role="img"
-							style={{
-								backgroundImage:
-									"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 							}}
+							options={[
+								{
+									label: t("sky-profile.country-unspecified", { ns: "features" }),
+									value: NO_COUNTRY_VALUE,
+								},
+								...countries.map((skyProfilePacket) => ({
+									label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
+									value: skyProfilePacket.country,
+								})),
+							]}
+							placeholder={t("sky-profile.select-a-country", { ns: "features" })}
+							value={country ?? ""}
 						/>
-						<span>{t("sky-profile.random", { ns: "features" })}</span>
-					</Link>
-					{discordUser && (
 						<Link
 							className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-							to={`/sky-profiles/${discordUser.id}`}
+							to="/sky-profiles/random"
 						>
 							<div
-								aria-label="Sky kid icon."
+								aria-label="Question mark icon."
 								className="w-6 h-6 mr-2 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(${SKY_KID_ICON_URL})`,
+									backgroundImage:
+										"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
 								}}
 							/>
-							<span>{t("sky-profile.me", { ns: "features" })}</span>
+							<span>{t("sky-profile.random", { ns: "features" })}</span>
 						</Link>
-					)}
-				</div>
-			</div>
-			{profiles.length > 0 ? (
-				<>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-						{profiles.map((profile) => {
-							// Preserve relevant search parameters when coming back.
-							const returnParams = new URLSearchParams();
-
-							if (name) {
-								returnParams.set("name", name);
-							}
-
-							if (country) {
-								returnParams.set("country", country);
-							}
-
-							if (currentPage) {
-								returnParams.set("page", currentPage.toString());
-							}
-
-							return SkyProfileCard(profile, returnParams.toString());
-						})}
+						{discordUser && (
+							<Link
+								className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+								to={`/sky-profiles/${discordUser.id}`}
+							>
+								<div
+									aria-label="Sky kid icon."
+									className="w-6 h-6 mr-2 bg-cover bg-center"
+									role="img"
+									style={{
+										backgroundImage: `url(${SKY_KID_ICON_URL})`,
+									}}
+								/>
+								<span>{t("sky-profile.me", { ns: "features" })}</span>
+							</Link>
+						)}
 					</div>
-					{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
-				</>
-			) : name || country ? (
-				<div className="text-center py-12">
-					<p className="text-gray-600 dark:text-gray-400">
-						{t("sky-profile.search-none", { ns: "features" })}
-					</p>
 				</div>
-			) : (
-				<div className="text-center py-12 space-y-4">
-					<div
-						aria-label="Sky kid icon."
-						className="w-32 h-32 mx-auto bg-cover bg-center"
-						role="img"
-						style={{
-							backgroundImage: `url(${SKY_KID_ICON_URL})`,
-						}}
-					/>
-					<h1>{t("sky-profile.name-plural", { ns: "features" })}</h1>
-					<p className="text-gray-600 dark:text-gray-400">
-						{t("sky-profile.description-website", { ns: "features" })}
-					</p>
-				</div>
-			)}
-		</div>
+				{profiles.length > 0 ? (
+					<>
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+							{profiles.map((profile) => {
+								// Preserve relevant search parameters when coming back.
+								const returnParams = new URLSearchParams();
+
+								if (name) {
+									returnParams.set("name", name);
+								}
+
+								if (country) {
+									returnParams.set("country", country);
+								}
+
+								if (currentPage) {
+									returnParams.set("page", currentPage.toString());
+								}
+
+								return SkyProfileCard(profile, returnParams.toString());
+							})}
+						</div>
+						{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
+					</>
+				) : name || country ? (
+					<div className="text-center py-12">
+						<p className="text-gray-600 dark:text-gray-400">
+							{t("sky-profile.search-none", { ns: "features" })}
+						</p>
+					</div>
+				) : (
+					<div className="text-center py-12 space-y-4">
+						<div
+							aria-label="Sky kid icon."
+							className="w-32 h-32 mx-auto bg-cover bg-center"
+							role="img"
+							style={{
+								backgroundImage: `url(${SKY_KID_ICON_URL})`,
+							}}
+						/>
+						<h1>{t("sky-profile.name-plural", { ns: "features" })}</h1>
+						<p className="text-gray-600 dark:text-gray-400">
+							{t("sky-profile.description-website", { ns: "features" })}
+						</p>
+					</div>
+				)}
+			</div>
+		</SitePage>
 	);
 }

@@ -19,6 +19,7 @@ import { type JSX, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, Link, useLoaderData } from "react-router";
+import { CentredSitePage } from "~/components/PageLayout";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
@@ -266,7 +267,7 @@ export default function DailyGuides() {
 	};
 
 	return (
-		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center p-4">
+		<CentredSitePage>
 			<div
 				className={`flex gap-6 w-full max-w-6xl transition-all duration-300 ${
 					selectedImage ? "justify-between items-center" : "justify-center"
@@ -610,6 +611,6 @@ export default function DailyGuides() {
 					</div>
 				</div>
 			)}
-		</div>
+		</CentredSitePage>
 	);
 }

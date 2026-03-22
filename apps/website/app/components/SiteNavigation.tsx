@@ -378,6 +378,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 export function SiteTopBar({ user }: SiteTopBarProps) {
 	const location = useLocation();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const topBarRef = useRef<HTMLDivElement>(null);
 	const navigationGroups = useNavigationGroups();
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: This is fine.
@@ -396,6 +397,31 @@ export function SiteTopBar({ user }: SiteTopBarProps) {
 		return () => document.removeEventListener("keydown", handleEscape);
 	}, []);
 
+	useEffect(() => {
+		const topBarElement = topBarRef.current;
+
+		if (!topBarElement) {
+			return;
+		}
+
+		const updateTopBarHeight = () => {
+			document.documentElement.style.setProperty(
+				"--site-top-bar-height",
+				`${topBarElement.getBoundingClientRect().height}px`,
+			);
+		};
+
+		updateTopBarHeight();
+
+		const resizeObserver = new ResizeObserver(() => updateTopBarHeight());
+		resizeObserver.observe(topBarElement);
+
+		return () => {
+			resizeObserver.disconnect();
+			document.documentElement.style.removeProperty("--site-top-bar-height");
+		};
+	}, []);
+
 	const getGroupActiveState = (group: NavigationGroup) => {
 		return (
 			group.label !== "Links" &&
@@ -408,7 +434,11 @@ export function SiteTopBar({ user }: SiteTopBarProps) {
 
 	return (
 		<>
-			<div className="fixed top-4 left-4 right-4 z-30" style={{ scrollbarGutter: "stable" }}>
+			<div
+				className="sticky top-0 z-30 px-4 pt-4 pb-2"
+				ref={topBarRef}
+				style={{ scrollbarGutter: "stable" }}
+			>
 				<div className="max-w-7xl mx-auto p-4 rounded-xl bg-white/90 dark:bg-gray-900/90 shadow-lg backdrop-blur-md border border-gray-200 dark:border-gray-700">
 					<div className="flex justify-between items-center">
 						<div className="flex items-center gap-6">
@@ -465,7 +495,7 @@ export function SiteFooter() {
 	const navigationGroups = useNavigationGroups();
 
 	return (
-		<footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 mt-8">
+		<footer className="w-full mt-4 bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
 			<div className="max-w-7xl mx-auto px-4 py-8">
 				<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
 					<div className="col-span-1 md:col-span-2">

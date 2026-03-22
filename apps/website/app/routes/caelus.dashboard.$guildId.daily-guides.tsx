@@ -15,6 +15,7 @@ import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
 import { useState } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Form, Link, redirect, useActionData, useLoaderData } from "react-router";
+import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server.js";
@@ -169,91 +170,94 @@ export default function DailyGuides() {
 	const [selectedChannelId, setSelectedChannelId] = useState(currentChannelId ?? "");
 
 	return (
-		<div className="container mx-auto px-4 py-8 max-w-7xl">
-			<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xs p-8">
-				<div className="relative">
-					<div className="relative z-10">
-						<div className="flex items-center justify-between mb-8">
-							<Link
-								className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-								to={`/caelus/dashboard/${guild.id}`}
-							>
-								<ArrowLeft className="w-4 h-4" />
-								Back
-							</Link>
-						</div>
-
-						<div className="flex items-center gap-4 mb-8">
-							{guild.icon ? (
-								<div
-									aria-label={`${guild.name} icon.`}
-									className="w-16 h-16 bg-cover bg-center rounded-full"
-									role="img"
-									style={{ backgroundImage: `url(${guildIconURL(guild.id, guild.icon)})` }}
-								/>
-							) : (
-								<div className="w-16 h-16 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl border-2 border-gray-200 dark:border-gray-600">
-									{guild.name[0]!.toUpperCase()}
-								</div>
-							)}
-							<div>
-								<h1 className="mb-2">{guild.name}</h1>
+		<SitePage>
+			<div className="container mx-auto max-w-7xl">
+				<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xs p-8">
+					<div className="relative">
+						<div className="relative z-10">
+							<div className="flex items-center justify-between mb-8">
+								<Link
+									className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+									to={`/caelus/dashboard/${guild.id}`}
+								>
+									<ArrowLeft className="w-4 h-4" />
+									Back
+								</Link>
 							</div>
-						</div>
 
-						<div className="mt-8">
-							<h2 className="text-lg font-semibold mb-2">Daily guides</h2>
-							<p className="mb-6">
-								All you need is a channel {APPLICATION_NAME} can send daily guides in. You can visit{" "}
-								<a
-									className="regular-link inline-flex items-center"
-									href="https://guide.thatskyapplication.com/caelus/daily-guides"
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									the guide
-									<ExternalLinkIcon className="ml-1 w-4 h-4" />
-								</a>{" "}
-								to see how to set it up in Discord too!
-							</p>
-
-							{actionData?.success && (
-								<div className="mb-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-4 flex items-center gap-2">
-									<Check className="w-5 h-5 text-green-600 dark:text-green-400" />
-									<span className="text-sm text-green-800 dark:text-green-200">
-										Settings saved successfully!
-									</span>
-								</div>
-							)}
-
-							<Form method="post">
-								<input name="channelId" type="hidden" value={selectedChannelId} />
-								<div className="mb-6">
-									<Select
-										error={actionData?.error ?? permissionError}
-										isClearable
-										label="Channel"
-										onChange={setSelectedChannelId}
-										options={channels.map((channel) => ({
-											value: channel.id,
-											label: `${ChannelTypeToIcon[channel.type]} ${channel.name}`,
-										}))}
-										placeholder="Select a channel for daily guides."
-										value={selectedChannelId}
+							<div className="flex items-center gap-4 mb-8">
+								{guild.icon ? (
+									<div
+										aria-label={`${guild.name} icon.`}
+										className="w-16 h-16 bg-cover bg-center rounded-full"
+										role="img"
+										style={{ backgroundImage: `url(${guildIconURL(guild.id, guild.icon)})` }}
 									/>
+								) : (
+									<div className="w-16 h-16 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl border-2 border-gray-200 dark:border-gray-600">
+										{guild.name[0]!.toUpperCase()}
+									</div>
+								)}
+								<div>
+									<h1 className="mb-2">{guild.name}</h1>
 								</div>
+							</div>
 
-								<button
-									className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-xs hover:shadow-md cursor-pointer"
-									type="submit"
-								>
-									Save
-								</button>
-							</Form>
+							<div className="mt-8">
+								<h2 className="text-lg font-semibold mb-2">Daily guides</h2>
+								<p className="mb-6">
+									All you need is a channel {APPLICATION_NAME} can send daily guides in. You can
+									visit{" "}
+									<a
+										className="regular-link inline-flex items-center"
+										href="https://guide.thatskyapplication.com/caelus/daily-guides"
+										rel="noopener noreferrer"
+										target="_blank"
+									>
+										the guide
+										<ExternalLinkIcon className="ml-1 w-4 h-4" />
+									</a>{" "}
+									to see how to set it up in Discord too!
+								</p>
+
+								{actionData?.success && (
+									<div className="mb-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg p-4 flex items-center gap-2">
+										<Check className="w-5 h-5 text-green-600 dark:text-green-400" />
+										<span className="text-sm text-green-800 dark:text-green-200">
+											Settings saved successfully!
+										</span>
+									</div>
+								)}
+
+								<Form method="post">
+									<input name="channelId" type="hidden" value={selectedChannelId} />
+									<div className="mb-6">
+										<Select
+											error={actionData?.error ?? permissionError}
+											isClearable
+											label="Channel"
+											onChange={setSelectedChannelId}
+											options={channels.map((channel) => ({
+												value: channel.id,
+												label: `${ChannelTypeToIcon[channel.type]} ${channel.name}`,
+											}))}
+											placeholder="Select a channel for daily guides."
+											value={selectedChannelId}
+										/>
+									</div>
+
+									<button
+										className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-xs hover:shadow-md cursor-pointer"
+										type="submit"
+									>
+										Save
+									</button>
+								</Form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</SitePage>
 	);
 }

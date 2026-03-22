@@ -13,6 +13,7 @@ import { CheckCircle, Circle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Form, Link, useLoaderData } from "react-router";
+import { CentredSitePage } from "~/components/PageLayout";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 
@@ -123,7 +124,7 @@ export default function Checklist() {
 	const { t } = useTranslation();
 
 	return (
-		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
+		<CentredSitePage>
 			<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-8 w-full max-w-lg">
 				<div className="text-center mb-6">
 					<h1 className="bg-linear-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
@@ -383,6 +384,6 @@ export default function Checklist() {
 					)}
 				</div>
 			</div>
-		</div>
+		</CentredSitePage>
 	);
 }

@@ -35,7 +35,7 @@ export default function ConditionalLayout({
 	return (
 		<div className="min-h-screen flex flex-col">
 			{shouldShowNavigation && <SiteTopBar user={user} />}
-			<main className={`flex-1 ${shouldShowNavigation ? "pt-28" : ""}`}>{children}</main>
+			<main className="flex flex-1 flex-col">{children}</main>
 			{shouldShowFooter && <SiteFooter />}
 		</div>
 	);

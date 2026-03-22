@@ -9,6 +9,7 @@ import { ExternalLinkIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
+import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { getLocale } from "~/middleware/i18next.js";
 import {
@@ -198,24 +199,28 @@ export default function ShardEruption() {
 	const [firstShard, ...restShards] = shardCards;
 
 	return (
-		<div className="flex flex-col items-center justify-center">
-			<div className="flex-wrap px-4">
-				{page === 0 ? (
-					<>
-						<div className="flex mb-2 w-full justify-center">{firstShard}</div>
+		<SitePage>
+			<div className="flex flex-col items-center justify-center">
+				<div className="flex-wrap">
+					{page === 0 ? (
+						<>
+							<div className="flex mb-2 w-full justify-center">{firstShard}</div>
+							<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">
+								{restShards}
+							</div>
+						</>
+					) : (
 						<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">
-							{restShards}
+							{shardCards}
 						</div>
-					</>
-				) : (
-					<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">{shardCards}</div>
-				)}
-				<Pagination
-					currentPage={page}
-					maximumPage={SHARD_ERUPTION_MAXIMUM_PAGE}
-					minimumPage={SHARD_ERUPTION_MINIMUM_PAGE}
-				/>
+					)}
+					<Pagination
+						currentPage={page}
+						maximumPage={SHARD_ERUPTION_MAXIMUM_PAGE}
+						minimumPage={SHARD_ERUPTION_MINIMUM_PAGE}
+					/>
+				</div>
 			</div>
-		</div>
+		</SitePage>
 	);
 }

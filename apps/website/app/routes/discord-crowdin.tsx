@@ -2,6 +2,7 @@ import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { data, Form, redirect, useLoaderData } from "react-router";
+import { CentredSitePage } from "~/components/PageLayout";
 import {
 	CROWDIN_CLIENT_ID,
 	CROWDIN_CLIENT_SECRET,
@@ -239,7 +240,7 @@ export default function CrowdinDiscord() {
 	const { crowdinUser, error, success } = useLoaderData<typeof loader>();
 
 	return (
-		<div className="min-h-[calc(100vh-9rem)] flex items-center justify-center px-4">
+		<CentredSitePage>
 			<div className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg p-8 w-full max-w-md">
 				<h1 className="text-center">Crowdin Authorisation</h1>
 				{error && (
@@ -305,6 +306,6 @@ export default function CrowdinDiscord() {
 					</div>
 				)}
 			</div>
-		</div>
+		</CentredSitePage>
 	);
 }
