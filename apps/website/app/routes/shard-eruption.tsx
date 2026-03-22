@@ -3,7 +3,6 @@ import {
 	shardEruption,
 	skyNow,
 	skyToday,
-	TIME_ZONE,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
@@ -19,6 +18,7 @@ import {
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 	SHARD_ERUPTION_MINIMUM_PAGE,
 } from "~/utility/constants";
+import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
 type ShardEruptionCardProps = {
 	shard:
@@ -65,7 +65,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const pageParameter = url.searchParams.get("page");
 	const shards = [];
 	const locale = getLocale(context);
-	const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
+	const timeZone = await getPreferredTimeZone(request);
 	let page = pageParameter ? Number(pageParameter) : 0;
 
 	if (!Number.isInteger(page)) {

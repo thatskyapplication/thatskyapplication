@@ -22,11 +22,12 @@ import { data, Link, useLoaderData } from "react-router";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
+import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const locale = getLocale(context);
 	const dailyGuides = await pg<DailyGuidesPacket>(Table.DailyGuides);
-	const timeZone = request.headers.get("cf-timezone") ?? TIME_ZONE;
+	const timeZone = await getPreferredTimeZone(request);
 	const shard = shardEruption();
 
 	return data(

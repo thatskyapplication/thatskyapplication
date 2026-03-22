@@ -40,6 +40,7 @@ import {
 	SCHEDULE_DESCRIPTION,
 	SCHEDULE_TITLE,
 } from "~/utility/constants.js";
+import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
 export const meta: MetaFunction = () => [
 	{ charSet: "utf-8" },
@@ -511,7 +512,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	return {
 		initialTimestamp: Date.now(),
 		locale: getLocale(context),
-		timeZone: request.headers.get("cf-timezone") ?? TIME_ZONE,
+		timeZone: await getPreferredTimeZone(request),
 	};
 };
 
@@ -780,6 +781,7 @@ export default function Schedule() {
 	const localTime = new Intl.DateTimeFormat(locale, {
 		hour: "2-digit",
 		minute: "2-digit",
+		timeZone,
 		timeZoneName: "short",
 	}).format(currentTimestamp);
 
