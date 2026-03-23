@@ -67,10 +67,11 @@ function UserMenu({ user }: UserMenuProps) {
 				onClick={() => setIsOpen(!isOpen)}
 				type="button"
 			>
-				<img
-					alt={`${user.username}'s avatar`}
-					className="w-8 h-8 rounded-full"
-					src={avatarURL(user)}
+				<div
+					aria-label={`${user.username}'s avatar`}
+					className="w-8 h-8 rounded-full bg-cover bg-center"
+					role="img"
+					style={{ backgroundImage: `url(${avatarURL(user)})` }}
 				/>
 				<div className="hidden sm:flex flex-col">
 					<span className="text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -260,10 +261,11 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 					{user ? (
 						<div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
 							<div className="flex items-center gap-3 mb-3">
-								<img
-									alt={`Avatar of ${user.username}`}
-									className="w-8 h-8 rounded-full"
-									src={avatarURL(user)}
+								<div
+									aria-label={`Avatar of ${user.username}`}
+									className="w-8 h-8 rounded-full bg-cover bg-center"
+									role="img"
+									style={{ backgroundImage: `url(${avatarURL(user)})` }}
 								/>
 								<span className="font-medium text-gray-900 dark:text-gray-100">
 									{user.username}

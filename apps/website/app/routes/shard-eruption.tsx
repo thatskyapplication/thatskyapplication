@@ -127,10 +127,13 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 		>
 			<div className="flex flex-row items-center justify-center">
 				{shard && (
-					<img
-						alt={`${shard.strong ? "Strong" : "Regular"} shard eruption icon.`}
-						className="w-5 h-5 mr-1"
-						src={`https://cdn.thatskyapplication.com/assets/${shard.strong ? "shard_strong" : "shard_regular"}.webp`}
+					<div
+						aria-label={`${shard.strong ? "Strong" : "Regular"} shard eruption icon.`}
+						className="w-5 h-5 mr-1 bg-cover bg-center"
+						role="img"
+						style={{
+							backgroundImage: `url(https://cdn.thatskyapplication.com/assets/${shard.strong ? "shard_strong" : "shard_regular"}.webp)`,
+						}}
 					/>
 				)}
 				<h2 className="text-lg my-0">{todayFormat}</h2>
@@ -153,16 +156,24 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 					<div className="inline-flex items-center">
 						<span className="text-sm">{shard.reward}</span>
 						{shard.strong ? (
-							<img
-								alt="Ascended candle."
-								className="h-4 w-4 ml-1"
-								src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
+							<div
+								aria-label="Ascended candle."
+								className="h-4 w-4 ml-1 bg-cover bg-center"
+								role="img"
+								style={{
+									backgroundImage:
+										"url(https://cdn.thatskyapplication.com/icons/ascended_candle.webp)",
+								}}
 							/>
 						) : (
-							<img
-								alt="Piece of light."
-								className="h-4 w-4 ml-1"
-								src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
+							<div
+								aria-label="Piece of light."
+								className="h-4 w-4 ml-1 bg-cover bg-center"
+								role="img"
+								style={{
+									backgroundImage:
+										"url(https://cdn.thatskyapplication.com/icons/piece_of_light.webp)",
+								}}
 							/>
 						)}
 					</div>

@@ -46,10 +46,11 @@ export default function CaelusIndex() {
 		<SitePage>
 			<div className="container mx-auto max-w-3xl">
 				<div className="flex flex-col items-center text-center mb-16">
-					<img
-						alt={`${APPLICATION_NAME} icon.`}
-						className="w-24 h-24 rounded-full shadow-lg mb-6"
-						src={APPLICATION_ICON_URL}
+					<div
+						aria-label={`${APPLICATION_NAME} icon.`}
+						className="w-24 h-24 rounded-full shadow-lg mb-6 bg-cover bg-center"
+						role="img"
+						style={{ backgroundImage: `url(${APPLICATION_ICON_URL})` }}
 					/>
 					<h1 className="text-4xl sm:text-5xl font-bold mb-3">{APPLICATION_NAME}</h1>
 					<p className="text-lg text-gray-500 dark:text-gray-400 max-w-md">

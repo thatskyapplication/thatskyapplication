@@ -40,10 +40,13 @@ export default function Index() {
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 					to="/shard-eruption"
 				>
-					<img
-						alt="Strong shard eruption icon."
-						className="w-8 h-8"
-						src="https://cdn.thatskyapplication.com/assets/shard_strong.webp"
+					<div
+						aria-label="Strong shard eruption icon."
+						className="w-8 h-8 bg-cover bg-center"
+						role="img"
+						style={{
+							backgroundImage: "url(https://cdn.thatskyapplication.com/assets/shard_strong.webp)",
+						}}
 					/>
 					<h2 className="font-medium text-lg">Shard Eruptions</h2>
 					<p className="text-sm text-gray-600 dark:text-gray-400 mt-2">

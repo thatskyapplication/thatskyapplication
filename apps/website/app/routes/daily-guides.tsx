@@ -402,7 +402,12 @@ export default function DailyGuides() {
 									</button>
 								)}
 								<div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
-									<img alt="Seasonal candle" className="h-4 w-4" src={SEASONAL_CANDLE_ICON} />
+									<div
+										aria-label="Seasonal candle"
+										className="h-4 w-4 bg-cover bg-center"
+										role="img"
+										style={{ backgroundImage: `url(${SEASONAL_CANDLE_ICON})` }}
+									/>
 									<span>
 										{t("daily-guides.seasonal-candles-remain-with-season-pass", {
 											ns: "features",
@@ -443,16 +448,24 @@ export default function DailyGuides() {
 												{shard.reward}
 											</span>
 											{shard.strong ? (
-												<img
-													alt="Ascended candle"
-													className="h-4 w-4"
-													src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
+												<div
+													aria-label="Ascended candle"
+													className="h-4 w-4 bg-cover bg-center"
+													role="img"
+													style={{
+														backgroundImage:
+															"url(https://cdn.thatskyapplication.com/icons/ascended_candle.webp)",
+													}}
 												/>
 											) : (
-												<img
-													alt="Piece of light"
-													className="h-4 w-4"
-													src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
+												<div
+													aria-label="Piece of light"
+													className="h-4 w-4 bg-cover bg-center"
+													role="img"
+													style={{
+														backgroundImage:
+															"url(https://cdn.thatskyapplication.com/icons/piece_of_light.webp)",
+													}}
 												/>
 											)}
 										</div>
@@ -493,16 +506,24 @@ export default function DailyGuides() {
 									<div className="flex items-center gap-2">
 										<span className="text-sm text-gray-700 dark:text-gray-300">{shard.reward}</span>
 										{shard.strong ? (
-											<img
-												alt="Ascended candle"
-												className="h-4 w-4"
-												src="https://cdn.thatskyapplication.com/icons/ascended_candle.webp"
+											<div
+												aria-label="Ascended candle"
+												className="h-4 w-4 bg-cover bg-center"
+												role="img"
+												style={{
+													backgroundImage:
+														"url(https://cdn.thatskyapplication.com/icons/ascended_candle.webp)",
+												}}
 											/>
 										) : (
-											<img
-												alt="Piece of light"
-												className="h-4 w-4"
-												src="https://cdn.thatskyapplication.com/icons/piece_of_light.webp"
+											<div
+												aria-label="Piece of light"
+												className="h-4 w-4 bg-cover bg-center"
+												role="img"
+												style={{
+													backgroundImage:
+														"url(https://cdn.thatskyapplication.com/icons/piece_of_light.webp)",
+												}}
 											/>
 										)}
 									</div>

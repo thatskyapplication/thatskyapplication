@@ -212,9 +212,9 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 			{badges.map((badge) => {
 				const content = (
 					<>
-						<span aria-label={badge.label} className="text-base" role="img">
+						<div aria-label={badge.label} className="text-base" role="img">
 							{badge.icon}
-						</span>
+						</div>
 						<span>{badge.label}</span>
 					</>
 				);
