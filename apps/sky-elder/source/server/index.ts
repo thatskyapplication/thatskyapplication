@@ -1,4 +1,3 @@
-import "./i18next.js";
 import { createServer, getServerPort } from "@devvit/web/server";
 import express, { type ErrorRequestHandler } from "express";
 import { postMenuMegathreadFriendCodes } from "./routes/menu/friend-codes.js";

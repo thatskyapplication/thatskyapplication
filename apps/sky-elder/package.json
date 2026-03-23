@@ -18,7 +18,6 @@
 		"devvit": "^0.12.15",
 		"discord-api-types": "^0.38.40",
 		"express": "^5.2.1",
-		"i18next": "^25.8.0",
 		"obscenity": "^0.4.6"
 	},
 	"devDependencies": {
