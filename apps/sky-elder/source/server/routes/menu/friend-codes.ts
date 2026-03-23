@@ -20,7 +20,7 @@ export async function postMenuMegathreadFriendCodes(_: Request, res: Response) {
 
 	res.json({
 		showToast: {
-			text: "Success! Add the post to community highlights as a megathread and update references where necessary!",
+			text: "Success! Add the post to community highlights as a megathread!!",
 			appearance: "success",
 		} satisfies Toast,
 	});

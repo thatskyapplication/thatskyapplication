@@ -7,6 +7,7 @@ import {
 	SETTINGS_MEGATHREAD_FRIEND_CODES_TEXT_KEY,
 	SETTINGS_MEGATHREAD_FRIEND_CODES_TITLE_KEY,
 } from "../utility/constants.js";
+import { postIdWithoutPrefix } from "../utility/functions.js";
 
 export async function megathreadFriendCodes(force = false) {
 	// Grab the current megathread.
@@ -90,11 +91,42 @@ async function megathreadCreate(post?: Post) {
 		flairId,
 	});
 
+	const newMegathreadLink = `https://redd.it/${postIdWithoutPrefix(newMegathread.id)}`;
+
 	if (post) {
 		// Link to the new megathread.
 		await post.edit({
-			text: `A new megathread has been created. Follow the journey [here](${newMegathread.permalink})!`,
+			text: `A new megathread has been created. Follow the journey [here](${newMegathreadLink})!`,
 		});
+
+		// Update any rules that references the old megathread.
+		const subreddit = await reddit.getCurrentSubreddit();
+		const rules = await subreddit.getRules();
+		const oldMegathreadLink = `https://redd.it/${postIdWithoutPrefix(post.id)}`;
+
+		for (const rule of rules) {
+			if (!rule.description.includes(oldMegathreadLink)) {
+				continue;
+			}
+
+			await rule.update({
+				description: rule.description.replace(oldMegathreadLink, newMegathreadLink),
+			});
+		}
+
+		// Update any removal reasons that reference the old megathread.
+		const removalReasons = await subreddit.getRemovalReasons();
+
+		for (const removalReason of removalReasons) {
+			if (!removalReason.message.includes(oldMegathreadLink)) {
+				continue;
+			}
+
+			await subreddit.updateRemovalReason(removalReason.id, {
+				title: removalReason.title,
+				message: removalReason.message.replace(oldMegathreadLink, newMegathreadLink),
+			});
+		}
 	}
 
 	// We would also add the new megathread to community highlights, but there is no way to do that.

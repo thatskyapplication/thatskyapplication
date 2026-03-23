@@ -13,9 +13,9 @@
 		"login": "devvit login"
 	},
 	"dependencies": {
-		"@devvit/web": "^0.12.15",
+		"@devvit/web": "^0.12.16",
 		"@thatskyapplication/utility": "workspace:^",
-		"devvit": "^0.12.15",
+		"devvit": "^0.12.16",
 		"discord-api-types": "^0.38.40",
 		"express": "^5.2.1",
 		"obscenity": "^0.4.6"
