@@ -582,7 +582,7 @@ export default function DailyGuides() {
 					)}
 				</div>
 				{selectedImage && (
-					<div className="hidden lg:flex w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4 max-h-[70vh] flex-col">
+					<div className="hidden lg:flex w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4 flex-col">
 						<div className="flex items-center justify-between mb-4 shrink-0">
 							<h3 className="font-semibold text-gray-900 dark:text-white text-sm">
 								{t("daily-guides.infographic", { ns: "features" })}
@@ -596,20 +596,19 @@ export default function DailyGuides() {
 								<X className="w-4 h-4" />
 							</button>
 						</div>
-						<div className="flex items-center justify-center flex-1 min-h-0 overflow-hidden">
+						<div className="flex justify-center">
 							<img
 								alt="Infographic"
-								className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+								className="block w-full h-auto rounded-lg shadow-lg"
 								src={selectedImage}
-								style={{ objectFit: "contain" }}
 							/>
 						</div>
 					</div>
 				)}
 			</div>
 			{selectedImage && (
-				<div className="lg:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-xs z-50 flex flex-col">
-					<div className="flex items-center justify-between p-4 bg-gray-800/50 shrink-0">
+				<div className="lg:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-xs z-50 overflow-y-auto">
+					<div className="sticky top-0 flex items-center justify-between p-4 bg-gray-800/80 shrink-0">
 						<h3 className="text-white font-medium">
 							{t("daily-guides.infographic", { ns: "features" })}
 						</h3>
@@ -622,13 +621,8 @@ export default function DailyGuides() {
 							<X className="w-6 h-6" />
 						</button>
 					</div>
-					<div className="flex-1 flex items-center justify-center p-4 min-h-0 overflow-hidden">
-						<img
-							alt="Infographic"
-							className="max-w-full max-h-full object-contain"
-							src={selectedImage}
-							style={{ objectFit: "contain" }}
-						/>
+					<div className="p-4">
+						<img alt="Infographic" className="block w-full h-auto" src={selectedImage} />
 					</div>
 				</div>
 			)}
