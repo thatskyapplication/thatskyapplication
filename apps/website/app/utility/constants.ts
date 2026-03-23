@@ -32,6 +32,7 @@ export const INVITE_APPLICATION_URL =
 	"https://discord.com/oauth2/authorize?client_id=982740693070012506" as const;
 
 export const INVITE_SUPPORT_SERVER_URL = "https://discord.gg/BFT7EAhrNz" as const;
+export const THATSKYLINK_URL = "https://github.com/thatskyapplication/thatskylink" as const;
 export const SEASONAL_CANDLE_ICON = String(new URL("icons/seasonal_candle.webp", CDN_URL));
 
 export const LOCALES = [
