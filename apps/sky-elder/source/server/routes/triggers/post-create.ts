@@ -14,21 +14,24 @@ import {
 	POST_CREATE_COLOUR,
 	REDDIT_BASE_URL,
 	SETTINGS_POSTS_WEBHOOK_URL,
+	SUBREDDIT_SKY_CHILDREN_OF_LIGHT,
 } from "../../utility/constants.js";
 
 export async function postTriggersPostCreate(req: Request) {
 	const { subreddit, post, author } = req.body as OnPostCreateRequest;
 
-	if (author) {
-		await userFlairsCheckFlair(author);
+	if (!(subreddit && post && author)) {
+		throw new Error("Subreddit, post, or author is missing from the request body.");
 	}
 
-	if (post?.nsfw) {
+	if (subreddit.name !== SUBREDDIT_SKY_CHILDREN_OF_LIGHT) {
 		return;
 	}
 
-	if (!(subreddit && post && author)) {
-		throw new Error("Subreddit, post, or author is missing from the request body.");
+	await userFlairsCheckFlair(author);
+
+	if (post.nsfw) {
+		return;
 	}
 
 	const discordWebhookURL = await settings.get(SETTINGS_POSTS_WEBHOOK_URL);

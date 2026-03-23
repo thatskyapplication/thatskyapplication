@@ -3,17 +3,25 @@ import type { OnPostSubmitRequest } from "@devvit/web/shared";
 import type { Request } from "express";
 import { postFlairsUpdate } from "../../features/post-flairs.js";
 import { userFlairsCheckFlair } from "../../features/user-flairs.js";
-import { REDIS_POST_FLAIRS_BY_POST_KEY, REDIS_POST_FLAIRS_KEY } from "../../utility/constants.js";
+import {
+	REDIS_POST_FLAIRS_BY_POST_KEY,
+	REDIS_POST_FLAIRS_KEY,
+	SUBREDDIT_SKY_CHILDREN_OF_LIGHT,
+} from "../../utility/constants.js";
 
 export async function postTriggersPostSubmit(req: Request) {
 	const { subreddit, post, author } = req.body as OnPostSubmitRequest;
 
-	if (author) {
-		await userFlairsCheckFlair(author);
-	}
-
 	if (!(subreddit && post)) {
 		throw new Error("Subreddit or post is missing from the request body.");
+	}
+
+	if (subreddit.name !== SUBREDDIT_SKY_CHILDREN_OF_LIGHT) {
+		return;
+	}
+
+	if (author) {
+		await userFlairsCheckFlair(author);
 	}
 
 	// The payload would be present with empty values if not set.

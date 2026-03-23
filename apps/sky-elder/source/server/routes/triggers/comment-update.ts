@@ -7,25 +7,31 @@ import {
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
 import type { Request } from "express";
+import { userFlairsCheckFlair } from "../../features/user-flairs.js";
 import {
 	COMMENT_UPDATE_COLOUR,
 	REDDIT_BASE_URL,
 	SETTINGS_COMMENTS_WEBHOOK_URL,
+	SUBREDDIT_SKY_CHILDREN_OF_LIGHT,
 } from "../../utility/constants.js";
 
 export async function postTriggersCommentUpdate(req: Request) {
-	const body = req.body as OnCommentUpdateRequest;
+	const { comment, author, post, previousBody, subreddit } = req.body as OnCommentUpdateRequest;
+
+	if (!(comment && author && post && subreddit)) {
+		throw new Error("Comment, author, post, or subreddit is missing from the request body.");
+	}
+
+	if (subreddit.name !== SUBREDDIT_SKY_CHILDREN_OF_LIGHT) {
+		return;
+	}
+
+	await userFlairsCheckFlair(author);
 	const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
 
 	if (typeof discordWebhookURL !== "string") {
 		console.warn("Discord webhook URL is not set.");
 		return;
-	}
-
-	const { comment, author, post, previousBody } = body;
-
-	if (!(comment && author && post)) {
-		throw new Error("Comment, author, or post is missing from the request body.");
 	}
 
 	const storedComment = redis.get(comment.id as T1);

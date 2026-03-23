@@ -1,8 +1,21 @@
+import { context } from "@devvit/web/server";
 import type { SettingsValidationRequest, SettingsValidationResponse } from "@devvit/web/shared";
 import type { Request, Response } from "express";
-import { DISCORD_WEBHOOK_URL_REGULAR_EXPRESSION } from "../../utility/constants.js";
+import {
+	DISCORD_WEBHOOK_URL_REGULAR_EXPRESSION,
+	SUBREDDIT_SKY_CHILDREN_OF_LIGHT,
+} from "../../utility/constants.js";
 
 export async function postSettingsDiscordWebhookPostsURL(req: Request, res: Response) {
+	if (context.subredditName !== SUBREDDIT_SKY_CHILDREN_OF_LIGHT) {
+		res.json({
+			success: false,
+			error: "Disallowed subreddit.",
+		} satisfies SettingsValidationResponse);
+
+		return;
+	}
+
 	const { value } = req.body as SettingsValidationRequest<unknown>;
 
 	if (typeof value !== "string") {

@@ -12,19 +12,21 @@ import {
 	COMMENT_DELETE_COLOUR,
 	REDDIT_BASE_URL,
 	SETTINGS_COMMENTS_WEBHOOK_URL,
+	SUBREDDIT_SKY_CHILDREN_OF_LIGHT,
 } from "../../utility/constants.js";
 
 export async function postTriggersCommentDelete(req: Request) {
 	const { commentId, subreddit, author, postId } = req.body as OnCommentDeleteRequest;
 
-	if (author) {
-		await userFlairsCheckFlair(author);
-	}
-
 	if (!(subreddit && author)) {
 		throw new Error("Subreddit or author is missing from the request body.");
 	}
 
+	if (subreddit.name !== SUBREDDIT_SKY_CHILDREN_OF_LIGHT) {
+		return;
+	}
+
+	await userFlairsCheckFlair(author);
 	const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
 
 	if (typeof discordWebhookURL !== "string") {

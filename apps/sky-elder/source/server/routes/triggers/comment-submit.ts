@@ -12,19 +12,21 @@ import {
 	COMMENT_SUBMIT_COLOUR,
 	REDDIT_BASE_URL,
 	SETTINGS_COMMENTS_WEBHOOK_URL,
+	SUBREDDIT_SKY_CHILDREN_OF_LIGHT,
 } from "../../utility/constants.js";
 
 export async function postTriggersCommentSubmit(req: Request) {
-	const { comment, author, post } = req.body as OnCommentSubmitRequest;
+	const { comment, author, post, subreddit } = req.body as OnCommentSubmitRequest;
 
-	if (author) {
-		await userFlairsCheckFlair(author);
+	if (!(comment && author && post && subreddit)) {
+		throw new Error("Comment, author, post, or subreddit is missing from the request body.");
 	}
 
-	if (!(comment && author && post)) {
-		throw new Error("Comment, author, or post is missing from the request body.");
+	if (subreddit.name !== SUBREDDIT_SKY_CHILDREN_OF_LIGHT) {
+		return;
 	}
 
+	await userFlairsCheckFlair(author);
 	const discordWebhookURL = await settings.get(SETTINGS_COMMENTS_WEBHOOK_URL);
 
 	if (typeof discordWebhookURL !== "string") {

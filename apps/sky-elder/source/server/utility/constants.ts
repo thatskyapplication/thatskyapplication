@@ -21,6 +21,7 @@ export const REDIS_POST_FLAIRS_MESSAGE_ID_KEY = "post-flairs-message-id" as cons
 
 // Miscellaneous.
 export const REDDIT_BASE_URL = "https://reddit.com" as const;
+export const SUBREDDIT_SKY_CHILDREN_OF_LIGHT = "SkyChildrenOfLight" as const;
 export const COMMENT_SUBMIT_COLOUR = 0x4de063 as const;
 export const COMMENT_DELETE_COLOUR = 0xdf0a0e as const;
 export const COMMENT_UPDATE_COLOUR = 0xe7d881 as const;
