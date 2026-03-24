@@ -834,6 +834,7 @@ export default {
 			[EventId.DaysOfLove2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
 			[EventId.DaysOfFortune2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Fortune",
 			[EventId.DaysOfBloom2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
+			[EventId.DaysOfNature2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
