@@ -2,7 +2,6 @@ import {
 	type ShardEruptionData,
 	shardEruption,
 	skyNow,
-	skyToday,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
@@ -67,6 +66,8 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const shards = [];
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
+	const now = skyNow();
+	const today = now.startOf("day");
 	let page = pageParameter ? Number(pageParameter) : 0;
 
 	if (!Number.isInteger(page)) {
@@ -85,7 +86,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 		const todayFormat = new Intl.DateTimeFormat(locale, {
 			timeZone,
 			dateStyle: "full",
-		}).format(skyToday().plus({ days: index }).toMillis());
+		}).format(today.plus({ days: index }).toMillis());
 
 		shards.push({
 			shard: shard && {
@@ -115,7 +116,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 		});
 	}
 
-	return { shards, page };
+	return { currentUnix: now.toUnixInteger(), shards, page };
 };
 
 function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) {
@@ -195,13 +196,12 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 }
 
 export default function ShardEruption() {
-	const { shards, page } = useLoaderData<typeof loader>();
-	const now = skyNow();
+	const { currentUnix, shards, page } = useLoaderData<typeof loader>();
 
 	const shardCards = shards.map((shard) => (
 		<ShardEruptionCard
 			key={shard.todayFormat}
-			now={now.toUnixInteger()}
+			now={currentUnix}
 			shard={shard.shard}
 			todayFormat={shard.todayFormat}
 		/>

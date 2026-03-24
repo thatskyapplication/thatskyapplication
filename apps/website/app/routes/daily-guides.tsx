@@ -8,13 +8,13 @@ import {
 	shardEruption,
 	skyCurrentSeason,
 	skyNotEndedEvents,
-	skyNow,
 	skyUpcomingSeason,
 	Table,
 	TIME_ZONE,
 	treasureCandles,
 } from "@thatskyapplication/utility";
 import { AlertTriangle, ExternalLinkIcon, X } from "lucide-react";
+import { DateTime } from "luxon";
 import { type JSX, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
@@ -29,17 +29,19 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const locale = getLocale(context);
 	const dailyGuides = await pg<DailyGuidesPacket>(Table.DailyGuides);
 	const timeZone = await getPreferredTimeZone(request);
+	const initialTimestamp = Date.now();
 	const shard = shardEruption();
 
 	return data(
 		{
+			initialTimestamp,
 			locale,
 			timeZone,
 			dailyGuides: dailyGuides[0]!,
 			todayString: new Intl.DateTimeFormat(locale, {
 				timeZone: TIME_ZONE,
 				dateStyle: "full",
-			}).format(new Date()),
+			}).format(initialTimestamp),
 			shard: shard
 				? {
 						...shard,
@@ -71,10 +73,12 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 };
 
 export default function DailyGuides() {
-	const { locale, timeZone, dailyGuides, todayString, shard } = useLoaderData<typeof loader>();
+	const { initialTimestamp, locale, timeZone, dailyGuides, todayString, shard } =
+		useLoaderData<typeof loader>();
+
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
 	const { t } = useTranslation();
-	const now = skyNow();
+	const now = DateTime.fromMillis(initialTimestamp, { zone: TIME_ZONE });
 	const today = now.startOf("day");
 	const quest1 = dailyGuides.quest1;
 	const quest2 = dailyGuides.quest2;
