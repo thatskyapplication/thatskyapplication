@@ -218,6 +218,15 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		({ skyMap, url, reward } = area[realmIndex]!);
 	}
 
+	// On 26/03/2026, this was moved to the Boneyard (clashed with event).
+	if (
+		skyMap === SkyMap.KoiPond &&
+		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
+	) {
+		realmIndex = 1;
+		({ skyMap, url, reward } = area[realmIndex]!);
+	}
+
 	const timestamps: ShardEruptionTimestampsData[] = [];
 	let timestampLengthCheck = 3;
 	let shardPointer = date.plus({ milliseconds: offset });
