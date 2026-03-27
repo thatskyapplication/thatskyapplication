@@ -8991,6 +8991,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.BloomSunflowerUmbrella]: HELD_PROPS_EMOJIS.HeldProp62,
 		[Cosmetic.BloomSunflowerStuds]: HEAD_ACCESSORY_EMOJIS.HeadAccessory25,
 		[Cosmetic.LightmendingGuideQuest11]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.LightmendingGuideQuest12]: MISCELLANEOUS_EMOJIS.Quest,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

@@ -9,7 +9,6 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Lightmending,
 	realm: RealmName.VaultOfKnowledge,
 	offer: {
-		inProgress: true,
 		current: [
 			[
 				{
@@ -123,6 +122,12 @@ export default new GuideSpirit({
 				{
 					translation: { key: CosmeticCommon.QuestMultiple, number: 11 },
 					cosmetic: Cosmetic.LightmendingGuideQuest11,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 12 },
+					cosmetic: Cosmetic.LightmendingGuideQuest12,
 				},
 			],
 		],
