@@ -2702,6 +2702,7 @@ export default {
 			[Cosmetic.BloomSunflowerSundress]: "Bloom Sunflower Sundress",
 			[Cosmetic.BloomSunflowerUmbrella]: "Bloom Sunflower Umbrella",
 			[Cosmetic.BloomSunflowerStuds]: "Bloom Sunflower Studs",
+			[Cosmetic.CandleStand]: "Candle stand",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

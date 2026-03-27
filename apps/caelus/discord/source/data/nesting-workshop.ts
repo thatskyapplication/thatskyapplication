@@ -217,6 +217,10 @@ const items = resolveOfferFromItems([
 		cosmetic: Cosmetic.HangingMask,
 		cost: { ascendedCandles: 33 },
 	},
+	{
+		cosmetic: Cosmetic.CandleStand,
+		cost: { ascendedCandles: 6 },
+	},
 ]);
 
 export const NESTING_WORKSHOP = {

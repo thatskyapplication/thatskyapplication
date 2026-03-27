@@ -6003,6 +6003,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Sunflower Wall Shelf.
 	 */
 	SmallPlaceableProp121: { id: "1482687413384904815", name: "121_small_placeable_prop" },
+	/**
+	 * Candle stand.
+	 */
+	SmallPlaceableProp122: { id: "1487147895865213120", name: "122_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6126,6 +6130,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp119: { id: "1482687420456767570", name: "119_small_placeable_prop" },
 	SmallPlaceableProp120: { id: "1482687422377492601", name: "120_small_placeable_prop" },
 	SmallPlaceableProp121: { id: "1482687424524980245", name: "121_small_placeable_prop" },
+	SmallPlaceableProp122: { id: "1487147904144642158", name: "122_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean): {
@@ -8992,6 +8997,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.BloomSunflowerStuds]: HEAD_ACCESSORY_EMOJIS.HeadAccessory25,
 		[Cosmetic.LightmendingGuideQuest11]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest12]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.CandleStand]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp122,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
