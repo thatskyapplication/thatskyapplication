@@ -5,9 +5,11 @@ on:
       - main
     paths:
       - apps/notifications/**/*
+      - packages/utility/source/maintenance.ts
+      # Ensure a shard eruption change triggers this workflow.
+      - packages/utility/source/shard-eruption.ts
       # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/spirits/**/*
-      - packages/utility/source/maintenance.ts
   workflow_dispatch:
 concurrency:
   group: deploy-notifications

@@ -5,6 +5,8 @@ on:
       - main
     paths:
       - apps/caelus/fluxer/**/*
+      # Ensure a shard eruption change triggers this workflow.
+      - packages/utility/source/shard-eruption.ts
   workflow_dispatch:
 concurrency:
   group: deploy-caelus-fluxer

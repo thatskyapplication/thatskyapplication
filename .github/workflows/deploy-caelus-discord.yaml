@@ -5,6 +5,8 @@ on:
       - main
     paths:
       - apps/caelus/discord/**/*
+      # Ensure a shard eruption change triggers this workflow.
+      - packages/utility/source/shard-eruption.ts
       # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/spirits/**/*
   workflow_dispatch:

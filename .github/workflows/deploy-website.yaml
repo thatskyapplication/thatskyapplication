@@ -5,7 +5,9 @@ on:
       - main
     paths:
       - apps/website/**/*
-        # Ensure a change in travelling spirits triggers this workflow.
+      # Ensure a shard eruption change triggers this workflow.
+      - packages/utility/source/shard-eruption.ts
+      # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/spirits/**/*
   workflow_dispatch:
 concurrency:
