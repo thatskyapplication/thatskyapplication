@@ -227,6 +227,15 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		({ skyMap, url, reward } = area[realmIndex]!);
 	}
 
+	// On 29/03/2026, this was moved to the Forgotten Ark (clashed with event).
+	if (
+		skyMap === SkyMap.ForgottenArk &&
+		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
+	) {
+		realmIndex = 0;
+		({ skyMap, url, reward } = area[realmIndex]!);
+	}
+
 	const timestamps: ShardEruptionTimestampsData[] = [];
 	let timestampLengthCheck = 3;
 	let shardPointer = date.plus({ milliseconds: offset });
