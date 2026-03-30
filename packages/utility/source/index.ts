@@ -170,6 +170,7 @@ export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
 export {
 	isSkyProfilePersonalityType,
 	SKY_PROFILE_EDIT_TYPE_VALUES,
+	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
 	SKY_PROFILE_RESET_TYPE_VALUES,

@@ -1,4 +1,5 @@
 import {
+	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SkyProfileEditType,
 	type SkyProfilePacket,
@@ -18,7 +19,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("name")
+		.select("name", "description")
 		.where({ user_id: discordUser.id })
 		.first();
 
@@ -29,38 +30,50 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("name")
+		.select("name", "description")
 		.where({ user_id: discordUser.id })
 		.first();
 
 	const formData = await request.formData();
 	const rawName = formData.get("name");
-
-	if (typeof rawName !== "string") {
-		return { ok: false, message: "Field is required." } as const;
-	}
-
-	const name = rawName.trim();
+	const rawDescription = formData.get("description");
+	const name = typeof rawName === "string" ? rawName.trim() : "";
+	const description = typeof rawDescription === "string" ? rawDescription.trim() : "";
+	const initialName = skyProfilePacket?.name?.trim() ?? "";
+	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
+	const errors: { description?: string; name?: string } = {};
 
 	if (name.length === 0) {
-		return { ok: false, message: "Field is required." } as const;
+		errors.name = "Name is required.";
 	}
 
 	if (name.length > SKY_PROFILE_MAXIMUM_NAME_LENGTH) {
-		return {
-			ok: false,
-			message: `Name must not exceed ${SKY_PROFILE_MAXIMUM_NAME_LENGTH} characters.`,
-		} as const;
+		errors.name = `Name must not exceed ${SKY_PROFILE_MAXIMUM_NAME_LENGTH} characters.`;
 	}
 
-	if (name === (skyProfilePacket?.name ?? "")) {
+	if (description.length > SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH) {
+		errors.description = `Description must not exceed ${SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH} characters.`;
+	}
+
+	if (Object.keys(errors).length > 0) {
+		return { ok: false, errors } as const;
+	}
+
+	if (name === initialName && description === initialDescription) {
 		return null;
 	}
 
 	await pg<SkyProfilePacket>(Table.Profiles)
-		.insert({ user_id: discordUser.id, name })
+		.insert({
+			user_id: discordUser.id,
+			name,
+			description: description.length > 0 ? description : null,
+		})
 		.onConflict("user_id")
-		.merge({ name });
+		.merge({
+			name,
+			description: description.length > 0 ? description : null,
+		});
 
 	return { ok: true } as const;
 };
@@ -69,10 +82,17 @@ export default function MeSkyProfile() {
 	const { discordUserId, skyProfilePacket } = useLoaderData<typeof loader>();
 	const actionData = useActionData<typeof action>();
 	const { t } = useTranslation();
-	const initialName = skyProfilePacket?.name ?? "";
+	const initialName = skyProfilePacket?.name?.trim() ?? "";
+	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [nameValue, setNameValue] = useState(initialName);
-	const hasChanges = nameValue.trim() !== initialName;
+	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
+
+	const hasChanges =
+		nameValue.trim() !== initialName || descriptionValue.trim() !== initialDescription;
+
+	const nameError = actionData?.ok === false ? actionData.errors.name : undefined;
+	const descriptionError = actionData?.ok === false ? actionData.errors.description : undefined;
 
 	useEffect(() => {
 		if (actionData?.ok !== true) {
@@ -107,42 +127,81 @@ export default function MeSkyProfile() {
 				<div>
 					<h1 className="mb-1 text-4xl font-bold">Sky profile</h1>
 					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
-						Update your Sky profile here. For now, you can set your name.
+						Update your Sky profile here. For now, you can set your name and description.
 					</p>
 				</div>
 
 				<Form
-					key={initialName}
+					key={`${initialName}:${initialDescription}`}
 					method="post"
-					onReset={() => setNameValue(initialName)}
+					onReset={() => {
+						setNameValue(initialName);
+						setDescriptionValue(initialDescription);
+					}}
 					onSubmit={handleSubmit}
 				>
-					<div className="rounded-lg border border-gray-200 bg-gray-100 p-5 shadow-md dark:border-gray-700 dark:bg-gray-900">
-						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
-							{t(`sky-profile.edit-type-label.${SkyProfileEditType.Name}`, {
-								ns: "features",
-							})}
-						</h2>
-						<div>
-							<label className="mb-2 block text-sm text-gray-600 dark:text-gray-400" htmlFor="name">
-								{t(`sky-profile.edit-type-description.${SkyProfileEditType.Name}`, {
+					<div className="flex flex-col gap-4">
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Name}`, {
 									ns: "features",
 								})}
-							</label>
-							<input
-								aria-invalid={actionData?.ok === false ? true : undefined}
-								className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
-								defaultValue={skyProfilePacket?.name ?? ""}
-								id="name"
-								maxLength={SKY_PROFILE_MAXIMUM_NAME_LENGTH}
-								name="name"
-								onChange={(event) => setNameValue(event.currentTarget.value)}
-								required
-								type="text"
-							/>
-							{actionData?.ok === false ? (
-								<p className="mt-2 text-sm text-red-600 dark:text-red-400">{actionData.message}</p>
-							) : null}
+							</h2>
+							<div className="flex flex-col gap-2">
+								<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="name">
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Name}`, {
+										ns: "features",
+									})}
+								</label>
+								<input
+									aria-describedby={nameError ? "name-error" : undefined}
+									aria-invalid={nameError ? true : undefined}
+									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+									defaultValue={initialName}
+									id="name"
+									maxLength={SKY_PROFILE_MAXIMUM_NAME_LENGTH}
+									name="name"
+									onChange={(event) => setNameValue(event.currentTarget.value)}
+									required
+									type="text"
+								/>
+								{nameError ? (
+									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="name-error">
+										{nameError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Description}`, {
+									ns: "features",
+								})}
+							</h2>
+							<div className="flex flex-col gap-2">
+								<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="description">
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Description}`, {
+										ns: "features",
+									})}
+								</label>
+								<textarea
+									aria-describedby={descriptionError ? "description-error" : undefined}
+									aria-invalid={descriptionError ? true : undefined}
+									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+									defaultValue={initialDescription}
+									id="description"
+									maxLength={SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH}
+									name="description"
+									onChange={(event) => setDescriptionValue(event.currentTarget.value)}
+									rows={4}
+								/>
+								{descriptionError ? (
+									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="description-error">
+										{descriptionError}
+									</p>
+								) : null}
+							</div>
 						</div>
 					</div>
 
@@ -163,7 +222,7 @@ export default function MeSkyProfile() {
 								Reset
 							</button>
 						</div>
-						{skyProfilePacket?.name ? (
+						{initialName ? (
 							<Link
 								className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-black px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-black/80 dark:border-gray-600 dark:bg-white dark:text-black dark:hover:bg-white/80"
 								to={`/sky-profiles/${discordUserId}`}
