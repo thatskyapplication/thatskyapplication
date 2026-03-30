@@ -40,11 +40,6 @@ function UserMenu({ user }: UserMenuProps) {
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: This is fine.
-	useEffect(() => {
-		setIsOpen(false);
-	}, [location.pathname]);
-
 	useEffect(() => {
 		function handleEscape(event: KeyboardEvent) {
 			if (event.key === "Escape") {
@@ -137,7 +132,6 @@ function LoginButton() {
 
 function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isActive: boolean }) {
 	const [isOpen, setIsOpen] = useState(false);
-	const location = useLocation();
 	const dropdownRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
@@ -150,11 +144,6 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 		document.addEventListener("mousedown", handleClickOutside);
 		return () => document.removeEventListener("mousedown", handleClickOutside);
 	}, []);
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: This is fine.
-	useEffect(() => {
-		setIsOpen(false);
-	}, [location.pathname]);
 
 	useEffect(() => {
 		function handleEscape(event: KeyboardEvent) {
@@ -377,16 +366,11 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	);
 }
 
-export function SiteTopBar({ user }: SiteTopBarProps) {
+function SiteTopBarContent({ user }: SiteTopBarProps) {
 	const location = useLocation();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const topBarRef = useRef<HTMLDivElement>(null);
 	const navigationGroups = useNavigationGroups();
-
-	// biome-ignore lint/correctness/useExhaustiveDependencies: This is fine.
-	useEffect(() => {
-		setMobileMenuOpen(false);
-	}, [location.pathname]);
 
 	useEffect(() => {
 		const handleEscape = (event: KeyboardEvent) => {
@@ -491,6 +475,11 @@ export function SiteTopBar({ user }: SiteTopBarProps) {
 			<MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} user={user} />
 		</>
 	);
+}
+
+export function SiteTopBar({ user }: SiteTopBarProps) {
+	const { pathname } = useLocation();
+	return <SiteTopBarContent key={pathname} user={user} />;
 }
 
 export function SiteFooter() {
