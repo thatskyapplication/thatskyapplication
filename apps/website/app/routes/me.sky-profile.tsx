@@ -5,7 +5,7 @@ import {
 	Table,
 } from "@thatskyapplication/utility";
 import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
-import type { FormEvent } from "react";
+import type { SyntheticEvent } from "react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
@@ -85,7 +85,7 @@ export default function MeSkyProfile() {
 		return () => window.clearTimeout(timeout);
 	}, [actionData]);
 
-	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (event: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		if (!hasChanges) {
 			event.preventDefault();
 		}
