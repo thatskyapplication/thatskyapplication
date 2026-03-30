@@ -93,7 +93,7 @@ export default function MeSkyProfile() {
 
 	return (
 		<SitePage>
-			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
+			<div className="mx-auto flex w-full max-w-3xl flex-col gap-5">
 				<div>
 					<Link
 						className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
@@ -105,8 +105,8 @@ export default function MeSkyProfile() {
 				</div>
 
 				<div>
-					<h1 className="mb-2">Sky profile</h1>
-					<p className="mb-0 text-gray-600 dark:text-gray-400">
+					<h1 className="mb-1 text-4xl font-bold">Sky profile</h1>
+					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
 						Update your Sky profile here. For now, you can set your name.
 					</p>
 				</div>
@@ -117,7 +117,7 @@ export default function MeSkyProfile() {
 					onReset={() => setNameValue(initialName)}
 					onSubmit={handleSubmit}
 				>
-					<div className="rounded-lg border border-gray-200 bg-gray-100 p-6 shadow-md dark:border-gray-700 dark:bg-gray-900">
+					<div className="rounded-lg border border-gray-200 bg-gray-100 p-5 shadow-md dark:border-gray-700 dark:bg-gray-900">
 						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
 							{t(`sky-profile.edit-type-label.${SkyProfileEditType.Name}`, {
 								ns: "features",
@@ -131,7 +131,7 @@ export default function MeSkyProfile() {
 							</label>
 							<input
 								aria-invalid={actionData?.ok === false ? true : undefined}
-								className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+								className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
 								defaultValue={skyProfilePacket?.name ?? ""}
 								id="name"
 								maxLength={SKY_PROFILE_MAXIMUM_NAME_LENGTH}
@@ -146,17 +146,17 @@ export default function MeSkyProfile() {
 						</div>
 					</div>
 
-					<div className="mt-6 flex flex-col gap-3 sm:flex-row">
-						<div className="flex flex-col gap-3 sm:flex-row">
+					<div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
+						<div className="flex flex-col gap-2.5 sm:flex-row">
 							<button
-								className="inline-flex cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-green-600 px-5 py-3 font-medium text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 dark:border-gray-600"
+								className="inline-flex cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-green-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 dark:border-gray-600"
 								disabled={!hasChanges}
 								type="submit"
 							>
 								Save Sky profile
 							</button>
 							<button
-								className="inline-flex cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-200 px-5 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200/70 disabled:text-gray-900/70 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 dark:disabled:bg-gray-700/70 dark:disabled:text-gray-100/70"
+								className="inline-flex cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-200 px-4 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200/70 disabled:text-gray-900/70 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 dark:disabled:bg-gray-700/70 dark:disabled:text-gray-100/70"
 								disabled={!hasChanges}
 								type="reset"
 							>
@@ -165,7 +165,7 @@ export default function MeSkyProfile() {
 						</div>
 						{skyProfilePacket?.name ? (
 							<Link
-								className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-black px-5 py-3 font-medium text-white transition-colors hover:bg-black/80 dark:border-gray-600 dark:bg-white dark:text-black dark:hover:bg-white/80"
+								className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-black px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-black/80 dark:border-gray-600 dark:bg-white dark:text-black dark:hover:bg-white/80"
 								to={`/sky-profiles/${discordUserId}`}
 							>
 								<ExternalLinkIcon className="h-4 w-4" />
@@ -174,7 +174,7 @@ export default function MeSkyProfile() {
 						) : null}
 					</div>
 					{showSuccess ? (
-						<div className="mt-4 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-green-800 dark:border-green-700 dark:bg-green-900/20 dark:text-green-200">
+						<div className="mt-3 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800 dark:border-green-700 dark:bg-green-900/20 dark:text-green-200">
 							<Check className="h-5 w-5" />
 							<span>Sky profile saved!</span>
 						</div>

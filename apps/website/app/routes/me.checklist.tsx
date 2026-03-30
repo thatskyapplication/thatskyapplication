@@ -125,7 +125,7 @@ export default function Checklist() {
 
 	return (
 		<SitePage>
-			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
+			<div className="mx-auto flex w-full max-w-3xl flex-col gap-5">
 				<div>
 					<Link
 						className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
@@ -137,10 +137,10 @@ export default function Checklist() {
 				</div>
 
 				<div>
-					<h1 className="mb-2 text-gray-900 dark:text-gray-100">
+					<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
 						{t("checklist.title", { ns: "features" })}
 					</h1>
-					<p className="mb-0 text-gray-600 dark:text-gray-400">
+					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
 						{t("checklist.description", { ns: "features", user: discordUser.username })}
 					</p>
 				</div>
@@ -154,7 +154,7 @@ export default function Checklist() {
 								value={Number(checklistPacket?.daily_quests ?? false)}
 							/>
 							<button
-								className={`cursor-pointer h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+								className={`cursor-pointer h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 hover:shadow-md ${
 									checklistPacket?.daily_quests
 										? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
 										: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
@@ -185,7 +185,7 @@ export default function Checklist() {
 									</div>
 								</div>
 								<Link
-									className="shrink-0 px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
+									className="shrink-0 px-2.5 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
 									onClick={(event) => event.stopPropagation()}
 									to="/daily-guides"
 								>
@@ -204,7 +204,7 @@ export default function Checklist() {
 									value={Number(checklistPacket?.seasonal_candles ?? false)}
 								/>
 								<button
-									className={`cursor-pointer h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+									className={`cursor-pointer h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 hover:shadow-md ${
 										checklistPacket?.seasonal_candles
 											? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
 											: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
@@ -253,7 +253,7 @@ export default function Checklist() {
 								value={Number(checklistPacket?.eye_of_eden ?? false)}
 							/>
 							<button
-								className={`cursor-pointer h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+								className={`cursor-pointer h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 hover:shadow-md ${
 									checklistPacket?.eye_of_eden
 										? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
 										: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
@@ -295,7 +295,7 @@ export default function Checklist() {
 								value={Number(checklistPacket?.shard_eruptions ?? false)}
 							/>
 							<div
-								className={`h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 ${
+								className={`h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 ${
 									shard === null
 										? "bg-gray-100 dark:bg-gray-900 border-gray-300 dark:border-gray-700"
 										: checklistPacket?.shard_eruptions
@@ -347,7 +347,7 @@ export default function Checklist() {
 									</div>
 								</button>
 								<Link
-									className="shrink-0 px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
+									className="shrink-0 px-2.5 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
 									to="/shard-eruption"
 								>
 									{t("view", { ns: "general" })}
@@ -365,7 +365,7 @@ export default function Checklist() {
 									value={Number(checklistPacket?.event_tickets ?? false)}
 								/>
 								<button
-									className={`cursor-pointer h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+									className={`cursor-pointer h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 hover:shadow-md ${
 										checklistPacket?.event_tickets
 											? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
 											: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
