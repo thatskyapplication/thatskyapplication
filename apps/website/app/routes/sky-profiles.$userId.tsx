@@ -25,8 +25,8 @@ import {
 	Link,
 	type MetaFunction,
 	useLoaderData,
+	useLocation,
 	useRouteError,
-	useSearchParams,
 } from "react-router";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import pg from "~/pg.server";
@@ -242,31 +242,17 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 
 export default function SkyProfile() {
 	const { data, maximumWingedLight } = useLoaderData<typeof loader>();
-	const [searchParams] = useSearchParams();
+	const location = useLocation();
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
 
-	// Preserve relevant search parameters for the main page.
-	const returnParams = new URLSearchParams();
-	const name = searchParams.get("name");
-	const country = searchParams.get("country");
-	const page = searchParams.get("page");
-
-	if (name) {
-		returnParams.set("name", name);
-	}
-
-	if (country) {
-		returnParams.set("country", country);
-	}
-
-	if (page) {
-		returnParams.set("page", page);
-	}
-
-	const backURL = returnParams.toString()
-		? `/sky-profiles?${returnParams.toString()}`
-		: "/sky-profiles";
+	const backURL =
+		typeof location.state === "object" &&
+		location.state !== null &&
+		"returnTo" in location.state &&
+		typeof location.state.returnTo === "string"
+			? location.state.returnTo
+			: "/sky-profiles";
 
 	return (
 		<SitePage>

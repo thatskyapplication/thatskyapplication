@@ -9,7 +9,14 @@ import {
 } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
-import { data, Link, type MetaFunction, useLoaderData, useSearchParams } from "react-router";
+import {
+	data,
+	Link,
+	type MetaFunction,
+	useLoaderData,
+	useLocation,
+	useSearchParams,
+} from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
 import Select from "~/components/Select";
@@ -123,12 +130,13 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	);
 };
 
-function SkyProfileCard(profile: SkyProfilePacket, returnParams: string) {
+function SkyProfileCard(profile: SkyProfilePacket, returnTo: string) {
 	return (
 		<Link
 			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-[550px]"
 			key={profile.user_id}
-			to={`/sky-profiles/${profile.user_id}${returnParams ? `?${returnParams}` : ""}`}
+			state={{ returnTo }}
+			to={`/sky-profiles/${profile.user_id}`}
 		>
 			<div className="relative">
 				{profile.banner ? (
@@ -206,6 +214,7 @@ function SkyProfileCard(profile: SkyProfilePacket, returnParams: string) {
 
 export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
+	const location = useLocation();
 	const { t } = useTranslation();
 	const locale = useTranslation().i18n.language;
 	const { profiles, currentPage, maximumPage, discordUser } = data;
@@ -302,24 +311,9 @@ export default function SkyProfiles() {
 				{profiles.length > 0 ? (
 					<>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-							{profiles.map((profile) => {
-								// Preserve relevant search parameters when coming back.
-								const returnParams = new URLSearchParams();
-
-								if (name) {
-									returnParams.set("name", name);
-								}
-
-								if (country) {
-									returnParams.set("country", country);
-								}
-
-								if (currentPage) {
-									returnParams.set("page", currentPage.toString());
-								}
-
-								return SkyProfileCard(profile, returnParams.toString());
-							})}
+							{profiles.map((profile) =>
+								SkyProfileCard(profile, `${location.pathname}${location.search}`),
+							)}
 						</div>
 						{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
 					</>
