@@ -61,7 +61,7 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					description: t("schedule.description-short", { ns: "features" }),
 				},
 				{
-					to: "/checklist",
+					to: "/me/checklist",
 					label: t("checklist.title", { ns: "features" }),
 					icon: <CheckSquare className="h-5 w-5" />,
 					description: t("checklist.description-short", { ns: "features" }),

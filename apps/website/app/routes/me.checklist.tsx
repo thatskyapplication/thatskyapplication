@@ -135,7 +135,6 @@ export default function Checklist() {
 					</p>
 				</div>
 				<div className="space-y-4 mb-6">
-					{/* Daily quests. */}
 					<div className="space-y-2">
 						<Form className="w-full" method="post">
 							<input
@@ -185,7 +184,6 @@ export default function Checklist() {
 						</Form>
 					</div>
 
-					{/* Seasonal Candles. */}
 					{season && (
 						<div>
 							<Form className="w-full" method="post">
@@ -234,7 +232,6 @@ export default function Checklist() {
 						</div>
 					)}
 
-					{/* Eye of Eden. */}
 					<div>
 						<Form className="w-full" method="post">
 							<input
@@ -277,7 +274,6 @@ export default function Checklist() {
 						</Form>
 					</div>
 
-					{/* Shard eruptions. */}
 					<div className="space-y-2">
 						<Form className="w-full" method="post">
 							<input
@@ -338,7 +334,6 @@ export default function Checklist() {
 						</Form>
 					</div>
 
-					{/* Event tickets. */}
 					{isAnyEventWithEventTickets && (
 						<div>
 							<Form className="w-full" method="post">

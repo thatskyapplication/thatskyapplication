@@ -101,7 +101,7 @@ function UserMenu({ user }: UserMenuProps) {
 						<Link
 							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
 							onClick={() => setIsOpen(false)}
-							to="/checklist"
+							to="/me/checklist"
 						>
 							<CheckSquare className="h-4 w-4" />
 							<span>{t("checklist.title", { ns: "features" })}</span>
@@ -288,7 +288,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 								<Link
 									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
 									onClick={onClose}
-									to="/checklist"
+									to="/me/checklist"
 								>
 									<CheckSquare className="h-4 w-4" />
 									{t("checklist.title", { ns: "features" })}
