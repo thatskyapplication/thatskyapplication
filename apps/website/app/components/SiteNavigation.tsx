@@ -1,6 +1,6 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
-import { Bot, CheckSquare, ChevronDown, LogIn, LogOut, Menu, User, X } from "lucide-react";
+import { Bot, CheckSquare, ChevronDown, LogIn, LogOut, Menu, User, Users, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
@@ -85,18 +85,26 @@ function UserMenu({ user }: UserMenuProps) {
 						<Link
 							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
 							onClick={() => setIsOpen(false)}
-							to="/checklist"
+							to="/me"
 						>
-							<CheckSquare className="h-4 w-4" />
-							<span>{t("checklist.title", { ns: "features" })}</span>
+							<User className="h-4 w-4" />
+							<span>My area</span>
 						</Link>
 						<Link
 							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
 							onClick={() => setIsOpen(false)}
-							to="/me"
+							to={`/sky-profiles/${user.id}`}
 						>
-							<User className="h-4 w-4" />
-							<span>Me</span>
+							<Users className="h-4 w-4" />
+							<span>{t("sky-profile.name", { ns: "features" })}</span>
+						</Link>
+						<Link
+							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+							onClick={() => setIsOpen(false)}
+							to="/checklist"
+						>
+							<CheckSquare className="h-4 w-4" />
+							<span>{t("checklist.title", { ns: "features" })}</span>
 						</Link>
 						<div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
 							<Link
@@ -264,18 +272,26 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 								<Link
 									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
 									onClick={onClose}
-									to="/checklist"
+									to="/me"
 								>
-									<CheckSquare className="h-4 w-4" />
-									{t("checklist.title", { ns: "features" })}
+									<User className="h-4 w-4" />
+									My area
 								</Link>
 								<Link
 									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
 									onClick={onClose}
-									to="/me"
+									to={`/sky-profiles/${user.id}`}
 								>
-									<User className="h-4 w-4" />
-									Me
+									<Users className="h-4 w-4" />
+									{t("sky-profile.name", { ns: "features" })}
+								</Link>
+								<Link
+									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
+									onClick={onClose}
+									to="/checklist"
+								>
+									<CheckSquare className="h-4 w-4" />
+									{t("checklist.title", { ns: "features" })}
 								</Link>
 								<Link
 									className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
