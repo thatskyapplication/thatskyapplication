@@ -208,14 +208,14 @@ export default function MeSkyProfile() {
 					<div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
 						<div className="flex flex-col gap-2.5 sm:flex-row">
 							<button
-								className="inline-flex cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-green-600 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 dark:border-gray-600"
+								className="inline-flex cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-colors duration-300 hover:bg-green-700 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 disabled:shadow-md dark:border-gray-600"
 								disabled={!hasChanges}
 								type="submit"
 							>
 								Save Sky profile
 							</button>
 							<button
-								className="inline-flex cursor-pointer items-center justify-center rounded-lg border border-gray-300 bg-gray-200 px-4 py-2.5 text-sm font-medium text-gray-900 transition-colors hover:bg-gray-300 disabled:cursor-not-allowed disabled:bg-gray-200/70 disabled:text-gray-900/70 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 dark:disabled:bg-gray-700/70 dark:disabled:text-gray-100/70"
+								className="inline-flex cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 shadow-md transition-colors duration-300 hover:bg-gray-300 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200/70 disabled:text-gray-900/70 disabled:shadow-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 dark:disabled:bg-gray-700/70 dark:disabled:text-gray-100/70"
 								disabled={!hasChanges}
 								type="reset"
 							>
@@ -224,7 +224,7 @@ export default function MeSkyProfile() {
 						</div>
 						{initialName ? (
 							<Link
-								className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-black px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-black/80 dark:border-gray-600 dark:bg-white dark:text-black dark:hover:bg-white/80"
+								className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2 transition-colors duration-300 overflow-auto"
 								to={`/sky-profiles/${discordUserId}`}
 							>
 								<ExternalLinkIcon className="h-4 w-4" />
