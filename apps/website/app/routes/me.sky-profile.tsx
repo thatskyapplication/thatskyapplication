@@ -142,7 +142,7 @@ export default function MeSkyProfile() {
 				>
 					<div className="flex flex-col gap-4">
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
 								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Name}`, {
 									ns: "features",
 								})}
@@ -174,7 +174,7 @@ export default function MeSkyProfile() {
 						</div>
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
 								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Description}`, {
 									ns: "features",
 								})}
