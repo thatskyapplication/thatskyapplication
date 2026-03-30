@@ -7,6 +7,7 @@ import {
 	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import {
@@ -227,6 +228,49 @@ export default function SkyProfiles() {
 	const name = "name" in data ? data.name : null;
 	const country = "country" in data ? data.country : null;
 	const [_, setSearchParams] = useSearchParams();
+	const nameInputRef = useRef<HTMLInputElement>(null);
+	const countryValueRef = useRef(country ?? "");
+	countryValueRef.current = country ?? "";
+
+	const updateFilters = ({ name, country }: { name: string; country: string }) => {
+		const trimmedName = name.trim();
+
+		setSearchParams((prev) => {
+			const newParams = new URLSearchParams(prev);
+			trimmedName ? newParams.set("name", trimmedName) : newParams.delete("name");
+			country ? newParams.set("country", country) : newParams.delete("country");
+			newParams.delete("page");
+			return newParams;
+		});
+	};
+
+	useEffect(() => {
+		const input = nameInputRef.current;
+
+		if (!input) {
+			return;
+		}
+
+		const handleSearch = () => {
+			const trimmedName = input.value.trim();
+
+			setSearchParams((prev) => {
+				const newParams = new URLSearchParams(prev);
+				trimmedName ? newParams.set("name", trimmedName) : newParams.delete("name");
+
+				countryValueRef.current
+					? newParams.set("country", countryValueRef.current)
+					: newParams.delete("country");
+
+				newParams.delete("page");
+				return newParams;
+			});
+		};
+
+		input.addEventListener("search", handleSearch);
+
+		return () => input.removeEventListener("search", handleSearch);
+	}, [setSearchParams]);
 
 	return (
 		<SitePage>
@@ -238,28 +282,25 @@ export default function SkyProfiles() {
 							defaultValue={name ?? ""}
 							onKeyDown={(event) => {
 								if (event.key === "Enter") {
-									const value = event.currentTarget.value.trim();
-
-									setSearchParams((prev) => {
-										const newParams = new URLSearchParams(prev);
-										value ? newParams.set("name", value) : newParams.delete("name");
-										newParams.delete("page");
-										return newParams;
+									updateFilters({
+										name: event.currentTarget.value,
+										country: countryValueRef.current,
 									});
 								}
 							}}
 							placeholder={t("sky-profile.search-by-name", { ns: "features" })}
+							ref={nameInputRef}
 							type="search"
 						/>
 						<Select
 							className="w-64"
 							isClearable={true}
 							onChange={(value) => {
-								setSearchParams((prev) => {
-									const newParams = new URLSearchParams(prev);
-									value ? newParams.set("country", value) : newParams.delete("country");
-									newParams.delete("page");
-									return newParams;
+								countryValueRef.current = value;
+
+								updateFilters({
+									name: nameInputRef.current?.value ?? name ?? "",
+									country: value,
 								});
 							}}
 							options={[
