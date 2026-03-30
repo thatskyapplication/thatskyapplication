@@ -1,5 +1,5 @@
 import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
-import { Ellipsis, Users } from "lucide-react";
+import { CheckSquare, Ellipsis, Users } from "lucide-react";
 import type { LoaderFunctionArgs } from "react-router";
 import { Link, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
@@ -42,6 +42,16 @@ export default function Me() {
 						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
 							Sky profile
 						</h2>
+					</Link>
+
+					<Link
+						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-4 flex items-center gap-4 w-full sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+						to="/me/checklist"
+					>
+						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
+							<CheckSquare className="h-5 w-5" />
+						</div>
+						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">Checklist</h2>
 					</Link>
 
 					<div className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-4 flex items-center gap-4 w-full text-gray-600 dark:text-gray-400">
