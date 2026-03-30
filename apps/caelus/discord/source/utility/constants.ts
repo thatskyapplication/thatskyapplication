@@ -138,8 +138,6 @@ export const NotificationOffsetToMaximumValues = {
 } as const satisfies Readonly<Record<NotificationTypes, number>>;
 
 // Sky profiles.
-export const SKY_PROFILE_MINIMUM_HANGOUT_LENGTH = 2 as const;
-export const SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH = 50 as const;
 export const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;
 export const SKY_PROFILE_REPORT_MAXIMUM_LENGTH = 1000 as const;
 export const SKY_PROFILE_REPORT_MINIMUM_LENGTH = 10 as const;

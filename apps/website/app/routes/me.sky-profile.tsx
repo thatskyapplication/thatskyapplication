@@ -1,6 +1,8 @@
 import {
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
+	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
+	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 	SkyProfileEditType,
 	type SkyProfilePacket,
 	Table,
@@ -19,7 +21,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("name", "description")
+		.select("name", "description", "hangout")
 		.where({ user_id: discordUser.id })
 		.first();
 
@@ -30,18 +32,21 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("name", "description")
+		.select("name", "description", "hangout")
 		.where({ user_id: discordUser.id })
 		.first();
 
 	const formData = await request.formData();
 	const rawName = formData.get("name");
 	const rawDescription = formData.get("description");
+	const rawHangout = formData.get("hangout");
 	const name = typeof rawName === "string" ? rawName.trim() : "";
 	const description = typeof rawDescription === "string" ? rawDescription.trim() : "";
+	const hangout = typeof rawHangout === "string" ? rawHangout.trim() : "";
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
-	const errors: { description?: string; name?: string } = {};
+	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
+	const errors: { description?: string; hangout?: string; name?: string } = {};
 
 	if (name.length === 0) {
 		errors.name = "Name is required.";
@@ -55,11 +60,19 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 		errors.description = `Description must not exceed ${SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH} characters.`;
 	}
 
+	if (hangout.length > 0 && hangout.length < SKY_PROFILE_MINIMUM_HANGOUT_LENGTH) {
+		errors.hangout = `Hangout must be at least ${SKY_PROFILE_MINIMUM_HANGOUT_LENGTH} characters.`;
+	}
+
+	if (hangout.length > SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH) {
+		errors.hangout = `Hangout must not exceed ${SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH} characters.`;
+	}
+
 	if (Object.keys(errors).length > 0) {
 		return { ok: false, errors } as const;
 	}
 
-	if (name === initialName && description === initialDescription) {
+	if (name === initialName && description === initialDescription && hangout === initialHangout) {
 		return null;
 	}
 
@@ -68,11 +81,13 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 			user_id: discordUser.id,
 			name,
 			description: description.length > 0 ? description : null,
+			hangout: hangout.length > 0 ? hangout : null,
 		})
 		.onConflict("user_id")
 		.merge({
 			name,
 			description: description.length > 0 ? description : null,
+			hangout: hangout.length > 0 ? hangout : null,
 		});
 
 	return { ok: true } as const;
@@ -84,15 +99,20 @@ export default function MeSkyProfile() {
 	const { t } = useTranslation();
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
+	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
+	const [hangoutValue, setHangoutValue] = useState(initialHangout);
 
 	const hasChanges =
-		nameValue.trim() !== initialName || descriptionValue.trim() !== initialDescription;
+		nameValue.trim() !== initialName ||
+		descriptionValue.trim() !== initialDescription ||
+		hangoutValue.trim() !== initialHangout;
 
 	const nameError = actionData?.ok === false ? actionData.errors.name : undefined;
 	const descriptionError = actionData?.ok === false ? actionData.errors.description : undefined;
+	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
 
 	useEffect(() => {
 		if (actionData?.ok !== true) {
@@ -127,16 +147,17 @@ export default function MeSkyProfile() {
 				<div>
 					<h1 className="mb-1 text-4xl font-bold">Sky profile</h1>
 					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
-						Update your Sky profile here. For now, you can set your name and description.
+						Update your Sky profile here. For now, you can set your name, description and hangout.
 					</p>
 				</div>
 
 				<Form
-					key={`${initialName}:${initialDescription}`}
+					key={`${initialName}:${initialDescription}:${initialHangout}`}
 					method="post"
 					onReset={() => {
 						setNameValue(initialName);
 						setDescriptionValue(initialDescription);
+						setHangoutValue(initialHangout);
 					}}
 					onSubmit={handleSubmit}
 				>
@@ -203,6 +224,37 @@ export default function MeSkyProfile() {
 								) : null}
 							</div>
 						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Hangout}`, {
+									ns: "features",
+								})}
+							</h2>
+							<div className="flex flex-col gap-2">
+								<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="hangout">
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Hangout}`, {
+										ns: "features",
+									})}
+								</label>
+								<input
+									aria-describedby={hangoutError ? "hangout-error" : undefined}
+									aria-invalid={hangoutError ? true : undefined}
+									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+									defaultValue={initialHangout}
+									id="hangout"
+									maxLength={SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH}
+									name="hangout"
+									onChange={(event) => setHangoutValue(event.currentTarget.value)}
+									type="text"
+								/>
+								{hangoutError ? (
+									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="hangout-error">
+										{hangoutError}
+									</p>
+								) : null}
+							</div>
+						</div>
 					</div>
 
 					<div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
@@ -228,7 +280,7 @@ export default function MeSkyProfile() {
 								to={`/sky-profiles/${discordUserId}`}
 							>
 								<ExternalLinkIcon className="h-4 w-4" />
-								<span>View public profile</span>
+								<span>View Sky profile</span>
 							</Link>
 						) : null}
 					</div>
