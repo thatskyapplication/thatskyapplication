@@ -332,7 +332,7 @@ async function checklistRefresh(checklistPacket: ChecklistPacket) {
 		payload.eye_of_eden = false;
 	}
 
-	if (Object.keys(payload).length === 2) {
+	if (Object.keys(payload).length === 1) {
 		return;
 	}
 
