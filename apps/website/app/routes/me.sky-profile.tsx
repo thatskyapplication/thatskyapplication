@@ -100,7 +100,7 @@ export default function MeSkyProfile() {
 						to="/me"
 					>
 						<ArrowLeft className="h-4 w-4" />
-						<span>Back</span>
+						<span>{t("navigation-back", { ns: "general" })}</span>
 					</Link>
 				</div>
 
