@@ -21,6 +21,8 @@ export interface SkyProfilePacket {
 export type SkyProfileData = SkyProfilePacket &
 	Pick<Nullable<UsersPacket>, "supporter" | "artist" | "translator">;
 
+export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
+
 export const SkyProfileWingedLightType = {
 	InferFromCatalogue: 0,
 	Capeless: 1,
