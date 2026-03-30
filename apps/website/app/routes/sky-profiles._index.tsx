@@ -7,7 +7,7 @@ import {
 	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import {
@@ -30,6 +30,7 @@ import {
 	SKY_PROFILES_DESCRIPTION,
 } from "~/utility/constants";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
+import type { DiscordUser } from "~/utility/types";
 
 const NO_COUNTRY_VALUE = "none" as const;
 const PROFILES_PER_PAGE = 24 as const;
@@ -134,7 +135,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 function SkyProfileCard(profile: SkyProfilePacket, returnTo: string) {
 	return (
 		<Link
-			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-[550px]"
+			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-137.5"
 			key={profile.user_id}
 			state={{ returnTo }}
 			to={`/sky-profiles/${profile.user_id}`}
@@ -228,9 +229,6 @@ export default function SkyProfiles() {
 	const name = "name" in data ? data.name : null;
 	const country = "country" in data ? data.country : null;
 	const [_, setSearchParams] = useSearchParams();
-	const nameInputRef = useRef<HTMLInputElement>(null);
-	const countryValueRef = useRef(country ?? "");
-	countryValueRef.current = country ?? "";
 
 	const updateFilters = ({ name, country }: { name: string; country: string }) => {
 		const trimmedName = name.trim();
@@ -244,110 +242,19 @@ export default function SkyProfiles() {
 		});
 	};
 
-	useEffect(() => {
-		const input = nameInputRef.current;
-
-		if (!input) {
-			return;
-		}
-
-		const handleSearch = () => {
-			const trimmedName = input.value.trim();
-
-			setSearchParams((prev) => {
-				const newParams = new URLSearchParams(prev);
-				trimmedName ? newParams.set("name", trimmedName) : newParams.delete("name");
-
-				countryValueRef.current
-					? newParams.set("country", countryValueRef.current)
-					: newParams.delete("country");
-
-				newParams.delete("page");
-				return newParams;
-			});
-		};
-
-		input.addEventListener("search", handleSearch);
-
-		return () => input.removeEventListener("search", handleSearch);
-	}, [setSearchParams]);
-
 	return (
 		<SitePage>
 			<div className="container mx-auto">
 				<div className="flex flex-col items-center mb-8 gap-4">
-					<div className="flex flex-wrap items-center justify-center gap-4">
-						<input
-							className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
-							defaultValue={name ?? ""}
-							onKeyDown={(event) => {
-								if (event.key === "Enter") {
-									updateFilters({
-										name: event.currentTarget.value,
-										country: countryValueRef.current,
-									});
-								}
-							}}
-							placeholder={t("sky-profile.search-by-name", { ns: "features" })}
-							ref={nameInputRef}
-							type="search"
-						/>
-						<Select
-							className="w-64"
-							isClearable={true}
-							onChange={(value) => {
-								countryValueRef.current = value;
-
-								updateFilters({
-									name: nameInputRef.current?.value ?? name ?? "",
-									country: value,
-								});
-							}}
-							options={[
-								{
-									label: t("sky-profile.country-unspecified", { ns: "features" }),
-									value: NO_COUNTRY_VALUE,
-								},
-								...countries.map((skyProfilePacket) => ({
-									label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
-									value: skyProfilePacket.country,
-								})),
-							]}
-							placeholder={t("sky-profile.select-a-country", { ns: "features" })}
-							value={country ?? ""}
-						/>
-						<Link
-							className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-							to="/sky-profiles/random"
-						>
-							<div
-								aria-label="Question mark icon."
-								className="w-6 h-6 mr-2 bg-cover bg-center"
-								role="img"
-								style={{
-									backgroundImage:
-										"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
-								}}
-							/>
-							<span>{t("sky-profile.random", { ns: "features" })}</span>
-						</Link>
-						{discordUser && (
-							<Link
-								className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-								to={`/sky-profiles/${discordUser.id}`}
-							>
-								<div
-									aria-label="Sky kid icon."
-									className="w-6 h-6 mr-2 bg-cover bg-center"
-									role="img"
-									style={{
-										backgroundImage: `url(${SKY_KID_ICON_URL})`,
-									}}
-								/>
-								<span>{t("sky-profile.me", { ns: "features" })}</span>
-							</Link>
-						)}
-					</div>
+					<SkyProfilesFilters
+						countries={countries}
+						country={country}
+						discordUser={discordUser}
+						displayNames={displayNames}
+						key={`${name ?? ""}:${country ?? ""}`}
+						name={name}
+						onUpdateFilters={updateFilters}
+					/>
 				</div>
 				{profiles.length > 0 ? (
 					<>
@@ -382,5 +289,108 @@ export default function SkyProfiles() {
 				)}
 			</div>
 		</SitePage>
+	);
+}
+
+interface SkyProfilesFiltersProps {
+	countries: readonly Pick<
+		SkyProfilePacket & _NonNullableFields<Pick<SkyProfilePacket, "country">>,
+		"country"
+	>[];
+	country: string | null;
+	displayNames: Intl.DisplayNames;
+	discordUser: DiscordUser | null;
+	name: string | null;
+	onUpdateFilters: ({ name, country }: { name: string; country: string }) => void;
+}
+
+function SkyProfilesFilters({
+	countries,
+	country,
+	displayNames,
+	discordUser,
+	name,
+	onUpdateFilters,
+}: SkyProfilesFiltersProps) {
+	const { t } = useTranslation();
+	const [nameValue, setNameValue] = useState(name ?? "");
+
+	return (
+		<div className="flex flex-wrap items-center justify-center gap-4">
+			<input
+				className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
+				onChange={(event) => {
+					const nextName = event.currentTarget.value;
+					setNameValue(nextName);
+
+					if (nextName === "") {
+						onUpdateFilters({ country: country ?? "", name: "" });
+					}
+				}}
+				onKeyDown={(event) => {
+					if (event.key === "Enter") {
+						onUpdateFilters({
+							country: country ?? "",
+							name: nameValue,
+						});
+					}
+				}}
+				placeholder={t("sky-profile.search-by-name", { ns: "features" })}
+				type="search"
+				value={nameValue}
+			/>
+			<Select
+				className="w-64"
+				isClearable={true}
+				onChange={(value) => {
+					onUpdateFilters({
+						country: value,
+						name: nameValue,
+					});
+				}}
+				options={[
+					{
+						label: t("sky-profile.country-unspecified", { ns: "features" }),
+						value: NO_COUNTRY_VALUE,
+					},
+					...countries.map((skyProfilePacket) => ({
+						label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
+						value: skyProfilePacket.country,
+					})),
+				]}
+				placeholder={t("sky-profile.select-a-country", { ns: "features" })}
+				value={country ?? ""}
+			/>
+			<Link
+				className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+				to="/sky-profiles/random"
+			>
+				<div
+					aria-label="Question mark icon."
+					className="w-6 h-6 mr-2 bg-cover bg-center"
+					role="img"
+					style={{
+						backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
+					}}
+				/>
+				<span>{t("sky-profile.random", { ns: "features" })}</span>
+			</Link>
+			{discordUser && (
+				<Link
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+					to={`/sky-profiles/${discordUser.id}`}
+				>
+					<div
+						aria-label="Sky kid icon."
+						className="w-6 h-6 mr-2 bg-cover bg-center"
+						role="img"
+						style={{
+							backgroundImage: `url(${SKY_KID_ICON_URL})`,
+						}}
+					/>
+					<span>{t("sky-profile.me", { ns: "features" })}</span>
+				</Link>
+			)}
+		</div>
 	);
 }
