@@ -9,11 +9,11 @@ import {
 	skyToday,
 	Table,
 } from "@thatskyapplication/utility";
-import { CheckCircle, Circle } from "lucide-react";
+import { ArrowLeft, CheckCircle, Circle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Form, Link, useLoaderData } from "react-router";
-import { CentredSitePage } from "~/components/PageLayout";
+import { SitePage } from "~/components/PageLayout";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 
@@ -124,29 +124,40 @@ export default function Checklist() {
 	const { t } = useTranslation();
 
 	return (
-		<CentredSitePage>
-			<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl p-8 w-full max-w-lg">
-				<div className="text-center mb-6">
-					<h1 className="bg-linear-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">
+		<SitePage>
+			<div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
+				<div>
+					<Link
+						className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+						to="/me"
+					>
+						<ArrowLeft className="h-4 w-4" />
+						<span>Back</span>
+					</Link>
+				</div>
+
+				<div>
+					<h1 className="mb-2 text-gray-900 dark:text-gray-100">
 						{t("checklist.title", { ns: "features" })}
 					</h1>
-					<p className="text-gray-600 dark:text-gray-300 text-sm">
+					<p className="mb-0 text-gray-600 dark:text-gray-400">
 						{t("checklist.description", { ns: "features", user: discordUser.username })}
 					</p>
 				</div>
-				<div className="space-y-4 mb-6">
-					<div className="space-y-2">
-						<Form className="w-full" method="post">
+
+				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%-0.5rem)] md:[&>*:last-child]:w-full">
+					<div>
+						<Form className="flex h-full w-full" method="post">
 							<input
 								name="daily_quests"
 								type="hidden"
 								value={Number(checklistPacket?.daily_quests ?? false)}
 							/>
 							<button
-								className={`cursor-pointer w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+								className={`cursor-pointer h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
 									checklistPacket?.daily_quests
 										? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
-										: "bg-gray-50 dark:bg-gray-900/20 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900/30"
+										: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
 								}`}
 								type="submit"
 							>
@@ -186,17 +197,17 @@ export default function Checklist() {
 
 					{season && (
 						<div>
-							<Form className="w-full" method="post">
+							<Form className="flex h-full w-full" method="post">
 								<input
 									name="seasonal_candles"
 									type="hidden"
 									value={Number(checklistPacket?.seasonal_candles ?? false)}
 								/>
 								<button
-									className={`cursor-pointer w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+									className={`cursor-pointer h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
 										checklistPacket?.seasonal_candles
 											? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
-											: "bg-gray-50 dark:bg-gray-900/20 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900/30"
+											: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
 									}`}
 									type="submit"
 								>
@@ -224,7 +235,9 @@ export default function Checklist() {
 													? t("checklist.seasonal-candles-message-incomplete-double", {
 															ns: "features",
 														})
-													: t("checklist.seasonal-candles-message-incomplete", { ns: "features" })}
+													: t("checklist.seasonal-candles-message-incomplete", {
+															ns: "features",
+														})}
 										</div>
 									</div>
 								</button>
@@ -233,17 +246,17 @@ export default function Checklist() {
 					)}
 
 					<div>
-						<Form className="w-full" method="post">
+						<Form className="flex h-full w-full" method="post">
 							<input
 								name="eye_of_eden"
 								type="hidden"
 								value={Number(checklistPacket?.eye_of_eden ?? false)}
 							/>
 							<button
-								className={`cursor-pointer w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+								className={`cursor-pointer h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
 									checklistPacket?.eye_of_eden
 										? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
-										: "bg-gray-50 dark:bg-gray-900/20 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900/30"
+										: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
 								}`}
 								type="submit"
 							>
@@ -274,79 +287,88 @@ export default function Checklist() {
 						</Form>
 					</div>
 
-					<div className="space-y-2">
-						<Form className="w-full" method="post">
+					<div>
+						<Form className="flex h-full w-full" method="post">
 							<input
 								name="shard_eruptions"
 								type="hidden"
 								value={Number(checklistPacket?.shard_eruptions ?? false)}
 							/>
-							<button
-								className={`w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 ${
+							<div
+								className={`h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 ${
 									shard === null
-										? "opacity-75 cursor-not-allowed bg-gray-100 dark:bg-gray-800 border-gray-300 dark:border-gray-600"
+										? "bg-gray-100 dark:bg-gray-900 border-gray-300 dark:border-gray-700"
 										: checklistPacket?.shard_eruptions
 											? "cursor-pointer bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-md"
-											: "cursor-pointer bg-gray-50 dark:bg-gray-900/20 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900/30 hover:shadow-md"
+											: "cursor-pointer bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:shadow-md"
 								}`}
-								disabled={shard === null}
-								type="submit"
 							>
-								<div className="shrink-0">
-									{checklistPacket?.shard_eruptions ? (
-										<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
-									) : (
-										<Circle
-											className={`w-6 h-6 ${shard === null ? "text-gray-300 dark:text-gray-600" : "text-gray-400 dark:text-gray-500"}`}
-										/>
-									)}
-								</div>
-								<div className="text-left flex-1 min-w-0">
-									<div
-										className={`font-medium transition-colors ${
-											checklistPacket?.shard_eruptions
-												? "text-green-800 dark:text-green-200 line-through"
-												: shard === null
-													? "text-gray-400 dark:text-gray-600"
-													: "text-gray-900 dark:text-gray-100"
-										}`}
-									>
-										{t("shard-eruption.name-plural", { ns: "features" })}
+								<button
+									className="flex min-w-0 flex-1 items-center gap-3 text-left"
+									disabled={shard === null}
+									type="submit"
+								>
+									<div className="shrink-0">
+										{checklistPacket?.shard_eruptions ? (
+											<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+										) : (
+											<Circle
+												className={`w-6 h-6 ${shard === null ? "text-gray-300 dark:text-gray-600" : "text-gray-400 dark:text-gray-500"}`}
+											/>
+										)}
 									</div>
-									<div
-										className={`text-xs ${shard === null ? "text-gray-400 dark:text-gray-600" : "text-gray-500 dark:text-gray-400"}`}
-									>
-										{checklistPacket?.shard_eruptions
-											? t("checklist.shard-eruptions-message-complete", { ns: "features" })
-											: shard
-												? t("checklist.shard-eruptions-message-incomplete", { ns: "features" })
-												: t("checklist.shard-eruptions-message-none", { ns: "features" })}
+									<div className="text-left flex-1 min-w-0">
+										<div
+											className={`font-medium transition-colors ${
+												checklistPacket?.shard_eruptions
+													? "text-green-800 dark:text-green-200 line-through"
+													: shard === null
+														? "text-gray-400 dark:text-gray-600"
+														: "text-gray-900 dark:text-gray-100"
+											}`}
+										>
+											{t("shard-eruption.name-plural", { ns: "features" })}
+										</div>
+										<div
+											className={`text-xs ${shard === null ? "text-gray-400 dark:text-gray-600" : "text-gray-500 dark:text-gray-400"}`}
+										>
+											{checklistPacket?.shard_eruptions
+												? t("checklist.shard-eruptions-message-complete", {
+														ns: "features",
+													})
+												: shard
+													? t("checklist.shard-eruptions-message-incomplete", {
+															ns: "features",
+														})
+													: t("checklist.shard-eruptions-message-none", {
+															ns: "features",
+														})}
+										</div>
 									</div>
-								</div>
+								</button>
 								<Link
 									className="shrink-0 px-3 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
-									onClick={(event) => event.stopPropagation()}
 									to="/shard-eruption"
 								>
 									{t("view", { ns: "general" })}
 								</Link>
-							</button>
+							</div>
 						</Form>
 					</div>
 
 					{isAnyEventWithEventTickets && (
 						<div>
-							<Form className="w-full" method="post">
+							<Form className="flex h-full w-full" method="post">
 								<input
 									name="event_tickets"
 									type="hidden"
 									value={Number(checklistPacket?.event_tickets ?? false)}
 								/>
 								<button
-									className={`cursor-pointer w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
+									className={`cursor-pointer h-full w-full flex items-center gap-3 p-4 rounded-lg border transition-all duration-200 hover:shadow-md ${
 										checklistPacket?.event_tickets
 											? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
-											: "bg-gray-50 dark:bg-gray-900/20 border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900/30"
+											: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
 									}`}
 									type="submit"
 								>
@@ -379,6 +401,6 @@ export default function Checklist() {
 					)}
 				</div>
 			</div>
-		</CentredSitePage>
+		</SitePage>
 	);
 }
