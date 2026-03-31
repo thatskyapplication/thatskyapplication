@@ -185,11 +185,13 @@ export default function MeSkyProfile() {
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
+	const [iconPreviewURL, setIconPreviewURL] = useState<string | null>(null);
 	const cdnURL = useCDNURL();
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
 	const [hangoutValue, setHangoutValue] = useState(initialHangout);
 	const initialIconURL = initialIcon ? skyProfileIconURL(cdnURL, discordUserId, initialIcon) : null;
+	const displayedIconURL = iconPreviewURL ?? initialIconURL;
 
 	const hasChanges =
 		hasPendingIconUpload ||
@@ -203,11 +205,20 @@ export default function MeSkyProfile() {
 	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
 
 	useEffect(() => {
+		return () => {
+			if (iconPreviewURL) {
+				URL.revokeObjectURL(iconPreviewURL);
+			}
+		};
+	}, [iconPreviewURL]);
+
+	useEffect(() => {
 		if (actionData?.ok !== true) {
 			setShowSuccess(false);
 			return;
 		}
 
+		setIconPreviewURL(null);
 		setHasPendingIconUpload(false);
 		setShowSuccess(true);
 		const timeout = window.setTimeout(() => setShowSuccess(false), 3000);
@@ -246,6 +257,7 @@ export default function MeSkyProfile() {
 					key={`${initialIcon ?? ""}:${initialName}:${initialDescription}:${initialHangout}`}
 					method="post"
 					onReset={() => {
+						setIconPreviewURL(null);
 						setHasPendingIconUpload(false);
 						setNameValue(initialName);
 						setDescriptionValue(initialDescription);
@@ -262,12 +274,16 @@ export default function MeSkyProfile() {
 							</h2>
 							<div className="flex flex-col gap-3">
 								<div className="flex items-center gap-3">
-									{initialIconURL ? (
+									{displayedIconURL ? (
 										<div
-											aria-label="Current Sky profile icon."
+											aria-label={
+												iconPreviewURL
+													? "Selected Sky profile icon preview."
+													: "Current Sky profile icon."
+											}
 											className="h-20 w-20 rounded-full border border-gray-300 bg-cover bg-center shadow-sm dark:border-gray-600"
 											role="img"
-											style={{ backgroundImage: `url(${initialIconURL})` }}
+											style={{ backgroundImage: `url(${displayedIconURL})` }}
 										/>
 									) : (
 										<div className="flex h-20 w-20 items-center justify-center rounded-full border border-dashed border-gray-300 bg-white text-xs text-gray-500 shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400">
@@ -293,9 +309,11 @@ export default function MeSkyProfile() {
 										className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm outline-none transition-colors file:mr-3 file:rounded-sm file:border file:border-gray-300 file:bg-gray-100 file:px-3 file:py-2 file:text-sm file:text-gray-900 hover:file:bg-gray-200 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:file:border-gray-600 dark:file:bg-gray-700 dark:file:text-gray-100 dark:hover:file:bg-gray-600"
 										id="icon"
 										name="icon"
-										onChange={(event) =>
-											setHasPendingIconUpload(Boolean(event.currentTarget.files?.[0]))
-										}
+										onChange={(event) => {
+											const nextFile = event.currentTarget.files?.[0] ?? null;
+											setHasPendingIconUpload(Boolean(nextFile));
+											setIconPreviewURL(nextFile ? URL.createObjectURL(nextFile) : null);
+										}}
 										type="file"
 									/>
 									{iconError ? (
