@@ -1,4 +1,5 @@
 import { randomBytes } from "node:crypto";
+import { isbot } from "isbot";
 import { redirect } from "react-router";
 import { getSession } from "~/session.server.js";
 
@@ -16,6 +17,13 @@ export async function requireDiscordAuthentication(request: Request) {
 	const tokenExchange = session.get("token_exchange");
 
 	if (!(discordUser && tokenExchange) || Date.now() > tokenExchange.expires_at) {
+		const userAgent = request.headers.get("user-agent");
+
+		// Keep link unfurlers on-site so they read our metadata instead.
+		if (userAgent && isbot(userAgent)) {
+			throw redirect("/");
+		}
+
 		const returnTo = encodeURIComponent(request.url);
 		throw redirect(`/login?returnTo=${returnTo}`);
 	}
