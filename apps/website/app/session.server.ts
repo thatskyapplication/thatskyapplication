@@ -14,6 +14,7 @@ interface FlashData {
 	oauth_state?: string;
 	return_to?: string;
 	crowdin_state?: string;
+	just_logged_out?: boolean;
 }
 
 export const { getSession, commitSession, destroySession } = createCookieSessionStorage<
