@@ -208,6 +208,7 @@ export default function MeSkyProfile() {
 			return;
 		}
 
+		setHasPendingIconUpload(false);
 		setShowSuccess(true);
 		const timeout = window.setTimeout(() => setShowSuccess(false), 3000);
 		return () => window.clearTimeout(timeout);
