@@ -1,12 +1,16 @@
 import {
+	ALLOWED_IMAGE_MEDIA_TYPES,
+	MAXIMUM_ASSET_SIZE,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 	SkyProfileEditType,
 	type SkyProfilePacket,
+	skyProfileIconURL,
 	Table,
 } from "@thatskyapplication/utility";
+import { t } from "i18next";
 import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
 import type { SyntheticEvent } from "react";
 import { useEffect, useState } from "react";
@@ -14,39 +18,70 @@ import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Form, Link, useActionData, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
+import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
+import pino from "~/pino.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import {
+	deleteSkyProfileIcon,
+	isValidSkyProfileImageFile,
+	uploadSkyProfileIcon,
+} from "~/utility/sky-profile-assets.server.js";
+
+type SkyProfileActionErrors = {
+	description?: string;
+	hangout?: string;
+	icon?: string;
+	name?: string;
+};
+
+function hasSelectedFile(value: FormDataEntryValue | null): value is File {
+	return value instanceof File && value.size > 0 && value.name !== "";
+}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("name", "description", "hangout")
+		.select("icon", "name", "description", "hangout")
 		.where({ user_id: discordUser.id })
 		.first();
 
 	return { discordUserId: discordUser.id, skyProfilePacket };
 };
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
+	const locale = getLocale(context);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("name", "description", "hangout")
+		.select("icon", "name", "description", "hangout")
 		.where({ user_id: discordUser.id })
 		.first();
 
 	const formData = await request.formData();
+	const rawIcon = formData.get("icon");
 	const rawName = formData.get("name");
 	const rawDescription = formData.get("description");
 	const rawHangout = formData.get("hangout");
+	const hasNewIcon = hasSelectedFile(rawIcon);
 	const name = typeof rawName === "string" ? rawName.trim() : "";
 	const description = typeof rawDescription === "string" ? rawDescription.trim() : "";
 	const hangout = typeof rawHangout === "string" ? rawHangout.trim() : "";
+	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
-	const errors: { description?: string; hangout?: string; name?: string } = {};
+	const errors: SkyProfileActionErrors = {};
+
+	if (hasNewIcon && !isValidSkyProfileImageFile(rawIcon)) {
+		errors.icon = t("asset-image-invalid", {
+			lng: locale,
+			ns: "general",
+			size: MAXIMUM_ASSET_SIZE / 1_000_000,
+		});
+	}
 
 	if (name.length === 0) {
 		errors.name = "Name is required.";
@@ -72,23 +107,70 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 		return { ok: false, errors } as const;
 	}
 
-	if (name === initialName && description === initialDescription && hangout === initialHangout) {
+	if (
+		!hasNewIcon &&
+		name === initialName &&
+		description === initialDescription &&
+		hangout === initialHangout
+	) {
 		return null;
 	}
 
-	await pg<SkyProfilePacket>(Table.Profiles)
-		.insert({
-			user_id: discordUser.id,
-			name,
-			description: description.length > 0 ? description : null,
-			hangout: hangout.length > 0 ? hangout : null,
-		})
-		.onConflict("user_id")
-		.merge({
-			name,
-			description: description.length > 0 ? description : null,
-			hangout: hangout.length > 0 ? hangout : null,
+	let uploadedIcon: string | null = null;
+	let icon = initialIcon;
+
+	if (hasNewIcon) {
+		try {
+			uploadedIcon = await uploadSkyProfileIcon({
+				file: rawIcon,
+				userId: discordUser.id,
+			});
+
+			icon = uploadedIcon;
+		} catch (error) {
+			pino.error(error, "Failed to upload Sky profile icon.");
+			errors.icon = "Unable to upload icon.";
+
+			return {
+				ok: false,
+				errors,
+			} as const;
+		}
+	}
+
+	const skyProfileUpsertData: Partial<SkyProfilePacket> & Pick<SkyProfilePacket, "user_id"> = {
+		user_id: discordUser.id,
+		name,
+		description: description.length > 0 ? description : null,
+		hangout: hangout.length > 0 ? hangout : null,
+	};
+
+	if (hasNewIcon) {
+		skyProfileUpsertData.icon = icon;
+	}
+
+	try {
+		await pg<SkyProfilePacket>(Table.Profiles)
+			.insert(skyProfileUpsertData)
+			.onConflict("user_id")
+			.merge(skyProfileUpsertData);
+	} catch (error) {
+		if (uploadedIcon && uploadedIcon !== initialIcon) {
+			void deleteSkyProfileIcon({ icon: uploadedIcon, userId: discordUser.id }).catch(
+				(cleanupError) => {
+					pino.error(cleanupError, "Failed to clean up unreferenced Sky profile icon.");
+				},
+			);
+		}
+
+		throw error;
+	}
+
+	if (hasNewIcon && initialIcon && icon !== initialIcon) {
+		void deleteSkyProfileIcon({ icon: initialIcon, userId: discordUser.id }).catch((error) => {
+			pino.error(error, "Failed to delete replaced Sky profile icon.");
 		});
+	}
 
 	return { ok: true } as const;
 };
@@ -97,22 +179,38 @@ export default function MeSkyProfile() {
 	const { discordUserId, skyProfilePacket } = useLoaderData<typeof loader>();
 	const actionData = useActionData<typeof action>();
 	const { t } = useTranslation();
+	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const [showSuccess, setShowSuccess] = useState(false);
+	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
+	const [iconPreviewURL, setIconPreviewURL] = useState<string | null>(null);
+	const cdnURL = useCDNURL();
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
 	const [hangoutValue, setHangoutValue] = useState(initialHangout);
+	const initialIconURL = initialIcon ? skyProfileIconURL(cdnURL, discordUserId, initialIcon) : null;
+	const displayedIconURL = iconPreviewURL ?? initialIconURL;
 
 	const hasChanges =
+		hasPendingIconUpload ||
 		nameValue.trim() !== initialName ||
 		descriptionValue.trim() !== initialDescription ||
 		hangoutValue.trim() !== initialHangout;
 
+	const iconError = actionData?.ok === false ? actionData.errors.icon : undefined;
 	const nameError = actionData?.ok === false ? actionData.errors.name : undefined;
 	const descriptionError = actionData?.ok === false ? actionData.errors.description : undefined;
 	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
+
+	useEffect(() => {
+		return () => {
+			if (iconPreviewURL) {
+				URL.revokeObjectURL(iconPreviewURL);
+			}
+		};
+	}, [iconPreviewURL]);
 
 	useEffect(() => {
 		if (actionData?.ok !== true) {
@@ -120,6 +218,8 @@ export default function MeSkyProfile() {
 			return;
 		}
 
+		setIconPreviewURL(null);
+		setHasPendingIconUpload(false);
 		setShowSuccess(true);
 		const timeout = window.setTimeout(() => setShowSuccess(false), 3000);
 		return () => window.clearTimeout(timeout);
@@ -134,27 +234,29 @@ export default function MeSkyProfile() {
 	return (
 		<SitePage>
 			<div className="mx-auto flex w-full max-w-3xl flex-col gap-5">
-				<div>
-					<Link
-						className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-						to="/me"
-					>
-						<ArrowLeft className="h-4 w-4" />
-						<span>{t("navigation-back", { ns: "general" })}</span>
-					</Link>
-				</div>
+				<Link
+					className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+					to="/me"
+				>
+					<ArrowLeft className="h-4 w-4" />
+					<span>{t("navigation-back", { ns: "general" })}</span>
+				</Link>
 
 				<div>
 					<h1 className="mb-1 text-4xl font-bold">Sky profile</h1>
 					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
-						Update your Sky profile here. For now, you can set your name, description and hangout.
+						Update your Sky profile here. For now, you can set your icon, name, description and
+						hangout.
 					</p>
 				</div>
 
 				<Form
-					key={`${initialName}:${initialDescription}:${initialHangout}`}
+					encType="multipart/form-data"
+					key={`${initialIcon ?? ""}:${initialName}:${initialDescription}:${initialHangout}`}
 					method="post"
 					onReset={() => {
+						setIconPreviewURL(null);
+						setHasPendingIconUpload(false);
 						setNameValue(initialName);
 						setDescriptionValue(initialDescription);
 						setHangoutValue(initialHangout);
@@ -162,6 +264,65 @@ export default function MeSkyProfile() {
 					onSubmit={handleSubmit}
 				>
 					<div className="flex flex-col gap-4">
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Icon}`, {
+									ns: "features",
+								})}
+							</h2>
+							<div className="flex flex-col gap-3">
+								<div className="flex items-center gap-3">
+									{displayedIconURL ? (
+										<div
+											aria-label={
+												iconPreviewURL
+													? "Selected Sky profile icon preview."
+													: "Current Sky profile icon."
+											}
+											className="h-20 w-20 rounded-full border border-gray-300 bg-cover bg-center shadow-sm dark:border-gray-600"
+											role="img"
+											style={{ backgroundImage: `url(${displayedIconURL})` }}
+										/>
+									) : (
+										<div className="flex h-20 w-20 items-center justify-center rounded-full border border-dashed border-gray-300 bg-white text-xs text-gray-500 shadow-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400">
+											No icon
+										</div>
+									)}
+									<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+										{t(`sky-profile.edit-type-description.${SkyProfileEditType.Icon}`, {
+											ns: "features",
+										})}
+									</p>
+								</div>
+								<div className="flex flex-col gap-2">
+									<label className="sr-only" htmlFor="icon">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Icon}`, {
+											ns: "features",
+										})}
+									</label>
+									<input
+										accept={ALLOWED_IMAGE_MEDIA_TYPES.join(",")}
+										aria-describedby={iconError ? "icon-error" : undefined}
+										aria-invalid={iconError ? true : undefined}
+										className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm outline-none transition-colors file:mr-3 file:rounded-sm file:border file:border-gray-300 file:bg-gray-100 file:px-3 file:py-2 file:text-sm file:text-gray-900 hover:file:bg-gray-200 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:file:border-gray-600 dark:file:bg-gray-700 dark:file:text-gray-100 dark:hover:file:bg-gray-600"
+										id="icon"
+										name="icon"
+										onChange={(event) => {
+											const nextFile = event.currentTarget.files?.[0] ?? null;
+											setHasPendingIconUpload(Boolean(nextFile));
+											setIconPreviewURL(nextFile ? URL.createObjectURL(nextFile) : null);
+										}}
+										type="file"
+									/>
+									{iconError ? (
+										<p className="my-0 text-sm text-red-600 dark:text-red-400" id="icon-error">
+											{iconError}
+										</p>
+									) : null}
+								</div>
+							</div>
+						</div>
+
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
 								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Name}`, {

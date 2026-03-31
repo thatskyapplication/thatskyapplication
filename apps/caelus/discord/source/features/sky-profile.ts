@@ -1,5 +1,4 @@
 import type { Buffer } from "node:buffer";
-import { URL } from "node:url";
 import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
@@ -30,6 +29,7 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import {
+	ANIMATED_HASH_PREFIX,
 	COUNTRY_VALUES,
 	type Country,
 	CountryToEmoji,
@@ -40,6 +40,7 @@ import {
 	isCountry,
 	isPlatformId,
 	isSkyProfilePersonalityType,
+	MAXIMUM_ASSET_SIZE,
 	MAXIMUM_WINGED_LIGHT,
 	PLATFORM_ID_VALUES,
 	PlatformId,
@@ -64,6 +65,8 @@ import {
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
+	skyProfileIconRoute,
+	skyProfileIconURL,
 	skySeasons,
 	Table,
 	WING_BUFFS,
@@ -88,8 +91,6 @@ import {
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
 import {
-	ANIMATED_HASH_PREFIX,
-	MAXIMUM_ASSET_SIZE,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
@@ -2298,7 +2299,7 @@ async function skyProfileComponents(
 				type: ComponentType.Section,
 				accessory: {
 					type: ComponentType.Thumbnail,
-					media: { url: skyProfileIconURL(userId, icon) },
+					media: { url: skyProfileIconURL(CDN_URL, userId, icon) },
 				},
 				components: mediaComponents,
 			});
@@ -2328,7 +2329,7 @@ async function skyProfileComponents(
 			type: ComponentType.Section,
 			accessory: {
 				type: ComponentType.Thumbnail,
-				media: { url: skyProfileIconURL(userId, icon) },
+				media: { url: skyProfileIconURL(CDN_URL, userId, icon) },
 			},
 			components: mediaComponents,
 		});
@@ -2602,12 +2603,4 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 
 function skyProfileBannerRoute(userId: Snowflake, hash: string) {
 	return `sky_profiles/banners/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
-}
-
-function skyProfileIconRoute(userId: Snowflake, hash: string) {
-	return `sky_profiles/icons/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
-}
-
-function skyProfileIconURL(userId: Snowflake, icon: string) {
-	return new URL(skyProfileIconRoute(userId, icon), CDN_URL).href;
 }

@@ -4,6 +4,7 @@ import {
 	CountryToEmoji,
 	isPlatformId,
 	type SkyProfilePacket,
+	skyProfileIconURL,
 	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
@@ -21,22 +22,25 @@ import {
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
 import Select from "~/components/Select";
+import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
 import { getSession } from "~/session.server";
 import {
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
-	SKY_KID_ICON_URL,
-	SKY_PROFILES_DESCRIPTION,
-} from "~/utility/constants";
+	applicationIconURL,
+	cdnAssetURL,
+	getCDNURLFromMatches,
+	skyKidIconURL,
+} from "~/utility/cdn-url.js";
+import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 import type { DiscordUser } from "~/utility/types";
 
 const NO_COUNTRY_VALUE = "none" as const;
 const PROFILES_PER_PAGE = 24 as const;
 
-export const meta: MetaFunction = ({ location }) => {
+export const meta: MetaFunction = ({ location, matches }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
+	const cdnURL = getCDNURLFromMatches(matches);
 
 	return [
 		{ charSet: "utf-8" },
@@ -53,7 +57,7 @@ export const meta: MetaFunction = ({ location }) => {
 		{ property: "og:description", content: SKY_PROFILES_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: APPLICATION_ICON_URL },
+		{ property: "og:image", content: applicationIconURL(cdnURL) },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: "Sky Profiles" },
@@ -132,7 +136,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	);
 };
 
-function SkyProfileCard(profile: SkyProfilePacket, returnTo: string) {
+function SkyProfileCard(cdnURL: string, profile: SkyProfilePacket, returnTo: string) {
 	return (
 		<Link
 			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-137.5"
@@ -147,7 +151,10 @@ function SkyProfileCard(profile: SkyProfilePacket, returnTo: string) {
 						className="w-full h-48 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/banners/${profile.user_id}/${profile.banner.startsWith("a_") ? `${profile.banner}.gif` : `${profile.banner}.webp`})`,
+							backgroundImage: `url(${cdnAssetURL(
+								cdnURL,
+								`sky_profiles/banners/${profile.user_id}/${profile.banner.startsWith("a_") ? `${profile.banner}.gif` : `${profile.banner}.webp`}`,
+							)})`,
 						}}
 					/>
 				) : (
@@ -163,7 +170,7 @@ function SkyProfileCard(profile: SkyProfilePacket, returnTo: string) {
 						className="w-16 h-16 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${profile.user_id}/${profile.icon.startsWith("a_") ? `${profile.icon}.gif` : `${profile.icon}.webp`})`,
+							backgroundImage: `url(${skyProfileIconURL(cdnURL, profile.user_id, profile.icon)})`,
 						}}
 					/>
 				)}
@@ -181,7 +188,7 @@ function SkyProfileCard(profile: SkyProfilePacket, returnTo: string) {
 									key={season}
 									role="img"
 									style={{
-										backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
+										backgroundImage: `url(${cdnAssetURL(cdnURL, `assets/season_${season + 1}.webp`)})`,
 									}}
 								/>
 							))}
@@ -218,6 +225,7 @@ export default function SkyProfiles() {
 	const data = useLoaderData<typeof loader>();
 	const location = useLocation();
 	const { t } = useTranslation();
+	const cdnURL = useCDNURL();
 	const locale = useTranslation().i18n.language;
 	const { profiles, currentPage, maximumPage, discordUser } = data;
 	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
@@ -260,7 +268,7 @@ export default function SkyProfiles() {
 					<>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 							{profiles.map((profile) =>
-								SkyProfileCard(profile, `${location.pathname}${location.search}`),
+								SkyProfileCard(cdnURL, profile, `${location.pathname}${location.search}`),
 							)}
 						</div>
 						{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
@@ -278,7 +286,7 @@ export default function SkyProfiles() {
 							className="w-32 h-32 mx-auto bg-cover bg-center"
 							role="img"
 							style={{
-								backgroundImage: `url(${SKY_KID_ICON_URL})`,
+								backgroundImage: `url(${skyKidIconURL(cdnURL)})`,
 							}}
 						/>
 						<h1>{t("sky-profile.name-plural", { ns: "features" })}</h1>
@@ -313,12 +321,17 @@ function SkyProfilesFilters({
 	onUpdateFilters,
 }: SkyProfilesFiltersProps) {
 	const { t } = useTranslation();
+	const cdnURL = useCDNURL();
 	const [nameValue, setNameValue] = useState(name ?? "");
 
 	return (
 		<div className="flex flex-wrap items-center justify-center gap-4">
+			<label className="sr-only" htmlFor="sky-profile-name-search">
+				{t("sky-profile.search-by-name", { ns: "features" })}
+			</label>
 			<input
 				className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
+				id="sky-profile-name-search"
 				onChange={(event) => {
 					const nextName = event.currentTarget.value;
 					setNameValue(nextName);
@@ -370,7 +383,7 @@ function SkyProfilesFilters({
 					className="w-6 h-6 mr-2 bg-cover bg-center"
 					role="img"
 					style={{
-						backgroundImage: "url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
+						backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/question_mark.webp")})`,
 					}}
 				/>
 				<span>{t("sky-profile.random", { ns: "features" })}</span>
@@ -385,7 +398,7 @@ function SkyProfilesFilters({
 						className="w-6 h-6 mr-2 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(${SKY_KID_ICON_URL})`,
+							backgroundImage: `url(${skyKidIconURL(cdnURL)})`,
 						}}
 					/>
 					<span>{t("sky-profile.me", { ns: "features" })}</span>

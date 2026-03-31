@@ -20,9 +20,10 @@ import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { data, Link, useLoaderData } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
+import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
-import { SEASONAL_CANDLE_ICON } from "~/utility/constants";
+import { cdnAssetURL, seasonalCandleIconURL } from "~/utility/cdn-url.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
@@ -77,6 +78,7 @@ export default function DailyGuides() {
 		useLoaderData<typeof loader>();
 
 	const [selectedImage, setSelectedImage] = useState<string | null>(null);
+	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 	const now = DateTime.fromMillis(initialTimestamp, { zone: TIME_ZONE });
 	const today = now.startOf("day");
@@ -410,7 +412,7 @@ export default function DailyGuides() {
 										aria-label="Seasonal candle"
 										className="h-4 w-4 bg-cover bg-center"
 										role="img"
-										style={{ backgroundImage: `url(${SEASONAL_CANDLE_ICON})` }}
+										style={{ backgroundImage: `url(${seasonalCandleIconURL(cdnURL)})` }}
 									/>
 									<span>
 										{t("daily-guides.seasonal-candles-remain-with-season-pass", {
@@ -457,8 +459,7 @@ export default function DailyGuides() {
 													className="h-4 w-4 bg-cover bg-center"
 													role="img"
 													style={{
-														backgroundImage:
-															"url(https://cdn.thatskyapplication.com/icons/ascended_candle.webp)",
+														backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/ascended_candle.webp")})`,
 													}}
 												/>
 											) : (
@@ -467,8 +468,7 @@ export default function DailyGuides() {
 													className="h-4 w-4 bg-cover bg-center"
 													role="img"
 													style={{
-														backgroundImage:
-															"url(https://cdn.thatskyapplication.com/icons/piece_of_light.webp)",
+														backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/piece_of_light.webp")})`,
 													}}
 												/>
 											)}
@@ -515,8 +515,7 @@ export default function DailyGuides() {
 												className="h-4 w-4 bg-cover bg-center"
 												role="img"
 												style={{
-													backgroundImage:
-														"url(https://cdn.thatskyapplication.com/icons/ascended_candle.webp)",
+													backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/ascended_candle.webp")})`,
 												}}
 											/>
 										) : (
@@ -525,8 +524,7 @@ export default function DailyGuides() {
 												className="h-4 w-4 bg-cover bg-center"
 												role="img"
 												style={{
-													backgroundImage:
-														"url(https://cdn.thatskyapplication.com/icons/piece_of_light.webp)",
+													backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/piece_of_light.webp")})`,
 												}}
 											/>
 										)}
@@ -563,7 +561,7 @@ export default function DailyGuides() {
 								className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
 								onClick={() =>
 									handleImageClick(
-										`https://cdn.thatskyapplication.com/daily_guides/travelling_rocks/${travellingRock}.webp`,
+										cdnAssetURL(cdnURL, `daily_guides/travelling_rocks/${travellingRock}.webp`),
 									)
 								}
 								type="button"

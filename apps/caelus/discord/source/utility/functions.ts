@@ -22,18 +22,18 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
+import {
+	ALLOWED_IMAGE_MEDIA_TYPES,
+	ANIMATED_HASH_PREFIX,
+	MAXIMUM_ASSET_SIZE,
+} from "@thatskyapplication/utility";
 import { diffJson } from "diff";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import type { GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import { APPLICATION_INVITE_URL, SUPPORT_SERVER_INVITE_URL } from "./configuration.js";
-import {
-	ALLOWED_IMAGE_MEDIA_TYPES,
-	ANIMATED_HASH_PREFIX,
-	MAXIMUM_ASSET_SIZE,
-	SKY_PROFILES_URL,
-} from "./constants.js";
+import { SKY_PROFILES_URL } from "./constants.js";
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,

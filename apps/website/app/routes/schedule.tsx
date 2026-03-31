@@ -34,37 +34,38 @@ import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { Link, useLoaderData } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
+import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
-import {
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
-	SCHEDULE_DESCRIPTION,
-	SCHEDULE_TITLE,
-} from "~/utility/constants.js";
+import { applicationIconURL, cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn-url.js";
+import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
-export const meta: MetaFunction = () => [
-	{ charSet: "utf-8" },
-	{ name: "viewport", content: "width=device-width, initial-scale=1" },
-	{ name: "robots", content: "index, follow" },
-	{
-		name: "keywords",
-		content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky schedule, Sky timers, Sky events`,
-	},
-	{ title: SCHEDULE_TITLE },
-	{ name: "description", content: SCHEDULE_DESCRIPTION },
-	{ name: "theme-color", content: "#A5B5F1" },
-	{ property: "og:title", content: SCHEDULE_TITLE },
-	{ property: "og:description", content: SCHEDULE_DESCRIPTION },
-	{ property: "og:type", content: "website" },
-	{ property: "og:site_name", content: "thatskyapplication" },
-	{ property: "og:image", content: APPLICATION_ICON_URL },
-	{ property: "og:url", content: WEBSITE_URL },
-	{ name: "twitter:card", content: "summary" },
-	{ name: "twitter:title", content: SCHEDULE_TITLE },
-	{ name: "twitter:description", content: SCHEDULE_DESCRIPTION },
-	{ rel: "canonical", href: WEBSITE_URL },
-];
+export const meta: MetaFunction = ({ matches }) => {
+	const cdnURL = getCDNURLFromMatches(matches);
+
+	return [
+		{ charSet: "utf-8" },
+		{ name: "viewport", content: "width=device-width, initial-scale=1" },
+		{ name: "robots", content: "index, follow" },
+		{
+			name: "keywords",
+			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord Bot, Discord Application, Sky schedule, Sky timers, Sky events`,
+		},
+		{ title: SCHEDULE_TITLE },
+		{ name: "description", content: SCHEDULE_DESCRIPTION },
+		{ name: "theme-color", content: "#A5B5F1" },
+		{ property: "og:title", content: SCHEDULE_TITLE },
+		{ property: "og:description", content: SCHEDULE_DESCRIPTION },
+		{ property: "og:type", content: "website" },
+		{ property: "og:site_name", content: "thatskyapplication" },
+		{ property: "og:image", content: applicationIconURL(cdnURL) },
+		{ property: "og:url", content: WEBSITE_URL },
+		{ name: "twitter:card", content: "summary" },
+		{ name: "twitter:title", content: SCHEDULE_TITLE },
+		{ name: "twitter:description", content: SCHEDULE_DESCRIPTION },
+		{ rel: "canonical", href: WEBSITE_URL },
+	];
+};
 
 function formatRelativeTime(date: DateTime, now: DateTime, locale: string) {
 	const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "always" });
@@ -541,6 +542,7 @@ const enum DisplayCardType {
 
 export default function Schedule() {
 	const { initialTimestamp, locale, timeZone } = useLoaderData<typeof loader>();
+	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 	const [currentTimestamp, setCurrentTime] = useState(initialTimestamp);
 
@@ -818,7 +820,7 @@ export default function Schedule() {
 						<div
 							className="h-4 w-4 shrink-0 rounded-[22.37%] bg-cover bg-center"
 							style={{
-								backgroundImage: "url(https://cdn.thatskyapplication.com/assets/sky_logo.webp)",
+								backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/sky_logo.webp")})`,
 							}}
 						/>
 						<div className="text-xs font-mono text-gray-500 dark:text-gray-400">{skyTime}</div>

@@ -11,12 +11,13 @@ import {
 	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
 	type Snowflake,
+	skyProfileIconURL,
 	Table,
 	WEBSITE_URL,
 	WING_BUFFS,
 	WINGED_LIGHT_IN_AREAS,
 } from "@thatskyapplication/utility";
-import { ChevronLeftIcon, Globe, LinkIcon, MapPinIcon, Users } from "lucide-react";
+import { ChevronLeftIcon, Edit, Globe, LinkIcon, MapPinIcon, Users } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
@@ -29,7 +30,10 @@ import {
 	useRouteError,
 } from "react-router";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
+import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
+import { getSession } from "~/session.server";
+import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -39,6 +43,7 @@ const BADGES_CLASS_NAME =
 
 export function ErrorBoundary() {
 	const error = useRouteError();
+	const cdnURL = useCDNURL();
 
 	if (isRouteErrorResponse(error) && error.status === 404) {
 		return (
@@ -73,8 +78,7 @@ export function ErrorBoundary() {
 									className="w-5 h-5 bg-cover bg-center"
 									role="img"
 									style={{
-										backgroundImage:
-											"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
+										backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/question_mark.webp")})`,
 									}}
 								/>
 								Random Sky Profile
@@ -89,9 +93,10 @@ export function ErrorBoundary() {
 	throw error;
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
+export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) => {
 	const { data: skyProfileData } = data ?? {};
 	const url = String(new URL(location.pathname, WEBSITE_URL));
+	const cdnURL = getCDNURLFromMatches(matches);
 
 	return [
 		{ charSet: "utf-8" },
@@ -117,9 +122,12 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 		{
 			property: "og:image",
 			content: skyProfileData?.icon
-				? `https://cdn.thatskyapplication.com/sky_profiles/icons/${skyProfileData.user_id}/${skyProfileData.icon.startsWith("a_") ? `${skyProfileData.icon}.gif` : `${skyProfileData.icon}.webp`}`
+				? skyProfileIconURL(cdnURL, skyProfileData.user_id, skyProfileData.icon)
 				: skyProfileData?.banner
-					? `https://cdn.thatskyapplication.com/sky_profiles/banners/${skyProfileData.user_id}/${skyProfileData.banner.startsWith("a_") ? `${skyProfileData.banner}.gif` : `${skyProfileData.banner}.webp`}`
+					? cdnAssetURL(
+							cdnURL,
+							`sky_profiles/banners/${skyProfileData.user_id}/${skyProfileData.banner.startsWith("a_") ? `${skyProfileData.banner}.gif` : `${skyProfileData.banner}.webp`}`,
+						)
 					: null,
 		},
 		{ property: "og:url", content: url },
@@ -133,12 +141,15 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 	];
 };
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 	const { userId } = params;
 
 	if (!userId) {
 		throw new Response(null, { status: 400 });
 	}
+
+	const session = await getSession(request.headers.get("Cookie"));
+	const discordUser = session.get("discord_user") ?? null;
 
 	const data = await pg
 		.select<SkyProfileData>("p.*", "u.translator", "u.supporter", "u.artist")
@@ -176,7 +187,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		}
 	}
 
-	return { data, maximumWingedLight };
+	return { data, isOwner: discordUser?.id === data.user_id, maximumWingedLight };
 };
 
 function RecognitionBadges({ data }: { data: SkyProfileData }) {
@@ -241,7 +252,8 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 }
 
 export default function SkyProfile() {
-	const { data, maximumWingedLight } = useLoaderData<typeof loader>();
+	const { data, isOwner, maximumWingedLight } = useLoaderData<typeof loader>();
+	const cdnURL = useCDNURL();
 	const location = useLocation();
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
@@ -267,7 +279,10 @@ export default function SkyProfile() {
 										className="w-full h-full bg-cover bg-center"
 										role="img"
 										style={{
-											backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/banners/${data.user_id}/${data.banner.startsWith("a_") ? `${data.banner}.gif` : `${data.banner}.webp`})`,
+											backgroundImage: `url(${cdnAssetURL(
+												cdnURL,
+												`sky_profiles/banners/${data.user_id}/${data.banner.startsWith("a_") ? `${data.banner}.gif` : `${data.banner}.webp`}`,
+											)})`,
 										}}
 									/>
 								) : (
@@ -280,7 +295,7 @@ export default function SkyProfile() {
 									className="w-20 h-20 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
 									role="img"
 									style={{
-										backgroundImage: `url(https://cdn.thatskyapplication.com/sky_profiles/icons/${data.user_id}/${data.icon.startsWith("a_") ? `${data.icon}.gif` : `${data.icon}.webp`})`,
+										backgroundImage: `url(${skyProfileIconURL(cdnURL, data.user_id, data.icon)})`,
 									}}
 								/>
 							)}
@@ -305,7 +320,10 @@ export default function SkyProfile() {
 												key={season}
 												role="img"
 												style={{
-													backgroundImage: `url(https://cdn.thatskyapplication.com/assets/season_${season + 1}.webp)`,
+													backgroundImage: `url(${cdnAssetURL(
+														cdnURL,
+														`assets/season_${season + 1}.webp`,
+													)})`,
 												}}
 											/>
 										))}
@@ -347,8 +365,7 @@ export default function SkyProfile() {
 								className="w-6 h-6 mr-2 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage:
-										"url(https://cdn.thatskyapplication.com/assets/winged_light.webp)",
+									backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/winged_light.webp")})`,
 								}}
 							/>
 							<div className="flex-1">
@@ -366,7 +383,7 @@ export default function SkyProfile() {
 								className="w-6 h-6 mr-2 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: "url(https://cdn.thatskyapplication.com/assets/heart.webp)",
+									backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/heart.webp")})`,
 								}}
 							/>
 							<div className="flex-1">
@@ -426,12 +443,20 @@ export default function SkyProfile() {
 							className="w-6 h-6 mr-2 bg-cover bg-center"
 							role="img"
 							style={{
-								backgroundImage:
-									"url(https://cdn.thatskyapplication.com/assets/question_mark.webp)",
+								backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/question_mark.webp")})`,
 							}}
 						/>
 						<span>{t("sky-profile.random", { ns: "features" })}</span>
 					</Link>
+					{isOwner ? (
+						<Link
+							className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+							to="/me/sky-profile"
+						>
+							<Edit className="w-6 h-6 mr-2" />
+							<span>Edit</span>
+						</Link>
+					) : null}
 					<button
 						className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded-sm transition-colors duration-300 overflow-auto`}
 						onClick={async () => {

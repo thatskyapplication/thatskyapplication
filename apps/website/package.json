@@ -12,6 +12,7 @@
 		"format": "biome check --write"
 	},
 	"dependencies": {
+		"@aws-sdk/client-s3": "^3.1005.0",
 		"@discordjs/core": "dev",
 		"@discordjs/rest": "dev",
 		"@icons-pack/react-simple-icons": "10.2.0",
@@ -22,6 +23,7 @@
 		"@thatskyapplication/utility": "workspace:^",
 		"clsx": "^2.1.1",
 		"cookie": "^1.1.1",
+		"hasha": "^7.0.0",
 		"i18next": "^25.8.0",
 		"i18next-browser-languagedetector": "^8.2.0",
 		"isbot": "^5.1.33",
@@ -36,7 +38,8 @@
 		"react-router": "^7.12.0",
 		"react-router-hono-server": "^2.23.0",
 		"react-select": "^5.10.2",
-		"remix-i18next": "^7.4.2"
+		"remix-i18next": "^7.4.2",
+		"sharp": "^0.34.5"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.11",

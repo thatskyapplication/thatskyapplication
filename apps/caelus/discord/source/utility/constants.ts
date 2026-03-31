@@ -59,20 +59,11 @@ export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplicati
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const INFORMATION_ACCENT_COLOUR = 0x3b82f6 as const;
-export const ANIMATED_HASH_PREFIX = "a_" as const;
-export const MAXIMUM_ASSET_SIZE = 5_000_000 as const;
 export const MAXIMUM_FRIENDSHIP_ACTIONS_ASSET_BYTES_SIZE = 5_000_000 as const;
 export const MAXIMUM_FRIENDSHIP_ACTIONS_DIMENSION_SIZE = 512 as const;
 export const MAXIMUM_TEXT_DISPLAY_LENGTH = 4000 as const;
 export const MAXIMUM_AUTOCOMPLETE_NAME_LIMIT = 100 as const;
 export const MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT = 25 as const;
-
-export const ALLOWED_IMAGE_MEDIA_TYPES = [
-	"image/gif",
-	"image/jpeg",
-	"image/png",
-	"image/webp",
-] as const satisfies readonly `${string}/${string}`[];
 
 export const LOCALES = [
 	Locale.German,
