@@ -17,10 +17,7 @@ interface FlashData {
 	just_logged_out?: boolean;
 }
 
-export const { getSession, commitSession, destroySession } = createCookieSessionStorage<
-	SessionData,
-	FlashData
->({
+export const { getSession, commitSession } = createCookieSessionStorage<SessionData, FlashData>({
 	cookie: {
 		name: "__session",
 		httpOnly: true,
