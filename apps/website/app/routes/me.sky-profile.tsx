@@ -21,8 +21,10 @@ import { SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
+import pino from "~/pino.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import {
+	deleteSkyProfileIcon,
 	isValidSkyProfileImageFile,
 	uploadSkyProfileIcon,
 } from "~/utility/sky-profile-assets.server.js";
@@ -118,7 +120,6 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 
 	if (hasNewIcon) {
 		icon = await uploadSkyProfileIcon({
-			existingIcon: initialIcon,
 			file: rawIcon,
 			userId: discordUser.id,
 		});
@@ -139,6 +140,12 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		.insert(skyProfileUpsertData)
 		.onConflict("user_id")
 		.merge(skyProfileUpsertData);
+
+	if (hasNewIcon && initialIcon && icon !== initialIcon) {
+		void deleteSkyProfileIcon({ icon: initialIcon, userId: discordUser.id }).catch((error) => {
+			pino.error(error, "Failed to delete replaced Sky profile icon.");
+		});
+	}
 
 	return { ok: true } as const;
 };

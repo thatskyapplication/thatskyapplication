@@ -19,28 +19,10 @@ export function isValidSkyProfileImageFile(file: File) {
 	);
 }
 
-export async function uploadSkyProfileIcon({
-	existingIcon,
-	file,
-	userId,
-}: {
-	existingIcon: SkyProfilePacket["icon"];
-	file: File;
-	userId: string;
-}) {
-	if (existingIcon) {
-		await S3Client.send(
-			new DeleteObjectCommand({
-				Bucket: CDN_BUCKET,
-				Key: skyProfileIconRoute(userId, existingIcon),
-			}),
-		);
-	}
-
+export async function uploadSkyProfileIcon({ file, userId }: { file: File; userId: string }) {
 	const gif = file.type === "image/gif";
 	const assetBuffer = sharp(Buffer.from(await file.arrayBuffer()), { animated: true });
 	const buffer = gif ? await assetBuffer.gif().toBuffer() : await assetBuffer.webp().toBuffer();
-
 	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
 
 	if (gif) {
@@ -56,4 +38,23 @@ export async function uploadSkyProfileIcon({
 	);
 
 	return hashedBuffer;
+}
+
+export async function deleteSkyProfileIcon({
+	icon,
+	userId,
+}: {
+	icon: SkyProfilePacket["icon"];
+	userId: string;
+}) {
+	if (!icon) {
+		return;
+	}
+
+	await S3Client.send(
+		new DeleteObjectCommand({
+			Bucket: CDN_BUCKET,
+			Key: skyProfileIconRoute(userId, icon),
+		}),
+	);
 }
