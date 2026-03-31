@@ -17,7 +17,7 @@ import {
 	WING_BUFFS,
 	WINGED_LIGHT_IN_AREAS,
 } from "@thatskyapplication/utility";
-import { ChevronLeftIcon, Globe, LinkIcon, MapPinIcon, Users } from "lucide-react";
+import { ChevronLeftIcon, Edit, Globe, LinkIcon, MapPinIcon, Users } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
@@ -32,6 +32,7 @@ import {
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
+import { getSession } from "~/session.server";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
@@ -140,12 +141,15 @@ export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) =
 	];
 };
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
+export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 	const { userId } = params;
 
 	if (!userId) {
 		throw new Response(null, { status: 400 });
 	}
+
+	const session = await getSession(request.headers.get("Cookie"));
+	const discordUser = session.get("discord_user") ?? null;
 
 	const data = await pg
 		.select<SkyProfileData>("p.*", "u.translator", "u.supporter", "u.artist")
@@ -183,7 +187,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 		}
 	}
 
-	return { data, maximumWingedLight };
+	return { data, isOwner: discordUser?.id === data.user_id, maximumWingedLight };
 };
 
 function RecognitionBadges({ data }: { data: SkyProfileData }) {
@@ -248,7 +252,7 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 }
 
 export default function SkyProfile() {
-	const { data, maximumWingedLight } = useLoaderData<typeof loader>();
+	const { data, isOwner, maximumWingedLight } = useLoaderData<typeof loader>();
 	const cdnURL = useCDNURL();
 	const location = useLocation();
 	const [copied, setCopied] = useState(false);
@@ -444,6 +448,15 @@ export default function SkyProfile() {
 						/>
 						<span>{t("sky-profile.random", { ns: "features" })}</span>
 					</Link>
+					{isOwner ? (
+						<Link
+							className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+							to="/me/sky-profile"
+						>
+							<Edit className="w-6 h-6 mr-2" />
+							<span>Edit</span>
+						</Link>
+					) : null}
 					<button
 						className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded-sm transition-colors duration-300 overflow-auto`}
 						onClick={async () => {
