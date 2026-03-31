@@ -1,5 +1,4 @@
 import process from "node:process";
-import { CDN_URL as CDN_URL_PRODUCTION } from "@thatskyapplication/utility";
 import { z } from "zod/v4";
 
 // Production detection.
@@ -38,6 +37,7 @@ const envSchema = z.object({
 	ARTIST_ROLE_ID: z.string().min(1),
 	TRANSLATOR_ROLE_ID: z.string().min(1),
 	DATABASE_URL: z.url(),
+	CDN_URL: z.url(),
 	S3_ACCESS_KEY_ID: z.string().min(1),
 	S3_ACCOUNT_ID: z.string().min(1),
 	S3_SECRET_ACCESS_KEY: z.string().min(1),
@@ -71,6 +71,7 @@ export const {
 	ARTIST_ROLE_ID,
 	TRANSLATOR_ROLE_ID,
 	DATABASE_URL,
+	CDN_URL,
 	S3_ACCESS_KEY_ID,
 	S3_ACCOUNT_ID,
 	S3_SECRET_ACCESS_KEY,
@@ -82,10 +83,6 @@ export const {
 const CDN_BUCKET_DEVELOPMENT = "thatskyapplication-dev" as const;
 const CDN_BUCKET_PRODUCTION = "thatskyapplication" as const;
 export const CDN_BUCKET = PRODUCTION ? CDN_BUCKET_PRODUCTION : CDN_BUCKET_DEVELOPMENT;
-
-// Content delivery network links.
-const CDN_URL_DEVELOPMENT = "https://cdn-development.thatskyapplication.com" as const;
-export const CDN_URL = PRODUCTION ? CDN_URL_PRODUCTION : CDN_URL_DEVELOPMENT;
 
 // Application invite URL.
 export const APPLICATION_INVITE_URL = `https://discord.com/oauth2/authorize?client_id=${APPLICATION_ID}`;

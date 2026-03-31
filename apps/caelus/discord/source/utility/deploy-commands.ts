@@ -27,11 +27,7 @@ import {
 } from "@thatskyapplication/utility";
 import { init, t } from "i18next";
 import { z } from "zod/v4";
-import {
-	I18_NEXT_OPTIONS,
-	LOCALES,
-	QUEST_NUMBER,
-} from "./constants.js";
+import { I18_NEXT_OPTIONS, LOCALES, QUEST_NUMBER } from "./constants.js";
 
 const envSchema = z.object({
 	GITHUB_ACTIONS: z

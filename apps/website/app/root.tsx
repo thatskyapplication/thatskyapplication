@@ -17,12 +17,10 @@ import {
 import ConditionalLayout from "~/components/ConditionalLayout";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
 import { getSession } from "~/session.server";
-import {
-	APPLICATION_DESCRIPTION,
-	APPLICATION_ICON_URL,
-	APPLICATION_NAME,
-} from "~/utility/constants";
+import { applicationIconURL } from "~/utility/cdn-url";
+import { APPLICATION_DESCRIPTION, APPLICATION_NAME } from "~/utility/constants";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
+import { cdnURLContext } from "~/utility/router-context";
 import {
 	getBrowserTimeZone,
 	TIME_ZONE_COOKIE_MAX_AGE,
@@ -32,7 +30,7 @@ import type { Route } from "./+types/root.js";
 
 export const middleware = [i18nextMiddleware];
 
-export const meta: MetaFunction = () => [
+export const meta: MetaFunction<typeof loader> = ({ data }) => [
 	{ charSet: "utf-8" },
 	{ name: "viewport", content: "width=device-width, initial-scale=1" },
 	{ name: "robots", content: "index, follow" },
@@ -47,7 +45,7 @@ export const meta: MetaFunction = () => [
 	{ property: "og:description", content: APPLICATION_DESCRIPTION },
 	{ property: "og:type", content: "website" },
 	{ property: "og:site_name", content: "thatskyapplication" },
-	{ property: "og:image", content: APPLICATION_ICON_URL },
+	...(data ? [{ property: "og:image", content: applicationIconURL(data.cdnURL) }] : []),
 	{ property: "og:url", content: WEBSITE_URL },
 	{ name: "twitter:card", content: "summary" },
 	{ name: "twitter:title", content: APPLICATION_NAME },
@@ -127,7 +125,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 	const locale = getLocale(context);
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;
-	return { locale, user };
+	return { locale, user, cdnURL: context.get(cdnURLContext) };
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {

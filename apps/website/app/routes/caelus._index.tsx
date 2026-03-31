@@ -2,8 +2,9 @@ import { SiCrowdin, SiDiscord } from "@icons-pack/react-simple-icons";
 import { BookOpen, Heart, Users } from "lucide-react";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
+import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { applicationIconURL } from "~/utility/cdn-url.js";
 import {
-	APPLICATION_ICON_URL,
 	APPLICATION_NAME,
 	GUIDE_URL,
 	INVITE_APPLICATION_URL,
@@ -42,6 +43,8 @@ const LINKS = [
 ] as const;
 
 export default function CaelusIndex() {
+	const cdnURL = useCDNURL();
+
 	return (
 		<SitePage>
 			<div className="container mx-auto max-w-3xl">
@@ -50,7 +53,7 @@ export default function CaelusIndex() {
 						aria-label={`${APPLICATION_NAME} icon.`}
 						className="w-24 h-24 rounded-full shadow-lg mb-6 bg-cover bg-center"
 						role="img"
-						style={{ backgroundImage: `url(${APPLICATION_ICON_URL})` }}
+						style={{ backgroundImage: `url(${applicationIconURL(cdnURL)})` }}
 					/>
 					<h1 className="text-4xl sm:text-5xl font-bold mb-3">{APPLICATION_NAME}</h1>
 					<p className="text-lg text-gray-500 dark:text-gray-400 max-w-md">

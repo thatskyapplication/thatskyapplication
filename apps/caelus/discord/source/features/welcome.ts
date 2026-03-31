@@ -26,7 +26,12 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { FriendshipActionType, Table } from "@thatskyapplication/utility";
+import {
+	ANIMATED_HASH_PREFIX,
+	FriendshipActionType,
+	MAXIMUM_ASSET_SIZE,
+	Table,
+} from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
 import sharp from "sharp";
@@ -38,7 +43,6 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
 import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
-import { ANIMATED_HASH_PREFIX, MAXIMUM_ASSET_SIZE } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import {

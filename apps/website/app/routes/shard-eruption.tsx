@@ -10,11 +10,12 @@ import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
+import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
+import { cdnAssetURL, getCDNURLFromMatches, shardEruptionIconURL } from "~/utility/cdn-url.js";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
-	SHARD_ERUPTION_ICON_URL,
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 	SHARD_ERUPTION_MINIMUM_PAGE,
 } from "~/utility/constants";
@@ -33,8 +34,9 @@ type ShardEruptionCardProps = {
 	now: number;
 };
 
-export const meta: MetaFunction = ({ location }) => {
+export const meta: MetaFunction = ({ location, matches }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
+	const cdnURL = getCDNURLFromMatches(matches);
 
 	return [
 		{ charSet: "utf-8" },
@@ -51,7 +53,7 @@ export const meta: MetaFunction = ({ location }) => {
 		{ property: "og:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: SHARD_ERUPTION_ICON_URL },
+		{ property: "og:image", content: shardEruptionIconURL(cdnURL) },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: "Shard Eruption" },
@@ -121,6 +123,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 
 function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) {
 	const { t } = useTranslation();
+	const cdnURL = useCDNURL();
 
 	return (
 		<div
@@ -133,7 +136,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 						className="w-5 h-5 mr-1 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(https://cdn.thatskyapplication.com/assets/${shard.strong ? "shard_strong" : "shard_regular"}.webp)`,
+							backgroundImage: `url(${cdnAssetURL(cdnURL, `assets/${shard.strong ? "shard_strong" : "shard_regular"}.webp`)})`,
 						}}
 					/>
 				)}
@@ -162,8 +165,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 								className="h-4 w-4 ml-1 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage:
-										"url(https://cdn.thatskyapplication.com/icons/ascended_candle.webp)",
+									backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/ascended_candle.webp")})`,
 								}}
 							/>
 						) : (
@@ -172,8 +174,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 								className="h-4 w-4 ml-1 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage:
-										"url(https://cdn.thatskyapplication.com/icons/piece_of_light.webp)",
+									backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/piece_of_light.webp")})`,
 								}}
 							/>
 						)}

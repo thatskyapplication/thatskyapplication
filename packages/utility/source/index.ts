@@ -31,6 +31,12 @@ export {
 	guildsDailyGuidesChannels,
 	guildsMeRoute,
 } from "./api.js";
+export {
+	ALLOWED_IMAGE_MEDIA_TYPES,
+	ANIMATED_HASH_PREFIX,
+	isAnimatedHash,
+	MAXIMUM_ASSET_SIZE,
+} from "./assets.js";
 export type { CataloguePacket } from "./catalogue.js";
 export type { ChecklistPacket, ChecklistSetData } from "./checklist.js";
 export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
@@ -101,7 +107,6 @@ export {
 	WINGED_LIGHT_THRESHOLDS,
 } from "./kingdom.js";
 export { MAINTENANCE_PERIODS } from "./maintenance.js";
-export { CDN_URL } from "./routes.js";
 export const de = deLocale;
 export { default as enGB } from "./locales/en-gb.js";
 export const es419 = es419Locale;
@@ -188,6 +193,8 @@ export {
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
+	skyProfileIconRoute,
+	skyProfileIconURL,
 } from "./sky-profile.js";
 export { spirits } from "./spirits/index.js";
 export {
