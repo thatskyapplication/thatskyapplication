@@ -116,14 +116,17 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		return null;
 	}
 
+	let uploadedIcon: string | null = null;
 	let icon = initialIcon;
 
 	if (hasNewIcon) {
 		try {
-			icon = await uploadSkyProfileIcon({
+			uploadedIcon = await uploadSkyProfileIcon({
 				file: rawIcon,
 				userId: discordUser.id,
 			});
+
+			icon = uploadedIcon;
 		} catch (error) {
 			pino.error(error, "Failed to upload Sky profile icon.");
 			errors.icon = "Unable to upload icon.";
@@ -146,10 +149,22 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		skyProfileUpsertData.icon = icon;
 	}
 
-	await pg<SkyProfilePacket>(Table.Profiles)
-		.insert(skyProfileUpsertData)
-		.onConflict("user_id")
-		.merge(skyProfileUpsertData);
+	try {
+		await pg<SkyProfilePacket>(Table.Profiles)
+			.insert(skyProfileUpsertData)
+			.onConflict("user_id")
+			.merge(skyProfileUpsertData);
+	} catch (error) {
+		if (uploadedIcon && uploadedIcon !== initialIcon) {
+			void deleteSkyProfileIcon({ icon: uploadedIcon, userId: discordUser.id }).catch(
+				(cleanupError) => {
+					pino.error(cleanupError, "Failed to clean up unreferenced Sky profile icon.");
+				},
+			);
+		}
+
+		throw error;
+	}
 
 	if (hasNewIcon && initialIcon && icon !== initialIcon) {
 		void deleteSkyProfileIcon({ icon: initialIcon, userId: discordUser.id }).catch((error) => {
