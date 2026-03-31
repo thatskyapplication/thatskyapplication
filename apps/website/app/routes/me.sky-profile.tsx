@@ -119,10 +119,20 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	let icon = initialIcon;
 
 	if (hasNewIcon) {
-		icon = await uploadSkyProfileIcon({
-			file: rawIcon,
-			userId: discordUser.id,
-		});
+		try {
+			icon = await uploadSkyProfileIcon({
+				file: rawIcon,
+				userId: discordUser.id,
+			});
+		} catch (error) {
+			pino.error(error, "Failed to upload Sky profile icon.");
+			errors.icon = "Unable to upload icon.";
+
+			return {
+				ok: false,
+				errors,
+			} as const;
+		}
 	}
 
 	const skyProfileUpsertData: Partial<SkyProfilePacket> & Pick<SkyProfilePacket, "user_id"> = {
