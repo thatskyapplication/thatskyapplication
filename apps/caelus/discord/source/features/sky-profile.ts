@@ -65,6 +65,7 @@ import {
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
+	skyProfileBannerRoute,
 	skyProfileIconRoute,
 	skyProfileIconURL,
 	skySeasons,
@@ -113,7 +114,6 @@ import {
 import {
 	chatInputApplicationCommandMention,
 	interactionInvoker,
-	isAnimatedHash,
 	isButton,
 	isChatInputCommand,
 	isValidImageAttachment,
@@ -2599,8 +2599,4 @@ function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Local
 	}
 
 	return missing;
-}
-
-function skyProfileBannerRoute(userId: Snowflake, hash: string) {
-	return `sky_profiles/banners/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}`;
 }

@@ -30,10 +30,11 @@ import {
 	useRouteError,
 } from "react-router";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
+import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
 import { getSession } from "~/session.server";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn-url.js";
+import { cdnAssetURL, getCDNURLFromMatches, skyProfileBannerURL } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -124,10 +125,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) =
 			content: skyProfileData?.icon
 				? skyProfileIconURL(cdnURL, skyProfileData.user_id, skyProfileData.icon)
 				: skyProfileData?.banner
-					? cdnAssetURL(
-							cdnURL,
-							`sky_profiles/banners/${skyProfileData.user_id}/${skyProfileData.banner.startsWith("a_") ? `${skyProfileData.banner}.gif` : `${skyProfileData.banner}.webp`}`,
-						)
+					? skyProfileBannerURL(cdnURL, skyProfileData.user_id, skyProfileData.banner)
 					: null,
 		},
 		{ property: "og:url", content: url },
@@ -270,92 +268,64 @@ export default function SkyProfile() {
 		<SitePage>
 			<div className="w-full max-w-3xl mx-auto">
 				<div className="mb-4">
-					<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
-						<div className="relative h-60 w-full">
-							<div className="w-full h-full rounded-md overflow-hidden">
-								{data.banner ? (
-									<div
-										aria-label={`Banner of ${data.name}.`}
-										className="w-full h-full bg-cover bg-center"
-										role="img"
-										style={{
-											backgroundImage: `url(${cdnAssetURL(
-												cdnURL,
-												`sky_profiles/banners/${data.user_id}/${data.banner.startsWith("a_") ? `${data.banner}.gif` : `${data.banner}.webp`}`,
-											)})`,
-										}}
-									/>
-								) : (
-									<div className="w-full h-full bg-gray-200 dark:bg-gray-600" />
-								)}
+					<SkyProfileHeaderCard
+						bannerURL={
+							data.banner ? skyProfileBannerURL(cdnURL, data.user_id, data.banner) : null
+						}
+						iconURL={data.icon ? skyProfileIconURL(cdnURL, data.user_id, data.icon) : null}
+						name={data.name}
+					>
+						<div className="flex-1 min-w-0">
+							{data.name ? (
+								<h1 className="mb-2">{data.name}</h1>
+							) : (
+								<h1 className="mb-2 italic">No name</h1>
+							)}
+							<RecognitionBadges data={data} />
+						</div>
+						{data.seasons && data.seasons.length > 0 && (
+							<div className="flex flex-wrap gap-2">
+								{data.seasons
+									.sort((a, b) => a - b)
+									.map((season) => (
+										<div
+											aria-label={`Season ${season} icon.`}
+											className="w-10 h-10 bg-cover bg-center"
+											key={season}
+											role="img"
+											style={{
+												backgroundImage: `url(${cdnAssetURL(cdnURL, `assets/season_${season + 1}.webp`)})`,
+											}}
+										/>
+									))}
 							</div>
-							{data.icon && (
-								<div
-									aria-label={`Icon of ${data.name}.`}
-									className="w-20 h-20 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
-									role="img"
-									style={{
-										backgroundImage: `url(${skyProfileIconURL(cdnURL, data.user_id, data.icon)})`,
-									}}
-								/>
+						)}
+						{data.platform && data.platform.length > 0 && (
+							<div className="mt-4 flex flex-wrap gap-2">
+								{data.platform
+									.filter((platform) => isPlatformId(platform))
+									.sort((a, b) => a - b)
+									.map((platform) => (
+										<div
+											className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow-sm items-center justify-center"
+											key={platform}
+										>
+											{PlatformToIcon[platform]}
+										</div>
+									))}
+							</div>
+						)}
+						<h2 className="font-semibold mb-2">
+							About Me {data.country && isCountry(data.country) && CountryToEmoji[data.country]}
+						</h2>
+						<div className="mt-4">
+							{data.description ? (
+								<p className="whitespace-pre-wrap">{data.description}</p>
+							) : (
+								<p className="italic">No description.</p>
 							)}
 						</div>
-						<div className="px-4 pt-10 pb-2">
-							<div className="flex-1 min-w-0">
-								{data.name ? (
-									<h1 className="mb-2">{data.name}</h1>
-								) : (
-									<h1 className="mb-2 italic">No name</h1>
-								)}
-								<RecognitionBadges data={data} />
-							</div>
-							{data.seasons && data.seasons.length > 0 && (
-								<div className="flex flex-wrap gap-2">
-									{data.seasons
-										.sort((a, b) => a - b)
-										.map((season) => (
-											<div
-												aria-label={`Season ${season} icon.`}
-												className="w-10 h-10 bg-cover bg-center"
-												key={season}
-												role="img"
-												style={{
-													backgroundImage: `url(${cdnAssetURL(
-														cdnURL,
-														`assets/season_${season + 1}.webp`,
-													)})`,
-												}}
-											/>
-										))}
-								</div>
-							)}
-							{data.platform && data.platform.length > 0 && (
-								<div className="mt-4 flex flex-wrap gap-2">
-									{data.platform
-										.filter((platform) => isPlatformId(platform))
-										.sort((a, b) => a - b)
-										.map((platform) => (
-											<div
-												className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow-sm items-center justify-center"
-												key={platform}
-											>
-												{PlatformToIcon[platform]}
-											</div>
-										))}
-								</div>
-							)}
-							<h2 className="font-semibold mb-2">
-								About Me {data.country && isCountry(data.country) && CountryToEmoji[data.country]}
-							</h2>
-							<div className="mt-4">
-								{data.description ? (
-									<p className="whitespace-pre-wrap">{data.description}</p>
-								) : (
-									<p className="italic">No description.</p>
-								)}
-							</div>
-						</div>
-					</div>
+					</SkyProfileHeaderCard>
 				</div>
 				<div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 					{maximumWingedLight && (

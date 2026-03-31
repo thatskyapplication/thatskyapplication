@@ -35,6 +35,7 @@ export {
 	ALLOWED_IMAGE_MEDIA_TYPES,
 	ANIMATED_HASH_PREFIX,
 	isAnimatedHash,
+	isValidImageAsset,
 	MAXIMUM_ASSET_SIZE,
 } from "./assets.js";
 export type { CataloguePacket } from "./catalogue.js";
@@ -193,6 +194,7 @@ export {
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
+	skyProfileBannerRoute,
 	skyProfileIconRoute,
 	skyProfileIconURL,
 } from "./sky-profile.js";

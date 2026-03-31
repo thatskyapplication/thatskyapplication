@@ -8,6 +8,13 @@ export const ALLOWED_IMAGE_MEDIA_TYPES = [
 	"image/webp",
 ] as const satisfies readonly `${string}/${string}`[];
 
+export function isValidImageAsset(asset: { size: number; type: string }) {
+	return (
+		asset.size <= MAXIMUM_ASSET_SIZE &&
+		ALLOWED_IMAGE_MEDIA_TYPES.some((mediaType) => mediaType === asset.type)
+	);
+}
+
 export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
 	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }

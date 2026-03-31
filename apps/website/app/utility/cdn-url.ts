@@ -1,3 +1,4 @@
+import { skyProfileBannerRoute } from "@thatskyapplication/utility";
 import { APPLICATION_NAME } from "~/utility/constants";
 
 type RootLoaderDataWithCDNURL = {
@@ -22,6 +23,14 @@ export function cdnAssetURL(cdnURL: string, path: string) {
 
 export function applicationIconURL(cdnURL: string) {
 	return cdnAssetURL(cdnURL, `avatar_icons/${APPLICATION_NAME.toLowerCase()}.webp`);
+}
+
+export function skyProfileBannerURL<UserId extends string>(
+	cdnURL: string,
+	userId: UserId,
+	banner: string,
+) {
+	return cdnAssetURL(cdnURL, skyProfileBannerRoute(userId, banner));
 }
 
 export function shardEruptionIconURL(cdnURL: string) {

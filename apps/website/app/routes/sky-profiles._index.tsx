@@ -30,6 +30,7 @@ import {
 	cdnAssetURL,
 	getCDNURLFromMatches,
 	skyKidIconURL,
+	skyProfileBannerURL,
 } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -151,9 +152,10 @@ function SkyProfileCard(cdnURL: string, profile: SkyProfilePacket, returnTo: str
 						className="w-full h-48 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(${cdnAssetURL(
+							backgroundImage: `url(${skyProfileBannerURL(
 								cdnURL,
-								`sky_profiles/banners/${profile.user_id}/${profile.banner.startsWith("a_") ? `${profile.banner}.gif` : `${profile.banner}.webp`}`,
+								profile.user_id,
+								profile.banner,
 							)})`,
 						}}
 					/>
