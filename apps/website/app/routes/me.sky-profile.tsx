@@ -234,15 +234,13 @@ export default function MeSkyProfile() {
 	return (
 		<SitePage>
 			<div className="mx-auto flex w-full max-w-3xl flex-col gap-5">
-				<div>
-					<Link
-						className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-						to="/me"
-					>
-						<ArrowLeft className="h-4 w-4" />
-						<span>{t("navigation-back", { ns: "general" })}</span>
-					</Link>
-				</div>
+				<Link
+					className="inline-flex items-center gap-2 text-sm text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
+					to="/me"
+				>
+					<ArrowLeft className="h-4 w-4" />
+					<span>{t("navigation-back", { ns: "general" })}</span>
+				</Link>
 
 				<div>
 					<h1 className="mb-1 text-4xl font-bold">Sky profile</h1>
