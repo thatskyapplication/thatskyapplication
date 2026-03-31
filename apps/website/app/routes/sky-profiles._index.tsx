@@ -326,28 +326,34 @@ function SkyProfilesFilters({
 
 	return (
 		<div className="flex flex-wrap items-center justify-center gap-4">
-			<input
-				className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
-				onChange={(event) => {
-					const nextName = event.currentTarget.value;
-					setNameValue(nextName);
+			<div className="flex w-64 flex-col">
+				<label className="sr-only" htmlFor="sky-profile-name-search">
+					{t("sky-profile.search-by-name", { ns: "features" })}
+				</label>
+				<input
+					className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
+					id="sky-profile-name-search"
+					onChange={(event) => {
+						const nextName = event.currentTarget.value;
+						setNameValue(nextName);
 
-					if (nextName === "") {
-						onUpdateFilters({ country: country ?? "", name: "" });
-					}
-				}}
-				onKeyDown={(event) => {
-					if (event.key === "Enter") {
-						onUpdateFilters({
-							country: country ?? "",
-							name: nameValue,
-						});
-					}
-				}}
-				placeholder={t("sky-profile.search-by-name", { ns: "features" })}
-				type="search"
-				value={nameValue}
-			/>
+						if (nextName === "") {
+							onUpdateFilters({ country: country ?? "", name: "" });
+						}
+					}}
+					onKeyDown={(event) => {
+						if (event.key === "Enter") {
+							onUpdateFilters({
+								country: country ?? "",
+								name: nameValue,
+							});
+						}
+					}}
+					placeholder={t("sky-profile.search-by-name", { ns: "features" })}
+					type="search"
+					value={nameValue}
+				/>
+			</div>
 			<Select
 				className="w-64"
 				isClearable={true}

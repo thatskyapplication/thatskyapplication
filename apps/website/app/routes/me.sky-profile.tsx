@@ -281,6 +281,11 @@ export default function MeSkyProfile() {
 									</p>
 								</div>
 								<div className="flex flex-col gap-2">
+									<label className="sr-only" htmlFor="icon">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Icon}`, {
+											ns: "features",
+										})}
+									</label>
 									<input
 										accept={ALLOWED_IMAGE_MEDIA_TYPES.join(",")}
 										aria-describedby={iconError ? "icon-error" : undefined}
