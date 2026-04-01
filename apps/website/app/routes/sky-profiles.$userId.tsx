@@ -269,9 +269,7 @@ export default function SkyProfile() {
 			<div className="w-full max-w-3xl mx-auto">
 				<div className="mb-4">
 					<SkyProfileHeaderCard
-						bannerURL={
-							data.banner ? skyProfileBannerURL(cdnURL, data.user_id, data.banner) : null
-						}
+						bannerURL={data.banner ? skyProfileBannerURL(cdnURL, data.user_id, data.banner) : null}
 						iconURL={data.icon ? skyProfileIconURL(cdnURL, data.user_id, data.icon) : null}
 						name={data.name}
 					>
