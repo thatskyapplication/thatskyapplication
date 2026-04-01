@@ -13,7 +13,7 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
-import type { Dispatch, SetStateAction, SyntheticEvent } from "react";
+import type { Dispatch, RefObject, SetStateAction, SyntheticEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
@@ -45,27 +45,30 @@ function hasSelectedFile(value: FormDataEntryValue | null): value is File {
 	return value instanceof File && value.size > 0 && value.name !== "";
 }
 
-function clearPreviewURL(setPreviewURL: Dispatch<SetStateAction<string | null>>) {
-	setPreviewURL((currentPreviewURL) => {
-		if (currentPreviewURL) {
-			URL.revokeObjectURL(currentPreviewURL);
-		}
+function clearPreviewURL(
+	previewURLRef: RefObject<string | null>,
+	setPreviewURL: Dispatch<SetStateAction<string | null>>,
+) {
+	if (previewURLRef.current) {
+		URL.revokeObjectURL(previewURLRef.current);
+	}
 
-		return null;
-	});
+	previewURLRef.current = null;
+	setPreviewURL(null);
 }
 
 function updatePreviewURL(
+	previewURLRef: RefObject<string | null>,
 	setPreviewURL: Dispatch<SetStateAction<string | null>>,
 	file: File | null,
 ) {
-	setPreviewURL((currentPreviewURL) => {
-		if (currentPreviewURL) {
-			URL.revokeObjectURL(currentPreviewURL);
-		}
+	if (previewURLRef.current) {
+		URL.revokeObjectURL(previewURLRef.current);
+	}
 
-		return file ? URL.createObjectURL(file) : null;
-	});
+	const nextPreviewURL = file ? URL.createObjectURL(file) : null;
+	previewURLRef.current = nextPreviewURL;
+	setPreviewURL(nextPreviewURL);
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -288,6 +291,8 @@ export default function MeSkyProfile() {
 	const [clientBannerError, setClientBannerError] = useState<string | null>(null);
 	const [iconPreviewURL, setIconPreviewURL] = useState<string | null>(null);
 	const [bannerPreviewURL, setBannerPreviewURL] = useState<string | null>(null);
+	const iconPreviewURLRef = useRef<string | null>(null);
+	const bannerPreviewURLRef = useRef<string | null>(null);
 	const cdnURL = useCDNURL();
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
@@ -322,17 +327,18 @@ export default function MeSkyProfile() {
 	const descriptionError = actionData?.ok === false ? actionData.errors.description : undefined;
 	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
 
-	useEffect(() => {
-		return () => {
-			if (iconPreviewURL) {
-				URL.revokeObjectURL(iconPreviewURL);
+	useEffect(
+		() => () => {
+			if (iconPreviewURLRef.current) {
+				URL.revokeObjectURL(iconPreviewURLRef.current);
 			}
 
-			if (bannerPreviewURL) {
-				URL.revokeObjectURL(bannerPreviewURL);
+			if (bannerPreviewURLRef.current) {
+				URL.revokeObjectURL(bannerPreviewURLRef.current);
 			}
-		};
-	}, [bannerPreviewURL, iconPreviewURL]);
+		},
+		[],
+	);
 
 	useEffect(() => {
 		if (actionData?.ok !== true) {
@@ -340,8 +346,8 @@ export default function MeSkyProfile() {
 			return;
 		}
 
-		clearPreviewURL(setIconPreviewURL);
-		clearPreviewURL(setBannerPreviewURL);
+		clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
+		clearPreviewURL(bannerPreviewURLRef, setBannerPreviewURL);
 		setHasPendingIconUpload(false);
 		setHasPendingBannerUpload(false);
 		setClientIconError(null);
@@ -380,8 +386,8 @@ export default function MeSkyProfile() {
 					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}`}
 					method="post"
 					onReset={() => {
-						clearPreviewURL(setIconPreviewURL);
-						clearPreviewURL(setBannerPreviewURL);
+						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
+						clearPreviewURL(bannerPreviewURLRef, setBannerPreviewURL);
 						setHasPendingIconUpload(false);
 						setHasPendingBannerUpload(false);
 						setClientIconError(null);
@@ -435,7 +441,6 @@ export default function MeSkyProfile() {
 						className="sr-only"
 						id="banner"
 						name="banner"
-						ref={bannerInputRef}
 						onChange={(event) => {
 							const nextFile = event.currentTarget.files?.[0] ?? null;
 
@@ -449,14 +454,15 @@ export default function MeSkyProfile() {
 
 								event.currentTarget.value = "";
 								setHasPendingBannerUpload(false);
-								clearPreviewURL(setBannerPreviewURL);
+								clearPreviewURL(bannerPreviewURLRef, setBannerPreviewURL);
 								return;
 							}
 
 							setClientBannerError(null);
 							setHasPendingBannerUpload(Boolean(nextFile));
-							updatePreviewURL(setBannerPreviewURL, nextFile);
+							updatePreviewURL(bannerPreviewURLRef, setBannerPreviewURL, nextFile);
 						}}
+						ref={bannerInputRef}
 						type="file"
 					/>
 					<input
@@ -466,7 +472,6 @@ export default function MeSkyProfile() {
 						className="sr-only"
 						id="icon"
 						name="icon"
-						ref={iconInputRef}
 						onChange={(event) => {
 							const nextFile = event.currentTarget.files?.[0] ?? null;
 
@@ -480,14 +485,15 @@ export default function MeSkyProfile() {
 
 								event.currentTarget.value = "";
 								setHasPendingIconUpload(false);
-								clearPreviewURL(setIconPreviewURL);
+								clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
 								return;
 							}
 
 							setClientIconError(null);
 							setHasPendingIconUpload(Boolean(nextFile));
-							updatePreviewURL(setIconPreviewURL, nextFile);
+							updatePreviewURL(iconPreviewURLRef, setIconPreviewURL, nextFile);
 						}}
+						ref={iconInputRef}
 						type="file"
 					/>
 
