@@ -97,7 +97,7 @@ export default function Select({
 		}),
 		placeholder: (provided) => ({
 			...provided,
-			color: disabled ? "var(--select-placeholder)" : "var(--select-placeholder)",
+			color: "var(--select-placeholder)",
 		}),
 		input: (provided) => ({
 			...provided,
@@ -105,7 +105,7 @@ export default function Select({
 		}),
 		dropdownIndicator: (provided, state) => ({
 			...provided,
-			color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-placeholder)",
+			color: "var(--select-placeholder)",
 			padding: "8px",
 			transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
 			transition: "transform 0.2s ease, color 0.15s ease",
