@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 interface SkyProfileHeaderCardProps {
 	bannerURL: string | null;
 	children: ReactNode;
+	disabled?: boolean;
 	iconURL: string | null;
 	name: string | null;
 	onBannerUploadClick?: () => void;
@@ -13,13 +14,14 @@ interface SkyProfileHeaderCardProps {
 export default function SkyProfileHeaderCard({
 	bannerURL,
 	children,
+	disabled = false,
 	iconURL,
 	name,
 	onBannerUploadClick,
 	onIconUploadClick,
 }: SkyProfileHeaderCardProps) {
-	const interactiveBanner = Boolean(onBannerUploadClick);
-	const interactiveIcon = Boolean(onIconUploadClick);
+	const interactiveBanner = Boolean(onBannerUploadClick) && !disabled;
+	const interactiveIcon = Boolean(onIconUploadClick) && !disabled;
 
 	return (
 		<div className="bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">

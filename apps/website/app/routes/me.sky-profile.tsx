@@ -17,7 +17,7 @@ import type { Dispatch, RefObject, SetStateAction, SyntheticEvent } from "react"
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { data, Form, Link, useActionData, useLoaderData } from "react-router";
+import { data, Form, Link, useActionData, useLoaderData, useNavigation } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
@@ -278,6 +278,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 export default function MeSkyProfile() {
 	const { discordUserId, skyProfilePacket } = useLoaderData<typeof loader>();
 	const actionData = useActionData<typeof action>();
+	const navigation = useNavigation();
 	const { t } = useTranslation();
 	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialBanner = skyProfilePacket?.banner ?? null;
@@ -309,6 +310,11 @@ export default function MeSkyProfile() {
 	const displayedIconURL = iconPreviewURL ?? initialIconURL;
 	const previewName = nameValue.trim();
 	const previewDescription = descriptionValue.trim();
+
+	const isSaving =
+		navigation.state !== "idle" &&
+		navigation.formMethod?.toLowerCase() === "post" &&
+		navigation.formData != null;
 
 	const hasChanges =
 		hasPendingIconUpload ||
@@ -404,6 +410,7 @@ export default function MeSkyProfile() {
 						</h2>
 						<SkyProfileHeaderCard
 							bannerURL={displayedBannerURL}
+							disabled={isSaving}
 							iconURL={displayedIconURL}
 							name={previewName || null}
 							onBannerUploadClick={() => bannerInputRef.current?.click()}
@@ -443,6 +450,7 @@ export default function MeSkyProfile() {
 						aria-describedby={bannerError ? "banner-error" : undefined}
 						aria-invalid={bannerError ? true : undefined}
 						className="sr-only"
+						disabled={isSaving}
 						id="banner"
 						name="banner"
 						onChange={(event) => {
@@ -474,6 +482,7 @@ export default function MeSkyProfile() {
 						aria-describedby={iconError ? "icon-error" : undefined}
 						aria-invalid={iconError ? true : undefined}
 						className="sr-only"
+						disabled={isSaving}
 						id="icon"
 						name="icon"
 						onChange={(event) => {
@@ -519,6 +528,7 @@ export default function MeSkyProfile() {
 									aria-invalid={nameError ? true : undefined}
 									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
 									defaultValue={initialName}
+									disabled={isSaving}
 									id="name"
 									maxLength={SKY_PROFILE_MAXIMUM_NAME_LENGTH}
 									name="name"
@@ -551,6 +561,7 @@ export default function MeSkyProfile() {
 									aria-invalid={descriptionError ? true : undefined}
 									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
 									defaultValue={initialDescription}
+									disabled={isSaving}
 									id="description"
 									maxLength={SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH}
 									name="description"
@@ -582,6 +593,7 @@ export default function MeSkyProfile() {
 									aria-invalid={hangoutError ? true : undefined}
 									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
 									defaultValue={initialHangout}
+									disabled={isSaving}
 									id="hangout"
 									maxLength={SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH}
 									name="hangout"
@@ -601,14 +613,14 @@ export default function MeSkyProfile() {
 						<div className="flex flex-col gap-2.5 sm:flex-row">
 							<button
 								className="inline-flex cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-colors duration-300 hover:bg-green-700 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 disabled:shadow-md dark:border-gray-600"
-								disabled={!hasChanges}
+								disabled={isSaving || !hasChanges}
 								type="submit"
 							>
 								Save Sky profile
 							</button>
 							<button
 								className="inline-flex cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 shadow-md transition-colors duration-300 hover:bg-gray-300 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200/70 disabled:text-gray-900/70 disabled:shadow-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 dark:disabled:bg-gray-700/70 dark:disabled:text-gray-100/70"
-								disabled={!hasChanges}
+								disabled={isSaving || !hasChanges}
 								type="reset"
 							>
 								Reset
