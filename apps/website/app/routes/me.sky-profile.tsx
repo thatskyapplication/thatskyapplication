@@ -664,7 +664,10 @@ export default function MeSkyProfile() {
 										ns: "features",
 									})}
 								</p>
-								<fieldset aria-describedby={personalityError ? "personality-error" : undefined}>
+								<fieldset
+									aria-describedby={personalityError ? "personality-error" : undefined}
+									aria-invalid={personalityError ? true : undefined}
+								>
 									<legend className="sr-only">
 										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Personality}`, {
 											ns: "features",
