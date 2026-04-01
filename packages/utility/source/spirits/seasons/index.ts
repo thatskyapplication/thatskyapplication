@@ -11,6 +11,7 @@ import Assembly from "./assembly/index.js";
 import AURORA from "./aurora/index.js";
 import Belonging from "./belonging/index.js";
 import BlueBird from "./blue-bird/index.js";
+import carnival from "./carnival/index.js";
 import Dreams from "./dreams/index.js";
 import Duets from "./duets/index.js";
 import Enchantment from "./enchantment/index.js";
@@ -34,7 +35,6 @@ import Rhythm from "./rhythm/index.js";
 import Sanctuary from "./sanctuary/index.js";
 import Shattering from "./shattering/index.js";
 import twoEmbersPart1 from "./two-embers-part-1/index.js";
-import carnival from "./carnival/index.js";
 
 const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	Gratitude,
