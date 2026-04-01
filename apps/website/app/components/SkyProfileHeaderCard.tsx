@@ -45,35 +45,37 @@ export default function SkyProfileHeaderCard({
 						<Edit className="h-4 w-4" />
 					</label>
 				) : null}
-				<div className="absolute -bottom-8 left-4 h-20 w-20">
-					{interactiveIcon ? (
-						<label
-							aria-label={iconURL ? "Change icon" : "Upload icon"}
-							className="group block h-20 w-20 cursor-pointer"
-							htmlFor={iconUploadInputId}
-						>
-							{iconURL ? (
-								<div
-									aria-label={name ? `Icon of ${name}.` : "Sky profile icon."}
-									className="h-20 w-20 rounded-full border-4 border-white bg-cover bg-center transition-transform duration-200 group-hover:scale-105"
-									role="img"
-									style={{ backgroundImage: `url(${iconURL})` }}
-								/>
-							) : (
-								<div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-gray-300 px-2 text-center text-xs font-medium text-white transition-colors duration-200 group-hover:bg-gray-400 dark:bg-gray-500 dark:group-hover:bg-gray-400">
-									Add icon
-								</div>
-							)}
-						</label>
-					) : iconURL ? (
-						<div
-							aria-label={name ? `Icon of ${name}.` : "Sky profile icon."}
-							className="h-20 w-20 rounded-full border-4 border-white bg-cover bg-center"
-							role="img"
-							style={{ backgroundImage: `url(${iconURL})` }}
-						/>
-					) : null}
-				</div>
+				{interactiveIcon || iconURL ? (
+					<div className="absolute -bottom-8 left-4 h-20 w-20">
+						{interactiveIcon ? (
+							<label
+								aria-label={iconURL ? "Change icon" : "Upload icon"}
+								className="group block h-20 w-20 cursor-pointer"
+								htmlFor={iconUploadInputId}
+							>
+								{iconURL ? (
+									<div
+										aria-label={name ? `Icon of ${name}.` : "Sky profile icon."}
+										className="h-20 w-20 rounded-full border-4 border-white bg-cover bg-center transition-transform duration-200 group-hover:scale-105"
+										role="img"
+										style={{ backgroundImage: `url(${iconURL})` }}
+									/>
+								) : (
+									<div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-gray-300 px-2 text-center text-xs font-medium text-white transition-colors duration-200 group-hover:bg-gray-400 dark:bg-gray-500 dark:group-hover:bg-gray-400">
+										Add icon
+									</div>
+								)}
+							</label>
+						) : iconURL ? (
+							<div
+								aria-label={name ? `Icon of ${name}.` : "Sky profile icon."}
+								className="h-20 w-20 rounded-full border-4 border-white bg-cover bg-center"
+								role="img"
+								style={{ backgroundImage: `url(${iconURL})` }}
+							/>
+						) : null}
+					</div>
+				) : null}
 			</div>
 			<div className="px-4 pt-10 pb-2">{children}</div>
 		</div>
