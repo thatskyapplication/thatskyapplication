@@ -116,8 +116,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonality =
-		skyProfilePacket?.personality !== null &&
-		skyProfilePacket?.personality !== undefined &&
+		skyProfilePacket?.personality != null &&
 		isSkyProfilePersonalityType(skyProfilePacket.personality)
 			? skyProfilePacket.personality
 			: null;
@@ -312,8 +311,7 @@ export default function MeSkyProfile() {
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonality =
-		skyProfilePacket?.personality !== null &&
-		skyProfilePacket?.personality !== undefined &&
+		skyProfilePacket?.personality != null &&
 		isSkyProfilePersonalityType(skyProfilePacket.personality)
 			? skyProfilePacket.personality
 			: null;
