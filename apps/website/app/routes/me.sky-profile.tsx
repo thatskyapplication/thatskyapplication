@@ -115,11 +115,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
-	const initialPersonality =
-		skyProfilePacket?.personality != null &&
-		isSkyProfilePersonalityType(skyProfilePacket.personality)
-			? skyProfilePacket.personality
-			: null;
+	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const errors: SkyProfileActionErrors = {};
 
 	if (hasNewIcon && !isValidImageAsset(rawIcon)) {
@@ -177,7 +173,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		name === initialName &&
 		description === initialDescription &&
 		hangout === initialHangout &&
-		personality === initialPersonality
+		personality === initialPersonalityRaw
 	) {
 		return null;
 	}
@@ -310,10 +306,10 @@ export default function MeSkyProfile() {
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
+	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const initialPersonality =
-		skyProfilePacket?.personality != null &&
-		isSkyProfilePersonalityType(skyProfilePacket.personality)
-			? skyProfilePacket.personality
+		initialPersonalityRaw != null && isSkyProfilePersonalityType(initialPersonalityRaw)
+			? initialPersonalityRaw
 			: null;
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
@@ -353,7 +349,7 @@ export default function MeSkyProfile() {
 		nameValue.trim() !== initialName ||
 		descriptionValue.trim() !== initialDescription ||
 		hangoutValue.trim() !== initialHangout ||
-		personalityValue !== initialPersonality;
+		personalityValue !== initialPersonalityRaw;
 
 	const bannerError =
 		clientBannerError ?? (actionData?.ok === false ? actionData.errors.banner : undefined);
@@ -422,7 +418,7 @@ export default function MeSkyProfile() {
 
 				<Form
 					encType="multipart/form-data"
-					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonality ?? ""}`}
+					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}`}
 					method="post"
 					onReset={() => {
 						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
