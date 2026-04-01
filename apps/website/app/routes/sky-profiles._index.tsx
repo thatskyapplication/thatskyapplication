@@ -137,11 +137,18 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	);
 };
 
-function SkyProfileCard(cdnURL: string, profile: SkyProfilePacket, returnTo: string) {
+interface SkyProfileCardProps {
+	cdnURL: string;
+	profile: SkyProfilePacket;
+	returnTo: string;
+}
+
+function SkyProfileCard({ cdnURL, profile, returnTo }: SkyProfileCardProps) {
+	const { t } = useTranslation();
+
 	return (
 		<Link
 			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-137.5"
-			key={profile.user_id}
 			state={{ returnTo }}
 			to={`/sky-profiles/${profile.user_id}`}
 		>
@@ -269,9 +276,14 @@ export default function SkyProfiles() {
 				{profiles.length > 0 ? (
 					<>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-							{profiles.map((profile) =>
-								SkyProfileCard(cdnURL, profile, `${location.pathname}${location.search}`),
-							)}
+							{profiles.map((profile) => (
+								<SkyProfileCard
+									cdnURL={cdnURL}
+									key={profile.user_id}
+									profile={profile}
+									returnTo={`${location.pathname}${location.search}`}
+								/>
+							))}
 						</div>
 						{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
 					</>
