@@ -287,7 +287,7 @@ export default function SkyProfile() {
 									.sort((a, b) => a - b)
 									.map((season) => (
 										<div
-											aria-label={`Season ${season} icon.`}
+											aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
 											className="w-10 h-10 bg-cover bg-center"
 											key={season}
 											role="img"

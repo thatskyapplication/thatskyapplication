@@ -185,7 +185,7 @@ function SkyProfileCard(cdnURL: string, profile: SkyProfilePacket, returnTo: str
 							.sort((a, b) => a - b)
 							.map((season) => (
 								<div
-									aria-label={`Season ${season} icon.`}
+									aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
 									className="w-6 h-6 bg-cover bg-center"
 									key={season}
 									role="img"
