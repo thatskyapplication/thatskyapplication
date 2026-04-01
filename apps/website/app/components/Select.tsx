@@ -7,6 +7,9 @@ interface SelectOption {
 }
 
 interface SelectProps {
+	ariaDescribedBy?: string;
+	ariaLabel?: string;
+	ariaLabelledBy?: string;
 	label?: string;
 	isClearable?: boolean;
 	value: string;
@@ -19,6 +22,9 @@ interface SelectProps {
 }
 
 export default function Select({
+	ariaDescribedBy,
+	ariaLabel,
+	ariaLabelledBy,
 	label,
 	value,
 	isClearable = false,
@@ -131,6 +137,9 @@ export default function Select({
 			<div className={className} style={disabled ? { cursor: "not-allowed" } : undefined}>
 				<div style={disabled ? { pointerEvents: "none" } : undefined}>
 					<ReactSelect
+						aria-describedby={ariaDescribedBy}
+						aria-label={ariaLabel}
+						aria-labelledby={ariaLabelledBy}
 						inputId={id}
 						isClearable={isClearable}
 						isDisabled={disabled}

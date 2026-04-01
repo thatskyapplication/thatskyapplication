@@ -668,18 +668,26 @@ export default function MeSkyProfile() {
 						</div>
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+							<h2
+								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
+								id="country-heading"
+							>
 								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Country}`, {
 									ns: "features",
 								})}
 							</h2>
 							<div className="flex flex-col gap-2">
-								<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="country-description"
+								>
 									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Country}`, {
 										ns: "features",
 									})}
 								</p>
 								<Select
+									ariaDescribedBy={`country-description${countryError ? " country-error" : ""}`}
+									ariaLabelledBy="country-heading"
 									className="w-full"
 									disabled={isSaving}
 									error={countryError}
@@ -689,6 +697,11 @@ export default function MeSkyProfile() {
 									placeholder={t("sky-profile.select-a-country", { ns: "features" })}
 									value={countryValue}
 								/>
+								{countryError ? (
+									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="country-error">
+										{countryError}
+									</p>
+								) : null}
 								<input name="country" type="hidden" value={countryValue} />
 							</div>
 						</div>
