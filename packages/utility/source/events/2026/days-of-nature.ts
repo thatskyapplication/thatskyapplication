@@ -6,6 +6,5 @@ export default new Event({
 	id: EventId.DaysOfNature2026,
 	name: "days-of-nature",
 	start: skyDate(2026, 4, 10),
-	// Assumption; unannounced.
 	end: skyDate(2026, 4, 24),
 });
