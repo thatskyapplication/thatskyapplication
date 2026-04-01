@@ -411,9 +411,13 @@ export default function MeSkyProfile() {
 						>
 							<div className="flex-1 min-w-0">
 								{previewName ? (
-									<h1 className="mb-2">{previewName}</h1>
+									<h2 className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-black dark:text-white">
+										{previewName}
+									</h2>
 								) : (
-									<h1 className="mb-2 italic">No name</h1>
+									<h2 className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold italic text-black dark:text-white">
+										No name
+									</h2>
 								)}
 								{previewDescription ? (
 									<p className="whitespace-pre-wrap">{previewDescription}</p>
