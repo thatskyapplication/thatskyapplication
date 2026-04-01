@@ -1,5 +1,8 @@
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
+	COUNTRY_VALUES,
+	CountryToEmoji,
+	isCountry,
 	isSkyProfilePersonalityType,
 	isValidImageAsset,
 	MAXIMUM_ASSET_SIZE,
@@ -22,6 +25,7 @@ import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { data, Form, Link, useActionData, useLoaderData, useNavigation } from "react-router";
 import { SitePage } from "~/components/PageLayout";
+import Select from "~/components/Select";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
@@ -39,6 +43,7 @@ import {
 
 type SkyProfileActionErrors = {
 	banner?: string;
+	country?: string;
 	description?: string;
 	hangout?: string;
 	icon?: string;
@@ -80,7 +85,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("icon", "banner", "name", "description", "hangout", "personality")
+		.select("icon", "banner", "name", "description", "hangout", "personality", "country")
 		.where({ user_id: discordUser.id })
 		.first();
 
@@ -92,7 +97,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const locale = getLocale(context);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("icon", "banner", "name", "description", "hangout", "personality")
+		.select("icon", "banner", "name", "description", "hangout", "personality", "country")
 		.where({ user_id: discordUser.id })
 		.first();
 
@@ -103,6 +108,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const rawDescription = formData.get("description");
 	const rawHangout = formData.get("hangout");
 	const rawPersonality = formData.get("personality");
+	const rawCountry = formData.get("country");
 	const hasNewIcon = hasSelectedFile(rawIcon);
 	const hasNewBanner = hasSelectedFile(rawBanner);
 	const name = typeof rawName === "string" ? rawName.trim() : "";
@@ -110,12 +116,14 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const hangout = typeof rawHangout === "string" ? rawHangout.trim() : "";
 	const personality =
 		typeof rawPersonality === "string" && rawPersonality.length > 0 ? Number(rawPersonality) : null;
+	const country = typeof rawCountry === "string" && rawCountry.length > 0 ? rawCountry : null;
 	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialBanner = skyProfilePacket?.banner ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
+	const initialCountryRaw = skyProfilePacket?.country ?? null;
 	const errors: SkyProfileActionErrors = {};
 
 	if (hasNewIcon && !isValidImageAsset(rawIcon)) {
@@ -164,6 +172,13 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		});
 	}
 
+	if (country !== null && !isCountry(country)) {
+		errors.country = t("sky-profile.unknown-country", {
+			lng: locale,
+			ns: "features",
+		});
+	}
+
 	if (Object.keys(errors).length > 0) {
 		return data({ ok: false, errors } as const, { status: 422 });
 	}
@@ -173,7 +188,8 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		name === initialName &&
 		description === initialDescription &&
 		hangout === initialHangout &&
-		personality === initialPersonalityRaw
+		personality === initialPersonalityRaw &&
+		country === initialCountryRaw
 	) {
 		return null;
 	}
@@ -244,6 +260,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		description: description.length > 0 ? description : null,
 		hangout: hangout.length > 0 ? hangout : null,
 		personality,
+		country,
 	};
 
 	if (hasNewIcon) {
@@ -300,17 +317,20 @@ export default function MeSkyProfile() {
 	const { discordUserId, skyProfilePacket } = useLoaderData<typeof loader>();
 	const actionData = useActionData<typeof action>();
 	const navigation = useNavigation();
-	const { t } = useTranslation();
+	const { i18n, t } = useTranslation();
 	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialBanner = skyProfilePacket?.banner ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
+	const initialCountryRaw = skyProfilePacket?.country ?? null;
 	const initialPersonality =
 		initialPersonalityRaw != null && isSkyProfilePersonalityType(initialPersonalityRaw)
 			? initialPersonalityRaw
 			: null;
+	const initialCountry =
+		initialCountryRaw != null && isCountry(initialCountryRaw) ? initialCountryRaw : "";
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
 	const [hasPendingBannerUpload, setHasPendingBannerUpload] = useState(false);
@@ -325,8 +345,14 @@ export default function MeSkyProfile() {
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
 	const [hangoutValue, setHangoutValue] = useState(initialHangout);
 	const [personalityValue, setPersonalityValue] = useState<number | null>(initialPersonality);
+	const [countryValue, setCountryValue] = useState(initialCountry);
 	const bannerInputRef = useRef<HTMLInputElement>(null);
 	const iconInputRef = useRef<HTMLInputElement>(null);
+	const displayNames = new Intl.DisplayNames(i18n.language, { type: "region", style: "long" });
+	const countryOptions = COUNTRY_VALUES.map((country) => ({
+		label: `${CountryToEmoji[country]} ${displayNames.of(country)!}`,
+		value: country,
+	})).sort((a, b) => a.label.localeCompare(b.label));
 
 	const initialBannerURL = initialBanner
 		? skyProfileBannerURL(cdnURL, discordUserId, initialBanner)
@@ -349,7 +375,8 @@ export default function MeSkyProfile() {
 		nameValue.trim() !== initialName ||
 		descriptionValue.trim() !== initialDescription ||
 		hangoutValue.trim() !== initialHangout ||
-		personalityValue !== initialPersonalityRaw;
+		personalityValue !== initialPersonalityRaw ||
+		countryValue !== (initialCountryRaw ?? "");
 
 	const bannerError =
 		clientBannerError ?? (actionData?.ok === false ? actionData.errors.banner : undefined);
@@ -361,6 +388,7 @@ export default function MeSkyProfile() {
 	const descriptionError = actionData?.ok === false ? actionData.errors.description : undefined;
 	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
 	const personalityError = actionData?.ok === false ? actionData.errors.personality : undefined;
+	const countryError = actionData?.ok === false ? actionData.errors.country : undefined;
 
 	useEffect(
 		() => () => {
@@ -418,7 +446,7 @@ export default function MeSkyProfile() {
 
 				<Form
 					encType="multipart/form-data"
-					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}`}
+					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}`}
 					method="post"
 					onReset={() => {
 						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
@@ -431,6 +459,7 @@ export default function MeSkyProfile() {
 						setDescriptionValue(initialDescription);
 						setHangoutValue(initialHangout);
 						setPersonalityValue(initialPersonality);
+						setCountryValue(initialCountry);
 					}}
 					onSubmit={handleSubmit}
 				>
@@ -635,6 +664,32 @@ export default function MeSkyProfile() {
 										{hangoutError}
 									</p>
 								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Country}`, {
+									ns: "features",
+								})}
+							</h2>
+							<div className="flex flex-col gap-2">
+								<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Country}`, {
+										ns: "features",
+									})}
+								</p>
+								<Select
+									className="w-full"
+									disabled={isSaving}
+									error={countryError}
+									isClearable={true}
+									onChange={(value) => setCountryValue(value)}
+									options={countryOptions}
+									placeholder={t("sky-profile.select-a-country", { ns: "features" })}
+									value={countryValue}
+								/>
+								<input name="country" type="hidden" value={countryValue} />
 							</div>
 						</div>
 

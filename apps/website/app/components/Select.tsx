@@ -12,9 +12,10 @@ interface SelectProps {
 	value: string;
 	options: readonly SelectOption[];
 	onChange: (value: string) => void;
-	error?: string | null;
+	error?: string | null | undefined;
 	placeholder?: string;
 	className?: string;
+	disabled?: boolean;
 }
 
 export default function Select({
@@ -26,6 +27,7 @@ export default function Select({
 	error,
 	placeholder,
 	className,
+	disabled = false,
 }: SelectProps) {
 	const id = React.useId();
 
@@ -123,6 +125,7 @@ export default function Select({
 				<ReactSelect
 					inputId={id}
 					isClearable={isClearable}
+					isDisabled={disabled}
 					onChange={(newValue: SingleValue<SelectOption>) => {
 						onChange(newValue?.value ?? "");
 					}}

@@ -149,6 +149,13 @@ function isSkyProfileResetType(value: number): value is SkyProfileResetTypes {
 	return SKY_PROFILE_RESET_TYPE_VALUES.includes(value as SkyProfileResetTypes);
 }
 
+// The dynamic construction of string select menu options should not include countries.
+// This is because countries is only possible through autocomplete on Discord.
+const SKY_PROFILE_EDIT_TYPE_WITHOUT_COUNTRY_VALUES: readonly Exclude<
+	SkyProfileEditTypes,
+	typeof SkyProfileEditType.Country
+>[] = SKY_PROFILE_EDIT_TYPE_VALUES.filter((value) => value !== SkyProfileEditType.Country);
+
 const PlatformIdToEmoji = {
 	[PlatformId.iOS]: MISCELLANEOUS_EMOJIS.PlatformIOS,
 	[PlatformId.Android]: MISCELLANEOUS_EMOJIS.PlatformAndroid,
@@ -391,6 +398,9 @@ export async function skyProfileEdit(interaction: APIMessageComponentSelectMenuI
 			await skyProfileShowPersonalitySelectMenu(interaction);
 			return;
 		}
+		default: {
+			throw new Error("Received an unknown Sky profile edit type.");
+		}
 	}
 }
 
@@ -507,7 +517,7 @@ export async function skyProfileShowEdit(
 				custom_id: CustomId.SkyProfileEdit,
 				max_values: 1,
 				min_values: 1,
-				options: SKY_PROFILE_EDIT_TYPE_VALUES.map((skyProfileEditType) => ({
+				options: SKY_PROFILE_EDIT_TYPE_WITHOUT_COUNTRY_VALUES.map((skyProfileEditType) => ({
 					description: t(`sky-profile.edit-type-description.${skyProfileEditType}`, {
 						lng: locale,
 						ns: "features",
