@@ -737,7 +737,7 @@ export default function MeSkyProfile() {
 						</div>
 						{initialName ? (
 							<Link
-								className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2 transition-colors duration-300 overflow-auto"
+								className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 rounded-sm border border-gray-200 px-4 py-2 text-sm font-medium transition-colors duration-300 overflow-auto dark:border-gray-600"
 								to={`/sky-profiles/${discordUserId}`}
 							>
 								<ExternalLinkIcon className="h-4 w-4" />
