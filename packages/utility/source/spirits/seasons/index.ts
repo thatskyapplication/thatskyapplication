@@ -34,6 +34,7 @@ import Rhythm from "./rhythm/index.js";
 import Sanctuary from "./sanctuary/index.js";
 import Shattering from "./shattering/index.js";
 import twoEmbersPart1 from "./two-embers-part-1/index.js";
+import carnival from "./carnival/index.js";
 
 const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	Gratitude,
@@ -64,6 +65,7 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	twoEmbersPart1,
 	migration,
 	lightmending,
+	carnival,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
 export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collection<number, Visit>(

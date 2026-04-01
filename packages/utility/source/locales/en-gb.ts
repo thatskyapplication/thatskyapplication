@@ -654,6 +654,7 @@ export default {
 			[SeasonId.TwoEmbersPart1]: "Season of The Two Embers - Part 1",
 			[SeasonId.Migration]: "Season of Migration",
 			[SeasonId.Lightmending]: "Season of Lightmending",
+			[SeasonId.Carnival]: "Season of Carnival",
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -689,6 +690,7 @@ export default {
 			[SeasonId.Migration]: "https://sky-children-of-the-light.fandom.com/Season_of_Migration",
 			[SeasonId.Lightmending]:
 				"https://sky-children-of-the-light.fandom.com/Season_of_Lightmending",
+			[SeasonId.Carnival]: "https://sky-children-of-the-light.fandom.com/Season_of_Carnival",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		event: "Event",
 		"event-names": {
@@ -1044,6 +1046,7 @@ export default {
 			[SpiritId.LightmendingLightCatcher]: "Lightmending Light Catcher",
 			[SpiritId.LightmendingLightScholar]: "Lightmending Light Scholar",
 			[SpiritId.LightmendingPioneer]: "Lightmending Pioneer",
+			[SpiritId.CarnivalGuide]: "Carnival Guide",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1332,6 +1335,7 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Lightmending_Light_Scholar",
 			[SpiritId.LightmendingPioneer]:
 				"https://sky-children-of-the-light.fandom.com/Lightmending_Pioneer",
+			[SpiritId.CarnivalGuide]: "https://sky-children-of-the-light.fandom.com/Carnival_Guide",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
