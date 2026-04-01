@@ -30,6 +30,7 @@ import {
 	cdnAssetURL,
 	getCDNURLFromMatches,
 	skyKidIconURL,
+	skyProfileBannerURL,
 } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -136,11 +137,18 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	);
 };
 
-function SkyProfileCard(cdnURL: string, profile: SkyProfilePacket, returnTo: string) {
+interface SkyProfileCardProps {
+	cdnURL: string;
+	profile: SkyProfilePacket;
+	returnTo: string;
+}
+
+function SkyProfileCard({ cdnURL, profile, returnTo }: SkyProfileCardProps) {
+	const { t } = useTranslation();
+
 	return (
 		<Link
 			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-137.5"
-			key={profile.user_id}
 			state={{ returnTo }}
 			to={`/sky-profiles/${profile.user_id}`}
 		>
@@ -151,9 +159,10 @@ function SkyProfileCard(cdnURL: string, profile: SkyProfilePacket, returnTo: str
 						className="w-full h-48 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(${cdnAssetURL(
+							backgroundImage: `url(${skyProfileBannerURL(
 								cdnURL,
-								`sky_profiles/banners/${profile.user_id}/${profile.banner.startsWith("a_") ? `${profile.banner}.gif` : `${profile.banner}.webp`}`,
+								profile.user_id,
+								profile.banner,
 							)})`,
 						}}
 					/>
@@ -183,7 +192,7 @@ function SkyProfileCard(cdnURL: string, profile: SkyProfilePacket, returnTo: str
 							.sort((a, b) => a - b)
 							.map((season) => (
 								<div
-									aria-label={`Season ${season} icon.`}
+									aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
 									className="w-6 h-6 bg-cover bg-center"
 									key={season}
 									role="img"
@@ -267,9 +276,14 @@ export default function SkyProfiles() {
 				{profiles.length > 0 ? (
 					<>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-							{profiles.map((profile) =>
-								SkyProfileCard(cdnURL, profile, `${location.pathname}${location.search}`),
-							)}
+							{profiles.map((profile) => (
+								<SkyProfileCard
+									cdnURL={cdnURL}
+									key={profile.user_id}
+									profile={profile}
+									returnTo={`${location.pathname}${location.search}`}
+								/>
+							))}
 						</div>
 						{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
 					</>

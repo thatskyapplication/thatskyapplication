@@ -1,10 +1,9 @@
 import { Buffer } from "node:buffer";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
-	ALLOWED_IMAGE_MEDIA_TYPES,
 	ANIMATED_HASH_PREFIX,
-	MAXIMUM_ASSET_SIZE,
-	type SkyProfilePacket,
+	isValidImageAsset,
+	skyProfileBannerRoute,
 	skyProfileIconRoute,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
@@ -12,14 +11,17 @@ import sharp from "sharp";
 import { CDN_BUCKET } from "~/config.server.js";
 import S3Client from "~/s3-client.server.js";
 
-export function isValidSkyProfileImageFile(file: File) {
-	return (
-		file.size <= MAXIMUM_ASSET_SIZE &&
-		ALLOWED_IMAGE_MEDIA_TYPES.some((mediaType) => mediaType === file.type)
-	);
-}
+async function uploadSkyProfileAsset({
+	file,
+	route,
+}: {
+	file: File;
+	route: (hash: string) => string;
+}) {
+	if (!isValidImageAsset(file)) {
+		throw new Error("Invalid Sky profile image file.");
+	}
 
-export async function uploadSkyProfileIcon({ file, userId }: { file: File; userId: string }) {
 	const gif = file.type === "image/gif";
 	const assetBuffer = sharp(Buffer.from(await file.arrayBuffer()), { animated: true });
 	const buffer = gif ? await assetBuffer.gif().toBuffer() : await assetBuffer.webp().toBuffer();
@@ -32,7 +34,7 @@ export async function uploadSkyProfileIcon({ file, userId }: { file: File; userI
 	await S3Client.send(
 		new PutObjectCommand({
 			Bucket: CDN_BUCKET,
-			Key: skyProfileIconRoute(userId, hashedBuffer),
+			Key: route(hashedBuffer),
 			Body: buffer,
 		}),
 	);
@@ -40,21 +42,40 @@ export async function uploadSkyProfileIcon({ file, userId }: { file: File; userI
 	return hashedBuffer;
 }
 
-export async function deleteSkyProfileIcon({
-	icon,
-	userId,
-}: {
-	icon: SkyProfilePacket["icon"];
-	userId: string;
-}) {
-	if (!icon) {
-		return;
-	}
+export async function uploadSkyProfileIcon({ file, userId }: { file: File; userId: string }) {
+	return uploadSkyProfileAsset({
+		file,
+		route: (hash) => skyProfileIconRoute(userId, hash),
+	});
+}
 
+export async function uploadSkyProfileBanner({ file, userId }: { file: File; userId: string }) {
+	return uploadSkyProfileAsset({
+		file,
+		route: (hash) => skyProfileBannerRoute(userId, hash),
+	});
+}
+
+export async function deleteSkyProfileIcon({ icon, userId }: { icon: string; userId: string }) {
 	await S3Client.send(
 		new DeleteObjectCommand({
 			Bucket: CDN_BUCKET,
 			Key: skyProfileIconRoute(userId, icon),
+		}),
+	);
+}
+
+export async function deleteSkyProfileBanner({
+	banner,
+	userId,
+}: {
+	banner: string;
+	userId: string;
+}) {
+	await S3Client.send(
+		new DeleteObjectCommand({
+			Bucket: CDN_BUCKET,
+			Key: skyProfileBannerRoute(userId, banner),
 		}),
 	);
 }

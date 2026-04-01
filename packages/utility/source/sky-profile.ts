@@ -123,6 +123,10 @@ export function skyProfileIconRoute<UserId extends string>(userId: UserId, hash:
 	return `sky_profiles/icons/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}` as const;
 }
 
+export function skyProfileBannerRoute<UserId extends string>(userId: UserId, hash: string) {
+	return `sky_profiles/banners/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}` as const;
+}
+
 export function skyProfileIconURL<UserId extends string>(
 	cdnURL: string,
 	userId: UserId,
