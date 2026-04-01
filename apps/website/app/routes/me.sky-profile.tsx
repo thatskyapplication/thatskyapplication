@@ -1,13 +1,16 @@
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
+	isSkyProfilePersonalityType,
 	isValidImageAsset,
 	MAXIMUM_ASSET_SIZE,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
+	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
 	SkyProfileEditType,
 	type SkyProfilePacket,
+	SkyProfilePersonalityToMBTI,
 	skyProfileIconURL,
 	Table,
 } from "@thatskyapplication/utility";
@@ -25,6 +28,7 @@ import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import pino from "~/pino.js";
 import { skyProfileBannerURL } from "~/utility/cdn-url.js";
+import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import {
 	deleteSkyProfileBanner,
@@ -39,6 +43,7 @@ type SkyProfileActionErrors = {
 	hangout?: string;
 	icon?: string;
 	name?: string;
+	personality?: string;
 };
 
 function hasSelectedFile(value: FormDataEntryValue | null): value is File {
@@ -75,7 +80,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("icon", "banner", "name", "description", "hangout")
+		.select("icon", "banner", "name", "description", "hangout", "personality")
 		.where({ user_id: discordUser.id })
 		.first();
 
@@ -87,7 +92,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const locale = getLocale(context);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("icon", "banner", "name", "description", "hangout")
+		.select("icon", "banner", "name", "description", "hangout", "personality")
 		.where({ user_id: discordUser.id })
 		.first();
 
@@ -97,16 +102,20 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const rawName = formData.get("name");
 	const rawDescription = formData.get("description");
 	const rawHangout = formData.get("hangout");
+	const rawPersonality = formData.get("personality");
 	const hasNewIcon = hasSelectedFile(rawIcon);
 	const hasNewBanner = hasSelectedFile(rawBanner);
 	const name = typeof rawName === "string" ? rawName.trim() : "";
 	const description = typeof rawDescription === "string" ? rawDescription.trim() : "";
 	const hangout = typeof rawHangout === "string" ? rawHangout.trim() : "";
+	const personality =
+		typeof rawPersonality === "string" && rawPersonality.length > 0 ? Number(rawPersonality) : null;
 	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialBanner = skyProfilePacket?.banner ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
+	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const errors: SkyProfileActionErrors = {};
 
 	if (hasNewIcon && !isValidImageAsset(rawIcon)) {
@@ -145,6 +154,16 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		errors.hangout = `Hangout must not exceed ${SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH} characters.`;
 	}
 
+	if (
+		personality !== null &&
+		!(Number.isInteger(personality) && isSkyProfilePersonalityType(personality))
+	) {
+		errors.personality = t("sky-profile.edit-personality-invalid", {
+			lng: locale,
+			ns: "features",
+		});
+	}
+
 	if (Object.keys(errors).length > 0) {
 		return data({ ok: false, errors } as const, { status: 422 });
 	}
@@ -153,7 +172,8 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		!(hasNewIcon || hasNewBanner) &&
 		name === initialName &&
 		description === initialDescription &&
-		hangout === initialHangout
+		hangout === initialHangout &&
+		personality === initialPersonalityRaw
 	) {
 		return null;
 	}
@@ -223,6 +243,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		name,
 		description: description.length > 0 ? description : null,
 		hangout: hangout.length > 0 ? hangout : null,
+		personality,
 	};
 
 	if (hasNewIcon) {
@@ -285,6 +306,11 @@ export default function MeSkyProfile() {
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
+	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
+	const initialPersonality =
+		initialPersonalityRaw != null && isSkyProfilePersonalityType(initialPersonalityRaw)
+			? initialPersonalityRaw
+			: null;
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
 	const [hasPendingBannerUpload, setHasPendingBannerUpload] = useState(false);
@@ -298,6 +324,7 @@ export default function MeSkyProfile() {
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
 	const [hangoutValue, setHangoutValue] = useState(initialHangout);
+	const [personalityValue, setPersonalityValue] = useState<number | null>(initialPersonality);
 	const bannerInputRef = useRef<HTMLInputElement>(null);
 	const iconInputRef = useRef<HTMLInputElement>(null);
 
@@ -321,7 +348,8 @@ export default function MeSkyProfile() {
 		hasPendingBannerUpload ||
 		nameValue.trim() !== initialName ||
 		descriptionValue.trim() !== initialDescription ||
-		hangoutValue.trim() !== initialHangout;
+		hangoutValue.trim() !== initialHangout ||
+		personalityValue !== initialPersonalityRaw;
 
 	const bannerError =
 		clientBannerError ?? (actionData?.ok === false ? actionData.errors.banner : undefined);
@@ -332,6 +360,7 @@ export default function MeSkyProfile() {
 	const nameError = actionData?.ok === false ? actionData.errors.name : undefined;
 	const descriptionError = actionData?.ok === false ? actionData.errors.description : undefined;
 	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
+	const personalityError = actionData?.ok === false ? actionData.errors.personality : undefined;
 
 	useEffect(
 		() => () => {
@@ -389,7 +418,7 @@ export default function MeSkyProfile() {
 
 				<Form
 					encType="multipart/form-data"
-					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}`}
+					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}`}
 					method="post"
 					onReset={() => {
 						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
@@ -401,6 +430,7 @@ export default function MeSkyProfile() {
 						setNameValue(initialName);
 						setDescriptionValue(initialDescription);
 						setHangoutValue(initialHangout);
+						setPersonalityValue(initialPersonality);
 					}}
 					onSubmit={handleSubmit}
 				>
@@ -603,6 +633,85 @@ export default function MeSkyProfile() {
 								{hangoutError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="hangout-error">
 										{hangoutError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Personality}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || personalityValue === null}
+									onClick={() => setPersonalityValue(null)}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Personality}`, {
+										ns: "features",
+									})}
+								</p>
+								<fieldset
+									aria-describedby={personalityError ? "personality-error" : undefined}
+									aria-invalid={personalityError ? true : undefined}
+								>
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Personality}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+										{SKY_PROFILE_PERSONALITY_TYPE_VALUES.map((personality) => (
+											<label
+												className="cursor-pointer"
+												htmlFor={`personality-${personality}`}
+												key={personality}
+											>
+												<input
+													checked={personalityValue === personality}
+													className="peer sr-only"
+													disabled={isSaving}
+													id={`personality-${personality}`}
+													name="personality"
+													onChange={() => setPersonalityValue(personality)}
+													type="radio"
+													value={personality}
+												/>
+												<div className="flex flex-col gap-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-left shadow-sm transition-colors peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-focus-visible:border-blue-500 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500/30 dark:border-gray-600 dark:bg-gray-800 dark:peer-checked:border-blue-400 dark:peer-checked:bg-blue-950/40">
+													<div className="flex items-center gap-2">
+														<div
+															aria-hidden="true"
+															className="h-5 w-5 shrink-0 bg-contain bg-center bg-no-repeat"
+															style={{
+																backgroundImage: `url(https://cdn.discordapp.com/emojis/${SkyProfilePersonalityToEmoji[personality].id}.webp)`,
+															}}
+														/>
+														<span className="text-sm font-semibold leading-tight text-gray-900 dark:text-gray-100">
+															{t(`sky-profile.personality-types.${personality}`, {
+																ns: "features",
+															})}
+														</span>
+													</div>
+													<span className="text-[11px] font-medium uppercase text-gray-500 dark:text-gray-400">
+														{SkyProfilePersonalityToMBTI[personality]}
+													</span>
+												</div>
+											</label>
+										))}
+									</div>
+								</fieldset>
+								{personalityError ? (
+									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="personality-error">
+										{personalityError}
 									</p>
 								) : null}
 							</div>
