@@ -14,7 +14,7 @@ import {
 import { t } from "i18next";
 import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
 import type { Dispatch, SetStateAction, SyntheticEvent } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { data, Form, Link, useActionData, useLoaderData } from "react-router";
@@ -292,6 +292,8 @@ export default function MeSkyProfile() {
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
 	const [hangoutValue, setHangoutValue] = useState(initialHangout);
+	const bannerInputRef = useRef<HTMLInputElement>(null);
+	const iconInputRef = useRef<HTMLInputElement>(null);
 
 	const initialBannerURL = initialBanner
 		? skyProfileBannerURL(cdnURL, discordUserId, initialBanner)
@@ -395,11 +397,11 @@ export default function MeSkyProfile() {
 							Public preview
 						</h2>
 						<SkyProfileHeaderCard
-							bannerUploadInputId="banner"
 							bannerURL={displayedBannerURL}
-							iconUploadInputId="icon"
 							iconURL={displayedIconURL}
 							name={previewName || null}
+							onBannerUploadClick={() => bannerInputRef.current?.click()}
+							onIconUploadClick={() => iconInputRef.current?.click()}
 						>
 							<div className="flex-1 min-w-0">
 								{previewName ? (
@@ -433,6 +435,7 @@ export default function MeSkyProfile() {
 						className="sr-only"
 						id="banner"
 						name="banner"
+						ref={bannerInputRef}
 						onChange={(event) => {
 							const nextFile = event.currentTarget.files?.[0] ?? null;
 
@@ -463,6 +466,7 @@ export default function MeSkyProfile() {
 						className="sr-only"
 						id="icon"
 						name="icon"
+						ref={iconInputRef}
 						onChange={(event) => {
 							const nextFile = event.currentTarget.files?.[0] ?? null;
 
