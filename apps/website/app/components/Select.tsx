@@ -7,17 +7,24 @@ interface SelectOption {
 }
 
 interface SelectProps {
+	ariaDescribedBy?: string;
+	ariaLabel?: string;
+	ariaLabelledBy?: string;
 	label?: string;
 	isClearable?: boolean;
 	value: string;
 	options: readonly SelectOption[];
 	onChange: (value: string) => void;
-	error?: string | null;
+	error?: string | null | undefined;
 	placeholder?: string;
 	className?: string;
+	disabled?: boolean;
 }
 
 export default function Select({
+	ariaDescribedBy,
+	ariaLabel,
+	ariaLabelledBy,
 	label,
 	value,
 	isClearable = false,
@@ -26,26 +33,46 @@ export default function Select({
 	error,
 	placeholder,
 	className,
+	disabled = false,
 }: SelectProps) {
 	const id = React.useId();
+	const errorId = `${id}-error`;
+	const describedByParts: string[] = [];
+
+	if (ariaDescribedBy) {
+		describedByParts.push(ariaDescribedBy);
+	}
+
+	if (error) {
+		describedByParts.push(errorId);
+	}
+
+	const describedBy = describedByParts.join(" ") || undefined;
 
 	const customStyles: StylesConfig<SelectOption, false> = {
 		control: (provided, state) => ({
 			...provided,
-			backgroundColor: "var(--select-bg)",
-			borderColor: error
-				? "#dc2626"
-				: state.isFocused
-					? "var(--select-border-hover)"
-					: "var(--select-border)",
+			backgroundColor: state.isDisabled ? "var(--select-option-hover)" : "var(--select-bg)",
+			borderColor: state.isDisabled
+				? "var(--select-border)"
+				: error
+					? "#dc2626"
+					: state.isFocused
+						? "var(--select-border-hover)"
+						: "var(--select-border)",
 			borderWidth: "1px",
 			borderRadius: "0.125rem",
 			minHeight: "40px",
 			boxShadow: "none",
 			outline: "none",
-			cursor: "pointer",
+			cursor: state.isDisabled ? "not-allowed" : "pointer",
+			opacity: state.isDisabled ? 0.6 : 1,
 			"&:hover": {
-				borderColor: error ? "#dc2626" : "var(--select-border-hover)",
+				borderColor: state.isDisabled
+					? "var(--select-border)"
+					: error
+						? "#dc2626"
+						: "var(--select-border-hover)",
 			},
 		}),
 		menu: (provided) => ({
@@ -76,17 +103,17 @@ export default function Select({
 				backgroundColor: "var(--select-option-active)",
 			},
 		}),
-		singleValue: (provided) => ({
+		singleValue: (provided, state) => ({
 			...provided,
-			color: "var(--select-text)",
+			color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
 		}),
 		placeholder: (provided) => ({
 			...provided,
 			color: "var(--select-placeholder)",
 		}),
-		input: (provided) => ({
+		input: (provided, state) => ({
 			...provided,
-			color: "var(--select-text)",
+			color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
 		}),
 		dropdownIndicator: (provided, state) => ({
 			...provided,
@@ -95,16 +122,16 @@ export default function Select({
 			transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
 			transition: "transform 0.2s ease, color 0.15s ease",
 			"&:hover": {
-				color: "var(--select-text)",
+				color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
 			},
 		}),
-		clearIndicator: (provided) => ({
+		clearIndicator: (provided, state) => ({
 			...provided,
 			color: "var(--select-placeholder)",
 			padding: "8px",
-			cursor: "pointer",
+			opacity: state.selectProps.isDisabled ? 0.4 : 1,
 			"&:hover": {
-				color: "var(--select-text)",
+				color: state.selectProps.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
 			},
 		}),
 		indicatorSeparator: () => ({
@@ -119,20 +146,31 @@ export default function Select({
 					{label}
 				</label>
 			)}
-			<div className={className}>
-				<ReactSelect
-					inputId={id}
-					isClearable={isClearable}
-					onChange={(newValue: SingleValue<SelectOption>) => {
-						onChange(newValue?.value ?? "");
-					}}
-					options={options}
-					placeholder={placeholder}
-					styles={customStyles}
-					value={options.find((option) => option.value === value) || null}
-				/>
+			<div className={className} style={disabled ? { cursor: "not-allowed" } : undefined}>
+				<div style={disabled ? { pointerEvents: "none" } : undefined}>
+					<ReactSelect
+						aria-describedby={describedBy}
+						aria-invalid={error ? true : undefined}
+						aria-label={ariaLabel}
+						aria-labelledby={ariaLabelledBy}
+						inputId={id}
+						isClearable={isClearable}
+						isDisabled={disabled}
+						onChange={(newValue: SingleValue<SelectOption>) => {
+							onChange(newValue?.value ?? "");
+						}}
+						options={options}
+						placeholder={placeholder}
+						styles={customStyles}
+						value={options.find((option) => option.value === value) || null}
+					/>
+				</div>
 			</div>
-			{error && <span className="text-sm text-red-600 dark:text-red-400">{error}</span>}
+			{error && (
+				<span className="text-sm text-red-600 dark:text-red-400" id={errorId}>
+					{error}
+				</span>
+			)}
 		</div>
 	);
 }

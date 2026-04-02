@@ -96,6 +96,7 @@ export const SkyProfileEditType = {
 	CatalogueProgression: 8,
 	GuessRank: 9,
 	Personality: 10,
+	Country: 11,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type SkyProfileEditTypes = (typeof SkyProfileEditType)[keyof typeof SkyProfileEditType];

@@ -3558,6 +3558,7 @@ export default {
 				[SkyProfileEditType.CatalogueProgression]: "Catalogue Progression",
 				[SkyProfileEditType.GuessRank]: "Guessing Rank",
 				[SkyProfileEditType.Personality]: "Personality",
+				[SkyProfileEditType.Country]: "Country",
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-type-description": {
 				[SkyProfileEditType.Name]: "What name do you go by?",
@@ -3571,6 +3572,7 @@ export default {
 				[SkyProfileEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
 				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
 				[SkyProfileEditType.Personality]: "What's your personality?",
+				[SkyProfileEditType.Country]: "What country are you from?",
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-modal-title": "Sky Profile",
 			"edit-modal-label-name-label": "Name",
