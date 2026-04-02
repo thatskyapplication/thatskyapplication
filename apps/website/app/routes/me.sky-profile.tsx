@@ -154,8 +154,12 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		typeof rawPersonality === "string" && rawPersonality.length > 0 ? Number(rawPersonality) : null;
 	const country = typeof rawCountry === "string" && rawCountry.length > 0 ? rawCountry : null;
 	const platforms = rawPlatforms
-		.map((platform) => Number(platform))
-		.filter((platform): platform is PlatformIds => isPlatformId(platform));
+		.filter(
+			(platform): platform is string =>
+				typeof platform === "string" && /^\d+$/.test(platform.trim()),
+		)
+		.map((platform) => Number.parseInt(platform, 10))
+		.filter((platform) => isPlatformId(platform));
 	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialBanner = skyProfilePacket?.banner ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
