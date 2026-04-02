@@ -3,9 +3,12 @@ import {
 	COUNTRY_VALUES,
 	CountryToEmoji,
 	isCountry,
+	isPlatformId,
 	isSkyProfilePersonalityType,
 	isValidImageAsset,
 	MAXIMUM_ASSET_SIZE,
+	PLATFORM_ID_VALUES,
+	type PlatformIds,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
@@ -34,6 +37,7 @@ import pino from "~/pino.js";
 import { skyProfileBannerURL } from "~/utility/cdn-url.js";
 import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { PlatformToIcon } from "~/utility/platform-icons.js";
 import {
 	deleteSkyProfileBanner,
 	deleteSkyProfileIcon,
@@ -81,11 +85,33 @@ function updatePreviewURL(
 	setPreviewURL(nextPreviewURL);
 }
 
+function platformIdsForStorage(platforms: readonly number[] | null): PlatformIds[] | null {
+	if (platforms === null) {
+		return null;
+	}
+
+	const orderedPlatforms = PLATFORM_ID_VALUES.filter((platform) => platforms.includes(platform));
+	return orderedPlatforms.length > 0 ? orderedPlatforms : null;
+}
+
+function platformSignature(platforms: readonly number[] | null) {
+	return platformIdsForStorage(platforms)?.join(",") ?? "";
+}
+
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("icon", "banner", "name", "description", "hangout", "personality", "country")
+		.select(
+			"icon",
+			"banner",
+			"name",
+			"description",
+			"hangout",
+			"personality",
+			"country",
+			"platform",
+		)
 		.where({ user_id: discordUser.id })
 		.first();
 
@@ -97,7 +123,16 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const locale = getLocale(context);
 
 	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select("icon", "banner", "name", "description", "hangout", "personality", "country")
+		.select(
+			"icon",
+			"banner",
+			"name",
+			"description",
+			"hangout",
+			"personality",
+			"country",
+			"platform",
+		)
 		.where({ user_id: discordUser.id })
 		.first();
 
@@ -109,6 +144,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const rawHangout = formData.get("hangout");
 	const rawPersonality = formData.get("personality");
 	const rawCountry = formData.get("country");
+	const rawPlatforms = formData.getAll("platform");
 	const hasNewIcon = hasSelectedFile(rawIcon);
 	const hasNewBanner = hasSelectedFile(rawBanner);
 	const name = typeof rawName === "string" ? rawName.trim() : "";
@@ -117,6 +153,13 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const personality =
 		typeof rawPersonality === "string" && rawPersonality.length > 0 ? Number(rawPersonality) : null;
 	const country = typeof rawCountry === "string" && rawCountry.length > 0 ? rawCountry : null;
+	const platforms = rawPlatforms
+		.filter(
+			(platform): platform is string =>
+				typeof platform === "string" && /^\d+$/.test(platform.trim()),
+		)
+		.map((platform) => Number.parseInt(platform, 10))
+		.filter((platform) => isPlatformId(platform));
 	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialBanner = skyProfilePacket?.banner ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
@@ -124,6 +167,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const initialCountryRaw = skyProfilePacket?.country ?? null;
+	const initialPlatformsRaw = platformIdsForStorage(skyProfilePacket?.platform ?? null);
 	const errors: SkyProfileActionErrors = {};
 
 	if (hasNewIcon && !isValidImageAsset(rawIcon)) {
@@ -189,7 +233,8 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		description === initialDescription &&
 		hangout === initialHangout &&
 		personality === initialPersonalityRaw &&
-		country === initialCountryRaw
+		country === initialCountryRaw &&
+		platformSignature(platforms) === platformSignature(initialPlatformsRaw)
 	) {
 		return null;
 	}
@@ -261,6 +306,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		hangout: hangout.length > 0 ? hangout : null,
 		personality,
 		country,
+		platform: platformIdsForStorage(platforms),
 	};
 
 	if (hasNewIcon) {
@@ -325,12 +371,14 @@ export default function MeSkyProfile() {
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const initialCountryRaw = skyProfilePacket?.country ?? null;
+	const initialPlatformsRaw = platformIdsForStorage(skyProfilePacket?.platform ?? null);
 	const initialPersonality =
 		initialPersonalityRaw != null && isSkyProfilePersonalityType(initialPersonalityRaw)
 			? initialPersonalityRaw
 			: null;
 	const initialCountry =
 		initialCountryRaw != null && isCountry(initialCountryRaw) ? initialCountryRaw : "";
+	const initialPlatforms = initialPlatformsRaw ?? [];
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
 	const [hasPendingBannerUpload, setHasPendingBannerUpload] = useState(false);
@@ -346,6 +394,7 @@ export default function MeSkyProfile() {
 	const [hangoutValue, setHangoutValue] = useState(initialHangout);
 	const [personalityValue, setPersonalityValue] = useState<number | null>(initialPersonality);
 	const [countryValue, setCountryValue] = useState(initialCountry);
+	const [platformValues, setPlatformValues] = useState<PlatformIds[]>(initialPlatforms);
 	const bannerInputRef = useRef<HTMLInputElement>(null);
 	const iconInputRef = useRef<HTMLInputElement>(null);
 	const displayNames = new Intl.DisplayNames(i18n.language, { type: "region", style: "long" });
@@ -363,6 +412,7 @@ export default function MeSkyProfile() {
 	const displayedIconURL = iconPreviewURL ?? initialIconURL;
 	const previewName = nameValue.trim();
 	const previewDescription = descriptionValue.trim();
+	const initialPlatformSignature = platformSignature(initialPlatformsRaw);
 
 	const isSaving =
 		navigation.state !== "idle" &&
@@ -376,7 +426,8 @@ export default function MeSkyProfile() {
 		descriptionValue.trim() !== initialDescription ||
 		hangoutValue.trim() !== initialHangout ||
 		personalityValue !== initialPersonalityRaw ||
-		countryValue !== (initialCountryRaw ?? "");
+		countryValue !== (initialCountryRaw ?? "") ||
+		platformSignature(platformValues) !== platformSignature(initialPlatformsRaw);
 
 	const bannerError =
 		clientBannerError ?? (actionData?.ok === false ? actionData.errors.banner : undefined);
@@ -446,7 +497,7 @@ export default function MeSkyProfile() {
 
 				<Form
 					encType="multipart/form-data"
-					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}`}
+					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}:${initialPlatformSignature}`}
 					method="post"
 					onReset={() => {
 						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
@@ -460,6 +511,7 @@ export default function MeSkyProfile() {
 						setHangoutValue(initialHangout);
 						setPersonalityValue(initialPersonality);
 						setCountryValue(initialCountry);
+						setPlatformValues(initialPlatforms);
 					}}
 					onSubmit={handleSubmit}
 				>
@@ -703,6 +755,69 @@ export default function MeSkyProfile() {
 									</p>
 								) : null}
 								<input name="country" type="hidden" value={countryValue} />
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Platforms}`, {
+									ns: "features",
+								})}
+							</h2>
+							<div className="flex flex-col gap-3">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="platforms-description"
+								>
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Platforms}`, {
+										ns: "features",
+									})}
+								</p>
+								<fieldset aria-describedby="platforms-description">
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Platforms}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="grid grid-cols-2 gap-2 md:grid-cols-3">
+										{PLATFORM_ID_VALUES.map((platform) => (
+											<label
+												className="cursor-pointer"
+												htmlFor={`platform-${platform}`}
+												key={platform}
+											>
+												<input
+													checked={platformValues.includes(platform)}
+													className="peer sr-only"
+													disabled={isSaving}
+													id={`platform-${platform}`}
+													name="platform"
+													onChange={() => {
+														setPlatformValues((previousPlatforms) =>
+															previousPlatforms.includes(platform)
+																? previousPlatforms.filter(
+																		(previousPlatform) => previousPlatform !== platform,
+																	)
+																: [...previousPlatforms, platform],
+														);
+													}}
+													type="checkbox"
+													value={platform}
+												/>
+												<div className="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 text-left shadow-sm transition-colors peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-focus-visible:border-blue-500 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500/30 dark:border-gray-600 dark:bg-gray-800 dark:peer-checked:border-blue-400 dark:peer-checked:bg-blue-950/40">
+													<div className="shrink-0 rounded-full bg-gray-200 p-2 shadow-sm dark:bg-gray-100">
+														{PlatformToIcon[platform]}
+													</div>
+													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+														{t(`sky-profile.platform-label.${platform}`, {
+															ns: "features",
+														})}
+													</span>
+												</div>
+											</label>
+										))}
+									</div>
+								</fieldset>
 							</div>
 						</div>
 
