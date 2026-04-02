@@ -36,6 +36,18 @@ export default function Select({
 	disabled = false,
 }: SelectProps) {
 	const id = React.useId();
+	const errorId = `${id}-error`;
+	const describedByParts: string[] = [];
+
+	if (ariaDescribedBy) {
+		describedByParts.push(ariaDescribedBy);
+	}
+
+	if (error) {
+		describedByParts.push(errorId);
+	}
+
+	const describedBy = describedByParts.join(" ") || undefined;
 
 	const customStyles: StylesConfig<SelectOption, false> = {
 		control: (provided, state) => ({
@@ -137,7 +149,8 @@ export default function Select({
 			<div className={className} style={disabled ? { cursor: "not-allowed" } : undefined}>
 				<div style={disabled ? { pointerEvents: "none" } : undefined}>
 					<ReactSelect
-						aria-describedby={ariaDescribedBy}
+						aria-describedby={describedBy}
+						aria-invalid={error ? true : undefined}
 						aria-label={ariaLabel}
 						aria-labelledby={ariaLabelledBy}
 						inputId={id}
@@ -153,7 +166,11 @@ export default function Select({
 					/>
 				</div>
 			</div>
-			{error && <span className="text-sm text-red-600 dark:text-red-400">{error}</span>}
+			{error && (
+				<span className="text-sm text-red-600 dark:text-red-400" id={errorId}>
+					{error}
+				</span>
+			)}
 		</div>
 	);
 }
