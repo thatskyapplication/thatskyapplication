@@ -91,17 +91,17 @@ export default function Select({
 				backgroundColor: "var(--select-option-active)",
 			},
 		}),
-		singleValue: (provided) => ({
+		singleValue: (provided, state) => ({
 			...provided,
-			color: disabled ? "var(--select-placeholder)" : "var(--select-text)",
+			color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
 		}),
 		placeholder: (provided) => ({
 			...provided,
 			color: "var(--select-placeholder)",
 		}),
-		input: (provided) => ({
+		input: (provided, state) => ({
 			...provided,
-			color: disabled ? "var(--select-placeholder)" : "var(--select-text)",
+			color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
 		}),
 		dropdownIndicator: (provided, state) => ({
 			...provided,
