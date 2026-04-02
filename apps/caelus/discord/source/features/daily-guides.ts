@@ -250,7 +250,6 @@ export function isDailyGuidesDistributable({
 		resolvedChannelForPermission = parentChannel;
 
 		if (
-			resolvedChannelForPermission &&
 			!can({
 				permission: PermissionFlagsBits.ManageThreads,
 				guild,
