@@ -412,6 +412,7 @@ export default function MeSkyProfile() {
 	const displayedIconURL = iconPreviewURL ?? initialIconURL;
 	const previewName = nameValue.trim();
 	const previewDescription = descriptionValue.trim();
+	const initialPlatformSignature = platformSignature(initialPlatformsRaw);
 
 	const isSaving =
 		navigation.state !== "idle" &&
@@ -496,7 +497,7 @@ export default function MeSkyProfile() {
 
 				<Form
 					encType="multipart/form-data"
-					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}:${initialPlatformsRaw?.join(",") ?? ""}`}
+					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}:${initialPlatformSignature}`}
 					method="post"
 					onReset={() => {
 						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
