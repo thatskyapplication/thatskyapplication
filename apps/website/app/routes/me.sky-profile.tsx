@@ -55,6 +55,57 @@ type SkyProfileActionErrors = {
 	personality?: string;
 };
 
+const TEXT_FIELD_CLASS = [
+	"w-full",
+	"rounded-lg",
+	"border",
+	"border-gray-300",
+	"bg-white",
+	"px-3",
+	"py-2.5",
+	"text-base",
+	"text-gray-900",
+	"shadow-sm",
+	"outline-none",
+	"transition-colors",
+	"focus:border-blue-500",
+	"disabled:cursor-not-allowed",
+	"disabled:border-gray-200",
+	"disabled:bg-gray-100",
+	"disabled:text-gray-500",
+	"dark:border-gray-600",
+	"dark:bg-gray-800",
+	"dark:text-gray-100",
+	"dark:disabled:border-gray-700",
+	"dark:disabled:bg-gray-900",
+	"dark:disabled:text-gray-500",
+].join(" ");
+
+const SELECTABLE_OPTION_CARD_CLASS = [
+	"rounded-lg",
+	"border",
+	"border-gray-300",
+	"bg-white",
+	"text-left",
+	"shadow-sm",
+	"transition-colors",
+	"peer-checked:border-blue-500",
+	"peer-checked:bg-blue-50",
+	"peer-focus-visible:border-blue-500",
+	"peer-focus-visible:ring-2",
+	"peer-focus-visible:ring-blue-500/30",
+	"peer-disabled:cursor-not-allowed",
+	"peer-disabled:border-gray-200",
+	"peer-disabled:bg-gray-100",
+	"peer-disabled:opacity-60",
+	"dark:border-gray-600",
+	"dark:bg-gray-800",
+	"dark:peer-checked:border-blue-400",
+	"dark:peer-checked:bg-blue-950/40",
+	"dark:peer-disabled:border-gray-700",
+	"dark:peer-disabled:bg-gray-900",
+].join(" ");
+
 function hasSelectedFile(value: FormDataEntryValue | null): value is File {
 	return value instanceof File && value.size > 0 && value.name !== "";
 }
@@ -418,6 +469,7 @@ export default function MeSkyProfile() {
 		navigation.state !== "idle" &&
 		navigation.formMethod?.toLowerCase() === "post" &&
 		navigation.formData != null;
+	const selectableOptionLabelClass = isSaving ? "cursor-not-allowed" : "cursor-pointer";
 
 	const hasChanges =
 		hasPendingIconUpload ||
@@ -637,7 +689,7 @@ export default function MeSkyProfile() {
 								<input
 									aria-describedby={nameError ? "name-error" : undefined}
 									aria-invalid={nameError ? true : undefined}
-									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+									className={TEXT_FIELD_CLASS}
 									defaultValue={initialName}
 									disabled={isSaving}
 									id="name"
@@ -670,7 +722,7 @@ export default function MeSkyProfile() {
 								<textarea
 									aria-describedby={descriptionError ? "description-error" : undefined}
 									aria-invalid={descriptionError ? true : undefined}
-									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+									className={TEXT_FIELD_CLASS}
 									defaultValue={initialDescription}
 									disabled={isSaving}
 									id="description"
@@ -702,7 +754,7 @@ export default function MeSkyProfile() {
 								<input
 									aria-describedby={hangoutError ? "hangout-error" : undefined}
 									aria-invalid={hangoutError ? true : undefined}
-									className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors focus:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+									className={TEXT_FIELD_CLASS}
 									defaultValue={initialHangout}
 									disabled={isSaving}
 									id="hangout"
@@ -782,7 +834,7 @@ export default function MeSkyProfile() {
 									<div className="grid grid-cols-2 gap-2 md:grid-cols-3">
 										{PLATFORM_ID_VALUES.map((platform) => (
 											<label
-												className="cursor-pointer"
+												className={selectableOptionLabelClass}
 												htmlFor={`platform-${platform}`}
 												key={platform}
 											>
@@ -804,7 +856,9 @@ export default function MeSkyProfile() {
 													type="checkbox"
 													value={platform}
 												/>
-												<div className="flex items-center gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 text-left shadow-sm transition-colors peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-focus-visible:border-blue-500 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500/30 dark:border-gray-600 dark:bg-gray-800 dark:peer-checked:border-blue-400 dark:peer-checked:bg-blue-950/40">
+												<div
+													className={`${SELECTABLE_OPTION_CARD_CLASS} flex items-center gap-3 px-3 py-2`}
+												>
 													<div className="shrink-0 rounded-full bg-gray-200 p-2 shadow-sm dark:bg-gray-100">
 														{PlatformToIcon[platform]}
 													</div>
@@ -855,7 +909,7 @@ export default function MeSkyProfile() {
 									<div className="grid grid-cols-2 gap-2 md:grid-cols-4">
 										{SKY_PROFILE_PERSONALITY_TYPE_VALUES.map((personality) => (
 											<label
-												className="cursor-pointer"
+												className={selectableOptionLabelClass}
 												htmlFor={`personality-${personality}`}
 												key={personality}
 											>
@@ -869,7 +923,9 @@ export default function MeSkyProfile() {
 													type="radio"
 													value={personality}
 												/>
-												<div className="flex flex-col gap-1 rounded-lg border border-gray-300 bg-white px-3 py-2 text-left shadow-sm transition-colors peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-focus-visible:border-blue-500 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500/30 dark:border-gray-600 dark:bg-gray-800 dark:peer-checked:border-blue-400 dark:peer-checked:bg-blue-950/40">
+												<div
+													className={`${SELECTABLE_OPTION_CARD_CLASS} flex flex-col gap-1 px-3 py-2`}
+												>
 													<div className="flex items-center gap-2">
 														<div
 															aria-hidden="true"
