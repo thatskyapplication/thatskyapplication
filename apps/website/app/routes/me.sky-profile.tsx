@@ -765,12 +765,15 @@ export default function MeSkyProfile() {
 								})}
 							</h2>
 							<div className="flex flex-col gap-3">
-								<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="platforms-description"
+								>
 									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Platforms}`, {
 										ns: "features",
 									})}
 								</p>
-								<fieldset>
+								<fieldset aria-describedby="platforms-description">
 									<legend className="sr-only">
 										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Platforms}`, {
 											ns: "features",
