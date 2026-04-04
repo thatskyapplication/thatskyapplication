@@ -12,7 +12,7 @@ import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
-import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn-url.js";
+import { cdnAssetURL, discordEmojiURL } from "~/utility/cdn-url.js";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
@@ -35,9 +35,8 @@ type ShardEruptionCardProps = {
 	now: number;
 };
 
-export const meta: MetaFunction = ({ location, matches }) => {
+export const meta: MetaFunction = ({ location }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
-	getCDNURLFromMatches(matches);
 
 	return [
 		{ charSet: "utf-8" },
