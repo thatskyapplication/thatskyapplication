@@ -25,6 +25,7 @@ import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { cdnAssetURL, discordEmojiURL, seasonalCandleIconURL } from "~/utility/cdn-url.js";
 import {
+	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
@@ -193,20 +194,35 @@ export default function DailyGuides() {
 	for (const radianceEvent of RADIANCE_EVENTS.filter(({ end }) => end > today)) {
 		const daysUntilStart = radianceEvent.start.diff(today, "days").days;
 		const radianceEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
+		const dyeEmojiURLs = radianceEvent.dyes.map((dye) => discordEmojiURL(DyeTypeToEmoji[dye].id));
+		const radianceText =
+			daysUntilStart >= 1
+				? t("daily-guides.event-upcoming", {
+						ns: "features",
+						count: Math.floor(daysUntilStart),
+						event: t("event-names.radiance-event", { ns: "general" }),
+					})
+				: t("days-left.event", {
+						ns: "general",
+						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
+						name: t("event-names.radiance-event", { ns: "general" }),
+					});
 
 		daysCount.push({
-			content:
-				daysUntilStart >= 1
-					? t("daily-guides.event-upcoming", {
-							ns: "features",
-							count: Math.floor(daysUntilStart),
-							event: t("event-names.radiance-event", { ns: "general" }),
-						})
-					: t("days-left.event", {
-							ns: "general",
-							count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
-							name: t("event-names.radiance-event", { ns: "general" }),
-						}),
+			content: (
+				<span className="inline-flex items-center gap-1.5">
+					<span>{radianceText}</span>
+					<span aria-hidden="true" className="inline-flex items-center gap-1">
+						{dyeEmojiURLs.map((emojiURL, index) => (
+							<div
+								className="h-4 w-4 bg-cover bg-center"
+								key={`${radianceEvent.start.toMillis()}-${index}`}
+								style={{ backgroundImage: `url(${emojiURL})` }}
+							/>
+						))}
+					</span>
+				</span>
+			),
 			iconURL: radianceEmojiURL,
 			key: `radiance-${radianceEvent.start.toMillis()}`,
 		});
