@@ -166,7 +166,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 								className="h-4 w-4 ml-1 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/ascended_candle.webp")})`,
+									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
 								}}
 							/>
 						) : (

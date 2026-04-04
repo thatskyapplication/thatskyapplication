@@ -522,7 +522,7 @@ export default function DailyGuides() {
 													className="h-4 w-4 bg-cover bg-center"
 													role="img"
 													style={{
-														backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/ascended_candle.webp")})`,
+														backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
 													}}
 												/>
 											) : (
@@ -578,7 +578,7 @@ export default function DailyGuides() {
 												className="h-4 w-4 bg-cover bg-center"
 												role="img"
 												style={{
-													backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/ascended_candle.webp")})`,
+													backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
 												}}
 											/>
 										) : (
