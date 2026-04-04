@@ -4,6 +4,7 @@ import {
 	CROWDIN_URL,
 	isCountry,
 	isPlatformId,
+	isSeasonId,
 	isSkyProfilePersonalityType,
 	isSpiritId,
 	MAXIMUM_WINGED_LIGHT,
@@ -41,7 +42,7 @@ import {
 	skyProfileBannerURL,
 } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
-import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
+import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
 const BADGES_CLASS_NAME =
@@ -290,17 +291,22 @@ export default function SkyProfile() {
 							<div className="flex flex-wrap gap-2">
 								{data.seasons
 									.sort((a, b) => a - b)
-									.map((season) => (
-										<div
-											aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
-											className="w-10 h-10 bg-cover bg-center"
-											key={season}
-											role="img"
-											style={{
-												backgroundImage: `url(${cdnAssetURL(cdnURL, `assets/season_${season + 1}.webp`)})`,
-											}}
-										/>
-									))}
+									.filter((season) => isSeasonId(season))
+									.map((season) => {
+										const seasonEmoji = SeasonIdToSeasonalEmoji[season];
+
+										return seasonEmoji ? (
+											<div
+												aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
+												className="w-10 h-10 bg-cover bg-center"
+												key={season}
+												role="img"
+												style={{
+													backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
+												}}
+											/>
+										) : null;
+									})}
 							</div>
 						)}
 						{data.platform && data.platform.length > 0 && (

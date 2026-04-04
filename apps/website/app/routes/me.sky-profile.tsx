@@ -38,8 +38,8 @@ import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import pino from "~/pino.js";
-import { cdnAssetURL, discordEmojiURL, skyProfileBannerURL } from "~/utility/cdn-url.js";
-import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
+import { discordEmojiURL, skyProfileBannerURL } from "~/utility/cdn-url.js";
+import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 import {
@@ -830,6 +830,7 @@ export default function MeSkyProfile() {
 											<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 												{availableSeasonIds.map((season) => {
 													const selected = seasonValues.includes(season);
+													const seasonEmoji = SeasonIdToSeasonalEmoji[season];
 
 													return (
 														<button
@@ -853,13 +854,15 @@ export default function MeSkyProfile() {
 															}}
 															type="button"
 														>
-															<div
-																aria-hidden="true"
-																className="h-9 w-9 shrink-0 rounded-full bg-cover bg-center shadow-sm"
-																style={{
-																	backgroundImage: `url(${cdnAssetURL(cdnURL, `assets/season_${season + 1}.webp`)})`,
-																}}
-															/>
+															{seasonEmoji ? (
+																<div
+																	aria-hidden="true"
+																	className="h-9 w-9 shrink-0 rounded-full bg-cover bg-center shadow-sm"
+																	style={{
+																		backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
+																	}}
+																/>
+															) : null}
 															<div className="min-w-0 flex-1">
 																<div className="truncate text-xs font-semibold text-gray-900 dark:text-gray-100">
 																	{t(`seasons.${season}`, { ns: "general" })}

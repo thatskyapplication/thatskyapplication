@@ -3,6 +3,7 @@ import {
 	type Country,
 	CountryToEmoji,
 	isPlatformId,
+	isSeasonId,
 	type SkyProfilePacket,
 	skyProfileIconURL,
 	Table,
@@ -28,11 +29,13 @@ import { getSession } from "~/session.server";
 import {
 	applicationIconURL,
 	cdnAssetURL,
+	discordEmojiURL,
 	getCDNURLFromMatches,
 	skyKidIconURL,
 	skyProfileBannerURL,
 } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
+import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 import type { DiscordUser } from "~/utility/types";
 
@@ -190,17 +193,22 @@ function SkyProfileCard({ cdnURL, profile, returnTo }: SkyProfileCardProps) {
 					<div className="flex flex-wrap gap-1">
 						{profile.seasons
 							.sort((a, b) => a - b)
-							.map((season) => (
-								<div
-									aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
-									className="w-6 h-6 bg-cover bg-center"
-									key={season}
-									role="img"
-									style={{
-										backgroundImage: `url(${cdnAssetURL(cdnURL, `assets/season_${season + 1}.webp`)})`,
-									}}
-								/>
-							))}
+							.filter((season) => isSeasonId(season))
+							.map((season) => {
+								const seasonEmoji = SeasonIdToSeasonalEmoji[season];
+
+								return seasonEmoji ? (
+									<div
+										aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
+										className="w-6 h-6 bg-cover bg-center"
+										key={season}
+										role="img"
+										style={{
+											backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
+										}}
+									/>
+								) : null;
+							})}
 					</div>
 				)}
 				{profile.description ? (
