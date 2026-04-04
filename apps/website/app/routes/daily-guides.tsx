@@ -23,8 +23,15 @@ import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
-import { cdnAssetURL, seasonalCandleIconURL } from "~/utility/cdn-url.js";
+import { cdnAssetURL, discordEmojiURL, seasonalCandleIconURL } from "~/utility/cdn-url.js";
+import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
+
+interface DaysCountItem {
+	key: string;
+	content: string | JSX.Element;
+	iconURL?: string | undefined;
+}
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const locale = getLocale(context);
@@ -110,7 +117,7 @@ export default function DailyGuides() {
 
 	const treasureCandleURLs = treasureCandles(today);
 	let seasonalCandles = null;
-	const daysCount: (string | JSX.Element)[] = [];
+	const daysCount: DaysCountItem[] = [];
 
 	if (season) {
 		const daysLeftText = t("days-left.season", {
@@ -118,7 +125,14 @@ export default function DailyGuides() {
 			count: Math.ceil(season.end.diff(now, "days").days) - 1,
 		});
 
-		daysCount.push(daysLeftText);
+		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
+
+		daysCount.push({
+			content: daysLeftText,
+			iconURL: seasonEmoji ? discordEmojiURL(seasonEmoji.id) : undefined,
+			key: `season-current-${season.id}`,
+		});
+
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
@@ -133,7 +147,13 @@ export default function DailyGuides() {
 
 	if (next) {
 		const daysUntilStart = next.start.diff(today, "days").days;
-		daysCount.push(t("daily-guides.season-upcoming", { ns: "features", count: daysUntilStart }));
+		const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
+
+		daysCount.push({
+			content: t("daily-guides.season-upcoming", { ns: "features", count: daysUntilStart }),
+			iconURL: nextSeasonEmoji ? discordEmojiURL(nextSeasonEmoji.id) : undefined,
+			key: `season-upcoming-${next.id}`,
+		});
 	}
 
 	for (const { name, start, end } of skyNotEndedEvents(today).values()) {
@@ -141,42 +161,46 @@ export default function DailyGuides() {
 		const eventName = t(name, { ns: "general" });
 
 		if (daysUntilStart > 0) {
-			daysCount.push(
-				t("daily-guides.event-upcoming", {
+			daysCount.push({
+				content: t("daily-guides.event-upcoming", {
 					ns: "features",
 					event: eventName,
 					count: daysUntilStart,
 				}),
-			);
+				key: `event-upcoming-${name}`,
+			});
 
 			continue;
 		}
 
-		daysCount.push(
-			t("days-left.event", {
+		daysCount.push({
+			content: t("days-left.event", {
 				ns: "general",
 				count: Math.ceil(end.diff(today, "days").days) - 1,
 				name: eventName,
 			}),
-		);
+			key: `event-ending-${name}`,
+		});
 	}
 
 	for (const radianceEvent of RADIANCE_EVENTS.filter(({ end }) => end > today)) {
 		const daysUntilStart = radianceEvent.start.diff(today, "days").days;
 
-		daysCount.push(
-			daysUntilStart >= 1
-				? t("daily-guides.event-upcoming", {
-						ns: "features",
-						count: Math.floor(daysUntilStart),
-						event: t("event-names.radiance-event", { ns: "general" }),
-					})
-				: t("days-left.event", {
-						ns: "general",
-						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
-						name: t("event-names.radiance-event", { ns: "general" }),
-					}),
-		);
+		daysCount.push({
+			content:
+				daysUntilStart >= 1
+					? t("daily-guides.event-upcoming", {
+							ns: "features",
+							count: Math.floor(daysUntilStart),
+							event: t("event-names.radiance-event", { ns: "general" }),
+						})
+					: t("days-left.event", {
+							ns: "general",
+							count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
+							name: t("event-names.radiance-event", { ns: "general" }),
+						}),
+			key: `radiance-${radianceEvent.start.toMillis()}`,
+		});
 	}
 
 	const communityEvents = communityUpcomingEvents(today);
@@ -204,23 +228,29 @@ export default function DailyGuides() {
 			if (marketingURL) {
 				const parts = translatedText.split(name);
 
-				daysCount.push(
-					<span key={`community-event-${name}`}>
-						{parts[0]}
-						<a
-							className="regular-link inline-flex items-center gap-1"
-							href={marketingURL}
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							{name}
-							<ExternalLinkIcon className="w-3 h-3" />
-						</a>
-						{parts[1]}
-					</span>,
-				);
+				daysCount.push({
+					content: (
+						<span>
+							{parts[0]}
+							<a
+								className="regular-link inline-flex items-center gap-1"
+								href={marketingURL}
+								rel="noopener noreferrer"
+								target="_blank"
+							>
+								{name}
+								<ExternalLinkIcon className="w-3 h-3" />
+							</a>
+							{parts[1]}
+						</span>
+					),
+					key: `community-event-${name}-${start.toMillis()}`,
+				});
 			} else {
-				daysCount.push(translatedText);
+				daysCount.push({
+					content: translatedText,
+					key: `community-event-${name}-${start.toMillis()}`,
+				});
 			}
 		}
 	}
@@ -245,16 +275,17 @@ export default function DailyGuides() {
 			if (!seenMaintenanceDays.has(floorDays)) {
 				seenMaintenanceDays.add(floorDays);
 
-				daysCount.push(
-					t("daily-guides.maintenance-upcoming", {
+				daysCount.push({
+					content: t("daily-guides.maintenance-upcoming", {
 						ns: "features",
 						count: floorDays,
 					}),
-				);
+					key: `maintenance-upcoming-${floorDays}`,
+				});
 			}
 		} else {
-			daysCount.push(
-				t("daily-guides.maintenance-upcoming", {
+			daysCount.push({
+				content: t("daily-guides.maintenance-upcoming", {
 					ns: "features",
 					count: 1,
 					time: new Intl.DateTimeFormat(locale, {
@@ -262,7 +293,8 @@ export default function DailyGuides() {
 						timeStyle: "short",
 					}).format(maintenance.start.toMillis()),
 				}),
-			);
+				key: `maintenance-upcoming-${maintenance.start.toMillis()}`,
+			});
 		}
 	}
 
@@ -572,13 +604,17 @@ export default function DailyGuides() {
 					)}
 					{daysCount.length > 0 && (
 						<div className="pt-4 border-t-2 border-gray-200 dark:border-gray-700">
-							{daysCount.map((item, index) => (
-								<p
-									className="text-xs text-gray-500 dark:text-gray-400 m-0 mb-1 last:mb-0"
-									key={typeof item === "string" ? item : `event-${index}`}
-								>
-									{item}
-								</p>
+							{daysCount.map(({ content, iconURL, key }) => (
+								<div className="mb-1 flex items-center gap-2 last:mb-0" key={key}>
+									{iconURL ? (
+										<div
+											aria-hidden="true"
+											className="h-4 w-4 shrink-0 bg-cover bg-center"
+											style={{ backgroundImage: `url(${iconURL})` }}
+										/>
+									) : null}
+									<p className="m-0 text-xs text-gray-500 dark:text-gray-400">{content}</p>
+								</div>
 							))}
 						</div>
 					)}
