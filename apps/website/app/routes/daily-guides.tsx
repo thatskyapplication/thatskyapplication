@@ -24,7 +24,11 @@ import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { cdnAssetURL, discordEmojiURL, seasonalCandleIconURL } from "~/utility/cdn-url.js";
-import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import {
+	EventIdToEventTicketEmoji,
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalEmoji,
+} from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
 interface DaysCountItem {
@@ -156,9 +160,10 @@ export default function DailyGuides() {
 		});
 	}
 
-	for (const { name, start, end } of skyNotEndedEvents(today).values()) {
+	for (const { id, name, start, end } of skyNotEndedEvents(today).values()) {
 		const daysUntilStart = start.diff(today, "days").days;
 		const eventName = t(name, { ns: "general" });
+		const eventEmoji = EventIdToEventTicketEmoji[id];
 
 		if (daysUntilStart > 0) {
 			daysCount.push({
@@ -167,6 +172,7 @@ export default function DailyGuides() {
 					event: eventName,
 					count: daysUntilStart,
 				}),
+				iconURL: eventEmoji ? discordEmojiURL(eventEmoji.id) : undefined,
 				key: `event-upcoming-${name}`,
 			});
 
@@ -179,12 +185,14 @@ export default function DailyGuides() {
 				count: Math.ceil(end.diff(today, "days").days) - 1,
 				name: eventName,
 			}),
+			iconURL: eventEmoji ? discordEmojiURL(eventEmoji.id) : undefined,
 			key: `event-ending-${name}`,
 		});
 	}
 
 	for (const radianceEvent of RADIANCE_EVENTS.filter(({ end }) => end > today)) {
 		const daysUntilStart = radianceEvent.start.diff(today, "days").days;
+		const radianceEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
 
 		daysCount.push({
 			content:
@@ -199,6 +207,7 @@ export default function DailyGuides() {
 							count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
 							name: t("event-names.radiance-event", { ns: "general" }),
 						}),
+			iconURL: radianceEmojiURL,
 			key: `radiance-${radianceEvent.start.toMillis()}`,
 		});
 	}
