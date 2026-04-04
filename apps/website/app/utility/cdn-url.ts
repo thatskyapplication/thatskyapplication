@@ -37,10 +37,6 @@ export function skyProfileBannerURL<UserId extends string>(
 	return cdnAssetURL(cdnURL, skyProfileBannerRoute(userId, banner));
 }
 
-export function shardEruptionIconURL(cdnURL: string) {
-	return cdnAssetURL(cdnURL, "assets/shard_strong.webp");
-}
-
 export function skyKidIconURL(cdnURL: string) {
 	return cdnAssetURL(cdnURL, "assets/sky_kid.webp");
 }

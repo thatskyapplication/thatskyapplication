@@ -84,6 +84,7 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	Supervisor: { id: "1466368108808765574", name: "supervisor" },
 	Protector: { id: "1466368102760579218", name: "protector" },
 	Provider: { id: "1466368104752873658", name: "provider" },
+	QuestionMark: { id: "1489893234116399114", name: "question_mark" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -159,6 +160,7 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	Supervisor: { id: "1466368124163985573", name: "supervisor" },
 	Protector: { id: "1466368120963727360", name: "protector" },
 	Provider: { id: "1466368122461094055", name: "provider" },
+	QuestionMark: { id: "1489893275979485194", name: "question_mark" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {

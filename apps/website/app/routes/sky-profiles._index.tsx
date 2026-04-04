@@ -28,14 +28,13 @@ import pg from "~/pg.server";
 import { getSession } from "~/session.server";
 import {
 	applicationIconURL,
-	cdnAssetURL,
 	discordEmojiURL,
 	getCDNURLFromMatches,
 	skyKidIconURL,
 	skyProfileBannerURL,
 } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
-import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 import type { DiscordUser } from "~/utility/types";
 
@@ -405,7 +404,7 @@ function SkyProfilesFilters({
 					className="w-6 h-6 mr-2 bg-cover bg-center"
 					role="img"
 					style={{
-						backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/question_mark.webp")})`,
+						backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,
 					}}
 				/>
 				<span>{t("sky-profile.random", { ns: "features" })}</span>

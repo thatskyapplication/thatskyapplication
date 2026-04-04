@@ -2,13 +2,12 @@ import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { AlarmClock, Clock, LinkIcon, UsersIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { useCDNURL } from "~/hooks/use-cdn-url";
-import { cdnAssetURL } from "~/utility/cdn-url";
+import { discordEmojiURL } from "~/utility/cdn-url";
 import { APPLICATION_NAME } from "~/utility/constants";
+import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis";
 
 export default function Index() {
 	const { t } = useTranslation();
-	const cdnURL = useCDNURL();
 
 	return (
 		<div className="flex flex-col items-center justify-center p-4 min-h-screen">
@@ -48,7 +47,7 @@ export default function Index() {
 						className="w-8 h-8 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/shard_strong.webp")})`,
+							backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id)})`,
 						}}
 					/>
 					<h2 className="font-medium text-lg">Shard Eruptions</h2>

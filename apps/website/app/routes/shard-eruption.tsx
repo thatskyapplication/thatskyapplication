@@ -12,13 +12,14 @@ import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
-import { cdnAssetURL, getCDNURLFromMatches, shardEruptionIconURL } from "~/utility/cdn-url.js";
+import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn-url.js";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 	SHARD_ERUPTION_MINIMUM_PAGE,
 } from "~/utility/constants";
+import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
 type ShardEruptionCardProps = {
@@ -36,7 +37,7 @@ type ShardEruptionCardProps = {
 
 export const meta: MetaFunction = ({ location, matches }) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
-	const cdnURL = getCDNURLFromMatches(matches);
+	getCDNURLFromMatches(matches);
 
 	return [
 		{ charSet: "utf-8" },
@@ -53,7 +54,7 @@ export const meta: MetaFunction = ({ location, matches }) => {
 		{ property: "og:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: shardEruptionIconURL(cdnURL) },
+		{ property: "og:image", content: discordEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id) },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: "Shard Eruption" },
@@ -136,7 +137,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 						className="w-5 h-5 mr-1 bg-cover bg-center"
 						role="img"
 						style={{
-							backgroundImage: `url(${cdnAssetURL(cdnURL, `assets/${shard.strong ? "shard_strong" : "shard_regular"}.webp`)})`,
+							backgroundImage: `url(${discordEmojiURL(shard.strong ? MISCELLANEOUS_EMOJIS.ShardStrong.id : MISCELLANEOUS_EMOJIS.ShardRegular.id)})`,
 						}}
 					/>
 				)}

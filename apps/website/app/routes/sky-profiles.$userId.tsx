@@ -35,14 +35,13 @@ import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
 import { getSession } from "~/session.server";
-import {
-	cdnAssetURL,
-	discordEmojiURL,
-	getCDNURLFromMatches,
-	skyProfileBannerURL,
-} from "~/utility/cdn-url.js";
+import { discordEmojiURL, getCDNURLFromMatches, skyProfileBannerURL } from "~/utility/cdn-url.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
-import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
+import {
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalEmoji,
+	SkyProfilePersonalityToEmoji,
+} from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
 const BADGES_CLASS_NAME =
@@ -50,7 +49,6 @@ const BADGES_CLASS_NAME =
 
 export function ErrorBoundary() {
 	const error = useRouteError();
-	const cdnURL = useCDNURL();
 
 	if (isRouteErrorResponse(error) && error.status === 404) {
 		return (
@@ -85,7 +83,7 @@ export function ErrorBoundary() {
 									className="w-5 h-5 bg-cover bg-center"
 									role="img"
 									style={{
-										backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/question_mark.webp")})`,
+										backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,
 									}}
 								/>
 								Random Sky Profile
@@ -344,7 +342,7 @@ export default function SkyProfile() {
 								className="w-6 h-6 mr-2 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/winged_light.webp")})`,
+									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.WingedLight.id)})`,
 								}}
 							/>
 							<div className="flex-1">
@@ -362,7 +360,7 @@ export default function SkyProfile() {
 								className="w-6 h-6 mr-2 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/heart.webp")})`,
+									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id)})`,
 								}}
 							/>
 							<div className="flex-1">
@@ -422,7 +420,7 @@ export default function SkyProfile() {
 							className="w-6 h-6 mr-2 bg-cover bg-center"
 							role="img"
 							style={{
-								backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/question_mark.webp")})`,
+								backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,
 							}}
 						/>
 						<span>{t("sky-profile.random", { ns: "features" })}</span>
