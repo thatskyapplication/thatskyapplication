@@ -40,7 +40,3 @@ export function skyProfileBannerURL<UserId extends string>(
 export function skyKidIconURL(cdnURL: string) {
 	return cdnAssetURL(cdnURL, "assets/sky_kid.webp");
 }
-
-export function seasonalCandleIconURL(cdnURL: string) {
-	return cdnAssetURL(cdnURL, "icons/seasonal_candle.webp");
-}

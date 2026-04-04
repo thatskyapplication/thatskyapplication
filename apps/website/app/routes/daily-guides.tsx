@@ -23,11 +23,12 @@ import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
-import { cdnAssetURL, discordEmojiURL, seasonalCandleIconURL } from "~/utility/cdn-url.js";
+import { cdnAssetURL, discordEmojiURL } from "~/utility/cdn-url.js";
 import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
@@ -123,6 +124,7 @@ export default function DailyGuides() {
 	const treasureCandleURLs = treasureCandles(today);
 	let seasonalCandles = null;
 	const daysCount: DaysCountItem[] = [];
+	const seasonalCandleEmoji = season ? SeasonIdToSeasonalCandleEmoji[season.id] : null;
 
 	if (season) {
 		const daysLeftText = t("days-left.season", {
@@ -469,7 +471,11 @@ export default function DailyGuides() {
 										aria-label="Seasonal candle"
 										className="h-4 w-4 bg-cover bg-center"
 										role="img"
-										style={{ backgroundImage: `url(${seasonalCandleIconURL(cdnURL)})` }}
+										style={{
+											backgroundImage: seasonalCandleEmoji
+												? `url(${discordEmojiURL(seasonalCandleEmoji.id)})`
+												: undefined,
+										}}
 									/>
 									<span>
 										{t("daily-guides.seasonal-candles-remain-with-season-pass", {

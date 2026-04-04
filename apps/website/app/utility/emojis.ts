@@ -6,4 +6,5 @@ export const {
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 	SkyProfilePersonalityToEmoji,
+	SeasonIdToSeasonalCandleEmoji,
 } = emojiConstants(true);
