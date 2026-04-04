@@ -56,6 +56,15 @@
 			--select-placeholder: #9ca3af;
 		}
 	}
+
+	.hide-scrollbar {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+
+	.hide-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 @layer base {

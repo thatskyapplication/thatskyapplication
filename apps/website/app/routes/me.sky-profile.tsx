@@ -4,11 +4,13 @@ import {
 	CountryToEmoji,
 	isCountry,
 	isPlatformId,
+	isSeasonId,
 	isSkyProfilePersonalityType,
 	isValidImageAsset,
 	MAXIMUM_ASSET_SIZE,
 	PLATFORM_ID_VALUES,
 	type PlatformIds,
+	type SeasonIds,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
@@ -18,8 +20,10 @@ import {
 	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
 	skyProfileIconURL,
+	skySeasons,
 	Table,
 } from "@thatskyapplication/utility";
+import { clsx } from "clsx";
 import { t } from "i18next";
 import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
 import type { Dispatch, RefObject, SetStateAction, SyntheticEvent } from "react";
@@ -34,7 +38,7 @@ import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import pino from "~/pino.js";
-import { skyProfileBannerURL } from "~/utility/cdn-url.js";
+import { cdnAssetURL, skyProfileBannerURL } from "~/utility/cdn-url.js";
 import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -136,13 +140,34 @@ function updatePreviewURL(
 	setPreviewURL(nextPreviewURL);
 }
 
-function platformIdsForStorage(platforms: readonly number[] | null): PlatformIds[] | null {
-	if (platforms === null) {
+function idsForStorage<T extends number>(
+	ids: readonly number[] | null,
+	orderedValues: readonly T[],
+): T[] | null {
+	if (ids === null) {
 		return null;
 	}
 
-	const orderedPlatforms = PLATFORM_ID_VALUES.filter((platform) => platforms.includes(platform));
-	return orderedPlatforms.length > 0 ? orderedPlatforms : null;
+	const orderedIds = orderedValues.filter((value) => ids.includes(value));
+	return orderedIds.length > 0 ? orderedIds : null;
+}
+
+function seasonIdsForStorage(
+	seasons: readonly number[] | null,
+	availableSeasonIds: readonly SeasonIds[],
+): SeasonIds[] | null {
+	return idsForStorage(seasons, availableSeasonIds);
+}
+
+function platformIdsForStorage(platforms: readonly number[] | null): PlatformIds[] | null {
+	return idsForStorage(platforms, PLATFORM_ID_VALUES);
+}
+
+function seasonSignature(
+	seasons: readonly number[] | null,
+	availableSeasonIds: readonly SeasonIds[],
+) {
+	return seasonIdsForStorage(seasons, availableSeasonIds)?.join(",") ?? "";
 }
 
 function platformSignature(platforms: readonly number[] | null) {
@@ -158,6 +183,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			"banner",
 			"name",
 			"description",
+			"seasons",
 			"hangout",
 			"personality",
 			"country",
@@ -179,6 +205,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 			"banner",
 			"name",
 			"description",
+			"seasons",
 			"hangout",
 			"personality",
 			"country",
@@ -192,14 +219,20 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const rawBanner = formData.get("banner");
 	const rawName = formData.get("name");
 	const rawDescription = formData.get("description");
+	const rawSeasons = formData.getAll("season");
 	const rawHangout = formData.get("hangout");
 	const rawPersonality = formData.get("personality");
 	const rawCountry = formData.get("country");
 	const rawPlatforms = formData.getAll("platform");
 	const hasNewIcon = hasSelectedFile(rawIcon);
 	const hasNewBanner = hasSelectedFile(rawBanner);
+	const availableSeasonIds = [...skySeasons().keys()];
 	const name = typeof rawName === "string" ? rawName.trim() : "";
 	const description = typeof rawDescription === "string" ? rawDescription.trim() : "";
+	const seasons = rawSeasons
+		.filter((season): season is string => typeof season === "string" && /^\d+$/.test(season.trim()))
+		.map((season) => Number.parseInt(season, 10))
+		.filter((season): season is SeasonIds => isSeasonId(season));
 	const hangout = typeof rawHangout === "string" ? rawHangout.trim() : "";
 	const personality =
 		typeof rawPersonality === "string" && rawPersonality.length > 0 ? Number(rawPersonality) : null;
@@ -215,6 +248,10 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const initialBanner = skyProfilePacket?.banner ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
+	const initialSeasonsRaw = seasonIdsForStorage(
+		skyProfilePacket?.seasons ?? null,
+		availableSeasonIds,
+	);
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const initialCountryRaw = skyProfilePacket?.country ?? null;
@@ -282,6 +319,8 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		!(hasNewIcon || hasNewBanner) &&
 		name === initialName &&
 		description === initialDescription &&
+		seasonSignature(seasons, availableSeasonIds) ===
+			seasonSignature(initialSeasonsRaw, availableSeasonIds) &&
 		hangout === initialHangout &&
 		personality === initialPersonalityRaw &&
 		country === initialCountryRaw &&
@@ -354,6 +393,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		user_id: discordUser.id,
 		name,
 		description: description.length > 0 ? description : null,
+		seasons: seasonIdsForStorage(seasons, availableSeasonIds),
 		hangout: hangout.length > 0 ? hangout : null,
 		personality,
 		country,
@@ -415,10 +455,15 @@ export default function MeSkyProfile() {
 	const actionData = useActionData<typeof action>();
 	const navigation = useNavigation();
 	const { i18n, t } = useTranslation();
+	const availableSeasonIds = [...skySeasons().keys()];
 	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialBanner = skyProfilePacket?.banner ?? null;
 	const initialName = skyProfilePacket?.name?.trim() ?? "";
 	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
+	const initialSeasonsRaw = seasonIdsForStorage(
+		skyProfilePacket?.seasons ?? null,
+		availableSeasonIds,
+	);
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const initialCountryRaw = skyProfilePacket?.country ?? null;
@@ -429,6 +474,7 @@ export default function MeSkyProfile() {
 			: null;
 	const initialCountry =
 		initialCountryRaw != null && isCountry(initialCountryRaw) ? initialCountryRaw : "";
+	const initialSeasons = initialSeasonsRaw ?? [];
 	const initialPlatforms = initialPlatformsRaw ?? [];
 	const [showSuccess, setShowSuccess] = useState(false);
 	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
@@ -442,6 +488,7 @@ export default function MeSkyProfile() {
 	const cdnURL = useCDNURL();
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
+	const [seasonValues, setSeasonValues] = useState<SeasonIds[]>(initialSeasons);
 	const [hangoutValue, setHangoutValue] = useState(initialHangout);
 	const [personalityValue, setPersonalityValue] = useState<number | null>(initialPersonality);
 	const [countryValue, setCountryValue] = useState(initialCountry);
@@ -463,6 +510,7 @@ export default function MeSkyProfile() {
 	const displayedIconURL = iconPreviewURL ?? initialIconURL;
 	const previewName = nameValue.trim();
 	const previewDescription = descriptionValue.trim();
+	const initialSeasonSignature = seasonSignature(initialSeasonsRaw, availableSeasonIds);
 	const initialPlatformSignature = platformSignature(initialPlatformsRaw);
 
 	const isSaving =
@@ -476,6 +524,7 @@ export default function MeSkyProfile() {
 		hasPendingBannerUpload ||
 		nameValue.trim() !== initialName ||
 		descriptionValue.trim() !== initialDescription ||
+		seasonSignature(seasonValues, availableSeasonIds) !== initialSeasonSignature ||
 		hangoutValue.trim() !== initialHangout ||
 		personalityValue !== initialPersonalityRaw ||
 		countryValue !== (initialCountryRaw ?? "") ||
@@ -549,7 +598,7 @@ export default function MeSkyProfile() {
 
 				<Form
 					encType="multipart/form-data"
-					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}:${initialPlatformSignature}`}
+					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialSeasonSignature}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}:${initialPlatformSignature}`}
 					method="post"
 					onReset={() => {
 						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
@@ -560,6 +609,7 @@ export default function MeSkyProfile() {
 						setClientBannerError(null);
 						setNameValue(initialName);
 						setDescriptionValue(initialDescription);
+						setSeasonValues(initialSeasons);
 						setHangoutValue(initialHangout);
 						setPersonalityValue(initialPersonality);
 						setCountryValue(initialCountry);
@@ -736,6 +786,106 @@ export default function MeSkyProfile() {
 										{descriptionError}
 									</p>
 								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Seasons}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || seasonValues.length === 0}
+									onClick={() => setSeasonValues([])}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<div className="flex items-center justify-between gap-3">
+									<p
+										className="my-0 text-sm text-gray-600 dark:text-gray-400"
+										id="seasons-description"
+									>
+										{t(`sky-profile.edit-type-description.${SkyProfileEditType.Seasons}`, {
+											ns: "features",
+										})}
+									</p>
+									<span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-xs font-medium text-gray-600 shadow-sm dark:bg-gray-800 dark:text-gray-300">
+										{seasonValues.length} selected
+									</span>
+								</div>
+								<fieldset aria-describedby="seasons-description">
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Seasons}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="rounded-xl border border-gray-300 bg-white/60 p-2 dark:border-gray-600 dark:bg-gray-800/40">
+										<div className="hide-scrollbar max-h-80 overflow-y-auto">
+											<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+												{availableSeasonIds.map((season) => {
+													const selected = seasonValues.includes(season);
+
+													return (
+														<button
+															aria-pressed={selected}
+															className={clsx(
+																"flex w-full cursor-pointer items-center gap-3 rounded-lg border bg-white px-3 py-2 text-left shadow-sm transition-colors hover:border-gray-400 hover:bg-gray-50 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:opacity-60 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 dark:hover:bg-gray-700/80 dark:disabled:border-gray-700 dark:disabled:bg-gray-900",
+																selected
+																	? "border-blue-600 bg-blue-100 dark:border-blue-400 dark:bg-blue-950/70"
+																	: "border-gray-300",
+															)}
+															disabled={isSaving}
+															key={season}
+															onClick={() => {
+																setSeasonValues((previousSeasons) =>
+																	previousSeasons.includes(season)
+																		? previousSeasons.filter(
+																				(previousSeason) => previousSeason !== season,
+																			)
+																		: [...previousSeasons, season],
+																);
+															}}
+															type="button"
+														>
+															<div
+																aria-hidden="true"
+																className="h-9 w-9 shrink-0 rounded-full bg-cover bg-center shadow-sm"
+																style={{
+																	backgroundImage: `url(${cdnAssetURL(cdnURL, `assets/season_${season + 1}.webp`)})`,
+																}}
+															/>
+															<div className="min-w-0 flex-1">
+																<div className="truncate text-xs font-semibold text-gray-900 dark:text-gray-100">
+																	{t(`seasons.${season}`, { ns: "general" })}
+																</div>
+															</div>
+															<div
+																aria-hidden="true"
+																className={clsx(
+																	"flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors",
+																	selected
+																		? "border-blue-600 bg-blue-600 text-white dark:border-blue-400 dark:bg-blue-400 dark:text-gray-950"
+																		: "border-gray-300 bg-transparent text-transparent dark:border-gray-500",
+																)}
+															>
+																<Check className="h-3.5 w-3.5" />
+															</div>
+														</button>
+													);
+												})}
+											</div>
+										</div>
+									</div>
+									{seasonValues.map((season) => (
+										<input key={season} name="season" type="hidden" value={season} />
+									))}
+								</fieldset>
 							</div>
 						</div>
 
