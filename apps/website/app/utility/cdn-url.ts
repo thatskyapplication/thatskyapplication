@@ -25,6 +25,10 @@ export function applicationIconURL(cdnURL: string) {
 	return cdnAssetURL(cdnURL, `avatar_icons/${APPLICATION_NAME.toLowerCase()}.webp`);
 }
 
+export function discordEmojiURL(emojiId: string) {
+	return `https://cdn.discordapp.com/emojis/${emojiId}.webp`;
+}
+
 export function skyProfileBannerURL<UserId extends string>(
 	cdnURL: string,
 	userId: UserId,

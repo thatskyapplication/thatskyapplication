@@ -38,7 +38,7 @@ import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import pino from "~/pino.js";
-import { cdnAssetURL, skyProfileBannerURL } from "~/utility/cdn-url.js";
+import { cdnAssetURL, discordEmojiURL, skyProfileBannerURL } from "~/utility/cdn-url.js";
 import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -1081,7 +1081,7 @@ export default function MeSkyProfile() {
 															aria-hidden="true"
 															className="h-5 w-5 shrink-0 bg-contain bg-center bg-no-repeat"
 															style={{
-																backgroundImage: `url(https://cdn.discordapp.com/emojis/${SkyProfilePersonalityToEmoji[personality].id}.webp)`,
+																backgroundImage: `url(${discordEmojiURL(SkyProfilePersonalityToEmoji[personality].id)})`,
 															}}
 														/>
 														<span className="text-sm font-semibold leading-tight text-gray-900 dark:text-gray-100">

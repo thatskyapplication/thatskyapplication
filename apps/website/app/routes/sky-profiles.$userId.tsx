@@ -34,7 +34,12 @@ import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
 import { getSession } from "~/session.server";
-import { cdnAssetURL, getCDNURLFromMatches, skyProfileBannerURL } from "~/utility/cdn-url.js";
+import {
+	cdnAssetURL,
+	discordEmojiURL,
+	getCDNURLFromMatches,
+	skyProfileBannerURL,
+} from "~/utility/cdn-url.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -367,7 +372,7 @@ export default function SkyProfile() {
 								className="w-6 h-6 mr-2 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(https://cdn.discordapp.com/emojis/${SkyProfilePersonalityToEmoji[data.personality].id}.webp)`,
+									backgroundImage: `url(${discordEmojiURL(SkyProfilePersonalityToEmoji[data.personality].id)})`,
 								}}
 							/>
 							<div className="flex-1">
