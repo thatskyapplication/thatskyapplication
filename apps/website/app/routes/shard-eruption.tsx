@@ -175,7 +175,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 								className="h-4 w-4 ml-1 bg-cover bg-center"
 								role="img"
 								style={{
-									backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/piece_of_light.webp")})`,
+									backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/piece_of_light.webp")})`,
 								}}
 							/>
 						)}

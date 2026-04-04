@@ -531,7 +531,7 @@ export default function DailyGuides() {
 													className="h-4 w-4 bg-cover bg-center"
 													role="img"
 													style={{
-														backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/piece_of_light.webp")})`,
+														backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/piece_of_light.webp")})`,
 													}}
 												/>
 											)}
@@ -587,7 +587,7 @@ export default function DailyGuides() {
 												className="h-4 w-4 bg-cover bg-center"
 												role="img"
 												style={{
-													backgroundImage: `url(${cdnAssetURL(cdnURL, "icons/piece_of_light.webp")})`,
+													backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/piece_of_light.webp")})`,
 												}}
 											/>
 										)}
