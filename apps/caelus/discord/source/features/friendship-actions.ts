@@ -40,6 +40,7 @@ const FriendshipActionTypeToTranslationKey = {
 	[FriendshipActionType.PlayFight]: "play-fight",
 	[FriendshipActionType.Krill]: "krill",
 } as const satisfies Readonly<Record<FriendshipActionTypes, string>>;
+
 interface FriendshipActionOptions {
 	interaction: APIChatInputApplicationCommandInteraction;
 	user: APIUser;
