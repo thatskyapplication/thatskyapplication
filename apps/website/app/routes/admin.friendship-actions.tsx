@@ -33,7 +33,7 @@ const MAXIMUM_FRIENDSHIP_ACTIONS_DIMENSION_SIZE = 512 as const;
 const MAXIMUM_FRIENDSHIP_ACTIONS_USERS = 5 as const;
 const DISCORD_USER_ID_REGEX = /^\d{17,19}$/;
 
-const FRIENDSHIP_ACTION_REFERENCE_REGEX = new RegExp(
+const REFERENCE_REGEX = new RegExp(
 	`^https:\\/\\/discord\\.com\\/channels\\/${SUPPORT_SERVER_GUILD_ID}\\/\\d{17,20}$`,
 );
 
@@ -194,7 +194,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 		parsedUserIds = parsedUsers.ids;
 	}
 
-	if (!FRIENDSHIP_ACTION_REFERENCE_REGEX.test(reference)) {
+	if (!REFERENCE_REGEX.test(reference)) {
 		errors.reference = "Invalid reference. Must be a link to the friendship actions thread.";
 	}
 

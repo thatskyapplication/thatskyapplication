@@ -70,7 +70,6 @@ import { deleteUserData } from "../features/data.js";
 import {
 	friendshipActionsCreateThread,
 	friendshipActionsHugBack,
-	friendshipActionsUploadHandleModal,
 } from "../features/friendship-actions.js";
 import {
 	guessEventAnswer,
@@ -1128,11 +1127,6 @@ export default {
 				}
 
 				if (isGuildModalSubmit(data)) {
-					if (id === CustomId.FriendshipActionsUploadModal) {
-						await friendshipActionsUploadHandleModal(data);
-						return;
-					}
-
 					if (id === CustomId.MeCustomiseMeModal) {
 						await meHandleCustomiseMeModal(data);
 						return;

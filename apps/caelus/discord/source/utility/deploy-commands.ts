@@ -1175,11 +1175,6 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 					},
 				],
 			},
-			{
-				name: "upload-friendship-action",
-				description: "Uploads a friendship action asset.",
-				type: ApplicationCommandOptionType.Subcommand,
-			},
 		],
 		default_member_permissions: "0",
 	},
