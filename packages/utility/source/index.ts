@@ -78,12 +78,8 @@ export {
 	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
-	hairTouslesRoute,
-	highFivesRoute,
-	hugsRoute,
+	FriendshipActionTypeToRoute,
 	isFriendshipActionType,
-	krillsRoute,
-	playFightsRoute,
 } from "./friendship-actions.js";
 export {
 	GUESS_TYPE_VALUES,

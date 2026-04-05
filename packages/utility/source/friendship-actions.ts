@@ -1,5 +1,3 @@
-import { CDN_URL } from "./routes.js";
-
 export interface FriendshipActionsPacket {
 	id: number;
 	type: number;
@@ -25,32 +23,42 @@ export function isFriendshipActionType(type: number): type is FriendshipActionTy
 	return FRIENDSHIP_ACTION_TYPE_VALUES.includes(type as FriendshipActionTypes);
 }
 
-type HighFivesRoute = `${typeof CDN_URL}/high_fives/${number}.gif`;
+type HighFivesRoute = `${string}/high_fives/${number}.gif`;
 
-export function highFivesRoute(id: number): HighFivesRoute {
-	return `${CDN_URL}/high_fives/${id}.gif`;
+function highFivesRoute(cdnURL: string, id: number): HighFivesRoute {
+	return `${cdnURL}/high_fives/${id}.gif`;
 }
 
-type HugsRoute = `${typeof CDN_URL}/hugs/${number}.gif`;
+type HugsRoute = `${string}/hugs/${number}.gif`;
 
-export function hugsRoute(id: number): HugsRoute {
-	return `${CDN_URL}/hugs/${id}.gif`;
+function hugsRoute(cdnURL: string, id: number): HugsRoute {
+	return `${cdnURL}/hugs/${id}.gif`;
 }
 
-type HairTouslesRoute = `${typeof CDN_URL}/hair_tousles/${number}.gif`;
+type HairTouslesRoute = `${string}/hair_tousles/${number}.gif`;
 
-export function hairTouslesRoute(id: number): HairTouslesRoute {
-	return `${CDN_URL}/hair_tousles/${id}.gif`;
+function hairTouslesRoute(cdnURL: string, id: number): HairTouslesRoute {
+	return `${cdnURL}/hair_tousles/${id}.gif`;
 }
 
-type PlayFightsRoute = `${typeof CDN_URL}/play_fights/${number}.gif`;
+type PlayFightsRoute = `${string}/play_fights/${number}.gif`;
 
-export function playFightsRoute(id: number): PlayFightsRoute {
-	return `${CDN_URL}/play_fights/${id}.gif`;
+function playFightsRoute(cdnURL: string, id: number): PlayFightsRoute {
+	return `${cdnURL}/play_fights/${id}.gif`;
 }
 
-type KrillRoute = `${typeof CDN_URL}/krills/${number}.gif`;
+type KrillRoute = `${string}/krills/${number}.gif`;
 
-export function krillsRoute(id: number): KrillRoute {
-	return `${CDN_URL}/krills/${id}.gif`;
+function krillsRoute(cdnURL: string, id: number): KrillRoute {
+	return `${cdnURL}/krills/${id}.gif`;
 }
+
+export const FriendshipActionTypeToRoute = {
+	[FriendshipActionType.HighFive]: highFivesRoute,
+	[FriendshipActionType.Hug]: hugsRoute,
+	[FriendshipActionType.HairTousle]: hairTouslesRoute,
+	[FriendshipActionType.PlayFight]: playFightsRoute,
+	[FriendshipActionType.Krill]: krillsRoute,
+} as const satisfies Readonly<
+	Record<FriendshipActionTypes, (cdnURL: string, id: number) => string>
+>;
