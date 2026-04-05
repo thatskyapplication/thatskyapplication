@@ -6,12 +6,8 @@ import {
 	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
-	hairTouslesRoute,
-	highFivesRoute,
-	hugsRoute,
+	FriendshipActionTypeToRoute,
 	isFriendshipActionType,
-	krillsRoute,
-	playFightsRoute,
 	Table,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
@@ -52,16 +48,6 @@ const FriendshipActionTypeToCDNName = {
 	[FriendshipActionType.PlayFight]: "play_fights",
 	[FriendshipActionType.Krill]: "krills",
 } as const satisfies Readonly<Record<FriendshipActionTypes, string>>;
-
-const FriendshipActionTypeToRoute = {
-	[FriendshipActionType.HighFive]: highFivesRoute,
-	[FriendshipActionType.Hug]: hugsRoute,
-	[FriendshipActionType.HairTousle]: hairTouslesRoute,
-	[FriendshipActionType.PlayFight]: playFightsRoute,
-	[FriendshipActionType.Krill]: krillsRoute,
-} as const satisfies Readonly<
-	Record<FriendshipActionTypes, (cdnURL: string, id: number) => string>
->;
 
 interface FriendshipActionUploadErrors {
 	type?: string;

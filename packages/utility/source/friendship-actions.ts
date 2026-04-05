@@ -25,30 +25,40 @@ export function isFriendshipActionType(type: number): type is FriendshipActionTy
 
 type HighFivesRoute = `${string}/high_fives/${number}.gif`;
 
-export function highFivesRoute(cdnURL: string, id: number): HighFivesRoute {
+function highFivesRoute(cdnURL: string, id: number): HighFivesRoute {
 	return `${cdnURL}/high_fives/${id}.gif`;
 }
 
 type HugsRoute = `${string}/hugs/${number}.gif`;
 
-export function hugsRoute(cdnURL: string, id: number): HugsRoute {
+function hugsRoute(cdnURL: string, id: number): HugsRoute {
 	return `${cdnURL}/hugs/${id}.gif`;
 }
 
 type HairTouslesRoute = `${string}/hair_tousles/${number}.gif`;
 
-export function hairTouslesRoute(cdnURL: string, id: number): HairTouslesRoute {
+function hairTouslesRoute(cdnURL: string, id: number): HairTouslesRoute {
 	return `${cdnURL}/hair_tousles/${id}.gif`;
 }
 
 type PlayFightsRoute = `${string}/play_fights/${number}.gif`;
 
-export function playFightsRoute(cdnURL: string, id: number): PlayFightsRoute {
+function playFightsRoute(cdnURL: string, id: number): PlayFightsRoute {
 	return `${cdnURL}/play_fights/${id}.gif`;
 }
 
 type KrillRoute = `${string}/krills/${number}.gif`;
 
-export function krillsRoute(cdnURL: string, id: number): KrillRoute {
+function krillsRoute(cdnURL: string, id: number): KrillRoute {
 	return `${cdnURL}/krills/${id}.gif`;
 }
+
+export const FriendshipActionTypeToRoute = {
+	[FriendshipActionType.HighFive]: highFivesRoute,
+	[FriendshipActionType.Hug]: hugsRoute,
+	[FriendshipActionType.HairTousle]: hairTouslesRoute,
+	[FriendshipActionType.PlayFight]: playFightsRoute,
+	[FriendshipActionType.Krill]: krillsRoute,
+} as const satisfies Readonly<
+	Record<FriendshipActionTypes, (cdnURL: string, id: number) => string>
+>;

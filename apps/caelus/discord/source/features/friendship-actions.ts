@@ -18,12 +18,8 @@ import {
 	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
+	FriendshipActionTypeToRoute,
 	formatEmoji,
-	hairTouslesRoute,
-	highFivesRoute,
-	hugsRoute,
-	krillsRoute,
-	playFightsRoute,
 	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -44,17 +40,6 @@ const FriendshipActionTypeToTranslationKey = {
 	[FriendshipActionType.PlayFight]: "play-fight",
 	[FriendshipActionType.Krill]: "krill",
 } as const satisfies Readonly<Record<FriendshipActionTypes, string>>;
-
-const FriendshipActionTypeToRoute = {
-	[FriendshipActionType.HighFive]: highFivesRoute,
-	[FriendshipActionType.Hug]: hugsRoute,
-	[FriendshipActionType.HairTousle]: hairTouslesRoute,
-	[FriendshipActionType.PlayFight]: playFightsRoute,
-	[FriendshipActionType.Krill]: krillsRoute,
-} as const satisfies Readonly<
-	Record<FriendshipActionTypes, (cdnURL: string, id: number) => string>
->;
-
 interface FriendshipActionOptions {
 	interaction: APIChatInputApplicationCommandInteraction;
 	user: APIUser;
