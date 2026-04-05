@@ -30,7 +30,7 @@ const MAXIMUM_FRIENDSHIP_ACTIONS_USERS = 5 as const;
 const DISCORD_USER_ID_REGEX = /^\d{17,19}$/;
 
 const REFERENCE_REGEX = new RegExp(
-	`^https:\\/\\/discord\\.com\\/channels\\/${SUPPORT_SERVER_GUILD_ID}\\/\\d{17,20}$`,
+	`^https:\\/\\/discord\\.com\\/channels\\/${SUPPORT_SERVER_GUILD_ID}\\/\\d{19}$`,
 );
 
 const FriendshipActionTypeToLabel = {
