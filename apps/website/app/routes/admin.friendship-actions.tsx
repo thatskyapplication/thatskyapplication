@@ -284,7 +284,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 		return data({ ok: true, upload } as const);
 	} catch (error) {
-		pino.error({ error, request }, "Failed to upload friendship action.");
+		pino.error(error, "Failed to upload friendship action.");
 
 		return data(
 			{
