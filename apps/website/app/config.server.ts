@@ -12,6 +12,7 @@ if (
 		process.env.APPLICATION_ID &&
 		process.env.DISCORD_CLIENT_SECRET &&
 		process.env.SUPPORT_SERVER_GUILD_ID &&
+		process.env.DEVELOPER_ROLE_ID &&
 		process.env.TRANSLATOR_ROLE_ID &&
 		process.env.CROWDIN_CLIENT_ID &&
 		process.env.CROWDIN_CLIENT_SECRET &&
@@ -34,6 +35,7 @@ export const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 export const APPLICATION_ID = process.env.APPLICATION_ID;
 export const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 export const SUPPORT_SERVER_GUILD_ID = process.env.SUPPORT_SERVER_GUILD_ID;
+export const DEVELOPER_ROLE_ID = process.env.DEVELOPER_ROLE_ID;
 export const TRANSLATOR_ROLE_ID = process.env.TRANSLATOR_ROLE_ID;
 export const CROWDIN_CLIENT_ID = process.env.CROWDIN_CLIENT_ID;
 export const CROWDIN_CLIENT_SECRET = process.env.CROWDIN_CLIENT_SECRET;

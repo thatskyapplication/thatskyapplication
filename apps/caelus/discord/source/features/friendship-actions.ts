@@ -41,6 +41,7 @@ import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import {
 	CDN_BUCKET,
+	CDN_URL,
 	DEVELOPER_ROLE_ID,
 	SUPPORT_SERVER_GUILD_ID,
 } from "../utility/configuration.js";
@@ -68,7 +69,9 @@ const FriendshipActionTypeToRoute = {
 	[FriendshipActionType.HairTousle]: hairTouslesRoute,
 	[FriendshipActionType.PlayFight]: playFightsRoute,
 	[FriendshipActionType.Krill]: krillsRoute,
-} as const satisfies Readonly<Record<FriendshipActionTypes, (id: number) => string>>;
+} as const satisfies Readonly<
+	Record<FriendshipActionTypes, (cdnURL: string, id: number) => string>
+>;
 
 const FriendshipActionTypeToCDNName = {
 	[FriendshipActionType.HighFive]: "high_fives",
@@ -223,7 +226,7 @@ export async function friendshipActionComponents({
 		},
 		{
 			type: ComponentType.MediaGallery,
-			items: [{ media: { url: FriendshipActionTypeToRoute[type](resolvedId) } }],
+			items: [{ media: { url: FriendshipActionTypeToRoute[type](CDN_URL, resolvedId) } }],
 		},
 	];
 
