@@ -78,7 +78,6 @@ export {
 	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
-	FriendshipActionTypeToRoute,
 	isFriendshipActionType,
 } from "./friendship-actions.js";
 export {
@@ -118,6 +117,7 @@ export const th = thLocale;
 export const vi = viLocale;
 export const zhCN = zhCNLocale;
 export const zhTW = zhTWLocale;
+export { CDN } from "./cdn.js";
 export { Event } from "./models/event.js";
 export { Realm } from "./models/realm.js";
 export { type DoubleSeasonalLightDate, Season } from "./models/season.js";
@@ -190,9 +190,6 @@ export {
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
-	skyProfileBannerRoute,
-	skyProfileIconRoute,
-	skyProfileIconURL,
 } from "./sky-profile.js";
 export { spirits } from "./spirits/index.js";
 export {

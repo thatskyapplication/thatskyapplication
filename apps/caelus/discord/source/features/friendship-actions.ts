@@ -18,7 +18,6 @@ import {
 	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
-	FriendshipActionTypeToRoute,
 	formatEmoji,
 	Table,
 } from "@thatskyapplication/utility";
@@ -27,7 +26,8 @@ import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
-import { CDN_URL, DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
+import { cdn } from "../thatskyapplication.js";
+import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOTE_EMOJIS, FRIEND_ACTION_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, userTag } from "../utility/functions.js";
@@ -182,7 +182,7 @@ export async function friendshipActionComponents({
 		},
 		{
 			type: ComponentType.MediaGallery,
-			items: [{ media: { url: FriendshipActionTypeToRoute[type](CDN_URL, resolvedId) } }],
+			items: [{ media: { url: cdn.FriendshipActionTypeToURL[type](resolvedId) } }],
 		},
 	];
 

@@ -15,12 +15,12 @@ import {
 	ScrollRestoration,
 } from "react-router";
 import ConditionalLayout from "~/components/ConditionalLayout";
+import { CDN_URL } from "~/config.server";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
 import { getSession } from "~/session.server";
-import { applicationIconURL } from "~/utility/cdn-url";
+import { cdnAssetURL } from "~/utility/cdn";
 import { APPLICATION_DESCRIPTION, APPLICATION_NAME } from "~/utility/constants";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
-import { cdnURLContext } from "~/utility/router-context";
 import {
 	getBrowserTimeZone,
 	TIME_ZONE_COOKIE_MAX_AGE,
@@ -45,7 +45,10 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => [
 	{ property: "og:description", content: APPLICATION_DESCRIPTION },
 	{ property: "og:type", content: "website" },
 	{ property: "og:site_name", content: "thatskyapplication" },
-	...(data ? [{ property: "og:image", content: applicationIconURL(data.cdnURL) }] : []),
+	{
+		property: "og:image",
+		content: data?.cdnURL ? cdnAssetURL(data.cdnURL, "avatar_icons/caelus.webp") : undefined,
+	},
 	{ property: "og:url", content: WEBSITE_URL },
 	{ name: "twitter:card", content: "summary" },
 	{ name: "twitter:title", content: APPLICATION_NAME },
@@ -125,7 +128,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 	const locale = getLocale(context);
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;
-	return { locale, user, cdnURL: context.get(cdnURLContext) };
+	return { cdnURL: CDN_URL, locale, user };
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {

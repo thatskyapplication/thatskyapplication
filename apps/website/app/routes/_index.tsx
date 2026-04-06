@@ -2,7 +2,7 @@ import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { AlarmClock, Clock, LinkIcon, UsersIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { discordEmojiURL } from "~/utility/cdn-url";
+import { discordEmojiURL } from "~/utility/cdn";
 import { APPLICATION_NAME } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis";
 

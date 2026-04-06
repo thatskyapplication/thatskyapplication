@@ -1,4 +1,3 @@
-import { isAnimatedHash } from "./assets.js";
 import type { Nullable } from "./types/index.js";
 import type { UsersPacket } from "./users.js";
 
@@ -119,19 +118,3 @@ export const SkyProfileResetType = {
 
 export type SkyProfileResetTypes = (typeof SkyProfileResetType)[keyof typeof SkyProfileResetType];
 export const SKY_PROFILE_RESET_TYPE_VALUES = Object.values(SkyProfileResetType);
-
-export function skyProfileIconRoute<UserId extends string>(userId: UserId, hash: string) {
-	return `sky_profiles/icons/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}` as const;
-}
-
-export function skyProfileBannerRoute<UserId extends string>(userId: UserId, hash: string) {
-	return `sky_profiles/banners/${userId}/${hash}.${isAnimatedHash(hash) ? "gif" : "webp"}` as const;
-}
-
-export function skyProfileIconURL<UserId extends string>(
-	cdnURL: string,
-	userId: UserId,
-	icon: string,
-) {
-	return new URL(skyProfileIconRoute(userId, icon), cdnURL).href;
-}

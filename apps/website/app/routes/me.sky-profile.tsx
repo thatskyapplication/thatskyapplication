@@ -1,5 +1,6 @@
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
+	CDN,
 	COUNTRY_VALUES,
 	CountryToEmoji,
 	isCountry,
@@ -19,7 +20,6 @@ import {
 	SkyProfileEditType,
 	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
-	skyProfileIconURL,
 	skySeasons,
 	Table,
 } from "@thatskyapplication/utility";
@@ -38,7 +38,7 @@ import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import pino from "~/pino.js";
-import { discordEmojiURL, skyProfileBannerURL } from "~/utility/cdn-url.js";
+import { discordEmojiURL } from "~/utility/cdn.js";
 import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -455,6 +455,8 @@ export default function MeSkyProfile() {
 	const actionData = useActionData<typeof action>();
 	const navigation = useNavigation();
 	const { i18n, t } = useTranslation();
+	const cdnURL = useCDNURL();
+	const cdn = new CDN(cdnURL);
 	const availableSeasonIds = [...skySeasons().keys()];
 	const initialIcon = skyProfilePacket?.icon ?? null;
 	const initialBanner = skyProfilePacket?.banner ?? null;
@@ -485,7 +487,6 @@ export default function MeSkyProfile() {
 	const [bannerPreviewURL, setBannerPreviewURL] = useState<string | null>(null);
 	const iconPreviewURLRef = useRef<string | null>(null);
 	const bannerPreviewURLRef = useRef<string | null>(null);
-	const cdnURL = useCDNURL();
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
 	const [seasonValues, setSeasonValues] = useState<SeasonIds[]>(initialSeasons);
@@ -502,10 +503,10 @@ export default function MeSkyProfile() {
 	})).sort((a, b) => a.label.localeCompare(b.label));
 
 	const initialBannerURL = initialBanner
-		? skyProfileBannerURL(cdnURL, discordUserId, initialBanner)
+		? cdn.skyProfileBannerURL(discordUserId, initialBanner)
 		: null;
 
-	const initialIconURL = initialIcon ? skyProfileIconURL(cdnURL, discordUserId, initialIcon) : null;
+	const initialIconURL = initialIcon ? cdn.skyProfileIconURL(discordUserId, initialIcon) : null;
 	const displayedBannerURL = bannerPreviewURL ?? initialBannerURL;
 	const displayedIconURL = iconPreviewURL ?? initialIconURL;
 	const previewName = nameValue.trim();

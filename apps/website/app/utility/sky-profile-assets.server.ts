@@ -1,15 +1,12 @@
 import { Buffer } from "node:buffer";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
-import {
-	ANIMATED_HASH_PREFIX,
-	isValidImageAsset,
-	skyProfileBannerRoute,
-	skyProfileIconRoute,
-} from "@thatskyapplication/utility";
+import { ANIMATED_HASH_PREFIX, CDN, isValidImageAsset } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import sharp from "sharp";
-import { CDN_BUCKET } from "~/config.server.js";
+import { CDN_BUCKET, CDN_URL } from "~/config.server.js";
 import S3Client from "~/s3-client.server.js";
+
+const cdn = new CDN(CDN_URL);
 
 async function uploadSkyProfileAsset({
 	file,
@@ -45,14 +42,14 @@ async function uploadSkyProfileAsset({
 export async function uploadSkyProfileIcon({ file, userId }: { file: File; userId: string }) {
 	return uploadSkyProfileAsset({
 		file,
-		route: (hash) => skyProfileIconRoute(userId, hash),
+		route: (hash) => cdn.skyProfileIconRoute(userId, hash),
 	});
 }
 
 export async function uploadSkyProfileBanner({ file, userId }: { file: File; userId: string }) {
 	return uploadSkyProfileAsset({
 		file,
-		route: (hash) => skyProfileBannerRoute(userId, hash),
+		route: (hash) => cdn.skyProfileBannerRoute(userId, hash),
 	});
 }
 
@@ -60,7 +57,7 @@ export async function deleteSkyProfileIcon({ icon, userId }: { icon: string; use
 	await S3Client.send(
 		new DeleteObjectCommand({
 			Bucket: CDN_BUCKET,
-			Key: skyProfileIconRoute(userId, icon),
+			Key: cdn.skyProfileIconRoute(userId, icon),
 		}),
 	);
 }
@@ -75,7 +72,7 @@ export async function deleteSkyProfileBanner({
 	await S3Client.send(
 		new DeleteObjectCommand({
 			Bucket: CDN_BUCKET,
-			Key: skyProfileBannerRoute(userId, banner),
+			Key: cdn.skyProfileBannerRoute(userId, banner),
 		}),
 	);
 }

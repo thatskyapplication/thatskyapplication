@@ -1,4 +1,4 @@
-import { type SkyProfilePacket, skyProfileIconURL, Table } from "@thatskyapplication/utility";
+import { CDN, type SkyProfilePacket, Table } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
 import { data, Link, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
@@ -26,8 +26,9 @@ export const loader = async () => {
 };
 
 export default function Acknowledgements() {
-	const skyProfilePackets = useLoaderData<typeof loader>();
 	const cdnURL = useCDNURL();
+	const cdn = new CDN(cdnURL);
+	const skyProfilePackets = useLoaderData<typeof loader>();
 
 	return (
 		<SitePage>
@@ -67,7 +68,7 @@ export default function Acknowledgements() {
 											className="w-8 h-8 rounded-full bg-cover bg-center shrink-0"
 											role="img"
 											style={{
-												backgroundImage: `url(${skyProfileIconURL(cdnURL, profile.user_id, profile.icon)})`,
+												backgroundImage: `url(${cdn.skyProfileIconURL(profile.user_id, profile.icon)})`,
 											}}
 										/>
 									) : (

@@ -36,11 +36,11 @@ import { Link, useLoaderData } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
-import { applicationIconURL, cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn-url.js";
+import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
-export const meta: MetaFunction = ({ matches }) => {
+export const meta: MetaFunction<typeof loader> = ({ matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
 
 	return [
@@ -58,7 +58,7 @@ export const meta: MetaFunction = ({ matches }) => {
 		{ property: "og:description", content: SCHEDULE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: applicationIconURL(cdnURL) },
+		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
 		{ property: "og:url", content: WEBSITE_URL },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: SCHEDULE_TITLE },

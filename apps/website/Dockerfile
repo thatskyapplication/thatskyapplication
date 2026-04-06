@@ -1,5 +1,6 @@
 # Builder stage.
 FROM node:lts-alpine AS builder
+ARG CDN_URL
 ARG SENTRY_RELEASE
 ARG SENTRY_DATA_SOURCE_NAME
 
@@ -22,6 +23,7 @@ COPY ./apps/website ./apps/website
 COPY ./packages/utility ./packages/utility
 RUN --mount=type=secret,id=sentry_auth_token,env=SENTRY_AUTH_TOKEN \
   export SENTRY_RELEASE=$SENTRY_RELEASE && \
+  export VITE_CDN_URL=$CDN_URL && \
   export VITE_SENTRY_DATA_SOURCE_NAME=$SENTRY_DATA_SOURCE_NAME && \
 	pnpm --filter @thatskyapplication/website... run build
 

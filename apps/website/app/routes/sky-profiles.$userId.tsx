@@ -1,5 +1,6 @@
 import {
 	type CataloguePacket,
+	CDN,
 	CountryToEmoji,
 	CROWDIN_URL,
 	isCountry,
@@ -12,7 +13,6 @@ import {
 	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
 	type Snowflake,
-	skyProfileIconURL,
 	Table,
 	WEBSITE_URL,
 	WING_BUFFS,
@@ -35,7 +35,7 @@ import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
 import { getSession } from "~/session.server";
-import { discordEmojiURL, getCDNURLFromMatches, skyProfileBannerURL } from "~/utility/cdn-url.js";
+import { discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import {
 	MISCELLANEOUS_EMOJIS,
@@ -100,8 +100,8 @@ export function ErrorBoundary() {
 
 export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) => {
 	const { data: skyProfileData } = data ?? {};
+	const cdn = new CDN(getCDNURLFromMatches(matches));
 	const url = String(new URL(location.pathname, WEBSITE_URL));
-	const cdnURL = getCDNURLFromMatches(matches);
 
 	return [
 		{ charSet: "utf-8" },
@@ -127,9 +127,9 @@ export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) =
 		{
 			property: "og:image",
 			content: skyProfileData?.icon
-				? skyProfileIconURL(cdnURL, skyProfileData.user_id, skyProfileData.icon)
+				? cdn.skyProfileIconURL(skyProfileData.user_id, skyProfileData.icon)
 				: skyProfileData?.banner
-					? skyProfileBannerURL(cdnURL, skyProfileData.user_id, skyProfileData.banner)
+					? cdn.skyProfileBannerURL(skyProfileData.user_id, skyProfileData.banner)
 					: null,
 		},
 		{ property: "og:url", content: url },
@@ -256,6 +256,7 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 export default function SkyProfile() {
 	const { data, isOwner, maximumWingedLight } = useLoaderData<typeof loader>();
 	const cdnURL = useCDNURL();
+	const cdn = new CDN(cdnURL);
 	const location = useLocation();
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
@@ -273,8 +274,8 @@ export default function SkyProfile() {
 			<div className="w-full max-w-3xl mx-auto">
 				<div className="mb-4">
 					<SkyProfileHeaderCard
-						bannerURL={data.banner ? skyProfileBannerURL(cdnURL, data.user_id, data.banner) : null}
-						iconURL={data.icon ? skyProfileIconURL(cdnURL, data.user_id, data.icon) : null}
+						bannerURL={data.banner ? cdn.skyProfileBannerURL(data.user_id, data.banner) : null}
+						iconURL={data.icon ? cdn.skyProfileIconURL(data.user_id, data.icon) : null}
 						name={data.name}
 					>
 						<div className="flex-1 min-w-0">

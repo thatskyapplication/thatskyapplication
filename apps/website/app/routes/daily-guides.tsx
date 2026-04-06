@@ -23,7 +23,7 @@ import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
-import { cdnAssetURL, discordEmojiURL } from "~/utility/cdn-url.js";
+import { cdnAssetURL, discordEmojiURL } from "~/utility/cdn.js";
 import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,

@@ -1,15 +1,6 @@
-import { useRouteLoaderData } from "react-router";
-
-type RootLoaderDataWithCDNURL = {
-	cdnURL: string;
-};
+import { useMatches } from "react-router";
+import { getCDNURLFromMatches } from "~/utility/cdn.js";
 
 export function useCDNURL() {
-	const rootData = useRouteLoaderData("root") as RootLoaderDataWithCDNURL | undefined;
-
-	if (!rootData?.cdnURL) {
-		throw new Error("CDN URL was missing from the root loader data.");
-	}
-
-	return rootData.cdnURL;
+	return getCDNURLFromMatches(useMatches());
 }

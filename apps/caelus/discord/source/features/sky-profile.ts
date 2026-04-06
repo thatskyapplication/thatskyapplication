@@ -65,9 +65,6 @@ import {
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
-	skyProfileBannerRoute,
-	skyProfileIconRoute,
-	skyProfileIconURL,
 	skySeasons,
 	Table,
 	WING_BUFFS,
@@ -82,10 +79,10 @@ import { client } from "../discord.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
+import { cdn } from "../thatskyapplication.js";
 import {
 	ARTIST_ROLE_ID,
 	CDN_BUCKET,
-	CDN_URL,
 	SKY_PROFILE_REPORTS_CHANNEL_ID,
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORTER_ROLE_ID,
@@ -246,12 +243,14 @@ export async function skyProfileSet(
 		const skyProfileDeleteData = [];
 
 		if (data.icon === null && skyProfilePacket.icon) {
-			skyProfileDeleteData.push({ Key: skyProfileIconRoute(data.user_id, skyProfilePacket.icon) });
+			skyProfileDeleteData.push({
+				Key: cdn.skyProfileIconRoute(data.user_id, skyProfilePacket.icon),
+			});
 		}
 
 		if (data.banner === null && skyProfilePacket.banner) {
 			skyProfileDeleteData.push({
-				Key: skyProfileBannerRoute(data.user_id, skyProfilePacket.banner),
+				Key: cdn.skyProfileBannerRoute(data.user_id, skyProfilePacket.banner),
 			});
 		}
 
@@ -283,7 +282,7 @@ export async function skyProfileSetAsset(
 			await S3Client.send(
 				new DeleteObjectCommand({
 					Bucket: CDN_BUCKET,
-					Key: skyProfileIconRoute(invoker.id, skyProfilePacket.icon),
+					Key: cdn.skyProfileIconRoute(invoker.id, skyProfilePacket.icon),
 				}),
 			);
 		}
@@ -292,7 +291,7 @@ export async function skyProfileSetAsset(
 			await S3Client.send(
 				new DeleteObjectCommand({
 					Bucket: CDN_BUCKET,
-					Key: skyProfileBannerRoute(invoker.id, skyProfilePacket.banner),
+					Key: cdn.skyProfileBannerRoute(invoker.id, skyProfilePacket.banner),
 				}),
 			);
 		}
@@ -323,8 +322,8 @@ export async function skyProfileSetAsset(
 			Bucket: CDN_BUCKET,
 			Key:
 				type === AssetType.Icon
-					? skyProfileIconRoute(invoker.id, hashedBuffer)
-					: skyProfileBannerRoute(invoker.id, hashedBuffer),
+					? cdn.skyProfileIconRoute(invoker.id, hashedBuffer)
+					: cdn.skyProfileBannerRoute(invoker.id, hashedBuffer),
 			Body: buffer,
 		}),
 	);
@@ -585,12 +584,12 @@ export async function skyProfileDelete(userId: Snowflake) {
 	const profileDeleteData = [];
 
 	if (skyProfilePacket.icon) {
-		profileDeleteData.push({ Key: skyProfileIconRoute(userId, skyProfilePacket.icon) });
+		profileDeleteData.push({ Key: cdn.skyProfileIconRoute(userId, skyProfilePacket.icon) });
 	}
 
 	if (skyProfilePacket.banner) {
 		profileDeleteData.push({
-			Key: skyProfileBannerRoute(userId, skyProfilePacket.banner),
+			Key: cdn.skyProfileBannerRoute(userId, skyProfilePacket.banner),
 		});
 	}
 
@@ -2309,7 +2308,7 @@ async function skyProfileComponents(
 				type: ComponentType.Section,
 				accessory: {
 					type: ComponentType.Thumbnail,
-					media: { url: skyProfileIconURL(CDN_URL, userId, icon) },
+					media: { url: cdn.skyProfileIconURL(userId, icon) },
 				},
 				components: mediaComponents,
 			});
@@ -2339,7 +2338,7 @@ async function skyProfileComponents(
 			type: ComponentType.Section,
 			accessory: {
 				type: ComponentType.Thumbnail,
-				media: { url: skyProfileIconURL(CDN_URL, userId, icon) },
+				media: { url: cdn.skyProfileIconURL(userId, icon) },
 			},
 			components: mediaComponents,
 		});

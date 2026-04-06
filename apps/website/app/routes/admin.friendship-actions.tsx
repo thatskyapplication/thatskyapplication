@@ -3,10 +3,10 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import type { Snowflake } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
 import {
+	CDN,
 	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
-	FriendshipActionTypeToRoute,
 	isFriendshipActionType,
 	Table,
 } from "@thatskyapplication/utility";
@@ -48,6 +48,8 @@ const FriendshipActionTypeToCDNName = {
 	[FriendshipActionType.PlayFight]: "play_fights",
 	[FriendshipActionType.Krill]: "krills",
 } as const satisfies Readonly<Record<FriendshipActionTypes, string>>;
+
+const cdn = new CDN(CDN_URL);
 
 interface FriendshipActionUploadErrors {
 	type?: string;
@@ -279,7 +281,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 			type: friendshipActionType,
 			users: row.users,
 			reference: row.reference,
-			assetURL: FriendshipActionTypeToRoute[friendshipActionType](CDN_URL, row.id),
+			assetURL: cdn.FriendshipActionTypeToURL[friendshipActionType](row.id),
 		};
 
 		return data({ ok: true, upload } as const);

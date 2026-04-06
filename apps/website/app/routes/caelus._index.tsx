@@ -3,7 +3,7 @@ import { BookOpen, Heart, Users } from "lucide-react";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
-import { applicationIconURL } from "~/utility/cdn-url.js";
+import { cdnAssetURL } from "~/utility/cdn.js";
 import {
 	APPLICATION_NAME,
 	GUIDE_URL,
@@ -53,7 +53,7 @@ export default function CaelusIndex() {
 						aria-label={`${APPLICATION_NAME} icon.`}
 						className="w-24 h-24 rounded-full shadow-lg mb-6 bg-cover bg-center"
 						role="img"
-						style={{ backgroundImage: `url(${applicationIconURL(cdnURL)})` }}
+						style={{ backgroundImage: `url(${cdnAssetURL(cdnURL, "avatar_icons/caelus.webp")})` }}
 					/>
 					<h1 className="text-4xl sm:text-5xl font-bold mb-3">{APPLICATION_NAME}</h1>
 					<p className="text-lg text-gray-500 dark:text-gray-400 max-w-md">
