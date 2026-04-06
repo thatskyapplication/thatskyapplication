@@ -1,7 +1,7 @@
 {
 	"general": {
 		"asset-image-invalid": "Por favor faça o upload de um anexo válido! Precisa ser menor ou igual a {{size}} megabytes e ser um arquivo GIF, JPEG, PNG ou WebP.",
-		"support-server": "",
+		"support-server": "Servidor de suporte",
 		"daily-quests": "Missões diárias",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
@@ -51,7 +51,7 @@
 			"Starlight Desert": "Deserto da Luz Estelar",
 			"Repository of Refuge": "Repositório do Refúgio",
 			"Eye of Eden": "Olho de Éden",
-			"The Passage": "",
+			"The Passage": "A Passagem",
 			"Ancient Memory": "Lembrança Antiga",
 			"Aviary Village": "Aldeia Aviária"
 		},
@@ -71,7 +71,7 @@
 			"12": "Espírito viajante",
 			"13": "Patinadora dos sonhos",
 			"14": "Oficina de Nidificação",
-			"15": ""
+			"15": "$t(general:maintenance)"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -455,7 +455,7 @@
 			"days-of-bloom": "Dias do Florescer",
 			"childrens-day": "Dia das Crianças",
 			"days-of-summer": "Dias de Verão",
-			"kizuna-ai": "",
+			"kizuna-ai": "Kizuna AI",
 			"harmony-hall-grand-opening": "Grande Abertura do Salão da Harmonia",
 			"days-of-sunlight": "Dias Ensolarados",
 			"lazy-days": "Dias de Preguiça",
@@ -465,11 +465,11 @@
 			"days-of-style": "Dias de Estilo",
 			"aviarys-firework-festival": "Festival Aviário de Fogos de Artifício",
 			"spring-camping": "Acampamento de Primavera",
-			"sky-x-cinnamoroll-pop-up-cafe": "",
-			"skyfest": "",
+			"sky-x-cinnamoroll-pop-up-cafe": "Sky × Cinnamoroll Pop-Up Café",
+			"skyfest": "SkyFest",
 			"tournament-of-triumph": "Torneio do Triunfo",
 			"days-of-moonlight": "Dias de Luar",
-			"sky-x-alices-wonderland-cafe": "",
+			"sky-x-alices-wonderland-cafe": "Sky × Alice's Wonderland Café",
 			"days-of-treasure": "Dia de Tesouros",
 			"radiance-event": "Evento do Resplendor",
 			"aurora-homecoming": "AURORA: De Volta ao Lar",
@@ -564,7 +564,7 @@
 			"84": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Torneio_do_Triunfo",
 			"85": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Amor",
 			"86": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Felicidade",
-			"87": ""
+			"87": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_do_Florescer"
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -2330,21 +2330,21 @@
 			"2705": "Bandeira de Floresta do Torneio",
 			"2706": "Bandeira de Vale do Torneio",
 			"2707": "Bandeira de Sertão do Torneio",
-			"2713": "",
+			"2713": "Apetrecho",
 			"2714": "Montaria de Pelúcia da Felicidade",
 			"2715": "Vestido Plissado da Felicidade",
 			"2716": "Rabo de Cavalo com Fita da Felicidade",
 			"2717": "Óculos de Moeda da Felicidade",
-			"2724": "",
-			"2726": "",
-			"2727": "",
-			"2728": "",
-			"2730": "",
-			"2736": "",
-			"2737": "",
-			"2738": "",
-			"2739": "",
-			"2740": "",
+			"2724": "Feitiço de Rastro",
+			"2726": "Feitiço de Rastro 1",
+			"2727": "Feitiços de Rastro 2",
+			"2728": "Feitiço de Rastro 3",
+			"2730": "Feitiço de Rastro",
+			"2736": "Mesa Redonda de Girassol",
+			"2737": "Escada de Girassol",
+			"2738": "Almofada Pequena de Girassol",
+			"2739": "Tapete de Girassol",
+			"2740": "Prateleira de Girassol",
 			"2741": "Vestido de Girassol do Florescer",
 			"2742": "Guarda-chuva de Girassol do Florescer",
 			"2743": "Brincos de Girassol do Florescer"
@@ -2353,11 +2353,11 @@
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
 		"cannot-view-thread": "Não tenho permissões para visualizar este tópico.",
 		"view": "Exibir",
-		"more": "",
-		"maintenance": "",
-		"maintenance-description-singular": "",
-		"maintenance-description-many": "",
-		"maintenance-description-many-with-times": "",
+		"more": "Mais",
+		"maintenance": "Manutenção",
+		"maintenance-description-singular": "Sky ficará indisponível de {{start}} a {{end}}.",
+		"maintenance-description-many": "Sky pode ficar indisponível durante esses períodos.",
+		"maintenance-description-many-with-times": "Sky pode ficar indisponível durante esses períodos.\n{{times}}",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar",
 		"wiki": "Wiki"
@@ -2781,8 +2781,8 @@
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
 			"event-upcoming-time": "{{event}} começa às {{time}}.",
-			"maintenance-upcoming_one": "",
-			"maintenance-upcoming_other": "",
+			"maintenance-upcoming_one": "A manutenção começa às {{time}} amanhã.",
+			"maintenance-upcoming_other": "A manutenção começa em {{count}} dias.",
 			"infographic": "Infográfico",
 			"not-yet-updated": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Junte-se ao [servidor de suporte]({{url}}) e atualize você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
 			"not-yet-updated-support-server": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Veja o {{channel}} para encontrar como atualizá-los você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
@@ -2898,7 +2898,7 @@
 			"delete-bio-button-label": "Deletar bio",
 			"delete-avatar-button-label": "Deletar avatar",
 			"delete-banner-button-label": "Deletar banner",
-			"rate-limit": ""
+			"rate-limit": "As atualizações estão sendo realizadas rapidamente. Aguarde um momento antes de tentar novamente! {{emoji}}"
 		},
 		"notifications": {
 			"back": "Retornar",
@@ -2964,8 +2964,8 @@
 					"message-future": "A Oficina do Ninho vai atualizar {{timestamp}}!"
 				},
 				"15": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "A manutenção começou e está prevista para terminar às {{timestampEnd}} ({{timestampEndRelative}}).",
+					"message-future": "A manutenção começará em {{timestampStart}} ({{timestampStartRelative}}) e está planejada para acabar em {{timestampEnd}} ({{timestampEndRelative}})."
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",
@@ -3058,14 +3058,14 @@
 			"detailed-breakdown-nine-coloured-deer-requires": "-# Requer {{emoji}}",
 			"next-nesting-workshop": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Oficina_do_Ninho",
-			"detailed-breakdown-nesting-workshop-message": "",
+			"detailed-breakdown-nesting-workshop-message": "Toda sexta-feira, um novo conjunto de cosméticos aparecerá na Oficina do Ninho. A próxima sexta-feira será em {{timestamp}}.",
 			"detailed-breakdown-vault-elders-blessing-message": "Disponível a cada 20 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_das_Duas_Fagulhas_-_Parte_1#Projetor_de_Lembran%C3%A7as",
 			"detailed-breakdown-projector-of-memories-message": "Disponível a cada 80 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-requires": "-# Requer {{emoji}}",
-			"detailed-breakdown-radiance-message": "",
-			"detailed-breakdown-radiance-event": "",
-			"detailed-breakdown-nothing-planned": "",
+			"detailed-breakdown-radiance-message": "Eventos de resplendor aumentam a disponibilidade de algumas tintas.\n\n{{result}}",
+			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
+			"detailed-breakdown-nothing-planned": "Não há eventos programados.",
 			"back": "Retornar"
 		},
 		"shard-eruption": {
@@ -3267,8 +3267,8 @@
 			"edit-modal-label-welcome-message-text-input-placeholder": "Bem-vindo ao servidor, {{user}}!",
 			"edit-modal-label-accent-colour-label": "Cor de realce",
 			"edit-modal-label-accent-colour-description": "Você pode mudar a cor da barrinha lateral da mensagem com um código hexadecimal.",
-			"edit-modal-label-hug-label": "",
-			"edit-modal-label-hug-description": "",
+			"edit-modal-label-hug-label": "Exibir botão de abraço",
+			"edit-modal-label-hug-description": "Um botão de abraço pode ser anexado à mensagem de boas-vindas!",
 			"edit-modal-label-asset-label": "Mídia",
 			"edit-modal-label-asset-description": "Você pode definir uma imagem (incluindo um GIF) que será exibida.",
 			"asset-remove": "Excluir mídia",
