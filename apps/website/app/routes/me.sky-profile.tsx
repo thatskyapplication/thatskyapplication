@@ -239,10 +239,13 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		.filter((season): season is string => typeof season === "string" && /^\d+$/.test(season.trim()))
 		.map((season) => Number.parseInt(season, 10))
 		.filter((season): season is SeasonIds => isSeasonId(season));
+	const trimmedSpirit = typeof rawSpirit === "string" ? rawSpirit.trim() : "";
 	const spirit =
-		typeof rawSpirit === "string" && /^\d+$/.test(rawSpirit.trim())
-			? Number.parseInt(rawSpirit, 10)
-			: null;
+		trimmedSpirit.length === 0
+			? null
+			: /^\d+$/.test(trimmedSpirit)
+				? Number.parseInt(trimmedSpirit, 10)
+				: Number.NaN;
 	const hangout = typeof rawHangout === "string" ? rawHangout.trim() : "";
 	const personality =
 		typeof rawPersonality === "string" && rawPersonality.length > 0 ? Number(rawPersonality) : null;
