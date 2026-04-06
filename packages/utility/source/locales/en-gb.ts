@@ -3506,6 +3506,7 @@ export default {
 			"description-website": "Discover Sky profiles by the community by searching above!",
 			"search-by-name": "Search by name...",
 			"select-a-country": "Select a country",
+			"select-a-spirit": "Select a spirit",
 			random: "Random",
 			me: "Me",
 			"country-unspecified": "Unspecified",
@@ -3559,6 +3560,7 @@ export default {
 				[SkyProfileEditType.GuessRank]: "Guessing Rank",
 				[SkyProfileEditType.Personality]: "Personality",
 				[SkyProfileEditType.Country]: "Country",
+				[SkyProfileEditType.Spirit]: "Spirit",
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-type-description": {
 				[SkyProfileEditType.Name]: "What name do you go by?",
@@ -3572,7 +3574,9 @@ export default {
 				[SkyProfileEditType.CatalogueProgression]: "Toggle showing your catalogue progression?",
 				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
 				[SkyProfileEditType.Personality]: "What's your personality?",
-				[SkyProfileEditType.Country]: "What country are you from?",
+				[SkyProfileEditType.Country]: "Where are you from?",
+				[SkyProfileEditType.Spirit]:
+					"$t(commands:sky-profile.edit.command-option-spirit-description)",
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-modal-title": "Sky Profile",
 			"edit-modal-label-name-label": "Name",

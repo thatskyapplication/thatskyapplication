@@ -7,6 +7,7 @@ import {
 	isPlatformId,
 	isSeasonId,
 	isSkyProfilePersonalityType,
+	isSpiritId,
 	isValidImageAsset,
 	MAXIMUM_ASSET_SIZE,
 	PLATFORM_ID_VALUES,
@@ -21,6 +22,7 @@ import {
 	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
 	skySeasons,
+	spirits,
 	Table,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
@@ -57,6 +59,7 @@ type SkyProfileActionErrors = {
 	icon?: string;
 	name?: string;
 	personality?: string;
+	spirit?: string;
 };
 
 const TEXT_FIELD_CLASS = [
@@ -184,6 +187,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 			"name",
 			"description",
 			"seasons",
+			"spirit",
 			"hangout",
 			"personality",
 			"country",
@@ -206,6 +210,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 			"name",
 			"description",
 			"seasons",
+			"spirit",
 			"hangout",
 			"personality",
 			"country",
@@ -220,6 +225,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const rawName = formData.get("name");
 	const rawDescription = formData.get("description");
 	const rawSeasons = formData.getAll("season");
+	const rawSpirit = formData.get("spirit");
 	const rawHangout = formData.get("hangout");
 	const rawPersonality = formData.get("personality");
 	const rawCountry = formData.get("country");
@@ -233,6 +239,13 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		.filter((season): season is string => typeof season === "string" && /^\d+$/.test(season.trim()))
 		.map((season) => Number.parseInt(season, 10))
 		.filter((season): season is SeasonIds => isSeasonId(season));
+	const trimmedSpirit = typeof rawSpirit === "string" ? rawSpirit.trim() : "";
+	const spirit =
+		trimmedSpirit.length === 0
+			? null
+			: /^\d+$/.test(trimmedSpirit)
+				? Number.parseInt(trimmedSpirit, 10)
+				: Number.NaN;
 	const hangout = typeof rawHangout === "string" ? rawHangout.trim() : "";
 	const personality =
 		typeof rawPersonality === "string" && rawPersonality.length > 0 ? Number(rawPersonality) : null;
@@ -252,6 +265,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		skyProfilePacket?.seasons ?? null,
 		availableSeasonIds,
 	);
+	const initialSpiritRaw = skyProfilePacket?.spirit ?? null;
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const initialCountryRaw = skyProfilePacket?.country ?? null;
@@ -294,6 +308,13 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		errors.hangout = `Hangout must not exceed ${SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH} characters.`;
 	}
 
+	if (spirit !== null && !(Number.isInteger(spirit) && isSpiritId(spirit))) {
+		errors.spirit = t("spirits.not-encountered-spirit", {
+			lng: locale,
+			ns: "features",
+		});
+	}
+
 	if (
 		personality !== null &&
 		!(Number.isInteger(personality) && isSkyProfilePersonalityType(personality))
@@ -321,6 +342,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		description === initialDescription &&
 		seasonSignature(seasons, availableSeasonIds) ===
 			seasonSignature(initialSeasonsRaw, availableSeasonIds) &&
+		spirit === initialSpiritRaw &&
 		hangout === initialHangout &&
 		personality === initialPersonalityRaw &&
 		country === initialCountryRaw &&
@@ -394,6 +416,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 		name,
 		description: description.length > 0 ? description : null,
 		seasons: seasonIdsForStorage(seasons, availableSeasonIds),
+		spirit,
 		hangout: hangout.length > 0 ? hangout : null,
 		personality,
 		country,
@@ -466,6 +489,7 @@ export default function MeSkyProfile() {
 		skyProfilePacket?.seasons ?? null,
 		availableSeasonIds,
 	);
+	const initialSpiritRaw = skyProfilePacket?.spirit ?? null;
 	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
 	const initialCountryRaw = skyProfilePacket?.country ?? null;
@@ -476,6 +500,8 @@ export default function MeSkyProfile() {
 			: null;
 	const initialCountry =
 		initialCountryRaw != null && isCountry(initialCountryRaw) ? initialCountryRaw : "";
+	const initialSpirit =
+		initialSpiritRaw != null && isSpiritId(initialSpiritRaw) ? initialSpiritRaw.toString() : "";
 	const initialSeasons = initialSeasonsRaw ?? [];
 	const initialPlatforms = initialPlatformsRaw ?? [];
 	const [showSuccess, setShowSuccess] = useState(false);
@@ -490,6 +516,7 @@ export default function MeSkyProfile() {
 	const [nameValue, setNameValue] = useState(initialName);
 	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
 	const [seasonValues, setSeasonValues] = useState<SeasonIds[]>(initialSeasons);
+	const [spiritValue, setSpiritValue] = useState(initialSpirit);
 	const [hangoutValue, setHangoutValue] = useState(initialHangout);
 	const [personalityValue, setPersonalityValue] = useState<number | null>(initialPersonality);
 	const [countryValue, setCountryValue] = useState(initialCountry);
@@ -501,6 +528,12 @@ export default function MeSkyProfile() {
 		label: `${CountryToEmoji[country]} ${displayNames.of(country)!}`,
 		value: country,
 	})).sort((a, b) => a.label.localeCompare(b.label));
+	const spiritOptions = [...spirits().values()]
+		.map((spirit) => ({
+			label: t(`spirits.${spirit.id}`, { ns: "general" }),
+			value: spirit.id.toString(),
+		}))
+		.sort((a, b) => a.label.localeCompare(b.label, i18n.language));
 
 	const initialBannerURL = initialBanner
 		? cdn.skyProfileBannerURL(discordUserId, initialBanner)
@@ -513,6 +546,7 @@ export default function MeSkyProfile() {
 	const previewDescription = descriptionValue.trim();
 	const initialSeasonSignature = seasonSignature(initialSeasonsRaw, availableSeasonIds);
 	const initialPlatformSignature = platformSignature(initialPlatformsRaw);
+	const spiritValueAsNumber = spiritValue.length > 0 ? Number.parseInt(spiritValue, 10) : null;
 
 	const isSaving =
 		navigation.state !== "idle" &&
@@ -526,10 +560,11 @@ export default function MeSkyProfile() {
 		nameValue.trim() !== initialName ||
 		descriptionValue.trim() !== initialDescription ||
 		seasonSignature(seasonValues, availableSeasonIds) !== initialSeasonSignature ||
+		spiritValueAsNumber !== initialSpiritRaw ||
 		hangoutValue.trim() !== initialHangout ||
 		personalityValue !== initialPersonalityRaw ||
 		countryValue !== (initialCountryRaw ?? "") ||
-		platformSignature(platformValues) !== platformSignature(initialPlatformsRaw);
+		platformSignature(platformValues) !== initialPlatformSignature;
 
 	const bannerError =
 		clientBannerError ?? (actionData?.ok === false ? actionData.errors.banner : undefined);
@@ -539,6 +574,7 @@ export default function MeSkyProfile() {
 
 	const nameError = actionData?.ok === false ? actionData.errors.name : undefined;
 	const descriptionError = actionData?.ok === false ? actionData.errors.description : undefined;
+	const spiritError = actionData?.ok === false ? actionData.errors.spirit : undefined;
 	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
 	const personalityError = actionData?.ok === false ? actionData.errors.personality : undefined;
 	const countryError = actionData?.ok === false ? actionData.errors.country : undefined;
@@ -599,7 +635,7 @@ export default function MeSkyProfile() {
 
 				<Form
 					encType="multipart/form-data"
-					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialSeasonSignature}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}:${initialPlatformSignature}`}
+					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialSeasonSignature}:${initialSpiritRaw ?? ""}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}:${initialPlatformSignature}`}
 					method="post"
 					onReset={() => {
 						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
@@ -611,6 +647,7 @@ export default function MeSkyProfile() {
 						setNameValue(initialName);
 						setDescriptionValue(initialDescription);
 						setSeasonValues(initialSeasons);
+						setSpiritValue(initialSpirit);
 						setHangoutValue(initialHangout);
 						setPersonalityValue(initialPersonality);
 						setCountryValue(initialCountry);
@@ -890,6 +927,40 @@ export default function MeSkyProfile() {
 										<input key={season} name="season" type="hidden" value={season} />
 									))}
 								</fieldset>
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2
+								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
+								id="spirit-heading"
+							>
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Spirit}`, {
+									ns: "features",
+								})}
+							</h2>
+							<div className="flex flex-col gap-2">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="spirit-description"
+								>
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Spirit}`, {
+										ns: "features",
+									})}
+								</p>
+								<Select
+									ariaDescribedBy="spirit-description"
+									ariaLabelledBy="spirit-heading"
+									className="w-full"
+									disabled={isSaving}
+									error={spiritError}
+									isClearable={true}
+									onChange={(value) => setSpiritValue(value)}
+									options={spiritOptions}
+									placeholder={t("sky-profile.select-a-spirit", { ns: "features" })}
+									value={spiritValue}
+								/>
+								<input name="spirit" type="hidden" value={spiritValue} />
 							</div>
 						</div>
 
