@@ -146,12 +146,14 @@ function isSkyProfileResetType(value: number): value is SkyProfileResetTypes {
 	return SKY_PROFILE_RESET_TYPE_VALUES.includes(value as SkyProfileResetTypes);
 }
 
-// The dynamic construction of string select menu options should not include countries.
-// This is because countries is only possible through autocomplete on Discord.
+// The dynamic construction of string select menu options should not include countries or spirits.
+// This is because countries and spirits are only possible through autocomplete on Discord.
 const SKY_PROFILE_EDIT_TYPE_WITHOUT_COUNTRY_VALUES: readonly Exclude<
 	SkyProfileEditTypes,
-	typeof SkyProfileEditType.Country
->[] = SKY_PROFILE_EDIT_TYPE_VALUES.filter((value) => value !== SkyProfileEditType.Country);
+	typeof SkyProfileEditType.Country | typeof SkyProfileEditType.Spirit
+>[] = SKY_PROFILE_EDIT_TYPE_VALUES.filter(
+	(value) => value !== SkyProfileEditType.Country && value !== SkyProfileEditType.Spirit,
+);
 
 const PlatformIdToEmoji = {
 	[PlatformId.iOS]: MISCELLANEOUS_EMOJIS.PlatformIOS,
