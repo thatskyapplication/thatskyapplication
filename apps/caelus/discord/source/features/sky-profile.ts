@@ -148,7 +148,7 @@ function isSkyProfileResetType(value: number): value is SkyProfileResetTypes {
 
 // The dynamic construction of string select menu options should not include countries or spirits.
 // This is because countries and spirits are only possible through autocomplete on Discord.
-const SKY_PROFILE_EDIT_TYPE_WITHOUT_COUNTRY_VALUES: readonly Exclude<
+const SKY_PROFILE_EDIT_TYPE_WITHOUT_AUTOCOMPLETE_VALUES: readonly Exclude<
 	SkyProfileEditTypes,
 	typeof SkyProfileEditType.Country | typeof SkyProfileEditType.Spirit
 >[] = SKY_PROFILE_EDIT_TYPE_VALUES.filter(
@@ -518,7 +518,7 @@ export async function skyProfileShowEdit(
 				custom_id: CustomId.SkyProfileEdit,
 				max_values: 1,
 				min_values: 1,
-				options: SKY_PROFILE_EDIT_TYPE_WITHOUT_COUNTRY_VALUES.map((skyProfileEditType) => ({
+				options: SKY_PROFILE_EDIT_TYPE_WITHOUT_AUTOCOMPLETE_VALUES.map((skyProfileEditType) => ({
 					description: t(`sky-profile.edit-type-description.${skyProfileEditType}`, {
 						lng: locale,
 						ns: "features",
