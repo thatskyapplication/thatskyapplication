@@ -71,7 +71,7 @@
 			"12": "Esprit voyageur",
 			"13": "",
 			"14": "Atelier de la Nidification",
-			"15": ""
+			"15": "$t(general:maintenance)"
 		},
 		"page": "Page",
 		"quests-common": {
