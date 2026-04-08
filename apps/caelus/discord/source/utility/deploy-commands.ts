@@ -14,8 +14,6 @@ import { REST } from "@discordjs/rest";
 import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	GUESS_TYPE_VALUES,
-	MAXIMUM_WINGED_LIGHT,
-	MINIMUM_WINGED_LIGHT,
 	SCHEDULE_TYPE_VALUES,
 	ScheduleType,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
@@ -903,7 +901,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						}),
 						description_localizations: localisations(
 							"sky-profile.edit.command-option-winged-light-description",
-							{ minimum: MINIMUM_WINGED_LIGHT, maximum: MAXIMUM_WINGED_LIGHT },
 						),
 						choices: SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((skyProfileWingedLightType) => ({
 							name: t(

@@ -100,7 +100,6 @@ export { treasureCandles } from "./kingdom/treasure-candles.js";
 export {
 	AreaToWingedLight,
 	MAXIMUM_WINGED_LIGHT,
-	MINIMUM_WINGED_LIGHT,
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,

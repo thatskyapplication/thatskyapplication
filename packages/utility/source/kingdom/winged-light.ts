@@ -26,5 +26,4 @@ export const WINGED_LIGHT_IN_AREAS = Object.values(AreaToWingedLight).reduce(
 	0,
 );
 
-export const MINIMUM_WINGED_LIGHT = 0 as const;
 export const MAXIMUM_WINGED_LIGHT = WINGED_LIGHT_IN_AREAS + WING_BUFFS.length;
