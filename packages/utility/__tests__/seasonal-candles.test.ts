@@ -1,7 +1,7 @@
 import { deepStrictEqual } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
-import Lightmending from "../source/spirits/seasons/lightmending/index.js";
+import Lightmending from "../source/kingdom/seasons/lightmending/index.js";
 
 test("Remaining seasonal candles on the first day of the season.", () => {
 	deepStrictEqual(Lightmending.remainingSeasonalCandles(skyDate(2026, 1, 16)), {

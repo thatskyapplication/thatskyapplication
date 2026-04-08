@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 import pc from "picocolors";
 import { Cosmetic } from "../source/cosmetics.js";
 import { DailyQuest } from "../source/daily-guides.js";
-import { SkyMap } from "../source/kingdom.js";
+import { SkyMap } from "../source/kingdom/geography.js";
 
 // --update-en also updates en-gb.ts.
 

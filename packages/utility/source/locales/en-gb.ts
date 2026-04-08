@@ -1,7 +1,13 @@
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
 import { DailyQuest, type DailyQuests } from "../daily-guides.js";
 import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
-import { isRealm, REALM_NAME_VALUES, RealmName, SKY_MAP_VALUES, SkyMap } from "../kingdom.js";
+import {
+	isRealm,
+	REALM_NAME_VALUES,
+	RealmName,
+	SKY_MAP_VALUES,
+	SkyMap,
+} from "../kingdom/geography.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
 import { SCHEDULE_TYPE_VALUES, ScheduleType, type ScheduleTypes } from "../schedule.js";

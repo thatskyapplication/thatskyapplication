@@ -1,7 +1,7 @@
 import type { DateTime } from "luxon";
 import { skyNotEndedEvents } from "./events/index.js";
+import { TRAVELLING_DATES } from "./kingdom/seasons/index.js";
 import { shardEruption } from "./shard-eruption.js";
-import { TRAVELLING_DATES } from "./spirits/seasons/index.js";
 import { EventId } from "./utility/event.js";
 
 export const ScheduleType = {

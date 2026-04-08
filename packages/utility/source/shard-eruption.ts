@@ -1,7 +1,7 @@
 import type { DateTime } from "luxon";
 import { skyToday } from "./dates.js";
 import { skyCurrentEvents } from "./events/index.js";
-import { type RealmName, SkyMap, VALID_REALM_NAME } from "./kingdom.js";
+import { type RealmName, SkyMap, VALID_REALM_NAME } from "./kingdom/geography.js";
 import { CDN_URL } from "./routes.js";
 import { EventId } from "./utility/event.js";
 

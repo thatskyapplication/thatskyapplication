@@ -1,7 +1,7 @@
 import { deepEqual } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
-import { treasureCandles } from "../source/kingdom.js";
+import { treasureCandles } from "../source/kingdom/treasure-candles.js";
 import { CDN_URL } from "../source/routes.js";
 
 const EXPECTED_ROTATIONS = [

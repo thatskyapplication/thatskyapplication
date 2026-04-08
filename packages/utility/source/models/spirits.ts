@@ -3,7 +3,7 @@ import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import type { Cosmetic } from "../cosmetics.js";
 import { skyDate } from "../dates.js";
-import type { RealmName } from "../kingdom.js";
+import type { RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import type { SeasonIds } from "../season.js";
 import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";

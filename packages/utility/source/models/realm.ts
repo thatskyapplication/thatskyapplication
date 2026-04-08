@@ -6,6 +6,7 @@ interface RealmData {
 	name: StandardSpiritRealm;
 	elder: ElderSpirit;
 	spirits: readonly StandardSpirit[];
+	wingedLight: number;
 }
 
 export class Realm {
@@ -15,6 +16,8 @@ export class Realm {
 
 	public readonly spirits: ReadonlyCollection<SpiritIds, StandardSpirit>;
 
+	public readonly wingedLight: number;
+
 	public constructor(data: RealmData) {
 		this.name = data.name;
 		this.elder = data.elder;
@@ -23,5 +26,7 @@ export class Realm {
 			(spirits, spirit) => spirits.set(spirit.id, spirit),
 			new Collection<SpiritIds, StandardSpirit>(),
 		);
+
+		this.wingedLight = data.wingedLight;
 	}
 }
