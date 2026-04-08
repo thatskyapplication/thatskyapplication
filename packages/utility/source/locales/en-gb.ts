@@ -3354,7 +3354,7 @@ export default {
 					"message-now":
 						"Maintenance is starting and is planned to end at {{timestampEnd}} ({{timestampEndRelative}}).",
 					"message-future":
-						"Maintenance will start at {{timestampStart}} ({{timestampStartRelative}}) and is planned to end {{timestampEnd}} ({{timestampEndRelative}}).",
+						"Maintenance will start at {{timestampStart}} ({{timestampStartRelative}}) and is planned to end at {{timestampEnd}} ({{timestampEndRelative}}).",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":
