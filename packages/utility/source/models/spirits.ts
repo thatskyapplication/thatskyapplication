@@ -126,13 +126,11 @@ interface BaseSpiritData {
 	keywords?: readonly string[];
 }
 
-export type StandardSpiritRealm = Exclude<RealmName, RealmName.EyeOfEden>;
-
 interface StandardSpiritData
 	extends BaseSpiritData,
 		StandardFriendshipTreeData,
 		ExpressiveSpiritData {
-	realm: StandardSpiritRealm;
+	realm: RealmName;
 }
 
 interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
@@ -315,7 +313,7 @@ abstract class BaseSpirit {
 export class StandardSpirit extends Mixin(BaseSpirit, StandardFriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SpiritType.Standard;
 
-	public declare readonly realm: StandardSpiritRealm;
+	public declare readonly realm: RealmName;
 
 	public constructor(spirit: StandardSpiritData) {
 		super(spirit);

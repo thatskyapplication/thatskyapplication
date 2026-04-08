@@ -146,7 +146,6 @@ export {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	StandardSpirit,
-	type StandardSpiritRealm,
 } from "./models/spirits.js";
 export {
 	NOTIFICATION_TYPE_VALUES,

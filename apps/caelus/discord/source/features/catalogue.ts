@@ -1063,6 +1063,10 @@ export async function viewRealms(
 	];
 
 	for (const realm of REALMS) {
+		if (realm.spirits.size === 0) {
+			continue;
+		}
+
 		let content = `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}`;
 		const percentage = spiritProgress([...realm.spirits.values()], catalogue?.data, true);
 		content += percentage === null ? "" : ` (${percentage}%)`;

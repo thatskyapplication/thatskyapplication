@@ -1,7 +1,8 @@
-import { Collection } from "@discordjs/collection";
+import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { ElderSpirit, StandardSpirit } from "../../models/spirits.js";
 import type { SpiritIds } from "../../utility/spirits.js";
 import DaylightPrairie from "./daylight-prairie/index.js";
+import eyeOfEden from "./eye-of-eden/index.js";
 import GoldenWasteland from "./golden-wasteland/index.js";
 import HiddenForest from "./hidden-forest/index.js";
 import IsleOfDawn from "./isle-of-dawn/index.js";
@@ -15,27 +16,24 @@ export const REALMS = [
 	ValleyOfTriumph,
 	GoldenWasteland,
 	VaultOfKnowledge,
+	eyeOfEden,
 ] as const;
 
-export const STANDARD_SPIRITS = IsleOfDawn.spirits.concat(
-	DaylightPrairie.spirits,
-	HiddenForest.spirits,
-	ValleyOfTriumph.spirits,
-	GoldenWasteland.spirits,
-	VaultOfKnowledge.spirits,
-);
+let standardSpirits = new Collection<SpiritIds, StandardSpirit>();
+let elderSpirits = new Collection<SpiritIds, ElderSpirit>();
 
-export const ELDER_SPIRITS = [
-	IsleOfDawn.elder,
-	DaylightPrairie.elder,
-	HiddenForest.elder,
-	ValleyOfTriumph.elder,
-	GoldenWasteland.elder,
-	VaultOfKnowledge.elder,
-].reduce(
-	(spirits, spirit) => spirits.set(spirit.id, spirit),
-	new Collection<SpiritIds, ElderSpirit>(),
-);
+for (const realm of REALMS) {
+	if (realm.spirits) {
+		standardSpirits = standardSpirits.concat(realm.spirits);
+	}
+
+	if (realm.elder) {
+		elderSpirits = elderSpirits.set(realm.elder.id, realm.elder);
+	}
+}
+
+export const STANDARD_SPIRITS: ReadonlyCollection<SpiritIds, StandardSpirit> = standardSpirits;
+export const ELDER_SPIRITS: ReadonlyCollection<SpiritIds, ElderSpirit> = elderSpirits;
 
 export const REALM_SPIRITS = STANDARD_SPIRITS.merge<ElderSpirit, StandardSpirit | ElderSpirit>(
 	ELDER_SPIRITS,
