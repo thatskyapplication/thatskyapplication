@@ -100,8 +100,6 @@ services:
     environment:
       DATABASE_URL: ${DATABASE_URL_CAELUS}
       SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME_SOCIALS}
-      REDDIT_APPLICATION_ID: ${REDDIT_APPLICATION_ID}
-      REDDIT_APPLICATION_SECRET: ${REDDIT_APPLICATION_SECRET}
   thatskyapplication-website:
     image: thatskyapplication-website:latest
     profiles:
