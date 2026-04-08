@@ -23,7 +23,6 @@ export const VALID_REALM_NAME = [
 ] as const;
 
 export type ValidRealmName = (typeof VALID_REALM_NAME)[number];
-export const VALID_REALM_NAME_VALUES = Object.values(VALID_REALM_NAME);
 
 export enum SkyMap {
 	// Daylight Prairie.

@@ -36,10 +36,6 @@ export function skyNotEndedEvents(date: DateTime): ReadonlyCollection<EventIds, 
 	return EVENTS.filter(({ end }) => date < end);
 }
 
-export function skyUpcomingEvents(date: DateTime): ReadonlyCollection<EventIds, Event> {
-	return EVENTS.filter(({ start }) => start > date);
-}
-
 export function communityUpcomingEvents(date: DateTime) {
 	return COMMUNITY_EVENTS.filter(({ start }) => start >= date);
 }

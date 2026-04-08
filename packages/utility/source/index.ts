@@ -47,7 +47,6 @@ export {
 	DAILY_QUEST_VALUES,
 	type DailyGuidesDistributionPacket,
 	type DailyGuidesPacket,
-	DailyQuest,
 	type DailyQuests,
 	DailyQuestToInfographicURL,
 	isDailyQuest,
@@ -66,14 +65,8 @@ export {
 	skyCurrentEvents,
 	skyEvents,
 	skyNotEndedEvents,
-	skyUpcomingEvents,
 } from "./events/index.js";
-export {
-	COMMUNITY_EVENTS,
-	DyeType,
-	type DyeTypes,
-	RADIANCE_EVENTS,
-} from "./events/miscellaneous.js";
+export { RADIANCE_EVENTS } from "./events/miscellaneous.js";
 export {
 	type FriendshipActionsPacket,
 	FriendshipActionType,
@@ -87,13 +80,8 @@ export {
 } from "./guess.js";
 export {
 	isRealm,
-	REALM_NAME_VALUES,
 	RealmName,
-	SKY_MAP_VALUES,
 	SkyMap,
-	VALID_REALM_NAME,
-	VALID_REALM_NAME_VALUES,
-	type ValidRealmName,
 } from "./kingdom/geography.js";
 export { spirits } from "./kingdom/spirits.js";
 export { treasureCandles } from "./kingdom/treasure-candles.js";
@@ -179,7 +167,6 @@ export {
 } from "./schedule.js";
 export {
 	isSeasonId,
-	SEASON_PASS_SEASONAL_CANDLES_BONUS,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
 	SeasonId,
@@ -201,14 +188,13 @@ export {
 	type SkyProfileEditTypes,
 	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
-	SkyProfilePersonalityType,
 	type SkyProfilePersonalityTypes,
 	SkyProfileResetType,
 	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 } from "./sky-profile.js";
-export type { Nullable, Snowflake } from "./types/index.js";
+export type { Snowflake } from "./types/index.js";
 export type { UsersPacket } from "./users.js";
 export { EventId, type EventIds, isEventId } from "./utility/event.js";
 export {
@@ -218,14 +204,12 @@ export {
 	resolveOfferFromItems,
 } from "./utility/functions.js";
 export {
-	FriendAction,
 	friendshipTreeToItems,
 	type Item,
 	type ItemCost,
 	isSpiritId,
 	isSpiritsHistoryOrderType,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
-	SpiritEmote,
 	SpiritId,
 	type SpiritIds,
 	SpiritsHistoryOrderType,

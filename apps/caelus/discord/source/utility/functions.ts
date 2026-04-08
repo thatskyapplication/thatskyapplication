@@ -22,11 +22,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
-import {
-	ALLOWED_IMAGE_MEDIA_TYPES,
-	ANIMATED_HASH_PREFIX,
-	MAXIMUM_ASSET_SIZE,
-} from "@thatskyapplication/utility";
+import { ALLOWED_IMAGE_MEDIA_TYPES, MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { diffJson } from "diff";
 import { t } from "i18next";
 import { client } from "../discord.js";
@@ -225,10 +221,6 @@ export async function validateImageAttachment(
 	});
 
 	return false;
-}
-
-export function isAnimatedHash(hash: string): hash is `${typeof ANIMATED_HASH_PREFIX}${string}` {
-	return hash.startsWith(ANIMATED_HASH_PREFIX);
 }
 
 export function isThreadChannelType(type: ChannelType) {

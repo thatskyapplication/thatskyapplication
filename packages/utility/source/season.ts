@@ -8,7 +8,6 @@ export enum RotationIdentifier {
 
 export const SEASONAL_CANDLES_PER_DAY = 5 as const;
 export const SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS = 6 as const;
-export const SEASON_PASS_SEASONAL_CANDLES_BONUS = 30 as const;
 
 export const SeasonId = {
 	Gratitude: 0,

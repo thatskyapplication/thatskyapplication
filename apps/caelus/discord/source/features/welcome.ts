@@ -29,6 +29,7 @@ import { DiscordAPIError } from "@discordjs/rest";
 import {
 	ANIMATED_HASH_PREFIX,
 	FriendshipActionType,
+	isAnimatedHash,
 	MAXIMUM_ASSET_SIZE,
 	Table,
 } from "@thatskyapplication/utility";
@@ -45,11 +46,7 @@ import type { NonNullableInterface } from "../types/index.js";
 import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import {
-	isAnimatedHash,
-	isValidImageAttachment,
-	notInCachedGuildResponse,
-} from "../utility/functions.js";
+import { isValidImageAttachment, notInCachedGuildResponse } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 import { can } from "../utility/permissions.js";
 import { friendshipActionComponents } from "./friendship-actions.js";
