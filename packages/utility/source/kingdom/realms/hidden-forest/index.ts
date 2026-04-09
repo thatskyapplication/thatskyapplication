@@ -1,5 +1,5 @@
 import { Realm } from "../../../models/realm.js";
-import { areasForRealm } from "../../areas.js";
+import { areasForRealm } from "../../areas/index.js";
 import { RealmName } from "../../geography.js";
 import ApologeticLumberjack from "./spirits/apologetic-lumberjack.js";
 import BlushingProspector from "./spirits/blushing-prospector.js";

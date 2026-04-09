@@ -1,5 +1,5 @@
 import { Realm } from "../../../models/realm.js";
-import { areasForRealm } from "../../areas.js";
+import { areasForRealm } from "../../areas/index.js";
 import { RealmName } from "../../geography.js";
 import BackflippingChampion from "./spirits/backflipping-champion.js";
 import BowingMedalist from "./spirits/bowing-medalist.js";

@@ -28,6 +28,7 @@ export enum AreaName {
 	// Isle of Dawn.
 	DawnCircle = "Dawn Circle",
 	PassageRock = "Passage Rock",
+	TempleOfTheIsle = "Temple of the Isle",
 	DawnOverlook = "Dawn Overlook",
 	TrialOfWater = "Trial of Water",
 	TrialOfEarth = "Trial of Earth",

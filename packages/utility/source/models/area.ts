@@ -3,7 +3,7 @@ import type { AreaName, RealmName } from "../kingdom/geography.js";
 interface AreaData {
 	name: AreaName;
 	realm?: RealmName;
-	wingedLight: number;
+	wingedLight?: number;
 }
 
 export class Area {
@@ -16,6 +16,6 @@ export class Area {
 	public constructor(data: AreaData) {
 		this.name = data.name;
 		this.realm = data.realm ?? null;
-		this.wingedLight = data.wingedLight;
+		this.wingedLight = data.wingedLight ?? 0;
 	}
 }

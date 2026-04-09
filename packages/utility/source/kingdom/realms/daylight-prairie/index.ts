@@ -1,5 +1,5 @@
 import { Realm } from "../../../models/realm.js";
-import { areasForRealm } from "../../areas.js";
+import { areasForRealm } from "../../areas/index.js";
 import { RealmName } from "../../geography.js";
 import ApplaudingBellmaker from "./spirits/applauding-bellmaker.js";
 import BirdWhisperer from "./spirits/bird-whisperer.js";

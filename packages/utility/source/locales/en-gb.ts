@@ -48,6 +48,7 @@ export default {
 		areas: {
 			[AreaName.DawnCircle]: "Dawn Circle",
 			[AreaName.PassageRock]: "Passage Rock",
+			[AreaName.TempleOfTheIsle]: "Temple of the Isle",
 			[AreaName.DawnOverlook]: "Dawn Overlook",
 			[AreaName.TrialOfWater]: "Trial of Water",
 			[AreaName.TrialOfEarth]: "Trial of Earth",

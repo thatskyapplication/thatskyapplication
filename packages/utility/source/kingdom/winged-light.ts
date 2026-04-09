@@ -1,5 +1,5 @@
 import { WING_BUFFS } from "../cosmetics.js";
-import { AREAS } from "./areas.js";
+import { AREAS } from "./areas/index.js";
 import { AreaName, RealmName } from "./geography.js";
 import { REALMS } from "./realms/index.js";
 

@@ -3,7 +3,7 @@ import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import type { Cosmetic } from "../cosmetics.js";
 import { skyDate } from "../dates.js";
-import type { RealmName } from "../kingdom/geography.js";
+import type { AreaName, RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import type { SeasonIds } from "../season.js";
 import { addCosts, resolveAllCosmetics, resolveOffer } from "../utility/functions.js";
@@ -130,6 +130,7 @@ interface StandardSpiritData
 	extends BaseSpiritData,
 		StandardFriendshipTreeData,
 		ExpressiveSpiritData {
+	area: AreaName;
 	realm: RealmName;
 }
 
@@ -313,10 +314,13 @@ abstract class BaseSpirit {
 export class StandardSpirit extends Mixin(BaseSpirit, StandardFriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SpiritType.Standard;
 
+	public readonly area: AreaName;
+
 	public declare readonly realm: RealmName;
 
 	public constructor(spirit: StandardSpiritData) {
 		super(spirit);
+		this.area = spirit.area;
 		this.realm = spirit.realm;
 	}
 }

@@ -1,5 +1,5 @@
 import { Realm } from "../../../models/realm.js";
-import { areasForRealm } from "../../areas.js";
+import { areasForRealm } from "../../areas/index.js";
 import { RealmName } from "../../geography.js";
 import CourageousSoldier from "./spirits/courageous-soldier.js";
 import ElderOfTheWasteland from "./spirits/elder-of-the-wasteland.js";

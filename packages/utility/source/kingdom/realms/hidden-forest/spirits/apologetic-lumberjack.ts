@@ -1,7 +1,7 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
 import { SpiritEmote, SpiritId } from "../../../../utility/spirits.js";
-import { RealmName } from "../../../geography.js";
+import { AreaName, RealmName } from "../../../geography.js";
 
 const emote = SpiritEmote.Apologise;
 
@@ -9,6 +9,7 @@ export default new StandardSpirit({
 	id: SpiritId.ApologeticLumberjack,
 	emote,
 	realm: RealmName.HiddenForest,
+	area: AreaName.Boneyard,
 	offer: {
 		current: [
 			[

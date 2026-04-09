@@ -1,12 +1,13 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
 import { SpiritId } from "../../../../utility/spirits.js";
-import { RealmName } from "../../../geography.js";
+import { AreaName, RealmName } from "../../../geography.js";
 
 export default new StandardSpirit({
 	id: SpiritId.MemoryWhisperer,
 	call: Cosmetic.CallCosmicManta,
 	realm: RealmName.VaultOfKnowledge,
+	area: AreaName.UpperVault,
 	offer: {
 		current: [
 			[

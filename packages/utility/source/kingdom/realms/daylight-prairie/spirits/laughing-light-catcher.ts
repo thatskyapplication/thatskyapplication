@@ -1,7 +1,7 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
 import { SpiritEmote, SpiritId } from "../../../../utility/spirits.js";
-import { RealmName } from "../../../geography.js";
+import { AreaName, RealmName } from "../../../geography.js";
 
 const emote = SpiritEmote.Laugh;
 
@@ -9,6 +9,7 @@ export default new StandardSpirit({
 	id: SpiritId.LaughingLightCatcher,
 	emote,
 	realm: RealmName.DaylightPrairie,
+	area: AreaName.PrairieVillage,
 	offer: {
 		current: [
 			[

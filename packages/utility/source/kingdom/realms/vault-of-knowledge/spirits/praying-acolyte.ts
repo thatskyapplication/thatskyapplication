@@ -1,7 +1,7 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
 import { SpiritEmote, SpiritId } from "../../../../utility/spirits.js";
-import { RealmName } from "../../../geography.js";
+import { AreaName, RealmName } from "../../../geography.js";
 
 const emote = SpiritEmote.Pray;
 
@@ -9,6 +9,7 @@ export default new StandardSpirit({
 	id: SpiritId.PrayingAcolyte,
 	emote,
 	realm: RealmName.VaultOfKnowledge,
+	area: AreaName.VaultRest,
 	offer: {
 		current: [
 			[

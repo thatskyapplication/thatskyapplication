@@ -1,5 +1,5 @@
 import { Realm } from "../../../models/realm.js";
-import { areasForRealm } from "../../areas.js";
+import { areasForRealm } from "../../areas/index.js";
 import { RealmName } from "../../geography.js";
 import ElderOfTheVault from "./spirits/elder-of-the-vault.js";
 import LevitatingAdept from "./spirits/levitating-adept.js";
