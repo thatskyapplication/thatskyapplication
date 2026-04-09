@@ -1,13 +1,14 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { RealmName } from "../kingdom/geography.js";
 import type { SpiritIds } from "../utility/spirits.js";
+import type { Area } from "./area.js";
 import type { ElderSpirit, StandardSpirit } from "./spirits.js";
 
 interface RealmData {
 	name: RealmName;
 	elder?: ElderSpirit;
 	spirits?: readonly StandardSpirit[];
-	wingedLight: number;
+	areas?: readonly Area[];
 }
 
 export class Realm {
@@ -16,6 +17,8 @@ export class Realm {
 	public readonly elder: ElderSpirit | null;
 
 	public readonly spirits: ReadonlyCollection<SpiritIds, StandardSpirit>;
+
+	public readonly areas: readonly Area[];
 
 	public readonly wingedLight: number;
 
@@ -28,6 +31,11 @@ export class Realm {
 			new Collection<SpiritIds, StandardSpirit>(),
 		);
 
-		this.wingedLight = data.wingedLight;
+		this.areas = data.areas ?? [];
+
+		this.wingedLight = this.areas.reduce(
+			(wingedLightCount, area) => wingedLightCount + area.wingedLight,
+			0,
+		);
 	}
 }

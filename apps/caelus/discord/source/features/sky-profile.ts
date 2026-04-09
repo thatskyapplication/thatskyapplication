@@ -67,8 +67,8 @@ import {
 	type SkyProfileWingedLightTypes,
 	skySeasons,
 	Table,
+	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,
 	WING_BUFFS,
-	WINGED_LIGHT_IN_AREAS,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
@@ -2387,7 +2387,7 @@ async function skyProfileComponents(
 			const catalogue = await fetchCatalogue(userId);
 
 			if (catalogue) {
-				let count = WINGED_LIGHT_IN_AREAS;
+				let count = TOP_LEVEL_WINGED_LIGHT_IN_AREAS;
 
 				for (const wingBuff of WING_BUFFS) {
 					if (catalogue.data.has(wingBuff)) {

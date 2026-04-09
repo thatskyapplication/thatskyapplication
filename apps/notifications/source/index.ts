@@ -2,6 +2,7 @@ import { API, Locale, MessageFlags, RESTJSONErrorCodes } from "@discordjs/core";
 import { DiscordAPIError, REST } from "@discordjs/rest";
 import { captureCheckIn } from "@sentry/node";
 import {
+	type AreaName,
 	de,
 	enGB,
 	es419,
@@ -18,7 +19,6 @@ import {
 	ptBR,
 	type RealmName,
 	ru,
-	type SkyMap,
 	shardEruption,
 	Table,
 	TIME_ZONE,
@@ -81,7 +81,7 @@ interface NotificationsShardEruptionData {
 	type: NotificationShardEruptionTypes;
 	timeUntilStart: number;
 	realm: RealmName;
-	skyMap: SkyMap;
+	area: AreaName;
 	url: string;
 	timestampStart: `<t:${number}:R>`;
 	timestampEnd: `<t:${number}:R>`;
@@ -161,7 +161,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					: NotificationType.RegularShardEruption,
 				timeUntilStart,
 				realm: shardData.realm,
-				skyMap: shardData.skyMap,
+				area: shardData.area,
 				url: shardData.url,
 				timestampStart: `<t:${shardStart.start.toUnixInteger()}:R>`,
 				timestampEnd: `<t:${shardStart.end.toUnixInteger()}:R>`,
@@ -361,7 +361,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					? t(`notifications.messages.${type}.message-${key}`, {
 							lng: notificationPacket.locale,
 							ns: "features",
-							location: `[${t("shard-eruption.realm-map", { lng: notificationPacket.locale, ns: "features", realm: notification.realm, map: notification.skyMap })}](${notification.url})`,
+							location: `[${t("shard-eruption.realm-area", { lng: notificationPacket.locale, ns: "features", realm: notification.realm, area: notification.area })}](${notification.url})`,
 							timestampStart: notification.timestampStart,
 							timestampEnd: notification.timestampEnd,
 						})

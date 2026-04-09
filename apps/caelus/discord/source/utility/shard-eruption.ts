@@ -15,11 +15,11 @@ export function resolveShardEruptionEmoji(strong: boolean) {
 }
 
 export function shardEruptionInformationString(
-	{ realm, skyMap, strong, reward, url }: ShardEruptionData,
+	{ realm, area, strong, reward, url }: ShardEruptionData,
 	useHyperlink: boolean,
 	locale: Locale,
 ) {
-	let realmMap = t("shard-eruption.realm-map", { lng: locale, ns: "features", realm, map: skyMap });
+	let realmMap = t("shard-eruption.realm-area", { lng: locale, ns: "features", realm, area });
 
 	if (useHyperlink) {
 		realmMap = `[${realmMap}](${url})`;

@@ -1,7 +1,7 @@
 import {
+	AreaName,
 	type ChecklistPacket,
 	type ChecklistSetData,
-	SkyMap,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
@@ -273,7 +273,7 @@ export default function Checklist() {
 												: "text-gray-900 dark:text-gray-100"
 										}`}
 									>
-										{t(`maps.${SkyMap.StormEnd}`, { ns: "general" })}
+										{t(`areas.${AreaName.EyeOfEden}`, { ns: "general" })}
 									</div>
 									<div className="text-xs text-gray-500 dark:text-gray-400">
 										{checklistPacket?.eye_of_eden

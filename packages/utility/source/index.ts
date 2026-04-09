@@ -79,17 +79,17 @@ export {
 	type GuessTypes,
 } from "./guess.js";
 export {
+	AreaName,
 	isRealm,
 	RealmName,
-	SkyMap,
 } from "./kingdom/geography.js";
 export { spirits } from "./kingdom/spirits.js";
 export { treasureCandles } from "./kingdom/treasure-candles.js";
 export {
-	AreaToWingedLight,
 	MAXIMUM_WINGED_LIGHT,
+	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,
+	TopLevelAreaToWingedLight,
 	WINGED_LIGHT_AREAS,
-	WINGED_LIGHT_IN_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./kingdom/winged-light.js";
 export { MAINTENANCE_PERIODS } from "./maintenance.js";

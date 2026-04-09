@@ -1,4 +1,5 @@
 import { Realm } from "../../../models/realm.js";
+import { areasForRealm } from "../../areas.js";
 import { RealmName } from "../../geography.js";
 import ElderOfTheVault from "./spirits/elder-of-the-vault.js";
 import LevitatingAdept from "./spirits/levitating-adept.js";
@@ -11,5 +12,5 @@ export default new Realm({
 	name: RealmName.VaultOfKnowledge,
 	elder: ElderOfTheVault,
 	spirits: [PrayingAcolyte, LevitatingAdept, PoliteScholar, MemoryWhisperer, MeditatingMonastic],
-	wingedLight: 16,
+	areas: areasForRealm(RealmName.VaultOfKnowledge),
 });

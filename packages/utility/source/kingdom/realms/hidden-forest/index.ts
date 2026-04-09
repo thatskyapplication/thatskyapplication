@@ -1,4 +1,5 @@
 import { Realm } from "../../../models/realm.js";
+import { areasForRealm } from "../../areas.js";
 import { RealmName } from "../../geography.js";
 import ApologeticLumberjack from "./spirits/apologetic-lumberjack.js";
 import BlushingProspector from "./spirits/blushing-prospector.js";
@@ -23,5 +24,5 @@ export default new Realm({
 		TearfulLightMiner,
 		WhaleWhisperer,
 	],
-	wingedLight: 21,
+	areas: areasForRealm(RealmName.HiddenForest),
 });

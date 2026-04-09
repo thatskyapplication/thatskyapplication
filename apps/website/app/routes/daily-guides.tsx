@@ -506,10 +506,10 @@ export default function DailyGuides() {
 											onClick={() => handleImageClick(shard.url)}
 											type="button"
 										>
-											{t("shard-eruption.realm-map", {
+											{t("shard-eruption.realm-area", {
 												ns: "features",
 												realm: shard.realm,
-												map: shard.skyMap,
+												area: shard.area,
 											})}
 										</button>
 										<div className="flex items-center gap-2">
@@ -564,10 +564,10 @@ export default function DailyGuides() {
 										onClick={() => handleImageClick(shard.url)}
 										type="button"
 									>
-										{t("shard-eruption.realm-map", {
+										{t("shard-eruption.realm-area", {
 											ns: "features",
 											realm: shard.realm,
-											map: shard.skyMap,
+											area: shard.area,
 										})}
 									</button>
 									<div className="flex items-center gap-2">
