@@ -35,7 +35,7 @@ export default {
 				: `${shard.reward} Ascended Candle${shard.reward === 1 ? "" : "s"}`;
 
 		await client.api.channels.createMessage(data.channel_id, {
-			content: `**${shard.strong ? "Strong" : "Regular"} Shard** in ${shard.realm} (${shard.skyMap})\nReward: ${reward}\n${timestamps}`,
+			content: `**${shard.strong ? "Strong" : "Regular"} Shard** in ${shard.realm} (${shard.area})\nReward: ${reward}\n${timestamps}`,
 			message_reference: {
 				message_id: data.id,
 				channel_id: data.channel_id,

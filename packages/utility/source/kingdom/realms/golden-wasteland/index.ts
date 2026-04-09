@@ -1,4 +1,5 @@
 import { Realm } from "../../../models/realm.js";
+import { areasForRealm } from "../../areas.js";
 import { RealmName } from "../../geography.js";
 import CourageousSoldier from "./spirits/courageous-soldier.js";
 import ElderOfTheWasteland from "./spirits/elder-of-the-wasteland.js";
@@ -19,5 +20,5 @@ export default new Realm({
 		SalutingCaptain,
 		LookoutScout,
 	],
-	wingedLight: 18,
+	areas: areasForRealm(RealmName.GoldenWasteland),
 });

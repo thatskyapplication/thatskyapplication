@@ -1,4 +1,5 @@
 import { Realm } from "../../../models/realm.js";
+import { areasForRealm } from "../../areas.js";
 import { RealmName } from "../../geography.js";
 import ApplaudingBellmaker from "./spirits/applauding-bellmaker.js";
 import BirdWhisperer from "./spirits/bird-whisperer.js";
@@ -23,5 +24,5 @@ export default new Realm({
 		ExhaustedDockWorker,
 		CeremonialWorshipper,
 	],
-	wingedLight: 24,
+	areas: areasForRealm(RealmName.DaylightPrairie),
 });

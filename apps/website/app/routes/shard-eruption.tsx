@@ -151,10 +151,10 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 						rel="noopener noreferrer"
 						target="_blank"
 					>
-						{t("shard-eruption.realm-map", {
+						{t("shard-eruption.realm-area", {
 							ns: "features",
 							realm: shard.realm,
-							map: shard.skyMap,
+							area: shard.area,
 						})}
 						<ExternalLinkIcon className="ml-1 w-4 h-4" />
 					</a>

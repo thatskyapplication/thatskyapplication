@@ -1,13 +1,7 @@
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
 import { DailyQuest, type DailyQuests } from "../daily-guides.js";
 import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
-import {
-	isRealm,
-	REALM_NAME_VALUES,
-	RealmName,
-	SKY_MAP_VALUES,
-	SkyMap,
-} from "../kingdom/geography.js";
+import { AreaName, isRealm, REALM_NAME_VALUES, RealmName } from "../kingdom/geography.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
 import { SCHEDULE_TYPE_VALUES, ScheduleType, type ScheduleTypes } from "../schedule.js";
@@ -30,8 +24,8 @@ import {
 	type SpiritsHistoryOrderTypes,
 } from "../utility/spirits.js";
 
-function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | SkyMap) {
-	return `$t(quests-common.meet-up-with, ${JSON.stringify({ spirit: `$t(spirits.${spiritId})`, location: `$t(${isRealm(location) ? "realms" : "maps"}.${location})` })})`;
+function questsMeetUpWith(spiritId: SpiritIds, location: RealmName | AreaName) {
+	return `$t(quests-common.meet-up-with, ${JSON.stringify({ spirit: `$t(spirits.${spiritId})`, location: `$t(${isRealm(location) ? "realms" : "areas"}.${location})` })})`;
 }
 
 export default {
@@ -51,7 +45,65 @@ export default {
 		"error-timed-out": "I am timed out.",
 		"event-tickets": "Event tickets",
 		realms: Object.fromEntries(REALM_NAME_VALUES.map((realmName) => [realmName, realmName])),
-		maps: Object.fromEntries(SKY_MAP_VALUES.map((skyMap) => [skyMap, skyMap])),
+		areas: {
+			[AreaName.DawnCircle]: "Dawn Circle",
+			[AreaName.PassageRock]: "Passage Rock",
+			[AreaName.DawnOverlook]: "Dawn Overlook",
+			[AreaName.TrialOfWater]: "Trial of Water",
+			[AreaName.TrialOfEarth]: "Trial of Earth",
+			[AreaName.TrialOfAir]: "Trial of Air",
+			[AreaName.TrialOfFire]: "Trial of Fire",
+			[AreaName.PrairieRest]: "Prairie Rest",
+			[AreaName.ButterflyFields]: "Butterfly Fields",
+			[AreaName.BirdNest]: "Bird Nest",
+			[AreaName.SanctuaryIslands]: "Sanctuary Islands",
+			[AreaName.PrairieCave]: "Prairie Cave",
+			[AreaName.PrairiePeaks]: "Prairie Peaks",
+			[AreaName.PrairieVillage]: "Prairie Village",
+			[AreaName.PrairieHeights]: "Prairie Heights",
+			[AreaName.TempleOfThePrairie]: "Temple of the Prairie",
+			[AreaName.TheWindPaths]: "The Wind Paths",
+			[AreaName.ForestCourtyard]: "Forest Courtyard",
+			[AreaName.TheTreehouse]: "The Treehouse",
+			[AreaName.ForestBrook]: "Forest Brook",
+			[AreaName.Boneyard]: "Boneyard",
+			[AreaName.ElevatedClearing]: "Elevated Clearing",
+			[AreaName.BlueBirdTheatre]: "Blue Bird Theatre",
+			[AreaName.ForestCavern]: "Forest Cavern",
+			[AreaName.SacredPond]: "Sacred Pond",
+			[AreaName.ValleyRest]: "Valley Rest",
+			[AreaName.FrozenLake]: "Frozen Lake",
+			[AreaName.TheCitadel]: "The Citadel",
+			[AreaName.LowerValleyTrack]: "Lower Valley Track",
+			[AreaName.UpperValleyTrack]: "Upper Valley Track",
+			[AreaName.TempleOfTheValley]: "Temple of the Valley",
+			[AreaName.VillageOfDreams]: "Village of Dreams",
+			[AreaName.HermitValley]: "Hermit Valley",
+			[AreaName.VillageTheatre]: "Village Theatre",
+			[AreaName.TreasureReef]: "Treasure Reef",
+			[AreaName.TheOuterBailey]: "The Outer Bailey",
+			[AreaName.TheGraveyard]: "The Graveyard",
+			[AreaName.ForgottenArk]: "Forgotten Ark",
+			[AreaName.TheBattlefield]: "The Battlefield",
+			[AreaName.CrabFields]: "Crab Fields",
+			[AreaName.TempleOfTheWasteland]: "Temple of the Wasteland",
+			[AreaName.VaultRest]: "Vault Rest",
+			[AreaName.VaultArchive]: "Vault Archive",
+			[AreaName.RepositoryOfRefuge]: "Repository of Refuge",
+			[AreaName.LowerVault]: "Lower Vault",
+			[AreaName.UpperVault]: "Upper Vault",
+			[AreaName.TempleOfTheVault]: "Temple of the Vault",
+			[AreaName.StarlightDesert]: "Starlight Desert",
+			[AreaName.JellyfishCove]: "Jellyfish Cove",
+			[AreaName.CrescentOasis]: "Crescent Oasis",
+			[AreaName.Moominvalley]: "Moominvalley",
+			[AreaName.GateOfEden]: "Gate of Eden",
+			[AreaName.PathOfEden]: "Path of Eden",
+			[AreaName.EyeOfEden]: "Eye of Eden",
+			[AreaName.ThePassage]: "The Passage",
+			[AreaName.AncientMemory]: "Ancient Memory",
+			[AreaName.AviaryVillage]: "Aviary Village",
+		} satisfies Record<AreaName, string>,
 		"notification-types": {
 			[NotificationType.DailyReset]: "Daily reset",
 			[NotificationType.EyeOfEden]: "Eye of Eden",
@@ -278,15 +330,15 @@ export default {
 			[DailyQuest.PlayAnyTournamentSport]: "Play any Tournament sport",
 			[DailyQuest.MeetUpWithModestDancerInVillageOfDreams]: questsMeetUpWith(
 				SpiritId.ModestDancer,
-				SkyMap.VillageOfDreams,
+				AreaName.VillageOfDreams,
 			),
 			[DailyQuest.MeetUpWithForgetfulStorytellerInVillageOfDreams]: questsMeetUpWith(
 				SpiritId.ForgetfulStoryteller,
-				SkyMap.VillageOfDreams,
+				AreaName.VillageOfDreams,
 			),
 			[DailyQuest.MeetUpWithFranticStagehandInVillageTheatre]: questsMeetUpWith(
 				SpiritId.FranticStagehand,
-				SkyMap.VillageTheatre,
+				AreaName.VillageTheatre,
 			),
 			[DailyQuest.MellowMusicianNeedsHelpWithSomethingInVillageTheatre]:
 				"Mellow Musician needs help with something in Village Theatre",
@@ -302,15 +354,15 @@ export default {
 				"Record a shared memory at a Style Runway Shrine",
 			[DailyQuest.MeetUpWithCacklingCannoneerInTreasureReef]: questsMeetUpWith(
 				SpiritId.CacklingCannoneer,
-				SkyMap.TreasureReef,
+				AreaName.TreasureReef,
 			),
 			[DailyQuest.MeetUpWithAnxiousAnglerInTreasureReef]: questsMeetUpWith(
 				SpiritId.AnxiousAngler,
-				SkyMap.TreasureReef,
+				AreaName.TreasureReef,
 			),
 			[DailyQuest.MeetUpWithMellowMusicianInVillageOfDreams]: questsMeetUpWith(
 				SpiritId.MellowMusician,
-				SkyMap.VillageOfDreams,
+				AreaName.VillageOfDreams,
 			),
 			[DailyQuest.MeetUpWithAnxiousAnglerInGoldenWasteland]: questsMeetUpWith(
 				SpiritId.AnxiousAngler,
@@ -318,35 +370,35 @@ export default {
 			),
 			[DailyQuest.MeetUpWithAnxiousAnglerInCrabFields]: questsMeetUpWith(
 				SpiritId.AnxiousAngler,
-				SkyMap.CrabFields,
+				AreaName.CrabFields,
 			),
 			[DailyQuest.MeetUpWithCeasingCommodoreInTreasureReef]: questsMeetUpWith(
 				SpiritId.CeasingCommodore,
-				SkyMap.TreasureReef,
+				AreaName.TreasureReef,
 			),
 			[DailyQuest.MeetUpWithBlushingProspectorInForestBrook]: questsMeetUpWith(
 				SpiritId.BlushingProspector,
-				SkyMap.ForestBrook,
+				AreaName.ForestBrook,
 			),
 			[DailyQuest.MeetUpWithShiveringTrailblazerInForestBrook]: questsMeetUpWith(
 				SpiritId.ShiveringTrailblazer,
-				SkyMap.ForestBrook,
+				AreaName.ForestBrook,
 			),
 			[DailyQuest.MeetUpWithCacklingCannoneerInGraveyard]: questsMeetUpWith(
 				SpiritId.CacklingCannoneer,
-				SkyMap.TheGraveyard,
+				AreaName.TheGraveyard,
 			),
 			[DailyQuest.MeetUpWithHideNSeekPioneerInBoneyard]: questsMeetUpWith(
 				SpiritId.HideNSeekPioneer,
-				SkyMap.Boneyard,
+				AreaName.Boneyard,
 			),
 			[DailyQuest.MeetUpWithHideNSeekPioneerInElevatedClearing]: questsMeetUpWith(
 				SpiritId.HideNSeekPioneer,
-				SkyMap.ElevatedClearing,
+				AreaName.ElevatedClearing,
 			),
 			[DailyQuest.MeetUpWithBumblingBoatswainInForgottenArk]: questsMeetUpWith(
 				SpiritId.BumblingBoatswain,
-				SkyMap.ForgottenArk,
+				AreaName.ForgottenArk,
 			),
 			[DailyQuest.MeetUpWithHideNSeekPioneerInHiddenForest]: questsMeetUpWith(
 				SpiritId.HideNSeekPioneer,
@@ -354,47 +406,47 @@ export default {
 			),
 			[DailyQuest.MeetUpWithCacklingCannoneerInForgottenArk]: questsMeetUpWith(
 				SpiritId.CacklingCannoneer,
-				SkyMap.ForgottenArk,
+				AreaName.ForgottenArk,
 			),
 			[DailyQuest.MeetUpWithApologeticLumberjackInBoneyard]: questsMeetUpWith(
 				SpiritId.ApologeticLumberjack,
-				SkyMap.Boneyard,
+				AreaName.Boneyard,
 			),
 			[DailyQuest.MeetUpWithCeasingCommodoreInForgottenArk]: questsMeetUpWith(
 				SpiritId.CeasingCommodore,
-				SkyMap.ForgottenArk,
+				AreaName.ForgottenArk,
 			),
 			[DailyQuest.MeetUpWithJollyGeologistInPrairiePeaks]: questsMeetUpWith(
 				SpiritId.JollyGeologist,
-				SkyMap.PrairiePeaks,
+				AreaName.PrairiePeaks,
 			),
 			[DailyQuest.MeetUpWithDismayedHunterInBoneyard]: questsMeetUpWith(
 				SpiritId.DismayedHunter,
-				SkyMap.Boneyard,
+				AreaName.Boneyard,
 			),
 			[DailyQuest.MeetUpWithWhaleWhispererInBoneyard]: questsMeetUpWith(
 				SpiritId.WhaleWhisperer,
-				SkyMap.Boneyard,
+				AreaName.Boneyard,
 			),
 			[DailyQuest.MeetUpWithAsceticMonkInSanctuaryIslands]: questsMeetUpWith(
 				SpiritId.AsceticMonk,
-				SkyMap.SanctuaryIslands,
+				AreaName.SanctuaryIslands,
 			),
 			[DailyQuest.MeetUpWithNightbirdWhispererInSanctuaryIslands]: questsMeetUpWith(
 				SpiritId.NightbirdWhisperer,
-				SkyMap.SanctuaryIslands,
+				AreaName.SanctuaryIslands,
 			),
 			[DailyQuest.MeetUpWithJollyGeologistInSanctuaryIslands]: questsMeetUpWith(
 				SpiritId.JollyGeologist,
-				SkyMap.SanctuaryIslands,
+				AreaName.SanctuaryIslands,
 			),
 			[DailyQuest.MeetUpWithAsceticMonkInPrairieVillage]: questsMeetUpWith(
 				SpiritId.AsceticMonk,
-				SkyMap.PrairieVillage,
+				AreaName.PrairieVillage,
 			),
 			[DailyQuest.MeetUpWithNightbirdWhispererInPrairieVillage]: questsMeetUpWith(
 				SpiritId.NightbirdWhisperer,
-				SkyMap.PrairieVillage,
+				AreaName.PrairieVillage,
 			),
 			[DailyQuest.HelpAnxiousAnglerOrScoldingStudentFindTreasureInStarlightDesert]:
 				"Help Anxious Angler or Scolding Student find treasure in Starlight Desert",
@@ -426,15 +478,15 @@ export default {
 				"Help the Cackling Cannoneer or the Chuckling Scout find treasure in Village of Dreams",
 			[DailyQuest.MeetUpWithPleadingChildInRepositoryOfRefuge]: questsMeetUpWith(
 				SpiritId.PleadingChild,
-				SkyMap.RepositoryOfRefuge,
+				AreaName.RepositoryOfRefuge,
 			),
 			[DailyQuest.MeetUpWithAsceticMonkInPrairiePeaks]: questsMeetUpWith(
 				SpiritId.AsceticMonk,
-				SkyMap.PrairiePeaks,
+				AreaName.PrairiePeaks,
 			),
 			[DailyQuest.MeetUpWithReassuringRangerInPrairiePeaks]: questsMeetUpWith(
 				SpiritId.ReassuringRanger,
-				SkyMap.PrairiePeaks,
+				AreaName.PrairiePeaks,
 			),
 			[DailyQuest.MeetUpWithBlushingProspectorInValleyOfTriumph]: questsMeetUpWith(
 				SpiritId.BlushingProspector,
@@ -458,38 +510,38 @@ export default {
 				"Find a clue of the Blue Bird's whereabouts in the Forest Clearing",
 			[DailyQuest.MeetUpWithBumblingBoatswainInTreasureReef]: questsMeetUpWith(
 				SpiritId.BumblingBoatswain,
-				SkyMap.TreasureReef,
+				AreaName.TreasureReef,
 			),
 			[DailyQuest.MeetUpWithTalentedBuilderInBirdNest]: questsMeetUpWith(
 				SpiritId.TalentedBuilder,
-				SkyMap.BirdNest,
+				AreaName.BirdNest,
 			),
 			[DailyQuest.MeetUpWithTinkeringChimesmithInBirdNest]: questsMeetUpWith(
 				SpiritId.TinkeringChimesmith,
-				SkyMap.BirdNest,
+				AreaName.BirdNest,
 			),
 			[DailyQuest.MeetUpWithLightWhispererInBirdNest]: questsMeetUpWith(
 				SpiritId.LightWhisperer,
-				SkyMap.BirdNest,
+				AreaName.BirdNest,
 			),
 			[DailyQuest.MeetUpWithLivelyNavigatorInBirdNest]: questsMeetUpWith(
 				SpiritId.LivelyNavigator,
-				SkyMap.BirdNest,
+				AreaName.BirdNest,
 			),
 			[DailyQuest.PickUpACrab]: "Pick up a crab",
 			[DailyQuest.AdmireSharedSpacesAtTheBrokenBellTowerInAviaryVillageForAShortWhile]:
 				"Admire Shared Spaces at the Broken Bell Tower in Aviary Village for a short while",
 			[DailyQuest.MeetUpWithGratefulShellCollectorInAviaryVillage]: questsMeetUpWith(
 				SpiritId.GratefulShellCollector,
-				SkyMap.AviaryVillage,
+				AreaName.AviaryVillage,
 			),
 			[DailyQuest.MeetUpWithSparklerParentInAviaryVillage]: questsMeetUpWith(
 				SpiritId.SparklerParent,
-				SkyMap.AviaryVillage,
+				AreaName.AviaryVillage,
 			),
 			[DailyQuest.MeetUpWithAsceticMonkInAviaryVillage]: questsMeetUpWith(
 				SpiritId.AsceticMonk,
-				SkyMap.AviaryVillage,
+				AreaName.AviaryVillage,
 			),
 			[DailyQuest.AdmireSharedSpacesWithApplaudingBellmaker]:
 				"Admire Shared Spaces with Applauding Bellmaker",
@@ -500,7 +552,7 @@ export default {
 				"Admire Shared Spaces with Bumbling Boatswain",
 			[DailyQuest.MeetUpWithFlightGuideInPrairieVillage]: questsMeetUpWith(
 				SpiritId.FlightGuide,
-				SkyMap.PrairieVillage,
+				AreaName.PrairieVillage,
 			),
 			[DailyQuest.MeetUpWithLaughingLightCatcherInValleyOfTriumph]: questsMeetUpWith(
 				SpiritId.LaughingLightCatcher,
@@ -512,7 +564,7 @@ export default {
 			),
 			[DailyQuest.MeetUpWithFlightGuideInPrairieTemple]: questsMeetUpWith(
 				SpiritId.FlightGuide,
-				SkyMap.TempleOfThePrairie,
+				AreaName.TempleOfThePrairie,
 			),
 			[DailyQuest.MeetUpWithBackflippingChampionInValleyOfTriumph]: questsMeetUpWith(
 				SpiritId.BackflippingChampion,
@@ -530,11 +582,11 @@ export default {
 			),
 			[DailyQuest.MeetUpWithFestivalSpinDancerInForestBrook]: questsMeetUpWith(
 				SpiritId.FestivalSpinDancer,
-				SkyMap.ForestBrook,
+				AreaName.ForestBrook,
 			),
 			[DailyQuest.MeetUpWithAdmiringActorInBirdNest]: questsMeetUpWith(
 				SpiritId.AdmiringActor,
-				SkyMap.BirdNest,
+				AreaName.BirdNest,
 			),
 			[DailyQuest.MeetUpWithTroupeJugglerInGoldenWasteland]: questsMeetUpWith(
 				SpiritId.TroupeJuggler,
@@ -542,7 +594,7 @@ export default {
 			),
 			[DailyQuest.MeetUpWithThoughtfulDirectorInRepositoryOfRefuge]: questsMeetUpWith(
 				SpiritId.ThoughtfulDirector,
-				SkyMap.RepositoryOfRefuge,
+				AreaName.RepositoryOfRefuge,
 			),
 			[DailyQuest.CatchThe3LightsDuringTheValleysSlidingRace]:
 				"Catch the wandering lights along the Lower Valley Track",
@@ -550,7 +602,7 @@ export default {
 				"Invite a Season of Migration spirit to adventure with you today",
 			[DailyQuest.MeetUpWithTumblingTroublemakerInPrairieCave]: questsMeetUpWith(
 				SpiritId.TumblingTroublemaker,
-				SkyMap.PrairieCave,
+				AreaName.PrairieCave,
 			),
 			[DailyQuest.UseExpressionsWithPlayers]: "Use expressions with players",
 			[DailyQuest.CatchTheWanderingLightsInTheForestBrook]:
@@ -577,7 +629,7 @@ export default {
 				"Fly with many butterflies in Butterfly Fields",
 			[DailyQuest.MeetUpWithMelancholyMopeInForestBrook]: questsMeetUpWith(
 				SpiritId.MelancholyMope,
-				SkyMap.ForestBrook,
+				AreaName.ForestBrook,
 			),
 			[DailyQuest.FinishNatsBroomstickRaceInCacklingCrab]:
 				"Finish Nat's broomstick race in the Cackling Crab",
@@ -602,23 +654,23 @@ export default {
 				"Tidy up the Ancestor's table in the Elevated Clearing",
 			[DailyQuest.MeetUpWithCrabWhispererInCrabFields]: questsMeetUpWith(
 				SpiritId.CrabWhisperer,
-				SkyMap.CrabFields,
+				AreaName.CrabFields,
 			),
 			[DailyQuest.RescueAMantaFromDarkness]: "Rescue a manta from darkness",
 			[DailyQuest.MeetUpWithDuetsGuideInStarlightDesert]: questsMeetUpWith(
 				SpiritId.DuetsGuide,
-				SkyMap.StarlightDesert,
+				AreaName.StarlightDesert,
 			),
 			[DailyQuest.CatchTheWanderingLightsAtopHermitValley]:
 				"Catch the wandering lights atop Hermit Valley",
 			[DailyQuest.CatchThe3LightsInTheWindPaths]: "Catch the wandering lights in The Wind Paths",
 			[DailyQuest.MeetUpWithTalentedBuilderInTheWindPaths]: questsMeetUpWith(
 				SpiritId.TalentedBuilder,
-				SkyMap.TheWindPaths,
+				AreaName.TheWindPaths,
 			),
 			[DailyQuest.MeetUpWithBearhugHermitInHermitValley]: questsMeetUpWith(
 				SpiritId.BearhugHermit,
-				SkyMap.HermitValley,
+				AreaName.HermitValley,
 			),
 			[DailyQuest.HarvestTheSunflowerSeedLightAtTheGardenInDaylightPrairie]:
 				"Harvest the Sunflower Seed Light at the Garden in Daylight Prairie",
@@ -3503,7 +3555,7 @@ export default {
 			none: "None",
 			today: "Today",
 			browse: "Browse",
-			"realm-map": "$t(general:realms.{{realm}}) ($t(general:maps.{{map}}))",
+			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))",
 		},
 		"sky-profile": {
 			name: "Sky profile",

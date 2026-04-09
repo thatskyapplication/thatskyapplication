@@ -14,9 +14,9 @@ import {
 	SkyProfileWingedLightType,
 	type Snowflake,
 	Table,
+	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,
 	WEBSITE_URL,
 	WING_BUFFS,
-	WINGED_LIGHT_IN_AREAS,
 } from "@thatskyapplication/utility";
 import { ChevronLeftIcon, Edit, Globe, LinkIcon, MapPinIcon, Users } from "lucide-react";
 import { useState } from "react";
@@ -176,7 +176,7 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 
 			if (catalogue) {
 				const data = new Set(catalogue.data);
-				let count = WINGED_LIGHT_IN_AREAS;
+				let count = TOP_LEVEL_WINGED_LIGHT_IN_AREAS;
 
 				for (const wingBuff of WING_BUFFS) {
 					if (data.has(wingBuff)) {

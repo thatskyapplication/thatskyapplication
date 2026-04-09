@@ -1,7 +1,18 @@
 import { WING_BUFFS } from "../cosmetics.js";
-import { REALM_NAME_VALUES, RealmName, SkyMap } from "./geography.js";
+import { AREAS } from "./areas.js";
+import { AreaName, RealmName } from "./geography.js";
+import { REALMS } from "./realms/index.js";
 
-export const WINGED_LIGHT_AREAS = [...REALM_NAME_VALUES, SkyMap.AncientMemory] as const;
+export const WINGED_LIGHT_AREAS = [
+	RealmName.IsleOfDawn,
+	RealmName.DaylightPrairie,
+	RealmName.HiddenForest,
+	RealmName.ValleyOfTriumph,
+	RealmName.GoldenWasteland,
+	RealmName.VaultOfKnowledge,
+	RealmName.EyeOfEden,
+	AreaName.AncientMemory,
+] as const;
 
 type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
 
@@ -9,21 +20,29 @@ export const WINGED_LIGHT_THRESHOLDS = [
 	1, 2, 5, 10, 20, 35, 55, 75, 100, 120, 150, 200, 250, 300,
 ] as const satisfies Readonly<number[]>;
 
-export const AreaToWingedLight = {
-	[RealmName.IsleOfDawn]: 10,
-	[RealmName.DaylightPrairie]: 24,
-	[RealmName.HiddenForest]: 21,
-	[RealmName.ValleyOfTriumph]: 17,
-	[RealmName.GoldenWasteland]: 18,
-	[RealmName.VaultOfKnowledge]: 16,
-	[RealmName.EyeOfEden]: 10,
-	[SkyMap.AncientMemory]: 6,
-	[SkyMap.ThePassage]: 1,
-} as const satisfies Readonly<Record<WingedLightAreas | SkyMap.ThePassage, number>>;
+function wingedLightForRealm(realmName: RealmName) {
+	return REALMS.find((realm) => realm.name === realmName)!.wingedLight;
+}
 
-export const WINGED_LIGHT_IN_AREAS = Object.values(AreaToWingedLight).reduce(
+function wingedLightForArea(areaName: AreaName.AncientMemory | AreaName.ThePassage) {
+	return AREAS.find((area) => area.name === areaName)!.wingedLight;
+}
+
+export const TopLevelAreaToWingedLight = {
+	[RealmName.IsleOfDawn]: wingedLightForRealm(RealmName.IsleOfDawn),
+	[RealmName.DaylightPrairie]: wingedLightForRealm(RealmName.DaylightPrairie),
+	[RealmName.HiddenForest]: wingedLightForRealm(RealmName.HiddenForest),
+	[RealmName.ValleyOfTriumph]: wingedLightForRealm(RealmName.ValleyOfTriumph),
+	[RealmName.GoldenWasteland]: wingedLightForRealm(RealmName.GoldenWasteland),
+	[RealmName.VaultOfKnowledge]: wingedLightForRealm(RealmName.VaultOfKnowledge),
+	[RealmName.EyeOfEden]: wingedLightForRealm(RealmName.EyeOfEden),
+	[AreaName.AncientMemory]: wingedLightForArea(AreaName.AncientMemory),
+	[AreaName.ThePassage]: wingedLightForArea(AreaName.ThePassage),
+} as const satisfies Readonly<Record<WingedLightAreas | AreaName.ThePassage, number>>;
+
+export const TOP_LEVEL_WINGED_LIGHT_IN_AREAS = Object.values(TopLevelAreaToWingedLight).reduce(
 	(wingedLightCount, wingedLight) => wingedLightCount + wingedLight,
 	0,
 );
 
-export const MAXIMUM_WINGED_LIGHT = WINGED_LIGHT_IN_AREAS + WING_BUFFS.length;
+export const MAXIMUM_WINGED_LIGHT = TOP_LEVEL_WINGED_LIGHT_IN_AREAS + WING_BUFFS.length;

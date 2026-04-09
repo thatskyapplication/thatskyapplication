@@ -4,15 +4,17 @@ import { join, resolve } from "node:path";
 import pc from "picocolors";
 import { Cosmetic } from "../source/cosmetics.js";
 import { DailyQuest } from "../source/daily-guides.js";
-import { SkyMap } from "../source/kingdom/geography.js";
+import { AreaName } from "../source/kingdom/geography.js";
 
 // --update-en also updates en-gb.ts.
 
 const { blue, bold, cyan, dim, green, yellow } = pc;
 const ROOT = resolve(import.meta.dirname, "..");
 const LPROJ_DIR = join(ROOT, "locales");
+const CHANGE_LOG_PATH = join(LPROJ_DIR, "changes.txt");
 const SOURCE_LOCALES_DIR = join(ROOT, "source", "locales");
 const EN_GB_TS = join(SOURCE_LOCALES_DIR, "en-gb.ts");
+const changes: string[] = [];
 
 const LPROJ_TO_JSON: Record<string, string[]> = {
 	Base: [], // handled separately via --update-en
@@ -38,7 +40,7 @@ const LPROJ_TO_JSON: Record<string, string[]> = {
 const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> = {
 	Cosmetic,
 	DailyQuest,
-	SkyMap,
+	AreaName,
 };
 
 /**
@@ -47,7 +49,7 @@ const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> 
 const TS_KEY_JSON_PREFIXES: Record<string, string> = {
 	Cosmetic: "general.cosmetic-names",
 	DailyQuest: "general.quests",
-	SkyMap: "general.maps",
+	AreaName: "general.areas",
 };
 
 /**
@@ -111,6 +113,234 @@ type LocaleMapping =
  */
 const MAPPINGS: LocaleMapping[] = [
 	{
+		upstreamKey: "title_dawn_01",
+		tsKey: "AreaName.DawnCircle",
+	},
+	{
+		upstreamKey: "title_dawn_start_01",
+		tsKey: "AreaName.PassageRock",
+	},
+	{
+		upstreamKey: "title_dawn_plateau_01",
+		tsKey: "AreaName.DawnOverlook",
+	},
+	{
+		upstreamKey: "title_water_trial_01",
+		tsKey: "AreaName.TrialOfWater",
+	},
+	{
+		upstreamKey: "title_earth_trial_01",
+		tsKey: "AreaName.TrialOfEarth",
+	},
+	{
+		upstreamKey: "title_air_trial_01",
+		tsKey: "AreaName.TrialOfAir",
+	},
+	{
+		upstreamKey: "title_fire_trial_01",
+		tsKey: "AreaName.TrialOfFire",
+	},
+	{
+		upstreamKey: "title_prairie_butterflyfields_town_01",
+		tsKey: "AreaName.PrairieRest",
+	},
+	{
+		upstreamKey: "title_prairie_butterflyfields_01",
+		tsKey: "AreaName.ButterflyFields",
+	},
+	{
+		upstreamKey: "name_prairie_nestandkeeper",
+		tsKey: "AreaName.BirdNest",
+	},
+	{
+		upstreamKey: "title_prairie_island_01",
+		tsKey: "AreaName.SanctuaryIslands",
+	},
+	{
+		upstreamKey: "name_prairie_cave",
+		tsKey: "AreaName.PrairieCave",
+	},
+	{
+		upstreamKey: "title_prairie_wildlifepark_01",
+		tsKey: "AreaName.PrairiePeaks",
+	},
+	{
+		upstreamKey: "title_prairie_village",
+		tsKey: "AreaName.PrairieVillage",
+	},
+	{
+		upstreamKey: "title_dayhubcave_01",
+		tsKey: "AreaName.PrairieHeights",
+	},
+	{
+		upstreamKey: "title_prairie_village_shrine_01",
+		tsKey: "AreaName.TempleOfThePrairie",
+	},
+	{
+		upstreamKey: "title_skyway_01",
+		tsKey: "AreaName.TheWindPaths",
+	},
+	{
+		upstreamKey: "title_rain_01",
+		tsKey: "AreaName.ForestCourtyard",
+	},
+	{
+		upstreamKey: "title_rain_basecamp_01",
+		tsKey: "AreaName.TheTreehouse",
+	},
+	{
+		upstreamKey: "name_rainforest",
+		tsKey: "AreaName.ForestBrook",
+	},
+	{
+		upstreamKey: "name_rainmid",
+		tsKey: "AreaName.Boneyard",
+	},
+	{
+		upstreamKey: "name_rainshelter",
+		tsKey: "AreaName.ElevatedClearing",
+	},
+	{
+		upstreamKey: "title_rain_bluebirdtheater_01",
+		tsKey: "AreaName.BlueBirdTheatre",
+	},
+	{
+		upstreamKey: "title_rain_cave_01",
+		tsKey: "AreaName.ForestCavern",
+	},
+	{
+		upstreamKey: "title_rainend_pond_01",
+		tsKey: "AreaName.SacredPond",
+	},
+	{
+		upstreamKey: "title_sunset_town_01",
+		tsKey: "AreaName.ValleyRest",
+	},
+	{
+		upstreamKey: "title_sunset_01",
+		tsKey: "AreaName.FrozenLake",
+	},
+	{
+		upstreamKey: "title_sunset_citadel_01",
+		tsKey: "AreaName.TheCitadel",
+	},
+	{
+		upstreamKey: "title_sunsetrace_01",
+		tsKey: "AreaName.LowerValleyTrack",
+	},
+	{
+		upstreamKey: "title_sunset_flyrace_01",
+		tsKey: "AreaName.UpperValleyTrack",
+	},
+	{
+		upstreamKey: "title_sunsetcolosseum_01",
+		tsKey: "AreaName.TempleOfTheValley",
+	},
+	{
+		upstreamKey: "title_sunsetvillage_01",
+		tsKey: "AreaName.VillageOfDreams",
+	},
+	{
+		upstreamKey: "title_yetipark_01",
+		tsKey: "AreaName.HermitValley",
+	},
+	{
+		upstreamKey: "title_sunset_theater_01",
+		tsKey: "AreaName.VillageTheatre",
+	},
+	{
+		upstreamKey: "title_dusk_triangle_01",
+		tsKey: "AreaName.TreasureReef",
+	},
+	{
+		upstreamKey: "title_dusk_01",
+		tsKey: "AreaName.TheOuterBailey",
+	},
+	{
+		upstreamKey: "name_duskgraveyard",
+		tsKey: "AreaName.TheGraveyard",
+	},
+	{
+		upstreamKey: "title_oasis_01",
+		tsKey: "AreaName.ForgottenArk",
+	},
+	{
+		upstreamKey: "title_duskmid_01",
+		tsKey: "AreaName.TheBattlefield",
+	},
+	{
+		upstreamKey: "name_duskcrabfield",
+		tsKey: "AreaName.CrabFields",
+	},
+	{
+		upstreamKey: "title_duskend_01",
+		tsKey: "AreaName.TempleOfTheWasteland",
+	},
+	{
+		upstreamKey: "title_night_01",
+		tsKey: "AreaName.VaultRest",
+	},
+	{
+		upstreamKey: "title_nightarchive_01",
+		tsKey: "AreaName.VaultArchive",
+	},
+	{
+		upstreamKey: "title_night_shelter_01",
+		tsKey: "AreaName.RepositoryOfRefuge",
+	},
+	{
+		upstreamKey: "title_night_thirdfloor_01",
+		tsKey: "AreaName.LowerVault",
+	},
+	{
+		upstreamKey: "title_night2_01",
+		tsKey: "AreaName.UpperVault",
+	},
+	{
+		upstreamKey: "title_night2_secondfloor_01",
+		tsKey: "AreaName.TempleOfTheVault",
+	},
+	{
+		upstreamKey: "title_nightdesert_01",
+		tsKey: "AreaName.StarlightDesert",
+	},
+	{
+		upstreamKey: "name_nightdesert_beach",
+		tsKey: "AreaName.JellyfishCove",
+	},
+	{
+		upstreamKey: "title_night_paintedWorld_01",
+		tsKey: "AreaName.CrescentOasis",
+	},
+	{
+		upstreamKey: "title_night_storybook_01",
+		tsKey: "AreaName.Moominvalley",
+	},
+	{
+		upstreamKey: "title_stormstart_01",
+		tsKey: "AreaName.GateOfEden",
+	},
+	{
+		upstreamKey: "title_storm_01",
+		tsKey: "AreaName.PathOfEden",
+	},
+	{
+		upstreamKey: "storm_endtitle_01",
+		tsKey: "AreaName.EyeOfEden",
+	},
+	{
+		upstreamKey: "title_candlespaceend_01",
+		tsKey: "AreaName.ThePassage",
+	},
+	{
+		upstreamKey: "title_stormy_void_memeory_01",
+		tsKey: "AreaName.AncientMemory",
+	},
+	{
+		upstreamKey: "name_mainstreet",
+		tsKey: "AreaName.AviaryVillage",
+	},
+	{
 		upstreamKey: "daily_quest_world_quest_ap09_fetch_04_desc",
 		tsKey: "DailyQuest.RehearseForAPerformanceWithTheSkater",
 	},
@@ -131,6 +361,11 @@ function parseLocalizableStrings(content: string): Map<string, string> {
 	}
 
 	return map;
+}
+
+async function writeChangeLog(): Promise<void> {
+	await writeFile(CHANGE_LOG_PATH, `${changes.join("\n")}\n`);
+	console.log(dim(`Detailed changes written to ${CHANGE_LOG_PATH}`));
 }
 
 function stripMarkup(value: string): string {
@@ -181,7 +416,7 @@ async function updateJsonLocale(
  * Find the line in en-gb.ts that contains `[tsKey]:` and replace the
  * immediately following string literal with the new value.
  */
-async function updateEnGbTs(tsKey: string, value: string): Promise<void> {
+async function updateEnGbTs(tsKey: string, upstreamKey: string, value: string): Promise<boolean> {
 	const content = await readFile(EN_GB_TS, "utf-8");
 
 	// Escape special regex metacharacters in the key (mainly the dot).
@@ -193,21 +428,19 @@ async function updateEnGbTs(tsKey: string, value: string): Promise<void> {
 
 	if (!match) {
 		console.warn(`  ${yellow("⚠")} Could not locate ${cyan(`[${tsKey}]`)} in en-gb.ts — skipped`);
-		return;
+		return false;
 	}
 
 	if (match[2] === value) {
-		console.log(`  ${blue("ℹ")} ${bold("en-gb.ts")}  ${dim(`[${tsKey}]`)} — nothing changed`);
-		return;
+		return false;
 	}
 
 	// Escape $ in value to avoid special replacement patterns.
 	const safeValue = value.replace(/\$/g, "$$$$");
 	await writeFile(EN_GB_TS, content.replace(pattern, `$1"${safeValue}"`));
+	changes.push(`en-gb.ts\t${tsKey}\t${upstreamKey}\t${value}`);
 
-	console.log(
-		`  ${green("✔")} ${bold("en-gb.ts")}  ${dim(`[${tsKey}]`)} ${dim("→")} ${green(`"${value}"`)}`,
-	);
+	return true;
 }
 
 const updateEn = process.argv.includes("--update-en");
@@ -219,6 +452,7 @@ if (MAPPINGS.length === 0) {
 
 for (const mapping of MAPPINGS) {
 	const jsonPath = mapping.jsonPath ?? resolveJsonPath(mapping.tsKey);
+	let changedJsonLocaleCount = 0;
 
 	console.log(
 		`\n${bold(cyan("Syncing"))} ${yellow(`"${mapping.upstreamKey}"`)} ${dim("→")} ${cyan(jsonPath)}`,
@@ -263,15 +497,16 @@ for (const mapping of MAPPINGS) {
 			const jsonFile = join(SOURCE_LOCALES_DIR, `${jsonName}.json`);
 			const changed = await updateJsonLocale(jsonFile, jsonPath, value);
 			if (changed) {
-				console.log(
-					`  ${green("✔")} ${bold(`${jsonName}.json`)}  ${dim(jsonPath)} ${dim("→")} ${green(`"${value}"`)}`,
-				);
-			} else {
-				console.log(
-					`  ${blue("ℹ")} ${bold(`${jsonName}.json`)}  ${dim(jsonPath)} — nothing changed`,
-				);
+				changedJsonLocaleCount++;
+				changes.push(`${jsonName}.json\t${jsonPath}\t${mapping.upstreamKey}\t${value}`);
 			}
 		}
+	}
+
+	if (changedJsonLocaleCount === 0) {
+		console.log(`  ${blue("ℹ")} JSON locales — nothing changed`);
+	} else {
+		console.log(`  ${green("✔")} ${changedJsonLocaleCount} JSON locale update(s)`);
 	}
 
 	if (updateEn) {
@@ -293,9 +528,13 @@ for (const mapping of MAPPINGS) {
 			continue;
 		}
 
-		await updateEnGbTs(mapping.tsKey, stripMarkup(raw));
+		if (await updateEnGbTs(mapping.tsKey, mapping.upstreamKey, stripMarkup(raw))) {
+			console.log(`  ${green("✔")} ${bold("en-gb.ts")} updated`);
+		}
 	}
 }
+
+await writeChangeLog();
 
 // Need to do this because running the command will put the flag on the command.
 spawnSync("pnpm", ["run", "format"], { stdio: "inherit", shell: true });

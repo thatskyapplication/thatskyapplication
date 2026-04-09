@@ -8,7 +8,7 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
-	AreaToWingedLight,
+	AreaName,
 	type DoubleSeasonalLightDate,
 	type Event,
 	formatEmoji,
@@ -17,13 +17,13 @@ import {
 	resolveCurrencyEmoji,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
-	SkyMap,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
 	skyToday,
 	TIME_ZONE,
+	TopLevelAreaToWingedLight,
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "@thatskyapplication/utility";
@@ -472,22 +472,22 @@ export async function wingedLight(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-				number: (accumulation += AreaToWingedLight[SkyMap.ThePassage]),
+				number: (accumulation += TopLevelAreaToWingedLight[AreaName.ThePassage]),
 				includeSpaceInEmoji: true,
 			},
-		)} (+${AreaToWingedLight[SkyMap.ThePassage]}).`,
+		)} (+${TopLevelAreaToWingedLight[AreaName.ThePassage]}).`,
 		title: t("calculate.winged-light.title", { lng: locale, ns: "features" }),
 	};
 
 	const fields = WINGED_LIGHT_AREAS.map((area) => ({
-		name: t(`${area === SkyMap.AncientMemory ? "maps" : "realms"}.${area}`, {
+		name: t(`${area === AreaName.AncientMemory ? "areas" : "realms"}.${area}`, {
 			lng: locale,
 			ns: "general",
 		}),
 		value: `${
 			// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-			(accumulation += AreaToWingedLight[area])
-		} (+${AreaToWingedLight[area]})`,
+			(accumulation += TopLevelAreaToWingedLight[area])
+		} (+${TopLevelAreaToWingedLight[area]})`,
 	}));
 
 	let totalText = `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, number: accumulation, includeSpaceInEmoji: true })}`;
