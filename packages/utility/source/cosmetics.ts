@@ -3475,6 +3475,14 @@ export enum Cosmetic {
 
 	// 27/03/2026 | Version 0.32.7.
 	CandleStand = 2746,
+
+	// 10/04/2026 | Days of Nature.
+	DaysOfNature2026Hair = 2747,
+	DaysOfNature2026Prop1 = 2748,
+	DaysOfNature2026Prop2 = 2749,
+	CharmingCreatureOutfit = 2750,
+	CharmingCreatureHeadAccessory = 2751,
+	OceanVeilHairAccessory = 2752,
 }
 
 export enum CosmeticCommon {

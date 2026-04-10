@@ -1130,6 +1130,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Bloom Sunflower Sundress.
 	 */
 	Outfit103: { id: "1482684567012901069", name: "103_outfit" },
+	/**
+	 * Charming Creature outfit.
+	 */
+	Outfit104: { id: "1492226476723146883", name: "104_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1236,6 +1240,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit101: { id: "1471652523571155004", name: "101_outfit" },
 	Outfit102: { id: "1482684571320320010", name: "102_outfit" },
 	Outfit103: { id: "1482684573144846519", name: "103_outfit" },
+	Outfit104: { id: "1492226492506308618", name: "104_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -3086,6 +3091,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Days of Bloom 2026.
 	 */
 	Hair177: { id: "1482684921666600971", name: "177_hair" },
+	/**
+	 * Days of Nature 2026.
+	 */
+	Hair178: { id: "1492226482809077831", name: "178_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3266,6 +3275,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair175: { id: "1469073578262659244", name: "175_hair" },
 	Hair176: { id: "1471652719138705512", name: "176_hair" },
 	Hair177: { id: "1482684929887178762", name: "177_hair" },
+	Hair178: { id: "1492226499158343740", name: "178_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3561,6 +3571,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Lightmending Light Catcher.
 	 */
 	HairAccessory73: { id: "1464064960127697088", name: "73_hair_accessory" },
+	/**
+	 * Ocean Veil hair accessory.
+	 */
+	HairAccessory74: { id: "1492226474005238001", name: "74_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3637,6 +3651,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory71: { id: "1459119297690603631", name: "71_hair_accessory" },
 	HairAccessory72: { id: "1459119299699675188", name: "72_hair_accessory" },
 	HairAccessory73: { id: "1464064974996639754", name: "73_hair_accessory" },
+	HairAccessory74: { id: "1492226490094325780", name: "74_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3740,6 +3755,10 @@ const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Bloom Sunflower Studs.
 	 */
 	HeadAccessory25: { id: "1482685936688173146", name: "25_head_accessory" },
+	/**
+	 * Charming Creature head accessory.
+	 */
+	HeadAccessory26: { id: "1492226472071397517", name: "26_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3768,6 +3787,7 @@ const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HeadAccessory23: { id: "1431663772413726841", name: "23_head_accessory" },
 	HeadAccessory24: { id: "1464063379953156177", name: "24_head_accessory" },
 	HeadAccessory25: { id: "1482685944338579567", name: "25_head_accessory" },
+	HeadAccessory26: { id: "1492226486923563049", name: "26_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -5410,6 +5430,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Sunflower Ladder.
 	 */
 	LargePlaceableProp108: { id: "1482686829319688275", name: "108_large_placeable_prop" },
+	/**
+	 * Days of Nature 2026.
+	 */
+	LargePlaceableProp109: { id: "1492226478887407696", name: "109_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5521,6 +5545,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp106: { id: "1471653538588524634", name: "106_large_placeable_prop" },
 	LargePlaceableProp107: { id: "1482686836487884944", name: "107_large_placeable_prop" },
 	LargePlaceableProp108: { id: "1482686838035452079", name: "108_large_placeable_prop" },
+	LargePlaceableProp109: { id: "1492226495027085524", name: "109_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6009,6 +6034,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Candle stand.
 	 */
 	SmallPlaceableProp122: { id: "1487147895865213120", name: "122_small_placeable_prop" },
+	/**
+	 * Days of Nature 2026.
+	 */
+	SmallPlaceableProp123: { id: "1492226480652943360", name: "123_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6133,6 +6162,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp120: { id: "1482687422377492601", name: "120_small_placeable_prop" },
 	SmallPlaceableProp121: { id: "1482687424524980245", name: "121_small_placeable_prop" },
 	SmallPlaceableProp122: { id: "1487147904144642158", name: "122_small_placeable_prop" },
+	SmallPlaceableProp123: { id: "1492226496918589571", name: "123_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean): {
@@ -9000,6 +9030,12 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.LightmendingGuideQuest11]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest12]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CandleStand]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp122,
+		[Cosmetic.DaysOfNature2026Hair]: HAIR_EMOJIS.Hair178,
+		[Cosmetic.DaysOfNature2026Prop1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp109,
+		[Cosmetic.DaysOfNature2026Prop2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp123,
+		[Cosmetic.CharmingCreatureOutfit]: OUTFIT_EMOJIS.Outfit104,
+		[Cosmetic.CharmingCreatureHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory26,
+		[Cosmetic.OceanVeilHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory74,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

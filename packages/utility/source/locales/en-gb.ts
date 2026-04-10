@@ -2766,6 +2766,11 @@ export default {
 			[Cosmetic.BloomSunflowerUmbrella]: "Bloom Sunflower Umbrella",
 			[Cosmetic.BloomSunflowerStuds]: "Bloom Sunflower Studs",
 			[Cosmetic.CandleStand]: "Candle stand",
+			[Cosmetic.DaysOfNature2026Prop1]: "Prop",
+			[Cosmetic.DaysOfNature2026Prop2]: "Prop",
+			[Cosmetic.CharmingCreatureOutfit]: "Charming Creature Outfit",
+			[Cosmetic.CharmingCreatureHeadAccessory]: "Charming Creature Head Accessory",
+			[Cosmetic.OceanVeilHairAccessory]: "Ocean Veil Hair Accessory",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

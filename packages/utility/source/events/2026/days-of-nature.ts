@@ -1,3 +1,4 @@
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventId } from "../../utility/event.js";
@@ -30,4 +31,28 @@ export default new Event({
 			},
 		],
 	},
+	offer: [
+		{
+			translation: CosmeticCommon.Hair,
+			cosmetic: Cosmetic.DaysOfNature2026Hair,
+			cost: { eventTickets: 22 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfNature2026Prop1,
+			cost: { eventTickets: 21 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfNature2026Prop2,
+			cost: { eventTickets: 17 },
+		},
+		{
+			cosmetic: [Cosmetic.CharmingCreatureOutfit, Cosmetic.CharmingCreatureHeadAccessory],
+			cosmeticDisplay: Cosmetic.CharmingCreatureOutfit,
+			cost: { money: 14.99 },
+		},
+		{
+			cosmetic: Cosmetic.OceanVeilHairAccessory,
+			cost: { money: 19.99 },
+		},
+	],
 });
