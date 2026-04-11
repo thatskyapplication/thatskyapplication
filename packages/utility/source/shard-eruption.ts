@@ -1,5 +1,5 @@
 import type { DateTime } from "luxon";
-import { skyToday } from "./dates.js";
+import { skyDate, skyToday } from "./dates.js";
 import { skyCurrentEvents } from "./events/index.js";
 import { AreaName, type RealmName, VALID_REALM_NAME } from "./kingdom/geography.js";
 import { CDN_URL } from "./routes.js";
@@ -157,6 +157,12 @@ export interface ShardEruptionData {
 
 export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	const date = skyToday().plus({ day: daysOffset });
+
+	// No shard eruption during Days of Nature.
+	if (date.equals(skyDate(2026, 4, 11))) {
+		return null;
+	}
+
 	const dayOfMonth = date.day;
 	const dayOfWeek = date.weekday;
 	const strong = dayOfMonth % 2 === 1;
