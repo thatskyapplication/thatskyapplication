@@ -2,13 +2,13 @@ import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.MigratingMantaWhisperer,
 	seasonId: SeasonId.Migration,
 	emote: SpiritEmote.FlagSignal,
-	realm: RealmName.HiddenForest,
+	area: AreaName.TheWindPaths,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

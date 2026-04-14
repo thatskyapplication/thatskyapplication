@@ -1,7 +1,7 @@
-import { Area } from "../../models/area.js";
+import type { AreaDefinition } from "../../models/area.js";
 import { AreaName } from "../geography.js";
 
-export default new Area({
+export default {
 	name: AreaName.AncientMemory,
 	wingedLight: 6,
-});
+} satisfies AreaDefinition;

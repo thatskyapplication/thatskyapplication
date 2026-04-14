@@ -1,11 +1,11 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { ElderSpirit } from "../../../../models/spirits.js";
 import { SpiritId } from "../../../../utility/spirits.js";
-import { RealmName } from "../../../geography.js";
+import { AreaName } from "../../../geography.js";
 
 export default new ElderSpirit({
 	id: SpiritId.ElderOfTheForest,
-	realm: RealmName.HiddenForest,
+	area: AreaName.ThePassage,
 	offer: {
 		current: [
 			[

@@ -1,5 +1,4 @@
-import { Realm } from "../../../models/realm.js";
-import { areasForRealm } from "../../areas/index.js";
+import type { RealmDefinition } from "../../../models/realm.js";
 import { RealmName } from "../../geography.js";
 import BackflippingChampion from "./spirits/backflipping-champion.js";
 import BowingMedalist from "./spirits/bowing-medalist.js";
@@ -10,7 +9,7 @@ import HandstandingThrillseeker from "./spirits/handstanding-thrillseeker.js";
 import MantaWhisperer from "./spirits/manta-whisperer.js";
 import ProudVictor from "./spirits/proud-victor.js";
 
-export default new Realm({
+export default {
 	name: RealmName.ValleyOfTriumph,
 	elder: ElderOfTheValley,
 	spirits: [
@@ -22,5 +21,4 @@ export default new Realm({
 		BowingMedalist,
 		ProudVictor,
 	],
-	areas: areasForRealm(RealmName.ValleyOfTriumph),
-});
+} satisfies RealmDefinition;

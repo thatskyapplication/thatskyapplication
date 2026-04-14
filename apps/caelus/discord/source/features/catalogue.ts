@@ -611,7 +611,7 @@ async function start({
 	};
 
 	const travellingSpiritSeasonEmoji =
-		currentTravellingSpirit && SeasonIdToSeasonalEmoji[currentTravellingSpirit.seasonId];
+		currentTravellingSpirit && SeasonIdToSeasonalEmoji[currentTravellingSpirit.season.id];
 
 	if (travellingSpiritSeasonEmoji) {
 		currentTravellingSpiritButton.emoji = travellingSpiritSeasonEmoji;
@@ -630,11 +630,11 @@ async function start({
 
 	if (
 		currentReturningSpirits?.every(
-			(returningSpirit) => returningSpirit.seasonId === currentReturningSpirits.first()!.seasonId,
+			(returningSpirit) => returningSpirit.season.id === currentReturningSpirits.first()!.season.id,
 		)
 	) {
 		const returningSpiritSeasonEmoji =
-			SeasonIdToSeasonalEmoji[currentReturningSpirits.first()!.seasonId];
+			SeasonIdToSeasonalEmoji[currentReturningSpirits.first()!.season.id];
 
 		if (returningSpiritSeasonEmoji) {
 			currentReturningSpiritsButton.emoji = returningSpiritSeasonEmoji;
@@ -1062,17 +1062,17 @@ export async function viewRealms(
 		},
 	];
 
-	for (const realm of REALMS) {
-		if (realm.spirits.size === 0) {
+	for (const realm of REALMS.values()) {
+		if (realm.standardSpirits.size === 0) {
 			continue;
 		}
 
 		let content = `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}`;
-		const percentage = spiritProgress([...realm.spirits.values()], catalogue?.data, true);
+		const percentage = spiritProgress([...realm.standardSpirits.values()], catalogue?.data, true);
 		content += percentage === null ? "" : ` (${percentage}%)`;
 		const itemCosts: ItemCost[] = [];
 
-		for (const spirit of realm.spirits.values()) {
+		for (const spirit of realm.standardSpirits.values()) {
 			itemCosts.push(remainingCurrency(friendshipTreeToItems(spirit.current), catalogue?.data));
 		}
 
@@ -1117,7 +1117,7 @@ export async function viewRealm(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
+	const spirits = REALMS.get(realm)!.standardSpirits;
 
 	const title = t("catalogue.realm-title", {
 		lng: locale,
@@ -1821,11 +1821,11 @@ async function viewSpirit(
 		| undefined;
 
 	if (isStandardSpirit) {
-		spirits = REALMS.find(({ name }) => name === spirit.realm)?.spirits;
+		spirits = spirit.realm.standardSpirits;
 	} else if (isElderSpirit) {
 		spirits = ELDER_SPIRITS;
 	} else if (isSeasonalSpirit || isGuideSpirit) {
-		const season = skySeasons().get(spirit.seasonId);
+		const season = spirit.season;
 
 		if (season) {
 			spirits = new Collection<SpiritIds, SeasonalSpirit | GuideSpirit>()
@@ -1844,7 +1844,7 @@ async function viewSpirit(
 						lng: locale,
 						ns: "features",
 						spirit: titleSpirit,
-						realm: t(`realms.${spirit.realm}`, { lng: locale, ns: "general" }),
+						realm: t(`realms.${spirit.realm.name}`, { lng: locale, ns: "general" }),
 					})
 				: isElderSpirit
 					? t("catalogue.spirit-title-elder", { lng: locale, ns: "features", spirit: titleSpirit })
@@ -1852,7 +1852,7 @@ async function viewSpirit(
 							lng: locale,
 							ns: "features",
 							spirit: titleSpirit,
-							season: t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" }),
+							season: t(`seasons.${spirit.season.id}`, { lng: locale, ns: "general" }),
 						}),
 		},
 		{
@@ -2012,11 +2012,11 @@ async function viewSpirit(
 				navigationBackCustomId: isElderSpirit
 					? CustomId.CatalogueViewElders
 					: isStandardSpirit
-						? `${CustomId.CatalogueViewRealm}§${spirit.realm}`
-						: `${CustomId.CatalogueViewSeason}§${spirit.seasonId}`,
+						? `${CustomId.CatalogueViewRealm}§${spirit.realm.name}`
+						: `${CustomId.CatalogueViewSeason}§${spirit.season.id}`,
 				navigationBackEmoji:
 					isSeasonalSpirit || isGuideSpirit
-						? (SeasonIdToSeasonalEmoji[spirit.seasonId] ?? undefined)
+						? (SeasonIdToSeasonalEmoji[spirit.season.id] ?? undefined)
 						: undefined,
 				isInElders: isElderSpirit,
 				isInStandardSpirits: isStandardSpirit,
@@ -2649,16 +2649,13 @@ export async function setRealm(interaction: APIMessageComponentButtonInteraction
 		throw new Error("Unknown realm.");
 	}
 
-	const allCosmetics = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce(
-		(data, spirit) => {
-			for (const cosmetic of spirit.allCosmetics) {
-				data.add(cosmetic);
-			}
+	const allCosmetics = REALMS.get(realm)!.standardSpirits.reduce((data, spirit) => {
+		for (const cosmetic of spirit.allCosmetics) {
+			data.add(cosmetic);
+		}
 
-			return data;
-		},
-		new Set<number>(),
-	);
+		return data;
+	}, new Set<number>());
 
 	await update(invoker.id, { data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics });
 	await viewRealm(interaction, realm);
