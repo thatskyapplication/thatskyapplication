@@ -582,6 +582,9 @@ const SEASON_EMOJIS_PRODUCTION = {
 	Lightmending: { id: "1461598394907758592", name: "lightmending" },
 	LightmendingCandle: { id: "1461598409705259029", name: "lightmending_candle" },
 	LightmendingHeart: { id: "1461598427505885317", name: "lightmending_heart" },
+	Carnival: { id: "1494462027731566792", name: "carnival" },
+	CarnivalCandle: { id: "1494462023965085846", name: "carnival_candle" },
+	CarnivalHeart: { id: "1494462025814773831", name: "carnival_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -667,6 +670,9 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	Lightmending: { id: "1461598440256438404", name: "lightmending" },
 	LightmendingCandle: { id: "1461598454055829605", name: "lightmending_candle" },
 	LightmendingHeart: { id: "1461598469583147058", name: "lightmending_heart" },
+	Carnival: { id: "1494462037798027284", name: "carnival" },
+	CarnivalCandle: { id: "1494462033830346852", name: "carnival_candle" },
+	CarnivalHeart: { id: "1494462035998539816", name: "carnival_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -9067,7 +9073,7 @@ export function emojiConstants(production: boolean): {
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1,
 		[SeasonId.Migration]: SEASON_EMOJIS.Migration,
 		[SeasonId.Lightmending]: SEASON_EMOJIS.Lightmending,
-		[SeasonId.Carnival]: null,
+		[SeasonId.Carnival]: SEASON_EMOJIS.Carnival,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
@@ -9099,8 +9105,7 @@ export function emojiConstants(production: boolean): {
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Candle,
 		[SeasonId.Migration]: SEASON_EMOJIS.MigrationCandle,
 		[SeasonId.Lightmending]: SEASON_EMOJIS.LightmendingCandle,
-		// @ts-expect-error Not yet created.
-		[SeasonId.Carnival]: null,
+		[SeasonId.Carnival]: SEASON_EMOJIS.CarnivalCandle,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji>>;
 
 	const SeasonIdToSeasonalHeartEmoji = {
@@ -9130,7 +9135,7 @@ export function emojiConstants(production: boolean): {
 		[SeasonId.TwoEmbersPart1]: SEASON_EMOJIS.TwoEmbersPart1Heart,
 		[SeasonId.Migration]: SEASON_EMOJIS.MigrationHeart,
 		[SeasonId.Lightmending]: SEASON_EMOJIS.LightmendingHeart,
-		[SeasonId.Carnival]: null,
+		[SeasonId.Carnival]: SEASON_EMOJIS.CarnivalHeart,
 	} as const satisfies Readonly<
 		Record<
 			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,
@@ -9279,7 +9284,6 @@ export function emojiConstants(production: boolean): {
 		...emojis,
 		CosmeticToEmoji,
 		SeasonIdToSeasonalEmoji,
-		// @ts-expect-error Not yet created.
 		SeasonIdToSeasonalCandleEmoji,
 		SeasonIdToSeasonalHeartEmoji,
 		EventIdToEventTicketEmoji,
