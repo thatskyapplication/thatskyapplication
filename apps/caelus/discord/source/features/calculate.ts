@@ -8,12 +8,14 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
+	AREAS,
 	AreaName,
 	type DoubleSeasonalLightDate,
 	type Event,
 	formatEmoji,
 	formatEmojiURL,
 	isDuring,
+	REALMS,
 	resolveCurrencyEmoji,
 	SEASONAL_CANDLES_PER_DAY,
 	SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS,
@@ -23,8 +25,6 @@ import {
 	skyNow,
 	skyToday,
 	TIME_ZONE,
-	TopLevelAreaToWingedLight,
-	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -37,6 +37,21 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "../utility/emojis.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
+
+const PASSAGE_WINGED_LIGHT = AREAS.get(AreaName.ThePassage)!.wingedLight;
+
+const WINGED_LIGHT_STEPS = [
+	...REALMS.map((realm) => ({
+		amount: realm.wingedLight,
+		name: realm.name,
+		namespace: "realms" as const,
+	})),
+	{
+		amount: AREAS.get(AreaName.AncientMemory)!.wingedLight,
+		name: AreaName.AncientMemory,
+		namespace: "areas" as const,
+	},
+] as const;
 
 export async function ascendedCandles(
 	interaction: APIChatInputApplicationCommandInteraction,
@@ -472,22 +487,20 @@ export async function wingedLight(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-				number: (accumulation += TopLevelAreaToWingedLight[AreaName.ThePassage]),
+				number: (accumulation += PASSAGE_WINGED_LIGHT),
 				includeSpaceInEmoji: true,
 			},
-		)} (+${TopLevelAreaToWingedLight[AreaName.ThePassage]}).`,
+		)} (+${PASSAGE_WINGED_LIGHT}).`,
 		title: t("calculate.winged-light.title", { lng: locale, ns: "features" }),
 	};
 
-	const fields = WINGED_LIGHT_AREAS.map((area) => ({
-		name: t(`${area === AreaName.AncientMemory ? "areas" : "realms"}.${area}`, {
+	const fields = WINGED_LIGHT_STEPS.map((step) => ({
+		name: t(`${step.namespace}.${step.name}`, {
 			lng: locale,
 			ns: "general",
 		}),
-		value: `${
-			// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-			(accumulation += TopLevelAreaToWingedLight[area])
-		} (+${TopLevelAreaToWingedLight[area]})`,
+		// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
+		value: `${(accumulation += step.amount)} (+${step.amount})`,
 	}));
 
 	let totalText = `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, number: accumulation, includeSpaceInEmoji: true })}`;

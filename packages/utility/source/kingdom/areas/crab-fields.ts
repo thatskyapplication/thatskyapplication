@@ -1,8 +1,8 @@
-import { Area } from "../../models/area.js";
+import type { AreaDefinition } from "../../models/area.js";
 import { AreaName, RealmName } from "../geography.js";
 
-export default new Area({
+export default {
 	name: AreaName.CrabFields,
 	realm: RealmName.GoldenWasteland,
 	wingedLight: 3,
-});
+} satisfies AreaDefinition;

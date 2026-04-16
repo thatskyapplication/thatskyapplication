@@ -3,7 +3,7 @@ import { skyDate } from "../../../dates.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 const emote = SpiritEmote.Anxious;
 
@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.AnxiousAngler,
 	seasonId: SeasonId.Abyss,
 	emote,
-	realm: RealmName.GoldenWasteland,
+	area: AreaName.TreasureReef,
 	offer: {
 		seasonal: [
 			[

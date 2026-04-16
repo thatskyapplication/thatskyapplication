@@ -30,6 +30,7 @@ export enum AreaName {
 	PassageRock = "Passage Rock",
 	TempleOfTheIsle = "Temple of the Isle",
 	DawnOverlook = "Dawn Overlook",
+	CaveOfProphecies = "Cave of Prophecies",
 	TrialOfWater = "Trial of Water",
 	TrialOfEarth = "Trial of Earth",
 	TrialOfAir = "Trial of Air",
@@ -85,6 +86,7 @@ export enum AreaName {
 	UpperVault = "Upper Vault",
 	TempleOfTheVault = "Temple of the Vault",
 	StarlightDesert = "Starlight Desert",
+	FracturedLanternStorage = "Fractured Lantern Storage",
 	JellyfishCove = "Jellyfish Cove",
 	CrescentOasis = "Crescent Oasis",
 	Moominvalley = "Moominvalley",
@@ -102,7 +104,11 @@ export enum AreaName {
 
 	// Season of Shattering.
 	AncientMemory = "Ancient Memory",
+	TheVoidOfShattering = "The Void of Shattering",
 
 	// Season of Revival.
 	AviaryVillage = "Aviary Village",
+
+	// Season of The Two Embers - Part 1.
+	TheLastCity = "The Last City",
 }

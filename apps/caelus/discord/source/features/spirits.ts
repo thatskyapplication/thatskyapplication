@@ -78,7 +78,7 @@ export async function searchAutocomplete<
 
 							const seasonName =
 								isSeasonalSpirit || spirit.isGuideSpirit()
-									? t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" }).toUpperCase()
+									? t("seasons.", { lng: locale, ns: "general" }).toUpperCase()
 									: null;
 
 							return (
@@ -142,7 +142,7 @@ interface SpiritSearchOptions {
 export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopLevelComponent] {
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
-	const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : null;
+	const spiritSeason = isSeasonalSpirit || isGuideSpirit ? spirit.season.id : null;
 	const description = [];
 	const visits = [];
 

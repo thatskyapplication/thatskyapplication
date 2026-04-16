@@ -1,8 +1,6 @@
-import { Realm } from "../../../models/realm.js";
-import { areasForRealm } from "../../areas/index.js";
+import type { RealmDefinition } from "../../../models/realm.js";
 import { RealmName } from "../../geography.js";
 
-export default new Realm({
+export default {
 	name: RealmName.EyeOfEden,
-	areas: areasForRealm(RealmName.EyeOfEden),
-});
+} satisfies RealmDefinition;

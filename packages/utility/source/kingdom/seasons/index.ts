@@ -36,7 +36,7 @@ import Sanctuary from "./sanctuary/index.js";
 import Shattering from "./shattering/index.js";
 import twoEmbersPart1 from "./two-embers-part-1/index.js";
 
-const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
+export const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	Gratitude,
 	Lightseekers,
 	Belonging,
@@ -120,8 +120,7 @@ export function skySeasons(date = skyNow()) {
 
 export function currentSeasonalSpirits() {
 	return skySeasons().reduce((spirits, season) => {
-		spirits.set(season.guide.id, season.guide);
-		return spirits.concat(season.spirits);
+		return spirits.concat(season.allSpirits);
 	}, new Collection<SpiritIds, GuideSpirit | SeasonalSpirit>());
 }
 

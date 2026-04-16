@@ -3,13 +3,13 @@ import { skyDate } from "../../../dates.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.WiseGrandparent,
 	seasonId: SeasonId.Belonging,
 	stance: Cosmetic.StanceWise,
-	realm: RealmName.VaultOfKnowledge,
+	area: AreaName.VaultArchive,
 	offer: {
 		seasonal: [
 			[{ cosmetic: Cosmetic.StanceWise }],

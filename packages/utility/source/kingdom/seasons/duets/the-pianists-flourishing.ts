@@ -2,9 +2,11 @@ import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
+import { AreaName } from "../../geography.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.ThePianistsFlourishing,
+	area: AreaName.AviaryVillage,
 	seasonId: SeasonId.Duets,
 	offer: {
 		hasInfographic: false,

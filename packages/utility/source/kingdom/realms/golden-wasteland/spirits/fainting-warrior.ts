@@ -1,14 +1,13 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
 import { SpiritEmote, SpiritId } from "../../../../utility/spirits.js";
-import { AreaName, RealmName } from "../../../geography.js";
+import { AreaName } from "../../../geography.js";
 
 const emote = SpiritEmote.Faint;
 
 export default new StandardSpirit({
 	id: SpiritId.FaintingWarrior,
 	emote,
-	realm: RealmName.GoldenWasteland,
 	area: AreaName.TheOuterBailey,
 	offer: {
 		current: [

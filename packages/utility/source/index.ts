@@ -13,6 +13,7 @@ import thLocale from "./locales/th.json" with { type: "json" };
 import viLocale from "./locales/vi.json" with { type: "json" };
 import zhCNLocale from "./locales/zh-cn.json" with { type: "json" };
 import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
+import "./kingdom/graph.js";
 
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
@@ -83,13 +84,11 @@ export {
 	isRealm,
 	RealmName,
 } from "./kingdom/geography.js";
-export { spirits } from "./kingdom/spirits.js";
+export { AREAS, spirits } from "./kingdom/graph.js";
 export { treasureCandles } from "./kingdom/treasure-candles.js";
 export {
 	MAXIMUM_WINGED_LIGHT,
 	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,
-	TopLevelAreaToWingedLight,
-	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "./kingdom/winged-light.js";
 export { MAINTENANCE_PERIODS } from "./maintenance.js";
@@ -113,7 +112,7 @@ export {
 	REALM_SPIRITS,
 	REALMS,
 	STANDARD_SPIRITS,
-} from "./kingdom/realms/index.js";
+} from "./kingdom/graph.js";
 export {
 	currentSeasonalSpirits,
 	resolveReturningSpirits,
@@ -124,6 +123,7 @@ export {
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
 } from "./kingdom/seasons/index.js";
+export type { Area, AreaDefinition } from "./models/area.js";
 export { Event } from "./models/event.js";
 export { Realm } from "./models/realm.js";
 export { type DoubleSeasonalLightDate, Season } from "./models/season.js";

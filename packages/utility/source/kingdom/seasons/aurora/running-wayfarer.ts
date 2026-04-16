@@ -2,7 +2,7 @@ import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 const emote = SpiritEmote.WavingLight;
 
@@ -10,7 +10,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.RunningWayfarer,
 	seasonId: SeasonId.AURORA,
 	emote,
-	realm: RealmName.ValleyOfTriumph,
+	area: AreaName.TempleOfTheValley,
 	offer: {
 		seasonal: [
 			[

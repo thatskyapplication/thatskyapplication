@@ -1,7 +1,7 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { DateTime } from "luxon";
 import type { Cosmetic } from "../cosmetics.js";
-import type { RealmName } from "../kingdom/geography.js";
+import type { AreaName, RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import {
 	RotationIdentifier,
@@ -15,6 +15,8 @@ import {
 	snakeCaseName,
 } from "../utility/functions.js";
 import type { ItemRawWithoutChildren, ItemWithoutChildren, SpiritIds } from "../utility/spirits.js";
+import type { Area } from "./area.js";
+import type { Realm } from "./realm.js";
 import type { GuideSpirit, SeasonalSpirit } from "./spirits.js";
 
 type SeasonalCandlesRotation = Readonly<
@@ -97,6 +99,12 @@ export class Season {
 
 	public readonly spirits: ReadonlyCollection<SpiritIds, SeasonalSpirit>;
 
+	public readonly allSpirits: ReadonlyCollection<SpiritIds, GuideSpirit | SeasonalSpirit>;
+
+	public areas: ReadonlyCollection<AreaName, Area> = new Collection<AreaName, Area>();
+
+	public realms: ReadonlyCollection<RealmName, Realm> = new Collection<RealmName, Realm>();
+
 	public readonly items: readonly ItemWithoutChildren[];
 
 	public readonly allCosmetics: readonly Cosmetic[];
@@ -116,6 +124,10 @@ export class Season {
 		this.spirits = data.spirits.reduce(
 			(spirits, spirit) => spirits.set(spirit.id, spirit),
 			new Collection<SpiritIds, SeasonalSpirit>(),
+		);
+		this.allSpirits = data.spirits.reduce(
+			(spirits, spirit) => spirits.set(spirit.id, spirit),
+			new Collection<SpiritIds, GuideSpirit | SeasonalSpirit>().set(data.guide.id, data.guide),
 		);
 
 		this.items = data.items ? resolveOfferFromItems(data.items, { seasonId: data.id }) : [];

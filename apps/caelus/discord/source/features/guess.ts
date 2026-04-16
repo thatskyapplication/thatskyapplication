@@ -24,12 +24,10 @@ import {
 	type GuideSpirit,
 	isEventId,
 	isSpiritId,
-	REALMS,
 	type SeasonalSpirit,
 	type SpiritIds,
 	type StandardSpirit,
 	skyEvents,
-	skySeasons,
 	spirits,
 	Table,
 } from "@thatskyapplication/utility";
@@ -263,11 +261,11 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 		>;
 
 		if (spirit.isStandardSpirit()) {
-			filtered = REALMS.find((realm) => realm.name === spirit.realm)!.spirits;
+			filtered = spirit.realm.standardSpirits;
 		} else if (spirit.isElderSpirit()) {
 			filtered = ELDER_SPIRITS;
 		} else {
-			const season = skySeasons().get(spirit.seasonId)!;
+			const season = spirit.season;
 
 			filtered = (
 				season.spirits.clone() as Collection<SpiritIds, SeasonalSpirit | GuideSpirit>

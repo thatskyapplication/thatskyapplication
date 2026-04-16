@@ -3,7 +3,7 @@ import { skyDate } from "../../../dates.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 const emote = SpiritEmote.SpinDance;
 
@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.FestivalSpinDancer,
 	seasonId: SeasonId.Rhythm,
 	emote,
-	realm: RealmName.DaylightPrairie,
+	area: AreaName.BirdNest,
 	offer: {
 		seasonal: [
 			[

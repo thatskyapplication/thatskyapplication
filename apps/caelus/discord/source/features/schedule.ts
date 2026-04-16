@@ -307,7 +307,7 @@ function travellingSpiritDetailedBreakdown(
 		travellingSpiritButton.disabled = true;
 	} else {
 		travellingSpiritButton.label = t(`spirits.${visit.spiritId}`, { lng: locale, ns: "general" });
-		const emoji = SeasonIdToSeasonalEmoji[currentSeasonalSpirits().get(visit.spiritId)!.seasonId];
+		const emoji = SeasonIdToSeasonalEmoji[currentSeasonalSpirits().get(visit.spiritId)!.season.id];
 
 		if (emoji) {
 			travellingSpiritButton.emoji = emoji;

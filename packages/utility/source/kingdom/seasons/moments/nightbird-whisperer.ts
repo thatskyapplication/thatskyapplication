@@ -3,13 +3,13 @@ import { skyDate } from "../../../dates.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.NightbirdWhisperer,
 	seasonId: SeasonId.Moments,
 	call: Cosmetic.CallNightbird,
-	realm: RealmName.DaylightPrairie,
+	area: AreaName.PrairiePeaks,
 	offer: {
 		seasonal: [
 			[{ cosmetic: Cosmetic.CallNightbird }],

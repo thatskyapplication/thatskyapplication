@@ -1,5 +1,4 @@
-import { Realm } from "../../../models/realm.js";
-import { areasForRealm } from "../../areas/index.js";
+import type { RealmDefinition } from "../../../models/realm.js";
 import { RealmName } from "../../geography.js";
 import ApplaudingBellmaker from "./spirits/applauding-bellmaker.js";
 import BirdWhisperer from "./spirits/bird-whisperer.js";
@@ -11,7 +10,7 @@ import LaughingLightCatcher from "./spirits/laughing-light-catcher.js";
 import SlumberingShipwright from "./spirits/slumbering-shipwright.js";
 import WavingBellmaker from "./spirits/waving-bellmaker.js";
 
-export default new Realm({
+export default {
 	name: RealmName.DaylightPrairie,
 	elder: ElderOfThePrairie,
 	spirits: [
@@ -24,5 +23,4 @@ export default new Realm({
 		ExhaustedDockWorker,
 		CeremonialWorshipper,
 	],
-	areas: areasForRealm(RealmName.DaylightPrairie),
-});
+} satisfies RealmDefinition;

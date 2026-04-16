@@ -2,7 +2,7 @@ import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { FriendAction, SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 const action = FriendAction.SideHug;
 
@@ -10,7 +10,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.ReassuringRanger,
 	seasonId: SeasonId.Moments,
 	action,
-	realm: RealmName.DaylightPrairie,
+	area: AreaName.PrairiePeaks,
 	offer: {
 		hasInfographic: false,
 		seasonal: [
