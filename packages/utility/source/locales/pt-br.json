@@ -25,6 +25,7 @@
 		"areas": {
 			"Dawn Circle": "Círculo do Alvorecer",
 			"Passage Rock": "Pedra da Passagem",
+			"Temple of the Isle": "",
 			"Dawn Overlook": "Mirante do Alvorecer",
 			"Trial of Water": "Provação da Água",
 			"Trial of Earth": "Provação da Terra",
@@ -803,7 +804,11 @@
 			"200": "Caçador da Luz da Restauração",
 			"201": "Estudiosa da Luz da Restauração",
 			"202": "Pioneira da Restauração",
-			"203": ""
+			"203": "Guia Circense",
+			"204": "Dançarino Atlético Circense",
+			"205": "Malabarista Circense",
+			"206": "Diretora do Enigma Circense",
+			"207": "Acrobata Circense"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Candeeiro_Denotante",
@@ -1009,7 +1014,11 @@
 			"200": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Caçador_da_Luz_da_Restauração",
 			"201": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Estudiosa_da_Luz_da_Restauração",
 			"202": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Pioneira_da_Restauração",
-			"203": ""
+			"203": "",
+			"204": "",
+			"205": "",
+			"206": "",
+			"207": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
@@ -2379,7 +2388,12 @@
 			"2741": "Vestido de Girassol do Florescer",
 			"2742": "Guarda-chuva de Girassol do Florescer",
 			"2743": "Brincos de Girassol do Florescer",
-			"2746": ""
+			"2746": "",
+			"2748": "",
+			"2749": "",
+			"2750": "",
+			"2751": "",
+			"2752": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",

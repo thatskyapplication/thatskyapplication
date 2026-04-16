@@ -25,6 +25,7 @@
 		"areas": {
 			"Dawn Circle": "Vòng Bình Minh",
 			"Passage Rock": "Tảng đá Dẫn đường",
+			"Temple of the Isle": "",
 			"Dawn Overlook": "Đài Quan Sát Bình Minh",
 			"Trial of Water": "Thử Thách Nước",
 			"Trial of Earth": "Thử Thách Đất",
@@ -73,7 +74,7 @@
 			"Starlight Desert": "Hoang Mạc Ánh Sao",
 			"Jellyfish Cove": "Vịnh Sứa",
 			"Crescent Oasis": "Ốc Đảo Trăng Khuyết",
-			"Moominvalley": "",
+			"Moominvalley": "Moominvalley",
 			"Gate of Eden": "Cổng Địa Đàng",
 			"Path of Eden": "Con Đường Địa Đàng",
 			"Eye of Eden": "Mắt Địa Đàng",
@@ -803,7 +804,11 @@
 			"200": "Nông Dân Hồi Phục Ánh Sáng",
 			"201": "Học Giả Hồi Phục Ánh Sáng",
 			"202": "Người Hồi Phục Ánh Sáng",
-			"203": ""
+			"203": "Chỉ Dẫn Lễ Hội",
+			"204": "Vũ Công Lễ Hội",
+			"205": "Người Tung Hứng Lễ Hội",
+			"206": "Giám Đốc Giải Đố Lễ Hội",
+			"207": "DV Đóng Thế Lễ Hội"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1009,7 +1014,11 @@
 			"200": "",
 			"201": "",
 			"202": "",
-			"203": ""
+			"203": "",
+			"204": "",
+			"205": "",
+			"206": "",
+			"207": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -2379,7 +2388,12 @@
 			"2741": "Váy Hoa Hướng Dương Nở",
 			"2742": "Ô Hoa Hướng Dương Nở",
 			"2743": "Khuyên Hoa Hướng Dương Nở",
-			"2746": ""
+			"2746": "",
+			"2748": "",
+			"2749": "",
+			"2750": "",
+			"2751": "",
+			"2752": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
