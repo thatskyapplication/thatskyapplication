@@ -3483,6 +3483,20 @@ export enum Cosmetic {
 	CharmingCreatureOutfit = 2750,
 	CharmingCreatureHeadAccessory = 2751,
 	OceanVeilHairAccessory = 2752,
+
+	// 17/04/2026 | Season of Carnival.
+	CarnivalGuideQuest1 = 2753,
+	CarnivalPendant = 2754,
+	CarnivalGuideUltimateHair = 2755,
+	CarnivalGuideProp1 = 2756,
+	CarnivalGuideUltimateCape = 2757,
+	CarnivalGuideProp2 = 2758,
+	CarnivalGuideProp3 = 2759,
+	CarnivalGuideHeart1 = 2760,
+	CarnivalGuideProp4 = 2761,
+	CarnivalGuideProp5 = 2762,
+	CarnivalGuideProp6 = 2763,
+	CarnivalGuideHeart2 = 2764,
 }
 
 export enum CosmeticCommon {
