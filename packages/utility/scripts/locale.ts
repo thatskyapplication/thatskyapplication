@@ -124,6 +124,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.PassageRock",
 	},
 	{
+		upstreamKey: "title_dawn_shrine_01",
+		tsKey: "AreaName.TempleOfTheIsle",
+	},
+	{
 		upstreamKey: "title_dawn_plateau_01",
 		tsKey: "AreaName.DawnOverlook",
 	},
