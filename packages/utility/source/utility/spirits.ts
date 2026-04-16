@@ -276,6 +276,10 @@ export const SpiritId = {
 
 	// Season of Carnival.
 	CarnivalGuide: 203,
+	CarnivalAthleticDancer: 204,
+	CarnivalJuggler: 205,
+	CarnivalPuzzleDirector: 206,
+	CarnivalStuntActor: 207,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);

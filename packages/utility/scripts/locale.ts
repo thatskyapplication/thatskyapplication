@@ -5,6 +5,7 @@ import pc from "picocolors";
 import { Cosmetic } from "../source/cosmetics.js";
 import { DailyQuest } from "../source/daily-guides.js";
 import { AreaName } from "../source/kingdom/geography.js";
+import { SpiritId } from "../source/utility/spirits.js";
 
 // --update-en also updates en-gb.ts.
 
@@ -41,6 +42,7 @@ const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> 
 	Cosmetic,
 	DailyQuest,
 	AreaName,
+	SpiritId,
 };
 
 /**
@@ -50,6 +52,7 @@ const TS_KEY_JSON_PREFIXES: Record<string, string> = {
 	Cosmetic: "general.cosmetic-names",
 	DailyQuest: "general.quests",
 	AreaName: "general.areas",
+	SpiritId: "general.spirits",
 };
 
 /**
@@ -343,6 +346,26 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "daily_quest_world_quest_ap09_fetch_04_desc",
 		tsKey: "DailyQuest.RehearseForAPerformanceWithTheSkater",
+	},
+	{
+		upstreamKey: "name_questap30",
+		tsKey: "SpiritId.CarnivalGuide",
+	},
+	{
+		upstreamKey: "name_breakdance",
+		tsKey: "SpiritId.CarnivalAthleticDancer",
+	},
+	{
+		upstreamKey: "name_balltrick",
+		tsKey: "SpiritId.CarnivalJuggler",
+	},
+	{
+		upstreamKey: "name_write",
+		tsKey: "SpiritId.CarnivalPuzzleDirector",
+	},
+	{
+		upstreamKey: "name_approve",
+		tsKey: "SpiritId.CarnivalStuntActor",
 	},
 ];
 

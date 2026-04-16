@@ -2,14 +2,18 @@ import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
+import carnivalAthleticDancer from "./carnival-athletic-dancer.js";
 import carnivalGuide from "./carnival-guide.js";
+import carnivalJuggler from "./carnival-juggler.js";
+import carnivalPuzzleDirector from "./carnival-puzzle-director.js";
+import carnivalStuntActor from "./carnival-stunt-actor.js";
 
 export default new Season({
 	id: SeasonId.Carnival,
 	start: skyDate(2026, 4, 17),
 	end: skyDate(2026, 7, 3),
 	guide: carnivalGuide,
-	spirits: [],
+	spirits: [carnivalAthleticDancer, carnivalJuggler, carnivalPuzzleDirector, carnivalStuntActor],
 	seasonalCandlesRotation: [
 		{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
 		{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },

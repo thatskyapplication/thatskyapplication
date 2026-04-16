@@ -1106,6 +1106,10 @@ export default {
 			[SpiritId.LightmendingLightScholar]: "Lightmending Light Scholar",
 			[SpiritId.LightmendingPioneer]: "Lightmending Pioneer",
 			[SpiritId.CarnivalGuide]: "Carnival Guide",
+			[SpiritId.CarnivalAthleticDancer]: "Carnival Athletic Dancer",
+			[SpiritId.CarnivalJuggler]: "Carnival Juggler",
+			[SpiritId.CarnivalPuzzleDirector]: "Carnival Puzzle Director",
+			[SpiritId.CarnivalStuntActor]: "Carnival Stunt Actor",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1395,6 +1399,13 @@ export default {
 			[SpiritId.LightmendingPioneer]:
 				"https://sky-children-of-the-light.fandom.com/Lightmending_Pioneer",
 			[SpiritId.CarnivalGuide]: "https://sky-children-of-the-light.fandom.com/Carnival_Guide",
+			[SpiritId.CarnivalAthleticDancer]:
+				"https://sky-children-of-the-light.fandom.com/Carnival_Athletic_Dancer",
+			[SpiritId.CarnivalJuggler]: "https://sky-children-of-the-light.fandom.com/Carnival_Juggler",
+			[SpiritId.CarnivalPuzzleDirector]:
+				"https://sky-children-of-the-light.fandom.com/Carnival_Puzzle_Director",
+			[SpiritId.CarnivalStuntActor]:
+				"https://sky-children-of-the-light.fandom.com/Carnival_Stunt_Actor",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
