@@ -25,6 +25,7 @@
 		"areas": {
 			"Dawn Circle": "Círculo del Amanecer",
 			"Passage Rock": "Roca de Iniciación",
+			"Temple of the Isle": "",
 			"Dawn Overlook": "Mirador del Alba",
 			"Trial of Water": "Prueba de Agua",
 			"Trial of Earth": "Prueba de Tierra",
@@ -803,7 +804,11 @@
 			"200": "Cazador de luz de reparación lumínica",
 			"201": "Erudito de luz de reparación lumínica",
 			"202": "Pionero de la reparación lumínica",
-			"203": ""
+			"203": "Guía del carnaval",
+			"204": "Bailarín atlético del carnaval",
+			"205": "Malabarista del carnaval",
+			"206": "Directora de rompecabezas del carnaval",
+			"207": "Doble de riesgo del carnaval"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1009,7 +1014,11 @@
 			"200": "",
 			"201": "",
 			"202": "",
-			"203": ""
+			"203": "",
+			"204": "",
+			"205": "",
+			"206": "",
+			"207": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -2379,7 +2388,12 @@
 			"2741": "Vestido de girasol",
 			"2742": "Paraguas de girasol",
 			"2743": "Pendientes de girasol",
-			"2746": ""
+			"2746": "",
+			"2748": "",
+			"2749": "",
+			"2750": "",
+			"2751": "",
+			"2752": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

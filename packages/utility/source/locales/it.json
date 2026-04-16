@@ -25,6 +25,7 @@
 		"areas": {
 			"Dawn Circle": "Cerchio dell'Alba",
 			"Passage Rock": "Pietra della Transizione",
+			"Temple of the Isle": "",
 			"Dawn Overlook": "Belvedere dell'Alba",
 			"Trial of Water": "Prova dell'Acqua",
 			"Trial of Earth": "Prova della Terra",
@@ -803,7 +804,11 @@
 			"200": "Cacciatore della Rinascita della Luce",
 			"201": "Studiosa della Rinascita della Luce",
 			"202": "Pioniere della Rinascita della Luce",
-			"203": ""
+			"203": "Guida della Fiera",
+			"204": "Ballerino atletico della Fiera",
+			"205": "Giocoliere della Fiera",
+			"206": "Direttrice degli enigmi della Fiera",
+			"207": "Acrobata della Fiera"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1009,7 +1014,11 @@
 			"200": "",
 			"201": "",
 			"202": "",
-			"203": ""
+			"203": "",
+			"204": "",
+			"205": "",
+			"206": "",
+			"207": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -2379,7 +2388,12 @@
 			"2741": "Abito girasole della Fioritura",
 			"2742": "Ombrello girasole della Fioritura",
 			"2743": "Orecchini girasole della Fioritura",
-			"2746": ""
+			"2746": "",
+			"2748": "",
+			"2749": "",
+			"2750": "",
+			"2751": "",
+			"2752": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

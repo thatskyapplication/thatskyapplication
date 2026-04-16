@@ -25,6 +25,7 @@
 		"areas": {
 			"Dawn Circle": "孤島台地",
 			"Passage Rock": "ならいの大岩",
+			"Temple of the Isle": "",
 			"Dawn Overlook": "孤島の見晴らし台",
 			"Trial of Water": "水の試練",
 			"Trial of Earth": "地の試練",
@@ -803,7 +804,11 @@
 			"200": "光修繕する光採取者",
 			"201": "光修繕する光学者",
 			"202": "光修繕する開拓者",
-			"203": ""
+			"203": "カーニバルの案内人",
+			"204": "カーニバルの旋舞家",
+			"205": "カーニバルの曲芸師",
+			"206": "カーニバルの謎解き座長",
+			"207": "カーニバルの旅役者"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%8C%87%E5%B7%AE%E3%81%99%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%89%E3%83%AB%E8%81%B7%E4%BA%BA",
@@ -1009,7 +1014,11 @@
 			"200": "https://sky-children-of-the-light.fandom.com/ja/wiki/光修繕する光採取者",
 			"201": "https://sky-children-of-the-light.fandom.com/ja/wiki/光修繕する光学者",
 			"202": "",
-			"203": ""
+			"203": "",
+			"204": "",
+			"205": "",
+			"206": "",
+			"207": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -2379,7 +2388,12 @@
 			"2741": "花笑むひまわりサンドレス",
 			"2742": "花笑むひまわり傘",
 			"2743": "花笑むひまわり耳飾り",
-			"2746": ""
+			"2746": "",
+			"2748": "",
+			"2749": "",
+			"2750": "",
+			"2751": "",
+			"2752": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
