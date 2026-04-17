@@ -411,6 +411,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 			if (
 				reason.cause instanceof DiscordAPIError &&
 				(reason.cause.code === RESTJSONErrorCodes.UnknownChannel ||
+					reason.cause.code === RESTJSONErrorCodes.MissingAccess ||
 					reason.cause.code === RESTJSONErrorCodes.MissingPermissions)
 			) {
 				updateErrors.push(
