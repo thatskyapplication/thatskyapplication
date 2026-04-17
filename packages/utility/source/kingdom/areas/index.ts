@@ -54,6 +54,7 @@ import vaultArchive from "./vault-archive.js";
 import vaultRest from "./vault-rest.js";
 import villageOfDreams from "./village-of-dreams.js";
 import villageTheatre from "./village-theatre.js";
+import wanderingCarnival from "./wandering-carnival.js";
 
 export const AREAS = [
 	// Isle of Dawn.
@@ -126,6 +127,7 @@ export const AREAS = [
 	// Miscellaneous.
 	ancientMemory,
 	thePassage,
+	wanderingCarnival,
 ] as const;
 
 export function areasForRealm(realm: RealmName) {

@@ -480,10 +480,13 @@ export async function wingedLight(
 	};
 
 	const fields = WINGED_LIGHT_AREAS.map((area) => ({
-		name: t(`${area === AreaName.AncientMemory ? "areas" : "realms"}.${area}`, {
-			lng: locale,
-			ns: "general",
-		}),
+		name: t(
+			`${area === AreaName.AncientMemory || area === AreaName.WanderingCarnival ? "areas" : "realms"}.${area}`,
+			{
+				lng: locale,
+				ns: "general",
+			},
+		),
 		value: `${
 			// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
 			(accumulation += TopLevelAreaToWingedLight[area])

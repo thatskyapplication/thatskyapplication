@@ -104,6 +104,7 @@ export default {
 			[AreaName.ThePassage]: "The Passage",
 			[AreaName.AncientMemory]: "Ancient Memory",
 			[AreaName.AviaryVillage]: "Aviary Village",
+			[AreaName.WanderingCarnival]: "Wandering Carnival",
 		} satisfies Record<AreaName, string>,
 		"notification-types": {
 			[NotificationType.DailyReset]: "Daily reset",

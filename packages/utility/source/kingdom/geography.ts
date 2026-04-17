@@ -105,4 +105,7 @@ export enum AreaName {
 
 	// Season of Revival.
 	AviaryVillage = "Aviary Village",
+
+	// Season of Carnival.
+	WanderingCarnival = "Wandering Carnival",
 }

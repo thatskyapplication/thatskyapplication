@@ -351,6 +351,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.AviaryVillage",
 	},
 	{
+		upstreamKey: "title_aviary_carnival_01",
+		tsKey: "AreaName.WanderingCarnival",
+	},
+	{
 		upstreamKey: "daily_quest_world_quest_ap09_fetch_04_desc",
 		tsKey: "DailyQuest.RehearseForAPerformanceWithTheSkater",
 	},

@@ -12,6 +12,7 @@ export const WINGED_LIGHT_AREAS = [
 	RealmName.VaultOfKnowledge,
 	RealmName.EyeOfEden,
 	AreaName.AncientMemory,
+	AreaName.WanderingCarnival,
 ] as const;
 
 type WingedLightAreas = (typeof WINGED_LIGHT_AREAS)[number];
@@ -24,7 +25,9 @@ function wingedLightForRealm(realmName: RealmName) {
 	return REALMS.find((realm) => realm.name === realmName)!.wingedLight;
 }
 
-function wingedLightForArea(areaName: AreaName.AncientMemory | AreaName.ThePassage) {
+function wingedLightForArea(
+	areaName: AreaName.AncientMemory | AreaName.ThePassage | AreaName.WanderingCarnival,
+) {
 	return AREAS.find((area) => area.name === areaName)!.wingedLight;
 }
 
@@ -38,6 +41,7 @@ export const TopLevelAreaToWingedLight = {
 	[RealmName.EyeOfEden]: wingedLightForRealm(RealmName.EyeOfEden),
 	[AreaName.AncientMemory]: wingedLightForArea(AreaName.AncientMemory),
 	[AreaName.ThePassage]: wingedLightForArea(AreaName.ThePassage),
+	[AreaName.WanderingCarnival]: wingedLightForArea(AreaName.WanderingCarnival),
 } as const satisfies Readonly<Record<WingedLightAreas | AreaName.ThePassage, number>>;
 
 export const TOP_LEVEL_WINGED_LIGHT_IN_AREAS = Object.values(TopLevelAreaToWingedLight).reduce(
