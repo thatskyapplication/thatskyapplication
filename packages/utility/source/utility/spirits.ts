@@ -404,6 +404,7 @@ export enum SpiritEmote {
 	Dizzy = "Dizzy",
 	CuteClap = "Cute clap",
 	Breakdance = "Breakdance",
+	BallSpinTrick = "Ball spin trick",
 }
 
 export enum FriendAction {

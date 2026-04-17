@@ -2797,6 +2797,13 @@ export default {
 			[Cosmetic.EmoteBreakdance3]: "Breakdance 3",
 			[Cosmetic.CarnivalAthleticDancerTrust]: "Trust",
 			[Cosmetic.EmoteBreakdance4]: "Breakdance 4",
+			[Cosmetic.EmoteBallSpinTrick1]: "Ball spin trick 1",
+			[Cosmetic.EmoteBallSpinTrick2]: "Ball spin trick 2",
+			[Cosmetic.EmoteBallSpinTrick3]: "Ball spin trick 3",
+			[Cosmetic.CarnivalJugglerNeckAccessory]: "Neck accessory",
+			[Cosmetic.CarnivalJugglerTrust]: "Trust",
+			[Cosmetic.EmoteBallSpinTrick4]: "Ball spin trick 4",
+			[Cosmetic.CarnivalJugglerWhiteDye]: "White dye",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
