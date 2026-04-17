@@ -403,6 +403,7 @@ export enum SpiritEmote {
 	JellyfishDance = "Jellyfish dance",
 	Dizzy = "Dizzy",
 	CuteClap = "Cute clap",
+	Breakdance = "Breakdance",
 }
 
 export enum FriendAction {

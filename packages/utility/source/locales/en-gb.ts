@@ -2792,6 +2792,11 @@ export default {
 			[Cosmetic.CarnivalGuideProp4]: "Prop 4",
 			[Cosmetic.CarnivalGuideProp5]: "Prop 5",
 			[Cosmetic.CarnivalGuideProp6]: "Prop 6",
+			[Cosmetic.EmoteBreakdance1]: "Breakdance 1",
+			[Cosmetic.EmoteBreakdance2]: "Breakdance 2",
+			[Cosmetic.EmoteBreakdance3]: "Breakdance 3",
+			[Cosmetic.CarnivalAthleticDancerTrust]: "Trust",
+			[Cosmetic.EmoteBreakdance4]: "Breakdance 4",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

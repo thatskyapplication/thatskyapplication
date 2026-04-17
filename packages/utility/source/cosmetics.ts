@@ -3497,6 +3497,18 @@ export enum Cosmetic {
 	CarnivalGuideProp5 = 2762,
 	CarnivalGuideProp6 = 2763,
 	CarnivalGuideHeart2 = 2764,
+	EmoteBreakdance1 = 2765,
+	CarnivalAthleticDancerBlessing1 = 2766,
+	CarnivalAthleticDancerMask = 2767,
+	CarnivalAthleticDancerBlessing2 = 2768,
+	EmoteBreakdance2 = 2769,
+	EmoteBreakdance3 = 2770,
+	CarnivalAthleticDancerBlessing3 = 2771,
+	CarnivalAthleticDancerCape = 2772,
+	CarnivalAthleticDancerOutfit = 2773,
+	CarnivalAthleticDancerTrust = 2774,
+	EmoteBreakdance4 = 2775,
+	CarnivalAthleticDancerSeasonalHeart = 2776,
 }
 
 export enum CosmeticCommon {

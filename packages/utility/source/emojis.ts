@@ -277,6 +277,7 @@ const EMOTE_EMOJIS_PRODUCTION = {
 	JellyfishDance: { id: "1431949581221888150", name: "jellyfish_dance" },
 	Dizzy: { id: "1431943071666540554", name: "dizzy" },
 	CuteClap: { id: "1464068296121913491", name: "cute_clap" },
+	Breakdance: { id: "1494738860272259183", name: "breakdance" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_DEVELOPMENT = {
@@ -393,6 +394,7 @@ const EMOTE_EMOJIS_DEVELOPMENT = {
 	JellyfishDance: { id: "1431949589807759423", name: "jellyfish_dance" },
 	Dizzy: { id: "1431943075508256860", name: "dizzy" },
 	CuteClap: { id: "1464068302279278664", name: "cute_clap" },
+	Breakdance: { id: "1494738868312997888", name: "breakdance" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const STANCE_EMOJIS_PRODUCTION = {
@@ -1140,6 +1142,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Charming Creature outfit.
 	 */
 	Outfit104: { id: "1492226476723146883", name: "104_outfit" },
+	/**
+	 * Carnival Athletic Dancer.
+	 */
+	Outfit105: { id: "1494755154891636848", name: "105_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1247,6 +1253,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit102: { id: "1482684571320320010", name: "102_outfit" },
 	Outfit103: { id: "1482684573144846519", name: "103_outfit" },
 	Outfit104: { id: "1492226492506308618", name: "104_outfit" },
+	Outfit105: { id: "1494755163720781965", name: "105_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1831,6 +1838,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Days of Fortune 2026.
 	 */
 	Mask110: { id: "1471652335695433728", name: "110_mask" },
+	/**
+	 * Carnival Athletic Dancer.
+	 */
+	Mask111: { id: "1494754833012359228", name: "111_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1944,6 +1955,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask108: { id: "1464067060291207270", name: "108_mask" },
 	Mask109: { id: "1464068856409489429", name: "109_mask" },
 	Mask110: { id: "1471652342888661238", name: "110_mask" },
+	Mask111: { id: "1494754842030248217", name: "111_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3106,7 +3118,7 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Days of Nature 2026.
 	 */
 	Hair178: { id: "1492226482809077831", name: "178_hair" },
-		/**
+	/**
 	 * Carnival Guide (ultimate).
 	 */
 	Hair179: { id: "1494707953767550976", name: "179_hair" },
@@ -4519,6 +4531,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Carnival Guide (ultimate).
 	 */
 	Cape178: { id: "1494707745113509988", name: "178_cape" },
+	/**
+	 * Carnival Athletic Dancer.
+	 */
+	Cape179: { id: "1494754428044181565", name: "179_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4700,6 +4716,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape176: { id: "1471652027850555526", name: "176_cape" },
 	Cape177: { id: "1482683904417857638", name: "177_cape" },
 	Cape178: { id: "1494707752415531278", name: "178_cape" },
+	Cape179: { id: "1494754440761184456", name: "179_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -9111,6 +9128,18 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalGuideProp5]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp125,
 		[Cosmetic.CarnivalGuideProp6]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp110,
 		[Cosmetic.CarnivalGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
+		[Cosmetic.EmoteBreakdance1]: EMOTE_EMOJIS.Breakdance,
+		[Cosmetic.CarnivalAthleticDancerBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.CarnivalAthleticDancerMask]: MASK_EMOJIS.Mask111,
+		[Cosmetic.CarnivalAthleticDancerBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.EmoteBreakdance2]: EMOTE_EMOJIS.Breakdance,
+		[Cosmetic.EmoteBreakdance3]: EMOTE_EMOJIS.Breakdance,
+		[Cosmetic.CarnivalAthleticDancerBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.CarnivalAthleticDancerCape]: CAPE_EMOJIS.Cape179,
+		[Cosmetic.CarnivalAthleticDancerOutfit]: OUTFIT_EMOJIS.Outfit105,
+		[Cosmetic.CarnivalAthleticDancerTrust]: MISCELLANEOUS_EMOJIS.Trust,
+		[Cosmetic.EmoteBreakdance4]: EMOTE_EMOJIS.Breakdance,
+		[Cosmetic.CarnivalAthleticDancerSeasonalHeart]: SEASON_EMOJIS.CarnivalHeart,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
