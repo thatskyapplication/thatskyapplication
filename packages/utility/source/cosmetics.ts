@@ -3522,6 +3522,19 @@ export enum Cosmetic {
 	EmoteBallSpinTrick4 = 2787,
 	CarnivalJugglerWhiteDye = 2788,
 	CarnivalJugglerSeasonalHeart = 2789,
+	EmoteTakeNotes1 = 2790,
+	CarnivalPuzzleDirectorBlessing1 = 2791,
+	MusicSheetAirship = 2792,
+	CarnivalPuzzleDirectorBlessing2 = 2793,
+	EmoteTakeNotes2 = 2794,
+	EmoteTakeNotes3 = 2795,
+	CarnivalPuzzleDirectorBlessing3 = 2796,
+	CarnivalPuzzleDirectorOutfit = 2797,
+	CarnivalPuzzleDirectorHeadAccessory = 2798,
+	CarnivalPuzzleDirectorTrust = 2799,
+	EmoteTakeNotes4 = 2800,
+	CarnivalPuzzleDirectorHair = 2801,
+	CarnivalPuzzleDirectorSeasonalHeart = 2802,
 }
 
 export enum CosmeticCommon {

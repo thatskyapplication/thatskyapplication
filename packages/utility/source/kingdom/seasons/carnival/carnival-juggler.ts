@@ -73,7 +73,7 @@ export default new SeasonalSpirit({
 				{
 					cosmetic: Cosmetic.CarnivalJugglerWhiteDye,
 					seasonPass: true,
-				}
+				},
 			],
 			[
 				{
