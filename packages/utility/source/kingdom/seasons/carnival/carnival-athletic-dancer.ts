@@ -45,8 +45,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 24 },
 				},
 				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.CarnivalAthleticDancerBlessing3,
+					cosmetic: Cosmetic.CarnivalAthleticDancerWhiteDye,
 					cost: { seasonalCandles: 12 },
 				},
 				{

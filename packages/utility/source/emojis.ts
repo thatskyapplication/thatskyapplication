@@ -9190,7 +9190,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalAthleticDancerBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.EmoteBreakdance2]: EMOTE_EMOJIS.Breakdance,
 		[Cosmetic.EmoteBreakdance3]: EMOTE_EMOJIS.Breakdance,
-		[Cosmetic.CarnivalAthleticDancerBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.CarnivalAthleticDancerWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
 		[Cosmetic.CarnivalAthleticDancerCape]: CAPE_EMOJIS.Cape179,
 		[Cosmetic.CarnivalAthleticDancerOutfit]: OUTFIT_EMOJIS.Outfit105,
 		[Cosmetic.CarnivalAthleticDancerTrust]: MISCELLANEOUS_EMOJIS.Trust,

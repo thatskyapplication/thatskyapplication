@@ -3503,7 +3503,7 @@ export enum Cosmetic {
 	CarnivalAthleticDancerBlessing2 = 2768,
 	EmoteBreakdance2 = 2769,
 	EmoteBreakdance3 = 2770,
-	CarnivalAthleticDancerBlessing3 = 2771,
+	CarnivalAthleticDancerWhiteDye = 2771,
 	CarnivalAthleticDancerCape = 2772,
 	CarnivalAthleticDancerOutfit = 2773,
 	CarnivalAthleticDancerTrust = 2774,

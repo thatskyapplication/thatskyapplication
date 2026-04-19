@@ -2795,6 +2795,7 @@ export default {
 			[Cosmetic.EmoteBreakdance1]: "Breakdance 1",
 			[Cosmetic.EmoteBreakdance2]: "Breakdance 2",
 			[Cosmetic.EmoteBreakdance3]: "Breakdance 3",
+			[Cosmetic.CarnivalAthleticDancerWhiteDye]: "White dye",
 			[Cosmetic.CarnivalAthleticDancerTrust]: "Trust",
 			[Cosmetic.EmoteBreakdance4]: "Breakdance 4",
 			[Cosmetic.EmoteBallSpinTrick1]: "Ball spin trick 1",
