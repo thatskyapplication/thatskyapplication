@@ -3520,7 +3520,7 @@ export enum Cosmetic {
 	CarnivalJugglerOutfit = 2785,
 	CarnivalJugglerTrust = 2786,
 	EmoteBallSpinTrick4 = 2787,
-	CarnivalJugglerWhiteDye = 2788,
+	CarnivalJugglerBlackDye = 2788,
 	CarnivalJugglerSeasonalHeart = 2789,
 	EmoteTakeNotes1 = 2790,
 	CarnivalPuzzleDirectorBlessing1 = 2791,

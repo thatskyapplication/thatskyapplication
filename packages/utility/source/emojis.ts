@@ -9207,7 +9207,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalJugglerOutfit]: OUTFIT_EMOJIS.Outfit106,
 		[Cosmetic.CarnivalJugglerTrust]: MISCELLANEOUS_EMOJIS.Trust,
 		[Cosmetic.EmoteBallSpinTrick4]: EMOTE_EMOJIS.BallSpinTrick,
-		[Cosmetic.CarnivalJugglerWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
+		[Cosmetic.CarnivalJugglerBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
 		[Cosmetic.CarnivalJugglerSeasonalHeart]: SEASON_EMOJIS.CarnivalHeart,
 		[Cosmetic.EmoteTakeNotes1]: EMOTE_EMOJIS.TakeNotes,
 		[Cosmetic.CarnivalPuzzleDirectorBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,

@@ -2804,7 +2804,7 @@ export default {
 			[Cosmetic.CarnivalJugglerNeckAccessory]: "Neck accessory",
 			[Cosmetic.CarnivalJugglerTrust]: "Trust",
 			[Cosmetic.EmoteBallSpinTrick4]: "Ball spin trick 4",
-			[Cosmetic.CarnivalJugglerWhiteDye]: "White dye",
+			[Cosmetic.CarnivalJugglerBlackDye]: "Black dye",
 			[Cosmetic.EmoteTakeNotes1]: "Take notes 1",
 			[Cosmetic.MusicSheetAirship]: "Airship",
 			[Cosmetic.EmoteTakeNotes2]: "Take notes 2",
