@@ -9,7 +9,6 @@ export default new SeasonalSpirit({
 	emote: SpiritEmote.BallSpinTrick,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			[
 				{

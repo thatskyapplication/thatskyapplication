@@ -9,7 +9,6 @@ export default new SeasonalSpirit({
 	emote: SpiritEmote.Approve,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			[
 				{

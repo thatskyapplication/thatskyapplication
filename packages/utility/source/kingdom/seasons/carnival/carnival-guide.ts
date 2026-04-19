@@ -7,7 +7,6 @@ export default new GuideSpirit({
 	id: SpiritId.CarnivalGuide,
 	seasonId: SeasonId.Carnival,
 	offer: {
-		hasInfographic: false,
 		inProgress: true,
 		current: [
 			[
