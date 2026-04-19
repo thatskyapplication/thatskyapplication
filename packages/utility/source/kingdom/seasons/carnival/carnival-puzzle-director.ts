@@ -56,7 +56,8 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorHeadAccessory,
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.CarnivalPuzzleDirectorHairAccessory,
 					cost: { seasonalCandles: 28 },
 				},
 				{

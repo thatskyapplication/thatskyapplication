@@ -3645,9 +3645,13 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	HairAccessory74: { id: "1492226474005238001", name: "74_hair_accessory" },
 	/**
+	 * Carnival Puzzle Director.
+	 */
+	HeadAccessory75: { id: "1494848433889214524", name: "75_hair_accessory" },
+	/**
 	 * Carnival Stunt Actor.
 	 */
-	HairAccessory75: { id: "1495325739581444197", name: "75_hair_accessory" },
+	HairAccessory76: { id: "1495325739581444197", name: "76_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3725,7 +3729,8 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory72: { id: "1459119299699675188", name: "72_hair_accessory" },
 	HairAccessory73: { id: "1464064974996639754", name: "73_hair_accessory" },
 	HairAccessory74: { id: "1492226490094325780", name: "74_hair_accessory" },
-	HairAccessory75: { id: "1495325748162990151", name: "75_hair_accessory" },
+	HeadAccessory75: { id: "1494848449483374905", name: "75_hair_accessory" },
+	HairAccessory76: { id: "1495325748162990151", name: "76_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3833,10 +3838,6 @@ const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Charming Creature head accessory.
 	 */
 	HeadAccessory26: { id: "1492226472071397517", name: "26_head_accessory" },
-	/**
-	 * Carnival Puzzle Director.
-	 */
-	HeadAccessory27: { id: "1494848433889214524", name: "27_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3866,7 +3867,6 @@ const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HeadAccessory24: { id: "1464063379953156177", name: "24_head_accessory" },
 	HeadAccessory25: { id: "1482685944338579567", name: "25_head_accessory" },
 	HeadAccessory26: { id: "1492226486923563049", name: "26_head_accessory" },
-	HeadAccessory27: { id: "1494848449483374905", name: "27_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -9217,7 +9217,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.EmoteTakeNotes3]: EMOTE_EMOJIS.TakeNotes,
 		[Cosmetic.CarnivalPuzzleDirectorBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.CarnivalPuzzleDirectorOutfit]: OUTFIT_EMOJIS.Outfit107,
-		[Cosmetic.CarnivalPuzzleDirectorHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory27,
+		[Cosmetic.CarnivalPuzzleDirectorHairAccessory]: HAIR_ACCESSORY_EMOJIS.HeadAccessory75,
 		[Cosmetic.CarnivalPuzzleDirectorTrust]: MISCELLANEOUS_EMOJIS.Trust,
 		[Cosmetic.EmoteTakeNotes4]: EMOTE_EMOJIS.TakeNotes,
 		[Cosmetic.CarnivalPuzzleDirectorHair]: HAIR_EMOJIS.Hair180,
@@ -9233,7 +9233,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalStuntActorHair]: HAIR_EMOJIS.Hair181,
 		[Cosmetic.CarnivalStuntActorTrust]: MISCELLANEOUS_EMOJIS.Trust,
 		[Cosmetic.EmoteApprove4]: EMOTE_EMOJIS.Approve,
-		[Cosmetic.CarnivalStuntActorHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory75,
+		[Cosmetic.CarnivalStuntActorHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory76,
 		[Cosmetic.CarnivalStuntActorSeasonalHeart]: SEASON_EMOJIS.CarnivalHeart,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 

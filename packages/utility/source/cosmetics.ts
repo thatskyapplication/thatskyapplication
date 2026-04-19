@@ -3530,7 +3530,7 @@ export enum Cosmetic {
 	EmoteTakeNotes3 = 2795,
 	CarnivalPuzzleDirectorBlessing3 = 2796,
 	CarnivalPuzzleDirectorOutfit = 2797,
-	CarnivalPuzzleDirectorHeadAccessory = 2798,
+	CarnivalPuzzleDirectorHairAccessory = 2798,
 	CarnivalPuzzleDirectorTrust = 2799,
 	EmoteTakeNotes4 = 2800,
 	CarnivalPuzzleDirectorHair = 2801,

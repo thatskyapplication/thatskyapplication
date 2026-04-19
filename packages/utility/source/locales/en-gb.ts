@@ -2808,7 +2808,6 @@ export default {
 			[Cosmetic.MusicSheetAirship]: "Airship",
 			[Cosmetic.EmoteTakeNotes2]: "Take notes 2",
 			[Cosmetic.EmoteTakeNotes3]: "Take notes 3",
-			[Cosmetic.CarnivalPuzzleDirectorHeadAccessory]: "Head accessory",
 			[Cosmetic.CarnivalPuzzleDirectorTrust]: "Trust",
 			[Cosmetic.EmoteTakeNotes4]: "Take notes 4",
 			[Cosmetic.EmoteApprove1]: "Approve 1",
