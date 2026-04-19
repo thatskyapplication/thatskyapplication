@@ -71,6 +71,8 @@ export default new SeasonalSpirit({
 				},
 			],
 			[
+				null,
+				null,
 				{
 					translation: CosmeticCommon.SeasonalHeart,
 					cosmetic: Cosmetic.CarnivalAthleticDancerSeasonalHeart,

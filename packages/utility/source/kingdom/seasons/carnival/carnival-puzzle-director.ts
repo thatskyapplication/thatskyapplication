@@ -70,6 +70,8 @@ export default new SeasonalSpirit({
 				},
 			],
 			[
+				null,
+				null,
 				{
 					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.CarnivalPuzzleDirectorHair,
@@ -77,6 +79,8 @@ export default new SeasonalSpirit({
 				},
 			],
 			[
+				null,
+				null,
 				{
 					translation: CosmeticCommon.SeasonalHeart,
 					cosmetic: Cosmetic.CarnivalPuzzleDirectorSeasonalHeart,
