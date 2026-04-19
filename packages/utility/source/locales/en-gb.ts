@@ -2811,6 +2811,11 @@ export default {
 			[Cosmetic.CarnivalPuzzleDirectorHeadAccessory]: "Head accessory",
 			[Cosmetic.CarnivalPuzzleDirectorTrust]: "Trust",
 			[Cosmetic.EmoteTakeNotes4]: "Take notes 4",
+			[Cosmetic.EmoteApprove1]: "Approve 1",
+			[Cosmetic.EmoteApprove2]: "Approve 2",
+			[Cosmetic.EmoteApprove3]: "Approve 3",
+			[Cosmetic.CarnivalStuntActorTrust]: "Trust",
+			[Cosmetic.EmoteApprove4]: "Approve 4",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
