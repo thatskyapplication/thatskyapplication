@@ -382,6 +382,10 @@ const MAPPINGS: LocaleMapping[] = [
 		upstreamKey: "name_season_30",
 		tsKey: "SeasonId.Carnival",
 	},
+	{
+		upstreamKey: "sheet_50",
+		tsKey: "Cosmetic.MusicSheetAirship",
+	},
 ];
 
 function parseLocalizableStrings(content: string): Map<string, string> {
