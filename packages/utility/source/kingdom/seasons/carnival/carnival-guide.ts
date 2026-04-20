@@ -69,12 +69,14 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.CarnivalGuideProp4,
 				},
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 5 },
 					cosmetic: Cosmetic.CarnivalGuideProp5,
 				},
 			],
 			[
 				null,
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 6 },
 					cosmetic: Cosmetic.CarnivalGuideProp6,
 					cost: { candles: 26 },
 				},

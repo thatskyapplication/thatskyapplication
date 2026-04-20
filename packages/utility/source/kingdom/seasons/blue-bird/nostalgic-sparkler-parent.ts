@@ -49,10 +49,15 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 3 },
 					cosmetic: Cosmetic.NostalgicSparklerParentDye3,
 					cost: { seasonalCandles: 23 },
 				},
-				{ cosmetic: Cosmetic.NostalgicSparklerParentDye4, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 4 },
+					cosmetic: Cosmetic.NostalgicSparklerParentDye4,
+					seasonPass: true,
+				},
 			],
 			[
 				{

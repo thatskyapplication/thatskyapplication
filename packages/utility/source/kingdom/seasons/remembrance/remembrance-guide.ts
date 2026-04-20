@@ -143,6 +143,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.RemembranceGuideQuest9,
 				},
 				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 3 },
 					cosmetic: Cosmetic.RemembranceGuideTrailSpell3,
 				},
 			],
