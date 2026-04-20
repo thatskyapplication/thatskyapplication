@@ -53,6 +53,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 					cosmetic: Cosmetic.DismayedHunterCape1,
 					cost: { hearts: 30 },
 				},
@@ -66,6 +67,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 					cosmetic: Cosmetic.DismayedHunterCape2,
 					cost: { hearts: 90 },
 				},

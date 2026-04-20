@@ -80,6 +80,7 @@ export default new SeasonalSpirit({
 					level: 2,
 				},
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.ProphetOfEarthProp,
 					cost: { candles: 15 },
 				},

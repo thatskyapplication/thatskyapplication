@@ -106,6 +106,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 70 },
 				},
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.WiseGrandparentProp,
 					cost: { candles: 10 },
 				},

@@ -52,6 +52,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.HerbGathererProp,
 					cost: { seasonalCandles: 36 },
 				},

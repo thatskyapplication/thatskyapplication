@@ -38,10 +38,12 @@ export default new Event({
 			cost: { eventTickets: 22 },
 		},
 		{
+			translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 			cosmetic: Cosmetic.DaysOfNature2026Prop1,
 			cost: { eventTickets: 21 },
 		},
 		{
+			translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 			cosmetic: Cosmetic.DaysOfNature2026Prop2,
 			cost: { eventTickets: 17 },
 		},

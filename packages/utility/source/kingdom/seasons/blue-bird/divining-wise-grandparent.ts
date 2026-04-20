@@ -13,10 +13,15 @@ export default new SeasonalSpirit({
 		seasonal: [
 			[
 				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 1 },
 					cosmetic: Cosmetic.DiviningWiseGrandparentDye1,
 					cost: { seasonalCandles: 7 },
 				},
-				{ cosmetic: Cosmetic.DiviningWiseGrandparentBlackDye, seasonPass: true },
+				{
+					translation: CosmeticCommon.BlackDye,
+					cosmetic: Cosmetic.DiviningWiseGrandparentBlackDye,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -32,13 +37,19 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.BlueDye,
 					cosmetic: Cosmetic.DiviningWiseGrandparentBlueDye,
 					cost: { seasonalCandles: 17 },
 				},
-				{ cosmetic: Cosmetic.DiviningWiseGrandparentDye2, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 2 },
+					cosmetic: Cosmetic.DiviningWiseGrandparentDye2,
+					seasonPass: true,
+				},
 			],
 			[
 				{
+					translation: CosmeticCommon.CyanDye,
 					cosmetic: Cosmetic.DiviningWiseGrandparentCyanDye,
 					cost: { seasonalCandles: 21 },
 				},

@@ -16,6 +16,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 14 },
 				},
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.ThePianistsBeginningsProp1,
 					seasonPass: true,
 				},
@@ -46,6 +47,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.ThePianistsBeginningsProp2,
 					cost: { seasonalCandles: 30 },
 				},

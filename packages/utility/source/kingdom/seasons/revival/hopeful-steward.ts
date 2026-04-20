@@ -19,16 +19,19 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.RevivalPendant,
 					seasonPass: true,
 					thirdHeight: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateHair,
 							cosmetic: Cosmetic.HopefulStewardUltimateHair,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.HopefulStewardUltimateCape,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
@@ -57,9 +60,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.HopefulStewardHeart4,
 					cost: { candles: 3 },
 				},
-				{
-					cosmetic: Cosmetic.HopefulStewardFriendActionHug,
-				},
+				{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.HopefulStewardFriendActionHug },
 			],
 			[
 				{

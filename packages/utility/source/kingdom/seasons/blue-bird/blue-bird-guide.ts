@@ -20,15 +20,18 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.BlueBirdGuideHeart1,
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.BlueBirdPendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateFaceAccessory,
 							cosmetic: Cosmetic.BlueBirdGuideUltimateFaceAccessory,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.BlueBirdGuideUltimateCape,
 							cost: { seasonalHearts: 3 },
 							seasonPass: true,
@@ -101,7 +104,13 @@ export default new GuideSpirit({
 				},
 				{ cosmetic: Cosmetic.CallBlueBird, cost: { hearts: 3 } },
 			],
-			[{ cosmetic: Cosmetic.BlueBirdGuideProp, cost: { hearts: 18 } }],
+			[
+				{
+					translation: CosmeticCommon.Prop,
+					cosmetic: Cosmetic.BlueBirdGuideProp,
+					cost: { hearts: 18 },
+				},
+			],
 		],
 	},
 });

@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { SeasonId } from "../../../season.js";
@@ -24,10 +24,8 @@ export default new Season({
 		ShushingLightScholar,
 	],
 	items: [
-		{ cosmetic: Cosmetic.LightseekerPendant },
-		{
-			cosmetic: Cosmetic.LightseekerUltimateProp,
-		},
+		{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.LightseekerPendant },
+		{ translation: CosmeticCommon.UltimateProp, cosmetic: Cosmetic.LightseekerUltimateProp },
 	],
 	seasonalCandlesRotation: null,
 	patchNotesURL: "https://sky-children-of-the-light.fandom.com/wiki/Update:Live_0.6.0",

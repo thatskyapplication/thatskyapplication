@@ -55,7 +55,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.JollyGeologistMusicSheet,
 					cost: { seasonalCandles: 34 },
 				},
-				{ cosmetic: Cosmetic.JollyGeologistProp, seasonPass: true },
+				{
+					translation: CosmeticCommon.Prop,
+					cosmetic: Cosmetic.JollyGeologistProp,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -77,7 +81,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.JollyGeologistBlessing1,
 					cost: { candles: 5 },
 				},
-				{ cosmetic: Cosmetic.JollyGeologistProp, cost: { candles: 36 } },
+				{
+					translation: CosmeticCommon.Prop,
+					cosmetic: Cosmetic.JollyGeologistProp,
+					cost: { candles: 36 },
+				},
 				{
 					translation: CosmeticCommon.Heart,
 					cosmetic: Cosmetic.JollyGeologistSeasonalHeart,

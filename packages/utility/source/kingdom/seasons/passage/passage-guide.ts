@@ -21,16 +21,19 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.PassagePendant,
 					seasonPass: true,
 					thirdHeight: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateMask,
 							cosmetic: Cosmetic.PassageGuideUltimateMask,
 							seasonPass: true,
 							cost: { seasonalHearts: 2 },
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.PassageGuideUltimateCape,
 							seasonPass: true,
 							cost: { seasonalHearts: 2 },

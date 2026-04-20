@@ -16,22 +16,26 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 8 },
 				},
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.TenderToymakerProp1,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.TenderToymakerProp2,
 					cost: { seasonalCandles: 14 },
 				},
 				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 1 },
 					cosmetic: Cosmetic.TenderToymakerDye1,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: CosmeticCommon.GreenDye,
 					cosmetic: Cosmetic.TenderToymakerGreenDye,
 					cost: { seasonalCandles: 22 },
 				},
@@ -48,6 +52,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 28 },
 				},
 				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 2 },
 					cosmetic: Cosmetic.TenderToymakerDye2,
 					seasonPass: true,
 				},

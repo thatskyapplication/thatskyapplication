@@ -11,6 +11,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			[
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.NestingAtriumProp1,
 					cost: { seasonalCandles: 16 },
 				},
@@ -26,7 +27,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.NestingAtriumBlessing2,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.NestingAtriumProp2, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
+					cosmetic: Cosmetic.NestingAtriumProp2,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -46,7 +51,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.NestingAtriumBlessing4,
 					cost: { seasonalCandles: 28 },
 				},
-				{ cosmetic: Cosmetic.NestingAtriumProp3, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 3 },
+					cosmetic: Cosmetic.NestingAtriumProp3,
+					seasonPass: true,
+				},
 			],
 			[
 				{

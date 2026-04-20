@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { SeasonId } from "../../../season.js";
@@ -23,6 +23,9 @@ export default new Season({
 		SalutingProtector,
 		GreetingShaman,
 	],
-	items: [{ cosmetic: Cosmetic.GratitudePendant }, { cosmetic: Cosmetic.GratitudeUltimateMask }],
+	items: [
+		{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.GratitudePendant },
+		{ translation: CosmeticCommon.UltimateMask, cosmetic: Cosmetic.GratitudeUltimateMask },
+	],
 	seasonalCandlesRotation: null,
 });

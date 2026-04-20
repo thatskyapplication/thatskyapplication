@@ -25,6 +25,7 @@ export default new GuideSpirit({
 					],
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.MoominPendant,
 					seasonPass: true,
 					children: [
@@ -39,6 +40,7 @@ export default new GuideSpirit({
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateOutfit,
 							cosmetic: Cosmetic.TheMoominStorybookUltimateOutfit,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
@@ -94,6 +96,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.TheMoominStorybookHeart2,
 				},
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.TheMoominStorybookProp,
 					cost: { candles: 35 },
 				},

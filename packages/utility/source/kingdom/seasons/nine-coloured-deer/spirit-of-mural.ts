@@ -20,20 +20,24 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.SpiritOfMuralHeart1,
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.NineColouredDeerPendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateHair,
 							cosmetic: Cosmetic.SpiritOfMuralUltimateHair,
 							seasonPass: true,
 							cost: { seasonalHearts: 1 },
 						},
 						{
+							translation: CosmeticCommon.UltimateOutfit,
 							cosmetic: Cosmetic.SpiritOfMuralUltimateOutfit,
 							seasonPass: true,
 							cost: { seasonalHearts: 1 },
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.SpiritOfMuralUltimateCape,
 							seasonPass: true,
 							cost: { seasonalHearts: 2 },

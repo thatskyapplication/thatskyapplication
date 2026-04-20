@@ -52,6 +52,7 @@ export default new Event({
 	},
 	offer: [
 		{
+			translation: CosmeticCommon.Prop,
 			cosmetic: Cosmetic.TournamentOfTriumphHeldProp,
 			cost: { eventTickets: 48 },
 		},

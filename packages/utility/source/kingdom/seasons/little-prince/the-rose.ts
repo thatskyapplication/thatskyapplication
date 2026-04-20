@@ -22,15 +22,18 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.LittlePrincePendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateHair,
 							cosmetic: Cosmetic.TheRoseUltimateHair,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateOutfit,
 							cosmetic: Cosmetic.TheRoseUltimateOutfit,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,

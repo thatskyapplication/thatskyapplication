@@ -54,12 +54,11 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.BlueDye,
 					cosmetic: Cosmetic.MigratingBirdWhispererBlueDye,
 					cost: { seasonalCandles: 12 },
 				},
-				{
-					cosmetic: Cosmetic.MigratingBirdWhispererTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingBirdWhispererTrust },
 				{
 					cosmetic: Cosmetic.EmoteFlightRun4,
 					level: 4,

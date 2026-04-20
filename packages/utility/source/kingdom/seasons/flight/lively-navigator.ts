@@ -52,6 +52,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 1 },
 					cosmetic: Cosmetic.LivelyNavigatorTrailSpell1,
 					cost: { seasonalCandles: 24 },
 				},
@@ -66,7 +67,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.LivelyNavigatorMusicSheet,
 					cost: { seasonalCandles: 28 },
 				},
-				{ cosmetic: Cosmetic.LivelyNavigatorTrailSpell2, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 2 },
+					cosmetic: Cosmetic.LivelyNavigatorTrailSpell2,
+					seasonPass: true,
+				},
 			],
 			[
 				{

@@ -39,10 +39,12 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 1 },
 					cosmetic: Cosmetic.SternShepherdDye1,
 					cost: { seasonalCandles: 24 },
 				},
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.SternShepherdProp,
 					seasonPass: true,
 				},
@@ -54,6 +56,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 30 },
 				},
 				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 2 },
 					cosmetic: Cosmetic.SternShepherdDye2,
 					seasonPass: true,
 				},

@@ -13,6 +13,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			[
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.InspirationOfInclusionProp1,
 					cost: { seasonalCandles: 12 },
 				},
@@ -36,6 +37,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.InspirationOfInclusionProp2,
 					cost: { seasonalCandles: 20 },
 				},
@@ -52,6 +54,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 26 },
 				},
 				{
+					translation: CosmeticCommon.NeckAccessory,
 					cosmetic: Cosmetic.InspirationOfInclusionNeckAccessory,
 					seasonPass: true,
 				},

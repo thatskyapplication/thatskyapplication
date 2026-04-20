@@ -18,6 +18,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 6 },
 				},
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.ComfortOfKindnessProp1,
 					seasonPass: true,
 				},
@@ -41,12 +42,14 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 20 },
 				},
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.ComfortOfKindnessProp2,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: CosmeticCommon.NeckAccessory,
 					cosmetic: Cosmetic.ComfortOfKindnessNeckAccessory,
 					cost: { seasonalCandles: 24 },
 				},

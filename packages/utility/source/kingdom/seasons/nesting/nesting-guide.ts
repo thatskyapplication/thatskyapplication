@@ -18,15 +18,18 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.NestingGuideHeart1,
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.NestingPendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateOutfit,
 							cosmetic: Cosmetic.NestingGuideUltimateOutfit,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateProp,
 							cosmetic: Cosmetic.NestingGuideUltimateProp,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,

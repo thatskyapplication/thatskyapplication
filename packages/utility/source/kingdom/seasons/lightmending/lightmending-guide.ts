@@ -17,6 +17,7 @@ export default new GuideSpirit({
 				},
 				null,
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.LightmendingPendant,
 					seasonPass: true,
 				},
@@ -31,6 +32,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.LightmendingGuideHeart1,
 				},
 				{
+					translation: CosmeticCommon.UltimateMask,
 					cosmetic: Cosmetic.LightmendingGuideUltimateMask,
 					cost: { seasonalHearts: 1 },
 					seasonPass: true,
@@ -52,6 +54,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.LightmendingGuideHeart2,
 				},
 				{
+					translation: CosmeticCommon.UltimateHair,
 					cosmetic: Cosmetic.LightmendingGuideUltimateHair,
 					cost: { seasonalHearts: 1 },
 					seasonPass: true,
@@ -83,6 +86,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.LightmendingGuideHeart4,
 				},
 				{
+					translation: CosmeticCommon.UltimateCape,
 					cosmetic: Cosmetic.LightmendingGuideUltimateCape,
 					cost: { seasonalHearts: 2 },
 					seasonPass: true,

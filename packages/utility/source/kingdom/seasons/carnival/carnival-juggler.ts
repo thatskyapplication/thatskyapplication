@@ -49,6 +49,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 10 },
 				},
 				{
+					translation: CosmeticCommon.NeckAccessory,
 					cosmetic: Cosmetic.CarnivalJugglerNeckAccessory,
 					seasonPass: true,
 				},
@@ -59,9 +60,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.CarnivalJugglerOutfit,
 					cost: { seasonalCandles: 28 },
 				},
-				{
-					cosmetic: Cosmetic.CarnivalJugglerTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.CarnivalJugglerTrust },
 				{
 					cosmetic: Cosmetic.EmoteBallSpinTrick4,
 					level: 4,
@@ -72,6 +71,7 @@ export default new SeasonalSpirit({
 				null,
 				null,
 				{
+					translation: CosmeticCommon.BlackDye,
 					cosmetic: Cosmetic.CarnivalJugglerBlackDye,
 					seasonPass: true,
 				},

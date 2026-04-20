@@ -20,20 +20,24 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.PerformanceGuideBlessing1,
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.PerformanceGuidePendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateMask,
 							cosmetic: Cosmetic.PerformanceGuideUltimateMask,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.PerformanceGuideUltimateCape,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateHair,
 							cosmetic: Cosmetic.PerformanceGuideUltimateHair,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,
@@ -42,9 +46,7 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				{
-					cosmetic: Cosmetic.PerformanceGuideHighFive,
-				},
+				{ translation: CosmeticCommon.HighFive, cosmetic: Cosmetic.PerformanceGuideHighFive },
 				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
 					cosmetic: Cosmetic.PerformanceGuideHeart1,
@@ -73,9 +75,7 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				{
-					cosmetic: Cosmetic.PerformanceGuideDoubleFive,
-				},
+				{ translation: CosmeticCommon.DoubleFive, cosmetic: Cosmetic.PerformanceGuideDoubleFive },
 				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 2 },
 					cosmetic: Cosmetic.PerformanceGuideHeart2,
@@ -93,9 +93,7 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				{
-					cosmetic: Cosmetic.FriendActionHug,
-				},
+				{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.FriendActionHug },
 				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
 					cosmetic: Cosmetic.PerformanceGuideHeart3,
@@ -107,9 +105,7 @@ export default new GuideSpirit({
 					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 					cosmetic: Cosmetic.PerformanceGuideQuest5,
 				},
-				{
-					cosmetic: Cosmetic.PerformanceGuideTrailSpell,
-				},
+				{ translation: CosmeticCommon.TrailSpell, cosmetic: Cosmetic.PerformanceGuideTrailSpell },
 			],
 			[
 				{

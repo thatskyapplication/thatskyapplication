@@ -13,6 +13,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			[
 				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 1 },
 					cosmetic: Cosmetic.NostalgicSparklerParentDye1,
 					cost: { seasonalCandles: 9 },
 				},
@@ -24,10 +25,15 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.PurpleDye,
 					cosmetic: Cosmetic.NostalgicSparklerParentPurpleDye,
 					cost: { seasonalCandles: 13 },
 				},
-				{ cosmetic: Cosmetic.NostalgicSparklerParentCyanDye, seasonPass: true },
+				{
+					translation: CosmeticCommon.CyanDye,
+					cosmetic: Cosmetic.NostalgicSparklerParentCyanDye,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -35,14 +41,23 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.NostalgicSparklerParentCape,
 					cost: { seasonalCandles: 20 },
 				},
-				{ cosmetic: Cosmetic.NostalgicSparklerParentDye2, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 2 },
+					cosmetic: Cosmetic.NostalgicSparklerParentDye2,
+					seasonPass: true,
+				},
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 3 },
 					cosmetic: Cosmetic.NostalgicSparklerParentDye3,
 					cost: { seasonalCandles: 23 },
 				},
-				{ cosmetic: Cosmetic.NostalgicSparklerParentDye4, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.DyeMultiple, number: 4 },
+					cosmetic: Cosmetic.NostalgicSparklerParentDye4,
+					seasonPass: true,
+				},
 			],
 			[
 				{

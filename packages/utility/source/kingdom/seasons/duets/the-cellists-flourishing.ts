@@ -11,6 +11,7 @@ export default new SeasonalSpirit({
 		seasonal: [
 			[
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.TheCellistsFlourishingProp1,
 					cost: { seasonalCandles: 16 },
 				},
@@ -27,6 +28,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 18 },
 				},
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.TheCellistsFlourishingProp2,
 					seasonPass: true,
 				},

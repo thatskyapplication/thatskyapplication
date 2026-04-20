@@ -24,6 +24,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.YellowDye,
 					cosmetic: Cosmetic.MigratingButterflyCharmerYellowDye,
 					cost: { seasonalCandles: 6 },
 				},
@@ -57,9 +58,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MigratingButterflyCharmerBlessing3,
 					cost: { seasonalCandles: 8 },
 				},
-				{
-					cosmetic: Cosmetic.MigratingButterflyCharmerTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingButterflyCharmerTrust },
 				{
 					cosmetic: Cosmetic.EmoteDizzy4,
 					level: 4,

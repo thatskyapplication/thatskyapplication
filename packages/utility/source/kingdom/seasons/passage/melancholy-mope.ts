@@ -20,6 +20,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.HeadAccessory,
 					cosmetic: Cosmetic.MelancholyMopeHeadAccessory,
 					cost: { seasonalCandles: 6 },
 				},
@@ -88,6 +89,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.HeadAccessory,
 					cosmetic: Cosmetic.MelancholyMopeHeadAccessory,
 					cost: { candles: 35 },
 				},

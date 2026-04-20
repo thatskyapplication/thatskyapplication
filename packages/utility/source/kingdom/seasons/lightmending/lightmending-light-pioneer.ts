@@ -54,12 +54,11 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.BlueDye,
 					cosmetic: Cosmetic.LightmendingPioneerBlueDye,
 					cost: { seasonalCandles: 15 },
 				},
-				{
-					cosmetic: Cosmetic.LightmendingPioneerTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.LightmendingPioneerTrust },
 				{
 					cosmetic: Cosmetic.EmoteCuteClap4,
 					level: 4,

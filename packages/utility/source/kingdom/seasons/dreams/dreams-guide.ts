@@ -26,6 +26,7 @@ export default new GuideSpirit({
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.DreamsGuideUltimateCape,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
@@ -77,11 +78,7 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 			],
-			[
-				{
-					cosmetic: Cosmetic.DreamsGuideFriendActionHug,
-				},
-			],
+			[{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.DreamsGuideFriendActionHug }],
 		],
 	},
 });

@@ -21,6 +21,7 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.RemembrancePendant,
 					seasonPass: true,
 					children: [
@@ -30,6 +31,7 @@ export default new GuideSpirit({
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateProp,
 							cosmetic: Cosmetic.RemembranceGuideUltimateProp,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
@@ -48,9 +50,7 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				{
-					cosmetic: Cosmetic.RemembranceGuideHighFive,
-				},
+				{ translation: CosmeticCommon.HighFive, cosmetic: Cosmetic.RemembranceGuideHighFive },
 				{
 					translation: CosmeticCommon.Blessing,
 					cosmetic: Cosmetic.RemembranceGuideBlessing,
@@ -78,10 +78,9 @@ export default new GuideSpirit({
 				},
 			],
 			[
+				{ translation: CosmeticCommon.DoubleFive, cosmetic: Cosmetic.RemembranceGuideDoubleFive },
 				{
-					cosmetic: Cosmetic.RemembranceGuideDoubleFive,
-				},
-				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 1 },
 					cosmetic: Cosmetic.RemembranceGuideTrailSpell1,
 				},
 			],
@@ -132,10 +131,9 @@ export default new GuideSpirit({
 				},
 			],
 			[
+				{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.RemembranceGuideFriendActionHug },
 				{
-					cosmetic: Cosmetic.RemembranceGuideFriendActionHug,
-				},
-				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 2 },
 					cosmetic: Cosmetic.RemembranceGuideTrailSpell2,
 				},
 			],
@@ -145,6 +143,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.RemembranceGuideQuest9,
 				},
 				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 3 },
 					cosmetic: Cosmetic.RemembranceGuideTrailSpell3,
 				},
 			],

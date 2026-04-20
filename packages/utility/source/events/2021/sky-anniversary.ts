@@ -15,6 +15,7 @@ export default new Event({
 			cost: { hearts: 3 },
 		},
 		{
+			translation: CosmeticCommon.Prop,
 			cosmetic: Cosmetic.SkyAnniversaryProp,
 			cost: { candles: 20 },
 		},

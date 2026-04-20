@@ -15,6 +15,7 @@ export default new ElderSpirit({
 					cost: { ascendedCandles: 2 },
 				},
 				{
+					translation: { key: CosmeticCommon.HairMultiple, number: 1 },
 					cosmetic: Cosmetic.ElderOfTheValleyHair1,
 					cost: { ascendedCandles: 5 },
 					children: [
@@ -26,6 +27,7 @@ export default new ElderSpirit({
 					],
 				},
 				{
+					translation: { key: CosmeticCommon.HairMultiple, number: 2 },
 					cosmetic: Cosmetic.ElderOfTheValleyHair2,
 					cost: { ascendedCandles: 6 },
 					children: [

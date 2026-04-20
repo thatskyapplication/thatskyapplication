@@ -90,6 +90,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.Umbrella,
 					cosmetic: Cosmetic.JellyWhispererUmbrella,
 					cost: { hearts: 15 },
 				},

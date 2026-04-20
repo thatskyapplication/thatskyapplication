@@ -28,15 +28,18 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.AssemblyPendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateMask,
 							cosmetic: Cosmetic.AssemblyGuideUltimateMask,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateHair,
 							cosmetic: Cosmetic.AssemblyGuideUltimateHair,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,
@@ -47,6 +50,7 @@ export default new GuideSpirit({
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.AssemblyGuideUltimateCape,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
@@ -54,11 +58,7 @@ export default new GuideSpirit({
 					],
 				},
 			],
-			[
-				{
-					cosmetic: Cosmetic.AssemblyGuideHighFive,
-				},
-			],
+			[{ translation: CosmeticCommon.HighFive, cosmetic: Cosmetic.AssemblyGuideHighFive }],
 			[
 				{
 					translation: { key: CosmeticCommon.QuestMultiple, number: 2 },
@@ -80,11 +80,7 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 			],
-			[
-				{
-					cosmetic: Cosmetic.AssemblyGuideFriendActionHug,
-				},
-			],
+			[{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.AssemblyGuideFriendActionHug }],
 			[
 				{
 					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
@@ -105,11 +101,7 @@ export default new GuideSpirit({
 					cost: { hearts: 12 },
 				},
 			],
-			[
-				{
-					cosmetic: Cosmetic.AssemblyGuideDoubleFive,
-				},
-			],
+			[{ translation: CosmeticCommon.DoubleFive, cosmetic: Cosmetic.AssemblyGuideDoubleFive }],
 			[
 				{
 					translation: { key: CosmeticCommon.QuestMultiple, number: 6 },

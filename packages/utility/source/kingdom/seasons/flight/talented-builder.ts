@@ -28,6 +28,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.NeckAccessory,
 					cosmetic: Cosmetic.TalentedBuilderNeckAccessory,
 					cost: { seasonalCandles: 16 },
 				},
@@ -47,6 +48,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 1 },
 					cosmetic: Cosmetic.TalentedBuilderTrailSpell1,
 					cost: { seasonalCandles: 24 },
 				},
@@ -62,7 +64,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.TalentedBuilderHair,
 					cost: { seasonalCandles: 26 },
 				},
-				{ cosmetic: Cosmetic.TalentedBuilderTrailSpell2, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 2 },
+					cosmetic: Cosmetic.TalentedBuilderTrailSpell2,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -89,6 +95,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.NeckAccessory,
 					cosmetic: Cosmetic.TalentedBuilderNeckAccessory,
 					cost: { candles: 40 },
 				},

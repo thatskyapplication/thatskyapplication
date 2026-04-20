@@ -26,6 +26,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.CompassionateCellistProp,
 					cost: { candles: 200 },
 				},
