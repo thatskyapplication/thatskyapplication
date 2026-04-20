@@ -1473,7 +1473,7 @@ export default {
 			[CosmeticCommon.SharedSpaceSpell]: "Shared space spell",
 			[CosmeticCommon.SharedSpaceSpellMultiple]: "Shared space spell {{number}}",
 			[CosmeticCommon.SandcastlePieceMultiple]: "Sandcastle piece {{number}}",
-			[CosmeticCommon.MischiefSymbolMultiple]: "Mischief Symbol {{number}}",
+			[CosmeticCommon.MischiefSymbolMultiple]: "Mischief symbol {{number}}",
 		} satisfies Record<CosmeticCommon, string>,
 		"cosmetic-names": {
 			[Cosmetic.EmoteSit]: "Sit",
