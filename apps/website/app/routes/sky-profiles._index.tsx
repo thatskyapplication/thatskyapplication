@@ -190,7 +190,7 @@ function SkyProfileCard({ profile, returnTo }: SkyProfileCardProps) {
 								return seasonEmoji ? (
 									<div
 										aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
-										className="w-6 h-6 bg-cover bg-center"
+										className="discord-emoji w-6 h-6"
 										key={season}
 										role="img"
 										style={{
@@ -391,7 +391,7 @@ function SkyProfilesFilters({
 			>
 				<div
 					aria-label="Question mark icon."
-					className="w-6 h-6 mr-2 bg-cover bg-center"
+					className="discord-emoji w-6 h-6 mr-2"
 					role="img"
 					style={{
 						backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,

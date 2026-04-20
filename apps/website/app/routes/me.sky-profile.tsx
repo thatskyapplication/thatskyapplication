@@ -895,7 +895,7 @@ export default function MeSkyProfile() {
 															{seasonEmoji ? (
 																<div
 																	aria-hidden="true"
-																	className="h-9 w-9 shrink-0 rounded-full bg-cover bg-center shadow-sm"
+																	className="discord-emoji h-9 w-9 rounded-full shadow-sm"
 																	style={{
 																		backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
 																	}}
@@ -1154,7 +1154,7 @@ export default function MeSkyProfile() {
 													<div className="flex items-center gap-2">
 														<div
 															aria-hidden="true"
-															className="h-5 w-5 shrink-0 bg-contain bg-center bg-no-repeat"
+															className="discord-emoji h-5 w-5"
 															style={{
 																backgroundImage: `url(${discordEmojiURL(SkyProfilePersonalityToEmoji[personality].id)})`,
 															}}

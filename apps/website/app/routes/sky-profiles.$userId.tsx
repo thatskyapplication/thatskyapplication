@@ -80,7 +80,7 @@ export function ErrorBoundary() {
 							>
 								<div
 									aria-label="Question mark icon"
-									className="w-5 h-5 bg-cover bg-center"
+									className="discord-emoji w-5 h-5"
 									role="img"
 									style={{
 										backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,
@@ -297,7 +297,7 @@ export default function SkyProfile() {
 										return seasonEmoji ? (
 											<div
 												aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
-												className="w-10 h-10 bg-cover bg-center"
+												className="discord-emoji w-10 h-10"
 												key={season}
 												role="img"
 												style={{
@@ -340,7 +340,7 @@ export default function SkyProfile() {
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
 							<div
 								aria-label="Winged light icon."
-								className="w-6 h-6 mr-2 bg-cover bg-center"
+								className="discord-emoji w-6 h-6 mr-2"
 								role="img"
 								style={{
 									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.WingedLight.id)})`,
@@ -358,7 +358,7 @@ export default function SkyProfile() {
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
 							<div
 								aria-label="Favourite spirit icon."
-								className="w-6 h-6 mr-2 bg-cover bg-center"
+								className="discord-emoji w-6 h-6 mr-2"
 								role="img"
 								style={{
 									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id)})`,
@@ -374,7 +374,7 @@ export default function SkyProfile() {
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
 							<div
 								aria-label="Personality icon."
-								className="w-6 h-6 mr-2 bg-cover bg-center"
+								className="discord-emoji w-6 h-6 mr-2"
 								role="img"
 								style={{
 									backgroundImage: `url(${discordEmojiURL(SkyProfilePersonalityToEmoji[data.personality].id)})`,
@@ -418,7 +418,7 @@ export default function SkyProfile() {
 					>
 						<div
 							aria-label="Question mark icon."
-							className="w-6 h-6 mr-2 bg-cover bg-center"
+							className="discord-emoji w-6 h-6 mr-2"
 							role="img"
 							style={{
 								backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,

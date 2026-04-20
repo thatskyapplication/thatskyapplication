@@ -134,7 +134,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 				{shard && (
 					<div
 						aria-label={`${shard.strong ? "Strong" : "Regular"} shard eruption icon.`}
-						className="w-5 h-5 mr-1 bg-cover bg-center"
+						className="discord-emoji w-5 h-5 mr-1"
 						role="img"
 						style={{
 							backgroundImage: `url(${discordEmojiURL(shard.strong ? MISCELLANEOUS_EMOJIS.ShardStrong.id : MISCELLANEOUS_EMOJIS.ShardRegular.id)})`,
@@ -163,7 +163,7 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 						{shard.strong ? (
 							<div
 								aria-label="Ascended candle."
-								className="h-4 w-4 ml-1 bg-cover bg-center"
+								className="discord-emoji h-4 w-4 ml-1"
 								role="img"
 								style={{
 									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,

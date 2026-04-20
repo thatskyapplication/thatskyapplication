@@ -65,6 +65,10 @@
 	.hide-scrollbar::-webkit-scrollbar {
 		display: none;
 	}
+
+	.discord-emoji {
+		@apply shrink-0 bg-contain bg-center bg-no-repeat;
+	}
 }
 
 @layer base {

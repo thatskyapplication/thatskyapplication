@@ -44,7 +44,7 @@ export default function Index() {
 				>
 					<div
 						aria-label="Strong shard eruption icon."
-						className="w-8 h-8 bg-cover bg-center"
+						className="discord-emoji w-8 h-8"
 						role="img"
 						style={{
 							backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id)})`,

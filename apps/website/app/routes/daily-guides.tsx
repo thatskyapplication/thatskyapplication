@@ -217,7 +217,7 @@ export default function DailyGuides() {
 					<span aria-hidden="true" className="inline-flex items-center gap-1">
 						{dyeEmojiURLs.map((emojiURL, index) => (
 							<div
-								className="h-4 w-4 bg-cover bg-center"
+								className="discord-emoji h-4 w-4"
 								key={`${radianceEvent.start.toMillis()}-${index}`}
 								style={{ backgroundImage: `url(${emojiURL})` }}
 							/>
@@ -469,7 +469,7 @@ export default function DailyGuides() {
 								<div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
 									<div
 										aria-label="Seasonal candle"
-										className="h-4 w-4 bg-cover bg-center"
+										className="discord-emoji h-4 w-4"
 										role="img"
 										style={{
 											backgroundImage: seasonalCandleEmoji
@@ -519,7 +519,7 @@ export default function DailyGuides() {
 											{shard.strong ? (
 												<div
 													aria-label="Ascended candle"
-													className="h-4 w-4 bg-cover bg-center"
+													className="discord-emoji h-4 w-4"
 													role="img"
 													style={{
 														backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
@@ -575,7 +575,7 @@ export default function DailyGuides() {
 										{shard.strong ? (
 											<div
 												aria-label="Ascended candle"
-												className="h-4 w-4 bg-cover bg-center"
+												className="discord-emoji h-4 w-4"
 												role="img"
 												style={{
 													backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
@@ -640,7 +640,7 @@ export default function DailyGuides() {
 									{iconURL ? (
 										<div
 											aria-hidden="true"
-											className="h-4 w-4 shrink-0 bg-cover bg-center"
+											className="discord-emoji h-4 w-4"
 											style={{ backgroundImage: `url(${iconURL})` }}
 										/>
 									) : null}
