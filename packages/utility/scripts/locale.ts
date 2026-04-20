@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import pc from "picocolors";
-import { Cosmetic } from "../source/cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../source/cosmetics.js";
 import { DailyQuest } from "../source/daily-guides.js";
 import { AreaName } from "../source/kingdom/geography.js";
 import { SeasonId } from "../source/season.js";
@@ -41,6 +41,7 @@ const LPROJ_TO_JSON: Record<string, string[]> = {
  */
 const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> = {
 	Cosmetic,
+	CosmeticCommon,
 	DailyQuest,
 	AreaName,
 	SeasonId,
@@ -52,6 +53,7 @@ const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> 
  */
 const TS_KEY_JSON_PREFIXES: Record<string, string> = {
 	Cosmetic: "general.cosmetic-names",
+	CosmeticCommon: "general.cosmetic-common-names",
 	DailyQuest: "general.quests",
 	AreaName: "general.areas",
 	SeasonId: "general.seasons",
@@ -385,6 +387,42 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "sheet_50",
 		tsKey: "Cosmetic.MusicSheetAirship",
+	},
+	{
+		upstreamKey: "lootbox_name_color_black",
+		tsKey: "CosmeticCommon.BlackDye",
+	},
+	{
+		upstreamKey: "lootbox_name_color_blue",
+		tsKey: "CosmeticCommon.BlueDye",
+	},
+	{
+		upstreamKey: "lootbox_name_color_cyan",
+		tsKey: "CosmeticCommon.CyanDye",
+	},
+	{
+		upstreamKey: "lootbox_name_color_green",
+		tsKey: "CosmeticCommon.GreenDye",
+	},
+	{
+		upstreamKey: "lootbox_name_color_magenta",
+		tsKey: "CosmeticCommon.PurpleDye",
+	},
+	{
+		upstreamKey: "lootbox_name_color_random",
+		tsKey: "CosmeticCommon.Dye",
+	},
+	{
+		upstreamKey: "lootbox_name_color_red",
+		tsKey: "CosmeticCommon.RedDye",
+	},
+	{
+		upstreamKey: "lootbox_name_color_white",
+		tsKey: "CosmeticCommon.WhiteDye",
+	},
+	{
+		upstreamKey: "lootbox_name_color_yellow",
+		tsKey: "CosmeticCommon.YellowDye",
 	},
 ];
 
