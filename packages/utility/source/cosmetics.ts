@@ -3604,6 +3604,17 @@ export enum CosmeticCommon {
 	YellowDyeMultiple = 50,
 	CapeMultiple = 51,
 	HairMultiple = 52,
+	BlueDyeMultiple = 53,
+	CyanDyeMultiple = 54,
+	PurpleDyeMultiple = 55,
+	RedDyeMultiple = 56,
+	UltimatePropMultiple = 57,
+	SharedMemorySpell = 58,
+	SharedMemorySpellMultiple = 59,
+	SharedSpaceSpell = 60,
+	SharedSpaceSpellMultiple = 61,
+	SandcastlePieceMultiple = 62,
+	MischiefSymbolMultiple = 63,
 }
 
 export const WING_BUFFS = [

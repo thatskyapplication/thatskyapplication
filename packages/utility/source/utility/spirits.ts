@@ -468,13 +468,22 @@ interface ItemRawSingleCosmeticWithoutChildren extends BaseItemRawWithoutChildre
 				| CosmeticCommon.HeartMultiple
 				| CosmeticCommon.FaceAccessoryMultiple
 				| CosmeticCommon.HairAccessoryMultiple
+				| CosmeticCommon.MischiefSymbolMultiple
 				| CosmeticCommon.PropMultiple
 				| CosmeticCommon.DyeMultiple
 				| CosmeticCommon.TrailSpellMultiple
+				| CosmeticCommon.BlueDyeMultiple
+				| CosmeticCommon.CyanDyeMultiple
 				| CosmeticCommon.GreenDyeMultiple
+				| CosmeticCommon.PurpleDyeMultiple
+				| CosmeticCommon.RedDyeMultiple
+				| CosmeticCommon.SharedMemorySpellMultiple
+				| CosmeticCommon.SandcastlePieceMultiple
+				| CosmeticCommon.SharedSpaceSpellMultiple
 				| CosmeticCommon.YellowDyeMultiple
 				| CosmeticCommon.CapeMultiple
 				| CosmeticCommon.HairMultiple
+				| CosmeticCommon.UltimatePropMultiple
 		  >
 		| ItemRawTranslation;
 	cosmetic: Cosmetic;

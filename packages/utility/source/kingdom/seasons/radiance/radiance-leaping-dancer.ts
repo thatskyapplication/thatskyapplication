@@ -22,10 +22,15 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.RadianceLeapingDancerHair,
 					cost: { seasonalCandles: 12 },
 				},
-				{ cosmetic: Cosmetic.RadianceLeapingDancerRedDye1, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.RedDyeMultiple, number: 1 },
+					cosmetic: Cosmetic.RadianceLeapingDancerRedDye1,
+					seasonPass: true,
+				},
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.RedDyeMultiple, number: 2 },
 					cosmetic: Cosmetic.RadianceLeapingDancerRedDye2,
 					cost: { seasonalCandles: 16 },
 				},
@@ -45,6 +50,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.RedDyeMultiple, number: 3 },
 					cosmetic: Cosmetic.RadianceLeapingDancerRedDye3,
 					cost: { seasonalCandles: 24 },
 				},

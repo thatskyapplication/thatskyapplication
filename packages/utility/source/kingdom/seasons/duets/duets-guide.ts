@@ -24,6 +24,7 @@ export default new GuideSpirit({
 					seasonPass: true,
 					children: [
 						{
+							translation: { key: CosmeticCommon.UltimatePropMultiple, number: 1 },
 							cosmetic: Cosmetic.DuetsGuideUltimateProp1,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,
@@ -35,6 +36,7 @@ export default new GuideSpirit({
 							seasonPass: true,
 						},
 						{
+							translation: { key: CosmeticCommon.UltimatePropMultiple, number: 2 },
 							cosmetic: Cosmetic.DuetsGuideUltimateProp2,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,

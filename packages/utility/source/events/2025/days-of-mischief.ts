@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -71,18 +71,22 @@ export default new Event({
 			cost: { candles: 20 },
 		},
 		{
+			translation: { key: CosmeticCommon.MischiefSymbolMultiple, number: 1 },
 			cosmetic: Cosmetic.MischiefSymbol1,
 			cost: { candles: 4 },
 		},
 		{
+			translation: { key: CosmeticCommon.MischiefSymbolMultiple, number: 2 },
 			cosmetic: Cosmetic.MischiefSymbol2,
 			cost: { candles: 4 },
 		},
 		{
+			translation: { key: CosmeticCommon.MischiefSymbolMultiple, number: 3 },
 			cosmetic: Cosmetic.MischiefSymbol3,
 			cost: { candles: 4 },
 		},
 		{
+			translation: { key: CosmeticCommon.MischiefSymbolMultiple, number: 4 },
 			cosmetic: Cosmetic.MischiefSymbol4,
 			cost: { candles: 4 },
 		},

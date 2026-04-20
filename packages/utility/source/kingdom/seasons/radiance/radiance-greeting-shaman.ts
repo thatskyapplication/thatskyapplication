@@ -23,16 +23,19 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 14 },
 				},
 				{
+					translation: { key: CosmeticCommon.BlueDyeMultiple, number: 1 },
 					cosmetic: Cosmetic.RadianceGreetingShamanBlueDye1,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.BlueDyeMultiple, number: 2 },
 					cosmetic: Cosmetic.RadianceGreetingShamanBlueDye2,
 					cost: { seasonalCandles: 16 },
 				},
 				{
+					translation: { key: CosmeticCommon.CyanDyeMultiple, number: 1 },
 					cosmetic: Cosmetic.RadianceGreetingShamanCyanDye1,
 					seasonPass: true,
 				},
@@ -47,6 +50,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.PurpleDyeMultiple, number: 1 },
 					cosmetic: Cosmetic.RadianceGreetingShamanPurpleDye1,
 					cost: { seasonalCandles: 20 },
 				},
@@ -63,12 +67,14 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 24 },
 				},
 				{
+					translation: { key: CosmeticCommon.CyanDyeMultiple, number: 2 },
 					cosmetic: Cosmetic.RadianceGreetingShamanCyanDye2,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.PurpleDyeMultiple, number: 2 },
 					cosmetic: Cosmetic.RadianceGreetingShamanPurpleDye2,
 					cost: { seasonalCandles: 28 },
 				},
