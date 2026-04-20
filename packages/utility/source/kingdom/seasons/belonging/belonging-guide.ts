@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
@@ -8,7 +8,13 @@ export default new GuideSpirit({
 	seasonId: SeasonId.Belonging,
 	offer: {
 		current: [
-			[{ cosmetic: Cosmetic.BelongingPendant, seasonPass: true }],
+			[
+				{
+					translation: CosmeticCommon.Pendant,
+					cosmetic: Cosmetic.BelongingPendant,
+					seasonPass: true,
+				},
+			],
 			[
 				{
 					cosmetic: Cosmetic.BelongingBonfire,

@@ -41,6 +41,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 1 },
 					cosmetic: Cosmetic.TinkeringChimesmithTrailSpell1,
 					cost: { seasonalCandles: 26 },
 				},
@@ -53,6 +54,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 28 },
 				},
 				{
+					translation: { key: CosmeticCommon.TrailSpellMultiple, number: 2 },
 					cosmetic: Cosmetic.TinkeringChimesmithTrailSpell2,
 					seasonPass: true,
 				},

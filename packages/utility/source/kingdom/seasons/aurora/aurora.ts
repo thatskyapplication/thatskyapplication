@@ -21,6 +21,7 @@ export default new GuideSpirit({
 					level: 2,
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.AURORAPendant,
 					seasonPass: true,
 					thirdHeight: true,
@@ -32,11 +33,13 @@ export default new GuideSpirit({
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateOutfit,
 							cosmetic: Cosmetic.AURORAUltimateOutfit,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.AURORAUltimateCape,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,

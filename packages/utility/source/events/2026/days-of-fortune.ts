@@ -43,6 +43,7 @@ export default new Event({
 			cost: { eventTickets: 48 },
 		},
 		{
+			translation: CosmeticCommon.Prop,
 			cosmetic: Cosmetic.DaysOfFortune2026CarouselMusicBox,
 			cost: { hearts: 22 },
 		},

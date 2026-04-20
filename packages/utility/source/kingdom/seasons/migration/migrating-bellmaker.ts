@@ -35,12 +35,14 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 4 },
 				},
 				{
+					translation: CosmeticCommon.Dye,
 					cosmetic: Cosmetic.MigratingBellmakerDye,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: CosmeticCommon.BlueDye,
 					cosmetic: Cosmetic.MigratingBellmakerBlueDye,
 					cost: { seasonalCandles: 9 },
 				},
@@ -50,6 +52,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 6 },
 				},
 				{
+					translation: CosmeticCommon.HeadAccessory,
 					cosmetic: Cosmetic.MigratingBellmakerHeadAccessory,
 					seasonPass: true,
 				},
@@ -60,9 +63,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MigratingBellmakerCape,
 					cost: { seasonalCandles: 36 },
 				},
-				{
-					cosmetic: Cosmetic.MigratingBellmakerTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingBellmakerTrust },
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
 					cosmetic: Cosmetic.MigratingBellmakerBlessing3,

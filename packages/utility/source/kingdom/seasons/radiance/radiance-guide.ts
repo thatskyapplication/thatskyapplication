@@ -18,15 +18,18 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.RadianceGuideHeart1,
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.RadiancePendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.RadianceGuideUltimateCape,
 							cost: { seasonalHearts: 1 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateMask,
 							cosmetic: Cosmetic.RadianceGuideUltimateMask,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
@@ -35,12 +38,8 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				{
-					cosmetic: Cosmetic.RadianceGuideRedDye,
-				},
-				{
-					cosmetic: Cosmetic.RadianceGuideYellowDye,
-				},
+				{ translation: CosmeticCommon.RedDye, cosmetic: Cosmetic.RadianceGuideRedDye },
+				{ translation: CosmeticCommon.YellowDye, cosmetic: Cosmetic.RadianceGuideYellowDye },
 			],
 			[
 				{
@@ -53,12 +52,8 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				{
-					cosmetic: Cosmetic.RadianceGuideGreenDye,
-				},
-				{
-					cosmetic: Cosmetic.RadianceGuideCyanDye,
-				},
+				{ translation: CosmeticCommon.GreenDye, cosmetic: Cosmetic.RadianceGuideGreenDye },
+				{ translation: CosmeticCommon.CyanDye, cosmetic: Cosmetic.RadianceGuideCyanDye },
 			],
 			[
 				{
@@ -71,24 +66,16 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				{
-					cosmetic: Cosmetic.RadianceGuideBlueDye,
-				},
-				{
-					cosmetic: Cosmetic.RadianceGuidePurpleDye,
-				},
+				{ translation: CosmeticCommon.BlueDye, cosmetic: Cosmetic.RadianceGuideBlueDye },
+				{ translation: CosmeticCommon.PurpleDye, cosmetic: Cosmetic.RadianceGuidePurpleDye },
 			],
 			[
 				{
 					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 					cosmetic: Cosmetic.RadianceGuideQuest4,
 				},
-				{
-					cosmetic: Cosmetic.RadianceGuideWhiteDye,
-				},
-				{
-					cosmetic: Cosmetic.RadianceGuideBlackDye,
-				},
+				{ translation: CosmeticCommon.WhiteDye, cosmetic: Cosmetic.RadianceGuideWhiteDye },
+				{ translation: CosmeticCommon.BlackDye, cosmetic: Cosmetic.RadianceGuideBlackDye },
 			],
 			[
 				{

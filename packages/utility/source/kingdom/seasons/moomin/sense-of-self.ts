@@ -36,6 +36,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.NeckAccessory,
 					cosmetic: Cosmetic.SenseOfSelfNeckAccessory,
 					cost: { seasonalCandles: 24 },
 				},

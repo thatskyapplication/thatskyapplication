@@ -16,6 +16,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 12 },
 				},
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.ThePianistsFlourishingProp,
 					seasonPass: true,
 				},

@@ -36,10 +36,15 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.GreenDyeMultiple, number: 1 },
 					cosmetic: Cosmetic.WoodcuttingPleafulParentGreenDye1,
 					cost: { seasonalCandles: 18 },
 				},
-				{ cosmetic: Cosmetic.WoodcuttingPleafulParentGreenDye2, seasonPass: true },
+				{
+					translation: { key: CosmeticCommon.GreenDyeMultiple, number: 2 },
+					cosmetic: Cosmetic.WoodcuttingPleafulParentGreenDye2,
+					seasonPass: true,
+				},
 			],
 			[
 				{

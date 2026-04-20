@@ -28,6 +28,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 26 },
 				},
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.TheCellistsBeginningsProp,
 					seasonPass: true,
 				},

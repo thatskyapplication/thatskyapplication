@@ -58,7 +58,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.BaffledBotanistBlessing3,
 					cost: { seasonalCandles: 16 },
 				},
-				{ cosmetic: Cosmetic.BaffledBotanistProp, seasonPass: true },
+				{
+					translation: CosmeticCommon.Prop,
+					cosmetic: Cosmetic.BaffledBotanistProp,
+					seasonPass: true,
+				},
 			],
 			[
 				{
@@ -129,6 +133,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.BaffledBotanistProp,
 					cost: { candles: 45 },
 				},

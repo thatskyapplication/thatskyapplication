@@ -42,6 +42,7 @@ export default new SeasonalSpirit({
 					level: 3,
 				},
 				{
+					translation: CosmeticCommon.CyanDye,
 					cosmetic: Cosmetic.MigratingJellyWhispererCyanDye,
 					cost: { seasonalCandles: 9 },
 				},
@@ -57,9 +58,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MigratingJellyWhispererHairAccessory,
 					cost: { seasonalCandles: 36 },
 				},
-				{
-					cosmetic: Cosmetic.MigratingJellyWhispererTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingJellyWhispererTrust },
 				{
 					cosmetic: Cosmetic.EmoteJellyfishDance4,
 					level: 4,

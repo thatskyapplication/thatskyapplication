@@ -44,6 +44,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 24 },
 				},
 				{
+					translation: CosmeticCommon.WhiteDye,
 					cosmetic: Cosmetic.CarnivalAthleticDancerWhiteDye,
 					cost: { seasonalCandles: 12 },
 				},
@@ -59,9 +60,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.CarnivalAthleticDancerOutfit,
 					cost: { seasonalCandles: 28 },
 				},
-				{
-					cosmetic: Cosmetic.CarnivalAthleticDancerTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.CarnivalAthleticDancerTrust },
 				{
 					cosmetic: Cosmetic.EmoteBreakdance4,
 					level: 4,

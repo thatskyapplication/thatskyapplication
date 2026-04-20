@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -42,6 +42,7 @@ export default new Event({
 			cost: { eventTickets: 35 },
 		},
 		{
+			translation: CosmeticCommon.PurpleDye,
 			cosmetic: Cosmetic.DaysOfLovePurpleDye,
 			cost: { eventTickets: 10 },
 		},

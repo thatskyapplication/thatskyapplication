@@ -51,6 +51,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 20 },
 				},
 				{
+					translation: CosmeticCommon.BlackDye,
 					cosmetic: Cosmetic.RadianceGreetingShamanBlackDye,
 					seasonPass: true,
 				},

@@ -60,9 +60,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.CarnivalStuntActorHair,
 					cost: { seasonalCandles: 28 },
 				},
-				{
-					cosmetic: Cosmetic.CarnivalStuntActorTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.CarnivalStuntActorTrust },
 				{
 					cosmetic: Cosmetic.EmoteApprove4,
 					level: 4,

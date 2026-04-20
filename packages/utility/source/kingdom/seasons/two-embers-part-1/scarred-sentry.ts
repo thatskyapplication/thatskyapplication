@@ -17,16 +17,19 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.HairMultiple, number: 1 },
 					cosmetic: Cosmetic.ScarredSentryHair1,
 					cost: { seasonalCandles: 10 },
 				},
 				{
+					translation: { key: CosmeticCommon.HairMultiple, number: 2 },
 					cosmetic: Cosmetic.ScarredSentryHair2,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: CosmeticCommon.PurpleDye,
 					cosmetic: Cosmetic.ScarredSentryPurpleDye,
 					cost: { seasonalCandles: 16 },
 				},
@@ -50,20 +53,20 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.ScarredSentryProp1,
 					cost: { seasonalCandles: 28 },
 				},
-				{
-					cosmetic: Cosmetic.ScarredSentryDye,
-					seasonPass: true,
-				},
+				{ translation: CosmeticCommon.Dye, cosmetic: Cosmetic.ScarredSentryDye, seasonPass: true },
 			],
 			[
 				{
+					translation: CosmeticCommon.WhiteDye,
 					cosmetic: Cosmetic.ScarredSentryWhiteDye,
 					cost: { seasonalCandles: 34 },
 				},
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.ScarredSentryProp2,
 					seasonPass: true,
 				},

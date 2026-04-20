@@ -58,12 +58,11 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.WhiteDye,
 					cosmetic: Cosmetic.MigratingMantaWhispererWhiteDye,
 					cost: { seasonalCandles: 12 },
 				},
-				{
-					cosmetic: Cosmetic.MigratingMantaWhispererTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.MigratingMantaWhispererTrust },
 				{
 					cosmetic: Cosmetic.EmoteFlagSignal4,
 					seasonPass: true,

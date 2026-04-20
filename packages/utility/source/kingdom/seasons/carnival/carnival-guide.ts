@@ -16,6 +16,7 @@ export default new GuideSpirit({
 				},
 				null,
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.CarnivalPendant,
 					seasonPass: true,
 				},
@@ -24,6 +25,7 @@ export default new GuideSpirit({
 				null,
 				null,
 				{
+					translation: CosmeticCommon.UltimateHair,
 					cosmetic: Cosmetic.CarnivalGuideUltimateHair,
 					cost: { seasonalHearts: 2 },
 					seasonPass: true,
@@ -32,9 +34,11 @@ export default new GuideSpirit({
 			[
 				null,
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.CarnivalGuideProp1,
 				},
 				{
+					translation: CosmeticCommon.UltimateCape,
 					cosmetic: Cosmetic.CarnivalGuideUltimateCape,
 					cost: { seasonalHearts: 2 },
 					seasonPass: true,
@@ -43,12 +47,14 @@ export default new GuideSpirit({
 			[
 				null,
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.CarnivalGuideProp2,
 				},
 			],
 			[
 				null,
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 3 },
 					cosmetic: Cosmetic.CarnivalGuideProp3,
 				},
 				{
@@ -59,6 +65,7 @@ export default new GuideSpirit({
 			[
 				null,
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 4 },
 					cosmetic: Cosmetic.CarnivalGuideProp4,
 				},
 				{

@@ -36,6 +36,7 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 18 },
 				},
 				{
+					translation: CosmeticCommon.NeckAccessory,
 					cosmetic: Cosmetic.OddballOutcastNeckAccessory,
 					seasonPass: true,
 				},
@@ -122,6 +123,7 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
+					translation: CosmeticCommon.NeckAccessory,
 					cosmetic: Cosmetic.OddballOutcastNeckAccessory,
 					cost: { candles: 65 },
 				},

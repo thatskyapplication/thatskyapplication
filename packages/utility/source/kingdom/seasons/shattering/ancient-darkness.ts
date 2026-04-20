@@ -134,6 +134,7 @@ export default [
 			seasonal: [
 				[
 					{
+						translation: CosmeticCommon.NeckAccessory,
 						cosmetic: Cosmetic.AncientDarknessDragonNeckAccessory,
 						cost: { seasonalCandles: 35 },
 					},
@@ -180,6 +181,7 @@ export default [
 						cost: { candles: 5 },
 					},
 					{
+						translation: CosmeticCommon.NeckAccessory,
 						cosmetic: Cosmetic.AncientDarknessDragonNeckAccessory,
 						cost: { candles: 70 },
 					},

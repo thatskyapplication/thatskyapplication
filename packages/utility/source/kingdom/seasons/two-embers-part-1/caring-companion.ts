@@ -21,6 +21,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.CaringCompanionProp,
 					cost: { hearts: 12 },
 				},

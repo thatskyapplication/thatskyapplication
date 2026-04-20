@@ -18,15 +18,18 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.VaultEldersLanternHeart1,
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.TheTwoEmbersPendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.UltimateHairAccessory,
 							cosmetic: Cosmetic.VaultEldersLanternUltimateHairAccessory,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.VaultEldersLanternUltimateCape,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,
@@ -76,6 +79,7 @@ export default new GuideSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.VaultEldersLanternProp,
 					cost: { candles: 27 },
 				},

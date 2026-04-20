@@ -17,6 +17,7 @@ export default new GuideSpirit({
 				},
 				null,
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.MigrationPendant,
 					seasonPass: true,
 				},
@@ -43,6 +44,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.MigrationGuideHeart1,
 				},
 				{
+					translation: CosmeticCommon.UltimateOutfit,
 					cosmetic: Cosmetic.MigrationGuideUltimateOutfit,
 					cost: { seasonalHearts: 2 },
 					seasonPass: true,
@@ -68,6 +70,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.MigrationGuideHeart3,
 				},
 				{
+					translation: CosmeticCommon.UltimateFaceAccessory,
 					cosmetic: Cosmetic.MigrationGuideUltimateFaceAccessory,
 					cost: { seasonalHearts: 2 },
 					seasonPass: true,
@@ -109,6 +112,7 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.MigrationGuideQuest9,
 				},
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.MigrationGuideProp,
 					cost: { candles: 32 },
 				},

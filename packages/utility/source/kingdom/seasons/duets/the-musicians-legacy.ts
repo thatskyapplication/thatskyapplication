@@ -27,12 +27,14 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 24 },
 				},
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
 					cosmetic: Cosmetic.TheMusiciansLegacyProp1,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.TheMusiciansLegacyProp2,
 					cost: { seasonalCandles: 34 },
 				},

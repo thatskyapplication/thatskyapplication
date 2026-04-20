@@ -51,18 +51,18 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 9 },
 				},
 				{
+					translation: CosmeticCommon.HeadAccessory,
 					cosmetic: Cosmetic.LightmendingChampionHeadAccessory,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: CosmeticCommon.WhiteDye,
 					cosmetic: Cosmetic.LightmendingChampionWhiteDye,
 					cost: { seasonalCandles: 15 },
 				},
-				{
-					cosmetic: Cosmetic.LightmendingChampionTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.LightmendingChampionTrust },
 				{
 					cosmetic: Cosmetic.FriendActionRevolvingDance4,
 					level: 4,

@@ -53,6 +53,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.ChucklingScoutProp,
 					cost: { seasonalCandles: 20 },
 				},
@@ -136,6 +137,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.ChucklingScoutProp,
 					cost: { candles: 45 },
 				},

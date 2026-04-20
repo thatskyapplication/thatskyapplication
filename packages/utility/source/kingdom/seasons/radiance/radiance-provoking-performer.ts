@@ -18,16 +18,19 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.GreenDyeMultiple, number: 1 },
 					cosmetic: Cosmetic.RadianceProvokingPerformerGreenDye1,
 					cost: { seasonalCandles: 10 },
 				},
 				{
+					translation: CosmeticCommon.HeadAccessory,
 					cosmetic: Cosmetic.RadianceProvokingPerformerHeadAccessory,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.GreenDyeMultiple, number: 2 },
 					cosmetic: Cosmetic.RadianceProvokingPerformerGreenDye2,
 					cost: { seasonalCandles: 14 },
 				},
@@ -51,12 +54,14 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 24 },
 				},
 				{
+					translation: { key: CosmeticCommon.YellowDyeMultiple, number: 1 },
 					cosmetic: Cosmetic.RadianceProvokingPerformerYellowDye1,
 					seasonPass: true,
 				},
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.YellowDyeMultiple, number: 2 },
 					cosmetic: Cosmetic.RadianceProvokingPerformerYellowDye2,
 					cost: { seasonalCandles: 32 },
 				},
@@ -72,7 +77,11 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.RadianceProvokingPerformerShoes,
 					cost: { seasonalCandles: 38 },
 				},
-				{ cosmetic: Cosmetic.RadianceProvokingPerformerWhiteDye, seasonPass: true },
+				{
+					translation: CosmeticCommon.WhiteDye,
+					cosmetic: Cosmetic.RadianceProvokingPerformerWhiteDye,
+					seasonPass: true,
+				},
 			],
 			[
 				{

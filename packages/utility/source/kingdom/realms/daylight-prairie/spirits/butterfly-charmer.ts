@@ -27,6 +27,7 @@ export default new StandardSpirit({
 					cost: { candles: 1 },
 				},
 				{
+					translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 					cosmetic: Cosmetic.ButterflyCharmerCape1,
 					cost: { hearts: 3 },
 				},
@@ -76,6 +77,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 					cosmetic: Cosmetic.ButterflyCharmerCape2,
 					cost: { hearts: 9 },
 				},

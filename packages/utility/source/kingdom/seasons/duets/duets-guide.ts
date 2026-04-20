@@ -19,6 +19,7 @@ export default new GuideSpirit({
 					cost: { candles: 65 },
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.DuetsPendant,
 					seasonPass: true,
 					children: [
@@ -28,6 +29,7 @@ export default new GuideSpirit({
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.UltimateCape,
 							cosmetic: Cosmetic.DuetsGuideUltimateCape,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,

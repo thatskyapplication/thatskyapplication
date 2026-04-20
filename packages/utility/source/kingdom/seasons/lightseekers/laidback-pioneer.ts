@@ -53,7 +53,13 @@ export default new SeasonalSpirit({
 					cost: { seasonalCandles: 20 },
 				},
 			],
-			[{ cosmetic: Cosmetic.LaidbackPioneerUmbrella, seasonPass: true }],
+			[
+				{
+					translation: CosmeticCommon.Umbrella,
+					cosmetic: Cosmetic.LaidbackPioneerUmbrella,
+					seasonPass: true,
+				},
+			],
 		],
 		current: [
 			[{ cosmetic: Cosmetic.StanceLaidback }],
@@ -99,6 +105,7 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.Umbrella,
 					cosmetic: Cosmetic.LaidbackPioneerUmbrella,
 					cost: { candles: 75 },
 				},

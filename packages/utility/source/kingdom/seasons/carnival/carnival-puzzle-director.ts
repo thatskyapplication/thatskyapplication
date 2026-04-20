@@ -59,9 +59,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.CarnivalPuzzleDirectorHairAccessory,
 					cost: { seasonalCandles: 28 },
 				},
-				{
-					cosmetic: Cosmetic.CarnivalPuzzleDirectorTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.CarnivalPuzzleDirectorTrust },
 				{
 					cosmetic: Cosmetic.EmoteTakeNotes4,
 					level: 4,

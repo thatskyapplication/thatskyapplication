@@ -37,10 +37,15 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					translation: CosmeticCommon.RedDye,
 					cosmetic: Cosmetic.CostumedConfettiCousinRedDye,
 					cost: { seasonalCandles: 19 },
 				},
-				{ cosmetic: Cosmetic.CostumedConfettiCousinYellowDye, seasonPass: true },
+				{
+					translation: CosmeticCommon.YellowDye,
+					cosmetic: Cosmetic.CostumedConfettiCousinYellowDye,
+					seasonPass: true,
+				},
 			],
 			[
 				{

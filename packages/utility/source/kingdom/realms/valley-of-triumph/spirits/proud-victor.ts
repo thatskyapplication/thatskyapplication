@@ -13,6 +13,7 @@ export default new StandardSpirit({
 			[
 				{ cosmetic: Cosmetic.StanceProud },
 				{
+					translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 					cosmetic: Cosmetic.ProudVictorCape1,
 					cost: { hearts: 10 },
 				},
@@ -59,6 +60,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 					cosmetic: Cosmetic.ProudVictorCape2,
 					cost: { hearts: 30 },
 				},

@@ -42,6 +42,7 @@ export default new SeasonalSpirit({
 					level: 3,
 				},
 				{
+					translation: CosmeticCommon.CyanDye,
 					cosmetic: Cosmetic.LightmendingLightCatcherCyanDye,
 					cost: { seasonalCandles: 11 },
 				},
@@ -57,9 +58,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.LightmendingLightCatcherCape,
 					cost: { seasonalCandles: 38 },
 				},
-				{
-					cosmetic: Cosmetic.LightmendingLightCatcherTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.LightmendingLightCatcherTrust },
 				{
 					cosmetic: Cosmetic.FriendActionSecretHandshake4,
 					level: 4,

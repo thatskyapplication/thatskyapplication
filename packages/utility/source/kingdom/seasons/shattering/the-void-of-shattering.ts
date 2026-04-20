@@ -19,10 +19,12 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.ShatteringPendant,
 					seasonPass: true,
 					children: [
 						{
+							translation: CosmeticCommon.MantaCape,
 							cosmetic: Cosmetic.TheVoidofShatteringMantaCape,
 							cost: { seasonalHearts: 2 },
 							seasonPass: true,

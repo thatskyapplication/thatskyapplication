@@ -58,9 +58,7 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.LightmendingLightScholarBlessing2,
 					cost: { seasonalCandles: 12 },
 				},
-				{
-					cosmetic: Cosmetic.LightmendingLightScholarTrust,
-				},
+				{ translation: CosmeticCommon.Trust, cosmetic: Cosmetic.LightmendingLightScholarTrust },
 				{
 					cosmetic: Cosmetic.FriendActionWhisper4,
 					level: 4,

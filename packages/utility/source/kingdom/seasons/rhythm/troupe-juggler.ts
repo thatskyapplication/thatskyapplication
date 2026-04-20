@@ -92,6 +92,7 @@ export default new SeasonalSpirit({
 					level: 2,
 				},
 				{
+					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.TroupeJugglerProp,
 					cost: { hearts: 14 },
 				},

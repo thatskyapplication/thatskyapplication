@@ -46,6 +46,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.CapeMultiple, number: 1 },
 					cosmetic: Cosmetic.StealthySurvivorCape1,
 					cost: { hearts: 50 },
 				},
@@ -59,6 +60,7 @@ export default new StandardSpirit({
 			],
 			[
 				{
+					translation: { key: CosmeticCommon.CapeMultiple, number: 2 },
 					cosmetic: Cosmetic.StealthySurvivorCape2,
 					cost: { hearts: 150 },
 				},

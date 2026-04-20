@@ -22,6 +22,7 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 				{
+					translation: CosmeticCommon.Pendant,
 					cosmetic: Cosmetic.SanctuaryPendant,
 					seasonPass: true,
 					children: [
@@ -31,6 +32,7 @@ export default new GuideSpirit({
 							seasonPass: true,
 						},
 						{
+							translation: CosmeticCommon.MantaCape,
 							cosmetic: Cosmetic.SanctuaryGuideMantaCape,
 							cost: { seasonalHearts: 3 },
 							seasonPass: true,
@@ -93,11 +95,7 @@ export default new GuideSpirit({
 					cost: { candles: 3 },
 				},
 			],
-			[
-				{
-					cosmetic: Cosmetic.SanctuaryGuideFriendActionHug,
-				},
-			],
+			[{ translation: CosmeticCommon.Hug, cosmetic: Cosmetic.SanctuaryGuideFriendActionHug }],
 		],
 	},
 });
