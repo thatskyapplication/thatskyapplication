@@ -385,6 +385,738 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "SeasonId.Carnival",
 	},
 	{
+		upstreamKey: "commerce_item_name_starter_pack",
+		tsKey: "Cosmetic.MobileCape",
+	},
+	{
+		upstreamKey: "sheet_03",
+		tsKey: "Cosmetic.BirdWhispererMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_04",
+		tsKey: "Cosmetic.WhaleWhispererMusicSheet",
+	},
+	{
+		upstreamKey: "consumable_name_shout_manta",
+		tsKey: "Cosmetic.CallManta",
+	},
+	{
+		upstreamKey: "sheet_05",
+		tsKey: "Cosmetic.MantaWhispererMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_07",
+		tsKey: "Cosmetic.ProvokingPerformerMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_08",
+		tsKey: "Cosmetic.SalutingProtectorMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_founder_pack",
+		tsKey: "Cosmetic.FoundersCape",
+	},
+	{
+		upstreamKey: "sheet_09",
+		tsKey: "Cosmetic.LaidbackPioneerMusicSheet",
+	},
+	{
+		upstreamKey: "consumable_name_shout_crab",
+		tsKey: "Cosmetic.CallCrab",
+	},
+	{
+		upstreamKey: "sheet_10",
+		tsKey: "Cosmetic.CrabWhispererMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_ap_cape_bat",
+		tsKey: "Cosmetic.SpookyBatCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_ap_pumpkin_head",
+		tsKey: "Cosmetic.HungryPumpkinHat",
+	},
+	{
+		upstreamKey: "consumable_name_bonfire",
+		tsKey: "Cosmetic.BelongingBonfire",
+	},
+	{
+		upstreamKey: "sheet_12",
+		tsKey: "Cosmetic.HairtousleTeenMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_11",
+		tsKey: "Cosmetic.WiseGrandparentMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_01",
+		tsKey: "Cosmetic.TroupeGreeterMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_02",
+		tsKey: "Cosmetic.FestivalSpinDancerMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_06",
+		tsKey: "Cosmetic.AdmiringActorMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_daysoflove_pack",
+		tsKey: "Cosmetic.DaysOfLoveSwing",
+	},
+	{
+		upstreamKey: "sheet_13",
+		tsKey: "Cosmetic.PlayfightingHerbalistMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_daysofnature_pack",
+		tsKey: "Cosmetic.EarthCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_covid_pack",
+		tsKey: "Cosmetic.HealingHairAccessory",
+	},
+	{
+		upstreamKey: "consumable_name_shout_jelly",
+		tsKey: "Cosmetic.CallJellyfish",
+	},
+	{
+		upstreamKey: "sheet_14",
+		tsKey: "Cosmetic.JellyWhispererMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_15",
+		tsKey: "Cosmetic.TimidBookwormMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_16",
+		tsKey: "Cosmetic.ProphetOfEarthMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_17",
+		tsKey: "Cosmetic.ProphetOfFireMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_web_cape",
+		tsKey: "Cosmetic.MischiefWebCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_witch_hat",
+		tsKey: "Cosmetic.MischiefWitchHat",
+	},
+	{
+		upstreamKey: "commerce_item_name_xmas_cape",
+		tsKey: "Cosmetic.DaysOfFeastCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_xmas_table",
+		tsKey: "Cosmetic.DaysOfFeastTable",
+	},
+	{
+		upstreamKey: "commerce_item_name_xmas_horn",
+		tsKey: "Cosmetic.DaysOfFeastHorns",
+	},
+	{
+		upstreamKey: "commerce_item_name_snowflake_cape",
+		tsKey: "Cosmetic.SnowflakeCape",
+	},
+	{
+		upstreamKey: "sheet_18",
+		tsKey: "Cosmetic.PeekingPostmanMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_19",
+		tsKey: "Cosmetic.BearhugHermitMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_orange",
+		tsKey: "Cosmetic.DaysOfFortuneOrange",
+	},
+	{
+		upstreamKey: "commerce_item_name_wool_hat",
+		tsKey: "Cosmetic.DaysOfFortuneWoolHat",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_teatable",
+		tsKey: "Cosmetic.PinkBloomTeaset",
+	},
+	{
+		upstreamKey: "sheet_21",
+		tsKey: "Cosmetic.ScaredyCadetMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_20",
+		tsKey: "Cosmetic.DaydreamForesterMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_oceannecklace",
+		tsKey: "Cosmetic.OceanNecklace",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_oceancape",
+		tsKey: "Cosmetic.OceanCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_rainbowhair",
+		tsKey: "Cosmetic.RainbowHat",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_pack",
+		tsKey: "Cosmetic.RainbowFlower",
+	},
+	{
+		upstreamKey: "commerce_item_name_littleprince_fox",
+		tsKey: "Cosmetic.LittlePrinceFox",
+	},
+	{
+		upstreamKey: "sheet_22",
+		tsKey: "Cosmetic.GloatingNarcissistMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_23",
+		tsKey: "Cosmetic.SlouchingSoldierMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_littleprince_coat",
+		tsKey: "Cosmetic.LittlePrinceAsteroidJacket",
+	},
+	{
+		upstreamKey: "sheet_24",
+		tsKey: "Cosmetic.LivelyNavigatorMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_25",
+		tsKey: "Cosmetic.TalentedBuilderMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_witch_body",
+		tsKey: "Cosmetic.MischiefWitchJumper",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_withered_horn",
+		tsKey: "Cosmetic.MischiefWitheredAntlers",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_spider_hair",
+		tsKey: "Cosmetic.MischiefSpiderQuiff",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_pumpkin_prop",
+		tsKey: "Cosmetic.MischiefPumpkinProp",
+	},
+	{
+		upstreamKey: "sheet_26",
+		tsKey: "Cosmetic.OdeToJoyMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_snowflakepin",
+		tsKey: "Cosmetic.SnowflakeHairAccessory",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_wintereldercape",
+		tsKey: "Cosmetic.WinterAncestorCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_snowglobe",
+		tsKey: "Cosmetic.WinterFeastSnowGlobe",
+	},
+	{
+		upstreamKey: "consumable_name_pinwheel",
+		tsKey: "Cosmetic.SparklerParentPinwheel",
+	},
+	{
+		upstreamKey: "sheet_28",
+		tsKey: "Cosmetic.BumblingBoatswainMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_27",
+		tsKey: "Cosmetic.CacklingCannoneerMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_carp",
+		tsKey: "Cosmetic.DaysOfFortuneFishAccessory",
+	},
+	{
+		upstreamKey: "commerce_item_name_love_gondola",
+		tsKey: "Cosmetic.DaysOfLoveGondola",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_wisteriatable",
+		tsKey: "Cosmetic.PurpleBloomTeaset",
+	},
+	{
+		upstreamKey: "sheet_30",
+		tsKey: "Cosmetic.FranticStagehandMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_29",
+		tsKey: "Cosmetic.ModestDancerMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_turtlewing",
+		tsKey: "Cosmetic.NatureTurtleCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_turtlepack",
+		tsKey: "Cosmetic.NatureShoulderTurtle",
+	},
+	{
+		upstreamKey: "sheet_minik0",
+		tsKey: "Cosmetic.HarmonyHallMusicSheet1",
+	},
+	{
+		upstreamKey: "sheet_minik1",
+		tsKey: "Cosmetic.HarmonyHallMusicSheet2",
+	},
+	{
+		upstreamKey: "sheet_minik2",
+		tsKey: "Cosmetic.HarmonyHallMusicSheet3",
+	},
+	{
+		upstreamKey: "sheet_minik3",
+		tsKey: "Cosmetic.HarmonyHallMusicSheet4",
+	},
+	{
+		upstreamKey: "commerce_item_name_musicshop_harp",
+		tsKey: "Cosmetic.FledglingHarp",
+	},
+	{
+		upstreamKey: "commerce_item_name_musicshop_guitar",
+		tsKey: "Cosmetic.RhythmGuitar",
+	},
+	{
+		upstreamKey: "commerce_item_name_musicshop_handpan",
+		tsKey: "Cosmetic.TriumphHandpan",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_trousers",
+		tsKey: "Cosmetic.RainbowTrousers",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_earring",
+		tsKey: "Cosmetic.RainbowEarring",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_headphones",
+		tsKey: "Cosmetic.RainbowHeadphones",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_pack2",
+		tsKey: "Cosmetic.RainbowDoubleFlower",
+	},
+	{
+		upstreamKey: "sheet_32",
+		tsKey: "Cosmetic.AncientLightMantaMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_31",
+		tsKey: "Cosmetic.AncientDarknessPlantMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_happy_birthday",
+		tsKey: "Cosmetic.HappyBirthdayMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_tgc_guitar",
+		tsKey: "Cosmetic.TGCGuitar",
+	},
+	{
+		upstreamKey: "commerce_item_name_aurora_hair_accessory",
+		tsKey: "Cosmetic.TiaraWeCanTouch",
+	},
+	{
+		upstreamKey: "commerce_item_name_aurora_runaway_body",
+		tsKey: "Cosmetic.RunawayOutfit",
+	},
+	{
+		upstreamKey: "sheet_37",
+		tsKey: "Cosmetic.RunningWayfarerMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_36",
+		tsKey: "Cosmetic.WarriorOfLoveMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_34",
+		tsKey: "Cosmetic.SeedOfHopeMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_catprop",
+		tsKey: "Cosmetic.FelineFamiliarProp",
+	},
+	{
+		upstreamKey: "commerce_item_name_aurora_instrument",
+		tsKey: "Cosmetic.VoiceOfAURORA",
+	},
+	{
+		upstreamKey: "sheet_33",
+		tsKey: "Cosmetic.AURORAMusicSheet1",
+	},
+	{
+		upstreamKey: "commerce_item_name_aurora_orangecape",
+		tsKey: "Cosmetic.GivingInCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_aurora_orangedress",
+		tsKey: "Cosmetic.ToTheLoveOutfit",
+	},
+	{
+		upstreamKey: "sheet_35",
+		tsKey: "Cosmetic.AURORAMusicSheet2",
+	},
+	{
+		upstreamKey: "commerce_item_name_aurora_cape",
+		tsKey: "Cosmetic.WingsOfAURORA",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_ballgame",
+		tsKey: "Cosmetic.TournamentSkyballSet",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_muralist",
+		tsKey: "Cosmetic.DaysOfFortuneMuralistsSmock",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_umbrella",
+		tsKey: "Cosmetic.DaysOfFortuneEnchantedUmbrella",
+	},
+	{
+		upstreamKey: "commerce_item_name_love_bow",
+		tsKey: "Cosmetic.DaysOfLoveClassyCravat",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_gardenerbody",
+		tsKey: "Cosmetic.BloomGardeningTunic",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_picnicblanket",
+		tsKey: "Cosmetic.BloomPicnicBasket",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_bluesunglasses",
+		tsKey: "Cosmetic.NatureGlasses",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_musicshell",
+		tsKey: "Cosmetic.NatureSonorousSeashell",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_pack3",
+		tsKey: "Cosmetic.DarkRainbowEarrings",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_darktunic",
+		tsKey: "Cosmetic.DarkRainbowTunic",
+	},
+	{
+		upstreamKey: "sheet_38",
+		tsKey: "Cosmetic.DaysOfMusicMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_musicshop_violin",
+		tsKey: "Cosmetic.TriumphViolin",
+	},
+	{
+		upstreamKey: "sheet_39",
+		tsKey: "Cosmetic.JollyGeologistMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_birthday_oreo",
+		tsKey: "Cosmetic.AnniversaryPlush",
+	},
+	{
+		upstreamKey: "commerce_item_name_aurora_encoresneakers",
+		tsKey: "Cosmetic.MusicalVoyageSneakers",
+	},
+	{
+		upstreamKey: "commerce_item_name_sunlight_sandals",
+		tsKey: "Cosmetic.SunlightChunkySandals",
+	},
+	{
+		upstreamKey: "commerce_item_name_sunlight_surfboard",
+		tsKey: "Cosmetic.SunlightSurfboard",
+	},
+	{
+		upstreamKey: "commerce_item_name_fashion_starglasses",
+		tsKey: "Cosmetic.StyleStarSunglasses",
+	},
+	{
+		upstreamKey: "commerce_item_name_fashion_balletflats",
+		tsKey: "Cosmetic.StyleSilkBalletSlippers",
+	},
+	{
+		upstreamKey: "commerce_item_name_fashion_flameglasses",
+		tsKey: "Cosmetic.StyleFlameSunglasses",
+	},
+	{
+		upstreamKey: "commerce_item_name_fashion_heartglasses",
+		tsKey: "Cosmetic.StyleHeartSunglasses",
+	},
+	{
+		upstreamKey: "commerce_item_name_fashion_jeans",
+		tsKey: "Cosmetic.StyleWideLegJeans",
+	},
+	{
+		upstreamKey: "sheet_40",
+		tsKey: "Cosmetic.EchoOfAnAbandonedRefugeMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_cobwebcape",
+		tsKey: "Cosmetic.MischiefGossamerCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_draculacape",
+		tsKey: "Cosmetic.MischiefCrabulaCloak",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_draculamask",
+		tsKey: "Cosmetic.MischiefCrabulaMask",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_snowboard",
+		tsKey: "Cosmetic.WinterFeastSnowboard",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_puffercape",
+		tsKey: "Cosmetic.WinterQuiltedCape",
+	},
+	{
+		upstreamKey: "sheet_41",
+		tsKey: "Cosmetic.FeudalLordMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_dragonrobe",
+		tsKey: "Cosmetic.DaysOfFortuneDragonVestment",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_dragoncape",
+		tsKey: "Cosmetic.DaysOfFortuneDragonStole",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_dragonearring",
+		tsKey: "Cosmetic.DaysOfFortuneDragonBangles",
+	},
+	{
+		upstreamKey: "sheet_42",
+		tsKey: "Cosmetic.DaysofLoveMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_love_meteorwing",
+		tsKey: "Cosmetic.DaysofLoveMeteorMantle",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_leafumbrella",
+		tsKey: "Cosmetic.BloomLilypadUmbrella",
+	},
+	{
+		upstreamKey: "commerce_item_name_cafe_pastryplush",
+		tsKey: "Cosmetic.CinnamorollPopUpCafePlushie",
+	},
+	{
+		upstreamKey: "commerce_item_name_cafe_pastrymini",
+		tsKey: "Cosmetic.CinnamorollPopUpCafeMiniCompanion",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_waterwavewing",
+		tsKey: "Cosmetic.NatureWaveCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_waterhair",
+		tsKey: "Cosmetic.NatureWaveTouchedHair",
+	},
+	{
+		upstreamKey: "placeable_radio_title",
+		tsKey: "Cosmetic.MusicPlayer",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_darkloafers",
+		tsKey: "Cosmetic.DarkRainbowLoafers",
+	},
+	{
+		upstreamKey: "commerce_item_name_tgcwireframe",
+		tsKey: "Cosmetic.SkyFestWireframeCape",
+	},
+	{
+		upstreamKey: "sheet_43",
+		tsKey: "Cosmetic.TheMusiciansLegacyMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_competition_laurel",
+		tsKey: "Cosmetic.TournamentGoldenGarland",
+	},
+	{
+		upstreamKey: "commerce_item_name_competition_greekrobe",
+		tsKey: "Cosmetic.TournamentTunic",
+	},
+	{
+		upstreamKey: "commerce_item_name_sunlight_mantafloat",
+		tsKey: "Cosmetic.SunlightMantaFloat",
+	},
+	{
+		upstreamKey: "commerce_item_name_sunlight_sunnyearring",
+		tsKey: "Cosmetic.SunlightHeliosHoops",
+	},
+	{
+		upstreamKey: "commerce_item_name_sunlight_linencover",
+		tsKey: "Cosmetic.SunlightWovenWrap",
+	},
+	{
+		upstreamKey: "commerce_item_name_moomin_hattineck",
+		tsKey: "Cosmetic.HattifattenerShoulderBuddy",
+	},
+	{
+		upstreamKey: "commerce_item_name_moomin_snufkinhat",
+		tsKey: "Cosmetic.PointedSnufkinHat",
+	},
+	{
+		upstreamKey: "sheet_45",
+		tsKey: "Cosmetic.SenseOfSelfMusicSheet",
+	},
+	{
+		upstreamKey: "sheet_44",
+		tsKey: "Cosmetic.SpiritOfAdventureMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_ravencape",
+		tsKey: "Cosmetic.MischiefRavenFeatheredCloak",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_broomprop",
+		tsKey: "Cosmetic.MischiefWitheredBroom",
+	},
+	{
+		upstreamKey: "commerce_item_name_musicshop_banduniform",
+		tsKey: "Cosmetic.MusicMarchingUniform",
+	},
+	{
+		upstreamKey: "commerce_item_name_musicshop_pianoupright",
+		tsKey: "Cosmetic.FledglingUprightPiano",
+	},
+	{
+		upstreamKey: "commerce_item_name_moomin_ninnycape",
+		tsKey: "Cosmetic.MoominmammasMasterpiece",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_wonderland_crabbithole",
+		tsKey: "Cosmetic.WonderlandCafeCorridor",
+	},
+	{
+		upstreamKey: "sheet_46",
+		tsKey: "Cosmetic.DragonDanceMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_fanprop",
+		tsKey: "Cosmetic.FortuneHandFan",
+	},
+	{
+		upstreamKey: "sheet_47",
+		tsKey: "Cosmetic.WoodcuttingPleafulParentMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_maskwaves",
+		tsKey: "Cosmetic.OceanWavesMask",
+	},
+	{
+		upstreamKey: "commerce_item_name_tgcwireframe_evergreen",
+		tsKey: "Cosmetic.TGCWireframeCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_ember_memoryhat",
+		tsKey: "Cosmetic.ButterflyBlossomMemento",
+	},
+	{
+		upstreamKey: "commerce_item_name_ember_manateehat",
+		tsKey: "Cosmetic.MiniManateeAccessory",
+	},
+	{
+		upstreamKey: "commerce_item_name_ember_darknesscape",
+		tsKey: "Cosmetic.CloakOfDarkness",
+	},
+	{
+		upstreamKey: "sheet_48",
+		tsKey: "Cosmetic.SternShepherdMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_ember_manateeplush",
+		tsKey: "Cosmetic.ManateePlush",
+	},
+	{
+		upstreamKey: "commerce_item_name_anniversary_tuxwing",
+		tsKey: "Cosmetic.AnniversaryTuxedoCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_ember_projector",
+		tsKey: "Cosmetic.ProjectorOfMemories",
+	},
+	{
+		upstreamKey: "commerce_item_name_moonlight_cape",
+		tsKey: "Cosmetic.MoonlightGarlandCape",
+	},
+	{
+		upstreamKey: "sheet_49",
+		tsKey: "Cosmetic.MusicSheetAncientEcho",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_featherhat",
+		tsKey: "Cosmetic.MischiefPuzzlewrightsBrimmedHat",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_scarfcape",
+		tsKey: "Cosmetic.WinterScarfCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_snowkidhat",
+		tsKey: "Cosmetic.SnowkidAccessory",
+	},
+	{
+		upstreamKey: "commerce_item_name_personality_bluecap",
+		tsKey: "Cosmetic.BluePinnedCap",
+	},
+	{
+		upstreamKey: "commerce_item_name_personality_purpleglasses",
+		tsKey: "Cosmetic.PurpleSpectacles",
+	},
+	{
+		upstreamKey: "commerce_item_name_personality_greenears",
+		tsKey: "Cosmetic.GreenFoldedEars",
+	},
+	{
+		upstreamKey: "commerce_item_name_personality_yellowbrush",
+		tsKey: "Cosmetic.YellowPaintbrush",
+	},
+	{
+		upstreamKey: "commerce_item_name_competition_icecape",
+		tsKey: "Cosmetic.TournamentCrystallineCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_ponyprop",
+		tsKey: "Cosmetic.FortunePlushMount",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_paneldress",
+		tsKey: "Cosmetic.FortunePleatedDress",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_ponytail",
+		tsKey: "Cosmetic.FortuneRibbonedPonytail",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_coinglasses",
+		tsKey: "Cosmetic.FortuneTokenGlasses",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_sunflowerdress",
+		tsKey: "Cosmetic.BloomSunflowerSundress",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_sunflowerumbrella",
+		tsKey: "Cosmetic.BloomSunflowerUmbrella",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_sunflowerearrings",
+		tsKey: "Cosmetic.BloomSunflowerStuds",
+	},
+	{
 		upstreamKey: "sheet_50",
 		tsKey: "Cosmetic.MusicSheetAirship",
 	},

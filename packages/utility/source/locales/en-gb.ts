@@ -2323,7 +2323,7 @@ export default {
 			[Cosmetic.MischiefStarSticker]: "Mischief Star Sticker",
 			[Cosmetic.MischiefCauldron]: "Mischief Cauldron",
 			[Cosmetic.MischiefSpiderBun]: "Mischief Spider Bun",
-			[Cosmetic.MischiefRavenFeatheredCloak]: "Mischief Raven-Feathered Cloak",
+			[Cosmetic.MischiefRavenFeatheredCloak]: "Mischief Raven-feathered Cloak",
 			[Cosmetic.MischiefWitheredBroom]: "Mischief Withered Broom",
 			[Cosmetic.HangingMask]: "Hanging mask",
 			[Cosmetic.EmoteRead3]: "Read 3",
