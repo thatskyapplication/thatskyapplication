@@ -71,6 +71,67 @@ export default new SeasonalSpirit({
 				},
 			],
 		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.EmotePullUp1 },
+				{ cosmetic: Cosmetic.EmotePullUp2, cost: { hearts: 4 }, level: 2 },
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.OveractiveOverachieverBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					cosmetic: Cosmetic.OveractiveOverachieverMantaOcarina,
+					cost: { candles: 45 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.OveractiveOverachieverSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.OveractiveOverachieverWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EmotePullUp3,
+					cost: { hearts: 3 },
+					level: 3,
+				},
+				{
+					cosmetic: Cosmetic.EmotePullUp4,
+					cost: { hearts: 6 },
+					level: 4,
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.OveractiveOverachieverBlessing2,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.OveractiveOverachieverHair,
+					cost: { candles: 50 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.OveractiveOverachieverCape,
+					cost: { candles: 65 },
+				},
+			],
+		],
 	},
 	visits: {
 		travelling: [{ start: skyDate(2026, 4, 23), end: skyDate(2026, 4, 27) }],
