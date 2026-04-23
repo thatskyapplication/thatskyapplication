@@ -83,7 +83,7 @@ export default new SeasonalSpirit({
 				},
 				{
 					cosmetic: Cosmetic.OveractiveOverachieverMantaOcarina,
-					cost: { candles: 45 },
+					cost: { candles: 55 },
 				},
 				{
 					translation: CosmeticCommon.Heart,
@@ -120,14 +120,14 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.OveractiveOverachieverHair,
-					cost: { candles: 50 },
+					cost: { candles: 45 },
 				},
 			],
 			[
 				{
 					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.OveractiveOverachieverCape,
-					cost: { candles: 65 },
+					cost: { candles: 80 },
 				},
 			],
 		],
