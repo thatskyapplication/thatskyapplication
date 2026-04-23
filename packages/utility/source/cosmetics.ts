@@ -3548,6 +3548,9 @@ export enum Cosmetic {
 	EmoteApprove4 = 2813,
 	CarnivalStuntActorHairAccessory = 2814,
 	CarnivalStuntActorSeasonalHeart = 2815,
+
+	// 22/04/2026 | Travelling Spirit #165.
+	OveractiveOverachieverWingBuff = 2816,
 }
 
 export enum CosmeticCommon {
@@ -3753,4 +3756,5 @@ export const WING_BUFFS = [
 	Cosmetic.NightbirdWhispererWingBuff,
 	Cosmetic.AsceticMonkWingBuff,
 	Cosmetic.MelancholyMopeWingBuff,
+	Cosmetic.OveractiveOverachieverWingBuff,
 ] as const satisfies Readonly<Cosmetic[]>;
