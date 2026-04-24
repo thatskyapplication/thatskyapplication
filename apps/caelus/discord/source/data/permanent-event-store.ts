@@ -23,6 +23,10 @@ const items = resolveOfferFromItems([
 		cosmeticDisplay: Cosmetic.TranscendentJourneyCape,
 		cost: { money: 24.99 },
 	},
+	{
+		cosmetic: Cosmetic.SpringCloverSprout,
+		cost: { money: 0.99 },
+	},
 ]);
 
 export const PERMANENT_EVENT_STORE = {

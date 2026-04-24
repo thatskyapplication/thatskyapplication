@@ -881,6 +881,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.WinterQuiltedCape",
 	},
 	{
+		upstreamKey: "commerce_item_name_spring_sprouthorn",
+		tsKey: "Cosmetic.SpringCloverSprout",
+	},
+	{
 		upstreamKey: "sheet_41",
 		tsKey: "Cosmetic.FeudalLordMusicSheet",
 	},

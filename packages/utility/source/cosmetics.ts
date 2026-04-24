@@ -3473,8 +3473,11 @@ export enum Cosmetic {
 	// 27/03/2026 | Season of Lightmending Quest 12.
 	LightmendingGuideQuest12 = 2745,
 
-	// 27/03/2026 | Version 0.32.7.
+	// 27/03/2026 | Version 0.32.8.
 	CandleStand = 2746,
+
+	// 03/04/2026 | version 0.32.8.
+	SpringCloverSprout = 2817,
 
 	// 10/04/2026 | Days of Nature.
 	DaysOfNature2026Hair = 2747,

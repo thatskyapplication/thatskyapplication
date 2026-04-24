@@ -2529,6 +2529,7 @@ export default {
 			[Cosmetic.BloomSunflowerUmbrella]: "Bloom Sunflower Umbrella",
 			[Cosmetic.BloomSunflowerStuds]: "Bloom Sunflower Studs",
 			[Cosmetic.CandleStand]: "Candle stand",
+			[Cosmetic.SpringCloverSprout]: "Spring Clover Sprout",
 			[Cosmetic.CharmingCreatureOutfit]: "Charming Creature Outfit",
 			[Cosmetic.CharmingCreatureHeadAccessory]: "Charming Creature Head Accessory",
 			[Cosmetic.OceanVeilHairAccessory]: "Ocean Veil Hair Accessory",

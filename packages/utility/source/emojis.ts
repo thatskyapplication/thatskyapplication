@@ -9166,6 +9166,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.LightmendingGuideQuest11]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest12]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CandleStand]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp122,
+		[Cosmetic.SpringCloverSprout]: null,
 		[Cosmetic.DaysOfNature2026Hair]: HAIR_EMOJIS.Hair178,
 		[Cosmetic.DaysOfNature2026Prop1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp109,
 		[Cosmetic.DaysOfNature2026Prop2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp123,
