@@ -257,6 +257,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 					Bucket: CDN_BUCKET,
 					Key: `${FriendshipActionTypeToCDNName[friendshipActionType]}/${nextId}.gif`,
 					Body: validatedUpload.buffer,
+					ContentDisposition: "inline",
+					ContentType: "image/gif",
 				}),
 			);
 		} catch (error) {
