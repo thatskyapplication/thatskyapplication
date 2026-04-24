@@ -2160,7 +2160,8 @@
 			"2803": "",
 			"2807": "",
 			"2808": "",
-			"2813": ""
+			"2813": "",
+			"2817": "Broto de Trevo da Primavera"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
