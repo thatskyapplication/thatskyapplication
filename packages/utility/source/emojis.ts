@@ -3645,13 +3645,17 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	HairAccessory74: { id: "1492226474005238001", name: "74_hair_accessory" },
 	/**
+	 * Spring Clover Sprout.
+	 */
+	HairAccessory75: { id: "1497104996200747029", name: "75_hair_accessory" },
+	/**
 	 * Carnival Puzzle Director.
 	 */
-	HairAccessory75: { id: "1494848433889214524", name: "75_hair_accessory" },
+	HairAccessory76: { id: "1494848433889214524", name: "76_hair_accessory" },
 	/**
 	 * Carnival Stunt Actor.
 	 */
-	HairAccessory76: { id: "1495325739581444197", name: "76_hair_accessory" },
+	HairAccessory77: { id: "1495325739581444197", name: "77_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3729,8 +3733,9 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory72: { id: "1459119299699675188", name: "72_hair_accessory" },
 	HairAccessory73: { id: "1464064974996639754", name: "73_hair_accessory" },
 	HairAccessory74: { id: "1492226490094325780", name: "74_hair_accessory" },
-	HairAccessory75: { id: "1494848449483374905", name: "75_hair_accessory" },
-	HairAccessory76: { id: "1495325748162990151", name: "76_hair_accessory" },
+	HairAccessory75: { id: "1497105205437661194", name: "75_hair_accessory" },
+	HairAccessory76: { id: "1494848449483374905", name: "76_hair_accessory" },
+	HairAccessory77: { id: "1495325748162990151", name: "77_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -9166,13 +9171,13 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.LightmendingGuideQuest11]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.LightmendingGuideQuest12]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CandleStand]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp122,
-		[Cosmetic.SpringCloverSprout]: null,
+		[Cosmetic.SpringCloverSprout]: HAIR_ACCESSORY_EMOJIS.HairAccessory75,
 		[Cosmetic.DaysOfNature2026Hair]: HAIR_EMOJIS.Hair178,
 		[Cosmetic.DaysOfNature2026Prop1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp109,
 		[Cosmetic.DaysOfNature2026Prop2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp123,
 		[Cosmetic.CharmingCreatureOutfit]: OUTFIT_EMOJIS.Outfit104,
 		[Cosmetic.CharmingCreatureHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory26,
-		[Cosmetic.OceanVeilHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory74,
+		[Cosmetic.OceanVeilHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory75,
 		[Cosmetic.CarnivalGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CarnivalPendant]: NECKLACE_EMOJIS.Necklace55,
 		[Cosmetic.CarnivalGuideUltimateHair]: HAIR_EMOJIS.Hair179,
@@ -9218,7 +9223,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.EmoteTakeNotes3]: EMOTE_EMOJIS.TakeNotes,
 		[Cosmetic.CarnivalPuzzleDirectorBlessing3]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.CarnivalPuzzleDirectorOutfit]: OUTFIT_EMOJIS.Outfit107,
-		[Cosmetic.CarnivalPuzzleDirectorHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory75,
+		[Cosmetic.CarnivalPuzzleDirectorHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory76,
 		[Cosmetic.CarnivalPuzzleDirectorTrust]: MISCELLANEOUS_EMOJIS.Trust,
 		[Cosmetic.EmoteTakeNotes4]: EMOTE_EMOJIS.TakeNotes,
 		[Cosmetic.CarnivalPuzzleDirectorHair]: HAIR_EMOJIS.Hair180,
@@ -9234,7 +9239,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalStuntActorHair]: HAIR_EMOJIS.Hair181,
 		[Cosmetic.CarnivalStuntActorTrust]: MISCELLANEOUS_EMOJIS.Trust,
 		[Cosmetic.EmoteApprove4]: EMOTE_EMOJIS.Approve,
-		[Cosmetic.CarnivalStuntActorHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory76,
+		[Cosmetic.CarnivalStuntActorHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory77,
 		[Cosmetic.CarnivalStuntActorSeasonalHeart]: SEASON_EMOJIS.CarnivalHeart,
 		[Cosmetic.OveractiveOverachieverWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
