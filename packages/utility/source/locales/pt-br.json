@@ -2779,7 +2779,7 @@
 				},
 				"15": {
 					"message-now": "A manutenção começou e está prevista para terminar às {{timestampEnd}} ({{timestampEndRelative}}).",
-					"message-future": ""
+					"message-future": "A manutenção começará em {{timestampStart}} ({{timestampStartRelative}}) e está planejada para terminar em {{timestampEnd}} ({{timestampEndRelative}})."
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",
@@ -2901,7 +2901,7 @@
 			"description-website": "Encontre perfis Sky criados pela comunidade usando a busca acima!",
 			"search-by-name": "Busca por nome...",
 			"select-a-country": "Selecione um país",
-			"select-a-spirit": "",
+			"select-a-spirit": "Selecione um espírito",
 			"random": "Aleatório",
 			"me": "Eu",
 			"country-unspecified": "Não especificado",
@@ -2947,8 +2947,8 @@
 				"8": "Progresso no Catálogo",
 				"9": "Ranking no Quiz",
 				"10": "Personalidade",
-				"11": "",
-				"12": ""
+				"11": "País",
+				"12": "Espírito"
 			},
 			"edit-type-description": {
 				"0": "Por qual nome você gostaria de ser chamado(a)?",
