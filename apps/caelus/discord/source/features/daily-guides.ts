@@ -879,10 +879,14 @@ async function distributionData(
 	});
 
 	if (type === DailyGuidesDistributionType.Media) {
-		containerComponents.push({
-			type: ComponentType.MediaGallery,
-			items: treasureCandleURLs.map((url) => ({ media: { url } })),
-		});
+		for (let index = 0; index < treasureCandleURLs.length; index += 10) {
+			const chunk = treasureCandleURLs.slice(index, index + 10);
+
+			containerComponents.push({
+				type: ComponentType.MediaGallery,
+				items: chunk.map((url) => ({ media: { url } })),
+			});
+		}
 	}
 
 	const season = skyCurrentSeason(today);
