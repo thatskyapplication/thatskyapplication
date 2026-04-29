@@ -1036,7 +1036,7 @@ export default {
 			const [id] = data.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
-				if (id === CustomId.DailyGuidesSetup) {
+				if (id === CustomId.DailyGuidesSetupChannel) {
 					await handleDailyGuidesChannelSelectMenu(data);
 					return;
 				}

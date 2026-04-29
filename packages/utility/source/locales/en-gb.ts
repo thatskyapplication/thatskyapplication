@@ -1,5 +1,10 @@
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
-import { DailyQuest, type DailyQuests } from "../daily-guides.js";
+import {
+	DailyGuidesDistributionType,
+	type DailyGuidesDistributionTypes,
+	DailyQuest,
+	type DailyQuests,
+} from "../daily-guides.js";
 import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
 import { AreaName, isRealm, REALM_NAME_VALUES, RealmName } from "../kingdom/geography.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
@@ -2968,6 +2973,16 @@ export default {
 		"daily-guides": {
 			name: "Daily guides",
 			"description-short": "View today's daily guides.",
+			"distribution-type-label": {
+				[DailyGuidesDistributionType.Default]: "Default",
+				[DailyGuidesDistributionType.Media]: "Media",
+			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
+			"distribution-type-description": {
+				[DailyGuidesDistributionType.Default]: "The default and recommended way to view daily guides.",
+				[DailyGuidesDistributionType.Media]:
+					"Media-style daily guides. You like 'em big, we deliver on daddy issues.",
+			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
+			"setup-type-string-select-menu-placeholder": "Select an optional format.",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
 			"seasonal-candles": "Seasonal candles",

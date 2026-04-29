@@ -15,7 +15,16 @@ export interface DailyGuidesDistributionPacket {
 	guild_id: Snowflake;
 	channel_id: Snowflake | null;
 	message_id: Snowflake | null;
+	type: number;
 }
+
+export const DailyGuidesDistributionType = {
+	Default: 0,
+	Media: 1,
+} as const satisfies Readonly<Record<string, number>>;
+
+export const DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES = Object.values(DailyGuidesDistributionType);
+export type DailyGuidesDistributionTypes = (typeof DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES)[number];
 
 export const DailyQuest = {
 	Collect30PiecesOfLight: 0,

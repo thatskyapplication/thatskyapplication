@@ -32,6 +32,7 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	communityUpcomingEvents,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
 	type DailyGuidesDistributionPacket,
 	type DailyGuidesPacket,
@@ -347,11 +348,12 @@ export async function setupResponse(
 	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	)
-		.select("channel_id")
+		.select("channel_id", "type")
 		.where({ guild_id: guild.id })
 		.first();
 
 	const channelId = dailyGuidesDistributionPacket?.channel_id;
+	const type = dailyGuidesDistributionPacket?.type;
 
 	const channel = channelId
 		? (guild.channels.get(channelId) ?? guild.threads.get(channelId))
@@ -388,14 +390,14 @@ export async function setupResponse(
 					{
 						type: ComponentType.TextDisplay,
 						content:
-							"You may choose a channel to receive daily guides in! Use the select menu below to select a channel.",
+							"You may choose a channel to receive daily guides in! Use the select menus below to select a channel and select an optional desired format.",
 					},
 					{
 						type: ComponentType.ActionRow,
 						components: [
 							{
 								type: ComponentType.ChannelSelect,
-								custom_id: CustomId.DailyGuidesSetup,
+								custom_id: CustomId.DailyGuidesSetupChannel,
 								// @ts-expect-error The mutable array error is fine.
 								channel_types: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 								default_values: channelId
@@ -404,6 +406,35 @@ export async function setupResponse(
 								max_values: 1,
 								min_values: 0,
 								placeholder: "Select a channel to use for daily guides.",
+							},
+						],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: CustomId.DailyGuidesSetupType,
+								options: DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES.map(
+									(dailyGuidesDistributionType) => ({
+										label: t(
+											`daily-guides.distribution-type-label.${dailyGuidesDistributionType}`,
+											{ lng: locale, ns: "features" },
+										),
+										description: t(
+											`daily-guides.distribution-type-description.${dailyGuidesDistributionType}`,
+											{ lng: locale, ns: "features" },
+										),
+										value: dailyGuidesDistributionType.toString(),
+										default: dailyGuidesDistributionType === type,
+									}),
+								),
+								max_values: 1,
+								min_values: 1,
+								placeholder: t("daily-guides.setup-type-string-select-menu-placeholder", {
+									lng: locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
