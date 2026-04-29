@@ -212,9 +212,7 @@ export function isDailyGuidesDistributionChannel(
 	);
 }
 
-function isDailyGuidesDistributionType(
-	value: number,
-): value is DailyGuidesDistributionTypes {
+function isDailyGuidesDistributionType(value: number): value is DailyGuidesDistributionTypes {
 	return DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES.includes(value as DailyGuidesDistributionTypes);
 }
 
@@ -349,7 +347,16 @@ export async function setup({ guildId, channelId, type }: DailyGuidesSetupOption
 	}
 
 	if (channelId && dailyGuidesDistributionPacket?.channel_id !== channelId) {
-		await send({ guildId, channelId, messageId: null, enforceNonce: false });
+		await send({
+			guildId,
+			type:
+				type ??
+				(dailyGuidesDistributionPacket?.type as DailyGuidesDistributionTypes | undefined) ??
+				DailyGuidesDistributionType.Default,
+			channelId,
+			messageId: null,
+			enforceNonce: false,
+		});
 	}
 }
 
@@ -580,12 +587,13 @@ export async function resetDailyGuidesDistribution() {
 
 interface DailyGuidesSendOptions {
 	guildId: Snowflake;
+	type: DailyGuidesDistributionTypes;
 	channelId: Snowflake;
 	messageId: Snowflake | null;
 	enforceNonce: boolean;
 }
 
-async function send({ guildId, channelId, messageId, enforceNonce }: DailyGuidesSendOptions) {
+async function send({ guildId, type, channelId, messageId, enforceNonce }: DailyGuidesSendOptions) {
 	const guild = GUILD_CACHE.get(guildId);
 
 	if (!guild) {
@@ -618,7 +626,7 @@ async function send({ guildId, channelId, messageId, enforceNonce }: DailyGuides
 	}
 
 	// Retrieve our data.
-	const { components } = await distributionData(guild.preferredLocale);
+	const { components } = await distributionData(guild.preferredLocale, type);
 
 	// Update the embed if a message exists.
 	if (messageId) {
@@ -704,7 +712,10 @@ interface DailyGuidesDistributionDataResponse {
 	missingTravellingRock: boolean;
 }
 
-async function distributionData(locale: Locale): Promise<DailyGuidesDistributionDataResponse> {
+async function distributionData(
+	locale: Locale,
+	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Default,
+): Promise<DailyGuidesDistributionDataResponse> {
 	const today = skyToday();
 	const now = skyNow();
 
@@ -821,19 +832,36 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
 				.map(
 					({ quest, url }, index) =>
-						`${index + 1}. ${url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+						`${index + 1}. ${type !== DailyGuidesDistributionType.Default && url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
 				)
 				.join("\n")}`,
 		});
+
+		if (type === DailyGuidesDistributionType.Media) {
+			const questsWithMedia: string[] = [];
+
+			for (const { url } of quests) {
+				if (url) {
+					questsWithMedia.push(url);
+				}
+			}
+
+			if (questsWithMedia.length > 0) {
+				containerComponents.push({
+					type: ComponentType.MediaGallery,
+					items: questsWithMedia.map((url) => ({ media: { url } })),
+				});
+			}
+		}
 	} else {
 		missingDailyQuests = true;
 	}
 
 	const treasureCandleURLs = treasureCandles(today);
+	let treasureCandlesContent = `### ${t("daily-guides.treasure-candles", { lng: locale, ns: "features" })}`;
 
-	containerComponents.push({
-		type: ComponentType.TextDisplay,
-		content: `### ${t("daily-guides.treasure-candles", { lng: locale, ns: "features" })}\n${
+	if (type === DailyGuidesDistributionType.Default) {
+		treasureCandlesContent += `\n\n${
 			treasureCandleURLs.length === 1
 				? `[${t("view", { lng: locale, ns: "general" })}](${treasureCandleURLs[0]})`
 				: treasureCandleURLs
@@ -842,14 +870,25 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 								`[${index * 4 + 1}–${index * 4 + 4}](${treasureCandleURL})`,
 						)
 						.join(" | ")
-		}`,
+		}`;
+	}
+
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: treasureCandlesContent,
 	});
+
+	if (type === DailyGuidesDistributionType.Media) {
+		containerComponents.push({
+			type: ComponentType.MediaGallery,
+			items: treasureCandleURLs.map((url) => ({ media: { url } })),
+		});
+	}
 
 	const season = skyCurrentSeason(today);
 	const footerText = [];
 
 	if (season) {
-		const values = [];
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
 		footerText.push(
@@ -860,34 +899,43 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 			})}`,
 		);
 
-		const seasonalCandlesRotation = season.seasonalCandles(today);
-
-		if (seasonalCandlesRotation) {
-			values.push(`[${t("view", { lng: locale, ns: "general" })}](${seasonalCandlesRotation})`);
-		}
-
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
 		const candleEmoji =
 			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 
-		values.push(
-			t("daily-guides.seasonal-candles-remain-with-season-pass", {
-				lng: locale,
-				ns: "features",
-				remaining: resolveCurrencyEmoji({ emoji: candleEmoji, number: seasonalCandlesLeft }),
-				remainingSeasonPass: resolveCurrencyEmoji({
-					emoji: candleEmoji,
-					number: seasonalCandlesLeftWithSeasonPass,
-				}),
+		const seasonalCandlesRotation = season.seasonalCandles(today);
+
+		const seasonalCandlesRemaining = t("daily-guides.seasonal-candles-remain-with-season-pass", {
+			lng: locale,
+			ns: "features",
+			remaining: resolveCurrencyEmoji({ emoji: candleEmoji, number: seasonalCandlesLeft }),
+			remainingSeasonPass: resolveCurrencyEmoji({
+				emoji: candleEmoji,
+				number: seasonalCandlesLeftWithSeasonPass,
 			}),
-		);
+		});
+
+		let seasonalCandlesContent = `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n\n`;
+
+		if (type === DailyGuidesDistributionType.Default && seasonalCandlesRotation) {
+			seasonalCandlesContent += `[${t("view", { lng: locale, ns: "general" })}](${seasonalCandlesRotation})\n`;
+		}
+
+		seasonalCandlesContent += seasonalCandlesRemaining;
 
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n${values.join("\n")}`,
+			content: seasonalCandlesContent,
 		});
+
+		if (type === DailyGuidesDistributionType.Media && seasonalCandlesRotation) {
+			containerComponents.push({
+				type: ComponentType.MediaGallery,
+				items: [{ media: { url: seasonalCandlesRotation } }],
+			});
+		}
 	}
 
 	const next = skyUpcomingSeason(today);
@@ -907,11 +955,20 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 	if (eventData.eventTickets) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("event-tickets", { lng: locale, ns: "general" })}\n${eventData.eventTickets}`,
+			content: `### ${t("event-tickets", { lng: locale, ns: "general" })}\n\n${eventData.eventTickets}`,
 		});
 	}
 
 	const shard = shardEruption();
+	let shardEruptionContent = `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n\n`;
+
+	if (type === DailyGuidesDistributionType.Default && shard) {
+		shardEruptionContent += `${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shard.timestamps, locale })}`;
+	}
+
+	if (!shard) {
+		shardEruptionContent += `${t("shard-eruption.none", { lng: locale, ns: "features" })}`;
+	}
 
 	containerComponents.push({
 		type: ComponentType.Section,
@@ -924,22 +981,43 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		components: [
 			{
 				type: ComponentType.TextDisplay,
-				content: shard
-					? `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shard.timestamps, locale })}`
-					: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${t("shard-eruption.none", { lng: locale, ns: "features" })}`,
+				content: shardEruptionContent,
 			},
 		],
 	});
+
+	if (type === DailyGuidesDistributionType.Media && shard) {
+		containerComponents.push({
+			type: ComponentType.MediaGallery,
+			items: [{ media: { url: shard.url } }],
+		});
+	}
 
 	let missingTravellingRock: boolean;
 
 	if (travellingRock) {
 		missingTravellingRock = false;
+		let travellingRockContent = `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n\n`;
+		const travellingRockURL = new URL(
+			`daily_guides/travelling_rocks/${travellingRock}.webp`,
+			CDN_URL,
+		).href;
+
+		if (type === DailyGuidesDistributionType.Default) {
+			travellingRockContent += `[${t("view", { lng: locale, ns: "general" })}](${travellingRockURL})`;
+		}
 
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n[${t("view", { lng: locale, ns: "general" })}](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
+			content: travellingRockContent,
 		});
+
+		if (type === DailyGuidesDistributionType.Media) {
+			containerComponents.push({
+				type: ComponentType.MediaGallery,
+				items: [{ media: { url: travellingRockURL } }],
+			});
+		}
 	} else {
 		missingTravellingRock = true;
 	}
@@ -1052,6 +1130,7 @@ async function distributeLogic({
 			distributeQueue.add(async () =>
 				send({
 					guildId: dailyGuidesDistributionPacket.guild_id,
+					type: dailyGuidesDistributionPacket.type as DailyGuidesDistributionTypes,
 					channelId: dailyGuidesDistributionPacket.channel_id,
 					messageId: dailyGuidesDistributionPacket.message_id,
 					enforceNonce: true,
