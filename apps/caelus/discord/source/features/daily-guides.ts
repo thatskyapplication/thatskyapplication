@@ -832,7 +832,7 @@ async function distributionData(
 			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
 				.map(
 					({ quest, url }, index) =>
-						`${index + 1}. ${type !== DailyGuidesDistributionType.Default && url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+						`${index + 1}. ${type === DailyGuidesDistributionType.Default && url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
 				)
 				.join("\n")}`,
 		});
