@@ -12,7 +12,6 @@ import {
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import {
-	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	GUESS_TYPE_VALUES,
 	SCHEDULE_TYPE_VALUES,
 	ScheduleType,
@@ -341,22 +340,6 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					ns: "commands",
 				}),
 				description_localizations: localisations("configure.daily-guides.command-description"),
-				options: [
-					{
-						type: ApplicationCommandOptionType.Channel,
-						name: t("configure.daily-guides.command-option-channel-name", {
-							ns: "commands",
-						}),
-						name_localizations: localisations("configure.daily-guides.command-option-channel-name"),
-						description: t("configure.daily-guides.command-option-channel-description", {
-							ns: "commands",
-						}),
-						description_localizations: localisations(
-							"configure.daily-guides.command-option-channel-description",
-						),
-						channel_types: [...DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES],
-					},
-				],
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,

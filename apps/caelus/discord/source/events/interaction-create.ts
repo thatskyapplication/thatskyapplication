@@ -60,7 +60,8 @@ import {
 } from "../features/checklist.js";
 import {
 	dailyGuidesResponse,
-	handleChannelSelectMenu as handleDailyGuidesChannelSelectMenu,
+	dailyGuidesSetupChannel,
+	dailyGuidesSetupType,
 	handleDistributeButton,
 	InteractiveType,
 	interactive,
@@ -945,6 +946,11 @@ export default {
 				}
 
 				if (isGuildStringSelectMenu(data)) {
+					if (id === CustomId.DailyGuidesSetupType) {
+						await dailyGuidesSetupType(data);
+						return;
+					}
+
 					if (id === CustomId.NotificationsSetup) {
 						const notificationType = Number(value0);
 
@@ -1037,7 +1043,7 @@ export default {
 
 			try {
 				if (id === CustomId.DailyGuidesSetupChannel) {
-					await handleDailyGuidesChannelSelectMenu(data);
+					await dailyGuidesSetupChannel(data);
 					return;
 				}
 

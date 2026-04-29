@@ -35,6 +35,8 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
 	type DailyGuidesDistributionPacket,
+	DailyGuidesDistributionType,
+	type DailyGuidesDistributionTypes,
 	type DailyGuidesPacket,
 	type DailyQuests,
 	DailyQuestToInfographicURL,
@@ -210,6 +212,12 @@ export function isDailyGuidesDistributionChannel(
 	);
 }
 
+function isDailyGuidesDistributionType(
+	value: number,
+): value is DailyGuidesDistributionTypes {
+	return DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES.includes(value as DailyGuidesDistributionTypes);
+}
+
 interface DailyGuidesIsDailyGuidesDistributableOptions {
 	guild: Guild;
 	channel: DailyGuidesDistributionAllowedChannel;
@@ -290,27 +298,38 @@ export function isDailyGuidesDistributable({
 
 interface DailyGuidesSetupOptions {
 	guildId: Snowflake;
-	channelId: Snowflake | null;
+	channelId?: Snowflake | null;
+	type?: DailyGuidesDistributionTypes;
 }
 
-export async function setup({ guildId, channelId }: DailyGuidesSetupOptions) {
+type DailyGuidesSetupPayload = Pick<DailyGuidesDistributionPacket, "guild_id"> &
+	Partial<Pick<DailyGuidesDistributionPacket, "type" | "channel_id" | "message_id">>;
+
+export async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	)
 		.where({ guild_id: guildId })
 		.first();
 
-	let shouldSend = false;
+	const updateData: DailyGuidesSetupPayload = { guild_id: guildId };
+
+	if (type !== undefined) {
+		updateData.type = type;
+	}
+
+	if (channelId !== undefined) {
+		updateData.channel_id = channelId;
+	}
 
 	if (dailyGuidesDistributionPacket) {
-		// biome-ignore lint/suspicious/noImplicitAnyLet: Effort.
-		let updateData;
-
-		if (dailyGuidesDistributionPacket.channel_id === channelId) {
-			updateData = { channel_id: channelId };
-		} else {
+		if (channelId !== undefined && dailyGuidesDistributionPacket.channel_id !== channelId) {
 			// Delete the existing message, if present.
-			if (dailyGuidesDistributionPacket.channel_id && dailyGuidesDistributionPacket.message_id) {
+			if (
+				channelId !== null &&
+				dailyGuidesDistributionPacket.channel_id &&
+				dailyGuidesDistributionPacket.message_id
+			) {
 				await client.api.channels
 					.deleteMessage(
 						dailyGuidesDistributionPacket.channel_id,
@@ -319,24 +338,17 @@ export async function setup({ guildId, channelId }: DailyGuidesSetupOptions) {
 					.catch(() => null);
 			}
 
-			updateData = { channel_id: channelId, message_id: null };
-			shouldSend = true;
+			updateData.message_id = null;
 		}
 
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 			.update(updateData)
 			.where({ guild_id: guildId });
 	} else {
-		shouldSend = true;
-
-		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert({
-			guild_id: guildId,
-			channel_id: channelId,
-			message_id: null,
-		});
+		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert(updateData);
 	}
 
-	if (shouldSend && channelId) {
+	if (channelId && dailyGuidesDistributionPacket?.channel_id !== channelId) {
 		await send({ guildId, channelId, messageId: null, enforceNonce: false });
 	}
 }
@@ -353,7 +365,7 @@ export async function setupResponse(
 		.first();
 
 	const channelId = dailyGuidesDistributionPacket?.channel_id;
-	const type = dailyGuidesDistributionPacket?.type;
+	const type = dailyGuidesDistributionPacket?.type ?? DailyGuidesDistributionType.Default;
 
 	const channel = channelId
 		? (guild.channels.get(channelId) ?? guild.threads.get(channelId))
@@ -452,7 +464,7 @@ export async function setupResponse(
 	};
 }
 
-export async function handleChannelSelectMenu(
+export async function dailyGuidesSetupChannel(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
 	const { locale } = interaction;
@@ -512,6 +524,40 @@ export async function handleChannelSelectMenu(
 	}
 
 	await setup({ guildId: interaction.guild_id, channelId: channelId ?? null });
+
+	await client.api.interactions.updateMessage(
+		interaction.id,
+		interaction.token,
+		await setupResponse(guild, locale),
+	);
+}
+
+export async function dailyGuidesSetupType(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
+	const { locale } = interaction;
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			notInCachedGuildResponse(locale),
+		);
+
+		return;
+	}
+
+	const [typeString] = interaction.data.values;
+	const type = typeString === undefined ? undefined : Number(typeString);
+
+	if (type !== undefined && !isDailyGuidesDistributionType(type)) {
+		throw new Error("Received an unknown distribution type whilst setting up daily guides.");
+	}
+
+	await setup({ guildId: interaction.guild_id, type: type ?? DailyGuidesDistributionType.Default });
 
 	await client.api.interactions.updateMessage(
 		interaction.id,
