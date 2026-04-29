@@ -838,18 +838,21 @@ async function distributionData(
 		});
 
 		if (type === DailyGuidesDistributionType.Media) {
-			const questsWithMedia: string[] = [];
+			const questsWithMedia = [];
 
-			for (const { url } of quests) {
-				if (url) {
-					questsWithMedia.push(url);
+			for (const quest of quests) {
+				if (quest.url) {
+					questsWithMedia.push(quest as { quest: DailyQuests; url: string });
 				}
 			}
 
 			if (questsWithMedia.length > 0) {
 				containerComponents.push({
 					type: ComponentType.MediaGallery,
-					items: questsWithMedia.map((url) => ({ media: { url } })),
+					items: questsWithMedia.map(({ quest, url }) => ({
+						media: { url },
+						description: t(`quests.${quest}`, { lng: locale, ns: "general" }),
+					})),
 				});
 			}
 		}
