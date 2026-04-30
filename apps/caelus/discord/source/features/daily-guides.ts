@@ -204,7 +204,7 @@ async function updateDailyGuides(data: DailyGuidesSetData) {
 	await pg<DailyGuidesPacket>(Table.DailyGuides).update(data);
 }
 
-export function isDailyGuidesDistributionChannel(
+function isDailyGuidesDistributionChannel(
 	channel: APIChannel | AnnouncementThread | PublicThread | PrivateThread,
 ): channel is DailyGuidesDistributionAllowedChannel {
 	return DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES.includes(
@@ -224,7 +224,7 @@ interface DailyGuidesIsDailyGuidesDistributableOptions {
 	website?: boolean;
 }
 
-export function isDailyGuidesDistributable({
+function isDailyGuidesDistributable({
 	guild,
 	channel,
 	me,
@@ -303,7 +303,7 @@ interface DailyGuidesSetupOptions {
 type DailyGuidesSetupPayload = Pick<DailyGuidesDistributionPacket, "guild_id"> &
 	Partial<Pick<DailyGuidesDistributionPacket, "type" | "channel_id" | "message_id">>;
 
-export async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
+async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	)
