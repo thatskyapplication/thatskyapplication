@@ -981,12 +981,14 @@ async function distributionData(
 	const shard = shardEruption();
 	let shardEruptionContent = `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n\n`;
 
-	if (type === DailyGuidesDistributionType.Default && shard) {
-		shardEruptionContent += `${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shard.timestamps, locale })}`;
-	}
+	if (shard) {
+		if (type === DailyGuidesDistributionType.Default) {
+			shardEruptionContent += `${shardEruptionInformationString(shard, true, locale)}\n`;
+		}
 
-	if (!shard) {
-		shardEruptionContent += `${t("shard-eruption.none", { lng: locale, ns: "features" })}`;
+		shardEruptionContent += shardEruptionTimestampsString({ timestamps: shard.timestamps, locale });
+	} else {
+		shardEruptionContent += t("shard-eruption.none", { lng: locale, ns: "features" });
 	}
 
 	containerComponents.push({
