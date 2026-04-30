@@ -310,6 +310,15 @@ async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 		.where({ guild_id: guildId })
 		.first();
 
+	const channelChanged =
+		channelId !== undefined && dailyGuidesDistributionPacket?.channel_id !== channelId;
+
+	const typeChanged = type !== undefined && dailyGuidesDistributionPacket?.type !== type;
+
+	const targetChannelId =
+		channelId === undefined ? dailyGuidesDistributionPacket?.channel_id : channelId;
+
+	let messageId = dailyGuidesDistributionPacket?.message_id ?? null;
 	const updateData: DailyGuidesSetupPayload = { guild_id: guildId };
 
 	if (type !== undefined) {
@@ -321,22 +330,16 @@ async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 	}
 
 	if (dailyGuidesDistributionPacket) {
-		if (channelId !== undefined && dailyGuidesDistributionPacket.channel_id !== channelId) {
+		if (channelChanged) {
 			// Delete the existing message, if present.
-			if (
-				channelId !== null &&
-				dailyGuidesDistributionPacket.channel_id &&
-				dailyGuidesDistributionPacket.message_id
-			) {
+			if (channelId && dailyGuidesDistributionPacket.channel_id && messageId) {
 				await client.api.channels
-					.deleteMessage(
-						dailyGuidesDistributionPacket.channel_id,
-						dailyGuidesDistributionPacket.message_id,
-					)
+					.deleteMessage(dailyGuidesDistributionPacket.channel_id, messageId)
 					.catch(() => null);
 			}
 
 			updateData.message_id = null;
+			messageId = null;
 		}
 
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
@@ -346,15 +349,15 @@ async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert(updateData);
 	}
 
-	if (channelId && dailyGuidesDistributionPacket?.channel_id !== channelId) {
+	if (targetChannelId && (channelChanged || typeChanged)) {
 		await send({
 			guildId,
 			type:
 				type ??
 				(dailyGuidesDistributionPacket?.type as DailyGuidesDistributionTypes | undefined) ??
 				DailyGuidesDistributionType.Default,
-			channelId,
-			messageId: null,
+			channelId: targetChannelId,
+			messageId,
 			enforceNonce: false,
 		});
 	}
