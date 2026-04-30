@@ -1219,9 +1219,13 @@ export async function distribute(options: DailyGuidesDistributionOptions) {
 
 export async function dailyGuidesResponse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Default,
 ) {
 	const { locale } = interaction;
-	const { components, missingDailyQuests, missingTravellingRock } = await distributionData(locale);
+	const { components, missingDailyQuests, missingTravellingRock } = await distributionData(
+		locale,
+		type,
+	);
 	const missing = [];
 
 	if (missingDailyQuests) {

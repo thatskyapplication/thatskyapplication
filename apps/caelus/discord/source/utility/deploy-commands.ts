@@ -12,6 +12,7 @@ import {
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import {
+	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	GUESS_TYPE_VALUES,
 	SCHEDULE_TYPE_VALUES,
 	ScheduleType,
@@ -50,9 +51,9 @@ await init({
 		),
 });
 
-function localisations(name: string, options: Record<string, unknown> = {}, ns = "commands") {
+function localisations(name: string, options: Record<string, unknown> = { ns: "commands" }) {
 	return Object.fromEntries(
-		LOCALES.map((locale) => [locale, t(name, { lng: locale, ns, ...options })]),
+		LOCALES.map((locale) => [locale, t(name, { lng: locale, ...options })]),
 	);
 }
 
@@ -389,6 +390,25 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		description: t("daily-guides.command-description", { ns: "commands" }),
 		description_localizations: localisations("daily-guides.command-description"),
 		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.Integer,
+				name: t("daily-guides.command-option-type-name", { ns: "commands" }),
+				name_localizations: localisations("daily-guides.command-option-type-name"),
+				description: t("daily-guides.command-option-type-description", { ns: "commands" }),
+				description_localizations: localisations("daily-guides.command-option-type-description"),
+				choices: DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES.map((dailyGuidesDistributionType) => ({
+					name: t(`daily-guides.distribution-type-label.${dailyGuidesDistributionType}`, {
+						ns: "features",
+					}),
+					name_localizations: localisations(
+						`daily-guides.distribution-type-label.${dailyGuidesDistributionType}`,
+						{ ns: "features" },
+					),
+					value: dailyGuidesDistributionType,
+				})),
+			},
+		],
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
 			ApplicationIntegrationType.UserInstall,

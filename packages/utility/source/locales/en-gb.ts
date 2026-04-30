@@ -2653,6 +2653,8 @@ export default {
 		"daily-guides": {
 			"command-name": "daily-guides",
 			"command-description": "Show the daily guides.",
+			"command-option-type-name": "type",
+			"command-option-type-description": "Choose a type to view daily guides in!",
 		},
 		data: {
 			"command-name": "data",

@@ -3,6 +3,10 @@ import type {
 	APIChatInputApplicationCommandGuildInteraction,
 	APIChatInputApplicationCommandInteraction,
 } from "@discordjs/core";
+import {
+	DailyGuidesDistributionType,
+	type DailyGuidesDistributionTypes,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
 import { dailyGuidesResponse, questAutocomplete, set } from "../../features/daily-guides.js";
@@ -29,9 +33,9 @@ export default {
 		}
 	},
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
-		if (interaction.data.guild_id === SUPPORT_SERVER_GUILD_ID) {
-			const options = new OptionResolver(interaction);
+		const options = new OptionResolver(interaction);
 
+		if (interaction.data.guild_id === SUPPORT_SERVER_GUILD_ID) {
 			switch (options.getSubcommand()) {
 				case "set": {
 					await set(interaction as APIChatInputApplicationCommandGuildInteraction, options);
@@ -42,6 +46,10 @@ export default {
 			return;
 		}
 
-		await dailyGuidesResponse(interaction);
+		await dailyGuidesResponse(
+			interaction,
+			(options.getInteger("type") as DailyGuidesDistributionTypes | null) ??
+				DailyGuidesDistributionType.Default,
+		);
 	},
 } as const;
