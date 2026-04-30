@@ -355,7 +355,7 @@ async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 			type:
 				type ??
 				(dailyGuidesDistributionPacket?.type as DailyGuidesDistributionTypes | undefined) ??
-				DailyGuidesDistributionType.Default,
+				DailyGuidesDistributionType.Compact,
 			channelId: targetChannelId,
 			messageId,
 			enforceNonce: false,
@@ -375,7 +375,7 @@ export async function setupResponse(
 		.first();
 
 	const channelId = dailyGuidesDistributionPacket?.channel_id;
-	const type = dailyGuidesDistributionPacket?.type ?? DailyGuidesDistributionType.Default;
+	const type = dailyGuidesDistributionPacket?.type ?? DailyGuidesDistributionType.Compact;
 
 	const channel = channelId
 		? (guild.channels.get(channelId) ?? guild.threads.get(channelId))
@@ -579,7 +579,7 @@ export async function dailyGuidesSetupType(
 		}
 	}
 
-	await setup({ guildId: interaction.guild_id, type: type ?? DailyGuidesDistributionType.Default });
+	await setup({ guildId: interaction.guild_id, type: type ?? DailyGuidesDistributionType.Compact });
 
 	await client.api.interactions.updateMessage(
 		interaction.id,
@@ -729,7 +729,7 @@ interface DailyGuidesDistributionDataResponse {
 
 async function distributionData(
 	locale: Locale,
-	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Default,
+	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Compact,
 ): Promise<DailyGuidesDistributionDataResponse> {
 	const today = skyToday();
 	const now = skyNow();
@@ -847,7 +847,7 @@ async function distributionData(
 			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
 				.map(
 					({ quest, url }, index) =>
-						`${index + 1}. ${type === DailyGuidesDistributionType.Default && url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+						`${index + 1}. ${type === DailyGuidesDistributionType.Compact && url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
 				)
 				.join("\n")}`,
 		});
@@ -878,7 +878,7 @@ async function distributionData(
 	const treasureCandleURLs = treasureCandles(today);
 	let treasureCandlesContent = `### ${t("daily-guides.treasure-candles", { lng: locale, ns: "features" })}`;
 
-	if (type === DailyGuidesDistributionType.Default) {
+	if (type === DailyGuidesDistributionType.Compact) {
 		treasureCandlesContent += `\n\n${
 			treasureCandleURLs.length === 1
 				? `[${t("view", { lng: locale, ns: "general" })}](${treasureCandleURLs[0]})`
@@ -941,7 +941,7 @@ async function distributionData(
 
 		let seasonalCandlesContent = `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n\n`;
 
-		if (type === DailyGuidesDistributionType.Default && seasonalCandlesRotation) {
+		if (type === DailyGuidesDistributionType.Compact && seasonalCandlesRotation) {
 			seasonalCandlesContent += `[${t("view", { lng: locale, ns: "general" })}](${seasonalCandlesRotation})\n`;
 		}
 
@@ -985,7 +985,7 @@ async function distributionData(
 	let shardEruptionContent = `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n\n`;
 
 	if (shard) {
-		if (type === DailyGuidesDistributionType.Default) {
+		if (type === DailyGuidesDistributionType.Compact) {
 			shardEruptionContent += `${shardEruptionInformationString(shard, true, locale)}\n`;
 		}
 
@@ -1027,7 +1027,7 @@ async function distributionData(
 			CDN_URL,
 		).href;
 
-		if (type === DailyGuidesDistributionType.Default) {
+		if (type === DailyGuidesDistributionType.Compact) {
 			travellingRockContent += `[${t("view", { lng: locale, ns: "general" })}](${travellingRockURL})`;
 		}
 
@@ -1219,7 +1219,7 @@ export async function distribute(options: DailyGuidesDistributionOptions) {
 
 export async function dailyGuidesResponse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
-	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Default,
+	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Compact,
 ) {
 	const { locale } = interaction;
 	const { components, missingDailyQuests, missingTravellingRock } = await distributionData(

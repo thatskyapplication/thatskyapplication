@@ -19,7 +19,7 @@ export interface DailyGuidesDistributionPacket {
 }
 
 export const DailyGuidesDistributionType = {
-	Default: 0,
+	Compact: 0,
 	Media: 1,
 } as const satisfies Readonly<Record<string, number>>;
 

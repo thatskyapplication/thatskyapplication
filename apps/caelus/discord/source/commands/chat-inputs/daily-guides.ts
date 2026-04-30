@@ -49,7 +49,7 @@ export default {
 		await dailyGuidesResponse(
 			interaction,
 			(options.getInteger("type") as DailyGuidesDistributionTypes | null) ??
-				DailyGuidesDistributionType.Default,
+				DailyGuidesDistributionType.Compact,
 		);
 	},
 } as const;

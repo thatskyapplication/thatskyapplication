@@ -2974,13 +2974,12 @@ export default {
 			name: "Daily guides",
 			"description-short": "View today's daily guides.",
 			"distribution-type-label": {
-				[DailyGuidesDistributionType.Default]: "Default",
+				[DailyGuidesDistributionType.Compact]: "Compact",
 				[DailyGuidesDistributionType.Media]: "Media",
 			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
 			"distribution-type-description": {
-				[DailyGuidesDistributionType.Default]:
-					"The default way to view daily guides. Information is compact and is easily digestible.",
-				[DailyGuidesDistributionType.Media]: "Prefer to inline all media. This will be big.",
+				[DailyGuidesDistributionType.Compact]: "A compact format which is easily digestible.",
+				[DailyGuidesDistributionType.Media]: "All media is inlined. This will be big.",
 			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
 			"setup-description":
 				"Set up delivery of daily guides in your server! Use the select menus below to select a channel and to select an optional desired format.",
