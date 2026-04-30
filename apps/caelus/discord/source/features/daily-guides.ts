@@ -32,8 +32,11 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	communityUpcomingEvents,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
 	type DailyGuidesDistributionPacket,
+	DailyGuidesDistributionType,
+	type DailyGuidesDistributionTypes,
 	type DailyGuidesPacket,
 	type DailyQuests,
 	DailyQuestToInfographicURL,
@@ -201,12 +204,16 @@ async function updateDailyGuides(data: DailyGuidesSetData) {
 	await pg<DailyGuidesPacket>(Table.DailyGuides).update(data);
 }
 
-export function isDailyGuidesDistributionChannel(
+function isDailyGuidesDistributionChannel(
 	channel: APIChannel | AnnouncementThread | PublicThread | PrivateThread,
 ): channel is DailyGuidesDistributionAllowedChannel {
 	return DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES.includes(
 		channel.type as (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number],
 	);
+}
+
+function isDailyGuidesDistributionType(value: number): value is DailyGuidesDistributionTypes {
+	return DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES.includes(value as DailyGuidesDistributionTypes);
 }
 
 interface DailyGuidesIsDailyGuidesDistributableOptions {
@@ -217,7 +224,7 @@ interface DailyGuidesIsDailyGuidesDistributableOptions {
 	website?: boolean;
 }
 
-export function isDailyGuidesDistributable({
+function isDailyGuidesDistributable({
 	guild,
 	channel,
 	me,
@@ -289,54 +296,70 @@ export function isDailyGuidesDistributable({
 
 interface DailyGuidesSetupOptions {
 	guildId: Snowflake;
-	channelId: Snowflake | null;
+	channelId?: Snowflake | null;
+	type?: DailyGuidesDistributionTypes;
 }
 
-export async function setup({ guildId, channelId }: DailyGuidesSetupOptions) {
+type DailyGuidesSetupPayload = Pick<DailyGuidesDistributionPacket, "guild_id"> &
+	Partial<Pick<DailyGuidesDistributionPacket, "type" | "channel_id" | "message_id">>;
+
+async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	)
 		.where({ guild_id: guildId })
 		.first();
 
-	let shouldSend = false;
+	const channelChanged =
+		channelId !== undefined && dailyGuidesDistributionPacket?.channel_id !== channelId;
+
+	const typeChanged = type !== undefined && dailyGuidesDistributionPacket?.type !== type;
+
+	const targetChannelId =
+		channelId === undefined ? dailyGuidesDistributionPacket?.channel_id : channelId;
+
+	let messageId = dailyGuidesDistributionPacket?.message_id ?? null;
+	const updateData: DailyGuidesSetupPayload = { guild_id: guildId };
+
+	if (type !== undefined) {
+		updateData.type = type;
+	}
+
+	if (channelId !== undefined) {
+		updateData.channel_id = channelId;
+	}
 
 	if (dailyGuidesDistributionPacket) {
-		// biome-ignore lint/suspicious/noImplicitAnyLet: Effort.
-		let updateData;
-
-		if (dailyGuidesDistributionPacket.channel_id === channelId) {
-			updateData = { channel_id: channelId };
-		} else {
+		if (channelChanged) {
 			// Delete the existing message, if present.
-			if (dailyGuidesDistributionPacket.channel_id && dailyGuidesDistributionPacket.message_id) {
+			if (channelId && dailyGuidesDistributionPacket.channel_id && messageId) {
 				await client.api.channels
-					.deleteMessage(
-						dailyGuidesDistributionPacket.channel_id,
-						dailyGuidesDistributionPacket.message_id,
-					)
+					.deleteMessage(dailyGuidesDistributionPacket.channel_id, messageId)
 					.catch(() => null);
 			}
 
-			updateData = { channel_id: channelId, message_id: null };
-			shouldSend = true;
+			updateData.message_id = null;
+			messageId = null;
 		}
 
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
 			.update(updateData)
 			.where({ guild_id: guildId });
 	} else {
-		shouldSend = true;
-
-		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert({
-			guild_id: guildId,
-			channel_id: channelId,
-			message_id: null,
-		});
+		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert(updateData);
 	}
 
-	if (shouldSend && channelId) {
-		await send({ guildId, channelId, messageId: null, enforceNonce: false });
+	if (targetChannelId && (channelChanged || typeChanged)) {
+		await send({
+			guildId,
+			type:
+				type ??
+				(dailyGuidesDistributionPacket?.type as DailyGuidesDistributionTypes | undefined) ??
+				DailyGuidesDistributionType.Compact,
+			channelId: targetChannelId,
+			messageId,
+			enforceNonce: false,
+		});
 	}
 }
 
@@ -347,11 +370,12 @@ export async function setupResponse(
 	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
 		Table.DailyGuidesDistribution,
 	)
-		.select("channel_id")
+		.select("channel_id", "type")
 		.where({ guild_id: guild.id })
 		.first();
 
 	const channelId = dailyGuidesDistributionPacket?.channel_id;
+	const type = dailyGuidesDistributionPacket?.type ?? DailyGuidesDistributionType.Compact;
 
 	const channel = channelId
 		? (guild.channels.get(channelId) ?? guild.threads.get(channelId))
@@ -387,15 +411,14 @@ export async function setupResponse(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content:
-							"You may choose a channel to receive daily guides in! Use the select menu below to select a channel.",
+						content: t("daily-guides.setup-description", { lng: locale, ns: "features" }),
 					},
 					{
 						type: ComponentType.ActionRow,
 						components: [
 							{
 								type: ComponentType.ChannelSelect,
-								custom_id: CustomId.DailyGuidesSetup,
+								custom_id: CustomId.DailyGuidesSetupChannel,
 								// @ts-expect-error The mutable array error is fine.
 								channel_types: DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 								default_values: channelId
@@ -404,6 +427,35 @@ export async function setupResponse(
 								max_values: 1,
 								min_values: 0,
 								placeholder: "Select a channel to use for daily guides.",
+							},
+						],
+					},
+					{
+						type: ComponentType.ActionRow,
+						components: [
+							{
+								type: ComponentType.StringSelect,
+								custom_id: CustomId.DailyGuidesSetupType,
+								options: DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES.map(
+									(dailyGuidesDistributionType) => ({
+										label: t(
+											`daily-guides.distribution-type-label.${dailyGuidesDistributionType}`,
+											{ lng: locale, ns: "features" },
+										),
+										description: t(
+											`daily-guides.distribution-type-description.${dailyGuidesDistributionType}`,
+											{ lng: locale, ns: "features" },
+										),
+										value: dailyGuidesDistributionType.toString(),
+										default: dailyGuidesDistributionType === type,
+									}),
+								),
+								max_values: 1,
+								min_values: 1,
+								placeholder: t("daily-guides.setup-type-string-select-menu-placeholder", {
+									lng: locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
@@ -421,7 +473,7 @@ export async function setupResponse(
 	};
 }
 
-export async function handleChannelSelectMenu(
+export async function dailyGuidesSetupChannel(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
 ) {
 	const { locale } = interaction;
@@ -489,6 +541,53 @@ export async function handleChannelSelectMenu(
 	);
 }
 
+export async function dailyGuidesSetupType(
+	interaction: APIGuildInteractionWrapper<APIMessageComponentSelectMenuInteraction>,
+) {
+	const { locale } = interaction;
+	const guild = GUILD_CACHE.get(interaction.guild_id);
+
+	if (!guild) {
+		pino.warn(interaction, "Received an interaction from an uncached guild.");
+
+		await client.api.interactions.reply(
+			interaction.id,
+			interaction.token,
+			notInCachedGuildResponse(locale),
+		);
+
+		return;
+	}
+
+	const [typeString] = interaction.data.values;
+	const type = typeString === undefined ? undefined : Number(typeString);
+
+	if (type !== undefined && !isDailyGuidesDistributionType(type)) {
+		throw new Error("Received an unknown distribution type whilst setting up daily guides.");
+	}
+
+	if (type === DailyGuidesDistributionType.Media) {
+		try {
+			await client.api.guilds.getMember(SUPPORT_SERVER_GUILD_ID, interaction.member.user.id);
+		} catch {
+			await client.api.interactions.reply(interaction.id, interaction.token, {
+				content: `You are not in the experiment for media-style daily guides.\n\nYou can join the [support server](${SUPPORT_SERVER_INVITE_URL}) for more information.`,
+				flags: MessageFlags.Ephemeral,
+			});
+
+			return;
+		}
+	}
+
+	await setup({ guildId: interaction.guild_id, type: type ?? DailyGuidesDistributionType.Compact });
+
+	await client.api.interactions.updateMessage(
+		interaction.id,
+		interaction.token,
+		await setupResponse(guild, locale),
+	);
+}
+
 export async function resetDailyGuidesDistribution() {
 	await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).update({
 		message_id: null,
@@ -503,12 +602,13 @@ export async function resetDailyGuidesDistribution() {
 
 interface DailyGuidesSendOptions {
 	guildId: Snowflake;
+	type: DailyGuidesDistributionTypes;
 	channelId: Snowflake;
 	messageId: Snowflake | null;
 	enforceNonce: boolean;
 }
 
-async function send({ guildId, channelId, messageId, enforceNonce }: DailyGuidesSendOptions) {
+async function send({ guildId, type, channelId, messageId, enforceNonce }: DailyGuidesSendOptions) {
 	const guild = GUILD_CACHE.get(guildId);
 
 	if (!guild) {
@@ -541,7 +641,7 @@ async function send({ guildId, channelId, messageId, enforceNonce }: DailyGuides
 	}
 
 	// Retrieve our data.
-	const { components } = await distributionData(guild.preferredLocale);
+	const { components } = await distributionData(guild.preferredLocale, type);
 
 	// Update the embed if a message exists.
 	if (messageId) {
@@ -627,7 +727,10 @@ interface DailyGuidesDistributionDataResponse {
 	missingTravellingRock: boolean;
 }
 
-async function distributionData(locale: Locale): Promise<DailyGuidesDistributionDataResponse> {
+async function distributionData(
+	locale: Locale,
+	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Compact,
+): Promise<DailyGuidesDistributionDataResponse> {
 	const today = skyToday();
 	const now = skyNow();
 
@@ -744,19 +847,39 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
 				.map(
 					({ quest, url }, index) =>
-						`${index + 1}. ${url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+						`${index + 1}. ${type === DailyGuidesDistributionType.Compact && url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
 				)
 				.join("\n")}`,
 		});
+
+		if (type === DailyGuidesDistributionType.Media) {
+			const questsWithMedia = [];
+
+			for (const quest of quests) {
+				if (quest.url) {
+					questsWithMedia.push(quest as { quest: DailyQuests; url: string });
+				}
+			}
+
+			if (questsWithMedia.length > 0) {
+				containerComponents.push({
+					type: ComponentType.MediaGallery,
+					items: questsWithMedia.map(({ quest, url }) => ({
+						media: { url },
+						description: t(`quests.${quest}`, { lng: locale, ns: "general" }),
+					})),
+				});
+			}
+		}
 	} else {
 		missingDailyQuests = true;
 	}
 
 	const treasureCandleURLs = treasureCandles(today);
+	let treasureCandlesContent = `### ${t("daily-guides.treasure-candles", { lng: locale, ns: "features" })}`;
 
-	containerComponents.push({
-		type: ComponentType.TextDisplay,
-		content: `### ${t("daily-guides.treasure-candles", { lng: locale, ns: "features" })}\n${
+	if (type === DailyGuidesDistributionType.Compact) {
+		treasureCandlesContent += `\n\n${
 			treasureCandleURLs.length === 1
 				? `[${t("view", { lng: locale, ns: "general" })}](${treasureCandleURLs[0]})`
 				: treasureCandleURLs
@@ -765,14 +888,29 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 								`[${index * 4 + 1}–${index * 4 + 4}](${treasureCandleURL})`,
 						)
 						.join(" | ")
-		}`,
+		}`;
+	}
+
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: treasureCandlesContent,
 	});
+
+	if (type === DailyGuidesDistributionType.Media) {
+		for (let index = 0; index < treasureCandleURLs.length; index += 10) {
+			const chunk = treasureCandleURLs.slice(index, index + 10);
+
+			containerComponents.push({
+				type: ComponentType.MediaGallery,
+				items: chunk.map((url) => ({ media: { url } })),
+			});
+		}
+	}
 
 	const season = skyCurrentSeason(today);
 	const footerText = [];
 
 	if (season) {
-		const values = [];
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
 		footerText.push(
@@ -783,34 +921,43 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 			})}`,
 		);
 
-		const seasonalCandlesRotation = season.seasonalCandles(today);
-
-		if (seasonalCandlesRotation) {
-			values.push(`[${t("view", { lng: locale, ns: "general" })}](${seasonalCandlesRotation})`);
-		}
-
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
 
 		const candleEmoji =
 			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 
-		values.push(
-			t("daily-guides.seasonal-candles-remain-with-season-pass", {
-				lng: locale,
-				ns: "features",
-				remaining: resolveCurrencyEmoji({ emoji: candleEmoji, number: seasonalCandlesLeft }),
-				remainingSeasonPass: resolveCurrencyEmoji({
-					emoji: candleEmoji,
-					number: seasonalCandlesLeftWithSeasonPass,
-				}),
+		const seasonalCandlesRotation = season.seasonalCandles(today);
+
+		const seasonalCandlesRemaining = t("daily-guides.seasonal-candles-remain-with-season-pass", {
+			lng: locale,
+			ns: "features",
+			remaining: resolveCurrencyEmoji({ emoji: candleEmoji, number: seasonalCandlesLeft }),
+			remainingSeasonPass: resolveCurrencyEmoji({
+				emoji: candleEmoji,
+				number: seasonalCandlesLeftWithSeasonPass,
 			}),
-		);
+		});
+
+		let seasonalCandlesContent = `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n\n`;
+
+		if (type === DailyGuidesDistributionType.Compact && seasonalCandlesRotation) {
+			seasonalCandlesContent += `[${t("view", { lng: locale, ns: "general" })}](${seasonalCandlesRotation})\n`;
+		}
+
+		seasonalCandlesContent += seasonalCandlesRemaining;
 
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n${values.join("\n")}`,
+			content: seasonalCandlesContent,
 		});
+
+		if (type === DailyGuidesDistributionType.Media && seasonalCandlesRotation) {
+			containerComponents.push({
+				type: ComponentType.MediaGallery,
+				items: [{ media: { url: seasonalCandlesRotation } }],
+			});
+		}
 	}
 
 	const next = skyUpcomingSeason(today);
@@ -830,11 +977,22 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 	if (eventData.eventTickets) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("event-tickets", { lng: locale, ns: "general" })}\n${eventData.eventTickets}`,
+			content: `### ${t("event-tickets", { lng: locale, ns: "general" })}\n\n${eventData.eventTickets}`,
 		});
 	}
 
 	const shard = shardEruption();
+	let shardEruptionContent = `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n\n`;
+
+	if (shard) {
+		if (type === DailyGuidesDistributionType.Compact) {
+			shardEruptionContent += `${shardEruptionInformationString(shard, true, locale)}\n`;
+		}
+
+		shardEruptionContent += shardEruptionTimestampsString({ timestamps: shard.timestamps, locale });
+	} else {
+		shardEruptionContent += t("shard-eruption.none", { lng: locale, ns: "features" });
+	}
 
 	containerComponents.push({
 		type: ComponentType.Section,
@@ -847,22 +1005,43 @@ async function distributionData(locale: Locale): Promise<DailyGuidesDistribution
 		components: [
 			{
 				type: ComponentType.TextDisplay,
-				content: shard
-					? `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${shardEruptionInformationString(shard, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shard.timestamps, locale })}`
-					: `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n${t("shard-eruption.none", { lng: locale, ns: "features" })}`,
+				content: shardEruptionContent,
 			},
 		],
 	});
+
+	if (type === DailyGuidesDistributionType.Media && shard) {
+		containerComponents.push({
+			type: ComponentType.MediaGallery,
+			items: [{ media: { url: shard.url } }],
+		});
+	}
 
 	let missingTravellingRock: boolean;
 
 	if (travellingRock) {
 		missingTravellingRock = false;
+		let travellingRockContent = `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n\n`;
+		const travellingRockURL = new URL(
+			`daily_guides/travelling_rocks/${travellingRock}.webp`,
+			CDN_URL,
+		).href;
+
+		if (type === DailyGuidesDistributionType.Compact) {
+			travellingRockContent += `[${t("view", { lng: locale, ns: "general" })}](${travellingRockURL})`;
+		}
 
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n[${t("view", { lng: locale, ns: "general" })}](${String(new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL))})`,
+			content: travellingRockContent,
 		});
+
+		if (type === DailyGuidesDistributionType.Media) {
+			containerComponents.push({
+				type: ComponentType.MediaGallery,
+				items: [{ media: { url: travellingRockURL } }],
+			});
+		}
 	} else {
 		missingTravellingRock = true;
 	}
@@ -975,6 +1154,7 @@ async function distributeLogic({
 			distributeQueue.add(async () =>
 				send({
 					guildId: dailyGuidesDistributionPacket.guild_id,
+					type: dailyGuidesDistributionPacket.type as DailyGuidesDistributionTypes,
 					channelId: dailyGuidesDistributionPacket.channel_id,
 					messageId: dailyGuidesDistributionPacket.message_id,
 					enforceNonce: true,
@@ -1039,9 +1219,13 @@ export async function distribute(options: DailyGuidesDistributionOptions) {
 
 export async function dailyGuidesResponse(
 	interaction: APIChatInputApplicationCommandInteraction | APIMessageComponentButtonInteraction,
+	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Compact,
 ) {
 	const { locale } = interaction;
-	const { components, missingDailyQuests, missingTravellingRock } = await distributionData(locale);
+	const { components, missingDailyQuests, missingTravellingRock } = await distributionData(
+		locale,
+		type,
+	);
 	const missing = [];
 
 	if (missingDailyQuests) {

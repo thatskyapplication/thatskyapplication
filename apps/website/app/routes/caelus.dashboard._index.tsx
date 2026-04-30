@@ -1,6 +1,6 @@
 import { DiscordAPIError } from "@discordjs/rest";
 import type { HeadersArgs, LoaderFunctionArgs } from "react-router";
-import { Link, redirect, useLoaderData } from "react-router";
+import { redirect, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { guildIconURL } from "~/utility/functions.js";
 import { hasAnyHeaders, requireDiscordAuthentication } from "~/utility/functions.server.js";
@@ -43,7 +43,7 @@ export default function Dashboard() {
 						</div>
 						<div className="relative z-10">
 							<div className="text-center mb-8">
-								<h1 className="bg-linear-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
+								<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
 									Dashboard
 								</h1>
 							</div>
@@ -61,10 +61,9 @@ export default function Dashboard() {
 							) : (
 								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 									{guilds.map((guild) => (
-										<Link
-											className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 hover:shadow-lg transition-all duration-200 hover:-translate-y-1"
+										<article
+											className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6"
 											key={guild.id}
-											to={`/caelus/dashboard/${guild.id}`}
 										>
 											<div className="flex items-center gap-4 mb-4">
 												{guild.icon ? (
@@ -87,7 +86,7 @@ export default function Dashboard() {
 													</h3>
 												</div>
 											</div>
-										</Link>
+										</article>
 									))}
 								</div>
 							)}

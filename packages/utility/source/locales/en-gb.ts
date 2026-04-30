@@ -1,5 +1,10 @@
 import { Cosmetic, CosmeticCommon } from "../cosmetics.js";
-import { DailyQuest, type DailyQuests } from "../daily-guides.js";
+import {
+	DailyGuidesDistributionType,
+	type DailyGuidesDistributionTypes,
+	DailyQuest,
+	type DailyQuests,
+} from "../daily-guides.js";
 import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
 import { AreaName, isRealm, REALM_NAME_VALUES, RealmName } from "../kingdom/geography.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
@@ -2630,8 +2635,6 @@ export default {
 			"daily-guides": {
 				"command-name": "daily-guides",
 				"command-description": "The command to set up daily guides in the server.",
-				"command-option-channel-name": "channel",
-				"command-option-channel-description": "The channel to send daily guides in.",
 			},
 			me: {
 				"command-name": "me",
@@ -2650,6 +2653,8 @@ export default {
 		"daily-guides": {
 			"command-name": "daily-guides",
 			"command-description": "Show the daily guides.",
+			"command-option-type-name": "type",
+			"command-option-type-description": "Choose a type to view daily guides in!",
 		},
 		data: {
 			"command-name": "data",
@@ -2968,6 +2973,17 @@ export default {
 		"daily-guides": {
 			name: "Daily guides",
 			"description-short": "View today's daily guides.",
+			"distribution-type-label": {
+				[DailyGuidesDistributionType.Compact]: "Compact",
+				[DailyGuidesDistributionType.Media]: "Media",
+			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
+			"distribution-type-description": {
+				[DailyGuidesDistributionType.Compact]: "A compact format which is easily digestible.",
+				[DailyGuidesDistributionType.Media]: "All media is inlined. This will be big.",
+			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
+			"setup-description":
+				"Set up delivery of daily guides in your server! Use the select menus below to select a channel and to select an optional desired format.",
+			"setup-type-string-select-menu-placeholder": "Select an optional format.",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
 			"seasonal-candles": "Seasonal candles",

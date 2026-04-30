@@ -16,21 +16,7 @@ import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
 
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
-export {
-	type APIError,
-	APIErrorCode,
-	type APIGuildsDailyGuidesChannelCheckPermissionsResponse,
-	type APIGuildsDailyGuidesChannelsResponse,
-	type APIGuildsMeResponse,
-	type APIPutGuildsDailyGuidesBody,
-	type APIPutGuildsDailyGuidesResponse,
-	CaelusAPIError,
-	createAPIError,
-	guildsDailyGuides,
-	guildsDailyGuidesChannelCheckPermissions,
-	guildsDailyGuidesChannels,
-	guildsMeRoute,
-} from "./api.js";
+export { type APIGuildsMeResponse, guildsMeRoute } from "./api.js";
 export {
 	ALLOWED_IMAGE_MEDIA_TYPES,
 	ANIMATED_HASH_PREFIX,
@@ -44,8 +30,11 @@ export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
+	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
 	type DailyGuidesDistributionPacket,
+	DailyGuidesDistributionType,
+	type DailyGuidesDistributionTypes,
 	type DailyGuidesPacket,
 	type DailyQuests,
 	DailyQuestToInfographicURL,
