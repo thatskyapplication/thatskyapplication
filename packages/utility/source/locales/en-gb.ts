@@ -2981,7 +2981,7 @@ export default {
 				[DailyGuidesDistributionType.Media]: "Prefer to inline all media. This will be big.",
 			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
 			"setup-description":
-				"Set up delivery of daily guides in your server! Use the select menus below to select a channel and toselect an optional desired format.",
+				"Set up delivery of daily guides in your server! Use the select menus below to select a channel and to select an optional desired format.",
 			"setup-type-string-select-menu-placeholder": "Select an optional format.",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
