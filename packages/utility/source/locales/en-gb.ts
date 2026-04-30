@@ -2976,10 +2976,12 @@ export default {
 				[DailyGuidesDistributionType.Media]: "Media",
 			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
 			"distribution-type-description": {
-				[DailyGuidesDistributionType.Default]: "The default and recommended way to view daily guides.",
-				[DailyGuidesDistributionType.Media]:
-					"Media-style daily guides. You like 'em big, we deliver on daddy issues.",
+				[DailyGuidesDistributionType.Default]:
+					"The default way to view daily guides. Information is compact and is easily digestible.",
+				[DailyGuidesDistributionType.Media]: "Prefer to inline all media. This will be big.",
 			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
+			"setup-description":
+				"Set up delivery of daily guides in your server! Use the select menus below to select a channel and toselect an optional desired format.",
 			"setup-type-string-select-menu-placeholder": "Select an optional format.",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",

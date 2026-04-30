@@ -408,8 +408,7 @@ export async function setupResponse(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content:
-							"You may choose a channel to receive daily guides in! Use the select menus below to select a channel and select an optional desired format.",
+						content: t("daily-guides.setup-description", { lng: locale, ns: "features" }),
 					},
 					{
 						type: ComponentType.ActionRow,
