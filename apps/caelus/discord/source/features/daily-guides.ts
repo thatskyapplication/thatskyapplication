@@ -346,6 +346,7 @@ async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 			.update(updateData)
 			.where({ guild_id: guildId });
 	} else {
+		updateData.type = DailyGuidesDistributionType.Compact;
 		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert(updateData);
 	}
 
