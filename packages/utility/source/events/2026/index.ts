@@ -1,4 +1,5 @@
 import daysOfBloom from "./days-of-bloom.js";
+import daysOfColour from "./days-of-colour.js";
 import daysOfFortune from "./days-of-fortune.js";
 import daysOfLove from "./days-of-love.js";
 import daysOfNature from "./days-of-nature.js";
@@ -14,4 +15,5 @@ export default [
 	daysOfBloom,
 	daysOfNature,
 	daysOfTreasure,
+	daysOfColour,
 ] as const;
