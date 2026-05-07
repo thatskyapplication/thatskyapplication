@@ -4586,7 +4586,7 @@ const CAPE_EMOJIS_PRODUCTION = {
 	/**
 	 * Carnival Guide (ultimate).
 	 */
-	Cape178: { id: "1494707745113509988", name: "178_cape" },
+	Cape178: { id: "1502061121874694224", name: "178_cape" },
 	/**
 	 * Carnival Athletic Dancer.
 	 */
@@ -4775,7 +4775,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape175: { id: "1469075182831407257", name: "175_cape" },
 	Cape176: { id: "1471652027850555526", name: "176_cape" },
 	Cape177: { id: "1482683904417857638", name: "177_cape" },
-	Cape178: { id: "1494707752415531278", name: "178_cape" },
+	Cape178: { id: "1502061138718887967", name: "178_cape" },
 	Cape179: { id: "1494754440761184456", name: "179_cape" },
 	Cape180: { id: "1495325990036045844", name: "180_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
