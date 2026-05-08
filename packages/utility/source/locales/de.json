@@ -402,7 +402,21 @@
 			"293": "Pflanze eine Sonnenblumen-Nachricht im Garten in der Tageslichtprärie",
 			"294": "Spiele Musik mit der Lachenden Lichtfarmerin in der Tageslichtprärie",
 			"295": "Wässere die Sonnenblume im Garten in der Tageslichtprärie",
-			"296": "Rufe 5 verschiedenen Spieler etwas zu"
+			"296": "Rufe 5 verschiedenen Spieler etwas zu",
+			"297": "Hilf der Kicher-Kanonierin oder der Dankbaren Muschelsammlerin, einen Schatz auf den Zufluchtsinseln zu finden",
+			"298": "Hilf der Ängstlichen Anglerin oder der Dankbaren Muschelsammlerin, einen Schatz auf den Zufluchtsinseln zu finden",
+			"299": "Hilf dem Stümperhaften Schiffsjunge oder dem Müden Bootsbauer, einen Schatz im Präriedorf zu finden",
+			"300": "Hilf der Kicher-Kanonierin oder dem Müden Bootsbauer, einen Schatz im Präriedorf zu finden",
+			"301": "Hilf der Ängstlichen Anglerin oder der Fröhlichen Geologin, einen Schatz beim Präriegipfel zu finden",
+			"302": "Hilf dem Stümperhaften Schiffsjunge oder der Fröhlichen Geologin, einen Schatz beim Präriegipfel zu finden",
+			"303": "Hilf dem Kommando-Kapitän oder der Marschierenden Abenteurerin dabei, einen Schatz beim Schatzriff zu finden",
+			"304": "Hilf der Ängstlichen Anglerin oder der Marschierenden Abenteurerin dabei, einen Schatz beim Schatzriff zu finden",
+			"305": "Hilf der Ängstlichen Anglerin oder dem Sternensammler dabei, einen Schatz in der Sternenlichtwüste zu finden",
+			"306": "Hilf der Kicher-Kanonierin oder dem Sternensammler dabei, einen Schatz in der Sternenlichtwüste zu finden",
+			"307": "Hilf der Kicher-Kanonierin oder der Schimpfenden Schülerin dabei, einen Schatz im Verborgenen Wald zu finden",
+			"308": "Hilf dem Kommando-Kapitän oder der Schimpfenden Schülerin dabei, einen Schatz im Verborgenen Wald zu finden",
+			"309": "Hilf dem Stümperhaften Schiffsjunge oder dem Großen Yeti, einen Schatz im Dorf der Träume zu finden",
+			"310": "Hilf dem Kommando-Kapitän oder dem Großen Yeti dabei, einen Schatz im Dorf der Träume zu finden"
 		},
 		"season": "Saison",
 		"seasons": {
@@ -595,7 +609,9 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": "",
+			"90": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2232,9 +2248,7 @@
 			"command-description": "",
 			"daily-guides": {
 				"command-name": "",
-				"command-description": "",
-				"command-option-channel-name": "",
-				"command-option-channel-description": ""
+				"command-description": ""
 			},
 			"me": {
 				"command-name": "",
@@ -2251,7 +2265,9 @@
 		},
 		"daily-guides": {
 			"command-name": "",
-			"command-description": ""
+			"command-description": "",
+			"command-option-type-name": "",
+			"command-option-type-description": ""
 		},
 		"data": {
 			"command-name": "",
@@ -2581,6 +2597,16 @@
 		"daily-guides": {
 			"name": "",
 			"description-short": "",
+			"distribution-type-label": {
+				"0": "",
+				"1": ""
+			},
+			"distribution-type-description": {
+				"0": "",
+				"1": ""
+			},
+			"setup-description": "",
+			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",

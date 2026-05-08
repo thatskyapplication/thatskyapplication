@@ -402,7 +402,21 @@
 			"293": "Plantez un message tournesol dans le Jardin de la Prairie Illuminée",
 			"294": "Jouez une musique avec l'Attrapeuse de lumière riant dans la Prairie Illuminée",
 			"295": "Arrosez le tournesol dans le Jardin de la Prairie Illuminée",
-			"296": "Appelez 5 joueurs différents"
+			"296": "Appelez 5 joueurs différents",
+			"297": "Aidez la Canonnière caquetante ou la Collectionneuse de coquillages reconnaissante à trouver des trésors sur les Îles du Sanctuaire",
+			"298": "Aidez la Pêcheuse angoissée ou la Collectionneuse de coquillages reconnaissante à trouver des trésors sur les Îles du Sanctuaire",
+			"299": "Aidez le Maître d'équipage maladroit ou le Fabricant de bateaux somnolent à trouver des trésors dans le Village de la Prairie",
+			"300": "Aidez la Canonnière caquetante ou le Fabricant de bateaux somnolent à trouver des trésors dans le Village de la Prairie",
+			"301": "Aidez la Pêcheuse angoissée ou la Géologue joyeuse à trouver des trésors dans les Pics de la Prairie",
+			"302": "Aidez le Maître d'équipage maladroit ou la Géologue joyeuse à trouver des trésors dans les Pics de la Prairie",
+			"303": "Aidez le Commodore commandant ou l'Aventurière marchante à trouver des trésors dans le Récif du trésor",
+			"304": "Aidez la Pêcheuse angoissée ou l'Aventurière marchante à trouver des trésors dans le Récif du trésor",
+			"305": "Aidez la Pêcheuse angoissée ou le Collectionneur d'étoiles à trouver des trésors dans le Désert stellaire",
+			"306": "Aidez la Canonnière caquetante ou le Collectionneur d'étoiles à trouver des trésors dans le Désert stellaire",
+			"307": "Aidez la Canonnière caquetante ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée",
+			"308": "Aidez la Commodore commandant ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée",
+			"309": "Aidez le Maître d'équipage maladroit ou le Yéti du câlin à trouver des trésors dans le Village des Rêves",
+			"310": "Aidez le Commodore commandant ou le Yéti du câlin à trouver des trésors dans le Village des Rêves"
 		},
 		"season": "Saison",
 		"seasons": {
@@ -595,7 +609,9 @@
 			"85": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_l'Amour",
 			"86": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_Chance",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": "",
+			"90": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -2232,9 +2248,7 @@
 			"command-description": "Configurer les paramètres pour le serveur.",
 			"daily-guides": {
 				"command-name": "guides-journaliers",
-				"command-description": "La commande pour mettre en place un guide journalier sur le serveur.",
-				"command-option-channel-name": "salon",
-				"command-option-channel-description": "Le salon où envoyer les guides journaliers."
+				"command-description": "La commande pour mettre en place un guide journalier sur le serveur."
 			},
 			"me": {
 				"command-name": "moi",
@@ -2251,7 +2265,9 @@
 		},
 		"daily-guides": {
 			"command-name": "guides-journaliers",
-			"command-description": "Montrer les guides journaliers."
+			"command-description": "Montrer les guides journaliers.",
+			"command-option-type-name": "",
+			"command-option-type-description": ""
 		},
 		"data": {
 			"command-name": "données",
@@ -2581,6 +2597,16 @@
 		"daily-guides": {
 			"name": "Guides journaliers",
 			"description-short": "Voir le guide journalier d'aujourd'hui.",
+			"distribution-type-label": {
+				"0": "",
+				"1": ""
+			},
+			"distribution-type-description": {
+				"0": "",
+				"1": ""
+			},
+			"setup-description": "",
+			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "Quêtes",
 			"treasure-candles": "",
 			"seasonal-candles": "",

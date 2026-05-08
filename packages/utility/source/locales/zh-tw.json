@@ -402,7 +402,21 @@
 			"293": "在雲野的花園種下向日葵留言",
 			"294": "在雲野與歡笑光農一起演奏音樂",
 			"295": "在雲野的花園為向日葵澆水",
-			"296": "對 5 位不同玩家發出叫聲"
+			"296": "對 5 位不同玩家發出叫聲",
+			"297": "幫嘎嘎大笑的炮手或鳴謝收藏家在聖域群島尋寶",
+			"298": "幫焦慮的垂釣者或鳴謝收藏家在聖域群島尋寶",
+			"299": "幫笨拙的水手長或愛睏船工在雲野村莊尋寶",
+			"300": "幫嘎嘎大笑的炮手或愛睏船工在雲野村莊尋寶",
+			"301": "幫焦慮的垂釣者或雀躍地質學家在雲野峻嶺尋寶",
+			"302": "幫笨拙的水手長或雀躍地質學家在雲野峻嶺尋寶",
+			"303": "幫威嚴的艦長或正步冒險家在寶礁尋寶",
+			"304": "幫焦慮的垂釣者或正步冒險家在寶礁尋寶",
+			"305": "幫焦慮的垂釣者或星星收集者在星漠尋寶",
+			"306": "幫嘎嘎大笑的炮手或星星收集者在星漠尋寶",
+			"307": "幫嘎嘎大笑的炮手或管事小隊長在雨林尋寶",
+			"308": "幫威嚴的艦長或管事小隊長在雨林尋寶",
+			"309": "幫笨拙的水手長或熊抱雪人在圓夢村尋寶",
+			"310": "幫威嚴的艦長或熊抱雪人在圓夢村尋寶"
 		},
 		"season": "季節",
 		"seasons": {
@@ -595,7 +609,9 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": "",
+			"90": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -2232,9 +2248,7 @@
 			"command-description": "配置伺服器的設定。",
 			"daily-guides": {
 				"command-name": "每日指南",
-				"command-description": "在伺服器中設定每日指南的命令。",
-				"command-option-channel-name": "頻道",
-				"command-option-channel-description": "發送每日指南的頻道。"
+				"command-description": "在伺服器中設定每日指南的命令。"
 			},
 			"me": {
 				"command-name": "",
@@ -2251,7 +2265,9 @@
 		},
 		"daily-guides": {
 			"command-name": "每日指南",
-			"command-description": "顯示每日指南。"
+			"command-description": "顯示每日指南。",
+			"command-option-type-name": "",
+			"command-option-type-description": ""
 		},
 		"data": {
 			"command-name": "數據",
@@ -2581,6 +2597,16 @@
 		"daily-guides": {
 			"name": "",
 			"description-short": "",
+			"distribution-type-label": {
+				"0": "",
+				"1": ""
+			},
+			"distribution-type-description": {
+				"0": "",
+				"1": ""
+			},
+			"setup-description": "",
+			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",

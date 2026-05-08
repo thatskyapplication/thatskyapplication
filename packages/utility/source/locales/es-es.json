@@ -402,7 +402,21 @@
 			"293": "Planta un mensaje de girasol en el jardín de la Planicie Luz de Día",
 			"294": "Toca música con la cazadora de luz risueña en la Planicie Luz de Día",
 			"295": "Riega girasoles en el jardín de la Planicie Luz de Día",
-			"296": "Llama a 5 jugadores diferentes"
+			"296": "Llama a 5 jugadores diferentes",
+			"297": "Ayuda al cañonero tentado o a la coleccionista de caracolas agradecida a buscar tesoros en las Islas Santuario",
+			"298": "Ayuda al pescador ansioso o a la coleccionista de caracolas agradecida a buscar tesoros en las Islas Santuario",
+			"299": "Ayuda a contramaestre torpe o al fabricante de barcos dormilón a buscar tesoros en la aldea de la Planicie",
+			"300": "Ayuda al cañonero tentado o al fabricante de barcos dormilón a buscar tesoros en la aldea de la Planicie",
+			"301": "Ayuda al pescador ansioso o a la geóloga alegre a buscar tesoros en las cumbres de la Planicie",
+			"302": "Ayuda al contramaestre torpe o a la geóloga alegre a buscar tesoros en las cumbres de la Planicie",
+			"303": "Ayuda al capitán de navío cesante o a la aventurera en marcha a buscar tesoros en el Coral del tesoro",
+			"304": "Ayuda al pescador ansioso o a la aventurera en marcha a buscar tesoros en el Coral del tesoro",
+			"305": "Ayuda al pescador ansioso o al coleccionista de estrellas a buscar tesoros en el desierto Luz de Estrellas",
+			"306": "Ayuda al cañonero tentado o al coleccionista de estrellas a buscar tesoros en el desierto Luz de Estrellas",
+			"307": "Ayuda al cañonero tentado o a la estudiante gruñona a buscar tesoros en el Bosque Escondido",
+			"308": "Ayuda al capitán de navío cesante o a la estudiante gruñona a buscar tesoros en el Bosque Escondido",
+			"309": "Ayuda al contramaestre torpe o alyeti abrazoso a buscar tesoros en la Aldea de los Sueños",
+			"310": "Ayuda al capitán de navío cesante o al yeti abrazoso a buscar tesoros en la Aldea de los Sueños"
 		},
 		"season": "Temporada",
 		"seasons": {
@@ -595,7 +609,9 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": "",
+			"90": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2232,9 +2248,7 @@
 			"command-description": "",
 			"daily-guides": {
 				"command-name": "guías-diarias",
-				"command-description": "El comando para poner las guías diarias en el servidor.",
-				"command-option-channel-name": "canal",
-				"command-option-channel-description": "El canal para mandar guías diarias."
+				"command-description": "El comando para poner las guías diarias en el servidor."
 			},
 			"me": {
 				"command-name": "",
@@ -2251,7 +2265,9 @@
 		},
 		"daily-guides": {
 			"command-name": "guías-diarias",
-			"command-description": "Mostrar las guías diarias."
+			"command-description": "Mostrar las guías diarias.",
+			"command-option-type-name": "",
+			"command-option-type-description": ""
 		},
 		"data": {
 			"command-name": "",
@@ -2581,6 +2597,16 @@
 		"daily-guides": {
 			"name": "",
 			"description-short": "",
+			"distribution-type-label": {
+				"0": "",
+				"1": ""
+			},
+			"distribution-type-description": {
+				"0": "",
+				"1": ""
+			},
+			"setup-description": "",
+			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "Misiones",
 			"treasure-candles": "",
 			"seasonal-candles": "",

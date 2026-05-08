@@ -402,7 +402,21 @@
 			"293": "在云野的花园中留下向日葵留言",
 			"294": "在云野与欢笑光农一起演奏音乐",
 			"295": "在云野的花园中给向日葵浇水",
-			"296": "呼唤5位不同玩家"
+			"296": "呼唤5位不同玩家",
+			"297": "帮助嬉笑炮手或鸣谢收藏家在圣域群岛寻宝",
+			"298": "帮助焦虑渔夫或鸣谢收藏家在圣域群岛寻宝",
+			"299": "帮助笨拙水手或犯困船工在云野村庄寻宝",
+			"300": "帮助嬉笑炮手或犯困船工在云野村庄寻宝",
+			"301": "帮助焦虑渔夫或雀跃地质学家在云野峻岭寻宝",
+			"302": "帮助笨拙水手或雀跃地质学家在云野峻岭寻宝",
+			"303": "帮助威严舰长或正步冒险家在宝礁寻宝",
+			"304": "帮助焦虑渔夫或正步冒险家在宝礁寻宝",
+			"305": "帮助焦虑渔夫或星星收集者在星漠寻宝",
+			"306": "帮助嬉笑炮手或星星收集者在星漠寻宝",
+			"307": "帮助嬉笑炮手或管事小队长在雨林寻宝",
+			"308": "帮助威严舰长或管事小队长在雨林寻宝",
+			"309": "帮助笨拙水手或熊抱雪人在圆梦村寻宝",
+			"310": "帮助威严舰长或熊抱雪人在圆梦村寻宝"
 		},
 		"season": "",
 		"seasons": {
@@ -595,7 +609,9 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": "",
+			"90": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2232,9 +2248,7 @@
 			"command-description": "",
 			"daily-guides": {
 				"command-name": "",
-				"command-description": "",
-				"command-option-channel-name": "",
-				"command-option-channel-description": ""
+				"command-description": ""
 			},
 			"me": {
 				"command-name": "",
@@ -2251,7 +2265,9 @@
 		},
 		"daily-guides": {
 			"command-name": "",
-			"command-description": ""
+			"command-description": "",
+			"command-option-type-name": "",
+			"command-option-type-description": ""
 		},
 		"data": {
 			"command-name": "",
@@ -2581,6 +2597,16 @@
 		"daily-guides": {
 			"name": "",
 			"description-short": "",
+			"distribution-type-label": {
+				"0": "",
+				"1": ""
+			},
+			"distribution-type-description": {
+				"0": "",
+				"1": ""
+			},
+			"setup-description": "",
+			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",
