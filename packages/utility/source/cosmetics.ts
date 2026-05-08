@@ -3555,8 +3555,17 @@ export enum Cosmetic {
 	// 22/04/2026 | Travelling Spirit #165.
 	OveractiveOverachieverWingBuff = 2816,
 
-	// 01/06/2026 | Season of Carnival Quest 2.
+	// 01/05/2026 | Season of Carnival Quest 2.
 	CarnivalGuideQuest2 = 2818,
+
+	// 08/05/2026 | Days of Treasure.
+	DaysOfTreasure2026Outfit = 2819,
+	DaysOfTreasure2026Hair = 2820,
+	DaysOfTreasure2026Prop1 = 2821,
+	DaysOfTreasure2026Prop2 = 2822,
+	TreasureCoinCape = 2823,
+	TreasureSeekersHat = 2824,
+	TreasureMateCompanion = 2825,
 }
 
 export enum CosmeticCommon {

@@ -2587,6 +2587,9 @@ export default {
 			[Cosmetic.EmoteApprove2]: "Approve 2",
 			[Cosmetic.EmoteApprove3]: "Approve 3",
 			[Cosmetic.EmoteApprove4]: "Approve 4",
+			[Cosmetic.TreasureCoinCape]: "Treasure Coin Cape",
+			[Cosmetic.TreasureSeekersHat]: "Treasure Seeker's Hat",
+			[Cosmetic.TreasureMateCompanion]: "Treasure Mate Companion",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

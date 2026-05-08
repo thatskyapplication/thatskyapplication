@@ -9243,6 +9243,13 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalStuntActorSeasonalHeart]: SEASON_EMOJIS.CarnivalHeart,
 		[Cosmetic.OveractiveOverachieverWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.CarnivalGuideQuest2]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.DaysOfTreasure2026Outfit]: null,
+		[Cosmetic.DaysOfTreasure2026Hair]: null,
+		[Cosmetic.DaysOfTreasure2026Prop1]: null,
+		[Cosmetic.DaysOfTreasure2026Prop2]: null,
+		[Cosmetic.TreasureCoinCape]: null,
+		[Cosmetic.TreasureSeekersHat]: null,
+		[Cosmetic.TreasureMateCompanion]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
