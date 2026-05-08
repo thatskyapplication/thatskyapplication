@@ -2178,9 +2178,9 @@
 			"2808": "",
 			"2813": "",
 			"2817": "Broto de Trevo da Primavera",
-			"2823": "",
-			"2824": "",
-			"2825": ""
+			"2823": "Capa de Moedas do Tesouro",
+			"2824": "Chapéu do Rastreador de Tesouros",
+			"2825": "Companheiro Pirata do Tesouro"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
