@@ -2177,7 +2177,10 @@
 			"2807": "",
 			"2808": "",
 			"2813": "",
-			"2817": "Soffione primaverile"
+			"2817": "Soffione primaverile",
+			"2823": "Mantello di monete del tesoro",
+			"2824": "Cappello del cercatore del tesoro",
+			"2825": "Compagno pirata del tesoro"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

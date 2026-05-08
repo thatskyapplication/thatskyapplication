@@ -2177,7 +2177,10 @@
 			"2807": "",
 			"2808": "",
 			"2813": "",
-			"2817": "Frühlingsklee-Spross"
+			"2817": "Frühlingsklee-Spross",
+			"2823": "Schatzmünzenumhang",
+			"2824": "Schatzsucherhut",
+			"2825": "Schatzpiratbegleiter"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
