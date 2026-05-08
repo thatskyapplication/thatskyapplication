@@ -402,7 +402,21 @@
 			"293": "Trồng một tin nhắn Hoa Hướng Dương tại Vườn ở Thảo Nguyên Ánh Sáng",
 			"294": "Chơi nhạc cùng Nông Dân Vui Vẻ ở Thảo Nguyên Ánh Sáng",
 			"295": "Tưới cho Hoa Hướng Dương tại Vườn ở Thảo Nguyên Ánh Sáng",
-			"296": "Honk 5 người chơi khác nhau"
+			"296": "Honk 5 người chơi khác nhau",
+			"297": "Giúp Xạ Thủ Vui Nhộn hoặc Nhà Sưu Tầm Biết Ơn tìm kho báu tại Quần Đảo Thánh Địa",
+			"298": "Giúp Ngư Dân Lo Lắng hoặc Nhà Sưu Tầm Biết Ơn tìm kho báu tại Quần Đảo Thánh Địa",
+			"299": "Giúp Thủy Thủ Hậu Đậu hoặc Thợ Đóng Tàu Ngủ Gật tìm kho báu tại Làng Thảo Nguyên",
+			"300": "Giúp Xạ Thủ Vui Nhộn hoặc Thợ Đóng Tàu Ngủ Gật tìm kho báu tại Làng Thảo Nguyên",
+			"301": "Giúp Ngư Dân Lo Lắng hoặc Nhà Địa Chất Vui Vẻ tìm kho báu tại Đỉnh Thảo Nguyên",
+			"302": "Giúp Thủy Thủ Hậu Đậu hoặc Nhà Địa Chất Vui Vẻ tìm kho báu tại Đỉnh Thảo Nguyên",
+			"303": "Giúp Thuyền Trưởng Uy Nghiêm hoặc Nhà Mạo Hiểm Diễu Hành tìm kho báu tại Rạn San Hô Kho Báu",
+			"304": "Giúp Ngư Dân Lo Lắng hoặc Nhà Mạo Hiểm Diễu Hành tìm kho báu tại Rạn San Hô Kho Báu",
+			"305": "Giúp Ngư Dân Lo Lắng hoặc Nhà Sưu Tầm Sao tìm kho báu tại Sa Mạc Ánh Sao",
+			"306": "Giúp Xạ Thủ Vui Nhộn hoặc Nhà Sưu Tầm Sao tìm kho báu tại Sa Mạc Ánh Sao",
+			"307": "Giúp Xạ Thủ Vui Nhộn hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa",
+			"308": "Giúp Thuyền Trưởng Uy Nghiêm hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa",
+			"309": "Giúp Thủy Thủ Hậu Đậu hoặc Tu Sĩ Gấu Ôm tìm kho báu tại Làng Mộng Mơ",
+			"310": "Giúp Thuyền Trưởng Uy Nghiêm hoặc Tu Sĩ Gấu Ôm tìm kho báu tại Làng Mộng Mơ"
 		},
 		"season": "",
 		"seasons": {
@@ -595,7 +609,9 @@
 			"85": "",
 			"86": "",
 			"87": "",
-			"88": ""
+			"88": "",
+			"89": "",
+			"90": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2232,9 +2248,7 @@
 			"command-description": "",
 			"daily-guides": {
 				"command-name": "",
-				"command-description": "",
-				"command-option-channel-name": "",
-				"command-option-channel-description": ""
+				"command-description": ""
 			},
 			"me": {
 				"command-name": "",
@@ -2251,7 +2265,9 @@
 		},
 		"daily-guides": {
 			"command-name": "",
-			"command-description": ""
+			"command-description": "",
+			"command-option-type-name": "",
+			"command-option-type-description": ""
 		},
 		"data": {
 			"command-name": "",
@@ -2581,6 +2597,16 @@
 		"daily-guides": {
 			"name": "",
 			"description-short": "",
+			"distribution-type-label": {
+				"0": "",
+				"1": ""
+			},
+			"distribution-type-description": {
+				"0": "",
+				"1": ""
+			},
+			"setup-description": "",
+			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",

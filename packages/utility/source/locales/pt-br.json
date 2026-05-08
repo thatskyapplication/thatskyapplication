@@ -402,7 +402,21 @@
 			"293": "Plante uma mensagem de girassol no Jardim na Campina da Aurora",
 			"294": "Toque uma música com a Caçadora de Luz Risonha na Campina da Aurora",
 			"295": "Regue o girassol no Jardim na Campina da Aurora",
-			"296": "Chame 5 jogadores diferentes"
+			"296": "Chame 5 jogadores diferentes",
+			"297": "Ajude a Canhoneira Sorridente ou a Colecionadora de Conchas Agradecida a encontrar tesouros nas Ilhas do Santuário",
+			"298": "Ajude a Pescadora Ansiosa ou a Colecionadora de Conchas Agradecida a encontrar tesouros nas Ilhas do Santuário",
+			"299": "Ajude o Contramestre Trapalhão ou o Fabricador de Barcos Sonolento a encontrar tesouros na Aldeia da Campina",
+			"300": "Ajude a Canhoneira Sorridente ou o Fabricador de Barcos Sonolento a encontrar tesouros na Aldeia da Campina",
+			"301": "Ajude a Pescadora Ansiosa ou a Geóloga Divertida a encontrar tesouros no Pico da Campina",
+			"302": "Ajude o Contramestre Trapalhão ou a Geóloga Divertida a encontrar tesouros nos Picos da Campina",
+			"303": "Ajude o Comodoro Abandonado ou a Aventureira Marchante a encontrar tesouros no Recife do Tesouro",
+			"304": "Ajude a Pescadora Ansiosa ou a Aventureira Marchante a encontrar tesouros no Recife do Tesouro",
+			"305": "Ajude a Pescadora Ansiosa ou o Contador de Estrelas a encontrar tesouros no Deserto da Luz Estelar",
+			"306": "Ajude a Canhoneira Sorridente ou o Contador de Estrelas a encontrar tesouros no Deserto da Luz Estelar",
+			"307": "Ajude a Canhoneira Sorridente ou o Estudante Esbravejante a encontrar tesouros na Floresta Oculta",
+			"308": "Ajude o Comodoro Abandonado ou o Estudante Esbravejante a encontrar tesouros na Floresta Oculta",
+			"309": "Ajude o Contramestre Trapalhão ou o Iéti do Abraço de Urso a encontrar tesouros na Aldeia dos Sonhos",
+			"310": "Ajude o Comodoro Abandonado ou o Iéti do Abraço de Urso a encontrar tesouros na Aldeia dos Sonhos"
 		},
 		"season": "Temporada",
 		"seasons": {
@@ -595,7 +609,9 @@
 			"85": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Amor",
 			"86": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Felicidade",
 			"87": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_do_Florescer",
-			"88": ""
+			"88": "",
+			"89": "",
+			"90": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -2232,9 +2248,7 @@
 			"command-description": "Configurar definições para o servidor.",
 			"daily-guides": {
 				"command-name": "guias-diários",
-				"command-description": "O comando para definir os guias diários no servidor.",
-				"command-option-channel-name": "canal",
-				"command-option-channel-description": "O canal para enviar os guias diários."
+				"command-description": "O comando para definir os guias diários no servidor."
 			},
 			"me": {
 				"command-name": "eu",
@@ -2251,7 +2265,9 @@
 		},
 		"daily-guides": {
 			"command-name": "guias-diários",
-			"command-description": "Mostrar os guias diários."
+			"command-description": "Mostrar os guias diários.",
+			"command-option-type-name": "",
+			"command-option-type-description": ""
 		},
 		"data": {
 			"command-name": "dados",
@@ -2581,6 +2597,16 @@
 		"daily-guides": {
 			"name": "Guias diários",
 			"description-short": "Ver os guias diários de hoje.",
+			"distribution-type-label": {
+				"0": "",
+				"1": ""
+			},
+			"distribution-type-description": {
+				"0": "",
+				"1": ""
+			},
+			"setup-description": "",
+			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "Missões",
 			"treasure-candles": "Velas do tesouro",
 			"seasonal-candles": "Velas de temporada",
