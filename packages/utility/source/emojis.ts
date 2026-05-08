@@ -2380,7 +2380,7 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Carnival Juggler.
 	 */
 	Necklace56: { id: "1494828634656083998", name: "56_necklace" },
-		/**
+	/**
 	 * Treasure Mate Companion.
 	 */
 	Necklace57: { id: "1502284976308224193", name: "57_necklace" },
@@ -3671,7 +3671,7 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Carnival Stunt Actor.
 	 */
 	HairAccessory77: { id: "1495325739581444197", name: "77_hair_accessory" },
-		/**
+	/**
 	 * Treasure Seekers' Hat.
 	 */
 	HairAccessory78: { id: "1502284138538074253", name: "78_hair_accessory" },
@@ -4615,10 +4615,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Carnival Stunt Actor.
 	 */
 	Cape180: { id: "1495325980426895390", name: "180_cape" },
-		/**
+	/**
 	 * Treasure Coin Cape.
 	 */
-	Cape181: { id: "1502283493256728676", name: "181_cape" }
+	Cape181: { id: "1502283493256728676", name: "181_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4802,7 +4802,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape178: { id: "1502061138718887967", name: "178_cape" },
 	Cape179: { id: "1494754440761184456", name: "179_cape" },
 	Cape180: { id: "1495325990036045844", name: "180_cape" },
-	Cape181: { id: "1502283544263917759", name: "181_cape" }
+	Cape181: { id: "1502283544263917759", name: "181_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -5562,6 +5562,14 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Carnival Guide (non-ultimate).
 	 */
 	LargePlaceableProp110: { id: "1494696455796031529", name: "110_large_placeable_prop" },
+	/**
+	 * Days of Treasure 2026 1.
+	 */
+	LargePlaceableProp111: { id: "1502288923257213079", name: "111_large_placeable_prop" },
+	/**
+	 * Days of Treasure 2026 2.
+	 */
+	LargePlaceableProp112: { id: "1502288919545249972", name: "112_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5675,6 +5683,9 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp108: { id: "1482686838035452079", name: "108_large_placeable_prop" },
 	LargePlaceableProp109: { id: "1492226495027085524", name: "109_large_placeable_prop" },
 	LargePlaceableProp110: { id: "1494696463832186910", name: "110_large_placeable_prop" },
+	LargePlaceableProp111: { id: "1502288937425571931", name: "111_large_placeable_prop" },
+
+	LargePlaceableProp112: { id: "1502288934271717466", name: "112_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -9270,8 +9281,8 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalGuideQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.DaysOfTreasure2026Outfit]: OUTFIT_EMOJIS.Outfit109,
 		[Cosmetic.DaysOfTreasure2026Hair]: HAIR_EMOJIS.Hair182,
-		[Cosmetic.DaysOfTreasure2026Prop1]: null,
-		[Cosmetic.DaysOfTreasure2026Prop2]: null,
+		[Cosmetic.DaysOfTreasure2026Prop1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp111,
+		[Cosmetic.DaysOfTreasure2026Prop2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp112,
 		[Cosmetic.TreasureCoinCape]: CAPE_EMOJIS.Cape181,
 		[Cosmetic.TreasureSeekersHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory78,
 		[Cosmetic.TreasureMateCompanion]: NECKLACE_EMOJIS.Necklace57,
