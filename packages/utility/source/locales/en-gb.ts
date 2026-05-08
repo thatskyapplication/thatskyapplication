@@ -688,6 +688,34 @@ export default {
 			[DailyQuest.WaterTheSunflowerAtTheGardenInDaylightPrairie]:
 				"Water the Sunflower at the Garden in Daylight Prairie",
 			[DailyQuest.CallTo5DifferentPlayers]: "Call to 5 different players",
+			[DailyQuest.HelpCacklingCannoneerGratefulShellCollectorFindTreasureInSanctuaryIslands]:
+				"Help Cackling Cannoneer or Grateful Shell Collector find treasure in Sanctuary Islands",
+			[DailyQuest.HelpAnxiousAnglerGratefulShellCollectorFindTreasureInSanctuaryIslands]:
+				"Help Anxious Angler or Grateful Shell Collector find treasure in Sanctuary Islands",
+			[DailyQuest.HelpBumblingBoatswainSlumberingShipwrightFindTreasureInPrairieVillage]:
+				"Help Bumbling Boatswain or Slumbering Shipwright find treasure in Prairie Village",
+			[DailyQuest.HelpCacklingCannoneerSlumberingShipwrightFindTreasureInPrairieVillage]:
+				"Help Cackling Cannoneer or Slumbering Shipwright find treasure in Prairie Village",
+			[DailyQuest.HelpAnxiousAnglerJollyGeologistFindTreasureInPrairiePeaks]:
+				"Help Anxious Angler or Jolly Geologist find treasure in Prairie Peaks",
+			[DailyQuest.HelpBumblingBoatswainJollyGeologistFindTreasureInPrairiePeaks]:
+				"Help Bumbling Boatswain or Jolly Geologist find treasure in Prairie Peaks",
+			[DailyQuest.HelpCeasingCommodoreMarchingAdventurerFindTreasureInTreasureReef]:
+				"Help Ceasing Commodore or Marching Adventurer find treasure in Treasure Reef",
+			[DailyQuest.HelpAnxiousAnglerMarchingAdventurerFindTreasureInTreasureReef]:
+				"Help Anxious Angler or Marching Adventurer find treasure in Treasure Reef",
+			[DailyQuest.HelpAnxiousAnglerStarCollectorFindTreasureInStarlightDesert]:
+				"Help Anxious Angler or Star Collector find treasure in Starlight Desert",
+			[DailyQuest.HelpCacklingCannoneerStarCollectorFindTreasureInStarlightDesert]:
+				"Help Cackling Cannoneer or Star Collector find treasure in Starlight Desert",
+			[DailyQuest.HelpCacklingCannoneerOrScoldingStudentFindTreasureInHiddenForest]:
+				"Help Cackling Cannoneer or Scolding Student find treasure in Hidden Forest",
+			[DailyQuest.HelpCeasingCommodoreOrScoldingStudentFindTreasureInHiddenForest]:
+				"Help Ceasing Commodore or Scolding Student find treasure in Hidden Forest",
+			[DailyQuest.HelpBumblingBoatswainOrBearhugHermitFindTreasureInVillageOfDreams]:
+				"Help Bumbling Boatswain or Bearhug Hermit find treasure in Village of Dreams",
+			[DailyQuest.HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams]:
+				"Help Ceasing Commodore or Bearhug Hermit find treasure in Village of Dreams",
 		} satisfies Record<DailyQuests, string>,
 		season: "Season",
 		seasons: {

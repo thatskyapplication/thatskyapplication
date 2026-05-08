@@ -361,6 +361,62 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.RehearseForAPerformanceWithTheSkater",
 	},
 	{
+		upstreamKey: "daily_quest_dotreasure_day_island_1_desc",
+		tsKey: "DailyQuest.HelpCacklingCannoneerGratefulShellCollectorFindTreasureInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_island_2_desc",
+		tsKey: "DailyQuest.HelpAnxiousAnglerGratefulShellCollectorFindTreasureInSanctuaryIslands",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_village_1_desc",
+		tsKey: "DailyQuest.HelpBumblingBoatswainSlumberingShipwrightFindTreasureInPrairieVillage",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_village_2_desc",
+		tsKey: "DailyQuest.HelpCacklingCannoneerSlumberingShipwrightFindTreasureInPrairieVillage",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_wildlifepark_1_desc",
+		tsKey: "DailyQuest.HelpAnxiousAnglerJollyGeologistFindTreasureInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_day_wildlifepark_2_desc",
+		tsKey: "DailyQuest.HelpBumblingBoatswainJollyGeologistFindTreasureInPrairiePeaks",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_dusk_1_desc",
+		tsKey: "DailyQuest.HelpCeasingCommodoreMarchingAdventurerFindTreasureInTreasureReef",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_dusk_2_desc",
+		tsKey: "DailyQuest.HelpAnxiousAnglerMarchingAdventurerFindTreasureInTreasureReef",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_night_1_desc",
+		tsKey: "DailyQuest.HelpAnxiousAnglerStarCollectorFindTreasureInStarlightDesert",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_night_2_desc",
+		tsKey: "DailyQuest.HelpCacklingCannoneerStarCollectorFindTreasureInStarlightDesert",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_rain_1_desc",
+		tsKey: "DailyQuest.HelpCacklingCannoneerOrScoldingStudentFindTreasureInHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_rain_2_desc",
+		tsKey: "DailyQuest.HelpCeasingCommodoreOrScoldingStudentFindTreasureInHiddenForest",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_sunset_1_desc",
+		tsKey: "DailyQuest.HelpBumblingBoatswainOrBearhugHermitFindTreasureInVillageOfDreams",
+	},
+	{
+		upstreamKey: "daily_quest_dotreasure_sunset_2_desc",
+		tsKey: "DailyQuest.HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams",
+	},
+	{
 		upstreamKey: "name_questap30",
 		tsKey: "SpiritId.CarnivalGuide",
 	},

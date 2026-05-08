@@ -324,6 +324,20 @@ export const DailyQuest = {
 	PlayMusicWithLaughingLightCatcherInDaylightPrairie: 294,
 	WaterTheSunflowerAtTheGardenInDaylightPrairie: 295,
 	CallTo5DifferentPlayers: 296,
+	HelpCacklingCannoneerGratefulShellCollectorFindTreasureInSanctuaryIslands: 297,
+	HelpAnxiousAnglerGratefulShellCollectorFindTreasureInSanctuaryIslands: 298,
+	HelpBumblingBoatswainSlumberingShipwrightFindTreasureInPrairieVillage: 299,
+	HelpCacklingCannoneerSlumberingShipwrightFindTreasureInPrairieVillage: 300,
+	HelpAnxiousAnglerJollyGeologistFindTreasureInPrairiePeaks: 301,
+	HelpBumblingBoatswainJollyGeologistFindTreasureInPrairiePeaks: 302,
+	HelpCeasingCommodoreMarchingAdventurerFindTreasureInTreasureReef: 303,
+	HelpAnxiousAnglerMarchingAdventurerFindTreasureInTreasureReef: 304,
+	HelpAnxiousAnglerStarCollectorFindTreasureInStarlightDesert: 305,
+	HelpCacklingCannoneerStarCollectorFindTreasureInStarlightDesert: 306,
+	HelpCacklingCannoneerOrScoldingStudentFindTreasureInHiddenForest: 307,
+	HelpCeasingCommodoreOrScoldingStudentFindTreasureInHiddenForest: 308,
+	HelpBumblingBoatswainOrBearhugHermitFindTreasureInVillageOfDreams: 309,
+	HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams: 310,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -779,6 +793,20 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.PlayMusicWithLaughingLightCatcherInDaylightPrairie]: null,
 	[DailyQuest.WaterTheSunflowerAtTheGardenInDaylightPrairie]: null,
 	[DailyQuest.CallTo5DifferentPlayers]: null,
+	[DailyQuest.HelpCacklingCannoneerGratefulShellCollectorFindTreasureInSanctuaryIslands]: null,
+	[DailyQuest.HelpAnxiousAnglerGratefulShellCollectorFindTreasureInSanctuaryIslands]: null,
+	[DailyQuest.HelpBumblingBoatswainSlumberingShipwrightFindTreasureInPrairieVillage]: null,
+	[DailyQuest.HelpCacklingCannoneerSlumberingShipwrightFindTreasureInPrairieVillage]: null,
+	[DailyQuest.HelpAnxiousAnglerJollyGeologistFindTreasureInPrairiePeaks]: null,
+	[DailyQuest.HelpBumblingBoatswainJollyGeologistFindTreasureInPrairiePeaks]: null,
+	[DailyQuest.HelpCeasingCommodoreMarchingAdventurerFindTreasureInTreasureReef]: null,
+	[DailyQuest.HelpAnxiousAnglerMarchingAdventurerFindTreasureInTreasureReef]: null,
+	[DailyQuest.HelpAnxiousAnglerStarCollectorFindTreasureInStarlightDesert]: null,
+	[DailyQuest.HelpCacklingCannoneerStarCollectorFindTreasureInStarlightDesert]: null,
+	[DailyQuest.HelpCacklingCannoneerOrScoldingStudentFindTreasureInHiddenForest]: null,
+	[DailyQuest.HelpCeasingCommodoreOrScoldingStudentFindTreasureInHiddenForest]: null,
+	[DailyQuest.HelpBumblingBoatswainOrBearhugHermitFindTreasureInVillageOfDreams]: null,
+	[DailyQuest.HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
