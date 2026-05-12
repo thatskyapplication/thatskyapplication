@@ -108,11 +108,11 @@ export async function postFlairsUpdate(subredditName: string) {
 
 		await redis.set(REDIS_POST_FLAIRS_MESSAGE_ID_KEY, json.id);
 	} catch (error) {
-		// Words cannot describe how terrible the errors are.
 		if (
-			error instanceof Error &&
+			typeof error === "object" &&
+			error !== null &&
 			"code" in error &&
-			error.message.includes(`: ${RESTJSONErrorCodes.UnknownMessage}`)
+			error.code === RESTJSONErrorCodes.UnknownMessage
 		) {
 			console.warn("Post flairs message not found. Resetting message id.");
 			await redis.del(REDIS_POST_FLAIRS_MESSAGE_ID_KEY);
