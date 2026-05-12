@@ -207,8 +207,8 @@ const EXPECTED_ROTATIONS = [
 	},
 ] as const;
 
-for (const { date, expected } of EXPECTED_ROTATIONS) {
-	test(`Treasure candles rotation on ${date.toISODate()}`, () => {
-		deepEqual(treasureCandles(date), expected);
-	});
-}
+test("Treasure candles rotations.", async (t) => {
+	for (const { date, expected } of EXPECTED_ROTATIONS) {
+		await t.test(date.toISODate()!, () => deepEqual(treasureCandles(date), expected));
+	}
+});
