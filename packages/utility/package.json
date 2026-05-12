@@ -8,7 +8,7 @@
 		"distribution"
 	],
 	"scripts": {
-		"build": "tsup",
+		"build": "tsdown",
 		"test": "tsx --test __tests__/*.test.ts && tsc --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
@@ -26,7 +26,7 @@
 		"@types/luxon": "^3.7.1",
 		"@types/node": "^24",
 		"picocolors": "^1.1.1",
-		"tsup": "^8.5.1",
+		"tsdown": "^0.22.0",
 		"tsx": "^4.21.0",
 		"typescript": "^6.0.3"
 	}
