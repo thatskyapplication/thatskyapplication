@@ -5,8 +5,9 @@
 	},
 	"editor.defaultFormatter": "biomejs.biome",
 	"editor.formatOnSave": true,
+	"files.eol": "\n",
 	"npm.packageManager": "pnpm",
-	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"js/ts.preferences.importModuleSpecifierEnding": "js",
-	"typescript.tsdk": "node_modules/typescript/lib"
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
+	"js/ts.tsdk.promptToUseWorkspaceVersion": true
 }
