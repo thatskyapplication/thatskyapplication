@@ -12,6 +12,7 @@
 		"module": "NodeNext",
 		"verbatimModuleSyntax": true,
 		"newLine": "lf",
+		"rootDir": "source",
 		"outDir": "distribution",
 		"lib": ["ESNext"],
 		"target": "ESNext",
