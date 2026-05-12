@@ -2,6 +2,11 @@ packages:
   - "apps/*"
   - "apps/caelus/*"
   - "packages/*"
+allowBuilds:
+  '@sentry/cli': true
+  esbuild: true
+  protobufjs: true
+  sharp: true
 minimumReleaseAgeExclude:
   - "@discordjs/collection"
   - "@discordjs/core"

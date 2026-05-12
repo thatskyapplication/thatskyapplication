@@ -7,7 +7,7 @@ ARG SENTRY_DATA_SOURCE_NAME
 WORKDIR /thatskyapplication
 
 # Install pnpm.
-RUN npm install --global pnpm@10.20.0
+RUN npm install --global pnpm@11.0.9
 
 # Copy the monorepo files required for dependency resolution.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
