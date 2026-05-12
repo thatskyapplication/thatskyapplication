@@ -8,7 +8,11 @@ export default defineConfig({
 	skipNodeModulesBundle: true,
 	clean: true,
 	keepNames: true,
-	dts: true,
+	dts: {
+		compilerOptions: {
+			ignoreDeprecations: "6.0",
+		},
+	},
 	minify: true,
 	sourcemap: false,
 	outDir: "distribution",
