@@ -1,38 +1,29 @@
-# Builder stage.
-FROM node:lts-alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /thatskyapplication
 
-# Install pnpm.
 RUN npm install --global pnpm@11.0.9
 
-# Copy the monorepo files required for dependency resolution.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY .npmrc ./
-COPY ./apps/caelus/fluxer/package.json ./apps/caelus/fluxer/package.json
-COPY ./packages/utility/package.json ./packages/utility/package.json
+COPY apps/caelus/fluxer/package.json apps/caelus/fluxer/package.json
+COPY packages/utility/package.json packages/utility/package.json
 
-# Install dependencies.
 RUN pnpm install --frozen-lockfile
 
-# Build the application.
-COPY ./apps/caelus ./apps/caelus
-COPY ./packages/utility ./packages/utility
-RUN pnpm --filter @thatskyapplication/caelus-fluxer... run build
+COPY packages/utility packages/utility
+RUN pnpm --filter @thatskyapplication/utility run build
 
-# Deploy to a clean directory.
+COPY apps/caelus/fluxer apps/caelus/fluxer
+RUN pnpm install --frozen-lockfile --offline
+RUN pnpm --filter @thatskyapplication/caelus-fluxer run build
 RUN pnpm --filter @thatskyapplication/caelus-fluxer deploy --prod /thatskyapplication-production/caelus-fluxer
 
-# Final stage.
-FROM node:lts-alpine
+FROM node:24-alpine AS runtime
+
 ENV NODE_ENV=production
-ENV HONO_PORT=3000
-ARG SENTRY_RELEASE
-ENV SENTRY_RELEASE=${SENTRY_RELEASE}
 
-# Copy the deployed application.
-COPY --from=builder /thatskyapplication-production/caelus-fluxer /thatskyapplication/apps/caelus-fluxer
+WORKDIR /thatskyapplication/apps/caelus/fluxer
+COPY --from=builder /thatskyapplication-production/caelus-fluxer ./
 
-# Start the application.
-WORKDIR /thatskyapplication/apps/caelus-fluxer
-CMD ["npm", "run-script", "start"]
+USER node
+CMD ["node", "distribution/index.js"]

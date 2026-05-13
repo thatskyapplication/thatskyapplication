@@ -1,5 +1,5 @@
 # Builder stage.
-FROM node:lts-alpine AS builder
+FROM node:24-alpine AS builder
 ARG CDN_URL
 ARG SENTRY_RELEASE
 ARG SENTRY_DATA_SOURCE_NAME
@@ -11,7 +11,6 @@ RUN npm install --global pnpm@11.0.9
 
 # Copy the monorepo files required for dependency resolution.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY .npmrc ./
 COPY ./apps/website/package.json ./apps/website/package.json
 COPY ./packages/utility/package.json ./packages/utility/package.json
 
@@ -21,17 +20,19 @@ RUN pnpm install --frozen-lockfile
 # Build the application.
 COPY ./apps/website ./apps/website
 COPY ./packages/utility ./packages/utility
+RUN pnpm --filter @thatskyapplication/utility run build
+RUN pnpm install --frozen-lockfile --offline
 RUN --mount=type=secret,id=sentry_auth_token,env=SENTRY_AUTH_TOKEN \
   export SENTRY_RELEASE=$SENTRY_RELEASE && \
   export VITE_CDN_URL=$CDN_URL && \
   export VITE_SENTRY_DATA_SOURCE_NAME=$SENTRY_DATA_SOURCE_NAME && \
-	pnpm --filter @thatskyapplication/website... run build
+	pnpm --filter @thatskyapplication/website run build
 
 # Deploy to a clean directory.
 RUN pnpm --filter @thatskyapplication/website deploy --prod /thatskyapplication-production/website
 
 # Final stage.
-FROM node:lts-alpine
+FROM node:24-alpine
 ENV NODE_ENV=production
 ARG SENTRY_RELEASE
 ENV SENTRY_RELEASE=${SENTRY_RELEASE}
