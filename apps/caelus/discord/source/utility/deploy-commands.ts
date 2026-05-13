@@ -748,7 +748,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				}),
 				description_localizations: localisations("schedule.command-option-type-description"),
 				choices: SCHEDULE_TYPE_VALUES.filter(
-					(scheduleType) => scheduleType !== ScheduleType.Dragon,
+					(scheduleType) =>
+						scheduleType !== ScheduleType.Dragon && scheduleType !== ScheduleType.Maintenance,
 				).map((scheduleType) => ({
 					name: t(`schedule.command-option-type-choice-name.${scheduleType}`, {
 						ns: "commands",
