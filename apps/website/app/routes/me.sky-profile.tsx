@@ -3,64 +3,38 @@ import {
 	CDN,
 	COUNTRY_VALUES,
 	CountryToEmoji,
-	isCountry,
-	isPlatformId,
-	isSeasonId,
-	isSkyProfilePersonalityType,
-	isSpiritId,
-	isValidImageAsset,
 	MAXIMUM_ASSET_SIZE,
 	PLATFORM_ID_VALUES,
-	type PlatformIds,
-	type SeasonIds,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
-	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
 	SkyProfileEditType,
-	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
 	skySeasons,
 	spirits,
-	Table,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
-import { t } from "i18next";
 import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
-import type { Dispatch, RefObject, SetStateAction, SyntheticEvent } from "react";
-import { useEffect, useRef, useState } from "react";
+import type { SyntheticEvent } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { data, Form, Link, useActionData, useLoaderData, useNavigation } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
+import { toSkyProfileEditorValue } from "~/features/sky-profile/editor/sky-profile-editor.js";
+import { useSkyProfileEditor } from "~/features/sky-profile/editor/use-sky-profile-editor.js";
+import { parseSkyProfileMultipart } from "~/features/sky-profile/sky-profile-form.server.js";
+import { getSkyProfilePacket } from "~/features/sky-profile/sky-profile-repository.server.js";
+import { saveSkyProfileFromWebsite } from "~/features/sky-profile/sky-profile-save.server.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
-import pg from "~/pg.server";
-import pino from "~/pino.js";
 import { discordEmojiURL } from "~/utility/cdn.js";
 import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
-import {
-	deleteSkyProfileBanner,
-	deleteSkyProfileIcon,
-	uploadSkyProfileBanner,
-	uploadSkyProfileIcon,
-} from "~/utility/sky-profile-assets.server.js";
-
-type SkyProfileActionErrors = {
-	banner?: string;
-	country?: string;
-	description?: string;
-	hangout?: string;
-	icon?: string;
-	name?: string;
-	personality?: string;
-	spirit?: string;
-};
 
 const TEXT_FIELD_CLASS = [
 	"w-full",
@@ -113,416 +87,84 @@ const SELECTABLE_OPTION_CARD_CLASS = [
 	"dark:peer-disabled:bg-gray-900",
 ].join(" ");
 
-function hasSelectedFile(value: FormDataEntryValue | null): value is File {
-	return value instanceof File && value.size > 0 && value.name !== "";
-}
-
-function clearPreviewURL(
-	previewURLRef: RefObject<string | null>,
-	setPreviewURL: Dispatch<SetStateAction<string | null>>,
-) {
-	if (previewURLRef.current) {
-		URL.revokeObjectURL(previewURLRef.current);
-	}
-
-	previewURLRef.current = null;
-	setPreviewURL(null);
-}
-
-function updatePreviewURL(
-	previewURLRef: RefObject<string | null>,
-	setPreviewURL: Dispatch<SetStateAction<string | null>>,
-	file: File | null,
-) {
-	if (previewURLRef.current) {
-		URL.revokeObjectURL(previewURLRef.current);
-	}
-
-	const nextPreviewURL = file ? URL.createObjectURL(file) : null;
-	previewURLRef.current = nextPreviewURL;
-	setPreviewURL(nextPreviewURL);
-}
-
-function idsForStorage<T extends number>(
-	ids: readonly number[] | null,
-	orderedValues: readonly T[],
-): T[] | null {
-	if (ids === null) {
-		return null;
-	}
-
-	const orderedIds = orderedValues.filter((value) => ids.includes(value));
-	return orderedIds.length > 0 ? orderedIds : null;
-}
-
-function seasonIdsForStorage(
-	seasons: readonly number[] | null,
-	availableSeasonIds: readonly SeasonIds[],
-): SeasonIds[] | null {
-	return idsForStorage(seasons, availableSeasonIds);
-}
-
-function platformIdsForStorage(platforms: readonly number[] | null): PlatformIds[] | null {
-	return idsForStorage(platforms, PLATFORM_ID_VALUES);
-}
-
-function seasonSignature(
-	seasons: readonly number[] | null,
-	availableSeasonIds: readonly SeasonIds[],
-) {
-	return seasonIdsForStorage(seasons, availableSeasonIds)?.join(",") ?? "";
-}
-
-function platformSignature(platforms: readonly number[] | null) {
-	return platformIdsForStorage(platforms)?.join(",") ?? "";
-}
-
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
+	const skyProfilePacket = await getSkyProfilePacket(discordUser.id);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select(
-			"icon",
-			"banner",
-			"name",
-			"description",
-			"seasons",
-			"spirit",
-			"hangout",
-			"personality",
-			"country",
-			"platform",
-		)
-		.where({ user_id: discordUser.id })
-		.first();
-
-	return { discordUserId: discordUser.id, skyProfilePacket };
+	return {
+		discordUserId: discordUser.id,
+		profile: toSkyProfileEditorValue(skyProfilePacket),
+	};
 };
 
 export const action = async ({ request, context }: ActionFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
 	const locale = getLocale(context);
+	const parsed = parseSkyProfileMultipart(await request.formData(), locale);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
-		.select(
-			"icon",
-			"banner",
-			"name",
-			"description",
-			"seasons",
-			"spirit",
-			"hangout",
-			"personality",
-			"country",
-			"platform",
-		)
-		.where({ user_id: discordUser.id })
-		.first();
-
-	const formData = await request.formData();
-	const rawIcon = formData.get("icon");
-	const rawBanner = formData.get("banner");
-	const rawName = formData.get("name");
-	const rawDescription = formData.get("description");
-	const rawSeasons = formData.getAll("season");
-	const rawSpirit = formData.get("spirit");
-	const rawHangout = formData.get("hangout");
-	const rawPersonality = formData.get("personality");
-	const rawCountry = formData.get("country");
-	const rawPlatforms = formData.getAll("platform");
-	const hasNewIcon = hasSelectedFile(rawIcon);
-	const hasNewBanner = hasSelectedFile(rawBanner);
-	const availableSeasonIds = [...skySeasons().keys()];
-	const name = typeof rawName === "string" ? rawName.trim() : "";
-	const description = typeof rawDescription === "string" ? rawDescription.trim() : "";
-	const seasons = rawSeasons
-		.filter((season): season is string => typeof season === "string" && /^\d+$/.test(season.trim()))
-		.map((season) => Number.parseInt(season, 10))
-		.filter((season): season is SeasonIds => isSeasonId(season));
-	const trimmedSpirit = typeof rawSpirit === "string" ? rawSpirit.trim() : "";
-	const spirit =
-		trimmedSpirit.length === 0
-			? null
-			: /^\d+$/.test(trimmedSpirit)
-				? Number.parseInt(trimmedSpirit, 10)
-				: Number.NaN;
-	const hangout = typeof rawHangout === "string" ? rawHangout.trim() : "";
-	const personality =
-		typeof rawPersonality === "string" && rawPersonality.length > 0 ? Number(rawPersonality) : null;
-	const country = typeof rawCountry === "string" && rawCountry.length > 0 ? rawCountry : null;
-	const platforms = rawPlatforms
-		.filter(
-			(platform): platform is string =>
-				typeof platform === "string" && /^\d+$/.test(platform.trim()),
-		)
-		.map((platform) => Number.parseInt(platform, 10))
-		.filter((platform) => isPlatformId(platform));
-	const initialIcon = skyProfilePacket?.icon ?? null;
-	const initialBanner = skyProfilePacket?.banner ?? null;
-	const initialName = skyProfilePacket?.name?.trim() ?? "";
-	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
-	const initialSeasonsRaw = seasonIdsForStorage(
-		skyProfilePacket?.seasons ?? null,
-		availableSeasonIds,
-	);
-	const initialSpiritRaw = skyProfilePacket?.spirit ?? null;
-	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
-	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
-	const initialCountryRaw = skyProfilePacket?.country ?? null;
-	const initialPlatformsRaw = platformIdsForStorage(skyProfilePacket?.platform ?? null);
-	const errors: SkyProfileActionErrors = {};
-
-	if (hasNewIcon && !isValidImageAsset(rawIcon)) {
-		errors.icon = t("asset-image-invalid", {
-			lng: locale,
-			ns: "general",
-			size: MAXIMUM_ASSET_SIZE / 1_000_000,
-		});
+	if (!parsed.ok) {
+		return data({ ok: false, errors: parsed.errors } as const, { status: 422 });
 	}
 
-	if (hasNewBanner && !isValidImageAsset(rawBanner)) {
-		errors.banner = t("asset-image-invalid", {
-			lng: locale,
-			ns: "general",
-			size: MAXIMUM_ASSET_SIZE / 1_000_000,
-		});
+	const result = await saveSkyProfileFromWebsite({
+		userId: discordUser.id,
+		...parsed.value,
+	});
+
+	if (!result.ok) {
+		return data({ ok: false, errors: result.errors } as const, { status: 422 });
 	}
 
-	if (name.length === 0) {
-		errors.name = "Name is required.";
-	}
-
-	if (name.length > SKY_PROFILE_MAXIMUM_NAME_LENGTH) {
-		errors.name = `Name must not exceed ${SKY_PROFILE_MAXIMUM_NAME_LENGTH} characters.`;
-	}
-
-	if (description.length > SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH) {
-		errors.description = `Description must not exceed ${SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH} characters.`;
-	}
-
-	if (hangout.length > 0 && hangout.length < SKY_PROFILE_MINIMUM_HANGOUT_LENGTH) {
-		errors.hangout = `Hangout must be at least ${SKY_PROFILE_MINIMUM_HANGOUT_LENGTH} characters.`;
-	}
-
-	if (hangout.length > SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH) {
-		errors.hangout = `Hangout must not exceed ${SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH} characters.`;
-	}
-
-	if (spirit !== null && !(Number.isInteger(spirit) && isSpiritId(spirit))) {
-		errors.spirit = t("spirits.not-encountered-spirit", {
-			lng: locale,
-			ns: "features",
-		});
-	}
-
-	if (
-		personality !== null &&
-		!(Number.isInteger(personality) && isSkyProfilePersonalityType(personality))
-	) {
-		errors.personality = t("sky-profile.edit-personality-invalid", {
-			lng: locale,
-			ns: "features",
-		});
-	}
-
-	if (country !== null && !isCountry(country)) {
-		errors.country = t("sky-profile.unknown-country", {
-			lng: locale,
-			ns: "features",
-		});
-	}
-
-	if (Object.keys(errors).length > 0) {
-		return data({ ok: false, errors } as const, { status: 422 });
-	}
-
-	if (
-		!(hasNewIcon || hasNewBanner) &&
-		name === initialName &&
-		description === initialDescription &&
-		seasonSignature(seasons, availableSeasonIds) ===
-			seasonSignature(initialSeasonsRaw, availableSeasonIds) &&
-		spirit === initialSpiritRaw &&
-		hangout === initialHangout &&
-		personality === initialPersonalityRaw &&
-		country === initialCountryRaw &&
-		platformSignature(platforms) === platformSignature(initialPlatformsRaw)
-	) {
-		return null;
-	}
-
-	let uploadedIcon: string | null = null;
-	let uploadedBanner: string | null = null;
-	let icon = initialIcon;
-	let banner = initialBanner;
-
-	const [iconUploadResult, bannerUploadResult] = await Promise.allSettled([
-		hasNewIcon
-			? uploadSkyProfileIcon({
-					file: rawIcon,
-					userId: discordUser.id,
-				})
-			: initialIcon,
-		hasNewBanner
-			? uploadSkyProfileBanner({
-					file: rawBanner,
-					userId: discordUser.id,
-				})
-			: initialBanner,
-	]);
-
-	if (hasNewIcon) {
-		if (iconUploadResult.status === "fulfilled") {
-			uploadedIcon = iconUploadResult.value;
-			icon = uploadedIcon;
-		} else {
-			pino.error(iconUploadResult.reason, "Failed to upload Sky profile icon.");
-			errors.icon = "Unable to upload icon.";
-		}
-	}
-
-	if (hasNewBanner) {
-		if (bannerUploadResult.status === "fulfilled") {
-			uploadedBanner = bannerUploadResult.value;
-			banner = uploadedBanner;
-		} else {
-			pino.error(bannerUploadResult.reason, "Failed to upload Sky profile banner.");
-			errors.banner = "Unable to upload banner.";
-		}
-	}
-
-	if (errors.icon || errors.banner) {
-		if (uploadedIcon && uploadedIcon !== initialIcon) {
-			void deleteSkyProfileIcon({ icon: uploadedIcon, userId: discordUser.id }).catch(
-				(cleanupError) => {
-					pino.error(cleanupError, "Failed to clean up unreferenced Sky profile icon.");
-				},
-			);
-		}
-
-		if (uploadedBanner && uploadedBanner !== initialBanner) {
-			void deleteSkyProfileBanner({ banner: uploadedBanner, userId: discordUser.id }).catch(
-				(cleanupError) => {
-					pino.error(cleanupError, "Failed to clean up unreferenced Sky profile banner.");
-				},
-			);
-		}
-
-		return data({ ok: false, errors } as const, { status: 422 });
-	}
-
-	const skyProfileUpsertData: Partial<SkyProfilePacket> & Pick<SkyProfilePacket, "user_id"> = {
-		user_id: discordUser.id,
-		name,
-		description: description.length > 0 ? description : null,
-		seasons: seasonIdsForStorage(seasons, availableSeasonIds),
-		spirit,
-		hangout: hangout.length > 0 ? hangout : null,
-		personality,
-		country,
-		platform: platformIdsForStorage(platforms),
-	};
-
-	if (hasNewIcon) {
-		skyProfileUpsertData.icon = icon;
-	}
-
-	if (hasNewBanner) {
-		skyProfileUpsertData.banner = banner;
-	}
-
-	try {
-		await pg<SkyProfilePacket>(Table.Profiles)
-			.insert(skyProfileUpsertData)
-			.onConflict("user_id")
-			.merge(skyProfileUpsertData);
-	} catch (error) {
-		if (uploadedIcon && uploadedIcon !== initialIcon) {
-			void deleteSkyProfileIcon({ icon: uploadedIcon, userId: discordUser.id }).catch(
-				(cleanupError) => {
-					pino.error(cleanupError, "Failed to clean up unreferenced Sky profile icon.");
-				},
-			);
-		}
-
-		if (uploadedBanner && uploadedBanner !== initialBanner) {
-			void deleteSkyProfileBanner({ banner: uploadedBanner, userId: discordUser.id }).catch(
-				(cleanupError) => {
-					pino.error(cleanupError, "Failed to clean up unreferenced Sky profile banner.");
-				},
-			);
-		}
-
-		throw error;
-	}
-
-	if (hasNewIcon && initialIcon && icon !== initialIcon) {
-		void deleteSkyProfileIcon({ icon: initialIcon, userId: discordUser.id }).catch((error) => {
-			pino.error(error, "Failed to delete replaced Sky profile icon.");
-		});
-	}
-
-	if (hasNewBanner && initialBanner && banner !== initialBanner) {
-		void deleteSkyProfileBanner({ banner: initialBanner, userId: discordUser.id }).catch(
-			(error) => {
-				pino.error(error, "Failed to delete replaced Sky profile banner.");
-			},
-		);
-	}
-
-	return { ok: true } as const;
+	return result.changed ? ({ ok: true } as const) : null;
 };
 
 export default function MeSkyProfile() {
-	const { discordUserId, skyProfilePacket } = useLoaderData<typeof loader>();
+	const { discordUserId, profile: initialProfile } = useLoaderData<typeof loader>();
 	const actionData = useActionData<typeof action>();
 	const navigation = useNavigation();
 	const { i18n, t } = useTranslation();
 	const cdnURL = useCDNURL();
 	const cdn = new CDN(cdnURL);
 	const availableSeasonIds = [...skySeasons().keys()];
-	const initialIcon = skyProfilePacket?.icon ?? null;
-	const initialBanner = skyProfilePacket?.banner ?? null;
-	const initialName = skyProfilePacket?.name?.trim() ?? "";
-	const initialDescription = skyProfilePacket?.description?.trim() ?? "";
-	const initialSeasonsRaw = seasonIdsForStorage(
-		skyProfilePacket?.seasons ?? null,
-		availableSeasonIds,
-	);
-	const initialSpiritRaw = skyProfilePacket?.spirit ?? null;
-	const initialHangout = skyProfilePacket?.hangout?.trim() ?? "";
-	const initialPersonalityRaw = skyProfilePacket?.personality ?? null;
-	const initialCountryRaw = skyProfilePacket?.country ?? null;
-	const initialPlatformsRaw = platformIdsForStorage(skyProfilePacket?.platform ?? null);
-	const initialPersonality =
-		initialPersonalityRaw != null && isSkyProfilePersonalityType(initialPersonalityRaw)
-			? initialPersonalityRaw
-			: null;
-	const initialCountry =
-		initialCountryRaw != null && isCountry(initialCountryRaw) ? initialCountryRaw : "";
-	const initialSpirit =
-		initialSpiritRaw != null && isSpiritId(initialSpiritRaw) ? initialSpiritRaw.toString() : "";
-	const initialSeasons = initialSeasonsRaw ?? [];
-	const initialPlatforms = initialPlatformsRaw ?? [];
 	const [showSuccess, setShowSuccess] = useState(false);
-	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
-	const [hasPendingBannerUpload, setHasPendingBannerUpload] = useState(false);
-	const [clientIconError, setClientIconError] = useState<string | null>(null);
-	const [clientBannerError, setClientBannerError] = useState<string | null>(null);
-	const [iconPreviewURL, setIconPreviewURL] = useState<string | null>(null);
-	const [bannerPreviewURL, setBannerPreviewURL] = useState<string | null>(null);
-	const iconPreviewURLRef = useRef<string | null>(null);
-	const bannerPreviewURLRef = useRef<string | null>(null);
-	const [nameValue, setNameValue] = useState(initialName);
-	const [descriptionValue, setDescriptionValue] = useState(initialDescription);
-	const [seasonValues, setSeasonValues] = useState<SeasonIds[]>(initialSeasons);
-	const [spiritValue, setSpiritValue] = useState(initialSpirit);
-	const [hangoutValue, setHangoutValue] = useState(initialHangout);
-	const [personalityValue, setPersonalityValue] = useState<number | null>(initialPersonality);
-	const [countryValue, setCountryValue] = useState(initialCountry);
-	const [platformValues, setPlatformValues] = useState<PlatformIds[]>(initialPlatforms);
-	const bannerInputRef = useRef<HTMLInputElement>(null);
-	const iconInputRef = useRef<HTMLInputElement>(null);
+	const editor = useSkyProfileEditor({
+		imageInvalidMessage: t("asset-image-invalid", {
+			ns: "general",
+			size: MAXIMUM_ASSET_SIZE / 1_000_000,
+		}),
+		initialProfile,
+		saved: actionData?.ok === true,
+	});
+	const {
+		bannerInputRef,
+		bannerPreviewURL,
+		clientBannerError,
+		clientIconError,
+		draft,
+		hasChanges,
+		iconInputRef,
+		iconPreviewURL,
+		onBannerChange,
+		onIconChange,
+		profileFormValue,
+		reset,
+		setCountryValue,
+		setDescriptionValue,
+		setHangoutValue,
+		setNameValue,
+		setPersonalityValue,
+		setPlatformValues,
+		setSeasonValues,
+		setSpiritValue,
+	} = editor;
+	const nameValue = draft.name;
+	const descriptionValue = draft.description;
+	const seasonValues = draft.seasons;
+	const spiritValue = draft.spirit;
+	const hangoutValue = draft.hangout;
+	const personalityValue = draft.personality;
+	const countryValue = draft.country;
+	const platformValues = draft.platforms;
 	const displayNames = new Intl.DisplayNames(i18n.language, { type: "region", style: "long" });
 	const countryOptions = COUNTRY_VALUES.map((country) => ({
 		label: `${CountryToEmoji[country]} ${displayNames.of(country)!}`,
@@ -535,36 +177,23 @@ export default function MeSkyProfile() {
 		}))
 		.sort((a, b) => a.label.localeCompare(b.label, i18n.language));
 
-	const initialBannerURL = initialBanner
-		? cdn.skyProfileBannerURL(discordUserId, initialBanner)
+	const initialBannerURL = initialProfile.banner
+		? cdn.skyProfileBannerURL(discordUserId, initialProfile.banner)
 		: null;
 
-	const initialIconURL = initialIcon ? cdn.skyProfileIconURL(discordUserId, initialIcon) : null;
+	const initialIconURL = initialProfile.icon
+		? cdn.skyProfileIconURL(discordUserId, initialProfile.icon)
+		: null;
 	const displayedBannerURL = bannerPreviewURL ?? initialBannerURL;
 	const displayedIconURL = iconPreviewURL ?? initialIconURL;
 	const previewName = nameValue.trim();
 	const previewDescription = descriptionValue.trim();
-	const initialSeasonSignature = seasonSignature(initialSeasonsRaw, availableSeasonIds);
-	const initialPlatformSignature = platformSignature(initialPlatformsRaw);
-	const spiritValueAsNumber = spiritValue.length > 0 ? Number.parseInt(spiritValue, 10) : null;
 
 	const isSaving =
 		navigation.state !== "idle" &&
 		navigation.formMethod?.toLowerCase() === "post" &&
 		navigation.formData != null;
 	const selectableOptionLabelClass = isSaving ? "cursor-not-allowed" : "cursor-pointer";
-
-	const hasChanges =
-		hasPendingIconUpload ||
-		hasPendingBannerUpload ||
-		nameValue.trim() !== initialName ||
-		descriptionValue.trim() !== initialDescription ||
-		seasonSignature(seasonValues, availableSeasonIds) !== initialSeasonSignature ||
-		spiritValueAsNumber !== initialSpiritRaw ||
-		hangoutValue.trim() !== initialHangout ||
-		personalityValue !== initialPersonalityRaw ||
-		countryValue !== (initialCountryRaw ?? "") ||
-		platformSignature(platformValues) !== initialPlatformSignature;
 
 	const bannerError =
 		clientBannerError ?? (actionData?.ok === false ? actionData.errors.banner : undefined);
@@ -579,31 +208,12 @@ export default function MeSkyProfile() {
 	const personalityError = actionData?.ok === false ? actionData.errors.personality : undefined;
 	const countryError = actionData?.ok === false ? actionData.errors.country : undefined;
 
-	useEffect(
-		() => () => {
-			if (iconPreviewURLRef.current) {
-				URL.revokeObjectURL(iconPreviewURLRef.current);
-			}
-
-			if (bannerPreviewURLRef.current) {
-				URL.revokeObjectURL(bannerPreviewURLRef.current);
-			}
-		},
-		[],
-	);
-
 	useEffect(() => {
 		if (actionData?.ok !== true) {
 			setShowSuccess(false);
 			return;
 		}
 
-		clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
-		clearPreviewURL(bannerPreviewURLRef, setBannerPreviewURL);
-		setHasPendingIconUpload(false);
-		setHasPendingBannerUpload(false);
-		setClientIconError(null);
-		setClientBannerError(null);
 		setShowSuccess(true);
 		const timeout = window.setTimeout(() => setShowSuccess(false), 3000);
 		return () => window.clearTimeout(timeout);
@@ -635,26 +245,14 @@ export default function MeSkyProfile() {
 
 				<Form
 					encType="multipart/form-data"
-					key={`${initialIcon ?? ""}:${initialBanner ?? ""}:${initialName}:${initialDescription}:${initialSeasonSignature}:${initialSpiritRaw ?? ""}:${initialHangout}:${initialPersonalityRaw ?? ""}:${initialCountryRaw ?? ""}:${initialPlatformSignature}`}
 					method="post"
-					onReset={() => {
-						clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
-						clearPreviewURL(bannerPreviewURLRef, setBannerPreviewURL);
-						setHasPendingIconUpload(false);
-						setHasPendingBannerUpload(false);
-						setClientIconError(null);
-						setClientBannerError(null);
-						setNameValue(initialName);
-						setDescriptionValue(initialDescription);
-						setSeasonValues(initialSeasons);
-						setSpiritValue(initialSpirit);
-						setHangoutValue(initialHangout);
-						setPersonalityValue(initialPersonality);
-						setCountryValue(initialCountry);
-						setPlatformValues(initialPlatforms);
+					onReset={(event) => {
+						event.preventDefault();
+						reset();
 					}}
 					onSubmit={handleSubmit}
 				>
+					<input name="profile" type="hidden" value={JSON.stringify(profileFormValue)} />
 					<div className="mb-4 flex flex-col gap-3">
 						<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
 							Public preview
@@ -704,27 +302,7 @@ export default function MeSkyProfile() {
 						disabled={isSaving}
 						id="banner"
 						name="banner"
-						onChange={(event) => {
-							const nextFile = event.currentTarget.files?.[0] ?? null;
-
-							if (nextFile && !isValidImageAsset(nextFile)) {
-								setClientBannerError(
-									t("asset-image-invalid", {
-										ns: "general",
-										size: MAXIMUM_ASSET_SIZE / 1_000_000,
-									}),
-								);
-
-								event.currentTarget.value = "";
-								setHasPendingBannerUpload(false);
-								clearPreviewURL(bannerPreviewURLRef, setBannerPreviewURL);
-								return;
-							}
-
-							setClientBannerError(null);
-							setHasPendingBannerUpload(Boolean(nextFile));
-							updatePreviewURL(bannerPreviewURLRef, setBannerPreviewURL, nextFile);
-						}}
+						onChange={onBannerChange}
 						ref={bannerInputRef}
 						type="file"
 					/>
@@ -736,27 +314,7 @@ export default function MeSkyProfile() {
 						disabled={isSaving}
 						id="icon"
 						name="icon"
-						onChange={(event) => {
-							const nextFile = event.currentTarget.files?.[0] ?? null;
-
-							if (nextFile && !isValidImageAsset(nextFile)) {
-								setClientIconError(
-									t("asset-image-invalid", {
-										ns: "general",
-										size: MAXIMUM_ASSET_SIZE / 1_000_000,
-									}),
-								);
-
-								event.currentTarget.value = "";
-								setHasPendingIconUpload(false);
-								clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
-								return;
-							}
-
-							setClientIconError(null);
-							setHasPendingIconUpload(Boolean(nextFile));
-							updatePreviewURL(iconPreviewURLRef, setIconPreviewURL, nextFile);
-						}}
+						onChange={onIconChange}
 						ref={iconInputRef}
 						type="file"
 					/>
@@ -778,14 +336,13 @@ export default function MeSkyProfile() {
 									aria-describedby={nameError ? "name-error" : undefined}
 									aria-invalid={nameError ? true : undefined}
 									className={TEXT_FIELD_CLASS}
-									defaultValue={initialName}
 									disabled={isSaving}
 									id="name"
 									maxLength={SKY_PROFILE_MAXIMUM_NAME_LENGTH}
-									name="name"
 									onChange={(event) => setNameValue(event.currentTarget.value)}
 									required
 									type="text"
+									value={nameValue}
 								/>
 								{nameError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="name-error">
@@ -811,13 +368,12 @@ export default function MeSkyProfile() {
 									aria-describedby={descriptionError ? "description-error" : undefined}
 									aria-invalid={descriptionError ? true : undefined}
 									className={TEXT_FIELD_CLASS}
-									defaultValue={initialDescription}
 									disabled={isSaving}
 									id="description"
 									maxLength={SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH}
-									name="description"
 									onChange={(event) => setDescriptionValue(event.currentTarget.value)}
 									rows={4}
+									value={descriptionValue}
 								/>
 								{descriptionError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="description-error">
@@ -923,9 +479,6 @@ export default function MeSkyProfile() {
 											</div>
 										</div>
 									</div>
-									{seasonValues.map((season) => (
-										<input key={season} name="season" type="hidden" value={season} />
-									))}
 								</fieldset>
 							</div>
 						</div>
@@ -960,7 +513,6 @@ export default function MeSkyProfile() {
 									placeholder={t("sky-profile.select-a-spirit", { ns: "features" })}
 									value={spiritValue}
 								/>
-								<input name="spirit" type="hidden" value={spiritValue} />
 							</div>
 						</div>
 
@@ -980,13 +532,12 @@ export default function MeSkyProfile() {
 									aria-describedby={hangoutError ? "hangout-error" : undefined}
 									aria-invalid={hangoutError ? true : undefined}
 									className={TEXT_FIELD_CLASS}
-									defaultValue={initialHangout}
 									disabled={isSaving}
 									id="hangout"
 									maxLength={SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH}
-									name="hangout"
 									onChange={(event) => setHangoutValue(event.currentTarget.value)}
 									type="text"
+									value={hangoutValue}
 								/>
 								{hangoutError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="hangout-error">
@@ -1031,7 +582,6 @@ export default function MeSkyProfile() {
 										{countryError}
 									</p>
 								) : null}
-								<input name="country" type="hidden" value={countryValue} />
 							</div>
 						</div>
 
@@ -1068,7 +618,6 @@ export default function MeSkyProfile() {
 													className="peer sr-only"
 													disabled={isSaving}
 													id={`platform-${platform}`}
-													name="platform"
 													onChange={() => {
 														setPlatformValues((previousPlatforms) =>
 															previousPlatforms.includes(platform)
@@ -1143,7 +692,6 @@ export default function MeSkyProfile() {
 													className="peer sr-only"
 													disabled={isSaving}
 													id={`personality-${personality}`}
-													name="personality"
 													onChange={() => setPersonalityValue(personality)}
 													type="radio"
 													value={personality}
@@ -1199,7 +747,7 @@ export default function MeSkyProfile() {
 								Reset
 							</button>
 						</div>
-						{initialName ? (
+						{initialProfile.name ? (
 							<Link
 								className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 rounded-sm border border-gray-200 px-4 py-2 text-sm font-medium transition-colors duration-300 overflow-auto dark:border-gray-600"
 								to={`/sky-profiles/${discordUserId}`}
