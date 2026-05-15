@@ -3496,9 +3496,9 @@ export enum Cosmetic {
 	CarnivalGuideProp2 = 2758,
 	CarnivalGuideProp3 = 2759,
 	CarnivalGuideHeart1 = 2760,
-	CarnivalGuideProp4 = 2761,
-	CarnivalGuideProp5 = 2762,
-	CarnivalGuideProp6 = 2763,
+	BouncePad1 = 2761,
+	CarnivalGuideProp4 = 2762,
+	CarnivalGuideProp5 = 2763,
 	CarnivalGuideHeart2 = 2764,
 	EmoteBreakdance1 = 2765,
 	CarnivalAthleticDancerBlessing1 = 2766,
@@ -3573,6 +3573,8 @@ export enum Cosmetic {
 
 	// 15/05/2026 | Season of Carnival Quest 3.
 	CarnivalGuideQuest3 = 2828,
+	BouncePad2 = 2829,
+	BouncePad3 = 2830,
 }
 
 export enum CosmeticCommon {
@@ -3640,6 +3642,8 @@ export enum CosmeticCommon {
 	SharedSpaceSpellMultiple = 61,
 	SandcastlePieceMultiple = 62,
 	MischiefSymbolMultiple = 63,
+	BouncePad = 64,
+	BouncePadMultiple = 65,
 }
 
 export const WING_BUFFS = [

@@ -1511,6 +1511,8 @@ export default {
 			[CosmeticCommon.SharedSpaceSpellMultiple]: "Shared space spell {{number}}",
 			[CosmeticCommon.SandcastlePieceMultiple]: "Sandcastle piece {{number}}",
 			[CosmeticCommon.MischiefSymbolMultiple]: "Mischief symbol {{number}}",
+			[CosmeticCommon.BouncePad]: "Bounce pad",
+			[CosmeticCommon.BouncePadMultiple]: "Bounce pad {{number}}",
 		} satisfies Record<CosmeticCommon, string>,
 		"cosmetic-names": {
 			[Cosmetic.EmoteSit]: "Sit",

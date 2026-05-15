@@ -484,6 +484,7 @@ interface ItemRawSingleCosmeticWithoutChildren extends BaseItemRawWithoutChildre
 				| CosmeticCommon.CapeMultiple
 				| CosmeticCommon.HairMultiple
 				| CosmeticCommon.UltimatePropMultiple
+				| CosmeticCommon.BouncePadMultiple
 		  >
 		| ItemRawTranslation;
 	cosmetic: Cosmetic;

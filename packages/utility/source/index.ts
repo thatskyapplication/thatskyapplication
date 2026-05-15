@@ -26,7 +26,7 @@ export {
 } from "./assets.js";
 export type { CataloguePacket } from "./catalogue.js";
 export type { ChecklistPacket, ChecklistSetData } from "./checklist.js";
-export { Cosmetic, WING_BUFFS } from "./cosmetics.js";
+export { Cosmetic, CosmeticCommon, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,

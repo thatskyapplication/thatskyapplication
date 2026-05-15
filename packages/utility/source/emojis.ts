@@ -6179,7 +6179,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	SmallPlaceableProp123: { id: "1492226480652943360", name: "123_small_placeable_prop" },
 	/**
-	 * Carnival Guide (non-ultimate 1).
+	 * Bounce pad.
 	 */
 	SmallPlaceableProp124: { id: "1494694936971317468", name: "124_small_placeable_prop" },
 	/**
@@ -9222,9 +9222,9 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalGuideProp2]: SHARED_SPACE_EMOJIS.SharedSpace02,
 		[Cosmetic.CarnivalGuideProp3]: SHARED_SPACE_EMOJIS.SharedSpace03,
 		[Cosmetic.CarnivalGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.CarnivalGuideProp4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp124,
-		[Cosmetic.CarnivalGuideProp5]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp125,
-		[Cosmetic.CarnivalGuideProp6]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp110,
+		[Cosmetic.BouncePad1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp124,
+		[Cosmetic.CarnivalGuideProp4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp125,
+		[Cosmetic.CarnivalGuideProp5]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp110,
 		[Cosmetic.CarnivalGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.EmoteBreakdance1]: EMOTE_EMOJIS.Breakdance,
 		[Cosmetic.CarnivalAthleticDancerBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -9289,6 +9289,8 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.FlOwCape]: null,
 		[Cosmetic.FlOwFlower]: null,
 		[Cosmetic.CarnivalGuideQuest3]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.BouncePad2]: null,
+		[Cosmetic.BouncePad3]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
