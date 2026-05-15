@@ -7,8 +7,10 @@ import {
 	PLATFORM_ID_VALUES,
 	type PlatformIds,
 	type SeasonIds,
+	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	type SkyProfilePacket,
 	type SkyProfilePersonalityTypes,
+	type SkyProfileWingedLightTypes,
 	skySeasons,
 } from "@thatskyapplication/utility";
 import type {
@@ -55,6 +57,7 @@ export function toSkyProfileEditorValue(
 				| "platform"
 				| "seasons"
 				| "spirit"
+				| "winged_light"
 		  >
 		| null
 		| undefined,
@@ -62,6 +65,7 @@ export function toSkyProfileEditorValue(
 	const country = skyProfilePacket?.country;
 	const personality = skyProfilePacket?.personality;
 	const spirit = skyProfilePacket?.spirit;
+	const wingedLight = skyProfilePacket?.winged_light;
 
 	return {
 		banner: skyProfilePacket?.banner ?? null,
@@ -75,6 +79,8 @@ export function toSkyProfileEditorValue(
 		platforms: platformIdsForStorage(skyProfilePacket?.platform ?? null) ?? [],
 		seasons: seasonIdsForStorage(skyProfilePacket?.seasons ?? null) ?? [],
 		spirit: spirit != null && isSpiritId(spirit) ? spirit.toString() : "",
+		wingedLight:
+			wingedLight != null && isSkyProfileWingedLightType(wingedLight) ? wingedLight : null,
 	};
 }
 
@@ -99,6 +105,7 @@ export function toSkyProfileStorageValue(
 		platform: platformIdsForStorage(formProfile.platforms),
 		seasons: seasonIdsForStorage(formProfile.seasons),
 		spirit,
+		winged_light: formProfile.wingedLight,
 	};
 }
 
@@ -110,6 +117,7 @@ export function toSkyProfileStorageValueFromPacket(
 	const hangout = skyProfilePacket?.hangout?.trim() ?? "";
 	const personality = skyProfilePacket?.personality;
 	const spirit = skyProfilePacket?.spirit;
+	const wingedLight = skyProfilePacket?.winged_light;
 
 	return {
 		country: country && isCountry(country) ? country : null,
@@ -121,6 +129,8 @@ export function toSkyProfileStorageValueFromPacket(
 		platform: platformIdsForStorage(skyProfilePacket?.platform ?? null),
 		seasons: seasonIdsForStorage(skyProfilePacket?.seasons ?? null),
 		spirit: spirit != null && isSpiritId(spirit) ? spirit : null,
+		winged_light:
+			wingedLight != null && isSkyProfileWingedLightType(wingedLight) ? wingedLight : null,
 	};
 }
 
@@ -136,7 +146,8 @@ export function hasSkyProfileStorageChanges(
 		initialStorageValue.hangout !== nextStorageValue.hangout ||
 		initialStorageValue.personality !== nextStorageValue.personality ||
 		initialStorageValue.country !== nextStorageValue.country ||
-		idSignature(initialStorageValue.platform) !== idSignature(nextStorageValue.platform)
+		idSignature(initialStorageValue.platform) !== idSignature(nextStorageValue.platform) ||
+		initialStorageValue.winged_light !== nextStorageValue.winged_light
 	);
 }
 
@@ -165,6 +176,19 @@ export function isSkyProfilePersonality(
 	return value === null || isSkyProfilePersonalityType(value);
 }
 
+export function isSkyProfileWingedLight(
+	value: number | null,
+): value is SkyProfileWingedLightTypes | null {
+	return (
+		value === null ||
+		SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.includes(value as SkyProfileWingedLightTypes)
+	);
+}
+
 export function isSkyProfileCountry(value: string): value is Country | "" {
 	return value === "" || isCountry(value);
+}
+
+function isSkyProfileWingedLightType(value: number): value is SkyProfileWingedLightTypes {
+	return SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.includes(value as SkyProfileWingedLightTypes);
 }

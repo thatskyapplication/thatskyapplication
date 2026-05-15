@@ -9,6 +9,7 @@ import {
 	SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
+	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	SkyProfileEditType,
 	SkyProfilePersonalityToMBTI,
 	skySeasons,
@@ -156,9 +157,11 @@ export default function MeSkyProfile() {
 		setPlatformValues,
 		setSeasonValues,
 		setSpiritValue,
+		setWingedLightValue,
 	} = editor;
 	const nameValue = draft.name;
 	const descriptionValue = draft.description;
+	const wingedLightValue = draft.wingedLight;
 	const seasonValues = draft.seasons;
 	const spiritValue = draft.spirit;
 	const hangoutValue = draft.hangout;
@@ -207,6 +210,7 @@ export default function MeSkyProfile() {
 	const hangoutError = actionData?.ok === false ? actionData.errors.hangout : undefined;
 	const personalityError = actionData?.ok === false ? actionData.errors.personality : undefined;
 	const countryError = actionData?.ok === false ? actionData.errors.country : undefined;
+	const wingedLightError = actionData?.ok === false ? actionData.errors.wingedLight : undefined;
 
 	useEffect(() => {
 		if (actionData?.ok !== true) {
@@ -378,6 +382,79 @@ export default function MeSkyProfile() {
 								{descriptionError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="description-error">
 										{descriptionError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || wingedLightValue === null}
+									onClick={() => setWingedLightValue(null)}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<p
+									className="my-0 whitespace-pre-wrap text-sm text-gray-600 dark:text-gray-400"
+									id="winged-light-description"
+								>
+									{t("sky-profile.edit-winged-light-description", { ns: "features" })}
+								</p>
+								<p className="my-0 text-xs text-gray-500 dark:text-gray-500">
+									Note: Discord must be used to modify your catalogue.
+								</p>
+								<fieldset
+									aria-describedby={`winged-light-description${wingedLightError ? " winged-light-error" : ""}`}
+									aria-invalid={wingedLightError ? true : undefined}
+								>
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+										{SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((wingedLight) => (
+											<label
+												className={selectableOptionLabelClass}
+												htmlFor={`winged-light-${wingedLight}`}
+												key={wingedLight}
+											>
+												<input
+													checked={wingedLightValue === wingedLight}
+													className="peer sr-only"
+													disabled={isSaving}
+													id={`winged-light-${wingedLight}`}
+													onChange={() => setWingedLightValue(wingedLight)}
+													type="radio"
+													value={wingedLight}
+												/>
+												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+														{t(`sky-profile-winged-light-types.${wingedLight}`, {
+															ns: "general",
+														})}
+													</span>
+												</div>
+											</label>
+										))}
+									</div>
+								</fieldset>
+								{wingedLightError ? (
+									<p
+										className="my-0 text-sm text-red-600 dark:text-red-400"
+										id="winged-light-error"
+									>
+										{wingedLightError}
 									</p>
 								) : null}
 							</div>

@@ -3490,6 +3490,7 @@ export default {
 				"You may choose how to display your winged light.\n\nInferring from the catalogue means your maximum winged light is all winged light combined with any wing buffs you have chosen in the catalogue. Capeless is also an option.",
 			"edit-winged-light-string-select-menu-placeholder":
 				"How would you like your winged light to be displayed?",
+			"edit-winged-light-invalid": "Invalid winged light selected.",
 			"edit-modal-label-hangout-label": "Hangout",
 			"edit-modal-label-hangout-description": "Where's your favourite place to hang out?",
 			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",

@@ -5,6 +5,7 @@ import {
 	type PlatformIds,
 	type SeasonIds,
 	type SkyProfilePersonalityTypes,
+	type SkyProfileWingedLightTypes,
 } from "@thatskyapplication/utility";
 import type { ChangeEvent, Dispatch, RefObject, SetStateAction } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
@@ -44,6 +45,7 @@ interface UseSkyProfileEditorResult {
 		seasons: readonly SeasonIds[] | ((previous: readonly SeasonIds[]) => readonly SeasonIds[]),
 	) => void;
 	setSpiritValue: (spirit: string) => void;
+	setWingedLightValue: (wingedLight: SkyProfileWingedLightTypes | null) => void;
 }
 
 function clearPreviewURL(
@@ -199,6 +201,8 @@ export function useSkyProfileEditor({
 			seasons: typeof seasons === "function" ? seasons(previous.seasons) : seasons,
 		}));
 	const setSpiritValue = (spirit: string) => setDraft((previous) => ({ ...previous, spirit }));
+	const setWingedLightValue = (wingedLight: SkyProfileWingedLightTypes | null) =>
+		setDraft((previous) => ({ ...previous, wingedLight }));
 	const setHangoutValue = (hangout: string) => setDraft((previous) => ({ ...previous, hangout }));
 	const setPersonalityValue = (personality: SkyProfilePersonalityTypes | null) =>
 		setDraft((previous) => ({ ...previous, personality }));
@@ -241,5 +245,6 @@ export function useSkyProfileEditor({
 		setPlatformValues,
 		setSeasonValues,
 		setSpiritValue,
+		setWingedLightValue,
 	};
 }

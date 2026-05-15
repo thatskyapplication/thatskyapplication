@@ -13,6 +13,7 @@ import {
 	isSeasonIds,
 	isSkyProfileCountry,
 	isSkyProfilePersonality,
+	isSkyProfileWingedLight,
 	toSkyProfileStorageValue,
 } from "./editor/sky-profile-editor.js";
 import type {
@@ -125,11 +126,14 @@ export function parseSkyProfileMultipart(
 	const personality = numberOrNull(rawProfile.personality);
 	const country = stringValue(rawProfile.country);
 	const platforms = numberArray(rawProfile.platforms);
+	const wingedLight = numberOrNull(rawProfile.wingedLight);
 	const validSeasons = seasons && isSeasonIds(seasons) ? seasons : null;
 	const validPersonality =
 		personality !== undefined && isSkyProfilePersonality(personality) ? personality : undefined;
 	const validCountry = country !== null && isSkyProfileCountry(country) ? country : null;
 	const validPlatforms = platforms && isPlatformIds(platforms) ? platforms : null;
+	const validWingedLight =
+		wingedLight !== undefined && isSkyProfileWingedLight(wingedLight) ? wingedLight : undefined;
 
 	if (name === null) {
 		errors.name = "Name is required.";
@@ -172,6 +176,13 @@ export function parseSkyProfileMultipart(
 		errors.platforms = "Platforms are invalid.";
 	}
 
+	if (validWingedLight === undefined) {
+		errors.wingedLight = t("sky-profile.edit-winged-light-invalid", {
+			lng: locale,
+			ns: "features",
+		});
+	}
+
 	if (Object.keys(errors).length > 0) {
 		return { errors, ok: false };
 	}
@@ -185,6 +196,7 @@ export function parseSkyProfileMultipart(
 		platforms: validPlatforms!,
 		seasons: validSeasons!,
 		spirit: spirit!,
+		wingedLight: validWingedLight!,
 	};
 
 	const storageProfile = toSkyProfileStorageValue(profile);

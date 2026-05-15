@@ -139,6 +139,7 @@ export async function saveSkyProfileFromWebsite({
 		personality: profile.personality,
 		country: profile.country,
 		platform: profile.platform,
+		winged_light: profile.winged_light,
 	};
 
 	if (hasNewIcon) {

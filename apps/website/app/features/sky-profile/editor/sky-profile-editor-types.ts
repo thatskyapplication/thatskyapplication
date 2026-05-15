@@ -3,6 +3,7 @@ import type {
 	PlatformIds,
 	SeasonIds,
 	SkyProfilePersonalityTypes,
+	SkyProfileWingedLightTypes,
 } from "@thatskyapplication/utility";
 
 export interface SkyProfileActionErrors {
@@ -16,6 +17,7 @@ export interface SkyProfileActionErrors {
 	platforms?: string;
 	seasons?: string;
 	spirit?: string;
+	wingedLight?: string;
 }
 
 export interface SkyProfileEditorValue {
@@ -29,6 +31,7 @@ export interface SkyProfileEditorValue {
 	platforms: readonly PlatformIds[];
 	seasons: readonly SeasonIds[];
 	spirit: string;
+	wingedLight: SkyProfileWingedLightTypes | null;
 }
 
 export interface SkyProfileFormProfile {
@@ -40,6 +43,7 @@ export interface SkyProfileFormProfile {
 	platforms: readonly PlatformIds[];
 	seasons: readonly SeasonIds[];
 	spirit: string;
+	wingedLight: SkyProfileWingedLightTypes | null;
 }
 
 export interface SkyProfileStorageValue {
@@ -51,4 +55,5 @@ export interface SkyProfileStorageValue {
 	platform: PlatformIds[] | null;
 	seasons: SeasonIds[] | null;
 	spirit: number | null;
+	winged_light: SkyProfileWingedLightTypes | null;
 }
