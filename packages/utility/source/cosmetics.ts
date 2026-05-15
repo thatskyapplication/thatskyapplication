@@ -3568,8 +3568,8 @@ export enum Cosmetic {
 	TreasureMateCompanion = 2825,
 
 	// 15/05/2026 | Version 0.33.2.
-	FlOwCape = 2827,
-	FlOwFlower = 2828,
+	FlOwCape = 2826,
+	FlOwFlower = 2827,
 }
 
 export enum CosmeticCommon {
