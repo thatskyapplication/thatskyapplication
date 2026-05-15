@@ -3570,6 +3570,9 @@ export enum Cosmetic {
 	// 15/05/2026 | Version 0.33.2.
 	FlOwCape = 2826,
 	FlOwFlower = 2827,
+
+	// 15/05/2026 | Season of Carnival Quest 3.
+	CarnivalGuideQuest3 = 2828,
 }
 
 export enum CosmeticCommon {

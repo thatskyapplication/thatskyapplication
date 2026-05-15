@@ -55,7 +55,10 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				null,
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 3 },
+					cosmetic: Cosmetic.CarnivalGuideQuest3,
+				},
 				{
 					translation: { key: CosmeticCommon.PropMultiple, number: 3 },
 					cosmetic: Cosmetic.CarnivalGuideProp3,
