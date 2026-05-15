@@ -2590,6 +2590,8 @@ export default {
 			[Cosmetic.TreasureCoinCape]: "Treasure Coin Cape",
 			[Cosmetic.TreasureSeekersHat]: "Treasure Seeker's Hat",
 			[Cosmetic.TreasureMateCompanion]: "Treasure Mate Companion",
+			[Cosmetic.FlOwCape]: "FlOw cape",
+			[Cosmetic.FlOwFlower]: "FlOw flower",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

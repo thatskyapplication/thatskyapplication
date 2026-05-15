@@ -27,6 +27,11 @@ const items = resolveOfferFromItems([
 		cosmetic: Cosmetic.SpringCloverSprout,
 		cost: { money: 0.99 },
 	},
+	{
+		cosmetic: [Cosmetic.FlOwCape, Cosmetic.FlOwFlower],
+		cosmeticDisplay: Cosmetic.FlOwCape,
+		cost: { money: 14.99 },
+	},
 ]);
 
 export const PERMANENT_EVENT_STORE = {
