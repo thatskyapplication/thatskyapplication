@@ -395,381 +395,6 @@ export default function MeSkyProfile() {
 						</div>
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`, {
-										ns: "features",
-									})}
-								</h2>
-								<button
-									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
-									disabled={isSaving || guessRankValue === null}
-									onClick={() => setGuessRankValue(null)}
-									type="button"
-								>
-									Clear selection
-								</button>
-							</div>
-							<div className="flex flex-col gap-3">
-								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
-									id="guess-rank-description"
-								>
-									{t(`sky-profile.edit-type-description.${SkyProfileEditType.GuessRank}`, {
-										ns: "features",
-									})}
-								</p>
-								<fieldset
-									aria-describedby={`guess-rank-description${guessRankError ? " guess-rank-error" : ""}`}
-									aria-invalid={guessRankError ? true : undefined}
-								>
-									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`, {
-											ns: "features",
-										})}
-									</legend>
-									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-										{([true, false] as const).map((guessRank) => (
-											<label
-												className={selectableOptionLabelClass}
-												htmlFor={`guess-rank-${guessRank.toString()}`}
-												key={guessRank.toString()}
-											>
-												<input
-													checked={guessRankValue === guessRank}
-													className="peer sr-only"
-													disabled={isSaving}
-													id={`guess-rank-${guessRank.toString()}`}
-													onChange={() => setGuessRankValue(guessRank)}
-													type="radio"
-													value={guessRank.toString()}
-												/>
-												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
-													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-														{t(guessRank ? "show" : "hide", { ns: "general" })}
-													</span>
-												</div>
-											</label>
-										))}
-									</div>
-								</fieldset>
-								{guessRankError ? (
-									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="guess-rank-error">
-										{guessRankError}
-									</p>
-								) : null}
-							</div>
-						</div>
-
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
-										ns: "features",
-									})}
-								</h2>
-								<button
-									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
-									disabled={isSaving || catalogueProgressionValue === null}
-									onClick={() => setCatalogueProgressionValue(null)}
-									type="button"
-								>
-									Clear selection
-								</button>
-							</div>
-							<div className="flex flex-col gap-3">
-								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
-									id="catalogue-progression-description"
-								>
-									{t(
-										`sky-profile.edit-type-description.${SkyProfileEditType.CatalogueProgression}`,
-										{ ns: "features" },
-									)}
-								</p>
-								<fieldset
-									aria-describedby={`catalogue-progression-description${catalogueProgressionError ? " catalogue-progression-error" : ""}`}
-									aria-invalid={catalogueProgressionError ? true : undefined}
-								>
-									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
-											ns: "features",
-										})}
-									</legend>
-									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-										{([true, false] as const).map((catalogueProgression) => (
-											<label
-												className={selectableOptionLabelClass}
-												htmlFor={`catalogue-progression-${catalogueProgression.toString()}`}
-												key={catalogueProgression.toString()}
-											>
-												<input
-													checked={catalogueProgressionValue === catalogueProgression}
-													className="peer sr-only"
-													disabled={isSaving}
-													id={`catalogue-progression-${catalogueProgression.toString()}`}
-													onChange={() => setCatalogueProgressionValue(catalogueProgression)}
-													type="radio"
-													value={catalogueProgression.toString()}
-												/>
-												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
-													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-														{t(catalogueProgression ? "show" : "hide", { ns: "general" })}
-													</span>
-												</div>
-											</label>
-										))}
-									</div>
-								</fieldset>
-								{catalogueProgressionError ? (
-									<p
-										className="my-0 text-sm text-red-600 dark:text-red-400"
-										id="catalogue-progression-error"
-									>
-										{catalogueProgressionError}
-									</p>
-								) : null}
-							</div>
-						</div>
-
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
-										ns: "features",
-									})}
-								</h2>
-								<button
-									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
-									disabled={isSaving || wingedLightValue === null}
-									onClick={() => setWingedLightValue(null)}
-									type="button"
-								>
-									Clear selection
-								</button>
-							</div>
-							<div className="flex flex-col gap-3">
-								<p
-									className="my-0 whitespace-pre-wrap text-sm text-gray-600 dark:text-gray-400"
-									id="winged-light-description"
-								>
-									{t("sky-profile.edit-winged-light-description", { ns: "features" })}
-								</p>
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-500">
-									Note: Discord must be used to modify your catalogue.
-								</p>
-								<fieldset
-									aria-describedby={`winged-light-description${wingedLightError ? " winged-light-error" : ""}`}
-									aria-invalid={wingedLightError ? true : undefined}
-								>
-									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
-											ns: "features",
-										})}
-									</legend>
-									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-										{SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((wingedLight) => (
-											<label
-												className={selectableOptionLabelClass}
-												htmlFor={`winged-light-${wingedLight}`}
-												key={wingedLight}
-											>
-												<input
-													checked={wingedLightValue === wingedLight}
-													className="peer sr-only"
-													disabled={isSaving}
-													id={`winged-light-${wingedLight}`}
-													onChange={() => setWingedLightValue(wingedLight)}
-													type="radio"
-													value={wingedLight}
-												/>
-												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
-													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-														{t(`sky-profile-winged-light-types.${wingedLight}`, {
-															ns: "general",
-														})}
-													</span>
-												</div>
-											</label>
-										))}
-									</div>
-								</fieldset>
-								{wingedLightError ? (
-									<p
-										className="my-0 text-sm text-red-600 dark:text-red-400"
-										id="winged-light-error"
-									>
-										{wingedLightError}
-									</p>
-								) : null}
-							</div>
-						</div>
-
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<div className="flex items-center justify-between gap-3">
-								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Seasons}`, {
-										ns: "features",
-									})}
-								</h2>
-								<button
-									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
-									disabled={isSaving || seasonValues.length === 0}
-									onClick={() => setSeasonValues([])}
-									type="button"
-								>
-									Clear selection
-								</button>
-							</div>
-							<div className="flex flex-col gap-3">
-								<div className="flex items-center justify-between gap-3">
-									<p
-										className="my-0 text-sm text-gray-600 dark:text-gray-400"
-										id="seasons-description"
-									>
-										{t(`sky-profile.edit-type-description.${SkyProfileEditType.Seasons}`, {
-											ns: "features",
-										})}
-									</p>
-									<span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-xs font-medium text-gray-600 shadow-sm dark:bg-gray-800 dark:text-gray-300">
-										{seasonValues.length} selected
-									</span>
-								</div>
-								<fieldset aria-describedby="seasons-description">
-									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Seasons}`, {
-											ns: "features",
-										})}
-									</legend>
-									<div className="rounded-xl border border-gray-300 bg-white/60 p-2 dark:border-gray-600 dark:bg-gray-800/40">
-										<div className="hide-scrollbar max-h-80 overflow-y-auto">
-											<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-												{availableSeasonIds.map((season) => {
-													const selected = seasonValues.includes(season);
-													const seasonEmoji = SeasonIdToSeasonalEmoji[season];
-
-													return (
-														<button
-															aria-pressed={selected}
-															className={clsx(
-																"flex w-full cursor-pointer items-center gap-3 rounded-lg border bg-white px-3 py-2 text-left shadow-sm transition-colors hover:border-gray-400 hover:bg-gray-50 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:opacity-60 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 dark:hover:bg-gray-700/80 dark:disabled:border-gray-700 dark:disabled:bg-gray-900",
-																selected
-																	? "border-blue-600 bg-blue-100 dark:border-blue-400 dark:bg-blue-950/70"
-																	: "border-gray-300",
-															)}
-															disabled={isSaving}
-															key={season}
-															onClick={() => {
-																setSeasonValues((previousSeasons) =>
-																	previousSeasons.includes(season)
-																		? previousSeasons.filter(
-																				(previousSeason) => previousSeason !== season,
-																			)
-																		: [...previousSeasons, season],
-																);
-															}}
-															type="button"
-														>
-															{seasonEmoji ? (
-																<div
-																	aria-hidden="true"
-																	className="discord-emoji h-9 w-9 rounded-full shadow-sm"
-																	style={{
-																		backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
-																	}}
-																/>
-															) : null}
-															<div className="min-w-0 flex-1">
-																<div className="truncate text-xs font-semibold text-gray-900 dark:text-gray-100">
-																	{t(`seasons.${season}`, { ns: "general" })}
-																</div>
-															</div>
-															<div
-																aria-hidden="true"
-																className={clsx(
-																	"flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors",
-																	selected
-																		? "border-blue-600 bg-blue-600 text-white dark:border-blue-400 dark:bg-blue-400 dark:text-gray-950"
-																		: "border-gray-300 bg-transparent text-transparent dark:border-gray-500",
-																)}
-															>
-																<Check className="h-3.5 w-3.5" />
-															</div>
-														</button>
-													);
-												})}
-											</div>
-										</div>
-									</div>
-								</fieldset>
-							</div>
-						</div>
-
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2
-								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
-								id="spirit-heading"
-							>
-								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Spirit}`, {
-									ns: "features",
-								})}
-							</h2>
-							<div className="flex flex-col gap-2">
-								<p
-									className="my-0 text-sm text-gray-600 dark:text-gray-400"
-									id="spirit-description"
-								>
-									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Spirit}`, {
-										ns: "features",
-									})}
-								</p>
-								<Select
-									ariaDescribedBy="spirit-description"
-									ariaLabelledBy="spirit-heading"
-									className="w-full"
-									disabled={isSaving}
-									error={spiritError}
-									isClearable={true}
-									onChange={(value) => setSpiritValue(value)}
-									options={spiritOptions}
-									placeholder={t("sky-profile.select-a-spirit", { ns: "features" })}
-									value={spiritValue}
-								/>
-							</div>
-						</div>
-
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
-							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Hangout}`, {
-									ns: "features",
-								})}
-							</h2>
-							<div className="flex flex-col gap-2">
-								<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="hangout">
-									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Hangout}`, {
-										ns: "features",
-									})}
-								</label>
-								<input
-									aria-describedby={hangoutError ? "hangout-error" : undefined}
-									aria-invalid={hangoutError ? true : undefined}
-									className={TEXT_FIELD_CLASS}
-									disabled={isSaving}
-									id="hangout"
-									maxLength={SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH}
-									onChange={(event) => setHangoutValue(event.currentTarget.value)}
-									type="text"
-									value={hangoutValue}
-								/>
-								{hangoutError ? (
-									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="hangout-error">
-										{hangoutError}
-									</p>
-								) : null}
-							</div>
-						</div>
-
-						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<h2
 								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
 								id="country-heading"
@@ -946,6 +571,381 @@ export default function MeSkyProfile() {
 								{personalityError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="personality-error">
 										{personalityError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Seasons}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || seasonValues.length === 0}
+									onClick={() => setSeasonValues([])}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<div className="flex items-center justify-between gap-3">
+									<p
+										className="my-0 text-sm text-gray-600 dark:text-gray-400"
+										id="seasons-description"
+									>
+										{t(`sky-profile.edit-type-description.${SkyProfileEditType.Seasons}`, {
+											ns: "features",
+										})}
+									</p>
+									<span className="shrink-0 rounded-full bg-white px-2.5 py-1 text-xs font-medium text-gray-600 shadow-sm dark:bg-gray-800 dark:text-gray-300">
+										{seasonValues.length} selected
+									</span>
+								</div>
+								<fieldset aria-describedby="seasons-description">
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Seasons}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="rounded-xl border border-gray-300 bg-white/60 p-2 dark:border-gray-600 dark:bg-gray-800/40">
+										<div className="hide-scrollbar max-h-80 overflow-y-auto">
+											<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+												{availableSeasonIds.map((season) => {
+													const selected = seasonValues.includes(season);
+													const seasonEmoji = SeasonIdToSeasonalEmoji[season];
+
+													return (
+														<button
+															aria-pressed={selected}
+															className={clsx(
+																"flex w-full cursor-pointer items-center gap-3 rounded-lg border bg-white px-3 py-2 text-left shadow-sm transition-colors hover:border-gray-400 hover:bg-gray-50 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:opacity-60 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 dark:hover:bg-gray-700/80 dark:disabled:border-gray-700 dark:disabled:bg-gray-900",
+																selected
+																	? "border-blue-600 bg-blue-100 dark:border-blue-400 dark:bg-blue-950/70"
+																	: "border-gray-300",
+															)}
+															disabled={isSaving}
+															key={season}
+															onClick={() => {
+																setSeasonValues((previousSeasons) =>
+																	previousSeasons.includes(season)
+																		? previousSeasons.filter(
+																				(previousSeason) => previousSeason !== season,
+																			)
+																		: [...previousSeasons, season],
+																);
+															}}
+															type="button"
+														>
+															{seasonEmoji ? (
+																<div
+																	aria-hidden="true"
+																	className="discord-emoji h-9 w-9 rounded-full shadow-sm"
+																	style={{
+																		backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
+																	}}
+																/>
+															) : null}
+															<div className="min-w-0 flex-1">
+																<div className="truncate text-xs font-semibold text-gray-900 dark:text-gray-100">
+																	{t(`seasons.${season}`, { ns: "general" })}
+																</div>
+															</div>
+															<div
+																aria-hidden="true"
+																className={clsx(
+																	"flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-colors",
+																	selected
+																		? "border-blue-600 bg-blue-600 text-white dark:border-blue-400 dark:bg-blue-400 dark:text-gray-950"
+																		: "border-gray-300 bg-transparent text-transparent dark:border-gray-500",
+																)}
+															>
+																<Check className="h-3.5 w-3.5" />
+															</div>
+														</button>
+													);
+												})}
+											</div>
+										</div>
+									</div>
+								</fieldset>
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2
+								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
+								id="spirit-heading"
+							>
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Spirit}`, {
+									ns: "features",
+								})}
+							</h2>
+							<div className="flex flex-col gap-2">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="spirit-description"
+								>
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Spirit}`, {
+										ns: "features",
+									})}
+								</p>
+								<Select
+									ariaDescribedBy="spirit-description"
+									ariaLabelledBy="spirit-heading"
+									className="w-full"
+									disabled={isSaving}
+									error={spiritError}
+									isClearable={true}
+									onChange={(value) => setSpiritValue(value)}
+									options={spiritOptions}
+									placeholder={t("sky-profile.select-a-spirit", { ns: "features" })}
+									value={spiritValue}
+								/>
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Hangout}`, {
+									ns: "features",
+								})}
+							</h2>
+							<div className="flex flex-col gap-2">
+								<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="hangout">
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.Hangout}`, {
+										ns: "features",
+									})}
+								</label>
+								<input
+									aria-describedby={hangoutError ? "hangout-error" : undefined}
+									aria-invalid={hangoutError ? true : undefined}
+									className={TEXT_FIELD_CLASS}
+									disabled={isSaving}
+									id="hangout"
+									maxLength={SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH}
+									onChange={(event) => setHangoutValue(event.currentTarget.value)}
+									type="text"
+									value={hangoutValue}
+								/>
+								{hangoutError ? (
+									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="hangout-error">
+										{hangoutError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || wingedLightValue === null}
+									onClick={() => setWingedLightValue(null)}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<p
+									className="my-0 whitespace-pre-wrap text-sm text-gray-600 dark:text-gray-400"
+									id="winged-light-description"
+								>
+									{t("sky-profile.edit-winged-light-description", { ns: "features" })}
+								</p>
+								<p className="my-0 text-xs text-gray-500 dark:text-gray-500">
+									Note: Discord must be used to modify your catalogue.
+								</p>
+								<fieldset
+									aria-describedby={`winged-light-description${wingedLightError ? " winged-light-error" : ""}`}
+									aria-invalid={wingedLightError ? true : undefined}
+								>
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+										{SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((wingedLight) => (
+											<label
+												className={selectableOptionLabelClass}
+												htmlFor={`winged-light-${wingedLight}`}
+												key={wingedLight}
+											>
+												<input
+													checked={wingedLightValue === wingedLight}
+													className="peer sr-only"
+													disabled={isSaving}
+													id={`winged-light-${wingedLight}`}
+													onChange={() => setWingedLightValue(wingedLight)}
+													type="radio"
+													value={wingedLight}
+												/>
+												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+														{t(`sky-profile-winged-light-types.${wingedLight}`, {
+															ns: "general",
+														})}
+													</span>
+												</div>
+											</label>
+										))}
+									</div>
+								</fieldset>
+								{wingedLightError ? (
+									<p
+										className="my-0 text-sm text-red-600 dark:text-red-400"
+										id="winged-light-error"
+									>
+										{wingedLightError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || catalogueProgressionValue === null}
+									onClick={() => setCatalogueProgressionValue(null)}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="catalogue-progression-description"
+								>
+									{t(
+										`sky-profile.edit-type-description.${SkyProfileEditType.CatalogueProgression}`,
+										{ ns: "features" },
+									)}
+								</p>
+								<fieldset
+									aria-describedby={`catalogue-progression-description${catalogueProgressionError ? " catalogue-progression-error" : ""}`}
+									aria-invalid={catalogueProgressionError ? true : undefined}
+								>
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+										{([true, false] as const).map((catalogueProgression) => (
+											<label
+												className={selectableOptionLabelClass}
+												htmlFor={`catalogue-progression-${catalogueProgression.toString()}`}
+												key={catalogueProgression.toString()}
+											>
+												<input
+													checked={catalogueProgressionValue === catalogueProgression}
+													className="peer sr-only"
+													disabled={isSaving}
+													id={`catalogue-progression-${catalogueProgression.toString()}`}
+													onChange={() => setCatalogueProgressionValue(catalogueProgression)}
+													type="radio"
+													value={catalogueProgression.toString()}
+												/>
+												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+														{t(catalogueProgression ? "show" : "hide", { ns: "general" })}
+													</span>
+												</div>
+											</label>
+										))}
+									</div>
+								</fieldset>
+								{catalogueProgressionError ? (
+									<p
+										className="my-0 text-sm text-red-600 dark:text-red-400"
+										id="catalogue-progression-error"
+									>
+										{catalogueProgressionError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || guessRankValue === null}
+									onClick={() => setGuessRankValue(null)}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="guess-rank-description"
+								>
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.GuessRank}`, {
+										ns: "features",
+									})}
+								</p>
+								<fieldset
+									aria-describedby={`guess-rank-description${guessRankError ? " guess-rank-error" : ""}`}
+									aria-invalid={guessRankError ? true : undefined}
+								>
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+										{([true, false] as const).map((guessRank) => (
+											<label
+												className={selectableOptionLabelClass}
+												htmlFor={`guess-rank-${guessRank.toString()}`}
+												key={guessRank.toString()}
+											>
+												<input
+													checked={guessRankValue === guessRank}
+													className="peer sr-only"
+													disabled={isSaving}
+													id={`guess-rank-${guessRank.toString()}`}
+													onChange={() => setGuessRankValue(guessRank)}
+													type="radio"
+													value={guessRank.toString()}
+												/>
+												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+														{t(guessRank ? "show" : "hide", { ns: "general" })}
+													</span>
+												</div>
+											</label>
+										))}
+									</div>
+								</fieldset>
+								{guessRankError ? (
+									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="guess-rank-error">
+										{guessRankError}
 									</p>
 								) : null}
 							</div>
