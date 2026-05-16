@@ -38,6 +38,8 @@ export default {
 		"asset-image-invalid":
 			"Please upload a valid attachment! It must be less than or equal to {{size}} megabytes and be a GIF, JPEG, PNG, or WebP file.",
 		"support-server": "Support server",
+		show: "Show",
+		hide: "Hide",
 		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -3491,6 +3493,7 @@ export default {
 			"edit-winged-light-string-select-menu-placeholder":
 				"How would you like your winged light to be displayed?",
 			"edit-winged-light-invalid": "Invalid winged light selected.",
+			"edit-catalogue-progression-invalid": "Invalid catalogue progression selected.",
 			"edit-modal-label-hangout-label": "Hangout",
 			"edit-modal-label-hangout-description": "Where's your favourite place to hang out?",
 			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",

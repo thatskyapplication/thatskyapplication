@@ -13,6 +13,7 @@ const SKY_PROFILE_EDITOR_COLUMNS = [
 	"country",
 	"platform",
 	"winged_light",
+	"catalogue_progression",
 ] as const;
 
 export function getSkyProfilePacket(userId: string) {

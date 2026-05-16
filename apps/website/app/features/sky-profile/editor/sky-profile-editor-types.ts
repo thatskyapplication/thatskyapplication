@@ -8,6 +8,7 @@ import type {
 
 export interface SkyProfileActionErrors {
 	banner?: string;
+	catalogueProgression?: string;
 	country?: string;
 	description?: string;
 	hangout?: string;
@@ -22,6 +23,7 @@ export interface SkyProfileActionErrors {
 
 export interface SkyProfileEditorValue {
 	banner: string | null;
+	catalogueProgression: boolean | null;
 	country: Country | "";
 	description: string;
 	hangout: string;
@@ -35,6 +37,7 @@ export interface SkyProfileEditorValue {
 }
 
 export interface SkyProfileFormProfile {
+	catalogueProgression: boolean | null;
 	country: Country | "";
 	description: string;
 	hangout: string;
@@ -47,6 +50,7 @@ export interface SkyProfileFormProfile {
 }
 
 export interface SkyProfileStorageValue {
+	catalogue_progression: boolean | null;
 	country: Country | null;
 	description: string | null;
 	hangout: string | null;

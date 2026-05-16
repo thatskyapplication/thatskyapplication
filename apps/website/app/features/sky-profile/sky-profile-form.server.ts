@@ -86,6 +86,18 @@ function numberOrNull(value: unknown) {
 	return undefined;
 }
 
+function booleanOrNull(value: unknown) {
+	if (value === null) {
+		return null;
+	}
+
+	if (typeof value === "boolean") {
+		return value;
+	}
+
+	return undefined;
+}
+
 export function parseSkyProfileMultipart(
 	formData: FormData,
 	locale: string,
@@ -127,6 +139,7 @@ export function parseSkyProfileMultipart(
 	const country = stringValue(rawProfile.country);
 	const platforms = numberArray(rawProfile.platforms);
 	const wingedLight = numberOrNull(rawProfile.wingedLight);
+	const catalogueProgression = booleanOrNull(rawProfile.catalogueProgression);
 	const validSeasons = seasons && isSeasonIds(seasons) ? seasons : null;
 	const validPersonality =
 		personality !== undefined && isSkyProfilePersonality(personality) ? personality : undefined;
@@ -183,11 +196,19 @@ export function parseSkyProfileMultipart(
 		});
 	}
 
+	if (catalogueProgression === undefined) {
+		errors.catalogueProgression = t("sky-profile.edit-catalogue-progression-invalid", {
+			lng: locale,
+			ns: "features",
+		});
+	}
+
 	if (Object.keys(errors).length > 0) {
 		return { errors, ok: false };
 	}
 
 	const profile: SkyProfileFormProfile = {
+		catalogueProgression: catalogueProgression!,
 		country: validCountry!,
 		description: description!,
 		hangout: hangout!,

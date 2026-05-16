@@ -31,6 +31,7 @@ interface UseSkyProfileEditorResult {
 	onIconChange: (event: ChangeEvent<HTMLInputElement>) => void;
 	profileFormValue: SkyProfileFormProfile;
 	reset: () => void;
+	setCatalogueProgressionValue: (catalogueProgression: boolean | null) => void;
 	setCountryValue: (country: string) => void;
 	setDescriptionValue: (description: string) => void;
 	setHangoutValue: (hangout: string) => void;
@@ -190,6 +191,8 @@ export function useSkyProfileEditor({
 		hasSkyProfileEditorChanges(initialProfile, draft);
 
 	const profileFormValue = useMemo(() => toSkyProfileFormProfile(draft), [draft]);
+	const setCatalogueProgressionValue = (catalogueProgression: boolean | null) =>
+		setDraft((previous) => ({ ...previous, catalogueProgression }));
 	const setNameValue = (name: string) => setDraft((previous) => ({ ...previous, name }));
 	const setDescriptionValue = (description: string) =>
 		setDraft((previous) => ({ ...previous, description }));
@@ -237,6 +240,7 @@ export function useSkyProfileEditor({
 		onIconChange,
 		profileFormValue,
 		reset,
+		setCatalogueProgressionValue,
 		setCountryValue,
 		setDescriptionValue,
 		setHangoutValue,

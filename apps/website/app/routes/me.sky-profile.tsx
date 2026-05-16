@@ -149,6 +149,7 @@ export default function MeSkyProfile() {
 		onIconChange,
 		profileFormValue,
 		reset,
+		setCatalogueProgressionValue,
 		setCountryValue,
 		setDescriptionValue,
 		setHangoutValue,
@@ -162,6 +163,7 @@ export default function MeSkyProfile() {
 	const nameValue = draft.name;
 	const descriptionValue = draft.description;
 	const wingedLightValue = draft.wingedLight;
+	const catalogueProgressionValue = draft.catalogueProgression;
 	const seasonValues = draft.seasons;
 	const spiritValue = draft.spirit;
 	const hangoutValue = draft.hangout;
@@ -211,6 +213,8 @@ export default function MeSkyProfile() {
 	const personalityError = actionData?.ok === false ? actionData.errors.personality : undefined;
 	const countryError = actionData?.ok === false ? actionData.errors.country : undefined;
 	const wingedLightError = actionData?.ok === false ? actionData.errors.wingedLight : undefined;
+	const catalogueProgressionError =
+		actionData?.ok === false ? actionData.errors.catalogueProgression : undefined;
 
 	useEffect(() => {
 		if (actionData?.ok !== true) {
@@ -382,6 +386,77 @@ export default function MeSkyProfile() {
 								{descriptionError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="description-error">
 										{descriptionError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || catalogueProgressionValue === null}
+									onClick={() => setCatalogueProgressionValue(null)}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="catalogue-progression-description"
+								>
+									{t(
+										`sky-profile.edit-type-description.${SkyProfileEditType.CatalogueProgression}`,
+										{ ns: "features" },
+									)}
+								</p>
+								<fieldset
+									aria-describedby={`catalogue-progression-description${catalogueProgressionError ? " catalogue-progression-error" : ""}`}
+									aria-invalid={catalogueProgressionError ? true : undefined}
+								>
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+										{([true, false] as const).map((catalogueProgression) => (
+											<label
+												className={selectableOptionLabelClass}
+												htmlFor={`catalogue-progression-${catalogueProgression.toString()}`}
+												key={catalogueProgression.toString()}
+											>
+												<input
+													checked={catalogueProgressionValue === catalogueProgression}
+													className="peer sr-only"
+													disabled={isSaving}
+													id={`catalogue-progression-${catalogueProgression.toString()}`}
+													onChange={() => setCatalogueProgressionValue(catalogueProgression)}
+													type="radio"
+													value={catalogueProgression.toString()}
+												/>
+												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+														{t(catalogueProgression ? "show" : "hide", { ns: "general" })}
+													</span>
+												</div>
+											</label>
+										))}
+									</div>
+								</fieldset>
+								{catalogueProgressionError ? (
+									<p
+										className="my-0 text-sm text-red-600 dark:text-red-400"
+										id="catalogue-progression-error"
+									>
+										{catalogueProgressionError}
 									</p>
 								) : null}
 							</div>

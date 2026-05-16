@@ -48,6 +48,7 @@ export function toSkyProfileEditorValue(
 		| Pick<
 				SkyProfilePacket,
 				| "banner"
+				| "catalogue_progression"
 				| "country"
 				| "description"
 				| "hangout"
@@ -69,6 +70,7 @@ export function toSkyProfileEditorValue(
 
 	return {
 		banner: skyProfilePacket?.banner ?? null,
+		catalogueProgression: skyProfilePacket?.catalogue_progression ?? null,
 		country: country && isCountry(country) ? country : "",
 		description: skyProfilePacket?.description?.trim() ?? "",
 		hangout: skyProfilePacket?.hangout?.trim() ?? "",
@@ -97,6 +99,7 @@ export function toSkyProfileStorageValue(
 	const spirit = formProfile.spirit.length > 0 ? Number.parseInt(formProfile.spirit, 10) : null;
 
 	return {
+		catalogue_progression: formProfile.catalogueProgression,
 		country: formProfile.country || null,
 		description: description.length > 0 ? description : null,
 		hangout: hangout.length > 0 ? hangout : null,
@@ -120,6 +123,7 @@ export function toSkyProfileStorageValueFromPacket(
 	const wingedLight = skyProfilePacket?.winged_light;
 
 	return {
+		catalogue_progression: skyProfilePacket?.catalogue_progression ?? null,
 		country: country && isCountry(country) ? country : null,
 		description: description.length > 0 ? description : null,
 		hangout: hangout.length > 0 ? hangout : null,
@@ -147,7 +151,8 @@ export function hasSkyProfileStorageChanges(
 		initialStorageValue.personality !== nextStorageValue.personality ||
 		initialStorageValue.country !== nextStorageValue.country ||
 		idSignature(initialStorageValue.platform) !== idSignature(nextStorageValue.platform) ||
-		initialStorageValue.winged_light !== nextStorageValue.winged_light
+		initialStorageValue.winged_light !== nextStorageValue.winged_light ||
+		initialStorageValue.catalogue_progression !== nextStorageValue.catalogue_progression
 	);
 }
 
