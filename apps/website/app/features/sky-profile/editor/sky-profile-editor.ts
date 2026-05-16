@@ -51,6 +51,7 @@ export function toSkyProfileEditorValue(
 				| "catalogue_progression"
 				| "country"
 				| "description"
+				| "guess_rank"
 				| "hangout"
 				| "icon"
 				| "name"
@@ -73,6 +74,7 @@ export function toSkyProfileEditorValue(
 		catalogueProgression: skyProfilePacket?.catalogue_progression ?? null,
 		country: country && isCountry(country) ? country : "",
 		description: skyProfilePacket?.description?.trim() ?? "",
+		guessRank: skyProfilePacket?.guess_rank ?? null,
 		hangout: skyProfilePacket?.hangout?.trim() ?? "",
 		icon: skyProfilePacket?.icon ?? null,
 		name: skyProfilePacket?.name?.trim() ?? "",
@@ -102,6 +104,7 @@ export function toSkyProfileStorageValue(
 		catalogue_progression: formProfile.catalogueProgression,
 		country: formProfile.country || null,
 		description: description.length > 0 ? description : null,
+		guess_rank: formProfile.guessRank,
 		hangout: hangout.length > 0 ? hangout : null,
 		name: formProfile.name.trim(),
 		personality: formProfile.personality,
@@ -126,6 +129,7 @@ export function toSkyProfileStorageValueFromPacket(
 		catalogue_progression: skyProfilePacket?.catalogue_progression ?? null,
 		country: country && isCountry(country) ? country : null,
 		description: description.length > 0 ? description : null,
+		guess_rank: skyProfilePacket?.guess_rank ?? null,
 		hangout: hangout.length > 0 ? hangout : null,
 		name: skyProfilePacket?.name?.trim() ?? "",
 		personality:
@@ -152,7 +156,8 @@ export function hasSkyProfileStorageChanges(
 		initialStorageValue.country !== nextStorageValue.country ||
 		idSignature(initialStorageValue.platform) !== idSignature(nextStorageValue.platform) ||
 		initialStorageValue.winged_light !== nextStorageValue.winged_light ||
-		initialStorageValue.catalogue_progression !== nextStorageValue.catalogue_progression
+		initialStorageValue.catalogue_progression !== nextStorageValue.catalogue_progression ||
+		initialStorageValue.guess_rank !== nextStorageValue.guess_rank
 	);
 }
 

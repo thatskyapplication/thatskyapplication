@@ -34,6 +34,7 @@ interface UseSkyProfileEditorResult {
 	setCatalogueProgressionValue: (catalogueProgression: boolean | null) => void;
 	setCountryValue: (country: string) => void;
 	setDescriptionValue: (description: string) => void;
+	setGuessRankValue: (guessRank: boolean | null) => void;
 	setHangoutValue: (hangout: string) => void;
 	setNameValue: (name: string) => void;
 	setPersonalityValue: (personality: SkyProfilePersonalityTypes | null) => void;
@@ -193,6 +194,8 @@ export function useSkyProfileEditor({
 	const profileFormValue = useMemo(() => toSkyProfileFormProfile(draft), [draft]);
 	const setCatalogueProgressionValue = (catalogueProgression: boolean | null) =>
 		setDraft((previous) => ({ ...previous, catalogueProgression }));
+	const setGuessRankValue = (guessRank: boolean | null) =>
+		setDraft((previous) => ({ ...previous, guessRank }));
 	const setNameValue = (name: string) => setDraft((previous) => ({ ...previous, name }));
 	const setDescriptionValue = (description: string) =>
 		setDraft((previous) => ({ ...previous, description }));
@@ -243,6 +246,7 @@ export function useSkyProfileEditor({
 		setCatalogueProgressionValue,
 		setCountryValue,
 		setDescriptionValue,
+		setGuessRankValue,
 		setHangoutValue,
 		setNameValue,
 		setPersonalityValue,

@@ -14,6 +14,7 @@ const SKY_PROFILE_EDITOR_COLUMNS = [
 	"platform",
 	"winged_light",
 	"catalogue_progression",
+	"guess_rank",
 ] as const;
 
 export function getSkyProfilePacket(userId: string) {

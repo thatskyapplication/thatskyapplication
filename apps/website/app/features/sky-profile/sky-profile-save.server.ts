@@ -141,6 +141,7 @@ export async function saveSkyProfileFromWebsite({
 		platform: profile.platform,
 		winged_light: profile.winged_light,
 		catalogue_progression: profile.catalogue_progression,
+		guess_rank: profile.guess_rank,
 	};
 
 	if (hasNewIcon) {

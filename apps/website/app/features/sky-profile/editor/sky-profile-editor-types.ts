@@ -11,6 +11,7 @@ export interface SkyProfileActionErrors {
 	catalogueProgression?: string;
 	country?: string;
 	description?: string;
+	guessRank?: string;
 	hangout?: string;
 	icon?: string;
 	name?: string;
@@ -26,6 +27,7 @@ export interface SkyProfileEditorValue {
 	catalogueProgression: boolean | null;
 	country: Country | "";
 	description: string;
+	guessRank: boolean | null;
 	hangout: string;
 	icon: string | null;
 	name: string;
@@ -40,6 +42,7 @@ export interface SkyProfileFormProfile {
 	catalogueProgression: boolean | null;
 	country: Country | "";
 	description: string;
+	guessRank: boolean | null;
 	hangout: string;
 	name: string;
 	personality: SkyProfilePersonalityTypes | null;
@@ -53,6 +56,7 @@ export interface SkyProfileStorageValue {
 	catalogue_progression: boolean | null;
 	country: Country | null;
 	description: string | null;
+	guess_rank: boolean | null;
 	hangout: string | null;
 	name: string;
 	personality: SkyProfilePersonalityTypes | null;

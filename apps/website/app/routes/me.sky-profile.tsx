@@ -152,6 +152,7 @@ export default function MeSkyProfile() {
 		setCatalogueProgressionValue,
 		setCountryValue,
 		setDescriptionValue,
+		setGuessRankValue,
 		setHangoutValue,
 		setNameValue,
 		setPersonalityValue,
@@ -164,6 +165,7 @@ export default function MeSkyProfile() {
 	const descriptionValue = draft.description;
 	const wingedLightValue = draft.wingedLight;
 	const catalogueProgressionValue = draft.catalogueProgression;
+	const guessRankValue = draft.guessRank;
 	const seasonValues = draft.seasons;
 	const spiritValue = draft.spirit;
 	const hangoutValue = draft.hangout;
@@ -215,6 +217,7 @@ export default function MeSkyProfile() {
 	const wingedLightError = actionData?.ok === false ? actionData.errors.wingedLight : undefined;
 	const catalogueProgressionError =
 		actionData?.ok === false ? actionData.errors.catalogueProgression : undefined;
+	const guessRankError = actionData?.ok === false ? actionData.errors.guessRank : undefined;
 
 	useEffect(() => {
 		if (actionData?.ok !== true) {
@@ -386,6 +389,73 @@ export default function MeSkyProfile() {
 								{descriptionError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="description-error">
 										{descriptionError}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
+							<div className="flex items-center justify-between gap-3">
+								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`, {
+										ns: "features",
+									})}
+								</h2>
+								<button
+									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
+									disabled={isSaving || guessRankValue === null}
+									onClick={() => setGuessRankValue(null)}
+									type="button"
+								>
+									Clear selection
+								</button>
+							</div>
+							<div className="flex flex-col gap-3">
+								<p
+									className="my-0 text-sm text-gray-600 dark:text-gray-400"
+									id="guess-rank-description"
+								>
+									{t(`sky-profile.edit-type-description.${SkyProfileEditType.GuessRank}`, {
+										ns: "features",
+									})}
+								</p>
+								<fieldset
+									aria-describedby={`guess-rank-description${guessRankError ? " guess-rank-error" : ""}`}
+									aria-invalid={guessRankError ? true : undefined}
+								>
+									<legend className="sr-only">
+										{t(`sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`, {
+											ns: "features",
+										})}
+									</legend>
+									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+										{([true, false] as const).map((guessRank) => (
+											<label
+												className={selectableOptionLabelClass}
+												htmlFor={`guess-rank-${guessRank.toString()}`}
+												key={guessRank.toString()}
+											>
+												<input
+													checked={guessRankValue === guessRank}
+													className="peer sr-only"
+													disabled={isSaving}
+													id={`guess-rank-${guessRank.toString()}`}
+													onChange={() => setGuessRankValue(guessRank)}
+													type="radio"
+													value={guessRank.toString()}
+												/>
+												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
+														{t(guessRank ? "show" : "hide", { ns: "general" })}
+													</span>
+												</div>
+											</label>
+										))}
+									</div>
+								</fieldset>
+								{guessRankError ? (
+									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="guess-rank-error">
+										{guessRankError}
 									</p>
 								) : null}
 							</div>

@@ -140,6 +140,7 @@ export function parseSkyProfileMultipart(
 	const platforms = numberArray(rawProfile.platforms);
 	const wingedLight = numberOrNull(rawProfile.wingedLight);
 	const catalogueProgression = booleanOrNull(rawProfile.catalogueProgression);
+	const guessRank = booleanOrNull(rawProfile.guessRank);
 	const validSeasons = seasons && isSeasonIds(seasons) ? seasons : null;
 	const validPersonality =
 		personality !== undefined && isSkyProfilePersonality(personality) ? personality : undefined;
@@ -203,6 +204,13 @@ export function parseSkyProfileMultipart(
 		});
 	}
 
+	if (guessRank === undefined) {
+		errors.guessRank = t("sky-profile.edit-guess-rank-invalid", {
+			lng: locale,
+			ns: "features",
+		});
+	}
+
 	if (Object.keys(errors).length > 0) {
 		return { errors, ok: false };
 	}
@@ -211,6 +219,7 @@ export function parseSkyProfileMultipart(
 		catalogueProgression: catalogueProgression!,
 		country: validCountry!,
 		description: description!,
+		guessRank: guessRank!,
 		hangout: hangout!,
 		name: name!,
 		personality: validPersonality!,

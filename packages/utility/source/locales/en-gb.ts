@@ -3494,6 +3494,7 @@ export default {
 				"How would you like your winged light to be displayed?",
 			"edit-winged-light-invalid": "Invalid winged light selected.",
 			"edit-catalogue-progression-invalid": "Invalid catalogue progression selected.",
+			"edit-guess-rank-invalid": "Invalid guessing rank selected.",
 			"edit-modal-label-hangout-label": "Hangout",
 			"edit-modal-label-hangout-description": "Where's your favourite place to hang out?",
 			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",
