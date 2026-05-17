@@ -196,7 +196,6 @@ export {
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
-	SKY_PROFILE_RESET_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	type SkyProfileData,
 	SkyProfileEditType,
@@ -204,8 +203,6 @@ export {
 	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
-	SkyProfileResetType,
-	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 } from "./sky-profile.js";

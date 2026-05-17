@@ -101,21 +101,3 @@ export const SkyProfileEditType = {
 
 export type SkyProfileEditTypes = (typeof SkyProfileEditType)[keyof typeof SkyProfileEditType];
 export const SKY_PROFILE_EDIT_TYPE_VALUES = Object.values(SkyProfileEditType);
-
-export const SkyProfileResetType = {
-	Description: 0,
-	Icon: 1,
-	Banner: 2,
-	WingedLight: 3,
-	Country: 4,
-	Hangout: 5,
-	Seasons: 6,
-	Platforms: 7,
-	Spirit: 8,
-	CatalogueProgression: 9,
-	GuessRank: 10,
-	Personality: 11,
-} as const satisfies Readonly<Record<string, number>>;
-
-export type SkyProfileResetTypes = (typeof SkyProfileResetType)[keyof typeof SkyProfileResetType];
-export const SKY_PROFILE_RESET_TYPE_VALUES = Object.values(SkyProfileResetType);

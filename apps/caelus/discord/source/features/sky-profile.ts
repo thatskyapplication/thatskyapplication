@@ -54,7 +54,6 @@ import {
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_PERSONALITY_TYPE_VALUES,
-	SKY_PROFILE_RESET_TYPE_VALUES,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	type SkyProfileData,
 	SkyProfileEditType,
@@ -62,8 +61,6 @@ import {
 	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
-	SkyProfileResetType,
-	type SkyProfileResetTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 	skySeasons,
@@ -138,6 +135,12 @@ export type SkyProfileSetData = Partial<SkyProfilePacket> &
 		platform?: readonly PlatformIds[] | null;
 		personality?: SkyProfilePersonalityTypes | null;
 	};
+
+const SKY_PROFILE_RESET_TYPE_VALUES = Object.values(SkyProfileEditType).filter(
+	(type) => type !== SkyProfileEditType.Name,
+);
+
+type SkyProfileResetTypes = (typeof SKY_PROFILE_RESET_TYPE_VALUES)[number];
 
 function isSkyProfileEditType(value: number): value is SkyProfileEditTypes {
 	return SKY_PROFILE_EDIT_TYPE_VALUES.includes(value as SkyProfileEditTypes);
@@ -431,42 +434,45 @@ export async function skyProfileReset(interaction: APIMessageComponentSelectMenu
 		}
 
 		switch (skyProfileResetType) {
-			case SkyProfileResetType.Description:
-				data.description = null;
-				continue;
-			case SkyProfileResetType.Icon:
+			case SkyProfileEditType.Icon:
 				data.icon = null;
 				continue;
-			case SkyProfileResetType.Banner:
+			case SkyProfileEditType.Banner:
 				data.banner = null;
 				continue;
-			case SkyProfileResetType.WingedLight:
+			case SkyProfileEditType.Description:
+				data.description = null;
+				continue;
+			case SkyProfileEditType.WingedLight:
 				data.winged_light = null;
 				continue;
-			case SkyProfileResetType.Country:
-				data.country = null;
-				continue;
-			case SkyProfileResetType.Hangout:
+			case SkyProfileEditType.Hangout:
 				data.hangout = null;
 				continue;
-			case SkyProfileResetType.Seasons:
+			case SkyProfileEditType.Seasons:
 				data.seasons = null;
 				continue;
-			case SkyProfileResetType.Platforms:
+			case SkyProfileEditType.Platforms:
 				data.platform = null;
 				continue;
-			case SkyProfileResetType.Spirit:
-				data.spirit = null;
-				continue;
-			case SkyProfileResetType.CatalogueProgression:
+			case SkyProfileEditType.CatalogueProgression:
 				data.catalogue_progression = null;
 				continue;
-			case SkyProfileResetType.GuessRank:
+			case SkyProfileEditType.GuessRank:
 				data.guess_rank = null;
 				continue;
-			case SkyProfileResetType.Personality:
+			case SkyProfileEditType.Personality:
 				data.personality = null;
 				continue;
+			case SkyProfileEditType.Country:
+				data.country = null;
+				continue;
+			case SkyProfileEditType.Spirit:
+				data.spirit = null;
+				continue;
+			default: {
+				throw new Error("Unhandled Sky profile reset type.");
+			}
 		}
 	}
 
@@ -2190,7 +2196,7 @@ export async function skyProfileShowReset(interaction: APIMessageComponentButton
 								max_values: SKY_PROFILE_RESET_TYPE_VALUES.length,
 								min_values: 1,
 								options: SKY_PROFILE_RESET_TYPE_VALUES.map((skyProfileResetType) => ({
-									label: t(`sky-profile.reset-type-label.${skyProfileResetType}`, {
+									label: t(`sky-profile.edit-type-label.${skyProfileResetType}`, {
 										lng: locale,
 										ns: "features",
 									}),
