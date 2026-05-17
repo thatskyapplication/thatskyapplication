@@ -2,6 +2,8 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"show": "",
+		"hide": "",
 		"daily-quests": "Tägliche Quests",
 		"days-left": {
 			"season_zero": "Die Saison endet heute.",
@@ -1102,7 +1104,9 @@
 			"60": "",
 			"61": "",
 			"62": "",
-			"63": ""
+			"63": "",
+			"64": "",
+			"65": ""
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2180,7 +2184,9 @@
 			"2817": "Frühlingsklee-Spross",
 			"2823": "Schatzmünzenumhang",
 			"2824": "Schatzsucherhut",
-			"2825": "Schatzpiratbegleiter"
+			"2825": "Schatzpiratbegleiter",
+			"2826": "",
+			"2827": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2995,6 +3001,9 @@
 			"edit-modal-label-banner-description": "",
 			"edit-winged-light-description": "",
 			"edit-winged-light-string-select-menu-placeholder": "",
+			"edit-winged-light-invalid": "",
+			"edit-catalogue-progression-invalid": "",
+			"edit-guess-rank-invalid": "",
 			"edit-modal-label-hangout-label": "",
 			"edit-modal-label-hangout-description": "",
 			"edit-seasons-string-select-menu-placeholder": "",
@@ -3030,20 +3039,6 @@
 				"15": "Versorger/Versorgerin"
 			},
 			"personality-with-mbti": "$t(sky-profile.personality-types.{{personality}}) ({{mbti}})",
-			"reset-type-label": {
-				"0": "",
-				"1": "",
-				"2": "",
-				"3": "",
-				"4": "",
-				"5": "",
-				"6": "",
-				"7": "",
-				"8": "",
-				"9": "",
-				"10": "",
-				"11": ""
-			},
 			"no-sky-profile-reset": "",
 			"reset-string-select-menu-placeholder": "",
 			"country": "",

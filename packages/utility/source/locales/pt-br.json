@@ -2,6 +2,8 @@
 	"general": {
 		"asset-image-invalid": "Por favor faça o upload de um anexo válido! Precisa ser menor ou igual a {{size}} megabytes e ser um arquivo GIF, JPEG, PNG ou WebP.",
 		"support-server": "Servidor de suporte",
+		"show": "",
+		"hide": "",
 		"daily-quests": "Missões diárias",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
@@ -1102,7 +1104,9 @@
 			"60": "Feitiço de espaço compartilhado",
 			"61": "Feitiço de espaço compartilhado {{number}}",
 			"62": "Peça de castelo de areia {{number}}",
-			"63": "Símbolo de travessura {{number}}"
+			"63": "Símbolo de travessura {{number}}",
+			"64": "Trampolim de Desafio",
+			"65": "Trampolim de Desafio {{number}}"
 		},
 		"cosmetic-names": {
 			"0": "Sentar",
@@ -2156,10 +2160,10 @@
 			"2741": "Vestido de Girassol do Florescer",
 			"2742": "Guarda-chuva de Girassol do Florescer",
 			"2743": "Brincos de Girassol do Florescer",
-			"2746": "",
+			"2746": "Castiçal de Pedra",
 			"2750": "",
-			"2751": "",
-			"2752": "",
+			"2751": "Acessório de Cabeça do Véu do Oceano",
+			"2752": "Acessório de Cabelo do Véu do Oceano",
 			"2765": "Breakdance 1",
 			"2769": "Breakdance 2",
 			"2770": "Breakdance 3",
@@ -2180,7 +2184,9 @@
 			"2817": "Broto de Trevo da Primavera",
 			"2823": "Capa de Moedas do Tesouro",
 			"2824": "Chapéu do Rastreador de Tesouros",
-			"2825": "Companheiro Pirata do Tesouro"
+			"2825": "Companheiro Pirata do Tesouro",
+			"2826": "",
+			"2827": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -3005,6 +3011,9 @@
 			"edit-modal-label-banner-description": "Faça o upload de um banner para o seu Filho da Luz! Essa imagem será usada somente no site.",
 			"edit-winged-light-description": "Você pode escolher como exibir sua luz alada.\n\nInferindo pelo catálogo, sua luz alada máxima será a soma de toda a sua luz alada, juntamente com os bônus de asas que escolheu no catálogo. Também é possível optar por não usar a capa.",
 			"edit-winged-light-string-select-menu-placeholder": "Como você gostaria que sua Luz Alada fosse exibida?",
+			"edit-winged-light-invalid": "",
+			"edit-catalogue-progression-invalid": "",
+			"edit-guess-rank-invalid": "",
 			"edit-modal-label-hangout-label": "Ponto de encontro",
 			"edit-modal-label-hangout-description": "Onde você mais gosta de ficar?",
 			"edit-seasons-string-select-menu-placeholder": "Selecione as temporadas das quais você participou!",
@@ -3040,20 +3049,6 @@
 				"15": "Provedor"
 			},
 			"personality-with-mbti": "$t(sky-profile.personality-types.{{personality}}) ({{mbti}})",
-			"reset-type-label": {
-				"0": "Descrição",
-				"1": "Ícone",
-				"2": "Banner",
-				"3": "Luz Alada",
-				"4": "País",
-				"5": "Ponto de Encontro",
-				"6": "Temporadas",
-				"7": "Plataformas",
-				"8": "Espírito",
-				"9": "Progresso no Catálogo",
-				"10": "Ranking no Quiz",
-				"11": "Personalidade"
-			},
 			"no-sky-profile-reset": "Você não tem um perfil Sky para redefinir.",
 			"reset-string-select-menu-placeholder": "O que você deseja redefinir?",
 			"country": "País:",
