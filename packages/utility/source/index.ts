@@ -24,7 +24,31 @@ export {
 	isValidImageAsset,
 	MAXIMUM_ASSET_SIZE,
 } from "./assets.js";
-export type { CataloguePacket } from "./catalogue.js";
+export {
+	type CataloguePacket,
+	catalogueAllProgress,
+	catalogueEventOwnedProgress,
+	catalogueEventProgress,
+	catalogueNestingWorkshopOwnedProgress,
+	catalogueNestingWorkshopProgress,
+	catalogueOwnedProgress,
+	cataloguePermanentEventStoreOwnedProgress,
+	cataloguePermanentEventStoreProgress,
+	catalogueProgressPercentage,
+	catalogueRemainingCurrency,
+	catalogueSeasonOwnedProgress,
+	catalogueSeasonProgress,
+	catalogueSecretAreaOwnedProgress,
+	catalogueSecretAreaProgress,
+	catalogueSpiritOwnedProgress,
+	catalogueSpiritProgress,
+	catalogueStarterPackOwnedProgress,
+	catalogueStarterPackProgress,
+	NESTING_WORKSHOP,
+	PERMANENT_EVENT_STORE,
+	SECRET_AREA,
+	STARTER_PACKS,
+} from "./catalogue.js";
 export type { ChecklistPacket, ChecklistSetData } from "./checklist.js";
 export { Cosmetic, CosmeticCommon, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
@@ -64,8 +88,10 @@ export {
 } from "./friendship-actions.js";
 export {
 	GUESS_TYPE_VALUES,
+	type GuessPacket,
 	GuessType,
 	type GuessTypes,
+	type GuessUserRanking,
 } from "./guess.js";
 export {
 	AreaName,

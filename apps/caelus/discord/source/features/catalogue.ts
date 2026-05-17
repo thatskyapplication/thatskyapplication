@@ -20,6 +20,17 @@ import {
 import {
 	addCosts,
 	type CataloguePacket,
+	catalogueAllProgress,
+	catalogueEventProgress,
+	catalogueNestingWorkshopProgress,
+	catalogueOwnedProgress,
+	cataloguePermanentEventStoreProgress,
+	catalogueProgressPercentage,
+	catalogueRemainingCurrency,
+	catalogueSeasonProgress,
+	catalogueSecretAreaProgress,
+	catalogueSpiritProgress,
+	catalogueStarterPackProgress,
 	ELDER_SPIRITS,
 	type ElderSpirit,
 	type Emoji,
@@ -32,17 +43,18 @@ import {
 	type Item,
 	type ItemCost,
 	isRealm,
-	REALM_SPIRITS,
+	NESTING_WORKSHOP,
+	PERMANENT_EVENT_STORE,
 	REALMS,
 	type RealmName,
-	resolveAllCosmeticsFromItems,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
-	type Season,
+	SECRET_AREA,
 	type SeasonalSpirit,
 	type SeasonIds,
 	type SpiritIds,
 	STANDARD_SPIRITS,
+	STARTER_PACKS,
 	type StandardSpirit,
 	skyCurrentEvents,
 	skyCurrentSeason,
@@ -53,10 +65,6 @@ import {
 	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import { NESTING_WORKSHOP } from "../data/nesting-workshop.js";
-import { PERMANENT_EVENT_STORE } from "../data/permanent-event-store.js";
-import { SECRET_AREA } from "../data/secret-area.js";
-import { STARTER_PACKS } from "../data/starter-packs.js";
 import { client } from "../discord.js";
 import pg from "../pg.js";
 import { CatalogueType, resolveCostToString } from "../utility/catalogue.js";
@@ -128,7 +136,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 		offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
 	}
 
-	const remainingCurrencyResult = remainingCurrency(offer, data, true);
+	const remainingCurrencyResult = catalogueRemainingCurrency(offer, data, true);
 	const resolvedRemainingCurrency = resolveCostToString(remainingCurrencyResult);
 
 	if (resolvedRemainingCurrency.length > 0) {
@@ -136,217 +144,6 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	}
 
 	return { remainingCurrencyResult, offerDescription };
-}
-
-function ownedProgress(items: readonly Item[], data: ReadonlySet<number>) {
-	return {
-		owned: resolveAllCosmeticsFromItems(items).filter((cosmetic) => data.has(cosmetic)),
-		total: items.reduce((total, item) => total + item.cosmetics.length, 0),
-	};
-}
-
-function progressPercentage(owned: readonly number[], total: number, round?: boolean) {
-	if (total === 0) {
-		return null;
-	}
-
-	const percentage = (owned.length / total) * 100;
-
-	if (!round) {
-		return percentage;
-	}
-
-	const integer = Math.trunc(percentage);
-
-	return integer === 0
-		? Math.ceil(percentage)
-		: integer === 99
-			? Math.floor(percentage)
-			: Math.round(percentage);
-}
-
-function spiritOwnedProgress(
-	spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-	data: ReadonlySet<number>,
-) {
-	const totalOwned = [];
-	let total = 0;
-
-	for (const spirit of spirits) {
-		const offer =
-			spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-				? spirit.current
-				: spirit.items;
-
-		const { owned, total: offerTotal } = ownedProgress(friendshipTreeToItems(offer), data);
-		totalOwned.push(...owned);
-		total += offerTotal;
-	}
-
-	return { owned: totalOwned, total };
-}
-
-function spiritProgress(
-	spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = spiritOwnedProgress(spirits, data);
-	return progressPercentage(owned, total, round);
-}
-
-function seasonOwnedProgress(seasons: readonly Season[], data: ReadonlySet<number>) {
-	const totalOwned = [];
-	let total = 0;
-
-	for (const season of seasons) {
-		const friendshipTrees = [season.guide.current, ...season.spirits.map((spirit) => spirit.items)];
-
-		for (const friendshipTree of friendshipTrees) {
-			const { owned, total: offerTotal } = ownedProgress(
-				friendshipTreeToItems(friendshipTree),
-				data,
-			);
-			totalOwned.push(...owned);
-			total += offerTotal;
-		}
-
-		const { owned, total: offerTotal } = ownedProgress(season.items, data);
-		totalOwned.push(...owned);
-		total += offerTotal;
-	}
-
-	return { owned: totalOwned, total };
-}
-
-function seasonProgress(
-	seasons: readonly Season[],
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = seasonOwnedProgress(seasons, data);
-	return progressPercentage(owned, total, round);
-}
-
-function eventOwnedProgress(events: readonly Event[], data: ReadonlySet<number>) {
-	const totalOwned = [];
-	let total = 0;
-
-	for (const event of events) {
-		const { owned, total: offerTotal } = ownedProgress(event.offer, data);
-
-		totalOwned.push(...owned);
-		total += offerTotal;
-	}
-
-	return { owned: totalOwned, total };
-}
-
-function eventProgress(
-	events: readonly Event[],
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = eventOwnedProgress(events, data);
-	return progressPercentage(owned, total, round);
-}
-
-function starterPackOwnedProgress(data: ReadonlySet<number>) {
-	return ownedProgress(STARTER_PACKS.items, data);
-}
-
-function starterPackProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
-	const { owned, total } = starterPackOwnedProgress(data);
-	return progressPercentage(owned, total, round);
-}
-
-function secretAreaOwnedProgress(data: ReadonlySet<number>) {
-	return ownedProgress(SECRET_AREA.items, data);
-}
-
-function secretAreaProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
-	const { owned, total } = secretAreaOwnedProgress(data);
-	return progressPercentage(owned, total, round);
-}
-
-function permanentEventStoreOwnedProgress(data: ReadonlySet<number>) {
-	return ownedProgress(PERMANENT_EVENT_STORE.items, data);
-}
-
-function permanentEventStoreProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
-	const { owned, total } = permanentEventStoreOwnedProgress(data);
-	return progressPercentage(owned, total, round);
-}
-
-function nestingWorkshopOwnedProgress(data: ReadonlySet<number>) {
-	return ownedProgress(NESTING_WORKSHOP.items, data);
-}
-
-function nestingWorkshopProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
-	const { owned, total } = nestingWorkshopOwnedProgress(data);
-	return progressPercentage(owned, total, round);
-}
-
-export function allProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
-	const standardAndElderOwnedProgress = spiritOwnedProgress([...REALM_SPIRITS.values()], data);
-	const seasonalOwnedProgress = seasonOwnedProgress([...skySeasons().values()], data);
-	const eventOwnedProgressResult = eventOwnedProgress([...skyEvents().values()], data);
-	const starterPackOwnedProgressResult = starterPackOwnedProgress(data);
-	const secretAreaOwnedProgressResult = secretAreaOwnedProgress(data);
-	const permanentEventStoreOwnedProgressResult = permanentEventStoreOwnedProgress(data);
-	const nestingWorkshopOwnedProgressResult = nestingWorkshopOwnedProgress(data);
-
-	const progresses = [
-		standardAndElderOwnedProgress,
-		seasonalOwnedProgress,
-		eventOwnedProgressResult,
-		starterPackOwnedProgressResult,
-		secretAreaOwnedProgressResult,
-		permanentEventStoreOwnedProgressResult,
-		nestingWorkshopOwnedProgressResult,
-	];
-
-	return progressPercentage(
-		progresses.reduce<number[]>((totalOwned, { owned }) => {
-			if (Array.isArray(owned)) {
-				totalOwned.push(...owned);
-			} else {
-				totalOwned.push(owned);
-			}
-
-			return totalOwned;
-		}, []),
-		progresses.reduce((totalTotal, { total }) => totalTotal + total, 0),
-		round,
-	);
-}
-
-function remainingCurrency(
-	items: readonly Item[],
-	data: ReadonlySet<number> = new Set(),
-	includeSeasonalCurrency?: boolean,
-) {
-	const itemCosts = [];
-
-	for (const { cosmetics, cost } of items) {
-		if (cost && cosmetics.some((cosmetic) => !data.has(cosmetic))) {
-			itemCosts.push(cost);
-		}
-	}
-
-	const result = addCosts(itemCosts);
-
-	if (!includeSeasonalCurrency) {
-		for (const seasonalCandle of result.seasonalCandles) {
-			seasonalCandle.cost = 0;
-		}
-
-		for (const seasonalHeart of result.seasonalHearts) {
-			seasonalHeart.cost = 0;
-		}
-	}
-
-	return result;
 }
 
 interface OfferDataOptions {
@@ -400,7 +197,7 @@ function offerData({
 			remainingCurrencies.push(remainingCurrencyResult);
 		}
 
-		const percentage = spiritProgress([spirit], data, true);
+		const percentage = catalogueSpiritProgress([spirit], data, true);
 
 		if (percentage !== null && percentage !== 100) {
 			hasEverything = false;
@@ -423,7 +220,7 @@ function offerData({
 			remainingCurrencies.push(remainingCurrencyResult);
 		}
 
-		const percentage = eventProgress([event], data, true);
+		const percentage = catalogueEventProgress([event], data, true);
 
 		if (percentage !== null && percentage !== 100) {
 			hasEverything = false;
@@ -452,8 +249,8 @@ function offerData({
 		remainingCurrencies.push(itemsRemainingCurrency);
 	}
 
-	const { owned, total } = ownedProgress(items, data);
-	const itemsPercentage = progressPercentage(owned, total);
+	const { owned, total } = catalogueOwnedProgress(items, data);
+	const itemsPercentage = catalogueProgressPercentage(owned, total);
 
 	if (itemsPercentage !== null && itemsPercentage !== 100) {
 		hasEverything = false;
@@ -535,14 +332,14 @@ async function start({
 }: CatalogueStartOptions): Promise<APIMessageTopLevelComponent[]> {
 	const catalogue = await fetchCatalogue(userId);
 	const data = catalogue?.data;
-	const standardProgress = spiritProgress([...STANDARD_SPIRITS.values()], data, true);
-	const elderProgress = spiritProgress([...ELDER_SPIRITS.values()], data, true);
-	const seasonalProgress = seasonProgress([...skySeasons().values()], data, true);
-	const eventProgressResult = eventProgress([...skyEvents().values()], data, true);
-	const starterPackProgressResult = starterPackProgress(data, true);
-	const secretAreaProgressResult = secretAreaProgress(data, true);
-	const permanentEventStoreProgressResult = permanentEventStoreProgress(data, true);
-	const nestingWorkshopProgressResult = nestingWorkshopProgress(data, true);
+	const standardProgress = catalogueSpiritProgress([...STANDARD_SPIRITS.values()], data, true);
+	const elderProgress = catalogueSpiritProgress([...ELDER_SPIRITS.values()], data, true);
+	const seasonalProgress = catalogueSeasonProgress([...skySeasons().values()], data, true);
+	const eventProgressResult = catalogueEventProgress([...skyEvents().values()], data, true);
+	const starterPackProgressResult = catalogueStarterPackProgress(data, true);
+	const secretAreaProgressResult = catalogueSecretAreaProgress(data, true);
+	const permanentEventStoreProgressResult = cataloguePermanentEventStoreProgress(data, true);
+	const nestingWorkshopProgressResult = catalogueNestingWorkshopProgress(data, true);
 	const now = skyNow();
 	const currentSeason = skyCurrentSeason(now);
 	const events = skyCurrentEvents(now);
@@ -665,7 +462,7 @@ async function start({
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: allProgress(data, true) })}`,
+							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: catalogueAllProgress(data, true) })}`,
 						},
 					],
 				},
@@ -1068,12 +865,14 @@ export async function viewRealms(
 		}
 
 		let content = `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}`;
-		const percentage = spiritProgress([...realm.spirits.values()], catalogue?.data, true);
+		const percentage = catalogueSpiritProgress([...realm.spirits.values()], catalogue?.data, true);
 		content += percentage === null ? "" : ` (${percentage}%)`;
 		const itemCosts: ItemCost[] = [];
 
 		for (const spirit of realm.spirits.values()) {
-			itemCosts.push(remainingCurrency(friendshipTreeToItems(spirit.current), catalogue?.data));
+			itemCosts.push(
+				catalogueRemainingCurrency(friendshipTreeToItems(spirit.current), catalogue?.data),
+			);
 		}
 
 		const remainingCurrencyResult = resolveCostToString(addCosts(itemCosts));
@@ -1336,7 +1135,7 @@ export async function viewSeasons(
 			continue;
 		}
 
-		const seasonalProgress = seasonProgress([season], catalogue?.data, true);
+		const seasonalProgress = catalogueSeasonProgress([season], catalogue?.data, true);
 
 		const progress =
 			seasonalProgress === null
@@ -2188,7 +1987,7 @@ async function viewEvent(
 		actionRowComponents.push({
 			type: ComponentType.Button,
 			custom_id: `${CustomId.CatalogueItemsEverything}§event:${id}`,
-			disabled: eventProgress([event], data) === 100,
+			disabled: catalogueEventProgress([event], data) === 100,
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 			style: ButtonStyle.Success,
@@ -2287,7 +2086,7 @@ export async function viewStarterPacks(
 				{
 					type: ComponentType.Button,
 					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.StarterPacks}`,
-					disabled: starterPackProgress(catalogue?.data) === 100,
+					disabled: catalogueStarterPackProgress(catalogue?.data) === 100,
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,
@@ -2382,7 +2181,7 @@ export async function viewSecretArea(
 				{
 					type: ComponentType.Button,
 					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.SecretArea}`,
-					disabled: secretAreaProgress(catalogue?.data) === 100,
+					disabled: catalogueSecretAreaProgress(catalogue?.data) === 100,
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,
@@ -2477,7 +2276,7 @@ export async function viewPermanentEventStore(
 				{
 					type: ComponentType.Button,
 					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.PermanentEventStore}`,
-					disabled: permanentEventStoreProgress(catalogue?.data) === 100,
+					disabled: cataloguePermanentEventStoreProgress(catalogue?.data) === 100,
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,
@@ -2616,7 +2415,7 @@ export async function viewNestingWorkshop(
 				{
 					type: ComponentType.Button,
 					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.NestingWorkshop}`,
-					disabled: nestingWorkshopProgress(catalogue?.data) === 100,
+					disabled: catalogueNestingWorkshopProgress(catalogue?.data) === 100,
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,

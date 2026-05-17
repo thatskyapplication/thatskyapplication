@@ -4,7 +4,7 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import type { CataloguePacket, UsersPacket } from "@thatskyapplication/utility";
+import type { CataloguePacket, GuessPacket, UsersPacket } from "@thatskyapplication/utility";
 import { type ChecklistPacket, Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
@@ -16,7 +16,6 @@ import {
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
 import { interactionInvoker } from "../utility/functions.js";
-import type { GuessPacket } from "./guess.js";
 import type { HeartPacket } from "./heart.js";
 import { skyProfileDelete } from "./sky-profile.js";
 

@@ -1,8 +1,9 @@
 import {
-	type CataloguePacket,
 	CDN,
 	CountryToEmoji,
 	CROWDIN_URL,
+	catalogueAllProgress,
+	GuessType,
 	isCountry,
 	isPlatformId,
 	isSeasonId,
@@ -10,15 +11,24 @@ import {
 	isSpiritId,
 	MAXIMUM_WINGED_LIGHT,
 	type SkyProfileData,
+	SkyProfileEditType,
 	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
-	type Snowflake,
 	Table,
 	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,
 	WEBSITE_URL,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
-import { ChevronLeftIcon, Edit, Globe, LinkIcon, MapPinIcon, Users } from "lucide-react";
+import {
+	ChevronLeftIcon,
+	Edit,
+	Globe,
+	LinkIcon,
+	MapPinIcon,
+	Percent,
+	Trophy,
+	Users,
+} from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
@@ -33,6 +43,10 @@ import {
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
+import {
+	findGuessUserRanking,
+	getSkyProfileCatalogueData,
+} from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
 import { getSession } from "~/session.server";
@@ -158,39 +172,64 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 		.select<SkyProfileData>("p.*", "u.translator", "u.supporter", "u.artist")
 		.from(`${Table.Profiles} as p`)
 		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
-		.where("p.user_id", userId as Snowflake)
+		.where("p.user_id", userId)
 		.first();
 
 	if (!data) {
 		throw new Response(null, { status: 404 });
 	}
 
+	const shouldFetchCatalogue =
+		data.catalogue_progression === true ||
+		data.winged_light === SkyProfileWingedLightType.InferFromCatalogue;
+
+	const catalogueData = shouldFetchCatalogue ? await getSkyProfileCatalogueData(userId) : null;
+	let catalogueProgression = null;
 	let maximumWingedLight = null;
 
 	if (data.winged_light !== null) {
 		if (data.winged_light === SkyProfileWingedLightType.Capeless) {
 			maximumWingedLight = "Capeless";
-		} else {
-			const catalogue = await pg<CataloguePacket>(Table.Catalogue)
-				.where({ user_id: data.user_id })
-				.first();
+		} else if (catalogueData) {
+			let count = TOP_LEVEL_WINGED_LIGHT_IN_AREAS;
 
-			if (catalogue) {
-				const data = new Set(catalogue.data);
-				let count = TOP_LEVEL_WINGED_LIGHT_IN_AREAS;
-
-				for (const wingBuff of WING_BUFFS) {
-					if (data.has(wingBuff)) {
-						count++;
-					}
+			for (const wingBuff of WING_BUFFS) {
+				if (catalogueData.has(wingBuff)) {
+					count++;
 				}
-
-				maximumWingedLight = count === MAXIMUM_WINGED_LIGHT ? `${count} (Max)` : count.toString();
 			}
+
+			maximumWingedLight = count === MAXIMUM_WINGED_LIGHT ? `${count} (Max)` : count.toString();
 		}
 	}
 
-	return { data, isOwner: discordUser?.id === data.user_id, maximumWingedLight };
+	if (data.catalogue_progression) {
+		catalogueProgression = catalogueAllProgress(catalogueData ?? undefined, true) ?? 0;
+	}
+
+	const [eventsRanking, spiritsRanking, spiritsHardRanking] = data.guess_rank
+		? await Promise.all([
+				findGuessUserRanking(userId, GuessType.Events),
+				findGuessUserRanking(userId, GuessType.Spirits),
+				findGuessUserRanking(userId, GuessType.SpiritsHard),
+			])
+		: [null, null, null];
+
+	const guessRank = data.guess_rank
+		? {
+				events: eventsRanking?.rank ?? null,
+				spirits: spiritsRanking?.rank ?? null,
+				spiritsHard: spiritsHardRanking?.rank ?? null,
+			}
+		: null;
+
+	return {
+		catalogueProgression,
+		data,
+		guessRank,
+		isOwner: discordUser?.id === data.user_id,
+		maximumWingedLight,
+	};
 };
 
 function RecognitionBadges({ data }: { data: SkyProfileData }) {
@@ -255,7 +294,8 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 }
 
 export default function SkyProfile() {
-	const { data, isOwner, maximumWingedLight } = useLoaderData<typeof loader>();
+	const { catalogueProgression, data, guessRank, isOwner, maximumWingedLight } =
+		useLoaderData<typeof loader>();
 	const cdnURL = useCDNURL();
 	const cdn = new CDN(cdnURL);
 	const location = useLocation();
@@ -404,7 +444,45 @@ export default function SkyProfile() {
 							</div>
 						</div>
 					)}
+					{catalogueProgression !== null ? (
+						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
+							<Percent className="w-6 h-6 mr-2" />
+							<div className="flex-1">
+								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
+										ns: "features",
+									})}
+								</p>
+								<p className="my-0">{catalogueProgression}%</p>
+							</div>
+						</div>
+					) : null}
 				</div>
+				{guessRank ? (
+					<div className="mt-4 group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
+						<Trophy className="w-6 h-6 mr-2" />
+						<div className="flex-1">
+							<p className="my-0">
+								Spirits:{" "}
+								{guessRank.spirits === null
+									? t("sky-profile.guess-rank-unranked", { ns: "features" })
+									: `#${guessRank.spirits}`}
+							</p>
+							<p className="my-0">
+								Spirits (hard):{" "}
+								{guessRank.spiritsHard === null
+									? t("sky-profile.guess-rank-unranked", { ns: "features" })
+									: `#${guessRank.spiritsHard}`}
+							</p>
+							<p className="my-0">
+								Events:{" "}
+								{guessRank.events === null
+									? t("sky-profile.guess-rank-unranked", { ns: "features" })
+									: `#${guessRank.events}`}
+							</p>
+						</div>
+					</div>
+				) : null}
 				<div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
 					<SkyProfileActionLink to={backURL} variant="neutral">
 						<ChevronLeftIcon className="w-6 h-6 mr-2 shrink-0" />

@@ -19,8 +19,10 @@ import {
 	formatEmoji,
 	formatEmojiURL,
 	GUESS_TYPE_VALUES,
+	type GuessPacket,
 	GuessType,
 	type GuessTypes,
+	type GuessUserRanking,
 	type GuideSpirit,
 	isEventId,
 	isSpiritId,
@@ -41,15 +43,6 @@ import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.js";
-
-export interface GuessPacket {
-	user_id: string;
-	streak: number;
-	type: GuessTypes;
-	date: Date | null;
-}
-
-type GuessUserRanking = GuessPacket & { rank: number };
 
 export function isGuessType(type: number): type is GuessTypes {
 	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
@@ -967,7 +960,7 @@ export async function leaderboard(
 	const offset = (page - 1) * GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER;
 
 	const guessPacketsLeaderboard = await pg(Table.Guess)
-		.select<(GuessPacket & { rank: number })[]>(
+		.select<GuessUserRanking[]>(
 			"user_id",
 			"type",
 			"streak",

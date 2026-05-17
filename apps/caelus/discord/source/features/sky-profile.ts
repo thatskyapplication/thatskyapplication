@@ -34,6 +34,7 @@ import {
 	type Country,
 	CountryToEmoji,
 	CROWDIN_URL,
+	catalogueAllProgress,
 	type Emoji,
 	formatEmoji,
 	GuessType,
@@ -121,7 +122,7 @@ import {
 import { ModalResolver } from "../utility/modal-resolver.js";
 import type { OptionResolver } from "../utility/option-resolver.js";
 import { can } from "../utility/permissions.js";
-import { allProgress, fetchCatalogue } from "./catalogue.js";
+import { fetchCatalogue } from "./catalogue.js";
 import { findUser } from "./guess.js";
 import { totalReceived } from "./heart.js";
 
@@ -2420,7 +2421,7 @@ async function skyProfileComponents(
 
 	if (catalogueProgression) {
 		const catalogue = await fetchCatalogue(userId);
-		const allProgressResult = allProgress(catalogue?.data, true) ?? 0;
+		const allProgressResult = catalogueAllProgress(catalogue?.data, true) ?? 0;
 
 		miscellaneous.push(
 			`**${t("sky-profile.catalogue-progression", { lng: locale, ns: "features" })}** ${allProgressResult}%`,
