@@ -24,6 +24,7 @@ import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { data, Form, Link, useActionData, useLoaderData, useNavigation } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
+import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { toSkyProfileEditorValue } from "~/features/sky-profile/editor/sky-profile-editor.js";
 import { useSkyProfileEditor } from "~/features/sky-profile/editor/use-sky-profile-editor.js";
@@ -954,29 +955,30 @@ export default function MeSkyProfile() {
 
 					<div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
 						<div className="flex flex-col gap-2.5 sm:flex-row">
-							<button
-								className="inline-flex cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-colors duration-300 hover:bg-green-700 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 disabled:shadow-md dark:border-gray-600"
+							<SkyProfileActionButton
 								disabled={isSaving || !hasChanges}
 								type="submit"
+								variant="primary"
 							>
 								Save Sky profile
-							</button>
-							<button
-								className="inline-flex cursor-pointer items-center justify-center rounded-sm border border-gray-300 bg-gray-200 px-4 py-2 text-sm font-medium text-gray-900 shadow-md transition-colors duration-300 hover:bg-gray-300 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-gray-200/70 disabled:text-gray-900/70 disabled:shadow-md dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 dark:disabled:bg-gray-700/70 dark:disabled:text-gray-100/70"
+							</SkyProfileActionButton>
+							<SkyProfileActionButton
 								disabled={isSaving || !hasChanges}
 								type="reset"
+								variant="secondary"
 							>
 								Reset
-							</button>
+							</SkyProfileActionButton>
 						</div>
 						{initialProfile.name ? (
-							<Link
-								className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 rounded-sm border border-gray-200 px-4 py-2 text-sm font-medium transition-colors duration-300 overflow-auto dark:border-gray-600"
+							<SkyProfileActionLink
+								className="gap-2"
 								to={`/sky-profiles/${discordUserId}`}
+								variant="neutral"
 							>
 								<ExternalLinkIcon className="h-4 w-4" />
 								<span>View Sky profile</span>
-							</Link>
+							</SkyProfileActionLink>
 						) : null}
 					</div>
 					{showSuccess ? (

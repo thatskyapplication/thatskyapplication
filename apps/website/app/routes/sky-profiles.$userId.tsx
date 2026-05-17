@@ -31,6 +31,7 @@ import {
 	useRouteError,
 } from "react-router";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
+import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
@@ -404,39 +405,29 @@ export default function SkyProfile() {
 						</div>
 					)}
 				</div>
-				<div className="flex items-center justify-start mt-6 space-x-2">
-					<Link
-						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-						to={backURL}
-					>
-						<ChevronLeftIcon className="w-6 h-6 mr-2" />
-						<span>Back</span>
-					</Link>
-					<Link
-						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-						to="/sky-profiles/random"
-					>
+				<div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
+					<SkyProfileActionLink to={backURL} variant="neutral">
+						<ChevronLeftIcon className="w-6 h-6 mr-2 shrink-0" />
+						<span className="truncate">Back</span>
+					</SkyProfileActionLink>
+					<SkyProfileActionLink to="/sky-profiles/random" variant="neutral">
 						<div
 							aria-label="Question mark icon."
-							className="discord-emoji w-6 h-6 mr-2"
+							className="discord-emoji w-6 h-6 mr-2 shrink-0"
 							role="img"
 							style={{
 								backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,
 							}}
 						/>
-						<span>{t("sky-profile.random", { ns: "features" })}</span>
-					</Link>
+						<span className="truncate">{t("sky-profile.random", { ns: "features" })}</span>
+					</SkyProfileActionLink>
 					{isOwner ? (
-						<Link
-							className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
-							to="/me/sky-profile"
-						>
-							<Edit className="w-6 h-6 mr-2" />
-							<span>Edit</span>
-						</Link>
+						<SkyProfileActionLink to="/me/sky-profile" variant="neutral">
+							<Edit className="w-6 h-6 mr-2 shrink-0" />
+							<span className="truncate">Edit</span>
+						</SkyProfileActionLink>
 					) : null}
-					<button
-						className={`${copied ? "bg-green-500 hover:bg-green-600 border-green-600" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-600"} shadow-md hover:shadow-lg flex items-center px-4 py-2 border rounded-sm transition-colors duration-300 overflow-auto`}
+					<SkyProfileActionButton
 						onClick={async () => {
 							await navigator.clipboard.writeText(
 								`${window.location.origin}${window.location.pathname}`,
@@ -446,10 +437,11 @@ export default function SkyProfile() {
 							setTimeout(() => setCopied(false), 2000);
 						}}
 						type="button"
+						variant={copied ? "success" : "neutral"}
 					>
-						<LinkIcon className="w-6 h-6 mr-2" />
-						{copied ? "Link copied!" : "Share"}
-					</button>
+						<LinkIcon className="w-6 h-6 mr-2 shrink-0" />
+						<span className="truncate">{copied ? "Link copied!" : "Share"}</span>
+					</SkyProfileActionButton>
 				</div>
 			</div>
 		</SitePage>
