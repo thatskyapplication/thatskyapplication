@@ -2,6 +2,8 @@
 	"general": {
 		"asset-image-invalid": "Téléchargez une pièce jointe ! Elle doit être inférieure ou égale à {{size}} Mo et être un GIF, JPEG, PNG ou WebP.",
 		"support-server": "",
+		"show": "",
+		"hide": "",
 		"daily-quests": "Quêtes journalières",
 		"days-left": {
 			"season_zero": "La saison finit aujourd'hui.",
@@ -1102,7 +1104,9 @@
 			"60": "",
 			"61": "",
 			"62": "",
-			"63": ""
+			"63": "",
+			"64": "",
+			"65": ""
 		},
 		"cosmetic-names": {
 			"0": "S'assoir",
@@ -2180,7 +2184,9 @@
 			"2817": "Pousse de trèfle Printemps",
 			"2823": "Cape pièce de trésor",
 			"2824": "Chapeau de chasseur de trésor",
-			"2825": "Compagnon du trésor"
+			"2825": "Compagnon du trésor",
+			"2826": "",
+			"2827": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",
@@ -3005,6 +3011,9 @@
 			"edit-modal-label-banner-description": "Téléchargez une bannière pour votre enfant de Sky ! Elle ne sera utilisée que sur le site web.",
 			"edit-winged-light-description": "Vous pouvez choisir la façon d'afficher votre lumière ailée.\n\nDéduire depuis le catalogue signifie que votre nombre maximum de lumières ailées comprend toutes les lumières ailées combinées plus toutes les améliorations que vous avez choisies dans le catalogue. Sans-cape est aussi une option.",
 			"edit-winged-light-string-select-menu-placeholder": "Comment souhaitez-vous que votre lumière ailée soit affichée ?",
+			"edit-winged-light-invalid": "",
+			"edit-catalogue-progression-invalid": "",
+			"edit-guess-rank-invalid": "",
 			"edit-modal-label-hangout-label": "Lieu où passer du temps",
 			"edit-modal-label-hangout-description": "Quelle est votre endroit favori où passer du temps ?",
 			"edit-seasons-string-select-menu-placeholder": "Sélectionnez les saisons auxquelles vous avez participé !",
@@ -3040,20 +3049,6 @@
 				"15": "Fournisseur"
 			},
 			"personality-with-mbti": "$t(sky-profile.personality-types.{{personality}}) ({{mbti}})",
-			"reset-type-label": {
-				"0": "Description",
-				"1": "Icône de profil",
-				"2": "Bannière",
-				"3": "Lumières Ailées",
-				"4": "Pays",
-				"5": "Lieu où passer du temps",
-				"6": "Saisons",
-				"7": "Plateformes",
-				"8": "Esprit",
-				"9": "Progression du Catalogue",
-				"10": "Rang des devinettes",
-				"11": ""
-			},
 			"no-sky-profile-reset": "Vous n'avez pas de profil Sky à réinitialiser.",
 			"reset-string-select-menu-placeholder": "Que souhaitez-vous réinitialiser ?",
 			"country": "Pays :",

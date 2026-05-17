@@ -2,6 +2,8 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"show": "",
+		"hide": "",
 		"daily-quests": "",
 		"days-left": {
 			"season_zero": "此季今天结束。",
@@ -1102,7 +1104,9 @@
 			"60": "",
 			"61": "",
 			"62": "",
-			"63": ""
+			"63": "",
+			"64": "",
+			"65": ""
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2180,7 +2184,9 @@
 			"2817": "幸运节三叶草幼苗",
 			"2823": "寻宝金币斗篷",
 			"2824": "寻宝者之帽",
-			"2825": "寻宝水手伙伴"
+			"2825": "寻宝水手伙伴",
+			"2826": "",
+			"2827": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2995,6 +3001,9 @@
 			"edit-modal-label-banner-description": "",
 			"edit-winged-light-description": "",
 			"edit-winged-light-string-select-menu-placeholder": "",
+			"edit-winged-light-invalid": "",
+			"edit-catalogue-progression-invalid": "",
+			"edit-guess-rank-invalid": "",
 			"edit-modal-label-hangout-label": "",
 			"edit-modal-label-hangout-description": "",
 			"edit-seasons-string-select-menu-placeholder": "",
@@ -3030,20 +3039,6 @@
 				"15": "给予者"
 			},
 			"personality-with-mbti": "$t(sky-profile.personality-types.{{personality}})（{{mbti}}）",
-			"reset-type-label": {
-				"0": "",
-				"1": "",
-				"2": "",
-				"3": "",
-				"4": "",
-				"5": "",
-				"6": "",
-				"7": "",
-				"8": "",
-				"9": "",
-				"10": "",
-				"11": ""
-			},
 			"no-sky-profile-reset": "",
 			"reset-string-select-menu-placeholder": "",
 			"country": "",
