@@ -93,6 +93,7 @@ export {
 	type GuessTypes,
 	type GuessUserRanking,
 } from "./guess.js";
+export { DELETED_USER_TEXT, type HeartPacket } from "./heart.js";
 export {
 	AreaName,
 	isRealm,

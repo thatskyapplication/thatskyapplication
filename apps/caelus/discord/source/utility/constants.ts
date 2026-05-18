@@ -96,7 +96,6 @@ export const GUESS_TIMEOUT = 30_000 as const;
 export const GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER = 10 as const;
 
 // Heart.
-export const DELETED_USER_TEXT = "<deleted>" as const;
 export const MAXIMUM_HEARTS_PER_DAY = 3 as const;
 export const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 25 as const;
 
