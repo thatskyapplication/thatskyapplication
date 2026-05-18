@@ -33,6 +33,7 @@ import pg from "../pg.js";
 import {
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
 	MAXIMUM_HEARTS_PER_DAY,
+	ME_HEART_HISTORY_URL,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
@@ -347,7 +348,7 @@ export async function history(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t("heart.history-title", { lng: locale, ns: "features" })}`,
+			content: `## [${t("heart.history-title", { lng: locale, ns: "features" })}](${ME_HEART_HISTORY_URL})`,
 		},
 		{
 			type: ComponentType.Separator,
