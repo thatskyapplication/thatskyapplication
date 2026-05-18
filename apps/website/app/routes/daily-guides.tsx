@@ -12,18 +12,20 @@ import {
 	Table,
 	TIME_ZONE,
 	treasureCandles,
+	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { AlertTriangle, ExternalLinkIcon, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { type JSX, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { LoaderFunctionArgs } from "react-router";
+import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { data, Link, useLoaderData } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
-import { cdnAssetURL, discordEmojiURL } from "~/utility/cdn.js";
+import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
+import { APPLICATION_NAME } from "~/utility/constants.js";
 import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
@@ -38,6 +40,38 @@ interface DaysCountItem {
 	content: string | JSX.Element;
 	iconURL?: string | undefined;
 }
+
+const DAILY_GUIDES_TITLE = "Daily guides" as const;
+const DAILY_GUIDES_DESCRIPTION =
+	"Today's quests, treasure candles, seasonal candles, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
+
+export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
+	const cdnURL = getCDNURLFromMatches(matches);
+	const url = String(new URL(location.pathname, WEBSITE_URL));
+
+	return [
+		{ charSet: "utf-8" },
+		{ name: "viewport", content: "width=device-width, initial-scale=1" },
+		{ name: "robots", content: "index, follow" },
+		{
+			name: "keywords",
+			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord bot, Discord application, Daily guides, Daily quests, Treasure candles, Seasonal candles, Shard eruption, Travelling rock, Maintenance, Season countdown, Event countdowns`,
+		},
+		{ title: DAILY_GUIDES_TITLE },
+		{ name: "description", content: DAILY_GUIDES_DESCRIPTION },
+		{ name: "theme-color", content: "#A5B5F1" },
+		{ property: "og:title", content: DAILY_GUIDES_TITLE },
+		{ property: "og:description", content: DAILY_GUIDES_DESCRIPTION },
+		{ property: "og:type", content: "website" },
+		{ property: "og:site_name", content: "thatskyapplication" },
+		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:url", content: url },
+		{ name: "twitter:card", content: "summary" },
+		{ name: "twitter:title", content: DAILY_GUIDES_TITLE },
+		{ name: "twitter:description", content: DAILY_GUIDES_DESCRIPTION },
+		{ rel: "canonical", href: url },
+	];
+};
 
 export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const locale = getLocale(context);

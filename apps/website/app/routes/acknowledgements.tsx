@@ -1,10 +1,42 @@
-import { CDN, type SkyProfilePacket, Table } from "@thatskyapplication/utility";
+import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
-import { data, Link, useLoaderData } from "react-router";
+import { data, Link, type MetaFunction, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
+import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, WIKI_URL } from "~/utility/constants";
+
+const ACKNOWLEDGEMENTS_TITLE = "Acknowledgements" as const;
+const ACKNOWLEDGEMENTS_DESCRIPTION = "The Sky kids that make everything you see possible." as const;
+
+export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
+	const cdnURL = getCDNURLFromMatches(matches);
+	const url = String(new URL(location.pathname, WEBSITE_URL));
+
+	return [
+		{ charSet: "utf-8" },
+		{ name: "viewport", content: "width=device-width, initial-scale=1" },
+		{ name: "robots", content: "index, follow" },
+		{
+			name: "keywords",
+			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord bot, Discord application, Acknowledgements, Contributors, Credits`,
+		},
+		{ title: ACKNOWLEDGEMENTS_TITLE },
+		{ name: "description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
+		{ name: "theme-color", content: "#A5B5F1" },
+		{ property: "og:title", content: ACKNOWLEDGEMENTS_TITLE },
+		{ property: "og:description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
+		{ property: "og:type", content: "website" },
+		{ property: "og:site_name", content: "thatskyapplication" },
+		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
+		{ property: "og:url", content: url },
+		{ name: "twitter:card", content: "summary" },
+		{ name: "twitter:title", content: ACKNOWLEDGEMENTS_TITLE },
+		{ name: "twitter:description", content: ACKNOWLEDGEMENTS_DESCRIPTION },
+		{ rel: "canonical", href: url },
+	];
+};
 
 export const loader = async () => {
 	const { rows } = await pg.raw<{ rows: readonly SkyProfilePacket[] }>(
