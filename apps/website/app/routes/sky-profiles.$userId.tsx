@@ -145,7 +145,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) =
 				? cdn.skyProfileIconURL(skyProfileData.user_id, skyProfileData.icon)
 				: skyProfileData?.banner
 					? cdn.skyProfileBannerURL(skyProfileData.user_id, skyProfileData.banner)
-					: null,
+					: undefined,
 		},
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
