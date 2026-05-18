@@ -1,6 +1,17 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
-import { Bot, CheckSquare, ChevronDown, LogIn, LogOut, Menu, User, Users, X } from "lucide-react";
+import {
+	Bot,
+	CheckSquare,
+	ChevronDown,
+	HandHeart,
+	LogIn,
+	LogOut,
+	Menu,
+	User,
+	Users,
+	X,
+} from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
@@ -512,6 +523,13 @@ export function SiteFooter() {
 						<p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
 							Home to tools for Sky: Children of the Light. 🩵
 						</p>
+						<Link
+							className="mb-6 inline-flex items-center gap-2 rounded-lg border border-pink-300 bg-pink-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:border-pink-200 hover:bg-pink-600"
+							to="/donate"
+						>
+							<HandHeart className="h-4 w-4 text-pink-100" />
+							Donate
+						</Link>
 						<div className="flex gap-4">
 							<a
 								aria-label="Join Discord server."

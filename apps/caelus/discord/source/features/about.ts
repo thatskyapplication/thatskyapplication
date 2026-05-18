@@ -5,7 +5,7 @@ import {
 	type Locale,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
-import { CROWDIN_URL, WEBSITE_URL } from "@thatskyapplication/utility";
+import { CROWDIN_URL, GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import {
@@ -13,7 +13,7 @@ import {
 	SUPPORT_SERVER_INVITE_URL,
 	SUPPORTER_SKU_ID,
 } from "../utility/configuration.js";
-import { GITHUB_SPONSORS_URL, THATSKYGAME_URL } from "../utility/constants.js";
+import { THATSKYGAME_URL } from "../utility/constants.js";
 import { avatarURL } from "../utility/functions.js";
 
 export async function about(locale: Locale): Promise<[APIMessageTopLevelComponent]> {

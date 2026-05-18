@@ -56,7 +56,6 @@ export const QUEST_NUMBER = [1, 2, 3, 4] as const;
 
 // Miscellaneous constants.
 export const THATSKYGAME_URL = "https://thatskygame.com" as const;
-export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 export const ASCENDED_CANDLES_PER_WEEK = 15.75 as const;
 export const DEFAULT_EMBED_COLOUR = 0x6f68c9 as const;
 export const INFORMATION_ACCENT_COLOUR = 0x3b82f6 as const;

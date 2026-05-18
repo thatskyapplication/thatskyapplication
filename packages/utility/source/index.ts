@@ -16,6 +16,7 @@ import zhTWLocale from "./locales/zh-tw.json" with { type: "json" };
 
 export const WEBSITE_URL = "https://thatskyapplication.com" as const;
 export const CROWDIN_URL = "https://thatskyapplication.crowdin.com" as const;
+export const GITHUB_SPONSORS_URL = "https://github.com/sponsors/thatskyapplication" as const;
 export { type APIGuildsMeResponse, guildsMeRoute } from "./api.js";
 export {
 	ALLOWED_IMAGE_MEDIA_TYPES,
