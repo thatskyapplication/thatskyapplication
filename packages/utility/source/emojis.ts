@@ -5559,17 +5559,21 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	LargePlaceableProp109: { id: "1492226478887407696", name: "109_large_placeable_prop" },
 	/**
+	 * Bounce pad.
+	 */
+	LargePlaceableProp110: { id: "1494694936971317468", name: "110_large_placeable_prop" },
+	/**
 	 * Carnival Guide (non-ultimate).
 	 */
-	LargePlaceableProp110: { id: "1494696455796031529", name: "110_large_placeable_prop" },
+	LargePlaceableProp111: { id: "1494694938573799666", name: "111_large_placeable_prop" },
 	/**
 	 * Days of Treasure 2026 1.
 	 */
-	LargePlaceableProp111: { id: "1502288923257213079", name: "111_large_placeable_prop" },
+	LargePlaceableProp112: { id: "1502288923257213079", name: "112_large_placeable_prop" },
 	/**
 	 * Days of Treasure 2026 2.
 	 */
-	LargePlaceableProp112: { id: "1502288919545249972", name: "112_large_placeable_prop" },
+	LargePlaceableProp113: { id: "1502288919545249972", name: "113_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5682,10 +5686,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp107: { id: "1482686836487884944", name: "107_large_placeable_prop" },
 	LargePlaceableProp108: { id: "1482686838035452079", name: "108_large_placeable_prop" },
 	LargePlaceableProp109: { id: "1492226495027085524", name: "109_large_placeable_prop" },
-	LargePlaceableProp110: { id: "1494696463832186910", name: "110_large_placeable_prop" },
-	LargePlaceableProp111: { id: "1502288937425571931", name: "111_large_placeable_prop" },
-
-	LargePlaceableProp112: { id: "1502288934271717466", name: "112_large_placeable_prop" },
+	LargePlaceableProp110: { id: "1494694927093727302", name: "110_large_placeable_prop" },
+	LargePlaceableProp111: { id: "1494694930453500155", name: "111_large_placeable_prop" },
+	LargePlaceableProp112: { id: "1502288937425571931", name: "112_large_placeable_prop" },
+	LargePlaceableProp113: { id: "1502288934271717466", name: "113_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6179,13 +6183,9 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	SmallPlaceableProp123: { id: "1492226480652943360", name: "123_small_placeable_prop" },
 	/**
-	 * Bounce pad.
+	 * Carnival Guide (non-ultimate).
 	 */
-	SmallPlaceableProp124: { id: "1494694936971317468", name: "124_small_placeable_prop" },
-	/**
-	 * Carnival Guide (non-ultimate 2).
-	 */
-	SmallPlaceableProp125: { id: "1494694938573799666", name: "125_small_placeable_prop" },
+	SmallPlaceableProp124: { id: "1494696455796031529", name: "124_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6311,8 +6311,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp121: { id: "1482687424524980245", name: "121_small_placeable_prop" },
 	SmallPlaceableProp122: { id: "1487147904144642158", name: "122_small_placeable_prop" },
 	SmallPlaceableProp123: { id: "1492226496918589571", name: "123_small_placeable_prop" },
-	SmallPlaceableProp124: { id: "1494694927093727302", name: "124_small_placeable_prop" },
-	SmallPlaceableProp125: { id: "1494694930453500155", name: "125_small_placeable_prop" },
+	SmallPlaceableProp124: { id: "1494696463832186910", name: "124_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9222,9 +9221,9 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalGuideProp2]: SHARED_SPACE_EMOJIS.SharedSpace02,
 		[Cosmetic.CarnivalGuideProp3]: SHARED_SPACE_EMOJIS.SharedSpace03,
 		[Cosmetic.CarnivalGuideHeart1]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.BouncePad1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp124,
-		[Cosmetic.CarnivalGuideProp4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp125,
-		[Cosmetic.CarnivalGuideProp5]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp110,
+		[Cosmetic.BouncePad1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp110,
+		[Cosmetic.CarnivalGuideProp4]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp111,
+		[Cosmetic.CarnivalGuideProp5]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp124,
 		[Cosmetic.CarnivalGuideHeart2]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.EmoteBreakdance1]: EMOTE_EMOJIS.Breakdance,
 		[Cosmetic.CarnivalAthleticDancerBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -9281,8 +9280,8 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalGuideQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.DaysOfTreasure2026Outfit]: OUTFIT_EMOJIS.Outfit109,
 		[Cosmetic.DaysOfTreasure2026Hair]: HAIR_EMOJIS.Hair182,
-		[Cosmetic.DaysOfTreasure2026Prop1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp111,
-		[Cosmetic.DaysOfTreasure2026Prop2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp112,
+		[Cosmetic.DaysOfTreasure2026Prop1]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp112,
+		[Cosmetic.DaysOfTreasure2026Prop2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp113,
 		[Cosmetic.TreasureCoinCape]: CAPE_EMOJIS.Cape181,
 		[Cosmetic.TreasureSeekersHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory78,
 		[Cosmetic.TreasureMateCompanion]: NECKLACE_EMOJIS.Necklace57,
