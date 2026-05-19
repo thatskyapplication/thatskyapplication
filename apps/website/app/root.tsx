@@ -1,6 +1,6 @@
 import "./tailwind.css";
 import { captureException } from "@sentry/react-router";
-import { WEBSITE_URL } from "@thatskyapplication/utility";
+import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplication/utility";
 import type React from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -17,6 +17,7 @@ import {
 import ConditionalLayout from "~/components/ConditionalLayout";
 import { CDN_URL } from "~/config.server";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
+import pg from "~/pg.server";
 import { getSession } from "~/session.server";
 import { cdnAssetURL } from "~/utility/cdn";
 import { APPLICATION_DESCRIPTION, APPLICATION_NAME } from "~/utility/constants";
@@ -29,6 +30,8 @@ import {
 import type { Route } from "./+types/root.js";
 
 export const middleware = [i18nextMiddleware];
+
+const cdn = new CDN(CDN_URL);
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => [
 	{ charSet: "utf-8" },
@@ -128,11 +131,22 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 	const locale = getLocale(context);
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;
-	return { cdnURL: CDN_URL, locale, user };
+	const skyProfile = user
+		? await pg<SkyProfilePacket>(Table.Profiles)
+				.select("name", "icon")
+				.where({ user_id: user.id })
+				.first()
+		: null;
+	const skyProfileName = skyProfile?.name;
+	const userDisplayName = user ? (skyProfileName ?? user.username) : null;
+	const userIconURL =
+		user && skyProfile?.icon ? cdn.skyProfileIconURL(user.id, skyProfile.icon) : null;
+
+	return { cdnURL: CDN_URL, locale, user, userDisplayName, userIconURL };
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {
-	const { locale, user } = loaderData;
+	const { locale, user, userDisplayName, userIconURL } = loaderData;
 	const { i18n } = useTranslation();
 
 	useEffect(() => {
@@ -156,7 +170,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	}, []);
 
 	return (
-		<ConditionalLayout user={user}>
+		<ConditionalLayout user={user} userDisplayName={userDisplayName} userIconURL={userIconURL}>
 			<Outlet />
 		</ConditionalLayout>
 	);

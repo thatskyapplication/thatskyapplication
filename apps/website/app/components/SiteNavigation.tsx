@@ -22,23 +22,30 @@ import type { DiscordUser } from "~/utility/types";
 
 interface SiteTopBarProps {
 	user: DiscordUser | null;
+	userDisplayName: string | null;
+	userIconURL: string | null;
 }
 
 interface UserMenuProps {
 	user: DiscordUser;
+	userDisplayName: string;
+	userIconURL: string | null;
 }
 
 interface MobileMenuProps {
 	isOpen: boolean;
 	onClose: () => void;
 	user?: DiscordUser | null;
+	userDisplayName: string | null;
+	userIconURL: string | null;
 }
 
-function UserMenu({ user }: UserMenuProps) {
+function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 	const [isOpen, setIsOpen] = useState(false);
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
 	const dropdownRef = useRef<HTMLDivElement>(null);
+	const imageURL = userIconURL ?? avatarURL(user);
 
 	useEffect(() => {
 		function handleClickOutside(event: MouseEvent) {
@@ -74,14 +81,14 @@ function UserMenu({ user }: UserMenuProps) {
 				type="button"
 			>
 				<div
-					aria-label={`${user.username}'s avatar`}
+					aria-label={`${userDisplayName}'s avatar`}
 					className="w-8 h-8 rounded-full bg-cover bg-center"
 					role="img"
-					style={{ backgroundImage: `url(${avatarURL(user)})` }}
+					style={{ backgroundImage: `url(${imageURL})` }}
 				/>
 				<div className="hidden sm:flex flex-col">
 					<span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-						{user.username}
+						{userDisplayName}
 					</span>
 				</div>
 				<ChevronDown
@@ -235,7 +242,7 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 	);
 }
 
-function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
+function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: MobileMenuProps) {
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
 	const { t } = useTranslation();
@@ -244,6 +251,8 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	if (!isOpen) {
 		return null;
 	}
+
+	const imageURL = user ? (userIconURL ?? avatarURL(user)) : null;
 
 	return (
 		<div className="md:hidden">
@@ -270,13 +279,13 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 						<div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
 							<div className="flex items-center gap-3 mb-3">
 								<div
-									aria-label={`Avatar of ${user.username}`}
+									aria-label={`Avatar of ${userDisplayName ?? user.username}`}
 									className="w-8 h-8 rounded-full bg-cover bg-center"
 									role="img"
-									style={{ backgroundImage: `url(${avatarURL(user)})` }}
+									style={{ backgroundImage: `url(${imageURL})` }}
 								/>
 								<span className="font-medium text-gray-900 dark:text-gray-100">
-									{user.username}
+									{userDisplayName ?? user.username}
 								</span>
 							</div>
 							<div className="space-y-2">
@@ -393,7 +402,7 @@ function MobileMenu({ isOpen, onClose, user }: MobileMenuProps) {
 	);
 }
 
-function SiteTopBarContent({ user }: SiteTopBarProps) {
+function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarProps) {
 	const location = useLocation();
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const topBarRef = useRef<HTMLDivElement>(null);
@@ -485,7 +494,15 @@ function SiteTopBarContent({ user }: SiteTopBarProps) {
 						</div>
 						<div className="flex items-center gap-4">
 							<div className="hidden md:flex">
-								{user ? <UserMenu user={user} /> : <LoginButton />}
+								{user ? (
+									<UserMenu
+										user={user}
+										userDisplayName={userDisplayName ?? user.username}
+										userIconURL={userIconURL}
+									/>
+								) : (
+									<LoginButton />
+								)}
 							</div>
 							<button
 								aria-label="Open navigation menu"
@@ -499,14 +516,27 @@ function SiteTopBarContent({ user }: SiteTopBarProps) {
 					</div>
 				</div>
 			</div>
-			<MobileMenu isOpen={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)} user={user} />
+			<MobileMenu
+				isOpen={mobileMenuOpen}
+				onClose={() => setMobileMenuOpen(false)}
+				user={user}
+				userDisplayName={userDisplayName}
+				userIconURL={userIconURL}
+			/>
 		</>
 	);
 }
 
-export function SiteTopBar({ user }: SiteTopBarProps) {
+export function SiteTopBar({ user, userDisplayName, userIconURL }: SiteTopBarProps) {
 	const { pathname } = useLocation();
-	return <SiteTopBarContent key={pathname} user={user} />;
+	return (
+		<SiteTopBarContent
+			key={pathname}
+			user={user}
+			userDisplayName={userDisplayName}
+			userIconURL={userIconURL}
+		/>
+	);
 }
 
 export function SiteFooter() {

@@ -8,6 +8,8 @@ interface ConditionalLayoutProps {
 	forceShowTopBar?: boolean;
 	forceShowFooter?: boolean;
 	user: DiscordUser | null;
+	userDisplayName: string | null;
+	userIconURL: string | null;
 }
 
 export default function ConditionalLayout({
@@ -15,6 +17,8 @@ export default function ConditionalLayout({
 	forceShowTopBar,
 	forceShowFooter,
 	user,
+	userDisplayName,
+	userIconURL,
 }: ConditionalLayoutProps) {
 	const location = useLocation();
 
@@ -34,7 +38,9 @@ export default function ConditionalLayout({
 
 	return (
 		<div className="min-h-screen flex flex-col">
-			{shouldShowNavigation && <SiteTopBar user={user} />}
+			{shouldShowNavigation && (
+				<SiteTopBar user={user} userDisplayName={userDisplayName} userIconURL={userIconURL} />
+			)}
 			<main className="flex flex-1 flex-col">{children}</main>
 			{shouldShowFooter && <SiteFooter />}
 		</div>
