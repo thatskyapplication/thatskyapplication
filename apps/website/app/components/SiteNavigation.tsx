@@ -20,6 +20,8 @@ import { type NavigationGroup, useNavigationGroups } from "~/hooks/navigation-gr
 import { APPLICATION_NAME, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
+import { DesktopUserContextMenuItem } from "./DesktopUserContextMenuItem";
+import { MobileUserContextMenuItem } from "./MobileUserContextMenuItem";
 
 interface SiteTopBarProps {
 	user: DiscordUser | null;
@@ -101,47 +103,39 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 			{isOpen && (
 				<div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
 					<div className="py-1">
-						<Link
-							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-							onClick={() => setIsOpen(false)}
-							to="/me"
-						>
-							<User className="h-4 w-4" />
-							<span>My area</span>
-						</Link>
-						<Link
-							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+						<DesktopUserContextMenuItem icon={User} onClick={() => setIsOpen(false)} to="/me">
+							My area
+						</DesktopUserContextMenuItem>
+						<DesktopUserContextMenuItem
+							icon={Users}
 							onClick={() => setIsOpen(false)}
 							to={`/sky-profiles/${user.id}`}
 						>
-							<Users className="h-4 w-4" />
-							<span>{t("sky-profile.name", { ns: "features" })}</span>
-						</Link>
-						<Link
-							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+							{t("sky-profile.name", { ns: "features" })}
+						</DesktopUserContextMenuItem>
+						<DesktopUserContextMenuItem
+							icon={CheckSquare}
 							onClick={() => setIsOpen(false)}
 							to="/me/checklist"
 						>
-							<CheckSquare className="h-4 w-4" />
-							<span>{t("checklist.title", { ns: "features" })}</span>
-						</Link>
-						<Link
-							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+							{t("checklist.title", { ns: "features" })}
+						</DesktopUserContextMenuItem>
+						<DesktopUserContextMenuItem
+							icon={Heart}
 							onClick={() => setIsOpen(false)}
 							to="/me/heart-history"
 						>
-							<Heart className="h-4 w-4" />
-							<span>{t("heart.history-title", { ns: "features" })}</span>
-						</Link>
+							{t("heart.history-title", { ns: "features" })}
+						</DesktopUserContextMenuItem>
 						<div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
-							<Link
-								className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
+							<DesktopUserContextMenuItem
+								danger
+								icon={LogOut}
 								onClick={() => setIsOpen(false)}
 								to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
 							>
-								<LogOut className="h-4 w-4" />
-								<span>Log out</span>
-							</Link>
+								Log out
+							</DesktopUserContextMenuItem>
 						</div>
 					</div>
 				</div>
@@ -298,46 +292,30 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 								</span>
 							</div>
 							<div className="space-y-2">
-								<Link
-									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
-									onClick={onClose}
-									to="/me"
-								>
-									<User className="h-4 w-4" />
+								<MobileUserContextMenuItem icon={User} onClick={onClose} to="/me">
 									My area
-								</Link>
-								<Link
-									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
+								</MobileUserContextMenuItem>
+								<MobileUserContextMenuItem
+									icon={Users}
 									onClick={onClose}
 									to={`/sky-profiles/${user.id}`}
 								>
-									<Users className="h-4 w-4" />
 									{t("sky-profile.name", { ns: "features" })}
-								</Link>
-								<Link
-									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
-									onClick={onClose}
-									to="/me/checklist"
-								>
-									<CheckSquare className="h-4 w-4" />
+								</MobileUserContextMenuItem>
+								<MobileUserContextMenuItem icon={CheckSquare} onClick={onClose} to="/me/checklist">
 									{t("checklist.title", { ns: "features" })}
-								</Link>
-								<Link
-									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
-									onClick={onClose}
-									to="/me/heart-history"
-								>
-									<Heart className="h-4 w-4" />
+								</MobileUserContextMenuItem>
+								<MobileUserContextMenuItem icon={Heart} onClick={onClose} to="/me/heart-history">
 									{t("heart.history-title", { ns: "features" })}
-								</Link>
-								<Link
-									className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
-									onClick={() => onClose()}
+								</MobileUserContextMenuItem>
+								<MobileUserContextMenuItem
+									danger
+									icon={LogOut}
+									onClick={onClose}
 									to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
 								>
-									<LogOut className="h-4 w-4" />
-									<span>Log out</span>
-								</Link>
+									Log out
+								</MobileUserContextMenuItem>
 							</div>
 						</div>
 					) : (
