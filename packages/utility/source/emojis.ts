@@ -5559,7 +5559,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	LargePlaceableProp109: { id: "1492226478887407696", name: "109_large_placeable_prop" },
 	/**
-	 * Bounce pad.
+	 * Bounce pad 1.
 	 */
 	LargePlaceableProp110: { id: "1494694936971317468", name: "110_large_placeable_prop" },
 	/**
@@ -5574,6 +5574,14 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Days of Treasure 2026 2.
 	 */
 	LargePlaceableProp113: { id: "1502288919545249972", name: "113_large_placeable_prop" },
+	/**
+	 * Bounce pad 2.
+	 */
+	LargePlaceableProp114: { id: "1506377579098148984", name: "114_large_placeable_prop" },
+	/**
+	 * Bounce pad 3.
+	 */
+	LargePlaceableProp115: { id: "1506377582528954478", name: "115_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5690,6 +5698,8 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp111: { id: "1494694930453500155", name: "111_large_placeable_prop" },
 	LargePlaceableProp112: { id: "1502288937425571931", name: "112_large_placeable_prop" },
 	LargePlaceableProp113: { id: "1502288934271717466", name: "113_large_placeable_prop" },
+	LargePlaceableProp114: { id: "1506377588992512071", name: "114_large_placeable_prop" },
+	LargePlaceableProp115: { id: "1506377590724759598", name: "115_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -9288,8 +9298,8 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.FlOwCape]: null,
 		[Cosmetic.FlOwFlower]: null,
 		[Cosmetic.CarnivalGuideQuest3]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.BouncePad2]: null,
-		[Cosmetic.BouncePad3]: null,
+		[Cosmetic.BouncePad2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp114,
+		[Cosmetic.BouncePad3]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp115,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
