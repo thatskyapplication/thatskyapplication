@@ -6,6 +6,7 @@ import {
 	type DailyQuests,
 } from "../daily-guides.js";
 import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
+import { SkyProfileMissingNameSource, type SkyProfileMissingNameSources } from "../heart.js";
 import { AreaName, isRealm, REALM_NAME_VALUES, RealmName } from "../kingdom/geography.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
@@ -3567,6 +3568,19 @@ export default {
 			"missing-personality": "Use the select menu to set your personality!",
 			"missing-catalogue-progression": "Toggle showing your catalogue progression!",
 			"missing-guess-rank": "Toggle showing your guessing game rank!",
+			"missing-name-modal-text-display-heart-source-content-mention":
+				"You need a name to gift hearts! This will be used for your Sky profile, which is used for various things.\n\nCurious to learn about your Sky profile? Visit [the website]({{url}}) or use {{mention}} to find out more!",
+			"missing-name-modal-text-display-heart-source-content-text":
+				"You need a name to gift hearts! This will be used for your Sky profile, which is used for various things.\n\nCurious to learn about your Sky profile? Visit [the website]({{url}}) to find out more!",
+			"missing-name-modal-text-display-guess-source-content-mention":
+				"You need a name to play the guessing game! This will be used for your Sky profile, which is used for various things.\n\nCurious to learn about your Sky profile? Visit [the website]({{url}}) or use {{mention}} to find out more!",
+			"missing-name-modal-text-display-guess-source-content-text":
+				"You need a name to play the guessing game! This will be used for your Sky profile, which is used for various things.\n\nCurious to learn about your Sky profile? Visit [the website]({{url}}) to find out more!",
+			"missing-name-source-success": {
+				[SkyProfileMissingNameSource.Heart]: "You're ready to gift hearts, {{name}}!",
+				[SkyProfileMissingNameSource.Guess]:
+					"You're ready for the guessing game, {{name}}. Guess away!",
+			} satisfies Record<SkyProfileMissingNameSources, string>,
 		},
 		spirits: {
 			"not-encountered-spirit":

@@ -49,6 +49,7 @@ export const I18_NEXT_OPTIONS = {
 export const DAILY_GUIDES_URL = String(new URL("daily-guides", WEBSITE_URL));
 export const SHARD_ERUPTION_URL = String(new URL("shard-eruption", WEBSITE_URL));
 export const SKY_PROFILES_URL = String(new URL("sky-profiles", WEBSITE_URL));
+export const ME_SKY_PROFILE_URL = String(new URL("me/sky-profile", WEBSITE_URL));
 export const ME_HEART_HISTORY_URL = String(new URL("me/heart-history", WEBSITE_URL));
 
 // Quest numbers.

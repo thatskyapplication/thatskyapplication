@@ -98,11 +98,13 @@ import { scheduleDetailedBreakdown, scheduleOverview } from "../features/schedul
 import { browse, today } from "../features/shard-eruption.js";
 import { shopSuggestionModal, shopSuggestionSubmission } from "../features/shop.js";
 import {
+	isSkyProfileMissingNameSource,
 	skyProfileEdit,
 	skyProfileExplore,
 	skyProfileExploreLikedProfile,
 	skyProfileExploreLikes,
 	skyProfileExploreProfile,
+	skyProfileHandleMissingNameModal,
 	skyProfileLike,
 	skyProfileReport,
 	skyProfileReportModalPrompt,
@@ -1094,7 +1096,7 @@ export default {
 
 		if (isModalSubmit(data)) {
 			pino.info(data, `Modal submit: ${data.data.custom_id}`);
-			const [id] = data.data.custom_id.split("§") as [string, ...string[]];
+			const [id, ...parts] = data.data.custom_id.split("§") as [string, ...string[]];
 
 			try {
 				if (id === CustomId.SkyProfileNameModal) {
@@ -1125,6 +1127,15 @@ export default {
 				if (id === CustomId.SkyProfileReportModal) {
 					await skyProfileSendReport(data);
 					return;
+				}
+
+				if (id === CustomId.SkyProfileMissingNameModal) {
+					const skyProfileMissingNameSource = Number(parts[0]!);
+
+					if (isSkyProfileMissingNameSource(skyProfileMissingNameSource)) {
+						await skyProfileHandleMissingNameModal(data, skyProfileMissingNameSource);
+						return;
+					}
 				}
 
 				if (id === CustomId.ShopSuggestionModal) {

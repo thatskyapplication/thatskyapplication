@@ -62,7 +62,7 @@ export const enum CustomId {
 	GuessLeaderboardNext = "57",
 	HeartHistoryBack = "58",
 	HeartHistoryNext = "59",
-	MeSetBio = "60",
+	SkyProfileMissingNameModal = "60",
 	MeDeleteBio = "61",
 	MeDeleteAvatar = "62",
 	MeDeleteBanner = "63",

@@ -94,7 +94,13 @@ export {
 	type GuessTypes,
 	type GuessUserRanking,
 } from "./guess.js";
-export { DELETED_USER_TEXT, type HeartPacket } from "./heart.js";
+export {
+	DELETED_USER_TEXT,
+	type HeartPacket,
+	SKY_PROFILE_MISSING_NAME_SOURCE_VALUES,
+	SkyProfileMissingNameSource,
+	type SkyProfileMissingNameSources,
+} from "./heart.js";
 export {
 	AreaName,
 	isRealm,

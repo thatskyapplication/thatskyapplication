@@ -28,6 +28,7 @@ import {
 	isSpiritId,
 	REALMS,
 	type SeasonalSpirit,
+	SkyProfileMissingNameSource,
 	type SpiritIds,
 	type StandardSpirit,
 	skyEvents,
@@ -43,6 +44,7 @@ import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.js";
+import { noSkyProfileName } from "./sky-profile.js";
 
 export function isGuessType(type: number): type is GuessTypes {
 	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
@@ -421,6 +423,10 @@ export async function guessSpiritAnswer(interaction: APIMessageComponentButtonIn
 		return;
 	}
 
+	if (await noSkyProfileName(interaction, SkyProfileMissingNameSource.Guess)) {
+		return;
+	}
+
 	const { type, emoji, answer, option, streak, timeoutTimestamp } = parseSpiritCustomId(
 		interaction.data.custom_id,
 	);
@@ -736,6 +742,10 @@ export async function guessEventAnswer(interaction: APIMessageComponentButtonInt
 		return;
 	}
 
+	if (await noSkyProfileName(interaction, SkyProfileMissingNameSource.Guess)) {
+		return;
+	}
+
 	const { type, emoji, answer, option, streak, timeoutTimestamp } = parseEventCustomId(
 		interaction.data.custom_id,
 	);
@@ -913,6 +923,10 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 			flags: MessageFlags.Ephemeral,
 		});
 
+		return;
+	}
+
+	if (await noSkyProfileName(interaction, SkyProfileMissingNameSource.Guess)) {
 		return;
 	}
 

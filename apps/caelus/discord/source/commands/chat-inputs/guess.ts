@@ -1,7 +1,12 @@
 import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
-import { GuessType, type GuessTypes } from "@thatskyapplication/utility";
+import {
+	GuessType,
+	type GuessTypes,
+	SkyProfileMissingNameSource,
+} from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { guessEvent, guessSpirit, leaderboard } from "../../features/guess.js";
+import { noSkyProfileName } from "../../features/sky-profile.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {
@@ -21,6 +26,10 @@ export default {
 	},
 	async game(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
 		const type = options.getInteger("type", true) as GuessTypes;
+
+		if (await noSkyProfileName(interaction, SkyProfileMissingNameSource.Guess)) {
+			return;
+		}
 
 		switch (type) {
 			case GuessType.Spirits:

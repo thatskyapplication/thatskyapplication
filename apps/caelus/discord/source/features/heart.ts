@@ -21,6 +21,7 @@ import {
 	formatEmoji,
 	getRandomElement,
 	type HeartPacket,
+	SkyProfileMissingNameSource,
 	skyDate,
 	skyNow,
 	Table,
@@ -39,6 +40,7 @@ import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
+import { noSkyProfileName } from "./sky-profile.js";
 
 interface HeartsExtra {
 	start: DateTime;
@@ -174,6 +176,10 @@ export async function gift(
 			flags: MessageFlags.Ephemeral,
 		});
 
+		return;
+	}
+
+	if (await noSkyProfileName(interaction, SkyProfileMissingNameSource.Heart)) {
 		return;
 	}
 
