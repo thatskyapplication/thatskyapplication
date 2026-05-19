@@ -76,6 +76,61 @@ export default new SeasonalSpirit({
 				},
 			],
 		],
+		current: [
+			[
+				{ cosmetic: Cosmetic.FriendActionSideHug1 },
+				{
+					translation: CosmeticCommon.FaceAccessory,
+					cosmetic: Cosmetic.ReassuringRangerFaceAccessory,
+					cost: { candles: 35 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ReassuringRangerBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.ReassuringRangerMask,
+					cost: { candles: 40 },
+				},
+				{
+					translation: CosmeticCommon.Heart,
+					cosmetic: Cosmetic.ReassuringRangerSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.ReassuringRangerWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ReassuringRangerBlessing2,
+					cost: { candles: 5 },
+				},
+				{ cosmetic: Cosmetic.FriendActionSideHug2, level: 2, cost: { hearts: 8 } },
+				{
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.ReassuringRangerHairAccessory,
+					cost: { candles: 40 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.ReassuringRangerCape,
+					cost: { candles: 70 },
+				},
+			],
+		],
 	},
 	visits: {
 		travelling: [{ start: skyDate(2026, 5, 21), end: skyDate(2026, 5, 25) }],
