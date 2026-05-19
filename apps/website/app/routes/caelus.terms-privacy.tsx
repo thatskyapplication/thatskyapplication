@@ -5,7 +5,7 @@ export default function TermsPrivacy() {
 	return (
 		<SitePage>
 			<div className="container mx-auto max-w-2xl">
-				<h1>Terms & Privacy</h1>
+				<h1>Terms & privacy</h1>
 				<p className="text-gray-500 dark:text-gray-400">
 					This is a Discord application, so we'll keep it short.
 				</p>
