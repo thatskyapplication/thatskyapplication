@@ -1,4 +1,4 @@
-import { Cosmetic, CosmeticCommon } from "./cosmetics.js";
+import { Cosmetic } from "./cosmetics.js";
 import { skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
@@ -87,16 +87,6 @@ const permanentEventStoreItems = resolveOfferFromItems([
 		cosmetic: [Cosmetic.FlOwCape, Cosmetic.FlOwFlower],
 		cosmeticDisplay: Cosmetic.FlOwCape,
 		cost: { money: 14.99 },
-	},
-	{
-		translation: { key: CosmeticCommon.BouncePadMultiple, number: 2 },
-		cosmetic: Cosmetic.BouncePad2,
-		cost: { candles: 6 },
-	},
-	{
-		translation: { key: CosmeticCommon.BouncePadMultiple, number: 3 },
-		cosmetic: Cosmetic.BouncePad3,
-		cost: { candles: 8 },
 	},
 ]);
 

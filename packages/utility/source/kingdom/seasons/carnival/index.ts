@@ -1,3 +1,4 @@
+import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
@@ -25,5 +26,17 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
+	],
+	items: [
+		{
+			translation: { key: CosmeticCommon.BouncePadMultiple, number: 2 },
+			cosmetic: Cosmetic.BouncePad2,
+			cost: { candles: 6 },
+		},
+		{
+			translation: { key: CosmeticCommon.BouncePadMultiple, number: 3 },
+			cosmetic: Cosmetic.BouncePad3,
+			cost: { candles: 8 },
+		},
 	],
 });
