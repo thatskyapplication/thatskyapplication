@@ -5,6 +5,7 @@ import {
 	CheckSquare,
 	ChevronDown,
 	HandHeart,
+	Heart,
 	LogIn,
 	LogOut,
 	Menu,
@@ -123,6 +124,14 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 						>
 							<CheckSquare className="h-4 w-4" />
 							<span>{t("checklist.title", { ns: "features" })}</span>
+						</Link>
+						<Link
+							className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+							onClick={() => setIsOpen(false)}
+							to="/me/heart-history"
+						>
+							<Heart className="h-4 w-4" />
+							<span>{t("heart.history-title", { ns: "features" })}</span>
 						</Link>
 						<div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
 							<Link
@@ -312,6 +321,14 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 								>
 									<CheckSquare className="h-4 w-4" />
 									{t("checklist.title", { ns: "features" })}
+								</Link>
+								<Link
+									className="flex items-center gap-2 w-full px-3 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-lg transition-colors text-sm"
+									onClick={onClose}
+									to="/me/heart-history"
+								>
+									<Heart className="h-4 w-4" />
+									{t("heart.history-title", { ns: "features" })}
 								</Link>
 								<Link
 									className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left"
