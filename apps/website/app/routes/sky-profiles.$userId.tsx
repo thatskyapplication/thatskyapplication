@@ -20,12 +20,12 @@ import {
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
 import {
+	BookOpenCheck,
 	ChevronLeftIcon,
 	Edit,
 	Globe,
 	LinkIcon,
 	MapPinIcon,
-	Percent,
 	Trophy,
 	Users,
 } from "lucide-react";
@@ -446,7 +446,7 @@ export default function SkyProfile() {
 					)}
 					{catalogueProgression !== null ? (
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
-							<Percent className="w-6 h-6 mr-2" />
+							<BookOpenCheck className="w-6 h-6 mr-2" />
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
 									{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
