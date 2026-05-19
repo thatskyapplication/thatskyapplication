@@ -2680,7 +2680,7 @@ export async function noSkyProfileName(
 	return false;
 }
 
-export async function skyProfileMissingNameModal(
+async function skyProfileMissingNameModal(
 	interaction:
 		| APIChatInputApplicationCommandInteraction
 		| APIMessageComponentButtonInteraction
