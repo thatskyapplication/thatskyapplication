@@ -14,7 +14,7 @@ import {
 	treasureCandles,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { AlertTriangle, ExternalLinkIcon, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, ExternalLinkIcon, X } from "lucide-react";
 import { DateTime } from "luxon";
 import { type JSX, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -523,11 +523,18 @@ export default function DailyGuides() {
 						</div>
 					)}
 					<div className="mb-5">
-						<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-							<Link className="regular-link" to="/shard-eruption">
+						<div className="mb-3 flex items-center justify-between gap-3">
+							<h2 className="text-sm font-semibold text-gray-900 dark:text-white m-0">
 								{t("daily-guides.shard-eruption", { ns: "features" })}
+							</h2>
+							<Link
+								className="regular-link inline-flex items-center gap-1 text-xs font-medium"
+								to="/shard-eruption"
+							>
+								{t("view", { ns: "general" })}
+								<ArrowRight className="h-3 w-3" />
 							</Link>
-						</h2>
+						</div>
 						{shard ? (
 							<div className="space-y-3">
 								<div className="hidden sm:flex items-start justify-between">
