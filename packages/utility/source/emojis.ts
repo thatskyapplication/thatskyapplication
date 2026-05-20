@@ -3675,6 +3675,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Treasure Seekers' Hat.
 	 */
 	HairAccessory78: { id: "1502284138538074253", name: "78_hair_accessory" },
+	/**
+	 * FlOw flower.
+	 */
+	HairAccessory79: { id: "1506644769697431622", name: "79_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3756,6 +3760,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory76: { id: "1494848449483374905", name: "76_hair_accessory" },
 	HairAccessory77: { id: "1495325748162990151", name: "77_hair_accessory" },
 	HairAccessory78: { id: "1502284157383086160", name: "78_hair_accessory" },
+	HairAccessory79: { id: "1506644771257716828", name: "79_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4619,6 +4624,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Treasure Coin Cape.
 	 */
 	Cape181: { id: "1502283493256728676", name: "181_cape" },
+	/**
+	 * FlOw cape.
+	 */
+	Cape182: { id: "1506644767235244123", name: "182_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4803,6 +4812,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape179: { id: "1494754440761184456", name: "179_cape" },
 	Cape180: { id: "1495325990036045844", name: "180_cape" },
 	Cape181: { id: "1502283544263917759", name: "181_cape" },
+	Cape182: { id: "1506644769009569932", name: "182_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -9295,8 +9305,8 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.TreasureCoinCape]: CAPE_EMOJIS.Cape181,
 		[Cosmetic.TreasureSeekersHat]: HAIR_ACCESSORY_EMOJIS.HairAccessory78,
 		[Cosmetic.TreasureMateCompanion]: NECKLACE_EMOJIS.Necklace57,
-		[Cosmetic.FlOwCape]: null,
-		[Cosmetic.FlOwFlower]: null,
+		[Cosmetic.FlOwCape]: CAPE_EMOJIS.Cape182,
+		[Cosmetic.FlOwFlower]: HAIR_ACCESSORY_EMOJIS.HairAccessory79,
 		[Cosmetic.CarnivalGuideQuest3]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.BouncePad2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp114,
 		[Cosmetic.BouncePad3]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp115,
