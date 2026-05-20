@@ -17,6 +17,7 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	addCosts,
 	type CataloguePacket,
@@ -2459,7 +2460,9 @@ export async function setRealm(interaction: APIMessageComponentButtonInteraction
 		new Set<number>(),
 	);
 
-	await update(invoker.id, { data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics });
+	await update(interaction, {
+		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
+	});
 	await viewRealm(interaction, realm);
 }
 
@@ -2475,7 +2478,9 @@ export async function setElders(interaction: APIMessageComponentButtonInteractio
 		return data;
 	}, new Set<number>());
 
-	await update(invoker.id, { data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics });
+	await update(interaction, {
+		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
+	});
 	await viewElders(interaction);
 }
 
@@ -2502,7 +2507,9 @@ export async function setSeason(interaction: APIMessageComponentButtonInteractio
 		...season.allCosmetics,
 	]);
 
-	await update(invoker.id, { data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics });
+	await update(interaction, {
+		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
+	});
 	await viewSeason(interaction, season.id);
 }
 
@@ -2520,7 +2527,7 @@ export async function setSeasonItems(interaction: APIMessageComponentSelectMenuI
 		throw new Error("Unknown season.");
 	}
 
-	await update(invoker.id, {
+	await update(interaction, {
 		data: calculateSetItems(interaction, season.allCosmetics, catalogue?.data),
 	});
 	await viewSeason(interaction, season.id);
@@ -2625,7 +2632,7 @@ async function setSpiritItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	const { data, show_everything_button } = await update(invoker.id, {
+	const { data, show_everything_button } = await update(interaction, {
 		data: calculateSetItems(interaction, spirit.allCosmetics, catalogue?.data),
 	});
 
@@ -2642,7 +2649,7 @@ async function setEventItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	const { data, show_everything_button } = await update(invoker.id, {
+	const { data, show_everything_button } = await update(interaction, {
 		data: calculateSetItems(interaction, event.allCosmetics, catalogue?.data),
 	});
 
@@ -2655,7 +2662,7 @@ async function setStarterPacksItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	await update(invoker.id, {
+	await update(interaction, {
 		data: calculateSetItems(interaction, STARTER_PACKS.allCosmetics, catalogue?.data),
 	});
 
@@ -2668,7 +2675,7 @@ async function setSecretAreaItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	await update(invoker.id, {
+	await update(interaction, {
 		data: calculateSetItems(interaction, SECRET_AREA.allCosmetics, catalogue?.data),
 	});
 
@@ -2681,7 +2688,7 @@ async function setPermanentEventStoreItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	await update(invoker.id, {
+	await update(interaction, {
 		data: calculateSetItems(interaction, PERMANENT_EVENT_STORE.allCosmetics, catalogue?.data),
 	});
 
@@ -2694,7 +2701,7 @@ async function setNestingWorkshopItems(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	await update(invoker.id, {
+	await update(interaction, {
 		data: calculateSetItems(interaction, NESTING_WORKSHOP.allCosmetics, catalogue?.data),
 	});
 
@@ -2704,10 +2711,9 @@ async function setNestingWorkshopItems(
 export async function updateEverythingButtonSetting(
 	interaction: APIMessageComponentButtonInteraction,
 ) {
-	const invoker = interactionInvoker(interaction);
 	const customId = interaction.data.custom_id;
 	const setting = Number(customId.slice(customId.indexOf("§") + 1));
-	await update(invoker.id, { showEverythingButton: !setting });
+	await update(interaction, { showEverythingButton: !setting });
 	await viewSettings(interaction);
 }
 
@@ -2716,11 +2722,16 @@ interface CatalogueUpdateOptions {
 	showEverythingButton?: boolean;
 }
 
-type CatalogueUpdatePayload = Partial<Omit<CataloguePacket, "user_id">>;
+type CatalogueUpdatePayload = Partial<Pick<CataloguePacket, "data" | "show_everything_button">>;
+type CatalogueUpdateMergeFields = (keyof CatalogueUpdatePayload | "last_updated_at")[];
 
-async function update(userId: Snowflake, { data, showEverythingButton }: CatalogueUpdateOptions) {
+async function update(
+	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	{ data, showEverythingButton }: CatalogueUpdateOptions,
+) {
+	const userId = interactionInvoker(interaction).id;
 	const payload: CatalogueUpdatePayload = {};
-	const mergeFields: (keyof CatalogueUpdatePayload)[] = [];
+	const mergeFields: CatalogueUpdateMergeFields = ["last_updated_at"];
 
 	if (data) {
 		mergeFields.push("data");
@@ -2733,7 +2744,11 @@ async function update(userId: Snowflake, { data, showEverythingButton }: Catalog
 	}
 
 	const [cataloguePacket] = await pg<CataloguePacket>(Table.Catalogue)
-		.insert({ user_id: userId, ...payload })
+		.insert({
+			...payload,
+			user_id: userId,
+			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+		})
 		.onConflict("user_id")
 		.merge(mergeFields)
 		.returning("*");

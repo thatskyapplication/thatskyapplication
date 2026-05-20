@@ -14,6 +14,7 @@ import { friendshipTreeToItems, type Item } from "./utility/spirits.js";
 
 export interface CataloguePacket {
 	user_id: string;
+	last_updated_at: Date | null;
 	data: number[];
 	show_everything_button: boolean;
 }
