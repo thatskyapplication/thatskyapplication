@@ -24,6 +24,7 @@ f:catalogue:
    - any-glob-to-any-file:
      - apps/caelus/discord/source/commands/chat-inputs/catalogue.ts
      - apps/caelus/discord/source/features/catalogue.ts
+     - packages/utility/source/catalogue.ts
 f:checklist:
  - changed-files:
    - any-glob-to-any-file:
@@ -74,6 +75,8 @@ f:sky-profile:
      - apps/caelus/discord/source/commands/chat-inputs/sky-profile.ts
      - apps/caelus/discord/source/commands/user-context-menus/sky-profile.ts
      - apps/caelus/discord/source/features/sky-profile.ts
+     - apps/website/app/features/sky-profile/**/*
+     - apps/website/app/routes/me.sky-profile.tsx
      - apps/website/app/routes/sky-profiles.*.tsx
      - packages/utility/source/sky-profile.ts
 f:welcome:
