@@ -20,6 +20,7 @@ import { getSkyProfilePacket } from "./sky-profile-repository.server.js";
 interface SaveSkyProfileFromWebsiteOptions {
 	bannerFile: File | null;
 	iconFile: File | null;
+	lastUpdatedAt: Date;
 	profile: SkyProfileStorageValue;
 	userId: string;
 }
@@ -59,6 +60,7 @@ async function cleanupUploadedAsset({ banner, icon, userId }: CleanupUploadedAss
 export async function saveSkyProfileFromWebsite({
 	bannerFile,
 	iconFile,
+	lastUpdatedAt,
 	profile,
 	userId,
 }: SaveSkyProfileFromWebsiteOptions): Promise<SaveSkyProfileFromWebsiteResult> {
@@ -131,6 +133,7 @@ export async function saveSkyProfileFromWebsite({
 
 	const skyProfileUpsertData: Partial<SkyProfilePacket> & Pick<SkyProfilePacket, "user_id"> = {
 		user_id: userId,
+		last_updated_at: lastUpdatedAt,
 		name: profile.name,
 		description: profile.description,
 		seasons: profile.seasons,

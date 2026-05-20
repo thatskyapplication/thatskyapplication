@@ -28,6 +28,7 @@ import {
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	ANIMATED_HASH_PREFIX,
 	COUNTRY_VALUES,
@@ -290,7 +291,13 @@ export async function skyProfileSet(
 	}
 
 	const result = await pg<SkyProfilePacket>(Table.Profiles)
-		.insert(data, "*")
+		.insert(
+			{
+				...data,
+				last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+			},
+			"*",
+		)
 		.onConflict("user_id")
 		.merge();
 

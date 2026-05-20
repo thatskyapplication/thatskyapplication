@@ -109,6 +109,7 @@ export const action = async ({ request, context }: ActionFunctionArgs) => {
 	}
 
 	const result = await saveSkyProfileFromWebsite({
+		lastUpdatedAt: new Date(),
 		userId: discordUser.id,
 		...parsed.value,
 	});

@@ -3,6 +3,7 @@ import type { UsersPacket } from "./users.js";
 
 export interface SkyProfilePacket {
 	user_id: string;
+	last_updated_at: Date | null;
 	name: string | null;
 	icon: string | null;
 	banner: string | null;
