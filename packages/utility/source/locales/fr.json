@@ -3082,7 +3082,15 @@
 			"missing-hangout": "Indiquez l'endroit où vous aimez passer du temps !",
 			"missing-personality": "",
 			"missing-catalogue-progression": "Montrez votre progression de catalogue !",
-			"missing-guess-rank": "Montrez votre rang de jeu des devinettes !"
+			"missing-guess-rank": "Montrez votre rang de jeu des devinettes !",
+			"missing-name-modal-text-display-heart-source-content-mention": "",
+			"missing-name-modal-text-display-heart-source-content-text": "",
+			"missing-name-modal-text-display-guess-source-content-mention": "",
+			"missing-name-modal-text-display-guess-source-content-text": "",
+			"missing-name-source-success": {
+				"0": "",
+				"1": ""
+			}
 		},
 		"spirits": {
 			"not-encountered-spirit": "Wow, il semblerait que nous n'ayons pas encore rencontré cet esprit. Comme c'est étrange !",
