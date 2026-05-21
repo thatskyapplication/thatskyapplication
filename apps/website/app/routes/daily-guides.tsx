@@ -531,7 +531,7 @@ export default function DailyGuides() {
 								className="regular-link inline-flex items-center gap-1 text-xs font-medium"
 								to="/shard-eruption"
 							>
-								{t("view", { ns: "general" })}
+								{t("more", { ns: "general" })}
 								<ArrowRight className="h-3 w-3" />
 							</Link>
 						</div>
