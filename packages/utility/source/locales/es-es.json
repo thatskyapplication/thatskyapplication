@@ -3072,7 +3072,15 @@
 			"missing-hangout": "",
 			"missing-personality": "",
 			"missing-catalogue-progression": "",
-			"missing-guess-rank": ""
+			"missing-guess-rank": "",
+			"missing-name-modal-text-display-heart-source-content-mention": "",
+			"missing-name-modal-text-display-heart-source-content-text": "",
+			"missing-name-modal-text-display-guess-source-content-mention": "",
+			"missing-name-modal-text-display-guess-source-content-text": "",
+			"missing-name-source-success": {
+				"0": "",
+				"1": ""
+			}
 		},
 		"spirits": {
 			"not-encountered-spirit": "Vaya, parece que no nos hemos encontrado con ese espíritu todavía. ¡Qué raro!",

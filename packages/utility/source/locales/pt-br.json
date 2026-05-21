@@ -2,8 +2,8 @@
 	"general": {
 		"asset-image-invalid": "Por favor faça o upload de um anexo válido! Precisa ser menor ou igual a {{size}} megabytes e ser um arquivo GIF, JPEG, PNG ou WebP.",
 		"support-server": "Servidor de suporte",
-		"show": "",
-		"hide": "",
+		"show": "Mostrar",
+		"hide": "Ocultar",
 		"daily-quests": "Missões diárias",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
@@ -2161,7 +2161,7 @@
 			"2742": "Guarda-chuva de Girassol do Florescer",
 			"2743": "Brincos de Girassol do Florescer",
 			"2746": "Castiçal de Pedra",
-			"2750": "",
+			"2750": "Traje de Criaturas Encantadoras",
 			"2751": "Acessório de Cabeça do Véu do Oceano",
 			"2752": "Acessório de Cabelo do Véu do Oceano",
 			"2765": "Breakdance 1",
@@ -3011,9 +3011,9 @@
 			"edit-modal-label-banner-description": "Faça o upload de um banner para o seu Filho da Luz! Essa imagem será usada somente no site.",
 			"edit-winged-light-description": "Você pode escolher como exibir sua luz alada.\n\nInferindo pelo catálogo, sua luz alada máxima será a soma de toda a sua luz alada, juntamente com os bônus de asas que escolheu no catálogo. Também é possível optar por não usar a capa.",
 			"edit-winged-light-string-select-menu-placeholder": "Como você gostaria que sua Luz Alada fosse exibida?",
-			"edit-winged-light-invalid": "",
-			"edit-catalogue-progression-invalid": "",
-			"edit-guess-rank-invalid": "",
+			"edit-winged-light-invalid": "Luz alada inválida selecionada.",
+			"edit-catalogue-progression-invalid": "Progresso no catálogo inválido selecionado.",
+			"edit-guess-rank-invalid": "Classificação inválida no jogo de quiz selecionada.",
 			"edit-modal-label-hangout-label": "Ponto de encontro",
 			"edit-modal-label-hangout-description": "Onde você mais gosta de ficar?",
 			"edit-seasons-string-select-menu-placeholder": "Selecione as temporadas das quais você participou!",
@@ -3082,7 +3082,15 @@
 			"missing-hangout": "Indique o lugar onde você gosta de passar o tempo!",
 			"missing-personality": "Use o menu de seleção para definir sua personalidade!",
 			"missing-catalogue-progression": "Mostrar seu progresso no catálogo!",
-			"missing-guess-rank": "Exibir seu ranking no jogo de quiz!"
+			"missing-guess-rank": "Exibir seu ranking no jogo de quiz!",
+			"missing-name-modal-text-display-heart-source-content-mention": "Você precisa de um nome para presentear corações! Ele será usado no seu perfil Sky, que é utilizado para várias coisas.\n\nCurioso para saber mais sobre o seu perfil Sky? Visite [o site]({{url}}) ou use {{mention}} para descobrir mais!",
+			"missing-name-modal-text-display-heart-source-content-text": "Você precisa de um nome para presentear corações! Ele será usado no seu perfil Sky, que é utilizado para várias coisas.\n\nCurioso para saber mais sobre o seu perfil Sky? Visite [o site]({{url}}) para descobrir mais!",
+			"missing-name-modal-text-display-guess-source-content-mention": "Você precisa de um nome para jogar o quiz! Ele será usado no seu perfil Sky, que é utilizado para várias coisas.\n\nCurioso para saber mais sobre o seu perfil Sky? Visite [o site]({{url}}) ou use {{mention}} para descobrir mais!",
+			"missing-name-modal-text-display-guess-source-content-text": "Você precisa de um nome para jogar o quiz! Ele será usado no seu perfil Sky, que é utilizado para várias coisas.\n\nCurioso para saber mais sobre o seu perfil Sky? Visite [o site]({{url}}) para descobrir mais!",
+			"missing-name-source-success": {
+				"0": "",
+				"1": "Você está pronto para o quiz, {{name}}. Pode começar a adivinhar!"
+			}
 		},
 		"spirits": {
 			"not-encountered-spirit": "Uau, parece que nós não encontramos esse espírito ainda. Que estranho!",
