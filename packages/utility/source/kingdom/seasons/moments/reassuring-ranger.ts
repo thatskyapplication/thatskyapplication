@@ -77,14 +77,7 @@ export default new SeasonalSpirit({
 			],
 		],
 		current: [
-			[
-				{ cosmetic: Cosmetic.FriendActionSideHug1 },
-				{
-					translation: CosmeticCommon.FaceAccessory,
-					cosmetic: Cosmetic.ReassuringRangerFaceAccessory,
-					cost: { candles: 35 },
-				},
-			],
+			[{ cosmetic: Cosmetic.FriendActionSideHug1 }],
 			[
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
@@ -92,9 +85,9 @@ export default new SeasonalSpirit({
 					cost: { candles: 5 },
 				},
 				{
-					translation: CosmeticCommon.Mask,
-					cosmetic: Cosmetic.ReassuringRangerMask,
-					cost: { candles: 40 },
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.ReassuringRangerHairAccessory,
+					cost: { candles: 36 },
 				},
 				{
 					translation: CosmeticCommon.Heart,
@@ -112,22 +105,22 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ReassuringRangerBlessing2,
-					cost: { candles: 5 },
+					translation: CosmeticCommon.FaceAccessory,
+					cosmetic: Cosmetic.ReassuringRangerFaceAccessory,
+					cost: { candles: 45 },
 				},
-				{ cosmetic: Cosmetic.FriendActionSideHug2, level: 2, cost: { hearts: 8 } },
+				{ cosmetic: Cosmetic.FriendActionSideHug2, level: 2, cost: { hearts: 4 } },
 				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.ReassuringRangerHairAccessory,
-					cost: { candles: 40 },
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.ReassuringRangerCape,
+					cost: { candles: 75 },
 				},
 			],
 			[
 				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.ReassuringRangerCape,
-					cost: { candles: 70 },
+					translation: CosmeticCommon.Mask,
+					cosmetic: Cosmetic.ReassuringRangerMask,
+					cost: { candles: 35 },
 				},
 			],
 		],
