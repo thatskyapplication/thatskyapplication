@@ -13,7 +13,6 @@ export default new SeasonalSpirit({
 	action,
 	realm: RealmName.DaylightPrairie,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{ cosmetic: Cosmetic.FriendActionSideHug1 },
