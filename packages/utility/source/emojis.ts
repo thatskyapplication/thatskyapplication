@@ -9310,6 +9310,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalGuideQuest3]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.BouncePad2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp114,
 		[Cosmetic.BouncePad3]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp115,
+		[Cosmetic.ReassuringRangerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
