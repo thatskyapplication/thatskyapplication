@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -21,6 +21,7 @@ export default new Event({
 		{
 			cosmetic: [Cosmetic.CatCostumeMask, Cosmetic.CatCostumeCape],
 			cosmeticDisplay: Cosmetic.CatCostumeCape,
+			packName: CosmeticPackName.CatCostumePack,
 			cost: { money: 19.99 },
 		},
 	],

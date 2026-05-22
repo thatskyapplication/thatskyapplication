@@ -1,4 +1,4 @@
-import { Cosmetic } from "./cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
 import { skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
@@ -32,6 +32,7 @@ const starterPackItems = resolveOfferFromItems([
 			Cosmetic.ElvishHairstyle,
 		],
 		cosmeticDisplay: Cosmetic.SwitchRedCape,
+		packName: CosmeticPackName.NintendoSwitchPack,
 		cost: { money: 29.99 },
 	},
 ]);
@@ -65,6 +66,7 @@ const permanentEventStoreItems = resolveOfferFromItems([
 	{
 		cosmetic: [Cosmetic.JourneyCape, Cosmetic.JourneyHood, Cosmetic.JourneyMask],
 		cosmeticDisplay: Cosmetic.JourneyCape,
+		packName: CosmeticPackName.JourneyPack,
 		cost: { money: 24.99 },
 	},
 	{
@@ -78,6 +80,7 @@ const permanentEventStoreItems = resolveOfferFromItems([
 			Cosmetic.TranscendentJourneyMask,
 		],
 		cosmeticDisplay: Cosmetic.TranscendentJourneyCape,
+		packName: CosmeticPackName.TranscendentJourneyPack,
 		cost: { money: 24.99 },
 	},
 	{
@@ -87,6 +90,7 @@ const permanentEventStoreItems = resolveOfferFromItems([
 	{
 		cosmetic: [Cosmetic.FlOwCape, Cosmetic.FlOwFlower],
 		cosmeticDisplay: Cosmetic.FlOwCape,
+		packName: CosmeticPackName.FlOwPack,
 		cost: { money: 14.99 },
 	},
 ]);

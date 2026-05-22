@@ -1,4 +1,4 @@
-import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
+import { Cosmetic, CosmeticCommon, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -40,6 +40,7 @@ export default new Event({
 		{
 			cosmetic: [Cosmetic.MischiefFelineEars, Cosmetic.MischiefFelineTail],
 			cosmeticDisplay: Cosmetic.MischiefFelineEars,
+			packName: CosmeticPackName.MischiefFelinePack,
 			cost: { money: 11.99 },
 		},
 		{

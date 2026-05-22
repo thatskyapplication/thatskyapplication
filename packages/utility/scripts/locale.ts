@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import pc from "picocolors";
-import { Cosmetic, CosmeticCommon } from "../source/cosmetics.js";
+import { Cosmetic, CosmeticCommon, CosmeticPackName } from "../source/cosmetics.js";
 import { DailyQuest } from "../source/daily-guides.js";
 import { AreaName } from "../source/kingdom/geography.js";
 import { SeasonId } from "../source/season.js";
@@ -42,6 +42,7 @@ const LPROJ_TO_JSON: Record<string, string[]> = {
 const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> = {
 	Cosmetic,
 	CosmeticCommon,
+	CosmeticPackName,
 	DailyQuest,
 	AreaName,
 	SeasonId,
@@ -54,6 +55,7 @@ const TS_KEY_OBJECTS: Record<string, Readonly<Record<string, number | string>>> 
 const TS_KEY_JSON_PREFIXES: Record<string, string> = {
 	Cosmetic: "general.cosmetic-names",
 	CosmeticCommon: "general.cosmetic-common-names",
+	CosmeticPackName: "general.cosmetic-pack-names",
 	DailyQuest: "general.quests",
 	AreaName: "general.areas",
 	SeasonId: "general.seasons",
@@ -1193,6 +1195,118 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.MusicSheetAirship",
 	},
 	{
+		upstreamKey: "commerce_item_name_fortune_pack",
+		tsKey: "CosmeticPackName.DaysOfFortunePack",
+	},
+	{
+		upstreamKey: "commerce_item_name_nintendo_pack",
+		tsKey: "CosmeticPackName.NintendoSwitchPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_carppack",
+		tsKey: "CosmeticPackName.DaysOfFortuneFishPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_kizuna_pack_red",
+		tsKey: "CosmeticPackName.KizunaAIPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_catcostume",
+		tsKey: "CosmeticPackName.CatCostumePack",
+	},
+	{
+		upstreamKey: "commerce_item_name_sony_redtraveler_pack",
+		tsKey: "CosmeticPackName.JourneyPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_mainstreet_moth",
+		tsKey: "CosmeticPackName.MothAppreciationPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_mainstreet_sparrow",
+		tsKey: "CosmeticPackName.SparrowAppreciationPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_cafe_pastryhair",
+		tsKey: "CosmeticPackName.CinnamorollPopUpCafeHairAndEars",
+	},
+	{
+		upstreamKey: "commerce_item_name_cafe_pastrywing",
+		tsKey: "CosmeticPackName.CinnamorollPopUpCafeBowtieAndCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_moonlight_dress",
+		tsKey: "CosmeticPackName.MoonlightFrockPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_style_crystalsuit",
+		tsKey: "CosmeticPackName.StyleDapperPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_moomin_snufkinset",
+		tsKey: "CosmeticPackName.RovingSnufkinPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_moomin_trollset",
+		tsKey: "CosmeticPackName.MoomintrollPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_wonderland_pinafore",
+		tsKey: "CosmeticPackName.WonderlandPrimrosePinaforePack",
+	},
+	{
+		upstreamKey: "commerce_item_name_fortune_snakecapehair",
+		tsKey: "CosmeticPackName.FortuneSnakePack",
+	},
+	{
+		upstreamKey: "commerce_item_name_treasure_eyepatchpants",
+		tsKey: "CosmeticPackName.TreasureSeekerPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_sony_whitetraveler_pack",
+		tsKey: "CosmeticPackName.TranscendentJourneyPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_nature_seafoamset",
+		tsKey: "CosmeticPackName.OceanSeaFoamPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_anniversary_cinema",
+		tsKey: "CosmeticPackName.AnniversaryCinemaPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_ember_manateeset",
+		tsKey: "CosmeticPackName.SpiritedManateePack",
+	},
+	{
+		upstreamKey: "commerce_item_name_ember_krillset",
+		tsKey: "CosmeticPackName.VestigeOfDarkDragonsPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_anniversary_gownshoes",
+		tsKey: "CosmeticPackName.AnniversaryGownPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_sunlight_jellypack",
+		tsKey: "CosmeticPackName.SunlightBonnetPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_mischief_cattail",
+		tsKey: "CosmeticPackName.MischiefFelinePack",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_warmerset",
+		tsKey: "CosmeticPackName.FluffyWinterWearPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_competition_skaterset",
+		tsKey: "CosmeticPackName.TournamentSleekSkatingPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_sony_flowerflow_pack",
+		tsKey: "CosmeticPackName.FlOwPack",
+	},
+	{
 		upstreamKey: "lootbox_name_color_black",
 		tsKey: "CosmeticCommon.BlackDye",
 	},
@@ -1258,6 +1372,10 @@ function stripMarkup(value: string): string {
 
 function getAtPath(root: Record<string, unknown>, dotPath: string): unknown {
 	for (const part of dotPath.split(".")) {
+		if (!(part in root)) {
+			return undefined;
+		}
+
 		// biome-ignore lint/style/noParameterAssign: Don't care.
 		root = root[part] as Record<string, unknown>;
 	}
@@ -1272,6 +1390,10 @@ function setAtPath(root: Record<string, unknown>, dotPath: string, value: string
 	const parts = dotPath.split(".");
 
 	for (let index = 0; index < parts.length - 1; index++) {
+		if (typeof root[parts[index]!] !== "object" || root[parts[index]!] === null) {
+			root[parts[index]!] = {};
+		}
+
 		// biome-ignore lint/style/noParameterAssign: Don't care.
 		root = root[parts[index]!] as Record<string, unknown>;
 	}

@@ -1,4 +1,4 @@
-import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
+import { Cosmetic, CosmeticCommon, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventId } from "../../utility/event.js";
@@ -36,6 +36,7 @@ export default new Event({
 		{
 			cosmetic: [Cosmetic.FluffyWinterWearHairAccessory, Cosmetic.FluffyWinterWearShoes],
 			cosmeticDisplay: Cosmetic.FluffyWinterWearHairAccessory,
+			packName: CosmeticPackName.FluffyWinterWearPack,
 			cost: { money: 6.99 },
 		},
 		{

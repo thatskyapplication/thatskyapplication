@@ -109,11 +109,13 @@ export function resolveOfferFromItems(
 		item
 			? {
 					translation:
-						item.translation === undefined
-							? null
-							: typeof item.translation === "number"
-								? { key: `cosmetic-common-names.${item.translation}` }
-								: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
+						"packName" in item
+							? { key: `cosmetic-pack-names.${item.packName}` }
+							: !("translation" in item) || item.translation === undefined
+								? { key: `cosmetic-names.${item.cosmetic}` }
+								: typeof item.translation === "number"
+									? { key: `cosmetic-common-names.${item.translation}` }
+									: { ...item.translation, key: `cosmetic-common-names.${item.translation.key}` },
 					cosmetics: Array.isArray(item.cosmetic)
 						? // These assertions are necessary because the type is too complex to represent.
 							(item.cosmetic as readonly [Cosmetic, ...Cosmetic[]])
