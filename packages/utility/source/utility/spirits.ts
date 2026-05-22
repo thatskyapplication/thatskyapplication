@@ -1,4 +1,4 @@
-import type { Cosmetic, CosmeticCommon } from "../cosmetics.js";
+import type { Cosmetic, CosmeticCommon, CosmeticPackName } from "../cosmetics.js";
 import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
 
@@ -491,7 +491,7 @@ interface ItemRawSingleCosmeticWithoutChildren extends BaseItemRawWithoutChildre
 }
 
 interface ItemRawMultipleCosmeticsWithoutChildren extends BaseItemRawWithoutChildren {
-	translation?: CosmeticCommon | ItemRawTranslation;
+	packName: CosmeticPackName;
 	cosmetic: readonly [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 }
@@ -531,12 +531,15 @@ export interface ItemCost {
 }
 
 interface ItemTranslation {
-	key: `cosmetic-common-names.${CosmeticCommon}`;
+	key:
+		| `cosmetic-common-names.${CosmeticCommon}`
+		| `cosmetic-names.${Cosmetic}`
+		| `cosmetic-pack-names.${CosmeticPackName}`;
 	number?: number;
 }
 
 export interface ItemWithoutChildren {
-	translation: ItemTranslation | null;
+	translation: ItemTranslation;
 	cosmetics: readonly [Cosmetic, ...Cosmetic[]];
 	cosmeticDisplay: Cosmetic;
 	level: 2 | 3 | 4 | 5 | 6 | null;

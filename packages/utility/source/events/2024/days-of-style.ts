@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -41,6 +41,7 @@ export default new Event({
 				Cosmetic.StyleDapperNecktie,
 			],
 			cosmeticDisplay: Cosmetic.StyleDapperSuit,
+			packName: CosmeticPackName.StyleDapperPack,
 			cost: { money: 14.99 },
 		},
 	],

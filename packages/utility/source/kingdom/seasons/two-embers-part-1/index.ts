@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { patchNotesRoute } from "../../../routes.js";
@@ -89,11 +89,13 @@ export default new Season({
 		{
 			cosmetic: [Cosmetic.SpiritedManateeTail, Cosmetic.SpiritedManateeHeadAccessory],
 			cosmeticDisplay: Cosmetic.SpiritedManateeHeadAccessory,
+			packName: CosmeticPackName.SpiritedManateePack,
 			cost: { money: 9.99 },
 		},
 		{
 			cosmetic: [Cosmetic.VestigeOfDarkDragonsTail, Cosmetic.VestigeOfDarkDragonsHeadAccessory],
 			cosmeticDisplay: Cosmetic.VestigeOfDarkDragonsHeadAccessory,
+			packName: CosmeticPackName.VestigeOfDarkDragonsPack,
 			cost: { money: 11.99 },
 		},
 		{

@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { CDN_URL, patchNotesRoute } from "../../routes.js";
@@ -43,6 +43,7 @@ export default new Event({
 				Cosmetic.CinnamorollPopUpCafeCinnamarollEars,
 			],
 			cosmeticDisplay: Cosmetic.CinnamorollPopUpCafeCinnamarollEars,
+			packName: CosmeticPackName.CinnamorollPopUpCafeHairAndEars,
 			cost: { money: 14.99 },
 		},
 		{
@@ -56,6 +57,7 @@ export default new Event({
 		{
 			cosmetic: [Cosmetic.CinnamorollPopUpCafeBowtie, Cosmetic.CinnamorollPopUpCafeCloudCape],
 			cosmeticDisplay: Cosmetic.CinnamorollPopUpCafeCloudCape,
+			packName: CosmeticPackName.CinnamorollPopUpCafeBowtieAndCape,
 			cost: { money: 14.99 },
 		},
 	],

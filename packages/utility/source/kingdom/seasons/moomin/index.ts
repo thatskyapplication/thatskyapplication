@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { patchNotesRoute } from "../../../routes.js";
@@ -28,11 +28,13 @@ export default new Season({
 		{
 			cosmetic: [Cosmetic.RovingSnufkinRobe, Cosmetic.RovingSnufkinScarf],
 			cosmeticDisplay: Cosmetic.RovingSnufkinRobe,
+			packName: CosmeticPackName.RovingSnufkinPack,
 			cost: { money: 9.99 },
 		},
 		{
 			cosmetic: [Cosmetic.MoomintrollEars, Cosmetic.MoomintrollTail],
 			cosmeticDisplay: Cosmetic.MoomintrollTail,
+			packName: CosmeticPackName.MoomintrollPack,
 			cost: { money: 11.99 },
 		},
 		{

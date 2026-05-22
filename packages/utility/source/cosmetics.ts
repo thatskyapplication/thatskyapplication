@@ -3649,6 +3649,38 @@ export enum CosmeticCommon {
 	BouncePadMultiple = 65,
 }
 
+export enum CosmeticPackName {
+	DaysOfFortunePack = 0,
+	NintendoSwitchPack = 1,
+	DaysOfFortuneFishPack = 2,
+	KizunaAIPack = 3,
+	CatCostumePack = 4,
+	JourneyPack = 5,
+	MothAppreciationPack = 6,
+	SparrowAppreciationPack = 7,
+	CinnamorollPopUpCafeHairAndEars = 8,
+	CinnamorollPopUpCafeBowtieAndCape = 9,
+	MoonlightFrockPack = 10,
+	StyleDapperPack = 11,
+	RovingSnufkinPack = 12,
+	MoomintrollPack = 13,
+	WonderlandPrimrosePinaforePack = 14,
+	FortuneSnakePack = 15,
+	TreasureSeekerPack = 16,
+	TranscendentJourneyPack = 17,
+	OceanSeaFoamPack = 18,
+	AnniversaryCinemaPack = 19,
+	SpiritedManateePack = 20,
+	VestigeOfDarkDragonsPack = 21,
+	AnniversaryGownPack = 22,
+	SunlightBonnetPack = 23,
+	MischiefFelinePack = 24,
+	FluffyWinterWearPack = 25,
+	TournamentSleekSkatingPack = 26,
+	CharmingCreaturePack = 27,
+	FlOwPack = 28,
+}
+
 export const WING_BUFFS = [
 	Cosmetic.PointingCandlemakerWingBuff,
 	Cosmetic.UsheringStargazerWingBuff,

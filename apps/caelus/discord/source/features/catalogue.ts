@@ -115,10 +115,10 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 
 					return emoji
 						? formatEmoji(emoji)
-						: t(translation?.key ?? `cosmetic-names.${cosmetic}`, {
+						: t(translation.key, {
 								lng: locale,
 								ns: "general",
-								number: translation?.number,
+								number: translation.number,
 							});
 				});
 
@@ -1281,10 +1281,10 @@ export async function viewSeason(
 		const itemsOptions = season.items.map(({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation.key, {
 					lng: interaction.locale,
 					ns: "general",
-					number: translation?.number,
+					number: translation.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -1693,10 +1693,10 @@ async function viewSpirit(
 			({ translation, cosmetics, cosmeticDisplay, regularHeart }) => {
 				const stringSelectMenuOption: APISelectMenuOption = {
 					default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-					label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+					label: t(translation.key, {
 						lng: locale,
 						ns: "general",
-						number: translation?.number,
+						number: translation.number,
 					}),
 					value: JSON.stringify(cosmetics),
 				};
@@ -1926,10 +1926,10 @@ async function viewEvent(
 		const itemSelectionOptions = offer.map(({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation.key, {
 					lng: interaction.locale,
 					ns: "general",
-					number: translation?.number,
+					number: translation.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2026,10 +2026,10 @@ export async function viewStarterPacks(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation.key, {
 					lng: interaction.locale,
 					ns: "general",
-					number: translation?.number,
+					number: translation.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2121,10 +2121,10 @@ export async function viewSecretArea(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation.key, {
 					lng: interaction.locale,
 					ns: "general",
-					number: translation?.number,
+					number: translation.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2216,10 +2216,10 @@ export async function viewPermanentEventStore(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation.key, {
 					lng: interaction.locale,
 					ns: "general",
-					number: translation?.number,
+					number: translation.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};
@@ -2311,10 +2311,10 @@ export async function viewNestingWorkshop(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation?.key ?? `cosmetic-names.${cosmeticDisplay}`, {
+				label: t(translation.key, {
 					lng: interaction.locale,
 					ns: "general",
-					number: translation?.number,
+					number: translation.number,
 				}),
 				value: JSON.stringify(cosmetics),
 			};

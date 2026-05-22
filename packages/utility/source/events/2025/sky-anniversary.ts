@@ -1,4 +1,4 @@
-import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
+import { Cosmetic, CosmeticCommon, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -97,6 +97,7 @@ export default new Event({
 		{
 			cosmetic: [Cosmetic.AnniversaryCinemaGlasses, Cosmetic.AnniversaryCinemaPopcorn],
 			cosmeticDisplay: Cosmetic.AnniversaryCinemaGlasses,
+			packName: CosmeticPackName.AnniversaryCinemaPack,
 			cost: { money: 4.99 },
 		},
 		{
@@ -106,6 +107,7 @@ export default new Event({
 		{
 			cosmetic: [Cosmetic.AnniversaryGown, Cosmetic.AnniversaryShoes],
 			cosmeticDisplay: Cosmetic.AnniversaryGown,
+			packName: CosmeticPackName.AnniversaryGownPack,
 			cost: { money: 9.99 },
 		},
 		{

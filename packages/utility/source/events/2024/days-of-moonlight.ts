@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -41,6 +41,7 @@ export default new Event({
 		{
 			cosmetic: [Cosmetic.MoonlightFrock, Cosmetic.MoonlightUpdo],
 			cosmeticDisplay: Cosmetic.MoonlightFrock,
+			packName: CosmeticPackName.MoonlightFrockPack,
 			cost: { money: 14.99 },
 		},
 	],

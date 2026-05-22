@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -50,6 +50,7 @@ export default new Event({
 				Cosmetic.TreasureSeekersWhiteDye,
 			],
 			cosmeticDisplay: Cosmetic.TreasureSeekersOutfit,
+			packName: CosmeticPackName.TreasureSeekerPack,
 			cost: { money: 14.99 },
 		},
 	],

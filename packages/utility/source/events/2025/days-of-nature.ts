@@ -1,4 +1,4 @@
-import { Cosmetic } from "../../cosmetics.js";
+import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { patchNotesRoute } from "../../routes.js";
@@ -41,6 +41,7 @@ export default new Event({
 		{
 			cosmetic: [Cosmetic.OceanSeaFoamCape, Cosmetic.OceanSeaFoamBoots],
 			cosmeticDisplay: Cosmetic.OceanSeaFoamCape,
+			packName: CosmeticPackName.OceanSeaFoamPack,
 			cost: { money: 24.99 },
 		},
 		{
