@@ -9,7 +9,12 @@ import {
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../../discord.js";
-import { dailyGuidesResponse, questAutocomplete, set } from "../../features/daily-guides.js";
+import {
+	dailyGuidesNewDayCheck,
+	dailyGuidesResponse,
+	questAutocomplete,
+	set,
+} from "../../features/daily-guides.js";
 import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -33,6 +38,9 @@ export default {
 		}
 	},
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
+		// Check if daily guides are outdated.
+		await dailyGuidesNewDayCheck(false);
+
 		const options = new OptionResolver(interaction);
 
 		if (interaction.data.guild_id === SUPPORT_SERVER_GUILD_ID) {

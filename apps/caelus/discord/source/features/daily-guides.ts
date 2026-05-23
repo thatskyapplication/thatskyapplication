@@ -166,7 +166,7 @@ export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTo
 	];
 }
 
-async function fetchDailyGuides() {
+export async function fetchDailyGuides() {
 	const dailyQuests = await pg<DailyGuidesPacket>(Table.DailyGuides).first();
 
 	if (dailyQuests) {
@@ -593,6 +593,40 @@ export async function resetDailyGuidesDistribution() {
 	await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).update({
 		message_id: null,
 	});
+}
+
+export async function dailyGuidesNewDayCheck(waitForDistribution = true) {
+	const dailyGuidesLastUpdatedAt = (await fetchDailyGuides()).last_updated_at;
+	const today = skyToday();
+
+	if (today.toMillis() <= dailyGuidesLastUpdatedAt.getTime()) {
+		return;
+	}
+
+	const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
+
+	if (!guild) {
+		throw new Error("Could not find the support server whilst resetting daily guides.");
+	}
+
+	const me = await guild.fetchMe();
+
+	await Promise.all([
+		resetDailyGuidesDistribution(),
+		resetDailyGuides({ user: me.user, lastUpdatedAt: today.toJSDate() }),
+	]);
+
+	const distributionPromise = distribute({
+		user: me.user,
+		lastUpdatedAt: today.toJSDate(),
+		force: true,
+	});
+
+	waitForDistribution
+		? await distributionPromise
+		: void distributionPromise.catch((error) =>
+				pino.error(error, "Error whilst distributing daily guides during new-day check."),
+			);
 }
 
 // export async function deleteDailyGuidesDistribution(guildId: Snowflake) {
@@ -1126,22 +1160,17 @@ async function distributionData(
 	};
 }
 
-interface DailyGuidesDistributionOptions {
+export interface DailyGuidesDistributionOptions {
 	user: APIUser;
-	lastUpdatedUserId: Snowflake;
 	lastUpdatedAt: Date;
 	force?: boolean;
 }
 
-async function distributeLogic({
-	user,
-	lastUpdatedUserId,
-	lastUpdatedAt,
-}: DailyGuidesDistributionOptions) {
+async function distributeLogic({ user, lastUpdatedAt }: DailyGuidesDistributionOptions) {
 	await logModification({ user, content: "distributed daily guides." });
 
 	await updateDailyGuides({
-		last_updated_user_id: lastUpdatedUserId,
+		last_updated_user_id: user.id,
 		last_updated_at: lastUpdatedAt,
 	});
 
@@ -1501,10 +1530,10 @@ export async function handleDistributeButton(
 ) {
 	const { locale } = interaction;
 	await interactive(interaction, { type: InteractiveType.Distributing, locale });
+	await dailyGuidesNewDayCheck();
 
 	await distribute({
 		user: interaction.member.user,
-		lastUpdatedUserId: interaction.member.user.id,
 		lastUpdatedAt: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 	});
 

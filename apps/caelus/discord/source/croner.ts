@@ -1,55 +1,56 @@
 import { captureCheckIn } from "@sentry/node";
-import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
-import { GUILD_CACHE } from "./caches/guilds.js";
 import {
+	type DailyGuidesDistributionOptions,
+	dailyGuidesNewDayCheck,
 	distribute,
-	resetDailyGuides,
-	resetDailyGuidesDistribution,
 } from "./features/daily-guides.js";
 import { messageLogDeleteOldMessages } from "./features/message-log.js";
 import pg from "./pg.js";
 import pino from "./pino.js";
-import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
 
-new Cron(
-	"0 0 0 * * *",
-	{ catch: (error) => pino.error(error, "Error during changing days."), timezone: TIME_ZONE },
-	async () => {
-		const independentPromises = [messageLogDeleteOldMessages()];
-		const today = skyToday();
-		const guild = GUILD_CACHE.get(SUPPORT_SERVER_GUILD_ID);
+new Cron("*/5 * * * *", async () => {
+	const now = Date.now();
+	const checkInId = captureCheckIn({ monitorSlug: "caelus", status: "in_progress" });
+	const promises = [pg.select(1), messageLogDeleteOldMessages(), dailyGuidesNewDayCheck()];
+	const distributeOptions: DailyGuidesDistributionOptions | null = null;
 
-		if (!guild) {
-			pino.error("Could not find the support server whilst resetting daily guides.");
-			await Promise.all(independentPromises);
-			return;
+	try {
+		const settled = await Promise.allSettled(promises);
+		const errors = [];
+
+		for (const result of settled) {
+			if (result.status === "fulfilled") {
+				continue;
+			}
+
+			errors.push(result.reason);
 		}
 
-		const me = await guild.fetchMe();
+		if (errors.length > 0) {
+			throw new AggregateError(errors, "Errors during cron job execution.");
+		}
 
-		await Promise.all([
-			...independentPromises,
-			resetDailyGuides({ user: me.user, lastUpdatedAt: today.toJSDate() }),
-			resetDailyGuidesDistribution(),
-		]);
+		if (distributeOptions) {
+			await distribute(distributeOptions);
+		}
 
-		await distribute({
-			user: me.user,
-			lastUpdatedUserId: APPLICATION_ID,
-			lastUpdatedAt: today.toJSDate(),
-			force: true,
+		captureCheckIn({
+			monitorSlug: "caelus",
+			status: "ok",
+			checkInId,
+			duration: (Date.now() - now) / 1000,
 		});
-	},
-);
+	} catch (error) {
+		await Promise.allSettled(promises);
 
-if (PRODUCTION) {
-	new Cron(
-		"*/5 * * * *",
-		{ catch: () => captureCheckIn({ monitorSlug: "caelus", status: "error" }) },
-		async () => {
-			await pg.select(1);
-			captureCheckIn({ monitorSlug: "caelus", status: "ok" });
-		},
-	);
-}
+		pino.error(error, "Error during cron job execution.");
+
+		captureCheckIn({
+			monitorSlug: "caelus",
+			status: "error",
+			checkInId,
+			duration: (Date.now() - now) / 1000,
+		});
+	}
+});
