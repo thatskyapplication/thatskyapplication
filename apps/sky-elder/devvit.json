@@ -5,6 +5,9 @@
 		"dir": "distribution/server",
 		"entry": "index.cjs"
 	},
+	"marketingAssets": {
+		"icon": "assets/sky-elder.png"
+	},
 	"menu": {
 		"items": [
 			{
