@@ -52,6 +52,12 @@ const secretAreaItems = resolveOfferFromItems([
 		cost: { money: 29.99 },
 	},
 	{
+		cosmetic: [Cosmetic.JourneyCape, Cosmetic.JourneyHood, Cosmetic.JourneyMask],
+		cosmeticDisplay: Cosmetic.JourneyCape,
+		packName: CosmeticPackName.JourneyPack,
+		cost: { money: 24.99 },
+	},
+	{
 		cosmetic: Cosmetic.TGCWireframeCape,
 		cost: { money: 19.99 },
 	},
@@ -63,12 +69,6 @@ export const SECRET_AREA = {
 } as const;
 
 const permanentEventStoreItems = resolveOfferFromItems([
-	{
-		cosmetic: [Cosmetic.JourneyCape, Cosmetic.JourneyHood, Cosmetic.JourneyMask],
-		cosmeticDisplay: Cosmetic.JourneyCape,
-		packName: CosmeticPackName.JourneyPack,
-		cost: { money: 24.99 },
-	},
 	{
 		cosmetic: Cosmetic.CompanionCube,
 		cost: { candles: 50 },
