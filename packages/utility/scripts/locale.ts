@@ -1303,6 +1303,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "CosmeticPackName.TournamentSleekSkatingPack",
 	},
 	{
+		upstreamKey: "commerce_item_name_nature_naturefinspack",
+		tsKey: "CosmeticPackName.CharmingCreaturePack",
+	},
+	{
 		upstreamKey: "commerce_item_name_sony_flowerflow_pack",
 		tsKey: "CosmeticPackName.FlOwPack",
 	},
