@@ -418,7 +418,9 @@
 			"307": "Ayuda al cañonero tentado o a la estudiante gruñona a buscar tesoros en el Bosque Escondido",
 			"308": "Ayuda al capitán de navío cesante o a la estudiante gruñona a buscar tesoros en el Bosque Escondido",
 			"309": "Ayuda al contramaestre torpe o alyeti abrazoso a buscar tesoros en la Aldea de los Sueños",
-			"310": "Ayuda al capitán de navío cesante o al yeti abrazoso a buscar tesoros en la Aldea de los Sueños"
+			"310": "Ayuda al capitán de navío cesante o al yeti abrazoso a buscar tesoros en la Aldea de los Sueños",
+			"311": "Saluda a un jugador",
+			"312": "Propone un diseño de cometa en las Alturas de la planicie."
 		},
 		"season": "Temporada",
 		"seasons": {
@@ -2217,7 +2219,9 @@
 			"2824": "Sombrero de cazatesoros",
 			"2825": "Compañero filibustero del tesoro",
 			"2826": "",
-			"2827": ""
+			"2827": "",
+			"2834": "",
+			"2835": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

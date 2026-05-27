@@ -418,7 +418,9 @@
 			"307": "Ajude a Canhoneira Sorridente ou o Estudante Esbravejante a encontrar tesouros na Floresta Oculta",
 			"308": "Ajude o Comodoro Abandonado ou o Estudante Esbravejante a encontrar tesouros na Floresta Oculta",
 			"309": "Ajude o Contramestre Trapalhão ou o Iéti do Abraço de Urso a encontrar tesouros na Aldeia dos Sonhos",
-			"310": "Ajude o Comodoro Abandonado ou o Iéti do Abraço de Urso a encontrar tesouros na Aldeia dos Sonhos"
+			"310": "Ajude o Comodoro Abandonado ou o Iéti do Abraço de Urso a encontrar tesouros na Aldeia dos Sonhos",
+			"311": "Acene para um jogador",
+			"312": "Sugira um modelo de pipa nas Colinas da Campina"
 		},
 		"season": "Temporada",
 		"seasons": {
@@ -2217,7 +2219,9 @@
 			"2824": "Chapéu do Rastreador de Tesouros",
 			"2825": "Companheiro Pirata do Tesouro",
 			"2826": "",
-			"2827": ""
+			"2827": "",
+			"2834": "",
+			"2835": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",

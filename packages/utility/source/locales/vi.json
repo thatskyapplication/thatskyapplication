@@ -418,7 +418,9 @@
 			"307": "Giúp Xạ Thủ Vui Nhộn hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa",
 			"308": "Giúp Thuyền Trưởng Uy Nghiêm hoặc Đội Trưởng Quản Lý tìm kho báu tại Rừng Mưa",
 			"309": "Giúp Thủy Thủ Hậu Đậu hoặc Tu Sĩ Gấu Ôm tìm kho báu tại Làng Mộng Mơ",
-			"310": "Giúp Thuyền Trưởng Uy Nghiêm hoặc Tu Sĩ Gấu Ôm tìm kho báu tại Làng Mộng Mơ"
+			"310": "Giúp Thuyền Trưởng Uy Nghiêm hoặc Tu Sĩ Gấu Ôm tìm kho báu tại Làng Mộng Mơ",
+			"311": "Vẫy tay với một người chơi",
+			"312": "Đề xuất thiết kế diều tại Đỉnh Thảo Nguyên"
 		},
 		"season": "",
 		"seasons": {
@@ -2217,7 +2219,9 @@
 			"2824": "Mũ Săn Kho Báu",
 			"2825": "Đồng Hành Quý Giá",
 			"2826": "",
-			"2827": ""
+			"2827": "",
+			"2834": "",
+			"2835": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
