@@ -91,10 +91,18 @@ function resolveJsonPath(tsKey: string): string {
 	return `${prefix}.${value}`;
 }
 
+interface LocaleOverride {
+	/** Normalised upstream value this override is allowed to replace. */
+	upstreamValue: string;
+	value: string;
+}
+
 type LocaleMapping =
 	| {
 			/** Key in upstream Localizable.strings. */
 			upstreamKey: string;
+			/** Locale-specific output overrides for strings where the upstream value is not suitable as a standalone locale entry. */
+			overrides?: Readonly<Record<string, LocaleOverride>>;
 			/**
 			 * TypeScript computed-property key used in en-gb.ts.
 			 * The JSON path is derived automatically from the TS object's runtime value.
@@ -106,6 +114,7 @@ type LocaleMapping =
 	  }
 	| {
 			upstreamKey: string;
+			overrides?: Readonly<Record<string, LocaleOverride>>;
 			/**
 			 * Explicit dot-separated path into the JSON locale object.
 			 * Use this for strings that have no corresponding TS object.
@@ -212,6 +221,12 @@ const MAPPINGS: LocaleMapping[] = [
 	},
 	{
 		upstreamKey: "name_rainshelter",
+		overrides: {
+			fr: {
+				upstreamValue: "clairière élevée",
+				value: "Clairière élevée",
+			},
+		},
 		tsKey: "AreaName.ElevatedClearing",
 	},
 	{
@@ -1379,7 +1394,24 @@ async function writeChangeLog(): Promise<void> {
 }
 
 function stripMarkup(value: string): string {
-	return normaliseQuotes(value.replace(/<[^>]+>/g, "")).trim();
+	return normaliseQuotes(value.replace(/<[^>]+>/g, "").replaceAll(/\s*\n\s*/g, "")).trim();
+}
+
+function localeValue(mapping: LocaleMapping, lproj: string, value: string): string {
+	const strippedValue = stripMarkup(value);
+	const override = mapping.overrides?.[lproj];
+
+	if (!override) {
+		return strippedValue;
+	}
+
+	if (override.upstreamValue !== strippedValue) {
+		throw new Error(
+			`Override for "${mapping.upstreamKey}" in ${lproj}.lproj expected "${override.upstreamValue}" but received "${strippedValue}"`,
+		);
+	}
+
+	return override.value;
 }
 
 function normaliseQuotes(value: string): string {
@@ -1575,7 +1607,7 @@ for (const mapping of MAPPINGS) {
 			continue;
 		}
 
-		const value = stripMarkup(raw);
+		const value = localeValue(mapping, lproj, raw);
 
 		for (const jsonName of jsonNames) {
 			const jsonFile = join(SOURCE_LOCALES_DIR, `${jsonName}.json`);
