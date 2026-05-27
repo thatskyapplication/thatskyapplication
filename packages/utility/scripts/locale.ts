@@ -1367,7 +1367,7 @@ function parseLocalizableStrings(content: string): Map<string, string> {
 
 		const key = line.slice(1, separatorIndex);
 		const value = line.slice(separatorIndex + 5, line.lastIndexOf('";'));
-		map.set(key, value);
+		map.set(key, decodeLocalisableString(value));
 	}
 
 	return map;
@@ -1379,7 +1379,53 @@ async function writeChangeLog(): Promise<void> {
 }
 
 function stripMarkup(value: string): string {
-	return value.replace(/<[^>]+>/g, "").trim();
+	return value
+		.replace(/<[^>]+>/g, "")
+		.replace(/[“”„‟]/g, '"')
+		.replace(/[‘’]/g, "'")
+		.trim();
+}
+
+function decodeLocalisableString(value: string): string {
+	return value.replaceAll(
+		/\\(U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4}|["\\nrtbf])/g,
+		(_, escaped: string) => {
+			switch (escaped) {
+				case '"':
+					return '"';
+				case "\\":
+					return "\\";
+				case "b":
+					return "\b";
+				case "f":
+					return "\f";
+				case "n":
+					return "\n";
+				case "r":
+					return "\r";
+				case "t":
+					return "\t";
+				default: {
+					if (escaped.startsWith("u")) {
+						return String.fromCodePoint(Number.parseInt(escaped.slice(1), 16));
+					}
+
+					return String.fromCodePoint(Number.parseInt(escaped.slice(1), 16));
+				}
+			}
+		},
+	);
+}
+
+function encodeTsStringLiteralValue(value: string): string {
+	return value
+		.replaceAll("\\", "\\\\")
+		.replaceAll('"', '\\"')
+		.replaceAll("\b", "\\b")
+		.replaceAll("\f", "\\f")
+		.replaceAll("\n", "\\n")
+		.replaceAll("\r", "\\r")
+		.replaceAll("\t", "\\t");
 }
 
 function getUpstreamValue(
@@ -1455,7 +1501,7 @@ async function updateEnGbTs(tsKey: string, upstreamKey: string, value: string): 
 	const escapedKey = tsKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 	// Match [Key]: optionally followed by whitespace/newline, then "old value".
-	const pattern = new RegExp(`(\\[${escapedKey}\\]:\\s*\\n?\\s*)"([^"]*)"`);
+	const pattern = new RegExp(`(\\[${escapedKey}\\]:\\s*\\n?\\s*)"((?:\\\\.|[^"])*)"`);
 	const match = pattern.exec(content);
 
 	if (!match) {
@@ -1463,12 +1509,11 @@ async function updateEnGbTs(tsKey: string, upstreamKey: string, value: string): 
 		return false;
 	}
 
-	if (match[2] === value) {
+	if (decodeLocalisableString(match[2]!) === value) {
 		return false;
 	}
 
-	// Escape $ in value to avoid special replacement patterns.
-	const safeValue = value.replace(/\$/g, "$$$$");
+	const safeValue = encodeTsStringLiteralValue(value).replace(/\$/g, "$$$$");
 	await writeFile(EN_GB_TS, content.replace(pattern, `$1"${safeValue}"`));
 	changes.push(`en-gb.ts\t${tsKey}\t${upstreamKey}\t${value}`);
 
