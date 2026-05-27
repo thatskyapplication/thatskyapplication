@@ -17,7 +17,7 @@ export default new GuideSpirit({
 				},
 				{
 					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.PerformanceGuideBlessing1,
+					cosmetic: Cosmetic.PerformanceGuideBlessing4,
 				},
 				{
 					translation: CosmeticCommon.Pendant,
