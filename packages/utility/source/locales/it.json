@@ -83,7 +83,7 @@
 			"The Passage": "Transizione",
 			"Ancient Memory": "Ricordo antico",
 			"Aviary Village": "Villaggio degli Uccelli",
-			"Wandering Carnival": "Fiera itinerante"
+			"Wandering Carnival": "Carnevale itinerante"
 		},
 		"notification-types": {
 			"0": "",
@@ -450,7 +450,7 @@
 			"25": "Stagione \"Le due braci - Parte 1\"",
 			"26": "Stagione della Migrazione",
 			"27": "Stagione della Rinascita della Luce",
-			"28": "Stagione della Fiera"
+			"28": "Stagione del Carnevale"
 		},
 		"season-wiki": {
 			"0": "",
@@ -823,11 +823,11 @@
 			"200": "Cacciatore della Rinascita della Luce",
 			"201": "Studiosa della Rinascita della Luce",
 			"202": "Pioniere della Rinascita della Luce",
-			"203": "Guida della Fiera",
-			"204": "Ballerino atletico della Fiera",
-			"205": "Giocoliere della Fiera",
-			"206": "Direttrice degli enigmi della Fiera",
-			"207": "Acrobata della Fiera"
+			"203": "Guida del Carnevale",
+			"204": "Ballerino atletico del Carnevale",
+			"205": "Giocoliere del Carnevale",
+			"206": "Direttrice degli enigmi del Carnevale",
+			"207": "Acrobata del Carnevale"
 		},
 		"spirit-wiki": {
 			"0": "",
