@@ -2236,6 +2236,9 @@ export enum Cosmetic {
 	MischiefCrabulaMask = 1815,
 
 	// 30/10/2023 | Season of Revival Quest 3.
+	/**
+	 * Removed with {@link https://thatsky.link/p335 33.5}.
+	 */
 	HopefulStewardQuest3 = 1816,
 	HopefulStewardHeart3 = 1817,
 
@@ -3578,6 +3581,9 @@ export enum Cosmetic {
 
 	// 21/05/2026 | Travelling spirit #167.
 	ReassuringRangerWingBuff = 2831,
+	
+	// 26/05/2026 | Version 0.33.5.
+	HopefulStewardHighFive = 2832,
 }
 
 export enum CosmeticCommon {
