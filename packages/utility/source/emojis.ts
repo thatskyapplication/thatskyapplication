@@ -9313,6 +9313,8 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.ReassuringRangerWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.HopefulStewardHighFive]: FRIEND_ACTION_EMOJIS.HighFive,
 		[Cosmetic.PerformanceGuideBlessing4]: MISCELLANEOUS_EMOJIS.Blessing3,
+		[Cosmetic.DuetsGuideDuetBow3]: FRIEND_ACTION_EMOJIS.DuetBow,
+		[Cosmetic.DuetsGuideDuetBow4]: FRIEND_ACTION_EMOJIS.DuetBow,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

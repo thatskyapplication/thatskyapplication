@@ -3585,6 +3585,8 @@ export enum Cosmetic {
 	// 26/05/2026 | Version 0.33.5.
 	HopefulStewardHighFive = 2832,
 	PerformanceGuideBlessing4 = 2833,
+	DuetsGuideDuetBow3 = 2834,
+	DuetsGuideDuetBow4 = 2835,
 }
 
 export enum CosmeticCommon {

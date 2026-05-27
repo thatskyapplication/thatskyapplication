@@ -2627,6 +2627,8 @@ export default {
 			[Cosmetic.TreasureMateCompanion]: "Treasure Mate Companion",
 			[Cosmetic.FlOwCape]: "FlOw cape",
 			[Cosmetic.FlOwFlower]: "FlOw flower",
+			[Cosmetic.DuetsGuideDuetBow3]: "Duet bow 3",
+			[Cosmetic.DuetsGuideDuetBow4]: "Duet bow 4",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

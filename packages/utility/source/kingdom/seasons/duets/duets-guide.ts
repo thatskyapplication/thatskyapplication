@@ -72,6 +72,18 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.DuetsGuideDuetBow2,
 					cost: { hearts: 8 },
 					level: 2,
+					children: [
+						{
+							cosmetic: Cosmetic.DuetsGuideDuetBow3,
+							cost: { hearts: 4 },
+							level: 3,
+						},
+						{
+							cosmetic: Cosmetic.DuetsGuideDuetBow4,
+							cost: { hearts: 8 },
+							level: 4,
+						},
+					],
 				},
 			],
 			[
