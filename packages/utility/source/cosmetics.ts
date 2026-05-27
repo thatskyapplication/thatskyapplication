@@ -3581,7 +3581,7 @@ export enum Cosmetic {
 
 	// 21/05/2026 | Travelling spirit #167.
 	ReassuringRangerWingBuff = 2831,
-	
+
 	// 26/05/2026 | Version 0.33.5.
 	HopefulStewardHighFive = 2832,
 	PerformanceGuideBlessing4 = 2833,
