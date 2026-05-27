@@ -418,7 +418,9 @@
 			"307": "Aiuta la Cannoniera sghignazzante o la Studentessa saccente a trovare il tesoro nella Foresta Nascosta",
 			"308": "Aiuta il Commodoro autorevole o la Studentessa saccente a trovare il tesoro nella Foresta Nascosta",
 			"309": "Aiuta il Nostromo goffo o lo Yeti caldo abbraccio a trovare il tesoro nel Villaggio dei Sogni",
-			"310": "Aiuta il Commodoro autorevole o lo Yeti caldo abbraccio a trovare il tesoro nel Villaggio dei Sogni"
+			"310": "Aiuta il Commodoro autorevole o lo Yeti caldo abbraccio a trovare il tesoro nel Villaggio dei Sogni",
+			"311": "Saluta un giocatore",
+			"312": "Proponi il progetto per un aquilone alle Alture della Prateria"
 		},
 		"season": "",
 		"seasons": {
@@ -2217,7 +2219,9 @@
 			"2824": "Cappello del cercatore del tesoro",
 			"2825": "Compagno pirata del tesoro",
 			"2826": "",
-			"2827": ""
+			"2827": "",
+			"2834": "",
+			"2835": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

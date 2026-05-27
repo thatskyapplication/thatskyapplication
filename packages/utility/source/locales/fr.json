@@ -418,7 +418,9 @@
 			"307": "Aidez la Canonnière caquetante ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée",
 			"308": "Aidez la Commodore commandant ou l'Étudiante moralisatrice à trouver des trésors dans la Forêt cachée",
 			"309": "Aidez le Maître d'équipage maladroit ou le Yéti du câlin à trouver des trésors dans le Village des Rêves",
-			"310": "Aidez le Commodore commandant ou le Yéti du câlin à trouver des trésors dans le Village des Rêves"
+			"310": "Aidez le Commodore commandant ou le Yéti du câlin à trouver des trésors dans le Village des Rêves",
+			"311": "Faire signe de la main à un joueur",
+			"312": "Proposez un design de cerf-volant dans Hauteurs de la Prairie"
 		},
 		"season": "Saison",
 		"seasons": {
@@ -2217,7 +2219,9 @@
 			"2824": "Chapeau de chasseur de trésor",
 			"2825": "Compagnon du trésor",
 			"2826": "",
-			"2827": ""
+			"2827": "",
+			"2834": "",
+			"2835": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",

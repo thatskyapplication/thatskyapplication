@@ -418,7 +418,9 @@
 			"307": "Hilf der Kicher-Kanonierin oder der Schimpfenden Schülerin dabei, einen Schatz im Verborgenen Wald zu finden",
 			"308": "Hilf dem Kommando-Kapitän oder der Schimpfenden Schülerin dabei, einen Schatz im Verborgenen Wald zu finden",
 			"309": "Hilf dem Stümperhaften Schiffsjunge oder dem Großen Yeti, einen Schatz im Dorf der Träume zu finden",
-			"310": "Hilf dem Kommando-Kapitän oder dem Großen Yeti dabei, einen Schatz im Dorf der Träume zu finden"
+			"310": "Hilf dem Kommando-Kapitän oder dem Großen Yeti dabei, einen Schatz im Dorf der Träume zu finden",
+			"311": "Winke einem Spieler",
+			"312": "Schlage ein Drachen-Design in den Prärieanhöhen vor"
 		},
 		"season": "Saison",
 		"seasons": {
@@ -2217,7 +2219,9 @@
 			"2824": "Schatzsucherhut",
 			"2825": "Schatzpiratbegleiter",
 			"2826": "",
-			"2827": ""
+			"2827": "",
+			"2834": "",
+			"2835": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
