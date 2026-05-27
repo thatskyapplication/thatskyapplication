@@ -58,6 +58,16 @@ const secretAreaItems = resolveOfferFromItems([
 		cost: { money: 24.99 },
 	},
 	{
+		cosmetic: [
+			Cosmetic.TranscendentJourneyCape,
+			Cosmetic.TranscendentJourneyHood,
+			Cosmetic.TranscendentJourneyMask,
+		],
+		cosmeticDisplay: Cosmetic.TranscendentJourneyCape,
+		packName: CosmeticPackName.TranscendentJourneyPack,
+		cost: { money: 24.99 },
+	},
+	{
 		cosmetic: Cosmetic.TGCWireframeCape,
 		cost: { money: 19.99 },
 	},
@@ -78,16 +88,6 @@ const permanentEventStoreItems = resolveOfferFromItems([
 	{
 		cosmetic: Cosmetic.CompanionCube,
 		cost: { candles: 50 },
-	},
-	{
-		cosmetic: [
-			Cosmetic.TranscendentJourneyCape,
-			Cosmetic.TranscendentJourneyHood,
-			Cosmetic.TranscendentJourneyMask,
-		],
-		cosmeticDisplay: Cosmetic.TranscendentJourneyCape,
-		packName: CosmeticPackName.TranscendentJourneyPack,
-		cost: { money: 24.99 },
 	},
 	// {
 	// 	cosmetic: Cosmetic.SpringCloverSprout,
