@@ -1379,11 +1379,13 @@ async function writeChangeLog(): Promise<void> {
 }
 
 function stripMarkup(value: string): string {
-	return value
-		.replace(/<[^>]+>/g, "")
-		.replace(/[“”„‟]/g, '"')
-		.replace(/[‘’]/g, "'")
-		.trim();
+	return normaliseQuotes(value.replace(/<[^>]+>/g, "")).trim();
+}
+
+function normaliseQuotes(value: string): string {
+	const normalised = value.replace(/[‘’]/g, "'");
+
+	return normalised.includes('"') ? normalised.replace(/[“”„‟]/g, '"') : normalised;
 }
 
 function decodeLocalisableString(value: string): string {
