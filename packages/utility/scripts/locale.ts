@@ -1370,6 +1370,20 @@ function stripMarkup(value: string): string {
 	return value.replace(/<[^>]+>/g, "").trim();
 }
 
+function getUpstreamValue(
+	strings: ReadonlyMap<string, string>,
+	upstreamKey: string,
+	lproj: string,
+): string {
+	const raw = strings.get(upstreamKey);
+
+	if (raw === undefined) {
+		throw new Error(`Upstream key "${upstreamKey}" does not exist in ${lproj}.lproj`);
+	}
+
+	return raw;
+}
+
 function getAtPath(root: Record<string, unknown>, dotPath: string): unknown {
 	for (const part of dotPath.split(".")) {
 		if (!(part in root)) {
@@ -1456,26 +1470,22 @@ if (MAPPINGS.length === 0) {
 	process.exit(0);
 }
 
+const basePath = join(LPROJ_DIR, "Base.lproj", "Localizable.strings");
+const baseContent = await readFile(basePath, "utf-8");
+const baseStrings = parseLocalizableStrings(baseContent);
+
 for (const mapping of MAPPINGS) {
 	const jsonPath = mapping.jsonPath ?? resolveJsonPath(mapping.tsKey);
 	let changedJsonLocaleCount = 0;
+	let foundUpstreamKey = baseStrings.has(mapping.upstreamKey);
 
 	console.log(
 		`\n${bold(cyan("Syncing"))} ${yellow(`"${mapping.upstreamKey}"`)} ${dim("→")} ${cyan(jsonPath)}`,
 	);
 
-	// Collect Base.lproj value upfront (needed for --update-en).
-	let baseStrings: Map<string, string> | undefined;
-
-	if (updateEn) {
-		const basePath = join(LPROJ_DIR, "Base.lproj", "Localizable.strings");
-		const baseContent = await readFile(basePath, "utf-8");
-		baseStrings = parseLocalizableStrings(baseContent);
-	}
-
 	// Update JSON locales.
 	for (const [lproj, jsonNames] of Object.entries(LPROJ_TO_JSON)) {
-		if (jsonNames.length === 0) {
+		if (lproj === "Base") {
 			continue;
 		}
 
@@ -1492,8 +1502,17 @@ for (const mapping of MAPPINGS) {
 		const strings = parseLocalizableStrings(content);
 		const raw = strings.get(mapping.upstreamKey);
 
-		if (!raw) {
-			console.warn(`  ${yellow("⚠")} Key not found in ${dim(`${lproj}.lproj`)} — skipped`);
+		if (raw === undefined) {
+			if (jsonNames.length > 0) {
+				console.warn(`  ${yellow("⚠")} Key not found in ${dim(`${lproj}.lproj`)} — skipped`);
+			}
+
+			continue;
+		}
+
+		foundUpstreamKey = true;
+
+		if (jsonNames.length === 0) {
 			continue;
 		}
 
@@ -1507,6 +1526,12 @@ for (const mapping of MAPPINGS) {
 				changes.push(`${jsonName}.json\t${jsonPath}\t${mapping.upstreamKey}\t${value}`);
 			}
 		}
+	}
+
+	if (!foundUpstreamKey) {
+		throw new Error(
+			`Upstream key "${mapping.upstreamKey}" does not exist in any upstream locale file`,
+		);
 	}
 
 	if (changedJsonLocaleCount === 0) {
@@ -1524,15 +1549,7 @@ for (const mapping of MAPPINGS) {
 			continue;
 		}
 
-		const raw = baseStrings!.get(mapping.upstreamKey);
-
-		if (!raw) {
-			console.warn(
-				`  ${yellow("⚠")} Key not found in ${dim("Base.lproj")} — skipped en-gb.ts update`,
-			);
-
-			continue;
-		}
+		const raw = getUpstreamValue(baseStrings, mapping.upstreamKey, "Base");
 
 		if (await updateEnGbTs(mapping.tsKey, mapping.upstreamKey, stripMarkup(raw))) {
 			console.log(`  ${green("✔")} ${bold("en-gb.ts")} updated`);
