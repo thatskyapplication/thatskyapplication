@@ -338,6 +338,8 @@ export const DailyQuest = {
 	HelpCeasingCommodoreOrScoldingStudentFindTreasureInHiddenForest: 308,
 	HelpBumblingBoatswainOrBearhugHermitFindTreasureInVillageOfDreams: 309,
 	HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams: 310,
+	WaveToAPlayer: 311,
+	ProposeAKiteDesignInPrairieHeights: 312,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const DAILY_QUEST_VALUES = Object.values(DailyQuest);
@@ -807,6 +809,8 @@ export const DailyQuestToInfographicURL = {
 	[DailyQuest.HelpCeasingCommodoreOrScoldingStudentFindTreasureInHiddenForest]: null,
 	[DailyQuest.HelpBumblingBoatswainOrBearhugHermitFindTreasureInVillageOfDreams]: null,
 	[DailyQuest.HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams]: null,
+	[DailyQuest.WaveToAPlayer]: null,
+	[DailyQuest.ProposeAKiteDesignInPrairieHeights]: null,
 } as const satisfies Readonly<Record<DailyQuests, string | null>>;
 
 export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [

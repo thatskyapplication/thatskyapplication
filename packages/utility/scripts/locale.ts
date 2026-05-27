@@ -419,6 +419,14 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "DailyQuest.HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams",
 	},
 	{
+		upstreamKey: "daily_quest_wave_at_a_player_desc",
+		tsKey: "DailyQuest.WaveToAPlayer",
+	},
+	{
+		upstreamKey: "daily_quest_color_voted_for_kite_desc",
+		tsKey: "DailyQuest.ProposeAKiteDesignInPrairieHeights",
+	},
+	{
 		upstreamKey: "name_questap30",
 		tsKey: "SpiritId.CarnivalGuide",
 	},

@@ -717,6 +717,8 @@ export default {
 				"Help Bumbling Boatswain or Bearhug Hermit find treasure in Village of Dreams",
 			[DailyQuest.HelpCeasingCommodoreOrBearhugHermitFindTreasureInVillageOfDreams]:
 				"Help Ceasing Commodore or Bearhug Hermit find treasure in Village of Dreams",
+			[DailyQuest.WaveToAPlayer]: "Wave to a player",
+			[DailyQuest.ProposeAKiteDesignInPrairieHeights]: "Propose a kite design in Prairie Heights",
 		} satisfies Record<DailyQuests, string>,
 		season: "Season",
 		seasons: {
