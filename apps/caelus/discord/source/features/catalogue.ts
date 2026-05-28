@@ -21,11 +21,12 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	addCosts,
 	type CataloguePacket,
+	CLOTHING_SHOP,
 	catalogueAllProgress,
+	catalogueClothingShopProgress,
 	catalogueEventProgress,
 	catalogueNestingWorkshopProgress,
 	catalogueOwnedProgress,
-	cataloguePermanentEventStoreProgress,
 	catalogueProgressPercentage,
 	catalogueRemainingCurrency,
 	catalogueSeasonProgress,
@@ -45,7 +46,6 @@ import {
 	type ItemCost,
 	isRealm,
 	NESTING_WORKSHOP,
-	PERMANENT_EVENT_STORE,
 	REALMS,
 	type RealmName,
 	resolveReturningSpirits,
@@ -339,7 +339,7 @@ async function start({
 	const eventProgressResult = catalogueEventProgress([...skyEvents().values()], data, true);
 	const starterPackProgressResult = catalogueStarterPackProgress(data, true);
 	const secretAreaProgressResult = catalogueSecretAreaProgress(data, true);
-	const permanentEventStoreProgressResult = cataloguePermanentEventStoreProgress(data, true);
+	const clothingShopProgressResult = catalogueClothingShopProgress(data, true);
 	const nestingWorkshopProgressResult = catalogueNestingWorkshopProgress(data, true);
 	const now = skyNow();
 	const currentSeason = skyCurrentSeason(now);
@@ -562,13 +562,13 @@ async function start({
 					accessory: {
 						type: ComponentType.Button,
 						style: ButtonStyle.Primary,
-						custom_id: CustomId.CatalogueViewPermanentEventStore,
+						custom_id: CustomId.CatalogueViewClothingShop,
 						label: t("view", { lng: locale, ns: "general" }),
 					},
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.permanent-event-store", { lng: locale, ns: "features" })}\n\n${permanentEventStoreProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: permanentEventStoreProgressResult })}`,
+							content: `### ${t("catalogue.clothing-shop", { lng: locale, ns: "features" })}\n\n${clothingShopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: clothingShopProgressResult })}`,
 						},
 					],
 				},
@@ -682,7 +682,7 @@ interface CatalogueTraversalContainerOptions {
 	isInEvents?: boolean;
 	isInStarterPacks?: boolean;
 	isInSecretArea?: boolean;
-	isInPermanentEventStore?: boolean;
+	isInClothingShop?: boolean;
 	isInNestingWorkshop?: boolean;
 }
 
@@ -696,7 +696,7 @@ function traversalContainer({
 	isInEvents = false,
 	isInStarterPacks = false,
 	isInSecretArea = false,
-	isInPermanentEventStore = false,
+	isInClothingShop = false,
 	isInNestingWorkshop = false,
 }: CatalogueTraversalContainerOptions): APIContainerComponent {
 	const standardSpirits: APISelectMenuOption = {
@@ -753,13 +753,13 @@ function traversalContainer({
 		secretArea.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
 	}
 
-	const permanentEventStore: APISelectMenuOption = {
-		label: t("catalogue.permanent-event-store", { lng: locale, ns: "features" }),
-		value: CustomId.CatalogueViewPermanentEventStore,
+	const clothingShop: APISelectMenuOption = {
+		label: t("catalogue.clothing-shop", { lng: locale, ns: "features" }),
+		value: CustomId.CatalogueViewClothingShop,
 	};
 
-	if (isInPermanentEventStore) {
-		permanentEventStore.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
+	if (isInClothingShop) {
+		clothingShop.emoji = MISCELLANEOUS_EMOJIS.CurrentPosition;
 	}
 
 	const nestingWorkshop: APISelectMenuOption = {
@@ -787,7 +787,7 @@ function traversalContainer({
 							events,
 							starterPacks,
 							secretArea,
-							permanentEventStore,
+							clothingShop,
 							nestingWorkshop,
 						],
 						max_values: 1,
@@ -833,8 +833,8 @@ export async function catalogueTraversal(
 			return viewStarterPacks(interaction);
 		case CustomId.CatalogueViewSecretArea:
 			return viewSecretArea(interaction);
-		case CustomId.CatalogueViewPermanentEventStore:
-			return viewPermanentEventStore(interaction);
+		case CustomId.CatalogueViewClothingShop:
+			return viewClothingShop(interaction);
 		case CustomId.CatalogueViewNestingWorkshop:
 			return viewNestingWorkshop(interaction);
 		default:
@@ -2206,13 +2206,13 @@ export async function viewSecretArea(
 	});
 }
 
-export async function viewPermanentEventStore(
+export async function viewClothingShop(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 
-	const itemSelectionOptions = PERMANENT_EVENT_STORE.items.map(
+	const itemSelectionOptions = CLOTHING_SHOP.items.map(
 		({ translation, cosmetics, cosmeticDisplay }) => {
 			const stringSelectMenuOption: APISelectMenuOption = {
 				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
@@ -2237,7 +2237,7 @@ export async function viewPermanentEventStore(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("catalogue.permanent-event-store-title", { lng: locale, ns: "features" }),
+			content: t("catalogue.clothing-shop-title", { lng: locale, ns: "features" }),
 		},
 		{
 			type: ComponentType.Separator,
@@ -2248,7 +2248,7 @@ export async function viewPermanentEventStore(
 			type: ComponentType.TextDisplay,
 			content: progress(
 				interaction.locale,
-				PERMANENT_EVENT_STORE.items,
+				CLOTHING_SHOP.items,
 				catalogue?.data,
 			).offerDescription.join("\n"),
 		},
@@ -2257,7 +2257,7 @@ export async function viewPermanentEventStore(
 			components: [
 				{
 					type: ComponentType.StringSelect,
-					custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.PermanentEventStore}`,
+					custom_id: `${CustomId.CatalogueViewOffer1}§${CatalogueType.ClothingShop}`,
 					max_values: itemSelectionOptions.length,
 					min_values: 0,
 					options: itemSelectionOptions,
@@ -2276,8 +2276,8 @@ export async function viewPermanentEventStore(
 			components: [
 				{
 					type: ComponentType.Button,
-					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.PermanentEventStore}`,
-					disabled: cataloguePermanentEventStoreProgress(catalogue?.data) === 100,
+					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.ClothingShop}`,
+					disabled: catalogueClothingShopProgress(catalogue?.data) === 100,
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,
@@ -2295,7 +2295,7 @@ export async function viewPermanentEventStore(
 			traversalContainer({
 				locale,
 				navigationBackCustomId: CustomId.CatalogueViewStart,
-				isInPermanentEventStore: true,
+				isInClothingShop: true,
 			}),
 		],
 	});
@@ -2569,8 +2569,8 @@ export async function parseSetItems(
 				await setSecretAreaItems(interaction);
 				return;
 			}
-			case CatalogueType.PermanentEventStore: {
-				await setPermanentEventStoreItems(interaction);
+			case CatalogueType.ClothingShop: {
+				await setClothingShopItems(interaction);
 				return;
 			}
 			case CatalogueType.NestingWorkshop: {
@@ -2682,17 +2682,17 @@ async function setSecretAreaItems(
 	await viewSecretArea(interaction);
 }
 
-async function setPermanentEventStoreItems(
+async function setClothingShopItems(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
 ) {
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
 	await update(interaction, {
-		data: calculateSetItems(interaction, PERMANENT_EVENT_STORE.allCosmetics, catalogue?.data),
+		data: calculateSetItems(interaction, CLOTHING_SHOP.allCosmetics, catalogue?.data),
 	});
 
-	await viewPermanentEventStore(interaction);
+	await viewClothingShop(interaction);
 }
 
 async function setNestingWorkshopItems(

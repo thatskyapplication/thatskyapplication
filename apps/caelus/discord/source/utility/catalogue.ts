@@ -84,6 +84,6 @@ export const enum CatalogueType {
 	Events = 3,
 	StarterPacks = 4,
 	SecretArea = 5,
-	PermanentEventStore = 6,
+	ClothingShop = 6,
 	NestingWorkshop = 7,
 }

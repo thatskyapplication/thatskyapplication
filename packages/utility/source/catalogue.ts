@@ -84,7 +84,7 @@ export const SECRET_AREA = {
 	allCosmetics: resolveAllCosmeticsFromItems(secretAreaItems),
 } as const;
 
-const permanentEventStoreItems = resolveOfferFromItems([
+const clothingShopItems = resolveOfferFromItems([
 	{
 		cosmetic: Cosmetic.CompanionCube,
 		cost: { candles: 50 },
@@ -95,9 +95,9 @@ const permanentEventStoreItems = resolveOfferFromItems([
 	// },
 ]);
 
-export const PERMANENT_EVENT_STORE = {
-	items: permanentEventStoreItems,
-	allCosmetics: resolveAllCosmeticsFromItems(permanentEventStoreItems),
+export const CLOTHING_SHOP = {
+	items: clothingShopItems,
+	allCosmetics: resolveAllCosmeticsFromItems(clothingShopItems),
 } as const;
 
 const nestingWorkshopItems = resolveOfferFromItems([
@@ -306,15 +306,15 @@ export function catalogueSecretAreaProgress(
 	return catalogueProgressPercentage(owned, total, round);
 }
 
-export function cataloguePermanentEventStoreOwnedProgress(data: ReadonlySet<number>) {
-	return catalogueOwnedProgress(PERMANENT_EVENT_STORE.items, data);
+export function catalogueClothingShopOwnedProgress(data: ReadonlySet<number>) {
+	return catalogueOwnedProgress(CLOTHING_SHOP.items, data);
 }
 
-export function cataloguePermanentEventStoreProgress(
+export function catalogueClothingShopProgress(
 	data: ReadonlySet<number> = new Set(),
 	round?: boolean,
 ) {
-	const { owned, total } = cataloguePermanentEventStoreOwnedProgress(data);
+	const { owned, total } = catalogueClothingShopOwnedProgress(data);
 	return catalogueProgressPercentage(owned, total, round);
 }
 
@@ -337,7 +337,7 @@ export function catalogueAllProgress(data: ReadonlySet<number> = new Set(), roun
 		catalogueEventOwnedProgress([...skyEvents().values()], data),
 		catalogueStarterPackOwnedProgress(data),
 		catalogueSecretAreaOwnedProgress(data),
-		cataloguePermanentEventStoreOwnedProgress(data),
+		catalogueClothingShopOwnedProgress(data),
 		catalogueNestingWorkshopOwnedProgress(data),
 	];
 

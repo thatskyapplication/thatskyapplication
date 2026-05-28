@@ -15,7 +15,7 @@ export const enum CustomId {
 	CatalogueViewEvents = "13",
 	CatalogueViewStarterPacks = "14",
 	CatalogueViewSecretArea = "15",
-	CatalogueViewPermanentEventStore = "16",
+	CatalogueViewClothingShop = "16",
 	CatalogueViewNestingWorkshop = "17",
 	CatalogueViewReturningSpirits = "18",
 	CatalogueSettingsEverything = "19",

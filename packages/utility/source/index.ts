@@ -27,14 +27,15 @@ export {
 } from "./assets.js";
 export {
 	type CataloguePacket,
+	CLOTHING_SHOP,
 	catalogueAllProgress,
+	catalogueClothingShopOwnedProgress,
+	catalogueClothingShopProgress,
 	catalogueEventOwnedProgress,
 	catalogueEventProgress,
 	catalogueNestingWorkshopOwnedProgress,
 	catalogueNestingWorkshopProgress,
 	catalogueOwnedProgress,
-	cataloguePermanentEventStoreOwnedProgress,
-	cataloguePermanentEventStoreProgress,
 	catalogueProgressPercentage,
 	catalogueRemainingCurrency,
 	catalogueSeasonOwnedProgress,
@@ -46,7 +47,6 @@ export {
 	catalogueStarterPackOwnedProgress,
 	catalogueStarterPackProgress,
 	NESTING_WORKSHOP,
-	PERMANENT_EVENT_STORE,
 	SECRET_AREA,
 	STARTER_PACKS,
 } from "./catalogue.js";

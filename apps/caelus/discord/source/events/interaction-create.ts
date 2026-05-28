@@ -37,10 +37,10 @@ import {
 	setSeason,
 	setSeasonItems,
 	updateEverythingButtonSetting,
+	viewClothingShop,
 	viewElders,
 	viewEvents,
 	viewNestingWorkshop,
-	viewPermanentEventStore,
 	viewRealm,
 	viewRealms,
 	viewReturningSpirits,
@@ -429,8 +429,8 @@ export default {
 					return;
 				}
 
-				if (id === CustomId.CatalogueViewPermanentEventStore) {
-					await viewPermanentEventStore(data);
+				if (id === CustomId.CatalogueViewClothingShop) {
+					await viewClothingShop(data);
 					return;
 				}
 
