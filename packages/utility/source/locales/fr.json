@@ -2566,7 +2566,7 @@
 			"events": "Événements",
 			"starter-packs": "Packs de début",
 			"secret-area": "Zone secrète",
-			"permanent-event-store": "Boutique événementielle permanente",
+			"clothing-shop": "",
 			"nesting-workshop": "Atelier de la Nidification",
 			"main-no-progress": "Aucun progrès",
 			"main-progress": "Progrès : {{number}}%",
@@ -2612,7 +2612,7 @@
 			"event-next-event": "Événement suivant",
 			"starter-packs-title": "## Packs de débutants\n\n-# Catalogue",
 			"secret-area-title": "## Zone secrète\n\n-# Catalogue",
-			"permanent-event-store-title": "## Magasin d'événement permanent\n\n-# Catalogue",
+			"clothing-shop-title": "",
 			"nesting-workshop-title": "## Atelier de la Nidification\n\n-# Catalogue",
 			"items": "Éléments",
 			"remaining-currency": "Devises restantes"

@@ -2566,7 +2566,7 @@
 			"events": "Eventos",
 			"starter-packs": "Pacotes de iniciante",
 			"secret-area": "Área secreta",
-			"permanent-event-store": "Loja de evento permanente",
+			"clothing-shop": "",
 			"nesting-workshop": "Oficina do Ninho",
 			"main-no-progress": "Sem progresso",
 			"main-progress": "Progresso: {{number}}%",
@@ -2612,7 +2612,7 @@
 			"event-next-event": "Próximo evento",
 			"starter-packs-title": "## Pacotes de iniciante\n\n-# Catálogo",
 			"secret-area-title": "## Área secreta\n\n-# Catálogo",
-			"permanent-event-store-title": "## Loja de eventos permanente\n\n-# Catálogo",
+			"clothing-shop-title": "",
 			"nesting-workshop-title": "## Oficina do Ninho\n\n-# Catálogo",
 			"items": "Itens",
 			"remaining-currency": "Moedas restantes"

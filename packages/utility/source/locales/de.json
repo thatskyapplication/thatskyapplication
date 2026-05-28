@@ -2566,7 +2566,7 @@
 			"events": "Events",
 			"starter-packs": "Starterpaket",
 			"secret-area": "Geheimversteck",
-			"permanent-event-store": "Permanenter Event-Shop",
+			"clothing-shop": "",
 			"nesting-workshop": "Nest-Werkstatt",
 			"main-no-progress": "Kein Fortschritt",
 			"main-progress": "Fortschritt: {{number}}%",
@@ -2612,7 +2612,7 @@
 			"event-next-event": "",
 			"starter-packs-title": "",
 			"secret-area-title": "",
-			"permanent-event-store-title": "",
+			"clothing-shop-title": "",
 			"nesting-workshop-title": "",
 			"items": "",
 			"remaining-currency": ""

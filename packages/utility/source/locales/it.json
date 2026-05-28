@@ -2566,7 +2566,7 @@
 			"events": "",
 			"starter-packs": "",
 			"secret-area": "",
-			"permanent-event-store": "",
+			"clothing-shop": "",
 			"nesting-workshop": "",
 			"main-no-progress": "",
 			"main-progress": "",
@@ -2612,7 +2612,7 @@
 			"event-next-event": "",
 			"starter-packs-title": "",
 			"secret-area-title": "",
-			"permanent-event-store-title": "",
+			"clothing-shop-title": "",
 			"nesting-workshop-title": "",
 			"items": "",
 			"remaining-currency": ""

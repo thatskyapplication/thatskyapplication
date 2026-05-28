@@ -2566,7 +2566,7 @@
 			"events": "Eventos",
 			"starter-packs": "Packs de inicio",
 			"secret-area": "Área secreta",
-			"permanent-event-store": "Tienda permanente de evento",
+			"clothing-shop": "",
 			"nesting-workshop": "Taller acogedor",
 			"main-no-progress": "Sin progreso",
 			"main-progress": "Progreso: {{number}}%",
@@ -2612,7 +2612,7 @@
 			"event-next-event": "",
 			"starter-packs-title": "",
 			"secret-area-title": "",
-			"permanent-event-store-title": "",
+			"clothing-shop-title": "",
 			"nesting-workshop-title": "",
 			"items": "",
 			"remaining-currency": ""
