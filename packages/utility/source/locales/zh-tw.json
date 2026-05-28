@@ -2566,7 +2566,7 @@
 			"events": "活動",
 			"starter-packs": "入門包",
 			"secret-area": "秘密區域",
-			"permanent-event-store": "永久活動商店",
+			"clothing-shop": "",
 			"nesting-workshop": "雲巢工作坊",
 			"main-no-progress": "沒有進展",
 			"main-progress": "進度: {{number}}%",
@@ -2612,7 +2612,7 @@
 			"event-next-event": "",
 			"starter-packs-title": "",
 			"secret-area-title": "",
-			"permanent-event-store-title": "",
+			"clothing-shop-title": "",
 			"nesting-workshop-title": "",
 			"items": "",
 			"remaining-currency": ""
