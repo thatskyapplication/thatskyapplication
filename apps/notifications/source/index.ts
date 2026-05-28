@@ -378,10 +378,13 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 								lng: notificationPacket.locale,
 								ns: "features",
 								timestamp: notification.timestamp,
-								spirit: t(`spirits.${travellingSpirit!.spiritId}`, {
+								spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
 									lng: notificationPacket.locale,
 									ns: "general",
-								}),
+								})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+									lng: notificationPacket.locale,
+									ns: "general",
+								})})`,
 							});
 
 				try {
