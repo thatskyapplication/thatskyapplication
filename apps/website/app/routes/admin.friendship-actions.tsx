@@ -246,6 +246,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 				type: friendshipActionType,
 				users: validatedUserIds,
 				square: validatedUpload.square,
+				skip: false,
 				reference,
 			},
 			"*",

@@ -3,6 +3,7 @@ export interface FriendshipActionsPacket {
 	type: number;
 	users: readonly string[];
 	square: boolean;
+	skip: boolean;
 	reference: string;
 }
 

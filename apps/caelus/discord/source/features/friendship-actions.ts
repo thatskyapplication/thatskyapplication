@@ -158,7 +158,7 @@ export async function friendshipActionComponents({
 	if (!resolvedId) {
 		const friendshipActionsPacket = await pg<FriendshipActionsPacket>(Table.FriendshipActions)
 			.select("id")
-			.where({ type })
+			.where({ type, skip: false })
 			.orderByRaw("random()")
 			.limit(1)
 			.first();
