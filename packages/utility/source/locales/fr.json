@@ -101,7 +101,8 @@
 			"12": "Esprit voyageur",
 			"13": "",
 			"14": "Atelier de la Nidification",
-			"15": "$t(general:maintenance)"
+			"15": "$t(general:maintenance)",
+			"16": "$t(general:events)"
 		},
 		"page": "Page",
 		"quests-common": {
@@ -486,6 +487,7 @@
 			"28": ""
 		},
 		"event": "Évènement",
+		"events": "",
 		"event-names": {
 			"halloween-office-event": "",
 			"days-of-giving": "Jours du Don",
@@ -2734,7 +2736,7 @@
 			"type": {
 				"0": "Esprits",
 				"1": "Esprits (difficile)",
-				"2": "Évènements"
+				"2": "$t(general:events)"
 			},
 			"title": "D'où cela vient ?",
 			"guess-in": "Devinez {{time}} !",
@@ -2860,6 +2862,10 @@
 					"message-future": "Les stocks de l'Atelier de la Nidification seront rafraichis {{timestamp}} !"
 				},
 				"15": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"16": {
 					"message-now": "",
 					"message-future": ""
 				}
