@@ -32,6 +32,10 @@ export function skyCurrentEvents(date: DateTime): ReadonlyCollection<EventIds, E
 	return EVENTS.filter(({ start, end }) => date >= start && date < end);
 }
 
+export function skyUpcomingEvents(date: DateTime): ReadonlyCollection<EventIds, Event> {
+	return EVENTS.filter(({ start }) => start >= date);
+}
+
 export function skyNotEndedEvents(date: DateTime): ReadonlyCollection<EventIds, Event> {
 	return EVENTS.filter(({ end }) => date < end);
 }
