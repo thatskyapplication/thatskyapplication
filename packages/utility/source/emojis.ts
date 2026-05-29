@@ -1321,7 +1321,7 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 */
 	Shoe08: { id: "1313934748933947473", name: "08_shoe" },
 	/**
-	 * Style Bunny Slippers.
+	 * Moonlight Bunny Slippers.
 	 */
 	Shoe09: { id: "1313934745662525580", name: "09_shoe" },
 	/**
@@ -1830,7 +1830,7 @@ const MASK_EMOJIS_PRODUCTION = {
 	 */
 	Mask100: { id: "1366372066298695720", name: "100_mask" },
 	/**
-	 * Rainbow Face Paint Mask.
+	 * Rainbow Facepaint.
 	 */
 	Mask101: { id: "1376530171292680212", name: "101_mask" },
 	/**
@@ -2255,7 +2255,7 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 */
 	Necklace22: { id: "1392504527952810025", name: "22_necklace" },
 	/**
-	 * Jelly Shoulder Buddy.
+	 * Sunlight Jelly Shoulder Buddy.
 	 */
 	Necklace23: { id: "1392503199893688331", name: "23_necklace" },
 	/**
@@ -3090,7 +3090,7 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 */
 	Hair158: { id: "1338231103885934796", name: "158_hair" },
 	/**
-	 * Amethyst-Tipped Tails.
+	 * Days of Love Amethyst-Tipped Tails.
 	 */
 	Hair159: { id: "1338232780793839736", name: "159_hair" },
 	/**
@@ -3407,11 +3407,11 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	HairAccessory07: { id: "1313936943591067740", name: "07_hair_accessory" },
 	/**
-	 * Summer Shell Hair Pin.
+	 * Summer Seashell Hairpin.
 	 */
 	HairAccessory08: { id: "1313936946892116028", name: "08_hair_accessory" },
 	/**
-	 * Bunny Accessory.
+	 * Moonlight Bunny Accessory.
 	 */
 	HairAccessory09: { id: "1313937002487349298", name: "09_hair_accessory" },
 	/**
@@ -3547,7 +3547,7 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	HairAccessory42: { id: "1313936964210266122", name: "42_hair_accessory" },
 	/**
-	 * SkyFest Oreo Headband.
+	 * Anniversary Oreo Headband.
 	 */
 	HairAccessory43: { id: "1313936985789829200", name: "43_hair_accessory" },
 	/**
@@ -3591,7 +3591,7 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 */
 	HairAccessory53: { id: "1330662827316477952", name: "53_hair_accessory" },
 	/**
-	 * Amethyst Accessory.
+	 * Days of Love Amethyst Accessory.
 	 */
 	HairAccessory54: { id: "1338232440082272316", name: "54_hair_accessory" },
 	/**
@@ -4505,7 +4505,7 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 */
 	Cape146: { id: "1354387222064791583", name: "146_cape" },
 	/**
-	 * Bloom Rose Embroidered Cape.
+	 * Bloom Rose-Embroidered Cape.
 	 */
 	Cape147: { id: "1353521854467412101", name: "147_cape" },
 	/**
@@ -4529,7 +4529,7 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 */
 	Cape152: { id: "1366371481830817815", name: "152_cape" },
 	/**
-	 * Rainbow Ribbon Shawl.
+	 * Rainbow Shawl.
 	 */
 	Cape153: { id: "1376529616486797342", name: "153_cape" },
 	/**
@@ -4910,7 +4910,7 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	HeldProp17: { id: "1313937994071277658", name: "17_held_prop" },
 	/**
-	 * Days of Summer Lights 2020.
+	 * Moonlight Lantern.
 	 */
 	HeldProp18: { id: "1313938058747314257", name: "18_held_prop" },
 	/**
@@ -4930,7 +4930,7 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	HeldProp22: { id: "1313938016724582510", name: "22_held_prop" },
 	/**
-	 * Summer Umbrella.
+	 * Summer Parasol.
 	 */
 	HeldProp23: { id: "1313937996621283338", name: "23_held_prop" },
 	/**
@@ -5822,7 +5822,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	SmallPlaceableProp17: { id: "1313938747477463092", name: "17_small_placeable_prop" },
 	/**
-	 * Campfire Snack Kit.
+	 * Sunlight Campfire Snack Kit.
 	 */
 	SmallPlaceableProp18: { id: "1313938710672179342", name: "18_small_placeable_prop" },
 	/**
@@ -9302,7 +9302,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.DaysOfNature2026Prop2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp123,
 		[Cosmetic.CharmingCreatureOutfit]: OUTFIT_EMOJIS.Outfit104,
 		[Cosmetic.CharmingCreatureHeadAccessory]: HEAD_ACCESSORY_EMOJIS.HeadAccessory26,
-		[Cosmetic.OceanVeilHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory75,
+		[Cosmetic.OceanVeilHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory74,
 		[Cosmetic.CarnivalGuideQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.CarnivalPendant]: NECKLACE_EMOJIS.Necklace55,
 		[Cosmetic.CarnivalGuideUltimateHair]: HAIR_EMOJIS.Hair179,
