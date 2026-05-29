@@ -786,6 +786,18 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.RainbowDoubleFlower",
 	},
 	{
+		upstreamKey: "commerce_item_name_rainbow_colorberet",
+		tsKey: "Cosmetic.RainbowBeret",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_colortied_jumpsuit",
+		tsKey: "Cosmetic.RainbowTiedJumpsuit",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_colorsleek",
+		tsKey: "Cosmetic.RainbowMask",
+	},
+	{
 		upstreamKey: "sheet_32",
 		tsKey: "Cosmetic.AncientLightMantaMusicSheet",
 	},
@@ -1018,6 +1030,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.DarkRainbowLoafers",
 	},
 	{
+		upstreamKey: "commerce_item_name_rainbow_bubblemachine",
+		tsKey: "Cosmetic.ColourBubbleMachine",
+	},
+	{
 		upstreamKey: "commerce_item_name_tgcwireframe",
 		tsKey: "Cosmetic.SkyFestWireframeCape",
 	},
@@ -1100,6 +1116,14 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "commerce_item_name_nature_maskwaves",
 		tsKey: "Cosmetic.OceanWavesMask",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_shawl",
+		tsKey: "Cosmetic.RainbowRibbonShawl",
+	},
+	{
+		upstreamKey: "commerce_item_name_rainbow_facepaint",
+		tsKey: "Cosmetic.RainbowFacePaintMask",
 	},
 	{
 		upstreamKey: "commerce_item_name_tgcwireframe_evergreen",
