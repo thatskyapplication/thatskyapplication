@@ -3587,6 +3587,9 @@ export enum Cosmetic {
 	PerformanceGuideBlessing4 = 2833,
 	DuetsGuideDuetBow3 = 2834,
 	DuetsGuideDuetBow4 = 2835,
+
+	// 29/05/2026 | Season of Carnival Quest 4.
+	CarnivalGuideQuest4 = 2836,
 }
 
 export enum CosmeticCommon {

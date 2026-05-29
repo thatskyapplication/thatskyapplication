@@ -69,7 +69,10 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				null,
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
+					cosmetic: Cosmetic.CarnivalGuideQuest4,
+				},
 				{
 					translation: CosmeticCommon.BouncePad,
 					cosmetic: Cosmetic.BouncePad1,
