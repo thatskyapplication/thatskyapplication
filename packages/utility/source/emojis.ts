@@ -1168,6 +1168,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Days of Treasure 2026.
 	 */
 	Outfit109: { id: "1502282536955547809", name: "109_outfit" },
+	/**
+	 * Rainbow Tied Jumpsuit.
+	 */
+	Outfit110: { id: "1510010628541124638", name: "110_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1280,6 +1284,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit107: { id: "1494847941410689024", name: "107_outfit" },
 	Outfit108: { id: "1495324967699611779", name: "108_outfit" },
 	Outfit109: { id: "1502282557109178469", name: "109_outfit" },
+	Outfit110: { id: "1510010638544404693", name: "110_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1872,6 +1877,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Carnival Juggler.
 	 */
 	Mask112: { id: "1494828277305442370", name: "112_mask" },
+	/**
+	 * Rainbow mask.
+	 */
+	Mask113: { id: "1510009681383391394", name: "113_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -1987,6 +1996,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask110: { id: "1471652342888661238", name: "110_mask" },
 	Mask111: { id: "1494754842030248217", name: "111_mask" },
 	Mask112: { id: "1494828283416547540", name: "112_mask" },
+	Mask113: { id: "1510009688844927078", name: "113_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -3684,6 +3694,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * FlOw flower.
 	 */
 	HairAccessory79: { id: "1506644769697431622", name: "79_hair_accessory" },
+	/**
+	 * Rainbow Beret.
+	 */
+	HairAccessory80: { id: "1510010357354070016", name: "80_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3766,6 +3780,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory77: { id: "1495325748162990151", name: "77_hair_accessory" },
 	HairAccessory78: { id: "1502284157383086160", name: "78_hair_accessory" },
 	HairAccessory79: { id: "1506644771257716828", name: "79_hair_accessory" },
+	HairAccessory80: { id: "1510010366485201037", name: "80_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -9382,9 +9397,9 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.DaysOfColour2026ManateeKite]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp116,
 		[Cosmetic.DaysOfColour2026WhaleKite]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp117,
 		[Cosmetic.DaysOfColour2026LighthornKite]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp118,
-		[Cosmetic.RainbowBeret]: null,
-		[Cosmetic.RainbowTiedJumpsuit]: null,
-		[Cosmetic.RainbowMask]: null,
+		[Cosmetic.RainbowBeret]: HAIR_ACCESSORY_EMOJIS.HairAccessory80,
+		[Cosmetic.RainbowTiedJumpsuit]: OUTFIT_EMOJIS.Outfit110,
+		[Cosmetic.RainbowMask]: MASK_EMOJIS.Mask113,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
