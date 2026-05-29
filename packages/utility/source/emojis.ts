@@ -9316,6 +9316,20 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.DuetsGuideDuetBow3]: FRIEND_ACTION_EMOJIS.DuetBow,
 		[Cosmetic.DuetsGuideDuetBow4]: FRIEND_ACTION_EMOJIS.DuetBow,
 		[Cosmetic.CarnivalGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.DaysOfColour2026Prop]: null,
+		[Cosmetic.DaysOfColour2026Hair]: null,
+		[Cosmetic.DaysOfColour2026Cape]: null,
+		[Cosmetic.DaysOfColour2026CrabKite]: null,
+		[Cosmetic.DaysOfColour2026BirdKite]: null,
+		[Cosmetic.DaysOfColour2026MantaKite]: null,
+		[Cosmetic.DaysOfColour2026JellyfishKite]: null,
+		[Cosmetic.DaysOfColour2026TurtleKite]: null,
+		[Cosmetic.DaysOfColour2026ManateeKite]: null,
+		[Cosmetic.DaysOfColour2026WhaleKite]: null,
+		[Cosmetic.DaysOfColour2026LighthornKite]: null,
+		[Cosmetic.RainbowBeret]: null,
+		[Cosmetic.RainbowTiedJumpsuit]: null,
+		[Cosmetic.RainbowMask]: null,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

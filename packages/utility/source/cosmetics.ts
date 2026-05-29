@@ -3590,6 +3590,22 @@ export enum Cosmetic {
 
 	// 29/05/2026 | Season of Carnival Quest 4.
 	CarnivalGuideQuest4 = 2836,
+
+	// 29/05/2026 | Days of Colour.
+	DaysOfColour2026Prop = 2837,
+	DaysOfColour2026Hair = 2838,
+	DaysOfColour2026Cape = 2839,
+	DaysOfColour2026CrabKite = 2840,
+	DaysOfColour2026BirdKite = 2841,
+	DaysOfColour2026MantaKite = 2842,
+	DaysOfColour2026JellyfishKite = 2843,
+	DaysOfColour2026TurtleKite = 2844,
+	DaysOfColour2026ManateeKite = 2845,
+	DaysOfColour2026WhaleKite = 2846,
+	DaysOfColour2026LighthornKite = 2847,
+	RainbowBeret = 2848,
+	RainbowTiedJumpsuit = 2849,
+	RainbowMask = 2850,
 }
 
 export enum CosmeticCommon {

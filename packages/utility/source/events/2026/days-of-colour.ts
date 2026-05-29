@@ -1,3 +1,4 @@
+import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventId } from "../../utility/event.js";
@@ -27,4 +28,65 @@ export default new Event({
 			},
 		],
 	},
+	offer: [
+		{
+			translation: CosmeticCommon.Prop,
+			cosmetic: Cosmetic.DaysOfColour2026Prop,
+			cost: { eventTickets: 19 },
+		},
+		{
+			translation: CosmeticCommon.Hair,
+			cosmetic: Cosmetic.DaysOfColour2026Hair,
+			cost: { eventTickets: 21 },
+		},
+		{
+			translation: CosmeticCommon.Cape,
+			cosmetic: Cosmetic.DaysOfColour2026Cape,
+			cost: { eventTickets: 30 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfColour2026CrabKite,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfColour2026BirdKite,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfColour2026MantaKite,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfColour2026JellyfishKite,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfColour2026TurtleKite,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfColour2026ManateeKite,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfColour2026WhaleKite,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.DaysOfColour2026LighthornKite,
+			cost: { candles: 15 },
+		},
+		{
+			cosmetic: Cosmetic.RainbowBeret,
+			cost: { money: 19.99 },
+		},
+		{
+			cosmetic: Cosmetic.RainbowTiedJumpsuit,
+			cost: { money: 9.99 },
+		},
+		{
+			cosmetic: Cosmetic.RainbowMask,
+			cost: { money: 4.99 },
+		},
+	],
 });
