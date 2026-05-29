@@ -5602,6 +5602,18 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Bounce pad 3.
 	 */
 	LargePlaceableProp115: { id: "1506377582528954478", name: "115_large_placeable_prop" },
+	/**
+	 * Days of Colour 2026 manatee kite.
+	 */
+	LargePlaceableProp116: { id: "1510008602650214410", name: "116_large_placeable_prop" },
+	/**
+	 * Days of Colour 2026 whale kite.
+	 */
+	LargePlaceableProp117: { id: "1510008605586489405", name: "117_large_placeable_prop" },
+	/**
+	 * Days of Colour 2026 lighthorn kite.
+	 */
+	LargePlaceableProp118: { id: "1510008607276794107", name: "118_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5720,6 +5732,9 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp113: { id: "1502288934271717466", name: "113_large_placeable_prop" },
 	LargePlaceableProp114: { id: "1506377588992512071", name: "114_large_placeable_prop" },
 	LargePlaceableProp115: { id: "1506377590724759598", name: "115_large_placeable_prop" },
+	LargePlaceableProp116: { id: "1510008612142190762", name: "116_large_placeable_prop" },
+	LargePlaceableProp117: { id: "1510008614461636829", name: "117_large_placeable_prop" },
+	LargePlaceableProp118: { id: "1510008616441090058", name: "118_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6220,6 +6235,26 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Days of Colour 2026 butterfly kite.
 	 */
 	SmallPlaceableProp125: { id: "1509850377653059675", name: "125_small_placeable_prop" },
+	/**
+	 * Days of Colour 2026 crab kite.
+	 */
+	SmallPlaceableProp126: { id: "1510006724222910514", name: "126_small_placeable_prop" },
+	/**
+	 * Days of Colour 2026 bird kite.
+	 */
+	SmallPlaceableProp127: { id: "1510006727758708767", name: "127_small_placeable_prop" },
+	/**
+	 * Days of Colour 2026 manta kite.
+	 */
+	SmallPlaceableProp128: { id: "1510006730732605642", name: "128_small_placeable_prop" },
+	/**
+	 * Days of Colour 2026 jellyfish kite.
+	 */
+	SmallPlaceableProp129: { id: "1510006733186269364", name: "129_small_placeable_prop" },
+	/**
+	 * Days of Colour 2026 turtle kite.
+	 */
+	SmallPlaceableProp130: { id: "1510006735203467294", name: "130_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6347,6 +6382,11 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp123: { id: "1492226496918589571", name: "123_small_placeable_prop" },
 	SmallPlaceableProp124: { id: "1494696463832186910", name: "124_small_placeable_prop" },
 	SmallPlaceableProp125: { id: "1509850384989032518", name: "125_small_placeable_prop" },
+	SmallPlaceableProp126: { id: "1510006737569189938", name: "126_small_placeable_prop" },
+	SmallPlaceableProp127: { id: "1510006739322277888", name: "127_small_placeable_prop" },
+	SmallPlaceableProp128: { id: "1510006740958056468", name: "128_small_placeable_prop" },
+	SmallPlaceableProp129: { id: "1510006742904213545", name: "129_small_placeable_prop" },
+	SmallPlaceableProp130: { id: "1510006744724799559", name: "130_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9334,14 +9374,14 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.DaysOfColour2026ButterflyKite]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp125,
 		[Cosmetic.DaysOfColour2026Hair]: HAIR_EMOJIS.Hair183,
 		[Cosmetic.DaysOfColour2026Cape]: CAPE_EMOJIS.Cape183,
-		[Cosmetic.DaysOfColour2026CrabKite]: null,
-		[Cosmetic.DaysOfColour2026BirdKite]: null,
-		[Cosmetic.DaysOfColour2026MantaKite]: null,
-		[Cosmetic.DaysOfColour2026JellyfishKite]: null,
-		[Cosmetic.DaysOfColour2026TurtleKite]: null,
-		[Cosmetic.DaysOfColour2026ManateeKite]: null,
-		[Cosmetic.DaysOfColour2026WhaleKite]: null,
-		[Cosmetic.DaysOfColour2026LighthornKite]: null,
+		[Cosmetic.DaysOfColour2026CrabKite]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp126,
+		[Cosmetic.DaysOfColour2026BirdKite]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp127,
+		[Cosmetic.DaysOfColour2026MantaKite]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp128,
+		[Cosmetic.DaysOfColour2026JellyfishKite]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp129,
+		[Cosmetic.DaysOfColour2026TurtleKite]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp130,
+		[Cosmetic.DaysOfColour2026ManateeKite]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp116,
+		[Cosmetic.DaysOfColour2026WhaleKite]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp117,
+		[Cosmetic.DaysOfColour2026LighthornKite]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp118,
 		[Cosmetic.RainbowBeret]: null,
 		[Cosmetic.RainbowTiedJumpsuit]: null,
 		[Cosmetic.RainbowMask]: null,
