@@ -8,6 +8,10 @@ export function notificationNonce(
 	key: string | number | undefined,
 ) {
 	return createHash("md5")
-		.update(key ? `${notificationType}-${key}-${channelId}` : `${notificationType}-${channelId}`)
+		.update(
+			key === undefined
+				? `${notificationType}-${channelId}`
+				: `${notificationType}-${key}-${channelId}`,
+		)
 		.digest("base64url");
 }
