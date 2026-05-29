@@ -30,7 +30,6 @@ export default new Event({
 	},
 	offer: [
 		{
-			translation: CosmeticCommon.Prop,
 			cosmetic: Cosmetic.DaysOfColour2026ButterflyKite,
 			cost: { eventTickets: 19 },
 		},
