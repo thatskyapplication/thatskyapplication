@@ -101,7 +101,8 @@
 			"12": "再訪する精霊",
 			"13": "スケーター",
 			"14": "巣づくり工房",
-			"15": "$t(general:maintenance)"
+			"15": "$t(general:maintenance)",
+			"16": "$t(general:events)"
 		},
 		"page": "ページ",
 		"quests-common": {
@@ -486,6 +487,7 @@
 			"28": ""
 		},
 		"event": "",
+		"events": "イベント",
 		"event-names": {
 			"halloween-office-event": "",
 			"days-of-giving": "感謝の日々",
@@ -2734,7 +2736,7 @@
 			"type": {
 				"0": "精霊",
 				"1": "精霊（Hard）",
-				"2": "イベント"
+				"2": "$t(general:events)"
 			},
 			"title": "この絵に当てはまるのは？",
 			"guess-in": "残り{{time}}!",
@@ -2850,6 +2852,10 @@
 					"message-future": ""
 				},
 				"15": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"16": {
 					"message-now": "",
 					"message-future": ""
 				}

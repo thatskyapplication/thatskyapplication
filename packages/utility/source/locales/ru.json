@@ -101,7 +101,8 @@
 			"12": "Дух-путник",
 			"13": "Юная фигуристка",
 			"14": "Мастерская Гнездования",
-			"15": "$t(general:maintenance)"
+			"15": "$t(general:maintenance)",
+			"16": "$t(general:events)"
 		},
 		"page": "Страница",
 		"quests-common": {
@@ -486,6 +487,7 @@
 			"28": ""
 		},
 		"event": "",
+		"events": "",
 		"event-names": {
 			"halloween-office-event": "",
 			"days-of-giving": "Дни Дарения",
@@ -2734,7 +2736,7 @@
 			"type": {
 				"0": "",
 				"1": "",
-				"2": ""
+				"2": "$t(general:events)"
 			},
 			"title": "",
 			"guess-in": "",
@@ -2850,6 +2852,10 @@
 					"message-future": "Ассортимент Мастерской Гнездования будет обновлён {{timestamp}}!"
 				},
 				"15": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"16": {
 					"message-now": "",
 					"message-future": ""
 				}

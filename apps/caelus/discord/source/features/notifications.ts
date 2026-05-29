@@ -18,6 +18,7 @@ import {
 import {
 	formatEmoji,
 	NOTIFICATION_TYPE_VALUES,
+	NotificationOffsetToMaximumValues,
 	type NotificationPacket,
 	type NotificationTypes,
 	Table,
@@ -30,10 +31,7 @@ import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Role } from "../models/discord/role.js";
 import pg from "../pg.js";
 import pino from "../pino.js";
-import {
-	NOTIFICATION_CHANNEL_TYPES,
-	NotificationOffsetToMaximumValues,
-} from "../utility/constants.js";
+import { NOTIFICATION_CHANNEL_TYPES } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { notInCachedGuildResponse } from "../utility/functions.js";

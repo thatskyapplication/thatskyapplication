@@ -79,6 +79,7 @@ export {
 	skyCurrentEvents,
 	skyEvents,
 	skyNotEndedEvents,
+	skyUpcomingEvents,
 } from "./events/index.js";
 export { RADIANCE_EVENTS } from "./events/miscellaneous.js";
 export {
@@ -160,6 +161,7 @@ export {
 } from "./models/spirits.js";
 export {
 	NOTIFICATION_TYPE_VALUES,
+	NotificationOffsetToMaximumValues,
 	type NotificationPacket,
 	NotificationType,
 	type NotificationTypes,

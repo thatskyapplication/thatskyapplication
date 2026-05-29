@@ -4,6 +4,7 @@ import { captureCheckIn } from "@sentry/node";
 import {
 	type AreaName,
 	de,
+	type EventIds,
 	enGB,
 	es419,
 	esES,
@@ -13,6 +14,7 @@ import {
 	ja,
 	ko,
 	MAINTENANCE_PERIODS,
+	NotificationOffsetToMaximumValues,
 	type NotificationPacket,
 	NotificationType,
 	type NotificationTypes,
@@ -20,6 +22,7 @@ import {
 	type RealmName,
 	ru,
 	shardEruption,
+	skyUpcomingEvents,
 	Table,
 	TIME_ZONE,
 	TRAVELLING_DATES,
@@ -35,6 +38,7 @@ import { NotificationError } from "./models/notification-error.js";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
+import { notificationNonce } from "./utility/functions.js";
 
 void init({
 	fallbackLng: Locale.EnglishGB,
@@ -67,7 +71,11 @@ void init({
 const client = new API(new REST({ version: "10" }).setToken(DISCORD_TOKEN));
 const travellingSpirit = TRAVELLING_DATES.last();
 const travellingSpiritStart = travellingSpirit?.start;
-const travellingSpiritEarliestNotificationTime = travellingSpiritStart?.minus(900000);
+
+const travellingSpiritEarliestNotificationTime = travellingSpiritStart?.minus({
+	minutes: NotificationOffsetToMaximumValues[NotificationType.TravellingSpirit],
+});
+
 let shardData = shardEruption();
 
 const NOTIFICATION_SHARD_ERUPTION_TYPES = [
@@ -76,6 +84,9 @@ const NOTIFICATION_SHARD_ERUPTION_TYPES = [
 ] as const satisfies Readonly<NotificationTypes[]>;
 
 type NotificationShardEruptionTypes = (typeof NOTIFICATION_SHARD_ERUPTION_TYPES)[number];
+
+const NOTIFICATION_EVENTS_MAXIMUM_OFFSET =
+	NotificationOffsetToMaximumValues[NotificationType.Events];
 
 interface NotificationsShardEruptionData {
 	type: NotificationShardEruptionTypes;
@@ -96,10 +107,20 @@ interface NotificationsMaintenanceData {
 	timestampEndRelative: `<t:${number}:R>`;
 }
 
+interface NotificationsEventData {
+	type: typeof NotificationType.Events;
+	timeUntilStart: number;
+	eventId: EventIds;
+	eventName: `event-names.${string}`;
+	timestamp: `<t:${number}:R>`;
+}
+
 interface NotificationsNotShardEruptionData {
 	type: Exclude<
 		NotificationTypes,
-		NotificationShardEruptionTypes | typeof NotificationType.Maintenance
+		| NotificationShardEruptionTypes
+		| typeof NotificationType.Maintenance
+		| typeof NotificationType.Events
 	>;
 	timeUntilStart: number;
 	timestamp: `<t:${number}:R>`;
@@ -108,6 +129,7 @@ interface NotificationsNotShardEruptionData {
 type NotificationsData =
 	| NotificationsShardEruptionData
 	| NotificationsMaintenanceData
+	| NotificationsEventData
 	| NotificationsNotShardEruptionData;
 
 function isNotificationShardEruptionData(
@@ -141,6 +163,20 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 				timestampStartRelative: `<t:${maintenancePeriod.start.toUnixInteger()}:R>`,
 				timestampEnd: `<t:${maintenancePeriod.end.toUnixInteger()}:t>`,
 				timestampEndRelative: `<t:${maintenancePeriod.end.toUnixInteger()}:R>`,
+			});
+		}
+	}
+
+	for (const event of skyUpcomingEvents(date).values()) {
+		const timeUntilStart = Math.floor(event.start.diff(date, "minutes").minutes);
+
+		if (timeUntilStart >= 0 && timeUntilStart <= NOTIFICATION_EVENTS_MAXIMUM_OFFSET) {
+			notifications.push({
+				type: NotificationType.Events,
+				timeUntilStart,
+				eventId: event.id,
+				eventName: event.name,
+				timestamp: `<t:${event.start.toUnixInteger()}:R>`,
 			});
 		}
 	}
@@ -374,18 +410,31 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 								timestampEnd: notification.timestampEnd,
 								timestampEndRelative: notification.timestampEndRelative,
 							})
-						: t(`notifications.messages.${type}.message-${key}`, {
-								lng: notificationPacket.locale,
-								ns: "features",
-								timestamp: notification.timestamp,
-								spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+						: notification.type === NotificationType.Events
+							? t(`notifications.messages.${type}.message-${key}`, {
 									lng: notificationPacket.locale,
-									ns: "general",
-								})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+									ns: "features",
+									event: `[${t(notification.eventName, {
+										lng: notificationPacket.locale,
+										ns: "general",
+									})}](${t(`event-wiki.${notification.eventId}`, {
+										lng: notificationPacket.locale,
+										ns: "general",
+									})})`,
+									timestamp: notification.timestamp,
+								})
+							: t(`notifications.messages.${type}.message-${key}`, {
 									lng: notificationPacket.locale,
-									ns: "general",
-								})})`,
-							});
+									ns: "features",
+									timestamp: notification.timestamp,
+									spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+										lng: notificationPacket.locale,
+										ns: "general",
+									})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+										lng: notificationPacket.locale,
+										ns: "general",
+									})})`,
+								});
 
 				try {
 					return await client.channels.createMessage(notificationPacket.channel_id, {
@@ -393,7 +442,11 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 						content: `<@&${notificationPacket.role_id}> ${message}`,
 						enforce_nonce: true,
 						flags: MessageFlags.SuppressEmbeds,
-						nonce: `${type}-${notificationPacket.channel_id}`,
+						nonce: notificationNonce(
+							type,
+							notificationPacket.channel_id,
+							notification.type === NotificationType.Events ? notification.eventId : undefined,
+						),
 					});
 				} catch (error) {
 					throw new NotificationError(notificationPacket, error);

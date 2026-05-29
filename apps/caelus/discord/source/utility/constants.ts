@@ -9,8 +9,6 @@ import {
 	it,
 	ja,
 	ko,
-	NotificationType,
-	type NotificationTypes,
 	ptBR,
 	ru,
 	th,
@@ -105,26 +103,6 @@ export const NOTIFICATION_CHANNEL_TYPES = [
 	ChannelType.GuildText,
 	ChannelType.GuildAnnouncement,
 ] as const satisfies Readonly<ChannelType[]>;
-
-// Cannot exceed 24.
-export const NotificationOffsetToMaximumValues = {
-	[NotificationType.DailyReset]: 15,
-	[NotificationType.EyeOfEden]: 24,
-	[NotificationType.InternationalSpaceStation]: 10,
-	[NotificationType.Dragon]: 10,
-	[NotificationType.PollutedGeyser]: 10,
-	[NotificationType.Grandma]: 10,
-	[NotificationType.Turtle]: 10,
-	[NotificationType.RegularShardEruption]: 10,
-	[NotificationType.StrongShardEruption]: 10,
-	[NotificationType.AURORA]: 15,
-	[NotificationType.Passage]: 5,
-	[NotificationType.AviarysFireworkFestival]: 15,
-	[NotificationType.TravellingSpirit]: 15,
-	[NotificationType.DreamsSkater]: 10,
-	[NotificationType.NestingWorkshop]: 15,
-	[NotificationType.Maintenance]: 15,
-} as const satisfies Readonly<Record<NotificationTypes, number>>;
 
 // Sky profiles.
 export const SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH = 100 as const;

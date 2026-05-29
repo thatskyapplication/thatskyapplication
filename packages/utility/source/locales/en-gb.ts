@@ -129,6 +129,7 @@ export default {
 			[NotificationType.DreamsSkater]: "Dreams skater",
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",
 			[NotificationType.Maintenance]: "$t(general:maintenance)",
+			[NotificationType.Events]: "$t(general:events)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -789,6 +790,7 @@ export default {
 			[SeasonId.Carnival]: "https://sky-children-of-the-light.fandom.com/Season_of_Carnival",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		event: "Event",
+		events: "Events",
 		"event-names": {
 			"halloween-office-event": "Halloween Office Event",
 			"days-of-giving": "Days of Giving",
@@ -2981,7 +2983,7 @@ export default {
 			"standard-spirits": "Standard spirits",
 			elders: "Elders",
 			seasons: "Seasons",
-			events: "Events",
+			events: "$t(general:events)",
 			"starter-packs": "Starter packs",
 			"secret-area": "Secret area",
 			"clothing-shop": "Clothing shop",
@@ -3154,7 +3156,7 @@ export default {
 			type: {
 				[GuessType.Spirits]: "Spirits",
 				[GuessType.SpiritsHard]: "Spirits (hard)",
-				[GuessType.Events]: "Events",
+				[GuessType.Events]: "$t(general:events)",
 			} satisfies Record<GuessTypes, string>,
 			title: "Where does this come from?",
 			"guess-in": "Guess {{time}}!",
@@ -3296,6 +3298,10 @@ export default {
 						"Maintenance is starting and is planned to end at {{timestampEnd}} ({{timestampEndRelative}}).",
 					"message-future":
 						"Maintenance will start at {{timestampStart}} ({{timestampStartRelative}}) and is planned to end at {{timestampEnd}} ({{timestampEndRelative}}).",
+				},
+				[NotificationType.Events]: {
+					"message-now": "It's time, Sky kids! {{event}} is here!",
+					"message-future": "{{event}} will be here {{timestamp}}!",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":
