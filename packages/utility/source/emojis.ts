@@ -3175,6 +3175,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Days of Treasure 2026.
 	 */
 	Hair182: { id: "1502282947460595833", name: "182_hair" },
+	/**
+	 * Days of Colour 2026.
+	 */
+	Hair183: { id: "1509849075078398082", name: "183_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3360,6 +3364,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair180: { id: "1494848169861972008", name: "180_hair" },
 	Hair181: { id: "1495326254096978021", name: "181_hair" },
 	Hair182: { id: "1502282983522963506", name: "182_hair" },
+	Hair183: { id: "1509849081743151175", name: "183_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4628,6 +4633,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * FlOw cape.
 	 */
 	Cape182: { id: "1506644767235244123", name: "182_cape" },
+	/**
+	 * Days of Colour 2026.
+	 */
+	Cape183: { id: "1509849440234504252", name: "183_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4813,6 +4822,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape180: { id: "1495325990036045844", name: "180_cape" },
 	Cape181: { id: "1502283544263917759", name: "181_cape" },
 	Cape182: { id: "1506644769009569932", name: "182_cape" },
+	Cape183: { id: "1509849447255769148", name: "183_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -6206,6 +6216,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Carnival Guide (non-ultimate).
 	 */
 	SmallPlaceableProp124: { id: "1494696455796031529", name: "124_small_placeable_prop" },
+	/**
+	 * Days of Colour 2026 butterfly kite.
+	 */
+	SmallPlaceableProp125: { id: "1509850377653059675", name: "125_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6332,6 +6346,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp122: { id: "1487147904144642158", name: "122_small_placeable_prop" },
 	SmallPlaceableProp123: { id: "1492226496918589571", name: "123_small_placeable_prop" },
 	SmallPlaceableProp124: { id: "1494696463832186910", name: "124_small_placeable_prop" },
+	SmallPlaceableProp125: { id: "1509850384989032518", name: "125_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9316,9 +9331,9 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.DuetsGuideDuetBow3]: FRIEND_ACTION_EMOJIS.DuetBow,
 		[Cosmetic.DuetsGuideDuetBow4]: FRIEND_ACTION_EMOJIS.DuetBow,
 		[Cosmetic.CarnivalGuideQuest4]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.DaysOfColour2026Prop]: null,
-		[Cosmetic.DaysOfColour2026Hair]: null,
-		[Cosmetic.DaysOfColour2026Cape]: null,
+		[Cosmetic.DaysOfColour2026ButterflyKite]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp125,
+		[Cosmetic.DaysOfColour2026Hair]: HAIR_EMOJIS.Hair183,
+		[Cosmetic.DaysOfColour2026Cape]: CAPE_EMOJIS.Cape183,
 		[Cosmetic.DaysOfColour2026CrabKite]: null,
 		[Cosmetic.DaysOfColour2026BirdKite]: null,
 		[Cosmetic.DaysOfColour2026MantaKite]: null,

@@ -3592,7 +3592,7 @@ export enum Cosmetic {
 	CarnivalGuideQuest4 = 2836,
 
 	// 29/05/2026 | Days of Colour.
-	DaysOfColour2026Prop = 2837,
+	DaysOfColour2026ButterflyKite = 2837,
 	DaysOfColour2026Hair = 2838,
 	DaysOfColour2026Cape = 2839,
 	DaysOfColour2026CrabKite = 2840,
