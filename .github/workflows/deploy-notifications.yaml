@@ -5,6 +5,8 @@ on:
       - main
     paths:
       - apps/notifications/**/*
+      # Ensure a change in events triggers this workflow.
+      - packages/utility/source/events/**/*
       - packages/utility/source/maintenance.ts
       # Ensure a shard eruption change triggers this workflow.
       - packages/utility/source/shard-eruption.ts
