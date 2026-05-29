@@ -101,7 +101,8 @@
 			"12": "Espírito viajante",
 			"13": "Patinadora dos sonhos",
 			"14": "Oficina de Nidificação",
-			"15": "$t(general:maintenance)"
+			"15": "$t(general:maintenance)",
+			"16": "$t(general:events)"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -486,6 +487,7 @@
 			"28": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_do_Circo"
 		},
 		"event": "Evento",
+		"events": "Eventos",
 		"event-names": {
 			"halloween-office-event": "Evento de Halloween do Escritório",
 			"days-of-giving": "Dias de Presentear",
@@ -2734,7 +2736,7 @@
 			"type": {
 				"0": "Espíritos",
 				"1": "Espíritos (difícil)",
-				"2": "Eventos"
+				"2": "$t(general:events)"
 			},
 			"title": "De onde isso veio?",
 			"guess-in": "Palpite {{time}}!",
@@ -2862,6 +2864,10 @@
 				"15": {
 					"message-now": "A manutenção começou e está prevista para terminar às {{timestampEnd}} ({{timestampEndRelative}}).",
 					"message-future": "A manutenção começará em {{timestampStart}} ({{timestampStartRelative}}) e está planejada para terminar em {{timestampEnd}} ({{timestampEndRelative}})."
+				},
+				"16": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",

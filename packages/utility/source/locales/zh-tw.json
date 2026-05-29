@@ -101,7 +101,8 @@
 			"12": "",
 			"13": "",
 			"14": "雲巢工作坊",
-			"15": "$t(general:maintenance)"
+			"15": "$t(general:maintenance)",
+			"16": "$t(general:events)"
 		},
 		"page": "頁次",
 		"quests-common": {
@@ -486,6 +487,7 @@
 			"28": ""
 		},
 		"event": "活動",
+		"events": "",
 		"event-names": {
 			"halloween-office-event": "搗蛋節辦公室活動",
 			"days-of-giving": "贈與節",
@@ -2734,7 +2736,7 @@
 			"type": {
 				"0": "",
 				"1": "",
-				"2": ""
+				"2": "$t(general:events)"
 			},
 			"title": "這是從哪裡來的？",
 			"guess-in": "猜猜{{time}}！",
@@ -2850,6 +2852,10 @@
 					"message-future": ""
 				},
 				"15": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"16": {
 					"message-now": "",
 					"message-future": ""
 				}
