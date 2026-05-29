@@ -570,6 +570,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.TimidBookwormMusicSheet",
 	},
 	{
+		upstreamKey: "commerce_item_name_summer_pack",
+		tsKey: "Cosmetic.DaysOfSummerLightsLantern",
+	},
+	{
 		upstreamKey: "sheet_16",
 		tsKey: "Cosmetic.ProphetOfEarthMusicSheet",
 	},
@@ -660,6 +664,18 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "commerce_item_name_littleprince_coat",
 		tsKey: "Cosmetic.LittlePrinceAsteroidJacket",
+	},
+	{
+		upstreamKey: "commerce_item_name_summer_umbrella_pack",
+		tsKey: "Cosmetic.SummerUmbrella",
+	},
+	{
+		upstreamKey: "commerce_item_name_summer_hairpin",
+		tsKey: "Cosmetic.SummerShellHairPin",
+	},
+	{
+		upstreamKey: "commerce_item_name_summerlights_bunny",
+		tsKey: "Cosmetic.SummerLightsAccessory",
 	},
 	{
 		upstreamKey: "sheet_24",
@@ -786,6 +802,14 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.RainbowDoubleFlower",
 	},
 	{
+		upstreamKey: "commerce_item_name_summer_jelly",
+		tsKey: "Cosmetic.JellyShoulderBuddy",
+	},
+	{
+		upstreamKey: "commerce_item_name_summer_marshmallow",
+		tsKey: "Cosmetic.CampfireSnackKit",
+	},
+	{
 		upstreamKey: "commerce_item_name_rainbow_colorberet",
 		tsKey: "Cosmetic.RainbowBeret",
 	},
@@ -866,6 +890,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.TournamentSkyballSet",
 	},
 	{
+		upstreamKey: "commerce_item_name_feast_furcape",
+		tsKey: "Cosmetic.CosyHermitCape",
+	},
+	{
 		upstreamKey: "commerce_item_name_fortune_muralist",
 		tsKey: "Cosmetic.DaysOfFortuneMuralistsSmock",
 	},
@@ -876,6 +904,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "commerce_item_name_love_bow",
 		tsKey: "Cosmetic.DaysOfLoveClassyCravat",
+	},
+	{
+		upstreamKey: "commerce_item_name_love_heartstaff",
+		tsKey: "Cosmetic.DaysOfLoveSerendipitousSceptre",
 	},
 	{
 		upstreamKey: "commerce_item_name_bloom_gardenerbody",
@@ -918,7 +950,7 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.AnniversaryPlush",
 	},
 	{
-		upstreamKey: "commerce_item_name_aurora_encoresneakers",
+		upstreamKey: "commerce_item_name_aurora_sneakers",
 		tsKey: "Cosmetic.MusicalVoyageSneakers",
 	},
 	{
@@ -946,6 +978,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.StyleHeartSunglasses",
 	},
 	{
+		upstreamKey: "commerce_item_name_fashion_bunnyslippers",
+		tsKey: "Cosmetic.StyleBunnySlippers",
+	},
+	{
 		upstreamKey: "commerce_item_name_fashion_jeans",
 		tsKey: "Cosmetic.StyleWideLegJeans",
 	},
@@ -968,6 +1004,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "commerce_item_name_feast_snowboard",
 		tsKey: "Cosmetic.WinterFeastSnowboard",
+	},
+	{
+		upstreamKey: "commerce_item_name_feast_yetiboots",
+		tsKey: "Cosmetic.CosyHermitBoots",
 	},
 	{
 		upstreamKey: "commerce_item_name_feast_puffercape",
@@ -1034,6 +1074,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.ColourBubbleMachine",
 	},
 	{
+		upstreamKey: "commerce_item_name_oreoheadband",
+		tsKey: "Cosmetic.SkyFestOreoHeadband",
+	},
+	{
 		upstreamKey: "commerce_item_name_tgcwireframe",
 		tsKey: "Cosmetic.SkyFestWireframeCape",
 	},
@@ -1060,6 +1104,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "commerce_item_name_sunlight_linencover",
 		tsKey: "Cosmetic.SunlightWovenWrap",
+	},
+	{
+		upstreamKey: "commerce_item_name_moonlight_earring",
+		tsKey: "Cosmetic.MoonlightEarrings",
 	},
 	{
 		upstreamKey: "commerce_item_name_moomin_hattineck",
@@ -1110,8 +1158,20 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.FortuneHandFan",
 	},
 	{
+		upstreamKey: "commerce_item_name_love_crystalhearts",
+		tsKey: "Cosmetic.DaysOfLoveAmethystAccessory",
+	},
+	{
+		upstreamKey: "commerce_item_name_love_meteorpigtails",
+		tsKey: "Cosmetic.DaysOfLoveAmethystTippedTails",
+	},
+	{
 		upstreamKey: "sheet_47",
 		tsKey: "Cosmetic.WoodcuttingPleafulParentMusicSheet",
+	},
+	{
+		upstreamKey: "commerce_item_name_bloom_rosewing",
+		tsKey: "Cosmetic.BloomRoseEmbroideredCape",
 	},
 	{
 		upstreamKey: "commerce_item_name_nature_maskwaves",
