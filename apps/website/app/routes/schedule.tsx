@@ -36,8 +36,9 @@ import { Link, useLoaderData } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
-import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
+import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
+import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
 export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
@@ -523,6 +524,7 @@ interface DisplayCard {
 	type: DisplayCardType;
 	key: string;
 	label: string;
+	dyeIcons?: readonly { label: string; url: string }[] | undefined;
 	link?: { href: string; text: string } | undefined;
 	pageHref?: string | undefined;
 	active: boolean;
@@ -711,7 +713,7 @@ export default function Schedule() {
 		}
 	}
 
-	for (const { start, end } of RADIANCE_EVENTS) {
+	for (const { start, end, dyes } of RADIANCE_EVENTS) {
 		if (end <= now) {
 			continue;
 		}
@@ -729,6 +731,10 @@ export default function Schedule() {
 			type: DisplayCardType.Event,
 			key: `radiance-${start.toMillis()}`,
 			label,
+			dyeIcons: dyes.map((dye) => {
+				const emoji = DyeTypeToEmoji[dye];
+				return { label: emoji.name.replace("_", " "), url: discordEmojiURL(emoji.id) };
+			}),
 			active: isActive,
 			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.toMillis()),
 			nextUnix: relevantDate.toMillis(),
@@ -922,6 +928,19 @@ export default function Schedule() {
 												)}
 											</>
 										)}
+										{item.dyeIcons && (
+											<span className="inline-flex items-center gap-1">
+												{item.dyeIcons.map((emoji, index) => (
+													<span
+														aria-label={emoji.label}
+														className="discord-emoji h-4 w-4"
+														key={`${item.key}-${index}`}
+														role="img"
+														style={{ backgroundImage: `url(${emoji.url})` }}
+													/>
+												))}
+											</span>
+										)}
 										{item.type === DisplayCardType.Season && (
 											<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
 												{t("season", { ns: "general" })}
@@ -992,6 +1011,19 @@ export default function Schedule() {
 												</a>
 											)}
 										</>
+									)}
+									{item.dyeIcons && (
+										<span className="inline-flex items-center gap-1">
+											{item.dyeIcons.map((emoji, index) => (
+												<span
+													aria-label={emoji.label}
+													className="discord-emoji h-4 w-4"
+													key={`${item.key}-${index}`}
+													role="img"
+													style={{ backgroundImage: `url(${emoji.url})` }}
+												/>
+											))}
+										</span>
 									)}
 									{item.type === DisplayCardType.Season && (
 										<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
