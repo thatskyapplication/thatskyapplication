@@ -2577,7 +2577,7 @@
 			"standard-spirits": "普通先靈",
 			"elders": "長老",
 			"seasons": "季節",
-			"events": "活動",
+			"events": "$t(general:events)",
 			"starter-packs": "入門包",
 			"secret-area": "秘密區域",
 			"clothing-shop": "",

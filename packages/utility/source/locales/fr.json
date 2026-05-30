@@ -14,7 +14,7 @@
 			"event_other": "{{count}} jours restants pour {{name}}."
 		},
 		"error-timed-out": "Je suis temporairement exclu.",
-		"event-tickets": "Tickets d'événement",
+		"event-tickets": "Tickets d'évènement",
 		"realms": {
 			"Isle of Dawn": "Île de l'aube",
 			"Daylight Prairie": "Prairie Illuminée",
@@ -521,10 +521,10 @@
 			"days-of-moonlight": "Jours de Clair de Lune",
 			"sky-x-alices-wonderland-cafe": "Sky x le café d'Alice au pays des Merveilles",
 			"days-of-treasure": "Jours de trésor",
-			"radiance-event": "Événement de Splendeur",
+			"radiance-event": "Évènement de Splendeur",
 			"aurora-homecoming": "AURORA : concert des anciens élèves",
 			"workshop-show-and-tell": "Atelier quoi de neuf",
-			"personality-quiz-event": "Événement Quiz de personnalité"
+			"personality-quiz-event": "Évènement Quiz de personnalité"
 		},
 		"event-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice#2019",
@@ -2271,12 +2271,12 @@
 				"command-option-shard-eruptions-description": "Choisissez d'inclure ou non les éruptions d'éclats dans le calcul."
 			},
 			"event-tickets": {
-				"command-name": "devises-événements",
-				"command-description": "Calcule le nombre de jours qu'il faudrait pour atteindre un nombre donné de devises d'événements.",
+				"command-name": "devises-évènements",
+				"command-description": "Calcule le nombre de jours qu'il faudrait pour atteindre un nombre donné de devises d'évènements.",
 				"command-option-start-name": "départ",
-				"command-option-start-description": "Le nombre de devises d'événements au départ.",
+				"command-option-start-description": "Le nombre de devises d'évènements au départ.",
 				"command-option-goal-name": "objectif",
-				"command-option-goal-description": "Le nombre désiré de devises d'événements."
+				"command-option-goal-description": "Le nombre désiré de devises d'évènements."
 			},
 			"seasonal-candles": {
 				"command-name": "bougies-saisonnières",
@@ -2416,7 +2416,7 @@
 		},
 		"schedule": {
 			"command-name": "calendrier",
-			"command-description": "Montre un planning des événements de Sky!",
+			"command-description": "Montre un planning des évènements de Sky !",
 			"command-option-type-name": "type",
 			"command-option-type-description": "Voir le détail des horaires d'un calendrier spécifique ?",
 			"command-option-type-choice-name": {
@@ -2546,12 +2546,12 @@
 				"minimum-time-shard-eruptions": "Éruptions d'éclats"
 			},
 			"event-tickets": {
-				"no-event": "Il n'y a actuellement pas d'événement actif avec des tickets d'événement.",
-				"no-tickets": "Il n'y a plus de tickets d'événement.",
+				"no-event": "Il n'y a actuellement pas d'évènement actif avec des tickets d'évènement.",
+				"no-tickets": "Il n'y a plus de tickets d'évènement.",
 				"result-emoji": "{{emoji}} Il reste un total de {{total}} journalier.",
 				"result-event": "{{event}} : Il reste un total de {{total}} journalier.",
 				"result-pool": "Il y a de plus un bonus de {{pool}} !",
-				"title": "Calculateur de devises d'événement"
+				"title": "Calculateur de devises d'évènement"
 			},
 			"seasonal-candles": {
 				"no-season": "Il n'y a pas de saison en cours actuellement.",
@@ -2560,7 +2560,7 @@
 				"day-season-pass_one": "({{count}} jour avec le Passe Saisonnier).",
 				"day-season-pass_other": "({{count}} jours avec le Passe Saisonnier).",
 				"title": "Calculateur de bougies saisonnières",
-				"double-seasonal-light-calculation": "L'événement à double bougies saisonnières est inclus dans le calcul.\n{{start}}–{{end}} (finit {{relative}})"
+				"double-seasonal-light-calculation": "L'évènement à double bougies saisonnières est inclus dans le calcul.\n{{start}}–{{end}} (finit {{relative}})"
 			},
 			"winged-light": {
 				"started-with": "Commence avec",
@@ -2577,7 +2577,7 @@
 			"standard-spirits": "Esprits standards",
 			"elders": "Anciens",
 			"seasons": "Saisons",
-			"events": "Événements",
+			"events": "$t(general:events)",
 			"starter-packs": "Packs de début",
 			"secret-area": "Zone secrète",
 			"clothing-shop": "",
@@ -2620,10 +2620,10 @@
 			"spirit-previous-spirit": "Esprit précédent",
 			"spirit-next-spirit": "Esprit suivant",
 			"event-title": "{{event}}\n\n-# Catalogue → Évènements",
-			"event-no-cosmetics": "Il n'y a pas de cosmétiques pour cet événement.",
-			"event-no-infographic-yet": "Cet événement n'a pas encore d'infographie.",
-			"event-previous-event": "Événement précédent",
-			"event-next-event": "Événement suivant",
+			"event-no-cosmetics": "Il n'y a pas de cosmétiques pour cet évènement.",
+			"event-no-infographic-yet": "Cet évènement n'a pas encore d'infographie.",
+			"event-previous-event": "Évènement précédent",
+			"event-next-event": "Évènement suivant",
 			"starter-packs-title": "## Packs de débutants\n\n-# Catalogue",
 			"secret-area-title": "## Zone secrète\n\n-# Catalogue",
 			"clothing-shop-title": "",
@@ -2641,7 +2641,7 @@
 			"daily-quests-message-complete": "Quêtes journalières complétées ! Beau travail !",
 			"daily-quests-show-button-label": "Montrer le guide journalier",
 			"seasonal-candles-message-incomplete": "Avez-vous collecté toutes les bougies saisonnières, y compris les bougies saisonnières éparpillées dans les royaumes ?",
-			"seasonal-candles-message-incomplete-double": "Avez-vous collecté toutes les bougies saisonnières, y compris les bougies saisonnières éparpillées dans les royaumes ? Nous sommes actuellement dans un événement de double lumières saisonnières !",
+			"seasonal-candles-message-incomplete-double": "Avez-vous collecté toutes les bougies saisonnières, y compris les bougies saisonnières éparpillées dans les royaumes ? Nous sommes actuellement dans un évènement de double lumières saisonnières !",
 			"seasonal-candles-message-complete": "Vous avez collecté toutes les bougies saisonnières ! Continuez comme ça !",
 			"eye-of-eden-message-incomplete": "Avez-vous donné de la lumière aux statues dans Eden cette semaine ?",
 			"eye-of-eden-message-complete": "Vous êtes allés à Eden ! Impressionnant !",
@@ -2649,8 +2649,8 @@
 			"shard-eruptions-message-incomplete": "",
 			"shard-eruptions-message-complete": "",
 			"shard-eruptions-show-button-label": "Montrer les éruptions d'éclats",
-			"event-tickets-message-incomplete": "Avez-vous collecté les devises d'événements aujourd'hui ?",
-			"event-tickets-message-complete": "Vous avez collecté toutes les devises d'événements ! Génial !"
+			"event-tickets-message-incomplete": "Avez-vous collecté les devises d'évènements aujourd'hui ?",
+			"event-tickets-message-complete": "Vous avez collecté toutes les devises d'évènements ! Génial !"
 		},
 		"daily-guides": {
 			"name": "Guides journaliers",
@@ -2773,7 +2773,7 @@
 			],
 			"gift-message-heart-result": "{{user}} a maintenant {{number}}{{emoji}}.",
 			"gift-hearts-left-to-gift": "Vous pouvez offrir {{number}}{{emoji}} de plus aujourd'hui.",
-			"gift-hearts-left-to-gift-double": "Vous pouvez offrir {{number}}{{emoji}} de plus aujourd'hui.\nIl y a actuellement un événement de double cœur de {{date1}} à {{date2}} !",
+			"gift-hearts-left-to-gift-double": "Vous pouvez offrir {{number}}{{emoji}} de plus aujourd'hui.\nIl y a actuellement un évènement de double cœur de {{date1}} à {{date2}} !",
 			"history-no-hearts": "Vous avez 0{{emoji}}.",
 			"history-title": "Historique des cœurs",
 			"history-summary": "Offert : {{gifted}}{{emoji}}\nReçu : {{received}}{{emoji}}",
@@ -2914,11 +2914,11 @@
 			"overview-ends-timestamp": "Fin : {{timestamp}}",
 			"overview-in": "Dans :",
 			"overview": "**{{type}}:** {{details}}",
-			"event-ongoing": "L'événement est en cours !",
-			"event-will-occur": "L'événement reviendra de nouveau {{timestamp}}.",
+			"event-ongoing": "L'évènement est en cours !",
+			"event-will-occur": "L'évènement reviendra de nouveau {{timestamp}}.",
 			"next-daily-reset": "{{timestamp1}} ({{timestamp2}})",
-			"overview-detailed-breakdown-message": "Vous devez sélectionner un événement pour en voir le détail des horaires !",
-			"overview-detailed-breakdown-string-select-menu-placeholder": "Voir le détail des horaires d'un événement ?",
+			"overview-detailed-breakdown-message": "Vous devez sélectionner un évènement pour en voir le détail des horaires !",
+			"overview-detailed-breakdown-string-select-menu-placeholder": "Voir le détail des horaires d'un évènement ?",
 			"detailed-breakdown-daily-reset-message": "Le jour changera à {{time}}. Vous pourrez de nouveau envoyer de la lumière à vos amis, il y aura un nouveau lot de quêtes journalières à compléter, et plus encore !",
 			"detailed-breakdown-daily-reset-daily-guides-button-label": "Guides journaliers",
 			"next-eye-of-eden": "{{timestamp1}} ({{timestamp2}})",

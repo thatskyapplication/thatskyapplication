@@ -2577,7 +2577,7 @@
 			"standard-spirits": "",
 			"elders": "",
 			"seasons": "",
-			"events": "",
+			"events": "$t(general:events)",
 			"starter-packs": "",
 			"secret-area": "",
 			"clothing-shop": "",
