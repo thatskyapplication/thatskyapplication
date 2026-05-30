@@ -102,7 +102,9 @@
 			"13": "",
 			"14": "Atelier de la Nidification",
 			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)"
+			"16": "$t(general:events)",
+			"17": "$t(general:event-names.radiance-event)",
+			"18": "$t(general:season-plural)"
 		},
 		"page": "Page",
 		"quests-common": {
@@ -424,6 +426,7 @@
 			"312": "Proposez un design de cerf-volant dans Hauteurs de la Prairie"
 		},
 		"season": "Saison",
+		"season-plural": "Saisons",
 		"seasons": {
 			"0": "Saison de la gratitude",
 			"1": "Saison des Chercheurs de lumière",
@@ -1060,10 +1063,10 @@
 			"12": "Masque",
 			"13": "Cheveux",
 			"14": "Cape",
-			"15": "Accessoire faciale",
+			"15": "Accessoire facial",
 			"16": "Cœur saisonnier",
 			"17": "Accessoire de cheveux",
-			"18": "Accessoire faciale {{number}}",
+			"18": "Accessoire facial {{number}}",
 			"19": "Accessoire pour cheveux {{number}}",
 			"20": "",
 			"21": "",
@@ -2439,7 +2442,9 @@
 				"16": "$t(features:schedule.type.16)",
 				"17": "$t(features:schedule.type.17)",
 				"18": "$t(features:schedule.type.18)",
-				"19": "$t(features:schedule.type.19)"
+				"19": "$t(features:schedule.type.19)",
+				"20": "$t(features:schedule.type.20)",
+				"21": "$t(features:schedule.type.21)"
 			},
 			"command-option-hide-name": "cacher",
 			"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
@@ -2576,7 +2581,6 @@
 			"main-description": "Bienvenue dans votre catalogue !\n\nIci, vous pouvez suivre tous les cosmétiques dans le jeu, avec des calculs dynamiques tel que les bougies saisonnières restantes lors d'une saison active, ce qui en fait un puissant outil à utiliser.\n\nProgrès total : {{progress}}%",
 			"standard-spirits": "Esprits standards",
 			"elders": "Anciens",
-			"seasons": "Saisons",
 			"events": "$t(general:events)",
 			"starter-packs": "Packs de début",
 			"secret-area": "Zone secrète",
@@ -2868,6 +2872,14 @@
 				"16": {
 					"message-now": "",
 					"message-future": ""
+				},
+				"17": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"18": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "",
@@ -2896,7 +2908,9 @@
 				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
 				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)"
+				"19": "$t(general:event-names.radiance-event)",
+				"20": "$t(general:event)",
+				"21": "$t(general:season)"
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des évènements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
@@ -3030,7 +3044,7 @@
 				"3": "Description",
 				"4": "Lumières Ailées",
 				"5": "Lieu où passer du temps",
-				"6": "Saisons",
+				"6": "$t(general:season-plural)",
 				"7": "Plateformes",
 				"8": "Progression du Catalogue",
 				"9": "Rang de Devinettes",

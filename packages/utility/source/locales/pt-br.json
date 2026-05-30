@@ -102,7 +102,9 @@
 			"13": "Patinadora dos sonhos",
 			"14": "Oficina de Nidificação",
 			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)"
+			"16": "$t(general:events)",
+			"17": "$t(general:event-names.radiance-event)",
+			"18": "$t(general:season-plural)"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -424,6 +426,7 @@
 			"312": "Sugira um modelo de pipa nas Colinas da Campina"
 		},
 		"season": "Temporada",
+		"season-plural": "Temporadas",
 		"seasons": {
 			"0": "Temporada da Gratidão",
 			"1": "Temporada dos Caçadores de Luz",
@@ -2439,7 +2442,9 @@
 				"16": "$t(features:schedule.type.16)",
 				"17": "$t(features:schedule.type.17)",
 				"18": "$t(features:schedule.type.18)",
-				"19": "$t(features:schedule.type.19)"
+				"19": "$t(features:schedule.type.19)",
+				"20": "$t(features:schedule.type.20)",
+				"21": "$t(features:schedule.type.21)"
 			},
 			"command-option-hide-name": "ocultar",
 			"command-option-hide-description": "Certifique-se de que só você veja a resposta."
@@ -2576,7 +2581,6 @@
 			"main-description": "Bem-vindo ao seu catálogo!\n\nAqui, você pode controlar todos os cosméticos do jogo, com cálculos dinâmicos, como a quantidade de velas da temporada que faltam para a temporada atual, tornando-o uma ferramenta poderosa para usar.\n\nProgresso total: {{progress}}%",
 			"standard-spirits": "Espíritos regulares",
 			"elders": "Anciões",
-			"seasons": "Temporadas",
 			"events": "$t(general:events)",
 			"starter-packs": "Pacotes de iniciante",
 			"secret-area": "Área secreta",
@@ -2868,6 +2872,14 @@
 				"16": {
 					"message-now": "",
 					"message-future": ""
+				},
+				"17": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"18": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",
@@ -2896,7 +2908,9 @@
 				"16": "$t(general:cosmetic-names.2498)",
 				"17": "Chuva de meteoros",
 				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)"
+				"19": "$t(general:event-names.radiance-event)",
+				"20": "$t(general:event)",
+				"21": "$t(general:season)"
 			},
 			"name": "Programação",
 			"description": "Veja a programação de eventos como: o gêiser poluído, a vovó, a tartaruga, a bênção do Ancião do Relicário e muito mais!",
@@ -3030,7 +3044,7 @@
 				"3": "Descrição",
 				"4": "Luz Alada",
 				"5": "Ponto de encontro",
-				"6": "Temporadas",
+				"6": "$t(general:season-plural)",
 				"7": "Plataformas",
 				"8": "Progresso no Catálogo",
 				"9": "Ranking no Quiz",
