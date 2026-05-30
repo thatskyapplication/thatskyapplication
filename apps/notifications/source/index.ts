@@ -8,6 +8,7 @@ import {
 	enGB,
 	es419,
 	esES,
+	formatEmoji,
 	fr,
 	INTERNATIONAL_SPACE_STATION_DATES,
 	it,
@@ -19,6 +20,7 @@ import {
 	NotificationType,
 	type NotificationTypes,
 	ptBR,
+	RADIANCE_EVENTS,
 	type RealmName,
 	ru,
 	shardEruption,
@@ -38,6 +40,7 @@ import { NotificationError } from "./models/notification-error.js";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
+import { DyeTypeToEmoji } from "./utility/emojis.js";
 import { notificationNonce } from "./utility/functions.js";
 
 void init({
@@ -87,6 +90,8 @@ type NotificationShardEruptionTypes = (typeof NOTIFICATION_SHARD_ERUPTION_TYPES)
 
 const NOTIFICATION_EVENTS_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.Events];
+const NOTIFICATION_RADIANCE_EVENT_MAXIMUM_OFFSET =
+	NotificationOffsetToMaximumValues[NotificationType.RadianceEvent];
 
 interface NotificationsShardEruptionData {
 	type: NotificationShardEruptionTypes;
@@ -115,12 +120,20 @@ interface NotificationsEventData {
 	timestamp: `<t:${number}:R>`;
 }
 
+interface NotificationsRadianceEventData {
+	type: typeof NotificationType.RadianceEvent;
+	timeUntilStart: number;
+	dyeEmojis: readonly string[];
+	timestamp: `<t:${number}:R>`;
+}
+
 interface NotificationsNotShardEruptionData {
 	type: Exclude<
 		NotificationTypes,
 		| NotificationShardEruptionTypes
 		| typeof NotificationType.Maintenance
 		| typeof NotificationType.Events
+		| typeof NotificationType.RadianceEvent
 	>;
 	timeUntilStart: number;
 	timestamp: `<t:${number}:R>`;
@@ -130,6 +143,7 @@ type NotificationsData =
 	| NotificationsShardEruptionData
 	| NotificationsMaintenanceData
 	| NotificationsEventData
+	| NotificationsRadianceEventData
 	| NotificationsNotShardEruptionData;
 
 function isNotificationShardEruptionData(
@@ -177,6 +191,19 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 				eventId: event.id,
 				eventName: event.name,
 				timestamp: `<t:${event.start.toUnixInteger()}:R>`,
+			});
+		}
+	}
+
+	for (const radianceEvent of RADIANCE_EVENTS) {
+		const timeUntilStart = Math.floor(radianceEvent.start.diff(date, "minutes").minutes);
+
+		if (timeUntilStart >= 0 && timeUntilStart <= NOTIFICATION_RADIANCE_EVENT_MAXIMUM_OFFSET) {
+			notifications.push({
+				type: NotificationType.RadianceEvent,
+				timeUntilStart,
+				dyeEmojis: radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])),
+				timestamp: `<t:${radianceEvent.start.toUnixInteger()}:R>`,
 			});
 		}
 	}
@@ -423,18 +450,26 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 									})})`,
 									timestamp: notification.timestamp,
 								})
-							: t(`notifications.messages.${type}.message-${key}`, {
-									lng: notificationPacket.locale,
-									ns: "features",
-									timestamp: notification.timestamp,
-									spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+							: notification.type === NotificationType.RadianceEvent
+								? t(`notifications.messages.${type}.message-${key}`, {
 										lng: notificationPacket.locale,
-										ns: "general",
-									})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+										ns: "features",
+										dyesStart: notification.dyeEmojis.join(""),
+										dyesEnd: notification.dyeEmojis.toReversed().join(""),
+										timestamp: notification.timestamp,
+									})
+								: t(`notifications.messages.${type}.message-${key}`, {
 										lng: notificationPacket.locale,
-										ns: "general",
-									})})`,
-								});
+										ns: "features",
+										timestamp: notification.timestamp,
+										spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+											lng: notificationPacket.locale,
+											ns: "general",
+										})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+											lng: notificationPacket.locale,
+											ns: "general",
+										})})`,
+									});
 
 				try {
 					return await client.channels.createMessage(notificationPacket.channel_id, {

@@ -130,6 +130,7 @@ export default {
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",
 			[NotificationType.Maintenance]: "$t(general:maintenance)",
 			[NotificationType.Events]: "$t(general:events)",
+			[NotificationType.RadianceEvent]: "$t(general:event-names.radiance-event)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -3302,6 +3303,10 @@ export default {
 				[NotificationType.Events]: {
 					"message-now": "It's time, Sky kids! {{event}} is here!",
 					"message-future": "{{event}} will be here {{timestamp}}!",
+				},
+				[NotificationType.RadianceEvent]: {
+					"message-now": "{{dyesStart}} Radiance event has begun! {{dyesEnd}}",
+					"message-future": "{{dyesStart}} Radiance event will begin {{timestamp}}! {{dyesEnd}}",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":
