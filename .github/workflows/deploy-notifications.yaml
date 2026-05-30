@@ -12,6 +12,8 @@ on:
       - packages/utility/source/shard-eruption.ts
       # Ensure a change in travelling spirits triggers this workflow.
       - packages/utility/source/kingdom/seasons/**/*
+      # Ensure a change in notifications triggers this workflow.
+      - packages/utility/source/notifications.ts
   workflow_dispatch:
 concurrency:
   group: deploy-notifications
