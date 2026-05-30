@@ -1348,11 +1348,11 @@ export async function scheduleOverview(
 									ns: "features",
 									emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
 								})} ${radianceEvent.dyeEmojis}`
-							: t("schedule.overview-next-available-timestamp", {
+							: `${t("schedule.overview-next-available-timestamp", {
 									lng: locale,
 									ns: "features",
 									timestamp: radianceEvent.next,
-								}),
+								})} ${radianceEvent.dyeEmojis}`,
 					}),
 				)
 				.join("\n"),
