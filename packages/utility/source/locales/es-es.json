@@ -102,7 +102,9 @@
 			"13": "",
 			"14": "",
 			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)"
+			"16": "$t(general:events)",
+			"17": "$t(general:event-names.radiance-event)",
+			"18": "$t(general:season-plural)"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -424,6 +426,7 @@
 			"312": "Propone un diseño de cometa en las Alturas de la planicie."
 		},
 		"season": "Temporada",
+		"season-plural": "Temporadas",
 		"seasons": {
 			"0": "Temporada de la gratitud",
 			"1": "Temporada de los buscadores de la luz",
@@ -2439,7 +2442,9 @@
 				"16": "$t(features:schedule.type.16)",
 				"17": "",
 				"18": "$t(features:schedule.type.18)",
-				"19": "$t(features:schedule.type.19)"
+				"19": "$t(features:schedule.type.19)",
+				"20": "$t(features:schedule.type.20)",
+				"21": "$t(features:schedule.type.21)"
 			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
@@ -2576,7 +2581,6 @@
 			"main-description": "¡Bienvenido a tu catálogo!\n\nAquí puedes llevar un seguimiento de todos los cosméticos del juego, con cálculos dinámicos como las velas de temporada restantes en una temporada activa, convirtiéndolo en una poderosa herramienta para utilizar.\n\nProgreso total: {{progress}}%",
 			"standard-spirits": "Espíritus estándar",
 			"elders": "Ancianos",
-			"seasons": "Temporadas",
 			"events": "$t(general:events)",
 			"starter-packs": "Packs de inicio",
 			"secret-area": "Área secreta",
@@ -2858,6 +2862,14 @@
 				"16": {
 					"message-now": "",
 					"message-future": ""
+				},
+				"17": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"18": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "",
@@ -2886,7 +2898,9 @@
 				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
 				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)"
+				"19": "$t(general:event-names.radiance-event)",
+				"20": "$t(general:event)",
+				"21": "$t(general:season)"
 			},
 			"name": "",
 			"description": "",
@@ -3020,7 +3034,7 @@
 				"3": "",
 				"4": "",
 				"5": "",
-				"6": "",
+				"6": "$t(general:season-plural)",
 				"7": "",
 				"8": "",
 				"9": "",
