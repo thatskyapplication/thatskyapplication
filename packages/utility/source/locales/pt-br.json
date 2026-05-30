@@ -2577,7 +2577,7 @@
 			"standard-spirits": "Espíritos regulares",
 			"elders": "Anciões",
 			"seasons": "Temporadas",
-			"events": "Eventos",
+			"events": "$t(general:events)",
 			"starter-packs": "Pacotes de iniciante",
 			"secret-area": "Área secreta",
 			"clothing-shop": "Loja de roupas",

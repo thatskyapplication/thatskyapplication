@@ -2577,7 +2577,7 @@
 			"standard-spirits": "Reguläre Geister",
 			"elders": "Älteste",
 			"seasons": "Saisons",
-			"events": "Events",
+			"events": "$t(general:events)",
 			"starter-packs": "Starterpaket",
 			"secret-area": "Geheimversteck",
 			"clothing-shop": "",
