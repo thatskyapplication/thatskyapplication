@@ -23,8 +23,11 @@ import {
 	RADIANCE_EVENTS,
 	type RealmName,
 	ru,
+	type SeasonIds,
 	shardEruption,
+	skyCurrentSeason,
 	skyUpcomingEvents,
+	skyUpcomingSeason,
 	Table,
 	TIME_ZONE,
 	TRAVELLING_DATES,
@@ -92,6 +95,8 @@ const NOTIFICATION_EVENTS_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.Events];
 const NOTIFICATION_RADIANCE_EVENT_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.RadianceEvent];
+const NOTIFICATION_SEASONS_MAXIMUM_OFFSET =
+	NotificationOffsetToMaximumValues[NotificationType.Seasons];
 
 interface NotificationsShardEruptionData {
 	type: NotificationShardEruptionTypes;
@@ -127,6 +132,13 @@ interface NotificationsRadianceEventData {
 	timestamp: `<t:${number}:R>`;
 }
 
+interface NotificationsSeasonData {
+	type: typeof NotificationType.Seasons;
+	timeUntilStart: number;
+	seasonId: SeasonIds;
+	timestamp: `<t:${number}:R>`;
+}
+
 interface NotificationsNotShardEruptionData {
 	type: Exclude<
 		NotificationTypes,
@@ -134,6 +146,7 @@ interface NotificationsNotShardEruptionData {
 		| typeof NotificationType.Maintenance
 		| typeof NotificationType.Events
 		| typeof NotificationType.RadianceEvent
+		| typeof NotificationType.Seasons
 	>;
 	timeUntilStart: number;
 	timestamp: `<t:${number}:R>`;
@@ -144,6 +157,7 @@ type NotificationsData =
 	| NotificationsMaintenanceData
 	| NotificationsEventData
 	| NotificationsRadianceEventData
+	| NotificationsSeasonData
 	| NotificationsNotShardEruptionData;
 
 function isNotificationShardEruptionData(
@@ -204,6 +218,23 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 				timeUntilStart,
 				dyeEmojis: radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])),
 				timestamp: `<t:${radianceEvent.start.toUnixInteger()}:R>`,
+			});
+		}
+	}
+
+	for (const season of [skyCurrentSeason(date), skyUpcomingSeason(date)]) {
+		if (!season) {
+			continue;
+		}
+
+		const timeUntilStart = Math.floor(season.start.diff(date, "minutes").minutes);
+
+		if (timeUntilStart >= 0 && timeUntilStart <= NOTIFICATION_SEASONS_MAXIMUM_OFFSET) {
+			notifications.push({
+				type: NotificationType.Seasons,
+				timeUntilStart,
+				seasonId: season.id,
+				timestamp: `<t:${season.start.toUnixInteger()}:R>`,
 			});
 		}
 	}
@@ -458,18 +489,31 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 										dyesEnd: notification.dyeEmojis.toReversed().join(""),
 										timestamp: notification.timestamp,
 									})
-								: t(`notifications.messages.${type}.message-${key}`, {
-										lng: notificationPacket.locale,
-										ns: "features",
-										timestamp: notification.timestamp,
-										spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+								: notification.type === NotificationType.Seasons
+									? t(`notifications.messages.${type}.message-${key}`, {
 											lng: notificationPacket.locale,
-											ns: "general",
-										})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+											ns: "features",
+											season: `[${t(`seasons.${notification.seasonId}`, {
+												lng: notificationPacket.locale,
+												ns: "general",
+											})}](${t(`season-wiki.${notification.seasonId}`, {
+												lng: notificationPacket.locale,
+												ns: "general",
+											})})`,
+											timestamp: notification.timestamp,
+										})
+									: t(`notifications.messages.${type}.message-${key}`, {
 											lng: notificationPacket.locale,
-											ns: "general",
-										})})`,
-									});
+											ns: "features",
+											timestamp: notification.timestamp,
+											spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+												lng: notificationPacket.locale,
+												ns: "general",
+											})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+												lng: notificationPacket.locale,
+												ns: "general",
+											})})`,
+										});
 
 				try {
 					return await client.channels.createMessage(notificationPacket.channel_id, {

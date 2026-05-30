@@ -37,8 +37,10 @@ import {
 	type ScheduleTypes,
 	shardEruption,
 	shardEruptionSchedule,
+	skyCurrentSeason,
 	skyNotEndedEvents,
 	skyNow,
+	skyUpcomingSeason,
 	TRAVELLING_DATES,
 	travellingSpiritSchedule,
 	turtleSchedule,
@@ -288,6 +290,26 @@ function eventOverview(date: DateTime, locale: Locale) {
 			end: `<t:${end.toUnixInteger()}:R>`,
 		};
 	});
+}
+
+function seasonOverview(date: DateTime, locale: Locale) {
+	const seasons: { now: boolean; season: string; start: string; end: string }[] = [];
+
+	for (const season of [skyCurrentSeason(date), skyUpcomingSeason(date)]) {
+		if (season) {
+			const seasonName = t(`seasons.${season.id}`, { lng: locale, ns: "general" });
+			const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
+
+			seasons.push({
+				now: date >= season.start,
+				season: `${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}[${seasonName}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})`,
+				start: `<t:${season.start.toUnixInteger()}:R>`,
+				end: `<t:${season.end.toUnixInteger()}:R>`,
+			});
+		}
+	}
+
+	return seasons;
 }
 
 function travellingSpiritOverview(now: DateTime, locale: Locale) {
@@ -1185,6 +1207,7 @@ export async function scheduleOverview(
 	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
 	const radianceEvents = radianceEventOverview(now);
 	const events = eventOverview(now, locale);
+	const seasons = seasonOverview(now, locale);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
 	const pollutedGeyser = pollutedGeyserOverview(now);
 	const grandma = grandmaOverview(now);
@@ -1370,6 +1393,37 @@ export async function scheduleOverview(
 									ns: "features",
 									timestamp: radianceEvent.next,
 								})} ${radianceEvent.dyeEmojis}`,
+					}),
+				)
+				.join("\n"),
+		});
+	}
+
+	if (seasons.length > 0) {
+		firstContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: seasons
+				.map((season) =>
+					t("schedule.overview", {
+						lng: locale,
+						ns: "features",
+						type: t(`schedule.type.${ScheduleType.Season}`, {
+							lng: locale,
+							ns: "features",
+						}),
+						details: `${season.season}: ${
+							season.now
+								? t("schedule.overview-ends-timestamp", {
+										lng: locale,
+										ns: "features",
+										timestamp: season.end,
+									})
+								: t("schedule.overview-next-available-timestamp", {
+										lng: locale,
+										ns: "features",
+										timestamp: season.start,
+									})
+						}`,
 					}),
 				)
 				.join("\n"),

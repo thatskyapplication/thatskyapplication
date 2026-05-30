@@ -508,7 +508,7 @@ async function start({
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.seasons", { lng: locale, ns: "features" })}\n\n${seasonalProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: seasonalProgress })}`,
+							content: `### ${t("season-plural", { lng: locale, ns: "general" })}\n\n${seasonalProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: seasonalProgress })}`,
 						},
 					],
 				},
@@ -718,7 +718,7 @@ function traversalContainer({
 	}
 
 	const seasons: APISelectMenuOption = {
-		label: t("catalogue.seasons", { lng: locale, ns: "features" }),
+		label: t("season-plural", { lng: locale, ns: "general" }),
 		value: CustomId.CatalogueViewSeasons,
 	};
 

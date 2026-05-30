@@ -131,6 +131,7 @@ export default {
 			[NotificationType.Maintenance]: "$t(general:maintenance)",
 			[NotificationType.Events]: "$t(general:events)",
 			[NotificationType.RadianceEvent]: "$t(general:event-names.radiance-event)",
+			[NotificationType.Seasons]: "$t(general:season-plural)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -723,6 +724,7 @@ export default {
 			[DailyQuest.ProposeAKiteDesignInPrairieHeights]: "Propose a kite design in Prairie Heights",
 		} satisfies Record<DailyQuests, string>,
 		season: "Season",
+		"season-plural": "Seasons",
 		seasons: {
 			[SeasonId.Gratitude]: "Season of Gratitude",
 			[SeasonId.Lightseekers]: "Season of Lightseekers",
@@ -2983,7 +2985,6 @@ export default {
 				"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal progress: {{progress}}%",
 			"standard-spirits": "Standard spirits",
 			elders: "Elders",
-			seasons: "Seasons",
 			events: "$t(general:events)",
 			"starter-packs": "Starter packs",
 			"secret-area": "Secret area",
@@ -3308,6 +3309,10 @@ export default {
 					"message-now": "{{dyesStart}} Radiance event has begun! {{dyesEnd}}",
 					"message-future": "{{dyesStart}} Radiance event will begin {{timestamp}}! {{dyesEnd}}",
 				},
+				[NotificationType.Seasons]: {
+					"message-now": "A new chapter begins. {{season}} is here!",
+					"message-future": "{{season}} is coming to Sky {{timestamp}}!",
+				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":
 				"Choose a channel for the notification to be sent in, a role to be mentioned, and an offset which indicates how many minutes before the event the notification will be sent.",
@@ -3338,6 +3343,7 @@ export default {
 				[ScheduleType.Maintenance]: "$t(general:maintenance)",
 				[ScheduleType.RadianceEvent]: "$t(general:event-names.radiance-event)",
 				[ScheduleType.Events]: "$t(general:event)",
+				[ScheduleType.Season]: "$t(general:season)",
 			} satisfies Record<ScheduleTypes, string>,
 			name: "Schedule",
 			description:
@@ -3513,7 +3519,7 @@ export default {
 				[SkyProfileEditType.Banner]: "Banner",
 				[SkyProfileEditType.WingedLight]: "Winged light",
 				[SkyProfileEditType.Hangout]: "Hangout",
-				[SkyProfileEditType.Seasons]: "Seasons",
+				[SkyProfileEditType.Seasons]: "$t(general:season-plural)",
 				[SkyProfileEditType.Platforms]: "Platforms",
 				[SkyProfileEditType.CatalogueProgression]: "Catalogue progression",
 				[SkyProfileEditType.GuessRank]: "Guessing rank",
