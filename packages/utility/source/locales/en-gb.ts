@@ -3337,6 +3337,7 @@ export default {
 				[ScheduleType.MeteorShower]: "Meteor shower",
 				[ScheduleType.Maintenance]: "$t(general:maintenance)",
 				[ScheduleType.RadianceEvent]: "$t(general:event-names.radiance-event)",
+				[ScheduleType.Events]: "$t(general:event)",
 			} satisfies Record<ScheduleTypes, string>,
 			name: "Schedule",
 			description:

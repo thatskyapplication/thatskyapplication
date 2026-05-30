@@ -37,6 +37,7 @@ import {
 	type ScheduleTypes,
 	shardEruption,
 	shardEruptionSchedule,
+	skyNotEndedEvents,
 	skyNow,
 	TRAVELLING_DATES,
 	travellingSpiritSchedule,
@@ -52,6 +53,7 @@ import {
 	CAPE_EMOJIS,
 	DyeTypeToEmoji,
 	EVENT_EMOJIS,
+	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
 	SeasonIdToSeasonalEmoji,
@@ -272,6 +274,20 @@ function radianceEventDetailedBreakdown(date: DateTime, locale: Locale): APIComp
 			}),
 		},
 	];
+}
+
+function eventOverview(date: DateTime, locale: Locale) {
+	return skyNotEndedEvents(date).map(({ id, name, start, end }) => {
+		const eventName = t(name, { lng: locale, ns: "general" });
+		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
+
+		return {
+			now: date >= start,
+			event: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}[${eventName}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`,
+			start: `<t:${start.toUnixInteger()}:R>`,
+			end: `<t:${end.toUnixInteger()}:R>`,
+		};
+	});
 }
 
 function travellingSpiritOverview(now: DateTime, locale: Locale) {
@@ -1168,6 +1184,7 @@ export async function scheduleOverview(
 	const startOfDay = now.startOf("day");
 	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
 	const radianceEvents = radianceEventOverview(now);
+	const events = eventOverview(now, locale);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
 	const pollutedGeyser = pollutedGeyserOverview(now);
 	const grandma = grandmaOverview(now);
@@ -1353,6 +1370,37 @@ export async function scheduleOverview(
 									ns: "features",
 									timestamp: radianceEvent.next,
 								})} ${radianceEvent.dyeEmojis}`,
+					}),
+				)
+				.join("\n"),
+		});
+	}
+
+	if (events.length > 0) {
+		firstContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: events
+				.map((event) =>
+					t("schedule.overview", {
+						lng: locale,
+						ns: "features",
+						type: t(`schedule.type.${ScheduleType.Events}`, {
+							lng: locale,
+							ns: "features",
+						}),
+						details: `${event.event}: ${
+							event.now
+								? t("schedule.overview-ends-timestamp", {
+										lng: locale,
+										ns: "features",
+										timestamp: event.end,
+									})
+								: t("schedule.overview-next-available-timestamp", {
+										lng: locale,
+										ns: "features",
+										timestamp: event.start,
+									})
+						}`,
 					}),
 				)
 				.join("\n"),

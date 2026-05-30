@@ -25,6 +25,7 @@ export const ScheduleType = {
 	MeteorShower: 17,
 	Maintenance: 18,
 	RadianceEvent: 19,
+	Events: 20,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
