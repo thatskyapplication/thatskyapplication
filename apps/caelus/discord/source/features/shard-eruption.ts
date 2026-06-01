@@ -157,6 +157,10 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 				type: ComponentType.MediaGallery,
 				items: [{ media: { url: shardToday.url } }],
 			},
+			{
+				type: ComponentType.TextDisplay,
+				content: `-# ${t("infographic-by", { lng: locale, ns: "general", acknowledgement: shardToday.acknowledgement })}`,
+			},
 		);
 	} else {
 		containerComponents.push({

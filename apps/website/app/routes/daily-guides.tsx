@@ -1,6 +1,7 @@
 import {
 	communityUpcomingEvents,
 	type DailyGuidesPacket,
+	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
@@ -20,7 +21,7 @@ import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { data, Link, useLoaderData } from "react-router";
-import { InfographicPreview } from "~/components/InfographicPreview";
+import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
@@ -125,7 +126,7 @@ export default function DailyGuides() {
 	const { initialTimestamp, locale, timeZone, dailyGuides, todayString, shard } =
 		useLoaderData<typeof loader>();
 
-	const [selectedImage, setSelectedImage] = useState<string | null>(null);
+	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 	const now = DateTime.fromMillis(initialTimestamp, { zone: TIME_ZONE });
@@ -141,7 +142,11 @@ export default function DailyGuides() {
 
 	for (const quest of [quest1, quest2, quest3, quest4]) {
 		if (quest !== null && isDailyQuest(quest)) {
-			quests.push({ quest, url: DailyQuestToInfographicURL[quest] });
+			quests.push({
+				acknowledgement: DailyQuestToAcknowledgement[quest],
+				quest,
+				url: DailyQuestToInfographicURL[quest],
+			});
 		}
 	}
 
@@ -349,9 +354,9 @@ export default function DailyGuides() {
 		}
 	}
 
-	const handleImageClick = (url: string | null) => {
+	const handleImageClick = (url: string | null, acknowledgement: string | null = null) => {
 		if (url) {
-			setSelectedImage(url);
+			setSelectedInfographic({ acknowledgement, imageURL: url });
 		}
 	};
 
@@ -359,7 +364,7 @@ export default function DailyGuides() {
 		<CentredSitePage>
 			<div
 				className={`flex w-full max-w-6xl gap-6 transition-all duration-300 ${
-					selectedImage ? "items-start justify-between" : "justify-center"
+					selectedInfographic ? "items-start justify-between" : "justify-center"
 				}`}
 			>
 				<div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-6 w-full max-w-lg shrink-0">
@@ -419,7 +424,7 @@ export default function DailyGuides() {
 								{t("daily-guides.quests-heading", { ns: "features" })}
 							</h2>
 							<div className="space-y-2">
-								{quests.map(({ quest, url }, index) => (
+								{quests.map(({ acknowledgement, quest, url }, index) => (
 									<div className="flex items-start gap-3" key={quest}>
 										<span className="text-gray-600 dark:text-gray-400 text-sm font-medium w-4 shrink-0">
 											{index + 1}.
@@ -427,7 +432,7 @@ export default function DailyGuides() {
 										{url ? (
 											<button
 												className="regular-link text-sm font-medium transition-colors text-left"
-												onClick={() => handleImageClick(url)}
+												onClick={() => handleImageClick(url, acknowledgement)}
 												type="button"
 											>
 												{t(`quests.${quest}`, { ns: "general" })}
@@ -534,7 +539,7 @@ export default function DailyGuides() {
 										</h3>
 										<button
 											className="regular-link text-sm font-medium transition-colors block mb-1"
-											onClick={() => handleImageClick(shard.url)}
+											onClick={() => handleImageClick(shard.url, shard.acknowledgement)}
 											type="button"
 										>
 											{t("shard-eruption.realm-area", {
@@ -592,7 +597,7 @@ export default function DailyGuides() {
 								<div className="sm:hidden space-y-2">
 									<button
 										className="regular-link text-sm font-medium transition-colors block"
-										onClick={() => handleImageClick(shard.url)}
+										onClick={() => handleImageClick(shard.url, shard.acknowledgement)}
 										type="button"
 									>
 										{t("shard-eruption.realm-area", {
@@ -681,11 +686,12 @@ export default function DailyGuides() {
 						</div>
 					)}
 				</div>
-				{selectedImage && (
+				{selectedInfographic && (
 					<InfographicPreview
+						acknowledgement={selectedInfographic.acknowledgement}
 						desktop="inline"
-						imageURL={selectedImage}
-						onClose={() => setSelectedImage(null)}
+						imageURL={selectedInfographic.imageURL}
+						onClose={() => setSelectedInfographic(null)}
 						title={t("infographic", { ns: "general" })}
 					/>
 				)}

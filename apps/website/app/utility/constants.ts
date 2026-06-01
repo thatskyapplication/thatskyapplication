@@ -4,6 +4,18 @@ export const EXCLUDE_TOP_BAR_AND_FOOTER = ["/"] as const;
 export const APPLICATION_NAME = "Caelus" as const;
 export const GUIDE_URL = "https://guide.thatskyapplication.com" as const;
 export const WIKI_URL = "https://sky-children-of-the-light.fandom.com" as const;
+export const WIKI_DISCORD_URL = "https://discord.gg/N2SNBmZr8c" as const;
+
+export const WIKI_BLUESKY_URL =
+	"https://bsky.app/profile/did:plc:rkfwolx4jqhwkrzodefz7xoq" as const;
+
+export const SKY_COTL_INFOGRAPHICS_DATABASE_URL =
+	"https://discord.gg/skyinfographicsdatabase" as const;
+
+export const SKY_COTL_INFOGRAPHICS_DATABASE_INSTAGRAM_URL =
+	"https://instagram.com/ourskyjourney" as const;
+
+export const SKY_COTL_INFOGRAPHICS_DATABASE_X_URL = "https://x.com/ourskyjourney" as const;
 
 export const APPLICATION_DESCRIPTION =
 	`${APPLICATION_NAME} is a Discord application for Sky: Children of the Light. Comes equipped with fun, hugs, and smiles. Share the love with your community!` as const;

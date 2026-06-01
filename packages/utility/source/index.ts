@@ -62,6 +62,7 @@ export {
 	type DailyGuidesDistributionTypes,
 	type DailyGuidesPacket,
 	type DailyQuests,
+	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	isDailyQuest,
 } from "./daily-guides.js";

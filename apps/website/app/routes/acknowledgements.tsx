@@ -1,11 +1,20 @@
 import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
 import { data, Link, type MetaFunction, useLoaderData } from "react-router";
+import { AcknowledgementSocialLinks } from "~/components/AcknowledgementSocialLinks";
 import { SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
-import { APPLICATION_NAME, WIKI_URL } from "~/utility/constants";
+import {
+	APPLICATION_NAME,
+	SKY_COTL_INFOGRAPHICS_DATABASE_INSTAGRAM_URL,
+	SKY_COTL_INFOGRAPHICS_DATABASE_URL,
+	SKY_COTL_INFOGRAPHICS_DATABASE_X_URL,
+	WIKI_BLUESKY_URL,
+	WIKI_DISCORD_URL,
+	WIKI_URL,
+} from "~/utility/constants";
 
 const ACKNOWLEDGEMENTS_TITLE = "Acknowledgements" as const;
 const ACKNOWLEDGEMENTS_DESCRIPTION = "The Sky kids that make everything you see possible." as const;
@@ -118,20 +127,32 @@ export default function Acknowledgements() {
 				)}
 
 				<section>
+					<h2>Sky:CoTL Infographics Database</h2>
+					<AcknowledgementSocialLinks
+						links={[
+							{ href: SKY_COTL_INFOGRAPHICS_DATABASE_URL, platform: "discord" },
+							{ href: SKY_COTL_INFOGRAPHICS_DATABASE_X_URL, platform: "x" },
+							{ href: SKY_COTL_INFOGRAPHICS_DATABASE_INSTAGRAM_URL, platform: "instagram" },
+						]}
+					/>
+					<p className="text-gray-600 dark:text-gray-400">
+						Founded by Clement and io, various infographics used across {APPLICATION_NAME} are
+						sourced from Sky:CoTL Infographics Database. We're thankful for them!
+					</p>
+				</section>
+				<section>
 					<h2>Wiki</h2>
+					<AcknowledgementSocialLinks
+						links={[
+							{ href: WIKI_URL, platform: "website" },
+							{ href: WIKI_DISCORD_URL, platform: "discord" },
+							{ href: WIKI_BLUESKY_URL, platform: "bluesky" },
+						]}
+					/>
 					<p className="text-gray-600 dark:text-gray-400">
 						{APPLICATION_NAME} features over 1,000 assets sourced directly from the
-						community-maintained{" "}
-						<a
-							className="regular-link inline-flex items-center"
-							href={WIKI_URL}
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							Sky: Children of the Light wiki
-							<ExternalLinkIcon className="ml-1 w-4 h-4" />
-						</a>
-						. We're thankful for them!
+						community-maintained Sky: Children of the Light wiki. You too can also help contribute
+						to the wiki!
 					</p>
 				</section>
 			</div>

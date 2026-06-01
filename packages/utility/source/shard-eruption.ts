@@ -25,6 +25,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 			area: map,
 			url: resolveShardEruptionAreaURL(map),
 			reward: 200,
+			acknowledgement: "Clement",
 		})),
 	},
 	{
@@ -42,6 +43,7 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 			area: map,
 			url: resolveShardEruptionAreaURL(map),
 			reward: 200,
+			acknowledgement: "Clement",
 		})),
 	},
 	{
@@ -54,26 +56,31 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 				area: AreaName.PrairieCave,
 				url: resolveShardEruptionAreaURL(AreaName.PrairieCave),
 				reward: 2,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.SacredPond,
 				url: resolveShardEruptionAreaURL(AreaName.SacredPond),
 				reward: 2.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.VillageOfDreams,
 				url: resolveShardEruptionAreaURL(AreaName.VillageOfDreams),
 				reward: 2.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.TheGraveyard,
 				url: resolveShardEruptionAreaURL(AreaName.TheGraveyard),
 				reward: 2,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.JellyfishCove,
 				url: resolveShardEruptionAreaURL(AreaName.JellyfishCove),
 				reward: 3.5,
+				acknowledgement: "Clement",
 			},
 		],
 	},
@@ -83,26 +90,35 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 		// 2 hours and 20 minutes.
 		offset: 8_400_000,
 		area: [
-			{ area: AreaName.BirdNest, url: resolveShardEruptionAreaURL(AreaName.BirdNest), reward: 2.5 },
+			{
+				area: AreaName.BirdNest,
+				url: resolveShardEruptionAreaURL(AreaName.BirdNest),
+				reward: 2.5,
+				acknowledgement: "Clement",
+			},
 			{
 				area: AreaName.TheTreehouse,
 				url: resolveShardEruptionAreaURL(AreaName.TheTreehouse),
 				reward: 3.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.VillageOfDreams,
 				url: resolveShardEruptionAreaURL(AreaName.VillageOfDreams),
 				reward: 2.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.CrabFields,
 				url: resolveShardEruptionAreaURL(AreaName.CrabFields),
 				reward: 2.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.JellyfishCove,
 				url: resolveShardEruptionAreaURL(AreaName.JellyfishCove),
 				reward: 3.5,
+				acknowledgement: "Clement",
 			},
 		],
 	},
@@ -116,26 +132,31 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 				area: AreaName.SanctuaryIslands,
 				url: resolveShardEruptionAreaURL(AreaName.SanctuaryIslands),
 				reward: 3.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.ElevatedClearing,
 				url: resolveShardEruptionAreaURL(AreaName.ElevatedClearing),
 				reward: 3.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.HermitValley,
 				url: resolveShardEruptionAreaURL(AreaName.HermitValley),
 				reward: 3.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.ForgottenArk,
 				url: resolveShardEruptionAreaURL(AreaName.ForgottenArk),
 				reward: 3.5,
+				acknowledgement: "Clement",
 			},
 			{
 				area: AreaName.JellyfishCove,
 				url: resolveShardEruptionAreaURL(AreaName.JellyfishCove),
 				reward: 3.5,
+				acknowledgement: "Clement",
 			},
 		],
 	},
@@ -153,6 +174,7 @@ export interface ShardEruptionData {
 	reward: number;
 	timestamps: readonly ShardEruptionTimestampsData[];
 	url: string;
+	acknowledgement: string;
 }
 
 export function shardEruption(daysOffset = 0): ShardEruptionData | null {
@@ -181,7 +203,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	}
 
 	let realmIndex = (dayOfMonth - 1) % 5;
-	let { area, url, reward } = shardEruptionAreas[realmIndex]!;
+	let { area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!;
 	const currentEvents = skyCurrentEvents(date);
 
 	// No shard eruption in Jellyfish Cove during Days of Love.
@@ -208,7 +230,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		currentEvents.some((event) => event.id === EventId.DaysOfFeast2025)
 	) {
 		realmIndex = 0;
-		({ area, url, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!);
 	}
 
 	// On 13/02/2026, this was moved to the Graveyard (clashed with event).
@@ -217,7 +239,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		currentEvents.some((event) => event.id === EventId.DaysOfFortune2026)
 	) {
 		realmIndex = 3;
-		({ area, url, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!);
 	}
 
 	// On 15/02/2026, this was moved to The Treehouse (clashed with event).
@@ -226,7 +248,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		currentEvents.some((event) => event.id === EventId.DaysOfLove2026)
 	) {
 		realmIndex = 1;
-		({ area, url, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!);
 	}
 
 	// On 26/03/2026, this was moved to the Boneyard (clashed with event).
@@ -235,7 +257,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
 	) {
 		realmIndex = 1;
-		({ area, url, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!);
 	}
 
 	// On 29/03/2026, this was moved to the Forgotten Ark (clashed with event).
@@ -244,7 +266,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
 	) {
 		realmIndex = 0;
-		({ area, url, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!);
 	}
 
 	const timestamps: ShardEruptionTimestampsData[] = [];
@@ -275,5 +297,13 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		});
 	}
 
-	return { realm: VALID_REALM_NAME[realmIndex]!, area, strong, reward, timestamps, url };
+	return {
+		realm: VALID_REALM_NAME[realmIndex]!,
+		area,
+		strong,
+		reward,
+		timestamps,
+		url,
+		acknowledgement,
+	};
 }

@@ -702,34 +702,34 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 		contexts: [InteractionContextType.Guild, InteractionContextType.PrivateChannel],
 	},
-	{
-		name: t("quest.command-name", { ns: "commands" }),
-		name_localizations: localisations("quest.command-name"),
-		description: t("quest.command-description", { ns: "commands" }),
-		description_localizations: localisations("quest.command-description"),
-		options: [
-			{
-				type: ApplicationCommandOptionType.Integer,
-				name: t("quest.command-option-daily-name", { ns: "commands" }),
-				name_localizations: localisations("quest.command-option-daily-name"),
-				description: t("quest.command-option-daily-description", {
-					ns: "commands",
-				}),
-				description_localizations: localisations("quest.command-option-daily-description"),
-				autocomplete: true,
-				required: true,
-			},
-		],
-		integration_types: [
-			ApplicationIntegrationType.GuildInstall,
-			ApplicationIntegrationType.UserInstall,
-		],
-		contexts: [
-			InteractionContextType.Guild,
-			InteractionContextType.BotDM,
-			InteractionContextType.PrivateChannel,
-		],
-	},
+	// {
+	// 	name: t("quest.command-name", { ns: "commands" }),
+	// 	name_localizations: localisations("quest.command-name"),
+	// 	description: t("quest.command-description", { ns: "commands" }),
+	// 	description_localizations: localisations("quest.command-description"),
+	// 	options: [
+	// 		{
+	// 			type: ApplicationCommandOptionType.Integer,
+	// 			name: t("quest.command-option-daily-name", { ns: "commands" }),
+	// 			name_localizations: localisations("quest.command-option-daily-name"),
+	// 			description: t("quest.command-option-daily-description", {
+	// 				ns: "commands",
+	// 			}),
+	// 			description_localizations: localisations("quest.command-option-daily-description"),
+	// 			autocomplete: true,
+	// 			required: true,
+	// 		},
+	// 	],
+	// 	integration_types: [
+	// 		ApplicationIntegrationType.GuildInstall,
+	// 		ApplicationIntegrationType.UserInstall,
+	// 	],
+	// 	contexts: [
+	// 		InteractionContextType.Guild,
+	// 		InteractionContextType.BotDM,
+	// 		InteractionContextType.PrivateChannel,
+	// 	],
+	// },
 	{
 		name: t("schedule.command-name", { ns: "commands" }),
 		name_localizations: localisations("schedule.command-name"),

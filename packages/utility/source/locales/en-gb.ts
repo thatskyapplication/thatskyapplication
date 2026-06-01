@@ -40,6 +40,7 @@ export default {
 		show: "Show",
 		hide: "Hide",
 		infographic: "Infographic",
+		"infographic-by": "Infographic by {{acknowledgement}}.",
 		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -3087,6 +3088,7 @@ export default {
 			"shard-eruption-timestamps": "Timestamps",
 			"shard-eruption-none": "None",
 			"travelling-rock": "Travelling rock",
+			"infographic-acknowledgement-item": "Infographic {{infographic}} by {{acknowledgement}}",
 			"season-upcoming_one": "The new season starts tomorrow.",
 			"season-upcoming_other": "The new season starts in {{count}} days.",
 			"event-upcoming_one": "{{event}} starts tomorrow.",

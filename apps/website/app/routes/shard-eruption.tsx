@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
-import { InfographicPreview } from "~/components/InfographicPreview";
+import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
@@ -34,7 +34,7 @@ type ShardEruptionCardProps = {
 		| null;
 	todayFormat: string;
 	now: number;
-	onPreview: (url: string) => void;
+	onPreview: (imageURL: string, acknowledgement: string | null) => void;
 };
 
 export const meta: MetaFunction<typeof loader> = ({ location }) => {
@@ -148,7 +148,7 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 				<>
 					<button
 						className="regular-link inline-flex items-center text-sm"
-						onClick={() => onPreview(shard.url)}
+						onClick={() => onPreview(shard.url, shard.acknowledgement)}
 						type="button"
 					>
 						{t("shard-eruption.realm-area", {
@@ -199,13 +199,15 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 export default function ShardEruption() {
 	const { currentUnix, shards, page } = useLoaderData<typeof loader>();
 	const { t } = useTranslation();
-	const [selectedImage, setSelectedImage] = useState<string | null>(null);
+	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 
 	const shardCards = shards.map((shard) => (
 		<ShardEruptionCard
 			key={shard.todayFormat}
 			now={currentUnix}
-			onPreview={setSelectedImage}
+			onPreview={(imageURL, acknowledgement) =>
+				setSelectedInfographic({ acknowledgement, imageURL })
+			}
 			shard={shard.shard}
 			todayFormat={shard.todayFormat}
 		/>
@@ -236,10 +238,11 @@ export default function ShardEruption() {
 					/>
 				</div>
 			</div>
-			{selectedImage && (
+			{selectedInfographic && (
 				<InfographicPreview
-					imageURL={selectedImage}
-					onClose={() => setSelectedImage(null)}
+					acknowledgement={selectedInfographic.acknowledgement}
+					imageURL={selectedInfographic.imageURL}
+					onClose={() => setSelectedInfographic(null)}
 					title={t("infographic", { ns: "general" })}
 				/>
 			)}

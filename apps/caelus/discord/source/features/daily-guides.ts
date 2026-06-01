@@ -39,6 +39,7 @@ import {
 	type DailyGuidesDistributionTypes,
 	type DailyGuidesPacket,
 	type DailyQuests,
+	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	formatEmoji,
 	formatEmojiURL,
@@ -120,6 +121,13 @@ type DailyGuidesDistributionAllowedChannel =
 			{ type: (typeof DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES)[number] }
 	  >
 	| PublicThread;
+
+interface DailyQuestWithMedia {
+	acknowledgement: string | null;
+	index: number;
+	quest: DailyQuests;
+	url: string;
+}
 
 const distributeQueue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
 let distributionLock: Promise<unknown> | null = null;
@@ -836,7 +844,11 @@ async function distributionData(
 
 	for (const quest of [quest1, quest2, quest3, quest4]) {
 		if (quest !== null && isDailyQuest(quest)) {
-			quests.push({ quest, url: DailyQuestToInfographicURL[quest] });
+			quests.push({
+				quest,
+				url: DailyQuestToInfographicURL[quest],
+				acknowledgement: DailyQuestToAcknowledgement[quest],
+			});
 		} else {
 			missingDailyQuests = true;
 		}
@@ -854,15 +866,37 @@ async function distributionData(
 		});
 
 		if (type === DailyGuidesDistributionType.Media) {
-			const questsWithMedia = [];
+			const questsWithMedia: DailyQuestWithMedia[] = [];
 
-			for (const quest of quests) {
+			for (let index = 0; index < quests.length; index++) {
+				const quest = quests[index]!;
+
 				if (quest.url) {
-					questsWithMedia.push(quest as { quest: DailyQuests; url: string });
+					questsWithMedia.push({
+						acknowledgement: quest.acknowledgement,
+						index: index + 1,
+						quest: quest.quest,
+						url: quest.url,
+					});
 				}
 			}
 
 			if (questsWithMedia.length > 0) {
+				const acknowledgementContent: string[] = [];
+
+				for (const { acknowledgement, index } of questsWithMedia) {
+					if (acknowledgement) {
+						acknowledgementContent.push(
+							t("daily-guides.infographic-acknowledgement-item", {
+								lng: locale,
+								ns: "features",
+								infographic: index,
+								acknowledgement,
+							}),
+						);
+					}
+				}
+
 				containerComponents.push({
 					type: ComponentType.MediaGallery,
 					items: questsWithMedia.map(({ quest, url }) => ({
@@ -870,6 +904,13 @@ async function distributionData(
 						description: t(`quests.${quest}`, { lng: locale, ns: "general" }),
 					})),
 				});
+
+				if (acknowledgementContent.length > 0) {
+					containerComponents.push({
+						type: ComponentType.TextDisplay,
+						content: `-# ${acknowledgementContent.join(" | ")}`,
+					});
+				}
 			}
 		}
 	} else {
@@ -1012,10 +1053,16 @@ async function distributionData(
 	});
 
 	if (type === DailyGuidesDistributionType.Media && shard) {
-		containerComponents.push({
-			type: ComponentType.MediaGallery,
-			items: [{ media: { url: shard.url } }],
-		});
+		containerComponents.push(
+			{
+				type: ComponentType.MediaGallery,
+				items: [{ media: { url: shard.url } }],
+			},
+			{
+				type: ComponentType.TextDisplay,
+				content: `-# ${t("infographic-by", { lng: locale, ns: "general", acknowledgement: shard.acknowledgement })}`,
+			},
+		);
 	}
 
 	let missingTravellingRock: boolean;
