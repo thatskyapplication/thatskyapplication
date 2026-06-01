@@ -19,6 +19,8 @@ import {
 const ACKNOWLEDGEMENTS_TITLE = "Acknowledgements" as const;
 const ACKNOWLEDGEMENTS_DESCRIPTION = "The Sky kids that make everything you see possible." as const;
 
+type AcknowledgementProfile = SkyProfilePacket & { name: string };
+
 export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
 	const url = String(new URL(location.pathname, WEBSITE_URL));
@@ -48,7 +50,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
 };
 
 export const loader = async () => {
-	const { rows } = await pg.raw<{ rows: readonly SkyProfilePacket[] }>(
+	const { rows } = await pg.raw<{ rows: readonly AcknowledgementProfile[] }>(
 		`
 			select ${Table.Profiles}.*
 			from (
@@ -99,22 +101,25 @@ export default function Acknowledgements() {
 						<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-6">
 							{skyProfilePackets.map((profile) => (
 								<Link
+									aria-label={profile.name}
 									className="group flex items-center gap-3 rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
 									key={profile.user_id}
 									to={`/sky-profiles/${profile.user_id}`}
 								>
 									{profile.icon ? (
 										<div
-											aria-label={`Icon of ${profile.name}.`}
+											aria-hidden="true"
 											className="w-8 h-8 rounded-full bg-cover bg-center shrink-0"
-											role="img"
 											style={{
 												backgroundImage: `url(${cdn.skyProfileIconURL(profile.user_id, profile.icon)})`,
 											}}
 										/>
 									) : (
-										<div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-500 dark:text-gray-400 text-xs font-medium shrink-0">
-											{profile.name?.charAt(0).toUpperCase() ?? "?"}
+										<div
+											aria-hidden="true"
+											className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-500 dark:text-gray-400 text-xs font-medium shrink-0"
+										>
+											{profile.name.charAt(0).toUpperCase()}
 										</div>
 									)}
 									<span className="text-sm font-medium truncate group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
