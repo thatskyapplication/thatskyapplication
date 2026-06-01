@@ -1,3 +1,15 @@
+import {
+	autoUpdate,
+	FloatingFocusManager,
+	FloatingPortal,
+	flip,
+	offset,
+	shift,
+	useClick,
+	useDismiss,
+	useFloating,
+	useInteractions,
+} from "@floating-ui/react";
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
 import {
@@ -43,45 +55,41 @@ interface MobileMenuProps {
 	userIconURL: string | null;
 }
 
-function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
+function useDesktopDropdown(placement: "bottom-end" | "bottom-start") {
 	const [isOpen, setIsOpen] = useState(false);
+	const { context, floatingStyles, refs } = useFloating({
+		middleware: [offset(8), flip(), shift({ padding: 8 })],
+		onOpenChange: setIsOpen,
+		open: isOpen,
+		placement,
+		strategy: "fixed",
+		whileElementsMounted: autoUpdate,
+	});
+	const click = useClick(context);
+	const dismiss = useDismiss(context, { outsidePressEvent: "mousedown" });
+	const { getFloatingProps, getReferenceProps } = useInteractions([click, dismiss]);
+
+	return { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen };
+}
+
+function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
-	const dropdownRef = useRef<HTMLDivElement>(null);
 	const imageURL = userIconURL ?? avatarURL(user);
-
-	useEffect(() => {
-		function handleClickOutside(event: MouseEvent) {
-			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-				setIsOpen(false);
-			}
-		}
-
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => document.removeEventListener("mousedown", handleClickOutside);
-	}, []);
-
-	useEffect(() => {
-		function handleEscape(event: KeyboardEvent) {
-			if (event.key === "Escape") {
-				setIsOpen(false);
-			}
-		}
-
-		document.addEventListener("keydown", handleEscape);
-		return () => document.removeEventListener("keydown", handleEscape);
-	}, []);
-
 	const { t } = useTranslation();
+	const { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen } =
+		useDesktopDropdown("bottom-end");
 
 	return (
-		<div className="relative" ref={dropdownRef}>
+		<>
 			<button
-				aria-expanded={isOpen}
-				aria-haspopup="true"
-				className="flex items-center gap-3 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-				onClick={() => setIsOpen(!isOpen)}
-				type="button"
+				ref={refs.setReference}
+				{...getReferenceProps({
+					"aria-expanded": isOpen,
+					className:
+						"flex items-center gap-3 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors",
+					type: "button",
+				})}
 			>
 				<div
 					aria-label={`${userDisplayName}'s avatar`}
@@ -101,46 +109,55 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 				/>
 			</button>
 			{isOpen && (
-				<div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
-					<div className="py-1">
-						<DesktopUserContextMenuItem icon={User} onClick={() => setIsOpen(false)} to="/me">
-							My area
-						</DesktopUserContextMenuItem>
-						<DesktopUserContextMenuItem
-							icon={Users}
-							onClick={() => setIsOpen(false)}
-							to={`/sky-profiles/${user.id}`}
+				<FloatingPortal>
+					<FloatingFocusManager context={context} modal={false}>
+						<div
+							className="z-50 w-48 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+							ref={refs.setFloating}
+							style={floatingStyles}
+							{...getFloatingProps()}
 						>
-							{t("sky-profile.name", { ns: "features" })}
-						</DesktopUserContextMenuItem>
-						<DesktopUserContextMenuItem
-							icon={CheckSquare}
-							onClick={() => setIsOpen(false)}
-							to="/me/checklist"
-						>
-							{t("checklist.title", { ns: "features" })}
-						</DesktopUserContextMenuItem>
-						<DesktopUserContextMenuItem
-							icon={Heart}
-							onClick={() => setIsOpen(false)}
-							to="/me/heart-history"
-						>
-							{t("heart.history-title", { ns: "features" })}
-						</DesktopUserContextMenuItem>
-						<div className="border-t border-gray-200 dark:border-gray-700 mt-1 pt-1">
-							<DesktopUserContextMenuItem
-								danger
-								icon={LogOut}
-								onClick={() => setIsOpen(false)}
-								to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
-							>
-								Log out
-							</DesktopUserContextMenuItem>
+							<div className="py-1">
+								<DesktopUserContextMenuItem icon={User} onClick={() => setIsOpen(false)} to="/me">
+									My area
+								</DesktopUserContextMenuItem>
+								<DesktopUserContextMenuItem
+									icon={Users}
+									onClick={() => setIsOpen(false)}
+									to={`/sky-profiles/${user.id}`}
+								>
+									{t("sky-profile.name", { ns: "features" })}
+								</DesktopUserContextMenuItem>
+								<DesktopUserContextMenuItem
+									icon={CheckSquare}
+									onClick={() => setIsOpen(false)}
+									to="/me/checklist"
+								>
+									{t("checklist.title", { ns: "features" })}
+								</DesktopUserContextMenuItem>
+								<DesktopUserContextMenuItem
+									icon={Heart}
+									onClick={() => setIsOpen(false)}
+									to="/me/heart-history"
+								>
+									{t("heart.history-title", { ns: "features" })}
+								</DesktopUserContextMenuItem>
+								<div className="mt-1 border-t border-gray-200 pt-1 dark:border-gray-700">
+									<DesktopUserContextMenuItem
+										danger
+										icon={LogOut}
+										onClick={() => setIsOpen(false)}
+										to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
+									>
+										Log out
+									</DesktopUserContextMenuItem>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
+					</FloatingFocusManager>
+				</FloatingPortal>
 			)}
-		</div>
+		</>
 	);
 }
 
@@ -160,88 +177,77 @@ function LoginButton() {
 }
 
 function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isActive: boolean }) {
-	const [isOpen, setIsOpen] = useState(false);
-	const dropdownRef = useRef<HTMLDivElement>(null);
-
-	useEffect(() => {
-		function handleClickOutside(event: MouseEvent) {
-			if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-				setIsOpen(false);
-			}
-		}
-
-		document.addEventListener("mousedown", handleClickOutside);
-		return () => document.removeEventListener("mousedown", handleClickOutside);
-	}, []);
-
-	useEffect(() => {
-		function handleEscape(event: KeyboardEvent) {
-			if (event.key === "Escape") {
-				setIsOpen(false);
-			}
-		}
-
-		document.addEventListener("keydown", handleEscape);
-		return () => document.removeEventListener("keydown", handleEscape);
-	}, []);
+	const { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen } =
+		useDesktopDropdown("bottom-start");
 
 	return (
-		<div className="relative" ref={dropdownRef}>
+		<>
 			<button
-				aria-expanded={isOpen}
-				aria-haspopup="true"
-				className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
-					isActive
-						? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-						: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-				}`}
-				onClick={() => setIsOpen(!isOpen)}
-				type="button"
+				ref={refs.setReference}
+				{...getReferenceProps({
+					"aria-expanded": isOpen,
+					className: `flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
+						isActive
+							? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+							: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+					}`,
+					type: "button",
+				})}
 			>
 				<span>{group.label}</span>
 				<ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
 			</button>
 			{isOpen && (
-				<div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg z-50">
-					<div className="py-1">
-						{group.items.map((item) =>
-							item.external ? (
-								<a
-									className="flex items-start gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-									href={item.to}
-									key={item.to}
-									rel="noopener noreferrer"
-									target="_blank"
-								>
-									{item.icon}
-									<div>
-										<div className="font-medium text-sm">{item.label}</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
-											{item.description}
-										</div>
-									</div>
-								</a>
-							) : (
-								<Link
-									className="flex items-start gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-									key={item.to}
-									onClick={() => setIsOpen(false)}
-									to={item.to}
-								>
-									{item.icon}
-									<div>
-										<div className="font-medium text-sm">{item.label}</div>
-										<div className="text-xs text-gray-500 dark:text-gray-400">
-											{item.description}
-										</div>
-									</div>
-								</Link>
-							),
-						)}
-					</div>
-				</div>
+				<FloatingPortal>
+					<FloatingFocusManager context={context} modal={false}>
+						<div
+							className="z-50 w-64 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+							ref={refs.setFloating}
+							style={floatingStyles}
+							{...getFloatingProps()}
+						>
+							<div className="py-1">
+								{group.items.map((item) =>
+									item.external ? (
+										<a
+											className="flex items-start gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+											href={item.to}
+											key={item.to}
+											onClick={() => setIsOpen(false)}
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											{item.icon}
+											<div>
+												<div className="font-medium text-sm">{item.label}</div>
+												<div className="text-xs text-gray-500 dark:text-gray-400">
+													{item.description}
+												</div>
+											</div>
+										</a>
+									) : (
+										<Link
+											className="flex items-start gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+											key={item.to}
+											onClick={() => setIsOpen(false)}
+											to={item.to}
+										>
+											{item.icon}
+											<div>
+												<div className="font-medium text-sm">{item.label}</div>
+												<div className="text-xs text-gray-500 dark:text-gray-400">
+													{item.description}
+												</div>
+											</div>
+										</Link>
+									),
+								)}
+							</div>
+						</div>
+					</FloatingFocusManager>
+				</FloatingPortal>
 			)}
-		</div>
+		</>
 	);
 }
 
