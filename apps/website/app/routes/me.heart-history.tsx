@@ -1,30 +1,17 @@
 import type { Snowflake } from "@discordjs/core/http-only";
 import {
-	autoUpdate,
-	FloatingPortal,
-	flip,
-	offset,
-	shift,
-	useDismiss,
-	useFloating,
-	useFocus,
-	useHover,
-	useInteractions,
-	useRole,
-} from "@floating-ui/react";
-import {
 	DELETED_USER_TEXT,
 	type HeartPacket,
 	type SkyProfilePacket,
 	Table,
 } from "@thatskyapplication/utility";
 import { ArrowLeft, HandHeart, HeartPlus } from "lucide-react";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { Link, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
+import { Tooltip } from "~/components/Tooltip";
 import pg from "~/pg.server";
 import { discordEmojiURL } from "~/utility/cdn.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
@@ -138,47 +125,19 @@ function ProfileName({
 
 function NoProfileUserId({ userId }: { userId: Snowflake }) {
 	const { t } = useTranslation();
-	const [open, setOpen] = useState(false);
-	const { context, floatingStyles, refs } = useFloating({
-		middleware: [offset(6), flip(), shift({ padding: 8 })],
-		onOpenChange: setOpen,
-		open,
-		placement: "top",
-		whileElementsMounted: autoUpdate,
-	});
-
-	const hover = useHover(context);
-	const focus = useFocus(context);
-	const dismiss = useDismiss(context);
-	const role = useRole(context, { role: "tooltip" });
-	const { getFloatingProps, getReferenceProps } = useInteractions([hover, focus, dismiss, role]);
 	const tooltip = t("sky-profile.no-sky-profile-sky-kid", {
 		ns: "features",
 	});
 
 	return (
-		<>
+		<Tooltip content={tooltip}>
 			<button
 				className="block max-w-full cursor-help truncate border-0 bg-transparent p-0 text-left font-medium text-gray-900 dark:text-gray-100"
-				ref={refs.setReference}
 				type="button"
-				{...getReferenceProps()}
 			>
 				{userId}
 			</button>
-			{open ? (
-				<FloatingPortal>
-					<div
-						className="z-50 max-w-xs rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
-						ref={refs.setFloating}
-						style={floatingStyles}
-						{...getFloatingProps()}
-					>
-						{tooltip}
-					</div>
-				</FloatingPortal>
-			) : null}
-		</>
+		</Tooltip>
 	);
 }
 

@@ -29,7 +29,7 @@ import {
 	Trophy,
 	Users,
 } from "lucide-react";
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import {
@@ -43,6 +43,7 @@ import {
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
+import { Tooltip } from "~/components/Tooltip";
 import {
 	findGuessUserRanking,
 	getSkyProfileCatalogueData,
@@ -60,7 +61,14 @@ import {
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
 const BADGES_CLASS_NAME =
-	"inline-flex items-center gap-2 px-3 py-1 bg-linear-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-700 rounded-full text-sm font-medium text-purple-800 dark:text-purple-200 shadow-xs" as const;
+	"inline-flex items-center gap-2 px-3 py-1 bg-linear-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-700 rounded-full text-sm font-medium text-purple-800 dark:text-purple-200 shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 dark:focus-visible:outline-purple-300" as const;
+
+interface RecognitionBadgeData {
+	description: string;
+	href?: string;
+	icon: ReactNode;
+	label: string;
+}
 
 export function ErrorBoundary() {
 	const error = useRouteError();
@@ -232,8 +240,38 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 	};
 };
 
+function RecognitionBadge({ badge }: { badge: RecognitionBadgeData }) {
+	const content = (
+		<>
+			<div aria-hidden="true" className="text-base">
+				{badge.icon}
+			</div>
+			<span>{badge.label}</span>
+		</>
+	);
+
+	return (
+		<Tooltip content={badge.description}>
+			{badge.href ? (
+				<a
+					className={`${BADGES_CLASS_NAME} hover:from-purple-200 hover:to-blue-200 dark:hover:from-purple-800/40 dark:hover:to-blue-800/40 transition-colors cursor-pointer`}
+					href={badge.href}
+					rel="noopener noreferrer"
+					target="_blank"
+				>
+					{content}
+				</a>
+			) : (
+				<button className={`${BADGES_CLASS_NAME} cursor-help`} type="button">
+					{content}
+				</button>
+			)}
+		</Tooltip>
+	);
+}
+
 function RecognitionBadges({ data }: { data: SkyProfileData }) {
-	const badges = [];
+	const badges: RecognitionBadgeData[] = [];
 
 	if (data.translator) {
 		badges.push({
@@ -262,33 +300,9 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 
 	return badges.length > 0 ? (
 		<div className="mb-4 flex flex-wrap gap-2">
-			{badges.map((badge) => {
-				const content = (
-					<>
-						<div aria-label={badge.label} className="text-base" role="img">
-							{badge.icon}
-						</div>
-						<span>{badge.label}</span>
-					</>
-				);
-
-				return badge.href ? (
-					<a
-						className={`${BADGES_CLASS_NAME} hover:from-purple-200 hover:to-blue-200 dark:hover:from-purple-800/40 dark:hover:to-blue-800/40 transition-colors cursor-pointer`}
-						href={badge.href}
-						key={badge.label}
-						rel="noopener noreferrer"
-						target="_blank"
-						title={badge.description}
-					>
-						{content}
-					</a>
-				) : (
-					<div className={BADGES_CLASS_NAME} key={badge.label} title={badge.description}>
-						{content}
-					</div>
-				);
-			})}
+			{badges.map((badge) => (
+				<RecognitionBadge badge={badge} key={badge.label} />
+			))}
 		</div>
 	) : null;
 }
