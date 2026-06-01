@@ -39,6 +39,7 @@ export default {
 		"support-server": "Support server",
 		show: "Show",
 		hide: "Hide",
+		infographic: "Infographic",
 		"daily-quests": "Daily quests",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -3093,7 +3094,6 @@ export default {
 			"event-upcoming-time": "{{event}} starts at {{time}}.",
 			"maintenance-upcoming_one": "Maintenance starts at {{time}} tomorrow.",
 			"maintenance-upcoming_other": "Maintenance starts in {{count}} days.",
-			infographic: "Infographic",
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!\n\nWe're currently missing the following:",
 			"not-yet-updated-support-server":

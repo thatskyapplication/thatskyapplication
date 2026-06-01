@@ -686,7 +686,7 @@ export default function DailyGuides() {
 						desktop="inline"
 						imageURL={selectedImage}
 						onClose={() => setSelectedImage(null)}
-						title={t("daily-guides.infographic", { ns: "features" })}
+						title={t("infographic", { ns: "general" })}
 					/>
 				)}
 			</div>
