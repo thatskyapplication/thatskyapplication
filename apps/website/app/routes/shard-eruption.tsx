@@ -4,10 +4,11 @@ import {
 	skyNow,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { ExternalLinkIcon } from "lucide-react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { type MetaFunction, useLoaderData } from "react-router";
+import { InfographicPreview } from "~/components/InfographicPreview";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
@@ -33,6 +34,7 @@ type ShardEruptionCardProps = {
 		| null;
 	todayFormat: string;
 	now: number;
+	onPreview: (url: string) => void;
 };
 
 export const meta: MetaFunction<typeof loader> = ({ location }) => {
@@ -121,7 +123,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	return { currentUnix: now.toUnixInteger(), shards, page };
 };
 
-function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) {
+function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruptionCardProps) {
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 
@@ -144,19 +146,17 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 			</div>
 			{shard ? (
 				<>
-					<a
+					<button
 						className="regular-link inline-flex items-center text-sm"
-						href={shard.url}
-						rel="noopener noreferrer"
-						target="_blank"
+						onClick={() => onPreview(shard.url)}
+						type="button"
 					>
 						{t("shard-eruption.realm-area", {
 							ns: "features",
 							realm: shard.realm,
 							area: shard.area,
 						})}
-						<ExternalLinkIcon className="ml-1 w-4 h-4" />
-					</a>
+					</button>
 					<div className="inline-flex items-center">
 						<span className="text-sm">{shard.reward}</span>
 						{shard.strong ? (
@@ -198,11 +198,14 @@ function ShardEruptionCard({ shard, todayFormat, now }: ShardEruptionCardProps) 
 
 export default function ShardEruption() {
 	const { currentUnix, shards, page } = useLoaderData<typeof loader>();
+	const { t } = useTranslation();
+	const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
 	const shardCards = shards.map((shard) => (
 		<ShardEruptionCard
 			key={shard.todayFormat}
 			now={currentUnix}
+			onPreview={setSelectedImage}
 			shard={shard.shard}
 			todayFormat={shard.todayFormat}
 		/>
@@ -233,6 +236,13 @@ export default function ShardEruption() {
 					/>
 				</div>
 			</div>
+			{selectedImage && (
+				<InfographicPreview
+					imageURL={selectedImage}
+					onClose={() => setSelectedImage(null)}
+					title={t("daily-guides.infographic", { ns: "features" })}
+				/>
+			)}
 		</SitePage>
 	);
 }

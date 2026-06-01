@@ -14,12 +14,13 @@ import {
 	treasureCandles,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { AlertTriangle, ArrowRight, ExternalLinkIcon, X } from "lucide-react";
+import { AlertTriangle, ArrowRight, ExternalLinkIcon } from "lucide-react";
 import { DateTime } from "luxon";
-import { type JSX, useEffect, useState } from "react";
+import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { data, Link, useLoaderData } from "react-router";
+import { InfographicPreview } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { getLocale } from "~/middleware/i18next.js";
@@ -135,17 +136,6 @@ export default function DailyGuides() {
 	const quest4 = dailyGuides.quest4;
 	const travellingRock = dailyGuides.travelling_rock;
 	const season = skyCurrentSeason(now);
-
-	useEffect(() => {
-		const handleEscape = (event: KeyboardEvent) => {
-			if (event.key === "Escape" && selectedImage) {
-				setSelectedImage(null);
-			}
-		};
-
-		document.addEventListener("keydown", handleEscape);
-		return () => document.removeEventListener("keydown", handleEscape);
-	}, [selectedImage]);
 
 	const quests = [];
 
@@ -368,8 +358,8 @@ export default function DailyGuides() {
 	return (
 		<CentredSitePage>
 			<div
-				className={`flex gap-6 w-full max-w-6xl transition-all duration-300 ${
-					selectedImage ? "justify-between items-center" : "justify-center"
+				className={`flex w-full max-w-6xl gap-6 transition-all duration-300 ${
+					selectedImage ? "items-start justify-between" : "justify-center"
 				}`}
 			>
 				<div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-6 w-full max-w-lg shrink-0">
@@ -692,50 +682,14 @@ export default function DailyGuides() {
 					)}
 				</div>
 				{selectedImage && (
-					<div className="hidden lg:flex w-1/2 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-4 flex-col">
-						<div className="flex items-center justify-between mb-4 shrink-0">
-							<h3 className="font-semibold text-gray-900 dark:text-white text-sm">
-								{t("daily-guides.infographic", { ns: "features" })}
-							</h3>
-							<button
-								aria-label="Close infographic"
-								className="p-1.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
-								onClick={() => setSelectedImage(null)}
-								type="button"
-							>
-								<X className="w-4 h-4" />
-							</button>
-						</div>
-						<div className="flex justify-center">
-							<img
-								alt="Infographic"
-								className="block w-full h-auto rounded-lg shadow-lg"
-								src={selectedImage}
-							/>
-						</div>
-					</div>
+					<InfographicPreview
+						desktop="inline"
+						imageURL={selectedImage}
+						onClose={() => setSelectedImage(null)}
+						title={t("daily-guides.infographic", { ns: "features" })}
+					/>
 				)}
 			</div>
-			{selectedImage && (
-				<div className="lg:hidden fixed inset-0 bg-gray-900/95 backdrop-blur-xs z-50 overflow-y-auto">
-					<div className="sticky top-0 flex items-center justify-between p-4 bg-gray-800/80 shrink-0">
-						<h3 className="text-white font-medium">
-							{t("daily-guides.infographic", { ns: "features" })}
-						</h3>
-						<button
-							aria-label="Close infographic"
-							className="p-2 text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
-							onClick={() => setSelectedImage(null)}
-							type="button"
-						>
-							<X className="w-6 h-6" />
-						</button>
-					</div>
-					<div className="p-4">
-						<img alt="Infographic" className="block w-full h-auto" src={selectedImage} />
-					</div>
-				</div>
-			)}
 		</CentredSitePage>
 	);
 }
