@@ -2223,19 +2223,19 @@
 			"2823": "Capa de Moedas do Tesouro",
 			"2824": "Chapéu do Rastreador de Tesouros",
 			"2825": "Companheiro Pirata do Tesouro",
-			"2826": "",
-			"2827": "",
-			"2834": "",
-			"2835": "",
-			"2837": "",
-			"2840": "",
-			"2841": "",
-			"2842": "",
-			"2843": "",
-			"2844": "",
-			"2845": "",
-			"2846": "",
-			"2847": "",
+			"2826": "Capa FlOw",
+			"2827": "Flor FlOw",
+			"2834": "Reverência em Dueto 3",
+			"2835": "Reverência em Dueto 4",
+			"2837": "Pipa de Borboleta",
+			"2840": "Boina Caranguejo",
+			"2841": "Pipa de Pássaro",
+			"2842": "Pipa de Arraia",
+			"2843": "Pipa de Água-Viva",
+			"2844": "Pipa de Tartaruga",
+			"2845": "Pipa de Peixe-Boi",
+			"2846": "Pipa de Baleia",
+			"2847": "Pipa de Cornelume",
 			"2848": "Boina Arco-Íris",
 			"2849": "Macacão com Laço Arco-Íris",
 			"2850": "Máscara Arco-Íris"
@@ -2251,7 +2251,8 @@
 		"maintenance-description-many-with-times": "Sky pode ficar indisponível durante esses períodos.\n{{times}}",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar",
-		"wiki": "Wiki"
+		"wiki": "Wiki",
+		"infographic": "Infográfico"
 	},
 	"commands": {
 		"about": {
@@ -2685,7 +2686,6 @@
 			"event-upcoming-time": "{{event}} começa às {{time}}.",
 			"maintenance-upcoming_one": "A manutenção começa às {{time}} amanhã.",
 			"maintenance-upcoming_other": "A manutenção começa em {{count}} dias.",
-			"infographic": "Infográfico",
 			"not-yet-updated": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Junte-se ao [servidor de suporte]({{url}}) e atualize você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
 			"not-yet-updated-support-server": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Veja o {{channel}} para encontrar como atualizá-los você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
 			"error-thread-archived": "O tópico foi arquivado.",
@@ -2870,16 +2870,16 @@
 					"message-future": "A manutenção começará em {{timestampStart}} ({{timestampStartRelative}}) e está planejada para terminar em {{timestampEnd}} ({{timestampEndRelative}})."
 				},
 				"16": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "Está na hora, Crianças da Luz! {{event}} está aqui!",
+					"message-future": "{{event}} estará aqui em {{timestamp}}!"
 				},
 				"17": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "{{dyesStart}} O evento do Resplendor começou! {{dyesEnd}}",
+					"message-future": "{{dyesStart}} O evento do Resplendor começara em {{timestamp}}! {{dyesEnd}}"
 				},
 				"18": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "Um novo capítulo começa. {{season}} está aqui!",
+					"message-future": "{{season}} está chegando em Sky {{timestamp}}!"
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",

@@ -2251,7 +2251,8 @@
 		"maintenance-description-many-with-times": "",
 		"navigation-back": "Retour",
 		"navigation-next": "Suivant",
-		"wiki": "Wiki"
+		"wiki": "Wiki",
+		"infographic": "Infographie"
 	},
 	"commands": {
 		"about": {
@@ -2685,7 +2686,6 @@
 			"event-upcoming-time": "{{event}} commence à {{time}}.",
 			"maintenance-upcoming_one": "",
 			"maintenance-upcoming_other": "",
-			"infographic": "Infographie",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
 			"error-thread-archived": "Le fil est archivé.",
