@@ -14,6 +14,7 @@ type AcknowledgementSocialLinkPlatform = "bluesky" | "discord" | "instagram" | "
 
 interface AcknowledgementSocialLink {
 	href: string;
+	label: string;
 	platform: AcknowledgementSocialLinkPlatform;
 }
 
@@ -71,11 +72,16 @@ export function AcknowledgementSocialLinks({
 }) {
 	return (
 		<div className="mt-2 flex flex-wrap gap-2">
-			{links.map(({ href, platform }) => {
-				const { colour, Icon, label } = AcknowledgementSocialLinkPlatformToBrand[platform];
+			{links.map(({ href, label, platform }) => {
+				const {
+					colour,
+					Icon,
+					label: platformLabel,
+				} = AcknowledgementSocialLinkPlatformToBrand[platform];
 
 				return (
 					<a
+						aria-label={`${label} on ${platformLabel}`}
 						className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2"
 						href={href}
 						key={href}

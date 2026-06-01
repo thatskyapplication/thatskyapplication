@@ -130,9 +130,21 @@ export default function Acknowledgements() {
 					<h2>Sky:CoTL Infographics Database</h2>
 					<AcknowledgementSocialLinks
 						links={[
-							{ href: SKY_COTL_INFOGRAPHICS_DATABASE_URL, platform: "discord" },
-							{ href: SKY_COTL_INFOGRAPHICS_DATABASE_X_URL, platform: "x" },
-							{ href: SKY_COTL_INFOGRAPHICS_DATABASE_INSTAGRAM_URL, platform: "instagram" },
+							{
+								href: SKY_COTL_INFOGRAPHICS_DATABASE_URL,
+								label: "Sky:CoTL Infographics Database",
+								platform: "discord",
+							},
+							{
+								href: SKY_COTL_INFOGRAPHICS_DATABASE_X_URL,
+								label: "@ourskyjourney",
+								platform: "x",
+							},
+							{
+								href: SKY_COTL_INFOGRAPHICS_DATABASE_INSTAGRAM_URL,
+								label: "@ourskyjourney",
+								platform: "instagram",
+							},
 						]}
 					/>
 					<p className="text-gray-600 dark:text-gray-400">
@@ -144,9 +156,21 @@ export default function Acknowledgements() {
 					<h2>Wiki</h2>
 					<AcknowledgementSocialLinks
 						links={[
-							{ href: WIKI_URL, platform: "website" },
-							{ href: WIKI_DISCORD_URL, platform: "discord" },
-							{ href: WIKI_BLUESKY_URL, platform: "bluesky" },
+							{
+								href: WIKI_URL,
+								label: "Wiki",
+								platform: "website",
+							},
+							{
+								href: WIKI_DISCORD_URL,
+								label: "Sky Wiki Contributors",
+								platform: "discord",
+							},
+							{
+								href: WIKI_BLUESKY_URL,
+								label: "@skywiki.bsky.social",
+								platform: "bluesky",
+							},
 						]}
 					/>
 					<p className="text-gray-600 dark:text-gray-400">
