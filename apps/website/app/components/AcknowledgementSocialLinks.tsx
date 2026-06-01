@@ -8,6 +8,7 @@ import {
 	SiX,
 	SiXHex,
 } from "@icons-pack/react-simple-icons";
+import { clsx } from "clsx";
 import type { ComponentType } from "react";
 
 type AcknowledgementSocialLinkPlatform = "bluesky" | "discord" | "instagram" | "website" | "x";
@@ -28,7 +29,10 @@ function WebsiteIcon({ className }: { className?: string }) {
 	return (
 		<span
 			aria-hidden="true"
-			className={`${className ?? ""} inline-flex items-center justify-center text-[0.8rem] leading-none`}
+			className={clsx(
+				className,
+				"inline-flex items-center justify-center text-[0.8rem] leading-none",
+			)}
 		>
 			🌐
 		</span>

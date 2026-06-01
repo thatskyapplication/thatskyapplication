@@ -9,6 +9,7 @@ import {
 	skyToday,
 	Table,
 } from "@thatskyapplication/utility";
+import { clsx } from "clsx";
 import { ArrowLeft, CheckCircle, Circle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
@@ -16,6 +17,23 @@ import { Form, Link, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+
+const CHECKLIST_CARD_BASE_CLASS =
+	"flex h-full w-full items-center gap-3 rounded-lg border p-3.5 transition-all duration-200" as const;
+const CHECKLIST_INTERACTIVE_CARD_CLASS = clsx(
+	CHECKLIST_CARD_BASE_CLASS,
+	"cursor-pointer hover:shadow-md",
+);
+const CHECKLIST_COMPLETE_CARD_CLASS =
+	"border-green-200 bg-green-50 hover:bg-green-100 dark:border-green-700 dark:bg-green-900/20 dark:hover:bg-green-900/30" as const;
+const CHECKLIST_INCOMPLETE_CARD_CLASS =
+	"border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50" as const;
+const CHECKLIST_UNAVAILABLE_CARD_CLASS =
+	"border-gray-300 bg-gray-100 dark:border-gray-700 dark:bg-gray-900" as const;
+const CHECKLIST_LABEL_CLASS = "font-medium transition-colors" as const;
+const CHECKLIST_COMPLETE_LABEL_CLASS = "text-green-800 line-through dark:text-green-200" as const;
+const CHECKLIST_INCOMPLETE_LABEL_CLASS = "text-gray-900 dark:text-gray-100" as const;
+const CHECKLIST_UNAVAILABLE_LABEL_CLASS = "text-gray-400 dark:text-gray-600" as const;
 
 async function checklistRefresh(checklistPacket: ChecklistPacket) {
 	const lastUpdatedTimestamp = checklistPacket.last_updated_at.getTime();
@@ -122,6 +140,12 @@ export default function Checklist() {
 	} = useLoaderData<typeof loader>();
 
 	const { t } = useTranslation();
+	const dailyQuestsComplete = checklistPacket?.daily_quests ?? false;
+	const seasonalCandlesComplete = checklistPacket?.seasonal_candles ?? false;
+	const eyeOfEdenComplete = checklistPacket?.eye_of_eden ?? false;
+	const shardEruptionsComplete = checklistPacket?.shard_eruptions ?? false;
+	const eventTicketsComplete = checklistPacket?.event_tickets ?? false;
+	const shardUnavailable = shard === null;
 
 	return (
 		<SitePage>
@@ -146,21 +170,18 @@ export default function Checklist() {
 				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%-0.5rem)] md:[&>*:last-child]:w-full">
 					<div>
 						<Form className="flex h-full w-full" method="post">
-							<input
-								name="daily_quests"
-								type="hidden"
-								value={Number(checklistPacket?.daily_quests ?? false)}
-							/>
+							<input name="daily_quests" type="hidden" value={Number(dailyQuestsComplete)} />
 							<button
-								className={`cursor-pointer h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 hover:shadow-md ${
-									checklistPacket?.daily_quests
-										? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
-										: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
-								}`}
+								className={clsx(
+									CHECKLIST_INTERACTIVE_CARD_CLASS,
+									dailyQuestsComplete
+										? CHECKLIST_COMPLETE_CARD_CLASS
+										: CHECKLIST_INCOMPLETE_CARD_CLASS,
+								)}
 								type="submit"
 							>
 								<div className="shrink-0">
-									{checklistPacket?.daily_quests ? (
+									{dailyQuestsComplete ? (
 										<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
 									) : (
 										<Circle className="w-6 h-6 text-gray-400 dark:text-gray-500" />
@@ -168,16 +189,17 @@ export default function Checklist() {
 								</div>
 								<div className="text-left flex-1 min-w-0">
 									<div
-										className={`font-medium transition-colors ${
-											checklistPacket?.daily_quests
-												? "text-green-800 dark:text-green-200 line-through"
-												: "text-gray-900 dark:text-gray-100"
-										}`}
+										className={clsx(
+											CHECKLIST_LABEL_CLASS,
+											dailyQuestsComplete
+												? CHECKLIST_COMPLETE_LABEL_CLASS
+												: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+										)}
 									>
 										{t("daily-quests", { ns: "general" })}
 									</div>
 									<div className="text-xs text-gray-500 dark:text-gray-400">
-										{checklistPacket?.daily_quests
+										{dailyQuestsComplete
 											? t("checklist.daily-quests-message-complete", { ns: "features" })
 											: t("checklist.daily-quests-message-incomplete", { ns: "features" })}
 									</div>
@@ -199,18 +221,19 @@ export default function Checklist() {
 								<input
 									name="seasonal_candles"
 									type="hidden"
-									value={Number(checklistPacket?.seasonal_candles ?? false)}
+									value={Number(seasonalCandlesComplete)}
 								/>
 								<button
-									className={`cursor-pointer h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 hover:shadow-md ${
-										checklistPacket?.seasonal_candles
-											? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
-											: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
-									}`}
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										seasonalCandlesComplete
+											? CHECKLIST_COMPLETE_CARD_CLASS
+											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
 									type="submit"
 								>
 									<div className="shrink-0">
-										{checklistPacket?.seasonal_candles ? (
+										{seasonalCandlesComplete ? (
 											<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
 										) : (
 											<Circle className="w-6 h-6 text-gray-400 dark:text-gray-500" />
@@ -218,16 +241,17 @@ export default function Checklist() {
 									</div>
 									<div className="text-left flex-1 min-w-0">
 										<div
-											className={`font-medium transition-colors ${
-												checklistPacket?.seasonal_candles
-													? "text-green-800 dark:text-green-200 line-through"
-													: "text-gray-900 dark:text-gray-100"
-											}`}
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												seasonalCandlesComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
 										>
 											{t("daily-guides.seasonal-candles", { ns: "features" })}
 										</div>
 										<div className="text-xs text-gray-500 dark:text-gray-400">
-											{checklistPacket?.seasonal_candles
+											{seasonalCandlesComplete
 												? t("checklist.seasonal-candles-message-complete", { ns: "features" })
 												: isDoubleSeasonalLight
 													? t("checklist.seasonal-candles-message-incomplete-double", {
@@ -245,21 +269,18 @@ export default function Checklist() {
 
 					<div>
 						<Form className="flex h-full w-full" method="post">
-							<input
-								name="eye_of_eden"
-								type="hidden"
-								value={Number(checklistPacket?.eye_of_eden ?? false)}
-							/>
+							<input name="eye_of_eden" type="hidden" value={Number(eyeOfEdenComplete)} />
 							<button
-								className={`cursor-pointer h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 hover:shadow-md ${
-									checklistPacket?.eye_of_eden
-										? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
-										: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
-								}`}
+								className={clsx(
+									CHECKLIST_INTERACTIVE_CARD_CLASS,
+									eyeOfEdenComplete
+										? CHECKLIST_COMPLETE_CARD_CLASS
+										: CHECKLIST_INCOMPLETE_CARD_CLASS,
+								)}
 								type="submit"
 							>
 								<div className="shrink-0">
-									{checklistPacket?.eye_of_eden ? (
+									{eyeOfEdenComplete ? (
 										<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
 									) : (
 										<Circle className="w-6 h-6 text-gray-400 dark:text-gray-500" />
@@ -267,16 +288,17 @@ export default function Checklist() {
 								</div>
 								<div className="text-left flex-1 min-w-0">
 									<div
-										className={`font-medium transition-colors ${
-											checklistPacket?.eye_of_eden
-												? "text-green-800 dark:text-green-200 line-through"
-												: "text-gray-900 dark:text-gray-100"
-										}`}
+										className={clsx(
+											CHECKLIST_LABEL_CLASS,
+											eyeOfEdenComplete
+												? CHECKLIST_COMPLETE_LABEL_CLASS
+												: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+										)}
 									>
 										{t(`areas.${AreaName.EyeOfEden}`, { ns: "general" })}
 									</div>
 									<div className="text-xs text-gray-500 dark:text-gray-400">
-										{checklistPacket?.eye_of_eden
+										{eyeOfEdenComplete
 											? t("checklist.eye-of-eden-message-complete", { ns: "features" })
 											: t("checklist.eye-of-eden-message-incomplete", { ns: "features" })}
 									</div>
@@ -287,50 +309,61 @@ export default function Checklist() {
 
 					<div>
 						<Form className="flex h-full w-full" method="post">
-							<input
-								name="shard_eruptions"
-								type="hidden"
-								value={Number(checklistPacket?.shard_eruptions ?? false)}
-							/>
+							<input name="shard_eruptions" type="hidden" value={Number(shardEruptionsComplete)} />
 							<div
-								className={`h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 ${
-									shard === null
-										? "bg-gray-100 dark:bg-gray-900 border-gray-300 dark:border-gray-700"
-										: checklistPacket?.shard_eruptions
-											? "cursor-pointer bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30 hover:shadow-md"
-											: "cursor-pointer bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 hover:shadow-md"
-								}`}
+								className={clsx(
+									CHECKLIST_CARD_BASE_CLASS,
+									shardUnavailable
+										? CHECKLIST_UNAVAILABLE_CARD_CLASS
+										: [
+												"cursor-pointer hover:shadow-md",
+												shardEruptionsComplete
+													? CHECKLIST_COMPLETE_CARD_CLASS
+													: CHECKLIST_INCOMPLETE_CARD_CLASS,
+											],
+								)}
 							>
 								<button
 									className="flex min-w-0 flex-1 items-center gap-3 text-left"
-									disabled={shard === null}
+									disabled={shardUnavailable}
 									type="submit"
 								>
 									<div className="shrink-0">
-										{checklistPacket?.shard_eruptions ? (
+										{shardEruptionsComplete ? (
 											<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
 										) : (
 											<Circle
-												className={`w-6 h-6 ${shard === null ? "text-gray-300 dark:text-gray-600" : "text-gray-400 dark:text-gray-500"}`}
+												className={clsx(
+													"w-6 h-6",
+													shardUnavailable
+														? "text-gray-300 dark:text-gray-600"
+														: "text-gray-400 dark:text-gray-500",
+												)}
 											/>
 										)}
 									</div>
 									<div className="text-left flex-1 min-w-0">
 										<div
-											className={`font-medium transition-colors ${
-												checklistPacket?.shard_eruptions
-													? "text-green-800 dark:text-green-200 line-through"
-													: shard === null
-														? "text-gray-400 dark:text-gray-600"
-														: "text-gray-900 dark:text-gray-100"
-											}`}
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												shardEruptionsComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: shardUnavailable
+														? CHECKLIST_UNAVAILABLE_LABEL_CLASS
+														: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
 										>
 											{t("shard-eruption.name-plural", { ns: "features" })}
 										</div>
 										<div
-											className={`text-xs ${shard === null ? "text-gray-400 dark:text-gray-600" : "text-gray-500 dark:text-gray-400"}`}
+											className={clsx(
+												"text-xs",
+												shardUnavailable
+													? CHECKLIST_UNAVAILABLE_LABEL_CLASS
+													: "text-gray-500 dark:text-gray-400",
+											)}
 										>
-											{checklistPacket?.shard_eruptions
+											{shardEruptionsComplete
 												? t("checklist.shard-eruptions-message-complete", {
 														ns: "features",
 													})
@@ -357,21 +390,18 @@ export default function Checklist() {
 					{isAnyEventWithEventTickets && (
 						<div>
 							<Form className="flex h-full w-full" method="post">
-								<input
-									name="event_tickets"
-									type="hidden"
-									value={Number(checklistPacket?.event_tickets ?? false)}
-								/>
+								<input name="event_tickets" type="hidden" value={Number(eventTicketsComplete)} />
 								<button
-									className={`cursor-pointer h-full w-full flex items-center gap-3 p-3.5 rounded-lg border transition-all duration-200 hover:shadow-md ${
-										checklistPacket?.event_tickets
-											? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30"
-											: "bg-gray-100 dark:bg-gray-900 border-gray-200 dark:border-gray-700 hover:bg-gray-100/50 dark:hover:bg-gray-900/50"
-									}`}
+									className={clsx(
+										CHECKLIST_INTERACTIVE_CARD_CLASS,
+										eventTicketsComplete
+											? CHECKLIST_COMPLETE_CARD_CLASS
+											: CHECKLIST_INCOMPLETE_CARD_CLASS,
+									)}
 									type="submit"
 								>
 									<div className="shrink-0">
-										{checklistPacket?.event_tickets ? (
+										{eventTicketsComplete ? (
 											<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
 										) : (
 											<Circle className="w-6 h-6 text-gray-400 dark:text-gray-500" />
@@ -379,16 +409,17 @@ export default function Checklist() {
 									</div>
 									<div className="text-left flex-1 min-w-0">
 										<div
-											className={`font-medium transition-colors ${
-												checklistPacket?.event_tickets
-													? "text-green-800 dark:text-green-200 line-through"
-													: "text-gray-900 dark:text-gray-100"
-											}`}
+											className={clsx(
+												CHECKLIST_LABEL_CLASS,
+												eventTicketsComplete
+													? CHECKLIST_COMPLETE_LABEL_CLASS
+													: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+											)}
 										>
 											{t("event-tickets", { ns: "general" })}
 										</div>
 										<div className="text-xs text-gray-500 dark:text-gray-400">
-											{checklistPacket?.event_tickets
+											{eventTicketsComplete
 												? t("checklist.event-tickets-message-complete", { ns: "features" })
 												: t("checklist.event-tickets-message-incomplete", { ns: "features" })}
 										</div>

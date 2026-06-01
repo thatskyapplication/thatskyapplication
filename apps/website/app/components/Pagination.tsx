@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import {
 	ChevronLeftIcon,
 	ChevronRightIcon,
@@ -11,6 +12,9 @@ interface PaginationProps {
 	maximumPage: number;
 	minimumPage?: number;
 }
+
+const STEP_LINK_CLASS_NAME =
+	"bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2" as const;
 
 export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }: PaginationProps) {
 	const [searchParams] = useSearchParams();
@@ -32,31 +36,27 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 		minimumPage < 0
 			? absoluteMaximumPage.toString().length + 1
 			: absoluteMaximumPage.toString().length;
+	const previousDisabled = currentPage <= minimumPage;
+	const nextDisabled = currentPage >= maximumPage;
 
 	return (
 		<div className="mt-8 flex justify-center items-center space-x-2">
-			{
-				<Link
-					className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
-						currentPage <= minimumPage ? "cursor-not-allowed opacity-50" : ""
-					}`}
-					onClick={(event) => {
-						if (currentPage <= minimumPage) {
-							event.preventDefault();
-						}
-					}}
-					to={createPageURL(minimumPage)}
-				>
-					<ChevronsLeftIcon className="w-6 h-6" />
-					<span className="hidden md:block ml-1">Start</span>
-				</Link>
-			}
 			<Link
-				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
-					currentPage <= minimumPage ? "cursor-not-allowed opacity-50" : ""
-				}`}
+				className={clsx(STEP_LINK_CLASS_NAME, previousDisabled && "cursor-not-allowed opacity-50")}
 				onClick={(event) => {
-					if (currentPage <= minimumPage) {
+					if (previousDisabled) {
+						event.preventDefault();
+					}
+				}}
+				to={createPageURL(minimumPage)}
+			>
+				<ChevronsLeftIcon className="w-6 h-6" />
+				<span className="hidden md:block ml-1">Start</span>
+			</Link>
+			<Link
+				className={clsx(STEP_LINK_CLASS_NAME, previousDisabled && "cursor-not-allowed opacity-50")}
+				onClick={(event) => {
+					if (previousDisabled) {
 						event.preventDefault();
 					}
 				}}
@@ -132,11 +132,9 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 				)}
 			</div>
 			<Link
-				className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
-					currentPage >= maximumPage ? "cursor-not-allowed opacity-50" : ""
-				}`}
+				className={clsx(STEP_LINK_CLASS_NAME, nextDisabled && "cursor-not-allowed opacity-50")}
 				onClick={(event) => {
-					if (currentPage >= maximumPage) {
+					if (nextDisabled) {
 						event.preventDefault();
 					}
 				}}
@@ -144,22 +142,18 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 			>
 				<ChevronRightIcon className="w-6 h-6" />
 			</Link>
-			{
-				<Link
-					className={`bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2 ${
-						currentPage >= maximumPage ? "cursor-not-allowed opacity-50" : ""
-					}`}
-					onClick={(event) => {
-						if (currentPage >= maximumPage) {
-							event.preventDefault();
-						}
-					}}
-					to={createPageURL(maximumPage)}
-				>
-					<span className="hidden md:block mr-1">End</span>
-					<ChevronsRightIcon className="w-6 h-6" />
-				</Link>
-			}
+			<Link
+				className={clsx(STEP_LINK_CLASS_NAME, nextDisabled && "cursor-not-allowed opacity-50")}
+				onClick={(event) => {
+					if (nextDisabled) {
+						event.preventDefault();
+					}
+				}}
+				to={createPageURL(maximumPage)}
+			>
+				<span className="hidden md:block mr-1">End</span>
+				<ChevronsRightIcon className="w-6 h-6" />
+			</Link>
 		</div>
 	);
 }

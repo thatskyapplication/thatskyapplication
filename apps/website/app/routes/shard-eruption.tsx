@@ -4,6 +4,7 @@ import {
 	skyNow,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { clsx } from "clsx";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
@@ -129,7 +130,12 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 
 	return (
 		<div
-			className={`${shard?.strong ? "bg-red-300 dark:bg-red-950/50 hover:bg-red-300/70 dark:hover:bg-red-950/40 border-red-400 dark:border-red-900" : "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700"} border rounded-lg shadow-sm flex flex-col items-center text-center w-full max-w-sm p-6`}
+			className={clsx(
+				"border rounded-lg shadow-sm flex flex-col items-center text-center w-full max-w-sm p-6",
+				shard?.strong
+					? "bg-red-300 dark:bg-red-950/50 hover:bg-red-300/70 dark:hover:bg-red-950/40 border-red-400 dark:border-red-900"
+					: "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700",
+			)}
 		>
 			<div className="flex flex-row items-center justify-center">
 				{shard && (
@@ -182,7 +188,10 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 					{shard.timestamps.map(({ start, end }) => (
 						<span key={start.unix}>
 							<code
-								className={`bg-inherit text-xs ${end.unix < now ? "line-through text-black/50 dark:text-white/50" : ""}`}
+								className={clsx(
+									"bg-inherit text-xs",
+									end.unix < now && "line-through text-black/50 dark:text-white/50",
+								)}
 							>
 								{t("time-range", { ns: "general", start: start.format, end: end.format })}
 							</code>

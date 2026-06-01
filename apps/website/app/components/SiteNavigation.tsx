@@ -12,6 +12,7 @@ import {
 } from "@floating-ui/react";
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
+import { clsx } from "clsx";
 import {
 	Bot,
 	CheckSquare,
@@ -103,9 +104,10 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 					</span>
 				</div>
 				<ChevronDown
-					className={`h-4 w-4 text-gray-600 dark:text-gray-400 transition-transform ${
-						isOpen ? "rotate-180" : ""
-					}`}
+					className={clsx(
+						"h-4 w-4 text-gray-600 dark:text-gray-400 transition-transform",
+						isOpen && "rotate-180",
+					)}
 				/>
 			</button>
 			{isOpen && (
@@ -186,16 +188,17 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 				ref={refs.setReference}
 				{...getReferenceProps({
 					"aria-expanded": isOpen,
-					className: `flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
+					className: clsx(
+						"flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium",
 						isActive
 							? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-							: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-					}`,
+							: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800",
+					),
 					type: "button",
 				})}
 			>
 				<span>{group.label}</span>
-				<ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+				<ChevronDown className={clsx("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
 			</button>
 			{isOpen && (
 				<FloatingPortal>
@@ -474,11 +477,12 @@ function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarPro
 							<nav className="hidden md:flex items-center gap-1">
 								{/* Caelus. This is not a group. */}
 								<Link
-									className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
+									className={clsx(
+										"flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium",
 										location.pathname.startsWith("/caelus")
 											? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-											: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-									}`}
+											: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800",
+									)}
 									to="/caelus"
 								>
 									<Bot className="h-5 w-5" />

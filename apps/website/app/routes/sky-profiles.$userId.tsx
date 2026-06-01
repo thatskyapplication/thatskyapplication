@@ -19,6 +19,7 @@ import {
 	WEBSITE_URL,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
+import { clsx } from "clsx";
 import {
 	BookOpenCheck,
 	ChevronLeftIcon,
@@ -254,7 +255,10 @@ function RecognitionBadge({ badge }: { badge: RecognitionBadgeData }) {
 		<Tooltip content={badge.description}>
 			{badge.href ? (
 				<a
-					className={`${BADGES_CLASS_NAME} hover:from-purple-200 hover:to-blue-200 dark:hover:from-purple-800/40 dark:hover:to-blue-800/40 transition-colors cursor-pointer`}
+					className={clsx(
+						BADGES_CLASS_NAME,
+						"cursor-pointer transition-colors hover:from-purple-200 hover:to-blue-200 dark:hover:from-purple-800/40 dark:hover:to-blue-800/40",
+					)}
 					href={badge.href}
 					rel="noopener noreferrer"
 					target="_blank"
@@ -262,7 +266,7 @@ function RecognitionBadge({ badge }: { badge: RecognitionBadgeData }) {
 					{content}
 				</a>
 			) : (
-				<button className={`${BADGES_CLASS_NAME} cursor-help`} type="button">
+				<button className={clsx(BADGES_CLASS_NAME, "cursor-help")} type="button">
 					{content}
 				</button>
 			)}

@@ -38,7 +38,7 @@ import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 
-const TEXT_FIELD_CLASS = [
+const TEXT_FIELD_CLASS = clsx(
 	"w-full",
 	"rounded-lg",
 	"border",
@@ -62,9 +62,9 @@ const TEXT_FIELD_CLASS = [
 	"dark:disabled:border-gray-700",
 	"dark:disabled:bg-gray-900",
 	"dark:disabled:text-gray-500",
-].join(" ");
+);
 
-const SELECTABLE_OPTION_CARD_CLASS = [
+const SELECTABLE_OPTION_CARD_CLASS = clsx(
 	"rounded-lg",
 	"border",
 	"border-gray-300",
@@ -87,7 +87,7 @@ const SELECTABLE_OPTION_CARD_CLASS = [
 	"dark:peer-checked:bg-blue-950/40",
 	"dark:peer-disabled:border-gray-700",
 	"dark:peer-disabled:bg-gray-900",
-].join(" ");
+);
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request);
@@ -480,7 +480,10 @@ export default function MeSkyProfile() {
 													value={platform}
 												/>
 												<div
-													className={`${SELECTABLE_OPTION_CARD_CLASS} flex items-center gap-3 px-3 py-2`}
+													className={clsx(
+														SELECTABLE_OPTION_CARD_CLASS,
+														"flex items-center gap-3 px-3 py-2",
+													)}
 												>
 													<div className="shrink-0 rounded-full bg-gray-200 p-2 shadow-sm dark:bg-gray-100">
 														{PlatformToIcon[platform]}
@@ -546,7 +549,10 @@ export default function MeSkyProfile() {
 													value={personality}
 												/>
 												<div
-													className={`${SELECTABLE_OPTION_CARD_CLASS} flex flex-col gap-1 px-3 py-2`}
+													className={clsx(
+														SELECTABLE_OPTION_CARD_CLASS,
+														"flex flex-col gap-1 px-3 py-2",
+													)}
 												>
 													<div className="flex items-center gap-2">
 														<div
@@ -793,7 +799,7 @@ export default function MeSkyProfile() {
 													type="radio"
 													value={wingedLight}
 												/>
-												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+												<div className={clsx(SELECTABLE_OPTION_CARD_CLASS, "px-3 py-2")}>
 													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
 														{t(`sky-profile-winged-light-types.${wingedLight}`, {
 															ns: "general",
@@ -866,7 +872,7 @@ export default function MeSkyProfile() {
 													type="radio"
 													value={catalogueProgression.toString()}
 												/>
-												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+												<div className={clsx(SELECTABLE_OPTION_CARD_CLASS, "px-3 py-2")}>
 													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
 														{t(catalogueProgression ? "show" : "hide", { ns: "general" })}
 													</span>
@@ -936,7 +942,7 @@ export default function MeSkyProfile() {
 													type="radio"
 													value={guessRank.toString()}
 												/>
-												<div className={`${SELECTABLE_OPTION_CARD_CLASS} px-3 py-2`}>
+												<div className={clsx(SELECTABLE_OPTION_CARD_CLASS, "px-3 py-2")}>
 													<span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
 														{t(guessRank ? "show" : "hide", { ns: "general" })}
 													</span>

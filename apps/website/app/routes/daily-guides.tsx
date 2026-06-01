@@ -15,6 +15,7 @@ import {
 	treasureCandles,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { clsx } from "clsx";
 import { AlertTriangle, ArrowRight, ExternalLinkIcon } from "lucide-react";
 import { DateTime } from "luxon";
 import { type JSX, useState } from "react";
@@ -363,9 +364,10 @@ export default function DailyGuides() {
 	return (
 		<CentredSitePage>
 			<div
-				className={`flex w-full max-w-6xl gap-6 transition-all duration-300 ${
-					selectedInfographic ? "items-start justify-between" : "justify-center"
-				}`}
+				className={clsx(
+					"flex w-full max-w-6xl gap-6 transition-all duration-300",
+					selectedInfographic ? "items-start justify-between" : "justify-center",
+				)}
 			>
 				<div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-6 w-full max-w-lg shrink-0">
 					<div className="mb-6 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
@@ -581,11 +583,12 @@ export default function DailyGuides() {
 											{shard.timestamps.map(({ start, end }) => (
 												<div key={start.unix}>
 													<code
-														className={`text-xs ${
+														className={clsx(
+															"text-xs",
 															end.unix < now.toUnixInteger()
 																? "line-through text-gray-400 dark:text-gray-500"
-																: "text-gray-600 dark:text-gray-300"
-														}`}
+																: "text-gray-600 dark:text-gray-300",
+														)}
 													>
 														{start.format}–{end.format}
 													</code>
@@ -632,11 +635,12 @@ export default function DailyGuides() {
 										{shard.timestamps.map(({ start, end }) => (
 											<div key={start.unix}>
 												<code
-													className={`text-xs ${
+													className={clsx(
+														"text-xs",
 														end.unix < now.toUnixInteger()
 															? "line-through text-gray-400 dark:text-gray-500"
-															: "text-gray-600 dark:text-gray-300"
-													}`}
+															: "text-gray-600 dark:text-gray-300",
+													)}
 												>
 													{start.format}–{end.format}
 												</code>
