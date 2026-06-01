@@ -2251,7 +2251,8 @@
 		"maintenance-description-many-with-times": "",
 		"navigation-back": "Atrás",
 		"navigation-next": "Siguiente",
-		"wiki": ""
+		"wiki": "",
+		"infographic": "Infografía"
 	},
 	"commands": {
 		"about": {
@@ -2685,7 +2686,6 @@
 			"event-upcoming-time": "",
 			"maintenance-upcoming_one": "",
 			"maintenance-upcoming_other": "",
-			"infographic": "",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
 			"error-thread-archived": "",
