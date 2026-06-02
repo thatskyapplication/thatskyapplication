@@ -35,6 +35,8 @@ const CHECKLIST_INCOMPLETE_CARD_CLASS =
 	"border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50" as const;
 const CHECKLIST_UNAVAILABLE_CARD_CLASS =
 	"border-gray-300 bg-gray-100 dark:border-gray-700 dark:bg-gray-900" as const;
+const CHECKLIST_VIEW_LINK_CLASS =
+	"shrink-0 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" as const;
 const CHECKLIST_LABEL_CLASS = "font-medium transition-colors" as const;
 const CHECKLIST_COMPLETE_LABEL_CLASS = "text-green-800 line-through dark:text-green-200" as const;
 const CHECKLIST_INCOMPLETE_LABEL_CLASS = "text-gray-900 dark:text-gray-100" as const;
@@ -238,7 +240,7 @@ export default function Checklist() {
 									</div>
 								</div>
 								<Link
-									className="shrink-0 px-2.5 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
+									className={CHECKLIST_VIEW_LINK_CLASS}
 									onClick={(event) => event.stopPropagation()}
 									to="/daily-guides"
 								>
@@ -410,10 +412,7 @@ export default function Checklist() {
 										</div>
 									</div>
 								</button>
-								<Link
-									className="shrink-0 px-2.5 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
-									to="/shard-eruption"
-								>
+								<Link className={CHECKLIST_VIEW_LINK_CLASS} to="/shard-eruption">
 									{t("view", { ns: "general" })}
 								</Link>
 							</div>
