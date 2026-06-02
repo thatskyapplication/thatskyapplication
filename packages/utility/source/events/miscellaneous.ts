@@ -71,27 +71,6 @@ export const DOUBLE_HEART_EVENTS = [
 		start: skyDate(2025, 12, 31),
 		end: skyDate(2026, 1, 16),
 	},
-	// tests - remove this before commit
-	{
-		start: skyDate(2026, 4, 13),
-		end: skyDate(2026, 6, 2),
-	},
-	{
-		start: skyDate(2026, 4, 13),
-		end: skyDate(2026, 6, 3),
-	},
-	{
-		start: skyDate(2026, 4, 13),
-		end: skyDate(2026, 6, 4),
-	},
-	{
-		start: skyDate(2026, 4, 13),
-		end: skyDate(2026, 6, 14),
-	},
-	{
-		start: skyDate(2026, 7, 13),
-		end: skyDate(2026, 9, 14),
-	},
 ] as const satisfies readonly DoubleHeartEvent[];
 
 export const COMMUNITY_EVENTS = [
