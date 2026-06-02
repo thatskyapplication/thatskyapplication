@@ -4,6 +4,8 @@
 		"support-server": "",
 		"show": "",
 		"hide": "",
+		"infographic": "Infografía",
+		"infographic-by": "",
 		"daily-quests": "",
 		"days-left": {
 			"season_zero": "La temporada termina hoy.",
@@ -2251,8 +2253,7 @@
 		"maintenance-description-many-with-times": "",
 		"navigation-back": "Atrás",
 		"navigation-next": "Siguiente",
-		"wiki": "",
-		"infographic": "Infografía"
+		"wiki": ""
 	},
 	"commands": {
 		"about": {
@@ -2679,6 +2680,7 @@
 			"shard-eruption-timestamps": "Marcas de tiempo",
 			"shard-eruption-none": "",
 			"travelling-rock": "",
+			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "La nueva temporada empieza en {{count}} días.",
 			"event-upcoming_one": "",

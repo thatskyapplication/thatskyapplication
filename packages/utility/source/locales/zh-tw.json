@@ -4,6 +4,8 @@
 		"support-server": "",
 		"show": "",
 		"hide": "",
+		"infographic": "資訊圖表",
+		"infographic-by": "",
 		"daily-quests": "",
 		"days-left": {
 			"season_zero": "本季節將在今天結束。",
@@ -2251,8 +2253,7 @@
 		"maintenance-description-many-with-times": "",
 		"navigation-back": "上一頁",
 		"navigation-next": "下一頁",
-		"wiki": "",
-		"infographic": "資訊圖表"
+		"wiki": ""
 	},
 	"commands": {
 		"about": {
@@ -2679,6 +2680,7 @@
 			"shard-eruption-timestamps": "時間戳",
 			"shard-eruption-none": "",
 			"travelling-rock": "",
+			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
 			"event-upcoming_one": "",

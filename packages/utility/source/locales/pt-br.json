@@ -4,6 +4,8 @@
 		"support-server": "Servidor de suporte",
 		"show": "Mostrar",
 		"hide": "Ocultar",
+		"infographic": "Infográfico",
+		"infographic-by": "",
 		"daily-quests": "Missões diárias",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
@@ -2251,8 +2253,7 @@
 		"maintenance-description-many-with-times": "Sky pode ficar indisponível durante esses períodos.\n{{times}}",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar",
-		"wiki": "Wiki",
-		"infographic": "Infográfico"
+		"wiki": "Wiki"
 	},
 	"commands": {
 		"about": {
@@ -2679,6 +2680,7 @@
 			"shard-eruption-timestamps": "Marcação de data/hora",
 			"shard-eruption-none": "Nada",
 			"travelling-rock": "Pedra viajante",
+			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "A nova temporada inicia amanhã.",
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
 			"event-upcoming_one": "{{event}} começa amanhã.",
