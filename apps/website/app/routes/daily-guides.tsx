@@ -5,6 +5,7 @@ import {
 	DailyQuestToInfographicURL,
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
+	nextDailyReset,
 	RADIANCE_EVENTS,
 	shardEruption,
 	skyCurrentSeason,
@@ -25,6 +26,7 @@ import { data, Link, useLoaderData } from "react-router";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
@@ -47,6 +49,13 @@ interface DaysCountItem {
 const DAILY_GUIDES_TITLE = "Daily guides" as const;
 const DAILY_GUIDES_DESCRIPTION =
 	"Today's quests, treasure candles, seasonal candles, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
+
+function dailyGuidesCacheMaxAge(timestamp: number) {
+	const now = DateTime.fromMillis(timestamp, { zone: TIME_ZONE });
+	const secondsUntilDailyReset = Math.floor(nextDailyReset(now).diff(now, "seconds").seconds);
+
+	return Math.max(0, Math.min(300, secondsUntilDailyReset));
+}
 
 export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
@@ -82,6 +91,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	const timeZone = await getPreferredTimeZone(request);
 	const initialTimestamp = Date.now();
 	const shard = shardEruption();
+	const cacheMaxAge = dailyGuidesCacheMaxAge(initialTimestamp);
 
 	return data(
 		{
@@ -119,7 +129,7 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 					}
 				: shard,
 		},
-		{ headers: { "Cache-Control": "public, max-age=300, s-maxage=300" } },
+		{ headers: { "Cache-Control": `public, max-age=${cacheMaxAge}, s-maxage=${cacheMaxAge}` } },
 	);
 };
 
@@ -130,7 +140,10 @@ export default function DailyGuides() {
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
-	const now = DateTime.fromMillis(initialTimestamp, { zone: TIME_ZONE });
+	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
+	useSkyDailyResetRevalidator(currentTimestamp);
+
+	const now = DateTime.fromMillis(currentTimestamp, { zone: TIME_ZONE });
 	const today = now.startOf("day");
 	const quest1 = dailyGuides.quest1;
 	const quest2 = dailyGuides.quest2;

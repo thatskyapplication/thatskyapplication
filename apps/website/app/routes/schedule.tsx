@@ -29,12 +29,12 @@ import {
 } from "@thatskyapplication/utility";
 import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
 import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { Link, useLoaderData } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
+import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
@@ -546,29 +546,7 @@ const enum DisplayCardType {
 export default function Schedule() {
 	const { initialTimestamp, locale, timeZone } = useLoaderData<typeof loader>();
 	const { t } = useTranslation();
-	const [currentTimestamp, setCurrentTime] = useState(initialTimestamp);
-
-	useEffect(() => {
-		let timeout: NodeJS.Timeout | null = null;
-
-		const scheduleNextUpdate = () => {
-			timeout = setTimeout(
-				() => {
-					setCurrentTime(Date.now());
-					scheduleNextUpdate();
-				},
-				60_000 - (Date.now() % 60_000),
-			);
-		};
-
-		scheduleNextUpdate();
-
-		return () => {
-			if (timeout) {
-				clearTimeout(timeout);
-			}
-		};
-	}, []);
+	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 
 	const now = DateTime.fromMillis(currentTimestamp, { zone: TIME_ZONE });
 

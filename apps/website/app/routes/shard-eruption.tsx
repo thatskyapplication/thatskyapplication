@@ -13,6 +13,7 @@ import { InfographicPreview, type SelectedInfographic } from "~/components/Infog
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL, discordEmojiURL } from "~/utility/cdn.js";
 import {
@@ -209,11 +210,14 @@ export default function ShardEruption() {
 	const { currentUnix, shards, page } = useLoaderData<typeof loader>();
 	const { t } = useTranslation();
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
+	const currentTimestamp = useCurrentTimestamp(currentUnix * 1000);
+	useSkyDailyResetRevalidator(currentTimestamp);
+	const currentUnixTimestamp = Math.floor(currentTimestamp / 1000);
 
 	const shardCards = shards.map((shard) => (
 		<ShardEruptionCard
 			key={shard.todayFormat}
-			now={currentUnix}
+			now={currentUnixTimestamp}
 			onPreview={(imageURL, acknowledgement) =>
 				setSelectedInfographic({ acknowledgement, imageURL })
 			}

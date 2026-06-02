@@ -12,12 +12,12 @@ import {
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { ArrowLeft, CheckCircle, Circle } from "lucide-react";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Form, Link, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
+import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
@@ -154,29 +154,8 @@ export default function Checklist() {
 	} = useLoaderData<typeof loader>();
 
 	const { t } = useTranslation();
-	const [currentTimestamp, setCurrentTime] = useState(initialTimestamp);
-
-	useEffect(() => {
-		let timeout: NodeJS.Timeout | null = null;
-
-		const scheduleNextUpdate = () => {
-			timeout = setTimeout(
-				() => {
-					setCurrentTime(Date.now());
-					scheduleNextUpdate();
-				},
-				60_000 - (Date.now() % 60_000),
-			);
-		};
-
-		scheduleNextUpdate();
-
-		return () => {
-			if (timeout) {
-				clearTimeout(timeout);
-			}
-		};
-	}, []);
+	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
+	useSkyDailyResetRevalidator(currentTimestamp);
 
 	const localTime = new Intl.DateTimeFormat(locale, {
 		hour: "2-digit",
