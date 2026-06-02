@@ -8,15 +8,20 @@ import {
 	skyNow,
 	skyToday,
 	Table,
+	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { ArrowLeft, CheckCircle, Circle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import { Form, Link, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
+import { TimeTopBar } from "~/components/TimeTopBar";
+import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
 const CHECKLIST_CARD_BASE_CLASS =
 	"flex h-full w-full items-center gap-3 rounded-lg border p-3.5 transition-all duration-200" as const;
@@ -62,7 +67,9 @@ async function checklistRefresh(checklistPacket: ChecklistPacket) {
 	return updatedChecklistPacket!;
 }
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+	const locale = getLocale(context);
+	const timeZone = await getPreferredTimeZone(request);
 	const { discordUser } = await requireDiscordAuthentication(request);
 
 	let checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
@@ -78,6 +85,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	}
 
 	const now = skyNow();
+	const initialTimestamp = now.toMillis();
 	const shard = shardEruption();
 	const season = skyCurrentSeason(now);
 
@@ -88,8 +96,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	return {
 		checklistPacket,
 		discordUser,
+		initialTimestamp,
+		locale,
 		shard,
 		season,
+		timeZone,
 		isAnyEventWithEventTickets,
 		isDoubleSeasonalLight: season?.isDuringDoubleSeasonalLightEvent(now) ?? false,
 	};
@@ -133,13 +144,54 @@ export default function Checklist() {
 	const {
 		checklistPacket,
 		discordUser,
+		initialTimestamp,
+		locale,
 		shard,
 		season,
+		timeZone,
 		isAnyEventWithEventTickets,
 		isDoubleSeasonalLight,
 	} = useLoaderData<typeof loader>();
 
 	const { t } = useTranslation();
+	const [currentTimestamp, setCurrentTime] = useState(initialTimestamp);
+
+	useEffect(() => {
+		let timeout: NodeJS.Timeout | null = null;
+
+		const scheduleNextUpdate = () => {
+			timeout = setTimeout(
+				() => {
+					setCurrentTime(Date.now());
+					scheduleNextUpdate();
+				},
+				60_000 - (Date.now() % 60_000),
+			);
+		};
+
+		scheduleNextUpdate();
+
+		return () => {
+			if (timeout) {
+				clearTimeout(timeout);
+			}
+		};
+	}, []);
+
+	const localTime = new Intl.DateTimeFormat(locale, {
+		hour: "2-digit",
+		minute: "2-digit",
+		timeZone,
+		timeZoneName: "short",
+	}).format(currentTimestamp);
+
+	const skyTime = new Intl.DateTimeFormat(locale, {
+		timeZone: TIME_ZONE,
+		hour: "2-digit",
+		minute: "2-digit",
+		timeZoneName: "short",
+	}).format(currentTimestamp);
+
 	const dailyQuestsComplete = checklistPacket?.daily_quests ?? false;
 	const seasonalCandlesComplete = checklistPacket?.seasonal_candles ?? false;
 	const eyeOfEdenComplete = checklistPacket?.eye_of_eden ?? false;
@@ -166,6 +218,8 @@ export default function Checklist() {
 						{t("checklist.description", { ns: "features", user: discordUser.username })}
 					</p>
 				</div>
+
+				<TimeTopBar localTime={localTime} skyTime={skyTime} />
 
 				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%-0.5rem)] md:[&>*:last-child]:w-full">
 					<div>

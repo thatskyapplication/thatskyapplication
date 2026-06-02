@@ -19,10 +19,12 @@ import {
 	skyNow,
 	skyToday,
 	Table,
+	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import pg from "../pg.js";
+import { ME_CHECKLIST_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker } from "../utility/functions.js";
@@ -75,7 +77,7 @@ export async function checklist({
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t("checklist.title", { lng: locale, ns: "features" })}`,
+			content: `## [${new Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.toMillis())}](${ME_CHECKLIST_URL})`,
 		},
 		{
 			type: ComponentType.Separator,

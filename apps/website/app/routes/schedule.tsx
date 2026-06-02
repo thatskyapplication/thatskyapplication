@@ -27,14 +27,14 @@ import {
 	vaultEldersBlessingSchedule,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { AlertTriangle, Clock, ExternalLinkIcon } from "lucide-react";
+import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { Link, useLoaderData } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { TimeTopBar } from "~/components/TimeTopBar";
 import { getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
@@ -545,7 +545,6 @@ const enum DisplayCardType {
 
 export default function Schedule() {
 	const { initialTimestamp, locale, timeZone } = useLoaderData<typeof loader>();
-	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 	const [currentTimestamp, setCurrentTime] = useState(initialTimestamp);
 
@@ -805,34 +804,7 @@ export default function Schedule() {
 	return (
 		<CentredSitePage>
 			<div className="w-full max-w-2xl space-y-4">
-				<div
-					className="sticky z-20 flex gap-3"
-					style={{ top: "calc(var(--site-top-bar-height, 0px) + 0.5rem)" }}
-				>
-					<div className="flex-1 flex items-center gap-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg px-3 py-2">
-						<Clock className="h-4 w-4 text-gray-500 dark:text-gray-400 shrink-0" />
-						<div>
-							<div className="text-sm font-mono font-medium text-gray-900 dark:text-gray-100 leading-tight">
-								{localTime}
-							</div>
-							<div className="text-[11px] text-gray-400 dark:text-gray-500 leading-tight">
-								{t("schedule.local-time-notice", { ns: "features" })}
-							</div>
-						</div>
-					</div>
-					<div
-						className="flex items-center gap-2 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg px-3 py-2"
-						title={t("schedule.sky-time", { ns: "features" })}
-					>
-						<div
-							className="h-4 w-4 shrink-0 rounded-[22.37%] bg-cover bg-center"
-							style={{
-								backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/sky_logo.webp")})`,
-							}}
-						/>
-						<div className="text-xs font-mono text-gray-500 dark:text-gray-400">{skyTime}</div>
-					</div>
-				</div>
+				<TimeTopBar localTime={localTime} skyTime={skyTime} />
 				{activeMaintenances.length > 0 && (
 					<div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
 						<AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0" />
