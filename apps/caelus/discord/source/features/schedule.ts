@@ -17,6 +17,7 @@ import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
 	currentSeasonalSpirits,
+	DOUBLE_HEART_EVENTS,
 	dreamsSkaterSchedule,
 	EventId,
 	formatEmoji,
@@ -237,6 +238,14 @@ function radianceEventOverview(date: DateTime) {
 		now: date >= radianceEvent.start,
 		next: `<t:${radianceEvent.start.toUnixInteger()}:R>`,
 		dyeEmojis: radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join(""),
+	}));
+}
+
+function doubleHeartEventOverview(date: DateTime) {
+	return DOUBLE_HEART_EVENTS.filter(({ end }) => date < end).map((doubleHeartEvent) => ({
+		now: date >= doubleHeartEvent.start,
+		next: `<t:${doubleHeartEvent.start.toUnixInteger()}:R>`,
+		end: `<t:${doubleHeartEvent.end.toUnixInteger()}:R>`,
 	}));
 }
 
@@ -1206,6 +1215,7 @@ export async function scheduleOverview(
 	const startOfDay = now.startOf("day");
 	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
 	const radianceEvents = radianceEventOverview(now);
+	const doubleHeartEvents = doubleHeartEventOverview(now);
 	const events = eventOverview(now, locale);
 	const seasons = seasonOverview(now, locale);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
@@ -1393,6 +1403,32 @@ export async function scheduleOverview(
 									ns: "features",
 									timestamp: radianceEvent.next,
 								})} ${radianceEvent.dyeEmojis}`,
+					}),
+				)
+				.join("\n"),
+		});
+	}
+
+	if (doubleHeartEvents.length > 0) {
+		firstContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: doubleHeartEvents
+				.map((doubleHeartEvent) =>
+					t("schedule.overview", {
+						lng: locale,
+						ns: "features",
+						type: t("event-names.double-hearts", { lng: locale, ns: "general" }),
+						details: doubleHeartEvent.now
+							? t("schedule.overview-ends-timestamp", {
+									lng: locale,
+									ns: "features",
+									timestamp: doubleHeartEvent.end,
+								})
+							: t("schedule.overview-next-available-timestamp", {
+									lng: locale,
+									ns: "features",
+									timestamp: doubleHeartEvent.next,
+								}),
 					}),
 				)
 				.join("\n"),

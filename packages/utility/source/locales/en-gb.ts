@@ -49,6 +49,9 @@ export default {
 			event_zero: "{{name}} ends today.",
 			event_one: "{{count}} day left in {{name}}.",
 			event_other: "{{count}} days left in {{name}}.",
+			"double-hearts_zero": "Double hearts ends today.",
+			"double-hearts_one": "{{count}} day left of double hearts.",
+			"double-hearts_other": "{{count}} days left of double hearts.",
 		},
 		"error-timed-out": "I am timed out.",
 		"event-tickets": "Event tickets",
@@ -134,6 +137,7 @@ export default {
 			[NotificationType.Events]: "$t(general:events)",
 			[NotificationType.RadianceEvent]: "$t(general:event-names.radiance-event)",
 			[NotificationType.Seasons]: "$t(general:season-plural)",
+			[NotificationType.DoubleHearts]: "$t(general:event-names.double-hearts)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -799,6 +803,7 @@ export default {
 		"event-names": {
 			"halloween-office-event": "Halloween Office Event",
 			"days-of-giving": "Days of Giving",
+			"double-hearts": "Double hearts",
 			"days-of-feast": "Days of Feast",
 			"lunar-new-year": "Lunar New Year",
 			"days-of-love": "Days of Love",
@@ -3091,6 +3096,8 @@ export default {
 			"infographic-acknowledgement-item": "Infographic {{infographic}} by {{acknowledgement}}",
 			"season-upcoming_one": "The new season starts tomorrow.",
 			"season-upcoming_other": "The new season starts in {{count}} days.",
+			"double-hearts-upcoming_one": "Double hearts starts tomorrow.",
+			"double-hearts-upcoming_other": "Double hearts starts in {{count}} days.",
 			"event-upcoming_one": "{{event}} starts tomorrow.",
 			"event-upcoming_other": "{{event}} starts in {{count}} days.",
 			"event-upcoming-time": "{{event}} starts at {{time}}.",
@@ -3314,6 +3321,11 @@ export default {
 				[NotificationType.Seasons]: {
 					"message-now": "A new chapter begins. {{season}} is here!",
 					"message-future": "{{season}} is coming to Sky {{timestamp}}!",
+				},
+				[NotificationType.DoubleHearts]: {
+					"message-now": "{{heart}} Double hearts has begun! Share the love! {{heart}}",
+					"message-future":
+						"{{heart}} Double hearts will begin {{timestamp}}! Almost time to share the love! {{heart}}",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":

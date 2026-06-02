@@ -16,8 +16,19 @@ export type DyeTypes = (typeof DyeType)[keyof typeof DyeType];
 
 interface RadianceEvent {
 	start: DateTime;
+	/**
+	 * The end date is exclusive.
+	 */
 	end: DateTime;
 	dyes: readonly [DyeTypes, ...DyeTypes[]];
+}
+
+interface DoubleHeartEvent {
+	start: DateTime;
+	/**
+	 * The end date is exclusive.
+	 */
+	end: DateTime;
 }
 
 export const RADIANCE_EVENTS = [
@@ -42,6 +53,25 @@ export const RADIANCE_EVENTS = [
 		dyes: [DyeType.Black, DyeType.Yellow],
 	},
 ] as const satisfies readonly RadianceEvent[];
+
+export const DOUBLE_HEART_EVENTS = [
+	{
+		start: skyDate(2024, 12, 9),
+		end: skyDate(2024, 12, 23),
+	},
+	{
+		start: skyDate(2025, 2, 10),
+		end: skyDate(2025, 2, 24),
+	},
+	{
+		start: skyDate(2025, 11, 17),
+		end: skyDate(2025, 12, 1),
+	},
+	{
+		start: skyDate(2025, 12, 31),
+		end: skyDate(2026, 1, 16),
+	},
+] as const satisfies readonly DoubleHeartEvent[];
 
 export const COMMUNITY_EVENTS = [
 	{

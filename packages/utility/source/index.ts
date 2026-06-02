@@ -82,7 +82,7 @@ export {
 	skyNotEndedEvents,
 	skyUpcomingEvents,
 } from "./events/index.js";
-export { RADIANCE_EVENTS } from "./events/miscellaneous.js";
+export { DOUBLE_HEART_EVENTS, RADIANCE_EVENTS } from "./events/miscellaneous.js";
 export {
 	type FriendshipActionsPacket,
 	FriendshipActionType,

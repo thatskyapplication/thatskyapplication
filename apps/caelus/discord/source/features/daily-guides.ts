@@ -41,6 +41,7 @@ import {
 	type DailyQuests,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
+	DOUBLE_HEART_EVENTS,
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
@@ -1120,6 +1121,32 @@ async function distributionData(
 						event: `${dyePrefix} ${radianceName}`,
 						count: Math.floor(radianceEvent.start.diff(today, "days").days),
 					})} ${dyeEmojis}`,
+				);
+			}
+		}
+	}
+
+	const doubleHeartEvents = DOUBLE_HEART_EVENTS.filter(({ end }) => end > today);
+
+	if (doubleHeartEvents.length > 0) {
+		const heartPrefix = formatEmoji(MISCELLANEOUS_EMOJIS.Heart);
+
+		for (const doubleHeartEvent of doubleHeartEvents) {
+			if (today >= doubleHeartEvent.start) {
+				footerText.push(
+					`${heartPrefix} ${t("days-left.double-hearts", {
+						lng: locale,
+						ns: "general",
+						count: Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1,
+					})}`,
+				);
+			} else {
+				footerText.push(
+					`${heartPrefix} ${t("daily-guides.double-hearts-upcoming", {
+						lng: locale,
+						ns: "features",
+						count: Math.floor(doubleHeartEvent.start.diff(today, "days").days),
+					})}`,
 				);
 			}
 		}
