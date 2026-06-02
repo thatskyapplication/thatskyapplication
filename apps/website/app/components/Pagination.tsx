@@ -5,6 +5,7 @@ import {
 	ChevronsLeftIcon,
 	ChevronsRightIcon,
 } from "lucide-react";
+import type { CSSProperties, ReactNode } from "react";
 import { Form, Link, useSearchParams } from "react-router";
 
 interface PaginationProps {
@@ -13,8 +14,45 @@ interface PaginationProps {
 	minimumPage?: number;
 }
 
-const STEP_LINK_CLASS_NAME =
-	"bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md hover:shadow-lg flex items-center p-2" as const;
+const CONTROL_CLASS_NAME =
+	"inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-gray-100 p-0 text-sm font-medium shadow-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 sm:h-12 sm:w-auto sm:px-3 sm:text-base dark:border-gray-600 dark:bg-gray-900 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950" as const;
+
+const ENABLED_CONTROL_CLASS_NAME =
+	"hover:bg-gray-100/50 hover:shadow-lg dark:hover:bg-gray-900/50" as const;
+
+const DISABLED_CONTROL_CLASS_NAME = "cursor-not-allowed opacity-50" as const;
+
+const PAGE_LINK_CLASS_NAME =
+	"inline-flex h-9 min-w-[var(--pagination-page-width)] items-center justify-center rounded-full px-2 text-sm font-medium tabular-nums transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 hover:bg-gray-100/75 hover:shadow-lg sm:h-10 sm:min-w-[var(--pagination-page-width-sm)] sm:px-3 sm:text-base dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950 dark:hover:bg-gray-900/50" as const;
+
+interface PaginationControlProps {
+	"aria-label": string;
+	children: ReactNode;
+	disabled?: boolean;
+	to: string;
+}
+
+function PaginationControl({
+	"aria-label": ariaLabel,
+	children,
+	disabled = false,
+	to,
+}: PaginationControlProps) {
+	const className = clsx(
+		CONTROL_CLASS_NAME,
+		disabled ? DISABLED_CONTROL_CLASS_NAME : ENABLED_CONTROL_CLASS_NAME,
+	);
+
+	return disabled ? (
+		<button aria-label={ariaLabel} className={className} disabled type="button">
+			{children}
+		</button>
+	) : (
+		<Link aria-label={ariaLabel} className={className} to={to}>
+			{children}
+		</Link>
+	);
+}
 
 export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }: PaginationProps) {
 	const [searchParams] = useSearchParams();
@@ -31,129 +69,153 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 	const next1 = currentPage + 1;
 	const next2 = currentPage + 2;
 	const absoluteMaximumPage = Math.max(Math.abs(maximumPage), Math.abs(minimumPage));
-
-	const maximumLength =
-		minimumPage < 0
-			? absoluteMaximumPage.toString().length + 1
-			: absoluteMaximumPage.toString().length;
+	const maximumDigitLength = absoluteMaximumPage.toString().length;
+	const maximumInputLength = minimumPage < 0 ? maximumDigitLength + 1 : maximumDigitLength;
 	const previousDisabled = currentPage <= minimumPage;
 	const nextDisabled = currentPage >= maximumPage;
+	const paginationStyle = {
+		"--pagination-current-width": `max(3.5rem, calc(${maximumInputLength}ch + 1.5rem))`,
+		"--pagination-current-width-sm": `max(5rem, calc(${maximumInputLength}ch + 3rem))`,
+		"--pagination-page-width": `max(2.75rem, calc(${maximumInputLength}ch + 1rem))`,
+		"--pagination-page-width-sm": `max(3.5rem, calc(${maximumInputLength}ch + 2rem))`,
+	} as CSSProperties;
+	const hiddenSearchParameterOccurrences = new Map<string, number>();
+	const hiddenSearchParameters = Array.from(searchParams.entries()).flatMap(([name, value]) => {
+		if (name === "page") {
+			return [];
+		}
+
+		const parameterKey = JSON.stringify([name, value]);
+		const occurrence = hiddenSearchParameterOccurrences.get(parameterKey) ?? 0;
+		hiddenSearchParameterOccurrences.set(parameterKey, occurrence + 1);
+
+		return [{ key: JSON.stringify([name, value, occurrence]), name, value }];
+	});
 
 	return (
-		<div className="mt-8 flex justify-center items-center space-x-2">
-			<Link
-				className={clsx(STEP_LINK_CLASS_NAME, previousDisabled && "cursor-not-allowed opacity-50")}
-				onClick={(event) => {
-					if (previousDisabled) {
-						event.preventDefault();
-					}
-				}}
-				to={createPageURL(minimumPage)}
-			>
-				<ChevronsLeftIcon className="w-6 h-6" />
-				<span className="hidden md:block ml-1">Start</span>
-			</Link>
-			<Link
-				className={clsx(STEP_LINK_CLASS_NAME, previousDisabled && "cursor-not-allowed opacity-50")}
-				onClick={(event) => {
-					if (previousDisabled) {
-						event.preventDefault();
-					}
-				}}
-				to={createPageURL(back1)}
-			>
-				<ChevronLeftIcon className="w-6 h-6" />
-			</Link>
-			<div className="flex items-center space-x-2">
-				{back2 >= minimumPage && (
-					<Link
-						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
-						to={createPageURL(back2)}
+		<nav
+			aria-label="Pagination"
+			className="mt-6 flex justify-center sm:mt-8"
+			style={paginationStyle}
+		>
+			<ul className="flex max-w-full flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+				<li>
+					<PaginationControl
+						aria-label="Go to first page"
+						disabled={previousDisabled}
+						to={createPageURL(minimumPage)}
 					>
-						<span>{back2}</span>
-					</Link>
-				)}
-				{back1 >= minimumPage && (
-					<Link
-						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
+						<ChevronsLeftIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
+						<span className="ml-1 hidden md:block">Start</span>
+					</PaginationControl>
+				</li>
+				<li>
+					<PaginationControl
+						aria-label="Go to previous page"
+						disabled={previousDisabled}
 						to={createPageURL(back1)}
 					>
-						<span>{back1}</span>
-					</Link>
+						<ChevronLeftIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
+					</PaginationControl>
+				</li>
+				{back2 >= minimumPage && (
+					<li className="hidden sm:block">
+						<Link
+							aria-label={`Go to page ${back2}`}
+							className={PAGE_LINK_CLASS_NAME}
+							to={createPageURL(back2)}
+						>
+							{back2}
+						</Link>
+					</li>
 				)}
-				<Form
-					method="get"
-					onSubmit={(event) => {
-						const form = event.currentTarget;
-						const pageInput = form.elements.namedItem("page") as HTMLInputElement;
-						const pageValue = Number(pageInput.value);
+				{back1 >= minimumPage && (
+					<li className="hidden sm:block">
+						<Link
+							aria-label={`Go to page ${back1}`}
+							className={PAGE_LINK_CLASS_NAME}
+							to={createPageURL(back1)}
+						>
+							{back1}
+						</Link>
+					</li>
+				)}
+				<li>
+					<Form
+						method="get"
+						onSubmit={(event) => {
+							const pageInput = event.currentTarget.elements.namedItem("page") as HTMLInputElement;
+							const pageValue = Number(pageInput.value.trim());
 
-						if (pageValue > maximumPage) {
-							event.preventDefault();
-							pageInput.value = maximumPage.toString();
-							setTimeout(() => form.submit(), 0);
-							return;
-						}
+							if (!Number.isInteger(pageValue)) {
+								pageInput.value = currentPage.toString();
+								return;
+							}
 
-						if (pageValue < minimumPage) {
-							event.preventDefault();
-							pageInput.value = minimumPage.toString();
-							setTimeout(() => form.submit(), 0);
-							return;
-						}
-					}}
-				>
-					<input
-						className="p-2 border border-gray-200 dark:border-gray-600 w-10 h-10 text-center rounded-full"
-						defaultValue={currentPage}
-						inputMode="numeric"
-						key={currentPage}
-						maxLength={maximumLength}
-						name="page"
-						pattern={minimumPage < 0 ? `-?\\d{1,${maximumLength}}` : `\\d{1,${maximumLength}}`}
-						type="text"
-					/>
-				</Form>
-				{next1 <= maximumPage && (
-					<Link
-						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
-						to={createPageURL(next1)}
+							pageInput.value = Math.max(minimumPage, Math.min(maximumPage, pageValue)).toString();
+						}}
 					>
-						<span>{next1}</span>
-					</Link>
+						{hiddenSearchParameters.map(({ key, name, value }) => (
+							<input key={key} name={name} type="hidden" value={value} />
+						))}
+						<input
+							aria-current="page"
+							aria-label={`Current page, enter a page from ${minimumPage} to ${maximumPage}`}
+							className="h-11 w-(--pagination-current-width) rounded-full border border-gray-400 bg-gray-100 px-2 text-center text-base font-medium leading-normal tabular-nums shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 sm:h-14 sm:w-(--pagination-current-width-sm) sm:px-4 sm:text-lg dark:border-gray-600 dark:bg-gray-900 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950"
+							defaultValue={currentPage}
+							inputMode="numeric"
+							key={currentPage}
+							maxLength={maximumInputLength}
+							name="page"
+							pattern={
+								minimumPage < 0 ? `-?\\d{1,${maximumDigitLength}}` : `\\d{1,${maximumDigitLength}}`
+							}
+							type="text"
+						/>
+					</Form>
+				</li>
+				{next1 <= maximumPage && (
+					<li className="hidden sm:block">
+						<Link
+							aria-label={`Go to page ${next1}`}
+							className={PAGE_LINK_CLASS_NAME}
+							to={createPageURL(next1)}
+						>
+							{next1}
+						</Link>
+					</li>
 				)}
 				{next2 <= maximumPage && (
-					<Link
-						className="hover:shadow-lg flex items-center justify-center hover:bg-gray-100/75 dark:hover:bg-gray-900/50 rounded-full h-6 w-6"
-						to={createPageURL(next2)}
-					>
-						<span>{next2}</span>
-					</Link>
+					<li className="hidden sm:block">
+						<Link
+							aria-label={`Go to page ${next2}`}
+							className={PAGE_LINK_CLASS_NAME}
+							to={createPageURL(next2)}
+						>
+							{next2}
+						</Link>
+					</li>
 				)}
-			</div>
-			<Link
-				className={clsx(STEP_LINK_CLASS_NAME, nextDisabled && "cursor-not-allowed opacity-50")}
-				onClick={(event) => {
-					if (nextDisabled) {
-						event.preventDefault();
-					}
-				}}
-				to={createPageURL(next1)}
-			>
-				<ChevronRightIcon className="w-6 h-6" />
-			</Link>
-			<Link
-				className={clsx(STEP_LINK_CLASS_NAME, nextDisabled && "cursor-not-allowed opacity-50")}
-				onClick={(event) => {
-					if (nextDisabled) {
-						event.preventDefault();
-					}
-				}}
-				to={createPageURL(maximumPage)}
-			>
-				<span className="hidden md:block mr-1">End</span>
-				<ChevronsRightIcon className="w-6 h-6" />
-			</Link>
-		</div>
+				<li>
+					<PaginationControl
+						aria-label="Go to next page"
+						disabled={nextDisabled}
+						to={createPageURL(next1)}
+					>
+						<ChevronRightIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
+					</PaginationControl>
+				</li>
+				<li>
+					<PaginationControl
+						aria-label="Go to last page"
+						disabled={nextDisabled}
+						to={createPageURL(maximumPage)}
+					>
+						<span className="mr-1 hidden md:block">End</span>
+						<ChevronsRightIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
+					</PaginationControl>
+				</li>
+			</ul>
+		</nav>
 	);
 }
