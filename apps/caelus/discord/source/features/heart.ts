@@ -1,4 +1,3 @@
-import { Collection } from "@discordjs/collection";
 import {
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
@@ -18,17 +17,16 @@ import {
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	DELETED_USER_TEXT,
+	DOUBLE_HEART_EVENTS,
 	formatEmoji,
 	getRandomElement,
 	type HeartPacket,
 	SkyProfileMissingNameSource,
-	skyDate,
 	skyNow,
 	Table,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import pg from "../pg.js";
 import {
@@ -41,41 +39,6 @@ import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 import { noSkyProfileName } from "./sky-profile.js";
-
-interface HeartsExtra {
-	start: DateTime;
-	/**
-	 * The end date is exclusive.
-	 */
-	end: DateTime;
-	/**
-	 * The count of extra hearts.
-	 */
-	count: number;
-}
-
-// Extra hearts.
-const HEART_EXTRA_DATES = new Collection<number, HeartsExtra>()
-	.set(1, {
-		start: skyDate(2_024, 12, 9),
-		end: skyDate(2_024, 12, 23),
-		count: 1,
-	})
-	.set(2, {
-		start: skyDate(2_025, 2, 10),
-		end: skyDate(2_025, 2, 24),
-		count: 1,
-	})
-	.set(3, {
-		start: skyDate(2_025, 11, 17),
-		end: skyDate(2_025, 12, 1),
-		count: 1,
-	})
-	.set(4, {
-		start: skyDate(2_025, 12, 31),
-		end: skyDate(2_026, 1, 16),
-		count: 1,
-	});
 
 async function totalGifted(userId: Snowflake) {
 	// The types are wrong.
@@ -186,8 +149,8 @@ export async function gift(
 	const now = skyNow();
 	const today = now.startOf("day");
 
-	const extraHearts = HEART_EXTRA_DATES.findLast(
-		(heartsExtra) => now >= heartsExtra.start && now < heartsExtra.end,
+	const doubleHeartEvent = DOUBLE_HEART_EVENTS.findLast(
+		(event) => now >= event.start && now < event.end,
 	);
 
 	const tomorrowTimestamp = `<t:${Math.floor(today.plus({ day: 1 }).toUnixInteger())}:R>`;
@@ -229,7 +192,7 @@ export async function gift(
 		user_id: invoker.id,
 		giftee_id: user.id,
 		timestamp: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		count: 1 + (extraHearts?.count ?? 0),
+		count: doubleHeartEvent ? 2 : 1,
 	});
 
 	const hearts = await totalReceived(user.id);
@@ -267,7 +230,7 @@ export async function gift(
 						emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
 						timestamp: tomorrowTimestamp,
 					})
-				: extraHearts
+				: doubleHeartEvent
 					? t("heart.gift-hearts-left-to-gift-double", {
 							lng: guildLocale,
 							ns: "features",
@@ -276,11 +239,11 @@ export async function gift(
 							date1: Intl.DateTimeFormat(interaction.locale, {
 								timeZone: TIME_ZONE,
 								dateStyle: "short",
-							}).format(extraHearts.start.toMillis()),
+							}).format(doubleHeartEvent.start.toMillis()),
 							date2: Intl.DateTimeFormat(interaction.locale, {
 								timeZone: TIME_ZONE,
 								dateStyle: "short",
-							}).format(extraHearts.end.toMillis()),
+							}).format(doubleHeartEvent.end.toMillis()),
 						})
 					: t("heart.gift-hearts-left-to-gift", {
 							lng: guildLocale,

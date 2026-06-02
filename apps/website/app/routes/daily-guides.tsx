@@ -3,6 +3,7 @@ import {
 	type DailyGuidesPacket,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
+	DOUBLE_HEART_EVENTS,
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
 	nextDailyReset,
@@ -270,6 +271,26 @@ export default function DailyGuides() {
 			),
 			iconURL: radianceEmojiURL,
 			key: `radiance-${radianceEvent.start.toMillis()}`,
+		});
+	}
+
+	for (const doubleHeartEvent of DOUBLE_HEART_EVENTS.filter(({ end }) => end > today)) {
+		const daysUntilStart = doubleHeartEvent.start.diff(today, "days").days;
+		const daysLeft = Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1;
+
+		daysCount.push({
+			content:
+				daysUntilStart >= 1
+					? t("daily-guides.double-hearts-upcoming", {
+							ns: "features",
+							count: Math.floor(daysUntilStart),
+						})
+					: t("days-left.double-hearts", {
+							ns: "general",
+							count: daysLeft,
+						}),
+			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
+			key: `double-heart-${doubleHeartEvent.start.toMillis()}`,
 		});
 	}
 
