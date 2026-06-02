@@ -1132,23 +1132,23 @@ async function distributionData(
 		const heartPrefix = formatEmoji(MISCELLANEOUS_EMOJIS.Heart);
 
 		for (const doubleHeartEvent of doubleHeartEvents) {
-			const daysUntilStart = doubleHeartEvent.start.diff(today, "days").days;
-
-			footerText.push(
-				`${heartPrefix} ${
-					daysUntilStart >= 1
-						? t("daily-guides.double-hearts-upcoming", {
-								lng: locale,
-								ns: "features",
-								count: Math.floor(daysUntilStart),
-							})
-						: t("days-left.double-hearts", {
-								lng: locale,
-								ns: "general",
-								count: Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1,
-							})
-				}`,
-			);
+			if (today >= doubleHeartEvent.start) {
+				footerText.push(
+					`${heartPrefix} ${t("days-left.double-hearts", {
+						lng: locale,
+						ns: "general",
+						count: Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1,
+					})}`,
+				);
+			} else {
+				footerText.push(
+					`${heartPrefix} ${t("daily-guides.double-hearts-upcoming", {
+						lng: locale,
+						ns: "features",
+						count: Math.floor(doubleHeartEvent.start.diff(today, "days").days),
+					})}`,
+				);
+			}
 		}
 	}
 

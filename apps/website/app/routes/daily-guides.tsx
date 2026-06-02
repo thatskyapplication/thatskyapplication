@@ -280,14 +280,14 @@ export default function DailyGuides() {
 
 		daysCount.push({
 			content:
-				daysUntilStart >= 1
-					? t("daily-guides.double-hearts-upcoming", {
-							ns: "features",
-							count: Math.floor(daysUntilStart),
-						})
-					: t("days-left.double-hearts", {
+				today >= doubleHeartEvent.start
+					? t("days-left.double-hearts", {
 							ns: "general",
 							count: daysLeft,
+						})
+					: t("daily-guides.double-hearts-upcoming", {
+							ns: "features",
+							count: Math.floor(daysUntilStart),
 						}),
 			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
 			key: `double-heart-${doubleHeartEvent.start.toMillis()}`,
