@@ -4,6 +4,8 @@
 		"support-server": "",
 		"show": "",
 		"hide": "",
+		"infographic": "인포그래픽",
+		"infographic-by": "",
 		"daily-quests": "",
 		"days-left": {
 			"season_zero": "",
@@ -2251,8 +2253,7 @@
 		"maintenance-description-many-with-times": "",
 		"navigation-back": "",
 		"navigation-next": "",
-		"wiki": "",
-		"infographic": "인포그래픽"
+		"wiki": ""
 	},
 	"commands": {
 		"about": {
@@ -2679,6 +2680,7 @@
 			"shard-eruption-timestamps": "",
 			"shard-eruption-none": "",
 			"travelling-rock": "",
+			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
 			"event-upcoming_one": "",
