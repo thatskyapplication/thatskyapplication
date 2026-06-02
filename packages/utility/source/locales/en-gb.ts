@@ -137,6 +137,7 @@ export default {
 			[NotificationType.Events]: "$t(general:events)",
 			[NotificationType.RadianceEvent]: "$t(general:event-names.radiance-event)",
 			[NotificationType.Seasons]: "$t(general:season-plural)",
+			[NotificationType.DoubleHearts]: "Double hearts",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -3319,6 +3320,11 @@ export default {
 				[NotificationType.Seasons]: {
 					"message-now": "A new chapter begins. {{season}} is here!",
 					"message-future": "{{season}} is coming to Sky {{timestamp}}!",
+				},
+				[NotificationType.DoubleHearts]: {
+					"message-now": "{{heart}} Double hearts has begun! Share the love! {{heart}}",
+					"message-future":
+						"{{heart}} Double hearts will begin {{timestamp}}! Almost time to share the love! {{heart}}",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":

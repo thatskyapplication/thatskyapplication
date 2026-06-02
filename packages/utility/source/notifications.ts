@@ -28,6 +28,7 @@ export const NotificationType = {
 	Events: 16,
 	RadianceEvent: 17,
 	Seasons: 18,
+	DoubleHearts: 19,
 } as const satisfies Readonly<Record<string, number>>;
 
 export type NotificationTypes = (typeof NotificationType)[keyof typeof NotificationType];
@@ -54,4 +55,5 @@ export const NotificationOffsetToMaximumValues = {
 	[NotificationType.Events]: 15,
 	[NotificationType.RadianceEvent]: 15,
 	[NotificationType.Seasons]: 15,
+	[NotificationType.DoubleHearts]: 15,
 } as const satisfies Readonly<Record<NotificationTypes, number>>;
