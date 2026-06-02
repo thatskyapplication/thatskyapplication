@@ -137,7 +137,7 @@ export default {
 			[NotificationType.Events]: "$t(general:events)",
 			[NotificationType.RadianceEvent]: "$t(general:event-names.radiance-event)",
 			[NotificationType.Seasons]: "$t(general:season-plural)",
-			[NotificationType.DoubleHearts]: "Double hearts",
+			[NotificationType.DoubleHearts]: "$t(general:event-names.double-hearts)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -803,6 +803,7 @@ export default {
 		"event-names": {
 			"halloween-office-event": "Halloween Office Event",
 			"days-of-giving": "Days of Giving",
+			"double-hearts": "Double hearts",
 			"days-of-feast": "Days of Feast",
 			"lunar-new-year": "Lunar New Year",
 			"days-of-love": "Days of Love",
