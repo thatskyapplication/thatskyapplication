@@ -1,5 +1,5 @@
 import { SiCrowdin, SiDiscord } from "@icons-pack/react-simple-icons";
-import { BookOpen, Heart, Users } from "lucide-react";
+import { BookOpen, Heart } from "lucide-react";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
@@ -66,7 +66,7 @@ export default function CaelusIndex() {
 							rel="noopener noreferrer"
 							target="_blank"
 						>
-							<Users className="w-5 h-5" />
+							<SiDiscord className="w-5 h-5" />
 							Add to Server
 						</a>
 					</div>
