@@ -1,8 +1,15 @@
+import type { SkyProfilePacket } from "./sky-profile.js";
+
 export interface HeartPacket {
 	user_id: string | null;
 	giftee_id: string | null;
 	timestamp: Date;
 	count: number;
+}
+
+export interface HeartHistoryPacket extends HeartPacket {
+	giftee_name: SkyProfilePacket["name"];
+	user_name: SkyProfilePacket["name"];
 }
 
 export const DELETED_USER_TEXT = "<deleted>" as const;

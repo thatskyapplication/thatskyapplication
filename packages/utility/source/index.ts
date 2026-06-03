@@ -98,6 +98,7 @@ export {
 } from "./guess.js";
 export {
 	DELETED_USER_TEXT,
+	type HeartHistoryPacket,
 	type HeartPacket,
 	SKY_PROFILE_MISSING_NAME_SOURCE_VALUES,
 	SkyProfileMissingNameSource,

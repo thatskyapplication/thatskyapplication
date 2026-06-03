@@ -1,8 +1,8 @@
 import type { Snowflake } from "@discordjs/core/http-only";
 import {
 	DELETED_USER_TEXT,
+	type HeartHistoryPacket,
 	type HeartPacket,
-	type SkyProfilePacket,
 	Table,
 } from "@thatskyapplication/utility";
 import { ArrowLeft, HandHeart, HeartPlus } from "lucide-react";
@@ -19,8 +19,6 @@ import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
 
 const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 30 as const;
-
-type RelatedProfile = Pick<SkyProfilePacket, "name" | "user_id">;
 
 async function totalHearts(column: "giftee_id" | "user_id", userId: Snowflake) {
 	const result = (await pg<HeartPacket>(Table.Hearts)
@@ -56,31 +54,22 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	const currentPage = Math.min(requestedPage, maximumPage);
 	const offset = (currentPage - 1) * HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
 
-	const heartPackets = await pg<HeartPacket>(Table.Hearts)
-		.where({ user_id: userId })
-		.orWhere({ giftee_id: userId })
-		.orderBy("timestamp", "desc")
+	const heartPackets = await pg(`${Table.Hearts} as hearts`)
+		.select<HeartHistoryPacket[]>(
+			"hearts.user_id",
+			"hearts.giftee_id",
+			"hearts.timestamp",
+			"hearts.count",
+			"giftee_profile.name as giftee_name",
+			"user_profile.name as user_name",
+		)
+		.leftJoin(`${Table.Profiles} as giftee_profile`, "hearts.giftee_id", "giftee_profile.user_id")
+		.leftJoin(`${Table.Profiles} as user_profile`, "hearts.user_id", "user_profile.user_id")
+		.where("hearts.user_id", userId)
+		.orWhere("hearts.giftee_id", userId)
+		.orderBy("hearts.timestamp", "desc")
 		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER)
 		.offset(offset);
-
-	const relatedUserIds = new Set<Snowflake>();
-
-	for (const heartPacket of heartPackets) {
-		if (heartPacket.user_id && heartPacket.user_id !== userId) {
-			relatedUserIds.add(heartPacket.user_id);
-		}
-
-		if (heartPacket.giftee_id && heartPacket.giftee_id !== userId) {
-			relatedUserIds.add(heartPacket.giftee_id);
-		}
-	}
-
-	const relatedProfiles =
-		relatedUserIds.size === 0
-			? []
-			: await pg<RelatedProfile>(Table.Profiles)
-					.select("name", "user_id")
-					.whereIn("user_id", [...relatedUserIds]);
 
 	return {
 		currentPage,
@@ -88,7 +77,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 		heartPackets,
 		maximumPage,
 		received,
-		relatedProfiles,
 		timeZone: await getPreferredTimeZone(request),
 		userId,
 	};
@@ -142,19 +130,10 @@ function NoProfileUserId({ userId }: { userId: Snowflake }) {
 }
 
 export default function HeartHistory() {
-	const {
-		currentPage,
-		gifted,
-		heartPackets,
-		maximumPage,
-		received,
-		relatedProfiles,
-		timeZone,
-		userId,
-	} = useLoaderData<typeof loader>();
+	const { currentPage, gifted, heartPackets, maximumPage, received, timeZone, userId } =
+		useLoaderData<typeof loader>();
 	const { i18n, t } = useTranslation();
 	const heartEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id);
-	const profileByUserId = new Map(relatedProfiles.map((profile) => [profile.user_id, profile]));
 
 	return (
 		<SitePage>
@@ -211,7 +190,7 @@ export default function HeartHistory() {
 						{heartPackets.map((heartPacket) => {
 							const gifted = heartPacket.user_id === userId;
 							const relatedUserId = gifted ? heartPacket.giftee_id : heartPacket.user_id;
-							const relatedProfile = relatedUserId ? profileByUserId.get(relatedUserId) : undefined;
+							const relatedProfileName = gifted ? heartPacket.giftee_name : heartPacket.user_name;
 							const timestamp = heartPacket.timestamp.toISOString();
 
 							return (
@@ -238,10 +217,7 @@ export default function HeartHistory() {
 												/>
 											</p>
 											<p className="my-0 min-w-0 text-sm">
-												<ProfileName
-													profileName={relatedProfile?.name ?? null}
-													userId={relatedUserId}
-												/>
+												<ProfileName profileName={relatedProfileName} userId={relatedUserId} />
 											</p>
 										</div>
 										<time className="text-xs text-gray-500 dark:text-gray-400" dateTime={timestamp}>

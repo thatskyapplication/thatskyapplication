@@ -20,6 +20,7 @@ import {
 	DOUBLE_HEART_EVENTS,
 	formatEmoji,
 	getRandomElement,
+	type HeartHistoryPacket,
 	type HeartPacket,
 	SkyProfileMissingNameSource,
 	skyNow,
@@ -36,7 +37,7 @@ import {
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { escapeMarkdown, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 import { noSkyProfileName } from "./sky-profile.js";
 
@@ -268,10 +269,20 @@ export async function history(
 
 	const offset = (page - 1) * HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
 
-	const heartPackets = await pg<HeartPacket>(Table.Hearts)
-		.where({ user_id: invoker.id })
-		.orWhere({ giftee_id: invoker.id })
-		.orderBy("timestamp", "desc")
+	const heartPackets = await pg(`${Table.Hearts} as hearts`)
+		.select<HeartHistoryPacket[]>(
+			"hearts.user_id",
+			"hearts.giftee_id",
+			"hearts.timestamp",
+			"hearts.count",
+			"giftee_profile.name as giftee_name",
+			"user_profile.name as user_name",
+		)
+		.leftJoin(`${Table.Profiles} as giftee_profile`, "hearts.giftee_id", "giftee_profile.user_id")
+		.leftJoin(`${Table.Profiles} as user_profile`, "hearts.user_id", "user_profile.user_id")
+		.where("hearts.user_id", invoker.id)
+		.orWhere("hearts.giftee_id", invoker.id)
+		.orderBy("hearts.timestamp", "desc")
 		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER)
 		.offset(offset);
 
@@ -340,6 +351,8 @@ export async function history(
 				.map((heartPacket) => {
 					const gifted = heartPacket.user_id === invoker.id;
 					const timestamp = Math.floor(heartPacket.timestamp.getTime() / 1_000);
+					const userId = gifted ? heartPacket.giftee_id : heartPacket.user_id;
+					const userName = gifted ? heartPacket.giftee_name : heartPacket.user_name;
 
 					const message = t(
 						heartPacket.count > 1
@@ -354,13 +367,11 @@ export async function history(
 							ns: "features",
 							amount: heartPacket.count,
 							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Heart),
-							user: gifted
-								? heartPacket.giftee_id
-									? `<@${heartPacket.giftee_id}>`
-									: DELETED_USER_TEXT
-								: heartPacket.user_id
-									? `<@${heartPacket.user_id}>`
-									: DELETED_USER_TEXT,
+							user: userId
+								? userName
+									? `${escapeMarkdown(userName)} (<@${userId}>)`
+									: `<@${userId}>`
+								: DELETED_USER_TEXT,
 							timestamp1: `<t:${timestamp}:d>`,
 							timestamp2: `<t:${timestamp}:R>`,
 						},
@@ -414,6 +425,9 @@ export async function history(
 			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
 		});
 	} else {
-		await client.api.interactions.updateMessage(interaction.id, interaction.token, { components });
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+			allowed_mentions: { parse: [] },
+			components,
+		});
 	}
 }
