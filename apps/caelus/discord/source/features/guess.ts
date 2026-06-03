@@ -29,6 +29,7 @@ import {
 	REALMS,
 	type SeasonalSpirit,
 	SkyProfileMissingNameSource,
+	type SkyProfilePacket,
 	type SpiritIds,
 	type StandardSpirit,
 	skyEvents,
@@ -42,7 +43,7 @@ import pg from "../pg.js";
 import { GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER, GUESS_TIMEOUT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import { escapeMarkdown, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
 import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.js";
 import { noSkyProfileName } from "./sky-profile.js";
 
@@ -72,6 +73,8 @@ interface GuessEventGenerateCustomIdGuessOptions
 type GuessGenerateCustomIdOptions =
 	| GuessGenerateCustomIdGuessOptions
 	| GuessEventGenerateCustomIdGuessOptions;
+
+type GuessLeaderboardRanking = GuessUserRanking & Pick<SkyProfilePacket, "name">;
 
 function generateCustomId({
 	prefix,
@@ -973,16 +976,30 @@ export async function leaderboard(
 
 	const offset = (page - 1) * GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER;
 
-	const guessPacketsLeaderboard = await pg(Table.Guess)
-		.select<GuessUserRanking[]>(
-			"user_id",
-			"type",
-			"streak",
-			pg.raw("row_number() over (partition by type order by streak desc)::int as rank"),
+	const rankedGuessPackets = pg(`${Table.Guess} as ranked_guess_base`)
+		.select(
+			"ranked_guess_base.user_id",
+			"ranked_guess_base.type",
+			"ranked_guess_base.streak",
+			pg.raw(
+				"row_number() over (partition by ranked_guess_base.type order by ranked_guess_base.streak desc)::int as rank",
+			),
 		)
-		.where({ type })
-		.where("streak", ">", 0)
-		.orderBy("rank")
+		.where("ranked_guess_base.type", type)
+		.where("ranked_guess_base.streak", ">", 0)
+		.as("ranked_guess");
+
+	const guessPacketsLeaderboard = await pg
+		.select<GuessLeaderboardRanking[]>(
+			"ranked_guess.user_id",
+			"ranked_guess.type",
+			"ranked_guess.streak",
+			"ranked_guess.rank",
+			"profiles.name",
+		)
+		.from(rankedGuessPackets)
+		.leftJoin(Table.Profiles, "ranked_guess.user_id", `${Table.Profiles}.user_id`)
+		.orderBy("ranked_guess.rank")
 		.limit(GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER + 1)
 		.offset(offset);
 
@@ -1015,7 +1032,12 @@ export async function leaderboard(
 		{
 			type: ComponentType.TextDisplay,
 			content: guessPacketsLeaderboard
-				.map((row) => `${row.rank}. <@${row.user_id}>: ${row.streak}`)
+				.map(
+					({ name, rank, streak, user_id: userId }) =>
+						`${rank}. ${
+							name ? `${escapeMarkdown(name)} (<@${userId}>)` : `<@${userId}>`
+						}: ${streak}`,
+				)
 				.join("\n"),
 		},
 	];

@@ -29,7 +29,7 @@ import { client } from "../discord.js";
 import type { GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import { APPLICATION_INVITE_URL, SUPPORT_SERVER_INVITE_URL } from "./configuration.js";
-import { SKY_PROFILES_URL } from "./constants.js";
+import { MARKDOWN_ESCAPE_REGEX, SKY_PROFILES_URL } from "./constants.js";
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
@@ -274,6 +274,10 @@ export function skyProfileWebsiteURL<UserId extends Snowflake>(
 	userId: UserId,
 ): `${typeof SKY_PROFILES_URL}/${UserId}` {
 	return `${SKY_PROFILES_URL}/${userId}`;
+}
+
+export function escapeMarkdown(text: string) {
+	return text.replace(MARKDOWN_ESCAPE_REGEX, "\\$&");
 }
 
 export function formatArrayErrors(errors: readonly string[]) {
