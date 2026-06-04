@@ -3,6 +3,8 @@ packages:
   - "apps/caelus/*"
   - "packages/*"
 injectWorkspacePackages: true
+syncInjectedDepsAfterScripts:
+  - build
 allowBuilds:
   '@sentry/cli': true
   esbuild: true

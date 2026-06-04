@@ -1,29 +1,26 @@
-FROM node:24-alpine AS builder
+ARG NODE_IMAGE=node:24-alpine
 
+FROM ${NODE_IMAGE} AS build
+ENV PNPM_HOME=/pnpm
 WORKDIR /thatskyapplication
-
 RUN npm install --global pnpm@11.0.9
 
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY apps/caelus/fluxer/package.json apps/caelus/fluxer/package.json
-COPY packages/utility/package.json packages/utility/package.json
-
-RUN pnpm install --frozen-lockfile
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY packages/utility/package.json packages/utility/
+COPY apps/caelus/fluxer/package.json apps/caelus/fluxer/
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+	pnpm install --frozen-lockfile
 
 COPY packages/utility packages/utility
-RUN pnpm --filter @thatskyapplication/utility run build
-
 COPY apps/caelus/fluxer apps/caelus/fluxer
-RUN pnpm install --frozen-lockfile --offline
-RUN pnpm --filter @thatskyapplication/caelus-fluxer run build
-RUN pnpm --filter @thatskyapplication/caelus-fluxer deploy --prod /thatskyapplication-production/caelus-fluxer
+RUN pnpm --filter @thatskyapplication/caelus-fluxer... run build
 
-FROM node:24-alpine AS runtime
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+	pnpm --filter @thatskyapplication/caelus-fluxer deploy --prod /out
 
+FROM ${NODE_IMAGE} AS runtime
 ENV NODE_ENV=production
-
 WORKDIR /thatskyapplication/apps/caelus/fluxer
-COPY --from=builder /thatskyapplication-production/caelus-fluxer ./
-
+COPY --from=build --chown=node:node /out .
 USER node
-CMD ["node", "distribution/index.js"]
+CMD ["npm", "run-script", "start"]
