@@ -5,6 +5,7 @@ import daysOfLove from "./days-of-love.js";
 import daysOfNature from "./days-of-nature.js";
 import daysOfTreasure from "./days-of-treasure.js";
 import personalityQuizEvent from "./personality-quiz-event.js";
+import skyAnniversary from "./sky-anniversary.js";
 import tournamentOfTriumph from "./tournament-of-triumph.js";
 
 export default [
@@ -16,4 +17,5 @@ export default [
 	daysOfNature,
 	daysOfTreasure,
 	daysOfColour,
+	skyAnniversary,
 ] as const;
