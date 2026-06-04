@@ -52,6 +52,11 @@ export const RADIANCE_EVENTS = [
 		end: skyDate(2026, 5, 8),
 		dyes: [DyeType.Black, DyeType.Yellow],
 	},
+	{
+		start: skyDate(2026, 6, 19),
+		end: skyDate(2026, 7, 3),
+		dyes: [DyeType.White, DyeType.Cyan],
+	},
 ] as const satisfies readonly RadianceEvent[];
 
 export const DOUBLE_HEART_EVENTS = [
