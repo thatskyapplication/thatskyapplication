@@ -2,6 +2,9 @@
 	"name": "@thatskyapplication/notifications",
 	"private": true,
 	"type": "module",
+	"files": [
+		"distribution"
+	],
 	"scripts": {
 		"build": "tsc",
 		"test": "tsc --noEmit",

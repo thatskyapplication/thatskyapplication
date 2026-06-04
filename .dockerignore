@@ -1,15 +1,18 @@
-.cache
-.dockerignore
-.git
-build/
-node_modules/
-distribution/
-Dockerfile
-test.js
-test.ts
-.env
-.env.production
-.env.development
+# Dependencies and build artifacts (any package).
+**/node_modules
+**/distribution
+**/build
+**/.cache
 
-# Miscellaneous
-.DS_Store
+# Local-only files.
+**/.env
+**/.env.development
+**/.env.production
+**/test.js
+**/test.ts
+
+# Miscellaneous.
+.git
+.dockerignore
+**/Dockerfile
+**/.DS_Store

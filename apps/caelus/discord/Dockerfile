@@ -1,39 +1,29 @@
-# Builder stage.
-FROM node:24-alpine AS builder
+ARG NODE_IMAGE=node:24-alpine
 
+FROM ${NODE_IMAGE} AS build
+ENV PNPM_HOME=/pnpm
 WORKDIR /thatskyapplication
-
-# Install pnpm.
 RUN npm install --global pnpm@11.0.9
 
-# Copy the monorepo files required for dependency resolution.
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-COPY ./apps/caelus/discord/package.json ./apps/caelus/discord/package.json
-COPY ./packages/utility/package.json ./packages/utility/package.json
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY packages/utility/package.json packages/utility/
+COPY apps/caelus/discord/package.json apps/caelus/discord/
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+	pnpm install --frozen-lockfile
 
-# Install dependencies.
-RUN pnpm install --frozen-lockfile
+COPY packages/utility packages/utility
+COPY apps/caelus/discord apps/caelus/discord
+RUN pnpm --filter @thatskyapplication/caelus... run build
 
-# Build the application.
-COPY ./apps/caelus/discord ./apps/caelus/discord
-COPY ./packages/utility ./packages/utility
-RUN pnpm --filter @thatskyapplication/utility run build
-RUN pnpm install --frozen-lockfile --offline
-RUN pnpm --filter @thatskyapplication/caelus run build
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+	pnpm --filter @thatskyapplication/caelus deploy --prod /out
 
-# Deploy to a clean directory.
-RUN pnpm --filter @thatskyapplication/caelus deploy --prod /thatskyapplication-production/caelus
-
-# Final stage.
-FROM node:24-alpine
+FROM ${NODE_IMAGE} AS runtime
 ENV NODE_ENV=production
 ENV HONO_PORT=3000
 ARG SENTRY_RELEASE
 ENV SENTRY_RELEASE=${SENTRY_RELEASE}
-
-# Copy the deployed application.
-COPY --from=builder /thatskyapplication-production/caelus /thatskyapplication/apps/caelus
-
-# Start the application.
-WORKDIR /thatskyapplication/apps/caelus
+WORKDIR /thatskyapplication/apps/caelus/discord
+COPY --from=build --chown=node:node /out .
+USER node
 CMD ["npm", "run-script", "start"]
