@@ -11,8 +11,8 @@ import { guildIconURL } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
 
-export const loader = async ({ request, params }: LoaderFunctionArgs) => {
-	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request);
+export const loader = async ({ request, params, url }: LoaderFunctionArgs) => {
+	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request, url);
 	const { guildId } = params;
 	let oAuthGuilds: RESTGetAPICurrentUserGuildsResult;
 
@@ -20,7 +20,7 @@ export const loader = async ({ request, params }: LoaderFunctionArgs) => {
 		oAuthGuilds = await getUserAdminGuilds(discordUser, tokenExchange);
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
-			const returnTo = encodeURIComponent(request.url);
+			const returnTo = encodeURIComponent(String(url));
 			return redirect(`/login?returnTo=${returnTo}`);
 		}
 

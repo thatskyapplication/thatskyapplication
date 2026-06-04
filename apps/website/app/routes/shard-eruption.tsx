@@ -66,8 +66,7 @@ export const meta: MetaFunction<typeof loader> = ({ location }) => {
 	];
 };
 
-export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-	const url = new URL(request.url);
+export const loader = async ({ request, context, url }: LoaderFunctionArgs) => {
 	const pageParameter = url.searchParams.get("page");
 	const shards = [];
 	const locale = getLocale(context);

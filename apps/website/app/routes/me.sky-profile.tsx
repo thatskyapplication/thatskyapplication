@@ -89,8 +89,8 @@ const SELECTABLE_OPTION_CARD_CLASS = clsx(
 	"dark:peer-disabled:bg-gray-900",
 );
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request);
+export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const skyProfilePacket = await getSkyProfilePacket(discordUser.id);
 
 	return {
@@ -99,8 +99,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	};
 };
 
-export const action = async ({ request, context }: ActionFunctionArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request);
+export const action = async ({ request, context, url }: ActionFunctionArgs) => {
+	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const locale = getLocale(context);
 	const parsed = parseSkyProfileMultipart(await request.formData(), locale);
 

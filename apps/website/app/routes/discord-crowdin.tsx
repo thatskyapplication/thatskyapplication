@@ -65,13 +65,12 @@ interface CrowdinWords {
 
 type StringsAndWords = CrowdinStrings & CrowdinWords;
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const url = new URL(request.url);
+export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
 	const crowdinCode = url.searchParams.get("code");
 	const state = url.searchParams.get("state");
 	const error = url.searchParams.get("error");
-	const { discordUser } = await requireDiscordAuthentication(request);
+	const { discordUser } = await requireDiscordAuthentication(request, url);
 
 	if (error) {
 		session.set("discord_crowdin_auth_error", error);
@@ -210,11 +209,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 	return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
 };
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async ({ request, url }: ActionFunctionArgs) => {
 	const formData = await request.formData();
 	const action = formData.get("action");
 	const session = await getSession(request.headers.get("Cookie"));
-	await requireDiscordAuthentication(request);
+	await requireDiscordAuthentication(request, url);
 
 	if (action === "authorise_crowdin") {
 		const state = generateState();

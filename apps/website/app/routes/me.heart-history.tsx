@@ -29,15 +29,15 @@ async function totalHearts(column: "giftee_id" | "user_id", userId: Snowflake) {
 	return Number(result.sum ?? 0);
 }
 
-function parsePage(request: Request) {
-	const page = Number(new URL(request.url).searchParams.get("page") ?? 1);
+function parsePage(url: URL) {
+	const page = Number(url.searchParams.get("page") ?? 1);
 	return Number.isSafeInteger(page) && page > 0 ? page : 1;
 }
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request);
+export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const userId = discordUser.id;
-	const requestedPage = parsePage(request);
+	const requestedPage = parsePage(url);
 
 	const [gifted, received, totalRows] = await Promise.all([
 		totalHearts("user_id", userId),

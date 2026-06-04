@@ -6,15 +6,15 @@ import { guildIconURL } from "~/utility/functions.js";
 import { hasAnyHeaders, requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request);
+export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request, url);
 
 	try {
 		const guilds = await getUserAdminGuilds(discordUser, tokenExchange);
 		return guilds;
 	} catch (error) {
 		if (error instanceof DiscordAPIError && error.status === 401) {
-			const returnTo = encodeURIComponent(request.url);
+			const returnTo = encodeURIComponent(String(url));
 			return redirect(`/login?returnTo=${returnTo}`);
 		}
 

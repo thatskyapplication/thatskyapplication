@@ -16,14 +16,15 @@
 		"@devvit/web": "^0.12.24",
 		"@thatskyapplication/utility": "workspace:^",
 		"devvit": "^0.12.24",
-		"discord-api-types": "^0.38.40",
+		"discord-api-types": "^0.38.48",
 		"express": "^5.2.1",
 		"obscenity": "^0.4.6"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.6",
+		"@types/node": "^24.12.4",
 		"concurrently": "^9.2.1",
 		"typescript": "^6.0.3",
-		"vite": "^7.3.1"
+		"vite": "^7.3.5"
 	}
 }

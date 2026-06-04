@@ -7,8 +7,8 @@ import { SitePage } from "~/components/PageLayout";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request);
+export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+	const { discordUser } = await requireDiscordAuthentication(request, url);
 
 	const skyProfile = await pg<SkyProfilePacket>(Table.Profiles)
 		.select("name")

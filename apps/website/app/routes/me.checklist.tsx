@@ -69,10 +69,10 @@ async function checklistRefresh(checklistPacket: ChecklistPacket) {
 	return updatedChecklistPacket!;
 }
 
-export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context, url }: LoaderFunctionArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
-	const { discordUser } = await requireDiscordAuthentication(request);
+	const { discordUser } = await requireDiscordAuthentication(request, url);
 
 	let checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
 		.where({ user_id: discordUser.id })
@@ -108,8 +108,8 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 	};
 };
 
-export const action = async ({ request }: ActionFunctionArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request);
+export const action = async ({ request, url }: ActionFunctionArgs) => {
+	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const formData = await request.formData();
 	const dailyQuests = formData.get("daily_quests");
 	const seasonalCandles = formData.get("seasonal_candles");

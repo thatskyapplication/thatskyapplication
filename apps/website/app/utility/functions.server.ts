@@ -14,7 +14,7 @@ export function hasAnyHeaders(headers: Headers) {
 	return [...headers].length > 0;
 }
 
-export async function requireDiscordAuthentication(request: Request) {
+export async function requireDiscordAuthentication(request: Request, url: URL) {
 	const session = await getSession(request.headers.get("Cookie"));
 	const discordUser = session.get("discord_user");
 	const tokenExchange = session.get("token_exchange");
@@ -36,15 +36,15 @@ export async function requireDiscordAuthentication(request: Request) {
 			});
 		}
 
-		const returnTo = encodeURIComponent(request.url);
+		const returnTo = encodeURIComponent(String(url));
 		throw redirect(`/login?returnTo=${returnTo}`);
 	}
 
 	return { discordUser, tokenExchange };
 }
 
-export async function requireAdminAccess(request: Request) {
-	const { discordUser } = await requireDiscordAuthentication(request);
+export async function requireAdminAccess(request: Request, url: URL) {
+	const { discordUser } = await requireDiscordAuthentication(request, url);
 
 	try {
 		const member = await discord.guilds.getMember(SUPPORT_SERVER_GUILD_ID, discordUser.id);

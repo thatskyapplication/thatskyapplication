@@ -63,10 +63,9 @@ export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
 	];
 };
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
 	const discordUser = session.get("discord_user") ?? null;
-	const url = new URL(request.url);
 	const name = url.searchParams.get("name");
 	const country = url.searchParams.get("country");
 	const page = Math.max(1, Number(url.searchParams.get("page")) || 1);

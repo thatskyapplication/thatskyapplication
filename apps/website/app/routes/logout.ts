@@ -1,8 +1,7 @@
-import { type ActionFunction, type LoaderFunction, redirect } from "react-router";
+import { type ActionFunctionArgs, type LoaderFunctionArgs, redirect } from "react-router";
 import { commitSession, getSession } from "~/session.server";
 
-function getLogoutReturnTo(request: Request) {
-	const url = new URL(request.url);
+function getLogoutReturnTo(url: URL) {
 	const rawReturnTo = url.searchParams.get("returnTo") || "/";
 	const returnToURL = new URL(rawReturnTo, url.origin);
 
@@ -21,9 +20,9 @@ function clearAuthentication(session: Awaited<ReturnType<typeof getSession>>) {
 	session.unset("discord_crowdin_auth_error");
 }
 
-export const action: ActionFunction = async ({ request }) => {
+export const action = async ({ request, url }: ActionFunctionArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
-	const returnTo = getLogoutReturnTo(request);
+	const returnTo = getLogoutReturnTo(url);
 	clearAuthentication(session);
 	session.flash("just_logged_out", true);
 
@@ -34,9 +33,9 @@ export const action: ActionFunction = async ({ request }) => {
 	});
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
-	const returnTo = getLogoutReturnTo(request);
+	const returnTo = getLogoutReturnTo(url);
 	clearAuthentication(session);
 	session.flash("just_logged_out", true);
 

@@ -4,7 +4,8 @@ import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { requireAdminAccess } from "~/utility/functions.server.js";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => requireAdminAccess(request);
+export const loader = async ({ request, url }: LoaderFunctionArgs) =>
+	requireAdminAccess(request, url);
 
 export default function Admin() {
 	return (
