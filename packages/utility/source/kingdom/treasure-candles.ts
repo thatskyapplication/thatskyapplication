@@ -150,6 +150,11 @@ const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 		end: skyDate(2026, 3, 13),
 		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
+	{
+		start: skyDate(2026, 6, 19),
+		end: skyDate(2026, 7, 3),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
 ] as const satisfies readonly TreasureCandlesDoubleConfiguration[];
 
 function treasureCandleFromConfiguration(
