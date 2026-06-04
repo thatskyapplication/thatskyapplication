@@ -1,5 +1,6 @@
 import {
 	communityUpcomingEvents,
+	type DailyGuidesDaysCountItem,
 	type DailyGuidesPacket,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
@@ -12,6 +13,7 @@ import {
 	skyCurrentSeason,
 	skyNotEndedEvents,
 	skyUpcomingSeason,
+	sortDaysCountItems,
 	Table,
 	TIME_ZONE,
 	treasureCandles,
@@ -41,7 +43,7 @@ import {
 } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 
-interface DaysCountItem {
+interface DaysCountItem extends DailyGuidesDaysCountItem {
 	key: string;
 	content: string | JSX.Element;
 	iconURL?: string | undefined;
@@ -180,8 +182,10 @@ export default function DailyGuides() {
 
 		daysCount.push({
 			content: daysLeftText,
+			end: season.end,
 			iconURL: seasonEmoji ? discordEmojiURL(seasonEmoji.id) : undefined,
 			key: `season-current-${season.id}`,
+			start: season.start,
 		});
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
@@ -202,8 +206,10 @@ export default function DailyGuides() {
 
 		daysCount.push({
 			content: t("daily-guides.season-upcoming", { ns: "features", count: daysUntilStart }),
+			end: next.end,
 			iconURL: nextSeasonEmoji ? discordEmojiURL(nextSeasonEmoji.id) : undefined,
 			key: `season-upcoming-${next.id}`,
+			start: next.start,
 		});
 	}
 
@@ -219,8 +225,10 @@ export default function DailyGuides() {
 					event: eventName,
 					count: daysUntilStart,
 				}),
+				end,
 				iconURL: eventEmoji ? discordEmojiURL(eventEmoji.id) : undefined,
 				key: `event-upcoming-${name}`,
+				start,
 			});
 
 			continue;
@@ -232,8 +240,10 @@ export default function DailyGuides() {
 				count: Math.ceil(end.diff(today, "days").days) - 1,
 				name: eventName,
 			}),
+			end,
 			iconURL: eventEmoji ? discordEmojiURL(eventEmoji.id) : undefined,
 			key: `event-ending-${name}`,
+			start,
 		});
 	}
 
@@ -269,8 +279,10 @@ export default function DailyGuides() {
 					</span>
 				</span>
 			),
+			end: radianceEvent.end,
 			iconURL: radianceEmojiURL,
 			key: `radiance-${radianceEvent.start.toMillis()}`,
+			start: radianceEvent.start,
 		});
 	}
 
@@ -289,8 +301,10 @@ export default function DailyGuides() {
 							ns: "features",
 							count: Math.floor(daysUntilStart),
 						}),
+			end: doubleHeartEvent.end,
 			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
 			key: `double-heart-${doubleHeartEvent.start.toMillis()}`,
+			start: doubleHeartEvent.start,
 		});
 	}
 
@@ -336,11 +350,13 @@ export default function DailyGuides() {
 						</span>
 					),
 					key: `community-event-${name}-${start.toMillis()}`,
+					start,
 				});
 			} else {
 				daysCount.push({
 					content: translatedText,
 					key: `community-event-${name}-${start.toMillis()}`,
+					start,
 				});
 			}
 		}
@@ -348,18 +364,19 @@ export default function DailyGuides() {
 
 	const todayMaintenance = [];
 	const seenMaintenanceDays = new Set<number>();
+	const tomorrow = today.plus({ days: 1 });
 
 	for (const maintenance of MAINTENANCE_PERIODS) {
-		const daysUntilStart = maintenance.start.diff(today, "days").days;
-
-		if (daysUntilStart < 1) {
-			if (maintenance.end > now) {
-				todayMaintenance.push(maintenance);
-			}
-
+		if (maintenance.end <= now) {
 			continue;
 		}
 
+		if (maintenance.start < tomorrow) {
+			todayMaintenance.push(maintenance);
+			continue;
+		}
+
+		const daysUntilStart = maintenance.start.diff(today, "days").days;
 		const floorDays = Math.floor(daysUntilStart);
 
 		if (floorDays >= 2) {
@@ -371,7 +388,9 @@ export default function DailyGuides() {
 						ns: "features",
 						count: floorDays,
 					}),
+					end: maintenance.end,
 					key: `maintenance-upcoming-${floorDays}`,
+					start: maintenance.start,
 				});
 			}
 		} else {
@@ -384,10 +403,14 @@ export default function DailyGuides() {
 						timeStyle: "short",
 					}).format(maintenance.start.toMillis()),
 				}),
+				end: maintenance.end,
 				key: `maintenance-upcoming-${maintenance.start.toMillis()}`,
+				start: maintenance.start,
 			});
 		}
 	}
+
+	sortDaysCountItems(daysCount, now);
 
 	const handleImageClick = (url: string | null, acknowledgement: string | null = null) => {
 		if (url) {

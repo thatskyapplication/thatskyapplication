@@ -34,6 +34,7 @@ import {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
+	type DailyGuidesDaysCountItem,
 	type DailyGuidesDistributionPacket,
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
@@ -55,6 +56,7 @@ import {
 	skyNow,
 	skyToday,
 	skyUpcomingSeason,
+	sortDaysCountItems,
 	Table,
 	TIME_ZONE,
 	treasureCandles,
@@ -128,6 +130,10 @@ interface DailyQuestWithMedia {
 	index: number;
 	quest: DailyQuests;
 	url: string;
+}
+
+interface DailyGuidesFooterItem extends DailyGuidesDaysCountItem {
+	text: string;
 }
 
 const distributeQueue = new pQueue({ concurrency: MAXIMUM_CONCURRENCY_LIMIT });
@@ -685,15 +691,23 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
 		if (daysUntilStart > 0) {
-			return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("daily-guides.event-upcoming", { lng: locale, ns: "features", event: eventName, count: daysUntilStart })}`;
+			return {
+				end,
+				start,
+				text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("daily-guides.event-upcoming", { lng: locale, ns: "features", event: eventName, count: daysUntilStart })}`,
+			};
 		}
 
-		return `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("days-left.event", {
-			lng: locale,
-			ns: "general",
-			count: Math.ceil(end.diff(date, "days").days) - 1,
-			name: eventName,
-		})}`;
+		return {
+			end,
+			start,
+			text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("days-left.event", {
+				lng: locale,
+				ns: "general",
+				count: Math.ceil(end.diff(date, "days").days) - 1,
+				name: eventName,
+			})}`,
+		};
 	});
 
 	const event1 = events.first();
@@ -757,7 +771,7 @@ async function distributionData(
 	];
 
 	const todayMaintenance = [];
-	const upcomingMaintenance = [];
+	const upcomingMaintenance: DailyGuidesFooterItem[] = [];
 	const seenMaintenanceDays = new Set<number>();
 
 	for (const maintenance of MAINTENANCE_PERIODS) {
@@ -777,16 +791,20 @@ async function distributionData(
 			if (!seenMaintenanceDays.has(floorDays)) {
 				seenMaintenanceDays.add(floorDays);
 
-				upcomingMaintenance.push(
-					t("daily-guides.maintenance-upcoming", {
+				upcomingMaintenance.push({
+					end: maintenance.end,
+					start: maintenance.start,
+					text: t("daily-guides.maintenance-upcoming", {
 						ns: "features",
 						count: floorDays,
 					}),
-				);
+				});
 			}
 		} else {
-			upcomingMaintenance.push(
-				t("daily-guides.maintenance-upcoming", {
+			upcomingMaintenance.push({
+				end: maintenance.end,
+				start: maintenance.start,
+				text: t("daily-guides.maintenance-upcoming", {
 					ns: "features",
 					count: 1,
 					time: new Intl.DateTimeFormat(locale, {
@@ -794,7 +812,7 @@ async function distributionData(
 						timeStyle: "short",
 					}).format(maintenance.start.toMillis()),
 				}),
-			);
+			});
 		}
 	}
 
@@ -951,18 +969,20 @@ async function distributionData(
 	}
 
 	const season = skyCurrentSeason(today);
-	const footerText = [];
+	const footerItems: DailyGuidesFooterItem[] = [];
 
 	if (season) {
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
-		footerText.push(
-			`${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}${t("days-left.season", {
+		footerItems.push({
+			end: season.end,
+			start: season.start,
+			text: `${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}${t("days-left.season", {
 				lng: locale,
 				ns: "general",
 				count: Math.ceil(season.end.diff(now, "days").days) - 1,
 			})}`,
-		);
+		});
 
 		const { seasonalCandlesLeft, seasonalCandlesLeftWithSeasonPass } =
 			season.remainingSeasonalCandles(today);
@@ -1009,13 +1029,15 @@ async function distributionData(
 		const daysUntilStart = next.start.diff(today, "days").days;
 		const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
 
-		footerText.push(
-			`${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: daysUntilStart })}`,
-		);
+		footerItems.push({
+			end: next.end,
+			start: next.start,
+			text: `${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: daysUntilStart })}`,
+		});
 	}
 
 	const eventData = dailyGuidesEventData(today, locale);
-	footerText.push(...eventData.eventEndText);
+	footerItems.push(...eventData.eventEndText);
 
 	if (eventData.eventTickets) {
 		containerComponents.push({
@@ -1105,23 +1127,27 @@ async function distributionData(
 			const dyeEmojis = radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join("");
 
 			if (today >= radianceEvent.start) {
-				footerText.push(
-					`${dyePrefix} ${t("days-left.event", {
+				footerItems.push({
+					end: radianceEvent.end,
+					start: radianceEvent.start,
+					text: `${dyePrefix} ${t("days-left.event", {
 						lng: locale,
 						ns: "general",
 						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
 						name: radianceName,
 					})} ${dyeEmojis}`,
-				);
+				});
 			} else {
-				footerText.push(
-					`${t("daily-guides.event-upcoming", {
+				footerItems.push({
+					end: radianceEvent.end,
+					start: radianceEvent.start,
+					text: `${t("daily-guides.event-upcoming", {
 						lng: locale,
 						ns: "features",
 						event: `${dyePrefix} ${radianceName}`,
 						count: Math.floor(radianceEvent.start.diff(today, "days").days),
 					})} ${dyeEmojis}`,
-				);
+				});
 			}
 		}
 	}
@@ -1133,21 +1159,25 @@ async function distributionData(
 
 		for (const doubleHeartEvent of doubleHeartEvents) {
 			if (today >= doubleHeartEvent.start) {
-				footerText.push(
-					`${heartPrefix} ${t("days-left.double-hearts", {
+				footerItems.push({
+					end: doubleHeartEvent.end,
+					start: doubleHeartEvent.start,
+					text: `${heartPrefix} ${t("days-left.double-hearts", {
 						lng: locale,
 						ns: "general",
 						count: Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1,
 					})}`,
-				);
+				});
 			} else {
-				footerText.push(
-					`${heartPrefix} ${t("daily-guides.double-hearts-upcoming", {
+				footerItems.push({
+					end: doubleHeartEvent.end,
+					start: doubleHeartEvent.start,
+					text: `${heartPrefix} ${t("daily-guides.double-hearts-upcoming", {
 						lng: locale,
 						ns: "features",
 						count: Math.floor(doubleHeartEvent.start.diff(today, "days").days),
 					})}`,
-				);
+				});
 			}
 		}
 	}
@@ -1159,27 +1189,31 @@ async function distributionData(
 			const untilStart = start.diff(today, "days").days;
 			const formattedName = marketingURL ? `[${name}](${marketingURL})` : name;
 
-			footerText.push(
-				untilStart >= 1
-					? t("daily-guides.event-upcoming", {
-							lng: locale,
-							ns: "features",
-							event: formattedName,
-							count: Math.floor(untilStart),
-						})
-					: t("daily-guides.event-upcoming-time", {
-							lng: locale,
-							ns: "features",
-							event: formattedName,
-							time: `<t:${start.toUnixInteger()}:t>`,
-						}),
-			);
+			footerItems.push({
+				start,
+				text:
+					untilStart >= 1
+						? t("daily-guides.event-upcoming", {
+								lng: locale,
+								ns: "features",
+								event: formattedName,
+								count: Math.floor(untilStart),
+							})
+						: t("daily-guides.event-upcoming-time", {
+								lng: locale,
+								ns: "features",
+								event: formattedName,
+								time: `<t:${start.toUnixInteger()}:t>`,
+							}),
+			});
 		}
 	}
 
-	footerText.push(...upcomingMaintenance);
+	footerItems.push(...upcomingMaintenance);
 
-	if (footerText.length > 0) {
+	if (footerItems.length > 0) {
+		sortDaysCountItems(footerItems, today);
+
 		containerComponents.push(
 			{
 				type: ComponentType.Separator,
@@ -1188,7 +1222,7 @@ async function distributionData(
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content: footerText.map((text) => `-# ${text}`).join("\n"),
+				content: footerItems.map(({ text }) => `-# ${text}`).join("\n"),
 			},
 		);
 	}

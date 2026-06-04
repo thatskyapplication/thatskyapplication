@@ -1,4 +1,5 @@
 import { ChannelType, type Snowflake } from "discord-api-types/v10";
+import type { DateTime } from "luxon";
 import { dailyGuidesQuestRoute } from "./routes.js";
 
 export interface DailyGuidesPacket {
@@ -1137,3 +1138,23 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 	ChannelType.GuildAnnouncement,
 	ChannelType.PublicThread,
 ] as const;
+
+export interface DailyGuidesDaysCountItem {
+	start: DateTime;
+	end?: DateTime | undefined;
+}
+
+export function sortDaysCountItems(daysCount: DailyGuidesDaysCountItem[], time: DateTime) {
+	daysCount.sort((left, right) => {
+		const leftActive = left.end !== undefined && time >= left.start && time < left.end;
+		const rightActive = right.end !== undefined && time >= right.start && time < right.end;
+
+		if (leftActive !== rightActive) {
+			return leftActive ? -1 : 1;
+		}
+
+		const leftTime = leftActive && left.end !== undefined ? left.end : left.start;
+		const rightTime = rightActive && right.end !== undefined ? right.end : right.start;
+		return leftTime.toMillis() - rightTime.toMillis();
+	});
+}

@@ -57,6 +57,7 @@ export {
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
+	type DailyGuidesDaysCountItem,
 	type DailyGuidesDistributionPacket,
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
@@ -65,6 +66,7 @@ export {
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	isDailyQuest,
+	sortDaysCountItems,
 } from "./daily-guides.js";
 export { type BlueskyWebhooksPacket, Table } from "./database.js";
 export { isDuring, skyDate, skyNow, skyToday, TIME_ZONE } from "./dates.js";
