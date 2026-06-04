@@ -37,7 +37,6 @@ import {
 	type ElderSpirit,
 	type Emoji,
 	type Event,
-	EventId,
 	type EventIds,
 	formatEmoji,
 	friendshipTreeToItems,
@@ -287,15 +286,6 @@ function offerData({
 					}
 				}
 			}
-		}
-
-		// Days of Mischief 2025 onwards makes 2025 pretty big. Remove the preview until there is a better solution.
-		if (offerProgress.events.hasAny(EventId.DaysOfMischief2025, EventId.DaysOfFeast2025)) {
-			const event = offerProgress.events.get(EventId.DaysOfMischief2025)!;
-			offerProgress.events.set(
-				EventId.DaysOfMischief2025,
-				`${event.slice(0, event.indexOf("\n"))}\n\nPreview is too big!`,
-			);
 		}
 	}
 
