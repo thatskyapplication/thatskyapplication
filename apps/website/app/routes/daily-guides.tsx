@@ -270,8 +270,8 @@ export default function DailyGuides() {
 					<span>{radianceText}</span>
 					<span aria-hidden="true" className="inline-flex items-center gap-1">
 						{dyeEmojiURLs.map((emojiURL, index) => (
-							<div
-								className="discord-emoji h-4 w-4"
+							<span
+								className="discord-emoji inline-block h-4 w-4"
 								key={`${radianceEvent.start.toMillis()}-${index}`}
 								style={{ backgroundImage: `url(${emojiURL})` }}
 							/>
