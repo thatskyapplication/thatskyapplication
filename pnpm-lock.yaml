@@ -47,7 +47,7 @@ importers:
         version: 10.47.0
       '@thatskyapplication/utility':
         specifier: workspace:^
-        version: link:../../../packages/utility
+        version: file:packages/utility
       croner:
         specifier: ^9.1.0
         version: 9.1.0
@@ -120,7 +120,7 @@ importers:
         version: 3.0.0-dev.1777075897-40ce0791a
       '@thatskyapplication/utility':
         specifier: workspace:^
-        version: link:../../../packages/utility
+        version: file:packages/utility
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -151,7 +151,7 @@ importers:
         version: 10.47.0
       '@thatskyapplication/utility':
         specifier: workspace:^
-        version: link:../../packages/utility
+        version: file:packages/utility
       croner:
         specifier: ^9.1.0
         version: 9.1.0
@@ -197,7 +197,7 @@ importers:
         version: 0.12.24(twirp-ts@2.5.0)
       '@thatskyapplication/utility':
         specifier: workspace:^
-        version: link:../../packages/utility
+        version: file:packages/utility
       devvit:
         specifier: ^0.12.24
         version: 0.12.24(@devvit/server@0.12.24(twirp-ts@2.5.0))(@devvit/shared@0.12.24(twirp-ts@2.5.0))(@types/node@24.12.0)(google-protobuf@3.21.4)(typescript@6.0.3)
@@ -243,7 +243,7 @@ importers:
         version: 0.2.5(react@19.2.4)
       '@thatskyapplication/utility':
         specifier: workspace:^
-        version: link:../../packages/utility
+        version: file:packages/utility
       knex:
         specifier: ^3.1.0
         version: 3.1.0(pg@8.20.0)
@@ -310,7 +310,7 @@ importers:
         version: 10.47.0(@react-router/node@7.13.1(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(typescript@6.0.3))(react-router@7.13.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(rollup@4.59.0)
       '@thatskyapplication/utility':
         specifier: workspace:^
-        version: link:../../packages/utility
+        version: file:packages/utility
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -416,7 +416,7 @@ importers:
         version: 0.1.96
       '@thatskyapplication/utility':
         specifier: workspace:^
-        version: link:../utility
+        version: file:packages/utility
       undici:
         specifier: ^7.19.0
         version: 7.22.0
