@@ -230,7 +230,10 @@ export default function DailyGuides() {
 		const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
 
 		daysCount.push({
-			content: t("daily-guides.season-upcoming", { ns: "features", count: daysUntilStart }),
+			content: t("daily-guides.season-upcoming", {
+				ns: "features",
+				count: Math.floor(daysUntilStart),
+			}),
 			end: next.end,
 			iconURL: nextSeasonEmoji ? discordEmojiURL(nextSeasonEmoji.id) : undefined,
 			key: `season-upcoming-${next.id}`,
@@ -248,7 +251,7 @@ export default function DailyGuides() {
 				content: t("daily-guides.event-upcoming", {
 					ns: "features",
 					event: eventName,
-					count: daysUntilStart,
+					count: Math.floor(daysUntilStart),
 				}),
 				end,
 				iconURL: eventEmoji ? discordEmojiURL(eventEmoji.id) : undefined,

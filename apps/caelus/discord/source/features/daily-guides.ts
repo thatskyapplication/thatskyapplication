@@ -695,7 +695,7 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 			return {
 				end,
 				start,
-				text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("daily-guides.event-upcoming", { lng: locale, ns: "features", event: eventName, count: daysUntilStart })}`,
+				text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("daily-guides.event-upcoming", { lng: locale, ns: "features", event: eventName, count: Math.floor(daysUntilStart) })}`,
 			};
 		}
 
@@ -1056,7 +1056,7 @@ async function distributionData(
 		footerItems.push({
 			end: next.end,
 			start: next.start,
-			text: `${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: daysUntilStart })}`,
+			text: `${nextSeasonEmoji ? `${formatEmoji(nextSeasonEmoji)} ` : ""}${t("daily-guides.season-upcoming", { lng: locale, ns: "features", count: Math.floor(daysUntilStart) })}`,
 		});
 	}
 
