@@ -89,4 +89,9 @@ export const COMMUNITY_EVENTS = [
 		start: skyDate(2026, 3, 7, 10),
 		marketingURL: "https://discord.gg/aurora-2-0",
 	},
+	{
+		name: "Aurora 2.0 Mega Concert",
+		start: skyDate(2026, 6, 6, 10),
+		marketingURL: "https://discord.gg/UNNNcdG4M",
+	},
 ] as const;
