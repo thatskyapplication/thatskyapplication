@@ -1155,6 +1155,9 @@ export function sortDaysCountItems(daysCount: DailyGuidesDaysCountItem[], time: 
 
 		const leftTime = leftActive && left.end !== undefined ? left.end : left.start;
 		const rightTime = rightActive && right.end !== undefined ? right.end : right.start;
-		return leftTime.toMillis() - rightTime.toMillis();
+
+		return leftActive
+			? rightTime.toMillis() - leftTime.toMillis()
+			: leftTime.toMillis() - rightTime.toMillis();
 	});
 }
