@@ -989,6 +989,29 @@ async function distributionData(
 		const candleEmoji =
 			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 
+		for (const doubleSeasonalLight of season.doubleSeasonalLight?.filter(
+			({ end }) => end > today,
+		) ?? []) {
+			const candlePrefix = formatEmoji(candleEmoji);
+
+			footerItems.push({
+				end: doubleSeasonalLight.end,
+				start: doubleSeasonalLight.start,
+				text:
+					today >= doubleSeasonalLight.start
+						? `${candlePrefix} ${t("days-left.double-seasonal-light", {
+								lng: locale,
+								ns: "general",
+								count: Math.ceil(doubleSeasonalLight.end.diff(today, "days").days) - 1,
+							})}`
+						: `${candlePrefix} ${t("daily-guides.double-seasonal-light-upcoming", {
+								lng: locale,
+								ns: "features",
+								count: Math.floor(doubleSeasonalLight.start.diff(today, "days").days),
+							})}`,
+			});
+		}
+
 		const seasonalCandlesRotation = season.seasonalCandles(today);
 
 		const seasonalCandlesRemaining = t("daily-guides.seasonal-candles-remain-with-season-pass", {

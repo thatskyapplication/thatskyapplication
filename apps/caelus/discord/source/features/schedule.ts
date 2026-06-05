@@ -59,6 +59,7 @@ import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SEASON_EMOJIS,
+	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 	SMALL_PLACEABLE_PROPS_EMOJIS,
 } from "../utility/emojis.js";
@@ -247,6 +248,40 @@ function doubleHeartEventOverview(date: DateTime) {
 		next: `<t:${doubleHeartEvent.start.toUnixInteger()}:R>`,
 		end: `<t:${doubleHeartEvent.end.toUnixInteger()}:R>`,
 	}));
+}
+
+function doubleSeasonalLightOverview(date: DateTime) {
+	const doubleSeasonalLightEvents: {
+		now: boolean;
+		next: string;
+		end: string;
+		seasonalCandleEmoji: string;
+	}[] = [];
+
+	for (const season of [skyCurrentSeason(date), skyUpcomingSeason(date)]) {
+		if (!season) {
+			continue;
+		}
+
+		const seasonalCandleEmoji = formatEmoji(
+			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
+		);
+
+		for (const doubleSeasonalLight of season.doubleSeasonalLight ?? []) {
+			if (doubleSeasonalLight.end <= date) {
+				continue;
+			}
+
+			doubleSeasonalLightEvents.push({
+				now: date >= doubleSeasonalLight.start,
+				next: `<t:${doubleSeasonalLight.start.toUnixInteger()}:R>`,
+				end: `<t:${doubleSeasonalLight.end.toUnixInteger()}:R>`,
+				seasonalCandleEmoji,
+			});
+		}
+	}
+
+	return doubleSeasonalLightEvents;
 }
 
 function radianceEventDetailedBreakdown(date: DateTime, locale: Locale): APIComponentInContainer[] {
@@ -1216,6 +1251,7 @@ export async function scheduleOverview(
 	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
 	const radianceEvents = radianceEventOverview(now);
 	const doubleHeartEvents = doubleHeartEventOverview(now);
+	const doubleSeasonalLightEvents = doubleSeasonalLightOverview(now);
 	const events = eventOverview(now, locale);
 	const seasons = seasonOverview(now, locale);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
@@ -1429,6 +1465,38 @@ export async function scheduleOverview(
 									ns: "features",
 									timestamp: doubleHeartEvent.next,
 								}),
+					}),
+				)
+				.join("\n"),
+		});
+	}
+
+	if (doubleSeasonalLightEvents.length > 0) {
+		firstContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: doubleSeasonalLightEvents
+				.map((doubleSeasonalLightEvent) =>
+					t("schedule.overview", {
+						lng: locale,
+						ns: "features",
+						type: t("event-names.double-seasonal-light", { lng: locale, ns: "general" }),
+						details: doubleSeasonalLightEvent.now
+							? `${doubleSeasonalLightEvent.seasonalCandleEmoji} ${t(
+									"schedule.overview-ends-timestamp",
+									{
+										lng: locale,
+										ns: "features",
+										timestamp: doubleSeasonalLightEvent.end,
+									},
+								)}`
+							: `${doubleSeasonalLightEvent.seasonalCandleEmoji} ${t(
+									"schedule.overview-next-available-timestamp",
+									{
+										lng: locale,
+										ns: "features",
+										timestamp: doubleSeasonalLightEvent.next,
+									},
+								)}`,
 					}),
 				)
 				.join("\n"),

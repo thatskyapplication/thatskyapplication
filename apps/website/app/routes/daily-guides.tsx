@@ -196,6 +196,30 @@ export default function DailyGuides() {
 			remainingWithPass: seasonalCandlesLeftWithSeasonPass,
 			url: season.seasonalCandles(today),
 		};
+
+		for (const doubleSeasonalLight of season.doubleSeasonalLight?.filter(
+			({ end }) => end > today,
+		) ?? []) {
+			const daysUntilStart = doubleSeasonalLight.start.diff(today, "days").days;
+			const daysLeft = Math.ceil(doubleSeasonalLight.end.diff(today, "days").days) - 1;
+
+			daysCount.push({
+				content:
+					today >= doubleSeasonalLight.start
+						? t("days-left.double-seasonal-light", {
+								ns: "general",
+								count: daysLeft,
+							})
+						: t("daily-guides.double-seasonal-light-upcoming", {
+								ns: "features",
+								count: Math.floor(daysUntilStart),
+							}),
+				end: doubleSeasonalLight.end,
+				iconURL: seasonalCandleEmoji ? discordEmojiURL(seasonalCandleEmoji.id) : undefined,
+				key: `double-seasonal-light-${season.id}-${doubleSeasonalLight.start.toMillis()}`,
+				start: doubleSeasonalLight.start,
+			});
+		}
 	}
 
 	const next = skyUpcomingSeason(today);

@@ -8,6 +8,9 @@ export default defineConfig((config) => ({
 	build: {
 		sourcemap: true,
 	},
+	optimizeDeps: {
+		exclude: ["@thatskyapplication/utility"],
+	},
 	plugins: [
 		reactRouterHonoServer(),
 		reactRouter(),

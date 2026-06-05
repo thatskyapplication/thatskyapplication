@@ -52,6 +52,9 @@ export default {
 			"double-hearts_zero": "Double hearts ends today.",
 			"double-hearts_one": "{{count}} day left of double hearts.",
 			"double-hearts_other": "{{count}} days left of double hearts.",
+			"double-seasonal-light_zero": "Double seasonal light ends today.",
+			"double-seasonal-light_one": "{{count}} day left of double seasonal light.",
+			"double-seasonal-light_other": "{{count}} days left of double seasonal light.",
 		},
 		"error-timed-out": "I am timed out.",
 		"event-tickets": "Event tickets",
@@ -138,6 +141,7 @@ export default {
 			[NotificationType.RadianceEvent]: "$t(general:event-names.radiance-event)",
 			[NotificationType.Seasons]: "$t(general:season-plural)",
 			[NotificationType.DoubleHearts]: "$t(general:event-names.double-hearts)",
+			[NotificationType.DoubleSeasonalLight]: "Double seasonal light",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -801,6 +805,7 @@ export default {
 		event: "Event",
 		events: "Events",
 		"event-names": {
+			"double-seasonal-light": "Double seasonal light",
 			"halloween-office-event": "Halloween Office Event",
 			"days-of-giving": "Days of Giving",
 			"double-hearts": "Double hearts",
@@ -3100,6 +3105,8 @@ export default {
 			"season-upcoming_other": "The new season starts in {{count}} days.",
 			"double-hearts-upcoming_one": "Double hearts starts tomorrow.",
 			"double-hearts-upcoming_other": "Double hearts starts in {{count}} days.",
+			"double-seasonal-light-upcoming_one": "Double seasonal light starts tomorrow.",
+			"double-seasonal-light-upcoming_other": "Double seasonal light starts in {{count}} days.",
 			"event-upcoming_one": "{{event}} starts tomorrow.",
 			"event-upcoming_other": "{{event}} starts in {{count}} days.",
 			"event-upcoming-time": "{{event}} starts at {{time}}.",
@@ -3328,6 +3335,12 @@ export default {
 					"message-now": "{{heart}} Double hearts has begun! Share the love! {{heart}}",
 					"message-future":
 						"{{heart}} Double hearts will begin {{timestamp}}! Almost time to share the love! {{heart}}",
+				},
+				[NotificationType.DoubleSeasonalLight]: {
+					"message-now":
+						"{{seasonalCandle}} Double seasonal light has begun! Collect the extra seasonal candle clusters! {{seasonalCandle}}",
+					"message-future":
+						"{{seasonalCandle}} Double seasonal light will begin {{timestamp}}! Extra seasonal candle clusters are coming! {{seasonalCandle}}",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":

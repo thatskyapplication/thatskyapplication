@@ -1,4 +1,5 @@
 import { emojiConstants } from "@thatskyapplication/utility";
 import { PRODUCTION } from "./configuration.js";
 
-export const { DyeTypeToEmoji, MISCELLANEOUS_EMOJIS } = emojiConstants(PRODUCTION);
+export const { DyeTypeToEmoji, MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalCandleEmoji } =
+	emojiConstants(PRODUCTION);

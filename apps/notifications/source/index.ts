@@ -44,7 +44,11 @@ import { NotificationError } from "./models/notification-error.js";
 import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
-import { DyeTypeToEmoji, MISCELLANEOUS_EMOJIS } from "./utility/emojis.js";
+import {
+	DyeTypeToEmoji,
+	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalCandleEmoji,
+} from "./utility/emojis.js";
 import { notificationNonce } from "./utility/functions.js";
 
 void init({
@@ -98,6 +102,8 @@ const NOTIFICATION_RADIANCE_EVENT_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.RadianceEvent];
 const NOTIFICATION_DOUBLE_HEARTS_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.DoubleHearts];
+const NOTIFICATION_DOUBLE_SEASONAL_LIGHT_MAXIMUM_OFFSET =
+	NotificationOffsetToMaximumValues[NotificationType.DoubleSeasonalLight];
 const NOTIFICATION_SEASONS_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.Seasons];
 
@@ -142,6 +148,13 @@ interface NotificationsDoubleHeartsData {
 	timestamp: `<t:${number}:R>`;
 }
 
+interface NotificationsDoubleSeasonalLightData {
+	type: typeof NotificationType.DoubleSeasonalLight;
+	timeUntilStart: number;
+	seasonalCandleEmoji: string;
+	timestamp: `<t:${number}:R>`;
+}
+
 interface NotificationsSeasonData {
 	type: typeof NotificationType.Seasons;
 	timeUntilStart: number;
@@ -157,6 +170,7 @@ interface NotificationsNotShardEruptionData {
 		| typeof NotificationType.Events
 		| typeof NotificationType.RadianceEvent
 		| typeof NotificationType.DoubleHearts
+		| typeof NotificationType.DoubleSeasonalLight
 		| typeof NotificationType.Seasons
 	>;
 	timeUntilStart: number;
@@ -169,6 +183,7 @@ type NotificationsData =
 	| NotificationsEventData
 	| NotificationsRadianceEventData
 	| NotificationsDoubleHeartsData
+	| NotificationsDoubleSeasonalLightData
 	| NotificationsSeasonData
 	| NotificationsNotShardEruptionData;
 
@@ -250,6 +265,26 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	for (const season of [skyCurrentSeason(date), skyUpcomingSeason(date)]) {
 		if (!season) {
 			continue;
+		}
+
+		const seasonalCandleEmoji = formatEmoji(
+			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
+		);
+
+		for (const doubleSeasonalLight of season.doubleSeasonalLight ?? []) {
+			const timeUntilStart = Math.floor(doubleSeasonalLight.start.diff(date, "minutes").minutes);
+
+			if (
+				timeUntilStart >= 0 &&
+				timeUntilStart <= NOTIFICATION_DOUBLE_SEASONAL_LIGHT_MAXIMUM_OFFSET
+			) {
+				notifications.push({
+					type: NotificationType.DoubleSeasonalLight,
+					timeUntilStart,
+					seasonalCandleEmoji,
+					timestamp: `<t:${doubleSeasonalLight.start.toUnixInteger()}:R>`,
+				});
+			}
 		}
 
 		const timeUntilStart = Math.floor(season.start.diff(date, "minutes").minutes);
@@ -521,31 +556,38 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 											heart: notification.heartEmoji,
 											timestamp: notification.timestamp,
 										})
-									: notification.type === NotificationType.Seasons
+									: notification.type === NotificationType.DoubleSeasonalLight
 										? t(`notifications.messages.${type}.message-${key}`, {
 												lng: notificationPacket.locale,
 												ns: "features",
-												season: `[${t(`seasons.${notification.seasonId}`, {
-													lng: notificationPacket.locale,
-													ns: "general",
-												})}](${t(`season-wiki.${notification.seasonId}`, {
-													lng: notificationPacket.locale,
-													ns: "general",
-												})})`,
+												seasonalCandle: notification.seasonalCandleEmoji,
 												timestamp: notification.timestamp,
 											})
-										: t(`notifications.messages.${type}.message-${key}`, {
-												lng: notificationPacket.locale,
-												ns: "features",
-												timestamp: notification.timestamp,
-												spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+										: notification.type === NotificationType.Seasons
+											? t(`notifications.messages.${type}.message-${key}`, {
 													lng: notificationPacket.locale,
-													ns: "general",
-												})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+													ns: "features",
+													season: `[${t(`seasons.${notification.seasonId}`, {
+														lng: notificationPacket.locale,
+														ns: "general",
+													})}](${t(`season-wiki.${notification.seasonId}`, {
+														lng: notificationPacket.locale,
+														ns: "general",
+													})})`,
+													timestamp: notification.timestamp,
+												})
+											: t(`notifications.messages.${type}.message-${key}`, {
 													lng: notificationPacket.locale,
-													ns: "general",
-												})})`,
-											});
+													ns: "features",
+													timestamp: notification.timestamp,
+													spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+														lng: notificationPacket.locale,
+														ns: "general",
+													})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+														lng: notificationPacket.locale,
+														ns: "general",
+													})})`,
+												});
 
 				try {
 					return await client.channels.createMessage(notificationPacket.channel_id, {
