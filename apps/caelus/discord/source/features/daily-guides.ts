@@ -970,6 +970,7 @@ async function distributionData(
 
 	const season = skyCurrentSeason(today);
 	const footerItems: DailyGuidesFooterItem[] = [];
+	const doubleTreasureCandlePrefix = formatEmoji(MISCELLANEOUS_EMOJIS.TreasureCandle);
 
 	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
 		({ end }) => end > today,
@@ -979,16 +980,16 @@ async function distributionData(
 			start: doubleTreasureCandleEvent.start,
 			text:
 				today >= doubleTreasureCandleEvent.start
-					? t("days-left.double-treasure-candles", {
+					? `${doubleTreasureCandlePrefix} ${t("days-left.double-treasure-candles", {
 							lng: locale,
 							ns: "general",
 							count: Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1,
-						})
-					: t("daily-guides.double-treasure-candles-upcoming", {
+						})}`
+					: `${doubleTreasureCandlePrefix} ${t("daily-guides.double-treasure-candles-upcoming", {
 							lng: locale,
 							ns: "features",
 							count: Math.floor(doubleTreasureCandleEvent.start.diff(today, "days").days),
-						}),
+						})}`,
 		});
 	}
 

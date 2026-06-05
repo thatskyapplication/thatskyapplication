@@ -351,6 +351,7 @@ export default function DailyGuides() {
 							count: Math.floor(daysUntilStart),
 						}),
 			end: doubleTreasureCandleEvent.end,
+			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.TreasureCandle.id),
 			key: `double-treasure-candle-${doubleTreasureCandleEvent.start.toMillis()}`,
 			start: doubleTreasureCandleEvent.start,
 		});
