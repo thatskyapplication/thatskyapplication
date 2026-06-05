@@ -972,27 +972,6 @@ async function distributionData(
 	const footerItems: DailyGuidesFooterItem[] = [];
 	const doubleTreasureCandlePrefix = formatEmoji(MISCELLANEOUS_EMOJIS.TreasureCandle);
 
-	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
-		({ end }) => end > today,
-	)) {
-		footerItems.push({
-			end: doubleTreasureCandleEvent.end,
-			start: doubleTreasureCandleEvent.start,
-			text:
-				today >= doubleTreasureCandleEvent.start
-					? `${doubleTreasureCandlePrefix} ${t("days-left.double-treasure-candles", {
-							lng: locale,
-							ns: "general",
-							count: Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1,
-						})}`
-					: `${doubleTreasureCandlePrefix} ${t("daily-guides.double-treasure-candles-upcoming", {
-							lng: locale,
-							ns: "features",
-							count: Math.floor(doubleTreasureCandleEvent.start.diff(today, "days").days),
-						})}`,
-		});
-	}
-
 	if (season) {
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
@@ -1162,6 +1141,33 @@ async function distributionData(
 		missingTravellingRock = true;
 	}
 
+	const communityEvents = communityUpcomingEvents(today);
+
+	if (communityEvents.length > 0) {
+		for (const { start, name, marketingURL } of communityEvents) {
+			const untilStart = start.diff(today, "days").days;
+			const formattedName = marketingURL ? `[${name}](${marketingURL})` : name;
+
+			footerItems.push({
+				start,
+				text:
+					untilStart >= 1
+						? t("daily-guides.event-upcoming", {
+								lng: locale,
+								ns: "features",
+								event: formattedName,
+								count: Math.floor(untilStart),
+							})
+						: t("daily-guides.event-upcoming-time", {
+								lng: locale,
+								ns: "features",
+								event: formattedName,
+								time: `<t:${start.toUnixInteger()}:t>`,
+							}),
+			});
+		}
+	}
+
 	const radianceEvents = RADIANCE_EVENTS.filter(({ end }) => end > today);
 
 	if (radianceEvents.length > 0) {
@@ -1197,6 +1203,27 @@ async function distributionData(
 		}
 	}
 
+	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
+		({ end }) => end > today,
+	)) {
+		footerItems.push({
+			end: doubleTreasureCandleEvent.end,
+			start: doubleTreasureCandleEvent.start,
+			text:
+				today >= doubleTreasureCandleEvent.start
+					? `${doubleTreasureCandlePrefix} ${t("days-left.double-treasure-candles", {
+							lng: locale,
+							ns: "general",
+							count: Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1,
+						})}`
+					: `${doubleTreasureCandlePrefix} ${t("daily-guides.double-treasure-candles-upcoming", {
+							lng: locale,
+							ns: "features",
+							count: Math.floor(doubleTreasureCandleEvent.start.diff(today, "days").days),
+						})}`,
+		});
+	}
+
 	const doubleHeartEvents = DOUBLE_HEART_EVENTS.filter(({ end }) => end > today);
 
 	if (doubleHeartEvents.length > 0) {
@@ -1224,33 +1251,6 @@ async function distributionData(
 					})}`,
 				});
 			}
-		}
-	}
-
-	const communityEvents = communityUpcomingEvents(today);
-
-	if (communityEvents.length > 0) {
-		for (const { start, name, marketingURL } of communityEvents) {
-			const untilStart = start.diff(today, "days").days;
-			const formattedName = marketingURL ? `[${name}](${marketingURL})` : name;
-
-			footerItems.push({
-				start,
-				text:
-					untilStart >= 1
-						? t("daily-guides.event-upcoming", {
-								lng: locale,
-								ns: "features",
-								event: formattedName,
-								count: Math.floor(untilStart),
-							})
-						: t("daily-guides.event-upcoming-time", {
-								lng: locale,
-								ns: "features",
-								event: formattedName,
-								time: `<t:${start.toUnixInteger()}:t>`,
-							}),
-			});
 		}
 	}
 

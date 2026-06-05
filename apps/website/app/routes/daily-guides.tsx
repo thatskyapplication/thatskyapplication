@@ -272,91 +272,6 @@ export default function DailyGuides() {
 		});
 	}
 
-	for (const radianceEvent of RADIANCE_EVENTS.filter(({ end }) => end > today)) {
-		const daysUntilStart = radianceEvent.start.diff(today, "days").days;
-		const radianceEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
-		const dyeEmojiURLs = radianceEvent.dyes.map((dye) => discordEmojiURL(DyeTypeToEmoji[dye].id));
-		const radianceText =
-			daysUntilStart >= 1
-				? t("daily-guides.event-upcoming", {
-						ns: "features",
-						count: Math.floor(daysUntilStart),
-						event: t("event-names.radiance-event", { ns: "general" }),
-					})
-				: t("days-left.event", {
-						ns: "general",
-						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
-						name: t("event-names.radiance-event", { ns: "general" }),
-					});
-
-		daysCount.push({
-			content: (
-				<span className="inline-flex items-center gap-1.5">
-					<span>{radianceText}</span>
-					<span aria-hidden="true" className="inline-flex items-center gap-1">
-						{dyeEmojiURLs.map((emojiURL, index) => (
-							<span
-								className="discord-emoji inline-block h-4 w-4"
-								key={`${radianceEvent.start.toMillis()}-${index}`}
-								style={{ backgroundImage: `url(${emojiURL})` }}
-							/>
-						))}
-					</span>
-				</span>
-			),
-			end: radianceEvent.end,
-			iconURL: radianceEmojiURL,
-			key: `radiance-${radianceEvent.start.toMillis()}`,
-			start: radianceEvent.start,
-		});
-	}
-
-	for (const doubleHeartEvent of DOUBLE_HEART_EVENTS.filter(({ end }) => end > today)) {
-		const daysUntilStart = doubleHeartEvent.start.diff(today, "days").days;
-		const daysLeft = Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1;
-
-		daysCount.push({
-			content:
-				today >= doubleHeartEvent.start
-					? t("days-left.double-hearts", {
-							ns: "general",
-							count: daysLeft,
-						})
-					: t("daily-guides.double-hearts-upcoming", {
-							ns: "features",
-							count: Math.floor(daysUntilStart),
-						}),
-			end: doubleHeartEvent.end,
-			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
-			key: `double-heart-${doubleHeartEvent.start.toMillis()}`,
-			start: doubleHeartEvent.start,
-		});
-	}
-
-	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
-		({ end }) => end > today,
-	)) {
-		const daysUntilStart = doubleTreasureCandleEvent.start.diff(today, "days").days;
-		const daysLeft = Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1;
-
-		daysCount.push({
-			content:
-				today >= doubleTreasureCandleEvent.start
-					? t("days-left.double-treasure-candles", {
-							ns: "general",
-							count: daysLeft,
-						})
-					: t("daily-guides.double-treasure-candles-upcoming", {
-							ns: "features",
-							count: Math.floor(daysUntilStart),
-						}),
-			end: doubleTreasureCandleEvent.end,
-			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.TreasureCandle.id),
-			key: `double-treasure-candle-${doubleTreasureCandleEvent.start.toMillis()}`,
-			start: doubleTreasureCandleEvent.start,
-		});
-	}
-
 	const communityEvents = communityUpcomingEvents(today);
 
 	if (communityEvents.length > 0) {
@@ -409,6 +324,91 @@ export default function DailyGuides() {
 				});
 			}
 		}
+	}
+
+	for (const radianceEvent of RADIANCE_EVENTS.filter(({ end }) => end > today)) {
+		const daysUntilStart = radianceEvent.start.diff(today, "days").days;
+		const radianceEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
+		const dyeEmojiURLs = radianceEvent.dyes.map((dye) => discordEmojiURL(DyeTypeToEmoji[dye].id));
+		const radianceText =
+			daysUntilStart >= 1
+				? t("daily-guides.event-upcoming", {
+						ns: "features",
+						count: Math.floor(daysUntilStart),
+						event: t("event-names.radiance-event", { ns: "general" }),
+					})
+				: t("days-left.event", {
+						ns: "general",
+						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
+						name: t("event-names.radiance-event", { ns: "general" }),
+					});
+
+		daysCount.push({
+			content: (
+				<span className="inline-flex items-center gap-1.5">
+					<span>{radianceText}</span>
+					<span aria-hidden="true" className="inline-flex items-center gap-1">
+						{dyeEmojiURLs.map((emojiURL, index) => (
+							<span
+								className="discord-emoji inline-block h-4 w-4"
+								key={`${radianceEvent.start.toMillis()}-${index}`}
+								style={{ backgroundImage: `url(${emojiURL})` }}
+							/>
+						))}
+					</span>
+				</span>
+			),
+			end: radianceEvent.end,
+			iconURL: radianceEmojiURL,
+			key: `radiance-${radianceEvent.start.toMillis()}`,
+			start: radianceEvent.start,
+		});
+	}
+
+	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
+		({ end }) => end > today,
+	)) {
+		const daysUntilStart = doubleTreasureCandleEvent.start.diff(today, "days").days;
+		const daysLeft = Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1;
+
+		daysCount.push({
+			content:
+				today >= doubleTreasureCandleEvent.start
+					? t("days-left.double-treasure-candles", {
+							ns: "general",
+							count: daysLeft,
+						})
+					: t("daily-guides.double-treasure-candles-upcoming", {
+							ns: "features",
+							count: Math.floor(daysUntilStart),
+						}),
+			end: doubleTreasureCandleEvent.end,
+			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.TreasureCandle.id),
+			key: `double-treasure-candle-${doubleTreasureCandleEvent.start.toMillis()}`,
+			start: doubleTreasureCandleEvent.start,
+		});
+	}
+
+	for (const doubleHeartEvent of DOUBLE_HEART_EVENTS.filter(({ end }) => end > today)) {
+		const daysUntilStart = doubleHeartEvent.start.diff(today, "days").days;
+		const daysLeft = Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1;
+
+		daysCount.push({
+			content:
+				today >= doubleHeartEvent.start
+					? t("days-left.double-hearts", {
+							ns: "general",
+							count: daysLeft,
+						})
+					: t("daily-guides.double-hearts-upcoming", {
+							ns: "features",
+							count: Math.floor(daysUntilStart),
+						}),
+			end: doubleHeartEvent.end,
+			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
+			key: `double-heart-${doubleHeartEvent.start.toMillis()}`,
+			start: doubleHeartEvent.start,
+		});
 	}
 
 	const todayMaintenance = [];
