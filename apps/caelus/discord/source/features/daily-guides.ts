@@ -886,14 +886,13 @@ async function distributionData(
 
 		if (type === DailyGuidesDistributionType.Media) {
 			const questsWithMedia: DailyQuestWithMedia[] = [];
+			let questMediaIndex = 1;
 
-			for (let index = 0; index < quests.length; index++) {
-				const quest = quests[index]!;
-
+			for (const quest of quests) {
 				if (quest.url) {
 					questsWithMedia.push({
 						acknowledgement: quest.acknowledgement,
-						index: index + 1,
+						index: questMediaIndex++,
 						quest: quest.quest,
 						url: quest.url,
 					});
