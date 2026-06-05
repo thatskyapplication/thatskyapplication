@@ -132,7 +132,7 @@ const TREASURE_CANDLES_DOUBLE_ROTATION = {
 	],
 } as const satisfies TreasureCandlesRotation;
 
-const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
+export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 	{
 		start: skyDate(2024, 12, 9),
 		end: skyDate(2024, 12, 23),

@@ -112,7 +112,10 @@ export {
 	RealmName,
 } from "./kingdom/geography.js";
 export { spirits } from "./kingdom/spirits.js";
-export { treasureCandles } from "./kingdom/treasure-candles.js";
+export {
+	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
+	treasureCandles,
+} from "./kingdom/treasure-candles.js";
 export {
 	MAXIMUM_WINGED_LIGHT,
 	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,

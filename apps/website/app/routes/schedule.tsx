@@ -23,6 +23,7 @@ import {
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	TIME_ZONE,
+	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	travellingSpiritSchedule,
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
@@ -754,6 +755,33 @@ export default function Schedule() {
 				endUnix: isActive ? end.toMillis() : undefined,
 			});
 		}
+	}
+
+	for (const { start, end } of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS) {
+		if (end <= now) {
+			continue;
+		}
+
+		const isActive = now >= start;
+		const relevantDate = isActive ? end : start;
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+
+		if (relevantDate.diff(now, "days").days > 1) {
+			options.dateStyle = "medium";
+		}
+
+		allCards.push({
+			type: DisplayCardType.Event,
+			key: `double-treasure-candle-${start.toMillis()}`,
+			label: t("event-names.double-treasure-candles", { ns: "general" }),
+			active: isActive,
+			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.toMillis()),
+			nextUnix: relevantDate.toMillis(),
+			relative: formatRelativeTime(relevantDate, now, locale),
+			end: isActive ? new Intl.DateTimeFormat(locale, options).format(end.toMillis()) : undefined,
+			endRelative: isActive ? formatRelativeTime(end, now, locale) : undefined,
+			endUnix: isActive ? end.toMillis() : undefined,
+		});
 	}
 
 	for (const { start, end } of DOUBLE_HEART_EVENTS) {

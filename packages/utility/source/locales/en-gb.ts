@@ -55,6 +55,9 @@ export default {
 			"double-seasonal-light_zero": "Double seasonal light ends today.",
 			"double-seasonal-light_one": "{{count}} day left of double seasonal light.",
 			"double-seasonal-light_other": "{{count}} days left of double seasonal light.",
+			"double-treasure-candles_zero": "Double treasure candles ends today.",
+			"double-treasure-candles_one": "{{count}} day left of double treasure candles.",
+			"double-treasure-candles_other": "{{count}} days left of double treasure candles.",
 		},
 		"error-timed-out": "I am timed out.",
 		"event-tickets": "Event tickets",
@@ -142,6 +145,7 @@ export default {
 			[NotificationType.Seasons]: "$t(general:season-plural)",
 			[NotificationType.DoubleHearts]: "$t(general:event-names.double-hearts)",
 			[NotificationType.DoubleSeasonalLight]: "Double seasonal light",
+			[NotificationType.DoubleTreasureCandles]: "$t(general:event-names.double-treasure-candles)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -806,6 +810,7 @@ export default {
 		events: "Events",
 		"event-names": {
 			"double-seasonal-light": "Double seasonal light",
+			"double-treasure-candles": "Double treasure candles",
 			"halloween-office-event": "Halloween Office Event",
 			"days-of-giving": "Days of Giving",
 			"double-hearts": "Double hearts",
@@ -3107,6 +3112,8 @@ export default {
 			"double-hearts-upcoming_other": "Double hearts starts in {{count}} days.",
 			"double-seasonal-light-upcoming_one": "Double seasonal light starts tomorrow.",
 			"double-seasonal-light-upcoming_other": "Double seasonal light starts in {{count}} days.",
+			"double-treasure-candles-upcoming_one": "Double treasure candles starts tomorrow.",
+			"double-treasure-candles-upcoming_other": "Double treasure candles starts in {{count}} days.",
 			"event-upcoming_one": "{{event}} starts tomorrow.",
 			"event-upcoming_other": "{{event}} starts in {{count}} days.",
 			"event-upcoming-time": "{{event}} starts at {{time}}.",
@@ -3341,6 +3348,11 @@ export default {
 						"{{seasonalCandle}} Double seasonal light has begun! Collect the extra seasonal candle clusters! {{seasonalCandle}}",
 					"message-future":
 						"{{seasonalCandle}} Double seasonal light will begin {{timestamp}}! Extra seasonal candle clusters are coming! {{seasonalCandle}}",
+				},
+				[NotificationType.DoubleTreasureCandles]: {
+					"message-now":
+						"Treasure candles are shining brightly! There are now more of them in the realms!",
+					"message-future": "Treasure candles will begin to shine more brightly {{timestamp}}!",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":

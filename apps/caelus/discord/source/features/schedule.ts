@@ -43,6 +43,7 @@ import {
 	skyNow,
 	skyUpcomingSeason,
 	TRAVELLING_DATES,
+	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	travellingSpiritSchedule,
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
@@ -282,6 +283,16 @@ function doubleSeasonalLightOverview(date: DateTime) {
 	}
 
 	return doubleSeasonalLightEvents;
+}
+
+function doubleTreasureCandleOverview(date: DateTime) {
+	return TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(({ end }) => date < end).map(
+		(doubleTreasureCandleEvent) => ({
+			now: date >= doubleTreasureCandleEvent.start,
+			next: `<t:${doubleTreasureCandleEvent.start.toUnixInteger()}:R>`,
+			end: `<t:${doubleTreasureCandleEvent.end.toUnixInteger()}:R>`,
+		}),
+	);
 }
 
 function radianceEventDetailedBreakdown(date: DateTime, locale: Locale): APIComponentInContainer[] {
@@ -1252,6 +1263,7 @@ export async function scheduleOverview(
 	const radianceEvents = radianceEventOverview(now);
 	const doubleHeartEvents = doubleHeartEventOverview(now);
 	const doubleSeasonalLightEvents = doubleSeasonalLightOverview(now);
+	const doubleTreasureCandleEvents = doubleTreasureCandleOverview(now);
 	const events = eventOverview(now, locale);
 	const seasons = seasonOverview(now, locale);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
@@ -1464,6 +1476,32 @@ export async function scheduleOverview(
 									lng: locale,
 									ns: "features",
 									timestamp: doubleHeartEvent.next,
+								}),
+					}),
+				)
+				.join("\n"),
+		});
+	}
+
+	if (doubleTreasureCandleEvents.length > 0) {
+		firstContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: doubleTreasureCandleEvents
+				.map((doubleTreasureCandleEvent) =>
+					t("schedule.overview", {
+						lng: locale,
+						ns: "features",
+						type: t("event-names.double-treasure-candles", { lng: locale, ns: "general" }),
+						details: doubleTreasureCandleEvent.now
+							? t("schedule.overview-ends-timestamp", {
+									lng: locale,
+									ns: "features",
+									timestamp: doubleTreasureCandleEvent.end,
+								})
+							: t("schedule.overview-next-available-timestamp", {
+									lng: locale,
+									ns: "features",
+									timestamp: doubleTreasureCandleEvent.next,
 								}),
 					}),
 				)

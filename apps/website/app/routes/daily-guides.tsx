@@ -16,6 +16,7 @@ import {
 	sortDaysCountItems,
 	Table,
 	TIME_ZONE,
+	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
@@ -329,6 +330,29 @@ export default function DailyGuides() {
 			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
 			key: `double-heart-${doubleHeartEvent.start.toMillis()}`,
 			start: doubleHeartEvent.start,
+		});
+	}
+
+	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
+		({ end }) => end > today,
+	)) {
+		const daysUntilStart = doubleTreasureCandleEvent.start.diff(today, "days").days;
+		const daysLeft = Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1;
+
+		daysCount.push({
+			content:
+				today >= doubleTreasureCandleEvent.start
+					? t("days-left.double-treasure-candles", {
+							ns: "general",
+							count: daysLeft,
+						})
+					: t("daily-guides.double-treasure-candles-upcoming", {
+							ns: "features",
+							count: Math.floor(daysUntilStart),
+						}),
+			end: doubleTreasureCandleEvent.end,
+			key: `double-treasure-candle-${doubleTreasureCandleEvent.start.toMillis()}`,
+			start: doubleTreasureCandleEvent.start,
 		});
 	}
 

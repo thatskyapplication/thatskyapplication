@@ -59,6 +59,7 @@ import {
 	sortDaysCountItems,
 	Table,
 	TIME_ZONE,
+	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
@@ -969,6 +970,27 @@ async function distributionData(
 
 	const season = skyCurrentSeason(today);
 	const footerItems: DailyGuidesFooterItem[] = [];
+
+	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
+		({ end }) => end > today,
+	)) {
+		footerItems.push({
+			end: doubleTreasureCandleEvent.end,
+			start: doubleTreasureCandleEvent.start,
+			text:
+				today >= doubleTreasureCandleEvent.start
+					? t("days-left.double-treasure-candles", {
+							lng: locale,
+							ns: "general",
+							count: Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1,
+						})
+					: t("daily-guides.double-treasure-candles-upcoming", {
+							lng: locale,
+							ns: "features",
+							count: Math.floor(doubleTreasureCandleEvent.start.diff(today, "days").days),
+						}),
+		});
+	}
 
 	if (season) {
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
