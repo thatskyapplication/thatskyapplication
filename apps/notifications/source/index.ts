@@ -96,6 +96,11 @@ const NOTIFICATION_SHARD_ERUPTION_TYPES = [
 
 type NotificationShardEruptionTypes = (typeof NOTIFICATION_SHARD_ERUPTION_TYPES)[number];
 
+const NOTIFICATION_SHARD_ERUPTION_MAXIMUM_OFFSET = Math.max(
+	...NOTIFICATION_SHARD_ERUPTION_TYPES.map(
+		(notificationType) => NotificationOffsetToMaximumValues[notificationType],
+	),
+);
 const NOTIFICATION_EVENTS_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.Events];
 const NOTIFICATION_RADIANCE_EVENT_MAXIMUM_OFFSET =
@@ -300,10 +305,10 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 	}
 
 	if (shardData) {
-		// Find a start timestamp that is up to 10 minutes before the shard eruption.
+		// Find a start timestamp within the widest configured shard eruption notification window.
 		const shardStart = shardData.timestamps.find(({ start }) => {
 			const diffMinutes = Math.floor(start.diff(date, "minutes").minutes);
-			return diffMinutes >= 0 && diffMinutes <= 10;
+			return diffMinutes >= 0 && diffMinutes <= NOTIFICATION_SHARD_ERUPTION_MAXIMUM_OFFSET;
 		});
 
 		if (shardStart) {
