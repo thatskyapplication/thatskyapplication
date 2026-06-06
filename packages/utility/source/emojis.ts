@@ -6211,19 +6211,19 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	/**
 	 * Tournament Prairie Flag.
 	 */
-	SmallPlaceableProp115: { id: "1481576420881727580", name: "115_small_placeable_prop" },
+	SmallPlaceableProp115: { id: "1512759203788230747", name: "115_small_placeable_prop" },
 	/**
 	 * Tournament Forest Flag.
 	 */
-	SmallPlaceableProp116: { id: "1481576422312116254", name: "116_small_placeable_prop" },
+	SmallPlaceableProp116: { id: "1512759206145556590", name: "116_small_placeable_prop" },
 	/**
 	 * Tournament Valley Flag.
 	 */
-	SmallPlaceableProp117: { id: "1481576424061145109", name: "117_small_placeable_prop" },
+	SmallPlaceableProp117: { id: "1512759208146243655", name: "117_small_placeable_prop" },
 	/**
 	 * Tournament Wasteland Flag.
 	 */
-	SmallPlaceableProp118: { id: "1481576426523070626", name: "118_small_placeable_prop" },
+	SmallPlaceableProp118: { id: "1512759210742517811", name: "118_small_placeable_prop" },
 	/**
 	 * Sunflower Small Pillow.
 	 */
@@ -6388,10 +6388,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp112: { id: "1441416764645707806", name: "112_small_placeable_prop" },
 	SmallPlaceableProp113: { id: "1441416773701468260", name: "113_small_placeable_prop" },
 	SmallPlaceableProp114: { id: "1441416775349833780", name: "114_small_placeable_prop" },
-	SmallPlaceableProp115: { id: "1481576435431903304", name: "115_small_placeable_prop" },
-	SmallPlaceableProp116: { id: "1481576437701152862", name: "116_small_placeable_prop" },
-	SmallPlaceableProp117: { id: "1481576440104489030", name: "117_small_placeable_prop" },
-	SmallPlaceableProp118: { id: "1481576442046447637", name: "118_small_placeable_prop" },
+	SmallPlaceableProp115: { id: "1512759218443260035", name: "115_small_placeable_prop" },
+	SmallPlaceableProp116: { id: "1512759221194850325", name: "116_small_placeable_prop" },
+	SmallPlaceableProp117: { id: "1512759223065251951", name: "117_small_placeable_prop" },
+	SmallPlaceableProp118: { id: "1512759224973922354", name: "118_small_placeable_prop" },
 	SmallPlaceableProp119: { id: "1482687420456767570", name: "119_small_placeable_prop" },
 	SmallPlaceableProp120: { id: "1482687422377492601", name: "120_small_placeable_prop" },
 	SmallPlaceableProp121: { id: "1482687424524980245", name: "121_small_placeable_prop" },
