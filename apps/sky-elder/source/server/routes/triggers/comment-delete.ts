@@ -16,7 +16,7 @@ import {
 } from "../../utility/constants.js";
 
 export async function postTriggersCommentDelete(req: Request) {
-	const { commentId, subreddit, author, postId } = req.body as OnCommentDeleteRequest;
+	const { commentId, subreddit, author, postId, deletedAt } = req.body as OnCommentDeleteRequest;
 
 	if (!(subreddit && author)) {
 		throw new Error("Subreddit or author is missing from the request body.");
@@ -42,6 +42,12 @@ export async function postTriggersCommentDelete(req: Request) {
 
 	if (!commentBody) {
 		return;
+	}
+
+	let footer = `Karma: ${author.karma.toLocaleString()} | Reports: ${comment.numReports.toLocaleString()}`;
+
+	if (deletedAt) {
+		footer = `Deleted: <t:${Math.floor(new Date(deletedAt).getTime() / 1000)}:R> | ${footer}`;
 	}
 
 	await Promise.all([
@@ -84,7 +90,7 @@ export async function postTriggersCommentDelete(req: Request) {
 							},
 							{
 								type: ComponentType.TextDisplay,
-								content: `-# Karma: ${author.karma.toLocaleString()} | Reports: ${comment.numReports.toLocaleString()}`,
+								content: `-# ${footer}`,
 							},
 						],
 					},

@@ -77,7 +77,7 @@ export async function postTriggersCommentSubmit(req: Request) {
 							},
 							{
 								type: ComponentType.TextDisplay,
-								content: `-# Karma: ${author.karma.toLocaleString()}`,
+								content: `-# <t:${Math.floor(comment.createdAt / 1000)}:R> | Karma: ${author.karma.toLocaleString()}`,
 							},
 						],
 					},

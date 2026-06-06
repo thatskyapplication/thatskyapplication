@@ -87,7 +87,8 @@ export async function postTriggersCommentUpdate(req: Request) {
 							},
 							{
 								type: ComponentType.TextDisplay,
-								content: `-# Karma: ${author.karma.toLocaleString()} | Reports: ${comment.numReports.toLocaleString()}`,
+								// lastModifiedAt always seems to be -1.
+								content: `-# <t:${Math.floor(Date.now() / 1000)}:R> | Karma: ${author.karma.toLocaleString()} | Reports: ${comment.numReports.toLocaleString()}`,
 							},
 						],
 					},
