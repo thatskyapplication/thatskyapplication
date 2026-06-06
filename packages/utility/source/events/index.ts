@@ -11,7 +11,7 @@ import Year5 from "./2023/index.js";
 import Year6 from "./2024/index.js";
 import Year7 from "./2025/index.js";
 import Year8 from "./2026/index.js";
-import { COMMUNITY_EVENTS } from "./miscellaneous.js";
+import { COMMUNITY_EVENTS, type CommunityEvent } from "./miscellaneous.js";
 
 const EVENTS: ReadonlyCollection<EventIds, Event> = [
 	...Year1,
@@ -40,6 +40,6 @@ export function skyNotEndedEvents(date: DateTime): ReadonlyCollection<EventIds, 
 	return EVENTS.filter(({ end }) => date < end);
 }
 
-export function communityUpcomingEvents(date: DateTime) {
+export function communityUpcomingEvents(date: DateTime): readonly CommunityEvent[] {
 	return COMMUNITY_EVENTS.filter(({ start }) => start >= date);
 }

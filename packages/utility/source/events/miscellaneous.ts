@@ -31,6 +31,12 @@ interface DoubleHeartEvent {
 	end: DateTime;
 }
 
+export interface CommunityEvent {
+	name: string;
+	start: DateTime;
+	marketingURL?: `https://${string}`;
+}
+
 export const RADIANCE_EVENTS = [
 	{
 		start: skyDate(2025, 10, 13),
@@ -94,4 +100,4 @@ export const COMMUNITY_EVENTS = [
 		start: skyDate(2026, 6, 6, 10),
 		marketingURL: "https://discord.gg/UNNNcdG4M",
 	},
-] as const;
+] as const satisfies readonly CommunityEvent[];
