@@ -9,7 +9,7 @@
 		"lint": "biome check",
 		"dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"SERVER,DEVVIT\" -c \"green,magenta\" \"pnpm run dev:server\" \"pnpm run dev:devvit\"",
 		"dev:devvit": "devvit playtest",
-		"dev:server": "cd source/server && vite build --watch",
+		"dev:server": "cd source/server && vite build --mode development --watch",
 		"login": "devvit login"
 	},
 	"dependencies": {
