@@ -280,6 +280,9 @@ export const SpiritId = {
 	CarnivalJuggler: 205,
 	CarnivalPuzzleDirector: 206,
 	CarnivalStuntActor: 207,
+
+	// Dear Van Gogh.
+	DearVanGoghGuide: 208,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);

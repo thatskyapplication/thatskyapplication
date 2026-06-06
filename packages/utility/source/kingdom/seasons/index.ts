@@ -12,6 +12,7 @@ import AURORA from "./aurora/index.js";
 import Belonging from "./belonging/index.js";
 import BlueBird from "./blue-bird/index.js";
 import carnival from "./carnival/index.js";
+import dearVanGogh from "./dear-van-gogh/index.js";
 import Dreams from "./dreams/index.js";
 import Duets from "./duets/index.js";
 import Enchantment from "./enchantment/index.js";
@@ -66,6 +67,7 @@ const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	migration,
 	lightmending,
 	carnival,
+	dearVanGogh,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
 export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collection<number, Visit>(

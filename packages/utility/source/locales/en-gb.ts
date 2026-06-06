@@ -769,6 +769,7 @@ export default {
 			[SeasonId.Migration]: "Season of Migration",
 			[SeasonId.Lightmending]: "Season of Lightmending",
 			[SeasonId.Carnival]: "Season of Carnival",
+			[SeasonId.DearVanGogh]: "Dear Van Gogh",
 		} satisfies Record<SeasonIds, string>,
 		"season-wiki": {
 			[SeasonId.Gratitude]: "https://sky-children-of-the-light.fandom.com/Season_of_Gratitude",
@@ -805,6 +806,7 @@ export default {
 			[SeasonId.Lightmending]:
 				"https://sky-children-of-the-light.fandom.com/Season_of_Lightmending",
 			[SeasonId.Carnival]: "https://sky-children-of-the-light.fandom.com/Season_of_Carnival",
+			[SeasonId.DearVanGogh]: "https://sky-children-of-the-light.fandom.com/Dear_Van_Gogh",
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		event: "Event",
 		events: "Events",
@@ -1175,6 +1177,7 @@ export default {
 			[SpiritId.CarnivalJuggler]: "Carnival Juggler",
 			[SpiritId.CarnivalPuzzleDirector]: "Carnival Puzzle Director",
 			[SpiritId.CarnivalStuntActor]: "Carnival Stunt Actor",
+			[SpiritId.DearVanGoghGuide]: "Dear Van Gogh Guide",
 		} satisfies Record<SpiritIds, string>,
 		"spirit-wiki": {
 			[SpiritId.PointingCandlemaker]:
@@ -1471,6 +1474,8 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Carnival_Puzzle_Director",
 			[SpiritId.CarnivalStuntActor]:
 				"https://sky-children-of-the-light.fandom.com/Carnival_Stunt_Actor",
+			[SpiritId.DearVanGoghGuide]:
+				"https://sky-children-of-the-light.fandom.com/Dear_Van_Gogh_Guide",
 		} satisfies Record<SpiritIds, `https://${string}`>,
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
