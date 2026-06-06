@@ -345,6 +345,10 @@ const EXPECTED_ROTATIONS = [
 		date: skyDate(2026, 6, 5),
 		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
 	},
+	{
+		date: skyDate(2026, 6, 6),
+		expected: [String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL))],
+	},
 ] as const;
 
 test("Treasure candles rotations.", async (t) => {
