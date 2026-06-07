@@ -1,0 +1,49 @@
+name: Deploy Sky Elder
+on:
+  workflow_dispatch:
+    inputs:
+      semver:
+        description: SemVer
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+permissions:
+  contents: read
+jobs:
+  deploy:
+    name: Deploy Sky Elder
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Install Node.js
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          node-version: 24
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build dependencies
+        run: pnpm --filter @thatskyapplication/sky-elder... run build
+
+      - name: Deploy Sky Elder
+        working-directory: apps/sky-elder
+        run: |
+          if [ -z "$DEVVIT_AUTH_TOKEN" ]; then
+            echo "::error::Missing DEVVIT_AUTH_TOKEN."
+            exit 1
+          fi
+
+          pnpm exec devvit publish --bump "$SEMVER"
+        env:
+          SEMVER: ${{ inputs.semver }}
+          DEVVIT_ALLOW_SOURCE_UPLOAD: "1"
+          DEVVIT_AUTH_TOKEN: ${{ secrets.DEVVIT_AUTH_TOKEN }}
