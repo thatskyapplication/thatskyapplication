@@ -14,6 +14,22 @@ export function hasAnyHeaders(headers: Headers) {
 	return [...headers].length > 0;
 }
 
+export function resolveReturnTo(returnTo: string | null | undefined, origin: string) {
+	let returnToURL: URL;
+
+	try {
+		returnToURL = new URL(returnTo || "/", origin);
+	} catch {
+		return "/";
+	}
+
+	if (returnToURL.origin !== origin) {
+		return "/";
+	}
+
+	return `${returnToURL.pathname}${returnToURL.search}${returnToURL.hash}`;
+}
+
 export async function requireDiscordAuthentication(request: Request, url: URL) {
 	const session = await getSession(request.headers.get("Cookie"));
 	const discordUser = session.get("discord_user");

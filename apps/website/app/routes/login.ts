@@ -3,18 +3,18 @@ import { APPLICATION_ID, DISCORD_CLIENT_SECRET, REDIRECT_URI_LOGIN } from "~/con
 import discord from "~/discord";
 import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
-import { generateState } from "~/utility/functions.server";
+import { generateState, resolveReturnTo } from "~/utility/functions.server";
 
 export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	const code = url.searchParams.get("code");
 	const state = url.searchParams.get("state");
 	const error = url.searchParams.get("error");
-	const returnTo = url.searchParams.get("returnTo") || "/";
+	const returnTo = resolveReturnTo(url.searchParams.get("returnTo"), url.origin);
 	const session = await getSession(request.headers.get("Cookie"));
 
 	if (code) {
 		const storedState = session.get("oauth_state");
-		const storedReturnTo = session.get("return_to") || returnTo;
+		const storedReturnTo = resolveReturnTo(session.get("return_to") || returnTo, url.origin);
 
 		if (error) {
 			return redirect(storedReturnTo, {

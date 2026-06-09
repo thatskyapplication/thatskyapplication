@@ -1,16 +1,6 @@
 import { type ActionFunctionArgs, type LoaderFunctionArgs, redirect } from "react-router";
 import { commitSession, getSession } from "~/session.server";
-
-function getLogoutReturnTo(url: URL) {
-	const rawReturnTo = url.searchParams.get("returnTo") || "/";
-	const returnToURL = new URL(rawReturnTo, url.origin);
-
-	if (returnToURL.origin !== url.origin) {
-		return "/";
-	}
-
-	return `${returnToURL.pathname}${returnToURL.search}${returnToURL.hash}`;
-}
+import { resolveReturnTo } from "~/utility/functions.server";
 
 function clearAuthentication(session: Awaited<ReturnType<typeof getSession>>) {
 	session.unset("discord_user");
@@ -22,7 +12,7 @@ function clearAuthentication(session: Awaited<ReturnType<typeof getSession>>) {
 
 export const action = async ({ request, url }: ActionFunctionArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
-	const returnTo = getLogoutReturnTo(url);
+	const returnTo = resolveReturnTo(url.searchParams.get("returnTo"), url.origin);
 	clearAuthentication(session);
 	session.flash("just_logged_out", true);
 
@@ -35,7 +25,7 @@ export const action = async ({ request, url }: ActionFunctionArgs) => {
 
 export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
-	const returnTo = getLogoutReturnTo(url);
+	const returnTo = resolveReturnTo(url.searchParams.get("returnTo"), url.origin);
 	clearAuthentication(session);
 	session.flash("just_logged_out", true);
 
