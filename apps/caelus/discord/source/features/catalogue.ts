@@ -35,7 +35,6 @@ import {
 	catalogueStarterPackProgress,
 	ELDER_SPIRITS,
 	type ElderSpirit,
-	type Emoji,
 	type Event,
 	type EventIds,
 	formatEmoji,
@@ -67,7 +66,11 @@ import {
 import { t } from "i18next";
 import { client } from "../discord.js";
 import pg from "../pg.js";
-import { CatalogueType, resolveCostToString } from "../utility/catalogue.js";
+import {
+	CatalogueType,
+	itemToSelectMenuOption,
+	resolveCostToString,
+} from "../utility/catalogue.js";
 import {
 	CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT,
 	CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT,
@@ -1268,25 +1271,9 @@ export async function viewSeason(
 	}
 
 	if (season.items.length > 0) {
-		const itemsOptions = season.items.map(({ translation, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation.key, {
-					lng: interaction.locale,
-					ns: "general",
-					number: translation.number,
-				}),
-				value: JSON.stringify(cosmetics),
-			};
-
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
-
-			return stringSelectMenuOption;
-		});
+		const itemsOptions = season.items.map((item) =>
+			itemToSelectMenuOption(item, catalogue?.data, locale),
+		);
 
 		containerComponents.push({
 			type: ComponentType.ActionRow,
@@ -1679,29 +1666,8 @@ async function viewSpirit(
 	}
 
 	if (friendshipTree.length > 0) {
-		const itemSelectionOptions = friendshipTreeToItems(friendshipTree).map(
-			({ translation, cosmetics, cosmeticDisplay, regularHeart }) => {
-				const stringSelectMenuOption: APISelectMenuOption = {
-					default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-					label: t(translation.key, {
-						lng: locale,
-						ns: "general",
-						number: translation.number,
-					}),
-					value: JSON.stringify(cosmetics),
-				};
-
-				// Too complex to represent. Assert.
-				const emoji = regularHeart
-					? (MISCELLANEOUS_EMOJIS.Heart as Emoji)
-					: (CosmeticToEmoji[cosmeticDisplay] as Emoji);
-
-				if (emoji) {
-					stringSelectMenuOption.emoji = emoji;
-				}
-
-				return stringSelectMenuOption;
-			},
+		const itemSelectionOptions = friendshipTreeToItems(friendshipTree).map((item) =>
+			itemToSelectMenuOption(item, data, locale),
 		);
 
 		const itemSelectionOptionsMaximumLimit = itemSelectionOptions.slice(
@@ -1913,25 +1879,7 @@ async function viewEvent(
 	}
 
 	if (offer.length > 0) {
-		const itemSelectionOptions = offer.map(({ translation, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
-				label: t(translation.key, {
-					lng: interaction.locale,
-					ns: "general",
-					number: translation.number,
-				}),
-				value: JSON.stringify(cosmetics),
-			};
-
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
-
-			return stringSelectMenuOption;
-		});
+		const itemSelectionOptions = offer.map((item) => itemToSelectMenuOption(item, data, locale));
 
 		containerComponents.push({
 			type: ComponentType.ActionRow,
@@ -2012,26 +1960,8 @@ export async function viewStarterPacks(
 	const catalogue = await fetchCatalogue(invoker.id);
 	const { locale } = interaction;
 
-	const itemSelectionOptions = STARTER_PACKS.items.map(
-		({ translation, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation.key, {
-					lng: interaction.locale,
-					ns: "general",
-					number: translation.number,
-				}),
-				value: JSON.stringify(cosmetics),
-			};
-
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
-
-			return stringSelectMenuOption;
-		},
+	const itemSelectionOptions = STARTER_PACKS.items.map((item) =>
+		itemToSelectMenuOption(item, catalogue?.data, locale),
 	);
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -2107,26 +2037,8 @@ export async function viewSecretArea(
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 
-	const itemSelectionOptions = SECRET_AREA.items.map(
-		({ translation, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation.key, {
-					lng: interaction.locale,
-					ns: "general",
-					number: translation.number,
-				}),
-				value: JSON.stringify(cosmetics),
-			};
-
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
-
-			return stringSelectMenuOption;
-		},
+	const itemSelectionOptions = SECRET_AREA.items.map((item) =>
+		itemToSelectMenuOption(item, catalogue?.data, locale),
 	);
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -2202,26 +2114,8 @@ export async function viewClothingShop(
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 
-	const itemSelectionOptions = CLOTHING_SHOP.items.map(
-		({ translation, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation.key, {
-					lng: interaction.locale,
-					ns: "general",
-					number: translation.number,
-				}),
-				value: JSON.stringify(cosmetics),
-			};
-
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
-
-			return stringSelectMenuOption;
-		},
+	const itemSelectionOptions = CLOTHING_SHOP.items.map((item) =>
+		itemToSelectMenuOption(item, catalogue?.data, locale),
 	);
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -2297,26 +2191,8 @@ export async function viewNestingWorkshop(
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 
-	const itemSelectionOptions = NESTING_WORKSHOP.items.map(
-		({ translation, cosmetics, cosmeticDisplay }) => {
-			const stringSelectMenuOption: APISelectMenuOption = {
-				default: cosmetics.every((cosmetic) => catalogue?.data.has(cosmetic)),
-				label: t(translation.key, {
-					lng: interaction.locale,
-					ns: "general",
-					number: translation.number,
-				}),
-				value: JSON.stringify(cosmetics),
-			};
-
-			const emoji = CosmeticToEmoji[cosmeticDisplay];
-
-			if (emoji) {
-				stringSelectMenuOption.emoji = emoji;
-			}
-
-			return stringSelectMenuOption;
-		},
+	const itemSelectionOptions = NESTING_WORKSHOP.items.map((item) =>
+		itemToSelectMenuOption(item, catalogue?.data, locale),
 	);
 
 	const itemSelectionOptions1 = itemSelectionOptions.slice(0, CATALOGUE_MAXIMUM_OPTIONS_LIMIT);

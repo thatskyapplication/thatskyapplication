@@ -1,5 +1,13 @@
-import { type ItemCost, resolveCurrencyEmoji, SeasonId } from "@thatskyapplication/utility";
+import type { APISelectMenuOption, Locale } from "@discordjs/core";
 import {
+	type Item,
+	type ItemCost,
+	resolveCurrencyEmoji,
+	SeasonId,
+} from "@thatskyapplication/utility";
+import { t } from "i18next";
+import {
+	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
@@ -75,6 +83,30 @@ export function resolveCostToString(cost: ItemCost) {
 	}
 
 	return totalCost;
+}
+
+export function itemToSelectMenuOption(
+	{ translation, cosmetics, cosmeticDisplay, regularHeart }: Item,
+	data: ReadonlySet<number> | undefined,
+	locale: Locale,
+) {
+	const option: APISelectMenuOption = {
+		default: cosmetics.every((cosmetic) => data?.has(cosmetic)),
+		label: t(translation.key, {
+			lng: locale,
+			ns: "general",
+			number: translation.number,
+		}),
+		value: JSON.stringify(cosmetics),
+	};
+
+	const emoji = regularHeart ? MISCELLANEOUS_EMOJIS.Heart : CosmeticToEmoji[cosmeticDisplay];
+
+	if (emoji) {
+		option.emoji = emoji;
+	}
+
+	return option;
 }
 
 export const enum CatalogueType {
