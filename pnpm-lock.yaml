@@ -323,6 +323,9 @@ importers:
       hasha:
         specifier: ^7.0.0
         version: 7.0.0
+      hono:
+        specifier: ^4.12.23
+        version: 4.12.23
       i18next:
         specifier: ^25.10.10
         version: 25.10.10(typescript@6.0.3)
