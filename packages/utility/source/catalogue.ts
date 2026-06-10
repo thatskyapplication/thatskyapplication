@@ -5,11 +5,7 @@ import { skySeasons } from "./kingdom/seasons/index.js";
 import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./models/spirits.js";
-import {
-	addCosts,
-	resolveAllCosmeticsFromItems,
-	resolveOfferFromItems,
-} from "./utility/functions.js";
+import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
 import { friendshipTreeToItems, type Item } from "./utility/spirits.js";
 
 export interface CataloguePacket {
@@ -162,219 +158,85 @@ export const NESTING_WORKSHOP = {
 	allCosmetics: resolveAllCosmeticsFromItems(nestingWorkshopItems),
 } as const;
 
-export function catalogueOwnedProgress(items: readonly Item[], data: ReadonlySet<number>) {
-	return {
-		owned: resolveAllCosmeticsFromItems(items).filter((cosmetic) => data.has(cosmetic)),
-		total: items.reduce((total, item) => total + item.cosmetics.length, 0),
-	};
+type CatalogueSpirit = StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit;
+
+export interface CatalogueProgress {
+	readonly owned: number;
+	readonly total: number;
 }
 
-export function catalogueProgressPercentage(
-	owned: readonly number[],
-	total: number,
-	round?: boolean,
-) {
+export function catalogueProgress(
+	items: Iterable<Item>,
+	data: ReadonlySet<number> = new Set(),
+): CatalogueProgress {
+	const cosmetics = new Set<number>();
+
+	for (const item of items) {
+		for (const cosmetic of item.cosmetics) {
+			cosmetics.add(cosmetic);
+		}
+	}
+
+	return { owned: cosmetics.intersection(data).size, total: cosmetics.size };
+}
+
+export function cataloguePercentage({ owned, total }: CatalogueProgress) {
 	if (total === 0) {
 		return null;
 	}
 
-	const percentage = (owned.length / total) * 100;
-
-	if (!round) {
-		return percentage;
+	if (owned >= total) {
+		return 100;
 	}
 
-	const integer = Math.trunc(percentage);
+	if (owned === 0) {
+		return 0;
+	}
 
-	return integer === 0
-		? Math.ceil(percentage)
-		: integer === 99
-			? Math.floor(percentage)
-			: Math.round(percentage);
+	return Math.min(99, Math.max(1, Math.round((owned / total) * 100)));
 }
 
-export function catalogueSpiritOwnedProgress(
-	spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-	data: ReadonlySet<number>,
-) {
-	const totalOwned = [];
-	let total = 0;
+export function catalogueSpiritItems(spirits: Iterable<CatalogueSpirit>): readonly Item[] {
+	const items: Item[] = [];
 
 	for (const spirit of spirits) {
-		const offer =
-			spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-				? spirit.current
-				: spirit.items;
-
-		const { owned, total: offerTotal } = catalogueOwnedProgress(friendshipTreeToItems(offer), data);
-		totalOwned.push(...owned);
-		total += offerTotal;
+		items.push(...friendshipTreeToItems(spirit.isSeasonalSpirit() ? spirit.items : spirit.current));
 	}
 
-	return { owned: totalOwned, total };
+	return items;
 }
 
-export function catalogueSpiritProgress(
-	spirits: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[],
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = catalogueSpiritOwnedProgress(spirits, data);
-	return catalogueProgressPercentage(owned, total, round);
-}
-
-export function catalogueSeasonOwnedProgress(
-	seasons: readonly Season[],
-	data: ReadonlySet<number>,
-) {
-	const totalOwned = [];
-	let total = 0;
+export function catalogueSeasonItems(seasons: Iterable<Season>): readonly Item[] {
+	const items: Item[] = [];
 
 	for (const season of seasons) {
-		const friendshipTrees = [season.guide.current, ...season.spirits.map((spirit) => spirit.items)];
-
-		for (const friendshipTree of friendshipTrees) {
-			const { owned, total: offerTotal } = catalogueOwnedProgress(
-				friendshipTreeToItems(friendshipTree),
-				data,
-			);
-			totalOwned.push(...owned);
-			total += offerTotal;
-		}
-
-		const { owned, total: offerTotal } = catalogueOwnedProgress(season.items, data);
-		totalOwned.push(...owned);
-		total += offerTotal;
+		items.push(
+			...catalogueSpiritItems([season.guide, ...season.spirits.values()]),
+			...season.items,
+		);
 	}
 
-	return { owned: totalOwned, total };
+	return items;
 }
 
-export function catalogueSeasonProgress(
-	seasons: readonly Season[],
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = catalogueSeasonOwnedProgress(seasons, data);
-	return catalogueProgressPercentage(owned, total, round);
-}
-
-export function catalogueEventOwnedProgress(events: readonly Event[], data: ReadonlySet<number>) {
-	const totalOwned = [];
-	let total = 0;
+export function catalogueEventItems(events: Iterable<Event>): readonly Item[] {
+	const items: Item[] = [];
 
 	for (const event of events) {
-		const { owned, total: offerTotal } = catalogueOwnedProgress(event.offer, data);
-
-		totalOwned.push(...owned);
-		total += offerTotal;
+		items.push(...event.offer);
 	}
 
-	return { owned: totalOwned, total };
+	return items;
 }
 
-export function catalogueEventProgress(
-	events: readonly Event[],
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = catalogueEventOwnedProgress(events, data);
-	return catalogueProgressPercentage(owned, total, round);
-}
-
-export function catalogueStarterPackOwnedProgress(data: ReadonlySet<number>) {
-	return catalogueOwnedProgress(STARTER_PACKS.items, data);
-}
-
-export function catalogueStarterPackProgress(
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = catalogueStarterPackOwnedProgress(data);
-	return catalogueProgressPercentage(owned, total, round);
-}
-
-export function catalogueSecretAreaOwnedProgress(data: ReadonlySet<number>) {
-	return catalogueOwnedProgress(SECRET_AREA.items, data);
-}
-
-export function catalogueSecretAreaProgress(
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = catalogueSecretAreaOwnedProgress(data);
-	return catalogueProgressPercentage(owned, total, round);
-}
-
-export function catalogueClothingShopOwnedProgress(data: ReadonlySet<number>) {
-	return catalogueOwnedProgress(CLOTHING_SHOP.items, data);
-}
-
-export function catalogueClothingShopProgress(
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = catalogueClothingShopOwnedProgress(data);
-	return catalogueProgressPercentage(owned, total, round);
-}
-
-export function catalogueNestingWorkshopOwnedProgress(data: ReadonlySet<number>) {
-	return catalogueOwnedProgress(NESTING_WORKSHOP.items, data);
-}
-
-export function catalogueNestingWorkshopProgress(
-	data: ReadonlySet<number> = new Set(),
-	round?: boolean,
-) {
-	const { owned, total } = catalogueNestingWorkshopOwnedProgress(data);
-	return catalogueProgressPercentage(owned, total, round);
-}
-
-export function catalogueAllProgress(data: ReadonlySet<number> = new Set(), round?: boolean) {
-	const progresses = [
-		catalogueSpiritOwnedProgress([...REALM_SPIRITS.values()], data),
-		catalogueSeasonOwnedProgress([...skySeasons().values()], data),
-		catalogueEventOwnedProgress([...skyEvents().values()], data),
-		catalogueStarterPackOwnedProgress(data),
-		catalogueSecretAreaOwnedProgress(data),
-		catalogueClothingShopOwnedProgress(data),
-		catalogueNestingWorkshopOwnedProgress(data),
+export function catalogueItems(): readonly Item[] {
+	return [
+		...catalogueSpiritItems(REALM_SPIRITS.values()),
+		...catalogueSeasonItems(skySeasons().values()),
+		...catalogueEventItems(skyEvents().values()),
+		...STARTER_PACKS.items,
+		...SECRET_AREA.items,
+		...CLOTHING_SHOP.items,
+		...NESTING_WORKSHOP.items,
 	];
-
-	return catalogueProgressPercentage(
-		progresses.reduce<number[]>((totalOwned, { owned }) => {
-			totalOwned.push(...owned);
-			return totalOwned;
-		}, []),
-		progresses.reduce((totalTotal, { total }) => totalTotal + total, 0),
-		round,
-	);
-}
-
-export function catalogueRemainingCurrency(
-	items: readonly Item[],
-	data: ReadonlySet<number> = new Set(),
-	includeSeasonalCurrency?: boolean,
-) {
-	const itemCosts = [];
-
-	for (const { cosmetics, cost } of items) {
-		if (cost && cosmetics.some((cosmetic) => !data.has(cosmetic))) {
-			itemCosts.push(cost);
-		}
-	}
-
-	const result = addCosts(itemCosts);
-
-	if (!includeSeasonalCurrency) {
-		for (const seasonalCandle of result.seasonalCandles) {
-			seasonalCandle.cost = 0;
-		}
-
-		for (const seasonalHeart of result.seasonalHearts) {
-			seasonalHeart.cost = 0;
-		}
-	}
-
-	return result;
 }

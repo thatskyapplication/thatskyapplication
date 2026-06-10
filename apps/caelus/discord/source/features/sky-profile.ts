@@ -35,7 +35,9 @@ import {
 	type Country,
 	CountryToEmoji,
 	CROWDIN_URL,
-	catalogueAllProgress,
+	catalogueItems,
+	cataloguePercentage,
+	catalogueProgress,
 	type Emoji,
 	formatEmoji,
 	GuessType,
@@ -2475,7 +2477,8 @@ async function skyProfileComponents(
 
 	if (catalogueProgression) {
 		const catalogue = await fetchCatalogue(userId);
-		const allProgressResult = catalogueAllProgress(catalogue?.data, true) ?? 0;
+		const allProgressResult =
+			cataloguePercentage(catalogueProgress(catalogueItems(), catalogue?.data)) ?? 0;
 
 		miscellaneous.push(
 			`**${t("sky-profile.catalogue-progression", { lng: locale, ns: "features" })}** ${allProgressResult}%`,

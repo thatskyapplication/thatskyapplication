@@ -148,75 +148,107 @@ export function resolveOfferFromItems(
 	);
 }
 
-export function addCosts(items: ItemCost[]) {
-	const result = items.reduce<Required<ItemCost>>(
-		(
-			total,
-			{
-				money = 0,
-				candles = 0,
-				hearts = 0,
-				ascendedCandles = 0,
-				seasonalCandles = [],
-				seasonalHearts = [],
-				eventTickets = [],
-			},
-		) => {
-			total.money += Math.round(money * 100);
-			total.candles += candles;
-			total.hearts += hearts;
-			total.ascendedCandles += ascendedCandles;
+export type CostEntry =
+	| { readonly type: "money" | "candles" | "hearts" | "ascendedCandles"; readonly amount: number }
+	| {
+			readonly type: "seasonalCandles" | "seasonalHearts";
+			readonly seasonId: SeasonIds;
+			readonly amount: number;
+	  }
+	| { readonly type: "eventTickets"; readonly eventId: EventIds; readonly amount: number };
 
-			for (const seasonalCandle of seasonalCandles) {
-				const sameSeason = total.seasonalCandles.findIndex(
-					({ seasonId }) => seasonId === seasonalCandle.seasonId,
-				);
+interface CostTally {
+	money: number;
+	candles: number;
+	hearts: number;
+	ascendedCandles: number;
+	seasonalCandles: Map<SeasonIds, number>;
+	seasonalHearts: Map<SeasonIds, number>;
+	eventTickets: Map<EventIds, number>;
+}
 
-				if (sameSeason === -1) {
-					// Prevents mutation.
-					total.seasonalCandles.push({ ...seasonalCandle });
-				} else {
-					total.seasonalCandles.at(sameSeason)!.cost += seasonalCandle.cost;
-				}
+function createCostTally(): CostTally {
+	return {
+		money: 0,
+		candles: 0,
+		hearts: 0,
+		ascendedCandles: 0,
+		seasonalCandles: new Map(),
+		seasonalHearts: new Map(),
+		eventTickets: new Map(),
+	};
+}
+
+function tallyById<Id>(tally: Map<Id, number>, id: Id, amount: number) {
+	if (amount > 0) {
+		tally.set(id, (tally.get(id) ?? 0) + amount);
+	}
+}
+
+export interface SumCostsOptions {
+	includeSeasonalCurrency?: boolean;
+}
+
+export function sumCosts(
+	costs: Iterable<ItemCost>,
+	{ includeSeasonalCurrency = true }: SumCostsOptions = {},
+): readonly CostEntry[] {
+	const tally = createCostTally();
+
+	for (const cost of costs) {
+		tally.money += Math.round((cost.money ?? 0) * 100);
+		tally.candles += cost.candles ?? 0;
+		tally.hearts += cost.hearts ?? 0;
+		tally.ascendedCandles += cost.ascendedCandles ?? 0;
+
+		if (includeSeasonalCurrency) {
+			for (const seasonalCandles of cost.seasonalCandles) {
+				tallyById(tally.seasonalCandles, seasonalCandles.seasonId, seasonalCandles.cost);
 			}
 
-			for (const seasonalHeart of seasonalHearts) {
-				const sameSeason = total.seasonalHearts.findIndex(
-					({ seasonId }) => seasonId === seasonalHeart.seasonId,
-				);
-
-				if (sameSeason === -1) {
-					// Prevents mutation.
-					total.seasonalHearts.push({ ...seasonalHeart });
-				} else {
-					total.seasonalHearts.at(sameSeason)!.cost += seasonalHeart.cost;
-				}
+			for (const seasonalHearts of cost.seasonalHearts) {
+				tallyById(tally.seasonalHearts, seasonalHearts.seasonId, seasonalHearts.cost);
 			}
+		}
 
-			for (const event of eventTickets) {
-				const sameEvent = total.eventTickets.findIndex(({ eventId }) => eventId === event.eventId);
+		for (const eventTickets of cost.eventTickets) {
+			tallyById(tally.eventTickets, eventTickets.eventId, eventTickets.cost);
+		}
+	}
 
-				if (sameEvent === -1) {
-					// Prevents mutation.
-					total.eventTickets.push({ ...event });
-				} else {
-					total.eventTickets.at(sameEvent)!.cost += event.cost;
-				}
-			}
+	return tallyToEntries(tally);
+}
 
-			return total;
-		},
-		{
-			money: 0,
-			candles: 0,
-			hearts: 0,
-			ascendedCandles: 0,
-			seasonalCandles: [],
-			seasonalHearts: [],
-			eventTickets: [],
-		},
-	);
+function tallyToEntries(tally: CostTally): readonly CostEntry[] {
+	const entries: CostEntry[] = [];
 
-	result.money /= 100;
-	return result;
+	if (tally.money > 0) {
+		entries.push({ type: "money", amount: tally.money / 100 });
+	}
+
+	if (tally.candles > 0) {
+		entries.push({ type: "candles", amount: tally.candles });
+	}
+
+	if (tally.hearts > 0) {
+		entries.push({ type: "hearts", amount: tally.hearts });
+	}
+
+	if (tally.ascendedCandles > 0) {
+		entries.push({ type: "ascendedCandles", amount: tally.ascendedCandles });
+	}
+
+	for (const [seasonId, amount] of [...tally.seasonalCandles].sort(([a], [b]) => a - b)) {
+		entries.push({ type: "seasonalCandles", seasonId, amount });
+	}
+
+	for (const [seasonId, amount] of [...tally.seasonalHearts].sort(([a], [b]) => a - b)) {
+		entries.push({ type: "seasonalHearts", seasonId, amount });
+	}
+
+	for (const [eventId, amount] of [...tally.eventTickets].sort(([a], [b]) => a - b)) {
+		entries.push({ type: "eventTickets", eventId, amount });
+	}
+
+	return entries;
 }

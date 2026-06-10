@@ -1,9 +1,14 @@
 import type { APISelectMenuOption, Locale } from "@discordjs/core";
 import {
+	type CatalogueProgress,
+	type CostEntry,
+	type Emoji,
 	type Item,
 	type ItemCost,
 	resolveCurrencyEmoji,
 	SeasonId,
+	type SeasonIds,
+	sumCosts,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import {
@@ -14,71 +19,98 @@ import {
 	SeasonIdToSeasonalHeartEmoji,
 } from "./emojis.js";
 
-export function resolveCostToString(cost: ItemCost) {
+export function catalogueComplete({ owned, total }: CatalogueProgress) {
+	return total > 0 && owned >= total;
+}
+
+export function remainingItemCosts(
+	items: Iterable<Item>,
+	data: ReadonlySet<number> = new Set(),
+): readonly ItemCost[] {
+	const costs = [];
+
+	for (const { cosmetics, cost } of items) {
+		if (cost && cosmetics.some((cosmetic) => !data.has(cosmetic))) {
+			costs.push(cost);
+		}
+	}
+
+	return costs;
+}
+
+export function catalogueRemainingCosts(
+	items: Iterable<Item>,
+	data?: ReadonlySet<number>,
+	includeSeasonalCurrency = false,
+) {
+	return sumCosts(remainingItemCosts(items, data), { includeSeasonalCurrency });
+}
+
+function seasonalHeartEmoji(seasonId: SeasonIds): Emoji {
+	if (seasonId === SeasonId.Gratitude || seasonId === SeasonId.Lightseekers) {
+		return MISCELLANEOUS_EMOJIS.SeasonalHeart;
+	}
+
+	return SeasonIdToSeasonalHeartEmoji[seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalHeart;
+}
+
+export function resolveCostToString(cost: readonly CostEntry[]) {
 	const totalCost = [];
 
-	if (cost.money) {
-		totalCost.push(`$${cost.money} `);
-	}
+	for (const entry of cost) {
+		switch (entry.type) {
+			case "money":
+				totalCost.push(`$${entry.amount} `);
+				break;
+			case "candles":
+				totalCost.push(
+					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: entry.amount }),
+				);
 
-	if (cost.candles) {
-		totalCost.push(
-			resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: cost.candles }),
-		);
-	}
+				break;
+			case "hearts":
+				totalCost.push(
+					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: entry.amount }),
+				);
 
-	if (cost.hearts) {
-		totalCost.push(
-			resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: cost.hearts }),
-		);
-	}
+				break;
+			case "ascendedCandles":
+				totalCost.push(
+					resolveCurrencyEmoji({
+						emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
+						number: entry.amount,
+					}),
+				);
 
-	if (cost.ascendedCandles) {
-		totalCost.push(
-			resolveCurrencyEmoji({
-				emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-				number: cost.ascendedCandles,
-			}),
-		);
-	}
+				break;
+			case "seasonalCandles":
+				totalCost.push(
+					resolveCurrencyEmoji({
+						emoji:
+							SeasonIdToSeasonalCandleEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
+						number: entry.amount,
+					}),
+				);
 
-	if (cost.seasonalCandles) {
-		for (const seasonalCandles of cost.seasonalCandles) {
-			const emoji = SeasonIdToSeasonalCandleEmoji[seasonalCandles.seasonId];
+				break;
+			case "seasonalHearts":
+				totalCost.push(
+					resolveCurrencyEmoji({
+						emoji: seasonalHeartEmoji(entry.seasonId),
+						number: entry.amount,
+					}),
+				);
 
-			totalCost.push(
-				resolveCurrencyEmoji({
-					emoji: emoji ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
-					number: seasonalCandles.cost,
-				}),
-			);
-		}
-	}
+				break;
+			case "eventTickets":
+				totalCost.push(
+					resolveCurrencyEmoji({
+						emoji: EventIdToEventTicketEmoji[entry.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket,
+						number: entry.amount,
+					}),
+				);
 
-	if (cost.seasonalHearts) {
-		for (const seasonalHearts of cost.seasonalHearts) {
-			const { seasonId } = seasonalHearts;
-
-			totalCost.push(
-				resolveCurrencyEmoji({
-					emoji:
-						seasonId !== SeasonId.Gratitude && seasonId !== SeasonId.Lightseekers
-							? (SeasonIdToSeasonalHeartEmoji[seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalHeart)
-							: MISCELLANEOUS_EMOJIS.SeasonalHeart,
-					number: seasonalHearts.cost,
-				}),
-			);
-		}
-	}
-
-	if (cost.eventTickets) {
-		for (const event of cost.eventTickets) {
-			totalCost.push(
-				resolveCurrencyEmoji({
-					emoji: EventIdToEventTicketEmoji[event.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket,
-					number: event.cost,
-				}),
-			);
+				break;
 		}
 	}
 

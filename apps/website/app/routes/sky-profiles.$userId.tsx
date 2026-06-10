@@ -2,7 +2,9 @@ import {
 	CDN,
 	CountryToEmoji,
 	CROWDIN_URL,
-	catalogueAllProgress,
+	catalogueItems,
+	cataloguePercentage,
+	catalogueProgress,
 	GuessType,
 	isCountry,
 	isPlatformId,
@@ -213,7 +215,8 @@ export const loader = async ({ params, request }: LoaderFunctionArgs) => {
 	}
 
 	if (data.catalogue_progression) {
-		catalogueProgression = catalogueAllProgress(catalogueData ?? undefined, true) ?? 0;
+		catalogueProgression =
+			cataloguePercentage(catalogueProgress(catalogueItems(), catalogueData ?? undefined)) ?? 0;
 	}
 
 	const [eventsRanking, spiritsRanking, spiritsHardRanking] = data.guess_rank

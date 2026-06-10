@@ -19,20 +19,14 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
-	addCosts,
 	type CataloguePacket,
 	CLOTHING_SHOP,
-	catalogueAllProgress,
-	catalogueClothingShopProgress,
-	catalogueEventProgress,
-	catalogueNestingWorkshopProgress,
-	catalogueOwnedProgress,
-	catalogueProgressPercentage,
-	catalogueRemainingCurrency,
-	catalogueSeasonProgress,
-	catalogueSecretAreaProgress,
-	catalogueSpiritProgress,
-	catalogueStarterPackProgress,
+	catalogueEventItems,
+	catalogueItems,
+	cataloguePercentage,
+	catalogueProgress,
+	catalogueSeasonItems,
+	catalogueSpiritItems,
 	ELDER_SPIRITS,
 	type ElderSpirit,
 	type Event,
@@ -41,7 +35,6 @@ import {
 	friendshipTreeToItems,
 	type GuideSpirit,
 	type Item,
-	type ItemCost,
 	isRealm,
 	NESTING_WORKSHOP,
 	REALMS,
@@ -61,6 +54,7 @@ import {
 	skyNow,
 	skySeasons,
 	spirits,
+	sumCosts,
 	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -68,7 +62,10 @@ import { client } from "../discord.js";
 import pg from "../pg.js";
 import {
 	CatalogueType,
+	catalogueComplete,
+	catalogueRemainingCosts,
 	itemToSelectMenuOption,
+	remainingItemCosts,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import {
@@ -139,14 +136,17 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 		offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
 	}
 
-	const remainingCurrencyResult = catalogueRemainingCurrency(offer, data, true);
-	const resolvedRemainingCurrency = resolveCostToString(remainingCurrencyResult);
+	const remainingCosts = remainingItemCosts(offer, data);
+
+	const resolvedRemainingCurrency = resolveCostToString(
+		sumCosts(remainingCosts, { includeSeasonalCurrency: true }),
+	);
 
 	if (resolvedRemainingCurrency.length > 0) {
 		offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
 	}
 
-	return { remainingCurrencyResult, offerDescription };
+	return { remainingCosts, offerDescription };
 }
 
 interface OfferDataOptions {
@@ -182,25 +182,19 @@ function offerData({
 	let remainingCurrency = null;
 
 	for (const spirit of spirits) {
-		const isSeasonalSpirit = spirit.isSeasonalSpirit();
-		const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
-		const offer = seasonalParsing ? spirit.seasonal : spirit.current;
+		const items = catalogueSpiritItems([spirit]);
 
-		if (offer.length === 0) {
+		if (items.length === 0) {
 			continue;
 		}
 
-		const { remainingCurrencyResult, offerDescription } = progress(
-			locale,
-			friendshipTreeToItems(offer),
-			data,
-		);
+		const { remainingCosts, offerDescription } = progress(locale, items, data);
 
 		if (includeTotalRemainingCurrency) {
-			remainingCurrencies.push(remainingCurrencyResult);
+			remainingCurrencies.push(...remainingCosts);
 		}
 
-		const percentage = catalogueSpiritProgress([spirit], data, true);
+		const percentage = cataloguePercentage(catalogueProgress(items, data));
 
 		if (percentage !== null && percentage !== 100) {
 			hasEverything = false;
@@ -217,13 +211,13 @@ function offerData({
 	}
 
 	for (const event of events) {
-		const { remainingCurrencyResult, offerDescription } = progress(locale, event.offer, data);
+		const { remainingCosts, offerDescription } = progress(locale, event.offer, data);
 
 		if (includeTotalRemainingCurrency) {
-			remainingCurrencies.push(remainingCurrencyResult);
+			remainingCurrencies.push(...remainingCosts);
 		}
 
-		const percentage = catalogueEventProgress([event], data, true);
+		const percentage = cataloguePercentage(catalogueProgress(event.offer, data));
 
 		if (percentage !== null && percentage !== 100) {
 			hasEverything = false;
@@ -245,22 +239,26 @@ function offerData({
 		offerProgress.events.set(event.id, content);
 	}
 
-	const { remainingCurrencyResult: itemsRemainingCurrency, offerDescription: itemsOfferProgress } =
-		progress(locale, items, data);
+	const { remainingCosts: itemsRemainingCosts, offerDescription: itemsOfferProgress } = progress(
+		locale,
+		items,
+		data,
+	);
 
 	if (includeTotalRemainingCurrency) {
-		remainingCurrencies.push(itemsRemainingCurrency);
+		remainingCurrencies.push(...itemsRemainingCosts);
 	}
 
-	const { owned, total } = catalogueOwnedProgress(items, data);
-	const itemsPercentage = catalogueProgressPercentage(owned, total);
+	const itemsPercentage = cataloguePercentage(catalogueProgress(items, data));
 
 	if (itemsPercentage !== null && itemsPercentage !== 100) {
 		hasEverything = false;
 	}
 
 	if (remainingCurrencies.length > 0) {
-		const totalRemainingCurrency = resolveCostToString(addCosts(remainingCurrencies));
+		const totalRemainingCurrency = resolveCostToString(
+			sumCosts(remainingCurrencies, { includeSeasonalCurrency: true }),
+		);
 
 		if (totalRemainingCurrency.length > 0) {
 			remainingCurrency = `### ${t("catalogue.remaining-currency", { lng: locale, ns: "features" })}\n\n${totalRemainingCurrency.join("")}`;
@@ -326,14 +324,16 @@ async function start({
 }: CatalogueStartOptions): Promise<APIMessageTopLevelComponent[]> {
 	const catalogue = await fetchCatalogue(userId);
 	const data = catalogue?.data;
-	const standardProgress = catalogueSpiritProgress([...STANDARD_SPIRITS.values()], data, true);
-	const elderProgress = catalogueSpiritProgress([...ELDER_SPIRITS.values()], data, true);
-	const seasonalProgress = catalogueSeasonProgress([...skySeasons().values()], data, true);
-	const eventProgressResult = catalogueEventProgress([...skyEvents().values()], data, true);
-	const starterPackProgressResult = catalogueStarterPackProgress(data, true);
-	const secretAreaProgressResult = catalogueSecretAreaProgress(data, true);
-	const clothingShopProgressResult = catalogueClothingShopProgress(data, true);
-	const nestingWorkshopProgressResult = catalogueNestingWorkshopProgress(data, true);
+	const percentage = (items: readonly Item[]) =>
+		cataloguePercentage(catalogueProgress(items, data));
+	const standardProgress = percentage(catalogueSpiritItems(STANDARD_SPIRITS.values()));
+	const elderProgress = percentage(catalogueSpiritItems(ELDER_SPIRITS.values()));
+	const seasonalProgress = percentage(catalogueSeasonItems(skySeasons().values()));
+	const eventProgressResult = percentage(catalogueEventItems(skyEvents().values()));
+	const starterPackProgressResult = percentage(STARTER_PACKS.items);
+	const secretAreaProgressResult = percentage(SECRET_AREA.items);
+	const clothingShopProgressResult = percentage(CLOTHING_SHOP.items);
+	const nestingWorkshopProgressResult = percentage(NESTING_WORKSHOP.items);
 	const now = skyNow();
 	const currentSeason = skyCurrentSeason(now);
 	const events = skyCurrentEvents(now);
@@ -456,7 +456,7 @@ async function start({
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: catalogueAllProgress(data, true) })}`,
+							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: percentage(catalogueItems()) })}`,
 						},
 					],
 				},
@@ -859,17 +859,12 @@ export async function viewRealms(
 		}
 
 		let content = `### ${t(`realms.${realm.name}`, { lng: locale, ns: "general" })}`;
-		const percentage = catalogueSpiritProgress([...realm.spirits.values()], catalogue?.data, true);
+		const items = catalogueSpiritItems(realm.spirits.values());
+		const percentage = cataloguePercentage(catalogueProgress(items, catalogue?.data));
 		content += percentage === null ? "" : ` (${percentage}%)`;
-		const itemCosts: ItemCost[] = [];
-
-		for (const spirit of realm.spirits.values()) {
-			itemCosts.push(
-				catalogueRemainingCurrency(friendshipTreeToItems(spirit.current), catalogue?.data),
-			);
-		}
-
-		const remainingCurrencyResult = resolveCostToString(addCosts(itemCosts));
+		const remainingCurrencyResult = resolveCostToString(
+			catalogueRemainingCosts(items, catalogue?.data),
+		);
 		content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
 
 		containerComponents.push({
@@ -1129,7 +1124,9 @@ export async function viewSeasons(
 			continue;
 		}
 
-		const seasonalProgress = catalogueSeasonProgress([season], catalogue?.data, true);
+		const seasonalProgress = cataloguePercentage(
+			catalogueProgress(catalogueSeasonItems([season]), catalogue?.data),
+		);
 
 		const progress =
 			seasonalProgress === null
@@ -1926,7 +1923,7 @@ async function viewEvent(
 		actionRowComponents.push({
 			type: ComponentType.Button,
 			custom_id: `${CustomId.CatalogueItemsEverything}§event:${id}`,
-			disabled: catalogueEventProgress([event], data) === 100,
+			disabled: catalogueComplete(catalogueProgress(event.offer, data)),
 			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 			style: ButtonStyle.Success,
@@ -2007,7 +2004,7 @@ export async function viewStarterPacks(
 				{
 					type: ComponentType.Button,
 					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.StarterPacks}`,
-					disabled: catalogueStarterPackProgress(catalogue?.data) === 100,
+					disabled: catalogueComplete(catalogueProgress(STARTER_PACKS.items, catalogue?.data)),
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,
@@ -2084,7 +2081,7 @@ export async function viewSecretArea(
 				{
 					type: ComponentType.Button,
 					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.SecretArea}`,
-					disabled: catalogueSecretAreaProgress(catalogue?.data) === 100,
+					disabled: catalogueComplete(catalogueProgress(SECRET_AREA.items, catalogue?.data)),
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,
@@ -2161,7 +2158,7 @@ export async function viewClothingShop(
 				{
 					type: ComponentType.Button,
 					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.ClothingShop}`,
-					disabled: catalogueClothingShopProgress(catalogue?.data) === 100,
+					disabled: catalogueComplete(catalogueProgress(CLOTHING_SHOP.items, catalogue?.data)),
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,
@@ -2282,7 +2279,7 @@ export async function viewNestingWorkshop(
 				{
 					type: ComponentType.Button,
 					custom_id: `${CustomId.CatalogueItemsEverything}§${CatalogueType.NestingWorkshop}`,
-					disabled: catalogueNestingWorkshopProgress(catalogue?.data) === 100,
+					disabled: catalogueComplete(catalogueProgress(NESTING_WORKSHOP.items, catalogue?.data)),
 					emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
 					label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
 					style: ButtonStyle.Success,

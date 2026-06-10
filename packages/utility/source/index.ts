@@ -27,25 +27,14 @@ export {
 } from "./assets.js";
 export {
 	type CataloguePacket,
+	type CatalogueProgress,
 	CLOTHING_SHOP,
-	catalogueAllProgress,
-	catalogueClothingShopOwnedProgress,
-	catalogueClothingShopProgress,
-	catalogueEventOwnedProgress,
-	catalogueEventProgress,
-	catalogueNestingWorkshopOwnedProgress,
-	catalogueNestingWorkshopProgress,
-	catalogueOwnedProgress,
-	catalogueProgressPercentage,
-	catalogueRemainingCurrency,
-	catalogueSeasonOwnedProgress,
-	catalogueSeasonProgress,
-	catalogueSecretAreaOwnedProgress,
-	catalogueSecretAreaProgress,
-	catalogueSpiritOwnedProgress,
-	catalogueSpiritProgress,
-	catalogueStarterPackOwnedProgress,
-	catalogueStarterPackProgress,
+	catalogueEventItems,
+	catalogueItems,
+	cataloguePercentage,
+	catalogueProgress,
+	catalogueSeasonItems,
+	catalogueSpiritItems,
 	NESTING_WORKSHOP,
 	SECRET_AREA,
 	STARTER_PACKS,
@@ -227,10 +216,11 @@ export type { Snowflake } from "./types/index.js";
 export type { UsersPacket } from "./users.js";
 export { EventId, type EventIds, isEventId } from "./utility/event.js";
 export {
-	addCosts,
+	type CostEntry,
 	getRandomElement,
 	resolveAllCosmeticsFromItems,
 	resolveOfferFromItems,
+	sumCosts,
 } from "./utility/functions.js";
 export {
 	friendshipTreeToItems,
