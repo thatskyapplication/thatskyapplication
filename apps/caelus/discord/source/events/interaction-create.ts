@@ -50,6 +50,7 @@ import {
 	viewSettings,
 	viewStart,
 	viewStarterPacks,
+	viewTotalSpent,
 } from "../features/catalogue.js";
 import {
 	checklistHandleDailyQuests,
@@ -365,6 +366,11 @@ export default {
 
 				if (id === CustomId.CatalogueSettingsEverything) {
 					await updateEverythingButtonSetting(data);
+					return;
+				}
+
+				if (id === CustomId.CatalogueViewTotalSpent) {
+					await viewTotalSpent(data);
 					return;
 				}
 

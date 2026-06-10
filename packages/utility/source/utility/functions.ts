@@ -185,7 +185,7 @@ function tallyById<Id>(tally: Map<Id, number>, id: Id, amount: number) {
 	}
 }
 
-export interface SumCostsOptions {
+interface SumCostsOptions {
 	includeSeasonalCurrency?: boolean;
 }
 
