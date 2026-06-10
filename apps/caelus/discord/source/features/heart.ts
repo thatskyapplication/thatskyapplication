@@ -22,6 +22,7 @@ import {
 	getRandomElement,
 	type HeartHistoryPacket,
 	type HeartPacket,
+	MAXIMUM_HEARTS_PER_DAY,
 	SkyProfileMissingNameSource,
 	skyNow,
 	Table,
@@ -32,7 +33,6 @@ import { client } from "../discord.js";
 import pg from "../pg.js";
 import {
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
-	MAXIMUM_HEARTS_PER_DAY,
 	ME_HEART_HISTORY_URL,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";

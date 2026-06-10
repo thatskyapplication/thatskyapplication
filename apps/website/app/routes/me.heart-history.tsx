@@ -1,8 +1,11 @@
 import type { Snowflake } from "@discordjs/core/http-only";
 import {
 	DELETED_USER_TEXT,
+	DOUBLE_HEART_EVENTS,
 	type HeartHistoryPacket,
 	type HeartPacket,
+	MAXIMUM_HEARTS_PER_DAY,
+	skyToday,
 	Table,
 } from "@thatskyapplication/utility";
 import { ArrowLeft, HandHeart, HeartPlus } from "lucide-react";
@@ -38,8 +41,9 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const userId = discordUser.id;
 	const requestedPage = parsePage(url);
+	const today = skyToday();
 
-	const [gifted, received, totalRows] = await Promise.all([
+	const [gifted, received, totalRows, giftedToday] = await Promise.all([
 		totalHearts("user_id", userId),
 		totalHearts("giftee_id", userId),
 		pg<HeartPacket>(Table.Hearts)
@@ -48,11 +52,35 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 			.count({ totalRows: "*" })
 			.first()
 			.then((result) => Number(result?.totalRows ?? 0)),
+		pg<HeartPacket>(Table.Hearts)
+			.where({ user_id: userId })
+			.andWhere("timestamp", ">=", today.toISO())
+			.count({ giftedToday: "*" })
+			.first()
+			.then((result) => Number(result?.giftedToday ?? 0)),
 	]);
 
 	const maximumPage = Math.max(Math.ceil(totalRows / HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER), 1);
 	const currentPage = Math.min(requestedPage, maximumPage);
 	const offset = (currentPage - 1) * HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
+
+	const doubleHearts = [];
+
+	for (const { start, end } of DOUBLE_HEART_EVENTS) {
+		if (end <= today) {
+			continue;
+		}
+
+		const active = today >= start;
+
+		doubleHearts.push({
+			active,
+			days: active
+				? Math.ceil(end.diff(today, "days").days) - 1
+				: Math.floor(start.diff(today, "days").days),
+			start: start.toMillis(),
+		});
+	}
 
 	const heartPackets = await pg(`${Table.Hearts} as hearts`)
 		.select<HeartHistoryPacket[]>(
@@ -73,10 +101,12 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 
 	return {
 		currentPage,
+		doubleHearts,
 		gifted,
 		heartPackets,
 		maximumPage,
 		received,
+		remainingToday: Math.max(MAXIMUM_HEARTS_PER_DAY - giftedToday, 0),
 		timeZone: await getPreferredTimeZone(request),
 		userId,
 	};
@@ -130,8 +160,17 @@ function NoProfileUserId({ userId }: { userId: Snowflake }) {
 }
 
 export default function HeartHistory() {
-	const { currentPage, gifted, heartPackets, maximumPage, received, timeZone, userId } =
-		useLoaderData<typeof loader>();
+	const {
+		currentPage,
+		doubleHearts,
+		gifted,
+		heartPackets,
+		maximumPage,
+		received,
+		remainingToday,
+		timeZone,
+		userId,
+	} = useLoaderData<typeof loader>();
 	const { i18n, t } = useTranslation();
 	const heartEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id);
 
@@ -171,12 +210,49 @@ export default function HeartHistory() {
 							{received.toLocaleString(i18n.language)}
 						</p>
 					</div>
+
+					<div className="flex min-w-40 flex-col items-center px-4 py-2">
+						<p className="my-0 text-sm text-gray-600 dark:text-gray-400">Remaining today</p>
+						<p className="my-0 flex items-center gap-2 text-2xl font-semibold text-gray-900 dark:text-gray-100">
+							<span
+								aria-hidden="true"
+								className="discord-emoji h-5 w-5 shrink-0"
+								role="img"
+								style={{ backgroundImage: `url(${heartEmojiURL})` }}
+							/>
+							{remainingToday.toLocaleString(i18n.language)}
+						</p>
+					</div>
 				</div>
+
+				{doubleHearts.length > 0 && (
+					<div className="flex flex-col items-center gap-1">
+						{doubleHearts.map((doubleHeart) => (
+							<p
+								className="my-0 flex items-center justify-center gap-2 text-center text-sm text-gray-600 dark:text-gray-400"
+								key={doubleHeart.start}
+							>
+								<span
+									aria-hidden="true"
+									className="discord-emoji inline-block h-4 w-4 shrink-0"
+									role="img"
+									style={{ backgroundImage: `url(${heartEmojiURL})` }}
+								/>
+								{doubleHeart.active
+									? t("days-left.double-hearts", { ns: "general", count: doubleHeart.days })
+									: t("daily-guides.double-hearts-upcoming", {
+											ns: "features",
+											count: doubleHeart.days,
+										})}
+							</p>
+						))}
+					</div>
+				)}
 
 				{heartPackets.length === 0 ? (
 					<div className="rounded-lg border border-gray-200 bg-gray-100 p-6 text-center shadow-sm dark:border-gray-700 dark:bg-gray-900">
 						<div
-							aria-label="Heart icon."
+							aria-hidden="true"
 							className="discord-emoji mx-auto mb-3 h-8 w-8"
 							role="img"
 							style={{ backgroundImage: `url(${heartEmojiURL})` }}
@@ -210,7 +286,7 @@ export default function HeartHistory() {
 												{gifted ? "Gifted" : "Received"}{" "}
 												{heartPacket.count.toLocaleString(i18n.language)}
 												<span
-													aria-label="Heart icon."
+													aria-label="Heart"
 													className="discord-emoji mx-1 inline-block h-4 w-4 align-text-bottom"
 													role="img"
 													style={{ backgroundImage: `url(${heartEmojiURL})` }}

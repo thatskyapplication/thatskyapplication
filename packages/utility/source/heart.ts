@@ -12,6 +12,7 @@ export interface HeartHistoryPacket extends HeartPacket {
 	user_name: SkyProfilePacket["name"];
 }
 
+export const MAXIMUM_HEARTS_PER_DAY = 3 as const;
 export const DELETED_USER_TEXT = "<deleted>" as const;
 
 export const SkyProfileMissingNameSource = {

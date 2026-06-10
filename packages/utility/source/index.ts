@@ -91,6 +91,7 @@ export {
 	DELETED_USER_TEXT,
 	type HeartHistoryPacket,
 	type HeartPacket,
+	MAXIMUM_HEARTS_PER_DAY,
 	SKY_PROFILE_MISSING_NAME_SOURCE_VALUES,
 	SkyProfileMissingNameSource,
 	type SkyProfileMissingNameSources,
