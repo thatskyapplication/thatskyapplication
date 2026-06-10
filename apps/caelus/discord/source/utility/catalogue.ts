@@ -23,11 +23,21 @@ export function catalogueComplete({ owned, total }: CatalogueProgress) {
 export function partitionItemCosts(items: Iterable<Item>, data: ReadonlySet<number> = new Set()) {
 	const obtained: ItemCost[] = [];
 	const remaining: ItemCost[] = [];
+	const seen = new Set<string>();
 
 	for (const { cosmetics, cost } of items) {
-		if (cost) {
-			(cosmetics.every((cosmetic) => data.has(cosmetic)) ? obtained : remaining).push(cost);
+		if (!cost) {
+			continue;
 		}
+
+		const key = cosmetics.toSorted((a, b) => a - b).join(",");
+
+		if (seen.has(key)) {
+			continue;
+		}
+
+		seen.add(key);
+		(cosmetics.every((cosmetic) => data.has(cosmetic)) ? obtained : remaining).push(cost);
 	}
 
 	return { obtained, remaining };
