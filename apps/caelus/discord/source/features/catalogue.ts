@@ -63,9 +63,8 @@ import pg from "../pg.js";
 import {
 	CatalogueType,
 	catalogueComplete,
-	catalogueRemainingCosts,
 	itemToSelectMenuOption,
-	remainingItemCosts,
+	partitionItemCosts,
 	resolveCostToString,
 } from "../utility/catalogue.js";
 import {
@@ -136,11 +135,8 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 		offerDescription.push(`${formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${unowned.join(" ")}`);
 	}
 
-	const remainingCosts = remainingItemCosts(offer, data);
-
-	const resolvedRemainingCurrency = resolveCostToString(
-		sumCosts(remainingCosts, { includeSeasonalCurrency: true }),
-	);
+	const remainingCosts = partitionItemCosts(offer, data).remaining;
+	const resolvedRemainingCurrency = resolveCostToString(sumCosts(remainingCosts));
 
 	if (resolvedRemainingCurrency.length > 0) {
 		offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
@@ -256,9 +252,7 @@ function offerData({
 	}
 
 	if (remainingCurrencies.length > 0) {
-		const totalRemainingCurrency = resolveCostToString(
-			sumCosts(remainingCurrencies, { includeSeasonalCurrency: true }),
-		);
+		const totalRemainingCurrency = resolveCostToString(sumCosts(remainingCurrencies));
 
 		if (totalRemainingCurrency.length > 0) {
 			remainingCurrency = `### ${t("catalogue.remaining-currency", { lng: locale, ns: "features" })}\n\n${totalRemainingCurrency.join("")}`;
@@ -326,6 +320,8 @@ async function start({
 	const data = catalogue?.data;
 	const percentage = (items: readonly Item[]) =>
 		cataloguePercentage(catalogueProgress(items, data));
+	const allItems = catalogueItems();
+	const totalSpent = resolveCostToString(sumCosts(partitionItemCosts(allItems, data).obtained));
 	const standardProgress = percentage(catalogueSpiritItems(STANDARD_SPIRITS.values()));
 	const elderProgress = percentage(catalogueSpiritItems(ELDER_SPIRITS.values()));
 	const seasonalProgress = percentage(catalogueSeasonItems(skySeasons().values()));
@@ -456,7 +452,7 @@ async function start({
 					components: [
 						{
 							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: percentage(catalogueItems()) })}`,
+							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: percentage(allItems) })}`,
 						},
 					],
 				},
@@ -579,6 +575,14 @@ async function start({
 							content: `### ${t("catalogue.nesting-workshop", { lng: locale, ns: "features" })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
 						},
 					],
+				},
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.total-spent", { lng: locale, ns: "features" })}\n\n${
+						totalSpent.length > 0
+							? `${totalSpent.join("")}\n-# ${t("catalogue.total-spent-subtext", { lng: locale, ns: "features" })}`
+							: t("catalogue.main-total-spent-nothing", { lng: locale, ns: "features" })
+					}`,
 				},
 			],
 		},
@@ -863,7 +867,9 @@ export async function viewRealms(
 		const percentage = cataloguePercentage(catalogueProgress(items, catalogue?.data));
 		content += percentage === null ? "" : ` (${percentage}%)`;
 		const remainingCurrencyResult = resolveCostToString(
-			catalogueRemainingCosts(items, catalogue?.data),
+			sumCosts(partitionItemCosts(items, catalogue?.data).remaining, {
+				includeSeasonalCurrency: false,
+			}),
 		);
 		content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
 

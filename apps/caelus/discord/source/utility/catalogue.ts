@@ -2,13 +2,10 @@ import type { APISelectMenuOption, Locale } from "@discordjs/core";
 import {
 	type CatalogueProgress,
 	type CostEntry,
-	type Emoji,
 	type Item,
 	type ItemCost,
 	resolveCurrencyEmoji,
 	SeasonId,
-	type SeasonIds,
-	sumCosts,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import {
@@ -23,35 +20,17 @@ export function catalogueComplete({ owned, total }: CatalogueProgress) {
 	return total > 0 && owned >= total;
 }
 
-export function remainingItemCosts(
-	items: Iterable<Item>,
-	data: ReadonlySet<number> = new Set(),
-): readonly ItemCost[] {
-	const costs = [];
+export function partitionItemCosts(items: Iterable<Item>, data: ReadonlySet<number> = new Set()) {
+	const obtained: ItemCost[] = [];
+	const remaining: ItemCost[] = [];
 
 	for (const { cosmetics, cost } of items) {
-		if (cost && cosmetics.some((cosmetic) => !data.has(cosmetic))) {
-			costs.push(cost);
+		if (cost) {
+			(cosmetics.every((cosmetic) => data.has(cosmetic)) ? obtained : remaining).push(cost);
 		}
 	}
 
-	return costs;
-}
-
-export function catalogueRemainingCosts(
-	items: Iterable<Item>,
-	data?: ReadonlySet<number>,
-	includeSeasonalCurrency = false,
-) {
-	return sumCosts(remainingItemCosts(items, data), { includeSeasonalCurrency });
-}
-
-function seasonalHeartEmoji(seasonId: SeasonIds): Emoji {
-	if (seasonId === SeasonId.Gratitude || seasonId === SeasonId.Lightseekers) {
-		return MISCELLANEOUS_EMOJIS.SeasonalHeart;
-	}
-
-	return SeasonIdToSeasonalHeartEmoji[seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalHeart;
+	return { obtained, remaining };
 }
 
 export function resolveCostToString(cost: readonly CostEntry[]) {
@@ -96,7 +75,11 @@ export function resolveCostToString(cost: readonly CostEntry[]) {
 			case "seasonalHearts":
 				totalCost.push(
 					resolveCurrencyEmoji({
-						emoji: seasonalHeartEmoji(entry.seasonId),
+						emoji:
+							entry.seasonId === SeasonId.Gratitude || entry.seasonId === SeasonId.Lightseekers
+								? MISCELLANEOUS_EMOJIS.SeasonalHeart
+								: (SeasonIdToSeasonalHeartEmoji[entry.seasonId] ??
+									MISCELLANEOUS_EMOJIS.SeasonalHeart),
 						number: entry.amount,
 					}),
 				);

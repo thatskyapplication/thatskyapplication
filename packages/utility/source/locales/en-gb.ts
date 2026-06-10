@@ -3062,6 +3062,9 @@ export default {
 			"nesting-workshop-title": "## Nesting Workshop\n\n-# Catalogue",
 			items: "Items",
 			"remaining-currency": "Remaining currency",
+			"total-spent": "Total spent",
+			"total-spent-subtext": "This reflects the _current_ prices of obtained cosmetics.",
+			"main-total-spent-nothing": "Nothing yet",
 		},
 		checklist: {
 			title: "Checklist",
