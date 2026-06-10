@@ -21,6 +21,7 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	type CataloguePacket,
 	CLOTHING_SHOP,
+	type CostEntry,
 	catalogueEventItems,
 	catalogueItems,
 	cataloguePercentage,
@@ -691,11 +692,39 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 	const { locale } = interaction;
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const spentCosts = sumCosts(partitionItemCosts(catalogueItems(), catalogue?.data).obtained);
-	const totalSpent = resolveCostToString(spentCosts, locale);
+	const standardEntries: CostEntry[] = [];
+	const seasonalCandleEntries: CostEntry[] = [];
+	const seasonalHeartEntries: CostEntry[] = [];
+	const eventTicketEntries: CostEntry[] = [];
+
+	for (const entry of spentCosts) {
+		switch (entry.type) {
+			case "seasonalCandles":
+				seasonalCandleEntries.push(entry);
+				break;
+			case "seasonalHearts":
+				seasonalHeartEntries.push(entry);
+				break;
+			case "eventTickets":
+				eventTicketEntries.push(entry);
+				break;
+			default:
+				standardEntries.push(entry);
+		}
+	}
+
+	const totalSpentLines = [
+		standardEntries,
+		seasonalCandleEntries,
+		seasonalHeartEntries,
+		eventTicketEntries,
+	]
+		.map((entries) => resolveCostToString(entries, locale).join(""))
+		.filter((line) => line.length > 0);
 
 	const content = `### ${t("catalogue.total-spent", { lng: locale, ns: "features" })}\n\n${
-		totalSpent.length > 0
-			? `${totalSpent.join("")}\n-# ${t("catalogue.total-spent-subtext", { lng: locale, ns: "features" })}`
+		totalSpentLines.length > 0
+			? `${totalSpentLines.join("\n")}\n-# ${t("catalogue.total-spent-subtext", { lng: locale, ns: "features" })}`
 			: t("catalogue.main-total-spent-nothing", { lng: locale, ns: "features" })
 	}`;
 
