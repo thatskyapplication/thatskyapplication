@@ -118,14 +118,14 @@ export async function ascendedCandles(
 						content: `${t("calculate.start", { lng: locale, ns: "features" })}${resolveCurrencyEmoji(
 							{
 								emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-								amount: start,
+								amount: start.toLocaleString(locale),
 							},
 						)}\n${t("calculate.goal", { lng: locale, ns: "features" })}${resolveCurrencyEmoji({
 							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-							amount: goal,
+							amount: goal.toLocaleString(locale),
 						})}\n${t("calculate.required", { lng: locale, ns: "features" })}${resolveCurrencyEmoji({
 							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-							amount: amountRequired,
+							amount: amountRequired.toLocaleString(locale),
 						})}`,
 					},
 					{
@@ -371,7 +371,7 @@ export async function seasonalCandles(
 	const textDisplayComponents: APITextDisplayComponent[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `${t("calculate.start", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: start })}\n${t("calculate.goal", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: goal })}\n${t("calculate.required", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: amountRequired })}`,
+			content: `${t("calculate.start", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: start.toLocaleString(locale) })}\n${t("calculate.goal", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: goal.toLocaleString(locale) })}\n${t("calculate.required", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: amountRequired.toLocaleString(locale) })}`,
 		},
 		{
 			type: ComponentType.TextDisplay,
@@ -384,11 +384,11 @@ export async function seasonalCandles(
 				ns: "features",
 				remaining: resolveCurrencyEmoji({
 					emoji,
-					amount: seasonalCandlesLeft,
+					amount: seasonalCandlesLeft.toLocaleString(locale),
 				}),
 				remainingSeasonPass: resolveCurrencyEmoji({
 					emoji,
-					amount: seasonalCandlesLeftWithSeasonPass,
+					amount: seasonalCandlesLeftWithSeasonPass.toLocaleString(locale),
 				}),
 			}),
 		},
@@ -465,14 +465,16 @@ export async function wingedLight(
 		description: `${t("calculate.winged-light.started-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-				amount: wingBuffs,
+				amount: wingBuffs.toLocaleString(locale),
 				includeSpaceInEmoji: true,
 			},
 		)}.\n${t("calculate.winged-light.reborn-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-				amount: (accumulation += TopLevelAreaToWingedLight[AreaName.ThePassage]),
+				amount: (accumulation += TopLevelAreaToWingedLight[AreaName.ThePassage]).toLocaleString(
+					locale,
+				),
 				includeSpaceInEmoji: true,
 			},
 		)} (+${TopLevelAreaToWingedLight[AreaName.ThePassage]}).`,
@@ -493,7 +495,7 @@ export async function wingedLight(
 		} (+${TopLevelAreaToWingedLight[area]})`,
 	}));
 
-	let totalText = `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, amount: accumulation, includeSpaceInEmoji: true })}`;
+	let totalText = `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, amount: accumulation.toLocaleString(locale), includeSpaceInEmoji: true })}`;
 	const wedge = WINGED_LIGHT_THRESHOLDS.findIndex((threshold) => accumulation < threshold);
 	const wedgeText = [];
 
