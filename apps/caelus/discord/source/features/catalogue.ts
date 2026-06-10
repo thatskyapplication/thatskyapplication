@@ -136,7 +136,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	}
 
 	const remainingCosts = partitionItemCosts(offer, data).remaining;
-	const resolvedRemainingCurrency = resolveCostToString(sumCosts(remainingCosts));
+	const resolvedRemainingCurrency = resolveCostToString(sumCosts(remainingCosts), locale);
 
 	if (resolvedRemainingCurrency.length > 0) {
 		offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
@@ -252,7 +252,7 @@ function offerData({
 	}
 
 	if (remainingCurrencies.length > 0) {
-		const totalRemainingCurrency = resolveCostToString(sumCosts(remainingCurrencies));
+		const totalRemainingCurrency = resolveCostToString(sumCosts(remainingCurrencies), locale);
 
 		if (totalRemainingCurrency.length > 0) {
 			remainingCurrency = `### ${t("catalogue.remaining-currency", { lng: locale, ns: "features" })}\n\n${totalRemainingCurrency.join("")}`;
@@ -691,7 +691,7 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 	const { locale } = interaction;
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const spentCosts = sumCosts(partitionItemCosts(catalogueItems(), catalogue?.data).obtained);
-	const totalSpent = resolveCostToString(spentCosts);
+	const totalSpent = resolveCostToString(spentCosts, locale);
 
 	const content = `### ${t("catalogue.total-spent", { lng: locale, ns: "features" })}\n\n${
 		totalSpent.length > 0
@@ -745,10 +745,16 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 	const standardCurrencyTable = markdownTable(
 		[t("currency", { lng: locale, ns: "general" }), t("cost", { lng: locale, ns: "general" })],
 		[
-			[t("money", { lng: locale, ns: "general" }), `$${money}`],
-			[t("candles", { lng: locale, ns: "general" }), String(candles)],
-			[t("hearts", { lng: locale, ns: "general" }), String(hearts)],
-			[t("ascended-candles", { lng: locale, ns: "general" }), String(ascendedCandles)],
+			[
+				t("money", { lng: locale, ns: "general" }),
+				`$${money.toLocaleString(locale, { minimumFractionDigits: 2 })}`,
+			],
+			[t("candles", { lng: locale, ns: "general" }), candles.toLocaleString(locale)],
+			[t("hearts", { lng: locale, ns: "general" }), hearts.toLocaleString(locale)],
+			[
+				t("ascended-candles", { lng: locale, ns: "general" }),
+				ascendedCandles.toLocaleString(locale),
+			],
 		],
 	);
 
@@ -762,8 +768,8 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 			.sort(([a], [b]) => a - b)
 			.map(([seasonId, season]) => [
 				t(`seasons.${seasonId}`, { lng: locale, ns: "general" }),
-				String(season.seasonalCandles),
-				String(season.seasonalHearts),
+				season.seasonalCandles.toLocaleString(locale),
+				season.seasonalHearts.toLocaleString(locale),
 			]),
 	);
 
@@ -777,7 +783,7 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 
 			return [
 				event ? t(event.name, { lng: locale, ns: "general" }) : String(eventId),
-				String(eventTickets),
+				eventTickets.toLocaleString(locale),
 			];
 		}),
 	);
@@ -1015,6 +1021,7 @@ export async function viewRealms(
 			sumCosts(partitionItemCosts(items, catalogue?.data).remaining, {
 				includeSeasonalCurrency: false,
 			}),
+			locale,
 		);
 		content += `\n\n${remainingCurrencyResult.length > 0 ? remainingCurrencyResult.join("") : formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`;
 

@@ -9670,14 +9670,14 @@ export function formatEmojiURL(id: Snowflake) {
 
 interface CurrencyEmojiOptions {
 	emoji: Emoji;
-	number: number;
+	amount: number | string;
 	includeSpaceInEmoji?: boolean;
 }
 
 export function resolveCurrencyEmoji({
 	emoji,
-	number,
+	amount,
 	includeSpaceInEmoji = false,
 }: CurrencyEmojiOptions) {
-	return `${number}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
+	return `${amount}${includeSpaceInEmoji ? " " : ""}${formatEmoji(emoji)}`;
 }

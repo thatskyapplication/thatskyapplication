@@ -183,10 +183,10 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 	const totalOffer = [];
 
 	if (isSeasonalSpirit) {
-		totalOffer.push(resolveCostToString(spirit.totalCostSeasonal).join(""));
+		totalOffer.push(resolveCostToString(spirit.totalCostSeasonal, locale).join(""));
 	}
 
-	const totalCostString = resolveCostToString(spirit.totalCost).join("");
+	const totalCostString = resolveCostToString(spirit.totalCost, locale).join("");
 
 	if (totalCostString.length > 0) {
 		totalOffer.push(totalCostString);

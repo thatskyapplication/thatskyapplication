@@ -43,32 +43,28 @@ export function partitionItemCosts(items: Iterable<Item>, data: ReadonlySet<numb
 	return { obtained, remaining };
 }
 
-export function resolveCostToString(cost: readonly CostEntry[]) {
+export function resolveCostToString(cost: readonly CostEntry[], locale: Locale) {
 	const totalCost = [];
 
 	for (const entry of cost) {
+		const number = entry.amount.toLocaleString(locale);
+
 		switch (entry.type) {
 			case "money":
-				totalCost.push(`$${entry.amount} `);
+				totalCost.push(`$${entry.amount.toLocaleString(locale, { minimumFractionDigits: 2 })} `);
+
 				break;
 			case "candles":
 				totalCost.push(
-					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, number: entry.amount }),
+					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Candle, amount: number }),
 				);
-
 				break;
 			case "hearts":
-				totalCost.push(
-					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: entry.amount }),
-				);
-
+				totalCost.push(resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, amount: number }));
 				break;
 			case "ascendedCandles":
 				totalCost.push(
-					resolveCurrencyEmoji({
-						emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-						number: entry.amount,
-					}),
+					resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, amount: number }),
 				);
 
 				break;
@@ -77,7 +73,7 @@ export function resolveCostToString(cost: readonly CostEntry[]) {
 					resolveCurrencyEmoji({
 						emoji:
 							SeasonIdToSeasonalCandleEmoji[entry.seasonId] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle,
-						number: entry.amount,
+						amount: number,
 					}),
 				);
 
@@ -90,7 +86,7 @@ export function resolveCostToString(cost: readonly CostEntry[]) {
 								? MISCELLANEOUS_EMOJIS.SeasonalHeart
 								: (SeasonIdToSeasonalHeartEmoji[entry.seasonId] ??
 									MISCELLANEOUS_EMOJIS.SeasonalHeart),
-						number: entry.amount,
+						amount: number,
 					}),
 				);
 
@@ -99,7 +95,7 @@ export function resolveCostToString(cost: readonly CostEntry[]) {
 				totalCost.push(
 					resolveCurrencyEmoji({
 						emoji: EventIdToEventTicketEmoji[entry.eventId] ?? MISCELLANEOUS_EMOJIS.EventTicket,
-						number: entry.amount,
+						amount: number,
 					}),
 				);
 

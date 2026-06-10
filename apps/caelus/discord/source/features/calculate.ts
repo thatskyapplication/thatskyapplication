@@ -118,14 +118,14 @@ export async function ascendedCandles(
 						content: `${t("calculate.start", { lng: locale, ns: "features" })}${resolveCurrencyEmoji(
 							{
 								emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-								number: start,
+								amount: start,
 							},
 						)}\n${t("calculate.goal", { lng: locale, ns: "features" })}${resolveCurrencyEmoji({
 							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-							number: goal,
+							amount: goal,
 						})}\n${t("calculate.required", { lng: locale, ns: "features" })}${resolveCurrencyEmoji({
 							emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
-							number: amountRequired,
+							amount: amountRequired,
 						})}`,
 					},
 					{
@@ -371,7 +371,7 @@ export async function seasonalCandles(
 	const textDisplayComponents: APITextDisplayComponent[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `${t("calculate.start", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, number: start })}\n${t("calculate.goal", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, number: goal })}\n${t("calculate.required", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, number: amountRequired })}`,
+			content: `${t("calculate.start", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: start })}\n${t("calculate.goal", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: goal })}\n${t("calculate.required", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji({ emoji, amount: amountRequired })}`,
 		},
 		{
 			type: ComponentType.TextDisplay,
@@ -384,11 +384,11 @@ export async function seasonalCandles(
 				ns: "features",
 				remaining: resolveCurrencyEmoji({
 					emoji,
-					number: seasonalCandlesLeft,
+					amount: seasonalCandlesLeft,
 				}),
 				remainingSeasonPass: resolveCurrencyEmoji({
 					emoji,
-					number: seasonalCandlesLeftWithSeasonPass,
+					amount: seasonalCandlesLeftWithSeasonPass,
 				}),
 			}),
 		},
@@ -465,14 +465,14 @@ export async function wingedLight(
 		description: `${t("calculate.winged-light.started-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-				number: wingBuffs,
+				amount: wingBuffs,
 				includeSpaceInEmoji: true,
 			},
 		)}.\n${t("calculate.winged-light.reborn-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
 				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-				number: (accumulation += TopLevelAreaToWingedLight[AreaName.ThePassage]),
+				amount: (accumulation += TopLevelAreaToWingedLight[AreaName.ThePassage]),
 				includeSpaceInEmoji: true,
 			},
 		)} (+${TopLevelAreaToWingedLight[AreaName.ThePassage]}).`,
@@ -493,7 +493,7 @@ export async function wingedLight(
 		} (+${TopLevelAreaToWingedLight[area]})`,
 	}));
 
-	let totalText = `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, number: accumulation, includeSpaceInEmoji: true })}`;
+	let totalText = `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, amount: accumulation, includeSpaceInEmoji: true })}`;
 	const wedge = WINGED_LIGHT_THRESHOLDS.findIndex((threshold) => accumulation < threshold);
 	const wedgeText = [];
 

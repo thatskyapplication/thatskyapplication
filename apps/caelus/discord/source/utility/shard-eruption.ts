@@ -28,7 +28,7 @@ export function shardEruptionInformationString(
 	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
 		reward === 200
 			? `200 ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`
-			: resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, number: reward })
+			: resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.AscendedCandle, amount: reward })
 	}`;
 }
 

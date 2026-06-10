@@ -1019,10 +1019,10 @@ async function distributionData(
 		const seasonalCandlesRemaining = t("daily-guides.seasonal-candles-remain-with-season-pass", {
 			lng: locale,
 			ns: "features",
-			remaining: resolveCurrencyEmoji({ emoji: candleEmoji, number: seasonalCandlesLeft }),
+			remaining: resolveCurrencyEmoji({ emoji: candleEmoji, amount: seasonalCandlesLeft }),
 			remainingSeasonPass: resolveCurrencyEmoji({
 				emoji: candleEmoji,
-				number: seasonalCandlesLeftWithSeasonPass,
+				amount: seasonalCandlesLeftWithSeasonPass,
 			}),
 		});
 

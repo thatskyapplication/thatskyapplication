@@ -2522,7 +2522,7 @@ async function skyProfileComponents(
 
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
-		content: `-# ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, number: hearts })}`,
+		content: `-# ${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.Heart, amount: hearts })}`,
 	});
 
 	components.push({
