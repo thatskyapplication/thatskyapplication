@@ -320,8 +320,6 @@ async function start({
 	const data = catalogue?.data;
 	const percentage = (items: readonly Item[]) =>
 		cataloguePercentage(catalogueProgress(items, data));
-	const allItems = catalogueItems();
-	const totalSpent = resolveCostToString(sumCosts(partitionItemCosts(allItems, data).obtained));
 	const standardProgress = percentage(catalogueSpiritItems(STANDARD_SPIRITS.values()));
 	const elderProgress = percentage(catalogueSpiritItems(ELDER_SPIRITS.values()));
 	const seasonalProgress = percentage(catalogueSeasonItems(skySeasons().values()));
@@ -428,163 +426,168 @@ async function start({
 		}
 	}
 
-	return [
+	const containerComponents: APIComponentInContainer[] = [
 		{
-			type: ComponentType.Container,
+			type: ComponentType.TextDisplay,
+			content: `## ${t("catalogue.main-title", { lng: locale, ns: "features" })}`,
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Secondary,
+				custom_id: CustomId.CatalogueSettings,
+				emoji: MISCELLANEOUS_EMOJIS.Settings,
+			},
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `## ${t("catalogue.main-title", { lng: locale, ns: "features" })}`,
-				},
-				{
-					type: ComponentType.Separator,
-					divider: true,
-					spacing: SeparatorSpacingSize.Small,
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Secondary,
-						custom_id: CustomId.CatalogueSettings,
-						emoji: MISCELLANEOUS_EMOJIS.Settings,
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: percentage(allItems) })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: CustomId.CatalogueViewRealms,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.standard-spirits", { lng: locale, ns: "features" })}\n\n${standardProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: standardProgress })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: CustomId.CatalogueViewElders,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.elders", { lng: locale, ns: "features" })}\n\n${elderProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: elderProgress })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: `${CustomId.CatalogueViewSeasons}§1`,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("season-plural", { lng: locale, ns: "general" })}\n\n${seasonalProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: seasonalProgress })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: `${CustomId.CatalogueViewEvents}§1`,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.events", { lng: locale, ns: "features" })}\n\n${eventProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: eventProgressResult })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: CustomId.CatalogueViewStarterPacks,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.starter-packs", { lng: locale, ns: "features" })}\n\n${starterPackProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: starterPackProgressResult })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: CustomId.CatalogueViewSecretArea,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.secret-area", { lng: locale, ns: "features" })}\n\n${secretAreaProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: secretAreaProgressResult })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: CustomId.CatalogueViewClothingShop,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.clothing-shop", { lng: locale, ns: "features" })}\n\n${clothingShopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: clothingShopProgressResult })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.Section,
-					accessory: {
-						type: ComponentType.Button,
-						style: ButtonStyle.Primary,
-						custom_id: CustomId.CatalogueViewNestingWorkshop,
-						label: t("view", { lng: locale, ns: "general" }),
-					},
-					components: [
-						{
-							type: ComponentType.TextDisplay,
-							content: `### ${t("catalogue.nesting-workshop", { lng: locale, ns: "features" })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
-						},
-					],
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.total-spent", { lng: locale, ns: "features" })}\n\n${
-						totalSpent.length > 0
-							? `${totalSpent.join("")}\n-# ${t("catalogue.total-spent-subtext", { lng: locale, ns: "features" })}`
-							: t("catalogue.main-total-spent-nothing", { lng: locale, ns: "features" })
-					}`,
+					content: `### ${t("catalogue.main-description", { lng: locale, ns: "features", progress: percentage(catalogueItems()) })}`,
 				},
 			],
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: CustomId.CatalogueViewRealms,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.standard-spirits", { lng: locale, ns: "features" })}\n\n${standardProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: standardProgress })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: CustomId.CatalogueViewElders,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.elders", { lng: locale, ns: "features" })}\n\n${elderProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: elderProgress })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: `${CustomId.CatalogueViewSeasons}§1`,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("season-plural", { lng: locale, ns: "general" })}\n\n${seasonalProgress === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: seasonalProgress })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: `${CustomId.CatalogueViewEvents}§1`,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.events", { lng: locale, ns: "features" })}\n\n${eventProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: eventProgressResult })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: CustomId.CatalogueViewStarterPacks,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.starter-packs", { lng: locale, ns: "features" })}\n\n${starterPackProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: starterPackProgressResult })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: CustomId.CatalogueViewSecretArea,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.secret-area", { lng: locale, ns: "features" })}\n\n${secretAreaProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: secretAreaProgressResult })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: CustomId.CatalogueViewClothingShop,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.clothing-shop", { lng: locale, ns: "features" })}\n\n${clothingShopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: clothingShopProgressResult })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Primary,
+				custom_id: CustomId.CatalogueViewNestingWorkshop,
+				label: t("view", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: `### ${t("catalogue.nesting-workshop", { lng: locale, ns: "features" })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
+				},
+			],
+		},
+		{
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.Button,
+					custom_id: CustomId.CatalogueViewTotalSpent,
+					label: t("catalogue.total-spent", { lng: locale, ns: "features" }),
+					style: ButtonStyle.Secondary,
+				},
+			],
+		},
+	];
+
+	return [
+		{
+			type: ComponentType.Container,
+			components: containerComponents,
 		},
 		{
 			type: ComponentType.Container,
@@ -666,6 +669,148 @@ export async function viewSettings(interaction: APIMessageComponentButtonInterac
 			},
 			traversalContainer({ locale, navigationBackCustomId: CustomId.CatalogueViewStart }),
 		],
+	});
+}
+
+function markdownTable(header: readonly string[], rows: readonly (readonly string[])[]) {
+	const widths = header.map((cell, index) =>
+		Math.max(3, cell.length, ...rows.map((row) => row[index]!.length)),
+	);
+
+	const renderRow = (row: readonly string[]) =>
+		`| ${row.map((cell, index) => cell.padEnd(widths[index]!)).join(" | ")} |`;
+
+	return [
+		renderRow(header),
+		`| ${widths.map((width) => "-".repeat(width)).join(" | ")} |`,
+		...rows.map((row) => renderRow(row)),
+	].join("\n");
+}
+
+export async function viewTotalSpent(interaction: APIMessageComponentButtonInteraction) {
+	const { locale } = interaction;
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
+	const spentCosts = sumCosts(partitionItemCosts(catalogueItems(), catalogue?.data).obtained);
+	const totalSpent = resolveCostToString(spentCosts);
+
+	const content = `### ${t("catalogue.total-spent", { lng: locale, ns: "features" })}\n\n${
+		totalSpent.length > 0
+			? `${totalSpent.join("")}\n-# ${t("catalogue.total-spent-subtext", { lng: locale, ns: "features" })}`
+			: t("catalogue.main-total-spent-nothing", { lng: locale, ns: "features" })
+	}`;
+
+	if (content.length <= MAXIMUM_TEXT_DISPLAY_LENGTH) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			components: [{ type: ComponentType.TextDisplay, content }],
+			flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+		});
+
+		return;
+	}
+
+	let money = 0;
+	let candles = 0;
+	let hearts = 0;
+	let ascendedCandles = 0;
+	const seasons = new Map<SeasonIds, { seasonalCandles: number; seasonalHearts: number }>();
+	const events: [EventIds, number][] = [];
+
+	for (const entry of spentCosts) {
+		switch (entry.type) {
+			case "money":
+				money = entry.amount;
+				break;
+			case "candles":
+				candles = entry.amount;
+				break;
+			case "hearts":
+				hearts = entry.amount;
+				break;
+			case "ascendedCandles":
+				ascendedCandles = entry.amount;
+				break;
+			case "seasonalCandles":
+			case "seasonalHearts": {
+				const season = seasons.get(entry.seasonId) ?? { seasonalCandles: 0, seasonalHearts: 0 };
+				season[entry.type] = entry.amount;
+				seasons.set(entry.seasonId, season);
+				break;
+			}
+			case "eventTickets":
+				events.push([entry.eventId, entry.amount]);
+				break;
+		}
+	}
+
+	const standardCurrencyTable = markdownTable(
+		[t("currency", { lng: locale, ns: "general" }), t("cost", { lng: locale, ns: "general" })],
+		[
+			[t("money", { lng: locale, ns: "general" }), `$${money}`],
+			[t("candles", { lng: locale, ns: "general" }), String(candles)],
+			[t("hearts", { lng: locale, ns: "general" }), String(hearts)],
+			[t("ascended-candles", { lng: locale, ns: "general" }), String(ascendedCandles)],
+		],
+	);
+
+	const seasonalCurrencyTable = markdownTable(
+		[
+			t("season", { lng: locale, ns: "general" }),
+			t("seasonal-candles", { lng: locale, ns: "general" }),
+			t("seasonal-hearts", { lng: locale, ns: "general" }),
+		],
+		[...seasons]
+			.sort(([a], [b]) => a - b)
+			.map(([seasonId, season]) => [
+				t(`seasons.${seasonId}`, { lng: locale, ns: "general" }),
+				String(season.seasonalCandles),
+				String(season.seasonalHearts),
+			]),
+	);
+
+	const eventsTable = markdownTable(
+		[
+			t("event", { lng: locale, ns: "general" }),
+			t("event-tickets", { lng: locale, ns: "general" }),
+		],
+		events.map(([eventId, eventTickets]) => {
+			const event = skyEvents().get(eventId);
+
+			return [
+				event ? t(event.name, { lng: locale, ns: "general" }) : String(eventId),
+				String(eventTickets),
+			];
+		}),
+	);
+
+	await client.api.interactions.reply(interaction.id, interaction.token, {
+		files: [
+			{
+				data: [
+					`# ${t("catalogue.total-spent-file-title", { lng: locale, ns: "features" })}`,
+					"",
+					t("catalogue.total-spent-file-description", { lng: locale, ns: "features" }),
+					"",
+					`## ${t("catalogue.total-spent-file-standard-currency", { lng: locale, ns: "features" })}`,
+					"",
+					standardCurrencyTable,
+					"",
+					`## ${t("catalogue.total-spent-file-seasonal-currency", { lng: locale, ns: "features" })}`,
+					"",
+					seasonalCurrencyTable,
+					"",
+					`## ${t("catalogue.events", { lng: locale, ns: "features" })}`,
+					"",
+					eventsTable,
+					"",
+					`## ${t("note", { lng: locale, ns: "general" })}`,
+					"",
+					t("catalogue.total-spent-subtext", { lng: locale, ns: "features" }),
+					"",
+				].join("\n"),
+				name: "total-spent.md",
+			},
+		],
+		flags: MessageFlags.Ephemeral,
 	});
 }
 
@@ -2592,6 +2737,7 @@ interface CatalogueUpdateOptions {
 }
 
 type CatalogueUpdatePayload = Partial<Pick<CataloguePacket, "data" | "show_everything_button">>;
+
 type CatalogueUpdateMergeFields = (keyof CatalogueUpdatePayload | "last_updated_at")[];
 
 async function update(
