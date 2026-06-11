@@ -47,7 +47,7 @@ export async function postTriggersCommentDelete(req: Request) {
 	let footer = `Karma: ${author.karma.toLocaleString()} | Reports: ${comment.numReports.toLocaleString()}`;
 
 	if (deletedAt) {
-		footer = `Deleted: <t:${Math.floor(new Date(deletedAt).getTime() / 1000)}:R> | ${footer}`;
+		footer = `<t:${Math.floor(new Date(deletedAt).getTime() / 1000)}:R> | ${footer}`;
 	}
 
 	await Promise.all([
