@@ -17,7 +17,7 @@ export default function Index() {
 			</header>
 			<div className="flex flex-wrap justify-center gap-6 max-w-6xl w-full">
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%_-_1rem)] md:w-[calc(33.333%_-_1rem)] lg:w-[calc(33.333%_-_1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 					to="/caelus"
 				>
 					<SiDiscord className="h-8 w-8 mb-4" />
@@ -28,7 +28,7 @@ export default function Index() {
 					</p>
 				</Link>
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%_-_1rem)] md:w-[calc(33.333%_-_1rem)] lg:w-[calc(33.333%_-_1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 					to="/daily-guides"
 				>
 					<Clock className="h-8 w-8 mb-4" />
@@ -39,7 +39,7 @@ export default function Index() {
 					</p>
 				</Link>
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%_-_1rem)] md:w-[calc(33.333%_-_1rem)] lg:w-[calc(33.333%_-_1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 					to="/shard-eruption"
 				>
 					<div
@@ -56,7 +56,7 @@ export default function Index() {
 					</p>
 				</Link>
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%_-_1rem)] md:w-[calc(33.333%_-_1rem)] lg:w-[calc(33.333%_-_1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 					to="/sky-profiles"
 				>
 					<UsersIcon className="h-8 w-8 mb-4" />
@@ -67,7 +67,7 @@ export default function Index() {
 					</p>
 				</Link>
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%_-_1rem)] md:w-[calc(33.333%_-_1rem)] lg:w-[calc(33.333%_-_1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 					to="/schedule"
 				>
 					<AlarmClock className="h-8 w-8 mb-4" />
@@ -77,7 +77,7 @@ export default function Index() {
 					</p>
 				</Link>
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(33.333%-1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%_-_1rem)] md:w-[calc(33.333%_-_1rem)] lg:w-[calc(33.333%_-_1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
 					to="/thatskylink"
 				>
 					<LinkIcon className="h-8 w-8 mb-4" />

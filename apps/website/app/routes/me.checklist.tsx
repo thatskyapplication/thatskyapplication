@@ -202,7 +202,7 @@ export default function Checklist() {
 
 				<TimeTopBar localTime={localTime} skyTime={skyTime} />
 
-				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%-0.5rem)] md:[&>*:last-child]:w-full">
+				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%_-_0.5rem)] md:[&>*:last-child]:w-full">
 					<div>
 						<Form className="flex h-full w-full" method="post">
 							<input name="daily_quests" type="hidden" value={Number(dailyQuestsComplete)} />

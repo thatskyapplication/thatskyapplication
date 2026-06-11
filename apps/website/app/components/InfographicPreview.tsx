@@ -166,7 +166,7 @@ export function InfographicPreview({
 					{...getFloatingProps()}
 					aria-label={title}
 					aria-modal="true"
-					className="relative z-10 flex h-[calc(100vh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:h-[calc(100vh-3rem)]"
+					className="relative z-10 flex h-[calc(100vh_-_2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:h-[calc(100vh_-_3rem)]"
 					ref={refs.setFloating}
 					role="dialog"
 				>
@@ -189,7 +189,7 @@ export function InfographicPreview({
 	return (
 		<aside
 			aria-label={title}
-			className="sticky top-[calc(var(--site-top-bar-height,0px)+1rem)] hidden max-h-[calc(100vh-var(--site-top-bar-height,0px)-2rem)] w-[min(42vw,40rem)] shrink-0 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-900 lg:flex"
+			className="sticky top-[calc(var(--site-top-bar-height,0px)_+_1rem)] hidden max-h-[calc(100vh_-_var(--site-top-bar-height,0px)_-_2rem)] w-[min(42vw,40rem)] shrink-0 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-900 lg:flex"
 		>
 			<InfographicPreviewContent
 				acknowledgement={acknowledgement}
