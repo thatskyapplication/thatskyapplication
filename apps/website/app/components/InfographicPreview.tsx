@@ -57,10 +57,10 @@ function InfographicPreviewContent({
 					<X className="h-4 w-4" />
 				</button>
 			</div>
-			<div className="flex min-h-0 flex-1 items-start justify-center">
+			<div className="flex min-h-0 flex-1 flex-col items-center">
 				<img
 					alt="Infographic"
-					className="block max-h-full max-w-full rounded-lg object-contain shadow-lg"
+					className="block min-h-0 max-w-full rounded-lg object-contain shadow-lg"
 					src={imageURL}
 				/>
 			</div>
