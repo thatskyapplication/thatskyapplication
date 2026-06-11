@@ -595,6 +595,7 @@ const SEASON_EMOJIS_PRODUCTION = {
 	Carnival: { id: "1494462027731566792", name: "carnival" },
 	CarnivalCandle: { id: "1494462023965085846", name: "carnival_candle" },
 	CarnivalHeart: { id: "1494462025814773831", name: "carnival_heart" },
+	DearVanGogh: { id: "1514530654384164884", name: "dear_van_gogh" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -683,6 +684,7 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	Carnival: { id: "1494462037798027284", name: "carnival" },
 	CarnivalCandle: { id: "1494462033830346852", name: "carnival_candle" },
 	CarnivalHeart: { id: "1494462035998539816", name: "carnival_heart" },
+	DearVanGogh: { id: "1514530747052982352", name: "dear_van_gogh" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -9434,7 +9436,7 @@ export function emojiConstants(production: boolean): {
 		[SeasonId.Migration]: SEASON_EMOJIS.Migration,
 		[SeasonId.Lightmending]: SEASON_EMOJIS.Lightmending,
 		[SeasonId.Carnival]: SEASON_EMOJIS.Carnival,
-		[SeasonId.DearVanGogh]: null,
+		[SeasonId.DearVanGogh]: SEASON_EMOJIS.DearVanGogh,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalCandleEmoji = {
