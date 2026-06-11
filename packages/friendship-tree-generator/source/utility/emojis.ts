@@ -1,12 +1,9 @@
 import { emojiConstants } from "@thatskyapplication/utility";
 
 export const {
-	CosmeticToEmoji,
-	DyeTypeToEmoji,
-	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
+	CosmeticToEmoji,
 	SeasonIdToSeasonalEmoji,
-	SkyProfilePersonalityToEmoji,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalHeartEmoji,
 } = emojiConstants(true);

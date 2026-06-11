@@ -6,7 +6,7 @@ import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./models/spirits.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
-import { friendshipTreeToItems, type Item } from "./utility/spirits.js";
+import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
 export interface CataloguePacket {
 	user_id: string;
@@ -194,6 +194,33 @@ export function cataloguePercentage({ owned, total }: CatalogueProgress) {
 	}
 
 	return Math.min(99, Math.max(1, Math.round((owned / total) * 100)));
+}
+
+export function catalogueComplete({ owned, total }: CatalogueProgress) {
+	return total > 0 && owned >= total;
+}
+
+export function partitionItemCosts(items: Iterable<Item>, data: ReadonlySet<number> = new Set()) {
+	const obtained: ItemCost[] = [];
+	const remaining: ItemCost[] = [];
+	const seen = new Set<string>();
+
+	for (const { cosmetics, cost } of items) {
+		if (!cost) {
+			continue;
+		}
+
+		const key = cosmetics.toSorted((a, b) => a - b).join(",");
+
+		if (seen.has(key)) {
+			continue;
+		}
+
+		seen.add(key);
+		(cosmetics.every((cosmetic) => data.has(cosmetic)) ? obtained : remaining).push(cost);
+	}
+
+	return { obtained, remaining };
 }
 
 export function catalogueSpiritItems(spirits: Iterable<CatalogueSpirit>): readonly Item[] {

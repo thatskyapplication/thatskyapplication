@@ -1,9 +1,7 @@
 import type { APISelectMenuOption, Locale } from "@discordjs/core";
 import {
-	type CatalogueProgress,
 	type CostEntry,
 	type Item,
-	type ItemCost,
 	resolveCurrencyEmoji,
 	SeasonId,
 } from "@thatskyapplication/utility";
@@ -15,33 +13,6 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalHeartEmoji,
 } from "./emojis.js";
-
-export function catalogueComplete({ owned, total }: CatalogueProgress) {
-	return total > 0 && owned >= total;
-}
-
-export function partitionItemCosts(items: Iterable<Item>, data: ReadonlySet<number> = new Set()) {
-	const obtained: ItemCost[] = [];
-	const remaining: ItemCost[] = [];
-	const seen = new Set<string>();
-
-	for (const { cosmetics, cost } of items) {
-		if (!cost) {
-			continue;
-		}
-
-		const key = cosmetics.toSorted((a, b) => a - b).join(",");
-
-		if (seen.has(key)) {
-			continue;
-		}
-
-		seen.add(key);
-		(cosmetics.every((cosmetic) => data.has(cosmetic)) ? obtained : remaining).push(cost);
-	}
-
-	return { obtained, remaining };
-}
 
 export function resolveCostToString(cost: readonly CostEntry[], locale: Locale) {
 	const totalCost = [];

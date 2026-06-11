@@ -1,5 +1,5 @@
 import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
-import { CheckSquare, Ellipsis, Heart, Users } from "lucide-react";
+import { BookOpenCheck, CheckSquare, Ellipsis, Heart, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import { Link, useLoaderData } from "react-router";
@@ -65,6 +65,18 @@ export default function Me() {
 						</div>
 						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
 							{t("heart.history-title", { ns: "features" })}
+						</h2>
+					</Link>
+
+					<Link
+						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-4 flex items-center gap-4 w-full sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+						to="/me/catalogue"
+					>
+						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
+							<BookOpenCheck className="h-5 w-5" />
+						</div>
+						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							{t("catalogue.main-title", { ns: "features" })}
 						</h2>
 					</Link>
 

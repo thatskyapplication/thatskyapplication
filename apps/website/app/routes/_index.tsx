@@ -1,5 +1,5 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
-import { AlarmClock, Clock, LinkIcon, UsersIcon } from "lucide-react";
+import { AlarmClock, BookOpenCheck, Clock, UsersIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { discordEmojiURL } from "~/utility/cdn";
@@ -78,13 +78,12 @@ export default function Index() {
 				</Link>
 				<Link
 					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-6 flex flex-col justify-between w-full sm:w-[calc(50%_-_1rem)] md:w-[calc(33.333%_-_1rem)] lg:w-[calc(33.333%_-_1rem)] items-center text-center sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
-					to="/thatskylink"
+					to="/me/catalogue"
 				>
-					<LinkIcon className="h-8 w-8 mb-4" />
-					<h2 className="font-medium text-lg">thatskylink</h2>
+					<BookOpenCheck className="h-8 w-8 mb-4" />
+					<h2 className="font-medium text-lg">{t("catalogue.main-title", { ns: "features" })}</h2>
 					<p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-						Making long links short and memorable. This is also a good place to find various links
-						for the community.
+						{t("catalogue.description", { ns: "features" })}
 					</p>
 				</Link>
 			</div>
