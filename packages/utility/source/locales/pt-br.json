@@ -5,15 +5,33 @@
 		"show": "Mostrar",
 		"hide": "Ocultar",
 		"infographic": "Infográfico",
-		"infographic-by": "",
+		"infographic-by": "Infográfico por {{acknowledgement}}.",
 		"daily-quests": "Missões diárias",
+		"note": "Nota",
+		"currency": "Moeda",
+		"cost": "Custo",
+		"money": "Dinheiro",
+		"candles": "Velas",
+		"hearts": "Corações",
+		"ascended-candles": "Velas ascendidas",
+		"seasonal-candles": "Velas de temporada",
+		"seasonal-hearts": "Corações sazonais",
 		"days-left": {
 			"season_zero": "A temporada termina hoje.",
 			"season_one": "{{count}} dia restante na temporada.",
 			"season_other": "{{count}} dias restantes na temporada.",
 			"event_zero": "{{name}} termina hoje.",
 			"event_one": "{{count}} dia restante em {{name}}.",
-			"event_other": "{{count}} dias restantes em {{name}}."
+			"event_other": "{{count}} dias restantes em {{name}}.",
+			"double-hearts_zero": "Corações em dobro termina hoje.",
+			"double-hearts_one": "Falta {{count}} dia para o fim dos corações em dobro.",
+			"double-hearts_other": "Faltam {{count}} dias para o fim dos corações em dobro.",
+			"double-seasonal-light_zero": "As luzes sazonais em dobro terminam amanhã.",
+			"double-seasonal-light_one": "Falta {{count}} dia para o fim das velas sazonais em dobro.",
+			"double-seasonal-light_other": "Faltam {{count}} dias para o fim das velas sazonais em dobro.",
+			"double-treasure-candles_zero": "As velas do tesouro em dobro terminam hoje.",
+			"double-treasure-candles_one": "Falta {{count}} dia para o fim das velas do tesouro em dobro.",
+			"double-treasure-candles_other": "Faltam {{count}} dias para o fim das velas do tesouro em dobro."
 		},
 		"error-timed-out": "O tempo limite expirou.",
 		"event-tickets": "Tíquetes de Evento",
@@ -106,7 +124,10 @@
 			"15": "$t(general:maintenance)",
 			"16": "$t(general:events)",
 			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)"
+			"18": "$t(general:season-plural)",
+			"19": "$t(general:event-names.double-hearts)",
+			"20": "Velas sazonais em dobro",
+			"21": "$t(general:event-names.double-treasure-candles)"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -458,7 +479,8 @@
 			"25": "Temporada das Duas Fagulhas - Parte 1",
 			"26": "Temporada da Migração",
 			"27": "Temporada da Restauração da Luz",
-			"28": "Temporada do Circo"
+			"28": "Temporada do Circo",
+			"29": "Querido Van Gogh"
 		},
 		"season-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Gratid%C3%A3o",
@@ -489,13 +511,17 @@
 			"25": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_das_Duas_Fagulhas_-_Parte_1",
 			"26": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Migração",
 			"27": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_da_Restauração_da_Luz",
-			"28": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_do_Circo"
+			"28": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_do_Circo",
+			"29": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Querido_Van_Gogh"
 		},
 		"event": "Evento",
 		"events": "Eventos",
 		"event-names": {
+			"double-seasonal-light": "Velas sazonais em dobro",
+			"double-treasure-candles": "Velas do tesouro em dobro",
 			"halloween-office-event": "Evento de Halloween do Escritório",
 			"days-of-giving": "Dias de Presentear",
+			"double-hearts": "Corações em dobro",
 			"days-of-feast": "Dias de Festa",
 			"lunar-new-year": "Ano Novo Lunar",
 			"days-of-love": "Dias de Amor",
@@ -622,7 +648,8 @@
 			"87": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_do_Florescer",
 			"88": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_da_Natureza",
 			"89": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Tesouros/2026",
-			"90": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Cores/2026"
+			"90": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Cores/2026",
+			"91": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -836,7 +863,8 @@
 			"204": "Dançarino Atlético Circense",
 			"205": "Malabarista Circense",
 			"206": "Diretora do Enigma Circense",
-			"207": "Acrobata Circense"
+			"207": "Acrobata Circense",
+			"208": ""
 		},
 		"spirit-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Candeeiro_Denotante",
@@ -1046,7 +1074,8 @@
 			"204": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dançarino_Atlético_Circense",
 			"205": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Malabarista_Circense",
 			"206": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Diretora_do_Enigma_Circense",
-			"207": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acrobata_Circense"
+			"207": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acrobata_Circense",
+			"208": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
@@ -2635,7 +2664,14 @@
 			"clothing-shop-title": "## Loja de roupas\n\n-# Catálogo",
 			"nesting-workshop-title": "## Oficina do Ninho\n\n-# Catálogo",
 			"items": "Itens",
-			"remaining-currency": "Moedas restantes"
+			"remaining-currency": "Moedas restantes",
+			"total-spent": "Total gasto",
+			"total-spent-subtext": "Isso mostra os_preços_atuais dos cosméticos obtidos.",
+			"main-total-spent-nothing": "Nada por enquanto",
+			"total-spent-file-title": "Custo total",
+			"total-spent-file-description": "O custo total foi grande demais para ser exibido no Discord, então foi preciso gerar um arquivo.",
+			"total-spent-file-standard-currency": "Moeda padrão",
+			"total-spent-file-seasonal-currency": "Moeda sazonal"
 		},
 		"checklist": {
 			"title": "Checklist",
@@ -2680,9 +2716,15 @@
 			"shard-eruption-timestamps": "Marcação de data/hora",
 			"shard-eruption-none": "Nada",
 			"travelling-rock": "Pedra viajante",
-			"infographic-acknowledgement-item": "",
+			"infographic-acknowledgement-item": "Infográfico {{infographic}} por {{acknowledgement}}",
 			"season-upcoming_one": "A nova temporada inicia amanhã.",
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
+			"double-hearts-upcoming_one": "Os corações em dobro começarão amanhã.",
+			"double-hearts-upcoming_other": "Os corações em dobro começam em {{count}} dias.",
+			"double-seasonal-light-upcoming_one": "As luzes sazonais em dobro começarão amanhã.",
+			"double-seasonal-light-upcoming_other": "As luzes sazonais em dobro começam em {{count}} dias.",
+			"double-treasure-candles-upcoming_one": "As velas do tesouro em dobro começarão amanhã.",
+			"double-treasure-candles-upcoming_other": "As velas do tesouro em dobro começam em {{count}} dias.",
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
 			"event-upcoming-time": "{{event}} começa às {{time}}.",
@@ -2882,6 +2924,18 @@
 				"18": {
 					"message-now": "Um novo capítulo começa. {{season}} está aqui!",
 					"message-future": "{{season}} está chegando em Sky {{timestamp}}!"
+				},
+				"19": {
+					"message-now": "{{heart}} Os corações em dobro começaram! Compartilhe o amor! {{heart}}",
+					"message-future": "“{{heart}} Corações em dobro começarão em {{timestamp}}! Está quase na hora de compartilhar o amor! {{heart}}”"
+				},
+				"20": {
+					"message-now": "{{seasonalCandle}} A luz sazonal em dobro começou! Colete os agrupamentos extras de velas sazonais! {{seasonalCandle}}",
+					"message-future": "{{seasonalCandle}} A luz sazonal em dobro começará em {{timestamp}}! Agrupamentos extras de velas sazonais estão chegando! {{seasonalCandle}}"
+				},
+				"21": {
+					"message-now": "As velas do tesouro estão reluzindo intensamente! Agora há mais delas nos reinos!",
+					"message-future": "As velas do tesouro passarão a brilhar mais intensamente {{timestamp}}!"
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",

@@ -7,13 +7,31 @@
 		"infographic": "インフォグラフィック",
 		"infographic-by": "",
 		"daily-quests": "デイリークエスト",
+		"note": "",
+		"currency": "",
+		"cost": "",
+		"money": "",
+		"candles": "",
+		"hearts": "",
+		"ascended-candles": "",
+		"seasonal-candles": "",
+		"seasonal-hearts": "",
 		"days-left": {
 			"season_zero": "このシーズンは本日で終了します。",
 			"season_one": "シーズン終了まであと{{count}} 日。",
 			"season_other": "シーズン終了まであと{{count}} 日。",
 			"event_zero": "{{name}} は本日で終了します。",
 			"event_one": "{{name}}終了まであと{{count}}日。",
-			"event_other": "{{name}}終了まであと{{count}}日。"
+			"event_other": "{{name}}終了まであと{{count}}日。",
+			"double-hearts_zero": "",
+			"double-hearts_one": "",
+			"double-hearts_other": "",
+			"double-seasonal-light_zero": "",
+			"double-seasonal-light_one": "",
+			"double-seasonal-light_other": "",
+			"double-treasure-candles_zero": "",
+			"double-treasure-candles_one": "",
+			"double-treasure-candles_other": ""
 		},
 		"error-timed-out": "",
 		"event-tickets": "イベントチケット",
@@ -106,7 +124,10 @@
 			"15": "$t(general:maintenance)",
 			"16": "$t(general:events)",
 			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)"
+			"18": "$t(general:season-plural)",
+			"19": "",
+			"20": "",
+			"21": ""
 		},
 		"page": "ページ",
 		"quests-common": {
@@ -458,7 +479,8 @@
 			"25": "ふたつの灯火の季節 −前篇−",
 			"26": "渡りの季節",
 			"27": "光の修繕者の季節",
-			"28": "カーニバルの季節"
+			"28": "カーニバルの季節",
+			"29": ""
 		},
 		"season-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%84%9F%E8%AC%9D%E3%81%AE%E5%AD%A3%E7%AF%80",
@@ -489,13 +511,17 @@
 			"25": "https://sky-children-of-the-light.fandom.com/ja/wiki/ふたつの灯火の季節_−前篇−",
 			"26": "https://sky-children-of-the-light.fandom.com/ja/wiki/渡りの季節",
 			"27": "https://sky-children-of-the-light.fandom.com/ja/wiki/光の修繕者の季節",
-			"28": ""
+			"28": "",
+			"29": ""
 		},
 		"event": "",
 		"events": "イベント",
 		"event-names": {
+			"double-seasonal-light": "",
+			"double-treasure-candles": "",
 			"halloween-office-event": "",
 			"days-of-giving": "感謝の日々",
+			"double-hearts": "",
 			"days-of-feast": "聖なる星の日々",
 			"lunar-new-year": "春節（旧正月）のお祝い",
 			"days-of-love": "愛しみの日々",
@@ -622,7 +648,8 @@
 			"87": "",
 			"88": "",
 			"89": "",
-			"90": ""
+			"90": "",
+			"91": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "カタログから推測する",
@@ -836,7 +863,8 @@
 			"204": "カーニバルの旋舞家",
 			"205": "カーニバルの曲芸師",
 			"206": "カーニバルの謎解き座長",
-			"207": "カーニバルの旅役者"
+			"207": "カーニバルの旅役者",
+			"208": ""
 		},
 		"spirit-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%8C%87%E5%B7%AE%E3%81%99%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%89%E3%83%AB%E8%81%B7%E4%BA%BA",
@@ -1046,7 +1074,8 @@
 			"204": "",
 			"205": "",
 			"206": "",
-			"207": ""
+			"207": "",
+			"208": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -2635,7 +2664,14 @@
 			"clothing-shop-title": "",
 			"nesting-workshop-title": "",
 			"items": "",
-			"remaining-currency": ""
+			"remaining-currency": "",
+			"total-spent": "",
+			"total-spent-subtext": "",
+			"main-total-spent-nothing": "",
+			"total-spent-file-title": "",
+			"total-spent-file-description": "",
+			"total-spent-file-standard-currency": "",
+			"total-spent-file-seasonal-currency": ""
 		},
 		"checklist": {
 			"title": "チェックリスト",
@@ -2683,6 +2719,12 @@
 			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
+			"double-hearts-upcoming_one": "",
+			"double-hearts-upcoming_other": "",
+			"double-seasonal-light-upcoming_one": "",
+			"double-seasonal-light-upcoming_other": "",
+			"double-treasure-candles-upcoming_one": "",
+			"double-treasure-candles-upcoming_other": "",
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
 			"event-upcoming-time": "",
@@ -2870,6 +2912,18 @@
 					"message-future": ""
 				},
 				"18": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"19": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"20": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"21": {
 					"message-now": "",
 					"message-future": ""
 				}

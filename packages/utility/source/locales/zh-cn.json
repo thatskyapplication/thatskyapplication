@@ -7,13 +7,31 @@
 		"infographic": "信息图表",
 		"infographic-by": "",
 		"daily-quests": "每日任务",
+		"note": "",
+		"currency": "",
+		"cost": "",
+		"money": "",
+		"candles": "",
+		"hearts": "",
+		"ascended-candles": "",
+		"seasonal-candles": "",
+		"seasonal-hearts": "",
 		"days-left": {
 			"season_zero": "此季今天结束。",
 			"season_one": "本季节还有{{count}}天结束。",
 			"season_other": "本季节还有{{count}}天结束。",
 			"event_zero": "{{name}}今天结束。",
 			"event_one": "{{name}}还剩{{count}}天。",
-			"event_other": "{{name}}还剩{{count}}天。"
+			"event_other": "{{name}}还剩{{count}}天。",
+			"double-hearts_zero": "",
+			"double-hearts_one": "",
+			"double-hearts_other": "",
+			"double-seasonal-light_zero": "",
+			"double-seasonal-light_one": "",
+			"double-seasonal-light_other": "",
+			"double-treasure-candles_zero": "",
+			"double-treasure-candles_one": "",
+			"double-treasure-candles_other": ""
 		},
 		"error-timed-out": "",
 		"event-tickets": "活动代币",
@@ -106,7 +124,10 @@
 			"15": "$t(general:maintenance)",
 			"16": "$t(general:events)",
 			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)"
+			"18": "$t(general:season-plural)",
+			"19": "",
+			"20": "",
+			"21": ""
 		},
 		"page": "页",
 		"quests-common": {
@@ -458,7 +479,8 @@
 			"25": "双星季：暮星篇",
 			"26": "迁徙季",
 			"27": "织光季",
-			"28": "狂欢季"
+			"28": "狂欢季",
+			"29": ""
 		},
 		"season-wiki": {
 			"0": "",
@@ -489,13 +511,17 @@
 			"25": "",
 			"26": "",
 			"27": "",
-			"28": ""
+			"28": "",
+			"29": ""
 		},
 		"event": "",
 		"events": "",
 		"event-names": {
+			"double-seasonal-light": "",
+			"double-treasure-candles": "",
 			"halloween-office-event": "",
 			"days-of-giving": "感恩节",
+			"double-hearts": "",
 			"days-of-feast": "盛宴节",
 			"lunar-new-year": "",
 			"days-of-love": "爱之庆典",
@@ -622,7 +648,8 @@
 			"87": "",
 			"88": "",
 			"89": "",
-			"90": ""
+			"90": "",
+			"91": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -836,7 +863,8 @@
 			"204": "狂欢竞技舞者",
 			"205": "狂欢杂耍演员",
 			"206": "狂欢谜题导演",
-			"207": "狂欢特技演员"
+			"207": "狂欢特技演员",
+			"208": ""
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1046,7 +1074,8 @@
 			"204": "",
 			"205": "",
 			"206": "",
-			"207": ""
+			"207": "",
+			"208": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -2635,7 +2664,14 @@
 			"clothing-shop-title": "",
 			"nesting-workshop-title": "",
 			"items": "",
-			"remaining-currency": ""
+			"remaining-currency": "",
+			"total-spent": "",
+			"total-spent-subtext": "",
+			"main-total-spent-nothing": "",
+			"total-spent-file-title": "",
+			"total-spent-file-description": "",
+			"total-spent-file-standard-currency": "",
+			"total-spent-file-seasonal-currency": ""
 		},
 		"checklist": {
 			"title": "",
@@ -2683,6 +2719,12 @@
 			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
+			"double-hearts-upcoming_one": "",
+			"double-hearts-upcoming_other": "",
+			"double-seasonal-light-upcoming_one": "",
+			"double-seasonal-light-upcoming_other": "",
+			"double-treasure-candles-upcoming_one": "",
+			"double-treasure-candles-upcoming_other": "",
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
 			"event-upcoming-time": "",
@@ -2870,6 +2912,18 @@
 					"message-future": ""
 				},
 				"18": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"19": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"20": {
+					"message-now": "",
+					"message-future": ""
+				},
+				"21": {
 					"message-now": "",
 					"message-future": ""
 				}
