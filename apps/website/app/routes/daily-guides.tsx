@@ -25,7 +25,7 @@ import { AlertTriangle, ArrowRight, ExternalLinkIcon } from "lucide-react";
 import { DateTime } from "luxon";
 import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { LoaderFunctionArgs, MetaFunction } from "react-router";
+import type { HeadersArgs, LoaderFunctionArgs, MetaFunction } from "react-router";
 import { data, Link, useLoaderData } from "react-router";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
@@ -133,9 +133,13 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
 					}
 				: shard,
 		},
-		{ headers: { "Cache-Control": `public, max-age=${cacheMaxAge}, s-maxage=${cacheMaxAge}` } },
+		{ headers: { "Cache-Control": `private, max-age=${cacheMaxAge}` } },
 	);
 };
+
+export function headers({ loaderHeaders }: HeadersArgs) {
+	return loaderHeaders;
+}
 
 export default function DailyGuides() {
 	const { initialTimestamp, locale, timeZone, dailyGuides, todayString, shard } =

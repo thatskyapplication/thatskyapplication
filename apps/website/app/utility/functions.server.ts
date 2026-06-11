@@ -10,10 +10,6 @@ export function generateState() {
 	return randomBytes(16).toString("hex");
 }
 
-export function hasAnyHeaders(headers: Headers) {
-	return [...headers].length > 0;
-}
-
 export function resolveReturnTo(returnTo: string | null | undefined, origin: string) {
 	let returnToURL: URL;
 

@@ -1,6 +1,6 @@
 import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
-import { data, Link, type MetaFunction, useLoaderData } from "react-router";
+import { data, type HeadersArgs, Link, type MetaFunction, useLoaderData } from "react-router";
 import { AcknowledgementSocialLinks } from "~/components/AcknowledgementSocialLinks";
 import { SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
@@ -67,6 +67,10 @@ export const loader = async () => {
 		headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" },
 	});
 };
+
+export function headers({ loaderHeaders }: HeadersArgs) {
+	return loaderHeaders;
+}
 
 export default function Acknowledgements() {
 	const cdnURL = useCDNURL();

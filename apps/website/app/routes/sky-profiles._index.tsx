@@ -13,11 +13,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { LoaderFunctionArgs } from "react-router";
 import {
-	data,
 	Link,
 	type MetaFunction,
 	useLoaderData,
 	useLocation,
+	useRouteLoaderData,
 	useSearchParams,
 } from "react-router";
 import { SitePage } from "~/components/PageLayout";
@@ -25,7 +25,7 @@ import Pagination from "~/components/Pagination";
 import Select from "~/components/Select";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
-import { getSession } from "~/session.server";
+import type { loader as rootLoader } from "~/root";
 import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
@@ -63,9 +63,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
 	];
 };
 
-export const loader = async ({ request, url }: LoaderFunctionArgs) => {
-	const session = await getSession(request.headers.get("Cookie"));
-	const discordUser = session.get("discord_user") ?? null;
+export const loader = async ({ url }: LoaderFunctionArgs) => {
 	const name = url.searchParams.get("name");
 	const country = url.searchParams.get("country");
 	const page = Math.max(1, Number(url.searchParams.get("page")) || 1);
@@ -111,25 +109,18 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 		const offset = (page - 1) * PROFILES_PER_PAGE;
 		const profiles = await profilesQuery.limit(PROFILES_PER_PAGE).offset(offset);
 
-		return data(
-			{
-				profiles,
-				name,
-				country,
-				countries,
-				currentPage: page,
-				maximumPage,
-				totalCount,
-				discordUser,
-			},
-			{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
-		);
+		return {
+			profiles,
+			name,
+			country,
+			countries,
+			currentPage: page,
+			maximumPage,
+			totalCount,
+		};
 	}
 
-	return data(
-		{ profiles: [], countries, currentPage: 1, maximumPage: 1, totalCount: 0, discordUser },
-		{ headers: { "Cache-Control": "public, max-age=1800, s-maxage=1800" } },
-	);
+	return { profiles: [], countries, currentPage: 1, maximumPage: 1, totalCount: 0 };
 };
 
 interface SkyProfileCardProps {
@@ -230,10 +221,11 @@ function SkyProfileCard({ profile, returnTo }: SkyProfileCardProps) {
 export default function SkyProfiles() {
 	const cdnURL = useCDNURL();
 	const data = useLoaderData<typeof loader>();
+	const discordUser = useRouteLoaderData<typeof rootLoader>("root")?.user ?? null;
 	const location = useLocation();
 	const { t } = useTranslation();
 	const locale = useTranslation().i18n.language;
-	const { profiles, currentPage, maximumPage, discordUser } = data;
+	const { profiles, currentPage, maximumPage } = data;
 	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
 
 	const countries = data.countries.sort((a, b) =>

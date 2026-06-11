@@ -1,9 +1,9 @@
 import { DiscordAPIError } from "@discordjs/rest";
-import type { HeadersArgs, LoaderFunctionArgs } from "react-router";
+import type { LoaderFunctionArgs } from "react-router";
 import { redirect, useLoaderData } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { guildIconURL } from "~/utility/functions.js";
-import { hasAnyHeaders, requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
 
 export const loader = async ({ request, url }: LoaderFunctionArgs) => {
@@ -21,10 +21,6 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 		throw error;
 	}
 };
-
-export function headers({ actionHeaders, loaderHeaders }: HeadersArgs) {
-	return hasAnyHeaders(actionHeaders) ? actionHeaders : loaderHeaders;
-}
 
 export default function Dashboard() {
 	const guilds = useLoaderData<typeof loader>();
