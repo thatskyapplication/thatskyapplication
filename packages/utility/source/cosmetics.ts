@@ -3606,6 +3606,9 @@ export enum Cosmetic {
 	RainbowBeret = 2848,
 	RainbowTiedJumpsuit = 2849,
 	RainbowMask = 2850,
+
+	// 12/06/2026 | Season of Carnival Quest 5.
+	CarnivalGuideQuest5 = 2851,
 }
 
 export enum CosmeticCommon {

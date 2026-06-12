@@ -7,7 +7,6 @@ export default new GuideSpirit({
 	id: SpiritId.CarnivalGuide,
 	seasonId: SeasonId.Carnival,
 	offer: {
-		inProgress: true,
 		current: [
 			[
 				{
@@ -83,7 +82,10 @@ export default new GuideSpirit({
 				},
 			],
 			[
-				null,
+				{
+					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
+					cosmetic: Cosmetic.CarnivalGuideQuest5,
+				},
 				{
 					translation: { key: CosmeticCommon.PropMultiple, number: 5 },
 					cosmetic: Cosmetic.CarnivalGuideProp5,
