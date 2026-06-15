@@ -51,7 +51,8 @@ const RETURNING_DATES = new Collection<number, ReturningDatesData>()
 	.set(9, { start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) })
 	.set(10, { start: skyDate(2_025, 8, 18), end: skyDate(2_025, 9, 1) })
 	.set(11, { start: skyDate(2_025, 11, 17), end: skyDate(2_025, 12, 1) })
-	.set(12, { start: skyDate(2026, 2, 27), end: skyDate(2026, 3, 13) });
+	.set(12, { start: skyDate(2026, 2, 27), end: skyDate(2026, 3, 13) })
+	.set(13, { start: skyDate(2026, 6, 19), end: skyDate(2026, 7, 3) });
 
 export type LegacyFriendshipTreeRaw = readonly (
 	| readonly [ItemRawWithoutChildren]
