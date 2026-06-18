@@ -9405,6 +9405,8 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.RainbowTiedJumpsuit]: OUTFIT_EMOJIS.Outfit110,
 		[Cosmetic.RainbowMask]: MASK_EMOJIS.Mask113,
 		[Cosmetic.CarnivalGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
+		[Cosmetic.FriendActionPlayFight3]: FRIEND_ACTION_EMOJIS.PlayFight,
+		[Cosmetic.FriendActionPlayFight4]: FRIEND_ACTION_EMOJIS.PlayFight,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

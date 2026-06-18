@@ -3609,6 +3609,10 @@ export enum Cosmetic {
 
 	// 12/06/2026 | Season of Carnival Quest 5.
 	CarnivalGuideQuest5 = 2851,
+
+	// 18/06/2026 | Travelling Spirit #169.
+	FriendActionPlayFight3 = 2852,
+	FriendActionPlayFight4 = 2853,
 }
 
 export enum CosmeticCommon {

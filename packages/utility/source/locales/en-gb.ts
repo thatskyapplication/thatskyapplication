@@ -2681,6 +2681,8 @@ export default {
 			[Cosmetic.RainbowBeret]: "Rainbow Beret",
 			[Cosmetic.RainbowTiedJumpsuit]: "Rainbow Tied Jumpsuit",
 			[Cosmetic.RainbowMask]: "Rainbow Mask",
+			[Cosmetic.FriendActionPlayFight3]: "Play fight 3",
+			[Cosmetic.FriendActionPlayFight4]: "Play fight 4",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
