@@ -583,19 +583,6 @@ export async function dailyGuidesSetupType(
 		throw new Error("Received an unknown distribution type whilst setting up daily guides.");
 	}
 
-	if (type === DailyGuidesDistributionType.Media) {
-		try {
-			await client.api.guilds.getMember(SUPPORT_SERVER_GUILD_ID, interaction.member.user.id);
-		} catch {
-			await client.api.interactions.reply(interaction.id, interaction.token, {
-				content: `You are not in the experiment for media-style daily guides.\n\nYou can join the [support server](${SUPPORT_SERVER_INVITE_URL}) for more information.`,
-				flags: MessageFlags.Ephemeral,
-			});
-
-			return;
-		}
-	}
-
 	await setup({ guildId: interaction.guild_id, type: type ?? DailyGuidesDistributionType.Compact });
 
 	await client.api.interactions.updateMessage(
