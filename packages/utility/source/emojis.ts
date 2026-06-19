@@ -9407,6 +9407,10 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.CarnivalGuideQuest5]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.FriendActionPlayFight3]: FRIEND_ACTION_EMOJIS.PlayFight,
 		[Cosmetic.FriendActionPlayFight4]: FRIEND_ACTION_EMOJIS.PlayFight,
+		[Cosmetic.VestigeOfADesertedOasisWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.MemoryOfALostVillageWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.EchoOfAnAbandonedRefugeWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.RemnantOfAForgottenHavenWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

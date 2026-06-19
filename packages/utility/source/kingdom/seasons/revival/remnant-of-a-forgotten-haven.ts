@@ -7,7 +7,6 @@ export default new SeasonalSpirit({
 	id: SpiritId.RemnantOfAForgottenHaven,
 	seasonId: SeasonId.Revival,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{
@@ -51,6 +50,45 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Shoes,
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenShoes,
+					cost: { candles: 29 },
+				},
+				{
+					translation: CosmeticCommon.SeasonalHeart,
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenCape,
+					cost: { candles: 63 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.RemnantOfAForgottenHavenHairAccessory,
+					cost: { candles: 47 },
 				},
 			],
 		],

@@ -7,7 +7,6 @@ export default new SeasonalSpirit({
 	id: SpiritId.EchoOfAnAbandonedRefuge,
 	seasonId: SeasonId.Revival,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{
@@ -62,6 +61,56 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Shoes,
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeShoes,
+					cost: { candles: 31 },
+				},
+				{
+					translation: CosmeticCommon.SeasonalHeart,
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeMusicSheet,
+					cost: { candles: 15 },
+				},
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeCape,
+					cost: { candles: 68 },
+				},
+				{
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeHairAccessory,
+					cost: { candles: 43 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.EchoOfAnAbandonedRefugeBlessing2,
+					cost: { candles: 5 },
 				},
 			],
 		],

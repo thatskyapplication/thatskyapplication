@@ -7,7 +7,6 @@ export default new SeasonalSpirit({
 	id: SpiritId.MemoryOfALostVillage,
 	seasonId: SeasonId.Revival,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{
@@ -51,6 +50,45 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.MemoryOfALostVillageSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.MemoryOfALostVillageBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.MemoryOfALostVillageHair,
+					cost: { candles: 42 },
+				},
+				{
+					translation: CosmeticCommon.SeasonalHeart,
+					cosmetic: Cosmetic.MemoryOfALostVillageSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.MemoryOfALostVillageWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+				{
+					translation: CosmeticCommon.Outfit,
+					cosmetic: Cosmetic.MemoryOfALostVillageOutfit,
+					cost: { candles: 63 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.MemoryOfALostVillageCape,
+					cost: { candles: 77 },
 				},
 			],
 		],

@@ -7,7 +7,6 @@ export default new SeasonalSpirit({
 	id: SpiritId.VestigeOfADesertedOasis,
 	seasonId: SeasonId.Revival,
 	offer: {
-		hasInfographic: false,
 		seasonal: [
 			[
 				{
@@ -51,6 +50,45 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.VestigeOfADesertedOasisSeasonalHeart,
 					cost: { seasonalCandles: 3 },
 					seasonPass: true,
+				},
+			],
+		],
+		current: [
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.VestigeOfADesertedOasisBlessing1,
+					cost: { candles: 5 },
+				},
+				{
+					translation: CosmeticCommon.Hair,
+					cosmetic: Cosmetic.VestigeOfADesertedOasisHair,
+					cost: { candles: 40 },
+				},
+				{
+					translation: CosmeticCommon.SeasonalHeart,
+					cosmetic: Cosmetic.VestigeOfADesertedOasisSeasonalHeart,
+					cost: { candles: 3 },
+					regularHeart: true,
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.WingBuff,
+					cosmetic: Cosmetic.VestigeOfADesertedOasisWingBuff,
+					cost: { ascendedCandles: 2 },
+				},
+				{
+					translation: CosmeticCommon.Shoes,
+					cosmetic: Cosmetic.VestigeOfADesertedOasisShoes,
+					cost: { candles: 22 },
+				},
+			],
+			[
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.VestigeOfADesertedOasisCape,
+					cost: { candles: 61 },
 				},
 			],
 		],
