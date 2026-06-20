@@ -68,23 +68,6 @@ export default new GuideSpirit({
 					translation: { key: CosmeticCommon.QuestMultiple, number: 4 },
 					cosmetic: Cosmetic.DuetsGuideQuest4,
 				},
-				{
-					cosmetic: Cosmetic.DuetsGuideDuetBow2,
-					cost: { hearts: 8 },
-					level: 2,
-					children: [
-						{
-							cosmetic: Cosmetic.DuetsGuideDuetBow3,
-							cost: { hearts: 4 },
-							level: 3,
-						},
-						{
-							cosmetic: Cosmetic.DuetsGuideDuetBow4,
-							cost: { hearts: 8 },
-							level: 4,
-						},
-					],
-				},
 			],
 			[
 				{
