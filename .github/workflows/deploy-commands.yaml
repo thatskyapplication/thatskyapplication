@@ -7,6 +7,7 @@ jobs:
   deploy:
     name: Deploy commands
     runs-on: ubuntu-latest
+    environment: Production
     steps:
       - uses: actions/checkout@v6
 
