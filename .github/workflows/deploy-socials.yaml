@@ -15,7 +15,6 @@ jobs:
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest
-    environment: Production
     steps:
       - uses: actions/checkout@v6
 
