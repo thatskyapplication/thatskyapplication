@@ -29,6 +29,7 @@ export {
 	type CataloguePacket,
 	type CatalogueProgress,
 	CLOTHING_SHOP,
+	catalogueComplete,
 	catalogueEventItems,
 	catalogueItems,
 	cataloguePercentage,
@@ -36,6 +37,7 @@ export {
 	catalogueSeasonItems,
 	catalogueSpiritItems,
 	NESTING_WORKSHOP,
+	partitionItemCosts,
 	SECRET_AREA,
 	STARTER_PACKS,
 } from "./catalogue.js";
@@ -80,6 +82,26 @@ export {
 	type FriendshipActionTypes,
 	isFriendshipActionType,
 } from "./friendship-actions.js";
+export {
+	ASSET_SIZE,
+	ASSET_TEXT_DOUBLE_OFFSET,
+	ASSET_TEXT_SINGLE_OFFSET,
+	ASSET_TEXT_TRIPLE_OFFSET,
+	BACKGROUND_PADDING,
+	FONT_SIZE,
+	FRIENDSHIP_TREE_WIDTH,
+	type FriendshipTreeLayout,
+	type FriendshipTreeLine,
+	type FriendshipTreeNodeCost,
+	HEIGHT_START_OFFSET,
+	IMAGE_SIZE,
+	LINE_COLOUR,
+	LINE_WIDTH,
+	legacyFriendshipTreeLayout,
+	modernFriendshipTreeLayout,
+	type PlacedFriendshipTreeNode,
+	TEXT_COLOUR,
+} from "./friendship-tree.js";
 export {
 	GUESS_TYPE_VALUES,
 	type GuessPacket,
@@ -224,11 +246,13 @@ export {
 	sumCosts,
 } from "./utility/functions.js";
 export {
+	type FriendshipTree,
 	friendshipTreeToItems,
 	type Item,
 	type ItemCost,
 	isSpiritId,
 	isSpiritsHistoryOrderType,
+	type LegacyFriendshipTree,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	SpiritId,
 	type SpiritIds,

@@ -1,6 +1,7 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import {
 	AlarmClock,
+	BookOpenCheck,
 	Bot,
 	CheckSquare,
 	Clock,
@@ -59,6 +60,12 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					label: t("schedule.name", { ns: "features" }),
 					icon: <AlarmClock className="h-5 w-5" />,
 					description: t("schedule.description-short", { ns: "features" }),
+				},
+				{
+					to: "/me/catalogue",
+					label: t("catalogue.main-title", { ns: "features" }),
+					icon: <BookOpenCheck className="h-5 w-5" />,
+					description: t("catalogue.description-short", { ns: "features" }),
 				},
 				{
 					to: "/me/checklist",

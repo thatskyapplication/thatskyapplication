@@ -14,6 +14,7 @@ import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import {
+	BookOpenCheck,
 	Bot,
 	CheckSquare,
 	ChevronDown,
@@ -129,6 +130,13 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 									to={`/sky-profiles/${user.id}`}
 								>
 									{t("sky-profile.name", { ns: "features" })}
+								</DesktopUserContextMenuItem>
+								<DesktopUserContextMenuItem
+									icon={BookOpenCheck}
+									onClick={() => setIsOpen(false)}
+									to="/me/catalogue"
+								>
+									{t("catalogue.main-title", { ns: "features" })}
 								</DesktopUserContextMenuItem>
 								<DesktopUserContextMenuItem
 									icon={CheckSquare}
@@ -310,6 +318,13 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 									to={`/sky-profiles/${user.id}`}
 								>
 									{t("sky-profile.name", { ns: "features" })}
+								</MobileUserContextMenuItem>
+								<MobileUserContextMenuItem
+									icon={BookOpenCheck}
+									onClick={onClose}
+									to="/me/catalogue"
+								>
+									{t("catalogue.main-title", { ns: "features" })}
 								</MobileUserContextMenuItem>
 								<MobileUserContextMenuItem icon={CheckSquare} onClick={onClose} to="/me/checklist">
 									{t("checklist.title", { ns: "features" })}

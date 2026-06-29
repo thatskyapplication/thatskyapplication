@@ -3016,6 +3016,8 @@ export default {
 		},
 		catalogue: {
 			"main-title": "Catalogue",
+			description: "Keep a catalogue and track all of your Sky cosmetics.",
+			"description-short": "Keep track of your Sky cosmetics.",
 			"main-description":
 				"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal progress: {{progress}}%",
 			"standard-spirits": "Standard spirits",
