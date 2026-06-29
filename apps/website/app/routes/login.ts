@@ -1,11 +1,12 @@
-import { type LoaderFunctionArgs, redirect } from "react-router";
+import { redirect } from "react-router";
 import { APPLICATION_ID, DISCORD_CLIENT_SECRET, REDIRECT_URI_LOGIN } from "~/config.server";
 import discord from "~/discord";
 import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
 import { generateState, resolveReturnTo } from "~/utility/functions.server";
+import type { Route } from "./+types/login.js";
 
-export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const code = url.searchParams.get("code");
 	const state = url.searchParams.get("state");
 	const error = url.searchParams.get("error");

@@ -1,13 +1,13 @@
 import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
 import { BookOpenCheck, CheckSquare, Ellipsis, Heart, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { LoaderFunctionArgs } from "react-router";
-import { Link, useLoaderData } from "react-router";
+import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import type { Route } from "./+types/me._index.js";
 
-export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 
 	const skyProfile = await pg<SkyProfilePacket>(Table.Profiles)
@@ -18,8 +18,8 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	return { discordUser, skyProfile };
 };
 
-export default function Me() {
-	const { discordUser, skyProfile } = useLoaderData<typeof loader>();
+export default function Me({ loaderData }: Route.ComponentProps) {
+	const { discordUser, skyProfile } = loaderData;
 	const { t } = useTranslation();
 	const displayName = skyProfile?.name ?? discordUser.username;
 

@@ -32,8 +32,7 @@ import {
 import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
 import { DateTime } from "luxon";
 import { useTranslation } from "react-i18next";
-import type { LoaderFunctionArgs, MetaFunction } from "react-router";
-import { Link, useLoaderData } from "react-router";
+import { Link } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
@@ -42,8 +41,9 @@ import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cd
 import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import type { Route } from "./+types/schedule.js";
 
-export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
+export const meta: Route.MetaFunction = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
@@ -514,7 +514,7 @@ function projectorOfMemoriesOverview(
 	};
 }
 
-export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	return {
 		initialTimestamp: Date.now(),
 		locale: getLocale(context),
@@ -545,8 +545,8 @@ const enum DisplayCardType {
 	Maintenance = 3,
 }
 
-export default function Schedule() {
-	const { initialTimestamp, locale, timeZone } = useLoaderData<typeof loader>();
+export default function Schedule({ loaderData }: Route.ComponentProps) {
+	const { initialTimestamp, locale, timeZone } = loaderData;
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 

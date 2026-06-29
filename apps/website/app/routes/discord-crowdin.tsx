@@ -1,7 +1,6 @@
 import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { data, Form, redirect, useLoaderData } from "react-router";
+import { data, Form, redirect } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
 import {
 	CROWDIN_CLIENT_ID,
@@ -17,6 +16,7 @@ import { commitSession, getSession } from "~/session.server";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 import { generateState, requireDiscordAuthentication } from "~/utility/functions.server";
 import type { CrowdinUser } from "~/utility/types.js";
+import type { Route } from "./+types/discord-crowdin.js";
 
 interface AuthState {
 	crowdinUser: CrowdinUser | undefined;
@@ -65,7 +65,7 @@ interface CrowdinWords {
 
 type StringsAndWords = CrowdinStrings & CrowdinWords;
 
-export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
 	const crowdinCode = url.searchParams.get("code");
 	const state = url.searchParams.get("state");
@@ -209,7 +209,7 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
 };
 
-export const action = async ({ request, url }: ActionFunctionArgs) => {
+export const action = async ({ request, url }: Route.ActionArgs) => {
 	const formData = await request.formData();
 	const action = formData.get("action");
 	const session = await getSession(request.headers.get("Cookie"));
@@ -235,8 +235,8 @@ export const action = async ({ request, url }: ActionFunctionArgs) => {
 	return null;
 };
 
-export default function CrowdinDiscord() {
-	const { crowdinUser, error, success } = useLoaderData<typeof loader>();
+export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
+	const { crowdinUser, error, success } = loaderData;
 
 	return (
 		<CentredSitePage>

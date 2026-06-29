@@ -13,8 +13,7 @@ import {
 import { clsx } from "clsx";
 import { ArrowLeft, CheckCircle, Circle } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { Form, Link, useLoaderData } from "react-router";
+import { Form, Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
@@ -22,6 +21,7 @@ import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import type { Route } from "./+types/me.checklist.js";
 
 const CHECKLIST_CARD_BASE_CLASS =
 	"flex h-full w-full items-center gap-3 rounded-lg border p-3.5 transition-all duration-200" as const;
@@ -69,7 +69,7 @@ async function checklistRefresh(checklistPacket: ChecklistPacket) {
 	return updatedChecklistPacket!;
 }
 
-export const loader = async ({ request, context, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
 	const { discordUser } = await requireDiscordAuthentication(request, url);
@@ -108,7 +108,7 @@ export const loader = async ({ request, context, url }: LoaderFunctionArgs) => {
 	};
 };
 
-export const action = async ({ request, url }: ActionFunctionArgs) => {
+export const action = async ({ request, url }: Route.ActionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const formData = await request.formData();
 	const dailyQuests = formData.get("daily_quests");
@@ -142,7 +142,7 @@ export const action = async ({ request, url }: ActionFunctionArgs) => {
 	return;
 };
 
-export default function Checklist() {
+export default function Checklist({ loaderData }: Route.ComponentProps) {
 	const {
 		checklistPacket,
 		discordUser,
@@ -153,7 +153,7 @@ export default function Checklist() {
 		timeZone,
 		isAnyEventWithEventTickets,
 		isDoubleSeasonalLight,
-	} = useLoaderData<typeof loader>();
+	} = loaderData;
 
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);

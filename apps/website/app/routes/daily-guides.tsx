@@ -25,8 +25,8 @@ import { AlertTriangle, ArrowRight, ExternalLinkIcon } from "lucide-react";
 import { DateTime } from "luxon";
 import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { HeadersArgs, LoaderFunctionArgs, MetaFunction } from "react-router";
-import { data, Link, useLoaderData } from "react-router";
+import type { HeadersArgs } from "react-router";
+import { data, Link } from "react-router";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
@@ -43,6 +43,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import type { Route } from "./+types/daily-guides.js";
 
 interface DaysCountItem extends DailyGuidesDaysCountItem {
 	key: string;
@@ -61,7 +62,7 @@ function dailyGuidesCacheMaxAge(timestamp: number) {
 	return Math.max(0, Math.min(300, secondsUntilDailyReset));
 }
 
-export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
+export const meta: Route.MetaFunction = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
@@ -89,7 +90,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
 	];
 };
 
-export const loader = async ({ request, context }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const dailyGuides = await pg<DailyGuidesPacket>(Table.DailyGuides);
 	const timeZone = await getPreferredTimeZone(request);
@@ -141,9 +142,8 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 	return loaderHeaders;
 }
 
-export default function DailyGuides() {
-	const { initialTimestamp, locale, timeZone, dailyGuides, todayString, shard } =
-		useLoaderData<typeof loader>();
+export default function DailyGuides({ loaderData }: Route.ComponentProps) {
+	const { initialTimestamp, locale, timeZone, dailyGuides, todayString, shard } = loaderData;
 
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const cdnURL = useCDNURL();

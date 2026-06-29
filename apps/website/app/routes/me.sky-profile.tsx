@@ -20,8 +20,7 @@ import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
 import type { SyntheticEvent } from "react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { data, Form, Link, useActionData, useLoaderData, useNavigation } from "react-router";
+import { data, Form, Link, useNavigation } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
 import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
@@ -37,6 +36,7 @@ import { discordEmojiURL } from "~/utility/cdn.js";
 import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
+import type { Route } from "./+types/me.sky-profile.js";
 
 const TEXT_FIELD_CLASS = clsx(
 	"w-full",
@@ -89,7 +89,7 @@ const SELECTABLE_OPTION_CARD_CLASS = clsx(
 	"dark:peer-disabled:bg-gray-900",
 );
 
-export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const skyProfilePacket = await getSkyProfilePacket(discordUser.id);
 
@@ -99,7 +99,7 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	};
 };
 
-export const action = async ({ request, context, url }: ActionFunctionArgs) => {
+export const action = async ({ request, context, url }: Route.ActionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const locale = getLocale(context);
 	const parsed = parseSkyProfileMultipart(await request.formData(), locale);
@@ -121,9 +121,8 @@ export const action = async ({ request, context, url }: ActionFunctionArgs) => {
 	return result.changed ? ({ ok: true } as const) : null;
 };
 
-export default function MeSkyProfile() {
-	const { discordUserId, profile: initialProfile } = useLoaderData<typeof loader>();
-	const actionData = useActionData<typeof action>();
+export default function MeSkyProfile({ loaderData, actionData }: Route.ComponentProps) {
+	const { discordUserId, profile: initialProfile } = loaderData;
 	const navigation = useNavigation();
 	const { i18n, t } = useTranslation();
 	const cdnURL = useCDNURL();

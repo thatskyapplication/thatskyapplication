@@ -13,8 +13,7 @@ import {
 import { clsx } from "clsx";
 import { ArrowLeft, Check, ExternalLinkIcon, Upload } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { data, Form, Link, useActionData, useNavigation } from "react-router";
+import { data, Form, Link, useNavigation } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
 import { CDN_BUCKET, CDN_URL, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
@@ -23,6 +22,7 @@ import pg from "~/pg.server.js";
 import pino from "~/pino.js";
 import S3Client from "~/s3-client.server.js";
 import { requireAdminAccess } from "~/utility/functions.server.js";
+import type { Route } from "./+types/admin.friendship-actions.js";
 
 const MAXIMUM_FRIENDSHIP_ACTIONS_ASSET_BYTES_SIZE = 5_000_000 as const;
 const MAXIMUM_FRIENDSHIP_ACTIONS_DIMENSION_SIZE = 512 as const;
@@ -148,12 +148,12 @@ async function validateAsset(file: File) {
 	return { buffer, square: width === height } as const;
 }
 
-export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const { discordUser } = await requireAdminAccess(request, url);
 	return { discordUser };
 };
 
-export const action = async ({ request, url }: ActionFunctionArgs) => {
+export const action = async ({ request, url }: Route.ActionArgs) => {
 	await requireAdminAccess(request, url);
 	const formData = await request.formData();
 	const rawType = formData.get("type");
@@ -303,8 +303,7 @@ export const action = async ({ request, url }: ActionFunctionArgs) => {
 	}
 };
 
-export default function AdminFriendshipActions() {
-	const actionData = useActionData<typeof action>();
+export default function AdminFriendshipActions({ actionData }: Route.ComponentProps) {
 	const navigation = useNavigation();
 	const formRef = useRef<HTMLFormElement>(null);
 	const assetInputRef = useRef<HTMLInputElement>(null);

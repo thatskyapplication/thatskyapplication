@@ -34,15 +34,7 @@ import {
 } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { LoaderFunctionArgs } from "react-router";
-import {
-	isRouteErrorResponse,
-	Link,
-	type MetaFunction,
-	useLoaderData,
-	useLocation,
-	useRouteError,
-} from "react-router";
+import { isRouteErrorResponse, Link, useLocation } from "react-router";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
@@ -62,6 +54,7 @@ import {
 	SkyProfilePersonalityToEmoji,
 } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
+import type { Route } from "./+types/sky-profiles.$userId.js";
 
 const BADGES_CLASS_NAME =
 	"inline-flex items-center gap-2 px-3 py-1 bg-linear-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border border-purple-200 dark:border-purple-700 rounded-full text-sm font-medium text-purple-800 dark:text-purple-200 shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 dark:focus-visible:outline-purple-300" as const;
@@ -73,9 +66,7 @@ interface RecognitionBadgeData {
 	label: string;
 }
 
-export function ErrorBoundary() {
-	const error = useRouteError();
-
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 	if (isRouteErrorResponse(error) && error.status === 404) {
 		return (
 			<CentredSitePage>
@@ -124,7 +115,7 @@ export function ErrorBoundary() {
 	throw error;
 }
 
-export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) => {
+export const meta: Route.MetaFunction = ({ data, location, matches }) => {
 	const { data: skyProfileData } = data ?? {};
 	const cdn = new CDN(getCDNURLFromMatches(matches));
 	const url = String(new URL(location.pathname, WEBSITE_URL));
@@ -169,7 +160,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location, matches }) =
 	];
 };
 
-export const loader = async ({ params, request }: LoaderFunctionArgs) => {
+export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	const { userId } = params;
 
 	if (!userId) {
@@ -314,9 +305,8 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 	) : null;
 }
 
-export default function SkyProfile() {
-	const { catalogueProgression, data, guessRank, isOwner, maximumWingedLight } =
-		useLoaderData<typeof loader>();
+export default function SkyProfile({ loaderData }: Route.ComponentProps) {
+	const { catalogueProgression, data, guessRank, isOwner, maximumWingedLight } = loaderData;
 	const cdnURL = useCDNURL();
 	const cdn = new CDN(cdnURL);
 	const location = useLocation();

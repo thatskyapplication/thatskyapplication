@@ -10,8 +10,7 @@ import {
 } from "@thatskyapplication/utility";
 import { ArrowLeft, HandHeart, HeartPlus } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { LoaderFunctionArgs } from "react-router";
-import { Link, useLoaderData } from "react-router";
+import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
 import { Tooltip } from "~/components/Tooltip";
@@ -20,6 +19,7 @@ import { discordEmojiURL } from "~/utility/cdn.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
+import type { Route } from "./+types/me.heart-history.js";
 
 const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 30 as const;
 
@@ -37,7 +37,7 @@ function parsePage(url: URL) {
 	return Number.isSafeInteger(page) && page > 0 ? page : 1;
 }
 
-export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const userId = discordUser.id;
 	const requestedPage = parsePage(url);
@@ -159,7 +159,7 @@ function NoProfileUserId({ userId }: { userId: Snowflake }) {
 	);
 }
 
-export default function HeartHistory() {
+export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 	const {
 		currentPage,
 		doubleHearts,
@@ -170,7 +170,7 @@ export default function HeartHistory() {
 		remainingToday,
 		timeZone,
 		userId,
-	} = useLoaderData<typeof loader>();
+	} = loaderData;
 	const { i18n, t } = useTranslation();
 	const heartEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id);
 

@@ -2,8 +2,10 @@ type RootLoaderDataWithCDNURL = {
 	cdnURL: string;
 };
 
-export function getCDNURLFromMatches(matches: readonly { data?: unknown; id: string }[]) {
-	const rootData = matches.find((match) => match.id === "root")?.data as
+export function getCDNURLFromMatches(
+	matches: readonly ({ data?: unknown; id: string } | undefined)[],
+) {
+	const rootData = matches.find((match) => match?.id === "root")?.data as
 		| RootLoaderDataWithCDNURL
 		| undefined;
 

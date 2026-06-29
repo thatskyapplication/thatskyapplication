@@ -2,10 +2,10 @@ import { SiDiscord, SiDiscordHex, SiGithub, SiGithubHex } from "@icons-pack/reac
 import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { ExternalLinkIcon, Heart } from "lucide-react";
-import type { MetaFunction } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, DISCORD_DONATION_URL } from "~/utility/constants";
+import type { Route } from "./+types/donate.js";
 
 interface DonationMethod {
 	alignClassName: string;
@@ -41,7 +41,7 @@ const DONATE_TITLE = "Donate" as const;
 const DONATE_DESCRIPTION =
 	"Keep thatskyapplication afloat! Donate to keep things running smoothly. 🩵" as const;
 
-export const meta: MetaFunction = ({ location, matches }) => {
+export const meta: Route.MetaFunction = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 

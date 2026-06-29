@@ -7,8 +7,6 @@ import {
 import { clsx } from "clsx";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { LoaderFunctionArgs } from "react-router";
-import { type MetaFunction, useLoaderData } from "react-router";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
@@ -24,6 +22,7 @@ import {
 } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import type { Route } from "./+types/shard-eruption.js";
 
 type ShardEruptionCardProps = {
 	shard:
@@ -39,7 +38,7 @@ type ShardEruptionCardProps = {
 	onPreview: (imageURL: string, acknowledgement: string | null) => void;
 };
 
-export const meta: MetaFunction<typeof loader> = ({ location }) => {
+export const meta = ({ location }: Route.MetaArgs) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
 	return [
@@ -66,7 +65,7 @@ export const meta: MetaFunction<typeof loader> = ({ location }) => {
 	];
 };
 
-export const loader = async ({ request, context, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const pageParameter = url.searchParams.get("page");
 	const shards = [];
 	const locale = getLocale(context);
@@ -205,8 +204,8 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 	);
 }
 
-export default function ShardEruption() {
-	const { currentUnix, shards, page } = useLoaderData<typeof loader>();
+export default function ShardEruption({ loaderData }: Route.ComponentProps) {
+	const { currentUnix, shards, page } = loaderData;
 	const { t } = useTranslation();
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const currentTimestamp = useCurrentTimestamp(currentUnix * 1000);

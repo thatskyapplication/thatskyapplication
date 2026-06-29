@@ -15,8 +15,7 @@ import {
 import { ArrowLeft } from "lucide-react";
 import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
-import { Link, useLoaderData, useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 import { CollectionView } from "~/components/catalogue/CollectionView";
 import { EldersView } from "~/components/catalogue/EldersView";
 import { EventsView } from "~/components/catalogue/EventsView";
@@ -34,8 +33,9 @@ import pg from "~/pg.server";
 import { parseCosmetics, resolveScopeCosmetics } from "~/utility/catalogue.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
+import type { Route } from "./+types/me.catalogue.js";
 
-export const loader = async ({ request, context, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
 	const { discordUser } = await requireDiscordAuthentication(request, url);
@@ -52,7 +52,7 @@ export const loader = async ({ request, context, url }: LoaderFunctionArgs) => {
 	};
 };
 
-export const action = async ({ request, url }: ActionFunctionArgs) => {
+export const action = async ({ request, url }: Route.ActionArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 
 	const formData = await request.formData();
@@ -109,13 +109,8 @@ export const action = async ({ request, url }: ActionFunctionArgs) => {
 	return;
 };
 
-export default function Catalogue() {
-	const {
-		data: dataArray,
-		locale,
-		showEverythingButton,
-		timeZone,
-	} = useLoaderData<typeof loader>();
+export default function Catalogue({ loaderData }: Route.ComponentProps) {
+	const { data: dataArray, locale, showEverythingButton, timeZone } = loaderData;
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
 	const data = useMemo(() => new Set(dataArray), [dataArray]);

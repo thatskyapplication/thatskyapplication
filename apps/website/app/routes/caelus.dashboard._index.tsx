@@ -1,12 +1,12 @@
 import { DiscordAPIError } from "@discordjs/rest";
-import type { LoaderFunctionArgs } from "react-router";
-import { redirect, useLoaderData } from "react-router";
+import { redirect } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { guildIconURL } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
+import type { Route } from "./+types/caelus.dashboard._index.js";
 
-export const loader = async ({ request, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request, url);
 
 	try {
@@ -22,8 +22,8 @@ export const loader = async ({ request, url }: LoaderFunctionArgs) => {
 	}
 };
 
-export default function Dashboard() {
-	const guilds = useLoaderData<typeof loader>();
+export default function Dashboard({ loaderData }: Route.ComponentProps) {
+	const guilds = loaderData;
 
 	return (
 		<SitePage>

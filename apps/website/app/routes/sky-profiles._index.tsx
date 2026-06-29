@@ -11,15 +11,7 @@ import {
 } from "@thatskyapplication/utility";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { LoaderFunctionArgs } from "react-router";
-import {
-	Link,
-	type MetaFunction,
-	useLoaderData,
-	useLocation,
-	useRouteLoaderData,
-	useSearchParams,
-} from "react-router";
+import { Link, useLocation, useRouteLoaderData, useSearchParams } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
 import Select from "~/components/Select";
@@ -31,11 +23,12 @@ import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants"
 import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 import type { DiscordUser } from "~/utility/types";
+import type { Route } from "./+types/sky-profiles._index.js";
 
 const NO_COUNTRY_VALUE = "none" as const;
 const PROFILES_PER_PAGE = 24 as const;
 
-export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
+export const meta: Route.MetaFunction = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
@@ -63,7 +56,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
 	];
 };
 
-export const loader = async ({ url }: LoaderFunctionArgs) => {
+export const loader = async ({ url }: Route.LoaderArgs) => {
 	const name = url.searchParams.get("name");
 	const country = url.searchParams.get("country");
 	const page = Math.max(1, Number(url.searchParams.get("page")) || 1);
@@ -218,9 +211,9 @@ function SkyProfileCard({ profile, returnTo }: SkyProfileCardProps) {
 	);
 }
 
-export default function SkyProfiles() {
+export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 	const cdnURL = useCDNURL();
-	const data = useLoaderData<typeof loader>();
+	const data = loaderData;
 	const discordUser = useRouteLoaderData<typeof rootLoader>("root")?.user ?? null;
 	const location = useLocation();
 	const { t } = useTranslation();

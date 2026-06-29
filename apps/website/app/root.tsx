@@ -4,7 +4,7 @@ import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplicat
 import type React from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import type { LinksFunction, LoaderFunctionArgs, MetaFunction } from "react-router";
+import type { LinksFunction } from "react-router";
 import {
 	isRouteErrorResponse,
 	Link,
@@ -33,7 +33,7 @@ export const middleware = [i18nextMiddleware];
 
 const cdn = new CDN(CDN_URL);
 
-export const meta: MetaFunction<typeof loader> = ({ data }) => [
+export const meta: Route.MetaFunction = ({ data }) => [
 	{ charSet: "utf-8" },
 	{ name: "viewport", content: "width=device-width, initial-scale=1" },
 	{ name: "robots", content: "index, follow" },
@@ -127,7 +127,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export async function loader({ request, context }: LoaderFunctionArgs) {
+export async function loader({ request, context }: Route.LoaderArgs) {
 	const locale = getLocale(context);
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;

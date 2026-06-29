@@ -1,6 +1,6 @@
 import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
-import { data, type HeadersArgs, Link, type MetaFunction, useLoaderData } from "react-router";
+import { data, type HeadersArgs, Link } from "react-router";
 import { AcknowledgementSocialLinks } from "~/components/AcknowledgementSocialLinks";
 import { SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
@@ -15,13 +15,14 @@ import {
 	WIKI_DISCORD_URL,
 	WIKI_URL,
 } from "~/utility/constants";
+import type { Route } from "./+types/acknowledgements.js";
 
 const ACKNOWLEDGEMENTS_TITLE = "Acknowledgements" as const;
 const ACKNOWLEDGEMENTS_DESCRIPTION = "The Sky kids that make everything you see possible." as const;
 
 type AcknowledgementProfile = SkyProfilePacket & { name: string };
 
-export const meta: MetaFunction<typeof loader> = ({ location, matches }) => {
+export const meta: Route.MetaFunction = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 
@@ -72,10 +73,10 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 	return loaderHeaders;
 }
 
-export default function Acknowledgements() {
+export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 	const cdnURL = useCDNURL();
 	const cdn = new CDN(cdnURL);
-	const skyProfilePackets = useLoaderData<typeof loader>();
+	const skyProfilePackets = loaderData;
 
 	return (
 		<SitePage>

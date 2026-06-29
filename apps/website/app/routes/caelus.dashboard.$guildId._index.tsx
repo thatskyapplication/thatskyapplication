@@ -2,16 +2,16 @@ import type { RESTGetAPICurrentUserGuildsResult } from "@discordjs/core/http-onl
 import { DiscordAPIError } from "@discordjs/rest";
 import { SiDiscord } from "@icons-pack/react-simple-icons";
 import { ArrowLeft } from "lucide-react";
-import type { LoaderFunctionArgs } from "react-router";
-import { Link, redirect, useLoaderData } from "react-router";
+import { Link, redirect } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { caelusInGuild } from "~/utility/caelus.server.js";
 import { APPLICATION_NAME, INVITE_APPLICATION_URL } from "~/utility/constants.js";
 import { guildIconURL } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getUserAdminGuilds } from "~/utility/guilds.server.js";
+import type { Route } from "./+types/caelus.dashboard.$guildId._index.js";
 
-export const loader = async ({ request, params, url }: LoaderFunctionArgs) => {
+export const loader = async ({ request, params, url }: Route.LoaderArgs) => {
 	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request, url);
 	const { guildId } = params;
 	let oAuthGuilds: RESTGetAPICurrentUserGuildsResult;
@@ -36,8 +36,8 @@ export const loader = async ({ request, params, url }: LoaderFunctionArgs) => {
 	return { guild: oAuthGuild, meInGuild: await caelusInGuild(oAuthGuild.id) };
 };
 
-export default function ServerDashboard() {
-	const { guild, meInGuild } = useLoaderData<typeof loader>();
+export default function ServerDashboard({ loaderData }: Route.ComponentProps) {
+	const { guild, meInGuild } = loaderData;
 
 	return (
 		<SitePage>
