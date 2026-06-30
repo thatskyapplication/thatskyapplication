@@ -3,10 +3,6 @@
 
 @theme {
 	--color-discord-button: #5865f2;
-
-	--font-sans:
-		Inter, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
-		Noto Color Emoji;
 }
 
 @layer base {

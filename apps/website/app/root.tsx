@@ -4,7 +4,6 @@ import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplicat
 import type React from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import type { LinksFunction } from "react-router";
 import {
 	isRouteErrorResponse,
 	Link,
@@ -57,19 +56,6 @@ export const meta: Route.MetaFunction = ({ data }) => [
 	{ name: "twitter:title", content: APPLICATION_NAME },
 	{ name: "twitter:description", content: APPLICATION_DESCRIPTION },
 	{ rel: "canonical", href: WEBSITE_URL },
-];
-
-export const links: LinksFunction = () => [
-	{ rel: "preconnect", href: "https://fonts.googleapis.com" },
-	{
-		rel: "preconnect",
-		href: "https://fonts.gstatic.com",
-		crossOrigin: "anonymous",
-	},
-	{
-		rel: "stylesheet",
-		href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-	},
 ];
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
