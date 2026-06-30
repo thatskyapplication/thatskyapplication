@@ -28,11 +28,11 @@ export default function SkyProfileHeaderCard({
 			<div className="relative h-60 w-full">
 				<div className="w-full h-full rounded-md overflow-hidden">
 					{bannerURL ? (
-						<div
-							aria-label={name ? `Banner of ${name}.` : "Sky profile banner."}
-							className="w-full h-full bg-cover bg-center"
-							role="img"
-							style={{ backgroundImage: `url(${bannerURL})` }}
+						<img
+							alt={name ? `Banner of ${name}.` : "Sky profile banner."}
+							className="pointer-events-none w-full h-full object-cover"
+							fetchPriority="high"
+							src={bannerURL}
 						/>
 					) : (
 						<div className="w-full h-full bg-gray-200 dark:bg-gray-600" />
@@ -58,11 +58,10 @@ export default function SkyProfileHeaderCard({
 								type="button"
 							>
 								{iconURL ? (
-									<div
-										aria-label={name ? `Icon of ${name}.` : "Sky profile icon."}
-										className="h-20 w-20 rounded-full border-4 border-white bg-cover bg-center transition-transform duration-200 group-hover:scale-105"
-										role="img"
-										style={{ backgroundImage: `url(${iconURL})` }}
+									<img
+										alt={name ? `Icon of ${name}.` : "Sky profile icon."}
+										className="pointer-events-none h-20 w-20 rounded-full border-4 border-white object-cover transition-transform duration-200 group-hover:scale-105"
+										src={iconURL}
 									/>
 								) : (
 									<div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-gray-300 px-2 text-center text-xs font-medium text-white transition-colors duration-200 group-hover:bg-gray-400 dark:bg-gray-500 dark:group-hover:bg-gray-400">
@@ -71,11 +70,10 @@ export default function SkyProfileHeaderCard({
 								)}
 							</button>
 						) : iconURL ? (
-							<div
-								aria-label={name ? `Icon of ${name}.` : "Sky profile icon."}
-								className="h-20 w-20 rounded-full border-4 border-white bg-cover bg-center"
-								role="img"
-								style={{ backgroundImage: `url(${iconURL})` }}
+							<img
+								alt={name ? `Icon of ${name}.` : "Sky profile icon."}
+								className="pointer-events-none h-20 w-20 rounded-full border-4 border-white object-cover"
+								src={iconURL}
 							/>
 						) : null}
 					</div>

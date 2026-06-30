@@ -119,30 +119,31 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 };
 
 interface SkyProfileCardProps {
+	priority: boolean;
 	profile: SkyProfilePacket;
 	returnTo: string;
 }
 
-function SkyProfileCard({ profile, returnTo }: SkyProfileCardProps) {
+function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 	const cdnURL = useCDNURL();
 	const cdn = new CDN(cdnURL);
 	const { t } = useTranslation();
 
 	return (
 		<Link
-			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-137.5"
+			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-137.5 [-webkit-user-drag:none]"
+			draggable={false}
 			state={{ returnTo }}
 			to={`/sky-profiles/${profile.user_id}`}
 		>
 			<div className="relative">
 				{profile.banner ? (
-					<div
-						aria-label={`Banner of ${profile.name}.`}
-						className="w-full h-48 bg-cover bg-center"
-						role="img"
-						style={{
-							backgroundImage: `url(${cdn.skyProfileBannerURL(profile.user_id, profile.banner)})`,
-						}}
+					<img
+						alt={`Banner of ${profile.name}.`}
+						className="pointer-events-none w-full h-48 object-cover"
+						fetchPriority={priority ? "high" : undefined}
+						loading={priority ? "eager" : "lazy"}
+						src={cdn.skyProfileBannerURL(profile.user_id, profile.banner)}
 					/>
 				) : (
 					<div
@@ -152,13 +153,11 @@ function SkyProfileCard({ profile, returnTo }: SkyProfileCardProps) {
 					/>
 				)}
 				{profile.icon && (
-					<div
-						aria-label={`Icon of ${profile.name}.`}
-						className="w-16 h-16 rounded-full border-4 border-white absolute -bottom-8 left-4 bg-cover bg-center"
-						role="img"
-						style={{
-							backgroundImage: `url(${cdn.skyProfileIconURL(profile.user_id, profile.icon)})`,
-						}}
+					<img
+						alt={`Icon of ${profile.name}.`}
+						className="pointer-events-none w-16 h-16 rounded-full border-4 border-white absolute -bottom-8 left-4 object-cover"
+						loading="lazy"
+						src={cdn.skyProfileIconURL(profile.user_id, profile.icon)}
 					/>
 				)}
 			</div>
@@ -260,9 +259,10 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 				{profiles.length > 0 ? (
 					<>
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-							{profiles.map((profile) => (
+							{profiles.map((profile, index) => (
 								<SkyProfileCard
 									key={profile.user_id}
+									priority={index === 0}
 									profile={profile}
 									returnTo={`${location.pathname}${location.search}`}
 								/>
