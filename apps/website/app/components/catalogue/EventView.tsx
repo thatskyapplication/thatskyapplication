@@ -89,7 +89,7 @@ export function EventView({
 			{event.offerInfographicURL ? (
 				<img
 					alt={t(event.name, { ns: "general" })}
-					className="mx-auto w-full max-w-xl rounded-lg"
+					className="mx-auto aspect-square w-full max-w-xl rounded-lg object-contain"
 					loading="lazy"
 					src={event.offerInfographicURL}
 				/>

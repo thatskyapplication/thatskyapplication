@@ -116,7 +116,7 @@ export function SpiritView({
 				)}
 			</div>
 
-			{showEverythingButton && items.length > 0 && (
+			{showEverythingButton && (
 				<EverythingButton data={data} items={items} scope={`spirit:${spirit.id}`} />
 			)}
 

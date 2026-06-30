@@ -1927,7 +1927,7 @@ async function viewSpirit(
 			},
 		];
 
-		if (showEverythingButton) {
+		if (showEverythingButton && friendshipTree.length > 0) {
 			actionRowComponents.push({
 				type: ComponentType.Button,
 				custom_id: `${CustomId.CatalogueItemsEverything}§spirit:${spirit.id}`,
@@ -2106,7 +2106,7 @@ async function viewEvent(
 		},
 	];
 
-	if (showEverythingButton) {
+	if (showEverythingButton && offer.length > 0) {
 		actionRowComponents.push({
 			type: ComponentType.Button,
 			custom_id: `${CustomId.CatalogueItemsEverything}§event:${id}`,
