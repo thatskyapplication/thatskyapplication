@@ -20,6 +20,7 @@ import {
 import { clsx } from "clsx";
 import { type CSSProperties, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { useItemOwnership } from "~/hooks/use-item-ownership.js";
 import {
 	CosmeticToEmoji,
@@ -28,7 +29,6 @@ import {
 } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
 import { costEntryEmoji } from "./CostList";
-import { EmojiIcon } from "./EmojiIcon";
 
 type AnyFriendshipTree = FriendshipTreeData | LegacyFriendshipTree;
 

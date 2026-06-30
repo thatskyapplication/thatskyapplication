@@ -1,11 +1,11 @@
 import { type CostEntry, type Emoji, SeasonId } from "@thatskyapplication/utility";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import {
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalHeartEmoji,
 } from "~/utility/emojis.js";
-import { EmojiIcon } from "./EmojiIcon";
 
 export function costEntryEmoji(entry: CostEntry): Emoji | null {
 	switch (entry.type) {

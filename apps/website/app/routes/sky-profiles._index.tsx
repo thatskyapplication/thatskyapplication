@@ -1,10 +1,6 @@
 import type { _NonNullableFields } from "@discordjs/core/http-only";
 import {
-	CDN,
 	type Country,
-	CountryToEmoji,
-	isPlatformId,
-	isSeasonId,
 	type SkyProfilePacket,
 	Table,
 	WEBSITE_URL,
@@ -12,17 +8,22 @@ import {
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useRouteLoaderData, useSearchParams } from "react-router";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
+import { PlatformBadges } from "~/components/PlatformBadges.js";
+import { SeasonEmojiBadges } from "~/components/SeasonEmojiBadges.js";
 import Select from "~/components/Select";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
+import { useCDN, useCDNURL } from "~/hooks/use-cdn-url.js";
+import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import pg from "~/pg.server";
 import type { loader as rootLoader } from "~/root";
-import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
+import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
-import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { formatCountryLabel } from "~/utility/country.js";
+import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
-import { PlatformToIcon } from "~/utility/platform-icons.js";
 import type { DiscordUser } from "~/utility/types";
 import type { Route } from "./+types/sky-profiles._index.js";
 
@@ -71,7 +72,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 		.and.whereNotNull("country");
 
 	if (name || country) {
-		let profilesQuery = pg<SkyProfilePacket>(Table.Profiles).whereNotNull("name");
+		let profilesQuery = publicProfilesQuery();
 
 		if (name) {
 			const queryLowerCase = name.toLowerCase();
@@ -125,9 +126,7 @@ interface SkyProfileCardProps {
 }
 
 function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
-	const cdnURL = useCDNURL();
-	const cdn = new CDN(cdnURL);
-	const { t } = useTranslation();
+	const cdn = useCDN();
 
 	return (
 		<Link
@@ -164,26 +163,11 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 			<div className="px-4 pt-10 pb-4 flex-1 overflow-hidden">
 				<h2 className="my-0">{profile.name!}</h2>
 				{profile.seasons && profile.seasons.length > 0 && (
-					<div className="flex flex-wrap gap-1">
-						{profile.seasons
-							.sort((a, b) => a - b)
-							.filter((season) => isSeasonId(season))
-							.map((season) => {
-								const seasonEmoji = SeasonIdToSeasonalEmoji[season];
-
-								return seasonEmoji ? (
-									<div
-										aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
-										className="discord-emoji w-6 h-6"
-										key={season}
-										role="img"
-										style={{
-											backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
-										}}
-									/>
-								) : null;
-							})}
-					</div>
+					<SeasonEmojiBadges
+						className="flex flex-wrap gap-1"
+						emojiClassName="w-6 h-6"
+						seasons={profile.seasons}
+					/>
 				)}
 				{profile.description ? (
 					<p className="mt-2 whitespace-pre-wrap line-clamp-6">{profile.description}</p>
@@ -193,19 +177,7 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 			</div>
 			<div className="flex p-4 items-center">
 				{profile.platform && profile.platform.length > 0 && (
-					<div className="flex flex-wrap gap-2">
-						{profile.platform
-							.filter((platform) => isPlatformId(platform))
-							.sort((a, b) => a - b)
-							.map((platform) => (
-								<div
-									className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow-sm items-center justify-center"
-									key={platform}
-								>
-									{PlatformToIcon[platform]}
-								</div>
-							))}
-					</div>
+					<PlatformBadges className="flex flex-wrap gap-2" platforms={profile.platform} />
 				)}
 			</div>
 		</Link>
@@ -220,7 +192,7 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 	const { t } = useTranslation();
 	const locale = useTranslation().i18n.language;
 	const { profiles, currentPage, maximumPage } = data;
-	const displayNames = new Intl.DisplayNames(locale, { type: "region", style: "long" });
+	const displayNames = useRegionDisplayNames(locale);
 
 	const countries = data.countries.sort((a, b) =>
 		displayNames.of(a.country)!.localeCompare(displayNames.of(b.country)!),
@@ -364,7 +336,7 @@ function SkyProfilesFilters({
 						value: NO_COUNTRY_VALUE,
 					},
 					...countries.map((skyProfilePacket) => ({
-						label: `${CountryToEmoji[skyProfilePacket.country as Country]} ${displayNames.of(skyProfilePacket.country)}`,
+						label: formatCountryLabel(skyProfilePacket.country as Country, displayNames),
 						value: skyProfilePacket.country,
 					})),
 				]}
@@ -375,13 +347,10 @@ function SkyProfilesFilters({
 				className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
 				to="/sky-profiles/random"
 			>
-				<div
-					aria-label="Question mark icon."
-					className="discord-emoji w-6 h-6 mr-2"
-					role="img"
-					style={{
-						backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,
-					}}
+				<EmojiIcon
+					className="w-6 h-6 mr-2"
+					emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
+					label="Question mark icon."
 				/>
 				<span>{t("sky-profile.random", { ns: "features" })}</span>
 			</Link>

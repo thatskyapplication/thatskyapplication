@@ -1,10 +1,10 @@
 import { type Item, sumCosts } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { useItemOwnership } from "~/hooks/use-item-ownership.js";
 import { itemEmoji } from "~/utility/catalogue.js";
 import { CostList } from "./CostList";
-import { EmojiIcon } from "./EmojiIcon";
 
 export function ItemRow({
 	data,

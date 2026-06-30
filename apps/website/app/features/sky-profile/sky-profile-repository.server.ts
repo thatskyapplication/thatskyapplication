@@ -23,3 +23,7 @@ export function getSkyProfilePacket(userId: string) {
 		.where({ user_id: userId })
 		.first();
 }
+
+export function publicProfilesQuery() {
+	return pg<SkyProfilePacket>(Table.Profiles).whereNotNull("name");
+}

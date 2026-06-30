@@ -1,12 +1,12 @@
 import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { resolveSpiritTree, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
-import { EmojiIcon } from "./EmojiIcon";
 import { EverythingButton } from "./EverythingButton";
 import { FriendshipTreeCarousel } from "./FriendshipTreeCarousel";
 import { ItemChecklist } from "./ItemChecklist";

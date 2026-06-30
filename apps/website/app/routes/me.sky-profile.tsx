@@ -1,8 +1,6 @@
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
-	CDN,
 	COUNTRY_VALUES,
-	CountryToEmoji,
 	MAXIMUM_ASSET_SIZE,
 	PLATFORM_ID_VALUES,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
@@ -21,6 +19,7 @@ import type { SyntheticEvent } from "react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { data, Form, Link, useNavigation } from "react-router";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
 import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
@@ -30,9 +29,10 @@ import { useSkyProfileEditor } from "~/features/sky-profile/editor/use-sky-profi
 import { parseSkyProfileMultipart } from "~/features/sky-profile/sky-profile-form.server.js";
 import { getSkyProfilePacket } from "~/features/sky-profile/sky-profile-repository.server.js";
 import { saveSkyProfileFromWebsite } from "~/features/sky-profile/sky-profile-save.server.js";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { useCDN } from "~/hooks/use-cdn-url.js";
+import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { getLocale } from "~/middleware/i18next.js";
-import { discordEmojiURL } from "~/utility/cdn.js";
+import { formatCountryLabel } from "~/utility/country.js";
 import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
@@ -125,8 +125,7 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 	const { discordUserId, profile: initialProfile } = loaderData;
 	const navigation = useNavigation();
 	const { i18n, t } = useTranslation();
-	const cdnURL = useCDNURL();
-	const cdn = new CDN(cdnURL);
+	const cdn = useCDN();
 	const availableSeasonIds = [...skySeasons().keys()];
 	const [showSuccess, setShowSuccess] = useState(false);
 	const editor = useSkyProfileEditor({
@@ -173,9 +172,9 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 	const personalityValue = draft.personality;
 	const countryValue = draft.country;
 	const platformValues = draft.platforms;
-	const displayNames = new Intl.DisplayNames(i18n.language, { type: "region", style: "long" });
+	const displayNames = useRegionDisplayNames(i18n.language);
 	const countryOptions = COUNTRY_VALUES.map((country) => ({
-		label: `${CountryToEmoji[country]} ${displayNames.of(country)!}`,
+		label: formatCountryLabel(country, displayNames),
 		value: country,
 	})).sort((a, b) => a.label.localeCompare(b.label));
 	const spiritOptions = [...spirits().values()]
@@ -554,12 +553,9 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 													)}
 												>
 													<div className="flex items-center gap-2">
-														<div
-															aria-hidden="true"
-															className="discord-emoji h-5 w-5"
-															style={{
-																backgroundImage: `url(${discordEmojiURL(SkyProfilePersonalityToEmoji[personality].id)})`,
-															}}
+														<EmojiIcon
+															className="h-5 w-5"
+															emoji={SkyProfilePersonalityToEmoji[personality]}
 														/>
 														<span className="text-sm font-semibold leading-tight text-gray-900 dark:text-gray-100">
 															{t(`sky-profile.personality-types.${personality}`, {
@@ -649,12 +645,9 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 															type="button"
 														>
 															{seasonEmoji ? (
-																<div
-																	aria-hidden="true"
-																	className="discord-emoji h-9 w-9 rounded-full shadow-sm"
-																	style={{
-																		backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
-																	}}
+																<EmojiIcon
+																	className="h-9 w-9 rounded-full shadow-sm"
+																	emoji={seasonEmoji}
 																/>
 															) : null}
 															<div className="min-w-0 flex-1">

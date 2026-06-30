@@ -7,8 +7,6 @@ import {
 	catalogueProgress,
 	GuessType,
 	isCountry,
-	isPlatformId,
-	isSeasonId,
 	isSkyProfilePersonalityType,
 	isSpiritId,
 	MAXIMUM_WINGED_LIGHT,
@@ -35,7 +33,10 @@ import {
 import { type ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { isRouteErrorResponse, Link, useLocation } from "react-router";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
+import { PlatformBadges } from "~/components/PlatformBadges.js";
+import { SeasonEmojiBadges } from "~/components/SeasonEmojiBadges.js";
 import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { Tooltip } from "~/components/Tooltip";
@@ -43,17 +44,12 @@ import {
 	findGuessUserRanking,
 	getSkyProfileCatalogueData,
 } from "~/features/sky-profile/sky-profile-public.server.js";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { useCDN } from "~/hooks/use-cdn-url.js";
 import pg from "~/pg.server";
 import { getSession } from "~/session.server";
-import { discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
+import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
-import {
-	MISCELLANEOUS_EMOJIS,
-	SeasonIdToSeasonalEmoji,
-	SkyProfilePersonalityToEmoji,
-} from "~/utility/emojis.js";
-import { PlatformToIcon } from "~/utility/platform-icons.js";
+import { MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import type { Route } from "./+types/sky-profiles.$userId.js";
 
 const BADGES_CLASS_NAME =
@@ -95,13 +91,10 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 								className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
 								to="/sky-profiles/random"
 							>
-								<div
-									aria-label="Question mark icon"
-									className="discord-emoji w-5 h-5"
-									role="img"
-									style={{
-										backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,
-									}}
+								<EmojiIcon
+									className="w-5 h-5"
+									emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
+									label="Question mark icon"
 								/>
 								Random Sky Profile
 							</Link>
@@ -307,8 +300,7 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 
 export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 	const { catalogueProgression, data, guessRank, isOwner, maximumWingedLight } = loaderData;
-	const cdnURL = useCDNURL();
-	const cdn = new CDN(cdnURL);
+	const cdn = useCDN();
 	const location = useLocation();
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
@@ -339,41 +331,14 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							<RecognitionBadges data={data} />
 						</div>
 						{data.seasons && data.seasons.length > 0 && (
-							<div className="flex flex-wrap gap-2">
-								{data.seasons
-									.sort((a, b) => a - b)
-									.filter((season) => isSeasonId(season))
-									.map((season) => {
-										const seasonEmoji = SeasonIdToSeasonalEmoji[season];
-
-										return seasonEmoji ? (
-											<div
-												aria-label={`${t(`seasons.${season}`, { ns: "general" })} icon.`}
-												className="discord-emoji w-10 h-10"
-												key={season}
-												role="img"
-												style={{
-													backgroundImage: `url(${discordEmojiURL(seasonEmoji.id)})`,
-												}}
-											/>
-										) : null;
-									})}
-							</div>
+							<SeasonEmojiBadges
+								className="flex flex-wrap gap-2"
+								emojiClassName="w-10 h-10"
+								seasons={data.seasons}
+							/>
 						)}
 						{data.platform && data.platform.length > 0 && (
-							<div className="mt-4 flex flex-wrap gap-2">
-								{data.platform
-									.filter((platform) => isPlatformId(platform))
-									.sort((a, b) => a - b)
-									.map((platform) => (
-										<div
-											className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow-sm items-center justify-center"
-											key={platform}
-										>
-											{PlatformToIcon[platform]}
-										</div>
-									))}
-							</div>
+							<PlatformBadges className="mt-4 flex flex-wrap gap-2" platforms={data.platform} />
 						)}
 						<h2 className="font-semibold mb-2">
 							About Me {data.country && isCountry(data.country) && CountryToEmoji[data.country]}
@@ -390,13 +355,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 				<div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
 					{maximumWingedLight && (
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
-							<div
-								aria-label="Winged light icon."
-								className="discord-emoji w-6 h-6 mr-2"
-								role="img"
-								style={{
-									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.WingedLight.id)})`,
-								}}
+							<EmojiIcon
+								className="w-6 h-6 mr-2"
+								emoji={MISCELLANEOUS_EMOJIS.WingedLight}
+								label="Winged light icon."
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
@@ -408,13 +370,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					)}
 					{data.spirit !== null && isSpiritId(data.spirit) ? (
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
-							<div
-								aria-label="Favourite spirit icon."
-								className="discord-emoji w-6 h-6 mr-2"
-								role="img"
-								style={{
-									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id)})`,
-								}}
+							<EmojiIcon
+								className="w-6 h-6 mr-2"
+								emoji={MISCELLANEOUS_EMOJIS.Heart}
+								label="Favourite spirit icon."
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
@@ -424,13 +383,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					) : null}
 					{data.personality !== null && isSkyProfilePersonalityType(data.personality) ? (
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
-							<div
-								aria-label="Personality icon."
-								className="discord-emoji w-6 h-6 mr-2"
-								role="img"
-								style={{
-									backgroundImage: `url(${discordEmojiURL(SkyProfilePersonalityToEmoji[data.personality].id)})`,
-								}}
+							<EmojiIcon
+								className="w-6 h-6 mr-2"
+								emoji={SkyProfilePersonalityToEmoji[data.personality]}
+								label="Personality icon."
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
@@ -500,13 +456,10 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						<span className="truncate">Back</span>
 					</SkyProfileActionLink>
 					<SkyProfileActionLink to="/sky-profiles/random" variant="neutral">
-						<div
-							aria-label="Question mark icon."
-							className="discord-emoji w-6 h-6 mr-2 shrink-0"
-							role="img"
-							style={{
-								backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.QuestionMark.id)})`,
-							}}
+						<EmojiIcon
+							className="w-6 h-6 mr-2 shrink-0"
+							emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
+							label="Question mark icon."
 						/>
 						<span className="truncate">{t("sky-profile.random", { ns: "features" })}</span>
 					</SkyProfileActionLink>

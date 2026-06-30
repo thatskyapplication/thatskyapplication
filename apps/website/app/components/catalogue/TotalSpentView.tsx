@@ -9,12 +9,12 @@ import {
 import { DollarSign } from "lucide-react";
 import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { costEntryEmoji } from "./CostList";
-import { EmojiIcon } from "./EmojiIcon";
 
 function Section({ children, title }: { children: ReactNode; title: string }) {
 	return (

@@ -26,9 +26,9 @@ import type { DateTime } from "luxon";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useFetcher } from "react-router";
+import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { CARD_CLASS } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
-import { EmojiIcon } from "./EmojiIcon";
 import { SectionCard } from "./SectionCard";
 
 export function StartView({
