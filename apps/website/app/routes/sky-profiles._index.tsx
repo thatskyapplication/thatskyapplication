@@ -21,6 +21,7 @@ import type { loader as rootLoader } from "~/root";
 import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { parsePage } from "~/utility/functions.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 import type { DiscordUser } from "~/utility/types";
 import type { Route } from "./+types/sky-profiles._index.js";
@@ -59,7 +60,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 export const loader = async ({ url }: Route.LoaderArgs) => {
 	const name = url.searchParams.get("name");
 	const country = url.searchParams.get("country");
-	const page = Math.max(1, Number(url.searchParams.get("page")) || 1);
+	const page = parsePage(url);
 
 	// Get all available countries.
 	const countries = await pg<
@@ -89,6 +90,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 		const countResult = (await profilesQuery.clone().count("* as count")) as { count: string }[];
 		const totalCount = Number(countResult[0]?.count ?? 0);
 		const maximumPage = Math.max(1, Math.ceil(totalCount / PROFILES_PER_PAGE));
+		const currentPage = Math.min(page, maximumPage);
 
 		// Apply ordering.
 		if (name) {
@@ -99,7 +101,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 		}
 
 		// Apply pagination.
-		const offset = (page - 1) * PROFILES_PER_PAGE;
+		const offset = (currentPage - 1) * PROFILES_PER_PAGE;
 		const profiles = await profilesQuery.limit(PROFILES_PER_PAGE).offset(offset);
 
 		return {
@@ -107,7 +109,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 			name,
 			country,
 			countries,
-			currentPage: page,
+			currentPage,
 			maximumPage,
 			totalCount,
 		};

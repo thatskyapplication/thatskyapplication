@@ -17,6 +17,7 @@ import { Tooltip } from "~/components/Tooltip";
 import pg from "~/pg.server";
 import { discordEmojiURL } from "~/utility/cdn.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
+import { parsePage } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
 import type { Route } from "./+types/me.heart-history.js";
@@ -30,11 +31,6 @@ async function totalHearts(column: "giftee_id" | "user_id", userId: Snowflake) {
 		.first()) as unknown as { sum: string | null };
 
 	return Number(result.sum ?? 0);
-}
-
-function parsePage(url: URL) {
-	const page = Number(url.searchParams.get("page") ?? 1);
-	return Number.isSafeInteger(page) && page > 0 ? page : 1;
 }
 
 export const loader = async ({ request, url }: Route.LoaderArgs) => {
