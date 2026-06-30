@@ -1,7 +1,11 @@
+import { MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
+import { bodyLimit } from "hono/body-limit";
 import { secureHeaders } from "hono/secure-headers";
 import { createHonoServer } from "react-router-hono-server/node";
 import { PRODUCTION } from "./config.server";
 import pino from "./pino";
+
+const MAXIMUM_REQUEST_BODY_SIZE = MAXIMUM_ASSET_SIZE * 2 + 2_000_000;
 
 export default createHonoServer({
 	configure(server) {
@@ -30,6 +34,14 @@ export default createHonoServer({
 				`${c.req.method} ${c.req.path} ${c.res.status} (${duration} ms)`,
 			);
 		});
+
+		server.use(
+			"*",
+			bodyLimit({
+				maxSize: MAXIMUM_REQUEST_BODY_SIZE,
+				onError: (c) => c.text("Payload too large.", 413),
+			}),
+		);
 	},
 	defaultLogger: false,
 });

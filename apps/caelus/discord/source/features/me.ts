@@ -14,12 +14,13 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { formatEmoji } from "@thatskyapplication/utility";
+import { formatEmoji, MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { client } from "../discord.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
 import { EMOTE_EMOJIS, FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
+import { isValidImageAttachment } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
 
 const ME_BIO_MAX_LENGTH = 190 as const;
@@ -211,6 +212,22 @@ export async function meHandleCustomiseMeModal(interaction: APIModalSubmitGuildI
 
 	if (bio) {
 		payload.bio = bio;
+	}
+
+	if (
+		(avatar && !isValidImageAttachment(avatar, MAXIMUM_ASSET_SIZE)) ||
+		(banner && !isValidImageAttachment(banner, MAXIMUM_ASSET_SIZE))
+	) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("asset-image-invalid", {
+				lng: interaction.locale,
+				ns: "general",
+				size: MAXIMUM_ASSET_SIZE / 1_000_000,
+			}),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
 	}
 
 	const [avatarURI, bannerURI] = await Promise.all([
