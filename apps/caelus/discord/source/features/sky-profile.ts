@@ -1,4 +1,3 @@
-import type { Buffer } from "node:buffer";
 import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
@@ -44,6 +43,8 @@ import {
 	isCountry,
 	isPlatformId,
 	isSkyProfilePersonalityType,
+	MAXIMUM_ASSET_BANNER_DIMENSION,
+	MAXIMUM_ASSET_ICON_DIMENSION,
 	MAXIMUM_ASSET_SIZE,
 	MAXIMUM_WINGED_LIGHT,
 	PLATFORM_ID_VALUES,
@@ -76,7 +77,6 @@ import {
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
-import sharp from "sharp";
 import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
@@ -84,6 +84,7 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { cdn } from "../thatskyapplication.js";
+import { processUploadedImage } from "../utility/assets.js";
 import {
 	ARTIST_ROLE_ID,
 	CDN_BUCKET,
@@ -344,17 +345,12 @@ export async function skyProfileSetAsset(
 
 	const gif = attachment.content_type === "image/gif";
 
-	const assetBuffer = sharp(await (await fetch(attachment.url)).arrayBuffer(), {
+	const buffer = await processUploadedImage(await (await fetch(attachment.url)).arrayBuffer(), {
 		animated: true,
+		gif,
+		maximumDimension:
+			type === AssetType.Icon ? MAXIMUM_ASSET_ICON_DIMENSION : MAXIMUM_ASSET_BANNER_DIMENSION,
 	});
-
-	let buffer: Buffer;
-
-	if (gif) {
-		buffer = await assetBuffer.gif().toBuffer();
-	} else {
-		buffer = await assetBuffer.webp().toBuffer();
-	}
 
 	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
 

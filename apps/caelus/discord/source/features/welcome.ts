@@ -30,12 +30,12 @@ import {
 	ANIMATED_HASH_PREFIX,
 	FriendshipActionType,
 	isAnimatedHash,
+	MAXIMUM_ASSET_BANNER_DIMENSION,
 	MAXIMUM_ASSET_SIZE,
 	Table,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
-import sharp from "sharp";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
@@ -43,6 +43,7 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
+import { processUploadedImage } from "../utility/assets.js";
 import { CDN_BUCKET, CDN_URL } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
 import { FRIEND_ACTION_EMOJIS, MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
@@ -785,17 +786,11 @@ async function welcomeSetAsset(
 
 	const gif = attachment.content_type === "image/gif";
 
-	const assetBuffer = sharp(await (await fetch(attachment.url)).arrayBuffer(), {
+	const buffer = await processUploadedImage(await (await fetch(attachment.url)).arrayBuffer(), {
 		animated: true,
+		gif,
+		maximumDimension: MAXIMUM_ASSET_BANNER_DIMENSION,
 	});
-
-	let buffer: Buffer;
-
-	if (gif) {
-		buffer = await assetBuffer.gif().toBuffer();
-	} else {
-		buffer = await assetBuffer.webp().toBuffer();
-	}
 
 	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
 

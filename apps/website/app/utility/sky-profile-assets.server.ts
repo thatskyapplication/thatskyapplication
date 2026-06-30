@@ -1,6 +1,14 @@
 import { Buffer } from "node:buffer";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
-import { ANIMATED_HASH_PREFIX, CDN, isValidImageAsset } from "@thatskyapplication/utility";
+import {
+	ANIMATED_HASH_PREFIX,
+	CDN,
+	isValidImageAsset,
+	MAXIMUM_ASSET_BANNER_DIMENSION,
+	MAXIMUM_ASSET_ICON_DIMENSION,
+	MAXIMUM_ASSET_INPUT_PIXELS,
+	MAXIMUM_ASSET_PROCESSING_SECONDS,
+} from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import sharp from "sharp";
 import { CDN_BUCKET, CDN_URL } from "~/config.server.js";
@@ -10,9 +18,11 @@ const cdn = new CDN(CDN_URL);
 
 async function uploadSkyProfileAsset({
 	file,
+	maximumDimension,
 	route,
 }: {
 	file: File;
+	maximumDimension: number;
 	route: (hash: string) => string;
 }) {
 	if (!isValidImageAsset(file)) {
@@ -20,7 +30,13 @@ async function uploadSkyProfileAsset({
 	}
 
 	const gif = file.type === "image/gif";
-	const assetBuffer = sharp(Buffer.from(await file.arrayBuffer()), { animated: true });
+	const assetBuffer = sharp(Buffer.from(await file.arrayBuffer()), {
+		animated: true,
+		limitInputPixels: MAXIMUM_ASSET_INPUT_PIXELS,
+	})
+		.timeout({ seconds: MAXIMUM_ASSET_PROCESSING_SECONDS })
+		.resize(maximumDimension, maximumDimension, { fit: "inside", withoutEnlargement: true });
+
 	const buffer = gif ? await assetBuffer.gif().toBuffer() : await assetBuffer.webp().toBuffer();
 	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
 
@@ -42,6 +58,7 @@ async function uploadSkyProfileAsset({
 export async function uploadSkyProfileIcon({ file, userId }: { file: File; userId: string }) {
 	return uploadSkyProfileAsset({
 		file,
+		maximumDimension: MAXIMUM_ASSET_ICON_DIMENSION,
 		route: (hash) => cdn.skyProfileIconRoute(userId, hash),
 	});
 }
@@ -49,6 +66,7 @@ export async function uploadSkyProfileIcon({ file, userId }: { file: File; userI
 export async function uploadSkyProfileBanner({ file, userId }: { file: File; userId: string }) {
 	return uploadSkyProfileAsset({
 		file,
+		maximumDimension: MAXIMUM_ASSET_BANNER_DIMENSION,
 		route: (hash) => cdn.skyProfileBannerRoute(userId, hash),
 	});
 }

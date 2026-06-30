@@ -1,5 +1,9 @@
 export const ANIMATED_HASH_PREFIX = "a_" as const;
 export const MAXIMUM_ASSET_SIZE = 5_000_000 as const;
+export const MAXIMUM_ASSET_INPUT_PIXELS = 50_000_000 as const;
+export const MAXIMUM_ASSET_PROCESSING_SECONDS = 10 as const;
+export const MAXIMUM_ASSET_ICON_DIMENSION = 512 as const;
+export const MAXIMUM_ASSET_BANNER_DIMENSION = 1_280 as const;
 
 export const ALLOWED_IMAGE_MEDIA_TYPES = [
 	"image/gif",

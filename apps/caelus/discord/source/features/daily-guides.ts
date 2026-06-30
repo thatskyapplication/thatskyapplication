@@ -47,6 +47,7 @@ import {
 	formatEmojiURL,
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
+	MAXIMUM_ASSET_BANNER_DIMENSION,
 	RADIANCE_EVENTS,
 	resolveCurrencyEmoji,
 	shardEruption,
@@ -66,7 +67,6 @@ import { hash } from "hasha";
 import { t } from "i18next";
 import type { DateTime } from "luxon";
 import pQueue from "p-queue";
-import sharp from "sharp";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
@@ -76,6 +76,7 @@ import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
+import { processUploadedImage } from "../utility/assets.js";
 import {
 	APPLICATION_ID,
 	CDN_BUCKET,
@@ -1739,9 +1740,11 @@ export async function set(
 		interactiveOptions.type = InteractiveType.Uploading;
 		const fetchedURL = await fetch(newTravellingRock.url);
 
-		const buffer = await sharp(await fetchedURL.arrayBuffer())
-			.webp()
-			.toBuffer();
+		const buffer = await processUploadedImage(await fetchedURL.arrayBuffer(), {
+			animated: false,
+			gif: false,
+			maximumDimension: MAXIMUM_ASSET_BANNER_DIMENSION,
+		});
 
 		const hashedBuffer = await hash(buffer, { algorithm: "md5" });
 
