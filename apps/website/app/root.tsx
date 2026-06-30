@@ -102,6 +102,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 		<html dir={i18n.dir(i18n.language)} lang={i18n.language}>
 			<head>
 				<Meta />
+				<link href="https://cdn.thatskyapplication.com" rel="preconnect" />
+				<link href="https://cdn.discordapp.com" rel="preconnect" />
 				<Links />
 			</head>
 			<body>
