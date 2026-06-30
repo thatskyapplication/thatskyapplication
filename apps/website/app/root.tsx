@@ -12,6 +12,7 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	useRouteLoaderData,
 } from "react-router";
 import ConditionalLayout from "~/components/ConditionalLayout";
 import { CDN_URL } from "~/config.server";
@@ -97,12 +98,13 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	const { i18n } = useTranslation();
+	const cdnURL = useRouteLoaderData<typeof loader>("root")?.cdnURL;
 
 	return (
 		<html dir={i18n.dir(i18n.language)} lang={i18n.language}>
 			<head>
 				<Meta />
-				<link href="https://cdn.thatskyapplication.com" rel="preconnect" />
+				{cdnURL && <link href={cdnURL} rel="preconnect" />}
 				<link href="https://cdn.discordapp.com" rel="preconnect" />
 				<Links />
 			</head>
