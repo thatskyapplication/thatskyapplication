@@ -1,4 +1,5 @@
-import { resolveReturningSpirits, skyNow } from "@thatskyapplication/utility";
+import { resolveReturningSpirits } from "@thatskyapplication/utility";
+import type { DateTime } from "luxon";
 import { useTranslation } from "react-i18next";
 import { resolveSpiritTree } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
@@ -9,12 +10,14 @@ import { SpiritTreeColumn } from "./SpiritTreeColumn";
 export function ReturningSpiritsView({
 	data,
 	locale,
+	now,
 }: {
 	data: ReadonlySet<number>;
 	locale: string;
+	now: DateTime;
 }) {
 	const { t } = useTranslation();
-	const returningSpirits = resolveReturningSpirits(skyNow());
+	const returningSpirits = resolveReturningSpirits(now);
 
 	return (
 		<>

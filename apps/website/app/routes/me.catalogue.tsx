@@ -8,11 +8,14 @@ import {
 	type SpiritIds,
 	STARTER_PACKS,
 	skyEvents,
+	skyNow,
 	skySeasons,
 	spirits,
 	Table,
+	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { ArrowLeft } from "lucide-react";
+import { DateTime } from "luxon";
 import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router";
@@ -47,6 +50,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	return {
 		data: cataloguePacket?.data ?? [],
 		locale,
+		now: skyNow().toMillis(),
 		showEverythingButton: cataloguePacket?.show_everything_button ?? false,
 		timeZone,
 	};
@@ -110,10 +114,11 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 };
 
 export default function Catalogue({ loaderData }: Route.ComponentProps) {
-	const { data: dataArray, locale, showEverythingButton, timeZone } = loaderData;
+	const { data: dataArray, locale, now: nowMillis, showEverythingButton, timeZone } = loaderData;
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
 	const data = useMemo(() => new Set(dataArray), [dataArray]);
+	const now = useMemo(() => DateTime.fromMillis(nowMillis, { zone: TIME_ZONE }), [nowMillis]);
 	const view = searchParams.get("view");
 
 	let content: ReactNode = null;
@@ -185,7 +190,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 			break;
 		}
 		case "returning-spirits":
-			content = <ReturningSpiritsView data={data} locale={locale} />;
+			content = <ReturningSpiritsView data={data} locale={locale} now={now} />;
 			break;
 		case "starter-packs":
 			content = (
@@ -242,7 +247,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 	}
 
 	if (!content) {
-		content = <StartView data={data} showEverythingButton={showEverythingButton} />;
+		content = <StartView data={data} now={now} showEverythingButton={showEverythingButton} />;
 	}
 
 	return (

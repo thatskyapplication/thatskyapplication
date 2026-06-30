@@ -18,11 +18,11 @@ import {
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyEvents,
-	skyNow,
 	skySeasons,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { ChevronRight, Receipt } from "lucide-react";
+import type { DateTime } from "luxon";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useFetcher } from "react-router";
@@ -33,9 +33,11 @@ import { SectionCard } from "./SectionCard";
 
 export function StartView({
 	data,
+	now,
 	showEverythingButton,
 }: {
 	data: ReadonlySet<number>;
+	now: DateTime;
 	showEverythingButton: boolean;
 }) {
 	const { t } = useTranslation();
@@ -45,7 +47,6 @@ export function StartView({
 		? fetcher.formData.get("enabled") === "true"
 		: showEverythingButton;
 
-	const now = skyNow();
 	const currentSeason = skyCurrentSeason(now);
 	const currentEvents = skyCurrentEvents(now);
 	const travellingSpirit = resolveTravellingSpirit(now);
