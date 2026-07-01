@@ -48,7 +48,7 @@ import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.
 import { noSkyProfileName } from "./sky-profile.js";
 
 const GUESS_RANK_RAW =
-	"row_number() over (partition by type order by streak desc, user_id)::int as rank" as const;
+	"row_number() over (partition by type order by streak desc, date asc nulls first, user_id)::int as rank" as const;
 
 export function isGuessType(type: number): type is GuessTypes {
 	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
