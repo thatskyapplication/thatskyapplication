@@ -167,12 +167,11 @@ export function nextPassage(date: DateTime) {
 
 export function aviarysFireworkFestivalSchedule(date: DateTime) {
 	const { day, hour, minute } = date;
+	const targetHour = hour % 4 === 0 ? (minute < 10 ? hour : hour + 4) : hour + (4 - (hour % 4));
 
 	const start =
-		day === 1
-			? date
-					.set({ hour: hour % 4 === 0 ? (minute < 10 ? hour : hour + 4) : hour + (4 - (hour % 4)) })
-					.startOf("hour")
+		day === 1 && targetHour <= 20
+			? date.set({ hour: targetHour }).startOf("hour")
 			: date.plus({ month: 1 }).startOf("month");
 
 	const end = start.plus({ minutes: 10 });
