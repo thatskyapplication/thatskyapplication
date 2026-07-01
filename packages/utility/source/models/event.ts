@@ -130,7 +130,7 @@ export class Event {
 
 	public resolveInfographicURL(date: DateTime): string | null {
 		return (
-			this.eventTickets?.amount.find((amount) => date.startOf("day") === amount.date.startOf("day"))
+			this.eventTickets?.amount.find((amount) => date.hasSame(amount.date, "day"))
 				?.infographicURL ?? null
 		);
 	}
