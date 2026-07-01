@@ -1049,7 +1049,7 @@ function nineColouredDeerDetailedBreakdown(
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const startOfDay = now.startOf("day");
-	const startOfEvent = now.set({ minute: now.minute >= 30 ? 30 : 0 });
+	const startOfEvent = nineColouredDeerSchedule(now).start;
 	const nineColouredDeer = nineColouredDeerOverview(now);
 
 	return [
