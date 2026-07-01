@@ -147,7 +147,7 @@ export async function memberLogSendJoinLeave({
 				description: description.join("\n"),
 				color: leftTimestamp
 					? MEMBER_LOG_LEAVE_COLOUR
-					: embedTintFactor(Date.now() - createdTimestamp),
+					: embedTintFactor(Math.floor(Date.now() / 1000) - createdTimestamp),
 				footer: { text: leftTimestamp ? "Left" : "Joined" },
 				timestamp: leftTimestamp ? new Date(leftTimestamp).toISOString() : joinedAt!,
 			},
