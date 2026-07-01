@@ -1,3 +1,4 @@
+import { randomInt } from "node:crypto";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIAttachment,
@@ -294,4 +295,15 @@ export function diffJSON(old: Record<string, unknown>, updated: Record<string, u
 	}
 
 	return diffResult;
+}
+
+export function shuffle<T>(array: T[]) {
+	for (let index = array.length - 1; index > 0; index--) {
+		const swapIndex = randomInt(index + 1);
+		const temporary = array[index]!;
+		array[index] = array[swapIndex]!;
+		array[swapIndex] = temporary;
+	}
+
+	return array;
 }

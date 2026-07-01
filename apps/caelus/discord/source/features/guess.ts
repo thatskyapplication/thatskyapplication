@@ -43,7 +43,12 @@ import pg from "../pg.js";
 import { GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER, GUESS_TIMEOUT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { escapeMarkdown, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import {
+	escapeMarkdown,
+	interactionInvoker,
+	isChatInputCommand,
+	shuffle,
+} from "../utility/functions.js";
 import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.js";
 import { noSkyProfileName } from "./sky-profile.js";
 
@@ -374,7 +379,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 				},
 				{
 					type: ComponentType.ActionRow,
-					components: buttons.sort(() => Math.random() - 0.5),
+					components: shuffle(buttons),
 				},
 				{
 					type: ComponentType.ActionRow,
@@ -693,7 +698,7 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 				},
 				{
 					type: ComponentType.ActionRow,
-					components: buttons.sort(() => Math.random() - 0.5),
+					components: shuffle(buttons),
 				},
 				{
 					type: ComponentType.ActionRow,
