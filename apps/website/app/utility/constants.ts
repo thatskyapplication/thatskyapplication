@@ -44,7 +44,6 @@ export const DISCORD_DONATION_URL =
 export const LOCALES = [
 	Locale.German,
 	Locale.EnglishGB,
-	Locale.EnglishUS,
 	Locale.SpanishLATAM,
 	Locale.SpanishES,
 	Locale.French,

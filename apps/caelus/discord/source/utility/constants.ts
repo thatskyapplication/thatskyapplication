@@ -67,7 +67,6 @@ export const MARKDOWN_ESCAPE_REGEX = /[\\[\]*_`|~]/g;
 export const LOCALES = [
 	Locale.German,
 	Locale.EnglishGB,
-	Locale.EnglishUS,
 	Locale.SpanishLATAM,
 	Locale.SpanishES,
 	Locale.French,
