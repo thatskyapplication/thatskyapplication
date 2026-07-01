@@ -42,7 +42,6 @@ import {
 	skyNotEndedEvents,
 	skyNow,
 	skyUpcomingSeason,
-	TRAVELLING_DATES,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	travellingSpiritSchedule,
 	turtleSchedule,
@@ -382,8 +381,8 @@ function travellingSpiritDetailedBreakdown(
 	now: DateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const visit = TRAVELLING_DATES.findLast(({ start, end }) => now >= start && now < end);
-	const nextArrival = TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }).toUnixInteger(); //wrong
+	const { visit, start } = travellingSpiritSchedule(now);
+	const nextArrival = start.toUnixInteger();
 
 	const travellingSpiritButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
