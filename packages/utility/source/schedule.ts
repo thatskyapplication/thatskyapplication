@@ -150,7 +150,7 @@ export function dreamsSkaterSchedule(date: DateTime) {
 
 export function auroraSchedule(date: DateTime) {
 	const start = date
-		.set({ minute: date.hour % 2 === 0 && date.minute < 48 ? 10 : 70 })
+		.set({ minute: date.hour % 2 === 0 ? (date.minute < 58 ? 10 : 130) : 70 })
 		.startOf("minute");
 
 	const end = start.plus({ minutes: 48 });
