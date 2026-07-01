@@ -13,11 +13,11 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	type ChecklistPacket,
 	type ChecklistSetData,
+	checklistResetPayload,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
-	skyToday,
 	Table,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
@@ -319,20 +319,7 @@ export async function checklist({
 }
 
 async function checklistRefresh(checklistPacket: ChecklistPacket) {
-	const lastUpdatedTimestamp = checklistPacket.last_updated_at.getTime();
-	const payload: ChecklistSetData = { last_updated_at: new Date() };
-	const today = skyToday();
-
-	if (today.toMillis() > lastUpdatedTimestamp) {
-		payload.daily_quests = false;
-		payload.seasonal_candles = false;
-		payload.shard_eruptions = false;
-		payload.event_tickets = false;
-	}
-
-	if (today.minus({ days: today.weekday % 7 }).toMillis() > lastUpdatedTimestamp) {
-		payload.eye_of_eden = false;
-	}
+	const payload = checklistResetPayload(checklistPacket.last_updated_at, new Date());
 
 	if (Object.keys(payload).length === 1) {
 		return;
@@ -345,108 +332,58 @@ async function checklistRefresh(checklistPacket: ChecklistPacket) {
 	return updatedChecklistPacket!;
 }
 
-export async function checklistHandleDailyQuests(
+async function checklistToggle(
 	interaction: APIMessageComponentButtonInteraction,
+	key: "daily_quests" | "event_tickets" | "eye_of_eden" | "seasonal_candles" | "shard_eruptions",
 ) {
+	const userId = interactionInvoker(interaction).id;
 	const customId = interaction.data.custom_id;
+	const now = new Date(DiscordSnowflake.timestampFrom(interaction.id));
+
+	const checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
+		.where({ user_id: userId })
+		.first();
+
+	const payload: ChecklistSetData = checklistPacket
+		? checklistResetPayload(checklistPacket.last_updated_at, now)
+		: { last_updated_at: now };
+
+	payload[key] = customId.slice(customId.indexOf("§") + 1) === "0";
 
 	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({
-			user_id: interactionInvoker(interaction).id,
-			daily_quests: customId.slice(customId.indexOf("§") + 1) === "0",
-			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		})
+		.insert({ user_id: userId, ...payload })
 		.onConflict("user_id")
 		.merge();
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: await checklist({
-			userId: interactionInvoker(interaction).id,
-			locale: interaction.locale,
-		}),
+		components: await checklist({ userId, locale: interaction.locale }),
 	});
+}
+
+export async function checklistHandleDailyQuests(
+	interaction: APIMessageComponentButtonInteraction,
+) {
+	await checklistToggle(interaction, "daily_quests");
 }
 
 export async function checklistHandleSeasonalCandles(
 	interaction: APIMessageComponentButtonInteraction,
 ) {
-	const customId = interaction.data.custom_id;
-	const userId = interactionInvoker(interaction).id;
-
-	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({
-			user_id: userId,
-			seasonal_candles: customId.slice(customId.indexOf("§") + 1) === "0",
-			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		})
-		.onConflict("user_id")
-		.merge();
-
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: await checklist({ userId: userId, locale: interaction.locale }),
-	});
+	await checklistToggle(interaction, "seasonal_candles");
 }
 
 export async function checklistHandleEyeOfEden(interaction: APIMessageComponentButtonInteraction) {
-	const customId = interaction.data.custom_id;
-
-	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({
-			user_id: interactionInvoker(interaction).id,
-			eye_of_eden: customId.slice(customId.indexOf("§") + 1) === "0",
-			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		})
-		.onConflict("user_id")
-		.merge();
-
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: await checklist({
-			userId: interactionInvoker(interaction).id,
-			locale: interaction.locale,
-		}),
-	});
+	await checklistToggle(interaction, "eye_of_eden");
 }
 
 export async function checklistHandleShardEruptions(
 	interaction: APIMessageComponentButtonInteraction,
 ) {
-	const customId = interaction.data.custom_id;
-
-	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({
-			user_id: interactionInvoker(interaction).id,
-			shard_eruptions: customId.slice(customId.indexOf("§") + 1) === "0",
-			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		})
-		.onConflict("user_id")
-		.merge();
-
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: await checklist({
-			userId: interactionInvoker(interaction).id,
-			locale: interaction.locale,
-		}),
-	});
+	await checklistToggle(interaction, "shard_eruptions");
 }
 
 export async function checklistHandleEventTickets(
 	interaction: APIMessageComponentButtonInteraction,
 ) {
-	const customId = interaction.data.custom_id;
-
-	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({
-			user_id: interactionInvoker(interaction).id,
-			event_tickets: customId.slice(customId.indexOf("§") + 1) === "0",
-			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		})
-		.onConflict("user_id")
-		.merge();
-
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
-		components: await checklist({
-			userId: interactionInvoker(interaction).id,
-			locale: interaction.locale,
-		}),
-	});
+	await checklistToggle(interaction, "event_tickets");
 }

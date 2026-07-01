@@ -2,11 +2,11 @@ import {
 	AreaName,
 	type ChecklistPacket,
 	type ChecklistSetData,
+	checklistResetPayload,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
-	skyToday,
 	Table,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
@@ -43,20 +43,7 @@ const CHECKLIST_INCOMPLETE_LABEL_CLASS = "text-gray-900 dark:text-gray-100" as c
 const CHECKLIST_UNAVAILABLE_LABEL_CLASS = "text-gray-400 dark:text-gray-600" as const;
 
 async function checklistRefresh(checklistPacket: ChecklistPacket) {
-	const lastUpdatedTimestamp = checklistPacket.last_updated_at.getTime();
-	const payload: ChecklistSetData = { last_updated_at: new Date() };
-	const today = skyToday();
-
-	if (today.toMillis() > lastUpdatedTimestamp) {
-		payload.daily_quests = false;
-		payload.seasonal_candles = false;
-		payload.shard_eruptions = false;
-		payload.event_tickets = false;
-	}
-
-	if (today.minus({ days: today.weekday % 7 }).toMillis() > lastUpdatedTimestamp) {
-		payload.eye_of_eden = false;
-	}
+	const payload = checklistResetPayload(checklistPacket.last_updated_at, new Date());
 
 	if (Object.keys(payload).length === 1) {
 		return;
@@ -116,7 +103,14 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 	const eyeOfEden = formData.get("eye_of_eden");
 	const shardEruptions = formData.get("shard_eruptions");
 	const eventTickets = formData.get("event_tickets");
-	const payload: ChecklistSetData = { user_id: discordUser.id, last_updated_at: new Date() };
+
+	const checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
+		.where({ user_id: discordUser.id })
+		.first();
+
+	const payload: ChecklistSetData = checklistPacket
+		? checklistResetPayload(checklistPacket.last_updated_at, new Date())
+		: { last_updated_at: new Date() };
 
 	if (dailyQuests !== null) {
 		payload.daily_quests = dailyQuests === "0";
@@ -138,7 +132,10 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 		payload.event_tickets = eventTickets === "0";
 	}
 
-	await pg<ChecklistPacket>(Table.Checklist).insert(payload).onConflict("user_id").merge();
+	await pg<ChecklistPacket>(Table.Checklist)
+		.insert({ user_id: discordUser.id, ...payload })
+		.onConflict("user_id")
+		.merge();
 	return;
 };
 
