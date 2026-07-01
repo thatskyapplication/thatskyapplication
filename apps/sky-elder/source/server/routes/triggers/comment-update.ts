@@ -34,7 +34,7 @@ export async function postTriggersCommentUpdate(req: Request) {
 		return;
 	}
 
-	const storedComment = redis.get(comment.id as T1);
+	const storedComment = await redis.get(comment.id as T1);
 
 	if (!storedComment) {
 		return;
