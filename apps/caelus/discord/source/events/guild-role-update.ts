@@ -23,12 +23,10 @@ export default {
 			return;
 		}
 
+		const { mentionable, permissions } = oldRole;
 		oldRole.patch(data.role);
 
-		if (
-			oldRole.mentionable === data.role.mentionable &&
-			oldRole.permissions === BigInt(data.role.permissions)
-		) {
+		if (mentionable === oldRole.mentionable && permissions === oldRole.permissions) {
 			return;
 		}
 
