@@ -43,7 +43,10 @@ export function nextEyeOfEden(date: DateTime) {
 
 export function internationalSpaceStationSchedule(date: DateTime) {
 	const targetDay = INTERNATIONAL_SPACE_STATION_DATES.find(
-		(internationalSpaceStationDates) => internationalSpaceStationDates >= date.day,
+		(internationalSpaceStationDates) =>
+			internationalSpaceStationDates >= date.day &&
+			// Addresses 30th February targeting 1st or 2nd March.
+			internationalSpaceStationDates <= date.daysInMonth!,
 	);
 
 	const start = (
