@@ -283,6 +283,8 @@ export async function history(
 		.where("hearts.user_id", invoker.id)
 		.orWhere("hearts.giftee_id", invoker.id)
 		.orderBy("hearts.timestamp", "desc")
+		.orderBy("hearts.user_id", "asc")
+		.orderBy("hearts.giftee_id", "asc")
 		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER)
 		.offset(offset);
 

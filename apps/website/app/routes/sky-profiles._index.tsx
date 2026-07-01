@@ -96,7 +96,10 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 		// Apply ordering.
 		if (name) {
 			const queryLowerCase = name.toLowerCase();
-			profilesQuery = profilesQuery.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase]);
+			profilesQuery = profilesQuery
+				.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase])
+				.orderBy("name", "asc")
+				.orderBy("user_id", "asc");
 		} else {
 			profilesQuery = profilesQuery.orderBy("name", "asc").orderBy("user_id", "asc");
 		}

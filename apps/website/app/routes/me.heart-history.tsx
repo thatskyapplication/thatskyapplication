@@ -92,6 +92,8 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 		.where("hearts.user_id", userId)
 		.orWhere("hearts.giftee_id", userId)
 		.orderBy("hearts.timestamp", "desc")
+		.orderBy("hearts.user_id", "asc")
+		.orderBy("hearts.giftee_id", "asc")
 		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER)
 		.offset(offset);
 

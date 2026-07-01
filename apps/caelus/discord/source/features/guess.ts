@@ -47,6 +47,9 @@ import { escapeMarkdown, interactionInvoker, isChatInputCommand } from "../utili
 import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.js";
 import { noSkyProfileName } from "./sky-profile.js";
 
+const GUESS_RANK_RAW =
+	"row_number() over (partition by type order by streak desc, user_id)::int as rank" as const;
+
 export function isGuessType(type: number): type is GuessTypes {
 	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
 }
@@ -949,12 +952,7 @@ export async function findUser(userId: Snowflake, type: GuessTypes) {
 		.select<GuessUserRanking>()
 		.from(
 			pg(Table.Guess)
-				.select(
-					"user_id",
-					"type",
-					"streak",
-					pg.raw("row_number() over (partition by type order by streak desc)::int as rank"),
-				)
+				.select("user_id", "type", "streak", pg.raw(GUESS_RANK_RAW))
 				.where("streak", ">", 0),
 		)
 		.where({ user_id: userId, type })
@@ -981,9 +979,7 @@ export async function leaderboard(
 			"ranked_guess_base.user_id",
 			"ranked_guess_base.type",
 			"ranked_guess_base.streak",
-			pg.raw(
-				"row_number() over (partition by ranked_guess_base.type order by ranked_guess_base.streak desc)::int as rank",
-			),
+			pg.raw(GUESS_RANK_RAW),
 		)
 		.where("ranked_guess_base.type", type)
 		.where("ranked_guess_base.streak", ">", 0)
