@@ -1816,21 +1816,10 @@ export async function questsReorder(
 		last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
 	};
 
-	if (isDailyQuest(newQuest1)) {
-		data.quest1 = newQuest1;
-	}
-
-	if (isDailyQuest(newQuest2)) {
-		data.quest2 = newQuest2;
-	}
-
-	if (newQuest3 !== null && isDailyQuest(newQuest3)) {
-		data.quest3 = newQuest3;
-	}
-
-	if (newQuest4 !== null && isDailyQuest(newQuest4)) {
-		data.quest4 = newQuest4;
-	}
+	data.quest1 = isDailyQuest(newQuest1) ? newQuest1 : null;
+	data.quest2 = isDailyQuest(newQuest2) ? newQuest2 : null;
+	data.quest3 = newQuest3 !== null && isDailyQuest(newQuest3) ? newQuest3 : null;
+	data.quest4 = newQuest4 !== null && isDailyQuest(newQuest4) ? newQuest4 : null;
 
 	const oldQuests = {
 		quest1: quest1 === null ? null : t(`quests.${quest1}`, { ns: "general" }),
