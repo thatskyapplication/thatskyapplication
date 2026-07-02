@@ -1,4 +1,3 @@
-import type { DateTime } from "luxon";
 import { skyDate } from "../dates.js";
 
 export const DyeType = {
@@ -15,25 +14,25 @@ export const DyeType = {
 export type DyeTypes = (typeof DyeType)[keyof typeof DyeType];
 
 interface RadianceEvent {
-	start: DateTime;
+	start: Temporal.ZonedDateTime;
 	/**
 	 * The end date is exclusive.
 	 */
-	end: DateTime;
+	end: Temporal.ZonedDateTime;
 	dyes: readonly [DyeTypes, ...DyeTypes[]];
 }
 
 interface DoubleHeartEvent {
-	start: DateTime;
+	start: Temporal.ZonedDateTime;
 	/**
 	 * The end date is exclusive.
 	 */
-	end: DateTime;
+	end: Temporal.ZonedDateTime;
 }
 
 export interface CommunityEvent {
 	name: string;
-	start: DateTime;
+	start: Temporal.ZonedDateTime;
 	marketingURL?: `https://${string}`;
 }
 

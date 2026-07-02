@@ -5,6 +5,7 @@ import {
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	DOUBLE_HEART_EVENTS,
+	epochSeconds,
 	formatEmojiURL,
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
@@ -23,7 +24,6 @@ import {
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { AlertTriangle, ArrowRight, ExternalLinkIcon } from "lucide-react";
-import { DateTime } from "luxon";
 import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { HeadersArgs } from "react-router";
@@ -57,8 +57,8 @@ const DAILY_GUIDES_DESCRIPTION =
 	"Today's quests, treasure candles, seasonal candles, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
 
 function dailyGuidesCacheMaxAge(timestamp: number) {
-	const now = DateTime.fromMillis(timestamp, { zone: TIME_ZONE });
-	const secondsUntilDailyReset = Math.floor(nextDailyReset(now).diff(now, "seconds").seconds);
+	const now = Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(TIME_ZONE);
+	const secondsUntilDailyReset = Math.floor(nextDailyReset(now).since(now).total("seconds"));
 
 	return Math.max(0, Math.min(300, secondsUntilDailyReset));
 }
@@ -114,22 +114,22 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 						...shard,
 						timestamps: shard.timestamps.map(({ start, end }) => ({
 							start: {
-								unix: start.toUnixInteger(),
+								unix: epochSeconds(start),
 								format: new Intl.DateTimeFormat(locale, {
 									timeZone,
 									hour: "2-digit",
 									minute: "2-digit",
 									second: "2-digit",
-								}).format(start.toMillis()),
+								}).format(start.epochMilliseconds),
 							},
 							end: {
-								unix: end.toUnixInteger(),
+								unix: epochSeconds(end),
 								format: new Intl.DateTimeFormat(locale, {
 									timeZone,
 									hour: "2-digit",
 									minute: "2-digit",
 									second: "2-digit",
-								}).format(end.toMillis()),
+								}).format(end.epochMilliseconds),
 							},
 						})),
 					}
@@ -152,8 +152,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 	useSkyDailyResetRevalidator(currentTimestamp);
 
-	const now = DateTime.fromMillis(currentTimestamp, { zone: TIME_ZONE });
-	const today = now.startOf("day");
+	const now =
+		Temporal.Instant.fromEpochMilliseconds(currentTimestamp).toZonedDateTimeISO(TIME_ZONE);
+	const today = now.startOfDay();
 	const quest1 = dailyGuides.quest1;
 	const quest2 = dailyGuides.quest2;
 	const quest3 = dailyGuides.quest3;
@@ -181,7 +182,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	if (season) {
 		const daysLeftText = t("days-left.season", {
 			ns: "general",
-			count: Math.ceil(season.end.diff(now, "days").days) - 1,
+			count: Math.ceil(season.end.since(now).total({ unit: "days", relativeTo: now })) - 1,
 		});
 
 		const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
@@ -204,14 +205,18 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		};
 
 		for (const doubleSeasonalLight of season.doubleSeasonalLight?.filter(
-			({ end }) => end > today,
+			({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
 		) ?? []) {
-			const daysUntilStart = doubleSeasonalLight.start.diff(today, "days").days;
-			const daysLeft = Math.ceil(doubleSeasonalLight.end.diff(today, "days").days) - 1;
+			const daysUntilStart = doubleSeasonalLight.start
+				.since(today)
+				.total({ unit: "days", relativeTo: today });
+			const daysLeft =
+				Math.ceil(doubleSeasonalLight.end.since(today).total({ unit: "days", relativeTo: today })) -
+				1;
 
 			daysCount.push({
 				content:
-					today >= doubleSeasonalLight.start
+					Temporal.ZonedDateTime.compare(today, doubleSeasonalLight.start) >= 0
 						? t("days-left.double-seasonal-light", {
 								ns: "general",
 								count: daysLeft,
@@ -222,7 +227,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							}),
 				end: doubleSeasonalLight.end,
 				iconURL: seasonalCandleEmoji ? formatEmojiURL(seasonalCandleEmoji.id) : undefined,
-				key: `double-seasonal-light-${season.id}-${doubleSeasonalLight.start.toMillis()}`,
+				key: `double-seasonal-light-${season.id}-${doubleSeasonalLight.start.epochMilliseconds}`,
 				start: doubleSeasonalLight.start,
 			});
 		}
@@ -231,7 +236,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const next = skyUpcomingSeason(today);
 
 	if (next) {
-		const daysUntilStart = next.start.diff(today, "days").days;
+		const daysUntilStart = next.start.since(today).total({ unit: "days", relativeTo: today });
 		const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
 
 		daysCount.push({
@@ -247,7 +252,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	}
 
 	for (const { id, name, start, end } of skyNotEndedEvents(today).values()) {
-		const daysUntilStart = start.diff(today, "days").days;
+		const daysUntilStart = start.since(today).total({ unit: "days", relativeTo: today });
 		const eventName = t(name, { ns: "general" });
 		const eventEmoji = EventIdToEventTicketEmoji[id];
 
@@ -270,7 +275,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		daysCount.push({
 			content: t("days-left.event", {
 				ns: "general",
-				count: Math.ceil(end.diff(today, "days").days) - 1,
+				count: Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1,
 				name: eventName,
 			}),
 			end,
@@ -284,7 +289,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 
 	if (communityEvents.length > 0) {
 		for (const { start, name, marketingURL } of communityEvents) {
-			const daysUntilStart = start.diff(today, "days").days;
+			const daysUntilStart = start.since(today).total({ unit: "days", relativeTo: today });
 
 			const translatedText =
 				daysUntilStart >= 1
@@ -299,7 +304,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							time: new Intl.DateTimeFormat(locale, {
 								timeZone,
 								timeStyle: "short",
-							}).format(start.toMillis()),
+							}).format(start.epochMilliseconds),
 						});
 
 			if (marketingURL) {
@@ -321,21 +326,25 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							{parts[1]}
 						</span>
 					),
-					key: `community-event-${name}-${start.toMillis()}`,
+					key: `community-event-${name}-${start.epochMilliseconds}`,
 					start,
 				});
 			} else {
 				daysCount.push({
 					content: translatedText,
-					key: `community-event-${name}-${start.toMillis()}`,
+					key: `community-event-${name}-${start.epochMilliseconds}`,
 					start,
 				});
 			}
 		}
 	}
 
-	for (const radianceEvent of RADIANCE_EVENTS.filter(({ end }) => end > today)) {
-		const daysUntilStart = radianceEvent.start.diff(today, "days").days;
+	for (const radianceEvent of RADIANCE_EVENTS.filter(
+		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
+	)) {
+		const daysUntilStart = radianceEvent.start
+			.since(today)
+			.total({ unit: "days", relativeTo: today });
 		const radianceEmojiURL = formatEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
 		const dyeEmojiURLs = radianceEvent.dyes.map((dye) => formatEmojiURL(DyeTypeToEmoji[dye].id));
 		const radianceText =
@@ -347,7 +356,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					})
 				: t("days-left.event", {
 						ns: "general",
-						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
+						count:
+							Math.ceil(radianceEvent.end.since(today).total({ unit: "days", relativeTo: today })) -
+							1,
 						name: t("event-names.radiance-event", { ns: "general" }),
 					});
 
@@ -359,7 +370,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 						{dyeEmojiURLs.map((emojiURL, index) => (
 							<span
 								className="discord-emoji inline-block h-4 w-4"
-								key={`${radianceEvent.start.toMillis()}-${index}`}
+								key={`${radianceEvent.start.epochMilliseconds}-${index}`}
 								style={{ backgroundImage: `url(${emojiURL})` }}
 							/>
 						))}
@@ -368,20 +379,25 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			),
 			end: radianceEvent.end,
 			iconURL: radianceEmojiURL,
-			key: `radiance-${radianceEvent.start.toMillis()}`,
+			key: `radiance-${radianceEvent.start.epochMilliseconds}`,
 			start: radianceEvent.start,
 		});
 	}
 
 	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
-		({ end }) => end > today,
+		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
 	)) {
-		const daysUntilStart = doubleTreasureCandleEvent.start.diff(today, "days").days;
-		const daysLeft = Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1;
+		const daysUntilStart = doubleTreasureCandleEvent.start
+			.since(today)
+			.total({ unit: "days", relativeTo: today });
+		const daysLeft =
+			Math.ceil(
+				doubleTreasureCandleEvent.end.since(today).total({ unit: "days", relativeTo: today }),
+			) - 1;
 
 		daysCount.push({
 			content:
-				today >= doubleTreasureCandleEvent.start
+				Temporal.ZonedDateTime.compare(today, doubleTreasureCandleEvent.start) >= 0
 					? t("days-left.double-treasure-candles", {
 							ns: "general",
 							count: daysLeft,
@@ -392,18 +408,23 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 						}),
 			end: doubleTreasureCandleEvent.end,
 			iconURL: formatEmojiURL(MISCELLANEOUS_EMOJIS.TreasureCandle.id),
-			key: `double-treasure-candle-${doubleTreasureCandleEvent.start.toMillis()}`,
+			key: `double-treasure-candle-${doubleTreasureCandleEvent.start.epochMilliseconds}`,
 			start: doubleTreasureCandleEvent.start,
 		});
 	}
 
-	for (const doubleHeartEvent of DOUBLE_HEART_EVENTS.filter(({ end }) => end > today)) {
-		const daysUntilStart = doubleHeartEvent.start.diff(today, "days").days;
-		const daysLeft = Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1;
+	for (const doubleHeartEvent of DOUBLE_HEART_EVENTS.filter(
+		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
+	)) {
+		const daysUntilStart = doubleHeartEvent.start
+			.since(today)
+			.total({ unit: "days", relativeTo: today });
+		const daysLeft =
+			Math.ceil(doubleHeartEvent.end.since(today).total({ unit: "days", relativeTo: today })) - 1;
 
 		daysCount.push({
 			content:
-				today >= doubleHeartEvent.start
+				Temporal.ZonedDateTime.compare(today, doubleHeartEvent.start) >= 0
 					? t("days-left.double-hearts", {
 							ns: "general",
 							count: daysLeft,
@@ -414,26 +435,28 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 						}),
 			end: doubleHeartEvent.end,
 			iconURL: formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
-			key: `double-heart-${doubleHeartEvent.start.toMillis()}`,
+			key: `double-heart-${doubleHeartEvent.start.epochMilliseconds}`,
 			start: doubleHeartEvent.start,
 		});
 	}
 
 	const todayMaintenance = [];
 	const seenMaintenanceDays = new Set<number>();
-	const tomorrow = today.plus({ days: 1 });
+	const tomorrow = today.add({ days: 1 });
 
 	for (const maintenance of MAINTENANCE_PERIODS) {
-		if (maintenance.end <= now) {
+		if (Temporal.ZonedDateTime.compare(maintenance.end, now) <= 0) {
 			continue;
 		}
 
-		if (maintenance.start < tomorrow) {
+		if (Temporal.ZonedDateTime.compare(maintenance.start, tomorrow) < 0) {
 			todayMaintenance.push(maintenance);
 			continue;
 		}
 
-		const daysUntilStart = maintenance.start.diff(today, "days").days;
+		const daysUntilStart = maintenance.start
+			.since(today)
+			.total({ unit: "days", relativeTo: today });
 		const floorDays = Math.floor(daysUntilStart);
 
 		if (floorDays >= 2) {
@@ -458,10 +481,10 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					time: new Intl.DateTimeFormat(locale, {
 						timeZone,
 						timeStyle: "short",
-					}).format(maintenance.start.toMillis()),
+					}).format(maintenance.start.epochMilliseconds),
 				}),
 				end: maintenance.end,
-				key: `maintenance-upcoming-${maintenance.start.toMillis()}`,
+				key: `maintenance-upcoming-${maintenance.start.epochMilliseconds}`,
 				start: maintenance.start,
 			});
 		}
@@ -501,9 +524,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 											start: new Intl.DateTimeFormat(locale, {
 												timeStyle: "short",
 												timeZone,
-											}).format(todayMaintenance[0]!.start.toMillis()),
+											}).format(todayMaintenance[0]!.start.epochMilliseconds),
 											end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-												todayMaintenance[0]!.end.toMillis(),
+												todayMaintenance[0]!.end.epochMilliseconds,
 											),
 										})}
 									</p>
@@ -514,17 +537,17 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										</p>
 										<ul className="text-xs text-amber-600 dark:text-amber-400 m-0 list-disc ps-4">
 											{todayMaintenance.map((maintenance) => (
-												<li key={maintenance.start.toMillis()}>
+												<li key={maintenance.start.epochMilliseconds}>
 													{t("time-range", {
 														ns: "general",
 														start: new Intl.DateTimeFormat(locale, {
 															timeStyle: "short",
 															timeZone,
-														}).format(maintenance.start.toMillis()),
+														}).format(maintenance.start.epochMilliseconds),
 														end: new Intl.DateTimeFormat(locale, {
 															timeStyle: "short",
 															timeZone,
-														}).format(maintenance.end.toMillis()),
+														}).format(maintenance.end.epochMilliseconds),
 													})}
 												</li>
 											))}
@@ -699,7 +722,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 													<code
 														className={clsx(
 															"text-xs",
-															end.unix < now.toUnixInteger()
+															end.unix < epochSeconds(now)
 																? "line-through text-gray-400 dark:text-gray-500"
 																: "text-gray-600 dark:text-gray-300",
 														)}
@@ -751,7 +774,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												<code
 													className={clsx(
 														"text-xs",
-														end.unix < now.toUnixInteger()
+														end.unix < epochSeconds(now)
 															? "line-through text-gray-400 dark:text-gray-500"
 															: "text-gray-600 dark:text-gray-300",
 													)}

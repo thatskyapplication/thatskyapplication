@@ -11,8 +11,10 @@ import {
 	AreaName,
 	type DoubleSeasonalLightDate,
 	type Event,
+	epochSeconds,
 	formatEmoji,
 	formatEmojiURL,
+	isActive,
 	isDuring,
 	resolveCurrencyEmoji,
 	SEASONAL_CANDLES_PER_DAY,
@@ -86,7 +88,7 @@ export async function ascendedCandles(
 			}
 		}
 
-		if (eyeOfEden && day.weekday === 7) {
+		if (eyeOfEden && day.dayOfWeek === 7) {
 			result += ASCENDED_CANDLES_PER_WEEK;
 		}
 
@@ -94,10 +96,10 @@ export async function ascendedCandles(
 			break;
 		}
 
-		day = day.plus({ day: 1 });
+		day = day.add({ days: 1 });
 	}
 
-	const timestamp = day.toUnixInteger();
+	const timestamp = epochSeconds(day);
 
 	await client.api.interactions.editReply(interaction.application_id, interaction.token, {
 		components: [
@@ -188,7 +190,9 @@ export async function eventTickets(
 		return;
 	}
 
-	if (events.every(({ eventTickets }) => now >= eventTickets.end)) {
+	if (
+		events.every(({ eventTickets }) => Temporal.ZonedDateTime.compare(now, eventTickets.end) >= 0)
+	) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("calculate.event-tickets.no-tickets", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
@@ -212,13 +216,15 @@ export async function eventTickets(
 	const startEmojis = `${start} ${suffix}`;
 	const goalEmojis = `${goal} ${suffix}`;
 	const amountRequiredEmojis = `${amountRequired} ${suffix}`;
-	const today = now.startOf("day");
+	const today = now.startOfDay();
 
 	const result = events.map((event) => {
 		// Collect daily event tickets.
 		const dailyRemaining = event.eventTickets.amount.reduce(
 			(remaining, eventTickets) =>
-				eventTickets.date >= today ? remaining + eventTickets.amount : remaining,
+				Temporal.ZonedDateTime.compare(eventTickets.date, today) >= 0
+					? remaining + eventTickets.amount
+					: remaining,
 			0,
 		);
 
@@ -282,7 +288,7 @@ export async function eventTickets(
 								t("days-left.event", {
 									lng: locale,
 									ns: "general",
-									count: Math.ceil(end.diff(now, "days").days) - 1,
+									count: Math.ceil(end.since(now).total({ unit: "days", relativeTo: now })) - 1,
 									name: t(name, { lng: locale, ns: "general" }),
 								}),
 							)
@@ -332,12 +338,12 @@ export async function seasonalCandles(
 	let daysWithSeasonPass = 1;
 	let doubleSeasonalLightDates: DoubleSeasonalLightDate | null = null;
 
-	for (let day = today; result < amountRequired; day = day.plus({ day: 1 }), days++) {
+	for (let day = today; result < amountRequired; day = day.add({ days: 1 }), days++) {
 		result += SEASONAL_CANDLES_PER_DAY;
 		resultWithSeasonPass += SEASONAL_CANDLES_PER_DAY_WITH_SEASON_PASS;
 
-		const doubleSeasonalLight = season.doubleSeasonalLight?.find(
-			({ start, end }) => day >= start && day < end,
+		const doubleSeasonalLight = season.doubleSeasonalLight?.find(({ start, end }) =>
+			isActive(start, end, day),
 		);
 
 		if (doubleSeasonalLight) {
@@ -431,19 +437,19 @@ export async function seasonalCandles(
 				lng: locale,
 				ns: "features",
 				start: Intl.DateTimeFormat(locale, formatOptions).format(
-					doubleSeasonalLightDates.start.toMillis(),
+					doubleSeasonalLightDates.start.epochMilliseconds,
 				),
 				end: Intl.DateTimeFormat(locale, formatOptions).format(
-					doubleSeasonalLightDates.end.toMillis(),
+					doubleSeasonalLightDates.end.epochMilliseconds,
 				),
-				relative: `<t:${doubleSeasonalLightDates.end.toUnixInteger()}:R>`,
+				relative: `<t:${epochSeconds(doubleSeasonalLightDates.end)}:R>`,
 			}),
 		});
 	}
 
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
-		content: `${t("days-left.season", { lng: locale, ns: "general", count: season.end.diff(today, "days").days - 1 })}`,
+		content: `${t("days-left.season", { lng: locale, ns: "general", count: season.end.since(today).total({ unit: "days", relativeTo: today }) - 1 })}`,
 	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {

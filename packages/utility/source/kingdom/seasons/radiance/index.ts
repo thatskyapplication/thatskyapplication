@@ -15,7 +15,7 @@ export default new Season({
 	guide: RadianceGuide,
 	spirits: [RadianceLeapingDancer, RadianceProvokingPerformer, RadianceGreetingShaman],
 	seasonalCandlesRotation: (now) =>
-		now >= skyDate(2_025, 4, 1)
+		Temporal.ZonedDateTime.compare(now, skyDate(2_025, 4, 1)) >= 0
 			? [
 					{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
@@ -28,7 +28,7 @@ export default new Season({
 					{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 				]
-			: now >= skyDate(2_025, 3, 3)
+			: Temporal.ZonedDateTime.compare(now, skyDate(2_025, 3, 3)) >= 0
 				? [
 						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
@@ -41,7 +41,7 @@ export default new Season({
 						{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 					]
-				: now >= skyDate(2_025, 2, 4)
+				: Temporal.ZonedDateTime.compare(now, skyDate(2_025, 2, 4)) >= 0
 					? [
 							{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 							{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },

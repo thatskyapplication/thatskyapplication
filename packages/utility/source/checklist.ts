@@ -17,14 +17,14 @@ export function checklistResetPayload(lastUpdatedAt: Date, now: Date): Checklist
 	const payload: ChecklistSetData = { last_updated_at: now };
 	const today = skyToday();
 
-	if (today.toMillis() > lastUpdatedTimestamp) {
+	if (today.epochMilliseconds > lastUpdatedTimestamp) {
 		payload.daily_quests = false;
 		payload.seasonal_candles = false;
 		payload.shard_eruptions = false;
 		payload.event_tickets = false;
 	}
 
-	if (today.minus({ days: today.weekday % 7 }).toMillis() > lastUpdatedTimestamp) {
+	if (today.subtract({ days: today.dayOfWeek % 7 }).epochMilliseconds > lastUpdatedTimestamp) {
 		payload.eye_of_eden = false;
 	}
 

@@ -1,5 +1,4 @@
-import type { DateTime } from "luxon";
-import { skyDate } from "../dates.js";
+import { isActive, skyDate } from "../dates.js";
 import { CDN_URL } from "../routes.js";
 import { RealmName, VALID_REALM_NAME, type ValidRealmName } from "./geography.js";
 
@@ -9,13 +8,13 @@ type TreasureCandlesRotation = Readonly<Record<ValidRealmName, readonly [string,
 const TREASURE_CANDLES_INITIAL_SEEK = skyDate(2025, 1, 1);
 
 interface TreasureCandlesConfiguration {
-	start: DateTime;
+	start: Temporal.ZonedDateTime;
 	rotation: TreasureCandlesRotation;
 }
 
 interface TreasureCandlesDoubleConfiguration {
-	start: DateTime;
-	end: DateTime;
+	start: Temporal.ZonedDateTime;
+	end: Temporal.ZonedDateTime;
 	rotation: TreasureCandlesRotation;
 }
 
@@ -210,16 +209,18 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 ] as const satisfies readonly TreasureCandlesDoubleConfiguration[];
 
 function treasureCandleFromConfiguration(
-	today: DateTime,
+	today: Temporal.ZonedDateTime,
 	{ rotation }: TreasureCandlesConfiguration | TreasureCandlesDoubleConfiguration,
 ) {
-	const daysDiff = today.diff(TREASURE_CANDLES_INITIAL_SEEK, "days").days;
+	const daysDiff = today
+		.since(TREASURE_CANDLES_INITIAL_SEEK)
+		.total({ unit: "days", relativeTo: TREASURE_CANDLES_INITIAL_SEEK });
 	const realmIndex = VALID_REALM_NAME.at((daysDiff + 4) % 5)!;
 	const realmRotation = rotation[realmIndex];
 	return realmRotation[daysDiff % realmRotation.length]!;
 }
 
-export function treasureCandles(today: DateTime): readonly [string, ...string[]] {
+export function treasureCandles(today: Temporal.ZonedDateTime): readonly [string, ...string[]] {
 	if (today.year === 2025 && today.month === 3 && today.day === 21) {
 		// 3 were available on this date.
 		return [
@@ -230,13 +231,14 @@ export function treasureCandles(today: DateTime): readonly [string, ...string[]]
 	}
 
 	const configuration =
-		TREASURE_CANDLES_CONFIGURATIONS.findLast(({ start }) => today >= start) ??
-		TREASURE_CANDLES_CONFIGURATIONS[0];
+		TREASURE_CANDLES_CONFIGURATIONS.findLast(
+			({ start }) => Temporal.ZonedDateTime.compare(today, start) >= 0,
+		) ?? TREASURE_CANDLES_CONFIGURATIONS[0];
 
 	const result: [string] = [treasureCandleFromConfiguration(today, configuration)];
 
-	const doubleConfiguration = TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.findLast(
-		({ start, end }) => today >= start && today < end,
+	const doubleConfiguration = TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.findLast(({ start, end }) =>
+		isActive(start, end, today),
 	);
 
 	if (doubleConfiguration !== undefined) {

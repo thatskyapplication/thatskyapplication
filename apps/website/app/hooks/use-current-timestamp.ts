@@ -1,10 +1,11 @@
 import { TIME_ZONE } from "@thatskyapplication/utility";
-import { DateTime } from "luxon";
 import { useEffect, useRef, useState } from "react";
 import { useRevalidator } from "react-router";
 
 function skyDayTimestamp(timestamp: number) {
-	return DateTime.fromMillis(timestamp, { zone: TIME_ZONE }).startOf("day").toMillis();
+	return Temporal.Instant.fromEpochMilliseconds(timestamp)
+		.toZonedDateTimeISO(TIME_ZONE)
+		.startOfDay().epochMilliseconds;
 }
 
 export function useCurrentTimestamp(initialTimestamp: number) {

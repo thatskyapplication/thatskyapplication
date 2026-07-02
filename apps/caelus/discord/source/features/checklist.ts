@@ -71,13 +71,13 @@ export async function checklist({
 	const season = skyCurrentSeason(now);
 
 	const isAnyEventWithEventTickets = skyCurrentEvents(now).some(
-		({ eventTickets }) => eventTickets && now < eventTickets.end,
+		({ eventTickets }) => eventTickets && Temporal.ZonedDateTime.compare(now, eventTickets.end) < 0,
 	);
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## [${new Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.toMillis())}](${ME_CHECKLIST_URL})`,
+			content: `## [${new Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.epochMilliseconds)}](${ME_CHECKLIST_URL})`,
 		},
 		{
 			type: ComponentType.Separator,

@@ -34,6 +34,7 @@ import {
 	type ElderSpirit,
 	type Event,
 	type EventIds,
+	epochSeconds,
 	formatEmoji,
 	friendshipTreeToItems,
 	type GuideSpirit,
@@ -230,7 +231,7 @@ function offerData({
 				content += percentage === null ? "" : ` (${percentage}%)`;
 			}
 
-			content += `\n\n-# ${t("time-range", { lng: locale, ns: "general", start: `<t:${event.start.toUnixInteger()}:s>`, end: `<t:${event.end.toUnixInteger()}:s>` })}`;
+			content += `\n\n-# ${t("time-range", { lng: locale, ns: "general", start: `<t:${epochSeconds(event.start)}:s>`, end: `<t:${epochSeconds(event.end)}:s>` })}`;
 			content += `\n${offerDescription.length > 0 ? offerDescription.join("\n") : `-# ${t("catalogue.event-no-cosmetics", { lng: locale, ns: "features" })}`}`;
 		}
 

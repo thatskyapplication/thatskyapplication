@@ -20,7 +20,7 @@ export default new Season({
 		lightmendingLightPioneer,
 	],
 	seasonalCandlesRotation: (now) =>
-		now >= skyDate(2026, 4, 1)
+		Temporal.ZonedDateTime.compare(now, skyDate(2026, 4, 1)) >= 0
 			? [
 					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
@@ -33,7 +33,7 @@ export default new Season({
 					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 				]
-			: now >= skyDate(2026, 3, 16)
+			: Temporal.ZonedDateTime.compare(now, skyDate(2026, 3, 16)) >= 0
 				? [
 						{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 						{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
@@ -46,7 +46,7 @@ export default new Season({
 						{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 						{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 					]
-				: now >= skyDate(2026, 2, 5)
+				: Temporal.ZonedDateTime.compare(now, skyDate(2026, 2, 5)) >= 0
 					? [
 							{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 							{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },

@@ -1,4 +1,3 @@
-import type { DateTime } from "luxon";
 import { skyDate, skyToday } from "./dates.js";
 import { skyCurrentEvents } from "./events/index.js";
 import { AreaName, type RealmName, VALID_REALM_NAME } from "./kingdom/geography.js";
@@ -163,8 +162,8 @@ const SHARD_ERUPTION_PREDICTION_DATA = [
 ] as const;
 
 interface ShardEruptionTimestampsData {
-	start: DateTime;
-	end: DateTime;
+	start: Temporal.ZonedDateTime;
+	end: Temporal.ZonedDateTime;
 }
 
 export interface ShardEruptionData {
@@ -178,7 +177,7 @@ export interface ShardEruptionData {
 }
 
 export function shardEruption(daysOffset = 0): ShardEruptionData | null {
-	const date = skyToday().plus({ day: daysOffset });
+	const date = skyToday().add({ days: daysOffset });
 
 	// No shard eruption during Days of Nature.
 	if (date.equals(skyDate(2026, 4, 11))) {
@@ -186,7 +185,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	}
 
 	const dayOfMonth = date.day;
-	const dayOfWeek = date.weekday;
+	const dayOfWeek = date.dayOfWeek;
 	const strong = dayOfMonth % 2 === 1;
 	const infoIndex = strong ? (((dayOfMonth - 1) / 2) % 3) + 2 : (dayOfMonth / 2) % 2;
 	const {
@@ -271,17 +270,21 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 
 	const timestamps: ShardEruptionTimestampsData[] = [];
 	let timestampLengthCheck = 3;
-	let shardPointer = date.plus({ milliseconds: offset });
+	let shardPointer = date.add({ milliseconds: offset });
 
 	// Account for a shard eruption during DST change.
-	if (date.isInDST !== shardPointer.isInDST) {
-		const becameDST = shardPointer.isInDST;
-		shardPointer = shardPointer.plus({ hours: shardPointer.isInDST ? -1 : 1 });
+	if (date.offsetNanoseconds !== shardPointer.offsetNanoseconds) {
+		const becameDST = shardPointer.offsetNanoseconds > date.offsetNanoseconds;
+		shardPointer = shardPointer.add({ hours: becameDST ? -1 : 1 });
 
-		if (becameDST && !shardPointer.isInDST && shardPointer.hour === 1) {
+		if (
+			becameDST &&
+			shardPointer.offsetNanoseconds === date.offsetNanoseconds &&
+			shardPointer.hour === 1
+		) {
 			// The shard eruption will be skipped as it seems the hour is most important rather than the duration.
 			// This held true for 09/03/2025, where the first shard eruption did not happen as hour 2 was skipped.
-			shardPointer = shardPointer.plus({ hours: interval });
+			shardPointer = shardPointer.add({ hours: interval });
 			timestampLengthCheck--;
 		}
 	}
@@ -289,11 +292,11 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	for (
 		;
 		timestamps.length < timestampLengthCheck;
-		shardPointer = shardPointer.plus({ hours: interval })
+		shardPointer = shardPointer.add({ hours: interval })
 	) {
 		timestamps.push({
-			start: shardPointer.plus({ seconds: 520 }),
-			end: shardPointer.plus({ hours: 4 }),
+			start: shardPointer.add({ seconds: 520 }),
+			end: shardPointer.add({ hours: 4 }),
 		});
 	}
 

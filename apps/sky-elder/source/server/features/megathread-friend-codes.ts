@@ -43,7 +43,7 @@ export async function megathreadFriendCodes(force = false) {
 	}
 
 	// Only create a new megathread if the current season started after the megathread.
-	if (currentSeason.start.toJSDate() <= post.createdAt) {
+	if (currentSeason.start.epochMilliseconds <= post.createdAt.getTime()) {
 		return;
 	}
 

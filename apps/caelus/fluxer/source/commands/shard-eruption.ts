@@ -1,4 +1,4 @@
-import { shardEruption, skyNow } from "@thatskyapplication/utility";
+import { epochSeconds, shardEruption, skyNow } from "@thatskyapplication/utility";
 import { client } from "../fluxer.js";
 import type { Command } from "./index.js";
 
@@ -24,8 +24,8 @@ export default {
 
 		const timestamps = shard.timestamps
 			.map(({ start, end }) => {
-				const line = `<t:${start.toUnixInteger()}:s> - <t:${end.toUnixInteger()}:s>`;
-				return now >= end ? `~~${line}~~` : line;
+				const line = `<t:${epochSeconds(start)}:s> - <t:${epochSeconds(end)}:s>`;
+				return Temporal.ZonedDateTime.compare(now, end) >= 0 ? `~~${line}~~` : line;
 			})
 			.join("\n");
 

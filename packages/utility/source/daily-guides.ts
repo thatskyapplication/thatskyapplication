@@ -1,5 +1,5 @@
 import { ChannelType, type Snowflake } from "discord-api-types/v10";
-import type { DateTime } from "luxon";
+import { isActive } from "./dates.js";
 import { dailyGuidesQuestRoute } from "./routes.js";
 
 export interface DailyGuidesPacket {
@@ -1140,14 +1140,17 @@ export const DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES = [
 ] as const;
 
 export interface DailyGuidesDaysCountItem {
-	start: DateTime;
-	end?: DateTime | undefined;
+	start: Temporal.ZonedDateTime;
+	end?: Temporal.ZonedDateTime | undefined;
 }
 
-export function sortDaysCountItems(daysCount: DailyGuidesDaysCountItem[], time: DateTime) {
+export function sortDaysCountItems(
+	daysCount: DailyGuidesDaysCountItem[],
+	time: Temporal.ZonedDateTime,
+) {
 	daysCount.sort((left, right) => {
-		const leftActive = left.end !== undefined && time >= left.start && time < left.end;
-		const rightActive = right.end !== undefined && time >= right.start && time < right.end;
+		const leftActive = left.end !== undefined && isActive(left.start, left.end, time);
+		const rightActive = right.end !== undefined && isActive(right.start, right.end, time);
 
 		if (leftActive !== rightActive) {
 			return leftActive ? -1 : 1;
@@ -1157,7 +1160,7 @@ export function sortDaysCountItems(daysCount: DailyGuidesDaysCountItem[], time: 
 		const rightTime = rightActive && right.end !== undefined ? right.end : right.start;
 
 		return leftActive
-			? rightTime.toMillis() - leftTime.toMillis()
-			: leftTime.toMillis() - rightTime.toMillis();
+			? Temporal.ZonedDateTime.compare(rightTime, leftTime)
+			: Temporal.ZonedDateTime.compare(leftTime, rightTime);
 	});
 }

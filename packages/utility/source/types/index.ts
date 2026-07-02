@@ -1,4 +1,3 @@
-import type { DateTime } from "luxon";
 import type { SpiritIds } from "../utility/spirits.js";
 
 export type Snowflake = `${bigint}`;
@@ -16,6 +15,6 @@ export interface Visit {
 	type: VisitType;
 	spiritId: SpiritIds;
 	visit: number;
-	start: DateTime;
-	end: DateTime;
+	start: Temporal.ZonedDateTime;
+	end: Temporal.ZonedDateTime;
 }

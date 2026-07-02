@@ -6,6 +6,7 @@ import {
 	formatEmojiURL,
 	grandmaSchedule,
 	internationalSpaceStationSchedule,
+	isActive,
 	MAINTENANCE_PERIODS,
 	meteorShowerSchedule,
 	nextDailyReset,
@@ -31,7 +32,6 @@ import {
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
-import { DateTime } from "luxon";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
@@ -72,11 +72,15 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 	];
 };
 
-function formatRelativeTime(date: DateTime, now: DateTime, locale: string) {
+function formatRelativeTime(
+	date: Temporal.ZonedDateTime,
+	now: Temporal.ZonedDateTime,
+	locale: string,
+) {
 	const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "always" });
-	const diffMinutes = Math.round(date.diff(now, "minutes").minutes);
-	const diffHours = Math.round(date.diff(now, "hours").hours);
-	const diffDays = Math.round(date.diff(now, "days").days);
+	const diffMinutes = Math.round(date.since(now).total("minutes"));
+	const diffHours = Math.round(date.since(now).total("hours"));
+	const diffDays = Math.round(date.since(now).total({ unit: "days", relativeTo: now }));
 
 	if (Math.abs(diffMinutes) < 60) {
 		return rtf.format(diffMinutes, "minute");
@@ -121,7 +125,7 @@ interface ScheduleTravellingSpirit extends ScheduleWithEnd<typeof ScheduleType.T
 }
 
 function dailyResetNext(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): BaseSchedule<typeof ScheduleType.DailyReset> {
@@ -130,61 +134,61 @@ function dailyResetNext(
 	return {
 		type: ScheduleType.DailyReset,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.toMillis(),
+			schedule.epochMilliseconds,
 		),
-		nextUnix: schedule.toMillis(),
+		nextUnix: schedule.epochMilliseconds,
 		relative: formatRelativeTime(schedule, now, locale),
 	};
 }
 
 function eyeOfEdenNext(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): BaseSchedule<typeof ScheduleType.EyeOfEden> {
 	const schedule = nextEyeOfEden(now);
 	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-	if (schedule.diff(now, "days").days > 1) {
+	if (schedule.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
 	}
 
 	return {
 		type: ScheduleType.EyeOfEden,
-		next: new Intl.DateTimeFormat(locale, options).format(schedule.toMillis()),
-		nextUnix: schedule.toMillis(),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.epochMilliseconds),
+		nextUnix: schedule.epochMilliseconds,
 		relative: formatRelativeTime(schedule, now, locale),
 	};
 }
 
 function internationalSpaceStationOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.InternationalSpaceStation> {
 	const schedule = internationalSpaceStationSchedule(now);
 	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-	if (schedule.start.diff(now, "days").days > 1) {
+	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
 	}
 
 	return {
 		type: ScheduleType.InternationalSpaceStation,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.toMillis()),
-		nextUnix: schedule.start.toMillis(),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.epochMilliseconds),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function travellingSpiritOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleTravellingSpirit {
@@ -192,11 +196,14 @@ function travellingSpiritOverview(
 	const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 	const endOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-	if (schedule.start.diff(now, "days").days > 1) {
+	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		startOptions.dateStyle = "medium";
 	}
 
-	if (schedule.visit && schedule.visit.end.diff(now, "days").days > 1) {
+	if (
+		schedule.visit &&
+		schedule.visit.end.since(now).total({ unit: "days", relativeTo: now }) > 1
+	) {
 		endOptions.dateStyle = "medium";
 	}
 
@@ -204,17 +211,17 @@ function travellingSpiritOverview(
 		type: ScheduleType.TravellingSpirit,
 		now: schedule.visit?.spiritId ?? false,
 		spiritId: schedule.spirit?.spiritId ?? null,
-		next: new Intl.DateTimeFormat(locale, startOptions).format(schedule.start.toMillis()),
-		nextUnix: schedule.start.toMillis(),
+		next: new Intl.DateTimeFormat(locale, startOptions).format(schedule.start.epochMilliseconds),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, endOptions).format(schedule.visit?.end.toMillis()),
-		endUnix: schedule.visit ? schedule.visit.end.toMillis() : null,
+		end: new Intl.DateTimeFormat(locale, endOptions).format(schedule.visit?.end.epochMilliseconds),
+		endUnix: schedule.visit ? schedule.visit.end.epochMilliseconds : null,
 		endRelative: schedule.visit ? formatRelativeTime(schedule.visit.end, now, locale) : null,
 	};
 }
 
 function pollutedGeyserOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.PollutedGeyser> {
@@ -224,20 +231,20 @@ function pollutedGeyserOverview(
 		type: ScheduleType.PollutedGeyser,
 		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.start.toMillis(),
+			schedule.start.epochMilliseconds,
 		),
-		nextUnix: schedule.start.toMillis(),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function grandmaOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.Grandma> {
@@ -247,20 +254,20 @@ function grandmaOverview(
 		type: ScheduleType.Grandma,
 		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.start.toMillis(),
+			schedule.start.epochMilliseconds,
 		),
-		nextUnix: schedule.start.toMillis(),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function turtleOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.Turtle> {
@@ -270,20 +277,20 @@ function turtleOverview(
 		type: ScheduleType.Turtle,
 		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.start.toMillis(),
+			schedule.start.epochMilliseconds,
 		),
-		nextUnix: schedule.start.toMillis(),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function shardEruptionOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.ShardEruption> {
@@ -293,46 +300,46 @@ function shardEruptionOverview(
 		type: ScheduleType.ShardEruption,
 		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "medium", timeZone }).format(
-			schedule.start.toMillis(),
+			schedule.start.epochMilliseconds,
 		),
-		nextUnix: schedule.start.toMillis(),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function dreamsSkaterOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.DreamsSkater> {
 	const schedule = dreamsSkaterSchedule(now);
 	const options: Intl.DateTimeFormatOptions = { timeStyle: "short", timeZone };
 
-	if (now.weekday < 5) {
+	if (now.dayOfWeek < 5) {
 		options.dateStyle = "medium";
 	}
 
 	return {
 		type: ScheduleType.DreamsSkater,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.toMillis()),
-		nextUnix: schedule.start.toMillis(),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.epochMilliseconds),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function auroraOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.AURORA> {
@@ -342,20 +349,20 @@ function auroraOverview(
 		type: ScheduleType.AURORA,
 		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.start.toMillis(),
+			schedule.start.epochMilliseconds,
 		),
-		nextUnix: schedule.start.toMillis(),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function passageNext(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): BaseSchedule<typeof ScheduleType.Passage> {
@@ -364,41 +371,41 @@ function passageNext(
 	return {
 		type: ScheduleType.Passage,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.toMillis(),
+			schedule.epochMilliseconds,
 		),
-		nextUnix: schedule.toMillis(),
+		nextUnix: schedule.epochMilliseconds,
 		relative: formatRelativeTime(schedule, now, locale),
 	};
 }
 
 function aviarysFireworkFestivalOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.AviarysFireworkFestival> {
 	const schedule = aviarysFireworkFestivalSchedule(now);
 	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-	if (schedule.start.diff(now, "days").days > 1) {
+	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
 	}
 
 	return {
 		type: ScheduleType.AviarysFireworkFestival,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.toMillis()),
-		nextUnix: schedule.start.toMillis(),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.epochMilliseconds),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function meteorShowerOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.MeteorShower> | null {
@@ -410,24 +417,24 @@ function meteorShowerOverview(
 
 	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-	if (schedule.start.diff(now, "days").days > 1) {
+	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
 	}
 
 	return {
 		type: ScheduleType.MeteorShower,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.toMillis()),
-		nextUnix: schedule.start.toMillis(),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.epochMilliseconds),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, options).format(schedule.end.toMillis()),
-		endUnix: schedule.end.toMillis(),
+		end: new Intl.DateTimeFormat(locale, options).format(schedule.end.epochMilliseconds),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function nineColouredDeerOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.NineColouredDeer> {
@@ -437,40 +444,40 @@ function nineColouredDeerOverview(
 		type: ScheduleType.NineColouredDeer,
 		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.start.toMillis(),
+			schedule.start.epochMilliseconds,
 		),
-		nextUnix: schedule.start.toMillis(),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function nestingWorkshopNext(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): BaseSchedule<typeof ScheduleType.NestingWorkshop> {
 	const schedule = nextNestingWorkshop(now);
 	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-	if (schedule.diff(now, "days").days > 1) {
+	if (schedule.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
 	}
 
 	return {
 		type: ScheduleType.NestingWorkshop,
-		next: new Intl.DateTimeFormat(locale, options).format(schedule.toMillis()),
-		nextUnix: schedule.toMillis(),
+		next: new Intl.DateTimeFormat(locale, options).format(schedule.epochMilliseconds),
+		nextUnix: schedule.epochMilliseconds,
 		relative: formatRelativeTime(schedule, now, locale),
 	};
 }
 
 function vaultEldersBlessingOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.VaultEldersBlessing> {
@@ -480,20 +487,20 @@ function vaultEldersBlessingOverview(
 		type: ScheduleType.VaultEldersBlessing,
 		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.start.toMillis(),
+			schedule.start.epochMilliseconds,
 		),
-		nextUnix: schedule.start.toMillis(),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
 function projectorOfMemoriesOverview(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
 ): ScheduleWithEnd<typeof ScheduleType.ProjectorOfMemories> {
@@ -503,14 +510,14 @@ function projectorOfMemoriesOverview(
 		type: ScheduleType.ProjectorOfMemories,
 		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.start.toMillis(),
+			schedule.start.epochMilliseconds,
 		),
-		nextUnix: schedule.start.toMillis(),
+		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
 		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-			schedule.end.toMillis(),
+			schedule.end.epochMilliseconds,
 		),
-		endUnix: schedule.end.toMillis(),
+		endUnix: schedule.end.epochMilliseconds,
 		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
@@ -551,7 +558,8 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 
-	const now = DateTime.fromMillis(currentTimestamp, { zone: TIME_ZONE });
+	const now =
+		Temporal.Instant.fromEpochMilliseconds(currentTimestamp).toZonedDateTimeISO(TIME_ZONE);
 
 	const schedules = [
 		dailyResetNext(now, timeZone, locale),
@@ -606,7 +614,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	if (season) {
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-		if (season.end.diff(now, "days").days > 1) {
+		if (season.end.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
 		}
 
@@ -617,12 +625,12 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			label: seasonName,
 			link: { href: t(`season-wiki.${season.id}`, { ns: "general" }), text: seasonName },
 			active: true,
-			next: new Intl.DateTimeFormat(locale, options).format(season.end.toMillis()),
-			nextUnix: season.end.toMillis(),
+			next: new Intl.DateTimeFormat(locale, options).format(season.end.epochMilliseconds),
+			nextUnix: season.end.epochMilliseconds,
 			relative: formatRelativeTime(season.end, now, locale),
-			end: new Intl.DateTimeFormat(locale, options).format(season.end.toMillis()),
+			end: new Intl.DateTimeFormat(locale, options).format(season.end.epochMilliseconds),
 			endRelative: formatRelativeTime(season.end, now, locale),
-			endUnix: season.end.toMillis(),
+			endUnix: season.end.epochMilliseconds,
 		});
 	}
 
@@ -631,7 +639,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	if (nextSeason) {
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-		if (nextSeason.start.diff(now, "days").days > 1) {
+		if (nextSeason.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
 		}
 
@@ -642,21 +650,21 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			label: nextSeasonName,
 			link: { href: t(`season-wiki.${nextSeason.id}`, { ns: "general" }), text: nextSeasonName },
 			active: false,
-			next: new Intl.DateTimeFormat(locale, options).format(nextSeason.start.toMillis()),
-			nextUnix: nextSeason.start.toMillis(),
+			next: new Intl.DateTimeFormat(locale, options).format(nextSeason.start.epochMilliseconds),
+			nextUnix: nextSeason.start.epochMilliseconds,
 			relative: formatRelativeTime(nextSeason.start, now, locale),
-			endUnix: nextSeason.end.toMillis(),
+			endUnix: nextSeason.end.epochMilliseconds,
 		});
 	}
 
 	for (const { id, name, start, end } of skyNotEndedEvents(now).values()) {
-		const daysUntilStart = start.diff(now, "days").days;
+		const daysUntilStart = start.since(now).total({ unit: "days", relativeTo: now });
 		const eventName = t(name, { ns: "general" });
 
 		if (daysUntilStart <= 0) {
 			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-			if (end.diff(now, "days").days > 1) {
+			if (end.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 				options.dateStyle = "medium";
 			}
 
@@ -666,17 +674,17 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 				label: eventName,
 				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: eventName },
 				active: true,
-				next: new Intl.DateTimeFormat(locale, options).format(end.toMillis()),
-				nextUnix: end.toMillis(),
+				next: new Intl.DateTimeFormat(locale, options).format(end.epochMilliseconds),
+				nextUnix: end.epochMilliseconds,
 				relative: formatRelativeTime(end, now, locale),
-				end: new Intl.DateTimeFormat(locale, options).format(end.toMillis()),
+				end: new Intl.DateTimeFormat(locale, options).format(end.epochMilliseconds),
 				endRelative: formatRelativeTime(end, now, locale),
-				endUnix: end.toMillis(),
+				endUnix: end.epochMilliseconds,
 			});
 		} else {
 			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-			if (start.diff(now, "days").days > 1) {
+			if (start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 				options.dateStyle = "medium";
 			}
 
@@ -686,42 +694,44 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 				label: eventName,
 				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: eventName },
 				active: false,
-				next: new Intl.DateTimeFormat(locale, options).format(start.toMillis()),
-				nextUnix: start.toMillis(),
+				next: new Intl.DateTimeFormat(locale, options).format(start.epochMilliseconds),
+				nextUnix: start.epochMilliseconds,
 				relative: formatRelativeTime(start, now, locale),
 			});
 		}
 	}
 
 	for (const { start, end, dyes } of RADIANCE_EVENTS) {
-		if (end <= now) {
+		if (Temporal.ZonedDateTime.compare(end, now) <= 0) {
 			continue;
 		}
 
 		const label = `${t("event-names.radiance-event", { ns: "general" })}`;
-		const isActive = now >= start;
+		const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 		const relevantDate = isActive ? end : start;
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-		if (relevantDate.diff(now, "days").days > 1) {
+		if (relevantDate.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
 		}
 
 		allCards.push({
 			type: DisplayCardType.Event,
-			key: `radiance-${start.toMillis()}`,
+			key: `radiance-${start.epochMilliseconds}`,
 			label,
 			dyeIcons: dyes.map((dye) => {
 				const emoji = DyeTypeToEmoji[dye];
 				return { label: emoji.name.replace("_", " "), url: formatEmojiURL(emoji.id) };
 			}),
 			active: isActive,
-			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.toMillis()),
-			nextUnix: relevantDate.toMillis(),
+			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.epochMilliseconds),
+			nextUnix: relevantDate.epochMilliseconds,
 			relative: formatRelativeTime(relevantDate, now, locale),
-			end: isActive ? new Intl.DateTimeFormat(locale, options).format(end.toMillis()) : undefined,
+			end: isActive
+				? new Intl.DateTimeFormat(locale, options).format(end.epochMilliseconds)
+				: undefined,
 			endRelative: isActive ? formatRelativeTime(end, now, locale) : undefined,
-			endUnix: isActive ? end.toMillis() : undefined,
+			endUnix: isActive ? end.epochMilliseconds : undefined,
 		});
 	}
 
@@ -731,84 +741,90 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		}
 
 		for (const { start, end } of doubleSeasonalLightSeason.doubleSeasonalLight ?? []) {
-			if (end <= now) {
+			if (Temporal.ZonedDateTime.compare(end, now) <= 0) {
 				continue;
 			}
 
-			const isActive = now >= start;
+			const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 			const relevantDate = isActive ? end : start;
 			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-			if (relevantDate.diff(now, "days").days > 1) {
+			if (relevantDate.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 				options.dateStyle = "medium";
 			}
 
 			allCards.push({
 				type: DisplayCardType.Event,
-				key: `double-seasonal-light-${doubleSeasonalLightSeason.id}-${start.toMillis()}`,
+				key: `double-seasonal-light-${doubleSeasonalLightSeason.id}-${start.epochMilliseconds}`,
 				label: t("event-names.double-seasonal-light", { ns: "general" }),
 				active: isActive,
-				next: new Intl.DateTimeFormat(locale, options).format(relevantDate.toMillis()),
-				nextUnix: relevantDate.toMillis(),
+				next: new Intl.DateTimeFormat(locale, options).format(relevantDate.epochMilliseconds),
+				nextUnix: relevantDate.epochMilliseconds,
 				relative: formatRelativeTime(relevantDate, now, locale),
-				end: isActive ? new Intl.DateTimeFormat(locale, options).format(end.toMillis()) : undefined,
+				end: isActive
+					? new Intl.DateTimeFormat(locale, options).format(end.epochMilliseconds)
+					: undefined,
 				endRelative: isActive ? formatRelativeTime(end, now, locale) : undefined,
-				endUnix: isActive ? end.toMillis() : undefined,
+				endUnix: isActive ? end.epochMilliseconds : undefined,
 			});
 		}
 	}
 
 	for (const { start, end } of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS) {
-		if (end <= now) {
+		if (Temporal.ZonedDateTime.compare(end, now) <= 0) {
 			continue;
 		}
 
-		const isActive = now >= start;
+		const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 		const relevantDate = isActive ? end : start;
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-		if (relevantDate.diff(now, "days").days > 1) {
+		if (relevantDate.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
 		}
 
 		allCards.push({
 			type: DisplayCardType.Event,
-			key: `double-treasure-candle-${start.toMillis()}`,
+			key: `double-treasure-candle-${start.epochMilliseconds}`,
 			label: t("event-names.double-treasure-candles", { ns: "general" }),
 			active: isActive,
-			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.toMillis()),
-			nextUnix: relevantDate.toMillis(),
+			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.epochMilliseconds),
+			nextUnix: relevantDate.epochMilliseconds,
 			relative: formatRelativeTime(relevantDate, now, locale),
-			end: isActive ? new Intl.DateTimeFormat(locale, options).format(end.toMillis()) : undefined,
+			end: isActive
+				? new Intl.DateTimeFormat(locale, options).format(end.epochMilliseconds)
+				: undefined,
 			endRelative: isActive ? formatRelativeTime(end, now, locale) : undefined,
-			endUnix: isActive ? end.toMillis() : undefined,
+			endUnix: isActive ? end.epochMilliseconds : undefined,
 		});
 	}
 
 	for (const { start, end } of DOUBLE_HEART_EVENTS) {
-		if (end <= now) {
+		if (Temporal.ZonedDateTime.compare(end, now) <= 0) {
 			continue;
 		}
 
-		const isActive = now >= start;
+		const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 		const relevantDate = isActive ? end : start;
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-		if (relevantDate.diff(now, "days").days > 1) {
+		if (relevantDate.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
 		}
 
 		allCards.push({
 			type: DisplayCardType.Event,
-			key: `double-heart-${start.toMillis()}`,
+			key: `double-heart-${start.epochMilliseconds}`,
 			label: t("event-names.double-hearts", { ns: "general" }),
 			active: isActive,
-			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.toMillis()),
-			nextUnix: relevantDate.toMillis(),
+			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.epochMilliseconds),
+			nextUnix: relevantDate.epochMilliseconds,
 			relative: formatRelativeTime(relevantDate, now, locale),
-			end: isActive ? new Intl.DateTimeFormat(locale, options).format(end.toMillis()) : undefined,
+			end: isActive
+				? new Intl.DateTimeFormat(locale, options).format(end.epochMilliseconds)
+				: undefined,
 			endRelative: isActive ? formatRelativeTime(end, now, locale) : undefined,
-			endUnix: isActive ? end.toMillis() : undefined,
+			endUnix: isActive ? end.epochMilliseconds : undefined,
 		});
 	}
 
@@ -827,16 +843,18 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		(a, b) => (b.endUnix ?? Number.POSITIVE_INFINITY) - (a.endUnix ?? Number.POSITIVE_INFINITY),
 	);
 
-	const activeMaintenances = MAINTENANCE_PERIODS.filter(
-		(period) => now >= period.start && now < period.end,
+	const activeMaintenances = MAINTENANCE_PERIODS.filter((period) =>
+		isActive(period.start, period.end, now),
 	);
 
-	const upcomingMaintenance = MAINTENANCE_PERIODS.find((period) => now < period.start);
+	const upcomingMaintenance = MAINTENANCE_PERIODS.find(
+		(period) => Temporal.ZonedDateTime.compare(now, period.start) < 0,
+	);
 
 	if (upcomingMaintenance) {
 		const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
 
-		if (upcomingMaintenance.start.diff(now, "days").days > 1) {
+		if (upcomingMaintenance.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			startOptions.dateStyle = "medium";
 		}
 
@@ -846,9 +864,9 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			label: t("maintenance", { ns: "general" }),
 			active: false,
 			next: new Intl.DateTimeFormat(locale, startOptions).format(
-				upcomingMaintenance.start.toMillis(),
+				upcomingMaintenance.start.epochMilliseconds,
 			),
-			nextUnix: upcomingMaintenance.start.toMillis(),
+			nextUnix: upcomingMaintenance.start.epochMilliseconds,
 			relative: formatRelativeTime(upcomingMaintenance.start, now, locale),
 		});
 	}
@@ -887,9 +905,9 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 										start: new Intl.DateTimeFormat(locale, {
 											timeStyle: "short",
 											timeZone,
-										}).format(activeMaintenances[0]!.start.toMillis()),
+										}).format(activeMaintenances[0]!.start.epochMilliseconds),
 										end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-											activeMaintenances[0]!.end.toMillis(),
+											activeMaintenances[0]!.end.epochMilliseconds,
 										),
 									})}
 								</p>
@@ -900,17 +918,17 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 									</p>
 									<ul className="text-xs text-amber-600 dark:text-amber-400 m-0 list-disc ps-4">
 										{activeMaintenances.map((maintenance) => (
-											<li key={maintenance.start.toMillis()}>
+											<li key={maintenance.start.epochMilliseconds}>
 												{t("time-range", {
 													ns: "general",
 													start: new Intl.DateTimeFormat(locale, {
 														timeStyle: "short",
 														timeZone,
-													}).format(maintenance.start.toMillis()),
+													}).format(maintenance.start.epochMilliseconds),
 													end: new Intl.DateTimeFormat(locale, {
 														timeStyle: "short",
 														timeZone,
-													}).format(maintenance.end.toMillis()),
+													}).format(maintenance.end.epochMilliseconds),
 												})}
 											</li>
 										))}

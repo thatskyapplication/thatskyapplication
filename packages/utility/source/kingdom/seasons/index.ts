@@ -1,6 +1,5 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
-import type { DateTime } from "luxon";
-import { skyNow } from "../../dates.js";
+import { isActive, skyNow } from "../../dates.js";
 import type { Season } from "../../models/season.js";
 import type { GuideSpirit, SeasonalSpirit } from "../../models/spirits.js";
 import type { SeasonIds } from "../../season.js";
@@ -80,7 +79,7 @@ export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collectio
 
 		return travellingDates;
 	}, [])
-		.sort((a, b) => a.start.toMillis() - b.start.toMillis())
+		.sort((a, b) => Temporal.ZonedDateTime.compare(a.start, b.start))
 		.map((dates, index) => [index + 1, { ...dates, visit: index + 1 }]),
 );
 
@@ -105,7 +104,7 @@ for (const returningDate of returningDates) {
 }
 
 export const VISITS_ABSENT: Readonly<Visit[]> = allVisits
-	.sort((a, b) => a.start.toMillis() - b.start.toMillis())
+	.sort((a, b) => Temporal.ZonedDateTime.compare(a.start, b.start))
 	.reduceRight<Visit[]>((visits, visit) => {
 		if (visits.some((storedVisit) => storedVisit.spiritId === visit.spiritId)) {
 			return visits;
@@ -117,7 +116,7 @@ export const VISITS_ABSENT: Readonly<Visit[]> = allVisits
 	.reverse();
 
 export function skySeasons(date = skyNow()) {
-	return SEASONS.filter(({ start }) => date >= start);
+	return SEASONS.filter(({ start }) => Temporal.ZonedDateTime.compare(date, start) >= 0);
 }
 
 export function currentSeasonalSpirits() {
@@ -127,22 +126,23 @@ export function currentSeasonalSpirits() {
 	}, new Collection<SpiritIds, GuideSpirit | SeasonalSpirit>());
 }
 
-export function skyCurrentSeason(date: DateTime) {
-	return skySeasons(date).find(({ start, end }) => date >= start && date < end) ?? null;
+export function skyCurrentSeason(date: Temporal.ZonedDateTime) {
+	return skySeasons(date).find(({ start, end }) => isActive(start, end, date)) ?? null;
 }
 
-export function skyUpcomingSeason(date: DateTime) {
-	return SEASONS.find(({ start }) => start > date) ?? null;
+export function skyUpcomingSeason(date: Temporal.ZonedDateTime) {
+	return SEASONS.find(({ start }) => Temporal.ZonedDateTime.compare(start, date) > 0) ?? null;
 }
 
-export function resolveTravellingSpirit(date: DateTime) {
-	const travelling = TRAVELLING_DATES.findLast(({ start, end }) => date >= start && date < end);
+export function resolveTravellingSpirit(date: Temporal.ZonedDateTime) {
+	const travelling = TRAVELLING_DATES.findLast(({ start, end }) => isActive(start, end, date));
+
 	return typeof travelling?.spiritId === "number"
 		? currentSeasonalSpirits().get(travelling.spiritId)
 		: null;
 }
 
-export function resolveReturningSpirits(date: DateTime) {
+export function resolveReturningSpirits(date: Temporal.ZonedDateTime) {
 	const returningSpirits = currentSeasonalSpirits().filter((spirit) =>
 		spirit.isSeasonalSpirit() ? spirit.visit(date).current.returning : false,
 	);

@@ -22,7 +22,6 @@ import {
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { ChevronRight, Receipt } from "lucide-react";
-import type { DateTime } from "luxon";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useFetcher } from "react-router";
@@ -37,7 +36,7 @@ export function StartView({
 	showEverythingButton,
 }: {
 	data: ReadonlySet<number>;
-	now: DateTime;
+	now: Temporal.ZonedDateTime;
 	showEverythingButton: boolean;
 }) {
 	const { t } = useTranslation();

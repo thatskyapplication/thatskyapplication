@@ -15,7 +15,6 @@ import {
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { ArrowLeft } from "lucide-react";
-import { DateTime } from "luxon";
 import { type ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router";
@@ -50,7 +49,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	return {
 		data: cataloguePacket?.data ?? [],
 		locale,
-		now: skyNow().toMillis(),
+		now: skyNow().epochMilliseconds,
 		showEverythingButton: cataloguePacket?.show_everything_button ?? false,
 		timeZone,
 	};
@@ -118,7 +117,10 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
 	const data = useMemo(() => new Set(dataArray), [dataArray]);
-	const now = useMemo(() => DateTime.fromMillis(nowMillis, { zone: TIME_ZONE }), [nowMillis]);
+	const now = useMemo(
+		() => Temporal.Instant.fromEpochMilliseconds(nowMillis).toZonedDateTimeISO(TIME_ZONE),
+		[nowMillis],
+	);
 	const view = searchParams.get("view");
 
 	let content: ReactNode = null;

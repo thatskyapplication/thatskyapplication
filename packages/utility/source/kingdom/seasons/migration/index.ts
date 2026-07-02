@@ -23,7 +23,7 @@ export default new Season({
 		migratingMantaWhisperer,
 	],
 	seasonalCandlesRotation: (now) =>
-		now >= skyDate(2025, 11, 4)
+		Temporal.ZonedDateTime.compare(now, skyDate(2025, 11, 4)) >= 0
 			? [
 					{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },

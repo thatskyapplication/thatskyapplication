@@ -18,10 +18,12 @@ import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	DELETED_USER_TEXT,
 	DOUBLE_HEART_EVENTS,
+	epochSeconds,
 	formatEmoji,
 	getRandomElement,
 	type HeartHistoryPacket,
 	type HeartPacket,
+	isActive,
 	MAXIMUM_HEARTS_PER_DAY,
 	SkyProfileMissingNameSource,
 	skyNow,
@@ -148,17 +150,17 @@ export async function gift(
 	}
 
 	const now = skyNow();
-	const today = now.startOf("day");
+	const today = now.startOfDay();
 
-	const doubleHeartEvent = DOUBLE_HEART_EVENTS.findLast(
-		(event) => now >= event.start && now < event.end,
+	const doubleHeartEvent = DOUBLE_HEART_EVENTS.findLast((event) =>
+		isActive(event.start, event.end, now),
 	);
 
-	const tomorrowTimestamp = `<t:${Math.floor(today.plus({ day: 1 }).toUnixInteger())}:R>`;
+	const tomorrowTimestamp = `<t:${epochSeconds(today.add({ days: 1 }))}:R>`;
 
 	const heartPackets = await pg<HeartPacket>(Table.Hearts)
 		.where({ user_id: invoker.id })
-		.andWhere("timestamp", ">=", today.toISO());
+		.andWhere("timestamp", ">=", today.toInstant().toString());
 
 	if (heartPackets.some((heartPacket) => heartPacket.giftee_id === user.id)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -240,11 +242,11 @@ export async function gift(
 							date1: Intl.DateTimeFormat(interaction.locale, {
 								timeZone: TIME_ZONE,
 								dateStyle: "short",
-							}).format(doubleHeartEvent.start.toMillis()),
+							}).format(doubleHeartEvent.start.epochMilliseconds),
 							date2: Intl.DateTimeFormat(interaction.locale, {
 								timeZone: TIME_ZONE,
 								dateStyle: "short",
-							}).format(doubleHeartEvent.end.toMillis()),
+							}).format(doubleHeartEvent.end.epochMilliseconds),
 						})
 					: t("heart.gift-hearts-left-to-gift", {
 							lng: guildLocale,

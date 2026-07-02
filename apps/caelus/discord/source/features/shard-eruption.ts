@@ -16,7 +16,6 @@ import {
 } from "@discordjs/core";
 import { shardEruption, skyNow, skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
@@ -28,7 +27,7 @@ import {
 } from "../utility/shard-eruption.js";
 
 function generateShardEruptionSelectMenuOptions(
-	date: DateTime,
+	date: Temporal.ZonedDateTime,
 	indexStart: number,
 	offset: number,
 	locale: Locale,
@@ -45,7 +44,7 @@ function generateShardEruptionSelectMenuOptions(
 		const dateString = Intl.DateTimeFormat(locale, {
 			timeZone: TIME_ZONE,
 			dateStyle,
-		}).format(date.plus({ days: index }).toMillis());
+		}).format(date.add({ days: index }).epochMilliseconds);
 
 		const stringSelectMenuOption: APISelectMenuOption = {
 			label: dateString,
@@ -138,7 +137,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.plus({ days: offset }).toMillis())}](${SHARD_ERUPTION_URL})`,
+			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.add({ days: offset }).epochMilliseconds)}](${SHARD_ERUPTION_URL})`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -223,7 +222,7 @@ export async function browse(
 }
 
 function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
-	const shardToday = skyToday().plus({ days: offset });
+	const shardToday = skyToday().add({ days: offset });
 
 	return [
 		{
@@ -249,13 +248,13 @@ function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 						const placeholderStartDate = Intl.DateTimeFormat(locale, {
 							timeZone: TIME_ZONE,
 							dateStyle: "short",
-						}).format(shardToday.plus({ days: currentIndex }).toMillis());
+						}).format(shardToday.add({ days: currentIndex }).epochMilliseconds);
 
 						const placeholderEndDate = Intl.DateTimeFormat(locale, {
 							timeZone: TIME_ZONE,
 							dateStyle: "short",
 						}).format(
-							shardToday.plus({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }).toMillis(),
+							shardToday.add({ days: MAXIMUM_OPTION_NUMBER * (index + 1) - 1 }).epochMilliseconds,
 						);
 
 						return {

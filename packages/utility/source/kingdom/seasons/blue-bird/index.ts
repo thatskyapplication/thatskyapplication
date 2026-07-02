@@ -23,7 +23,7 @@ export default new Season({
 		royalHairtousleTeen,
 	],
 	seasonalCandlesRotation: (now) =>
-		now >= skyDate(2_025, 6, 5)
+		Temporal.ZonedDateTime.compare(now, skyDate(2_025, 6, 5)) >= 0
 			? [
 					{ rotation: RotationIdentifier.Four, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.Three, realm: RealmName.VaultOfKnowledge },
@@ -36,7 +36,7 @@ export default new Season({
 					{ rotation: RotationIdentifier.Four, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.Four, realm: RealmName.ValleyOfTriumph },
 				]
-			: now >= skyDate(2_025, 5, 1)
+			: Temporal.ZonedDateTime.compare(now, skyDate(2_025, 5, 1)) >= 0
 				? [
 						{ rotation: RotationIdentifier.Three, realm: RealmName.GoldenWasteland },
 						{ rotation: RotationIdentifier.Three, realm: RealmName.VaultOfKnowledge },

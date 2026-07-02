@@ -43,6 +43,7 @@ import {
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	DOUBLE_HEART_EVENTS,
+	epochSeconds,
 	formatEmoji,
 	formatEmojiURL,
 	isDailyQuest,
@@ -65,7 +66,6 @@ import {
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
-import type { DateTime } from "luxon";
 import pQueue from "p-queue";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
@@ -671,11 +671,11 @@ async function send({ guildId, type, channelId, messageId, enforceNonce }: Daily
 	return newDailyGuidesDistributionPacket;
 }
 
-function dailyGuidesEventData(date: DateTime, locale: Locale) {
+function dailyGuidesEventData(date: Temporal.ZonedDateTime, locale: Locale) {
 	const events = skyCurrentEvents(date);
 
 	const eventEndText = skyNotEndedEvents(date).map(({ id, name, start, end }) => {
-		const daysUntilStart = start.diff(date, "days").days;
+		const daysUntilStart = start.since(date).total({ unit: "days", relativeTo: date });
 		const eventName = t(name, { lng: locale, ns: "general" });
 		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
@@ -693,7 +693,7 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 			text: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}${t("days-left.event", {
 				lng: locale,
 				ns: "general",
-				count: Math.ceil(end.diff(date, "days").days) - 1,
+				count: Math.ceil(end.since(date).total({ unit: "days", relativeTo: date })) - 1,
 				name: eventName,
 			})}`,
 		};
@@ -713,7 +713,7 @@ function dailyGuidesEventData(date: DateTime, locale: Locale) {
 	const currentEventsWithEventTickets = events.filter(
 		(event) =>
 			event.eventTickets &&
-			date < event.eventTickets.end &&
+			Temporal.ZonedDateTime.compare(date, event.eventTickets.end) < 0 &&
 			event.resolveInfographicURL(date) !== null,
 	);
 
@@ -750,7 +750,7 @@ async function distributionData(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.toMillis())}](${DAILY_GUIDES_URL})`,
+			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.epochMilliseconds)}](${DAILY_GUIDES_URL})`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -764,10 +764,12 @@ async function distributionData(
 	const seenMaintenanceDays = new Set<number>();
 
 	for (const maintenance of MAINTENANCE_PERIODS) {
-		const daysUntilStart = maintenance.start.diff(today, "days").days;
+		const daysUntilStart = maintenance.start
+			.since(today)
+			.total({ unit: "days", relativeTo: today });
 
 		if (daysUntilStart < 1) {
-			if (maintenance.end > now) {
+			if (Temporal.ZonedDateTime.compare(maintenance.end, now) > 0) {
 				todayMaintenance.push(maintenance);
 			}
 
@@ -801,7 +803,7 @@ async function distributionData(
 					time: new Intl.DateTimeFormat(locale, {
 						timeZone: TIME_ZONE,
 						timeStyle: "short",
-					}).format(maintenance.start.toMillis()),
+					}).format(maintenance.start.epochMilliseconds),
 				}),
 			});
 		}
@@ -820,8 +822,8 @@ async function distributionData(
 							`- ${t("time-range", {
 								lng: locale,
 								ns: "general",
-								start: `<t:${maintenance.start.toUnixInteger()}:t>`,
-								end: `<t:${maintenance.end.toUnixInteger()}:t>`,
+								start: `<t:${epochSeconds(maintenance.start)}:t>`,
+								end: `<t:${epochSeconds(maintenance.end)}:t>`,
 							})}`,
 					)
 					.join("\n"),
@@ -830,8 +832,8 @@ async function distributionData(
 			maintenanceString = t("maintenance-description-singular", {
 				lng: locale,
 				ns: "general",
-				start: `<t:${todayMaintenance[0]!.start.toUnixInteger()}:t>`,
-				end: `<t:${todayMaintenance[0]!.end.toUnixInteger()}:t>`,
+				start: `<t:${epochSeconds(todayMaintenance[0]!.start)}:t>`,
+				end: `<t:${epochSeconds(todayMaintenance[0]!.end)}:t>`,
 			});
 		}
 
@@ -971,7 +973,7 @@ async function distributionData(
 			text: `${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}${t("days-left.season", {
 				lng: locale,
 				ns: "general",
-				count: Math.ceil(season.end.diff(now, "days").days) - 1,
+				count: Math.ceil(season.end.since(now).total({ unit: "days", relativeTo: now })) - 1,
 			})}`,
 		});
 
@@ -982,7 +984,7 @@ async function distributionData(
 			SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle;
 
 		for (const doubleSeasonalLight of season.doubleSeasonalLight?.filter(
-			({ end }) => end > today,
+			({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
 		) ?? []) {
 			const candlePrefix = formatEmoji(candleEmoji);
 
@@ -990,16 +992,21 @@ async function distributionData(
 				end: doubleSeasonalLight.end,
 				start: doubleSeasonalLight.start,
 				text:
-					today >= doubleSeasonalLight.start
+					Temporal.ZonedDateTime.compare(today, doubleSeasonalLight.start) >= 0
 						? `${candlePrefix} ${t("days-left.double-seasonal-light", {
 								lng: locale,
 								ns: "general",
-								count: Math.ceil(doubleSeasonalLight.end.diff(today, "days").days) - 1,
+								count:
+									Math.ceil(
+										doubleSeasonalLight.end.since(today).total({ unit: "days", relativeTo: today }),
+									) - 1,
 							})}`
 						: `${candlePrefix} ${t("daily-guides.double-seasonal-light-upcoming", {
 								lng: locale,
 								ns: "features",
-								count: Math.floor(doubleSeasonalLight.start.diff(today, "days").days),
+								count: Math.floor(
+									doubleSeasonalLight.start.since(today).total({ unit: "days", relativeTo: today }),
+								),
 							})}`,
 			});
 		}
@@ -1043,7 +1050,7 @@ async function distributionData(
 	const next = skyUpcomingSeason(today);
 
 	if (next) {
-		const daysUntilStart = next.start.diff(today, "days").days;
+		const daysUntilStart = next.start.since(today).total({ unit: "days", relativeTo: today });
 		const nextSeasonEmoji = SeasonIdToSeasonalEmoji[next.id];
 
 		footerItems.push({
@@ -1138,7 +1145,7 @@ async function distributionData(
 
 	if (communityEvents.length > 0) {
 		for (const { start, name, marketingURL } of communityEvents) {
-			const untilStart = start.diff(today, "days").days;
+			const untilStart = start.since(today).total({ unit: "days", relativeTo: today });
 			const formattedName = marketingURL ? `[${name}](${marketingURL})` : name;
 
 			footerItems.push({
@@ -1155,13 +1162,15 @@ async function distributionData(
 								lng: locale,
 								ns: "features",
 								event: formattedName,
-								time: `<t:${start.toUnixInteger()}:t>`,
+								time: `<t:${epochSeconds(start)}:t>`,
 							}),
 			});
 		}
 	}
 
-	const radianceEvents = RADIANCE_EVENTS.filter(({ end }) => end > today);
+	const radianceEvents = RADIANCE_EVENTS.filter(
+		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
+	);
 
 	if (radianceEvents.length > 0) {
 		const radianceName = t("event-names.radiance-event", { lng: locale, ns: "general" });
@@ -1170,14 +1179,16 @@ async function distributionData(
 		for (const radianceEvent of radianceEvents) {
 			const dyeEmojis = radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join("");
 
-			if (today >= radianceEvent.start) {
+			if (Temporal.ZonedDateTime.compare(today, radianceEvent.start) >= 0) {
 				footerItems.push({
 					end: radianceEvent.end,
 					start: radianceEvent.start,
 					text: `${dyePrefix} ${t("days-left.event", {
 						lng: locale,
 						ns: "general",
-						count: Math.ceil(radianceEvent.end.diff(today, "days").days) - 1,
+						count:
+							Math.ceil(radianceEvent.end.since(today).total({ unit: "days", relativeTo: today })) -
+							1,
 						name: radianceName,
 					})} ${dyeEmojis}`,
 				});
@@ -1189,7 +1200,9 @@ async function distributionData(
 						lng: locale,
 						ns: "features",
 						event: `${dyePrefix} ${radianceName}`,
-						count: Math.floor(radianceEvent.start.diff(today, "days").days),
+						count: Math.floor(
+							radianceEvent.start.since(today).total({ unit: "days", relativeTo: today }),
+						),
 					})} ${dyeEmojis}`,
 				});
 			}
@@ -1197,40 +1210,54 @@ async function distributionData(
 	}
 
 	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
-		({ end }) => end > today,
+		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
 	)) {
 		footerItems.push({
 			end: doubleTreasureCandleEvent.end,
 			start: doubleTreasureCandleEvent.start,
 			text:
-				today >= doubleTreasureCandleEvent.start
+				Temporal.ZonedDateTime.compare(today, doubleTreasureCandleEvent.start) >= 0
 					? `${doubleTreasureCandlePrefix} ${t("days-left.double-treasure-candles", {
 							lng: locale,
 							ns: "general",
-							count: Math.ceil(doubleTreasureCandleEvent.end.diff(today, "days").days) - 1,
+							count:
+								Math.ceil(
+									doubleTreasureCandleEvent.end
+										.since(today)
+										.total({ unit: "days", relativeTo: today }),
+								) - 1,
 						})}`
 					: `${doubleTreasureCandlePrefix} ${t("daily-guides.double-treasure-candles-upcoming", {
 							lng: locale,
 							ns: "features",
-							count: Math.floor(doubleTreasureCandleEvent.start.diff(today, "days").days),
+							count: Math.floor(
+								doubleTreasureCandleEvent.start
+									.since(today)
+									.total({ unit: "days", relativeTo: today }),
+							),
 						})}`,
 		});
 	}
 
-	const doubleHeartEvents = DOUBLE_HEART_EVENTS.filter(({ end }) => end > today);
+	const doubleHeartEvents = DOUBLE_HEART_EVENTS.filter(
+		({ end }) => Temporal.ZonedDateTime.compare(end, today) > 0,
+	);
 
 	if (doubleHeartEvents.length > 0) {
 		const heartPrefix = formatEmoji(MISCELLANEOUS_EMOJIS.Heart);
 
 		for (const doubleHeartEvent of doubleHeartEvents) {
-			if (today >= doubleHeartEvent.start) {
+			if (Temporal.ZonedDateTime.compare(today, doubleHeartEvent.start) >= 0) {
 				footerItems.push({
 					end: doubleHeartEvent.end,
 					start: doubleHeartEvent.start,
 					text: `${heartPrefix} ${t("days-left.double-hearts", {
 						lng: locale,
 						ns: "general",
-						count: Math.ceil(doubleHeartEvent.end.diff(today, "days").days) - 1,
+						count:
+							Math.ceil(
+								doubleHeartEvent.end.since(today).total({ unit: "days", relativeTo: today }),
+							) - 1,
 					})}`,
 				});
 			} else {
@@ -1240,7 +1267,9 @@ async function distributionData(
 					text: `${heartPrefix} ${t("daily-guides.double-hearts-upcoming", {
 						lng: locale,
 						ns: "features",
-						count: Math.floor(doubleHeartEvent.start.diff(today, "days").days),
+						count: Math.floor(
+							doubleHeartEvent.start.since(today).total({ unit: "days", relativeTo: today }),
+						),
 					})}`,
 				});
 			}

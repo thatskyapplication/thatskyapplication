@@ -1,4 +1,5 @@
 import {
+	epochSeconds,
 	formatEmojiURL,
 	type ShardEruptionData,
 	shardEruption,
@@ -72,7 +73,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
 	const now = skyNow();
-	const today = now.startOf("day");
+	const today = now.startOfDay();
 	let page = pageParameter ? Number(pageParameter) : 0;
 
 	if (!Number.isInteger(page)) {
@@ -91,29 +92,29 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		const todayFormat = new Intl.DateTimeFormat(locale, {
 			timeZone,
 			dateStyle: "full",
-		}).format(today.plus({ days: index }).toMillis());
+		}).format(today.add({ days: index }).epochMilliseconds);
 
 		shards.push({
 			shard: shard && {
 				...shard,
 				timestamps: shard.timestamps.map(({ start, end }) => ({
 					start: {
-						unix: start.toUnixInteger(),
+						unix: epochSeconds(start),
 						format: new Intl.DateTimeFormat(locale, {
 							timeZone,
 							hour: "2-digit",
 							minute: "2-digit",
 							second: "2-digit",
-						}).format(start.toMillis()),
+						}).format(start.epochMilliseconds),
 					},
 					end: {
-						unix: end.toUnixInteger(),
+						unix: epochSeconds(end),
 						format: new Intl.DateTimeFormat(locale, {
 							timeZone,
 							hour: "2-digit",
 							minute: "2-digit",
 							second: "2-digit",
-						}).format(end.toMillis()),
+						}).format(end.epochMilliseconds),
 					},
 				})),
 			},
@@ -121,7 +122,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		});
 	}
 
-	return { currentUnix: now.toUnixInteger(), shards, page };
+	return { currentUnix: epochSeconds(now), shards, page };
 };
 
 function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruptionCardProps) {

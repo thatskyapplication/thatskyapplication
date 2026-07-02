@@ -74,12 +74,12 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	}
 
 	const now = skyNow();
-	const initialTimestamp = now.toMillis();
+	const initialTimestamp = now.epochMilliseconds;
 	const shard = shardEruption();
 	const season = skyCurrentSeason(now);
 
 	const isAnyEventWithEventTickets = skyCurrentEvents(now).some(
-		({ eventTickets }) => eventTickets && now < eventTickets.end,
+		({ eventTickets }) => eventTickets && Temporal.ZonedDateTime.compare(now, eventTickets.end) < 0,
 	);
 
 	return {

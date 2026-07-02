@@ -1,4 +1,3 @@
-import type { DateTime } from "luxon";
 import type { Cosmetic } from "../cosmetics.js";
 import { CDN_URL } from "../routes.js";
 import type { EventIds } from "../utility/event.js";
@@ -20,13 +19,13 @@ interface EventData {
 	/**
 	 * The start date of the event.
 	 */
-	start: DateTime;
+	start: Temporal.ZonedDateTime;
 	/**
 	 * The end date of the event.
 	 *
 	 * @remarks The end date is exclusive.
 	 */
-	end: DateTime;
+	end: Temporal.ZonedDateTime;
 	/**
 	 * Data related to event tickets.
 	 */
@@ -48,36 +47,36 @@ interface EventData {
 interface EventTicketsData {
 	amount?: readonly EventTicketsAmountData[];
 	pool?: readonly EventTicketsPoolData[];
-	end?: DateTime;
+	end?: Temporal.ZonedDateTime;
 }
 
 export interface EventTicketsAmountData {
-	date: DateTime;
+	date: Temporal.ZonedDateTime;
 	amount: number;
 	infographicURL?: string;
 }
 
 interface EventTicketsPoolData {
-	start: DateTime;
-	end: DateTime;
+	start: Temporal.ZonedDateTime;
+	end: Temporal.ZonedDateTime;
 	amount: number;
 }
 
 interface EventTickets {
 	amount: readonly EventTicketsAmount[];
 	pool?: readonly EventTicketsPool[];
-	end: DateTime;
+	end: Temporal.ZonedDateTime;
 }
 
 interface EventTicketsAmount {
-	date: DateTime;
+	date: Temporal.ZonedDateTime;
 	amount: number;
 	infographicURL: string | null;
 }
 
 interface EventTicketsPool {
-	start: DateTime;
-	end: DateTime;
+	start: Temporal.ZonedDateTime;
+	end: Temporal.ZonedDateTime;
 	amount: number;
 }
 
@@ -86,9 +85,9 @@ export class Event {
 
 	public readonly name: `event-names.${string}`;
 
-	public readonly start: DateTime;
+	public readonly start: Temporal.ZonedDateTime;
 
-	public readonly end: DateTime;
+	public readonly end: Temporal.ZonedDateTime;
 
 	public readonly eventTickets: EventTickets | null;
 
@@ -128,10 +127,11 @@ export class Event {
 		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
-	public resolveInfographicURL(date: DateTime): string | null {
+	public resolveInfographicURL(date: Temporal.ZonedDateTime): string | null {
 		return (
-			this.eventTickets?.amount.find((amount) => date.hasSame(amount.date, "day"))
-				?.infographicURL ?? null
+			this.eventTickets?.amount.find((amount) =>
+				date.toPlainDate().equals(amount.date.toPlainDate()),
+			)?.infographicURL ?? null
 		);
 	}
 }

@@ -7,8 +7,8 @@ const eventTicketAmount: EventTicketsAmountData[] = [];
 
 for (
 	let start = skyDate(2026, 4, 10), end = skyDate(2026, 4, 24);
-	start < end;
-	start = start.plus({ days: 1 })
+	Temporal.ZonedDateTime.compare(start, end) < 0;
+	start = start.add({ days: 1 })
 ) {
 	eventTicketAmount.push({
 		date: start,

@@ -1,6 +1,5 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
-import type { DateTime } from "luxon";
-import { skyNow } from "../dates.js";
+import { isActive, skyNow } from "../dates.js";
 import type { Event } from "../models/event.js";
 import type { EventIds } from "../utility/event.js";
 import Year1 from "./2019/index.js";
@@ -25,21 +24,27 @@ const EVENTS: ReadonlyCollection<EventIds, Event> = [
 ].reduce((events, event) => events.set(event.id, event), new Collection<EventIds, Event>());
 
 export function skyEvents(): ReadonlyCollection<EventIds, Event> {
-	return EVENTS.filter((event) => skyNow() >= event.start);
+	return EVENTS.filter((event) => Temporal.ZonedDateTime.compare(skyNow(), event.start) >= 0);
 }
 
-export function skyCurrentEvents(date: DateTime): ReadonlyCollection<EventIds, Event> {
-	return EVENTS.filter(({ start, end }) => date >= start && date < end);
+export function skyCurrentEvents(
+	date: Temporal.ZonedDateTime,
+): ReadonlyCollection<EventIds, Event> {
+	return EVENTS.filter(({ start, end }) => isActive(start, end, date));
 }
 
-export function skyUpcomingEvents(date: DateTime): ReadonlyCollection<EventIds, Event> {
-	return EVENTS.filter(({ start }) => start >= date);
+export function skyUpcomingEvents(
+	date: Temporal.ZonedDateTime,
+): ReadonlyCollection<EventIds, Event> {
+	return EVENTS.filter(({ start }) => Temporal.ZonedDateTime.compare(start, date) >= 0);
 }
 
-export function skyNotEndedEvents(date: DateTime): ReadonlyCollection<EventIds, Event> {
-	return EVENTS.filter(({ end }) => date < end);
+export function skyNotEndedEvents(
+	date: Temporal.ZonedDateTime,
+): ReadonlyCollection<EventIds, Event> {
+	return EVENTS.filter(({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0);
 }
 
-export function communityUpcomingEvents(date: DateTime): readonly CommunityEvent[] {
-	return COMMUNITY_EVENTS.filter(({ start }) => start >= date);
+export function communityUpcomingEvents(date: Temporal.ZonedDateTime): readonly CommunityEvent[] {
+	return COMMUNITY_EVENTS.filter(({ start }) => Temporal.ZonedDateTime.compare(start, date) >= 0);
 }

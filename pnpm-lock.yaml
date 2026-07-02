@@ -66,9 +66,6 @@ importers:
       knex:
         specifier: ^3.2.10
         version: 3.2.10(pg@8.21.0)
-      luxon:
-        specifier: ^3.7.2
-        version: 3.7.2
       p-queue:
         specifier: ^9.3.0
         version: 9.3.0
@@ -91,9 +88,6 @@ importers:
       '@biomejs/biome':
         specifier: 2.3.11
         version: 2.3.11
-      '@types/luxon':
-        specifier: ^3.7.1
-        version: 3.7.1
       '@types/pg':
         specifier: ^8.20.0
         version: 8.20.0
@@ -161,9 +155,6 @@ importers:
       knex:
         specifier: ^3.2.10
         version: 3.2.10(pg@8.21.0)
-      luxon:
-        specifier: ^3.7.2
-        version: 3.7.2
       pg:
         specifier: ^8.21.0
         version: 8.21.0
@@ -174,9 +165,6 @@ importers:
       '@biomejs/biome':
         specifier: 2.3.11
         version: 2.3.11
-      '@types/luxon':
-        specifier: ^3.7.1
-        version: 3.7.1
       '@types/node':
         specifier: ^26.1.0
         version: 26.1.0
@@ -263,9 +251,6 @@ importers:
       '@biomejs/biome':
         specifier: 2.3.11
         version: 2.3.11
-      '@types/luxon':
-        specifier: ^3.7.1
-        version: 3.7.1
       '@types/node':
         specifier: ^26.1.0
         version: 26.1.0
@@ -338,9 +323,6 @@ importers:
       lucide-react:
         specifier: ^1.17.0
         version: 1.17.0(react@19.2.7)
-      luxon:
-        specifier: ^3.7.2
-        version: 3.7.2
       pg:
         specifier: ^8.21.0
         version: 8.21.0
@@ -371,6 +353,9 @@ importers:
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
+      temporal-polyfill:
+        specifier: ^1.0.1
+        version: 1.0.1
     devDependencies:
       '@biomejs/biome':
         specifier: 2.3.11
@@ -381,9 +366,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.3.0
         version: 4.3.0
-      '@types/luxon':
-        specifier: ^3.7.1
-        version: 3.7.1
       '@types/node':
         specifier: ^26.1.0
         version: 26.1.0
@@ -445,9 +427,6 @@ importers:
       discord-api-types:
         specifier: ^0.38.48
         version: 0.38.48
-      luxon:
-        specifier: ^3.7.2
-        version: 3.7.2
       ts-mixer:
         specifier: ^6.0.4
         version: 6.0.4
@@ -455,9 +434,6 @@ importers:
       '@biomejs/biome':
         specifier: 2.3.11
         version: 2.3.11
-      '@types/luxon':
-        specifier: ^3.7.1
-        version: 3.7.1
       '@types/node':
         specifier: ^26.1.0
         version: 26.1.0
@@ -2807,9 +2783,6 @@ packages:
   '@types/jsesc@2.5.1':
     resolution: {integrity: sha512-9VN+6yxLOPLOav+7PwjZbxiID2bVaeq0ED4qSQmdQTdjnXJSaCVKTR58t15oqH1H5t8Ng2ZX1SabJVoN9Q34bw==}
 
-  '@types/luxon@3.7.1':
-    resolution: {integrity: sha512-H3iskjFIAn5SlJU7OuxUmTEpebK6TKB8rxZShDslBMZJ5u9S//KM1sbdAisiSrqwLQncVjnpi2OK2J51h+4lsg==}
-
   '@types/node@20.14.12':
     resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==}
 
@@ -4232,10 +4205,6 @@ packages:
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  luxon@3.7.2:
-    resolution: {integrity: sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew==}
-    engines: {node: '>=12'}
-
   magic-bytes.js@1.13.0:
     resolution: {integrity: sha512-afO2mnxW7GDTXMm5/AoN1WuOcdoKhtgXjIvHmobqTD1grNplhGdv3PFOyjCVmrnOZBIT/gD/koDKpYG+0mvHcg==}
 
@@ -5203,6 +5172,15 @@ packages:
   tarn@3.0.2:
     resolution: {integrity: sha512-51LAVKUSZSVfI05vjPESNc5vwqqZpbXCsU+/+wxlOrUjk2SnFTt97v9ZgQrD4YmxYW1Px6w2KjaDitCfkvgxMQ==}
     engines: {node: '>=8.0.0'}
+
+  temporal-polyfill@1.0.1:
+    resolution: {integrity: sha512-N2SoI9olnW7BUsU8RosDphZQl9s+WJ8O7PoJMFCr/e5/1rFkVI4GNOWaSeySG+UoP04foPYsnLWbJmbXOiShZg==}
+
+  temporal-spec@1.0.0:
+    resolution: {integrity: sha512-00Ahj1e1ifaERTMOIIGpOCdOo9IEk2m6GGSMedsn9a2SIsGLdOTbmME1Htv6IM82b6VHrzSUTIVc7YHy6hdhFQ==}
+
+  temporal-utils@1.0.1:
+    resolution: {integrity: sha512-HAixuesxFQIUaQk3ptX2jhfO/FsOkgVkDDMawvp6n/fkB1q6BKfs3lURw9I+pK/2e2e/q/vrLrxmeqauBoyGMQ==}
 
   thread-stream@4.0.0:
     resolution: {integrity: sha512-4iMVL6HAINXWf1ZKZjIPcz5wYaOdPhtO8ATvZ+Xqp3BTdaqtAwQkNmKORqcIo5YkQqGXq5cwfswDwMqqQNrpJA==}
@@ -8104,8 +8082,6 @@ snapshots:
 
   '@types/jsesc@2.5.1': {}
 
-  '@types/luxon@3.7.1': {}
-
   '@types/node@20.14.12':
     dependencies:
       undici-types: 5.26.5
@@ -9602,8 +9578,6 @@ snapshots:
     dependencies:
       react: 19.2.7
 
-  luxon@3.7.2: {}
-
   magic-bytes.js@1.13.0: {}
 
   magic-string@0.30.21:
@@ -10614,6 +10588,15 @@ snapshots:
   tapable@2.3.3: {}
 
   tarn@3.0.2: {}
+
+  temporal-polyfill@1.0.1:
+    dependencies:
+      temporal-spec: 1.0.0
+      temporal-utils: 1.0.1
+
+  temporal-spec@1.0.0: {}
+
+  temporal-utils@1.0.1: {}
 
   thread-stream@4.0.0:
     dependencies:

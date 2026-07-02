@@ -16,7 +16,7 @@ export default new Season({
 	guide: carnivalGuide,
 	spirits: [carnivalAthleticDancer, carnivalJuggler, carnivalPuzzleDirector, carnivalStuntActor],
 	seasonalCandlesRotation: (now) =>
-		now >= skyDate(2026, 6, 5)
+		Temporal.ZonedDateTime.compare(now, skyDate(2026, 6, 5)) >= 0
 			? [
 					{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },

@@ -118,16 +118,16 @@ function comparable(shard: ReturnType<typeof shardEruption>) {
 			strong: shard.strong,
 			reward: shard.reward,
 			timestamps: shard.timestamps.map(({ start, end }) => ({
-				start: start.toISO(),
-				end: end.toISO(),
+				start: start.toString(),
+				end: end.toString(),
 			})),
 		}
 	);
 }
 
 for (const { reason, now, expected } of EXPECTED_SHARD_ERUPTIONS) {
-	test(`${reason} on ${now.toISODate()}.`, (t) => {
-		t.mock.timers.enable({ apis: ["Date"], now: now.toMillis() });
+	test(`${reason} on ${now.toPlainDate().toString()}.`, (t) => {
+		t.mock.timers.enable({ apis: ["Date"], now: now.epochMilliseconds });
 		const shard = shardEruption();
 
 		if (expected === null) {
@@ -141,23 +141,23 @@ for (const { reason, now, expected } of EXPECTED_SHARD_ERUPTIONS) {
 			strong: expected.strong,
 			reward: expected.reward,
 			timestamps: expected.timestamps.map(({ start, end }) => ({
-				start: start.toISO(),
-				end: end.toISO(),
+				start: start.toString(),
+				end: end.toString(),
 			})),
 		});
 	});
 }
 
 test("Days offset across the fall back matches the shard eruption on the day.", (t) => {
-	t.mock.timers.enable({ apis: ["Date"], now: skyDate(2026, 10, 31, 12).toMillis() });
+	t.mock.timers.enable({ apis: ["Date"], now: skyDate(2026, 10, 31, 12).epochMilliseconds });
 	const offset = comparable(shardEruption(1));
-	t.mock.timers.setTime(skyDate(2026, 11, 1, 12).toMillis());
+	t.mock.timers.setTime(skyDate(2026, 11, 1, 12).epochMilliseconds);
 	deepEqual(offset, comparable(shardEruption()));
 });
 
 test("Days offset across the spring forward matches the shard eruption on the day.", (t) => {
-	t.mock.timers.enable({ apis: ["Date"], now: skyDate(2025, 3, 8, 12).toMillis() });
+	t.mock.timers.enable({ apis: ["Date"], now: skyDate(2025, 3, 8, 12).epochMilliseconds });
 	const offset = comparable(shardEruption(1));
-	t.mock.timers.setTime(skyDate(2025, 3, 9, 12).toMillis());
+	t.mock.timers.setTime(skyDate(2025, 3, 9, 12).epochMilliseconds);
 	deepEqual(offset, comparable(shardEruption()));
 });

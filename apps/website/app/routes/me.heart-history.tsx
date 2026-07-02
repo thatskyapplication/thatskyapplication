@@ -50,7 +50,7 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 			.then((result) => Number(result?.totalRows ?? 0)),
 		pg<HeartPacket>(Table.Hearts)
 			.where({ user_id: userId })
-			.andWhere("timestamp", ">=", today.toISO())
+			.andWhere("timestamp", ">=", today.toInstant().toString())
 			.count({ giftedToday: "*" })
 			.first()
 			.then((result) => Number(result?.giftedToday ?? 0)),
@@ -63,18 +63,18 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const doubleHearts = [];
 
 	for (const { start, end } of DOUBLE_HEART_EVENTS) {
-		if (end <= today) {
+		if (Temporal.ZonedDateTime.compare(end, today) <= 0) {
 			continue;
 		}
 
-		const active = today >= start;
+		const active = Temporal.ZonedDateTime.compare(today, start) >= 0;
 
 		doubleHearts.push({
 			active,
 			days: active
-				? Math.ceil(end.diff(today, "days").days) - 1
-				: Math.floor(start.diff(today, "days").days),
-			start: start.toMillis(),
+				? Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1
+				: Math.floor(start.since(today).total({ unit: "days", relativeTo: today })),
+			start: start.epochMilliseconds,
 		});
 	}
 

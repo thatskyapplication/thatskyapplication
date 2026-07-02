@@ -1,3 +1,4 @@
+import "temporal-polyfill/global";
 import { Locale } from "@discordjs/core/http-only";
 import { init, reactRouterTracingIntegration } from "@sentry/react-router";
 import i18next, { type Resource } from "i18next";

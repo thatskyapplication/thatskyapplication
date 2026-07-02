@@ -1,4 +1,4 @@
-import type { DateTime } from "luxon";
+import { isActive } from "./dates.js";
 import { skyNotEndedEvents } from "./events/index.js";
 import { TRAVELLING_DATES } from "./kingdom/seasons/index.js";
 import { shardEruption } from "./shard-eruption.js";
@@ -33,77 +33,91 @@ export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
 export type ScheduleTypes = (typeof SCHEDULE_TYPE_VALUES)[number];
 export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 
-export function nextDailyReset(date: DateTime) {
-	return date.plus({ day: 1 }).startOf("day");
+function startOfHour(date: Temporal.ZonedDateTime) {
+	return date.round({ smallestUnit: "hour", roundingMode: "trunc" });
 }
 
-export function nextEyeOfEden(date: DateTime) {
-	return date.plus({ days: 7 - (date.weekday % 7) }).startOf("day");
+function addWallClockMinutes(date: Temporal.ZonedDateTime, minutes: number) {
+	const target = date.toPlainDateTime().add({ minutes });
+
+	return Temporal.ZonedDateTime.from(`${target.toString()}${date.offset}[${date.timeZoneId}]`, {
+		offset: "prefer",
+	});
 }
 
-export function internationalSpaceStationSchedule(date: DateTime) {
+export function nextDailyReset(date: Temporal.ZonedDateTime) {
+	return date.add({ days: 1 }).startOfDay();
+}
+
+export function nextEyeOfEden(date: Temporal.ZonedDateTime) {
+	return date.add({ days: 7 - (date.dayOfWeek % 7) }).startOfDay();
+}
+
+export function internationalSpaceStationSchedule(date: Temporal.ZonedDateTime) {
 	const targetDay = INTERNATIONAL_SPACE_STATION_DATES.find(
 		(internationalSpaceStationDates) =>
 			internationalSpaceStationDates >= date.day &&
 			// Addresses 30th February targeting 1st or 2nd March.
-			internationalSpaceStationDates <= date.daysInMonth!,
+			internationalSpaceStationDates <= date.daysInMonth,
 	);
 
 	const start = (
 		targetDay
-			? date.set({ day: targetDay })
-			: date.plus({ month: 1 }).set({ day: INTERNATIONAL_SPACE_STATION_DATES[0] })
-	).startOf("day");
+			? date.with({ day: targetDay })
+			: date.add({ months: 1 }).with({ day: INTERNATIONAL_SPACE_STATION_DATES[0] })
+	).startOfDay();
 
-	const end = start.plus({ days: 1 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const end = start.add({ days: 1 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function travellingSpiritSchedule(date: DateTime) {
-	const spirit = TRAVELLING_DATES.findLast(({ end }) => date < end);
+export function travellingSpiritSchedule(date: Temporal.ZonedDateTime) {
+	const spirit = TRAVELLING_DATES.findLast(
+		({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
+	);
 
 	return {
-		start: spirit ? spirit.start : TRAVELLING_DATES.last()!.start.plus({ weeks: 2 }),
-		visit: spirit ? (date >= spirit.start ? spirit : null) : null,
+		start: spirit ? spirit.start : TRAVELLING_DATES.last()!.start.add({ weeks: 2 }),
+		visit: spirit
+			? Temporal.ZonedDateTime.compare(date, spirit.start) >= 0
+				? spirit
+				: null
+			: null,
 		spirit: spirit ?? null,
 	};
 }
 
-export function pollutedGeyserSchedule(date: DateTime) {
+export function pollutedGeyserSchedule(date: Temporal.ZonedDateTime) {
 	const { hour, minute } = date;
-
-	const start = date
-		.set({ minute: hour % 2 === 0 ? (minute < 15 ? 5 : 125) : 65 })
-		.startOf("minute");
-
-	const end = start.plus({ minutes: 10 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const start = addWallClockMinutes(
+		startOfHour(date),
+		hour % 2 === 0 ? (minute < 15 ? 5 : 125) : 65,
+	);
+	const end = start.add({ minutes: 10 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function grandmaSchedule(date: DateTime) {
+export function grandmaSchedule(date: Temporal.ZonedDateTime) {
 	const { hour, minute } = date;
-
-	const start = date
-		.set({ minute: hour % 2 === 0 ? (minute < 45 ? 35 : 155) : 95 })
-		.startOf("minute");
-
-	const end = start.plus({ minutes: 10 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const start = addWallClockMinutes(
+		startOfHour(date),
+		hour % 2 === 0 ? (minute < 45 ? 35 : 155) : 95,
+	);
+	const end = start.add({ minutes: 10 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function turtleSchedule(date: DateTime) {
-	const start = date.set({ minute: date.hour % 2 === 0 ? 50 : 110 }).startOf("minute");
-	const end = start.plus({ minutes: 10 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+export function turtleSchedule(date: Temporal.ZonedDateTime) {
+	const start = addWallClockMinutes(startOfHour(date), date.hour % 2 === 0 ? 50 : 110);
+	const end = start.add({ minutes: 10 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function shardEruptionSchedule(date: DateTime) {
+export function shardEruptionSchedule(date: Temporal.ZonedDateTime) {
 	const shard = shardEruption();
-	let nextShard = shard?.timestamps.find(({ end }) => date < end);
+	let nextShard = shard?.timestamps.find(
+		({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
+	);
 
 	if (!nextShard) {
 		for (let index = 1; ; index++) {
@@ -121,65 +135,65 @@ export function shardEruptionSchedule(date: DateTime) {
 	return {
 		start: nextShard.start,
 		end: nextShard.end,
-		active: date >= nextShard.start && date < nextShard.end,
+		active: isActive(nextShard.start, nextShard.end, date),
 	};
 }
 
-export function dreamsSkaterSchedule(date: DateTime) {
-	const { weekday, hour, minute } = date;
-	const isWeekend = weekday === 5 || weekday === 6 || weekday === 7;
+export function dreamsSkaterSchedule(date: Temporal.ZonedDateTime) {
+	const { dayOfWeek, hour, minute } = date;
+	const isWeekend = dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 7;
 
 	if (isWeekend) {
-		let start = date
-			.set({ minute: hour % 2 === 1 ? (minute < 15 ? 0 : 120) : 60 })
-			.startOf("minute");
+		let start = addWallClockMinutes(
+			startOfHour(date),
+			hour % 2 === 1 ? (minute < 15 ? 0 : 120) : 60,
+		);
 
 		// Sunday's last event would make the next event on Monday.
 		// Move this to Friday.
-		if (start.weekday === 1) {
-			start = start.set({ weekday: 5 });
+		if (start.dayOfWeek === 1) {
+			start = start.add({ days: 4 });
 		}
 
-		const end = start.plus({ minutes: 15 });
-		const active = date >= start && date < end;
-		return { start, end, active };
+		const end = start.add({ minutes: 15 });
+		return { start, end, active: isActive(start, end, date) };
 	}
 
-	const start = date.set({ weekday: 5, hour: 1 }).startOf("hour");
-	const end = start.plus({ minutes: 15 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const start = startOfHour(date.add({ days: 5 - date.dayOfWeek }).with({ hour: 1 }));
+	const end = start.add({ minutes: 15 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function auroraSchedule(date: DateTime) {
-	const start = date
-		.set({ minute: date.hour % 2 === 0 ? (date.minute < 58 ? 10 : 130) : 70 })
-		.startOf("minute");
+export function auroraSchedule(date: Temporal.ZonedDateTime) {
+	const start = addWallClockMinutes(
+		startOfHour(date),
+		date.hour % 2 === 0 ? (date.minute < 58 ? 10 : 130) : 70,
+	);
 
-	const end = start.plus({ minutes: 48 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const end = start.add({ minutes: 48 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function nextPassage(date: DateTime) {
-	return date.plus({ minutes: 15 - (date.minute % 15) }).startOf("minute");
+export function nextPassage(date: Temporal.ZonedDateTime) {
+	return date
+		.add({ minutes: 15 - (date.minute % 15) })
+		.round({ smallestUnit: "minute", roundingMode: "trunc" });
 }
 
-export function aviarysFireworkFestivalSchedule(date: DateTime) {
+export function aviarysFireworkFestivalSchedule(date: Temporal.ZonedDateTime) {
 	const { day, hour, minute } = date;
 	const targetHour = hour % 4 === 0 ? (minute < 10 ? hour : hour + 4) : hour + (4 - (hour % 4));
 
 	const start =
 		day === 1 && targetHour <= 20
-			? date.set({ hour: targetHour }).startOf("hour")
-			: date.plus({ month: 1 }).startOf("month");
+			? startOfHour(date.with({ hour: targetHour }))
+			: date.add({ months: 1 }).with({ day: 1 }).startOfDay();
 
-	const end = start.plus({ minutes: 10 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const end = start.add({ minutes: 10 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function meteorShowerSchedule(date: DateTime) {
+export function meteorShowerSchedule(date: Temporal.ZonedDateTime) {
 	const events = skyNotEndedEvents(date).filter(
 		(event) =>
 			event.id === EventId.DaysOfLove2024 ||
@@ -191,61 +205,65 @@ export function meteorShowerSchedule(date: DateTime) {
 		return null;
 	}
 
-	const activeEvent = events.find(({ start }) => date >= start);
+	const activeEvent = events.find(({ start }) => Temporal.ZonedDateTime.compare(date, start) >= 0);
 
 	if (!activeEvent) {
-		const soonest = events.reduce((a, b) => (a.start < b.start ? a : b));
-		const start = soonest.start.set({ minute: 5 }).startOf("minute");
-		const end = start.plus({ minutes: 10 });
+		const soonest = events.reduce((a, b) =>
+			Temporal.ZonedDateTime.compare(a.start, b.start) < 0 ? a : b,
+		);
+
+		const start = soonest.start
+			.with({ minute: 5 })
+			.round({ smallestUnit: "minute", roundingMode: "trunc" });
+
+		const end = start.add({ minutes: 10 });
 		return { start, end, active: false };
 	}
 
 	const { minute } = date;
-	const start = date.set({ minute: minute < 15 ? 5 : minute < 45 ? 35 : 65 }).startOf("minute");
+	const start = addWallClockMinutes(startOfHour(date), minute < 15 ? 5 : minute < 45 ? 35 : 65);
 
-	if (start >= activeEvent.end) {
+	if (Temporal.ZonedDateTime.compare(start, activeEvent.end) >= 0) {
 		return null;
 	}
 
-	const end = start.plus({ minutes: 10 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const end = start.add({ minutes: 10 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function nineColouredDeerSchedule(date: DateTime) {
+export function nineColouredDeerSchedule(date: Temporal.ZonedDateTime) {
 	const { minute } = date;
-	const start = date.set({ minute: minute < 20 ? 0 : minute < 50 ? 30 : 60 }).startOf("minute");
-	const end = start.plus({ minutes: 20 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const start = addWallClockMinutes(startOfHour(date), minute < 20 ? 0 : minute < 50 ? 30 : 60);
+	const end = start.add({ minutes: 20 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function nextNestingWorkshop(now: DateTime) {
-	return now.plus({ days: (5 - now.weekday + 7) % 7 || 7 }).startOf("day");
+export function nextNestingWorkshop(now: Temporal.ZonedDateTime) {
+	return now.add({ days: (5 - now.dayOfWeek + 7) % 7 || 7 }).startOfDay();
 }
 
-export function vaultEldersBlessingSchedule(date: DateTime) {
+export function vaultEldersBlessingSchedule(date: Temporal.ZonedDateTime) {
 	const { minute } = date;
 
-	const start = date
-		.set({ minute: minute < 1 ? 0 : minute < 21 ? 20 : minute < 41 ? 40 : 60 })
-		.startOf("minute");
+	const start = addWallClockMinutes(
+		startOfHour(date),
+		minute < 1 ? 0 : minute < 21 ? 20 : minute < 41 ? 40 : 60,
+	);
 
-	const end = start.plus({ minutes: 1 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const end = start.add({ minutes: 1 });
+	return { start, end, active: isActive(start, end, date) };
 }
 
-export function projectorOfMemoriesSchedule(date: DateTime) {
+export function projectorOfMemoriesSchedule(date: Temporal.ZonedDateTime) {
 	const { hour, minute } = date;
 	const minutesSince = hour * 60 + minute;
 	const remainder = minutesSince % 80;
 
-	const start = date.startOf("day").set({
-		minute: remainder < 78 ? minutesSince - remainder : minutesSince - remainder + 80,
-	});
+	const start = addWallClockMinutes(
+		date.startOfDay(),
+		remainder < 78 ? minutesSince - remainder : minutesSince - remainder + 80,
+	);
 
-	const end = start.plus({ minutes: 78 });
-	const active = date >= start && date < end;
-	return { start, end, active };
+	const end = start.add({ minutes: 78 });
+	return { start, end, active: isActive(start, end, date) };
 }

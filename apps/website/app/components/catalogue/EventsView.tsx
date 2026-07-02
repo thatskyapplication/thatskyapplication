@@ -83,8 +83,8 @@ export function EventsView({
 									<p className={NOTE_CLASS}>
 										{t("time-range", {
 											ns: "general",
-											start: dateFormat.format(event.start.toMillis()),
-											end: dateFormat.format(event.end.toMillis()),
+											start: dateFormat.format(event.start.epochMilliseconds),
+											end: dateFormat.format(event.end.epochMilliseconds),
 										})}
 									</p>
 								</div>

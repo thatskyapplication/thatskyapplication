@@ -20,6 +20,7 @@ import {
 	DOUBLE_HEART_EVENTS,
 	dreamsSkaterSchedule,
 	EventId,
+	epochSeconds,
 	formatEmoji,
 	grandmaSchedule,
 	INTERNATIONAL_SPACE_STATION_DATES,
@@ -48,7 +49,6 @@ import {
 	vaultEldersBlessingSchedule,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import type { DateTime } from "luxon";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
@@ -69,8 +69,8 @@ import {
 	shardEruptionInformationString,
 } from "../utility/shard-eruption.js";
 
-function dailyResetNext(now: DateTime, locale: Locale) {
-	const timestamp = nextDailyReset(now).toUnixInteger();
+function dailyResetNext(now: Temporal.ZonedDateTime, locale: Locale) {
+	const timestamp = epochSeconds(nextDailyReset(now));
 
 	return t("schedule.next-daily-reset", {
 		lng: locale,
@@ -80,7 +80,10 @@ function dailyResetNext(now: DateTime, locale: Locale) {
 	});
 }
 
-function dailyResetDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function dailyResetDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const shard = shardEruption();
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
@@ -122,8 +125,8 @@ function dailyResetDetailedBreakdown(now: DateTime, locale: Locale): APIComponen
 	];
 }
 
-function eyeOfEdenNext(now: DateTime, locale: Locale) {
-	const timestamp = nextEyeOfEden(now).toUnixInteger();
+function eyeOfEdenNext(now: Temporal.ZonedDateTime, locale: Locale) {
+	const timestamp = epochSeconds(nextEyeOfEden(now));
 
 	return t("schedule.next-eye-of-eden", {
 		lng: locale,
@@ -133,7 +136,10 @@ function eyeOfEdenNext(now: DateTime, locale: Locale) {
 	});
 }
 
-function eyeOfEdenDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function eyeOfEdenDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const shard = shardEruption();
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
@@ -163,27 +169,27 @@ function eyeOfEdenDetailedBreakdown(now: DateTime, locale: Locale): APIComponent
 	];
 }
 
-function internationalSpaceStationOverview(date: DateTime) {
+function internationalSpaceStationOverview(date: Temporal.ZonedDateTime) {
 	const schedule = internationalSpaceStationSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
 function internationalSpaceStationDetailedBreakdown(
-	date: DateTime,
+	date: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const result = [];
 
 	for (const internationalSpaceStationDate of INTERNATIONAL_SPACE_STATION_DATES) {
-		if (internationalSpaceStationDate > date.daysInMonth!) {
+		if (internationalSpaceStationDate > date.daysInMonth) {
 			continue;
 		}
 
-		const issDateUnix = date.set({ day: internationalSpaceStationDate }).toUnixInteger();
+		const issDateUnix = epochSeconds(date.with({ day: internationalSpaceStationDate }));
 
 		let string = t("schedule.detailed-breakdown-international-space-station-time", {
 			lng: locale,
@@ -192,7 +198,7 @@ function internationalSpaceStationDetailedBreakdown(
 			timestamp2: `<t:${issDateUnix}:R>`,
 		});
 
-		if (date.toUnixInteger() > issDateUnix) {
+		if (epochSeconds(date) > issDateUnix) {
 			string = `~~${string}~~`;
 		}
 
@@ -234,23 +240,27 @@ function internationalSpaceStationDetailedBreakdown(
 	];
 }
 
-function radianceEventOverview(date: DateTime) {
-	return RADIANCE_EVENTS.filter(({ end }) => date < end).map((radianceEvent) => ({
-		now: date >= radianceEvent.start,
-		next: `<t:${radianceEvent.start.toUnixInteger()}:R>`,
-		dyeEmojis: radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join(""),
-	}));
+function radianceEventOverview(date: Temporal.ZonedDateTime) {
+	return RADIANCE_EVENTS.filter(({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0).map(
+		(radianceEvent) => ({
+			now: Temporal.ZonedDateTime.compare(date, radianceEvent.start) >= 0,
+			next: `<t:${epochSeconds(radianceEvent.start)}:R>`,
+			dyeEmojis: radianceEvent.dyes.map((dye) => formatEmoji(DyeTypeToEmoji[dye])).join(""),
+		}),
+	);
 }
 
-function doubleHeartEventOverview(date: DateTime) {
-	return DOUBLE_HEART_EVENTS.filter(({ end }) => date < end).map((doubleHeartEvent) => ({
-		now: date >= doubleHeartEvent.start,
-		next: `<t:${doubleHeartEvent.start.toUnixInteger()}:R>`,
-		end: `<t:${doubleHeartEvent.end.toUnixInteger()}:R>`,
-	}));
+function doubleHeartEventOverview(date: Temporal.ZonedDateTime) {
+	return DOUBLE_HEART_EVENTS.filter(({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0).map(
+		(doubleHeartEvent) => ({
+			now: Temporal.ZonedDateTime.compare(date, doubleHeartEvent.start) >= 0,
+			next: `<t:${epochSeconds(doubleHeartEvent.start)}:R>`,
+			end: `<t:${epochSeconds(doubleHeartEvent.end)}:R>`,
+		}),
+	);
 }
 
-function doubleSeasonalLightOverview(date: DateTime) {
+function doubleSeasonalLightOverview(date: Temporal.ZonedDateTime) {
 	const doubleSeasonalLightEvents: {
 		now: boolean;
 		next: string;
@@ -268,14 +278,14 @@ function doubleSeasonalLightOverview(date: DateTime) {
 		);
 
 		for (const doubleSeasonalLight of season.doubleSeasonalLight ?? []) {
-			if (doubleSeasonalLight.end <= date) {
+			if (Temporal.ZonedDateTime.compare(doubleSeasonalLight.end, date) <= 0) {
 				continue;
 			}
 
 			doubleSeasonalLightEvents.push({
-				now: date >= doubleSeasonalLight.start,
-				next: `<t:${doubleSeasonalLight.start.toUnixInteger()}:R>`,
-				end: `<t:${doubleSeasonalLight.end.toUnixInteger()}:R>`,
+				now: Temporal.ZonedDateTime.compare(date, doubleSeasonalLight.start) >= 0,
+				next: `<t:${epochSeconds(doubleSeasonalLight.start)}:R>`,
+				end: `<t:${epochSeconds(doubleSeasonalLight.end)}:R>`,
 				seasonalCandleEmoji,
 			});
 		}
@@ -284,18 +294,23 @@ function doubleSeasonalLightOverview(date: DateTime) {
 	return doubleSeasonalLightEvents;
 }
 
-function doubleTreasureCandleOverview(date: DateTime) {
-	return TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(({ end }) => date < end).map(
-		(doubleTreasureCandleEvent) => ({
-			now: date >= doubleTreasureCandleEvent.start,
-			next: `<t:${doubleTreasureCandleEvent.start.toUnixInteger()}:R>`,
-			end: `<t:${doubleTreasureCandleEvent.end.toUnixInteger()}:R>`,
-		}),
-	);
+function doubleTreasureCandleOverview(date: Temporal.ZonedDateTime) {
+	return TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.filter(
+		({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
+	).map((doubleTreasureCandleEvent) => ({
+		now: Temporal.ZonedDateTime.compare(date, doubleTreasureCandleEvent.start) >= 0,
+		next: `<t:${epochSeconds(doubleTreasureCandleEvent.start)}:R>`,
+		end: `<t:${epochSeconds(doubleTreasureCandleEvent.end)}:R>`,
+	}));
 }
 
-function radianceEventDetailedBreakdown(date: DateTime, locale: Locale): APIComponentInContainer[] {
-	const upcoming = RADIANCE_EVENTS.filter(({ end }) => date < end);
+function radianceEventDetailedBreakdown(
+	date: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
+	const upcoming = RADIANCE_EVENTS.filter(
+		({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
+	);
 
 	const result =
 		upcoming.length > 0
@@ -304,8 +319,8 @@ function radianceEventDetailedBreakdown(date: DateTime, locale: Locale): APIComp
 						const range = t("time-range", {
 							lng: locale,
 							ns: "general",
-							start: `<t:${start.toUnixInteger()}:s>`,
-							end: `<t:${end.toUnixInteger()}:s>`,
+							start: `<t:${epochSeconds(start)}:s>`,
+							end: `<t:${epochSeconds(end)}:s>`,
 						});
 
 						const line = t("schedule.detailed-breakdown-radiance-event", {
@@ -332,21 +347,21 @@ function radianceEventDetailedBreakdown(date: DateTime, locale: Locale): APIComp
 	];
 }
 
-function eventOverview(date: DateTime, locale: Locale) {
+function eventOverview(date: Temporal.ZonedDateTime, locale: Locale) {
 	return skyNotEndedEvents(date).map(({ id, name, start, end }) => {
 		const eventName = t(name, { lng: locale, ns: "general" });
 		const eventTicketEmoji = EventIdToEventTicketEmoji[id];
 
 		return {
-			now: date >= start,
+			now: Temporal.ZonedDateTime.compare(date, start) >= 0,
 			event: `${eventTicketEmoji ? `${formatEmoji(eventTicketEmoji)} ` : ""}[${eventName}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`,
-			start: `<t:${start.toUnixInteger()}:R>`,
-			end: `<t:${end.toUnixInteger()}:R>`,
+			start: `<t:${epochSeconds(start)}:R>`,
+			end: `<t:${epochSeconds(end)}:R>`,
 		};
 	});
 }
 
-function seasonOverview(date: DateTime, locale: Locale) {
+function seasonOverview(date: Temporal.ZonedDateTime, locale: Locale) {
 	const seasons: { now: boolean; season: string; start: string; end: string }[] = [];
 
 	for (const season of [skyCurrentSeason(date), skyUpcomingSeason(date)]) {
@@ -355,10 +370,10 @@ function seasonOverview(date: DateTime, locale: Locale) {
 			const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 
 			seasons.push({
-				now: date >= season.start,
+				now: Temporal.ZonedDateTime.compare(date, season.start) >= 0,
 				season: `${seasonEmoji ? `${formatEmoji(seasonEmoji)} ` : ""}[${seasonName}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})`,
-				start: `<t:${season.start.toUnixInteger()}:R>`,
-				end: `<t:${season.end.toUnixInteger()}:R>`,
+				start: `<t:${epochSeconds(season.start)}:R>`,
+				end: `<t:${epochSeconds(season.end)}:R>`,
 			});
 		}
 	}
@@ -366,23 +381,23 @@ function seasonOverview(date: DateTime, locale: Locale) {
 	return seasons;
 }
 
-function travellingSpiritOverview(now: DateTime, locale: Locale) {
+function travellingSpiritOverview(now: Temporal.ZonedDateTime, locale: Locale) {
 	const schedule = travellingSpiritSchedule(now);
 
 	return {
 		now: schedule.visit
 			? t(`spirits.${schedule.visit.spiritId}`, { lng: locale, ns: "general" })
 			: (false as const),
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
 function travellingSpiritDetailedBreakdown(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const { visit, start } = travellingSpiritSchedule(now);
-	const nextArrival = start.toUnixInteger();
+	const nextArrival = epochSeconds(start);
 
 	const travellingSpiritButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -414,7 +429,7 @@ function travellingSpiritDetailedBreakdown(
 						lng: locale,
 						ns: "features",
 						spirit: t(`spirits.${visit.spiritId}`, { lng: locale, ns: "general" }),
-						timestamp: `<t:${visit.end.toUnixInteger()}:R>`,
+						timestamp: `<t:${epochSeconds(visit.end)}:R>`,
 					})
 				: t("schedule.detailed-breakdown-travelling-spirit-message-none", {
 						lng: locale,
@@ -440,30 +455,33 @@ function travellingSpiritDetailedBreakdown(
 	];
 }
 
-function pollutedGeyserOverview(date: DateTime) {
+function pollutedGeyserOverview(date: Temporal.ZonedDateTime) {
 	const schedule = pollutedGeyserSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
-function pollutedGeyserDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function pollutedGeyserDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const startOfEvent = startOfDay.plus({ minutes: 5 });
+	const startOfDay = now.startOfDay();
+	const startOfEvent = startOfDay.add({ minutes: 5 });
 
 	for (let hour = 0; hour < 24; hour += 2) {
-		const start = startOfDay.set({ hour, minute: 5 });
+		const start = startOfDay.with({ hour, minute: 5 });
 
 		if (start.hour !== hour) {
 			continue;
 		}
 
-		let string = `<t:${start.toUnixInteger()}:t>`;
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start.plus({ minutes: 10 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -490,7 +508,7 @@ function pollutedGeyserDetailedBreakdown(now: DateTime, locale: Locale): APIComp
 					content: t("schedule.detailed-breakdown-polluted-geyser-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
 						timestamps: timestamps.join(" "),
 						status: pollutedGeyser.now
 							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -506,30 +524,33 @@ function pollutedGeyserDetailedBreakdown(now: DateTime, locale: Locale): APIComp
 	];
 }
 
-function grandmaOverview(date: DateTime) {
+function grandmaOverview(date: Temporal.ZonedDateTime) {
 	const schedule = grandmaSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
-function grandmaDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function grandmaDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const startOfEvent = startOfDay.plus({ minutes: 35 });
+	const startOfDay = now.startOfDay();
+	const startOfEvent = startOfDay.add({ minutes: 35 });
 
 	for (let hour = 0; hour < 24; hour += 2) {
-		const start = startOfDay.set({ hour, minute: 35 });
+		const start = startOfDay.with({ hour, minute: 35 });
 
 		if (start.hour !== hour) {
 			continue;
 		}
 
-		let string = `<t:${start.toUnixInteger()}:t>`;
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start.plus({ minutes: 10 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -556,7 +577,7 @@ function grandmaDetailedBreakdown(now: DateTime, locale: Locale): APIComponentIn
 					content: t("schedule.detailed-breakdown-grandma-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
 						timestamps: timestamps.join(" "),
 						status: grandma.now
 							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -572,30 +593,33 @@ function grandmaDetailedBreakdown(now: DateTime, locale: Locale): APIComponentIn
 	];
 }
 
-function turtleOverview(date: DateTime) {
+function turtleOverview(date: Temporal.ZonedDateTime) {
 	const schedule = turtleSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
-function turtleDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function turtleDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const startOfEvent = startOfDay.plus({ minutes: 50 });
+	const startOfDay = now.startOfDay();
+	const startOfEvent = startOfDay.add({ minutes: 50 });
 
 	for (let hour = 0; hour < 24; hour += 2) {
-		const start = startOfDay.set({ hour, minute: 50 });
+		const start = startOfDay.with({ hour, minute: 50 });
 
 		if (start.hour !== hour) {
 			continue;
 		}
 
-		let string = `<t:${start.toUnixInteger()}:t>`;
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start.plus({ minutes: 10 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -622,7 +646,7 @@ function turtleDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInC
 					content: t("schedule.detailed-breakdown-turtle-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
 						timestamps: timestamps.join(" "),
 						status: turtle.now
 							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -638,23 +662,26 @@ function turtleDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInC
 	];
 }
 
-function shardEruptionOverview(now: DateTime) {
+function shardEruptionOverview(now: Temporal.ZonedDateTime) {
 	const schedule = shardEruptionSchedule(now);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
-function shardEruptionDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function shardEruptionDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const shard = shardEruption();
 	const timestamps = [];
 
 	for (const { start, end } of shard?.timestamps ?? []) {
-		let string = `<t:${start.toUnixInteger()}:T>–<t:${end.toUnixInteger()}:T>`;
+		let string = `<t:${epochSeconds(start)}:T>–<t:${epochSeconds(end)}:T>`;
 
-		if (now >= end) {
+		if (Temporal.ZonedDateTime.compare(now, end) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -711,35 +738,38 @@ function shardEruptionDetailedBreakdown(now: DateTime, locale: Locale): APICompo
 	];
 }
 
-function dreamsSkaterOverview(date: DateTime) {
+function dreamsSkaterOverview(date: Temporal.ZonedDateTime) {
 	const schedule = dreamsSkaterSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
-function dreamsSkaterDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
-	const { weekday } = now;
+function dreamsSkaterDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
+	const { dayOfWeek } = now;
 	const timestamps = [];
 
-	const startOfDay = now.startOf("day").plus({
-		days: weekday !== 5 && weekday !== 6 && weekday !== 7 ? 5 - weekday : 0,
+	const startOfDay = now.startOfDay().add({
+		days: dayOfWeek !== 5 && dayOfWeek !== 6 && dayOfWeek !== 7 ? 5 - dayOfWeek : 0,
 	});
 
-	const startOfEvent = startOfDay.plus({ hours: 1 });
+	const startOfEvent = startOfDay.add({ hours: 1 });
 
 	for (let hour = 1; hour < 24; hour += 2) {
-		const start = startOfDay.set({ hour, minute: 0 });
+		const start = startOfDay.with({ hour, minute: 0 });
 
 		if (start.hour !== hour) {
 			continue;
 		}
 
-		let string = `<t:${start.toUnixInteger()}:t>`;
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start.plus({ minutes: 15 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 15 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -766,7 +796,7 @@ function dreamsSkaterDetailedBreakdown(now: DateTime, locale: Locale): APICompon
 					content: t("schedule.detailed-breakdown-dreams-skater-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
 						timestamps: timestamps.join(" "),
 						status: dreamsSkater.now
 							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -782,30 +812,33 @@ function dreamsSkaterDetailedBreakdown(now: DateTime, locale: Locale): APICompon
 	];
 }
 
-function auroraOverview(date: DateTime) {
+function auroraOverview(date: Temporal.ZonedDateTime) {
 	const schedule = auroraSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
-function auroraDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function auroraDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const startOfEvent = startOfDay.plus({ minutes: 10 });
+	const startOfDay = now.startOfDay();
+	const startOfEvent = startOfDay.add({ minutes: 10 });
 
 	for (let hour = 0; hour < 24; hour += 2) {
-		const start = startOfDay.set({ hour, minute: 10 });
+		const start = startOfDay.with({ hour, minute: 10 });
 
 		if (start.hour !== hour) {
 			continue;
 		}
 
-		let string = `<t:${start.toUnixInteger()}:t>`;
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start.plus({ minutes: 48 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 48 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -832,7 +865,7 @@ function auroraDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInC
 					content: t("schedule.detailed-breakdown-aurora-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: `<t:${startOfEvent.toUnixInteger()}:t>`,
+						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
 						timestamps: timestamps.join(" "),
 						status: aurora.now
 							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -856,19 +889,26 @@ function auroraDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInC
 	];
 }
 
-function passageNext(date: DateTime) {
-	return `<t:${nextPassage(date).toUnixInteger()}:R>`;
+function passageNext(date: Temporal.ZonedDateTime) {
+	return `<t:${epochSeconds(nextPassage(date))}:R>`;
 }
 
-function passageDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function passageDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const tomorrow = startOfDay.plus({ days: 1 });
+	const startOfDay = now.startOfDay();
+	const tomorrow = startOfDay.add({ days: 1 });
 
-	for (let start = startOfDay; start < tomorrow; start = start.plus({ minutes: 15 })) {
-		let string = `<t:${start.toUnixInteger()}:t>`;
+	for (
+		let start = startOfDay;
+		Temporal.ZonedDateTime.compare(start, tomorrow) < 0;
+		start = start.add({ minutes: 15 })
+	) {
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start) {
+		if (Temporal.ZonedDateTime.compare(now, start) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -893,7 +933,7 @@ function passageDetailedBreakdown(now: DateTime, locale: Locale): APIComponentIn
 					content: t("schedule.detailed-breakdown-passage-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
+						timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
 						timestamps: timestamps.join(" "),
 						status: t("schedule.event-will-occur", {
 							lng: locale,
@@ -907,27 +947,32 @@ function passageDetailedBreakdown(now: DateTime, locale: Locale): APIComponentIn
 	];
 }
 
-function aviarysFireworkFestivalOverview(date: DateTime) {
+function aviarysFireworkFestivalOverview(date: Temporal.ZonedDateTime) {
 	const schedule = aviarysFireworkFestivalSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
 function aviarysFireworkFestivalDetailedBreakdown(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const timestamps = [];
-	const startOfDay = now.day === 1 ? now.startOf("day") : now.plus({ month: 1 }).startOf("month");
-	const tomorrow = startOfDay.plus({ days: 1 });
+	const startOfDay =
+		now.day === 1 ? now.startOfDay() : now.add({ months: 1 }).with({ day: 1 }).startOfDay();
+	const tomorrow = startOfDay.add({ days: 1 });
 
-	for (let start = startOfDay; start < tomorrow; start = start.plus({ hours: 4 })) {
-		let string = `<t:${start.toUnixInteger()}:f>`;
+	for (
+		let start = startOfDay;
+		Temporal.ZonedDateTime.compare(start, tomorrow) < 0;
+		start = start.add({ hours: 4 })
+	) {
+		let string = `<t:${epochSeconds(start)}:f>`;
 
-		if (now >= start.plus({ minutes: 10 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -951,7 +996,7 @@ function aviarysFireworkFestivalDetailedBreakdown(
 					content: t("schedule.detailed-breakdown-aviarys-firework-festival-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: `<t:${startOfDay.toUnixInteger()}:f>`,
+						timestamp: `<t:${epochSeconds(startOfDay)}:f>`,
 						timestamps: timestamps.join("\n"),
 						status: aviarysFireworkFestival.now
 							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -967,7 +1012,7 @@ function aviarysFireworkFestivalDetailedBreakdown(
 	];
 }
 
-function meteorShowerOverview(date: DateTime) {
+function meteorShowerOverview(date: Temporal.ZonedDateTime) {
 	const schedule = meteorShowerSchedule(date);
 
 	if (!schedule) {
@@ -976,11 +1021,14 @@ function meteorShowerOverview(date: DateTime) {
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
-function meteorShowerDetailedBreakdown(now: DateTime, locale: Locale): APIComponentInContainer[] {
+function meteorShowerDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
 	const meteorShower = meteorShowerOverview(now);
 
 	if (!meteorShower) {
@@ -996,18 +1044,18 @@ function meteorShowerDetailedBreakdown(now: DateTime, locale: Locale): APICompon
 	}
 
 	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const startOfEvent = startOfDay.plus({ minutes: 15 });
-	const tomorrow = startOfDay.plus({ days: 1 });
+	const startOfDay = now.startOfDay();
+	const startOfEvent = startOfDay.add({ minutes: 15 });
+	const tomorrow = startOfDay.add({ days: 1 });
 
 	for (
-		let start = startOfDay.plus({ minutes: 5 });
-		start < tomorrow;
-		start = start.plus({ minutes: 30 })
+		let start = startOfDay.add({ minutes: 5 });
+		Temporal.ZonedDateTime.compare(start, tomorrow) < 0;
+		start = start.add({ minutes: 30 })
 	) {
-		let string = `<t:${start.toUnixInteger()}:t>`;
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start.plus({ minutes: 10 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 10 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -1020,8 +1068,8 @@ function meteorShowerDetailedBreakdown(now: DateTime, locale: Locale): APICompon
 			content: t("schedule.detailed-breakdown-meteor-shower-message", {
 				lng: locale,
 				ns: "features",
-				timestamp1: `<t:${startOfEvent.toUnixInteger()}:t>`,
-				timestamp2: `<t:${startOfDay.plus({ minutes: 35 }).toUnixInteger()}:t>`,
+				timestamp1: `<t:${epochSeconds(startOfEvent)}:t>`,
+				timestamp2: `<t:${epochSeconds(startOfDay.add({ minutes: 35 }))}:t>`,
 				timestamps: timestamps.join(" "),
 				status: meteorShower.now
 					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -1035,20 +1083,20 @@ function meteorShowerDetailedBreakdown(now: DateTime, locale: Locale): APICompon
 	];
 }
 
-function nineColouredDeerOverview(date: DateTime) {
+function nineColouredDeerOverview(date: Temporal.ZonedDateTime) {
 	const schedule = nineColouredDeerSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
 function nineColouredDeerDetailedBreakdown(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const startOfDay = now.startOf("day");
+	const startOfDay = now.startOfDay();
 	const startOfEvent = nineColouredDeerSchedule(now).start;
 	const nineColouredDeer = nineColouredDeerOverview(now);
 
@@ -1058,13 +1106,13 @@ function nineColouredDeerDetailedBreakdown(
 			content: t("schedule.detailed-breakdown-nine-coloured-deer-message", {
 				lng: locale,
 				ns: "features",
-				timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
+				timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
 				timestamps: [
-					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-0", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.toUnixInteger()}:t>` })}`,
-					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-120", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.plus({ minutes: 2 }).toUnixInteger()}:t>` })}`,
-					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-600", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.plus({ minutes: 10 }).toUnixInteger()}:t>` })}`,
-					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-720", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.plus({ minutes: 12 }).toUnixInteger()}:t>` })}`,
-					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-1200", { lng: locale, ns: "features", timestamp: `<t:${startOfEvent.plus({ minutes: 20 }).toUnixInteger()}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-0", { lng: locale, ns: "features", timestamp: `<t:${epochSeconds(startOfEvent)}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-120", { lng: locale, ns: "features", timestamp: `<t:${epochSeconds(startOfEvent.add({ minutes: 2 }))}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-600", { lng: locale, ns: "features", timestamp: `<t:${epochSeconds(startOfEvent.add({ minutes: 10 }))}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-720", { lng: locale, ns: "features", timestamp: `<t:${epochSeconds(startOfEvent.add({ minutes: 12 }))}:t>` })}`,
+					`- ${t("schedule.detailed-breakdown-nine-coloured-deer-time-1200", { lng: locale, ns: "features", timestamp: `<t:${epochSeconds(startOfEvent.add({ minutes: 20 }))}:t>` })}`,
 				].join("\n"),
 				status: nineColouredDeer.now
 					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -1086,8 +1134,8 @@ function nineColouredDeerDetailedBreakdown(
 	];
 }
 
-function nestingWorkshopNext(now: DateTime, locale: Locale) {
-	const timestamp = nextNestingWorkshop(now).toUnixInteger();
+function nestingWorkshopNext(now: Temporal.ZonedDateTime, locale: Locale) {
+	const timestamp = epochSeconds(nextNestingWorkshop(now));
 
 	return t("schedule.next-nesting-workshop", {
 		lng: locale,
@@ -1098,7 +1146,7 @@ function nestingWorkshopNext(now: DateTime, locale: Locale) {
 }
 
 function nestingWorkshopDetailedBreakdown(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
 	return [
@@ -1127,27 +1175,31 @@ function nestingWorkshopDetailedBreakdown(
 	];
 }
 
-function vaultEldersBlessingOverview(date: DateTime) {
+function vaultEldersBlessingOverview(date: Temporal.ZonedDateTime) {
 	const schedule = vaultEldersBlessingSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
 function vaultEldersBlessingDetailedBreakdown(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const tomorrow = startOfDay.plus({ days: 1 });
+	const startOfDay = now.startOfDay();
+	const tomorrow = startOfDay.add({ days: 1 });
 
-	for (let start = startOfDay; start < tomorrow; start = start.plus({ minutes: 20 })) {
-		let string = `<t:${start.toUnixInteger()}:t>`;
+	for (
+		let start = startOfDay;
+		Temporal.ZonedDateTime.compare(start, tomorrow) < 0;
+		start = start.add({ minutes: 20 })
+	) {
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start.plus({ minutes: 1 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 1 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -1162,7 +1214,7 @@ function vaultEldersBlessingDetailedBreakdown(
 			content: t("schedule.detailed-breakdown-vault-elders-blessing-message", {
 				lng: locale,
 				ns: "features",
-				timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
+				timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
 				timestamps: timestamps.join(" "),
 				status: vaultEldersBlessing.now
 					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -1176,27 +1228,31 @@ function vaultEldersBlessingDetailedBreakdown(
 	];
 }
 
-function projectorOfMemoriesOverview(date: DateTime) {
+function projectorOfMemoriesOverview(date: Temporal.ZonedDateTime) {
 	const schedule = projectorOfMemoriesSchedule(date);
 
 	return {
 		now: schedule.active,
-		next: `<t:${schedule.start.toUnixInteger()}:R>`,
+		next: `<t:${epochSeconds(schedule.start)}:R>`,
 	};
 }
 
 function projectorOfMemoriesDetailedBreakdown(
-	now: DateTime,
+	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const timestamps = [];
-	const startOfDay = now.startOf("day");
-	const tomorrow = startOfDay.plus({ days: 1 });
+	const startOfDay = now.startOfDay();
+	const tomorrow = startOfDay.add({ days: 1 });
 
-	for (let start = startOfDay; start < tomorrow; start = start.plus({ minutes: 80 })) {
-		let string = `<t:${start.toUnixInteger()}:t>`;
+	for (
+		let start = startOfDay;
+		Temporal.ZonedDateTime.compare(start, tomorrow) < 0;
+		start = start.add({ minutes: 80 })
+	) {
+		let string = `<t:${epochSeconds(start)}:t>`;
 
-		if (now >= start.plus({ minutes: 78 })) {
+		if (Temporal.ZonedDateTime.compare(now, start.add({ minutes: 78 })) >= 0) {
 			string = `~~${string}~~`;
 		}
 
@@ -1223,7 +1279,7 @@ function projectorOfMemoriesDetailedBreakdown(
 					content: t("schedule.detailed-breakdown-projector-of-memories-message", {
 						lng: locale,
 						ns: "features",
-						timestamp: `<t:${startOfDay.toUnixInteger()}:t>`,
+						timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
 						timestamps: timestamps.join(" "),
 						status: projectorOfMemories.now
 							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -1257,7 +1313,7 @@ export async function scheduleOverview(
 ) {
 	const { locale } = interaction;
 	const now = skyNow();
-	const startOfDay = now.startOf("day");
+	const startOfDay = now.startOfDay();
 	const internationalSpaceStation = internationalSpaceStationOverview(startOfDay);
 	const radianceEvents = radianceEventOverview(now);
 	const doubleHeartEvents = doubleHeartEventOverview(now);
@@ -1284,7 +1340,9 @@ export async function scheduleOverview(
 	}
 
 	const firstContainerComponents: APIComponentInContainer[] = [];
-	const activeMaintenance = MAINTENANCE_PERIODS.find((maintenance) => maintenance.end > now);
+	const activeMaintenance = MAINTENANCE_PERIODS.find(
+		(maintenance) => Temporal.ZonedDateTime.compare(maintenance.end, now) > 0,
+	);
 
 	if (activeMaintenance) {
 		firstContainerComponents.push({
@@ -1294,17 +1352,17 @@ export async function scheduleOverview(
 				ns: "features",
 				type: t(`schedule.type.${ScheduleType.Maintenance}`, { lng: locale, ns: "features" }),
 				details:
-					activeMaintenance.start <= now
+					Temporal.ZonedDateTime.compare(activeMaintenance.start, now) <= 0
 						? `${formatEmoji(MISCELLANEOUS_EMOJIS.Report)} ${t("time-range", {
 								lng: locale,
 								ns: "general",
-								start: `<t:${activeMaintenance.start.toUnixInteger()}:t>`,
-								end: `<t:${activeMaintenance.end.toUnixInteger()}:t>`,
+								start: `<t:${epochSeconds(activeMaintenance.start)}:t>`,
+								end: `<t:${epochSeconds(activeMaintenance.end)}:t>`,
 							})}`
 						: t("schedule.overview-next-available-timestamp", {
 								lng: locale,
 								ns: "features",
-								timestamp: `<t:${activeMaintenance.start.toUnixInteger()}:R>`,
+								timestamp: `<t:${epochSeconds(activeMaintenance.start)}:R>`,
 							}),
 			}),
 		});
@@ -2039,7 +2097,7 @@ export async function scheduleDetailedBreakdown(
 ) {
 	const { locale } = interaction;
 	const now = skyNow();
-	const startOfDay = now.startOf("day");
+	const startOfDay = now.startOfDay();
 	let detailedBreakdown: APIComponentInContainer[];
 
 	switch (type) {

@@ -1,11 +1,11 @@
 import type { Locale } from "@discordjs/core";
 import {
+	epochSeconds,
 	formatEmoji,
 	resolveCurrencyEmoji,
 	type ShardEruptionData,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
-import type { DateTime } from "luxon";
 import { MISCELLANEOUS_EMOJIS } from "./emojis.js";
 
 export const MAXIMUM_OPTION_NUMBER = 25 as const;
@@ -36,7 +36,7 @@ export function shardEruptionInformationString(
 }
 
 interface ShardEruptionTimestampsStringOptions {
-	now?: DateTime;
+	now?: Temporal.ZonedDateTime;
 	timestamps: ShardEruptionData["timestamps"];
 	locale: Locale;
 }
@@ -51,11 +51,11 @@ export function shardEruptionTimestampsString({
 			let string = t("time-range", {
 				lng: locale,
 				ns: "general",
-				start: `<t:${start.toUnixInteger()}:T>`,
-				end: `<t:${end.toUnixInteger()}:T>`,
+				start: `<t:${epochSeconds(start)}:T>`,
+				end: `<t:${epochSeconds(end)}:T>`,
 			});
 
-			if (now && now >= end) {
+			if (now && Temporal.ZonedDateTime.compare(now, end) >= 0) {
 				string = `~~${string}~~`;
 			}
 

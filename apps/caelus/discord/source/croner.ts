@@ -30,14 +30,14 @@ new Cron(
 
 		await Promise.all([
 			...independentPromises,
-			resetDailyGuides({ user: me.user, lastUpdatedAt: today.toJSDate() }),
+			resetDailyGuides({ user: me.user, lastUpdatedAt: new Date(today.epochMilliseconds) }),
 			resetDailyGuidesDistribution(),
 		]);
 
 		await distribute({
 			user: me.user,
 			lastUpdatedUserId: APPLICATION_ID,
-			lastUpdatedAt: today.toJSDate(),
+			lastUpdatedAt: new Date(today.epochMilliseconds),
 			force: true,
 		});
 	},

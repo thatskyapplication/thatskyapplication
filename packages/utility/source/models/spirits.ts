@@ -1,8 +1,7 @@
 import { Collection } from "@discordjs/collection";
-import type { DateTime } from "luxon";
 import { Mixin } from "ts-mixer";
 import type { Cosmetic } from "../cosmetics.js";
-import { skyDate } from "../dates.js";
+import { isActive, skyDate } from "../dates.js";
 import type { AreaName, RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import type { SeasonIds } from "../season.js";
@@ -24,16 +23,16 @@ import {
 } from "../utility/spirits.js";
 
 interface TravellingSpiritsDates {
-	start: DateTime;
-	end: DateTime;
+	start: Temporal.ZonedDateTime;
+	end: Temporal.ZonedDateTime;
 }
 
 interface ReturningDatesData {
-	start: DateTime;
-	end: DateTime;
+	start: Temporal.ZonedDateTime;
+	end: Temporal.ZonedDateTime;
 }
 
-const TRAVELLING_ERROR_DATES = new Collection<number, DateTime>()
+const TRAVELLING_ERROR_DATES = new Collection<number, Temporal.ZonedDateTime>()
 	.set(1, skyDate(2_020, 5, 28))
 	.set(2, skyDate(2_021, 2, 4))
 	.set(3, skyDate(2_022, 1, 6))
@@ -143,7 +142,7 @@ interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
 	realm: RealmName;
 }
 
-export type SeasonalSpiritVisitTravellingErrorData = Collection<number, DateTime>;
+export type SeasonalSpiritVisitTravellingErrorData = Collection<number, Temporal.ZonedDateTime>;
 export type SeasonalSpiritVisitReturningData = Collection<number, ReturningDatesData>;
 
 interface SeasonalSpiritVisitData {
@@ -371,7 +370,8 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 					}
 
 					return collection.set(travellingError, period);
-				}, new Collection<number, DateTime>()) ?? new Collection<number, DateTime>(),
+				}, new Collection<number, Temporal.ZonedDateTime>()) ??
+				new Collection<number, Temporal.ZonedDateTime>(),
 			returning:
 				spirit.visits?.returning?.reduce((collection, returning) => {
 					const period = RETURNING_DATES.get(returning);
@@ -388,19 +388,19 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 		};
 	}
 
-	public visit(date: DateTime) {
+	public visit(date: Temporal.ZonedDateTime) {
 		const { travelling, returning } = this.visits;
 		const firstTravelling = travelling[0];
 		const firstReturning = returning.first();
 
 		return {
 			visited: Boolean(
-				(firstTravelling && firstTravelling.start <= date) ||
-					(firstReturning && firstReturning.start <= date),
+				(firstTravelling && Temporal.ZonedDateTime.compare(firstTravelling.start, date) <= 0) ||
+					(firstReturning && Temporal.ZonedDateTime.compare(firstReturning.start, date) <= 0),
 			),
 			current: {
-				travelling: travelling.some(({ start, end }) => date >= start && date < end),
-				returning: returning.some(({ start, end }) => date >= start && date < end),
+				travelling: travelling.some(({ start, end }) => isActive(start, end, date)),
+				returning: returning.some(({ start, end }) => isActive(start, end, date)),
 			},
 		};
 	}

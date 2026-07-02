@@ -18,7 +18,7 @@ export default new Season({
 	guide: vaultEldersLantern,
 	spirits: [tenderToymaker, scarredSentry, sternShepherd, resourcefulRecluse, caringCompanion],
 	seasonalCandlesRotation: (now) =>
-		now >= skyDate(2_025, 10, 3)
+		Temporal.ZonedDateTime.compare(now, skyDate(2_025, 10, 3)) >= 0
 			? [
 					{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
@@ -31,7 +31,7 @@ export default new Season({
 					{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 				]
-			: now >= skyDate(2_025, 9, 5)
+			: Temporal.ZonedDateTime.compare(now, skyDate(2_025, 9, 5)) >= 0
 				? [
 						{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
 						{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
@@ -44,7 +44,7 @@ export default new Season({
 						{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 						{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 					]
-				: now >= skyDate(2_025, 8, 1)
+				: Temporal.ZonedDateTime.compare(now, skyDate(2_025, 8, 1)) >= 0
 					? [
 							{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
 							{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },

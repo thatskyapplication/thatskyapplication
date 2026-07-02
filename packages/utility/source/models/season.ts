@@ -1,6 +1,6 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
-import type { DateTime } from "luxon";
 import type { Cosmetic } from "../cosmetics.js";
+import { isActive } from "../dates.js";
 import type { RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import {
@@ -28,13 +28,13 @@ export interface DoubleSeasonalLightDate {
 	/**
 	 * The start date of double seasonal light event.
 	 */
-	start: DateTime;
+	start: Temporal.ZonedDateTime;
 	/**
 	 * The end date of double seasonal light event.
 	 *
 	 * @remarks The end date is exclusive.
 	 */
-	end: DateTime;
+	end: Temporal.ZonedDateTime;
 }
 
 /**
@@ -48,13 +48,13 @@ interface SeasonData {
 	/**
 	 * The start date of the season.
 	 */
-	start: DateTime;
+	start: Temporal.ZonedDateTime;
 	/**
 	 * The end date of the season.
 	 *
 	 * @remarks The end date is exclusive.
 	 */
-	end: DateTime;
+	end: Temporal.ZonedDateTime;
 	/**
 	 * The guide spirit of the season.
 	 */
@@ -74,7 +74,7 @@ interface SeasonData {
 	 */
 	seasonalCandlesRotation?:
 		| SeasonalCandlesRotation
-		| ((now: DateTime) => SeasonalCandlesRotation)
+		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation)
 		| null;
 	/**
 	 * Double seasonal light dates.
@@ -89,9 +89,9 @@ interface SeasonData {
 export class Season {
 	public readonly id: SeasonIds;
 
-	public readonly start: DateTime;
+	public readonly start: Temporal.ZonedDateTime;
 
-	public readonly end: DateTime;
+	public readonly end: Temporal.ZonedDateTime;
 
 	public readonly guide: GuideSpirit;
 
@@ -101,7 +101,9 @@ export class Season {
 
 	public readonly allCosmetics: readonly Cosmetic[];
 
-	private readonly seasonalCandlesRotation: ((now: DateTime) => SeasonalCandlesRotation) | null;
+	private readonly seasonalCandlesRotation:
+		| ((now: Temporal.ZonedDateTime) => SeasonalCandlesRotation)
+		| null;
 
 	public readonly doubleSeasonalLight: readonly DoubleSeasonalLightDate[] | null;
 
@@ -132,17 +134,21 @@ export class Season {
 		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
-	public remainingSeasonalCandles(date: DateTime) {
-		const remainingDays = Math.ceil(this.end.diff(date, "days").days);
+	public remainingSeasonalCandles(date: Temporal.ZonedDateTime) {
+		const remainingDays = Math.ceil(this.end.since(date).total({ unit: "days", relativeTo: date }));
 
 		const remainingDoubleSeasonalLightDays =
 			this.doubleSeasonalLight?.reduce((total, { start, end }) => {
-				if (date >= end) {
+				if (Temporal.ZonedDateTime.compare(date, end) >= 0) {
 					return total;
 				}
 
-				const remainingStart = date > start ? date : start;
-				return total + Math.ceil(end.diff(remainingStart, "days").days);
+				const remainingStart = Temporal.ZonedDateTime.compare(date, start) > 0 ? date : start;
+
+				return (
+					total +
+					Math.ceil(end.since(remainingStart).total({ unit: "days", relativeTo: remainingStart }))
+				);
 			}, 0) ?? 0;
 
 		return {
@@ -154,17 +160,19 @@ export class Season {
 		};
 	}
 
-	public isDuringDoubleSeasonalLightEvent(date: DateTime) {
-		return this.doubleSeasonalLight?.some(({ start, end }) => date >= start && date < end) ?? false;
+	public isDuringDoubleSeasonalLightEvent(date: Temporal.ZonedDateTime) {
+		return this.doubleSeasonalLight?.some(({ start, end }) => isActive(start, end, date)) ?? false;
 	}
 
-	public seasonalCandles(date: DateTime) {
+	public seasonalCandles(date: Temporal.ZonedDateTime) {
 		if (this.seasonalCandlesRotation === null) {
 			return null;
 		}
 
 		const { rotation, realm } =
-			this.seasonalCandlesRotation(date)[date.diff(this.start, "days").days % 10]!;
+			this.seasonalCandlesRotation(date)[
+				date.since(this.start).total({ unit: "days", relativeTo: this.start }) % 10
+			]!;
 
 		if (this.isDuringDoubleSeasonalLightEvent(date)) {
 			return this.seasonalCandlesRotationURL(realm, RotationIdentifier.Double);

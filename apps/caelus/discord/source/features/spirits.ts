@@ -14,6 +14,7 @@ import {
 } from "@discordjs/core";
 import {
 	type ElderSpirit,
+	epochSeconds,
 	formatEmoji,
 	type GuideSpirit,
 	isSpiritsHistoryOrderType,
@@ -115,7 +116,7 @@ function visitField(
 			startFormatOptions.timeStyle = "short";
 		}
 
-		const startUnix = start.toUnixInteger();
+		const startUnix = epochSeconds(start);
 		visits.push(
 			`\`#${String(visit).padStart(maxLength, "0")}\` <t:${startUnix}:s> (<t:${startUnix}:R>)`,
 		);
@@ -127,8 +128,8 @@ function visitField(
 function visitErrorField(seasonalSpiritVisit: SeasonalSpiritVisitTravellingErrorData) {
 	return seasonalSpiritVisit
 		.reduce<string[]>((visits, start) => {
-			const startUnix = start.toUnixInteger();
-			visits.push(`\`Error\` <t:${start.toUnixInteger()}:s> (<t:${startUnix}:R>)`);
+			const startUnix = epochSeconds(start);
+			visits.push(`\`Error\` <t:${startUnix}:s> (<t:${startUnix}:R>)`);
 			return visits;
 		}, [])
 		.join("\n");
@@ -371,7 +372,7 @@ export async function spiritsHistory(
 			startFormatOptions.timeStyle = "short";
 		}
 
-		const startUnix = start.toUnixInteger();
+		const startUnix = epochSeconds(start);
 		const lastVisited = `<t:${startUnix}:s> (<t:${startUnix}:R>)`;
 
 		containerComponents.push({

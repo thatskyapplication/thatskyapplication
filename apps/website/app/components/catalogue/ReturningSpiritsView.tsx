@@ -1,5 +1,4 @@
 import { resolveReturningSpirits } from "@thatskyapplication/utility";
-import type { DateTime } from "luxon";
 import { useTranslation } from "react-i18next";
 import { resolveSpiritTree } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
@@ -14,7 +13,7 @@ export function ReturningSpiritsView({
 }: {
 	data: ReadonlySet<number>;
 	locale: string;
-	now: DateTime;
+	now: Temporal.ZonedDateTime;
 }) {
 	const { t } = useTranslation();
 	const returningSpirits = resolveReturningSpirits(now);

@@ -7,8 +7,8 @@ const eventTicketAmount: EventTicketsAmountData[] = [];
 
 for (
 	let start = skyDate(2026, 1, 30), end = skyDate(2026, 2, 10);
-	start < end;
-	start = start.plus({ days: 1 })
+	Temporal.ZonedDateTime.compare(start, end) < 0;
+	start = start.add({ days: 1 })
 ) {
 	eventTicketAmount.push({
 		date: start,
@@ -19,8 +19,8 @@ for (
 // Tournament ended, so no event ticket light is given for choosing a team.
 for (
 	let start = skyDate(2026, 2, 10), end = skyDate(2026, 2, 13);
-	start < end;
-	start = start.plus({ days: 1 })
+	Temporal.ZonedDateTime.compare(start, end) < 0;
+	start = start.add({ days: 1 })
 ) {
 	eventTicketAmount.push({
 		date: start,
