@@ -515,7 +515,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							"guess.leaderboard.command-option-type-description",
 						),
 						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(`guess.game.command-option-type-choice-name.${guessType}`, {
+							name: t(`guess.leaderboard.command-option-type-choice-name.${guessType}`, {
 								ns: "commands",
 							}),
 							name_localizations: localisations(
