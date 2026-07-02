@@ -291,7 +291,7 @@ function shardEruptionOverview(
 
 	return {
 		type: ScheduleType.ShardEruption,
-		now: schedule.active ?? false,
+		now: schedule.active,
 		next: new Intl.DateTimeFormat(locale, { timeStyle: "medium", timeZone }).format(
 			schedule.start.toMillis(),
 		),
