@@ -785,6 +785,7 @@ async function distributionData(
 					start: maintenance.start,
 					text: t("daily-guides.maintenance-upcoming", {
 						ns: "features",
+						lng: locale,
 						count: floorDays,
 					}),
 				});
@@ -795,6 +796,7 @@ async function distributionData(
 				start: maintenance.start,
 				text: t("daily-guides.maintenance-upcoming", {
 					ns: "features",
+					lng: locale,
 					count: 1,
 					time: new Intl.DateTimeFormat(locale, {
 						timeZone: TIME_ZONE,
