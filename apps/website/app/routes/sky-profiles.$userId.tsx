@@ -178,14 +178,17 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 
 	const catalogueData = shouldFetchCatalogue ? await getSkyProfileCatalogueData(userId) : null;
 	let catalogueProgression = null;
-	let maximumWingedLight = null;
+	let maximumWingedLight:
+		| { capeless: true }
+		| { capeless: false; count: number; isMax: boolean }
+		| null = null;
 
 	if (data.winged_light !== null) {
 		if (data.winged_light === SkyProfileWingedLightType.Capeless) {
-			maximumWingedLight = "Capeless";
+			maximumWingedLight = { capeless: true };
 		} else if (catalogueData) {
 			const { count, isMax } = computeMaximumWingedLight(catalogueData);
-			maximumWingedLight = isMax ? `${count} (Max)` : count.toString();
+			maximumWingedLight = { capeless: false, count, isMax };
 		}
 	}
 
@@ -355,7 +358,13 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
 									Maximum Winged Light
 								</p>
-								<p className="my-0">{maximumWingedLight}</p>
+								<p className="my-0">
+									{maximumWingedLight.capeless
+										? t("sky-profile.winged-light-capeless", { ns: "features" })
+										: maximumWingedLight.isMax
+											? `${maximumWingedLight.count} (${t("sky-profile.winged-light-max", { ns: "features" })})`
+											: maximumWingedLight.count.toString()}
+								</p>
 							</div>
 						</div>
 					)}
