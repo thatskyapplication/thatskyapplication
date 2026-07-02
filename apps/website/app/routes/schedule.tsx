@@ -3,6 +3,7 @@ import {
 	aviarysFireworkFestivalSchedule,
 	DOUBLE_HEART_EVENTS,
 	dreamsSkaterSchedule,
+	formatEmojiURL,
 	grandmaSchedule,
 	internationalSpaceStationSchedule,
 	MAINTENANCE_PERIODS,
@@ -37,7 +38,7 @@ import { CentredSitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
-import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
+import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
@@ -712,7 +713,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			label,
 			dyeIcons: dyes.map((dye) => {
 				const emoji = DyeTypeToEmoji[dye];
-				return { label: emoji.name.replace("_", " "), url: discordEmojiURL(emoji.id) };
+				return { label: emoji.name.replace("_", " "), url: formatEmojiURL(emoji.id) };
 			}),
 			active: isActive,
 			next: new Intl.DateTimeFormat(locale, options).format(relevantDate.toMillis()),

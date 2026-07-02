@@ -1,8 +1,8 @@
 import { SiDiscord } from "@icons-pack/react-simple-icons";
+import { formatEmojiURL } from "@thatskyapplication/utility";
 import { AlarmClock, BookOpenCheck, Clock, UsersIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { discordEmojiURL } from "~/utility/cdn";
 import { APPLICATION_NAME } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis";
 
@@ -47,7 +47,7 @@ export default function Index() {
 						className="discord-emoji w-8 h-8"
 						role="img"
 						style={{
-							backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id)})`,
+							backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id)})`,
 						}}
 					/>
 					<h2 className="font-medium text-lg">Shard Eruptions</h2>

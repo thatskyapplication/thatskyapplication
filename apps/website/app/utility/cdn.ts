@@ -19,7 +19,3 @@ export function getCDNURLFromMatches(
 export function cdnAssetURL(cdnURL: string, path: string) {
 	return new URL(path, cdnURL).href;
 }
-
-export function discordEmojiURL(emojiId: string) {
-	return `https://cdn.discordapp.com/emojis/${emojiId}.webp` as const;
-}

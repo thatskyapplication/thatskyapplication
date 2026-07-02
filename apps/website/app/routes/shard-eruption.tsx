@@ -1,4 +1,5 @@
 import {
+	formatEmojiURL,
 	type ShardEruptionData,
 	shardEruption,
 	skyNow,
@@ -13,7 +14,7 @@ import Pagination from "~/components/Pagination.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
-import { cdnAssetURL, discordEmojiURL } from "~/utility/cdn.js";
+import { cdnAssetURL } from "~/utility/cdn.js";
 import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
@@ -56,7 +57,7 @@ export const meta = ({ location }: Route.MetaArgs) => {
 		{ property: "og:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
-		{ property: "og:image", content: discordEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id) },
+		{ property: "og:image", content: formatEmojiURL(MISCELLANEOUS_EMOJIS.ShardStrong.id) },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: "Shard Eruption" },
@@ -143,7 +144,7 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 						className="discord-emoji w-5 h-5 mr-1"
 						role="img"
 						style={{
-							backgroundImage: `url(${discordEmojiURL(shard.strong ? MISCELLANEOUS_EMOJIS.ShardStrong.id : MISCELLANEOUS_EMOJIS.ShardRegular.id)})`,
+							backgroundImage: `url(${formatEmojiURL(shard.strong ? MISCELLANEOUS_EMOJIS.ShardStrong.id : MISCELLANEOUS_EMOJIS.ShardRegular.id)})`,
 						}}
 					/>
 				)}
@@ -170,7 +171,7 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 								className="discord-emoji h-4 w-4 ml-1"
 								role="img"
 								style={{
-									backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
+									backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
 								}}
 							/>
 						) : (

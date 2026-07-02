@@ -2,6 +2,7 @@ import type { Snowflake } from "@discordjs/core/http-only";
 import {
 	DELETED_USER_TEXT,
 	DOUBLE_HEART_EVENTS,
+	formatEmojiURL,
 	type HeartHistoryPacket,
 	type HeartPacket,
 	MAXIMUM_HEARTS_PER_DAY,
@@ -15,7 +16,6 @@ import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
 import { Tooltip } from "~/components/Tooltip";
 import pg from "~/pg.server";
-import { discordEmojiURL } from "~/utility/cdn.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
@@ -170,7 +170,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 		userId,
 	} = loaderData;
 	const { i18n, t } = useTranslation();
-	const heartEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id);
+	const heartEmojiURL = formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id);
 
 	return (
 		<SitePage>

@@ -1,6 +1,6 @@
 import type { Emoji } from "@thatskyapplication/utility";
+import { formatEmojiURL } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
-import { discordEmojiURL } from "~/utility/cdn.js";
 
 export function EmojiIcon({
 	className,
@@ -12,7 +12,7 @@ export function EmojiIcon({
 	label?: string;
 }) {
 	const resolvedClassName = clsx("discord-emoji", className ?? "h-4 w-4");
-	const style = { backgroundImage: `url(${discordEmojiURL(emoji.id)})` };
+	const style = { backgroundImage: `url(${formatEmojiURL(emoji.id)})` };
 
 	return label ? (
 		<div aria-label={label} className={resolvedClassName} role="img" style={style} />

@@ -5,6 +5,7 @@ import {
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	DOUBLE_HEART_EVENTS,
+	formatEmojiURL,
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
 	nextDailyReset,
@@ -33,7 +34,7 @@ import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
 import pg from "~/pg.server";
-import { cdnAssetURL, discordEmojiURL, getCDNURLFromMatches } from "~/utility/cdn.js";
+import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import {
 	DyeTypeToEmoji,
@@ -188,7 +189,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		daysCount.push({
 			content: daysLeftText,
 			end: season.end,
-			iconURL: seasonEmoji ? discordEmojiURL(seasonEmoji.id) : undefined,
+			iconURL: seasonEmoji ? formatEmojiURL(seasonEmoji.id) : undefined,
 			key: `season-current-${season.id}`,
 			start: season.start,
 		});
@@ -220,7 +221,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								count: Math.floor(daysUntilStart),
 							}),
 				end: doubleSeasonalLight.end,
-				iconURL: seasonalCandleEmoji ? discordEmojiURL(seasonalCandleEmoji.id) : undefined,
+				iconURL: seasonalCandleEmoji ? formatEmojiURL(seasonalCandleEmoji.id) : undefined,
 				key: `double-seasonal-light-${season.id}-${doubleSeasonalLight.start.toMillis()}`,
 				start: doubleSeasonalLight.start,
 			});
@@ -239,7 +240,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				count: Math.floor(daysUntilStart),
 			}),
 			end: next.end,
-			iconURL: nextSeasonEmoji ? discordEmojiURL(nextSeasonEmoji.id) : undefined,
+			iconURL: nextSeasonEmoji ? formatEmojiURL(nextSeasonEmoji.id) : undefined,
 			key: `season-upcoming-${next.id}`,
 			start: next.start,
 		});
@@ -258,7 +259,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					count: Math.floor(daysUntilStart),
 				}),
 				end,
-				iconURL: eventEmoji ? discordEmojiURL(eventEmoji.id) : undefined,
+				iconURL: eventEmoji ? formatEmojiURL(eventEmoji.id) : undefined,
 				key: `event-upcoming-${name}`,
 				start,
 			});
@@ -273,7 +274,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				name: eventName,
 			}),
 			end,
-			iconURL: eventEmoji ? discordEmojiURL(eventEmoji.id) : undefined,
+			iconURL: eventEmoji ? formatEmojiURL(eventEmoji.id) : undefined,
 			key: `event-ending-${name}`,
 			start,
 		});
@@ -335,8 +336,8 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 
 	for (const radianceEvent of RADIANCE_EVENTS.filter(({ end }) => end > today)) {
 		const daysUntilStart = radianceEvent.start.diff(today, "days").days;
-		const radianceEmojiURL = discordEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
-		const dyeEmojiURLs = radianceEvent.dyes.map((dye) => discordEmojiURL(DyeTypeToEmoji[dye].id));
+		const radianceEmojiURL = formatEmojiURL(MISCELLANEOUS_EMOJIS.Dye.id);
+		const dyeEmojiURLs = radianceEvent.dyes.map((dye) => formatEmojiURL(DyeTypeToEmoji[dye].id));
 		const radianceText =
 			daysUntilStart >= 1
 				? t("daily-guides.event-upcoming", {
@@ -390,7 +391,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							count: Math.floor(daysUntilStart),
 						}),
 			end: doubleTreasureCandleEvent.end,
-			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.TreasureCandle.id),
+			iconURL: formatEmojiURL(MISCELLANEOUS_EMOJIS.TreasureCandle.id),
 			key: `double-treasure-candle-${doubleTreasureCandleEvent.start.toMillis()}`,
 			start: doubleTreasureCandleEvent.start,
 		});
@@ -412,7 +413,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							count: Math.floor(daysUntilStart),
 						}),
 			end: doubleHeartEvent.end,
-			iconURL: discordEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
+			iconURL: formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id),
 			key: `double-heart-${doubleHeartEvent.start.toMillis()}`,
 			start: doubleHeartEvent.start,
 		});
@@ -617,7 +618,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										role="img"
 										style={{
 											backgroundImage: seasonalCandleEmoji
-												? `url(${discordEmojiURL(seasonalCandleEmoji.id)})`
+												? `url(${formatEmojiURL(seasonalCandleEmoji.id)})`
 												: undefined,
 										}}
 									/>
@@ -673,7 +674,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 													className="discord-emoji h-4 w-4"
 													role="img"
 													style={{
-														backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
+														backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
 													}}
 												/>
 											) : (
@@ -730,7 +731,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												className="discord-emoji h-4 w-4"
 												role="img"
 												style={{
-													backgroundImage: `url(${discordEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
+													backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
 												}}
 											/>
 										) : (
