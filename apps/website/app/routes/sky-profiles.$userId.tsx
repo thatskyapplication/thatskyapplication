@@ -5,19 +5,17 @@ import {
 	catalogueItems,
 	cataloguePercentage,
 	catalogueProgress,
+	computeMaximumWingedLight,
 	GuessType,
 	isCountry,
 	isSkyProfilePersonalityType,
 	isSpiritId,
-	MAXIMUM_WINGED_LIGHT,
 	type SkyProfileData,
 	SkyProfileEditType,
 	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
 	Table,
-	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,
 	WEBSITE_URL,
-	WING_BUFFS,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import {
@@ -186,15 +184,8 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 		if (data.winged_light === SkyProfileWingedLightType.Capeless) {
 			maximumWingedLight = "Capeless";
 		} else if (catalogueData) {
-			let count = TOP_LEVEL_WINGED_LIGHT_IN_AREAS;
-
-			for (const wingBuff of WING_BUFFS) {
-				if (catalogueData.has(wingBuff)) {
-					count++;
-				}
-			}
-
-			maximumWingedLight = count === MAXIMUM_WINGED_LIGHT ? `${count} (Max)` : count.toString();
+			const { count, isMax } = computeMaximumWingedLight(catalogueData);
+			maximumWingedLight = isMax ? `${count} (Max)` : count.toString();
 		}
 	}
 

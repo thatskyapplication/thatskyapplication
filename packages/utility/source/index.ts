@@ -134,6 +134,7 @@ export {
 	treasureCandles,
 } from "./kingdom/treasure-candles.js";
 export {
+	computeMaximumWingedLight,
 	MAXIMUM_WINGED_LIGHT,
 	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,
 	TopLevelAreaToWingedLight,

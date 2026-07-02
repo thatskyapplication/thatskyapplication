@@ -37,6 +37,7 @@ import {
 	catalogueItems,
 	cataloguePercentage,
 	catalogueProgress,
+	computeMaximumWingedLight,
 	type Emoji,
 	formatEmoji,
 	GuessType,
@@ -46,7 +47,6 @@ import {
 	MAXIMUM_ASSET_BANNER_DIMENSION,
 	MAXIMUM_ASSET_ICON_DIMENSION,
 	MAXIMUM_ASSET_SIZE,
-	MAXIMUM_WINGED_LIGHT,
 	PLATFORM_ID_VALUES,
 	PlatformId,
 	type PlatformIds,
@@ -72,8 +72,6 @@ import {
 	type SkyProfileWingedLightTypes,
 	skySeasons,
 	Table,
-	TOP_LEVEL_WINGED_LIGHT_IN_AREAS,
-	WING_BUFFS,
 } from "@thatskyapplication/utility";
 import { hash } from "hasha";
 import { t } from "i18next";
@@ -2440,17 +2438,11 @@ async function skyProfileComponents(
 			const catalogue = await fetchCatalogue(userId);
 
 			if (catalogue) {
-				let count = TOP_LEVEL_WINGED_LIGHT_IN_AREAS;
-
-				for (const wingBuff of WING_BUFFS) {
-					if (catalogue.data.has(wingBuff)) {
-						count++;
-					}
-				}
+				const { count, isMax } = computeMaximumWingedLight(catalogue.data);
 
 				miscellaneous.push(
 					`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${
-						count === MAXIMUM_WINGED_LIGHT
+						isMax
 							? `${count} (${t("sky-profile.winged-light-max", { lng: locale, ns: "features" })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)})`
 							: count.toString()
 					}`,

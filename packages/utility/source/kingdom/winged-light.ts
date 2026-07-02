@@ -50,3 +50,15 @@ export const TOP_LEVEL_WINGED_LIGHT_IN_AREAS = Object.values(TopLevelAreaToWinge
 );
 
 export const MAXIMUM_WINGED_LIGHT = TOP_LEVEL_WINGED_LIGHT_IN_AREAS + WING_BUFFS.length;
+
+export function computeMaximumWingedLight(catalogueData: ReadonlySet<number>) {
+	let count = TOP_LEVEL_WINGED_LIGHT_IN_AREAS;
+
+	for (const wingBuff of WING_BUFFS) {
+		if (catalogueData.has(wingBuff)) {
+			count++;
+		}
+	}
+
+	return { count, isMax: count === MAXIMUM_WINGED_LIGHT };
+}
