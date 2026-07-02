@@ -1,4 +1,4 @@
-ARG NODE_IMAGE=node:24-alpine
+ARG NODE_IMAGE=node:26-alpine
 
 FROM ${NODE_IMAGE} AS build
 ENV PNPM_HOME=/pnpm
