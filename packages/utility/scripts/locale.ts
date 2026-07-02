@@ -1591,20 +1591,33 @@ function setAtPath(root: Record<string, unknown>, dotPath: string, value: string
 	root[parts.at(-1)!] = value;
 }
 
+const jsonLocaleCache = new Map<string, Record<string, unknown>>();
+const dirtyJsonLocales = new Set<string>();
+
+async function loadJsonLocale(filePath: string): Promise<Record<string, unknown>> {
+	let obj = jsonLocaleCache.get(filePath);
+
+	if (obj === undefined) {
+		obj = JSON.parse(await readFile(filePath, "utf-8")) as Record<string, unknown>;
+		jsonLocaleCache.set(filePath, obj);
+	}
+
+	return obj;
+}
+
 async function updateJsonLocale(
 	filePath: string,
 	dotPath: string,
 	value: string,
 ): Promise<boolean> {
-	const raw = await readFile(filePath, "utf-8");
-	const obj = JSON.parse(raw) as Record<string, unknown>;
+	const obj = await loadJsonLocale(filePath);
 
 	if (getAtPath(obj, dotPath) === value) {
 		return false;
 	}
 
 	setAtPath(obj, dotPath, value);
-	await writeFile(filePath, JSON.stringify(obj, null, 2));
+	dirtyJsonLocales.add(filePath);
 	return true;
 }
 
@@ -1649,6 +1662,25 @@ const basePath = join(LPROJ_DIR, "Base.lproj", "Localizable.strings");
 const baseContent = await readFile(basePath, "utf-8");
 const baseStrings = parseLocalizableStrings(baseContent);
 
+const stringsByLproj = new Map<string, Map<string, string> | null>();
+
+async function loadStrings(lproj: string): Promise<Map<string, string> | null> {
+	if (stringsByLproj.has(lproj)) {
+		return stringsByLproj.get(lproj)!;
+	}
+
+	const stringsPath = join(LPROJ_DIR, `${lproj}.lproj`, "Localizable.strings");
+
+	try {
+		const strings = parseLocalizableStrings(await readFile(stringsPath, "utf-8"));
+		stringsByLproj.set(lproj, strings);
+		return strings;
+	} catch {
+		stringsByLproj.set(lproj, null);
+		return null;
+	}
+}
+
 for (const mapping of MAPPINGS) {
 	const jsonPath = mapping.jsonPath ?? resolveJsonPath(mapping.tsKey);
 	let changedJsonLocaleCount = 0;
@@ -1664,17 +1696,13 @@ for (const mapping of MAPPINGS) {
 			continue;
 		}
 
-		const stringsPath = join(LPROJ_DIR, `${lproj}.lproj`, "Localizable.strings");
-		let content: string;
+		const strings = await loadStrings(lproj);
 
-		try {
-			content = await readFile(stringsPath, "utf-8");
-		} catch {
+		if (!strings) {
 			console.warn(`  ${yellow("⚠")} ${dim(`${lproj}.lproj`)} not found — skipped`);
 			continue;
 		}
 
-		const strings = parseLocalizableStrings(content);
 		const raw = strings.get(mapping.upstreamKey);
 
 		if (raw === undefined) {
@@ -1730,6 +1758,10 @@ for (const mapping of MAPPINGS) {
 			console.log(`  ${green("✔")} ${bold("en-gb.ts")} updated`);
 		}
 	}
+}
+
+for (const filePath of dirtyJsonLocales) {
+	await writeFile(filePath, JSON.stringify(jsonLocaleCache.get(filePath)!, null, 2));
 }
 
 await writeChangeLog();
