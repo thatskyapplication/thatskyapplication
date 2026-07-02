@@ -1,6 +1,7 @@
 import {
 	CLOTHING_SHOP,
 	Cosmetic,
+	collectSpiritCosmetics,
 	ELDER_SPIRITS,
 	type ElderSpirit,
 	type EventIds,
@@ -74,20 +75,6 @@ export function resolveSpiritTree(
 	return spirit.current;
 }
 
-function collectCosmetics(
-	spirits: Iterable<{ readonly allCosmetics: readonly number[] }>,
-): Set<number> {
-	const cosmetics = new Set<number>();
-
-	for (const spirit of spirits) {
-		for (const cosmetic of spirit.allCosmetics) {
-			cosmetics.add(cosmetic);
-		}
-	}
-
-	return cosmetics;
-}
-
 export function parseCosmetics(value: FormDataEntryValue | null) {
 	if (typeof value !== "string") {
 		return null;
@@ -118,7 +105,7 @@ export function resolveScopeCosmetics(
 
 	switch (scope) {
 		case "elders":
-			return collectCosmetics(ELDER_SPIRITS.values());
+			return collectSpiritCosmetics(ELDER_SPIRITS.values());
 		case "starter-packs":
 			return new Set(STARTER_PACKS.allCosmetics);
 		case "secret-area":
@@ -140,7 +127,9 @@ export function resolveScopeCosmetics(
 	const value = scope.slice(separatorIndex + 1);
 
 	if (type === "realm" && isRealm(value)) {
-		return collectCosmetics(STANDARD_SPIRITS.filter((spirit) => spirit.realm === value).values());
+		return collectSpiritCosmetics(
+			STANDARD_SPIRITS.filter((spirit) => spirit.realm === value).values(),
+		);
 	}
 
 	if (type === "season") {
@@ -150,7 +139,7 @@ export function resolveScopeCosmetics(
 			return null;
 		}
 
-		const cosmetics = collectCosmetics([season.guide, ...season.spirits.values()]);
+		const cosmetics = collectSpiritCosmetics([season.guide, ...season.spirits.values()]);
 
 		for (const cosmetic of season.allCosmetics) {
 			cosmetics.add(cosmetic);

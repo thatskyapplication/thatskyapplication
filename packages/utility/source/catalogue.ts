@@ -233,6 +233,18 @@ export function catalogueSpiritItems(spirits: Iterable<CatalogueSpirit>): readon
 	return items;
 }
 
+export function collectSpiritCosmetics(spirits: Iterable<CatalogueSpirit>): Set<number> {
+	const cosmetics = new Set<number>();
+
+	for (const spirit of spirits) {
+		for (const cosmetic of spirit.allCosmetics) {
+			cosmetics.add(cosmetic);
+		}
+	}
+
+	return cosmetics;
+}
+
 export function catalogueSeasonItems(seasons: Iterable<Season>): readonly Item[] {
 	const items: Item[] = [];
 

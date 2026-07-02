@@ -29,6 +29,7 @@ import {
 	catalogueProgress,
 	catalogueSeasonItems,
 	catalogueSpiritItems,
+	collectSpiritCosmetics,
 	ELDER_SPIRITS,
 	type ElderSpirit,
 	type Event,
@@ -2499,15 +2500,8 @@ export async function setRealm(interaction: APIMessageComponentButtonInteraction
 		throw new Error("Unknown realm.");
 	}
 
-	const allCosmetics = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).reduce(
-		(data, spirit) => {
-			for (const cosmetic of spirit.allCosmetics) {
-				data.add(cosmetic);
-			}
-
-			return data;
-		},
-		new Set<number>(),
+	const allCosmetics = collectSpiritCosmetics(
+		STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).values(),
 	);
 
 	await update(interaction, {
@@ -2520,13 +2514,7 @@ export async function setElders(interaction: APIMessageComponentButtonInteractio
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	const allCosmetics = ELDER_SPIRITS.reduce((data, spirit) => {
-		for (const cosmetic of spirit.allCosmetics) {
-			data.add(cosmetic);
-		}
-
-		return data;
-	}, new Set<number>());
+	const allCosmetics = collectSpiritCosmetics(ELDER_SPIRITS.values());
 
 	await update(interaction, {
 		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
@@ -2548,14 +2536,11 @@ export async function setSeason(interaction: APIMessageComponentButtonInteractio
 		throw new Error("Unknown season.");
 	}
 
-	const allCosmetics = new Set([
-		...season.guide.allCosmetics,
-		...season.spirits.reduce<number[]>((totalCosmetics, spirit) => {
-			totalCosmetics.push(...spirit.allCosmetics);
-			return totalCosmetics;
-		}, []),
-		...season.allCosmetics,
-	]);
+	const allCosmetics = collectSpiritCosmetics([season.guide, ...season.spirits.values()]);
+
+	for (const cosmetic of season.allCosmetics) {
+		allCosmetics.add(cosmetic);
+	}
 
 	await update(interaction, {
 		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,

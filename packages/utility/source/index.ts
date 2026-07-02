@@ -40,6 +40,7 @@ export {
 	catalogueProgress,
 	catalogueSeasonItems,
 	catalogueSpiritItems,
+	collectSpiritCosmetics,
 	NESTING_WORKSHOP,
 	partitionItemCosts,
 	SECRET_AREA,
