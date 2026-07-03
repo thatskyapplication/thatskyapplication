@@ -12,7 +12,7 @@ export function embedLinksInText(text: string, facets: Facet[]): string {
 	}
 
 	// Sort facets by start index.
-	const sortedFacets = [...(richText.facets ?? [])].sort(
+	const sortedFacets = (richText.facets ?? []).sort(
 		(a, b) => a.index.byteStart - b.index.byteStart,
 	);
 
