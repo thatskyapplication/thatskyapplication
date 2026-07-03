@@ -176,7 +176,7 @@ export function isPlatformIds(value: readonly number[]): value is readonly Platf
 }
 
 export function isSeasonIds(value: readonly number[]): value is readonly SeasonIds[] {
-	const seasonIds = new Set([...skySeasons().keys()]);
+	const seasonIds = new Set(skySeasons().keys());
 	return value.every((seasonId) => seasonIds.has(seasonId as SeasonIds));
 }
 
