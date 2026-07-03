@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { DeleteObjectCommand, DeleteObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIApplicationCommandAutocompleteInteraction,
@@ -73,7 +74,6 @@ import {
 	skySeasons,
 	Table,
 } from "@thatskyapplication/utility";
-import { hash } from "hasha";
 import { t } from "i18next";
 import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -350,7 +350,7 @@ export async function skyProfileSetAsset(
 			type === AssetType.Icon ? MAXIMUM_ASSET_ICON_DIMENSION : MAXIMUM_ASSET_BANNER_DIMENSION,
 	});
 
-	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
+	let hashedBuffer = createHash("md5").update(buffer).digest("hex");
 
 	if (gif) {
 		hashedBuffer = `${ANIMATED_HASH_PREFIX}${hashedBuffer}`;

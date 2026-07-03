@@ -1,4 +1,5 @@
 import { Buffer } from "node:buffer";
+import { createHash } from "node:crypto";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	ANIMATED_HASH_PREFIX,
@@ -9,7 +10,6 @@ import {
 	MAXIMUM_ASSET_INPUT_PIXELS,
 	MAXIMUM_ASSET_PROCESSING_SECONDS,
 } from "@thatskyapplication/utility";
-import { hash } from "hasha";
 import sharp from "sharp";
 import { CDN_BUCKET, CDN_URL } from "~/config.server.js";
 import S3Client from "~/s3-client.server.js";
@@ -38,7 +38,7 @@ async function uploadSkyProfileAsset({
 		.resize(maximumDimension, maximumDimension, { fit: "inside", withoutEnlargement: true });
 
 	const buffer = gif ? await assetBuffer.gif().toBuffer() : await assetBuffer.webp().toBuffer();
-	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
+	let hashedBuffer = createHash("md5").update(buffer).digest("hex");
 
 	if (gif) {
 		hashedBuffer = `${ANIMATED_HASH_PREFIX}${hashedBuffer}`;

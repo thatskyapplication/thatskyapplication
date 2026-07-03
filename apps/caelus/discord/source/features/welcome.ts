@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
 import {
 	type APIAttachment,
@@ -34,7 +35,6 @@ import {
 	MAXIMUM_ASSET_SIZE,
 	Table,
 } from "@thatskyapplication/utility";
-import { hash } from "hasha";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import { client } from "../discord.js";
@@ -792,7 +792,7 @@ async function welcomeSetAsset(
 		maximumDimension: MAXIMUM_ASSET_BANNER_DIMENSION,
 	});
 
-	let hashedBuffer = await hash(buffer, { algorithm: "md5" });
+	let hashedBuffer = createHash("md5").update(buffer).digest("hex");
 
 	if (gif) {
 		hashedBuffer = `${ANIMATED_HASH_PREFIX}${hashedBuffer}`;

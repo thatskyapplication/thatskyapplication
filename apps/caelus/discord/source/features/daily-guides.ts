@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { URL } from "node:url";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import {
@@ -64,7 +65,6 @@ import {
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
 } from "@thatskyapplication/utility";
-import { hash } from "hasha";
 import { t } from "i18next";
 import pQueue from "p-queue";
 import { GUILD_CACHE } from "../caches/guilds.js";
@@ -1777,7 +1777,7 @@ export async function set(
 			maximumDimension: MAXIMUM_ASSET_BANNER_DIMENSION,
 		});
 
-		const hashedBuffer = await hash(buffer, { algorithm: "md5" });
+		const hashedBuffer = createHash("md5").update(buffer).digest("hex");
 
 		await S3Client.send(
 			new PutObjectCommand({
