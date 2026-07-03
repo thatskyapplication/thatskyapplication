@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { readFile, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
-import pc from "picocolors";
+import { styleText } from "node:util";
 import { Cosmetic, CosmeticCommon, CosmeticPackName } from "../source/cosmetics.js";
 import { DailyQuest } from "../source/daily-guides.js";
 import { AreaName } from "../source/kingdom/geography.js";
@@ -10,7 +10,12 @@ import { SpiritId } from "../source/utility/spirits.js";
 
 // --update-en also updates en-gb.ts.
 
-const { blue, bold, cyan, dim, green, yellow } = pc;
+const blue = (text: string) => styleText("blue", text);
+const bold = (text: string) => styleText("bold", text);
+const cyan = (text: string) => styleText("cyan", text);
+const dim = (text: string) => styleText("dim", text);
+const green = (text: string) => styleText("green", text);
+const yellow = (text: string) => styleText("yellow", text);
 const ROOT = resolve(import.meta.dirname, "..");
 const LPROJ_DIR = join(ROOT, "locales");
 const CHANGE_LOG_PATH = join(LPROJ_DIR, "changes.txt");
