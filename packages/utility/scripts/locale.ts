@@ -1634,7 +1634,7 @@ async function updateEnGbTs(tsKey: string, upstreamKey: string, value: string): 
 	const content = await readFile(EN_GB_TS, "utf-8");
 
 	// Escape special regex metacharacters in the key (mainly the dot).
-	const escapedKey = tsKey.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	const escapedKey = RegExp.escape(tsKey);
 
 	// Match [Key]: optionally followed by whitespace/newline, then "old value".
 	const pattern = new RegExp(`(\\[${escapedKey}\\]:\\s*\\n?\\s*)"((?:\\\\.|[^"])*)"`);
