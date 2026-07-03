@@ -1,9 +1,4 @@
-import {
-	cataloguePercentage,
-	catalogueProgress,
-	type Event,
-	skyEvents,
-} from "@thatskyapplication/utility";
+import { cataloguePercentage, catalogueProgress, skyEvents } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { ChevronRight } from "lucide-react";
 import { useMemo } from "react";
@@ -26,22 +21,10 @@ export function EventsView({
 }) {
 	const { t } = useTranslation();
 
-	const eventsByYear = useMemo(() => {
-		const map = new Map<number, Event[]>();
-
-		for (const event of skyEvents().toReversed().values()) {
-			const { year } = event.start;
-			const events = map.get(year);
-
-			if (events) {
-				events.push(event);
-			} else {
-				map.set(year, [event]);
-			}
-		}
-
-		return [...map.entries()];
-	}, []);
+	const eventsByYear = useMemo(
+		() => [...Map.groupBy(skyEvents().toReversed().values(), (event) => event.start.year)],
+		[],
+	);
 
 	const dateFormat = new Intl.DateTimeFormat(locale, {
 		dateStyle: "medium",
