@@ -2269,7 +2269,13 @@
 			"2847": "",
 			"2848": "Mũ Nồi Cầu Vồng",
 			"2849": "Jumpsuit Cầu Vồng",
-			"2850": "Mặt Nạ Cầu Vồng"
+			"2850": "Mặt Nạ Cầu Vồng",
+			"2852": "",
+			"2853": "",
+			"2858": "Hoodie Đen Xanh Swag",
+			"2859": "Tân Thủ Bông",
+			"2860": "Dép Oreo",
+			"2863": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2609,6 +2615,8 @@
 		},
 		"catalogue": {
 			"main-title": "",
+			"description": "",
+			"description-short": "",
 			"main-description": "",
 			"standard-spirits": "",
 			"elders": "",

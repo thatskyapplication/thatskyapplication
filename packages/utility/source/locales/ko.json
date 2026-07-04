@@ -2269,7 +2269,13 @@
 			"2847": "",
 			"2848": "레인보우 베레모",
 			"2849": "레인보우 묶은 점프수트",
-			"2850": "레인보우 마스크"
+			"2850": "레인보우 마스크",
+			"2852": "",
+			"2853": "",
+			"2858": "블랙 앤 블루 스웨그 후드티",
+			"2859": "나방 인형",
+			"2860": "오레오 슬리퍼",
+			"2863": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2609,6 +2615,8 @@
 		},
 		"catalogue": {
 			"main-title": "",
+			"description": "",
+			"description-short": "",
 			"main-description": "",
 			"standard-spirits": "",
 			"elders": "",
