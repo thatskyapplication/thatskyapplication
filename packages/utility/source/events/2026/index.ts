@@ -3,6 +3,7 @@ import daysOfColour from "./days-of-colour.js";
 import daysOfFortune from "./days-of-fortune.js";
 import daysOfLove from "./days-of-love.js";
 import daysOfNature from "./days-of-nature.js";
+import daysOfSunlight from "./days-of-sunlight.js";
 import daysOfTreasure from "./days-of-treasure.js";
 import personalityQuizEvent from "./personality-quiz-event.js";
 import skyAnniversary from "./sky-anniversary.js";
@@ -18,4 +19,5 @@ export default [
 	daysOfTreasure,
 	daysOfColour,
 	skyAnniversary,
+	daysOfSunlight,
 ] as const;

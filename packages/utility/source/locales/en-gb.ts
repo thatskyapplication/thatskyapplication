@@ -972,6 +972,8 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Days_of_Colour/2026",
 			[EventId.SkyAnniversary2026]:
 				"https://sky-children-of-the-light.fandom.com/Sky_Anniversary/2026",
+			[EventId.DaysOfSunlight2026]:
+				"https://sky-children-of-the-light.fandom.com/Days_of_Sunlight/2026",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
