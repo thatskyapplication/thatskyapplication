@@ -2269,7 +2269,13 @@
 			"2847": "",
 			"2848": "彩虹贝雷帽",
 			"2849": "彩虹系带连体服",
-			"2850": "彩虹面具"
+			"2850": "彩虹面具",
+			"2852": "",
+			"2853": "",
+			"2858": "黑蓝潮流连帽卫衣",
+			"2859": "萌新玩偶",
+			"2860": "奥利奥拖鞋",
+			"2863": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2609,6 +2615,8 @@
 		},
 		"catalogue": {
 			"main-title": "",
+			"description": "",
+			"description-short": "",
 			"main-description": "",
 			"standard-spirits": "",
 			"elders": "",

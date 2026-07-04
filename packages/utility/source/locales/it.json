@@ -2269,7 +2269,13 @@
 			"2847": "",
 			"2848": "Basco arcobaleno",
 			"2849": "Tuta arcobaleno",
-			"2850": "Maschera arcobaleno"
+			"2850": "Maschera arcobaleno",
+			"2852": "",
+			"2853": "",
+			"2858": "Felpa stilosa blu e nera",
+			"2859": "Peluche falena",
+			"2860": "Pantofole di Oreo",
+			"2863": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2609,6 +2615,8 @@
 		},
 		"catalogue": {
 			"main-title": "",
+			"description": "",
+			"description-short": "",
 			"main-description": "",
 			"standard-spirits": "",
 			"elders": "",

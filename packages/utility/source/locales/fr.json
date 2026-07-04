@@ -2269,7 +2269,13 @@
 			"2847": "",
 			"2848": "Béret arc-en-ciel",
 			"2849": "Combinaison nouée arc-en-ciel",
-			"2850": "Masque arc-en-ciel"
+			"2850": "Masque arc-en-ciel",
+			"2852": "",
+			"2853": "",
+			"2858": "Sweat à capuche swag noir et bleu",
+			"2859": "Peluche papillon de nuit",
+			"2860": "Chaussons Oreo",
+			"2863": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",
@@ -2609,6 +2615,8 @@
 		},
 		"catalogue": {
 			"main-title": "Catalogue",
+			"description": "",
+			"description-short": "",
 			"main-description": "Bienvenue dans votre catalogue !\n\nIci, vous pouvez suivre tous les cosmétiques dans le jeu, avec des calculs dynamiques tel que les bougies saisonnières restantes lors d'une saison active, ce qui en fait un puissant outil à utiliser.\n\nProgrès total : {{progress}}%",
 			"standard-spirits": "Esprits standards",
 			"elders": "Anciens",

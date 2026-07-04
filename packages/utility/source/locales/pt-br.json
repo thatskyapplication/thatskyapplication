@@ -2269,7 +2269,13 @@
 			"2847": "Pipa de Cornelume",
 			"2848": "Boina Arco-Íris",
 			"2849": "Macacão com Laço Arco-Íris",
-			"2850": "Máscara Arco-Íris"
+			"2850": "Máscara Arco-Íris",
+			"2852": "",
+			"2853": "",
+			"2858": "Moletom Estiloso Preto e Azul",
+			"2859": "Pelúcia de Mariposa",
+			"2860": "Chinelos do Oreo",
+			"2863": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
@@ -2609,6 +2615,8 @@
 		},
 		"catalogue": {
 			"main-title": "Catálogo",
+			"description": "",
+			"description-short": "",
 			"main-description": "Bem-vindo ao seu catálogo!\n\nAqui, você pode controlar todos os cosméticos do jogo, com cálculos dinâmicos, como a quantidade de velas da temporada que faltam para a temporada atual, tornando-o uma ferramenta poderosa para usar.\n\nProgresso total: {{progress}}%",
 			"standard-spirits": "Espíritos regulares",
 			"elders": "Anciões",
