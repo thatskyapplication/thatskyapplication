@@ -560,6 +560,7 @@ export function SiteTopBar({ user, userDisplayName, userIconURL }: SiteTopBarPro
 }
 
 export function SiteFooter() {
+	const { t } = useTranslation();
 	const navigationGroups = useNavigationGroups();
 
 	return (
@@ -571,7 +572,7 @@ export function SiteFooter() {
 							thatskyapplication
 						</h3>
 						<p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
-							Home to tools for Sky: Children of the Light. 🩵
+							{t("website-description", { ns: "general" })}
 						</p>
 						<Link
 							className="mb-6 inline-flex items-center gap-2 rounded-lg border border-pink-300 bg-pink-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:border-pink-200 hover:bg-pink-600"

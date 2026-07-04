@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { useLocation } from "react-router";
 import { SiteFooter, SiteTopBar } from "~/components/SiteNavigation";
 import { EXCLUDE_TOP_BAR_AND_FOOTER } from "~/utility/constants";
@@ -37,7 +38,12 @@ export default function ConditionalLayout({
 			: forceShowFooter;
 
 	return (
-		<div className="min-h-screen flex flex-col">
+		<div
+			className={clsx(
+				"flex flex-col",
+				shouldShowNavigation || shouldShowFooter ? "min-h-screen" : "h-svh overflow-hidden",
+			)}
+		>
 			{shouldShowNavigation && (
 				<SiteTopBar user={user} userDisplayName={userDisplayName} userIconURL={userIconURL} />
 			)}

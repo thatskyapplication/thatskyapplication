@@ -37,6 +37,7 @@ export default {
 		"asset-image-invalid":
 			"Please upload a valid attachment! It must be less than or equal to {{size}} megabytes and be a GIF, JPEG, PNG, or WebP file.",
 		"support-server": "Support server",
+		"website-description": "A constellation of tools for Sky: Children of the Light. 🩵",
 		show: "Show",
 		hide: "Hide",
 		infographic: "Infographic",

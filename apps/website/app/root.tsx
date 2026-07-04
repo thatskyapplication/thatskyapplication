@@ -20,7 +20,11 @@ import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
 import pg from "~/pg.server";
 import { getSession } from "~/session.server";
 import { cdnAssetURL } from "~/utility/cdn";
-import { APPLICATION_DESCRIPTION, APPLICATION_NAME } from "~/utility/constants";
+import {
+	APPLICATION_DESCRIPTION,
+	APPLICATION_NAME,
+	EXCLUDE_TOP_BAR_AND_FOOTER,
+} from "~/utility/constants";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
 	getBrowserTimeZone,
@@ -98,15 +102,16 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	const { i18n } = useTranslation();
-	const cdnURL = useRouteLoaderData<typeof loader>("root")?.cdnURL;
+	const data = useRouteLoaderData<typeof loader>("root");
 
 	return (
 		<html dir={i18n.dir(i18n.language)} lang={i18n.language}>
 			<head>
 				<Meta />
-				{cdnURL && <link href={cdnURL} rel="preconnect" />}
+				{data?.cdnURL && <link href={data.cdnURL} rel="preconnect" />}
 				<link href="https://cdn.discordapp.com" rel="preconnect" />
 				<Links />
+				{data?.bareLayout && <style>{"html,body{background-color:#04060f}"}</style>}
 			</head>
 			<body>
 				{children}
@@ -119,6 +124,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export async function loader({ request, context }: Route.LoaderArgs) {
 	const locale = getLocale(context);
+	const { pathname } = new URL(request.url);
+	const bareLayout = EXCLUDE_TOP_BAR_AND_FOOTER.includes(
+		pathname as (typeof EXCLUDE_TOP_BAR_AND_FOOTER)[number],
+	);
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;
 	const skyProfile = user
@@ -132,7 +141,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 	const userIconURL =
 		user && skyProfile?.icon ? cdn.skyProfileIconURL(user.id, skyProfile.icon) : null;
 
-	return { cdnURL: CDN_URL, locale, user, userDisplayName, userIconURL };
+	return { bareLayout, cdnURL: CDN_URL, locale, user, userDisplayName, userIconURL };
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {

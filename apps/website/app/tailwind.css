@@ -67,6 +67,19 @@
 	}
 }
 
+.constellation-sparkle {
+	background-image:
+		radial-gradient(circle at center, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 46%),
+		linear-gradient(to top, transparent, rgba(214, 224, 255, 0.85), transparent),
+		linear-gradient(to right, transparent, rgba(214, 224, 255, 0.85), transparent);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size:
+		100% 100%,
+		1.5px 100%,
+		100% 1.5px;
+}
+
 @layer base {
 	h1 {
 		@apply text-2xl sm:text-3xl lg:text-4xl font-bold text-black dark:text-white mb-6 wrap-break-word hyphens-auto;
