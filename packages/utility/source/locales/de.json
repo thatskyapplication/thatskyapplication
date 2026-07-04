@@ -2269,7 +2269,13 @@
 			"2847": "",
 			"2848": "Regenbogen-Baskenmütze",
 			"2849": "Verknoteter Regenbogen-Jumpsuit",
-			"2850": "Regenbogen-Maske"
+			"2850": "Regenbogen-Maske",
+			"2852": "",
+			"2853": "",
+			"2858": "Schwarz-blauer Hoodie",
+			"2859": "Motten-Plüschtier",
+			"2860": "Oreo-Hausschuhe",
+			"2863": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2609,6 +2615,8 @@
 		},
 		"catalogue": {
 			"main-title": "Katalog",
+			"description": "",
+			"description-short": "",
 			"main-description": "Willkommen zu deinem Katalog!\n\nHier kannst du all deine Kosmetika im Spiel im Überblick halten. Du kannst sogar mit dynamischen Berechnungen sehen, wie viele Saisonkerzen in der aktiven Saison übrig sind. Es ist also ein nützliches Werkzeug!\n\nGesamtfortschritt: {{progress}}%",
 			"standard-spirits": "Reguläre Geister",
 			"elders": "Älteste",

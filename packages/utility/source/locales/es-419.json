@@ -2269,7 +2269,13 @@
 			"2847": "",
 			"2848": "Boina arcoíris",
 			"2849": "Enterito anudado arcoíris",
-			"2850": "Máscara arcoíris"
+			"2850": "Máscara arcoíris",
+			"2852": "",
+			"2853": "",
+			"2858": "Sudadera Swag azul y negra",
+			"2859": "Peluche de polilla",
+			"2860": "Pantuflas de Oreo",
+			"2863": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
@@ -2609,6 +2615,8 @@
 		},
 		"catalogue": {
 			"main-title": "Catálogo",
+			"description": "",
+			"description-short": "",
 			"main-description": "¡Bienvenido a tu catálogo!\n\nAquí puedes llevar un seguimiento de todos los cosméticos del juego, con cálculos dinámicos como las velas de temporada restantes en una temporada activa, convirtiéndolo en una poderosa herramienta para utilizar.\n\nProgreso total: {{progress}}%",
 			"standard-spirits": "Espíritus estándar",
 			"elders": "Ancianos",

@@ -1195,6 +1195,18 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.TGCWireframeCape",
 	},
 	{
+		upstreamKey: "commerce_item_name_anniversary_blackhoodie",
+		tsKey: "Cosmetic.AnniversaryBlackAndBlueSwagHoodie",
+	},
+	{
+		upstreamKey: "commerce_item_name_anniversary_oreoslippers",
+		tsKey: "Cosmetic.AnniversaryOreoSlippers",
+	},
+	{
+		upstreamKey: "commerce_item_name_anniversary_skykidplush",
+		tsKey: "Cosmetic.AnniversaryMothPlush",
+	},
+	{
 		upstreamKey: "commerce_item_name_ember_memoryhat",
 		tsKey: "Cosmetic.ButterflyBlossomMemento",
 	},

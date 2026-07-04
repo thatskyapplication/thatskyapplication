@@ -2683,6 +2683,10 @@ export default {
 			[Cosmetic.RainbowMask]: "Rainbow Mask",
 			[Cosmetic.FriendActionPlayFight3]: "Play fight 3",
 			[Cosmetic.FriendActionPlayFight4]: "Play fight 4",
+			[Cosmetic.AnniversaryBlackAndBlueSwagHoodie]: "Black and Blue Swag Hoodie",
+			[Cosmetic.AnniversaryMothPlush]: "Moth Plush",
+			[Cosmetic.AnniversaryOreoSlippers]: "Oreo Slippers",
+			[Cosmetic.MomentsCameraUpgrade]: "Moments camera upgrade",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
