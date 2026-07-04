@@ -2694,6 +2694,7 @@ export default {
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
 		"interaction-not-in-cached-guild":
 			"This command requires me to be present in the server. [Invite me]({{url1}}) with the bot scope and try again!\nIf you need help, join the [support server]({{url2}})!",
+		"interaction-response-too-old": "This response is too old. Use the command again!",
 		"cannot-view-thread": "I lack permissions to view this thread.",
 		view: "View",
 		more: "More",
@@ -3126,7 +3127,12 @@ export default {
 			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
 			"setup-description":
 				"Set up delivery of daily guides in your server! Use the select menus below to select a channel and to select an optional desired format.",
+			"setup-no-channel-detected": "No channel detected. Was it deleted?",
+			"setup-no-channel-selected": "No channel selected.",
+			"setup-channel-select-menu-placeholder": "Select a channel to use for daily guides.",
 			"setup-type-string-select-menu-placeholder": "Select an optional format.",
+			"setup-stopped": "Stopped {{emoji}}",
+			"setup-sending": "Sending {{emoji}}",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
 			"seasonal-candles": "Seasonal candles",
@@ -3287,6 +3293,22 @@ export default {
 		},
 		notifications: {
 			back: "Back",
+			title: "Notifications",
+			"setup-description":
+				"You may choose a channel to receive notifications in! Use the select menu below to select a notification type.",
+			"setup-option-sending": "Sending!",
+			"setup-option-stopped": "Stopped. View to see why.",
+			"setup-option-not-set-up": "Not set up.",
+			"setup-type-string-select-menu-placeholder": "Select a notification type.",
+			"edit-offset-now-description": "Notify as soon as the event occurs.",
+			"edit-no-channel-detected": "No channel detected. Was it deleted?",
+			"edit-channel-and-role-required": "A channel and a role is required.",
+			"edit-offset-required": "An offset is required.",
+			"edit-stopped": "Stopped {{emoji}}",
+			"edit-sending": "Sending {{emoji}}",
+			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
+			"error-cannot-mention-role":
+				"Cannot mention the {{role}} role. Ensure `Mention @everyone, @here and All Roles` permission is enabled for {{me}} in {{channel}} or make the role mentionable.",
 			messages: {
 				[NotificationType.DailyReset]: {
 					"message-now": "It's a new day. Time to forge candles again!",
@@ -3724,6 +3746,12 @@ export default {
 		spirits: {
 			"not-encountered-spirit":
 				"Woah, it seems we have not encountered that spirit yet. How strange!",
+			"visit-error": "Error",
+			travelling: "Travelling",
+			returning: "Returning",
+			"not-yet-returned-entity": "⚠️ This entity has not yet returned.",
+			"not-yet-returned-shop": "⚠️ This shop has not yet returned.",
+			"not-yet-returned-spirit": "⚠️ This spirit has not yet returned.",
 			title: {
 				[SpiritsHistoryOrderType.Natural]: "History of Travelling Spirits",
 				[SpiritsHistoryOrderType.Rarity]: "Rarity of Spirits",

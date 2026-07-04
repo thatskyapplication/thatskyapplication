@@ -125,11 +125,16 @@ function visitField(
 	return visits.join("\n");
 }
 
-function visitErrorField(seasonalSpiritVisit: SeasonalSpiritVisitTravellingErrorData) {
+function visitErrorField(
+	seasonalSpiritVisit: SeasonalSpiritVisitTravellingErrorData,
+	locale: Locale,
+) {
 	return seasonalSpiritVisit
 		.reduce<string[]>((visits, start) => {
 			const startUnix = epochSeconds(start);
-			visits.push(`\`Error\` <t:${startUnix}:s> (<t:${startUnix}:R>)`);
+			visits.push(
+				`\`${t("spirits.visit-error", { lng: locale, ns: "features" })}\` <t:${startUnix}:s> (<t:${startUnix}:R>)`,
+			);
 			return visits;
 		}, [])
 		.join("\n");
@@ -157,26 +162,31 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 		}
 
 		if (travellingErrors.size > 0) {
-			travellingValue.push(visitErrorField(travellingErrors));
+			travellingValue.push(visitErrorField(travellingErrors, locale));
 		}
 
 		if (travellingValue.length > 0) {
-			visits.push(`### Travelling\n${travellingValue.join("\n")}`);
+			visits.push(
+				`### ${t("spirits.travelling", { lng: locale, ns: "features" })}\n${travellingValue.join("\n")}`,
+			);
 		}
 
 		if (returning.size > 0) {
-			visits.push(`### Returning\n${visitField(returning)}`);
+			visits.push(
+				`### ${t("spirits.returning", { lng: locale, ns: "features" })}\n${visitField(returning)}`,
+			);
 		}
 
 		if (!spirit.visit(skyNow()).visited) {
 			description.push(
-				`⚠️ This ${
+				t(
 					spiritSeason === SeasonId.Shattering || spiritSeason === SeasonId.Nesting
-						? "entity"
+						? "spirits.not-yet-returned-entity"
 						: spiritSeason === SeasonId.Revival
-							? "shop"
-							: "spirit"
-				} has not yet returned.`,
+							? "spirits.not-yet-returned-shop"
+							: "spirits.not-yet-returned-spirit",
+					{ lng: locale, ns: "features" },
+				),
 			);
 		}
 	}

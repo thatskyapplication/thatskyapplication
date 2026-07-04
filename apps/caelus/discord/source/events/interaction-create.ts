@@ -211,7 +211,7 @@ async function isNotComponentsV2(
 
 	promises.push(
 		client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This response is too old. Use the command again!",
+			content: t("interaction-response-too-old", { lng: interaction.locale, ns: "general" }),
 			flags: MessageFlags.Ephemeral,
 		}),
 	);
@@ -241,7 +241,7 @@ async function isOldId(
 
 	promises.push(
 		client.api.interactions.reply(interaction.id, interaction.token, {
-			content: "This response is too old. Use the command again!",
+			content: t("interaction-response-too-old", { lng: interaction.locale, ns: "general" }),
 			flags: MessageFlags.Ephemeral,
 		}),
 	);

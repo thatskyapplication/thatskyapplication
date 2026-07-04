@@ -407,10 +407,10 @@ export async function setupResponse(
 				...isDailyGuidesDistributable({ guild, channel, me: await guild.fetchMe(), locale }),
 			);
 		} else {
-			feedback.push("No channel detected. Was it deleted?");
+			feedback.push(t("daily-guides.setup-no-channel-detected", { lng: locale, ns: "features" }));
 		}
 	} else {
-		feedback.push("No channel selected.");
+		feedback.push(t("daily-guides.setup-no-channel-selected", { lng: locale, ns: "features" }));
 	}
 
 	return {
@@ -420,7 +420,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: "## [Daily guides](https://guide.thatskyapplication.com/caelus/daily-guides)",
+						content: `## [${t("daily-guides.name", { lng: locale, ns: "features" })}](https://guide.thatskyapplication.com/caelus/daily-guides)`,
 					},
 					{
 						type: ComponentType.Separator,
@@ -444,7 +444,10 @@ export async function setupResponse(
 									: [],
 								max_values: 1,
 								min_values: 0,
-								placeholder: "Select a channel to use for daily guides.",
+								placeholder: t("daily-guides.setup-channel-select-menu-placeholder", {
+									lng: locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
@@ -481,8 +484,12 @@ export async function setupResponse(
 						type: ComponentType.TextDisplay,
 						content:
 							feedback.length > 0
-								? `Stopped ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}\n${feedback.join("\n")}`
-								: `Sending ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`,
+								? `${t("daily-guides.setup-stopped", { lng: locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.join("\n")}`
+								: t("daily-guides.setup-sending", {
+										lng: locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									}),
 					},
 				],
 			},

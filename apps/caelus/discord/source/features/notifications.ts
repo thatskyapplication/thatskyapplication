@@ -54,6 +54,7 @@ function isNotificationSendable(
 	role: Role,
 	me: GuildMember,
 	returnErrors: true,
+	locale: Locale,
 ): string[];
 
 function isNotificationSendable(
@@ -62,6 +63,7 @@ function isNotificationSendable(
 	role: Role,
 	me: GuildMember,
 	returnErrors?: false,
+	locale?: Locale,
 ): boolean;
 
 function isNotificationSendable(
@@ -70,11 +72,12 @@ function isNotificationSendable(
 	role: Role,
 	me: GuildMember,
 	returnErrors = false,
+	locale?: Locale,
 ) {
 	const errors = [];
 
 	if (me.isCommunicationDisabled()) {
-		errors.push("I am timed out.");
+		errors.push(t("error-timed-out", { lng: locale, ns: "general" }));
 	}
 
 	if (
@@ -85,7 +88,13 @@ function isNotificationSendable(
 			channel,
 		})
 	) {
-		errors.push(`\`View Channel\` & \`Send Messages\` are required for <#${channel.id}>.`);
+		errors.push(
+			t("notifications.error-missing-permissions", {
+				lng: locale,
+				ns: "features",
+				channel: `<#${channel.id}>`,
+			}),
+		);
 	}
 
 	if (
@@ -95,7 +104,13 @@ function isNotificationSendable(
 		)
 	) {
 		errors.push(
-			`Cannot mention the <@&${role.id}> role. Ensure \`Mention @everyone, @here and All Roles\` permission is enabled for <@${me.user.id}> in <#${channel.id}> or make the role mentionable.`,
+			t("notifications.error-cannot-mention-role", {
+				lng: locale,
+				ns: "features",
+				role: `<@&${role.id}>`,
+				me: `<@${me.user.id}>`,
+				channel: `<#${channel.id}>`,
+			}),
 		);
 	}
 
@@ -195,8 +210,7 @@ export async function setupResponse(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content:
-							"## [Notifications](https://guide.thatskyapplication.com/caelus/notifications)",
+						content: `## [${t("notifications.title", { lng: interaction.locale, ns: "features" })}](https://guide.thatskyapplication.com/caelus/notifications)`,
 					},
 					{
 						type: ComponentType.Separator,
@@ -205,8 +219,10 @@ export async function setupResponse(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content:
-							"You may choose a channel to receive notifications in! Use the select menu below to select a notification type.",
+						content: t("notifications.setup-description", {
+							lng: interaction.locale,
+							ns: "features",
+						}),
 					},
 					{
 						type: ComponentType.ActionRow,
@@ -226,9 +242,18 @@ export async function setupResponse(
 													notification.role_id,
 													notification.offset,
 												)
-												? "Sending!"
-												: "Stopped. View to see why."
-											: "Not set up.",
+												? t("notifications.setup-option-sending", {
+														lng: interaction.locale,
+														ns: "features",
+													})
+												: t("notifications.setup-option-stopped", {
+														lng: interaction.locale,
+														ns: "features",
+													})
+											: t("notifications.setup-option-not-set-up", {
+													lng: interaction.locale,
+													ns: "features",
+												}),
 										label: t(`notification-types.${notificationType}`, {
 											lng: interaction.locale,
 											ns: "general",
@@ -238,7 +263,10 @@ export async function setupResponse(
 								}),
 								max_values: 1,
 								min_values: 0,
-								placeholder: "Select a notification type.",
+								placeholder: t("notifications.setup-type-string-select-menu-placeholder", {
+									lng: interaction.locale,
+									ns: "features",
+								}),
 							},
 						],
 					},
@@ -290,7 +318,10 @@ export async function displayNotificationType(
 		};
 
 		if (index === 0) {
-			stringSelectMenuOption.description = "Notify as soon as the event occurs.";
+			stringSelectMenuOption.description = t("notifications.edit-offset-now-description", {
+				lng: interaction.locale,
+				ns: "features",
+			});
 		}
 
 		stringSelectMenuOptions.push(stringSelectMenuOption);
@@ -304,16 +335,37 @@ export async function displayNotificationType(
 
 	if (channel && role) {
 		if (isNotificationChannel(channel)) {
-			feedback.push(...isNotificationSendable(guild, channel, role, await guild.fetchMe(), true));
+			feedback.push(
+				...isNotificationSendable(
+					guild,
+					channel,
+					role,
+					await guild.fetchMe(),
+					true,
+					interaction.locale,
+				),
+			);
 		} else {
-			feedback.push("No channel detected. Was it deleted?");
+			feedback.push(
+				t("notifications.edit-no-channel-detected", {
+					lng: interaction.locale,
+					ns: "features",
+				}),
+			);
 		}
 	} else {
-		feedback.push("A channel and a role is required.");
+		feedback.push(
+			t("notifications.edit-channel-and-role-required", {
+				lng: interaction.locale,
+				ns: "features",
+			}),
+		);
 	}
 
 	if (typeof offset !== "number") {
-		feedback.push("An offset is required.");
+		feedback.push(
+			t("notifications.edit-offset-required", { lng: interaction.locale, ns: "features" }),
+		);
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -395,8 +447,12 @@ export async function displayNotificationType(
 						type: ComponentType.TextDisplay,
 						content:
 							feedback.length > 0
-								? `Stopped ${formatEmoji(MISCELLANEOUS_EMOJIS.No)}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
-								: `Sending ${formatEmoji(MISCELLANEOUS_EMOJIS.Yes)}`,
+								? `${t("notifications.edit-stopped", { lng: interaction.locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
+								: t("notifications.edit-sending", {
+										lng: interaction.locale,
+										ns: "features",
+										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+									}),
 					},
 					{
 						type: ComponentType.ActionRow,
