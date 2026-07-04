@@ -86,6 +86,7 @@ const MISCELLANEOUS_EMOJIS_PRODUCTION = {
 	Provider: { id: "1466368104752873658", name: "provider" },
 	QuestionMark: { id: "1489893234116399114", name: "question_mark" },
 	TreasureCandle: { id: "1512540307886047303", name: "treasure_candle" },
+	MomentsCameraUpgrade: { id: "1522921691653607474", name: "moments_camera_upgrade" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
@@ -163,6 +164,7 @@ const MISCELLANEOUS_EMOJIS_DEVELOPMENT = {
 	Provider: { id: "1466368122461094055", name: "provider" },
 	QuestionMark: { id: "1489893275979485194", name: "question_mark" },
 	TreasureCandle: { id: "1512540326982582282", name: "treasure_candle" },
+	MomentsCameraUpgrade: { id: "1522921700092809329", name: "moments_camera_upgrade" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EMOTE_EMOJIS_PRODUCTION = {
@@ -1400,6 +1402,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Tournament Sleek Skating Set.
 	 */
 	Shoe27: { id: "1469074426472431748", name: "27_shoe" },
+	/**
+	 * Oreo Slippers.
+	 */
+	Shoe28: { id: "1522919376397926502", name: "28_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1430,6 +1436,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe25: { id: "1431029005762691394", name: "25_shoe" },
 	Shoe26: { id: "1449475145600208897", name: "26_shoe" },
 	Shoe27: { id: "1469074434177372254", name: "27_shoe" },
+	Shoe28: { id: "1522919393007370260", name: "28_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -3702,6 +3709,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Rainbow Beret.
 	 */
 	HairAccessory80: { id: "1510010357354070016", name: "80_hair_accessory" },
+	/**
+	 * Sky Anniversary 2026.
+	 */
+	HairAccessory81: { id: "1522919380705480716", name: "81_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3785,6 +3796,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory78: { id: "1502284157383086160", name: "78_hair_accessory" },
 	HairAccessory79: { id: "1506644771257716828", name: "79_hair_accessory" },
 	HairAccessory80: { id: "1510010366485201037", name: "80_hair_accessory" },
+	HairAccessory81: { id: "1522919396396367943", name: "81_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4656,6 +4668,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Days of Colour 2026.
 	 */
 	Cape183: { id: "1509849440234504252", name: "183_cape" },
+	/**
+	 * Black and Blue Swag Hoodie.
+	 */
+	Cape184: { id: "1522919386271449169", name: "184_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4842,6 +4858,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape181: { id: "1502283544263917759", name: "181_cape" },
 	Cape182: { id: "1506644769009569932", name: "182_cape" },
 	Cape183: { id: "1509849447255769148", name: "183_cape" },
+	Cape184: { id: "1522919401454571610", name: "184_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -5093,6 +5110,10 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Bloom Sunflower Umbrella.
 	 */
 	HeldProp62: { id: "1482685517727531130", name: "62_held_prop" },
+	/**
+	 * Sky Anniversary 2026.
+	 */
+	HeldProp63: { id: "1522919378792747070", name: "63_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5158,6 +5179,7 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp60: { id: "1469073223969800383", name: "60_held_prop" },
 	HeldProp61: { id: "1471653278457663528", name: "61_held_prop" },
 	HeldProp62: { id: "1482685524601999412", name: "62_held_prop" },
+	HeldProp63: { id: "1522919394957594684", name: "63_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6274,6 +6296,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Days of Colour 2026 turtle kite.
 	 */
 	SmallPlaceableProp130: { id: "1510006735203467294", name: "130_small_placeable_prop" },
+	/**
+	 * Moth Plush.
+	 */
+	SmallPlaceableProp131: { id: "1522919382727266407", name: "131_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6406,6 +6432,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp128: { id: "1510006740958056468", name: "128_small_placeable_prop" },
 	SmallPlaceableProp129: { id: "1510006742904213545", name: "129_small_placeable_prop" },
 	SmallPlaceableProp130: { id: "1510006744724799559", name: "130_small_placeable_prop" },
+	SmallPlaceableProp131: { id: "1522919399206686720", name: "131_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9411,6 +9438,12 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.MemoryOfALostVillageWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.EchoOfAnAbandonedRefugeWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
 		[Cosmetic.RemnantOfAForgottenHavenWingBuff]: MISCELLANEOUS_EMOJIS.WingBuff,
+		[Cosmetic.AnniversaryBlackAndBlueSwagHoodie]: CAPE_EMOJIS.Cape184,
+		[Cosmetic.AnniversaryMothPlush]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp131,
+		[Cosmetic.AnniversaryOreoSlippers]: SHOE_EMOJIS.Shoe28,
+		[Cosmetic.SkyAnniversary2026HairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory81,
+		[Cosmetic.SkyAnniversary2026HeldProp]: HELD_PROPS_EMOJIS.HeldProp63,
+		[Cosmetic.MomentsCameraUpgrade]: MISCELLANEOUS_EMOJIS.MomentsCameraUpgrade,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {

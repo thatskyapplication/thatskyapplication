@@ -3619,6 +3619,14 @@ export enum Cosmetic {
 	MemoryOfALostVillageWingBuff = 2855,
 	EchoOfAnAbandonedRefugeWingBuff = 2856,
 	RemnantOfAForgottenHavenWingBuff = 2857,
+
+	// 03/07/2026 | Sky Anniversary.
+	AnniversaryBlackAndBlueSwagHoodie = 2858,
+	AnniversaryMothPlush = 2859,
+	AnniversaryOreoSlippers = 2860,
+	SkyAnniversary2026HairAccessory = 2861,
+	SkyAnniversary2026HeldProp = 2862,
+	MomentsCameraUpgrade = 2863,
 }
 
 export enum CosmeticCommon {
