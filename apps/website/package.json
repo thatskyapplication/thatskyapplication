@@ -38,7 +38,7 @@
 		"react-router-hono-server": "^2.26.0",
 		"react-select": "^5.10.2",
 		"remix-i18next": "^7.5.0",
-		"sharp": "^0.34.5",
+		"sharp": "^0.35.3",
 		"temporal-polyfill": "^1.0.1"
 	},
 	"devDependencies": {
