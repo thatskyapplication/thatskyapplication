@@ -16,6 +16,7 @@ import {
 	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import ws from "ws";
 import { discord } from "../discord.js";
 import { WebhookExecuteError } from "../models/webbook-execute-error.js";
 import pg from "../pg.js";
@@ -31,6 +32,7 @@ import {
 const seenPosts = new Map<string, string>();
 
 export const jetstream = new Jetstream({
+	ws,
 	wantedCollections: ["app.bsky.feed.post"],
 	wantedDids: ["did:plc:rkfwolx4jqhwkrzodefz7xoq"],
 });
