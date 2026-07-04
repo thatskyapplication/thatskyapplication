@@ -80,17 +80,18 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 		"--pagination-page-width-sm": `max(3.5rem, calc(${maximumInputLength}ch + 2rem))`,
 	} as CSSProperties;
 	const hiddenSearchParameterOccurrences = new Map<string, number>();
-	const hiddenSearchParameters = Array.from(searchParams.entries()).flatMap(([name, value]) => {
+	const hiddenSearchParameters: { key: string; name: string; value: string }[] = [];
+
+	for (const [name, value] of searchParams.entries()) {
 		if (name === "page") {
-			return [];
+			continue;
 		}
 
 		const parameterKey = JSON.stringify([name, value]);
 		const occurrence = hiddenSearchParameterOccurrences.get(parameterKey) ?? 0;
 		hiddenSearchParameterOccurrences.set(parameterKey, occurrence + 1);
-
-		return [{ key: JSON.stringify([name, value, occurrence]), name, value }];
-	});
+		hiddenSearchParameters.push({ key: JSON.stringify([name, value, occurrence]), name, value });
+	}
 
 	return (
 		<nav
