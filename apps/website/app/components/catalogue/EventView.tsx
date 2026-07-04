@@ -8,6 +8,7 @@ import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";
 import { ItemChecklist } from "./ItemChecklist";
+import { RemainingCostList } from "./RemainingCostList";
 
 export function EventView({
 	data,
@@ -77,6 +78,8 @@ export function EventView({
 					</a>
 				)}
 			</div>
+
+			<RemainingCostList data={data} items={event.offer} locale={locale} />
 
 			{event.offer.length > 0 ? (
 				<ItemChecklist data={data} items={event.offer} locale={locale} />
