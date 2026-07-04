@@ -3,7 +3,7 @@ ARG NODE_IMAGE=node:26-alpine
 FROM ${NODE_IMAGE} AS build
 ENV PNPM_HOME=/pnpm
 WORKDIR /thatskyapplication
-RUN npm install --global pnpm@11.0.9
+RUN npm install --global pnpm@11.9.0
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY packages/utility/package.json packages/utility/
