@@ -248,7 +248,7 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 				</Link>
 
 				<div>
-					<h1 className="mb-1 text-4xl font-bold">Sky profile</h1>
+					<h1 className="mb-1 text-4xl font-bold">{t("sky-profile.name", { ns: "features" })}</h1>
 					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
 						Update your Sky profile here!
 					</p>
@@ -966,7 +966,7 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 								type="reset"
 								variant="secondary"
 							>
-								Reset
+								{t("sky-profile.edit-reset-button-label", { ns: "features" })}
 							</SkyProfileActionButton>
 						</div>
 						{initialProfile.name ? (

@@ -356,7 +356,9 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
-									Maximum Winged Light
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
+										ns: "features",
+									})}
 								</p>
 								<p className="my-0">
 									{maximumWingedLight.capeless
@@ -376,7 +378,11 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								label="Favourite spirit icon."
 							/>
 							<div className="flex-1">
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Spirit</p>
+								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Spirit}`, {
+										ns: "features",
+									})}
+								</p>
 								<p className="my-0">{t(`spirits.${data.spirit}`, { ns: "general" })}</p>
 							</div>
 						</div>
@@ -406,7 +412,11 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
 							<MapPinIcon className="w-6 h-6 mr-2" />
 							<div className="flex-1">
-								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">Favourite Hangout</p>
+								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Hangout}`, {
+										ns: "features",
+									})}
+								</p>
 								<p className="my-0">{data.hangout}</p>
 							</div>
 						</div>
@@ -430,19 +440,19 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						<Trophy className="w-6 h-6 mr-2" />
 						<div className="flex-1">
 							<p className="my-0">
-								Spirits:{" "}
+								{t("sky-profile.guess-rank-spirits", { ns: "features" })}{" "}
 								{guessRank.spirits === null
 									? t("sky-profile.guess-rank-unranked", { ns: "features" })
 									: `#${guessRank.spirits}`}
 							</p>
 							<p className="my-0">
-								Spirits (hard):{" "}
+								{t("sky-profile.guess-rank-spirits-hard", { ns: "features" })}{" "}
 								{guessRank.spiritsHard === null
 									? t("sky-profile.guess-rank-unranked", { ns: "features" })
 									: `#${guessRank.spiritsHard}`}
 							</p>
 							<p className="my-0">
-								Events:{" "}
+								{t("sky-profile.guess-rank-events", { ns: "features" })}{" "}
 								{guessRank.events === null
 									? t("sky-profile.guess-rank-unranked", { ns: "features" })
 									: `#${guessRank.events}`}
@@ -453,7 +463,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 				<div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
 					<SkyProfileActionLink to={backURL} variant="neutral">
 						<ChevronLeftIcon className="w-6 h-6 mr-2 shrink-0" />
-						<span className="truncate">Back</span>
+						<span className="truncate">{t("navigation-back", { ns: "general" })}</span>
 					</SkyProfileActionLink>
 					<SkyProfileActionLink to="/sky-profiles/random" variant="neutral">
 						<EmojiIcon

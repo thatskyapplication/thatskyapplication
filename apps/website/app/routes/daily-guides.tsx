@@ -636,7 +636,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								)}
 								<div className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300">
 									<div
-										aria-label="Seasonal candle"
+										aria-label={t("seasonal-candles", { ns: "general" })}
 										className="discord-emoji h-4 w-4"
 										role="img"
 										style={{
@@ -693,7 +693,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 											</span>
 											{shard.strong ? (
 												<div
-													aria-label="Ascended candle"
+													aria-label={t("ascended-candles", { ns: "general" })}
 													className="discord-emoji h-4 w-4"
 													role="img"
 													style={{
@@ -727,7 +727,11 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 																: "text-gray-600 dark:text-gray-300",
 														)}
 													>
-														{start.format}–{end.format}
+														{t("time-range", {
+															ns: "general",
+															start: start.format,
+															end: end.format,
+														})}
 													</code>
 												</div>
 											))}
@@ -750,7 +754,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										<span className="text-sm text-gray-700 dark:text-gray-300">{shard.reward}</span>
 										{shard.strong ? (
 											<div
-												aria-label="Ascended candle"
+												aria-label={t("ascended-candles", { ns: "general" })}
 												className="discord-emoji h-4 w-4"
 												role="img"
 												style={{
@@ -779,7 +783,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 															: "text-gray-600 dark:text-gray-300",
 													)}
 												>
-													{start.format}–{end.format}
+													{t("time-range", { ns: "general", start: start.format, end: end.format })}
 												</code>
 											</div>
 										))}

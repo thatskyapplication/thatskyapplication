@@ -168,7 +168,7 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 						<span className="text-sm">{shard.reward}</span>
 						{shard.strong ? (
 							<div
-								aria-label="Ascended candle."
+								aria-label={t("ascended-candles", { ns: "general" })}
 								className="discord-emoji h-4 w-4 ml-1"
 								role="img"
 								style={{

@@ -80,7 +80,7 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 			items: [
 				{
 					to: INVITE_SUPPORT_SERVER_URL,
-					label: "Support server",
+					label: t("support-server", { ns: "general" }),
 					icon: <SiDiscord className="h-5 w-5" />,
 					description: "Join our Discord support server.",
 					external: true,
