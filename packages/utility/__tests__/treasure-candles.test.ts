@@ -460,6 +460,53 @@ const EXPECTED_ROTATIONS = [
 			String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
 		],
 	},
+	{
+		date: skyDate(2026, 6, 28),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2026, 6, 29),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/3.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2026, 6, 30),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2026, 7, 1),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/1.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/daylight_prairie/3.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2026, 7, 2),
+		expected: [
+			String(new URL("daily_guides/treasure_candles/hidden_forest/2.webp", CDN_URL)),
+			String(new URL("daily_guides/treasure_candles/hidden_forest/1.webp", CDN_URL)),
+		],
+	},
+	{
+		date: skyDate(2026, 7, 3),
+		expected: [String(new URL("daily_guides/treasure_candles/valley_of_triumph/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 7, 4),
+		expected: [String(new URL("daily_guides/treasure_candles/golden_wasteland/2.webp", CDN_URL))],
+	},
+	{
+		date: skyDate(2026, 7, 5),
+		expected: [String(new URL("daily_guides/treasure_candles/vault_of_knowledge/1.webp", CDN_URL))],
+	},
 ] as const;
 
 test("Treasure candles rotations.", async (t) => {
