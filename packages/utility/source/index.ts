@@ -1,5 +1,7 @@
 // biome-ignore-all lint/performance/noBarrelFile: This is fine.
 
+// Temporal polyfill is required for Safari.
+import "temporal-polyfill/global";
 import deLocale from "./locales/de.json" with { type: "json" };
 import es419Locale from "./locales/es-419.json" with { type: "json" };
 import esESLocale from "./locales/es-es.json" with { type: "json" };

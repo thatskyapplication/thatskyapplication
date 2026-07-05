@@ -347,9 +347,6 @@ importers:
       sharp:
         specifier: ^0.35.3
         version: 0.35.3(@types/node@26.1.0)
-      temporal-polyfill:
-        specifier: ^1.0.1
-        version: 1.0.1
     devDependencies:
       '@biomejs/biome':
         specifier: 2.3.11
@@ -421,6 +418,9 @@ importers:
       discord-api-types:
         specifier: ^0.38.48
         version: 0.38.48
+      temporal-polyfill:
+        specifier: ^1.0.1
+        version: 1.0.1
       ts-mixer:
         specifier: ^6.0.4
         version: 6.0.4
