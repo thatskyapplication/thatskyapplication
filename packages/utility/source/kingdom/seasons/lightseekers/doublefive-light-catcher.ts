@@ -3,7 +3,7 @@ import { skyDate } from "../../../dates.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { FriendAction, SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 const action = FriendAction.DoubleFive;
 
@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.DoublefiveLightCatcher,
 	seasonId: SeasonId.Lightseekers,
 	action,
-	realm: RealmName.DaylightPrairie,
+	area: AreaName.BirdNest,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [

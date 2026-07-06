@@ -1,14 +1,13 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
 import { SpiritEmote, SpiritId } from "../../../../utility/spirits.js";
-import { AreaName, RealmName } from "../../../geography.js";
+import { AreaName } from "../../../geography.js";
 
 const emote = SpiritEmote.LookAround;
 
 export default new StandardSpirit({
 	id: SpiritId.LookoutScout,
 	emote,
-	realm: RealmName.GoldenWasteland,
 	area: AreaName.TheBattlefield,
 	offer: {
 		current: [

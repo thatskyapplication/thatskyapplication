@@ -2,6 +2,7 @@ import { Collection } from "@discordjs/collection";
 import { Mixin } from "ts-mixer";
 import type { Cosmetic } from "../cosmetics.js";
 import { isActive, skyDate } from "../dates.js";
+import { realmForArea } from "../kingdom/areas/index.js";
 import type { AreaName, RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import type { SeasonIds } from "../season.js";
@@ -126,19 +127,20 @@ interface ExpressiveSpiritData {
 
 interface BaseSpiritData {
 	id: SpiritIds;
+	area?: AreaName;
 	realm?: RealmName;
 	keywords?: readonly string[];
 }
 
 interface StandardSpiritData
-	extends BaseSpiritData,
+	extends Omit<BaseSpiritData, "realm">,
 		StandardFriendshipTreeData,
 		ExpressiveSpiritData {
 	area: AreaName;
-	realm: RealmName;
 }
 
 interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
+	area: AreaName;
 	realm: RealmName;
 }
 
@@ -158,14 +160,15 @@ interface SeasonalSpiritVisit {
 }
 
 interface SeasonalSpiritData
-	extends BaseSpiritData,
+	extends Omit<BaseSpiritData, "realm">,
 		SeasonalFriendshipTreeData,
 		ExpressiveSpiritData {
+	area: AreaName;
 	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisitData;
 }
 
-interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
+interface GuideSpiritData extends Omit<BaseSpiritData, "realm">, GuideFriendshipTreeData {
 	seasonId: SeasonIds;
 }
 
@@ -288,13 +291,16 @@ abstract class BaseSpirit {
 
 	public readonly type!: SpiritType;
 
+	public readonly area: AreaName | null;
+
 	public readonly realm: RealmName | null;
 
 	public readonly keywords: NonNullable<BaseSpiritData["keywords"]>;
 
 	public constructor(spirit: BaseSpiritData) {
 		this.id = spirit.id;
-		this.realm = spirit.realm ?? null;
+		this.area = spirit.area ?? null;
+		this.realm = spirit.realm ?? (this.area === null ? null : realmForArea(this.area));
 		this.keywords = spirit.keywords ?? [];
 	}
 
@@ -318,30 +324,31 @@ abstract class BaseSpirit {
 export class StandardSpirit extends Mixin(BaseSpirit, StandardFriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SpiritType.Standard;
 
-	public readonly area: AreaName;
+	public declare readonly area: AreaName;
 
 	public declare readonly realm: RealmName;
 
 	public constructor(spirit: StandardSpiritData) {
 		super(spirit);
-		this.area = spirit.area;
-		this.realm = spirit.realm;
 	}
 }
 
 export class ElderSpirit extends Mixin(BaseSpirit, ElderFriendshipTree) {
 	public override readonly type = SpiritType.Elder;
 
+	public declare readonly area: AreaName;
+
 	public declare readonly realm: RealmName;
 
 	public constructor(spirit: ElderSpiritData) {
 		super(spirit);
-		this.realm = spirit.realm;
 	}
 }
 
 export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, ExpressiveSpirit) {
 	public override readonly type = SpiritType.Seasonal;
+
+	public declare readonly area: AreaName;
 
 	public readonly seasonId: SeasonIds;
 

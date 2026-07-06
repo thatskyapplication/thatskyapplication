@@ -3,13 +3,13 @@ import { skyDate } from "../../../dates.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.LightWhisperer,
 	seasonId: SeasonId.Flight,
 	call: Cosmetic.CallBabyManta,
-	realm: RealmName.HiddenForest,
+	area: AreaName.TheWindPaths,
 	offer: {
 		seasonal: [
 			[{ cosmetic: Cosmetic.CallBabyManta }],

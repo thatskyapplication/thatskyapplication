@@ -36,7 +36,7 @@ import Sanctuary from "./sanctuary/index.js";
 import Shattering from "./shattering/index.js";
 import twoEmbersPart1 from "./two-embers-part-1/index.js";
 
-const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
+export const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	Gratitude,
 	Lightseekers,
 	Belonging,

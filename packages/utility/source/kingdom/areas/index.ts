@@ -1,9 +1,11 @@
-import type { RealmName } from "../geography.js";
+import type { AreaName, RealmName } from "../geography.js";
 import ancientMemory from "./ancient-memory.js";
+import aviaryVillage from "./aviary-village.js";
 import birdNest from "./bird-nest.js";
 import blueBirdTheatre from "./blue-bird-theatre.js";
 import boneyard from "./boneyard.js";
 import butterflyFields from "./butterfly-fields.js";
+import caveOfProphecies from "./cave-of-prophecies.js";
 import crabFields from "./crab-fields.js";
 import crescentOasis from "./crescent-oasis.js";
 import dawnCircle from "./dawn-circle.js";
@@ -13,6 +15,7 @@ import forestBrook from "./forest-brook.js";
 import forestCavern from "./forest-cavern.js";
 import forestCourtyard from "./forest-courtyard.js";
 import forgottenArk from "./forgotten-ark.js";
+import fracturedLanternStorage from "./fractured-lantern-storage.js";
 import frozenLake from "./frozen-lake.js";
 import gateOfEden from "./gate-of-eden.js";
 import hermitValley from "./hermit-valley.js";
@@ -38,9 +41,11 @@ import templeOfTheWasteland from "./temple-of-the-wasteland.js";
 import theBattlefield from "./the-battlefield.js";
 import theCitadel from "./the-citadel.js";
 import theGraveyard from "./the-graveyard.js";
+import theLastCity from "./the-last-city.js";
 import theOuterBailey from "./the-outer-bailey.js";
 import thePassage from "./the-passage.js";
 import theTreehouse from "./the-treehouse.js";
+import theVoidOfShattering from "./the-void-of-shattering.js";
 import theWindPaths from "./the-wind-paths.js";
 import treasureReef from "./treasure-reef.js";
 import trialOfAir from "./trial-of-air.js";
@@ -66,6 +71,7 @@ export const AREAS = [
 	trialOfEarth,
 	trialOfAir,
 	trialOfFire,
+	caveOfProphecies,
 
 	// Daylight Prairie.
 	prairieRest,
@@ -119,6 +125,7 @@ export const AREAS = [
 	starlightDesert,
 	crescentOasis,
 	moominvalley,
+	fracturedLanternStorage,
 
 	// Eye of Eden.
 	gateOfEden,
@@ -128,8 +135,19 @@ export const AREAS = [
 	ancientMemory,
 	thePassage,
 	wanderingCarnival,
+	theVoidOfShattering,
+	theLastCity,
+	aviaryVillage,
 ] as const;
 
 export function areasForRealm(realm: RealmName) {
 	return AREAS.filter((area) => area.realm === realm);
+}
+
+const AREA_TO_REALM: ReadonlyMap<AreaName, RealmName | null> = new Map(
+	AREAS.map((area) => [area.name, area.realm]),
+);
+
+export function realmForArea(area: AreaName): RealmName | null {
+	return AREA_TO_REALM.get(area) ?? null;
 }

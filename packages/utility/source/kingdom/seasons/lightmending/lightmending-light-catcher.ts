@@ -2,13 +2,13 @@ import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { FriendAction, SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.LightmendingLightCatcher,
 	seasonId: SeasonId.Lightmending,
 	action: FriendAction.Whisper,
-	realm: RealmName.VaultOfKnowledge,
+	area: AreaName.FracturedLanternStorage,
 	offer: {
 		hasInfographic: false,
 		seasonal: [

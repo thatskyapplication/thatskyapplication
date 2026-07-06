@@ -2,7 +2,7 @@ import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 const call = Cosmetic.CallLighthorn;
 
@@ -10,7 +10,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.MigratingBellmaker,
 	seasonId: SeasonId.Migration,
 	call,
-	realm: RealmName.IsleOfDawn,
+	area: AreaName.DawnCircle,
 	offer: {
 		hasInfographic: false,
 		seasonal: [
