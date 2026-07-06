@@ -2,7 +2,7 @@ import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplic
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
-import { resolveSpiritTree, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
+import { VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
 import { BackButton } from "./BackButton";
@@ -29,6 +29,17 @@ export function SeasonView({
 	const season = seasons.get(seasonId)!;
 	const items = catalogueSeasonItems([season]);
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
+	const spiritTreeColumns = [];
+
+	for (const spirit of season.spiritsWithGuide.values()) {
+		if (spirit.displayFriendshipTree.length === 0) {
+			continue;
+		}
+
+		spiritTreeColumns.push(
+			<SpiritTreeColumn data={data} key={spirit.id} locale={locale} spirit={spirit} />,
+		);
+	}
 
 	return (
 		<>
@@ -105,20 +116,7 @@ export function SeasonView({
 
 			<RemainingCostList data={data} items={items} locale={locale} />
 
-			<FriendshipTreeCarousel key={season.id}>
-				{[season.guide, ...season.spirits.values()]
-					.map((spirit) => ({ spirit, tree: resolveSpiritTree(spirit) }))
-					.filter(({ tree }) => tree.length > 0)
-					.map(({ spirit, tree }) => (
-						<SpiritTreeColumn
-							data={data}
-							key={spirit.id}
-							locale={locale}
-							spirit={spirit}
-							tree={tree}
-						/>
-					))}
-			</FriendshipTreeCarousel>
+			<FriendshipTreeCarousel key={season.id}>{spiritTreeColumns}</FriendshipTreeCarousel>
 
 			{season.items.length > 0 && (
 				<div className="flex flex-col gap-2">

@@ -2,12 +2,9 @@ import {
 	cataloguePercentage,
 	catalogueProgress,
 	catalogueSpiritItems,
-	type ElderSpirit,
-	type GuideSpirit,
-	type SeasonalSpirit,
-	type StandardSpirit,
+	type Spirit,
 } from "@thatskyapplication/utility";
-import { type ComponentProps, useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { TREE_COLUMN_CLASS, TREE_COLUMN_LABEL_CLASS } from "~/utility/catalogue.js";
@@ -17,12 +14,10 @@ export function SpiritTreeColumn({
 	data,
 	locale,
 	spirit,
-	tree,
 }: {
 	data: ReadonlySet<number>;
 	locale: string;
-	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit;
-	tree: ComponentProps<typeof FriendshipTree>["tree"];
+	spirit: Spirit;
 }) {
 	const { t } = useTranslation();
 	const seasonId =
@@ -34,7 +29,12 @@ export function SpiritTreeColumn({
 
 	return (
 		<div className={TREE_COLUMN_CLASS}>
-			<FriendshipTree data={data} locale={locale} seasonId={seasonId} tree={tree} />
+			<FriendshipTree
+				data={data}
+				locale={locale}
+				seasonId={seasonId}
+				tree={spirit.displayFriendshipTree}
+			/>
 			<Link className={TREE_COLUMN_LABEL_CLASS} to={`?view=spirit&spirit=${spirit.id}`}>
 				{t(`spirits.${spirit.id}`, { ns: "general" })}
 				{percentage !== null && (

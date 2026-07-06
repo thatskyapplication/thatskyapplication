@@ -30,29 +30,24 @@ import {
 	catalogueSeasonItems,
 	catalogueSpiritItems,
 	collectSpiritCosmetics,
-	ELDER_SPIRITS,
-	type ElderSpirit,
 	type Event,
 	type EventIds,
 	epochSeconds,
 	formatEmoji,
 	friendshipTreeToItems,
-	type GuideSpirit,
 	type Item,
 	isRealm,
+	KINGDOM,
 	NESTING_WORKSHOP,
 	partitionItemCosts,
-	REALMS,
 	type RealmName,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	SECRET_AREA,
-	type SeasonalSpirit,
 	type SeasonIds,
+	type Spirit,
 	type SpiritIds,
-	STANDARD_SPIRITS,
 	STARTER_PACKS,
-	type StandardSpirit,
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyEvents,
@@ -150,7 +145,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 
 interface OfferDataOptions {
 	data: ReadonlySet<number> | undefined;
-	spirits?: readonly (StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit)[];
+	spirits?: Iterable<Spirit>;
 	events?: readonly Event[];
 	items?: readonly Item[];
 	locale: Locale;
@@ -323,8 +318,8 @@ async function start({
 	const data = catalogue?.data;
 	const percentage = (items: readonly Item[]) =>
 		cataloguePercentage(catalogueProgress(items, data));
-	const standardProgress = percentage(catalogueSpiritItems(STANDARD_SPIRITS.values()));
-	const elderProgress = percentage(catalogueSpiritItems(ELDER_SPIRITS.values()));
+	const standardProgress = percentage(catalogueSpiritItems(KINGDOM.standardSpirits.values()));
+	const elderProgress = percentage(catalogueSpiritItems(KINGDOM.elderSpirits.values()));
 	const seasonalProgress = percentage(catalogueSeasonItems(skySeasons().values()));
 	const eventProgressResult = percentage(catalogueEventItems(skyEvents().values()));
 	const starterPackProgressResult = percentage(STARTER_PACKS.items);
@@ -1039,7 +1034,7 @@ export async function viewRealms(
 		},
 	];
 
-	for (const realm of REALMS) {
+	for (const realm of KINGDOM.realms.values()) {
 		if (realm.spirits.size === 0) {
 			continue;
 		}
@@ -1094,7 +1089,7 @@ export async function viewRealm(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const spirits = STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm);
+	const spirits = KINGDOM.realms.get(realm)!.spirits;
 
 	const title = t("catalogue.realm-title", {
 		lng: locale,
@@ -1118,7 +1113,7 @@ export async function viewRealm(
 
 	const { remainingCurrency, offerProgress, hasEverything } = offerData({
 		data: catalogue?.data,
-		spirits: [...spirits.values()],
+		spirits: spirits.values(),
 		locale,
 		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length - percentageNote.length,
 		includePercentage: true,
@@ -1200,7 +1195,7 @@ export async function viewElders(
 
 	const { remainingCurrency, offerProgress, hasEverything } = offerData({
 		data: catalogue?.data,
-		spirits: [...ELDER_SPIRITS.values()],
+		spirits: KINGDOM.elderSpirits.values(),
 		locale,
 		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
 		includePercentage: true,
@@ -1426,7 +1421,7 @@ export async function viewSeason(
 
 	const { hasEverything, remainingCurrency, offerProgress, itemsOfferProgress } = offerData({
 		data: catalogue?.data,
-		spirits: [season.guide, ...season.spirits.values()],
+		spirits: season.spiritsWithGuide.values(),
 		items: season.items,
 		locale,
 		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
@@ -1687,7 +1682,7 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 
 	const { remainingCurrency, offerProgress } = offerData({
 		data: catalogue?.data,
-		spirits: [...spirits.values()],
+		spirits: spirits.values(),
 		locale,
 		limit: MAXIMUM_TEXT_DISPLAY_LENGTH - title.length,
 		includePercentage: true,
@@ -1757,7 +1752,7 @@ interface CatalogueViewSpiritOptions {
 
 async function viewSpirit(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+	spirit: Spirit,
 	{ data, showEverythingButton }: CatalogueViewSpiritOptions,
 ) {
 	const { locale } = interaction;
@@ -1766,7 +1761,7 @@ async function viewSpirit(
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
 	const seasonalParsing = isSeasonalSpirit && spirit.current.length === 0;
-	const friendshipTree = seasonalParsing ? spirit.seasonal : spirit.current;
+	const friendshipTree = spirit.displayFriendshipTree;
 	const imageURL = seasonalParsing ? spirit.imageURLSeasonal : spirit.imageURL;
 
 	const { hasEverything, offerProgress } = offerData({
@@ -1776,26 +1771,6 @@ async function viewSpirit(
 		limit: MAXIMUM_TEXT_DISPLAY_LENGTH,
 		includePercentage: false,
 	});
-
-	let spirits:
-		| ReadonlyCollection<SpiritIds, StandardSpirit>
-		| ReadonlyCollection<SpiritIds, ElderSpirit>
-		| ReadonlyCollection<SpiritIds, SeasonalSpirit | GuideSpirit>
-		| undefined;
-
-	if (isStandardSpirit) {
-		spirits = REALMS.find(({ name }) => name === spirit.realm)?.spirits;
-	} else if (isElderSpirit) {
-		spirits = ELDER_SPIRITS;
-	} else if (isSeasonalSpirit || isGuideSpirit) {
-		const season = skySeasons().get(spirit.seasonId);
-
-		if (season) {
-			spirits = new Collection<SpiritIds, SeasonalSpirit | GuideSpirit>()
-				.set(season.guide.id, season.guide)
-				.concat(season.spirits);
-		}
-	}
 
 	const titleSpirit = `[${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`;
 
@@ -1902,46 +1877,41 @@ async function viewSpirit(
 		}
 	}
 
-	if (spirits) {
-		const index = [...spirits.values()].findIndex(({ id }) => id === spirit.id);
-		const beforeIndex = index - 1;
-		const before = beforeIndex >= 0 ? spirits.at(beforeIndex) : null;
-		const after = spirits.at(index + 1);
+	const { previous: before, next: after } = KINGDOM.adjacentSpirits(spirit.id);
 
-		// It is possible that for 1 spirit, the custom ids will be the same, leading to an error.
-		// We use the nullish coalescing operator to fallback to some default values to mitigate this.
-		const actionRowComponents: APIComponentInMessageActionRow[] = [
-			{
-				type: ComponentType.Button,
-				custom_id: `${CustomId.CatalogueViewSpirit}§${before?.id ?? "before"}`,
-				disabled: !before,
-				emoji: { name: "⬅️" },
-				label: t("catalogue.spirit-previous-spirit", { lng: locale, ns: "features" }),
-				style: ButtonStyle.Secondary,
-			},
-			{
-				type: ComponentType.Button,
-				custom_id: `${CustomId.CatalogueViewSpirit}§${after?.id ?? "after"}`,
-				disabled: !after,
-				emoji: { name: "➡️" },
-				label: t("catalogue.spirit-next-spirit", { lng: locale, ns: "features" }),
-				style: ButtonStyle.Secondary,
-			},
-		];
+	// It is possible that for 1 spirit, the custom ids will be the same, leading to an error.
+	// We use the nullish coalescing operator to fallback to some default values to mitigate this.
+	const actionRowComponents: APIComponentInMessageActionRow[] = [
+		{
+			type: ComponentType.Button,
+			custom_id: `${CustomId.CatalogueViewSpirit}§${before?.id ?? "before"}`,
+			disabled: !before,
+			emoji: { name: "⬅️" },
+			label: t("catalogue.spirit-previous-spirit", { lng: locale, ns: "features" }),
+			style: ButtonStyle.Secondary,
+		},
+		{
+			type: ComponentType.Button,
+			custom_id: `${CustomId.CatalogueViewSpirit}§${after?.id ?? "after"}`,
+			disabled: !after,
+			emoji: { name: "➡️" },
+			label: t("catalogue.spirit-next-spirit", { lng: locale, ns: "features" }),
+			style: ButtonStyle.Secondary,
+		},
+	];
 
-		if (showEverythingButton && friendshipTree.length > 0) {
-			actionRowComponents.push({
-				type: ComponentType.Button,
-				custom_id: `${CustomId.CatalogueItemsEverything}§spirit:${spirit.id}`,
-				disabled: hasEverything,
-				emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
-				label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
-				style: ButtonStyle.Success,
-			});
-		}
-
-		containerComponents.push({ type: ComponentType.ActionRow, components: actionRowComponents });
+	if (showEverythingButton && friendshipTree.length > 0) {
+		actionRowComponents.push({
+			type: ComponentType.Button,
+			custom_id: `${CustomId.CatalogueItemsEverything}§spirit:${spirit.id}`,
+			disabled: hasEverything,
+			emoji: MISCELLANEOUS_EMOJIS.ConstellationFlag,
+			label: t("catalogue.i-have-everything-button-label", { lng: locale, ns: "features" }),
+			style: ButtonStyle.Success,
+		});
 	}
+
+	containerComponents.push({ type: ComponentType.ActionRow, components: actionRowComponents });
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -2501,9 +2471,7 @@ export async function setRealm(interaction: APIMessageComponentButtonInteraction
 		throw new Error("Unknown realm.");
 	}
 
-	const allCosmetics = collectSpiritCosmetics(
-		STANDARD_SPIRITS.filter((spirit) => spirit.realm === realm).values(),
-	);
+	const allCosmetics = collectSpiritCosmetics(KINGDOM.realms.get(realm)!.spirits.values());
 
 	await update(interaction, {
 		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
@@ -2515,7 +2483,7 @@ export async function setElders(interaction: APIMessageComponentButtonInteractio
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 
-	const allCosmetics = collectSpiritCosmetics(ELDER_SPIRITS.values());
+	const allCosmetics = collectSpiritCosmetics(KINGDOM.elderSpirits.values());
 
 	await update(interaction, {
 		data: catalogue ? catalogue.data.union(allCosmetics) : allCosmetics,
@@ -2537,7 +2505,7 @@ export async function setSeason(interaction: APIMessageComponentButtonInteractio
 		throw new Error("Unknown season.");
 	}
 
-	const allCosmetics = collectSpiritCosmetics([season.guide, ...season.spirits.values()]);
+	const allCosmetics = collectSpiritCosmetics(season.spiritsWithGuide.values());
 
 	for (const cosmetic of season.allCosmetics) {
 		allCosmetics.add(cosmetic);
@@ -2663,7 +2631,7 @@ function calculateSetItems(
 
 async function setSpiritItems(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
-	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
+	spirit: Spirit,
 ) {
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);

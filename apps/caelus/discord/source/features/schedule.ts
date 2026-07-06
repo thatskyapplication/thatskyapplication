@@ -16,7 +16,6 @@ import {
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
-	currentSeasonalSpirits,
 	DOUBLE_HEART_EVENTS,
 	dreamsSkaterSchedule,
 	EventId,
@@ -25,6 +24,7 @@ import {
 	grandmaSchedule,
 	INTERNATIONAL_SPACE_STATION_DATES,
 	internationalSpaceStationSchedule,
+	KINGDOM,
 	MAINTENANCE_PERIODS,
 	meteorShowerSchedule,
 	nextDailyReset,
@@ -414,7 +414,7 @@ function travellingSpiritDetailedBreakdown(
 		travellingSpiritButton.disabled = true;
 	} else {
 		travellingSpiritButton.label = t(`spirits.${visit.spiritId}`, { lng: locale, ns: "general" });
-		const emoji = SeasonIdToSeasonalEmoji[currentSeasonalSpirits().get(visit.spiritId)!.seasonId];
+		const emoji = SeasonIdToSeasonalEmoji[KINGDOM.seasonOf(visit.spiritId)!.id];
 
 		if (emoji) {
 			travellingSpiritButton.emoji = emoji;

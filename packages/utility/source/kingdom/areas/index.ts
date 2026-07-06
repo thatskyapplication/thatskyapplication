@@ -1,3 +1,4 @@
+import type { Area } from "../../models/area.js";
 import type { AreaName, RealmName } from "../geography.js";
 import ancientMemory from "./ancient-memory.js";
 import aviaryVillage from "./aviary-village.js";
@@ -140,7 +141,7 @@ export const AREAS = [
 	aviaryVillage,
 ] as const;
 
-export function areasForRealm(realm: RealmName) {
+export function areasForRealm(realm: RealmName): readonly Area[] {
 	return AREAS.filter((area) => area.realm === realm);
 }
 

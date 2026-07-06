@@ -2,22 +2,16 @@ import {
 	CLOTHING_SHOP,
 	Cosmetic,
 	collectSpiritCosmetics,
-	ELDER_SPIRITS,
-	type ElderSpirit,
 	type EventIds,
-	type GuideSpirit,
 	type Item,
 	isRealm,
+	KINGDOM,
 	NESTING_WORKSHOP,
-	REALMS,
 	type RealmName,
 	SECRET_AREA,
-	type SeasonalSpirit,
 	type SeasonIds,
 	type SpiritIds,
-	STANDARD_SPIRITS,
 	STARTER_PACKS,
-	type StandardSpirit,
 	skyEvents,
 	skySeasons,
 	spirits,
@@ -50,31 +44,6 @@ export function realmAnchor(realm: RealmName) {
 	return `realm-${realm.toLowerCase().replaceAll(" ", "-")}`;
 }
 
-export function spiritItemsGroup(
-	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
-) {
-	if (spirit.isStandardSpirit()) {
-		return REALMS.find(({ name }) => name === spirit.realm)?.spirits;
-	}
-
-	if (spirit.isElderSpirit()) {
-		return ELDER_SPIRITS;
-	}
-
-	const season = skySeasons().get(spirit.seasonId);
-	return season ? [season.guide, ...season.spirits.values()] : undefined;
-}
-
-export function resolveSpiritTree(
-	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit,
-) {
-	if (spirit.isSeasonalSpirit() && spirit.current.length === 0) {
-		return spirit.seasonal;
-	}
-
-	return spirit.current;
-}
-
 export function parseCosmetics(value: FormDataEntryValue | null) {
 	if (typeof value !== "string") {
 		return null;
@@ -105,7 +74,7 @@ export function resolveScopeCosmetics(
 
 	switch (scope) {
 		case "elders":
-			return collectSpiritCosmetics(ELDER_SPIRITS.values());
+			return collectSpiritCosmetics(KINGDOM.elderSpirits.values());
 		case "starter-packs":
 			return new Set(STARTER_PACKS.allCosmetics);
 		case "secret-area":
@@ -127,9 +96,7 @@ export function resolveScopeCosmetics(
 	const value = scope.slice(separatorIndex + 1);
 
 	if (type === "realm" && isRealm(value)) {
-		return collectSpiritCosmetics(
-			STANDARD_SPIRITS.filter((spirit) => spirit.realm === value).values(),
-		);
+		return collectSpiritCosmetics(KINGDOM.realms.get(value)!.spirits.values());
 	}
 
 	if (type === "season") {
@@ -139,7 +106,7 @@ export function resolveScopeCosmetics(
 			return null;
 		}
 
-		const cosmetics = collectSpiritCosmetics([season.guide, ...season.spirits.values()]);
+		const cosmetics = collectSpiritCosmetics(season.spiritsWithGuide.values());
 
 		for (const cosmetic of season.allCosmetics) {
 			cosmetics.add(cosmetic);

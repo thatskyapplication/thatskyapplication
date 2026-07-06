@@ -4,7 +4,7 @@ import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
 import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
-import type { ElderSpirit, GuideSpirit, SeasonalSpirit, StandardSpirit } from "./models/spirits.js";
+import type { Spirit } from "./models/spirits.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
 import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
@@ -158,8 +158,6 @@ export const NESTING_WORKSHOP = {
 	allCosmetics: resolveAllCosmeticsFromItems(nestingWorkshopItems),
 } as const;
 
-type CatalogueSpirit = StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit;
-
 export interface CatalogueProgress {
 	readonly owned: number;
 	readonly total: number;
@@ -223,17 +221,17 @@ export function partitionItemCosts(items: Iterable<Item>, data: ReadonlySet<numb
 	return { obtained, remaining };
 }
 
-export function catalogueSpiritItems(spirits: Iterable<CatalogueSpirit>): readonly Item[] {
+export function catalogueSpiritItems(spirits: Iterable<Spirit>): readonly Item[] {
 	const items: Item[] = [];
 
 	for (const spirit of spirits) {
-		items.push(...friendshipTreeToItems(spirit.isSeasonalSpirit() ? spirit.items : spirit.current));
+		items.push(...friendshipTreeToItems(spirit.displayFriendshipTree));
 	}
 
 	return items;
 }
 
-export function collectSpiritCosmetics(spirits: Iterable<CatalogueSpirit>): Set<number> {
+export function collectSpiritCosmetics(spirits: Iterable<Spirit>): Set<number> {
 	const cosmetics = new Set<number>();
 
 	for (const spirit of spirits) {
@@ -249,10 +247,7 @@ export function catalogueSeasonItems(seasons: Iterable<Season>): readonly Item[]
 	const items: Item[] = [];
 
 	for (const season of seasons) {
-		items.push(
-			...catalogueSpiritItems([season.guide, ...season.spirits.values()]),
-			...season.items,
-		);
+		items.push(...catalogueSpiritItems(season.spiritsWithGuide.values()), ...season.items);
 	}
 
 	return items;

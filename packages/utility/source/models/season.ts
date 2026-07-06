@@ -97,6 +97,8 @@ export class Season {
 
 	public readonly spirits: ReadonlyCollection<SpiritIds, SeasonalSpirit>;
 
+	public readonly spiritsWithGuide: ReadonlyCollection<SpiritIds, GuideSpirit | SeasonalSpirit>;
+
 	public readonly items: readonly ItemWithoutChildren[];
 
 	public readonly allCosmetics: readonly Cosmetic[];
@@ -119,6 +121,10 @@ export class Season {
 			(spirits, spirit) => spirits.set(spirit.id, spirit),
 			new Collection<SpiritIds, SeasonalSpirit>(),
 		);
+
+		this.spiritsWithGuide = new Collection<SpiritIds, GuideSpirit | SeasonalSpirit>([
+			[this.guide.id, this.guide],
+		]).concat(this.spirits);
 
 		this.items = data.items ? resolveOfferFromItems(data.items, { seasonId: data.id }) : [];
 		this.allCosmetics = resolveAllCosmeticsFromItems(this.items);

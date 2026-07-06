@@ -6,14 +6,13 @@ import {
 	catalogueProgress,
 	catalogueSeasonItems,
 	catalogueSpiritItems,
-	ELDER_SPIRITS,
 	type Emoji,
 	type Item,
+	KINGDOM,
 	NESTING_WORKSHOP,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	SECRET_AREA,
-	STANDARD_SPIRITS,
 	STARTER_PACKS,
 	skyCurrentEvents,
 	skyCurrentSeason,
@@ -62,12 +61,12 @@ export function StartView({
 
 		return [
 			{
-				percentage: percentage(catalogueSpiritItems(STANDARD_SPIRITS.values())),
+				percentage: percentage(catalogueSpiritItems(KINGDOM.standardSpirits.values())),
 				title: t("catalogue.standard-spirits", { ns: "features" }),
 				to: "?view=realms",
 			},
 			{
-				percentage: percentage(catalogueSpiritItems(ELDER_SPIRITS.values())),
+				percentage: percentage(catalogueSpiritItems(KINGDOM.elderSpirits.values())),
 				title: t("catalogue.elders", { ns: "features" }),
 				to: "?view=elders",
 			},

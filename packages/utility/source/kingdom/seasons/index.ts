@@ -115,15 +115,18 @@ export const VISITS_ABSENT: Readonly<Visit[]> = allVisits
 	}, [])
 	.reverse();
 
-export function skySeasons(date = skyNow()) {
+export function skySeasons(date = skyNow()): ReadonlyCollection<SeasonIds, Season> {
 	return SEASONS.filter(({ start }) => Temporal.ZonedDateTime.compare(date, start) >= 0);
 }
 
-export function currentSeasonalSpirits() {
-	return skySeasons().reduce((spirits, season) => {
-		spirits.set(season.guide.id, season.guide);
-		return spirits.concat(season.spirits);
-	}, new Collection<SpiritIds, GuideSpirit | SeasonalSpirit>());
+export function currentSeasonalSpirits(): ReadonlyCollection<
+	SpiritIds,
+	GuideSpirit | SeasonalSpirit
+> {
+	return skySeasons().reduce(
+		(spirits, season) => spirits.concat(season.spiritsWithGuide),
+		new Collection<SpiritIds, GuideSpirit | SeasonalSpirit>(),
+	);
 }
 
 export function skyCurrentSeason(date: Temporal.ZonedDateTime) {
