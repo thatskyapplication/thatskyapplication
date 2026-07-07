@@ -649,7 +649,8 @@
 			"88": "",
 			"89": "",
 			"90": "",
-			"91": ""
+			"91": "",
+			"92": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -2279,6 +2280,7 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
+		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
 		"view": "瀏覽",
 		"more": "",
@@ -2714,7 +2716,12 @@
 				"1": ""
 			},
 			"setup-description": "",
+			"setup-no-channel-detected": "",
+			"setup-no-channel-selected": "",
+			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
+			"setup-stopped": "",
+			"setup-sending": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",
@@ -2846,6 +2853,20 @@
 		},
 		"notifications": {
 			"back": "",
+			"title": "",
+			"setup-description": "",
+			"setup-option-sending": "",
+			"setup-option-stopped": "",
+			"setup-option-not-set-up": "",
+			"setup-type-string-select-menu-placeholder": "",
+			"edit-offset-now-description": "",
+			"edit-no-channel-detected": "",
+			"edit-channel-and-role-required": "",
+			"edit-offset-required": "",
+			"edit-stopped": "",
+			"edit-sending": "",
+			"error-missing-permissions": "",
+			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
 					"message-now": "",
@@ -3215,6 +3236,12 @@
 		},
 		"spirits": {
 			"not-encountered-spirit": "",
+			"visit-error": "",
+			"travelling": "",
+			"returning": "",
+			"not-yet-returned-entity": "",
+			"not-yet-returned-shop": "",
+			"not-yet-returned-spirit": "",
 			"title": {
 				"0": "旅行先靈來訪記錄",
 				"1": ""
