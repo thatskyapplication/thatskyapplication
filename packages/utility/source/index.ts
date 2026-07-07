@@ -160,9 +160,8 @@ export const vi = viLocale;
 export const zhCN = zhCNLocale;
 export const zhTW = zhTWLocale;
 export { CDN } from "./cdn.js";
-export { KINGDOM, type Kingdom } from "./kingdom/index.js";
+export { KINGDOM } from "./kingdom/index.js";
 export {
-	currentSeasonalSpirits,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
 	skyCurrentSeason,

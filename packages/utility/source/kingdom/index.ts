@@ -9,7 +9,7 @@ import type { AreaName, RealmName } from "./geography.js";
 import { ELDER_SPIRITS, REALMS, STANDARD_SPIRITS } from "./realms/index.js";
 import { SEASONS } from "./seasons/index.js";
 
-export interface Kingdom {
+interface Kingdom {
 	readonly realms: ReadonlyCollection<RealmName, Realm>;
 	readonly standardSpirits: ReadonlyCollection<SpiritIds, StandardSpirit>;
 	readonly elderSpirits: ReadonlyCollection<SpiritIds, ElderSpirit>;
