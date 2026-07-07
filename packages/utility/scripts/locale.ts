@@ -169,6 +169,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.TrialOfFire",
 	},
 	{
+		upstreamKey: "title_dawncave_01",
+		tsKey: "AreaName.CaveOfProphecies",
+	},
+	{
 		upstreamKey: "title_prairie_butterflyfields_town_01",
 		tsKey: "AreaName.PrairieRest",
 	},
@@ -351,6 +355,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.Moominvalley",
 	},
 	{
+		upstreamKey: "title_night_workshop_01",
+		tsKey: "AreaName.FracturedLanternStorage",
+	},
+	{
 		upstreamKey: "title_stormstart_01",
 		tsKey: "AreaName.GateOfEden",
 	},
@@ -371,12 +379,20 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.AncientMemory",
 	},
 	{
+		upstreamKey: "name_questap15",
+		tsKey: "AreaName.TheVoidOfShattering",
+	},
+	{
 		upstreamKey: "name_mainstreet",
 		tsKey: "AreaName.AviaryVillage",
 	},
 	{
 		upstreamKey: "title_aviary_carnival_01",
 		tsKey: "AreaName.WanderingCarnival",
+	},
+	{
+		upstreamKey: "title_duskmid_past_01",
+		tsKey: "AreaName.TheLastCity",
 	},
 	{
 		upstreamKey: "daily_quest_world_quest_ap09_fetch_04_desc",
