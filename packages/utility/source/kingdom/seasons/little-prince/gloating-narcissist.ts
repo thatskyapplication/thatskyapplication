@@ -3,7 +3,7 @@ import { skyDate } from "../../../dates.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 const emote = SpiritEmote.Gloat;
 
@@ -11,7 +11,7 @@ export default new SeasonalSpirit({
 	id: SpiritId.GloatingNarcissist,
 	seasonId: SeasonId.LittlePrince,
 	emote,
-	realm: RealmName.VaultOfKnowledge,
+	area: AreaName.StarlightDesert,
 	hasMarketingVideo: true,
 	offer: {
 		seasonal: [

@@ -1,14 +1,13 @@
 import { Cosmetic, CosmeticCommon } from "../../../../cosmetics.js";
 import { StandardSpirit } from "../../../../models/spirits.js";
 import { SpiritEmote, SpiritId } from "../../../../utility/spirits.js";
-import { AreaName, RealmName } from "../../../geography.js";
+import { AreaName } from "../../../geography.js";
 
 const emote = SpiritEmote.Shy;
 
 export default new StandardSpirit({
 	id: SpiritId.BlushingProspector,
 	emote,
-	realm: RealmName.HiddenForest,
 	area: AreaName.ForestBrook,
 	offer: {
 		current: [

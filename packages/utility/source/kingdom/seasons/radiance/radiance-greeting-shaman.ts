@@ -2,12 +2,14 @@ import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
+import { AreaName } from "../../geography.js";
 
 const emote = SpiritEmote.HeartGesture;
 
 export default new SeasonalSpirit({
 	id: SpiritId.RadianceGreetingShaman,
 	seasonId: SeasonId.Radiance,
+	area: AreaName.AviaryVillage,
 	emote,
 	offer: {
 		hasInfographic: false,

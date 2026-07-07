@@ -1,6 +1,12 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { Snowflake } from "@discordjs/core";
-import { type EventIds, type SpiritIds, skyEvents, spirits } from "@thatskyapplication/utility";
+import {
+	type EventIds,
+	friendshipTreeToItems,
+	type SpiritIds,
+	skyEvents,
+	spirits,
+} from "@thatskyapplication/utility";
 import {
 	CosmeticToEmoji,
 	FRIEND_ACTION_EMOJIS,
@@ -44,20 +50,12 @@ for (const [key, { id }] of [
 const spiritCosmeticEmojis = new Collection<Snowflake, SpiritIds>();
 
 for (const spirit of spirits().values()) {
-	for (const items of spirit.isStandardSpirit() || spirit.isElderSpirit() || spirit.isGuideSpirit()
-		? spirit.current
-		: spirit.items) {
-		for (const item of items) {
-			if (!item) {
-				continue;
-			}
+	for (const item of friendshipTreeToItems(spirit.displayFriendshipTree)) {
+		for (const cosmetic of item.cosmetics) {
+			const emoji = CosmeticToEmoji[cosmetic];
 
-			for (const cosmetic of item.cosmetics) {
-				const emoji = CosmeticToEmoji[cosmetic];
-
-				if (emoji && !emojisToSkip.has(emoji.id)) {
-					spiritCosmeticEmojis.set(emoji.id, spirit.id);
-				}
+			if (emoji && !emojisToSkip.has(emoji.id)) {
+				spiritCosmeticEmojis.set(emoji.id, spirit.id);
 			}
 		}
 	}

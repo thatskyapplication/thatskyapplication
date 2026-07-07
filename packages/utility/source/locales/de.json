@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "Informationsgrafik",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "Prüfung der Erde",
 			"Trial of Air": "Prüfung der Luft",
 			"Trial of Fire": "Prüfung des Feuers",
+			"Cave of Prophecies": "Höhle der Prophezeiungen",
 			"Prairie Rest": "Prärierast",
 			"Butterfly Fields": "Schmetterlingsfeld",
 			"Bird Nest": "Vogelnest",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "Quallenbucht",
 			"Crescent Oasis": "Sicheloase",
 			"Moominvalley": "Mumintal",
+			"Fractured Lantern Storage": "Lager der Zerbrochenen Laternen",
 			"Gate of Eden": "Tor von Eden",
 			"Path of Eden": "Pfad von Eden",
 			"Eye of Eden": "Auge von Eden",
 			"The Passage": "Der Übergang",
 			"Ancient Memory": "Uralte Erinnerung",
+			"The Void of Shattering": "Die Leere der Zertrümmerung",
 			"Aviary Village": "Volieren-Dorf",
-			"Wandering Carnival": "Wandernder Karneval"
+			"Wandering Carnival": "Wandernder Karneval",
+			"The Last City": "Die letzte Stadt"
 		},
 		"notification-types": {
 			"0": "",

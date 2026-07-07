@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "Por favor faça o upload de um anexo válido! Precisa ser menor ou igual a {{size}} megabytes e ser um arquivo GIF, JPEG, PNG ou WebP.",
 		"support-server": "Servidor de suporte",
+		"website-description": "",
 		"show": "Mostrar",
 		"hide": "Ocultar",
 		"infographic": "Infográfico",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "Provação da Terra",
 			"Trial of Air": "Provação do Ar",
 			"Trial of Fire": "Provação do Fogo",
+			"Cave of Prophecies": "Caverna das Profecias",
 			"Prairie Rest": "Descanso da Campina",
 			"Butterfly Fields": "Campo de Borboletas",
 			"Bird Nest": "Ninho do Pássaro",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "Enseada das Águas-vivas",
 			"Crescent Oasis": "Oásis Crescente",
 			"Moominvalley": "Vale dos Mumins",
+			"Fractured Lantern Storage": "Depósito das Lanternas Quebradas",
 			"Gate of Eden": "Portão do Éden",
 			"Path of Eden": "Caminho do Éden",
 			"Eye of Eden": "Olho de Éden",
 			"The Passage": "A Passagem",
 			"Ancient Memory": "Lembrança Antiga",
+			"The Void of Shattering": "O Vazio Despedaçado",
 			"Aviary Village": "Aldeia Aviária",
-			"Wandering Carnival": "Circo Itinerante"
+			"Wandering Carnival": "Circo Itinerante",
+			"The Last City": "A Última Cidade"
 		},
 		"notification-types": {
 			"0": "Reinicialização diária",

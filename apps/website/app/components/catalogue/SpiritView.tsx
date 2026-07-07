@@ -1,19 +1,7 @@
-import {
-	type ElderSpirit,
-	friendshipTreeToItems,
-	type GuideSpirit,
-	type SeasonalSpirit,
-	type StandardSpirit,
-} from "@thatskyapplication/utility";
+import { friendshipTreeToItems, KINGDOM, type Spirit } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import {
-	NOTE_CLASS,
-	realmAnchor,
-	resolveSpiritTree,
-	spiritItemsGroup,
-	VIEW_LINK_CLASS,
-} from "~/utility/catalogue.js";
+import { NOTE_CLASS, realmAnchor, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";
@@ -29,14 +17,14 @@ export function SpiritView({
 	data: ReadonlySet<number>;
 	locale: string;
 	showEverythingButton: boolean;
-	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit;
+	spirit: Spirit;
 }) {
 	const { t } = useTranslation();
 	const isStandardSpirit = spirit.isStandardSpirit();
 	const isElderSpirit = spirit.isElderSpirit();
 	const isSeasonalSpirit = spirit.isSeasonalSpirit();
 	const isGuideSpirit = spirit.isGuideSpirit();
-	const friendshipTree = resolveSpiritTree(spirit);
+	const friendshipTree = spirit.displayFriendshipTree;
 	const items = friendshipTree.length > 0 ? friendshipTreeToItems(friendshipTree) : [];
 	const spiritName = t(`spirits.${spirit.id}`, { ns: "general" });
 
@@ -62,11 +50,7 @@ export function SpiritView({
 		);
 	}
 
-	const group = spiritItemsGroup(spirit);
-	const groupSpirits = group ? [...group.values()] : null;
-	const index = groupSpirits?.findIndex(({ id }) => id === spirit.id) ?? -1;
-	const before = groupSpirits && index > 0 ? groupSpirits[index - 1] : null;
-	const after = groupSpirits && index !== -1 ? groupSpirits[index + 1] : null;
+	const { previous: before, next: after } = KINGDOM.adjacentSpirits(spirit.id);
 
 	return (
 		<>

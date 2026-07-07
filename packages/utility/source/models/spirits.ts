@@ -1,7 +1,7 @@
-import { Collection } from "@discordjs/collection";
-import { Mixin } from "ts-mixer";
+import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { Cosmetic } from "../cosmetics.js";
 import { isActive, skyDate } from "../dates.js";
+import { realmForArea } from "../kingdom/areas/index.js";
 import type { AreaName, RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import type { SeasonIds } from "../season.js";
@@ -14,6 +14,8 @@ import {
 import {
 	type FriendAction,
 	type FriendshipTree,
+	friendshipTreeToItems,
+	type ItemCost,
 	type ItemRawWithoutChildren,
 	type ItemRawWithPossibleChildren,
 	type LegacyFriendshipTree,
@@ -23,13 +25,13 @@ import {
 } from "../utility/spirits.js";
 
 interface TravellingSpiritsDates {
-	start: Temporal.ZonedDateTime;
-	end: Temporal.ZonedDateTime;
+	readonly start: Temporal.ZonedDateTime;
+	readonly end: Temporal.ZonedDateTime;
 }
 
 interface ReturningDatesData {
-	start: Temporal.ZonedDateTime;
-	end: Temporal.ZonedDateTime;
+	readonly start: Temporal.ZonedDateTime;
+	readonly end: Temporal.ZonedDateTime;
 }
 
 const TRAVELLING_ERROR_DATES = new Collection<number, Temporal.ZonedDateTime>()
@@ -91,182 +93,114 @@ interface GuideFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 	inProgress?: boolean;
 }
 
-interface BaseFriendshipTreeData {
+interface BaseSpiritData {
 	id: SpiritIds;
+	area?: AreaName;
+	realm?: RealmName;
+	keywords?: readonly string[];
 	offer?:
 		| StandardFriendshipTreeOfferData
 		| ElderFriendshipTreeOfferData
 		| SeasonalFriendshipTreeOfferData
 		| GuideFriendshipTreeOfferData;
-}
-
-interface StandardFriendshipTreeData extends BaseFriendshipTreeData {
-	offer: StandardFriendshipTreeOfferData;
-}
-
-interface ElderFriendshipTreeData extends BaseFriendshipTreeData {
-	offer?: ElderFriendshipTreeOfferData;
-}
-
-interface SeasonalFriendshipTreeData extends BaseFriendshipTreeData {
-	offer: SeasonalFriendshipTreeOfferData;
-	seasonId: SeasonIds;
-}
-
-interface GuideFriendshipTreeData extends BaseFriendshipTreeData {
-	offer?: GuideFriendshipTreeOfferData;
-}
-
-interface ExpressiveSpiritData {
 	emote?: SpiritEmote;
 	stance?: Cosmetic;
 	call?: Cosmetic;
 	action?: FriendAction;
 }
 
-interface BaseSpiritData {
-	id: SpiritIds;
-	realm?: RealmName;
-	keywords?: readonly string[];
+interface StandardSpiritData extends Omit<BaseSpiritData, "realm"> {
+	area: AreaName;
+	offer: StandardFriendshipTreeOfferData;
 }
 
-interface StandardSpiritData
-	extends BaseSpiritData,
-		StandardFriendshipTreeData,
-		ExpressiveSpiritData {
+interface ElderSpiritData extends BaseSpiritData {
 	area: AreaName;
 	realm: RealmName;
+	offer?: ElderFriendshipTreeOfferData;
 }
 
-interface ElderSpiritData extends BaseSpiritData, ElderFriendshipTreeData {
-	realm: RealmName;
-}
-
-export type SeasonalSpiritVisitTravellingErrorData = Collection<number, Temporal.ZonedDateTime>;
-export type SeasonalSpiritVisitReturningData = Collection<number, ReturningDatesData>;
+export type SeasonalSpiritVisitTravellingErrorData = ReadonlyCollection<
+	number,
+	Temporal.ZonedDateTime
+>;
+export type SeasonalSpiritVisitReturningData = ReadonlyCollection<number, ReturningDatesData>;
 
 interface SeasonalSpiritVisitData {
-	travelling?: TravellingSpiritsDates[];
-	travellingErrors?: number[];
-	returning?: number[];
+	travelling?: readonly TravellingSpiritsDates[];
+	travellingErrors?: readonly number[];
+	returning?: readonly number[];
 }
 
 interface SeasonalSpiritVisit {
-	travelling: TravellingSpiritsDates[];
+	travelling: readonly TravellingSpiritsDates[];
 	travellingErrors: SeasonalSpiritVisitTravellingErrorData;
 	returning: SeasonalSpiritVisitReturningData;
 }
 
-interface SeasonalSpiritData
-	extends BaseSpiritData,
-		SeasonalFriendshipTreeData,
-		ExpressiveSpiritData {
+interface SeasonalSpiritData extends Omit<BaseSpiritData, "realm"> {
+	area: AreaName;
+	offer: SeasonalFriendshipTreeOfferData;
+	seasonId: SeasonIds;
 	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisitData;
 }
 
-interface GuideSpiritData extends BaseSpiritData, GuideFriendshipTreeData {
+interface GuideSpiritData extends Omit<BaseSpiritData, "realm"> {
+	offer?: GuideFriendshipTreeOfferData;
 	seasonId: SeasonIds;
 }
 
-function friendshipTreeWithCosts(friendshipTree: FriendshipTree | LegacyFriendshipTree) {
-	const costs = [];
-
-	for (const items of friendshipTree) {
-		for (const item of items) {
-			if (item?.cost) {
-				costs.push(item.cost);
-			}
-		}
-	}
-
-	return costs;
+function friendshipTreeCosts(
+	friendshipTree: FriendshipTree | LegacyFriendshipTree,
+): readonly ItemCost[] {
+	return friendshipTreeToItems(friendshipTree).flatMap((item) => (item.cost ? [item.cost] : []));
 }
 
-abstract class BaseFriendshipTree {
+function resolveVisitPeriods<T>(
+	spiritId: SpiritIds,
+	indices: readonly number[] | undefined,
+	periods: ReadonlyCollection<number, T>,
+	label: string,
+): ReadonlyCollection<number, T> {
+	const resolved = new Collection<number, T>();
+
+	for (const index of indices ?? []) {
+		const period = periods.get(index);
+
+		if (!period) {
+			throw new Error(
+				`${spiritId} had a ${label} index of ${index}, but there was no date for it.`,
+			);
+		}
+
+		resolved.set(index, period);
+	}
+
+	return resolved;
+}
+
+abstract class BaseSpirit<Data extends BaseSpiritData> {
+	public readonly id: SpiritIds;
+
+	public abstract readonly type: SpiritType;
+
+	public readonly area: AreaName | null;
+
+	public readonly realm: RealmName | null;
+
+	public readonly keywords: NonNullable<BaseSpiritData["keywords"]>;
+
 	public readonly current: FriendshipTree | LegacyFriendshipTree;
+
+	public readonly displayFriendshipTree: FriendshipTree | LegacyFriendshipTree;
 
 	public readonly totalCost: readonly CostEntry[];
 
 	public readonly allCosmetics: readonly Cosmetic[];
 
-	public imageURL: string | null;
+	public readonly imageURL: string | null;
 
-	public constructor({ id, offer }: BaseFriendshipTreeData) {
-		this.current = offer?.current ? resolveOffer(offer.current) : [];
-		this.totalCost = sumCosts(friendshipTreeWithCosts(this.current));
-		this.allCosmetics = offer?.current ? resolveAllCosmetics(this.current) : [];
-
-		this.imageURL = (offer ? (offer.hasInfographic ?? true) : false)
-			? this.resolveImageURL(id)
-			: null;
-	}
-
-	protected resolveImageURL(spiritId: SpiritIds, seasonal = false) {
-		return String(
-			new URL(
-				`spirits/${spiritId}/friendship_tree/${seasonal ? "seasonal" : "current"}.webp`,
-				CDN_URL,
-			),
-		);
-	}
-}
-
-abstract class StandardFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: FriendshipTree | LegacyFriendshipTree;
-
-	public declare readonly totalCost: readonly CostEntry[];
-
-	public declare readonly allCosmetics: readonly Cosmetic[];
-}
-
-abstract class ElderFriendshipTree extends BaseFriendshipTree {
-	public declare readonly current: FriendshipTree | LegacyFriendshipTree;
-
-	public declare readonly totalCost: readonly CostEntry[];
-
-	public declare readonly allCosmetics: readonly Cosmetic[];
-}
-
-abstract class SeasonalFriendshipTree extends BaseFriendshipTree {
-	public override readonly allCosmetics: readonly Cosmetic[];
-
-	public readonly seasonal: FriendshipTree | LegacyFriendshipTree;
-
-	public readonly items: FriendshipTree | LegacyFriendshipTree;
-
-	public readonly totalCostSeasonal: readonly CostEntry[];
-
-	public imageURLSeasonal: string | null;
-
-	public constructor(seasonalFriendshipTreeData: SeasonalFriendshipTreeData) {
-		super(seasonalFriendshipTreeData);
-
-		this.seasonal = resolveOffer(seasonalFriendshipTreeData.offer.seasonal, {
-			seasonId: seasonalFriendshipTreeData.seasonId,
-		});
-
-		this.items = this.current.length > 0 ? this.current : this.seasonal;
-		this.allCosmetics = resolveAllCosmetics(this.items);
-		this.totalCostSeasonal = sumCosts(friendshipTreeWithCosts(this.seasonal));
-
-		this.imageURLSeasonal =
-			(seasonalFriendshipTreeData.offer.hasInfographicSeasonal ?? true)
-				? this.resolveImageURL(seasonalFriendshipTreeData.id, true)
-				: null;
-	}
-}
-
-abstract class GuideFriendshipTree extends BaseFriendshipTree {
-	public readonly inProgress: boolean;
-
-	public constructor(guideFriendshipTreeData: GuideFriendshipTreeData) {
-		super(guideFriendshipTreeData);
-		this.inProgress = guideFriendshipTreeData.offer?.inProgress ?? false;
-	}
-}
-
-abstract class ExpressiveSpirit {
 	public readonly emote: SpiritEmote | null;
 
 	public readonly stance: Cosmetic | null;
@@ -275,27 +209,33 @@ abstract class ExpressiveSpirit {
 
 	public readonly action: FriendAction | null;
 
-	public constructor({ emote, stance, call, action }: ExpressiveSpiritData) {
-		this.emote = emote ?? null;
-		this.stance = stance ?? null;
-		this.call = call ?? null;
-		this.action = action ?? null;
+	public constructor(data: Data) {
+		this.id = data.id;
+		this.area = data.area ?? null;
+		this.realm = data.realm ?? (this.area === null ? null : realmForArea(this.area));
+		this.keywords = data.keywords ?? [];
+		this.current = data.offer?.current ? resolveOffer(data.offer.current) : [];
+		this.displayFriendshipTree = this.current;
+		this.totalCost = sumCosts(friendshipTreeCosts(this.current));
+		this.allCosmetics = data.offer?.current ? resolveAllCosmetics(this.current) : [];
+
+		this.imageURL = (data.offer ? (data.offer.hasInfographic ?? true) : false)
+			? this.resolveImageURL()
+			: null;
+
+		this.emote = data.emote ?? null;
+		this.stance = data.stance ?? null;
+		this.call = data.call ?? null;
+		this.action = data.action ?? null;
 	}
-}
 
-abstract class BaseSpirit {
-	public readonly id: BaseSpiritData["id"];
-
-	public readonly type!: SpiritType;
-
-	public readonly realm: RealmName | null;
-
-	public readonly keywords: NonNullable<BaseSpiritData["keywords"]>;
-
-	public constructor(spirit: BaseSpiritData) {
-		this.id = spirit.id;
-		this.realm = spirit.realm ?? null;
-		this.keywords = spirit.keywords ?? [];
+	protected resolveImageURL(seasonal = false) {
+		return String(
+			new URL(
+				`spirits/${this.id}/friendship_tree/${seasonal ? "seasonal" : "current"}.webp`,
+				CDN_URL,
+			),
+		);
 	}
 
 	public isStandardSpirit(): this is StandardSpirit {
@@ -315,33 +255,36 @@ abstract class BaseSpirit {
 	}
 }
 
-export class StandardSpirit extends Mixin(BaseSpirit, StandardFriendshipTree, ExpressiveSpirit) {
+export class StandardSpirit extends BaseSpirit<StandardSpiritData> {
 	public override readonly type = SpiritType.Standard;
 
-	public readonly area: AreaName;
+	public declare readonly area: AreaName;
 
 	public declare readonly realm: RealmName;
-
-	public constructor(spirit: StandardSpiritData) {
-		super(spirit);
-		this.area = spirit.area;
-		this.realm = spirit.realm;
-	}
 }
 
-export class ElderSpirit extends Mixin(BaseSpirit, ElderFriendshipTree) {
+export class ElderSpirit extends BaseSpirit<ElderSpiritData> {
 	public override readonly type = SpiritType.Elder;
 
-	public declare readonly realm: RealmName;
+	public declare readonly area: AreaName;
 
-	public constructor(spirit: ElderSpiritData) {
-		super(spirit);
-		this.realm = spirit.realm;
-	}
+	public declare readonly realm: RealmName;
 }
 
-export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, ExpressiveSpirit) {
+export class SeasonalSpirit extends BaseSpirit<SeasonalSpiritData> {
 	public override readonly type = SpiritType.Seasonal;
+
+	public declare readonly area: AreaName;
+
+	public override readonly allCosmetics: readonly Cosmetic[];
+
+	public readonly seasonal: FriendshipTree | LegacyFriendshipTree;
+
+	public override readonly displayFriendshipTree: FriendshipTree | LegacyFriendshipTree;
+
+	public readonly totalCostSeasonal: readonly CostEntry[];
+
+	public readonly imageURLSeasonal: string | null;
 
 	public readonly seasonId: SeasonIds;
 
@@ -351,6 +294,15 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 	public constructor(spirit: SeasonalSpiritData) {
 		super(spirit);
+
+		this.seasonal = resolveOffer(spirit.offer.seasonal, { seasonId: spirit.seasonId });
+		this.displayFriendshipTree = this.current.length > 0 ? this.current : this.seasonal;
+		this.allCosmetics = resolveAllCosmetics(this.displayFriendshipTree);
+		this.totalCostSeasonal = sumCosts(friendshipTreeCosts(this.seasonal));
+
+		this.imageURLSeasonal =
+			(spirit.offer.hasInfographicSeasonal ?? true) ? this.resolveImageURL(true) : null;
+
 		this.seasonId = spirit.seasonId;
 
 		this.marketingVideoURL = spirit.hasMarketingVideo
@@ -359,32 +311,18 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 
 		this.visits = {
 			travelling: spirit.visits?.travelling ?? [],
-			travellingErrors:
-				spirit.visits?.travellingErrors?.reduce((collection, travellingError) => {
-					const period = TRAVELLING_ERROR_DATES.get(travellingError);
-
-					if (!period) {
-						throw new Error(
-							`${this.id} had an travelling error index of ${travellingError}, but there was no date for it.`,
-						);
-					}
-
-					return collection.set(travellingError, period);
-				}, new Collection<number, Temporal.ZonedDateTime>()) ??
-				new Collection<number, Temporal.ZonedDateTime>(),
-			returning:
-				spirit.visits?.returning?.reduce((collection, returning) => {
-					const period = RETURNING_DATES.get(returning);
-
-					if (!period) {
-						throw new Error(
-							`${this.id} had a returning index of ${returning}, but there was no date for it.`,
-						);
-					}
-
-					return collection.set(returning, period);
-				}, new Collection<number, ReturningDatesData>()) ??
-				new Collection<number, ReturningDatesData>(),
+			travellingErrors: resolveVisitPeriods(
+				this.id,
+				spirit.visits?.travellingErrors,
+				TRAVELLING_ERROR_DATES,
+				"travelling error",
+			),
+			returning: resolveVisitPeriods(
+				this.id,
+				spirit.visits?.returning,
+				RETURNING_DATES,
+				"returning",
+			),
 		};
 	}
 
@@ -406,12 +344,16 @@ export class SeasonalSpirit extends Mixin(BaseSpirit, SeasonalFriendshipTree, Ex
 	}
 }
 
-export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
+export class GuideSpirit extends BaseSpirit<GuideSpiritData> {
 	public override readonly type = SpiritType.Guide;
 
 	public override readonly current: FriendshipTree | LegacyFriendshipTree;
 
+	public override readonly displayFriendshipTree: FriendshipTree | LegacyFriendshipTree;
+
 	public override readonly totalCost: readonly CostEntry[];
+
+	public readonly inProgress: boolean;
 
 	public readonly seasonId: SeasonIds;
 
@@ -422,7 +364,11 @@ export class GuideSpirit extends Mixin(BaseSpirit, GuideFriendshipTree) {
 			? resolveOffer(spirit.offer.current, { seasonId: spirit.seasonId })
 			: [];
 
-		this.totalCost = sumCosts(friendshipTreeWithCosts(this.current));
+		this.displayFriendshipTree = this.current;
+		this.totalCost = sumCosts(friendshipTreeCosts(this.current));
+		this.inProgress = spirit.offer?.inProgress ?? false;
 		this.seasonId = spirit.seasonId;
 	}
 }
+
+export type Spirit = StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit;

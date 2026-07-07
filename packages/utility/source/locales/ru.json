@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "Пожалуйста, загрузите корректное вложение! Оно должно быть меньше или равно {{size}} мегабайт и быть в формате GIF, JPEG, PNG или WebP.",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "Инфографика",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "Испытание земли",
 			"Trial of Air": "Испытание воздуха",
 			"Trial of Fire": "Испытание огня",
+			"Cave of Prophecies": "Пещера пророчеств",
 			"Prairie Rest": "Привал прерии",
 			"Butterfly Fields": "Поле бабочек",
 			"Bird Nest": "Птичье гнездо",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "Бухта медуз",
 			"Crescent Oasis": "Лунный оазис",
 			"Moominvalley": "Муми-дол",
+			"Fractured Lantern Storage": "Склад разбитых фонариков",
 			"Gate of Eden": "Врата Эдема",
 			"Path of Eden": "Путь Эдема",
 			"Eye of Eden": "Сердце Эдема",
 			"The Passage": "Посвящение",
 			"Ancient Memory": "Древнее воспоминание",
+			"The Void of Shattering": "Кристалл крушения",
 			"Aviary Village": "Птичья деревня",
-			"Wandering Carnival": "Бродячий карнавал"
+			"Wandering Carnival": "Бродячий карнавал",
+			"The Last City": "Последний город"
 		},
 		"notification-types": {
 			"0": "Ежедневный сброс",

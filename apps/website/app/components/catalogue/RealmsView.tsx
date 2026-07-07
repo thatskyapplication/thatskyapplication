@@ -2,9 +2,8 @@ import {
 	cataloguePercentage,
 	catalogueProgress,
 	catalogueSpiritItems,
+	KINGDOM,
 	partitionItemCosts,
-	REALMS,
-	STANDARD_SPIRITS,
 	sumCosts,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
@@ -35,22 +34,26 @@ export function RealmsView({
 
 	const remainingCosts = useMemo(
 		() =>
-			sumCosts(partitionItemCosts(catalogueSpiritItems(STANDARD_SPIRITS.values()), data).remaining),
+			sumCosts(
+				partitionItemCosts(catalogueSpiritItems(KINGDOM.standardSpirits.values()), data).remaining,
+			),
 		[data],
 	);
 
 	const realms = useMemo(
 		() =>
-			REALMS.filter((realm) => realm.spirits.size > 0).map((realm) => {
-				const items = catalogueSpiritItems(realm.spirits.values());
+			KINGDOM.realms
+				.filter((realm) => realm.spirits.size > 0)
+				.map((realm) => {
+					const items = catalogueSpiritItems(realm.spirits.values());
 
-				return {
-					items,
-					percentage: cataloguePercentage(catalogueProgress(items, data)),
-					realm,
-					spirits: realm.spirits.filter((spirit) => spirit.current.length > 0),
-				};
-			}),
+					return {
+						items,
+						percentage: cataloguePercentage(catalogueProgress(items, data)),
+						realm,
+						spirits: realm.spirits.filter((spirit) => spirit.displayFriendshipTree.length > 0),
+					};
+				}),
 		[data],
 	);
 
@@ -97,13 +100,7 @@ export function RealmsView({
 
 					<FriendshipTreeCarousel>
 						{spirits.map((spirit) => (
-							<SpiritTreeColumn
-								data={data}
-								key={spirit.id}
-								locale={locale}
-								spirit={spirit}
-								tree={spirit.current}
-							/>
+							<SpiritTreeColumn data={data} key={spirit.id} locale={locale} spirit={spirit} />
 						))}
 					</FriendshipTreeCarousel>
 

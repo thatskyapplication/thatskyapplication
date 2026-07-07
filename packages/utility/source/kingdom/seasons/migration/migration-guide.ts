@@ -2,12 +2,12 @@ import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { GuideSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
-import { RealmName } from "../../geography.js";
+import { AreaName } from "../../geography.js";
 
 export default new GuideSpirit({
 	id: SpiritId.MigrationGuide,
 	seasonId: SeasonId.Migration,
-	realm: RealmName.IsleOfDawn,
+	area: AreaName.TheWindPaths,
 	offer: {
 		current: [
 			[

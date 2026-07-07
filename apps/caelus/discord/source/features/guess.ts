@@ -1,4 +1,3 @@
-import type { Collection, ReadonlyCollection } from "@discordjs/collection";
 import {
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
@@ -13,8 +12,6 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
-	ELDER_SPIRITS,
-	type ElderSpirit,
 	type EventIds,
 	formatEmoji,
 	formatEmojiURL,
@@ -23,18 +20,13 @@ import {
 	GuessType,
 	type GuessTypes,
 	type GuessUserRanking,
-	type GuideSpirit,
 	isEventId,
 	isSpiritId,
-	REALMS,
-	type SeasonalSpirit,
+	KINGDOM,
 	SkyProfileMissingNameSource,
 	type SkyProfilePacket,
 	type SpiritIds,
-	type StandardSpirit,
 	skyEvents,
-	skySeasons,
-	spirits,
 	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
@@ -261,24 +253,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 		}
 	} else {
 		// Collect spirits from the same realm or season.
-		const spirit = spirits().get(answerSpiritId)!;
-
-		let filtered: ReadonlyCollection<
-			SpiritIds,
-			StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit
-		>;
-
-		if (spirit.isStandardSpirit()) {
-			filtered = REALMS.find((realm) => realm.name === spirit.realm)!.spirits;
-		} else if (spirit.isElderSpirit()) {
-			filtered = ELDER_SPIRITS;
-		} else {
-			const season = skySeasons().get(spirit.seasonId)!;
-
-			filtered = (
-				season.spirits.clone() as Collection<SpiritIds, SeasonalSpirit | GuideSpirit>
-			).set(season.guide.id, season.guide);
-		}
+		const filtered = KINGDOM.groupFor(answerSpiritId)!;
 
 		while (options.size < 3) {
 			const { id } = filtered.random()!;

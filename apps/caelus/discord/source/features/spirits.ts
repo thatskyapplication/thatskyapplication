@@ -13,19 +13,16 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import {
-	type ElderSpirit,
 	epochSeconds,
 	formatEmoji,
-	type GuideSpirit,
 	isSpiritsHistoryOrderType,
-	type SeasonalSpirit,
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	SeasonId,
+	type Spirit,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
-	type StandardSpirit,
 	skyNow,
 	spirits,
 	TIME_ZONE,
@@ -141,7 +138,7 @@ function visitErrorField(
 }
 
 interface SpiritSearchOptions {
-	spirit: StandardSpirit | ElderSpirit | SeasonalSpirit | GuideSpirit;
+	spirit: Spirit;
 	locale: Locale;
 }
 

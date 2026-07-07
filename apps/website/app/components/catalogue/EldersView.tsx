@@ -1,4 +1,4 @@
-import { catalogueSpiritItems, ELDER_SPIRITS } from "@thatskyapplication/utility";
+import { catalogueSpiritItems, KINGDOM } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
@@ -17,7 +17,18 @@ export function EldersView({
 	showEverythingButton: boolean;
 }) {
 	const { t } = useTranslation();
-	const items = catalogueSpiritItems(ELDER_SPIRITS.values());
+	const items = catalogueSpiritItems(KINGDOM.elderSpirits.values());
+	const spiritTreeColumns = [];
+
+	for (const spirit of KINGDOM.elderSpirits.values()) {
+		if (spirit.displayFriendshipTree.length === 0) {
+			continue;
+		}
+
+		spiritTreeColumns.push(
+			<SpiritTreeColumn data={data} key={spirit.id} locale={locale} spirit={spirit} />,
+		);
+	}
 
 	return (
 		<>
@@ -28,17 +39,7 @@ export function EldersView({
 
 			<RemainingCostList data={data} items={items} locale={locale} />
 
-			<FriendshipTreeCarousel>
-				{ELDER_SPIRITS.filter((spirit) => spirit.current.length > 0).map((spirit) => (
-					<SpiritTreeColumn
-						data={data}
-						key={spirit.id}
-						locale={locale}
-						spirit={spirit}
-						tree={spirit.current}
-					/>
-				))}
-			</FriendshipTreeCarousel>
+			<FriendshipTreeCarousel>{spiritTreeColumns}</FriendshipTreeCarousel>
 
 			{showEverythingButton && <EverythingButton data={data} items={items} scope="elders" />}
 

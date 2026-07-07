@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "อินโฟกราฟิก",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "บททดสอบแห่งดิน",
 			"Trial of Air": "บททดสอบแห่งลม",
 			"Trial of Fire": "บททดสอบแห่งไฟ",
+			"Cave of Prophecies": "ถ้ำแห่งคำพยากรณ์",
 			"Prairie Rest": "จุดพักผ่อนทุ่งหญ้า",
 			"Butterfly Fields": "ทุ่งผีเสื้อ",
 			"Bird Nest": "รังนก",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "อ่าวแมงกะพรุน",
 			"Crescent Oasis": "โอเอซิสจันทร์เสี้ยว",
 			"Moominvalley": "หุบเขามูมิน",
+			"Fractured Lantern Storage": "ห้องเก็บโคมไฟชำรุด",
 			"Gate of Eden": "ประตูแห่งเอเดน",
 			"Path of Eden": "เส้นทางสู่เอเดน",
 			"Eye of Eden": "ดวงตาแห่งเอเดน",
 			"The Passage": "เส้นทาง",
 			"Ancient Memory": "ความทรงจำโบราณ",
+			"The Void of Shattering": "ความว่างเปล่าของการแตกสลาย",
 			"Aviary Village": "หมู่บ้านเอเวียรี",
-			"Wandering Carnival": "คาร์นิวัลพเนจร"
+			"Wandering Carnival": "คาร์นิวัลพเนจร",
+			"The Last City": "นครสุดท้าย"
 		},
 		"notification-types": {
 			"0": "",

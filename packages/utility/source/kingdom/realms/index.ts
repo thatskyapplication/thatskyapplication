@@ -35,11 +35,12 @@ for (const realm of REALMS) {
 export const STANDARD_SPIRITS: ReadonlyCollection<SpiritIds, StandardSpirit> = standardSpirits;
 export const ELDER_SPIRITS: ReadonlyCollection<SpiritIds, ElderSpirit> = elderSpirits;
 
-export const REALM_SPIRITS = STANDARD_SPIRITS.merge<ElderSpirit, StandardSpirit | ElderSpirit>(
-	ELDER_SPIRITS,
-	(value) => ({ keep: true, value }),
-	(value) => ({ keep: true, value }),
-	() => {
-		throw new Error("Duplicate spirits detected.");
-	},
-);
+export const REALM_SPIRITS: ReadonlyCollection<SpiritIds, StandardSpirit | ElderSpirit> =
+	STANDARD_SPIRITS.merge<ElderSpirit, StandardSpirit | ElderSpirit>(
+		ELDER_SPIRITS,
+		(value) => ({ keep: true, value }),
+		(value) => ({ keep: true, value }),
+		() => {
+			throw new Error("Duplicate spirits detected.");
+		},
+	);
