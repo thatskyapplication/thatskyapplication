@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "Téléchargez une pièce jointe ! Elle doit être inférieure ou égale à {{size}} Mo et être un GIF, JPEG, PNG ou WebP.",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "Infographie",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "Épreuve de la Terre",
 			"Trial of Air": "Épreuve de l'Air",
 			"Trial of Fire": "Épreuve du Feu",
+			"Cave of Prophecies": "Grotte des prophéties",
 			"Prairie Rest": "Repos de la Prairie",
 			"Butterfly Fields": "Champ de papillons",
 			"Bird Nest": "Nid",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "Crique aux méduses",
 			"Crescent Oasis": "Oasis du croissant",
 			"Moominvalley": "Vallée des Moomins",
+			"Fractured Lantern Storage": "Dépôt de lanternes cassées",
 			"Gate of Eden": "Porte d'Éden",
 			"Path of Eden": "Chemin d'Éden",
 			"Eye of Eden": "Œil d'Éden",
 			"The Passage": "L'Initiation",
 			"Ancient Memory": "Souvenir ancien",
+			"The Void of Shattering": "Le Néant de l'Éclatement",
 			"Aviary Village": "Village volière",
-			"Wandering Carnival": "Carnaval itinérant"
+			"Wandering Carnival": "Carnaval itinérant",
+			"The Last City": "La Dernière Ville"
 		},
 		"notification-types": {
 			"0": "Réinitialisation journalière",
@@ -649,7 +654,8 @@
 			"88": "",
 			"89": "",
 			"90": "",
-			"91": ""
+			"91": "",
+			"92": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -2279,6 +2285,7 @@
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",
+		"interaction-response-too-old": "",
 		"cannot-view-thread": "Je n'ai pas les permissions nécessaires afin de voir ce fil.",
 		"view": "Voir",
 		"more": "",
@@ -2714,7 +2721,12 @@
 				"1": ""
 			},
 			"setup-description": "",
+			"setup-no-channel-detected": "",
+			"setup-no-channel-selected": "",
+			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
+			"setup-stopped": "",
+			"setup-sending": "",
 			"quests-heading": "Quêtes",
 			"treasure-candles": "",
 			"seasonal-candles": "",
@@ -2856,6 +2868,20 @@
 		},
 		"notifications": {
 			"back": "Retour",
+			"title": "",
+			"setup-description": "",
+			"setup-option-sending": "",
+			"setup-option-stopped": "",
+			"setup-option-not-set-up": "",
+			"setup-type-string-select-menu-placeholder": "",
+			"edit-offset-now-description": "",
+			"edit-no-channel-detected": "",
+			"edit-channel-and-role-required": "",
+			"edit-offset-required": "",
+			"edit-stopped": "",
+			"edit-sending": "",
+			"error-missing-permissions": "",
+			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
 					"message-now": "C'est un nouveau jour. Il est temps de forger de nouvelles bougies !",
@@ -3225,6 +3251,12 @@
 		},
 		"spirits": {
 			"not-encountered-spirit": "Wow, il semblerait que nous n'ayons pas encore rencontré cet esprit. Comme c'est étrange !",
+			"visit-error": "",
+			"travelling": "",
+			"returning": "",
+			"not-yet-returned-entity": "",
+			"not-yet-returned-shop": "",
+			"not-yet-returned-spirit": "",
 			"title": {
 				"0": "Historique des Esprits Voyageurs",
 				"1": "Rareté des Esprits"

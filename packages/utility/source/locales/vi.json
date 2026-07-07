@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "Đồ họa thông tin",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "Thử Thách Đất",
 			"Trial of Air": "Thử Thách Không Khí",
 			"Trial of Fire": "Thử Thách Lửa",
+			"Cave of Prophecies": "Hang Bình Minh",
 			"Prairie Rest": "Trạm Nghỉ Thảo Nguyên",
 			"Butterfly Fields": "Cánh Đồng Bướm",
 			"Bird Nest": "Tổ Chim",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "Vịnh Sứa",
 			"Crescent Oasis": "Ốc Đảo Trăng Khuyết",
 			"Moominvalley": "Moominvalley",
+			"Fractured Lantern Storage": "Kho Đèn Rạn Nứt",
 			"Gate of Eden": "Cổng Địa Đàng",
 			"Path of Eden": "Con Đường Địa Đàng",
 			"Eye of Eden": "Mắt Địa Đàng",
 			"The Passage": "Hành Lang",
 			"Ancient Memory": "Ký ức Cổ xưa",
+			"The Void of Shattering": "Tinh thể Tan vỡ",
 			"Aviary Village": "Làng Chuồng Chim",
-			"Wandering Carnival": "Lễ Hội Lưu Động"
+			"Wandering Carnival": "Lễ Hội Lưu Động",
+			"The Last City": "Thành Phố Cuối Cùng"
 		},
 		"notification-types": {
 			"0": "",
@@ -649,7 +654,8 @@
 			"88": "",
 			"89": "",
 			"90": "",
-			"91": ""
+			"91": "",
+			"92": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2279,6 +2285,7 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
+		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
 		"view": "",
 		"more": "",
@@ -2714,7 +2721,12 @@
 				"1": ""
 			},
 			"setup-description": "",
+			"setup-no-channel-detected": "",
+			"setup-no-channel-selected": "",
+			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
+			"setup-stopped": "",
+			"setup-sending": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",
@@ -2846,6 +2858,20 @@
 		},
 		"notifications": {
 			"back": "",
+			"title": "",
+			"setup-description": "",
+			"setup-option-sending": "",
+			"setup-option-stopped": "",
+			"setup-option-not-set-up": "",
+			"setup-type-string-select-menu-placeholder": "",
+			"edit-offset-now-description": "",
+			"edit-no-channel-detected": "",
+			"edit-channel-and-role-required": "",
+			"edit-offset-required": "",
+			"edit-stopped": "",
+			"edit-sending": "",
+			"error-missing-permissions": "",
+			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
 					"message-now": "",
@@ -3215,6 +3241,12 @@
 		},
 		"spirits": {
 			"not-encountered-spirit": "",
+			"visit-error": "",
+			"travelling": "",
+			"returning": "",
+			"not-yet-returned-entity": "",
+			"not-yet-returned-shop": "",
+			"not-yet-returned-spirit": "",
 			"title": {
 				"0": "",
 				"1": ""

@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "Infografía",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "Prueba de Tierra",
 			"Trial of Air": "Prueba de Aire",
 			"Trial of Fire": "Prueba de Fuego",
+			"Cave of Prophecies": "Cueva de las Profecías",
 			"Prairie Rest": "Descanso de la Planicie",
 			"Butterfly Fields": "Mariposas de la Planicie",
 			"Bird Nest": "Nido de pájaro",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "Ensenada de la Medusa",
 			"Crescent Oasis": "Oasis creciente",
 			"Moominvalley": "Valle Mumin",
+			"Fractured Lantern Storage": "Almacén de Faroles Fracturados",
 			"Gate of Eden": "Puerta de Edén",
 			"Path of Eden": "Camino de Edén",
 			"Eye of Eden": "Ojo de Edén",
 			"The Passage": "La Iniciación",
 			"Ancient Memory": "Recuerdo ancestral",
+			"The Void of Shattering": "El Vacío de la Destrucción",
 			"Aviary Village": "Aldea aviaria",
-			"Wandering Carnival": "Carnaval errante"
+			"Wandering Carnival": "Carnaval errante",
+			"The Last City": "La Última Ciudad"
 		},
 		"notification-types": {
 			"0": "",
@@ -649,7 +654,8 @@
 			"88": "",
 			"89": "",
 			"90": "",
-			"91": ""
+			"91": "",
+			"92": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2279,6 +2285,7 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
+		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
 		"view": "",
 		"more": "",
@@ -2714,7 +2721,12 @@
 				"1": ""
 			},
 			"setup-description": "",
+			"setup-no-channel-detected": "",
+			"setup-no-channel-selected": "",
+			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
+			"setup-stopped": "",
+			"setup-sending": "",
 			"quests-heading": "Misiones",
 			"treasure-candles": "",
 			"seasonal-candles": "",
@@ -2846,6 +2858,20 @@
 		},
 		"notifications": {
 			"back": "Atrás",
+			"title": "",
+			"setup-description": "",
+			"setup-option-sending": "",
+			"setup-option-stopped": "",
+			"setup-option-not-set-up": "",
+			"setup-type-string-select-menu-placeholder": "",
+			"edit-offset-now-description": "",
+			"edit-no-channel-detected": "",
+			"edit-channel-and-role-required": "",
+			"edit-offset-required": "",
+			"edit-stopped": "",
+			"edit-sending": "",
+			"error-missing-permissions": "",
+			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
 					"message-now": "Es un nuevo día. ¡Hora de forjar velas otra vez!",
@@ -3215,6 +3241,12 @@
 		},
 		"spirits": {
 			"not-encountered-spirit": "Vaya, parece que no nos hemos encontrado con ese espíritu todavía. ¡Qué raro!",
+			"visit-error": "",
+			"travelling": "",
+			"returning": "",
+			"not-yet-returned-entity": "",
+			"not-yet-returned-shop": "",
+			"not-yet-returned-spirit": "",
 			"title": {
 				"0": "Historial de Espíritus Viajeros",
 				"1": "Rareza de los Espíritus"

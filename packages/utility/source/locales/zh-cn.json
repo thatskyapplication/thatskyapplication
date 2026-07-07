@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "请上传有效的附件！文件必须小于或等于 {{size}} 兆字节，并且为 GIF、JPEG、PNG 或 WebP 格式。",
 		"support-server": "",
+		"website-description": "",
 		"show": "显示",
 		"hide": "隐藏",
 		"infographic": "信息图表",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "土之试炼",
 			"Trial of Air": "风之试炼",
 			"Trial of Fire": "火之试炼",
+			"Cave of Prophecies": "预言山谷",
 			"Prairie Rest": "云野休憩地",
 			"Butterfly Fields": "蝴蝶原野",
 			"Bird Nest": "浮石鸟巢",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "水母湾",
 			"Crescent Oasis": "月牙绿洲",
 			"Moominvalley": "姆明谷",
+			"Fractured Lantern Storage": "破裂灯笼仓库",
 			"Gate of Eden": "暴风之门",
 			"Path of Eden": "暴风之路",
 			"Eye of Eden": "暴风眼",
 			"The Passage": "夜行",
 			"Ancient Memory": "上古记忆",
+			"The Void of Shattering": "破碎虚空",
 			"Aviary Village": "云巢",
-			"Wandering Carnival": "漫游狂欢号"
+			"Wandering Carnival": "漫游狂欢号",
+			"The Last City": "最终之城"
 		},
 		"notification-types": {
 			"0": "每日重置",
@@ -649,7 +654,8 @@
 			"88": "",
 			"89": "",
 			"90": "",
-			"91": ""
+			"91": "",
+			"92": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2279,6 +2285,7 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
+		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
 		"view": "",
 		"more": "",
@@ -2714,7 +2721,12 @@
 				"1": ""
 			},
 			"setup-description": "",
+			"setup-no-channel-detected": "",
+			"setup-no-channel-selected": "",
+			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
+			"setup-stopped": "",
+			"setup-sending": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",
@@ -2846,6 +2858,20 @@
 		},
 		"notifications": {
 			"back": "",
+			"title": "",
+			"setup-description": "",
+			"setup-option-sending": "",
+			"setup-option-stopped": "",
+			"setup-option-not-set-up": "",
+			"setup-type-string-select-menu-placeholder": "",
+			"edit-offset-now-description": "",
+			"edit-no-channel-detected": "",
+			"edit-channel-and-role-required": "",
+			"edit-offset-required": "",
+			"edit-stopped": "",
+			"edit-sending": "",
+			"error-missing-permissions": "",
+			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
 					"message-now": "",
@@ -3215,6 +3241,12 @@
 		},
 		"spirits": {
 			"not-encountered-spirit": "",
+			"visit-error": "",
+			"travelling": "",
+			"returning": "",
+			"not-yet-returned-entity": "",
+			"not-yet-returned-shop": "",
+			"not-yet-returned-spirit": "",
 			"title": {
 				"0": "",
 				"1": ""

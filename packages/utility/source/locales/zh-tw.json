@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "資訊圖表",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "土之試煉",
 			"Trial of Air": "風之試煉",
 			"Trial of Fire": "火之試煉",
+			"Cave of Prophecies": "預言山谷",
 			"Prairie Rest": "雲野小驛",
 			"Butterfly Fields": "蝴蝶原野",
 			"Bird Nest": "浮石鳥巢",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "水母灣",
 			"Crescent Oasis": "新月綠洲",
 			"Moominvalley": "姆明谷",
+			"Fractured Lantern Storage": "破裂燈籠存放所",
 			"Gate of Eden": "暴風之門",
 			"Path of Eden": "暴風之路",
 			"Eye of Eden": "暴風眼",
 			"The Passage": "星光淨土",
 			"Ancient Memory": "上古記憶",
+			"The Void of Shattering": "破碎虛空",
 			"Aviary Village": "雲巢",
-			"Wandering Carnival": "漫遊狂歡號"
+			"Wandering Carnival": "漫遊狂歡號",
+			"The Last City": "最後的王都"
 		},
 		"notification-types": {
 			"0": "",
@@ -649,7 +654,8 @@
 			"88": "",
 			"89": "",
 			"90": "",
-			"91": ""
+			"91": "",
+			"92": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -2279,6 +2285,7 @@
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
+		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
 		"view": "瀏覽",
 		"more": "",
@@ -2714,7 +2721,12 @@
 				"1": ""
 			},
 			"setup-description": "",
+			"setup-no-channel-detected": "",
+			"setup-no-channel-selected": "",
+			"setup-channel-select-menu-placeholder": "",
 			"setup-type-string-select-menu-placeholder": "",
+			"setup-stopped": "",
+			"setup-sending": "",
 			"quests-heading": "",
 			"treasure-candles": "",
 			"seasonal-candles": "",
@@ -2846,6 +2858,20 @@
 		},
 		"notifications": {
 			"back": "",
+			"title": "",
+			"setup-description": "",
+			"setup-option-sending": "",
+			"setup-option-stopped": "",
+			"setup-option-not-set-up": "",
+			"setup-type-string-select-menu-placeholder": "",
+			"edit-offset-now-description": "",
+			"edit-no-channel-detected": "",
+			"edit-channel-and-role-required": "",
+			"edit-offset-required": "",
+			"edit-stopped": "",
+			"edit-sending": "",
+			"error-missing-permissions": "",
+			"error-cannot-mention-role": "",
 			"messages": {
 				"0": {
 					"message-now": "",
@@ -3215,6 +3241,12 @@
 		},
 		"spirits": {
 			"not-encountered-spirit": "",
+			"visit-error": "",
+			"travelling": "",
+			"returning": "",
+			"not-yet-returned-entity": "",
+			"not-yet-returned-shop": "",
+			"not-yet-returned-spirit": "",
 			"title": {
 				"0": "旅行先靈來訪記錄",
 				"1": ""
