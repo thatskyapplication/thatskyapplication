@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "インフォグラフィック",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "地の試練",
 			"Trial of Air": "風の試練",
 			"Trial of Fire": "火の試練",
+			"Cave of Prophecies": "預言者の石窟",
 			"Prairie Rest": "草原の交流広場",
 			"Butterfly Fields": "蝶々の住処",
 			"Bird Nest": "鳥の巣",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "海月の入り江",
 			"Crescent Oasis": "三日月オアシス",
 			"Moominvalley": "ムーミン谷",
+			"Fractured Lantern Storage": "壊れし燈の保管庫",
 			"Gate of Eden": "暴風域外縁",
 			"Path of Eden": "暴風域",
 			"Eye of Eden": "原罪",
 			"The Passage": "天空",
 			"Ancient Memory": "いにしえの追想",
+			"The Void of Shattering": "砕ける闇の虚",
 			"Aviary Village": "花鳥郷",
-			"Wandering Carnival": "さすらいカーニバル"
+			"Wandering Carnival": "さすらいカーニバル",
+			"The Last City": "最後の街"
 		},
 		"notification-types": {
 			"0": "デイリー更新",

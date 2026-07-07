@@ -2,6 +2,7 @@
 	"general": {
 		"asset-image-invalid": "",
 		"support-server": "",
+		"website-description": "",
 		"show": "",
 		"hide": "",
 		"infographic": "Đồ họa thông tin",
@@ -53,6 +54,7 @@
 			"Trial of Earth": "Thử Thách Đất",
 			"Trial of Air": "Thử Thách Không Khí",
 			"Trial of Fire": "Thử Thách Lửa",
+			"Cave of Prophecies": "Hang Bình Minh",
 			"Prairie Rest": "Trạm Nghỉ Thảo Nguyên",
 			"Butterfly Fields": "Cánh Đồng Bướm",
 			"Bird Nest": "Tổ Chim",
@@ -97,13 +99,16 @@
 			"Jellyfish Cove": "Vịnh Sứa",
 			"Crescent Oasis": "Ốc Đảo Trăng Khuyết",
 			"Moominvalley": "Moominvalley",
+			"Fractured Lantern Storage": "Kho Đèn Rạn Nứt",
 			"Gate of Eden": "Cổng Địa Đàng",
 			"Path of Eden": "Con Đường Địa Đàng",
 			"Eye of Eden": "Mắt Địa Đàng",
 			"The Passage": "Hành Lang",
 			"Ancient Memory": "Ký ức Cổ xưa",
+			"The Void of Shattering": "Tinh thể Tan vỡ",
 			"Aviary Village": "Làng Chuồng Chim",
-			"Wandering Carnival": "Lễ Hội Lưu Động"
+			"Wandering Carnival": "Lễ Hội Lưu Động",
+			"The Last City": "Thành Phố Cuối Cùng"
 		},
 		"notification-types": {
 			"0": "",
