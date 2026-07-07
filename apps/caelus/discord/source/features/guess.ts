@@ -41,7 +41,11 @@ import {
 	isChatInputCommand,
 	shuffle,
 } from "../utility/functions.js";
-import { EVENT_COSMETIC_EMOJIS, SPIRIT_COSMETIC_EMOJIS } from "../utility/guess.js";
+import {
+	EVENT_COSMETIC_EMOJIS,
+	GUESSABLE_SPIRIT_IDS,
+	SPIRIT_COSMETIC_EMOJIS,
+} from "../utility/guess.js";
 import { noSkyProfileName } from "./sky-profile.js";
 
 const GUESS_RANK_RAW =
@@ -252,12 +256,18 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 			options.set(option, t(`spirits.${option}`, { lng: locale, ns: "general" }));
 		}
 	} else {
-		// Collect spirits from the same realm or season.
-		const filtered = KINGDOM.groupFor(answerSpiritId)!;
+		const filtered = KINGDOM.groupFor(answerSpiritId)!.filter((spirit) =>
+			GUESSABLE_SPIRIT_IDS.has(spirit.id),
+		);
 
-		while (options.size < 3) {
+		while (options.size < Math.min(3, filtered.size)) {
 			const { id } = filtered.random()!;
 			options.set(id, t(`spirits.${id}`, { lng: locale, ns: "general" }));
+		}
+
+		while (options.size < 3) {
+			const option = SPIRIT_COSMETIC_EMOJIS.random()!;
+			options.set(option, t(`spirits.${option}`, { lng: locale, ns: "general" }));
 		}
 	}
 

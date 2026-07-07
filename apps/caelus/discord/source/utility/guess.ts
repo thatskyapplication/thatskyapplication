@@ -64,6 +64,10 @@ for (const spirit of spirits().values()) {
 export const SPIRIT_COSMETIC_EMOJIS: ReadonlyCollection<Snowflake, SpiritIds> =
 	spiritCosmeticEmojis;
 
+export const GUESSABLE_SPIRIT_IDS: ReadonlySet<SpiritIds> = new Set(
+	SPIRIT_COSMETIC_EMOJIS.values(),
+);
+
 const eventCosmeticEmojis = new Collection<Snowflake, EventIds>();
 
 for (const event of skyEvents().values()) {
