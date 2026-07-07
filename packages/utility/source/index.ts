@@ -32,7 +32,6 @@ export {
 	MAXIMUM_ASSET_SIZE,
 } from "./assets.js";
 export {
-	type CataloguePacket,
 	type CatalogueProgress,
 	CLOTHING_SHOP,
 	catalogueComplete,
@@ -48,8 +47,8 @@ export {
 	SECRET_AREA,
 	STARTER_PACKS,
 } from "./catalogue.js";
-export type { ChecklistPacket, ChecklistSetData } from "./checklist.js";
-export { checklistResetPayload } from "./checklist.js";
+export type { ChecklistSetData } from "./checklist.js";
+export { checklistRefresh, checklistResetPayload } from "./checklist.js";
 export { Cosmetic, CosmeticCommon, CosmeticPackName, WING_BUFFS } from "./cosmetics.js";
 export { COUNTRY_VALUES, Country, CountryToEmoji, isCountry } from "./country.js";
 export {
@@ -57,17 +56,16 @@ export {
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
 	type DailyGuidesDaysCountItem,
-	type DailyGuidesDistributionPacket,
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
-	type DailyGuidesPacket,
 	type DailyQuests,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	isDailyQuest,
 	sortDaysCountItems,
 } from "./daily-guides.js";
-export { type BlueskyWebhooksPacket, Table } from "./database.js";
+export type { Packet } from "./database/index.js";
+export type { DB } from "./database/schema.js";
 export { epochSeconds, isActive, isDuring, skyDate, skyNow, skyToday, TIME_ZONE } from "./dates.js";
 export {
 	type Emoji,
@@ -85,7 +83,6 @@ export {
 } from "./events/index.js";
 export { DOUBLE_HEART_EVENTS, RADIANCE_EVENTS } from "./events/miscellaneous.js";
 export {
-	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
 	isFriendshipActionType,
@@ -111,20 +108,20 @@ export {
 	TEXT_COLOUR,
 } from "./friendship-tree.js";
 export {
+	GUESS_RANK_SQL,
 	GUESS_TYPE_VALUES,
-	type GuessPacket,
 	GuessType,
 	type GuessTypes,
-	type GuessUserRanking,
 } from "./guess.js";
 export {
 	DELETED_USER_TEXT,
-	type HeartHistoryPacket,
-	type HeartPacket,
+	heartHistory,
+	heartHistoryTotal,
 	MAXIMUM_HEARTS_PER_DAY,
 	SKY_PROFILE_MISSING_NAME_SOURCE_VALUES,
 	SkyProfileMissingNameSource,
 	type SkyProfileMissingNameSources,
+	totalHearts,
 } from "./heart.js";
 export {
 	AreaName,
@@ -185,7 +182,6 @@ export {
 export {
 	NOTIFICATION_TYPE_VALUES,
 	NotificationOffsetToMaximumValues,
-	type NotificationPacket,
 	NotificationType,
 	type NotificationTypes,
 } from "./notifications.js";
@@ -222,6 +218,7 @@ export {
 } from "./season.js";
 export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
 export {
+	fetchSkyProfileWithFlags,
 	isSkyProfilePersonalityType,
 	SKY_PROFILE_EDIT_TYPE_VALUES,
 	SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH,
@@ -233,14 +230,12 @@ export {
 	type SkyProfileData,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
-	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 } from "./sky-profile.js";
 export type { Snowflake } from "./types/index.js";
-export type { UsersPacket } from "./users.js";
 export { EventId, type EventIds, isEventId } from "./utility/event.js";
 export {
 	type CostEntry,

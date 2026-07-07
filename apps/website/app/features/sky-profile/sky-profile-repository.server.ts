@@ -1,5 +1,4 @@
-import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
-import pg from "~/pg.server";
+import database from "~/database.server";
 
 const SKY_PROFILE_EDITOR_COLUMNS = [
 	"icon",
@@ -18,12 +17,13 @@ const SKY_PROFILE_EDITOR_COLUMNS = [
 ] as const;
 
 export function getSkyProfilePacket(userId: string) {
-	return pg<SkyProfilePacket>(Table.SkyProfiles)
-		.select(...SKY_PROFILE_EDITOR_COLUMNS)
-		.where({ user_id: userId })
-		.first();
+	return database
+		.selectFrom("sky_profiles")
+		.select(SKY_PROFILE_EDITOR_COLUMNS)
+		.where("user_id", "=", userId)
+		.executeTakeFirst();
 }
 
 export function publicProfilesQuery() {
-	return pg<SkyProfilePacket>(Table.SkyProfiles).whereNotNull("name");
+	return database.selectFrom("sky_profiles").where("name", "is not", null);
 }

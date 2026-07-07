@@ -1,10 +1,10 @@
-import type { NotificationPacket } from "@thatskyapplication/utility";
+import type { Packet } from "@thatskyapplication/utility";
 
 export class NotificationError extends Error {
 	public override readonly name = this.constructor.name;
 
 	public readonly data: Pick<
-		NotificationPacket & {
+		Packet<"notifications"> & {
 			channel_id: string;
 			role_id: string;
 		},
@@ -15,7 +15,7 @@ export class NotificationError extends Error {
 
 	public constructor(
 		data: Pick<
-			NotificationPacket & {
+			Packet<"notifications"> & {
 				channel_id: string;
 				role_id: string;
 			},

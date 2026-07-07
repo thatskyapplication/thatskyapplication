@@ -1,14 +1,14 @@
-import type { BlueskyWebhooksPacket } from "@thatskyapplication/utility";
+import type { Packet } from "@thatskyapplication/utility";
 
 export class WebhookExecuteError extends Error {
-	public readonly webhook: Pick<BlueskyWebhooksPacket, "webhook_id" | "webhook_token">;
+	public readonly webhook: Pick<Packet<"bluesky_webhooks">, "webhook_id" | "webhook_token">;
 
 	public override readonly name = this.constructor.name;
 
 	public override readonly cause: unknown;
 
 	public constructor(
-		webhook: Pick<BlueskyWebhooksPacket, "webhook_id" | "webhook_token">,
+		webhook: Pick<Packet<"bluesky_webhooks">, "webhook_id" | "webhook_token">,
 		error: unknown,
 	) {
 		super(`Failed to execute webhook ${webhook.webhook_id}.`);

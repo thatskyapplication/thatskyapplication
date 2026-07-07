@@ -19,7 +19,6 @@ import {
 	ko,
 	MAINTENANCE_PERIODS,
 	NotificationOffsetToMaximumValues,
-	type NotificationPacket,
 	NotificationType,
 	type NotificationTypes,
 	ptBR,
@@ -32,7 +31,6 @@ import {
 	skyNow,
 	skyUpcomingEvents,
 	skyUpcomingSeason,
-	Table,
 	TIME_ZONE,
 	TRAVELLING_DATES,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
@@ -43,8 +41,8 @@ import {
 } from "@thatskyapplication/utility";
 import { Cron } from "croner";
 import { init, t } from "i18next";
+import database from "./database.js";
 import { NotificationError } from "./models/notification-error.js";
-import { pg } from "./pg.js";
 import pino from "./pino.js";
 import { DISCORD_TOKEN } from "./utility/configuration.js";
 import {
@@ -531,15 +529,16 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 
 		const notificationsSettled = await Promise.allSettled(
 			(
-				await pg<NotificationPacket & { channel_id: string; role_id: string }>(Table.Notifications)
-					.select("guild_id", "type", "channel_id", "role_id", "locale")
-					.where({
-						type,
-						offset: timeUntilStart,
-						sendable: true,
-					})
-					.and.whereNotNull("channel_id")
-					.and.whereNotNull("role_id")
+				await database
+					.selectFrom("notifications")
+					.select(["guild_id", "type", "channel_id", "role_id", "locale"])
+					.where("type", "=", type)
+					.where("offset", "=", timeUntilStart)
+					.where("sendable", "=", true)
+					.where("channel_id", "is not", null)
+					.where("role_id", "is not", null)
+					.$narrowType<{ channel_id: string; role_id: string }>()
+					.execute()
 			).map(async (notificationPacket) => {
 				const key = timeUntilStart === 0 ? "now" : "future";
 
@@ -662,10 +661,12 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					reason.cause.code === RESTJSONErrorCodes.MissingPermissions)
 			) {
 				updateErrors.push(
-					pg<NotificationPacket>(Table.Notifications).update({ sendable: false }).where({
-						guild_id: reason.data.guild_id,
-						type: reason.data.type,
-					}),
+					database
+						.updateTable("notifications")
+						.set({ sendable: false })
+						.where("guild_id", "=", reason.data.guild_id)
+						.where("type", "=", reason.data.type)
+						.execute(),
 				);
 			} else {
 				refinedErrors.push(reason);

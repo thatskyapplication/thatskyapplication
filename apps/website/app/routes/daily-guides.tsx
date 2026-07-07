@@ -1,7 +1,6 @@
 import {
 	communityUpcomingEvents,
 	type DailyGuidesDaysCountItem,
-	type DailyGuidesPacket,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
 	DOUBLE_HEART_EVENTS,
@@ -16,7 +15,6 @@ import {
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	sortDaysCountItems,
-	Table,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
@@ -30,10 +28,10 @@ import type { HeadersArgs } from "react-router";
 import { data, Link } from "react-router";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
+import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
-import pg from "~/pg.server";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import {
@@ -93,7 +91,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
-	const dailyGuides = await pg<DailyGuidesPacket>(Table.DailyGuides);
+	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
 	const timeZone = await getPreferredTimeZone(request);
 	const initialTimestamp = Date.now();
 	const shard = shardEruption();

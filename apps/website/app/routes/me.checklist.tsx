@@ -1,13 +1,12 @@
 import {
 	AreaName,
-	type ChecklistPacket,
 	type ChecklistSetData,
+	checklistRefresh,
 	checklistResetPayload,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
-	Table,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
@@ -16,9 +15,9 @@ import { useTranslation } from "react-i18next";
 import { Form, Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
+import database from "~/database.server";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
-import pg from "~/pg.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 import type { Route } from "./+types/me.checklist.js";
@@ -42,31 +41,19 @@ const CHECKLIST_COMPLETE_LABEL_CLASS = "text-green-800 line-through dark:text-gr
 const CHECKLIST_INCOMPLETE_LABEL_CLASS = "text-gray-900 dark:text-gray-100" as const;
 const CHECKLIST_UNAVAILABLE_LABEL_CLASS = "text-gray-400 dark:text-gray-600" as const;
 
-async function checklistRefresh(checklistPacket: ChecklistPacket) {
-	const payload = checklistResetPayload(checklistPacket.last_updated_at, new Date());
-
-	if (Object.keys(payload).length === 1) {
-		return;
-	}
-
-	const [updatedChecklistPacket] = await pg<ChecklistPacket>(Table.Checklist)
-		.update(payload, "*")
-		.where({ user_id: checklistPacket.user_id });
-
-	return updatedChecklistPacket!;
-}
-
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 
-	let checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
-		.where({ user_id: discordUser.id })
-		.first();
+	let checklistPacket = await database
+		.selectFrom("checklist")
+		.selectAll()
+		.where("user_id", "=", discordUser.id)
+		.executeTakeFirst();
 
 	if (checklistPacket) {
-		const updatedChecklistPacket = await checklistRefresh(checklistPacket);
+		const updatedChecklistPacket = await checklistRefresh(database, checklistPacket);
 
 		if (updatedChecklistPacket) {
 			checklistPacket = updatedChecklistPacket;
@@ -104,9 +91,11 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 	const shardEruptions = formData.get("shard_eruptions");
 	const eventTickets = formData.get("event_tickets");
 
-	const checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
-		.where({ user_id: discordUser.id })
-		.first();
+	const checklistPacket = await database
+		.selectFrom("checklist")
+		.selectAll()
+		.where("user_id", "=", discordUser.id)
+		.executeTakeFirst();
 
 	const payload: ChecklistSetData = checklistPacket
 		? checklistResetPayload(checklistPacket.last_updated_at, new Date())
@@ -132,10 +121,11 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 		payload.event_tickets = eventTickets === "0";
 	}
 
-	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({ user_id: discordUser.id, ...payload })
-		.onConflict("user_id")
-		.merge();
+	await database
+		.insertInto("checklist")
+		.values({ user_id: discordUser.id, ...payload })
+		.onConflict((oc) => oc.column("user_id").doUpdateSet(payload))
+		.execute();
 	return;
 };
 

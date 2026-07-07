@@ -1,8 +1,7 @@
 import { GatewayDispatchEvents, RESTJSONErrorCodes } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { Table, type UsersPacket } from "@thatskyapplication/utility";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_GUILD_ID, SUPPORTER_ROLE_ID } from "../utility/configuration.js";
 import type { Event } from "./index.js";
@@ -14,9 +13,11 @@ export default {
 	async fire({ data }) {
 		if (data.user_id) {
 			try {
-				await pg<UsersPacket>(Table.Users)
-					.update({ supporter: false })
-					.where({ discord_user_id: data.user_id });
+				await database
+					.updateTable("users")
+					.set({ supporter: false })
+					.where("discord_user_id", "=", data.user_id)
+					.execute();
 
 				await client.api.guilds.removeRoleFromMember(
 					SUPPORT_SERVER_GUILD_ID,

@@ -1,13 +1,3 @@
-export interface NotificationPacket {
-	guild_id: string;
-	type: number;
-	channel_id: string | null;
-	role_id: string | null;
-	offset: number | null;
-	sendable: boolean;
-	locale: string;
-}
-
 export const NotificationType = {
 	DailyReset: 0,
 	EyeOfEden: 1,

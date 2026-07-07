@@ -6,6 +6,7 @@ import {
 	cataloguePercentage,
 	catalogueProgress,
 	computeMaximumWingedLight,
+	fetchSkyProfileWithFlags,
 	GuessType,
 	isCountry,
 	isSkyProfilePersonalityType,
@@ -14,7 +15,6 @@ import {
 	SkyProfileEditType,
 	SkyProfilePersonalityToMBTI,
 	SkyProfileWingedLightType,
-	Table,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
@@ -38,12 +38,12 @@ import { SeasonEmojiBadges } from "~/components/SeasonEmojiBadges.js";
 import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { Tooltip } from "~/components/Tooltip";
+import database from "~/database.server";
 import {
 	findGuessUserRanking,
 	getSkyProfileCatalogueData,
 } from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCDN } from "~/hooks/use-cdn-url.js";
-import pg from "~/pg.server";
 import { getSession } from "~/session.server";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
@@ -161,12 +161,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 	const session = await getSession(request.headers.get("Cookie"));
 	const discordUser = session.get("discord_user") ?? null;
 
-	const data = await pg
-		.select<SkyProfileData>("p.*", "u.translator", "u.supporter", "u.artist")
-		.from(`${Table.SkyProfiles} as p`)
-		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
-		.where("p.user_id", userId)
-		.first();
+	const data = await fetchSkyProfileWithFlags(database, userId);
 
 	if (!data) {
 		throw new Response(null, { status: 404 });

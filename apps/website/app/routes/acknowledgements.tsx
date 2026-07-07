@@ -1,10 +1,10 @@
-import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplication/utility";
+import { CDN, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
 import { data, type HeadersArgs, Link } from "react-router";
 import { AcknowledgementSocialLinks } from "~/components/AcknowledgementSocialLinks";
 import { SitePage } from "~/components/PageLayout";
+import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
-import pg from "~/pg.server";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import {
 	APPLICATION_NAME,
@@ -20,7 +20,7 @@ import type { Route } from "./+types/acknowledgements.js";
 const ACKNOWLEDGEMENTS_TITLE = "Acknowledgements" as const;
 const ACKNOWLEDGEMENTS_DESCRIPTION = "The Sky kids that make everything you see possible." as const;
 
-type AcknowledgementProfile = SkyProfilePacket & { name: string };
+type AcknowledgementProfile = Packet<"sky_profiles"> & { name: string };
 
 export const meta: Route.MetaFunction = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
@@ -51,18 +51,23 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 };
 
 export const loader = async () => {
-	const { rows } = await pg.raw<{ rows: readonly AcknowledgementProfile[] }>(
-		`
-			select ${Table.SkyProfiles}.*
-			from (
-				select distinct unnest(${Table.FriendshipActions}.users) as user_id
-				from ${Table.FriendshipActions}
-			) unique_users
-			join ${Table.SkyProfiles} on ${Table.SkyProfiles}.user_id = unique_users.user_id
-			where ${Table.SkyProfiles}.name is not null
-			order by ${Table.SkyProfiles}.name asc, ${Table.SkyProfiles}.user_id asc
-		`,
-	);
+	const rows = await database
+		.selectFrom("sky_profiles")
+		.innerJoin(
+			(eb) =>
+				eb
+					.selectFrom("friendship_actions")
+					.select(({ fn }) => fn<string>("unnest", ["friendship_actions.users"]).as("user_id"))
+					.distinct()
+					.as("unique_users"),
+			(join) => join.onRef("unique_users.user_id", "=", "sky_profiles.user_id"),
+		)
+		.selectAll("sky_profiles")
+		.where("sky_profiles.name", "is not", null)
+		.$narrowType<AcknowledgementProfile>()
+		.orderBy("sky_profiles.name", "asc")
+		.orderBy("sky_profiles.user_id", "asc")
+		.execute();
 
 	return data(rows, {
 		headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" },

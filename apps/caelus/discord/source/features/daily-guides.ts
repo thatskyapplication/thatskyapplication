@@ -29,17 +29,14 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	communityUpcomingEvents,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	DAILY_QUEST_VALUES,
 	type DailyGuidesDaysCountItem,
-	type DailyGuidesDistributionPacket,
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
-	type DailyGuidesPacket,
 	type DailyQuests,
 	DailyQuestToAcknowledgement,
 	DailyQuestToInfographicURL,
@@ -50,6 +47,7 @@ import {
 	isDailyQuest,
 	MAINTENANCE_PERIODS,
 	MAXIMUM_ASSET_BANNER_DIMENSION,
+	type Packet,
 	RADIANCE_EVENTS,
 	resolveCurrencyEmoji,
 	shardEruption,
@@ -60,7 +58,6 @@ import {
 	skyToday,
 	skyUpcomingSeason,
 	sortDaysCountItems,
-	Table,
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
@@ -68,14 +65,13 @@ import {
 import { t } from "i18next";
 import pQueue from "p-queue";
 import { GUILD_CACHE } from "../caches/guilds.js";
+import database from "../database.js";
 import { client } from "../discord.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
-import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
-import type { NonNullableInterface } from "../types/index.js";
 import { processUploadedImage } from "../utility/assets.js";
 import {
 	APPLICATION_ID,
@@ -106,6 +102,7 @@ import {
 	formatArrayErrors,
 	isThreadChannelType,
 	notInCachedGuildResponse,
+	snowflakeDate,
 	userTag,
 	validateImageAttachment,
 } from "../utility/functions.js";
@@ -116,8 +113,8 @@ import {
 	shardEruptionTimestampsString,
 } from "../utility/shard-eruption.js";
 
-type DailyGuidesSetData = Partial<DailyGuidesPacket> &
-	Pick<DailyGuidesPacket, "last_updated_user_id" | "last_updated_at">;
+type DailyGuidesSetData = Partial<Packet<"daily_guides">> &
+	Pick<Packet<"daily_guides">, "last_updated_user_id" | "last_updated_at">;
 
 type DailyGuidesDistributionAllowedChannel =
 	| Extract<
@@ -184,18 +181,20 @@ export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTo
 }
 
 async function fetchDailyGuides() {
-	const dailyQuests = await pg<DailyGuidesPacket>(Table.DailyGuides).first();
+	const dailyQuests = await database.selectFrom("daily_guides").selectAll().executeTakeFirst();
 
 	if (dailyQuests) {
 		return dailyQuests;
 	}
 
 	// Use column defaults.
-	const [insertedDailyQuests] = await pg<DailyGuidesPacket>(Table.DailyGuides)
-		.insert({})
-		.returning("*");
+	const insertedDailyQuests = await database
+		.insertInto("daily_guides")
+		.defaultValues()
+		.returningAll()
+		.executeTakeFirstOrThrow();
 
-	return insertedDailyQuests!;
+	return insertedDailyQuests;
 }
 
 interface DailyGuidesResetOptions {
@@ -218,7 +217,7 @@ export async function resetDailyGuides({ user, lastUpdatedAt }: DailyGuidesReset
 }
 
 async function updateDailyGuides(data: DailyGuidesSetData) {
-	await pg<DailyGuidesPacket>(Table.DailyGuides).update(data);
+	await database.updateTable("daily_guides").set(data).execute();
 }
 
 function isDailyGuidesDistributionChannel(
@@ -317,15 +316,15 @@ interface DailyGuidesSetupOptions {
 	type?: DailyGuidesDistributionTypes;
 }
 
-type DailyGuidesSetupPayload = Pick<DailyGuidesDistributionPacket, "guild_id"> &
-	Partial<Pick<DailyGuidesDistributionPacket, "type" | "channel_id" | "message_id">>;
+type DailyGuidesSetupPayload = Pick<Packet<"daily_guides_distribution">, "guild_id"> &
+	Partial<Pick<Packet<"daily_guides_distribution">, "type" | "channel_id" | "message_id">>;
 
 async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
-	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
-		Table.DailyGuidesDistribution,
-	)
-		.where({ guild_id: guildId })
-		.first();
+	const dailyGuidesDistributionPacket = await database
+		.selectFrom("daily_guides_distribution")
+		.selectAll()
+		.where("guild_id", "=", guildId)
+		.executeTakeFirst();
 
 	const channelChanged =
 		channelId !== undefined && dailyGuidesDistributionPacket?.channel_id !== channelId;
@@ -359,12 +358,21 @@ async function setup({ guildId, channelId, type }: DailyGuidesSetupOptions) {
 			messageId = null;
 		}
 
-		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
-			.update(updateData)
-			.where({ guild_id: guildId });
+		await database
+			.updateTable("daily_guides_distribution")
+			.set(updateData)
+			.where("guild_id", "=", guildId)
+			.execute();
 	} else {
-		updateData.type = DailyGuidesDistributionType.Compact;
-		await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).insert(updateData);
+		await database
+			.insertInto("daily_guides_distribution")
+			.values({
+				guild_id: guildId,
+				type: DailyGuidesDistributionType.Compact,
+				channel_id: updateData.channel_id ?? null,
+				message_id: null,
+			})
+			.execute();
 	}
 
 	if (targetChannelId && (channelChanged || typeChanged)) {
@@ -385,12 +393,11 @@ export async function setupResponse(
 	guild: Guild,
 	locale: Locale,
 ): Promise<APIInteractionResponseCallbackData> {
-	const dailyGuidesDistributionPacket = await pg<DailyGuidesDistributionPacket>(
-		Table.DailyGuidesDistribution,
-	)
-		.select("channel_id", "type")
-		.where({ guild_id: guild.id })
-		.first();
+	const dailyGuidesDistributionPacket = await database
+		.selectFrom("daily_guides_distribution")
+		.select(["channel_id", "type"])
+		.where("guild_id", "=", guild.id)
+		.executeTakeFirst();
 
 	const channelId = dailyGuidesDistributionPacket?.channel_id;
 	const type = dailyGuidesDistributionPacket?.type ?? DailyGuidesDistributionType.Compact;
@@ -601,16 +608,8 @@ export async function dailyGuidesSetupType(
 }
 
 export async function resetDailyGuidesDistribution() {
-	await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution).update({
-		message_id: null,
-	});
+	await database.updateTable("daily_guides_distribution").set({ message_id: null }).execute();
 }
-
-// export async function deleteDailyGuidesDistribution(guildId: Snowflake) {
-// 	await pg<DailyGuidesDistributionPacket>(Table.DailyGuidesDistribution)
-// 		.delete()
-// 		.where({ guild_id: guildId });
-// }
 
 interface DailyGuidesSendOptions {
 	guildId: Snowflake;
@@ -668,12 +667,12 @@ async function send({ guildId, type, channelId, messageId, enforceNonce }: Daily
 		nonce: guildId,
 	});
 
-	const [newDailyGuidesDistributionPacket] = await pg<DailyGuidesDistributionPacket>(
-		Table.DailyGuidesDistribution,
-	)
-		.update({ message_id: id })
-		.where({ guild_id: guildId })
-		.returning("*");
+	const newDailyGuidesDistributionPacket = await database
+		.updateTable("daily_guides_distribution")
+		.set({ message_id: id })
+		.where("guild_id", "=", guildId)
+		.returningAll()
+		.executeTakeFirst();
 
 	return newDailyGuidesDistributionPacket;
 }
@@ -1327,10 +1326,12 @@ async function distributeLogic({
 		last_updated_at: lastUpdatedAt,
 	});
 
-	const dailyGuidesDistributionPackets = await pg<
-		DailyGuidesDistributionPacket &
-			NonNullableInterface<Pick<DailyGuidesDistributionPacket, "channel_id">>
-	>(Table.DailyGuidesDistribution).whereNotNull("channel_id");
+	const dailyGuidesDistributionPackets = await database
+		.selectFrom("daily_guides_distribution")
+		.selectAll()
+		.where("channel_id", "is not", null)
+		.$narrowType<{ channel_id: string }>()
+		.execute();
 
 	const settled = await Promise.allSettled(
 		dailyGuidesDistributionPackets.map((dailyGuidesDistributionPacket) =>
@@ -1687,7 +1688,7 @@ export async function handleDistributeButton(
 	await distribute({
 		user: interaction.member.user,
 		lastUpdatedUserId: interaction.member.user.id,
-		lastUpdatedAt: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+		lastUpdatedAt: snowflakeDate(interaction.id),
 	});
 
 	await interactive(interaction, { type: InteractiveType.Distributed, locale });
@@ -1762,7 +1763,7 @@ export async function set(
 
 	const data: DailyGuidesSetData = {
 		last_updated_user_id: interaction.member.user.id,
-		last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+		last_updated_at: snowflakeDate(interaction.id),
 	};
 
 	if (newTravellingRock) {
@@ -1851,7 +1852,7 @@ export async function questsReorder(
 
 	const data: DailyGuidesSetData = {
 		last_updated_user_id: interaction.member.user.id,
-		last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+		last_updated_at: snowflakeDate(interaction.id),
 	};
 
 	data.quest1 = isDailyQuest(newQuest1) ? newQuest1 : null;

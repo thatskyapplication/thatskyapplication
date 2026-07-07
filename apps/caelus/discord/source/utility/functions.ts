@@ -23,6 +23,7 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { ALLOWED_IMAGE_MEDIA_TYPES, MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { diffJson } from "diff";
 import { t } from "i18next";
@@ -31,6 +32,10 @@ import type { GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import { APPLICATION_INVITE_URL, SUPPORT_SERVER_INVITE_URL } from "./configuration.js";
 import { MARKDOWN_ESCAPE_REGEX, SKY_PROFILES_URL } from "./constants.js";
+
+export function snowflakeDate(snowflake: Snowflake): Date {
+	return new Date(DiscordSnowflake.timestampFrom(snowflake));
+}
 
 export function chatInputApplicationCommandMention(
 	id: Snowflake,

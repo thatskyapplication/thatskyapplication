@@ -4,11 +4,9 @@ import type { Snowflake } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
 import {
 	CDN,
-	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
 	isFriendshipActionType,
-	Table,
 } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { ArrowLeft, Check, ExternalLinkIcon, Upload } from "lucide-react";
@@ -17,8 +15,8 @@ import { data, Form, Link, useNavigation } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
 import { CDN_BUCKET, CDN_URL, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
+import database from "~/database.server.js";
 import discord from "~/discord.js";
-import pg from "~/pg.server.js";
 import pino from "~/pino.js";
 import S3Client from "~/s3-client.server.js";
 import { requireAdminAccess } from "~/utility/functions.server.js";
@@ -233,24 +231,26 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 	const validatedUpload = validatedAsset as { buffer: Buffer; square: boolean };
 
 	try {
-		const { maxId } = await pg<FriendshipActionsPacket>(Table.FriendshipActions)
-			.where({ type: friendshipActionType })
-			.max({ maxId: "id" })
-			.first<{ maxId: number | null }>();
+		const { maxId } = await database
+			.selectFrom("friendship_actions")
+			.select((eb) => eb.fn.max("id").as("maxId"))
+			.where("type", "=", friendshipActionType)
+			.executeTakeFirstOrThrow();
 
 		const nextId = (maxId ?? 0) + 1;
 
-		const rows = await pg<FriendshipActionsPacket>(Table.FriendshipActions).insert(
-			{
+		const row = await database
+			.insertInto("friendship_actions")
+			.values({
 				id: nextId,
 				type: friendshipActionType,
-				users: validatedUserIds,
+				users: [...validatedUserIds],
 				square: validatedUpload.square,
 				skip: false,
 				reference,
-			},
-			"*",
-		);
+			})
+			.returningAll()
+			.executeTakeFirstOrThrow();
 
 		try {
 			await S3Client.send(
@@ -264,9 +264,11 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 			);
 		} catch (error) {
 			try {
-				await pg<FriendshipActionsPacket>(Table.FriendshipActions)
-					.delete()
-					.where({ id: nextId, type: friendshipActionType });
+				await database
+					.deleteFrom("friendship_actions")
+					.where("id", "=", nextId)
+					.where("type", "=", friendshipActionType)
+					.execute();
 			} catch (error) {
 				pino.error(
 					error,
@@ -277,13 +279,11 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 			throw error;
 		}
 
-		const row = rows[0]!;
-
 		const upload: SuccessfulUpload = {
 			id: row.id,
 			type: friendshipActionType,
 			users: row.users,
-			reference: row.reference,
+			reference,
 			assetURL: cdn.FriendshipActionTypeToURL[friendshipActionType](row.id),
 		};
 

@@ -4,16 +4,9 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import type {
-	CataloguePacket,
-	GuessPacket,
-	HeartPacket,
-	UsersPacket,
-} from "@thatskyapplication/utility";
-import { type ChecklistPacket, Table } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import pino from "../pino.js";
 import {
 	SUPPORT_SERVER_GUILD_ID,
@@ -28,18 +21,24 @@ export async function deleteUserData(interaction: APIMessageComponentButtonInter
 	const invoker = interactionInvoker(interaction);
 	const userId = invoker.id;
 
-	const promises = [
-		pg<CataloguePacket>(Table.Catalogue).delete().where({ user_id: userId }),
-		pg<ChecklistPacket>(Table.Checklist).delete().where({ user_id: userId }),
-		pg<HeartPacket>(Table.Hearts).update({ user_id: null }).where({ user_id: userId }),
-		pg<HeartPacket>(Table.Hearts).update({ giftee_id: null }).where({ giftee_id: userId }),
-		pg<GuessPacket>(Table.Guess).delete().where({ user_id: userId }),
-		skyProfileDelete(userId),
-		pg<UsersPacket>(Table.Users).delete().where({ discord_user_id: userId }),
-	];
-
 	try {
-		await Promise.all(promises);
+		await database.transaction().execute(async (transaction) => {
+			await transaction.deleteFrom("catalogue").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("checklist").where("user_id", "=", userId).execute();
+			await transaction
+				.updateTable("hearts")
+				.set({ user_id: null })
+				.where("user_id", "=", userId)
+				.execute();
+			await transaction
+				.updateTable("hearts")
+				.set({ giftee_id: null })
+				.where("giftee_id", "=", userId)
+				.execute();
+			await transaction.deleteFrom("guess").where("user_id", "=", userId).execute();
+			await transaction.deleteFrom("users").where("discord_user_id", "=", userId).execute();
+			await skyProfileDelete(userId, transaction);
+		});
 
 		try {
 			await client.api.guilds.removeRoleFromMember(

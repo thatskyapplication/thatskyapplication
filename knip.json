@@ -1,7 +1,7 @@
 {
 	"$schema": "node_modules/knip/schema.json",
 	"ignoreBinaries": ["pre-commit"],
-	"ignoreDependencies": ["@types/*", "pg"],
+	"ignore": ["packages/utility/source/database/schema.ts"],
 	"workspaces": {
 		"apps/{notifications,socials}": {
 			"entry": "source/sentry.ts"

@@ -19,17 +19,16 @@ import {
 	formatEmoji,
 	NOTIFICATION_TYPE_VALUES,
 	NotificationOffsetToMaximumValues,
-	type NotificationPacket,
 	type NotificationTypes,
-	Table,
+	type Packet,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
+import database from "../database.js";
 import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { Role } from "../models/discord/role.js";
-import pg from "../pg.js";
 import pino from "../pino.js";
 import { NOTIFICATION_CHANNEL_TYPES } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
@@ -132,16 +131,18 @@ interface NotificationsSetupOptions {
 }
 
 type NotificationsSetupPayload = Pick<
-	NotificationPacket,
+	Packet<"notifications">,
 	"guild_id" | "type" | "sendable" | "locale"
 > &
-	Partial<Pick<NotificationPacket, "channel_id" | "role_id" | "offset">>;
+	Partial<Pick<Packet<"notifications">, "channel_id" | "role_id" | "offset">>;
 
 async function setup({ guild, type, channelId, roleId, offset }: NotificationsSetupOptions) {
-	const notificationPacket = await pg<NotificationPacket>(Table.Notifications)
-		.select("channel_id", "role_id", "offset")
-		.where({ guild_id: guild.id, type })
-		.first();
+	const notificationPacket = await database
+		.selectFrom("notifications")
+		.select(["channel_id", "role_id", "offset"])
+		.where("guild_id", "=", guild.id)
+		.where("type", "=", type)
+		.executeTakeFirst();
 
 	const payload: NotificationsSetupPayload = {
 		guild_id: guild.id,
@@ -156,30 +157,30 @@ async function setup({ guild, type, channelId, roleId, offset }: NotificationsSe
 		locale: guild.preferredLocale,
 	};
 
-	const merge: (keyof Pick<
-		NotificationsSetupPayload,
-		"channel_id" | "role_id" | "offset" | "sendable"
-	>)[] = ["sendable"];
-
 	if (channelId !== undefined) {
 		payload.channel_id = channelId;
-		merge.push("channel_id");
 	}
 
 	if (roleId !== undefined) {
 		payload.role_id = roleId;
-		merge.push("role_id");
 	}
 
 	if (offset !== undefined) {
 		payload.offset = offset;
-		merge.push("offset");
 	}
 
-	await pg<NotificationPacket>(Table.Notifications)
-		.insert(payload)
-		.onConflict(["guild_id", "type"])
-		.merge(merge);
+	await database
+		.insertInto("notifications")
+		.values(payload)
+		.onConflict((oc) =>
+			oc.columns(["guild_id", "type"]).doUpdateSet((eb) => ({
+				sendable: eb.ref("excluded.sendable"),
+				...("channel_id" in payload && { channel_id: eb.ref("excluded.channel_id") }),
+				...("role_id" in payload && { role_id: eb.ref("excluded.role_id") }),
+				...("offset" in payload && { offset: eb.ref("excluded.offset") }),
+			})),
+		)
+		.execute();
 }
 
 export async function setupResponse(
@@ -188,16 +189,18 @@ export async function setupResponse(
 		| APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 	guild: Guild,
 ): Promise<APIInteractionResponseCallbackData> {
-	const notificationsPackets = await pg<NotificationPacket>(Table.Notifications)
-		.select("type", "channel_id", "role_id", "offset")
-		.where({ guild_id: interaction.guild_id });
+	const notificationsPackets = await database
+		.selectFrom("notifications")
+		.select(["type", "channel_id", "role_id", "offset"])
+		.where("guild_id", "=", interaction.guild_id)
+		.execute();
 
 	const notificationsMap = notificationsPackets.reduce(
 		(notifications, notificationsPacket) =>
 			notifications.set(notificationsPacket.type as NotificationTypes, notificationsPacket),
 		new Map<
 			NotificationTypes,
-			Pick<NotificationPacket, "channel_id" | "type" | "offset" | "role_id">
+			Pick<Packet<"notifications">, "channel_id" | "type" | "offset" | "role_id">
 		>(),
 	);
 
@@ -299,10 +302,12 @@ export async function displayNotificationType(
 		throw new Error("Received an unknown notification type whilst setting up notifications.");
 	}
 
-	const notificationsPacket = await pg<NotificationPacket>(Table.Notifications)
-		.select("channel_id", "role_id", "offset")
-		.where({ guild_id: interaction.guild_id, type: notificationType })
-		.first();
+	const notificationsPacket = await database
+		.selectFrom("notifications")
+		.select(["channel_id", "role_id", "offset"])
+		.where("guild_id", "=", interaction.guild_id)
+		.where("type", "=", notificationType)
+		.executeTakeFirst();
 
 	const stringSelectMenuOptions = [];
 	const maximumOffset = NotificationOffsetToMaximumValues[notificationType];
@@ -587,16 +592,19 @@ export async function checkSendable(guildId: Snowflake) {
 		return;
 	}
 
-	const notificationPackets = await pg<NotificationPacket>(Table.Notifications)
+	const notificationPackets = await database
+		.selectFrom("notifications")
 		.select(["guild_id", "type", "channel_id", "role_id", "offset"])
-		.where({ guild_id: guildId });
+		.where("guild_id", "=", guildId)
+		.execute();
 
 	const me = await guild.fetchMe();
 
 	// Check if we can still send to all the guild's notification channels.
 	const promises = notificationPackets.map((notificationPacket) =>
-		pg<NotificationPacket>(Table.Notifications)
-			.update({
+		database
+			.updateTable("notifications")
+			.set({
 				sendable: isSendable(
 					me,
 					guild,
@@ -606,14 +614,20 @@ export async function checkSendable(guildId: Snowflake) {
 				),
 				locale: guild.preferredLocale,
 			})
-			.where({ guild_id: notificationPacket.guild_id, type: notificationPacket.type }),
+			.where("guild_id", "=", notificationPacket.guild_id)
+			.where("type", "=", notificationPacket.type)
+			.execute(),
 	);
 
 	await Promise.all(promises);
 }
 
 export async function updateLocale(guildId: Snowflake, locale: Locale) {
-	await pg<NotificationPacket>(Table.Notifications).update({ locale }).where({ guild_id: guildId });
+	await database
+		.updateTable("notifications")
+		.set({ locale })
+		.where("guild_id", "=", guildId)
+		.execute();
 }
 
 function isSendable(

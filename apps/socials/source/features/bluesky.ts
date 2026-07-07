@@ -10,16 +10,11 @@ import {
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
 import { CommitType, EventType, Jetstream } from "@skyware/jetstream";
-import {
-	type BlueskyWebhooksPacket,
-	formatEmoji,
-	Table,
-	WEBSITE_URL,
-} from "@thatskyapplication/utility";
+import { formatEmoji, WEBSITE_URL } from "@thatskyapplication/utility";
 import ws from "ws";
+import database from "../database.js";
 import { discord } from "../discord.js";
 import { WebhookExecuteError } from "../models/webbook-execute-error.js";
-import pg from "../pg.js";
 import pino from "../pino.js";
 import { MAXIMUM_IMAGE_DESCRIPTION_LIMIT } from "../utility/constants.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
@@ -54,9 +49,11 @@ jetstream.on(EventType.Commit, async (event) => {
 
 		seenPosts.set(did, event.commit.rkey);
 
-		const blueskyWebhooksPackets = await pg<BlueskyWebhooksPacket>(Table.BlueskyWebhooks)
-			.select("webhook_id", "webhook_token")
-			.where({ did });
+		const blueskyWebhooksPackets = await database
+			.selectFrom("bluesky_webhooks")
+			.select(["webhook_id", "webhook_token"])
+			.where("did", "=", did)
+			.execute();
 
 		if (blueskyWebhooksPackets.length === 0) {
 			return;
@@ -179,9 +176,10 @@ jetstream.on(EventType.Commit, async (event) => {
 				) {
 					pino.info(`Deleting unknown webhook ${reason.webhook.webhook_id}.`);
 
-					await pg<BlueskyWebhooksPacket>(Table.BlueskyWebhooks)
-						.delete()
-						.where({ webhook_id: reason.webhook.webhook_id });
+					await database
+						.deleteFrom("bluesky_webhooks")
+						.where("webhook_id", "=", reason.webhook.webhook_id)
+						.execute();
 				} else {
 					errors.push(reason);
 				}

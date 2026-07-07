@@ -28,7 +28,6 @@ import {
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	ANIMATED_HASH_PREFIX,
 	COUNTRY_VALUES,
@@ -39,7 +38,9 @@ import {
 	cataloguePercentage,
 	catalogueProgress,
 	computeMaximumWingedLight,
+	type DB,
 	type Emoji,
+	fetchSkyProfileWithFlags,
 	formatEmoji,
 	GuessType,
 	isCountry,
@@ -48,6 +49,7 @@ import {
 	MAXIMUM_ASSET_BANNER_DIMENSION,
 	MAXIMUM_ASSET_ICON_DIMENSION,
 	MAXIMUM_ASSET_SIZE,
+	type Packet,
 	PLATFORM_ID_VALUES,
 	PlatformId,
 	type PlatformIds,
@@ -66,19 +68,18 @@ import {
 	type SkyProfileEditTypes,
 	SkyProfileMissingNameSource,
 	type SkyProfileMissingNameSources,
-	type SkyProfilePacket,
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 	skySeasons,
-	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import { type Kysely, sql } from "kysely";
 import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import { cdn } from "../thatskyapplication.js";
@@ -120,6 +121,7 @@ import {
 	isValidImageAttachment,
 	resolveStringSelectMenu,
 	skyProfileWebsiteURL,
+	snowflakeDate,
 	userLogFormat,
 } from "../utility/functions.js";
 import { ModalResolver } from "../utility/modal-resolver.js";
@@ -129,13 +131,8 @@ import { fetchCatalogue } from "./catalogue.js";
 import { findUser } from "./guess.js";
 import { totalReceived } from "./heart.js";
 
-interface SkyProfileLikesPacket {
-	user_id: Snowflake;
-	target_id: Snowflake;
-}
-
-export type SkyProfileSetData = Partial<SkyProfilePacket> &
-	Pick<SkyProfilePacket, "user_id"> & {
+export type SkyProfileSetData = Partial<Packet<"sky_profiles">> &
+	Pick<Packet<"sky_profiles">, "user_id"> & {
 		country?: Country | null;
 		seasons?: readonly SeasonIds[] | null;
 		platform?: readonly PlatformIds[] | null;
@@ -198,9 +195,9 @@ const SkyProfileMissingNameSourceToDescriptionKey = {
 >;
 
 function generateProfileExplorerSelectMenuOptions(
-	skyProfilePackets: readonly SkyProfilePacket[],
+	skyProfilePackets: readonly Packet<"sky_profiles">[],
 	indexStart: number,
-	skyProfileLikesPackets?: readonly SkyProfileLikesPacket[],
+	skyProfileLikesPackets?: readonly Packet<"sky_profile_likes">[],
 ) {
 	const maximumIndex = MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT + indexStart;
 
@@ -248,12 +245,7 @@ function generateLabelLetter(label: string) {
 }
 
 async function skyProfileFetch(userId: Snowflake) {
-	return await pg
-		.select<SkyProfileData>("p.*", "u.translator", "u.supporter", "u.artist")
-		.from(`${Table.SkyProfiles} as p`)
-		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
-		.where("p.user_id", userId)
-		.first();
+	return await fetchSkyProfileWithFlags(database, userId);
 }
 
 export async function skyProfileSet(
@@ -264,10 +256,11 @@ export async function skyProfileSet(
 	data: SkyProfileSetData,
 	options: SkyProfileSetOptions = {},
 ) {
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.select("icon", "banner")
-		.where({ user_id: data.user_id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.select(["icon", "banner"])
+		.where("user_id", "=", data.user_id)
+		.executeTakeFirst();
 
 	if (skyProfilePacket) {
 		const skyProfileDeleteData = [];
@@ -291,22 +284,23 @@ export async function skyProfileSet(
 		}
 	}
 
-	const result = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.insert(
-			{
-				...data,
-				last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-			},
-			"*",
-		)
-		.onConflict("user_id")
-		.merge();
+	const values = {
+		...data,
+		last_updated_at: snowflakeDate(interaction.id),
+	};
+
+	const result = await database
+		.insertInto("sky_profiles")
+		.values(values)
+		.onConflict((oc) => oc.column("user_id").doUpdateSet(values))
+		.returningAll()
+		.executeTakeFirstOrThrow();
 
 	if (!options.hideEditResponse) {
 		await skyProfileShowEdit(interaction, options);
 	}
 
-	return result[0]!;
+	return result;
 }
 
 export async function skyProfileSetAsset(
@@ -316,9 +310,11 @@ export async function skyProfileSetAsset(
 ) {
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	// Delete the old asset if it exists.
 	if (skyProfilePacket) {
@@ -616,11 +612,12 @@ export async function skyProfileShowEdit(
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, baseReplyOptions);
 }
 
-export async function skyProfileDelete(userId: Snowflake) {
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.select("icon", "banner")
-		.where({ user_id: userId })
-		.first();
+export async function skyProfileDelete(userId: Snowflake, executor: Kysely<DB> = database) {
+	const skyProfilePacket = await executor
+		.selectFrom("sky_profiles")
+		.select(["icon", "banner"])
+		.where("user_id", "=", userId)
+		.executeTakeFirst();
 
 	if (!skyProfilePacket) {
 		return;
@@ -647,7 +644,7 @@ export async function skyProfileDelete(userId: Snowflake) {
 		);
 	}
 
-	promises.push(pg<SkyProfilePacket>(Table.SkyProfiles).delete().where({ user_id: userId }));
+	promises.push(executor.deleteFrom("sky_profiles").where("user_id", "=", userId).execute());
 	await Promise.all(promises);
 }
 
@@ -715,12 +712,15 @@ export async function skyProfileExplore(
 
 	const offset = (page - 1) * limit;
 
-	const skyProfilePackets = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.whereNotNull("name")
+	const skyProfilePackets = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("name", "is not", null)
 		.orderBy("name", "asc")
 		.orderBy("user_id", "asc")
 		.limit(limit + 1)
-		.offset(offset);
+		.offset(offset)
+		.execute();
 
 	if (skyProfilePackets.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -740,9 +740,11 @@ export async function skyProfileExplore(
 
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfileLikesPackets = await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).where({
-		user_id: invoker.id,
-	});
+	const skyProfileLikesPackets = await database
+		.selectFrom("sky_profile_likes")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.execute();
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -872,10 +874,12 @@ export async function skyProfileExploreAutocomplete(
 			focused.length === 0
 				? []
 				: (
-						await pg<SkyProfilePacket>(Table.SkyProfiles)
+						await database
+							.selectFrom("sky_profiles")
 							.select(["user_id", "name", "description"])
-							.whereRaw("upper(name) % ?", [focused])
+							.where(sql<boolean>`upper(name) % ${focused}`)
 							.limit(25)
+							.execute()
 					).map(({ user_id, name: skyProfileName, description }) => {
 						let name = `${skyProfileName}`;
 
@@ -914,17 +918,17 @@ export async function skyProfileExploreProfile(
 	}
 
 	const name = data.name!;
-	const previous = await skyProfileExploreProfilePreviousRow(name, userId);
-	const next = await skyProfileExploreProfileNextRow(name, userId);
+	const previous = await skyProfileExploreProfileRow(name, userId, "previous");
+	const next = await skyProfileExploreProfileRow(name, userId, "next");
 	const ownSkyProfile = invoker.id === data.user_id;
 
 	const isLiked = Boolean(
-		await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes)
-			.where({
-				user_id: invoker.id,
-				target_id: userId,
-			})
-			.first(),
+		await database
+			.selectFrom("sky_profile_likes")
+			.selectAll()
+			.where("user_id", "=", invoker.id)
+			.where("target_id", "=", userId)
+			.executeTakeFirst(),
 	);
 
 	const response:
@@ -1010,30 +1014,27 @@ export async function skyProfileExploreProfile(
 	}
 }
 
-async function skyProfileExploreProfilePreviousRow(name: string, userId: Snowflake) {
-	return await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where(function () {
-			this.where("name", "<", name).orWhere(function () {
-				this.where("name", "=", name).andWhere("user_id", "<", userId);
-			});
-		})
-		.orderBy("name", "desc")
-		.orderBy("user_id", "desc")
-		.limit(1)
-		.first();
-}
+async function skyProfileExploreProfileRow(
+	name: string,
+	userId: Snowflake,
+	direction: "previous" | "next",
+) {
+	const [operator, order] =
+		direction === "previous" ? (["<", "desc"] as const) : ([">", "asc"] as const);
 
-async function skyProfileExploreProfileNextRow(name: string, userId: Snowflake) {
-	return await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where(function () {
-			this.where("name", ">", name).orWhere(function () {
-				this.where("name", "=", name).andWhere("user_id", ">", userId);
-			});
-		})
-		.orderBy("name", "asc")
-		.orderBy("user_id", "asc")
+	return await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where((eb) =>
+			eb.or([
+				eb("name", operator, name),
+				eb.and([eb("name", "=", name), eb("user_id", operator, userId)]),
+			]),
+		)
+		.orderBy("name", order)
+		.orderBy("user_id", order)
 		.limit(1)
-		.first();
+		.executeTakeFirst();
 }
 
 export async function skyProfileExploreLikes(
@@ -1049,14 +1050,16 @@ export async function skyProfileExploreLikes(
 	const limit = MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT * SKY_PROFILE_EXPLORER_LIKES.length;
 	const offset = (page - 1) * limit;
 
-	const SkyProfilePackets = await pg(Table.SkyProfileLikes)
-		.join(Table.SkyProfiles, `${Table.SkyProfileLikes}.target_id`, `${Table.SkyProfiles}.user_id`)
-		.select(`${Table.SkyProfiles}.*`)
-		.where(`${Table.SkyProfileLikes}.user_id`, invoker.id)
-		.orderBy(`${Table.SkyProfiles}.name`, "asc")
-		.orderBy(`${Table.SkyProfiles}.user_id`, "asc")
+	const SkyProfilePackets = await database
+		.selectFrom("sky_profile_likes")
+		.innerJoin("sky_profiles", "sky_profiles.user_id", "sky_profile_likes.target_id")
+		.selectAll("sky_profiles")
+		.where("sky_profile_likes.user_id", "=", invoker.id)
+		.orderBy("sky_profiles.name", "asc")
+		.orderBy("sky_profiles.user_id", "asc")
 		.limit(limit + 1)
-		.offset(offset);
+		.offset(offset)
+		.execute();
 
 	if (SkyProfilePackets.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -1155,52 +1158,33 @@ export async function skyProfileExploreLikes(
 	});
 }
 
-async function skyProfileExploreLikedProfilePreviousRow(
+async function skyProfileExploreLikedProfileRow(
 	name: string,
 	userId: Snowflake,
 	targetId: Snowflake,
+	direction: "previous" | "next",
 ) {
-	return await pg<SkyProfilePacket>(Table.SkyProfileLikes)
-		.join(Table.SkyProfiles, `${Table.SkyProfileLikes}.target_id`, `${Table.SkyProfiles}.user_id`)
-		.select(`${Table.SkyProfiles}.*`)
-		.where(`${Table.SkyProfileLikes}.user_id`, userId)
-		.andWhere(function () {
-			this.where(`${Table.SkyProfiles}.name`, "<", name).orWhere(function () {
-				this.where(`${Table.SkyProfiles}.name`, "=", name).andWhere(
-					`${Table.SkyProfiles}.user_id`,
-					"<",
-					targetId,
-				);
-			});
-		})
-		.orderBy(`${Table.SkyProfiles}.name`, "desc")
-		.orderBy(`${Table.SkyProfiles}.user_id`, "desc")
-		.limit(1)
-		.first();
-}
+	const [operator, order] =
+		direction === "previous" ? (["<", "desc"] as const) : ([">", "asc"] as const);
 
-async function skyProfileExploreLikedProfileNextRow(
-	name: string,
-	userId: Snowflake,
-	targetId: Snowflake,
-) {
-	return await pg<SkyProfilePacket>(Table.SkyProfileLikes)
-		.join(Table.SkyProfiles, `${Table.SkyProfileLikes}.target_id`, `${Table.SkyProfiles}.user_id`)
-		.select(`${Table.SkyProfiles}.*`)
-		.where(`${Table.SkyProfileLikes}.user_id`, userId)
-		.andWhere(function () {
-			this.where(`${Table.SkyProfiles}.name`, ">", name).orWhere(function () {
-				this.where(`${Table.SkyProfiles}.name`, "=", name).andWhere(
-					`${Table.SkyProfiles}.user_id`,
-					">",
-					targetId,
-				);
-			});
-		})
-		.orderBy(`${Table.SkyProfiles}.name`, "asc")
-		.orderBy(`${Table.SkyProfiles}.user_id`, "asc")
+	return await database
+		.selectFrom("sky_profile_likes")
+		.innerJoin("sky_profiles", "sky_profiles.user_id", "sky_profile_likes.target_id")
+		.selectAll("sky_profiles")
+		.where("sky_profile_likes.user_id", "=", userId)
+		.where((eb) =>
+			eb.or([
+				eb("sky_profiles.name", operator, name),
+				eb.and([
+					eb("sky_profiles.name", "=", name),
+					eb("sky_profiles.user_id", operator, targetId),
+				]),
+			]),
+		)
+		.orderBy("sky_profiles.name", order)
+		.orderBy("sky_profiles.user_id", order)
 		.limit(1)
-		.first();
+		.executeTakeFirst();
 }
 
 export async function skyProfileExploreLikedProfile(
@@ -1225,17 +1209,17 @@ export async function skyProfileExploreLikedProfile(
 	}
 
 	const name = data.name!;
-	const previous = await skyProfileExploreLikedProfilePreviousRow(name, invoker.id, userId);
-	const next = await skyProfileExploreLikedProfileNextRow(name, invoker.id, userId);
+	const previous = await skyProfileExploreLikedProfileRow(name, invoker.id, userId, "previous");
+	const next = await skyProfileExploreLikedProfileRow(name, invoker.id, userId, "next");
 	const ownSkyProfile = invoker.id === data.user_id;
 
 	const isLiked = Boolean(
-		await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes)
-			.where({
-				user_id: invoker.id,
-				target_id: userId,
-			})
-			.first(),
+		await database
+			.selectFrom("sky_profile_likes")
+			.selectAll()
+			.where("user_id", "=", invoker.id)
+			.where("target_id", "=", userId)
+			.executeTakeFirst(),
 	);
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
@@ -1316,9 +1300,11 @@ export async function skyProfileLike(
 	const { locale } = interaction;
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: userId })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", userId)
+		.executeTakeFirst();
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -1340,23 +1326,27 @@ export async function skyProfileLike(
 		return;
 	}
 
-	const like = await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes)
-		.where({
-			user_id: invoker.id,
-			target_id: userId,
-		})
-		.first();
+	const like = await database
+		.selectFrom("sky_profile_likes")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.where("target_id", "=", userId)
+		.executeTakeFirst();
 
 	if (like) {
-		await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).delete().where({
-			user_id: invoker.id,
-			target_id: userId,
-		});
+		await database
+			.deleteFrom("sky_profile_likes")
+			.where("user_id", "=", invoker.id)
+			.where("target_id", "=", userId)
+			.execute();
 	} else {
-		await pg<SkyProfileLikesPacket>(Table.SkyProfileLikes).insert({
-			user_id: invoker.id,
-			target_id: userId,
-		});
+		await database
+			.insertInto("sky_profile_likes")
+			.values({
+				user_id: invoker.id,
+				target_id: userId,
+			})
+			.execute();
 	}
 
 	await (fromLike
@@ -1423,9 +1413,11 @@ export async function skyProfileReportModalPrompt(
 	const { locale } = interaction;
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: userId })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", userId)
+		.executeTakeFirst();
 
 	if (!skyProfilePacket) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -1561,9 +1553,11 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
@@ -1601,9 +1595,11 @@ async function skyProfileShowDescriptionModal(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
@@ -1693,9 +1689,11 @@ async function skyProfileShowWingedLightSelectMenu(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -1754,9 +1752,11 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	const textInput: APITextInputComponent = {
 		type: ComponentType.TextInput,
@@ -1794,9 +1794,11 @@ async function skyProfileShowSeasonsSelectMenu(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	const currentSeasons = skyProfilePacket?.seasons;
 	const seasons = skySeasons();
@@ -1895,9 +1897,11 @@ async function skyProfileShowPlatformsSelectMenu(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	const currentPlatforms = skyProfilePacket?.platform;
 
@@ -1954,9 +1958,11 @@ async function skyProfileShowPersonalitySelectMenu(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	const currentPersonality = skyProfilePacket?.personality;
 
@@ -2111,9 +2117,11 @@ export function skyProfileSetHangout(interaction: APIModalSubmitInteraction) {
 export async function skyProfileSetSeasons(interaction: APIMessageComponentSelectMenuInteraction) {
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	// Get the select menu where this interaction came from.
 	const component = resolveStringSelectMenu(
@@ -2189,9 +2197,11 @@ async function skyProfileSetCatalogueProgression(
 ) {
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	await skyProfileSet(interaction, {
 		user_id: invoker.id,
@@ -2202,9 +2212,11 @@ async function skyProfileSetCatalogueProgression(
 async function skyProfileSetGuessRank(interaction: APIMessageComponentSelectMenuInteraction) {
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
-		.where({ user_id: invoker.id })
-		.first();
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.executeTakeFirst();
 
 	await skyProfileSet(interaction, {
 		user_id: invoker.id,
@@ -2566,7 +2578,7 @@ async function skyProfileComponents(
 	return components;
 }
 
-function skyProfileMissingData(skyProfilePacket: SkyProfilePacket, locale: Locale) {
+function skyProfileMissingData(skyProfilePacket: Packet<"sky_profiles">, locale: Locale) {
 	const {
 		name,
 		icon,
@@ -2665,10 +2677,11 @@ export async function noSkyProfileName(
 		| APIUserApplicationCommandInteraction,
 	source: SkyProfileMissingNameSources,
 ) {
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
+	const skyProfilePacket = await database
+		.selectFrom("sky_profiles")
 		.select("name")
-		.where({ user_id: interactionInvoker(interaction).id })
-		.first();
+		.where("user_id", "=", interactionInvoker(interaction).id)
+		.executeTakeFirst();
 
 	if (!skyProfilePacket?.name) {
 		await skyProfileMissingNameModal(interaction, source);

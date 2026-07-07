@@ -2,10 +2,17 @@ import { type LoaderFunction, redirect } from "react-router";
 import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
 
 export const loader: LoaderFunction = async () => {
-	const countResult = await publicProfilesQuery().count({ total: "*" }).first();
-	const randomProfile = Math.floor(Math.random() * Number(countResult!.total!));
+	const countResult = await publicProfilesQuery()
+		.select((eb) => eb.fn.countAll<string>().as("total"))
+		.executeTakeFirst();
 
-	const skyProfilePacket = await publicProfilesQuery().limit(1).offset(randomProfile).first();
+	const randomProfile = Math.floor(Math.random() * Number(countResult!.total));
+
+	const skyProfilePacket = await publicProfilesQuery()
+		.selectAll()
+		.limit(1)
+		.offset(randomProfile)
+		.executeTakeFirst();
 
 	if (!skyProfilePacket) {
 		throw new Response(null, { status: 404 });
