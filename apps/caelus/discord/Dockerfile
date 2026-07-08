@@ -3,9 +3,9 @@ ARG NODE_IMAGE=node:26-alpine
 FROM ${NODE_IMAGE} AS build
 ENV PNPM_HOME=/pnpm
 WORKDIR /thatskyapplication
-RUN npm install --global pnpm@11.9.0
-
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+RUN npm install --global "pnpm@$(node --print 'require("./package.json").devEngines.packageManager.version')"
+
 COPY packages/utility/package.json packages/utility/
 COPY apps/caelus/discord/package.json apps/caelus/discord/
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
