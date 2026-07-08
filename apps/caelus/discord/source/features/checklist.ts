@@ -9,25 +9,23 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
-	type ChecklistPacket,
 	type ChecklistSetData,
+	checklistRefresh,
 	checklistResetPayload,
 	shardEruption,
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
-	Table,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import { ME_CHECKLIST_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { interactionInvoker } from "../utility/functions.js";
+import { interactionInvoker, snowflakeDate } from "../utility/functions.js";
 import { resolveShardEruptionEmoji } from "../utility/shard-eruption.js";
 
 interface ChecklistOptions {
@@ -39,12 +37,14 @@ export async function checklist({
 	userId,
 	locale,
 }: ChecklistOptions): Promise<[APIMessageTopLevelComponent]> {
-	let checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
-		.where({ user_id: userId })
-		.first();
+	let checklistPacket = await database
+		.selectFrom("checklist")
+		.selectAll()
+		.where("user_id", "=", userId)
+		.executeTakeFirst();
 
 	if (checklistPacket) {
-		const updatedChecklistPacket = await checklistRefresh(checklistPacket);
+		const updatedChecklistPacket = await checklistRefresh(database, checklistPacket);
 
 		if (updatedChecklistPacket) {
 			checklistPacket = updatedChecklistPacket;
@@ -318,31 +318,19 @@ export async function checklist({
 	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
-async function checklistRefresh(checklistPacket: ChecklistPacket) {
-	const payload = checklistResetPayload(checklistPacket.last_updated_at, new Date());
-
-	if (Object.keys(payload).length === 1) {
-		return;
-	}
-
-	const [updatedChecklistPacket] = await pg<ChecklistPacket>(Table.Checklist)
-		.update(payload, "*")
-		.where({ user_id: checklistPacket.user_id });
-
-	return updatedChecklistPacket!;
-}
-
 async function checklistToggle(
 	interaction: APIMessageComponentButtonInteraction,
 	key: "daily_quests" | "event_tickets" | "eye_of_eden" | "seasonal_candles" | "shard_eruptions",
 ) {
 	const userId = interactionInvoker(interaction).id;
 	const customId = interaction.data.custom_id;
-	const now = new Date(DiscordSnowflake.timestampFrom(interaction.id));
+	const now = snowflakeDate(interaction.id);
 
-	const checklistPacket = await pg<ChecklistPacket>(Table.Checklist)
-		.where({ user_id: userId })
-		.first();
+	const checklistPacket = await database
+		.selectFrom("checklist")
+		.selectAll()
+		.where("user_id", "=", userId)
+		.executeTakeFirst();
 
 	const payload: ChecklistSetData = checklistPacket
 		? checklistResetPayload(checklistPacket.last_updated_at, now)
@@ -350,10 +338,11 @@ async function checklistToggle(
 
 	payload[key] = customId.slice(customId.indexOf("§") + 1) === "0";
 
-	await pg<ChecklistPacket>(Table.Checklist)
-		.insert({ user_id: userId, ...payload })
-		.onConflict("user_id")
-		.merge();
+	await database
+		.insertInto("checklist")
+		.values({ user_id: userId, ...payload })
+		.onConflict((oc) => oc.column("user_id").doUpdateSet(payload))
+		.execute();
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: await checklist({ userId, locale: interaction.locale }),

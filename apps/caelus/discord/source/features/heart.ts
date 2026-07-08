@@ -14,55 +14,45 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
 	DELETED_USER_TEXT,
 	DOUBLE_HEART_EVENTS,
 	epochSeconds,
 	formatEmoji,
 	getRandomElement,
-	type HeartHistoryPacket,
-	type HeartPacket,
+	heartHistory,
+	heartHistoryTotal,
 	isActive,
 	MAXIMUM_HEARTS_PER_DAY,
 	SkyProfileMissingNameSource,
 	skyNow,
-	Table,
 	TIME_ZONE,
+	totalHearts,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import {
 	HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
 	ME_HEART_HISTORY_URL,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
-import { escapeMarkdown, interactionInvoker, isChatInputCommand } from "../utility/functions.js";
+import {
+	escapeMarkdown,
+	interactionInvoker,
+	isChatInputCommand,
+	snowflakeDate,
+} from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
 import { noSkyProfileName } from "./sky-profile.js";
 
-async function totalGifted(userId: Snowflake) {
-	// The types are wrong.
-	// A row is always returned and the count is a string or null.
-	const result = (await pg<HeartPacket>(Table.Hearts)
-		.where({ user_id: userId })
-		.sum("count")
-		.first()) as unknown as { sum: string | null };
-
-	return Number(result.sum ?? 0);
+function totalGifted(userId: Snowflake) {
+	return totalHearts(database, "user_id", userId);
 }
 
-export async function totalReceived(userId: Snowflake) {
-	// The types are wrong.
-	// A row is always returned and the count is a string or null.
-	const result = (await pg<HeartPacket>(Table.Hearts)
-		.where({ giftee_id: userId })
-		.sum("count")
-		.first()) as unknown as { sum: string | null };
-
-	return Number(result.sum ?? 0);
+export function totalReceived(userId: Snowflake) {
+	return totalHearts(database, "giftee_id", userId);
 }
 
 export async function gift(
@@ -158,9 +148,12 @@ export async function gift(
 
 	const tomorrowTimestamp = `<t:${epochSeconds(today.add({ days: 1 }))}:R>`;
 
-	const heartPackets = await pg<HeartPacket>(Table.Hearts)
-		.where({ user_id: invoker.id })
-		.andWhere("timestamp", ">=", today.toInstant().toString());
+	const heartPackets = await database
+		.selectFrom("hearts")
+		.selectAll()
+		.where("user_id", "=", invoker.id)
+		.where("timestamp", ">=", new Date(today.toInstant().epochMilliseconds))
+		.execute();
 
 	if (heartPackets.some((heartPacket) => heartPacket.giftee_id === user.id)) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -191,12 +184,15 @@ export async function gift(
 		return;
 	}
 
-	await pg<HeartPacket>(Table.Hearts).insert({
-		user_id: invoker.id,
-		giftee_id: user.id,
-		timestamp: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		count: doubleHeartEvent ? 2 : 1,
-	});
+	await database
+		.insertInto("hearts")
+		.values({
+			user_id: invoker.id,
+			giftee_id: user.id,
+			timestamp: snowflakeDate(interaction.id),
+			count: doubleHeartEvent ? 2 : 1,
+		})
+		.execute();
 
 	const hearts = await totalReceived(user.id);
 	const guildLocale = interaction.guild_locale ?? Locale.EnglishGB;
@@ -271,28 +267,12 @@ export async function history(
 
 	const offset = (page - 1) * HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER;
 
-	const heartPackets = await pg(`${Table.Hearts} as hearts`)
-		.select<HeartHistoryPacket[]>(
-			"hearts.user_id",
-			"hearts.giftee_id",
-			"hearts.timestamp",
-			"hearts.count",
-			"giftee_profile.name as giftee_name",
-			"user_profile.name as user_name",
-		)
-		.leftJoin(
-			`${Table.SkyProfiles} as giftee_profile`,
-			"hearts.giftee_id",
-			"giftee_profile.user_id",
-		)
-		.leftJoin(`${Table.SkyProfiles} as user_profile`, "hearts.user_id", "user_profile.user_id")
-		.where("hearts.user_id", invoker.id)
-		.orWhere("hearts.giftee_id", invoker.id)
-		.orderBy("hearts.timestamp", "desc")
-		.orderBy("hearts.user_id", "asc")
-		.orderBy("hearts.giftee_id", "asc")
-		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER)
-		.offset(offset);
+	const heartPackets = await heartHistory(
+		database,
+		invoker.id,
+		HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
+		offset,
+	);
 
 	if (heartPackets.length === 0) {
 		const components: APIMessageTopLevelComponent[] = [
@@ -323,12 +303,7 @@ export async function history(
 	const [gifted, received, total] = await Promise.all([
 		totalGifted(invoker.id),
 		totalReceived(invoker.id),
-		pg<HeartPacket>(Table.Hearts)
-			.where({ user_id: invoker.id })
-			.orWhere({ giftee_id: invoker.id })
-			.count({ totalRows: "*" })
-			.first()
-			.then((result) => Number(result?.totalRows ?? 0)),
+		heartHistoryTotal(database, invoker.id),
 	]);
 
 	const maximumPage = Math.ceil(total / HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER);

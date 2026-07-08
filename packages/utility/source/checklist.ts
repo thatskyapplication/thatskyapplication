@@ -1,16 +1,10 @@
+import type { Kysely } from "kysely";
+import type { Packet } from "./database/index.js";
+import type { DB } from "./database/schema.js";
 import { skyToday } from "./dates.js";
 
-export interface ChecklistPacket {
-	user_id: string;
-	daily_quests: boolean;
-	seasonal_candles: boolean;
-	eye_of_eden: boolean;
-	shard_eruptions: boolean;
-	event_tickets: boolean;
-	last_updated_at: Date;
-}
-
-export type ChecklistSetData = Partial<ChecklistPacket> & Pick<ChecklistPacket, "last_updated_at">;
+export type ChecklistSetData = Partial<Packet<"checklist">> &
+	Pick<Packet<"checklist">, "last_updated_at">;
 
 export function checklistResetPayload(lastUpdatedAt: Date, now: Date): ChecklistSetData {
 	const lastUpdatedTimestamp = lastUpdatedAt.getTime();
@@ -29,4 +23,19 @@ export function checklistResetPayload(lastUpdatedAt: Date, now: Date): Checklist
 	}
 
 	return payload;
+}
+
+export async function checklistRefresh(database: Kysely<DB>, checklistPacket: Packet<"checklist">) {
+	const payload = checklistResetPayload(checklistPacket.last_updated_at, new Date());
+
+	if (Object.keys(payload).length === 1) {
+		return;
+	}
+
+	return database
+		.updateTable("checklist")
+		.set(payload)
+		.where("user_id", "=", checklistPacket.user_id)
+		.returningAll()
+		.executeTakeFirst();
 }

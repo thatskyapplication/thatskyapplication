@@ -1,6 +1,6 @@
 import "./tailwind.css";
 import { captureException } from "@sentry/react-router";
-import { CDN, type SkyProfilePacket, Table, WEBSITE_URL } from "@thatskyapplication/utility";
+import { CDN, WEBSITE_URL } from "@thatskyapplication/utility";
 import type React from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,8 +16,8 @@ import {
 } from "react-router";
 import ConditionalLayout from "~/components/ConditionalLayout";
 import { CDN_URL } from "~/config.server";
+import database from "~/database.server";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
-import pg from "~/pg.server";
 import { getSession } from "~/session.server";
 import { cdnAssetURL } from "~/utility/cdn";
 import {
@@ -131,10 +131,11 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;
 	const skyProfile = user
-		? await pg<SkyProfilePacket>(Table.SkyProfiles)
-				.select("name", "icon")
-				.where({ user_id: user.id })
-				.first()
+		? await database
+				.selectFrom("sky_profiles")
+				.select(["name", "icon"])
+				.where("user_id", "=", user.id)
+				.executeTakeFirst()
 		: null;
 	const skyProfileName = skyProfile?.name;
 	const userDisplayName = user ? (skyProfileName ?? user.username) : null;

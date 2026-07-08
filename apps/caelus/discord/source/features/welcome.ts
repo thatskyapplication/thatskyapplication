@@ -29,17 +29,18 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import {
 	ANIMATED_HASH_PREFIX,
+	type DB,
 	FriendshipActionType,
 	isAnimatedHash,
 	MAXIMUM_ASSET_BANNER_DIMENSION,
 	MAXIMUM_ASSET_SIZE,
-	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import type { Selectable } from "kysely";
 import { GUILD_CACHE } from "../caches/guilds.js";
+import database from "../database.js";
 import { client } from "../discord.js";
 import type { Guild } from "../models/discord/guild.js";
-import pg from "../pg.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
 import type { NonNullableInterface } from "../types/index.js";
@@ -63,16 +64,9 @@ const WELCOME_MESSAGE_HUG_PERMISSIONS =
 	PermissionFlagsBits.SendMessages |
 	PermissionFlagsBits.ReadMessageHistory;
 
-interface WelcomePacket {
-	guild_id: string;
-	welcome_channel_id: string | null;
-	hug: boolean | null;
-	message: string | null;
-	asset: string | null;
-	accent_colour: number | null;
-}
+type WelcomePacket = Selectable<DB["welcome"]>;
 
-export type WelcomePacketWithChannel = WelcomePacket &
+type WelcomePacketWithChannel = WelcomePacket &
 	NonNullableInterface<Pick<WelcomePacket, "welcome_channel_id">>;
 
 type WelcomePacketSetData = Pick<WelcomePacket, "guild_id"> & Partial<WelcomePacket>;
@@ -96,9 +90,11 @@ export async function welcomeSetup({
 	reply,
 	editReply,
 }: WelcomeSetupOptions) {
-	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
-		.where({ guild_id: interaction.guild_id })
-		.first();
+	const welcomePacket = await database
+		.selectFrom("welcome")
+		.selectAll()
+		.where("guild_id", "=", interaction.guild_id)
+		.executeTakeFirst();
 
 	const components: APIMessageTopLevelComponent[] = [];
 
@@ -298,10 +294,11 @@ export async function welcomeHandleEditButton(
 ) {
 	const { locale } = interaction;
 
-	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
-		.select("welcome_channel_id", "message", "accent_colour", "hug", "asset")
-		.where({ guild_id: interaction.guild_id })
-		.first();
+	const welcomePacket = await database
+		.selectFrom("welcome")
+		.select(["welcome_channel_id", "message", "accent_colour", "hug", "asset"])
+		.where("guild_id", "=", interaction.guild_id)
+		.executeTakeFirst();
 
 	const textInputAccentColour: APITextInputComponent = {
 		type: ComponentType.TextInput,
@@ -520,7 +517,11 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 		}
 	}
 
-	await pg<WelcomePacket>(Table.Welcome).insert(data).onConflict("guild_id").merge();
+	await database
+		.insertInto("welcome")
+		.values(data)
+		.onConflict((oc) => oc.column("guild_id").doUpdateSet(data))
+		.execute();
 
 	await welcomeSetup({
 		interaction,
@@ -659,10 +660,11 @@ export async function welcomeHandleHugButton(
 		throw new Error("Could not find the guild of a welcome message.");
 	}
 
-	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
-		.select("welcome_channel_id", "hug")
-		.where({ guild_id: interaction.guild_id })
-		.first();
+	const welcomePacket = await database
+		.selectFrom("welcome")
+		.select(["welcome_channel_id", "hug"])
+		.where("guild_id", "=", interaction.guild_id)
+		.executeTakeFirst();
 
 	const channel =
 		welcomePacket?.welcome_channel_id && guild.channels.get(welcomePacket?.welcome_channel_id);
@@ -744,10 +746,11 @@ export async function welcomeHandleAssetSettingDeleteButton(
 		return;
 	}
 
-	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
+	const welcomePacket = await database
+		.selectFrom("welcome")
 		.select("asset")
-		.where({ guild_id: interaction.guild_id })
-		.first();
+		.where("guild_id", "=", interaction.guild_id)
+		.executeTakeFirst();
 
 	if (welcomePacket?.asset) {
 		await S3Client.send(
@@ -758,10 +761,13 @@ export async function welcomeHandleAssetSettingDeleteButton(
 		);
 	}
 
-	await pg<WelcomePacket>(Table.Welcome)
-		.insert({ guild_id: interaction.guild_id, asset: null })
-		.onConflict("guild_id")
-		.merge();
+	await database
+		.insertInto("welcome")
+		.values({ guild_id: interaction.guild_id, asset: null })
+		.onConflict((oc) =>
+			oc.column("guild_id").doUpdateSet((eb) => ({ asset: eb.ref("excluded.asset") })),
+		)
+		.execute();
 
 	await welcomeSetup({ interaction, guild, locale: guild.preferredLocale });
 }
@@ -770,9 +776,11 @@ async function welcomeSetAsset(
 	interaction: APIModalSubmitGuildInteraction,
 	attachment: APIAttachment,
 ) {
-	const welcomePacket = await pg<WelcomePacket>(Table.Welcome)
-		.where({ guild_id: interaction.guild_id })
-		.first();
+	const welcomePacket = await database
+		.selectFrom("welcome")
+		.selectAll()
+		.where("guild_id", "=", interaction.guild_id)
+		.executeTakeFirst();
 
 	// Delete the old asset if it exists.
 	if (welcomePacket?.asset) {

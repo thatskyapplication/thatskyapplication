@@ -1,4 +1,3 @@
-import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
 import { data, Form, redirect } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
@@ -9,8 +8,8 @@ import {
 	SUPPORT_SERVER_GUILD_ID,
 	TRANSLATOR_ROLE_ID,
 } from "~/config.server.js";
+import database from "~/database.server";
 import discord from "~/discord.js";
-import pg from "~/pg.server";
 import pino from "~/pino.js";
 import { commitSession, getSession } from "~/session.server";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
@@ -121,14 +120,20 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 		authenticationState.crowdinUser = { id: userData.id, username: userData.username };
 
 		if (userData.status !== "active") {
-			await pg<UsersPacket>(Table.Users)
-				.insert({
+			await database
+				.insertInto("users")
+				.values({
 					discord_user_id: discordUser.id,
 					crowdin_user_id: userData.id,
 					translator: false,
 				})
-				.onConflict("discord_user_id")
-				.merge();
+				.onConflict((oc) =>
+					oc.column("discord_user_id").doUpdateSet((eb) => ({
+						crowdin_user_id: eb.ref("excluded.crowdin_user_id"),
+						translator: eb.ref("excluded.translator"),
+					})),
+				)
+				.execute();
 
 			authenticationState.error = "Crowdin account inactive.";
 			session.set("discord_crowdin_auth_error", authenticationState.error);
@@ -153,27 +158,33 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 			projectContributionsData[0]!.data.translated.strings === 0 ||
 			projectContributionsData[0]!.data.translated.words === 0
 		) {
-			await pg<UsersPacket>(Table.Users)
-				.insert({
+			await database
+				.insertInto("users")
+				.values({
 					discord_user_id: discordUser.id,
 					crowdin_user_id: userData.id,
 					translator: false,
 				})
-				.onConflict("discord_user_id")
-				.merge();
+				.onConflict((oc) =>
+					oc.column("discord_user_id").doUpdateSet((eb) => ({
+						crowdin_user_id: eb.ref("excluded.crowdin_user_id"),
+						translator: eb.ref("excluded.translator"),
+					})),
+				)
+				.execute();
 
 			authenticationState.error = "You have not translated anything.";
 			session.set("discord_crowdin_auth_error", authenticationState.error);
 			return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
 		}
 
-		const user = await pg<UsersPacket>(Table.Users)
-			.where({
-				discord_user_id: discordUser.id,
-				crowdin_user_id: userData.id,
-				translator: true,
-			})
-			.first();
+		const user = await database
+			.selectFrom("users")
+			.selectAll()
+			.where("discord_user_id", "=", discordUser.id)
+			.where("crowdin_user_id", "=", userData.id)
+			.where("translator", "=", true)
+			.executeTakeFirst();
 
 		if (user) {
 			authenticationState.error = "You're already a translator!";
@@ -181,14 +192,20 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 			return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
 		}
 
-		await pg<UsersPacket>(Table.Users)
-			.insert({
+		await database
+			.insertInto("users")
+			.values({
 				discord_user_id: discordUser.id,
 				crowdin_user_id: userData.id,
 				translator: true,
 			})
-			.onConflict("discord_user_id")
-			.merge();
+			.onConflict((oc) =>
+				oc.column("discord_user_id").doUpdateSet((eb) => ({
+					crowdin_user_id: eb.ref("excluded.crowdin_user_id"),
+					translator: eb.ref("excluded.translator"),
+				})),
+			)
+			.execute();
 
 		await discord.guilds.addRoleToMember(
 			SUPPORT_SERVER_GUILD_ID,

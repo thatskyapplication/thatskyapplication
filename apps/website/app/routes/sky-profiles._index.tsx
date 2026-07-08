@@ -1,10 +1,6 @@
 import type { _NonNullableFields } from "@discordjs/core/http-only";
-import {
-	type Country,
-	type SkyProfilePacket,
-	Table,
-	WEBSITE_URL,
-} from "@thatskyapplication/utility";
+import { type Country, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
+import { sql } from "kysely";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useRouteLoaderData, useSearchParams } from "react-router";
@@ -14,10 +10,10 @@ import Pagination from "~/components/Pagination";
 import { PlatformBadges } from "~/components/PlatformBadges.js";
 import { SeasonEmojiBadges } from "~/components/SeasonEmojiBadges.js";
 import Select from "~/components/Select";
+import database from "~/database.server";
 import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
 import { useCDN, useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
-import pg from "~/pg.server";
 import type { loader as rootLoader } from "~/root";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants";
@@ -64,32 +60,37 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 	const page = parsePage(url);
 
 	// Get all available countries.
-	const countries = await pg<
-		SkyProfilePacket & _NonNullableFields<Pick<SkyProfilePacket, "country">>
-	>(Table.SkyProfiles)
-		.distinct("country")
-		.whereNotNull("name")
-		.and.whereNotNull("country");
+	const countries = await database
+		.selectFrom("sky_profiles")
+		.select("country")
+		.distinct()
+		.where("name", "is not", null)
+		.where("country", "is not", null)
+		.$narrowType<{ country: Country }>()
+		.execute();
 
 	if (name || country) {
 		let profilesQuery = publicProfilesQuery();
 
 		if (name) {
 			const queryLowerCase = name.toLowerCase();
-			profilesQuery = profilesQuery.whereRaw("lower(name) % ?", [queryLowerCase]);
+			profilesQuery = profilesQuery.where(sql<boolean>`lower(name) % ${queryLowerCase}`);
 		}
 
 		if (country) {
 			if (country === NO_COUNTRY_VALUE) {
-				profilesQuery = profilesQuery.whereNull("country");
+				profilesQuery = profilesQuery.where("country", "is", null);
 			} else {
-				profilesQuery = profilesQuery.where("country", country);
+				profilesQuery = profilesQuery.where("country", "=", country);
 			}
 		}
 
 		// Get total count for pagination (before applying ordering).
-		const countResult = (await profilesQuery.clone().count("* as count")) as { count: string }[];
-		const totalCount = Number(countResult[0]?.count ?? 0);
+		const countResult = await profilesQuery
+			.select((eb) => eb.fn.countAll<string>().as("count"))
+			.executeTakeFirst();
+
+		const totalCount = Number(countResult?.count ?? 0);
 		const maximumPage = Math.max(1, Math.ceil(totalCount / PROFILES_PER_PAGE));
 		const currentPage = Math.min(page, maximumPage);
 
@@ -97,7 +98,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 		if (name) {
 			const queryLowerCase = name.toLowerCase();
 			profilesQuery = profilesQuery
-				.orderByRaw("similarity(lower(name), ?) DESC", [queryLowerCase])
+				.orderBy(sql`similarity(lower(name), ${queryLowerCase})`, "desc")
 				.orderBy("name", "asc")
 				.orderBy("user_id", "asc");
 		} else {
@@ -106,7 +107,11 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 
 		// Apply pagination.
 		const offset = (currentPage - 1) * PROFILES_PER_PAGE;
-		const profiles = await profilesQuery.limit(PROFILES_PER_PAGE).offset(offset);
+		const profiles = await profilesQuery
+			.selectAll()
+			.limit(PROFILES_PER_PAGE)
+			.offset(offset)
+			.execute();
 
 		return {
 			profiles,
@@ -124,7 +129,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 
 interface SkyProfileCardProps {
 	priority: boolean;
-	profile: SkyProfilePacket;
+	profile: Packet<"sky_profiles">;
 	returnTo: string;
 }
 
@@ -274,7 +279,7 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 
 interface SkyProfilesFiltersProps {
 	countries: readonly Pick<
-		SkyProfilePacket & _NonNullableFields<Pick<SkyProfilePacket, "country">>,
+		Packet<"sky_profiles"> & _NonNullableFields<Pick<Packet<"sky_profiles">, "country">>,
 		"country"
 	>[];
 	country: string | null;

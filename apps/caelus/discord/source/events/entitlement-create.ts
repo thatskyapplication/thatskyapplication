@@ -1,8 +1,7 @@
 import { GatewayDispatchEvents, RESTJSONErrorCodes } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { Table, type UsersPacket } from "@thatskyapplication/utility";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import pino from "../pino.js";
 import { SUPPORT_SERVER_GUILD_ID, SUPPORTER_ROLE_ID } from "../utility/configuration.js";
 import type { Event } from "./index.js";
@@ -14,10 +13,15 @@ export default {
 	async fire({ data }) {
 		if (data.user_id) {
 			try {
-				await pg<UsersPacket>(Table.Users)
-					.insert({ discord_user_id: data.user_id, supporter: true })
-					.onConflict("discord_user_id")
-					.merge();
+				await database
+					.insertInto("users")
+					.values({ discord_user_id: data.user_id, supporter: true })
+					.onConflict((oc) =>
+						oc.column("discord_user_id").doUpdateSet((eb) => ({
+							supporter: eb.ref("excluded.supporter"),
+						})),
+					)
+					.execute();
 
 				await client.api.guilds.addRoleToMember(
 					SUPPORT_SERVER_GUILD_ID,

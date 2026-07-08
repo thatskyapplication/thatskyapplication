@@ -4,11 +4,11 @@ import {
 	isPlatformId,
 	isSkyProfilePersonalityType,
 	isSpiritId,
+	type Packet,
 	PLATFORM_ID_VALUES,
 	type PlatformIds,
 	type SeasonIds,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
-	type SkyProfilePacket,
 	type SkyProfilePersonalityTypes,
 	type SkyProfileWingedLightTypes,
 	skySeasons,
@@ -46,7 +46,7 @@ function idSignature(ids: readonly number[] | null) {
 export function toSkyProfileEditorValue(
 	skyProfilePacket:
 		| Pick<
-				SkyProfilePacket,
+				Packet<"sky_profiles">,
 				| "banner"
 				| "catalogue_progression"
 				| "country"

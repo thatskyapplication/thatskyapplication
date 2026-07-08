@@ -1,14 +1,15 @@
 import { captureCheckIn } from "@sentry/node";
 import { skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { Cron } from "croner";
+import { sql } from "kysely";
 import { GUILD_CACHE } from "./caches/guilds.js";
+import database from "./database.js";
 import {
 	distribute,
 	resetDailyGuides,
 	resetDailyGuidesDistribution,
 } from "./features/daily-guides.js";
 import { messageLogDeleteOldMessages } from "./features/message-log.js";
-import pg from "./pg.js";
 import pino from "./pino.js";
 import { APPLICATION_ID, PRODUCTION, SUPPORT_SERVER_GUILD_ID } from "./utility/configuration.js";
 
@@ -48,7 +49,7 @@ if (PRODUCTION) {
 		"*/5 * * * *",
 		{ catch: () => captureCheckIn({ monitorSlug: "caelus", status: "error" }) },
 		async () => {
-			await pg.select(1);
+			await sql`select 1`.execute(database);
 			captureCheckIn({ monitorSlug: "caelus", status: "ok" });
 		},
 	);

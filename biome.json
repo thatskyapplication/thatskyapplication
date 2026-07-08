@@ -10,7 +10,13 @@
 		}
 	},
 	"files": {
-		"includes": ["**", "!.react-router", "!distribution", "!build"]
+		"includes": [
+			"**",
+			"!.react-router",
+			"!distribution",
+			"!build",
+			"!packages/utility/source/database/schema.ts"
+		]
 	},
 	"formatter": {
 		"lineWidth": 100,

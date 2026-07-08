@@ -15,23 +15,21 @@ import {
 	type EventIds,
 	formatEmoji,
 	formatEmojiURL,
+	GUESS_RANK_SQL,
 	GUESS_TYPE_VALUES,
-	type GuessPacket,
 	GuessType,
 	type GuessTypes,
-	type GuessUserRanking,
 	isEventId,
 	isSpiritId,
 	KINGDOM,
 	SkyProfileMissingNameSource,
-	type SkyProfilePacket,
 	type SpiritIds,
 	skyEvents,
-	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import { sql } from "kysely";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import { GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER, GUESS_TIMEOUT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { MISCELLANEOUS_EMOJIS } from "../utility/emojis.js";
@@ -40,6 +38,7 @@ import {
 	interactionInvoker,
 	isChatInputCommand,
 	shuffle,
+	snowflakeDate,
 } from "../utility/functions.js";
 import {
 	EVENT_COSMETIC_EMOJIS,
@@ -48,11 +47,39 @@ import {
 } from "../utility/guess.js";
 import { noSkyProfileName } from "./sky-profile.js";
 
-const GUESS_RANK_RAW =
-	"row_number() over (partition by type order by streak desc, date asc nulls first, user_id)::int as rank" as const;
+const GUESS_RANK_RAW = sql.raw<number>(GUESS_RANK_SQL);
 
 export function isGuessType(type: number): type is GuessTypes {
 	return GUESS_TYPE_VALUES.includes(type as GuessTypes);
+}
+
+async function fetchHighestStreak(userId: Snowflake, type: GuessTypes) {
+	return (
+		(
+			await database
+				.selectFrom("guess")
+				.select("streak")
+				.where("user_id", "=", userId)
+				.where("type", "=", type)
+				.executeTakeFirst()
+		)?.streak ?? 0
+	);
+}
+
+async function recordGuessResult(userId: Snowflake, streak: number, type: GuessTypes, date: Date) {
+	await database
+		.insertInto("guess")
+		.values({ user_id: userId, streak, type, date })
+		.onConflict((oc) =>
+			oc
+				.columns(["user_id", "type"])
+				.doUpdateSet((eb) => ({
+					streak: eb.ref("excluded.streak"),
+					date: eb.ref("excluded.date"),
+				}))
+				.where("streak", "<", streak),
+		)
+		.execute();
 }
 
 interface GuessGenerateCustomIdBaseOptions<Answer> {
@@ -77,8 +104,6 @@ interface GuessEventGenerateCustomIdGuessOptions
 type GuessGenerateCustomIdOptions =
 	| GuessGenerateCustomIdGuessOptions
 	| GuessEventGenerateCustomIdGuessOptions;
-
-type GuessLeaderboardRanking = GuessUserRanking & Pick<SkyProfilePacket, "name">;
 
 function generateCustomId({
 	prefix,
@@ -328,13 +353,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 	// Retrieve the highest streak.
 	const invoker = interactionInvoker(interaction);
 
-	const highestStreak =
-		(
-			await pg<GuessPacket>(Table.Guess)
-				.select("streak")
-				.where({ user_id: invoker.id, type })
-				.first()
-		)?.streak ?? 0;
+	const highestStreak = await fetchHighestStreak(invoker.id, type);
 
 	// Respond.
 	const components: [APIMessageTopLevelComponent] = [
@@ -496,24 +515,9 @@ async function endSpiritGame({
 
 	const invoker = interactionInvoker(interaction);
 
-	const highestStreak =
-		(
-			await pg<GuessPacket>(Table.Guess)
-				.select("streak")
-				.where({ user_id: invoker.id, type })
-				.first()
-		)?.streak ?? 0;
+	const highestStreak = await fetchHighestStreak(invoker.id, type);
 
-	await pg<GuessPacket>(Table.Guess)
-		.insert({
-			user_id: invoker.id,
-			streak,
-			type,
-			date: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		})
-		.onConflict(["user_id", "type"])
-		.merge()
-		.where(`${Table.Guess}.streak`, "<", streak);
+	await recordGuessResult(invoker.id, streak, type, snowflakeDate(interaction.id));
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -648,13 +652,7 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 	// Retrieve the highest streak.
 	const invoker = interactionInvoker(interaction);
 
-	const highestStreak =
-		(
-			await pg<GuessPacket>(Table.Guess)
-				.select("streak")
-				.where({ user_id: invoker.id, type })
-				.first()
-		)?.streak ?? 0;
+	const highestStreak = await fetchHighestStreak(invoker.id, type);
 
 	const components: [APIMessageTopLevelComponent] = [
 		{
@@ -816,24 +814,9 @@ async function endEventGame({
 
 	const invoker = interactionInvoker(interaction);
 
-	const highestStreak =
-		(
-			await pg<GuessPacket>(Table.Guess)
-				.select("streak")
-				.where({ user_id: invoker.id, type })
-				.first()
-		)?.streak ?? 0;
+	const highestStreak = await fetchHighestStreak(invoker.id, type);
 
-	await pg<GuessPacket>(Table.Guess)
-		.insert({
-			user_id: invoker.id,
-			streak,
-			type,
-			date: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
-		})
-		.onConflict(["user_id", "type"])
-		.merge()
-		.where(`${Table.Guess}.streak`, "<", streak);
+	await recordGuessResult(invoker.id, streak, type, snowflakeDate(interaction.id));
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: [
@@ -938,15 +921,18 @@ export async function tryAgain(interaction: APIMessageComponentButtonInteraction
 }
 
 export async function findUser(userId: Snowflake, type: GuessTypes) {
-	const result = await pg
-		.select<GuessUserRanking>()
-		.from(
-			pg(Table.Guess)
-				.select("user_id", "type", "streak", pg.raw(GUESS_RANK_RAW))
-				.where("streak", ">", 0),
+	const result = await database
+		.selectFrom((eb) =>
+			eb
+				.selectFrom("guess")
+				.select(["user_id", "type", "streak", GUESS_RANK_RAW.as("rank")])
+				.where("streak", ">", 0)
+				.as("ranked_guess"),
 		)
-		.where({ user_id: userId, type })
-		.first();
+		.selectAll()
+		.where("user_id", "=", userId)
+		.where("type", "=", type)
+		.executeTakeFirst();
 
 	return result;
 }
@@ -964,30 +950,32 @@ export async function leaderboard(
 
 	const offset = (page - 1) * GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER;
 
-	const rankedGuessPackets = pg(`${Table.Guess} as ranked_guess_base`)
-		.select(
-			"ranked_guess_base.user_id",
-			"ranked_guess_base.type",
-			"ranked_guess_base.streak",
-			pg.raw(GUESS_RANK_RAW),
+	const guessPacketsLeaderboard = await database
+		.selectFrom((eb) =>
+			eb
+				.selectFrom("guess as ranked_guess_base")
+				.select([
+					"ranked_guess_base.user_id",
+					"ranked_guess_base.type",
+					"ranked_guess_base.streak",
+					GUESS_RANK_RAW.as("rank"),
+				])
+				.where("ranked_guess_base.type", "=", type)
+				.where("ranked_guess_base.streak", ">", 0)
+				.as("ranked_guess"),
 		)
-		.where("ranked_guess_base.type", type)
-		.where("ranked_guess_base.streak", ">", 0)
-		.as("ranked_guess");
-
-	const guessPacketsLeaderboard = await pg
-		.select<GuessLeaderboardRanking[]>(
+		.leftJoin("sky_profiles", "sky_profiles.user_id", "ranked_guess.user_id")
+		.select([
 			"ranked_guess.user_id",
 			"ranked_guess.type",
 			"ranked_guess.streak",
 			"ranked_guess.rank",
-			`${Table.SkyProfiles}.name`,
-		)
-		.from(rankedGuessPackets)
-		.leftJoin(Table.SkyProfiles, "ranked_guess.user_id", `${Table.SkyProfiles}.user_id`)
+			"sky_profiles.name",
+		])
 		.orderBy("ranked_guess.rank")
 		.limit(GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER + 1)
-		.offset(offset);
+		.offset(offset)
+		.execute();
 
 	if (guessPacketsLeaderboard.length === 0) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {

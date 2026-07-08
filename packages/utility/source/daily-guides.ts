@@ -1,23 +1,6 @@
-import { ChannelType, type Snowflake } from "discord-api-types/v10";
+import { ChannelType } from "discord-api-types/v10";
 import { isActive } from "./dates.js";
 import { dailyGuidesQuestRoute } from "./routes.js";
-
-export interface DailyGuidesPacket {
-	quest1: number | null;
-	quest2: number | null;
-	quest3: number | null;
-	quest4: number | null;
-	travelling_rock: string | null;
-	last_updated_user_id: Snowflake;
-	last_updated_at: Date;
-}
-
-export interface DailyGuidesDistributionPacket {
-	guild_id: Snowflake;
-	channel_id: Snowflake | null;
-	message_id: Snowflake | null;
-	type: number;
-}
 
 export const DailyGuidesDistributionType = {
 	Compact: 0,

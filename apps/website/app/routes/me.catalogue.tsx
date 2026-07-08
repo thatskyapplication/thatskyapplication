@@ -1,5 +1,4 @@
 import {
-	type CataloguePacket,
 	CLOTHING_SHOP,
 	type EventIds,
 	NESTING_WORKSHOP,
@@ -11,7 +10,6 @@ import {
 	skyNow,
 	skySeasons,
 	spirits,
-	Table,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { ArrowLeft } from "lucide-react";
@@ -30,8 +28,8 @@ import { SpiritView } from "~/components/catalogue/SpiritView";
 import { StartView } from "~/components/catalogue/StartView";
 import { TotalSpentView } from "~/components/catalogue/TotalSpentView";
 import { SitePage } from "~/components/PageLayout";
+import database from "~/database.server";
 import { getLocale } from "~/middleware/i18next.js";
-import pg from "~/pg.server";
 import { parseCosmetics, resolveScopeCosmetics } from "~/utility/catalogue.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
@@ -42,9 +40,11 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const timeZone = await getPreferredTimeZone(request);
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 
-	const cataloguePacket = await pg<CataloguePacket>(Table.Catalogue)
-		.where({ user_id: discordUser.id })
-		.first();
+	const cataloguePacket = await database
+		.selectFrom("catalogue")
+		.selectAll()
+		.where("user_id", "=", discordUser.id)
+		.executeTakeFirst();
 
 	return {
 		data: cataloguePacket?.data ?? [],
@@ -62,21 +62,29 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 	const intent = formData.get("intent");
 
 	if (intent === "settings-everything") {
-		await pg<CataloguePacket>(Table.Catalogue)
-			.insert({
+		await database
+			.insertInto("catalogue")
+			.values({
 				last_updated_at: new Date(),
 				show_everything_button: formData.get("enabled") === "true",
 				user_id: discordUser.id,
 			})
-			.onConflict("user_id")
-			.merge();
+			.onConflict((oc) =>
+				oc.column("user_id").doUpdateSet((eb) => ({
+					last_updated_at: eb.ref("excluded.last_updated_at"),
+					show_everything_button: eb.ref("excluded.show_everything_button"),
+				})),
+			)
+			.execute();
 
 		return;
 	}
 
-	const cataloguePacket = await pg<CataloguePacket>(Table.Catalogue)
-		.where({ user_id: discordUser.id })
-		.first();
+	const cataloguePacket = await database
+		.selectFrom("catalogue")
+		.selectAll()
+		.where("user_id", "=", discordUser.id)
+		.executeTakeFirst();
 
 	const existing: ReadonlySet<number> = new Set(cataloguePacket?.data);
 	let data: ReadonlySet<number>;
@@ -104,10 +112,16 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 		throw new Response("Unknown intent.", { status: 400 });
 	}
 
-	await pg<CataloguePacket>(Table.Catalogue)
-		.insert({ data: [...data], last_updated_at: new Date(), user_id: discordUser.id })
-		.onConflict("user_id")
-		.merge();
+	await database
+		.insertInto("catalogue")
+		.values({ data: [...data], last_updated_at: new Date(), user_id: discordUser.id })
+		.onConflict((oc) =>
+			oc.column("user_id").doUpdateSet((eb) => ({
+				data: eb.ref("excluded.data"),
+				last_updated_at: eb.ref("excluded.last_updated_at"),
+			})),
+		)
+		.execute();
 
 	return;
 };

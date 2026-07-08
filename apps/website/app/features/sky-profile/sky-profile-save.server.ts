@@ -1,5 +1,5 @@
-import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
-import pg from "~/pg.server";
+import type { Packet } from "@thatskyapplication/utility";
+import database from "~/database.server";
 import pino from "~/pino.js";
 import {
 	deleteSkyProfileBanner,
@@ -131,7 +131,8 @@ export async function saveSkyProfileFromWebsite({
 		return { errors, ok: false };
 	}
 
-	const skyProfileUpsertData: Partial<SkyProfilePacket> & Pick<SkyProfilePacket, "user_id"> = {
+	const skyProfileUpsertData: Partial<Packet<"sky_profiles">> &
+		Pick<Packet<"sky_profiles">, "user_id"> = {
 		user_id: userId,
 		last_updated_at: lastUpdatedAt,
 		name: profile.name,
@@ -156,10 +157,11 @@ export async function saveSkyProfileFromWebsite({
 	}
 
 	try {
-		await pg<SkyProfilePacket>(Table.SkyProfiles)
-			.insert(skyProfileUpsertData)
-			.onConflict("user_id")
-			.merge(skyProfileUpsertData);
+		await database
+			.insertInto("sky_profiles")
+			.values(skyProfileUpsertData)
+			.onConflict((oc) => oc.column("user_id").doUpdateSet(skyProfileUpsertData))
+			.execute();
 	} catch (error) {
 		await cleanupUploadedAsset({
 			banner: uploadedBanner && uploadedBanner !== initialBanner ? uploadedBanner : null,

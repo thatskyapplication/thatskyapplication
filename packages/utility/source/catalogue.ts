@@ -8,13 +8,6 @@ import type { Spirit } from "./models/spirits.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
 import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
-export interface CataloguePacket {
-	user_id: string;
-	last_updated_at: Date | null;
-	data: number[];
-	show_everything_button: boolean;
-}
-
 const starterPackItems = resolveOfferFromItems([
 	{
 		cosmetic: Cosmetic.MobileCape,

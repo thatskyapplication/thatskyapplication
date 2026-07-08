@@ -17,9 +17,7 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 import {
-	type CataloguePacket,
 	CLOTHING_SHOP,
 	type CostEntry,
 	catalogueComplete,
@@ -39,6 +37,7 @@ import {
 	isRealm,
 	KINGDOM,
 	NESTING_WORKSHOP,
+	type Packet,
 	partitionItemCosts,
 	type RealmName,
 	resolveReturningSpirits,
@@ -55,11 +54,10 @@ import {
 	skySeasons,
 	spirits,
 	sumCosts,
-	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import {
 	CatalogueType,
 	itemToSelectMenuOption,
@@ -83,6 +81,7 @@ import {
 	isButton,
 	isChatInputCommand,
 	resolveStringSelectMenu,
+	snowflakeDate,
 } from "../utility/functions.js";
 
 const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
@@ -301,7 +300,12 @@ function offerProgressTotalCharacters(offerProgress: {
 }
 
 export async function fetchCatalogue(userId: Snowflake) {
-	const catalogue = await pg<CataloguePacket>(Table.Catalogue).where({ user_id: userId }).first();
+	const catalogue = await database
+		.selectFrom("catalogue")
+		.selectAll()
+		.where("user_id", "=", userId)
+		.executeTakeFirst();
+
 	return catalogue ? { ...catalogue, data: new Set(catalogue.data) } : null;
 }
 
@@ -625,10 +629,11 @@ export async function viewStart(
 export async function viewSettings(interaction: APIMessageComponentButtonInteraction) {
 	const { locale } = interaction;
 
-	const catalogue = await pg<CataloguePacket>(Table.Catalogue)
+	const catalogue = await database
+		.selectFrom("catalogue")
 		.select("show_everything_button")
-		.where({ user_id: interactionInvoker(interaction).id })
-		.first();
+		.where("user_id", "=", interactionInvoker(interaction).id)
+		.executeTakeFirst();
 
 	const everythingSetting: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -2726,9 +2731,7 @@ interface CatalogueUpdateOptions {
 	showEverythingButton?: boolean;
 }
 
-type CatalogueUpdatePayload = Partial<Pick<CataloguePacket, "data" | "show_everything_button">>;
-
-type CatalogueUpdateMergeFields = (keyof CatalogueUpdatePayload | "last_updated_at")[];
+type CatalogueUpdatePayload = Partial<Pick<Packet<"catalogue">, "data" | "show_everything_button">>;
 
 async function update(
 	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
@@ -2736,27 +2739,33 @@ async function update(
 ) {
 	const userId = interactionInvoker(interaction).id;
 	const payload: CatalogueUpdatePayload = {};
-	const mergeFields: CatalogueUpdateMergeFields = ["last_updated_at"];
 
 	if (data) {
-		mergeFields.push("data");
 		payload.data = [...data];
 	}
 
 	if (showEverythingButton !== undefined) {
-		mergeFields.push("show_everything_button");
 		payload.show_everything_button = showEverythingButton;
 	}
 
-	const [cataloguePacket] = await pg<CataloguePacket>(Table.Catalogue)
-		.insert({
+	const cataloguePacket = await database
+		.insertInto("catalogue")
+		.values({
 			...payload,
 			user_id: userId,
-			last_updated_at: new Date(DiscordSnowflake.timestampFrom(interaction.id)),
+			last_updated_at: snowflakeDate(interaction.id),
 		})
-		.onConflict("user_id")
-		.merge(mergeFields)
-		.returning("*");
+		.onConflict((oc) =>
+			oc.column("user_id").doUpdateSet((eb) => ({
+				last_updated_at: eb.ref("excluded.last_updated_at"),
+				...("data" in payload && { data: eb.ref("excluded.data") }),
+				...("show_everything_button" in payload && {
+					show_everything_button: eb.ref("excluded.show_everything_button"),
+				}),
+			})),
+		)
+		.returningAll()
+		.executeTakeFirstOrThrow();
 
-	return { ...cataloguePacket!, data: new Set(cataloguePacket!.data) };
+	return { ...cataloguePacket, data: new Set(cataloguePacket.data) };
 }

@@ -1,26 +1,20 @@
+import type { Kysely } from "kysely";
+import type { Packet } from "./database/index.js";
+import type { DB } from "./database/schema.js";
 import type { Nullable } from "./types/index.js";
-import type { UsersPacket } from "./users.js";
 
-export interface SkyProfilePacket {
-	user_id: string;
-	last_updated_at: Date | null;
-	name: string | null;
-	icon: string | null;
-	banner: string | null;
-	description: string | null;
-	country: string | null;
-	winged_light: SkyProfileWingedLightTypes | null;
-	seasons: number[] | null;
-	platform: number[] | null;
-	spirit: number | null;
-	hangout: string | null;
-	catalogue_progression: boolean | null;
-	guess_rank: boolean | null;
-	personality: number | null;
+export type SkyProfileData = Packet<"sky_profiles"> &
+	Pick<Nullable<Packet<"users">>, "supporter" | "artist" | "translator">;
+
+export function fetchSkyProfileWithFlags(database: Kysely<DB>, userId: string) {
+	return database
+		.selectFrom("sky_profiles as p")
+		.leftJoin("users as u", "u.discord_user_id", "p.user_id")
+		.selectAll("p")
+		.select(["u.translator", "u.supporter", "u.artist"])
+		.where("p.user_id", "=", userId)
+		.executeTakeFirst();
 }
-
-export type SkyProfileData = SkyProfilePacket &
-	Pick<Nullable<UsersPacket>, "supporter" | "artist" | "translator">;
 
 export const SKY_PROFILE_MAXIMUM_NAME_LENGTH = 16 as const;
 export const SKY_PROFILE_MAXIMUM_DESCRIPTION_LENGTH = 3_000 as const;

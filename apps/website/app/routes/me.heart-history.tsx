@@ -3,11 +3,11 @@ import {
 	DELETED_USER_TEXT,
 	DOUBLE_HEART_EVENTS,
 	formatEmojiURL,
-	type HeartHistoryPacket,
-	type HeartPacket,
+	heartHistory,
+	heartHistoryTotal,
 	MAXIMUM_HEARTS_PER_DAY,
 	skyToday,
-	Table,
+	totalHearts,
 } from "@thatskyapplication/utility";
 import { ArrowLeft, HandHeart, HeartPlus } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -15,7 +15,7 @@ import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
 import { Tooltip } from "~/components/Tooltip";
-import pg from "~/pg.server";
+import database from "~/database.server";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
@@ -24,15 +24,6 @@ import type { Route } from "./+types/me.heart-history.js";
 
 const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 30 as const;
 
-async function totalHearts(column: "giftee_id" | "user_id", userId: Snowflake) {
-	const result = (await pg<HeartPacket>(Table.Hearts)
-		.where({ [column]: userId })
-		.sum("count")
-		.first()) as unknown as { sum: string | null };
-
-	return Number(result.sum ?? 0);
-}
-
 export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 	const userId = discordUser.id;
@@ -40,19 +31,15 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const today = skyToday();
 
 	const [gifted, received, totalRows, giftedToday] = await Promise.all([
-		totalHearts("user_id", userId),
-		totalHearts("giftee_id", userId),
-		pg<HeartPacket>(Table.Hearts)
-			.where({ user_id: userId })
-			.orWhere({ giftee_id: userId })
-			.count({ totalRows: "*" })
-			.first()
-			.then((result) => Number(result?.totalRows ?? 0)),
-		pg<HeartPacket>(Table.Hearts)
-			.where({ user_id: userId })
-			.andWhere("timestamp", ">=", today.toInstant().toString())
-			.count({ giftedToday: "*" })
-			.first()
+		totalHearts(database, "user_id", userId),
+		totalHearts(database, "giftee_id", userId),
+		heartHistoryTotal(database, userId),
+		database
+			.selectFrom("hearts")
+			.select((eb) => eb.fn.countAll<string>().as("giftedToday"))
+			.where("user_id", "=", userId)
+			.where("timestamp", ">=", new Date(today.toInstant().epochMilliseconds))
+			.executeTakeFirst()
 			.then((result) => Number(result?.giftedToday ?? 0)),
 	]);
 
@@ -78,28 +65,12 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 		});
 	}
 
-	const heartPackets = await pg(`${Table.Hearts} as hearts`)
-		.select<HeartHistoryPacket[]>(
-			"hearts.user_id",
-			"hearts.giftee_id",
-			"hearts.timestamp",
-			"hearts.count",
-			"giftee_profile.name as giftee_name",
-			"user_profile.name as user_name",
-		)
-		.leftJoin(
-			`${Table.SkyProfiles} as giftee_profile`,
-			"hearts.giftee_id",
-			"giftee_profile.user_id",
-		)
-		.leftJoin(`${Table.SkyProfiles} as user_profile`, "hearts.user_id", "user_profile.user_id")
-		.where("hearts.user_id", userId)
-		.orWhere("hearts.giftee_id", userId)
-		.orderBy("hearts.timestamp", "desc")
-		.orderBy("hearts.user_id", "asc")
-		.orderBy("hearts.giftee_id", "asc")
-		.limit(HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER)
-		.offset(offset);
+	const heartPackets = await heartHistory(
+		database,
+		userId,
+		HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER,
+		offset,
+	);
 
 	return {
 		currentPage,

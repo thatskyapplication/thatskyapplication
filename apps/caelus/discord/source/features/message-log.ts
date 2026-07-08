@@ -7,15 +7,13 @@ import {
 	type GatewayMessageUpdateDispatchData,
 	MessageReferenceType,
 	PermissionFlagsBits,
-	type Snowflake,
 } from "@discordjs/core";
-import { Table } from "@thatskyapplication/utility";
 import { diffLines, diffWords } from "diff";
+import database from "../database.js";
 import { client } from "../discord.js";
 import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
-import pg from "../pg.js";
 import {
 	MESSAGE_LOG_CHANNEL_ID,
 	MESSAGE_LOG_EXPLICIT_ALLOWED_CHANNEL_IDS,
@@ -34,16 +32,6 @@ import { can, isChannelPublic } from "../utility/permissions.js";
 const MESSAGE_UPDATE_CODE_CHECK_REGULAR_EXPRESSION = /```.*?```/s;
 const MESSAGE_UPDATE_REGULAR_EXPRESSION = /```(?:(\S+)\n)?\s*(.+?)\s*```/s;
 const MESSAGE_LOG_CHANNEL_TYPES = [ChannelType.GuildText] as const;
-
-interface MessagesPacket {
-	guild_id: Snowflake;
-	channel_id: Snowflake;
-	message_id: Snowflake;
-	user_id: Snowflake;
-	content: string;
-	created_at: Date;
-	reply_message_id: Snowflake | null;
-}
 
 type MessageLogAllowedChannel = Extract<
 	APIChannel,
@@ -172,8 +160,9 @@ export async function messageLogUpsert(
 		return;
 	}
 
-	await pg<MessagesPacket>(Table.Messages)
-		.insert({
+	await database
+		.insertInto("messages")
+		.values({
 			guild_id: guild.id,
 			channel_id: message.channel_id,
 			message_id: message.id,
@@ -185,15 +174,18 @@ export async function messageLogUpsert(
 					? message.message_reference.message_id!
 					: null,
 		})
-		.onConflict("message_id")
-		.merge(["content"]);
+		.onConflict((oc) =>
+			oc.column("message_id").doUpdateSet((eb) => ({ content: eb.ref("excluded.content") })),
+		)
+		.execute();
 }
 
 export async function messageLogDeleteOldMessages() {
 	// Delete messages older than 30 days.
-	await pg<MessagesPacket>(Table.Messages)
-		.delete()
-		.where("created_at", "<", new Date(Date.now() - 2592000000));
+	await database
+		.deleteFrom("messages")
+		.where("created_at", "<", new Date(Date.now() - 2592000000))
+		.execute();
 }
 
 export async function messageLogHandleMessageUpdate(
@@ -215,10 +207,11 @@ export async function messageLogHandleMessageUpdate(
 		return;
 	}
 
-	const messagesPacket = await pg<MessagesPacket>(Table.Messages)
+	const messagesPacket = await database
+		.selectFrom("messages")
 		.select("content")
-		.where({ message_id: message.id })
-		.first();
+		.where("message_id", "=", message.id)
+		.executeTakeFirst();
 
 	const oldContent = messagesPacket?.content;
 
@@ -315,10 +308,11 @@ export async function messageLogHandleMessageDelete(
 		return;
 	}
 
-	const messagesPacket = await pg<MessagesPacket>(Table.Messages)
-		.select("user_id", "content", "reply_message_id")
-		.where({ message_id: message.id })
-		.first();
+	const messagesPacket = await database
+		.selectFrom("messages")
+		.select(["user_id", "content", "reply_message_id"])
+		.where("message_id", "=", message.id)
+		.executeTakeFirst();
 
 	if (!messagesPacket) {
 		return;
@@ -379,10 +373,16 @@ export async function messageLogHandleMessageDeleteBulk(
 		return;
 	}
 
-	const messagesPackets = await pg<MessagesPacket>(Table.Messages)
-		.select("user_id", "content", "reply_message_id")
-		.whereIn("message_id", data.ids)
-		.orderBy("created_at", "asc");
+	if (data.ids.length === 0) {
+		return;
+	}
+
+	const messagesPackets = await database
+		.selectFrom("messages")
+		.select(["user_id", "content", "reply_message_id"])
+		.where("message_id", "in", data.ids)
+		.orderBy("created_at", "asc")
+		.execute();
 
 	if (messagesPackets.length === 0) {
 		return;

@@ -1,10 +1,9 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
-import { Table, type UsersPacket } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
+import database from "../database.js";
 import { client } from "../discord.js";
 import { memberLogSendJoinLeave } from "../features/member-log.js";
-import { sendWelcomeMessage, type WelcomePacketWithChannel } from "../features/welcome.js";
-import pg from "../pg.js";
+import { sendWelcomeMessage } from "../features/welcome.js";
 import pino from "../pino.js";
 import {
 	ARTIST_ROLE_ID,
@@ -28,10 +27,13 @@ export default {
 				await memberLogSendJoinLeave({ guild, member: data });
 			}
 
-			const welcomePacket = await pg<WelcomePacketWithChannel>(Table.Welcome)
-				.where({ guild_id: data.guild_id })
-				.and.whereNotNull("welcome_channel_id")
-				.first();
+			const welcomePacket = await database
+				.selectFrom("welcome")
+				.selectAll()
+				.where("guild_id", "=", data.guild_id)
+				.where("welcome_channel_id", "is not", null)
+				.$narrowType<{ welcome_channel_id: string }>()
+				.executeTakeFirst();
 
 			if (welcomePacket) {
 				await sendWelcomeMessage({
@@ -45,9 +47,11 @@ export default {
 		}
 
 		if (data.guild_id === SUPPORT_SERVER_GUILD_ID) {
-			const usersPacket = await pg<UsersPacket>(Table.Users)
-				.where({ discord_user_id: data.user.id })
-				.first();
+			const usersPacket = await database
+				.selectFrom("users")
+				.selectAll()
+				.where("discord_user_id", "=", data.user.id)
+				.executeTakeFirst();
 
 			if (usersPacket?.translator) {
 				pino.info(data, "Adding translator role to user.");

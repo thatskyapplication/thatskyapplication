@@ -15,17 +15,16 @@ import {
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import {
-	type FriendshipActionsPacket,
 	FriendshipActionType,
 	type FriendshipActionTypes,
 	formatEmoji,
-	Table,
 } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import { sql } from "kysely";
 import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
+import database from "../database.js";
 import { client } from "../discord.js";
-import pg from "../pg.js";
 import { cdn } from "../thatskyapplication.js";
 import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";
@@ -156,12 +155,14 @@ export async function friendshipActionComponents({
 	let resolvedId = id;
 
 	if (!resolvedId) {
-		const friendshipActionsPacket = await pg<FriendshipActionsPacket>(Table.FriendshipActions)
+		const friendshipActionsPacket = await database
+			.selectFrom("friendship_actions")
 			.select("id")
-			.where({ type, skip: false })
-			.orderByRaw("random()")
+			.where("type", "=", type)
+			.where("skip", "=", false)
+			.orderBy(sql`random()`)
 			.limit(1)
-			.first();
+			.executeTakeFirst();
 
 		if (!friendshipActionsPacket?.id) {
 			throw new Error("Unknown friendship actions id.");

@@ -1,19 +1,19 @@
-import { type SkyProfilePacket, Table } from "@thatskyapplication/utility";
 import { BookOpenCheck, CheckSquare, Ellipsis, Heart, Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
-import pg from "~/pg.server";
+import database from "~/database.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import type { Route } from "./+types/me._index.js";
 
 export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 
-	const skyProfile = await pg<SkyProfilePacket>(Table.SkyProfiles)
+	const skyProfile = await database
+		.selectFrom("sky_profiles")
 		.select("name")
-		.where({ user_id: discordUser.id })
-		.first();
+		.where("user_id", "=", discordUser.id)
+		.executeTakeFirst();
 
 	return { discordUser, skyProfile };
 };

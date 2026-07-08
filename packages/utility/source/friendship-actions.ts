@@ -1,12 +1,3 @@
-export interface FriendshipActionsPacket {
-	id: number;
-	type: number;
-	users: readonly string[];
-	square: boolean;
-	skip: boolean;
-	reference: string;
-}
-
 export const FriendshipActionType = {
 	HighFive: 0,
 	Hug: 1,

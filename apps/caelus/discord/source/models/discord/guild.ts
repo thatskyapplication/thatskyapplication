@@ -11,9 +11,9 @@ import {
 	type Snowflake,
 	type ThreadChannelType,
 } from "@discordjs/core";
-import { DiscordSnowflake } from "@sapphire/snowflake";
 import { client } from "../../discord.js";
 import { APPLICATION_ID } from "../../utility/configuration.js";
+import { snowflakeDate } from "../../utility/functions.js";
 import { GuildMember } from "./guild-member.js";
 import { Role } from "./role.js";
 import { AnnouncementThread, PrivateThread, PublicThread } from "./thread.js";
@@ -54,7 +54,7 @@ export class Guild {
 
 	public constructor(data: GatewayGuildCreateDispatchData) {
 		this.id = data.id;
-		this.createdAt = new Date(DiscordSnowflake.timestampFrom(data.id));
+		this.createdAt = snowflakeDate(data.id);
 
 		this.roles = data.roles.reduce(
 			(roles, role) => roles.set(role.id, new Role(role)),
