@@ -981,10 +981,10 @@ export async function leaderboard(
 			"ranked_guess.type",
 			"ranked_guess.streak",
 			"ranked_guess.rank",
-			"profiles.name",
+			`${Table.SkyProfiles}.name`,
 		)
 		.from(rankedGuessPackets)
-		.leftJoin(Table.Profiles, "ranked_guess.user_id", `${Table.Profiles}.user_id`)
+		.leftJoin(Table.SkyProfiles, "ranked_guess.user_id", `${Table.SkyProfiles}.user_id`)
 		.orderBy("ranked_guess.rank")
 		.limit(GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER + 1)
 		.offset(offset);

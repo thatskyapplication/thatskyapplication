@@ -53,14 +53,14 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 export const loader = async () => {
 	const { rows } = await pg.raw<{ rows: readonly AcknowledgementProfile[] }>(
 		`
-			select ${Table.Profiles}.*
+			select ${Table.SkyProfiles}.*
 			from (
 				select distinct unnest(${Table.FriendshipActions}.users) as user_id
 				from ${Table.FriendshipActions}
 			) unique_users
-			join ${Table.Profiles} on ${Table.Profiles}.user_id = unique_users.user_id
-			where profiles.name is not null
-			order by profiles.name asc, profiles.user_id asc
+			join ${Table.SkyProfiles} on ${Table.SkyProfiles}.user_id = unique_users.user_id
+			where ${Table.SkyProfiles}.name is not null
+			order by ${Table.SkyProfiles}.name asc, ${Table.SkyProfiles}.user_id asc
 		`,
 	);
 

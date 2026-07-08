@@ -131,7 +131,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 	const session = await getSession(request.headers.get("Cookie"));
 	const user = session.get("discord_user") ?? null;
 	const skyProfile = user
-		? await pg<SkyProfilePacket>(Table.Profiles)
+		? await pg<SkyProfilePacket>(Table.SkyProfiles)
 				.select("name", "icon")
 				.where({ user_id: user.id })
 				.first()

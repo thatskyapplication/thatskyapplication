@@ -163,7 +163,7 @@ export const loader = async ({ params, request }: Route.LoaderArgs) => {
 
 	const data = await pg
 		.select<SkyProfileData>("p.*", "u.translator", "u.supporter", "u.artist")
-		.from(`${Table.Profiles} as p`)
+		.from(`${Table.SkyProfiles} as p`)
 		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
 		.where("p.user_id", userId)
 		.first();

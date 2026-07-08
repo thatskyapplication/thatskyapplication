@@ -87,8 +87,12 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 			"giftee_profile.name as giftee_name",
 			"user_profile.name as user_name",
 		)
-		.leftJoin(`${Table.Profiles} as giftee_profile`, "hearts.giftee_id", "giftee_profile.user_id")
-		.leftJoin(`${Table.Profiles} as user_profile`, "hearts.user_id", "user_profile.user_id")
+		.leftJoin(
+			`${Table.SkyProfiles} as giftee_profile`,
+			"hearts.giftee_id",
+			"giftee_profile.user_id",
+		)
+		.leftJoin(`${Table.SkyProfiles} as user_profile`, "hearts.user_id", "user_profile.user_id")
 		.where("hearts.user_id", userId)
 		.orWhere("hearts.giftee_id", userId)
 		.orderBy("hearts.timestamp", "desc")

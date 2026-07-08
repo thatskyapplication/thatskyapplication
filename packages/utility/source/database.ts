@@ -11,7 +11,7 @@ export enum Table {
 	Hearts = "hearts",
 	Messages = "messages",
 	Notifications = "notifications",
-	Profiles = "profiles",
+	SkyProfiles = "sky_profiles",
 	RedditWebhooks = "reddit_webhooks",
 	SkyProfileLikes = "sky_profile_likes",
 	Users = "users",

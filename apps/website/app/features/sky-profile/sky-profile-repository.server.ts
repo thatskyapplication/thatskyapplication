@@ -18,12 +18,12 @@ const SKY_PROFILE_EDITOR_COLUMNS = [
 ] as const;
 
 export function getSkyProfilePacket(userId: string) {
-	return pg<SkyProfilePacket>(Table.Profiles)
+	return pg<SkyProfilePacket>(Table.SkyProfiles)
 		.select(...SKY_PROFILE_EDITOR_COLUMNS)
 		.where({ user_id: userId })
 		.first();
 }
 
 export function publicProfilesQuery() {
-	return pg<SkyProfilePacket>(Table.Profiles).whereNotNull("name");
+	return pg<SkyProfilePacket>(Table.SkyProfiles).whereNotNull("name");
 }

@@ -156,7 +156,7 @@ export async function saveSkyProfileFromWebsite({
 	}
 
 	try {
-		await pg<SkyProfilePacket>(Table.Profiles)
+		await pg<SkyProfilePacket>(Table.SkyProfiles)
 			.insert(skyProfileUpsertData)
 			.onConflict("user_id")
 			.merge(skyProfileUpsertData);

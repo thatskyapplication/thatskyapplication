@@ -10,7 +10,7 @@ import type { Route } from "./+types/me._index.js";
 export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	const { discordUser } = await requireDiscordAuthentication(request, url);
 
-	const skyProfile = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfile = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.select("name")
 		.where({ user_id: discordUser.id })
 		.first();

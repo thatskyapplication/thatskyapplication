@@ -250,7 +250,7 @@ function generateLabelLetter(label: string) {
 async function skyProfileFetch(userId: Snowflake) {
 	return await pg
 		.select<SkyProfileData>("p.*", "u.translator", "u.supporter", "u.artist")
-		.from(`${Table.Profiles} as p`)
+		.from(`${Table.SkyProfiles} as p`)
 		.leftJoin(`${Table.Users} as u`, "p.user_id", "u.discord_user_id")
 		.where("p.user_id", userId)
 		.first();
@@ -264,7 +264,7 @@ export async function skyProfileSet(
 	data: SkyProfileSetData,
 	options: SkyProfileSetOptions = {},
 ) {
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.select("icon", "banner")
 		.where({ user_id: data.user_id })
 		.first();
@@ -291,7 +291,7 @@ export async function skyProfileSet(
 		}
 	}
 
-	const result = await pg<SkyProfilePacket>(Table.Profiles)
+	const result = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.insert(
 			{
 				...data,
@@ -316,7 +316,7 @@ export async function skyProfileSetAsset(
 ) {
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -617,7 +617,7 @@ export async function skyProfileShowEdit(
 }
 
 export async function skyProfileDelete(userId: Snowflake) {
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.select("icon", "banner")
 		.where({ user_id: userId })
 		.first();
@@ -647,7 +647,7 @@ export async function skyProfileDelete(userId: Snowflake) {
 		);
 	}
 
-	promises.push(pg<SkyProfilePacket>(Table.Profiles).delete().where({ user_id: userId }));
+	promises.push(pg<SkyProfilePacket>(Table.SkyProfiles).delete().where({ user_id: userId }));
 	await Promise.all(promises);
 }
 
@@ -715,7 +715,7 @@ export async function skyProfileExplore(
 
 	const offset = (page - 1) * limit;
 
-	const skyProfilePackets = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePackets = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.whereNotNull("name")
 		.orderBy("name", "asc")
 		.orderBy("user_id", "asc")
@@ -872,7 +872,7 @@ export async function skyProfileExploreAutocomplete(
 			focused.length === 0
 				? []
 				: (
-						await pg<SkyProfilePacket>(Table.Profiles)
+						await pg<SkyProfilePacket>(Table.SkyProfiles)
 							.select(["user_id", "name", "description"])
 							.whereRaw("upper(name) % ?", [focused])
 							.limit(25)
@@ -1011,7 +1011,7 @@ export async function skyProfileExploreProfile(
 }
 
 async function skyProfileExploreProfilePreviousRow(name: string, userId: Snowflake) {
-	return await pg<SkyProfilePacket>(Table.Profiles)
+	return await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where(function () {
 			this.where("name", "<", name).orWhere(function () {
 				this.where("name", "=", name).andWhere("user_id", "<", userId);
@@ -1024,7 +1024,7 @@ async function skyProfileExploreProfilePreviousRow(name: string, userId: Snowfla
 }
 
 async function skyProfileExploreProfileNextRow(name: string, userId: Snowflake) {
-	return await pg<SkyProfilePacket>(Table.Profiles)
+	return await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where(function () {
 			this.where("name", ">", name).orWhere(function () {
 				this.where("name", "=", name).andWhere("user_id", ">", userId);
@@ -1050,11 +1050,11 @@ export async function skyProfileExploreLikes(
 	const offset = (page - 1) * limit;
 
 	const SkyProfilePackets = await pg(Table.SkyProfileLikes)
-		.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
-		.select(`${Table.Profiles}.*`)
+		.join(Table.SkyProfiles, `${Table.SkyProfileLikes}.target_id`, `${Table.SkyProfiles}.user_id`)
+		.select(`${Table.SkyProfiles}.*`)
 		.where(`${Table.SkyProfileLikes}.user_id`, invoker.id)
-		.orderBy(`${Table.Profiles}.name`, "asc")
-		.orderBy(`${Table.Profiles}.user_id`, "asc")
+		.orderBy(`${Table.SkyProfiles}.name`, "asc")
+		.orderBy(`${Table.SkyProfiles}.user_id`, "asc")
 		.limit(limit + 1)
 		.offset(offset);
 
@@ -1161,20 +1161,20 @@ async function skyProfileExploreLikedProfilePreviousRow(
 	targetId: Snowflake,
 ) {
 	return await pg<SkyProfilePacket>(Table.SkyProfileLikes)
-		.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
-		.select(`${Table.Profiles}.*`)
+		.join(Table.SkyProfiles, `${Table.SkyProfileLikes}.target_id`, `${Table.SkyProfiles}.user_id`)
+		.select(`${Table.SkyProfiles}.*`)
 		.where(`${Table.SkyProfileLikes}.user_id`, userId)
 		.andWhere(function () {
-			this.where(`${Table.Profiles}.name`, "<", name).orWhere(function () {
-				this.where(`${Table.Profiles}.name`, "=", name).andWhere(
-					`${Table.Profiles}.user_id`,
+			this.where(`${Table.SkyProfiles}.name`, "<", name).orWhere(function () {
+				this.where(`${Table.SkyProfiles}.name`, "=", name).andWhere(
+					`${Table.SkyProfiles}.user_id`,
 					"<",
 					targetId,
 				);
 			});
 		})
-		.orderBy(`${Table.Profiles}.name`, "desc")
-		.orderBy(`${Table.Profiles}.user_id`, "desc")
+		.orderBy(`${Table.SkyProfiles}.name`, "desc")
+		.orderBy(`${Table.SkyProfiles}.user_id`, "desc")
 		.limit(1)
 		.first();
 }
@@ -1185,20 +1185,20 @@ async function skyProfileExploreLikedProfileNextRow(
 	targetId: Snowflake,
 ) {
 	return await pg<SkyProfilePacket>(Table.SkyProfileLikes)
-		.join(Table.Profiles, `${Table.SkyProfileLikes}.target_id`, `${Table.Profiles}.user_id`)
-		.select(`${Table.Profiles}.*`)
+		.join(Table.SkyProfiles, `${Table.SkyProfileLikes}.target_id`, `${Table.SkyProfiles}.user_id`)
+		.select(`${Table.SkyProfiles}.*`)
 		.where(`${Table.SkyProfileLikes}.user_id`, userId)
 		.andWhere(function () {
-			this.where(`${Table.Profiles}.name`, ">", name).orWhere(function () {
-				this.where(`${Table.Profiles}.name`, "=", name).andWhere(
-					`${Table.Profiles}.user_id`,
+			this.where(`${Table.SkyProfiles}.name`, ">", name).orWhere(function () {
+				this.where(`${Table.SkyProfiles}.name`, "=", name).andWhere(
+					`${Table.SkyProfiles}.user_id`,
 					">",
 					targetId,
 				);
 			});
 		})
-		.orderBy(`${Table.Profiles}.name`, "asc")
-		.orderBy(`${Table.Profiles}.user_id`, "asc")
+		.orderBy(`${Table.SkyProfiles}.name`, "asc")
+		.orderBy(`${Table.SkyProfiles}.user_id`, "asc")
 		.limit(1)
 		.first();
 }
@@ -1316,7 +1316,7 @@ export async function skyProfileLike(
 	const { locale } = interaction;
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: userId })
 		.first();
 
@@ -1423,7 +1423,7 @@ export async function skyProfileReportModalPrompt(
 	const { locale } = interaction;
 	const userId = interaction.data.custom_id.slice(interaction.data.custom_id.indexOf("§") + 1);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: userId })
 		.first();
 
@@ -1561,7 +1561,7 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -1601,7 +1601,7 @@ async function skyProfileShowDescriptionModal(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -1693,7 +1693,7 @@ async function skyProfileShowWingedLightSelectMenu(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -1754,7 +1754,7 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -1794,7 +1794,7 @@ async function skyProfileShowSeasonsSelectMenu(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -1895,7 +1895,7 @@ async function skyProfileShowPlatformsSelectMenu(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -1954,7 +1954,7 @@ async function skyProfileShowPersonalitySelectMenu(
 	const { locale } = interaction;
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -2111,7 +2111,7 @@ export function skyProfileSetHangout(interaction: APIModalSubmitInteraction) {
 export async function skyProfileSetSeasons(interaction: APIMessageComponentSelectMenuInteraction) {
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -2189,7 +2189,7 @@ async function skyProfileSetCatalogueProgression(
 ) {
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -2202,7 +2202,7 @@ async function skyProfileSetCatalogueProgression(
 async function skyProfileSetGuessRank(interaction: APIMessageComponentSelectMenuInteraction) {
 	const invoker = interactionInvoker(interaction);
 
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.where({ user_id: invoker.id })
 		.first();
 
@@ -2665,7 +2665,7 @@ export async function noSkyProfileName(
 		| APIUserApplicationCommandInteraction,
 	source: SkyProfileMissingNameSources,
 ) {
-	const skyProfilePacket = await pg<SkyProfilePacket>(Table.Profiles)
+	const skyProfilePacket = await pg<SkyProfilePacket>(Table.SkyProfiles)
 		.select("name")
 		.where({ user_id: interactionInvoker(interaction).id })
 		.first();

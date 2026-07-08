@@ -66,7 +66,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 	// Get all available countries.
 	const countries = await pg<
 		SkyProfilePacket & _NonNullableFields<Pick<SkyProfilePacket, "country">>
-	>(Table.Profiles)
+	>(Table.SkyProfiles)
 		.distinct("country")
 		.whereNotNull("name")
 		.and.whereNotNull("country");
