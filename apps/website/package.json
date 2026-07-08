@@ -44,7 +44,7 @@
 		"@biomejs/biome": "2.3.11",
 		"@react-router/dev": "^7.16.0",
 		"@tailwindcss/postcss": "^4.3.0",
-		"@types/node": "^26.1.0",
+		"@types/node": "^26.1.1",
 		"@types/pg": "^8.20.0",
 		"@types/react": "^19.2.16",
 		"@types/react-dom": "^19.2.3",

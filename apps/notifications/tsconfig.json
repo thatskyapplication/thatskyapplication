@@ -17,6 +17,7 @@
 		"outDir": "distribution",
 		"lib": ["ESNext"],
 		"target": "ESNext",
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"types": ["node", "pg"]
 	}
 }

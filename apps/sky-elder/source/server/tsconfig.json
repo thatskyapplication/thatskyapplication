@@ -17,6 +17,7 @@
 		"sourceMap": true,
 		"tsBuildInfoFile": "../../distribution/tsconfig.tsbuildinfo",
 		"composite": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"types": ["express", "node"]
 	}
 }

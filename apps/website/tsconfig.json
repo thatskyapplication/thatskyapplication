@@ -19,7 +19,7 @@
 		"target": "ESNext",
 		"skipLibCheck": true,
 		"rootDirs": [".", "./.react-router/types"],
-		"types": ["@react-router/node", "vite/client"],
+		"types": ["@react-router/node", "node", "pg", "react", "react-dom", "vite/client"],
 		"isolatedModules": true,
 		"paths": {
 			"~/*": ["./app/*"]

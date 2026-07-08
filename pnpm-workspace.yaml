@@ -16,3 +16,4 @@ minimumReleaseAgeExclude:
   - "@discordjs/rest"
   - "@discordjs/util"
   - "@discordjs/ws"
+  - '@types/node@26.1.1'

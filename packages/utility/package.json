@@ -24,7 +24,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.11",
-		"@types/node": "^26.1.0",
+		"@types/node": "^26.1.1",
 		"kysely-codegen": "^0.20.0",
 		"pg": "^8.22.0",
 		"tsdown": "^0.22.1",

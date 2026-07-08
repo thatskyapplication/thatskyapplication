@@ -15,6 +15,7 @@
 		"newLine": "lf",
 		"outDir": "distribution",
 		"lib": ["ESNext", "DOM"],
-		"target": "ESNext"
+		"target": "ESNext",
+		"types": ["node"]
 	}
 }
