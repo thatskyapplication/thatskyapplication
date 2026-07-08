@@ -3,11 +3,11 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
+permissions: {}
 jobs:
   synchronise:
     name: Synchronise
     runs-on: ubuntu-latest
-    permissions: {}
     steps:
       - name: Create token
         id: create-token
