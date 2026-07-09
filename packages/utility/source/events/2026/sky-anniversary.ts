@@ -33,16 +33,8 @@ export default new Event({
 	},
 	offer: [
 		{
-			cosmetic: Cosmetic.AnniversaryBlackAndBlueSwagHoodie,
-			cost: { money: 14.99 },
-		},
-		{
-			cosmetic: Cosmetic.AnniversaryOreoSlippers,
-			cost: { money: 4.99 },
-		},
-		{
-			cosmetic: Cosmetic.AnniversaryMothPlush,
-			cost: { money: 4.99 },
+			cosmetic: Cosmetic.MomentsCameraUpgrade,
+			cost: { eventTickets: 25 },
 		},
 		{
 			translation: CosmeticCommon.HairAccessory,
@@ -55,8 +47,16 @@ export default new Event({
 			cost: { eventTickets: 29 },
 		},
 		{
-			cosmetic: Cosmetic.MomentsCameraUpgrade,
-			cost: { eventTickets: 25 },
+			cosmetic: Cosmetic.AnniversaryBlackAndBlueSwagHoodie,
+			cost: { money: 14.99 },
+		},
+		{
+			cosmetic: Cosmetic.AnniversaryOreoSlippers,
+			cost: { money: 4.99 },
+		},
+		{
+			cosmetic: Cosmetic.AnniversaryMothPlush,
+			cost: { money: 4.99 },
 		},
 	],
 });
