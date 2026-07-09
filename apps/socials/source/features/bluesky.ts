@@ -149,6 +149,7 @@ jetstream.on(EventType.Commit, async (event) => {
 		const promises = blueskyWebhooksPackets.map((blueskyWebhooksPacket) =>
 			discord.webhooks
 				.execute(blueskyWebhooksPacket.webhook_id, blueskyWebhooksPacket.webhook_token, {
+					allowed_mentions: {},
 					components: [
 						{
 							type: ComponentType.Container,
