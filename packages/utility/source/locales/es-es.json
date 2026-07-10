@@ -130,9 +130,9 @@
 			"16": "$t(general:events)",
 			"17": "$t(general:event-names.radiance-event)",
 			"18": "$t(general:season-plural)",
-			"19": "",
+			"19": "$t(general:event-names.double-hearts)",
 			"20": "",
-			"21": ""
+			"21": "$t(general:event-names.double-treasure-candles)"
 		},
 		"page": "Página",
 		"quests-common": {
