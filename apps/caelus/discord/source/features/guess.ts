@@ -77,7 +77,7 @@ async function recordGuessResult(userId: Snowflake, streak: number, type: GuessT
 					streak: eb.ref("excluded.streak"),
 					date: eb.ref("excluded.date"),
 				}))
-				.where("streak", "<", streak),
+				.where("guess.streak", "<", streak),
 		)
 		.execute();
 }
