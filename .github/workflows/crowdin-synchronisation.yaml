@@ -73,11 +73,11 @@ jobs:
             exit 0
           fi
 
-          git commit --message "chore: Update translation files"
+          git commit --message "chore: update translation files"
           git push --force origin chore/translations
 
           if [ "$(gh pr list --head chore/translations --state open --json number | jq length)" -eq 0 ]; then
-            gh pr create --base main --body "" --title "chore: Update translation files"
+            gh pr create --base main --body "" --title "chore: update translation files"
           fi
         env:
           GITHUB_TOKEN: ${{ steps.create-token.outputs.token }}
