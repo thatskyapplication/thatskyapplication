@@ -3,8 +3,8 @@ services:
     image: database-backup:latest
     profiles:
       - database-backup
-    restart: unless-stopped
-    logging:
+    restart: &restart-policy unless-stopped
+    logging: &default-logging
       driver: local
       options:
         max-size: 1m
@@ -26,13 +26,8 @@ services:
     image: thatskyapplication-caelus-discord:latest
     profiles:
       - thatskyapplication-caelus-discord
-    restart: unless-stopped
-    logging:
-      driver: local
-      options:
-        max-size: 1m
-        max-file: 1
-        compress: "false"
+    restart: *restart-policy
+    logging: *default-logging
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
       MAXIMUM_CONCURRENCY_LIMIT: ${MAXIMUM_CONCURRENCY_LIMIT}
@@ -52,7 +47,7 @@ services:
       SUPPORTER_ROLE_ID: ${SUPPORTER_ROLE_ID}
       ARTIST_ROLE_ID: ${ARTIST_ROLE_ID}
       TRANSLATOR_ROLE_ID: ${TRANSLATOR_ROLE_ID}
-      DATABASE_URL: ${DATABASE_URL_CAELUS}
+      DATABASE_URL: &database-url ${DATABASE_URL_CAELUS}
       CDN_URL: ${CDN_URL}
       S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
       S3_ACCOUNT_ID: ${S3_ACCOUNT_ID}
@@ -62,43 +57,28 @@ services:
     image: thatskyapplication-caelus-fluxer:latest
     profiles:
       - thatskyapplication-caelus-fluxer
-    restart: unless-stopped
-    logging:
-      driver: local
-      options:
-        max-size: 1m
-        max-file: 1
-        compress: "false"
+    restart: *restart-policy
+    logging: *default-logging
     environment:
       FLUXER_TOKEN: ${FLUXER_TOKEN}
   thatskyapplication-notifications:
     image: thatskyapplication-notifications:latest
     profiles:
       - thatskyapplication-notifications
-    restart: unless-stopped
-    logging:
-      driver: local
-      options:
-        max-size: 1m
-        max-file: 1
-        compress: "false"
+    restart: *restart-policy
+    logging: *default-logging
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
-      DATABASE_URL: ${DATABASE_URL_CAELUS}
+      DATABASE_URL: *database-url
       SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME_NOTIFICATIONS}
   thatskyapplication-socials:
     image: thatskyapplication-socials:latest
     profiles:
       - thatskyapplication-socials
-    restart: unless-stopped
-    logging:
-      driver: local
-      options:
-        max-size: 1m
-        max-file: 1
-        compress: "false"
+    restart: *restart-policy
+    logging: *default-logging
     environment:
-      DATABASE_URL: ${DATABASE_URL_CAELUS}
+      DATABASE_URL: *database-url
       SENTRY_DATA_SOURCE_NAME: ${SENTRY_DATA_SOURCE_NAME_SOCIALS}
   thatskyapplication-website:
     image: thatskyapplication-website:latest
@@ -106,16 +86,11 @@ services:
       - thatskyapplication-website
     x-ports:
       - thatskyapplication.com:80/https
-    restart: unless-stopped
-    logging:
-      driver: local
-      options:
-        max-size: 1m
-        max-file: 1
-        compress: "false"
+    restart: *restart-policy
+    logging: *default-logging
     environment:
       SESSION_SECRET: ${SESSION_SECRET}
-      DATABASE_URL: ${DATABASE_URL_CAELUS}
+      DATABASE_URL: *database-url
       DISCORD_TOKEN: ${DISCORD_TOKEN_CAELUS}
       INTERNAL_URL_CAELUS: ${INTERNAL_URL_CAELUS}
       APPLICATION_ID: ${APPLICATION_ID}

@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           file: apps/caelus/discord/Dockerfile
-          tags: thatskyapplication-caelus-discord:latest
+          tags: &image-tag thatskyapplication-caelus-discord:latest
           load: true
           platforms: linux/amd64
           cache-from: type=gha,scope=deploy-thatskyapplication-caelus-discord
@@ -40,7 +40,7 @@ jobs:
       - name: Deploy via Uncloud
         uses: thatskyapplication/uncloud-action@v1
         with:
-          image-tag: thatskyapplication-caelus-discord:latest
+          image-tag: *image-tag
           compose-files: compose.yaml
           uncloud-profile: thatskyapplication-caelus-discord
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}

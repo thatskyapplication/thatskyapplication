@@ -23,7 +23,7 @@ jobs:
         with:
           context: .
           file: Dockerfile.backup
-          tags: database-backup:latest
+          tags: &image-tag database-backup:latest
           load: true
           platforms: linux/amd64
           cache-from: type=gha,scope=deploy-database-backup
@@ -35,7 +35,7 @@ jobs:
       - name: Deploy via Uncloud
         uses: thatskyapplication/uncloud-action@v1
         with:
-          image-tag: database-backup:latest
+          image-tag: *image-tag
           compose-files: compose.yaml
           uncloud-profile: database-backup
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}

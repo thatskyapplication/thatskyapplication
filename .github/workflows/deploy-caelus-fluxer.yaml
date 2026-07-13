@@ -28,7 +28,7 @@ jobs:
         with:
           context: .
           file: apps/caelus/fluxer/Dockerfile
-          tags: thatskyapplication-caelus-fluxer:latest
+          tags: &image-tag thatskyapplication-caelus-fluxer:latest
           load: true
           platforms: linux/amd64
           cache-from: type=gha,scope=deploy-thatskyapplication-caelus-fluxer
@@ -41,7 +41,7 @@ jobs:
       - name: Deploy via Uncloud
         uses: thatskyapplication/uncloud-action@v1
         with:
-          image-tag: thatskyapplication-caelus-fluxer:latest
+          image-tag: *image-tag
           compose-files: compose.yaml
           uncloud-profile: thatskyapplication-caelus-fluxer
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY_SERVER }}
