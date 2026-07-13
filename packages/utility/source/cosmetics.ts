@@ -3627,6 +3627,9 @@ export enum Cosmetic {
 	SkyAnniversary2026HairAccessory = 2861,
 	SkyAnniversary2026HeldProp = 2862,
 	MomentsCameraUpgrade = 2863,
+
+	// 11/07/2026 23:00 | Sky Creator Awards.
+	SkyCreatorAwardsCap = 2864,
 }
 
 export enum CosmeticCommon {

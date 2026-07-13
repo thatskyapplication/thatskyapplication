@@ -58,5 +58,8 @@ export default new Event({
 			cosmetic: Cosmetic.AnniversaryMothPlush,
 			cost: { money: 4.99 },
 		},
+		{
+			cosmetic: Cosmetic.SkyCreatorAwardsCap,
+		},
 	],
 });

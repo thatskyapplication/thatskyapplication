@@ -2694,6 +2694,7 @@ export default {
 			[Cosmetic.AnniversaryMothPlush]: "Moth Plush",
 			[Cosmetic.AnniversaryOreoSlippers]: "Oreo Slippers",
 			[Cosmetic.MomentsCameraUpgrade]: "Moments camera upgrade",
+			[Cosmetic.SkyCreatorAwardsCap]: "Sky Creator Awards cap",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
