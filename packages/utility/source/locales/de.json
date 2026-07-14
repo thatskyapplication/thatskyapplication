@@ -478,14 +478,14 @@
 			"19": "Saison des Neunfarbigen Hirsches",
 			"20": "Saison des Nistens",
 			"21": "Saison der Duette",
-			"22": "Saison des Mumins",
+			"22": "Die Saison des Mumins",
 			"23": "Saison des Leuchtens",
 			"24": "Saison des blauen Vogels",
 			"25": "Saison Die zwei Glutnester – Teil 1",
 			"26": "Saison der Wanderung",
 			"27": "Saison der Lichtheilung",
 			"28": "Saison des Karnevals",
-			"29": ""
+			"29": "Lieber Van Gogh"
 		},
 		"season-wiki": {
 			"0": "https://sky-kinder-des-lichts.fandom.com/de/wiki/Saison_der_Dankbarkeit",
@@ -2007,7 +2007,7 @@
 			"2114": "Gewebtes Tuch „Sonnenlicht“",
 			"2117": "",
 			"2118": "",
-			"2119": "Mondlicht-Ohrring",
+			"2119": "Mondscheinohrring",
 			"2120": "",
 			"2121": "",
 			"2126": "",
@@ -2281,7 +2281,8 @@
 			"2858": "Schwarz-blauer Hoodie",
 			"2859": "Motten-Plüschtier",
 			"2860": "Oreo-Hausschuhe",
-			"2863": ""
+			"2863": "",
+			"2864": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

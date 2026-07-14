@@ -473,7 +473,7 @@
 			"14": "Stagione di AURORA",
 			"15": "Stagione della Commemorazione",
 			"16": "La Stagione della Transizione",
-			"17": "La Stagione dei Momenti",
+			"17": "Stagione dei Momenti",
 			"18": "Stagione della Rinascita",
 			"19": "Stagione del Cervo dai nove colori",
 			"20": "Stagione dei Nidi",
@@ -485,7 +485,7 @@
 			"26": "Stagione della Migrazione",
 			"27": "Stagione della Rinascita della Luce",
 			"28": "Stagione del Carnevale",
-			"29": ""
+			"29": "Caro Van Gogh"
 		},
 		"season-wiki": {
 			"0": "",
@@ -2281,7 +2281,8 @@
 			"2858": "Felpa stilosa blu e nera",
 			"2859": "Peluche falena",
 			"2860": "Pantofole di Oreo",
-			"2863": ""
+			"2863": "",
+			"2864": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

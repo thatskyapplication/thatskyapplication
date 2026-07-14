@@ -485,7 +485,7 @@
 			"26": "渡りの季節",
 			"27": "光の修繕者の季節",
 			"28": "カーニバルの季節",
-			"29": "ファン・ゴッホの季節"
+			"29": "Dear Van Gogh 親愛なるファン・ゴッホへ"
 		},
 		"season-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E6%84%9F%E8%AC%9D%E3%81%AE%E5%AD%A3%E7%AF%80",
@@ -2281,7 +2281,8 @@
 			"2858": "ブラック＆ブルー記念パーカー",
 			"2859": "すずめぬいぐるみ",
 			"2860": "オレオスリッパ",
-			"2863": ""
+			"2863": "",
+			"2864": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

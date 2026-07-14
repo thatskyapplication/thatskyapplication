@@ -485,7 +485,7 @@
 			"26": "Mùa Di Cư",
 			"27": "Mùa Hồi Phục Ánh Sáng",
 			"28": "Mùa Lễ Hội",
-			"29": ""
+			"29": "Van Gogh Thương Mến"
 		},
 		"season-wiki": {
 			"0": "",
@@ -1163,7 +1163,7 @@
 			"7": "Gói Nâng Tầm Chim Sẻ",
 			"8": "Mũ Cafe Pop-Up Cinnamoroll",
 			"9": "Cinnamoroll Quán Cà Phê Pop-Up Nơ Cà Vạt và Áo Choàng Mây",
-			"10": "Váy Và Tóc Búi Ánh Trăng",
+			"10": "Váy Ánh Trăng và Tóc Búi",
 			"11": "Phong Cách Bảnh Bao",
 			"12": "Bộ Áo Choàng Snufkin Lang Thang",
 			"13": "Bộ Phụ Kiện Moomintroll",
@@ -2007,7 +2007,7 @@
 			"2114": "Khăn Choàng Dệt Ánh Mặt Trời",
 			"2117": "",
 			"2118": "",
-			"2119": "Khuyên Tai Ánh Trăng",
+			"2119": "Khuyên Ánh Trăng",
 			"2120": "",
 			"2121": "",
 			"2126": "",
@@ -2281,7 +2281,8 @@
 			"2858": "Hoodie Đen Xanh Swag",
 			"2859": "Tân Thủ Bông",
 			"2860": "Dép Oreo",
-			"2863": ""
+			"2863": "",
+			"2864": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
