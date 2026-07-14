@@ -473,7 +473,7 @@
 			"14": "Saison d'AURORA",
 			"15": "Saison du Souvenir",
 			"16": "La saison de l'Initiation",
-			"17": "La saison des Instants",
+			"17": "Saison des Instants",
 			"18": "Saison du Renouveau",
 			"19": "Saison du Cerf aux neuf couleurs",
 			"20": "Saison de la Nidification",
@@ -485,7 +485,7 @@
 			"26": "Saison de la migration",
 			"27": "Saison de l'Éclairation",
 			"28": "Saison du Carnaval",
-			"29": ""
+			"29": "Cher Van Gogh"
 		},
 		"season-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Saison_de_la_Gratitude",
@@ -2281,7 +2281,8 @@
 			"2858": "Sweat à capuche swag noir et bleu",
 			"2859": "Peluche papillon de nuit",
 			"2860": "Chaussons Oreo",
-			"2863": ""
+			"2863": "",
+			"2864": ""
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",

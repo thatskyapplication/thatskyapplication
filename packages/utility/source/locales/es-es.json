@@ -473,10 +473,10 @@
 			"14": "Temporada de AURORA",
 			"15": "Temporada de conmemoración",
 			"16": "La temporada de iniciación",
-			"17": "La temporada de los momentos",
+			"17": "Temporada de los momentos",
 			"18": "Temporada del Renacimiento",
 			"19": "Temporada del ciervo de los nueve colores",
-			"20": "Temporada Acogedora",
+			"20": "Temporada acogedora",
 			"21": "Temporada de los duetos",
 			"22": "Temporada de los Mumins",
 			"23": "Temporada de resplandor",
@@ -485,7 +485,7 @@
 			"26": "Temporada de la Migración",
 			"27": "Temporada de la Reparación Lumínica",
 			"28": "Temporada del Carnaval",
-			"29": ""
+			"29": "Querido Van Gogh"
 		},
 		"season-wiki": {
 			"0": "",
@@ -2281,7 +2281,8 @@
 			"2858": "Sudadera Swag azul y negra",
 			"2859": "Peluche de polilla",
 			"2860": "Pantuflas de Oreo",
-			"2863": ""
+			"2863": "",
+			"2864": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

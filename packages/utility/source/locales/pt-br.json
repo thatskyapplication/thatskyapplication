@@ -1163,7 +1163,7 @@
 			"7": "Pacote de Gratidão do Pardal",
 			"8": "Combo do Cinnamoroll Pop-Up Café",
 			"9": "Cinnamoroll Pop-Up Café: Gravata borboleta e Capa de Nuvem",
-			"10": "Vestido de Luar e corte de cabelo elaborado",
+			"10": "Penteado e Vestido do Luar",
 			"11": "Trio Elegante Estiloso",
 			"12": "Conjunto de manto itinerante do Snufkin",
 			"13": "Conjunto de acessórios do Mumintroll",
@@ -2007,7 +2007,7 @@
 			"2114": "Poncho Solar",
 			"2117": "Acessório de Flor do Luar",
 			"2118": "Decoração de Lanterna do Luar",
-			"2119": "Brinco do Luar",
+			"2119": "Brincos do Luar",
 			"2120": "Vestido de Luar",
 			"2121": "Corte de Cabelo Elaborado de Luar",
 			"2126": "Fascinator de Escuridão Estiloso",
@@ -2281,7 +2281,8 @@
 			"2858": "Moletom Estiloso Preto e Azul",
 			"2859": "Pelúcia de Mariposa",
 			"2860": "Chinelos do Oreo",
-			"2863": "Melhoria da câmera de Momento"
+			"2863": "Melhoria da câmera de Momento",
+			"2864": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
