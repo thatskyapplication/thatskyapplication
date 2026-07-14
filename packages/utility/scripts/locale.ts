@@ -395,6 +395,126 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.TheLastCity",
 	},
 	{
+		upstreamKey: "name_season_02",
+		tsKey: "SeasonId.Gratitude",
+	},
+	{
+		upstreamKey: "name_season_03",
+		tsKey: "SeasonId.Lightseekers",
+	},
+	{
+		upstreamKey: "name_season_04",
+		tsKey: "SeasonId.Belonging",
+	},
+	{
+		upstreamKey: "name_season_05",
+		tsKey: "SeasonId.Rhythm",
+	},
+	{
+		upstreamKey: "name_season_06",
+		tsKey: "SeasonId.Enchantment",
+	},
+	{
+		upstreamKey: "name_season_07",
+		tsKey: "SeasonId.Sanctuary",
+	},
+	{
+		upstreamKey: "name_season_08",
+		tsKey: "SeasonId.Prophecy",
+	},
+	{
+		upstreamKey: "name_season_09",
+		tsKey: "SeasonId.Dreams",
+	},
+	{
+		upstreamKey: "name_season_10",
+		tsKey: "SeasonId.Assembly",
+	},
+	{
+		upstreamKey: "name_season_11",
+		tsKey: "SeasonId.LittlePrince",
+	},
+	{
+		upstreamKey: "name_season_12",
+		tsKey: "SeasonId.Flight",
+	},
+	{
+		upstreamKey: "name_season_13",
+		tsKey: "SeasonId.Abyss",
+	},
+	{
+		upstreamKey: "name_season_14",
+		tsKey: "SeasonId.Performance",
+	},
+	{
+		upstreamKey: "name_season_15",
+		tsKey: "SeasonId.Shattering",
+	},
+	{
+		upstreamKey: "name_season_16",
+		tsKey: "SeasonId.AURORA",
+	},
+	{
+		upstreamKey: "name_season_17",
+		tsKey: "SeasonId.Remembrance",
+	},
+	{
+		upstreamKey: "name_season_18",
+		tsKey: "SeasonId.Passage",
+	},
+	{
+		upstreamKey: "name_season_19",
+		tsKey: "SeasonId.Moments",
+	},
+	{
+		upstreamKey: "name_season_20",
+		tsKey: "SeasonId.Revival",
+	},
+	{
+		upstreamKey: "name_season_21",
+		tsKey: "SeasonId.NineColouredDeer",
+	},
+	{
+		upstreamKey: "name_season_22",
+		tsKey: "SeasonId.Nesting",
+	},
+	{
+		upstreamKey: "name_season_23",
+		tsKey: "SeasonId.Duets",
+	},
+	{
+		upstreamKey: "name_season_24",
+		tsKey: "SeasonId.Moomin",
+	},
+	{
+		upstreamKey: "name_season_25",
+		tsKey: "SeasonId.Radiance",
+	},
+	{
+		upstreamKey: "name_season_26",
+		tsKey: "SeasonId.BlueBird",
+	},
+	{
+		upstreamKey: "name_season_27",
+		tsKey: "SeasonId.TwoEmbersPart1",
+	},
+	{
+		upstreamKey: "name_season_28",
+		tsKey: "SeasonId.Migration",
+	},
+	{
+		upstreamKey: "name_season_29",
+		tsKey: "SeasonId.Lightmending",
+	},
+	{
+		upstreamKey: "name_season_30",
+		tsKey: "SeasonId.Carnival",
+	},
+	{
+		upstreamKey: "name_season_31",
+		tsKey: "SeasonId.DearVanGogh",
+	},
+	{
 		upstreamKey: "daily_quest_world_quest_ap09_fetch_04_desc",
 		tsKey: "DailyQuest.RehearseForAPerformanceWithTheSkater",
 	},
@@ -481,10 +601,6 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "name_approve",
 		tsKey: "SpiritId.CarnivalStuntActor",
-	},
-	{
-		upstreamKey: "name_season_30",
-		tsKey: "SeasonId.Carnival",
 	},
 	{
 		upstreamKey: "commerce_item_name_starter_pack",
