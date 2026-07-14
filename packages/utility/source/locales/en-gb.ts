@@ -771,7 +771,7 @@ export default {
 			[SeasonId.AURORA]: "Season of AURORA",
 			[SeasonId.Remembrance]: "Season of Remembrance",
 			[SeasonId.Passage]: "Season of Passage",
-			[SeasonId.Moments]: "The Season of Moments",
+			[SeasonId.Moments]: "Season of Moments",
 			[SeasonId.Revival]: "Season of Revival",
 			[SeasonId.NineColouredDeer]: "Season of the Nine-Coloured Deer",
 			[SeasonId.Nesting]: "Season of Nesting",
