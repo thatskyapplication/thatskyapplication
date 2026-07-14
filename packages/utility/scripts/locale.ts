@@ -1514,8 +1514,14 @@ function stripMarkup(value: string): string {
 	return normaliseQuotes(value.replace(/<[^>]+>/g, "").replaceAll(/\s*\n\s*/g, "")).trim();
 }
 
+function stripCommerceItemNameBadge(upstreamKey: string, value: string): string {
+	return upstreamKey.startsWith("commerce_item_name_")
+		? value.replace(/^\s*<2>.*?<\/2>\s*(?=\S)/s, "")
+		: value;
+}
+
 function localeValue(mapping: LocaleMapping, lproj: string, value: string): string {
-	const strippedValue = stripMarkup(value);
+	const strippedValue = stripMarkup(stripCommerceItemNameBadge(mapping.upstreamKey, value));
 	const override = mapping.overrides?.[lproj];
 
 	if (!override) {
@@ -1787,7 +1793,7 @@ for (const mapping of MAPPINGS) {
 
 		const raw = getUpstreamValue(baseStrings, mapping.upstreamKey, "Base");
 
-		if (await updateEnGbTs(mapping.tsKey, mapping.upstreamKey, stripMarkup(raw))) {
+		if (await updateEnGbTs(mapping.tsKey, mapping.upstreamKey, localeValue(mapping, "Base", raw))) {
 			console.log(`  ${green("✔")} ${bold("en-gb.ts")} updated`);
 		}
 	}
