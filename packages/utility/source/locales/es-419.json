@@ -100,6 +100,7 @@
 			"Crescent Oasis": "Oasis creciente",
 			"Moominvalley": "Valle Mumin",
 			"Fractured Lantern Storage": "Almacén de Faroles Fracturados",
+			"Starry Gallery": "Galería estrellada",
 			"Gate of Eden": "Puerta de Edén",
 			"Path of Eden": "Camino de Edén",
 			"Eye of Eden": "Ojo de Edén",
@@ -870,7 +871,11 @@
 			"205": "Malabarista del carnaval",
 			"206": "Directora de rompecabezas del carnaval",
 			"207": "Doble de riesgo del carnaval",
-			"208": ""
+			"208": "Jarrón con quince girasoles",
+			"209": "Recuerdo neerlandés",
+			"210": "Recuerdo rústico",
+			"211": "Recuerdo artístico",
+			"212": "Recuerdo alegre"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1081,7 +1086,11 @@
 			"205": "",
 			"206": "",
 			"207": "",
-			"208": ""
+			"208": "",
+			"209": "",
+			"210": "",
+			"211": "",
+			"212": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -1181,7 +1190,8 @@
 			"25": "Ropa invernal esponjosa",
 			"26": "Conjunto elegante de patinaje del torneo",
 			"27": "Paquete de Criaturas Encantadoras",
-			"28": "Paquete de Flower + flOw"
+			"28": "Paquete de Flower + flOw",
+			"29": ""
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2282,7 +2292,28 @@
 			"2859": "Peluche de polilla",
 			"2860": "Pantuflas de Oreo",
 			"2863": "",
-			"2864": ""
+			"2864": "",
+			"2865": "",
+			"2866": "",
+			"2867": "",
+			"2868": "",
+			"2869": "",
+			"2888": "",
+			"2892": "",
+			"2893": "",
+			"2897": "",
+			"2900": "",
+			"2904": "",
+			"2905": "",
+			"2910": "",
+			"2912": "",
+			"2916": "",
+			"2917": "",
+			"2922": "",
+			"2924": "",
+			"2928": "",
+			"2929": "",
+			"2934": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

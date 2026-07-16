@@ -100,6 +100,7 @@
 			"Crescent Oasis": "Sicheloase",
 			"Moominvalley": "Mumintal",
 			"Fractured Lantern Storage": "Lager der Zerbrochenen Laternen",
+			"Starry Gallery": "Sternennacht",
 			"Gate of Eden": "Tor von Eden",
 			"Path of Eden": "Pfad von Eden",
 			"Eye of Eden": "Auge von Eden",
@@ -870,7 +871,11 @@
 			"205": "Karneval-Jongleur",
 			"206": "Karneval-Rätseldirektorin",
 			"207": "Karneval-Schausteller",
-			"208": ""
+			"208": "Fünfzehn Sonnenblumen in einer Vase",
+			"209": "Niederländische Erinnerung",
+			"210": "Rustikale Erinnerung",
+			"211": "Künstlerische Erinnerung",
+			"212": "Fröhliche Erinnerung"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1081,7 +1086,11 @@
 			"205": "",
 			"206": "",
 			"207": "",
-			"208": ""
+			"208": "",
+			"209": "",
+			"210": "",
+			"211": "",
+			"212": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -1181,7 +1190,8 @@
 			"25": "Flauschige Winterkleidung",
 			"26": "Elegantes Turnier-Eislauf-Set",
 			"27": "Bezauberndes Kreaturen-Paket",
-			"28": "Paket Flower + Flow"
+			"28": "Paket Flower + Flow",
+			"29": ""
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2282,7 +2292,28 @@
 			"2859": "Motten-Plüschtier",
 			"2860": "Oreo-Hausschuhe",
 			"2863": "",
-			"2864": ""
+			"2864": "",
+			"2865": "",
+			"2866": "",
+			"2867": "",
+			"2868": "",
+			"2869": "",
+			"2888": "",
+			"2892": "",
+			"2893": "",
+			"2897": "",
+			"2900": "",
+			"2904": "",
+			"2905": "",
+			"2910": "",
+			"2912": "",
+			"2916": "",
+			"2917": "",
+			"2922": "",
+			"2924": "",
+			"2928": "",
+			"2929": "",
+			"2934": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

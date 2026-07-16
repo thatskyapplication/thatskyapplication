@@ -100,6 +100,7 @@
 			"Crescent Oasis": "Ốc Đảo Trăng Khuyết",
 			"Moominvalley": "Moominvalley",
 			"Fractured Lantern Storage": "Kho Đèn Rạn Nứt",
+			"Starry Gallery": "Phòng Trưng Bày Đêm Sao",
 			"Gate of Eden": "Cổng Địa Đàng",
 			"Path of Eden": "Con Đường Địa Đàng",
 			"Eye of Eden": "Mắt Địa Đàng",
@@ -870,7 +871,11 @@
 			"205": "Người Tung Hứng Lễ Hội",
 			"206": "Giám Đốc Giải Đố Lễ Hội",
 			"207": "DV Đóng Thế Lễ Hội",
-			"208": ""
+			"208": "Bình Hoa Hướng Dương",
+			"209": "Ký Ức Hà Lan",
+			"210": "Ký Ức Mộc Mạc",
+			"211": "Ký Ức Nghệ Thuật",
+			"212": "Ký Ức Vui Vẻ"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1081,7 +1086,11 @@
 			"205": "",
 			"206": "",
 			"207": "",
-			"208": ""
+			"208": "",
+			"209": "",
+			"210": "",
+			"211": "",
+			"212": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -1181,7 +1190,8 @@
 			"25": "Trang Phục Đông Xù",
 			"26": "Bộ Trượt Băng Thanh Lịch Giải Đấu",
 			"27": "Gói Sinh Vật Duyên Dáng",
-			"28": "Gói Flower + FlOw"
+			"28": "Gói Flower + FlOw",
+			"29": ""
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2282,7 +2292,28 @@
 			"2859": "Tân Thủ Bông",
 			"2860": "Dép Oreo",
 			"2863": "",
-			"2864": ""
+			"2864": "",
+			"2865": "",
+			"2866": "",
+			"2867": "",
+			"2868": "",
+			"2869": "",
+			"2888": "",
+			"2892": "",
+			"2893": "",
+			"2897": "",
+			"2900": "",
+			"2904": "",
+			"2905": "",
+			"2910": "",
+			"2912": "",
+			"2916": "",
+			"2917": "",
+			"2922": "",
+			"2924": "",
+			"2928": "",
+			"2929": "",
+			"2934": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",
