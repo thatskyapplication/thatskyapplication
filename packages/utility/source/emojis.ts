@@ -3713,6 +3713,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Sky Anniversary 2026.
 	 */
 	HairAccessory81: { id: "1522919380705480716", name: "81_hair_accessory" },
+	/**
+	 * Sky Creator Awards 2026.
+	 */
+	HairAccessory82: { id: "1527298595886465114", name: "82_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3797,6 +3801,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory79: { id: "1506644771257716828", name: "79_hair_accessory" },
 	HairAccessory80: { id: "1510010366485201037", name: "80_hair_accessory" },
 	HairAccessory81: { id: "1522919396396367943", name: "81_hair_accessory" },
+	HairAccessory82: { id: "1527298589720711178", name: "82_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -9444,7 +9449,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.SkyAnniversary2026HairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory81,
 		[Cosmetic.SkyAnniversary2026HeldProp]: HELD_PROPS_EMOJIS.HeldProp63,
 		[Cosmetic.MomentsCameraUpgrade]: MISCELLANEOUS_EMOJIS.MomentsCameraUpgrade,
-		[Cosmetic.SkyCreatorAwardsCap]: null,
+		[Cosmetic.SkyCreatorAwardsCap]: HAIR_ACCESSORY_EMOJIS.HairAccessory82,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
