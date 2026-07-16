@@ -359,6 +359,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.FracturedLanternStorage",
 	},
 	{
+		upstreamKey: "title_night_go_gallery_01",
+		tsKey: "AreaName.StarryGallery",
+	},
+	{
 		upstreamKey: "title_stormstart_01",
 		tsKey: "AreaName.GateOfEden",
 	},
@@ -601,6 +605,26 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "name_approve",
 		tsKey: "SpiritId.CarnivalStuntActor",
+	},
+	{
+		upstreamKey: "name_questap31",
+		tsKey: "SpiritId.VaseWithFifteenSunflowers",
+	},
+	{
+		upstreamKey: "name_frustration",
+		tsKey: "SpiritId.DutchMemory",
+	},
+	{
+		upstreamKey: "name_bask",
+		tsKey: "SpiritId.RusticMemory",
+	},
+	{
+		upstreamKey: "name_draw",
+		tsKey: "SpiritId.ArtisticMemory",
+	},
+	{
+		upstreamKey: "name_slowwalk",
+		tsKey: "SpiritId.JoyfulMemory",
 	},
 	{
 		upstreamKey: "commerce_item_name_starter_pack",

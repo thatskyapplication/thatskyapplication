@@ -34,6 +34,7 @@ import repositoryOfRefuge from "./repository-of-refuge.js";
 import sacredPond from "./sacred-pond.js";
 import sanctuaryIslands from "./sanctuary-islands.js";
 import starlightDesert from "./starlight-desert.js";
+import starryGallery from "./starry-gallery.js";
 import templeOfTheIsle from "./temple-of-the-isle.js";
 import templeOfThePrairie from "./temple-of-the-prairie.js";
 import templeOfTheValley from "./temple-of-the-valley.js";
@@ -127,6 +128,7 @@ export const AREAS = [
 	crescentOasis,
 	moominvalley,
 	fracturedLanternStorage,
+	starryGallery,
 
 	// Eye of Eden.
 	gateOfEden,

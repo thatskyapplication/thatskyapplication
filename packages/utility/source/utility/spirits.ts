@@ -282,7 +282,11 @@ export const SpiritId = {
 	CarnivalStuntActor: 207,
 
 	// Dear Van Gogh.
-	DearVanGoghGuide: 208,
+	VaseWithFifteenSunflowers: 208,
+	DutchMemory: 209,
+	RusticMemory: 210,
+	ArtisticMemory: 211,
+	JoyfulMemory: 212,
 } as const satisfies Readonly<Record<string, number>>;
 
 const SPIRIT_ID_VALUES = Object.values(SpiritId);
@@ -410,6 +414,10 @@ export enum SpiritEmote {
 	Breakdance = "Breakdance",
 	BallSpinTrick = "Ball spin trick",
 	TakeNotes = "Take notes",
+	Frustration = "Frustration",
+	Bask = "Bask",
+	Draw = "Draw",
+	SlowWalk = "Slow walk",
 }
 
 export enum FriendAction {

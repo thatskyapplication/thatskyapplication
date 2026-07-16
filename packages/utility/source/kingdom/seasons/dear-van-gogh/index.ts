@@ -1,15 +1,20 @@
+import { Cosmetic, CosmeticPackName } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
-import VanGoghGuide from "./dear-van-gogh-guide.js";
+import artisticMemory from "./artistic-memory.js";
+import dutchMemory from "./dutch-memory.js";
+import joyfulMemory from "./joyful-memory.js";
+import rusticMemory from "./rustic-memory.js";
+import vaseWithFifteenSunflowers from "./vase-with-fifteen-sunflowers.js";
 
 export default new Season({
 	id: SeasonId.DearVanGogh,
 	start: skyDate(2026, 7, 17),
 	end: skyDate(2026, 10, 2),
-	guide: VanGoghGuide,
-	spirits: [],
+	guide: vaseWithFifteenSunflowers,
+	spirits: [dutchMemory, rusticMemory, artisticMemory, joyfulMemory],
 	seasonalCandlesRotation: [
 		{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
 		{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
@@ -21,5 +26,21 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
+	],
+	items: [
+		{
+			cosmetic: Cosmetic.WheatfieldCape,
+		},
+		{
+			cosmetic: Cosmetic.StarryNightsVisage,
+		},
+		{
+			cosmetic: Cosmetic.StarryNightsKiss,
+		},
+		{
+			cosmetic: [Cosmetic.StarryNightsMantleCape, Cosmetic.StarryNightsMantleNeckAccessory],
+			cosmeticDisplay: Cosmetic.StarryNightsMantleCape,
+			packName: CosmeticPackName.StarryNightsMantle,
+		},
 	],
 });

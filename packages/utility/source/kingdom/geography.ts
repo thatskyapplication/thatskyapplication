@@ -90,6 +90,7 @@ export enum AreaName {
 	CrescentOasis = "Crescent Oasis",
 	Moominvalley = "Moominvalley",
 	FracturedLanternStorage = "Fractured Lantern Storage",
+	StarryGallery = "Starry Gallery",
 
 	// Eye of Eden.
 	GateOfEden = "Gate of Eden",
