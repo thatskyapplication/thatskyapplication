@@ -100,6 +100,7 @@
 			"Crescent Oasis": "Oasi a Mezzaluna",
 			"Moominvalley": "Valle dei Mumin",
 			"Fractured Lantern Storage": "Deposito delle lanterne fratturate",
+			"Starry Gallery": "Galleria stellata",
 			"Gate of Eden": "Cancello dell'Eden",
 			"Path of Eden": "Sentiero dell'Eden",
 			"Eye of Eden": "Occhio di Eden",
@@ -870,7 +871,11 @@
 			"205": "Giocoliere del Carnevale",
 			"206": "Direttrice degli enigmi del Carnevale",
 			"207": "Acrobata del Carnevale",
-			"208": ""
+			"208": "Vaso con quindici girasoli",
+			"209": "Ricordo olandese",
+			"210": "Ricordo rustico",
+			"211": "Ricordo artistico",
+			"212": "Ricordo lieto"
 		},
 		"spirit-wiki": {
 			"0": "",
@@ -1081,7 +1086,11 @@
 			"205": "",
 			"206": "",
 			"207": "",
-			"208": ""
+			"208": "",
+			"209": "",
+			"210": "",
+			"211": "",
+			"212": ""
 		},
 		"time-range": "",
 		"cosmetic-common-names": {
@@ -1181,7 +1190,8 @@
 			"25": "Abbigliamento invernale morbido",
 			"26": "Set elegante da pattinaggio del torneo",
 			"27": "Pacchetto di Creature Incantevoli",
-			"28": "Pacchetto Flower + FlOw"
+			"28": "Pacchetto Flower + FlOw",
+			"29": ""
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2282,7 +2292,28 @@
 			"2859": "Peluche falena",
 			"2860": "Pantofole di Oreo",
 			"2863": "",
-			"2864": ""
+			"2864": "",
+			"2865": "",
+			"2866": "",
+			"2867": "",
+			"2868": "",
+			"2869": "",
+			"2888": "",
+			"2892": "",
+			"2893": "",
+			"2897": "",
+			"2900": "",
+			"2904": "",
+			"2905": "",
+			"2910": "",
+			"2912": "",
+			"2916": "",
+			"2917": "",
+			"2922": "",
+			"2924": "",
+			"2928": "",
+			"2929": "",
+			"2934": ""
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

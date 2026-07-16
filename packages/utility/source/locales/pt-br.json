@@ -100,6 +100,7 @@
 			"Crescent Oasis": "Oásis Crescente",
 			"Moominvalley": "Vale dos Mumins",
 			"Fractured Lantern Storage": "Depósito das Lanternas Quebradas",
+			"Starry Gallery": "Galeria Estrelada",
 			"Gate of Eden": "Portão do Éden",
 			"Path of Eden": "Caminho do Éden",
 			"Eye of Eden": "Olho de Éden",
@@ -870,7 +871,11 @@
 			"205": "Malabarista Circense",
 			"206": "Diretora do Enigma Circense",
 			"207": "Acrobata Circense",
-			"208": "Querido Van Gogh"
+			"208": "Vaso com Quinze Girassóis",
+			"209": "Lembrança Holandesa",
+			"210": "Lembrança Rústica",
+			"211": "Lembrança Artística",
+			"212": "Lembrança de Alegria"
 		},
 		"spirit-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Candeeiro_Denotante",
@@ -1081,7 +1086,11 @@
 			"205": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Malabarista_Circense",
 			"206": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Diretora_do_Enigma_Circense",
 			"207": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Acrobata_Circense",
-			"208": ""
+			"208": "",
+			"209": "",
+			"210": "",
+			"211": "",
+			"212": ""
 		},
 		"time-range": "{{start}}–{{end}}",
 		"cosmetic-common-names": {
@@ -1181,7 +1190,8 @@
 			"25": "Roupas de inverno fofinhas",
 			"26": "Conjunto Elegante de Patinação do Torneio",
 			"27": "Pacote de Criaturas Encantadoras",
-			"28": "Pacote FlOw + Flower"
+			"28": "Pacote FlOw + Flower",
+			"29": ""
 		},
 		"cosmetic-names": {
 			"0": "Sentar",
@@ -2282,7 +2292,28 @@
 			"2859": "Pelúcia de Mariposa",
 			"2860": "Chinelos do Oreo",
 			"2863": "Melhoria da câmera de Momento",
-			"2864": ""
+			"2864": "",
+			"2865": "",
+			"2866": "",
+			"2867": "",
+			"2868": "",
+			"2869": "",
+			"2888": "",
+			"2892": "",
+			"2893": "",
+			"2897": "",
+			"2900": "",
+			"2904": "",
+			"2905": "",
+			"2910": "",
+			"2912": "",
+			"2916": "",
+			"2917": "",
+			"2922": "",
+			"2924": "",
+			"2928": "",
+			"2929": "",
+			"2934": ""
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
