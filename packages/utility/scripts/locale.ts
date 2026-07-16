@@ -1475,6 +1475,18 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.MusicSheetAirship",
 	},
 	{
+		upstreamKey: "commerce_item_name_dear_wheatcape",
+		tsKey: "Cosmetic.WheatfieldCape",
+	},
+	{
+		upstreamKey: "commerce_item_name_dear_starrymask",
+		tsKey: "Cosmetic.StarryNightsVisage",
+	},
+	{
+		upstreamKey: "commerce_item_name_dear_starryhair",
+		tsKey: "Cosmetic.StarryNightsKiss",
+	},
+	{
 		upstreamKey: "commerce_item_name_fortune_pack",
 		tsKey: "CosmeticPackName.DaysOfFortunePack",
 	},
@@ -1589,6 +1601,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "commerce_item_name_sony_flowerflow_pack",
 		tsKey: "CosmeticPackName.FlOwPack",
+	},
+	{
+		upstreamKey: "commerce_item_name_dear_starrywing",
+		tsKey: "CosmeticPackName.StarryNightsMantle",
 	},
 	{
 		upstreamKey: "lootbox_name_color_black",
