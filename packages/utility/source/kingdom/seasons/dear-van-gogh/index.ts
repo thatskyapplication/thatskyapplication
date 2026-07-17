@@ -31,12 +31,15 @@ export default new Season({
 	items: [
 		{
 			cosmetic: Cosmetic.WheatfieldCape,
+			cost: { money: 14.99 },
 		},
 		{
 			cosmetic: Cosmetic.StarryNightsVisage,
+			cost: { money: 2.99 },
 		},
 		{
 			cosmetic: Cosmetic.StarryNightsKiss,
+			cost: { money: 4.99 },
 		},
 		{
 			cosmetic: [Cosmetic.StarryNightsMantleCape, Cosmetic.StarryNightsMantleNeckAccessory],
