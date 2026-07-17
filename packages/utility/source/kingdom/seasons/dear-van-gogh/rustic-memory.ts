@@ -27,12 +27,12 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.Prop,
 					cosmetic: Cosmetic.RusticMemoryProp,
-					cost: { seasonalCandles: 16 },
+					cost: { seasonalCandles: 18 },
 				},
 				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.RusticMemoryBlessing2,
-					cost: { seasonalCandles: 6 },
+					translation: CosmeticCommon.RedDye,
+					cosmetic: Cosmetic.RusticMemoryRedDye,
+					cost: { seasonalCandles: 8 },
 				},
 				{
 					cosmetic: Cosmetic.EmoteBask2,
@@ -47,34 +47,35 @@ export default new SeasonalSpirit({
 					level: 3,
 				},
 				{
-					translation: CosmeticCommon.Shoes,
-					cosmetic: Cosmetic.RusticMemoryShoes,
-					cost: { seasonalCandles: 20 },
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.RusticMemoryBlessing2,
+					cost: { seasonalCandles: 8 },
 				},
 				{
-					translation: CosmeticCommon.Cape,
-					cosmetic: Cosmetic.RusticMemoryCape,
+					translation: CosmeticCommon.Shoes,
+					cosmetic: Cosmetic.RusticMemoryShoes,
 					seasonPass: true,
 				},
 			],
 			[
-				null,
 				{
 					translation: CosmeticCommon.HairAccessory,
 					cosmetic: Cosmetic.RusticMemoryHairAccessory,
 					cost: { seasonalCandles: 26 },
 				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.RusticMemoryBlessing3,
-					cost: { seasonalCandles: 8 },
-				},
 				null,
 				{
 					cosmetic: Cosmetic.EmoteBask4,
 					level: 4,
+					seasonPass: true,
+				},
+			],
+			[
+				null,
+				null,
+				{
+					translation: CosmeticCommon.Cape,
+					cosmetic: Cosmetic.RusticMemoryCape,
 					seasonPass: true,
 				},
 			],

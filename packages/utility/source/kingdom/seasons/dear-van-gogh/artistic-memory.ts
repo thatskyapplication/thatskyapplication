@@ -18,21 +18,21 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.EmoteDraw1,
 				},
 				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.ArtisticMemoryBlessing1,
-					cost: { seasonalCandles: 4 },
+					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
+					cosmetic: Cosmetic.ArtisticMemoryProp1,
+					cost: { seasonalCandles: 12 },
 				},
 			],
 			[
 				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 1 },
-					cosmetic: Cosmetic.ArtisticMemoryProp1,
+					translation: CosmeticCommon.HairAccessory,
+					cosmetic: Cosmetic.ArtisticMemoryHairAccessory,
 					cost: { seasonalCandles: 18 },
 				},
 				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.ArtisticMemoryBlessing2,
-					cost: { seasonalCandles: 8 },
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.ArtisticMemoryBlessing1,
+					cost: { seasonalCandles: 6 },
 				},
 				{
 					cosmetic: Cosmetic.EmoteDraw2,
@@ -47,13 +47,26 @@ export default new SeasonalSpirit({
 					level: 3,
 				},
 				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.ArtisticMemoryBlessing3,
-					cost: { seasonalCandles: 10 },
+					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
+					cosmetic: Cosmetic.ArtisticMemoryProp2,
+					cost: { seasonalCandles: 22 },
 				},
 				{
-					translation: CosmeticCommon.HairAccessory,
-					cosmetic: Cosmetic.ArtisticMemoryHairAccessory,
+					translation: CosmeticCommon.YellowDye,
+					cosmetic: Cosmetic.ArtisticMemoryYellowDye,
+					cost: { seasonalCandles: 10 },
+				},
+			],
+			[
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.ArtisticMemoryBlessing2,
+					cost: { seasonalCandles: 10 },
+				},
+				null,
+				{
+					cosmetic: Cosmetic.EmoteDraw4,
+					level: 4,
 					seasonPass: true,
 				},
 			],
@@ -63,19 +76,6 @@ export default new SeasonalSpirit({
 				{
 					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.ArtisticMemoryCape,
-					seasonPass: true,
-				},
-			],
-			[
-				{
-					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
-					cosmetic: Cosmetic.ArtisticMemoryProp2,
-					cost: { seasonalCandles: 28 },
-				},
-				null,
-				{
-					cosmetic: Cosmetic.EmoteDraw4,
-					level: 4,
 					seasonPass: true,
 				},
 			],

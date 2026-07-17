@@ -47,9 +47,9 @@ export default new SeasonalSpirit({
 					level: 3,
 				},
 				{
-					translation: CosmeticCommon.BlueDye,
-					cosmetic: Cosmetic.DutchMemoryBlueDye,
-					cost: { seasonalCandles: 8 },
+					translation: CosmeticCommon.WhiteDye,
+					cosmetic: Cosmetic.DutchMemoryWhiteDye,
+					cost: { seasonalCandles: 10 },
 				},
 				{
 					translation: CosmeticCommon.Hair,

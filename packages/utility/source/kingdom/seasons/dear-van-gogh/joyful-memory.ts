@@ -18,22 +18,18 @@ export default new SeasonalSpirit({
 					cosmetic: Cosmetic.EmoteSlowWalk1,
 				},
 				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
-					cosmetic: Cosmetic.JoyfulMemoryBlessing1,
-					cost: { seasonalCandles: 4 },
+					translation: CosmeticCommon.Prop,
+					cosmetic: Cosmetic.JoyfulMemoryProp,
+					cost: { seasonalCandles: 12 },
 				},
 			],
 			[
 				{
-					translation: CosmeticCommon.Prop,
-					cosmetic: Cosmetic.JoyfulMemoryProp,
-					cost: { seasonalCandles: 14 },
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
-					cosmetic: Cosmetic.JoyfulMemoryBlessing2,
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 1 },
+					cosmetic: Cosmetic.JoyfulMemoryBlessing1,
 					cost: { seasonalCandles: 6 },
 				},
+				null,
 				{
 					cosmetic: Cosmetic.EmoteSlowWalk2,
 					level: 2,
@@ -41,16 +37,8 @@ export default new SeasonalSpirit({
 				},
 			],
 			[
-				{
-					cosmetic: Cosmetic.EmoteSlowWalk3,
-					cost: { seasonalCandles: 20 },
-					level: 3,
-				},
-				{
-					translation: { key: CosmeticCommon.BlessingMultiple, number: 3 },
-					cosmetic: Cosmetic.JoyfulMemoryBlessing3,
-					cost: { seasonalCandles: 8 },
-				},
+				null,
+				null,
 				{
 					translation: CosmeticCommon.HairAccessory,
 					cosmetic: Cosmetic.JoyfulMemoryHairAccessory,
@@ -59,14 +47,31 @@ export default new SeasonalSpirit({
 			],
 			[
 				{
+					cosmetic: Cosmetic.EmoteSlowWalk3,
+					cost: { seasonalCandles: 22 },
+					level: 3,
+				},
+				{
 					translation: CosmeticCommon.Hair,
 					cosmetic: Cosmetic.JoyfulMemoryHair,
-					cost: { seasonalCandles: 24 },
+					cost: { seasonalCandles: 22 },
 				},
+				{
+					translation: { key: CosmeticCommon.BlessingMultiple, number: 2 },
+					cosmetic: Cosmetic.JoyfulMemoryBlessing2,
+					cost: { seasonalCandles: 8 },
+				},
+			],
+			[
 				{
 					translation: CosmeticCommon.Cape,
 					cosmetic: Cosmetic.JoyfulMemoryCape,
-					cost: { seasonalCandles: 28 },
+					cost: { seasonalCandles: 26 },
+				},
+				{
+					translation: CosmeticCommon.BlackDye,
+					cosmetic: Cosmetic.JoyfulMemoryBlackDye,
+					cost: { seasonalCandles: 12 },
 				},
 				{
 					cosmetic: Cosmetic.EmoteSlowWalk4,
