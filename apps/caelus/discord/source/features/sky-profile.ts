@@ -1641,6 +1641,7 @@ async function skyProfileShowIconModal(interaction: APIMessageComponentSelectMen
 				component: {
 					type: ComponentType.FileUpload,
 					custom_id: CustomId.SkyProfileIconModalIcon,
+					file_types: ["image"],
 					max_values: 1,
 					min_values: 1,
 					required: true,
@@ -1667,6 +1668,7 @@ async function skyProfileShowBannerModal(interaction: APIMessageComponentSelectM
 				component: {
 					type: ComponentType.FileUpload,
 					custom_id: CustomId.SkyProfileBannerModalBanner,
+					file_types: ["image"],
 					max_values: 1,
 					min_values: 1,
 					required: true,
