@@ -392,6 +392,7 @@ export async function welcomeHandleEditButton(
 				component: {
 					type: ComponentType.FileUpload,
 					custom_id: CustomId.WelcomeEditModalAsset,
+					file_types: ["image"],
 					min_values: 0,
 					max_values: 1,
 					required: false,

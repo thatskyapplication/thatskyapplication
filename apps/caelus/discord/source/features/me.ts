@@ -172,6 +172,7 @@ export async function meHandleCustomiseMeButton(
 				component: {
 					type: ComponentType.FileUpload,
 					custom_id: CustomId.MeCustomiseMeModalAvatar,
+					file_types: ["image"],
 					max_values: 1,
 					min_values: 1,
 					required: false,
@@ -187,6 +188,7 @@ export async function meHandleCustomiseMeButton(
 				component: {
 					type: ComponentType.FileUpload,
 					custom_id: CustomId.MeCustomiseMeModalBanner,
+					file_types: ["image"],
 					max_values: 1,
 					min_values: 1,
 					required: false,
