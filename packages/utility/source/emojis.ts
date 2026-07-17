@@ -598,6 +598,8 @@ const SEASON_EMOJIS_PRODUCTION = {
 	CarnivalCandle: { id: "1494462023965085846", name: "carnival_candle" },
 	CarnivalHeart: { id: "1494462025814773831", name: "carnival_heart" },
 	DearVanGogh: { id: "1514530654384164884", name: "dear_van_gogh" },
+	DearVanGoghCandle: { id: "1527600208177926224", name: "dear_van_gogh_candle" },
+	DearVanGoghHeart: { id: "1527600210325536879", name: "dear_van_gogh_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SEASON_EMOJIS_DEVELOPMENT = {
@@ -687,6 +689,8 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	CarnivalCandle: { id: "1494462033830346852", name: "carnival_candle" },
 	CarnivalHeart: { id: "1494462035998539816", name: "carnival_heart" },
 	DearVanGogh: { id: "1514530747052982352", name: "dear_van_gogh" },
+	DearVanGoghCandle: { id: "1527600217023713321", name: "dear_van_gogh_candle" },
+	DearVanGoghHeart: { id: "1527600219150090301", name: "dear_van_gogh_heart" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const EVENT_EMOJIS_PRODUCTION = {
@@ -9484,7 +9488,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.DutchMemoryCape]: null,
 		[Cosmetic.EmoteFrustration4]: null,
 		[Cosmetic.DutchMemoryOutfit]: null,
-		[Cosmetic.DutchMemorySeasonalHeart]: null,
+		[Cosmetic.DutchMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
 		[Cosmetic.EmoteBask1]: null,
 		[Cosmetic.RusticMemoryBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.RusticMemoryProp]: null,
@@ -9496,7 +9500,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.RusticMemoryHairAccessory]: null,
 		[Cosmetic.EmoteBask4]: null,
 		[Cosmetic.RusticMemoryCape]: null,
-		[Cosmetic.RusticMemorySeasonalHeart]: null,
+		[Cosmetic.RusticMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
 		[Cosmetic.EmoteDraw1]: null,
 		[Cosmetic.ArtisticMemoryProp1]: null,
 		[Cosmetic.ArtisticMemoryHairAccessory]: null,
@@ -9508,7 +9512,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.ArtisticMemoryBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.EmoteDraw4]: null,
 		[Cosmetic.ArtisticMemoryCape]: null,
-		[Cosmetic.ArtisticMemorySeasonalHeart]: null,
+		[Cosmetic.ArtisticMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
 		[Cosmetic.EmoteSlowWalk1]: null,
 		[Cosmetic.JoyfulMemoryProp]: null,
 		[Cosmetic.JoyfulMemoryBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
@@ -9520,7 +9524,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.JoyfulMemoryCape]: null,
 		[Cosmetic.JoyfulMemoryBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
 		[Cosmetic.EmoteSlowWalk4]: null,
-		[Cosmetic.JoyfulMemorySeasonalHeart]: null,
+		[Cosmetic.JoyfulMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
@@ -9586,7 +9590,7 @@ export function emojiConstants(production: boolean): {
 		[SeasonId.Migration]: SEASON_EMOJIS.MigrationCandle,
 		[SeasonId.Lightmending]: SEASON_EMOJIS.LightmendingCandle,
 		[SeasonId.Carnival]: SEASON_EMOJIS.CarnivalCandle,
-		[SeasonId.DearVanGogh]: null,
+		[SeasonId.DearVanGogh]: SEASON_EMOJIS.DearVanGoghCandle,
 	} as const satisfies Readonly<Record<SeasonIds, Emoji | null>>;
 
 	const SeasonIdToSeasonalHeartEmoji = {
@@ -9617,7 +9621,7 @@ export function emojiConstants(production: boolean): {
 		[SeasonId.Migration]: SEASON_EMOJIS.MigrationHeart,
 		[SeasonId.Lightmending]: SEASON_EMOJIS.LightmendingHeart,
 		[SeasonId.Carnival]: SEASON_EMOJIS.CarnivalHeart,
-		[SeasonId.DearVanGogh]: null,
+		[SeasonId.DearVanGogh]: SEASON_EMOJIS.DearVanGoghHeart,
 	} as const satisfies Readonly<
 		Record<
 			Exclude<SeasonIds, typeof SeasonId.Gratitude | typeof SeasonId.Lightseekers>,
