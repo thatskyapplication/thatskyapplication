@@ -81,7 +81,7 @@ export async function shopSuggestionModal(interaction: APIMessageComponentButton
 			},
 		],
 		custom_id: CustomId.ShopSuggestionModal,
-		title: "Shop Suggestion",
+		title: "Shop suggestion",
 	});
 }
 

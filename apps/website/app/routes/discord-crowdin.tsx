@@ -258,7 +258,7 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 	return (
 		<CentredSitePage>
 			<div className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg p-8 w-full max-w-md">
-				<h1 className="text-center">Crowdin Authorisation</h1>
+				<h1 className="text-center">Crowdin authorisation</h1>
 				{error && (
 					<div className="bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-sm mb-4">
 						<p className="text-sm">{error}</p>
@@ -276,7 +276,7 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 						</p>
 						<div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
 							<h3 className="font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">
-								Crowdin Account
+								Crowdin account
 							</h3>
 							<p className="text-sm text-gray-600 dark:text-gray-400">{crowdinUser!.username}</p>
 						</div>

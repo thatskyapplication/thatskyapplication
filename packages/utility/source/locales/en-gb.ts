@@ -3047,7 +3047,7 @@ export default {
 				"day-season-pass_other": "({{count}} days with a Season Pass).",
 				title: "Seasonal candle calculator",
 				"double-seasonal-light-calculation":
-					"Double Seasonal Light event included in calculation.\n{{start}}–{{end}} (ends {{relative}})",
+					"Double seasonal light event included in calculation.\n{{start}}–{{end}} (ends {{relative}})",
 			},
 			"winged-light": {
 				"started-with": "Started with",

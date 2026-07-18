@@ -1,5 +1,6 @@
 import { SiCrowdin, SiDiscord } from "@icons-pack/react-simple-icons";
 import { BookOpen, Heart } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
@@ -11,39 +12,39 @@ import {
 	INVITE_SUPPORT_SERVER_URL,
 } from "~/utility/constants";
 
-const LINKS = [
-	{
-		to: GUIDE_URL,
-		label: "Guide",
-		description: "Learn how to use Caelus.",
-		icon: <BookOpen className="w-5 h-5 text-green-600" />,
-		external: true,
-	},
-	{
-		to: INVITE_SUPPORT_SERVER_URL,
-		label: "Support Server",
-		description: "Get help, report bugs, or just hang out.",
-		icon: <SiDiscord className="w-5 h-5 text-[#5865F2]" />,
-		external: true,
-	},
-	{
-		to: "https://guide.thatskyapplication.com/translating",
-		label: "Translations",
-		description: "Help translate Caelus into your language.",
-		icon: <SiCrowdin className="w-5 h-5 text-[#263238] dark:text-white" />,
-		external: true,
-	},
-	{
-		to: "/acknowledgements",
-		label: "Acknowledgements",
-		description: "The people that make Caelus possible.",
-		icon: <Heart className="w-5 h-5 text-pink-600 dark:text-pink-400" />,
-		external: false,
-	},
-] as const;
-
 export default function CaelusIndex() {
+	const { t } = useTranslation();
 	const cdnURL = useCDNURL();
+	const links = [
+		{
+			to: GUIDE_URL,
+			label: "Guide",
+			description: "Learn how to use Caelus.",
+			icon: <BookOpen className="w-5 h-5 text-green-600" />,
+			external: true,
+		},
+		{
+			to: INVITE_SUPPORT_SERVER_URL,
+			label: t("support-server", { ns: "general" }),
+			description: "Get help, report bugs, or just hang out.",
+			icon: <SiDiscord className="w-5 h-5 text-[#5865F2]" />,
+			external: true,
+		},
+		{
+			to: "https://guide.thatskyapplication.com/translating",
+			label: "Translations",
+			description: "Help translate Caelus into your language.",
+			icon: <SiCrowdin className="w-5 h-5 text-[#263238] dark:text-white" />,
+			external: true,
+		},
+		{
+			to: "/acknowledgements",
+			label: "Acknowledgements",
+			description: "The people that make Caelus possible.",
+			icon: <Heart className="w-5 h-5 text-pink-600 dark:text-pink-400" />,
+			external: false,
+		},
+	] as const;
 
 	return (
 		<SitePage>
@@ -73,7 +74,7 @@ export default function CaelusIndex() {
 				</div>
 
 				<div className="grid gap-3 sm:grid-cols-2">
-					{LINKS.map((link) =>
+					{links.map((link) =>
 						link.external ? (
 							<a
 								className="flex items-start gap-4 rounded-xl bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 p-5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors no-underline"
