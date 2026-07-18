@@ -2624,7 +2624,7 @@
 				"goal-first-achievable": "",
 				"minimum-time-beginning": "",
 				"minimum-time-eye-of-eden": "",
-				"minimum-time-shard-eruptions": ""
+				"minimum-time-shard-eruptions": "破片の噴出"
 			},
 			"event-tickets": {
 				"no-event": "",
@@ -2760,8 +2760,8 @@
 			"setup-stopped": "",
 			"setup-sending": "",
 			"quests-heading": "",
-			"treasure-candles": "",
-			"seasonal-candles": "",
+			"treasure-candles": "キャンドルのかたまり",
+			"seasonal-candles": "シーズンキャンドル",
 			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption": "",
 			"shard-eruption-data": "",
