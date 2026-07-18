@@ -415,9 +415,9 @@ export enum SpiritEmote {
 	BallSpinTrick = "Ball spin trick",
 	TakeNotes = "Take notes",
 	Frustration = "Frustration",
+	SlowWalk = "Slow walk",
 	Bask = "Bask",
 	Draw = "Draw",
-	SlowWalk = "Slow walk",
 }
 
 export enum FriendAction {
