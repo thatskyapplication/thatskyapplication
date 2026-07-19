@@ -883,6 +883,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						description_localizations: localisations(
 							"sky-profile.edit.command-option-icon-description",
 						),
+						file_types: ["image"],
 					},
 					{
 						type: ApplicationCommandOptionType.Attachment,
@@ -896,6 +897,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						description_localizations: localisations(
 							"sky-profile.edit.command-option-banner-description",
 						),
+						file_types: ["image"],
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
@@ -1203,6 +1205,7 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 						type: ApplicationCommandOptionType.Attachment,
 						name: "travelling-rock",
 						description: "The location of the travelling rock.",
+						file_types: ["image"],
 					},
 				],
 			},

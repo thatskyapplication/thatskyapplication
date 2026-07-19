@@ -16,7 +16,7 @@
 		"@devvit/web": "^0.12.24",
 		"@thatskyapplication/utility": "workspace:^",
 		"devvit": "^0.12.24",
-		"discord-api-types": "^0.38.48",
+		"discord-api-types": "^0.38.50",
 		"express": "^5.2.1",
 		"obscenity": "^0.4.6"
 	},
