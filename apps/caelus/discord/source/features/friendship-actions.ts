@@ -230,6 +230,7 @@ export async function friendshipActionsHugBack(
 	}
 
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+		allowed_mentions: { users: [invoker.id] },
 		components: await friendshipActionComponents({
 			invoker: originalInvoker,
 			user: invoker,
