@@ -4689,6 +4689,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Black and Blue Swag Hoodie.
 	 */
 	Cape184: { id: "1522919386271449169", name: "184_cape" },
+	/**
+	 * Wheatfield Cape.
+	 */
+	Cape185: { id: "1528912043229315162", name: "185_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4876,6 +4880,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape182: { id: "1506644769009569932", name: "182_cape" },
 	Cape183: { id: "1509849447255769148", name: "183_cape" },
 	Cape184: { id: "1522919401454571610", name: "184_cape" },
+	Cape185: { id: "1528912050774872094", name: "185_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -9462,7 +9467,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.SkyAnniversary2026HeldProp]: HELD_PROPS_EMOJIS.HeldProp63,
 		[Cosmetic.MomentsCameraUpgrade]: MISCELLANEOUS_EMOJIS.MomentsCameraUpgrade,
 		[Cosmetic.SkyCreatorAwardsCap]: HAIR_ACCESSORY_EMOJIS.HairAccessory82,
-		[Cosmetic.WheatfieldCape]: null,
+		[Cosmetic.WheatfieldCape]: CAPE_EMOJIS.Cape185,
 		[Cosmetic.StarryNightsVisage]: null,
 		[Cosmetic.StarryNightsKiss]: null,
 		[Cosmetic.StarryNightsMantleCape]: null,
