@@ -1904,6 +1904,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Rainbow mask.
 	 */
 	Mask113: { id: "1510009681383391394", name: "113_mask" },
+	/**
+	 * Starry Night's Visage.
+	 */
+	Mask114: { id: "1528914483206946886", name: "114_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -2020,6 +2024,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask111: { id: "1494754842030248217", name: "111_mask" },
 	Mask112: { id: "1494828283416547540", name: "112_mask" },
 	Mask113: { id: "1510009688844927078", name: "113_mask" },
+	Mask114: { id: "1528914488613404845", name: "114_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -9468,7 +9473,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.MomentsCameraUpgrade]: MISCELLANEOUS_EMOJIS.MomentsCameraUpgrade,
 		[Cosmetic.SkyCreatorAwardsCap]: HAIR_ACCESSORY_EMOJIS.HairAccessory82,
 		[Cosmetic.WheatfieldCape]: CAPE_EMOJIS.Cape185,
-		[Cosmetic.StarryNightsVisage]: null,
+		[Cosmetic.StarryNightsVisage]: MASK_EMOJIS.Mask114,
 		[Cosmetic.StarryNightsKiss]: null,
 		[Cosmetic.StarryNightsMantleCape]: null,
 		[Cosmetic.StarryNightsMantleNeckAccessory]: null,
