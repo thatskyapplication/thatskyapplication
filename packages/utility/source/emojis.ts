@@ -3227,6 +3227,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Days of Colour 2026.
 	 */
 	Hair183: { id: "1509849075078398082", name: "183_hair" },
+	/**
+	 * Vase with Fifteen Sunflowers (ultimate).
+	 */
+	Hair184: { id: "1529588116707348671", name: "184_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3413,6 +3417,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair181: { id: "1495326254096978021", name: "181_hair" },
 	Hair182: { id: "1502282983522963506", name: "182_hair" },
 	Hair183: { id: "1509849081743151175", name: "183_hair" },
+	Hair184: { id: "1529588114593546442", name: "184_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4717,6 +4722,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Starry Night's Mantle Cape.
 	 */
 	Cape186: { id: "1529495836214689962", name: "186_cape" },
+	/**
+	 * Vase with Fifteen Sunflowers (ultimate).
+	 */
+	Cape187: { id: "1529588118892576910", name: "187_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4906,6 +4915,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape184: { id: "1522919401454571610", name: "184_cape" },
 	Cape185: { id: "1528912050774872094", name: "185_cape" },
 	Cape186: { id: "1529495842052899039", name: "186_cape" },
+	Cape187: { id: "1529588116573393097", name: "187_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -5702,6 +5712,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Days of Colour 2026 lighthorn kite.
 	 */
 	LargePlaceableProp118: { id: "1510008607276794107", name: "118_large_placeable_prop" },
+	/**
+	 * Vase with Fifteen Sunflowers (ultimate).
+	 */
+	LargePlaceableProp119: { id: "1529588114266390631", name: "119_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5823,6 +5837,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp116: { id: "1510008612142190762", name: "116_large_placeable_prop" },
 	LargePlaceableProp117: { id: "1510008614461636829", name: "117_large_placeable_prop" },
 	LargePlaceableProp118: { id: "1510008616441090058", name: "118_large_placeable_prop" },
+	LargePlaceableProp119: { id: "1529588112919887934", name: "119_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6347,6 +6362,30 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Moth Plush.
 	 */
 	SmallPlaceableProp131: { id: "1522919382727266407", name: "131_small_placeable_prop" },
+	/**
+	 * Vase with Fifteen Sunflowers (non-ultimate) 1.
+	 */
+	SmallPlaceableProp132: { id: "1529585409347026955", name: "132_small_placeable_prop" },
+	/**
+	 * Vase with Fifteen Sunflowers (non-ultimate) 2.
+	 */
+	SmallPlaceableProp133: { id: "1529585412933288108", name: "133_small_placeable_prop" },
+	/**
+	 * Vase with Fifteen Sunflowers (non-ultimate) 3.
+	 */
+	SmallPlaceableProp134: { id: "1529585415353405440", name: "134_small_placeable_prop" },
+	/**
+	 * Vase with Fifteen Sunflowers (non-ultimate) 4.
+	 */
+	SmallPlaceableProp135: { id: "1529585417941422180", name: "135_small_placeable_prop" },
+	/**
+	 * Vase with Fifteen Sunflowers (non-ultimate) 5.
+	 */
+	SmallPlaceableProp136: { id: "1529585420185112727", name: "136_small_placeable_prop" },
+	/**
+	 * Vase with Fifteen Sunflowers (non-ultimate) 6.
+	 */
+	SmallPlaceableProp137: { id: "1529585422622265464", name: "137_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6480,6 +6519,12 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp129: { id: "1510006742904213545", name: "129_small_placeable_prop" },
 	SmallPlaceableProp130: { id: "1510006744724799559", name: "130_small_placeable_prop" },
 	SmallPlaceableProp131: { id: "1522919399206686720", name: "131_small_placeable_prop" },
+	SmallPlaceableProp132: { id: "1529585420126392481", name: "132_small_placeable_prop" },
+	SmallPlaceableProp133: { id: "1529585422320271380", name: "133_small_placeable_prop" },
+	SmallPlaceableProp134: { id: "1529585424094203965", name: "134_small_placeable_prop" },
+	SmallPlaceableProp135: { id: "1529585434303139930", name: "135_small_placeable_prop" },
+	SmallPlaceableProp136: { id: "1529585436207349901", name: "136_small_placeable_prop" },
+	SmallPlaceableProp137: { id: "1529585438577131660", name: "137_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9500,21 +9545,22 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.VaseWithFifteenSunflowersQuest1]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.DearVanGoghPendant]: NECKLACE_EMOJIS.Necklace59,
 		[Cosmetic.VaseWithFifteenSunflowersQuest2]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.VaseWithFifteenSunflowersProp1]: null,
-		[Cosmetic.VaseWithFifteenSunflowersUltimateHair]: null,
+		[Cosmetic.VaseWithFifteenSunflowersProp1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp132,
+		[Cosmetic.VaseWithFifteenSunflowersUltimateHair]: HAIR_EMOJIS.Hair184,
 		[Cosmetic.VaseWithFifteenSunflowersQuest3]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.VaseWithFifteenSunflowersProp2]: null,
+		[Cosmetic.VaseWithFifteenSunflowersProp2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp133,
 		[Cosmetic.VaseWithFifteenSunflowersHeart1]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.VaseWithFifteenSunflowersProp3]: null,
+		[Cosmetic.VaseWithFifteenSunflowersProp3]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp134,
 		[Cosmetic.VaseWithFifteenSunflowersQuest4]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.VaseWithFifteenSunflowersProp4]: null,
-		[Cosmetic.VaseWithFifteenSunflowersUltimateCape]: null,
+		[Cosmetic.VaseWithFifteenSunflowersProp4]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp135,
+		[Cosmetic.VaseWithFifteenSunflowersUltimateCape]: CAPE_EMOJIS.Cape187,
 		[Cosmetic.VaseWithFifteenSunflowersQuest5]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.VaseWithFifteenSunflowersProp5]: null,
+		[Cosmetic.VaseWithFifteenSunflowersProp5]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp136,
 		[Cosmetic.VaseWithFifteenSunflowersQuest6]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaseWithFifteenSunflowersHeart2]: MISCELLANEOUS_EMOJIS.Heart,
-		[Cosmetic.VaseWithFifteenSunflowersProp6]: null,
-		[Cosmetic.VaseWithFifteenSunflowersUltimateProp]: null,
+		[Cosmetic.VaseWithFifteenSunflowersProp6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp137,
+		[Cosmetic.VaseWithFifteenSunflowersUltimateProp]:
+			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp119,
 		[Cosmetic.EmoteFrustration1]: EMOTE_EMOJIS.Frustration,
 		[Cosmetic.DutchMemoryBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.DutchMemoryProp]: null,
