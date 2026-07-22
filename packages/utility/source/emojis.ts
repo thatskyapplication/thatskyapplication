@@ -2422,6 +2422,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Treasure Mate Companion.
 	 */
 	Necklace57: { id: "1502284976308224193", name: "57_necklace" },
+	/**
+	 * Starry Night's Mantle necklace.
+	 */
+	Necklace58: { id: "1529496729525686373", name: "58_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2482,6 +2486,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace55: { id: "1494696171451711659", name: "55_necklace" },
 	Necklace56: { id: "1494828644726472714", name: "56_necklace" },
 	Necklace57: { id: "1502284997216702645", name: "57_necklace" },
+	Necklace58: { id: "1529496734483349554", name: "58_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -3926,6 +3931,10 @@ const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Charming Creature head accessory.
 	 */
 	HeadAccessory26: { id: "1492226472071397517", name: "26_head_accessory" },
+	/**
+	 * Starry Night's Kiss.
+	 */
+	HeadAccessory27: { id: "1529491252448329768", name: "27_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3955,6 +3964,7 @@ const HEAD_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HeadAccessory24: { id: "1464063379953156177", name: "24_head_accessory" },
 	HeadAccessory25: { id: "1482685944338579567", name: "25_head_accessory" },
 	HeadAccessory26: { id: "1492226486923563049", name: "26_head_accessory" },
+	HeadAccessory27: { id: "1529491258488393748", name: "27_head_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_PRODUCTION = {
@@ -4698,6 +4708,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Wheatfield Cape.
 	 */
 	Cape185: { id: "1528912043229315162", name: "185_cape" },
+	/**
+	 * Starry Night's Mantle Cape.
+	 */
+	Cape186: { id: "1529495836214689962", name: "186_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4886,6 +4900,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape183: { id: "1509849447255769148", name: "183_cape" },
 	Cape184: { id: "1522919401454571610", name: "184_cape" },
 	Cape185: { id: "1528912050774872094", name: "185_cape" },
+	Cape186: { id: "1529495842052899039", name: "186_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -9474,9 +9489,9 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.SkyCreatorAwardsCap]: HAIR_ACCESSORY_EMOJIS.HairAccessory82,
 		[Cosmetic.WheatfieldCape]: CAPE_EMOJIS.Cape185,
 		[Cosmetic.StarryNightsVisage]: MASK_EMOJIS.Mask114,
-		[Cosmetic.StarryNightsKiss]: null,
-		[Cosmetic.StarryNightsMantleCape]: null,
-		[Cosmetic.StarryNightsMantleNeckAccessory]: null,
+		[Cosmetic.StarryNightsKiss]: HEAD_ACCESSORY_EMOJIS.HeadAccessory27,
+		[Cosmetic.StarryNightsMantleCape]: CAPE_EMOJIS.Cape186,
+		[Cosmetic.StarryNightsMantleNeckAccessory]: NECKLACE_EMOJIS.Necklace58,
 		[Cosmetic.VaseWithFifteenSunflowersQuest1]: null,
 		[Cosmetic.DearVanGoghPendant]: null,
 		[Cosmetic.VaseWithFifteenSunflowersQuest2]: null,
