@@ -10,7 +10,6 @@ export default new GuideSpirit({
 	area: AreaName.StarryGallery,
 	offer: {
 		inProgress: true,
-		hasInfographic: false,
 		current: [
 			[
 				{

@@ -11,7 +11,6 @@ export default new SeasonalSpirit({
 	emote: SpiritEmote.Draw,
 	offer: {
 		hasInfographic: false,
-		hasInfographicSeasonal: false,
 		seasonal: [
 			[
 				{
