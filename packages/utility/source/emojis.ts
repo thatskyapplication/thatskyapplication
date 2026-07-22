@@ -1190,6 +1190,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Rainbow Tied Jumpsuit.
 	 */
 	Outfit110: { id: "1510010628541124638", name: "110_outfit" },
+	/**
+	 * Dutch Memory.
+	 */
+	Outfit111: { id: "1529590597973967019", name: "111_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1303,6 +1307,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit108: { id: "1495324967699611779", name: "108_outfit" },
 	Outfit109: { id: "1502282557109178469", name: "109_outfit" },
 	Outfit110: { id: "1510010638544404693", name: "110_outfit" },
+	Outfit111: { id: "1529590609420222474", name: "111_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -3231,6 +3236,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Vase with Fifteen Sunflowers (ultimate).
 	 */
 	Hair184: { id: "1529588116707348671", name: "184_hair" },
+	/**
+	 * Dutch Memory.
+	 */
+	Hair185: { id: "1529590602721657054", name: "185_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3418,6 +3427,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair182: { id: "1502282983522963506", name: "182_hair" },
 	Hair183: { id: "1509849081743151175", name: "183_hair" },
 	Hair184: { id: "1529588114593546442", name: "184_hair" },
+	Hair185: { id: "1529590612872134766", name: "185_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4726,6 +4736,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Vase with Fifteen Sunflowers (ultimate).
 	 */
 	Cape187: { id: "1529588118892576910", name: "187_cape" },
+	/**
+	 * Dutch Memory.
+	 */
+	Cape188: { id: "1529590604869406791", name: "188_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4916,6 +4930,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape185: { id: "1528912050774872094", name: "185_cape" },
 	Cape186: { id: "1529495842052899039", name: "186_cape" },
 	Cape187: { id: "1529588116573393097", name: "187_cape" },
+	Cape188: { id: "1529590615149510899", name: "188_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -6386,6 +6401,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Vase with Fifteen Sunflowers (non-ultimate) 6.
 	 */
 	SmallPlaceableProp137: { id: "1529585422622265464", name: "137_small_placeable_prop" },
+	/**
+	 * Dutch Memory.
+	 */
+	SmallPlaceableProp138: { id: "1529590663081885847", name: "138_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6525,6 +6544,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp135: { id: "1529585434303139930", name: "135_small_placeable_prop" },
 	SmallPlaceableProp136: { id: "1529585436207349901", name: "136_small_placeable_prop" },
 	SmallPlaceableProp137: { id: "1529585438577131660", name: "137_small_placeable_prop" },
+	SmallPlaceableProp138: { id: "1529590671068102849", name: "138_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9563,15 +9583,15 @@ export function emojiConstants(production: boolean): {
 			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp119,
 		[Cosmetic.EmoteFrustration1]: EMOTE_EMOJIS.Frustration,
 		[Cosmetic.DutchMemoryBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
-		[Cosmetic.DutchMemoryProp]: null,
+		[Cosmetic.DutchMemoryProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp138,
 		[Cosmetic.DutchMemoryBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.EmoteFrustration2]: EMOTE_EMOJIS.Frustration,
 		[Cosmetic.EmoteFrustration3]: EMOTE_EMOJIS.Frustration,
 		[Cosmetic.DutchMemoryWhiteDye]: MISCELLANEOUS_EMOJIS.DyeWhite,
-		[Cosmetic.DutchMemoryHair]: null,
-		[Cosmetic.DutchMemoryCape]: null,
+		[Cosmetic.DutchMemoryHair]: HAIR_EMOJIS.Hair185,
+		[Cosmetic.DutchMemoryCape]: CAPE_EMOJIS.Cape188,
 		[Cosmetic.EmoteFrustration4]: EMOTE_EMOJIS.Frustration,
-		[Cosmetic.DutchMemoryOutfit]: null,
+		[Cosmetic.DutchMemoryOutfit]: OUTFIT_EMOJIS.Outfit111,
 		[Cosmetic.DutchMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
 		[Cosmetic.EmoteBask1]: EMOTE_EMOJIS.Bask,
 		[Cosmetic.RusticMemoryBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
