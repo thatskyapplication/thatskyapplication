@@ -2426,6 +2426,10 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	 * Starry Night's Mantle necklace.
 	 */
 	Necklace58: { id: "1529496729525686373", name: "58_necklace" },
+	/**
+	 * Dear Van Gogh pendant.
+	 */
+	Necklace59: { id: "1529583308285935836", name: "59_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_DEVELOPMENT = {
@@ -2487,6 +2491,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace56: { id: "1494828644726472714", name: "56_necklace" },
 	Necklace57: { id: "1502284997216702645", name: "57_necklace" },
 	Necklace58: { id: "1529496734483349554", name: "58_necklace" },
+	Necklace59: { id: "1529583314308956371", name: "59_necklace" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_PRODUCTION = {
@@ -9493,7 +9498,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.StarryNightsMantleCape]: CAPE_EMOJIS.Cape186,
 		[Cosmetic.StarryNightsMantleNeckAccessory]: NECKLACE_EMOJIS.Necklace58,
 		[Cosmetic.VaseWithFifteenSunflowersQuest1]: MISCELLANEOUS_EMOJIS.Quest,
-		[Cosmetic.DearVanGoghPendant]: null,
+		[Cosmetic.DearVanGoghPendant]: NECKLACE_EMOJIS.Necklace59,
 		[Cosmetic.VaseWithFifteenSunflowersQuest2]: MISCELLANEOUS_EMOJIS.Quest,
 		[Cosmetic.VaseWithFifteenSunflowersProp1]: null,
 		[Cosmetic.VaseWithFifteenSunflowersUltimateHair]: null,
