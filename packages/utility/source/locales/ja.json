@@ -2653,7 +2653,7 @@
 			}
 		},
 		"catalogue": {
-			"main-title": "",
+			"main-title": "カタログ",
 			"description": "",
 			"description-short": "",
 			"main-description": "",
@@ -2667,16 +2667,16 @@
 			"main-no-progress": "",
 			"main-progress": "",
 			"traversal-string-select-menu-placeholder": "",
-			"travelling-spirit": "",
+			"travelling-spirit": "再訪する精霊",
 			"returning-spirits": "",
 			"back-to-start-button-label": "",
 			"settings-title": "",
-			"settings-button-label-enable": "",
+			"settings-button-label-enable": "有効にする",
 			"settings-button-label-disable": "",
 			"settings-everything": "",
-			"realms-title": "",
+			"realms-title": "## 地方\n\n-# カタログ",
 			"realms-percentage-note": "",
-			"realm-title": "",
+			"realm-title": "## {{realm}}\n\n-# カタログ → 地方",
 			"i-have-everything-button-label": "",
 			"elders-title": "",
 			"seasons-title": "",
@@ -2745,8 +2745,8 @@
 			"name": "デイリーガイド",
 			"description-short": "",
 			"distribution-type-label": {
-				"0": "",
-				"1": ""
+				"0": "コンパクト",
+				"1": "メディア"
 			},
 			"distribution-type-description": {
 				"0": "",
@@ -2767,7 +2767,7 @@
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
 			"shard-eruption-none": "",
-			"travelling-rock": "",
+			"travelling-rock": "小さな岩の冒険",
 			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
@@ -2889,7 +2889,7 @@
 			"rate-limit": ""
 		},
 		"notifications": {
-			"back": "",
+			"back": "戻る",
 			"title": "",
 			"setup-description": "",
 			"setup-option-sending": "",
@@ -3001,14 +3001,14 @@
 		},
 		"schedule": {
 			"type": {
-				"0": "",
-				"1": "",
+				"0": "デイリーリセット",
+				"1": "原罪",
 				"2": "",
-				"3": "",
+				"3": "再訪する精霊",
 				"4": "",
-				"5": "",
-				"6": "",
-				"7": "",
+				"5": "間欠泉",
+				"6": "高台広場",
+				"7": "ウミガメ",
 				"8": "闇の破片",
 				"9": "",
 				"10": "",
