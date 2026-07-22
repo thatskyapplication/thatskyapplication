@@ -3768,6 +3768,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Rustic Memory.
 	 */
 	HairAccessory83: { id: "1529592860846981151", name: "83_hair_accessory" },
+	/**
+	 * Artistic Memory.
+	 */
+	HairAccessory84: { id: "1529594758152978462", name: "84_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3854,6 +3858,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory81: { id: "1522919396396367943", name: "81_hair_accessory" },
 	HairAccessory82: { id: "1527298589720711178", name: "82_hair_accessory" },
 	HairAccessory83: { id: "1529592868283613337", name: "83_hair_accessory" },
+	HairAccessory84: { id: "1529594764863733840", name: "84_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -4754,6 +4759,10 @@ const CAPE_EMOJIS_PRODUCTION = {
 	 * Rustic Memory.
 	 */
 	Cape189: { id: "1529592938403860532", name: "189_cape" },
+	/**
+	 * Artistic Memory.
+	 */
+	Cape190: { id: "1529594766969405550", name: "190_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const CAPE_EMOJIS_DEVELOPMENT = {
@@ -4946,6 +4955,7 @@ const CAPE_EMOJIS_DEVELOPMENT = {
 	Cape187: { id: "1529588116573393097", name: "187_cape" },
 	Cape188: { id: "1529590615149510899", name: "188_cape" },
 	Cape189: { id: "1529592945756344440", name: "189_cape" },
+	Cape190: { id: "1529594770362470501", name: "190_cape" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_PRODUCTION = {
@@ -6424,6 +6434,14 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Rustic Memory.
 	 */
 	SmallPlaceableProp139: { id: "1529592864160350338", name: "139_small_placeable_prop" },
+	/**
+	 * Artistic Memory 1.
+	 */
+	SmallPlaceableProp140: { id: "1529594761512747079", name: "140_small_placeable_prop" },
+	/**
+	 * Artistic Memory 2.
+	 */
+	SmallPlaceableProp141: { id: "1529594764981305487", name: "141_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6565,6 +6583,8 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp137: { id: "1529585438577131660", name: "137_small_placeable_prop" },
 	SmallPlaceableProp138: { id: "1529590671068102849", name: "138_small_placeable_prop" },
 	SmallPlaceableProp139: { id: "1529592870380638419", name: "139_small_placeable_prop" },
+	SmallPlaceableProp140: { id: "1529594766549848245", name: "140_small_placeable_prop" },
+	SmallPlaceableProp141: { id: "1529594768538075347", name: "141_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9626,16 +9646,16 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.RusticMemoryCape]: CAPE_EMOJIS.Cape189,
 		[Cosmetic.RusticMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
 		[Cosmetic.EmoteDraw1]: EMOTE_EMOJIS.Draw,
-		[Cosmetic.ArtisticMemoryProp1]: null,
-		[Cosmetic.ArtisticMemoryHairAccessory]: null,
+		[Cosmetic.ArtisticMemoryProp1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp140,
+		[Cosmetic.ArtisticMemoryHairAccessory]: HAIR_ACCESSORY_EMOJIS.HairAccessory84,
 		[Cosmetic.ArtisticMemoryBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.EmoteDraw2]: EMOTE_EMOJIS.Draw,
 		[Cosmetic.EmoteDraw3]: EMOTE_EMOJIS.Draw,
-		[Cosmetic.ArtisticMemoryProp2]: null,
+		[Cosmetic.ArtisticMemoryProp2]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp141,
 		[Cosmetic.ArtisticMemoryYellowDye]: MISCELLANEOUS_EMOJIS.DyeYellow,
 		[Cosmetic.ArtisticMemoryBlessing2]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.EmoteDraw4]: EMOTE_EMOJIS.Draw,
-		[Cosmetic.ArtisticMemoryCape]: null,
+		[Cosmetic.ArtisticMemoryCape]: CAPE_EMOJIS.Cape190,
 		[Cosmetic.ArtisticMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
 		[Cosmetic.EmoteSlowWalk1]: EMOTE_EMOJIS.SlowWalk,
 		[Cosmetic.JoyfulMemoryProp]: null,
