@@ -27,20 +27,22 @@ export default {
 				await memberLogSendJoinLeave({ guild, member: data });
 			}
 
-			const welcomePacket = await database
-				.selectFrom("welcome")
-				.selectAll()
-				.where("guild_id", "=", data.guild_id)
-				.where("welcome_channel_id", "is not", null)
-				.$narrowType<{ welcome_channel_id: string }>()
-				.executeTakeFirst();
+			if (!data.user.bot) {
+				const welcomePacket = await database
+					.selectFrom("welcome")
+					.selectAll()
+					.where("guild_id", "=", data.guild_id)
+					.where("welcome_channel_id", "is not", null)
+					.$narrowType<{ welcome_channel_id: string }>()
+					.executeTakeFirst();
 
-			if (welcomePacket) {
-				await sendWelcomeMessage({
-					userId: data.user.id,
-					welcomePacket,
-					locale: guild.preferredLocale,
-				});
+				if (welcomePacket) {
+					await sendWelcomeMessage({
+						userId: data.user.id,
+						welcomePacket,
+						locale: guild.preferredLocale,
+					});
+				}
 			}
 		} else {
 			pino.warn({ data }, `Received a ${name} packet on an uncached guild.`);
