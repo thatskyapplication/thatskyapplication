@@ -614,7 +614,7 @@ export default {
 				"Help Praying Acolyte archive summer in the Vault Archive",
 			[DailyQuest.MeetUpWithThoughtfulDirectorInVaultOfKnowledge]: questsMeetUpWith(
 				SpiritId.ThoughtfulDirector,
-				RealmName.VaultOfKnowledge,
+				AreaName.VaultRest,
 			),
 			[DailyQuest.MeetUpWithApplaudingBellmakerInDaylightPrairie]: questsMeetUpWith(
 				SpiritId.ApplaudingBellmaker,
