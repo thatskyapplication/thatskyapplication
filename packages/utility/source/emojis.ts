@@ -1194,6 +1194,10 @@ const OUTFIT_EMOJIS_PRODUCTION = {
 	 * Dutch Memory.
 	 */
 	Outfit111: { id: "1529590597973967019", name: "111_outfit" },
+	/**
+	 * Sunlight Diver Duo.
+	 */
+	Outfit112: { id: "1532453826991231086", name: "112_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const OUTFIT_EMOJIS_DEVELOPMENT = {
@@ -1308,6 +1312,7 @@ const OUTFIT_EMOJIS_DEVELOPMENT = {
 	Outfit109: { id: "1502282557109178469", name: "109_outfit" },
 	Outfit110: { id: "1510010638544404693", name: "110_outfit" },
 	Outfit111: { id: "1529590609420222474", name: "111_outfit" },
+	Outfit112: { id: "1532453924437758003", name: "112_outfit" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_PRODUCTION = {
@@ -1427,6 +1432,10 @@ const SHOE_EMOJIS_PRODUCTION = {
 	 * Rustic Memory.
 	 */
 	Shoe29: { id: "1529592858762285126", name: "29_shoe" },
+	/**
+	 * Sunlight Diver Duo.
+	 */
+	Shoe30: { id: "1532453819273969935", name: "30_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHOE_EMOJIS_DEVELOPMENT = {
@@ -1459,6 +1468,7 @@ const SHOE_EMOJIS_DEVELOPMENT = {
 	Shoe27: { id: "1469074434177372254", name: "27_shoe" },
 	Shoe28: { id: "1522919393007370260", name: "28_shoe" },
 	Shoe29: { id: "1529592866123546685", name: "29_shoe" },
+	Shoe30: { id: "1532453916812247140", name: "30_shoe" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_PRODUCTION = {
@@ -1918,6 +1928,10 @@ const MASK_EMOJIS_PRODUCTION = {
 	 * Starry Night's Visage.
 	 */
 	Mask114: { id: "1528914483206946886", name: "114_mask" },
+	/**
+	 * Days of Sunlight 2026.
+	 */
+	Mask115: { id: "1532453829625253969", name: "115_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const MASK_EMOJIS_DEVELOPMENT = {
@@ -2035,6 +2049,7 @@ const MASK_EMOJIS_DEVELOPMENT = {
 	Mask112: { id: "1494828283416547540", name: "112_mask" },
 	Mask113: { id: "1510009688844927078", name: "113_mask" },
 	Mask114: { id: "1528914488613404845", name: "114_mask" },
+	Mask115: { id: "1532453926107086912", name: "115_mask" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -2166,6 +2181,10 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Fortune Token Glasses.
 	 */
 	FaceAccessory32: { id: "1471652959086575636", name: "32_face_accessory" },
+	/**
+	 * Sunlight Sporty Sunglasses.
+	 */
+	FaceAccessory33: { id: "1532453822340006179", name: "33_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -2201,6 +2220,7 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory30: { id: "1459119288194437336", name: "30_face_accessory" },
 	FaceAccessory31: { id: "1459119290052513854", name: "31_face_accessory" },
 	FaceAccessory32: { id: "1471652968108396714", name: "32_face_accessory" },
+	FaceAccessory33: { id: "1532453920172150986", name: "33_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -3249,6 +3269,10 @@ const HAIR_EMOJIS_PRODUCTION = {
 	 * Joyful Memory.
 	 */
 	Hair186: { id: "1529596982967144719", name: "186_hair" },
+	/**
+	 * Days of Sunlight 2026.
+	 */
+	Hair187: { id: "1532453836591988857", name: "187_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_EMOJIS_DEVELOPMENT = {
@@ -3438,6 +3462,7 @@ const HAIR_EMOJIS_DEVELOPMENT = {
 	Hair184: { id: "1529588114593546442", name: "184_hair" },
 	Hair185: { id: "1529590612872134766", name: "185_hair" },
 	Hair186: { id: "1529596987450724472", name: "186_hair" },
+	Hair187: { id: "1532453933379751966", name: "187_hair" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -5226,6 +5251,10 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Sky Anniversary 2026.
 	 */
 	HeldProp63: { id: "1522919378792747070", name: "63_held_prop" },
+	/**
+	 * Days of Sunlight 2026.
+	 */
+	HeldProp64: { id: "1532453823933710356", name: "64_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5292,6 +5321,7 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp61: { id: "1471653278457663528", name: "61_held_prop" },
 	HeldProp62: { id: "1482685524601999412", name: "62_held_prop" },
 	HeldProp63: { id: "1522919394957594684", name: "63_held_prop" },
+	HeldProp64: { id: "1532453922202194101", name: "64_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -5771,6 +5801,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Vase with Fifteen Sunflowers (ultimate).
 	 */
 	LargePlaceableProp119: { id: "1529588114266390631", name: "119_large_placeable_prop" },
+	/**
+	 * Days of Sunlight 2026.
+	 */
+	LargePlaceableProp120: { id: "1532453831521206333", name: "120_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5893,6 +5927,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp117: { id: "1510008614461636829", name: "117_large_placeable_prop" },
 	LargePlaceableProp118: { id: "1510008616441090058", name: "118_large_placeable_prop" },
 	LargePlaceableProp119: { id: "1529588112919887934", name: "119_large_placeable_prop" },
+	LargePlaceableProp120: { id: "1532453928736915537", name: "120_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6461,6 +6496,10 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Joyful Memory.
 	 */
 	SmallPlaceableProp142: { id: "1529596980626718880", name: "142_small_placeable_prop" },
+	/**
+	 * Sunlight Crab Float.
+	 */
+	SmallPlaceableProp143: { id: "1532453834582921296", name: "143_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6605,6 +6644,7 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp140: { id: "1529594766549848245", name: "140_small_placeable_prop" },
 	SmallPlaceableProp141: { id: "1529594768538075347", name: "141_small_placeable_prop" },
 	SmallPlaceableProp142: { id: "1529596984917364768", name: "142_small_placeable_prop" },
+	SmallPlaceableProp143: { id: "1532453931345772657", name: "143_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9689,6 +9729,14 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.JoyfulMemoryBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
 		[Cosmetic.EmoteSlowWalk4]: EMOTE_EMOJIS.SlowWalk,
 		[Cosmetic.JoyfulMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
+		[Cosmetic.DaysOfSunlight2026Prop1]: HELD_PROPS_EMOJIS.HeldProp64,
+		[Cosmetic.DaysOfSunlight2026Hair]: HAIR_EMOJIS.Hair187,
+		[Cosmetic.DaysOfSunlight2026Mask]: MASK_EMOJIS.Mask115,
+		[Cosmetic.DaysOfSunlight2026Prop2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp120,
+		[Cosmetic.SunlightDiverDuoOutfit]: OUTFIT_EMOJIS.Outfit112,
+		[Cosmetic.SunlightDiverDuoShoes]: SHOE_EMOJIS.Shoe30,
+		[Cosmetic.SunlightSportySunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
+		[Cosmetic.SunlightCrabFloat]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp143,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
