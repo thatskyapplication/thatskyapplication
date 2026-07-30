@@ -1487,14 +1487,6 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.StarryNightsKiss",
 	},
 	{
-		upstreamKey: "commerce_item_name_sunlight_wetsuit",
-		tsKey: "Cosmetic.SunlightDiverDuoOutfit",
-	},
-	{
-		upstreamKey: "commerce_item_name_sunlight_wetsuit",
-		tsKey: "Cosmetic.SunlightDiverDuoShoes",
-	},
-	{
 		upstreamKey: "commerce_item_name_sunlight_sunglasses",
 		tsKey: "Cosmetic.SunlightSportySunglasses",
 	},
