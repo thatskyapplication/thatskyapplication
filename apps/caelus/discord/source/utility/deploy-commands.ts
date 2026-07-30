@@ -1204,6 +1204,11 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 						name: "travelling-rock",
 						description: "The location of the travelling rock.",
 					},
+					{
+						type: ApplicationCommandOptionType.Boolean,
+						name: "travelling-rock-not-spawned",
+						description: "Whether the travelling rock did not spawn.",
+					},
 				],
 			},
 		],

@@ -158,6 +158,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const quest3 = dailyGuides.quest3;
 	const quest4 = dailyGuides.quest4;
 	const travellingRock = dailyGuides.travelling_rock;
+	const travellingRockNotSpawned = dailyGuides.travelling_rock_not_spawned;
 	const season = skyCurrentSeason(now);
 
 	const quests = [];
@@ -794,22 +795,28 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							</p>
 						)}
 					</div>
-					{travellingRock && (
+					{(travellingRock || travellingRockNotSpawned) && (
 						<div className="mb-5">
 							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
 								{t("daily-guides.travelling-rock", { ns: "features" })}
 							</h2>
-							<button
-								className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-								onClick={() =>
-									handleImageClick(
-										cdnAssetURL(cdnURL, `daily_guides/travelling_rocks/${travellingRock}.webp`),
-									)
-								}
-								type="button"
-							>
-								{t("view", { ns: "general" })}
-							</button>
+							{travellingRock ? (
+								<button
+									className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+									onClick={() =>
+										handleImageClick(
+											cdnAssetURL(cdnURL, `daily_guides/travelling_rocks/${travellingRock}.webp`),
+										)
+									}
+									type="button"
+								>
+									{t("view", { ns: "general" })}
+								</button>
+							) : (
+								<p className="text-sm text-gray-500 dark:text-gray-400">
+									{t("daily-guides.shard-eruption-none", { ns: "features" })}
+								</p>
+							)}
 						</div>
 					)}
 					{daysCount.length > 0 && (

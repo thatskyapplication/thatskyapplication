@@ -211,6 +211,7 @@ export async function resetDailyGuides({ user, lastUpdatedAt }: DailyGuidesReset
 		quest3: null,
 		quest4: null,
 		travelling_rock: null,
+		travelling_rock_not_spawned: false,
 		last_updated_user_id: APPLICATION_ID,
 		last_updated_at: lastUpdatedAt,
 	});
@@ -855,6 +856,7 @@ async function distributionData(
 		quest3,
 		quest4,
 		travelling_rock: travellingRock,
+		travelling_rock_not_spawned: travellingRockNotSpawned,
 	} = await fetchDailyGuides();
 
 	const quests = [];
@@ -1120,16 +1122,20 @@ async function distributionData(
 
 	let missingTravellingRock: boolean;
 
-	if (travellingRock) {
+	if (travellingRock || travellingRockNotSpawned) {
 		missingTravellingRock = false;
 		let travellingRockContent = `### ${t("daily-guides.travelling-rock", { lng: locale, ns: "features" })}\n\n`;
-		const travellingRockURL = new URL(
-			`daily_guides/travelling_rocks/${travellingRock}.webp`,
-			CDN_URL,
-		).href;
+		const travellingRockURL = travellingRock
+			? new URL(`daily_guides/travelling_rocks/${travellingRock}.webp`, CDN_URL).href
+			: null;
 
-		if (type === DailyGuidesDistributionType.Compact) {
+		if (travellingRockURL && type === DailyGuidesDistributionType.Compact) {
 			travellingRockContent += `[${t("view", { lng: locale, ns: "general" })}](${travellingRockURL})`;
+		} else if (travellingRockNotSpawned) {
+			travellingRockContent += t("daily-guides.shard-eruption-none", {
+				lng: locale,
+				ns: "features",
+			});
 		}
 
 		containerComponents.push({
@@ -1137,7 +1143,7 @@ async function distributionData(
 			content: travellingRockContent,
 		});
 
-		if (type === DailyGuidesDistributionType.Media) {
+		if (travellingRockURL && type === DailyGuidesDistributionType.Media) {
 			containerComponents.push({
 				type: ComponentType.MediaGallery,
 				items: [{ media: { url: travellingRockURL } }],
@@ -1712,6 +1718,7 @@ export async function set(
 		quest3,
 		quest4,
 		travelling_rock: travellingRock,
+		travelling_rock_not_spawned: travellingRockNotSpawned,
 	} = await fetchDailyGuides();
 	const oldQuest1 = quest1;
 	const oldQuest2 = quest2;
@@ -1722,6 +1729,16 @@ export async function set(
 	const newQuest3 = options.getInteger("quest-3") ?? oldQuest3;
 	const newQuest4 = options.getInteger("quest-4") ?? oldQuest4;
 	const newTravellingRock = options.getAttachment("travelling-rock");
+	const newTravellingRockNotSpawned = options.getBoolean("travelling-rock-not-spawned");
+
+	if (newTravellingRock && newTravellingRockNotSpawned) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "The travelling rock cannot have an image and be marked as not spawned.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
 
 	const questNumbers = [newQuest1, newQuest2, newQuest3, newQuest4].filter(
 		(quest): quest is number => quest !== null,
@@ -1743,7 +1760,9 @@ export async function set(
 		oldQuest1 === newQuest1 &&
 		oldQuest2 === newQuest2 &&
 		oldQuest3 === newQuest3 &&
-		oldQuest4 === newQuest4
+		oldQuest4 === newQuest4 &&
+		(newTravellingRockNotSpawned === null ||
+			newTravellingRockNotSpawned === travellingRockNotSpawned)
 	) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: "No changes were made. Check to see if daily guides are already distributed!",
@@ -1759,6 +1778,7 @@ export async function set(
 		quest3: oldQuest3 === null ? null : t(`quests.${oldQuest3}`, { ns: "general" }),
 		quest4: oldQuest4 === null ? null : t(`quests.${oldQuest4}`, { ns: "general" }),
 		travellingRock,
+		travellingRockNotSpawned,
 	};
 
 	const data: DailyGuidesSetData = {
@@ -1798,8 +1818,19 @@ export async function set(
 		);
 
 		data.travelling_rock = hashedBuffer;
+		data.travelling_rock_not_spawned = false;
+	} else if (newTravellingRockNotSpawned !== null) {
+		data.travelling_rock_not_spawned = newTravellingRockNotSpawned;
+
+		if (newTravellingRockNotSpawned) {
+			data.travelling_rock = null;
+		}
 	}
 
+	const finalTravellingRock =
+		data.travelling_rock === undefined ? travellingRock : data.travelling_rock;
+	const finalTravellingRockNotSpawned =
+		data.travelling_rock_not_spawned ?? travellingRockNotSpawned;
 	const newData = {
 		quest1:
 			newQuest1 === null || !isDailyQuest(newQuest1)
@@ -1817,7 +1848,8 @@ export async function set(
 			newQuest4 === null || !isDailyQuest(newQuest4)
 				? null
 				: t(`quests.${newQuest4}`, { ns: "general" }),
-		travellingRock: data.travelling_rock ?? travellingRock,
+		travellingRock: finalTravellingRock,
+		travellingRockNotSpawned: finalTravellingRockNotSpawned,
 	};
 
 	data.quest1 = newQuest1 === null || !isDailyQuest(newQuest1) ? null : newQuest1;
@@ -1829,7 +1861,7 @@ export async function set(
 		user: interaction.member.user,
 		content: "set daily guides.",
 		diff: `\`\`\`diff\n${diffJSON(oldData, newData)}\n\`\`\``,
-		travellingRock: data.travelling_rock ?? travellingRock,
+		travellingRock: finalTravellingRock,
 	});
 
 	await updateDailyGuides(data);

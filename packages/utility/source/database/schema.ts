@@ -43,6 +43,7 @@ export interface DailyGuides {
   quest3: number | null;
   quest4: number | null;
   travelling_rock: string | null;
+  travelling_rock_not_spawned: boolean;
 }
 
 export interface DailyGuidesDistribution {
