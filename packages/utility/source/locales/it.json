@@ -1191,7 +1191,8 @@
 			"26": "Set elegante da pattinaggio del torneo",
 			"27": "Pacchetto di Creature Incantevoli",
 			"28": "Pacchetto Flower + FlOw",
-			"29": "Mantello della Notte stellata"
+			"29": "Mantello della Notte stellata",
+			"30": "Completo subacqueo solare"
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2313,7 +2314,11 @@
 			"2924": "",
 			"2927": "",
 			"2929": "",
-			"2934": ""
+			"2934": "",
+			"2940": "",
+			"2941": "",
+			"2942": "Occhiali da sole sportivi solari",
+			"2943": "Galleggiante granchio solare"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

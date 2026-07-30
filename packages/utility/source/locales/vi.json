@@ -1191,7 +1191,8 @@
 			"26": "Bộ Trượt Băng Thanh Lịch Giải Đấu",
 			"27": "Gói Sinh Vật Duyên Dáng",
 			"28": "Gói Flower + FlOw",
-			"29": "Áo Choàng Đêm Đầy Sao"
+			"29": "Áo Choàng Đêm Đầy Sao",
+			"30": "Bộ Đôi Thợ Lặn Nắng Hè"
 		},
 		"cosmetic-names": {
 			"0": "",
@@ -2313,7 +2314,11 @@
 			"2924": "",
 			"2927": "",
 			"2929": "",
-			"2934": ""
+			"2934": "",
+			"2940": "",
+			"2941": "",
+			"2942": "Kính Mát Thể Thao Nắng Hè",
+			"2943": "Phao Cua Nắng Hè"
 		},
 		"interaction-error": "",
 		"interaction-not-in-cached-guild": "",

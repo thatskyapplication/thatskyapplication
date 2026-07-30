@@ -1191,7 +1191,8 @@
 			"26": "Ensemble de patinage élégant de Tournoi",
 			"27": "Pack de Créatures Enchanteresses",
 			"28": "Pack Flower + flOw",
-			"29": "Manteau de La Nuit étoilée"
+			"29": "Manteau de La Nuit étoilée",
+			"30": "Duo de plongeurs ensoleillés"
 		},
 		"cosmetic-names": {
 			"0": "S'assoir",
@@ -2313,7 +2314,11 @@
 			"2924": "Marche lente 1",
 			"2927": "Marche lente 2",
 			"2929": "Marche lente 3",
-			"2934": "Marche lente 4"
+			"2934": "Marche lente 4",
+			"2940": "",
+			"2941": "",
+			"2942": "Lunettes de soleil sportives ensoleillées",
+			"2943": "Bouée ensoleillée du crabe"
 		},
 		"interaction-error": "Oh non, ça n'était pas censé arriver !\n\nSentez-vous libre de rejoindre notre [serveur d'assistance]({{url}}) et reporter ce problème ! 🩵",
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",
