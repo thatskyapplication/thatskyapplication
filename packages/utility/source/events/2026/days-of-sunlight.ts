@@ -1,13 +1,36 @@
 import { Cosmetic, CosmeticCommon, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
-import { Event } from "../../models/event.js";
+import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { EventId } from "../../utility/event.js";
+
+const eventTicketAmount: EventTicketsAmountData[] = [];
+
+for (
+	let start = skyDate(2026, 7, 30), end = skyDate(2026, 8, 21);
+	Temporal.ZonedDateTime.compare(start, end) < 0;
+	start = start.add({ days: 1 })
+) {
+	eventTicketAmount.push({
+		date: start,
+		amount: 5,
+	});
+}
 
 export default new Event({
 	id: EventId.DaysOfSunlight2026,
 	name: "days-of-sunlight",
 	start: skyDate(2026, 7, 31),
 	end: skyDate(2026, 8, 21),
+	eventTickets: {
+		amount: eventTicketAmount,
+		pool: [
+			{
+				amount: 15,
+				start: skyDate(2026, 7, 30),
+				end: skyDate(2026, 8, 20),
+			},
+		],
+	},
 	offer: [
 		{
 			translation: { key: CosmeticCommon.PropMultiple, number: 1 },
