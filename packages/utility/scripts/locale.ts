@@ -1487,6 +1487,14 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "Cosmetic.StarryNightsKiss",
 	},
 	{
+		upstreamKey: "commerce_item_name_sunlight_sunglasses",
+		tsKey: "Cosmetic.SunlightSportySunglasses",
+	},
+	{
+		upstreamKey: "commerce_item_name_sunlight_crabfloatie",
+		tsKey: "Cosmetic.SunlightCrabFloat",
+	},
+	{
 		upstreamKey: "commerce_item_name_fortune_pack",
 		tsKey: "CosmeticPackName.DaysOfFortunePack",
 	},
@@ -1605,6 +1613,10 @@ const MAPPINGS: LocaleMapping[] = [
 	{
 		upstreamKey: "commerce_item_name_dear_starrywing",
 		tsKey: "CosmeticPackName.StarryNightsMantle",
+	},
+	{
+		upstreamKey: "commerce_item_name_sunlight_wetsuit",
+		tsKey: "CosmeticPackName.SunlightDiverDuo",
 	},
 	{
 		upstreamKey: "lootbox_name_color_black",

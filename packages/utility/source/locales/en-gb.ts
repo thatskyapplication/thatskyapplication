@@ -1603,6 +1603,7 @@ export default {
 			[CosmeticPackName.CharmingCreaturePack]: "Charming Creature Pack",
 			[CosmeticPackName.FlOwPack]: "Flower + FlOw Pack",
 			[CosmeticPackName.StarryNightsMantle]: "Starry Night's Mantle",
+			[CosmeticPackName.SunlightDiverDuo]: "Sunlight Diver Duo",
 		} satisfies Record<CosmeticPackName, string>,
 		"cosmetic-names": {
 			[Cosmetic.EmoteSit]: "Sit",
@@ -2726,6 +2727,10 @@ export default {
 			[Cosmetic.EmoteSlowWalk2]: "Slow walk 2",
 			[Cosmetic.EmoteSlowWalk3]: "Slow walk 3",
 			[Cosmetic.EmoteSlowWalk4]: "Slow walk 4",
+			[Cosmetic.SunlightDiverDuoOutfit]: "Sunlight Diver Duo outfit",
+			[Cosmetic.SunlightDiverDuoShoes]: "Sunlight Diver Duo shoes",
+			[Cosmetic.SunlightSportySunglasses]: "Sunlight Sporty Sunglasses",
+			[Cosmetic.SunlightCrabFloat]: "Sunlight Crab Float",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",

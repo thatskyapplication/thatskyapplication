@@ -3703,6 +3703,16 @@ export enum Cosmetic {
 	JoyfulMemoryBlackDye = 2933,
 	EmoteSlowWalk4 = 2934,
 	JoyfulMemorySeasonalHeart = 2935,
+
+	// 31/07/2026 | Days of Sunlight.
+	DaysOfSunlight2026Prop1 = 2936,
+	DaysOfSunlight2026Hair = 2937,
+	DaysOfSunlight2026Mask = 2938,
+	DaysOfSunlight2026Prop2 = 2939,
+	SunlightDiverDuoOutfit = 2940,
+	SunlightDiverDuoShoes = 2941,
+	SunlightSportySunglasses = 2942,
+	SunlightCrabFloat = 2943,
 }
 
 export enum CosmeticCommon {
@@ -3805,6 +3815,7 @@ export enum CosmeticPackName {
 	CharmingCreaturePack = 27,
 	FlOwPack = 28,
 	StarryNightsMantle = 29,
+	SunlightDiverDuo = 30,
 }
 
 export const WING_BUFFS = [

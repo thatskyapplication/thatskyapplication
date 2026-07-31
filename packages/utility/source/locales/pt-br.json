@@ -1191,7 +1191,8 @@
 			"26": "Conjunto Elegante de Patinação do Torneio",
 			"27": "Pacote de Criaturas Encantadoras",
 			"28": "Pacote FlOw + Flower",
-			"29": "Manto da Noite Estrelada"
+			"29": "Manto da Noite Estrelada",
+			"30": "Pé de Pato Solar"
 		},
 		"cosmetic-names": {
 			"0": "Sentar",
@@ -2313,7 +2314,11 @@
 			"2924": "",
 			"2927": "",
 			"2929": "",
-			"2934": ""
+			"2934": "",
+			"2940": "",
+			"2941": "",
+			"2942": "Óculos de Sol Esportivos",
+			"2943": "Boia de Caranguejo Solar"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
