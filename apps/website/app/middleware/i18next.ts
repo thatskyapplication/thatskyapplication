@@ -15,7 +15,7 @@ import {
 	zhCN,
 	zhTW,
 } from "@thatskyapplication/utility";
-import { createI18nextMiddleware } from "remix-i18next/middleware";
+import { createI18nextMiddleware } from "remix-i18next";
 import { LOCALES } from "~/utility/constants.js";
 
 export const [i18nextMiddleware, getLocale, getInstance] = createI18nextMiddleware({

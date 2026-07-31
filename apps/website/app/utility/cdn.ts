@@ -3,9 +3,9 @@ type RootLoaderDataWithCDNURL = {
 };
 
 export function getCDNURLFromMatches(
-	matches: readonly ({ data?: unknown; id: string } | undefined)[],
+	matches: readonly ({ id: string; loaderData?: unknown } | undefined)[],
 ) {
-	const rootData = matches.find((match) => match?.id === "root")?.data as
+	const rootData = matches.find((match) => match?.id === "root")?.loaderData as
 		| RootLoaderDataWithCDNURL
 		| undefined;
 

@@ -106,8 +106,8 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 	throw error;
 }
 
-export const meta: Route.MetaFunction = ({ data, location, matches }) => {
-	const { data: skyProfileData } = data ?? {};
+export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
+	const { data: skyProfileData } = loaderData ?? {};
 	const cdn = new CDN(getCDNURLFromMatches(matches));
 	const url = String(new URL(location.pathname, WEBSITE_URL));
 

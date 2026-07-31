@@ -37,7 +37,7 @@ export const middleware = [i18nextMiddleware];
 
 const cdn = new CDN(CDN_URL);
 
-export const meta: Route.MetaFunction = ({ data }) => [
+export const meta: Route.MetaFunction = ({ loaderData }) => [
 	{ charSet: "utf-8" },
 	{ name: "viewport", content: "width=device-width, initial-scale=1" },
 	{ name: "robots", content: "index, follow" },
@@ -54,7 +54,9 @@ export const meta: Route.MetaFunction = ({ data }) => [
 	{ property: "og:site_name", content: "thatskyapplication" },
 	{
 		property: "og:image",
-		content: data?.cdnURL ? cdnAssetURL(data.cdnURL, "avatar_icons/caelus.webp") : undefined,
+		content: loaderData?.cdnURL
+			? cdnAssetURL(loaderData.cdnURL, "avatar_icons/caelus.webp")
+			: undefined,
 	},
 	{ property: "og:url", content: WEBSITE_URL },
 	{ name: "twitter:card", content: "summary" },
@@ -122,9 +124,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ context, request, url }: Route.LoaderArgs) {
 	const locale = getLocale(context);
-	const { pathname } = new URL(request.url);
+	const { pathname } = url;
 	const bareLayout = EXCLUDE_TOP_BAR_AND_FOOTER.includes(
 		pathname as (typeof EXCLUDE_TOP_BAR_AND_FOOTER)[number],
 	);
