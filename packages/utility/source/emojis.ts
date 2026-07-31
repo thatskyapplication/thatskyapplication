@@ -2181,10 +2181,6 @@ const FACE_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Fortune Token Glasses.
 	 */
 	FaceAccessory32: { id: "1471652959086575636", name: "32_face_accessory" },
-	/**
-	 * Sunlight Sporty Sunglasses.
-	 */
-	FaceAccessory33: { id: "1532453822340006179", name: "33_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -2220,7 +2216,6 @@ const FACE_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	FaceAccessory30: { id: "1459119288194437336", name: "30_face_accessory" },
 	FaceAccessory31: { id: "1459119290052513854", name: "31_face_accessory" },
 	FaceAccessory32: { id: "1471652968108396714", name: "32_face_accessory" },
-	FaceAccessory33: { id: "1532453920172150986", name: "33_face_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const NECKLACE_EMOJIS_PRODUCTION = {
@@ -3806,6 +3801,10 @@ const HAIR_ACCESSORY_EMOJIS_PRODUCTION = {
 	 * Joyful Memory.
 	 */
 	HairAccessory85: { id: "1529596977392783511", name: "85_hair_accessory" },
+	/**
+	 * Sunlight Sporty Sunglasses.
+	 */
+	HairAccessory86: { id: "1532453822340006179", name: "86_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
@@ -3894,6 +3893,7 @@ const HAIR_ACCESSORY_EMOJIS_DEVELOPMENT = {
 	HairAccessory83: { id: "1529592868283613337", name: "83_hair_accessory" },
 	HairAccessory84: { id: "1529594764863733840", name: "84_hair_accessory" },
 	HairAccessory85: { id: "1529596982761619569", name: "85_hair_accessory" },
+	HairAccessory86: { id: "1532453920172150986", name: "86_hair_accessory" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HEAD_ACCESSORY_EMOJIS_PRODUCTION = {
@@ -9738,7 +9738,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.DaysOfSunlight2026Prop2]: SHARED_SPACE_EMOJIS.SharedSpace04,
 		[Cosmetic.SunlightDiverDuoOutfit]: OUTFIT_EMOJIS.Outfit112,
 		[Cosmetic.SunlightDiverDuoShoes]: SHOE_EMOJIS.Shoe30,
-		[Cosmetic.SunlightSportySunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
+		[Cosmetic.SunlightSportySunglasses]: HAIR_ACCESSORY_EMOJIS.HairAccessory86,
 		[Cosmetic.SunlightCrabFloat]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp120,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
