@@ -5800,6 +5800,10 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Days of Sunlight 2026.
 	 */
 	LargePlaceableProp120: { id: "1532453831521206333", name: "120_large_placeable_prop" },
+	/**
+	 * Sunlight Crab Float.
+	 */
+	LargePlaceableProp121: { id: "1532453834582921296", name: "121_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5923,6 +5927,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp118: { id: "1510008616441090058", name: "118_large_placeable_prop" },
 	LargePlaceableProp119: { id: "1529588112919887934", name: "119_large_placeable_prop" },
 	LargePlaceableProp120: { id: "1532453928736915537", name: "120_large_placeable_prop" },
+	LargePlaceableProp121: { id: "1532453931345772657", name: "121_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6495,10 +6500,6 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 * Days of Sunlight 2026.
 	 */
 	SmallPlaceableProp143: { id: "1532453823933710356", name: "143_small_placeable_prop" },
-	/**
-	 * Sunlight Crab Float.
-	 */
-	SmallPlaceableProp144: { id: "1532453834582921296", name: "144_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6644,7 +6645,6 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp141: { id: "1529594768538075347", name: "141_small_placeable_prop" },
 	SmallPlaceableProp142: { id: "1529596984917364768", name: "142_small_placeable_prop" },
 	SmallPlaceableProp143: { id: "1532453922202194101", name: "143_small_placeable_prop" },
-	SmallPlaceableProp144: { id: "1532453931345772657", name: "144_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9736,7 +9736,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.SunlightDiverDuoOutfit]: OUTFIT_EMOJIS.Outfit112,
 		[Cosmetic.SunlightDiverDuoShoes]: SHOE_EMOJIS.Shoe30,
 		[Cosmetic.SunlightSportySunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
-		[Cosmetic.SunlightCrabFloat]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp144,
+		[Cosmetic.SunlightCrabFloat]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp121,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
