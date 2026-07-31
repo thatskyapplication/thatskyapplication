@@ -38,9 +38,9 @@ async function main() {
 
 	if (dsn) {
 		init({
+			dataCollection: {},
 			dsn,
 			integrations: [reactRouterTracingIntegration()],
-			sendDefaultPii: true,
 			tracesSampleRate: 1,
 		});
 	}

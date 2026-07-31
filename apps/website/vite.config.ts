@@ -1,6 +1,7 @@
 import { resolve } from "node:path";
 import { reactRouter } from "@react-router/dev/vite";
 import { sentryReactRouter } from "@sentry/react-router";
+import tailwindcss from "@tailwindcss/vite";
 import { reactRouterHonoServer } from "react-router-hono-server/dev";
 import { defineConfig } from "vite";
 
@@ -23,6 +24,7 @@ export default defineConfig((config) => ({
 	},
 	plugins: [
 		reactRouterHonoServer(),
+		tailwindcss(),
 		reactRouter(),
 		sentryReactRouter(
 			{

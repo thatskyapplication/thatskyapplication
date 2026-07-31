@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { DiscordAPIError } from "@discordjs/rest";
-import { isbot } from "isbot";
+import { isBot } from "isbot";
 import { redirect } from "react-router";
 import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
 import discord from "~/discord.js";
@@ -36,7 +36,7 @@ export async function requireDiscordAuthentication(request: Request, url: URL) {
 		const justLoggedOut = session.get("just_logged_out");
 
 		// Keep link unfurlers on-site so they read our metadata instead.
-		if (userAgent && isbot(userAgent)) {
+		if (userAgent && isBot(userAgent)) {
 			throw redirect("/");
 		}
 

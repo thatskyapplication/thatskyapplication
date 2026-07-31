@@ -5,7 +5,7 @@ import {
 	getMetaTagTransformer,
 	wrapSentryHandleRequest,
 } from "@sentry/react-router";
-import { isbot } from "isbot";
+import { isBot } from "isbot";
 import type { RenderToPipeableStreamOptions } from "react-dom/server";
 import { renderToPipeableStream } from "react-dom/server";
 import { I18nextProvider } from "react-i18next";
@@ -28,7 +28,7 @@ export default wrapSentryHandleRequest(
 			const userAgent = request.headers.get("user-agent");
 
 			const readyOption: keyof RenderToPipeableStreamOptions =
-				(userAgent && isbot(userAgent)) || entryContext.isSpaMode ? "onAllReady" : "onShellReady";
+				(userAgent && isBot(userAgent)) || entryContext.isSpaMode ? "onAllReady" : "onShellReady";
 
 			const { pipe, abort } = renderToPipeableStream(
 				<I18nextProvider i18n={getInstance(routerContext)}>

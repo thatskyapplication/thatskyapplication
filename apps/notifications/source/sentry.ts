@@ -3,6 +3,7 @@ import { PRODUCTION, SENTRY_DATA_SOURCE_NAME, SENTRY_RELEASE } from "./utility/c
 
 if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
 	init({
+		dataCollection: {},
 		dsn: SENTRY_DATA_SOURCE_NAME,
 		enableLogs: true,
 		integrations: [
@@ -10,7 +11,6 @@ if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
 			nodeRuntimeMetricsIntegration(),
 		],
 		maxBreadcrumbs: 10,
-		sendDefaultPii: true,
 		release: SENTRY_RELEASE,
 	});
 }

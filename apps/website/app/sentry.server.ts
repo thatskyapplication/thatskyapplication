@@ -6,6 +6,7 @@ if (
 	process.env.SENTRY_RELEASE
 ) {
 	init({
+		dataCollection: {},
 		dsn: process.env.SENTRY_DATA_SOURCE_NAME,
 		enableLogs: true,
 		integrations: [
@@ -13,7 +14,6 @@ if (
 			nodeRuntimeMetricsIntegration(),
 		],
 		maxBreadcrumbs: 25,
-		sendDefaultPii: true,
 		tracesSampleRate: 1,
 		release: process.env.SENTRY_RELEASE,
 	});
