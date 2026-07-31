@@ -5251,10 +5251,6 @@ const HELD_PROPS_EMOJIS_PRODUCTION = {
 	 * Sky Anniversary 2026.
 	 */
 	HeldProp63: { id: "1522919378792747070", name: "63_held_prop" },
-	/**
-	 * Days of Sunlight 2026.
-	 */
-	HeldProp64: { id: "1532453823933710356", name: "64_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const HELD_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5321,7 +5317,6 @@ const HELD_PROPS_EMOJIS_DEVELOPMENT = {
 	HeldProp61: { id: "1471653278457663528", name: "61_held_prop" },
 	HeldProp62: { id: "1482685524601999412", name: "62_held_prop" },
 	HeldProp63: { id: "1522919394957594684", name: "63_held_prop" },
-	HeldProp64: { id: "1532453922202194101", name: "64_held_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6497,9 +6492,13 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	SmallPlaceableProp142: { id: "1529596980626718880", name: "142_small_placeable_prop" },
 	/**
+	 * Days of Sunlight 2026.
+	 */
+	SmallPlaceableProp143: { id: "1532453823933710356", name: "143_small_placeable_prop" },
+	/**
 	 * Sunlight Crab Float.
 	 */
-	SmallPlaceableProp143: { id: "1532453834582921296", name: "143_small_placeable_prop" },
+	SmallPlaceableProp144: { id: "1532453834582921296", name: "144_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -6644,7 +6643,8 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp140: { id: "1529594766549848245", name: "140_small_placeable_prop" },
 	SmallPlaceableProp141: { id: "1529594768538075347", name: "141_small_placeable_prop" },
 	SmallPlaceableProp142: { id: "1529596984917364768", name: "142_small_placeable_prop" },
-	SmallPlaceableProp143: { id: "1532453931345772657", name: "143_small_placeable_prop" },
+	SmallPlaceableProp143: { id: "1532453922202194101", name: "143_small_placeable_prop" },
+	SmallPlaceableProp144: { id: "1532453931345772657", name: "144_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
@@ -9729,14 +9729,14 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.JoyfulMemoryBlackDye]: MISCELLANEOUS_EMOJIS.DyeBlack,
 		[Cosmetic.EmoteSlowWalk4]: EMOTE_EMOJIS.SlowWalk,
 		[Cosmetic.JoyfulMemorySeasonalHeart]: SEASON_EMOJIS.DearVanGoghHeart,
-		[Cosmetic.DaysOfSunlight2026Prop1]: HELD_PROPS_EMOJIS.HeldProp64,
+		[Cosmetic.DaysOfSunlight2026Prop1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp143,
 		[Cosmetic.DaysOfSunlight2026Hair]: HAIR_EMOJIS.Hair187,
 		[Cosmetic.DaysOfSunlight2026Mask]: MASK_EMOJIS.Mask115,
 		[Cosmetic.DaysOfSunlight2026Prop2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp120,
 		[Cosmetic.SunlightDiverDuoOutfit]: OUTFIT_EMOJIS.Outfit112,
 		[Cosmetic.SunlightDiverDuoShoes]: SHOE_EMOJIS.Shoe30,
 		[Cosmetic.SunlightSportySunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
-		[Cosmetic.SunlightCrabFloat]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp143,
+		[Cosmetic.SunlightCrabFloat]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp144,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
