@@ -5797,13 +5797,9 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
 	 */
 	LargePlaceableProp119: { id: "1529588114266390631", name: "119_large_placeable_prop" },
 	/**
-	 * Days of Sunlight 2026.
-	 */
-	LargePlaceableProp120: { id: "1532453831521206333", name: "120_large_placeable_prop" },
-	/**
 	 * Sunlight Crab Float.
 	 */
-	LargePlaceableProp121: { id: "1532453834582921296", name: "121_large_placeable_prop" },
+	LargePlaceableProp120: { id: "1532453834582921296", name: "120_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
@@ -5926,8 +5922,7 @@ const LARGE_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	LargePlaceableProp117: { id: "1510008614461636829", name: "117_large_placeable_prop" },
 	LargePlaceableProp118: { id: "1510008616441090058", name: "118_large_placeable_prop" },
 	LargePlaceableProp119: { id: "1529588112919887934", name: "119_large_placeable_prop" },
-	LargePlaceableProp120: { id: "1532453928736915537", name: "120_large_placeable_prop" },
-	LargePlaceableProp121: { id: "1532453931345772657", name: "121_large_placeable_prop" },
+	LargePlaceableProp120: { id: "1532453931345772657", name: "120_large_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SMALL_PLACEABLE_PROPS_EMOJIS_PRODUCTION = {
@@ -6647,6 +6642,9 @@ const SMALL_PLACEABLE_PROPS_EMOJIS_DEVELOPMENT = {
 	SmallPlaceableProp143: { id: "1532453922202194101", name: "143_small_placeable_prop" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
+/**
+ * Cosmetics exclusive to shared spaces.
+ */
 const SHARED_SPACE_EMOJIS_PRODUCTION = {
 	/**
 	 * Carnival Guide (non-ultimate 1).
@@ -6660,12 +6658,17 @@ const SHARED_SPACE_EMOJIS_PRODUCTION = {
 	 * Carnival Guide (non-ultimate 3).
 	 */
 	SharedSpace03: { id: "1494699840280723476", name: "03_shared_space" },
+	/**
+	 * Days of Sunlight 2026.
+	 */
+	SharedSpace04: { id: "1532453831521206333", name: "04_shared_space" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 const SHARED_SPACE_EMOJIS_DEVELOPMENT = {
 	SharedSpace01: { id: "1494699845502374053", name: "01_shared_space" },
 	SharedSpace02: { id: "1494699848853618860", name: "02_shared_space" },
 	SharedSpace03: { id: "1494699850967548014", name: "03_shared_space" },
+	SharedSpace04: { id: "1532453928736915537", name: "04_shared_space" },
 } as const satisfies Readonly<Record<string, Emoji>>;
 
 export function emojiConstants(production: boolean): {
@@ -9732,11 +9735,11 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.DaysOfSunlight2026Prop1]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp143,
 		[Cosmetic.DaysOfSunlight2026Hair]: HAIR_EMOJIS.Hair187,
 		[Cosmetic.DaysOfSunlight2026Mask]: MASK_EMOJIS.Mask115,
-		[Cosmetic.DaysOfSunlight2026Prop2]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp120,
+		[Cosmetic.DaysOfSunlight2026Prop2]: SHARED_SPACE_EMOJIS.SharedSpace04,
 		[Cosmetic.SunlightDiverDuoOutfit]: OUTFIT_EMOJIS.Outfit112,
 		[Cosmetic.SunlightDiverDuoShoes]: SHOE_EMOJIS.Shoe30,
 		[Cosmetic.SunlightSportySunglasses]: FACE_ACCESSORY_EMOJIS.FaceAccessory33,
-		[Cosmetic.SunlightCrabFloat]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp121,
+		[Cosmetic.SunlightCrabFloat]: LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp120,
 	} as const satisfies Readonly<Record<Cosmetic, Emoji | null>>;
 
 	const SeasonIdToSeasonalEmoji = {
