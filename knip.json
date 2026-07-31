@@ -3,7 +3,10 @@
 	"ignoreBinaries": ["pre-commit"],
 	"ignore": ["packages/utility/source/database/schema.ts"],
 	"workspaces": {
-		"apps/{notifications,socials}": {
+		"apps/notifications": {
+			"entry": "source/sentry.ts"
+		},
+		"apps/socials": {
 			"entry": "source/sentry.ts"
 		},
 		"apps/caelus/discord": {
@@ -13,6 +16,11 @@
 				"Elders",
 				"SeasonalSpirits",
 				"Events",
+				"FriendshipActionsUploadModal",
+				"FriendshipActionsUploadModalType",
+				"FriendshipActionsUploadModalAsset",
+				"FriendshipActionsUploadModalUsers",
+				"FriendshipActionsUploadModalReference",
 				"CatalogueViewEventYear",
 				"MeSetBioModalBio",
 				"WelcomeChannel",

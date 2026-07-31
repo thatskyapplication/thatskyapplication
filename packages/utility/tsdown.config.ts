@@ -7,7 +7,7 @@ export default defineConfig({
 	format: "esm",
 	target: "esnext",
 	deps: {
-		skipNodeModulesBundle: true,
+		neverBundle: true,
 	},
 	dts: true,
 	minify: true,

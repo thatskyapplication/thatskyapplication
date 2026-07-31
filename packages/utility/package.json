@@ -27,7 +27,7 @@
 		"@types/node": "^26.1.1",
 		"kysely-codegen": "^0.20.0",
 		"pg": "^8.22.0",
-		"tsdown": "^0.22.1",
+		"tsdown": "^0.22.14",
 		"tsx": "^4.22.4",
 		"typescript": "^6.0.3"
 	}

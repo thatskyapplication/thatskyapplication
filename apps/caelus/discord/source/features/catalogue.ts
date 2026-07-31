@@ -853,7 +853,14 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 
 interface CatalogueTraversalContainerOptions {
 	locale: Locale;
-	navigationBackCustomId: CustomId | `${CustomId}§${string}`;
+	navigationBackCustomId:
+		| CustomId.CatalogueViewStart
+		| CustomId.CatalogueViewRealms
+		| CustomId.CatalogueViewElders
+		| `${CustomId.CatalogueViewRealm}§${RealmName}`
+		| `${CustomId.CatalogueViewSeason}§${SeasonIds}`
+		| `${CustomId.CatalogueViewSeasons}§${number}`
+		| `${CustomId.CatalogueViewEvents}§${number}`;
 	navigationBackEmoji?: APIMessageComponentEmoji | undefined;
 	isInStandardSpirits?: boolean;
 	isInElders?: boolean;
