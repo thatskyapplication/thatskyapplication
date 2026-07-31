@@ -9,12 +9,12 @@ export default defineConfig((config) => ({
 		emptyOutDir: true,
 		target: "ESNext",
 		sourcemap: true,
-		rollupOptions: {
+		rolldownOptions: {
 			external: [...builtinModules],
 			output: {
+				codeSplitting: false,
 				format: "cjs",
 				entryFileNames: "index.cjs",
-				inlineDynamicImports: true,
 			},
 		},
 	},
