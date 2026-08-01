@@ -5,6 +5,10 @@
 		"dir": "distribution/server",
 		"entry": "index.cjs"
 	},
+	"scripts": {
+		"build": "pnpm run build",
+		"dev": "cd source/server && vite build --mode development --watch"
+	},
 	"marketingAssets": {
 		"icon": "assets/sky-elder.png"
 	},
@@ -28,7 +32,12 @@
 		}
 	},
 	"permissions": {
-		"reddit": true,
+		"http": {
+			"domains": ["discord.com", "canary.discord.com", "ptb.discord.com"]
+		},
+		"reddit": {
+			"scope": "moderator"
+		},
 		"redis": true
 	},
 	"triggers": {

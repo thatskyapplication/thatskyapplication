@@ -1,5 +1,5 @@
 import { redis, settings } from "@devvit/web/server";
-import type { OnCommentUpdateRequest, T1 } from "@devvit/web/shared";
+import type { OnCommentUpdateRequest } from "@devvit/web/shared";
 import {
 	ButtonStyle,
 	ComponentType,
@@ -34,7 +34,7 @@ export async function postTriggersCommentUpdate(req: Request) {
 		return;
 	}
 
-	const storedComment = await redis.get(comment.id as T1);
+	const storedComment = await redis.get(comment.id);
 
 	if (!storedComment) {
 		return;

@@ -1,5 +1,5 @@
 import { context, type Post, reddit, redis, settings } from "@devvit/web/server";
-import type { T3 } from "@devvit/web/shared";
+import { T3 } from "@devvit/web/shared";
 import { skyCurrentSeason, skyNow } from "@thatskyapplication/utility";
 import {
 	REDIS_MEGATHREAD_FRIEND_CODES_KEY,
@@ -20,7 +20,7 @@ export async function megathreadFriendCodes(force = false) {
 	}
 
 	// Fetch the megathread.
-	const post = await reddit.getPostById(postId as T3);
+	const post = await reddit.getPostById(T3(postId));
 
 	// If it's archived, create a new one.
 	if (post.isArchived()) {

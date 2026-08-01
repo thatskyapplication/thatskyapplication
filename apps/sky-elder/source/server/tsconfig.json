@@ -10,14 +10,12 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"module": "ESNext",
-		"target": "ESNext",
-		"lib": ["ESNext"],
-		"rootDir": ".",
+		"target": "ES2023",
+		"lib": ["ES2023"],
 		"outDir": "../../distribution/types/server",
-		"sourceMap": true,
 		"tsBuildInfoFile": "../../distribution/tsconfig.tsbuildinfo",
 		"composite": true,
 		"skipLibCheck": true,
-		"types": ["express", "node"]
+		"types": ["node"]
 	}
 }

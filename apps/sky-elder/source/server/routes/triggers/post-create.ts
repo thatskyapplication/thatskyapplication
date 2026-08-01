@@ -1,5 +1,5 @@
 import { reddit, settings } from "@devvit/web/server";
-import type { OnPostCreateRequest, T3 } from "@devvit/web/shared";
+import { type OnPostCreateRequest, T3 } from "@devvit/web/shared";
 import {
 	type APIComponentInContainer,
 	ButtonStyle,
@@ -44,12 +44,12 @@ export async function postTriggersPostCreate(req: Request) {
 	const title = `## ${post.title.replace(/^#+/g, (match) => match.replace(/#/g, "\\#"))}`;
 	let authorText = `[u/${author.name}](${author.url}) in [r/${subreddit.name}](${REDDIT_BASE_URL}${subreddit.permalink})`;
 	const footer = `-# <t:${Math.floor(post.createdAt / 1000)}:R>`;
-	const postV2 = await reddit.getPostById(post.id as T3);
-	let resolvedPost = postV2;
+	const postV2 = await reddit.getPostById(T3(post.id));
+	const resolvedPost = postV2.crosspostParentId
+		? await reddit.getPostById(postV2.crosspostParentId)
+		: postV2;
 
-	if (post.crosspostParentId) {
-		resolvedPost = await reddit.getPostById(post.crosspostParentId as T3);
-
+	if (postV2.crosspostParentId) {
 		authorText +=
 			author.name === resolvedPost.authorName
 				? ` reposted their own post from [r/${resolvedPost.subredditName}](${REDDIT_BASE_URL}/r/${resolvedPost.subredditName})`

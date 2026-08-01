@@ -1,5 +1,5 @@
 import { reddit, redis, settings } from "@devvit/web/server";
-import type { OnCommentDeleteRequest, T1, T3 } from "@devvit/web/shared";
+import { type OnCommentDeleteRequest, T1, T3 } from "@devvit/web/shared";
 import {
 	ButtonStyle,
 	ComponentType,
@@ -35,9 +35,9 @@ export async function postTriggersCommentDelete(req: Request) {
 	}
 
 	const [post, comment, commentBody] = await Promise.all([
-		reddit.getPostById(postId as T3),
-		reddit.getCommentById(commentId as T1),
-		redis.get(commentId as T1),
+		reddit.getPostById(T3(postId)),
+		reddit.getCommentById(T1(commentId)),
+		redis.get(commentId),
 	]);
 
 	if (!commentBody) {

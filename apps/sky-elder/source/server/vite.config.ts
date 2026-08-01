@@ -7,7 +7,8 @@ export default defineConfig((config) => ({
 		ssr: "index.ts",
 		outDir: "../../distribution/server",
 		emptyOutDir: true,
-		target: "ESNext",
+		target: "Node22",
+		minify: true,
 		sourcemap: true,
 		rolldownOptions: {
 			external: [...builtinModules],

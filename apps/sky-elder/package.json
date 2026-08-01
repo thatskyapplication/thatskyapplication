@@ -7,15 +7,12 @@
 		"test": "tsc --build --noEmit",
 		"format": "biome check --write",
 		"lint": "biome check",
-		"dev": "concurrently --kill-others --prefix \"[{name}]\" --names \"SERVER,DEVVIT\" -c \"green,magenta\" \"pnpm run dev:server\" \"pnpm run dev:devvit\"",
-		"dev:devvit": "devvit playtest",
-		"dev:server": "cd source/server && vite build --mode development --watch",
+		"dev": "devvit playtest",
 		"login": "devvit login"
 	},
 	"dependencies": {
-		"@devvit/web": "^0.12.24",
+		"@devvit/web": "^0.13.10",
 		"@thatskyapplication/utility": "workspace:^",
-		"devvit": "^0.12.24",
 		"discord-api-types": "^0.38.48",
 		"express": "^5.2.1",
 		"obscenity": "^0.4.6"
@@ -23,8 +20,9 @@
 	"devDependencies": {
 		"@types/express": "^5.0.6",
 		"@types/node": "^26.1.1",
-		"concurrently": "^9.2.1",
-		"typescript": "^6.0.3",
+		"@typescript/native": "npm:typescript@^7.0.2",
+		"devvit": "^0.13.10",
+		"typescript": "npm:@typescript/typescript6@^6.0.2",
 		"vite": "^8.2.0"
 	}
 }

@@ -19,52 +19,43 @@ import { postTriggersPostSubmit } from "./routes/triggers/post-submit.js";
 import { postTriggersPostUpdate } from "./routes/triggers/post-update.js";
 
 const app = express().use(express.json());
-const router = express.Router();
-router.post("/internal/menu/megathread-friend-codes", postMenuMegathreadFriendCodes);
-router.post("/internal/scheduler/megathread-friend-codes", postSchedulerMegathreadFriendCodes);
+app.post("/internal/menu/megathread-friend-codes", postMenuMegathreadFriendCodes);
+app.post("/internal/scheduler/megathread-friend-codes", postSchedulerMegathreadFriendCodes);
 
-router.post(
-	"/internal/settings/discord-webhook-comments-url",
-	postSettingsDiscordWebhookCommentsURL,
-);
+app.post("/internal/settings/discord-webhook-comments-url", postSettingsDiscordWebhookCommentsURL);
 
-router.post(
+app.post(
 	"/internal/settings/discord-webhook-post-link-flairs-url",
 	postSettingsDiscordWebhookPostLinkFlairsURL,
 );
 
-router.post("/internal/settings/discord-webhook-posts-url", postSettingsDiscordWebhookPostsURL);
+app.post("/internal/settings/discord-webhook-posts-url", postSettingsDiscordWebhookPostsURL);
 
-router.post(
+app.post(
 	"/internal/settings/discord-webhook-user-link-flairs-url",
 	postSettingsDiscordWebhookUserLinkFlairsURL,
 );
 
-router.post(
+app.post(
 	"/internal/settings/megathread-friend-codes-post-flair-id",
 	postSettingsMegathreadFriendCodesPostFlairId,
 );
 
-router.post(
-	"/internal/settings/megathread-friend-codes-text",
-	postSettingsMegathreadFriendCodesText,
-);
+app.post("/internal/settings/megathread-friend-codes-text", postSettingsMegathreadFriendCodesText);
 
-router.post(
+app.post(
 	"/internal/settings/megathread-friend-codes-title",
 	postSettingsMegathreadFriendCodesTitle,
 );
 
-router.post("/internal/triggers/on-comment-delete", postTriggersCommentDelete);
-router.post("/internal/triggers/on-comment-submit", postTriggersCommentSubmit);
-router.post("/internal/triggers/on-comment-update", postTriggersCommentUpdate);
-router.post("/internal/triggers/on-post-create", postTriggersPostCreate);
-router.post("/internal/triggers/on-post-delete", postTriggersPostDelete);
-router.post("/internal/triggers/on-post-flair-update", postTriggersPostFlairUpdate);
-router.post("/internal/triggers/on-post-submit", postTriggersPostSubmit);
-router.post("/internal/triggers/on-post-update", postTriggersPostUpdate);
-
-app.use(router);
+app.post("/internal/triggers/on-comment-delete", postTriggersCommentDelete);
+app.post("/internal/triggers/on-comment-submit", postTriggersCommentSubmit);
+app.post("/internal/triggers/on-comment-update", postTriggersCommentUpdate);
+app.post("/internal/triggers/on-post-create", postTriggersPostCreate);
+app.post("/internal/triggers/on-post-delete", postTriggersPostDelete);
+app.post("/internal/triggers/on-post-flair-update", postTriggersPostFlairUpdate);
+app.post("/internal/triggers/on-post-submit", postTriggersPostSubmit);
+app.post("/internal/triggers/on-post-update", postTriggersPostUpdate);
 
 const errorRequestHandler: ErrorRequestHandler = (error, _req, res, _next) => {
 	console.error(error);
