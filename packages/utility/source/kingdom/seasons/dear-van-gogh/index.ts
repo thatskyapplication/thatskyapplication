@@ -18,7 +18,7 @@ export default new Season({
 	seasonalCandlesRotation: (now) =>
 		Temporal.ZonedDateTime.compare(now, skyDate(2026, 8, 1)) >= 0
 			? [
-					{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
+					{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
