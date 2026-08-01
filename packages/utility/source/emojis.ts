@@ -9684,6 +9684,7 @@ export function emojiConstants(production: boolean): {
 		[Cosmetic.VaseWithFifteenSunflowersProp6]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp137,
 		[Cosmetic.VaseWithFifteenSunflowersUltimateProp]:
 			LARGE_PLACEABLE_PROPS_EMOJIS.LargePlaceableProp119,
+		[Cosmetic.VaseWithFifteenSunflowersHeart3]: MISCELLANEOUS_EMOJIS.Heart,
 		[Cosmetic.EmoteFrustration1]: EMOTE_EMOJIS.Frustration,
 		[Cosmetic.DutchMemoryBlessing1]: MISCELLANEOUS_EMOJIS.Blessing3,
 		[Cosmetic.DutchMemoryProp]: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp138,

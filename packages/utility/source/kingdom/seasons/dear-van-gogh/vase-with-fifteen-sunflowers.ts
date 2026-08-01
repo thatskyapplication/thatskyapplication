@@ -109,6 +109,13 @@ export default new GuideSpirit({
 					seasonPass: true,
 				},
 			],
+			[
+				null,
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 3 },
+					cosmetic: Cosmetic.VaseWithFifteenSunflowersHeart3,
+				},
+			],
 		],
 	},
 });

@@ -3655,6 +3655,7 @@ export enum Cosmetic {
 	VaseWithFifteenSunflowersHeart2 = 2885,
 	VaseWithFifteenSunflowersProp6 = 2886,
 	VaseWithFifteenSunflowersUltimateProp = 2887,
+	VaseWithFifteenSunflowersHeart3 = 2944,
 	EmoteFrustration1 = 2888,
 	DutchMemoryBlessing1 = 2889,
 	DutchMemoryProp = 2890,
