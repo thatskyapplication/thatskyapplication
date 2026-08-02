@@ -10,7 +10,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Flight,
 	stance: Cosmetic.StanceTinker,
 	area: AreaName.TheWindPaths,
-	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [

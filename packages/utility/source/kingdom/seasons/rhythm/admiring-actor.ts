@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Rhythm,
 	emote,
 	area: AreaName.Boneyard,
-	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [

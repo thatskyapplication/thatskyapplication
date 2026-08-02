@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Dreams,
 	action,
 	area: AreaName.VillageOfDreams,
-	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
 			[{ cosmetic: Cosmetic.FriendActionBearhug1 }],

@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Lightseekers,
 	emote,
 	area: AreaName.UpperVault,
-	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
 			[

@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Belonging,
 	emote,
 	area: AreaName.TheGraveyard,
-	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [

@@ -10,7 +10,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Gratitude,
 	stance: Cosmetic.StanceSassy,
 	area: AreaName.DawnCircle,
-	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
 			[{ cosmetic: Cosmetic.StanceSassy }],

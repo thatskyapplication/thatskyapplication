@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Assembly,
 	emote,
 	area: AreaName.ForestCourtyard,
-	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [

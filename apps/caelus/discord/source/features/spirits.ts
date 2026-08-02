@@ -232,11 +232,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 		});
 	}
 
-	const mediaItems = [
-		isSeasonalSpirit && spirit.imageURLSeasonal,
-		spirit.imageURL,
-		isSeasonalSpirit && spirit.marketingVideoURL,
-	]
+	const mediaItems = [isSeasonalSpirit && spirit.imageURLSeasonal, spirit.imageURL]
 		.filter((url) => typeof url === "string")
 		.map((url) => ({ media: { url } }));
 

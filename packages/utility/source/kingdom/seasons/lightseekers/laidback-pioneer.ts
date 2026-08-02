@@ -120,6 +120,5 @@ export default new SeasonalSpirit({
 			{ start: skyDate(2025, 6, 5), end: skyDate(2025, 6, 9) },
 		],
 	},
-	hasMarketingVideo: true,
 	keywords: ["umbrella"],
 });

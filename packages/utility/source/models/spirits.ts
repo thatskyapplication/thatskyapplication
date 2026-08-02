@@ -142,7 +142,6 @@ interface SeasonalSpiritData extends Omit<BaseSpiritData, "realm"> {
 	area: AreaName;
 	offer: SeasonalFriendshipTreeOfferData;
 	seasonId: SeasonIds;
-	hasMarketingVideo?: boolean;
 	visits?: SeasonalSpiritVisitData;
 }
 
@@ -288,8 +287,6 @@ export class SeasonalSpirit extends BaseSpirit<SeasonalSpiritData> {
 
 	public readonly seasonId: SeasonIds;
 
-	public readonly marketingVideoURL: string | null;
-
 	public readonly visits: SeasonalSpiritVisit;
 
 	public constructor(spirit: SeasonalSpiritData) {
@@ -304,10 +301,6 @@ export class SeasonalSpirit extends BaseSpirit<SeasonalSpiritData> {
 			(spirit.offer.hasInfographicSeasonal ?? true) ? this.resolveImageURL(true) : null;
 
 		this.seasonId = spirit.seasonId;
-
-		this.marketingVideoURL = spirit.hasMarketingVideo
-			? String(new URL(`spirits/${this.id}/marketing_video.mp4`, CDN_URL))
-			: null;
 
 		this.visits = {
 			travelling: spirit.visits?.travelling ?? [],

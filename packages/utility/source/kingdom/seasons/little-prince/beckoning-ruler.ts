@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.LittlePrince,
 	emote,
 	area: AreaName.StarlightDesert,
-	hasMarketingVideo: true,
 	offer: {
 		hasInfographicSeasonal: false,
 		seasonal: [

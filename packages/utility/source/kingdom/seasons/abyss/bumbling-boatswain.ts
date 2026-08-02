@@ -12,7 +12,6 @@ export default new SeasonalSpirit({
 	seasonId: SeasonId.Abyss,
 	emote,
 	area: AreaName.TreasureReef,
-	hasMarketingVideo: true,
 	offer: {
 		seasonal: [
 			[
