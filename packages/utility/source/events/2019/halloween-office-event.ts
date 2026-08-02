@@ -18,5 +18,4 @@ export default new Event({
 			cost: { money: 9.99 },
 		},
 	],
-	patchNotesURL: "https://sky-children-of-the-light.fandom.com/wiki/Update:Live_0.6.5_(142170)",
 });

@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import AbyssGuide from "./abyss-guide.js";
 import AnxiousAngler from "./anxious-angler.js";
@@ -15,5 +14,4 @@ export default new Season({
 	guide: AbyssGuide,
 	spirits: [AnxiousAngler, CeasingCommodore, BumblingBoatswain, CacklingCannoneer],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0160"),
 });

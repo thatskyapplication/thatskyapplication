@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import ForgetfulStoryteller from "./forgetful-storyteller.js";
 import FranticStagehand from "./frantic-stagehand.js";
@@ -15,5 +14,4 @@ export default new Season({
 	guide: PerformanceGuide,
 	spirits: [FranticStagehand, ForgetfulStoryteller, MellowMusician, ModestDancer],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0170"),
 });

@@ -1,6 +1,5 @@
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { patchNotesRoute } from "../../routes.js";
 import { EventId } from "../../utility/event.js";
 
 export default new Event({
@@ -8,5 +7,4 @@ export default new Event({
 	name: "days-of-giving",
 	start: skyDate(2_020, 11, 23, 12),
 	end: skyDate(2_020, 11, 30, 12),
-	patchNotesURL: patchNotesRoute("0114"),
 });

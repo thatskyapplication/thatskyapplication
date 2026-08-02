@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import CompassionateCellist from "./compassionate-cellist.js";
@@ -36,5 +35,4 @@ export default new Season({
 		{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
 		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 	],
-	patchNotesURL: patchNotesRoute("0260"),
 });

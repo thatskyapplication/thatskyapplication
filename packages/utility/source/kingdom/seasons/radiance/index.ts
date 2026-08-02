@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import RadianceGreetingShaman from "./radiance-greeting-shaman.js";
@@ -67,5 +66,4 @@ export default new Season({
 							{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 						],
 	doubleSeasonalLight: [{ start: skyDate(2_025, 3, 17), end: skyDate(2_025, 3, 24) }],
-	patchNotesURL: patchNotesRoute("0280"),
 });

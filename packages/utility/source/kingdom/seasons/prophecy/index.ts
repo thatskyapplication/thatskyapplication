@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import ProphecyGuide from "./prophecy-guide.js";
 import ProphetOfAir from "./prophet-of-air.js";
@@ -15,5 +14,4 @@ export default new Season({
 	guide: ProphecyGuide,
 	spirits: [ProphetOfWater, ProphetOfEarth, ProphetOfAir, ProphetOfFire],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0110"),
 });

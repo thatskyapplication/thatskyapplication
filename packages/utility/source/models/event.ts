@@ -38,10 +38,6 @@ interface EventData {
 	 * Whether this event has an infographic URL regarding the items it offers.
 	 */
 	offerInfographicURL?: boolean;
-	/**
-	 * The URL of the patch notes that detail the event.
-	 */
-	patchNotesURL?: string;
 }
 
 interface EventTicketsData {
@@ -97,8 +93,6 @@ export class Event {
 
 	public readonly offerInfographicURL: string | null;
 
-	public readonly patchNotesURL: string | null;
-
 	public constructor(data: EventData) {
 		this.id = data.id;
 		this.name = `event-names.${data.name}`;
@@ -123,8 +117,6 @@ export class Event {
 		this.offerInfographicURL = data.offerInfographicURL
 			? String(new URL(`events/${data.id}/offer.webp`, CDN_URL))
 			: null;
-
-		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
 	public resolveInfographicURL(date: Temporal.ZonedDateTime): string | null {

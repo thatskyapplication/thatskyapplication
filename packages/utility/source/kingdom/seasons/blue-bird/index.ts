@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import blueBirdGuide from "./blue-bird-guide.js";
@@ -62,5 +61,4 @@ export default new Season({
 						{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 					],
 	doubleSeasonalLight: [{ start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) }],
-	patchNotesURL: patchNotesRoute("0290"),
 });

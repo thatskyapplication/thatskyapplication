@@ -2,7 +2,6 @@ import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplic
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
-import { VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
 import { BackButton } from "./BackButton";
@@ -90,7 +89,7 @@ export function SeasonView({
 				})}
 			</div>
 
-			<div className="flex flex-wrap items-center justify-between gap-2">
+			<div className="flex flex-wrap items-center gap-2">
 				<h1 className="my-0 inline-flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
 					{seasonEmoji ? <EmojiIcon className="h-6 w-6" emoji={seasonEmoji} /> : null}
 					<a
@@ -102,16 +101,6 @@ export function SeasonView({
 						{t(`seasons.${season.id}`, { ns: "general" })}
 					</a>
 				</h1>
-				{season.patchNotesURL && (
-					<a
-						className={VIEW_LINK_CLASS}
-						href={season.patchNotesURL}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						{t("catalogue.patch-notes-button-label", { ns: "features" })}
-					</a>
-				)}
 			</div>
 
 			<RemainingCostList data={data} items={items} locale={locale} />

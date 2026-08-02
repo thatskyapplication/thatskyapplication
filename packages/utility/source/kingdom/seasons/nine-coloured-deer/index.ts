@@ -1,7 +1,6 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import FeudalLord from "./feudal-lord.js";
@@ -38,5 +37,4 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 	],
-	patchNotesURL: patchNotesRoute("0240"),
 });

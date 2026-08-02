@@ -80,10 +80,6 @@ interface SeasonData {
 	 * Double seasonal light dates.
 	 */
 	doubleSeasonalLight?: readonly DoubleSeasonalLightDate[];
-	/**
-	 * The URL of the patch notes that detail the season.
-	 */
-	patchNotesURL?: string;
 }
 
 export class Season {
@@ -108,8 +104,6 @@ export class Season {
 		| null;
 
 	public readonly doubleSeasonalLight: readonly DoubleSeasonalLightDate[] | null;
-
-	public readonly patchNotesURL: string | null;
 
 	public constructor(data: SeasonData) {
 		this.id = data.id;
@@ -137,7 +131,6 @@ export class Season {
 					: null;
 
 		this.doubleSeasonalLight = data.doubleSeasonalLight ?? null;
-		this.patchNotesURL = data.patchNotesURL ?? null;
 	}
 
 	public remainingSeasonalCandles(date: Temporal.ZonedDateTime) {

@@ -23,5 +23,4 @@ export default new Season({
 		WiseGrandparent,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://sky-children-of-the-light.fandom.com/wiki/Update:Live_0.7.0",
 });

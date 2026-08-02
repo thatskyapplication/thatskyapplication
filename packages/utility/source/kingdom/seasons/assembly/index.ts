@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import AssemblyGuide from "./assembly-guide.js";
 import BaffledBotanist from "./baffled-botanist.js";
@@ -24,5 +23,4 @@ export default new Season({
 		DaydreamForester,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0132"),
 });

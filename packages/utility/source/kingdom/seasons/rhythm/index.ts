@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import AdmiringActor from "./admiring-actor.js";
 import FestivalSpinDancer from "./festival-spin-dancer.js";
@@ -24,5 +23,4 @@ export default new Season({
 		ThoughtfulDirector,
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("080"),
 });

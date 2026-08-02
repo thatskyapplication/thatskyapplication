@@ -1,7 +1,6 @@
 import { Cosmetic } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import AURORA from "./aurora.js";
 import MindfulMiner from "./mindful-miner.js";
@@ -46,5 +45,4 @@ export default new Season({
 		},
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0190"),
 });

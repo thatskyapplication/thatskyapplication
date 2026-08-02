@@ -3096,7 +3096,6 @@ export default {
 			"seasons-previous-seasons": "Previous seasons",
 			"seasons-next-seasons": "Next seasons",
 			"season-title": "{{season}}\n\n-# Catalogue → Seasons",
-			"patch-notes-button-label": "Patch notes",
 			"season-set-items-string-select-menu-placeholder": "What items do you have?",
 			"season-previous-season": "Previous season",
 			"season-next-season": "Next season",

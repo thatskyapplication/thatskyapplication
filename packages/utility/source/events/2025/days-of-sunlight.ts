@@ -1,7 +1,6 @@
 import { Cosmetic, CosmeticCommon, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
-import { patchNotesRoute } from "../../routes.js";
 import { EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
@@ -80,5 +79,4 @@ export default new Event({
 			cost: { candles: 5 },
 		},
 	],
-	patchNotesURL: patchNotesRoute("0305"),
 });

@@ -28,5 +28,4 @@ export default new Season({
 		{ translation: CosmeticCommon.UltimateProp, cosmetic: Cosmetic.LightseekerUltimateProp },
 	],
 	seasonalCandlesRotation: null,
-	patchNotesURL: "https://sky-children-of-the-light.fandom.com/wiki/Update:Live_0.6.0",
 });

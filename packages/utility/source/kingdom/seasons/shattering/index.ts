@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import AncientDarkness from "./ancient-darkness.js";
 import AncientLight from "./ancient-light.js";
@@ -13,5 +12,4 @@ export default new Season({
 	guide: TheVoidOfShattering,
 	spirits: [...AncientLight, ...AncientDarkness],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0180"),
 });

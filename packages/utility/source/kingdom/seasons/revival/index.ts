@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import EchoOfAnAbandonedRefuge from "./echo-of-an-abandoned-refuge.js";
@@ -32,5 +31,4 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
 	],
-	patchNotesURL: patchNotesRoute("0230"),
 });

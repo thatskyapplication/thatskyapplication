@@ -1,7 +1,6 @@
 import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { patchNotesRoute } from "../../routes.js";
 import { EventId } from "../../utility/event.js";
 
 export default new Event({
@@ -32,5 +31,4 @@ export default new Event({
 			cost: { hearts: 20 },
 		},
 	],
-	patchNotesURL: patchNotesRoute("0180"),
 });

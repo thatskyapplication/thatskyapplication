@@ -1,7 +1,6 @@
 import { Cosmetic, CosmeticPackName } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import caringCompanion from "./caring-companion.js";
@@ -107,5 +106,4 @@ export default new Season({
 		{ start: skyDate(2_025, 8, 19), end: skyDate(2_025, 9, 2) },
 		{ start: skyDate(2_025, 9, 22), end: skyDate(2_025, 9, 29) },
 	],
-	patchNotesURL: patchNotesRoute("0300"),
 });

@@ -32,6 +32,7 @@ import {
 	type EventIds,
 	epochSeconds,
 	formatEmoji,
+	formatEmojiURL,
 	friendshipTreeToItems,
 	type Item,
 	isRealm,
@@ -1409,17 +1410,15 @@ export async function viewSeason(
 	});
 
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
-	const title = `##${seasonEmoji ? ` ${formatEmoji(seasonEmoji)}` : ""} ${titleSeason}`;
+	const title = `## ${titleSeason}`;
 
 	const containerComponents: APIComponentInContainer[] = [
-		season.patchNotesURL
+		seasonEmoji
 			? {
 					type: ComponentType.Section,
 					accessory: {
-						type: ComponentType.Button,
-						label: t("catalogue.patch-notes-button-label", { lng: locale, ns: "features" }),
-						style: ButtonStyle.Link,
-						url: season.patchNotesURL,
+						type: ComponentType.Thumbnail,
+						media: { url: formatEmojiURL(seasonEmoji.id) },
 					},
 					components: [{ type: ComponentType.TextDisplay, content: title }],
 				}
@@ -1984,7 +1983,7 @@ async function viewEvent(
 	{ data, showEverythingButton }: CatalogueViewEventOptions,
 ) {
 	const { locale } = interaction;
-	const { id, offer, offerInfographicURL, patchNotesURL } = event;
+	const { id, offer, offerInfographicURL } = event;
 
 	const titleEvent = t("catalogue.event-title", {
 		lng: locale,
@@ -1993,13 +1992,19 @@ async function viewEvent(
 	});
 
 	const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-	const title = `##${eventTicketEmoji ? ` ${formatEmoji(eventTicketEmoji)}` : ""} ${titleEvent}`;
+	const title = `## ${titleEvent}`;
 
 	const containerComponents: APIComponentInContainer[] = [
-		{
-			type: ComponentType.TextDisplay,
-			content: title,
-		},
+		eventTicketEmoji
+			? {
+					type: ComponentType.Section,
+					accessory: {
+						type: ComponentType.Thumbnail,
+						media: { url: formatEmojiURL(eventTicketEmoji.id) },
+					},
+					components: [{ type: ComponentType.TextDisplay, content: title }],
+				}
+			: { type: ComponentType.TextDisplay, content: title },
 		{
 			type: ComponentType.Separator,
 			divider: true,
@@ -2016,23 +2021,10 @@ async function viewEvent(
 		description = t("catalogue.event-no-cosmetics", { lng: locale, ns: "features" });
 	}
 
-	if (patchNotesURL) {
-		containerComponents.push({
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				label: t("catalogue.patch-notes-button-label", { lng: locale, ns: "features" }),
-				style: ButtonStyle.Link,
-				url: patchNotesURL,
-			},
-			components: [{ type: ComponentType.TextDisplay, content: description }],
-		});
-	} else {
-		containerComponents.push({
-			type: ComponentType.TextDisplay,
-			content: description,
-		});
-	}
+	containerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: description,
+	});
 
 	if (offerInfographicURL) {
 		containerComponents.push({

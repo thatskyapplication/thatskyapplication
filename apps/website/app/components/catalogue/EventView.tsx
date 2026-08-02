@@ -46,7 +46,7 @@ export function EventView({
 				]}
 			/>
 
-			<div className="flex flex-wrap items-center justify-between gap-2">
+			<div className="flex flex-wrap items-center gap-2">
 				<div>
 					<h1 className="my-0 inline-flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
 						{eventTicketEmoji ? <EmojiIcon className="h-6 w-6" emoji={eventTicketEmoji} /> : null}
@@ -67,16 +67,6 @@ export function EventView({
 						})}
 					</p>
 				</div>
-				{event.patchNotesURL && (
-					<a
-						className={VIEW_LINK_CLASS}
-						href={event.patchNotesURL}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						{t("catalogue.patch-notes-button-label", { ns: "features" })}
-					</a>
-				)}
 			</div>
 
 			<RemainingCostList data={data} items={event.offer} locale={locale} />

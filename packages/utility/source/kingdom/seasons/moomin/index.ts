@@ -1,7 +1,6 @@
 import { Cosmetic, CosmeticPackName } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { RotationIdentifier, SeasonId } from "../../../season.js";
 import { RealmName } from "../../geography.js";
 import ComfortOfKindness from "./comfort-of-kindness.js";
@@ -54,5 +53,4 @@ export default new Season({
 		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 		{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 	],
-	patchNotesURL: patchNotesRoute("0270"),
 });

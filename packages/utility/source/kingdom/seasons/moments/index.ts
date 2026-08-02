@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import AsceticMonk from "./ascetic-monk.js";
 import JollyGeologist from "./jolly-geologist.js";
@@ -15,5 +14,4 @@ export default new Season({
 	guide: MomentsGuide,
 	spirits: [ReassuringRanger, NightbirdWhisperer, JollyGeologist, AsceticMonk],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0220"),
 });

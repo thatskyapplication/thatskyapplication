@@ -1,6 +1,5 @@
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import FlightGuide from "./flight-guide.js";
 import LightWhisperer from "./light-whisperer.js";
@@ -15,5 +14,4 @@ export default new Season({
 	guide: FlightGuide,
 	spirits: [LivelyNavigator, LightWhisperer, TinkeringChimesmith, TalentedBuilder],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0150"),
 });

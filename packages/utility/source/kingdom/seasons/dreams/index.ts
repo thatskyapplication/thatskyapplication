@@ -1,7 +1,6 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
 import { skyDate } from "../../../dates.js";
 import { Season } from "../../../models/season.js";
-import { patchNotesRoute } from "../../../routes.js";
 import { SeasonId } from "../../../season.js";
 import BearhugHermit from "./bearhug-hermit.js";
 import DancingPerformer from "./dancing-performer.js";
@@ -17,5 +16,4 @@ export default new Season({
 	spirits: [SpinningMentor, DancingPerformer, PeekingPostman, BearhugHermit],
 	items: [{ translation: CosmeticCommon.Pendant, cosmetic: Cosmetic.DreamsPendant }],
 	seasonalCandlesRotation: null,
-	patchNotesURL: patchNotesRoute("0120"),
 });
