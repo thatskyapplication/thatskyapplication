@@ -19,12 +19,12 @@ export default new Season({
 		Temporal.ZonedDateTime.compare(now, skyDate(2026, 8, 1)) >= 0
 			? [
 					{ rotation: RotationIdentifier.One, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
+					{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.One, realm: RealmName.VaultOfKnowledge },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
-					{ rotation: RotationIdentifier.One, realm: RealmName.HiddenForest },
+					{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 					{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.GoldenWasteland },
 					{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
