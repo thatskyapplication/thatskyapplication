@@ -2,6 +2,7 @@ import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplic
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
+import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
 import { BackButton } from "./BackButton";
@@ -17,11 +18,13 @@ export function SeasonView({
 	locale,
 	seasonId,
 	showEverythingButton,
+	timeZone,
 }: {
 	data: ReadonlySet<number>;
 	locale: string;
 	seasonId: SeasonIds;
 	showEverythingButton: boolean;
+	timeZone: string;
 }) {
 	const { t } = useTranslation();
 	const seasons = skySeasons();
@@ -29,6 +32,11 @@ export function SeasonView({
 	const items = catalogueSeasonItems([season]);
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 	const spiritTreeColumns = [];
+	const dateFormat = new Intl.DateTimeFormat(locale, {
+		dateStyle: "medium",
+		timeStyle: "short",
+		timeZone,
+	});
 
 	for (const spirit of season.spiritsWithGuide.values()) {
 		if (spirit.displayFriendshipTree.length === 0) {
@@ -89,7 +97,7 @@ export function SeasonView({
 				})}
 			</div>
 
-			<div className="flex flex-wrap items-center gap-2">
+			<div>
 				<h1 className="my-0 inline-flex items-center gap-2 text-2xl font-bold text-gray-900 dark:text-gray-100">
 					{seasonEmoji ? <EmojiIcon className="h-6 w-6" emoji={seasonEmoji} /> : null}
 					<a
@@ -101,6 +109,13 @@ export function SeasonView({
 						{t(`seasons.${season.id}`, { ns: "general" })}
 					</a>
 				</h1>
+				<p className={NOTE_CLASS}>
+					{t("time-range", {
+						ns: "general",
+						start: dateFormat.format(season.start.epochMilliseconds),
+						end: dateFormat.format(season.end.epochMilliseconds),
+					})}
+				</p>
 			</div>
 
 			<RemainingCostList data={data} items={items} locale={locale} />

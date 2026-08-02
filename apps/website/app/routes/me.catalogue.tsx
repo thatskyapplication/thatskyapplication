@@ -163,6 +163,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 						locale={locale}
 						seasonId={season.id}
 						showEverythingButton={showEverythingButton}
+						timeZone={timeZone}
 					/>
 				);
 			}

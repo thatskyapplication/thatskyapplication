@@ -1403,11 +1403,16 @@ export async function viewSeason(
 		throw new Error("Failed to view a season.");
 	}
 
-	const titleSeason = t("catalogue.season-title", {
+	const titleSeason = `${t("catalogue.season-title", {
 		lng: locale,
 		ns: "features",
 		season: `[${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})`,
-	});
+	})}\n\n${t("time-range", {
+		lng: locale,
+		ns: "general",
+		start: `<t:${epochSeconds(season.start)}:s>`,
+		end: `<t:${epochSeconds(season.end)}:s>`,
+	})}`;
 
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 	const title = `## ${titleSeason}`;
@@ -1985,11 +1990,16 @@ async function viewEvent(
 	const { locale } = interaction;
 	const { id, offer, offerInfographicURL } = event;
 
-	const titleEvent = t("catalogue.event-title", {
+	const titleEvent = `${t("catalogue.event-title", {
 		lng: locale,
 		ns: "features",
 		event: `[${t(event.name, { lng: locale, ns: "general" })}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`,
-	});
+	})}\n\n${t("time-range", {
+		lng: locale,
+		ns: "general",
+		start: `<t:${epochSeconds(event.start)}:s>`,
+		end: `<t:${epochSeconds(event.end)}:s>`,
+	})}`;
 
 	const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
 	const title = `## ${titleEvent}`;
