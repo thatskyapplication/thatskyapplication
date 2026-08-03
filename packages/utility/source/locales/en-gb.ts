@@ -865,6 +865,7 @@ export default {
 			"aurora-homecoming": "AURORA: Homecoming",
 			"workshop-show-and-tell": "Workshop Show & Tell",
 			"personality-quiz-event": "Personality Quiz Event",
+			"summer-camping": "Summer Camping",
 		},
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
@@ -980,6 +981,8 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/Sky_Anniversary/2026",
 			[EventId.DaysOfSunlight2026]:
 				"https://sky-children-of-the-light.fandom.com/Days_of_Sunlight/2026",
+			[EventId.SummerCamping2026]:
+				"https://sky-children-of-the-light.fandom.com/Summer_Camping/2026",
 		} satisfies Record<EventIds, `https://${string}`>,
 		"sky-profile-winged-light-types": {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",

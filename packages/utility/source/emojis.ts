@@ -9954,6 +9954,7 @@ export function emojiConstants(production: boolean): {
 		[EventId.DaysOfColour2026]: EVENT_EMOJIS.Colour,
 		[EventId.SkyAnniversary2026]: EVENT_EMOJIS.SkyFest,
 		[EventId.DaysOfSunlight2026]: EVENT_EMOJIS.Sunlight,
+		[EventId.SummerCamping2026]: null,
 	} as const satisfies Readonly<Record<EventIds, Emoji | null>>;
 
 	const SkyProfilePersonalityToEmoji = {
