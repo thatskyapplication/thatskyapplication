@@ -1,6 +1,6 @@
-import { type EventIds, skyEvents } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { type EventIds, skyEvents } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji } from "~/utility/emojis.js";

@@ -1,6 +1,6 @@
-import { friendshipTreeToItems, KINGDOM, type Spirit } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { friendshipTreeToItems, KINGDOM, type Spirit } from "@thatskyapplication/utility";
 import { NOTE_CLASS, realmAnchor, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";

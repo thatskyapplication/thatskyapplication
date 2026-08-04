@@ -1,7 +1,7 @@
 import type { Packet } from "@thatskyapplication/utility";
 
 export class NotificationError extends Error {
-	public override readonly name = this.constructor.name;
+	public override readonly name = "NotificationError";
 
 	public readonly data: Pick<
 		Packet<"notifications"> & {

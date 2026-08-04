@@ -1,6 +1,7 @@
 import { Buffer } from "node:buffer";
 import { createHash } from "node:crypto";
 import { DeleteObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import sharp from "sharp";
 import {
 	ANIMATED_HASH_PREFIX,
 	CDN,
@@ -10,7 +11,6 @@ import {
 	MAXIMUM_ASSET_INPUT_PIXELS,
 	MAXIMUM_ASSET_PROCESSING_SECONDS,
 } from "@thatskyapplication/utility";
-import sharp from "sharp";
 import { CDN_BUCKET, CDN_URL } from "~/config.server.js";
 import S3Client from "~/s3-client.server.js";
 

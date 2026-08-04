@@ -1,6 +1,6 @@
-import { catalogueComplete, catalogueProgress, type Item } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
 import { useFetcher } from "react-router";
+import { catalogueComplete, catalogueProgress, type Item } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 

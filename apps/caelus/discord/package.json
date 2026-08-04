@@ -1,19 +1,19 @@
 {
 	"name": "@thatskyapplication/caelus",
 	"private": true,
-	"type": "module",
 	"files": [
 		"distribution"
 	],
+	"type": "module",
 	"scripts": {
 		"build": "tsc",
-		"test": "tsc --noEmit",
-		"format": "biome check --write",
-		"lint": "biome check",
-		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
-		"start": "node --import ./distribution/sentry.js distribution/index.js",
+		"deploy-commands": "tsx source/utility/deploy-commands.ts",
 		"deploy-commands-dev": "tsx --env-file=.env.development source/utility/deploy-commands.ts | pino-pretty",
-		"deploy-commands": "tsx source/utility/deploy-commands.ts"
+		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
+		"format": "oxlint --fix . && oxfmt .",
+		"lint": "oxfmt --check . && oxlint .",
+		"start": "node --import ./distribution/sentry.js distribution/index.js",
+		"test": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.1061.0",
@@ -38,7 +38,6 @@
 	},
 	"devDependencies": {
 		"@actions/core": "^2.0.2",
-		"@biomejs/biome": "2.3.11",
 		"@types/node": "^26.1.1",
 		"@types/pg": "^8.20.0",
 		"pino-pretty": "^13.1.3",

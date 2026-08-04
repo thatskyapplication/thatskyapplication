@@ -1,3 +1,6 @@
+import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
@@ -31,9 +34,6 @@ import {
 	vaultEldersBlessingSchedule,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
@@ -706,7 +706,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			continue;
 		}
 
-		const label = `${t("event-names.radiance-event", { ns: "general" })}`;
+		const label = t("event-names.radiance-event", { ns: "general" });
 		const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 		const relevantDate = isActive ? end : start;
 		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
@@ -892,14 +892,14 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			<div className="w-full max-w-2xl space-y-4">
 				<TimeTopBar localTime={localTime} skyTime={skyTime} />
 				{activeMaintenances.length > 0 && (
-					<div className="bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
-						<AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0" />
+					<div className="flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 shadow-xl dark:border-amber-800 dark:bg-amber-950/40">
+						<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
 						<div>
-							<p className="text-sm font-medium text-amber-800 dark:text-amber-200 m-0">
+							<p className="m-0 text-sm font-medium text-amber-800 dark:text-amber-200">
 								{t("maintenance", { ns: "general" })}
 							</p>
 							{activeMaintenances.length === 1 ? (
-								<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+								<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
 									{t("maintenance-description-singular", {
 										ns: "general",
 										start: new Intl.DateTimeFormat(locale, {
@@ -913,10 +913,10 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 								</p>
 							) : (
 								<>
-									<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+									<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
 										{t("maintenance-description-many", { ns: "general" })}
 									</p>
-									<ul className="text-xs text-amber-600 dark:text-amber-400 m-0 list-disc ps-4">
+									<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
 										{activeMaintenances.map((maintenance) => (
 											<li key={maintenance.start.epochMilliseconds}>
 												{t("time-range", {
@@ -940,19 +940,19 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 				)}
 				{/* Active. */}
 				{active.length > 0 && (
-					<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl pt-2 px-4">
+					<div className="rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
 						<div className="mt-1 mb-2">
-							<span className="text-sm font-medium text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900 px-2 py-0.5 rounded">
+							<span className="rounded bg-green-100 px-2 py-0.5 text-sm font-medium text-green-700 dark:bg-green-900 dark:text-green-300">
 								{t("schedule.overview-active", { ns: "features" })}
 							</span>
 						</div>
 						<div className="divide-y divide-gray-100 dark:divide-gray-800">
 							{active.map((item) => (
 								<div
-									className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 gap-1 sm:gap-4"
+									className="flex flex-col gap-1 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
 									key={item.key}
 								>
-									<span className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2 flex-wrap">
+									<span className="flex flex-wrap items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
 										{item.type === DisplayCardType.Maintenance && (
 											<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
 										)}
@@ -962,26 +962,26 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 											</Link>
 										) : item.link && item.link.text === item.label ? (
 											<a
-												className="inline-flex items-center regular-link"
+												className="regular-link inline-flex items-center"
 												href={item.link.href}
 												rel="noopener noreferrer"
 												target="_blank"
 											>
 												{item.label}
-												<ExternalLinkIcon className="ml-1.5 w-3.5 h-3.5" />
+												<ExternalLinkIcon className="ml-1.5 h-3.5 w-3.5" />
 											</a>
 										) : (
 											<>
 												{item.label}
 												{item.link && (
 													<a
-														className="inline-flex items-center regular-link"
+														className="regular-link inline-flex items-center"
 														href={item.link.href}
 														rel="noopener noreferrer"
 														target="_blank"
 													>
 														{item.link.text}
-														<ExternalLinkIcon className="ml-1.5 w-3.5 h-3.5" />
+														<ExternalLinkIcon className="ml-1.5 h-3.5 w-3.5" />
 													</a>
 												)}
 											</>
@@ -1000,17 +1000,17 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 											</span>
 										)}
 										{item.type === DisplayCardType.Season && (
-											<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
+											<span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-900 dark:text-sky-300">
 												{t("season", { ns: "general" })}
 											</span>
 										)}
 										{item.type === DisplayCardType.Event && (
-											<span className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900 px-1.5 py-0.5 rounded">
+											<span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
 												{t("event", { ns: "general" })}
 											</span>
 										)}
 									</span>
-									<span className="text-sm text-gray-500 dark:text-gray-400 sm:text-right">
+									<span className="text-sm text-gray-500 sm:text-right dark:text-gray-400">
 										{t("schedule.overview-ends-timestamp", {
 											ns: "features",
 											timestamp: item.end,
@@ -1024,19 +1024,19 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 				)}
 
 				{/* Upcoming. */}
-				<div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl pt-2 px-4">
+				<div className="rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
 					<div className="mt-1 mb-2">
-						<span className="text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded">
+						<span className="rounded bg-gray-100 px-2 py-0.5 text-sm font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-300">
 							{t("schedule.overview-upcoming", { ns: "features" })}
 						</span>
 					</div>
 					<div className="divide-y divide-gray-100 dark:divide-gray-800">
 						{upcoming.map((item) => (
 							<div
-								className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 gap-1 sm:gap-4"
+								className="flex flex-col gap-1 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
 								key={item.key}
 							>
-								<span className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-2 flex-wrap">
+								<span className="flex flex-wrap items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
 									{item.type === DisplayCardType.Maintenance && (
 										<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
 									)}
@@ -1046,26 +1046,26 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 										</Link>
 									) : item.link && item.link.text === item.label ? (
 										<a
-											className="inline-flex items-center regular-link"
+											className="regular-link inline-flex items-center"
 											href={item.link.href}
 											rel="noopener noreferrer"
 											target="_blank"
 										>
 											{item.label}
-											<ExternalLinkIcon className="ml-1.5 w-3.5 h-3.5" />
+											<ExternalLinkIcon className="ml-1.5 h-3.5 w-3.5" />
 										</a>
 									) : (
 										<>
 											{item.label}
 											{item.link && (
 												<a
-													className="inline-flex items-center regular-link"
+													className="regular-link inline-flex items-center"
 													href={item.link.href}
 													rel="noopener noreferrer"
 													target="_blank"
 												>
 													{item.link.text}
-													<ExternalLinkIcon className="ml-1.5 w-3.5 h-3.5" />
+													<ExternalLinkIcon className="ml-1.5 h-3.5 w-3.5" />
 												</a>
 											)}
 										</>
@@ -1084,17 +1084,17 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 										</span>
 									)}
 									{item.type === DisplayCardType.Season && (
-										<span className="text-xs font-medium text-sky-700 dark:text-sky-300 bg-sky-100 dark:bg-sky-900 px-1.5 py-0.5 rounded">
+										<span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-900 dark:text-sky-300">
 											{t("season", { ns: "general" })}
 										</span>
 									)}
 									{item.type === DisplayCardType.Event && (
-										<span className="text-xs font-medium text-purple-700 dark:text-purple-300 bg-purple-100 dark:bg-purple-900 px-1.5 py-0.5 rounded">
+										<span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
 											{t("event", { ns: "general" })}
 										</span>
 									)}
 								</span>
-								<span className="text-sm text-gray-500 dark:text-gray-400 sm:text-right">
+								<span className="text-sm text-gray-500 sm:text-right dark:text-gray-400">
 									{item.next}{" "}
 									<span className="text-gray-400 dark:text-gray-500">({item.relative})</span>
 								</span>

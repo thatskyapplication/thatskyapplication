@@ -1,4 +1,7 @@
 import type { Snowflake } from "@discordjs/core/http-only";
+import { ArrowLeft, HandHeart, HeartPlus } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import {
 	DELETED_USER_TEXT,
 	DOUBLE_HEART_EVENTS,
@@ -9,9 +12,6 @@ import {
 	skyToday,
 	totalHearts,
 } from "@thatskyapplication/utility";
-import { ArrowLeft, HandHeart, HeartPlus } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
 import { Tooltip } from "~/components/Tooltip";
@@ -253,7 +253,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 										<HeartPlus className="h-5 w-5 shrink-0 text-gray-700 dark:text-gray-200" />
 									)}
 
-									<div className="flex min-w-0 flex-1 self-stretch flex-col justify-between gap-2">
+									<div className="flex min-w-0 flex-1 flex-col justify-between gap-2 self-stretch">
 										<div className="min-w-0">
 											<p className="my-0 text-sm text-gray-700 dark:text-gray-300">
 												{gifted ? "Gifted" : "Received"}{" "}

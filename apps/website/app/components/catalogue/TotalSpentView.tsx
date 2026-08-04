@@ -1,3 +1,6 @@
+import { DollarSign } from "lucide-react";
+import { type ReactNode, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import {
 	type CostEntry,
 	catalogueItems,
@@ -6,9 +9,6 @@ import {
 	type SeasonIds,
 	sumCosts,
 } from "@thatskyapplication/utility";
-import { DollarSign } from "lucide-react";
-import { type ReactNode, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { MISCELLANEOUS_EMOJIS, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
@@ -19,7 +19,7 @@ import { costEntryEmoji } from "./CostList";
 function Section({ children, title }: { children: ReactNode; title: string }) {
 	return (
 		<div className="flex flex-col">
-			<h2 className="mt-0 mb-1 text-sm font-semibold text-gray-500 uppercase tracking-wide dark:text-gray-400">
+			<h2 className="mt-0 mb-1 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
 				{title}
 			</h2>
 			{children}
@@ -29,7 +29,7 @@ function Section({ children, title }: { children: ReactNode; title: string }) {
 
 function Row({ label, value }: { label: ReactNode; value: ReactNode }) {
 	return (
-		<div className="flex items-center justify-between gap-3 border-gray-100 border-b py-1.5 text-sm last:border-b-0 dark:border-gray-800">
+		<div className="flex items-center justify-between gap-3 border-b border-gray-100 py-1.5 text-sm last:border-b-0 dark:border-gray-800">
 			<span className="inline-flex items-center gap-2 text-gray-700 dark:text-gray-300">
 				{label}
 			</span>

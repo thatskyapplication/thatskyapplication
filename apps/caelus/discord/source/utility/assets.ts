@@ -1,8 +1,8 @@
+import sharp from "sharp";
 import {
 	MAXIMUM_ASSET_INPUT_PIXELS,
 	MAXIMUM_ASSET_PROCESSING_SECONDS,
 } from "@thatskyapplication/utility";
-import sharp from "sharp";
 
 interface ProcessUploadedImageOptions {
 	animated: boolean;

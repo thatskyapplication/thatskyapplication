@@ -20,8 +20,8 @@ import guildRoleUpdate from "./events/guild-role-update.js";
 import guildUpdate from "./events/guild-update.js";
 import interactionCreate from "./events/interaction-create.js";
 import messageCreate from "./events/message-create.js";
-import messageDelete from "./events/message-delete.js";
 import messageDeleteBulk from "./events/message-delete-bulk.js";
+import messageDelete from "./events/message-delete.js";
 import messageUpdate from "./events/message-update.js";
 import ready from "./events/ready.js";
 import threadCreate from "./events/thread-create.js";
@@ -58,6 +58,7 @@ for (const event of [
 	threadListSync,
 	threadUpdate,
 ]) {
+	// oxlint-disable-next-line typescript/no-misused-promises -- AsyncEventEmitter captures rejected listener promises and emits an error event.
 	client.on(event.name, event.fire);
 }
 
@@ -100,4 +101,4 @@ if (skyProfileCommandId) {
 	pino.warn(`Command "${skyProfileCommandName}" not found from the API.`);
 }
 
-void gateway.connect();
+await gateway.connect();

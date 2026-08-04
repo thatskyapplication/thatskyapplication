@@ -1,3 +1,7 @@
+import { clsx } from "clsx";
+import { ArrowLeft, CheckCircle, Circle } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { Form, Link } from "react-router";
 import {
 	AreaName,
 	type ChecklistSetData,
@@ -9,10 +13,6 @@ import {
 	skyNow,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import { ArrowLeft, CheckCircle, Circle } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import { Form, Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import database from "~/database.server";
@@ -204,12 +204,12 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 							>
 								<div className="shrink-0">
 									{dailyQuestsComplete ? (
-										<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+										<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
 									) : (
-										<Circle className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+										<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
 									)}
 								</div>
-								<div className="text-left flex-1 min-w-0">
+								<div className="min-w-0 flex-1 text-left">
 									<div
 										className={clsx(
 											CHECKLIST_LABEL_CLASS,
@@ -256,12 +256,12 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								>
 									<div className="shrink-0">
 										{seasonalCandlesComplete ? (
-											<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
 										) : (
-											<Circle className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
 										)}
 									</div>
-									<div className="text-left flex-1 min-w-0">
+									<div className="min-w-0 flex-1 text-left">
 										<div
 											className={clsx(
 												CHECKLIST_LABEL_CLASS,
@@ -303,12 +303,12 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 							>
 								<div className="shrink-0">
 									{eyeOfEdenComplete ? (
-										<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+										<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
 									) : (
-										<Circle className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+										<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
 									)}
 								</div>
-								<div className="text-left flex-1 min-w-0">
+								<div className="min-w-0 flex-1 text-left">
 									<div
 										className={clsx(
 											CHECKLIST_LABEL_CLASS,
@@ -352,11 +352,11 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								>
 									<div className="shrink-0">
 										{shardEruptionsComplete ? (
-											<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
 										) : (
 											<Circle
 												className={clsx(
-													"w-6 h-6",
+													"h-6 w-6",
 													shardUnavailable
 														? "text-gray-300 dark:text-gray-600"
 														: "text-gray-400 dark:text-gray-500",
@@ -364,7 +364,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 											/>
 										)}
 									</div>
-									<div className="text-left flex-1 min-w-0">
+									<div className="min-w-0 flex-1 text-left">
 										<div
 											className={clsx(
 												CHECKLIST_LABEL_CLASS,
@@ -421,12 +421,12 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 								>
 									<div className="shrink-0">
 										{eventTicketsComplete ? (
-											<CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
+											<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
 										) : (
-											<Circle className="w-6 h-6 text-gray-400 dark:text-gray-500" />
+											<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
 										)}
 									</div>
-									<div className="text-left flex-1 min-w-0">
+									<div className="min-w-0 flex-1 text-left">
 										<div
 											className={clsx(
 												CHECKLIST_LABEL_CLASS,

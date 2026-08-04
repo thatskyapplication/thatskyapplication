@@ -1,17 +1,17 @@
 {
 	"name": "@thatskyapplication/socials",
 	"private": true,
-	"type": "module",
 	"files": [
 		"distribution"
 	],
+	"type": "module",
 	"scripts": {
 		"build": "tsc",
-		"test": "tsc --noEmit",
-		"format": "biome check --write",
-		"lint": "biome check",
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
-		"start": "node --import ./distribution/sentry.js distribution/index.js"
+		"format": "oxlint --fix . && oxfmt .",
+		"lint": "oxfmt --check . && oxlint .",
+		"start": "node --import ./distribution/sentry.js distribution/index.js",
+		"test": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@atproto/api": "^0.18.16",
@@ -26,7 +26,6 @@
 		"ws": "^8.21.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.3.11",
 		"@types/node": "^26.1.1",
 		"@types/pg": "^8.20.0",
 		"@types/ws": "^8.18.1",

@@ -1,3 +1,8 @@
+import { clsx } from "clsx";
+import { ChevronRight, Receipt } from "lucide-react";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, useFetcher } from "react-router";
 import {
 	CLOTHING_SHOP,
 	catalogueEventItems,
@@ -19,11 +24,6 @@ import {
 	skyEvents,
 	skySeasons,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import { ChevronRight, Receipt } from "lucide-react";
-import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useFetcher } from "react-router";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { CARD_CLASS } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
@@ -148,7 +148,7 @@ export function StartView({
 				<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
 					{t("catalogue.main-title", { ns: "features" })}
 				</h1>
-				<p className="mb-0 whitespace-pre-line text-base text-gray-600 dark:text-gray-400">
+				<p className="mb-0 text-base whitespace-pre-line text-gray-600 dark:text-gray-400">
 					{t("catalogue.main-description", {
 						ns: "features",
 						progress: overallProgress ?? 0,

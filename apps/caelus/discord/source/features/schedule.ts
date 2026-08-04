@@ -13,6 +13,7 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
@@ -48,7 +49,6 @@ import {
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";

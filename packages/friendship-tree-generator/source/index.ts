@@ -1,5 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { createCanvas, GlobalFonts, loadImage } from "@napi-rs/canvas";
+import { fetch } from "undici";
 import {
 	ASSET_SIZE,
 	BACKGROUND_PADDING,
@@ -13,7 +14,6 @@ import {
 	spirits,
 	TEXT_COLOUR,
 } from "@thatskyapplication/utility";
-import { fetch } from "undici";
 import {
 	CosmeticToEmoji,
 	MISCELLANEOUS_EMOJIS,

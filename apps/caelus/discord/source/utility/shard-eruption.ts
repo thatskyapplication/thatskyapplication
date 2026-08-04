@@ -1,11 +1,11 @@
 import type { Locale } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	epochSeconds,
 	formatEmoji,
 	resolveCurrencyEmoji,
 	type ShardEruptionData,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { MISCELLANEOUS_EMOJIS } from "./emojis.js";
 
 export const MAXIMUM_OPTION_NUMBER = 25 as const;

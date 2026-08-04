@@ -1,6 +1,6 @@
-import { CDN } from "@thatskyapplication/utility";
 import { useMemo } from "react";
 import { useMatches } from "react-router";
+import { CDN } from "@thatskyapplication/utility";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
 
 export function useCDNURL() {

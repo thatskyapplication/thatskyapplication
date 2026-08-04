@@ -20,7 +20,8 @@ function setDocumentCookie({
 		cookie += "; Secure";
 	}
 
-	// biome-ignore lint/suspicious/noDocumentCookie: People use old stuff.
+	// Legacy fallback for browsers without the Cookie Store API.
+	// oxlint-disable-next-line unicorn/no-document-cookie
 	document.cookie = cookie;
 }
 

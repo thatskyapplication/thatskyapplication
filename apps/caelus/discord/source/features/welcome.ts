@@ -27,6 +27,8 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
+import { t } from "i18next";
+import type { Selectable } from "kysely";
 import {
 	ANIMATED_HASH_PREFIX,
 	type DB,
@@ -35,8 +37,6 @@ import {
 	MAXIMUM_ASSET_BANNER_DIMENSION,
 	MAXIMUM_ASSET_SIZE,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
-import type { Selectable } from "kysely";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
 import { client } from "../discord.js";
@@ -495,7 +495,7 @@ export async function welcomeHandleEditModal(interaction: APIModalSubmitGuildInt
 	} else {
 		const hexadecimalString = accentColour.slice(1);
 
-		if (accentColour[0] === "#" && hexadecimalRegularExpression.test(hexadecimalString)) {
+		if (accentColour.startsWith("#") && hexadecimalRegularExpression.test(hexadecimalString)) {
 			data.accent_colour = Number.parseInt(hexadecimalString, 16);
 		} else {
 			errors.push(t("welcome.accent-colour-invalid", { lng: locale, ns: "features" }));

@@ -4,6 +4,8 @@ import { I18_NEXT_OPTIONS } from "./utility/constants.js";
 
 await init({
 	...I18_NEXT_OPTIONS,
-	missingKeyHandler: (locale, namespace, key) =>
-		pino.warn(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
+	missingKeyHandler: (lngs, namespace, key) =>
+		pino.warn(
+			`Locale ${lngs.join(", ")} had a missing translation in namespace ${namespace} for "${key}".`,
+		),
 });

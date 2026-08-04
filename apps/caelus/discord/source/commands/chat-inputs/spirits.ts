@@ -4,13 +4,13 @@ import {
 	ApplicationCommandOptionType,
 	MessageFlags,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
 	spirits,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { client } from "../../discord.js";
 import { search, searchAutocomplete, spiritsHistory } from "../../features/spirits.js";
 import { OptionResolver } from "../../utility/option-resolver.js";

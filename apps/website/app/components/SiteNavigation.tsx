@@ -11,7 +11,6 @@ import {
 	useInteractions,
 } from "@floating-ui/react";
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
-import { CROWDIN_URL } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import {
 	BookOpenCheck,
@@ -30,6 +29,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
+import { CROWDIN_URL } from "@thatskyapplication/utility";
 import { type NavigationGroup, useNavigationGroups } from "~/hooks/navigation-groups";
 import { APPLICATION_NAME, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL } from "~/utility/functions";
@@ -82,6 +82,7 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 	const { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen } =
 		useDesktopDropdown("bottom-end");
 
+	/* oxlint-disable react/react-compiler -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
 	return (
 		<>
 			<button
@@ -90,23 +91,23 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 					"aria-expanded": isOpen,
 					className:
 						"flex items-center gap-3 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors",
-					type: "button",
 				})}
+				type="button"
 			>
 				<div
 					aria-label={`${userDisplayName}'s avatar`}
-					className="w-8 h-8 rounded-full bg-cover bg-center"
+					className="h-8 w-8 rounded-full bg-cover bg-center"
 					role="img"
 					style={{ backgroundImage: `url(${imageURL})` }}
 				/>
-				<div className="hidden sm:flex flex-col">
+				<div className="hidden flex-col sm:flex">
 					<span className="text-sm font-medium text-gray-900 dark:text-gray-100">
 						{userDisplayName}
 					</span>
 				</div>
 				<ChevronDown
 					className={clsx(
-						"h-4 w-4 text-gray-600 dark:text-gray-400 transition-transform",
+						"h-4 w-4 text-gray-600 transition-transform dark:text-gray-400",
 						isOpen && "rotate-180",
 					)}
 				/>
@@ -170,6 +171,7 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 		</>
 	);
 }
+/* oxlint-enable react/react-compiler */
 
 function LoginButton() {
 	const location = useLocation();
@@ -177,7 +179,7 @@ function LoginButton() {
 
 	return (
 		<Link
-			className="flex items-center gap-2 px-3 py-2 bg-discord-button hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
+			className="flex items-center gap-2 rounded-lg bg-discord-button px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
 			to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
 		>
 			<LogIn className="h-4 w-4" />
@@ -190,6 +192,7 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 	const { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen } =
 		useDesktopDropdown("bottom-start");
 
+	/* oxlint-disable react/react-compiler -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
 	return (
 		<>
 			<button
@@ -197,13 +200,13 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 				{...getReferenceProps({
 					"aria-expanded": isOpen,
 					className: clsx(
-						"flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium",
+						"flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
 						isActive
-							? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-							: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800",
+							? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+							: "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800",
 					),
-					type: "button",
 				})}
+				type="button"
 			>
 				<span>{group.label}</span>
 				<ChevronDown className={clsx("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
@@ -221,7 +224,7 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 								{group.items.map((item) =>
 									item.external ? (
 										<a
-											className="flex items-start gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+											className="flex items-start gap-3 px-4 py-3 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
 											href={item.to}
 											key={item.to}
 											onClick={() => setIsOpen(false)}
@@ -230,7 +233,7 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 										>
 											{item.icon}
 											<div>
-												<div className="font-medium text-sm">{item.label}</div>
+												<div className="text-sm font-medium">{item.label}</div>
 												<div className="text-xs text-gray-500 dark:text-gray-400">
 													{item.description}
 												</div>
@@ -238,14 +241,14 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 										</a>
 									) : (
 										<Link
-											className="flex items-start gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+											className="flex items-start gap-3 px-4 py-3 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
 											key={item.to}
 											onClick={() => setIsOpen(false)}
 											to={item.to}
 										>
 											{item.icon}
 											<div>
-												<div className="font-medium text-sm">{item.label}</div>
+												<div className="text-sm font-medium">{item.label}</div>
 												<div className="text-xs text-gray-500 dark:text-gray-400">
 													{item.description}
 												</div>
@@ -261,6 +264,7 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 		</>
 	);
 }
+/* oxlint-enable react/react-compiler */
 
 function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: MobileMenuProps) {
 	const location = useLocation();
@@ -278,16 +282,16 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 		<div className="md:hidden">
 			<button
 				aria-label="Close mobile menu"
-				className="fixed inset-0 bg-black/20 backdrop-blur-xs z-40"
+				className="fixed inset-0 z-40 bg-black/20 backdrop-blur-xs"
 				onClick={onClose}
 				type="button"
 			/>
-			<div className="fixed top-4 left-4 right-4 bottom-4 bg-white dark:bg-gray-900 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 z-50 flex flex-col">
-				<div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700 shrink-0">
+			<div className="fixed top-4 right-4 bottom-4 left-4 z-50 flex flex-col rounded-xl border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900">
+				<div className="flex shrink-0 items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
 					<h3 className="font-semibold text-gray-900 dark:text-gray-100">Navigation</h3>
 					<button
 						aria-label="Close menu."
-						className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+						className="rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
 						onClick={onClose}
 						type="button"
 					>
@@ -296,11 +300,11 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 				</div>
 				<div className="flex-1 overflow-y-auto p-4">
 					{user ? (
-						<div className="mb-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-							<div className="flex items-center gap-3 mb-3">
+						<div className="mb-4 rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
+							<div className="mb-3 flex items-center gap-3">
 								<div
 									aria-label={`Avatar of ${userDisplayName ?? user.username}`}
-									className="w-8 h-8 rounded-full bg-cover bg-center"
+									className="h-8 w-8 rounded-full bg-cover bg-center"
 									role="img"
 									style={{ backgroundImage: `url(${imageURL})` }}
 								/>
@@ -345,7 +349,7 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 					) : (
 						<div className="mb-4">
 							<Link
-								className="flex items-center gap-2 w-full px-3 py-2 bg-discord-button hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium justify-center"
+								className="flex w-full items-center justify-center gap-2 rounded-lg bg-discord-button px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
 								onClick={onClose}
 								to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
 							>
@@ -358,7 +362,7 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 					<nav className="space-y-4">
 						{/* Caelus. This is not a group. */}
 						<Link
-							className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+							className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
 							onClick={onClose}
 							to="/caelus"
 						>
@@ -372,14 +376,14 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 						</Link>
 						{navigationGroups.map((group) => (
 							<div key={group.label}>
-								<h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-3">
+								<h4 className="mb-2 px-3 text-sm font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
 									{group.label}
 								</h4>
 								<div className="space-y-1">
 									{group.items.map((item) =>
 										"external" in item ? (
 											<a
-												className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+												className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
 												href={item.to}
 												key={item.to}
 												onClick={onClose}
@@ -396,7 +400,7 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 											</a>
 										) : (
 											<Link
-												className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
+												className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
 												key={item.to}
 												onClick={onClose}
 												to={item.to}
@@ -480,23 +484,23 @@ function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarPro
 				ref={topBarRef}
 				style={{ scrollbarGutter: "stable" }}
 			>
-				<div className="max-w-7xl mx-auto p-4 rounded-xl bg-white/90 dark:bg-gray-900/90 shadow-lg backdrop-blur-md border border-gray-200 dark:border-gray-700">
-					<div className="flex justify-between items-center">
+				<div className="mx-auto max-w-7xl rounded-xl border border-gray-200 bg-white/90 p-4 shadow-lg backdrop-blur-md dark:border-gray-700 dark:bg-gray-900/90">
+					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-6">
 							<Link
-								className="font-bold sm:text-xl text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+								className="font-bold text-gray-900 transition-colors hover:text-blue-600 sm:text-xl dark:text-gray-100 dark:hover:text-blue-400"
 								to="/"
 							>
 								thatskyapplication
 							</Link>
-							<nav className="hidden md:flex items-center gap-1">
+							<nav className="hidden items-center gap-1 md:flex">
 								{/* Caelus. This is not a group. */}
 								<Link
 									className={clsx(
-										"flex items-center gap-2 px-3 py-2 rounded-lg transition-colors text-sm font-medium",
+										"flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
 										location.pathname.startsWith("/caelus")
-											? "bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-											: "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800",
+											? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+											: "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800",
 									)}
 									to="/caelus"
 								>
@@ -526,7 +530,7 @@ function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarPro
 							</div>
 							<button
 								aria-label="Open navigation menu"
-								className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+								className="rounded-lg p-2 transition-colors hover:bg-gray-100 md:hidden dark:hover:bg-gray-800"
 								onClick={() => setMobileMenuOpen(true)}
 								type="button"
 							>
@@ -564,14 +568,14 @@ export function SiteFooter() {
 	const navigationGroups = useNavigationGroups();
 
 	return (
-		<footer className="w-full mt-4 bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-			<div className="max-w-7xl mx-auto px-4 py-8">
-				<div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+		<footer className="mt-4 w-full border-t border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-900">
+			<div className="mx-auto max-w-7xl px-4 py-8">
+				<div className="grid grid-cols-1 gap-8 md:grid-cols-4">
 					<div className="col-span-1 md:col-span-2">
-						<h3 className="font-bold text-xl text-gray-900 dark:text-gray-100 mb-4">
+						<h3 className="mb-4 text-xl font-bold text-gray-900 dark:text-gray-100">
 							thatskyapplication
 						</h3>
-						<p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">
+						<p className="mb-6 max-w-md text-gray-600 dark:text-gray-400">
 							{t("website-description", { ns: "general" })}
 						</p>
 						<Link
@@ -584,7 +588,7 @@ export function SiteFooter() {
 						<div className="flex gap-4">
 							<a
 								aria-label="Join Discord server."
-								className="p-2 bg-[#5865F2] hover:bg-[#4752C4] rounded-lg transition-colors"
+								className="rounded-lg bg-[#5865F2] p-2 transition-colors hover:bg-[#4752C4]"
 								href={INVITE_SUPPORT_SERVER_URL}
 								rel="noopener noreferrer"
 								target="_blank"
@@ -593,7 +597,7 @@ export function SiteFooter() {
 							</a>
 							<a
 								aria-label="GitHub repository."
-								className="p-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+								className="rounded-lg bg-gray-800 p-2 transition-colors hover:bg-gray-700"
 								href="https://github.com/thatskyapplication"
 								rel="noopener noreferrer"
 								target="_blank"
@@ -602,7 +606,7 @@ export function SiteFooter() {
 							</a>
 							<a
 								aria-label="Help translate via Crowdin."
-								className="p-2 bg-[#2E3440] hover:bg-[#242933] rounded-lg transition-colors"
+								className="rounded-lg bg-[#2E3440] p-2 transition-colors hover:bg-[#242933]"
 								href={CROWDIN_URL}
 								rel="noopener noreferrer"
 								target="_blank"
@@ -612,14 +616,14 @@ export function SiteFooter() {
 						</div>
 					</div>
 					<div>
-						<h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Features</h4>
+						<h4 className="mb-4 font-semibold text-gray-900 dark:text-gray-100">Features</h4>
 						<ul className="space-y-2">
 							{navigationGroups
 								.find((group) => group.label === "Features")
 								?.items.map((item) => (
 									<li key={item.to}>
 										<Link
-											className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+											className="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
 											to={item.to}
 										>
 											{item.label}
@@ -629,7 +633,7 @@ export function SiteFooter() {
 						</ul>
 					</div>
 					<div>
-						<h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Support</h4>
+						<h4 className="mb-4 font-semibold text-gray-900 dark:text-gray-100">Support</h4>
 						<ul className="space-y-2">
 							{navigationGroups
 								.find((group) => group.label === "Links")
@@ -637,7 +641,7 @@ export function SiteFooter() {
 									"external" in item ? (
 										<li key={item.to}>
 											<a
-												className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+												className="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
 												href={item.to}
 												rel="noopener noreferrer"
 												target="_blank"
@@ -648,7 +652,7 @@ export function SiteFooter() {
 									) : (
 										<li key={item.to}>
 											<Link
-												className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+												className="text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
 												to={item.to}
 											>
 												{item.label}

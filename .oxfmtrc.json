@@ -1,0 +1,31 @@
+{
+	"$schema": "./node_modules/oxfmt/configuration_schema.json",
+	"printWidth": 100,
+	"tabWidth": 2,
+	"useTabs": true,
+	"semi": true,
+	"singleQuote": false,
+	"jsxSingleQuote": false,
+	"trailingComma": "all",
+	"arrowParens": "always",
+	"endOfLine": "lf",
+	"proseWrap": "preserve",
+	"sortImports": {
+		"internalPattern": ["~/", "@thatskyapplication/"],
+		"newlinesBetween": false
+	},
+	"sortPackageJson": {
+		"sortScripts": true
+	},
+	"sortTailwindcss": {
+		"stylesheet": "./apps/website/app/tailwind.css",
+		"functions": ["clsx"]
+	},
+	"ignorePatterns": [
+		"**/.react-router/**",
+		"**/build/**",
+		"**/distribution/**",
+		"pnpm-lock.yaml",
+		"packages/utility/source/database/schema.ts"
+	]
+}

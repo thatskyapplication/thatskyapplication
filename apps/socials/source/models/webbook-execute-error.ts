@@ -3,7 +3,7 @@ import type { Packet } from "@thatskyapplication/utility";
 export class WebhookExecuteError extends Error {
 	public readonly webhook: Pick<Packet<"bluesky_webhooks">, "webhook_id" | "webhook_token">;
 
-	public override readonly name = this.constructor.name;
+	public override readonly name = "WebhookExecuteError";
 
 	public override readonly cause: unknown;
 

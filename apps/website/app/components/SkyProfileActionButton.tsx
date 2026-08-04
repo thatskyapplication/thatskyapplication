@@ -43,7 +43,13 @@ export function SkyProfileActionButton({
 	variant,
 	...props
 }: SkyProfileActionButtonProps) {
-	return <button className={skyProfileActionButtonClassName(variant, className)} {...props} />;
+	return (
+		<button
+			className={skyProfileActionButtonClassName(variant, className)}
+			type="button"
+			{...props}
+		/>
+	);
 }
 
 export function SkyProfileActionLink({ className, variant, ...props }: SkyProfileActionLinkProps) {

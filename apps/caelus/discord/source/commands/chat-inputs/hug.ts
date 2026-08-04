@@ -1,6 +1,6 @@
 import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
-import { FriendshipActionType } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import { FriendshipActionType } from "@thatskyapplication/utility";
 import { friendshipAction } from "../../features/friendship-actions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 

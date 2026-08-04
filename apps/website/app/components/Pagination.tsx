@@ -162,7 +162,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 						<input
 							aria-current="page"
 							aria-label={`Current page, enter a page from ${minimumPage} to ${maximumPage}`}
-							className="h-11 w-(--pagination-current-width) rounded-full border border-gray-400 bg-gray-100 px-2 text-center text-base font-medium leading-normal tabular-nums shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 sm:h-14 sm:w-(--pagination-current-width-sm) sm:px-4 sm:text-lg dark:border-gray-600 dark:bg-gray-900 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950"
+							className="h-11 w-(--pagination-current-width) rounded-full border border-gray-400 bg-gray-100 px-2 text-center text-base leading-normal font-medium tabular-nums shadow-sm focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none sm:h-14 sm:w-(--pagination-current-width-sm) sm:px-4 sm:text-lg dark:border-gray-600 dark:bg-gray-900 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950"
 							defaultValue={currentPage}
 							inputMode="numeric"
 							key={currentPage}

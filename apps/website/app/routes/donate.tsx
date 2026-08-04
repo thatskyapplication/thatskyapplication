@@ -1,7 +1,7 @@
 import { SiDiscord, SiDiscordHex, SiGithub, SiGithubHex } from "@icons-pack/react-simple-icons";
-import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { ExternalLinkIcon, Heart } from "lucide-react";
+import { GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, DISCORD_DONATION_URL } from "~/utility/constants";
@@ -88,7 +88,7 @@ export default function Donate() {
 								className={clsx(
 									method.alignClassName,
 									method.buttonClassName,
-									"group flex w-full items-center justify-between gap-4 rounded-lg p-5 text-white shadow-lg shadow-gray-900/20 transition duration-200 hover:-translate-y-0.5 hover:brightness-90 focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300 dark:shadow-black/30 sm:w-3/4",
+									"group flex w-full items-center justify-between gap-4 rounded-lg p-5 text-white shadow-lg shadow-gray-900/20 transition duration-200 hover:-translate-y-0.5 hover:brightness-90 focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-300 sm:w-3/4 dark:shadow-black/30",
 								)}
 								href={method.href}
 								key={method.name}

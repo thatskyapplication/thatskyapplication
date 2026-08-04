@@ -33,6 +33,7 @@ export function Tooltip({ children, content }: TooltipProps) {
 	const dismiss = useDismiss(context);
 	const role = useRole(context, { role: "tooltip" });
 	const { getFloatingProps, getReferenceProps } = useInteractions([hover, focus, dismiss, role]);
+	/* oxlint-disable react/react-compiler -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
 	const referenceRef = useMergeRefs([refs.setReference, children.props.ref]);
 
 	return (
@@ -59,3 +60,4 @@ export function Tooltip({ children, content }: TooltipProps) {
 		</>
 	);
 }
+/* oxlint-enable react/react-compiler */

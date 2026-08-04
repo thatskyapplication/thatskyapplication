@@ -1,5 +1,5 @@
-import { catalogueSpiritItems, KINGDOM } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
+import { catalogueSpiritItems, KINGDOM } from "@thatskyapplication/utility";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";

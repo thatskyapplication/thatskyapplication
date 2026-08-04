@@ -1,17 +1,17 @@
 {
 	"name": "@thatskyapplication/notifications",
 	"private": true,
-	"type": "module",
 	"files": [
 		"distribution"
 	],
+	"type": "module",
 	"scripts": {
 		"build": "tsc",
-		"test": "tsc --noEmit",
-		"format": "biome check --write",
-		"lint": "biome check",
 		"dev": "tsx --env-file=.env.development source/index.ts | pino-pretty",
-		"start": "node --import ./distribution/sentry.js distribution/index.js"
+		"format": "oxlint --fix . && oxfmt .",
+		"lint": "oxfmt --check . && oxlint .",
+		"start": "node --import ./distribution/sentry.js distribution/index.js",
+		"test": "tsc --noEmit"
 	},
 	"dependencies": {
 		"@discordjs/core": "dev",
@@ -25,7 +25,6 @@
 		"pino": "^10.3.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.3.11",
 		"@types/node": "^26.1.1",
 		"@types/pg": "^8.20.0",
 		"pino-pretty": "^13.1.3",

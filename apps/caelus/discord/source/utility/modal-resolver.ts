@@ -7,9 +7,9 @@ import {
 } from "@discordjs/core";
 
 export class ModalResolver {
-	private components: ReadonlyCollection<string, ModalSubmitComponent>;
+	private readonly components: ReadonlyCollection<string, ModalSubmitComponent>;
 
-	private resolved: Pick<APIInteractionDataResolved, "attachments" | "users" | "channels">;
+	private readonly resolved: Pick<APIInteractionDataResolved, "attachments" | "users" | "channels">;
 
 	public constructor({ components: data, resolved }: APIModalSubmission) {
 		const components = new Collection<string, ModalSubmitComponent>();

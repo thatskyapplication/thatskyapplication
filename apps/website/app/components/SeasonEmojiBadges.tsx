@@ -1,5 +1,5 @@
-import { isSeasonId } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
+import { isSeasonId } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 

@@ -1,11 +1,11 @@
 import type { APISelectMenuOption, Locale } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	type CostEntry,
 	type Item,
 	resolveCurrencyEmoji,
 	SeasonId,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import {
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,

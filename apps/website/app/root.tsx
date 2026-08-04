@@ -1,6 +1,5 @@
 import "./tailwind.css";
 import { captureException } from "@sentry/react-router";
-import { CDN, WEBSITE_URL } from "@thatskyapplication/utility";
 import type React from "react";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,6 +13,7 @@ import {
 	ScrollRestoration,
 	useRouteLoaderData,
 } from "react-router";
+import { CDN, WEBSITE_URL } from "@thatskyapplication/utility";
 import ConditionalLayout from "~/components/ConditionalLayout";
 import { CDN_URL } from "~/config.server";
 import database from "~/database.server";
@@ -36,6 +36,18 @@ import type { Route } from "./+types/root.js";
 export const middleware = [i18nextMiddleware];
 
 const cdn = new CDN(CDN_URL);
+
+async function persistBrowserTimeZone(browserTimeZone: string) {
+	try {
+		await cookieStoreSet({
+			name: TIME_ZONE_COOKIE_NAME,
+			value: browserTimeZone,
+			maxAge: TIME_ZONE_COOKIE_MAX_AGE,
+		});
+	} catch (error) {
+		captureException(error);
+	}
+}
 
 export const meta: Route.MetaFunction = ({ loaderData }) => [
 	{ charSet: "utf-8" },
@@ -75,8 +87,8 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 	}
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center">
-			<header className="text-center mb-4">
+		<div className="flex min-h-screen flex-col items-center justify-center">
+			<header className="mb-4 text-center">
 				{status === 404 ? (
 					<>
 						<h1>The Void</h1>
@@ -93,7 +105,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 				)}
 			</header>
 			<Link
-				className="px-6 py-3 bg-discord-button text-white font-medium rounded-md shadow-md hover:bg-blue-700 transition duration-200"
+				className="rounded-md bg-discord-button px-6 py-3 font-medium text-white shadow-md transition duration-200 hover:bg-blue-700"
 				to="/"
 			>
 				Return
@@ -153,7 +165,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
 
 	useEffect(() => {
 		if (i18n.language !== locale) {
-			i18n.changeLanguage(locale);
+			void i18n.changeLanguage(locale);
 		}
 	}, [locale, i18n]);
 
@@ -164,11 +176,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
 			return;
 		}
 
-		void cookieStoreSet({
-			name: TIME_ZONE_COOKIE_NAME,
-			value: browserTimeZone,
-			maxAge: TIME_ZONE_COOKIE_MAX_AGE,
-		}).catch((error) => captureException(error));
+		void persistBrowserTimeZone(browserTimeZone);
 	}, []);
 
 	return (

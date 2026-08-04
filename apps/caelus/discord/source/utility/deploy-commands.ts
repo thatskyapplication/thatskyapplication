@@ -11,6 +11,8 @@ import {
 	type RESTPutAPIApplicationGuildCommandsJSONBody,
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
+import { init, t } from "i18next";
+import { z } from "zod/v4";
 import {
 	DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES,
 	GUESS_TYPE_VALUES,
@@ -23,8 +25,6 @@ import {
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
-import { init, t } from "i18next";
-import { z } from "zod/v4";
 import { I18_NEXT_OPTIONS, LOCALES, QUEST_NUMBER } from "./constants.js";
 
 const envSchema = z.object({
@@ -45,9 +45,9 @@ const errors = [];
 
 await init({
 	...I18_NEXT_OPTIONS,
-	missingKeyHandler: (locale, namespace, key) =>
+	missingKeyHandler: (lngs, namespace, key) =>
 		errors.push(
-			`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,
+			`Locale ${lngs.join(", ")} had a missing translation in namespace ${namespace} for "${key}".`,
 		),
 });
 

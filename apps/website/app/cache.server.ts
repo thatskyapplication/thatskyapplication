@@ -11,7 +11,6 @@ class BaseCache<Data> {
 	private readonly cache = new Map<string, CacheEntry<Data>>();
 
 	// @ts-expect-error This is fine.
-	// biome-ignore lint/correctness/noUnusedPrivateClassMembers: This is fine.
 	private readonly cleanupInterval = setInterval(() => this.cleanup(), 900_000);
 
 	/**

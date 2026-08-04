@@ -7,14 +7,14 @@ import {
 	uploadSkyProfileBanner,
 	uploadSkyProfileIcon,
 } from "~/utility/sky-profile-assets.server.js";
-import {
-	hasSkyProfileStorageChanges,
-	toSkyProfileStorageValueFromPacket,
-} from "./editor/sky-profile-editor.js";
 import type {
 	SkyProfileActionErrors,
 	SkyProfileStorageValue,
 } from "./editor/sky-profile-editor-types.js";
+import {
+	hasSkyProfileStorageChanges,
+	toSkyProfileStorageValueFromPacket,
+} from "./editor/sky-profile-editor.js";
 import { getSkyProfilePacket } from "./sky-profile-repository.server.js";
 
 interface SaveSkyProfileFromWebsiteOptions {
@@ -43,17 +43,41 @@ interface CleanupUploadedAssetOptions {
 
 type SaveSkyProfileFromWebsiteResult = SaveSkyProfileFailureResult | SaveSkyProfileSuccessResult;
 
+async function deleteSkyProfileBannerSafely(
+	options: Parameters<typeof deleteSkyProfileBanner>[0],
+	errorMessage: string,
+) {
+	try {
+		await deleteSkyProfileBanner(options);
+	} catch (error) {
+		pino.error(error, errorMessage);
+	}
+}
+
+async function deleteSkyProfileIconSafely(
+	options: Parameters<typeof deleteSkyProfileIcon>[0],
+	errorMessage: string,
+) {
+	try {
+		await deleteSkyProfileIcon(options);
+	} catch (error) {
+		pino.error(error, errorMessage);
+	}
+}
+
 async function cleanupUploadedAsset({ banner, icon, userId }: CleanupUploadedAssetOptions) {
 	if (icon) {
-		void deleteSkyProfileIcon({ icon, userId }).catch((cleanupError) => {
-			pino.error(cleanupError, "Failed to clean up unreferenced Sky profile icon.");
-		});
+		await deleteSkyProfileIconSafely(
+			{ icon, userId },
+			"Failed to clean up unreferenced Sky profile icon.",
+		);
 	}
 
 	if (banner) {
-		void deleteSkyProfileBanner({ banner, userId }).catch((cleanupError) => {
-			pino.error(cleanupError, "Failed to clean up unreferenced Sky profile banner.");
-		});
+		await deleteSkyProfileBannerSafely(
+			{ banner, userId },
+			"Failed to clean up unreferenced Sky profile banner.",
+		);
 	}
 }
 
@@ -173,15 +197,17 @@ export async function saveSkyProfileFromWebsite({
 	}
 
 	if (hasNewIcon && initialIcon && icon !== initialIcon) {
-		void deleteSkyProfileIcon({ icon: initialIcon, userId }).catch((error) => {
-			pino.error(error, "Failed to delete replaced Sky profile icon.");
-		});
+		await deleteSkyProfileIconSafely(
+			{ icon: initialIcon, userId },
+			"Failed to delete replaced Sky profile icon.",
+		);
 	}
 
 	if (hasNewBanner && initialBanner && banner !== initialBanner) {
-		void deleteSkyProfileBanner({ banner: initialBanner, userId }).catch((error) => {
-			pino.error(error, "Failed to delete replaced Sky profile banner.");
-		});
+		await deleteSkyProfileBannerSafely(
+			{ banner: initialBanner, userId },
+			"Failed to delete replaced Sky profile banner.",
+		);
 	}
 
 	return { changed: true, ok: true };

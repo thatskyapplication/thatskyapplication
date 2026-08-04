@@ -1,5 +1,4 @@
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
-import { CROWDIN_URL } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import {
 	AlarmClock,
@@ -14,6 +13,7 @@ import {
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { CROWDIN_URL } from "@thatskyapplication/utility";
 import {
 	APPLICATION_NAME,
 	INVITE_APPLICATION_URL,
@@ -391,7 +391,7 @@ export default function Index() {
 						✦
 					</span>
 					<h1
-						className="relative mb-0 text-[clamp(1.55rem,5.6vw,3.4rem)] font-light tracking-[0.09em] text-white [hyphens:none]"
+						className="relative mb-0 text-[clamp(1.55rem,5.6vw,3.4rem)] font-light tracking-[0.09em] [hyphens:none] text-white"
 						style={{ textShadow: "0 0 34px rgba(165,181,241,0.5), 0 2px 22px rgba(0,0,0,0.7)" }}
 					>
 						thatskyapplication

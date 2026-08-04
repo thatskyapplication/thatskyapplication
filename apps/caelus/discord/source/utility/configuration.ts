@@ -9,7 +9,7 @@ const messageLogChannelIdsSchema = z
 	.min(2)
 	.transform((arg, ctx) => {
 		try {
-			return JSON.parse(arg);
+			return JSON.parse(arg) as unknown;
 		} catch {
 			ctx.addIssue({ code: "custom", message: "Invalid JSON format.", input: arg });
 			return z.NEVER;

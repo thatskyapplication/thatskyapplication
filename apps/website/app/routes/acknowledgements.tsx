@@ -1,6 +1,6 @@
-import { CDN, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
 import { ExternalLinkIcon } from "lucide-react";
 import { data, type HeadersArgs, Link } from "react-router";
+import { CDN, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
 import { AcknowledgementSocialLinks } from "~/components/AcknowledgementSocialLinks";
 import { SitePage } from "~/components/PageLayout";
 import database from "~/database.server";
@@ -104,22 +104,22 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 								target="_blank"
 							>
 								friendship actions
-								<ExternalLinkIcon className="ml-1 w-4 h-4" />
+								<ExternalLinkIcon className="ml-1 h-4 w-4" />
 							</a>{" "}
 							for everyone to enjoy.
 						</p>
-						<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-6">
+						<div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
 							{skyProfilePackets.map((profile) => (
 								<Link
 									aria-label={profile.name}
-									className="group flex items-center gap-3 rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+									className="group flex items-center gap-3 rounded-lg border-2 border-gray-200 bg-white p-3 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
 									key={profile.user_id}
 									to={`/sky-profiles/${profile.user_id}`}
 								>
 									{profile.icon ? (
 										<div
 											aria-hidden="true"
-											className="w-8 h-8 rounded-full bg-cover bg-center shrink-0"
+											className="h-8 w-8 shrink-0 rounded-full bg-cover bg-center"
 											style={{
 												backgroundImage: `url(${cdn.skyProfileIconURL(profile.user_id, profile.icon)})`,
 											}}
@@ -127,12 +127,12 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 									) : (
 										<div
 											aria-hidden="true"
-											className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-500 dark:text-gray-400 text-xs font-medium shrink-0"
+											className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-200 text-xs font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400"
 										>
 											{profile.name.charAt(0).toUpperCase()}
 										</div>
 									)}
-									<span className="text-sm font-medium truncate group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
+									<span className="truncate text-sm font-medium transition-colors group-hover:text-pink-600 dark:group-hover:text-pink-400">
 										{profile.name}
 									</span>
 								</Link>

@@ -1,3 +1,4 @@
+import { t } from "i18next";
 import {
 	isSpiritId,
 	isValidImageAsset,
@@ -7,7 +8,11 @@ import {
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
+import type {
+	SkyProfileActionErrors,
+	SkyProfileFormProfile,
+	SkyProfileStorageValue,
+} from "./editor/sky-profile-editor-types.js";
 import {
 	isPlatformIds,
 	isSeasonIds,
@@ -16,11 +21,6 @@ import {
 	isSkyProfileWingedLight,
 	toSkyProfileStorageValue,
 } from "./editor/sky-profile-editor.js";
-import type {
-	SkyProfileActionErrors,
-	SkyProfileFormProfile,
-	SkyProfileStorageValue,
-} from "./editor/sky-profile-editor-types.js";
 
 interface ParsedSkyProfileMultipart {
 	bannerFile: File | null;

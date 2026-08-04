@@ -34,7 +34,7 @@ jobs:
           node-version-file: package.json
 
       - name: Install dependencies
-        run: pnpm --filter @thatskyapplication/utility... install
+        run: pnpm --filter @thatskyapplication/utility... --filter @thatskyapplication/thatskyapplication install
 
       - name: Build dependencies
         run: pnpm --filter @thatskyapplication/utility run build
@@ -58,7 +58,7 @@ jobs:
       - name: Fix file ownership
         run: sudo chown --recursive $(whoami):$(id --group --name) packages/utility/source/locales/*.json
 
-      - name: Run Biome
+      - name: Run Oxfmt
         run: pnpm --filter @thatskyapplication/utility run format
 
       - name: Update files

@@ -9,6 +9,7 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	type ChecklistSetData,
 	checklistRefresh,
@@ -19,7 +20,6 @@ import {
 	skyNow,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import database from "../database.js";
 import { client } from "../discord.js";
 import { ME_CHECKLIST_URL } from "../utility/constants.js";

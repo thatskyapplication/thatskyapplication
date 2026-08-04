@@ -299,9 +299,9 @@ export function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTree
 	for (let levelIndex = 0; levelIndex < tree.length; levelIndex++) {
 		const level = tree[levelIndex]!;
 
-		level.forEach((node, nodeIndex) => {
+		for (const [nodeIndex, node] of level.entries()) {
 			if (!node) {
-				return;
+				continue;
 			}
 
 			const dx = columnX[nodeIndex]!;
@@ -346,7 +346,7 @@ export function modernFriendshipTreeLayout(tree: FriendshipTree): FriendshipTree
 			}
 
 			nodes.push(placed);
-		});
+		}
 
 		if (levelIndex !== tree.length - 1) {
 			levelHeight -= NEXT_HEIGHT_LEVEL;

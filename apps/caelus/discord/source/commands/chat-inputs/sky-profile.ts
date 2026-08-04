@@ -4,13 +4,13 @@ import {
 	ApplicationCommandOptionType,
 	MessageFlags,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	isCountry,
 	type SkyProfileWingedLightTypes,
 	type SpiritIds,
 	spirits,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { client } from "../../discord.js";
 import {
 	AssetType,

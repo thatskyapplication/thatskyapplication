@@ -1,6 +1,6 @@
-import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";

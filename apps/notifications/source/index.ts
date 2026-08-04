@@ -1,6 +1,8 @@
 import { API, Locale, MessageFlags, RESTJSONErrorCodes } from "@discordjs/core";
 import { DiscordAPIError, REST } from "@discordjs/rest";
 import { captureCheckIn } from "@sentry/node";
+import { Cron } from "croner";
+import { init, t } from "i18next";
 import {
 	type AreaName,
 	DOUBLE_HEART_EVENTS,
@@ -39,8 +41,6 @@ import {
 	zhCN,
 	zhTW,
 } from "@thatskyapplication/utility";
-import { Cron } from "croner";
-import { init, t } from "i18next";
 import database from "./database.js";
 import { NotificationError } from "./models/notification-error.js";
 import pino from "./pino.js";
@@ -57,8 +57,10 @@ void init({
 	interpolation: {
 		escapeValue: false,
 	},
-	missingKeyHandler: (locale, namespace, key) =>
-		pino.warn(`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`),
+	missingKeyHandler: (lngs, namespace, key) =>
+		pino.warn(
+			`Locale ${lngs.join(", ")} had a missing translation in namespace ${namespace} for "${key}".`,
+		),
 	ns: ["general", "commands", "features"],
 	resources: {
 		[Locale.German]: de,
@@ -652,7 +654,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 				continue;
 			}
 
-			const reason: NotificationError = result.reason;
+			const reason = result.reason as NotificationError;
 
 			if (
 				reason.cause instanceof DiscordAPIError &&

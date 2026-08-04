@@ -1,6 +1,6 @@
-import { TIME_ZONE } from "@thatskyapplication/utility";
 import { useEffect, useRef, useState } from "react";
 import { useRevalidator } from "react-router";
+import { TIME_ZONE } from "@thatskyapplication/utility";
 
 function skyDayTimestamp(timestamp: number) {
 	return Temporal.Instant.fromEpochMilliseconds(timestamp)
@@ -10,10 +10,6 @@ function skyDayTimestamp(timestamp: number) {
 
 export function useCurrentTimestamp(initialTimestamp: number) {
 	const [currentTimestamp, setCurrentTimestamp] = useState(initialTimestamp);
-
-	useEffect(() => {
-		setCurrentTimestamp((timestamp) => Math.max(timestamp, initialTimestamp));
-	}, [initialTimestamp]);
 
 	useEffect(() => {
 		let timeout: ReturnType<typeof setTimeout> | null = null;
@@ -50,7 +46,7 @@ export function useCurrentTimestamp(initialTimestamp: number) {
 		};
 	}, []);
 
-	return currentTimestamp;
+	return Math.max(currentTimestamp, initialTimestamp);
 }
 
 export function useSkyDailyResetRevalidator(currentTimestamp: number) {

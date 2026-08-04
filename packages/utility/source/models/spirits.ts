@@ -258,23 +258,23 @@ abstract class BaseSpirit<Data extends BaseSpiritData> {
 export class StandardSpirit extends BaseSpirit<StandardSpiritData> {
 	public override readonly type = SpiritType.Standard;
 
-	public declare readonly area: AreaName;
+	declare public readonly area: AreaName;
 
-	public declare readonly realm: RealmName;
+	declare public readonly realm: RealmName;
 }
 
 export class ElderSpirit extends BaseSpirit<ElderSpiritData> {
 	public override readonly type = SpiritType.Elder;
 
-	public declare readonly area: AreaName;
+	declare public readonly area: AreaName;
 
-	public declare readonly realm: RealmName;
+	declare public readonly realm: RealmName;
 }
 
 export class SeasonalSpirit extends BaseSpirit<SeasonalSpiritData> {
 	public override readonly type = SpiritType.Seasonal;
 
-	public declare readonly area: AreaName;
+	declare public readonly area: AreaName;
 
 	public override readonly allCosmetics: readonly Cosmetic[];
 
@@ -328,7 +328,7 @@ export class SeasonalSpirit extends BaseSpirit<SeasonalSpiritData> {
 		return {
 			visited: Boolean(
 				(firstTravelling && Temporal.ZonedDateTime.compare(firstTravelling.start, date) <= 0) ||
-					(firstReturning && Temporal.ZonedDateTime.compare(firstReturning.start, date) <= 0),
+				(firstReturning && Temporal.ZonedDateTime.compare(firstReturning.start, date) <= 0),
 			),
 			current: {
 				travelling: travelling.some(({ start, end }) => isActive(start, end, date)),

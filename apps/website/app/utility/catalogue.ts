@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import {
 	CLOTHING_SHOP,
 	Cosmetic,
@@ -16,7 +17,6 @@ import {
 	skySeasons,
 	spirits,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
 import { CosmeticToEmoji, MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 
 const VALID_COSMETICS = new Set(

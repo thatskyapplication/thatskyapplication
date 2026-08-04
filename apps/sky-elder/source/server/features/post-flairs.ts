@@ -4,7 +4,6 @@ import {
 	MessageFlags,
 	RESTJSONErrorCodes,
 	type RESTPatchAPIWebhookWithTokenMessageJSONBody,
-	type RESTPatchAPIWebhookWithTokenMessageResult,
 	type RESTPostAPIWebhookWithTokenJSONBody,
 	type RESTPostAPIWebhookWithTokenWaitResult,
 	SeparatorSpacingSize,
@@ -70,7 +69,7 @@ async function postFlairsBody(subredditName: string, statistics: Record<string, 
 export async function postFlairsUpdate(subredditName: string) {
 	const discordWebhookURL = await settings.get(SETTINGS_POST_LINK_FLAIRS_WEBHOOK_URL);
 
-	if (!discordWebhookURL) {
+	if (typeof discordWebhookURL !== "string" || discordWebhookURL.length === 0) {
 		console.warn("Discord webhook URL for post flairs is not set.");
 		return;
 	}
@@ -98,9 +97,7 @@ export async function postFlairsUpdate(subredditName: string) {
 			),
 		});
 
-		const json = (await response.json()) as
-			| RESTPostAPIWebhookWithTokenWaitResult
-			| RESTPatchAPIWebhookWithTokenMessageResult;
+		const json = (await response.json()) as RESTPostAPIWebhookWithTokenWaitResult;
 
 		if (!response.ok) {
 			throw json;

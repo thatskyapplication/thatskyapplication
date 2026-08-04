@@ -14,13 +14,13 @@ import {
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
+import { t } from "i18next";
+import { sql } from "kysely";
 import {
 	FriendshipActionType,
 	type FriendshipActionTypes,
 	formatEmoji,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
-import { sql } from "kysely";
 import { FRIENDSHIP_ACTIONS_CACHE } from "../caches/friendship-actions.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";

@@ -11,8 +11,8 @@ import {
 import { diffLines, diffWords } from "diff";
 import database from "../database.js";
 import { client } from "../discord.js";
-import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
+import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import {
 	MESSAGE_LOG_CHANNEL_ID,

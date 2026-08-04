@@ -1,5 +1,3 @@
-// biome-ignore-all lint/performance/noBarrelFile: This is fine.
-
 // Temporal polyfill is required for Safari.
 import "temporal-polyfill/global";
 import deLocale from "./locales/de.json" with { type: "json" };
@@ -107,12 +105,7 @@ export {
 	type PlacedFriendshipTreeNode,
 	TEXT_COLOUR,
 } from "./friendship-tree.js";
-export {
-	GUESS_RANK_SQL,
-	GUESS_TYPE_VALUES,
-	GuessType,
-	type GuessTypes,
-} from "./guess.js";
+export { GUESS_RANK_SQL, GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "./guess.js";
 export {
 	DELETED_USER_TEXT,
 	heartHistory,
@@ -123,11 +116,7 @@ export {
 	type SkyProfileMissingNameSources,
 	totalHearts,
 } from "./heart.js";
-export {
-	AreaName,
-	isRealm,
-	RealmName,
-} from "./kingdom/geography.js";
+export { AreaName, isRealm, RealmName } from "./kingdom/geography.js";
 export { spirits } from "./kingdom/spirits.js";
 export {
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,

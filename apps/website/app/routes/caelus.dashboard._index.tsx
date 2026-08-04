@@ -28,25 +28,25 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 	return (
 		<SitePage>
 			<div className="container mx-auto max-w-7xl">
-				<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xs p-8">
+				<div className="rounded-xl border border-gray-200 bg-white p-8 shadow-xs dark:border-gray-700 dark:bg-gray-800">
 					<div className="relative overflow-hidden">
-						<div className="absolute inset-0 overflow-hidden pointer-events-none">
-							<div className="absolute top-10 right-10 w-20 h-20 bg-blue-200/20 dark:bg-blue-400/10 rounded-full blur-xl animate-pulse" />
+						<div className="pointer-events-none absolute inset-0 overflow-hidden">
+							<div className="absolute top-10 right-10 h-20 w-20 animate-pulse rounded-full bg-blue-200/20 blur-xl dark:bg-blue-400/10" />
 							<div
-								className="absolute bottom-20 left-10 w-32 h-32 bg-purple-200/20 dark:bg-purple-400/10 rounded-full blur-xl animate-pulse"
+								className="absolute bottom-20 left-10 h-32 w-32 animate-pulse rounded-full bg-purple-200/20 blur-xl dark:bg-purple-400/10"
 								style={{ animationDelay: "1.5s" }}
 							/>
 						</div>
 						<div className="relative z-10">
-							<div className="text-center mb-8">
+							<div className="mb-8 text-center">
 								<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
 									Dashboard
 								</h1>
 							</div>
 							<hr className="my-8" />
 							{guilds.length === 0 ? (
-								<div className="text-center py-12">
-									<h2 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
+								<div className="py-12 text-center">
+									<h2 className="mb-2 text-xl font-semibold text-gray-700 dark:text-gray-300">
 										No servers found.
 									</h2>
 									<p className="text-gray-600 dark:text-gray-400">
@@ -55,29 +55,29 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 									</p>
 								</div>
 							) : (
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+								<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 									{guilds.map((guild) => (
 										<article
-											className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6"
+											className="rounded-xl border border-gray-200 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-900"
 											key={guild.id}
 										>
-											<div className="flex items-center gap-4 mb-4">
+											<div className="mb-4 flex items-center gap-4">
 												{guild.icon ? (
 													<div
 														aria-label={`${guild.name} icon.`}
-														className="w-12 h-12 bg-cover bg-center rounded-full"
+														className="h-12 w-12 rounded-full bg-cover bg-center"
 														role="img"
 														style={{
 															backgroundImage: `url(${guildIconURL(guild.id, guild.icon)})`,
 														}}
 													/>
 												) : (
-													<div className="w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+													<div className="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-purple-600 font-semibold text-white">
 														{guild.name[0]!.toUpperCase()}
 													</div>
 												)}
-												<div className="flex-1 min-w-0">
-													<h3 className="font-semibold text-gray-900 dark:text-gray-100 truncate">
+												<div className="min-w-0 flex-1">
+													<h3 className="truncate font-semibold text-gray-900 dark:text-gray-100">
 														{guild.name}
 													</h3>
 												</div>
