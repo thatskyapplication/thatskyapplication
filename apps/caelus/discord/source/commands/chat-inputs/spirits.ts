@@ -21,7 +21,7 @@ export default {
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommand()) {
+		switch (options.requireSubcommand()) {
 			case "history": {
 				await spiritsHistory(interaction, {
 					type:
@@ -34,7 +34,7 @@ export default {
 				return;
 			}
 			case "search": {
-				const spirit = spirits().get(options.getInteger("query", true) as SpiritIds);
+				const spirit = spirits().get(options.requireInteger("query") as SpiritIds);
 
 				if (!spirit) {
 					await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -60,7 +60,7 @@ export default {
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		await searchAutocomplete(
 			interaction,
-			new OptionResolver(interaction).getFocusedOption(ApplicationCommandOptionType.Integer),
+			new OptionResolver(interaction).requireFocusedOption(ApplicationCommandOptionType.Integer),
 		);
 	},
 } as const;

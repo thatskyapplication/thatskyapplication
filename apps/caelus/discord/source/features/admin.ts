@@ -11,7 +11,7 @@ export async function customStatus(
 	interaction: APIChatInputApplicationCommandGuildInteraction,
 	options: OptionResolver,
 ) {
-	const text = options.getString("text", true);
+	const text = options.requireString("text");
 	const shardCount = await client.gateway.getShardCount();
 	const promises = [];
 

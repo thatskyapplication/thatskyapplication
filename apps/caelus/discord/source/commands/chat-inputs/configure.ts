@@ -52,7 +52,7 @@ export default {
 
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommand(true)) {
+		switch (options.requireSubcommand()) {
 			case t("configure.daily-guides.command-name", { ns: "commands" }): {
 				await dailyGuides(interaction, guild);
 				return;

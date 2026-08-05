@@ -14,7 +14,7 @@ export default {
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
 			choices: questAutocomplete(
-				new OptionResolver(interaction).getFocusedOption().value,
+				new OptionResolver(interaction).requireFocusedOption().value,
 				interaction.locale,
 			),
 		});
@@ -22,7 +22,7 @@ export default {
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const { locale } = interaction;
 		const options = new OptionResolver(interaction);
-		const daily = options.getInteger("daily", true);
+		const daily = options.requireInteger("daily");
 
 		if (!isDailyQuest(daily)) {
 			await client.api.interactions.reply(interaction.id, interaction.token, {

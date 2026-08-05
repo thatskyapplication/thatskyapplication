@@ -14,7 +14,7 @@ export default {
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommand()) {
+		switch (options.requireSubcommand()) {
 			case "delete": {
 				await client.api.interactions.reply(interaction.id, interaction.token, {
 					components: [

@@ -2,10 +2,7 @@ import {
 	type APIApplicationCommandAutocompleteInteraction,
 	type APIApplicationCommandInteraction,
 	type APIApplicationCommandInteractionDataBasicOption,
-	type APIApplicationCommandInteractionDataIntegerOption,
-	type APIApplicationCommandInteractionDataNumberOption,
 	type APIApplicationCommandInteractionDataOption,
-	type APIApplicationCommandInteractionDataStringOption,
 	type APIAttachment,
 	type APIInteractionDataResolved,
 	type APIInteractionDataResolvedChannel,
@@ -13,7 +10,6 @@ import {
 	type APIMessage,
 	type APIMessageApplicationCommandInteractionDataResolved,
 	type APIUser,
-	type APIUserInteractionDataResolved,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	InteractionType,
@@ -21,493 +17,510 @@ import {
 } from "@discordjs/core";
 import { Role } from "../models/discord/role.js";
 
-function isBasicOptions(
-	options: APIApplicationCommandInteractionDataOption[],
-): options is APIApplicationCommandInteractionDataBasicOption[] {
+type InteractionOption =
+	| APIApplicationCommandInteractionDataOption<InteractionType.ApplicationCommand>
+	| APIApplicationCommandInteractionDataOption<InteractionType.ApplicationCommandAutocomplete>;
+
+type InteractionBasicOption =
+	| APIApplicationCommandInteractionDataBasicOption<InteractionType.ApplicationCommand>
+	| APIApplicationCommandInteractionDataBasicOption<InteractionType.ApplicationCommandAutocomplete>;
+
+type BasicOptionType = InteractionBasicOption["type"];
+
+type OptionOfType<Type extends BasicOptionType> = Extract<InteractionBasicOption, { type: Type }>;
+
+type NumericOptionType = ApplicationCommandOptionType.Integer | ApplicationCommandOptionType.Number;
+
+type ResolvableOptionType =
+	| ApplicationCommandOptionType.Attachment
+	| ApplicationCommandOptionType.Channel
+	| ApplicationCommandOptionType.Role
+	| ApplicationCommandOptionType.User;
+
+type FocusedOption = Extract<
+	APIApplicationCommandInteractionDataBasicOption<InteractionType.ApplicationCommandAutocomplete>,
+	{ type: ApplicationCommandOptionType.String | NumericOptionType }
+>;
+
+type CommandInteractionData =
+	| APIApplicationCommandInteraction["data"]
+	| APIApplicationCommandAutocompleteInteraction["data"];
+
+type Mentionable = APIUser | APIInteractionDataResolvedGuildMember | Role;
+
+interface ResolvedData {
+	readonly attachments: Readonly<Record<Snowflake, APIAttachment>>;
+	readonly channels: Readonly<Record<Snowflake, APIInteractionDataResolvedChannel>>;
+	readonly members: Readonly<Record<Snowflake, APIInteractionDataResolvedGuildMember>>;
+	readonly messages: Readonly<Record<Snowflake, APIMessage>>;
+	readonly roles: Readonly<Record<Snowflake, Role>>;
+	readonly users: Readonly<Record<Snowflake, APIUser>>;
+}
+
+interface ParsedCommandData {
+	readonly focusedOption: FocusedOption | null;
+	readonly group: string | null;
+	readonly options: ReadonlyMap<string, InteractionBasicOption>;
+	readonly resolved: ResolvedData;
+	readonly subcommand: string | null;
+}
+
+function isBasicOption(option: InteractionOption): option is InteractionBasicOption {
 	return (
-		options?.[0]?.type !== ApplicationCommandOptionType.SubcommandGroup &&
-		options?.[0]?.type !== ApplicationCommandOptionType.Subcommand
+		option.type !== ApplicationCommandOptionType.Subcommand &&
+		option.type !== ApplicationCommandOptionType.SubcommandGroup
 	);
 }
 
-/**
- * Utility class for resolving command interaction options while working with the raw API.
- * Based on {@linkplain https://github.com/discordjs/discord.js/blob/main/packages/discord.js/src/structures/CommandInteractionOptionResolver.js}
- */
+function isFocusedOption(option: InteractionBasicOption): option is FocusedOption {
+	return (
+		"focused" in option &&
+		option.focused === true &&
+		(option.type === ApplicationCommandOptionType.String ||
+			option.type === ApplicationCommandOptionType.Integer ||
+			option.type === ApplicationCommandOptionType.Number)
+	);
+}
+
+function basicOptions(
+	options: readonly InteractionOption[] | undefined,
+): readonly InteractionBasicOption[] {
+	return options?.filter(isBasicOption) ?? [];
+}
+
+function commandPath(options: readonly InteractionOption[] | undefined): {
+	readonly group: string | null;
+	readonly options: readonly InteractionBasicOption[];
+	readonly subcommand: string | null;
+} {
+	const root = options?.[0];
+
+	if (root?.type === ApplicationCommandOptionType.SubcommandGroup) {
+		const subcommand = root.options?.[0];
+
+		return {
+			group: root.name,
+			options: basicOptions(subcommand?.options),
+			subcommand: subcommand?.name ?? null,
+		};
+	}
+
+	if (root?.type === ApplicationCommandOptionType.Subcommand) {
+		return { group: null, options: basicOptions(root.options), subcommand: root.name };
+	}
+
+	return { group: null, options: basicOptions(options), subcommand: null };
+}
+
+function resolvedData(data: CommandInteractionData): ResolvedData {
+	const resolved: Partial<
+		APIInteractionDataResolved & APIMessageApplicationCommandInteractionDataResolved
+	> = ("resolved" in data ? data.resolved : undefined) ?? {};
+
+	return {
+		attachments: resolved.attachments ?? {},
+		channels: resolved.channels ?? {},
+		members: resolved.members ?? {},
+		messages: resolved.messages ?? {},
+		roles: Object.fromEntries(
+			Object.entries(resolved.roles ?? {}).map(([id, role]) => [id, new Role(role)]),
+		),
+		users: resolved.users ?? {},
+	};
+}
+
+function parseCommandData(data: CommandInteractionData): ParsedCommandData {
+	const path = commandPath("options" in data ? data.options : undefined);
+
+	return {
+		focusedOption: path.options.find(isFocusedOption) ?? null,
+		group: path.group,
+		options: new Map(
+			path.options.map((option): [string, InteractionBasicOption] => [option.name, option]),
+		),
+		resolved: resolvedData(data),
+		subcommand: path.subcommand,
+	};
+}
+
+function hasOptionType<Type extends BasicOptionType>(
+	option: InteractionBasicOption,
+	type: Type,
+): option is OptionOfType<Type> {
+	return option.type === type;
+}
+
+function unexpectedOptionType(
+	name: string,
+	expected: BasicOptionType,
+	actual: BasicOptionType,
+): never {
+	throw new TypeError(
+		`Option "${name}" has type ${ApplicationCommandOptionType[actual]}; expected ${ApplicationCommandOptionType[expected]}.`,
+	);
+}
+
+function numericValue(name: string, value: number | string): number {
+	if (typeof value !== "number") {
+		throw new TypeError(
+			`Option "${name}" holds a partial autocomplete value; numeric options are only complete on chat input interactions.`,
+		);
+	}
+
+	return value;
+}
+
+function resolveOption<Value>(
+	option: OptionOfType<ResolvableOptionType> | null,
+	values: Readonly<Record<Snowflake, Value>>,
+): Value | null {
+	return option === null ? null : (values[option.value] ?? null);
+}
+
+function requireResolved<Value>(name: string, kind: string, value: Value | null): Value {
+	if (value === null) {
+		throw new Error(
+			`The ${kind} for option "${name}" was not included in the resolved interaction data.`,
+		);
+	}
+
+	return value;
+}
+
 export class OptionResolver {
-	private readonly interaction:
-		| APIApplicationCommandInteraction
-		| APIApplicationCommandAutocompleteInteraction;
+	private readonly autocomplete: boolean;
 
-	/**
-	 * The interaction resolved data
-	 */
-	private readonly resolved:
-		| (Omit<APIInteractionDataResolved, "roles"> & { roles: Record<Snowflake, Role> })
-		| APIUserInteractionDataResolved
-		| APIMessageApplicationCommandInteractionDataResolved;
+	private readonly commandName: string;
 
-	/**
-	 * Bottom-level options for the interaction
-	 * If there is a subcommand (or subcommand and group), this represents the options for the subcommand.
-	 */
-	public readonly hoistedOptions: APIApplicationCommandInteractionDataBasicOption[] = [];
+	private readonly commandType: ApplicationCommandType;
 
-	/**
-	 * The name of the subcommand group
-	 */
-	private readonly group: string | null = null;
+	private readonly focusedOption: FocusedOption | null;
 
-	/**
-	 * The name of the subcommand
-	 */
-	private readonly subcommand: string | null = null;
+	private readonly group: string | null;
+
+	private readonly options: ReadonlyMap<string, InteractionBasicOption>;
+
+	private readonly resolved: ResolvedData;
+
+	private readonly subcommand: string | null;
+
+	private readonly targetId: Snowflake | null;
 
 	public constructor(
 		interaction: APIApplicationCommandInteraction | APIApplicationCommandAutocompleteInteraction,
 	) {
-		this.interaction = interaction;
-		let messages = {};
-		let roles = {};
-		let attachments = {};
-		let channels = {};
-		let members = {};
-		let users = {};
+		const { focusedOption, group, options, resolved, subcommand } = parseCommandData(
+			interaction.data,
+		);
 
-		if ("resolved" in interaction.data) {
-			if ("messages" in interaction.data.resolved) {
-				messages = interaction.data.resolved.messages;
-			}
-
-			if ("roles" in interaction.data.resolved) {
-				roles = Object.fromEntries(
-					Object.entries(interaction.data.resolved.roles).map(([id, role]) => [id, new Role(role)]),
-				);
-			}
-
-			if ("attachments" in interaction.data.resolved) {
-				attachments = interaction.data.resolved.attachments;
-			}
-
-			if ("channels" in interaction.data.resolved) {
-				channels = interaction.data.resolved.channels;
-			}
-
-			if ("members" in interaction.data.resolved) {
-				members = interaction.data.resolved.members;
-			}
-
-			if ("users" in interaction.data.resolved) {
-				users = interaction.data.resolved.users;
-			}
-		}
-
-		this.resolved = { messages, roles, attachments, channels, members, users };
-		const data = "options" in interaction.data ? (interaction.data.options ?? null) : null;
-
-		if (data && isBasicOptions(data)) {
-			this.hoistedOptions = data;
-		} else {
-			let resolvedData = data;
-
-			if (resolvedData?.[0]?.type === ApplicationCommandOptionType.SubcommandGroup) {
-				this.group = resolvedData[0].name;
-				resolvedData = resolvedData[0].options;
-			}
-
-			if (resolvedData?.[0]?.type === ApplicationCommandOptionType.Subcommand) {
-				this.subcommand = resolvedData[0].name;
-				this.hoistedOptions = resolvedData[0].options ?? [];
-			}
-		}
+		this.autocomplete = interaction.type === InteractionType.ApplicationCommandAutocomplete;
+		this.commandName = interaction.data.name;
+		this.commandType = interaction.data.type;
+		this.focusedOption = focusedOption;
+		this.group = group;
+		this.options = options;
+		this.resolved = resolved;
+		this.subcommand = subcommand;
+		this.targetId = "target_id" in interaction.data ? interaction.data.target_id : null;
 	}
 
-	/**
-	 * Gets an option by its name
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public get<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, APIApplicationCommandInteractionDataOption>;
+	public get size(): number {
+		return this.options.size;
+	}
 
-	public get(name: string, required = false): APIApplicationCommandInteractionDataOption | null {
-		const option = this.hoistedOptions.find((opt) => opt.name === name);
+	public has(name: string): boolean {
+		return this.options.has(name);
+	}
+
+	public getOption(name: string): InteractionBasicOption | null {
+		return this.options.get(name) ?? null;
+	}
+
+	public requireOption(name: string): InteractionBasicOption {
+		const option = this.getOption(name);
+
 		if (!option) {
-			if (required) {
-				throw new Error(`Missing required option "${name}"`);
-			}
-
-			return null;
+			throw new Error(`Missing required option "${name}".`);
 		}
 
 		return option;
 	}
 
-	/**
-	 * Gets the selected subcommand
-	 * @param required Whether to throw an error if there is no subcommand
-	 */
-	public getSubcommand<Required extends boolean = false>(
-		required?: Required,
-	): RequiredIf<Required, string>;
-	public getSubcommand(required = true): string | null {
-		if (required && !this.subcommand) {
-			throw new Error("A subcommand was not selected");
+	public getSubcommand(): string | null {
+		return this.subcommand;
+	}
+
+	public requireSubcommand(): string {
+		if (!this.subcommand) {
+			throw new Error("A subcommand was not selected.");
 		}
 
 		return this.subcommand;
 	}
 
-	/**
-	 * Gets the selected subcommand group
-	 * @param required Whether to throw an error if there is no subcommand group
-	 */
-	public getSubcommandGroup<Required extends boolean = false>(
-		required?: Required,
-	): RequiredIf<Required, string>;
-	public getSubcommandGroup(required = true): string | null {
-		if (required && !this.group) {
-			throw new Error("A subcommand group was not selected");
+	public getSubcommandGroup(): string | null {
+		return this.group;
+	}
+
+	public requireSubcommandGroup(): string {
+		if (!this.group) {
+			throw new Error("A subcommand group was not selected.");
 		}
 
 		return this.group;
 	}
 
-	/**
-	 * Gets a boolean option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getBoolean<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, boolean>;
-	public getBoolean(name: string, required = false): boolean | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.Boolean, required);
-		return option?.value ?? null;
+	public getBoolean(name: string): boolean | null {
+		return this.typedOption(name, ApplicationCommandOptionType.Boolean)?.value ?? null;
 	}
 
-	/**
-	 * Gets a channel option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getChannel<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, APIInteractionDataResolvedChannel>;
-
-	public getChannel(name: string, required = false): APIInteractionDataResolvedChannel | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.Channel, required);
-		return option && "channels" in this.resolved
-			? (this.resolved.channels?.[option.value] ?? null)
-			: null;
+	public requireBoolean(name: string): boolean {
+		return this.requireTypedOption(name, ApplicationCommandOptionType.Boolean).value;
 	}
 
-	/**
-	 * Gets a string option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getString<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, string>;
-	public getString(name: string, required = false): string | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.String, required);
-		return option?.value ?? null;
+	public getString(name: string): string | null {
+		return this.typedOption(name, ApplicationCommandOptionType.String)?.value ?? null;
 	}
 
-	/**
-	 * Gets an integer option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getInteger<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, number>;
-	public getInteger(name: string, required = false): number | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.Integer, required);
-		return option?.value ?? null;
+	public requireString(name: string): string {
+		return this.requireTypedOption(name, ApplicationCommandOptionType.String).value;
 	}
 
-	/**
-	 * Gets a number option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getNumber<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, number>;
-	public getNumber(name: string, required = false): number | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.Number, required);
-		return option?.value ?? null;
+	public getInteger(name: string): number | null {
+		return this.numeric(name, ApplicationCommandOptionType.Integer);
 	}
 
-	/**
-	 * Gets a user option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getUser<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, APIUser>;
-	public getUser(name: string, required = false): APIUser | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.User, required);
-		return option && "users" in this.resolved
-			? (this.resolved.users?.[option.value] ?? null)
-			: null;
+	public requireInteger(name: string): number {
+		const option = this.requireTypedOption(name, ApplicationCommandOptionType.Integer);
+		return numericValue(name, option.value);
 	}
 
-	/**
-	 * Gets a member option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getMember<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, APIInteractionDataResolvedGuildMember>;
-
-	public getMember(name: string, required = false): APIInteractionDataResolvedGuildMember | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.User, required);
-		return option && "members" in this.resolved
-			? (this.resolved.members?.[option.value] ?? null)
-			: null;
+	public getNumber(name: string): number | null {
+		return this.numeric(name, ApplicationCommandOptionType.Number);
 	}
 
-	/**
-	 * Gets a role option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getRole<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, Role>;
-	public getRole(name: string, required = false): Role | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.Role, required);
-		return option && "roles" in this.resolved
-			? (this.resolved.roles?.[option.value] ?? null)
-			: null;
+	public requireNumber(name: string): number {
+		const option = this.requireTypedOption(name, ApplicationCommandOptionType.Number);
+		return numericValue(name, option.value);
 	}
 
-	/**
-	 * Gets an attachment option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getAttachment<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, APIAttachment>;
-	public getAttachment(name: string, required = false): APIAttachment | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.Attachment, required);
-		return option && "attachments" in this.resolved
-			? (this.resolved.attachments?.[option.value] ?? null)
-			: null;
+	public getUser(name: string): APIUser | null {
+		return resolveOption(
+			this.typedOption(name, ApplicationCommandOptionType.User),
+			this.resolved.users,
+		);
 	}
 
-	/**
-	 * Gets a mentionable option
-	 * @param name The name of the option
-	 * @param required Whether to throw an error if the option is not found
-	 */
-	public getMentionable<Required extends boolean = false>(
-		name: string,
-		required?: Required,
-	): RequiredIf<Required, APIUser | APIInteractionDataResolvedGuildMember | Role>;
+	public requireUser(name: string): APIUser {
+		return requireResolved(
+			name,
+			"user",
+			resolveOption(
+				this.requireTypedOption(name, ApplicationCommandOptionType.User),
+				this.resolved.users,
+			),
+		);
+	}
 
-	public getMentionable(
-		name: string,
-		required = false,
-	): APIUser | APIInteractionDataResolvedGuildMember | Role | null {
-		const option = this.getTypedOption(name, ApplicationCommandOptionType.Mentionable, required);
+	public getMember(name: string): APIInteractionDataResolvedGuildMember | null {
+		return resolveOption(
+			this.typedOption(name, ApplicationCommandOptionType.User),
+			this.resolved.members,
+		);
+	}
 
-		if (!option) {
-			return null;
+	public requireMember(name: string): APIInteractionDataResolvedGuildMember {
+		return requireResolved(
+			name,
+			"member",
+			resolveOption(
+				this.requireTypedOption(name, ApplicationCommandOptionType.User),
+				this.resolved.members,
+			),
+		);
+	}
+
+	public getChannel(name: string): APIInteractionDataResolvedChannel | null {
+		return resolveOption(
+			this.typedOption(name, ApplicationCommandOptionType.Channel),
+			this.resolved.channels,
+		);
+	}
+
+	public requireChannel(name: string): APIInteractionDataResolvedChannel {
+		return requireResolved(
+			name,
+			"channel",
+			resolveOption(
+				this.requireTypedOption(name, ApplicationCommandOptionType.Channel),
+				this.resolved.channels,
+			),
+		);
+	}
+
+	public getRole(name: string): Role | null {
+		return resolveOption(
+			this.typedOption(name, ApplicationCommandOptionType.Role),
+			this.resolved.roles,
+		);
+	}
+
+	public requireRole(name: string): Role {
+		return requireResolved(
+			name,
+			"role",
+			resolveOption(
+				this.requireTypedOption(name, ApplicationCommandOptionType.Role),
+				this.resolved.roles,
+			),
+		);
+	}
+
+	public getAttachment(name: string): APIAttachment | null {
+		return resolveOption(
+			this.typedOption(name, ApplicationCommandOptionType.Attachment),
+			this.resolved.attachments,
+		);
+	}
+
+	public requireAttachment(name: string): APIAttachment {
+		return requireResolved(
+			name,
+			"attachment",
+			resolveOption(
+				this.requireTypedOption(name, ApplicationCommandOptionType.Attachment),
+				this.resolved.attachments,
+			),
+		);
+	}
+
+	public getMentionable(name: string): Mentionable | null {
+		const option = this.typedOption(name, ApplicationCommandOptionType.Mentionable);
+		return option === null ? null : this.mentionable(option.value);
+	}
+
+	public requireMentionable(name: string): Mentionable {
+		const option = this.requireTypedOption(name, ApplicationCommandOptionType.Mentionable);
+		return requireResolved(name, "mentionable", this.mentionable(option.value));
+	}
+
+	public requireTargetUser(): APIUser {
+		const targetUser = this.resolved.users[this.targetIdFor(ApplicationCommandType.User)];
+
+		if (!targetUser) {
+			throw new Error("The target user was not included in the resolved interaction data.");
 		}
 
-		if (
-			"members" in this.resolved &&
-			this.resolved.members &&
-			option.value in this.resolved.members
-		) {
-			return this.resolved.members[option.value] ?? null;
-		}
-
-		if ("users" in this.resolved && this.resolved.users && option.value in this.resolved.users) {
-			return this.resolved.users[option.value] ?? null;
-		}
-
-		if ("roles" in this.resolved && this.resolved.roles && option.value in this.resolved.roles) {
-			return this.resolved.roles[option.value] ?? null;
-		}
-
-		return null;
+		return targetUser;
 	}
 
-	/**
-	 * Gets the target user for a context menu interaction
-	 */
-	public getTargetUser(): APIUser {
-		if (
-			this.interaction.type !== InteractionType.ApplicationCommand ||
-			this.interaction.data.type !== ApplicationCommandType.User
-		) {
-			throw new Error("This method can only be used on user context menu interactions");
-		}
-
-		return (this.resolved as APIUserInteractionDataResolved).users[
-			this.interaction.data.target_id
-		]!;
+	public getTargetMember(): APIInteractionDataResolvedGuildMember | null {
+		return this.resolved.members[this.targetIdFor(ApplicationCommandType.User)] ?? null;
 	}
 
-	/**
-	 * Gets the target member for a context menu interaction
-	 * @param required Whether to throw an error if the member data is not present
-	 */
-	public getTargetMember<Required extends boolean = false>(
-		required?: Required,
-	): RequiredIf<Required, APIInteractionDataResolvedGuildMember>;
-	public getTargetMember(required = false): APIInteractionDataResolvedGuildMember | null {
-		if (
-			this.interaction.type !== InteractionType.ApplicationCommand ||
-			this.interaction.data.type !== ApplicationCommandType.User
-		) {
-			throw new Error("This method can only be used on user context menu interactions");
+	public requireTargetMember(): APIInteractionDataResolvedGuildMember {
+		const targetMember = this.getTargetMember();
+
+		if (!targetMember) {
+			throw new Error("The target member was not included in the resolved interaction data.");
 		}
 
-		const member =
-			(this.resolved as APIUserInteractionDataResolved).members?.[
-				this.interaction.data.target_id
-			] ?? null;
-
-		if (!member && required) {
-			throw new Error("Member data is not present");
-		}
-
-		return member;
+		return targetMember;
 	}
 
-	/**
-	 * Gets the target message for a context menu interaction
-	 */
-	public getTargetMessage(): APIMessage {
-		if (
-			this.interaction.type !== InteractionType.ApplicationCommand ||
-			this.interaction.data.type !== ApplicationCommandType.Message
-		) {
-			throw new Error("This method can only be used on message context menu interactions");
+	public requireTargetMessage(): APIMessage {
+		const targetMessage = this.resolved.messages[this.targetIdFor(ApplicationCommandType.Message)];
+
+		if (!targetMessage) {
+			throw new Error("The target message was not included in the resolved interaction data.");
 		}
 
-		return (this.resolved as APIMessageApplicationCommandInteractionDataResolved).messages[
-			this.interaction.data.target_id
-		]!;
+		return targetMessage;
 	}
 
-	/**
-	 * Gets the focused option for an autocomplete interaction
-	 */
-	public getFocusedOption<
-		Type extends
-			| ApplicationCommandOptionType.String
-			| ApplicationCommandOptionType.Integer
-			| ApplicationCommandOptionType.Number,
-	>(
-		type?: Type,
-	): Extract<
-		APIApplicationCommandInteractionDataOption<InteractionType.ApplicationCommandAutocomplete>,
-		{ type: Type }
-	> {
-		if (this.interaction.type !== InteractionType.ApplicationCommandAutocomplete) {
-			throw new Error("This method can only be used on autocomplete interactions.");
-		}
-
-		const focusedOption = this.hoistedOptions.find(
-			(
-				option,
-			): option is
-				| APIApplicationCommandInteractionDataStringOption
-				| APIApplicationCommandInteractionDataIntegerOption
-				| APIApplicationCommandInteractionDataNumberOption => "focused" in option && option.focused,
-		)!;
-
-		if (type && focusedOption.type !== type) {
-			throw new Error("No focused option type found for autocomplete interaction.");
-		}
-
-		return focusedOption as Extract<
-			APIApplicationCommandInteractionDataOption<InteractionType.ApplicationCommandAutocomplete>,
-			{ type: Type }
-		>;
+	public getFocusedOption(): FocusedOption | null {
+		return this.focusedOption;
 	}
 
-	private getTypedOption<
-		Option extends BasicApplicationCommandOptionType,
-		Required extends boolean = false,
-	>(
-		name: string,
-		type: Option,
-		required: Required,
-	): RequiredIf<Required, TypeToOptionMap<InteractionType.ApplicationCommand>[Option]>;
+	public requireFocusedOption(): FocusedOption;
 
-	private getTypedOption<Option extends BasicApplicationCommandOptionType>(
-		name: string,
-		type: Option,
-		required: boolean,
-	): TypeToOptionMap<InteractionType.ApplicationCommand>[Option] | null {
-		const option = this.get(name, required);
+	public requireFocusedOption<Type extends FocusedOption["type"]>(
+		type: Type,
+	): Extract<FocusedOption, { type: Type }>;
 
-		if (!option) {
-			return null;
+	public requireFocusedOption(type?: FocusedOption["type"]): FocusedOption {
+		if (!this.focusedOption) {
+			throw new Error(
+				this.autocomplete
+					? "The autocomplete interaction did not contain a focused option."
+					: "This method can only be used on autocomplete interactions.",
+			);
 		}
 
-		if (option.type !== type) {
-			throw new Error(`Option with name "${name}" is not of the correct type`);
+		if (type !== undefined && this.focusedOption.type !== type) {
+			return unexpectedOptionType(this.focusedOption.name, type, this.focusedOption.type);
 		}
 
-		return option as TypeToOptionMap<InteractionType.ApplicationCommand>[Option];
+		return this.focusedOption;
 	}
 
-	public chatInputCommandText() {
+	public chatInputCommandText(): string {
+		if (this.commandType !== ApplicationCommandType.ChatInput) {
+			throw new Error("This method can only be used on chat input command interactions.");
+		}
+
 		const properties = [
-			this.interaction.data.name,
+			`/${this.commandName}`,
 			this.group,
 			this.subcommand,
-			...this.hoistedOptions.map((option) => `${option.name}:${option.value}`),
+			...this.options.values().map((option) => `${option.name}:${option.value}`),
 		];
 
-		return `/${properties.filter(Boolean).join(" ")}`;
+		return properties.filter((property) => property !== null).join(" ");
+	}
+
+	private mentionable(id: Snowflake): Mentionable | null {
+		return this.resolved.members[id] ?? this.resolved.users[id] ?? this.resolved.roles[id] ?? null;
+	}
+
+	private numeric(name: string, type: NumericOptionType): number | null {
+		const option = this.typedOption(name, type);
+		return option === null ? null : numericValue(name, option.value);
+	}
+
+	private requireTypedOption<Type extends BasicOptionType>(
+		name: string,
+		type: Type,
+	): OptionOfType<Type> {
+		const option = this.requireOption(name);
+
+		return hasOptionType(option, type) ? option : unexpectedOptionType(name, type, option.type);
+	}
+
+	private targetIdFor(
+		type: ApplicationCommandType.User | ApplicationCommandType.Message,
+	): Snowflake {
+		if (this.commandType !== type || this.targetId === null) {
+			const contextMenuType = type === ApplicationCommandType.User ? "user" : "message";
+
+			throw new Error(
+				`This method can only be used on ${contextMenuType} context menu interactions.`,
+			);
+		}
+
+		return this.targetId;
+	}
+
+	private typedOption<Type extends BasicOptionType>(
+		name: string,
+		type: Type,
+	): OptionOfType<Type> | null {
+		const option = this.getOption(name);
+
+		if (!option) {
+			return null;
+		}
+
+		return hasOptionType(option, type) ? option : unexpectedOptionType(name, type, option.type);
 	}
 }
-
-type BasicApplicationCommandOptionType = APIApplicationCommandInteractionDataBasicOption["type"];
-
-// This extra type is required because apparently just inlining what `_TypeToOptionMap` does into `TypeToOptionMap` does not behave the same
-type _TypeToOptionMap<Type extends InteractionType> = {
-	[Option in BasicApplicationCommandOptionType]: APIApplicationCommandInteractionDataBasicOption<Type> & {
-		type: Option;
-	};
-};
-
-type TypeToOptionMap<Type extends InteractionType> = {
-	[Option in keyof _TypeToOptionMap<Type>]: _TypeToOptionMap<Type>[Option];
-};
-
-type If<Value extends boolean, TrueResult, FalseResult> = Value extends true
-	? TrueResult
-	: Value extends false
-		? FalseResult
-		: TrueResult | FalseResult;
-
-type RequiredIf<Value extends boolean, ValueType, FallbackType = null> = If<
-	Value,
-	ValueType,
-	ValueType | FallbackType
->;

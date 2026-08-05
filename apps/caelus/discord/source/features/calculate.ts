@@ -44,8 +44,8 @@ export async function ascendedCandles(
 	interaction: APIChatInputApplicationCommandInteraction,
 	options: OptionResolver,
 ) {
-	const start = options.getInteger("start", true);
-	const goal = options.getInteger("goal", true);
+	const start = options.requireInteger("start");
+	const goal = options.requireInteger("goal");
 	const eyeOfEden = options.getBoolean("eye-of-eden") ?? true;
 	const shardEruptions = options.getBoolean("shard-eruptions") ?? true;
 	const { locale } = interaction;
@@ -160,8 +160,8 @@ export async function eventTickets(
 	options: OptionResolver,
 ) {
 	const { locale } = interaction;
-	const start = options.getInteger("start", true);
-	const goal = options.getInteger("goal", true);
+	const start = options.requireInteger("start");
+	const goal = options.requireInteger("goal");
 
 	if (start >= goal) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -306,8 +306,8 @@ export async function seasonalCandles(
 	options: OptionResolver,
 ) {
 	const { locale } = interaction;
-	const start = options.getInteger("start", true);
-	const goal = options.getInteger("goal", true);
+	const start = options.requireInteger("start");
+	const goal = options.requireInteger("goal");
 
 	if (start >= goal) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -463,7 +463,7 @@ export async function wingedLight(
 	options: OptionResolver,
 ) {
 	const { locale } = interaction;
-	const wingBuffs = options.getInteger("wing-buffs", true);
+	const wingBuffs = options.requireInteger("wing-buffs");
 	let accumulation = wingBuffs;
 
 	const embed: APIEmbed = {

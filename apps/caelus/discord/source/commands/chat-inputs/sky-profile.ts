@@ -33,7 +33,7 @@ export default {
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommand()) {
+		switch (options.requireSubcommand()) {
 			case "edit": {
 				await this.editAutocomplete(interaction, options);
 				return;
@@ -47,7 +47,7 @@ export default {
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommand()) {
+		switch (options.requireSubcommand()) {
 			case "edit": {
 				await this.edit(interaction, options);
 				return;
@@ -66,7 +66,7 @@ export default {
 		interaction: APIApplicationCommandAutocompleteInteraction,
 		options: OptionResolver,
 	) {
-		const option = options.getFocusedOption();
+		const option = options.requireFocusedOption();
 
 		if (
 			option.name === t("sky-profile.edit.command-option-country-name", { ns: "commands" }) &&
@@ -97,7 +97,7 @@ export default {
 		const data: SkyProfileSetData = { user_id: interactionInvoker(interaction).id };
 		const promises = [];
 
-		if (options.hoistedOptions.length > 0) {
+		if (options.size > 0) {
 			await client.api.interactions.defer(interaction.id, interaction.token, {
 				flags: MessageFlags.Ephemeral,
 			});

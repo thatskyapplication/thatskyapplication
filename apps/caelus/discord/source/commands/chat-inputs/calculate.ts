@@ -13,7 +13,7 @@ export default {
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommand()) {
+		switch (options.requireSubcommand()) {
 			case "ascended-candles": {
 				await ascendedCandles(interaction, options);
 				return;

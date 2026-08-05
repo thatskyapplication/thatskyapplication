@@ -14,7 +14,7 @@ export default {
 	async chatInput(interaction: APIChatInputApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommand()) {
+		switch (options.requireSubcommand()) {
 			case "game": {
 				await this.game(interaction, options);
 				return;
@@ -25,7 +25,7 @@ export default {
 		}
 	},
 	async game(interaction: APIChatInputApplicationCommandInteraction, options: OptionResolver) {
-		const type = options.getInteger("type", true) as GuessTypes;
+		const type = options.requireInteger("type") as GuessTypes;
 
 		if (await noSkyProfileName(interaction, SkyProfileMissingNameSource.Guess)) {
 			return;
@@ -47,6 +47,6 @@ export default {
 		interaction: APIChatInputApplicationCommandInteraction,
 		options: OptionResolver,
 	) {
-		await leaderboard(interaction, options.getInteger("type", true) as GuessTypes);
+		await leaderboard(interaction, options.requireInteger("type") as GuessTypes);
 	},
 } as const;

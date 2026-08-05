@@ -11,7 +11,7 @@ export default {
 
 		await friendshipAction({
 			interaction,
-			user: options.getUser("user", true),
+			user: options.requireUser("user"),
 			member: options.getMember("user"),
 			type: FriendshipActionType.PlayFight,
 		});

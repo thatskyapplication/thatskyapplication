@@ -7,6 +7,6 @@ export default {
 	name: t("Gift-Heart.command-name", { ns: "commands" }),
 	async userContextMenu(interaction: APIUserApplicationCommandInteraction) {
 		const options = new OptionResolver(interaction);
-		await gift(interaction, options.getTargetUser(), options.getTargetMember());
+		await gift(interaction, options.requireTargetUser(), options.getTargetMember());
 	},
 };

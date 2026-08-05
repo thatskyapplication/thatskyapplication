@@ -12,7 +12,7 @@ export default {
 
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommandGroup(false) ?? options.getSubcommand()) {
+		switch (options.getSubcommandGroup() ?? options.requireSubcommand()) {
 			case "custom-status": {
 				await customStatus(interaction, options);
 				return;

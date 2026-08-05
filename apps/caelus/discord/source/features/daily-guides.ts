@@ -1706,7 +1706,7 @@ export async function set(
 ) {
 	const { locale } = interaction;
 
-	if (options.hoistedOptions.length === 0) {
+	if (options.size === 0) {
 		await interactive(interaction, { locale });
 		return;
 	}

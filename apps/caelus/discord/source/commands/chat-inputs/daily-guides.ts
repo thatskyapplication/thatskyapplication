@@ -18,14 +18,14 @@ export default {
 	async autocomplete(interaction: APIApplicationCommandAutocompleteInteraction) {
 		const options = new OptionResolver(interaction);
 
-		switch (options.getSubcommand()) {
+		switch (options.requireSubcommand()) {
 			case "set":
 				await client.api.interactions.createAutocompleteResponse(
 					interaction.id,
 					interaction.token,
 					{
 						choices: questAutocomplete(
-							new OptionResolver(interaction).getFocusedOption().value,
+							new OptionResolver(interaction).requireFocusedOption().value,
 							interaction.locale,
 						),
 					},
@@ -36,7 +36,7 @@ export default {
 		const options = new OptionResolver(interaction);
 
 		if (interaction.data.guild_id === SUPPORT_SERVER_GUILD_ID) {
-			switch (options.getSubcommand()) {
+			switch (options.requireSubcommand()) {
 				case "set": {
 					await set(interaction as APIChatInputApplicationCommandGuildInteraction, options);
 					return;

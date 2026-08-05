@@ -867,7 +867,9 @@ export async function skyProfileExploreAutocomplete(
 	interaction: APIApplicationCommandAutocompleteInteraction,
 	options: OptionResolver,
 ) {
-	const focused = options.getFocusedOption(ApplicationCommandOptionType.String).value.toUpperCase();
+	const focused = options
+		.requireFocusedOption(ApplicationCommandOptionType.String)
+		.value.toUpperCase();
 
 	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
 		choices:
