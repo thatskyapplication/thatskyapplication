@@ -392,8 +392,8 @@ importers:
         specifier: workspace:^
         version: file:packages/utility
       discord-api-types:
-        specifier: ^0.38.48
-        version: 0.38.48
+        specifier: ^0.38.50
+        version: 0.38.50
       express:
         specifier: ^5.2.1
         version: 5.2.1(supports-color@8.1.1)
@@ -624,8 +624,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       discord-api-types:
-        specifier: ^0.38.48
-        version: 0.38.48
+        specifier: ^0.38.50
+        version: 0.38.50
       kysely:
         specifier: ^0.28.17
         version: 0.28.17
@@ -3710,8 +3710,8 @@ packages:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
 
-  discord-api-types@0.38.48:
-    resolution: {integrity: sha512-WFUE/2o0lBlLeCQonQ+Pu2RqHAqbytBJ2RlXR91gzk05InSS6k9ShzzLYoymrA4c2oRgRKGE7/VqQJNNdGWSxQ==}
+  discord-api-types@0.38.50:
+    resolution: {integrity: sha512-J2n/bpIETX3DQ6AJ7/0xbsTLmYiJQtO/LKcXKC1YDbB56OUwtDbdXOFE8Q4g8jVGHBR2VAy1+D4ngaIgkMNV9w==}
 
   discord-api-types@0.38.52:
     resolution: {integrity: sha512-uwe9EKfbjsmgWc2fdFjvDbj+dQqx3lp7wqDCmIha0jInuU+xeQjkCK9tMMn+p7RXfdVQORCInq4cD3U2ymDmyg==}
@@ -9090,7 +9090,7 @@ snapshots:
     dependencies:
       path-type: 4.0.0
 
-  discord-api-types@0.38.48: {}
+  discord-api-types@0.38.50: {}
 
   discord-api-types@0.38.52: {}
 
