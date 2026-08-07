@@ -2,6 +2,7 @@ import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
 import { skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
+import { spirits } from "./kingdom/spirits.js";
 import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
@@ -266,4 +267,89 @@ export function catalogueItems(): readonly Item[] {
 		...CLOTHING_SHOP.items,
 		...NESTING_WORKSHOP.items,
 	];
+}
+
+export enum CatalogueSearchType {
+	Season = 0,
+	Event = 1,
+	Spirit = 2,
+}
+
+export type CatalogueSearchTarget =
+	| { readonly type: CatalogueSearchType.Season; readonly season: Season }
+	| { readonly type: CatalogueSearchType.Event; readonly event: Event }
+	| { readonly type: CatalogueSearchType.Spirit; readonly spirit: Spirit };
+
+export interface CatalogueSearchEntry {
+	readonly name: string;
+	readonly keywords: readonly string[];
+	readonly target: CatalogueSearchTarget;
+}
+
+export function catalogueSearchEntries(
+	resolveName: (key: string) => string,
+): readonly CatalogueSearchEntry[] {
+	const entries: CatalogueSearchEntry[] = [];
+
+	for (const season of skySeasons().values()) {
+		entries.push({
+			name: resolveName(`seasons.${season.id}`),
+			keywords: [],
+			target: { type: CatalogueSearchType.Season, season },
+		});
+	}
+
+	for (const event of skyEvents().values()) {
+		entries.push({
+			name: resolveName(event.name),
+			keywords: [],
+			target: { type: CatalogueSearchType.Event, event },
+		});
+	}
+
+	for (const spirit of spirits().values()) {
+		entries.push({
+			name: resolveName(`spirits.${spirit.id}`),
+			keywords: spirit.keywords,
+			target: { type: CatalogueSearchType.Spirit, spirit },
+		});
+	}
+
+	return entries;
+}
+
+export function catalogueSearch(
+	entries: readonly CatalogueSearchEntry[],
+	query: string,
+	limit?: number,
+): readonly CatalogueSearchEntry[] {
+	const normalisedQuery = query.trim().toUpperCase();
+
+	if (normalisedQuery.length === 0) {
+		return [];
+	}
+
+	const matches: { entry: CatalogueSearchEntry; rank: number }[] = [];
+
+	for (const entry of entries) {
+		const name = entry.name.toUpperCase();
+		let rank: number;
+
+		if (name.startsWith(normalisedQuery)) {
+			rank = 0;
+		} else if (name.includes(normalisedQuery)) {
+			rank = 1;
+		} else if (entry.keywords.some((keyword) => keyword.toUpperCase().includes(normalisedQuery))) {
+			rank = 2;
+		} else {
+			continue;
+		}
+
+		matches.push({ entry, rank });
+	}
+
+	return matches
+		.sort((a, b) => a.rank - b.rank)
+		.slice(0, limit)
+		.map(({ entry }) => entry);
 }

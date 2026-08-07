@@ -2804,6 +2804,8 @@ export default {
 		catalogue: {
 			"command-name": "catalogue",
 			"command-description": "Your very own Sky catalogue.",
+			"command-option-search-name": "search",
+			"command-option-search-description": "Go straight to a season, event, or spirit.",
 		},
 		checklist: {
 			"command-name": "checklist",
@@ -3081,6 +3083,10 @@ export default {
 			"nesting-workshop": "Nesting Workshop",
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
+			"search-label": "Search",
+			"search-placeholder": "Search seasons, events, and spirits...",
+			"search-no-results": "Nothing was found.",
+			"search-result-detail": "{{name}} ({{detail}})",
 			"traversal-string-select-menu-placeholder": "Where would you like to go?",
 			"travelling-spirit": "Travelling Spirit",
 			"returning-spirits": "Returning Spirits",

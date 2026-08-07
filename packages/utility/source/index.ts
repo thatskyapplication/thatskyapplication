@@ -31,12 +31,17 @@ export {
 } from "./assets.js";
 export {
 	type CatalogueProgress,
+	type CatalogueSearchEntry,
+	type CatalogueSearchTarget,
+	CatalogueSearchType,
 	CLOTHING_SHOP,
 	catalogueComplete,
 	catalogueEventItems,
 	catalogueItems,
 	cataloguePercentage,
 	catalogueProgress,
+	catalogueSearch,
+	catalogueSearchEntries,
 	catalogueSeasonItems,
 	catalogueSpiritItems,
 	collectSpiritCosmetics,

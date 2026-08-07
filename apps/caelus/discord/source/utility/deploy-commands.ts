@@ -300,6 +300,16 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		description: t("catalogue.command-description", { ns: "commands" }),
 		description_localizations: localisations("catalogue.command-description"),
 		type: ApplicationCommandType.ChatInput,
+		options: [
+			{
+				type: ApplicationCommandOptionType.String,
+				name: t("catalogue.command-option-search-name", { ns: "commands" }),
+				name_localizations: localisations("catalogue.command-option-search-name"),
+				description: t("catalogue.command-option-search-description", { ns: "commands" }),
+				description_localizations: localisations("catalogue.command-option-search-description"),
+				autocomplete: true,
+			},
+		],
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
 			ApplicationIntegrationType.UserInstall,

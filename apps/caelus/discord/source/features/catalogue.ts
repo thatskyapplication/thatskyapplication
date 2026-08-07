@@ -1,10 +1,13 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import {
+	type APIApplicationCommandAutocompleteInteraction,
+	type APIApplicationCommandInteractionDataStringOption,
 	type APIButtonComponentWithCustomId,
 	type APIChatInputApplicationCommandInteraction,
 	type APIComponentInContainer,
 	type APIComponentInMessageActionRow,
 	type APIContainerComponent,
+	type APIInteractionResponseCallbackData,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageComponentEmoji,
 	type APIMessageComponentSelectMenuInteraction,
@@ -26,6 +29,10 @@ import {
 	catalogueItems,
 	cataloguePercentage,
 	catalogueProgress,
+	catalogueSearch,
+	type CatalogueSearchTarget,
+	catalogueSearchEntries,
+	CatalogueSearchType,
 	catalogueSeasonItems,
 	catalogueSpiritItems,
 	collectSpiritCosmetics,
@@ -67,6 +74,8 @@ import {
 import {
 	CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT,
 	CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT,
+	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
+	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_TEXT_DISPLAY_LENGTH,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
@@ -624,6 +633,100 @@ export async function viewStart(
 		await client.api.interactions.reply(interaction.id, interaction.token, response);
 	} else {
 		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+	}
+}
+
+function searchEntries(locale: Locale) {
+	return catalogueSearchEntries((key) => t(key, { lng: locale, ns: "general" }));
+}
+
+function searchResultName(name: string, target: CatalogueSearchTarget, locale: Locale) {
+	let resultName: string;
+
+	if (target.type === CatalogueSearchType.Season) {
+		resultName = name;
+	} else if (target.type === CatalogueSearchType.Event) {
+		resultName = t("catalogue.search-result-detail", {
+			lng: locale,
+			ns: "features",
+			name,
+			detail: target.event.start.year,
+		});
+	} else {
+		const { spirit } = target;
+
+		const detail =
+			spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
+				? t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" })
+				: t(`realms.${spirit.realm}`, { lng: locale, ns: "general" });
+
+		resultName = t("catalogue.search-result-detail", {
+			lng: locale,
+			ns: "features",
+			name,
+			detail,
+		});
+	}
+
+	return resultName.length > MAXIMUM_AUTOCOMPLETE_NAME_LIMIT
+		? `${resultName.slice(0, MAXIMUM_AUTOCOMPLETE_NAME_LIMIT - 3)}...`
+		: resultName;
+}
+
+export async function searchAutocomplete(
+	interaction: APIApplicationCommandAutocompleteInteraction,
+	option: APIApplicationCommandInteractionDataStringOption,
+) {
+	const { locale } = interaction;
+
+	await client.api.interactions.createAutocompleteResponse(interaction.id, interaction.token, {
+		choices: catalogueSearch(
+			searchEntries(locale),
+			option.value,
+			MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
+		).map(({ name, target }) => {
+			const resultName = searchResultName(name, target, locale);
+			return { name: resultName, value: resultName };
+		}),
+	});
+}
+
+export async function viewSearch(
+	interaction: APIChatInputApplicationCommandInteraction,
+	value: string,
+) {
+	const { locale } = interaction;
+	const entries = searchEntries(locale);
+
+	const target =
+		entries.find((entry) => searchResultName(entry.name, entry.target, locale) === value)?.target ??
+		catalogueSearch(entries, value, 1)[0]?.target;
+
+	if (!target) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: t("catalogue.search-no-results", { lng: locale, ns: "features" }),
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
+	if (target.type === CatalogueSearchType.Season) {
+		await viewSeason(interaction, target.season.id);
+		return;
+	}
+
+	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
+
+	const options = {
+		data: catalogue?.data,
+		showEverythingButton: catalogue?.show_everything_button,
+	};
+
+	if (target.type === CatalogueSearchType.Event) {
+		await viewEvent(interaction, target.event, options);
+	} else {
+		await viewSpirit(interaction, target.spirit, options);
 	}
 }
 
@@ -1391,7 +1494,10 @@ export async function viewSeasons(
 }
 
 export async function viewSeason(
-	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction,
 	seasonId: SeasonIds,
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
@@ -1550,7 +1656,7 @@ export async function viewSeason(
 		components: actionRowComponents,
 	});
 
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+	const response = {
 		components: [
 			{
 				type: ComponentType.Container,
@@ -1562,7 +1668,14 @@ export async function viewSeason(
 				isInSeasons: true,
 			}),
 		],
-	});
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	} satisfies APIInteractionResponseCallbackData;
+
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+	}
 }
 
 export async function viewEvents(
@@ -1767,7 +1880,10 @@ interface CatalogueViewSpiritOptions {
 }
 
 async function viewSpirit(
-	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction,
 	spirit: Spirit,
 	{ data, showEverythingButton }: CatalogueViewSpiritOptions,
 ) {
@@ -1929,7 +2045,7 @@ async function viewSpirit(
 
 	containerComponents.push({ type: ComponentType.ActionRow, components: actionRowComponents });
 
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+	const response = {
 		components: [
 			{
 				type: ComponentType.Container,
@@ -1951,7 +2067,14 @@ async function viewSpirit(
 				isInSeasons: isSeasonalSpirit || isGuideSpirit,
 			}),
 		],
-	});
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	} satisfies APIInteractionResponseCallbackData;
+
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+	}
 }
 
 export async function parseViewEvent(
@@ -1983,7 +2106,10 @@ interface CatalogueViewEventOptions {
 }
 
 async function viewEvent(
-	interaction: APIMessageComponentButtonInteraction | APIMessageComponentSelectMenuInteraction,
+	interaction:
+		| APIChatInputApplicationCommandInteraction
+		| APIMessageComponentButtonInteraction
+		| APIMessageComponentSelectMenuInteraction,
 	event: Event,
 	{ data, showEverythingButton }: CatalogueViewEventOptions,
 ) {
@@ -2108,7 +2234,7 @@ async function viewEvent(
 		components: actionRowComponents,
 	});
 
-	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
+	const response = {
 		components: [
 			{
 				type: ComponentType.Container,
@@ -2120,7 +2246,14 @@ async function viewEvent(
 				isInEvents: true,
 			}),
 		],
-	});
+		flags: MessageFlags.Ephemeral | MessageFlags.IsComponentsV2,
+	} satisfies APIInteractionResponseCallbackData;
+
+	if (isChatInputCommand(interaction)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, response);
+	} else {
+		await client.api.interactions.updateMessage(interaction.id, interaction.token, response);
+	}
 }
 
 export async function viewStarterPacks(
