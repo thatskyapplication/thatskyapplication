@@ -1,4 +1,5 @@
 import { Locale } from "@discordjs/core/http-only";
+import { createI18nextMiddleware } from "remix-i18next";
 import {
 	de,
 	enGB,
@@ -15,7 +16,6 @@ import {
 	zhCN,
 	zhTW,
 } from "@thatskyapplication/utility";
-import { createI18nextMiddleware } from "remix-i18next";
 import { LOCALES } from "~/utility/constants.js";
 
 export const [i18nextMiddleware, getLocale, getInstance] = createI18nextMiddleware({
@@ -26,9 +26,9 @@ export const [i18nextMiddleware, getLocale, getInstance] = createI18nextMiddlewa
 	i18next: {
 		fallbackLng: Locale.EnglishGB,
 		interpolation: { escapeValue: false },
-		missingKeyHandler: (locale, namespace, key) =>
+		missingKeyHandler: (lngs, namespace, key) =>
 			console.warn(
-				`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,
+				`Locale ${lngs.join(", ")} had a missing translation in namespace ${namespace} for "${key}".`,
 			),
 		resources: {
 			[Locale.German]: de,

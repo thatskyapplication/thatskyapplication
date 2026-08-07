@@ -1,9 +1,9 @@
 import type { _NonNullableFields } from "@discordjs/core/http-only";
-import { type Country, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
 import { sql } from "kysely";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation, useRouteLoaderData, useSearchParams } from "react-router";
+import { type Country, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
@@ -138,7 +138,7 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 
 	return (
 		<Link
-			className="bg-gray-100 dark:bg-gray-700 shadow-lg hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 border border-gray-200 dark:border-gray-600 transition-transform duration-200 rounded-lg overflow-hidden flex flex-col h-137.5 [-webkit-user-drag:none]"
+			className="flex h-137.5 flex-col overflow-hidden rounded-lg border border-gray-200 bg-gray-100 shadow-lg transition-transform duration-200 [-webkit-user-drag:none] hover:shadow-xl sm:hover:translate-y-0 lg:hover:-translate-y-2 dark:border-gray-600 dark:bg-gray-700"
 			draggable={false}
 			state={{ returnTo }}
 			to={`/sky-profiles/${profile.user_id}`}
@@ -147,7 +147,7 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 				{profile.banner ? (
 					<img
 						alt={`Banner of ${profile.name}.`}
-						className="pointer-events-none w-full h-48 object-cover"
+						className="pointer-events-none h-48 w-full object-cover"
 						fetchPriority={priority ? "high" : undefined}
 						loading={priority ? "eager" : "lazy"}
 						src={cdn.skyProfileBannerURL(profile.user_id, profile.banner)}
@@ -155,20 +155,20 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 				) : (
 					<div
 						aria-label="No banner."
-						className="w-full h-48 bg-gray-200 dark:bg-gray-600"
+						className="h-48 w-full bg-gray-200 dark:bg-gray-600"
 						role="img"
 					/>
 				)}
 				{profile.icon && (
 					<img
 						alt={`Icon of ${profile.name}.`}
-						className="pointer-events-none w-16 h-16 rounded-full border-4 border-white absolute -bottom-8 left-4 object-cover"
+						className="pointer-events-none absolute -bottom-8 left-4 h-16 w-16 rounded-full border-4 border-white object-cover"
 						loading="lazy"
 						src={cdn.skyProfileIconURL(profile.user_id, profile.icon)}
 					/>
 				)}
 			</div>
-			<div className="px-4 pt-10 pb-4 flex-1 overflow-hidden">
+			<div className="flex-1 overflow-hidden px-4 pt-10 pb-4">
 				<h2 className="my-0">{profile.name!}</h2>
 				{profile.seasons && profile.seasons.length > 0 && (
 					<SeasonEmojiBadges
@@ -178,12 +178,12 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 					/>
 				)}
 				{profile.description ? (
-					<p className="mt-2 whitespace-pre-wrap line-clamp-6">{profile.description}</p>
+					<p className="mt-2 line-clamp-6 whitespace-pre-wrap">{profile.description}</p>
 				) : (
 					<p className="mt-2 italic">No description.</p>
 				)}
 			</div>
-			<div className="flex p-4 items-center">
+			<div className="flex items-center p-4">
 				{profile.platform && profile.platform.length > 0 && (
 					<PlatformBadges className="flex flex-wrap gap-2" platforms={profile.platform} />
 				)}
@@ -215,8 +215,19 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 
 		setSearchParams((prev) => {
 			const newParams = new URLSearchParams(prev);
-			trimmedName ? newParams.set("name", trimmedName) : newParams.delete("name");
-			country ? newParams.set("country", country) : newParams.delete("country");
+
+			if (trimmedName) {
+				newParams.set("name", trimmedName);
+			} else {
+				newParams.delete("name");
+			}
+
+			if (country) {
+				newParams.set("country", country);
+			} else {
+				newParams.delete("country");
+			}
+
 			newParams.delete("page");
 			return newParams;
 		});
@@ -225,7 +236,7 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 	return (
 		<SitePage>
 			<div className="container mx-auto">
-				<div className="flex flex-col items-center mb-8 gap-4">
+				<div className="mb-8 flex flex-col items-center gap-4">
 					<SkyProfilesFilters
 						countries={countries}
 						country={country}
@@ -238,7 +249,7 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 				</div>
 				{profiles.length > 0 ? (
 					<>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 							{profiles.map((profile, index) => (
 								<SkyProfileCard
 									key={profile.user_id}
@@ -251,16 +262,16 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 						{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
 					</>
 				) : name || country ? (
-					<div className="text-center py-12">
+					<div className="py-12 text-center">
 						<p className="text-gray-600 dark:text-gray-400">
 							{t("sky-profile.search-none", { ns: "features" })}
 						</p>
 					</div>
 				) : (
-					<div className="text-center py-12 space-y-4">
+					<div className="space-y-4 py-12 text-center">
 						<div
 							aria-label="Sky kid icon."
-							className="w-32 h-32 mx-auto bg-cover bg-center"
+							className="mx-auto h-32 w-32 bg-cover bg-center"
 							role="img"
 							style={{
 								backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/sky_kid.webp")})`,
@@ -307,7 +318,7 @@ function SkyProfilesFilters({
 				{t("sky-profile.search-by-name", { ns: "features" })}
 			</label>
 			<input
-				className="p-2 border border-gray-200 dark:border-gray-600 rounded-sm w-64 bg-white dark:bg-gray-800 text-black dark:text-white"
+				className="w-64 rounded-sm border border-gray-200 bg-white p-2 text-black dark:border-gray-600 dark:bg-gray-800 dark:text-white"
 				id="sky-profile-name-search"
 				onChange={(event) => {
 					const nextName = event.currentTarget.value;
@@ -352,11 +363,11 @@ function SkyProfilesFilters({
 				value={country ?? ""}
 			/>
 			<Link
-				className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+				className="flex items-center rounded-sm border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg dark:border-gray-600 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 				to="/sky-profiles/random"
 			>
 				<EmojiIcon
-					className="w-6 h-6 mr-2"
+					className="mr-2 h-6 w-6"
 					emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
 					label="Question mark icon."
 				/>
@@ -364,12 +375,12 @@ function SkyProfilesFilters({
 			</Link>
 			{discordUser && (
 				<Link
-					className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 shadow-md hover:shadow-lg flex items-center border border-gray-200 dark:border-gray-600 rounded-sm px-4 py-2"
+					className="flex items-center rounded-sm border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg dark:border-gray-600 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 					to={`/sky-profiles/${discordUser.id}`}
 				>
 					<div
 						aria-label="Sky kid icon."
-						className="w-6 h-6 mr-2 bg-cover bg-center"
+						className="mr-2 h-6 w-6 bg-cover bg-center"
 						role="img"
 						style={{
 							backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/sky_kid.webp")})`,

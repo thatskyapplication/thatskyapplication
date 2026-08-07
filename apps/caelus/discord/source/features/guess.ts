@@ -11,6 +11,8 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
+import { t } from "i18next";
+import { sql } from "kysely";
 import {
 	type EventIds,
 	formatEmoji,
@@ -26,8 +28,6 @@ import {
 	type SpiritIds,
 	skyEvents,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
-import { sql } from "kysely";
 import database from "../database.js";
 import { client } from "../discord.js";
 import { GUESS_LEADERBOARD_MAXIMUM_DISPLAY_NUMBER, GUESS_TIMEOUT } from "../utility/constants.js";
@@ -95,8 +95,7 @@ interface GuessGenerateCustomIdGuessOptions extends GuessGenerateCustomIdBaseOpt
 	option: SpiritIds;
 }
 
-interface GuessEventGenerateCustomIdGuessOptions
-	extends GuessGenerateCustomIdBaseOptions<EventIds> {
+interface GuessEventGenerateCustomIdGuessOptions extends GuessGenerateCustomIdBaseOptions<EventIds> {
 	prefix: CustomId.GuessEventOption1 | CustomId.GuessEventOption2 | CustomId.GuessEventOption3;
 	option: EventIds;
 }
@@ -314,7 +313,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 				type,
 				emoji: answerEmojiId,
 				answer: answerSpiritId,
-				option: option1SpiritId!,
+				option: option1SpiritId,
 				streak,
 				timeoutTimestamp,
 			}),
@@ -613,7 +612,7 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 				type,
 				emoji: answerEmojiId,
 				answer: answerEventId,
-				option: option1EventId!,
+				option: option1EventId,
 				streak,
 				timeoutTimestamp,
 			}),

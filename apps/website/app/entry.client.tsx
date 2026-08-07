@@ -1,20 +1,60 @@
 import { Locale } from "@discordjs/core/http-only";
-import { init, reactRouterTracingIntegration } from "@sentry/react-router";
-import i18next, { type Resource } from "i18next";
+import { captureException, init, reactRouterTracingIntegration } from "@sentry/react-router";
+import i18next, { type Resource, type ResourceLanguage } from "i18next";
 import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { HydratedRouter } from "react-router/dom";
 
+const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
+
+if (dsn) {
+	init({
+		dataCollection: {},
+		dsn,
+		integrations: [reactRouterTracingIntegration()],
+		tracesSampleRate: 1,
+	});
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isResourceKey(value: unknown): boolean {
+	return (
+		typeof value === "string" ||
+		(Array.isArray(value) && value.every((entry) => isResourceKey(entry))) ||
+		(isRecord(value) && Object.values(value).every((entry) => isResourceKey(entry)))
+	);
+}
+
+function isResourceLanguage(value: unknown): value is ResourceLanguage {
+	return isRecord(value) && Object.values(value).every((entry) => isResourceKey(entry));
+}
+
+async function fetchResource(language: string) {
+	const response = await fetch(`/locales/${language}`);
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch locale ${language}: ${response.status}.`);
+	}
+
+	const resource: unknown = await response.json();
+
+	if (!isResourceLanguage(resource)) {
+		throw new TypeError(`Locale ${language} returned an invalid resource.`);
+	}
+
+	return resource;
+}
+
 async function main() {
-	const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
 	const language = document.documentElement.lang || Locale.EnglishGB;
 
 	const [active, fallback] = await Promise.all([
-		fetch(`/locales/${language}`).then((response) => response.json()),
-		language === Locale.EnglishGB
-			? null
-			: fetch(`/locales/${Locale.EnglishGB}`).then((response) => response.json()),
+		fetchResource(language),
+		language === Locale.EnglishGB ? null : fetchResource(Locale.EnglishGB),
 	]);
 
 	const resources: Resource = { [language]: active };
@@ -27,23 +67,14 @@ async function main() {
 		fallbackLng: Locale.EnglishGB,
 		interpolation: { escapeValue: false },
 		lng: language,
-		missingKeyHandler: (locale, namespace, key) =>
+		missingKeyHandler: (lngs, namespace, key) =>
 			console.warn(
-				`Locale ${locale} had a missing translation in namespace ${namespace} for "${key}".`,
+				`Locale ${lngs.join(", ")} had a missing translation in namespace ${namespace} for "${key}".`,
 			),
 		resources,
 		returnEmptyString: false,
 		saveMissing: true,
 	});
-
-	if (dsn) {
-		init({
-			dataCollection: {},
-			dsn,
-			integrations: [reactRouterTracingIntegration()],
-			tracesSampleRate: 1,
-		});
-	}
 
 	startTransition(() => {
 		hydrateRoot(
@@ -57,4 +88,7 @@ async function main() {
 	});
 }
 
-main().catch((error) => console.error(error));
+main().catch((error: unknown) => {
+	console.error(error);
+	captureException(error);
+});

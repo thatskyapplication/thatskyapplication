@@ -1,3 +1,6 @@
+import { clsx } from "clsx";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
 	epochSeconds,
 	formatEmojiURL,
@@ -6,9 +9,6 @@ import {
 	skyNow,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
@@ -87,7 +87,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const endIndex = startIndex + amount;
 
 	for (let index = startIndex; index < endIndex; index++) {
-		const shard = shardEruption(index);
+		const shard: ShardEruptionData | null = shardEruption(index);
 
 		const todayFormat = new Intl.DateTimeFormat(locale, {
 			timeZone,
@@ -132,24 +132,24 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 	return (
 		<div
 			className={clsx(
-				"border rounded-lg shadow-sm flex flex-col items-center text-center w-full max-w-sm p-6",
+				"flex w-full max-w-sm flex-col items-center rounded-lg border p-6 text-center shadow-sm",
 				shard?.strong
-					? "bg-red-300 dark:bg-red-950/50 hover:bg-red-300/70 dark:hover:bg-red-950/40 border-red-400 dark:border-red-900"
-					: "bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 border-gray-200 dark:border-gray-700",
+					? "border-red-400 bg-red-300 hover:bg-red-300/70 dark:border-red-900 dark:bg-red-950/50 dark:hover:bg-red-950/40"
+					: "border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50",
 			)}
 		>
 			<div className="flex flex-row items-center justify-center">
 				{shard && (
 					<div
 						aria-label={`${shard.strong ? "Strong" : "Regular"} shard eruption icon.`}
-						className="discord-emoji w-5 h-5 mr-1"
+						className="discord-emoji mr-1 h-5 w-5"
 						role="img"
 						style={{
 							backgroundImage: `url(${formatEmojiURL(shard.strong ? MISCELLANEOUS_EMOJIS.ShardStrong.id : MISCELLANEOUS_EMOJIS.ShardRegular.id)})`,
 						}}
 					/>
 				)}
-				<h2 className="text-lg my-0">{todayFormat}</h2>
+				<h2 className="my-0 text-lg">{todayFormat}</h2>
 			</div>
 			{shard ? (
 				<>
@@ -169,7 +169,7 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 						{shard.strong ? (
 							<div
 								aria-label={t("ascended-candles", { ns: "general" })}
-								className="discord-emoji h-4 w-4 ml-1"
+								className="discord-emoji ml-1 h-4 w-4"
 								role="img"
 								style={{
 									backgroundImage: `url(${formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)})`,
@@ -178,7 +178,7 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 						) : (
 							<div
 								aria-label="Piece of light."
-								className="h-4 w-4 ml-1 bg-cover bg-center"
+								className="ml-1 h-4 w-4 bg-cover bg-center"
 								role="img"
 								style={{
 									backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/piece_of_light.webp")})`,
@@ -191,7 +191,7 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 							<code
 								className={clsx(
 									"bg-inherit text-xs",
-									end.unix < now && "line-through text-black/50 dark:text-white/50",
+									end.unix < now && "text-black/50 line-through dark:text-white/50",
 								)}
 							>
 								{t("time-range", { ns: "general", start: start.format, end: end.format })}
@@ -234,13 +234,13 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 				<div className="flex-wrap">
 					{page === 0 ? (
 						<>
-							<div className="flex mb-2 w-full justify-center">{firstShard}</div>
-							<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">
+							<div className="mb-2 flex w-full justify-center">{firstShard}</div>
+							<div className="flex w-full max-w-full flex-wrap justify-center gap-2">
 								{restShards}
 							</div>
 						</>
 					) : (
-						<div className="gap-2 flex flex-wrap justify-center w-full max-w-full">
+						<div className="flex w-full max-w-full flex-wrap justify-center gap-2">
 							{shardCards}
 						</div>
 					)}

@@ -1,6 +1,6 @@
 import { serve } from "@hono/node-server";
-import type { APIGuildsMeResponse } from "@thatskyapplication/utility";
 import { Hono } from "hono";
+import type { APIGuildsMeResponse } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "./caches/guilds.js";
 import pino from "./pino.js";
 

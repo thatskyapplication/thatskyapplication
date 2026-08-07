@@ -1,6 +1,6 @@
+import { clsx } from "clsx";
 import type { Emoji } from "@thatskyapplication/utility";
 import { formatEmojiURL } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
 
 export function EmojiIcon({
 	className,

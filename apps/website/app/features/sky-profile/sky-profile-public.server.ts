@@ -1,6 +1,6 @@
 import type { Snowflake } from "@discordjs/core/http-only";
-import { GUESS_RANK_SQL, type GuessTypes } from "@thatskyapplication/utility";
 import { sql } from "kysely";
+import { GUESS_RANK_SQL, type GuessTypes } from "@thatskyapplication/utility";
 import database from "~/database.server";
 
 export async function getSkyProfileCatalogueData(userId: Snowflake) {

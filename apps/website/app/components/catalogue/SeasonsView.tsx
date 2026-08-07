@@ -1,10 +1,10 @@
+import { useTranslation } from "react-i18next";
 import {
 	cataloguePercentage,
 	catalogueProgress,
 	catalogueSeasonItems,
 	skySeasons,
 } from "@thatskyapplication/utility";
-import { useTranslation } from "react-i18next";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";

@@ -1,3 +1,9 @@
+import { clsx } from "clsx";
+import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
+import type { SyntheticEvent } from "react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { data, Form, Link, useNavigation } from "react-router";
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
 	COUNTRY_VALUES,
@@ -13,12 +19,6 @@ import {
 	skySeasons,
 	spirits,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
-import type { SyntheticEvent } from "react";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { data, Form, Link, useNavigation } from "react-router";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
@@ -96,6 +96,7 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	return {
 		discordUserId: discordUser.id,
 		profile: toSkyProfileEditorValue(skyProfilePacket),
+		profileRevision: skyProfilePacket?.last_updated_at?.toISOString() ?? "new",
 	};
 };
 
@@ -108,8 +109,9 @@ export const action = async ({ request, context, url }: Route.ActionArgs) => {
 		return data({ ok: false, errors: parsed.errors } as const, { status: 422 });
 	}
 
+	const lastUpdatedAt = new Date();
 	const result = await saveSkyProfileFromWebsite({
-		lastUpdatedAt: new Date(),
+		lastUpdatedAt,
 		userId: discordUser.id,
 		...parsed.value,
 	});
@@ -118,23 +120,45 @@ export const action = async ({ request, context, url }: Route.ActionArgs) => {
 		return data({ ok: false, errors: result.errors } as const, { status: 422 });
 	}
 
-	return result.changed ? ({ ok: true } as const) : null;
+	return result.changed ? ({ ok: true, savedAt: lastUpdatedAt.toISOString() } as const) : null;
 };
 
-export default function MeSkyProfile({ loaderData, actionData }: Route.ComponentProps) {
+type MeSkyProfileEditorProps = Route.ComponentProps & { showSuccess: boolean };
+
+export default function MeSkyProfile(routeProps: Route.ComponentProps) {
+	const savedAt = routeProps.actionData?.ok === true ? routeProps.actionData.savedAt : null;
+	const [expiredSavedAt, setExpiredSavedAt] = useState<string | null>(null);
+
+	useEffect(() => {
+		if (!savedAt) {
+			return;
+		}
+
+		const timeout = window.setTimeout(() => setExpiredSavedAt(savedAt), 3000);
+		return () => window.clearTimeout(timeout);
+	}, [savedAt]);
+
+	return (
+		<MeSkyProfileEditor
+			{...routeProps}
+			key={routeProps.loaderData.profileRevision}
+			showSuccess={savedAt !== null && savedAt !== expiredSavedAt}
+		/>
+	);
+}
+
+function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfileEditorProps) {
 	const { discordUserId, profile: initialProfile } = loaderData;
 	const navigation = useNavigation();
 	const { i18n, t } = useTranslation();
 	const cdn = useCDN();
 	const availableSeasonIds = [...skySeasons().keys()];
-	const [showSuccess, setShowSuccess] = useState(false);
 	const editor = useSkyProfileEditor({
 		imageInvalidMessage: t("asset-image-invalid", {
 			ns: "general",
 			size: MAXIMUM_ASSET_SIZE / 1_000_000,
 		}),
 		initialProfile,
-		saved: actionData?.ok === true,
 	});
 	const {
 		bannerInputRef,
@@ -219,17 +243,6 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 		actionData?.ok === false ? actionData.errors.catalogueProgression : undefined;
 	const guessRankError = actionData?.ok === false ? actionData.errors.guessRank : undefined;
 
-	useEffect(() => {
-		if (actionData?.ok !== true) {
-			setShowSuccess(false);
-			return;
-		}
-
-		setShowSuccess(true);
-		const timeout = window.setTimeout(() => setShowSuccess(false), 3000);
-		return () => window.clearTimeout(timeout);
-	}, [actionData]);
-
 	const handleSubmit = (event: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
 		if (!hasChanges) {
 			event.preventDefault();
@@ -276,13 +289,13 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 							onBannerUploadClick={() => bannerInputRef.current?.click()}
 							onIconUploadClick={() => iconInputRef.current?.click()}
 						>
-							<div className="flex-1 min-w-0">
+							<div className="min-w-0 flex-1">
 								{previewName ? (
-									<h2 className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold text-black dark:text-white">
+									<h2 className="mb-2 text-2xl font-bold text-black sm:text-3xl lg:text-4xl dark:text-white">
 										{previewName}
 									</h2>
 								) : (
-									<h2 className="mb-2 text-2xl sm:text-3xl lg:text-4xl font-bold italic text-black dark:text-white">
+									<h2 className="mb-2 text-2xl font-bold text-black italic sm:text-3xl lg:text-4xl dark:text-white">
 										No name
 									</h2>
 								)}
@@ -557,13 +570,13 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 															className="h-5 w-5"
 															emoji={SkyProfilePersonalityToEmoji[personality]}
 														/>
-														<span className="text-sm font-semibold leading-tight text-gray-900 dark:text-gray-100">
+														<span className="text-sm leading-tight font-semibold text-gray-900 dark:text-gray-100">
 															{t(`sky-profile.personality-types.${personality}`, {
 																ns: "features",
 															})}
 														</span>
 													</div>
-													<span className="text-[11px] font-medium uppercase text-gray-500 dark:text-gray-400">
+													<span className="text-[11px] font-medium text-gray-500 uppercase dark:text-gray-400">
 														{SkyProfilePersonalityToMBTI[personality]}
 													</span>
 												</div>
@@ -758,7 +771,7 @@ export default function MeSkyProfile({ loaderData, actionData }: Route.Component
 							</div>
 							<div className="flex flex-col gap-3">
 								<p
-									className="my-0 whitespace-pre-wrap text-sm text-gray-600 dark:text-gray-400"
+									className="my-0 text-sm whitespace-pre-wrap text-gray-600 dark:text-gray-400"
 									id="winged-light-description"
 								>
 									{t("sky-profile.edit-winged-light-description", { ns: "features" })}

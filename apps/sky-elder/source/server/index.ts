@@ -57,12 +57,23 @@ app.post("/internal/triggers/on-post-flair-update", postTriggersPostFlairUpdate)
 app.post("/internal/triggers/on-post-submit", postTriggersPostSubmit);
 app.post("/internal/triggers/on-post-update", postTriggersPostUpdate);
 
-const errorRequestHandler: ErrorRequestHandler = (error, _req, res, _next) => {
+const errorRequestHandler: ErrorRequestHandler = (error: unknown, _req, res, _next) => {
 	console.error(error);
 
-	res.status("status" in error ? (error.status as number) : 500).json({
-		message: error.message,
-	});
+	let status = 500;
+	let message = "Internal server error.";
+
+	if (typeof error === "object" && error !== null) {
+		if ("status" in error && typeof error.status === "number") {
+			status = error.status;
+		}
+
+		if ("message" in error && typeof error.message === "string") {
+			message = error.message;
+		}
+	}
+
+	res.status(status).json({ message });
 };
 
 app.use(errorRequestHandler);

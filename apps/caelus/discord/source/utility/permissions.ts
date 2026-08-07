@@ -3,14 +3,13 @@ import {
 	type APIGuildChannel,
 	type APIUserApplicationCommandInteraction,
 	ApplicationIntegrationType,
-	type GuildChannelType,
 	InteractionContextType,
 	MessageFlags,
 	PermissionFlagsBits,
 } from "@discordjs/core";
 import { client } from "../discord.js";
-import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
+import type { Guild, GuildChannel } from "../models/discord/guild.js";
 
 const ALL_PERMISSIONS = Object.values(PermissionFlagsBits).reduce(
 	(bitField, permission) => bitField | permission,
@@ -62,7 +61,7 @@ const computeOverwrites = ({
 	basePermissions: bigint;
 	guild: Guild;
 	member: GuildMember;
-	channel: APIGuildChannel<GuildChannelType>;
+	channel: APIGuildChannel;
 }): bigint => {
 	if (basePermissions & PermissionFlagsBits.Administrator) {
 		return ALL_PERMISSIONS;
@@ -112,7 +111,7 @@ const computePermissions = ({
 }: {
 	guild: Guild;
 	member: GuildMember;
-	channel?: APIGuildChannel<GuildChannelType> | undefined;
+	channel?: APIGuildChannel | undefined;
 }): bigint => {
 	const basePermissions = computeBasePermissions({ guild, member });
 
@@ -132,7 +131,7 @@ export const can = ({
 	permission: bigint;
 	guild: Guild;
 	member: GuildMember;
-	channel?: APIGuildChannel<GuildChannelType>;
+	channel?: APIGuildChannel;
 }): boolean => {
 	const permissions = computePermissions({ guild, member, channel });
 	return (permissions & permission) === permission;
@@ -150,7 +149,7 @@ export function isChannelPublic(guild: Guild, channel: GuildChannel) {
 	}
 
 	const everyoneRoleCanViewChannel =
-		(BigInt(everyoneRole.permissions) & PermissionFlagsBits.ViewChannel) ===
+		(everyoneRole.permissions & PermissionFlagsBits.ViewChannel) ===
 		PermissionFlagsBits.ViewChannel;
 
 	return basePermissionOverwrite

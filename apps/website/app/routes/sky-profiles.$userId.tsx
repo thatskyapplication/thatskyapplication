@@ -1,3 +1,18 @@
+import { captureException } from "@sentry/react-router";
+import { clsx } from "clsx";
+import {
+	BookOpenCheck,
+	ChevronLeftIcon,
+	Edit,
+	Globe,
+	LinkIcon,
+	MapPinIcon,
+	Trophy,
+	Users,
+} from "lucide-react";
+import { type ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { isRouteErrorResponse, Link, useLocation } from "react-router";
 import {
 	CDN,
 	CountryToEmoji,
@@ -17,20 +32,6 @@ import {
 	SkyProfileWingedLightType,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import {
-	BookOpenCheck,
-	ChevronLeftIcon,
-	Edit,
-	Globe,
-	LinkIcon,
-	MapPinIcon,
-	Trophy,
-	Users,
-} from "lucide-react";
-import { type ReactNode, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { isRouteErrorResponse, Link, useLocation } from "react-router";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import { PlatformBadges } from "~/components/PlatformBadges.js";
@@ -64,33 +65,33 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 	if (isRouteErrorResponse(error) && error.status === 404) {
 		return (
 			<CentredSitePage>
-				<div className="text-center max-w-lg">
+				<div className="max-w-lg text-center">
 					<div className="mb-8">
-						<div className="inline-flex items-center justify-center w-24 h-24 bg-linear-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full mb-6 border-4 border-gray-300 dark:border-gray-600">
-							<Users className="w-12 h-12 text-gray-400 dark:text-gray-500" />
+						<div className="mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full border-4 border-gray-300 bg-linear-to-br from-gray-100 to-gray-200 dark:border-gray-600 dark:from-gray-800 dark:to-gray-700">
+							<Users className="h-12 w-12 text-gray-400 dark:text-gray-500" />
 						</div>
-						<h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+						<h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100">
 							Unknown Sky Kid
 						</h1>
-						<p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
+						<p className="mb-2 text-lg text-gray-600 dark:text-gray-300">
 							This Sky kid seems to have flown away... and hit a wall.
 						</p>
 					</div>
 					<div className="space-y-4">
-						<div className="flex flex-col sm:flex-row gap-3 justify-center">
+						<div className="flex flex-col justify-center gap-3 sm:flex-row">
 							<Link
-								className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+								className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700"
 								to="/sky-profiles"
 							>
-								<ChevronLeftIcon className="w-5 h-5" />
+								<ChevronLeftIcon className="h-5 w-5" />
 								Sky Profiles
 							</Link>
 							<Link
-								className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium rounded-lg transition-colors"
+								className="inline-flex items-center justify-center gap-2 rounded-lg bg-gray-200 px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600"
 								to="/sky-profiles/random"
 							>
 								<EmojiIcon
-									className="w-5 h-5"
+									className="h-5 w-5"
 									emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
 									label="Question mark icon"
 								/>
@@ -256,7 +257,7 @@ function RecognitionBadges({ data }: { data: SkyProfileData }) {
 	if (data.translator) {
 		badges.push({
 			label: "Translator",
-			icon: <Globe className="w-4 h-4" />,
+			icon: <Globe className="h-4 w-4" />,
 			description: "This Sky kid helps translate what you see! You can help out on Crowdin!",
 			href: CROWDIN_URL,
 		});
@@ -293,25 +294,36 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 	const location = useLocation();
 	const [copied, setCopied] = useState(false);
 	const { t } = useTranslation();
+	const locationState: unknown = location.state;
+
+	async function copyLink() {
+		try {
+			await navigator.clipboard.writeText(`${window.location.origin}${window.location.pathname}`);
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2000);
+		} catch (error) {
+			captureException(error);
+		}
+	}
 
 	const backURL =
-		typeof location.state === "object" &&
-		location.state !== null &&
-		"returnTo" in location.state &&
-		typeof location.state.returnTo === "string"
-			? location.state.returnTo
+		typeof locationState === "object" &&
+		locationState !== null &&
+		"returnTo" in locationState &&
+		typeof locationState.returnTo === "string"
+			? locationState.returnTo
 			: "/sky-profiles";
 
 	return (
 		<SitePage>
-			<div className="w-full max-w-3xl mx-auto">
+			<div className="mx-auto w-full max-w-3xl">
 				<div className="mb-4">
 					<SkyProfileHeaderCard
 						bannerURL={data.banner ? cdn.skyProfileBannerURL(data.user_id, data.banner) : null}
 						iconURL={data.icon ? cdn.skyProfileIconURL(data.user_id, data.icon) : null}
 						name={data.name}
 					>
-						<div className="flex-1 min-w-0">
+						<div className="min-w-0 flex-1">
 							{data.name ? (
 								<h1 className="mb-2">{data.name}</h1>
 							) : (
@@ -329,7 +341,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						{data.platform && data.platform.length > 0 && (
 							<PlatformBadges className="mt-4 flex flex-wrap gap-2" platforms={data.platform} />
 						)}
-						<h2 className="font-semibold mb-2">
+						<h2 className="mb-2 font-semibold">
 							About Me {data.country && isCountry(data.country) && CountryToEmoji[data.country]}
 						</h2>
 						<div className="mt-4">
@@ -341,11 +353,11 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						</div>
 					</SkyProfileHeaderCard>
 				</div>
-				<div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+				<div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
 					{maximumWingedLight && (
-						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
+						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<EmojiIcon
-								className="w-6 h-6 mr-2"
+								className="mr-2 h-6 w-6"
 								emoji={MISCELLANEOUS_EMOJIS.WingedLight}
 								label="Winged light icon."
 							/>
@@ -366,9 +378,9 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						</div>
 					)}
 					{data.spirit !== null && isSpiritId(data.spirit) ? (
-						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
+						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<EmojiIcon
-								className="w-6 h-6 mr-2"
+								className="mr-2 h-6 w-6"
 								emoji={MISCELLANEOUS_EMOJIS.Heart}
 								label="Favourite spirit icon."
 							/>
@@ -383,9 +395,9 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						</div>
 					) : null}
 					{data.personality !== null && isSkyProfilePersonalityType(data.personality) ? (
-						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
+						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<EmojiIcon
-								className="w-6 h-6 mr-2"
+								className="mr-2 h-6 w-6"
 								emoji={SkyProfilePersonalityToEmoji[data.personality]}
 								label="Personality icon."
 							/>
@@ -404,8 +416,8 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						</div>
 					) : null}
 					{data.hangout && (
-						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
-							<MapPinIcon className="w-6 h-6 mr-2" />
+						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
+							<MapPinIcon className="mr-2 h-6 w-6" />
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
 									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Hangout}`, {
@@ -416,9 +428,9 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							</div>
 						</div>
 					)}
-					{catalogueProgression !== null ? (
-						<div className="group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2 last:odd:md:col-span-2">
-							<BookOpenCheck className="w-6 h-6 mr-2" />
+					{catalogueProgression === null ? null : (
+						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
+							<BookOpenCheck className="mr-2 h-6 w-6" />
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
 									{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
@@ -428,11 +440,11 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								<p className="my-0">{catalogueProgression}%</p>
 							</div>
 						</div>
-					) : null}
+					)}
 				</div>
 				{guessRank ? (
-					<div className="mt-4 group flex items-center bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 shadow-md rounded-lg p-2">
-						<Trophy className="w-6 h-6 mr-2" />
+					<div className="group mt-4 flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md dark:border-gray-600 dark:bg-gray-700">
+						<Trophy className="mr-2 h-6 w-6" />
 						<div className="flex-1">
 							<p className="my-0">
 								{t("sky-profile.guess-rank-spirits", { ns: "features" })}{" "}
@@ -457,12 +469,12 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 				) : null}
 				<div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
 					<SkyProfileActionLink to={backURL} variant="neutral">
-						<ChevronLeftIcon className="w-6 h-6 mr-2 shrink-0" />
+						<ChevronLeftIcon className="mr-2 h-6 w-6 shrink-0" />
 						<span className="truncate">{t("navigation-back", { ns: "general" })}</span>
 					</SkyProfileActionLink>
 					<SkyProfileActionLink to="/sky-profiles/random" variant="neutral">
 						<EmojiIcon
-							className="w-6 h-6 mr-2 shrink-0"
+							className="mr-2 h-6 w-6 shrink-0"
 							emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
 							label="Question mark icon."
 						/>
@@ -470,23 +482,18 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					</SkyProfileActionLink>
 					{isOwner ? (
 						<SkyProfileActionLink to="/me/sky-profile" variant="neutral">
-							<Edit className="w-6 h-6 mr-2 shrink-0" />
+							<Edit className="mr-2 h-6 w-6 shrink-0" />
 							<span className="truncate">Edit</span>
 						</SkyProfileActionLink>
 					) : null}
 					<SkyProfileActionButton
-						onClick={async () => {
-							await navigator.clipboard.writeText(
-								`${window.location.origin}${window.location.pathname}`,
-							);
-
-							setCopied(true);
-							setTimeout(() => setCopied(false), 2000);
+						onClick={() => {
+							void copyLink();
 						}}
 						type="button"
 						variant={copied ? "success" : "neutral"}
 					>
-						<LinkIcon className="w-6 h-6 mr-2 shrink-0" />
+						<LinkIcon className="mr-2 h-6 w-6 shrink-0" />
 						<span className="truncate">{copied ? "Link copied!" : "Share"}</span>
 					</SkyProfileActionButton>
 				</div>

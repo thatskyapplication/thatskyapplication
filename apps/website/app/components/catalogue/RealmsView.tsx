@@ -1,3 +1,8 @@
+import { clsx } from "clsx";
+import { Link2 } from "lucide-react";
+import { Fragment, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import {
 	cataloguePercentage,
 	catalogueProgress,
@@ -6,11 +11,6 @@ import {
 	partitionItemCosts,
 	sumCosts,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import { Link2 } from "lucide-react";
-import { Fragment, useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
 import { realmAnchor } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
@@ -72,7 +72,7 @@ export function RealmsView({
 				<Fragment key={realm.name}>
 					<div
 						className={clsx(
-							"flex flex-col gap-1 scroll-mt-[calc(var(--site-top-bar-height,0)+1rem)]",
+							"flex scroll-mt-[calc(var(--site-top-bar-height,0)+1rem)] flex-col gap-1",
 							index > 0 && "border-t border-gray-200 pt-5 dark:border-gray-700",
 						)}
 						id={realmAnchor(realm.name)}

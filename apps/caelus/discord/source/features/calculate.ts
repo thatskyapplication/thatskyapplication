@@ -7,6 +7,7 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	AreaName,
 	type DoubleSeasonalLightDate,
@@ -29,7 +30,6 @@ import {
 	WINGED_LIGHT_AREAS,
 	WINGED_LIGHT_THRESHOLDS,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { client } from "../discord.js";
 import { ASCENDED_CANDLES_PER_WEEK, DEFAULT_EMBED_COLOUR } from "../utility/constants.js";
 import {
@@ -59,7 +59,7 @@ export async function ascendedCandles(
 		return;
 	}
 
-	if (eyeOfEden === false && shardEruptions === false) {
+	if (!eyeOfEden && !shardEruptions) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
 			content: t("calculate.ascended-candles.no-source", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
@@ -449,7 +449,11 @@ export async function seasonalCandles(
 
 	containerComponents.push({
 		type: ComponentType.TextDisplay,
-		content: `${t("days-left.season", { lng: locale, ns: "general", count: season.end.since(today).total({ unit: "days", relativeTo: today }) - 1 })}`,
+		content: t("days-left.season", {
+			lng: locale,
+			ns: "general",
+			count: season.end.since(today).total({ unit: "days", relativeTo: today }) - 1,
+		}),
 	});
 
 	await client.api.interactions.reply(interaction.id, interaction.token, {
@@ -477,7 +481,6 @@ export async function wingedLight(
 		)}.\n${t("calculate.winged-light.reborn-with", { lng: locale, ns: "features" })} ${resolveCurrencyEmoji(
 			{
 				emoji: MISCELLANEOUS_EMOJIS.WingedLight,
-				// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
 				amount: (accumulation += TopLevelAreaToWingedLight[AreaName.ThePassage]).toLocaleString(
 					locale,
 				),
@@ -492,13 +495,14 @@ export async function wingedLight(
 			area === AreaName.AncientMemory || area === AreaName.WanderingCarnival
 				? t(`areas.${area}`, { lng: locale, ns: "general" })
 				: t(`realms.${area}`, { lng: locale, ns: "general" }),
-		value: `${
-			// biome-ignore lint/suspicious/noAssignInExpressions: This is fine.
-			(accumulation += TopLevelAreaToWingedLight[area])
-		} (+${TopLevelAreaToWingedLight[area]})`,
+		value: `${(accumulation += TopLevelAreaToWingedLight[area])} (+${TopLevelAreaToWingedLight[area]})`,
 	}));
 
-	let totalText = `${resolveCurrencyEmoji({ emoji: MISCELLANEOUS_EMOJIS.WingedLight, amount: accumulation.toLocaleString(locale), includeSpaceInEmoji: true })}`;
+	let totalText = resolveCurrencyEmoji({
+		emoji: MISCELLANEOUS_EMOJIS.WingedLight,
+		amount: accumulation.toLocaleString(locale),
+		includeSpaceInEmoji: true,
+	});
 	const wedge = WINGED_LIGHT_THRESHOLDS.findIndex((threshold) => accumulation < threshold);
 	const wedgeText = [];
 

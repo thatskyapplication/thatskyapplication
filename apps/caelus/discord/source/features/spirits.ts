@@ -12,6 +12,7 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	epochSeconds,
 	formatEmoji,
@@ -29,7 +30,6 @@ import {
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { client } from "../discord.js";
 import { resolveCostToString } from "../utility/catalogue.js";
 import { CustomId } from "../utility/custom-id.js";

@@ -5,8 +5,8 @@ import {
 	type Locale,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
-import { CROWDIN_URL, GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import { CROWDIN_URL, GITHUB_SPONSORS_URL, WEBSITE_URL } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import {
 	APPLICATION_INVITE_URL,

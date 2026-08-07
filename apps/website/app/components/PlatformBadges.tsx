@@ -15,7 +15,7 @@ export function PlatformBadges({
 				.toSorted((a, b) => a - b)
 				.map((platform) => (
 					<div
-						className="bg-gray-200 dark:bg-gray-100 p-2 rounded-full shadow-sm items-center justify-center"
+						className="items-center justify-center rounded-full bg-gray-200 p-2 shadow-sm dark:bg-gray-100"
 						key={platform}
 					>
 						{PlatformToIcon[platform]}

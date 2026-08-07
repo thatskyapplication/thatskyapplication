@@ -12,6 +12,7 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
+import { t } from "i18next";
 import {
 	isRealm,
 	isSeasonId,
@@ -19,7 +20,6 @@ import {
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import {
 	AUTOCOMPLETE_COMMANDS,

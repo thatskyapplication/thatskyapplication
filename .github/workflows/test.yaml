@@ -7,8 +7,8 @@ on:
 permissions:
   contents: read
 jobs:
-  testing:
-    name: Testing
+  validation:
+    name: Validation
     runs-on: ubuntu-latest
     steps:
       - &checkout
@@ -29,21 +29,14 @@ jobs:
       - name: Build dependencies
         run: pnpm run build
 
+      - name: Check code quality
+        run: pnpm run lint:ci
+
       - name: Validate TypeScript
         run: pnpm run test
 
       - name: Run Knip
         run: pnpm run knip
-  style:
-    name: Styling
-    runs-on: ubuntu-latest
-    steps:
-      - *checkout
-
-      - uses: biomejs/setup-biome@v2
-
-      - name: Run Biome
-        run: biome ci --reporter=github
   typographical-errors:
     name: Typographical errors
     runs-on: ubuntu-latest

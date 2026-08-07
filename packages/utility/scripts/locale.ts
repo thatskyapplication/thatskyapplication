@@ -1744,13 +1744,13 @@ function decodeLocalisableString(value: string): string {
 
 function encodeTsStringLiteralValue(value: string): string {
 	return value
-		.replaceAll("\\", "\\\\")
-		.replaceAll('"', '\\"')
-		.replaceAll("\b", "\\b")
-		.replaceAll("\f", "\\f")
-		.replaceAll("\n", "\\n")
-		.replaceAll("\r", "\\r")
-		.replaceAll("\t", "\\t");
+		.replaceAll("\\", String.raw`\\`)
+		.replaceAll('"', String.raw`\"`)
+		.replaceAll("\b", String.raw`\b`)
+		.replaceAll("\f", String.raw`\f`)
+		.replaceAll("\n", String.raw`\n`)
+		.replaceAll("\r", String.raw`\r`)
+		.replaceAll("\t", String.raw`\t`);
 }
 
 function getUpstreamValue(
@@ -1768,16 +1768,17 @@ function getUpstreamValue(
 }
 
 function getAtPath(root: Record<string, unknown>, dotPath: string): unknown {
+	let current = root;
+
 	for (const part of dotPath.split(".")) {
-		if (!(part in root)) {
+		if (!(part in current)) {
 			return undefined;
 		}
 
-		// biome-ignore lint/style/noParameterAssign: Don't care.
-		root = root[part] as Record<string, unknown>;
+		current = current[part] as Record<string, unknown>;
 	}
 
-	return root;
+	return current;
 }
 
 /**
@@ -1785,17 +1786,19 @@ function getAtPath(root: Record<string, unknown>, dotPath: string): unknown {
  */
 function setAtPath(root: Record<string, unknown>, dotPath: string, value: string): void {
 	const parts = dotPath.split(".");
+	let current = root;
 
 	for (let index = 0; index < parts.length - 1; index++) {
-		if (typeof root[parts[index]!] !== "object" || root[parts[index]!] === null) {
-			root[parts[index]!] = {};
+		const part = parts[index]!;
+
+		if (typeof current[part] !== "object" || current[part] === null) {
+			current[part] = {};
 		}
 
-		// biome-ignore lint/style/noParameterAssign: Don't care.
-		root = root[parts[index]!] as Record<string, unknown>;
+		current = current[part] as Record<string, unknown>;
 	}
 
-	root[parts.at(-1)!] = value;
+	current[parts.at(-1)!] = value;
 }
 
 const jsonLocaleCache = new Map<string, Record<string, unknown>>();

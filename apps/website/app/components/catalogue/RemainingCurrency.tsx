@@ -1,5 +1,5 @@
-import type { CostEntry } from "@thatskyapplication/utility";
 import { useTranslation } from "react-i18next";
+import type { CostEntry } from "@thatskyapplication/utility";
 import { CARD_CLASS } from "~/utility/catalogue.js";
 import { CostList } from "./CostList";
 

@@ -3,11 +3,11 @@ import type {
 	APIChatInputApplicationCommandGuildInteraction,
 	APIChatInputApplicationCommandInteraction,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	DailyGuidesDistributionType,
 	type DailyGuidesDistributionTypes,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { client } from "../../discord.js";
 import { dailyGuidesResponse, questAutocomplete, set } from "../../features/daily-guides.js";
 import { SUPPORT_SERVER_GUILD_ID } from "../../utility/configuration.js";

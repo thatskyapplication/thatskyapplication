@@ -14,6 +14,7 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	DELETED_USER_TEXT,
 	DOUBLE_HEART_EVENTS,
@@ -29,7 +30,6 @@ import {
 	TIME_ZONE,
 	totalHearts,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import database from "../database.js";
 import { client } from "../discord.js";
 import {

@@ -4,11 +4,11 @@
 	"type": "module",
 	"scripts": {
 		"build": "cd source/server && vite build",
-		"test": "tsc --build --noEmit",
-		"format": "biome check --write",
-		"lint": "biome check",
 		"dev": "devvit playtest",
-		"login": "devvit login"
+		"format": "oxlint --fix . && oxfmt .",
+		"lint": "oxfmt --check . && oxlint .",
+		"login": "devvit login",
+		"test": "tsc --build --noEmit"
 	},
 	"dependencies": {
 		"@devvit/web": "^0.13.10",

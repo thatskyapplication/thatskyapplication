@@ -1,12 +1,12 @@
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import {
 	cataloguePercentage,
 	catalogueProgress,
 	catalogueSpiritItems,
 	type Spirit,
 } from "@thatskyapplication/utility";
-import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
 import { TREE_COLUMN_CLASS, TREE_COLUMN_LABEL_CLASS } from "~/utility/catalogue.js";
 import { FriendshipTree } from "./FriendshipTree";
 

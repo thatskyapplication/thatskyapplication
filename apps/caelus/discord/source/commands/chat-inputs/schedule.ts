@@ -1,6 +1,6 @@
 import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
-import type { ScheduleTypes } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import type { ScheduleTypes } from "@thatskyapplication/utility";
 import { scheduleDetailedBreakdown, scheduleOverview } from "../../features/schedule.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 

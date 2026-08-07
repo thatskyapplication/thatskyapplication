@@ -42,29 +42,29 @@ export default function ServerDashboard({ loaderData }: Route.ComponentProps) {
 	return (
 		<SitePage>
 			<div className="container mx-auto max-w-7xl">
-				<div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xs p-8">
+				<div className="rounded-xl border border-gray-200 bg-white p-8 shadow-xs dark:border-gray-700 dark:bg-gray-800">
 					<div className="relative overflow-hidden">
 						<div className="relative z-10">
-							<div className="flex items-center justify-between mb-8">
+							<div className="mb-8 flex items-center justify-between">
 								<Link
-									className="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+									className="inline-flex items-center gap-2 text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
 									to="/caelus/dashboard"
 								>
-									<ArrowLeft className="w-4 h-4" />
+									<ArrowLeft className="h-4 w-4" />
 									Back
 								</Link>
 							</div>
 
-							<div className="flex items-center gap-4 mb-8">
+							<div className="mb-8 flex items-center gap-4">
 								{guild.icon ? (
 									<div
 										aria-label={`${guild.name} icon.`}
-										className="w-16 h-16 bg-cover bg-center rounded-full"
+										className="h-16 w-16 rounded-full bg-cover bg-center"
 										role="img"
 										style={{ backgroundImage: `url(${guildIconURL(guild.id, guild.icon)})` }}
 									/>
 								) : (
-									<div className="w-16 h-16 bg-linear-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl border-2 border-gray-200 dark:border-gray-600">
+									<div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-gray-200 bg-linear-to-br from-blue-500 to-purple-600 text-xl font-bold text-white dark:border-gray-600">
 										{guild.name[0]!.toUpperCase()}
 									</div>
 								)}
@@ -75,11 +75,11 @@ export default function ServerDashboard({ loaderData }: Route.ComponentProps) {
 
 							{meInGuild ? null : (
 								<div className="mt-12 flex flex-col items-center justify-center">
-									<p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
+									<p className="mb-6 text-lg text-gray-600 dark:text-gray-400">
 										{APPLICATION_NAME} is not in this server. Why not spread the love?
 									</p>
 									<a
-										className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl transition-shadow"
+										className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-blue-500 to-purple-600 px-6 py-3 text-white shadow-lg transition-shadow hover:shadow-xl"
 										href={INVITE_APPLICATION_URL}
 										rel="noopener noreferrer"
 										target="_blank"

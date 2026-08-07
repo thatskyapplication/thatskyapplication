@@ -28,6 +28,8 @@ import {
 	type Snowflake,
 	TextInputStyle,
 } from "@discordjs/core";
+import { t } from "i18next";
+import { type Kysely, sql } from "kysely";
 import {
 	ANIMATED_HASH_PREFIX,
 	COUNTRY_VALUES,
@@ -71,11 +73,8 @@ import {
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
-	type SkyProfileWingedLightTypes,
 	skySeasons,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
-import { type Kysely, sql } from "kysely";
 import { COMMAND_CACHE } from "../caches/commands.js";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
@@ -2103,7 +2102,7 @@ export async function skyProfileSetWingedLight(
 ) {
 	await skyProfileSet(interaction, {
 		user_id: interactionInvoker(interaction).id,
-		winged_light: Number(interaction.data.values[0]) as SkyProfileWingedLightTypes,
+		winged_light: Number(interaction.data.values[0]),
 	});
 }
 

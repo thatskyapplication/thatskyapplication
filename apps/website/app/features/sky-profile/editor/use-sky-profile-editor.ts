@@ -1,3 +1,5 @@
+import type { ChangeEvent, Dispatch, RefObject, SetStateAction } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
 	COUNTRY_VALUES,
 	type Country,
@@ -7,15 +9,12 @@ import {
 	type SkyProfilePersonalityTypes,
 	type SkyProfileWingedLightTypes,
 } from "@thatskyapplication/utility";
-import type { ChangeEvent, Dispatch, RefObject, SetStateAction } from "react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { hasSkyProfileEditorChanges, toSkyProfileFormProfile } from "./sky-profile-editor.js";
 import type { SkyProfileEditorValue, SkyProfileFormProfile } from "./sky-profile-editor-types.js";
+import { hasSkyProfileEditorChanges, toSkyProfileFormProfile } from "./sky-profile-editor.js";
 
 interface UseSkyProfileEditorOptions {
 	imageInvalidMessage: string;
 	initialProfile: SkyProfileEditorValue;
-	saved: boolean;
 }
 
 interface UseSkyProfileEditorResult {
@@ -79,7 +78,6 @@ function updatePreviewURL(
 export function useSkyProfileEditor({
 	imageInvalidMessage,
 	initialProfile,
-	saved,
 }: UseSkyProfileEditorOptions): UseSkyProfileEditorResult {
 	const [draft, setDraft] = useState(initialProfile);
 	const [hasPendingIconUpload, setHasPendingIconUpload] = useState(false);
@@ -131,28 +129,6 @@ export function useSkyProfileEditor({
 		},
 		[],
 	);
-
-	useEffect(() => {
-		if (!saved) {
-			return;
-		}
-
-		setDraft(initialProfile);
-		if (iconInputRef.current) {
-			iconInputRef.current.value = "";
-		}
-
-		if (bannerInputRef.current) {
-			bannerInputRef.current.value = "";
-		}
-
-		setHasPendingIconUpload(false);
-		setHasPendingBannerUpload(false);
-		setClientIconError(null);
-		setClientBannerError(null);
-		clearPreviewURL(iconPreviewURLRef, setIconPreviewURL);
-		clearPreviewURL(bannerPreviewURLRef, setBannerPreviewURL);
-	}, [initialProfile, saved]);
 
 	const onBannerChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const nextFile = event.currentTarget.files?.[0] ?? null;

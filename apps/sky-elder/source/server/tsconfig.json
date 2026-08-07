@@ -11,7 +11,7 @@
 		"noUnusedParameters": true,
 		"module": "ESNext",
 		"target": "ES2023",
-		"lib": ["ES2023"],
+		"lib": ["ES2023", "ESNext.Temporal"],
 		"outDir": "../../distribution/types/server",
 		"tsBuildInfoFile": "../../distribution/tsconfig.tsbuildinfo",
 		"composite": true,

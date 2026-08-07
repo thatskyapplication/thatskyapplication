@@ -25,6 +25,7 @@ export default wrapSentryHandleRequest(
 	) => {
 		return new Promise((resolve, reject) => {
 			let shellRendered = false;
+			let statusCode = responseStatusCode;
 			const userAgent = request.headers.get("user-agent");
 
 			const readyOption: keyof RenderToPipeableStreamOptions =
@@ -45,18 +46,21 @@ export default wrapSentryHandleRequest(
 						resolve(
 							new Response(stream, {
 								headers: responseHeaders,
-								status: responseStatusCode,
+								status: statusCode,
 							}),
 						);
 
 						pipe(getMetaTagTransformer(body));
 					},
 					onShellError(error: unknown) {
-						reject(error);
+						reject(
+							error instanceof Error
+								? error
+								: new Error("Failed to render the application shell.", { cause: error }),
+						);
 					},
 					onError(error: unknown) {
-						// biome-ignore lint/style/noParameterAssign: This is the default code.
-						responseStatusCode = 500;
+						statusCode = 500;
 
 						if (shellRendered) {
 							console.error(error);

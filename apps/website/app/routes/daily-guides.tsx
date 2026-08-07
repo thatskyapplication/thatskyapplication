@@ -1,3 +1,9 @@
+import { clsx } from "clsx";
+import { AlertTriangle, ArrowRight, ExternalLinkIcon } from "lucide-react";
+import { type JSX, useState } from "react";
+import { useTranslation } from "react-i18next";
+import type { HeadersArgs } from "react-router";
+import { data, Link } from "react-router";
 import {
 	communityUpcomingEvents,
 	type DailyGuidesDaysCountItem,
@@ -11,6 +17,7 @@ import {
 	nextDailyReset,
 	RADIANCE_EVENTS,
 	shardEruption,
+	type ShardEruptionData,
 	skyCurrentSeason,
 	skyNotEndedEvents,
 	skyUpcomingSeason,
@@ -20,12 +27,6 @@ import {
 	treasureCandles,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import { AlertTriangle, ArrowRight, ExternalLinkIcon } from "lucide-react";
-import { type JSX, useState } from "react";
-import { useTranslation } from "react-i18next";
-import type { HeadersArgs } from "react-router";
-import { data, Link } from "react-router";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
 import database from "~/database.server";
@@ -94,7 +95,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
 	const timeZone = await getPreferredTimeZone(request);
 	const initialTimestamp = Date.now();
-	const shard = shardEruption();
+	const shard: ShardEruptionData | null = shardEruption();
 	const cacheMaxAge = dailyGuidesCacheMaxAge(initialTimestamp);
 
 	return data(
@@ -320,7 +321,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								target="_blank"
 							>
 								{name}
-								<ExternalLinkIcon className="w-3 h-3" />
+								<ExternalLinkIcon className="h-3 w-3" />
 							</a>
 							{parts[1]}
 						</span>
@@ -505,19 +506,19 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					selectedInfographic ? "items-start justify-between" : "justify-center",
 				)}
 			>
-				<div className="bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-2xl shadow-2xl p-6 w-full max-w-lg shrink-0">
-					<div className="mb-6 pb-4 border-b-2 border-gray-200 dark:border-gray-700">
-						<h1 className="text-lg font-bold text-gray-900 dark:text-white m-0">{todayString}</h1>
+				<div className="w-full max-w-lg shrink-0 rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-2xl dark:border-gray-700 dark:bg-gray-900">
+					<div className="mb-6 border-b-2 border-gray-200 pb-4 dark:border-gray-700">
+						<h1 className="m-0 text-lg font-bold text-gray-900 dark:text-white">{todayString}</h1>
 					</div>
 					{todayMaintenance.length > 0 && (
-						<div className="mb-5 bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-800 rounded-xl px-4 py-3 flex items-center gap-3">
-							<AlertTriangle className="h-5 w-5 text-amber-600 dark:text-amber-400 shrink-0" />
+						<div className="mb-5 flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40">
+							<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
 							<div>
-								<p className="text-sm font-medium text-amber-800 dark:text-amber-200 m-0">
+								<p className="m-0 text-sm font-medium text-amber-800 dark:text-amber-200">
 									{t("maintenance", { ns: "general" })}
 								</p>
 								{todayMaintenance.length === 1 ? (
-									<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+									<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
 										{t("maintenance-description-singular", {
 											ns: "general",
 											start: new Intl.DateTimeFormat(locale, {
@@ -531,10 +532,10 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 									</p>
 								) : (
 									<>
-										<p className="text-xs text-amber-700 dark:text-amber-300 m-0">
+										<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
 											{t("maintenance-description-many", { ns: "general" })}
 										</p>
-										<ul className="text-xs text-amber-600 dark:text-amber-400 m-0 list-disc ps-4">
+										<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
 											{todayMaintenance.map((maintenance) => (
 												<li key={maintenance.start.epochMilliseconds}>
 													{t("time-range", {
@@ -558,25 +559,25 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					)}
 					{quests.length > 0 && (
 						<div className="mb-5">
-							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
 								{t("daily-guides.quests-heading", { ns: "features" })}
 							</h2>
 							<div className="space-y-2">
 								{quests.map(({ acknowledgement, quest, url }, index) => (
 									<div className="flex items-start gap-3" key={quest}>
-										<span className="text-gray-600 dark:text-gray-400 text-sm font-medium w-4 shrink-0">
+										<span className="w-4 shrink-0 text-sm font-medium text-gray-600 dark:text-gray-400">
 											{index + 1}.
 										</span>
 										{url ? (
 											<button
-												className="regular-link text-sm font-medium transition-colors text-left"
+												className="regular-link text-left text-sm font-medium transition-colors"
 												onClick={() => handleImageClick(url, acknowledgement)}
 												type="button"
 											>
 												{t(`quests.${quest}`, { ns: "general" })}
 											</button>
 										) : (
-											<span className="text-sm text-gray-700 dark:text-gray-300 flex-1">
+											<span className="flex-1 text-sm text-gray-700 dark:text-gray-300">
 												{t(`quests.${quest}`, { ns: "general" })}
 											</span>
 										)}
@@ -587,12 +588,12 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					)}
 					{treasureCandleURLs.length > 0 && (
 						<div className="mb-5">
-							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
 								{t("daily-guides.treasure-candles", { ns: "features" })}
 							</h2>
 							{treasureCandleURLs.length === 1 ? (
 								<button
-									className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+									className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
 									onClick={() => handleImageClick(treasureCandleURLs[0])}
 									type="button"
 								>
@@ -620,13 +621,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					)}
 					{seasonalCandles && (
 						<div className="mb-5">
-							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
 								{t("daily-guides.seasonal-candles", { ns: "features" })}
 							</h2>
 							<div className="space-y-2">
 								{seasonalCandles.url && (
 									<button
-										className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+										className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
 										onClick={() => handleImageClick(seasonalCandles.url)}
 										type="button"
 									>
@@ -657,7 +658,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					)}
 					<div className="mb-5">
 						<div className="mb-3 flex items-center justify-between gap-3">
-							<h2 className="text-sm font-semibold text-gray-900 dark:text-white m-0">
+							<h2 className="m-0 text-sm font-semibold text-gray-900 dark:text-white">
 								{t("daily-guides.shard-eruption", { ns: "features" })}
 							</h2>
 							<Link
@@ -670,13 +671,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 						</div>
 						{shard ? (
 							<div className="space-y-3">
-								<div className="hidden sm:flex items-start justify-between">
+								<div className="hidden items-start justify-between sm:flex">
 									<div>
-										<h3 className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
+										<h3 className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">
 											{t("daily-guides.shard-eruption-data", { ns: "features" })}
 										</h3>
 										<button
-											className="regular-link text-sm font-medium transition-colors block mb-1"
+											className="regular-link mb-1 block text-sm font-medium transition-colors"
 											onClick={() => handleImageClick(shard.url, shard.acknowledgement)}
 											type="button"
 										>
@@ -712,7 +713,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										</div>
 									</div>
 									<div className="text-right">
-										<h3 className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
+										<h3 className="mb-2 text-xs font-medium text-gray-500 dark:text-gray-400">
 											{t("daily-guides.shard-eruption-timestamps", { ns: "features" })}
 										</h3>
 										<div className="space-y-1">
@@ -722,7 +723,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 														className={clsx(
 															"text-xs",
 															end.unix < epochSeconds(now)
-																? "line-through text-gray-400 dark:text-gray-500"
+																? "text-gray-400 line-through dark:text-gray-500"
 																: "text-gray-600 dark:text-gray-300",
 														)}
 													>
@@ -737,9 +738,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										</div>
 									</div>
 								</div>
-								<div className="sm:hidden space-y-2">
+								<div className="space-y-2 sm:hidden">
 									<button
-										className="regular-link text-sm font-medium transition-colors block"
+										className="regular-link block text-sm font-medium transition-colors"
 										onClick={() => handleImageClick(shard.url, shard.acknowledgement)}
 										type="button"
 									>
@@ -778,7 +779,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 													className={clsx(
 														"text-xs",
 														end.unix < epochSeconds(now)
-															? "line-through text-gray-400 dark:text-gray-500"
+															? "text-gray-400 line-through dark:text-gray-500"
 															: "text-gray-600 dark:text-gray-300",
 													)}
 												>
@@ -797,12 +798,12 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					</div>
 					{(travellingRock || travellingRockNotSpawned) && (
 						<div className="mb-5">
-							<h2 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
 								{t("daily-guides.travelling-rock", { ns: "features" })}
 							</h2>
 							{travellingRock ? (
 								<button
-									className="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+									className="rounded-md bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
 									onClick={() =>
 										handleImageClick(
 											cdnAssetURL(cdnURL, `daily_guides/travelling_rocks/${travellingRock}.webp`),
@@ -820,7 +821,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 						</div>
 					)}
 					{daysCount.length > 0 && (
-						<div className="pt-4 border-t-2 border-gray-200 dark:border-gray-700">
+						<div className="border-t-2 border-gray-200 pt-4 dark:border-gray-700">
 							{daysCount.map(({ content, iconURL, key }) => (
 								<div className="mb-1 flex items-center gap-2 last:mb-0" key={key}>
 									{iconURL ? (

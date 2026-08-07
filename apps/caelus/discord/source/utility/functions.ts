@@ -24,9 +24,9 @@ import {
 } from "@discordjs/core";
 import { calculateUserDefaultAvatarIndex } from "@discordjs/rest";
 import { DiscordSnowflake } from "@sapphire/snowflake";
-import { ALLOWED_IMAGE_MEDIA_TYPES, MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { diffJson } from "diff";
 import { t } from "i18next";
+import { ALLOWED_IMAGE_MEDIA_TYPES, MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import type { GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
@@ -40,8 +40,8 @@ export function snowflakeDate(snowflake: Snowflake): Date {
 export function chatInputApplicationCommandMention(
 	id: Snowflake,
 	commandName: string,
-	subcommandName?: string | null | undefined,
-	subcommandGroupName?: string | null | undefined,
+	subcommandName?: string | null,
+	subcommandGroupName?: string | null,
 ) {
 	return `</${commandName}${subcommandGroupName ? ` ${subcommandGroupName}` : ""}${
 		subcommandName ? ` ${subcommandName}` : ""
@@ -283,7 +283,7 @@ export function skyProfileWebsiteURL<UserId extends Snowflake>(
 }
 
 export function escapeMarkdown(text: string) {
-	return text.replace(MARKDOWN_ESCAPE_REGEX, "\\$&");
+	return text.replace(MARKDOWN_ESCAPE_REGEX, String.raw`\$&`);
 }
 
 export function formatArrayErrors(errors: readonly string[]) {

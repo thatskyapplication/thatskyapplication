@@ -257,25 +257,25 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 
 	return (
 		<CentredSitePage>
-			<div className="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg rounded-lg p-8 w-full max-w-md">
+			<div className="w-full max-w-md rounded-lg border border-gray-200 bg-gray-100 p-8 shadow-lg dark:border-gray-700 dark:bg-gray-900">
 				<h1 className="text-center">Crowdin authorisation</h1>
 				{error && (
-					<div className="bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-sm mb-4">
+					<div className="mb-4 rounded-sm border border-red-300 bg-red-100 px-4 py-3 text-red-700 dark:border-red-700 dark:bg-red-900/20 dark:text-red-400">
 						<p className="text-sm">{error}</p>
 					</div>
 				)}
 				{success ? (
 					<div className="text-center">
-						<CheckCircleIcon className="w-16 h-16 text-green-500 mx-auto mb-4" />
-						<h2 className="text-xl font-semibold text-green-600 dark:text-green-400 mb-4">
+						<CheckCircleIcon className="mx-auto mb-4 h-16 w-16 text-green-500" />
+						<h2 className="mb-4 text-xl font-semibold text-green-600 dark:text-green-400">
 							Success!
 						</h2>
-						<p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+						<p className="mb-6 text-sm text-gray-600 dark:text-gray-400">
 							You have successfully linked your Crowdin and Discord accounts. You have obtained the
 							translator role and your translating skills have improved by at least 1%. Promise.
 						</p>
-						<div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-							<h3 className="font-medium text-sm text-gray-700 dark:text-gray-300 mb-2">
+						<div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+							<h3 className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
 								Crowdin account
 							</h3>
 							<p className="text-sm text-gray-600 dark:text-gray-400">{crowdinUser!.username}</p>
@@ -283,7 +283,7 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 					</div>
 				) : (
 					<div className="space-y-4">
-						<p className="text-center text-gray-600 dark:text-gray-400 text-sm mb-6">
+						<p className="mb-6 text-center text-sm text-gray-600 dark:text-gray-400">
 							Hey translators! This will allow us to easily identify our kind in the{" "}
 							<a
 								className="regular-link inline-flex items-center transition duration-200"
@@ -292,15 +292,15 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 								target="_blank"
 							>
 								support server
-								<ExternalLinkIcon className="ml-1 w-4 h-4" />
+								<ExternalLinkIcon className="ml-1 h-4 w-4" />
 							</a>
 							!
 						</p>
 						{crowdinUser ? (
-							<div className="border border-green-300 bg-green-50 dark:bg-green-900/20 dark:border-green-700 rounded-lg p-4">
-								<div className="flex items-center justify-between mb-2">
-									<h3 className="font-medium text-sm">Crowdin</h3>
-									<CheckCircleIcon className="w-5 h-5 text-green-500" />
+							<div className="rounded-lg border border-green-300 bg-green-50 p-4 dark:border-green-700 dark:bg-green-900/20">
+								<div className="mb-2 flex items-center justify-between">
+									<h3 className="text-sm font-medium">Crowdin</h3>
+									<CheckCircleIcon className="h-5 w-5 text-green-500" />
 								</div>
 								<p className="text-sm text-green-600 dark:text-green-400">
 									✓ Authorised as {crowdinUser.username}
@@ -309,13 +309,13 @@ export default function CrowdinDiscord({ loaderData }: Route.ComponentProps) {
 						) : (
 							<Form method="post">
 								<button
-									className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-md transition duration-200 flex items-center justify-center"
+									className="flex w-full items-center justify-center rounded-md bg-orange-500 px-4 py-2 font-medium text-white transition duration-200 hover:bg-orange-600"
 									name="action"
 									type="submit"
 									value="authorise_crowdin"
 								>
 									Authorise Crowdin
-									<ExternalLinkIcon className="w-4 h-4 ml-2" />
+									<ExternalLinkIcon className="ml-2 h-4 w-4" />
 								</button>
 							</Form>
 						)}

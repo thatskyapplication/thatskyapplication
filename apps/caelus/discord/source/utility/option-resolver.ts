@@ -75,7 +75,7 @@ function isBasicOption(option: InteractionOption): option is InteractionBasicOpt
 function isFocusedOption(option: InteractionBasicOption): option is FocusedOption {
 	return (
 		"focused" in option &&
-		option.focused === true &&
+		option.focused &&
 		(option.type === ApplicationCommandOptionType.String ||
 			option.type === ApplicationCommandOptionType.Integer ||
 			option.type === ApplicationCommandOptionType.Number)

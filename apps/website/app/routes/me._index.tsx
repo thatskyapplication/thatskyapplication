@@ -35,7 +35,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 
 				<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 					<Link
-						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-4 flex items-center gap-4 w-full sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+						className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 shadow-md transition-transform duration-200 hover:bg-gray-100/50 hover:shadow-lg sm:hover:translate-y-0 lg:hover:-translate-y-2 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 						to="/me/sky-profile"
 					>
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
@@ -47,7 +47,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 					</Link>
 
 					<Link
-						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-4 flex items-center gap-4 w-full sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+						className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 shadow-md transition-transform duration-200 hover:bg-gray-100/50 hover:shadow-lg sm:hover:translate-y-0 lg:hover:-translate-y-2 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 						to="/me/checklist"
 					>
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
@@ -59,7 +59,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 					</Link>
 
 					<Link
-						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-4 flex items-center gap-4 w-full sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+						className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 shadow-md transition-transform duration-200 hover:bg-gray-100/50 hover:shadow-lg sm:hover:translate-y-0 lg:hover:-translate-y-2 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 						to="/me/heart-history"
 					>
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
@@ -71,7 +71,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 					</Link>
 
 					<Link
-						className="bg-gray-100 dark:bg-gray-900 hover:bg-gray-100/50 dark:hover:bg-gray-900/50 rounded-lg shadow-md hover:shadow-lg p-4 flex items-center gap-4 w-full sm:hover:translate-y-0 lg:hover:-translate-y-2 transition-transform duration-200"
+						className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 shadow-md transition-transform duration-200 hover:bg-gray-100/50 hover:shadow-lg sm:hover:translate-y-0 lg:hover:-translate-y-2 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 						to="/me/catalogue"
 					>
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
@@ -82,7 +82,7 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						</h2>
 					</Link>
 
-					<div className="bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md p-4 flex items-center gap-4 w-full text-gray-600 dark:text-gray-400">
+					<div className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 text-gray-600 shadow-md dark:bg-gray-900 dark:text-gray-400">
 						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800">
 							<Ellipsis className="h-5 w-5" />
 						</div>

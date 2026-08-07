@@ -1,3 +1,6 @@
+import { clsx } from "clsx";
+import { type CSSProperties, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import {
 	ASSET_SIZE,
 	type Emoji,
@@ -17,9 +20,6 @@ import {
 	type SeasonIds,
 	sumCosts,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import { type CSSProperties, useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { useItemOwnership } from "~/hooks/use-item-ownership.js";
 import {
@@ -209,7 +209,7 @@ function TreeNode({
 						</div>
 					) : null}
 					<span
-						className="absolute whitespace-nowrap font-medium text-white leading-none"
+						className="absolute leading-none font-medium whitespace-nowrap text-white"
 						style={textStyle(node.cost.textX, node.cost.textBaselineY, height, node.cost.leftNode)}
 					>
 						{cost.text}
@@ -219,7 +219,7 @@ function TreeNode({
 
 			{node.level ? (
 				<span
-					className="absolute whitespace-nowrap font-medium text-white/80 leading-none"
+					className="absolute leading-none font-medium whitespace-nowrap text-white/80"
 					style={textStyle(node.level.x, node.level.baselineY, height)}
 				>
 					Lv{node.level.value}

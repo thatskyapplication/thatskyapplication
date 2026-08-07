@@ -14,6 +14,7 @@
 		"verbatimModuleSyntax": true,
 		"newLine": "lf",
 		"outDir": "distribution",
+		"rootDir": "source",
 		"lib": ["ESNext", "DOM"],
 		"target": "ESNext",
 		"types": ["node"]

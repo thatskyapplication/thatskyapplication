@@ -1,7 +1,7 @@
-import type { Emoji } from "@thatskyapplication/utility";
 import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import type { Emoji } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { LINK_CARD_CLASS } from "~/utility/catalogue.js";
 import { ProgressBar } from "./ProgressBar";

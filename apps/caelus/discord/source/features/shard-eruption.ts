@@ -14,8 +14,8 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "@discordjs/core";
-import { shardEruption, skyNow, skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import { shardEruption, skyNow, skyToday, TIME_ZONE } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";

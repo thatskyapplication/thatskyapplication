@@ -6,17 +6,17 @@ injectWorkspacePackages: true
 syncInjectedDepsAfterScripts:
   - build
 allowBuilds:
-  '@sentry/cli': true
+  "@sentry/cli": true
   esbuild: true
   protobufjs: true
   sharp: true
 peerDependencyRules:
   allowedVersions:
-    '@hono/node-ws@1.3.1>@hono/node-server': ^2.0.6
+    "@hono/node-ws@1.3.1>@hono/node-server": ^2.0.6
 minimumReleaseAgeExclude:
   - "@discordjs/collection"
   - "@discordjs/core"
   - "@discordjs/rest"
   - "@discordjs/util"
   - "@discordjs/ws"
-  - '@types/node@26.1.1'
+  - "@types/node@26.1.1"

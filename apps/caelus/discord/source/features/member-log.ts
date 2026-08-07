@@ -7,8 +7,8 @@ import {
 } from "@discordjs/core";
 import { DiscordSnowflake } from "@sapphire/snowflake";
 import { client } from "../discord.js";
-import type { Guild } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
+import type { Guild } from "../models/discord/guild.js";
 import { MEMBER_LOG_CHANNEL_ID } from "../utility/configuration.js";
 import { avatarURL, skyProfileWebsiteURL, userTag } from "../utility/functions.js";
 import { can } from "../utility/permissions.js";

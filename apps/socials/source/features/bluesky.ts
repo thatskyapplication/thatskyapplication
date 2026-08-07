@@ -9,9 +9,9 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { CommitType, EventType, Jetstream } from "@skyware/jetstream";
-import { formatEmoji, WEBSITE_URL } from "@thatskyapplication/utility";
+import { type CommitEvent, CommitType, EventType, Jetstream } from "@skyware/jetstream";
 import ws from "ws";
+import { formatEmoji, WEBSITE_URL } from "@thatskyapplication/utility";
 import database from "../database.js";
 import { discord } from "../discord.js";
 import { WebhookExecuteError } from "../models/webbook-execute-error.js";
@@ -32,7 +32,7 @@ export const jetstream = new Jetstream({
 	wantedDids: ["did:plc:rkfwolx4jqhwkrzodefz7xoq"],
 });
 
-jetstream.on(EventType.Commit, async (event) => {
+async function handleCommit(event: CommitEvent<"app.bsky.feed.post">) {
 	if (event.commit.operation === CommitType.Create) {
 		if (event.commit.record.reply) {
 			// Ignore replies.
@@ -161,7 +161,9 @@ jetstream.on(EventType.Commit, async (event) => {
 					wait: true,
 					with_components: true,
 				})
-				.catch((error) => Promise.reject(new WebhookExecuteError(blueskyWebhooksPacket, error))),
+				.catch((error: unknown) => {
+					throw new WebhookExecuteError(blueskyWebhooksPacket, error);
+				}),
 		);
 
 		const settled = await Promise.allSettled(promises);
@@ -189,11 +191,17 @@ jetstream.on(EventType.Commit, async (event) => {
 
 		if (errors.length > 0) {
 			pino.error(
-				{ event, error: new AggregateError(errors, "Failed to execute webooks.") },
+				{ event, err: new AggregateError(errors, "Failed to execute webooks.") },
 				"Failed to execute webhooks.",
 			);
 		}
 	}
+}
+
+jetstream.on(EventType.Commit, (event) => {
+	void handleCommit(event).catch((error: unknown) => {
+		pino.error({ err: error, event }, "Failed to handle Bluesky commit event.");
+	});
 });
 
 jetstream.on("error", (error) => pino.error(error, "Jetstream error."));

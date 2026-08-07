@@ -1,5 +1,5 @@
-import { TIME_ZONE } from "@thatskyapplication/utility";
 import { parseCookie } from "cookie";
+import { TIME_ZONE } from "@thatskyapplication/utility";
 import { isValidTimeZone, TIME_ZONE_COOKIE_NAME } from "~/utility/time-zone";
 
 export async function getPreferredTimeZone(request: Request) {

@@ -14,8 +14,8 @@ import {
 	TextInputStyle,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
-import { formatEmoji, MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { t } from "i18next";
+import { formatEmoji, MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { SUPPORT_SERVER_INVITE_URL } from "../utility/configuration.js";
 import { CustomId } from "../utility/custom-id.js";

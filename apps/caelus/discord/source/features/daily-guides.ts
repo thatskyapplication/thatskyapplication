@@ -29,6 +29,8 @@ import {
 	type Snowflake,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
+import { t } from "i18next";
+import pQueue from "p-queue";
 import {
 	communityUpcomingEvents,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
@@ -62,13 +64,11 @@ import {
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
-import pQueue from "p-queue";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
 import { client } from "../discord.js";
-import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
+import type { Guild, GuildChannel } from "../models/discord/guild.js";
 import type { AnnouncementThread, PrivateThread, PublicThread } from "../models/discord/thread.js";
 import pino from "../pino.js";
 import S3Client from "../s3-client.js";
@@ -629,7 +629,7 @@ async function send({ guildId, type, channelId, messageId, enforceNonce }: Daily
 		);
 	}
 
-	const channel = guild.channels.get(channelId!) ?? guild.threads.get(channelId!);
+	const channel = guild.channels.get(channelId) ?? guild.threads.get(channelId);
 
 	if (!channel) {
 		throw new Error(
@@ -657,11 +657,11 @@ async function send({ guildId, type, channelId, messageId, enforceNonce }: Daily
 
 	// Update the embed if a message exists.
 	if (messageId) {
-		return client.api.channels.editMessage(channelId!, messageId, { components });
+		return client.api.channels.editMessage(channelId, messageId, { components });
 	}
 
 	// There is no existing message. Send one.
-	const { id } = await client.api.channels.createMessage(channelId!, {
+	const { id } = await client.api.channels.createMessage(channelId, {
 		components,
 		enforce_nonce: enforceNonce,
 		flags: MessageFlags.IsComponentsV2,
@@ -1361,7 +1361,7 @@ async function distributeLogic({
 			continue;
 		}
 
-		const { reason } = result;
+		const reason: unknown = result.reason;
 
 		if (
 			// Our own errors thrown.
@@ -1375,7 +1375,7 @@ async function distributeLogic({
 			continue;
 		}
 
-		errors.push(result.reason);
+		errors.push(reason);
 	}
 
 	if (errors.length > 0) {

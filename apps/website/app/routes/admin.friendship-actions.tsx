@@ -2,16 +2,16 @@ import { Buffer } from "node:buffer";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import type { Snowflake } from "@discordjs/core/http-only";
 import { DiscordAPIError } from "@discordjs/rest";
+import { clsx } from "clsx";
+import { ArrowLeft, Check, ExternalLinkIcon, Upload } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { data, Form, Link, useNavigation } from "react-router";
 import {
 	CDN,
 	FriendshipActionType,
 	type FriendshipActionTypes,
 	isFriendshipActionType,
 } from "@thatskyapplication/utility";
-import { clsx } from "clsx";
-import { ArrowLeft, Check, ExternalLinkIcon, Upload } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { data, Form, Link, useNavigation } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import Select from "~/components/Select";
 import { CDN_BUCKET, CDN_URL, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
@@ -67,7 +67,7 @@ interface SuccessfulUpload {
 
 function fieldClass(hasError: boolean) {
 	return clsx(
-		"w-full rounded-lg border bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition-colors",
+		"w-full rounded-lg border bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm transition-colors outline-none",
 		"disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500",
 		"dark:bg-gray-800 dark:text-gray-100 dark:disabled:border-gray-700 dark:disabled:bg-gray-900 dark:disabled:text-gray-500",
 		hasError
@@ -334,6 +334,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 	useEffect(() => {
 		if (actionData?.ok) {
 			formRef.current?.reset();
+			// oxlint-disable-next-line react/react-compiler -- Reset controlled fields after a confirmed successful submission.
 			setAssetFileName("");
 			if (assetPreviewURLRef.current) {
 				URL.revokeObjectURL(assetPreviewURLRef.current);
@@ -442,7 +443,6 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 								<div className="flex justify-center">
 									<button
 										aria-describedby={errors.asset ? "asset-error" : undefined}
-										aria-invalid={errors.asset ? true : undefined}
 										className={clsx(
 											"flex aspect-square w-full max-w-64 cursor-pointer flex-col items-center justify-center gap-3 overflow-hidden rounded-lg border text-center shadow-sm transition-colors",
 											errors.asset
@@ -541,7 +541,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 
 					<div className="mt-1 flex flex-col gap-2.5">
 						<button
-							className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm border border-gray-300 bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-colors duration-300 hover:bg-green-700 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 disabled:shadow-md dark:border-gray-600 sm:w-fit"
+							className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm border border-gray-300 bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-colors duration-300 hover:bg-green-700 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 disabled:shadow-md sm:w-fit dark:border-gray-600"
 							disabled={isSaving || !canSubmit}
 							type="submit"
 						>

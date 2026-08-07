@@ -1,6 +1,7 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import type { Snowflake } from "@discordjs/core";
 import {
+	type Emoji,
 	type EventIds,
 	friendshipTreeToItems,
 	type SpiritIds,
@@ -39,8 +40,8 @@ const emojisToSkip = new Set<Snowflake>([
 ]);
 
 for (const [key, { id }] of [
-	...Object.entries(MISCELLANEOUS_EMOJIS),
-	...Object.entries(SEASON_EMOJIS),
+	...Object.entries<Emoji>(MISCELLANEOUS_EMOJIS),
+	...Object.entries<Emoji>(SEASON_EMOJIS),
 ]) {
 	if (key.includes("Heart")) {
 		emojisToSkip.add(id);

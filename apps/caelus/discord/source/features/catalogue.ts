@@ -17,6 +17,7 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	CLOTHING_SHOP,
 	type CostEntry,
@@ -56,7 +57,6 @@ import {
 	spirits,
 	sumCosts,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import database from "../database.js";
 import { client } from "../discord.js";
 import {
@@ -137,7 +137,7 @@ function progress(locale: Locale, offer: readonly Item[], data: ReadonlySet<numb
 	const resolvedRemainingCurrency = resolveCostToString(sumCosts(remainingCosts), locale);
 
 	if (resolvedRemainingCurrency.length > 0) {
-		offerDescription.push(`${resolvedRemainingCurrency.join("")}`);
+		offerDescription.push(resolvedRemainingCurrency.join(""));
 	}
 
 	return { remainingCosts, offerDescription };

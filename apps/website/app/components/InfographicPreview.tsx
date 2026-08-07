@@ -91,9 +91,7 @@ export function InfographicPreview({
 }: InfographicPreviewProps) {
 	const [isDesktop, setIsDesktop] = useState(isDesktopViewport);
 	const modalCloseButtonRef = useRef<HTMLButtonElement>(null);
-	const onCloseRef = useRef(onClose);
 	const previousFocusedElementRef = useRef<HTMLElement | null>(null);
-	onCloseRef.current = onClose;
 	const useModal = desktop === "modal" || !isDesktop;
 
 	useEffect(() => {
@@ -132,7 +130,7 @@ export function InfographicPreview({
 		const handleEscape = (event: KeyboardEvent) => {
 			if (event.key === "Escape") {
 				restorePreviousFocus();
-				onCloseRef.current();
+				onClose();
 			}
 		};
 
@@ -141,12 +139,12 @@ export function InfographicPreview({
 		return () => {
 			document.removeEventListener("keydown", handleEscape);
 		};
-	}, [restorePreviousFocus, useModal]);
+	}, [onClose, restorePreviousFocus, useModal]);
 
 	const { context, refs } = useFloating({
 		onOpenChange: (open) => {
 			if (!open) {
-				onCloseRef.current();
+				onClose();
 			}
 		},
 		open: useModal,
@@ -156,6 +154,7 @@ export function InfographicPreview({
 	const role = useRole(context, { enabled: useModal, role: "dialog" });
 	const { getFloatingProps } = useInteractions([dismiss, role]);
 
+	/* oxlint-disable react/react-compiler -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
 	const modal = (
 		<FloatingOverlay
 			className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/70 p-4 backdrop-blur-sm sm:p-6"
@@ -166,7 +165,7 @@ export function InfographicPreview({
 					{...getFloatingProps()}
 					aria-label={title}
 					aria-modal="true"
-					className="relative z-10 flex h-[calc(100vh_-_2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-900 sm:h-[calc(100vh_-_3rem)]"
+					className="relative z-10 flex h-[calc(100vh_-_2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl sm:h-[calc(100vh_-_3rem)] dark:border-gray-700 dark:bg-gray-900"
 					ref={refs.setFloating}
 					role="dialog"
 				>
@@ -181,6 +180,7 @@ export function InfographicPreview({
 			</FloatingFocusManager>
 		</FloatingOverlay>
 	);
+	/* oxlint-enable react/react-compiler */
 
 	if (useModal) {
 		return modal;
@@ -189,7 +189,7 @@ export function InfographicPreview({
 	return (
 		<aside
 			aria-label={title}
-			className="sticky top-[calc(var(--site-top-bar-height,0px)_+_1rem)] hidden max-h-[calc(100vh_-_var(--site-top-bar-height,0px)_-_2rem)] w-[min(42vw,40rem)] shrink-0 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl dark:border-gray-700 dark:bg-gray-900 lg:flex"
+			className="sticky top-[calc(var(--site-top-bar-height,0px)_+_1rem)] hidden max-h-[calc(100vh_-_var(--site-top-bar-height,0px)_-_2rem)] w-[min(42vw,40rem)] shrink-0 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl lg:flex dark:border-gray-700 dark:bg-gray-900"
 		>
 			<InfographicPreviewContent
 				acknowledgement={acknowledgement}

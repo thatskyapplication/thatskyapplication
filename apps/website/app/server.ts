@@ -1,7 +1,7 @@
-import { MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { bodyLimit } from "hono/body-limit";
 import { secureHeaders } from "hono/secure-headers";
 import { createHonoServer } from "react-router-hono-server/node";
+import { MAXIMUM_ASSET_SIZE } from "@thatskyapplication/utility";
 import { PRODUCTION } from "./config.server";
 import pino from "./pino";
 

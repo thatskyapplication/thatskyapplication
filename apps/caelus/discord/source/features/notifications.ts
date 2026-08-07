@@ -15,6 +15,7 @@ import {
 	SeparatorSpacingSize,
 	type Snowflake,
 } from "@discordjs/core";
+import { t } from "i18next";
 import {
 	formatEmoji,
 	NOTIFICATION_TYPE_VALUES,
@@ -22,12 +23,11 @@ import {
 	type NotificationTypes,
 	type Packet,
 } from "@thatskyapplication/utility";
-import { t } from "i18next";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
 import { client } from "../discord.js";
-import type { Guild } from "../models/discord/guild.js";
 import type { GuildMember } from "../models/discord/guild-member.js";
+import type { Guild } from "../models/discord/guild.js";
 import type { Role } from "../models/discord/role.js";
 import pino from "../pino.js";
 import { NOTIFICATION_CHANNEL_TYPES } from "../utility/constants.js";
@@ -646,8 +646,8 @@ function isSendable(
 
 	return Boolean(
 		channel &&
-			isNotificationChannel(channel) &&
-			role &&
-			isNotificationSendable(guild, channel, role, me),
+		isNotificationChannel(channel) &&
+		role &&
+		isNotificationSendable(guild, channel, role, me),
 	);
 }

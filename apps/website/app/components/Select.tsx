@@ -142,7 +142,7 @@ export default function Select({
 	return (
 		<div className="flex flex-col gap-1">
 			{label && (
-				<label className="font-semibold text-sm text-text-tertiary" htmlFor={id}>
+				<label className="text-text-tertiary text-sm font-semibold" htmlFor={id}>
 					{label}
 				</label>
 			)}
