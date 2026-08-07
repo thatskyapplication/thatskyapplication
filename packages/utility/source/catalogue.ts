@@ -329,27 +329,21 @@ export function catalogueSearch(
 		return [];
 	}
 
-	const matches: { entry: CatalogueSearchEntry; rank: number }[] = [];
+	const prefixMatches: CatalogueSearchEntry[] = [];
+	const nameMatches: CatalogueSearchEntry[] = [];
+	const keywordMatches: CatalogueSearchEntry[] = [];
 
 	for (const entry of entries) {
 		const name = entry.name.toUpperCase();
-		let rank: number;
 
 		if (name.startsWith(normalisedQuery)) {
-			rank = 0;
+			prefixMatches.push(entry);
 		} else if (name.includes(normalisedQuery)) {
-			rank = 1;
+			nameMatches.push(entry);
 		} else if (entry.keywords.some((keyword) => keyword.toUpperCase().includes(normalisedQuery))) {
-			rank = 2;
-		} else {
-			continue;
+			keywordMatches.push(entry);
 		}
-
-		matches.push({ entry, rank });
 	}
 
-	return matches
-		.sort((a, b) => a.rank - b.rank)
-		.slice(0, limit)
-		.map(({ entry }) => entry);
+	return [...prefixMatches, ...nameMatches, ...keywordMatches].slice(0, limit);
 }
