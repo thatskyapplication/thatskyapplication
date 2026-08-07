@@ -7,7 +7,12 @@ import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
-import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
+import {
+	friendshipTreeToItems,
+	type Item,
+	type ItemCost,
+	type ItemWithoutChildren,
+} from "./utility/spirits.js";
 
 const starterPackItems = resolveOfferFromItems([
 	{
@@ -273,17 +278,48 @@ export enum CatalogueSearchType {
 	Season = 0,
 	Event = 1,
 	Spirit = 2,
+	Collection = 3,
+}
+
+export enum CatalogueCollection {
+	StarterPacks = 0,
+	SecretArea = 1,
+	ClothingShop = 2,
+	NestingWorkshop = 3,
 }
 
 export type CatalogueSearchTarget =
 	| { readonly type: CatalogueSearchType.Season; readonly season: Season }
 	| { readonly type: CatalogueSearchType.Event; readonly event: Event }
-	| { readonly type: CatalogueSearchType.Spirit; readonly spirit: Spirit };
+	| { readonly type: CatalogueSearchType.Spirit; readonly spirit: Spirit }
+	| { readonly type: CatalogueSearchType.Collection; readonly collection: CatalogueCollection };
 
 export interface CatalogueSearchEntry {
 	readonly name: string;
 	readonly keywords: readonly string[];
+	readonly cosmeticDisplay: Cosmetic | null;
 	readonly target: CatalogueSearchTarget;
+}
+
+function inAppPurchaseEntries(
+	items: Iterable<ItemWithoutChildren | Item>,
+	target: CatalogueSearchTarget,
+	resolveName: (key: string) => string,
+): CatalogueSearchEntry[] {
+	const entries: CatalogueSearchEntry[] = [];
+
+	for (const { cost, cosmeticDisplay, translation } of items) {
+		if (cost?.money !== undefined) {
+			entries.push({
+				name: resolveName(translation.key),
+				keywords: [],
+				cosmeticDisplay,
+				target,
+			});
+		}
+	}
+
+	return entries;
 }
 
 export function catalogueSearchEntries(
@@ -291,28 +327,55 @@ export function catalogueSearchEntries(
 ): readonly CatalogueSearchEntry[] {
 	const entries: CatalogueSearchEntry[] = [];
 
-	for (const season of skySeasons().values()) {
+	for (const season of skySeasons().toReversed().values()) {
+		const target = { type: CatalogueSearchType.Season, season } as const;
 		entries.push({
 			name: resolveName(`seasons.${season.id}`),
 			keywords: [],
-			target: { type: CatalogueSearchType.Season, season },
+			cosmeticDisplay: null,
+			target,
 		});
+		entries.push(...inAppPurchaseEntries(season.items, target, resolveName));
 	}
 
-	for (const event of skyEvents().values()) {
+	for (const event of skyEvents().toReversed().values()) {
+		const target = { type: CatalogueSearchType.Event, event } as const;
 		entries.push({
 			name: resolveName(event.name),
 			keywords: [],
-			target: { type: CatalogueSearchType.Event, event },
+			cosmeticDisplay: null,
+			target,
 		});
+		entries.push(...inAppPurchaseEntries(event.offer, target, resolveName));
 	}
 
 	for (const spirit of spirits().values()) {
+		const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
+
 		entries.push({
 			name: resolveName(`spirits.${spirit.id}`),
-			keywords: spirit.keywords,
+			keywords: [
+				...spirit.keywords,
+				resolveName(seasonal ? `seasons.${spirit.seasonId}` : `realms.${spirit.realm}`),
+			],
+			cosmeticDisplay: null,
 			target: { type: CatalogueSearchType.Spirit, spirit },
 		});
+	}
+
+	for (const [collection, { items }] of [
+		[CatalogueCollection.StarterPacks, STARTER_PACKS],
+		[CatalogueCollection.SecretArea, SECRET_AREA],
+		[CatalogueCollection.ClothingShop, CLOTHING_SHOP],
+		[CatalogueCollection.NestingWorkshop, NESTING_WORKSHOP],
+	] as const) {
+		entries.push(
+			...inAppPurchaseEntries(
+				items,
+				{ type: CatalogueSearchType.Collection, collection },
+				resolveName,
+			),
+		);
 	}
 
 	return entries;
@@ -329,6 +392,7 @@ export function catalogueSearch(
 		return [];
 	}
 
+	const exactMatches: CatalogueSearchEntry[] = [];
 	const prefixMatches: CatalogueSearchEntry[] = [];
 	const nameMatches: CatalogueSearchEntry[] = [];
 	const keywordMatches: CatalogueSearchEntry[] = [];
@@ -336,7 +400,9 @@ export function catalogueSearch(
 	for (const entry of entries) {
 		const name = entry.name.toUpperCase();
 
-		if (name.startsWith(normalisedQuery)) {
+		if (name === normalisedQuery) {
+			exactMatches.push(entry);
+		} else if (name.startsWith(normalisedQuery)) {
 			prefixMatches.push(entry);
 		} else if (name.includes(normalisedQuery)) {
 			nameMatches.push(entry);
@@ -345,5 +411,5 @@ export function catalogueSearch(
 		}
 	}
 
-	return [...prefixMatches, ...nameMatches, ...keywordMatches].slice(0, limit);
+	return [...exactMatches, ...prefixMatches, ...nameMatches, ...keywordMatches].slice(0, limit);
 }

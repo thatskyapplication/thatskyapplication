@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import {
+	CatalogueCollection,
 	type CatalogueSearchEntry,
 	type CatalogueSearchTarget,
 	catalogueSearch,
@@ -13,7 +14,32 @@ import {
 	CatalogueSearchType,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
-import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import {
+	CosmeticToEmoji,
+	EventIdToEventTicketEmoji,
+	SeasonIdToSeasonalEmoji,
+} from "~/utility/emojis.js";
+
+const CATALOGUE_COLLECTIONS = {
+	[CatalogueCollection.StarterPacks]: {
+		view: "starter-packs",
+		translationKey: "catalogue.starter-packs",
+	},
+	[CatalogueCollection.SecretArea]: {
+		view: "secret-area",
+		translationKey: "catalogue.secret-area",
+	},
+	[CatalogueCollection.ClothingShop]: {
+		view: "clothing-shop",
+		translationKey: "catalogue.clothing-shop",
+	},
+	[CatalogueCollection.NestingWorkshop]: {
+		view: "nesting-workshop",
+		translationKey: "catalogue.nesting-workshop",
+	},
+} as const satisfies Readonly<
+	Record<CatalogueCollection, { view: string; translationKey: string }>
+>;
 
 function targetResult(target: CatalogueSearchTarget, t: TFunction) {
 	switch (target.type) {
@@ -41,6 +67,10 @@ function targetResult(target: CatalogueSearchTarget, t: TFunction) {
 					: t(`realms.${spirit.realm}`, { ns: "general" }),
 			};
 		}
+		case CatalogueSearchType.Collection: {
+			const { view, translationKey } = CATALOGUE_COLLECTIONS[target.collection];
+			return { to: `?view=${view}`, emoji: null, detail: t(translationKey, { ns: "features" }) };
+		}
 	}
 }
 
@@ -60,8 +90,9 @@ export function CatalogueSearch() {
 			items={results}
 			itemToStringValue={({ name }: CatalogueSearchEntry) => name}
 			onOpenChange={setOpen}
-			onValueChange={setQuery}
+			onValueChange={(value, { reason }) => setQuery(reason === "item-press" ? "" : value)}
 			open={open && query.trim().length > 0}
+			openOnInputClick
 			value={query}
 		>
 			<div className="relative">
@@ -75,30 +106,31 @@ export function CatalogueSearch() {
 			<Autocomplete.Portal>
 				<Autocomplete.Positioner align="start" collisionPadding={12} side="bottom" sideOffset={8}>
 					<Autocomplete.Popup className="max-h-[min(20rem,var(--available-height))] w-[var(--anchor-width)] overflow-y-auto rounded-lg border border-gray-200 bg-gray-100 shadow-lg dark:border-gray-700 dark:bg-gray-900">
-						<Autocomplete.Empty className="px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400">
-							{t("catalogue.search-no-results", { ns: "features" })}
+						<Autocomplete.Empty>
+							<p className="m-0 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400">
+								{t("catalogue.search-no-results", { ns: "features" })}
+							</p>
 						</Autocomplete.Empty>
 						<Autocomplete.List>
-							{(entry: CatalogueSearchEntry, index: number) => {
+							{(entry: CatalogueSearchEntry) => {
 								const { to, emoji, detail } = targetResult(entry.target, t);
+
+								const resolvedEmoji =
+									entry.cosmeticDisplay === null ? emoji : CosmeticToEmoji[entry.cosmeticDisplay];
 
 								return (
 									<Autocomplete.Item
 										className={(state) =>
 											clsx(
 												"flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm transition-colors",
-												state.highlighted && "bg-gray-200 dark:bg-gray-800",
+												state.highlighted && "bg-gray-200 dark:bg-gray-700",
 											)
 										}
-										index={index}
-										key={to}
-										onClick={() => {
-											setQuery("");
-											void navigate(to);
-										}}
+										key={`${to}${entry.name}`}
+										onClick={() => void navigate(to)}
 										value={entry}
 									>
-										{emoji ? <EmojiIcon emoji={emoji} /> : null}
+										{resolvedEmoji ? <EmojiIcon emoji={resolvedEmoji} /> : null}
 										<span className="truncate text-gray-900 dark:text-gray-100">{entry.name}</span>
 										<span className="ml-auto max-w-[45%] shrink-0 truncate text-xs text-gray-600 dark:text-gray-400">
 											{detail}

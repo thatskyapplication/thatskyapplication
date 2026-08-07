@@ -30,6 +30,7 @@ export {
 	MAXIMUM_ASSET_SIZE,
 } from "./assets.js";
 export {
+	CatalogueCollection,
 	type CatalogueProgress,
 	type CatalogueSearchEntry,
 	type CatalogueSearchTarget,
