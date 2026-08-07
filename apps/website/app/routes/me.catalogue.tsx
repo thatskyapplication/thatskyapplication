@@ -264,7 +264,9 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 		default:
 	}
 
-	if (!content) {
+	const isStartView = !content;
+
+	if (isStartView) {
 		content = <StartView data={data} now={now} showEverythingButton={showEverythingButton} />;
 	}
 
@@ -279,7 +281,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 					<span>{t("navigation-back", { ns: "general" })}</span>
 				</Link>
 
-				<CatalogueSearch />
+				{isStartView ? null : <CatalogueSearch />}
 
 				{content}
 			</div>

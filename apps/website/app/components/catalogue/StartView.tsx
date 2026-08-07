@@ -27,6 +27,7 @@ import {
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { CARD_CLASS } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { CatalogueSearch } from "./CatalogueSearch";
 import { SectionCard } from "./SectionCard";
 
 export function StartView({
@@ -155,6 +156,8 @@ export function StartView({
 					})}
 				</p>
 			</div>
+
+			<CatalogueSearch />
 
 			{quickAccess.length > 0 && (
 				<div className="flex flex-wrap gap-2">
