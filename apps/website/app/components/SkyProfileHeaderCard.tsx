@@ -41,7 +41,7 @@ export default function SkyProfileHeaderCard({
 				{interactiveBanner ? (
 					<button
 						aria-label={bannerURL ? "Change banner" : "Upload banner"}
-						className="absolute top-3 right-3 z-10 inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-white/20 bg-black/85 text-white shadow-lg transition-colors hover:bg-black focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 focus-visible:outline-none"
+						className="absolute top-3 right-3 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-black/85 text-white shadow-lg transition-colors hover:bg-black focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/50 focus-visible:outline-none"
 						onClick={onBannerUploadClick}
 						type="button"
 					>
@@ -53,7 +53,7 @@ export default function SkyProfileHeaderCard({
 						{interactiveIcon ? (
 							<button
 								aria-label={iconURL ? "Change icon" : "Upload icon"}
-								className="group block h-20 w-20 cursor-pointer rounded-full focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 focus-visible:outline-none dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-700"
+								className="group block h-20 w-20 rounded-full focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-gray-100 focus-visible:outline-none dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-700"
 								onClick={onIconUploadClick}
 								type="button"
 							>

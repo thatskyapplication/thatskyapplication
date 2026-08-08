@@ -164,7 +164,7 @@ function TreeNode({
 				<button
 					aria-label={name}
 					aria-pressed={owned}
-					className="absolute flex cursor-pointer items-center justify-center rounded-lg transition-colors hover:bg-white/10"
+					className="absolute flex items-center justify-center rounded-lg transition-colors hover:bg-white/10"
 					onClick={toggle}
 					style={boxStyle(node.x, node.y, IMAGE_SIZE, IMAGE_SIZE, height)}
 					type="button"

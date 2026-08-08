@@ -198,7 +198,7 @@ export function StartView({
 					<input name="enabled" type="hidden" value={String(!optimisticShowEverythingButton)} />
 					<button
 						className={clsx(
-							"cursor-pointer rounded-md px-3 py-1.5 text-sm font-medium text-white transition-colors",
+							"rounded-md px-3 py-1.5 text-sm font-medium text-white transition-colors",
 							optimisticShowEverythingButton
 								? "bg-red-600 hover:bg-red-700"
 								: "bg-green-600 hover:bg-green-700",

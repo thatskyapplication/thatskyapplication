@@ -445,7 +445,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 									<button
 										aria-describedby={errors.asset ? "asset-error" : undefined}
 										className={clsx(
-											"flex aspect-square w-full max-w-64 cursor-pointer flex-col items-center justify-center gap-3 overflow-hidden rounded-lg border text-center shadow-sm transition-colors",
+											"flex aspect-square w-full max-w-64 flex-col items-center justify-center gap-3 overflow-hidden rounded-lg border text-center shadow-sm transition-colors",
 											errors.asset
 												? "border-red-500 bg-white dark:border-red-500 dark:bg-gray-800"
 												: "border-gray-300 bg-white hover:border-blue-500 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-blue-400",
@@ -544,7 +544,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 
 					<div className="mt-1 flex flex-col gap-2.5">
 						<button
-							className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-sm border border-gray-300 bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-colors duration-300 hover:bg-green-700 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 disabled:shadow-md sm:w-fit dark:border-gray-600"
+							className="inline-flex items-center justify-center gap-2 rounded-sm border border-gray-300 bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-colors duration-300 hover:bg-green-700 hover:shadow-lg disabled:cursor-not-allowed disabled:bg-green-600/60 disabled:text-white/80 disabled:shadow-md sm:w-fit dark:border-gray-600"
 							disabled={isSaving || !canSubmit}
 							type="submit"
 						>

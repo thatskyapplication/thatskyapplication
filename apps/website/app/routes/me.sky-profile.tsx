@@ -642,7 +642,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 														<button
 															aria-pressed={selected}
 															className={clsx(
-																"flex w-full cursor-pointer items-center gap-3 rounded-lg border bg-white px-3 py-2 text-left shadow-sm transition-colors hover:border-gray-400 hover:bg-gray-50 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:opacity-60 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 dark:hover:bg-gray-700/80 dark:disabled:border-gray-700 dark:disabled:bg-gray-900",
+																"flex w-full items-center gap-3 rounded-lg border bg-white px-3 py-2 text-left shadow-sm transition-colors hover:border-gray-400 hover:bg-gray-50 focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/30 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:opacity-60 dark:border-gray-600 dark:bg-gray-800 dark:hover:border-gray-500 dark:hover:bg-gray-700/80 dark:disabled:border-gray-700 dark:disabled:bg-gray-900",
 																selected
 																	? "border-blue-600 bg-blue-100 dark:border-blue-400 dark:bg-blue-950/70"
 																	: "border-gray-300",

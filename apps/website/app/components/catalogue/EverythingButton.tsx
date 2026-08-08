@@ -26,7 +26,7 @@ export function EverythingButton({
 			<input name="intent" type="hidden" value="everything" />
 			<input name="scope" type="hidden" value={scope} />
 			<button
-				className="inline-flex w-fit cursor-pointer items-center gap-2 rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+				className="inline-flex w-fit items-center gap-2 rounded-md bg-green-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-50"
 				disabled={catalogueComplete(progress) || fetcher.state !== "idle"}
 				type="submit"
 			>

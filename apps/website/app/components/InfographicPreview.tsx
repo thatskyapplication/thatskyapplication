@@ -42,7 +42,7 @@ function InfographicPreviewContent({
 				<h2 className="m-0 text-sm font-semibold text-gray-900 dark:text-white">{title}</h2>
 				<button
 					aria-label="Close infographic"
-					className="cursor-pointer rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+					className="rounded-lg p-1.5 text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-300"
 					onClick={onClose}
 					ref={closeButtonRef}
 					type="button"
