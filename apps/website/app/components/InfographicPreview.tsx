@@ -1,11 +1,4 @@
-import {
-	FloatingFocusManager,
-	FloatingOverlay,
-	useDismiss,
-	useFloating,
-	useInteractions,
-	useRole,
-} from "@floating-ui/react";
+import { Dialog } from "@base-ui/react/dialog";
 import { ExternalLinkIcon, X } from "lucide-react";
 import { type RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -141,49 +134,34 @@ export function InfographicPreview({
 		};
 	}, [onClose, restorePreviousFocus, useModal]);
 
-	const { context, refs } = useFloating({
-		onOpenChange: (open) => {
-			if (!open) {
-				onClose();
-			}
-		},
-		open: useModal,
-	});
-
-	const dismiss = useDismiss(context, { enabled: useModal, outsidePressEvent: "mousedown" });
-	const role = useRole(context, { enabled: useModal, role: "dialog" });
-	const { getFloatingProps } = useInteractions([dismiss, role]);
-
-	/* oxlint-disable react/react-compiler -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
-	const modal = (
-		<FloatingOverlay
-			className="fixed inset-0 z-50 flex items-center justify-center bg-gray-950/70 p-4 backdrop-blur-sm sm:p-6"
-			lockScroll
-		>
-			<FloatingFocusManager context={context} initialFocus={modalCloseButtonRef}>
-				<div
-					{...getFloatingProps()}
-					aria-label={title}
-					aria-modal="true"
-					className="relative z-10 flex h-[calc(100vh_-_2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl sm:h-[calc(100vh_-_3rem)] dark:border-gray-700 dark:bg-gray-900"
-					ref={refs.setFloating}
-					role="dialog"
-				>
-					<InfographicPreviewContent
-						acknowledgement={acknowledgement}
-						closeButtonRef={modalCloseButtonRef}
-						imageURL={imageURL}
-						onClose={onClose}
-						title={title}
-					/>
-				</div>
-			</FloatingFocusManager>
-		</FloatingOverlay>
-	);
-	/* oxlint-enable react/react-compiler */
-
 	if (useModal) {
-		return modal;
+		return (
+			<Dialog.Root
+				onOpenChange={(open) => {
+					if (!open) {
+						onClose();
+					}
+				}}
+				open
+			>
+				<Dialog.Portal>
+					<Dialog.Backdrop className="fixed inset-0 z-50 bg-gray-950/70 backdrop-blur-sm" />
+					<Dialog.Popup
+						aria-label={title}
+						className="fixed top-1/2 left-1/2 z-50 flex h-[calc(100vh_-_2rem)] w-[calc(100vw_-_2rem)] max-w-5xl -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-2xl border-2 border-gray-200 bg-white p-4 shadow-2xl sm:h-[calc(100vh_-_3rem)] dark:border-gray-700 dark:bg-gray-900"
+						initialFocus={modalCloseButtonRef}
+					>
+						<InfographicPreviewContent
+							acknowledgement={acknowledgement}
+							closeButtonRef={modalCloseButtonRef}
+							imageURL={imageURL}
+							onClose={onClose}
+							title={title}
+						/>
+					</Dialog.Popup>
+				</Dialog.Portal>
+			</Dialog.Root>
+		);
 	}
 
 	return (

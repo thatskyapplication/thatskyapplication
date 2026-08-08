@@ -2741,6 +2741,8 @@ export default {
 			"This command requires me to be present in the server. [Invite me]({{url1}}) with the bot scope and try again!\nIf you need help, join the [support server]({{url2}})!",
 		"interaction-response-too-old": "This response is too old. Use the command again!",
 		"cannot-view-thread": "I lack permissions to view this thread.",
+		clear: "Clear",
+		"no-results": "No results.",
 		view: "View",
 		more: "More",
 		maintenance: "Maintenance",

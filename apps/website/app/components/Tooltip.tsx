@@ -1,63 +1,22 @@
-import {
-	autoUpdate,
-	FloatingPortal,
-	flip,
-	offset,
-	shift,
-	useDismiss,
-	useFloating,
-	useFocus,
-	useHover,
-	useInteractions,
-	useMergeRefs,
-	useRole,
-} from "@floating-ui/react";
-import { cloneElement, type ReactElement, type ReactNode, type Ref, useState } from "react";
+import { Tooltip as BaseTooltip } from "@base-ui/react/tooltip";
+import type { ReactElement, ReactNode } from "react";
 
 interface TooltipProps {
-	children: ReactElement<{ ref?: Ref<Element> }>;
+	children: ReactElement;
 	content: ReactNode;
 }
 
 export function Tooltip({ children, content }: TooltipProps) {
-	const [open, setOpen] = useState(false);
-	const { context, floatingStyles, refs } = useFloating({
-		middleware: [offset(6), flip(), shift({ padding: 8 })],
-		onOpenChange: setOpen,
-		open,
-		placement: "top",
-		whileElementsMounted: autoUpdate,
-	});
-	const hover = useHover(context, { move: false });
-	const focus = useFocus(context);
-	const dismiss = useDismiss(context);
-	const role = useRole(context, { role: "tooltip" });
-	const { getFloatingProps, getReferenceProps } = useInteractions([hover, focus, dismiss, role]);
-	/* oxlint-disable react/react-compiler -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
-	const referenceRef = useMergeRefs([refs.setReference, children.props.ref]);
-
 	return (
-		<>
-			{cloneElement(
-				children,
-				getReferenceProps({
-					...children.props,
-					ref: referenceRef,
-				}),
-			)}
-			{open ? (
-				<FloatingPortal>
-					<div
-						className="z-50 max-w-xs rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200"
-						ref={refs.setFloating}
-						style={floatingStyles}
-						{...getFloatingProps()}
-					>
+		<BaseTooltip.Root>
+			<BaseTooltip.Trigger render={children} />
+			<BaseTooltip.Portal>
+				<BaseTooltip.Positioner collisionPadding={8} side="top" sideOffset={6}>
+					<BaseTooltip.Popup className="z-50 max-w-xs rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
 						{content}
-					</div>
-				</FloatingPortal>
-			) : null}
-		</>
+					</BaseTooltip.Popup>
+				</BaseTooltip.Positioner>
+			</BaseTooltip.Portal>
+		</BaseTooltip.Root>
 	);
 }
-/* oxlint-enable react/react-compiler */

@@ -35,6 +35,7 @@ import { getLocale } from "~/middleware/i18next.js";
 import { formatCountryLabel } from "~/utility/country.js";
 import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
 import type { Route } from "./+types/me.sky-profile.js";
 
@@ -367,6 +368,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									required
 									type="text"
 									value={nameValue}
+									{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 								/>
 								{nameError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="name-error">
@@ -398,6 +400,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									onChange={(event) => setDescriptionValue(event.currentTarget.value)}
 									rows={4}
 									value={descriptionValue}
+									{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 								/>
 								{descriptionError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="description-error">
@@ -744,6 +747,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									onChange={(event) => setHangoutValue(event.currentTarget.value)}
 									type="text"
 									value={hangoutValue}
+									{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 								/>
 								{hangoutError ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="hangout-error">

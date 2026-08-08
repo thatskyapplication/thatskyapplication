@@ -19,6 +19,7 @@ import {
 	EventIdToEventTicketEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
+import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 
 const CATALOGUE_SEARCH_RESULT_LIMIT = 100 as const;
 const NO_RESULTS: readonly CatalogueSearchEntry[] = [];
@@ -116,6 +117,7 @@ export function CatalogueSearch() {
 					aria-label={t("catalogue.search-label", { ns: "features" })}
 					className="w-full rounded-lg border border-gray-200 bg-gray-100 py-2.5 pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400"
 					placeholder={t("catalogue.search-placeholder", { ns: "features" })}
+					{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 				/>
 			</div>
 			<Autocomplete.Portal>

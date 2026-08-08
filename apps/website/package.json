@@ -37,7 +37,6 @@
 		"react-i18next": "^17.0.11",
 		"react-router": "^8.3.0",
 		"react-router-hono-server": "^3.0.0",
-		"react-select": "^5.10.2",
 		"remix-i18next": "^8.0.0",
 		"sharp": "^0.35.3"
 	},

@@ -20,6 +20,7 @@ import discord from "~/discord.js";
 import pino from "~/pino.js";
 import S3Client from "~/s3-client.server.js";
 import { requireAdminAccess } from "~/utility/functions.server.js";
+import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import type { Route } from "./+types/admin.friendship-actions.js";
 
 const MAXIMUM_FRIENDSHIP_ACTIONS_ASSET_BYTES_SIZE = 5_000_000 as const;
@@ -500,6 +501,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 									required
 									rows={MAXIMUM_FRIENDSHIP_ACTIONS_USERS}
 									value={usersValue}
+									{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 								/>
 								{errors.users ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="users-error">
@@ -529,6 +531,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 									required
 									type="url"
 									value={referenceValue}
+									{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 								/>
 								{errors.reference ? (
 									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="reference-error">

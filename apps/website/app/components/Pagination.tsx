@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 import { Form, Link, useSearchParams } from "react-router";
+import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 
 interface PaginationProps {
 	currentPage: number;
@@ -172,6 +173,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 								minimumPage < 0 ? `-?\\d{1,${maximumDigitLength}}` : `\\d{1,${maximumDigitLength}}`
 							}
 							type="text"
+							{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 						/>
 					</Form>
 				</li>

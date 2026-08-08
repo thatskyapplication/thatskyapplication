@@ -1,5 +1,9 @@
-import React from "react";
-import ReactSelect, { type SingleValue, type StylesConfig } from "react-select";
+import { Combobox } from "@base-ui/react/combobox";
+import { clsx } from "clsx";
+import { ChevronDown, X } from "lucide-react";
+import { useId } from "react";
+import { useTranslation } from "react-i18next";
+import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 
 interface SelectOption {
 	value: string;
@@ -21,6 +25,9 @@ interface SelectProps {
 	disabled?: boolean;
 }
 
+const CONTROL_CLASS =
+	"flex min-h-10 w-full items-center rounded-sm border bg-[var(--select-bg)] text-[var(--select-text)]" as const;
+
 export default function Select({
 	ariaDescribedBy,
 	ariaLabel,
@@ -35,7 +42,8 @@ export default function Select({
 	className,
 	disabled = false,
 }: SelectProps) {
-	const id = React.useId();
+	const { t } = useTranslation();
+	const id = useId();
 	const errorId = `${id}-error`;
 	const describedByParts: string[] = [];
 
@@ -48,96 +56,7 @@ export default function Select({
 	}
 
 	const describedBy = describedByParts.join(" ") || undefined;
-
-	const customStyles: StylesConfig<SelectOption, false> = {
-		control: (provided, state) => ({
-			...provided,
-			backgroundColor: state.isDisabled ? "var(--select-option-hover)" : "var(--select-bg)",
-			borderColor: state.isDisabled
-				? "var(--select-border)"
-				: error
-					? "#dc2626"
-					: state.isFocused
-						? "var(--select-border-hover)"
-						: "var(--select-border)",
-			borderWidth: "1px",
-			borderRadius: "0.125rem",
-			minHeight: "40px",
-			boxShadow: "none",
-			outline: "none",
-			cursor: state.isDisabled ? "not-allowed" : "pointer",
-			opacity: state.isDisabled ? 0.6 : 1,
-			"&:hover": {
-				borderColor: state.isDisabled
-					? "var(--select-border)"
-					: error
-						? "#dc2626"
-						: "var(--select-border-hover)",
-			},
-		}),
-		menu: (provided) => ({
-			...provided,
-			backgroundColor: "var(--select-menu-bg)",
-			border: "1px solid var(--select-border)",
-			borderRadius: "0.125rem",
-			boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-			zIndex: 99999,
-			overflow: "hidden",
-		}),
-		menuList: (provided) => ({
-			...provided,
-			padding: "0",
-		}),
-		option: (provided, state) => ({
-			...provided,
-			backgroundColor: state.isSelected
-				? "var(--select-option-active)"
-				: state.isFocused
-					? "var(--select-option-hover)"
-					: "var(--select-option-bg)",
-			color: "var(--select-text)",
-			padding: "8px 12px",
-			cursor: "pointer",
-			transition: "background-color 0.15s ease",
-			"&:active": {
-				backgroundColor: "var(--select-option-active)",
-			},
-		}),
-		singleValue: (provided, state) => ({
-			...provided,
-			color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
-		}),
-		placeholder: (provided) => ({
-			...provided,
-			color: "var(--select-placeholder)",
-		}),
-		input: (provided, state) => ({
-			...provided,
-			color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
-		}),
-		dropdownIndicator: (provided, state) => ({
-			...provided,
-			color: "var(--select-placeholder)",
-			padding: "8px",
-			transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
-			transition: "transform 0.2s ease, color 0.15s ease",
-			"&:hover": {
-				color: state.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
-			},
-		}),
-		clearIndicator: (provided, state) => ({
-			...provided,
-			color: "var(--select-placeholder)",
-			padding: "8px",
-			opacity: state.selectProps.isDisabled ? 0.4 : 1,
-			"&:hover": {
-				color: state.selectProps.isDisabled ? "var(--select-placeholder)" : "var(--select-text)",
-			},
-		}),
-		indicatorSeparator: () => ({
-			display: "none",
-		}),
-	};
+	const selectedOption = options.find((option) => option.value === value) ?? null;
 
 	return (
 		<div className="flex flex-col gap-1">
@@ -146,25 +65,101 @@ export default function Select({
 					{label}
 				</label>
 			)}
-			<div className={className} style={disabled ? { cursor: "not-allowed" } : undefined}>
-				<div style={disabled ? { pointerEvents: "none" } : undefined}>
-					<ReactSelect
-						aria-describedby={describedBy}
-						aria-invalid={error ? true : undefined}
-						aria-label={ariaLabel}
-						aria-labelledby={ariaLabelledBy}
-						inputId={id}
-						isClearable={isClearable}
-						isDisabled={disabled}
-						onChange={(newValue: SingleValue<SelectOption>) => {
-							onChange(newValue?.value ?? "");
-						}}
-						options={options}
-						placeholder={placeholder}
-						styles={customStyles}
-						value={options.find((option) => option.value === value) || null}
-					/>
-				</div>
+			<div className={className}>
+				<Combobox.Root
+					autoHighlight
+					disabled={disabled}
+					isItemEqualToValue={(option, selected) => option.value === selected.value}
+					itemToStringLabel={(option) => option.label}
+					itemToStringValue={(option) => option.value}
+					items={options}
+					onValueChange={(nextValue) => {
+						if (nextValue === null) {
+							if (isClearable) {
+								onChange("");
+							}
+
+							return;
+						}
+
+						onChange(nextValue.value);
+					}}
+					value={selectedOption}
+				>
+					<Combobox.InputGroup
+						className={(state) =>
+							clsx(
+								CONTROL_CLASS,
+								error
+									? "border-red-600"
+									: "border-[var(--select-border)] hover:border-[var(--select-border-hover)]",
+								state.disabled && "cursor-not-allowed opacity-60",
+							)
+						}
+					>
+						<Combobox.Input
+							aria-describedby={describedBy}
+							aria-invalid={error ? true : undefined}
+							aria-label={ariaLabel}
+							aria-labelledby={ariaLabelledBy}
+							className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm placeholder:text-[var(--select-placeholder)] focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed"
+							id={id}
+							placeholder={placeholder}
+							{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
+						/>
+						{isClearable && selectedOption ? (
+							<Combobox.Clear
+								aria-label={t("clear", { ns: "general" })}
+								className="cursor-pointer p-2 text-[var(--select-placeholder)] transition-colors hover:text-[var(--select-text)]"
+								disabled={disabled}
+							>
+								<X className="h-4 w-4" />
+							</Combobox.Clear>
+						) : null}
+						<Combobox.Trigger
+							className={(state) =>
+								clsx(
+									"cursor-pointer p-2 text-[var(--select-placeholder)] transition-transform hover:text-[var(--select-text)]",
+									state.open && "rotate-180",
+								)
+							}
+							disabled={disabled}
+						>
+							<ChevronDown className="h-4 w-4" />
+						</Combobox.Trigger>
+					</Combobox.InputGroup>
+					<Combobox.Portal>
+						<Combobox.Positioner align="start" collisionPadding={8} sideOffset={4}>
+							<Combobox.Popup className="max-h-[min(18rem,var(--available-height))] w-[var(--anchor-width)] overflow-y-auto rounded-sm border border-[var(--select-border)] bg-[var(--select-menu-bg)] shadow-md">
+								<Combobox.Empty>
+									<p className="m-0 px-3 py-2 text-sm text-[var(--select-placeholder)]">
+										{t("no-results", { ns: "general" })}
+									</p>
+								</Combobox.Empty>
+								<Combobox.List>
+									{(option: SelectOption) => (
+										<Combobox.Item
+											className={(state) =>
+												clsx(
+													"cursor-pointer px-3 py-2 text-sm text-[var(--select-text)] transition-colors",
+													state.selected
+														? "bg-[var(--select-option-active)]"
+														: state.highlighted
+															? "bg-[var(--select-option-hover)]"
+															: "bg-[var(--select-option-bg)]",
+												)
+											}
+											key={option.value}
+											value={option}
+										>
+											{option.label}
+										</Combobox.Item>
+									)}
+								</Combobox.List>
+							</Combobox.Popup>
+						</Combobox.Positioner>
+					</Combobox.Portal>
+				</Combobox.Root>
 			</div>
 			{error && (
 				<span className="text-sm text-red-600 dark:text-red-400" id={errorId}>

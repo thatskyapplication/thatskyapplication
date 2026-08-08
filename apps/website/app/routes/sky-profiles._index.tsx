@@ -20,6 +20,7 @@ import { APPLICATION_NAME, SKY_PROFILES_DESCRIPTION } from "~/utility/constants"
 import { formatCountryLabel } from "~/utility/country.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
+import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import type { DiscordUser } from "~/utility/types";
 import type { Route } from "./+types/sky-profiles._index.js";
 
@@ -339,6 +340,7 @@ function SkyProfilesFilters({
 				placeholder={t("sky-profile.search-by-name", { ns: "features" })}
 				type="search"
 				value={nameValue}
+				{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 			/>
 			<Select
 				className="w-64"
