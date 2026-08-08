@@ -75,19 +75,39 @@ test("Spirits are searchable by their season and realm.", () => {
 	ok(byRealm.length > 0, "Expected spirits to match their realm name.");
 });
 
-test("Seasons and events are indexed newest first.", () => {
-	const seasons = catalogueSearch(entries, "Season of").filter(
-		({ target }) => target.type === CatalogueSearchType.Season,
-	);
+function assertNewestFirst(starts: readonly Temporal.ZonedDateTime[], subject: string) {
+	ok(starts.length > 1, `Expected several ${subject} to match.`);
 
-	const identifiers = seasons.map(({ target }) =>
-		target.type === CatalogueSearchType.Season ? target.season.id : -1,
-	);
+	for (let index = 1; index < starts.length; index++) {
+		ok(
+			Temporal.ZonedDateTime.compare(starts[index]!, starts[index - 1]!) <= 0,
+			`Expected ${subject} to be indexed newest first.`,
+		);
+	}
+}
 
-	deepStrictEqual(
-		identifiers,
-		identifiers.toSorted((a, b) => b - a),
-	);
+test("Seasons are indexed newest first.", () => {
+	const starts: Temporal.ZonedDateTime[] = [];
+
+	for (const { target } of catalogueSearch(entries, "Season of")) {
+		if (target.type === CatalogueSearchType.Season) {
+			starts.push(target.season.start);
+		}
+	}
+
+	assertNewestFirst(starts, "seasons");
+});
+
+test("Events are indexed newest first.", () => {
+	const starts: Temporal.ZonedDateTime[] = [];
+
+	for (const { target } of catalogueSearch(entries, "Days of")) {
+		if (target.type === CatalogueSearchType.Event) {
+			starts.push(target.event.start);
+		}
+	}
+
+	assertNewestFirst(starts, "events");
 });
 
 test("The limit caps results and is optional.", () => {
@@ -125,7 +145,7 @@ test("Items bought with in-game currency are not indexed.", () => {
 	deepStrictEqual(names("Stone Single Bench"), []);
 });
 
-test("Every entry has a name and every target is reachable.", () => {
+test("Every entry resolves to a translated name.", () => {
 	for (const entry of entries) {
 		ok(entry.name.length > 0, "Expected a resolved name.");
 		ok(!entry.name.includes("."), `Expected a translation, got the key ${entry.name}.`);
@@ -154,12 +174,22 @@ test("Entries are uniquely addressable by target and name.", () => {
 	equal(keys.length, new Set(keys).size);
 });
 
-test("Ranking is stable for entries sharing a bucket.", () => {
-	const run = () => names("Days of");
-	deepStrictEqual(run(), run());
+test("Entries sharing a bucket keep their index order.", () => {
+	const query = "Days of";
+
+	const prefixMatches = entries.filter(({ name }) =>
+		name.toUpperCase().startsWith(query.toUpperCase()),
+	);
+
+	const ranked = catalogueSearch(entries, query).filter(({ name }) =>
+		name.toUpperCase().startsWith(query.toUpperCase()),
+	);
+
+	ok(prefixMatches.length > 1, "Expected several prefix matches.");
+	deepStrictEqual(ranked, prefixMatches);
 });
 
-test("Searching an unrelated entry list does not leak the module index.", () => {
+test("An exact match outranks a keyword match on a caller-supplied list.", () => {
 	const custom: CatalogueSearchEntry[] = [
 		{ name: "Alpha", keywords: [], cosmeticDisplay: null, target: entries[0]!.target },
 		{ name: "Beta", keywords: ["alpha"], cosmeticDisplay: null, target: entries[0]!.target },

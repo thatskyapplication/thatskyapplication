@@ -7,12 +7,7 @@ import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
-import {
-	friendshipTreeToItems,
-	type Item,
-	type ItemCost,
-	type ItemWithoutChildren,
-} from "./utility/spirits.js";
+import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
 const starterPackItems = resolveOfferFromItems([
 	{
@@ -294,6 +289,12 @@ export type CatalogueSearchTarget =
 	| { readonly type: CatalogueSearchType.Spirit; readonly spirit: Spirit }
 	| { readonly type: CatalogueSearchType.Collection; readonly collection: CatalogueCollection };
 
+export function spiritOriginTranslationKey(spirit: Spirit) {
+	return spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
+		? (`seasons.${spirit.seasonId}` as const)
+		: (`realms.${spirit.realm}` as const);
+}
+
 export interface CatalogueSearchEntry {
 	readonly name: string;
 	readonly keywords: readonly string[];
@@ -302,7 +303,7 @@ export interface CatalogueSearchEntry {
 }
 
 function inAppPurchaseEntries(
-	items: Iterable<ItemWithoutChildren | Item>,
+	items: Iterable<Item>,
 	target: CatalogueSearchTarget,
 	resolveName: (key: string) => string,
 ): CatalogueSearchEntry[] {
@@ -350,14 +351,9 @@ export function catalogueSearchEntries(
 	}
 
 	for (const spirit of spirits().values()) {
-		const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
-
 		entries.push({
 			name: resolveName(`spirits.${spirit.id}`),
-			keywords: [
-				...spirit.keywords,
-				resolveName(seasonal ? `seasons.${spirit.seasonId}` : `realms.${spirit.realm}`),
-			],
+			keywords: [...spirit.keywords, resolveName(spiritOriginTranslationKey(spirit))],
 			cosmeticDisplay: null,
 			target: { type: CatalogueSearchType.Spirit, spirit },
 		});

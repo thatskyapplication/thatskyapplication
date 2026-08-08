@@ -12,6 +12,7 @@ import {
 	catalogueSearch,
 	catalogueSearchEntries,
 	CatalogueSearchType,
+	spiritOriginTranslationKey,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import {
@@ -62,9 +63,7 @@ function targetResult(target: CatalogueSearchTarget, t: TFunction) {
 			return {
 				to: `?view=spirit&spirit=${spirit.id}`,
 				emoji: seasonal ? SeasonIdToSeasonalEmoji[spirit.seasonId] : null,
-				detail: seasonal
-					? t(`seasons.${spirit.seasonId}`, { ns: "general" })
-					: t(`realms.${spirit.realm}`, { ns: "general" }),
+				detail: t(spiritOriginTranslationKey(spirit), { ns: "general" }),
 			};
 		}
 		case CatalogueSearchType.Collection: {

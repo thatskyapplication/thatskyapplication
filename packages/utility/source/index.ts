@@ -49,6 +49,7 @@ export {
 	NESTING_WORKSHOP,
 	partitionItemCosts,
 	SECRET_AREA,
+	spiritOriginTranslationKey,
 	STARTER_PACKS,
 } from "./catalogue.js";
 export type { ChecklistSetData } from "./checklist.js";

@@ -62,6 +62,7 @@ import {
 	skyEvents,
 	skyNow,
 	skySeasons,
+	spiritOriginTranslationKey,
 	spirits,
 	sumCosts,
 } from "@thatskyapplication/utility";
@@ -658,16 +659,9 @@ function searchResultName(name: string, target: CatalogueSearchTarget, locale: L
 		case CatalogueSearchType.Event:
 			detail = target.event.start.year;
 			break;
-		case CatalogueSearchType.Spirit: {
-			const { spirit } = target;
-
-			detail =
-				spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
-					? t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" })
-					: t(`realms.${spirit.realm}`, { lng: locale, ns: "general" });
-
+		case CatalogueSearchType.Spirit:
+			detail = t(spiritOriginTranslationKey(target.spirit), { lng: locale, ns: "general" });
 			break;
-		}
 		case CatalogueSearchType.Collection:
 			detail = t(CATALOGUE_COLLECTION_TRANSLATION_KEY[target.collection], {
 				lng: locale,
