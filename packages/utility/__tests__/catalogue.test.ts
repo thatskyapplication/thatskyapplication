@@ -122,7 +122,7 @@ test("A renamed event surfaces each of its names against the same family.", () =
 	const previous = firstTarget("Lunar New Year");
 	ok(previous?.type === CatalogueSearchType.EventFamily);
 
-	equal(current.occurrences[0]!.family, previous.occurrences[0]!.family);
+	equal(current.occurrences[0].family, previous.occurrences[0].family);
 });
 
 test("The limit caps results and is optional.", () => {
