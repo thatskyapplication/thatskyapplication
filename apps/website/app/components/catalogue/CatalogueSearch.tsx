@@ -65,15 +65,12 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 				emoji: EventIdToEventTicketEmoji[target.event.id],
 				detail: String(target.event.start.year),
 			};
-		case CatalogueSearchType.EventFamily: {
-			const latest = target.occurrences[0];
-
+		case CatalogueSearchType.EventFamily:
 			return {
-				to: `?view=event-family&family=${latest.family}`,
-				emoji: EventIdToEventTicketEmoji[latest.id],
+				to: `?view=event-family&family=${target.family.id}`,
+				emoji: EventIdToEventTicketEmoji[target.occurrences[0].id],
 				detail: eventFamilyYears(target.occurrences, t),
 			};
-		}
 		case CatalogueSearchType.Spirit: {
 			const { spirit } = target;
 			const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();

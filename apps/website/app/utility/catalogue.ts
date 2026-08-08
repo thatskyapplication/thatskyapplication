@@ -43,14 +43,14 @@ export function eventAnchor(eventId: EventIds) {
 }
 
 export function eventFamilyYears(occurrences: EventFamilyOccurrences, t: TFunction) {
-	const latest = occurrences[0];
-	const oldest = occurrences.at(-1)!;
+	const [latest] = occurrences;
+	const firstYear = occurrences[occurrences.length - 1]!.start.year;
 
-	return oldest.start.year === latest.start.year
+	return firstYear === latest.start.year
 		? String(latest.start.year)
 		: t("time-range", {
 				ns: "general",
-				start: String(oldest.start.year),
+				start: String(firstYear),
 				end: String(latest.start.year),
 			});
 }

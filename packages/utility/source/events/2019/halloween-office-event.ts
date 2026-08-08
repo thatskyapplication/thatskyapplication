@@ -1,12 +1,12 @@
 import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { EventFamily, EventId } from "../../utility/event.js";
+import { EventFamilyId, EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.HalloweenOfficeEvent2019,
 	name: "halloween-office-event",
-	family: EventFamily.DaysOfMischief,
+	family: EventFamilyId.DaysOfMischief,
 	start: skyDate(2_019, 10, 27),
 	end: skyDate(2_019, 11, 1),
 	offer: [

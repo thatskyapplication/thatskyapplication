@@ -117,7 +117,7 @@ export function isEventId(eventId: number): eventId is EventIds {
 	return EVENT_ID_VALUES.includes(eventId as EventIds);
 }
 
-export const EventFamily = {
+export const EventFamilyId = {
 	DaysOfMischief: 0,
 	DaysOfGiving: 1,
 	DaysOfFeast: 2,
@@ -151,9 +151,9 @@ export const EventFamily = {
 	SummerCamping: 30,
 } as const satisfies Readonly<Record<string, number>>;
 
-const EVENT_FAMILY_VALUES = Object.values(EventFamily);
-export type EventFamilies = (typeof EVENT_FAMILY_VALUES)[number];
+const EVENT_FAMILY_VALUES = Object.values(EventFamilyId);
+export type EventFamilyIds = (typeof EVENT_FAMILY_VALUES)[number];
 
-export function isEventFamily(eventFamily: number): eventFamily is EventFamilies {
-	return EVENT_FAMILY_VALUES.includes(eventFamily as EventFamilies);
+export function isEventFamilyId(eventFamilyId: number): eventFamilyId is EventFamilyIds {
+	return EVENT_FAMILY_VALUES.includes(eventFamilyId as EventFamilyIds);
 }

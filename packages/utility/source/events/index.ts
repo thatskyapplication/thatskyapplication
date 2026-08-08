@@ -1,7 +1,8 @@
 import { Collection, type ReadonlyCollection } from "@discordjs/collection";
 import { isActive, skyNow } from "../dates.js";
+import { EventFamily } from "../models/event-family.js";
 import type { Event } from "../models/event.js";
-import type { EventFamilies, EventIds } from "../utility/event.js";
+import type { EventFamilyIds, EventIds } from "../utility/event.js";
 import Year1 from "./2019/index.js";
 import Year2 from "./2020/index.js";
 import Year3 from "./2021/index.js";
@@ -27,22 +28,20 @@ export function skyEvents(): ReadonlyCollection<EventIds, Event> {
 	return EVENTS.filter((event) => Temporal.ZonedDateTime.compare(skyNow(), event.start) >= 0);
 }
 
-export type EventFamilyOccurrences = readonly [Event, ...Event[]];
-
-export function skyEventFamilies(): ReadonlyCollection<EventFamilies, EventFamilyOccurrences> {
-	const families = new Collection<EventFamilies, [Event, ...Event[]]>();
+export function skyEventFamilies(): ReadonlyCollection<EventFamilyIds, EventFamily> {
+	const grouped = new Collection<EventFamilyIds, [Event, ...Event[]]>();
 
 	for (const event of skyEvents().toReversed().values()) {
-		const occurrences = families.get(event.family);
+		const occurrences = grouped.get(event.family);
 
 		if (occurrences) {
 			occurrences.push(event);
 		} else {
-			families.set(event.family, [event]);
+			grouped.set(event.family, [event]);
 		}
 	}
 
-	return families;
+	return grouped.mapValues((occurrences) => new EventFamily(occurrences));
 }
 
 export function skyCurrentEvents(

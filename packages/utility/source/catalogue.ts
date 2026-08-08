@@ -1,8 +1,9 @@
 import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
-import { type EventFamilyOccurrences, skyEventFamilies, skyEvents } from "./events/index.js";
+import { skyEventFamilies, skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
 import { spirits } from "./kingdom/spirits.js";
+import type { EventFamily, EventFamilyOccurrences } from "./models/event-family.js";
 import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
@@ -289,6 +290,7 @@ export type CatalogueSearchTarget =
 	| { readonly type: CatalogueSearchType.Event; readonly event: Event }
 	| {
 			readonly type: CatalogueSearchType.EventFamily;
+			readonly family: EventFamily;
 			readonly occurrences: EventFamilyOccurrences;
 	  }
 	| { readonly type: CatalogueSearchType.Spirit; readonly spirit: Spirit }
@@ -367,25 +369,13 @@ export function catalogueSearchEntries(
 	}
 
 	if (groupEventFamilies) {
-		for (const occurrences of skyEventFamilies().values()) {
-			const named = new Map<Event["name"], [Event, ...Event[]]>();
-
-			for (const occurrence of occurrences) {
-				const group = named.get(occurrence.name);
-
-				if (group) {
-					group.push(occurrence);
-				} else {
-					named.set(occurrence.name, [occurrence]);
-				}
-			}
-
-			for (const [name, group] of named) {
+		for (const family of skyEventFamilies().values()) {
+			for (const [name, occurrences] of family.names) {
 				entries.push({
 					name: resolveName(name),
 					keywords: [],
 					cosmeticDisplay: null,
-					target: { type: CatalogueSearchType.EventFamily, occurrences: group },
+					target: { type: CatalogueSearchType.EventFamily, family, occurrences },
 				});
 			}
 		}

@@ -1,26 +1,14 @@
 import { useTranslation } from "react-i18next";
-import type { Event, EventFamilyOccurrences } from "@thatskyapplication/utility";
+import type { EventFamily } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji } from "~/utility/emojis.js";
 
-export function EventFamilyHeader({
-	locale,
-	occurrences,
-}: {
-	locale: string;
-	occurrences: EventFamilyOccurrences;
-}) {
+export function EventFamilyHeader({ family, locale }: { family: EventFamily; locale: string }) {
 	const { t } = useTranslation();
-	const latest = occurrences[0];
+	const { latest } = family;
 	const eventTicketEmoji = EventIdToEventTicketEmoji[latest.id];
-	const otherNames = new Set<Event["name"]>();
-
-	for (const occurrence of occurrences) {
-		if (occurrence.name !== latest.name) {
-			otherNames.add(occurrence.name);
-		}
-	}
+	const [, ...otherNames] = family.names.keys();
 
 	return (
 		<div>
@@ -35,12 +23,12 @@ export function EventFamilyHeader({
 					{t(latest.name, { ns: "general" })}
 				</a>
 			</h1>
-			{otherNames.size > 0 && (
+			{otherNames.length > 0 && (
 				<p className={NOTE_CLASS}>
 					{t("catalogue.event-family-also-known-as", {
 						ns: "features",
 						names: new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(
-							[...otherNames].map((name) => t(name, { ns: "general" })),
+							otherNames.map((name) => t(name, { ns: "general" })),
 						),
 					})}
 				</p>

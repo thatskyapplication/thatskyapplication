@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router";
 import {
 	CLOTHING_SHOP,
-	isEventFamily,
+	isEventFamilyId,
 	NESTING_WORKSHOP,
 	SECRET_AREA,
 	type SeasonIds,
@@ -176,14 +176,14 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 			break;
 		case "event-family": {
 			const family = Number(searchParams.get("family"));
-			const occurrences = isEventFamily(family) ? skyEventFamilies().get(family) : undefined;
+			const eventFamily = isEventFamilyId(family) ? skyEventFamilies().get(family) : undefined;
 
-			if (occurrences) {
+			if (eventFamily) {
 				content = (
 					<EventFamilyView
 						data={data}
+						family={eventFamily}
 						locale={locale}
-						occurrences={occurrences}
 						showEverythingButton={showEverythingButton}
 						timeZone={timeZone}
 					/>

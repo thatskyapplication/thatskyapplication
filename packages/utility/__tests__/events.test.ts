@@ -18,7 +18,7 @@ test("Events are indexed chronologically.", () => {
 });
 
 test("Each family holds its occurrences newest first.", () => {
-	for (const occurrences of skyEventFamilies().values()) {
+	for (const { occurrences } of skyEventFamilies().values()) {
 		for (let index = 1; index < occurrences.length; index++) {
 			const newer = occurrences[index - 1]!;
 			const occurrence = occurrences[index]!;
@@ -36,12 +36,23 @@ test("Families are indexed newest first.", () => {
 	ok(families.length > 1, "Expected several families to be indexed.");
 
 	for (let index = 1; index < families.length; index++) {
-		const newer = families[index - 1]![0];
-		const family = families[index]![0];
+		const newer = families[index - 1]!;
+		const family = families[index]!;
 
 		ok(
-			Temporal.ZonedDateTime.compare(family.start, newer.start) <= 0,
-			`Expected family ${family.family} to be represented no later than family ${newer.family}.`,
+			Temporal.ZonedDateTime.compare(family.latest.start, newer.latest.start) <= 0,
+			`Expected family ${family.id} to be represented no later than family ${newer.id}.`,
+		);
+	}
+});
+
+test("A family names itself after its latest occurrence.", () => {
+	for (const family of skyEventFamilies().values()) {
+		const [firstName] = [...family.names.keys()];
+
+		ok(
+			firstName === family.latest.name,
+			`Expected family ${family.id} to lead with the name of its latest occurrence.`,
 		);
 	}
 });

@@ -1,14 +1,14 @@
 import { Cosmetic, CosmeticCommon, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
-import { EventFamily, EventId } from "../../utility/event.js";
+import { EventFamilyId, EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
 
 export default new Event({
 	id: EventId.SkyAnniversary2025,
 	name: "sky-anniversary",
-	family: EventFamily.SkyAnniversary,
+	family: EventFamilyId.SkyAnniversary,
 	start: skyDate(2_025, 7, 7),
 	end: skyDate(2_025, 8, 19),
 	eventTickets: {

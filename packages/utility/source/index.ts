@@ -82,7 +82,6 @@ export {
 } from "./emojis.js";
 export {
 	communityUpcomingEvents,
-	type EventFamilyOccurrences,
 	skyCurrentEvents,
 	skyEventFamilies,
 	skyEvents,
@@ -166,6 +165,7 @@ export {
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
 } from "./kingdom/seasons/index.js";
+export { EventFamily, type EventFamilyOccurrences } from "./models/event-family.js";
 export { Event } from "./models/event.js";
 export { Realm } from "./models/realm.js";
 export { type DoubleSeasonalLightDate, Season } from "./models/season.js";
@@ -236,11 +236,11 @@ export {
 } from "./sky-profile.js";
 export type { Snowflake } from "./types/index.js";
 export {
-	EventFamily,
-	type EventFamilies,
+	EventFamilyId,
+	type EventFamilyIds,
 	EventId,
 	type EventIds,
-	isEventFamily,
+	isEventFamilyId,
 	isEventId,
 } from "./utility/event.js";
 export {

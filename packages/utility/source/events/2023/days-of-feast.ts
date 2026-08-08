@@ -2,7 +2,7 @@ import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { CDN_URL } from "../../routes.js";
-import { EventFamily, EventId } from "../../utility/event.js";
+import { EventFamilyId, EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
 
@@ -23,7 +23,7 @@ for (
 export default new Event({
 	id: EventId.DaysOfFeast2023,
 	name: "days-of-feast",
-	family: EventFamily.DaysOfFeast,
+	family: EventFamilyId.DaysOfFeast,
 	start: skyDate(2_023, 12, 18),
 	end: skyDate(2_024, 1, 8),
 	eventTickets: {

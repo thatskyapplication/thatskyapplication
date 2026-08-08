@@ -1,6 +1,6 @@
 import type { Cosmetic } from "../cosmetics.js";
 import { CDN_URL } from "../routes.js";
-import type { EventFamilies, EventIds } from "../utility/event.js";
+import type { EventFamilyIds, EventIds } from "../utility/event.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "../utility/functions.js";
 import type { ItemRawWithoutChildren, ItemWithoutChildren } from "../utility/spirits.js";
 
@@ -19,7 +19,7 @@ interface EventData {
 	/**
 	 * Groups the event into a family.
 	 */
-	family: EventFamilies;
+	family: EventFamilyIds;
 	/**
 	 * The start date of the event.
 	 */
@@ -85,7 +85,7 @@ export class Event {
 
 	public readonly name: `event-names.${string}`;
 
-	public readonly family: EventFamilies;
+	public readonly family: EventFamilyIds;
 
 	public readonly start: Temporal.ZonedDateTime;
 

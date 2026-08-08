@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import type { EventFamilyOccurrences } from "@thatskyapplication/utility";
+import type { EventFamily } from "@thatskyapplication/utility";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EventFamilyHeader } from "./EventFamilyHeader";
@@ -7,19 +7,19 @@ import { EventOccurrence } from "./EventOccurrence";
 
 export function EventFamilyView({
 	data,
+	family,
 	locale,
-	occurrences,
 	showEverythingButton,
 	timeZone,
 }: {
 	data: ReadonlySet<number>;
+	family: EventFamily;
 	locale: string;
-	occurrences: EventFamilyOccurrences;
 	showEverythingButton: boolean;
 	timeZone: string;
 }) {
 	const { t } = useTranslation();
-	const latest = occurrences[0];
+	const { latest, occurrences } = family;
 
 	const dateFormat = new Intl.DateTimeFormat(locale, {
 		dateStyle: "medium",
@@ -37,7 +37,7 @@ export function EventFamilyView({
 				]}
 			/>
 
-			<EventFamilyHeader locale={locale} occurrences={occurrences} />
+			<EventFamilyHeader family={family} locale={locale} />
 
 			{occurrences.map((event) => (
 				<EventOccurrence

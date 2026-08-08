@@ -1,7 +1,7 @@
 import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
-import { EventFamily, EventId } from "../../utility/event.js";
+import { EventFamilyId, EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
 
@@ -19,7 +19,7 @@ for (
 export default new Event({
 	id: EventId.SkyXAlicesWonderlandCafe2024,
 	name: "sky-x-alices-wonderland-cafe",
-	family: EventFamily.SkyXAlicesWonderlandCafe,
+	family: EventFamilyId.SkyXAlicesWonderlandCafe,
 	start: skyDate(2_024, 12, 23),
 	end: skyDate(2_025, 1, 13),
 	eventTickets: {

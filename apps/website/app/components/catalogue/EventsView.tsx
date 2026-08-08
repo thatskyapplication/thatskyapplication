@@ -1,7 +1,6 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
-	catalogueEventItems,
 	cataloguePercentage,
 	catalogueProgress,
 	skyEventFamilies,
@@ -14,7 +13,7 @@ import { SectionCard } from "./SectionCard";
 
 export function EventsView({ data }: { data: ReadonlySet<number> }) {
 	const { t } = useTranslation();
-	const families = useMemo(() => [...skyEventFamilies()], []);
+	const families = useMemo(() => [...skyEventFamilies().values()], []);
 
 	return (
 		<>
@@ -24,23 +23,17 @@ export function EventsView({ data }: { data: ReadonlySet<number> }) {
 			/>
 
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-				{families.map(([family, occurrences]) => {
-					const latest = occurrences[0];
-
-					return (
-						<SectionCard
-							emoji={EventIdToEventTicketEmoji[latest.id]}
-							emptyLabel={t("catalogue.event-no-cosmetics", { ns: "features" })}
-							key={family}
-							note={eventFamilyYears(occurrences, t)}
-							percentage={cataloguePercentage(
-								catalogueProgress(catalogueEventItems(occurrences), data),
-							)}
-							title={t(latest.name, { ns: "general" })}
-							to={`?view=event-family&family=${family}`}
-						/>
-					);
-				})}
+				{families.map((family) => (
+					<SectionCard
+						emoji={EventIdToEventTicketEmoji[family.latest.id]}
+						emptyLabel={t("catalogue.event-no-cosmetics", { ns: "features" })}
+						key={family.id}
+						note={eventFamilyYears(family.occurrences, t)}
+						percentage={cataloguePercentage(catalogueProgress(family.offer, data))}
+						title={t(family.latest.name, { ns: "general" })}
+						to={`?view=event-family&family=${family.id}`}
+					/>
+				))}
 			</div>
 
 			<BackButton to="/me/catalogue" />
