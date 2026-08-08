@@ -706,9 +706,9 @@ export async function viewSearch(
 	const { locale } = interaction;
 	const entries = searchEntries(locale);
 
-	const target =
-		entries.find((entry) => searchResultName(entry.name, entry.target, locale) === value)?.target ??
-		catalogueSearch(entries, value, 1)[0]?.target;
+	const target = entries.find(
+		(entry) => searchResultName(entry.name, entry.target, locale) === value,
+	)?.target;
 
 	if (!target) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
