@@ -29,7 +29,7 @@ export function EventOccurrence({
 		<div
 			className={clsx(
 				CARD_CLASS,
-				"flex scroll-mt-[calc(var(--site-top-bar-height,0)+1rem)] flex-col gap-3",
+				"flex scroll-mt-[calc(var(--site-top-bar-height,0px)+1rem)] flex-col gap-3",
 			)}
 			id={eventAnchor(event.id)}
 		>
