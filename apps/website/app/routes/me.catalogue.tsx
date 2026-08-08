@@ -39,7 +39,7 @@ import type { Route } from "./+types/me.catalogue.js";
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
-	const { discordUser } = await requireDiscordAuthentication(request, url);
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	const cataloguePacket = await database
 		.selectFrom("catalogue")
@@ -56,8 +56,8 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	};
 };
 
-export const action = async ({ request, url }: Route.ActionArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request, url);
+export const action = async ({ context, request, url }: Route.ActionArgs) => {
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	const formData = await request.formData();
 	const intent = formData.get("intent");

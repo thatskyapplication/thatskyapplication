@@ -24,8 +24,8 @@ import type { Route } from "./+types/me.heart-history.js";
 
 const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 30 as const;
 
-export const loader = async ({ request, url }: Route.LoaderArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request, url);
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 	const userId = discordUser.id;
 	const requestedPage = parsePage(url);
 	const today = skyToday();

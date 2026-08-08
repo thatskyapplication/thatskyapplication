@@ -1,5 +1,5 @@
 import { CheckCircleIcon, ExternalLinkIcon } from "lucide-react";
-import { data, Form, redirect } from "react-router";
+import { Form, redirect } from "react-router";
 import { CentredSitePage } from "~/components/PageLayout";
 import {
 	CROWDIN_CLIENT_ID,
@@ -10,8 +10,8 @@ import {
 } from "~/config.server.js";
 import database from "~/database.server";
 import discord from "~/discord.js";
+import { getRequestSession } from "~/middleware/session";
 import pino from "~/pino.js";
-import { commitSession, getSession } from "~/session.server";
 import { INVITE_SUPPORT_SERVER_URL } from "~/utility/constants.js";
 import { generateState, requireDiscordAuthentication } from "~/utility/functions.server";
 import type { CrowdinUser } from "~/utility/types.js";
@@ -64,12 +64,12 @@ interface CrowdinWords {
 
 type StringsAndWords = CrowdinStrings & CrowdinWords;
 
-export const loader = async ({ request, url }: Route.LoaderArgs) => {
-	const session = await getSession(request.headers.get("Cookie"));
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	const session = getRequestSession(context);
 	const crowdinCode = url.searchParams.get("code");
 	const state = url.searchParams.get("state");
 	const error = url.searchParams.get("error");
-	const { discordUser } = await requireDiscordAuthentication(request, url);
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	if (error) {
 		session.set("discord_crowdin_auth_error", error);
@@ -81,7 +81,7 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 	};
 
 	if (!crowdinCode || state !== session.get("crowdin_state")) {
-		return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
+		return authenticationState;
 	}
 
 	try {
@@ -138,7 +138,7 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 			authenticationState.error = "Crowdin account inactive.";
 			session.set("discord_crowdin_auth_error", authenticationState.error);
 
-			return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
+			return authenticationState;
 		}
 
 		const projectContributionsResponse = await fetch(
@@ -175,7 +175,7 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 
 			authenticationState.error = "You have not translated anything.";
 			session.set("discord_crowdin_auth_error", authenticationState.error);
-			return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
+			return authenticationState;
 		}
 
 		const user = await database
@@ -189,7 +189,7 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 		if (user) {
 			authenticationState.error = "You're already a translator!";
 			session.set("discord_crowdin_auth_error", authenticationState.error);
-			return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
+			return authenticationState;
 		}
 
 		await database
@@ -223,14 +223,14 @@ export const loader = async ({ request, url }: Route.LoaderArgs) => {
 		session.set("discord_crowdin_auth_error", authenticationState.error);
 	}
 
-	return data(authenticationState, { headers: { "Set-Cookie": await commitSession(session) } });
+	return authenticationState;
 };
 
-export const action = async ({ request, url }: Route.ActionArgs) => {
+export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const formData = await request.formData();
 	const action = formData.get("action");
-	const session = await getSession(request.headers.get("Cookie"));
-	await requireDiscordAuthentication(request, url);
+	const session = getRequestSession(context);
+	requireDiscordAuthentication({ context, request, url });
 
 	if (action === "authorise_crowdin") {
 		const state = generateState();
@@ -242,11 +242,7 @@ export const action = async ({ request, url }: Route.ActionArgs) => {
 		authenticationURL.searchParams.set("scope", "user");
 		authenticationURL.searchParams.set("state", state);
 
-		return redirect(authenticationURL.toString(), {
-			headers: {
-				"Set-Cookie": await commitSession(session),
-			},
-		});
+		return redirect(authenticationURL.toString());
 	}
 
 	return null;

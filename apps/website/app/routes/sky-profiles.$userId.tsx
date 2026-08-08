@@ -45,7 +45,7 @@ import {
 	getSkyProfileCatalogueData,
 } from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCDN } from "~/hooks/use-cdn-url.js";
-import { getSession } from "~/session.server";
+import { getRequestSession } from "~/middleware/session";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import { MISCELLANEOUS_EMOJIS, SkyProfilePersonalityToEmoji } from "~/utility/emojis.js";
@@ -152,14 +152,14 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 	];
 };
 
-export const loader = async ({ params, request }: Route.LoaderArgs) => {
+export const loader = async ({ context, params }: Route.LoaderArgs) => {
 	const { userId } = params;
 
 	if (!userId) {
 		throw new Response(null, { status: 400 });
 	}
 
-	const session = await getSession(request.headers.get("Cookie"));
+	const session = getRequestSession(context);
 	const discordUser = session.get("discord_user") ?? null;
 
 	const data = await fetchSkyProfileWithFlags(database, userId);

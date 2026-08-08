@@ -147,13 +147,13 @@ async function validateAsset(file: File) {
 	return { buffer, square: width === height } as const;
 }
 
-export const loader = async ({ request, url }: Route.LoaderArgs) => {
-	const { discordUser } = await requireAdminAccess(request, url);
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	const { discordUser } = await requireAdminAccess({ context, request, url });
 	return { discordUser };
 };
 
-export const action = async ({ request, url }: Route.ActionArgs) => {
-	await requireAdminAccess(request, url);
+export const action = async ({ context, request, url }: Route.ActionArgs) => {
+	await requireAdminAccess({ context, request, url });
 	const formData = await request.formData();
 	const rawType = formData.get("type");
 	const rawAsset = formData.get("asset");

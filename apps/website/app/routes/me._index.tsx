@@ -6,8 +6,8 @@ import database from "~/database.server";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import type { Route } from "./+types/me._index.js";
 
-export const loader = async ({ request, url }: Route.LoaderArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request, url);
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	const skyProfile = await database
 		.selectFrom("sky_profiles")

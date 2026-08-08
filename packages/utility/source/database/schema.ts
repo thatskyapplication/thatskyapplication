@@ -53,6 +53,13 @@ export interface DailyGuidesDistribution {
   type: number;
 }
 
+export interface DiscordOauth {
+  access_token: string;
+  expires_at: Timestamp;
+  refresh_token: string;
+  user_id: string;
+}
+
 export interface Feedback {
   completed_at: Timestamp;
   question1: string;
@@ -167,6 +174,7 @@ export interface DB {
   checklist: Checklist;
   daily_guides: DailyGuides;
   daily_guides_distribution: DailyGuidesDistribution;
+  discord_oauth: DiscordOauth;
   feedback: Feedback;
   feedback_upsell: FeedbackUpsell;
   friendship_actions: FriendshipActions;

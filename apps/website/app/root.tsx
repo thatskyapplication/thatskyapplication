@@ -18,7 +18,7 @@ import ConditionalLayout from "~/components/ConditionalLayout";
 import { CDN_URL } from "~/config.server";
 import database from "~/database.server";
 import { getLocale, i18nextMiddleware } from "~/middleware/i18next";
-import { getSession } from "~/session.server";
+import { getRequestSession, sessionMiddleware } from "~/middleware/session";
 import { cdnAssetURL } from "~/utility/cdn";
 import {
 	APPLICATION_DESCRIPTION,
@@ -33,7 +33,7 @@ import {
 } from "~/utility/time-zone";
 import type { Route } from "./+types/root.js";
 
-export const middleware = [i18nextMiddleware];
+export const middleware = [sessionMiddleware, i18nextMiddleware];
 
 const cdn = new CDN(CDN_URL);
 
@@ -136,13 +136,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	);
 }
 
-export async function loader({ context, request, url }: Route.LoaderArgs) {
+export async function loader({ context, url }: Route.LoaderArgs) {
 	const locale = getLocale(context);
 	const { pathname } = url;
 	const bareLayout = EXCLUDE_TOP_BAR_AND_FOOTER.includes(
 		pathname as (typeof EXCLUDE_TOP_BAR_AND_FOOTER)[number],
 	);
-	const session = await getSession(request.headers.get("Cookie"));
+	const session = getRequestSession(context);
 	const user = session.get("discord_user") ?? null;
 	const skyProfile = user
 		? await database

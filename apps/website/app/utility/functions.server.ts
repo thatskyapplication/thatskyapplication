@@ -1,10 +1,16 @@
 import { randomBytes } from "node:crypto";
 import { DiscordAPIError } from "@discordjs/rest";
 import { isBot } from "isbot";
-import { redirect } from "react-router";
+import { redirect, type RouterContextProvider } from "react-router";
 import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "~/config.server.js";
 import discord from "~/discord.js";
-import { commitSession, getSession } from "~/session.server.js";
+import { getRequestSession } from "~/middleware/session.js";
+
+interface AuthenticationArguments {
+	context: Readonly<RouterContextProvider>;
+	request: Request;
+	url: URL;
+}
 
 export function generateState() {
 	return randomBytes(16).toString("hex");
@@ -23,40 +29,31 @@ export function resolveReturnTo(returnTo: string | null | undefined, origin: str
 		return "/";
 	}
 
-	return `${returnToURL.pathname}${returnToURL.search}${returnToURL.hash}`;
+	const pathname = returnToURL.pathname.replace(/^\/+/, "");
+	return `/${pathname}${returnToURL.search}${returnToURL.hash}`;
 }
 
-export async function requireDiscordAuthentication(request: Request, url: URL) {
-	const session = await getSession(request.headers.get("Cookie"));
+export function requireDiscordAuthentication({ context, request, url }: AuthenticationArguments) {
+	const session = getRequestSession(context);
 	const discordUser = session.get("discord_user");
-	const tokenExchange = session.get("token_exchange");
 
-	if (!(discordUser && tokenExchange) || Date.now() > tokenExchange.expires_at) {
+	if (!discordUser) {
 		const userAgent = request.headers.get("user-agent");
 		const justLoggedOut = session.get("just_logged_out");
 
-		// Keep link unfurlers on-site so they read our metadata instead.
-		if (userAgent && isBot(userAgent)) {
+		if (justLoggedOut || (userAgent && isBot(userAgent))) {
 			throw redirect("/");
-		}
-
-		if (justLoggedOut) {
-			throw redirect("/", {
-				headers: {
-					"Set-Cookie": await commitSession(session),
-				},
-			});
 		}
 
 		const returnTo = encodeURIComponent(String(url));
 		throw redirect(`/login?returnTo=${returnTo}`);
 	}
 
-	return { discordUser, tokenExchange };
+	return { discordUser };
 }
 
-export async function requireAdminAccess(request: Request, url: URL) {
-	const { discordUser } = await requireDiscordAuthentication(request, url);
+export async function requireAdminAccess({ context, request, url }: AuthenticationArguments) {
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	try {
 		const member = await discord.guilds.getMember(SUPPORT_SERVER_GUILD_ID, discordUser.id);

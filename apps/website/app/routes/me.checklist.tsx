@@ -44,7 +44,7 @@ const CHECKLIST_UNAVAILABLE_LABEL_CLASS = "text-gray-400 dark:text-gray-600" as 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
-	const { discordUser } = await requireDiscordAuthentication(request, url);
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	let checklistPacket = await database
 		.selectFrom("checklist")
@@ -82,8 +82,8 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	};
 };
 
-export const action = async ({ request, url }: Route.ActionArgs) => {
-	const { discordUser } = await requireDiscordAuthentication(request, url);
+export const action = async ({ context, request, url }: Route.ActionArgs) => {
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 	const formData = await request.formData();
 	const dailyQuests = formData.get("daily_quests");
 	const seasonalCandles = formData.get("seasonal_candles");

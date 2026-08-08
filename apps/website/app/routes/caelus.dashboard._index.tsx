@@ -1,25 +1,12 @@
-import { DiscordAPIError } from "@discordjs/rest";
-import { redirect } from "react-router";
 import { SitePage } from "~/components/PageLayout";
 import { guildIconURL } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
-import { getUserAdminGuilds } from "~/utility/guilds.server.js";
+import { requireUserAdminGuilds } from "~/utility/guilds.server.js";
 import type { Route } from "./+types/caelus.dashboard._index.js";
 
-export const loader = async ({ request, url }: Route.LoaderArgs) => {
-	const { discordUser, tokenExchange } = await requireDiscordAuthentication(request, url);
-
-	try {
-		const guilds = await getUserAdminGuilds(discordUser, tokenExchange);
-		return guilds;
-	} catch (error) {
-		if (error instanceof DiscordAPIError && error.status === 401) {
-			const returnTo = encodeURIComponent(String(url));
-			return redirect(`/login?returnTo=${returnTo}`);
-		}
-
-		throw error;
-	}
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	const { discordUser } = requireDiscordAuthentication({ context, request, url });
+	return requireUserAdminGuilds(discordUser.id, url);
 };
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {

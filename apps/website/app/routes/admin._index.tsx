@@ -4,8 +4,10 @@ import { SitePage } from "~/components/PageLayout";
 import { requireAdminAccess } from "~/utility/functions.server.js";
 import type { Route } from "./+types/admin._index.js";
 
-export const loader = async ({ request, url }: Route.LoaderArgs) =>
-	requireAdminAccess(request, url);
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	await requireAdminAccess({ context, request, url });
+	return null;
+};
 
 export default function Admin() {
 	return (
