@@ -1,8 +1,9 @@
 import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
-import { skyEvents } from "./events/index.js";
+import { skyEventFamilies, skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
 import { spirits } from "./kingdom/spirits.js";
+import type { EventFamily, EventFamilyOccurrences } from "./models/event-family.js";
 import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
@@ -274,6 +275,7 @@ export enum CatalogueSearchType {
 	Event = 1,
 	Spirit = 2,
 	Collection = 3,
+	EventFamily = 4,
 }
 
 export enum CatalogueCollection {
@@ -286,6 +288,11 @@ export enum CatalogueCollection {
 export type CatalogueSearchTarget =
 	| { readonly type: CatalogueSearchType.Season; readonly season: Season }
 	| { readonly type: CatalogueSearchType.Event; readonly event: Event }
+	| {
+			readonly type: CatalogueSearchType.EventFamily;
+			readonly family: EventFamily;
+			readonly occurrences: EventFamilyOccurrences;
+	  }
 	| { readonly type: CatalogueSearchType.Spirit; readonly spirit: Spirit }
 	| { readonly type: CatalogueSearchType.Collection; readonly collection: CatalogueCollection };
 
@@ -295,11 +302,18 @@ export function spiritOriginTranslationKey(spirit: Spirit) {
 		: (`realms.${spirit.realm}` as const);
 }
 
-export interface CatalogueSearchEntry {
+export type CatalogueSearchTargetWithoutEventFamily = Exclude<
+	CatalogueSearchTarget,
+	{ readonly type: CatalogueSearchType.EventFamily }
+>;
+
+export interface CatalogueSearchEntry<
+	Target extends CatalogueSearchTarget = CatalogueSearchTarget,
+> {
 	readonly name: string;
 	readonly keywords: readonly string[];
 	readonly cosmeticDisplay: Cosmetic | null;
-	readonly target: CatalogueSearchTarget;
+	readonly target: Target;
 }
 
 function inAppPurchaseEntries(
@@ -323,8 +337,23 @@ function inAppPurchaseEntries(
 	return entries;
 }
 
+interface CatalogueSearchEntriesOptions<GroupEventFamilies extends boolean> {
+	readonly groupEventFamilies: GroupEventFamilies;
+}
+
 export function catalogueSearchEntries(
 	resolveName: (key: string) => string,
+	options: CatalogueSearchEntriesOptions<true>,
+): readonly CatalogueSearchEntry[];
+
+export function catalogueSearchEntries(
+	resolveName: (key: string) => string,
+	options: CatalogueSearchEntriesOptions<false>,
+): readonly CatalogueSearchEntry<CatalogueSearchTargetWithoutEventFamily>[];
+
+export function catalogueSearchEntries(
+	resolveName: (key: string) => string,
+	{ groupEventFamilies }: CatalogueSearchEntriesOptions<boolean>,
 ): readonly CatalogueSearchEntry[] {
 	const entries: CatalogueSearchEntry[] = [];
 
@@ -339,14 +368,31 @@ export function catalogueSearchEntries(
 		entries.push(...inAppPurchaseEntries(season.items, target, resolveName));
 	}
 
+	if (groupEventFamilies) {
+		for (const family of skyEventFamilies().values()) {
+			for (const [name, occurrences] of family.names) {
+				entries.push({
+					name: resolveName(name),
+					keywords: [],
+					cosmeticDisplay: null,
+					target: { type: CatalogueSearchType.EventFamily, family, occurrences },
+				});
+			}
+		}
+	}
+
 	for (const event of skyEvents().toReversed().values()) {
 		const target = { type: CatalogueSearchType.Event, event } as const;
-		entries.push({
-			name: resolveName(event.name),
-			keywords: [],
-			cosmeticDisplay: null,
-			target,
-		});
+
+		if (!groupEventFamilies) {
+			entries.push({
+				name: resolveName(event.name),
+				keywords: [],
+				cosmeticDisplay: null,
+				target,
+			});
+		}
+
 		entries.push(...inAppPurchaseEntries(event.offer, target, resolveName));
 	}
 
@@ -377,21 +423,21 @@ export function catalogueSearchEntries(
 	return entries;
 }
 
-export function catalogueSearch(
-	entries: readonly CatalogueSearchEntry[],
+export function catalogueSearch<Entry extends CatalogueSearchEntry>(
+	entries: readonly Entry[],
 	query: string,
 	limit?: number,
-): readonly CatalogueSearchEntry[] {
+): readonly Entry[] {
 	const normalisedQuery = query.trim().toUpperCase();
 
 	if (normalisedQuery.length === 0) {
 		return [];
 	}
 
-	const exactMatches: CatalogueSearchEntry[] = [];
-	const prefixMatches: CatalogueSearchEntry[] = [];
-	const nameMatches: CatalogueSearchEntry[] = [];
-	const keywordMatches: CatalogueSearchEntry[] = [];
+	const exactMatches: Entry[] = [];
+	const prefixMatches: Entry[] = [];
+	const nameMatches: Entry[] = [];
+	const keywordMatches: Entry[] = [];
 
 	for (const entry of entries) {
 		const name = entry.name.toUpperCase();

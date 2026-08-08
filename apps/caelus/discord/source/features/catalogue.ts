@@ -31,7 +31,7 @@ import {
 	catalogueProgress,
 	CatalogueCollection,
 	catalogueSearch,
-	type CatalogueSearchTarget,
+	type CatalogueSearchTargetWithoutEventFamily,
 	catalogueSearchEntries,
 	CatalogueSearchType,
 	catalogueSeasonItems,
@@ -646,10 +646,16 @@ export async function viewStart(
 }
 
 function searchEntries(locale: Locale) {
-	return catalogueSearchEntries((key) => t(key, { lng: locale, ns: "general" }));
+	return catalogueSearchEntries((key) => t(key, { lng: locale, ns: "general" }), {
+		groupEventFamilies: false,
+	});
 }
 
-function searchResultName(name: string, target: CatalogueSearchTarget, locale: Locale) {
+function searchResultName(
+	name: string,
+	target: CatalogueSearchTargetWithoutEventFamily,
+	locale: Locale,
+) {
 	let detail: string | number | null;
 
 	switch (target.type) {
@@ -1723,21 +1729,10 @@ export async function viewEvents(
 		},
 	];
 
-	const events = skyEvents();
+	const events = [...skyEvents().values()].reverse();
 	const offset = (page - 1) * CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT;
-	const limit = offset + CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT;
-	const maximumPage = Math.ceil(events.size / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT);
-	const eventsFiltered = [];
-
-	for (let index = offset; index < limit; index++) {
-		const event = events.get(index as EventIds);
-
-		if (!event) {
-			continue;
-		}
-
-		eventsFiltered.push(event);
-	}
+	const maximumPage = Math.ceil(events.length / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT);
+	const eventsFiltered = events.slice(offset, offset + CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT);
 
 	const { offerProgress } = offerData({
 		data: catalogue?.data,
@@ -2220,9 +2215,10 @@ async function viewEvent(
 		});
 	}
 
-	const events = skyEvents();
-	const before = events.get((id - 1) as EventIds);
-	const after = events.get((id + 1) as EventIds);
+	const events = [...skyEvents().values()];
+	const index = events.findIndex((skyEvent) => skyEvent.id === id);
+	const before = events[index - 1];
+	const after = events[index + 1];
 
 	const actionRowComponents: APIComponentInMessageActionRow[] = [
 		{
@@ -2267,7 +2263,7 @@ async function viewEvent(
 			},
 			traversalContainer({
 				locale,
-				navigationBackCustomId: `${CustomId.CatalogueViewEvents}§${Math.ceil((id + 1) / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT)}`,
+				navigationBackCustomId: `${CustomId.CatalogueViewEvents}§${Math.ceil((events.length - index) / CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT)}`,
 				isInEvents: true,
 			}),
 		],

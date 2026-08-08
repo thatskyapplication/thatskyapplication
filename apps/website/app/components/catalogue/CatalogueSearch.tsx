@@ -14,6 +14,7 @@ import {
 	spiritOriginTranslationKey,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
+import { eventAnchor, eventFamilyYears } from "~/utility/catalogue.js";
 import {
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
@@ -60,9 +61,15 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 			};
 		case CatalogueSearchType.Event:
 			return {
-				to: `?view=event&event=${target.event.id}`,
+				to: `?view=event-family&family=${target.event.family}#${eventAnchor(target.event.id)}`,
 				emoji: EventIdToEventTicketEmoji[target.event.id],
 				detail: String(target.event.start.year),
+			};
+		case CatalogueSearchType.EventFamily:
+			return {
+				to: `?view=event-family&family=${target.family.id}`,
+				emoji: EventIdToEventTicketEmoji[target.occurrences[0].id],
+				detail: eventFamilyYears(target.occurrences, t),
 			};
 		case CatalogueSearchType.Spirit: {
 			const { spirit } = target;
@@ -90,7 +97,10 @@ export function CatalogueSearch() {
 	const hasQuery = query.trim().length > 0;
 
 	const entries = useMemo(
-		() => (hasQuery ? catalogueSearchEntries((key) => t(key, { ns: "general" })) : NO_RESULTS),
+		() =>
+			hasQuery
+				? catalogueSearchEntries((key) => t(key, { ns: "general" }), { groupEventFamilies: true })
+				: NO_RESULTS,
 		[hasQuery, t],
 	);
 

@@ -1,11 +1,12 @@
 import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamilyId, EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.WorkshopShowAndTell2025,
 	name: "workshop-show-and-tell",
+	family: EventFamilyId.WorkshopShowAndTell,
 	start: skyDate(2_025, 6, 23),
 	end: skyDate(2_025, 7, 7),
 	offer: [

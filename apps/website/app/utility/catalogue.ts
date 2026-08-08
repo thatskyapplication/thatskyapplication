@@ -1,8 +1,10 @@
 import { clsx } from "clsx";
+import type { TFunction } from "i18next";
 import {
 	CLOTHING_SHOP,
 	Cosmetic,
 	collectSpiritCosmetics,
+	type EventFamilyOccurrences,
 	type EventIds,
 	type Item,
 	isRealm,
@@ -35,6 +37,23 @@ export const NOTE_CLASS = "m-0 text-xs text-gray-500 dark:text-gray-400" as cons
 export const TREE_COLUMN_CLASS = "flex w-60 shrink-0 flex-col justify-end gap-2 sm:w-64" as const;
 export const TREE_COLUMN_LABEL_CLASS =
 	"line-clamp-2 min-h-10 text-sm font-medium text-gray-900 transition-colors hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300" as const;
+
+export function eventAnchor(eventId: EventIds) {
+	return `event-${eventId}`;
+}
+
+export function eventFamilyYears(occurrences: EventFamilyOccurrences, t: TFunction) {
+	const [latest] = occurrences;
+	const firstYear = occurrences[occurrences.length - 1]!.start.year;
+
+	return firstYear === latest.start.year
+		? String(latest.start.year)
+		: t("time-range", {
+				ns: "general",
+				start: String(firstYear),
+				end: String(latest.start.year),
+			});
+}
 
 export function itemEmoji(item: Item) {
 	return item.regularHeart ? MISCELLANEOUS_EMOJIS.Heart : CosmeticToEmoji[item.cosmeticDisplay];

@@ -19,7 +19,7 @@ function resolveName(key: string) {
 	return typeof current === "string" ? current : key;
 }
 
-const entries = catalogueSearchEntries(resolveName);
+const entries = catalogueSearchEntries(resolveName, { groupEventFamilies: true });
 
 function names(query: string, limit?: number) {
 	return catalogueSearch(entries, query, limit).map(({ name }) => name);
@@ -109,6 +109,20 @@ test("Events are indexed newest first.", () => {
 	}
 
 	assertNewestFirst(starts, "events");
+});
+
+test("An event name yields one entry for all of its years.", () => {
+	deepStrictEqual(names("Days of Sunlight"), ["Days of Sunlight"]);
+});
+
+test("A renamed event surfaces each of its names against the same family.", () => {
+	const current = firstTarget("Days of Fortune");
+	ok(current?.type === CatalogueSearchType.EventFamily);
+
+	const previous = firstTarget("Lunar New Year");
+	ok(previous?.type === CatalogueSearchType.EventFamily);
+
+	equal(current.occurrences[0].family, previous.occurrences[0].family);
 });
 
 test("The limit caps results and is optional.", () => {

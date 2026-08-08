@@ -34,6 +34,7 @@ export {
 	type CatalogueProgress,
 	type CatalogueSearchEntry,
 	type CatalogueSearchTarget,
+	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	CLOTHING_SHOP,
 	catalogueComplete,
@@ -82,6 +83,7 @@ export {
 export {
 	communityUpcomingEvents,
 	skyCurrentEvents,
+	skyEventFamilies,
 	skyEvents,
 	skyNotEndedEvents,
 	skyUpcomingEvents,
@@ -163,6 +165,7 @@ export {
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
 } from "./kingdom/seasons/index.js";
+export { EventFamily, type EventFamilyOccurrences } from "./models/event-family.js";
 export { Event } from "./models/event.js";
 export { Realm } from "./models/realm.js";
 export { type DoubleSeasonalLightDate, Season } from "./models/season.js";
@@ -232,7 +235,14 @@ export {
 	type SkyProfileWingedLightTypes,
 } from "./sky-profile.js";
 export type { Snowflake } from "./types/index.js";
-export { EventId, type EventIds, isEventId } from "./utility/event.js";
+export {
+	EventFamilyId,
+	type EventFamilyIds,
+	EventId,
+	type EventIds,
+	isEventFamilyId,
+	isEventId,
+} from "./utility/event.js";
 export {
 	type CostEntry,
 	getRandomElement,

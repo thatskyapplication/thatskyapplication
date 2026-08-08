@@ -1,11 +1,12 @@
 import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamilyId, EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfMischief2022,
 	name: "days-of-mischief",
+	family: EventFamilyId.DaysOfMischief,
 	start: skyDate(2_022, 10, 24),
 	end: skyDate(2_022, 11, 14),
 	offer: [

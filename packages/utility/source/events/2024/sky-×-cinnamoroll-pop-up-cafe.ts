@@ -2,7 +2,7 @@ import { Cosmetic, CosmeticPackName } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
 import { CDN_URL } from "../../routes.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamilyId, EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
 
@@ -23,6 +23,7 @@ for (
 export default new Event({
 	id: EventId.SkyXCinnamorollPopUpCafe2024,
 	name: "sky-x-cinnamoroll-pop-up-cafe",
+	family: EventFamilyId.SkyXCinnamorollPopUpCafe,
 	start: skyDate(2_024, 4, 27),
 	end: skyDate(2_024, 5, 18),
 	eventTickets: {

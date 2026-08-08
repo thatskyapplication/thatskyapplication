@@ -4,13 +4,13 @@ import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router";
 import {
 	CLOTHING_SHOP,
-	type EventIds,
+	isEventFamilyId,
 	NESTING_WORKSHOP,
 	SECRET_AREA,
 	type SeasonIds,
 	type SpiritIds,
 	STARTER_PACKS,
-	skyEvents,
+	skyEventFamilies,
 	skyNow,
 	skySeasons,
 	spirits,
@@ -19,8 +19,8 @@ import {
 import { CatalogueSearch } from "~/components/catalogue/CatalogueSearch";
 import { CollectionView } from "~/components/catalogue/CollectionView";
 import { EldersView } from "~/components/catalogue/EldersView";
+import { EventFamilyView } from "~/components/catalogue/EventFamilyView";
 import { EventsView } from "~/components/catalogue/EventsView";
-import { EventView } from "~/components/catalogue/EventView";
 import { RealmsView } from "~/components/catalogue/RealmsView";
 import { ReturningSpiritsView } from "~/components/catalogue/ReturningSpiritsView";
 import { SeasonsView } from "~/components/catalogue/SeasonsView";
@@ -172,16 +172,17 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 			break;
 		}
 		case "events":
-			content = <EventsView data={data} locale={locale} timeZone={timeZone} />;
+			content = <EventsView data={data} />;
 			break;
-		case "event": {
-			const event = skyEvents().get(Number(searchParams.get("event")) as EventIds);
+		case "event-family": {
+			const family = Number(searchParams.get("family"));
+			const eventFamily = isEventFamilyId(family) ? skyEventFamilies().get(family) : undefined;
 
-			if (event) {
+			if (eventFamily) {
 				content = (
-					<EventView
+					<EventFamilyView
 						data={data}
-						eventId={event.id}
+						family={eventFamily}
 						locale={locale}
 						showEverythingButton={showEverythingButton}
 						timeZone={timeZone}

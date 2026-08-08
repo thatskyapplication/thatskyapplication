@@ -1,7 +1,7 @@
 import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event, type EventTicketsAmountData } from "../../models/event.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamilyId, EventId } from "../../utility/event.js";
 
 const eventTicketAmount: EventTicketsAmountData[] = [];
 
@@ -18,6 +18,7 @@ eventTicketAmount.push({ date: skyDate(2_024, 8, 18), amount: 5 });
 export default new Event({
 	id: EventId.TournamentOfTriumph2024,
 	name: "tournament-of-triumph",
+	family: EventFamilyId.TournamentOfTriumph,
 	start: skyDate(2_024, 7, 29),
 	end: skyDate(2_024, 8, 19),
 	eventTickets: {

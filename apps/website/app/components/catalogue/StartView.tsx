@@ -25,7 +25,7 @@ import {
 	skySeasons,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
-import { CARD_CLASS } from "~/utility/catalogue.js";
+import { CARD_CLASS, eventAnchor } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji, SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { CatalogueSearch } from "./CatalogueSearch";
 import { SectionCard } from "./SectionCard";
@@ -118,7 +118,7 @@ export function StartView({
 		quickAccess.push({
 			emoji: EventIdToEventTicketEmoji[event.id],
 			label: t(event.name, { ns: "general" }),
-			to: `?view=event&event=${event.id}`,
+			to: `?view=event-family&family=${event.family}#${eventAnchor(event.id)}`,
 		});
 	}
 
