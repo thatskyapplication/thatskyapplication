@@ -21,6 +21,8 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 
+const CATALOGUE_SEARCH_RESULT_LIMIT = 100 as const;
+
 const CATALOGUE_COLLECTIONS = {
 	[CatalogueCollection.StarterPacks]: {
 		view: "starter-packs",
@@ -80,7 +82,10 @@ export function CatalogueSearch() {
 	const [open, setOpen] = useState(false);
 
 	const entries = useMemo(() => catalogueSearchEntries((key) => t(key, { ns: "general" })), [t]);
-	const results = useMemo(() => catalogueSearch(entries, query), [entries, query]);
+	const results = useMemo(
+		() => catalogueSearch(entries, query, CATALOGUE_SEARCH_RESULT_LIMIT),
+		[entries, query],
+	);
 
 	return (
 		<Autocomplete.Root
