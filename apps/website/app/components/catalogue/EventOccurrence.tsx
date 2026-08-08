@@ -1,9 +1,9 @@
 import { clsx } from "clsx";
-import { Link2 } from "lucide-react";
+import { ExternalLinkIcon, Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import type { Event } from "@thatskyapplication/utility";
-import { CARD_CLASS, eventAnchor, NOTE_CLASS } from "~/utility/catalogue.js";
+import { CARD_CLASS, eventAnchor, NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { EverythingButton } from "./EverythingButton";
 import { ItemChecklist } from "./ItemChecklist";
 import { RemainingCostList } from "./RemainingCostList";
@@ -33,31 +33,42 @@ export function EventOccurrence({
 			)}
 			id={eventAnchor(event.id)}
 		>
-			<div>
-				<h2 className="group my-0 text-lg font-semibold text-gray-900 dark:text-gray-100">
-					<Link
-						className="inline-flex flex-wrap items-center gap-2 text-inherit no-underline hover:underline"
-						to={`?view=event-family&family=${event.family}#${eventAnchor(event.id)}`}
-					>
-						{event.start.year}
-						{event.name === currentName ? null : (
-							<span className="text-sm font-normal text-gray-600 dark:text-gray-400">
-								{t(event.name, { ns: "general" })}
-							</span>
-						)}
-						<Link2
-							aria-hidden="true"
-							className="h-4 w-4 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100"
-						/>
-					</Link>
-				</h2>
-				<p className={NOTE_CLASS}>
-					{t("time-range", {
-						ns: "general",
-						start: dateFormat.format(event.start.epochMilliseconds),
-						end: dateFormat.format(event.end.epochMilliseconds),
-					})}
-				</p>
+			<div className="flex items-start justify-between gap-2">
+				<div className="min-w-0">
+					<h2 className="group my-0 text-lg font-semibold text-gray-900 dark:text-gray-100">
+						<Link
+							className="inline-flex flex-wrap items-center gap-2 text-inherit no-underline hover:underline"
+							to={`?view=event-family&family=${event.family}#${eventAnchor(event.id)}`}
+						>
+							{event.start.year}
+							{event.name === currentName ? null : (
+								<span className="text-sm font-normal text-gray-600 dark:text-gray-400">
+									{t(event.name, { ns: "general" })}
+								</span>
+							)}
+							<Link2
+								aria-hidden="true"
+								className="h-4 w-4 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100"
+							/>
+						</Link>
+					</h2>
+					<p className={NOTE_CLASS}>
+						{t("time-range", {
+							ns: "general",
+							start: dateFormat.format(event.start.epochMilliseconds),
+							end: dateFormat.format(event.end.epochMilliseconds),
+						})}
+					</p>
+				</div>
+				<a
+					className={clsx(VIEW_LINK_CLASS, "inline-flex items-center gap-1")}
+					href={t(`event-wiki.${event.id}`, { ns: "general" })}
+					rel="noopener noreferrer"
+					target="_blank"
+				>
+					{t("wiki", { ns: "general" })}
+					<ExternalLinkIcon className="h-3 w-3" />
+				</a>
 			</div>
 
 			<RemainingCostList data={data} items={event.offer} locale={locale} />
