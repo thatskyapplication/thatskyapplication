@@ -92,6 +92,7 @@ import {
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
 import {
+	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
 	ME_SKY_PROFILE_URL,
@@ -858,7 +859,7 @@ export async function skyProfileCountryAutocomplete(
 							name: new Intl.DisplayNames(locale, { type: "region", style: "long" }).of(country)!,
 							value: country,
 						}))
-						.slice(0, 25),
+						.slice(0, MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT),
 	});
 }
 
@@ -879,7 +880,7 @@ export async function skyProfileExploreAutocomplete(
 							.selectFrom("sky_profiles")
 							.select(["user_id", "name", "description"])
 							.where(sql<boolean>`upper(name) % ${focused}`)
-							.limit(25)
+							.limit(MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT)
 							.execute()
 					).map(({ user_id, name: skyProfileName, description }) => {
 						let name = `${skyProfileName}`;

@@ -30,19 +30,26 @@ export {
 	MAXIMUM_ASSET_SIZE,
 } from "./assets.js";
 export {
+	CatalogueCollection,
 	type CatalogueProgress,
+	type CatalogueSearchEntry,
+	type CatalogueSearchTarget,
+	CatalogueSearchType,
 	CLOTHING_SHOP,
 	catalogueComplete,
 	catalogueEventItems,
 	catalogueItems,
 	cataloguePercentage,
 	catalogueProgress,
+	catalogueSearch,
+	catalogueSearchEntries,
 	catalogueSeasonItems,
 	catalogueSpiritItems,
 	collectSpiritCosmetics,
 	NESTING_WORKSHOP,
 	partitionItemCosts,
 	SECRET_AREA,
+	spiritOriginTranslationKey,
 	STARTER_PACKS,
 } from "./catalogue.js";
 export type { ChecklistSetData } from "./checklist.js";

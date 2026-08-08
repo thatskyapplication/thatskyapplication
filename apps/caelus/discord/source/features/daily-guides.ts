@@ -87,6 +87,7 @@ import {
 	DAILY_GUIDES_URL,
 	INFORMATION_ACCENT_COLOUR,
 	LOCALE_OPTIONS,
+	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
@@ -155,7 +156,7 @@ export function questAutocomplete(focused: string, locale: Locale) {
 
 					return { name: quest, value: dailyQuest };
 				})
-				.slice(0, 25);
+				.slice(0, MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT);
 }
 
 export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTopLevelComponent] {

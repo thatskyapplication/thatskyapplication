@@ -32,6 +32,7 @@ import {
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { resolveCostToString } from "../utility/catalogue.js";
+import { MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT } from "../utility/constants.js";
 import { CustomId } from "../utility/custom-id.js";
 import { SeasonIdToSeasonalEmoji } from "../utility/emojis.js";
 
@@ -93,7 +94,7 @@ export async function searchAutocomplete<
 							name: t(`spirits.${id}`, { lng: locale, ns: "general" }),
 							value: id,
 						}))
-						.slice(0, 25),
+						.slice(0, MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT),
 	});
 }
 

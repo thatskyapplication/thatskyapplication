@@ -16,6 +16,7 @@ import {
 	spirits,
 	TIME_ZONE,
 } from "@thatskyapplication/utility";
+import { CatalogueSearch } from "~/components/catalogue/CatalogueSearch";
 import { CollectionView } from "~/components/catalogue/CollectionView";
 import { EldersView } from "~/components/catalogue/EldersView";
 import { EventsView } from "~/components/catalogue/EventsView";
@@ -263,7 +264,9 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 		default:
 	}
 
-	if (!content) {
+	const isStartView = !content;
+
+	if (isStartView) {
 		content = <StartView data={data} now={now} showEverythingButton={showEverythingButton} />;
 	}
 
@@ -277,6 +280,8 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 					<ArrowLeft className="h-4 w-4" />
 					<span>{t("navigation-back", { ns: "general" })}</span>
 				</Link>
+
+				{isStartView ? null : <CatalogueSearch />}
 
 				{content}
 			</div>
