@@ -1,11 +1,12 @@
 import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamily, EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.SkyAnniversary2022,
 	name: "sky-anniversary",
+	family: EventFamily.SkyAnniversary,
 	start: skyDate(2_022, 7, 18),
 	end: skyDate(2_022, 8, 4),
 	offer: [

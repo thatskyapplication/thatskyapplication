@@ -2,11 +2,12 @@ import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
 import { CDN_URL } from "../../routes.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamily, EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfBloom2024,
 	name: "days-of-bloom",
+	family: EventFamily.DaysOfBloom,
 	start: skyDate(2_024, 3, 25),
 	end: skyDate(2_024, 4, 15),
 	eventTickets: {

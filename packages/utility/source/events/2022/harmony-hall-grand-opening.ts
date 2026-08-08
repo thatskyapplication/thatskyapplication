@@ -1,11 +1,12 @@
 import { Cosmetic, CosmeticCommon } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamily, EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.HarmonyHallGrandOpening2022,
 	name: "harmony-hall-grand-opening",
+	family: EventFamily.HarmonyHallGrandOpening,
 	start: skyDate(2_022, 5, 23),
 	end: skyDate(2_022, 6, 6),
 	offer: [

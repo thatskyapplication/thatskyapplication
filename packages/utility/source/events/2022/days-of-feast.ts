@@ -1,11 +1,12 @@
 import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamily, EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfFeast2022,
 	name: "days-of-feast",
+	family: EventFamily.DaysOfFeast,
 	start: skyDate(2_022, 12, 19),
 	end: skyDate(2_023, 1, 9),
 	offer: [

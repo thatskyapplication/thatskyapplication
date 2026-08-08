@@ -116,3 +116,44 @@ export type EventIds = (typeof EVENT_ID_VALUES)[number];
 export function isEventId(eventId: number): eventId is EventIds {
 	return EVENT_ID_VALUES.includes(eventId as EventIds);
 }
+
+export const EventFamily = {
+	DaysOfMischief: 0,
+	DaysOfGiving: 1,
+	DaysOfFeast: 2,
+	DaysOfFortune: 3,
+	DaysOfLove: 4,
+	DaysOfSpring: 5,
+	DaysOfNature: 6,
+	DaysOfHealing: 7,
+	DaysOfColour: 8,
+	SkyAnniversary: 9,
+	DaysOfSummerLights: 10,
+	DaysOfBloom: 11,
+	ChildrensDay: 12,
+	DaysOfSunlight: 13,
+	KizunaAI: 14,
+	HarmonyHallGrandOpening: 15,
+	LazyDays: 16,
+	DaysOfMusic: 17,
+	AURORAEncoreConcerts: 18,
+	DaysOfStyle: 19,
+	AviarysFireworkFestival: 20,
+	SpringCamping: 21,
+	SkyXCinnamorollPopUpCafe: 22,
+	TournamentOfTriumph: 23,
+	DaysOfMoonlight: 24,
+	SkyXAlicesWonderlandCafe: 25,
+	DaysOfTreasure: 26,
+	AURORAHomecoming: 27,
+	WorkshopShowAndTell: 28,
+	PersonalityQuizEvent: 29,
+	SummerCamping: 30,
+} as const satisfies Readonly<Record<string, number>>;
+
+const EVENT_FAMILY_VALUES = Object.values(EventFamily);
+export type EventFamilies = (typeof EVENT_FAMILY_VALUES)[number];
+
+export function isEventFamily(eventFamily: number): eventFamily is EventFamilies {
+	return EVENT_FAMILY_VALUES.includes(eventFamily as EventFamilies);
+}

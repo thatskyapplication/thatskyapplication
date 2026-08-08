@@ -1,11 +1,12 @@
 import { Cosmetic } from "../../cosmetics.js";
 import { skyDate } from "../../dates.js";
 import { Event } from "../../models/event.js";
-import { EventId } from "../../utility/event.js";
+import { EventFamily, EventId } from "../../utility/event.js";
 
 export default new Event({
 	id: EventId.DaysOfLove2023,
 	name: "days-of-love",
+	family: EventFamily.DaysOfLove,
 	start: skyDate(2_023, 2, 13),
 	end: skyDate(2_023, 2, 27),
 	offer: [
