@@ -82,6 +82,7 @@ export {
 export {
 	communityUpcomingEvents,
 	skyCurrentEvents,
+	skyEventFamilies,
 	skyEvents,
 	skyNotEndedEvents,
 	skyUpcomingEvents,
@@ -232,7 +233,14 @@ export {
 	type SkyProfileWingedLightTypes,
 } from "./sky-profile.js";
 export type { Snowflake } from "./types/index.js";
-export { EventId, type EventIds, isEventId } from "./utility/event.js";
+export {
+	EventFamily,
+	type EventFamilies,
+	EventId,
+	type EventIds,
+	isEventFamily,
+	isEventId,
+} from "./utility/event.js";
 export {
 	type CostEntry,
 	getRandomElement,

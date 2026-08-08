@@ -118,7 +118,7 @@ export function StartView({
 		quickAccess.push({
 			emoji: EventIdToEventTicketEmoji[event.id],
 			label: t(event.name, { ns: "general" }),
-			to: `?view=event&event=${event.id}`,
+			to: `?view=event-family&family=${event.family}#event-${event.id}`,
 		});
 	}
 

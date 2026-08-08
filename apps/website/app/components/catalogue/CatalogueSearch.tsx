@@ -60,7 +60,7 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 			};
 		case CatalogueSearchType.Event:
 			return {
-				to: `?view=event&event=${target.event.id}`,
+				to: `?view=event-family&family=${target.event.family}#event-${target.event.id}`,
 				emoji: EventIdToEventTicketEmoji[target.event.id],
 				detail: String(target.event.start.year),
 			};
