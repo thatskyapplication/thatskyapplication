@@ -100,7 +100,10 @@ export function CatalogueSearch() {
 	const hasQuery = query.trim().length > 0;
 
 	const entries = useMemo(
-		() => (hasQuery ? catalogueSearchEntries((key) => t(key, { ns: "general" })) : NO_RESULTS),
+		() =>
+			hasQuery
+				? catalogueSearchEntries((key) => t(key, { ns: "general" }), { groupEventFamilies: true })
+				: NO_RESULTS,
 		[hasQuery, t],
 	);
 

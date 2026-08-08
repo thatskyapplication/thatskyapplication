@@ -34,6 +34,7 @@ export {
 	type CatalogueProgress,
 	type CatalogueSearchEntry,
 	type CatalogueSearchTarget,
+	type CatalogueSearchTargetWithoutEventFamily,
 	CatalogueSearchType,
 	CLOTHING_SHOP,
 	catalogueComplete,

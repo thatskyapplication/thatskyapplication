@@ -19,7 +19,7 @@ function resolveName(key: string) {
 	return typeof current === "string" ? current : key;
 }
 
-const entries = catalogueSearchEntries(resolveName);
+const entries = catalogueSearchEntries(resolveName, { groupEventFamilies: true });
 
 function names(query: string, limit?: number) {
 	return catalogueSearch(entries, query, limit).map(({ name }) => name);

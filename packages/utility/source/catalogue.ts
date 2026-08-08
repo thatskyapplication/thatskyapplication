@@ -300,11 +300,18 @@ export function spiritOriginTranslationKey(spirit: Spirit) {
 		: (`realms.${spirit.realm}` as const);
 }
 
-export interface CatalogueSearchEntry {
+export type CatalogueSearchTargetWithoutEventFamily = Exclude<
+	CatalogueSearchTarget,
+	{ readonly type: CatalogueSearchType.EventFamily }
+>;
+
+export interface CatalogueSearchEntry<
+	Target extends CatalogueSearchTarget = CatalogueSearchTarget,
+> {
 	readonly name: string;
 	readonly keywords: readonly string[];
 	readonly cosmeticDisplay: Cosmetic | null;
-	readonly target: CatalogueSearchTarget;
+	readonly target: Target;
 }
 
 function inAppPurchaseEntries(
@@ -328,8 +335,23 @@ function inAppPurchaseEntries(
 	return entries;
 }
 
+interface CatalogueSearchEntriesOptions<GroupEventFamilies extends boolean> {
+	readonly groupEventFamilies: GroupEventFamilies;
+}
+
 export function catalogueSearchEntries(
 	resolveName: (key: string) => string,
+	options: CatalogueSearchEntriesOptions<true>,
+): readonly CatalogueSearchEntry[];
+
+export function catalogueSearchEntries(
+	resolveName: (key: string) => string,
+	options: CatalogueSearchEntriesOptions<false>,
+): readonly CatalogueSearchEntry<CatalogueSearchTargetWithoutEventFamily>[];
+
+export function catalogueSearchEntries(
+	resolveName: (key: string) => string,
+	{ groupEventFamilies }: CatalogueSearchEntriesOptions<boolean>,
 ): readonly CatalogueSearchEntry[] {
 	const entries: CatalogueSearchEntry[] = [];
 
@@ -344,33 +366,44 @@ export function catalogueSearchEntries(
 		entries.push(...inAppPurchaseEntries(season.items, target, resolveName));
 	}
 
-	for (const occurrences of skyEventFamilies().values()) {
-		const named = new Map<Event["name"], [Event, ...Event[]]>();
+	if (groupEventFamilies) {
+		for (const occurrences of skyEventFamilies().values()) {
+			const named = new Map<Event["name"], [Event, ...Event[]]>();
 
-		for (const occurrence of occurrences) {
-			const group = named.get(occurrence.name);
+			for (const occurrence of occurrences) {
+				const group = named.get(occurrence.name);
 
-			if (group) {
-				group.push(occurrence);
-			} else {
-				named.set(occurrence.name, [occurrence]);
+				if (group) {
+					group.push(occurrence);
+				} else {
+					named.set(occurrence.name, [occurrence]);
+				}
 			}
-		}
 
-		for (const [name, group] of named) {
-			entries.push({
-				name: resolveName(name),
-				keywords: [],
-				cosmeticDisplay: null,
-				target: { type: CatalogueSearchType.EventFamily, occurrences: group },
-			});
+			for (const [name, group] of named) {
+				entries.push({
+					name: resolveName(name),
+					keywords: [],
+					cosmeticDisplay: null,
+					target: { type: CatalogueSearchType.EventFamily, occurrences: group },
+				});
+			}
 		}
 	}
 
 	for (const event of skyEvents().toReversed().values()) {
-		entries.push(
-			...inAppPurchaseEntries(event.offer, { type: CatalogueSearchType.Event, event }, resolveName),
-		);
+		const target = { type: CatalogueSearchType.Event, event } as const;
+
+		if (!groupEventFamilies) {
+			entries.push({
+				name: resolveName(event.name),
+				keywords: [],
+				cosmeticDisplay: null,
+				target,
+			});
+		}
+
+		entries.push(...inAppPurchaseEntries(event.offer, target, resolveName));
 	}
 
 	for (const spirit of spirits().values()) {
@@ -400,21 +433,21 @@ export function catalogueSearchEntries(
 	return entries;
 }
 
-export function catalogueSearch(
-	entries: readonly CatalogueSearchEntry[],
+export function catalogueSearch<Entry extends CatalogueSearchEntry>(
+	entries: readonly Entry[],
 	query: string,
 	limit?: number,
-): readonly CatalogueSearchEntry[] {
+): readonly Entry[] {
 	const normalisedQuery = query.trim().toUpperCase();
 
 	if (normalisedQuery.length === 0) {
 		return [];
 	}
 
-	const exactMatches: CatalogueSearchEntry[] = [];
-	const prefixMatches: CatalogueSearchEntry[] = [];
-	const nameMatches: CatalogueSearchEntry[] = [];
-	const keywordMatches: CatalogueSearchEntry[] = [];
+	const exactMatches: Entry[] = [];
+	const prefixMatches: Entry[] = [];
+	const nameMatches: Entry[] = [];
+	const keywordMatches: Entry[] = [];
 
 	for (const entry of entries) {
 		const name = entry.name.toUpperCase();

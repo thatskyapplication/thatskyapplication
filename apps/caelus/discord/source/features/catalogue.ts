@@ -31,7 +31,7 @@ import {
 	catalogueProgress,
 	CatalogueCollection,
 	catalogueSearch,
-	type CatalogueSearchTarget,
+	type CatalogueSearchTargetWithoutEventFamily,
 	catalogueSearchEntries,
 	CatalogueSearchType,
 	catalogueSeasonItems,
@@ -646,10 +646,16 @@ export async function viewStart(
 }
 
 function searchEntries(locale: Locale) {
-	return catalogueSearchEntries((key) => t(key, { lng: locale, ns: "general" }));
+	return catalogueSearchEntries((key) => t(key, { lng: locale, ns: "general" }), {
+		groupEventFamilies: false,
+	});
 }
 
-function searchResultName(name: string, target: CatalogueSearchTarget, locale: Locale) {
+function searchResultName(
+	name: string,
+	target: CatalogueSearchTargetWithoutEventFamily,
+	locale: Locale,
+) {
 	let detail: string | number | null;
 
 	switch (target.type) {
