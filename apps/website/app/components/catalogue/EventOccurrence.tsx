@@ -61,6 +61,7 @@ export function EventOccurrence({
 					</p>
 				</div>
 				<a
+					aria-label={`${t(event.name, { ns: "general" })} ${event.start.year} ${t("wiki", { ns: "general" })}`}
 					className={clsx(VIEW_LINK_CLASS, "inline-flex items-center gap-1")}
 					href={t(`event-wiki.${event.id}`, { ns: "general" })}
 					rel="noopener noreferrer"
