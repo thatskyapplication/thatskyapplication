@@ -1,4 +1,7 @@
+import { clsx } from "clsx";
+import { Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import type { Event } from "@thatskyapplication/utility";
 import { CARD_CLASS, eventAnchor, NOTE_CLASS } from "~/utility/catalogue.js";
 import { EverythingButton } from "./EverythingButton";
@@ -23,15 +26,30 @@ export function EventOccurrence({
 	const { t } = useTranslation();
 
 	return (
-		<div className={`${CARD_CLASS} flex scroll-mt-4 flex-col gap-3`} id={eventAnchor(event.id)}>
+		<div
+			className={clsx(
+				CARD_CLASS,
+				"flex scroll-mt-[calc(var(--site-top-bar-height,0)+1rem)] flex-col gap-3",
+			)}
+			id={eventAnchor(event.id)}
+		>
 			<div>
-				<h2 className="my-0 inline-flex flex-wrap items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
-					{event.start.year}
-					{event.name === currentName ? null : (
-						<span className="text-sm font-normal text-gray-600 dark:text-gray-400">
-							{t(event.name, { ns: "general" })}
-						</span>
-					)}
+				<h2 className="group my-0 text-lg font-semibold text-gray-900 dark:text-gray-100">
+					<Link
+						className="inline-flex flex-wrap items-center gap-2 text-inherit no-underline hover:underline"
+						to={`?view=event-family&family=${event.family}#${eventAnchor(event.id)}`}
+					>
+						{event.start.year}
+						{event.name === currentName ? null : (
+							<span className="text-sm font-normal text-gray-600 dark:text-gray-400">
+								{t(event.name, { ns: "general" })}
+							</span>
+						)}
+						<Link2
+							aria-hidden="true"
+							className="h-4 w-4 text-gray-400 opacity-0 transition-opacity group-hover:opacity-100"
+						/>
+					</Link>
 				</h2>
 				<p className={NOTE_CLASS}>
 					{t("time-range", {
