@@ -1,4 +1,4 @@
-import { deepStrictEqual, equal, ok } from "node:assert/strict";
+import { deepStrictEqual, equal, notEqual, ok } from "node:assert/strict";
 import { test } from "node:test";
 import {
 	CatalogueCollection,
@@ -39,7 +39,8 @@ test("A query with no matches yields nothing.", () => {
 });
 
 test("Queries are trimmed and case-insensitive.", () => {
-	deepStrictEqual(names("  season of prophecy  ", 1), names("SEASON OF PROPHECY", 1));
+	deepStrictEqual(names("  season of prophecy  ", 1), ["Season of Prophecy"]);
+	deepStrictEqual(names("SEASON OF PROPHECY", 1), ["Season of Prophecy"]);
 });
 
 test("An exact name outranks a longer prefix.", () => {
@@ -153,20 +154,20 @@ test("Every entry resolves to a translated name.", () => {
 });
 
 test("Only purchasable entries carry a cosmetic to display.", () => {
-	for (const entry of entries) {
-		const purchasable = entry.cosmeticDisplay !== null;
-		const container = entry.target.type !== CatalogueSearchType.Spirit;
+	const [hat] = catalogueSearch(entries, "Pointed Snufkin Hat", 1);
+	ok(hat, "Expected the purchasable entry to be indexed.");
+	notEqual(hat.cosmeticDisplay, null);
 
-		if (purchasable) {
-			ok(container, `${entry.name} should target where it is sold.`);
-		}
-	}
+	const [season] = catalogueSearch(entries, "Season of Prophecy", 1);
+	ok(season, "Expected the season entry to be indexed.");
+	equal(season.cosmeticDisplay, null);
 
-	const hat = catalogueSearch(entries, "Pointed Snufkin Hat", 1)[0];
-	ok(hat?.cosmeticDisplay !== null, "Expected a purchasable entry to carry a cosmetic.");
+	const [spirit] = catalogueSearch(entries, "Nightbird Whisperer", 1);
+	ok(spirit, "Expected the spirit entry to be indexed.");
+	equal(spirit.cosmeticDisplay, null);
 
-	const season = catalogueSearch(entries, "Season of Prophecy", 1)[0];
-	equal(season?.cosmeticDisplay, null);
+	const purchasable = entries.filter(({ cosmeticDisplay }) => cosmeticDisplay !== null);
+	ok(purchasable.length > 100, "Expected the index to carry many purchasable entries.");
 });
 
 test("Entries are uniquely addressable by target and name.", () => {

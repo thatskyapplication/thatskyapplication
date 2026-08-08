@@ -8,7 +8,6 @@ import { useNavigate } from "react-router";
 import {
 	CatalogueCollection,
 	type CatalogueSearchEntry,
-	type CatalogueSearchTarget,
 	catalogueSearch,
 	catalogueSearchEntries,
 	CatalogueSearchType,
@@ -22,6 +21,7 @@ import {
 } from "~/utility/emojis.js";
 
 const CATALOGUE_SEARCH_RESULT_LIMIT = 100 as const;
+const NO_RESULTS: readonly CatalogueSearchEntry[] = [];
 
 const CATALOGUE_COLLECTIONS = {
 	[CatalogueCollection.StarterPacks]: {
@@ -44,13 +44,18 @@ const CATALOGUE_COLLECTIONS = {
 	Record<CatalogueCollection, { view: string; translationKey: string }>
 >;
 
-function targetResult(target: CatalogueSearchTarget, t: TFunction) {
+function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
+	const { cosmeticDisplay, target } = entry;
+
 	switch (target.type) {
 		case CatalogueSearchType.Season:
 			return {
 				to: `?view=season&season=${target.season.id}`,
 				emoji: SeasonIdToSeasonalEmoji[target.season.id],
-				detail: t("season", { ns: "general" }),
+				detail:
+					cosmeticDisplay === null
+						? t("season", { ns: "general" })
+						: t(`seasons.${target.season.id}`, { ns: "general" }),
 			};
 		case CatalogueSearchType.Event:
 			return {
@@ -81,7 +86,13 @@ export function CatalogueSearch() {
 	const [query, setQuery] = useState("");
 	const [open, setOpen] = useState(false);
 
-	const entries = useMemo(() => catalogueSearchEntries((key) => t(key, { ns: "general" })), [t]);
+	const hasQuery = query.trim().length > 0;
+
+	const entries = useMemo(
+		() => (hasQuery ? catalogueSearchEntries((key) => t(key, { ns: "general" })) : NO_RESULTS),
+		[hasQuery, t],
+	);
+
 	const results = useMemo(
 		() => catalogueSearch(entries, query, CATALOGUE_SEARCH_RESULT_LIMIT),
 		[entries, query],
@@ -95,7 +106,7 @@ export function CatalogueSearch() {
 			itemToStringValue={({ name }: CatalogueSearchEntry) => name}
 			onOpenChange={setOpen}
 			onValueChange={(value, { reason }) => setQuery(reason === "item-press" ? "" : value)}
-			open={open && query.trim().length > 0}
+			open={open && hasQuery}
 			openOnInputClick
 			value={query}
 		>
@@ -103,7 +114,7 @@ export function CatalogueSearch() {
 				<Search className="pointer-events-none absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 text-gray-600 dark:text-gray-400" />
 				<Autocomplete.Input
 					aria-label={t("catalogue.search-label", { ns: "features" })}
-					className="w-full rounded-lg border border-gray-200 bg-gray-100 py-2.5 pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-500 focus:border-gray-400 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400 dark:focus:border-gray-500"
+					className="w-full rounded-lg border border-gray-200 bg-gray-100 py-2.5 pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400"
 					placeholder={t("catalogue.search-placeholder", { ns: "features" })}
 				/>
 			</div>
@@ -117,17 +128,22 @@ export function CatalogueSearch() {
 						</Autocomplete.Empty>
 						<Autocomplete.List>
 							{(entry: CatalogueSearchEntry) => {
-								const { to, emoji, detail } = targetResult(entry.target, t);
+								const { to, emoji, detail } = targetResult(entry, t);
 
 								const resolvedEmoji =
 									entry.cosmeticDisplay === null ? emoji : CosmeticToEmoji[entry.cosmeticDisplay];
 
 								return (
 									<Autocomplete.Item
+										aria-label={t("catalogue.search-result-detail", {
+											ns: "features",
+											name: entry.name,
+											detail,
+										})}
 										className={(state) =>
 											clsx(
 												"flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm transition-colors",
-												state.highlighted && "bg-gray-200 dark:bg-gray-700",
+												state.highlighted && "bg-gray-300 font-medium dark:bg-gray-700",
 											)
 										}
 										key={`${to}${entry.name}`}
@@ -136,7 +152,7 @@ export function CatalogueSearch() {
 									>
 										{resolvedEmoji ? <EmojiIcon emoji={resolvedEmoji} /> : null}
 										<span className="truncate text-gray-900 dark:text-gray-100">{entry.name}</span>
-										<span className="ml-auto max-w-[45%] shrink-0 truncate text-xs text-gray-600 dark:text-gray-400">
+										<span className="ml-auto max-w-[45%] shrink-0 truncate text-xs text-gray-600 dark:text-gray-300">
 											{detail}
 										</span>
 									</Autocomplete.Item>
