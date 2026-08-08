@@ -5,6 +5,7 @@ import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { HydratedRouter } from "react-router/dom";
+import { LOCALES } from "~/utility/constants";
 
 const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
 
@@ -15,6 +16,10 @@ if (dsn) {
 		integrations: [reactRouterTracingIntegration()],
 		tracesSampleRate: 1,
 	});
+}
+
+function isLocale(value: string | undefined): value is (typeof LOCALES)[number] {
+	return LOCALES.includes(value as (typeof LOCALES)[number]);
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -50,7 +55,8 @@ async function fetchResource(language: string) {
 }
 
 async function main() {
-	const language = document.documentElement.lang || Locale.EnglishGB;
+	const { locale } = document.documentElement.dataset;
+	const language = isLocale(locale) ? locale : Locale.EnglishGB;
 
 	const [active, fallback] = await Promise.all([
 		fetchResource(language),

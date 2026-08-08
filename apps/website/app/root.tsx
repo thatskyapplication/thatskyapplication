@@ -119,7 +119,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	const data = useRouteLoaderData<typeof loader>("root");
 
 	return (
-		<html dir={i18n.dir(i18n.language)} lang={i18n.language}>
+		<html data-locale={i18n.language} dir={i18n.dir(i18n.language)} lang={i18n.language}>
 			<head>
 				<Meta />
 				{data?.cdnURL && <link href={data.cdnURL} rel="preconnect" />}
