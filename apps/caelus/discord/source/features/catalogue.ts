@@ -1431,10 +1431,9 @@ export async function viewSeasons(
 		containerComponents.push({ type: ComponentType.TextDisplay, content: title });
 	}
 
-	const seasons = skySeasons();
+	const seasons = [...skySeasons().values()].reverse();
 	const offset = (page - 1) * CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT;
-	const limit = offset + CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT;
-	const maximumPage = Math.ceil(seasons.size / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT);
+	const maximumPage = Math.ceil(seasons.length / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT);
 
 	containerComponents.push(
 		{
@@ -1448,13 +1447,7 @@ export async function viewSeasons(
 		},
 	);
 
-	for (let index = offset; index < limit; index++) {
-		const season = seasons.get(index as SeasonIds);
-
-		if (!season) {
-			continue;
-		}
-
+	for (const season of seasons.slice(offset, offset + CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT)) {
 		const seasonalProgress = cataloguePercentage(
 			catalogueProgress(catalogueSeasonItems([season]), catalogue?.data),
 		);
@@ -1533,8 +1526,9 @@ export async function viewSeason(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const seasons = skySeasons();
-	const season = seasons.get(seasonId);
+	const seasons = [...skySeasons().values()];
+	const index = seasons.findIndex((skySeason) => skySeason.id === seasonId);
+	const season = seasons[index];
 
 	if (!season) {
 		throw new Error("Failed to view a season.");
@@ -1627,8 +1621,8 @@ export async function viewSeason(
 		});
 	}
 
-	const before = seasons.get((season.id - 1) as SeasonIds);
-	const after = seasons.get((season.id + 1) as SeasonIds);
+	const before = seasons[index - 1];
+	const after = seasons[index + 1];
 
 	const previousSeasonButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -1695,7 +1689,7 @@ export async function viewSeason(
 			},
 			traversalContainer({
 				locale,
-				navigationBackCustomId: `${CustomId.CatalogueViewSeasons}§${Math.ceil((season.id + 1) / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
+				navigationBackCustomId: `${CustomId.CatalogueViewSeasons}§${Math.ceil((seasons.length - index) / CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT)}`,
 				isInSeasons: true,
 			}),
 		],

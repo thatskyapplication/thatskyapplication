@@ -101,3 +101,18 @@ test("seasonOf resolves seasonal and guide spirits to their season, others to nu
 	equal(KINGDOM.seasonOf([...KINGDOM.elderSpirits.values()][0]!.id), null);
 	equal(KINGDOM.seasonOf(UNKNOWN_SPIRIT_ID), null);
 });
+
+test("Seasons are indexed chronologically.", () => {
+	const seasons = [...SEASONS.values()];
+	ok(seasons.length > 1, "Expected several seasons to be indexed.");
+
+	for (let index = 1; index < seasons.length; index++) {
+		const previous = seasons[index - 1]!;
+		const season = seasons[index]!;
+
+		ok(
+			Temporal.ZonedDateTime.compare(season.start, previous.start) >= 0,
+			`Expected season ${season.id} to start no earlier than season ${previous.id}.`,
+		);
+	}
+});
