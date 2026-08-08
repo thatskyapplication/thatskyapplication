@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import type { Event } from "@thatskyapplication/utility";
+import type { Event, EventFamilyOccurrences } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji } from "~/utility/emojis.js";
@@ -9,10 +9,10 @@ export function EventFamilyHeader({
 	occurrences,
 }: {
 	locale: string;
-	occurrences: readonly Event[];
+	occurrences: EventFamilyOccurrences;
 }) {
 	const { t } = useTranslation();
-	const latest = occurrences[0]!;
+	const latest = occurrences[0];
 	const eventTicketEmoji = EventIdToEventTicketEmoji[latest.id];
 	const otherNames = new Set<Event["name"]>();
 

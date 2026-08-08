@@ -27,11 +27,19 @@ export function skyEvents(): ReadonlyCollection<EventIds, Event> {
 	return EVENTS.filter((event) => Temporal.ZonedDateTime.compare(skyNow(), event.start) >= 0);
 }
 
-export function skyEventFamilies(): ReadonlyCollection<EventFamilies, readonly Event[]> {
-	const families = new Collection<EventFamilies, Event[]>();
+export type EventFamilyOccurrences = readonly [Event, ...Event[]];
+
+export function skyEventFamilies(): ReadonlyCollection<EventFamilies, EventFamilyOccurrences> {
+	const families = new Collection<EventFamilies, [Event, ...Event[]]>();
 
 	for (const event of skyEvents().toReversed().values()) {
-		families.ensure(event.family, () => []).push(event);
+		const occurrences = families.get(event.family);
+
+		if (occurrences) {
+			occurrences.push(event);
+		} else {
+			families.set(event.family, [event]);
+		}
 	}
 
 	return families;

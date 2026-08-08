@@ -25,7 +25,7 @@ export function EventsView({ data }: { data: ReadonlySet<number> }) {
 
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 				{families.map(([family, occurrences]) => {
-					const latest = occurrences[0]!;
+					const latest = occurrences[0];
 
 					return (
 						<SectionCard

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import type { Event } from "@thatskyapplication/utility";
-import { CARD_CLASS, NOTE_CLASS } from "~/utility/catalogue.js";
+import { CARD_CLASS, eventAnchor, NOTE_CLASS } from "~/utility/catalogue.js";
 import { EverythingButton } from "./EverythingButton";
 import { ItemChecklist } from "./ItemChecklist";
 import { RemainingCostList } from "./RemainingCostList";
@@ -23,7 +23,7 @@ export function EventOccurrence({
 	const { t } = useTranslation();
 
 	return (
-		<div className={`${CARD_CLASS} flex scroll-mt-4 flex-col gap-3`} id={`event-${event.id}`}>
+		<div className={`${CARD_CLASS} flex scroll-mt-4 flex-col gap-3`} id={eventAnchor(event.id)}>
 			<div>
 				<h2 className="my-0 inline-flex flex-wrap items-center gap-2 text-lg font-semibold text-gray-900 dark:text-gray-100">
 					{event.start.year}

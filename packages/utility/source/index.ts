@@ -81,6 +81,7 @@ export {
 } from "./emojis.js";
 export {
 	communityUpcomingEvents,
+	type EventFamilyOccurrences,
 	skyCurrentEvents,
 	skyEventFamilies,
 	skyEvents,

@@ -14,7 +14,7 @@ import {
 	spiritOriginTranslationKey,
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
-import { eventFamilyYears } from "~/utility/catalogue.js";
+import { eventAnchor, eventFamilyYears } from "~/utility/catalogue.js";
 import {
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
@@ -61,12 +61,12 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 			};
 		case CatalogueSearchType.Event:
 			return {
-				to: `?view=event-family&family=${target.event.family}#event-${target.event.id}`,
+				to: `?view=event-family&family=${target.event.family}#${eventAnchor(target.event.id)}`,
 				emoji: EventIdToEventTicketEmoji[target.event.id],
 				detail: String(target.event.start.year),
 			};
 		case CatalogueSearchType.EventFamily: {
-			const latest = target.occurrences[0]!;
+			const latest = target.occurrences[0];
 
 			return {
 				to: `?view=event-family&family=${latest.family}`,

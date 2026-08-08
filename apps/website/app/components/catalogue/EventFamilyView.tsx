@@ -23,7 +23,7 @@ export function EventFamilyView({
 	const { t } = useTranslation();
 	const families = skyEventFamilies();
 	const occurrences = families.get(family)!;
-	const latest = occurrences[0]!;
+	const latest = occurrences[0];
 	const familyKeys = [...families.keys()];
 	const familyIndex = familyKeys.indexOf(family);
 	const before = familyKeys[familyIndex + 1];

@@ -4,7 +4,7 @@ import {
 	CLOTHING_SHOP,
 	Cosmetic,
 	collectSpiritCosmetics,
-	type Event,
+	type EventFamilyOccurrences,
 	type EventIds,
 	type Item,
 	isRealm,
@@ -38,8 +38,12 @@ export const TREE_COLUMN_CLASS = "flex w-60 shrink-0 flex-col justify-end gap-2 
 export const TREE_COLUMN_LABEL_CLASS =
 	"line-clamp-2 min-h-10 text-sm font-medium text-gray-900 transition-colors hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300" as const;
 
-export function eventFamilyYears(occurrences: readonly Event[], t: TFunction) {
-	const latest = occurrences[0]!;
+export function eventAnchor(eventId: EventIds) {
+	return `event-${eventId}`;
+}
+
+export function eventFamilyYears(occurrences: EventFamilyOccurrences, t: TFunction) {
+	const latest = occurrences[0];
 	const oldest = occurrences.at(-1)!;
 
 	return oldest.start.year === latest.start.year

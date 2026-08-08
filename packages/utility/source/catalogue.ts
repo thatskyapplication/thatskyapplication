@@ -1,5 +1,5 @@
 import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
-import { skyEventFamilies, skyEvents } from "./events/index.js";
+import { type EventFamilyOccurrences, skyEventFamilies, skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
 import { spirits } from "./kingdom/spirits.js";
@@ -287,7 +287,10 @@ export enum CatalogueCollection {
 export type CatalogueSearchTarget =
 	| { readonly type: CatalogueSearchType.Season; readonly season: Season }
 	| { readonly type: CatalogueSearchType.Event; readonly event: Event }
-	| { readonly type: CatalogueSearchType.EventFamily; readonly occurrences: readonly Event[] }
+	| {
+			readonly type: CatalogueSearchType.EventFamily;
+			readonly occurrences: EventFamilyOccurrences;
+	  }
 	| { readonly type: CatalogueSearchType.Spirit; readonly spirit: Spirit }
 	| { readonly type: CatalogueSearchType.Collection; readonly collection: CatalogueCollection };
 
@@ -342,7 +345,7 @@ export function catalogueSearchEntries(
 	}
 
 	for (const occurrences of skyEventFamilies().values()) {
-		const named = new Map<Event["name"], Event[]>();
+		const named = new Map<Event["name"], [Event, ...Event[]]>();
 
 		for (const occurrence of occurrences) {
 			const group = named.get(occurrence.name);
