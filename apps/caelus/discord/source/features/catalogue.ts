@@ -59,6 +59,7 @@ import {
 	STARTER_PACKS,
 	skyCurrentEvents,
 	skyCurrentSeason,
+	skyEventFamilies,
 	skyEvents,
 	skyNow,
 	skySeasons,
@@ -2201,6 +2202,41 @@ async function viewEvent(
 					min_values: 0,
 					options: itemSelectionOptions,
 					placeholder: t("catalogue.select-cosmetics-string-select-menu-placeholder", {
+						lng: locale,
+						ns: "features",
+					}),
+				},
+			],
+		});
+	}
+
+	const familyOccurrences = skyEventFamilies()
+		.get(event.family)
+		?.occurrences.filter((occurrence) => occurrence.id !== id);
+
+	if (familyOccurrences && familyOccurrences.length > 0) {
+		containerComponents.push({
+			type: ComponentType.ActionRow,
+			components: [
+				{
+					type: ComponentType.StringSelect,
+					custom_id: CustomId.CatalogueFamilyEventTraversal,
+					options: familyOccurrences.map((occurrence) => {
+						const option: APISelectMenuOption = {
+							label: t(occurrence.name, { lng: locale, ns: "general" }),
+							description: String(occurrence.start.year),
+							value: String(occurrence.id),
+						};
+
+						const occurrenceEmoji = EventIdToEventTicketEmoji[occurrence.id];
+
+						if (occurrenceEmoji) {
+							option.emoji = occurrenceEmoji;
+						}
+
+						return option;
+					}),
+					placeholder: t("catalogue.event-family-string-select-menu-placeholder", {
 						lng: locale,
 						ns: "features",
 					}),

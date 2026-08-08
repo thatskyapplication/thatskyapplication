@@ -28,7 +28,7 @@ export const enum CustomId {
 	CatalogueViewSeason = "26",
 	CatalogueSetSeasonItems = "27",
 	CatalogueSeasonEverything = "28",
-	CatalogueViewEventYear = "29",
+	CatalogueFamilyEventTraversal = "29",
 	CatalogueViewEvent = "30",
 	CatalogueViewOffer1 = "31",
 	CatalogueViewOffer2 = "32",

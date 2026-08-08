@@ -877,7 +877,7 @@ export default {
 					return;
 				}
 
-				if (id === CustomId.CatalogueViewEvent) {
+				if (id === CustomId.CatalogueViewEvent || id === CustomId.CatalogueFamilyEventTraversal) {
 					await parseViewEvent(data);
 					return;
 				}

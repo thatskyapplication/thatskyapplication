@@ -3129,6 +3129,7 @@ export default {
 			"event-previous-event": "Previous event",
 			"event-next-event": "Next event",
 			"event-family-also-known-as": "Also known as {{names}}.",
+			"event-family-string-select-menu-placeholder": "Select another year!",
 			"starter-packs-title": "## Starter packs\n\n-# Catalogue",
 			"secret-area-title": "## Secret area\n\n-# Catalogue",
 			"clothing-shop-title": "## Clothing shop\n\n-# Catalogue",
