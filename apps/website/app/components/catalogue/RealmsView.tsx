@@ -72,7 +72,7 @@ export function RealmsView({
 				<Fragment key={realm.name}>
 					<div
 						className={clsx(
-							"flex scroll-mt-[calc(var(--site-top-bar-height,0)+1rem)] flex-col gap-1",
+							"flex scroll-mt-[calc(var(--site-top-bar-height,0px)+1rem)] flex-col gap-1",
 							index > 0 && "border-t border-gray-200 pt-5 dark:border-gray-700",
 						)}
 						id={realmAnchor(realm.name)}
