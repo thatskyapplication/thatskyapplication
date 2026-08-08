@@ -6,6 +6,7 @@ import {
 	catalogueProgress,
 	skyEventFamilies,
 } from "@thatskyapplication/utility";
+import { eventFamilyYears } from "~/utility/catalogue.js";
 import { EventIdToEventTicketEmoji } from "~/utility/emojis.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
@@ -25,18 +26,13 @@ export function EventsView({ data }: { data: ReadonlySet<number> }) {
 			<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 				{families.map(([family, occurrences]) => {
 					const latest = occurrences[0]!;
-					const oldest = occurrences.at(-1)!;
 
 					return (
 						<SectionCard
 							emoji={EventIdToEventTicketEmoji[latest.id]}
 							emptyLabel={t("catalogue.event-no-cosmetics", { ns: "features" })}
 							key={family}
-							note={
-								oldest.start.year === latest.start.year
-									? String(latest.start.year)
-									: `${oldest.start.year}–${latest.start.year}`
-							}
+							note={eventFamilyYears(occurrences, t)}
 							percentage={cataloguePercentage(
 								catalogueProgress(catalogueEventItems(occurrences), data),
 							)}

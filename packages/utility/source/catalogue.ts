@@ -1,5 +1,5 @@
 import { Cosmetic, CosmeticPackName } from "./cosmetics.js";
-import { skyEvents } from "./events/index.js";
+import { skyEventFamilies, skyEvents } from "./events/index.js";
 import { REALM_SPIRITS } from "./kingdom/realms/index.js";
 import { skySeasons } from "./kingdom/seasons/index.js";
 import { spirits } from "./kingdom/spirits.js";
@@ -274,6 +274,7 @@ export enum CatalogueSearchType {
 	Event = 1,
 	Spirit = 2,
 	Collection = 3,
+	EventFamily = 4,
 }
 
 export enum CatalogueCollection {
@@ -286,6 +287,7 @@ export enum CatalogueCollection {
 export type CatalogueSearchTarget =
 	| { readonly type: CatalogueSearchType.Season; readonly season: Season }
 	| { readonly type: CatalogueSearchType.Event; readonly event: Event }
+	| { readonly type: CatalogueSearchType.EventFamily; readonly occurrences: readonly Event[] }
 	| { readonly type: CatalogueSearchType.Spirit; readonly spirit: Spirit }
 	| { readonly type: CatalogueSearchType.Collection; readonly collection: CatalogueCollection };
 
@@ -339,15 +341,33 @@ export function catalogueSearchEntries(
 		entries.push(...inAppPurchaseEntries(season.items, target, resolveName));
 	}
 
+	for (const occurrences of skyEventFamilies().values()) {
+		const named = new Map<Event["name"], Event[]>();
+
+		for (const occurrence of occurrences) {
+			const group = named.get(occurrence.name);
+
+			if (group) {
+				group.push(occurrence);
+			} else {
+				named.set(occurrence.name, [occurrence]);
+			}
+		}
+
+		for (const [name, group] of named) {
+			entries.push({
+				name: resolveName(name),
+				keywords: [],
+				cosmeticDisplay: null,
+				target: { type: CatalogueSearchType.EventFamily, occurrences: group },
+			});
+		}
+	}
+
 	for (const event of skyEvents().toReversed().values()) {
-		const target = { type: CatalogueSearchType.Event, event } as const;
-		entries.push({
-			name: resolveName(event.name),
-			keywords: [],
-			cosmeticDisplay: null,
-			target,
-		});
-		entries.push(...inAppPurchaseEntries(event.offer, target, resolveName));
+		entries.push(
+			...inAppPurchaseEntries(event.offer, { type: CatalogueSearchType.Event, event }, resolveName),
+		);
 	}
 
 	for (const spirit of spirits().values()) {
