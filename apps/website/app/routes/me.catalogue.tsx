@@ -10,6 +10,7 @@ import {
 	type SeasonIds,
 	type SpiritIds,
 	STARTER_PACKS,
+	skyEventFamilies,
 	skyNow,
 	skySeasons,
 	spirits,
@@ -175,13 +176,14 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 			break;
 		case "event-family": {
 			const family = Number(searchParams.get("family"));
+			const occurrences = isEventFamily(family) ? skyEventFamilies().get(family) : undefined;
 
-			if (isEventFamily(family)) {
+			if (occurrences) {
 				content = (
 					<EventFamilyView
 						data={data}
-						family={family}
 						locale={locale}
+						occurrences={occurrences}
 						showEverythingButton={showEverythingButton}
 						timeZone={timeZone}
 					/>

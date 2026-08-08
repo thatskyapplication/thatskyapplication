@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { type EventFamilies, skyEventFamilies } from "@thatskyapplication/utility";
+import type { EventFamilyOccurrences } from "@thatskyapplication/utility";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EventFamilyHeader } from "./EventFamilyHeader";
@@ -7,19 +7,18 @@ import { EventOccurrence } from "./EventOccurrence";
 
 export function EventFamilyView({
 	data,
-	family,
 	locale,
+	occurrences,
 	showEverythingButton,
 	timeZone,
 }: {
 	data: ReadonlySet<number>;
-	family: EventFamilies;
 	locale: string;
+	occurrences: EventFamilyOccurrences;
 	showEverythingButton: boolean;
 	timeZone: string;
 }) {
 	const { t } = useTranslation();
-	const occurrences = skyEventFamilies().get(family)!;
 	const latest = occurrences[0];
 
 	const dateFormat = new Intl.DateTimeFormat(locale, {
