@@ -1,7 +1,9 @@
 import "./tailwind.css";
+import { Locale } from "@discordjs/core/http-only";
 import { captureException } from "@sentry/react-router";
+import type { i18n as I18n, Resource, ResourceKey, ResourceLanguage } from "i18next";
 import type React from "react";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
 	isRouteErrorResponse,
@@ -24,6 +26,7 @@ import {
 	APPLICATION_DESCRIPTION,
 	APPLICATION_NAME,
 	EXCLUDE_TOP_BAR_AND_FOOTER,
+	LOCALE_RESOURCES_ELEMENT_ID,
 } from "~/utility/constants";
 import { cookieStoreSet } from "~/utility/cookie-store.client";
 import {
@@ -36,6 +39,13 @@ import type { Route } from "./+types/root.js";
 export const middleware = [sessionMiddleware, i18nextMiddleware];
 
 const cdn = new CDN(CDN_URL);
+
+function localeResourceBundle(i18n: I18n, locale: string): ResourceLanguage {
+	return {
+		general: i18n.getResourceBundle(locale, "general") as ResourceKey,
+		features: i18n.getResourceBundle(locale, "features") as ResourceKey,
+	};
+}
 
 async function persistBrowserTimeZone(browserTimeZone: string) {
 	try {
@@ -117,6 +127,17 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 export function Layout({ children }: { children: React.ReactNode }) {
 	const { i18n } = useTranslation();
 	const data = useRouteLoaderData<typeof loader>("root");
+	const locale = data?.locale ?? Locale.EnglishGB;
+
+	const localeResources = useMemo(() => {
+		const resources: Resource = { [locale]: localeResourceBundle(i18n, locale) };
+
+		if (locale !== Locale.EnglishGB) {
+			resources[Locale.EnglishGB] = localeResourceBundle(i18n, Locale.EnglishGB);
+		}
+
+		return JSON.stringify(resources).replaceAll("<", String.raw`\u003c`);
+	}, [i18n, locale]);
 
 	return (
 		<html data-locale={i18n.language} dir={i18n.dir(i18n.language)} lang={i18n.language}>
@@ -129,6 +150,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			</head>
 			<body>
 				{children}
+				<script
+					dangerouslySetInnerHTML={{ __html: localeResources }}
+					id={LOCALE_RESOURCES_ELEMENT_ID}
+					suppressHydrationWarning
+					type="application/json"
+				/>
 				<ScrollRestoration />
 				<Scripts />
 			</body>

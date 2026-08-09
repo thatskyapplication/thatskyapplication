@@ -1,11 +1,11 @@
 import { Locale } from "@discordjs/core/http-only";
 import { captureException, init, reactRouterTracingIntegration } from "@sentry/react-router";
-import i18next, { type Resource, type ResourceLanguage } from "i18next";
+import i18next, { type Resource } from "i18next";
 import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { HydratedRouter } from "react-router/dom";
-import { LOCALES } from "~/utility/constants";
+import { LOCALE_RESOURCES_ELEMENT_ID, LOCALES } from "~/utility/constants";
 
 const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
 
@@ -22,52 +22,30 @@ function isLocale(value: string | undefined): value is (typeof LOCALES)[number] 
 	return LOCALES.includes(value as (typeof LOCALES)[number]);
 }
 
-function isRecord(value: unknown): value is Record<string, unknown> {
+function isResource(value: unknown): value is Resource {
 	return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-function isResourceKey(value: unknown): boolean {
-	return (
-		typeof value === "string" ||
-		(Array.isArray(value) && value.every((entry) => isResourceKey(entry))) ||
-		(isRecord(value) && Object.values(value).every((entry) => isResourceKey(entry)))
-	);
-}
+function readResources() {
+	const element = document.getElementById(LOCALE_RESOURCES_ELEMENT_ID);
 
-function isResourceLanguage(value: unknown): value is ResourceLanguage {
-	return isRecord(value) && Object.values(value).every((entry) => isResourceKey(entry));
-}
-
-async function fetchResource(language: string) {
-	const response = await fetch(`/locales/${language}`);
-
-	if (!response.ok) {
-		throw new Error(`Failed to fetch locale ${language}: ${response.status}.`);
+	if (!element?.textContent) {
+		throw new Error("Locale resources were not present in the document.");
 	}
 
-	const resource: unknown = await response.json();
+	const resources: unknown = JSON.parse(element.textContent);
 
-	if (!isResourceLanguage(resource)) {
-		throw new TypeError(`Locale ${language} returned an invalid resource.`);
+	if (!isResource(resources)) {
+		throw new TypeError("Locale resources were not a valid resource.");
 	}
 
-	return resource;
+	return resources;
 }
 
 async function main() {
 	const { locale } = document.documentElement.dataset;
 	const language = isLocale(locale) ? locale : Locale.EnglishGB;
-
-	const [active, fallback] = await Promise.all([
-		fetchResource(language),
-		language === Locale.EnglishGB ? null : fetchResource(Locale.EnglishGB),
-	]);
-
-	const resources: Resource = { [language]: active };
-
-	if (fallback) {
-		resources[Locale.EnglishGB] = fallback;
-	}
+	const resources = readResources();
 
 	await i18next.use(initReactI18next).init({
 		fallbackLng: Locale.EnglishGB,
