@@ -319,7 +319,7 @@ function SkyProfilesFilters({
 				{t("sky-profile.search-by-name", { ns: "features" })}
 			</label>
 			<input
-				className="w-64 rounded-sm border border-gray-200 bg-white p-2 text-black dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+				className="w-64 rounded-lg border border-gray-200 bg-gray-100 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400"
 				id="sky-profile-name-search"
 				onChange={(event) => {
 					const nextName = event.currentTarget.value;
@@ -362,10 +362,11 @@ function SkyProfilesFilters({
 					})),
 				]}
 				placeholder={t("sky-profile.select-a-country", { ns: "features" })}
+				surface="page"
 				value={country ?? ""}
 			/>
 			<Link
-				className="flex items-center rounded-sm border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg dark:border-gray-600 dark:bg-gray-900 dark:hover:bg-gray-900/50"
+				className="flex items-center rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 				to="/sky-profiles/random"
 			>
 				<EmojiIcon
@@ -377,7 +378,7 @@ function SkyProfilesFilters({
 			</Link>
 			{discordUser && (
 				<Link
-					className="flex items-center rounded-sm border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg dark:border-gray-600 dark:bg-gray-900 dark:hover:bg-gray-900/50"
+					className="flex items-center rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50"
 					to={`/sky-profiles/${discordUser.id}`}
 				>
 					<div

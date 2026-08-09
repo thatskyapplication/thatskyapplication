@@ -10,6 +10,8 @@ interface SelectOption {
 	label: string;
 }
 
+type SelectSurface = "card" | "page";
+
 interface SelectProps {
 	ariaDescribedBy?: string;
 	ariaLabel?: string;
@@ -23,10 +25,19 @@ interface SelectProps {
 	placeholder?: string;
 	className?: string;
 	disabled?: boolean;
+	surface?: SelectSurface;
 }
 
 const CONTROL_CLASS =
-	"flex min-h-10 w-full items-center rounded-sm border bg-[var(--select-bg)] text-[var(--select-text)]" as const;
+	"min-h-10 w-full rounded-lg border py-2.5 pl-3 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed dark:text-gray-100 dark:placeholder:text-gray-400" as const;
+
+const SURFACE_CLASSES = {
+	card: "bg-white dark:bg-gray-800",
+	page: "bg-gray-100 dark:bg-gray-900",
+} as const satisfies Readonly<Record<SelectSurface, string>>;
+
+const ICON_BUTTON_CLASS =
+	"cursor-pointer p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100" as const;
 
 export default function Select({
 	ariaDescribedBy,
@@ -41,6 +52,7 @@ export default function Select({
 	placeholder,
 	className,
 	disabled = false,
+	surface = "card",
 }: SelectProps) {
 	const { t } = useTranslation();
 	const id = useId();
@@ -57,11 +69,12 @@ export default function Select({
 
 	const describedBy = describedByParts.join(" ") || undefined;
 	const selectedOption = options.find((option) => option.value === value) ?? null;
+	const showClearButton = isClearable && selectedOption !== null;
 
 	return (
 		<div className="flex flex-col gap-1">
 			{label && (
-				<label className="text-text-tertiary text-sm font-semibold" htmlFor={id}>
+				<label className="text-sm font-semibold text-gray-600 dark:text-gray-400" htmlFor={id}>
 					{label}
 				</label>
 			)}
@@ -89,10 +102,7 @@ export default function Select({
 					<Combobox.InputGroup
 						className={(state) =>
 							clsx(
-								CONTROL_CLASS,
-								error
-									? "border-red-600"
-									: "border-[var(--select-border)] hover:border-[var(--select-border-hover)]",
+								"relative flex w-full items-center",
 								state.disabled && "cursor-not-allowed opacity-60",
 							)
 						}
@@ -102,37 +112,43 @@ export default function Select({
 							aria-invalid={error ? true : undefined}
 							aria-label={ariaLabel}
 							aria-labelledby={ariaLabelledBy}
-							className="min-w-0 flex-1 bg-transparent px-3 py-2 text-sm placeholder:text-[var(--select-placeholder)] focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed"
+							className={clsx(
+								CONTROL_CLASS,
+								SURFACE_CLASSES[surface],
+								error
+									? "border-red-600"
+									: "border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600",
+								showClearButton ? "pr-16" : "pr-8",
+							)}
 							id={id}
 							placeholder={placeholder}
 							{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 						/>
-						{isClearable && selectedOption ? (
-							<Combobox.Clear
-								aria-label={t("clear", { ns: "general" })}
-								className="cursor-pointer p-2 text-[var(--select-placeholder)] transition-colors hover:text-[var(--select-text)]"
+						<div className="absolute inset-y-0 right-0 flex items-center">
+							{showClearButton && (
+								<Combobox.Clear
+									aria-label={t("clear", { ns: "general" })}
+									className={clsx(ICON_BUTTON_CLASS, "transition-colors")}
+									disabled={disabled}
+								>
+									<X className="h-4 w-4" />
+								</Combobox.Clear>
+							)}
+							<Combobox.Trigger
+								className={(state) =>
+									clsx(ICON_BUTTON_CLASS, "transition-transform", state.open && "rotate-180")
+								}
 								disabled={disabled}
 							>
-								<X className="h-4 w-4" />
-							</Combobox.Clear>
-						) : null}
-						<Combobox.Trigger
-							className={(state) =>
-								clsx(
-									"cursor-pointer p-2 text-[var(--select-placeholder)] transition-transform hover:text-[var(--select-text)]",
-									state.open && "rotate-180",
-								)
-							}
-							disabled={disabled}
-						>
-							<ChevronDown className="h-4 w-4" />
-						</Combobox.Trigger>
+								<ChevronDown className="h-4 w-4" />
+							</Combobox.Trigger>
+						</div>
 					</Combobox.InputGroup>
 					<Combobox.Portal>
-						<Combobox.Positioner align="start" collisionPadding={8} sideOffset={4}>
-							<Combobox.Popup className="max-h-[min(18rem,var(--available-height))] w-[var(--anchor-width)] overflow-y-auto rounded-sm border border-[var(--select-border)] bg-[var(--select-menu-bg)] shadow-md">
+						<Combobox.Positioner align="start" collisionPadding={12} side="bottom" sideOffset={8}>
+							<Combobox.Popup className="max-h-[min(20rem,var(--available-height))] w-[var(--anchor-width)] overflow-y-auto rounded-lg border border-gray-200 bg-gray-100 shadow-lg dark:border-gray-700 dark:bg-gray-900">
 								<Combobox.Empty>
-									<p className="m-0 px-3 py-2 text-sm text-[var(--select-placeholder)]">
+									<p className="m-0 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400">
 										{t("no-results", { ns: "general" })}
 									</p>
 								</Combobox.Empty>
@@ -141,12 +157,10 @@ export default function Select({
 										<Combobox.Item
 											className={(state) =>
 												clsx(
-													"cursor-pointer px-3 py-2 text-sm text-[var(--select-text)] transition-colors",
-													state.selected
-														? "bg-[var(--select-option-active)]"
-														: state.highlighted
-															? "bg-[var(--select-option-hover)]"
-															: "bg-[var(--select-option-bg)]",
+													"cursor-pointer px-3 py-2.5 text-sm text-gray-900 transition-colors dark:text-gray-100",
+													state.highlighted
+														? "bg-gray-300 font-medium dark:bg-gray-700"
+														: state.selected && "bg-gray-200 font-medium dark:bg-gray-800",
 												)
 											}
 											key={option.value}
