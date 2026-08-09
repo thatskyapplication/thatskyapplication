@@ -82,6 +82,7 @@
 			"Village of Dreams": "圓夢村",
 			"Hermit Valley": "隱士山谷",
 			"Village Theatre": "鄉村劇院",
+			"Wasteland Rest": "暮土小驛",
 			"Treasure Reef": "寶礁",
 			"The Outer Bailey": "堡壘邊陲",
 			"The Graveyard": "暮土墓園",
@@ -396,7 +397,7 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "沿著霞谷下層賽道捕捉四散的光",
 			"259": "邀請一位遷徙季的先靈與你一同冒險",
@@ -561,7 +562,8 @@
 			"radiance-event": "彩染活動",
 			"aurora-homecoming": "AURORA：樂音歸來",
 			"workshop-show-and-tell": "工作坊成果發表",
-			"personality-quiz-event": "光遇性格測驗活動"
+			"personality-quiz-event": "光遇性格測驗活動",
+			"summer-camping": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief",
@@ -656,7 +658,8 @@
 			"89": "",
 			"90": "",
 			"91": "",
-			"92": ""
+			"92": "",
+			"93": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "從目錄推斷",
@@ -2324,6 +2327,8 @@
 		"interaction-not-in-cached-guild": "",
 		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
+		"clear": "",
+		"no-results": "",
 		"view": "瀏覽",
 		"more": "",
 		"maintenance": "",
@@ -2379,7 +2384,9 @@
 		},
 		"catalogue": {
 			"command-name": "目錄",
-			"command-description": "您自己的Sky目錄。"
+			"command-description": "您自己的Sky目錄。",
+			"command-option-search-name": "",
+			"command-option-search-description": ""
 		},
 		"checklist": {
 			"command-name": "",
@@ -2671,6 +2678,10 @@
 			"nesting-workshop": "雲巢工作坊",
 			"main-no-progress": "沒有進展",
 			"main-progress": "進度: {{number}}%",
+			"search-label": "",
+			"search-placeholder": "",
+			"search-no-results": "",
+			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
 			"travelling-spirit": "旅行先靈",
 			"returning-spirits": "復刻先靈",
@@ -2689,7 +2700,6 @@
 			"seasons-previous-seasons": "",
 			"seasons-next-seasons": "",
 			"season-title": "",
-			"patch-notes-button-label": "",
 			"season-set-items-string-select-menu-placeholder": "",
 			"season-previous-season": "",
 			"season-next-season": "",
@@ -2711,6 +2721,8 @@
 			"event-no-infographic-yet": "",
 			"event-previous-event": "",
 			"event-next-event": "",
+			"event-family-also-known-as": "",
+			"event-family-string-select-menu-placeholder": "",
 			"starter-packs-title": "",
 			"secret-area-title": "",
 			"clothing-shop-title": "",

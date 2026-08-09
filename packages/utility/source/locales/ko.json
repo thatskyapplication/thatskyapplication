@@ -82,6 +82,7 @@
 			"Village of Dreams": "꿈의 마을",
 			"Hermit Valley": "은둔자의 언덕",
 			"Village Theatre": "마을극장",
+			"Wasteland Rest": "황무지 휴식처",
 			"Treasure Reef": "보물섬",
 			"The Outer Bailey": "성 외벽",
 			"The Graveyard": "어둠의 늪",
@@ -396,7 +397,7 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "낮은 계곡 경주로에서 떠도는 빛 잡기",
 			"259": "오늘 이주의 시즌 영혼을 모험에 초대하세요",
@@ -561,7 +562,8 @@
 			"radiance-event": "광채 이벤트",
 			"aurora-homecoming": "AURORA 홈커밍 콘서트",
 			"workshop-show-and-tell": "제작소 발표회",
-			"personality-quiz-event": "성격 퀴즈 이벤트"
+			"personality-quiz-event": "성격 퀴즈 이벤트",
+			"summer-camping": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -656,7 +658,8 @@
 			"89": "",
 			"90": "",
 			"91": "",
-			"92": ""
+			"92": "",
+			"93": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2324,6 +2327,8 @@
 		"interaction-not-in-cached-guild": "",
 		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
+		"clear": "",
+		"no-results": "",
 		"view": "",
 		"more": "",
 		"maintenance": "",
@@ -2379,7 +2384,9 @@
 		},
 		"catalogue": {
 			"command-name": "",
-			"command-description": ""
+			"command-description": "",
+			"command-option-search-name": "",
+			"command-option-search-description": ""
 		},
 		"checklist": {
 			"command-name": "",
@@ -2671,6 +2678,10 @@
 			"nesting-workshop": "",
 			"main-no-progress": "",
 			"main-progress": "",
+			"search-label": "",
+			"search-placeholder": "",
+			"search-no-results": "",
+			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
 			"travelling-spirit": "",
 			"returning-spirits": "",
@@ -2689,7 +2700,6 @@
 			"seasons-previous-seasons": "",
 			"seasons-next-seasons": "",
 			"season-title": "",
-			"patch-notes-button-label": "",
 			"season-set-items-string-select-menu-placeholder": "",
 			"season-previous-season": "",
 			"season-next-season": "",
@@ -2711,6 +2721,8 @@
 			"event-no-infographic-yet": "",
 			"event-previous-event": "",
 			"event-next-event": "",
+			"event-family-also-known-as": "",
+			"event-family-string-select-menu-placeholder": "",
 			"starter-packs-title": "",
 			"secret-area-title": "",
 			"clothing-shop-title": "",

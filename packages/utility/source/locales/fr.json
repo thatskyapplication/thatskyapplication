@@ -82,6 +82,7 @@
 			"Village of Dreams": "Village des Rêves",
 			"Hermit Valley": "Pente du Yéti",
 			"Village Theatre": "Théâtre du village",
+			"Wasteland Rest": "Repos du Désert",
 			"Treasure Reef": "Récif du trésor",
 			"The Outer Bailey": "L'Enceinte Extérieure",
 			"The Graveyard": "Le Cimetière",
@@ -396,7 +397,7 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "Récupérez les lumières errantes sur le Sentier Inférieur de la Vallée",
 			"259": "Invitez un esprit de la saison de la migration à vous rejoindre dans votre aventure aujourd'hui",
@@ -561,7 +562,8 @@
 			"radiance-event": "Évènement de Splendeur",
 			"aurora-homecoming": "AURORA : concert des anciens élèves",
 			"workshop-show-and-tell": "Atelier quoi de neuf",
-			"personality-quiz-event": "Évènement Quiz de personnalité"
+			"personality-quiz-event": "Évènement Quiz de personnalité",
+			"summer-camping": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_de_la_Malice#2019",
@@ -656,7 +658,8 @@
 			"89": "",
 			"90": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Jours_des_Couleurs/2026",
 			"91": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Anniversaire_de_Sky/2026",
-			"92": ""
+			"92": "",
+			"93": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Déduire depuis le catalogue",
@@ -2324,6 +2327,8 @@
 		"interaction-not-in-cached-guild": "Cette commande nécessite que je sois présent sur le serveur. [Invitez-moi]({{url1}}) avec l'ensemble de permissions « bot » et réessayez !\nSi vous avez besoin d'aide, rejoignez le [serveur d'assistance]({{url2}}) !",
 		"interaction-response-too-old": "Cette réponse date trop. Utilisez la commande de nouveau !",
 		"cannot-view-thread": "Je n'ai pas les permissions nécessaires afin de voir ce fil.",
+		"clear": "",
+		"no-results": "",
 		"view": "Voir",
 		"more": "Plus",
 		"maintenance": "Maintenance",
@@ -2379,7 +2384,9 @@
 		},
 		"catalogue": {
 			"command-name": "catalogue",
-			"command-description": "Votre propre catalogue Sky."
+			"command-description": "Votre propre catalogue Sky.",
+			"command-option-search-name": "",
+			"command-option-search-description": ""
 		},
 		"checklist": {
 			"command-name": "liste-à-cocher",
@@ -2671,6 +2678,10 @@
 			"nesting-workshop": "Atelier de la Nidification",
 			"main-no-progress": "Aucun progrès",
 			"main-progress": "Progrès : {{number}}%",
+			"search-label": "",
+			"search-placeholder": "",
+			"search-no-results": "",
+			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
 			"travelling-spirit": "Esprit voyageur",
 			"returning-spirits": "Esprits de retour",
@@ -2689,7 +2700,6 @@
 			"seasons-previous-seasons": "Saisons précédentes",
 			"seasons-next-seasons": "Saisons suivantes",
 			"season-title": "{{season}}\n\n-# Catalogue → Saisons",
-			"patch-notes-button-label": "Note de mise à jour",
 			"season-set-items-string-select-menu-placeholder": "Quels éléments avez-vous ?",
 			"season-previous-season": "Saison précédente",
 			"season-next-season": "Prochaine saison",
@@ -2711,6 +2721,8 @@
 			"event-no-infographic-yet": "Cet évènement n'a pas encore d'infographie.",
 			"event-previous-event": "Évènement précédent",
 			"event-next-event": "Évènement suivant",
+			"event-family-also-known-as": "",
+			"event-family-string-select-menu-placeholder": "",
 			"starter-packs-title": "## Packs de débutants\n\n-# Catalogue",
 			"secret-area-title": "## Zone secrète\n\n-# Catalogue",
 			"clothing-shop-title": "",
