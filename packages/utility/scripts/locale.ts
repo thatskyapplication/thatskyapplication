@@ -287,6 +287,10 @@ const MAPPINGS: LocaleMapping[] = [
 		tsKey: "AreaName.VillageTheatre",
 	},
 	{
+		upstreamKey: "title_duskstart_01",
+		tsKey: "AreaName.WastelandRest",
+	},
+	{
 		upstreamKey: "title_dusk_triangle_01",
 		tsKey: "AreaName.TreasureReef",
 	},

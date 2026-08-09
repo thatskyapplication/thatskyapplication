@@ -70,6 +70,7 @@ export enum AreaName {
 	VillageTheatre = "Village Theatre",
 
 	// Golden Wasteland.
+	WastelandRest = "Wasteland Rest",
 	TreasureReef = "Treasure Reef",
 	TheOuterBailey = "The Outer Bailey",
 	TheGraveyard = "The Graveyard",

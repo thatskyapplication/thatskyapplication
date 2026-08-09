@@ -109,6 +109,7 @@ export default {
 			[AreaName.VillageOfDreams]: "Village of Dreams",
 			[AreaName.HermitValley]: "Hermit Valley",
 			[AreaName.VillageTheatre]: "Village Theatre",
+			[AreaName.WastelandRest]: "Wasteland Rest",
 			[AreaName.TreasureReef]: "Treasure Reef",
 			[AreaName.TheOuterBailey]: "The Outer Bailey",
 			[AreaName.TheGraveyard]: "The Graveyard",
@@ -628,9 +629,9 @@ export default {
 				SpiritId.AdmiringActor,
 				AreaName.BirdNest,
 			),
-			[DailyQuest.MeetUpWithTroupeJugglerInGoldenWasteland]: questsMeetUpWith(
+			[DailyQuest.MeetUpWithTroupeJugglerInWastelandRest]: questsMeetUpWith(
 				SpiritId.TroupeJuggler,
-				RealmName.GoldenWasteland,
+				AreaName.WastelandRest,
 			),
 			[DailyQuest.MeetUpWithThoughtfulDirectorInRepositoryOfRefuge]: questsMeetUpWith(
 				SpiritId.ThoughtfulDirector,
