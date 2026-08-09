@@ -82,6 +82,7 @@
 			"Village of Dreams": "Aldeia dos Sonhos",
 			"Hermit Valley": "Desfiladeiro do Iéti",
 			"Village Theatre": "Teatro da Aldeia",
+			"Wasteland Rest": "Descanso do Sertão",
 			"Treasure Reef": "Recife do Tesouro",
 			"The Outer Bailey": "A Muralha Externa",
 			"The Graveyard": "O Cemitério",
@@ -396,7 +397,7 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "Pegue as luzes flutuantes na Trilha Inferior do Vale",
 			"259": "Convide um espírito da Temporada da Migração para aventurar-se com você hoje",
@@ -561,7 +562,8 @@
 			"radiance-event": "Evento do Resplendor",
 			"aurora-homecoming": "AURORA: De Volta ao Lar",
 			"workshop-show-and-tell": "Oficina Mostre e Conte",
-			"personality-quiz-event": "Evento de Quiz de Personalidade"
+			"personality-quiz-event": "Evento de Quiz de Personalidade",
+			"summer-camping": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Travessuras#Outubro_de_2019",
@@ -656,7 +658,8 @@
 			"89": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Tesouros/2026",
 			"90": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_de_Cores/2026",
 			"91": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Aniversário_do_Sky/2026",
-			"92": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados#Julho_de_2026"
+			"92": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Dias_Ensolarados#Julho_de_2026",
+			"93": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "Inferir do catálogo",
@@ -2324,6 +2327,8 @@
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
 		"interaction-response-too-old": "Esta resposta já expirou. Use o comando novamente!",
 		"cannot-view-thread": "Não tenho permissões para visualizar este tópico.",
+		"clear": "",
+		"no-results": "",
 		"view": "Exibir",
 		"more": "Mais",
 		"maintenance": "Manutenção",
@@ -2379,7 +2384,9 @@
 		},
 		"catalogue": {
 			"command-name": "catálogo",
-			"command-description": "Seu próprio catálogo de Sky."
+			"command-description": "Seu próprio catálogo de Sky.",
+			"command-option-search-name": "",
+			"command-option-search-description": ""
 		},
 		"checklist": {
 			"command-name": "checklist",
@@ -2671,6 +2678,10 @@
 			"nesting-workshop": "Oficina do Ninho",
 			"main-no-progress": "Sem progresso",
 			"main-progress": "Progresso: {{number}}%",
+			"search-label": "",
+			"search-placeholder": "",
+			"search-no-results": "",
+			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "Para onde você gostaria de ir?",
 			"travelling-spirit": "Espírito Viajante",
 			"returning-spirits": "Espíritos Retornantes",
@@ -2689,7 +2700,6 @@
 			"seasons-previous-seasons": "Temporadas anteriores",
 			"seasons-next-seasons": "Próximas temporadas",
 			"season-title": "{{season}}\n\n-# Catálogo → Temporadas",
-			"patch-notes-button-label": "Notas do patch",
 			"season-set-items-string-select-menu-placeholder": "Quais itens você possui?",
 			"season-previous-season": "Temporada anterior",
 			"season-next-season": "Próxima temporada",
@@ -2711,6 +2721,8 @@
 			"event-no-infographic-yet": "Este evento ainda não possui um infográfico.",
 			"event-previous-event": "Evento anterior",
 			"event-next-event": "Próximo evento",
+			"event-family-also-known-as": "",
+			"event-family-string-select-menu-placeholder": "",
 			"starter-packs-title": "## Pacotes de iniciante\n\n-# Catálogo",
 			"secret-area-title": "## Área secreta\n\n-# Catálogo",
 			"clothing-shop-title": "## Loja de roupas\n\n-# Catálogo",

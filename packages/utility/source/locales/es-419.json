@@ -82,6 +82,7 @@
 			"Village of Dreams": "Aldea de los sueños",
 			"Hermit Valley": "Ladera del yeti",
 			"Village Theatre": "Teatro de la aldea",
+			"Wasteland Rest": "Descanso del Páramo",
 			"Treasure Reef": "Coral del tesoro",
 			"The Outer Bailey": "El Vestíbulo Exterior",
 			"The Graveyard": "El Cementerio",
@@ -396,7 +397,7 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "Atrapa las luces errantes en el Camino Inferior del Valle",
 			"259": "Invita a algún espíritu de la Temporada de la Migración a que hoy se embarque en una aventura contigo",
@@ -561,7 +562,8 @@
 			"radiance-event": "Evento de resplandor",
 			"aurora-homecoming": "AURORA: Regreso a casa",
 			"workshop-show-and-tell": "Taller de compartir",
-			"personality-quiz-event": "Evento Prueba de Personalidad"
+			"personality-quiz-event": "Evento Prueba de Personalidad",
+			"summer-camping": ""
 		},
 		"event-wiki": {
 			"0": "",
@@ -656,7 +658,8 @@
 			"89": "",
 			"90": "",
 			"91": "",
-			"92": ""
+			"92": "",
+			"93": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "",
@@ -2324,6 +2327,8 @@
 		"interaction-not-in-cached-guild": "",
 		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
+		"clear": "",
+		"no-results": "",
 		"view": "",
 		"more": "",
 		"maintenance": "",
@@ -2379,7 +2384,9 @@
 		},
 		"catalogue": {
 			"command-name": "catálogo",
-			"command-description": "Tu propio catálogo de Sky."
+			"command-description": "Tu propio catálogo de Sky.",
+			"command-option-search-name": "",
+			"command-option-search-description": ""
 		},
 		"checklist": {
 			"command-name": "",
@@ -2671,6 +2678,10 @@
 			"nesting-workshop": "Taller acogedor",
 			"main-no-progress": "Sin progreso",
 			"main-progress": "Progreso: {{number}}%",
+			"search-label": "",
+			"search-placeholder": "",
+			"search-no-results": "",
+			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
 			"travelling-spirit": "Espíritu Viajero",
 			"returning-spirits": "Visitantes especiales",
@@ -2689,7 +2700,6 @@
 			"seasons-previous-seasons": "",
 			"seasons-next-seasons": "",
 			"season-title": "",
-			"patch-notes-button-label": "",
 			"season-set-items-string-select-menu-placeholder": "",
 			"season-previous-season": "",
 			"season-next-season": "",
@@ -2711,6 +2721,8 @@
 			"event-no-infographic-yet": "",
 			"event-previous-event": "",
 			"event-next-event": "",
+			"event-family-also-known-as": "",
+			"event-family-string-select-menu-placeholder": "",
 			"starter-packs-title": "",
 			"secret-area-title": "",
 			"clothing-shop-title": "",

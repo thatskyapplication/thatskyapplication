@@ -82,6 +82,7 @@
 			"Village of Dreams": "夢見の町",
 			"Hermit Valley": "隠者の峠",
 			"Village Theatre": "夢見の劇場",
+			"Wasteland Rest": "捨てられた地の交流広場",
 			"Treasure Reef": "秘宝の環礁",
 			"The Outer Bailey": "外郭",
 			"The Graveyard": "墓所",
@@ -396,7 +397,7 @@
 			"253": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.5)\",\"location\":\"$t(realms.Daylight Prairie)\"})",
 			"254": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.66)\",\"location\":\"$t(areas.Forest Brook)\"})",
 			"255": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.67)\",\"location\":\"$t(areas.Bird Nest)\"})",
-			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(realms.Golden Wasteland)\"})",
+			"256": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.68)\",\"location\":\"$t(areas.Wasteland Rest)\"})",
 			"257": "$t(quests-common.meet-up-with, {\"spirit\":\"$t(spirits.70)\",\"location\":\"$t(areas.Repository of Refuge)\"})",
 			"258": "峡谷の陸通りで彷徨う光をつかまえる",
 			"259": "今日の冒険に渡りの季節の精霊を招待する",
@@ -561,7 +562,8 @@
 			"radiance-event": "光に染まるイベント",
 			"aurora-homecoming": "AURORA ホームカミング",
 			"workshop-show-and-tell": "巣づくり工房発表会",
-			"personality-quiz-event": "パーソナリティチェック"
+			"personality-quiz-event": "パーソナリティチェック",
+			"summer-camping": ""
 		},
 		"event-wiki": {
 			"0": "https://sky-children-of-the-light.fandom.com/ja/wiki/いたずらな日々#2019/10",
@@ -656,7 +658,8 @@
 			"89": "",
 			"90": "https://sky-children-of-the-light.fandom.com/ja/wiki/彩なす日々/2026",
 			"91": "",
-			"92": ""
+			"92": "",
+			"93": ""
 		},
 		"sky-profile-winged-light-types": {
 			"0": "カタログから推測する",
@@ -2324,6 +2327,8 @@
 		"interaction-not-in-cached-guild": "",
 		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
+		"clear": "",
+		"no-results": "",
 		"view": "",
 		"more": "",
 		"maintenance": "",
@@ -2379,7 +2384,9 @@
 		},
 		"catalogue": {
 			"command-name": "カタログ",
-			"command-description": "あなた専用のSkyカタログ。"
+			"command-description": "あなた専用のSkyカタログ。",
+			"command-option-search-name": "",
+			"command-option-search-description": ""
 		},
 		"checklist": {
 			"command-name": "チェックリスト",
@@ -2671,6 +2678,10 @@
 			"nesting-workshop": "",
 			"main-no-progress": "",
 			"main-progress": "",
+			"search-label": "",
+			"search-placeholder": "",
+			"search-no-results": "",
+			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
 			"travelling-spirit": "再訪する精霊",
 			"returning-spirits": "",
@@ -2689,7 +2700,6 @@
 			"seasons-previous-seasons": "",
 			"seasons-next-seasons": "",
 			"season-title": "",
-			"patch-notes-button-label": "",
 			"season-set-items-string-select-menu-placeholder": "",
 			"season-previous-season": "",
 			"season-next-season": "",
@@ -2711,6 +2721,8 @@
 			"event-no-infographic-yet": "",
 			"event-previous-event": "",
 			"event-next-event": "",
+			"event-family-also-known-as": "",
+			"event-family-string-select-menu-placeholder": "",
 			"starter-packs-title": "",
 			"secret-area-title": "",
 			"clothing-shop-title": "",
