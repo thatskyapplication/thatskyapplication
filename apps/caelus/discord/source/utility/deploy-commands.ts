@@ -1182,14 +1182,6 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 				type: ApplicationCommandOptionType.Subcommand,
 				name: "custom-status",
 				description: "Sets the custom status.",
-				options: [
-					{
-						type: ApplicationCommandOptionType.String,
-						name: "text",
-						description: "The text to use.",
-						required: true,
-					},
-				],
 			},
 		],
 		default_member_permissions: "0",

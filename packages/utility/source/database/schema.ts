@@ -11,6 +11,10 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export interface Admin {
+  custom_status: string | null;
+}
+
 export interface BlueskyWebhooks {
   did: string;
   guild_id: string;
@@ -169,6 +173,7 @@ export interface Welcome {
 }
 
 export interface DB {
+  admin: Admin;
   bluesky_webhooks: BlueskyWebhooks;
   catalogue: Catalogue;
   checklist: Checklist;

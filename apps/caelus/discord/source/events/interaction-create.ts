@@ -27,6 +27,7 @@ import {
 	USER_CONTEXT_MENU_COMMANDS,
 } from "../commands/index.js";
 import { client } from "../discord.js";
+import { adminHandleCustomStatus } from "../features/admin.js";
 import {
 	catalogueTraversal,
 	parseSetItems,
@@ -1149,6 +1150,11 @@ export default {
 				}
 
 				if (isGuildModalSubmit(data)) {
+					if (id === CustomId.AdminCustomStatusModal) {
+						await adminHandleCustomStatus(data);
+						return;
+					}
+
 					if (id === CustomId.MeCustomiseMeModal) {
 						await meHandleCustomiseMeModal(data);
 						return;

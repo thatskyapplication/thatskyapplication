@@ -1,5 +1,5 @@
 import type { APIChatInputApplicationCommandInteraction } from "@discordjs/core";
-import { customStatus } from "../../features/admin.js";
+import { adminCustomStatusModal } from "../../features/admin.js";
 import { isGuildChatInputCommand } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
@@ -14,7 +14,7 @@ export default {
 
 		switch (options.getSubcommandGroup() ?? options.requireSubcommand()) {
 			case "custom-status": {
-				await customStatus(interaction, options);
+				await adminCustomStatusModal(interaction);
 				return;
 			}
 		}
