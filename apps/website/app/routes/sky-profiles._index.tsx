@@ -1,8 +1,16 @@
-import type { _NonNullableFields } from "@discordjs/core/http-only";
+import { clsx } from "clsx";
 import { sql } from "kysely";
-import { useState } from "react";
+import { Search } from "lucide-react";
+import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation, useRouteLoaderData, useSearchParams } from "react-router";
+import {
+	Form,
+	Link,
+	useLocation,
+	useNavigation,
+	useRouteLoaderData,
+	useSubmit,
+} from "react-router";
 import { type Country, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
@@ -26,6 +34,11 @@ import type { Route } from "./+types/sky-profiles._index.js";
 
 const NO_COUNTRY_VALUE = "none" as const;
 const PROFILES_PER_PAGE = 24 as const;
+const RECENT_PROFILES_LIMIT = 9 as const;
+const VIEW_ALL = "all" as const;
+
+const FILTER_BUTTON_CLASS =
+	"flex items-center rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50" as const;
 
 export const meta: Route.MetaFunction = ({ location, matches }) => {
 	const cdnURL = getCDNURLFromMatches(matches);
@@ -56,11 +69,11 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 };
 
 export const loader = async ({ url }: Route.LoaderArgs) => {
-	const name = url.searchParams.get("name");
-	const country = url.searchParams.get("country");
+	const name = url.searchParams.get("name")?.trim() || null;
+	const country = url.searchParams.get("country") || null;
+	const browsingAll = url.searchParams.get("view") === VIEW_ALL;
 	const page = parsePage(url);
 
-	// Get all available countries.
 	const countries = await database
 		.selectFrom("sky_profiles")
 		.select("country")
@@ -70,48 +83,14 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 		.$narrowType<{ country: Country }>()
 		.execute();
 
-	if (name || country) {
-		let profilesQuery = publicProfilesQuery();
-
-		if (name) {
-			const queryLowerCase = name.toLowerCase();
-			profilesQuery = profilesQuery.where(sql<boolean>`lower(name) % ${queryLowerCase}`);
-		}
-
-		if (country) {
-			if (country === NO_COUNTRY_VALUE) {
-				profilesQuery = profilesQuery.where("country", "is", null);
-			} else {
-				profilesQuery = profilesQuery.where("country", "=", country);
-			}
-		}
-
-		// Get total count for pagination (before applying ordering).
-		const countResult = await profilesQuery
-			.select((eb) => eb.fn.countAll<string>().as("count"))
-			.executeTakeFirst();
-
-		const totalCount = Number(countResult?.count ?? 0);
-		const maximumPage = Math.max(1, Math.ceil(totalCount / PROFILES_PER_PAGE));
-		const currentPage = Math.min(page, maximumPage);
-
-		// Apply ordering.
-		if (name) {
-			const queryLowerCase = name.toLowerCase();
-			profilesQuery = profilesQuery
-				.orderBy(sql`similarity(lower(name), ${queryLowerCase})`, "desc")
-				.orderBy("name", "asc")
-				.orderBy("user_id", "asc");
-		} else {
-			profilesQuery = profilesQuery.orderBy("name", "asc").orderBy("user_id", "asc");
-		}
-
-		// Apply pagination.
-		const offset = (currentPage - 1) * PROFILES_PER_PAGE;
-		const profiles = await profilesQuery
+	if (!name && !country && !browsingAll) {
+		const profiles = await publicProfilesQuery()
+			.where("description", "is not", null)
+			.where((eb) => eb(eb.fn("cardinality", ["seasons"]), ">", 0))
+			.orderBy("last_updated_at", (orderBy) => orderBy.desc().nullsLast())
+			.orderBy("user_id", "asc")
 			.selectAll()
-			.limit(PROFILES_PER_PAGE)
-			.offset(offset)
+			.limit(RECENT_PROFILES_LIMIT)
 			.execute();
 
 		return {
@@ -119,13 +98,70 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 			name,
 			country,
 			countries,
-			currentPage,
-			maximumPage,
-			totalCount,
+			browsingAll,
+			recent: true,
+			currentPage: 1,
+			maximumPage: 1,
 		};
 	}
 
-	return { profiles: [], countries, currentPage: 1, maximumPage: 1, totalCount: 0 };
+	let profilesQuery = publicProfilesQuery();
+
+	if (name) {
+		const queryLowerCase = name.toLowerCase();
+		const likePattern = `%${queryLowerCase.replace(/[\\%_]/g, String.raw`\$&`)}%`;
+
+		profilesQuery = profilesQuery.where((eb) =>
+			eb.or([
+				sql<boolean>`lower(name) collate "C" like ${likePattern}`,
+				sql<boolean>`lower(name) % ${queryLowerCase}`,
+			]),
+		);
+	}
+
+	if (country) {
+		if (country === NO_COUNTRY_VALUE) {
+			profilesQuery = profilesQuery.where("country", "is", null);
+		} else {
+			profilesQuery = profilesQuery.where("country", "=", country);
+		}
+	}
+
+	const countResult = await profilesQuery
+		.select((eb) => eb.fn.countAll<string>().as("count"))
+		.executeTakeFirst();
+
+	const totalCount = Number(countResult?.count ?? 0);
+	const maximumPage = Math.max(1, Math.ceil(totalCount / PROFILES_PER_PAGE));
+	const currentPage = Math.min(page, maximumPage);
+
+	if (name) {
+		const queryLowerCase = name.toLowerCase();
+
+		profilesQuery = profilesQuery
+			.orderBy(sql`similarity(lower(name), ${queryLowerCase})`, "desc")
+			.orderBy("name", "asc")
+			.orderBy("user_id", "asc");
+	} else {
+		profilesQuery = profilesQuery.orderBy("name", "asc").orderBy("user_id", "asc");
+	}
+
+	const profiles = await profilesQuery
+		.selectAll()
+		.limit(PROFILES_PER_PAGE)
+		.offset((currentPage - 1) * PROFILES_PER_PAGE)
+		.execute();
+
+	return {
+		profiles,
+		name,
+		country,
+		countries,
+		browsingAll,
+		recent: false,
+		currentPage,
+		maximumPage,
+	};
 };
 
 interface SkyProfileCardProps {
@@ -148,7 +184,7 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 				{profile.banner ? (
 					<img
 						alt={`Banner of ${profile.name}.`}
-						className="pointer-events-none h-48 w-full object-cover"
+						className="pointer-events-none aspect-17/6 w-full object-cover"
 						fetchPriority={priority ? "high" : undefined}
 						loading={priority ? "eager" : "lazy"}
 						src={cdn.skyProfileBannerURL(profile.user_id, profile.banner)}
@@ -156,7 +192,7 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 				) : (
 					<div
 						aria-label="No banner."
-						className="h-48 w-full bg-gray-200 dark:bg-gray-600"
+						className="aspect-17/6 w-full bg-gray-200 dark:bg-gray-600"
 						role="img"
 					/>
 				)}
@@ -194,62 +230,47 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 }
 
 export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
-	const cdnURL = useCDNURL();
-	const data = loaderData;
+	const { profiles, name, country, countries, browsingAll, recent, currentPage, maximumPage } =
+		loaderData;
+
 	const discordUser = useRouteLoaderData<typeof rootLoader>("root")?.user ?? null;
 	const location = useLocation();
+	const navigation = useNavigation();
 	const { t } = useTranslation();
 	const locale = useTranslation().i18n.language;
-	const { profiles, currentPage, maximumPage } = data;
 	const displayNames = useRegionDisplayNames(locale);
+	const searching = navigation.location?.pathname === location.pathname;
 
-	const countries = data.countries.sort((a, b) =>
-		displayNames.of(a.country)!.localeCompare(displayNames.of(b.country)!),
-	);
-
-	const name = "name" in data ? data.name : null;
-	const country = "country" in data ? data.country : null;
-	const [_, setSearchParams] = useSearchParams();
-
-	const updateFilters = ({ name, country }: { name: string; country: string }) => {
-		const trimmedName = name.trim();
-
-		setSearchParams((prev) => {
-			const newParams = new URLSearchParams(prev);
-
-			if (trimmedName) {
-				newParams.set("name", trimmedName);
-			} else {
-				newParams.delete("name");
-			}
-
-			if (country) {
-				newParams.set("country", country);
-			} else {
-				newParams.delete("country");
-			}
-
-			newParams.delete("page");
-			return newParams;
-		});
-	};
+	const countryOptions = countries
+		.map(({ country }) => ({ label: formatCountryLabel(country, displayNames), value: country }))
+		.sort((a, b) => a.label.localeCompare(b.label));
 
 	return (
 		<SitePage>
 			<div className="container mx-auto">
+				<h1 className="text-center">{t("sky-profile.name-plural", { ns: "features" })}</h1>
+				{recent && (
+					<p className="text-center text-gray-600 dark:text-gray-400">
+						{t("sky-profile.description-website", { ns: "features" })}
+					</p>
+				)}
 				<div className="mb-8 flex flex-col items-center gap-4">
 					<SkyProfilesFilters
-						countries={countries}
+						browsingAll={browsingAll}
 						country={country}
+						countryOptions={countryOptions}
 						discordUser={discordUser}
-						displayNames={displayNames}
-						key={`${name ?? ""}:${country ?? ""}`}
 						name={name}
-						onUpdateFilters={updateFilters}
+						searching={searching}
 					/>
+					{recent && (
+						<p className="my-0 text-sm text-gray-600 dark:text-gray-400">
+							{t("sky-profile.description-recent", { ns: "features" })}
+						</p>
+					)}
 				</div>
 				{profiles.length > 0 ? (
-					<>
+					<div className={clsx("transition-opacity", searching && "opacity-60")}>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 							{profiles.map((profile, index) => (
 								<SkyProfileCard
@@ -261,27 +282,19 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 							))}
 						</div>
 						{maximumPage > 1 && <Pagination currentPage={currentPage} maximumPage={maximumPage} />}
-					</>
-				) : name || country ? (
+					</div>
+				) : (
 					<div className="py-12 text-center">
 						<p className="text-gray-600 dark:text-gray-400">
 							{t("sky-profile.search-none", { ns: "features" })}
 						</p>
 					</div>
-				) : (
-					<div className="space-y-4 py-12 text-center">
-						<div
-							aria-label="Sky kid icon."
-							className="mx-auto h-32 w-32 bg-cover bg-center"
-							role="img"
-							style={{
-								backgroundImage: `url(${cdnAssetURL(cdnURL, "assets/sky_kid.webp")})`,
-							}}
-						/>
-						<h1>{t("sky-profile.name-plural", { ns: "features" })}</h1>
-						<p className="text-gray-600 dark:text-gray-400">
-							{t("sky-profile.description-website", { ns: "features" })}
-						</p>
+				)}
+				{recent && (
+					<div className="mt-8 flex justify-center">
+						<Link className={FILTER_BUTTON_CLASS} to={`?view=${VIEW_ALL}`}>
+							{t("sky-profile.explore-all", { ns: "features" })}
+						</Link>
 					</div>
 				)}
 			</div>
@@ -290,85 +303,94 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 }
 
 interface SkyProfilesFiltersProps {
-	countries: readonly Pick<
-		Packet<"sky_profiles"> & _NonNullableFields<Pick<Packet<"sky_profiles">, "country">>,
-		"country"
-	>[];
+	browsingAll: boolean;
+	countryOptions: readonly { label: string; value: string }[];
 	country: string | null;
-	displayNames: Intl.DisplayNames;
 	discordUser: DiscordUser | null;
 	name: string | null;
-	onUpdateFilters: ({ name, country }: { name: string; country: string }) => void;
+	searching: boolean;
 }
 
 function SkyProfilesFilters({
-	countries,
+	browsingAll,
+	countryOptions,
 	country,
-	displayNames,
 	discordUser,
 	name,
-	onUpdateFilters,
+	searching,
 }: SkyProfilesFiltersProps) {
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
-	const [nameValue, setNameValue] = useState(name ?? "");
+	const submit = useSubmit();
+	const formRef = useRef<HTMLFormElement>(null);
+
+	const submitFilters = (formData: FormData) => {
+		const parameters = new URLSearchParams();
+
+		for (const [key, value] of formData) {
+			if (typeof value === "string" && value !== "") {
+				parameters.set(key, value);
+			}
+		}
+
+		void submit(parameters, { method: "get" });
+	};
 
 	return (
-		<div className="flex flex-wrap items-center justify-center gap-4">
+		<Form
+			className="flex flex-wrap items-center justify-center gap-4"
+			method="get"
+			onSubmit={(event) => {
+				event.preventDefault();
+				submitFilters(new FormData(event.currentTarget));
+			}}
+			ref={formRef}
+		>
+			{browsingAll && <input name="view" type="hidden" value={VIEW_ALL} />}
 			<label className="sr-only" htmlFor="sky-profile-name-search">
 				{t("sky-profile.search-by-name", { ns: "features" })}
 			</label>
 			<input
 				className="w-64 rounded-lg border border-gray-200 bg-gray-100 px-3 py-2.5 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400"
+				defaultValue={name ?? ""}
 				id="sky-profile-name-search"
-				onChange={(event) => {
-					const nextName = event.currentTarget.value;
-					setNameValue(nextName);
-
-					if (nextName === "") {
-						onUpdateFilters({ country: country ?? "", name: "" });
-					}
-				}}
-				onKeyDown={(event) => {
-					if (event.key === "Enter") {
-						onUpdateFilters({
-							country: country ?? "",
-							name: nameValue,
-						});
-					}
-				}}
+				name="name"
 				placeholder={t("sky-profile.search-by-name", { ns: "features" })}
 				type="search"
-				value={nameValue}
 				{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 			/>
+			<input name="country" readOnly type="hidden" value={country ?? ""} />
 			<Select
+				ariaLabel={t("sky-profile.select-a-country", { ns: "features" })}
 				className="w-64"
 				isClearable={true}
 				onChange={(value) => {
-					onUpdateFilters({
-						country: value,
-						name: nameValue,
-					});
+					const form = formRef.current;
+
+					if (!form) {
+						return;
+					}
+
+					const formData = new FormData(form);
+					formData.set("country", value);
+					submitFilters(formData);
 				}}
 				options={[
 					{
 						label: t("sky-profile.country-unspecified", { ns: "features" }),
 						value: NO_COUNTRY_VALUE,
 					},
-					...countries.map((skyProfilePacket) => ({
-						label: formatCountryLabel(skyProfilePacket.country as Country, displayNames),
-						value: skyProfilePacket.country,
-					})),
+					...countryOptions,
 				]}
 				placeholder={t("sky-profile.select-a-country", { ns: "features" })}
 				surface="page"
 				value={country ?? ""}
 			/>
-			<Link
-				className="flex items-center rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50"
-				to="/sky-profiles/random"
-			>
+			<button className={FILTER_BUTTON_CLASS} disabled={searching} type="submit">
+				<Search aria-hidden="true" className="mr-2 h-5 w-5" />
+				<span>{t("search-label", { ns: "general" })}</span>
+			</button>
+			<Link className={FILTER_BUTTON_CLASS} to="/sky-profiles/random">
 				<EmojiIcon
 					className="mr-2 h-6 w-6"
 					emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
@@ -377,10 +399,7 @@ function SkyProfilesFilters({
 				<span>{t("sky-profile.random", { ns: "features" })}</span>
 			</Link>
 			{discordUser && (
-				<Link
-					className="flex items-center rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 shadow-md hover:bg-gray-100/50 hover:shadow-lg dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50"
-					to={`/sky-profiles/${discordUser.id}`}
-				>
+				<Link className={FILTER_BUTTON_CLASS} to={`/sky-profiles/${discordUser.id}`}>
 					<div
 						aria-label="Sky kid icon."
 						className="mr-2 h-6 w-6 bg-cover bg-center"
@@ -392,6 +411,6 @@ function SkyProfilesFilters({
 					<span>{t("sky-profile.me", { ns: "features" })}</span>
 				</Link>
 			)}
-		</div>
+		</Form>
 	);
 }

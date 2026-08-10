@@ -25,8 +25,8 @@ export default function SkyProfileHeaderCard({
 
 	return (
 		<div className="rounded-lg border border-gray-200 bg-gray-100 shadow-lg dark:border-gray-600 dark:bg-gray-700">
-			<div className="relative h-60 w-full">
-				<div className="h-full w-full overflow-hidden rounded-md">
+			<div className="relative aspect-17/6 w-full">
+				<div className="h-full w-full overflow-hidden rounded-t-lg">
 					{bannerURL ? (
 						<img
 							alt={name ? `Banner of ${name}.` : "Sky profile banner."}
