@@ -106,6 +106,12 @@ const CATALOGUE_COLLECTION_TRANSLATION_KEY = {
 	[CatalogueCollection.NestingWorkshop]: "catalogue.nesting-workshop",
 } as const satisfies Readonly<Record<CatalogueCollection, string>>;
 
+function breadcrumb(locale: Locale, current: string, trail: readonly string[] = []) {
+	return `-# ${[t("catalogue.main-title", { lng: locale, ns: "features" }), ...trail, current].join(
+		" → ",
+	)}`;
+}
+
 function backToStartButton(locale: Locale): APIButtonComponentWithCustomId {
 	return {
 		type: ComponentType.Button,
@@ -764,6 +770,7 @@ export async function viewSearch(
 
 export async function viewSettings(interaction: APIMessageComponentButtonInteraction) {
 	const { locale } = interaction;
+	const current = t("catalogue.settings", { lng: locale, ns: "features" });
 
 	const catalogue = await database
 		.selectFrom("catalogue")
@@ -787,7 +794,7 @@ export async function viewSettings(interaction: APIMessageComponentButtonInterac
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: t("catalogue.settings-title", { lng: locale, ns: "features" }),
+						content: `## ${current}\n\n${breadcrumb(locale, current)}`,
 					},
 					{
 						type: ComponentType.Separator,
@@ -1169,11 +1176,12 @@ export async function viewRealms(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
+	const current = t("catalogue.standard-spirits", { lng: locale, ns: "features" });
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("catalogue.realms-title", { lng: locale, ns: "features" }),
+			content: `## ${current}\n\n${breadcrumb(locale, current)}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -1238,12 +1246,10 @@ export async function viewRealm(
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
 	const spirits = KINGDOM.realms.get(realm)!.spirits;
-
-	const title = t("catalogue.realm-title", {
-		lng: locale,
-		ns: "features",
-		realm: t(`realms.${realm}`, { lng: locale, ns: "general" }),
-	});
+	const current = t(`realms.${realm}`, { lng: locale, ns: "general" });
+	const title = `## ${current}\n\n${breadcrumb(locale, current, [
+		t("catalogue.standard-spirits", { lng: locale, ns: "features" }),
+	])}`;
 
 	const percentageNote = `-# ${t("catalogue.realms-percentage-note", { lng: locale, ns: "features" })}`;
 
@@ -1327,7 +1333,8 @@ export async function viewElders(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const title = t("catalogue.elders-title", { lng: locale, ns: "features" });
+	const current = t("catalogue.elders", { lng: locale, ns: "features" });
+	const title = `## ${current}\n\n${breadcrumb(locale, current)}`;
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -1407,7 +1414,8 @@ export async function viewSeasons(
 	const { locale } = interaction;
 	const currentSeason = skyCurrentSeason(skyNow());
 	const containerComponents: APIComponentInContainer[] = [];
-	const title = t("catalogue.seasons-title", { lng: locale, ns: "features" });
+	const current = t("season-plural", { lng: locale, ns: "general" });
+	const title = `## ${current}\n\n${breadcrumb(locale, current)}`;
 
 	if (currentSeason) {
 		const accessory: APIButtonComponentWithCustomId = {
@@ -1535,11 +1543,11 @@ export async function viewSeason(
 		throw new Error("Failed to view a season.");
 	}
 
-	const titleSeason = `${t("catalogue.season-title", {
-		lng: locale,
-		ns: "features",
-		season: `[${t(`seasons.${season.id}`, { lng: locale, ns: "general" })}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})`,
-	})}\n\n${t("time-range", {
+	const seasonName = t(`seasons.${season.id}`, { lng: locale, ns: "general" });
+	const heading = `[${seasonName}](${t(`season-wiki.${season.id}`, { lng: locale, ns: "general" })})`;
+	const title = `## ${heading}\n\n${breadcrumb(locale, seasonName, [
+		t("season-plural", { lng: locale, ns: "general" }),
+	])}\n\n${t("time-range", {
 		lng: locale,
 		ns: "general",
 		start: `<t:${epochSeconds(season.start)}:s>`,
@@ -1547,7 +1555,6 @@ export async function viewSeason(
 	})}`;
 
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
-	const title = `## ${titleSeason}`;
 
 	const containerComponents: APIComponentInContainer[] = [
 		seasonEmoji
@@ -1710,7 +1717,8 @@ export async function viewEvents(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const title = t("catalogue.events-title", { lng: locale, ns: "features" });
+	const current = t("catalogue.events", { lng: locale, ns: "features" });
+	const title = `## ${current}\n\n${breadcrumb(locale, current)}`;
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -1810,7 +1818,8 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 		return;
 	}
 
-	const title = t("catalogue.returning-spirits-title", { lng: locale, ns: "features" });
+	const current = t("catalogue.returning-spirits", { lng: locale, ns: "features" });
+	const title = `## ${current}\n\n${breadcrumb(locale, current)}`;
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -1919,26 +1928,28 @@ async function viewSpirit(
 		includePercentage: false,
 	});
 
-	const titleSpirit = `[${t(`spirits.${spirit.id}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`;
+	const spiritName = t(`spirits.${spirit.id}`, { lng: locale, ns: "general" });
+	const titleSpirit = `[${spiritName}](${t(`spirit-wiki.${spirit.id}`, { lng: locale, ns: "general" })})`;
+	let trail: readonly string[];
+
+	if (isStandardSpirit) {
+		trail = [
+			t("catalogue.standard-spirits", { lng: locale, ns: "features" }),
+			t(`realms.${spirit.realm}`, { lng: locale, ns: "general" }),
+		];
+	} else if (isElderSpirit) {
+		trail = [t("catalogue.elders", { lng: locale, ns: "features" })];
+	} else {
+		trail = [
+			t("season-plural", { lng: locale, ns: "general" }),
+			t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" }),
+		];
+	}
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: isStandardSpirit
-				? t("catalogue.spirit-title-standard-spirit", {
-						lng: locale,
-						ns: "features",
-						spirit: titleSpirit,
-						realm: t(`realms.${spirit.realm}`, { lng: locale, ns: "general" }),
-					})
-				: isElderSpirit
-					? t("catalogue.spirit-title-elder", { lng: locale, ns: "features", spirit: titleSpirit })
-					: t("catalogue.spirit-title-seasonal-spirit", {
-							lng: locale,
-							ns: "features",
-							spirit: titleSpirit,
-							season: t(`seasons.${spirit.seasonId}`, { lng: locale, ns: "general" }),
-						}),
+			content: `## ${titleSpirit}\n\n${breadcrumb(locale, spiritName, trail)}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -2131,11 +2142,11 @@ async function viewEvent(
 	const { locale } = interaction;
 	const { id, offer, offerInfographicURL } = event;
 
-	const titleEvent = `${t("catalogue.event-title", {
-		lng: locale,
-		ns: "features",
-		event: `[${t(event.name, { lng: locale, ns: "general" })}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`,
-	})}\n\n${t("time-range", {
+	const eventName = t(event.name, { lng: locale, ns: "general" });
+	const heading = `[${eventName}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`;
+	const title = `## ${heading}\n\n${breadcrumb(locale, eventName, [
+		t("catalogue.events", { lng: locale, ns: "features" }),
+	])}\n\n${t("time-range", {
 		lng: locale,
 		ns: "general",
 		start: `<t:${epochSeconds(event.start)}:s>`,
@@ -2143,7 +2154,6 @@ async function viewEvent(
 	})}`;
 
 	const eventTicketEmoji = EventIdToEventTicketEmoji[event.id];
-	const title = `## ${titleEvent}`;
 
 	const containerComponents: APIComponentInContainer[] = [
 		eventTicketEmoji
@@ -2316,6 +2326,7 @@ export async function viewStarterPacks(
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 	const { locale } = interaction;
+	const current = t("catalogue.starter-packs", { lng: locale, ns: "features" });
 
 	const itemSelectionOptions = STARTER_PACKS.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),
@@ -2324,7 +2335,7 @@ export async function viewStarterPacks(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("catalogue.starter-packs-title", { lng: locale, ns: "features" }),
+			content: `## ${current}\n\n${breadcrumb(locale, current)}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -2403,6 +2414,7 @@ export async function viewSecretArea(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
+	const current = t("catalogue.secret-area", { lng: locale, ns: "features" });
 
 	const itemSelectionOptions = SECRET_AREA.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),
@@ -2411,7 +2423,7 @@ export async function viewSecretArea(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("catalogue.secret-area-title", { lng: locale, ns: "features" }),
+			content: `## ${current}\n\n${breadcrumb(locale, current)}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -2490,6 +2502,7 @@ export async function viewClothingShop(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
+	const current = t("catalogue.clothing-shop", { lng: locale, ns: "features" });
 
 	const itemSelectionOptions = CLOTHING_SHOP.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),
@@ -2498,7 +2511,7 @@ export async function viewClothingShop(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("catalogue.clothing-shop-title", { lng: locale, ns: "features" }),
+			content: `## ${current}\n\n${breadcrumb(locale, current)}`,
 		},
 		{
 			type: ComponentType.Separator,
@@ -2577,6 +2590,7 @@ export async function viewNestingWorkshop(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
+	const current = t("catalogue.nesting-workshop", { lng: locale, ns: "features" });
 
 	const itemSelectionOptions = NESTING_WORKSHOP.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),
@@ -2597,7 +2611,7 @@ export async function viewNestingWorkshop(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("catalogue.nesting-workshop-title", { lng: locale, ns: "features" }),
+			content: `## ${current}\n\n${breadcrumb(locale, current)}`,
 		},
 		{
 			type: ComponentType.Separator,
