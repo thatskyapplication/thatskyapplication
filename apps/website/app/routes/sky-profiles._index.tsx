@@ -242,8 +242,12 @@ export default function SkyProfiles({ loaderData }: Route.ComponentProps) {
 	const searching = navigation.location?.pathname === location.pathname;
 
 	const countryOptions = countries
-		.map(({ country }) => ({ label: formatCountryLabel(country, displayNames), value: country }))
-		.sort((a, b) => a.label.localeCompare(b.label));
+		.map(({ country }) => ({
+			label: formatCountryLabel(country, displayNames),
+			name: displayNames.of(country) ?? country,
+			value: country,
+		}))
+		.sort((a, b) => a.name.localeCompare(b.name, locale));
 
 	return (
 		<SitePage>

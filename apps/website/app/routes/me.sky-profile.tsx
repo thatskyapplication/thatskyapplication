@@ -200,8 +200,9 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 	const displayNames = useRegionDisplayNames(i18n.language);
 	const countryOptions = COUNTRY_VALUES.map((country) => ({
 		label: formatCountryLabel(country, displayNames),
+		name: displayNames.of(country) ?? country,
 		value: country,
-	})).sort((a, b) => a.label.localeCompare(b.label));
+	})).sort((a, b) => a.name.localeCompare(b.name, i18n.language));
 	const spiritOptions = [...spirits().values()]
 		.map((spirit) => ({
 			label: t(`spirits.${spirit.id}`, { ns: "general" }),
