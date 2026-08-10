@@ -870,118 +870,189 @@ export default {
 		},
 		"event-wiki": {
 			[EventId.HalloweenOfficeEvent2019]:
-				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief#2019",
-			[EventId.DaysOfGiving2019]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
-			[EventId.DaysOfFeast2019]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
-			[EventId.LunarNewYear2020]: "https://sky-children-of-the-light.fandom.com/Lunar_New_Year",
-			[EventId.DaysOfLove2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2019",
+			[EventId.DaysOfGiving2019]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Giving#November_2019",
+			[EventId.DaysOfFeast2019]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Feast/2019",
+			[EventId.LunarNewYear2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Fortune/2020",
+			[EventId.DaysOfLove2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Love/2020",
 			[EventId.DaysOfSpring2020]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Double_Currency_Events#Days_of_Spring_-_March_2020",
-			[EventId.DaysOfNature2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
-			[EventId.DaysOfHealing2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Healing",
-			[EventId.DaysOfRainbow2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Rainbow",
-			[EventId.SkyAnniversary2020]: "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
+			[EventId.DaysOfNature2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Nature/2020",
+			[EventId.DaysOfHealing2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Healing/2020",
+			[EventId.DaysOfRainbow2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Color/2020",
+			[EventId.SkyAnniversary2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Sky_Anniversary/2020",
 			[EventId.DaysOfSummerLights2020]:
-				"https://sky-children-of-the-light.fandom.com/Days_of_Summer_Lights",
-			[EventId.DaysOfMischief2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
-			[EventId.DaysOfGiving2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
-			[EventId.DaysOfFeast2020]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
-			[EventId.DaysOfFortune2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Fortune",
-			[EventId.DaysOfLove2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
-			[EventId.DaysOfBloom2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
-			[EventId.DaysOfNature2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
-			[EventId.ChildrensDay2021]: "https://sky-children-of-the-light.fandom.com/Children's_Day",
-			[EventId.DaysOfRainbow2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Rainbow",
-			[EventId.SkyAnniversary2021]: "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
-			[EventId.DaysOfSummer2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Summer",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Summer_Lights#September_2020",
+			[EventId.DaysOfMischief2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2020",
+			[EventId.DaysOfGiving2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Giving#November_2020",
+			[EventId.DaysOfFeast2020]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Feast/2020",
+			[EventId.DaysOfFortune2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Fortune/2021",
+			[EventId.DaysOfLove2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Love/2021",
+			[EventId.DaysOfBloom2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Bloom/2021",
+			[EventId.DaysOfNature2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Nature/2021",
+			[EventId.ChildrensDay2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Special_Events#Children's_Day_-_May_2021",
+			[EventId.DaysOfRainbow2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Color/2021",
+			[EventId.SkyAnniversary2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Sky_Anniversary/2021",
+			[EventId.DaysOfSummer2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Summer#August_2021",
 			[EventId.DaysOfSummerLights2021]:
-				"https://sky-children-of-the-light.fandom.com/Days_of_Summer_Lights",
-			[EventId.DaysOfGiving2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
-			[EventId.DaysOfMischief2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
-			[EventId.DaysOfFeast2021]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
-			[EventId.DaysOfFortune2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Fortune",
-			[EventId.DaysOfLove2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Summer_Lights#September_2021",
+			[EventId.DaysOfGiving2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Giving#November_2021",
+			[EventId.DaysOfMischief2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2021",
+			[EventId.DaysOfFeast2021]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Feast/2021",
+			[EventId.DaysOfFortune2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Fortune/2022",
+			[EventId.DaysOfLove2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Love/2022",
 			[EventId.KizunaAI2022]: "https://sky-children-of-the-light.fandom.com/Kizuna_AI",
-			[EventId.DaysOfBloom2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
-			[EventId.DaysOfNature2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
+			[EventId.DaysOfBloom2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Bloom/2022",
+			[EventId.DaysOfNature2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Nature/2022",
 			[EventId.HarmonyHallGrandOpening2022]:
-				"https://sky-children-of-the-light.fandom.com/Harmony_Hall_Grand_Opening",
-			[EventId.DaysOfRainbow2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Rainbow",
-			[EventId.SkyAnniversary2022]: "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
-			[EventId.DaysOfSunlight2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
-			[EventId.LazyDays2022]: "https://sky-children-of-the-light.fandom.com/Lazy_Days",
-			[EventId.DaysOfMischief2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
-			[EventId.DaysOfGiving2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
-			[EventId.DaysOfFeast2022]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
-			[EventId.DaysOfFortune2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Fortune",
-			[EventId.DaysOfLove2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
-			[EventId.DaysOfBloom2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
-			[EventId.DaysOfNature2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
-			[EventId.DaysOfColour2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Colour",
-			[EventId.DaysOfMusic2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Music",
-			[EventId.SkyAnniversary2023]: "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Music/2022",
+			[EventId.DaysOfRainbow2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Color/2022",
+			[EventId.SkyAnniversary2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Sky_Anniversary/2022",
+			[EventId.DaysOfSunlight2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Sunlight/2022",
+			[EventId.LazyDays2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Lazy_Days#September_2022",
+			[EventId.DaysOfMischief2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2022",
+			[EventId.DaysOfGiving2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Giving#November_2022",
+			[EventId.DaysOfFeast2022]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Feast/2022",
+			[EventId.DaysOfFortune2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Fortune/2023",
+			[EventId.DaysOfLove2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Love/2023",
+			[EventId.DaysOfBloom2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Bloom/2023",
+			[EventId.DaysOfNature2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Nature/2023",
+			[EventId.DaysOfColour2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Color/2023",
+			[EventId.DaysOfMusic2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Music/2023",
+			[EventId.SkyAnniversary2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Sky_Anniversary/2023",
 			[EventId.AURORAEncoreConcerts2023]:
 				"https://sky-children-of-the-light.fandom.com/AURORA_Encore_Concerts",
-			[EventId.DaysOfSunlight2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
-			[EventId.DaysOfStyle2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Style",
-			[EventId.DaysOfMischief2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
-			[EventId.DaysOfGiving2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
+			[EventId.DaysOfSunlight2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Sunlight/2023",
+			[EventId.DaysOfStyle2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Style/2023",
+			[EventId.DaysOfMischief2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2023",
+			[EventId.DaysOfGiving2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Giving#November_2023",
 			[EventId.AviarysFireworkFestival2023]:
-				"https://sky-children-of-the-light.fandom.com/Aviary's_Firework_Festival",
-			[EventId.DaysOfFeast2023]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
-			[EventId.DaysOfFortune2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Fortune",
-			[EventId.DaysOfLove2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
+				"https://sky-children-of-the-light.fandom.com/wiki/Aviary's_Firework_Festival",
+			[EventId.DaysOfFeast2023]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Feast/2023",
+			[EventId.DaysOfFortune2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Fortune/2024",
+			[EventId.DaysOfLove2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Love/2024",
 			[EventId.SpringCamping2024]: "https://sky-children-of-the-light.fandom.com/Spring_Camping",
-			[EventId.DaysOfBloom2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
+			[EventId.DaysOfBloom2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Bloom/2024",
 			[EventId.SkyXCinnamorollPopUpCafe2024]:
-				"https://sky-children-of-the-light.fandom.com/Sky_%C3%97_Cinnamoroll_Pop-Up_Cafe",
-			[EventId.DaysOfNature2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
-			[EventId.DaysOfColour2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Colour",
-			[EventId.SkyFest2024]: "https://sky-children-of-the-light.fandom.com/SkyFest",
+				"https://sky-children-of-the-light.fandom.com/wiki/Sky_%C3%97_Cinnamoroll_Pop-Up_Cafe/2024",
+			[EventId.DaysOfNature2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Nature/2024",
+			[EventId.DaysOfColour2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Color/2024",
+			[EventId.SkyFest2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Sky_Anniversary/2024",
 			[EventId.TournamentOfTriumph2024]:
-				"https://sky-children-of-the-light.fandom.com/Tournament_of_Triumph",
-			[EventId.DaysOfSunlight2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
+				"https://sky-children-of-the-light.fandom.com/wiki/Tournament_of_Triumph/2024",
+			[EventId.DaysOfSunlight2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Sunlight/2024",
 			[EventId.DaysOfMoonlight2024]:
-				"https://sky-children-of-the-light.fandom.com/Days_of_Moonlight",
-			[EventId.DaysOfStyle2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Style",
-			[EventId.DaysOfMischief2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
-			[EventId.DaysOfMusic2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Music",
-			[EventId.DaysOfGiving2024]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Moonlight/2024",
+			[EventId.DaysOfStyle2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Style/2024",
+			[EventId.DaysOfMischief2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2024",
+			[EventId.DaysOfMusic2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Music/2024",
+			[EventId.DaysOfGiving2024]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Giving#December_2024",
 			[EventId.SkyXAlicesWonderlandCafe2024]:
-				"https://sky-children-of-the-light.fandom.com/Sky_%C3%97_Alice's_Wonderland_Cafe",
-			[EventId.DaysOfFortune2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Fortune",
-			[EventId.DaysOfLove2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
-			[EventId.DaysOfTreasure2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Treasure",
-			[EventId.DaysOfBloom2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
-			[EventId.DaysOfNature2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
-			[EventId.DaysOfColour2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Colour",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Feast/2024",
+			[EventId.DaysOfFortune2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Fortune/2025",
+			[EventId.DaysOfLove2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Love/2025",
+			[EventId.DaysOfTreasure2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Treasure/2025",
+			[EventId.DaysOfBloom2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Bloom/2025",
+			[EventId.DaysOfNature2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Nature/2025",
+			[EventId.DaysOfColour2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Color/2025",
 			[EventId.AURORAHomecoming2025]:
 				"https://sky-children-of-the-light.fandom.com/wiki/AURORA:_Homecoming",
 			[EventId.WorkshopShowAndTell2025]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Workshop_Show_%26_Tell",
-			[EventId.SkyAnniversary2025]: "https://sky-children-of-the-light.fandom.com/Sky_Anniversary",
-			[EventId.DaysOfSunlight2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Sunlight",
+			[EventId.SkyAnniversary2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Sky_Anniversary/2025",
+			[EventId.DaysOfSunlight2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Sunlight/2025",
 			[EventId.DaysOfMoonlight2025]:
-				"https://sky-children-of-the-light.fandom.com/Days_of_Moonlight",
-			[EventId.DaysOfMischief2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Mischief",
-			[EventId.DaysOfGiving2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Giving",
-			[EventId.DaysOfFeast2025]: "https://sky-children-of-the-light.fandom.com/Days_of_Feast",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Moonlight/2025",
+			[EventId.DaysOfMischief2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Mischief/2025",
+			[EventId.DaysOfGiving2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Giving#November_2025",
+			[EventId.DaysOfFeast2025]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Feast/2025",
 			[EventId.PersonalityQuizEvent2026]:
 				"https://sky-children-of-the-light.fandom.com/Personality_Quiz_Event",
 			[EventId.TournamentOfTriumph2026]:
-				"https://sky-children-of-the-light.fandom.com/Tournament_of_Triumph",
-			[EventId.DaysOfLove2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Love",
-			[EventId.DaysOfFortune2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Fortune",
-			[EventId.DaysOfBloom2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Bloom",
-			[EventId.DaysOfNature2026]: "https://sky-children-of-the-light.fandom.com/Days_of_Nature",
+				"https://sky-children-of-the-light.fandom.com/wiki/Tournament_of_Triumph/2026",
+			[EventId.DaysOfLove2026]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Love/2026",
+			[EventId.DaysOfFortune2026]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Fortune/2026",
+			[EventId.DaysOfBloom2026]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Bloom/2026",
+			[EventId.DaysOfNature2026]:
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Nature/2026",
 			[EventId.DaysOfTreasure2026]:
-				"https://sky-children-of-the-light.fandom.com/Days_of_Treasure/2026",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Treasure/2026",
 			[EventId.DaysOfColour2026]:
-				"https://sky-children-of-the-light.fandom.com/Days_of_Colour/2026",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Color/2026",
 			[EventId.SkyAnniversary2026]:
-				"https://sky-children-of-the-light.fandom.com/Sky_Anniversary/2026",
+				"https://sky-children-of-the-light.fandom.com/wiki/Sky_Anniversary/2026",
 			[EventId.DaysOfSunlight2026]:
-				"https://sky-children-of-the-light.fandom.com/Days_of_Sunlight/2026",
+				"https://sky-children-of-the-light.fandom.com/wiki/Days_of_Sunlight/2026",
 			[EventId.SummerCamping2026]:
 				"https://sky-children-of-the-light.fandom.com/wiki/Summer_Camping",
 		} satisfies Record<EventIds, `https://${string}`>,
