@@ -596,7 +596,7 @@ const SEASON_EMOJIS_PRODUCTION = {
 	TwoEmbersPart1: { id: "1392771944562163752", name: "two_embers_part_1" },
 	TwoEmbersPart1Candle: { id: "1396855475739558039", name: "two_embers_part_1_candle" },
 	TwoEmbersPart1Heart: { id: "1396855599152631839", name: "two_embers_part_1_heart" },
-	Migration: { id: "1428111864889348238", name: "migration" },
+	Migration: { id: "1536651408525492344", name: "migration" },
 	MigrationCandle: { id: "1429514486049542334", name: "migration_candle" },
 	MigrationHeart: { id: "1429514579863670784", name: "migration_heart" },
 	Lightmending: { id: "1461598394907758592", name: "lightmending" },
@@ -687,7 +687,7 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	TwoEmbersPart1: { id: "1392772065802719252", name: "two_embers_part_1" },
 	TwoEmbersPart1Candle: { id: "1396855483955941478", name: "two_embers_part_1_candle" },
 	TwoEmbersPart1Heart: { id: "1396855636632797245", name: "two_embers_part_1_heart" },
-	Migration: { id: "1428111900868214804", name: "migration" },
+	Migration: { id: "1536651424140627968", name: "migration" },
 	MigrationCandle: { id: "1429514613476687933", name: "migration_candle" },
 	MigrationHeart: { id: "1429514640282488832", name: "migration_heart" },
 	Lightmending: { id: "1461598440256438404", name: "lightmending" },
@@ -2426,7 +2426,7 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	/**
 	 * Migration Pendant.
 	 */
-	Necklace52: { id: "1429825301658992761", name: "52_necklace" },
+	Necklace52: { id: "1536651647885778974", name: "52_necklace" },
 	/**
 	 * Mischief Feline Tail.
 	 */
@@ -2509,7 +2509,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace49: { id: "1399295025233395742", name: "49_necklace" },
 	Necklace50: { id: "1401818695403311175", name: "50_necklace" },
 	Necklace51: { id: "1422146174357471232", name: "51_necklace" },
-	Necklace52: { id: "1429825309015806094", name: "52_necklace" },
+	Necklace52: { id: "1536651657285476402", name: "52_necklace" },
 	Necklace53: { id: "1433197656137666721", name: "53_necklace" },
 	Necklace54: { id: "1458424286401265725", name: "54_necklace" },
 	Necklace55: { id: "1494696171451711659", name: "55_necklace" },
