@@ -214,10 +214,8 @@ function SkyProfileCard({ priority, profile, returnTo }: SkyProfileCardProps) {
 						seasons={profile.seasons}
 					/>
 				)}
-				{profile.description ? (
+				{profile.description && (
 					<p className="mt-2 line-clamp-6 whitespace-pre-wrap">{profile.description}</p>
-				) : (
-					<p className="mt-2 italic">No description.</p>
 				)}
 			</div>
 			<div className="flex items-center p-4">

@@ -301,11 +301,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 										No name
 									</h2>
 								)}
-								{previewDescription ? (
-									<p className="whitespace-pre-wrap">{previewDescription}</p>
-								) : (
-									<p className="italic">No description.</p>
-								)}
+								{previewDescription && <p className="whitespace-pre-wrap">{previewDescription}</p>}
 							</div>
 						</SkyProfileHeaderCard>
 						{bannerError ? (

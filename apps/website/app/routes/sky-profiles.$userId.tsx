@@ -45,6 +45,7 @@ import {
 	getSkyProfileCatalogueData,
 } from "~/features/sky-profile/sky-profile-public.server.js";
 import { useCDN } from "~/hooks/use-cdn-url.js";
+import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { getRequestSession } from "~/middleware/session";
 import { getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
@@ -293,7 +294,8 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 	const cdn = useCDN();
 	const location = useLocation();
 	const [copied, setCopied] = useState(false);
-	const { t } = useTranslation();
+	const { i18n, t } = useTranslation();
+	const displayNames = useRegionDisplayNames(i18n.language);
 	const locationState: unknown = location.state;
 
 	async function copyLink() {
@@ -341,19 +343,25 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 						{data.platform && data.platform.length > 0 && (
 							<PlatformBadges className="mt-4 flex flex-wrap gap-2" platforms={data.platform} />
 						)}
-						<h2 className="mb-2 font-semibold">
-							About Me {data.country && isCountry(data.country) && CountryToEmoji[data.country]}
-						</h2>
-						<div className="mt-4">
-							{data.description ? (
-								<p className="whitespace-pre-wrap">{data.description}</p>
-							) : (
-								<p className="italic">No description.</p>
-							)}
-						</div>
+						{data.description && <p className="mt-4 whitespace-pre-wrap">{data.description}</p>}
 					</SkyProfileHeaderCard>
 				</div>
 				<div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+					{data.country && isCountry(data.country) ? (
+						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
+							<span aria-hidden="true" className="mr-2 text-2xl leading-none">
+								{CountryToEmoji[data.country]}
+							</span>
+							<div className="flex-1">
+								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
+									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Country}`, {
+										ns: "features",
+									})}
+								</p>
+								<p className="my-0">{displayNames.of(data.country)}</p>
+							</div>
+						</div>
+					) : null}
 					{maximumWingedLight && (
 						<div className="group flex items-center rounded-lg border border-gray-200 bg-gray-100 p-2 shadow-md last:odd:md:col-span-2 dark:border-gray-600 dark:bg-gray-700">
 							<EmojiIcon
