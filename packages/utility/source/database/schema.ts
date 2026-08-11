@@ -159,6 +159,7 @@ export interface Users {
   artist: boolean | null;
   crowdin_user_id: number | null;
   discord_user_id: string;
+  locale_upsell_seen_at: Timestamp | null;
   supporter: boolean | null;
   translator: boolean | null;
 }
