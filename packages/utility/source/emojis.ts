@@ -602,7 +602,7 @@ const SEASON_EMOJIS_PRODUCTION = {
 	Lightmending: { id: "1461598394907758592", name: "lightmending" },
 	LightmendingCandle: { id: "1461598409705259029", name: "lightmending_candle" },
 	LightmendingHeart: { id: "1461598427505885317", name: "lightmending_heart" },
-	Carnival: { id: "1494462027731566792", name: "carnival" },
+	Carnival: { id: "1536652027059380295", name: "carnival" },
 	CarnivalCandle: { id: "1494462023965085846", name: "carnival_candle" },
 	CarnivalHeart: { id: "1494462025814773831", name: "carnival_heart" },
 	DearVanGogh: { id: "1514530654384164884", name: "dear_van_gogh" },
@@ -693,7 +693,7 @@ const SEASON_EMOJIS_DEVELOPMENT = {
 	Lightmending: { id: "1461598440256438404", name: "lightmending" },
 	LightmendingCandle: { id: "1461598454055829605", name: "lightmending_candle" },
 	LightmendingHeart: { id: "1461598469583147058", name: "lightmending_heart" },
-	Carnival: { id: "1494462037798027284", name: "carnival" },
+	Carnival: { id: "1536652036953870336", name: "carnival" },
 	CarnivalCandle: { id: "1494462033830346852", name: "carnival_candle" },
 	CarnivalHeart: { id: "1494462035998539816", name: "carnival_heart" },
 	DearVanGogh: { id: "1514530747052982352", name: "dear_van_gogh" },
@@ -2438,7 +2438,7 @@ const NECKLACE_EMOJIS_PRODUCTION = {
 	/**
 	 * Carnival Pendant.
 	 */
-	Necklace55: { id: "1494696170776432700", name: "55_necklace" },
+	Necklace55: { id: "1536651900454178926", name: "55_necklace" },
 	/**
 	 * Carnival Juggler.
 	 */
@@ -2512,7 +2512,7 @@ const NECKLACE_EMOJIS_DEVELOPMENT = {
 	Necklace52: { id: "1536651657285476402", name: "52_necklace" },
 	Necklace53: { id: "1433197656137666721", name: "53_necklace" },
 	Necklace54: { id: "1458424286401265725", name: "54_necklace" },
-	Necklace55: { id: "1494696171451711659", name: "55_necklace" },
+	Necklace55: { id: "1536651906951417906", name: "55_necklace" },
 	Necklace56: { id: "1494828644726472714", name: "56_necklace" },
 	Necklace57: { id: "1502284997216702645", name: "57_necklace" },
 	Necklace58: { id: "1529496734483349554", name: "58_necklace" },
