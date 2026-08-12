@@ -29,6 +29,7 @@ import {
 } from "@thatskyapplication/utility";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
+import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
@@ -153,6 +154,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 
 	const now =
 		Temporal.Instant.fromEpochMilliseconds(currentTimestamp).toZonedDateTimeISO(TIME_ZONE);
+	const currentUnix = epochSeconds(now);
 	const today = now.startOfDay();
 	const quest1 = dailyGuides.quest1;
 	const quest2 = dailyGuides.quest2;
@@ -718,22 +720,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										</h3>
 										<div className="space-y-1">
 											{shard.timestamps.map(({ start, end }) => (
-												<div key={start.unix}>
-													<code
-														className={clsx(
-															"text-xs",
-															end.unix < epochSeconds(now)
-																? "text-gray-400 line-through dark:text-gray-500"
-																: "text-gray-600 dark:text-gray-300",
-														)}
-													>
-														{t("time-range", {
-															ns: "general",
-															start: start.format,
-															end: end.format,
-														})}
-													</code>
-												</div>
+												<ShardEruptionTimestamp
+													currentUnix={currentUnix}
+													end={end}
+													key={start.unix}
+													start={start}
+													variant="daily-guides"
+												/>
 											))}
 										</div>
 									</div>
@@ -774,18 +767,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 									</div>
 									<div className="space-y-1">
 										{shard.timestamps.map(({ start, end }) => (
-											<div key={start.unix}>
-												<code
-													className={clsx(
-														"text-xs",
-														end.unix < epochSeconds(now)
-															? "text-gray-400 line-through dark:text-gray-500"
-															: "text-gray-600 dark:text-gray-300",
-													)}
-												>
-													{t("time-range", { ns: "general", start: start.format, end: end.format })}
-												</code>
-											</div>
+											<ShardEruptionTimestamp
+												currentUnix={currentUnix}
+												end={end}
+												key={start.unix}
+												start={start}
+												variant="daily-guides"
+											/>
 										))}
 									</div>
 								</div>

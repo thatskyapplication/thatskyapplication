@@ -35,8 +35,39 @@ export function shardEruptionInformationString(
 	}`;
 }
 
+interface ShardEruptionTimestampStringOptions {
+	now: Temporal.ZonedDateTime | undefined;
+	timestamp: ShardEruptionData["timestamps"][number];
+	locale: Locale;
+}
+
+export function shardEruptionTimestampString({
+	now,
+	timestamp: { start, end },
+	locale,
+}: ShardEruptionTimestampStringOptions) {
+	const string = t("time-range", {
+		lng: locale,
+		ns: "general",
+		start: `<t:${epochSeconds(start)}:T>`,
+		end: `<t:${epochSeconds(end)}:T>`,
+	});
+
+	if (now) {
+		if (Temporal.ZonedDateTime.compare(now, end) >= 0) {
+			return `~~${string}~~`;
+		}
+
+		if (Temporal.ZonedDateTime.compare(now, start) >= 0) {
+			return `**${string}**`;
+		}
+	}
+
+	return string;
+}
+
 interface ShardEruptionTimestampsStringOptions {
-	now?: Temporal.ZonedDateTime;
+	now: Temporal.ZonedDateTime | undefined;
 	timestamps: ShardEruptionData["timestamps"];
 	locale: Locale;
 }
@@ -47,19 +78,6 @@ export function shardEruptionTimestampsString({
 	locale,
 }: ShardEruptionTimestampsStringOptions) {
 	return timestamps
-		.map(({ start, end }) => {
-			let string = t("time-range", {
-				lng: locale,
-				ns: "general",
-				start: `<t:${epochSeconds(start)}:T>`,
-				end: `<t:${epochSeconds(end)}:T>`,
-			});
-
-			if (now && Temporal.ZonedDateTime.compare(now, end) >= 0) {
-				string = `~~${string}~~`;
-			}
-
-			return string;
-		})
+		.map((timestamp) => shardEruptionTimestampString({ now, timestamp, locale }))
 		.join("\n");
 }

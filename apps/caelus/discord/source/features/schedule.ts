@@ -67,6 +67,7 @@ import { isChatInputCommand } from "../utility/functions.js";
 import {
 	resolveShardEruptionEmoji,
 	shardEruptionInformationString,
+	shardEruptionTimestampString,
 } from "../utility/shard-eruption.js";
 
 function dailyResetNext(now: Temporal.ZonedDateTime, locale: Locale) {
@@ -676,17 +677,10 @@ function shardEruptionDetailedBreakdown(
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const shard = shardEruption();
-	const timestamps = [];
 
-	for (const { start, end } of shard?.timestamps ?? []) {
-		let string = `<t:${epochSeconds(start)}:T>–<t:${epochSeconds(end)}:T>`;
-
-		if (Temporal.ZonedDateTime.compare(now, end) >= 0) {
-			string = `~~${string}~~`;
-		}
-
-		timestamps.push(`- ${string}`);
-	}
+	const timestamps = (shard?.timestamps ?? []).map(
+		(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp, locale })}`,
+	);
 
 	const shardOverview = shardEruptionOverview(now);
 
@@ -719,7 +713,6 @@ function shardEruptionDetailedBreakdown(
 					content: t("schedule.detailed-breakdown-shard-eruptions-message", {
 						lng: locale,
 						ns: "features",
-						timestamps: timestamps.join("\n"),
 						status: shard
 							? `${shardEruptionInformationString(shard, true, locale)}\n${timestamps.join("\n")}`
 							: t("schedule.detailed-breakdown-shard-eruptions-upcoming", {

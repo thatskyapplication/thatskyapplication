@@ -654,7 +654,7 @@ async function send({ guildId, type, channelId, messageId, enforceNonce }: Daily
 	}
 
 	// Retrieve our data.
-	const { components } = await distributionData(guild.preferredLocale, type);
+	const { components } = await distributionData({ locale: guild.preferredLocale, type });
 
 	// Update the embed if a message exists.
 	if (messageId) {
@@ -748,10 +748,17 @@ interface DailyGuidesDistributionDataResponse {
 	missingTravellingRock: boolean;
 }
 
-async function distributionData(
-	locale: Locale,
-	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Compact,
-): Promise<DailyGuidesDistributionDataResponse> {
+interface DailyGuidesDistributionDataOptions {
+	locale: Locale;
+	type?: DailyGuidesDistributionTypes;
+	showShardTimestampStatus?: boolean;
+}
+
+async function distributionData({
+	locale,
+	type = DailyGuidesDistributionType.Compact,
+	showShardTimestampStatus = false,
+}: DailyGuidesDistributionDataOptions): Promise<DailyGuidesDistributionDataResponse> {
 	const today = skyToday();
 	const now = skyNow();
 
@@ -1087,7 +1094,11 @@ async function distributionData(
 			shardEruptionContent += `${shardEruptionInformationString(shard, true, locale)}\n`;
 		}
 
-		shardEruptionContent += shardEruptionTimestampsString({ timestamps: shard.timestamps, locale });
+		shardEruptionContent += shardEruptionTimestampsString({
+			now: showShardTimestampStatus ? now : undefined,
+			timestamps: shard.timestamps,
+			locale,
+		});
 	} else {
 		shardEruptionContent += t("shard-eruption.none", { lng: locale, ns: "features" });
 	}
@@ -1413,10 +1424,11 @@ export async function dailyGuidesResponse(
 	type: DailyGuidesDistributionTypes = DailyGuidesDistributionType.Compact,
 ) {
 	const { locale } = interaction;
-	const { components, missingDailyQuests, missingTravellingRock } = await distributionData(
+	const { components, missingDailyQuests, missingTravellingRock } = await distributionData({
 		locale,
 		type,
-	);
+		showShardTimestampStatus: true,
+	});
 	const missing = [];
 
 	if (missingDailyQuests) {
@@ -1501,7 +1513,7 @@ export async function interactive(
 	const containerComponents: APIComponentInContainer[] = [];
 
 	const components: APIMessageTopLevelComponent[] = [
-		...(await distributionData(locale)).components,
+		...(await distributionData({ locale })).components,
 		{
 			type: ComponentType.Container,
 			components: containerComponents,

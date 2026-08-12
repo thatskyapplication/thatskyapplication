@@ -12,6 +12,7 @@ import {
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
+import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
@@ -36,7 +37,7 @@ type ShardEruptionCardProps = {
 		  })
 		| null;
 	todayFormat: string;
-	now: number;
+	currentUnix: number;
 	onPreview: (imageURL: string, acknowledgement: string | null) => void;
 };
 
@@ -125,7 +126,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	return { currentUnix: epochSeconds(now), shards, page };
 };
 
-function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruptionCardProps) {
+function ShardEruptionCard({ shard, todayFormat, currentUnix, onPreview }: ShardEruptionCardProps) {
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 
@@ -187,16 +188,13 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 						)}
 					</div>
 					{shard.timestamps.map(({ start, end }) => (
-						<span key={start.unix}>
-							<code
-								className={clsx(
-									"bg-inherit text-xs",
-									end.unix < now && "text-black/50 line-through dark:text-white/50",
-								)}
-							>
-								{t("time-range", { ns: "general", start: start.format, end: end.format })}
-							</code>
-						</span>
+						<ShardEruptionTimestamp
+							currentUnix={currentUnix}
+							end={end}
+							key={start.unix}
+							start={start}
+							variant="shard-eruption"
+						/>
 					))}
 				</>
 			) : (
@@ -207,17 +205,17 @@ function ShardEruptionCard({ shard, todayFormat, now, onPreview }: ShardEruption
 }
 
 export default function ShardEruption({ loaderData }: Route.ComponentProps) {
-	const { currentUnix, shards, page } = loaderData;
+	const { currentUnix: initialUnix, shards, page } = loaderData;
 	const { t } = useTranslation();
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
-	const currentTimestamp = useCurrentTimestamp(currentUnix * 1000);
+	const currentTimestamp = useCurrentTimestamp(initialUnix * 1000);
 	useSkyDailyResetRevalidator(currentTimestamp);
-	const currentUnixTimestamp = Math.floor(currentTimestamp / 1000);
+	const currentUnix = Math.floor(currentTimestamp / 1000);
 
 	const shardCards = shards.map((shard) => (
 		<ShardEruptionCard
+			currentUnix={currentUnix}
 			key={shard.todayFormat}
-			now={currentUnixTimestamp}
 			onPreview={(imageURL, acknowledgement) =>
 				setSelectedInfographic({ acknowledgement, imageURL })
 			}
