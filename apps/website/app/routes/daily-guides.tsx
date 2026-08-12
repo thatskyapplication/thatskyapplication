@@ -724,7 +724,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 															"text-xs",
 															end.unix < epochSeconds(now)
 																? "text-gray-400 line-through dark:text-gray-500"
-																: "text-gray-600 dark:text-gray-300",
+																: epochSeconds(now) > start.unix
+																	? "text-gray-900 font-bold dark:text-white"
+																	: "text-gray-600 dark:text-gray-300",
 														)}
 													>
 														{t("time-range", {
@@ -780,7 +782,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 														"text-xs",
 														end.unix < epochSeconds(now)
 															? "text-gray-400 line-through dark:text-gray-500"
-															: "text-gray-600 dark:text-gray-300",
+															: epochSeconds(now) > start.unix
+																? "text-gray-900 font-bold dark:text-white"
+																: "text-gray-600 dark:text-gray-300",
 													)}
 												>
 													{t("time-range", { ns: "general", start: start.format, end: end.format })}
