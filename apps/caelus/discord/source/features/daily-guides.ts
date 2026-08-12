@@ -658,7 +658,14 @@ async function send({ guildId, type, channelId, messageId, enforceNonce }: Daily
 
 	// Update the embed if a message exists.
 	if (messageId) {
-		return client.api.channels.editMessage(channelId, messageId, { components });
+		try {
+			return await client.api.channels.editMessage(channelId, messageId, { components });
+		} catch (error) {
+			// It is likely that the message was deleted prior to editing.
+			if (!(error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownMessage)) {
+				throw error;
+			}
+		}
 	}
 
 	// There is no existing message. Send one.
@@ -1375,14 +1382,8 @@ async function distributeLogic({
 
 		const reason: unknown = result.reason;
 
-		if (
-			// Our own errors thrown.
-			(reason instanceof Error && reason.message.startsWith("Did not distribute")) ||
-			// It is likely that the message was deleted prior to editing.
-			(reason instanceof DiscordAPIError &&
-				reason.code === RESTJSONErrorCodes.UnknownMessage &&
-				reason.method === "PATCH")
-		) {
+		// Our own errors thrown.
+		if (reason instanceof Error && reason.message.startsWith("Did not distribute")) {
 			knownErrors.push(reason);
 			continue;
 		}
