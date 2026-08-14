@@ -43,6 +43,7 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
+import { getPreferredHour12 } from "~/utility/hour-cycle.server";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 import type { Route } from "./+types/daily-guides.js";
 
@@ -95,6 +96,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
 	const timeZone = await getPreferredTimeZone(request);
+	const hour12 = getPreferredHour12(request);
 	const initialTimestamp = Date.now();
 	const shard: ShardEruptionData | null = shardEruption();
 	const cacheMaxAge = dailyGuidesCacheMaxAge(initialTimestamp);
@@ -104,6 +106,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 			initialTimestamp,
 			locale,
 			timeZone,
+			hour12,
 			dailyGuides: dailyGuides[0]!,
 			todayString: new Intl.DateTimeFormat(locale, {
 				timeZone: TIME_ZONE,
@@ -120,6 +123,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 									hour: "2-digit",
 									minute: "2-digit",
 									second: "2-digit",
+									hour12,
 								}).format(start.epochMilliseconds),
 							},
 							end: {
@@ -129,13 +133,19 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 									hour: "2-digit",
 									minute: "2-digit",
 									second: "2-digit",
+									hour12,
 								}).format(end.epochMilliseconds),
 							},
 						})),
 					}
 				: shard,
 		},
-		{ headers: { "Cache-Control": `private, max-age=${cacheMaxAge}` } },
+		{
+			headers: {
+				"Cache-Control": `private, max-age=${cacheMaxAge}`,
+				Vary: "Cookie",
+			},
+		},
 	);
 };
 
@@ -144,7 +154,8 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 }
 
 export default function DailyGuides({ loaderData }: Route.ComponentProps) {
-	const { initialTimestamp, locale, timeZone, dailyGuides, todayString, shard } = loaderData;
+	const { initialTimestamp, locale, timeZone, hour12, dailyGuides, todayString, shard } =
+		loaderData;
 
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const cdnURL = useCDNURL();
@@ -306,6 +317,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 							time: new Intl.DateTimeFormat(locale, {
 								timeZone,
 								timeStyle: "short",
+								hour12,
 							}).format(start.epochMilliseconds),
 						});
 
@@ -483,6 +495,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					time: new Intl.DateTimeFormat(locale, {
 						timeZone,
 						timeStyle: "short",
+						hour12,
 					}).format(maintenance.start.epochMilliseconds),
 				}),
 				end: maintenance.end,
@@ -526,10 +539,13 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 											start: new Intl.DateTimeFormat(locale, {
 												timeStyle: "short",
 												timeZone,
+												hour12,
 											}).format(todayMaintenance[0]!.start.epochMilliseconds),
-											end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-												todayMaintenance[0]!.end.epochMilliseconds,
-											),
+											end: new Intl.DateTimeFormat(locale, {
+												timeStyle: "short",
+												timeZone,
+												hour12,
+											}).format(todayMaintenance[0]!.end.epochMilliseconds),
 										})}
 									</p>
 								) : (
@@ -545,10 +561,12 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 														start: new Intl.DateTimeFormat(locale, {
 															timeStyle: "short",
 															timeZone,
+															hour12,
 														}).format(maintenance.start.epochMilliseconds),
 														end: new Intl.DateTimeFormat(locale, {
 															timeStyle: "short",
 															timeZone,
+															hour12,
 														}).format(maintenance.end.epochMilliseconds),
 													})}
 												</li>

@@ -1,0 +1,2 @@
+export const SELECTABLE_OPTION_CARD_CLASS =
+	"rounded-lg border border-gray-300 bg-white text-left shadow-sm transition-colors peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-focus-visible:border-blue-500 peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500/30 peer-disabled:cursor-not-allowed peer-disabled:border-gray-200 peer-disabled:bg-gray-100 peer-disabled:opacity-60 dark:border-gray-600 dark:bg-gray-800 dark:peer-checked:border-blue-400 dark:peer-checked:bg-blue-950/40 dark:peer-disabled:border-gray-700 dark:peer-disabled:bg-gray-900" as const;

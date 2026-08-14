@@ -11,12 +11,14 @@ export function EventFamilyView({
 	locale,
 	showEverythingButton,
 	timeZone,
+	hour12,
 }: {
 	data: ReadonlySet<number>;
 	family: EventFamily;
 	locale: string;
 	showEverythingButton: boolean;
 	timeZone: string;
+	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
 	const { latest, occurrences } = family;
@@ -25,6 +27,7 @@ export function EventFamilyView({
 		dateStyle: "medium",
 		timeStyle: "short",
 		timeZone,
+		hour12,
 	});
 
 	return (

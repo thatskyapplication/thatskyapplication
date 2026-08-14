@@ -16,6 +16,7 @@ interface FlashData {
 	return_to?: string;
 	crowdin_state?: string;
 	just_logged_out?: boolean;
+	settings_saved_at?: string;
 }
 
 export type Session = RouterSession<SessionData, FlashData>;

@@ -32,11 +32,11 @@ import {
 	SkyProfileWingedLightType,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { ActionButton, ActionLink } from "~/components/ActionButton";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import { PlatformBadges } from "~/components/PlatformBadges.js";
 import { SeasonEmojiBadges } from "~/components/SeasonEmojiBadges.js";
-import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
@@ -476,25 +476,25 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					</div>
 				) : null}
 				<div className="mt-6 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:items-center">
-					<SkyProfileActionLink to={backURL} variant="neutral">
+					<ActionLink to={backURL} variant="neutral">
 						<ChevronLeftIcon className="mr-2 h-6 w-6 shrink-0" />
 						<span className="truncate">{t("navigation-back", { ns: "general" })}</span>
-					</SkyProfileActionLink>
-					<SkyProfileActionLink to="/sky-profiles/random" variant="neutral">
+					</ActionLink>
+					<ActionLink to="/sky-profiles/random" variant="neutral">
 						<EmojiIcon
 							className="mr-2 h-6 w-6 shrink-0"
 							emoji={MISCELLANEOUS_EMOJIS.QuestionMark}
 							label="Question mark icon."
 						/>
 						<span className="truncate">{t("sky-profile.random", { ns: "features" })}</span>
-					</SkyProfileActionLink>
+					</ActionLink>
 					{isOwner ? (
-						<SkyProfileActionLink to="/me/sky-profile" variant="neutral">
+						<ActionLink to="/me/sky-profile" variant="neutral">
 							<Edit className="mr-2 h-6 w-6 shrink-0" />
 							<span className="truncate">Edit</span>
-						</SkyProfileActionLink>
+						</ActionLink>
 					) : null}
-					<SkyProfileActionButton
+					<ActionButton
 						onClick={() => {
 							void copyLink();
 						}}
@@ -503,7 +503,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					>
 						<LinkIcon className="mr-2 h-6 w-6 shrink-0" />
 						<span className="truncate">{copied ? "Link copied!" : "Share"}</span>
-					</SkyProfileActionButton>
+					</ActionButton>
 				</div>
 			</div>
 		</SitePage>

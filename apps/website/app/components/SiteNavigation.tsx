@@ -22,6 +22,7 @@ import {
 	LogIn,
 	LogOut,
 	Menu,
+	Settings as SettingsIcon,
 	User,
 	Users,
 	X,
@@ -152,6 +153,13 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 									to="/me/heart-history"
 								>
 									{t("heart.history-title", { ns: "features" })}
+								</DesktopUserContextMenuItem>
+								<DesktopUserContextMenuItem
+									icon={SettingsIcon}
+									onClick={() => setIsOpen(false)}
+									to="/me/settings"
+								>
+									{t("settings.name", { ns: "features" })}
 								</DesktopUserContextMenuItem>
 								<div className="mt-1 border-t border-gray-200 pt-1 dark:border-gray-700">
 									<DesktopUserContextMenuItem
@@ -335,6 +343,9 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 								</MobileUserContextMenuItem>
 								<MobileUserContextMenuItem icon={Heart} onClick={onClose} to="/me/heart-history">
 									{t("heart.history-title", { ns: "features" })}
+								</MobileUserContextMenuItem>
+								<MobileUserContextMenuItem icon={SettingsIcon} onClick={onClose} to="/me/settings">
+									{t("settings.name", { ns: "features" })}
 								</MobileUserContextMenuItem>
 								<MobileUserContextMenuItem
 									danger

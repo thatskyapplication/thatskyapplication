@@ -19,12 +19,14 @@ export function SeasonView({
 	seasonId,
 	showEverythingButton,
 	timeZone,
+	hour12,
 }: {
 	data: ReadonlySet<number>;
 	locale: string;
 	seasonId: SeasonIds;
 	showEverythingButton: boolean;
 	timeZone: string;
+	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
 	const seasons = skySeasons();
@@ -36,6 +38,7 @@ export function SeasonView({
 		dateStyle: "medium",
 		timeStyle: "short",
 		timeZone,
+		hour12,
 	});
 
 	for (const spirit of season.spiritsWithGuide.values()) {

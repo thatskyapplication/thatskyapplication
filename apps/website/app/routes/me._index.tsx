@@ -1,4 +1,11 @@
-import { BookOpenCheck, CheckSquare, Ellipsis, Heart, Users } from "lucide-react";
+import {
+	BookOpenCheck,
+	CheckSquare,
+	Ellipsis,
+	Heart,
+	Settings as SettingsIcon,
+	Users,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { SitePage } from "~/components/PageLayout";
@@ -79,6 +86,18 @@ export default function Me({ loaderData }: Route.ComponentProps) {
 						</div>
 						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
 							{t("catalogue.main-title", { ns: "features" })}
+						</h2>
+					</Link>
+
+					<Link
+						className="flex w-full items-center gap-4 rounded-lg bg-gray-100 p-4 shadow-md transition-transform duration-200 hover:bg-gray-100/50 hover:shadow-lg sm:hover:translate-y-0 lg:hover:-translate-y-2 dark:bg-gray-900 dark:hover:bg-gray-900/50"
+						to="/me/settings"
+					>
+						<div className="inline-flex rounded-lg border border-gray-200 bg-white p-3 text-gray-700 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200">
+							<SettingsIcon className="h-5 w-5" />
+						</div>
+						<h2 className="my-0 text-lg font-medium text-gray-900 dark:text-gray-100">
+							{t("settings.name", { ns: "features" })}
 						</h2>
 					</Link>
 

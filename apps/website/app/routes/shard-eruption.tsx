@@ -24,6 +24,7 @@ import {
 	SHARD_ERUPTION_MINIMUM_PAGE,
 } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
+import { getPreferredHour12 } from "~/utility/hour-cycle.server";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 import type { Route } from "./+types/shard-eruption.js";
 
@@ -73,6 +74,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const shards = [];
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
+	const hour12 = getPreferredHour12(request);
 	const now = skyNow();
 	const today = now.startOfDay();
 	let page = pageParameter ? Number(pageParameter) : 0;
@@ -106,6 +108,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 							hour: "2-digit",
 							minute: "2-digit",
 							second: "2-digit",
+							hour12,
 						}).format(start.epochMilliseconds),
 					},
 					end: {
@@ -115,6 +118,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 							hour: "2-digit",
 							minute: "2-digit",
 							second: "2-digit",
+							hour12,
 						}).format(end.epochMilliseconds),
 					},
 				})),

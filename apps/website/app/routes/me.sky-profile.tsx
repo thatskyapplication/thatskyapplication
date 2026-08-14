@@ -1,9 +1,8 @@
 import { clsx } from "clsx";
 import { ArrowLeft, Check, ExternalLinkIcon } from "lucide-react";
 import type { SyntheticEvent } from "react";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { data, Form, Link, useNavigation } from "react-router";
+import { data, Form, Link } from "react-router";
 import {
 	ALLOWED_IMAGE_MEDIA_TYPES,
 	COUNTRY_VALUES,
@@ -19,10 +18,11 @@ import {
 	skySeasons,
 	spirits,
 } from "@thatskyapplication/utility";
+import { ActionButton, ActionLink } from "~/components/ActionButton";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SitePage } from "~/components/PageLayout";
+import { SaveConfirmation, SaveStatus, useSaveConfirmation } from "~/components/SaveStatus.js";
 import Select from "~/components/Select";
-import { SkyProfileActionButton, SkyProfileActionLink } from "~/components/SkyProfileActionButton";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { toSkyProfileEditorValue } from "~/features/sky-profile/editor/sky-profile-editor.js";
 import { useSkyProfileEditor } from "~/features/sky-profile/editor/use-sky-profile-editor.js";
@@ -30,6 +30,7 @@ import { parseSkyProfileMultipart } from "~/features/sky-profile/sky-profile-for
 import { getSkyProfilePacket } from "~/features/sky-profile/sky-profile-repository.server.js";
 import { saveSkyProfileFromWebsite } from "~/features/sky-profile/sky-profile-save.server.js";
 import { useCDN } from "~/hooks/use-cdn-url.js";
+import { selectableOptionLabelClass, useIsSaving } from "~/hooks/use-is-saving.js";
 import { useRegionDisplayNames } from "~/hooks/use-region-display-names.js";
 import { getLocale } from "~/middleware/i18next.js";
 import { formatCountryLabel } from "~/utility/country.js";
@@ -37,6 +38,7 @@ import { SeasonIdToSeasonalEmoji, SkyProfilePersonalityToEmoji } from "~/utility
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 import { PlatformToIcon } from "~/utility/platform-icons.js";
+import { SELECTABLE_OPTION_CARD_CLASS } from "~/utility/styles.js";
 import type { Route } from "./+types/me.sky-profile.js";
 
 const TEXT_FIELD_CLASS = clsx(
@@ -63,31 +65,6 @@ const TEXT_FIELD_CLASS = clsx(
 	"dark:disabled:border-gray-700",
 	"dark:disabled:bg-gray-900",
 	"dark:disabled:text-gray-500",
-);
-
-const SELECTABLE_OPTION_CARD_CLASS = clsx(
-	"rounded-lg",
-	"border",
-	"border-gray-300",
-	"bg-white",
-	"text-left",
-	"shadow-sm",
-	"transition-colors",
-	"peer-checked:border-blue-500",
-	"peer-checked:bg-blue-50",
-	"peer-focus-visible:border-blue-500",
-	"peer-focus-visible:ring-2",
-	"peer-focus-visible:ring-blue-500/30",
-	"peer-disabled:cursor-not-allowed",
-	"peer-disabled:border-gray-200",
-	"peer-disabled:bg-gray-100",
-	"peer-disabled:opacity-60",
-	"dark:border-gray-600",
-	"dark:bg-gray-800",
-	"dark:peer-checked:border-blue-400",
-	"dark:peer-checked:bg-blue-950/40",
-	"dark:peer-disabled:border-gray-700",
-	"dark:peer-disabled:bg-gray-900",
 );
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
@@ -128,29 +105,23 @@ type MeSkyProfileEditorProps = Route.ComponentProps & { showSuccess: boolean };
 
 export default function MeSkyProfile(routeProps: Route.ComponentProps) {
 	const savedAt = routeProps.actionData?.ok === true ? routeProps.actionData.savedAt : null;
-	const [expiredSavedAt, setExpiredSavedAt] = useState<string | null>(null);
-
-	useEffect(() => {
-		if (!savedAt) {
-			return;
-		}
-
-		const timeout = window.setTimeout(() => setExpiredSavedAt(savedAt), 3000);
-		return () => window.clearTimeout(timeout);
-	}, [savedAt]);
+	const isSaving = useIsSaving();
+	const showSuccess = useSaveConfirmation(savedAt);
 
 	return (
-		<MeSkyProfileEditor
-			{...routeProps}
-			key={routeProps.loaderData.profileRevision}
-			showSuccess={savedAt !== null && savedAt !== expiredSavedAt}
-		/>
+		<>
+			<SaveStatus isSaving={isSaving} showSuccess={showSuccess} />
+			<MeSkyProfileEditor
+				{...routeProps}
+				key={routeProps.loaderData.profileRevision}
+				showSuccess={showSuccess}
+			/>
+		</>
 	);
 }
 
 function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfileEditorProps) {
 	const { discordUserId, profile: initialProfile } = loaderData;
-	const navigation = useNavigation();
 	const { i18n, t } = useTranslation();
 	const cdn = useCDN();
 	const availableSeasonIds = [...skySeasons().keys()];
@@ -222,11 +193,8 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 	const previewName = nameValue.trim();
 	const previewDescription = descriptionValue.trim();
 
-	const isSaving =
-		navigation.state !== "idle" &&
-		navigation.formMethod?.toLowerCase() === "post" &&
-		navigation.formData != null;
-	const selectableOptionLabelClass = isSaving ? "cursor-not-allowed" : "cursor-pointer";
+	const isSaving = useIsSaving();
+	const optionLabelClass = selectableOptionLabelClass(isSaving);
 
 	const bannerError =
 		clientBannerError ?? (actionData?.ok === false ? actionData.errors.banner : undefined);
@@ -469,7 +437,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									<div className="grid grid-cols-2 gap-2 md:grid-cols-3">
 										{PLATFORM_ID_VALUES.map((platform) => (
 											<label
-												className={selectableOptionLabelClass}
+												className={optionLabelClass}
 												htmlFor={`platform-${platform}`}
 												key={platform}
 											>
@@ -546,7 +514,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									<div className="grid grid-cols-2 gap-2 md:grid-cols-4">
 										{SKY_PROFILE_PERSONALITY_TYPE_VALUES.map((personality) => (
 											<label
-												className={selectableOptionLabelClass}
+												className={optionLabelClass}
 												htmlFor={`personality-${personality}`}
 												key={personality}
 											>
@@ -792,7 +760,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 										{SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((wingedLight) => (
 											<label
-												className={selectableOptionLabelClass}
+												className={optionLabelClass}
 												htmlFor={`winged-light-${wingedLight}`}
 												key={wingedLight}
 											>
@@ -865,7 +833,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 										{([true, false] as const).map((catalogueProgression) => (
 											<label
-												className={selectableOptionLabelClass}
+												className={optionLabelClass}
 												htmlFor={`catalogue-progression-${catalogueProgression.toString()}`}
 												key={catalogueProgression.toString()}
 											>
@@ -935,7 +903,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 										{([true, false] as const).map((guessRank) => (
 											<label
-												className={selectableOptionLabelClass}
+												className={optionLabelClass}
 												htmlFor={`guess-rank-${guessRank.toString()}`}
 												key={guessRank.toString()}
 											>
@@ -968,38 +936,21 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 					<div className="mt-5 flex flex-col gap-2.5 sm:flex-row">
 						<div className="flex flex-col gap-2.5 sm:flex-row">
-							<SkyProfileActionButton
-								disabled={isSaving || !hasChanges}
-								type="submit"
-								variant="primary"
-							>
-								Save Sky profile
-							</SkyProfileActionButton>
-							<SkyProfileActionButton
-								disabled={isSaving || !hasChanges}
-								type="reset"
-								variant="secondary"
-							>
+							<ActionButton disabled={isSaving || !hasChanges} type="submit" variant="primary">
+								{isSaving ? t("saving", { ns: "general" }) : t("save", { ns: "general" })}
+							</ActionButton>
+							<ActionButton disabled={isSaving || !hasChanges} type="reset" variant="secondary">
 								{t("sky-profile.edit-reset-button-label", { ns: "features" })}
-							</SkyProfileActionButton>
+							</ActionButton>
 						</div>
 						{initialProfile.name ? (
-							<SkyProfileActionLink
-								className="gap-2"
-								to={`/sky-profiles/${discordUserId}`}
-								variant="neutral"
-							>
+							<ActionLink className="gap-2" to={`/sky-profiles/${discordUserId}`} variant="neutral">
 								<ExternalLinkIcon className="h-4 w-4" />
 								<span>View Sky profile</span>
-							</SkyProfileActionLink>
+							</ActionLink>
 						) : null}
 					</div>
-					{showSuccess ? (
-						<div className="mt-3 flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3 text-sm text-green-800 dark:border-green-700 dark:bg-green-900/20 dark:text-green-200">
-							<Check className="h-5 w-5" />
-							<span>Sky profile saved!</span>
-						</div>
-					) : null}
+					<SaveConfirmation isSaving={isSaving} showSuccess={showSuccess} />
 				</Form>
 			</div>
 		</SitePage>

@@ -33,12 +33,14 @@ import database from "~/database.server";
 import { getLocale } from "~/middleware/i18next.js";
 import { parseCosmetics, resolveScopeCosmetics } from "~/utility/catalogue.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
 import type { Route } from "./+types/me.catalogue.js";
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
+	const hour12 = getPreferredHour12(request);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	const cataloguePacket = await database
@@ -53,6 +55,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		now: skyNow().epochMilliseconds,
 		showEverythingButton: cataloguePacket?.show_everything_button ?? false,
 		timeZone,
+		hour12,
 	};
 };
 
@@ -128,7 +131,14 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 };
 
 export default function Catalogue({ loaderData }: Route.ComponentProps) {
-	const { data: dataArray, locale, now: nowMillis, showEverythingButton, timeZone } = loaderData;
+	const {
+		data: dataArray,
+		locale,
+		now: nowMillis,
+		showEverythingButton,
+		timeZone,
+		hour12,
+	} = loaderData;
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
 	const data = useMemo(() => new Set(dataArray), [dataArray]);
@@ -165,6 +175,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 						seasonId={season.id}
 						showEverythingButton={showEverythingButton}
 						timeZone={timeZone}
+						hour12={hour12}
 					/>
 				);
 			}
@@ -186,6 +197,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 						locale={locale}
 						showEverythingButton={showEverythingButton}
 						timeZone={timeZone}
+						hour12={hour12}
 					/>
 				);
 			}

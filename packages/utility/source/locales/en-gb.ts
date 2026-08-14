@@ -40,6 +40,9 @@ export default {
 		"website-description": "A constellation of tools for Sky: Children of the Light. 🩵",
 		show: "Show",
 		hide: "Hide",
+		save: "Save",
+		saved: "Saved",
+		saving: "Saving…",
 		infographic: "Infographic",
 		"infographic-by": "Infographic by {{acknowledgement}}.",
 		"daily-quests": "Daily quests",
@@ -3656,6 +3659,13 @@ export default {
 			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
 			"detailed-breakdown-nothing-planned": "There are no upcoming events.",
 			back: "Back",
+		},
+		settings: {
+			name: "Settings",
+			"time-format": "Time format",
+			"time-format-automatic": "Automatic",
+			"time-format-twelve": "12-hour",
+			"time-format-twenty-four": "24-hour",
 		},
 		"shard-eruption": {
 			"name-plural": "Shard eruptions",

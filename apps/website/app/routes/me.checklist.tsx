@@ -19,6 +19,7 @@ import database from "~/database.server";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getLocale } from "~/middleware/i18next.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { getPreferredHour12 } from "~/utility/hour-cycle.server";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 import type { Route } from "./+types/me.checklist.js";
 
@@ -44,6 +45,7 @@ const CHECKLIST_UNAVAILABLE_LABEL_CLASS = "text-gray-400 dark:text-gray-600" as 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
+	const hour12 = getPreferredHour12(request);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	let checklistPacket = await database
@@ -77,6 +79,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		shard,
 		season,
 		timeZone,
+		hour12,
 		isAnyEventWithEventTickets,
 		isDoubleSeasonalLight: season?.isDuringDoubleSeasonalLightEvent(now) ?? false,
 	};
@@ -138,6 +141,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		shard,
 		season,
 		timeZone,
+		hour12,
 		isAnyEventWithEventTickets,
 		isDoubleSeasonalLight,
 	} = loaderData;
@@ -151,6 +155,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		minute: "2-digit",
 		timeZone,
 		timeZoneName: "short",
+		hour12,
 	}).format(currentTimestamp);
 
 	const skyTime = new Intl.DateTimeFormat(locale, {
@@ -158,6 +163,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		hour: "2-digit",
 		minute: "2-digit",
 		timeZoneName: "short",
+		hour12,
 	}).format(currentTimestamp);
 
 	const dailyQuestsComplete = checklistPacket?.daily_quests ?? false;

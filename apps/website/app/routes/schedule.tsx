@@ -41,6 +41,7 @@ import { getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SCHEDULE_DESCRIPTION, SCHEDULE_TITLE } from "~/utility/constants.js";
 import { DyeTypeToEmoji } from "~/utility/emojis.js";
+import { getPreferredHour12 } from "~/utility/hour-cycle.server";
 import { getPreferredTimeZone } from "~/utility/time-zone.server";
 import type { Route } from "./+types/schedule.js";
 
@@ -128,12 +129,13 @@ function dailyResetNext(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): BaseSchedule<typeof ScheduleType.DailyReset> {
 	const schedule = nextDailyReset(now);
 
 	return {
 		type: ScheduleType.DailyReset,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.epochMilliseconds,
 		),
 		nextUnix: schedule.epochMilliseconds,
@@ -145,9 +147,10 @@ function eyeOfEdenNext(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): BaseSchedule<typeof ScheduleType.EyeOfEden> {
 	const schedule = nextEyeOfEden(now);
-	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
@@ -165,9 +168,10 @@ function internationalSpaceStationOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.InternationalSpaceStation> {
 	const schedule = internationalSpaceStationSchedule(now);
-	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
@@ -179,7 +183,7 @@ function internationalSpaceStationOverview(
 		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.epochMilliseconds),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -191,10 +195,11 @@ function travellingSpiritOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleTravellingSpirit {
 	const schedule = travellingSpiritSchedule(now);
-	const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
-	const endOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+	const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
+	const endOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		startOptions.dateStyle = "medium";
@@ -224,18 +229,19 @@ function pollutedGeyserOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.PollutedGeyser> {
 	const schedule = pollutedGeyserSchedule(now);
 
 	return {
 		type: ScheduleType.PollutedGeyser,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.start.epochMilliseconds,
 		),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -247,18 +253,19 @@ function grandmaOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.Grandma> {
 	const schedule = grandmaSchedule(now);
 
 	return {
 		type: ScheduleType.Grandma,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.start.epochMilliseconds,
 		),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -270,18 +277,19 @@ function turtleOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.Turtle> {
 	const schedule = turtleSchedule(now);
 
 	return {
 		type: ScheduleType.Turtle,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.start.epochMilliseconds,
 		),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -293,18 +301,19 @@ function shardEruptionOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.ShardEruption> {
 	const schedule = shardEruptionSchedule(now);
 
 	return {
 		type: ScheduleType.ShardEruption,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "medium", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "medium", timeZone, hour12 }).format(
 			schedule.start.epochMilliseconds,
 		),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -316,9 +325,10 @@ function dreamsSkaterOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.DreamsSkater> {
 	const schedule = dreamsSkaterSchedule(now);
-	const options: Intl.DateTimeFormatOptions = { timeStyle: "short", timeZone };
+	const options: Intl.DateTimeFormatOptions = { timeStyle: "short", timeZone, hour12 };
 
 	if (now.dayOfWeek < 5) {
 		options.dateStyle = "medium";
@@ -330,7 +340,7 @@ function dreamsSkaterOverview(
 		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.epochMilliseconds),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -342,18 +352,19 @@ function auroraOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.AURORA> {
 	const schedule = auroraSchedule(now);
 
 	return {
 		type: ScheduleType.AURORA,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.start.epochMilliseconds,
 		),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -365,12 +376,13 @@ function passageNext(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): BaseSchedule<typeof ScheduleType.Passage> {
 	const schedule = nextPassage(now);
 
 	return {
 		type: ScheduleType.Passage,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.epochMilliseconds,
 		),
 		nextUnix: schedule.epochMilliseconds,
@@ -382,9 +394,10 @@ function aviarysFireworkFestivalOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.AviarysFireworkFestival> {
 	const schedule = aviarysFireworkFestivalSchedule(now);
-	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
@@ -396,7 +409,7 @@ function aviarysFireworkFestivalOverview(
 		next: new Intl.DateTimeFormat(locale, options).format(schedule.start.epochMilliseconds),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -408,6 +421,7 @@ function meteorShowerOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.MeteorShower> | null {
 	const schedule = meteorShowerSchedule(now);
 
@@ -415,7 +429,7 @@ function meteorShowerOverview(
 		return null;
 	}
 
-	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
@@ -437,18 +451,19 @@ function nineColouredDeerOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.NineColouredDeer> {
 	const schedule = nineColouredDeerSchedule(now);
 
 	return {
 		type: ScheduleType.NineColouredDeer,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.start.epochMilliseconds,
 		),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -460,9 +475,10 @@ function nestingWorkshopNext(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): BaseSchedule<typeof ScheduleType.NestingWorkshop> {
 	const schedule = nextNestingWorkshop(now);
-	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 		options.dateStyle = "medium";
@@ -480,18 +496,19 @@ function vaultEldersBlessingOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.VaultEldersBlessing> {
 	const schedule = vaultEldersBlessingSchedule(now);
 
 	return {
 		type: ScheduleType.VaultEldersBlessing,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.start.epochMilliseconds,
 		),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -503,18 +520,19 @@ function projectorOfMemoriesOverview(
 	now: Temporal.ZonedDateTime,
 	timeZone: string,
 	locale: string,
+	hour12: boolean | undefined,
 ): ScheduleWithEnd<typeof ScheduleType.ProjectorOfMemories> {
 	const schedule = projectorOfMemoriesSchedule(now);
 
 	return {
 		type: ScheduleType.ProjectorOfMemories,
 		now: schedule.active,
-		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		next: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.start.epochMilliseconds,
 		),
 		nextUnix: schedule.start.epochMilliseconds,
 		relative: formatRelativeTime(schedule.start, now, locale),
-		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
+		end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }).format(
 			schedule.end.epochMilliseconds,
 		),
 		endUnix: schedule.end.epochMilliseconds,
@@ -527,6 +545,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 		initialTimestamp: Date.now(),
 		locale: getLocale(context),
 		timeZone: await getPreferredTimeZone(request),
+		hour12: getPreferredHour12(request),
 	};
 };
 
@@ -554,7 +573,7 @@ const enum DisplayCardType {
 }
 
 export default function Schedule({ loaderData }: Route.ComponentProps) {
-	const { initialTimestamp, locale, timeZone } = loaderData;
+	const { initialTimestamp, locale, timeZone, hour12 } = loaderData;
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 
@@ -562,23 +581,23 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		Temporal.Instant.fromEpochMilliseconds(currentTimestamp).toZonedDateTimeISO(TIME_ZONE);
 
 	const schedules = [
-		dailyResetNext(now, timeZone, locale),
-		eyeOfEdenNext(now, timeZone, locale),
-		internationalSpaceStationOverview(now, timeZone, locale),
-		travellingSpiritOverview(now, timeZone, locale),
-		pollutedGeyserOverview(now, timeZone, locale),
-		grandmaOverview(now, timeZone, locale),
-		turtleOverview(now, timeZone, locale),
-		shardEruptionOverview(now, timeZone, locale),
-		dreamsSkaterOverview(now, timeZone, locale),
-		auroraOverview(now, timeZone, locale),
-		passageNext(now, timeZone, locale),
-		aviarysFireworkFestivalOverview(now, timeZone, locale),
-		nineColouredDeerOverview(now, timeZone, locale),
-		meteorShowerOverview(now, timeZone, locale),
-		nestingWorkshopNext(now, timeZone, locale),
-		vaultEldersBlessingOverview(now, timeZone, locale),
-		projectorOfMemoriesOverview(now, timeZone, locale),
+		dailyResetNext(now, timeZone, locale, hour12),
+		eyeOfEdenNext(now, timeZone, locale, hour12),
+		internationalSpaceStationOverview(now, timeZone, locale, hour12),
+		travellingSpiritOverview(now, timeZone, locale, hour12),
+		pollutedGeyserOverview(now, timeZone, locale, hour12),
+		grandmaOverview(now, timeZone, locale, hour12),
+		turtleOverview(now, timeZone, locale, hour12),
+		shardEruptionOverview(now, timeZone, locale, hour12),
+		dreamsSkaterOverview(now, timeZone, locale, hour12),
+		auroraOverview(now, timeZone, locale, hour12),
+		passageNext(now, timeZone, locale, hour12),
+		aviarysFireworkFestivalOverview(now, timeZone, locale, hour12),
+		nineColouredDeerOverview(now, timeZone, locale, hour12),
+		meteorShowerOverview(now, timeZone, locale, hour12),
+		nestingWorkshopNext(now, timeZone, locale, hour12),
+		vaultEldersBlessingOverview(now, timeZone, locale, hour12),
+		projectorOfMemoriesOverview(now, timeZone, locale, hour12),
 	].filter((schedule) => schedule !== null) satisfies readonly BaseSchedule<ScheduleTypes>[];
 
 	const allCards: DisplayCard[] = [];
@@ -612,7 +631,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	const season = skyCurrentSeason(now);
 
 	if (season) {
-		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 		if (season.end.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
@@ -637,7 +656,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	const nextSeason = skyUpcomingSeason(now);
 
 	if (nextSeason) {
-		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 		if (nextSeason.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
@@ -662,7 +681,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		const eventName = t(name, { ns: "general" });
 
 		if (daysUntilStart <= 0) {
-			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 			if (end.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 				options.dateStyle = "medium";
@@ -682,7 +701,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 				endUnix: end.epochMilliseconds,
 			});
 		} else {
-			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 			if (start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 				options.dateStyle = "medium";
@@ -709,7 +728,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		const label = t("event-names.radiance-event", { ns: "general" });
 		const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 		const relevantDate = isActive ? end : start;
-		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 		if (relevantDate.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
@@ -747,7 +766,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 			const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 			const relevantDate = isActive ? end : start;
-			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+			const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 			if (relevantDate.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 				options.dateStyle = "medium";
@@ -777,7 +796,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 		const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 		const relevantDate = isActive ? end : start;
-		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 		if (relevantDate.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
@@ -806,7 +825,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 		const isActive = Temporal.ZonedDateTime.compare(now, start) >= 0;
 		const relevantDate = isActive ? end : start;
-		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+		const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 		if (relevantDate.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			options.dateStyle = "medium";
@@ -852,7 +871,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	);
 
 	if (upcomingMaintenance) {
-		const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short" };
+		const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 		if (upcomingMaintenance.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
 			startOptions.dateStyle = "medium";
@@ -878,6 +897,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		minute: "2-digit",
 		timeZone,
 		timeZoneName: "short",
+		hour12,
 	}).format(currentTimestamp);
 
 	const skyTime = new Intl.DateTimeFormat(locale, {
@@ -885,6 +905,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		hour: "2-digit",
 		minute: "2-digit",
 		timeZoneName: "short",
+		hour12,
 	}).format(currentTimestamp);
 
 	return (
@@ -905,10 +926,13 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 										start: new Intl.DateTimeFormat(locale, {
 											timeStyle: "short",
 											timeZone,
+											hour12,
 										}).format(activeMaintenances[0]!.start.epochMilliseconds),
-										end: new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone }).format(
-											activeMaintenances[0]!.end.epochMilliseconds,
-										),
+										end: new Intl.DateTimeFormat(locale, {
+											timeStyle: "short",
+											timeZone,
+											hour12,
+										}).format(activeMaintenances[0]!.end.epochMilliseconds),
 									})}
 								</p>
 							) : (
@@ -924,10 +948,12 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 													start: new Intl.DateTimeFormat(locale, {
 														timeStyle: "short",
 														timeZone,
+														hour12,
 													}).format(maintenance.start.epochMilliseconds),
 													end: new Intl.DateTimeFormat(locale, {
 														timeStyle: "short",
 														timeZone,
+														hour12,
 													}).format(maintenance.end.epochMilliseconds),
 												})}
 											</li>

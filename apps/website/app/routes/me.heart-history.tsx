@@ -19,6 +19,7 @@ import database from "~/database.server";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
 import type { Route } from "./+types/me.heart-history.js";
 
@@ -81,6 +82,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		received,
 		remainingToday: Math.max(MAXIMUM_HEARTS_PER_DAY - giftedToday, 0),
 		timeZone: await getPreferredTimeZone(request),
+		hour12: getPreferredHour12(request),
 		userId,
 	};
 };
@@ -142,6 +144,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 		received,
 		remainingToday,
 		timeZone,
+		hour12,
 		userId,
 	} = loaderData;
 	const { i18n, t } = useTranslation();
@@ -274,6 +277,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 												dateStyle: "medium",
 												timeStyle: "short",
 												timeZone,
+												hour12,
 											}).format(heartPacket.timestamp)}
 										</time>
 									</div>
