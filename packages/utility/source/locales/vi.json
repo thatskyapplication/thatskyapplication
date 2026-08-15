@@ -5,6 +5,9 @@
 		"website-description": "",
 		"show": "",
 		"hide": "",
+		"save": "",
+		"saved": "",
+		"saving": "",
 		"infographic": "Đồ họa thông tin",
 		"infographic-by": "",
 		"daily-quests": "Nhiệm vụ hàng ngày",
@@ -455,6 +458,7 @@
 			"311": "Vẫy tay với một người chơi",
 			"312": "Đề xuất thiết kế diều tại Đỉnh Thảo Nguyên"
 		},
+		"light": "",
 		"season": "",
 		"season-plural": "",
 		"seasons": {
@@ -523,6 +527,7 @@
 		},
 		"event": "",
 		"events": "",
+		"travelling-spirit-initialism": "",
 		"event-names": {
 			"double-seasonal-light": "",
 			"double-treasure-candles": "",
@@ -2686,7 +2691,6 @@
 			"travelling-spirit": "",
 			"returning-spirits": "",
 			"back-to-start-button-label": "",
-			"settings": "",
 			"settings-button-label-enable": "",
 			"settings-button-label-disable": "",
 			"settings-everything": "",
@@ -3089,6 +3093,7 @@
 			"next-nesting-workshop": "",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "",
 			"detailed-breakdown-nesting-workshop-message": "",
+			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "",
 			"detailed-breakdown-vault-elders-blessing-message": "",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "",
 			"detailed-breakdown-projector-of-memories-message": "",
@@ -3097,6 +3102,13 @@
 			"detailed-breakdown-radiance-event": "",
 			"detailed-breakdown-nothing-planned": "",
 			"back": ""
+		},
+		"settings": {
+			"time-format": "Định dạng thời gian",
+			"time-format-automatic": "Tự động",
+			"time-format-twelve": "12 giờ",
+			"time-format-twenty-four": "24 giờ",
+			"name": ""
 		},
 		"shard-eruption": {
 			"name-plural": "",

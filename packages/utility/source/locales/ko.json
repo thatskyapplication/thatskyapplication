@@ -5,6 +5,9 @@
 		"website-description": "",
 		"show": "",
 		"hide": "",
+		"save": "",
+		"saved": "",
+		"saving": "",
 		"infographic": "인포그래픽",
 		"infographic-by": "",
 		"daily-quests": "",
@@ -455,6 +458,7 @@
 			"311": "플레이어에게 손을 흔드세요",
 			"312": "초원 고지에서 연 디자인을 제안하세요"
 		},
+		"light": "",
 		"season": "",
 		"season-plural": "",
 		"seasons": {
@@ -523,6 +527,7 @@
 		},
 		"event": "",
 		"events": "",
+		"travelling-spirit-initialism": "",
 		"event-names": {
 			"double-seasonal-light": "",
 			"double-treasure-candles": "",
@@ -2686,7 +2691,6 @@
 			"travelling-spirit": "",
 			"returning-spirits": "",
 			"back-to-start-button-label": "",
-			"settings": "",
 			"settings-button-label-enable": "",
 			"settings-button-label-disable": "",
 			"settings-everything": "",
@@ -3089,6 +3093,7 @@
 			"next-nesting-workshop": "",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "",
 			"detailed-breakdown-nesting-workshop-message": "",
+			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "",
 			"detailed-breakdown-vault-elders-blessing-message": "",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "",
 			"detailed-breakdown-projector-of-memories-message": "",
@@ -3097,6 +3102,13 @@
 			"detailed-breakdown-radiance-event": "",
 			"detailed-breakdown-nothing-planned": "",
 			"back": ""
+		},
+		"settings": {
+			"time-format": "시간 형식",
+			"time-format-automatic": "자동",
+			"time-format-twelve": "12시간",
+			"time-format-twenty-four": "24시간",
+			"name": ""
 		},
 		"shard-eruption": {
 			"name-plural": "",
