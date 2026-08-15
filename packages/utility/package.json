@@ -17,18 +17,21 @@
 		"test": "tsx --test __tests__/*.test.ts && tsc --noEmit"
 	},
 	"dependencies": {
-		"@discordjs/collection": "^2.1.1",
-		"discord-api-types": "^0.38.50",
-		"kysely": "^0.28.17",
+		"@discordjs/collection": "catalog:",
+		"discord-api-types": "catalog:",
+		"kysely": "catalog:",
 		"temporal-polyfill": "^1.0.1"
 	},
 	"devDependencies": {
-		"@types/node": "^26.1.1",
-		"@typescript/native": "npm:typescript@^7.0.2",
+		"@types/node": "catalog:",
+		"@typescript/native": "catalog:",
 		"kysely-codegen": "^0.20.0",
-		"pg": "^8.22.0",
+		"oxfmt": "catalog:",
+		"oxlint": "catalog:",
+		"oxlint-tsgolint": "catalog:",
+		"pg": "catalog:",
 		"tsdown": "^0.22.14",
-		"tsx": "^4.22.4",
-		"typescript": "npm:@typescript/typescript6@^6.0.2"
+		"tsx": "catalog:",
+		"typescript": "catalog:typescript6"
 	}
 }
