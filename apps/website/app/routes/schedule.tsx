@@ -6,6 +6,7 @@ import {
 	aviarysFireworkFestivalSchedule,
 	DOUBLE_HEART_EVENTS,
 	dreamsSkaterSchedule,
+	EventId,
 	formatEmojiURL,
 	grandmaSchedule,
 	internationalSpaceStationSchedule,
@@ -599,12 +600,53 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		vaultEldersBlessingOverview(now, timeZone, locale, hour12),
 		projectorOfMemoriesOverview(now, timeZone, locale, hour12),
 	].filter((schedule) => schedule !== null) satisfies readonly BaseSchedule<ScheduleTypes>[];
+	const scheduleWikiURLs: Partial<Record<ScheduleTypes, string>> = {
+		[ScheduleType.InternationalSpaceStation]: t(
+			"schedule.detailed-breakdown-international-space-station-wiki-button-url",
+			{ ns: "features" },
+		),
+		[ScheduleType.PollutedGeyser]: t(
+			"schedule.detailed-breakdown-polluted-geyser-wiki-button-url",
+			{ ns: "features" },
+		),
+		[ScheduleType.Grandma]: t("schedule.detailed-breakdown-grandma-wiki-button-url", {
+			ns: "features",
+		}),
+		[ScheduleType.Turtle]: t("schedule.detailed-breakdown-turtle-wiki-button-url", {
+			ns: "features",
+		}),
+		[ScheduleType.DreamsSkater]: t("schedule.detailed-breakdown-dreams-skater-wiki-button-url", {
+			ns: "features",
+		}),
+		[ScheduleType.AURORA]: t("schedule.detailed-breakdown-aurora-wiki-button-url", {
+			ns: "features",
+		}),
+		[ScheduleType.Passage]: t("schedule.detailed-breakdown-passage-wiki-button-url", {
+			ns: "features",
+		}),
+		[ScheduleType.AviarysFireworkFestival]: t(`event-wiki.${EventId.AviarysFireworkFestival2023}`, {
+			ns: "general",
+		}),
+		[ScheduleType.NestingWorkshop]: t(
+			"schedule.detailed-breakdown-nesting-workshop-wiki-button-url",
+			{ ns: "features" },
+		),
+		[ScheduleType.VaultEldersBlessing]: t(
+			"schedule.detailed-breakdown-vault-elders-blessing-wiki-button-url",
+			{ ns: "features" },
+		),
+		[ScheduleType.ProjectorOfMemories]: t(
+			"schedule.detailed-breakdown-projector-of-memories-wiki-button-url",
+			{ ns: "features" },
+		),
+	};
 
 	const allCards: DisplayCard[] = [];
 
 	for (const schedule of schedules) {
 		const label = t(`schedule.type.${schedule.type}`, { ns: "features" });
-		let link: DisplayCard["link"];
+		const wikiURL = scheduleWikiURLs[schedule.type];
+		let link: DisplayCard["link"] = wikiURL ? { href: wikiURL, text: label } : undefined;
 		const isActive = schedule.now !== undefined && schedule.now !== false;
 
 		if (schedule.type === ScheduleType.TravellingSpirit && schedule.spiritId) {
