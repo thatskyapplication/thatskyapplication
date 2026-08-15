@@ -770,7 +770,7 @@ export async function viewSearch(
 
 export async function viewSettings(interaction: APIMessageComponentButtonInteraction) {
 	const { locale } = interaction;
-	const current = t("catalogue.settings", { lng: locale, ns: "features" });
+	const current = t("settings.name", { lng: locale, ns: "features" });
 
 	const catalogue = await database
 		.selectFrom("catalogue")

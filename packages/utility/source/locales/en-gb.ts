@@ -3170,7 +3170,6 @@ export default {
 			"travelling-spirit": "Travelling Spirit",
 			"returning-spirits": "Returning Spirits",
 			"back-to-start-button-label": "Start",
-			settings: "Settings",
 			"settings-button-label-enable": "Enable",
 			"settings-button-label-disable": "Disable",
 			"settings-everything": "Toggle displaying the button to unlock everything at once.",
