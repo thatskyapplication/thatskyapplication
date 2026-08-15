@@ -555,7 +555,7 @@ interface DisplayCard {
 	key: string;
 	label: string;
 	dyeIcons?: readonly { label: string; url: string }[] | undefined;
-	link?: { href: string; text: string } | undefined;
+	wikiHref?: string | undefined;
 	pageHref?: string | undefined;
 	active: boolean;
 	next: string;
@@ -571,6 +571,75 @@ const enum DisplayCardType {
 	Event = 1,
 	Schedule = 2,
 	Maintenance = 3,
+}
+
+function DisplayCardRow({ item }: { item: DisplayCard }) {
+	const { t } = useTranslation();
+	const timestamp = item.active
+		? t("schedule.overview-ends-timestamp", {
+				ns: "features",
+				timestamp: item.end,
+			})
+		: item.next;
+	const relative = item.active ? item.endRelative : item.relative;
+
+	return (
+		<div className="col-span-4 grid grid-cols-subgrid items-center gap-x-3 gap-y-1 py-2">
+			<span className="flex min-w-0 flex-wrap items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+				{item.type === DisplayCardType.Maintenance && (
+					<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+				)}
+				{item.pageHref ? (
+					<Link className="regular-link" to={item.pageHref}>
+						{item.label}
+					</Link>
+				) : (
+					item.label
+				)}
+				{item.dyeIcons && (
+					<span className="inline-flex items-center gap-1">
+						{item.dyeIcons.map((emoji, index) => (
+							<span
+								aria-label={emoji.label}
+								className="discord-emoji h-4 w-4"
+								key={`${item.key}-${index}`}
+								role="img"
+								style={{ backgroundImage: `url(${emoji.url})` }}
+							/>
+						))}
+					</span>
+				)}
+			</span>
+			<span>
+				{item.type === DisplayCardType.Season && (
+					<span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-900 dark:text-sky-300">
+						{t("season", { ns: "general" })}
+					</span>
+				)}
+				{item.type === DisplayCardType.Event && (
+					<span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+						{t("event", { ns: "general" })}
+					</span>
+				)}
+			</span>
+			<span className="text-sm font-medium">
+				{item.wikiHref && (
+					<a
+						className="regular-link inline-flex items-center gap-1"
+						href={item.wikiHref}
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						{t("wiki", { ns: "general" })}
+						<ExternalLinkIcon className="h-3.5 w-3.5" />
+					</a>
+				)}
+			</span>
+			<span className="col-span-4 text-sm text-gray-500 md:col-span-1 md:text-right md:whitespace-nowrap dark:text-gray-400">
+				{timestamp} <span className="text-gray-400 dark:text-gray-500">({relative})</span>
+			</span>
+		</div>
+	);
 }
 
 export default function Schedule({ loaderData }: Route.ComponentProps) {
@@ -644,21 +713,20 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	const allCards: DisplayCard[] = [];
 
 	for (const schedule of schedules) {
-		const label = t(`schedule.type.${schedule.type}`, { ns: "features" });
-		const wikiURL = scheduleWikiURLs[schedule.type];
-		let link: DisplayCard["link"] = wikiURL ? { href: wikiURL, text: label } : undefined;
+		let label = t(`schedule.type.${schedule.type}`, { ns: "features" });
+		let wikiHref = scheduleWikiURLs[schedule.type];
 		const isActive = schedule.now !== undefined && schedule.now !== false;
 
 		if (schedule.type === ScheduleType.TravellingSpirit && schedule.spiritId) {
-			const spiritName = t(`spirits.${schedule.spiritId}`, { ns: "general" });
-			link = { href: t(`spirit-wiki.${schedule.spiritId}`, { ns: "general" }), text: spiritName };
+			label = t(`spirits.${schedule.spiritId}`, { ns: "general" });
+			wikiHref = t(`spirit-wiki.${schedule.spiritId}`, { ns: "general" });
 		}
 
 		allCards.push({
 			type: DisplayCardType.Schedule,
 			key: `${schedule.type}`,
 			label,
-			link,
+			wikiHref,
 			pageHref: schedule.type === ScheduleType.ShardEruption ? "/shard-eruption" : undefined,
 			active: isActive,
 			next: schedule.next,
@@ -684,7 +752,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			type: DisplayCardType.Season,
 			key: `season-${season.id}`,
 			label: seasonName,
-			link: { href: t(`season-wiki.${season.id}`, { ns: "general" }), text: seasonName },
+			wikiHref: t(`season-wiki.${season.id}`, { ns: "general" }),
 			active: true,
 			next: new Intl.DateTimeFormat(locale, options).format(season.end.epochMilliseconds),
 			nextUnix: season.end.epochMilliseconds,
@@ -709,7 +777,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			type: DisplayCardType.Season,
 			key: `season-${nextSeason.id}`,
 			label: nextSeasonName,
-			link: { href: t(`season-wiki.${nextSeason.id}`, { ns: "general" }), text: nextSeasonName },
+			wikiHref: t(`season-wiki.${nextSeason.id}`, { ns: "general" }),
 			active: false,
 			next: new Intl.DateTimeFormat(locale, options).format(nextSeason.start.epochMilliseconds),
 			nextUnix: nextSeason.start.epochMilliseconds,
@@ -733,7 +801,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 				type: DisplayCardType.Event,
 				key: `event-${id}`,
 				label: eventName,
-				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: eventName },
+				wikiHref: t(`event-wiki.${id}`, { ns: "general" }),
 				active: true,
 				next: new Intl.DateTimeFormat(locale, options).format(end.epochMilliseconds),
 				nextUnix: end.epochMilliseconds,
@@ -753,7 +821,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 				type: DisplayCardType.Event,
 				key: `event-${id}`,
 				label: eventName,
-				link: { href: t(`event-wiki.${id}`, { ns: "general" }), text: eventName },
+				wikiHref: t(`event-wiki.${id}`, { ns: "general" }),
 				active: false,
 				next: new Intl.DateTimeFormat(locale, options).format(start.epochMilliseconds),
 				nextUnix: start.epochMilliseconds,
@@ -1006,168 +1074,35 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 						</div>
 					</div>
 				)}
-				{/* Active. */}
-				{active.length > 0 && (
-					<div className="rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
-						<div className="mt-1 mb-2">
-							<span className="rounded bg-green-100 px-2 py-0.5 text-sm font-medium text-green-700 dark:bg-green-900 dark:text-green-300">
-								{t("schedule.overview-active", { ns: "features" })}
-							</span>
-						</div>
-						<div className="divide-y divide-gray-100 dark:divide-gray-800">
-							{active.map((item) => (
-								<div
-									className="flex flex-col gap-1 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
-									key={item.key}
-								>
-									<span className="flex flex-wrap items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-										{item.type === DisplayCardType.Maintenance && (
-											<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-										)}
-										{item.pageHref ? (
-											<Link className="regular-link" to={item.pageHref}>
-												{item.label}
-											</Link>
-										) : item.link && item.link.text === item.label ? (
-											<a
-												className="regular-link inline-flex items-center"
-												href={item.link.href}
-												rel="noopener noreferrer"
-												target="_blank"
-											>
-												{item.label}
-												<ExternalLinkIcon className="ml-1.5 h-3.5 w-3.5" />
-											</a>
-										) : (
-											<>
-												{item.label}
-												{item.link && (
-													<a
-														className="regular-link inline-flex items-center"
-														href={item.link.href}
-														rel="noopener noreferrer"
-														target="_blank"
-													>
-														{item.link.text}
-														<ExternalLinkIcon className="ml-1.5 h-3.5 w-3.5" />
-													</a>
-												)}
-											</>
-										)}
-										{item.dyeIcons && (
-											<span className="inline-flex items-center gap-1">
-												{item.dyeIcons.map((emoji, index) => (
-													<span
-														aria-label={emoji.label}
-														className="discord-emoji h-4 w-4"
-														key={`${item.key}-${index}`}
-														role="img"
-														style={{ backgroundImage: `url(${emoji.url})` }}
-													/>
-												))}
-											</span>
-										)}
-										{item.type === DisplayCardType.Season && (
-											<span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-900 dark:text-sky-300">
-												{t("season", { ns: "general" })}
-											</span>
-										)}
-										{item.type === DisplayCardType.Event && (
-											<span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
-												{t("event", { ns: "general" })}
-											</span>
-										)}
-									</span>
-									<span className="text-sm text-gray-500 sm:text-right dark:text-gray-400">
-										{t("schedule.overview-ends-timestamp", {
-											ns: "features",
-											timestamp: item.end,
-										})}{" "}
-										({item.endRelative})
-									</span>
-								</div>
-							))}
-						</div>
-					</div>
-				)}
-
-				{/* Upcoming. */}
-				<div className="rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
-					<div className="mt-1 mb-2">
-						<span className="rounded bg-gray-100 px-2 py-0.5 text-sm font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-300">
-							{t("schedule.overview-upcoming", { ns: "features" })}
-						</span>
-					</div>
-					<div className="divide-y divide-gray-100 dark:divide-gray-800">
-						{upcoming.map((item) => (
-							<div
-								className="flex flex-col gap-1 py-2 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
-								key={item.key}
-							>
-								<span className="flex flex-wrap items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-									{item.type === DisplayCardType.Maintenance && (
-										<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-									)}
-									{item.pageHref ? (
-										<Link className="regular-link" to={item.pageHref}>
-											{item.label}
-										</Link>
-									) : item.link && item.link.text === item.label ? (
-										<a
-											className="regular-link inline-flex items-center"
-											href={item.link.href}
-											rel="noopener noreferrer"
-											target="_blank"
-										>
-											{item.label}
-											<ExternalLinkIcon className="ml-1.5 h-3.5 w-3.5" />
-										</a>
-									) : (
-										<>
-											{item.label}
-											{item.link && (
-												<a
-													className="regular-link inline-flex items-center"
-													href={item.link.href}
-													rel="noopener noreferrer"
-													target="_blank"
-												>
-													{item.link.text}
-													<ExternalLinkIcon className="ml-1.5 h-3.5 w-3.5" />
-												</a>
-											)}
-										</>
-									)}
-									{item.dyeIcons && (
-										<span className="inline-flex items-center gap-1">
-											{item.dyeIcons.map((emoji, index) => (
-												<span
-													aria-label={emoji.label}
-													className="discord-emoji h-4 w-4"
-													key={`${item.key}-${index}`}
-													role="img"
-													style={{ backgroundImage: `url(${emoji.url})` }}
-												/>
-											))}
-										</span>
-									)}
-									{item.type === DisplayCardType.Season && (
-										<span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-900 dark:text-sky-300">
-											{t("season", { ns: "general" })}
-										</span>
-									)}
-									{item.type === DisplayCardType.Event && (
-										<span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
-											{t("event", { ns: "general" })}
-										</span>
-									)}
-								</span>
-								<span className="text-sm text-gray-500 sm:text-right dark:text-gray-400">
-									{item.next}{" "}
-									<span className="text-gray-400 dark:text-gray-500">({item.relative})</span>
+				<div className="grid grid-cols-[minmax(0,1fr)_auto_auto_0px] gap-y-4 md:grid-cols-[minmax(0,1fr)_5rem_3.75rem_auto]">
+					{/* Active. */}
+					{active.length > 0 && (
+						<div className="col-span-4 grid grid-cols-subgrid rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+							<div className="col-span-4 mt-1 mb-2">
+								<span className="rounded bg-green-100 px-2 py-0.5 text-sm font-medium text-green-700 dark:bg-green-900 dark:text-green-300">
+									{t("schedule.overview-active", { ns: "features" })}
 								</span>
 							</div>
-						))}
+							<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
+								{active.map((item) => (
+									<DisplayCardRow item={item} key={item.key} />
+								))}
+							</div>
+						</div>
+					)}
+
+					{/* Upcoming. */}
+					<div className="col-span-4 grid grid-cols-subgrid rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+						<div className="col-span-4 mt-1 mb-2">
+							<span className="rounded bg-gray-100 px-2 py-0.5 text-sm font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+								{t("schedule.overview-upcoming", { ns: "features" })}
+							</span>
+						</div>
+						<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
+							{upcoming.map((item) => (
+								<DisplayCardRow item={item} key={item.key} />
+							))}
+						</div>
 					</div>
 				</div>
 			</div>
