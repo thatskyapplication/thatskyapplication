@@ -6,6 +6,7 @@ import {
 	type APIMessageComponentSelectMenuInteraction,
 	type APIMessageTopLevelComponent,
 	type APISelectMenuOption,
+	type APITextDisplayComponent,
 	ButtonStyle,
 	ComponentType,
 	type InteractionsAPI,
@@ -208,35 +209,21 @@ function internationalSpaceStationDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-international-space-station-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-international-space-station-message", {
-						lng: locale,
-						ns: "features",
-						result: result.join("\n"),
-					}),
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-international-space-station-requires", {
-						lng: locale,
-						ns: "features",
-						emoji1: formatEmoji(CAPE_EMOJIS.Cape02),
-						emoji2: formatEmoji(CAPE_EMOJIS.Cape15),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-international-space-station-message", {
+				lng: locale,
+				ns: "features",
+				result: result.join("\n"),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-international-space-station-requires", {
+				lng: locale,
+				ns: "features",
+				emoji1: formatEmoji(CAPE_EMOJIS.Cape02),
+				emoji2: formatEmoji(CAPE_EMOJIS.Cape15),
+			}),
 		},
 	];
 }
@@ -493,34 +480,20 @@ function pollutedGeyserDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-polluted-geyser-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-polluted-geyser-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
-						timestamps: timestamps.join(" "),
-						status: pollutedGeyser.now
-							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-							: t("schedule.event-will-occur", {
-									lng: locale,
-									ns: "features",
-									timestamp: pollutedGeyser.next,
-								}),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-polluted-geyser-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: pollutedGeyser.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: pollutedGeyser.next,
+						}),
+			}),
 		},
 	];
 }
@@ -562,34 +535,20 @@ function grandmaDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-grandma-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-grandma-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
-						timestamps: timestamps.join(" "),
-						status: grandma.now
-							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-							: t("schedule.event-will-occur", {
-									lng: locale,
-									ns: "features",
-									timestamp: grandma.next,
-								}),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-grandma-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: grandma.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: grandma.next,
+						}),
+			}),
 		},
 	];
 }
@@ -631,34 +590,20 @@ function turtleDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-turtle-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-turtle-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
-						timestamps: timestamps.join(" "),
-						status: turtle.now
-							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-							: t("schedule.event-will-occur", {
-									lng: locale,
-									ns: "features",
-									timestamp: turtle.next,
-								}),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-turtle-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: turtle.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: turtle.next,
+						}),
+			}),
 		},
 	];
 }
@@ -773,34 +718,20 @@ function dreamsSkaterDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-dreams-skater-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-dreams-skater-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
-						timestamps: timestamps.join(" "),
-						status: dreamsSkater.now
-							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-							: t("schedule.event-will-occur", {
-									lng: locale,
-									ns: "features",
-									timestamp: dreamsSkater.next,
-								}),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-dreams-skater-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: dreamsSkater.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: dreamsSkater.next,
+						}),
+			}),
 		},
 	];
 }
@@ -842,42 +773,28 @@ function auroraDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-aurora-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-aurora-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
-						timestamps: timestamps.join(" "),
-						status: aurora.now
-							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-							: t("schedule.event-will-occur", {
-									lng: locale,
-									ns: "features",
-									timestamp: aurora.next,
-								}),
-					}),
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-aurora-requires", {
-						lng: locale,
-						ns: "features",
-						emoji: formatEmoji(CAPE_EMOJIS.Cape96),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-aurora-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: aurora.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: aurora.next,
+						}),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-aurora-requires", {
+				lng: locale,
+				ns: "features",
+				emoji: formatEmoji(CAPE_EMOJIS.Cape96),
+			}),
 		},
 	];
 }
@@ -910,32 +827,18 @@ function passageDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-passage-wiki-button-url", {
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-passage-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: t("schedule.event-will-occur", {
 					lng: locale,
 					ns: "features",
+					timestamp: passageNext(now),
 				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-passage-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
-						timestamps: timestamps.join(" "),
-						status: t("schedule.event-will-occur", {
-							lng: locale,
-							ns: "features",
-							timestamp: passageNext(now),
-						}),
-					}),
-				},
-			],
+			}),
 		},
 	];
 }
@@ -976,31 +879,20 @@ function aviarysFireworkFestivalDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t(`event-wiki.${EventId.AviarysFireworkFestival2023}`, { lng: locale, ns: "general" }),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-aviarys-firework-festival-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfDay)}:f>`,
-						timestamps: timestamps.join("\n"),
-						status: aviarysFireworkFestival.now
-							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-							: t("schedule.event-will-occur", {
-									lng: locale,
-									ns: "features",
-									timestamp: aviarysFireworkFestival.next,
-								}),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-aviarys-firework-festival-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfDay)}:f>`,
+				timestamps: timestamps.join("\n"),
+				status: aviarysFireworkFestival.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: aviarysFireworkFestival.next,
+						}),
+			}),
 		},
 	];
 }
@@ -1144,26 +1036,12 @@ function nestingWorkshopDetailedBreakdown(
 ): APIComponentInContainer[] {
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-nesting-workshop-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-nesting-workshop-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: nestingWorkshopNext(now, locale),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-nesting-workshop-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: nestingWorkshopNext(now, locale),
+			}),
 		},
 	];
 }
@@ -1203,34 +1081,20 @@ function vaultEldersBlessingDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-vault-elders-blessing-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-vault-elders-blessing-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
-						timestamps: timestamps.join(" "),
-						status: vaultEldersBlessing.now
-							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-							: t("schedule.event-will-occur", {
-									lng: locale,
-									ns: "features",
-									timestamp: vaultEldersBlessing.next,
-								}),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-vault-elders-blessing-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: vaultEldersBlessing.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: vaultEldersBlessing.next,
+						}),
+			}),
 		},
 	];
 }
@@ -1270,42 +1134,28 @@ function projectorOfMemoriesDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.Section,
-			accessory: {
-				type: ComponentType.Button,
-				style: ButtonStyle.Link,
-				url: t("schedule.detailed-breakdown-projector-of-memories-wiki-button-url", {
-					lng: locale,
-					ns: "features",
-				}),
-				label: t("wiki", { lng: locale, ns: "general" }),
-			},
-			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-projector-of-memories-message", {
-						lng: locale,
-						ns: "features",
-						timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
-						timestamps: timestamps.join(" "),
-						status: projectorOfMemories.now
-							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-							: t("schedule.event-will-occur", {
-									lng: locale,
-									ns: "features",
-									timestamp: projectorOfMemories.next,
-								}),
-					}),
-				},
-				{
-					type: ComponentType.TextDisplay,
-					content: t("schedule.detailed-breakdown-projector-of-memories-requires", {
-						lng: locale,
-						ns: "features",
-						emoji: formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106),
-					}),
-				},
-			],
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-projector-of-memories-message", {
+				lng: locale,
+				ns: "features",
+				timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
+				timestamps: timestamps.join(" "),
+				status: projectorOfMemories.now
+					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+					: t("schedule.event-will-occur", {
+							lng: locale,
+							ns: "features",
+							timestamp: projectorOfMemories.next,
+						}),
+			}),
+		},
+		{
+			type: ComponentType.TextDisplay,
+			content: t("schedule.detailed-breakdown-projector-of-memories-requires", {
+				lng: locale,
+				ns: "features",
+				emoji: formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106),
+			}),
 		},
 	];
 }
@@ -2106,6 +1956,7 @@ export async function scheduleDetailedBreakdown(
 	const now = skyNow();
 	const startOfDay = now.startOfDay();
 	let detailedBreakdown: APIComponentInContainer[];
+	let wikiURL: string | undefined;
 
 	switch (type) {
 		case ScheduleType.DailyReset: {
@@ -2118,6 +1969,10 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.InternationalSpaceStation: {
 			detailedBreakdown = internationalSpaceStationDetailedBreakdown(startOfDay, locale);
+			wikiURL = t("schedule.detailed-breakdown-international-space-station-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.TravellingSpirit: {
@@ -2126,14 +1981,26 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.PollutedGeyser: {
 			detailedBreakdown = pollutedGeyserDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-polluted-geyser-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.Grandma: {
 			detailedBreakdown = grandmaDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-grandma-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.Turtle: {
 			detailedBreakdown = turtleDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-turtle-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.ShardEruption: {
@@ -2142,18 +2009,34 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.DreamsSkater: {
 			detailedBreakdown = dreamsSkaterDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-dreams-skater-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.AURORA: {
 			detailedBreakdown = auroraDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-aurora-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.Passage: {
 			detailedBreakdown = passageDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-passage-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.AviarysFireworkFestival: {
 			detailedBreakdown = aviarysFireworkFestivalDetailedBreakdown(now, locale);
+			wikiURL = t(`event-wiki.${EventId.AviarysFireworkFestival2023}`, {
+				lng: locale,
+				ns: "general",
+			});
 			break;
 		}
 		case ScheduleType.NineColouredDeer: {
@@ -2162,14 +2045,26 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.NestingWorkshop: {
 			detailedBreakdown = nestingWorkshopDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-nesting-workshop-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.VaultEldersBlessing: {
 			detailedBreakdown = vaultEldersBlessingDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-vault-elders-blessing-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.ProjectorOfMemories: {
 			detailedBreakdown = projectorOfMemoriesDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-projector-of-memories-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.MeteorShower: {
@@ -2185,14 +2080,29 @@ export async function scheduleDetailedBreakdown(
 		}
 	}
 
+	const titleTextDisplay: APITextDisplayComponent = {
+		type: ComponentType.TextDisplay,
+		content: `## ${t(`schedule.type.${type}`, { lng: locale, ns: "features" })}`,
+	};
+
+	const title: APIComponentInContainer = wikiURL
+		? {
+				type: ComponentType.Section,
+				accessory: {
+					type: ComponentType.Button,
+					style: ButtonStyle.Link,
+					url: wikiURL,
+					label: t("wiki", { lng: locale, ns: "general" }),
+				},
+				components: [titleTextDisplay],
+			}
+		: titleTextDisplay;
+
 	const components: APIMessageTopLevelComponent[] = [
 		{
 			type: ComponentType.Container,
 			components: [
-				{
-					type: ComponentType.TextDisplay,
-					content: `## ${t(`schedule.type.${type}`, { lng: locale, ns: "features" })}`,
-				},
+				title,
 				{
 					type: ComponentType.Separator,
 					divider: true,
