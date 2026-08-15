@@ -756,6 +756,7 @@ export default {
 			[DailyQuest.WaveToAPlayer]: "Wave to a player",
 			[DailyQuest.ProposeAKiteDesignInPrairieHeights]: "Propose a kite design in Prairie Heights",
 		} satisfies Record<DailyQuests, string>,
+		light: "Light",
 		season: "Season",
 		"season-plural": "Seasons",
 		seasons: {
@@ -829,6 +830,7 @@ export default {
 		} satisfies Record<SeasonIds, `https://${string}`>,
 		event: "Event",
 		events: "Events",
+		"travelling-spirit-initialism": "TS",
 		"event-names": {
 			"double-seasonal-light": "Double seasonal light",
 			"double-treasure-candles": "Double treasure candles",

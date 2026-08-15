@@ -632,12 +632,12 @@ function DisplayCardRow({ item }: { item: DisplayCard }) {
 					)}
 					{item.badge === DisplayCardBadge.TravellingSpirit && (
 						<span className="inline-flex items-center rounded bg-violet-100 px-1.5 py-0.5 text-xs font-medium text-violet-700 dark:bg-violet-900 dark:text-violet-300">
-							TS
+							{t("travelling-spirit-initialism", { ns: "general" })}
 						</span>
 					)}
 					{item.badge === DisplayCardBadge.Light && (
 						<span className="inline-flex items-center rounded bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900 dark:text-amber-300">
-							Light
+							{t("light", { ns: "general" })}
 						</span>
 					)}
 				</span>
