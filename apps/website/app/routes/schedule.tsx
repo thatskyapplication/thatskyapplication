@@ -552,6 +552,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 
 interface DisplayCard {
 	type: DisplayCardType;
+	badge?: DisplayCardBadge | undefined;
 	key: string;
 	label: string;
 	dyeIcons?: readonly { label: string; url: string }[] | undefined;
@@ -571,6 +572,13 @@ const enum DisplayCardType {
 	Event = 1,
 	Schedule = 2,
 	Maintenance = 3,
+}
+
+const enum DisplayCardBadge {
+	Season = 0,
+	Event = 1,
+	TravellingSpirit = 2,
+	Light = 3,
 }
 
 function DisplayCardRow({ item }: { item: DisplayCard }) {
@@ -611,14 +619,24 @@ function DisplayCardRow({ item }: { item: DisplayCard }) {
 				)}
 			</span>
 			<span>
-				{item.type === DisplayCardType.Season && (
+				{item.badge === DisplayCardBadge.Season && (
 					<span className="rounded bg-sky-100 px-1.5 py-0.5 text-xs font-medium text-sky-700 dark:bg-sky-900 dark:text-sky-300">
 						{t("season", { ns: "general" })}
 					</span>
 				)}
-				{item.type === DisplayCardType.Event && (
-					<span className="rounded bg-purple-100 px-1.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
+				{item.badge === DisplayCardBadge.Event && (
+					<span className="rounded bg-rose-100 px-1.5 py-0.5 text-xs font-medium text-rose-700 dark:bg-rose-900 dark:text-rose-300">
 						{t("event", { ns: "general" })}
+					</span>
+				)}
+				{item.badge === DisplayCardBadge.TravellingSpirit && (
+					<span className="rounded bg-violet-100 px-1.5 py-0.5 text-xs font-medium text-violet-700 dark:bg-violet-900 dark:text-violet-300">
+						TS
+					</span>
+				)}
+				{item.badge === DisplayCardBadge.Light && (
+					<span className="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+						Light
 					</span>
 				)}
 			</span>
@@ -709,6 +727,13 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			{ ns: "features" },
 		),
 	};
+	const scheduleBadges: Partial<Record<ScheduleTypes, DisplayCardBadge>> = {
+		[ScheduleType.TravellingSpirit]: DisplayCardBadge.TravellingSpirit,
+		[ScheduleType.PollutedGeyser]: DisplayCardBadge.Light,
+		[ScheduleType.Grandma]: DisplayCardBadge.Light,
+		[ScheduleType.Turtle]: DisplayCardBadge.Light,
+		[ScheduleType.DreamsSkater]: DisplayCardBadge.Light,
+	};
 
 	const allCards: DisplayCard[] = [];
 
@@ -724,6 +749,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 		allCards.push({
 			type: DisplayCardType.Schedule,
+			badge: scheduleBadges[schedule.type],
 			key: `${schedule.type}`,
 			label,
 			wikiHref,
@@ -750,6 +776,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		const seasonName = t(`seasons.${season.id}`, { ns: "general" });
 		allCards.push({
 			type: DisplayCardType.Season,
+			badge: DisplayCardBadge.Season,
 			key: `season-${season.id}`,
 			label: seasonName,
 			wikiHref: t(`season-wiki.${season.id}`, { ns: "general" }),
@@ -775,6 +802,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		const nextSeasonName = t(`seasons.${nextSeason.id}`, { ns: "general" });
 		allCards.push({
 			type: DisplayCardType.Season,
+			badge: DisplayCardBadge.Season,
 			key: `season-${nextSeason.id}`,
 			label: nextSeasonName,
 			wikiHref: t(`season-wiki.${nextSeason.id}`, { ns: "general" }),
@@ -799,6 +827,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 			allCards.push({
 				type: DisplayCardType.Event,
+				badge: DisplayCardBadge.Event,
 				key: `event-${id}`,
 				label: eventName,
 				wikiHref: t(`event-wiki.${id}`, { ns: "general" }),
@@ -819,6 +848,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 			allCards.push({
 				type: DisplayCardType.Event,
+				badge: DisplayCardBadge.Event,
 				key: `event-${id}`,
 				label: eventName,
 				wikiHref: t(`event-wiki.${id}`, { ns: "general" }),
@@ -846,6 +876,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 		allCards.push({
 			type: DisplayCardType.Event,
+			badge: DisplayCardBadge.Event,
 			key: `radiance-${start.epochMilliseconds}`,
 			label,
 			dyeIcons: dyes.map((dye) => {
@@ -884,6 +915,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 			allCards.push({
 				type: DisplayCardType.Event,
+				badge: DisplayCardBadge.Event,
 				key: `double-seasonal-light-${doubleSeasonalLightSeason.id}-${start.epochMilliseconds}`,
 				label: t("event-names.double-seasonal-light", { ns: "general" }),
 				active: isActive,
@@ -914,6 +946,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 		allCards.push({
 			type: DisplayCardType.Event,
+			badge: DisplayCardBadge.Event,
 			key: `double-treasure-candle-${start.epochMilliseconds}`,
 			label: t("event-names.double-treasure-candles", { ns: "general" }),
 			active: isActive,
@@ -943,6 +976,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 
 		allCards.push({
 			type: DisplayCardType.Event,
+			badge: DisplayCardBadge.Event,
 			key: `double-heart-${start.epochMilliseconds}`,
 			label: t("event-names.double-hearts", { ns: "general" }),
 			active: isActive,
