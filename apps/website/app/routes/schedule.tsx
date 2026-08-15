@@ -641,7 +641,7 @@ function DisplayCardRow({ item }: { item: DisplayCard }) {
 						</span>
 					)}
 				</span>
-				<span className="w-[3.75rem] shrink-0 text-sm font-medium">
+				<span className="w-15 shrink-0 text-sm font-medium">
 					{item.wikiHref && (
 						<a
 							className="regular-link inline-flex items-center gap-1"
