@@ -1203,20 +1203,34 @@ function vaultEldersBlessingDetailedBreakdown(
 
 	return [
 		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-vault-elders-blessing-message", {
-				lng: locale,
-				ns: "features",
-				timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
-				timestamps: timestamps.join(" "),
-				status: vaultEldersBlessing.now
-					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
-					: t("schedule.event-will-occur", {
-							lng: locale,
-							ns: "features",
-							timestamp: vaultEldersBlessing.next,
-						}),
-			}),
+			type: ComponentType.Section,
+			accessory: {
+				type: ComponentType.Button,
+				style: ButtonStyle.Link,
+				url: t("schedule.detailed-breakdown-vault-elders-blessing-wiki-button-url", {
+					lng: locale,
+					ns: "features",
+				}),
+				label: t("wiki", { lng: locale, ns: "general" }),
+			},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: t("schedule.detailed-breakdown-vault-elders-blessing-message", {
+						lng: locale,
+						ns: "features",
+						timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
+						timestamps: timestamps.join(" "),
+						status: vaultEldersBlessing.now
+							? t("schedule.event-ongoing", { lng: locale, ns: "features" })
+							: t("schedule.event-will-occur", {
+									lng: locale,
+									ns: "features",
+									timestamp: vaultEldersBlessing.next,
+								}),
+					}),
+				},
+			],
 		},
 	];
 }

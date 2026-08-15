@@ -3647,6 +3647,8 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/Nesting_Workshop",
 			"detailed-breakdown-nesting-workshop-message":
 				"Every Friday, a new set of cosmetics will appear in the Nesting Workshop. Next Friday is at {{timestamp}}.",
+			"detailed-breakdown-vault-elders-blessing-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/The_Last_City#Cloister",
 			"detailed-breakdown-vault-elders-blessing-message":
 				"Available every 20 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-wiki-button-url":
