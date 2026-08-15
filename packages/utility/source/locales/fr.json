@@ -5,6 +5,9 @@
 		"website-description": "Une constellation d'outils pour Sky: Enfants de la Lumière. 🩵",
 		"show": "Montrer",
 		"hide": "Cacher",
+		"save": "",
+		"saved": "",
+		"saving": "",
 		"infographic": "Infographie",
 		"infographic-by": "Infographie par {{acknowledgement}}.",
 		"daily-quests": "Quêtes journalières",
@@ -455,6 +458,7 @@
 			"311": "Faire signe de la main à un joueur",
 			"312": "Proposez un design de cerf-volant dans Hauteurs de la Prairie"
 		},
+		"light": "",
 		"season": "Saison",
 		"season-plural": "Saisons",
 		"seasons": {
@@ -523,6 +527,7 @@
 		},
 		"event": "Évènement",
 		"events": "Évènements",
+		"travelling-spirit-initialism": "",
 		"event-names": {
 			"double-seasonal-light": "Double lumière saisonnière",
 			"double-treasure-candles": "Doubles bouquets de bougies",
@@ -2686,7 +2691,6 @@
 			"travelling-spirit": "Esprit voyageur",
 			"returning-spirits": "Esprits de retour",
 			"back-to-start-button-label": "Début",
-			"settings": "",
 			"settings-button-label-enable": "Activer",
 			"settings-button-label-disable": "Désactiver",
 			"settings-everything": "Affichage du bouton pour tout déverrouiller en une fois",
@@ -3099,6 +3103,7 @@
 			"next-nesting-workshop": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Atelier_de_la_Nidification",
 			"detailed-breakdown-nesting-workshop-message": "",
+			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "",
 			"detailed-breakdown-vault-elders-blessing-message": "Disponible toutes les 20 minutes à partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "",
 			"detailed-breakdown-projector-of-memories-message": "Disponible toutes les 80 minutes à partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
@@ -3107,6 +3112,13 @@
 			"detailed-breakdown-radiance-event": "",
 			"detailed-breakdown-nothing-planned": "",
 			"back": "Précédent"
+		},
+		"settings": {
+			"time-format": "Format de l'heure",
+			"time-format-automatic": "Automatique",
+			"time-format-twelve": "12 heures",
+			"time-format-twenty-four": "24 heures",
+			"name": ""
 		},
 		"shard-eruption": {
 			"name-plural": "Éruptions d'éclats",

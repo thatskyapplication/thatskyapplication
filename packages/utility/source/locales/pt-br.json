@@ -5,6 +5,9 @@
 		"website-description": "Uma constelação de ferramentas para Sky: Children of the Light. 🩵",
 		"show": "Mostrar",
 		"hide": "Ocultar",
+		"save": "",
+		"saved": "",
+		"saving": "",
 		"infographic": "Infográfico",
 		"infographic-by": "Infográfico por {{acknowledgement}}.",
 		"daily-quests": "Missões diárias",
@@ -455,6 +458,7 @@
 			"311": "Acene para um jogador",
 			"312": "Sugira um modelo de pipa nas Colinas da Campina"
 		},
+		"light": "",
 		"season": "Temporada",
 		"season-plural": "Temporadas",
 		"seasons": {
@@ -523,6 +527,7 @@
 		},
 		"event": "Evento",
 		"events": "Eventos",
+		"travelling-spirit-initialism": "",
 		"event-names": {
 			"double-seasonal-light": "Velas sazonais em dobro",
 			"double-treasure-candles": "Velas do tesouro em dobro",
@@ -2686,7 +2691,6 @@
 			"travelling-spirit": "Espírito Viajante",
 			"returning-spirits": "Espíritos Retornantes",
 			"back-to-start-button-label": "Início",
-			"settings": "Configurações",
 			"settings-button-label-enable": "Habilitar",
 			"settings-button-label-disable": "Desabilitar",
 			"settings-everything": "Ativar ou desativar a exibição do botão para desbloquear tudo de uma vez.",
@@ -3099,6 +3103,7 @@
 			"next-nesting-workshop": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Oficina_do_Ninho",
 			"detailed-breakdown-nesting-workshop-message": "Toda sexta-feira, um novo conjunto de cosméticos aparecerá na Oficina do Ninho. A próxima sexta-feira será em {{timestamp}}.",
+			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "",
 			"detailed-breakdown-vault-elders-blessing-message": "Disponível a cada 20 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_das_Duas_Fagulhas_-_Parte_1#Projetor_de_Lembran%C3%A7as",
 			"detailed-breakdown-projector-of-memories-message": "Disponível a cada 80 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
@@ -3107,6 +3112,13 @@
 			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
 			"detailed-breakdown-nothing-planned": "Não há eventos programados.",
 			"back": "Retornar"
+		},
+		"settings": {
+			"time-format": "Formato de tempo",
+			"time-format-automatic": "Automático",
+			"time-format-twelve": "12 horas",
+			"time-format-twenty-four": "24 horas",
+			"name": "Configurações"
 		},
 		"shard-eruption": {
 			"name-plural": "Erupções de Fragmentos",
