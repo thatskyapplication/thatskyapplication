@@ -14,21 +14,24 @@
 		"test": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@discordjs/core": "dev",
-		"@discordjs/rest": "dev",
-		"@sentry/node": "^10.69.0",
+		"@discordjs/core": "catalog:",
+		"@discordjs/rest": "catalog:",
+		"@sentry/node": "catalog:",
 		"@thatskyapplication/utility": "workspace:^",
-		"croner": "^9.1.0",
-		"i18next": "^26.3.6",
-		"kysely": "^0.28.17",
-		"pg": "^8.21.0",
-		"pino": "^10.3.0"
+		"croner": "catalog:",
+		"i18next": "catalog:",
+		"kysely": "catalog:",
+		"pg": "catalog:",
+		"pino": "catalog:"
 	},
 	"devDependencies": {
-		"@types/node": "^26.1.1",
-		"@types/pg": "^8.20.0",
-		"pino-pretty": "^13.1.3",
-		"tsx": "^4.22.4",
-		"typescript": "^7.0.2"
+		"@types/node": "catalog:",
+		"@types/pg": "catalog:",
+		"oxfmt": "catalog:",
+		"oxlint": "catalog:",
+		"oxlint-tsgolint": "catalog:",
+		"pino-pretty": "catalog:",
+		"tsx": "catalog:",
+		"typescript": "catalog:"
 	}
 }
