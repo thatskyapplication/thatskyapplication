@@ -3321,16 +3321,18 @@
 			"visit-error": "Erreur",
 			"travelling": "Voyageant",
 			"returning": "Revenant",
-			"not-yet-returned-entity": "",
-			"not-yet-returned-shop": "",
-			"not-yet-returned-spirit": "",
 			"title": {
 				"0": "",
 				"1": ""
 			},
 			"order-natural": "Ordre d'apparence",
 			"order-label": "",
-			"order-rarity": "Ordre de rareté"
+			"order-rarity": "Ordre de rareté",
+			"kind-not-yet-returned": {
+				"0": "",
+				"2": "",
+				"1": ""
+			}
 		},
 		"welcome": {
 			"preview": "Ceci est la zone d'aperçu de votre message de bienvenue. C'est actuellement vide.",

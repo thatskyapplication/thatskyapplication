@@ -3311,16 +3311,18 @@
 			"visit-error": "",
 			"travelling": "",
 			"returning": "",
-			"not-yet-returned-entity": "",
-			"not-yet-returned-shop": "",
-			"not-yet-returned-spirit": "",
 			"title": {
 				"0": "",
 				"1": ""
 			},
 			"order-natural": "",
 			"order-label": "",
-			"order-rarity": ""
+			"order-rarity": "",
+			"kind-not-yet-returned": {
+				"0": "",
+				"2": "",
+				"1": ""
+			}
 		},
 		"welcome": {
 			"preview": "",
