@@ -269,6 +269,91 @@ export async function checklist({
 		},
 	);
 
+	containerComponents.push(
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.Section,
+			accessory: checklistPacket?.dye_workshop
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistDyeWorkshopComplete}§1`,
+						label: t("checklist.reset", {
+							lng: locale,
+							ns: "features",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistDyeWorkshopComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.dye_workshop
+						? t("checklist.dye-workshop-message-complete", {
+								lng: locale,
+								ns: "features",
+							})
+						: t("checklist.dye-workshop-message-incomplete", {
+								lng: locale,
+								ns: "features",
+							}),
+				},
+			],
+		},
+		{
+			type: ComponentType.Separator,
+			divider: true,
+			spacing: SeparatorSpacingSize.Small,
+		},
+		{
+			type: ComponentType.Section,
+			accessory: checklistPacket?.do_not_disturb
+				? {
+						type: ComponentType.Button,
+						style: ButtonStyle.Danger,
+						custom_id: `${CustomId.ChecklistDoNotDisturbBlessingComplete}§1`,
+						label: t("checklist.reset", {
+							lng: locale,
+							ns: "features",
+						}),
+					}
+				: {
+						type: ComponentType.Button,
+						style: ButtonStyle.Secondary,
+						custom_id: `${CustomId.ChecklistDoNotDisturbBlessingComplete}§0`,
+						label: t("checklist.complete", {
+							lng: locale,
+							ns: "features",
+						}),
+					},
+			components: [
+				{
+					type: ComponentType.TextDisplay,
+					content: checklistPacket?.do_not_disturb
+						? t("checklist.do-not-disturb-blessing-message-complete", {
+								lng: locale,
+								ns: "features",
+							})
+						: t("checklist.do-not-disturb-blessing-message-incomplete", {
+								lng: locale,
+								ns: "features",
+							}),
+				},
+			],
+		},
+	);
+
 	if (isAnyEventWithEventTickets) {
 		containerComponents.push(
 			{
@@ -320,7 +405,14 @@ export async function checklist({
 
 async function checklistToggle(
 	interaction: APIMessageComponentButtonInteraction,
-	key: "daily_quests" | "event_tickets" | "eye_of_eden" | "seasonal_candles" | "shard_eruptions",
+	key:
+		| "daily_quests"
+		| "do_not_disturb"
+		| "dye_workshop"
+		| "event_tickets"
+		| "eye_of_eden"
+		| "seasonal_candles"
+		| "shard_eruptions",
 ) {
 	const userId = interactionInvoker(interaction).id;
 	const customId = interaction.data.custom_id;
@@ -375,4 +467,16 @@ export async function checklistHandleEventTickets(
 	interaction: APIMessageComponentButtonInteraction,
 ) {
 	await checklistToggle(interaction, "event_tickets");
+}
+
+export async function checklistHandleDyeWorkshop(
+	interaction: APIMessageComponentButtonInteraction,
+) {
+	await checklistToggle(interaction, "dye_workshop");
+}
+
+export async function checklistHandleDoNotDisturbBlessing(
+	interaction: APIMessageComponentButtonInteraction,
+) {
+	await checklistToggle(interaction, "do_not_disturb");
 }

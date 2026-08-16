@@ -55,6 +55,8 @@ import {
 } from "../features/catalogue.js";
 import {
 	checklistHandleDailyQuests,
+	checklistHandleDoNotDisturbBlessing,
+	checklistHandleDyeWorkshop,
 	checklistHandleEventTickets,
 	checklistHandleEyeOfEden,
 	checklistHandleSeasonalCandles,
@@ -519,6 +521,16 @@ export default {
 
 				if (id === CustomId.ChecklistShardEruptionsComplete) {
 					await checklistHandleShardEruptions(data);
+					return;
+				}
+
+				if (id === CustomId.ChecklistDyeWorkshopComplete) {
+					await checklistHandleDyeWorkshop(data);
+					return;
+				}
+
+				if (id === CustomId.ChecklistDoNotDisturbBlessingComplete) {
+					await checklistHandleDoNotDisturbBlessing(data);
 					return;
 				}
 

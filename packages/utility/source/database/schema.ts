@@ -31,6 +31,8 @@ export interface Catalogue {
 
 export interface Checklist {
   daily_quests: Generated<boolean>;
+  do_not_disturb: Generated<boolean>;
+  dye_workshop: Generated<boolean>;
   event_tickets: Generated<boolean>;
   eye_of_eden: Generated<boolean>;
   last_updated_at: Timestamp;

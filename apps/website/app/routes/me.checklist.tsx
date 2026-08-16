@@ -92,6 +92,8 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 	const seasonalCandles = formData.get("seasonal_candles");
 	const eyeOfEden = formData.get("eye_of_eden");
 	const shardEruptions = formData.get("shard_eruptions");
+	const dyeWorkshop = formData.get("dye_workshop");
+	const doNotDisturbBlessing = formData.get("do_not_disturb");
 	const eventTickets = formData.get("event_tickets");
 
 	const checklistPacket = await database
@@ -118,6 +120,14 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 
 	if (shardEruptions !== null) {
 		payload.shard_eruptions = shardEruptions === "0";
+	}
+
+	if (dyeWorkshop !== null) {
+		payload.dye_workshop = dyeWorkshop === "0";
+	}
+
+	if (doNotDisturbBlessing !== null) {
+		payload.do_not_disturb = doNotDisturbBlessing === "0";
 	}
 
 	if (eventTickets !== null) {
@@ -170,6 +180,8 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 	const seasonalCandlesComplete = checklistPacket?.seasonal_candles ?? false;
 	const eyeOfEdenComplete = checklistPacket?.eye_of_eden ?? false;
 	const shardEruptionsComplete = checklistPacket?.shard_eruptions ?? false;
+	const dyeWorkshopComplete = checklistPacket?.dye_workshop ?? false;
+	const doNotDisturbBlessingComplete = checklistPacket?.do_not_disturb ?? false;
 	const eventTicketsComplete = checklistPacket?.event_tickets ?? false;
 	const shardUnavailable = shard === null;
 
@@ -195,7 +207,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 
 				<TimeTopBar localTime={localTime} skyTime={skyTime} />
 
-				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%_-_0.5rem)] md:[&>*:last-child]:w-full">
+				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%-0.5rem)] md:[&>*:last-child]:w-full">
 					<div>
 						<Form className="flex h-full w-full" method="post">
 							<input name="daily_quests" type="hidden" value={Number(dailyQuestsComplete)} />
@@ -409,6 +421,94 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 									{t("view", { ns: "general" })}
 								</Link>
 							</div>
+						</Form>
+					</div>
+
+					<div>
+						<Form className="flex h-full w-full" method="post">
+							<input name="dye_workshop" type="hidden" value={Number(dyeWorkshopComplete)} />
+							<button
+								className={clsx(
+									CHECKLIST_INTERACTIVE_CARD_CLASS,
+									dyeWorkshopComplete
+										? CHECKLIST_COMPLETE_CARD_CLASS
+										: CHECKLIST_INCOMPLETE_CARD_CLASS,
+								)}
+								type="submit"
+							>
+								<div className="shrink-0">
+									{dyeWorkshopComplete ? (
+										<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+									) : (
+										<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+									)}
+								</div>
+								<div className="min-w-0 flex-1 text-left">
+									<div
+										className={clsx(
+											CHECKLIST_LABEL_CLASS,
+											dyeWorkshopComplete
+												? CHECKLIST_COMPLETE_LABEL_CLASS
+												: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+										)}
+									>
+										{t("dye-workshop", { ns: "general" })}
+									</div>
+									<div className="text-xs text-gray-500 dark:text-gray-400">
+										{dyeWorkshopComplete
+											? t("checklist.dye-workshop-message-complete", { ns: "features" })
+											: t("checklist.dye-workshop-message-incomplete", { ns: "features" })}
+									</div>
+								</div>
+							</button>
+						</Form>
+					</div>
+
+					<div>
+						<Form className="flex h-full w-full" method="post">
+							<input
+								name="do_not_disturb"
+								type="hidden"
+								value={Number(doNotDisturbBlessingComplete)}
+							/>
+							<button
+								className={clsx(
+									CHECKLIST_INTERACTIVE_CARD_CLASS,
+									doNotDisturbBlessingComplete
+										? CHECKLIST_COMPLETE_CARD_CLASS
+										: CHECKLIST_INCOMPLETE_CARD_CLASS,
+								)}
+								type="submit"
+							>
+								<div className="shrink-0">
+									{doNotDisturbBlessingComplete ? (
+										<CheckCircle className="h-6 w-6 text-green-600 dark:text-green-400" />
+									) : (
+										<Circle className="h-6 w-6 text-gray-400 dark:text-gray-500" />
+									)}
+								</div>
+								<div className="min-w-0 flex-1 text-left">
+									<div
+										className={clsx(
+											CHECKLIST_LABEL_CLASS,
+											doNotDisturbBlessingComplete
+												? CHECKLIST_COMPLETE_LABEL_CLASS
+												: CHECKLIST_INCOMPLETE_LABEL_CLASS,
+										)}
+									>
+										{t("checklist.do-not-disturb-blessing", { ns: "features" })}
+									</div>
+									<div className="text-xs text-gray-500 dark:text-gray-400">
+										{doNotDisturbBlessingComplete
+											? t("checklist.do-not-disturb-blessing-message-complete", {
+													ns: "features",
+												})
+											: t("checklist.do-not-disturb-blessing-message-incomplete", {
+													ns: "features",
+												})}
+									</div>
+								</div>
+							</button>
 						</Form>
 					</div>
 
