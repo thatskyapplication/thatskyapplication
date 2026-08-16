@@ -33,7 +33,7 @@ function costEntryKey(entry: CostEntry) {
 	return `${entry.type}-${"seasonId" in entry ? entry.seasonId : "eventId" in entry ? entry.eventId : 0}`;
 }
 
-const COST_ENTRY_NAME_KEYS = {
+export const COST_ENTRY_NAME_KEYS = {
 	money: "money",
 	candles: "candles",
 	hearts: "hearts",

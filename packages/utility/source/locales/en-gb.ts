@@ -3192,6 +3192,9 @@ export default {
 			"spirit-no-infographic-yet": "This spirit does not yet have an infographic.",
 			"spirit-not-fully-revealed": "This spirit's friendship tree has not been fully revealed.",
 			"friendship-tree-complete": "Complete",
+			"friendship-tree-no-remaining-cost": "No remaining cost",
+			"friendship-tree-node-cost": "{{currency}}: {{amount}}",
+			"friendship-tree-node-level": "Level {{level}}",
 			"friendship-tree-remaining-cost": "Remaining cost",
 			"friendship-tree-total-cost": "Total cost",
 			"select-cosmetics-string-select-menu-placeholder": "Select what you have!",
@@ -3884,6 +3887,9 @@ export default {
 			"meta-description": "View information for {{spirit}} from {{origin}}!",
 			"search-placeholder": "Search spirits…",
 			"view-in-catalogue": "View in catalogue",
+			"friendship-tree-current": "Current friendship tree",
+			"friendship-tree-seasonal": "Seasonal friendship tree",
+			"friendship-trees": "Friendship trees",
 			"not-encountered-spirit":
 				"Woah, it seems we have not encountered that spirit yet. How strange!",
 			"visit-error": "Error",
@@ -3897,6 +3903,7 @@ export default {
 				[SpiritsHistoryOrderType.Rarity]: "Spirit rarity",
 			} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			"order-natural": "Order by appearance",
+			"order-label": "Spirit history order",
 			"order-rarity": "Order by rarity",
 		},
 		welcome: {

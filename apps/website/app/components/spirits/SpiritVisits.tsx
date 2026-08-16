@@ -1,5 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { SeasonId, type Spirit, TIME_ZONE, TRAVELLING_DATES } from "@thatskyapplication/utility";
+import {
+	spiritNotReturnedTranslationKey,
+	type Spirit,
+	TIME_ZONE,
+	TRAVELLING_DATES,
+} from "@thatskyapplication/utility";
 import { formatRelativeTime } from "~/utility/relative-time.js";
 import { VisitNumber } from "./VisitNumber.js";
 
@@ -138,20 +143,7 @@ export function SpiritVisits({
 	}
 
 	const skyNow = Temporal.Instant.fromEpochMilliseconds(now).toZonedDateTimeISO(TIME_ZONE);
-	let notYetReturnedKey:
-		| "spirits.not-yet-returned-entity"
-		| "spirits.not-yet-returned-shop"
-		| "spirits.not-yet-returned-spirit"
-		| null = null;
-
-	if (!spirit.visit(skyNow).visited) {
-		notYetReturnedKey =
-			spirit.seasonId === SeasonId.Shattering || spirit.seasonId === SeasonId.Nesting
-				? "spirits.not-yet-returned-entity"
-				: spirit.seasonId === SeasonId.Revival
-					? "spirits.not-yet-returned-shop"
-					: "spirits.not-yet-returned-spirit";
-	}
+	const notYetReturnedKey = spiritNotReturnedTranslationKey(spirit, skyNow);
 
 	return (
 		<>

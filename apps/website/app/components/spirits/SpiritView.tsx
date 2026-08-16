@@ -1,13 +1,14 @@
 import { clsx } from "clsx";
 import { BookOpenCheck, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { spiritOriginTranslationKey, type Spirit } from "@thatskyapplication/utility";
 import { BackButton } from "~/components/catalogue/BackButton.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { ShareButton } from "~/components/ShareButton.js";
 import { NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import { fromSpiritHistory } from "~/utility/spirits.js";
 import { SpiritFriendshipTrees } from "./SpiritFriendshipTrees.js";
 import { SpiritVisits } from "./SpiritVisits.js";
 
@@ -27,6 +28,7 @@ export function SpiritView({
 	timeZone: string;
 }) {
 	const { t } = useTranslation();
+	const location = useLocation();
 	const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
 	const seasonEmoji = seasonal ? SeasonIdToSeasonalEmoji[spirit.seasonId] : null;
 	const spiritName = t(`spirits.${spirit.id}`, { ns: "general" });
@@ -34,7 +36,7 @@ export function SpiritView({
 
 	return (
 		<section aria-labelledby="selected-spirit-title" className="flex flex-col gap-5">
-			<BackButton to={historyURL} />
+			<BackButton restorePreviousLocation={fromSpiritHistory(location.state)} to={historyURL} />
 
 			<div>
 				<div className="mb-2 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
@@ -67,7 +69,6 @@ export function SpiritView({
 						appearance="compact"
 						className={VIEW_LINK_CLASS}
 						href={`/spirits?spirit=${spirit.id}`}
-						key={spirit.id}
 						shareTitle={spiritName}
 					/>
 				</div>

@@ -9,13 +9,16 @@ export function formatRelativeTime(
 	const duration = date.since(now);
 	const formatter = new Intl.RelativeTimeFormat(locale, { numeric: "always" });
 
-	for (const unit of ["year", "month", "week", "day", "hour", "minute", "second"] as const) {
+	for (const unit of ["year", "month", "week", "day", "hour", "minute"] as const) {
 		const value = duration.total({ unit, relativeTo: now });
 
-		if (Math.abs(value) >= 1 || unit === "second") {
-			return formatter.format(Math.round(value), unit);
+		if (Math.abs(value) >= 1) {
+			return formatter.format(Math.trunc(value), unit);
 		}
 	}
 
-	throw new Error("Could not format relative time.");
+	return formatter.format(
+		Math.trunc(duration.total({ unit: "second", relativeTo: now })),
+		"second",
+	);
 }

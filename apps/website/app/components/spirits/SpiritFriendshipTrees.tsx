@@ -4,8 +4,6 @@ import { FriendshipTree } from "~/components/catalogue/FriendshipTree.js";
 import { FriendshipTreeCarousel } from "~/components/catalogue/FriendshipTreeCarousel.js";
 import { TREE_COLUMN_CLASS } from "~/utility/catalogue.js";
 
-const EMPTY_CATALOGUE_DATA: ReadonlySet<number> = new Set();
-
 export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spirit: Spirit }) {
 	const { t } = useTranslation();
 	const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
@@ -29,11 +27,14 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 
 	if (friendshipTrees.length > 1) {
 		return (
-			<FriendshipTreeCarousel key={spirit.id}>
+			<FriendshipTreeCarousel
+				accessibleLabel={t("spirits.friendship-trees", { ns: "features" })}
+				key={spirit.id}
+			>
 				{friendshipTrees.map(({ key, tree }) => (
 					<div className={TREE_COLUMN_CLASS} key={key}>
 						<FriendshipTree
-							data={EMPTY_CATALOGUE_DATA}
+							label={t(`spirits.friendship-tree-${key}`, { ns: "features" })}
 							locale={locale}
 							readOnly
 							seasonId={seasonId}
@@ -46,14 +47,16 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 	}
 
 	if (friendshipTrees.length === 1) {
+		const friendshipTree = friendshipTrees[0]!;
+
 		return (
 			<div className="flex justify-center">
 				<FriendshipTree
-					data={EMPTY_CATALOGUE_DATA}
+					label={t(`spirits.friendship-tree-${friendshipTree.key}`, { ns: "features" })}
 					locale={locale}
 					readOnly
 					seasonId={seasonId}
-					tree={friendshipTrees[0]!.tree}
+					tree={friendshipTree.tree}
 				/>
 			</div>
 		);

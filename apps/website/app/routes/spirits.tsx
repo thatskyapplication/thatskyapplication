@@ -10,10 +10,12 @@ import { SitePage } from "~/components/PageLayout";
 import { SpiritHistory } from "~/components/spirits/SpiritHistory.js";
 import { SpiritSearch } from "~/components/spirits/SpiritSearch.js";
 import { SpiritView } from "~/components/spirits/SpiritView.js";
+import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SPIRITS_DESCRIPTION, SPIRITS_TITLE } from "~/utility/constants.js";
 import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
+import { spiritHistoryURL } from "~/utility/spirits.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
 import type { Route } from "./+types/spirits.js";
 
@@ -27,8 +29,8 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 		pageURL.searchParams.set("spirit", selected.spiritId.toString());
 	}
 
-	const title = selected?.spiritName ?? SPIRITS_TITLE;
-	const description = selected?.description ?? SPIRITS_DESCRIPTION;
+	const title = selected?.spiritName ?? loaderData?.pageTitle ?? SPIRITS_TITLE;
+	const description = selected?.description ?? loaderData?.pageDescription ?? SPIRITS_DESCRIPTION;
 	const keywords = [
 		"Sky",
 		"Children of the Light",
@@ -62,7 +64,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 		{ name: "twitter:card", content: "summary" },
 		{ name: "twitter:title", content: title },
 		{ name: "twitter:description", content: description },
-		{ rel: "canonical", href: url },
+		{ tagName: "link", rel: "canonical", href: url },
 	];
 };
 
@@ -82,7 +84,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const t = getInstance(context).getFixedT(locale);
 
 	if (rawSpiritId !== null && !spirit) {
-		throw redirect("/spirits");
+		throw redirect(spiritHistoryURL(url.searchParams));
 	}
 
 	const spiritName = spirit ? t(`spirits.${spirit.id}`, { ns: "general" }) : null;
@@ -90,7 +92,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const selection =
 		spirit && spiritName && origin
 			? {
-					status: "selected",
+					status: "selected" as const,
 					description: t("spirits.meta-description", {
 						ns: "features",
 						origin,
@@ -104,23 +106,41 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 
 	return {
 		hour12: getPreferredHour12(request),
+		initialTimestamp: Date.now(),
 		locale,
-		now: Date.now(),
+		pageDescription: t("spirits.description", { ns: "features" }),
+		pageTitle: t("spirit-plural", { ns: "general" }),
 		selection,
 		timeZone: await getPreferredTimeZone(request),
 	};
 };
 
-function historyURL(searchParams: URLSearchParams) {
-	const parameters = new URLSearchParams(searchParams);
-	parameters.delete("spirit");
-	const query = parameters.toString();
-	return query.length > 0 ? `?${query}` : "/spirits";
+function loaderSearchParameters(url: URL) {
+	const parameters = new URLSearchParams(url.search);
+	parameters.delete("order");
+	parameters.delete("page");
+	return parameters.toString();
+}
+
+export function shouldRevalidate({
+	currentUrl,
+	defaultShouldRevalidate,
+	nextUrl,
+}: {
+	currentUrl: URL;
+	defaultShouldRevalidate: boolean;
+	nextUrl: URL;
+}) {
+	return currentUrl.pathname !== nextUrl.pathname ||
+		loaderSearchParameters(currentUrl) !== loaderSearchParameters(nextUrl)
+		? defaultShouldRevalidate
+		: false;
 }
 
 export default function Spirits({ loaderData }: Route.ComponentProps) {
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
+	const currentTimestamp = useCurrentTimestamp(loaderData.initialTimestamp);
 	const selectedSpirit =
 		loaderData.selection.status === "selected"
 			? spirits().get(loaderData.selection.spiritId)
@@ -142,15 +162,21 @@ export default function Spirits({ loaderData }: Route.ComponentProps) {
 
 				{selectedSpirit ? (
 					<SpiritView
-						historyURL={historyURL(searchParams)}
+						historyURL={spiritHistoryURL(searchParams)}
 						hour12={loaderData.hour12}
 						locale={loaderData.locale}
-						now={loaderData.now}
+						now={currentTimestamp}
 						spirit={selectedSpirit}
 						timeZone={loaderData.timeZone}
 					/>
 				) : (
-					<SpiritHistory {...loaderData} searchParams={searchParams} />
+					<SpiritHistory
+						hour12={loaderData.hour12}
+						locale={loaderData.locale}
+						now={currentTimestamp}
+						searchParams={searchParams}
+						timeZone={loaderData.timeZone}
+					/>
 				)}
 			</div>
 		</SitePage>

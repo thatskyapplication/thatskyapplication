@@ -7,6 +7,8 @@ import { ActionButton } from "~/components/ActionButton.js";
 
 type ShareStatus = "copied" | "error" | "idle" | "pending";
 
+const COPIED_STATUS_DURATION_MS = 2000 as const;
+
 interface ShareButtonProps {
 	appearance: "action" | "compact";
 	className?: string;
@@ -21,7 +23,11 @@ function isAbortError(error: unknown) {
 	);
 }
 
-export function ShareButton({
+export function ShareButton(props: ShareButtonProps) {
+	return <ShareButtonImplementation key={props.href} {...props} />;
+}
+
+function ShareButtonImplementation({
 	appearance,
 	className,
 	href,
@@ -36,7 +42,8 @@ export function ShareButton({
 			return;
 		}
 
-		const timeout = window.setTimeout(() => setStatus("idle"), 2000);
+		const timeout = window.setTimeout(() => setStatus("idle"), COPIED_STATUS_DURATION_MS);
+
 		return () => window.clearTimeout(timeout);
 	}, [status]);
 
@@ -65,6 +72,8 @@ export function ShareButton({
 					setStatus("idle");
 					return;
 				}
+
+				captureException(error);
 			}
 		}
 
@@ -110,7 +119,6 @@ export function ShareButton({
 		button = (
 			<button
 				aria-busy={status === "pending"}
-				aria-label={status === "error" ? label : shareLabel}
 				className={clsx(
 					"inline-flex cursor-pointer items-center gap-1.5 disabled:cursor-wait disabled:opacity-70",
 					className,
@@ -126,7 +134,6 @@ export function ShareButton({
 		button = (
 			<ActionButton
 				aria-busy={status === "pending"}
-				aria-label={status === "error" ? label : shareLabel}
 				className={className ?? ""}
 				disabled={status === "pending"}
 				onClick={() => void share()}

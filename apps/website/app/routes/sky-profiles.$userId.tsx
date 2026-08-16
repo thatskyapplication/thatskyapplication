@@ -485,7 +485,6 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 					<ShareButton
 						appearance="action"
 						href={location.pathname}
-						key={data.user_id}
 						shareTitle={data.name ?? t("sky-profile.name", { ns: "features" })}
 					/>
 				</div>

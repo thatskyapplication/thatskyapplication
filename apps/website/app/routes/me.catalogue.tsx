@@ -84,14 +84,7 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 		return;
 	}
 
-	const cataloguePacket = await database
-		.selectFrom("catalogue")
-		.selectAll()
-		.where("user_id", "=", discordUser.id)
-		.executeTakeFirst();
-
-	const existing: ReadonlySet<number> = new Set(cataloguePacket?.data);
-	let data: ReadonlySet<number>;
+	let mutation: { cosmetics: ReadonlySet<number>; operation: "add" | "remove" };
 
 	if (intent === "set-items") {
 		const cosmetics = parseCosmetics(formData.get("cosmetics"));
@@ -100,10 +93,10 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 			throw new Response("Could not parse items to set.", { status: 400 });
 		}
 
-		data =
-			formData.get("owned") === "true"
-				? existing.union(new Set(cosmetics))
-				: existing.difference(new Set(cosmetics));
+		mutation = {
+			cosmetics: new Set(cosmetics),
+			operation: formData.get("owned") === "true" ? "add" : "remove",
+		};
 	} else if (intent === "everything") {
 		const scopeCosmetics = resolveScopeCosmetics(formData.get("scope"));
 
@@ -111,21 +104,37 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 			throw new Response("Unknown scope.", { status: 400 });
 		}
 
-		data = existing.union(scopeCosmetics);
+		mutation = { cosmetics: scopeCosmetics, operation: "add" };
 	} else {
 		throw new Response("Unknown intent.", { status: 400 });
 	}
 
-	await database
-		.insertInto("catalogue")
-		.values({ data: [...data], last_updated_at: new Date(), user_id: discordUser.id })
-		.onConflict((oc) =>
-			oc.column("user_id").doUpdateSet((eb) => ({
-				data: eb.ref("excluded.data"),
-				last_updated_at: eb.ref("excluded.last_updated_at"),
-			})),
-		)
-		.execute();
+	await database.transaction().execute(async (transaction) => {
+		await transaction
+			.insertInto("catalogue")
+			.values({ last_updated_at: new Date(), user_id: discordUser.id })
+			.onConflict((oc) => oc.column("user_id").doNothing())
+			.execute();
+
+		const cataloguePacket = await transaction
+			.selectFrom("catalogue")
+			.select("data")
+			.where("user_id", "=", discordUser.id)
+			.forUpdate()
+			.executeTakeFirstOrThrow();
+
+		const existing: ReadonlySet<number> = new Set(cataloguePacket.data);
+		const data =
+			mutation.operation === "add"
+				? existing.union(mutation.cosmetics)
+				: existing.difference(mutation.cosmetics);
+
+		await transaction
+			.updateTable("catalogue")
+			.set({ data: [...data], last_updated_at: new Date() })
+			.where("user_id", "=", discordUser.id)
+			.execute();
+	});
 
 	return;
 };
