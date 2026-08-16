@@ -109,6 +109,7 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 	const revival = seasons.get(SeasonId.Revival)!;
 	const dearVanGogh = seasons.get(SeasonId.DearVanGogh)!;
 	const duets = seasons.get(SeasonId.Duets)!;
+	const littlePrince = seasons.get(SeasonId.LittlePrince)!;
 
 	for (const spirit of shattering.spiritsWithGuide.values()) {
 		equal(spirit.kind, SpiritKind.Entity);
@@ -142,6 +143,8 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 					: SpiritKind.Mannequin,
 		);
 	}
+
+	equal(littlePrince.guide.kind, SpiritKind.Entity);
 });
 
 test("Not-returned spirit copy follows the spirit's kind.", () => {
