@@ -111,6 +111,7 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 	const duets = seasons.get(SeasonId.Duets)!;
 	const littlePrince = seasons.get(SeasonId.LittlePrince)!;
 	const moomin = seasons.get(SeasonId.Moomin)!;
+	const twoEmbersPart1 = seasons.get(SeasonId.TwoEmbersPart1)!;
 
 	for (const spirit of shattering.spiritsWithGuide.values()) {
 		equal(spirit.kind, SpiritKind.Entity);
@@ -152,6 +153,12 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 
 	for (const spirit of moomin.spirits.values()) {
 		equal(spirit.kind, SpiritKind.Mannequin);
+	}
+
+	equal(twoEmbersPart1.guide.kind, SpiritKind.Entity);
+
+	for (const spirit of twoEmbersPart1.spirits.values()) {
+		equal(spirit.kind, SpiritKind.Spirit);
 	}
 });
 
