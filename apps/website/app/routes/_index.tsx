@@ -212,7 +212,7 @@ export default function Index() {
 			...NODE_POSITIONS.spirits,
 			key: "spirits",
 			to: "/spirits",
-			label: t("spirits.name", { ns: "features" }),
+			label: t("spirit-plural", { ns: "general" }),
 			description: t("spirits.description-short", { ns: "features" }),
 			Icon: History,
 		},

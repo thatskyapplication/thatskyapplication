@@ -64,7 +64,7 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 				},
 				{
 					to: "/spirits",
-					label: t("spirits.name", { ns: "features" }),
+					label: t("spirit-plural", { ns: "general" }),
 					icon: <History className="h-5 w-5" />,
 					description: t("spirits.description-short", { ns: "features" }),
 				},

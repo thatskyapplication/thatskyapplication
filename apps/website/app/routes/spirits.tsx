@@ -166,7 +166,7 @@ function HistoryView({
 	return (
 		<section aria-labelledby="spirit-history-title" className="flex flex-col gap-5">
 			<nav
-				aria-label={t("spirits.name", { ns: "features" })}
+				aria-label={t("spirit-plural", { ns: "general" })}
 				className="flex gap-1 rounded-lg border border-gray-200 bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-900"
 			>
 				<Link
@@ -240,7 +240,7 @@ export default function Spirits({ loaderData }: Route.ComponentProps) {
 			<div className="mx-auto flex w-full max-w-5xl flex-col gap-5">
 				<header>
 					<h1 className="mb-1 text-4xl font-bold text-gray-900 dark:text-gray-100">
-						{t("spirits.name", { ns: "features" })}
+						{t("spirit-plural", { ns: "general" })}
 					</h1>
 					<p className="mb-0 text-base text-gray-600 dark:text-gray-400">
 						{t("spirits.description", { ns: "features" })}

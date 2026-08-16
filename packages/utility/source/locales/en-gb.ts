@@ -1065,6 +1065,7 @@ export default {
 			[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue",
 			[SkyProfileWingedLightType.Capeless]: "Capeless",
 		} satisfies Record<SkyProfileWingedLightTypes, string>,
+		"spirit-plural": "Spirits",
 		spirits: {
 			[SpiritId.PointingCandlemaker]: "Pointing Candlemaker",
 			[SpiritId.UsheringStargazer]: "Ushering Stargazer",
@@ -3337,8 +3338,8 @@ export default {
 		},
 		guess: {
 			type: {
-				[GuessType.Spirits]: "Spirits",
-				[GuessType.SpiritsHard]: "Spirits (hard)",
+				[GuessType.Spirits]: "$t(general:spirit-plural)",
+				[GuessType.SpiritsHard]: "$t(general:spirit-plural) (hard)",
 				[GuessType.Events]: "$t(general:events)",
 			} satisfies Record<GuessTypes, string>,
 			title: "Where does this come from?",
@@ -3873,11 +3874,10 @@ export default {
 			} satisfies Record<SkyProfileMissingNameSources, string>,
 		},
 		spirits: {
-			name: "Spirits",
 			description:
-				"Browse travelling spirit history, see which spirits have been away the longest, and explore their friendship trees.",
+				"Browse spirit history, see which spirits have been away the longest, and explore their friendship trees.",
 			"description-short": "Browse spirit history and friendship trees.",
-			"search-placeholder": "Search spirits...",
+			"search-placeholder": "Search spirits…",
 			"not-encountered-spirit":
 				"Woah, it seems we have not encountered that spirit yet. How strange!",
 			"visit-error": "Error",
@@ -3887,8 +3887,8 @@ export default {
 			"not-yet-returned-shop": "⚠️ This shop has not yet returned.",
 			"not-yet-returned-spirit": "⚠️ This spirit has not yet returned.",
 			title: {
-				[SpiritsHistoryOrderType.Natural]: "History of Travelling Spirits",
-				[SpiritsHistoryOrderType.Rarity]: "Rarity of Spirits",
+				[SpiritsHistoryOrderType.Natural]: "Spirit history",
+				[SpiritsHistoryOrderType.Rarity]: "Spirit rarity",
 			} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			"order-natural": "Order by appearance",
 			"order-rarity": "Order by rarity",
