@@ -1,12 +1,11 @@
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router";
+import { redirect, useSearchParams } from "react-router";
 import {
 	spiritOriginTranslationKey,
 	type SpiritIds,
 	spirits,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { BackButton } from "~/components/catalogue/BackButton.js";
 import { SitePage } from "~/components/PageLayout";
 import { SpiritHistory } from "~/components/spirits/SpiritHistory.js";
 import { SpiritSearch } from "~/components/spirits/SpiritSearch.js";
@@ -30,7 +29,6 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 
 	const title = selected?.spiritName ?? SPIRITS_TITLE;
 	const description = selected?.description ?? SPIRITS_DESCRIPTION;
-	const robots = selection?.status === "invalid" ? "noindex, follow" : "index, follow";
 	const keywords = [
 		"Sky",
 		"Children of the Light",
@@ -50,7 +48,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
-		{ name: "robots", content: robots },
+		{ name: "robots", content: "index, follow" },
 		{ name: "keywords", content: keywords.join(", ") },
 		{ title },
 		{ name: "description", content: description },
@@ -82,24 +80,27 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const rawSpiritId = url.searchParams.get("spirit");
 	const spirit = resolveSpirit(rawSpiritId);
 	const t = getInstance(context).getFixedT(locale);
+
+	if (rawSpiritId !== null && !spirit) {
+		throw redirect("/spirits");
+	}
+
 	const spiritName = spirit ? t(`spirits.${spirit.id}`, { ns: "general" }) : null;
 	const origin = spirit ? t(spiritOriginTranslationKey(spirit), { ns: "general" }) : null;
 	const selection =
-		rawSpiritId === null
-			? ({ status: "none" } as const)
-			: spirit && spiritName && origin
-				? {
-						status: "selected",
-						description: t("spirits.meta-description", {
-							ns: "features",
-							origin,
-							spirit: spiritName,
-						}),
+		spirit && spiritName && origin
+			? {
+					status: "selected",
+					description: t("spirits.meta-description", {
+						ns: "features",
 						origin,
-						spiritId: spirit.id,
-						spiritName,
-					}
-				: ({ status: "invalid" } as const);
+						spirit: spiritName,
+					}),
+					origin,
+					spiritId: spirit.id,
+					spiritName,
+				}
+			: ({ status: "none" } as const);
 
 	return {
 		hour12: getPreferredHour12(request),
@@ -148,15 +149,8 @@ export default function Spirits({ loaderData }: Route.ComponentProps) {
 						spirit={selectedSpirit}
 						timeZone={loaderData.timeZone}
 					/>
-				) : loaderData.selection.status === "none" ? (
-					<SpiritHistory {...loaderData} searchParams={searchParams} />
 				) : (
-					<section className="flex flex-col gap-4">
-						<BackButton to={historyURL(searchParams)} />
-						<p className="m-0 rounded-lg border border-gray-200 bg-gray-100 p-4 text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300">
-							{t("spirits.not-encountered-spirit", { ns: "features" })}
-						</p>
-					</section>
+					<SpiritHistory {...loaderData} searchParams={searchParams} />
 				)}
 			</div>
 		</SitePage>
