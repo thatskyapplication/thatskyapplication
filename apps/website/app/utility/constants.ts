@@ -31,7 +31,7 @@ export const SHARD_ERUPTION_DESCRIPTION =
 export const SPIRITS_TITLE = "Spirits" as const;
 
 export const SPIRITS_DESCRIPTION =
-	"Browse the history of travelling spirits in Sky, see which spirits have been away the longest, and explore their friendship trees." as const;
+	"Browse spirit history in Sky, see which spirits have been away the longest, and explore their friendship trees." as const;
 
 export const SHARD_ERUPTION_MINIMUM_PAGE = -50 as const;
 export const SHARD_ERUPTION_MAXIMUM_PAGE = 50 as const;
