@@ -1,52 +1,114 @@
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
-import { type SpiritIds, spirits, WEBSITE_URL } from "@thatskyapplication/utility";
+import {
+	spiritOriginTranslationKey,
+	type SpiritIds,
+	spirits,
+	WEBSITE_URL,
+} from "@thatskyapplication/utility";
 import { BackButton } from "~/components/catalogue/BackButton.js";
 import { SitePage } from "~/components/PageLayout";
 import { SpiritHistory } from "~/components/spirits/SpiritHistory.js";
 import { SpiritSearch } from "~/components/spirits/SpiritSearch.js";
 import { SpiritView } from "~/components/spirits/SpiritView.js";
-import { getLocale } from "~/middleware/i18next.js";
+import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SPIRITS_DESCRIPTION, SPIRITS_TITLE } from "~/utility/constants.js";
 import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
 import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
 import type { Route } from "./+types/spirits.js";
 
-export const meta: Route.MetaFunction = ({ location, matches }) => {
+export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
+	const selection = loaderData?.selection;
+	const selected = selection?.status === "selected" ? selection : null;
 	const cdnURL = getCDNURLFromMatches(matches);
-	const url = String(new URL(location.pathname, WEBSITE_URL));
+	const pageURL = new URL(location.pathname, WEBSITE_URL);
+
+	if (selected) {
+		pageURL.searchParams.set("spirit", selected.spiritId.toString());
+	}
+
+	const title = selected?.spiritName ?? SPIRITS_TITLE;
+	const description = selected?.description ?? SPIRITS_DESCRIPTION;
+	const robots = selection?.status === "invalid" ? "noindex, follow" : "index, follow";
+	const keywords = [
+		"Sky",
+		"Children of the Light",
+		APPLICATION_NAME,
+		"Spirits",
+		"Travelling Spirits",
+		"Spirit History",
+		"Friendship Trees",
+	];
+
+	if (selected) {
+		keywords.push(selected.spiritName, selected.origin);
+	}
+
+	const url = String(pageURL);
 
 	return [
 		{ charSet: "utf-8" },
 		{ name: "viewport", content: "width=device-width, initial-scale=1" },
-		{ name: "robots", content: "index, follow" },
-		{
-			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Spirits, Travelling Spirits, Spirit History, Friendship Trees`,
-		},
-		{ title: SPIRITS_TITLE },
-		{ name: "description", content: SPIRITS_DESCRIPTION },
+		{ name: "robots", content: robots },
+		{ name: "keywords", content: keywords.join(", ") },
+		{ title },
+		{ name: "description", content: description },
 		{ name: "theme-color", content: "#A5B5F1" },
-		{ property: "og:title", content: SPIRITS_TITLE },
-		{ property: "og:description", content: SPIRITS_DESCRIPTION },
+		{ property: "og:title", content: title },
+		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },
 		{ property: "og:site_name", content: "thatskyapplication" },
 		{ property: "og:image", content: cdnAssetURL(cdnURL, "avatar_icons/caelus.webp") },
 		{ property: "og:url", content: url },
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: SPIRITS_TITLE },
-		{ name: "twitter:description", content: SPIRITS_DESCRIPTION },
+		{ name: "twitter:title", content: title },
+		{ name: "twitter:description", content: description },
 		{ rel: "canonical", href: url },
 	];
 };
 
-export const loader = async ({ context, request }: Route.LoaderArgs) => ({
-	hour12: getPreferredHour12(request),
-	locale: getLocale(context),
-	now: Date.now(),
-	timeZone: await getPreferredTimeZone(request),
-});
+function resolveSpirit(rawSpiritId: string | null) {
+	if (rawSpiritId === null || !/^\d+$/.test(rawSpiritId)) {
+		return undefined;
+	}
+
+	const spiritId = Number(rawSpiritId);
+	return Number.isSafeInteger(spiritId) ? spirits().get(spiritId as SpiritIds) : undefined;
+}
+
+export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	const locale = getLocale(context);
+	const rawSpiritId = url.searchParams.get("spirit");
+	const spirit = resolveSpirit(rawSpiritId);
+	const t = getInstance(context).getFixedT(locale);
+	const spiritName = spirit ? t(`spirits.${spirit.id}`, { ns: "general" }) : null;
+	const origin = spirit ? t(spiritOriginTranslationKey(spirit), { ns: "general" }) : null;
+	const selection =
+		rawSpiritId === null
+			? ({ status: "none" } as const)
+			: spirit && spiritName && origin
+				? {
+						status: "selected",
+						description: t("spirits.meta-description", {
+							ns: "features",
+							origin,
+							spirit: spiritName,
+						}),
+						origin,
+						spiritId: spirit.id,
+						spiritName,
+					}
+				: ({ status: "invalid" } as const);
+
+	return {
+		hour12: getPreferredHour12(request),
+		locale,
+		now: Date.now(),
+		selection,
+		timeZone: await getPreferredTimeZone(request),
+	};
+};
 
 function historyURL(searchParams: URLSearchParams) {
 	const parameters = new URLSearchParams(searchParams);
@@ -58,12 +120,9 @@ function historyURL(searchParams: URLSearchParams) {
 export default function Spirits({ loaderData }: Route.ComponentProps) {
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
-	const rawSpiritId = searchParams.get("spirit");
-	const parsedSpiritId =
-		rawSpiritId !== null && /^\d+$/.test(rawSpiritId) ? Number(rawSpiritId) : null;
 	const selectedSpirit =
-		parsedSpiritId !== null && Number.isSafeInteger(parsedSpiritId)
-			? spirits().get(parsedSpiritId as SpiritIds)
+		loaderData.selection.status === "selected"
+			? spirits().get(loaderData.selection.spiritId)
 			: undefined;
 
 	return (
@@ -89,7 +148,7 @@ export default function Spirits({ loaderData }: Route.ComponentProps) {
 						spirit={selectedSpirit}
 						timeZone={loaderData.timeZone}
 					/>
-				) : rawSpiritId === null ? (
+				) : loaderData.selection.status === "none" ? (
 					<SpiritHistory {...loaderData} searchParams={searchParams} />
 				) : (
 					<section className="flex flex-col gap-4">

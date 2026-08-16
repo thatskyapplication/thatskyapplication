@@ -3877,6 +3877,7 @@ export default {
 			description:
 				"Browse spirit history, see which spirits have been away the longest, and explore their friendship trees.",
 			"description-short": "Browse spirit history and friendship trees.",
+			"meta-description": "View information for {{spirit}} from {{origin}}!",
 			"search-placeholder": "Search spirits…",
 			"not-encountered-spirit":
 				"Woah, it seems we have not encountered that spirit yet. How strange!",
