@@ -403,7 +403,7 @@ export async function checklist({
 	return [{ type: ComponentType.Container, components: containerComponents }];
 }
 
-async function checklistToggle(
+export async function checklistToggle(
 	interaction: APIMessageComponentButtonInteraction,
 	key:
 		| "daily_quests"
@@ -439,44 +439,4 @@ async function checklistToggle(
 	await client.api.interactions.updateMessage(interaction.id, interaction.token, {
 		components: await checklist({ userId, locale: interaction.locale }),
 	});
-}
-
-export async function checklistHandleDailyQuests(
-	interaction: APIMessageComponentButtonInteraction,
-) {
-	await checklistToggle(interaction, "daily_quests");
-}
-
-export async function checklistHandleSeasonalCandles(
-	interaction: APIMessageComponentButtonInteraction,
-) {
-	await checklistToggle(interaction, "seasonal_candles");
-}
-
-export async function checklistHandleEyeOfEden(interaction: APIMessageComponentButtonInteraction) {
-	await checklistToggle(interaction, "eye_of_eden");
-}
-
-export async function checklistHandleShardEruptions(
-	interaction: APIMessageComponentButtonInteraction,
-) {
-	await checklistToggle(interaction, "shard_eruptions");
-}
-
-export async function checklistHandleEventTickets(
-	interaction: APIMessageComponentButtonInteraction,
-) {
-	await checklistToggle(interaction, "event_tickets");
-}
-
-export async function checklistHandleDyeWorkshop(
-	interaction: APIMessageComponentButtonInteraction,
-) {
-	await checklistToggle(interaction, "dye_workshop");
-}
-
-export async function checklistHandleDoNotDisturbBlessing(
-	interaction: APIMessageComponentButtonInteraction,
-) {
-	await checklistToggle(interaction, "do_not_disturb");
 }

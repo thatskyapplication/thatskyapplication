@@ -53,15 +53,7 @@ import {
 	viewStarterPacks,
 	viewTotalSpent,
 } from "../features/catalogue.js";
-import {
-	checklistHandleDailyQuests,
-	checklistHandleDoNotDisturbBlessing,
-	checklistHandleDyeWorkshop,
-	checklistHandleEventTickets,
-	checklistHandleEyeOfEden,
-	checklistHandleSeasonalCandles,
-	checklistHandleShardEruptions,
-} from "../features/checklist.js";
+import { checklistToggle } from "../features/checklist.js";
 import {
 	dailyGuidesResponse,
 	dailyGuidesSetupChannel,
@@ -500,37 +492,37 @@ export default {
 				}
 
 				if (id === CustomId.ChecklistDailyQuestsComplete) {
-					await checklistHandleDailyQuests(data);
+					await checklistToggle(data, "daily_quests");
 					return;
 				}
 
 				if (id === CustomId.ChecklistSeasonalCandlesComplete) {
-					await checklistHandleSeasonalCandles(data);
+					await checklistToggle(data, "seasonal_candles");
 					return;
 				}
 
 				if (id === CustomId.ChecklistEyeOfEdenComplete) {
-					await checklistHandleEyeOfEden(data);
+					await checklistToggle(data, "eye_of_eden");
 					return;
 				}
 
 				if (id === CustomId.ChecklistEventTicketsComplete) {
-					await checklistHandleEventTickets(data);
+					await checklistToggle(data, "event_tickets");
 					return;
 				}
 
 				if (id === CustomId.ChecklistShardEruptionsComplete) {
-					await checklistHandleShardEruptions(data);
+					await checklistToggle(data, "shard_eruptions");
 					return;
 				}
 
 				if (id === CustomId.ChecklistDyeWorkshopComplete) {
-					await checklistHandleDyeWorkshop(data);
+					await checklistToggle(data, "dye_workshop");
 					return;
 				}
 
 				if (id === CustomId.ChecklistDoNotDisturbBlessingComplete) {
-					await checklistHandleDoNotDisturbBlessing(data);
+					await checklistToggle(data, "do_not_disturb");
 					return;
 				}
 
