@@ -1,9 +1,11 @@
-import { ExternalLink } from "lucide-react";
+import { clsx } from "clsx";
+import { BookOpenCheck, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import { spiritOriginTranslationKey, type Spirit } from "@thatskyapplication/utility";
 import { BackButton } from "~/components/catalogue/BackButton.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
-import { NOTE_CLASS } from "~/utility/catalogue.js";
+import { NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { SpiritFriendshipTrees } from "./SpiritFriendshipTrees.js";
 import { SpiritVisits } from "./SpiritVisits.js";
@@ -38,20 +40,29 @@ export function SpiritView({
 					{seasonEmoji ? <EmojiIcon emoji={seasonEmoji} /> : null}
 					<span>{origin}</span>
 				</div>
-				<h2
-					className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100"
-					id="selected-spirit-title"
-				>
-					<a
-						className="regular-link inline-flex items-center gap-2"
-						href={t(`spirit-wiki.${spirit.id}`, { ns: "general" })}
-						rel="noopener noreferrer"
-						target="_blank"
+				<div className="flex flex-wrap items-center gap-3">
+					<h2
+						className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100"
+						id="selected-spirit-title"
 					>
-						{spiritName}
-						<ExternalLink aria-hidden="true" className="h-4 w-4 shrink-0" />
-					</a>
-				</h2>
+						<a
+							className="regular-link inline-flex items-center gap-2"
+							href={t(`spirit-wiki.${spirit.id}`, { ns: "general" })}
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							{spiritName}
+							<ExternalLink aria-hidden="true" className="h-4 w-4 shrink-0" />
+						</a>
+					</h2>
+					<Link
+						className={clsx(VIEW_LINK_CLASS, "inline-flex items-center gap-1.5")}
+						to={`/me/catalogue?view=spirit&spirit=${spirit.id}`}
+					>
+						<BookOpenCheck aria-hidden="true" className="h-4 w-4" />
+						{t("spirits.view-in-catalogue", { ns: "features" })}
+					</Link>
+				</div>
 			</div>
 
 			<SpiritVisits hour12={hour12} locale={locale} now={now} spirit={spirit} timeZone={timeZone} />
