@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { type CostEntry, type Emoji, SeasonId } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import {
@@ -32,7 +33,19 @@ function costEntryKey(entry: CostEntry) {
 	return `${entry.type}-${"seasonId" in entry ? entry.seasonId : "eventId" in entry ? entry.eventId : 0}`;
 }
 
+const COST_ENTRY_NAME_KEYS = {
+	money: "money",
+	candles: "candles",
+	hearts: "hearts",
+	ascendedCandles: "ascended-candles",
+	seasonalCandles: "seasonal-candles",
+	seasonalHearts: "seasonal-hearts",
+	eventTickets: "event-tickets",
+} as const satisfies Record<CostEntry["type"], string>;
+
 export function CostList({ costs, locale }: { costs: readonly CostEntry[]; locale: string }) {
+	const { t } = useTranslation();
+
 	if (costs.length === 0) {
 		return null;
 	}
@@ -52,7 +65,12 @@ export function CostList({ costs, locale }: { costs: readonly CostEntry[]; local
 
 				return (
 					<span className="inline-flex items-center gap-1" key={costEntryKey(entry)}>
-						{emoji ? <EmojiIcon emoji={emoji} /> : null}
+						{emoji ? (
+							<EmojiIcon
+								emoji={emoji}
+								label={t(COST_ENTRY_NAME_KEYS[entry.type], { ns: "general" })}
+							/>
+						) : null}
 						{entry.amount.toLocaleString(locale)}
 					</span>
 				);

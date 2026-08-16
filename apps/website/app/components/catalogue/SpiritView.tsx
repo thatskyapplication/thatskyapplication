@@ -6,7 +6,6 @@ import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EverythingButton } from "./EverythingButton";
 import { FriendshipTree } from "./FriendshipTree";
-import { RemainingCostList } from "./RemainingCostList";
 
 export function SpiritView({
 	data,
@@ -72,15 +71,12 @@ export function SpiritView({
 			)}
 
 			{friendshipTree.length > 0 ? (
-				<>
-					<RemainingCostList data={data} items={items} locale={locale} />
-					<FriendshipTree
-						data={data}
-						locale={locale}
-						seasonId={isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : undefined}
-						tree={friendshipTree}
-					/>
-				</>
+				<FriendshipTree
+					data={data}
+					locale={locale}
+					seasonId={isSeasonalSpirit || isGuideSpirit ? spirit.seasonId : undefined}
+					tree={friendshipTree}
+				/>
 			) : (
 				<p className="m-0 text-base text-gray-600 dark:text-gray-400">
 					{t("catalogue.spirit-no-friendship-tree", { ns: "features" })}

@@ -1,13 +1,17 @@
 import { clsx } from "clsx";
+import { CheckCircle } from "lucide-react";
 import { type CSSProperties, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
 	ASSET_SIZE,
+	catalogueComplete,
+	catalogueProgress,
 	type Emoji,
 	FONT_SIZE,
 	FRIENDSHIP_TREE_WIDTH,
 	type FriendshipTree as FriendshipTreeData,
 	type FriendshipTreeLayout,
+	friendshipTreeToItems,
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
 	type Item,
@@ -15,6 +19,7 @@ import {
 	LINE_WIDTH,
 	legacyFriendshipTreeLayout,
 	modernFriendshipTreeLayout,
+	partitionItemCosts,
 	type PlacedFriendshipTreeNode,
 	SeasonId,
 	type SeasonIds,
@@ -28,7 +33,7 @@ import {
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
-import { costEntryEmoji } from "./CostList";
+import { CostList, costEntryEmoji } from "./CostList";
 
 type AnyFriendshipTree = FriendshipTreeData | LegacyFriendshipTree;
 
@@ -39,6 +44,7 @@ const UNOWNED_ICON_CLASS = "opacity-25" as const;
 interface FriendshipTreeProps {
 	data: ReadonlySet<number>;
 	locale: string;
+	readOnly?: boolean;
 	seasonId?: SeasonIds | undefined;
 	tree: AnyFriendshipTree;
 }
@@ -132,22 +138,25 @@ function textStyle(
 	};
 }
 
-function TreeNode({
-	data,
-	height,
-	locale,
-	node,
-	seasonId,
-}: {
-	data: ReadonlySet<number>;
+interface TreeNodeProps {
 	height: number;
 	locale: string;
 	node: PlacedFriendshipTreeNode;
 	seasonId: SeasonIds | undefined;
+}
+
+function TreeNode({
+	height,
+	interaction,
+	locale,
+	node,
+	seasonId,
+}: TreeNodeProps & {
+	interaction?: { owned: boolean; toggle: () => void };
 }) {
 	const { t } = useTranslation();
 	const { item } = node;
-	const { owned, toggle } = useItemOwnership(item, data);
+	const owned = interaction?.owned ?? true;
 	const name = t(item.translation.key, { ns: "general", number: item.translation.number });
 	const cost = node.cost ? resolveNodeCost(item, locale) : null;
 
@@ -161,30 +170,47 @@ function TreeNode({
 	return (
 		<>
 			<Tooltip content={name}>
-				<button
-					aria-label={name}
-					aria-pressed={owned}
-					className="absolute flex items-center justify-center rounded-lg transition-colors hover:bg-white/10"
-					onClick={toggle}
-					style={boxStyle(node.x, node.y, IMAGE_SIZE, IMAGE_SIZE, height)}
-					type="button"
-				>
-					{emoji ? (
-						<EmojiIcon
-							className={clsx("h-full w-full", !owned && UNOWNED_ICON_CLASS)}
-							emoji={emoji}
-						/>
-					) : (
-						<span
-							className={clsx(
-								"px-0.5 text-center text-[2cqw] leading-tight",
-								owned ? "text-white/90" : "text-white/30",
-							)}
-						>
-							{name}
-						</span>
-					)}
-				</button>
+				{interaction ? (
+					<button
+						aria-label={name}
+						aria-pressed={owned}
+						className="absolute flex items-center justify-center rounded-lg transition-colors hover:bg-white/10"
+						onClick={interaction.toggle}
+						style={boxStyle(node.x, node.y, IMAGE_SIZE, IMAGE_SIZE, height)}
+						type="button"
+					>
+						{emoji ? (
+							<EmojiIcon
+								className={clsx("h-full w-full", !owned && UNOWNED_ICON_CLASS)}
+								emoji={emoji}
+							/>
+						) : (
+							<span
+								className={clsx(
+									"px-0.5 text-center text-[2cqw] leading-tight",
+									owned ? "text-white/90" : "text-white/30",
+								)}
+							>
+								{name}
+							</span>
+						)}
+					</button>
+				) : (
+					<div
+						aria-label={name}
+						className="absolute flex items-center justify-center rounded-lg"
+						role="img"
+						style={boxStyle(node.x, node.y, IMAGE_SIZE, IMAGE_SIZE, height)}
+					>
+						{emoji ? (
+							<EmojiIcon className="h-full w-full" emoji={emoji} />
+						) : (
+							<span className="px-0.5 text-center text-[2cqw] leading-tight text-white/90">
+								{name}
+							</span>
+						)}
+					</div>
+				)}
 			</Tooltip>
 
 			{node.seasonEmoji && seasonEmoji ? (
@@ -229,7 +255,24 @@ function TreeNode({
 	);
 }
 
-export function FriendshipTree({ data, locale, seasonId, tree }: FriendshipTreeProps) {
+function InteractiveTreeNode({ data, ...props }: TreeNodeProps & { data: ReadonlySet<number> }) {
+	const interaction = useItemOwnership(props.node.item, data);
+
+	return <TreeNode {...props} interaction={interaction} />;
+}
+
+function ReadOnlyTreeNode(props: TreeNodeProps) {
+	return <TreeNode {...props} />;
+}
+
+export function FriendshipTree({
+	data,
+	locale,
+	readOnly = false,
+	seasonId,
+	tree,
+}: FriendshipTreeProps) {
+	const { t } = useTranslation();
 	const layout = useMemo(() => {
 		const modern = seasonId !== undefined && seasonId >= SeasonId.Migration;
 
@@ -239,9 +282,13 @@ export function FriendshipTree({ data, locale, seasonId, tree }: FriendshipTreeP
 				: legacyFriendshipTreeLayout(tree),
 		);
 	}, [seasonId, tree]);
+	const items = friendshipTreeToItems(tree);
+	const totalCosts = sumCosts(items.flatMap(({ cost }) => (cost ? [cost] : [])));
+	const costs = readOnly ? totalCosts : sumCosts(partitionItemCosts(items, data).remaining);
+	const complete = !readOnly && catalogueComplete(catalogueProgress(items, data));
 
 	return (
-		<div className="w-full max-w-md rounded-2xl bg-gray-900/95 p-4 sm:p-5 dark:bg-black/40">
+		<div className="w-full max-w-sm rounded-2xl bg-gray-900/95 px-4 pt-4 pb-2 sm:px-5 sm:pt-5 sm:pb-3 dark:bg-black/40">
 			<div
 				className="@container relative mx-auto w-full"
 				style={{ aspectRatio: `${WIDTH} / ${layout.height}` }}
@@ -268,17 +315,44 @@ export function FriendshipTree({ data, locale, seasonId, tree }: FriendshipTreeP
 						))}
 					</svg>
 				) : null}
-				{layout.nodes.map((node) => (
-					<TreeNode
-						data={data}
-						height={layout.height}
-						key={node.item.cosmetics.join(",")}
-						locale={locale}
-						node={node}
-						seasonId={seasonId}
-					/>
-				))}
+				{layout.nodes.map((node) => {
+					const props = {
+						height: layout.height,
+						locale,
+						node,
+						seasonId,
+					};
+
+					return readOnly ? (
+						<ReadOnlyTreeNode key={node.item.cosmetics.join(",")} {...props} />
+					) : (
+						<InteractiveTreeNode data={data} key={node.item.cosmetics.join(",")} {...props} />
+					);
+				})}
 			</div>
+			{totalCosts.length > 0 ? (
+				<div
+					aria-label={t(
+						readOnly
+							? "catalogue.friendship-tree-total-cost"
+							: "catalogue.friendship-tree-remaining-cost",
+						{ ns: "features" },
+					)}
+					className="mt-3 flex min-h-4 items-center justify-center border-t border-white/10 pt-2 text-xs font-medium text-white/80"
+					role="group"
+				>
+					{complete ? (
+						<span className="inline-flex items-center gap-1 text-green-300">
+							<CheckCircle aria-hidden="true" className="size-4" />
+							{t("catalogue.friendship-tree-complete", { ns: "features" })}
+						</span>
+					) : costs.length === 0 ? (
+						<span className="tabular-nums">0</span>
+					) : (
+						<CostList costs={costs} locale={locale} />
+					)}
+				</div>
+			) : null}
 		</div>
 	);
 }

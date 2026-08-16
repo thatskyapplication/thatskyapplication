@@ -3186,6 +3186,9 @@ export default {
 			"spirit-no-friendship-tree": "This spirit does not have a friendship tree.",
 			"spirit-no-infographic-yet": "This spirit does not yet have an infographic.",
 			"spirit-not-fully-revealed": "This spirit's friendship tree has not been fully revealed.",
+			"friendship-tree-complete": "Complete",
+			"friendship-tree-remaining-cost": "Remaining cost",
+			"friendship-tree-total-cost": "Total cost",
 			"select-cosmetics-string-select-menu-placeholder": "Select what you have!",
 			"spirit-previous-spirit": "Previous spirit",
 			"spirit-next-spirit": "Next spirit",
@@ -3870,6 +3873,11 @@ export default {
 			} satisfies Record<SkyProfileMissingNameSources, string>,
 		},
 		spirits: {
+			name: "Spirits",
+			description:
+				"Browse travelling spirit history, see which spirits have been away the longest, and explore their friendship trees.",
+			"description-short": "Browse spirit history and friendship trees.",
+			"search-placeholder": "Search spirits...",
 			"not-encountered-spirit":
 				"Woah, it seems we have not encountered that spirit yet. How strange!",
 			"visit-error": "Error",
