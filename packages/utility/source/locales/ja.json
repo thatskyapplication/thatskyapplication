@@ -670,6 +670,7 @@
 			"0": "カタログから推測する",
 			"1": "ケープなし"
 		},
+		"spirit-plural": "精霊",
 		"spirits": {
 			"0": "指差すキャンドル職人",
 			"1": "先導する星読み",
@@ -2333,8 +2334,12 @@
 		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
 		"clear": "",
+		"link-copied": "",
 		"no-results": "",
 		"search-label": "",
+		"share": "",
+		"share-error": "",
+		"try-again": "",
 		"view": "",
 		"more": "",
 		"maintenance": "",
@@ -2707,6 +2712,12 @@
 			"spirit-no-friendship-tree": "",
 			"spirit-no-infographic-yet": "",
 			"spirit-not-fully-revealed": "",
+			"friendship-tree-complete": "",
+			"friendship-tree-no-remaining-cost": "",
+			"friendship-tree-node-cost": "",
+			"friendship-tree-node-level": "",
+			"friendship-tree-remaining-cost": "",
+			"friendship-tree-total-cost": "",
 			"select-cosmetics-string-select-menu-placeholder": "",
 			"spirit-previous-spirit": "",
 			"spirit-next-spirit": "",
@@ -2840,8 +2851,8 @@
 		},
 		"guess": {
 			"type": {
-				"0": "精霊",
-				"1": "精霊（Hard）",
+				"0": "$t(general:spirit-plural)",
+				"1": "",
 				"2": "$t(general:events)"
 			},
 			"title": "この絵に当てはまるのは？",
@@ -3104,11 +3115,11 @@
 			"back": ""
 		},
 		"settings": {
+			"name": "",
 			"time-format": "時間形式",
 			"time-format-automatic": "自動",
 			"time-format-twelve": "12時間",
-			"time-format-twenty-four": "24時間",
-			"name": ""
+			"time-format-twenty-four": "24時間"
 		},
 		"shard-eruption": {
 			"name-plural": "",
@@ -3288,6 +3299,14 @@
 			}
 		},
 		"spirits": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"view-in-catalogue": "",
+			"friendship-tree-current": "",
+			"friendship-tree-seasonal": "",
+			"friendship-trees": "",
 			"not-encountered-spirit": "うーん、不思議ですね。どうやら未知の精霊と遭遇してしまったみたい！",
 			"visit-error": "",
 			"travelling": "",
@@ -3296,10 +3315,11 @@
 			"not-yet-returned-shop": "",
 			"not-yet-returned-spirit": "",
 			"title": {
-				"0": "再訪する精霊の来歴",
-				"1": "レア精霊たち"
+				"0": "",
+				"1": ""
 			},
 			"order-natural": "再訪順",
+			"order-label": "",
 			"order-rarity": "レア度順"
 		},
 		"welcome": {

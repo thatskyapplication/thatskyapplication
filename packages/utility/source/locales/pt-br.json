@@ -670,6 +670,7 @@
 			"0": "Inferir do catálogo",
 			"1": "Sem Capa"
 		},
+		"spirit-plural": "Espíritos",
 		"spirits": {
 			"0": "Candeeiro Denotante",
 			"1": "Astrólogo Convidativo",
@@ -2333,8 +2334,12 @@
 		"interaction-response-too-old": "Esta resposta já expirou. Use o comando novamente!",
 		"cannot-view-thread": "Não tenho permissões para visualizar este tópico.",
 		"clear": "Apagar",
+		"link-copied": "",
 		"no-results": "Sem resultados.",
 		"search-label": "Pesquisar",
+		"share": "",
+		"share-error": "",
+		"try-again": "",
 		"view": "Exibir",
 		"more": "Mais",
 		"maintenance": "Manutenção",
@@ -2707,6 +2712,12 @@
 			"spirit-no-friendship-tree": "Este espírito não possui uma árvore de amizade.",
 			"spirit-no-infographic-yet": "Este espírito ainda não tem um infográfico.",
 			"spirit-not-fully-revealed": "A árvore de amizade deste espírito não foi totalmente revelada.",
+			"friendship-tree-complete": "",
+			"friendship-tree-no-remaining-cost": "",
+			"friendship-tree-node-cost": "",
+			"friendship-tree-node-level": "",
+			"friendship-tree-remaining-cost": "",
+			"friendship-tree-total-cost": "",
 			"select-cosmetics-string-select-menu-placeholder": "Selecione o que você possui!",
 			"spirit-previous-spirit": "Espírito anterior",
 			"spirit-next-spirit": "Próximo espírito",
@@ -2840,8 +2851,8 @@
 		},
 		"guess": {
 			"type": {
-				"0": "Espíritos",
-				"1": "Espíritos (difícil)",
+				"0": "$t(general:spirit-plural)",
+				"1": "",
 				"2": "$t(general:events)"
 			},
 			"title": "De onde isso veio?",
@@ -3114,11 +3125,11 @@
 			"back": "Retornar"
 		},
 		"settings": {
+			"name": "Configurações",
 			"time-format": "Formato de tempo",
 			"time-format-automatic": "Automático",
 			"time-format-twelve": "12 horas",
-			"time-format-twenty-four": "24 horas",
-			"name": "Configurações"
+			"time-format-twenty-four": "24 horas"
 		},
 		"shard-eruption": {
 			"name-plural": "Erupções de Fragmentos",
@@ -3298,6 +3309,14 @@
 			}
 		},
 		"spirits": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"view-in-catalogue": "",
+			"friendship-tree-current": "",
+			"friendship-tree-seasonal": "",
+			"friendship-trees": "",
 			"not-encountered-spirit": "Uau, parece que nós não encontramos esse espírito ainda. Que estranho!",
 			"visit-error": "Erro",
 			"travelling": "Viajando",
@@ -3306,10 +3325,11 @@
 			"not-yet-returned-shop": "⚠️ Esta loja ainda não retornou.",
 			"not-yet-returned-spirit": "⚠️ Este espírito ainda não retornou.",
 			"title": {
-				"0": "Histórico de Espíritos Viajantes",
-				"1": "Raridade de Espíritos"
+				"0": "",
+				"1": ""
 			},
 			"order-natural": "Ordenar por aparência",
+			"order-label": "",
 			"order-rarity": "Ordenar por raridade"
 		},
 		"welcome": {
