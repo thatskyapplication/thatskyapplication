@@ -3899,7 +3899,7 @@ export default {
 			"kind-not-yet-returned": {
 				[SpiritKind.Spirit]: "This spirit has not yet returned.",
 				[SpiritKind.Entity]: "This entity has not yet returned.",
-				[SpiritKind.Mannequin]: "This shop has not yet returned.",
+				[SpiritKind.Mannequin]: "This mannequin has not yet returned.",
 			} satisfies Record<SpiritKind, string>,
 			title: {
 				[SpiritsHistoryOrderType.Natural]: "Spirit history",
