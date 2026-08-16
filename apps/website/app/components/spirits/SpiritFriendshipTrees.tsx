@@ -4,12 +4,19 @@ import { FriendshipTree } from "~/components/catalogue/FriendshipTree.js";
 import { FriendshipTreeCarousel } from "~/components/catalogue/FriendshipTreeCarousel.js";
 import { TREE_COLUMN_CLASS } from "~/utility/catalogue.js";
 
+const FRIENDSHIP_TREE_LABEL_KEYS = {
+	current: "spirits.friendship-tree-current",
+	seasonal: "spirits.friendship-tree-seasonal",
+} as const;
+
+type FriendshipTreeType = keyof typeof FRIENDSHIP_TREE_LABEL_KEYS;
+
 export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spirit: Spirit }) {
 	const { t } = useTranslation();
 	const seasonal = spirit.isSeasonalSpirit() || spirit.isGuideSpirit();
 	const seasonId = seasonal ? spirit.seasonId : undefined;
 	const friendshipTrees: {
-		key: "current" | "seasonal";
+		key: FriendshipTreeType;
 		tree: Spirit["displayFriendshipTree"];
 	}[] = [];
 
@@ -34,7 +41,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 				{friendshipTrees.map(({ key, tree }) => (
 					<div className={TREE_COLUMN_CLASS} key={key}>
 						<FriendshipTree
-							label={t(`spirits.friendship-tree-${key}`, { ns: "features" })}
+							label={t(FRIENDSHIP_TREE_LABEL_KEYS[key], { ns: "features" })}
 							locale={locale}
 							readOnly
 							seasonId={seasonId}
@@ -52,7 +59,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 		return (
 			<div className="flex justify-center">
 				<FriendshipTree
-					label={t(`spirits.friendship-tree-${friendshipTree.key}`, { ns: "features" })}
+					label={t(FRIENDSHIP_TREE_LABEL_KEYS[friendshipTree.key], { ns: "features" })}
 					locale={locale}
 					readOnly
 					seasonId={seasonId}

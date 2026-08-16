@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import {
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
+	SPIRITS_HISTORY_TITLE_KEYS,
 	type Spirit,
 	spirits,
 	TRAVELLING_DATES,
@@ -172,7 +173,7 @@ export function SpiritHistory({
 				className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100"
 				id="spirit-history-title"
 			>
-				{t(`spirits.title.${order}`, { ns: "features" })}
+				{t(SPIRITS_HISTORY_TITLE_KEYS[order], { ns: "features" })}
 			</h2>
 
 			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">

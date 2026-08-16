@@ -263,6 +263,7 @@ export {
 	isSpiritsHistoryOrderType,
 	type LegacyFriendshipTree,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
+	SPIRITS_HISTORY_TITLE_KEYS,
 	SpiritId,
 	type SpiritIds,
 	SpiritsHistoryOrderType,

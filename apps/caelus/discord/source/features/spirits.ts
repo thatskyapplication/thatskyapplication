@@ -24,6 +24,7 @@ import {
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
+	SPIRITS_HISTORY_TITLE_KEYS,
 	skyNow,
 	spirits,
 	TIME_ZONE,
@@ -339,7 +340,7 @@ export async function spiritsHistory(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t(`spirits.title.${type}`, { lng: locale, ns: "features" })}`,
+			content: `## ${t(SPIRITS_HISTORY_TITLE_KEYS[type], { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
