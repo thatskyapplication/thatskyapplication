@@ -219,7 +219,9 @@ function HistoryView({
 				))}
 			</div>
 
-			{maximumPage > 1 ? <Pagination currentPage={currentPage} maximumPage={maximumPage} /> : null}
+			{maximumPage > 1 ? (
+				<Pagination currentPage={currentPage} maximumPage={maximumPage} preventScrollReset />
+			) : null}
 		</section>
 	);
 }

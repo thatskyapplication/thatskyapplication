@@ -13,6 +13,7 @@ interface PaginationProps {
 	currentPage: number;
 	maximumPage: number;
 	minimumPage?: number;
+	preventScrollReset?: boolean;
 }
 
 const CONTROL_CLASS_NAME =
@@ -30,6 +31,7 @@ interface PaginationControlProps {
 	"aria-label": string;
 	children: ReactNode;
 	disabled?: boolean;
+	preventScrollReset?: boolean;
 	to: string;
 }
 
@@ -37,6 +39,7 @@ function PaginationControl({
 	"aria-label": ariaLabel,
 	children,
 	disabled = false,
+	preventScrollReset = false,
 	to,
 }: PaginationControlProps) {
 	const className = clsx(
@@ -49,13 +52,23 @@ function PaginationControl({
 			{children}
 		</button>
 	) : (
-		<Link aria-label={ariaLabel} className={className} to={to}>
+		<Link
+			aria-label={ariaLabel}
+			className={className}
+			preventScrollReset={preventScrollReset}
+			to={to}
+		>
 			{children}
 		</Link>
 	);
 }
 
-export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }: PaginationProps) {
+export default function Pagination({
+	currentPage,
+	maximumPage,
+	minimumPage = 1,
+	preventScrollReset = false,
+}: PaginationProps) {
 	const [searchParams] = useSearchParams();
 
 	// Avoids resetting query parameters.
@@ -105,6 +118,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 					<PaginationControl
 						aria-label="Go to first page"
 						disabled={previousDisabled}
+						preventScrollReset={preventScrollReset}
 						to={createPageURL(minimumPage)}
 					>
 						<ChevronsLeftIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -115,6 +129,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 					<PaginationControl
 						aria-label="Go to previous page"
 						disabled={previousDisabled}
+						preventScrollReset={preventScrollReset}
 						to={createPageURL(back1)}
 					>
 						<ChevronLeftIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -125,6 +140,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 						<Link
 							aria-label={`Go to page ${back2}`}
 							className={PAGE_LINK_CLASS_NAME}
+							preventScrollReset={preventScrollReset}
 							to={createPageURL(back2)}
 						>
 							{back2}
@@ -136,6 +152,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 						<Link
 							aria-label={`Go to page ${back1}`}
 							className={PAGE_LINK_CLASS_NAME}
+							preventScrollReset={preventScrollReset}
 							to={createPageURL(back1)}
 						>
 							{back1}
@@ -145,6 +162,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 				<li>
 					<Form
 						method="get"
+						preventScrollReset={preventScrollReset}
 						onSubmit={(event) => {
 							const pageInput = event.currentTarget.elements.namedItem("page") as HTMLInputElement;
 							const pageValue = Number(pageInput.value.trim());
@@ -182,6 +200,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 						<Link
 							aria-label={`Go to page ${next1}`}
 							className={PAGE_LINK_CLASS_NAME}
+							preventScrollReset={preventScrollReset}
 							to={createPageURL(next1)}
 						>
 							{next1}
@@ -193,6 +212,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 						<Link
 							aria-label={`Go to page ${next2}`}
 							className={PAGE_LINK_CLASS_NAME}
+							preventScrollReset={preventScrollReset}
 							to={createPageURL(next2)}
 						>
 							{next2}
@@ -203,6 +223,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 					<PaginationControl
 						aria-label="Go to next page"
 						disabled={nextDisabled}
+						preventScrollReset={preventScrollReset}
 						to={createPageURL(next1)}
 					>
 						<ChevronRightIcon aria-hidden="true" className="h-5 w-5 sm:h-6 sm:w-6" />
@@ -212,6 +233,7 @@ export default function Pagination({ currentPage, maximumPage, minimumPage = 1 }
 					<PaginationControl
 						aria-label="Go to last page"
 						disabled={nextDisabled}
+						preventScrollReset={preventScrollReset}
 						to={createPageURL(maximumPage)}
 					>
 						<span className="mr-1 hidden md:block">End</span>
