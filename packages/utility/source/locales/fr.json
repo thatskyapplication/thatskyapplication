@@ -670,6 +670,7 @@
 			"0": "Déduire depuis le catalogue",
 			"1": "Sans cape"
 		},
+		"spirit-plural": "Esprits",
 		"spirits": {
 			"0": "Cirier pointant",
 			"1": "Guide astronome",
@@ -2333,8 +2334,12 @@
 		"interaction-response-too-old": "Cette réponse date trop. Utilisez la commande de nouveau !",
 		"cannot-view-thread": "Je n'ai pas les permissions nécessaires afin de voir ce fil.",
 		"clear": "",
+		"link-copied": "",
 		"no-results": "",
 		"search-label": "",
+		"share": "",
+		"share-error": "",
+		"try-again": "",
 		"view": "Voir",
 		"more": "Plus",
 		"maintenance": "Maintenance",
@@ -2707,6 +2712,12 @@
 			"spirit-no-friendship-tree": "Cet esprit n'a pas d'arbre d'amitié.",
 			"spirit-no-infographic-yet": "Cet esprit n'a pas encore d'infographie.",
 			"spirit-not-fully-revealed": "L'arbre d'amitié de cet esprit n'as pas encore été complètement révélé.",
+			"friendship-tree-complete": "",
+			"friendship-tree-no-remaining-cost": "",
+			"friendship-tree-node-cost": "",
+			"friendship-tree-node-level": "",
+			"friendship-tree-remaining-cost": "",
+			"friendship-tree-total-cost": "",
 			"select-cosmetics-string-select-menu-placeholder": "Sélectionnez ce que vous avez !",
 			"spirit-previous-spirit": "Esprit précédent",
 			"spirit-next-spirit": "Esprit suivant",
@@ -2840,8 +2851,8 @@
 		},
 		"guess": {
 			"type": {
-				"0": "Esprits",
-				"1": "Esprits (difficile)",
+				"0": "$t(general:spirit-plural)",
+				"1": "",
 				"2": "$t(general:events)"
 			},
 			"title": "D'où cela vient ?",
@@ -3114,11 +3125,11 @@
 			"back": "Précédent"
 		},
 		"settings": {
+			"name": "",
 			"time-format": "Format de l'heure",
 			"time-format-automatic": "Automatique",
 			"time-format-twelve": "12 heures",
-			"time-format-twenty-four": "24 heures",
-			"name": ""
+			"time-format-twenty-four": "24 heures"
 		},
 		"shard-eruption": {
 			"name-plural": "Éruptions d'éclats",
@@ -3298,6 +3309,14 @@
 			}
 		},
 		"spirits": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"view-in-catalogue": "",
+			"friendship-tree-current": "",
+			"friendship-tree-seasonal": "",
+			"friendship-trees": "",
 			"not-encountered-spirit": "Wow, il semblerait que nous n'ayons pas encore rencontré cet esprit. Comme c'est étrange !",
 			"visit-error": "Erreur",
 			"travelling": "Voyageant",
@@ -3306,10 +3325,11 @@
 			"not-yet-returned-shop": "",
 			"not-yet-returned-spirit": "",
 			"title": {
-				"0": "Historique des Esprits Voyageurs",
-				"1": "Rareté des Esprits"
+				"0": "",
+				"1": ""
 			},
 			"order-natural": "Ordre d'apparence",
+			"order-label": "",
 			"order-rarity": "Ordre de rareté"
 		},
 		"welcome": {
