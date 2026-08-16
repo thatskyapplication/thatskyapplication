@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { spiritOriginTranslationKey, type Spirit } from "@thatskyapplication/utility";
 import { BackButton } from "~/components/catalogue/BackButton.js";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
+import { ShareButton } from "~/components/ShareButton.js";
 import { NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { SpiritFriendshipTrees } from "./SpiritFriendshipTrees.js";
@@ -62,6 +63,13 @@ export function SpiritView({
 						<BookOpenCheck aria-hidden="true" className="h-4 w-4" />
 						{t("spirits.view-in-catalogue", { ns: "features" })}
 					</Link>
+					<ShareButton
+						appearance="compact"
+						className={VIEW_LINK_CLASS}
+						href={`/spirits?spirit=${spirit.id}`}
+						key={spirit.id}
+						shareTitle={spiritName}
+					/>
 				</div>
 			</div>
 

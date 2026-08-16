@@ -1,16 +1,14 @@
-import { captureException } from "@sentry/react-router";
 import { clsx } from "clsx";
 import {
 	BookOpenCheck,
 	ChevronLeftIcon,
 	Edit,
 	Globe,
-	LinkIcon,
 	MapPinIcon,
 	Trophy,
 	Users,
 } from "lucide-react";
-import { type ReactNode, useState } from "react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { isRouteErrorResponse, Link, useLocation } from "react-router";
 import {
@@ -32,11 +30,12 @@ import {
 	SkyProfileWingedLightType,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
-import { ActionButton, ActionLink } from "~/components/ActionButton";
+import { ActionLink } from "~/components/ActionButton";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { CentredSitePage, SitePage } from "~/components/PageLayout";
 import { PlatformBadges } from "~/components/PlatformBadges.js";
 import { SeasonEmojiBadges } from "~/components/SeasonEmojiBadges.js";
+import { ShareButton } from "~/components/ShareButton.js";
 import SkyProfileHeaderCard from "~/components/SkyProfileHeaderCard";
 import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
@@ -293,20 +292,9 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 	const { catalogueProgression, data, guessRank, isOwner, maximumWingedLight } = loaderData;
 	const cdn = useCDN();
 	const location = useLocation();
-	const [copied, setCopied] = useState(false);
 	const { i18n, t } = useTranslation();
 	const displayNames = useRegionDisplayNames(i18n.language);
 	const locationState: unknown = location.state;
-
-	async function copyLink() {
-		try {
-			await navigator.clipboard.writeText(`${window.location.origin}${window.location.pathname}`);
-			setCopied(true);
-			setTimeout(() => setCopied(false), 2000);
-		} catch (error) {
-			captureException(error);
-		}
-	}
 
 	const backURL =
 		typeof locationState === "object" &&
@@ -494,16 +482,12 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							<span className="truncate">Edit</span>
 						</ActionLink>
 					) : null}
-					<ActionButton
-						onClick={() => {
-							void copyLink();
-						}}
-						type="button"
-						variant={copied ? "success" : "neutral"}
-					>
-						<LinkIcon className="mr-2 h-6 w-6 shrink-0" />
-						<span className="truncate">{copied ? "Link copied!" : "Share"}</span>
-					</ActionButton>
+					<ShareButton
+						appearance="action"
+						href={location.pathname}
+						key={data.user_id}
+						shareTitle={data.name ?? t("sky-profile.name", { ns: "features" })}
+					/>
 				</div>
 			</div>
 		</SitePage>

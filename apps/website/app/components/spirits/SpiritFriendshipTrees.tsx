@@ -29,7 +29,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 
 	if (friendshipTrees.length > 1) {
 		return (
-			<FriendshipTreeCarousel>
+			<FriendshipTreeCarousel key={spirit.id}>
 				{friendshipTrees.map(({ key, tree }) => (
 					<div className={TREE_COLUMN_CLASS} key={key}>
 						<FriendshipTree
