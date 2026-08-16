@@ -3895,9 +3895,9 @@ export default {
 			"visit-error": "Error",
 			travelling: "Travelling",
 			returning: "Returning",
-			"not-yet-returned-entity": "⚠️ This entity has not yet returned.",
-			"not-yet-returned-shop": "⚠️ This shop has not yet returned.",
-			"not-yet-returned-spirit": "⚠️ This spirit has not yet returned.",
+			"not-yet-returned-entity": "This entity has not yet returned.",
+			"not-yet-returned-shop": "This shop has not yet returned.",
+			"not-yet-returned-spirit": "This spirit has not yet returned.",
 			title: {
 				[SpiritsHistoryOrderType.Natural]: "Spirit history",
 				[SpiritsHistoryOrderType.Rarity]: "Spirit rarity",

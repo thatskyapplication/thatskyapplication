@@ -179,7 +179,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 		const notReturnedKey = spiritNotReturnedTranslationKey(spirit, skyNow());
 
 		if (notReturnedKey) {
-			description.push(t(notReturnedKey, { lng: locale, ns: "features" }));
+			description.push(`⚠️ ${t(notReturnedKey, { lng: locale, ns: "features" })}`);
 		}
 	}
 

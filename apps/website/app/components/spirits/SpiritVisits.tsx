@@ -1,3 +1,4 @@
+import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
 	spiritNotReturnedTranslationKey,
@@ -148,9 +149,15 @@ export function SpiritVisits({
 	return (
 		<>
 			{notYetReturnedKey ? (
-				<p className="m-0 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-medium text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200">
-					{t(notYetReturnedKey, { ns: "features" })}
-				</p>
+				<div className="flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 dark:border-amber-800 dark:bg-amber-950/40">
+					<AlertTriangle
+						aria-hidden="true"
+						className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400"
+					/>
+					<p className="m-0 text-sm text-amber-800 dark:text-amber-200">
+						{t(notYetReturnedKey, { ns: "features" })}
+					</p>
+				</div>
 			) : null}
 
 			{travellingVisits.length > 0 || returningVisits.length > 0 ? (
