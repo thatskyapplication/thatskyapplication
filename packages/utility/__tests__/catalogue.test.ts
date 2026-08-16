@@ -135,7 +135,11 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 	for (const spirit of duets.spirits.values()) {
 		equal(
 			spirit.kind,
-			spirit.id === SpiritId.TheMusiciansLegacy ? SpiritKind.Entity : SpiritKind.Mannequin,
+			spirit.id === SpiritId.TheMusiciansLegacy
+				? SpiritKind.Entity
+				: spirit.id === SpiritId.CompassionateCellist
+					? SpiritKind.Spirit
+					: SpiritKind.Mannequin,
 		);
 	}
 });
