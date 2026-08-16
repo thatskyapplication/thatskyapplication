@@ -67,7 +67,9 @@ export function SpiritView({
 			</h1>
 
 			{isGuideSpirit && spirit.inProgress && (
-				<p className={NOTE_CLASS}>{t("catalogue.spirit-not-fully-revealed", { ns: "features" })}</p>
+				<p className={NOTE_CLASS}>
+					{t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { ns: "features" })}
+				</p>
 			)}
 
 			{friendshipTree.length > 0 ? (
@@ -79,7 +81,7 @@ export function SpiritView({
 				/>
 			) : (
 				<p className="m-0 text-base text-gray-600 dark:text-gray-400">
-					{t("catalogue.spirit-no-friendship-tree", { ns: "features" })}
+					{t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, { ns: "features" })}
 				</p>
 			)}
 

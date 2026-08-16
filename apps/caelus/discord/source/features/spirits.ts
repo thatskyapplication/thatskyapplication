@@ -241,7 +241,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 	if (isGuideSpirit && spirit.inProgress) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `-# ${t("catalogue.spirit-not-fully-revealed", { lng: locale, ns: "features" })}`,
+			content: `-# ${t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { lng: locale, ns: "features" })}`,
 		});
 	}
 
