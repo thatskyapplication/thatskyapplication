@@ -3321,9 +3321,9 @@
 			"visit-error": "Erro",
 			"travelling": "Viajando",
 			"returning": "Retornando",
-			"not-yet-returned-entity": "⚠️ Esta entidade ainda não retornou.",
-			"not-yet-returned-shop": "⚠️ Esta loja ainda não retornou.",
-			"not-yet-returned-spirit": "⚠️ Este espírito ainda não retornou.",
+			"not-yet-returned-entity": "Esta entidade ainda não retornou.",
+			"not-yet-returned-shop": "Esta loja ainda não retornou.",
+			"not-yet-returned-spirit": "Este espírito ainda não retornou.",
 			"title": {
 				"0": "",
 				"1": ""
