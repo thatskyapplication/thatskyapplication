@@ -126,6 +126,8 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 		equal(spirit.kind, SpiritKind.Mannequin);
 	}
 
+	equal(revival.guide.kind, SpiritKind.Spirit);
+
 	equal(dearVanGogh.guide.kind, SpiritKind.Entity);
 
 	for (const spirit of dearVanGogh.spirits.values()) {
