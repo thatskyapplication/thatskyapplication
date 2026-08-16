@@ -104,24 +104,20 @@ test("Spirits are searchable by their expressions.", () => {
 
 test("Non-spirit seasons expose the correct spirit kinds.", () => {
 	const seasons = skySeasons();
-	const shattering = seasons.get(SeasonId.Shattering)!;
-	const nesting = seasons.get(SeasonId.Nesting)!;
-	const revival = seasons.get(SeasonId.Revival)!;
-	const dearVanGogh = seasons.get(SeasonId.DearVanGogh)!;
-	const duets = seasons.get(SeasonId.Duets)!;
 	const littlePrince = seasons.get(SeasonId.LittlePrince)!;
+	const shattering = seasons.get(SeasonId.Shattering)!;
+	const revival = seasons.get(SeasonId.Revival)!;
+	const nesting = seasons.get(SeasonId.Nesting)!;
+	const duets = seasons.get(SeasonId.Duets)!;
 	const moomin = seasons.get(SeasonId.Moomin)!;
 	const twoEmbersPart1 = seasons.get(SeasonId.TwoEmbersPart1)!;
+	const dearVanGogh = seasons.get(SeasonId.DearVanGogh)!;
+
+	equal(littlePrince.guide.kind, SpiritKind.Entity);
 
 	for (const spirit of shattering.spiritsWithGuide.values()) {
 		equal(spirit.kind, SpiritKind.Entity);
 	}
-
-	for (const spirit of nesting.spirits.values()) {
-		equal(spirit.kind, SpiritKind.Entity);
-	}
-
-	equal(nesting.guide.kind, SpiritKind.Spirit);
 
 	for (const spirit of revival.spirits.values()) {
 		equal(spirit.kind, SpiritKind.Mannequin);
@@ -129,12 +125,11 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 
 	equal(revival.guide.kind, SpiritKind.Spirit);
 
-	equal(dearVanGogh.guide.kind, SpiritKind.Entity);
-
-	for (const spirit of dearVanGogh.spirits.values()) {
-		equal(spirit.kind, SpiritKind.Mannequin);
+	for (const spirit of nesting.spirits.values()) {
+		equal(spirit.kind, SpiritKind.Entity);
 	}
 
+	equal(nesting.guide.kind, SpiritKind.Spirit);
 	equal(duets.guide.kind, SpiritKind.Spirit);
 
 	for (const spirit of duets.spirits.values()) {
@@ -148,7 +143,6 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 		);
 	}
 
-	equal(littlePrince.guide.kind, SpiritKind.Entity);
 	equal(moomin.guide.kind, SpiritKind.Entity);
 
 	for (const spirit of moomin.spirits.values()) {
@@ -159,6 +153,12 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 
 	for (const spirit of twoEmbersPart1.spirits.values()) {
 		equal(spirit.kind, SpiritKind.Spirit);
+	}
+
+	equal(dearVanGogh.guide.kind, SpiritKind.Entity);
+
+	for (const spirit of dearVanGogh.spirits.values()) {
+		equal(spirit.kind, SpiritKind.Mannequin);
 	}
 });
 
