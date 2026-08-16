@@ -2709,9 +2709,21 @@
 			"season-next-season": "Próxima temporada",
 			"events-previous-events": "Eventos anteriores",
 			"events-next-events": "Próximos eventos",
-			"spirit-no-friendship-tree": "Este espírito não possui uma árvore de amizade.",
-			"spirit-no-infographic-yet": "Este espírito ainda não tem um infográfico.",
-			"spirit-not-fully-revealed": "A árvore de amizade deste espírito não foi totalmente revelada.",
+			"spirit-kind-no-friendship-tree": {
+				"0": "Este espírito não possui uma árvore de amizade.",
+				"1": "",
+				"2": ""
+			},
+			"spirit-kind-no-infographic-yet": {
+				"0": "Este espírito ainda não tem um infográfico.",
+				"1": "",
+				"2": ""
+			},
+			"spirit-kind-not-fully-revealed": {
+				"0": "A árvore de amizade deste espírito não foi totalmente revelada.",
+				"1": "",
+				"2": ""
+			},
 			"friendship-tree-complete": "",
 			"friendship-tree-no-remaining-cost": "",
 			"friendship-tree-node-cost": "",
@@ -3321,18 +3333,18 @@
 			"visit-error": "Erro",
 			"travelling": "Viajando",
 			"returning": "Retornando",
+			"kind-not-yet-returned": {
+				"0": "Este espírito ainda não retornou.",
+				"1": "Esta entidade ainda não retornou.",
+				"2": ""
+			},
 			"title": {
 				"0": "",
 				"1": ""
 			},
 			"order-natural": "Ordenar por aparência",
 			"order-label": "",
-			"order-rarity": "Ordenar por raridade",
-			"kind-not-yet-returned": {
-				"0": "Este espírito ainda não retornou.",
-				"2": "",
-				"1": "Esta entidade ainda não retornou."
-			}
+			"order-rarity": "Ordenar por raridade"
 		},
 		"welcome": {
 			"preview": "Esta é a área de pré-visualização da sua mensagem de boas-vindas. Ela está atualmente vazia.",

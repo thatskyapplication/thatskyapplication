@@ -2709,9 +2709,21 @@
 			"season-next-season": "",
 			"events-previous-events": "",
 			"events-next-events": "",
-			"spirit-no-friendship-tree": "",
-			"spirit-no-infographic-yet": "",
-			"spirit-not-fully-revealed": "",
+			"spirit-kind-no-friendship-tree": {
+				"0": "",
+				"1": "",
+				"2": ""
+			},
+			"spirit-kind-no-infographic-yet": {
+				"0": "",
+				"1": "",
+				"2": ""
+			},
+			"spirit-kind-not-fully-revealed": {
+				"0": "",
+				"1": "",
+				"2": ""
+			},
 			"friendship-tree-complete": "",
 			"friendship-tree-no-remaining-cost": "",
 			"friendship-tree-node-cost": "",
@@ -3311,18 +3323,18 @@
 			"visit-error": "",
 			"travelling": "",
 			"returning": "",
+			"kind-not-yet-returned": {
+				"0": "",
+				"1": "",
+				"2": ""
+			},
 			"title": {
 				"0": "",
 				"1": ""
 			},
 			"order-natural": "再訪順",
 			"order-label": "",
-			"order-rarity": "レア度順",
-			"kind-not-yet-returned": {
-				"0": "",
-				"2": "",
-				"1": ""
-			}
+			"order-rarity": "レア度順"
 		},
 		"welcome": {
 			"preview": "",
