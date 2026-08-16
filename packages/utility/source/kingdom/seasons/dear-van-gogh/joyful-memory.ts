@@ -1,11 +1,12 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
-import { SeasonalSpirit } from "../../../models/spirits.js";
+import { SeasonalSpirit, SpiritKind } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritEmote, SpiritId } from "../../../utility/spirits.js";
 import { AreaName } from "../../geography.js";
 
 export default new SeasonalSpirit({
 	id: SpiritId.JoyfulMemory,
+	kind: SpiritKind.Mannequin,
 	seasonId: SeasonId.DearVanGogh,
 	area: AreaName.StarryGallery,
 	emote: SpiritEmote.SlowWalk,

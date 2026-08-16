@@ -107,6 +107,8 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 	const shattering = seasons.get(SeasonId.Shattering)!;
 	const nesting = seasons.get(SeasonId.Nesting)!;
 	const revival = seasons.get(SeasonId.Revival)!;
+	const dearVanGogh = seasons.get(SeasonId.DearVanGogh)!;
+	const duets = seasons.get(SeasonId.Duets)!;
 
 	for (const spirit of shattering.spiritsWithGuide.values()) {
 		equal(spirit.kind, SpiritKind.Entity);
@@ -120,6 +122,21 @@ test("Non-spirit seasons expose the correct spirit kinds.", () => {
 
 	for (const spirit of revival.spirits.values()) {
 		equal(spirit.kind, SpiritKind.Mannequin);
+	}
+
+	equal(dearVanGogh.guide.kind, SpiritKind.Entity);
+
+	for (const spirit of dearVanGogh.spirits.values()) {
+		equal(spirit.kind, SpiritKind.Mannequin);
+	}
+
+	equal(duets.guide.kind, SpiritKind.Spirit);
+
+	for (const spirit of duets.spirits.values()) {
+		equal(
+			spirit.kind,
+			spirit.id === SpiritId.TheMusiciansLegacy ? SpiritKind.Entity : SpiritKind.Mannequin,
+		);
 	}
 });
 
