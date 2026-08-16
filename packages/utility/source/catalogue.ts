@@ -7,6 +7,7 @@ import type { EventFamily, EventFamilyOccurrences } from "./models/event-family.
 import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
+import { SeasonId } from "./season.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
 import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
@@ -302,6 +303,18 @@ export function spiritOriginTranslationKey(spirit: Spirit) {
 		: (`realms.${spirit.realm}` as const);
 }
 
+export function spiritNotReturnedTranslationKey(spirit: Spirit, date: Temporal.ZonedDateTime) {
+	if (!spirit.isSeasonalSpirit() || spirit.visit(date).visited) {
+		return null;
+	}
+
+	return spirit.seasonId === SeasonId.Shattering || spirit.seasonId === SeasonId.Nesting
+		? ("spirits.not-yet-returned-entity" as const)
+		: spirit.seasonId === SeasonId.Revival
+			? ("spirits.not-yet-returned-shop" as const)
+			: ("spirits.not-yet-returned-spirit" as const);
+}
+
 export type CatalogueSearchTargetWithoutEventFamily = Exclude<
 	CatalogueSearchTarget,
 	{ readonly type: CatalogueSearchType.EventFamily }
@@ -314,6 +327,46 @@ export interface CatalogueSearchEntry<
 	readonly keywords: readonly string[];
 	readonly cosmeticDisplay: Cosmetic | null;
 	readonly target: Target;
+}
+
+export type CatalogueSpiritSearchTarget = Extract<
+	CatalogueSearchTarget,
+	{ readonly type: CatalogueSearchType.Spirit }
+>;
+
+export type CatalogueSpiritSearchEntry = CatalogueSearchEntry<CatalogueSpiritSearchTarget>;
+
+export function catalogueSpiritSearchEntries(
+	resolveName: (key: string) => string,
+): readonly CatalogueSpiritSearchEntry[] {
+	return spirits().map((spirit) => {
+		const keywords = [...spirit.keywords, resolveName(spiritOriginTranslationKey(spirit))];
+
+		if (spirit.isStandardSpirit() || spirit.isSeasonalSpirit()) {
+			if (spirit.emote) {
+				keywords.push(spirit.emote);
+			}
+
+			if (spirit.stance) {
+				keywords.push(resolveName(`cosmetic-names.${spirit.stance}`));
+			}
+
+			if (spirit.call) {
+				keywords.push(resolveName(`cosmetic-names.${spirit.call}`));
+			}
+
+			if (spirit.action) {
+				keywords.push(spirit.action);
+			}
+		}
+
+		return {
+			name: resolveName(`spirits.${spirit.id}`),
+			keywords,
+			cosmeticDisplay: null,
+			target: { type: CatalogueSearchType.Spirit, spirit },
+		};
+	});
 }
 
 function inAppPurchaseEntries(
@@ -396,14 +449,7 @@ export function catalogueSearchEntries(
 		entries.push(...inAppPurchaseEntries(event.offer, target, resolveName));
 	}
 
-	for (const spirit of spirits().values()) {
-		entries.push({
-			name: resolveName(`spirits.${spirit.id}`),
-			keywords: [...spirit.keywords, resolveName(spiritOriginTranslationKey(spirit))],
-			cosmeticDisplay: null,
-			target: { type: CatalogueSearchType.Spirit, spirit },
-		});
-	}
+	entries.push(...catalogueSpiritSearchEntries(resolveName));
 
 	for (const [collection, { items }] of [
 		[CatalogueCollection.StarterPacks, STARTER_PACKS],

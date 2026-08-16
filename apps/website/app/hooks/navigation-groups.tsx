@@ -6,6 +6,7 @@ import {
 	CheckSquare,
 	Clock,
 	ExternalLinkIcon,
+	History,
 	LinkIcon,
 	Users,
 	Zap,
@@ -60,6 +61,12 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					label: t("schedule.name", { ns: "features" }),
 					icon: <AlarmClock className="h-5 w-5" />,
 					description: t("schedule.description-short", { ns: "features" }),
+				},
+				{
+					to: "/spirits",
+					label: t("spirit-plural", { ns: "general" }),
+					icon: <History className="h-5 w-5" />,
+					description: t("spirits.description-short", { ns: "features" }),
 				},
 				{
 					to: "/me/catalogue",

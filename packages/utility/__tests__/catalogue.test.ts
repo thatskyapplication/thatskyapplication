@@ -6,8 +6,13 @@ import {
 	catalogueSearch,
 	catalogueSearchEntries,
 	CatalogueSearchType,
+	type CatalogueSpiritSearchEntry,
+	spiritNotReturnedTranslationKey,
 } from "../source/catalogue.js";
+import { skyDate } from "../source/dates.js";
+import { spirits } from "../source/kingdom/spirits.js";
 import enGB from "../source/locales/en-gb.js";
+import { SpiritId } from "../source/utility/spirits.js";
 
 function resolveName(key: string) {
 	let current: unknown = enGB.general;
@@ -74,6 +79,44 @@ test("Spirits are searchable by their season and realm.", () => {
 	);
 
 	ok(byRealm.length > 0, "Expected spirits to match their realm name.");
+});
+
+test("Spirits are searchable by their expressions.", () => {
+	for (const [query, expectedSpiritIds] of [
+		["Clap", [SpiritId.ApplaudingBellmaker]],
+		["Wise Stance", [SpiritId.WiseGrandparent]],
+		["Nightbird Call", [SpiritId.NightbirdWhisperer]],
+		["Whisper", [SpiritId.LightmendingLightCatcher, SpiritId.LightmendingLightScholar]],
+	] as const) {
+		const results = catalogueSearch(entries, query).filter(
+			(entry): entry is CatalogueSpiritSearchEntry =>
+				entry.target.type === CatalogueSearchType.Spirit,
+		);
+		const spiritIds = results.map(({ target }) => target.spirit.id);
+
+		for (const spiritId of expectedSpiritIds) {
+			ok(spiritIds.includes(spiritId), `Expected spirit ${spiritId} to match ${query}.`);
+		}
+	}
+});
+
+test("Not-returned spirit copy follows the spirit's origin.", () => {
+	const collection = spirits();
+	const beforeReturns = skyDate(2019, 1, 1);
+	const afterReturns = skyDate(2030, 1, 1);
+	const entity = collection.get(SpiritId.AncientLight1)!;
+	const shop = collection.get(SpiritId.EchoOfAnAbandonedRefuge)!;
+	const seasonalSpirit = collection.get(SpiritId.SassyDrifter)!;
+	const guide = collection.get(SpiritId.NestingGuide)!;
+
+	equal(spiritNotReturnedTranslationKey(entity, beforeReturns), "spirits.not-yet-returned-entity");
+	equal(spiritNotReturnedTranslationKey(shop, beforeReturns), "spirits.not-yet-returned-shop");
+	equal(
+		spiritNotReturnedTranslationKey(seasonalSpirit, beforeReturns),
+		"spirits.not-yet-returned-spirit",
+	);
+	equal(spiritNotReturnedTranslationKey(seasonalSpirit, afterReturns), null);
+	equal(spiritNotReturnedTranslationKey(guide, beforeReturns), null);
 });
 
 function assertNewestFirst(starts: readonly Temporal.ZonedDateTime[], subject: string) {

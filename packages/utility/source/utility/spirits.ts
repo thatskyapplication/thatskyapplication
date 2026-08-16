@@ -589,6 +589,11 @@ export const SpiritsHistoryOrderType = {
 export type SpiritsHistoryOrderTypes =
 	(typeof SpiritsHistoryOrderType)[keyof typeof SpiritsHistoryOrderType];
 
+export const SPIRITS_HISTORY_TITLE_KEYS = {
+	[SpiritsHistoryOrderType.Natural]: `spirits.title.${SpiritsHistoryOrderType.Natural}`,
+	[SpiritsHistoryOrderType.Rarity]: `spirits.title.${SpiritsHistoryOrderType.Rarity}`,
+} as const satisfies Readonly<Record<SpiritsHistoryOrderTypes, string>>;
+
 export const SPIRITS_HISTORY_ORDER_TYPE_VALUES = Object.values(SpiritsHistoryOrderType);
 
 export function isSpiritsHistoryOrderType(type: number): type is SpiritsHistoryOrderTypes {

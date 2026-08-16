@@ -1,29 +1,20 @@
-import { Autocomplete } from "@base-ui/react/autocomplete";
-import { clsx } from "clsx";
 import type { TFunction } from "i18next";
-import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
 import {
 	CatalogueCollection,
 	type CatalogueSearchEntry,
-	catalogueSearch,
 	catalogueSearchEntries,
 	CatalogueSearchType,
 	spiritOriginTranslationKey,
 } from "@thatskyapplication/utility";
-import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { eventAnchor, eventFamilyYears } from "~/utility/catalogue.js";
 import {
 	CosmeticToEmoji,
 	EventIdToEventTicketEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
-import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
-
-const CATALOGUE_SEARCH_RESULT_LIMIT = 100 as const;
-const NO_RESULTS: readonly CatalogueSearchEntry[] = [];
+import { CatalogueSearchAutocomplete } from "./CatalogueSearchAutocomplete.js";
 
 const CATALOGUE_COLLECTIONS = {
 	[CatalogueCollection.StarterPacks]: {
@@ -90,90 +81,23 @@ function targetResult(entry: CatalogueSearchEntry, t: TFunction) {
 
 export function CatalogueSearch() {
 	const { t } = useTranslation();
-	const navigate = useNavigate();
-	const [query, setQuery] = useState("");
-	const [open, setOpen] = useState(false);
-
-	const hasQuery = query.trim().length > 0;
-
-	const entries = useMemo(
-		() =>
-			hasQuery
-				? catalogueSearchEntries((key) => t(key, { ns: "general" }), { groupEventFamilies: true })
-				: NO_RESULTS,
-		[hasQuery, t],
-	);
-
-	const results = useMemo(
-		() => catalogueSearch(entries, query, CATALOGUE_SEARCH_RESULT_LIMIT),
-		[entries, query],
+	const getEntries = useCallback(
+		() => catalogueSearchEntries((key) => t(key, { ns: "general" }), { groupEventFamilies: true }),
+		[t],
 	);
 
 	return (
-		<Autocomplete.Root
-			autoHighlight
-			filter={null}
-			items={results}
-			itemToStringValue={({ name }: CatalogueSearchEntry) => name}
-			onOpenChange={setOpen}
-			onValueChange={(value, { reason }) => setQuery(reason === "item-press" ? "" : value)}
-			open={open && hasQuery}
-			openOnInputClick
-			value={query}
-		>
-			<div className="relative">
-				<Search className="pointer-events-none absolute top-1/2 left-3 z-10 h-4 w-4 -translate-y-1/2 text-gray-600 dark:text-gray-400" />
-				<Autocomplete.Input
-					aria-label={t("search-label", { ns: "general" })}
-					className="w-full rounded-lg border border-gray-200 bg-gray-100 py-2.5 pr-3 pl-9 text-sm text-gray-900 placeholder:text-gray-600 focus-visible:outline-2 focus-visible:outline-offset-2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 dark:placeholder:text-gray-400"
-					placeholder={t("catalogue.search-placeholder", { ns: "features" })}
-					{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
-				/>
-			</div>
-			<Autocomplete.Portal>
-				<Autocomplete.Positioner align="start" collisionPadding={12} side="bottom" sideOffset={8}>
-					<Autocomplete.Popup className="max-h-[min(20rem,var(--available-height))] w-[var(--anchor-width)] overflow-y-auto rounded-lg border border-gray-200 bg-gray-100 shadow-lg dark:border-gray-700 dark:bg-gray-900">
-						<Autocomplete.Empty>
-							<p className="m-0 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400">
-								{t("catalogue.search-no-results", { ns: "features" })}
-							</p>
-						</Autocomplete.Empty>
-						<Autocomplete.List>
-							{(entry: CatalogueSearchEntry) => {
-								const { to, emoji, detail } = targetResult(entry, t);
-
-								const resolvedEmoji =
-									entry.cosmeticDisplay === null ? emoji : CosmeticToEmoji[entry.cosmeticDisplay];
-
-								return (
-									<Autocomplete.Item
-										aria-label={t("catalogue.search-result-detail", {
-											ns: "features",
-											name: entry.name,
-											detail,
-										})}
-										className={(state) =>
-											clsx(
-												"flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm transition-colors",
-												state.highlighted && "bg-gray-300 font-medium dark:bg-gray-700",
-											)
-										}
-										key={`${to}${entry.name}`}
-										onClick={() => void navigate(to)}
-										value={entry}
-									>
-										{resolvedEmoji ? <EmojiIcon emoji={resolvedEmoji} /> : null}
-										<span className="truncate text-gray-900 dark:text-gray-100">{entry.name}</span>
-										<span className="ml-auto max-w-[45%] shrink-0 truncate text-xs text-gray-600 dark:text-gray-300">
-											{detail}
-										</span>
-									</Autocomplete.Item>
-								);
-							}}
-						</Autocomplete.List>
-					</Autocomplete.Popup>
-				</Autocomplete.Positioner>
-			</Autocomplete.Portal>
-		</Autocomplete.Root>
+		<CatalogueSearchAutocomplete
+			getEntries={getEntries}
+			placeholder={t("catalogue.search-placeholder", { ns: "features" })}
+			resolveResult={(entry) => {
+				const result = targetResult(entry, t);
+				return {
+					...result,
+					emoji:
+						entry.cosmeticDisplay === null ? result.emoji : CosmeticToEmoji[entry.cosmeticDisplay],
+				};
+			}}
+		/>
 	);
 }

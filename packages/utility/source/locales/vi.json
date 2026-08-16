@@ -670,6 +670,7 @@
 			"0": "",
 			"1": ""
 		},
+		"spirit-plural": "",
 		"spirits": {
 			"0": "Thợ Nến Dẫn Đường",
 			"1": "Nhà Thiên Văn Dẫn Đường",
@@ -2333,8 +2334,12 @@
 		"interaction-response-too-old": "",
 		"cannot-view-thread": "",
 		"clear": "",
+		"link-copied": "",
 		"no-results": "",
 		"search-label": "",
+		"share": "",
+		"share-error": "",
+		"try-again": "",
 		"view": "",
 		"more": "",
 		"maintenance": "",
@@ -2707,6 +2712,12 @@
 			"spirit-no-friendship-tree": "",
 			"spirit-no-infographic-yet": "",
 			"spirit-not-fully-revealed": "",
+			"friendship-tree-complete": "",
+			"friendship-tree-no-remaining-cost": "",
+			"friendship-tree-node-cost": "",
+			"friendship-tree-node-level": "",
+			"friendship-tree-remaining-cost": "",
+			"friendship-tree-total-cost": "",
 			"select-cosmetics-string-select-menu-placeholder": "",
 			"spirit-previous-spirit": "",
 			"spirit-next-spirit": "",
@@ -2840,7 +2851,7 @@
 		},
 		"guess": {
 			"type": {
-				"0": "",
+				"0": "$t(general:spirit-plural)",
 				"1": "",
 				"2": "$t(general:events)"
 			},
@@ -3104,11 +3115,11 @@
 			"back": ""
 		},
 		"settings": {
+			"name": "",
 			"time-format": "Định dạng thời gian",
 			"time-format-automatic": "Tự động",
 			"time-format-twelve": "12 giờ",
-			"time-format-twenty-four": "24 giờ",
-			"name": ""
+			"time-format-twenty-four": "24 giờ"
 		},
 		"shard-eruption": {
 			"name-plural": "",
@@ -3288,6 +3299,14 @@
 			}
 		},
 		"spirits": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"view-in-catalogue": "",
+			"friendship-tree-current": "",
+			"friendship-tree-seasonal": "",
+			"friendship-trees": "",
 			"not-encountered-spirit": "",
 			"visit-error": "",
 			"travelling": "",
@@ -3300,6 +3319,7 @@
 				"1": ""
 			},
 			"order-natural": "",
+			"order-label": "",
 			"order-rarity": ""
 		},
 		"welcome": {

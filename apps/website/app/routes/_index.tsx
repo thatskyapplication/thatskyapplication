@@ -7,6 +7,7 @@ import {
 	CheckSquare,
 	Clock,
 	HandHeart,
+	History,
 	Users,
 	Zap,
 } from "lucide-react";
@@ -31,12 +32,10 @@ const NODE_POSITIONS = {
 	schedule: { x: 83, y: 16 },
 	shardEruption: { x: 18, y: 80 },
 	skyProfile: { x: 70, y: 66 },
+	spirits: { x: 83, y: 60 },
 } as const;
 
-const PLACEHOLDER_RINGS = [
-	{ x: 83, y: 60 },
-	{ x: 92, y: 52 },
-] as const;
+const PLACEHOLDER_RINGS = [{ x: 92, y: 52 }] as const;
 
 const DECOR_STARS = [
 	{ x: 58, y: 9, size: 15 },
@@ -64,8 +63,8 @@ const CONSTELLATION_SEGMENTS: {
 	{ from: NODE_POSITIONS.shardEruption, to: NODE_POSITIONS.dailyGuides },
 	{ from: NODE_POSITIONS.dailyGuides, to: hubEdge(NODE_POSITIONS.dailyGuides) },
 	{ from: NODE_POSITIONS.skyProfile, to: hubEdge(NODE_POSITIONS.skyProfile) },
-	{ from: NODE_POSITIONS.skyProfile, to: PLACEHOLDER_RINGS[0], faint: true },
-	{ from: PLACEHOLDER_RINGS[0], to: PLACEHOLDER_RINGS[1], faint: true },
+	{ from: NODE_POSITIONS.skyProfile, to: NODE_POSITIONS.spirits },
+	{ from: NODE_POSITIONS.spirits, to: PLACEHOLDER_RINGS[0], faint: true },
 ];
 
 const LINE_LAYERS = [
@@ -208,6 +207,14 @@ export default function Index() {
 			label: t("sky-profile.name-plural", { ns: "features" }),
 			description: t("sky-profile.description-short", { ns: "features" }),
 			Icon: Users,
+		},
+		{
+			...NODE_POSITIONS.spirits,
+			key: "spirits",
+			to: "/spirits",
+			label: t("spirit-plural", { ns: "general" }),
+			description: t("spirits.description-short", { ns: "features" }),
+			Icon: History,
 		},
 	];
 

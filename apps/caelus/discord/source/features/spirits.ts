@@ -19,11 +19,12 @@ import {
 	isSpiritsHistoryOrderType,
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
-	SeasonId,
+	spiritNotReturnedTranslationKey,
 	type Spirit,
 	type SpiritIds,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
+	SPIRITS_HISTORY_TITLE_KEYS,
 	skyNow,
 	spirits,
 	TIME_ZONE,
@@ -175,17 +176,10 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 			);
 		}
 
-		if (!spirit.visit(skyNow()).visited) {
-			description.push(
-				t(
-					spiritSeason === SeasonId.Shattering || spiritSeason === SeasonId.Nesting
-						? "spirits.not-yet-returned-entity"
-						: spiritSeason === SeasonId.Revival
-							? "spirits.not-yet-returned-shop"
-							: "spirits.not-yet-returned-spirit",
-					{ lng: locale, ns: "features" },
-				),
-			);
+		const notReturnedKey = spiritNotReturnedTranslationKey(spirit, skyNow());
+
+		if (notReturnedKey) {
+			description.push(`⚠️ ${t(notReturnedKey, { lng: locale, ns: "features" })}`);
 		}
 	}
 
@@ -205,7 +199,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 		description.push(totalOffer.join("\n"));
 	}
 
-	const seasonEmoji = spiritSeason && SeasonIdToSeasonalEmoji[spiritSeason];
+	const seasonEmoji = spiritSeason === null ? null : SeasonIdToSeasonalEmoji[spiritSeason];
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -346,7 +340,7 @@ export async function spiritsHistory(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t(`spirits.title.${type}`, { lng: locale, ns: "features" })}`,
+			content: `## ${t(SPIRITS_HISTORY_TITLE_KEYS[type], { lng: locale, ns: "features" })}`,
 		},
 		{
 			type: ComponentType.Separator,
