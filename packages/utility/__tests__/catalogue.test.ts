@@ -7,10 +7,7 @@ import {
 	catalogueSearchEntries,
 	CatalogueSearchType,
 	type CatalogueSpiritSearchEntry,
-	spiritNotReturnedTranslationKey,
 } from "../source/catalogue.js";
-import { skyDate } from "../source/dates.js";
-import { spirits } from "../source/kingdom/spirits.js";
 import enGB from "../source/locales/en-gb.js";
 import { SpiritId } from "../source/utility/spirits.js";
 
@@ -98,25 +95,6 @@ test("Spirits are searchable by their expressions.", () => {
 			ok(spiritIds.includes(spiritId), `Expected spirit ${spiritId} to match ${query}.`);
 		}
 	}
-});
-
-test("Not-returned spirit copy follows the spirit's origin.", () => {
-	const collection = spirits();
-	const beforeReturns = skyDate(2019, 1, 1);
-	const afterReturns = skyDate(2030, 1, 1);
-	const entity = collection.get(SpiritId.AncientLight1)!;
-	const shop = collection.get(SpiritId.EchoOfAnAbandonedRefuge)!;
-	const seasonalSpirit = collection.get(SpiritId.SassyDrifter)!;
-	const guide = collection.get(SpiritId.NestingGuide)!;
-
-	equal(spiritNotReturnedTranslationKey(entity, beforeReturns), "spirits.not-yet-returned-entity");
-	equal(spiritNotReturnedTranslationKey(shop, beforeReturns), "spirits.not-yet-returned-shop");
-	equal(
-		spiritNotReturnedTranslationKey(seasonalSpirit, beforeReturns),
-		"spirits.not-yet-returned-spirit",
-	);
-	equal(spiritNotReturnedTranslationKey(seasonalSpirit, afterReturns), null);
-	equal(spiritNotReturnedTranslationKey(guide, beforeReturns), null);
 });
 
 function assertNewestFirst(starts: readonly Temporal.ZonedDateTime[], subject: string) {

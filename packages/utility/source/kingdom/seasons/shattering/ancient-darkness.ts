@@ -1,5 +1,5 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
-import { SeasonalSpirit } from "../../../models/spirits.js";
+import { SeasonalSpirit, SpiritKind } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
 import { AreaName } from "../../geography.js";
@@ -7,6 +7,7 @@ import { AreaName } from "../../geography.js";
 export default [
 	new SeasonalSpirit({
 		id: SpiritId.AncientDarkness1,
+		kind: SpiritKind.Entity,
 		seasonId: SeasonId.Shattering,
 		area: AreaName.TheVoidOfShattering,
 		offer: {
@@ -131,6 +132,7 @@ export default [
 	}),
 	new SeasonalSpirit({
 		id: SpiritId.AncientDarkness2,
+		kind: SpiritKind.Entity,
 		seasonId: SeasonId.Shattering,
 		area: AreaName.TheVoidOfShattering,
 		offer: {

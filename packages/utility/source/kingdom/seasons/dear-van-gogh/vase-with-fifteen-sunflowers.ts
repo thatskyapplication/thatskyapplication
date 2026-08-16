@@ -1,11 +1,12 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
-import { GuideSpirit } from "../../../models/spirits.js";
+import { GuideSpirit, SpiritKind } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { SpiritId } from "../../../utility/spirits.js";
 import { AreaName } from "../../geography.js";
 
 export default new GuideSpirit({
 	id: SpiritId.VaseWithFifteenSunflowers,
+	kind: SpiritKind.Entity,
 	seasonId: SeasonId.DearVanGogh,
 	area: AreaName.StarryGallery,
 	offer: {

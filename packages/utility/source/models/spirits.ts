@@ -24,6 +24,12 @@ import {
 	SpiritType,
 } from "../utility/spirits.js";
 
+export enum SpiritKind {
+	Spirit = 0,
+	Entity = 1,
+	Mannequin = 2,
+}
+
 interface TravellingSpiritsDates {
 	readonly start: Temporal.ZonedDateTime;
 	readonly end: Temporal.ZonedDateTime;
@@ -96,6 +102,13 @@ interface GuideFriendshipTreeOfferData extends BaseFriendshipTreeOfferData {
 
 interface BaseSpiritData {
 	id: SpiritIds;
+	/**
+	 * Season of Shattering introduced entities that are not accurately described as spirits.
+	 * This defines the kind of spirit.
+	 *
+	 * @defaultValue {@link SpiritKind.Spirit}
+	 **/
+	kind?: SpiritKind;
 	area?: AreaName;
 	realm?: RealmName;
 	keywords?: readonly string[];
@@ -193,6 +206,8 @@ abstract class BaseSpirit<Data extends BaseSpiritData> {
 
 	public abstract readonly type: SpiritType;
 
+	public readonly kind: SpiritKind;
+
 	public readonly area: AreaName | null;
 
 	public readonly realm: RealmName | null;
@@ -219,6 +234,7 @@ abstract class BaseSpirit<Data extends BaseSpiritData> {
 
 	public constructor(data: Data) {
 		this.id = data.id;
+		this.kind = data.kind ?? SpiritKind.Spirit;
 		this.area = data.area ?? null;
 		this.realm = data.realm ?? (this.area === null ? null : realmForArea(this.area));
 		this.keywords = data.keywords ?? [];

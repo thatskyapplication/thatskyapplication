@@ -7,7 +7,6 @@ import type { EventFamily, EventFamilyOccurrences } from "./models/event-family.
 import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
-import { SeasonId } from "./season.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
 import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
@@ -301,18 +300,6 @@ export function spiritOriginTranslationKey(spirit: Spirit) {
 	return spirit.isSeasonalSpirit() || spirit.isGuideSpirit()
 		? (`seasons.${spirit.seasonId}` as const)
 		: (`realms.${spirit.realm}` as const);
-}
-
-export function spiritNotReturnedTranslationKey(spirit: Spirit, date: Temporal.ZonedDateTime) {
-	if (!spirit.isSeasonalSpirit() || spirit.visit(date).visited) {
-		return null;
-	}
-
-	return spirit.seasonId === SeasonId.Shattering || spirit.seasonId === SeasonId.Nesting
-		? ("spirits.not-yet-returned-entity" as const)
-		: spirit.seasonId === SeasonId.Revival
-			? ("spirits.not-yet-returned-shop" as const)
-			: ("spirits.not-yet-returned-spirit" as const);
 }
 
 export type CatalogueSearchTargetWithoutEventFamily = Exclude<
