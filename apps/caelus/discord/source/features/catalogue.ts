@@ -1962,7 +1962,7 @@ async function viewSpirit(
 		type: ComponentType.TextDisplay,
 		content:
 			offerProgress.spirits.first() ??
-			t(`catalogue.kind-no-friendship-tree.${spirit.kind}`, {
+			t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, {
 				lng: locale,
 				ns: "features",
 			}),
@@ -1976,14 +1976,14 @@ async function viewSpirit(
 	} else if (friendshipTree.length > 0) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `-# ${t(`catalogue.kind-no-infographic-yet.${spirit.kind}`, { lng: locale, ns: "features" })}`,
+			content: `-# ${t(`catalogue.spirit-kind-no-infographic-yet.${spirit.kind}`, { lng: locale, ns: "features" })}`,
 		});
 	}
 
 	if (isGuideSpirit && spirit.inProgress) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: `-# ${t(`catalogue.kind-not-fully-revealed.${spirit.kind}`, { lng: locale, ns: "features" })}`,
+			content: `-# ${t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { lng: locale, ns: "features" })}`,
 		});
 	}
 

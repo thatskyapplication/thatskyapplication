@@ -68,7 +68,7 @@ export function SpiritView({
 
 			{isGuideSpirit && spirit.inProgress && (
 				<p className={NOTE_CLASS}>
-					{t(`catalogue.kind-not-fully-revealed.${spirit.kind}`, { ns: "features" })}
+					{t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { ns: "features" })}
 				</p>
 			)}
 
@@ -81,7 +81,7 @@ export function SpiritView({
 				/>
 			) : (
 				<p className="m-0 text-base text-gray-600 dark:text-gray-400">
-					{t(`catalogue.kind-no-friendship-tree.${spirit.kind}`, { ns: "features" })}
+					{t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, { ns: "features" })}
 				</p>
 			)}
 

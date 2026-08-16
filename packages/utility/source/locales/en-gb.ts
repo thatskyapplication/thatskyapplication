@@ -3189,17 +3189,17 @@ export default {
 			"season-next-season": "Next season",
 			"events-previous-events": "Previous events",
 			"events-next-events": "Next events",
-			"kind-no-friendship-tree": {
+			"spirit-kind-no-friendship-tree": {
 				[SpiritKind.Spirit]: "This spirit does not have a friendship tree.",
 				[SpiritKind.Entity]: "This entity does not have a friendship tree.",
 				[SpiritKind.Mannequin]: "This mannequin does not have a friendship tree.",
 			} satisfies Record<SpiritKind, string>,
-			"kind-no-infographic-yet": {
+			"spirit-kind-no-infographic-yet": {
 				[SpiritKind.Spirit]: "This spirit does not yet have an infographic.",
 				[SpiritKind.Entity]: "This entity does not yet have an infographic.",
 				[SpiritKind.Mannequin]: "This mannequin does not yet have an infographic.",
 			} satisfies Record<SpiritKind, string>,
-			"kind-not-fully-revealed": {
+			"spirit-kind-not-fully-revealed": {
 				[SpiritKind.Spirit]: "This spirit's friendship tree has not been fully revealed.",
 				[SpiritKind.Entity]: "This entity's friendship tree has not been fully revealed.",
 				[SpiritKind.Mannequin]: "This mannequin's friendship tree has not been fully revealed.",

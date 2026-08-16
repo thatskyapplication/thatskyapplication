@@ -78,7 +78,7 @@ export function SpiritView({
 
 			{spirit.isGuideSpirit() && spirit.inProgress ? (
 				<p className={NOTE_CLASS}>
-					{t(`catalogue.kind-not-fully-revealed.${spirit.kind}`, { ns: "features" })}
+					{t(`catalogue.spirit-kind-not-fully-revealed.${spirit.kind}`, { ns: "features" })}
 				</p>
 			) : null}
 

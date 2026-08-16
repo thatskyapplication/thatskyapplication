@@ -71,7 +71,7 @@ export function SpiritFriendshipTrees({ locale, spirit }: { locale: string; spir
 
 	return (
 		<p className="m-0 text-base text-gray-600 dark:text-gray-400">
-			{t(`catalogue.kind-no-friendship-tree.${spirit.kind}`, { ns: "features" })}
+			{t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, { ns: "features" })}
 		</p>
 	);
 }
