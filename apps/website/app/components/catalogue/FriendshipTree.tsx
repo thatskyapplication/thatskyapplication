@@ -17,6 +17,7 @@ import {
 	HEIGHT_START_OFFSET,
 	IMAGE_SIZE,
 	type Item,
+	type ItemCost,
 	type LegacyFriendshipTree,
 	LINE_WIDTH,
 	legacyFriendshipTreeLayout,
@@ -345,7 +346,15 @@ export function FriendshipTree(props: FriendshipTreeProps) {
 		return nextData;
 	}, [data, fetchers]);
 	const items = friendshipTreeToItems(tree);
-	const totalCosts = sumCosts(items.flatMap(({ cost }) => (cost ? [cost] : [])));
+	const itemCosts: ItemCost[] = [];
+
+	for (const { cost } of items) {
+		if (cost !== null) {
+			itemCosts.push(cost);
+		}
+	}
+
+	const totalCosts = sumCosts(itemCosts);
 	const costs =
 		optimisticData === null
 			? totalCosts

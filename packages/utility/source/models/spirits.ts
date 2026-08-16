@@ -154,7 +154,15 @@ interface GuideSpiritData extends Omit<BaseSpiritData, "realm"> {
 function friendshipTreeCosts(
 	friendshipTree: FriendshipTree | LegacyFriendshipTree,
 ): readonly ItemCost[] {
-	return friendshipTreeToItems(friendshipTree).flatMap((item) => (item.cost ? [item.cost] : []));
+	const costs: ItemCost[] = [];
+
+	for (const { cost } of friendshipTreeToItems(friendshipTree)) {
+		if (cost !== null) {
+			costs.push(cost);
+		}
+	}
+
+	return costs;
 }
 
 function resolveVisitPeriods<T>(

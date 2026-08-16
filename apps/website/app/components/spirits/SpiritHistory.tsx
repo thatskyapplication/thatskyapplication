@@ -116,10 +116,16 @@ export function SpiritHistory({
 	const sourceHistory =
 		order === SpiritsHistoryOrderType.Natural ? [...TRAVELLING_DATES.values()] : VISITS_ABSENT;
 	const availableSpirits = spirits();
-	const history = sourceHistory.flatMap((visit) => {
+	const history: { spirit: Spirit; visit: SpiritVisit }[] = [];
+
+	for (const visit of sourceHistory) {
 		const spirit = availableSpirits.get(visit.spiritId);
-		return spirit ? [{ spirit, visit }] : [];
-	});
+
+		if (spirit) {
+			history.push({ spirit, visit });
+		}
+	}
+
 	const maximumPage = Math.max(1, Math.ceil(history.length / SPIRITS_HISTORY_PAGE_SIZE));
 	const requestedPage = Number(searchParams.get("page") ?? 1);
 	const currentPage =

@@ -6,6 +6,7 @@ import {
 	catalogueSearch,
 	catalogueSearchEntries,
 	CatalogueSearchType,
+	type CatalogueSpiritSearchEntry,
 	spiritNotReturnedTranslationKey,
 } from "../source/catalogue.js";
 import { skyDate } from "../source/dates.js";
@@ -88,11 +89,10 @@ test("Spirits are searchable by their expressions.", () => {
 		["Whisper", [SpiritId.LightmendingLightCatcher, SpiritId.LightmendingLightScholar]],
 	] as const) {
 		const results = catalogueSearch(entries, query).filter(
-			({ target }) => target.type === CatalogueSearchType.Spirit,
+			(entry): entry is CatalogueSpiritSearchEntry =>
+				entry.target.type === CatalogueSearchType.Spirit,
 		);
-		const spiritIds = results.flatMap(({ target }) =>
-			target.type === CatalogueSearchType.Spirit ? [target.spirit.id] : [],
-		);
+		const spiritIds = results.map(({ target }) => target.spirit.id);
 
 		for (const spiritId of expectedSpiritIds) {
 			ok(spiritIds.includes(spiritId), `Expected spirit ${spiritId} to match ${query}.`);
