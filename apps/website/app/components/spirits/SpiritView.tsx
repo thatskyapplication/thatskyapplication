@@ -77,7 +77,9 @@ export function SpiritView({
 			<SpiritVisits hour12={hour12} locale={locale} now={now} spirit={spirit} timeZone={timeZone} />
 
 			{spirit.isGuideSpirit() && spirit.inProgress ? (
-				<p className={NOTE_CLASS}>{t("catalogue.spirit-not-fully-revealed", { ns: "features" })}</p>
+				<p className={NOTE_CLASS}>
+					{t(`catalogue.kind-not-fully-revealed.${spirit.kind}`, { ns: "features" })}
+				</p>
 			) : null}
 
 			<SpiritFriendshipTrees locale={locale} spirit={spirit} />
