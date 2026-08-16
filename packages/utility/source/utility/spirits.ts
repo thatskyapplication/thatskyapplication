@@ -1,4 +1,5 @@
 import type { Cosmetic, CosmeticCommon, CosmeticPackName } from "../cosmetics.js";
+import type { Spirit } from "../models/spirits.js";
 import type { SeasonIds } from "../season.js";
 import type { EventIds } from "./event.js";
 
@@ -445,6 +446,14 @@ export enum SpiritType {
 	Elder = 1,
 	Seasonal = 2,
 	Guide = 3,
+}
+
+export function spiritNotReturnedTranslationKey(spirit: Spirit, date: Temporal.ZonedDateTime) {
+	if (!spirit.isSeasonalSpirit() || spirit.visit(date).visited) {
+		return null;
+	}
+
+	return `spirits.kind-not-yet-returned.${spirit.kind}` as const;
 }
 
 interface ItemCostRaw {

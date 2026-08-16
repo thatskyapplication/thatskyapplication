@@ -53,7 +53,6 @@ export {
 	NESTING_WORKSHOP,
 	partitionItemCosts,
 	SECRET_AREA,
-	spiritNotReturnedTranslationKey,
 	spiritOriginTranslationKey,
 	STARTER_PACKS,
 } from "./catalogue.js";
@@ -180,6 +179,7 @@ export {
 	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	type Spirit,
+	SpiritKind,
 	StandardSpirit,
 } from "./models/spirits.js";
 export {
@@ -266,6 +266,7 @@ export {
 	SPIRITS_HISTORY_TITLE_KEYS,
 	SpiritId,
 	type SpiritIds,
+	spiritNotReturnedTranslationKey,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
 } from "./utility/spirits.js";

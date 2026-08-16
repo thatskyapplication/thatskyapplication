@@ -8,6 +8,7 @@ import {
 import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
 import { SkyProfileMissingNameSource, type SkyProfileMissingNameSources } from "../heart.js";
 import { AreaName, isRealm, REALM_NAME_VALUES, RealmName } from "../kingdom/geography.js";
+import { SpiritKind } from "../models/spirits.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
 import { SCHEDULE_TYPE_VALUES, ScheduleType, type ScheduleTypes } from "../schedule.js";
@@ -3895,9 +3896,11 @@ export default {
 			"visit-error": "Error",
 			travelling: "Travelling",
 			returning: "Returning",
-			"not-yet-returned-entity": "This entity has not yet returned.",
-			"not-yet-returned-shop": "This shop has not yet returned.",
-			"not-yet-returned-spirit": "This spirit has not yet returned.",
+			"kind-not-yet-returned": {
+				[SpiritKind.Spirit]: "This spirit has not yet returned.",
+				[SpiritKind.Entity]: "This entity has not yet returned.",
+				[SpiritKind.Mannequin]: "This shop has not yet returned.",
+			} satisfies Record<SpiritKind, string>,
 			title: {
 				[SpiritsHistoryOrderType.Natural]: "Spirit history",
 				[SpiritsHistoryOrderType.Rarity]: "Spirit rarity",

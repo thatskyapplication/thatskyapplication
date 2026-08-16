@@ -7,12 +7,14 @@ import {
 	catalogueSearchEntries,
 	CatalogueSearchType,
 	type CatalogueSpiritSearchEntry,
-	spiritNotReturnedTranslationKey,
 } from "../source/catalogue.js";
 import { skyDate } from "../source/dates.js";
+import { skySeasons } from "../source/kingdom/seasons/index.js";
 import { spirits } from "../source/kingdom/spirits.js";
 import enGB from "../source/locales/en-gb.js";
-import { SpiritId } from "../source/utility/spirits.js";
+import { SpiritKind } from "../source/models/spirits.js";
+import { SeasonId } from "../source/season.js";
+import { SpiritId, spiritNotReturnedTranslationKey } from "../source/utility/spirits.js";
 
 function resolveName(key: string) {
 	let current: unknown = enGB.general;
@@ -100,20 +102,49 @@ test("Spirits are searchable by their expressions.", () => {
 	}
 });
 
-test("Not-returned spirit copy follows the spirit's origin.", () => {
+test("Non-spirit seasons expose the correct spirit kinds.", () => {
+	const seasons = skySeasons();
+	const shattering = seasons.get(SeasonId.Shattering)!;
+	const nesting = seasons.get(SeasonId.Nesting)!;
+	const revival = seasons.get(SeasonId.Revival)!;
+
+	for (const spirit of shattering.spiritsWithGuide.values()) {
+		equal(spirit.kind, SpiritKind.Entity);
+	}
+
+	for (const spirit of nesting.spirits.values()) {
+		equal(spirit.kind, SpiritKind.Entity);
+	}
+
+	equal(nesting.guide.kind, SpiritKind.Spirit);
+
+	for (const spirit of revival.spirits.values()) {
+		equal(spirit.kind, SpiritKind.Mannequin);
+	}
+});
+
+test("Not-returned spirit copy follows the spirit's kind.", () => {
 	const collection = spirits();
 	const beforeReturns = skyDate(2019, 1, 1);
 	const afterReturns = skyDate(2030, 1, 1);
 	const entity = collection.get(SpiritId.AncientLight1)!;
-	const shop = collection.get(SpiritId.EchoOfAnAbandonedRefuge)!;
+	const nestingEntity = collection.get(SpiritId.NestingSolarium)!;
+	const mannequin = collection.get(SpiritId.EchoOfAnAbandonedRefuge)!;
 	const seasonalSpirit = collection.get(SpiritId.SassyDrifter)!;
 	const guide = collection.get(SpiritId.NestingGuide)!;
 
-	equal(spiritNotReturnedTranslationKey(entity, beforeReturns), "spirits.not-yet-returned-entity");
-	equal(spiritNotReturnedTranslationKey(shop, beforeReturns), "spirits.not-yet-returned-shop");
+	equal(spiritNotReturnedTranslationKey(entity, beforeReturns), "spirits.kind-not-yet-returned.1");
+	equal(
+		spiritNotReturnedTranslationKey(nestingEntity, beforeReturns),
+		"spirits.kind-not-yet-returned.1",
+	);
+	equal(
+		spiritNotReturnedTranslationKey(mannequin, beforeReturns),
+		"spirits.kind-not-yet-returned.2",
+	);
 	equal(
 		spiritNotReturnedTranslationKey(seasonalSpirit, beforeReturns),
-		"spirits.not-yet-returned-spirit",
+		"spirits.kind-not-yet-returned.0",
 	);
 	equal(spiritNotReturnedTranslationKey(seasonalSpirit, afterReturns), null);
 	equal(spiritNotReturnedTranslationKey(guide, beforeReturns), null);
