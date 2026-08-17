@@ -259,7 +259,7 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		({ area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!);
 	}
 
-	// On 29/03/2026, this was moved to the Forgotten Ark (clashed with event).
+	// On 29/03/2026, this was moved to Sanctuary Islands (clashed with event).
 	if (
 		area === AreaName.ForgottenArk &&
 		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
