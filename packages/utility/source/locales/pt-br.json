@@ -11,6 +11,7 @@
 		"infographic": "Infográfico",
 		"infographic-by": "Infográfico por {{acknowledgement}}.",
 		"daily-quests": "Missões diárias",
+		"travelling-spirit": "Espírito Viajante",
 		"returning-spirits": "Espíritos Retornantes",
 		"dye-workshop": "",
 		"note": "Nota",
@@ -130,7 +131,7 @@
 			"9": "AURORA",
 			"10": "Passagem",
 			"11": "Festival Aviário de Fogos de Artifício",
-			"12": "Espírito viajante",
+			"12": "$t(general:travelling-spirit)",
 			"13": "Patinadora dos sonhos",
 			"14": "Oficina de Nidificação",
 			"15": "$t(general:maintenance)",
@@ -140,7 +141,7 @@
 			"19": "$t(general:event-names.double-hearts)",
 			"20": "Velas sazonais em dobro",
 			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": ""
+			"22": "$t(general:returning-spirits)"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -2704,7 +2705,6 @@
 			"search-no-results": "Nada foi encontrado.",
 			"search-result-detail": "{{name}} ({{detail}})",
 			"traversal-string-select-menu-placeholder": "Para onde você gostaria de ir?",
-			"travelling-spirit": "Espírito Viajante",
 			"back-to-start-button-label": "Início",
 			"settings-button-label-enable": "Habilitar",
 			"settings-button-label-disable": "Desabilitar",
@@ -3067,7 +3067,7 @@
 				"0": "Reinicialização diária",
 				"1": "Olho de Éden",
 				"2": "Estação Espacial Internacional",
-				"3": "Espírito viajante",
+				"3": "$t(general:travelling-spirit)",
 				"4": "Dragão",
 				"5": "Gêiser poluído",
 				"6": "Vovó",
@@ -3086,7 +3086,7 @@
 				"19": "$t(general:event-names.radiance-event)",
 				"20": "$t(general:event)",
 				"21": "$t(general:season)",
-				"22": ""
+				"22": "$t(general:returning-spirits)"
 			},
 			"name": "Programação",
 			"description": "Veja a programação de eventos como: o gêiser poluído, a vovó, a tartaruga, a bênção do Ancião do Relicário e muito mais!",
