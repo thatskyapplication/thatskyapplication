@@ -239,8 +239,10 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 											rel="noopener noreferrer"
 											target="_blank"
 										>
-											{item.icon}
-											<div>
+											<span className="flex h-5 w-5 shrink-0 items-center justify-center">
+												{item.icon}
+											</span>
+											<div className="min-w-0">
 												<div className="text-sm font-medium">{item.label}</div>
 												<div className="text-xs text-gray-500 dark:text-gray-400">
 													{item.description}
@@ -254,8 +256,10 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 											onClick={() => setIsOpen(false)}
 											to={item.to}
 										>
-											{item.icon}
-											<div>
+											<span className="flex h-5 w-5 shrink-0 items-center justify-center">
+												{item.icon}
+											</span>
+											<div className="min-w-0">
 												<div className="text-sm font-medium">{item.label}</div>
 												<div className="text-xs text-gray-500 dark:text-gray-400">
 													{item.description}
@@ -401,8 +405,10 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 												rel="noopener noreferrer"
 												target="_blank"
 											>
-												{item.icon}
-												<div>
+												<span className="flex h-5 w-5 shrink-0 items-center justify-center">
+													{item.icon}
+												</span>
+												<div className="min-w-0">
 													<div className="font-medium">{item.label}</div>
 													<div className="text-sm text-gray-500 dark:text-gray-400">
 														{item.description}
@@ -416,8 +422,10 @@ function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: Mob
 												onClick={onClose}
 												to={item.to}
 											>
-												{item.icon}
-												<div>
+												<span className="flex h-5 w-5 shrink-0 items-center justify-center">
+													{item.icon}
+												</span>
+												<div className="min-w-0">
 													<div className="font-medium">{item.label}</div>
 													<div className="text-sm text-gray-500 dark:text-gray-400">
 														{item.description}

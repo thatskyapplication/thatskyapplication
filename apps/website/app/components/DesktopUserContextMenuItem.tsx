@@ -29,8 +29,8 @@ export function DesktopUserContextMenuItem({
 			onClick={onClick}
 			to={to}
 		>
-			<Icon className="h-4 w-4" />
-			<span>{children}</span>
+			<Icon className="h-4 w-4 shrink-0" />
+			<span className="min-w-0">{children}</span>
 		</Link>
 	);
 }
