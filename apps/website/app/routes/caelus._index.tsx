@@ -27,7 +27,7 @@ export default function CaelusIndex() {
 			to: INVITE_SUPPORT_SERVER_URL,
 			label: t("support-server", { ns: "general" }),
 			description: "Get help, report bugs, or just hang out.",
-			icon: <SiDiscord className="h-5 w-5 text-[#5865F2]" />,
+			icon: <SiDiscord className="h-5 w-5 text-discord-button" />,
 			external: true,
 		},
 		{

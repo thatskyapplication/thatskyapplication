@@ -607,7 +607,7 @@ export function SiteFooter() {
 						<div className="flex gap-4">
 							<a
 								aria-label="Join Discord server."
-								className="rounded-lg bg-[#5865F2] p-2 transition-colors hover:bg-[#4752C4]"
+								className="rounded-lg bg-discord-button p-2 transition-colors hover:bg-[#4752C4]"
 								href={INVITE_SUPPORT_SERVER_URL}
 								rel="noopener noreferrer"
 								target="_blank"
