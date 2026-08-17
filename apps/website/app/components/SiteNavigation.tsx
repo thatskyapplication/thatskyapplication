@@ -117,7 +117,7 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 				<FloatingPortal>
 					<FloatingFocusManager context={context} modal={false}>
 						<div
-							className="z-50 w-48 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+							className="z-50 w-48 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900"
 							ref={refs.setFloating}
 							style={floatingStyles}
 							{...getFloatingProps()}
@@ -223,7 +223,7 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 				<FloatingPortal>
 					<FloatingFocusManager context={context} modal={false}>
 						<div
-							className="z-50 w-64 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
+							className="z-50 w-64 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900"
 							ref={refs.setFloating}
 							style={floatingStyles}
 							{...getFloatingProps()}
