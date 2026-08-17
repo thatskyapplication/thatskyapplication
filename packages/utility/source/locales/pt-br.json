@@ -11,6 +11,8 @@
 		"infographic": "Infográfico",
 		"infographic-by": "Infográfico por {{acknowledgement}}.",
 		"daily-quests": "Missões diárias",
+		"returning-spirits": "Espíritos Retornantes",
+		"dye-workshop": "",
 		"note": "Nota",
 		"currency": "Moeda",
 		"cost": "Custo",
@@ -137,7 +139,8 @@
 			"18": "$t(general:season-plural)",
 			"19": "$t(general:event-names.double-hearts)",
 			"20": "Velas sazonais em dobro",
-			"21": "$t(general:event-names.double-treasure-candles)"
+			"21": "$t(general:event-names.double-treasure-candles)",
+			"22": ""
 		},
 		"page": "Página",
 		"quests-common": {
@@ -2543,7 +2546,8 @@
 				"18": "$t(features:schedule.type.18)",
 				"19": "$t(features:schedule.type.19)",
 				"20": "$t(features:schedule.type.20)",
-				"21": "$t(features:schedule.type.21)"
+				"21": "$t(features:schedule.type.21)",
+				"22": ""
 			},
 			"command-option-hide-name": "ocultar",
 			"command-option-hide-description": "Certifique-se de que só você veja a resposta."
@@ -2635,6 +2639,13 @@
 			"links": "[Convidar]({{applicationInviteURL}}) | [Suporte]({{supportServerInviteURL}}) | [Website]({{websiteURL}})",
 			"final-message": "Entre no servidor de suporte]({{url}}) se você estiver interessado em qualquer coisa aqui! Estamos sempre aqui para dar uma mãozinha! 🩵"
 		},
+		"acknowledgements": {
+			"friendship-actions": "",
+			"friendship-actions-contributors": "",
+			"friendship-actions-contributors-description": "",
+			"translators": "",
+			"translators-description": ""
+		},
 		"calculate": {
 			"goal-already-achieved": "Você já conquistou seu objetivo!",
 			"start": "Início: ",
@@ -2694,7 +2705,6 @@
 			"search-result-detail": "{{name}} ({{detail}})",
 			"traversal-string-select-menu-placeholder": "Para onde você gostaria de ir?",
 			"travelling-spirit": "Espírito Viajante",
-			"returning-spirits": "Espíritos Retornantes",
 			"back-to-start-button-label": "Início",
 			"settings-button-label-enable": "Habilitar",
 			"settings-button-label-disable": "Desabilitar",
@@ -2768,7 +2778,12 @@
 			"shard-eruptions-message-complete": "Missão cumprida: os fragmentos foram limpos! Parabéns!",
 			"shard-eruptions-show-button-label": "Exibir erupções de fragmentos",
 			"event-tickets-message-incomplete": "Você já coletou todos os tíquetes evento hoje?",
-			"event-tickets-message-complete": "Você coletou todos os tíquetes de evento! Parabéns!"
+			"event-tickets-message-complete": "Você coletou todos os tíquetes de evento! Parabéns!",
+			"dye-workshop-message-incomplete": "",
+			"dye-workshop-message-complete": "",
+			"do-not-disturb-blessing": "",
+			"do-not-disturb-blessing-message-incomplete": "",
+			"do-not-disturb-blessing-message-complete": ""
 		},
 		"daily-guides": {
 			"name": "Guias diários",
@@ -2806,6 +2821,11 @@
 			"double-seasonal-light-upcoming_other": "As luzes sazonais em dobro começam em {{count}} dias.",
 			"double-treasure-candles-upcoming_one": "As velas do tesouro em dobro começarão amanhã.",
 			"double-treasure-candles-upcoming_other": "As velas do tesouro em dobro começam em {{count}} dias.",
+			"returning-spirits-active-list_zero": "",
+			"returning-spirits-active-list_one": "",
+			"returning-spirits-active-list_other": "",
+			"returning-spirits-upcoming-list_one": "",
+			"returning-spirits-upcoming-list_other": "",
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
 			"event-upcoming-time": "{{event}} começa às {{time}}.",
@@ -3031,6 +3051,10 @@
 				"21": {
 					"message-now": "As velas do tesouro estão reluzindo intensamente! Agora há mais delas nos reinos!",
 					"message-future": "As velas do tesouro passarão a brilhar mais intensamente {{timestamp}}!"
+				},
+				"22": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",
@@ -3061,7 +3085,8 @@
 				"18": "$t(general:maintenance)",
 				"19": "$t(general:event-names.radiance-event)",
 				"20": "$t(general:event)",
-				"21": "$t(general:season)"
+				"21": "$t(general:season)",
+				"22": ""
 			},
 			"name": "Programação",
 			"description": "Veja a programação de eventos como: o gêiser poluído, a vovó, a tartaruga, a bênção do Ancião do Relicário e muito mais!",
@@ -3096,6 +3121,10 @@
 			"detailed-breakdown-travelling-spirit-message-none": "Espíritos viajantes visitam a cada 2 semanas, às quintas-feiras, e partem às segundas.\n\nAtualmente não há espíritos viajantes. O próximo está previsto para chegar {{timestamp}}.",
 			"detailed-breakdown-travelling-spirit-view-spirit-button-label": "Ver espírito viajante",
 			"detailed-breakdown-travelling-spirit-history-button-label": "Ver histórico",
+			"detailed-breakdown-returning-spirits-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Espíritos_Retornantes",
+			"detailed-breakdown-returning-spirits-message-now": "",
+			"detailed-breakdown-returning-spirits-message-future": "",
+			"detailed-breakdown-returning-spirits-message-none": "",
 			"detailed-breakdown-polluted-geyser-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Fontes_de_Luz_Adicionais#G%C3%AAiser_Polu%C3%ADdo",
 			"detailed-breakdown-polluted-geyser-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 10 minutos.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-grandma-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Fontes_de_Luz_Adicionais#Lanche_da_Vov%C3%B3",
