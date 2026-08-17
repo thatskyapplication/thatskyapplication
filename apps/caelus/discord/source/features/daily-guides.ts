@@ -1116,7 +1116,7 @@ async function distributionData({
 				: t("daily-guides.returning-spirits-upcoming-list", {
 						lng: locale,
 						ns: "features",
-						count: Math.floor(start.since(today).total({ unit: "days", relativeTo: today })),
+						count: start.since(today).total({ unit: "days", relativeTo: today }),
 						returningSpirits: returningSpiritsName,
 						spirits,
 					}),

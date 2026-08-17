@@ -281,7 +281,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				})
 			: t("daily-guides.returning-spirits-upcoming-list", {
 					ns: "features",
-					count: Math.floor(start.since(today).total({ unit: "days", relativeTo: today })),
+					count: start.since(today).total({ unit: "days", relativeTo: today }),
 					returningSpirits: returningSpiritsName,
 					spirits: RETURNING_SPIRITS_LIST_PLACEHOLDER,
 				});
