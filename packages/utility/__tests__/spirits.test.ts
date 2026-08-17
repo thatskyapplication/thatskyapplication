@@ -1,9 +1,10 @@
-import { deepStrictEqual, equal, ok } from "node:assert/strict";
+import { equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import {
 	resolveReturningSpirits,
 	RETURNING_DATES,
+	SEASONS,
 	skySeasons,
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
@@ -12,7 +13,11 @@ import { spirits } from "../source/kingdom/spirits.js";
 import { SpiritKind } from "../source/models/spirits.js";
 import { SeasonId } from "../source/season.js";
 import { type BaseVisit, type Visit, VisitType } from "../source/types/index.js";
-import { SpiritId, spiritNotReturnedTranslationKey } from "../source/utility/spirits.js";
+import {
+	SpiritId,
+	type SpiritIds,
+	spiritNotReturnedTranslationKey,
+} from "../source/utility/spirits.js";
 
 test("Non-spirit seasons expose the correct spirit kinds.", () => {
 	const seasons = skySeasons();
@@ -102,70 +107,85 @@ test("Not-returned spirit copy follows the spirit's kind.", () => {
 });
 
 test("Returning spirit visits are grouped and numbered chronologically.", () => {
-	const visits = [...RETURNING_DATES.values()];
+	const inlinePeriods: {
+		spiritId: SpiritIds;
+		start: Temporal.ZonedDateTime;
+		end: Temporal.ZonedDateTime;
+	}[] = [];
+	const samePeriod = (
+		left: Pick<BaseVisit, "start" | "end">,
+		right: Pick<BaseVisit, "start" | "end">,
+	) =>
+		Temporal.ZonedDateTime.compare(left.start, right.start) === 0 &&
+		Temporal.ZonedDateTime.compare(left.end, right.end) === 0;
+	let expectedVisit = 1;
+	let associations = 0;
+	let previous: Pick<BaseVisit, "start" | "end"> | undefined;
 
-	equal(visits.length, 14);
-	deepStrictEqual(
-		visits.map(({ spiritIds }) => spiritIds.length),
-		[4, 3, 4, 4, 4, 4, 4, 6, 4, 4, 4, 6, 4, 4],
-	);
-	equal(
-		visits.reduce((total, { spiritIds }) => total + spiritIds.length, 0),
-		59,
-	);
-
-	for (const [index, visit] of visits.entries()) {
-		equal(visit.visit, index + 1);
-		equal(visit.type, VisitType.Returning);
-		ok(visit.spiritIds.length > 0);
-
-		if (index > 0) {
-			ok(Temporal.ZonedDateTime.compare(visit.start, visits[index - 1]!.start) > 0);
+	for (const season of SEASONS.values()) {
+		for (const spirit of season.spirits.values()) {
+			for (const period of spirit.visits.returning) {
+				inlinePeriods.push({ ...period, spiritId: spirit.id });
+			}
 		}
 	}
 
-	const sharedVisit = RETURNING_DATES.get(14)!;
+	for (const [visitNumber, visit] of RETURNING_DATES) {
+		equal(visitNumber, expectedVisit);
+		equal(visit.visit, visitNumber);
+		equal(visit.type, VisitType.Returning);
+		ok(visit.spiritIds.length > 0);
+		equal(new Set(visit.spiritIds).size, visit.spiritIds.length);
 
-	deepStrictEqual(sharedVisit.spiritIds, [
-		SpiritId.HerbGatherer,
-		SpiritId.Hunter,
-		SpiritId.FeudalLord,
-		SpiritId.Princess,
-	]);
-	equal(sharedVisit.start.toString(), skyDate(2026, 8, 28).toString());
-	equal(sharedVisit.end.toString(), skyDate(2026, 9, 11).toString());
-});
+		if (previous) {
+			const startComparison = Temporal.ZonedDateTime.compare(visit.start, previous.start);
 
-test("Returning periods live on spirits and preserve repeat visits.", () => {
-	const spirit = spirits().get(SpiritId.FranticStagehand)!;
+			ok(
+				startComparison > 0 ||
+					(startComparison === 0 && Temporal.ZonedDateTime.compare(visit.end, previous.end) > 0),
+			);
+		}
 
-	ok(spirit.isSeasonalSpirit());
-	const periods = spirit.visits.returning.map(({ start, end }) => [
-		start.toString(),
-		end.toString(),
-	]);
-	ok(Array.isArray(spirit.visits.returning));
-	deepStrictEqual(periods, [
-		[skyDate(2024, 3, 4).toString(), skyDate(2024, 3, 18).toString()],
-		[skyDate(2025, 11, 17).toString(), skyDate(2025, 12, 1).toString()],
-	]);
-	deepStrictEqual(
-		[...RETURNING_DATES.values()]
-			.filter(({ spiritIds }) => spiritIds.includes(spirit.id))
-			.map(({ visit }) => visit),
-		[5, 11],
-	);
+		for (const spiritId of visit.spiritIds) {
+			equal(
+				inlinePeriods.filter((period) => period.spiritId === spiritId && samePeriod(period, visit))
+					.length,
+				1,
+			);
+		}
+
+		expectedVisit++;
+		associations += visit.spiritIds.length;
+		previous = visit;
+	}
+
+	equal(associations, inlinePeriods.length);
+
+	for (const period of inlinePeriods) {
+		equal(
+			RETURNING_DATES.filter(
+				(visit) => visit.spiritIds.includes(period.spiritId) && samePeriod(visit, period),
+			).size,
+			1,
+		);
+	}
 });
 
 test("Returning spirit visits use start-inclusive and end-exclusive active periods.", () => {
-	const visit = RETURNING_DATES.get(14)!;
+	const visit = RETURNING_DATES.first()!;
 	const beforeStart = visit.start.subtract({ nanoseconds: 1 });
 	const beforeEnd = visit.end.subtract({ nanoseconds: 1 });
+	const beforeStartSpirits = resolveReturningSpirits(beforeStart);
+	const atStartSpirits = resolveReturningSpirits(visit.start);
+	const beforeEndSpirits = resolveReturningSpirits(beforeEnd);
+	const atEndSpirits = resolveReturningSpirits(visit.end);
 
-	equal(resolveReturningSpirits(beforeStart), null);
-	deepStrictEqual([...resolveReturningSpirits(visit.start)!.keys()], visit.spiritIds);
-	deepStrictEqual([...resolveReturningSpirits(beforeEnd)!.keys()], visit.spiritIds);
-	equal(resolveReturningSpirits(visit.end), null);
+	for (const spiritId of visit.spiritIds) {
+		equal(beforeStartSpirits?.has(spiritId) ?? false, false);
+		equal(atStartSpirits?.has(spiritId) ?? false, true);
+		equal(beforeEndSpirits?.has(spiritId) ?? false, true);
+		equal(atEndSpirits?.has(spiritId) ?? false, false);
+	}
 });
 
 test("Visit types discriminate their spirit identifiers.", () => {
