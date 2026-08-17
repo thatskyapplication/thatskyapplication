@@ -139,6 +139,6 @@ export default new SeasonalSpirit({
 			// Was present on 10/11/2025, but not announced. Likely due to the above.
 			{ start: skyDate(2025, 11, 6, 11, 42), end: skyDate(2025, 11, 11) },
 		],
-		returning: [3],
+		returning: [{ start: skyDate(2023, 7, 3), end: skyDate(2023, 7, 17) }],
 	},
 });

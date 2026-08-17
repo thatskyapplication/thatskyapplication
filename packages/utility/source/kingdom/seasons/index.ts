@@ -3,7 +3,14 @@ import { isActive, skyNow } from "../../dates.js";
 import type { Season } from "../../models/season.js";
 import type { GuideSpirit, SeasonalSpirit } from "../../models/spirits.js";
 import type { SeasonIds } from "../../season.js";
-import { type Visit, VisitType } from "../../types/index.js";
+import {
+	type BaseVisit,
+	type IndividualSpiritVisit,
+	type ReturningIndividualSpiritVisit,
+	type ReturningSpiritVisit,
+	type TravellingSpiritVisit,
+	VisitType,
+} from "../../types/index.js";
 import type { SpiritIds } from "../../utility/spirits.js";
 import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
@@ -69,8 +76,11 @@ export const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	dearVanGogh,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
-export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collection<number, Visit>(
-	SEASONS.reduce<Omit<Visit, "visit">[]>((travellingDates, season) => {
+export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingSpiritVisit> = new Collection<
+	number,
+	TravellingSpiritVisit
+>(
+	SEASONS.reduce<TravellingSpiritVisit[]>((travellingDates, season) => {
 		for (const spirit of season.spirits.values()) {
 			for (const dates of spirit.visits.travelling) {
 				travellingDates.push({ ...dates, spiritId: spirit.id, type: VisitType.Travelling });
@@ -80,40 +90,73 @@ export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collectio
 		return travellingDates;
 	}, [])
 		.sort((a, b) => Temporal.ZonedDateTime.compare(a.start, b.start))
-		.map((dates, index) => [index + 1, { ...dates, visit: index + 1 }]),
+		.map((dates, index) => [index + 1, dates]),
 );
 
-const returningDates: Readonly<Visit[]> = SEASONS.reduce<Visit[]>((returningDates, season) => {
-	for (const spirit of season.spirits.values()) {
-		for (const [visit, dates] of spirit.visits.returning) {
-			returningDates.push({ ...dates, spiritId: spirit.id, visit, type: VisitType.Returning });
-		}
-	}
-
-	return returningDates;
-}, []);
-
-const allVisits = [];
-
-for (const travellingDate of TRAVELLING_DATES.values()) {
-	allVisits.push(travellingDate);
+interface ReturningVisitGroup extends BaseVisit<VisitType.Returning> {
+	readonly spiritIds: [SpiritIds, ...SpiritIds[]];
 }
 
-for (const returningDate of returningDates) {
-	allVisits.push(returningDate);
-}
-
-export const VISITS_ABSENT: Readonly<Visit[]> = allVisits
-	.sort((a, b) => Temporal.ZonedDateTime.compare(a.start, b.start))
-	.reduceRight<Visit[]>((visits, visit) => {
-		if (visits.some((storedVisit) => storedVisit.spiritId === visit.spiritId)) {
-			return visits;
+export const RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> = new Collection<
+	number,
+	ReturningSpiritVisit
+>(
+	SEASONS.reduce<ReturningIndividualSpiritVisit[]>((returningDates, season) => {
+		for (const spirit of season.spirits.values()) {
+			for (const dates of spirit.visits.returning) {
+				returningDates.push({
+					...dates,
+					spiritId: spirit.id,
+					type: VisitType.Returning,
+				});
+			}
 		}
 
-		visits.push(visit);
-		return visits;
+		return returningDates;
 	}, [])
-	.reverse();
+		.sort((a, b) => {
+			const startComparison = Temporal.ZonedDateTime.compare(a.start, b.start);
+			return startComparison === 0 ? Temporal.ZonedDateTime.compare(a.end, b.end) : startComparison;
+		})
+		.reduce<ReturningVisitGroup[]>((returningDates, { type, start, end, spiritId }) => {
+			const previous = returningDates.at(-1);
+
+			if (
+				previous &&
+				Temporal.ZonedDateTime.compare(previous.start, start) === 0 &&
+				Temporal.ZonedDateTime.compare(previous.end, end) === 0
+			) {
+				previous.spiritIds.push(spiritId);
+			} else {
+				returningDates.push({ type, start, end, spiritIds: [spiritId] });
+			}
+
+			return returningDates;
+		}, [])
+		.map((dates, index) => [index + 1, dates]),
+);
+
+export function visitsForSpirit(spiritId: SpiritIds) {
+	return {
+		travelling: TRAVELLING_DATES.filter((visit) => visit.spiritId === spiritId),
+		returning: RETURNING_DATES.filter((visit) => visit.spiritIds.includes(spiritId)),
+	};
+}
+
+const allVisits: IndividualSpiritVisit[] = [...TRAVELLING_DATES.values()];
+
+for (const { spiritIds, ...returningDate } of RETURNING_DATES.values()) {
+	for (const spiritId of spiritIds) {
+		allVisits.push({ ...returningDate, spiritId });
+	}
+}
+
+export const VISITS_ABSENT: ReadonlyCollection<SpiritIds, IndividualSpiritVisit> = allVisits
+	.sort((a, b) => Temporal.ZonedDateTime.compare(a.start, b.start))
+	.reduce((visits, visit) => {
+		visits.delete(visit.spiritId);
+		return visits.set(visit.spiritId, visit);
+	}, new Collection<SpiritIds, IndividualSpiritVisit>());
 
 export function skySeasons(date = skyNow()): ReadonlyCollection<SeasonIds, Season> {
 	return SEASONS.filter(({ start }) => Temporal.ZonedDateTime.compare(date, start) >= 0);

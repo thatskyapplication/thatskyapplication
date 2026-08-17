@@ -4,7 +4,7 @@ import {
 	spiritNotReturnedTranslationKey,
 	type Spirit,
 	TIME_ZONE,
-	TRAVELLING_DATES,
+	visitsForSpirit,
 } from "@thatskyapplication/utility";
 import { formatRelativeTime } from "~/utility/relative-time.js";
 import { VisitNumber } from "./VisitNumber.js";
@@ -114,7 +114,7 @@ export function SpiritVisits({
 
 	const travellingVisits: VisitEntry[] = [];
 	const returningVisits: VisitEntry[] = [];
-	const travelling = TRAVELLING_DATES.filter(({ spiritId }) => spiritId === spirit.id);
+	const { returning, travelling } = visitsForSpirit(spirit.id);
 
 	for (const [visit, { start }] of travelling) {
 		travellingVisits.push({
@@ -134,7 +134,7 @@ export function SpiritVisits({
 		});
 	}
 
-	for (const [visit, { start }] of spirit.visits.returning) {
+	for (const [visit, { start }] of returning) {
 		returningVisits.push({
 			id: `returning-${visit}`,
 			start,

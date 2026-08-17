@@ -3,6 +3,7 @@ import { ArrowRight, CalendarDays, Hourglass } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import {
+	type IndividualSpiritVisit,
 	SpiritsHistoryOrderType,
 	type SpiritsHistoryOrderTypes,
 	SPIRITS_HISTORY_TITLE_KEYS,
@@ -23,8 +24,6 @@ const SPIRITS_HISTORY_PAGE_SIZE = 10 as const;
 const ORDER_LINK_CLASS =
 	"flex min-w-0 flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-center text-sm font-medium transition-colors" as const;
 
-type SpiritVisit = (typeof VISITS_ABSENT)[number];
-
 function orderURL(searchParams: URLSearchParams, order: SpiritsHistoryOrderTypes) {
 	const parameters = new URLSearchParams(searchParams);
 	parameters.delete("page");
@@ -44,20 +43,20 @@ function SpiritHistoryEntry({
 	dateFormatter,
 	locale,
 	now,
-	order,
 	searchParams,
 	spirit,
 	timeZone,
 	visit,
+	visitNumber,
 }: {
 	dateFormatter: Intl.DateTimeFormat;
 	locale: string;
 	now: number;
-	order: SpiritsHistoryOrderTypes;
 	searchParams: URLSearchParams;
 	spirit: Spirit;
 	timeZone: string;
-	visit: SpiritVisit;
+	visit: IndividualSpiritVisit;
+	visitNumber: number | null;
 }) {
 	const { t } = useTranslation();
 	const timestamp = visit.start.toInstant().epochMilliseconds;
@@ -77,7 +76,7 @@ function SpiritHistoryEntry({
 			)}
 			<div className="min-w-0">
 				<div className="flex min-w-0 items-baseline gap-2">
-					{order === SpiritsHistoryOrderType.Natural ? <VisitNumber visit={visit.visit} /> : null}
+					{visitNumber === null ? null : <VisitNumber visit={visitNumber} />}
 					<h3 className="my-0 truncate text-base font-semibold text-gray-900 dark:text-gray-100">
 						{t(`spirits.${spirit.id}`, { ns: "general" })}
 					</h3>
@@ -114,15 +113,23 @@ export function SpiritHistory({
 			? SpiritsHistoryOrderType.Rarity
 			: SpiritsHistoryOrderType.Natural;
 	const sourceHistory =
-		order === SpiritsHistoryOrderType.Natural ? [...TRAVELLING_DATES.values()] : VISITS_ABSENT;
+		order === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
 	const availableSpirits = spirits();
-	const history: { spirit: Spirit; visit: SpiritVisit }[] = [];
+	const history: {
+		spirit: Spirit;
+		visit: IndividualSpiritVisit;
+		visitNumber: number | null;
+	}[] = [];
 
-	for (const visit of sourceHistory) {
+	for (const [key, visit] of sourceHistory) {
 		const spirit = availableSpirits.get(visit.spiritId);
 
 		if (spirit) {
-			history.push({ spirit, visit });
+			history.push({
+				spirit,
+				visit,
+				visitNumber: order === SpiritsHistoryOrderType.Natural ? key : null,
+			});
 		}
 	}
 
@@ -183,17 +190,17 @@ export function SpiritHistory({
 			</h2>
 
 			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-				{visits.map(({ spirit, visit }) => (
+				{visits.map(({ spirit, visit, visitNumber }) => (
 					<SpiritHistoryEntry
 						dateFormatter={dateFormatter}
 						key={`${visit.spiritId}-${visit.start.epochMilliseconds}`}
 						locale={locale}
 						now={now}
-						order={order}
 						searchParams={searchParams}
 						spirit={spirit}
 						timeZone={timeZone}
 						visit={visit}
+						visitNumber={visitNumber}
 					/>
 				))}
 			</div>

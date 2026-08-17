@@ -1,11 +1,47 @@
-import { equal } from "node:assert/strict";
+import { equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
-import { skySeasons } from "../source/kingdom/seasons/index.js";
+import {
+	resolveReturningSpirits,
+	RETURNING_DATES,
+	SEASONS,
+	skySeasons,
+	TRAVELLING_DATES,
+	VISITS_ABSENT,
+} from "../source/kingdom/seasons/index.js";
 import { spirits } from "../source/kingdom/spirits.js";
 import { SpiritKind } from "../source/models/spirits.js";
 import { SeasonId } from "../source/season.js";
-import { SpiritId, spiritNotReturnedTranslationKey } from "../source/utility/spirits.js";
+import { type BaseVisit, type Visit, type VisitPeriod, VisitType } from "../source/types/index.js";
+import {
+	SpiritId,
+	type SpiritIds,
+	spiritNotReturnedTranslationKey,
+} from "../source/utility/spirits.js";
+
+function assertVisitPeriods(
+	periods: readonly VisitPeriod[],
+	spiritId: SpiritIds,
+	visitType: "travelling" | "returning",
+) {
+	let previous: VisitPeriod | undefined;
+
+	for (const [index, period] of periods.entries()) {
+		ok(
+			Temporal.ZonedDateTime.compare(period.start, period.end) < 0,
+			`${spiritId}'s ${visitType} period ${index + 1} must start before it ends.`,
+		);
+
+		if (previous) {
+			ok(
+				Temporal.ZonedDateTime.compare(period.start, previous.start) >= 0,
+				`${spiritId}'s ${visitType} periods must be chronological.`,
+			);
+		}
+
+		previous = period;
+	}
+}
 
 test("Non-spirit seasons expose the correct spirit kinds.", () => {
 	const seasons = skySeasons();
@@ -92,4 +128,145 @@ test("Not-returned spirit copy follows the spirit's kind.", () => {
 	);
 	equal(spiritNotReturnedTranslationKey(seasonalSpirit, afterReturns), null);
 	equal(spiritNotReturnedTranslationKey(guide, beforeReturns), null);
+});
+
+test("Spirit visit periods are valid and chronological.", () => {
+	for (const season of SEASONS.values()) {
+		for (const spirit of season.spirits.values()) {
+			assertVisitPeriods(spirit.visits.travelling, spirit.id, "travelling");
+			assertVisitPeriods(spirit.visits.returning, spirit.id, "returning");
+		}
+	}
+});
+
+test("Returning spirit visits are grouped and numbered chronologically.", () => {
+	const inlinePeriods: (VisitPeriod & { spiritId: SpiritIds })[] = [];
+	const samePeriod = (left: VisitPeriod, right: VisitPeriod) =>
+		Temporal.ZonedDateTime.compare(left.start, right.start) === 0 &&
+		Temporal.ZonedDateTime.compare(left.end, right.end) === 0;
+	let expectedVisit = 1;
+	let associations = 0;
+	let previous: VisitPeriod | undefined;
+
+	for (const season of SEASONS.values()) {
+		for (const spirit of season.spirits.values()) {
+			for (const period of spirit.visits.returning) {
+				inlinePeriods.push({ ...period, spiritId: spirit.id });
+			}
+		}
+	}
+
+	for (const [visitNumber, visit] of RETURNING_DATES) {
+		equal(visitNumber, expectedVisit);
+		equal(visit.type, VisitType.Returning);
+		ok(visit.spiritIds.length > 0);
+		equal(new Set(visit.spiritIds).size, visit.spiritIds.length);
+
+		if (previous) {
+			const startComparison = Temporal.ZonedDateTime.compare(visit.start, previous.start);
+
+			ok(
+				startComparison > 0 ||
+					(startComparison === 0 && Temporal.ZonedDateTime.compare(visit.end, previous.end) > 0),
+			);
+
+			ok(
+				Temporal.ZonedDateTime.compare(visit.start, previous.end) >= 0,
+				"Returning spirit visit groups must not overlap.",
+			);
+		}
+
+		for (const spiritId of visit.spiritIds) {
+			equal(
+				inlinePeriods.filter((period) => period.spiritId === spiritId && samePeriod(period, visit))
+					.length,
+				1,
+			);
+		}
+
+		expectedVisit++;
+		associations += visit.spiritIds.length;
+		previous = visit;
+	}
+
+	equal(associations, inlinePeriods.length);
+
+	for (const period of inlinePeriods) {
+		equal(
+			RETURNING_DATES.filter(
+				(visit) => visit.spiritIds.includes(period.spiritId) && samePeriod(visit, period),
+			).size,
+			1,
+		);
+	}
+});
+
+test("Returning spirit visits use start-inclusive and end-exclusive active periods.", () => {
+	const visit = RETURNING_DATES.first()!;
+	const beforeStart = visit.start.subtract({ nanoseconds: 1 });
+	const beforeEnd = visit.end.subtract({ nanoseconds: 1 });
+	const beforeStartSpirits = resolveReturningSpirits(beforeStart);
+	const atStartSpirits = resolveReturningSpirits(visit.start);
+	const beforeEndSpirits = resolveReturningSpirits(beforeEnd);
+	const atEndSpirits = resolveReturningSpirits(visit.end);
+
+	for (const spiritId of visit.spiritIds) {
+		equal(beforeStartSpirits?.has(spiritId) ?? false, false);
+		equal(atStartSpirits?.has(spiritId) ?? false, true);
+		equal(beforeEndSpirits?.has(spiritId) ?? false, true);
+		equal(atEndSpirits?.has(spiritId) ?? false, false);
+	}
+});
+
+test("Visit types discriminate their spirit identifiers.", () => {
+	const visits: Visit[] = [TRAVELLING_DATES.first()!, RETURNING_DATES.first()!];
+
+	for (const visit of visits) {
+		if (visit.type === VisitType.Travelling) {
+			ok(Number.isInteger(visit.spiritId));
+			equal("spiritIds" in visit, false);
+		} else {
+			ok(visit.spiritIds.length > 0);
+			equal("spiritId" in visit, false);
+		}
+	}
+});
+
+test("Absent visits retain the latest visit for each spirit.", () => {
+	const latestVisits = new Map<number, BaseVisit>();
+	const retainLatest = (spiritId: number, visit: BaseVisit) => {
+		const latest = latestVisits.get(spiritId);
+
+		if (!latest || Temporal.ZonedDateTime.compare(visit.start, latest.start) >= 0) {
+			latestVisits.set(spiritId, visit);
+		}
+	};
+
+	for (const visit of TRAVELLING_DATES.values()) {
+		retainLatest(visit.spiritId, visit);
+	}
+
+	for (const visit of RETURNING_DATES.values()) {
+		for (const spiritId of visit.spiritIds) {
+			retainLatest(spiritId, visit);
+		}
+	}
+
+	equal(VISITS_ABSENT.size, latestVisits.size);
+	let previous: BaseVisit | undefined;
+
+	for (const [spiritId, visit] of VISITS_ABSENT) {
+		equal(visit.spiritId, spiritId);
+
+		if (previous) {
+			ok(Temporal.ZonedDateTime.compare(visit.start, previous.start) >= 0);
+		}
+
+		const latest = latestVisits.get(spiritId);
+		ok(latest);
+		equal(visit.type, latest.type);
+		equal(Temporal.ZonedDateTime.compare(visit.start, latest.start), 0);
+		equal(Temporal.ZonedDateTime.compare(visit.end, latest.end), 0);
+		previous = visit;
+	}
 });

@@ -17,7 +17,7 @@ import {
 	epochSeconds,
 	formatEmoji,
 	isSpiritsHistoryOrderType,
-	type SeasonalSpiritVisitReturningData,
+	RETURNING_DATES,
 	type SeasonalSpiritVisitTravellingErrorData,
 	spiritNotReturnedTranslationKey,
 	type Spirit,
@@ -27,9 +27,9 @@ import {
 	SPIRITS_HISTORY_TITLE_KEYS,
 	skyNow,
 	spirits,
-	TIME_ZONE,
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
+	visitsForSpirit,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { resolveCostToString } from "../utility/catalogue.js";
@@ -99,22 +99,11 @@ export async function searchAutocomplete<
 	});
 }
 
-function visitField(
-	seasonalSpiritVisit: typeof TRAVELLING_DATES | SeasonalSpiritVisitReturningData,
-) {
+function visitField(seasonalSpiritVisit: typeof TRAVELLING_DATES | typeof RETURNING_DATES) {
 	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
 	const visits = [];
 
 	for (const [visit, { start }] of seasonalSpiritVisit) {
-		const startFormatOptions: Intl.DateTimeFormatOptions = {
-			timeZone: TIME_ZONE,
-			dateStyle: "short",
-		};
-
-		if (start.hour !== 0 || start.minute !== 0) {
-			startFormatOptions.timeStyle = "short";
-		}
-
 		const startUnix = epochSeconds(start);
 		visits.push(
 			`\`#${String(visit).padStart(maxLength, "0")}\` <t:${startUnix}:s> (<t:${startUnix}:R>)`,
@@ -152,8 +141,8 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 	const visits = [];
 
 	if (isSeasonalSpirit) {
-		const { travellingErrors, returning } = spirit.visits;
-		const travelling = TRAVELLING_DATES.filter(({ spiritId }) => spiritId === spirit.id);
+		const { travellingErrors } = spirit.visits;
+		const { returning, travelling } = visitsForSpirit(spirit.id);
 		const travellingValue = [];
 
 		if (travelling.size > 0) {
@@ -326,16 +315,8 @@ export async function spiritsHistory(
 	const { locale } = interaction;
 	const offset = (page - 1) * MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
 	const limit = offset + MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
-	let spirits: typeof TRAVELLING_DATES | typeof VISITS_ABSENT;
-	let maximumPage: number;
-
-	if (type === SpiritsHistoryOrderType.Natural) {
-		spirits = TRAVELLING_DATES;
-		maximumPage = Math.ceil(spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
-	} else {
-		spirits = VISITS_ABSENT;
-		maximumPage = Math.ceil(spirits.length / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
-	}
+	const visits = type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
+	const maximumPage = Math.ceil(visits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -350,25 +331,18 @@ export async function spiritsHistory(
 	];
 
 	for (let index = offset; index < limit; index++) {
-		const visitData = spirits.at(index);
+		const visit = visits.at(index);
 
-		if (!visitData) {
+		if (!visit) {
 			break;
 		}
 
-		const { spiritId, start, visit } = visitData;
+		const { spiritId, start } = visit;
+		const visitNumber =
+			type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES.keyAt(index) : null;
 
 		// Need to escape # otherwise Discord will not render the heading correctly.
-		const heading = `###${type === SpiritsHistoryOrderType.Natural ? ` \\#${visit}` : ""} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
-
-		const startFormatOptions: Intl.DateTimeFormatOptions = {
-			timeZone: TIME_ZONE,
-			dateStyle: "short",
-		};
-
-		if (start.hour !== 0 || start.minute !== 0) {
-			startFormatOptions.timeStyle = "short";
-		}
+		const heading = `###${visitNumber === null || visitNumber === undefined ? "" : ` \\#${visitNumber}`} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
 
 		const startUnix = epochSeconds(start);
 		const lastVisited = `<t:${startUnix}:s> (<t:${startUnix}:R>)`;
