@@ -11,6 +11,7 @@
 		"infographic": "Инфографика",
 		"infographic-by": "",
 		"daily-quests": "Ежедневные квесты",
+		"travelling-spirit": "Дух-путник",
 		"returning-spirits": "",
 		"dye-workshop": "",
 		"note": "",
@@ -130,7 +131,7 @@
 			"9": "AURORA",
 			"10": "Посвящение",
 			"11": "Фестиваль Фейерверков в Птичьей Деревне",
-			"12": "Дух-путник",
+			"12": "$t(general:travelling-spirit)",
 			"13": "Юная фигуристка",
 			"14": "Мастерская Гнездования",
 			"15": "$t(general:maintenance)",
@@ -140,7 +141,7 @@
 			"19": "$t(general:event-names.double-hearts)",
 			"20": "",
 			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": ""
+			"22": "$t(general:returning-spirits)"
 		},
 		"page": "Страница",
 		"quests-common": {
@@ -2704,7 +2705,6 @@
 			"search-no-results": "",
 			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
-			"travelling-spirit": "",
 			"back-to-start-button-label": "",
 			"settings-button-label-enable": "",
 			"settings-button-label-disable": "",
@@ -3057,7 +3057,7 @@
 				"0": "",
 				"1": "",
 				"2": "",
-				"3": "",
+				"3": "$t(general:travelling-spirit)",
 				"4": "",
 				"5": "",
 				"6": "",
@@ -3076,7 +3076,7 @@
 				"19": "$t(general:event-names.radiance-event)",
 				"20": "$t(general:event)",
 				"21": "$t(general:season)",
-				"22": ""
+				"22": "$t(general:returning-spirits)"
 			},
 			"name": "",
 			"description": "",

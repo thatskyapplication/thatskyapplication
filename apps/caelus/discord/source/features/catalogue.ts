@@ -420,7 +420,7 @@ async function start({
 				`${CustomId.CatalogueViewStart}-travelling`,
 
 		disabled: !currentTravellingSpirit,
-		label: t("catalogue.travelling-spirit", { lng: locale, ns: "features" }),
+		label: t("travelling-spirit", { lng: locale, ns: "general" }),
 		style: currentTravellingSpirit ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 

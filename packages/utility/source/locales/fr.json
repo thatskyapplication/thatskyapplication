@@ -11,6 +11,7 @@
 		"infographic": "Infographie",
 		"infographic-by": "Infographie par {{acknowledgement}}.",
 		"daily-quests": "Quêtes journalières",
+		"travelling-spirit": "Esprit voyageur",
 		"returning-spirits": "Esprits de retour",
 		"dye-workshop": "",
 		"note": "",
@@ -130,7 +131,7 @@
 			"9": "AURORA",
 			"10": "Initiation",
 			"11": "Feux d'artifices du Village Volière",
-			"12": "Esprit voyageur",
+			"12": "$t(general:travelling-spirit)",
 			"13": "Patineuse des rêves",
 			"14": "Atelier de la Nidification",
 			"15": "$t(general:maintenance)",
@@ -140,7 +141,7 @@
 			"19": "$t(general:event-names.double-hearts)",
 			"20": "Double lumière saisonnière",
 			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": ""
+			"22": "$t(general:returning-spirits)"
 		},
 		"page": "Page",
 		"quests-common": {
@@ -2704,7 +2705,6 @@
 			"search-no-results": "",
 			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
-			"travelling-spirit": "Esprit voyageur",
 			"back-to-start-button-label": "Début",
 			"settings-button-label-enable": "Activer",
 			"settings-button-label-disable": "Désactiver",
@@ -3067,7 +3067,7 @@
 				"0": "Réinitialisation journalière",
 				"1": "Œil d'Éden",
 				"2": "Station Spatiale Internationale",
-				"3": "Esprit Voyageur",
+				"3": "$t(general:travelling-spirit)",
 				"4": "Dragon",
 				"5": "Geyser pollué",
 				"6": "Mamie",
@@ -3086,7 +3086,7 @@
 				"19": "$t(general:event-names.radiance-event)",
 				"20": "$t(general:event)",
 				"21": "$t(general:season)",
-				"22": ""
+				"22": "$t(general:returning-spirits)"
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des évènements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
