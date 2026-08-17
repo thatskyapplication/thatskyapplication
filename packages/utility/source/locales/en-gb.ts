@@ -3572,8 +3572,8 @@ export default {
 					"message-future": "Treasure candles will begin to shine more brightly {{timestamp}}!",
 				},
 				[NotificationType.ReturningSpirits]: {
-					"message-now": "{{spirits}} have arrived!",
-					"message-future": "{{spirits}} will arrive {{timestamp}}!",
+					"message-now": "Welcome back to Sky, {{spirits}}!",
+					"message-future": "Get ready to welcome back to Sky, {{spirits}} {{timestamp}}!",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":
