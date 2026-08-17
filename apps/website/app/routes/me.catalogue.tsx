@@ -230,7 +230,15 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 			break;
 		}
 		case "returning-spirits":
-			content = <ReturningSpiritsView data={data} locale={locale} now={now} />;
+			content = (
+				<ReturningSpiritsView
+					data={data}
+					hour12={hour12}
+					locale={locale}
+					now={now}
+					timeZone={timeZone}
+				/>
+			);
 			break;
 		case "starter-packs":
 			content = (

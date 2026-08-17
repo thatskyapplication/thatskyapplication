@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { resolveReturningSpirits } from "@thatskyapplication/utility";
+import { resolveReturningSpirits, returningSpiritsSchedule } from "@thatskyapplication/utility";
+import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { FriendshipTreeCarousel } from "./FriendshipTreeCarousel";
@@ -9,14 +10,25 @@ export function ReturningSpiritsView({
 	data,
 	locale,
 	now,
+	timeZone,
+	hour12,
 }: {
 	data: ReadonlySet<number>;
 	locale: string;
 	now: Temporal.ZonedDateTime;
+	timeZone: string;
+	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
 	const returningSpirits = resolveReturningSpirits(now);
+	const visit = returningSpiritsSchedule(now);
 	const spiritTreeColumns = [];
+	const dateFormat = new Intl.DateTimeFormat(locale, {
+		dateStyle: "medium",
+		timeStyle: "short",
+		timeZone,
+		hour12,
+	});
 
 	if (returningSpirits) {
 		for (const spirit of returningSpirits.values()) {
@@ -36,6 +48,21 @@ export function ReturningSpiritsView({
 				current={t("returning-spirits", { ns: "general" })}
 				trail={[{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" }]}
 			/>
+
+			{returningSpirits && visit?.active && (
+				<div>
+					<h1 className="my-0 text-2xl font-bold text-gray-900 dark:text-gray-100">
+						{t("returning-spirits", { ns: "general" })}
+					</h1>
+					<p className={NOTE_CLASS}>
+						{t("time-range", {
+							ns: "general",
+							start: dateFormat.format(visit.start.epochMilliseconds),
+							end: dateFormat.format(visit.end.epochMilliseconds),
+						})}
+					</p>
+				</div>
+			)}
 
 			{spiritTreeColumns.length > 0 && (
 				<FriendshipTreeCarousel>{spiritTreeColumns}</FriendshipTreeCarousel>
