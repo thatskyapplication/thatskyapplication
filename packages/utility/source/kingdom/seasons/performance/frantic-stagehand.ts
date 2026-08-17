@@ -1,4 +1,5 @@
 import { Cosmetic, CosmeticCommon } from "../../../cosmetics.js";
+import { skyDate } from "../../../dates.js";
 import { SeasonalSpirit } from "../../../models/spirits.js";
 import { SeasonId } from "../../../season.js";
 import { FriendAction, SpiritId } from "../../../utility/spirits.js";
@@ -121,6 +122,9 @@ export default new SeasonalSpirit({
 		],
 	},
 	visits: {
-		returning: [5, 11],
+		returning: [
+			{ start: skyDate(2024, 3, 4), end: skyDate(2024, 3, 18) },
+			{ start: skyDate(2025, 11, 17), end: skyDate(2025, 12, 1) },
+		],
 	},
 });

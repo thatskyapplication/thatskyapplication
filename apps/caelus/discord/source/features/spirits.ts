@@ -17,7 +17,7 @@ import {
 	epochSeconds,
 	formatEmoji,
 	isSpiritsHistoryOrderType,
-	type SeasonalSpiritVisitReturningData,
+	RETURNING_DATES,
 	type SeasonalSpiritVisitTravellingErrorData,
 	spiritNotReturnedTranslationKey,
 	type Spirit,
@@ -99,9 +99,7 @@ export async function searchAutocomplete<
 	});
 }
 
-function visitField(
-	seasonalSpiritVisit: typeof TRAVELLING_DATES | SeasonalSpiritVisitReturningData,
-) {
+function visitField(seasonalSpiritVisit: typeof TRAVELLING_DATES | typeof RETURNING_DATES) {
 	const maxLength = seasonalSpiritVisit.lastKey()!.toString().length;
 	const visits = [];
 
@@ -152,8 +150,9 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 	const visits = [];
 
 	if (isSeasonalSpirit) {
-		const { travellingErrors, returning } = spirit.visits;
+		const { travellingErrors } = spirit.visits;
 		const travelling = TRAVELLING_DATES.filter(({ spiritId }) => spiritId === spirit.id);
+		const returning = RETURNING_DATES.filter(({ spiritIds }) => spiritIds.includes(spirit.id));
 		const travellingValue = [];
 
 		if (travelling.size > 0) {

@@ -30,12 +30,7 @@ export enum SpiritKind {
 	Mannequin = 2,
 }
 
-interface TravellingSpiritsDates {
-	readonly start: Temporal.ZonedDateTime;
-	readonly end: Temporal.ZonedDateTime;
-}
-
-interface ReturningDatesData {
+interface SpiritVisitDates {
 	readonly start: Temporal.ZonedDateTime;
 	readonly end: Temporal.ZonedDateTime;
 }
@@ -45,22 +40,6 @@ const TRAVELLING_ERROR_DATES = new Collection<number, Temporal.ZonedDateTime>()
 	.set(2, skyDate(2_021, 2, 4))
 	.set(3, skyDate(2_022, 1, 6))
 	.set(4, skyDate(2_023, 4, 13));
-
-const RETURNING_DATES = new Collection<number, ReturningDatesData>()
-	.set(1, { start: skyDate(2_023, 3, 6), end: skyDate(2_023, 3, 20) })
-	.set(2, { start: skyDate(2_023, 5, 15), end: skyDate(2_023, 5, 22) })
-	.set(3, { start: skyDate(2_023, 7, 3), end: skyDate(2_023, 7, 17) })
-	.set(4, { start: skyDate(2_023, 8, 7), end: skyDate(2_023, 8, 14) })
-	.set(5, { start: skyDate(2_024, 3, 4), end: skyDate(2_024, 3, 18) })
-	.set(6, { start: skyDate(2_024, 9, 16), end: skyDate(2_024, 9, 30) })
-	.set(7, { start: skyDate(2_025, 1, 13), end: skyDate(2_025, 1, 27) })
-	.set(8, { start: skyDate(2_025, 4, 7), end: skyDate(2_025, 4, 21) })
-	.set(9, { start: skyDate(2_025, 6, 9), end: skyDate(2_025, 6, 23) })
-	.set(10, { start: skyDate(2_025, 8, 18), end: skyDate(2_025, 9, 1) })
-	.set(11, { start: skyDate(2_025, 11, 17), end: skyDate(2_025, 12, 1) })
-	.set(12, { start: skyDate(2026, 2, 27), end: skyDate(2026, 3, 13) })
-	.set(13, { start: skyDate(2026, 6, 19), end: skyDate(2026, 7, 3) })
-	.set(14, { start: skyDate(2026, 8, 28), end: skyDate(2026, 9, 11) });
 
 export type LegacyFriendshipTreeRaw = readonly (
 	| readonly [ItemRawWithoutChildren]
@@ -138,18 +117,17 @@ export type SeasonalSpiritVisitTravellingErrorData = ReadonlyCollection<
 	number,
 	Temporal.ZonedDateTime
 >;
-export type SeasonalSpiritVisitReturningData = ReadonlyCollection<number, ReturningDatesData>;
 
 interface SeasonalSpiritVisitData {
-	travelling?: readonly TravellingSpiritsDates[];
+	travelling?: readonly SpiritVisitDates[];
 	travellingErrors?: readonly number[];
-	returning?: readonly number[];
+	returning?: readonly SpiritVisitDates[];
 }
 
 interface SeasonalSpiritVisit {
-	travelling: readonly TravellingSpiritsDates[];
+	travelling: readonly SpiritVisitDates[];
 	travellingErrors: SeasonalSpiritVisitTravellingErrorData;
-	returning: SeasonalSpiritVisitReturningData;
+	returning: readonly SpiritVisitDates[];
 }
 
 interface SeasonalSpiritData extends Omit<BaseSpiritData, "realm"> {
@@ -335,19 +313,14 @@ export class SeasonalSpirit extends BaseSpirit<SeasonalSpiritData> {
 				TRAVELLING_ERROR_DATES,
 				"travelling error",
 			),
-			returning: resolveVisitPeriods(
-				this.id,
-				spirit.visits?.returning,
-				RETURNING_DATES,
-				"returning",
-			),
+			returning: spirit.visits?.returning ?? [],
 		};
 	}
 
 	public visit(date: Temporal.ZonedDateTime) {
 		const { travelling, returning } = this.visits;
 		const firstTravelling = travelling[0];
-		const firstReturning = returning.first();
+		const firstReturning = returning[0];
 
 		return {
 			visited: Boolean(

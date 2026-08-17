@@ -162,6 +162,7 @@ export { KINGDOM } from "./kingdom/index.js";
 export {
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
+	RETURNING_DATES,
 	skyCurrentSeason,
 	skySeasons,
 	skyUpcomingSeason,
@@ -176,7 +177,6 @@ export {
 	ElderSpirit,
 	GuideSpirit,
 	SeasonalSpirit,
-	type SeasonalSpiritVisitReturningData,
 	type SeasonalSpiritVisitTravellingErrorData,
 	type Spirit,
 	SpiritKind,
@@ -238,7 +238,14 @@ export {
 	SkyProfileWingedLightType,
 	type SkyProfileWingedLightTypes,
 } from "./sky-profile.js";
-export type { Snowflake } from "./types/index.js";
+export {
+	type BaseVisit,
+	type ReturningSpiritVisit,
+	type Snowflake,
+	type TravellingSpiritVisit,
+	type Visit,
+	VisitType,
+} from "./types/index.js";
 export {
 	EventFamilyId,
 	type EventFamilyIds,

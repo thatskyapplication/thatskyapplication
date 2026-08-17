@@ -1,6 +1,7 @@
 import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
+	RETURNING_DATES,
 	spiritNotReturnedTranslationKey,
 	type Spirit,
 	TIME_ZONE,
@@ -115,6 +116,7 @@ export function SpiritVisits({
 	const travellingVisits: VisitEntry[] = [];
 	const returningVisits: VisitEntry[] = [];
 	const travelling = TRAVELLING_DATES.filter(({ spiritId }) => spiritId === spirit.id);
+	const returning = RETURNING_DATES.filter(({ spiritIds }) => spiritIds.includes(spirit.id));
 
 	for (const [visit, { start }] of travelling) {
 		travellingVisits.push({
@@ -134,7 +136,7 @@ export function SpiritVisits({
 		});
 	}
 
-	for (const [visit, { start }] of spirit.visits.returning) {
+	for (const [visit, { start }] of returning) {
 		returningVisits.push({
 			id: `returning-${visit}`,
 			start,

@@ -124,6 +124,6 @@ export default new SeasonalSpirit({
 	},
 	visits: {
 		travelling: [{ start: skyDate(2023, 4, 13), end: skyDate(2023, 4, 17) }],
-		returning: [8],
+		returning: [{ start: skyDate(2025, 4, 7), end: skyDate(2025, 4, 21) }],
 	},
 });

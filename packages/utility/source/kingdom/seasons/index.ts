@@ -3,7 +3,12 @@ import { isActive, skyNow } from "../../dates.js";
 import type { Season } from "../../models/season.js";
 import type { GuideSpirit, SeasonalSpirit } from "../../models/spirits.js";
 import type { SeasonIds } from "../../season.js";
-import { type Visit, VisitType } from "../../types/index.js";
+import {
+	type BaseVisit,
+	type ReturningSpiritVisit,
+	type TravellingSpiritVisit,
+	VisitType,
+} from "../../types/index.js";
 import type { SpiritIds } from "../../utility/spirits.js";
 import Abyss from "./abyss/index.js";
 import Assembly from "./assembly/index.js";
@@ -69,8 +74,11 @@ export const SEASONS: ReadonlyCollection<SeasonIds, Season> = [
 	dearVanGogh,
 ].reduce((seasons, season) => seasons.set(season.id, season), new Collection<SeasonIds, Season>());
 
-export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collection<number, Visit>(
-	SEASONS.reduce<Omit<Visit, "visit">[]>((travellingDates, season) => {
+export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingSpiritVisit> = new Collection<
+	number,
+	TravellingSpiritVisit
+>(
+	SEASONS.reduce<Omit<TravellingSpiritVisit, "visit">[]>((travellingDates, season) => {
 		for (const spirit of season.spirits.values()) {
 			for (const dates of spirit.visits.travelling) {
 				travellingDates.push({ ...dates, spiritId: spirit.id, type: VisitType.Travelling });
@@ -83,17 +91,69 @@ export const TRAVELLING_DATES: ReadonlyCollection<number, Visit> = new Collectio
 		.map((dates, index) => [index + 1, { ...dates, visit: index + 1 }]),
 );
 
-const returningDates: Readonly<Visit[]> = SEASONS.reduce<Visit[]>((returningDates, season) => {
-	for (const spirit of season.spirits.values()) {
-		for (const [visit, dates] of spirit.visits.returning) {
-			returningDates.push({ ...dates, spiritId: spirit.id, visit, type: VisitType.Returning });
+type ReturningSpiritVisitDates = Omit<BaseVisit<VisitType.Returning>, "visit"> & {
+	spiritId: SpiritIds;
+};
+
+interface ReturningVisitDates extends Omit<BaseVisit<VisitType.Returning>, "visit"> {
+	spiritIds: SpiritIds[];
+}
+
+interface IndividualSpiritVisit extends BaseVisit {
+	spiritId: SpiritIds;
+}
+
+export const RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> = new Collection<
+	number,
+	ReturningSpiritVisit
+>(
+	SEASONS.reduce<ReturningSpiritVisitDates[]>((returningDates, season) => {
+		for (const spirit of season.spirits.values()) {
+			for (const dates of spirit.visits.returning) {
+				returningDates.push({
+					...dates,
+					spiritId: spirit.id,
+					type: VisitType.Returning,
+				});
+			}
 		}
+
+		return returningDates;
+	}, [])
+		.sort((a, b) => {
+			const startComparison = Temporal.ZonedDateTime.compare(a.start, b.start);
+			return startComparison === 0 ? Temporal.ZonedDateTime.compare(a.end, b.end) : startComparison;
+		})
+		.reduce<ReturningVisitDates[]>((returningDates, { type, start, end, spiritId }) => {
+			const previous = returningDates.at(-1);
+
+			if (
+				previous &&
+				Temporal.ZonedDateTime.compare(previous.start, start) === 0 &&
+				Temporal.ZonedDateTime.compare(previous.end, end) === 0
+			) {
+				previous.spiritIds.push(spiritId);
+			} else {
+				returningDates.push({ type, start, end, spiritIds: [spiritId] });
+			}
+
+			return returningDates;
+		}, [])
+		.map((dates, index) => {
+			const visit = index + 1;
+			return [visit, { ...dates, visit }];
+		}),
+);
+
+const returningDates: IndividualSpiritVisit[] = [];
+
+for (const { spiritIds, ...returningDate } of RETURNING_DATES.values()) {
+	for (const spiritId of spiritIds) {
+		returningDates.push({ ...returningDate, spiritId });
 	}
+}
 
-	return returningDates;
-}, []);
-
-const allVisits = [];
+const allVisits: IndividualSpiritVisit[] = [];
 
 for (const travellingDate of TRAVELLING_DATES.values()) {
 	allVisits.push(travellingDate);
@@ -103,9 +163,9 @@ for (const returningDate of returningDates) {
 	allVisits.push(returningDate);
 }
 
-export const VISITS_ABSENT: Readonly<Visit[]> = allVisits
+export const VISITS_ABSENT: Readonly<IndividualSpiritVisit[]> = allVisits
 	.sort((a, b) => Temporal.ZonedDateTime.compare(a.start, b.start))
-	.reduceRight<Visit[]>((visits, visit) => {
+	.reduceRight<IndividualSpiritVisit[]>((visits, visit) => {
 		if (visits.some((storedVisit) => storedVisit.spiritId === visit.spiritId)) {
 			return visits;
 		}

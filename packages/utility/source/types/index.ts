@@ -11,10 +11,19 @@ export enum VisitType {
 	Returning = 1,
 }
 
-export interface Visit {
-	type: VisitType;
-	spiritId: SpiritIds;
+export interface BaseVisit<Type extends VisitType = VisitType> {
+	type: Type;
 	visit: number;
 	start: Temporal.ZonedDateTime;
 	end: Temporal.ZonedDateTime;
 }
+
+export interface TravellingSpiritVisit extends BaseVisit<VisitType.Travelling> {
+	spiritId: SpiritIds;
+}
+
+export interface ReturningSpiritVisit extends BaseVisit<VisitType.Returning> {
+	spiritIds: readonly SpiritIds[];
+}
+
+export type Visit = TravellingSpiritVisit | ReturningSpiritVisit;
