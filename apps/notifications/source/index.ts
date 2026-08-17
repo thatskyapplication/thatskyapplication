@@ -26,6 +26,8 @@ import {
 	ptBR,
 	RADIANCE_EVENTS,
 	type RealmName,
+	returningSpiritsSchedule,
+	type ReturningSpiritVisit,
 	ru,
 	type SeasonIds,
 	shardEruption,
@@ -116,6 +118,8 @@ const NOTIFICATION_DOUBLE_TREASURE_CANDLES_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.DoubleTreasureCandles];
 const NOTIFICATION_SEASONS_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.Seasons];
+const NOTIFICATION_RETURNING_SPIRITS_MAXIMUM_OFFSET =
+	NotificationOffsetToMaximumValues[NotificationType.ReturningSpirits];
 
 interface NotificationsShardEruptionData {
 	type: NotificationShardEruptionTypes;
@@ -178,6 +182,14 @@ interface NotificationsSeasonData {
 	timestamp: `<t:${number}:R>`;
 }
 
+interface NotificationsReturningSpiritsData {
+	type: typeof NotificationType.ReturningSpirits;
+	timeUntilStart: number;
+	startEpochSeconds: number;
+	spiritIds: ReturningSpiritVisit["spiritIds"];
+	timestamp: `<t:${number}:R>`;
+}
+
 interface NotificationsNotShardEruptionData {
 	type: Exclude<
 		NotificationTypes,
@@ -189,6 +201,7 @@ interface NotificationsNotShardEruptionData {
 		| typeof NotificationType.DoubleSeasonalLight
 		| typeof NotificationType.DoubleTreasureCandles
 		| typeof NotificationType.Seasons
+		| typeof NotificationType.ReturningSpirits
 	>;
 	timeUntilStart: number;
 	timestamp: `<t:${number}:R>`;
@@ -203,6 +216,7 @@ type NotificationsData =
 	| NotificationsDoubleSeasonalLightData
 	| NotificationsDoubleTreasureCandlesData
 	| NotificationsSeasonData
+	| NotificationsReturningSpiritsData
 	| NotificationsNotShardEruptionData;
 
 function isNotificationShardEruptionData(
@@ -328,6 +342,24 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 				timeUntilStart,
 				seasonId: season.id,
 				timestamp: `<t:${epochSeconds(season.start)}:R>`,
+			});
+		}
+	}
+
+	const returningSpirits = returningSpiritsSchedule(date);
+
+	if (returningSpirits) {
+		const timeUntilStart = Math.floor(returningSpirits.start.since(date).total("minutes"));
+
+		if (timeUntilStart >= 0 && timeUntilStart <= NOTIFICATION_RETURNING_SPIRITS_MAXIMUM_OFFSET) {
+			const startEpochSeconds = epochSeconds(returningSpirits.start);
+
+			notifications.push({
+				type: NotificationType.ReturningSpirits,
+				timeUntilStart,
+				startEpochSeconds,
+				spiritIds: returningSpirits.spiritIds,
+				timestamp: `<t:${startEpochSeconds}:R>`,
 			});
 		}
 	}
@@ -615,18 +647,39 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 														})})`,
 														timestamp: notification.timestamp,
 													})
-												: t(`notifications.messages.${type}.message-${key}`, {
-														lng: notificationPacket.locale,
-														ns: "features",
-														timestamp: notification.timestamp,
-														spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+												: notification.type === NotificationType.ReturningSpirits
+													? t(`notifications.messages.${type}.message-${key}`, {
 															lng: notificationPacket.locale,
-															ns: "general",
-														})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+															ns: "features",
+															spirits: new Intl.ListFormat(notificationPacket.locale, {
+																style: "long",
+																type: "conjunction",
+															}).format(
+																notification.spiritIds.map(
+																	(spiritId) =>
+																		`[${t(`spirits.${spiritId}`, {
+																			lng: notificationPacket.locale,
+																			ns: "general",
+																		})}](${t(`spirit-wiki.${spiritId}`, {
+																			lng: notificationPacket.locale,
+																			ns: "general",
+																		})})`,
+																),
+															),
+															timestamp: notification.timestamp,
+														})
+													: t(`notifications.messages.${type}.message-${key}`, {
 															lng: notificationPacket.locale,
-															ns: "general",
-														})})`,
-													});
+															ns: "features",
+															timestamp: notification.timestamp,
+															spirit: `[${t(`spirits.${travellingSpirit!.spiritId}`, {
+																lng: notificationPacket.locale,
+																ns: "general",
+															})}](${t(`spirit-wiki.${travellingSpirit!.spiritId}`, {
+																lng: notificationPacket.locale,
+																ns: "general",
+															})})`,
+														});
 
 				try {
 					return await client.channels.createMessage(notificationPacket.channel_id, {
@@ -637,7 +690,11 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 						nonce: notificationNonce(
 							type,
 							notificationPacket.channel_id,
-							notification.type === NotificationType.Events ? notification.eventId : undefined,
+							notification.type === NotificationType.Events
+								? notification.eventId
+								: notification.type === NotificationType.ReturningSpirits
+									? notification.startEpochSeconds
+									: undefined,
 						),
 					});
 				} catch (error) {

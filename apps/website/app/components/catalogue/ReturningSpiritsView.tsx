@@ -33,7 +33,7 @@ export function ReturningSpiritsView({
 	return (
 		<>
 			<Breadcrumb
-				current={t("catalogue.returning-spirits", { ns: "features" })}
+				current={t("returning-spirits", { ns: "general" })}
 				trail={[{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" }]}
 			/>
 

@@ -16,6 +16,7 @@ import {
 	MAINTENANCE_PERIODS,
 	nextDailyReset,
 	RADIANCE_EVENTS,
+	returningSpiritsSchedule,
 	shardEruption,
 	type ShardEruptionData,
 	skyCurrentSeason,
@@ -27,6 +28,7 @@ import {
 	treasureCandles,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
@@ -55,7 +57,8 @@ interface DaysCountItem extends DailyGuidesDaysCountItem {
 
 const DAILY_GUIDES_TITLE = "Daily guides" as const;
 const DAILY_GUIDES_DESCRIPTION =
-	"Today's quests, treasure candles, seasonal candles, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
+	"Today's quests, treasure candles, seasonal candles, returning spirits, shard eruption, travelling rock, maintenance, and countdowns for Sky: Children of the Light." as const;
+const RETURNING_SPIRITS_LIST_PLACEHOLDER = "__RETURNING_SPIRITS_LIST__" as const;
 
 function dailyGuidesCacheMaxAge(timestamp: number) {
 	const now = Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(TIME_ZONE);
@@ -74,7 +77,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		{ name: "robots", content: "index, follow" },
 		{
 			name: "keywords",
-			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord bot, Discord application, Daily guides, Daily quests, Treasure candles, Seasonal candles, Shard eruption, Travelling rock, Maintenance, Season countdown, Event countdowns`,
+			content: `Sky, Children of the Light, ${APPLICATION_NAME}, Discord bot, Discord application, Daily guides, Daily quests, Treasure candles, Seasonal candles, Returning spirits, Shard eruption, Travelling rock, Maintenance, Season countdown, Event countdowns`,
 		},
 		{ title: DAILY_GUIDES_TITLE },
 		{ name: "description", content: DAILY_GUIDES_DESCRIPTION },
@@ -261,6 +264,45 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 			iconURL: nextSeasonEmoji ? formatEmojiURL(nextSeasonEmoji.id) : undefined,
 			key: `season-upcoming-${next.id}`,
 			start: next.start,
+		});
+	}
+
+	const returningSpiritsName = t("returning-spirits", { ns: "general" });
+	const returningSpirits = returningSpiritsSchedule(today);
+
+	if (returningSpirits) {
+		const { active, start, end, spiritIds } = returningSpirits;
+		const countdown = active
+			? t("daily-guides.returning-spirits-active-list", {
+					ns: "features",
+					count: Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1,
+					returningSpirits: returningSpiritsName,
+					spirits: RETURNING_SPIRITS_LIST_PLACEHOLDER,
+				})
+			: t("daily-guides.returning-spirits-upcoming-list", {
+					ns: "features",
+					count: Math.floor(start.since(today).total({ unit: "days", relativeTo: today })),
+					returningSpirits: returningSpiritsName,
+					spirits: RETURNING_SPIRITS_LIST_PLACEHOLDER,
+				});
+		const [beforeSpiritList, afterSpiritList] = countdown.split(RETURNING_SPIRITS_LIST_PLACEHOLDER);
+		const spiritLinks = spiritIds.map((spiritId) => ({
+			id: spiritId,
+			label: t(`spirits.${spiritId}`, { ns: "general" }),
+			href: t(`spirit-wiki.${spiritId}`, { ns: "general" }),
+		}));
+
+		daysCount.push({
+			content: (
+				<>
+					{beforeSpiritList}
+					<ExternalLinkList items={spiritLinks} locale={locale} />
+					{afterSpiritList}
+				</>
+			),
+			end,
+			key: `returning-spirits-${start.epochMilliseconds}`,
+			start,
 		});
 	}
 

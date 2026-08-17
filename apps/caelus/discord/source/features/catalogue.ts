@@ -437,7 +437,7 @@ async function start({
 			: // This would not happen, but it's here to satisfy the API.
 				`${CustomId.CatalogueViewStart}-returning`,
 		disabled: !currentReturningSpirits,
-		label: t("catalogue.returning-spirits", { lng: locale, ns: "features" }),
+		label: t("returning-spirits", { lng: locale, ns: "general" }),
 		style: currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 
@@ -1818,7 +1818,7 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 		return;
 	}
 
-	const current = t("catalogue.returning-spirits", { lng: locale, ns: "features" });
+	const current = t("returning-spirits", { lng: locale, ns: "general" });
 	const title = `## ${current}\n\n${breadcrumb(locale, current)}`;
 
 	const containerComponents: APIComponentInContainer[] = [

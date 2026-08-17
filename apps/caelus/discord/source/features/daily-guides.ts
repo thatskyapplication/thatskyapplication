@@ -51,6 +51,7 @@ import {
 	MAXIMUM_ASSET_BANNER_DIMENSION,
 	type Packet,
 	RADIANCE_EVENTS,
+	returningSpiritsSchedule,
 	resolveCurrencyEmoji,
 	shardEruption,
 	skyCurrentEvents,
@@ -1085,6 +1086,42 @@ async function distributionData({
 
 	const eventData = dailyGuidesEventData(today, locale);
 	footerItems.push(...eventData.eventEndText);
+
+	const returningSpiritsName = t("returning-spirits", {
+		lng: locale,
+		ns: "general",
+	});
+	const returningSpirits = returningSpiritsSchedule(today);
+
+	if (returningSpirits) {
+		const { active, start, end, spiritIds } = returningSpirits;
+		const spirits = new Intl.ListFormat(locale, { style: "long", type: "conjunction" }).format(
+			spiritIds.map(
+				(spiritId) =>
+					`[${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spiritId}`, { lng: locale, ns: "general" })})`,
+			),
+		);
+
+		footerItems.push({
+			end,
+			start,
+			text: active
+				? t("daily-guides.returning-spirits-active-list", {
+						lng: locale,
+						ns: "features",
+						count: Math.ceil(end.since(today).total({ unit: "days", relativeTo: today })) - 1,
+						returningSpirits: returningSpiritsName,
+						spirits,
+					})
+				: t("daily-guides.returning-spirits-upcoming-list", {
+						lng: locale,
+						ns: "features",
+						count: Math.floor(start.since(today).total({ unit: "days", relativeTo: today })),
+						returningSpirits: returningSpiritsName,
+						spirits,
+					}),
+		});
+	}
 
 	if (eventData.eventTickets) {
 		containerComponents.push({

@@ -136,10 +136,28 @@ export const RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> =
 		.map((dates, index) => [index + 1, dates]),
 );
 
-export function visitsForSpirit(spiritId: SpiritIds) {
+const returningDatesBySpirit = new Collection<
+	SpiritIds,
+	Collection<number, ReturningSpiritVisit>
+>();
+
+for (const [visit, returningDates] of RETURNING_DATES) {
+	for (const spiritId of returningDates.spiritIds) {
+		returningDatesBySpirit
+			.ensure(spiritId, () => new Collection<number, ReturningSpiritVisit>())
+			.set(visit, returningDates);
+	}
+}
+
+const EMPTY_RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> = new Collection();
+
+export function visitsForSpirit(spiritId: SpiritIds): {
+	readonly travelling: ReadonlyCollection<number, TravellingSpiritVisit>;
+	readonly returning: ReadonlyCollection<number, ReturningSpiritVisit>;
+} {
 	return {
 		travelling: TRAVELLING_DATES.filter((visit) => visit.spiritId === spiritId),
-		returning: RETURNING_DATES.filter((visit) => visit.spiritIds.includes(spiritId)),
+		returning: returningDatesBySpirit.get(spiritId) ?? EMPTY_RETURNING_DATES,
 	};
 }
 

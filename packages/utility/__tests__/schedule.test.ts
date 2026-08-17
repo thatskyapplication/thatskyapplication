@@ -1,6 +1,7 @@
-import { equal } from "node:assert/strict";
+import { deepStrictEqual, equal } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
+import { RETURNING_DATES } from "../source/kingdom/seasons/index.js";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
@@ -15,11 +16,32 @@ import {
 	nineColouredDeerSchedule,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
+	returningSpiritsSchedule,
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
 } from "../source/schedule.js";
 
 const zoned = (isoWithOffset: string) => Temporal.ZonedDateTime.from(isoWithOffset);
+
+test("Returning spirits schedule follows visit 14's boundaries.", () => {
+	const visit = RETURNING_DATES.get(14)!;
+	const upcoming = returningSpiritsSchedule(visit.start.subtract({ nanoseconds: 1 }));
+	const active = returningSpiritsSchedule(visit.start);
+	const beforeEnd = returningSpiritsSchedule(visit.end.subtract({ nanoseconds: 1 }));
+	const atEnd = returningSpiritsSchedule(visit.end);
+
+	equal(upcoming?.start, visit.start);
+	equal(upcoming?.end, visit.end);
+	deepStrictEqual(upcoming?.spiritIds, visit.spiritIds);
+	equal(upcoming?.active, false);
+	equal(active?.active, true);
+	equal(beforeEnd?.active, true);
+	equal(atEnd?.start === visit.start, false);
+});
+
+test("Returning spirits schedule is null after the last announced visit.", () => {
+	equal(returningSpiritsSchedule(RETURNING_DATES.last()!.end), null);
+});
 
 const SCHEDULES = [
 	{
