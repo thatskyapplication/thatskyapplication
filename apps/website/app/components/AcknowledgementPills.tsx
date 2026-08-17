@@ -7,6 +7,8 @@ import {
 	SiDiscordHex,
 	SiInstagram,
 	SiInstagramHex,
+	SiMintlify,
+	SiMintlifyHex,
 	SiX,
 	SiXHex,
 } from "@icons-pack/react-simple-icons";
@@ -15,6 +17,7 @@ import type { ComponentType } from "react";
 
 interface AcknowledgementPillBrand {
 	colour: string;
+	foregroundColour?: string;
 	Icon: ComponentType<{ className?: string }>;
 	label: string;
 }
@@ -54,6 +57,12 @@ const AcknowledgementPillPlatformToBrand = {
 		Icon: SiInstagram,
 		label: "Instagram",
 	},
+	mintlify: {
+		colour: SiMintlifyHex,
+		foregroundColour: "#000000",
+		Icon: SiMintlify,
+		label: "Mintlify",
+	},
 	website: {
 		colour: "#475569",
 		Icon: WebsiteIcon,
@@ -78,7 +87,8 @@ export function AcknowledgementPills({ pills }: { pills: readonly Acknowledgemen
 	return (
 		<div className="mt-2 flex flex-wrap gap-2">
 			{pills.map(({ href, label, platform }) => {
-				const { colour, Icon, label: platformLabel } = AcknowledgementPillPlatformToBrand[platform];
+				const brand = AcknowledgementPillPlatformToBrand[platform];
+				const { colour, Icon, label: platformLabel } = brand;
 
 				return (
 					<a
@@ -87,7 +97,11 @@ export function AcknowledgementPills({ pills }: { pills: readonly Acknowledgemen
 						href={href}
 						key={href}
 						rel="noopener noreferrer"
-						style={{ backgroundColor: colour, outlineColor: colour }}
+						style={{
+							backgroundColor: colour,
+							color: "foregroundColour" in brand ? brand.foregroundColour : undefined,
+							outlineColor: colour,
+						}}
 						target="_blank"
 					>
 						<Icon className="h-3.5 w-3.5" />

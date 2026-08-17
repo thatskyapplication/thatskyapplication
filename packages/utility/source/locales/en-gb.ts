@@ -3115,6 +3115,10 @@ export default {
 			"final-message": `Join the [support server]({{url}}) if you're interested in anything here! We're always here to lend a helping hand! 🩵`,
 		},
 		acknowledgements: {
+			"friendship-actions": "Friendship actions",
+			"friendship-actions-contributors": "Friendship actions contributors",
+			"friendship-actions-contributors-description":
+				"These people have contributed to friendship actions for everyone to enjoy.",
 			translators: "Translators",
 			"translators-description":
 				"These Sky kids help translate what you see! You can help out on Crowdin too!",

@@ -1,4 +1,3 @@
-import { ExternalLinkIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { data, type HeadersArgs } from "react-router";
 import { CROWDIN_URL, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
@@ -118,19 +117,20 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 
 				{friendshipActionContributors.length > 0 && (
 					<section>
-						<h2>Friendship actions contributors</h2>
+						<h2>{t("acknowledgements.friendship-actions-contributors", { ns: "features" })}</h2>
+						<AcknowledgementPills
+							pills={[
+								{
+									href: "https://guide.thatskyapplication.com/caelus/friendship-actions",
+									label: t("acknowledgements.friendship-actions", { ns: "features" }),
+									platform: "mintlify",
+								},
+							]}
+						/>
 						<p className="text-gray-600 dark:text-gray-400">
-							These people have contributed to{" "}
-							<a
-								className="regular-link inline-flex items-center"
-								href="https://guide.thatskyapplication.com/caelus/friendship-actions"
-								rel="noopener noreferrer"
-								target="_blank"
-							>
-								friendship actions
-								<ExternalLinkIcon className="ml-1 h-4 w-4" />
-							</a>{" "}
-							for everyone to enjoy.
+							{t("acknowledgements.friendship-actions-contributors-description", {
+								ns: "features",
+							})}
 						</p>
 						<AcknowledgementProfileCards profiles={friendshipActionContributors} />
 					</section>
