@@ -137,10 +137,7 @@ export const RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> =
 
 			return returningDates;
 		}, [])
-		.map((dates, index) => {
-			const visit = index + 1;
-			return [visit, { ...dates, visit }];
-		}),
+		.map((dates, index) => [index + 1, { ...dates, visit: index + 1 }]),
 );
 
 const returningDates: ReturningIndividualSpiritVisit[] = [];
