@@ -125,7 +125,7 @@ export function StartView({
 	if (travellingSpirit) {
 		quickAccess.push({
 			emoji: SeasonIdToSeasonalEmoji[travellingSpirit.seasonId],
-			label: t("catalogue.travelling-spirit", { ns: "features" }),
+			label: t("travelling-spirit", { ns: "general" }),
 			to: `?view=spirit&spirit=${travellingSpirit.id}`,
 		});
 	}
