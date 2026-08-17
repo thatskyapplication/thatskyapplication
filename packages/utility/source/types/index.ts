@@ -26,4 +26,10 @@ export interface ReturningSpiritVisit extends BaseVisit<VisitType.Returning> {
 	spiritIds: readonly SpiritIds[];
 }
 
+export interface ReturningIndividualSpiritVisit extends BaseVisit<VisitType.Returning> {
+	spiritId: SpiritIds;
+}
+
+export type IndividualSpiritVisit = TravellingSpiritVisit | ReturningIndividualSpiritVisit;
+
 export type Visit = TravellingSpiritVisit | ReturningSpiritVisit;

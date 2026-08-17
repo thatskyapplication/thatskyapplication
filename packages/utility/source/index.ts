@@ -240,6 +240,8 @@ export {
 } from "./sky-profile.js";
 export {
 	type BaseVisit,
+	type IndividualSpiritVisit,
+	type ReturningIndividualSpiritVisit,
 	type ReturningSpiritVisit,
 	type Snowflake,
 	type TravellingSpiritVisit,

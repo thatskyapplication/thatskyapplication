@@ -5,6 +5,8 @@ import type { GuideSpirit, SeasonalSpirit } from "../../models/spirits.js";
 import type { SeasonIds } from "../../season.js";
 import {
 	type BaseVisit,
+	type IndividualSpiritVisit,
+	type ReturningIndividualSpiritVisit,
 	type ReturningSpiritVisit,
 	type TravellingSpiritVisit,
 	VisitType,
@@ -99,10 +101,6 @@ interface ReturningVisitDates extends Omit<BaseVisit<VisitType.Returning>, "visi
 	spiritIds: SpiritIds[];
 }
 
-interface IndividualSpiritVisit extends BaseVisit {
-	spiritId: SpiritIds;
-}
-
 export const RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> = new Collection<
 	number,
 	ReturningSpiritVisit
@@ -145,7 +143,7 @@ export const RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> =
 		}),
 );
 
-const returningDates: IndividualSpiritVisit[] = [];
+const returningDates: ReturningIndividualSpiritVisit[] = [];
 
 for (const { spiritIds, ...returningDate } of RETURNING_DATES.values()) {
 	for (const spiritId of spiritIds) {
