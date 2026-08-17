@@ -11,10 +11,13 @@ export enum VisitType {
 	Returning = 1,
 }
 
-export interface BaseVisit<Type extends VisitType = VisitType> {
-	readonly type: Type;
+export interface VisitPeriod {
 	readonly start: Temporal.ZonedDateTime;
 	readonly end: Temporal.ZonedDateTime;
+}
+
+export interface BaseVisit<Type extends VisitType = VisitType> extends VisitPeriod {
+	readonly type: Type;
 }
 
 export interface TravellingSpiritVisit extends BaseVisit<VisitType.Travelling> {
@@ -22,7 +25,7 @@ export interface TravellingSpiritVisit extends BaseVisit<VisitType.Travelling> {
 }
 
 export interface ReturningSpiritVisit extends BaseVisit<VisitType.Returning> {
-	readonly spiritIds: readonly SpiritIds[];
+	readonly spiritIds: readonly [SpiritIds, ...SpiritIds[]];
 }
 
 export interface ReturningIndividualSpiritVisit extends BaseVisit<VisitType.Returning> {

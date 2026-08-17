@@ -27,9 +27,9 @@ import {
 	SPIRITS_HISTORY_TITLE_KEYS,
 	skyNow,
 	spirits,
-	TIME_ZONE,
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
+	visitsForSpirit,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { resolveCostToString } from "../utility/catalogue.js";
@@ -104,15 +104,6 @@ function visitField(seasonalSpiritVisit: typeof TRAVELLING_DATES | typeof RETURN
 	const visits = [];
 
 	for (const [visit, { start }] of seasonalSpiritVisit) {
-		const startFormatOptions: Intl.DateTimeFormatOptions = {
-			timeZone: TIME_ZONE,
-			dateStyle: "short",
-		};
-
-		if (start.hour !== 0 || start.minute !== 0) {
-			startFormatOptions.timeStyle = "short";
-		}
-
 		const startUnix = epochSeconds(start);
 		visits.push(
 			`\`#${String(visit).padStart(maxLength, "0")}\` <t:${startUnix}:s> (<t:${startUnix}:R>)`,
@@ -151,8 +142,7 @@ export function search({ spirit, locale }: SpiritSearchOptions): [APIMessageTopL
 
 	if (isSeasonalSpirit) {
 		const { travellingErrors } = spirit.visits;
-		const travelling = TRAVELLING_DATES.filter(({ spiritId }) => spiritId === spirit.id);
-		const returning = RETURNING_DATES.filter(({ spiritIds }) => spiritIds.includes(spirit.id));
+		const { returning, travelling } = visitsForSpirit(spirit.id);
 		const travellingValue = [];
 
 		if (travelling.size > 0) {
@@ -353,15 +343,6 @@ export async function spiritsHistory(
 
 		// Need to escape # otherwise Discord will not render the heading correctly.
 		const heading = `###${visitNumber === null || visitNumber === undefined ? "" : ` \\#${visitNumber}`} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
-
-		const startFormatOptions: Intl.DateTimeFormatOptions = {
-			timeZone: TIME_ZONE,
-			dateStyle: "short",
-		};
-
-		if (start.hour !== 0 || start.minute !== 0) {
-			startFormatOptions.timeStyle = "short";
-		}
 
 		const startUnix = epochSeconds(start);
 		const lastVisited = `<t:${startUnix}:s> (<t:${startUnix}:R>)`;

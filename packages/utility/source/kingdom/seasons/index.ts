@@ -94,7 +94,7 @@ export const TRAVELLING_DATES: ReadonlyCollection<number, TravellingSpiritVisit>
 );
 
 interface ReturningVisitGroup extends BaseVisit<VisitType.Returning> {
-	readonly spiritIds: SpiritIds[];
+	readonly spiritIds: [SpiritIds, ...SpiritIds[]];
 }
 
 export const RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> = new Collection<
@@ -135,6 +135,13 @@ export const RETURNING_DATES: ReadonlyCollection<number, ReturningSpiritVisit> =
 		}, [])
 		.map((dates, index) => [index + 1, dates]),
 );
+
+export function visitsForSpirit(spiritId: SpiritIds) {
+	return {
+		travelling: TRAVELLING_DATES.filter((visit) => visit.spiritId === spiritId),
+		returning: RETURNING_DATES.filter((visit) => visit.spiritIds.includes(spiritId)),
+	};
+}
 
 const allVisits: IndividualSpiritVisit[] = [...TRAVELLING_DATES.values()];
 

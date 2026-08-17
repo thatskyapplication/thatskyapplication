@@ -12,12 +12,36 @@ import {
 import { spirits } from "../source/kingdom/spirits.js";
 import { SpiritKind } from "../source/models/spirits.js";
 import { SeasonId } from "../source/season.js";
-import { type BaseVisit, type Visit, VisitType } from "../source/types/index.js";
+import { type BaseVisit, type Visit, type VisitPeriod, VisitType } from "../source/types/index.js";
 import {
 	SpiritId,
 	type SpiritIds,
 	spiritNotReturnedTranslationKey,
 } from "../source/utility/spirits.js";
+
+function assertVisitPeriods(
+	periods: readonly VisitPeriod[],
+	spiritId: SpiritIds,
+	visitType: "travelling" | "returning",
+) {
+	let previous: VisitPeriod | undefined;
+
+	for (const [index, period] of periods.entries()) {
+		ok(
+			Temporal.ZonedDateTime.compare(period.start, period.end) < 0,
+			`${spiritId}'s ${visitType} period ${index + 1} must start before it ends.`,
+		);
+
+		if (previous) {
+			ok(
+				Temporal.ZonedDateTime.compare(period.start, previous.start) >= 0,
+				`${spiritId}'s ${visitType} periods must be chronological.`,
+			);
+		}
+
+		previous = period;
+	}
+}
 
 test("Non-spirit seasons expose the correct spirit kinds.", () => {
 	const seasons = skySeasons();
@@ -106,21 +130,23 @@ test("Not-returned spirit copy follows the spirit's kind.", () => {
 	equal(spiritNotReturnedTranslationKey(guide, beforeReturns), null);
 });
 
+test("Spirit visit periods are valid and chronological.", () => {
+	for (const season of SEASONS.values()) {
+		for (const spirit of season.spirits.values()) {
+			assertVisitPeriods(spirit.visits.travelling, spirit.id, "travelling");
+			assertVisitPeriods(spirit.visits.returning, spirit.id, "returning");
+		}
+	}
+});
+
 test("Returning spirit visits are grouped and numbered chronologically.", () => {
-	const inlinePeriods: {
-		spiritId: SpiritIds;
-		start: Temporal.ZonedDateTime;
-		end: Temporal.ZonedDateTime;
-	}[] = [];
-	const samePeriod = (
-		left: Pick<BaseVisit, "start" | "end">,
-		right: Pick<BaseVisit, "start" | "end">,
-	) =>
+	const inlinePeriods: (VisitPeriod & { spiritId: SpiritIds })[] = [];
+	const samePeriod = (left: VisitPeriod, right: VisitPeriod) =>
 		Temporal.ZonedDateTime.compare(left.start, right.start) === 0 &&
 		Temporal.ZonedDateTime.compare(left.end, right.end) === 0;
 	let expectedVisit = 1;
 	let associations = 0;
-	let previous: Pick<BaseVisit, "start" | "end"> | undefined;
+	let previous: VisitPeriod | undefined;
 
 	for (const season of SEASONS.values()) {
 		for (const spirit of season.spirits.values()) {
@@ -142,6 +168,11 @@ test("Returning spirit visits are grouped and numbered chronologically.", () => 
 			ok(
 				startComparison > 0 ||
 					(startComparison === 0 && Temporal.ZonedDateTime.compare(visit.end, previous.end) > 0),
+			);
+
+			ok(
+				Temporal.ZonedDateTime.compare(visit.start, previous.end) >= 0,
+				"Returning spirit visit groups must not overlap.",
 			);
 		}
 

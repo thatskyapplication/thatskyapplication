@@ -5,6 +5,7 @@ import { realmForArea } from "../kingdom/areas/index.js";
 import type { AreaName, RealmName } from "../kingdom/geography.js";
 import { CDN_URL } from "../routes.js";
 import type { SeasonIds } from "../season.js";
+import type { VisitPeriod } from "../types/index.js";
 import {
 	type CostEntry,
 	resolveAllCosmetics,
@@ -28,11 +29,6 @@ export enum SpiritKind {
 	Spirit = 0,
 	Entity = 1,
 	Mannequin = 2,
-}
-
-interface SpiritVisitDates {
-	readonly start: Temporal.ZonedDateTime;
-	readonly end: Temporal.ZonedDateTime;
 }
 
 const TRAVELLING_ERROR_DATES = new Collection<number, Temporal.ZonedDateTime>()
@@ -119,15 +115,15 @@ export type SeasonalSpiritVisitTravellingErrorData = ReadonlyCollection<
 >;
 
 interface SeasonalSpiritVisitData {
-	travelling?: readonly SpiritVisitDates[];
-	travellingErrors?: readonly number[];
-	returning?: readonly SpiritVisitDates[];
+	readonly travelling?: readonly VisitPeriod[];
+	readonly travellingErrors?: readonly number[];
+	readonly returning?: readonly VisitPeriod[];
 }
 
 interface SeasonalSpiritVisit {
-	travelling: readonly SpiritVisitDates[];
-	travellingErrors: SeasonalSpiritVisitTravellingErrorData;
-	returning: readonly SpiritVisitDates[];
+	readonly travelling: readonly VisitPeriod[];
+	readonly travellingErrors: SeasonalSpiritVisitTravellingErrorData;
+	readonly returning: readonly VisitPeriod[];
 }
 
 interface SeasonalSpiritData extends Omit<BaseSpiritData, "realm"> {

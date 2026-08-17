@@ -1,11 +1,10 @@
 import { AlertTriangle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
-	RETURNING_DATES,
 	spiritNotReturnedTranslationKey,
 	type Spirit,
 	TIME_ZONE,
-	TRAVELLING_DATES,
+	visitsForSpirit,
 } from "@thatskyapplication/utility";
 import { formatRelativeTime } from "~/utility/relative-time.js";
 import { VisitNumber } from "./VisitNumber.js";
@@ -115,8 +114,7 @@ export function SpiritVisits({
 
 	const travellingVisits: VisitEntry[] = [];
 	const returningVisits: VisitEntry[] = [];
-	const travelling = TRAVELLING_DATES.filter(({ spiritId }) => spiritId === spirit.id);
-	const returning = RETURNING_DATES.filter(({ spiritIds }) => spiritIds.includes(spirit.id));
+	const { returning, travelling } = visitsForSpirit(spirit.id);
 
 	for (const [visit, { start }] of travelling) {
 		travellingVisits.push({

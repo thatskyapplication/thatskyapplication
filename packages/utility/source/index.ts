@@ -168,6 +168,7 @@ export {
 	skyUpcomingSeason,
 	TRAVELLING_DATES,
 	VISITS_ABSENT,
+	visitsForSpirit,
 } from "./kingdom/seasons/index.js";
 export { EventFamily, type EventFamilyOccurrences } from "./models/event-family.js";
 export { Event } from "./models/event.js";
@@ -246,6 +247,7 @@ export {
 	type Snowflake,
 	type TravellingSpiritVisit,
 	type Visit,
+	type VisitPeriod,
 	VisitType,
 } from "./types/index.js";
 export {
