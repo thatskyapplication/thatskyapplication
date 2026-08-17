@@ -268,6 +268,12 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 		({ area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!);
 	}
 
+	// This was moved to the Forgotten Ark (clashed with Days of Sunlight 2026).
+	if (date.equals(skyDate(2026, 8, 17))) {
+		realmIndex = 3;
+		({ area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!);
+	}
+
 	const timestamps: ShardEruptionTimestampsData[] = [];
 	let timestampLengthCheck = 3;
 	let shardPointer = date.add({ milliseconds: offset });
