@@ -3114,6 +3114,11 @@ export default {
 				"[Invite]({{applicationInviteURL}}) | [Support]({{supportServerInviteURL}}) | [Website]({{websiteURL}})",
 			"final-message": `Join the [support server]({{url}}) if you're interested in anything here! We're always here to lend a helping hand! 🩵`,
 		},
+		acknowledgements: {
+			translators: "Translators",
+			"translators-description":
+				"These Sky kids help translate what you see! You can help out on Crowdin too!",
+		},
 		calculate: {
 			"goal-already-achieved": "You have already achieved your goal!",
 			start: "Start: ",

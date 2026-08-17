@@ -1,10 +1,11 @@
 import { ExternalLinkIcon } from "lucide-react";
-import { data, type HeadersArgs, Link } from "react-router";
-import { CDN, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
-import { AcknowledgementSocialLinks } from "~/components/AcknowledgementSocialLinks";
+import { useTranslation } from "react-i18next";
+import { data, type HeadersArgs } from "react-router";
+import { CROWDIN_URL, type Packet, WEBSITE_URL } from "@thatskyapplication/utility";
+import { AcknowledgementPills } from "~/components/AcknowledgementPills";
+import { AcknowledgementProfileCards } from "~/components/AcknowledgementProfileCards";
 import { SitePage } from "~/components/PageLayout";
-import database from "~/database.server";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
+import { publicProfilesQuery } from "~/features/sky-profile/sky-profile-repository.server.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import {
 	APPLICATION_NAME,
@@ -51,27 +52,38 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 };
 
 export const loader = async () => {
-	const rows = await database
-		.selectFrom("sky_profiles")
-		.innerJoin(
-			(eb) =>
-				eb
-					.selectFrom("friendship_actions")
-					.select(({ fn }) => fn<string>("unnest", ["friendship_actions.users"]).as("user_id"))
-					.distinct()
-					.as("unique_users"),
-			(join) => join.onRef("unique_users.user_id", "=", "sky_profiles.user_id"),
-		)
-		.selectAll("sky_profiles")
-		.where("sky_profiles.name", "is not", null)
-		.$narrowType<AcknowledgementProfile>()
-		.orderBy("sky_profiles.name", "asc")
-		.orderBy("sky_profiles.user_id", "asc")
-		.execute();
+	const [friendshipActionContributors, translators] = await Promise.all([
+		publicProfilesQuery()
+			.innerJoin(
+				(eb) =>
+					eb
+						.selectFrom("friendship_actions")
+						.select(({ fn }) => fn<string>("unnest", ["friendship_actions.users"]).as("user_id"))
+						.distinct()
+						.as("unique_users"),
+				(join) => join.onRef("unique_users.user_id", "=", "sky_profiles.user_id"),
+			)
+			.selectAll("sky_profiles")
+			.$narrowType<AcknowledgementProfile>()
+			.orderBy("sky_profiles.name", "asc")
+			.orderBy("sky_profiles.user_id", "asc")
+			.execute(),
+		publicProfilesQuery()
+			.innerJoin("users", "users.discord_user_id", "sky_profiles.user_id")
+			.selectAll("sky_profiles")
+			.where("users.translator", "=", true)
+			.$narrowType<AcknowledgementProfile>()
+			.orderBy("sky_profiles.name", "asc")
+			.orderBy("sky_profiles.user_id", "asc")
+			.execute(),
+	]);
 
-	return data(rows, {
-		headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" },
-	});
+	return data(
+		{ friendshipActionContributors, translators },
+		{
+			headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" },
+		},
+	);
 };
 
 export function headers({ loaderHeaders }: HeadersArgs) {
@@ -79,9 +91,8 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 }
 
 export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
-	const cdnURL = useCDNURL();
-	const cdn = new CDN(cdnURL);
-	const skyProfilePackets = loaderData;
+	const { friendshipActionContributors, translators } = loaderData;
+	const { t } = useTranslation();
 
 	return (
 		<SitePage>
@@ -92,7 +103,20 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 				</p>
 				<hr />
 
-				{skyProfilePackets.length > 0 && (
+				{translators.length > 0 && (
+					<section>
+						<h2>{t("acknowledgements.translators", { ns: "features" })}</h2>
+						<AcknowledgementPills
+							pills={[{ href: CROWDIN_URL, label: "Crowdin", platform: "crowdin" }]}
+						/>
+						<p className="text-gray-600 dark:text-gray-400">
+							{t("acknowledgements.translators-description", { ns: "features" })}
+						</p>
+						<AcknowledgementProfileCards profiles={translators} />
+					</section>
+				)}
+
+				{friendshipActionContributors.length > 0 && (
 					<section>
 						<h2>Friendship actions contributors</h2>
 						<p className="text-gray-600 dark:text-gray-400">
@@ -108,43 +132,14 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 							</a>{" "}
 							for everyone to enjoy.
 						</p>
-						<div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-							{skyProfilePackets.map((profile) => (
-								<Link
-									aria-label={profile.name}
-									className="group flex items-center gap-3 rounded-lg border-2 border-gray-200 bg-white p-3 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-800"
-									key={profile.user_id}
-									to={`/sky-profiles/${profile.user_id}`}
-								>
-									{profile.icon ? (
-										<div
-											aria-hidden="true"
-											className="h-8 w-8 shrink-0 rounded-full bg-cover bg-center"
-											style={{
-												backgroundImage: `url(${cdn.skyProfileIconURL(profile.user_id, profile.icon)})`,
-											}}
-										/>
-									) : (
-										<div
-											aria-hidden="true"
-											className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-200 text-xs font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-400"
-										>
-											{profile.name.charAt(0).toUpperCase()}
-										</div>
-									)}
-									<span className="truncate text-sm font-medium transition-colors group-hover:text-pink-600 dark:group-hover:text-pink-400">
-										{profile.name}
-									</span>
-								</Link>
-							))}
-						</div>
+						<AcknowledgementProfileCards profiles={friendshipActionContributors} />
 					</section>
 				)}
 
 				<section>
 					<h2>Sky:CoTL Infographics Database</h2>
-					<AcknowledgementSocialLinks
-						links={[
+					<AcknowledgementPills
+						pills={[
 							{
 								href: SKY_COTL_INFOGRAPHICS_DATABASE_URL,
 								label: "Sky:CoTL Infographics Database",
@@ -169,8 +164,8 @@ export default function Acknowledgements({ loaderData }: Route.ComponentProps) {
 				</section>
 				<section>
 					<h2>Wiki</h2>
-					<AcknowledgementSocialLinks
-						links={[
+					<AcknowledgementPills
+						pills={[
 							{
 								href: WIKI_URL,
 								label: "Wiki",

@@ -1,6 +1,8 @@
 import {
 	SiBluesky,
 	SiBlueskyHex,
+	SiCrowdin,
+	SiCrowdinHex,
 	SiDiscord,
 	SiDiscordHex,
 	SiInstagram,
@@ -11,15 +13,7 @@ import {
 import { clsx } from "clsx";
 import type { ComponentType } from "react";
 
-type AcknowledgementSocialLinkPlatform = "bluesky" | "discord" | "instagram" | "website" | "x";
-
-interface AcknowledgementSocialLink {
-	href: string;
-	label: string;
-	platform: AcknowledgementSocialLinkPlatform;
-}
-
-interface AcknowledgementSocialLinkBrand {
+interface AcknowledgementPillBrand {
 	colour: string;
 	Icon: ComponentType<{ className?: string }>;
 	label: string;
@@ -39,11 +33,16 @@ function WebsiteIcon({ className }: { className?: string }) {
 	);
 }
 
-const AcknowledgementSocialLinkPlatformToBrand = {
+const AcknowledgementPillPlatformToBrand = {
 	bluesky: {
 		colour: SiBlueskyHex,
 		Icon: SiBluesky,
 		label: "Bluesky",
+	},
+	crowdin: {
+		colour: SiCrowdinHex,
+		Icon: SiCrowdin,
+		label: "Crowdin",
 	},
 	discord: {
 		colour: SiDiscordHex,
@@ -65,27 +64,25 @@ const AcknowledgementSocialLinkPlatformToBrand = {
 		Icon: SiX,
 		label: "X",
 	},
-} as const satisfies Readonly<
-	Record<AcknowledgementSocialLinkPlatform, AcknowledgementSocialLinkBrand>
->;
+} as const satisfies Readonly<Record<string, AcknowledgementPillBrand>>;
 
-export function AcknowledgementSocialLinks({
-	links,
-}: {
-	links: readonly AcknowledgementSocialLink[];
-}) {
+type AcknowledgementPillPlatform = keyof typeof AcknowledgementPillPlatformToBrand;
+
+interface AcknowledgementPill {
+	href: string;
+	label: string;
+	platform: AcknowledgementPillPlatform;
+}
+
+export function AcknowledgementPills({ pills }: { pills: readonly AcknowledgementPill[] }) {
 	return (
 		<div className="mt-2 flex flex-wrap gap-2">
-			{links.map(({ href, label, platform }) => {
-				const {
-					colour,
-					Icon,
-					label: platformLabel,
-				} = AcknowledgementSocialLinkPlatformToBrand[platform];
+			{pills.map(({ href, label, platform }) => {
+				const { colour, Icon, label: platformLabel } = AcknowledgementPillPlatformToBrand[platform];
 
 				return (
 					<a
-						aria-label={`${label} on ${platformLabel}`}
+						aria-label={label === platformLabel ? label : `${label} on ${platformLabel}`}
 						className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white shadow-sm transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2"
 						href={href}
 						key={href}
