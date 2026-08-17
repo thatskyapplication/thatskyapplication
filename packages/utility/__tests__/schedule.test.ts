@@ -1,4 +1,4 @@
-import { deepStrictEqual, equal } from "node:assert/strict";
+import { deepStrictEqual, equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import { RETURNING_DATES } from "../source/kingdom/seasons/index.js";
@@ -20,27 +20,52 @@ import {
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
 } from "../source/schedule.js";
+import type { ReturningSpiritVisit } from "../source/types/index.js";
 
 const zoned = (isoWithOffset: string) => Temporal.ZonedDateTime.from(isoWithOffset);
 
-test("Returning spirits schedule follows visit 14's boundaries.", () => {
-	const visit = RETURNING_DATES.get(14)!;
-	const upcoming = returningSpiritsSchedule(visit.start.subtract({ nanoseconds: 1 }));
-	const active = returningSpiritsSchedule(visit.start);
-	const beforeEnd = returningSpiritsSchedule(visit.end.subtract({ nanoseconds: 1 }));
-	const atEnd = returningSpiritsSchedule(visit.end);
+function assertReturningSpiritsSchedule(
+	actual: ReturnType<typeof returningSpiritsSchedule>,
+	expected: ReturningSpiritVisit,
+	active: boolean,
+) {
+	ok(actual);
+	equal(Temporal.ZonedDateTime.compare(actual.start, expected.start), 0);
+	equal(Temporal.ZonedDateTime.compare(actual.end, expected.end), 0);
+	equal(actual.type, expected.type);
+	deepStrictEqual(actual.spiritIds, expected.spiritIds);
+	equal(actual.active, active);
+}
 
-	equal(upcoming?.start, visit.start);
-	equal(upcoming?.end, visit.end);
-	deepStrictEqual(upcoming?.spiritIds, visit.spiritIds);
-	equal(upcoming?.active, false);
-	equal(active?.active, true);
-	equal(beforeEnd?.active, true);
-	equal(atEnd?.start === visit.start, false);
-});
+test("Returning spirits schedule follows every visit's boundaries.", () => {
+	const firstVisit = RETURNING_DATES.first();
+	ok(firstVisit);
+	assertReturningSpiritsSchedule(
+		returningSpiritsSchedule(firstVisit.start.subtract({ nanoseconds: 1 })),
+		firstVisit,
+		false,
+	);
 
-test("Returning spirits schedule is null after the last announced visit.", () => {
-	equal(returningSpiritsSchedule(RETURNING_DATES.last()!.end), null);
+	for (const [visitNumber, visit] of RETURNING_DATES) {
+		assertReturningSpiritsSchedule(returningSpiritsSchedule(visit.start), visit, true);
+		assertReturningSpiritsSchedule(
+			returningSpiritsSchedule(visit.end.subtract({ nanoseconds: 1 })),
+			visit,
+			true,
+		);
+
+		const nextVisit = RETURNING_DATES.get(visitNumber + 1);
+
+		if (nextVisit) {
+			assertReturningSpiritsSchedule(
+				returningSpiritsSchedule(visit.end),
+				nextVisit,
+				Temporal.ZonedDateTime.compare(visit.end, nextVisit.start) === 0,
+			);
+		} else {
+			equal(returningSpiritsSchedule(visit.end), null);
+		}
+	}
 });
 
 const SCHEDULES = [
