@@ -132,7 +132,6 @@ test("Returning spirit visits are grouped and numbered chronologically.", () => 
 
 	for (const [visitNumber, visit] of RETURNING_DATES) {
 		equal(visitNumber, expectedVisit);
-		equal(visit.visit, visitNumber);
 		equal(visit.type, VisitType.Returning);
 		ok(visit.spiritIds.length > 0);
 		equal(new Set(visit.spiritIds).size, visit.spiritIds.length);
@@ -222,15 +221,21 @@ test("Absent visits retain the latest visit for each spirit.", () => {
 		}
 	}
 
-	equal(VISITS_ABSENT.length, latestVisits.size);
-	equal(new Set(VISITS_ABSENT.map(({ spiritId }) => spiritId)).size, VISITS_ABSENT.length);
+	equal(VISITS_ABSENT.size, latestVisits.size);
+	let previous: BaseVisit | undefined;
 
-	for (const visit of VISITS_ABSENT) {
-		const latest = latestVisits.get(visit.spiritId);
+	for (const [spiritId, visit] of VISITS_ABSENT) {
+		equal(visit.spiritId, spiritId);
+
+		if (previous) {
+			ok(Temporal.ZonedDateTime.compare(visit.start, previous.start) >= 0);
+		}
+
+		const latest = latestVisits.get(spiritId);
 		ok(latest);
 		equal(visit.type, latest.type);
-		equal(visit.visit, latest.visit);
 		equal(Temporal.ZonedDateTime.compare(visit.start, latest.start), 0);
 		equal(Temporal.ZonedDateTime.compare(visit.end, latest.end), 0);
+		previous = visit;
 	}
 });

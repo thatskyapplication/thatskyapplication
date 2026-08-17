@@ -13,7 +13,6 @@ export enum VisitType {
 
 export interface BaseVisit<Type extends VisitType = VisitType> {
 	readonly type: Type;
-	readonly visit: number;
 	readonly start: Temporal.ZonedDateTime;
 	readonly end: Temporal.ZonedDateTime;
 }

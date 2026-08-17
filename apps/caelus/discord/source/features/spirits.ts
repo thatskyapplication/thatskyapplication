@@ -325,16 +325,8 @@ export async function spiritsHistory(
 	const { locale } = interaction;
 	const offset = (page - 1) * MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
 	const limit = offset + MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER;
-	let spirits: typeof TRAVELLING_DATES | typeof VISITS_ABSENT;
-	let maximumPage: number;
-
-	if (type === SpiritsHistoryOrderType.Natural) {
-		spirits = TRAVELLING_DATES;
-		maximumPage = Math.ceil(spirits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
-	} else {
-		spirits = VISITS_ABSENT;
-		maximumPage = Math.ceil(spirits.length / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
-	}
+	const visits = type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES : VISITS_ABSENT;
+	const maximumPage = Math.ceil(visits.size / MAXIMUM_SPIRITS_HISTORY_DISPLAY_NUMBER);
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -349,16 +341,18 @@ export async function spiritsHistory(
 	];
 
 	for (let index = offset; index < limit; index++) {
-		const visitData = spirits.at(index);
+		const visit = visits.at(index);
 
-		if (!visitData) {
+		if (!visit) {
 			break;
 		}
 
-		const { spiritId, start, visit } = visitData;
+		const { spiritId, start } = visit;
+		const visitNumber =
+			type === SpiritsHistoryOrderType.Natural ? TRAVELLING_DATES.keyAt(index) : null;
 
 		// Need to escape # otherwise Discord will not render the heading correctly.
-		const heading = `###${type === SpiritsHistoryOrderType.Natural ? ` \\#${visit}` : ""} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
+		const heading = `###${visitNumber === null || visitNumber === undefined ? "" : ` \\#${visitNumber}`} ${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}`;
 
 		const startFormatOptions: Intl.DateTimeFormatOptions = {
 			timeZone: TIME_ZONE,
