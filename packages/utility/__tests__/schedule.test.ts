@@ -1,6 +1,7 @@
-import { equal } from "node:assert/strict";
+import { deepStrictEqual, equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
+import { RETURNING_DATES } from "../source/kingdom/seasons/index.js";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
@@ -15,11 +16,57 @@ import {
 	nineColouredDeerSchedule,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
+	returningSpiritsSchedule,
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
 } from "../source/schedule.js";
+import type { ReturningSpiritVisit } from "../source/types/index.js";
 
 const zoned = (isoWithOffset: string) => Temporal.ZonedDateTime.from(isoWithOffset);
+
+function assertReturningSpiritsSchedule(
+	actual: ReturnType<typeof returningSpiritsSchedule>,
+	expected: ReturningSpiritVisit,
+	active: boolean,
+) {
+	ok(actual);
+	equal(Temporal.ZonedDateTime.compare(actual.start, expected.start), 0);
+	equal(Temporal.ZonedDateTime.compare(actual.end, expected.end), 0);
+	equal(actual.type, expected.type);
+	deepStrictEqual(actual.spiritIds, expected.spiritIds);
+	equal(actual.active, active);
+}
+
+test("Returning spirits schedule follows every visit's boundaries.", () => {
+	const firstVisit = RETURNING_DATES.first();
+	ok(firstVisit);
+	assertReturningSpiritsSchedule(
+		returningSpiritsSchedule(firstVisit.start.subtract({ nanoseconds: 1 })),
+		firstVisit,
+		false,
+	);
+
+	for (const [visitNumber, visit] of RETURNING_DATES) {
+		assertReturningSpiritsSchedule(returningSpiritsSchedule(visit.start), visit, true);
+		assertReturningSpiritsSchedule(
+			returningSpiritsSchedule(visit.end.subtract({ nanoseconds: 1 })),
+			visit,
+			true,
+		);
+
+		const nextVisit = RETURNING_DATES.get(visitNumber + 1);
+
+		if (nextVisit) {
+			assertReturningSpiritsSchedule(
+				returningSpiritsSchedule(visit.end),
+				nextVisit,
+				Temporal.ZonedDateTime.compare(visit.end, nextVisit.start) === 0,
+			);
+		} else {
+			equal(returningSpiritsSchedule(visit.end), null);
+		}
+	}
+});
 
 const SCHEDULES = [
 	{

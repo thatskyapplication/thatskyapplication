@@ -21,6 +21,7 @@ import {
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
 	RADIANCE_EVENTS,
+	returningSpiritsSchedule,
 	ScheduleType,
 	type ScheduleTypes,
 	type SpiritIds,
@@ -35,6 +36,7 @@ import {
 	vaultEldersBlessingSchedule,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { ExternalLinkList, type ExternalLinkListItem } from "~/components/ExternalLinkList";
 import { CentredSitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
@@ -124,6 +126,10 @@ interface ScheduleWithEnd<
 interface ScheduleTravellingSpirit extends ScheduleWithEnd<typeof ScheduleType.TravellingSpirit> {
 	now: SpiritIds | false;
 	spiritId: SpiritIds | null;
+}
+
+interface ScheduleReturningSpirits extends ScheduleWithEnd<typeof ScheduleType.ReturningSpirits> {
+	spiritIds: readonly SpiritIds[];
 }
 
 function dailyResetNext(
@@ -223,6 +229,42 @@ function travellingSpiritOverview(
 		end: new Intl.DateTimeFormat(locale, endOptions).format(schedule.visit?.end.epochMilliseconds),
 		endUnix: schedule.visit ? schedule.visit.end.epochMilliseconds : null,
 		endRelative: schedule.visit ? formatRelativeTime(schedule.visit.end, now, locale) : null,
+	};
+}
+
+function returningSpiritsOverview(
+	now: Temporal.ZonedDateTime,
+	timeZone: string,
+	locale: string,
+	hour12: boolean | undefined,
+): ScheduleReturningSpirits | null {
+	const schedule = returningSpiritsSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
+
+	const startOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
+	const endOptions: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
+
+	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {
+		startOptions.dateStyle = "medium";
+	}
+
+	if (schedule.end.since(now).total({ unit: "days", relativeTo: now }) > 1) {
+		endOptions.dateStyle = "medium";
+	}
+
+	return {
+		type: ScheduleType.ReturningSpirits,
+		now: schedule.active,
+		spiritIds: schedule.spiritIds,
+		next: new Intl.DateTimeFormat(locale, startOptions).format(schedule.start.epochMilliseconds),
+		nextUnix: schedule.start.epochMilliseconds,
+		relative: formatRelativeTime(schedule.start, now, locale),
+		end: new Intl.DateTimeFormat(locale, endOptions).format(schedule.end.epochMilliseconds),
+		endUnix: schedule.end.epochMilliseconds,
+		endRelative: formatRelativeTime(schedule.end, now, locale),
 	};
 }
 
@@ -555,6 +597,7 @@ interface DisplayCard {
 	badge?: DisplayCardBadge | undefined;
 	key: string;
 	label: string;
+	spiritLinks?: readonly ExternalLinkListItem[] | undefined;
 	dyeIcons?: readonly { label: string; url: string }[] | undefined;
 	wikiHref?: string | undefined;
 	pageHref?: string | undefined;
@@ -579,9 +622,10 @@ const enum DisplayCardBadge {
 	Event = 1,
 	TravellingSpirit = 2,
 	Light = 3,
+	ReturningSpirits = 4,
 }
 
-function DisplayCardRow({ item }: { item: DisplayCard }) {
+function DisplayCardRow({ item, locale }: { item: DisplayCard; locale: string }) {
 	const { t } = useTranslation();
 	const timestamp = item.active
 		? t("schedule.overview-ends-timestamp", {
@@ -590,31 +634,39 @@ function DisplayCardRow({ item }: { item: DisplayCard }) {
 			})
 		: item.next;
 	const relative = item.active ? item.endRelative : item.relative;
+	const spiritLinks = item.spiritLinks;
 
 	return (
 		<div className="col-span-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 py-2 md:grid-cols-subgrid">
-			<span className="flex min-w-0 flex-wrap items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-				{item.type === DisplayCardType.Maintenance && (
-					<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-				)}
-				{item.pageHref ? (
-					<Link className="regular-link" to={item.pageHref}>
-						{item.label}
-					</Link>
-				) : (
-					item.label
-				)}
-				{item.dyeIcons && (
-					<span className="inline-flex items-center gap-1">
-						{item.dyeIcons.map((emoji, index) => (
-							<span
-								aria-label={emoji.label}
-								className="discord-emoji h-4 w-4"
-								key={`${item.key}-${index}`}
-								role="img"
-								style={{ backgroundImage: `url(${emoji.url})` }}
-							/>
-						))}
+			<span className="min-w-0">
+				<span className="flex min-w-0 flex-wrap items-center gap-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+					{item.type === DisplayCardType.Maintenance && (
+						<AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+					)}
+					{item.pageHref ? (
+						<Link className="regular-link" to={item.pageHref}>
+							{item.label}
+						</Link>
+					) : (
+						item.label
+					)}
+					{item.dyeIcons && (
+						<span className="inline-flex items-center gap-1">
+							{item.dyeIcons.map((emoji, index) => (
+								<span
+									aria-label={emoji.label}
+									className="discord-emoji h-4 w-4"
+									key={`${item.key}-${index}`}
+									role="img"
+									style={{ backgroundImage: `url(${emoji.url})` }}
+								/>
+							))}
+						</span>
+					)}
+				</span>
+				{spiritLinks && (
+					<span className="mt-0.5 block text-xs text-gray-500 dark:text-gray-400">
+						<ExternalLinkList items={spiritLinks} locale={locale} />
 					</span>
 				)}
 			</span>
@@ -633,6 +685,11 @@ function DisplayCardRow({ item }: { item: DisplayCard }) {
 					{item.badge === DisplayCardBadge.TravellingSpirit && (
 						<span className="inline-flex items-center rounded bg-violet-100 px-1.5 py-0.5 text-xs font-medium text-violet-700 dark:bg-violet-900 dark:text-violet-300">
 							{t("travelling-spirit-initialism", { ns: "general" })}
+						</span>
+					)}
+					{item.badge === DisplayCardBadge.ReturningSpirits && (
+						<span className="inline-flex items-center rounded bg-violet-100 px-1.5 py-0.5 text-xs font-medium text-violet-700 dark:bg-violet-900 dark:text-violet-300">
+							RS
 						</span>
 					)}
 					{item.badge === DisplayCardBadge.Light && (
@@ -675,6 +732,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		eyeOfEdenNext(now, timeZone, locale, hour12),
 		internationalSpaceStationOverview(now, timeZone, locale, hour12),
 		travellingSpiritOverview(now, timeZone, locale, hour12),
+		returningSpiritsOverview(now, timeZone, locale, hour12),
 		pollutedGeyserOverview(now, timeZone, locale, hour12),
 		grandmaOverview(now, timeZone, locale, hour12),
 		turtleOverview(now, timeZone, locale, hour12),
@@ -690,6 +748,10 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		projectorOfMemoriesOverview(now, timeZone, locale, hour12),
 	].filter((schedule) => schedule !== null) satisfies readonly BaseSchedule<ScheduleTypes>[];
 	const scheduleWikiURLs: Partial<Record<ScheduleTypes, string>> = {
+		[ScheduleType.ReturningSpirits]: t(
+			"schedule.detailed-breakdown-returning-spirits-wiki-button-url",
+			{ ns: "features" },
+		),
 		[ScheduleType.InternationalSpaceStation]: t(
 			"schedule.detailed-breakdown-international-space-station-wiki-button-url",
 			{ ns: "features" },
@@ -731,6 +793,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	};
 	const scheduleBadges: Partial<Record<ScheduleTypes, DisplayCardBadge>> = {
 		[ScheduleType.TravellingSpirit]: DisplayCardBadge.TravellingSpirit,
+		[ScheduleType.ReturningSpirits]: DisplayCardBadge.ReturningSpirits,
 		[ScheduleType.PollutedGeyser]: DisplayCardBadge.Light,
 		[ScheduleType.Grandma]: DisplayCardBadge.Light,
 		[ScheduleType.Turtle]: DisplayCardBadge.Light,
@@ -742,6 +805,14 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	for (const schedule of schedules) {
 		let label = t(`schedule.type.${schedule.type}`, { ns: "features" });
 		let wikiHref = scheduleWikiURLs[schedule.type];
+		const spiritLinks =
+			schedule.type === ScheduleType.ReturningSpirits
+				? schedule.spiritIds.map((spiritId) => ({
+						id: spiritId,
+						label: t(`spirits.${spiritId}`, { ns: "general" }),
+						href: t(`spirit-wiki.${spiritId}`, { ns: "general" }),
+					}))
+				: undefined;
 		const isActive = schedule.now !== undefined && schedule.now !== false;
 
 		if (schedule.type === ScheduleType.TravellingSpirit && schedule.spiritId) {
@@ -754,6 +825,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			badge: scheduleBadges[schedule.type],
 			key: `${schedule.type}`,
 			label,
+			spiritLinks,
 			wikiHref,
 			pageHref: schedule.type === ScheduleType.ShardEruption ? "/shard-eruption" : undefined,
 			active: isActive,
@@ -1121,7 +1193,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 							</div>
 							<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
 								{active.map((item) => (
-									<DisplayCardRow item={item} key={item.key} />
+									<DisplayCardRow item={item} key={item.key} locale={locale} />
 								))}
 							</div>
 						</div>
@@ -1136,7 +1208,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 						</div>
 						<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
 							{upcoming.map((item) => (
-								<DisplayCardRow item={item} key={item.key} />
+								<DisplayCardRow item={item} key={item.key} locale={locale} />
 							))}
 						</div>
 					</div>

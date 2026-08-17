@@ -11,6 +11,8 @@
 		"infographic": "인포그래픽",
 		"infographic-by": "",
 		"daily-quests": "",
+		"returning-spirits": "",
+		"dye-workshop": "",
 		"note": "",
 		"currency": "",
 		"cost": "",
@@ -137,7 +139,8 @@
 			"18": "$t(general:season-plural)",
 			"19": "$t(general:event-names.double-hearts)",
 			"20": "",
-			"21": "$t(general:event-names.double-treasure-candles)"
+			"21": "$t(general:event-names.double-treasure-candles)",
+			"22": ""
 		},
 		"page": "",
 		"quests-common": {
@@ -2543,7 +2546,8 @@
 				"18": "$t(features:schedule.type.18)",
 				"19": "$t(features:schedule.type.19)",
 				"20": "$t(features:schedule.type.20)",
-				"21": "$t(features:schedule.type.21)"
+				"21": "$t(features:schedule.type.21)",
+				"22": ""
 			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
@@ -2635,6 +2639,13 @@
 			"links": "",
 			"final-message": ""
 		},
+		"acknowledgements": {
+			"friendship-actions": "",
+			"friendship-actions-contributors": "",
+			"friendship-actions-contributors-description": "",
+			"translators": "",
+			"translators-description": ""
+		},
 		"calculate": {
 			"goal-already-achieved": "",
 			"start": "",
@@ -2694,7 +2705,6 @@
 			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
 			"travelling-spirit": "",
-			"returning-spirits": "",
 			"back-to-start-button-label": "",
 			"settings-button-label-enable": "",
 			"settings-button-label-disable": "",
@@ -2768,7 +2778,12 @@
 			"shard-eruptions-message-complete": "",
 			"shard-eruptions-show-button-label": "",
 			"event-tickets-message-incomplete": "",
-			"event-tickets-message-complete": ""
+			"event-tickets-message-complete": "",
+			"dye-workshop-message-incomplete": "",
+			"dye-workshop-message-complete": "",
+			"do-not-disturb-blessing": "",
+			"do-not-disturb-blessing-message-incomplete": "",
+			"do-not-disturb-blessing-message-complete": ""
 		},
 		"daily-guides": {
 			"name": "",
@@ -2806,6 +2821,11 @@
 			"double-seasonal-light-upcoming_other": "",
 			"double-treasure-candles-upcoming_one": "",
 			"double-treasure-candles-upcoming_other": "",
+			"returning-spirits-active-list_zero": "",
+			"returning-spirits-active-list_one": "",
+			"returning-spirits-active-list_other": "",
+			"returning-spirits-upcoming-list_one": "",
+			"returning-spirits-upcoming-list_other": "",
 			"event-upcoming_one": "내일 {{event}} 시작.",
 			"event-upcoming_other": "{{count}}일 후 {{event}} 시작.",
 			"event-upcoming-time": "",
@@ -3021,6 +3041,10 @@
 				"21": {
 					"message-now": "",
 					"message-future": ""
+				},
+				"22": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "",
@@ -3051,7 +3075,8 @@
 				"18": "$t(general:maintenance)",
 				"19": "$t(general:event-names.radiance-event)",
 				"20": "$t(general:event)",
-				"21": "$t(general:season)"
+				"21": "$t(general:season)",
+				"22": ""
 			},
 			"name": "",
 			"description": "",
@@ -3086,6 +3111,10 @@
 			"detailed-breakdown-travelling-spirit-message-none": "",
 			"detailed-breakdown-travelling-spirit-view-spirit-button-label": "",
 			"detailed-breakdown-travelling-spirit-history-button-label": "",
+			"detailed-breakdown-returning-spirits-wiki-button-url": "",
+			"detailed-breakdown-returning-spirits-message-now": "",
+			"detailed-breakdown-returning-spirits-message-future": "",
+			"detailed-breakdown-returning-spirits-message-none": "",
 			"detailed-breakdown-polluted-geyser-wiki-button-url": "",
 			"detailed-breakdown-polluted-geyser-message": "",
 			"detailed-breakdown-grandma-wiki-button-url": "",

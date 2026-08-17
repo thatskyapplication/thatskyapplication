@@ -1,6 +1,6 @@
 import { isActive } from "./dates.js";
 import { skyNotEndedEvents } from "./events/index.js";
-import { TRAVELLING_DATES } from "./kingdom/seasons/index.js";
+import { RETURNING_DATES, TRAVELLING_DATES } from "./kingdom/seasons/index.js";
 import { shardEruption } from "./shard-eruption.js";
 import { EventId } from "./utility/event.js";
 
@@ -27,6 +27,7 @@ export const ScheduleType = {
 	RadianceEvent: 19,
 	Events: 20,
 	Season: 21,
+	ReturningSpirits: 22,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
@@ -85,6 +86,12 @@ export function travellingSpiritSchedule(date: Temporal.ZonedDateTime) {
 			: null,
 		spirit: spirit ?? null,
 	};
+}
+
+export function returningSpiritsSchedule(date: Temporal.ZonedDateTime) {
+	const visit = RETURNING_DATES.find(({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0);
+
+	return visit ? { ...visit, active: isActive(visit.start, visit.end, date) } : null;
 }
 
 export function pollutedGeyserSchedule(date: Temporal.ZonedDateTime) {

@@ -11,6 +11,8 @@
 		"infographic": "Infographie",
 		"infographic-by": "Infographie par {{acknowledgement}}.",
 		"daily-quests": "Quêtes journalières",
+		"returning-spirits": "Esprits de retour",
+		"dye-workshop": "",
 		"note": "",
 		"currency": "Monnaie",
 		"cost": "Coût",
@@ -137,7 +139,8 @@
 			"18": "$t(general:season-plural)",
 			"19": "$t(general:event-names.double-hearts)",
 			"20": "Double lumière saisonnière",
-			"21": "$t(general:event-names.double-treasure-candles)"
+			"21": "$t(general:event-names.double-treasure-candles)",
+			"22": ""
 		},
 		"page": "Page",
 		"quests-common": {
@@ -2543,7 +2546,8 @@
 				"18": "$t(features:schedule.type.18)",
 				"19": "$t(features:schedule.type.19)",
 				"20": "$t(features:schedule.type.20)",
-				"21": "$t(features:schedule.type.21)"
+				"21": "$t(features:schedule.type.21)",
+				"22": ""
 			},
 			"command-option-hide-name": "cacher",
 			"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
@@ -2635,6 +2639,13 @@
 			"links": "[Invitation]({{applicationInviteURL}}) | [Assistance]({{supportServerInviteURL}}) | [Site web]({{websiteURL}})",
 			"final-message": "Rejoignez le [serveur d'assistance]({{url}}) si vous êtes intéressé à propos de quoi que ce soit ici ! Nous sommes toujours là pour prêter main-forte ! 🩵"
 		},
+		"acknowledgements": {
+			"friendship-actions": "",
+			"friendship-actions-contributors": "",
+			"friendship-actions-contributors-description": "",
+			"translators": "",
+			"translators-description": ""
+		},
 		"calculate": {
 			"goal-already-achieved": "Vous avez déjà atteint votre objectif !",
 			"start": "Départ : ",
@@ -2694,7 +2705,6 @@
 			"search-result-detail": "",
 			"traversal-string-select-menu-placeholder": "",
 			"travelling-spirit": "Esprit voyageur",
-			"returning-spirits": "Esprits de retour",
 			"back-to-start-button-label": "Début",
 			"settings-button-label-enable": "Activer",
 			"settings-button-label-disable": "Désactiver",
@@ -2768,7 +2778,12 @@
 			"shard-eruptions-message-complete": "Vous avez purifié les éruptions d'éclats aujourd'hui ! Super !",
 			"shard-eruptions-show-button-label": "Montrer les éruptions d'éclats",
 			"event-tickets-message-incomplete": "Avez-vous collecté les devises d'évènements aujourd'hui ?",
-			"event-tickets-message-complete": "Vous avez collecté toutes les devises d'évènements ! Génial !"
+			"event-tickets-message-complete": "Vous avez collecté toutes les devises d'évènements ! Génial !",
+			"dye-workshop-message-incomplete": "",
+			"dye-workshop-message-complete": "",
+			"do-not-disturb-blessing": "",
+			"do-not-disturb-blessing-message-incomplete": "",
+			"do-not-disturb-blessing-message-complete": ""
 		},
 		"daily-guides": {
 			"name": "Guides journaliers",
@@ -2806,6 +2821,11 @@
 			"double-seasonal-light-upcoming_other": "La lumière saisonnière double commencera dans {{count}} jours.",
 			"double-treasure-candles-upcoming_one": "Les doubles bougies au trésor commenceront demain.",
 			"double-treasure-candles-upcoming_other": "Les doubles bougies au trésor commenceront dans {{count}} jours.",
+			"returning-spirits-active-list_zero": "",
+			"returning-spirits-active-list_one": "",
+			"returning-spirits-active-list_other": "",
+			"returning-spirits-upcoming-list_one": "",
+			"returning-spirits-upcoming-list_other": "",
 			"event-upcoming_one": "{{event}} commence demain.",
 			"event-upcoming_other": "{{event}} commence dans {{count}} jours.",
 			"event-upcoming-time": "{{event}} commence à {{time}}.",
@@ -3031,6 +3051,10 @@
 				"21": {
 					"message-now": "",
 					"message-future": ""
+				},
+				"22": {
+					"message-now": "",
+					"message-future": ""
 				}
 			},
 			"edit-information": "",
@@ -3061,7 +3085,8 @@
 				"18": "$t(general:maintenance)",
 				"19": "$t(general:event-names.radiance-event)",
 				"20": "$t(general:event)",
-				"21": "$t(general:season)"
+				"21": "$t(general:season)",
+				"22": ""
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des évènements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
@@ -3096,6 +3121,10 @@
 			"detailed-breakdown-travelling-spirit-message-none": "Les esprits voyageurs viennent toutes les 2 semaines le jeudi et partent le lundi.\n\nIl n'y a actuellement pas d'esprit voyageur. Le prochain est prévu d'arriver {{timestamp}}.",
 			"detailed-breakdown-travelling-spirit-view-spirit-button-label": "Voir l'esprit voyageur.",
 			"detailed-breakdown-travelling-spirit-history-button-label": "Voir l'historique",
+			"detailed-breakdown-returning-spirits-wiki-button-url": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Esprits_de_retour",
+			"detailed-breakdown-returning-spirits-message-now": "",
+			"detailed-breakdown-returning-spirits-message-future": "",
+			"detailed-breakdown-returning-spirits-message-none": "",
 			"detailed-breakdown-polluted-geyser-wiki-button-url": "",
 			"detailed-breakdown-polluted-geyser-message": "Disponible toutes les 2 heures à partir de {{timestamp}} et dure 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-grandma-wiki-button-url": "",

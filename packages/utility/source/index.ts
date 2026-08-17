@@ -205,6 +205,7 @@ export {
 	nineColouredDeerSchedule,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
+	returningSpiritsSchedule,
 	SCHEDULE_TYPE_VALUES,
 	ScheduleType,
 	type ScheduleTypes,

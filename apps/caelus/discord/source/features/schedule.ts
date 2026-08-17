@@ -37,6 +37,7 @@ import {
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
 	RADIANCE_EVENTS,
+	returningSpiritsSchedule,
 	ScheduleType,
 	type ScheduleTypes,
 	shardEruption,
@@ -441,6 +442,45 @@ function travellingSpiritDetailedBreakdown(
 			],
 		},
 	];
+}
+
+function returningSpiritsDetailedBreakdown(
+	now: Temporal.ZonedDateTime,
+	locale: Locale,
+): APIComponentInContainer[] {
+	const schedule = returningSpiritsSchedule(now);
+	let content: string;
+
+	if (schedule) {
+		const spirits = schedule.spiritIds
+			.map(
+				(spiritId) =>
+					`- [${t(`spirits.${spiritId}`, { lng: locale, ns: "general" })}](${t(`spirit-wiki.${spiritId}`, { lng: locale, ns: "general" })})`,
+			)
+			.join("\n");
+
+		content = schedule.active
+			? t("schedule.detailed-breakdown-returning-spirits-message-now", {
+					lng: locale,
+					ns: "features",
+					spirits,
+					timestamp: `<t:${epochSeconds(schedule.end)}:s> (<t:${epochSeconds(schedule.end)}:R>)`,
+				})
+			: t("schedule.detailed-breakdown-returning-spirits-message-future", {
+					lng: locale,
+					ns: "features",
+					spirits,
+					start: `<t:${epochSeconds(schedule.start)}:s> (<t:${epochSeconds(schedule.start)}:R>)`,
+					end: `<t:${epochSeconds(schedule.end)}:s> (<t:${epochSeconds(schedule.end)}:R>)`,
+				});
+	} else {
+		content = t("schedule.detailed-breakdown-returning-spirits-message-none", {
+			lng: locale,
+			ns: "features",
+		});
+	}
+
+	return [{ type: ComponentType.TextDisplay, content }];
 }
 
 function pollutedGeyserOverview(date: Temporal.ZonedDateTime) {
@@ -1179,6 +1219,7 @@ export async function scheduleOverview(
 	const events = eventOverview(now, locale);
 	const seasons = seasonOverview(now, locale);
 	const travellingSpirit = travellingSpiritOverview(startOfDay, locale);
+	const returningSpirits = returningSpiritsSchedule(now);
 	const pollutedGeyser = pollutedGeyserOverview(now);
 	const grandma = grandmaOverview(now);
 	const turtle = turtleOverview(now);
@@ -1284,6 +1325,32 @@ export async function scheduleOverview(
 						}),
 			}),
 		},
+		...(returningSpirits
+			? [
+					{
+						type: ComponentType.TextDisplay,
+						content: t("schedule.overview", {
+							lng: locale,
+							ns: "features",
+							type: t(`schedule.type.${ScheduleType.ReturningSpirits}`, {
+								lng: locale,
+								ns: "features",
+							}),
+							details: returningSpirits.active
+								? t("schedule.overview-ends-timestamp", {
+										lng: locale,
+										ns: "features",
+										timestamp: `<t:${epochSeconds(returningSpirits.end)}:R>`,
+									})
+								: t("schedule.overview-next-available-timestamp", {
+										lng: locale,
+										ns: "features",
+										timestamp: `<t:${epochSeconds(returningSpirits.start)}:R>`,
+									}),
+						}),
+					} satisfies APITextDisplayComponent,
+				]
+			: []),
 		{
 			type: ComponentType.TextDisplay,
 			content: t("schedule.overview", {
@@ -1771,6 +1838,17 @@ export async function scheduleOverview(
 			}),
 			value: ScheduleType.TravellingSpirit.toString(),
 		},
+		...(returningSpirits
+			? [
+					{
+						label: t(`schedule.type.${ScheduleType.ReturningSpirits}`, {
+							lng: locale,
+							ns: "features",
+						}),
+						value: ScheduleType.ReturningSpirits.toString(),
+					} satisfies APISelectMenuOption,
+				]
+			: []),
 		{
 			label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, {
 				lng: locale,
@@ -1977,6 +2055,14 @@ export async function scheduleDetailedBreakdown(
 		}
 		case ScheduleType.TravellingSpirit: {
 			detailedBreakdown = travellingSpiritDetailedBreakdown(now, locale);
+			break;
+		}
+		case ScheduleType.ReturningSpirits: {
+			detailedBreakdown = returningSpiritsDetailedBreakdown(now, locale);
+			wikiURL = t("schedule.detailed-breakdown-returning-spirits-wiki-button-url", {
+				lng: locale,
+				ns: "features",
+			});
 			break;
 		}
 		case ScheduleType.PollutedGeyser: {

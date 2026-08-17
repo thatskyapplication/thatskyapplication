@@ -52,6 +52,7 @@ import {
 	type RealmName,
 	resolveReturningSpirits,
 	resolveTravellingSpirit,
+	returningSpiritsSchedule,
 	SECRET_AREA,
 	type SeasonIds,
 	type Spirit,
@@ -437,7 +438,7 @@ async function start({
 			: // This would not happen, but it's here to satisfy the API.
 				`${CustomId.CatalogueViewStart}-returning`,
 		disabled: !currentReturningSpirits,
-		label: t("catalogue.returning-spirits", { lng: locale, ns: "features" }),
+		label: t("returning-spirits", { lng: locale, ns: "general" }),
 		style: currentReturningSpirits ? ButtonStyle.Success : ButtonStyle.Secondary,
 	};
 
@@ -1811,15 +1812,22 @@ export async function viewReturningSpirits(interaction: APIMessageComponentButto
 	const invoker = interactionInvoker(interaction);
 	const catalogue = await fetchCatalogue(invoker.id);
 	const { locale } = interaction;
-	const spirits = resolveReturningSpirits(skyNow());
+	const now = skyNow();
+	const spirits = resolveReturningSpirits(now);
+	const visit = returningSpiritsSchedule(now);
 
-	if (!spirits) {
+	if (!spirits || !visit?.active) {
 		await start({ locale, userId: invoker.id });
 		return;
 	}
 
-	const current = t("catalogue.returning-spirits", { lng: locale, ns: "features" });
-	const title = `## ${current}\n\n${breadcrumb(locale, current)}`;
+	const current = t("returning-spirits", { lng: locale, ns: "general" });
+	const title = `## ${current}\n\n${breadcrumb(locale, current)}\n\n${t("time-range", {
+		lng: locale,
+		ns: "general",
+		start: `<t:${epochSeconds(visit.start)}:s>`,
+		end: `<t:${epochSeconds(visit.end)}:s>`,
+	})}`;
 
 	const containerComponents: APIComponentInContainer[] = [
 		{

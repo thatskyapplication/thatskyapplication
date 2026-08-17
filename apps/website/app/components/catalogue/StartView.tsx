@@ -138,7 +138,7 @@ export function StartView({
 
 		quickAccess.push({
 			emoji: sharedSeason ? SeasonIdToSeasonalEmoji[seasonId] : undefined,
-			label: t("catalogue.returning-spirits", { ns: "features" }),
+			label: t("returning-spirits", { ns: "general" }),
 			to: "?view=returning-spirits",
 		});
 	}

@@ -47,6 +47,7 @@ export default {
 		infographic: "Infographic",
 		"infographic-by": "Infographic by {{acknowledgement}}.",
 		"daily-quests": "Daily quests",
+		"returning-spirits": "Returning spirits",
 		"dye-workshop": "Dye Workshop",
 		note: "Note",
 		currency: "Currency",
@@ -167,6 +168,7 @@ export default {
 			[NotificationType.DoubleHearts]: "$t(general:event-names.double-hearts)",
 			[NotificationType.DoubleSeasonalLight]: "Double seasonal light",
 			[NotificationType.DoubleTreasureCandles]: "$t(general:event-names.double-treasure-candles)",
+			[NotificationType.ReturningSpirits]: "$t(general:returning-spirits)",
 		} satisfies Record<NotificationTypes, string>,
 		page: "Page",
 		"quests-common": {
@@ -3184,7 +3186,6 @@ export default {
 			"search-result-detail": "{{name}} ({{detail}})",
 			"traversal-string-select-menu-placeholder": "Where would you like to go?",
 			"travelling-spirit": "Travelling Spirit",
-			"returning-spirits": "Returning Spirits",
 			"back-to-start-button-label": "Start",
 			"settings-button-label-enable": "Enable",
 			"settings-button-label-disable": "Disable",
@@ -3306,6 +3307,14 @@ export default {
 			"double-seasonal-light-upcoming_other": "Double seasonal light starts in {{count}} days.",
 			"double-treasure-candles-upcoming_one": "Double treasure candles starts tomorrow.",
 			"double-treasure-candles-upcoming_other": "Double treasure candles starts in {{count}} days.",
+			"returning-spirits-active-list_zero": "{{returningSpirits}} leave today: {{spirits}}.",
+			"returning-spirits-active-list_one":
+				"{{returningSpirits}} leave in {{count}} day: {{spirits}}.",
+			"returning-spirits-active-list_other":
+				"{{returningSpirits}} leave in {{count}} days: {{spirits}}.",
+			"returning-spirits-upcoming-list_one": "{{returningSpirits}} arrive tomorrow: {{spirits}}.",
+			"returning-spirits-upcoming-list_other":
+				"{{returningSpirits}} arrive in {{count}} days: {{spirits}}.",
 			"event-upcoming_one": "{{event}} starts tomorrow.",
 			"event-upcoming_other": "{{event}} starts in {{count}} days.",
 			"event-upcoming-time": "{{event}} starts at {{time}}.",
@@ -3562,6 +3571,10 @@ export default {
 						"Treasure candles are shining brightly! There are now more of them in the realms!",
 					"message-future": "Treasure candles will begin to shine more brightly {{timestamp}}!",
 				},
+				[NotificationType.ReturningSpirits]: {
+					"message-now": "Welcome back to Sky, {{spirits}}!",
+					"message-future": "Get ready to welcome {{spirits}} back to Sky {{timestamp}}!",
+				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":
 				"Choose a channel for the notification to be sent in, a role to be mentioned, and an offset which indicates how many minutes before the event the notification will be sent.",
@@ -3593,6 +3606,7 @@ export default {
 				[ScheduleType.RadianceEvent]: "$t(general:event-names.radiance-event)",
 				[ScheduleType.Events]: "$t(general:event)",
 				[ScheduleType.Season]: "$t(general:season)",
+				[ScheduleType.ReturningSpirits]: "$t(general:returning-spirits)",
 			} satisfies Record<ScheduleTypes, string>,
 			name: "Schedule",
 			description:
@@ -3636,6 +3650,14 @@ export default {
 				"Travelling spirits visit every 2 weeks on Thursday and leave on Monday.\n\nThere is currently no travelling spirit. The next one is scheduled to arrive {{timestamp}}.",
 			"detailed-breakdown-travelling-spirit-view-spirit-button-label": "View travelling spirit",
 			"detailed-breakdown-travelling-spirit-history-button-label": "View history",
+			"detailed-breakdown-returning-spirits-wiki-button-url":
+				"https://sky-children-of-the-light.fandom.com/wiki/Returning_Spirits",
+			"detailed-breakdown-returning-spirits-message-now":
+				"The following returning spirits are currently visiting:\n{{spirits}}\nThey will leave on {{timestamp}}.",
+			"detailed-breakdown-returning-spirits-message-future":
+				"The following returning spirits are scheduled to arrive on {{start}} and leave on {{end}}:\n{{spirits}}",
+			"detailed-breakdown-returning-spirits-message-none":
+				"There are currently no announced returning spirits.",
 			"detailed-breakdown-polluted-geyser-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Polluted_Geyser",
 			"detailed-breakdown-polluted-geyser-message":
