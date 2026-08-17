@@ -3573,7 +3573,7 @@ export default {
 				},
 				[NotificationType.ReturningSpirits]: {
 					"message-now": "Welcome back to Sky, {{spirits}}!",
-					"message-future": "Get ready to welcome back to Sky, {{spirits}} {{timestamp}}!",
+					"message-future": "Get ready to welcome {{spirits}} back to Sky {{timestamp}}!",
 				},
 			} satisfies Record<NotificationTypes, { "message-now": string; "message-future": string }>,
 			"edit-information":
