@@ -20,6 +20,11 @@ export const SKY_COTL_INFOGRAPHICS_DATABASE_X_URL = "https://x.com/ourskyjourney
 export const APPLICATION_DESCRIPTION =
 	`${APPLICATION_NAME} is a Discord application for Sky: Children of the Light. Comes equipped with fun, hugs, and smiles. Share the love with your community!` as const;
 
+export const CALENDAR_TITLE = "Calendar" as const;
+
+export const CALENDAR_DESCRIPTION =
+	"See seasons, events, travelling spirits, returning spirits, double treasure candles, and more laid out on a calendar!" as const;
+
 export const SCHEDULE_TITLE = "Schedule" as const;
 
 export const SCHEDULE_DESCRIPTION =

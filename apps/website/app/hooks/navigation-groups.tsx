@@ -3,6 +3,7 @@ import {
 	AlarmClock,
 	BookOpenCheck,
 	Bot,
+	CalendarDays,
 	CheckSquare,
 	Clock,
 	ExternalLinkIcon,
@@ -61,6 +62,12 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					label: t("schedule.name", { ns: "features" }),
 					icon: <AlarmClock className="h-5 w-5" />,
 					description: t("schedule.description-short", { ns: "features" }),
+				},
+				{
+					to: "/calendar",
+					label: t("calendar.name", { ns: "features" }),
+					icon: <CalendarDays className="h-5 w-5" />,
+					description: t("calendar.description-short", { ns: "features" }),
 				},
 				{
 					to: "/spirits",

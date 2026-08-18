@@ -4,6 +4,7 @@ const PUBLIC_PATHS = [
 	"/",
 	"/acknowledgements",
 	"/caelus/terms-privacy",
+	"/calendar",
 	"/daily-guides",
 	"/donate",
 	"/schedule",
