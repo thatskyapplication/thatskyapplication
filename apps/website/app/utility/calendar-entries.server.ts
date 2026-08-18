@@ -48,6 +48,8 @@ interface CalendarEntryInput {
 	pageURL?: string;
 	catalogueURL?: string;
 	marketingURL?: string;
+	infographicURL?: string;
+	acknowledgement?: string;
 	spiritLinks?: readonly ExternalLinkListItem[];
 }
 
@@ -128,6 +130,8 @@ export function calendarEntriesBetween({
 			pageURL: input.pageURL ?? null,
 			catalogueURL: input.catalogueURL ?? null,
 			marketingURL: input.marketingURL ?? null,
+			infographicURL: input.infographicURL ?? null,
+			acknowledgement: input.acknowledgement ?? null,
 			spiritLinks: input.spiritLinks ?? null,
 		};
 	};
@@ -344,6 +348,8 @@ export function calendarEntriesBetween({
 								area: shard.area,
 							}),
 							pageURL: "/shard-eruption",
+							infographicURL: shard.infographic.url,
+							acknowledgement: shard.infographic.acknowledgement,
 						}),
 					);
 				}

@@ -115,6 +115,8 @@ export interface CalendarEntry {
 	pageURL: string | null;
 	catalogueURL: string | null;
 	marketingURL: string | null;
+	infographicURL: string | null;
+	acknowledgement: string | null;
 	spiritLinks: readonly ExternalLinkListItem[] | null;
 }
 
@@ -122,6 +124,8 @@ export interface CalendarDay {
 	date: string;
 	label: string;
 	fullLabel: string;
+	startsAt: number;
+	endsAt: number;
 	exists: boolean;
 	outsideFocus: boolean;
 	isToday: boolean;
@@ -135,6 +139,8 @@ export interface CalendarSegment {
 	lane: number;
 	continuesBefore: boolean;
 	continuesAfter: boolean;
+	startInset: number;
+	endInset: number;
 }
 
 export interface CalendarDayOccurrence {
@@ -163,6 +169,12 @@ export interface CalendarDayDetail {
 export interface CalendarWeek {
 	key: string;
 	days: readonly CalendarDay[];
+}
+
+const MINIMUM_BAR_COLUMNS = 0.3 as const;
+
+function clamp(value: number) {
+	return Math.min(Math.max(value, 0), 1);
 }
 
 const DAY_MARKER_KINDS: readonly CalendarEntryKinds[] = [
@@ -231,15 +243,36 @@ export function packCalendarWeek(
 		}
 
 		laneEndColumns[lane] = endIndex;
+		const columnSpan = endIndex - startIndex + 1;
+		const startDay = days[startIndex]!;
+		const endDay = days[endIndex]!;
+
+		let startInset = continuesBefore
+			? 0
+			: clamp((entry.startsAt - startDay.startsAt) / (startDay.endsAt - startDay.startsAt));
+
+		let endInset = continuesAfter
+			? 0
+			: clamp((endDay.endsAt - entry.endsAt) / (endDay.endsAt - endDay.startsAt));
+
+		const shortfall = MINIMUM_BAR_COLUMNS - (columnSpan - startInset - endInset);
+
+		if (shortfall > 0) {
+			const fromEnd = Math.min(endInset, shortfall);
+			endInset -= fromEnd;
+			startInset = Math.max(0, startInset - (shortfall - fromEnd));
+		}
 
 		segments.push({
 			key: `${entry.key}-${firstDate}`,
 			entry,
 			startColumn: startIndex + 1,
-			columnSpan: endIndex - startIndex + 1,
+			columnSpan,
 			lane,
 			continuesBefore,
 			continuesAfter,
+			startInset,
+			endInset,
 		});
 	};
 

@@ -154,6 +154,8 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 				date: date.toString(),
 				label: dayFormat.format(epochMilliseconds),
 				fullLabel: fullDayFormat.format(epochMilliseconds),
+				startsAt: epochMilliseconds,
+				endsAt: zonedStartOfDay(date.add({ days: 1 }), timeZone).epochMilliseconds,
 				exists: Temporal.PlainDate.compare(date, minimum) >= 0,
 				outsideFocus: isMonth && date.month !== focus.month,
 				isToday: date.equals(today),
