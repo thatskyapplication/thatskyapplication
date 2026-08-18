@@ -30,8 +30,10 @@ export function CalendarLegend({
 						<button
 							aria-pressed={!hidden}
 							className={clsx(
-								"inline-flex cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-sm transition-colors hover:bg-black/5 dark:hover:bg-white/10",
-								hidden ? "text-gray-400 dark:text-gray-600" : "text-gray-600 dark:text-gray-400",
+								"inline-flex cursor-pointer items-center gap-2 rounded-full border px-2.5 py-1 text-sm transition-colors",
+								hidden
+									? "border-gray-200 bg-transparent text-gray-400 hover:bg-black/5 dark:border-gray-700 dark:text-gray-600 dark:hover:bg-white/10"
+									: "border-gray-200 bg-white text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800",
 							)}
 							onClick={() => onToggle(kind)}
 							type="button"
