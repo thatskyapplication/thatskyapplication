@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CalendarEntryBar } from "~/components/calendar/CalendarEntryBar";
-import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import {
 	type CalendarEntry,
 	calendarPath,
@@ -12,7 +11,6 @@ import {
 	type CalendarWeek,
 	packCalendarWeek,
 } from "~/utility/calendar";
-import { cdnAssetURL } from "~/utility/cdn.js";
 
 const MONTH_LANE_HEIGHT = "1.375rem" as const;
 const WEEK_LANE_HEIGHT = "1.875rem" as const;
@@ -31,7 +29,6 @@ function CalendarWeekRow({
 	week: CalendarWeek;
 }) {
 	const { t } = useTranslation();
-	const skyKidURL = cdnAssetURL(useCDNURL(), "assets/sky_kid.webp");
 	const isWeek = view === CalendarView.Week;
 	const laneHeight = isWeek ? WEEK_LANE_HEIGHT : MONTH_LANE_HEIGHT;
 
@@ -56,9 +53,12 @@ function CalendarWeekRow({
 						aria-label={t("calendar.view-day", { ns: "features", date: day.fullLabel })}
 						className={clsx(
 							"border-s border-b border-gray-100 transition-colors first:border-s-0 hover:bg-sky-50 dark:border-gray-800 dark:hover:bg-sky-950/40",
-							day.outsideFocus && "bg-gray-50 dark:bg-gray-950/40",
+							day.isToday
+								? "bg-discord-button/10 ring-2 ring-discord-button ring-inset dark:bg-discord-button/20"
+								: day.outsideFocus && "bg-gray-50 dark:bg-gray-950/40",
 						)}
 						key={day.date}
+						preventScrollReset
 						style={{ gridColumn: index + 1, gridRow: "1 / -1" }}
 						to={calendarPath(view, anchorDate, day.date)}
 					/>
@@ -79,7 +79,7 @@ function CalendarWeekRow({
 					>
 						<span
 							className={clsx(
-								"relative inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-medium",
+								"inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-medium",
 								day.isToday
 									? "bg-discord-button text-white"
 									: day.outsideFocus
@@ -88,13 +88,6 @@ function CalendarWeekRow({
 							)}
 						>
 							{day.label}
-							{day.isToday && (
-								<span
-									aria-hidden="true"
-									className="absolute start-full top-1/2 ms-0.5 h-4 w-4 -translate-y-1/2 bg-contain bg-center bg-no-repeat"
-									style={{ backgroundImage: `url(${skyKidURL})` }}
-								/>
-							)}
 						</span>
 					</div>
 				) : null,

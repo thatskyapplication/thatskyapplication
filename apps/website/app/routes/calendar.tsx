@@ -14,11 +14,11 @@ import {
 	CALENDAR_MINIMUM_DATE,
 	type CalendarDay,
 	type CalendarDayDetail,
-	CalendarEntryKind,
 	type CalendarEntryKinds,
 	type CalendarWeek,
 	CalendarView,
 	isCalendarView,
+	isDayMarkerKind,
 } from "~/utility/calendar.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, CALENDAR_DESCRIPTION, CALENDAR_TITLE } from "~/utility/constants.js";
@@ -114,7 +114,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		locale,
 		hour12,
 		t,
-		shardEruptions: true,
+		dayMarkers: true,
 	});
 
 	const nowMillis = now.epochMilliseconds;
@@ -126,7 +126,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		locale,
 		hour12,
 		t,
-		shardEruptions: false,
+		dayMarkers: false,
 	});
 
 	const summary = {
@@ -203,7 +203,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 					),
 					allDay: entries.filter(
 						(entry) =>
-							entry.kind !== CalendarEntryKind.ShardEruption &&
+							!isDayMarkerKind(entry.kind) &&
 							entry.firstDate <= day.toString() &&
 							day.toString() <= entry.lastDate,
 					),

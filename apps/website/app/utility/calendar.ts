@@ -1,3 +1,4 @@
+import { ScheduleType } from "@thatskyapplication/utility";
 import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
 
 export const CALENDAR_MINIMUM_DATE = "2017-12-19" as const;
@@ -21,7 +22,11 @@ export const CalendarEntryKind = {
 	RadianceEvent: 7,
 	CommunityEvent: 8,
 	ShardEruption: 9,
-	Maintenance: 10,
+	EyeOfEden: 10,
+	InternationalSpaceStation: 11,
+	NestingWorkshop: 12,
+	AviarysFireworkFestival: 13,
+	Maintenance: 14,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const CALENDAR_ENTRY_KIND_VALUES = Object.values(CalendarEntryKind);
@@ -38,6 +43,10 @@ export const CalendarEntryKindToLabelKey = {
 	[CalendarEntryKind.RadianceEvent]: "general:event-names.radiance-event",
 	[CalendarEntryKind.CommunityEvent]: "features:calendar.community-event",
 	[CalendarEntryKind.ShardEruption]: "general:shard-eruption",
+	[CalendarEntryKind.EyeOfEden]: `features:schedule.type.${ScheduleType.EyeOfEden}`,
+	[CalendarEntryKind.InternationalSpaceStation]: `features:schedule.type.${ScheduleType.InternationalSpaceStation}`,
+	[CalendarEntryKind.NestingWorkshop]: `features:schedule.type.${ScheduleType.NestingWorkshop}`,
+	[CalendarEntryKind.AviarysFireworkFestival]: `features:schedule.type.${ScheduleType.AviarysFireworkFestival}`,
 	[CalendarEntryKind.Maintenance]: "general:maintenance",
 } as const satisfies Readonly<Record<CalendarEntryKinds, string>>;
 
@@ -62,6 +71,14 @@ export const CalendarEntryKindToBarClassName = {
 		"bg-teal-200 text-teal-900 hover:bg-teal-300 dark:bg-teal-800 dark:text-teal-50 dark:hover:bg-teal-700",
 	[CalendarEntryKind.ShardEruption]:
 		"bg-slate-200 text-slate-900 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-50 dark:hover:bg-slate-600",
+	[CalendarEntryKind.EyeOfEden]:
+		"bg-red-200 text-red-900 hover:bg-red-300 dark:bg-red-800 dark:text-red-50 dark:hover:bg-red-700",
+	[CalendarEntryKind.InternationalSpaceStation]:
+		"bg-blue-200 text-blue-900 hover:bg-blue-300 dark:bg-blue-800 dark:text-blue-50 dark:hover:bg-blue-700",
+	[CalendarEntryKind.NestingWorkshop]:
+		"bg-yellow-200 text-yellow-900 hover:bg-yellow-300 dark:bg-yellow-800 dark:text-yellow-50 dark:hover:bg-yellow-700",
+	[CalendarEntryKind.AviarysFireworkFestival]:
+		"bg-pink-200 text-pink-900 hover:bg-pink-300 dark:bg-pink-800 dark:text-pink-50 dark:hover:bg-pink-700",
 	[CalendarEntryKind.Maintenance]:
 		"bg-amber-200 text-amber-900 hover:bg-amber-300 dark:bg-amber-800 dark:text-amber-50 dark:hover:bg-amber-700",
 } as const satisfies Readonly<Record<CalendarEntryKinds, string>>;
@@ -77,6 +94,10 @@ export const CalendarEntryKindToSwatchClassName = {
 	[CalendarEntryKind.RadianceEvent]: "bg-lime-400 dark:bg-lime-600",
 	[CalendarEntryKind.CommunityEvent]: "bg-teal-400 dark:bg-teal-600",
 	[CalendarEntryKind.ShardEruption]: "bg-slate-400 dark:bg-slate-500",
+	[CalendarEntryKind.EyeOfEden]: "bg-red-400 dark:bg-red-600",
+	[CalendarEntryKind.InternationalSpaceStation]: "bg-blue-400 dark:bg-blue-600",
+	[CalendarEntryKind.NestingWorkshop]: "bg-yellow-400 dark:bg-yellow-600",
+	[CalendarEntryKind.AviarysFireworkFestival]: "bg-pink-400 dark:bg-pink-600",
 	[CalendarEntryKind.Maintenance]: "bg-amber-400 dark:bg-amber-600",
 } as const satisfies Readonly<Record<CalendarEntryKinds, string>>;
 
@@ -148,6 +169,18 @@ export interface CalendarWeek {
 	days: readonly CalendarDay[];
 }
 
+const DAY_MARKER_KINDS: readonly CalendarEntryKinds[] = [
+	CalendarEntryKind.ShardEruption,
+	CalendarEntryKind.EyeOfEden,
+	CalendarEntryKind.InternationalSpaceStation,
+	CalendarEntryKind.NestingWorkshop,
+	CalendarEntryKind.AviarysFireworkFestival,
+];
+
+export function isDayMarkerKind(kind: CalendarEntryKinds) {
+	return DAY_MARKER_KINDS.includes(kind);
+}
+
 export function isCalendarView(value: unknown): value is CalendarViews {
 	return CALENDAR_VIEW_VALUES.some((view) => view === value);
 }
@@ -215,16 +248,16 @@ export function packCalendarWeek(
 	};
 
 	for (const entry of entries) {
-		if (entry.kind !== CalendarEntryKind.ShardEruption) {
+		if (!isDayMarkerKind(entry.kind)) {
 			place(entry, 0);
 		}
 	}
 
-	const shardEruptionLane = laneEndColumns.length;
+	const dayMarkerLane = laneEndColumns.length;
 
 	for (const entry of entries) {
-		if (entry.kind === CalendarEntryKind.ShardEruption) {
-			place(entry, shardEruptionLane);
+		if (isDayMarkerKind(entry.kind)) {
+			place(entry, dayMarkerLane);
 		}
 	}
 

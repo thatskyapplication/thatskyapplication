@@ -1,8 +1,11 @@
 import type { TFunction } from "i18next";
 import {
+	aviarysFireworkFestivalSchedule,
 	communityEventsBetween,
 	DOUBLE_HEART_EVENTS,
+	EventId,
 	formatEmojiURL,
+	INTERNATIONAL_SPACE_STATION_DATES,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	RADIANCE_EVENTS,
@@ -55,7 +58,7 @@ interface CalendarEntriesOptions {
 	locale: string;
 	hour12: boolean | undefined;
 	t: TFunction;
-	shardEruptions: boolean;
+	dayMarkers: boolean;
 }
 
 function inclusiveDates(
@@ -87,7 +90,7 @@ export function calendarEntriesBetween({
 	locale,
 	hour12,
 	t,
-	shardEruptions,
+	dayMarkers,
 }: CalendarEntriesOptions): CalendarEntry[] {
 	const overlapsRange = (start: Temporal.ZonedDateTime, end: Temporal.ZonedDateTime) =>
 		Temporal.ZonedDateTime.compare(start, rangeEnd) < 0 &&
@@ -311,7 +314,7 @@ export function calendarEntriesBetween({
 		);
 	}
 
-	if (shardEruptions) {
+	if (dayMarkers) {
 		const skyRangeLimit = rangeEnd.withTimeZone(TIME_ZONE);
 		let skyDate = rangeStart.withTimeZone(TIME_ZONE).startOfDay();
 
@@ -344,6 +347,65 @@ export function calendarEntriesBetween({
 						}),
 					);
 				}
+			}
+
+			if (skyDate.dayOfWeek === 7) {
+				entries.push(
+					createCalendarEntry({
+						key: `eye-of-eden-${skyDate.toPlainDate().toString()}`,
+						kind: CalendarEntryKind.EyeOfEden,
+						label: t(`schedule.type.${ScheduleType.EyeOfEden}`, { ns: "features" }),
+						start: skyDate,
+						iconURLs: [formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)],
+					}),
+				);
+			}
+
+			if (skyDate.dayOfWeek === 5) {
+				entries.push(
+					createCalendarEntry({
+						key: `nesting-workshop-${skyDate.toPlainDate().toString()}`,
+						kind: CalendarEntryKind.NestingWorkshop,
+						label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, { ns: "features" }),
+						start: skyDate,
+						wikiURL: t("schedule.detailed-breakdown-nesting-workshop-wiki-button-url", {
+							ns: "features",
+						}),
+						catalogueURL: "/me/catalogue?view=nesting-workshop",
+					}),
+				);
+			}
+
+			const dayOfMonth = skyDate.day;
+
+			if (INTERNATIONAL_SPACE_STATION_DATES.some((date) => date === dayOfMonth)) {
+				entries.push(
+					createCalendarEntry({
+						key: `international-space-station-${skyDate.toPlainDate().toString()}`,
+						kind: CalendarEntryKind.InternationalSpaceStation,
+						label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
+							ns: "features",
+						}),
+						start: skyDate,
+						end: skyDate.add({ days: 1 }),
+						wikiURL: t("schedule.detailed-breakdown-international-space-station-wiki-button-url", {
+							ns: "features",
+						}),
+					}),
+				);
+			}
+
+			if (dayOfMonth === 1) {
+				entries.push(
+					createCalendarEntry({
+						key: `aviarys-firework-festival-${skyDate.toPlainDate().toString()}`,
+						kind: CalendarEntryKind.AviarysFireworkFestival,
+						label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, { ns: "features" }),
+						start: skyDate,
+						end: aviarysFireworkFestivalSchedule(skyDate.with({ hour: 20 })).end,
+						wikiURL: t(`event-wiki.${EventId.AviarysFireworkFestival2023}`, { ns: "general" }),
+					}),
+				);
 			}
 
 			skyDate = skyDate.add({ days: 1 });
