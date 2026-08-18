@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import {
+	CALENDAR_ENTRY_KIND_VALUES,
 	type CalendarEntryKinds,
 	CalendarEntryKindToLabelKey,
 	CalendarEntryKindToSwatchClassName,
@@ -8,11 +9,9 @@ import {
 
 export function CalendarLegend({
 	hiddenKinds,
-	kinds,
 	onToggle,
 }: {
 	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
-	kinds: readonly CalendarEntryKinds[];
 	onToggle: (kind: CalendarEntryKinds) => void;
 }) {
 	const { t } = useTranslation();
@@ -22,7 +21,7 @@ export function CalendarLegend({
 			aria-label={t("calendar.legend", { ns: "features" })}
 			className="-mx-2 -mt-1 flex list-none flex-wrap gap-x-1 gap-y-0.5 p-0"
 		>
-			{kinds.map((kind) => {
+			{CALENDAR_ENTRY_KIND_VALUES.map((kind) => {
 				const hidden = hiddenKinds.has(kind);
 
 				return (

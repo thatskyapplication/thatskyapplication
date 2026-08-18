@@ -189,7 +189,6 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 				zonedStartOfDay(gridEnd, timeZone).epochMilliseconds,
 			);
 
-	const legendKinds = [...new Set(entries.map(({ kind }) => kind))].sort((a, b) => a - b);
 	const day = parsePlainDate(url.searchParams.get("day"));
 
 	const dayDetail: CalendarDayDetail | null =
@@ -228,7 +227,6 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		entries,
 		summary,
 		initialTimestamp: Date.now(),
-		legendKinds,
 		locale,
 		nextDate: (isMonth ? focus.add({ months: 1 }) : gridStart.add({ weeks: 1 })).toString(),
 		previousDate: Temporal.PlainDate.compare(previousEnd, minimum) < 0 ? null : previous.toString(),
@@ -249,7 +247,6 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 		entries,
 		summary,
 		initialTimestamp,
-		legendKinds,
 		locale,
 		nextDate,
 		previousDate,
@@ -272,9 +269,8 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 			active: summary.active.filter((entry) => !hiddenKinds.has(entry.kind)),
 			upcoming: summary.upcoming.filter((entry) => !hiddenKinds.has(entry.kind)),
 			allDay: dayDetail?.allDay.filter((entry) => !hiddenKinds.has(entry.kind)) ?? [],
-			legendKinds: [...new Set([...legendKinds, ...hiddenKinds])].sort((a, b) => a - b),
 		}),
-		[entries, summary, dayDetail, legendKinds, hiddenKinds],
+		[entries, summary, dayDetail, hiddenKinds],
 	);
 
 	const toggleKind = (kind: CalendarEntryKinds) =>
@@ -301,13 +297,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					view={view}
 					weekStartsOn={weekStartsOn}
 				/>
-				{visible.legendKinds.length > 0 && (
-					<CalendarLegend
-						hiddenKinds={hiddenKinds}
-						kinds={visible.legendKinds}
-						onToggle={toggleKind}
-					/>
-				)}
+				<CalendarLegend hiddenKinds={hiddenKinds} onToggle={toggleKind} />
 				<CalendarGrid
 					anchorDate={anchorDate}
 					entries={visible.entries}

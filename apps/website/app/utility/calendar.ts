@@ -24,7 +24,7 @@ export const CalendarEntryKind = {
 	Maintenance: 10,
 } as const satisfies Readonly<Record<string, number>>;
 
-const CALENDAR_ENTRY_KIND_VALUES = Object.values(CalendarEntryKind);
+export const CALENDAR_ENTRY_KIND_VALUES = Object.values(CalendarEntryKind);
 export type CalendarEntryKinds = (typeof CALENDAR_ENTRY_KIND_VALUES)[number];
 
 export const CalendarEntryKindToLabelKey = {
