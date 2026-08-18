@@ -120,7 +120,7 @@ export function calendarEntriesBetween({
 				input.end === undefined
 					? rangeFormat.format(input.start.epochMilliseconds)
 					: rangeFormat.formatRange(input.start.epochMilliseconds, end.epochMilliseconds),
-			duration: firstDate.until(lastDate, { largestUnit: "day" }).days + 1,
+			duration: input.start.until(end, { largestUnit: "day" }).days,
 			wikiURL: input.wikiURL ?? null,
 			pageURL: input.pageURL ?? null,
 			catalogueURL: input.catalogueURL ?? null,

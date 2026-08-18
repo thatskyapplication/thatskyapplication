@@ -84,9 +84,11 @@ export function CalendarEntryBar({
 						<Popover.Description className="m-0 mt-1 text-sm text-gray-600 dark:text-gray-400">
 							{entry.range}
 						</Popover.Description>
-						<p className="m-0 mt-0.5 text-xs text-gray-500 dark:text-gray-500">
-							{t("calendar.duration", { ns: "features", count: entry.duration })}
-						</p>
+						{entry.duration > 0 && (
+							<p className="m-0 mt-0.5 text-xs text-gray-500 dark:text-gray-500">
+								{t("calendar.duration", { ns: "features", count: entry.duration })}
+							</p>
+						)}
 						{entry.spiritLinks && (
 							<p className="m-0 mt-2 text-sm text-gray-600 dark:text-gray-400">
 								<ExternalLinkList items={entry.spiritLinks} locale={locale} />
