@@ -51,36 +51,32 @@ export const CalendarEntryKindToLabelKey = {
 } as const satisfies Readonly<Record<CalendarEntryKinds, string>>;
 
 export const CalendarEntryKindToBarClassName = {
-	[CalendarEntryKind.Season]:
-		"bg-sky-200 text-sky-900 hover:bg-sky-300 dark:bg-sky-800 dark:text-sky-50 dark:hover:bg-sky-700",
-	[CalendarEntryKind.Event]:
-		"bg-rose-200 text-rose-900 hover:bg-rose-300 dark:bg-rose-800 dark:text-rose-50 dark:hover:bg-rose-700",
+	[CalendarEntryKind.Season]: "bg-sky-200 text-sky-900 dark:bg-sky-800 dark:text-sky-50",
+	[CalendarEntryKind.Event]: "bg-rose-200 text-rose-900 dark:bg-rose-800 dark:text-rose-50",
 	[CalendarEntryKind.TravellingSpirit]:
-		"bg-violet-200 text-violet-900 hover:bg-violet-300 dark:bg-violet-800 dark:text-violet-50 dark:hover:bg-violet-700",
+		"bg-violet-200 text-violet-900 dark:bg-violet-800 dark:text-violet-50",
 	[CalendarEntryKind.ReturningSpirits]:
-		"bg-violet-200 text-violet-900 hover:bg-violet-300 dark:bg-violet-800 dark:text-violet-50 dark:hover:bg-violet-700",
+		"bg-violet-200 text-violet-900 dark:bg-violet-800 dark:text-violet-50",
 	[CalendarEntryKind.DoubleSeasonalLight]:
-		"bg-emerald-200 text-emerald-900 hover:bg-emerald-300 dark:bg-emerald-800 dark:text-emerald-50 dark:hover:bg-emerald-700",
+		"bg-emerald-200 text-emerald-900 dark:bg-emerald-800 dark:text-emerald-50",
 	[CalendarEntryKind.DoubleTreasureCandles]:
-		"bg-orange-200 text-orange-900 hover:bg-orange-300 dark:bg-orange-800 dark:text-orange-50 dark:hover:bg-orange-700",
+		"bg-orange-200 text-orange-900 dark:bg-orange-800 dark:text-orange-50",
 	[CalendarEntryKind.DoubleHearts]:
-		"bg-fuchsia-200 text-fuchsia-900 hover:bg-fuchsia-300 dark:bg-fuchsia-800 dark:text-fuchsia-50 dark:hover:bg-fuchsia-700",
-	[CalendarEntryKind.RadianceEvent]:
-		"bg-lime-200 text-lime-900 hover:bg-lime-300 dark:bg-lime-800 dark:text-lime-50 dark:hover:bg-lime-700",
+		"bg-fuchsia-200 text-fuchsia-900 dark:bg-fuchsia-800 dark:text-fuchsia-50",
+	[CalendarEntryKind.RadianceEvent]: "bg-lime-200 text-lime-900 dark:bg-lime-800 dark:text-lime-50",
 	[CalendarEntryKind.CommunityEvent]:
-		"bg-teal-200 text-teal-900 hover:bg-teal-300 dark:bg-teal-800 dark:text-teal-50 dark:hover:bg-teal-700",
+		"bg-teal-200 text-teal-900 dark:bg-teal-800 dark:text-teal-50",
 	[CalendarEntryKind.ShardEruption]:
-		"bg-slate-200 text-slate-900 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-50 dark:hover:bg-slate-600",
-	[CalendarEntryKind.EyeOfEden]:
-		"bg-red-200 text-red-900 hover:bg-red-300 dark:bg-red-800 dark:text-red-50 dark:hover:bg-red-700",
+		"bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-slate-50",
+	[CalendarEntryKind.EyeOfEden]: "bg-red-200 text-red-900 dark:bg-red-800 dark:text-red-50",
 	[CalendarEntryKind.InternationalSpaceStation]:
-		"bg-blue-200 text-blue-900 hover:bg-blue-300 dark:bg-blue-800 dark:text-blue-50 dark:hover:bg-blue-700",
+		"bg-blue-200 text-blue-900 dark:bg-blue-800 dark:text-blue-50",
 	[CalendarEntryKind.NestingWorkshop]:
-		"bg-yellow-200 text-yellow-900 hover:bg-yellow-300 dark:bg-yellow-800 dark:text-yellow-50 dark:hover:bg-yellow-700",
+		"bg-yellow-200 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-50",
 	[CalendarEntryKind.AviarysFireworkFestival]:
-		"bg-pink-200 text-pink-900 hover:bg-pink-300 dark:bg-pink-800 dark:text-pink-50 dark:hover:bg-pink-700",
+		"bg-pink-200 text-pink-900 dark:bg-pink-800 dark:text-pink-50",
 	[CalendarEntryKind.Maintenance]:
-		"bg-amber-200 text-amber-900 hover:bg-amber-300 dark:bg-amber-800 dark:text-amber-50 dark:hover:bg-amber-700",
+		"bg-amber-200 text-amber-900 dark:bg-amber-800 dark:text-amber-50",
 } as const satisfies Readonly<Record<CalendarEntryKinds, string>>;
 
 export const CalendarEntryKindToSwatchClassName = {

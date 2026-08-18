@@ -30,7 +30,7 @@ export function CalendarEntryBar({
 		<Popover.Root>
 			<Popover.Trigger
 				className={clsx(
-					"mx-0.5 mb-0.5 flex min-w-0 items-center gap-1 rounded px-1 text-left font-medium transition-colors",
+					"mx-0.5 mb-0.5 flex min-w-0 items-center gap-1 rounded px-1 text-left font-medium transition hover:brightness-110",
 					view === CalendarView.Week ? "py-1 text-sm" : "py-0.5 text-xs",
 					CalendarEntryKindToBarClassName[entry.kind],
 					segment.continuesBefore && "ms-0 rounded-s-none",
