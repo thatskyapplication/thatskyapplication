@@ -356,7 +356,6 @@ export function calendarEntriesBetween({
 						kind: CalendarEntryKind.EyeOfEden,
 						label: t(`schedule.type.${ScheduleType.EyeOfEden}`, { ns: "features" }),
 						start: skyDate,
-						iconURLs: [formatEmojiURL(MISCELLANEOUS_EMOJIS.AscendedCandle.id)],
 					}),
 				);
 			}
