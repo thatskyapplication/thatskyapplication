@@ -49,9 +49,7 @@ export function CalendarEntryBar({
 						style={{ backgroundImage: `url(${iconURL})` }}
 					/>
 				))}
-				<span className={clsx("truncate", segment.columnSpan < 3 && "hidden sm:inline")}>
-					{entry.label}
-				</span>
+				<span className="min-w-0 truncate">{entry.label}</span>
 			</Popover.Trigger>
 			<Popover.Portal>
 				<Popover.Positioner align="center" collisionPadding={8} side="bottom" sideOffset={6}>
