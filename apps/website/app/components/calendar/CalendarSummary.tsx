@@ -34,6 +34,7 @@ function SummarySection({
 						<li key={entry.key}>
 							<Link
 								className="flex items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+								preventScrollReset
 								to={calendarPath(view, entry.firstDate, entry.firstDate)}
 							>
 								<span
