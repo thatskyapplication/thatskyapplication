@@ -10,6 +10,7 @@ import {
 	skyNow,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
+import { DatePicker } from "~/components/DatePicker";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
@@ -30,6 +31,7 @@ import { getPreferredTimeZone } from "~/utility/time-zone.server";
 import type { Route } from "./+types/shard-eruption.js";
 
 type ShardEruptionCardProps = {
+	selected: boolean;
 	shard:
 		| (Omit<ShardEruptionData, "timestamps"> & {
 				timestamps: {
@@ -75,6 +77,8 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const dateParameter = url.searchParams.get("date");
 	const now = skyNow();
 	const today = now.startOfDay();
+	let selectedDate: string | null = null;
+	let selectedPage: number | null = null;
 
 	if (dateParameter !== null) {
 		let targetDate: Temporal.PlainDate | null = null;
@@ -87,33 +91,29 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			}
 		}
 
-		let targetPage = 0;
-
-		if (targetDate) {
-			const daysOffset = targetDate.since(today.toPlainDate()).days;
-			targetPage = daysOffset > 0 ? Math.floor((daysOffset - 1) / 30) : Math.floor(daysOffset / 30);
+		if (!targetDate) {
+			url.searchParams.delete("date");
+			url.searchParams.delete("page");
+			throw redirect(`${url.pathname}${url.search}`);
 		}
+
+		const daysOffset = targetDate.since(today.toPlainDate()).days;
+		const targetPage =
+			daysOffset > 0 ? Math.floor((daysOffset - 1) / 30) : Math.floor(daysOffset / 30);
 
 		if (targetPage < SHARD_ERUPTION_MINIMUM_PAGE || targetPage > SHARD_ERUPTION_MAXIMUM_PAGE) {
 			throw new Response("Date is outside the supported shard-eruption range.", { status: 400 });
 		}
 
-		url.searchParams.delete("date");
-
-		if (targetPage === 0) {
-			url.searchParams.delete("page");
-		} else {
-			url.searchParams.set("page", targetPage.toString());
-		}
-
-		throw redirect(`${url.pathname}${url.search}`);
+		selectedDate = targetDate.toString();
+		selectedPage = targetPage;
 	}
 
 	const shards = [];
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
 	const hour12 = getPreferredHour12(request);
-	let page = pageParameter ? Number(pageParameter) : 0;
+	let page = selectedPage ?? (pageParameter ? Number(pageParameter) : 0);
 
 	if (!Number.isInteger(page)) {
 		page = 0;
@@ -135,6 +135,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		}).format(date.epochMilliseconds);
 
 		shards.push({
+			date: date.toPlainDate().toString(),
 			shard: shard && {
 				...shard,
 				timestamps: shard.timestamps.map(({ start, end }) => ({
@@ -164,20 +165,46 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		});
 	}
 
-	return { currentUnix: epochSeconds(now), shards, page };
+	return {
+		anchorDate: selectedDate ?? today.add({ days: startIndex }).toPlainDate().toString(),
+		currentUnix: epochSeconds(now),
+		locale,
+		maximumDate: today
+			.add({ days: SHARD_ERUPTION_MAXIMUM_PAGE * 30 + 30 })
+			.toPlainDate()
+			.toString(),
+		minimumDate: today
+			.add({ days: SHARD_ERUPTION_MINIMUM_PAGE * 30 })
+			.toPlainDate()
+			.toString(),
+		page,
+		selectedDate,
+		shards,
+		todayDate: today.toPlainDate().toString(),
+		weekStartsOn: new Intl.Locale(locale).getWeekInfo().firstDay,
+	};
 };
 
-function ShardEruptionCard({ shard, todayFormat, currentUnix, onPreview }: ShardEruptionCardProps) {
+function ShardEruptionCard({
+	selected,
+	shard,
+	todayFormat,
+	currentUnix,
+	onPreview,
+}: ShardEruptionCardProps) {
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
 
 	return (
 		<div
+			aria-current={selected ? "date" : undefined}
 			className={clsx(
 				"flex w-full max-w-sm flex-col items-center rounded-lg border p-6 text-center shadow-sm",
 				shard?.strong
 					? "border-red-400 bg-red-300 hover:bg-red-300/70 dark:border-red-900 dark:bg-red-950/50 dark:hover:bg-red-950/40"
 					: "border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50",
+				selected &&
+					"ring-2 ring-blue-500 ring-offset-2 dark:ring-blue-300 dark:ring-offset-gray-950",
 			)}
 		>
 			<div className="flex flex-row items-center justify-center">
@@ -246,7 +273,18 @@ function ShardEruptionCard({ shard, todayFormat, currentUnix, onPreview }: Shard
 }
 
 export default function ShardEruption({ loaderData }: Route.ComponentProps) {
-	const { currentUnix: initialUnix, shards, page } = loaderData;
+	const {
+		anchorDate,
+		currentUnix: initialUnix,
+		locale,
+		maximumDate,
+		minimumDate,
+		page,
+		selectedDate,
+		shards,
+		todayDate,
+		weekStartsOn,
+	} = loaderData;
 	const { t } = useTranslation();
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const currentTimestamp = useCurrentTimestamp(initialUnix * 1000);
@@ -256,10 +294,11 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 	const shardCards = shards.map((shard) => (
 		<ShardEruptionCard
 			currentUnix={currentUnix}
-			key={shard.todayFormat}
+			key={shard.date}
 			onPreview={(imageURL, acknowledgement) =>
 				setSelectedInfographic({ acknowledgement, imageURL })
 			}
+			selected={shard.date === selectedDate}
 			shard={shard.shard}
 			todayFormat={shard.todayFormat}
 		/>
@@ -270,6 +309,19 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 	return (
 		<SitePage>
 			<div className="flex flex-col items-center justify-center">
+				<div className="mb-4 flex w-full justify-center">
+					<DatePicker
+						anchorDate={anchorDate}
+						className="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:focus-visible:ring-blue-300"
+						getDateURL={(date) => `?date=${date}`}
+						label={t("shard-eruption.jump-to-date", { ns: "features" })}
+						locale={locale}
+						maximumDate={maximumDate}
+						minimumDate={minimumDate}
+						todayDate={todayDate}
+						weekStartsOn={weekStartsOn}
+					/>
+				</div>
 				<div className="flex-wrap">
 					{page === 0 ? (
 						<>
@@ -285,6 +337,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 					)}
 					<Pagination
 						currentPage={page}
+						excludeSearchParameters={["date"]}
 						maximumPage={SHARD_ERUPTION_MAXIMUM_PAGE}
 						minimumPage={SHARD_ERUPTION_MINIMUM_PAGE}
 					/>

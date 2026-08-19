@@ -11,10 +11,13 @@ import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.j
 
 interface PaginationProps {
 	currentPage: number;
+	excludeSearchParameters?: readonly string[];
 	maximumPage: number;
 	minimumPage?: number;
 	preventScrollReset?: boolean;
 }
+
+const EMPTY_SEARCH_PARAMETERS: readonly string[] = [];
 
 const CONTROL_CLASS_NAME =
 	"inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-gray-100 p-0 text-sm font-medium shadow-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 sm:h-12 sm:w-auto sm:px-3 sm:text-base dark:border-gray-600 dark:bg-gray-900 dark:focus-visible:ring-blue-300 dark:focus-visible:ring-offset-gray-950" as const;
@@ -65,15 +68,22 @@ function PaginationControl({
 
 export default function Pagination({
 	currentPage,
+	excludeSearchParameters = EMPTY_SEARCH_PARAMETERS,
 	maximumPage,
 	minimumPage = 1,
 	preventScrollReset = false,
 }: PaginationProps) {
 	const [searchParams] = useSearchParams();
+	const excludedSearchParameters = new Set(excludeSearchParameters);
 
 	// Avoids resetting query parameters.
 	const createPageURL = (page: number) => {
 		const params = new URLSearchParams(searchParams);
+
+		for (const parameter of excludedSearchParameters) {
+			params.delete(parameter);
+		}
+
 		params.set("page", page.toString());
 		return `?${params.toString()}`;
 	};
@@ -97,7 +107,7 @@ export default function Pagination({
 	const hiddenSearchParameters: { key: string; name: string; value: string }[] = [];
 
 	for (const [name, value] of searchParams.entries()) {
-		if (name === "page") {
+		if (name === "page" || excludedSearchParameters.has(name)) {
 			continue;
 		}
 

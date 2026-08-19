@@ -3742,6 +3742,7 @@ export default {
 			none: "None",
 			today: "Today",
 			browse: "Browse",
+			"jump-to-date": "Jump to a date",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))",
 		},
 		"sky-profile": {
