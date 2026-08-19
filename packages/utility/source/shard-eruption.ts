@@ -361,8 +361,7 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		offset,
 		area: shardEruptionAreas,
 	} = SHARD_ERUPTION_PREDICTION_DATA[infoIndex]!;
-	// @ts-expect-error Too narrow.
-	const noShardDay = noShardWeekDay.includes(dayOfWeek);
+	const noShardDay = (noShardWeekDay as readonly number[]).includes(dayOfWeek);
 
 	if (noShardDay) {
 		return null;
