@@ -117,6 +117,7 @@ export interface CalendarEntry {
 	marketingURL: string | null;
 	infographicURL: string | null;
 	acknowledgement: string | null;
+	times: readonly string[];
 	spiritLinks: readonly ExternalLinkListItem[] | null;
 }
 

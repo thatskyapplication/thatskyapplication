@@ -35,7 +35,7 @@ export function CalendarEntryBar({
 				<Popover.Trigger
 					className={clsx(
 						"mb-0.5 flex min-w-0 items-center gap-1 rounded px-1 text-left font-medium transition hover:brightness-110",
-						view === CalendarView.Week ? "py-1 text-sm" : "py-0.5 text-xs",
+						view === CalendarView.Week ? "py-0.5 text-xs sm:py-1 sm:text-sm" : "py-0.5 text-xs",
 						CalendarEntryKindToBarClassName[entry.kind],
 						segment.continuesBefore && "rounded-s-none",
 						segment.continuesAfter && "rounded-e-none",
@@ -105,6 +105,18 @@ export function CalendarEntryBar({
 								<p className="m-0 mt-0.5 text-xs text-gray-500 dark:text-gray-500">
 									{t("calendar.duration", { ns: "features", count: entry.duration })}
 								</p>
+							)}
+							{entry.times.length > 0 && (
+								<div className="mt-2 flex flex-wrap gap-1">
+									{entry.times.map((time) => (
+										<span
+											className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-xs text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+											key={time}
+										>
+											{time}
+										</span>
+									))}
+								</div>
 							)}
 							{entry.spiritLinks && (
 								<p className="m-0 mt-2 text-sm text-gray-600 dark:text-gray-400">

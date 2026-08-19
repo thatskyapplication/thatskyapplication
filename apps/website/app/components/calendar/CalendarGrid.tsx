@@ -12,8 +12,8 @@ import {
 	packCalendarWeek,
 } from "~/utility/calendar";
 
-const MONTH_LANE_HEIGHT = "1.375rem" as const;
-const WEEK_LANE_HEIGHT = "1.875rem" as const;
+const LANE_HEIGHT = "[--calendar-lane:1.375rem]" as const;
+const WEEK_LANE_HEIGHT = "sm:[--calendar-lane:1.875rem]" as const;
 
 function CalendarWeekRow({
 	anchorDate,
@@ -34,7 +34,6 @@ function CalendarWeekRow({
 }) {
 	const { t } = useTranslation();
 	const isWeek = view === CalendarView.Week;
-	const laneHeight = isWeek ? WEEK_LANE_HEIGHT : MONTH_LANE_HEIGHT;
 
 	const { laneCount, segments } = useMemo(
 		() => packCalendarWeek(week.days, entries),
@@ -43,11 +42,15 @@ function CalendarWeekRow({
 
 	return (
 		<div
-			className={clsx("grid grid-cols-7", isWeek ? "min-h-40" : "min-h-24")}
+			className={clsx(
+				"grid grid-cols-7",
+				LANE_HEIGHT,
+				isWeek ? `min-h-40 ${WEEK_LANE_HEIGHT}` : "min-h-24",
+			)}
 			style={{
 				gridTemplateRows:
 					laneCount > 0
-						? `auto repeat(${laneCount}, ${laneHeight}) minmax(0.25rem, 1fr)`
+						? `auto repeat(${laneCount}, var(--calendar-lane)) minmax(0.25rem, 1fr)`
 						: "auto 1fr",
 			}}
 		>

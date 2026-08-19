@@ -50,6 +50,7 @@ interface CalendarEntryInput {
 	marketingURL?: string;
 	infographicURL?: string;
 	acknowledgement?: string;
+	times?: readonly string[];
 	spiritLinks?: readonly ExternalLinkListItem[];
 }
 
@@ -105,6 +106,8 @@ export function calendarEntriesBetween({
 		hour12,
 	});
 
+	const timeFormat = new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 });
+
 	const createCalendarEntry = (input: CalendarEntryInput): CalendarEntry => {
 		const end = input.end ?? input.start;
 		const { firstDate, lastDate } = inclusiveDates(input.start, end, timeZone);
@@ -132,6 +135,7 @@ export function calendarEntriesBetween({
 			marketingURL: input.marketingURL ?? null,
 			infographicURL: input.infographicURL ?? null,
 			acknowledgement: input.acknowledgement ?? null,
+			times: input.times ?? [],
 			spiritLinks: input.spiritLinks ?? null,
 		};
 	};
@@ -326,10 +330,7 @@ export function calendarEntriesBetween({
 			if (Temporal.ZonedDateTime.compare(skyDate, SHARD_ERUPTION_START_DATE) >= 0) {
 				const shard = shardEruption(skyDate);
 
-				const first = shard?.timestamps[0];
-				const last = shard?.timestamps.at(-1);
-
-				if (shard && first && last && overlapsRange(first.start, last.end)) {
+				if (shard && overlapsRange(skyDate, skyDate.add({ days: 1 }))) {
 					const emoji = shard.strong
 						? MISCELLANEOUS_EMOJIS.ShardStrong
 						: MISCELLANEOUS_EMOJIS.ShardRegular;
@@ -339,8 +340,15 @@ export function calendarEntriesBetween({
 							key: `shard-eruption-${skyDate.toPlainDate().toString()}`,
 							kind: CalendarEntryKind.ShardEruption,
 							label: t(`schedule.type.${ScheduleType.ShardEruption}`, { ns: "features" }),
-							start: first.start,
-							end: last.end,
+							start: skyDate,
+							end: skyDate.add({ days: 1 }),
+							times: shard.timestamps.map(({ start, end }) =>
+								t("time-range", {
+									ns: "general",
+									start: timeFormat.format(start.epochMilliseconds),
+									end: timeFormat.format(end.epochMilliseconds),
+								}),
+							),
 							iconURLs: [formatEmojiURL(emoji.id)],
 							detail: t("shard-eruption.realm-area", {
 								ns: "features",
