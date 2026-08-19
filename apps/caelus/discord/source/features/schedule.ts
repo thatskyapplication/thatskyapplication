@@ -651,6 +651,10 @@ function turtleDetailedBreakdown(
 function shardEruptionOverview(now: Temporal.ZonedDateTime) {
 	const schedule = shardEruptionSchedule(now);
 
+	if (schedule === undefined) {
+		return undefined;
+	}
+
 	return {
 		now: schedule.active,
 		next: `<t:${epochSeconds(schedule.start)}:R>`,
@@ -662,12 +666,28 @@ function shardEruptionDetailedBreakdown(
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const shard = shardEruption(now);
+	let status: string;
 
-	const timestamps = (shard?.timestamps ?? []).map(
-		(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp, locale })}`,
-	);
+	if (shard === undefined) {
+		status = t("shard-eruption.unknown", { lng: locale, ns: "features" });
+	} else if (shard) {
+		const timestamps = shard.timestamps.map(
+			(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp, locale })}`,
+		);
 
-	const shardOverview = shardEruptionOverview(now);
+		status = `${shardEruptionInformationString(shard, true, locale)}\n${timestamps.join("\n")}`;
+	} else {
+		const shardOverview = shardEruptionOverview(now);
+
+		status =
+			shardOverview === undefined
+				? t("shard-eruption.unknown", { lng: locale, ns: "features" })
+				: t("schedule.detailed-breakdown-shard-eruptions-upcoming", {
+						lng: locale,
+						ns: "features",
+						timestamp: shardOverview.next,
+					});
+	}
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -698,13 +718,7 @@ function shardEruptionDetailedBreakdown(
 					content: t("schedule.detailed-breakdown-shard-eruptions-message", {
 						lng: locale,
 						ns: "features",
-						status: shard
-							? `${shardEruptionInformationString(shard, true, locale)}\n${timestamps.join("\n")}`
-							: t("schedule.detailed-breakdown-shard-eruptions-upcoming", {
-									lng: locale,
-									ns: "features",
-									timestamp: shardOverview.next,
-								}),
+						status,
 					}),
 				},
 			],
@@ -1294,17 +1308,20 @@ export async function scheduleOverview(
 					lng: locale,
 					ns: "features",
 				}),
-				details: shardEruption.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: shardEruption.next,
-						}),
+				details:
+					shardEruption === undefined
+						? t("shard-eruption.unknown", { lng: locale, ns: "features" })
+						: shardEruption.now
+							? t("schedule.overview-available", {
+									lng: locale,
+									ns: "features",
+									emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+								})
+							: t("schedule.overview-next-available-timestamp", {
+									lng: locale,
+									ns: "features",
+									timestamp: shardEruption.next,
+								}),
 			}),
 		},
 		{

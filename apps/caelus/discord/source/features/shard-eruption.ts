@@ -58,7 +58,12 @@ function generateShardEruptionSelectMenuOptions(
 			value: String(index + offset),
 		};
 
-		if (shard) {
+		if (shard === undefined) {
+			stringSelectMenuOption.description = t("shard-eruption.unknown", {
+				lng: locale,
+				ns: "features",
+			});
+		} else if (shard) {
 			stringSelectMenuOption.emoji = resolveShardEruptionEmoji(shard.strong);
 		} else {
 			stringSelectMenuOption.description = t("shard-eruption.browse-no-shard", {
@@ -106,7 +111,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 	const effectiveOffset = Math.max(offset, minimumOffset);
 	const date = now.add({ days: effectiveOffset });
 	const shardYesterday =
-		effectiveOffset === minimumOffset ? null : shardEruption(date.subtract({ days: 1 }));
+		effectiveOffset === minimumOffset ? undefined : shardEruption(date.subtract({ days: 1 }));
 	const shardToday = shardEruption(date);
 	const shard = shardEruption(now);
 	const shardTomorrow = shardEruption(date.add({ days: 1 }));
@@ -157,7 +162,12 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 		},
 	];
 
-	if (shardToday) {
+	if (shardToday === undefined) {
+		containerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: t("shard-eruption.unknown", { lng: locale, ns: "features" }),
+		});
+	} else if (shardToday) {
 		containerComponents.push(
 			{
 				type: ComponentType.TextDisplay,

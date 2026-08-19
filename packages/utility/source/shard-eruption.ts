@@ -177,12 +177,18 @@ export interface ShardEruptionData {
 }
 
 export const SHARD_ERUPTION_START_DATE = skyDate(2022, 7, 11);
+export const SHARD_ERUPTION_PREDICTION_START_DATE = skyDate(2022, 10, 1);
+export type ShardEruptionResult = ShardEruptionData | null | undefined;
 
-export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData | null {
+export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionResult {
 	const date = input.withTimeZone(TIME_ZONE).startOfDay();
 
 	if (Temporal.ZonedDateTime.compare(date, SHARD_ERUPTION_START_DATE) < 0) {
 		throw new RangeError("Shard eruption dates cannot be before 2022-07-11.");
+	}
+
+	if (Temporal.ZonedDateTime.compare(date, SHARD_ERUPTION_PREDICTION_START_DATE) < 0) {
+		return undefined;
 	}
 
 	// No shard eruption in Jellyfish Cove during Days of Love 2024 and 2025.

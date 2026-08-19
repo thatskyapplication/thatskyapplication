@@ -123,6 +123,11 @@ export function turtleSchedule(date: Temporal.ZonedDateTime) {
 export function shardEruptionSchedule(date: Temporal.ZonedDateTime) {
 	const skyDay = date.withTimeZone(TIME_ZONE).startOfDay();
 	const shard = shardEruption(skyDay);
+
+	if (shard === undefined) {
+		return undefined;
+	}
+
 	let nextShard = shard?.timestamps.find(
 		({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
 	);
@@ -131,7 +136,11 @@ export function shardEruptionSchedule(date: Temporal.ZonedDateTime) {
 		for (let index = 1; ; index++) {
 			const nextPossibleShard = shardEruption(skyDay.add({ days: index }));
 
-			if (!nextPossibleShard) {
+			if (nextPossibleShard === undefined) {
+				return undefined;
+			}
+
+			if (nextPossibleShard === null) {
 				continue;
 			}
 

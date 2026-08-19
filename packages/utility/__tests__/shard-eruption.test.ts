@@ -2,7 +2,11 @@ import { deepEqual, equal, throws } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import { AreaName, RealmName } from "../source/kingdom/geography.js";
-import { SHARD_ERUPTION_START_DATE, shardEruption } from "../source/shard-eruption.js";
+import {
+	SHARD_ERUPTION_PREDICTION_START_DATE,
+	SHARD_ERUPTION_START_DATE,
+	shardEruption,
+} from "../source/shard-eruption.js";
 
 const EXPECTED_SHARD_ERUPTIONS = [
 	{
@@ -147,6 +151,56 @@ for (const { reason, date, expected } of EXPECTED_SHARD_ERUPTIONS) {
 	});
 }
 
+test("Confirmed historical shard eruptions.", async (t) => {
+	for (const { date, expected } of [
+		{
+			date: skyDate(2023, 1, 7),
+			expected: {
+				realm: RealmName.HiddenForest,
+				area: AreaName.SacredPond,
+				strong: true,
+				reward: 2.5,
+				timestamps: [
+					{ start: skyDate(2023, 1, 7, 7, 48, 40), end: skyDate(2023, 1, 7, 11, 40) },
+					{ start: skyDate(2023, 1, 7, 13, 48, 40), end: skyDate(2023, 1, 7, 17, 40) },
+					{ start: skyDate(2023, 1, 7, 19, 48, 40), end: skyDate(2023, 1, 7, 23, 40) },
+				],
+			},
+		},
+		{ date: skyDate(2023, 1, 8), expected: null },
+		{
+			date: skyDate(2023, 1, 9),
+			expected: {
+				realm: RealmName.GoldenWasteland,
+				area: AreaName.CrabFields,
+				strong: true,
+				reward: 2.5,
+				timestamps: [
+					{ start: skyDate(2023, 1, 9, 2, 28, 40), end: skyDate(2023, 1, 9, 6, 20) },
+					{ start: skyDate(2023, 1, 9, 8, 28, 40), end: skyDate(2023, 1, 9, 12, 20) },
+					{ start: skyDate(2023, 1, 9, 14, 28, 40), end: skyDate(2023, 1, 9, 18, 20) },
+				],
+			},
+		},
+	] as const) {
+		await t.test(date.toPlainDate().toString(), () => {
+			deepEqual(
+				comparable(shardEruption(date)),
+				expected && {
+					realm: expected.realm,
+					area: expected.area,
+					strong: expected.strong,
+					reward: expected.reward,
+					timestamps: expected.timestamps.map(({ start, end }) => ({
+						start: start.toString(),
+						end: end.toString(),
+					})),
+				},
+			);
+		});
+	}
+});
+
 test("Shard eruption exceptions.", async (t) => {
 	for (const date of [
 		skyDate(2024, 2, 15),
@@ -164,13 +218,11 @@ test("The input instant is normalised to the Sky calendar day.", () => {
 	deepEqual(comparable(shardEruption(utcDateTime)), comparable(shardEruption(skyDateTime)));
 });
 
-test("Shard eruptions begin on 11 July 2022 in the Sky time zone.", async (t) => {
-	await t.test("The first Sky day is accepted.", () => {
+test("Shard eruption history begins on 11 July 2022 in the Sky time zone.", async (t) => {
+	await t.test("The first Sky day has no known prediction.", () => {
 		equal(SHARD_ERUPTION_START_DATE.toPlainDate().toString(), "2022-07-11");
-		deepEqual(
-			comparable(shardEruption(SHARD_ERUPTION_START_DATE.withTimeZone("Pacific/Honolulu"))),
-			comparable(shardEruption(SHARD_ERUPTION_START_DATE)),
-		);
+		equal(shardEruption(SHARD_ERUPTION_START_DATE), undefined);
+		equal(shardEruption(SHARD_ERUPTION_START_DATE.withTimeZone("Pacific/Honolulu")), undefined);
 	});
 
 	await t.test("An earlier Sky day is rejected.", () => {
@@ -185,6 +237,26 @@ test("Shard eruptions begin on 11 July 2022 in the Sky time zone.", async (t) =>
 		throws(
 			() => shardEruption(utcDateTime),
 			new RangeError("Shard eruption dates cannot be before 2022-07-11."),
+		);
+	});
+});
+
+test("Shard eruption predictions begin on 1 October 2022 in the Sky time zone.", async (t) => {
+	await t.test("The preceding Sky day has no known prediction.", () => {
+		equal(SHARD_ERUPTION_PREDICTION_START_DATE.toPlainDate().toString(), "2022-10-01");
+		equal(shardEruption(skyDate(2022, 9, 30, 23, 59, 59)), undefined);
+	});
+
+	await t.test("The first prediction day has a known result.", () => {
+		equal(shardEruption(SHARD_ERUPTION_PREDICTION_START_DATE)?.area, AreaName.PrairieCave);
+	});
+
+	await t.test("A foreign calendar date is interpreted as its Sky day.", () => {
+		const utcDateTime = Temporal.ZonedDateTime.from("2022-10-01T00:00:00+00:00[UTC]");
+		equal(shardEruption(utcDateTime), undefined);
+		equal(
+			shardEruption(SHARD_ERUPTION_PREDICTION_START_DATE.withTimeZone("Pacific/Honolulu"))?.area,
+			AreaName.PrairieCave,
 		);
 	});
 });

@@ -40,6 +40,7 @@ type ShardEruptionCardProps = {
 				}[];
 		  })
 		| null;
+	unknown: boolean;
 	todayFormat: string;
 	currentUnix: number;
 	onPreview: (imageURL: string, acknowledgement: string | null) => void;
@@ -138,7 +139,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 
 	for (let index = startIndex; index < endIndex; index++) {
 		const date = today.add({ days: index });
-		const shard: ShardEruptionData | null = shardEruption(date);
+		const shard = shardEruption(date);
 
 		const todayFormat = new Intl.DateTimeFormat(locale, {
 			timeZone,
@@ -147,31 +148,34 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 
 		shards.push({
 			date: date.toPlainDate().toString(),
-			shard: shard && {
-				...shard,
-				timestamps: shard.timestamps.map(({ start, end }) => ({
-					start: {
-						unix: epochSeconds(start),
-						format: new Intl.DateTimeFormat(locale, {
-							timeZone,
-							hour: "2-digit",
-							minute: "2-digit",
-							second: "2-digit",
-							hour12,
-						}).format(start.epochMilliseconds),
-					},
-					end: {
-						unix: epochSeconds(end),
-						format: new Intl.DateTimeFormat(locale, {
-							timeZone,
-							hour: "2-digit",
-							minute: "2-digit",
-							second: "2-digit",
-							hour12,
-						}).format(end.epochMilliseconds),
-					},
-				})),
-			},
+			unknown: shard === undefined,
+			shard: shard
+				? {
+						...shard,
+						timestamps: shard.timestamps.map(({ start, end }) => ({
+							start: {
+								unix: epochSeconds(start),
+								format: new Intl.DateTimeFormat(locale, {
+									timeZone,
+									hour: "2-digit",
+									minute: "2-digit",
+									second: "2-digit",
+									hour12,
+								}).format(start.epochMilliseconds),
+							},
+							end: {
+								unix: epochSeconds(end),
+								format: new Intl.DateTimeFormat(locale, {
+									timeZone,
+									hour: "2-digit",
+									minute: "2-digit",
+									second: "2-digit",
+									hour12,
+								}).format(end.epochMilliseconds),
+							},
+						})),
+					}
+				: null,
 			todayFormat,
 		});
 	}
@@ -197,6 +201,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 function ShardEruptionCard({
 	selected,
 	shard,
+	unknown,
 	todayFormat,
 	currentUnix,
 	onPreview,
@@ -229,7 +234,9 @@ function ShardEruptionCard({
 				)}
 				<h2 className="my-0 text-lg">{todayFormat}</h2>
 			</div>
-			{shard ? (
+			{unknown ? (
+				<p className="pt-6">{t("shard-eruption.unknown", { ns: "features" })}</p>
+			) : shard ? (
 				<>
 					<button
 						className="regular-link inline-flex items-center text-sm"
@@ -311,6 +318,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 			selected={shard.date === selectedDate}
 			shard={shard.shard}
 			todayFormat={shard.todayFormat}
+			unknown={shard.unknown}
 		/>
 	));
 

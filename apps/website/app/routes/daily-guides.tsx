@@ -18,7 +18,6 @@ import {
 	RADIANCE_EVENTS,
 	returningSpiritsSchedule,
 	shardEruption,
-	type ShardEruptionData,
 	skyCurrentSeason,
 	skyNow,
 	skyNotEndedEvents,
@@ -103,7 +102,8 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const hour12 = getPreferredHour12(request);
 	const now = skyNow();
 	const initialTimestamp = now.epochMilliseconds;
-	const shard: ShardEruptionData | null = shardEruption(now);
+	const shard = shardEruption(now);
+
 	const cacheMaxAge = dailyGuidesCacheMaxAge(initialTimestamp);
 
 	return data(
@@ -117,6 +117,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 				timeZone: TIME_ZONE,
 				dateStyle: "full",
 			}).format(initialTimestamp),
+			shardUnknown: shard === undefined,
 			shard: shard
 				? {
 						...shard,
@@ -143,7 +144,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 							},
 						})),
 					}
-				: shard,
+				: null,
 		},
 		{
 			headers: {
@@ -159,8 +160,16 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 }
 
 export default function DailyGuides({ loaderData }: Route.ComponentProps) {
-	const { initialTimestamp, locale, timeZone, hour12, dailyGuides, todayString, shard } =
-		loaderData;
+	const {
+		initialTimestamp,
+		locale,
+		timeZone,
+		hour12,
+		dailyGuides,
+		todayString,
+		shardUnknown,
+		shard,
+	} = loaderData;
 
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const cdnURL = useCDNURL();
@@ -733,7 +742,11 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								<ArrowRight className="h-3 w-3" />
 							</Link>
 						</div>
-						{shard ? (
+						{shardUnknown ? (
+							<p className="text-sm text-gray-500 dark:text-gray-400">
+								{t("shard-eruption.unknown", { ns: "features" })}
+							</p>
+						) : shard ? (
 							<div className="space-y-3">
 								<div className="hidden items-start justify-between sm:flex">
 									<div>

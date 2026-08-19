@@ -123,6 +123,11 @@ interface ScheduleWithEnd<
 	endRelative: string | null;
 }
 
+interface UnknownShardEruptionSchedule {
+	type: typeof ScheduleType.ShardEruption;
+	unknown: true;
+}
+
 interface ScheduleTravellingSpirit extends ScheduleWithEnd<typeof ScheduleType.TravellingSpirit> {
 	now: SpiritIds | false;
 	spiritId: SpiritIds | null;
@@ -345,8 +350,12 @@ function shardEruptionOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.ShardEruption> {
+): ScheduleWithEnd<typeof ScheduleType.ShardEruption> | UnknownShardEruptionSchedule {
 	const schedule = shardEruptionSchedule(now);
+
+	if (schedule === undefined) {
+		return { type: ScheduleType.ShardEruption, unknown: true };
+	}
 
 	return {
 		type: ScheduleType.ShardEruption,
@@ -592,7 +601,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	};
 };
 
-interface DisplayCard {
+interface DisplayCardBase {
 	type: DisplayCardType;
 	badge?: DisplayCardBadge | undefined;
 	key: string;
@@ -601,6 +610,9 @@ interface DisplayCard {
 	dyeIcons?: readonly { label: string; url: string }[] | undefined;
 	wikiHref?: string | undefined;
 	pageHref?: string | undefined;
+}
+
+interface KnownDisplayCard extends DisplayCardBase {
 	active: boolean;
 	next: string;
 	nextUnix: number;
@@ -609,6 +621,12 @@ interface DisplayCard {
 	endRelative?: string | null | undefined;
 	endUnix?: number | null | undefined;
 }
+
+interface UnknownDisplayCard extends DisplayCardBase {
+	unknown: true;
+}
+
+type DisplayCard = KnownDisplayCard | UnknownDisplayCard;
 
 const enum DisplayCardType {
 	Season = 0,
@@ -627,13 +645,16 @@ const enum DisplayCardBadge {
 
 function DisplayCardRow({ item, locale }: { item: DisplayCard; locale: string }) {
 	const { t } = useTranslation();
-	const timestamp = item.active
-		? t("schedule.overview-ends-timestamp", {
-				ns: "features",
-				timestamp: item.end,
-			})
-		: item.next;
-	const relative = item.active ? item.endRelative : item.relative;
+	const unknown = "unknown" in item;
+	const timestamp = unknown
+		? t("shard-eruption.unknown", { ns: "features" })
+		: item.active
+			? t("schedule.overview-ends-timestamp", {
+					ns: "features",
+					timestamp: item.end,
+				})
+			: item.next;
+	const relative = unknown ? null : item.active ? item.endRelative : item.relative;
 	const spiritLinks = item.spiritLinks;
 
 	return (
@@ -713,7 +734,8 @@ function DisplayCardRow({ item, locale }: { item: DisplayCard; locale: string })
 				</span>
 			</div>
 			<span className="col-span-2 text-sm text-gray-500 md:col-span-1 md:text-right md:whitespace-nowrap dark:text-gray-400">
-				{timestamp} <span className="text-gray-400 dark:text-gray-500">({relative})</span>
+				{timestamp}{" "}
+				{relative && <span className="text-gray-400 dark:text-gray-500">({relative})</span>}
 			</span>
 		</div>
 	);
@@ -746,7 +768,10 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		nestingWorkshopNext(now, timeZone, locale, hour12),
 		vaultEldersBlessingOverview(now, timeZone, locale, hour12),
 		projectorOfMemoriesOverview(now, timeZone, locale, hour12),
-	].filter((schedule) => schedule !== null) satisfies readonly BaseSchedule<ScheduleTypes>[];
+	].filter((schedule) => schedule !== null) satisfies readonly (
+		| BaseSchedule<ScheduleTypes>
+		| UnknownShardEruptionSchedule
+	)[];
 	const scheduleWikiURLs: Partial<Record<ScheduleTypes, string>> = {
 		[ScheduleType.ReturningSpirits]: t(
 			"schedule.detailed-breakdown-returning-spirits-wiki-button-url",
@@ -805,6 +830,20 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	for (const schedule of schedules) {
 		let label = t(`schedule.type.${schedule.type}`, { ns: "features" });
 		let wikiHref = scheduleWikiURLs[schedule.type];
+
+		if ("unknown" in schedule) {
+			allCards.push({
+				type: DisplayCardType.Schedule,
+				key: `${schedule.type}`,
+				label,
+				wikiHref,
+				pageHref: "/shard-eruption",
+				unknown: true,
+			});
+
+			continue;
+		}
+
 		const spiritLinks =
 			schedule.type === ScheduleType.ReturningSpirits
 				? schedule.spiritIds.map((spiritId) => ({
@@ -1065,11 +1104,14 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		});
 	}
 
-	const active: DisplayCard[] = [];
-	const upcoming: DisplayCard[] = [];
+	const active: KnownDisplayCard[] = [];
+	const unknownCards: UnknownDisplayCard[] = [];
+	const upcoming: KnownDisplayCard[] = [];
 
 	for (const card of allCards) {
-		if (card.active) {
+		if ("unknown" in card) {
+			unknownCards.push(card);
+		} else if (card.active) {
 			active.push(card);
 		} else {
 			upcoming.push(card);
@@ -1193,6 +1235,22 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 							</div>
 							<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
 								{active.map((item) => (
+									<DisplayCardRow item={item} key={item.key} locale={locale} />
+								))}
+							</div>
+						</div>
+					)}
+
+					{/* Unknown. */}
+					{unknownCards.length > 0 && (
+						<div className="col-span-4 grid grid-cols-subgrid rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+							<div className="col-span-4 mt-1 mb-2">
+								<span className="rounded bg-gray-100 px-2 py-0.5 text-sm font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+									{t("shard-eruption.unknown", { ns: "features" })}
+								</span>
+							</div>
+							<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
+								{unknownCards.map((item) => (
 									<DisplayCardRow item={item} key={item.key} locale={locale} />
 								))}
 							</div>
