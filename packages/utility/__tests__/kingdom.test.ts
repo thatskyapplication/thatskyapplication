@@ -1,6 +1,7 @@
 import { equal, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { realmForArea } from "../source/kingdom/areas/index.js";
+import { AreaName, RealmName } from "../source/kingdom/geography.js";
 import { KINGDOM } from "../source/kingdom/index.js";
 import { SEASONS } from "../source/kingdom/seasons/index.js";
 import type { SpiritIds } from "../source/utility/spirits.js";
@@ -30,6 +31,10 @@ test("Standard spirits derive their realm from their area.", () => {
 	for (const spirit of KINGDOM.standardSpirits.values()) {
 		equal(spirit.realm, realmForArea(spirit.area));
 	}
+});
+
+test("Jellyfish Cove belongs to the Vault of Knowledge.", () => {
+	equal(realmForArea(AreaName.JellyfishCove), RealmName.VaultOfKnowledge);
 });
 
 test("Each elder is the registered elder of its realm.", () => {

@@ -1,5 +1,5 @@
 import type { Area } from "../../models/area.js";
-import type { AreaName, RealmName } from "../geography.js";
+import { AreaName, RealmName } from "../geography.js";
 import ancientMemory from "./ancient-memory.js";
 import aviaryVillage from "./aviary-village.js";
 import birdNest from "./bird-nest.js";
@@ -152,5 +152,7 @@ const AREA_TO_REALM: ReadonlyMap<AreaName, RealmName | null> = new Map(
 );
 
 export function realmForArea(area: AreaName): RealmName | null {
-	return AREA_TO_REALM.get(area) ?? null;
+	return area === AreaName.JellyfishCove
+		? RealmName.VaultOfKnowledge
+		: (AREA_TO_REALM.get(area) ?? null);
 }

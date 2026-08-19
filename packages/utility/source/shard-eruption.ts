@@ -1,7 +1,7 @@
 import { skyDate, TIME_ZONE } from "./dates.js";
 import { skyCurrentEvents } from "./events/index.js";
 import { realmForArea } from "./kingdom/areas/index.js";
-import { AreaName, RealmName, VALID_REALM_NAME } from "./kingdom/geography.js";
+import { AreaName, type RealmName } from "./kingdom/geography.js";
 import { CDN_URL } from "./routes.js";
 import { EventId } from "./utility/event.js";
 
@@ -299,9 +299,6 @@ function recordedShardEruption(date: Temporal.ZonedDateTime): ShardEruptionData 
 	const data = RECORDED_SHARD_ERUPTIONS[key];
 	const durationSeconds = key === "2022-07-14" ? 5780 : NORMAL_DURATION_SECONDS;
 
-	const realm =
-		data.area === AreaName.JellyfishCove ? RealmName.VaultOfKnowledge : realmForArea(data.area)!;
-
 	const starts = data.starts
 		? data.starts.map((time) => shardEruptionStart(date, time))
 		: Array.from({ length: 12 }, (_, index) =>
@@ -309,7 +306,7 @@ function recordedShardEruption(date: Temporal.ZonedDateTime): ShardEruptionData 
 			);
 
 	return {
-		realm,
+		realm: realmForArea(data.area)!,
 		area: data.area,
 		strong: date.dayOfWeek >= 5 || EXTRA_STRONG_RECORDED_SHARD_ERUPTION_DATES.has(key),
 		reward: data.reward,
@@ -371,8 +368,8 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		return null;
 	}
 
-	let realmIndex = (dayOfMonth - 1) % 5;
-	let { area, reward } = shardEruptionAreas[realmIndex]!;
+	const areaIndex = (dayOfMonth - 1) % 5;
+	let { area, reward } = shardEruptionAreas[areaIndex]!;
 	const currentEvents = skyCurrentEvents(date);
 
 	// On 13/12/2025, this was moved to the Prairie Cave (clashed with event).
@@ -380,8 +377,7 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		area === AreaName.VillageOfDreams &&
 		currentEvents.some((event) => event.id === EventId.DaysOfFeast2025)
 	) {
-		realmIndex = 0;
-		({ area, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, reward } = shardEruptionAreas[0]!);
 	}
 
 	// On 13/02/2026, this was moved to the Graveyard (clashed with event).
@@ -389,8 +385,7 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		area === AreaName.VillageOfDreams &&
 		currentEvents.some((event) => event.id === EventId.DaysOfFortune2026)
 	) {
-		realmIndex = 3;
-		({ area, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, reward } = shardEruptionAreas[3]!);
 	}
 
 	// On 15/02/2026, this was moved to The Treehouse (clashed with event).
@@ -398,8 +393,7 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		area === AreaName.JellyfishCove &&
 		currentEvents.some((event) => event.id === EventId.DaysOfLove2026)
 	) {
-		realmIndex = 1;
-		({ area, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, reward } = shardEruptionAreas[1]!);
 	}
 
 	// On 26/03/2026, this was moved to the Boneyard (clashed with event).
@@ -407,8 +401,7 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		area === AreaName.TempleOfThePrairie &&
 		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
 	) {
-		realmIndex = 1;
-		({ area, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, reward } = shardEruptionAreas[1]!);
 	}
 
 	// On 29/03/2026, this was moved to Sanctuary Islands (clashed with event).
@@ -416,14 +409,12 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		area === AreaName.ForgottenArk &&
 		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
 	) {
-		realmIndex = 0;
-		({ area, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, reward } = shardEruptionAreas[0]!);
 	}
 
 	// This was moved to the Forgotten Ark (clashed with Days of Sunlight 2026).
 	if (date.equals(skyDate(2026, 8, 17))) {
-		realmIndex = 3;
-		({ area, reward } = shardEruptionAreas[realmIndex]!);
+		({ area, reward } = shardEruptionAreas[3]!);
 	}
 
 	const timestamps: ShardEruptionTimestampsData[] = [];
@@ -459,7 +450,7 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 	}
 
 	return {
-		realm: VALID_REALM_NAME[realmIndex]!,
+		realm: realmForArea(area)!,
 		area,
 		strong,
 		reward,
