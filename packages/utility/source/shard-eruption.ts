@@ -332,22 +332,16 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		return recordedShardEruption(date);
 	}
 
-	// No shard eruption in Jellyfish Cove during Days of Love 2024 and 2025.
 	if (
+		// No shard eruption in Jellyfish Cove during Days of Love 2024 and 2025.
 		date.equals(skyDate(2024, 2, 15)) ||
 		date.equals(skyDate(2024, 2, 25)) ||
-		date.equals(skyDate(2025, 2, 15))
+		date.equals(skyDate(2025, 2, 15)) ||
+		// No shard eruption in the Forgotten Ark during Days of Bloom 2025.
+		date.equals(skyDate(2025, 3, 29)) ||
+		// No shard eruption during Days of Nature 2026.
+		date.equals(skyDate(2026, 4, 11))
 	) {
-		return null;
-	}
-
-	// No shard eruption in the Forgotten Ark during Days of Bloom 2025.
-	if (date.equals(skyDate(2025, 3, 29))) {
-		return null;
-	}
-
-	// No shard eruption during Days of Nature 2026.
-	if (date.equals(skyDate(2026, 4, 11))) {
 		return null;
 	}
 
