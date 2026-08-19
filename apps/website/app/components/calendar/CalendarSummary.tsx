@@ -26,7 +26,7 @@ function SummarySection({
 	const { t } = useTranslation();
 
 	return (
-		<section className={className}>
+		<section className={clsx("min-w-0", className)}>
 			<h2 className="mt-0 mb-1 text-xs font-semibold text-gray-500 uppercase dark:text-gray-400">
 				{heading}
 			</h2>
@@ -53,7 +53,7 @@ function SummarySection({
 										style={{ backgroundImage: `url(${iconURL})` }}
 									/>
 								))}
-								<span className="truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+								<span className="min-w-0 truncate text-sm font-medium text-gray-900 dark:text-gray-100">
 									{entry.label}
 								</span>
 								<span className="ms-auto shrink-0 text-xs whitespace-nowrap text-gray-500 dark:text-gray-400">
