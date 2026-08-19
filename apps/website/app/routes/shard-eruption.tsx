@@ -90,12 +90,13 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const endIndex = startIndex + amount;
 
 	for (let index = startIndex; index < endIndex; index++) {
-		const shard: ShardEruptionData | null = shardEruption(index);
+		const date = today.add({ days: index });
+		const shard: ShardEruptionData | null = shardEruption(date);
 
 		const todayFormat = new Intl.DateTimeFormat(locale, {
 			timeZone,
 			dateStyle: "full",
-		}).format(today.add({ days: index }).epochMilliseconds);
+		}).format(date.epochMilliseconds);
 
 		shards.push({
 			shard: shard && {

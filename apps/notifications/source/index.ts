@@ -92,7 +92,7 @@ const travellingSpiritEarliestNotificationTime = travellingSpiritStart?.subtract
 	minutes: NotificationOffsetToMaximumValues[NotificationType.TravellingSpirit],
 });
 
-let shardData = shardEruption();
+let shardData = shardEruption(skyNow());
 
 const NOTIFICATION_SHARD_ERUPTION_TYPES = [
 	NotificationType.RegularShardEruption,
@@ -236,7 +236,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 
 	if (hour === 0 && minute === 0) {
 		// Update the shard eruption.
-		shardData = shardEruption();
+		shardData = shardEruption(date);
 	}
 
 	for (const maintenancePeriod of MAINTENANCE_PERIODS) {

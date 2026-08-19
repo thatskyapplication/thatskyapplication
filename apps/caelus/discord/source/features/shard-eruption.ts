@@ -39,20 +39,21 @@ function generateShardEruptionSelectMenuOptions(
 	const dateStyle = locale === Locale.Thai ? "long" : "full";
 
 	for (let index = indexStart; index < maximumIndex; index++) {
-		const shardNow = shardEruption(index + offset);
+		const optionDate = date.add({ days: index });
+		const shard = shardEruption(optionDate);
 
 		const dateString = Intl.DateTimeFormat(locale, {
 			timeZone: TIME_ZONE,
 			dateStyle,
-		}).format(date.add({ days: index }).epochMilliseconds);
+		}).format(optionDate.epochMilliseconds);
 
 		const stringSelectMenuOption: APISelectMenuOption = {
 			label: dateString,
 			value: String(index + offset),
 		};
 
-		if (shardNow) {
-			stringSelectMenuOption.emoji = resolveShardEruptionEmoji(shardNow.strong);
+		if (shard) {
+			stringSelectMenuOption.emoji = resolveShardEruptionEmoji(shard.strong);
 		} else {
 			stringSelectMenuOption.description = t("shard-eruption.browse-no-shard", {
 				lng: locale,
@@ -94,10 +95,12 @@ export async function today(
 }
 
 function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTopLevelComponent] {
-	const shardYesterday = shardEruption(offset - 1);
-	const shardToday = shardEruption(offset);
-	const shard = shardEruption();
-	const shardTomorrow = shardEruption(offset + 1);
+	const now = skyNow();
+	const date = now.add({ days: offset });
+	const shardYesterday = shardEruption(date.subtract({ days: 1 }));
+	const shardToday = shardEruption(date);
+	const shard = shardEruption(now);
+	const shardTomorrow = shardEruption(date.add({ days: 1 }));
 
 	const buttonYesterday: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -132,12 +135,10 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 		buttonTomorrow.emoji = resolveShardEruptionEmoji(shardTomorrow.strong);
 	}
 
-	const now = skyNow();
-
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(now.add({ days: offset }).epochMilliseconds)}](${SHARD_ERUPTION_URL})`,
+			content: `## [${Intl.DateTimeFormat(locale, { timeZone: TIME_ZONE, dateStyle: "full" }).format(date.epochMilliseconds)}](${SHARD_ERUPTION_URL})`,
 		},
 		{
 			type: ComponentType.Separator,

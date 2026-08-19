@@ -20,6 +20,7 @@ import {
 	shardEruption,
 	type ShardEruptionData,
 	skyCurrentSeason,
+	skyNow,
 	skyNotEndedEvents,
 	skyUpcomingSeason,
 	sortDaysCountItems,
@@ -100,8 +101,9 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
 	const timeZone = await getPreferredTimeZone(request);
 	const hour12 = getPreferredHour12(request);
-	const initialTimestamp = Date.now();
-	const shard: ShardEruptionData | null = shardEruption();
+	const now = skyNow();
+	const initialTimestamp = now.epochMilliseconds;
+	const shard: ShardEruptionData | null = shardEruption(now);
 	const cacheMaxAge = dailyGuidesCacheMaxAge(initialTimestamp);
 
 	return data(

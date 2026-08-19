@@ -5,7 +5,8 @@ import type { Command } from "./index.js";
 export default {
 	names: ["shard-eruption", "shard"],
 	async execute(data) {
-		const shard = shardEruption();
+		const now = skyNow();
+		const shard = shardEruption(now);
 
 		if (!shard) {
 			await client.api.channels.createMessage(data.channel_id, {
@@ -19,8 +20,6 @@ export default {
 
 			return;
 		}
-
-		const now = skyNow();
 
 		const timestamps = shard.timestamps
 			.map(({ start, end }) => {

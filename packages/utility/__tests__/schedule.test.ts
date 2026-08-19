@@ -17,6 +17,7 @@ import {
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
 	returningSpiritsSchedule,
+	shardEruptionSchedule,
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
 } from "../source/schedule.js";
@@ -400,6 +401,28 @@ for (const { name, schedule, cases } of SCHEDULES) {
 		});
 	}
 }
+
+test("Shard eruption schedule finds an active eruption on the requested date.", () => {
+	const result = shardEruptionSchedule(skyDate(2025, 3, 11, 10));
+	equal(result.start.toString(), "2025-03-11T09:38:40-07:00[America/Los_Angeles]");
+	equal(result.end.toString(), "2025-03-11T13:30:00-07:00[America/Los_Angeles]");
+	equal(result.active, true);
+});
+
+test("Shard eruption schedule searches forward from a requested day with no eruption.", () => {
+	const result = shardEruptionSchedule(skyDate(2025, 3, 8, 12));
+	equal(result.start.toString(), "2025-03-09T08:28:40-07:00[America/Los_Angeles]");
+	equal(result.end.toString(), "2025-03-09T12:20:00-07:00[America/Los_Angeles]");
+	equal(result.active, false);
+});
+
+test("Shard eruption schedule traverses Sky calendar days across spring forward.", () => {
+	const input = skyDate(2025, 3, 8, 23, 30).withTimeZone("UTC");
+	const result = shardEruptionSchedule(input);
+	equal(result.start.toString(), "2025-03-09T08:28:40-07:00[America/Los_Angeles]");
+	equal(result.end.toString(), "2025-03-09T12:20:00-07:00[America/Los_Angeles]");
+	equal(result.active, false);
+});
 
 const NEXT_SCHEDULES = [
 	{

@@ -72,12 +72,15 @@ export async function ascendedCandles(
 	await client.api.interactions.defer(interaction.id, interaction.token);
 
 	const amountRequired = goal - start;
-	let day = skyToday();
+	const today = skyToday();
+	let day = today;
 	let result = 0;
 
-	for (let index = 0; ; index++) {
+	for (let days = 0; result < amountRequired; days++) {
+		day = today.add({ days });
+
 		if (shardEruptions) {
-			const shardEruptionToday = shardEruption(index);
+			const shardEruptionToday = shardEruption(day);
 
 			if (shardEruptionToday) {
 				const { strong, reward } = shardEruptionToday;
@@ -91,12 +94,6 @@ export async function ascendedCandles(
 		if (eyeOfEden && day.dayOfWeek === 7) {
 			result += ASCENDED_CANDLES_PER_WEEK;
 		}
-
-		if (result >= amountRequired) {
-			break;
-		}
-
-		day = day.add({ days: 1 });
 	}
 
 	const timestamp = epochSeconds(day);

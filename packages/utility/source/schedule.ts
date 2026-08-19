@@ -1,4 +1,4 @@
-import { isActive } from "./dates.js";
+import { isActive, TIME_ZONE } from "./dates.js";
 import { skyNotEndedEvents } from "./events/index.js";
 import { RETURNING_DATES, TRAVELLING_DATES } from "./kingdom/seasons/index.js";
 import { shardEruption } from "./shard-eruption.js";
@@ -121,14 +121,15 @@ export function turtleSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function shardEruptionSchedule(date: Temporal.ZonedDateTime) {
-	const shard = shardEruption();
+	const skyDay = date.withTimeZone(TIME_ZONE).startOfDay();
+	const shard = shardEruption(skyDay);
 	let nextShard = shard?.timestamps.find(
 		({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
 	);
 
 	if (!nextShard) {
 		for (let index = 1; ; index++) {
-			const nextPossibleShard = shardEruption(index);
+			const nextPossibleShard = shardEruption(skyDay.add({ days: index }));
 
 			if (!nextPossibleShard) {
 				continue;

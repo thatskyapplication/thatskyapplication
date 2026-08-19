@@ -64,7 +64,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 
 	const now = skyNow();
 	const initialTimestamp = now.epochMilliseconds;
-	const shard = shardEruption();
+	const shard = shardEruption(now);
 	const season = skyCurrentSeason(now);
 
 	const isAnyEventWithEventTickets = skyCurrentEvents(now).some(

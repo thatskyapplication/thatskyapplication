@@ -87,7 +87,7 @@ function dailyResetDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const shard = shardEruption();
+	const shard = shardEruption(now);
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -143,7 +143,7 @@ function eyeOfEdenDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const shard = shardEruption();
+	const shard = shardEruption(now);
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -661,7 +661,7 @@ function shardEruptionDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
-	const shard = shardEruption();
+	const shard = shardEruption(now);
 
 	const timestamps = (shard?.timestamps ?? []).map(
 		(timestamp) => `- ${shardEruptionTimestampString({ now, timestamp, locale })}`,

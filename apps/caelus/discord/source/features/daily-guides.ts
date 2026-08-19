@@ -58,7 +58,6 @@ import {
 	skyCurrentSeason,
 	skyNotEndedEvents,
 	skyNow,
-	skyToday,
 	skyUpcomingSeason,
 	sortDaysCountItems,
 	TIME_ZONE,
@@ -767,8 +766,8 @@ async function distributionData({
 	type = DailyGuidesDistributionType.Compact,
 	showShardTimestampStatus = false,
 }: DailyGuidesDistributionDataOptions): Promise<DailyGuidesDistributionDataResponse> {
-	const today = skyToday();
 	const now = skyNow();
+	const today = now.startOfDay();
 
 	const containerComponents: APIComponentInContainer[] = [
 		{
@@ -1130,7 +1129,7 @@ async function distributionData({
 		});
 	}
 
-	const shard = shardEruption();
+	const shard = shardEruption(today);
 	let shardEruptionContent = `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n\n`;
 
 	if (shard) {

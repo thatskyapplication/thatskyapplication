@@ -51,7 +51,8 @@ export async function checklist({
 		}
 	}
 
-	const shard = shardEruption();
+	const now = skyNow();
+	const shard = shardEruption(now);
 
 	const shardEruptionButton: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
@@ -67,7 +68,6 @@ export async function checklist({
 		shardEruptionButton.emoji = resolveShardEruptionEmoji(shard.strong);
 	}
 
-	const now = skyNow();
 	const season = skyCurrentSeason(now);
 
 	const isAnyEventWithEventTickets = skyCurrentEvents(now).some(

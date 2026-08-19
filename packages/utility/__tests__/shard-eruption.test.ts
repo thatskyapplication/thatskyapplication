@@ -7,7 +7,7 @@ import { shardEruption } from "../source/shard-eruption.js";
 const EXPECTED_SHARD_ERUPTIONS = [
 	{
 		reason: "Spring forward skips the first shard eruption.",
-		now: skyDate(2025, 3, 9, 12),
+		date: skyDate(2025, 3, 9, 12),
 		expected: {
 			realm: RealmName.GoldenWasteland,
 			area: AreaName.CrabFields,
@@ -21,7 +21,7 @@ const EXPECTED_SHARD_ERUPTIONS = [
 	},
 	{
 		reason: "Regular day after the spring forward.",
-		now: skyDate(2025, 3, 11, 12),
+		date: skyDate(2025, 3, 11, 12),
 		expected: {
 			realm: RealmName.DaylightPrairie,
 			area: AreaName.SanctuaryIslands,
@@ -36,17 +36,17 @@ const EXPECTED_SHARD_ERUPTIONS = [
 	},
 	{
 		reason: "No shard eruption on the fall back.",
-		now: skyDate(2025, 11, 2, 12),
+		date: skyDate(2025, 11, 2, 12),
 		expected: null,
 	},
 	{
 		reason: "No shard eruption on the spring forward.",
-		now: skyDate(2026, 3, 8, 12),
+		date: skyDate(2026, 3, 8, 12),
 		expected: null,
 	},
 	{
 		reason: "Fall back realigns shard eruptions to the wall clock.",
-		now: skyDate(2026, 11, 1, 12),
+		date: skyDate(2026, 11, 1, 12),
 		expected: {
 			realm: RealmName.DaylightPrairie,
 			area: AreaName.PrairieCave,
@@ -61,12 +61,12 @@ const EXPECTED_SHARD_ERUPTIONS = [
 	},
 	{
 		reason: "No shard eruption on the spring forward.",
-		now: skyDate(2027, 3, 14, 12),
+		date: skyDate(2027, 3, 14, 12),
 		expected: null,
 	},
 	{
 		reason: "Fall back realigns shard eruptions to the wall clock.",
-		now: skyDate(2027, 11, 7, 12),
+		date: skyDate(2027, 11, 7, 12),
 		expected: {
 			realm: RealmName.HiddenForest,
 			area: AreaName.SacredPond,
@@ -81,7 +81,7 @@ const EXPECTED_SHARD_ERUPTIONS = [
 	},
 	{
 		reason: "Spring forward realigns shard eruptions without a skip.",
-		now: skyDate(2029, 3, 11, 12),
+		date: skyDate(2029, 3, 11, 12),
 		expected: {
 			realm: RealmName.DaylightPrairie,
 			area: AreaName.SanctuaryIslands,
@@ -96,7 +96,7 @@ const EXPECTED_SHARD_ERUPTIONS = [
 	},
 	{
 		reason: "Spring forward skips the first shard eruption.",
-		now: skyDate(2031, 3, 9, 12),
+		date: skyDate(2031, 3, 9, 12),
 		expected: {
 			realm: RealmName.GoldenWasteland,
 			area: AreaName.CrabFields,
@@ -125,10 +125,9 @@ function comparable(shard: ReturnType<typeof shardEruption>) {
 	);
 }
 
-for (const { reason, now, expected } of EXPECTED_SHARD_ERUPTIONS) {
-	test(`${reason} on ${now.toPlainDate().toString()}.`, (t) => {
-		t.mock.timers.enable({ apis: ["Date"], now: now.epochMilliseconds });
-		const shard = shardEruption();
+for (const { reason, date, expected } of EXPECTED_SHARD_ERUPTIONS) {
+	test(`${reason} on ${date.toPlainDate().toString()}.`, () => {
+		const shard = shardEruption(date);
 
 		if (expected === null) {
 			equal(shard, null);
@@ -148,16 +147,19 @@ for (const { reason, now, expected } of EXPECTED_SHARD_ERUPTIONS) {
 	});
 }
 
-test("Days offset across the fall back matches the shard eruption on the day.", (t) => {
-	t.mock.timers.enable({ apis: ["Date"], now: skyDate(2026, 10, 31, 12).epochMilliseconds });
-	const offset = comparable(shardEruption(1));
-	t.mock.timers.setTime(skyDate(2026, 11, 1, 12).epochMilliseconds);
-	deepEqual(offset, comparable(shardEruption()));
+test("Shard eruption exceptions.", async (t) => {
+	for (const date of [
+		skyDate(2024, 2, 15),
+		skyDate(2024, 2, 25),
+		skyDate(2025, 2, 15),
+		skyDate(2025, 3, 29),
+	]) {
+		await t.test(date.toPlainDate().toString(), () => equal(shardEruption(date), null));
+	}
 });
 
-test("Days offset across the spring forward matches the shard eruption on the day.", (t) => {
-	t.mock.timers.enable({ apis: ["Date"], now: skyDate(2025, 3, 8, 12).epochMilliseconds });
-	const offset = comparable(shardEruption(1));
-	t.mock.timers.setTime(skyDate(2025, 3, 9, 12).epochMilliseconds);
-	deepEqual(offset, comparable(shardEruption()));
+test("The input instant is normalised to the Sky calendar day.", () => {
+	const skyDateTime = skyDate(2026, 11, 1, 22);
+	const utcDateTime = skyDateTime.withTimeZone("UTC");
+	deepEqual(comparable(shardEruption(utcDateTime)), comparable(shardEruption(skyDateTime)));
 });

@@ -1,4 +1,4 @@
-import { skyDate, skyToday } from "./dates.js";
+import { skyDate, TIME_ZONE } from "./dates.js";
 import { skyCurrentEvents } from "./events/index.js";
 import { AreaName, type RealmName, VALID_REALM_NAME } from "./kingdom/geography.js";
 import { CDN_URL } from "./routes.js";
@@ -176,10 +176,24 @@ export interface ShardEruptionData {
 	acknowledgement: string;
 }
 
-export function shardEruption(daysOffset = 0): ShardEruptionData | null {
-	const date = skyToday().add({ days: daysOffset });
+export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData | null {
+	const date = input.withTimeZone(TIME_ZONE).startOfDay();
 
-	// No shard eruption during Days of Nature.
+	// No shard eruption in Jellyfish Cove during Days of Love 2024 and 2025.
+	if (
+		date.equals(skyDate(2024, 2, 15)) ||
+		date.equals(skyDate(2024, 2, 25)) ||
+		date.equals(skyDate(2025, 2, 15))
+	) {
+		return null;
+	}
+
+	// No shard eruption in the Forgotten Ark during Days of Bloom 2025.
+	if (date.equals(skyDate(2025, 3, 29))) {
+		return null;
+	}
+
+	// No shard eruption during Days of Nature 2026.
 	if (date.equals(skyDate(2026, 4, 11))) {
 		return null;
 	}
@@ -204,24 +218,6 @@ export function shardEruption(daysOffset = 0): ShardEruptionData | null {
 	let realmIndex = (dayOfMonth - 1) % 5;
 	let { area, url, reward, acknowledgement } = shardEruptionAreas[realmIndex]!;
 	const currentEvents = skyCurrentEvents(date);
-
-	// No shard eruption in Jellyfish Cove during Days of Love.
-	if (
-		area === AreaName.JellyfishCove &&
-		currentEvents.some(
-			(event) => event.id === EventId.DaysOfLove2024 || event.id === EventId.DaysOfLove2025,
-		)
-	) {
-		return null;
-	}
-
-	// No shard eruption in the Forgotten Ark during Days of Bloom.
-	if (
-		area === AreaName.ForgottenArk &&
-		currentEvents.some((event) => event.id === EventId.DaysOfBloom2025)
-	) {
-		return null;
-	}
 
 	// On 13/12/2025, this was moved to the Prairie Cave (clashed with event).
 	if (
