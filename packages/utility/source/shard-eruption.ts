@@ -417,37 +417,34 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 		({ area, reward } = shardEruptionAreas[3]!);
 	}
 
-	const timestamps: ShardEruptionTimestampsData[] = [];
-	let timestampLengthCheck = 3;
-	let shardPointer = date.add({ milliseconds: offset });
+	let timestampCount = 3;
+	let firstShardPointer = date.add({ milliseconds: offset });
 
 	// Account for a shard eruption during DST change.
-	if (date.offsetNanoseconds !== shardPointer.offsetNanoseconds) {
-		const becameDST = shardPointer.offsetNanoseconds > date.offsetNanoseconds;
-		shardPointer = shardPointer.add({ hours: becameDST ? -1 : 1 });
+	if (date.offsetNanoseconds !== firstShardPointer.offsetNanoseconds) {
+		const becameDST = firstShardPointer.offsetNanoseconds > date.offsetNanoseconds;
+		firstShardPointer = firstShardPointer.add({ hours: becameDST ? -1 : 1 });
 
 		if (
 			becameDST &&
-			shardPointer.offsetNanoseconds === date.offsetNanoseconds &&
-			shardPointer.hour === 1
+			firstShardPointer.offsetNanoseconds === date.offsetNanoseconds &&
+			firstShardPointer.hour === 1
 		) {
 			// The shard eruption will be skipped as it seems the hour is most important rather than the duration.
 			// This held true for 09/03/2025, where the first shard eruption did not happen as hour 2 was skipped.
-			shardPointer = shardPointer.add({ hours: interval });
-			timestampLengthCheck--;
+			firstShardPointer = firstShardPointer.add({ hours: interval });
+			timestampCount--;
 		}
 	}
 
-	for (
-		;
-		timestamps.length < timestampLengthCheck;
-		shardPointer = shardPointer.add({ hours: interval })
-	) {
-		timestamps.push({
+	const timestamps = Array.from({ length: timestampCount }, (_, index) => {
+		const shardPointer = firstShardPointer.add({ hours: interval * index });
+
+		return {
 			start: shardPointer.add({ seconds: 520 }),
 			end: shardPointer.add({ hours: 4 }),
-		});
-	}
+		};
+	});
 
 	return {
 		realm: realmForArea(area)!,
