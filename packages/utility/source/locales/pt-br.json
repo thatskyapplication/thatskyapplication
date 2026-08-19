@@ -5,15 +5,15 @@
 		"website-description": "Uma constelação de ferramentas para Sky: Children of the Light. 🩵",
 		"show": "Mostrar",
 		"hide": "Ocultar",
-		"save": "",
-		"saved": "",
-		"saving": "",
+		"save": "Salvar",
+		"saved": "Salvo",
+		"saving": "Salvando…",
 		"infographic": "Infográfico",
 		"infographic-by": "Infográfico por {{acknowledgement}}.",
 		"daily-quests": "Missões diárias",
 		"travelling-spirit": "Espírito Viajante",
 		"returning-spirits": "Espíritos Retornantes",
-		"dye-workshop": "",
+		"dye-workshop": "Oficina de Tingimento",
 		"note": "Nota",
 		"currency": "Moeda",
 		"cost": "Custo",
@@ -462,7 +462,7 @@
 			"311": "Acene para um jogador",
 			"312": "Sugira um modelo de pipa nas Colinas da Campina"
 		},
-		"light": "",
+		"light": "Luz",
 		"season": "Temporada",
 		"season-plural": "Temporadas",
 		"seasons": {
@@ -531,7 +531,7 @@
 		},
 		"event": "Evento",
 		"events": "Eventos",
-		"travelling-spirit-initialism": "",
+		"travelling-spirit-initialism": "TS",
 		"event-names": {
 			"double-seasonal-light": "Velas sazonais em dobro",
 			"double-treasure-candles": "Velas do tesouro em dobro",
@@ -2338,12 +2338,12 @@
 		"interaction-response-too-old": "Esta resposta já expirou. Use o comando novamente!",
 		"cannot-view-thread": "Não tenho permissões para visualizar este tópico.",
 		"clear": "Apagar",
-		"link-copied": "",
+		"link-copied": "Link copiado!",
 		"no-results": "Sem resultados.",
 		"search-label": "Pesquisar",
-		"share": "",
-		"share-error": "",
-		"try-again": "",
+		"share": "Compartilhar",
+		"share-error": "Não foi possível compartilhar o link. Tente novamente.",
+		"try-again": "Tente novamente",
 		"view": "Exibir",
 		"more": "Mais",
 		"maintenance": "Manutenção",
@@ -2548,7 +2548,7 @@
 				"19": "$t(features:schedule.type.19)",
 				"20": "$t(features:schedule.type.20)",
 				"21": "$t(features:schedule.type.21)",
-				"22": ""
+				"22": "$t(features:schedule.type.22)"
 			},
 			"command-option-hide-name": "ocultar",
 			"command-option-hide-description": "Certifique-se de que só você veja a resposta."
@@ -2641,11 +2641,11 @@
 			"final-message": "Entre no servidor de suporte]({{url}}) se você estiver interessado em qualquer coisa aqui! Estamos sempre aqui para dar uma mãozinha! 🩵"
 		},
 		"acknowledgements": {
-			"friendship-actions": "",
-			"friendship-actions-contributors": "",
-			"friendship-actions-contributors-description": "",
-			"translators": "",
-			"translators-description": ""
+			"friendship-actions": "Ações de amizade",
+			"friendship-actions-contributors": "Colaboradores das ações de amizade",
+			"friendship-actions-contributors-description": "Estas pessoas contribuíram com ações de amizade para que todos possam aproveitá-las.",
+			"translators": "Tradutores",
+			"translators-description": "Estas Crianças da Luz ajudam a traduzir o que você vê! Você também pode ajudar no Crowdin!"
 		},
 		"calculate": {
 			"goal-already-achieved": "Você já conquistou seu objetivo!",
@@ -2721,25 +2721,25 @@
 			"events-next-events": "Próximos eventos",
 			"spirit-kind-no-friendship-tree": {
 				"0": "Este espírito não possui uma árvore de amizade.",
-				"1": "",
-				"2": ""
+				"1": "Esta entidade não possui uma árvore de amizade.",
+				"2": "Este manequim não possui uma árvore de amizade."
 			},
 			"spirit-kind-no-infographic-yet": {
 				"0": "Este espírito ainda não tem um infográfico.",
-				"1": "",
-				"2": ""
+				"1": "Esta entidade ainda não tem um infográfico.",
+				"2": "Este manequim ainda não tem um infográfico."
 			},
 			"spirit-kind-not-fully-revealed": {
 				"0": "A árvore de amizade deste espírito não foi totalmente revelada.",
-				"1": "",
-				"2": ""
+				"1": "A árvore de amizade desta entidade ainda não foi totalmente revelada.",
+				"2": "A árvore de amizade deste manequim ainda não foi totalmente revelada."
 			},
-			"friendship-tree-complete": "",
-			"friendship-tree-no-remaining-cost": "",
-			"friendship-tree-node-cost": "",
-			"friendship-tree-node-level": "",
-			"friendship-tree-remaining-cost": "",
-			"friendship-tree-total-cost": "",
+			"friendship-tree-complete": "Completo",
+			"friendship-tree-no-remaining-cost": "Sem custo restante",
+			"friendship-tree-node-cost": "{{currency}}: {{amount}}",
+			"friendship-tree-node-level": "Nível {{level}}",
+			"friendship-tree-remaining-cost": "Custo restante",
+			"friendship-tree-total-cost": "Custo total",
 			"select-cosmetics-string-select-menu-placeholder": "Selecione o que você possui!",
 			"spirit-previous-spirit": "Espírito anterior",
 			"spirit-next-spirit": "Próximo espírito",
@@ -2779,11 +2779,11 @@
 			"shard-eruptions-show-button-label": "Exibir erupções de fragmentos",
 			"event-tickets-message-incomplete": "Você já coletou todos os tíquetes evento hoje?",
 			"event-tickets-message-complete": "Você coletou todos os tíquetes de evento! Parabéns!",
-			"dye-workshop-message-incomplete": "",
-			"dye-workshop-message-complete": "",
-			"do-not-disturb-blessing": "",
-			"do-not-disturb-blessing-message-incomplete": "",
-			"do-not-disturb-blessing-message-complete": ""
+			"dye-workshop-message-incomplete": "Você já visitou a Oficina de Tingimento esta semana?",
+			"dye-workshop-message-complete": "Você visitou a Oficina de Tingimento esta semana!",
+			"do-not-disturb-blessing": "Bênção ‘Não perturbe’",
+			"do-not-disturb-blessing-message-incomplete": "Você já resgatou sua bênção diária ‘Não perturbe’?",
+			"do-not-disturb-blessing-message-complete": "Você obteve a bênção ‘Não perturbe’!"
 		},
 		"daily-guides": {
 			"name": "Guias diários",
@@ -2821,11 +2821,11 @@
 			"double-seasonal-light-upcoming_other": "As luzes sazonais em dobro começam em {{count}} dias.",
 			"double-treasure-candles-upcoming_one": "As velas do tesouro em dobro começarão amanhã.",
 			"double-treasure-candles-upcoming_other": "As velas do tesouro em dobro começam em {{count}} dias.",
-			"returning-spirits-active-list_zero": "",
-			"returning-spirits-active-list_one": "",
-			"returning-spirits-active-list_other": "",
-			"returning-spirits-upcoming-list_one": "",
-			"returning-spirits-upcoming-list_other": "",
+			"returning-spirits-active-list_zero": "{{returningSpirits}} partirão hoje: {{spirits}}.",
+			"returning-spirits-active-list_one": "{{returningSpirits}} partirão em {{count}} dia: {{spirits}}.",
+			"returning-spirits-active-list_other": "{{returningSpirits}} partirão em {{count}} dias: {{spirits}}.",
+			"returning-spirits-upcoming-list_one": "{{returningSpirits}} chegam amanhã: {{spirits}}.",
+			"returning-spirits-upcoming-list_other": "{{returningSpirits}} chegarão em {{count}} dias: {{spirits}}.",
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
 			"event-upcoming-time": "{{event}} começa às {{time}}.",
@@ -2884,7 +2884,7 @@
 		"guess": {
 			"type": {
 				"0": "$t(general:spirit-plural)",
-				"1": "",
+				"1": "$t(general:spirit-plural) (difícil)",
 				"2": "$t(general:events)"
 			},
 			"title": "De onde isso veio?",
@@ -3053,8 +3053,8 @@
 					"message-future": "As velas do tesouro passarão a brilhar mais intensamente {{timestamp}}!"
 				},
 				"22": {
-					"message-now": "",
-					"message-future": ""
+					"message-now": "Bem-vindo de volta a Sky, {{spirits}}!",
+					"message-future": "Prepare-se para dar as boas-vindas a {{spirits}} de volta ao Sky em {{timestamp}}!"
 				}
 			},
 			"edit-information": "Escolha um canal para que a notificação seja enviada, um cargo para ser mencionado e um intervalo que indica quantos minutos antes do evento a notificação será enviada.",
@@ -3122,9 +3122,9 @@
 			"detailed-breakdown-travelling-spirit-view-spirit-button-label": "Ver espírito viajante",
 			"detailed-breakdown-travelling-spirit-history-button-label": "Ver histórico",
 			"detailed-breakdown-returning-spirits-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Espíritos_Retornantes",
-			"detailed-breakdown-returning-spirits-message-now": "",
-			"detailed-breakdown-returning-spirits-message-future": "",
-			"detailed-breakdown-returning-spirits-message-none": "",
+			"detailed-breakdown-returning-spirits-message-now": "Os seguintes espíritos que estão retornando estão visitando atualmente: {{spirits}}\nEles partirão em {{timestamp}}.",
+			"detailed-breakdown-returning-spirits-message-future": "Os seguintes espíritos que estão retornando estão programados para chegar em {{start}} e partir em {{end}}:\n{{spirits}}",
+			"detailed-breakdown-returning-spirits-message-none": "No momento, não há espíritos anunciados para retornar.",
 			"detailed-breakdown-polluted-geyser-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Fontes_de_Luz_Adicionais#G%C3%AAiser_Polu%C3%ADdo",
 			"detailed-breakdown-polluted-geyser-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 10 minutos.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-grandma-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Fontes_de_Luz_Adicionais#Lanche_da_Vov%C3%B3",
@@ -3155,7 +3155,7 @@
 			"next-nesting-workshop": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-nesting-workshop-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Oficina_do_Ninho",
 			"detailed-breakdown-nesting-workshop-message": "Toda sexta-feira, um novo conjunto de cosméticos aparecerá na Oficina do Ninho. A próxima sexta-feira será em {{timestamp}}.",
-			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "",
+			"detailed-breakdown-vault-elders-blessing-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/A_Última_Cidade#Claustro",
 			"detailed-breakdown-vault-elders-blessing-message": "Disponível a cada 20 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-projector-of-memories-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/Temporada_das_Duas_Fagulhas_-_Parte_1#Projetor_de_Lembran%C3%A7as",
 			"detailed-breakdown-projector-of-memories-message": "Disponível a cada 80 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
@@ -3350,14 +3350,14 @@
 			}
 		},
 		"spirits": {
-			"description": "",
-			"description-short": "",
-			"meta-description": "",
-			"search-placeholder": "",
-			"view-in-catalogue": "",
-			"friendship-tree-current": "",
-			"friendship-tree-seasonal": "",
-			"friendship-trees": "",
+			"description": "Consulte o histórico dos Espíritos, veja quais estão ausentes há mais tempo e explore suas árvores de amizade.",
+			"description-short": "Consulte o histórico dos espíritos e as árvores de amizade.",
+			"meta-description": "Veja as informações sobre {{spirit}}, de {{origin}}!",
+			"search-placeholder": "Procurar espíritos…",
+			"view-in-catalogue": "Ver no catálogo",
+			"friendship-tree-current": "Árvore de amizade atual",
+			"friendship-tree-seasonal": "Árvore de amizade sazonal",
+			"friendship-trees": "Árvores de amizade",
 			"not-encountered-spirit": "Uau, parece que nós não encontramos esse espírito ainda. Que estranho!",
 			"visit-error": "Erro",
 			"travelling": "Viajando",
@@ -3365,14 +3365,14 @@
 			"kind-not-yet-returned": {
 				"0": "Este espírito ainda não retornou.",
 				"1": "Esta entidade ainda não retornou.",
-				"2": ""
+				"2": "Este manequim ainda não retornou."
 			},
 			"title": {
-				"0": "",
-				"1": ""
+				"0": "Histórico de espíritos",
+				"1": "Raridade de espíritos"
 			},
 			"order-natural": "Ordenar por aparência",
-			"order-label": "",
+			"order-label": "Ordem por histórico de espíritos",
 			"order-rarity": "Ordenar por raridade"
 		},
 		"welcome": {
