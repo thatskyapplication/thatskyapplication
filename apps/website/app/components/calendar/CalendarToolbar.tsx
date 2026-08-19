@@ -19,6 +19,7 @@ export function CalendarToolbar({
 	locale,
 	nextDate,
 	previousDate,
+	skyTime,
 	title,
 	todayDate,
 	view,
@@ -28,6 +29,7 @@ export function CalendarToolbar({
 	locale: string;
 	nextDate: string;
 	previousDate: string | null;
+	skyTime: boolean;
 	title: string;
 	todayDate: string;
 	view: CalendarViews;
@@ -58,18 +60,19 @@ export function CalendarToolbar({
 								ns: "features",
 							})}
 							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
-							to={calendarPath(view, previousDate)}
+							to={calendarPath({ view, skyTime, date: previousDate })}
 						>
 							<ChevronLeft aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 						</Link>
 					)}
-					<Link className={NAVIGATION_BUTTON_CLASS} to={calendarPath(view)}>
+					<Link className={NAVIGATION_BUTTON_CLASS} to={calendarPath({ view, skyTime })}>
 						{t("today", { ns: "general" })}
 					</Link>
 					<CalendarJump
 						anchorDate={anchorDate}
 						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
 						locale={locale}
+						skyTime={skyTime}
 						todayDate={todayDate}
 						view={view}
 						weekStartsOn={weekStartsOn}
@@ -79,7 +82,7 @@ export function CalendarToolbar({
 							ns: "features",
 						})}
 						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
-						to={calendarPath(view, nextDate)}
+						to={calendarPath({ view, skyTime, date: nextDate })}
 					>
 						<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 					</Link>
@@ -95,7 +98,7 @@ export function CalendarToolbar({
 							VIEW_BUTTON_CLASS,
 							isMonth ? "bg-discord-button text-white" : VIEW_BUTTON_INACTIVE_CLASS,
 						)}
-						to={calendarPath(CalendarView.Month, anchorDate)}
+						to={calendarPath({ view: CalendarView.Month, skyTime, date: anchorDate })}
 					>
 						{t("calendar.view-month", { ns: "features" })}
 					</Link>
@@ -105,9 +108,35 @@ export function CalendarToolbar({
 							VIEW_BUTTON_CLASS,
 							isMonth ? VIEW_BUTTON_INACTIVE_CLASS : "bg-discord-button text-white",
 						)}
-						to={calendarPath(CalendarView.Week, anchorDate)}
+						to={calendarPath({ view: CalendarView.Week, skyTime, date: anchorDate })}
 					>
 						{t("calendar.view-week", { ns: "features" })}
+					</Link>
+				</div>
+				<div
+					aria-label={t("calendar.time-zone-label", { ns: "features" })}
+					className="inline-flex h-9 items-center rounded-lg border border-gray-200 bg-white p-0.5 dark:border-gray-700 dark:bg-gray-900"
+					role="group"
+				>
+					<Link
+						aria-current={skyTime ? undefined : "page"}
+						className={clsx(
+							VIEW_BUTTON_CLASS,
+							skyTime ? VIEW_BUTTON_INACTIVE_CLASS : "bg-discord-button text-white",
+						)}
+						to={calendarPath({ view, skyTime: false, date: anchorDate })}
+					>
+						{t("calendar.time-zone-local", { ns: "features" })}
+					</Link>
+					<Link
+						aria-current={skyTime ? "page" : undefined}
+						className={clsx(
+							VIEW_BUTTON_CLASS,
+							skyTime ? "bg-discord-button text-white" : VIEW_BUTTON_INACTIVE_CLASS,
+						)}
+						to={calendarPath({ view, skyTime: true, date: anchorDate })}
+					>
+						{t("schedule.sky-time", { ns: "features" })}
 					</Link>
 				</div>
 			</div>

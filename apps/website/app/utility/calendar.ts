@@ -128,7 +128,6 @@ export interface CalendarDay {
 	endsAt: number;
 	exists: boolean;
 	outsideFocus: boolean;
-	isToday: boolean;
 }
 
 export interface CalendarSegment {
@@ -193,11 +192,24 @@ export function isCalendarView(value: unknown): value is CalendarViews {
 	return CALENDAR_VIEW_VALUES.some((view) => view === value);
 }
 
-export function calendarPath(view: CalendarViews, date?: string, day?: string) {
+export const CALENDAR_SKY_TIME_PARAMETER = "sky" as const;
+
+export interface CalendarPathOptions {
+	view: CalendarViews;
+	skyTime: boolean;
+	date?: string;
+	day?: string;
+}
+
+export function calendarPath({ view, skyTime, date, day }: CalendarPathOptions) {
 	const searchParams = new URLSearchParams();
 
 	if (view !== CalendarView.Month) {
 		searchParams.set("view", view);
+	}
+
+	if (skyTime) {
+		searchParams.set("zone", CALENDAR_SKY_TIME_PARAMETER);
 	}
 
 	if (date !== undefined) {
@@ -247,13 +259,17 @@ export function packCalendarWeek(
 		const startDay = days[startIndex]!;
 		const endDay = days[endIndex]!;
 
-		let startInset = continuesBefore
-			? 0
-			: clamp((entry.startsAt - startDay.startsAt) / (startDay.endsAt - startDay.startsAt));
+		const instant = entry.startsAt === entry.endsAt;
 
-		let endInset = continuesAfter
-			? 0
-			: clamp((endDay.endsAt - entry.endsAt) / (endDay.endsAt - endDay.startsAt));
+		let startInset =
+			continuesBefore || instant
+				? 0
+				: clamp((entry.startsAt - startDay.startsAt) / (startDay.endsAt - startDay.startsAt));
+
+		let endInset =
+			continuesAfter || instant
+				? 0
+				: clamp((endDay.endsAt - entry.endsAt) / (endDay.endsAt - endDay.startsAt));
 
 		const shortfall = MINIMUM_BAR_COLUMNS - (columnSpan - startInset - endInset);
 

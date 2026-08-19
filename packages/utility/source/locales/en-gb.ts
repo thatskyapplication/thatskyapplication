@@ -3191,6 +3191,8 @@ export default {
 			duration_one: "{{count}} day",
 			duration_other: "{{count}} days",
 			"jump-to-date": "Jump to a date",
+			"time-zone-local": "Local time",
+			"time-zone-label": "Time zone",
 			"all-day": "All day",
 			"during-the-day": "During the day",
 			"view-day": "View {{date}}",

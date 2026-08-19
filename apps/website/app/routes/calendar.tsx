@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { WEBSITE_URL } from "@thatskyapplication/utility";
+import { TIME_ZONE, WEBSITE_URL } from "@thatskyapplication/utility";
 import { CalendarDayDialog } from "~/components/calendar/CalendarDayDialog";
 import { CalendarGrid } from "~/components/calendar/CalendarGrid";
 import { CalendarLegend } from "~/components/calendar/CalendarLegend";
@@ -12,6 +12,7 @@ import { calendarDayOccurrences } from "~/utility/calendar-day.server.js";
 import { calendarEntriesBetween } from "~/utility/calendar-entries.server.js";
 import {
 	CALENDAR_MINIMUM_DATE,
+	CALENDAR_SKY_TIME_PARAMETER,
 	type CalendarDay,
 	type CalendarDayDetail,
 	type CalendarEntryKinds,
@@ -84,7 +85,8 @@ function zonedStartOfDay(date: Temporal.PlainDate, timeZone: string) {
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
-	const timeZone = await getPreferredTimeZone(request);
+	const skyTime = url.searchParams.get("zone") === CALENDAR_SKY_TIME_PARAMETER;
+	const timeZone = skyTime ? TIME_ZONE : await getPreferredTimeZone(request);
 	const hour12 = getPreferredHour12(request);
 	const t = getInstance(context).getFixedT(locale);
 	const viewParameter = url.searchParams.get("view");
@@ -158,7 +160,6 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 				endsAt: zonedStartOfDay(date.add({ days: 1 }), timeZone).epochMilliseconds,
 				exists: Temporal.PlainDate.compare(date, minimum) >= 0,
 				outsideFocus: isMonth && date.month !== focus.month,
-				isToday: date.equals(today),
 			};
 		});
 
@@ -232,6 +233,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		locale,
 		nextDate: (isMonth ? focus.add({ months: 1 }) : gridStart.add({ weeks: 1 })).toString(),
 		previousDate: Temporal.PlainDate.compare(previousEnd, minimum) < 0 ? null : previous.toString(),
+		skyTime,
 		timeZone,
 		title,
 		todayDate: today.toString(),
@@ -252,6 +254,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 		locale,
 		nextDate,
 		previousDate,
+		skyTime,
 		timeZone,
 		title,
 		todayDate,
@@ -294,6 +297,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					locale={locale}
 					nextDate={nextDate}
 					previousDate={previousDate}
+					skyTime={skyTime}
 					title={title}
 					todayDate={todayDate}
 					view={view}
@@ -302,13 +306,20 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 				<CalendarLegend hiddenKinds={hiddenKinds} onToggle={toggleKind} />
 				<CalendarGrid
 					anchorDate={anchorDate}
+					currentTimestamp={currentTimestamp}
 					entries={visible.entries}
 					locale={locale}
+					skyTime={skyTime}
 					view={view}
 					weekdayLabels={weekdayLabels}
 					weeks={weeks}
 				/>
-				<CalendarSummary active={visible.active} upcoming={visible.upcoming} view={view} />
+				<CalendarSummary
+					active={visible.active}
+					skyTime={skyTime}
+					upcoming={visible.upcoming}
+					view={view}
+				/>
 			</div>
 			{dayDetail && (
 				<CalendarDayDialog
@@ -316,6 +327,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					anchorDate={anchorDate}
 					detail={dayDetail}
 					locale={locale}
+					skyTime={skyTime}
 					view={view}
 				/>
 			)}

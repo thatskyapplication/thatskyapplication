@@ -178,12 +178,14 @@ export function CalendarDayDialog({
 	anchorDate,
 	detail,
 	locale,
+	skyTime,
 	view,
 }: {
 	allDay: readonly CalendarEntry[];
 	anchorDate: string;
 	detail: CalendarDayDetail;
 	locale: string;
+	skyTime: boolean;
 	view: CalendarViews;
 }) {
 	const { t } = useTranslation();
@@ -201,7 +203,9 @@ export function CalendarDayDialog({
 			<Dialog.Root
 				onOpenChange={(open) => {
 					if (!open) {
-						void navigate(calendarPath(view, anchorDate), { preventScrollReset: true });
+						void navigate(calendarPath({ view, skyTime, date: anchorDate }), {
+							preventScrollReset: true,
+						});
 					}
 				}}
 				open
@@ -218,7 +222,7 @@ export function CalendarDayDialog({
 									aria-label={t("calendar.previous-day", { ns: "features" })}
 									className={DIALOG_ICON_BUTTON_CLASS}
 									preventScrollReset
-									to={calendarPath(view, previousDay, previousDay)}
+									to={calendarPath({ view, skyTime, date: previousDay, day: previousDay })}
 								>
 									<ChevronLeft aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 								</Link>
@@ -226,7 +230,7 @@ export function CalendarDayDialog({
 									aria-label={t("calendar.next-day", { ns: "features" })}
 									className={DIALOG_ICON_BUTTON_CLASS}
 									preventScrollReset
-									to={calendarPath(view, nextDay, nextDay)}
+									to={calendarPath({ view, skyTime, date: nextDay, day: nextDay })}
 								>
 									<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 								</Link>

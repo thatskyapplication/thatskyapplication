@@ -221,7 +221,7 @@ function shardEruptionOccurrences(
 				infographicURL: shard.infographic.url,
 				acknowledgement: shard.infographic.acknowledgement,
 				wikiURL: null,
-				pageURL: "/shard-eruption",
+				pageURL: null,
 				catalogueURL: null,
 				times: timestamps.map(({ start, end }) =>
 					t("time-range", {

@@ -50,6 +50,7 @@ export function CalendarJump({
 	anchorDate,
 	className,
 	locale,
+	skyTime,
 	todayDate,
 	view,
 	weekStartsOn,
@@ -57,6 +58,7 @@ export function CalendarJump({
 	anchorDate: string;
 	className: string;
 	locale: string;
+	skyTime: boolean;
 	todayDate: string;
 	view: CalendarViews;
 	weekStartsOn: number;
@@ -216,7 +218,7 @@ export function CalendarJump({
 																	? ENABLED_CLASS
 																	: "text-gray-400 hover:bg-gray-100 dark:text-gray-600 dark:hover:bg-gray-800",
 													)}
-													to={calendarPath(view, date)}
+													to={calendarPath({ view, skyTime, date })}
 												/>
 											}
 										>
@@ -256,7 +258,7 @@ export function CalendarJump({
 																? ANCHORED_CLASS
 																: ENABLED_CLASS,
 													)}
-													to={calendarPath(view, entry.toString())}
+													to={calendarPath({ view, skyTime, date: entry.toString() })}
 												/>
 											}
 										>

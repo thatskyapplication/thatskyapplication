@@ -12,12 +12,14 @@ function SummarySection({
 	className,
 	entries,
 	heading,
+	skyTime,
 	timestampKey,
 	view,
 }: {
 	className?: string;
 	entries: readonly CalendarEntry[];
 	heading: string;
+	skyTime: boolean;
 	timestampKey: "schedule.overview-ends-timestamp" | "schedule.overview-next-timestamp";
 	view: CalendarViews;
 }) {
@@ -35,7 +37,7 @@ function SummarySection({
 							<Link
 								className="flex items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
 								preventScrollReset
-								to={calendarPath(view, entry.firstDate, entry.firstDate)}
+								to={calendarPath({ view, skyTime, date: entry.firstDate, day: entry.firstDate })}
 							>
 								<span
 									className={clsx(
@@ -78,10 +80,12 @@ function SummarySection({
 
 export function CalendarSummary({
 	active,
+	skyTime,
 	upcoming,
 	view,
 }: {
 	active: readonly CalendarEntry[];
+	skyTime: boolean;
 	upcoming: readonly CalendarEntry[];
 	view: CalendarViews;
 }) {
@@ -92,6 +96,7 @@ export function CalendarSummary({
 			<SummarySection
 				entries={active}
 				heading={t("schedule.overview-active", { ns: "features" })}
+				skyTime={skyTime}
 				timestampKey="schedule.overview-ends-timestamp"
 				view={view}
 			/>
@@ -99,6 +104,7 @@ export function CalendarSummary({
 				className="border-t border-gray-200 pt-4 md:border-s md:border-t-0 md:ps-6 md:pt-0 dark:border-gray-700"
 				entries={upcoming}
 				heading={t("schedule.overview-upcoming", { ns: "features" })}
+				skyTime={skyTime}
 				timestampKey="schedule.overview-next-timestamp"
 				view={view}
 			/>

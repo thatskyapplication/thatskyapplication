@@ -17,14 +17,18 @@ const WEEK_LANE_HEIGHT = "1.875rem" as const;
 
 function CalendarWeekRow({
 	anchorDate,
+	currentTimestamp,
 	entries,
 	locale,
+	skyTime,
 	view,
 	week,
 }: {
 	anchorDate: string;
+	currentTimestamp: number;
 	entries: readonly CalendarEntry[];
 	locale: string;
+	skyTime: boolean;
 	view: CalendarViews;
 	week: CalendarWeek;
 }) {
@@ -47,20 +51,22 @@ function CalendarWeekRow({
 						: "auto 1fr",
 			}}
 		>
-			{week.days.map((day, index) =>
-				day.exists ? (
+			{week.days.map((day, index) => {
+				const isToday = currentTimestamp >= day.startsAt && currentTimestamp < day.endsAt;
+
+				return day.exists ? (
 					<Link
 						aria-label={t("calendar.view-day", { ns: "features", date: day.fullLabel })}
 						className={clsx(
 							"border-s border-b border-gray-100 transition-colors first:border-s-0 hover:bg-sky-50 dark:border-gray-800 dark:hover:bg-sky-950/40",
-							day.isToday
+							isToday
 								? "bg-discord-button/10 ring-2 ring-discord-button ring-inset dark:bg-discord-button/20"
 								: day.outsideFocus && "bg-gray-50 dark:bg-gray-950/40",
 						)}
 						key={day.date}
 						preventScrollReset
 						style={{ gridColumn: index + 1, gridRow: "1 / -1" }}
-						to={calendarPath(view, anchorDate, day.date)}
+						to={calendarPath({ view, skyTime, date: anchorDate, day: day.date })}
 					/>
 				) : (
 					<div
@@ -68,10 +74,12 @@ function CalendarWeekRow({
 						key={day.date}
 						style={{ gridColumn: index + 1, gridRow: "1 / -1" }}
 					/>
-				),
-			)}
-			{week.days.map((day, index) =>
-				day.exists ? (
+				);
+			})}
+			{week.days.map((day, index) => {
+				const isToday = currentTimestamp >= day.startsAt && currentTimestamp < day.endsAt;
+
+				return day.exists ? (
 					<div
 						className="pointer-events-none px-1 pt-1 pb-0.5 text-center"
 						key={`${day.date}-label`}
@@ -80,7 +88,7 @@ function CalendarWeekRow({
 						<span
 							className={clsx(
 								"inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-medium",
-								day.isToday
+								isToday
 									? "bg-discord-button text-white"
 									: day.outsideFocus
 										? "text-gray-400 dark:text-gray-600"
@@ -90,8 +98,8 @@ function CalendarWeekRow({
 							{day.label}
 						</span>
 					</div>
-				) : null,
-			)}
+				) : null;
+			})}
 			{segments.map((segment) => (
 				<CalendarEntryBar key={segment.key} locale={locale} segment={segment} view={view} />
 			))}
@@ -101,15 +109,19 @@ function CalendarWeekRow({
 
 export function CalendarGrid({
 	anchorDate,
+	currentTimestamp,
 	entries,
 	locale,
+	skyTime,
 	view,
 	weekdayLabels,
 	weeks,
 }: {
 	anchorDate: string;
+	currentTimestamp: number;
 	entries: readonly CalendarEntry[];
 	locale: string;
+	skyTime: boolean;
 	view: CalendarViews;
 	weekdayLabels: readonly string[];
 	weeks: readonly CalendarWeek[];
@@ -129,9 +141,11 @@ export function CalendarGrid({
 			{weeks.map((week) => (
 				<CalendarWeekRow
 					anchorDate={anchorDate}
+					currentTimestamp={currentTimestamp}
 					entries={entries}
 					key={week.key}
 					locale={locale}
+					skyTime={skyTime}
 					view={view}
 					week={week}
 				/>

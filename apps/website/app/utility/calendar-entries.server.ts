@@ -347,7 +347,6 @@ export function calendarEntriesBetween({
 								realm: shard.realm,
 								area: shard.area,
 							}),
-							pageURL: "/shard-eruption",
 							infographicURL: shard.infographic.url,
 							acknowledgement: shard.infographic.acknowledgement,
 						}),
