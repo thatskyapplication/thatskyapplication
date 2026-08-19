@@ -1,6 +1,7 @@
 import { clsx } from "clsx";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { redirect } from "react-router";
 import {
 	epochSeconds,
 	formatEmojiURL,
@@ -71,12 +72,47 @@ export const meta = ({ location }: Route.MetaArgs) => {
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const pageParameter = url.searchParams.get("page");
+	const dateParameter = url.searchParams.get("date");
+	const now = skyNow();
+	const today = now.startOfDay();
+
+	if (dateParameter !== null) {
+		let targetDate: Temporal.PlainDate | null = null;
+
+		if (/^\d{4}-\d{2}-\d{2}$/.test(dateParameter)) {
+			try {
+				targetDate = Temporal.PlainDate.from(dateParameter);
+			} catch {
+				targetDate = null;
+			}
+		}
+
+		let targetPage = 0;
+
+		if (targetDate) {
+			const daysOffset = targetDate.since(today.toPlainDate()).days;
+			targetPage = daysOffset > 0 ? Math.floor((daysOffset - 1) / 30) : Math.floor(daysOffset / 30);
+		}
+
+		if (targetPage < SHARD_ERUPTION_MINIMUM_PAGE || targetPage > SHARD_ERUPTION_MAXIMUM_PAGE) {
+			throw new Response("Date is outside the supported shard-eruption range.", { status: 400 });
+		}
+
+		url.searchParams.delete("date");
+
+		if (targetPage === 0) {
+			url.searchParams.delete("page");
+		} else {
+			url.searchParams.set("page", targetPage.toString());
+		}
+
+		throw redirect(`${url.pathname}${url.search}`);
+	}
+
 	const shards = [];
 	const locale = getLocale(context);
 	const timeZone = await getPreferredTimeZone(request);
 	const hour12 = getPreferredHour12(request);
-	const now = skyNow();
-	const today = now.startOfDay();
 	let page = pageParameter ? Number(pageParameter) : 0;
 
 	if (!Number.isInteger(page)) {
