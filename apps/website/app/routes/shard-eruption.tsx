@@ -7,6 +7,7 @@ import {
 	formatEmojiURL,
 	type ShardEruptionData,
 	shardEruption,
+	SHARD_ERUPTION_START_DATE,
 	skyNow,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
@@ -23,7 +24,6 @@ import {
 	APPLICATION_NAME,
 	SHARD_ERUPTION_DESCRIPTION,
 	SHARD_ERUPTION_MAXIMUM_PAGE,
-	SHARD_ERUPTION_MINIMUM_PAGE,
 } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { getPreferredHour12 } from "~/utility/hour-cycle.server";
@@ -80,6 +80,10 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const dateParameter = url.searchParams.get("date");
 	const now = skyNow();
 	const today = now.startOfDay();
+	const startDate = SHARD_ERUPTION_START_DATE.toPlainDate();
+	const startDaysOffset = startDate.since(today.toPlainDate()).days;
+	const minimumPage =
+		startDaysOffset > 0 ? Math.floor((startDaysOffset - 1) / 30) : Math.floor(startDaysOffset / 30);
 	let selectedDate: string | null = null;
 	let selectedPage: number | null = null;
 
@@ -104,7 +108,10 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		const targetPage =
 			daysOffset > 0 ? Math.floor((daysOffset - 1) / 30) : Math.floor(daysOffset / 30);
 
-		if (targetPage < SHARD_ERUPTION_MINIMUM_PAGE || targetPage > SHARD_ERUPTION_MAXIMUM_PAGE) {
+		if (
+			Temporal.PlainDate.compare(targetDate, startDate) < 0 ||
+			targetPage > SHARD_ERUPTION_MAXIMUM_PAGE
+		) {
 			throw new Response("Date is outside the supported shard-eruption range.", { status: 400 });
 		}
 
@@ -122,11 +129,12 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		page = 0;
 	}
 
-	page = Math.max(SHARD_ERUPTION_MINIMUM_PAGE, Math.min(SHARD_ERUPTION_MAXIMUM_PAGE, page));
+	page = Math.max(minimumPage, Math.min(SHARD_ERUPTION_MAXIMUM_PAGE, page));
 
 	const amount = page === 0 ? 31 : 30;
-	const startIndex = page * amount + (page <= 0 ? 0 : 1);
-	const endIndex = startIndex + amount;
+	const pageStartIndex = page * amount + (page <= 0 ? 0 : 1);
+	const startIndex = Math.max(pageStartIndex, startDaysOffset);
+	const endIndex = pageStartIndex + amount;
 
 	for (let index = startIndex; index < endIndex; index++) {
 		const date = today.add({ days: index });
@@ -176,10 +184,8 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 			.add({ days: SHARD_ERUPTION_MAXIMUM_PAGE * 30 + 30 })
 			.toPlainDate()
 			.toString(),
-		minimumDate: today
-			.add({ days: SHARD_ERUPTION_MINIMUM_PAGE * 30 })
-			.toPlainDate()
-			.toString(),
+		minimumDate: startDate.toString(),
+		minimumPage,
 		page,
 		selectedDate,
 		shards,
@@ -282,6 +288,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 		locale,
 		maximumDate,
 		minimumDate,
+		minimumPage,
 		page,
 		selectedDate,
 		shards,
@@ -345,7 +352,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 						currentPage={page}
 						excludeSearchParameters={["date"]}
 						maximumPage={SHARD_ERUPTION_MAXIMUM_PAGE}
-						minimumPage={SHARD_ERUPTION_MINIMUM_PAGE}
+						minimumPage={minimumPage}
 					/>
 				</div>
 			</div>

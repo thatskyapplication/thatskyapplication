@@ -1,8 +1,8 @@
-import { deepEqual, equal } from "node:assert/strict";
+import { deepEqual, equal, throws } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import { AreaName, RealmName } from "../source/kingdom/geography.js";
-import { shardEruption } from "../source/shard-eruption.js";
+import { SHARD_ERUPTION_START_DATE, shardEruption } from "../source/shard-eruption.js";
 
 const EXPECTED_SHARD_ERUPTIONS = [
 	{
@@ -162,4 +162,29 @@ test("The input instant is normalised to the Sky calendar day.", () => {
 	const skyDateTime = skyDate(2026, 11, 1, 22);
 	const utcDateTime = skyDateTime.withTimeZone("UTC");
 	deepEqual(comparable(shardEruption(utcDateTime)), comparable(shardEruption(skyDateTime)));
+});
+
+test("Shard eruptions begin on 11 July 2022 in the Sky time zone.", async (t) => {
+	await t.test("The first Sky day is accepted.", () => {
+		equal(SHARD_ERUPTION_START_DATE.toPlainDate().toString(), "2022-07-11");
+		deepEqual(
+			comparable(shardEruption(SHARD_ERUPTION_START_DATE.withTimeZone("Pacific/Honolulu"))),
+			comparable(shardEruption(SHARD_ERUPTION_START_DATE)),
+		);
+	});
+
+	await t.test("An earlier Sky day is rejected.", () => {
+		throws(
+			() => shardEruption(skyDate(2022, 7, 10, 23, 59, 59)),
+			new RangeError("Shard eruption dates cannot be before 2022-07-11."),
+		);
+	});
+
+	await t.test("A foreign calendar date is interpreted as its Sky day.", () => {
+		const utcDateTime = Temporal.ZonedDateTime.from("2022-07-11T00:00:00+00:00[UTC]");
+		throws(
+			() => shardEruption(utcDateTime),
+			new RangeError("Shard eruption dates cannot be before 2022-07-11."),
+		);
+	});
 });

@@ -15,7 +15,13 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import { t } from "i18next";
-import { shardEruption, skyNow, skyToday, TIME_ZONE } from "@thatskyapplication/utility";
+import {
+	shardEruption,
+	SHARD_ERUPTION_START_DATE,
+	skyNow,
+	skyToday,
+	TIME_ZONE,
+} from "@thatskyapplication/utility";
 import { client } from "../discord.js";
 import { SHARD_ERUPTION_URL } from "../utility/constants.js";
 import { CustomId, SHARD_ERUPTION_DATES } from "../utility/custom-id.js";
@@ -96,15 +102,19 @@ export async function today(
 
 function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTopLevelComponent] {
 	const now = skyNow();
-	const date = now.add({ days: offset });
-	const shardYesterday = shardEruption(date.subtract({ days: 1 }));
+	const minimumOffset = SHARD_ERUPTION_START_DATE.toPlainDate().since(now.toPlainDate()).days;
+	const effectiveOffset = Math.max(offset, minimumOffset);
+	const date = now.add({ days: effectiveOffset });
+	const shardYesterday =
+		effectiveOffset === minimumOffset ? null : shardEruption(date.subtract({ days: 1 }));
 	const shardToday = shardEruption(date);
 	const shard = shardEruption(now);
 	const shardTomorrow = shardEruption(date.add({ days: 1 }));
 
 	const buttonYesterday: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${CustomId.ShardEruptionTodayBack}§${offset - 1}`,
+		custom_id: `${CustomId.ShardEruptionTodayBack}§${Math.max(effectiveOffset - 1, minimumOffset)}`,
+		disabled: effectiveOffset === minimumOffset,
 		label: t("navigation-back", { lng: locale, ns: "general" }),
 		style: ButtonStyle.Secondary,
 	};
@@ -118,7 +128,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 
 	const buttonTomorrow: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
-		custom_id: `${CustomId.ShardEruptionTodayNext}§${offset + 1}`,
+		custom_id: `${CustomId.ShardEruptionTodayNext}§${effectiveOffset + 1}`,
 		label: t("navigation-next", { lng: locale, ns: "general" }),
 		style: ButtonStyle.Secondary,
 	};
@@ -166,7 +176,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
 			content:
-				offset === 0
+				effectiveOffset === 0
 					? t("shard-eruption.no-shard-eruptions-today", { lng: locale, ns: "features" })
 					: t("shard-eruption.no-shard-eruptions-not-today", { lng: locale, ns: "features" }),
 		});
@@ -187,7 +197,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 					buttonTomorrow,
 					{
 						type: ComponentType.Button,
-						custom_id: `${CustomId.ShardEruptionBrowse}§${offset}`,
+						custom_id: `${CustomId.ShardEruptionBrowse}§${effectiveOffset}`,
 						emoji: { name: "🌐" },
 						label: t("shard-eruption.browse", { lng: locale, ns: "features" }),
 						style: ButtonStyle.Secondary,
@@ -223,7 +233,11 @@ export async function browse(
 }
 
 function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
-	const shardToday = skyToday().add({ days: offset });
+	const today = skyToday();
+	const minimumOffset = SHARD_ERUPTION_START_DATE.toPlainDate().since(today.toPlainDate()).days;
+	const effectiveOffset = Math.max(offset, minimumOffset);
+	const shardToday = today.add({ days: effectiveOffset });
+	const browseInterval = MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES.length;
 
 	return [
 		{
@@ -269,7 +283,7 @@ function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 									options: generateShardEruptionSelectMenuOptions(
 										shardToday,
 										currentIndex,
-										offset,
+										effectiveOffset,
 										locale,
 									),
 									placeholder: t("time-range", {
@@ -293,9 +307,11 @@ function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 					components: [
 						{
 							type: ComponentType.Button,
-							custom_id: `${CustomId.ShardEruptionBrowseBack}§${
-								offset - MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES.length
-							}`,
+							custom_id: `${CustomId.ShardEruptionBrowseBack}§${Math.max(
+								effectiveOffset - browseInterval,
+								minimumOffset,
+							)}`,
+							disabled: effectiveOffset === minimumOffset,
 							label: t("navigation-back", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},
@@ -307,9 +323,7 @@ function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 						},
 						{
 							type: ComponentType.Button,
-							custom_id: `${CustomId.ShardEruptionBrowseNext}§${
-								offset + MAXIMUM_OPTION_NUMBER * SHARD_ERUPTION_DATES.length
-							}`,
+							custom_id: `${CustomId.ShardEruptionBrowseNext}§${effectiveOffset + browseInterval}`,
 							label: t("navigation-next", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Secondary,
 						},

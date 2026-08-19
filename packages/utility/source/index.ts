@@ -221,7 +221,11 @@ export {
 	SeasonId,
 	type SeasonIds,
 } from "./season.js";
-export { type ShardEruptionData, shardEruption } from "./shard-eruption.js";
+export {
+	type ShardEruptionData,
+	shardEruption,
+	SHARD_ERUPTION_START_DATE,
+} from "./shard-eruption.js";
 export {
 	fetchSkyProfileWithFlags,
 	isSkyProfilePersonalityType,
