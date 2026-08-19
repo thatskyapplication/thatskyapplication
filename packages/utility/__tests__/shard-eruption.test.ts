@@ -208,8 +208,59 @@ test("Shard eruption exceptions.", async (t) => {
 		skyDate(2024, 2, 25),
 		skyDate(2025, 2, 15),
 		skyDate(2025, 3, 29),
+		skyDate(2026, 4, 11),
 	]) {
 		await t.test(date.toPlainDate().toString(), () => equal(shardEruption(date), null));
+	}
+});
+
+test("Shard eruption relocations.", async (t) => {
+	for (const { date, realm, area, reward } of [
+		{
+			date: skyDate(2025, 12, 13),
+			realm: RealmName.DaylightPrairie,
+			area: AreaName.PrairieCave,
+			reward: 2,
+		},
+		{
+			date: skyDate(2026, 2, 13),
+			realm: RealmName.GoldenWasteland,
+			area: AreaName.TheGraveyard,
+			reward: 2,
+		},
+		{
+			date: skyDate(2026, 2, 15),
+			realm: RealmName.HiddenForest,
+			area: AreaName.TheTreehouse,
+			reward: 3.5,
+		},
+		{
+			date: skyDate(2026, 3, 26),
+			realm: RealmName.HiddenForest,
+			area: AreaName.Boneyard,
+			reward: 200,
+		},
+		{
+			date: skyDate(2026, 3, 29),
+			realm: RealmName.DaylightPrairie,
+			area: AreaName.SanctuaryIslands,
+			reward: 3.5,
+		},
+		{
+			date: skyDate(2026, 8, 17),
+			realm: RealmName.GoldenWasteland,
+			area: AreaName.ForgottenArk,
+			reward: 3.5,
+		},
+	] as const) {
+		await t.test(date.toPlainDate().toString(), () => {
+			const shard = shardEruption(date);
+			ok(shard);
+			deepEqual(
+				{ realm: shard.realm, area: shard.area, reward: shard.reward },
+				{ realm, area, reward },
+			);
+		});
 	}
 });
 

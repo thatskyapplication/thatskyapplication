@@ -1,9 +1,7 @@
 import { skyDate, TIME_ZONE } from "./dates.js";
-import { skyCurrentEvents } from "./events/index.js";
 import { realmForArea } from "./kingdom/areas/index.js";
 import { AreaName, type RealmName } from "./kingdom/geography.js";
 import { CDN_URL } from "./routes.js";
-import { EventId } from "./utility/event.js";
 
 function resolveShardEruptionAreaURL(area: AreaName) {
 	return `${CDN_URL}/daily_guides/shard_eruptions/${area.toLowerCase().replaceAll(" ", "_")}.webp`;
@@ -363,45 +361,29 @@ export function shardEruption(input: Temporal.ZonedDateTime): ShardEruptionData 
 
 	const areaIndex = (dayOfMonth - 1) % 5;
 	let { area, reward } = shardEruptionAreas[areaIndex]!;
-	const currentEvents = skyCurrentEvents(date);
 
-	// On 13/12/2025, this was moved to the Prairie Cave (clashed with event).
-	if (
-		area === AreaName.VillageOfDreams &&
-		currentEvents.some((event) => event.id === EventId.DaysOfFeast2025)
-	) {
+	// This was moved to the Prairie Cave (clashed with Days of Feast 2025).
+	if (date.equals(skyDate(2025, 12, 13))) {
 		({ area, reward } = shardEruptionAreas[0]!);
 	}
 
-	// On 13/02/2026, this was moved to the Graveyard (clashed with event).
-	if (
-		area === AreaName.VillageOfDreams &&
-		currentEvents.some((event) => event.id === EventId.DaysOfFortune2026)
-	) {
+	// This was moved to the Graveyard (clashed with Days of Fortune 2026).
+	if (date.equals(skyDate(2026, 2, 13))) {
 		({ area, reward } = shardEruptionAreas[3]!);
 	}
 
-	// On 15/02/2026, this was moved to The Treehouse (clashed with event).
-	if (
-		area === AreaName.JellyfishCove &&
-		currentEvents.some((event) => event.id === EventId.DaysOfLove2026)
-	) {
+	// This was moved to The Treehouse (clashed with Days of Love 2026).
+	if (date.equals(skyDate(2026, 2, 15))) {
 		({ area, reward } = shardEruptionAreas[1]!);
 	}
 
-	// On 26/03/2026, this was moved to the Boneyard (clashed with event).
-	if (
-		area === AreaName.TempleOfThePrairie &&
-		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
-	) {
+	// This was moved to the Boneyard (clashed with Days of Bloom 2026).
+	if (date.equals(skyDate(2026, 3, 26))) {
 		({ area, reward } = shardEruptionAreas[1]!);
 	}
 
-	// On 29/03/2026, this was moved to Sanctuary Islands (clashed with event).
-	if (
-		area === AreaName.ForgottenArk &&
-		currentEvents.some((event) => event.id === EventId.DaysOfBloom2026)
-	) {
+	// This was moved to Sanctuary Islands (clashed with Days of Bloom 2026).
+	if (date.equals(skyDate(2026, 3, 29))) {
 		({ area, reward } = shardEruptionAreas[0]!);
 	}
 
