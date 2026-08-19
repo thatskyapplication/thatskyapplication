@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { redirect } from "react-router";
+import { Link, redirect } from "react-router";
 import {
 	epochSeconds,
 	formatEmojiURL,
@@ -44,6 +44,9 @@ type ShardEruptionCardProps = {
 	currentUnix: number;
 	onPreview: (imageURL: string, acknowledgement: string | null) => void;
 };
+
+const DATE_NAVIGATION_CLASS =
+	"inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:focus-visible:ring-blue-300" as const;
 
 export const meta = ({ location }: Route.MetaArgs) => {
 	const url = String(new URL(location.pathname, WEBSITE_URL));
@@ -309,10 +312,13 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 	return (
 		<SitePage>
 			<div className="flex flex-col items-center justify-center">
-				<div className="mb-4 flex w-full justify-center">
+				<div className="mb-4 flex w-full justify-center gap-2">
+					<Link className={DATE_NAVIGATION_CLASS} to="/shard-eruption">
+						{t("shard-eruption.today", { ns: "features" })}
+					</Link>
 					<DatePicker
 						anchorDate={anchorDate}
-						className="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800 dark:focus-visible:ring-blue-300"
+						className={DATE_NAVIGATION_CLASS}
 						getDateURL={(date) => `?date=${date}`}
 						label={t("shard-eruption.jump-to-date", { ns: "features" })}
 						locale={locale}
