@@ -223,7 +223,6 @@ export {
 } from "./season.js";
 export {
 	type ShardEruptionData,
-	type ShardEruptionResult,
 	shardEruption,
 	SHARD_ERUPTION_PREDICTION_START_DATE,
 	SHARD_ERUPTION_START_DATE,

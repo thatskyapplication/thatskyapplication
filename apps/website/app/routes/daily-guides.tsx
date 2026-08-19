@@ -117,7 +117,6 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 				timeZone: TIME_ZONE,
 				dateStyle: "full",
 			}).format(initialTimestamp),
-			shardUnknown: shard === undefined,
 			shard: shard
 				? {
 						...shard,
@@ -160,16 +159,8 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 }
 
 export default function DailyGuides({ loaderData }: Route.ComponentProps) {
-	const {
-		initialTimestamp,
-		locale,
-		timeZone,
-		hour12,
-		dailyGuides,
-		todayString,
-		shardUnknown,
-		shard,
-	} = loaderData;
+	const { initialTimestamp, locale, timeZone, hour12, dailyGuides, todayString, shard } =
+		loaderData;
 
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const cdnURL = useCDNURL();
@@ -742,11 +733,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								<ArrowRight className="h-3 w-3" />
 							</Link>
 						</div>
-						{shardUnknown ? (
-							<p className="text-sm text-gray-500 dark:text-gray-400">
-								{t("shard-eruption.unknown", { ns: "features" })}
-							</p>
-						) : shard ? (
+						{shard ? (
 							<div className="space-y-3">
 								<div className="hidden items-start justify-between sm:flex">
 									<div>
@@ -755,7 +742,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 										</h3>
 										<button
 											className="regular-link mb-1 block text-sm font-medium transition-colors"
-											onClick={() => handleImageClick(shard.url, shard.acknowledgement)}
+											onClick={() =>
+												handleImageClick(shard.infographic.url, shard.infographic.acknowledgement)
+											}
 											type="button"
 										>
 											{t("shard-eruption.realm-area", {
@@ -809,7 +798,9 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								<div className="space-y-2 sm:hidden">
 									<button
 										className="regular-link block text-sm font-medium transition-colors"
-										onClick={() => handleImageClick(shard.url, shard.acknowledgement)}
+										onClick={() =>
+											handleImageClick(shard.infographic.url, shard.infographic.acknowledgement)
+										}
 										type="button"
 									>
 										{t("shard-eruption.realm-area", {

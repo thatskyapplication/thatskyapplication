@@ -1134,7 +1134,7 @@ async function distributionData({
 
 	if (shard) {
 		if (type === DailyGuidesDistributionType.Compact) {
-			shardEruptionContent += `${shardEruptionInformationString(shard, true, locale)}\n`;
+			shardEruptionContent += `${shardEruptionInformationString(shard, locale)}\n`;
 		}
 
 		shardEruptionContent += shardEruptionTimestampsString({
@@ -1166,11 +1166,11 @@ async function distributionData({
 		containerComponents.push(
 			{
 				type: ComponentType.MediaGallery,
-				items: [{ media: { url: shard.url } }],
+				items: [{ media: { url: shard.infographic.url } }],
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content: `-# ${t("infographic-by", { lng: locale, ns: "general", acknowledgement: shard.acknowledgement })}`,
+				content: `-# ${t("infographic-by", { lng: locale, ns: "general", acknowledgement: shard.infographic.acknowledgement })}`,
 			},
 		);
 	}

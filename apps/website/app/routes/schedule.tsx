@@ -123,11 +123,6 @@ interface ScheduleWithEnd<
 	endRelative: string | null;
 }
 
-interface UnknownShardEruptionSchedule {
-	type: typeof ScheduleType.ShardEruption;
-	unknown: true;
-}
-
 interface ScheduleTravellingSpirit extends ScheduleWithEnd<typeof ScheduleType.TravellingSpirit> {
 	now: SpiritIds | false;
 	spiritId: SpiritIds | null;
@@ -350,12 +345,8 @@ function shardEruptionOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.ShardEruption> | UnknownShardEruptionSchedule {
+): ScheduleWithEnd<typeof ScheduleType.ShardEruption> {
 	const schedule = shardEruptionSchedule(now);
-
-	if (schedule === undefined) {
-		return { type: ScheduleType.ShardEruption, unknown: true };
-	}
 
 	return {
 		type: ScheduleType.ShardEruption,
@@ -622,12 +613,6 @@ interface KnownDisplayCard extends DisplayCardBase {
 	endUnix?: number | null | undefined;
 }
 
-interface UnknownDisplayCard extends DisplayCardBase {
-	unknown: true;
-}
-
-type DisplayCard = KnownDisplayCard | UnknownDisplayCard;
-
 const enum DisplayCardType {
 	Season = 0,
 	Event = 1,
@@ -643,18 +628,15 @@ const enum DisplayCardBadge {
 	ReturningSpirits = 4,
 }
 
-function DisplayCardRow({ item, locale }: { item: DisplayCard; locale: string }) {
+function DisplayCardRow({ item, locale }: { item: KnownDisplayCard; locale: string }) {
 	const { t } = useTranslation();
-	const unknown = "unknown" in item;
-	const timestamp = unknown
-		? t("shard-eruption.unknown", { ns: "features" })
-		: item.active
-			? t("schedule.overview-ends-timestamp", {
-					ns: "features",
-					timestamp: item.end,
-				})
-			: item.next;
-	const relative = unknown ? null : item.active ? item.endRelative : item.relative;
+	const timestamp = item.active
+		? t("schedule.overview-ends-timestamp", {
+				ns: "features",
+				timestamp: item.end,
+			})
+		: item.next;
+	const relative = item.active ? item.endRelative : item.relative;
 	const spiritLinks = item.spiritLinks;
 
 	return (
@@ -768,10 +750,7 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		nestingWorkshopNext(now, timeZone, locale, hour12),
 		vaultEldersBlessingOverview(now, timeZone, locale, hour12),
 		projectorOfMemoriesOverview(now, timeZone, locale, hour12),
-	].filter((schedule) => schedule !== null) satisfies readonly (
-		| BaseSchedule<ScheduleTypes>
-		| UnknownShardEruptionSchedule
-	)[];
+	].filter((schedule) => schedule !== null) satisfies readonly BaseSchedule<ScheduleTypes>[];
 	const scheduleWikiURLs: Partial<Record<ScheduleTypes, string>> = {
 		[ScheduleType.ReturningSpirits]: t(
 			"schedule.detailed-breakdown-returning-spirits-wiki-button-url",
@@ -825,24 +804,11 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 		[ScheduleType.DreamsSkater]: DisplayCardBadge.Light,
 	};
 
-	const allCards: DisplayCard[] = [];
+	const allCards: KnownDisplayCard[] = [];
 
 	for (const schedule of schedules) {
 		let label = t(`schedule.type.${schedule.type}`, { ns: "features" });
 		let wikiHref = scheduleWikiURLs[schedule.type];
-
-		if ("unknown" in schedule) {
-			allCards.push({
-				type: DisplayCardType.Schedule,
-				key: `${schedule.type}`,
-				label,
-				wikiHref,
-				pageHref: "/shard-eruption",
-				unknown: true,
-			});
-
-			continue;
-		}
 
 		const spiritLinks =
 			schedule.type === ScheduleType.ReturningSpirits
@@ -1105,13 +1071,10 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 	}
 
 	const active: KnownDisplayCard[] = [];
-	const unknownCards: UnknownDisplayCard[] = [];
 	const upcoming: KnownDisplayCard[] = [];
 
 	for (const card of allCards) {
-		if ("unknown" in card) {
-			unknownCards.push(card);
-		} else if (card.active) {
+		if (card.active) {
 			active.push(card);
 		} else {
 			upcoming.push(card);
@@ -1240,23 +1203,6 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 							</div>
 						</div>
 					)}
-
-					{/* Unknown. */}
-					{unknownCards.length > 0 && (
-						<div className="col-span-4 grid grid-cols-subgrid rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
-							<div className="col-span-4 mt-1 mb-2">
-								<span className="rounded bg-gray-100 px-2 py-0.5 text-sm font-medium text-gray-600 dark:bg-gray-800 dark:text-gray-300">
-									{t("shard-eruption.unknown", { ns: "features" })}
-								</span>
-							</div>
-							<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
-								{unknownCards.map((item) => (
-									<DisplayCardRow item={item} key={item.key} locale={locale} />
-								))}
-							</div>
-						</div>
-					)}
-
 					{/* Upcoming. */}
 					<div className="col-span-4 grid grid-cols-subgrid rounded-xl border border-gray-200 bg-white px-4 pt-2 shadow-xl dark:border-gray-700 dark:bg-gray-900">
 						<div className="col-span-4 mt-1 mb-2">

@@ -58,12 +58,7 @@ function generateShardEruptionSelectMenuOptions(
 			value: String(index + offset),
 		};
 
-		if (shard === undefined) {
-			stringSelectMenuOption.description = t("shard-eruption.unknown", {
-				lng: locale,
-				ns: "features",
-			});
-		} else if (shard) {
+		if (shard) {
 			stringSelectMenuOption.emoji = resolveShardEruptionEmoji(shard.strong);
 		} else {
 			stringSelectMenuOption.description = t("shard-eruption.browse-no-shard", {
@@ -162,24 +157,20 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 		},
 	];
 
-	if (shardToday === undefined) {
+	if (shardToday) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: t("shard-eruption.unknown", { lng: locale, ns: "features" }),
+			content: `${shardEruptionInformationString(shardToday, locale)}\n${shardEruptionTimestampsString({ timestamps: shardToday.timestamps, locale, now })}`,
 		});
-	} else if (shardToday) {
+
 		containerComponents.push(
 			{
-				type: ComponentType.TextDisplay,
-				content: `${shardEruptionInformationString(shardToday, true, locale)}\n${shardEruptionTimestampsString({ timestamps: shardToday.timestamps, locale, now })}`,
-			},
-			{
 				type: ComponentType.MediaGallery,
-				items: [{ media: { url: shardToday.url } }],
+				items: [{ media: { url: shardToday.infographic.url } }],
 			},
 			{
 				type: ComponentType.TextDisplay,
-				content: `-# ${t("infographic-by", { lng: locale, ns: "general", acknowledgement: shardToday.acknowledgement })}`,
+				content: `-# ${t("infographic-by", { lng: locale, ns: "general", acknowledgement: shardToday.infographic.acknowledgement })}`,
 			},
 		);
 	} else {

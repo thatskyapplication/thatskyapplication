@@ -15,23 +15,23 @@ export function resolveShardEruptionEmoji(strong: boolean) {
 }
 
 export function shardEruptionInformationString(
-	{ realm, area, strong, reward, url }: ShardEruptionData,
-	useHyperlink: boolean,
+	{ realm, area, strong, reward, infographic }: ShardEruptionData,
 	locale: Locale,
 ) {
-	let realmMap = t("shard-eruption.realm-area", { lng: locale, ns: "features", realm, area });
-
-	if (useHyperlink) {
-		realmMap = `[${realmMap}](${url})`;
-	}
+	const realmMap = `[${t("shard-eruption.realm-area", {
+		lng: locale,
+		ns: "features",
+		realm,
+		area,
+	})}](${infographic.url})`;
 
 	return `${formatEmoji(resolveShardEruptionEmoji(strong))} ${realmMap}\n${
-		reward === 200
-			? `200 ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`
-			: resolveCurrencyEmoji({
+		strong
+			? resolveCurrencyEmoji({
 					emoji: MISCELLANEOUS_EMOJIS.AscendedCandle,
 					amount: reward.toLocaleString(locale),
 				})
+			: `${reward.toLocaleString(locale)} ${formatEmoji(MISCELLANEOUS_EMOJIS.Light)}`
 	}`;
 }
 

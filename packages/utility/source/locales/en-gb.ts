@@ -3740,7 +3740,6 @@ export default {
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
 			"browse-no-shard": "No shard eruptions.",
 			none: "None",
-			unknown: "Unknown",
 			today: "Today",
 			browse: "Browse",
 			"jump-to-date": "Jump to a date",

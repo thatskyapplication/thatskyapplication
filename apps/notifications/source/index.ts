@@ -126,7 +126,7 @@ interface NotificationsShardEruptionData {
 	timeUntilStart: number;
 	realm: RealmName;
 	area: AreaName;
-	url: string;
+	infographicURL: string;
 	timestampStart: `<t:${number}:R>`;
 	timestampEnd: `<t:${number}:R>`;
 }
@@ -381,7 +381,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 				timeUntilStart,
 				realm: shardData.realm,
 				area: shardData.area,
-				url: shardData.url,
+				infographicURL: shardData.infographic.url,
 				timestampStart: `<t:${epochSeconds(shardStart.start)}:R>`,
 				timestampEnd: `<t:${epochSeconds(shardStart.end)}:R>`,
 			});
@@ -580,7 +580,12 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 					? t(`notifications.messages.${type}.message-${key}`, {
 							lng: notificationPacket.locale,
 							ns: "features",
-							location: `[${t("shard-eruption.realm-area", { lng: notificationPacket.locale, ns: "features", realm: notification.realm, area: notification.area })}](${notification.url})`,
+							location: `[${t("shard-eruption.realm-area", {
+								lng: notificationPacket.locale,
+								ns: "features",
+								realm: notification.realm,
+								area: notification.area,
+							})}](${notification.infographicURL})`,
 							timestampStart: notification.timestampStart,
 							timestampEnd: notification.timestampEnd,
 						})

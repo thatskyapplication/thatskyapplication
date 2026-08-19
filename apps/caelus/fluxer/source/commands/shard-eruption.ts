@@ -28,10 +28,9 @@ export default {
 			})
 			.join("\n");
 
-		const reward =
-			shard.reward === 200
-				? "200 Light"
-				: `${shard.reward} Ascended Candle${shard.reward === 1 ? "" : "s"}`;
+		const reward = shard.strong
+			? `${shard.reward} Ascended Candle${shard.reward === 1 ? "" : "s"}`
+			: `${shard.reward} Light`;
 
 		await client.api.channels.createMessage(data.channel_id, {
 			content: `**${shard.strong ? "Strong" : "Regular"} Shard** in ${shard.realm} (${shard.area})\nReward: ${reward}\n${timestamps}`,

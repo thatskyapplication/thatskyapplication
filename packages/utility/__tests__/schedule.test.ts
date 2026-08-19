@@ -427,8 +427,31 @@ test("Shard eruption schedule traverses Sky calendar days across spring forward.
 	equal(result.active, false);
 });
 
-test("Shard eruption schedule is unknown when the eruption history is unknown.", () => {
-	equal(shardEruptionSchedule(skyDate(2022, 9, 30, 12)), undefined);
+test("Shard eruption schedule includes an eruption from the previous Sky day after reset.", () => {
+	const result = shardEruptionSchedule(skyDate(2022, 7, 15, 0, 30));
+	equal(result.start.toString(), "2022-07-14T23:28:40-07:00[America/Los_Angeles]");
+	equal(result.end.toString(), "2022-07-15T01:05:00-07:00[America/Los_Angeles]");
+	equal(result.active, true);
+});
+
+test("Shard eruption schedule moves to the current Sky day after an overnight eruption ends.", () => {
+	const result = shardEruptionSchedule(skyDate(2022, 7, 15, 1, 10));
+	equal(result.start.toString(), "2022-07-15T01:14:40-07:00[America/Los_Angeles]");
+	equal(result.end.toString(), "2022-07-15T02:06:00-07:00[America/Los_Angeles]");
+	equal(result.active, false);
+});
+
+test("Shard eruption schedule does not search before the first eruption date.", () => {
+	const result = shardEruptionSchedule(skyDate(2022, 7, 11));
+	equal(result.start.toString(), "2022-07-11T01:30:00-07:00[America/Los_Angeles]");
+	equal(result.active, false);
+});
+
+test("Shard eruption schedule moves from the old sequence to the predicted schedule.", () => {
+	const result = shardEruptionSchedule(skyDate(2022, 9, 30, 23, 50));
+	equal(result.start.toString(), "2022-10-01T07:48:40-07:00[America/Los_Angeles]");
+	equal(result.end.toString(), "2022-10-01T11:40:00-07:00[America/Los_Angeles]");
+	equal(result.active, false);
 });
 
 const NEXT_SCHEDULES = [

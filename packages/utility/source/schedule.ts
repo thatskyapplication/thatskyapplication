@@ -1,7 +1,7 @@
 import { isActive, TIME_ZONE } from "./dates.js";
 import { skyNotEndedEvents } from "./events/index.js";
 import { RETURNING_DATES, TRAVELLING_DATES } from "./kingdom/seasons/index.js";
-import { shardEruption } from "./shard-eruption.js";
+import { SHARD_ERUPTION_START_DATE, shardEruption } from "./shard-eruption.js";
 import { EventId } from "./utility/event.js";
 
 export const ScheduleType = {
@@ -122,31 +122,24 @@ export function turtleSchedule(date: Temporal.ZonedDateTime) {
 
 export function shardEruptionSchedule(date: Temporal.ZonedDateTime) {
 	const skyDay = date.withTimeZone(TIME_ZONE).startOfDay();
-	const shard = shardEruption(skyDay);
-
-	if (shard === undefined) {
-		return undefined;
-	}
-
-	let nextShard = shard?.timestamps.find(
+	const previousShard =
+		Temporal.ZonedDateTime.compare(skyDay, SHARD_ERUPTION_START_DATE) > 0
+			? shardEruption(skyDay.subtract({ days: 1 }))
+			: null;
+	let nextShard = previousShard?.timestamps.find(
 		({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
 	);
 
-	if (!nextShard) {
-		for (let index = 1; ; index++) {
-			const nextPossibleShard = shardEruption(skyDay.add({ days: index }));
+	for (let index = 0; !nextShard; index++) {
+		const nextPossibleShard = shardEruption(skyDay.add({ days: index }));
 
-			if (nextPossibleShard === undefined) {
-				return undefined;
-			}
-
-			if (nextPossibleShard === null) {
-				continue;
-			}
-
-			nextShard = nextPossibleShard.timestamps[0]!;
-			break;
+		if (nextPossibleShard === null) {
+			continue;
 		}
+
+		nextShard = nextPossibleShard.timestamps.find(
+			({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0,
+		);
 	}
 
 	return {

@@ -40,7 +40,6 @@ type ShardEruptionCardProps = {
 				}[];
 		  })
 		| null;
-	unknown: boolean;
 	todayFormat: string;
 	currentUnix: number;
 	onPreview: (imageURL: string, acknowledgement: string | null) => void;
@@ -148,7 +147,6 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 
 		shards.push({
 			date: date.toPlainDate().toString(),
-			unknown: shard === undefined,
 			shard: shard
 				? {
 						...shard,
@@ -201,13 +199,19 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 function ShardEruptionCard({
 	selected,
 	shard,
-	unknown,
 	todayFormat,
 	currentUnix,
 	onPreview,
 }: ShardEruptionCardProps) {
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
+	const realmArea = shard
+		? t("shard-eruption.realm-area", {
+				ns: "features",
+				realm: shard.realm,
+				area: shard.area,
+			})
+		: null;
 
 	return (
 		<div
@@ -234,20 +238,14 @@ function ShardEruptionCard({
 				)}
 				<h2 className="my-0 text-lg">{todayFormat}</h2>
 			</div>
-			{unknown ? (
-				<p className="pt-6">{t("shard-eruption.unknown", { ns: "features" })}</p>
-			) : shard ? (
+			{shard ? (
 				<>
 					<button
 						className="regular-link inline-flex items-center text-sm"
-						onClick={() => onPreview(shard.url, shard.acknowledgement)}
+						onClick={() => onPreview(shard.infographic.url, shard.infographic.acknowledgement)}
 						type="button"
 					>
-						{t("shard-eruption.realm-area", {
-							ns: "features",
-							realm: shard.realm,
-							area: shard.area,
-						})}
+						{realmArea}
 					</button>
 					<div className="inline-flex items-center">
 						<span className="text-sm">{shard.reward}</span>
@@ -318,7 +316,6 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 			selected={shard.date === selectedDate}
 			shard={shard.shard}
 			todayFormat={shard.todayFormat}
-			unknown={shard.unknown}
 		/>
 	));
 
