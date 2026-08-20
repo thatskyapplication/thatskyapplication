@@ -71,6 +71,54 @@ export const RADIANCE_EVENTS = [
 
 export const DOUBLE_HEART_EVENTS = [
 	{
+		start: skyDate(2019, 11, 26),
+		end: skyDate(2019, 12, 4, 12),
+	},
+	{
+		start: skyDate(2020, 1, 24),
+		end: skyDate(2020, 1, 28),
+	},
+	{
+		start: skyDate(2020, 5, 18, 12),
+		end: skyDate(2020, 5, 26, 12),
+	},
+	{
+		start: skyDate(2020, 11, 23, 12),
+		end: skyDate(2020, 11, 30, 12),
+	},
+	{
+		start: skyDate(2021, 2, 12, 12),
+		end: skyDate(2021, 2, 21, 12),
+	},
+	{
+		start: skyDate(2021, 11, 23),
+		end: skyDate(2021, 11, 30),
+	},
+	{
+		start: skyDate(2022, 11, 22),
+		end: skyDate(2022, 11, 29),
+	},
+	{
+		start: skyDate(2023, 2, 13),
+		end: skyDate(2023, 2, 27),
+	},
+	{
+		start: skyDate(2023, 4, 10),
+		end: skyDate(2023, 4, 17),
+	},
+	{
+		start: skyDate(2023, 11, 20),
+		end: skyDate(2023, 11, 27),
+	},
+	{
+		start: skyDate(2024, 2, 12),
+		end: skyDate(2024, 2, 26),
+	},
+	{
+		start: skyDate(2024, 4, 10),
+		end: skyDate(2024, 4, 17),
+	},
+	{
 		start: skyDate(2024, 12, 9),
 		end: skyDate(2024, 12, 23),
 	},
