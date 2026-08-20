@@ -7,7 +7,6 @@ import {
 	type AreaName,
 	DOUBLE_HEART_EVENTS,
 	de,
-	dreamsSkaterSchedule,
 	type EventIds,
 	enGB,
 	epochSeconds,
@@ -418,7 +417,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		const timeUntilStart = (60 - minute) % 60;
 		const startTime = date.add({ minutes: timeUntilStart });
 
-		if (internationalSpaceStationSchedule(date)?.start.equals(startTime)) {
+		if (internationalSpaceStationSchedule(date)!.start.equals(startTime)) {
 			notifications.push({
 				type: NotificationType.InternationalSpaceStation,
 				timeUntilStart,
@@ -512,13 +511,11 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		const timeUntilStart = (60 - minute) % 60;
 		const startTime = date.add({ minutes: timeUntilStart });
 
-		if (dreamsSkaterSchedule(date)?.start.equals(startTime)) {
-			notifications.push({
-				type: NotificationType.DreamsSkater,
-				timeUntilStart,
-				timestamp: `<t:${epochSeconds(startTime)}:R>`,
-			});
-		}
+		notifications.push({
+			type: NotificationType.DreamsSkater,
+			timeUntilStart,
+			timestamp: `<t:${epochSeconds(startTime)}:R>`,
+		});
 	}
 
 	if (
