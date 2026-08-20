@@ -28,4 +28,5 @@ export default new Season({
 		{ translation: CosmeticCommon.UltimateProp, cosmetic: Cosmetic.LightseekerUltimateProp },
 	],
 	seasonalCandlesRotation: null,
+	doubleSeasonalLight: [{ start: skyDate(2019, 10, 23), end: skyDate(2019, 10, 30) }],
 });

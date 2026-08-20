@@ -32,4 +32,8 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.HiddenForest },
 	],
+	doubleSeasonalLight: [
+		{ start: skyDate(2024, 4, 24), end: skyDate(2024, 4, 29) },
+		{ start: skyDate(2024, 6, 10), end: skyDate(2024, 6, 17) },
+	],
 });

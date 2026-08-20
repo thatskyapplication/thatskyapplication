@@ -23,4 +23,5 @@ export default new Season({
 		PlayfightingHerbalist,
 	],
 	seasonalCandlesRotation: null,
+	doubleSeasonalLight: [{ start: skyDate(2020, 6, 15), end: skyDate(2020, 6, 22) }],
 });

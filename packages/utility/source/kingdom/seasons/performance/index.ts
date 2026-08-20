@@ -14,4 +14,5 @@ export default new Season({
 	guide: PerformanceGuide,
 	spirits: [FranticStagehand, ForgetfulStoryteller, MellowMusician, ModestDancer],
 	seasonalCandlesRotation: null,
+	doubleSeasonalLight: [{ start: skyDate(2022, 6, 20), end: skyDate(2022, 6, 27) }],
 });

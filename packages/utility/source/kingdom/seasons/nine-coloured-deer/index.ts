@@ -37,4 +37,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.Two, realm: RealmName.VaultOfKnowledge },
 		{ rotation: RotationIdentifier.Two, realm: RealmName.DaylightPrairie },
 	],
+	doubleSeasonalLight: [{ start: skyDate(2024, 3, 11), end: skyDate(2024, 3, 18) }],
 });

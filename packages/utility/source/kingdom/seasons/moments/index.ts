@@ -14,4 +14,5 @@ export default new Season({
 	guide: MomentsGuide,
 	spirits: [ReassuringRanger, NightbirdWhisperer, JollyGeologist, AsceticMonk],
 	seasonalCandlesRotation: null,
+	doubleSeasonalLight: [{ start: skyDate(2023, 9, 25), end: skyDate(2023, 10, 2) }],
 });

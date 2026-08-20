@@ -53,4 +53,5 @@ export default new Season({
 		{ rotation: RotationIdentifier.One, realm: RealmName.ValleyOfTriumph },
 		{ rotation: RotationIdentifier.One, realm: RealmName.GoldenWasteland },
 	],
+	doubleSeasonalLight: [{ start: skyDate(2024, 12, 9), end: skyDate(2024, 12, 23) }],
 });

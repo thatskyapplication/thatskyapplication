@@ -23,4 +23,5 @@ export default new Season({
 		ThoughtfulDirector,
 	],
 	seasonalCandlesRotation: null,
+	doubleSeasonalLight: [{ start: skyDate(2020, 3, 19), end: skyDate(2020, 3, 23) }],
 });

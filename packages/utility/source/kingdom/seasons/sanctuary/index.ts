@@ -23,4 +23,8 @@ export default new Season({
 		ChillSunbather,
 	],
 	seasonalCandlesRotation: null,
+	doubleSeasonalLight: [
+		{ start: skyDate(2020, 7, 13), end: skyDate(2020, 7, 20) },
+		{ start: skyDate(2020, 9, 8), end: skyDate(2020, 9, 21) },
+	],
 });
