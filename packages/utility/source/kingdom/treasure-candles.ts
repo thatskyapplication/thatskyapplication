@@ -168,6 +168,73 @@ const TREASURE_CANDLES_DOUBLE_ROTATION = {
 
 export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 	{
+		start: skyDate(2020, 6, 22),
+		end: skyDate(2020, 7, 20),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2020, 8, 17),
+		end: skyDate(2020, 8, 24),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2020, 12, 21),
+		end: skyDate(2021, 1, 4),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2021, 11, 23),
+		end: skyDate(2021, 11, 30),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2022, 2, 25),
+		end: skyDate(2022, 3, 11),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2022, 6, 20),
+		end: skyDate(2022, 6, 27),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2022, 11, 22),
+		end: skyDate(2022, 11, 29),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2023, 3, 6),
+		end: skyDate(2023, 3, 20),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2023, 4, 10),
+		end: skyDate(2023, 4, 17),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2023, 5, 15),
+		end: skyDate(2023, 5, 22),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2023, 11, 20),
+		end: skyDate(2023, 11, 27),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	// This event placed eight treasure candles in each realm from (40 total). Not yet handled.
+	// Source: https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1308-patch-notes---april-10-2024---0-25-0-257483-android-huawei-256148-ios-playstation-257607-pc-255731-switch
+	{
+		start: skyDate(2024, 4, 10),
+		end: skyDate(2024, 4, 17),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
+		start: skyDate(2024, 9, 9),
+		end: skyDate(2024, 9, 30),
+		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
+	},
+	{
 		start: skyDate(2024, 12, 9),
 		end: skyDate(2024, 12, 23),
 		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
