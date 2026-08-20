@@ -278,8 +278,12 @@ function pollutedGeyserOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.PollutedGeyser> {
+): ScheduleWithEnd<typeof ScheduleType.PollutedGeyser> | null {
 	const schedule = pollutedGeyserSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
 
 	return {
 		type: ScheduleType.PollutedGeyser,

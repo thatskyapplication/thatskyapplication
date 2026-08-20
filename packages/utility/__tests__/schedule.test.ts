@@ -125,6 +125,13 @@ const SCHEDULES = [
 		schedule: pollutedGeyserSchedule,
 		cases: [
 			{
+				label: "available from Days of Nature 2021",
+				input: skyDate(2021, 4, 19),
+				start: "2021-04-19T00:05:00-07:00[America/Los_Angeles]",
+				end: "2021-04-19T00:15:00-07:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
 				label: "active on a normal day",
 				input: skyDate(2025, 6, 15, 10, 8),
 				start: "2025-06-15T10:05:00-07:00[America/Los_Angeles]",
@@ -571,6 +578,11 @@ for (const { name, schedule, cases } of SCHEDULES) {
 		});
 	}
 }
+
+test("Polluted geyser schedule is unavailable before Days of Nature 2021.", () => {
+	equal(pollutedGeyserSchedule(skyDate(2017, 12, 19)), null);
+	equal(pollutedGeyserSchedule(skyDate(2021, 4, 18, 23, 59, 59)), null);
+});
 
 test("Grandma schedule is unavailable before its release.", () => {
 	equal(grandmaSchedule(skyDate(2017, 12, 19)), null);

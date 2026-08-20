@@ -216,6 +216,7 @@ export {
 	nextPassage,
 	NINE_COLOURED_DEER_START_DATE,
 	nineColouredDeerSchedule,
+	POLLUTED_GEYSER_START_DATE,
 	pollutedGeyserSchedule,
 	PROJECTOR_OF_MEMORIES_START_DATE,
 	projectorOfMemoriesSchedule,

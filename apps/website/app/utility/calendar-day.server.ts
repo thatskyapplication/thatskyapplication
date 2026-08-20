@@ -16,6 +16,7 @@ import {
 	nextPassage,
 	NINE_COLOURED_DEER_START_DATE,
 	nineColouredDeerSchedule,
+	POLLUTED_GEYSER_START_DATE,
 	pollutedGeyserSchedule,
 	PROJECTOR_OF_MEMORIES_START_DATE,
 	projectorOfMemoriesSchedule,
@@ -48,7 +49,11 @@ const PERIOD_SCHEDULES = [
 		schedule: internationalSpaceStationSchedule,
 		start: null,
 	},
-	{ type: ScheduleType.PollutedGeyser, schedule: pollutedGeyserSchedule, start: null },
+	{
+		type: ScheduleType.PollutedGeyser,
+		schedule: pollutedGeyserSchedule,
+		start: POLLUTED_GEYSER_START_DATE,
+	},
 	{ type: ScheduleType.Grandma, schedule: grandmaSchedule, start: GRANDMA_START_DATE },
 	{ type: ScheduleType.Turtle, schedule: turtleSchedule, start: TURTLE_START_DATE },
 	{

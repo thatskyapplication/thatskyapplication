@@ -480,7 +480,7 @@ function returningSpiritsDetailedBreakdown(
 }
 
 function pollutedGeyserOverview(date: Temporal.ZonedDateTime) {
-	const schedule = pollutedGeyserSchedule(date);
+	const schedule = pollutedGeyserSchedule(date)!;
 
 	return {
 		now: schedule.active,

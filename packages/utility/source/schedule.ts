@@ -37,6 +37,12 @@ const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [6, 13, 20, 27] as const;
 const INTERNATIONAL_SPACE_STATION_START_DATE = Temporal.PlainDate.from("2019-09-22");
 const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from("2023-06-01");
 /**
+ * Introduced with Days of Nature at 00:00 PDT on 19 April 2021.
+ *
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/784-patch-notes---april-15-2021---0-13-3-165938}
+ */
+export const POLLUTED_GEYSER_START_DATE = skyDate(2021, 4, 19);
+/**
  * Released on 18 November 2021, first observed at 12:33 PST.
  *
  * @remarks Time is observed from a user on Discord.
@@ -180,6 +186,10 @@ export function returningSpiritsSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function pollutedGeyserSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, POLLUTED_GEYSER_START_DATE) < 0) {
+		return null;
+	}
+
 	const { hour, minute } = date;
 	const start = addWallClockMinutes(
 		startOfHour(date),
