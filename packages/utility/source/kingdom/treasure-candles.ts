@@ -350,7 +350,7 @@ function treasureCandleFromRotation(
 		.total({ unit: "days", relativeTo: TREASURE_CANDLES_INITIAL_SEEK });
 	const realmIndex = VALID_REALM_NAME.at((daysDiff + 4) % 5)!;
 	const realmRotation = rotation[realmIndex];
-	return realmRotation[daysDiff % realmRotation.length]!;
+	return realmRotation.at(daysDiff % realmRotation.length)!;
 }
 
 function treasureCandleFromConfiguration(
