@@ -2352,6 +2352,9 @@
 		"maintenance-description-many-with-times": "Sky pode ficar indisponível durante esses períodos.\n{{times}}",
 		"navigation-back": "Retornar",
 		"navigation-next": "Avançar",
+		"close": "",
+		"today": "Hoje",
+		"shard-eruption": "Erupções de fragmentos",
 		"wiki": "Wiki"
 	},
 	"commands": {
@@ -2687,6 +2690,35 @@
 				"title": "Calculadora de Luz Alada"
 			}
 		},
+		"calendar": {
+			"name": "",
+			"description": "",
+			"description-short": "",
+			"view-month": "",
+			"view-week": "",
+			"view-label": "",
+			"previous-month": "",
+			"next-month": "",
+			"previous-week": "",
+			"next-week": "",
+			"previous-day": "",
+			"next-day": "",
+			"previous-year": "",
+			"next-year": "",
+			"legend": "",
+			"nothing-scheduled": "",
+			"duration_one": "",
+			"duration_other": "",
+			"jump-to-date": "",
+			"time-zone-local": "",
+			"time-zone-label": "",
+			"all-day": "",
+			"during-the-day": "",
+			"view-day": "",
+			"cadence_one": "",
+			"cadence_other": "",
+			"community-event": ""
+		},
 		"catalogue": {
 			"main-title": "Catálogo",
 			"description": "Crie um catálogo e acompanhe todos os seus cosméticos do Sky.",
@@ -2807,7 +2839,6 @@
 			"treasure-candles": "Velas do tesouro",
 			"seasonal-candles": "Velas de temporada",
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} com o Passe de Temporada)",
-			"shard-eruption": "Erupções de fragmentos",
 			"shard-eruption-data": "Dados",
 			"shard-eruption-timestamps": "Marcação de data/hora",
 			"shard-eruption-none": "Nada",
@@ -3072,7 +3103,7 @@
 				"5": "Gêiser poluído",
 				"6": "Vovó",
 				"7": "Tartaruga",
-				"8": "Erupções de fragmentos",
+				"8": "$t(general:shard-eruption)",
 				"9": "Patinadora dos sonhos",
 				"10": "AURORA",
 				"11": "Passagem",
@@ -3180,8 +3211,8 @@
 			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
 			"browse-no-shard": "Sem erupções de fragmentos.",
 			"none": "Nada",
-			"today": "Hoje",
 			"browse": "Procurar",
+			"jump-to-date": "",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))"
 		},
 		"sky-profile": {
