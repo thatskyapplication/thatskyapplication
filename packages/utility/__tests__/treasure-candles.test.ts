@@ -1,7 +1,10 @@
-import { deepEqual } from "node:assert/strict";
+import { deepEqual, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
-import { treasureCandles } from "../source/kingdom/treasure-candles.js";
+import {
+	treasureCandles,
+	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
+} from "../source/kingdom/treasure-candles.js";
 import { CDN_URL } from "../source/routes.js";
 
 const EXPECTED_ROTATIONS = [
@@ -734,5 +737,23 @@ const EXPECTED_ROTATIONS = [
 test("Treasure candles rotations.", async (t) => {
 	for (const { date, expected } of EXPECTED_ROTATIONS) {
 		await t.test(date.toPlainDate().toString(), () => deepEqual(treasureCandles(date), expected));
+	}
+});
+
+test("Double treasure candle configurations are positive and chronological.", () => {
+	for (const [index, configuration] of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.entries()) {
+		ok(
+			Temporal.ZonedDateTime.compare(configuration.start, configuration.end) < 0,
+			`Expected double treasure candle configuration ${index} to end after it starts.`,
+		);
+
+		const next = TREASURE_CANDLES_DOUBLE_CONFIGURATIONS[index + 1];
+
+		if (next) {
+			ok(
+				Temporal.ZonedDateTime.compare(configuration.end, next.start) <= 0,
+				`Expected double treasure candle configuration ${index} to end before the next one starts.`,
+			);
+		}
 	}
 });

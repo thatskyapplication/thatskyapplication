@@ -1,7 +1,8 @@
-import { deepStrictEqual } from "node:assert/strict";
+import { deepStrictEqual, ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import DearVanGogh from "../source/kingdom/seasons/dear-van-gogh/index.js";
+import { SEASONS } from "../source/kingdom/seasons/index.js";
 import Lightmending from "../source/kingdom/seasons/lightmending/index.js";
 
 const DEAR_VAN_GOGH_SEASONAL_CANDLES_ROTATIONS = [
@@ -155,4 +156,32 @@ test("Remaining seasonal candles on the last day of the season.", () => {
 		seasonalCandlesLeft: 5,
 		seasonalCandlesLeftWithSeasonPass: 6,
 	});
+});
+
+test("Double seasonal light windows are positive, chronological and within their season.", () => {
+	for (const season of SEASONS.values()) {
+		const windows = season.doubleSeasonalLight ?? [];
+
+		for (const [index, window] of windows.entries()) {
+			ok(
+				Temporal.ZonedDateTime.compare(window.start, window.end) < 0,
+				`Expected double seasonal light window ${index} of season ${season.id} to end after it starts.`,
+			);
+
+			ok(
+				Temporal.ZonedDateTime.compare(window.start, season.start) >= 0 &&
+					Temporal.ZonedDateTime.compare(window.end, season.end) <= 0,
+				`Expected double seasonal light window ${index} of season ${season.id} to be within the season.`,
+			);
+
+			const next = windows[index + 1];
+
+			if (next) {
+				ok(
+					Temporal.ZonedDateTime.compare(window.end, next.start) <= 0,
+					`Expected double seasonal light window ${index} of season ${season.id} to end before the next one starts.`,
+				);
+			}
+		}
+	}
 });

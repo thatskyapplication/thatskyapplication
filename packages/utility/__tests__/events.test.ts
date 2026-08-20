@@ -2,6 +2,7 @@ import { ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import { skyEventFamilies, skyEvents, skyEventsBetween } from "../source/events/index.js";
+import { DOUBLE_HEART_EVENTS } from "../source/events/miscellaneous.js";
 import { EventId } from "../source/utility/event.js";
 
 test("Events are indexed chronologically.", () => {
@@ -94,4 +95,22 @@ test("skyEventsBetween treats the range as half-open.", () => {
 		skyEventsBetween(end.subtract({ days: 1 }), end).has(EventId.DaysOfLove2026),
 		"Expected an event ending at the range end to fall inside the range.",
 	);
+});
+
+test("Double heart events are positive and chronological.", () => {
+	for (const [index, event] of DOUBLE_HEART_EVENTS.entries()) {
+		ok(
+			Temporal.ZonedDateTime.compare(event.start, event.end) < 0,
+			`Expected double heart event ${index} to end after it starts.`,
+		);
+
+		const next = DOUBLE_HEART_EVENTS[index + 1];
+
+		if (next) {
+			ok(
+				Temporal.ZonedDateTime.compare(event.end, next.start) <= 0,
+				`Expected double heart event ${index} to end before the next one starts.`,
+			);
+		}
+	}
 });
