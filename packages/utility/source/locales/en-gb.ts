@@ -3326,7 +3326,6 @@ export default {
 			"seasonal-candles": "Seasonal candles",
 			"seasonal-candles-remain-with-season-pass":
 				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
-			"shard-eruption": "$t(general:shard-eruption)",
 			"shard-eruption-data": "Data",
 			"shard-eruption-timestamps": "Timestamps",
 			"shard-eruption-none": "None",

@@ -723,7 +723,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					<div className="mb-5">
 						<div className="mb-3 flex items-center justify-between gap-3">
 							<h2 className="m-0 text-sm font-semibold text-gray-900 dark:text-white">
-								{t("daily-guides.shard-eruption", { ns: "features" })}
+								{t("shard-eruption", { ns: "general" })}
 							</h2>
 							<Link
 								className="regular-link inline-flex items-center gap-1 text-xs font-medium"

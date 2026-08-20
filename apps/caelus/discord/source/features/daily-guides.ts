@@ -1130,7 +1130,7 @@ async function distributionData({
 	}
 
 	const shard = shardEruption(today);
-	let shardEruptionContent = `### ${t("daily-guides.shard-eruption", { lng: locale, ns: "features" })}\n\n`;
+	let shardEruptionContent = `### ${t("shard-eruption", { lng: locale, ns: "general" })}\n\n`;
 
 	if (shard) {
 		if (type === DailyGuidesDistributionType.Compact) {
