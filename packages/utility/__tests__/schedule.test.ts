@@ -438,6 +438,20 @@ const SCHEDULES = [
 				active: false,
 			},
 			{
+				label: "skips the invalid 30th in a non-leap February",
+				input: skyDate(2025, 2, 23, 12, 0),
+				start: "2025-03-06T00:00:00-08:00[America/Los_Angeles]",
+				end: "2025-03-07T00:00:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
+				label: "skips the invalid 30th in a leap February",
+				input: skyDate(2024, 2, 23, 12, 0),
+				start: "2024-03-06T00:00:00-08:00[America/Los_Angeles]",
+				end: "2024-03-07T00:00:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
 				label: "upcoming on a normal day",
 				input: skyDate(2025, 6, 10, 12, 0),
 				start: "2025-06-14T00:00:00-07:00[America/Los_Angeles]",
