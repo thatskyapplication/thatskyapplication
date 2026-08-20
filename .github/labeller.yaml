@@ -92,6 +92,17 @@ f:schedule:
           - apps/website/app/utility/schedule.ts
           - packages/utility/__tests__/schedule.test.ts
           - packages/utility/source/schedule.ts
+f:shard-eruption:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/caelus/discord/source/commands/chat-inputs/shard-eruption.ts
+          - apps/caelus/discord/source/features/shard-eruption.ts
+          - apps/caelus/discord/source/utility/shard-eruption.ts
+          - apps/caelus/fluxer/source/commands/shard-eruption.ts
+          - apps/website/app/components/ShardEruptionTimestamp.tsx
+          - apps/website/app/routes/shard-eruption.tsx
+          - packages/utility/__tests__/shard-eruption.test.ts
+          - packages/utility/source/shard-eruption.ts
 f:sky-profile:
   - changed-files:
       - any-glob-to-any-file:
