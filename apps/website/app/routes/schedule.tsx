@@ -302,8 +302,12 @@ function grandmaOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.Grandma> {
+): ScheduleWithEnd<typeof ScheduleType.Grandma> | null {
 	const schedule = grandmaSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
 
 	return {
 		type: ScheduleType.Grandma,

@@ -159,6 +159,13 @@ const SCHEDULES = [
 		schedule: grandmaSchedule,
 		cases: [
 			{
+				label: "available from its release",
+				input: skyDate(2021, 11, 18, 12, 33, 3),
+				start: "2021-11-18T12:35:00-08:00[America/Los_Angeles]",
+				end: "2021-11-18T12:45:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
 				label: "active on a normal day",
 				input: skyDate(2025, 6, 15, 10, 40),
 				start: "2025-06-15T10:35:00-07:00[America/Los_Angeles]",
@@ -557,6 +564,11 @@ for (const { name, schedule, cases } of SCHEDULES) {
 		});
 	}
 }
+
+test("Grandma schedule is unavailable before its release.", () => {
+	equal(grandmaSchedule(skyDate(2017, 12, 19)), null);
+	equal(grandmaSchedule(skyDate(2021, 11, 18, 12, 33, 2)), null);
+});
 
 test("Turtle schedule is unavailable before Days of Nature 2022.", () => {
 	equal(turtleSchedule(skyDate(2017, 12, 19)), null);

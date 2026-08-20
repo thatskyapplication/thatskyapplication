@@ -37,6 +37,15 @@ const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [6, 13, 20, 27] as const;
 const INTERNATIONAL_SPACE_STATION_START_DATE = Temporal.PlainDate.from("2019-09-22");
 const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from("2023-06-01");
 /**
+ * Released on 18 November 2021, first observed at 12:33 PST.
+ *
+ * @remarks Time is observed from a user on Discord.
+ *
+ * @see {@link https://discord.com/channels/575762611111592007/575827782144098304/910991017518432297}
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/857-patch-notes---november-18-2021---0-15-5-179535-ios-179644-android-179482-switch-1637266164}
+ */
+export const GRANDMA_START_DATE = skyDate(2021, 11, 18, 12, 33, 3);
+/**
  * Introduced with Days of Nature on 18 April 2022.
  */
 export const TURTLE_START_DATE = skyDate(2022, 4, 18);
@@ -168,6 +177,10 @@ export function pollutedGeyserSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function grandmaSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, GRANDMA_START_DATE) < 0) {
+		return null;
+	}
+
 	const { hour, minute } = date;
 	const start = addWallClockMinutes(
 		startOfHour(date),

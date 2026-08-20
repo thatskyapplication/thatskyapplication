@@ -203,6 +203,7 @@ export {
 	aviarysFireworkFestivalSchedule,
 	DREAMS_SKATER_START_DATE,
 	dreamsSkaterSchedule,
+	GRANDMA_START_DATE,
 	grandmaSchedule,
 	internationalSpaceStationDates,
 	internationalSpaceStationSchedule,

@@ -6,6 +6,7 @@ import {
 	DREAMS_SKATER_START_DATE,
 	dreamsSkaterSchedule,
 	formatEmojiURL,
+	GRANDMA_START_DATE,
 	grandmaSchedule,
 	internationalSpaceStationSchedule,
 	meteorShowerSchedule,
@@ -47,7 +48,7 @@ const PERIOD_SCHEDULES = [
 		start: null,
 	},
 	{ type: ScheduleType.PollutedGeyser, schedule: pollutedGeyserSchedule, start: null },
-	{ type: ScheduleType.Grandma, schedule: grandmaSchedule, start: null },
+	{ type: ScheduleType.Grandma, schedule: grandmaSchedule, start: GRANDMA_START_DATE },
 	{ type: ScheduleType.Turtle, schedule: turtleSchedule, start: TURTLE_START_DATE },
 	{
 		type: ScheduleType.DreamsSkater,

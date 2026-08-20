@@ -535,7 +535,7 @@ function pollutedGeyserDetailedBreakdown(
 }
 
 function grandmaOverview(date: Temporal.ZonedDateTime) {
-	const schedule = grandmaSchedule(date);
+	const schedule = grandmaSchedule(date)!;
 
 	return {
 		now: schedule.active,
