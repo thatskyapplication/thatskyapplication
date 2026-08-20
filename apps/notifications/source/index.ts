@@ -120,6 +120,13 @@ const NOTIFICATION_SEASONS_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.Seasons];
 const NOTIFICATION_RETURNING_SPIRITS_MAXIMUM_OFFSET =
 	NotificationOffsetToMaximumValues[NotificationType.ReturningSpirits];
+const MAINTENANCE_PERIODS_NEWEST_FIRST = MAINTENANCE_PERIODS.toReversed();
+const DOUBLE_HEART_EVENTS_NEWEST_FIRST = DOUBLE_HEART_EVENTS.toReversed();
+
+const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS_NEWEST_FIRST =
+	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS.toReversed();
+
+const RADIANCE_EVENTS_NEWEST_FIRST = RADIANCE_EVENTS.toReversed();
 
 interface NotificationsShardEruptionData {
 	type: NotificationShardEruptionTypes;
@@ -239,10 +246,14 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		shardData = shardEruption(date);
 	}
 
-	for (const maintenancePeriod of MAINTENANCE_PERIODS) {
+	for (const maintenancePeriod of MAINTENANCE_PERIODS_NEWEST_FIRST) {
+		if (Temporal.ZonedDateTime.compare(maintenancePeriod.start, date) < 0) {
+			break;
+		}
+
 		const timeUntilStart = Math.floor(maintenancePeriod.start.since(date).total("minutes"));
 
-		if (timeUntilStart >= 0 && timeUntilStart <= 15) {
+		if (timeUntilStart <= 15) {
 			notifications.push({
 				type: NotificationType.Maintenance,
 				timeUntilStart,
@@ -268,10 +279,14 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		}
 	}
 
-	for (const radianceEvent of RADIANCE_EVENTS) {
+	for (const radianceEvent of RADIANCE_EVENTS_NEWEST_FIRST) {
+		if (Temporal.ZonedDateTime.compare(radianceEvent.start, date) < 0) {
+			break;
+		}
+
 		const timeUntilStart = Math.floor(radianceEvent.start.since(date).total("minutes"));
 
-		if (timeUntilStart >= 0 && timeUntilStart <= NOTIFICATION_RADIANCE_EVENT_MAXIMUM_OFFSET) {
+		if (timeUntilStart <= NOTIFICATION_RADIANCE_EVENT_MAXIMUM_OFFSET) {
 			notifications.push({
 				type: NotificationType.RadianceEvent,
 				timeUntilStart,
@@ -281,10 +296,14 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		}
 	}
 
-	for (const doubleHeartEvent of DOUBLE_HEART_EVENTS) {
+	for (const doubleHeartEvent of DOUBLE_HEART_EVENTS_NEWEST_FIRST) {
+		if (Temporal.ZonedDateTime.compare(doubleHeartEvent.start, date) < 0) {
+			break;
+		}
+
 		const timeUntilStart = Math.floor(doubleHeartEvent.start.since(date).total("minutes"));
 
-		if (timeUntilStart >= 0 && timeUntilStart <= NOTIFICATION_DOUBLE_HEARTS_MAXIMUM_OFFSET) {
+		if (timeUntilStart <= NOTIFICATION_DOUBLE_HEARTS_MAXIMUM_OFFSET) {
 			notifications.push({
 				type: NotificationType.DoubleHearts,
 				timeUntilStart,
@@ -294,13 +313,14 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		}
 	}
 
-	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS) {
+	for (const doubleTreasureCandleEvent of TREASURE_CANDLES_DOUBLE_CONFIGURATIONS_NEWEST_FIRST) {
+		if (Temporal.ZonedDateTime.compare(doubleTreasureCandleEvent.start, date) < 0) {
+			break;
+		}
+
 		const timeUntilStart = Math.floor(doubleTreasureCandleEvent.start.since(date).total("minutes"));
 
-		if (
-			timeUntilStart >= 0 &&
-			timeUntilStart <= NOTIFICATION_DOUBLE_TREASURE_CANDLES_MAXIMUM_OFFSET
-		) {
+		if (timeUntilStart <= NOTIFICATION_DOUBLE_TREASURE_CANDLES_MAXIMUM_OFFSET) {
 			notifications.push({
 				type: NotificationType.DoubleTreasureCandles,
 				timeUntilStart,

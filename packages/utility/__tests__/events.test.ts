@@ -2,7 +2,7 @@ import { ok } from "node:assert/strict";
 import { test } from "node:test";
 import { skyDate } from "../source/dates.js";
 import { skyEventFamilies, skyEvents, skyEventsBetween } from "../source/events/index.js";
-import { DOUBLE_HEART_EVENTS } from "../source/events/miscellaneous.js";
+import { DOUBLE_HEART_EVENTS, RADIANCE_EVENTS } from "../source/events/miscellaneous.js";
 import { EventId } from "../source/utility/event.js";
 
 test("Events are indexed chronologically.", () => {
@@ -110,6 +110,24 @@ test("Double heart events are positive and chronological.", () => {
 			ok(
 				Temporal.ZonedDateTime.compare(event.end, next.start) <= 0,
 				`Expected double heart event ${index} to end before the next one starts.`,
+			);
+		}
+	}
+});
+
+test("Radiance events are positive and chronological.", () => {
+	for (const [index, event] of RADIANCE_EVENTS.entries()) {
+		ok(
+			Temporal.ZonedDateTime.compare(event.start, event.end) < 0,
+			`Expected radiance event ${index} to end after it starts.`,
+		);
+
+		const next = RADIANCE_EVENTS[index + 1];
+
+		if (next) {
+			ok(
+				Temporal.ZonedDateTime.compare(event.end, next.start) <= 0,
+				`Expected radiance event ${index} to end before the next one starts.`,
 			);
 		}
 	}
