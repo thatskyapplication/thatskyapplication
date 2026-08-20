@@ -36,6 +36,12 @@ const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [6, 13, 20, 27] as const;
 const INTERNATIONAL_SPACE_STATION_START_DATE = Temporal.PlainDate.from("2019-09-22");
 const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from("2023-06-01");
+/**
+ * Introduced with Days of Feast at 00:00 on 19 December 2022.
+ *
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/968-patch-notes---november-28-2022---0-19-5-206971-android-huawei-ios-206872-switch}
+ */
+export const DREAMS_SKATER_START_DATE = skyDate(2022, 12, 19);
 export const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
 
 export function internationalSpaceStationDates(
@@ -180,6 +186,10 @@ export function shardEruptionSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function dreamsSkaterSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, DREAMS_SKATER_START_DATE) < 0) {
+		return null;
+	}
+
 	const { dayOfWeek, hour, minute } = date;
 	const isWeekend = dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 7;
 

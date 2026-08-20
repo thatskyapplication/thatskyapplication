@@ -349,6 +349,13 @@ const SCHEDULES = [
 		schedule: dreamsSkaterSchedule,
 		cases: [
 			{
+				label: "from its introduction points at the first recurring Friday",
+				input: skyDate(2022, 12, 19),
+				start: "2022-12-23T01:00:00-08:00[America/Los_Angeles]",
+				end: "2022-12-23T01:15:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
 				label: "on a weekday points at the next Friday",
 				input: skyDate(2025, 6, 11, 12, 0),
 				start: "2025-06-13T01:00:00-07:00[America/Los_Angeles]",
@@ -491,6 +498,11 @@ for (const { name, schedule, cases } of SCHEDULES) {
 test("International Space Station schedule is unavailable before the Secret Area's introduction.", () => {
 	equal(internationalSpaceStationSchedule(skyDate(2017, 12, 19)), null);
 	equal(internationalSpaceStationSchedule(skyDate(2019, 9, 21, 23, 59, 59)), null);
+});
+
+test("Dreams skater schedule is unavailable before its introduction.", () => {
+	equal(dreamsSkaterSchedule(skyDate(2017, 12, 19)), null);
+	equal(dreamsSkaterSchedule(skyDate(2022, 12, 18, 23, 59, 59)), null);
 });
 
 test("Shard eruption schedule finds an active eruption on the requested date.", () => {

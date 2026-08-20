@@ -728,6 +728,10 @@ function shardEruptionDetailedBreakdown(
 function dreamsSkaterOverview(date: Temporal.ZonedDateTime) {
 	const schedule = dreamsSkaterSchedule(date);
 
+	if (!schedule) {
+		return null;
+	}
+
 	return {
 		now: schedule.active,
 		next: `<t:${epochSeconds(schedule.start)}:R>`,
@@ -738,6 +742,12 @@ function dreamsSkaterDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
+	const dreamsSkater = dreamsSkaterOverview(now);
+
+	if (!dreamsSkater) {
+		return [];
+	}
+
 	const { dayOfWeek } = now;
 	const timestamps = [];
 
@@ -762,8 +772,6 @@ function dreamsSkaterDetailedBreakdown(
 
 		timestamps.push(string);
 	}
-
-	const dreamsSkater = dreamsSkaterOverview(now);
 
 	return [
 		{
@@ -1693,7 +1701,10 @@ export async function scheduleOverview(
 						}),
 			}),
 		},
-		{
+	];
+
+	if (dreamsSkater) {
+		secondContainerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: t("schedule.overview", {
 				lng: locale,
@@ -1714,8 +1725,8 @@ export async function scheduleOverview(
 							timestamp: dreamsSkater.next,
 						}),
 			}),
-		},
-	];
+		});
+	}
 
 	if (meteorShower) {
 		secondContainerComponents.push({
@@ -1939,15 +1950,18 @@ export async function scheduleOverview(
 			value: ScheduleType.AURORA.toString(),
 			emoji: CAPE_EMOJIS.Cape96,
 		},
-		{
+	);
+
+	if (dreamsSkater) {
+		options.push({
 			label: t(`schedule.type.${ScheduleType.DreamsSkater}`, {
 				lng: locale,
 				ns: "features",
 			}),
 			value: ScheduleType.DreamsSkater.toString(),
 			emoji: SEASON_EMOJIS.Dreams,
-		},
-	);
+		});
+	}
 
 	if (meteorShower) {
 		options.push({

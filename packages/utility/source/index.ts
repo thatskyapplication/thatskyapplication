@@ -200,6 +200,7 @@ export { isPlatformId, PLATFORM_ID_VALUES, PlatformId, type PlatformIds } from "
 export {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
+	DREAMS_SKATER_START_DATE,
 	dreamsSkaterSchedule,
 	grandmaSchedule,
 	internationalSpaceStationDates,

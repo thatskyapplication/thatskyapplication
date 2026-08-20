@@ -2,6 +2,7 @@ import type { TFunction } from "i18next";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
+	DREAMS_SKATER_START_DATE,
 	dreamsSkaterSchedule,
 	formatEmojiURL,
 	grandmaSchedule,
@@ -37,20 +38,41 @@ interface SchedulePeriod {
 }
 
 const PERIOD_SCHEDULES = [
-	{ type: ScheduleType.InternationalSpaceStation, schedule: internationalSpaceStationSchedule },
-	{ type: ScheduleType.PollutedGeyser, schedule: pollutedGeyserSchedule },
-	{ type: ScheduleType.Grandma, schedule: grandmaSchedule },
-	{ type: ScheduleType.Turtle, schedule: turtleSchedule },
-	{ type: ScheduleType.DreamsSkater, schedule: dreamsSkaterSchedule },
-	{ type: ScheduleType.AURORA, schedule: auroraSchedule },
-	{ type: ScheduleType.AviarysFireworkFestival, schedule: aviarysFireworkFestivalSchedule },
-	{ type: ScheduleType.NineColouredDeer, schedule: nineColouredDeerSchedule },
-	{ type: ScheduleType.VaultEldersBlessing, schedule: vaultEldersBlessingSchedule },
-	{ type: ScheduleType.ProjectorOfMemories, schedule: projectorOfMemoriesSchedule },
-	{ type: ScheduleType.MeteorShower, schedule: meteorShowerSchedule },
+	{
+		type: ScheduleType.InternationalSpaceStation,
+		schedule: internationalSpaceStationSchedule,
+		start: null,
+	},
+	{ type: ScheduleType.PollutedGeyser, schedule: pollutedGeyserSchedule, start: null },
+	{ type: ScheduleType.Grandma, schedule: grandmaSchedule, start: null },
+	{ type: ScheduleType.Turtle, schedule: turtleSchedule, start: null },
+	{
+		type: ScheduleType.DreamsSkater,
+		schedule: dreamsSkaterSchedule,
+		start: DREAMS_SKATER_START_DATE,
+	},
+	{ type: ScheduleType.AURORA, schedule: auroraSchedule, start: null },
+	{
+		type: ScheduleType.AviarysFireworkFestival,
+		schedule: aviarysFireworkFestivalSchedule,
+		start: null,
+	},
+	{ type: ScheduleType.NineColouredDeer, schedule: nineColouredDeerSchedule, start: null },
+	{
+		type: ScheduleType.VaultEldersBlessing,
+		schedule: vaultEldersBlessingSchedule,
+		start: null,
+	},
+	{
+		type: ScheduleType.ProjectorOfMemories,
+		schedule: projectorOfMemoriesSchedule,
+		start: null,
+	},
+	{ type: ScheduleType.MeteorShower, schedule: meteorShowerSchedule, start: null },
 ] as const satisfies readonly {
 	type: ScheduleTypes;
 	schedule: (date: Temporal.ZonedDateTime) => SchedulePeriod | null;
+	start: Temporal.ZonedDateTime | null;
 }[];
 
 const INSTANT_SCHEDULES = [
@@ -75,9 +97,17 @@ function enumeratePeriods(
 	schedule: (date: Temporal.ZonedDateTime) => SchedulePeriod | null,
 	dayStart: Temporal.ZonedDateTime,
 	dayEnd: Temporal.ZonedDateTime,
+	scheduleStart: Temporal.ZonedDateTime | null,
 ): SchedulePeriod[] {
 	const periods: SchedulePeriod[] = [];
-	let cursor = dayStart;
+	let cursor =
+		scheduleStart && Temporal.ZonedDateTime.compare(scheduleStart, dayStart) >= 0
+			? scheduleStart
+			: dayStart;
+
+	if (Temporal.ZonedDateTime.compare(cursor, dayEnd) >= 0) {
+		return periods;
+	}
 
 	while (periods.length < MAXIMUM_OCCURRENCES) {
 		const period = schedule(cursor);
@@ -252,8 +282,8 @@ export function calendarDayOccurrences(
 	const skyDayEnd = dayEnd.withTimeZone(TIME_ZONE);
 	const occurrences: CalendarDayOccurrence[] = [];
 
-	for (const { type, schedule } of PERIOD_SCHEDULES) {
-		const periods = enumeratePeriods(schedule, skyDayStart, skyDayEnd);
+	for (const { type, schedule, start } of PERIOD_SCHEDULES) {
+		const periods = enumeratePeriods(schedule, skyDayStart, skyDayEnd, start);
 
 		if (periods.length === 0) {
 			continue;

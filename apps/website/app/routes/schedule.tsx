@@ -374,8 +374,13 @@ function dreamsSkaterOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.DreamsSkater> {
+): ScheduleWithEnd<typeof ScheduleType.DreamsSkater> | null {
 	const schedule = dreamsSkaterSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
+
 	const options: Intl.DateTimeFormatOptions = { timeStyle: "short", timeZone, hour12 };
 
 	if (now.dayOfWeek < 5) {
