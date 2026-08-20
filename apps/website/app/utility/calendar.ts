@@ -1,4 +1,4 @@
-import { ScheduleType } from "@thatskyapplication/utility";
+import { ScheduleType, type Snowflake } from "@thatskyapplication/utility";
 import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
 
 export const CALENDAR_MINIMUM_DATE = "2017-12-19" as const;
@@ -32,72 +32,91 @@ export const CalendarEntryKind = {
 export const CALENDAR_ENTRY_KIND_VALUES = Object.values(CalendarEntryKind);
 export type CalendarEntryKinds = (typeof CALENDAR_ENTRY_KIND_VALUES)[number];
 
-export const CalendarEntryKindToLabelKey = {
-	[CalendarEntryKind.Season]: "general:season",
-	[CalendarEntryKind.Event]: "general:event",
-	[CalendarEntryKind.TravellingSpirit]: "general:travelling-spirit",
-	[CalendarEntryKind.ReturningSpirits]: "general:returning-spirits",
-	[CalendarEntryKind.DoubleSeasonalLight]: "general:event-names.double-seasonal-light",
-	[CalendarEntryKind.DoubleTreasureCandles]: "general:event-names.double-treasure-candles",
-	[CalendarEntryKind.DoubleHearts]: "general:event-names.double-hearts",
-	[CalendarEntryKind.RadianceEvent]: "general:event-names.radiance-event",
-	[CalendarEntryKind.CommunityEvent]: "features:calendar.community-event",
-	[CalendarEntryKind.ShardEruption]: "general:shard-eruption",
-	[CalendarEntryKind.EyeOfEden]: `features:schedule.type.${ScheduleType.EyeOfEden}`,
-	[CalendarEntryKind.InternationalSpaceStation]: `features:schedule.type.${ScheduleType.InternationalSpaceStation}`,
-	[CalendarEntryKind.NestingWorkshop]: `features:schedule.type.${ScheduleType.NestingWorkshop}`,
-	[CalendarEntryKind.AviarysFireworkFestival]: `features:schedule.type.${ScheduleType.AviarysFireworkFestival}`,
-	[CalendarEntryKind.Maintenance]: "general:maintenance",
-} as const satisfies Readonly<Record<CalendarEntryKinds, string>>;
+interface CalendarEntryKindPresentation {
+	labelKey: string;
+	bar: string;
+	swatch: string;
+}
 
-export const CalendarEntryKindToBarClassName = {
-	[CalendarEntryKind.Season]: "bg-sky-200 text-sky-900 dark:bg-sky-800 dark:text-sky-50",
-	[CalendarEntryKind.Event]: "bg-rose-200 text-rose-900 dark:bg-rose-800 dark:text-rose-50",
-	[CalendarEntryKind.TravellingSpirit]:
-		"bg-violet-200 text-violet-900 dark:bg-violet-800 dark:text-violet-50",
-	[CalendarEntryKind.ReturningSpirits]:
-		"bg-violet-200 text-violet-900 dark:bg-violet-800 dark:text-violet-50",
-	[CalendarEntryKind.DoubleSeasonalLight]:
-		"bg-emerald-200 text-emerald-900 dark:bg-emerald-800 dark:text-emerald-50",
-	[CalendarEntryKind.DoubleTreasureCandles]:
-		"bg-orange-200 text-orange-900 dark:bg-orange-800 dark:text-orange-50",
-	[CalendarEntryKind.DoubleHearts]:
-		"bg-fuchsia-200 text-fuchsia-900 dark:bg-fuchsia-800 dark:text-fuchsia-50",
-	[CalendarEntryKind.RadianceEvent]: "bg-lime-200 text-lime-900 dark:bg-lime-800 dark:text-lime-50",
-	[CalendarEntryKind.CommunityEvent]:
-		"bg-teal-200 text-teal-900 dark:bg-teal-800 dark:text-teal-50",
-	[CalendarEntryKind.ShardEruption]:
-		"bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-slate-50",
-	[CalendarEntryKind.EyeOfEden]: "bg-red-200 text-red-900 dark:bg-red-800 dark:text-red-50",
-	[CalendarEntryKind.InternationalSpaceStation]:
-		"bg-blue-200 text-blue-900 dark:bg-blue-800 dark:text-blue-50",
-	[CalendarEntryKind.NestingWorkshop]:
-		"bg-yellow-200 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-50",
-	[CalendarEntryKind.AviarysFireworkFestival]:
-		"bg-pink-200 text-pink-900 dark:bg-pink-800 dark:text-pink-50",
-	[CalendarEntryKind.Maintenance]:
-		"bg-amber-200 text-amber-900 dark:bg-amber-800 dark:text-amber-50",
-} as const satisfies Readonly<Record<CalendarEntryKinds, string>>;
+export const CalendarEntryKindPresentations = {
+	[CalendarEntryKind.Season]: {
+		labelKey: "general:season",
+		bar: "bg-sky-200 text-sky-900 dark:bg-sky-800 dark:text-sky-50",
+		swatch: "bg-sky-400 dark:bg-sky-600",
+	},
+	[CalendarEntryKind.Event]: {
+		labelKey: "general:event",
+		bar: "bg-rose-200 text-rose-900 dark:bg-rose-800 dark:text-rose-50",
+		swatch: "bg-rose-400 dark:bg-rose-600",
+	},
+	[CalendarEntryKind.TravellingSpirit]: {
+		labelKey: "general:travelling-spirit",
+		bar: "bg-violet-200 text-violet-900 dark:bg-violet-800 dark:text-violet-50",
+		swatch: "bg-violet-400 dark:bg-violet-600",
+	},
+	[CalendarEntryKind.ReturningSpirits]: {
+		labelKey: "general:returning-spirits",
+		bar: "bg-violet-200 text-violet-900 dark:bg-violet-800 dark:text-violet-50",
+		swatch: "bg-violet-400 dark:bg-violet-600",
+	},
+	[CalendarEntryKind.DoubleSeasonalLight]: {
+		labelKey: "general:event-names.double-seasonal-light",
+		bar: "bg-emerald-200 text-emerald-900 dark:bg-emerald-800 dark:text-emerald-50",
+		swatch: "bg-emerald-400 dark:bg-emerald-600",
+	},
+	[CalendarEntryKind.DoubleTreasureCandles]: {
+		labelKey: "general:event-names.double-treasure-candles",
+		bar: "bg-orange-200 text-orange-900 dark:bg-orange-800 dark:text-orange-50",
+		swatch: "bg-orange-400 dark:bg-orange-600",
+	},
+	[CalendarEntryKind.DoubleHearts]: {
+		labelKey: "general:event-names.double-hearts",
+		bar: "bg-fuchsia-200 text-fuchsia-900 dark:bg-fuchsia-800 dark:text-fuchsia-50",
+		swatch: "bg-fuchsia-400 dark:bg-fuchsia-600",
+	},
+	[CalendarEntryKind.RadianceEvent]: {
+		labelKey: "general:event-names.radiance-event",
+		bar: "bg-lime-200 text-lime-900 dark:bg-lime-800 dark:text-lime-50",
+		swatch: "bg-lime-400 dark:bg-lime-600",
+	},
+	[CalendarEntryKind.CommunityEvent]: {
+		labelKey: "features:calendar.community-event",
+		bar: "bg-teal-200 text-teal-900 dark:bg-teal-800 dark:text-teal-50",
+		swatch: "bg-teal-400 dark:bg-teal-600",
+	},
+	[CalendarEntryKind.ShardEruption]: {
+		labelKey: "general:shard-eruption",
+		bar: "bg-slate-200 text-slate-900 dark:bg-slate-700 dark:text-slate-50",
+		swatch: "bg-slate-400 dark:bg-slate-500",
+	},
+	[CalendarEntryKind.EyeOfEden]: {
+		labelKey: `features:schedule.type.${ScheduleType.EyeOfEden}`,
+		bar: "bg-red-200 text-red-900 dark:bg-red-800 dark:text-red-50",
+		swatch: "bg-red-400 dark:bg-red-600",
+	},
+	[CalendarEntryKind.InternationalSpaceStation]: {
+		labelKey: `features:schedule.type.${ScheduleType.InternationalSpaceStation}`,
+		bar: "bg-blue-200 text-blue-900 dark:bg-blue-800 dark:text-blue-50",
+		swatch: "bg-blue-400 dark:bg-blue-600",
+	},
+	[CalendarEntryKind.NestingWorkshop]: {
+		labelKey: `features:schedule.type.${ScheduleType.NestingWorkshop}`,
+		bar: "bg-yellow-200 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-50",
+		swatch: "bg-yellow-400 dark:bg-yellow-600",
+	},
+	[CalendarEntryKind.AviarysFireworkFestival]: {
+		labelKey: `features:schedule.type.${ScheduleType.AviarysFireworkFestival}`,
+		bar: "bg-pink-200 text-pink-900 dark:bg-pink-800 dark:text-pink-50",
+		swatch: "bg-pink-400 dark:bg-pink-600",
+	},
+	[CalendarEntryKind.Maintenance]: {
+		labelKey: "general:maintenance",
+		bar: "bg-amber-200 text-amber-900 dark:bg-amber-800 dark:text-amber-50",
+		swatch: "bg-amber-400 dark:bg-amber-600",
+	},
+} as const satisfies Readonly<Record<CalendarEntryKinds, CalendarEntryKindPresentation>>;
 
-export const CalendarEntryKindToSwatchClassName = {
-	[CalendarEntryKind.Season]: "bg-sky-400 dark:bg-sky-600",
-	[CalendarEntryKind.Event]: "bg-rose-400 dark:bg-rose-600",
-	[CalendarEntryKind.TravellingSpirit]: "bg-violet-400 dark:bg-violet-600",
-	[CalendarEntryKind.ReturningSpirits]: "bg-violet-400 dark:bg-violet-600",
-	[CalendarEntryKind.DoubleSeasonalLight]: "bg-emerald-400 dark:bg-emerald-600",
-	[CalendarEntryKind.DoubleTreasureCandles]: "bg-orange-400 dark:bg-orange-600",
-	[CalendarEntryKind.DoubleHearts]: "bg-fuchsia-400 dark:bg-fuchsia-600",
-	[CalendarEntryKind.RadianceEvent]: "bg-lime-400 dark:bg-lime-600",
-	[CalendarEntryKind.CommunityEvent]: "bg-teal-400 dark:bg-teal-600",
-	[CalendarEntryKind.ShardEruption]: "bg-slate-400 dark:bg-slate-500",
-	[CalendarEntryKind.EyeOfEden]: "bg-red-400 dark:bg-red-600",
-	[CalendarEntryKind.InternationalSpaceStation]: "bg-blue-400 dark:bg-blue-600",
-	[CalendarEntryKind.NestingWorkshop]: "bg-yellow-400 dark:bg-yellow-600",
-	[CalendarEntryKind.AviarysFireworkFestival]: "bg-pink-400 dark:bg-pink-600",
-	[CalendarEntryKind.Maintenance]: "bg-amber-400 dark:bg-amber-600",
-} as const satisfies Readonly<Record<CalendarEntryKinds, string>>;
-
-export interface CalendarEntry {
+interface CalendarEntryBase {
 	key: string;
 	kind: CalendarEntryKinds;
 	label: string;
@@ -106,10 +125,7 @@ export interface CalendarEntry {
 	lastDate: string;
 	startsAt: number;
 	endsAt: number;
-	startLabel: string;
-	endLabel: string;
-	iconURLs: readonly string[];
-	range: string;
+	iconEmojiIds: readonly Snowflake[];
 	duration: number;
 	wikiURL: string | null;
 	pageURL: string | null;
@@ -119,6 +135,15 @@ export interface CalendarEntry {
 	acknowledgement: string | null;
 	times: readonly string[];
 	spiritLinks: readonly ExternalLinkListItem[] | null;
+}
+
+export interface CalendarEntry extends CalendarEntryBase {
+	range: string;
+}
+
+export interface CalendarSummaryEntry extends CalendarEntryBase {
+	startLabel: string;
+	endLabel: string;
 }
 
 export interface CalendarDay {

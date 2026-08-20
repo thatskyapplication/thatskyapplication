@@ -3,8 +3,6 @@ import {
 	aviarysFireworkFestivalSchedule,
 	communityEventsBetween,
 	DOUBLE_HEART_EVENTS,
-	EventId,
-	formatEmojiURL,
 	INTERNATIONAL_SPACE_STATION_DATES,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
@@ -12,6 +10,7 @@ import {
 	RETURNING_DATES,
 	ScheduleType,
 	type SeasonIds,
+	type Snowflake,
 	shardEruption,
 	SHARD_ERUPTION_START_DATE,
 	skyEventFamilies,
@@ -28,6 +27,7 @@ import {
 	type CalendarEntry,
 	CalendarEntryKind,
 	type CalendarEntryKinds,
+	type CalendarSummaryEntry,
 } from "~/utility/calendar.js";
 import {
 	DyeTypeToEmoji,
@@ -35,6 +35,7 @@ import {
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
+import { NESTING_WORKSHOP_CATALOGUE_URL, SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
 
 interface CalendarEntryInput {
 	key: string;
@@ -42,7 +43,7 @@ interface CalendarEntryInput {
 	label: string;
 	start: Temporal.ZonedDateTime;
 	end?: Temporal.ZonedDateTime;
-	iconURLs?: readonly string[];
+	iconEmojiIds?: readonly Snowflake[];
 	detail?: string;
 	wikiURL?: string;
 	pageURL?: string;
@@ -62,6 +63,7 @@ interface CalendarEntriesOptions {
 	hour12: boolean | undefined;
 	t: TFunction;
 	dayMarkers: boolean;
+	summary?: boolean;
 }
 
 function inclusiveDates(
@@ -81,10 +83,17 @@ function inclusiveDates(
 	};
 }
 
-function seasonEmojiURL(seasonId: SeasonIds) {
-	const emoji = SeasonIdToSeasonalEmoji[seasonId];
-	return emoji ? formatEmojiURL(emoji.id) : null;
+function seasonEmojiId(seasonId: SeasonIds) {
+	return SeasonIdToSeasonalEmoji[seasonId]?.id ?? null;
 }
+
+export function calendarEntriesBetween(
+	options: CalendarEntriesOptions & { summary: true },
+): CalendarSummaryEntry[];
+
+export function calendarEntriesBetween(
+	options: CalendarEntriesOptions & { summary?: false },
+): CalendarEntry[];
 
 export function calendarEntriesBetween({
 	rangeStart,
@@ -94,7 +103,8 @@ export function calendarEntriesBetween({
 	hour12,
 	t,
 	dayMarkers,
-}: CalendarEntriesOptions): CalendarEntry[] {
+	summary = false,
+}: CalendarEntriesOptions): (CalendarEntry | CalendarSummaryEntry)[] {
 	const overlapsRange = (start: Temporal.ZonedDateTime, end: Temporal.ZonedDateTime) =>
 		Temporal.ZonedDateTime.compare(start, rangeEnd) < 0 &&
 		Temporal.ZonedDateTime.compare(rangeStart, end) < 0;
@@ -108,11 +118,11 @@ export function calendarEntriesBetween({
 
 	const timeFormat = new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 });
 
-	const createCalendarEntry = (input: CalendarEntryInput): CalendarEntry => {
+	const createCalendarEntry = (input: CalendarEntryInput): CalendarEntry | CalendarSummaryEntry => {
 		const end = input.end ?? input.start;
 		const { firstDate, lastDate } = inclusiveDates(input.start, end, timeZone);
 
-		return {
+		const base = {
 			key: input.key,
 			kind: input.kind,
 			label: input.label,
@@ -120,14 +130,8 @@ export function calendarEntriesBetween({
 			lastDate: lastDate.toString(),
 			startsAt: input.start.epochMilliseconds,
 			endsAt: end.epochMilliseconds,
-			startLabel: rangeFormat.format(input.start.epochMilliseconds),
-			endLabel: rangeFormat.format(end.epochMilliseconds),
-			iconURLs: input.iconURLs ?? [],
+			iconEmojiIds: input.iconEmojiIds ?? [],
 			detail: input.detail ?? null,
-			range:
-				input.end === undefined
-					? rangeFormat.format(input.start.epochMilliseconds)
-					: rangeFormat.formatRange(input.start.epochMilliseconds, end.epochMilliseconds),
 			duration: input.start.until(end, { largestUnit: "day" }).days,
 			wikiURL: input.wikiURL ?? null,
 			pageURL: input.pageURL ?? null,
@@ -138,15 +142,29 @@ export function calendarEntriesBetween({
 			times: input.times ?? [],
 			spiritLinks: input.spiritLinks ?? null,
 		};
+
+		return summary
+			? {
+					...base,
+					startLabel: rangeFormat.format(input.start.epochMilliseconds),
+					endLabel: rangeFormat.format(end.epochMilliseconds),
+				}
+			: {
+					...base,
+					range:
+						input.end === undefined
+							? rangeFormat.format(input.start.epochMilliseconds)
+							: rangeFormat.formatRange(input.start.epochMilliseconds, end.epochMilliseconds),
+				};
 	};
 
-	const entries: CalendarEntry[] = [];
+	const entries: (CalendarEntry | CalendarSummaryEntry)[] = [];
 	const catalogueSeasons = skySeasons();
 	const catalogueEventFamilies = skyEventFamilies();
 	const catalogueSpirits = spirits();
 
 	for (const season of skySeasonsBetween(rangeStart, rangeEnd).values()) {
-		const iconURL = seasonEmojiURL(season.id);
+		const emojiId = seasonEmojiId(season.id);
 
 		entries.push(
 			createCalendarEntry({
@@ -155,7 +173,7 @@ export function calendarEntriesBetween({
 				label: t(`seasons.${season.id}`, { ns: "general" }),
 				start: season.start,
 				end: season.end,
-				iconURLs: iconURL ? [iconURL] : [],
+				iconEmojiIds: emojiId ? [emojiId] : [],
 				wikiURL: t(`season-wiki.${season.id}`, { ns: "general" }),
 				...(catalogueSeasons.has(season.id)
 					? { catalogueURL: `/me/catalogue?view=season&season=${season.id}` }
@@ -175,7 +193,7 @@ export function calendarEntriesBetween({
 					label: t("event-names.double-seasonal-light", { ns: "general" }),
 					start: doubleSeasonalLight.start,
 					end: doubleSeasonalLight.end,
-					iconURLs: [formatEmojiURL(MISCELLANEOUS_EMOJIS.SeasonalCandle.id)],
+					iconEmojiIds: [MISCELLANEOUS_EMOJIS.SeasonalCandle.id],
 				}),
 			);
 		}
@@ -191,7 +209,7 @@ export function calendarEntriesBetween({
 				label: t(event.name, { ns: "general" }),
 				start: event.start,
 				end: event.end,
-				iconURLs: eventTicketEmoji ? [formatEmojiURL(eventTicketEmoji.id)] : [],
+				iconEmojiIds: eventTicketEmoji ? [eventTicketEmoji.id] : [],
 				wikiURL: t(`event-wiki.${event.id}`, { ns: "general" }),
 				...(catalogueEventFamilies.has(event.family)
 					? { catalogueURL: `/me/catalogue?view=event-family&family=${event.family}` }
@@ -206,7 +224,7 @@ export function calendarEntriesBetween({
 		}
 
 		const season = KINGDOM.seasonOf(spiritId);
-		const iconURL = season ? seasonEmojiURL(season.id) : null;
+		const emojiId = season ? seasonEmojiId(season.id) : null;
 
 		entries.push(
 			createCalendarEntry({
@@ -215,7 +233,7 @@ export function calendarEntriesBetween({
 				label: t(`spirits.${spiritId}`, { ns: "general" }),
 				start,
 				end,
-				iconURLs: iconURL ? [iconURL] : [],
+				iconEmojiIds: emojiId ? [emojiId] : [],
 				wikiURL: t(`spirit-wiki.${spiritId}`, { ns: "general" }),
 				pageURL: `/spirits?spirit=${spiritId}`,
 				...(catalogueSpirits.has(spiritId)
@@ -235,8 +253,7 @@ export function calendarEntriesBetween({
 		);
 
 		const [seasonId] = seasonIds;
-		const iconURL =
-			seasonIds.size === 1 && seasonId !== undefined ? seasonEmojiURL(seasonId) : null;
+		const emojiId = seasonIds.size === 1 && seasonId !== undefined ? seasonEmojiId(seasonId) : null;
 
 		entries.push(
 			createCalendarEntry({
@@ -245,10 +262,8 @@ export function calendarEntriesBetween({
 				label: t("returning-spirits", { ns: "general" }),
 				start,
 				end,
-				iconURLs: iconURL ? [iconURL] : [],
-				wikiURL: t("schedule.detailed-breakdown-returning-spirits-wiki-button-url", {
-					ns: "features",
-				}),
+				iconEmojiIds: emojiId ? [emojiId] : [],
+				wikiURL: t(SCHEDULE_TYPE_TO_WIKI_KEY[ScheduleType.ReturningSpirits]!),
 				catalogueURL: "/me/catalogue?view=returning-spirits",
 				spiritLinks: spiritIds.map((spiritId) => ({
 					id: spiritId,
@@ -271,7 +286,7 @@ export function calendarEntriesBetween({
 				label: t("event-names.double-treasure-candles", { ns: "general" }),
 				start,
 				end,
-				iconURLs: [formatEmojiURL(MISCELLANEOUS_EMOJIS.Candle.id)],
+				iconEmojiIds: [MISCELLANEOUS_EMOJIS.Candle.id],
 			}),
 		);
 	}
@@ -288,7 +303,7 @@ export function calendarEntriesBetween({
 				label: t("event-names.double-hearts", { ns: "general" }),
 				start,
 				end,
-				iconURLs: [formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id)],
+				iconEmojiIds: [MISCELLANEOUS_EMOJIS.Heart.id],
 			}),
 		);
 	}
@@ -305,7 +320,7 @@ export function calendarEntriesBetween({
 				label: t("event-names.radiance-event", { ns: "general" }),
 				start,
 				end,
-				iconURLs: dyes.map((dye) => formatEmojiURL(DyeTypeToEmoji[dye].id)),
+				iconEmojiIds: dyes.map((dye) => DyeTypeToEmoji[dye].id),
 			}),
 		);
 	}
@@ -324,9 +339,33 @@ export function calendarEntriesBetween({
 
 	if (dayMarkers) {
 		const skyRangeLimit = rangeEnd.withTimeZone(TIME_ZONE);
+		const shardEruptionLabel = t(`features:schedule.type.${ScheduleType.ShardEruption}`);
+		const eyeOfEdenLabel = t(`features:schedule.type.${ScheduleType.EyeOfEden}`);
+		const nestingWorkshopLabel = t(`features:schedule.type.${ScheduleType.NestingWorkshop}`);
+
+		const nestingWorkshopWikiURL = t(SCHEDULE_TYPE_TO_WIKI_KEY[ScheduleType.NestingWorkshop]!);
+
+		const internationalSpaceStationLabel = t(
+			`features:schedule.type.${ScheduleType.InternationalSpaceStation}`,
+		);
+
+		const internationalSpaceStationWikiURL = t(
+			SCHEDULE_TYPE_TO_WIKI_KEY[ScheduleType.InternationalSpaceStation]!,
+		);
+
+		const aviarysFireworkFestivalLabel = t(
+			`features:schedule.type.${ScheduleType.AviarysFireworkFestival}`,
+		);
+
+		const aviarysFireworkFestivalWikiURL = t(
+			SCHEDULE_TYPE_TO_WIKI_KEY[ScheduleType.AviarysFireworkFestival]!,
+		);
+
 		let skyDate = rangeStart.withTimeZone(TIME_ZONE).startOfDay();
 
 		while (Temporal.ZonedDateTime.compare(skyDate, skyRangeLimit) < 0) {
+			const date = skyDate.toPlainDate().toString();
+
 			if (Temporal.ZonedDateTime.compare(skyDate, SHARD_ERUPTION_START_DATE) >= 0) {
 				const shard = shardEruption(skyDate);
 
@@ -337,9 +376,9 @@ export function calendarEntriesBetween({
 
 					entries.push(
 						createCalendarEntry({
-							key: `shard-eruption-${skyDate.toPlainDate().toString()}`,
+							key: `shard-eruption-${date}`,
 							kind: CalendarEntryKind.ShardEruption,
-							label: t(`schedule.type.${ScheduleType.ShardEruption}`, { ns: "features" }),
+							label: shardEruptionLabel,
 							start: skyDate,
 							end: skyDate.add({ days: 1 }),
 							times: shard.timestamps.map(({ start, end }) =>
@@ -349,7 +388,7 @@ export function calendarEntriesBetween({
 									end: timeFormat.format(end.epochMilliseconds),
 								}),
 							),
-							iconURLs: [formatEmojiURL(emoji.id)],
+							iconEmojiIds: [emoji.id],
 							detail: t("shard-eruption.realm-area", {
 								ns: "features",
 								realm: shard.realm,
@@ -365,9 +404,9 @@ export function calendarEntriesBetween({
 			if (skyDate.dayOfWeek === 7) {
 				entries.push(
 					createCalendarEntry({
-						key: `eye-of-eden-${skyDate.toPlainDate().toString()}`,
+						key: `eye-of-eden-${date}`,
 						kind: CalendarEntryKind.EyeOfEden,
-						label: t(`schedule.type.${ScheduleType.EyeOfEden}`, { ns: "features" }),
+						label: eyeOfEdenLabel,
 						start: skyDate,
 					}),
 				);
@@ -376,33 +415,27 @@ export function calendarEntriesBetween({
 			if (skyDate.dayOfWeek === 5) {
 				entries.push(
 					createCalendarEntry({
-						key: `nesting-workshop-${skyDate.toPlainDate().toString()}`,
+						key: `nesting-workshop-${date}`,
 						kind: CalendarEntryKind.NestingWorkshop,
-						label: t(`schedule.type.${ScheduleType.NestingWorkshop}`, { ns: "features" }),
+						label: nestingWorkshopLabel,
 						start: skyDate,
-						wikiURL: t("schedule.detailed-breakdown-nesting-workshop-wiki-button-url", {
-							ns: "features",
-						}),
-						catalogueURL: "/me/catalogue?view=nesting-workshop",
+						wikiURL: nestingWorkshopWikiURL,
+						catalogueURL: NESTING_WORKSHOP_CATALOGUE_URL,
 					}),
 				);
 			}
 
 			const dayOfMonth = skyDate.day;
 
-			if (INTERNATIONAL_SPACE_STATION_DATES.some((date) => date === dayOfMonth)) {
+			if (INTERNATIONAL_SPACE_STATION_DATES.some((day) => day === dayOfMonth)) {
 				entries.push(
 					createCalendarEntry({
-						key: `international-space-station-${skyDate.toPlainDate().toString()}`,
+						key: `international-space-station-${date}`,
 						kind: CalendarEntryKind.InternationalSpaceStation,
-						label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
-							ns: "features",
-						}),
+						label: internationalSpaceStationLabel,
 						start: skyDate,
 						end: skyDate.add({ days: 1 }),
-						wikiURL: t("schedule.detailed-breakdown-international-space-station-wiki-button-url", {
-							ns: "features",
-						}),
+						wikiURL: internationalSpaceStationWikiURL,
 					}),
 				);
 			}
@@ -410,12 +443,12 @@ export function calendarEntriesBetween({
 			if (dayOfMonth === 1) {
 				entries.push(
 					createCalendarEntry({
-						key: `aviarys-firework-festival-${skyDate.toPlainDate().toString()}`,
+						key: `aviarys-firework-festival-${date}`,
 						kind: CalendarEntryKind.AviarysFireworkFestival,
-						label: t(`schedule.type.${ScheduleType.AviarysFireworkFestival}`, { ns: "features" }),
+						label: aviarysFireworkFestivalLabel,
 						start: skyDate,
 						end: aviarysFireworkFestivalSchedule(skyDate.with({ hour: 20 })).end,
-						wikiURL: t(`event-wiki.${EventId.AviarysFireworkFestival2023}`, { ns: "general" }),
+						wikiURL: aviarysFireworkFestivalWikiURL,
 					}),
 				);
 			}

@@ -24,6 +24,7 @@ import {
 } from "@thatskyapplication/utility";
 import type { CalendarDayOccurrence } from "~/utility/calendar.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
+import { NESTING_WORKSHOP_CATALOGUE_URL, SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
 
 const MAXIMUM_OCCURRENCES = 200 as const;
 const CADENCE_THRESHOLD = 16 as const;
@@ -67,22 +68,6 @@ const LIGHT_SCHEDULE_TYPES: readonly ScheduleTypes[] = [
 	ScheduleType.Turtle,
 	ScheduleType.DreamsSkater,
 ];
-
-const SCHEDULE_TYPE_TO_WIKI_KEY: Partial<Record<ScheduleTypes, string>> = {
-	[ScheduleType.InternationalSpaceStation]:
-		"schedule.detailed-breakdown-international-space-station-wiki-button-url",
-	[ScheduleType.PollutedGeyser]: "schedule.detailed-breakdown-polluted-geyser-wiki-button-url",
-	[ScheduleType.Grandma]: "schedule.detailed-breakdown-grandma-wiki-button-url",
-	[ScheduleType.Turtle]: "schedule.detailed-breakdown-turtle-wiki-button-url",
-	[ScheduleType.DreamsSkater]: "schedule.detailed-breakdown-dreams-skater-wiki-button-url",
-	[ScheduleType.AURORA]: "schedule.detailed-breakdown-aurora-wiki-button-url",
-	[ScheduleType.Passage]: "schedule.detailed-breakdown-passage-wiki-button-url",
-	[ScheduleType.NestingWorkshop]: "schedule.detailed-breakdown-nesting-workshop-wiki-button-url",
-	[ScheduleType.VaultEldersBlessing]:
-		"schedule.detailed-breakdown-vault-elders-blessing-wiki-button-url",
-	[ScheduleType.ProjectorOfMemories]:
-		"schedule.detailed-breakdown-projector-of-memories-wiki-button-url",
-};
 
 function enumeratePeriods(
 	schedule: (date: Temporal.ZonedDateTime) => SchedulePeriod | null,
@@ -169,10 +154,9 @@ function occurrenceFrom(
 		light: LIGHT_SCHEDULE_TYPES.includes(type),
 		infographicURL: null,
 		acknowledgement: null,
-		wikiURL: wikiKey ? t(wikiKey, { ns: "features" }) : null,
+		wikiURL: wikiKey ? t(wikiKey) : null,
 		pageURL: null,
-		catalogueURL:
-			type === ScheduleType.NestingWorkshop ? "/me/catalogue?view=nesting-workshop" : null,
+		catalogueURL: type === ScheduleType.NestingWorkshop ? NESTING_WORKSHOP_CATALOGUE_URL : null,
 		times,
 		cadence: starts.length > CADENCE_THRESHOLD ? cadenceOf(starts, t) : null,
 		count: starts.length,
@@ -243,6 +227,7 @@ function shardEruptionOccurrences(
 
 export function calendarDayOccurrences(
 	dayStart: Temporal.ZonedDateTime,
+	locale: string,
 	timeFormat: Intl.DateTimeFormat,
 	t: TFunction,
 ): CalendarDayOccurrence[] {
@@ -294,5 +279,5 @@ export function calendarDayOccurrences(
 	}
 
 	occurrences.push(...shardEruptionOccurrences(dayStart, dayEnd, timeFormat, t));
-	return occurrences.sort((a, b) => a.count - b.count || a.label.localeCompare(b.label));
+	return occurrences.sort((a, b) => a.count - b.count || a.label.localeCompare(b.label, locale));
 }

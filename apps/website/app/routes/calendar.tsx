@@ -74,15 +74,6 @@ function firstDayOfWeek(locale: string) {
 	return new Intl.Locale(locale).getWeekInfo().firstDay;
 }
 
-function zonedStartOfDay(date: Temporal.PlainDate, timeZone: string) {
-	return Temporal.ZonedDateTime.from({
-		timeZone,
-		year: date.year,
-		month: date.month,
-		day: date.day,
-	});
-}
-
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const skyTime = url.searchParams.get("zone") === CALENDAR_SKY_TIME_PARAMETER;
@@ -106,8 +97,8 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		: 1;
 
 	const gridEnd = gridStart.add({ days: weekCount * 7 - 1 });
-	const rangeStart = zonedStartOfDay(gridStart, timeZone);
-	const rangeEnd = zonedStartOfDay(gridEnd.add({ days: 1 }), timeZone);
+	const rangeStart = gridStart.toZonedDateTime(timeZone);
+	const rangeEnd = gridEnd.add({ days: 1 }).toZonedDateTime(timeZone);
 
 	const entries = calendarEntriesBetween({
 		rangeStart,
@@ -129,6 +120,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		hour12,
 		t,
 		dayMarkers: false,
+		summary: true,
 	});
 
 	const summary = {
@@ -150,14 +142,14 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		const days: CalendarDay[] = Array.from({ length: 7 }, (_, dayIndex) => {
 			const date = weekStart.add({ days: dayIndex });
 
-			const epochMilliseconds = zonedStartOfDay(date, timeZone).epochMilliseconds;
+			const epochMilliseconds = date.toZonedDateTime(timeZone).epochMilliseconds;
 
 			return {
 				date: date.toString(),
 				label: dayFormat.format(epochMilliseconds),
 				fullLabel: fullDayFormat.format(epochMilliseconds),
 				startsAt: epochMilliseconds,
-				endsAt: zonedStartOfDay(date.add({ days: 1 }), timeZone).epochMilliseconds,
+				endsAt: date.add({ days: 1 }).toZonedDateTime(timeZone).epochMilliseconds,
 				exists: Temporal.PlainDate.compare(date, minimum) >= 0,
 				outsideFocus: isMonth && date.month !== focus.month,
 			};
@@ -174,13 +166,13 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 
 	const weekdayLabels = Array.from({ length: 7 }, (_, dayIndex) =>
 		weekdayFormat.format(
-			zonedStartOfDay(gridStart.add({ days: dayIndex }), timeZone).epochMilliseconds,
+			gridStart.add({ days: dayIndex }).toZonedDateTime(timeZone).epochMilliseconds,
 		),
 	);
 
 	const title = isMonth
 		? new Intl.DateTimeFormat(locale, { timeZone, month: "long", year: "numeric" }).format(
-				zonedStartOfDay(focus, timeZone).epochMilliseconds,
+				focus.toZonedDateTime(timeZone).epochMilliseconds,
 			)
 		: new Intl.DateTimeFormat(locale, {
 				timeZone,
@@ -188,8 +180,8 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 				month: "long",
 				year: "numeric",
 			}).formatRange(
-				zonedStartOfDay(gridStart, timeZone).epochMilliseconds,
-				zonedStartOfDay(gridEnd, timeZone).epochMilliseconds,
+				gridStart.toZonedDateTime(timeZone).epochMilliseconds,
+				gridEnd.toZonedDateTime(timeZone).epochMilliseconds,
 			);
 
 	const day = parsePlainDate(url.searchParams.get("day"));
@@ -202,7 +194,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 			? {
 					date: day.toString(),
 					heading: new Intl.DateTimeFormat(locale, { dateStyle: "full", timeZone }).format(
-						zonedStartOfDay(day, timeZone).epochMilliseconds,
+						day.toZonedDateTime(timeZone).epochMilliseconds,
 					),
 					allDay: entries.filter(
 						(entry) =>
@@ -211,7 +203,8 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 							day.toString() <= entry.lastDate,
 					),
 					occurrences: calendarDayOccurrences(
-						zonedStartOfDay(day, timeZone),
+						day.toZonedDateTime(timeZone),
+						locale,
 						new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }),
 						t,
 					),

@@ -1,26 +1,27 @@
 import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { CalendarEntryIcons } from "~/components/calendar/CalendarEntryDetails";
 import {
-	type CalendarEntry,
-	CalendarEntryKindToSwatchClassName,
+	CalendarEntryKindPresentations,
 	calendarPath,
+	type CalendarSummaryEntry,
 	type CalendarViews,
 } from "~/utility/calendar";
 
 function SummarySection({
+	active,
 	className,
 	entries,
 	heading,
 	skyTime,
-	timestampKey,
 	view,
 }: {
-	className?: string;
-	entries: readonly CalendarEntry[];
+	active: boolean;
+	className?: string | undefined;
+	entries: readonly CalendarSummaryEntry[];
 	heading: string;
 	skyTime: boolean;
-	timestampKey: "schedule.overview-ends-timestamp" | "schedule.overview-next-timestamp";
 	view: CalendarViews;
 }) {
 	const { t } = useTranslation();
@@ -42,28 +43,20 @@ function SummarySection({
 								<span
 									className={clsx(
 										"h-2.5 w-2.5 shrink-0 rounded-full",
-										CalendarEntryKindToSwatchClassName[entry.kind],
+										CalendarEntryKindPresentations[entry.kind].swatch,
 									)}
 								/>
-								{entry.iconURLs.map((iconURL) => (
-									<span
-										aria-hidden="true"
-										className="discord-emoji h-4 w-4"
-										key={iconURL}
-										style={{ backgroundImage: `url(${iconURL})` }}
-									/>
-								))}
+								<CalendarEntryIcons emojiIds={entry.iconEmojiIds} />
 								<span className="min-w-0 truncate text-sm font-medium text-gray-900 dark:text-gray-100">
 									{entry.label}
 								</span>
 								<span className="ms-auto shrink-0 text-xs whitespace-nowrap text-gray-500 dark:text-gray-400">
-									{t(timestampKey, {
-										ns: "features",
-										timestamp:
-											timestampKey === "schedule.overview-ends-timestamp"
-												? entry.endLabel
-												: entry.startLabel,
-									})}
+									{t(
+										active
+											? "schedule.overview-ends-timestamp"
+											: "schedule.overview-next-timestamp",
+										{ ns: "features", timestamp: active ? entry.endLabel : entry.startLabel },
+									)}
 								</span>
 							</Link>
 						</li>
@@ -84,9 +77,9 @@ export function CalendarSummary({
 	upcoming,
 	view,
 }: {
-	active: readonly CalendarEntry[];
+	active: readonly CalendarSummaryEntry[];
 	skyTime: boolean;
-	upcoming: readonly CalendarEntry[];
+	upcoming: readonly CalendarSummaryEntry[];
 	view: CalendarViews;
 }) {
 	const { t } = useTranslation();
@@ -94,18 +87,18 @@ export function CalendarSummary({
 	return (
 		<div className="grid gap-x-6 gap-y-4 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-xl md:grid-cols-2 dark:border-gray-700 dark:bg-gray-900">
 			<SummarySection
+				active
 				entries={active}
 				heading={t("schedule.overview-active", { ns: "features" })}
 				skyTime={skyTime}
-				timestampKey="schedule.overview-ends-timestamp"
 				view={view}
 			/>
 			<SummarySection
+				active={false}
 				className="border-t border-gray-200 pt-4 md:border-s md:border-t-0 md:ps-6 md:pt-0 dark:border-gray-700"
 				entries={upcoming}
 				heading={t("schedule.overview-upcoming", { ns: "features" })}
 				skyTime={skyTime}
-				timestampKey="schedule.overview-next-timestamp"
 				view={view}
 			/>
 		</div>

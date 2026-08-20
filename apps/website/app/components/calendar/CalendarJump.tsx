@@ -1,7 +1,7 @@
 import { Popover } from "@base-ui/react/popover";
 import { clsx } from "clsx";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CALENDAR_MINIMUM_DATE, calendarPath, type CalendarViews } from "~/utility/calendar";
@@ -37,13 +37,8 @@ const ENABLED_CLASS =
 
 const DISABLED_CLASS = "text-gray-300 dark:text-gray-700" as const;
 
-function plainDateEpoch(date: Temporal.PlainDate) {
-	return Temporal.ZonedDateTime.from({
-		timeZone: "UTC",
-		year: date.year,
-		month: date.month,
-		day: date.day,
-	}).epochMilliseconds;
+function utcEpoch(date: Temporal.PlainDate) {
+	return date.toZonedDateTime("UTC").epochMilliseconds;
 }
 
 export function CalendarJump({
@@ -69,27 +64,42 @@ export function CalendarJump({
 	const minimum = Temporal.PlainDate.from(CALENDAR_MINIMUM_DATE);
 	const today = Temporal.PlainDate.from(todayDate);
 	const anchor = Temporal.PlainDate.from(anchorDate);
-	const gridStart = month.subtract({ days: (month.dayOfWeek - weekStartsOn + 7) % 7 });
 
-	const days = Array.from({ length: JUMP_DAY_COUNT }, (_, index) => gridStart.add({ days: index }));
-	const dayFormat = new Intl.DateTimeFormat(locale, { timeZone: "UTC", day: "numeric" });
-	const weekdayFormat = new Intl.DateTimeFormat(locale, { timeZone: "UTC", weekday: "narrow" });
-	const monthFormat = new Intl.DateTimeFormat(locale, { timeZone: "UTC", month: "short" });
-	const yearFormat = new Intl.DateTimeFormat(locale, { timeZone: "UTC", year: "numeric" });
-
-	const monthYearFormat = new Intl.DateTimeFormat(locale, {
-		timeZone: "UTC",
-		month: "long",
-		year: "numeric",
-	});
-
-	const months = Array.from({ length: MONTHS_IN_YEAR }, (_, index) =>
-		month.with({ month: index + 1, day: 1 }),
+	const { dayFormat, weekdayFormat, monthFormat, yearFormat, monthYearFormat } = useMemo(
+		() => ({
+			dayFormat: new Intl.DateTimeFormat(locale, { timeZone: "UTC", day: "numeric" }),
+			weekdayFormat: new Intl.DateTimeFormat(locale, { timeZone: "UTC", weekday: "narrow" }),
+			monthFormat: new Intl.DateTimeFormat(locale, { timeZone: "UTC", month: "short" }),
+			yearFormat: new Intl.DateTimeFormat(locale, { timeZone: "UTC", year: "numeric" }),
+			monthYearFormat: new Intl.DateTimeFormat(locale, {
+				timeZone: "UTC",
+				month: "long",
+				year: "numeric",
+			}),
+		}),
+		[locale],
 	);
 
-	const years = Array.from(
-		{ length: today.year + YEARS_AHEAD - minimum.year + 1 },
-		(_, index) => minimum.year + index,
+	const days = useMemo(() => {
+		const gridStart = month.subtract({ days: (month.dayOfWeek - weekStartsOn + 7) % 7 });
+		return Array.from({ length: JUMP_DAY_COUNT }, (_, index) => gridStart.add({ days: index }));
+	}, [month, weekStartsOn]);
+
+	const months = useMemo(
+		() =>
+			Array.from({ length: MONTHS_IN_YEAR }, (_, index) =>
+				month.with({ month: index + 1, day: 1 }),
+			),
+		[month],
+	);
+
+	const years = useMemo(
+		() =>
+			Array.from(
+				{ length: today.year + YEARS_AHEAD - minimum.year + 1 },
+				(_, index) => minimum.year + index,
+			),
+		[minimum.year, today.year],
 	);
 
 	const atMinimum =
@@ -141,8 +151,8 @@ export function CalendarJump({
 							{mode === JumpMode.Years ? (
 								<span className={HEADER_CLASS}>
 									{yearFormat.formatRange(
-										plainDateEpoch(month.with({ year: years[0]!, month: 1, day: 1 })),
-										plainDateEpoch(month.with({ year: years.at(-1)!, month: 1, day: 1 })),
+										utcEpoch(month.with({ year: years[0]!, month: 1, day: 1 })),
+										utcEpoch(month.with({ year: years.at(-1)!, month: 1, day: 1 })),
 									)}
 								</span>
 							) : (
@@ -155,8 +165,8 @@ export function CalendarJump({
 									type="button"
 								>
 									{mode === JumpMode.Days
-										? monthYearFormat.format(plainDateEpoch(month))
-										: yearFormat.format(plainDateEpoch(month.with({ month: 1, day: 1 })))}
+										? monthYearFormat.format(utcEpoch(month))
+										: yearFormat.format(utcEpoch(month.with({ month: 1, day: 1 })))}
 								</button>
 							)}
 							{mode === JumpMode.Years ? (
@@ -186,12 +196,12 @@ export function CalendarJump({
 										className="pb-1 text-center text-[11px] font-semibold text-gray-500 dark:text-gray-400"
 										key={`weekday-${day.dayOfWeek}`}
 									>
-										{weekdayFormat.format(plainDateEpoch(day))}
+										{weekdayFormat.format(utcEpoch(day))}
 									</div>
 								))}
 								{days.map((day) => {
 									const date = day.toString();
-									const label = dayFormat.format(plainDateEpoch(day));
+									const label = dayFormat.format(utcEpoch(day));
 
 									if (Temporal.PlainDate.compare(day, minimum) < 0) {
 										return (
@@ -231,7 +241,7 @@ export function CalendarJump({
 						{mode === JumpMode.Months && (
 							<div className="grid grid-cols-3 gap-1">
 								{months.map((entry) => {
-									const label = monthFormat.format(plainDateEpoch(entry));
+									const label = monthFormat.format(utcEpoch(entry));
 
 									if (
 										Temporal.PlainDate.compare(entry.with({ day: entry.daysInMonth }), minimum) < 0
@@ -288,7 +298,7 @@ export function CalendarJump({
 										}}
 										type="button"
 									>
-										{yearFormat.format(plainDateEpoch(month.with({ year, month: 1, day: 1 })))}
+										{yearFormat.format(utcEpoch(month.with({ year, month: 1, day: 1 })))}
 									</button>
 								))}
 							</div>

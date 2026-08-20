@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { useMemo } from "react";
+import { Fragment, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CalendarEntryBar } from "~/components/calendar/CalendarEntryBar";
@@ -55,53 +55,51 @@ function CalendarWeekRow({
 			}}
 		>
 			{week.days.map((day, index) => {
+				if (!day.exists) {
+					return (
+						<div
+							className="border-s border-b border-gray-100 bg-gray-100 first:border-s-0 dark:border-gray-800 dark:bg-gray-950/70"
+							key={day.date}
+							style={{ gridColumn: index + 1, gridRow: "1 / -1" }}
+						/>
+					);
+				}
+
 				const isToday = currentTimestamp >= day.startsAt && currentTimestamp < day.endsAt;
 
-				return day.exists ? (
-					<Link
-						aria-label={t("calendar.view-day", { ns: "features", date: day.fullLabel })}
-						className={clsx(
-							"border-s border-b border-gray-100 transition-colors first:border-s-0 hover:bg-sky-50 dark:border-gray-800 dark:hover:bg-sky-950/40",
-							isToday
-								? "bg-discord-button/10 ring-2 ring-discord-button ring-inset dark:bg-discord-button/20"
-								: day.outsideFocus && "bg-gray-50 dark:bg-gray-950/40",
-						)}
-						key={day.date}
-						preventScrollReset
-						style={{ gridColumn: index + 1, gridRow: "1 / -1" }}
-						to={calendarPath({ view, skyTime, date: anchorDate, day: day.date })}
-					/>
-				) : (
-					<div
-						className="border-s border-b border-gray-100 bg-gray-100 first:border-s-0 dark:border-gray-800 dark:bg-gray-950/70"
-						key={day.date}
-						style={{ gridColumn: index + 1, gridRow: "1 / -1" }}
-					/>
-				);
-			})}
-			{week.days.map((day, index) => {
-				const isToday = currentTimestamp >= day.startsAt && currentTimestamp < day.endsAt;
-
-				return day.exists ? (
-					<div
-						className="pointer-events-none px-1 pt-1 pb-0.5 text-center"
-						key={`${day.date}-label`}
-						style={{ gridColumn: index + 1, gridRow: 1 }}
-					>
-						<span
+				return (
+					<Fragment key={day.date}>
+						<Link
+							aria-label={t("calendar.view-day", { ns: "features", date: day.fullLabel })}
 							className={clsx(
-								"inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-medium",
+								"border-s border-b border-gray-100 transition-colors first:border-s-0 hover:bg-sky-50 dark:border-gray-800 dark:hover:bg-sky-950/40",
 								isToday
-									? "bg-discord-button text-white"
-									: day.outsideFocus
-										? "text-gray-400 dark:text-gray-600"
-										: "text-gray-700 dark:text-gray-300",
+									? "bg-discord-button/10 ring-2 ring-discord-button ring-inset dark:bg-discord-button/20"
+									: day.outsideFocus && "bg-gray-50 dark:bg-gray-950/40",
 							)}
+							preventScrollReset
+							style={{ gridColumn: index + 1, gridRow: "1 / -1" }}
+							to={calendarPath({ view, skyTime, date: anchorDate, day: day.date })}
+						/>
+						<div
+							className="pointer-events-none px-1 pt-1 pb-0.5 text-center"
+							style={{ gridColumn: index + 1, gridRow: 1 }}
 						>
-							{day.label}
-						</span>
-					</div>
-				) : null;
+							<span
+								className={clsx(
+									"inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-xs font-medium",
+									isToday
+										? "bg-discord-button text-white"
+										: day.outsideFocus
+											? "text-gray-400 dark:text-gray-600"
+											: "text-gray-700 dark:text-gray-300",
+								)}
+							>
+								{day.label}
+							</span>
+						</div>
+					</Fragment>
+				);
 			})}
 			{segments.map((segment) => (
 				<CalendarEntryBar key={segment.key} locale={locale} segment={segment} view={view} />

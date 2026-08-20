@@ -4,14 +4,19 @@ import { ChevronLeft, ChevronRight, ExternalLinkIcon, X } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router";
+import {
+	CalendarEntryIcons,
+	CalendarEntryLinks,
+	CalendarTimeChips,
+} from "~/components/calendar/CalendarEntryDetails";
+import { EmojiImage } from "~/components/EmojiIcon";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import {
 	type CalendarDayDetail,
 	type CalendarDayOccurrence,
 	type CalendarEntry,
-	CalendarEntryKindToBarClassName,
-	CalendarEntryKindToLabelKey,
+	CalendarEntryKindPresentations,
 	calendarPath,
 	type CalendarViews,
 } from "~/utility/calendar";
@@ -23,20 +28,13 @@ const DIALOG_ICON_BUTTON_CLASS =
 
 function AllDayEntry({ entry, locale }: { entry: CalendarEntry; locale: string }) {
 	const { t } = useTranslation();
-
-	const kindLabel = t(CalendarEntryKindToLabelKey[entry.kind]);
+	const presentation = CalendarEntryKindPresentations[entry.kind];
+	const kindLabel = t(presentation.labelKey);
 
 	return (
-		<li className={clsx("rounded-lg px-3 py-2", CalendarEntryKindToBarClassName[entry.kind])}>
+		<li className={clsx("rounded-lg px-3 py-2", presentation.bar)}>
 			<div className="flex flex-wrap items-center gap-1.5 text-sm font-semibold">
-				{entry.iconURLs.map((iconURL) => (
-					<span
-						aria-hidden="true"
-						className="discord-emoji h-4 w-4"
-						key={iconURL}
-						style={{ backgroundImage: `url(${iconURL})` }}
-					/>
-				))}
+				<CalendarEntryIcons emojiIds={entry.iconEmojiIds} />
 				{entry.label}
 				{kindLabel !== entry.label && (
 					<span className="text-xs font-normal opacity-75">{kindLabel}</span>
@@ -45,45 +43,19 @@ function AllDayEntry({ entry, locale }: { entry: CalendarEntry; locale: string }
 			<p className="m-0 mt-0.5 text-xs opacity-90">{entry.range}</p>
 			{entry.spiritLinks && (
 				<p className="m-0 mt-1 text-xs">
-					<ExternalLinkList items={entry.spiritLinks} locale={locale} />
+					<ExternalLinkList
+						className={ENTRY_LINK_CLASS}
+						items={entry.spiritLinks}
+						locale={locale}
+					/>
 				</p>
 			)}
-			{(entry.catalogueURL ?? entry.pageURL ?? entry.wikiURL ?? entry.marketingURL) && (
-				<div className="mt-1.5 flex flex-wrap items-center gap-3 text-xs font-medium">
-					{entry.catalogueURL && (
-						<Link className={ENTRY_LINK_CLASS} to={entry.catalogueURL}>
-							{t("catalogue.main-title", { ns: "features" })}
-						</Link>
-					)}
-					{entry.pageURL && (
-						<Link className={ENTRY_LINK_CLASS} to={entry.pageURL}>
-							{t("view", { ns: "general" })}
-						</Link>
-					)}
-					{entry.marketingURL && (
-						<a
-							className={clsx(ENTRY_LINK_CLASS, "inline-flex items-center gap-1")}
-							href={entry.marketingURL}
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							{t("view", { ns: "general" })}
-							<ExternalLinkIcon className="h-3 w-3" />
-						</a>
-					)}
-					{entry.wikiURL && (
-						<a
-							className={clsx(ENTRY_LINK_CLASS, "inline-flex items-center gap-1")}
-							href={entry.wikiURL}
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							{t("wiki", { ns: "general" })}
-							<ExternalLinkIcon className="h-3 w-3" />
-						</a>
-					)}
-				</div>
-			)}
+			<CalendarEntryLinks
+				className="mt-1.5 flex flex-wrap items-center gap-3 text-xs font-medium"
+				entry={entry}
+				iconClassName="h-3 w-3"
+				linkClassName={ENTRY_LINK_CLASS}
+			/>
 		</li>
 	);
 }
@@ -102,13 +74,7 @@ function DayOccurrence({
 		<li className="border-t border-gray-100 py-2 first:border-t-0 dark:border-gray-800">
 			<div className="flex items-start justify-between gap-3">
 				<div className="flex min-w-0 flex-wrap items-center gap-2">
-					{occurrence.iconURL && (
-						<span
-							aria-hidden="true"
-							className="discord-emoji h-4 w-4"
-							style={{ backgroundImage: `url(${occurrence.iconURL})` }}
-						/>
-					)}
+					{occurrence.iconURL && <EmojiImage url={occurrence.iconURL} />}
 					<span className="text-sm font-medium text-gray-900 dark:text-gray-100">
 						{occurrence.label}
 					</span>
@@ -160,14 +126,7 @@ function DayOccurrence({
 				<p className="m-0 mt-1 text-xs text-gray-500 dark:text-gray-400">{occurrence.cadence}</p>
 			)}
 			<div className="mt-1 flex flex-wrap gap-1">
-				{occurrence.times.map((time) => (
-					<span
-						className="rounded bg-gray-100 px-1.5 py-0.5 font-mono text-xs text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-						key={time}
-					>
-						{time}
-					</span>
-				))}
+				<CalendarTimeChips times={occurrence.times} />
 			</div>
 		</li>
 	);

@@ -2,9 +2,8 @@ import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import {
 	CALENDAR_ENTRY_KIND_VALUES,
+	CalendarEntryKindPresentations,
 	type CalendarEntryKinds,
-	CalendarEntryKindToLabelKey,
-	CalendarEntryKindToSwatchClassName,
 } from "~/utility/calendar";
 
 export function CalendarLegend({
@@ -23,6 +22,7 @@ export function CalendarLegend({
 		>
 			{CALENDAR_ENTRY_KIND_VALUES.map((kind) => {
 				const hidden = hiddenKinds.has(kind);
+				const presentation = CalendarEntryKindPresentations[kind];
 
 				return (
 					<li key={kind}>
@@ -40,13 +40,11 @@ export function CalendarLegend({
 							<span
 								className={clsx(
 									"h-2.5 w-2.5 shrink-0 rounded-full transition-opacity",
-									CalendarEntryKindToSwatchClassName[kind],
+									presentation.swatch,
 									hidden && "opacity-30",
 								)}
 							/>
-							<span className={clsx(hidden && "line-through")}>
-								{t(CalendarEntryKindToLabelKey[kind])}
-							</span>
+							<span className={clsx(hidden && "line-through")}>{t(presentation.labelKey)}</span>
 						</button>
 					</li>
 				);
