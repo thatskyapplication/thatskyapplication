@@ -15,6 +15,7 @@ import {
 	nineColouredDeerSchedule,
 	PASSAGE_SCHEDULE_START_DATE,
 	pollutedGeyserSchedule,
+	PROJECTOR_OF_MEMORIES_START_DATE,
 	projectorOfMemoriesSchedule,
 	ScheduleType,
 	type ScheduleTypes,
@@ -66,7 +67,7 @@ const PERIOD_SCHEDULES = [
 	{
 		type: ScheduleType.ProjectorOfMemories,
 		schedule: projectorOfMemoriesSchedule,
-		start: null,
+		start: PROJECTOR_OF_MEMORIES_START_DATE,
 	},
 	{ type: ScheduleType.MeteorShower, schedule: meteorShowerSchedule, start: null },
 ] as const satisfies readonly {

@@ -315,24 +315,31 @@ const SCHEDULES = [
 		schedule: projectorOfMemoriesSchedule,
 		cases: [
 			{
+				label: "active from its introduction",
+				input: skyDate(2025, 9, 6),
+				start: "2025-09-06T00:00:00-07:00[America/Los_Angeles]",
+				end: "2025-09-06T01:18:00-07:00[America/Los_Angeles]",
+				active: true,
+			},
+			{
 				label: "active on a normal day",
-				input: skyDate(2025, 6, 15, 10, 0),
-				start: "2025-06-15T09:20:00-07:00[America/Los_Angeles]",
-				end: "2025-06-15T10:38:00-07:00[America/Los_Angeles]",
+				input: skyDate(2025, 9, 15, 10, 0),
+				start: "2025-09-15T09:20:00-07:00[America/Los_Angeles]",
+				end: "2025-09-15T10:38:00-07:00[America/Los_Angeles]",
 				active: true,
 			},
 			{
 				label: "active mid-cycle on a normal day",
-				input: skyDate(2025, 6, 15, 13, 20),
-				start: "2025-06-15T13:20:00-07:00[America/Los_Angeles]",
-				end: "2025-06-15T14:38:00-07:00[America/Los_Angeles]",
+				input: skyDate(2025, 9, 15, 13, 20),
+				start: "2025-09-15T13:20:00-07:00[America/Los_Angeles]",
+				end: "2025-09-15T14:38:00-07:00[America/Los_Angeles]",
 				active: true,
 			},
 			{
 				label: "active at the boundary after the spring forward",
-				input: skyDate(2025, 3, 9, 4, 0),
-				start: "2025-03-09T04:00:00-07:00[America/Los_Angeles]",
-				end: "2025-03-09T05:18:00-07:00[America/Los_Angeles]",
+				input: skyDate(2026, 3, 8, 4, 0),
+				start: "2026-03-08T04:00:00-07:00[America/Los_Angeles]",
+				end: "2026-03-08T05:18:00-07:00[America/Los_Angeles]",
 				active: true,
 			},
 			{
@@ -503,6 +510,11 @@ test("International Space Station schedule is unavailable before the Secret Area
 test("Dreams skater schedule is unavailable before its introduction.", () => {
 	equal(dreamsSkaterSchedule(skyDate(2017, 12, 19)), null);
 	equal(dreamsSkaterSchedule(skyDate(2022, 12, 18, 23, 59, 59)), null);
+});
+
+test("Projector of memories schedule is unavailable before its introduction.", () => {
+	equal(projectorOfMemoriesSchedule(skyDate(2017, 12, 19)), null);
+	equal(projectorOfMemoriesSchedule(skyDate(2025, 9, 5, 23, 59, 59)), null);
 });
 
 test("Shard eruption schedule finds an active eruption on the requested date.", () => {

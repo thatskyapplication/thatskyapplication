@@ -578,8 +578,12 @@ function projectorOfMemoriesOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.ProjectorOfMemories> {
+): ScheduleWithEnd<typeof ScheduleType.ProjectorOfMemories> | null {
 	const schedule = projectorOfMemoriesSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
 
 	return {
 		type: ScheduleType.ProjectorOfMemories,

@@ -1166,6 +1166,10 @@ function vaultEldersBlessingDetailedBreakdown(
 function projectorOfMemoriesOverview(date: Temporal.ZonedDateTime) {
 	const schedule = projectorOfMemoriesSchedule(date);
 
+	if (!schedule) {
+		return null;
+	}
+
 	return {
 		now: schedule.active,
 		next: `<t:${epochSeconds(schedule.start)}:R>`,
@@ -1176,6 +1180,12 @@ function projectorOfMemoriesDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
+	const projectorOfMemories = projectorOfMemoriesOverview(now);
+
+	if (!projectorOfMemories) {
+		return [];
+	}
+
 	const timestamps = [];
 	const startOfDay = now.startOfDay();
 	const tomorrow = startOfDay.add({ days: 1 });
@@ -1193,8 +1203,6 @@ function projectorOfMemoriesDetailedBreakdown(
 
 		timestamps.push(string);
 	}
-
-	const projectorOfMemories = projectorOfMemoriesOverview(now);
 
 	return [
 		{
@@ -1795,30 +1803,31 @@ export async function scheduleOverview(
 		});
 	}
 
-	secondContainerComponents.push(
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
+	secondContainerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: t("schedule.overview", {
+			lng: locale,
+			ns: "features",
+			type: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
-					lng: locale,
-					ns: "features",
-				}),
-				details: nineColouredDeer.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: nineColouredDeer.next,
-						}),
 			}),
-		},
-		{
+			details: nineColouredDeer.now
+				? t("schedule.overview-available", {
+						lng: locale,
+						ns: "features",
+						emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+					})
+				: t("schedule.overview-next-available-timestamp", {
+						lng: locale,
+						ns: "features",
+						timestamp: nineColouredDeer.next,
+					}),
+		}),
+	});
+
+	if (projectorOfMemories) {
+		secondContainerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: t("schedule.overview", {
 				lng: locale,
@@ -1839,8 +1848,8 @@ export async function scheduleOverview(
 							timestamp: projectorOfMemories.next,
 						}),
 			}),
-		},
-	);
+		});
+	}
 
 	const options: APISelectMenuOption[] = [
 		{
@@ -1994,24 +2003,25 @@ export async function scheduleOverview(
 		});
 	}
 
-	options.push(
-		{
-			label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.NineColouredDeer.toString(),
-			emoji: CAPE_EMOJIS.Cape125,
-		},
-		{
+	options.push({
+		label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
+			lng: locale,
+			ns: "features",
+		}),
+		value: ScheduleType.NineColouredDeer.toString(),
+		emoji: CAPE_EMOJIS.Cape125,
+	});
+
+	if (projectorOfMemories) {
+		options.push({
 			label: t(`schedule.type.${ScheduleType.ProjectorOfMemories}`, {
 				lng: locale,
 				ns: "features",
 			}),
 			value: ScheduleType.ProjectorOfMemories.toString(),
 			emoji: SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106,
-		},
-	);
+		});
+	}
 
 	const response:
 		| Parameters<InteractionsAPI["reply"]>[2]

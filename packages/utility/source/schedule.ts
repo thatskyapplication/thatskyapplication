@@ -43,6 +43,12 @@ const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from
  */
 export const DREAMS_SKATER_START_DATE = skyDate(2022, 12, 19);
 export const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
+/**
+ * Available in the in-game shop from 06/09/2025.
+ *
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1411-hotfix---september-5-2025---0-30-6-343782-android-huawei-ios-playstation-steam}
+ */
+export const PROJECTOR_OF_MEMORIES_START_DATE = skyDate(2025, 9, 6);
 
 export function internationalSpaceStationDates(
 	date: Temporal.ZonedDateTime,
@@ -309,6 +315,10 @@ export function vaultEldersBlessingSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function projectorOfMemoriesSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, PROJECTOR_OF_MEMORIES_START_DATE) < 0) {
+		return null;
+	}
+
 	const { hour, minute } = date;
 	const minutesSince = hour * 60 + minute;
 	const remainder = minutesSince % 80;

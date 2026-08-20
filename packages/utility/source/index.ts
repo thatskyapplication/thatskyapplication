@@ -214,6 +214,7 @@ export {
 	nineColouredDeerSchedule,
 	PASSAGE_SCHEDULE_START_DATE,
 	pollutedGeyserSchedule,
+	PROJECTOR_OF_MEMORIES_START_DATE,
 	projectorOfMemoriesSchedule,
 	returningSpiritsSchedule,
 	SCHEDULE_TYPE_VALUES,
