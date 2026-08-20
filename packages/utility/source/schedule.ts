@@ -37,6 +37,10 @@ const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [6, 13, 20, 27] as const;
 const INTERNATIONAL_SPACE_STATION_START_DATE = Temporal.PlainDate.from("2019-09-22");
 const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from("2023-06-01");
 /**
+ * Introduced with Days of Nature on 18 April 2022.
+ */
+export const TURTLE_START_DATE = skyDate(2022, 4, 18);
+/**
  * Introduced with Days of Feast at 00:00 on 19 December 2022.
  *
  * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/968-patch-notes---november-28-2022---0-19-5-206971-android-huawei-ios-206872-switch}
@@ -174,6 +178,10 @@ export function grandmaSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function turtleSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, TURTLE_START_DATE) < 0) {
+		return null;
+	}
+
 	const start = addWallClockMinutes(startOfHour(date), date.hour % 2 === 0 ? 50 : 110);
 	const end = start.add({ minutes: 10 });
 	return { start, end, active: isActive(start, end, date) };

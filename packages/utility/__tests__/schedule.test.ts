@@ -193,6 +193,13 @@ const SCHEDULES = [
 		schedule: turtleSchedule,
 		cases: [
 			{
+				label: "available from Days of Nature 2022",
+				input: skyDate(2022, 4, 18),
+				start: "2022-04-18T00:50:00-07:00[America/Los_Angeles]",
+				end: "2022-04-18T01:00:00-07:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
 				label: "active on a normal day",
 				input: skyDate(2025, 6, 15, 10, 52),
 				start: "2025-06-15T10:50:00-07:00[America/Los_Angeles]",
@@ -550,6 +557,11 @@ for (const { name, schedule, cases } of SCHEDULES) {
 		});
 	}
 }
+
+test("Turtle schedule is unavailable before Days of Nature 2022.", () => {
+	equal(turtleSchedule(skyDate(2017, 12, 19)), null);
+	equal(turtleSchedule(skyDate(2022, 4, 17, 23, 59, 59)), null);
+});
 
 test("Aviary's firework festival schedule is unavailable before the finale.", () => {
 	equal(aviarysFireworkFestivalSchedule(skyDate(2017, 12, 19)), null);

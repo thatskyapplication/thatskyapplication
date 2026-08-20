@@ -326,8 +326,12 @@ function turtleOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.Turtle> {
+): ScheduleWithEnd<typeof ScheduleType.Turtle> | null {
 	const schedule = turtleSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
 
 	return {
 		type: ScheduleType.Turtle,

@@ -222,6 +222,7 @@ export {
 	type ScheduleTypes,
 	shardEruptionSchedule,
 	travellingSpiritSchedule,
+	TURTLE_START_DATE,
 	turtleSchedule,
 	VAULT_ELDERS_BLESSING_START_DATE,
 	vaultEldersBlessingSchedule,

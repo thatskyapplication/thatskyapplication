@@ -590,7 +590,7 @@ function grandmaDetailedBreakdown(
 }
 
 function turtleOverview(date: Temporal.ZonedDateTime) {
-	const schedule = turtleSchedule(date);
+	const schedule = turtleSchedule(date)!;
 
 	return {
 		now: schedule.active,

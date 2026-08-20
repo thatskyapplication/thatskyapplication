@@ -22,6 +22,7 @@ import {
 	shardEruption,
 	SHARD_ERUPTION_START_DATE,
 	TIME_ZONE,
+	TURTLE_START_DATE,
 	turtleSchedule,
 	VAULT_ELDERS_BLESSING_START_DATE,
 	vaultEldersBlessingSchedule,
@@ -47,7 +48,7 @@ const PERIOD_SCHEDULES = [
 	},
 	{ type: ScheduleType.PollutedGeyser, schedule: pollutedGeyserSchedule, start: null },
 	{ type: ScheduleType.Grandma, schedule: grandmaSchedule, start: null },
-	{ type: ScheduleType.Turtle, schedule: turtleSchedule, start: null },
+	{ type: ScheduleType.Turtle, schedule: turtleSchedule, start: TURTLE_START_DATE },
 	{
 		type: ScheduleType.DreamsSkater,
 		schedule: dreamsSkaterSchedule,
