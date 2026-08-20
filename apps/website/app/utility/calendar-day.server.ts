@@ -13,7 +13,6 @@ import {
 	nextNestingWorkshop,
 	nextPassage,
 	nineColouredDeerSchedule,
-	PASSAGE_SCHEDULE_START_DATE,
 	pollutedGeyserSchedule,
 	PROJECTOR_OF_MEMORIES_START_DATE,
 	projectorOfMemoriesSchedule,
@@ -78,14 +77,13 @@ const PERIOD_SCHEDULES = [
 }[];
 
 const INSTANT_SCHEDULES = [
-	{ type: ScheduleType.DailyReset, next: nextDailyReset, start: null },
-	{ type: ScheduleType.EyeOfEden, next: nextEyeOfEden, start: null },
-	{ type: ScheduleType.NestingWorkshop, next: nextNestingWorkshop, start: null },
-	{ type: ScheduleType.Passage, next: nextPassage, start: PASSAGE_SCHEDULE_START_DATE },
+	{ type: ScheduleType.DailyReset, next: nextDailyReset },
+	{ type: ScheduleType.EyeOfEden, next: nextEyeOfEden },
+	{ type: ScheduleType.NestingWorkshop, next: nextNestingWorkshop },
+	{ type: ScheduleType.Passage, next: nextPassage },
 ] as const satisfies readonly {
 	type: ScheduleTypes;
 	next: (date: Temporal.ZonedDateTime) => Temporal.ZonedDateTime | null;
-	start: Temporal.ZonedDateTime | null;
 }[];
 
 const LIGHT_SCHEDULE_TYPES: readonly ScheduleTypes[] = [
@@ -136,23 +134,9 @@ function enumerateInstants(
 	next: (date: Temporal.ZonedDateTime) => Temporal.ZonedDateTime | null,
 	dayStart: Temporal.ZonedDateTime,
 	dayEnd: Temporal.ZonedDateTime,
-	scheduleStart: Temporal.ZonedDateTime | null,
 ): Temporal.ZonedDateTime[] {
 	const instants: Temporal.ZonedDateTime[] = [];
-	const first =
-		scheduleStart && Temporal.ZonedDateTime.compare(scheduleStart, dayStart) >= 0
-			? scheduleStart
-			: null;
-
-	if (first) {
-		if (Temporal.ZonedDateTime.compare(first, dayEnd) >= 0) {
-			return instants;
-		}
-
-		instants.push(first);
-	}
-
-	let cursor = first ?? dayStart.subtract({ nanoseconds: 1 });
+	let cursor = dayStart.subtract({ nanoseconds: 1 });
 
 	while (instants.length < MAXIMUM_OCCURRENCES) {
 		const instant = next(cursor);
@@ -309,8 +293,8 @@ export function calendarDayOccurrences(
 		);
 	}
 
-	for (const { type, next, start } of INSTANT_SCHEDULES) {
-		const instants = enumerateInstants(next, skyDayStart, skyDayEnd, start);
+	for (const { type, next } of INSTANT_SCHEDULES) {
+		const instants = enumerateInstants(next, skyDayStart, skyDayEnd);
 
 		if (instants.length === 0) {
 			continue;

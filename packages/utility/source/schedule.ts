@@ -42,7 +42,7 @@ const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from
  * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/968-patch-notes---november-28-2022---0-19-5-206971-android-huawei-ios-206872-switch}
  */
 export const DREAMS_SKATER_START_DATE = skyDate(2022, 12, 19);
-export const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
+const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
 /**
  * Available from 20:10 BST on 28 August 2025 (12:10 PDT).
  *
@@ -240,13 +240,11 @@ export function auroraSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function nextPassage(date: Temporal.ZonedDateTime) {
-	if (Temporal.ZonedDateTime.compare(date, PASSAGE_SCHEDULE_START_DATE) < 0) {
-		return null;
-	}
-
-	return date
+	const start = date
 		.add({ minutes: 15 - (date.minute % 15) })
 		.round({ smallestUnit: "minute", roundingMode: "trunc" });
+
+	return Temporal.ZonedDateTime.compare(start, PASSAGE_SCHEDULE_START_DATE) < 0 ? null : start;
 }
 
 export function aviarysFireworkFestivalSchedule(date: Temporal.ZonedDateTime) {
