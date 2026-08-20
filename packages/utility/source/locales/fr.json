@@ -2352,6 +2352,9 @@
 		"maintenance-description-many-with-times": "Sky pourrait ne pas être disponible à ces moments.\n{{times}}",
 		"navigation-back": "Retour",
 		"navigation-next": "Suivant",
+		"close": "",
+		"today": "Aujourd'hui",
+		"shard-eruption": "Éruption d'éclats",
 		"wiki": "Wiki"
 	},
 	"commands": {
@@ -2548,7 +2551,7 @@
 				"19": "$t(features:schedule.type.19)",
 				"20": "$t(features:schedule.type.20)",
 				"21": "$t(features:schedule.type.21)",
-				"22": ""
+				"22": "$t(features:schedule.type.22)"
 			},
 			"command-option-hide-name": "cacher",
 			"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
@@ -2687,6 +2690,35 @@
 				"title": "Calculateur de lumières ailées"
 			}
 		},
+		"calendar": {
+			"name": "",
+			"description": "",
+			"description-short": "",
+			"view-month": "",
+			"view-week": "",
+			"view-label": "",
+			"previous-month": "",
+			"next-month": "",
+			"previous-week": "",
+			"next-week": "",
+			"previous-day": "",
+			"next-day": "",
+			"previous-year": "",
+			"next-year": "",
+			"legend": "",
+			"nothing-scheduled": "",
+			"duration_one": "",
+			"duration_other": "",
+			"jump-to-date": "",
+			"time-zone-local": "",
+			"time-zone-label": "",
+			"all-day": "",
+			"during-the-day": "",
+			"view-day": "",
+			"cadence_one": "",
+			"cadence_other": "",
+			"community-event": ""
+		},
 		"catalogue": {
 			"main-title": "Catalogue",
 			"description": "",
@@ -2807,7 +2839,6 @@
 			"treasure-candles": "Bougies au trésor",
 			"seasonal-candles": "Bougies saisonnières",
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} avec un Passe Saisonnier)",
-			"shard-eruption": "Éruption d'éclats",
 			"shard-eruption-data": "Données",
 			"shard-eruption-timestamps": "Heures",
 			"shard-eruption-none": "Aucune",
@@ -3072,7 +3103,7 @@
 				"5": "Geyser pollué",
 				"6": "Mamie",
 				"7": "Tortue",
-				"8": "Éruption d'éclat",
+				"8": "$t(general:shard-eruption)",
 				"9": "Patineuse des rêves",
 				"10": "AURORA",
 				"11": "Initiation",
@@ -3180,8 +3211,8 @@
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
 			"browse-no-shard": "Pas d'éruptions d'éclats.",
 			"none": "Aucun",
-			"today": "Aujourd'hui",
 			"browse": "Rechercher",
+			"jump-to-date": "",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))"
 		},
 		"sky-profile": {
