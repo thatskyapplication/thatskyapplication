@@ -61,6 +61,27 @@ export const TURTLE_START_DATE = skyDate(2022, 4, 18);
  * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/968-patch-notes---november-28-2022---0-19-5-206971-android-huawei-ios-206872-switch}
  */
 export const DREAMS_SKATER_START_DATE = skyDate(2022, 12, 19);
+/**
+ * The concert debuted at 20:30 PST on 8 December 2022. The observed concert window began 10
+ * minutes later at 20:40 and lasted 48 minutes.
+ *
+ * @remarks After the season, the concert remained available on its schedule through the
+ * Wings of AURORA.
+ *
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/968-patch-notes---november-28-2022---0-19-5-206971-android-huawei-ios-206872-switch}
+ */
+export const AURORA_START_DATE = skyDate(2022, 12, 8, 20, 30);
+const AURORA_FIRST_CONCERT_START_DATE = AURORA_START_DATE.add({ minutes: 10 });
+const AURORA_FIRST_CONCERT_END_DATE = AURORA_FIRST_CONCERT_START_DATE.add({ minutes: 48 });
+/**
+ * First observed report that 0.27.5 was available, at 20:12:02.562 UTC on 21 November 2024. The
+ * concert was observed on its two-hour rotation from this update, before 0.27.6 documented it.
+ *
+ * @see {@link https://discord.com/channels/575762611111592007/575827924343848960/1309249991080017950}
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1365-hotfix---december-5-2024---0-27-6-305399-android-huawei-ios-304953-playstation-steam-switch}
+ */
+const AURORA_TWO_HOUR_ROTATION_START_DATE =
+	Temporal.Instant.fromEpochMilliseconds(1_732_219_922_562).toZonedDateTimeISO(TIME_ZONE);
 const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
 /**
  * The finale ran every 4 hours from 00:00 on 12 December 2023, with the last show at 20:00 on
@@ -282,9 +303,28 @@ export function dreamsSkaterSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function auroraSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, AURORA_START_DATE) < 0) {
+		return null;
+	}
+
+	if (Temporal.ZonedDateTime.compare(date, AURORA_FIRST_CONCERT_END_DATE) < 0) {
+		return {
+			start: AURORA_FIRST_CONCERT_START_DATE,
+			end: AURORA_FIRST_CONCERT_END_DATE,
+			active: isActive(AURORA_FIRST_CONCERT_START_DATE, AURORA_FIRST_CONCERT_END_DATE, date),
+		};
+	}
+
+	const intervalHours =
+		Temporal.ZonedDateTime.compare(date, AURORA_TWO_HOUR_ROTATION_START_DATE) < 0 ? 4 : 2;
+	const hourRemainder = date.hour % intervalHours;
 	const start = addWallClockMinutes(
 		startOfHour(date),
-		date.hour % 2 === 0 ? (date.minute < 58 ? 10 : 130) : 70,
+		hourRemainder === 0
+			? date.minute < 58
+				? 10
+				: intervalHours * 60 + 10
+			: (intervalHours - hourRemainder) * 60 + 10,
 	);
 
 	const end = start.add({ minutes: 48 });

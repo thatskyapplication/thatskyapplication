@@ -778,7 +778,7 @@ function dreamsSkaterDetailedBreakdown(
 }
 
 function auroraOverview(date: Temporal.ZonedDateTime) {
-	const schedule = auroraSchedule(date);
+	const schedule = auroraSchedule(date)!;
 
 	return {
 		now: schedule.active,

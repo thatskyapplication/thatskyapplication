@@ -198,6 +198,7 @@ export {
 } from "./notifications.js";
 export { isPlatformId, PLATFORM_ID_VALUES, PlatformId, type PlatformIds } from "./platforms.js";
 export {
+	AURORA_START_DATE,
 	auroraSchedule,
 	AVIARYS_FIREWORK_FESTIVAL_START_DATE,
 	aviarysFireworkFestivalSchedule,

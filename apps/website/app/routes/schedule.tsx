@@ -418,8 +418,12 @@ function auroraOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.AURORA> {
+): ScheduleWithEnd<typeof ScheduleType.AURORA> | null {
 	const schedule = auroraSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
 
 	return {
 		type: ScheduleType.AURORA,

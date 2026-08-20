@@ -248,6 +248,41 @@ const SCHEDULES = [
 		schedule: auroraSchedule,
 		cases: [
 			{
+				label: "is available from the announced concert debut",
+				input: skyDate(2022, 12, 8, 20, 30),
+				start: "2022-12-08T20:40:00-08:00[America/Los_Angeles]",
+				end: "2022-12-08T21:28:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
+				label: "is active during the debut concert",
+				input: skyDate(2022, 12, 8, 20, 50),
+				start: "2022-12-08T20:40:00-08:00[America/Los_Angeles]",
+				end: "2022-12-08T21:28:00-08:00[America/Los_Angeles]",
+				active: true,
+			},
+			{
+				label: "uses the first four-hour slot after the debut",
+				input: skyDate(2022, 12, 8, 21, 28),
+				start: "2022-12-09T00:10:00-08:00[America/Los_Angeles]",
+				end: "2022-12-09T00:58:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
+				label: "uses the original four-hour rotation",
+				input: skyDate(2024, 11, 20, 14),
+				start: "2024-11-20T16:10:00-08:00[America/Los_Angeles]",
+				end: "2024-11-20T16:58:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
+				label: "uses the observed two-hour rotation before 0.27.6",
+				input: skyDate(2024, 11, 21, 14),
+				start: "2024-11-21T14:10:00-08:00[America/Los_Angeles]",
+				end: "2024-11-21T14:58:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
 				label: "active on a normal day",
 				input: skyDate(2025, 6, 15, 10, 20),
 				start: "2025-06-15T10:10:00-07:00[America/Los_Angeles]",
@@ -603,6 +638,11 @@ test("Aviary's firework festival schedule is unavailable before the finale.", ()
 	equal(aviarysFireworkFestivalSchedule(skyDate(2017, 12, 19)), null);
 	equal(aviarysFireworkFestivalSchedule(skyDate(2023, 12, 1)), null);
 	equal(aviarysFireworkFestivalSchedule(skyDate(2023, 12, 11, 23, 59, 59)), null);
+});
+
+test("AURORA concert schedule is unavailable before its debut.", () => {
+	equal(auroraSchedule(skyDate(2017, 12, 19)), null);
+	equal(auroraSchedule(skyDate(2022, 12, 8, 20, 29, 59)), null);
 });
 
 test("International Space Station schedule is unavailable before the Secret Area's introduction.", () => {

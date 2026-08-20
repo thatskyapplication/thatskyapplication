@@ -1,5 +1,6 @@
 import type { TFunction } from "i18next";
 import {
+	AURORA_START_DATE,
 	auroraSchedule,
 	AVIARYS_FIREWORK_FESTIVAL_START_DATE,
 	aviarysFireworkFestivalSchedule,
@@ -61,7 +62,7 @@ const PERIOD_SCHEDULES = [
 		schedule: dreamsSkaterSchedule,
 		start: DREAMS_SKATER_START_DATE,
 	},
-	{ type: ScheduleType.AURORA, schedule: auroraSchedule, start: null },
+	{ type: ScheduleType.AURORA, schedule: auroraSchedule, start: AURORA_START_DATE },
 	{
 		type: ScheduleType.AviarysFireworkFestival,
 		schedule: aviarysFireworkFestivalSchedule,
