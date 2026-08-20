@@ -6,6 +6,7 @@ import {
 	type APIInteractionDataResolvedGuildMember,
 	type APIMessageComponentButtonInteraction,
 	type APIMessageTopLevelComponent,
+	type APIModalSubmitGuildInteraction,
 	type APIUser,
 	ButtonStyle,
 	ChannelType,
@@ -30,6 +31,7 @@ import { DEVELOPER_ROLE_ID, SUPPORT_SERVER_GUILD_ID } from "../utility/configura
 import { CustomId } from "../utility/custom-id.js";
 import { EMOTE_EMOJIS, FRIEND_ACTION_EMOJIS } from "../utility/emojis.js";
 import { interactionInvoker, userTag } from "../utility/functions.js";
+import { ModalResolver } from "../utility/modal-resolver.js";
 import { can, cannotUseUserInstallable } from "../utility/permissions.js";
 
 const FriendshipActionTypeToTranslationKey = {
@@ -253,9 +255,42 @@ export async function friendshipActionsHugBack(
 	});
 }
 
-export async function friendshipActionsCreateThread(
+export async function friendshipActionsContributeModal(
 	interaction: APIGuildInteractionWrapper<APIMessageComponentButtonInteraction>,
 ) {
+	await client.api.interactions.createModal(interaction.id, interaction.token, {
+		title: "Friendship actions contribution",
+		components: [
+			{
+				type: ComponentType.TextDisplay,
+				content:
+					"Thank you for your interest! This is a confirmation modal ensuring you actually want to begin the process.\n\nAre you ready to proceed?",
+			},
+			{
+				type: ComponentType.Label,
+				label: "I confirm I am ready to proceed!",
+				component: {
+					type: ComponentType.Checkbox,
+					custom_id: CustomId.FriendshipActionsContributeModalConfirmation,
+				},
+			},
+		],
+		custom_id: CustomId.FriendshipActionsContributeModal,
+	});
+}
+
+export async function friendshipActionsCreateThread(interaction: APIModalSubmitGuildInteraction) {
+	const components = new ModalResolver(interaction.data);
+
+	if (!components.getCheckboxValue(CustomId.FriendshipActionsContributeModalConfirmation)) {
+		await client.api.interactions.reply(interaction.id, interaction.token, {
+			content: "You did not confirm you were ready to proceed.",
+			flags: MessageFlags.Ephemeral,
+		});
+
+		return;
+	}
+
 	const userId = interaction.member.user.id;
 
 	const existingThread = FRIENDSHIP_ACTIONS_CACHE.findKey(
@@ -279,7 +314,7 @@ export async function friendshipActionsCreateThread(
 		);
 	}
 
-	const channel = guild.channels.get(interaction.channel.id);
+	const channel = interaction.channel && guild.channels.get(interaction.channel.id);
 
 	if (!channel) {
 		throw new Error("Channel not found whilst creating a private thread for friendship actions.");

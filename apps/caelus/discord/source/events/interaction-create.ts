@@ -65,6 +65,7 @@ import {
 } from "../features/daily-guides.js";
 import { deleteUserData } from "../features/data.js";
 import {
+	friendshipActionsContributeModal,
 	friendshipActionsCreateThread,
 	friendshipActionsHugBack,
 } from "../features/friendship-actions.js";
@@ -773,7 +774,7 @@ export default {
 
 				if (isGuildButton(data)) {
 					if (id === CustomId.FriendshipActionsContribute) {
-						await friendshipActionsCreateThread(data);
+						await friendshipActionsContributeModal(data);
 						return;
 					}
 
@@ -1162,6 +1163,11 @@ export default {
 				}
 
 				if (isGuildModalSubmit(data)) {
+					if (id === CustomId.FriendshipActionsContributeModal) {
+						await friendshipActionsCreateThread(data);
+						return;
+					}
+
 					if (id === CustomId.AdminCustomStatusModal) {
 						await adminHandleCustomStatus(data);
 						return;
