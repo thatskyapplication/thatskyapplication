@@ -18,7 +18,7 @@ export function SeasonEmojiBadges({
 		<div className={className}>
 			{seasons
 				.filter((season) => isSeasonId(season))
-				.toSorted((a, b) => a - b)
+				.sort((a, b) => a - b)
 				.map((season) => {
 					const seasonEmoji = SeasonIdToSeasonalEmoji[season];
 

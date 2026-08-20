@@ -12,7 +12,7 @@ export function PlatformBadges({
 		<div className={className}>
 			{platforms
 				.filter((platform) => isPlatformId(platform))
-				.toSorted((a, b) => a - b)
+				.sort((a, b) => a - b)
 				.map((platform) => (
 					<div
 						className="items-center justify-center rounded-full bg-gray-200 p-2 shadow-sm dark:bg-gray-100"
