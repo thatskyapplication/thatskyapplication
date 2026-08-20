@@ -289,7 +289,7 @@ export function calendarEntriesBetween({
 				label: t("event-names.double-treasure-candles", { ns: "general" }),
 				start,
 				end,
-				iconEmojiIds: [MISCELLANEOUS_EMOJIS.Candle.id],
+				iconEmojiIds: [MISCELLANEOUS_EMOJIS.TreasureCandle.id],
 			}),
 		);
 	}
