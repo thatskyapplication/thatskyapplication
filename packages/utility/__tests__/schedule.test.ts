@@ -582,6 +582,11 @@ const NEXT_SCHEDULES = [
 		schedule: nextPassage,
 		cases: [
 			{
+				label: "from the Season of Passage's second quest",
+				input: skyDate(2023, 5, 1),
+				expected: "2023-05-01T00:15:00-07:00[America/Los_Angeles]",
+			},
+			{
 				label: "on a normal day",
 				input: skyDate(2025, 6, 15, 10, 7),
 				expected: "2025-06-15T10:15:00-07:00[America/Los_Angeles]",
@@ -603,10 +608,17 @@ const NEXT_SCHEDULES = [
 for (const { name, schedule, cases } of NEXT_SCHEDULES) {
 	for (const { label, input, expected } of cases) {
 		test(`${name} ${label}.`, () => {
-			equal(schedule(input).toString(), expected);
+			const result = schedule(input);
+			ok(result);
+			equal(result.toString(), expected);
 		});
 	}
 }
+
+test("Next passage is unavailable before the Season of Passage's second quest.", () => {
+	equal(nextPassage(skyDate(2017, 12, 19)), null);
+	equal(nextPassage(skyDate(2023, 4, 30, 23, 59, 59)), null);
+});
 
 const EXPECTED_NEXT_NESTING_WORKSHOPS = [
 	{ date: skyDate(2026, 3, 16), expected: skyDate(2026, 3, 20) },

@@ -12,6 +12,7 @@ import {
 	nextNestingWorkshop,
 	nextPassage,
 	nineColouredDeerSchedule,
+	PASSAGE_SCHEDULE_START_DATE,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
 	ScheduleType,
@@ -53,13 +54,14 @@ const PERIOD_SCHEDULES = [
 }[];
 
 const INSTANT_SCHEDULES = [
-	{ type: ScheduleType.DailyReset, next: nextDailyReset },
-	{ type: ScheduleType.EyeOfEden, next: nextEyeOfEden },
-	{ type: ScheduleType.NestingWorkshop, next: nextNestingWorkshop },
-	{ type: ScheduleType.Passage, next: nextPassage },
+	{ type: ScheduleType.DailyReset, next: nextDailyReset, start: null },
+	{ type: ScheduleType.EyeOfEden, next: nextEyeOfEden, start: null },
+	{ type: ScheduleType.NestingWorkshop, next: nextNestingWorkshop, start: null },
+	{ type: ScheduleType.Passage, next: nextPassage, start: PASSAGE_SCHEDULE_START_DATE },
 ] as const satisfies readonly {
 	type: ScheduleTypes;
-	next: (date: Temporal.ZonedDateTime) => Temporal.ZonedDateTime;
+	next: (date: Temporal.ZonedDateTime) => Temporal.ZonedDateTime | null;
+	start: Temporal.ZonedDateTime | null;
 }[];
 
 const LIGHT_SCHEDULE_TYPES: readonly ScheduleTypes[] = [
@@ -99,17 +101,31 @@ function enumeratePeriods(
 }
 
 function enumerateInstants(
-	next: (date: Temporal.ZonedDateTime) => Temporal.ZonedDateTime,
+	next: (date: Temporal.ZonedDateTime) => Temporal.ZonedDateTime | null,
 	dayStart: Temporal.ZonedDateTime,
 	dayEnd: Temporal.ZonedDateTime,
+	scheduleStart: Temporal.ZonedDateTime | null,
 ): Temporal.ZonedDateTime[] {
 	const instants: Temporal.ZonedDateTime[] = [];
-	let cursor = dayStart.subtract({ nanoseconds: 1 });
+	const first =
+		scheduleStart && Temporal.ZonedDateTime.compare(scheduleStart, dayStart) >= 0
+			? scheduleStart
+			: null;
+
+	if (first) {
+		if (Temporal.ZonedDateTime.compare(first, dayEnd) >= 0) {
+			return instants;
+		}
+
+		instants.push(first);
+	}
+
+	let cursor = first ?? dayStart.subtract({ nanoseconds: 1 });
 
 	while (instants.length < MAXIMUM_OCCURRENCES) {
 		const instant = next(cursor);
 
-		if (Temporal.ZonedDateTime.compare(instant, dayEnd) >= 0) {
+		if (!instant || Temporal.ZonedDateTime.compare(instant, dayEnd) >= 0) {
 			break;
 		}
 
@@ -261,8 +277,8 @@ export function calendarDayOccurrences(
 		);
 	}
 
-	for (const { type, next } of INSTANT_SCHEDULES) {
-		const instants = enumerateInstants(next, skyDayStart, skyDayEnd);
+	for (const { type, next, start } of INSTANT_SCHEDULES) {
+		const instants = enumerateInstants(next, skyDayStart, skyDayEnd, start);
 
 		if (instants.length === 0) {
 			continue;

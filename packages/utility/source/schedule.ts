@@ -1,4 +1,4 @@
-import { isActive, TIME_ZONE } from "./dates.js";
+import { isActive, skyDate, TIME_ZONE } from "./dates.js";
 import { skyNotEndedEvents } from "./events/index.js";
 import { RETURNING_DATES, TRAVELLING_DATES } from "./kingdom/seasons/index.js";
 import { SHARD_ERUPTION_START_DATE, shardEruption } from "./shard-eruption.js";
@@ -36,6 +36,7 @@ const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
 const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [6, 13, 20, 27] as const;
 const INTERNATIONAL_SPACE_STATION_START_DATE = Temporal.PlainDate.from("2019-09-22");
 const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from("2023-06-01");
+export const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
 
 export function internationalSpaceStationDates(
 	date: Temporal.ZonedDateTime,
@@ -221,6 +222,10 @@ export function auroraSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function nextPassage(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, PASSAGE_SCHEDULE_START_DATE) < 0) {
+		return null;
+	}
+
 	return date
 		.add({ minutes: 15 - (date.minute % 15) })
 		.round({ smallestUnit: "minute", roundingMode: "trunc" });

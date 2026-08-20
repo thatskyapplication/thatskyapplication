@@ -841,13 +841,20 @@ function auroraDetailedBreakdown(
 }
 
 function passageNext(date: Temporal.ZonedDateTime) {
-	return `<t:${epochSeconds(nextPassage(date))}:R>`;
+	const passage = nextPassage(date);
+	return passage ? `<t:${epochSeconds(passage)}:R>` : null;
 }
 
 function passageDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
+	const next = passageNext(now);
+
+	if (!next) {
+		return [];
+	}
+
 	const timestamps = [];
 	const startOfDay = now.startOfDay();
 	const tomorrow = startOfDay.add({ days: 1 });
@@ -877,7 +884,7 @@ function passageDetailedBreakdown(
 				status: t("schedule.event-will-occur", {
 					lng: locale,
 					ns: "features",
-					timestamp: passageNext(now),
+					timestamp: next,
 				}),
 			}),
 		},
@@ -1232,6 +1239,7 @@ export async function scheduleOverview(
 	const nineColouredDeer = nineColouredDeerOverview(now);
 	const vaultEldersBlessing = vaultEldersBlessingOverview(now);
 	const projectorOfMemories = projectorOfMemoriesOverview(now);
+	const passage = passageNext(now);
 	let flags = MessageFlags.IsComponentsV2;
 
 	if (ephemeral) {
@@ -1723,30 +1731,31 @@ export async function scheduleOverview(
 		});
 	}
 
-	secondContainerComponents.push(
-		{
-			type: ComponentType.TextDisplay,
-			content: t("schedule.overview", {
+	secondContainerComponents.push({
+		type: ComponentType.TextDisplay,
+		content: t("schedule.overview", {
+			lng: locale,
+			ns: "features",
+			type: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
 				lng: locale,
 				ns: "features",
-				type: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
-					lng: locale,
-					ns: "features",
-				}),
-				details: vaultEldersBlessing.now
-					? t("schedule.overview-available", {
-							lng: locale,
-							ns: "features",
-							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-						})
-					: t("schedule.overview-next-available-timestamp", {
-							lng: locale,
-							ns: "features",
-							timestamp: vaultEldersBlessing.next,
-						}),
 			}),
-		},
-		{
+			details: vaultEldersBlessing.now
+				? t("schedule.overview-available", {
+						lng: locale,
+						ns: "features",
+						emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+					})
+				: t("schedule.overview-next-available-timestamp", {
+						lng: locale,
+						ns: "features",
+						timestamp: vaultEldersBlessing.next,
+					}),
+		}),
+	});
+
+	if (passage) {
+		secondContainerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: t("schedule.overview", {
 				lng: locale,
@@ -1758,10 +1767,13 @@ export async function scheduleOverview(
 				details: t("schedule.overview-next-available-timestamp", {
 					lng: locale,
 					ns: "features",
-					timestamp: passageNext(now),
+					timestamp: passage,
 				}),
 			}),
-		},
+		});
+	}
+
+	secondContainerComponents.push(
 		{
 			type: ComponentType.TextDisplay,
 			content: t("schedule.overview", {
@@ -1934,23 +1946,27 @@ export async function scheduleOverview(
 		});
 	}
 
-	options.push(
-		{
-			label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
-				lng: locale,
-				ns: "features",
-			}),
-			value: ScheduleType.VaultEldersBlessing.toString(),
-			emoji: CAPE_EMOJIS.Cape156,
-		},
-		{
+	options.push({
+		label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
+			lng: locale,
+			ns: "features",
+		}),
+		value: ScheduleType.VaultEldersBlessing.toString(),
+		emoji: CAPE_EMOJIS.Cape156,
+	});
+
+	if (passage) {
+		options.push({
 			label: t(`schedule.type.${ScheduleType.Passage}`, {
 				lng: locale,
 				ns: "features",
 			}),
 			value: ScheduleType.Passage.toString(),
 			emoji: SEASON_EMOJIS.Passage,
-		},
+		});
+	}
+
+	options.push(
 		{
 			label: t(`schedule.type.${ScheduleType.NineColouredDeer}`, {
 				lng: locale,

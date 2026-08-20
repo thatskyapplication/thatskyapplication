@@ -211,6 +211,7 @@ export {
 	nextNestingWorkshop,
 	nextPassage,
 	nineColouredDeerSchedule,
+	PASSAGE_SCHEDULE_START_DATE,
 	pollutedGeyserSchedule,
 	projectorOfMemoriesSchedule,
 	returningSpiritsSchedule,

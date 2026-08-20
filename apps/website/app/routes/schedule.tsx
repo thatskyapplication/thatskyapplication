@@ -420,8 +420,12 @@ function passageNext(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): BaseSchedule<typeof ScheduleType.Passage> {
+): BaseSchedule<typeof ScheduleType.Passage> | null {
 	const schedule = nextPassage(now);
+
+	if (!schedule) {
+		return null;
+	}
 
 	return {
 		type: ScheduleType.Passage,
