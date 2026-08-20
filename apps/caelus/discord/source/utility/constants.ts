@@ -88,7 +88,7 @@ export const LOCALE_UPSELL_LOCALES: Readonly<Locale[]> = LOCALES.filter(
 
 // Catalogue.
 export const CATALOGUE_MAXIMUM_SEASONS_DISPLAY_LIMIT = 8 as const;
-export const CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT = 8 as const;
+export const CATALOGUE_MAXIMUM_EVENTS_DISPLAY_LIMIT = 7 as const;
 
 // Daily guides.
 export const LOCALE_OPTIONS = LOCALES.map((locale) => ({
