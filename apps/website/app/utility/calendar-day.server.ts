@@ -116,7 +116,10 @@ function enumeratePeriods(
 			break;
 		}
 
-		if (Temporal.ZonedDateTime.compare(period.end, dayStart) > 0) {
+		if (
+			Temporal.ZonedDateTime.compare(period.end, dayStart) > 0 &&
+			(!scheduleStart || Temporal.ZonedDateTime.compare(period.start, scheduleStart) >= 0)
+		) {
 			periods.push(period);
 		}
 
