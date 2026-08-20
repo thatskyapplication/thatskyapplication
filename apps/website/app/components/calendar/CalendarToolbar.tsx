@@ -55,12 +55,17 @@ export function CalendarToolbar({
 								ns: "features",
 							})}
 							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+							preventScrollReset
 							to={calendarPath({ view, skyTime, date: previousDate })}
 						>
 							<ChevronLeft aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 						</Link>
 					)}
-					<Link className={NAVIGATION_BUTTON_CLASS} to={calendarPath({ view, skyTime })}>
+					<Link
+						className={NAVIGATION_BUTTON_CLASS}
+						preventScrollReset
+						to={calendarPath({ view, skyTime })}
+					>
 						{t("today", { ns: "general" })}
 					</Link>
 					<CalendarJump
@@ -77,6 +82,7 @@ export function CalendarToolbar({
 							ns: "features",
 						})}
 						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+						preventScrollReset
 						to={calendarPath({ view, skyTime, date: nextDate })}
 					>
 						<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />

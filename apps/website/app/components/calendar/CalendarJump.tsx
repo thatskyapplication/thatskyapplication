@@ -228,6 +228,7 @@ export function CalendarJump({
 																	? ENABLED_CLASS
 																	: "text-gray-400 hover:bg-gray-100 dark:text-gray-600 dark:hover:bg-gray-800",
 													)}
+													preventScrollReset
 													to={calendarPath({ view, skyTime, date })}
 												/>
 											}
@@ -268,6 +269,7 @@ export function CalendarJump({
 																? ANCHORED_CLASS
 																: ENABLED_CLASS,
 													)}
+													preventScrollReset
 													to={calendarPath({ view, skyTime, date: entry.toString() })}
 												/>
 											}

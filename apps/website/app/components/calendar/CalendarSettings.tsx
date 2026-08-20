@@ -47,6 +47,7 @@ function SettingsGroup({
 									OPTION_CLASS,
 									option.selected ? OPTION_ACTIVE_CLASS : OPTION_INACTIVE_CLASS,
 								)}
+								preventScrollReset
 								to={option.to}
 							/>
 						}
