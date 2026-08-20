@@ -33,6 +33,7 @@ import {
 	DyeTypeToEmoji,
 	EventIdToEventTicketEmoji,
 	MISCELLANEOUS_EMOJIS,
+	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
 import { NESTING_WORKSHOP_CATALOGUE_URL, SCHEDULE_TYPE_TO_WIKI_KEY } from "~/utility/schedule.js";
@@ -193,7 +194,9 @@ export function calendarEntriesBetween({
 					label: t("event-names.double-seasonal-light", { ns: "general" }),
 					start: doubleSeasonalLight.start,
 					end: doubleSeasonalLight.end,
-					iconEmojiIds: [MISCELLANEOUS_EMOJIS.SeasonalCandle.id],
+					iconEmojiIds: [
+						(SeasonIdToSeasonalCandleEmoji[season.id] ?? MISCELLANEOUS_EMOJIS.SeasonalCandle).id,
+					],
 				}),
 			);
 		}
