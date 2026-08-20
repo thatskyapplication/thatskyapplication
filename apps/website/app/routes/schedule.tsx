@@ -550,8 +550,13 @@ function nestingWorkshopNext(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): BaseSchedule<typeof ScheduleType.NestingWorkshop> {
+): BaseSchedule<typeof ScheduleType.NestingWorkshop> | null {
 	const schedule = nextNestingWorkshop(now);
+
+	if (!schedule) {
+		return null;
+	}
+
 	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.since(now).total({ unit: "days", relativeTo: now }) > 1) {

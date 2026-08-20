@@ -4,6 +4,7 @@ import {
 	communityEventsBetween,
 	DOUBLE_HEART_EVENTS,
 	isInternationalSpaceStationDate,
+	nextNestingWorkshop,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	RADIANCE_EVENTS,
@@ -415,7 +416,11 @@ export function calendarEntriesBetween({
 				);
 			}
 
-			if (skyDate.dayOfWeek === 5) {
+			if (
+				nextNestingWorkshop(skyDate.subtract({ nanoseconds: 1 }))
+					?.toPlainDate()
+					.equals(skyDate.toPlainDate())
+			) {
 				entries.push(
 					createCalendarEntry({
 						key: `nesting-workshop-${date}`,

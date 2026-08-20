@@ -752,18 +752,31 @@ test("Next passage is unavailable before the Season of Passage's second quest.",
 });
 
 const EXPECTED_NEXT_NESTING_WORKSHOPS = [
+	{ date: skyDate(2024, 4, 14), expected: skyDate(2024, 4, 15) },
+	{ date: skyDate(2024, 4, 15), expected: skyDate(2024, 4, 22) },
+	{ date: skyDate(2025, 11, 1), expected: skyDate(2025, 11, 3) },
+	{ date: skyDate(2026, 3, 1), expected: skyDate(2026, 3, 2) },
+	{ date: skyDate(2026, 3, 2), expected: skyDate(2026, 3, 6) },
+	{ date: skyDate(2026, 3, 5), expected: skyDate(2026, 3, 6) },
+	{ date: skyDate(2026, 3, 6), expected: skyDate(2026, 3, 13) },
 	{ date: skyDate(2026, 3, 16), expected: skyDate(2026, 3, 20) },
 	{ date: skyDate(2026, 3, 19), expected: skyDate(2026, 3, 20) },
 	{ date: skyDate(2026, 3, 20), expected: skyDate(2026, 3, 27) },
 	{ date: skyDate(2026, 3, 21), expected: skyDate(2026, 3, 27) },
-	{ date: skyDate(2025, 11, 1), expected: skyDate(2025, 11, 7) },
 ] as const;
 
 for (const { date, expected } of EXPECTED_NEXT_NESTING_WORKSHOPS) {
 	test(`Next nesting workshop reset from ${date.toPlainDate().toString()}.`, () => {
-		equal(nextNestingWorkshop(date).toPlainDate().toString(), expected.toPlainDate().toString());
+		const result = nextNestingWorkshop(date);
+		ok(result);
+		equal(result.toPlainDate().toString(), expected.toPlainDate().toString());
 	});
 }
+
+test("Next nesting workshop is unavailable before the Season of Nesting.", () => {
+	equal(nextNestingWorkshop(skyDate(2017, 12, 19)), null);
+	equal(nextNestingWorkshop(skyDate(2024, 4, 7)), null);
+});
 
 test("Meteor shower active during a Days of Love window.", () => {
 	const result = meteorShowerSchedule(skyDate(2026, 2, 14, 12, 40));

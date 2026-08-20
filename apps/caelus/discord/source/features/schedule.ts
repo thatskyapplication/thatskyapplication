@@ -1061,7 +1061,7 @@ function nineColouredDeerDetailedBreakdown(
 }
 
 function nestingWorkshopNext(now: Temporal.ZonedDateTime, locale: Locale) {
-	const timestamp = epochSeconds(nextNestingWorkshop(now));
+	const timestamp = epochSeconds(nextNestingWorkshop(now)!);
 
 	return t("schedule.next-nesting-workshop", {
 		lng: locale,

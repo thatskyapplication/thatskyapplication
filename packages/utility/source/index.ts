@@ -211,6 +211,7 @@ export {
 	meteorShowerSchedule,
 	nextDailyReset,
 	nextEyeOfEden,
+	NESTING_WORKSHOP_START_DATE,
 	nextNestingWorkshop,
 	nextPassage,
 	NINE_COLOURED_DEER_START_DATE,

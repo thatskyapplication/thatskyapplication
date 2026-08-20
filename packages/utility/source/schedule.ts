@@ -65,6 +65,12 @@ const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
 export const AVIARYS_FIREWORK_FESTIVAL_START_DATE = skyDate(2023, 12, 12);
 const AVIARYS_FIREWORK_FESTIVAL_FINALE_LAST_SHOW_DATE = skyDate(2023, 12, 17, 20);
 /**
+ * Introduced with the Season of Nesting on 15 April 2024, opening on Mondays. From 6 March 2026,
+ * it swapped to Fridays.
+ */
+export const NESTING_WORKSHOP_START_DATE = skyDate(2024, 4, 15);
+const NESTING_WORKSHOP_FRIDAY_CHANGE_DATE = skyDate(2026, 3, 6);
+/**
  * Clamped to the season's last quest, which is when players could reach the deer, rather than to
  * the update that introduced it.
  *
@@ -356,8 +362,15 @@ export function nineColouredDeerSchedule(date: Temporal.ZonedDateTime) {
 	return { start, end, active: isActive(start, end, date) };
 }
 
-export function nextNestingWorkshop(now: Temporal.ZonedDateTime) {
-	return now.add({ days: (5 - now.dayOfWeek + 7) % 7 || 7 }).startOfDay();
+export function nextNestingWorkshop(date: Temporal.ZonedDateTime) {
+	const monday = date.add({ days: (1 - date.dayOfWeek + 7) % 7 || 7 }).startOfDay();
+
+	const start =
+		Temporal.ZonedDateTime.compare(monday, NESTING_WORKSHOP_FRIDAY_CHANGE_DATE) < 0
+			? monday
+			: date.add({ days: (5 - date.dayOfWeek + 7) % 7 || 7 }).startOfDay();
+
+	return Temporal.ZonedDateTime.compare(start, NESTING_WORKSHOP_START_DATE) < 0 ? null : start;
 }
 
 export function vaultEldersBlessingSchedule(date: Temporal.ZonedDateTime) {
