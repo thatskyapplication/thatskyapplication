@@ -522,8 +522,12 @@ function nineColouredDeerOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.NineColouredDeer> {
+): ScheduleWithEnd<typeof ScheduleType.NineColouredDeer> | null {
 	const schedule = nineColouredDeerSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
 
 	return {
 		type: ScheduleType.NineColouredDeer,

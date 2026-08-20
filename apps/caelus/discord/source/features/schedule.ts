@@ -1010,7 +1010,7 @@ function meteorShowerDetailedBreakdown(
 }
 
 function nineColouredDeerOverview(date: Temporal.ZonedDateTime) {
-	const schedule = nineColouredDeerSchedule(date);
+	const schedule = nineColouredDeerSchedule(date)!;
 
 	return {
 		now: schedule.active,
@@ -1023,7 +1023,7 @@ function nineColouredDeerDetailedBreakdown(
 	locale: Locale,
 ): APIComponentInContainer[] {
 	const startOfDay = now.startOfDay();
-	const startOfEvent = nineColouredDeerSchedule(now).start;
+	const startOfEvent = nineColouredDeerSchedule(now)!.start;
 	const nineColouredDeer = nineColouredDeerOverview(now);
 
 	return [

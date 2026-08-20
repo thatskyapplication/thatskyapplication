@@ -275,6 +275,13 @@ const SCHEDULES = [
 		schedule: nineColouredDeerSchedule,
 		cases: [
 			{
+				label: "active from the season's last quest",
+				input: skyDate(2024, 3, 11),
+				start: "2024-03-11T00:00:00-07:00[America/Los_Angeles]",
+				end: "2024-03-11T00:20:00-07:00[America/Los_Angeles]",
+				active: true,
+			},
+			{
 				label: "active on a normal day",
 				input: skyDate(2025, 6, 15, 10, 35),
 				start: "2025-06-15T10:30:00-07:00[America/Los_Angeles]",
@@ -568,6 +575,11 @@ for (const { name, schedule, cases } of SCHEDULES) {
 test("Grandma schedule is unavailable before its release.", () => {
 	equal(grandmaSchedule(skyDate(2017, 12, 19)), null);
 	equal(grandmaSchedule(skyDate(2021, 11, 18, 12, 33, 2)), null);
+});
+
+test("Nine-coloured deer schedule is unavailable before the season's last quest.", () => {
+	equal(nineColouredDeerSchedule(skyDate(2017, 12, 19)), null);
+	equal(nineColouredDeerSchedule(skyDate(2024, 3, 10, 23, 59, 59)), null);
 });
 
 test("Turtle schedule is unavailable before Days of Nature 2022.", () => {

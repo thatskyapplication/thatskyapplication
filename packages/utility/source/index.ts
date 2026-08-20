@@ -213,6 +213,7 @@ export {
 	nextEyeOfEden,
 	nextNestingWorkshop,
 	nextPassage,
+	NINE_COLOURED_DEER_START_DATE,
 	nineColouredDeerSchedule,
 	pollutedGeyserSchedule,
 	PROJECTOR_OF_MEMORIES_START_DATE,

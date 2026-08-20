@@ -14,6 +14,7 @@ import {
 	nextEyeOfEden,
 	nextNestingWorkshop,
 	nextPassage,
+	NINE_COLOURED_DEER_START_DATE,
 	nineColouredDeerSchedule,
 	pollutedGeyserSchedule,
 	PROJECTOR_OF_MEMORIES_START_DATE,
@@ -61,7 +62,11 @@ const PERIOD_SCHEDULES = [
 		schedule: aviarysFireworkFestivalSchedule,
 		start: AVIARYS_FIREWORK_FESTIVAL_START_DATE,
 	},
-	{ type: ScheduleType.NineColouredDeer, schedule: nineColouredDeerSchedule, start: null },
+	{
+		type: ScheduleType.NineColouredDeer,
+		schedule: nineColouredDeerSchedule,
+		start: NINE_COLOURED_DEER_START_DATE,
+	},
 	{
 		type: ScheduleType.VaultEldersBlessing,
 		schedule: vaultEldersBlessingSchedule,

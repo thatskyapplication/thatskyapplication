@@ -65,6 +65,13 @@ const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
 export const AVIARYS_FIREWORK_FESTIVAL_START_DATE = skyDate(2023, 12, 12);
 const AVIARYS_FIREWORK_FESTIVAL_FINALE_LAST_SHOW_DATE = skyDate(2023, 12, 17, 20);
 /**
+ * Clamped to the season's last quest, which is when players could reach the deer, rather than to
+ * the update that introduced it.
+ *
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1264-patch-notes---january-11-2024---0-24-0-240551-ios-playstation-switch-241911-android-huawei}
+ */
+export const NINE_COLOURED_DEER_START_DATE = skyDate(2024, 3, 11);
+/**
  * Available from 20:10 BST on 28 August 2025 (12:10 PDT).
  *
  * @remarks Time is observed from Discord.
@@ -339,6 +346,10 @@ export function meteorShowerSchedule(date: Temporal.ZonedDateTime) {
 }
 
 export function nineColouredDeerSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, NINE_COLOURED_DEER_START_DATE) < 0) {
+		return null;
+	}
+
 	const { minute } = date;
 	const start = addWallClockMinutes(startOfHour(date), minute < 20 ? 0 : minute < 50 ? 30 : 60);
 	const end = start.add({ minutes: 20 });
