@@ -417,8 +417,8 @@ const SCHEDULES = [
 		schedule: internationalSpaceStationSchedule,
 		cases: [
 			{
-				label: "clamps to the Secret Area's introduction",
-				input: skyDate(2019, 9, 20, 12, 0),
+				label: "from the Secret Area's introduction",
+				input: skyDate(2019, 9, 22),
 				start: "2019-09-27T00:00:00-07:00[America/Los_Angeles]",
 				end: "2019-09-28T00:00:00-07:00[America/Los_Angeles]",
 				active: false,
@@ -480,12 +480,18 @@ for (const { name, schedule, cases } of SCHEDULES) {
 	for (const { label, input, start, end, active } of cases) {
 		test(`${name} ${label}.`, () => {
 			const result = schedule(input);
+			ok(result);
 			equal(result.start.toString(), start);
 			equal(result.end.toString(), end);
 			equal(result.active, active);
 		});
 	}
 }
+
+test("International Space Station schedule is unavailable before the Secret Area's introduction.", () => {
+	equal(internationalSpaceStationSchedule(skyDate(2017, 12, 19)), null);
+	equal(internationalSpaceStationSchedule(skyDate(2019, 9, 21, 23, 59, 59)), null);
+});
 
 test("Shard eruption schedule finds an active eruption on the requested date.", () => {
 	const result = shardEruptionSchedule(skyDate(2025, 3, 11, 10));

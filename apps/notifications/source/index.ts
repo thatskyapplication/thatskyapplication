@@ -417,7 +417,7 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		const timeUntilStart = (60 - minute) % 60;
 		const startTime = date.add({ minutes: timeUntilStart });
 
-		if (internationalSpaceStationSchedule(date).start.equals(startTime)) {
+		if (internationalSpaceStationSchedule(date)?.start.equals(startTime)) {
 			notifications.push({
 				type: NotificationType.InternationalSpaceStation,
 				timeUntilStart,

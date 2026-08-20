@@ -89,21 +89,14 @@ export function nextEyeOfEden(date: Temporal.ZonedDateTime) {
 }
 
 export function internationalSpaceStationSchedule(date: Temporal.ZonedDateTime) {
-	const scheduleDate =
-		Temporal.PlainDate.compare(date.toPlainDate(), INTERNATIONAL_SPACE_STATION_START_DATE) < 0
-			? date
-					.with({
-						year: INTERNATIONAL_SPACE_STATION_START_DATE.year,
-						month: INTERNATIONAL_SPACE_STATION_START_DATE.month,
-						day: INTERNATIONAL_SPACE_STATION_START_DATE.day,
-					})
-					.startOfDay()
-			: date;
+	if (Temporal.PlainDate.compare(date.toPlainDate(), INTERNATIONAL_SPACE_STATION_START_DATE) < 0) {
+		return null;
+	}
 
-	const start = internationalSpaceStationDates(scheduleDate).find(
-		(internationalSpaceStationDate) => internationalSpaceStationDate.day >= scheduleDate.day,
+	const start = internationalSpaceStationDates(date).find(
+		(internationalSpaceStationDate) => internationalSpaceStationDate.day >= date.day,
 	);
-	const nextMonth = scheduleDate.add({ months: 1 }).with({ day: 1 });
+	const nextMonth = date.add({ months: 1 }).with({ day: 1 });
 	const nextStart = start ?? internationalSpaceStationDates(nextMonth)[0]!;
 	const end = nextStart.add({ days: 1 });
 	return { start: nextStart, end, active: isActive(nextStart, end, date) };

@@ -176,8 +176,13 @@ function internationalSpaceStationOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.InternationalSpaceStation> {
+): ScheduleWithEnd<typeof ScheduleType.InternationalSpaceStation> | null {
 	const schedule = internationalSpaceStationSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
+
 	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {

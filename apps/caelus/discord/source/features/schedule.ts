@@ -175,6 +175,10 @@ function eyeOfEdenDetailedBreakdown(
 function internationalSpaceStationOverview(date: Temporal.ZonedDateTime) {
 	const schedule = internationalSpaceStationSchedule(date);
 
+	if (!schedule) {
+		return null;
+	}
+
 	return {
 		now: schedule.active,
 		next: `<t:${epochSeconds(schedule.start)}:R>`,
@@ -185,6 +189,10 @@ function internationalSpaceStationDetailedBreakdown(
 	date: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
+	if (!internationalSpaceStationSchedule(date)) {
+		return [];
+	}
+
 	const result = [];
 
 	for (const internationalSpaceStationDate of internationalSpaceStationDates(date)) {
@@ -1394,7 +1402,10 @@ export async function scheduleOverview(
 						}),
 			}),
 		},
-		{
+	);
+
+	if (internationalSpaceStation) {
+		firstContainerComponents.push({
 			type: ComponentType.TextDisplay,
 			content: t("schedule.overview", {
 				lng: locale,
@@ -1415,8 +1426,8 @@ export async function scheduleOverview(
 							timestamp: internationalSpaceStation.next,
 						}),
 			}),
-		},
-	);
+		});
+	}
 
 	if (radianceEvents.length > 0) {
 		firstContainerComponents.push({
@@ -1878,14 +1889,17 @@ export async function scheduleOverview(
 			value: ScheduleType.AviarysFireworkFestival.toString(),
 			emoji: EVENT_EMOJIS.AviarysFireworkFestival,
 		},
-		{
+	];
+
+	if (internationalSpaceStation) {
+		options.push({
 			label: t(`schedule.type.${ScheduleType.InternationalSpaceStation}`, {
 				lng: locale,
 				ns: "features",
 			}),
 			value: ScheduleType.InternationalSpaceStation.toString(),
-		},
-	];
+		});
+	}
 
 	if (radianceEvents.length > 0) {
 		options.push({
