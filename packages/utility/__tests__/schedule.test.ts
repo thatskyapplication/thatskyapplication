@@ -288,17 +288,24 @@ const SCHEDULES = [
 		schedule: vaultEldersBlessingSchedule,
 		cases: [
 			{
+				label: "available from its introduction",
+				input: skyDate(2025, 8, 28, 12, 10),
+				start: "2025-08-28T12:20:00-07:00[America/Los_Angeles]",
+				end: "2025-08-28T12:21:00-07:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
 				label: "active on a normal day",
-				input: skyDate(2025, 6, 15, 10, 20),
-				start: "2025-06-15T10:20:00-07:00[America/Los_Angeles]",
-				end: "2025-06-15T10:21:00-07:00[America/Los_Angeles]",
+				input: skyDate(2025, 9, 15, 10, 20),
+				start: "2025-09-15T10:20:00-07:00[America/Los_Angeles]",
+				end: "2025-09-15T10:21:00-07:00[America/Los_Angeles]",
 				active: true,
 			},
 			{
 				label: "skips the spring forward gap",
-				input: skyDate(2025, 3, 9, 1, 50),
-				start: "2025-03-09T03:00:00-07:00[America/Los_Angeles]",
-				end: "2025-03-09T03:01:00-07:00[America/Los_Angeles]",
+				input: skyDate(2026, 3, 8, 1, 50),
+				start: "2026-03-08T03:00:00-07:00[America/Los_Angeles]",
+				end: "2026-03-08T03:01:00-07:00[America/Los_Angeles]",
 				active: false,
 			},
 			{
@@ -510,6 +517,11 @@ test("International Space Station schedule is unavailable before the Secret Area
 test("Dreams skater schedule is unavailable before its introduction.", () => {
 	equal(dreamsSkaterSchedule(skyDate(2017, 12, 19)), null);
 	equal(dreamsSkaterSchedule(skyDate(2022, 12, 18, 23, 59, 59)), null);
+});
+
+test("Vault elder's blessing schedule is unavailable before its introduction.", () => {
+	equal(vaultEldersBlessingSchedule(skyDate(2017, 12, 19)), null);
+	equal(vaultEldersBlessingSchedule(skyDate(2025, 8, 28, 12, 9, 59)), null);
 });
 
 test("Projector of memories schedule is unavailable before its introduction.", () => {

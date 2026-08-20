@@ -554,8 +554,12 @@ function vaultEldersBlessingOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.VaultEldersBlessing> {
+): ScheduleWithEnd<typeof ScheduleType.VaultEldersBlessing> | null {
 	const schedule = vaultEldersBlessingSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
 
 	return {
 		type: ScheduleType.VaultEldersBlessing,

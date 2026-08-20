@@ -44,6 +44,15 @@ const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from
 export const DREAMS_SKATER_START_DATE = skyDate(2022, 12, 19);
 export const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
 /**
+ * Available from 20:10 BST on 28 August 2025 (12:10 PDT).
+ *
+ * @remarks Time is observed from Discord.
+ *
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1410-patch-notes---august-28-2025---0-30-5-342290-android-huawei-ios-341589-playstation-steam-341718-switch}
+ * @see {@link https://discord.com/channels/575762611111592007/575768778789617674/1410710379494899832}
+ */
+export const VAULT_ELDERS_BLESSING_START_DATE = skyDate(2025, 8, 28, 12, 10);
+/**
  * Available in the in-game shop from 06/09/2025.
  *
  * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1411-hotfix---september-5-2025---0-30-6-343782-android-huawei-ios-playstation-steam}
@@ -303,6 +312,10 @@ export function nextNestingWorkshop(now: Temporal.ZonedDateTime) {
 }
 
 export function vaultEldersBlessingSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, VAULT_ELDERS_BLESSING_START_DATE) < 0) {
+		return null;
+	}
+
 	const { minute } = date;
 
 	const start = addWallClockMinutes(

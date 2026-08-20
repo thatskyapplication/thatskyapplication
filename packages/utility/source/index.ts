@@ -223,6 +223,7 @@ export {
 	shardEruptionSchedule,
 	travellingSpiritSchedule,
 	turtleSchedule,
+	VAULT_ELDERS_BLESSING_START_DATE,
 	vaultEldersBlessingSchedule,
 } from "./schedule.js";
 export {

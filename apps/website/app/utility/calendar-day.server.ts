@@ -23,6 +23,7 @@ import {
 	SHARD_ERUPTION_START_DATE,
 	TIME_ZONE,
 	turtleSchedule,
+	VAULT_ELDERS_BLESSING_START_DATE,
 	vaultEldersBlessingSchedule,
 } from "@thatskyapplication/utility";
 import type { CalendarDayOccurrence } from "~/utility/calendar.js";
@@ -62,7 +63,7 @@ const PERIOD_SCHEDULES = [
 	{
 		type: ScheduleType.VaultEldersBlessing,
 		schedule: vaultEldersBlessingSchedule,
-		start: null,
+		start: VAULT_ELDERS_BLESSING_START_DATE,
 	},
 	{
 		type: ScheduleType.ProjectorOfMemories,

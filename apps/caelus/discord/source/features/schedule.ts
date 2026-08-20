@@ -49,6 +49,7 @@ import {
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	travellingSpiritSchedule,
 	turtleSchedule,
+	VAULT_ELDERS_BLESSING_START_DATE,
 	vaultEldersBlessingSchedule,
 } from "@thatskyapplication/utility";
 import { client } from "../discord.js";
@@ -1113,6 +1114,10 @@ function nestingWorkshopDetailedBreakdown(
 function vaultEldersBlessingOverview(date: Temporal.ZonedDateTime) {
 	const schedule = vaultEldersBlessingSchedule(date);
 
+	if (!schedule) {
+		return null;
+	}
+
 	return {
 		now: schedule.active,
 		next: `<t:${epochSeconds(schedule.start)}:R>`,
@@ -1123,12 +1128,29 @@ function vaultEldersBlessingDetailedBreakdown(
 	now: Temporal.ZonedDateTime,
 	locale: Locale,
 ): APIComponentInContainer[] {
+	const vaultEldersBlessing = vaultEldersBlessingOverview(now);
+
+	if (!vaultEldersBlessing) {
+		return [];
+	}
+
 	const timestamps = [];
 	const startOfDay = now.startOfDay();
 	const tomorrow = startOfDay.add({ days: 1 });
+	let first = startOfDay;
+
+	if (Temporal.ZonedDateTime.compare(first, VAULT_ELDERS_BLESSING_START_DATE) < 0) {
+		const introductionSchedule = vaultEldersBlessingSchedule(VAULT_ELDERS_BLESSING_START_DATE);
+
+		if (!introductionSchedule) {
+			return [];
+		}
+
+		first = introductionSchedule.start;
+	}
 
 	for (
-		let start = startOfDay;
+		let start = first;
 		Temporal.ZonedDateTime.compare(start, tomorrow) < 0;
 		start = start.add({ minutes: 20 })
 	) {
@@ -1141,15 +1163,13 @@ function vaultEldersBlessingDetailedBreakdown(
 		timestamps.push(string);
 	}
 
-	const vaultEldersBlessing = vaultEldersBlessingOverview(now);
-
 	return [
 		{
 			type: ComponentType.TextDisplay,
 			content: t("schedule.detailed-breakdown-vault-elders-blessing-message", {
 				lng: locale,
 				ns: "features",
-				timestamp: `<t:${epochSeconds(startOfDay)}:t>`,
+				timestamp: `<t:${epochSeconds(first)}:t>`,
 				timestamps: timestamps.join(" "),
 				status: vaultEldersBlessing.now
 					? t("schedule.event-ongoing", { lng: locale, ns: "features" })
@@ -1761,28 +1781,30 @@ export async function scheduleOverview(
 		});
 	}
 
-	secondContainerComponents.push({
-		type: ComponentType.TextDisplay,
-		content: t("schedule.overview", {
-			lng: locale,
-			ns: "features",
-			type: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
+	if (vaultEldersBlessing) {
+		secondContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
 				lng: locale,
 				ns: "features",
+				type: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
+					lng: locale,
+					ns: "features",
+				}),
+				details: vaultEldersBlessing.now
+					? t("schedule.overview-available", {
+							lng: locale,
+							ns: "features",
+							emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
+						})
+					: t("schedule.overview-next-available-timestamp", {
+							lng: locale,
+							ns: "features",
+							timestamp: vaultEldersBlessing.next,
+						}),
 			}),
-			details: vaultEldersBlessing.now
-				? t("schedule.overview-available", {
-						lng: locale,
-						ns: "features",
-						emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),
-					})
-				: t("schedule.overview-next-available-timestamp", {
-						lng: locale,
-						ns: "features",
-						timestamp: vaultEldersBlessing.next,
-					}),
-		}),
-	});
+		});
+	}
 
 	if (passage) {
 		secondContainerComponents.push({
@@ -1983,14 +2005,16 @@ export async function scheduleOverview(
 		});
 	}
 
-	options.push({
-		label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
-			lng: locale,
-			ns: "features",
-		}),
-		value: ScheduleType.VaultEldersBlessing.toString(),
-		emoji: CAPE_EMOJIS.Cape156,
-	});
+	if (vaultEldersBlessing) {
+		options.push({
+			label: t(`schedule.type.${ScheduleType.VaultEldersBlessing}`, {
+				lng: locale,
+				ns: "features",
+			}),
+			value: ScheduleType.VaultEldersBlessing.toString(),
+			emoji: CAPE_EMOJIS.Cape156,
+		});
+	}
 
 	if (passage) {
 		options.push({
