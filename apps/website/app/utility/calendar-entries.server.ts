@@ -3,7 +3,7 @@ import {
 	aviarysFireworkFestivalSchedule,
 	communityEventsBetween,
 	DOUBLE_HEART_EVENTS,
-	INTERNATIONAL_SPACE_STATION_DATES,
+	isInternationalSpaceStationDate,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
 	RADIANCE_EVENTS,
@@ -427,7 +427,7 @@ export function calendarEntriesBetween({
 
 			const dayOfMonth = skyDate.day;
 
-			if (INTERNATIONAL_SPACE_STATION_DATES.some((day) => day === dayOfMonth)) {
+			if (isInternationalSpaceStationDate(skyDate)) {
 				entries.push(
 					createCalendarEntry({
 						key: `international-space-station-${date}`,

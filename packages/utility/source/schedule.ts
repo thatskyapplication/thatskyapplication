@@ -32,7 +32,40 @@ export const ScheduleType = {
 
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);
 export type ScheduleTypes = (typeof SCHEDULE_TYPE_VALUES)[number];
-export const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
+const INTERNATIONAL_SPACE_STATION_DATES = [6, 14, 22, 30] as const;
+const INTERNATIONAL_SPACE_STATION_PRIOR_DATES = [6, 13, 20, 27] as const;
+const INTERNATIONAL_SPACE_STATION_START_DATE = Temporal.PlainDate.from("2019-09-22");
+const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from("2023-06-01");
+
+export function internationalSpaceStationDates(
+	date: Temporal.ZonedDateTime,
+): readonly Temporal.ZonedDateTime[] {
+	const startOfMonth = date.with({ day: 1 }).startOfDay();
+	const rotation =
+		Temporal.PlainDate.compare(
+			startOfMonth.toPlainDate(),
+			INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE,
+		) < 0
+			? INTERNATIONAL_SPACE_STATION_PRIOR_DATES
+			: INTERNATIONAL_SPACE_STATION_DATES;
+
+	return rotation
+		.filter((day) => day <= startOfMonth.daysInMonth)
+		.map((day) => startOfMonth.with({ day }))
+		.filter(
+			(internationalSpaceStationDate) =>
+				Temporal.PlainDate.compare(
+					internationalSpaceStationDate.toPlainDate(),
+					INTERNATIONAL_SPACE_STATION_START_DATE,
+				) >= 0,
+		);
+}
+
+export function isInternationalSpaceStationDate(date: Temporal.ZonedDateTime) {
+	return internationalSpaceStationDates(date).some((internationalSpaceStationDate) =>
+		internationalSpaceStationDate.toPlainDate().equals(date.toPlainDate()),
+	);
+}
 
 function startOfHour(date: Temporal.ZonedDateTime) {
 	return date.round({ smallestUnit: "hour", roundingMode: "trunc" });
@@ -55,21 +88,24 @@ export function nextEyeOfEden(date: Temporal.ZonedDateTime) {
 }
 
 export function internationalSpaceStationSchedule(date: Temporal.ZonedDateTime) {
-	const targetDay = INTERNATIONAL_SPACE_STATION_DATES.find(
-		(internationalSpaceStationDates) =>
-			internationalSpaceStationDates >= date.day &&
-			// Addresses 30th February targeting 1st or 2nd March.
-			internationalSpaceStationDates <= date.daysInMonth,
+	const scheduleDate =
+		Temporal.PlainDate.compare(date.toPlainDate(), INTERNATIONAL_SPACE_STATION_START_DATE) < 0
+			? date
+					.with({
+						year: INTERNATIONAL_SPACE_STATION_START_DATE.year,
+						month: INTERNATIONAL_SPACE_STATION_START_DATE.month,
+						day: INTERNATIONAL_SPACE_STATION_START_DATE.day,
+					})
+					.startOfDay()
+			: date;
+
+	const start = internationalSpaceStationDates(scheduleDate).find(
+		(internationalSpaceStationDate) => internationalSpaceStationDate.day >= scheduleDate.day,
 	);
-
-	const start = (
-		targetDay
-			? date.with({ day: targetDay })
-			: date.add({ months: 1 }).with({ day: INTERNATIONAL_SPACE_STATION_DATES[0] })
-	).startOfDay();
-
-	const end = start.add({ days: 1 });
-	return { start, end, active: isActive(start, end, date) };
+	const nextMonth = scheduleDate.add({ months: 1 }).with({ day: 1 });
+	const nextStart = start ?? internationalSpaceStationDates(nextMonth)[0]!;
+	const end = nextStart.add({ days: 1 });
+	return { start: nextStart, end, active: isActive(nextStart, end, date) };
 }
 
 export function travellingSpiritSchedule(date: Temporal.ZonedDateTime) {

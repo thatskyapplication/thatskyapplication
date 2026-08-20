@@ -24,7 +24,7 @@ import {
 	epochSeconds,
 	formatEmoji,
 	grandmaSchedule,
-	INTERNATIONAL_SPACE_STATION_DATES,
+	internationalSpaceStationDates,
 	internationalSpaceStationSchedule,
 	KINGDOM,
 	MAINTENANCE_PERIODS,
@@ -187,12 +187,8 @@ function internationalSpaceStationDetailedBreakdown(
 ): APIComponentInContainer[] {
 	const result = [];
 
-	for (const internationalSpaceStationDate of INTERNATIONAL_SPACE_STATION_DATES) {
-		if (internationalSpaceStationDate > date.daysInMonth) {
-			continue;
-		}
-
-		const issDateUnix = epochSeconds(date.with({ day: internationalSpaceStationDate }));
+	for (const internationalSpaceStationDate of internationalSpaceStationDates(date)) {
+		const issDateUnix = epochSeconds(internationalSpaceStationDate);
 
 		let string = t("schedule.detailed-breakdown-international-space-station-time", {
 			lng: locale,

@@ -7,7 +7,9 @@ import {
 	aviarysFireworkFestivalSchedule,
 	dreamsSkaterSchedule,
 	grandmaSchedule,
+	internationalSpaceStationDates,
 	internationalSpaceStationSchedule,
+	isInternationalSpaceStationDate,
 	meteorShowerSchedule,
 	nextDailyReset,
 	nextEyeOfEden,
@@ -67,6 +69,54 @@ test("Returning spirits schedule follows every visit's boundaries.", () => {
 			equal(returningSpiritsSchedule(visit.end), null);
 		}
 	}
+});
+
+test("International Space Station dates follow the historical rotations.", async (t) => {
+	const cases = [
+		{
+			label: "before the Secret Area's introduction",
+			input: skyDate(2019, 8, 1),
+			expected: [],
+		},
+		{
+			label: "during the Secret Area's introduction month",
+			input: skyDate(2019, 9, 1),
+			expected: ["2019-09-27"],
+		},
+		{
+			label: "during the original rotation",
+			input: skyDate(2023, 5, 1),
+			expected: ["2023-05-06", "2023-05-13", "2023-05-20", "2023-05-27"],
+		},
+		{
+			label: "from June 2023 onwards",
+			input: skyDate(2023, 6, 1),
+			expected: ["2023-06-06", "2023-06-14", "2023-06-22", "2023-06-30"],
+		},
+		{
+			label: "when the 30th is outside the month",
+			input: skyDate(2024, 2, 1),
+			expected: ["2024-02-06", "2024-02-14", "2024-02-22"],
+		},
+	] as const;
+
+	for (const { label, input, expected } of cases) {
+		await t.test(label, () => {
+			deepStrictEqual(
+				internationalSpaceStationDates(input).map((date) => date.toPlainDate().toString()),
+				expected,
+			);
+		});
+	}
+});
+
+test("International Space Station dates are recognised across historical boundaries.", () => {
+	equal(isInternationalSpaceStationDate(skyDate(2019, 9, 20)), false);
+	equal(isInternationalSpaceStationDate(skyDate(2019, 9, 27)), true);
+	equal(isInternationalSpaceStationDate(skyDate(2023, 5, 13)), true);
+	equal(isInternationalSpaceStationDate(skyDate(2023, 5, 14)), false);
+	equal(isInternationalSpaceStationDate(skyDate(2023, 6, 13)), false);
+	equal(isInternationalSpaceStationDate(skyDate(2023, 6, 14)), true);
 });
 
 const SCHEDULES = [
@@ -366,6 +416,27 @@ const SCHEDULES = [
 		name: "International Space Station",
 		schedule: internationalSpaceStationSchedule,
 		cases: [
+			{
+				label: "clamps to the Secret Area's introduction",
+				input: skyDate(2019, 9, 20, 12, 0),
+				start: "2019-09-27T00:00:00-07:00[America/Los_Angeles]",
+				end: "2019-09-28T00:00:00-07:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
+				label: "uses the original rotation before June 2023",
+				input: skyDate(2023, 5, 20, 12, 0),
+				start: "2023-05-20T00:00:00-07:00[America/Los_Angeles]",
+				end: "2023-05-21T00:00:00-07:00[America/Los_Angeles]",
+				active: true,
+			},
+			{
+				label: "uses the current rotation from June 2023",
+				input: skyDate(2023, 6, 20, 12, 0),
+				start: "2023-06-22T00:00:00-07:00[America/Los_Angeles]",
+				end: "2023-06-23T00:00:00-07:00[America/Los_Angeles]",
+				active: false,
+			},
 			{
 				label: "upcoming on a normal day",
 				input: skyDate(2025, 6, 10, 12, 0),

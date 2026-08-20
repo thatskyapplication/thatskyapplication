@@ -14,7 +14,7 @@ import {
 	esES,
 	formatEmoji,
 	fr,
-	INTERNATIONAL_SPACE_STATION_DATES,
+	internationalSpaceStationSchedule,
 	isDuring,
 	it,
 	ja,
@@ -413,27 +413,17 @@ new Cron("* * * * *", { timezone: TIME_ZONE }, async () => {
 		});
 	}
 
-	if (
-		(INTERNATIONAL_SPACE_STATION_DATES.includes(
-			date.add({ days: 1 }).day as (typeof INTERNATIONAL_SPACE_STATION_DATES)[number],
-		) &&
-			hour === 23 &&
-			minute >= 45 &&
-			minute <= 59) ||
-		(INTERNATIONAL_SPACE_STATION_DATES.includes(
-			day as (typeof INTERNATIONAL_SPACE_STATION_DATES)[number],
-		) &&
-			hour === 0 &&
-			minute === 0)
-	) {
+	if ((hour === 23 && minute >= 45 && minute <= 59) || (hour === 0 && minute === 0)) {
 		const timeUntilStart = (60 - minute) % 60;
 		const startTime = date.add({ minutes: timeUntilStart });
 
-		notifications.push({
-			type: NotificationType.InternationalSpaceStation,
-			timeUntilStart,
-			timestamp: `<t:${epochSeconds(startTime)}:R>`,
-		});
+		if (internationalSpaceStationSchedule(date).start.equals(startTime)) {
+			notifications.push({
+				type: NotificationType.InternationalSpaceStation,
+				timeUntilStart,
+				timestamp: `<t:${epochSeconds(startTime)}:R>`,
+			});
+		}
 	}
 
 	if (
