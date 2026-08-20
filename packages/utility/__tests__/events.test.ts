@@ -1,6 +1,8 @@
 import { ok } from "node:assert/strict";
 import { test } from "node:test";
-import { skyEventFamilies, skyEvents } from "../source/events/index.js";
+import { skyDate } from "../source/dates.js";
+import { skyEventFamilies, skyEvents, skyEventsBetween } from "../source/events/index.js";
+import { EventId } from "../source/utility/event.js";
 
 test("Events are indexed chronologically.", () => {
 	const events = [...skyEvents().values()];
@@ -55,4 +57,41 @@ test("A family names itself after its latest occurrence.", () => {
 			`Expected family ${family.id} to lead with the name of its latest occurrence.`,
 		);
 	}
+});
+
+test("skyEventsBetween gathers every event overlapping the range.", () => {
+	const events = skyEventsBetween(skyDate(2026, 2, 1), skyDate(2026, 3, 1));
+	ok(events.size > 1, "Expected several events to overlap February 2026.");
+
+	for (const { id, start, end } of events.values()) {
+		ok(
+			Temporal.ZonedDateTime.compare(start, skyDate(2026, 3, 1)) < 0 &&
+				Temporal.ZonedDateTime.compare(skyDate(2026, 2, 1), end) < 0,
+			`Expected event ${id} to overlap February 2026.`,
+		);
+	}
+});
+
+test("skyEventsBetween treats the range as half-open.", () => {
+	const { start, end } = skyEvents().get(EventId.DaysOfLove2026)!;
+
+	ok(
+		!skyEventsBetween(start.subtract({ days: 1 }), start).has(EventId.DaysOfLove2026),
+		"Expected an event starting at the range end to fall outside the range.",
+	);
+
+	ok(
+		!skyEventsBetween(end, end.add({ days: 1 })).has(EventId.DaysOfLove2026),
+		"Expected an event ending at the range start to fall outside the range.",
+	);
+
+	ok(
+		skyEventsBetween(start, start.add({ days: 1 })).has(EventId.DaysOfLove2026),
+		"Expected an event starting at the range start to fall inside the range.",
+	);
+
+	ok(
+		skyEventsBetween(end.subtract({ days: 1 }), end).has(EventId.DaysOfLove2026),
+		"Expected an event ending at the range end to fall inside the range.",
+	);
 });

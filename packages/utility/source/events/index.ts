@@ -62,6 +62,28 @@ export function skyNotEndedEvents(
 	return EVENTS.filter(({ end }) => Temporal.ZonedDateTime.compare(date, end) < 0);
 }
 
+export function skyEventsBetween(
+	start: Temporal.ZonedDateTime,
+	end: Temporal.ZonedDateTime,
+): ReadonlyCollection<EventIds, Event> {
+	return EVENTS.filter(
+		(event) =>
+			Temporal.ZonedDateTime.compare(event.start, end) < 0 &&
+			Temporal.ZonedDateTime.compare(start, event.end) < 0,
+	);
+}
+
 export function communityUpcomingEvents(date: Temporal.ZonedDateTime): readonly CommunityEvent[] {
 	return COMMUNITY_EVENTS.filter(({ start }) => Temporal.ZonedDateTime.compare(start, date) >= 0);
+}
+
+export function communityEventsBetween(
+	start: Temporal.ZonedDateTime,
+	end: Temporal.ZonedDateTime,
+): readonly CommunityEvent[] {
+	return COMMUNITY_EVENTS.filter(
+		(communityEvent) =>
+			Temporal.ZonedDateTime.compare(start, communityEvent.start) <= 0 &&
+			Temporal.ZonedDateTime.compare(communityEvent.start, end) < 0,
+	);
 }

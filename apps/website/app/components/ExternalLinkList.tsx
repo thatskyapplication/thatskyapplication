@@ -5,9 +5,11 @@ export interface ExternalLinkListItem {
 }
 
 export function ExternalLinkList({
+	className,
 	items,
 	locale,
 }: {
+	readonly className?: string | undefined;
 	readonly items: readonly ExternalLinkListItem[];
 	readonly locale: string;
 }) {
@@ -24,7 +26,7 @@ export function ExternalLinkList({
 
 					return (
 						<a
-							className="regular-link"
+							className={className ?? "regular-link"}
 							href={item.href}
 							key={item.id}
 							rel="noopener noreferrer"

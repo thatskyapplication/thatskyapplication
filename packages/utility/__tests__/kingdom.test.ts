@@ -1,9 +1,10 @@
 import { equal, ok } from "node:assert/strict";
 import { test } from "node:test";
+import { skyDate } from "../source/dates.js";
 import { realmForArea } from "../source/kingdom/areas/index.js";
 import { AreaName, RealmName } from "../source/kingdom/geography.js";
 import { KINGDOM } from "../source/kingdom/index.js";
-import { SEASONS } from "../source/kingdom/seasons/index.js";
+import { SEASONS, skySeasonsBetween } from "../source/kingdom/seasons/index.js";
 import type { SpiritIds } from "../source/utility/spirits.js";
 
 const UNKNOWN_SPIRIT_ID = -1 as SpiritIds;
@@ -120,4 +121,41 @@ test("Seasons are indexed chronologically.", () => {
 			`Expected season ${season.id} to start no earlier than season ${previous.id}.`,
 		);
 	}
+});
+
+test("skySeasonsBetween gathers every season overlapping the range.", () => {
+	const seasons = skySeasonsBetween(skyDate(2026, 2, 1), skyDate(2026, 3, 1));
+	ok(seasons.size > 0, "Expected a season to overlap February 2026.");
+
+	for (const { id, start, end } of seasons.values()) {
+		ok(
+			Temporal.ZonedDateTime.compare(start, skyDate(2026, 3, 1)) < 0 &&
+				Temporal.ZonedDateTime.compare(skyDate(2026, 2, 1), end) < 0,
+			`Expected season ${id} to overlap February 2026.`,
+		);
+	}
+});
+
+test("skySeasonsBetween treats the range as half-open.", () => {
+	const { id, start, end } = [...SEASONS.values()].at(-1)!;
+
+	ok(
+		!skySeasonsBetween(start.subtract({ days: 1 }), start).has(id),
+		"Expected a season starting at the range end to fall outside the range.",
+	);
+
+	ok(
+		!skySeasonsBetween(end, end.add({ days: 1 })).has(id),
+		"Expected a season ending at the range start to fall outside the range.",
+	);
+
+	ok(
+		skySeasonsBetween(start, start.add({ days: 1 })).has(id),
+		"Expected a season starting at the range start to fall inside the range.",
+	);
+
+	ok(
+		skySeasonsBetween(end.subtract({ days: 1 }), end).has(id),
+		"Expected a season ending at the range end to fall inside the range.",
+	);
 });

@@ -198,6 +198,17 @@ export function skyUpcomingSeason(date: Temporal.ZonedDateTime) {
 	return SEASONS.find(({ start }) => Temporal.ZonedDateTime.compare(start, date) > 0) ?? null;
 }
 
+export function skySeasonsBetween(
+	start: Temporal.ZonedDateTime,
+	end: Temporal.ZonedDateTime,
+): ReadonlyCollection<SeasonIds, Season> {
+	return SEASONS.filter(
+		(season) =>
+			Temporal.ZonedDateTime.compare(season.start, end) < 0 &&
+			Temporal.ZonedDateTime.compare(start, season.end) < 0,
+	);
+}
+
 export function resolveTravellingSpirit(date: Temporal.ZonedDateTime) {
 	const travelling = TRAVELLING_DATES.findLast(({ start, end }) => isActive(start, end, date));
 

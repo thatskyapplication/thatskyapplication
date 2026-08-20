@@ -84,14 +84,20 @@ export {
 	resolveCurrencyEmoji,
 } from "./emojis.js";
 export {
+	communityEventsBetween,
 	communityUpcomingEvents,
 	skyCurrentEvents,
 	skyEventFamilies,
 	skyEvents,
+	skyEventsBetween,
 	skyNotEndedEvents,
 	skyUpcomingEvents,
 } from "./events/index.js";
-export { DOUBLE_HEART_EVENTS, RADIANCE_EVENTS } from "./events/miscellaneous.js";
+export {
+	type CommunityEvent,
+	DOUBLE_HEART_EVENTS,
+	RADIANCE_EVENTS,
+} from "./events/miscellaneous.js";
 export {
 	FriendshipActionType,
 	type FriendshipActionTypes,
@@ -165,6 +171,7 @@ export {
 	RETURNING_DATES,
 	skyCurrentSeason,
 	skySeasons,
+	skySeasonsBetween,
 	skyUpcomingSeason,
 	TRAVELLING_DATES,
 	VISITS_ABSENT,

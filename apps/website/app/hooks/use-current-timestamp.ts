@@ -2,10 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useRevalidator } from "react-router";
 import { TIME_ZONE } from "@thatskyapplication/utility";
 
-function skyDayTimestamp(timestamp: number) {
-	return Temporal.Instant.fromEpochMilliseconds(timestamp)
-		.toZonedDateTimeISO(TIME_ZONE)
-		.startOfDay().epochMilliseconds;
+function dayTimestamp(timestamp: number, timeZone: string) {
+	return Temporal.Instant.fromEpochMilliseconds(timestamp).toZonedDateTimeISO(timeZone).startOfDay()
+		.epochMilliseconds;
 }
 
 export function useCurrentTimestamp(initialTimestamp: number) {
@@ -49,17 +48,21 @@ export function useCurrentTimestamp(initialTimestamp: number) {
 	return Math.max(currentTimestamp, initialTimestamp);
 }
 
-export function useSkyDailyResetRevalidator(currentTimestamp: number) {
+export function useDailyRevalidator(currentTimestamp: number, timeZone: string) {
 	const { revalidate } = useRevalidator();
-	const lastSkyDayTimestamp = useRef(skyDayTimestamp(currentTimestamp));
-	const currentSkyDayTimestamp = skyDayTimestamp(currentTimestamp);
+	const lastDayTimestamp = useRef(dayTimestamp(currentTimestamp, timeZone));
+	const currentDayTimestamp = dayTimestamp(currentTimestamp, timeZone);
 
 	useEffect(() => {
-		if (currentSkyDayTimestamp <= lastSkyDayTimestamp.current) {
+		if (currentDayTimestamp <= lastDayTimestamp.current) {
 			return;
 		}
 
-		lastSkyDayTimestamp.current = currentSkyDayTimestamp;
+		lastDayTimestamp.current = currentDayTimestamp;
 		void revalidate();
-	}, [currentSkyDayTimestamp, revalidate]);
+	}, [currentDayTimestamp, revalidate]);
+}
+
+export function useSkyDailyResetRevalidator(currentTimestamp: number) {
+	useDailyRevalidator(currentTimestamp, TIME_ZONE);
 }
