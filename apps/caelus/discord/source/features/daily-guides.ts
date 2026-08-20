@@ -786,15 +786,16 @@ async function distributionData({
 	const seenMaintenanceDays = new Set<number>();
 
 	for (const maintenance of MAINTENANCE_PERIODS) {
+		if (Temporal.ZonedDateTime.compare(maintenance.end, now) <= 0) {
+			continue;
+		}
+
 		const daysUntilStart = maintenance.start
 			.since(today)
 			.total({ unit: "days", relativeTo: today });
 
 		if (daysUntilStart < 1) {
-			if (Temporal.ZonedDateTime.compare(maintenance.end, now) > 0) {
-				todayMaintenance.push(maintenance);
-			}
-
+			todayMaintenance.push(maintenance);
 			continue;
 		}
 
