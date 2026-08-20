@@ -19,6 +19,14 @@ a:utility:
 a:website:
   - changed-files:
       - any-glob-to-any-file: apps/website/**/*
+f:calendar:
+  - changed-files:
+      - any-glob-to-any-file:
+          - apps/website/app/components/calendar/**/*
+          - apps/website/app/routes/calendar.tsx
+          - apps/website/app/utility/calendar-day.server.ts
+          - apps/website/app/utility/calendar-entries.server.ts
+          - apps/website/app/utility/calendar.ts
 f:catalogue:
   - changed-files:
       - any-glob-to-any-file:
