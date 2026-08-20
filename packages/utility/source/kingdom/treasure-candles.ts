@@ -222,7 +222,7 @@ export const TREASURE_CANDLES_DOUBLE_CONFIGURATIONS = [
 		end: skyDate(2023, 11, 27),
 		rotation: TREASURE_CANDLES_DOUBLE_ROTATION,
 	},
-	// This event placed eight treasure candles in each realm from (40 total). Not yet handled.
+	// This event placed eight treasure candles in each realm (40 total). Not yet handled.
 	// Source: https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1308-patch-notes---april-10-2024---0-25-0-257483-android-huawei-256148-ios-playstation-257607-pc-255731-switch
 	{
 		start: skyDate(2024, 4, 10),
