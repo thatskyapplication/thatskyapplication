@@ -122,7 +122,7 @@ function todayData(locale: Locale, offset = 0, navigation = true): [APIMessageTo
 	const button: APIButtonComponentWithCustomId = {
 		type: ComponentType.Button,
 		custom_id: CustomId.ShardEruptionTodayToday,
-		label: t("shard-eruption.today", { lng: locale, ns: "features" }),
+		label: t("today", { lng: locale, ns: "general" }),
 		style: ButtonStyle.Primary,
 	};
 
@@ -319,7 +319,7 @@ function browseData(locale: Locale, offset = 0): [APIMessageTopLevelComponent] {
 						{
 							type: ComponentType.Button,
 							custom_id: CustomId.ShardEruptionBrowseToday,
-							label: t("shard-eruption.today", { lng: locale, ns: "features" }),
+							label: t("today", { lng: locale, ns: "general" }),
 							style: ButtonStyle.Primary,
 						},
 						{

@@ -3773,7 +3773,6 @@ export default {
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
 			"browse-no-shard": "No shard eruptions.",
 			none: "None",
-			today: "$t(general:today)",
 			browse: "Browse",
 			"jump-to-date": "Jump to a date",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))",

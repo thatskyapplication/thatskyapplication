@@ -326,7 +326,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 			<div className="flex flex-col items-center justify-center">
 				<div className="mb-4 flex w-full justify-center gap-2">
 					<Link className={DATE_NAVIGATION_CLASS} to="/shard-eruption">
-						{t("shard-eruption.today", { ns: "features" })}
+						{t("today", { ns: "general" })}
 					</Link>
 					<DatePicker
 						anchorDate={anchorDate}
