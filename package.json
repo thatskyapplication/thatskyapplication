@@ -21,7 +21,7 @@
 	"devEngines": {
 		"packageManager": {
 			"name": "pnpm",
-			"version": "11.10.0",
+			"version": "11.22.0",
 			"onFail": "error"
 		},
 		"runtime": {
