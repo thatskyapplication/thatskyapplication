@@ -411,6 +411,48 @@ const SCHEDULES = [
 		schedule: aviarysFireworkFestivalSchedule,
 		cases: [
 			{
+				label: "active on the finale's first show",
+				input: skyDate(2023, 12, 12),
+				start: "2023-12-12T00:00:00-08:00[America/Los_Angeles]",
+				end: "2023-12-12T00:10:00-08:00[America/Los_Angeles]",
+				active: true,
+			},
+			{
+				label: "rolls into the next day during the finale",
+				input: skyDate(2023, 12, 14, 22),
+				start: "2023-12-15T00:00:00-08:00[America/Los_Angeles]",
+				end: "2023-12-15T00:10:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
+				label: "active on the finale's last show",
+				input: skyDate(2023, 12, 17, 20, 5),
+				start: "2023-12-17T20:00:00-08:00[America/Los_Angeles]",
+				end: "2023-12-17T20:10:00-08:00[America/Los_Angeles]",
+				active: true,
+			},
+			{
+				label: "waits for the monthly rotation once the finale is over",
+				input: skyDate(2023, 12, 17, 20, 10),
+				start: "2024-01-01T00:00:00-08:00[America/Los_Angeles]",
+				end: "2024-01-01T00:10:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
+				label: "skips a day that is not the first of the month",
+				input: skyDate(2024, 1, 2),
+				start: "2024-02-01T00:00:00-08:00[America/Los_Angeles]",
+				end: "2024-02-01T00:10:00-08:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
+				label: "leaves the first of the month once its last show is over",
+				input: skyDate(2025, 6, 1, 20, 10),
+				start: "2025-07-01T00:00:00-07:00[America/Los_Angeles]",
+				end: "2025-07-01T00:10:00-07:00[America/Los_Angeles]",
+				active: false,
+			},
+			{
 				label: "active on the first of the month",
 				input: skyDate(2025, 6, 1, 12, 5),
 				start: "2025-06-01T12:00:00-07:00[America/Los_Angeles]",
@@ -508,6 +550,12 @@ for (const { name, schedule, cases } of SCHEDULES) {
 		});
 	}
 }
+
+test("Aviary's firework festival schedule is unavailable before the finale.", () => {
+	equal(aviarysFireworkFestivalSchedule(skyDate(2017, 12, 19)), null);
+	equal(aviarysFireworkFestivalSchedule(skyDate(2023, 12, 1)), null);
+	equal(aviarysFireworkFestivalSchedule(skyDate(2023, 12, 11, 23, 59, 59)), null);
+});
 
 test("International Space Station schedule is unavailable before the Secret Area's introduction.", () => {
 	equal(internationalSpaceStationSchedule(skyDate(2017, 12, 19)), null);

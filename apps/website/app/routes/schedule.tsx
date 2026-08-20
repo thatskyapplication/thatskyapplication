@@ -452,8 +452,13 @@ function aviarysFireworkFestivalOverview(
 	timeZone: string,
 	locale: string,
 	hour12: boolean | undefined,
-): ScheduleWithEnd<typeof ScheduleType.AviarysFireworkFestival> {
+): ScheduleWithEnd<typeof ScheduleType.AviarysFireworkFestival> | null {
 	const schedule = aviarysFireworkFestivalSchedule(now);
+
+	if (!schedule) {
+		return null;
+	}
+
 	const options: Intl.DateTimeFormatOptions = { timeZone, timeStyle: "short", hour12 };
 
 	if (schedule.start.since(now).total({ unit: "days", relativeTo: now }) > 1) {

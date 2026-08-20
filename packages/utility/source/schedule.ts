@@ -44,6 +44,14 @@ const INTERNATIONAL_SPACE_STATION_ROTATION_CHANGE_DATE = Temporal.PlainDate.from
 export const DREAMS_SKATER_START_DATE = skyDate(2022, 12, 19);
 const PASSAGE_SCHEDULE_START_DATE = skyDate(2023, 5, 1);
 /**
+ * The finale ran every 4 hours from 00:00 on 12 December 2023, with the last show at 20:00 on
+ * 17 December 2023. From 2024, it returns on the first day of each month on the same rotation.
+ *
+ * @see {@link https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1259-patch-notes---december-11-2023---0-23-5-238437-android-huawei-ios-switch-238018-playstation}
+ */
+export const AVIARYS_FIREWORK_FESTIVAL_START_DATE = skyDate(2023, 12, 12);
+const AVIARYS_FIREWORK_FESTIVAL_FINALE_LAST_SHOW_DATE = skyDate(2023, 12, 17, 20);
+/**
  * Available from 20:10 BST on 28 August 2025 (12:10 PDT).
  *
  * @remarks Time is observed from Discord.
@@ -248,12 +256,23 @@ export function nextPassage(date: Temporal.ZonedDateTime) {
 }
 
 export function aviarysFireworkFestivalSchedule(date: Temporal.ZonedDateTime) {
+	if (Temporal.ZonedDateTime.compare(date, AVIARYS_FIREWORK_FESTIVAL_START_DATE) < 0) {
+		return null;
+	}
+
 	const { day, hour, minute } = date;
 	const targetHour = hour % 4 === 0 ? (minute < 10 ? hour : hour + 4) : hour + (4 - (hour % 4));
 
-	const start =
-		day === 1 && targetHour <= 20
+	const nextShow =
+		targetHour <= 20
 			? startOfHour(date.with({ hour: targetHour }))
+			: date.add({ days: 1 }).startOfDay();
+
+	const start =
+		Temporal.ZonedDateTime.compare(nextShow, AVIARYS_FIREWORK_FESTIVAL_FINALE_LAST_SHOW_DATE) <=
+			0 ||
+		(day === 1 && targetHour <= 20)
+			? nextShow
 			: date.add({ months: 1 }).with({ day: 1 }).startOfDay();
 
 	const end = start.add({ minutes: 10 });

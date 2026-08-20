@@ -885,7 +885,7 @@ function passageDetailedBreakdown(
 }
 
 function aviarysFireworkFestivalOverview(date: Temporal.ZonedDateTime) {
-	const schedule = aviarysFireworkFestivalSchedule(date);
+	const schedule = aviarysFireworkFestivalSchedule(date)!;
 
 	return {
 		now: schedule.active,

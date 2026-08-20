@@ -199,6 +199,7 @@ export {
 export { isPlatformId, PLATFORM_ID_VALUES, PlatformId, type PlatformIds } from "./platforms.js";
 export {
 	auroraSchedule,
+	AVIARYS_FIREWORK_FESTIVAL_START_DATE,
 	aviarysFireworkFestivalSchedule,
 	DREAMS_SKATER_START_DATE,
 	dreamsSkaterSchedule,

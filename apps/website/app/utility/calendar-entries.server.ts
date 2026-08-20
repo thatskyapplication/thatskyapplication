@@ -428,8 +428,6 @@ export function calendarEntriesBetween({
 				);
 			}
 
-			const dayOfMonth = skyDate.day;
-
 			if (isInternationalSpaceStationDate(skyDate)) {
 				entries.push(
 					createCalendarEntry({
@@ -443,14 +441,16 @@ export function calendarEntriesBetween({
 				);
 			}
 
-			if (dayOfMonth === 1) {
+			const aviarysFireworkFestival = aviarysFireworkFestivalSchedule(skyDate.with({ hour: 20 }));
+
+			if (aviarysFireworkFestival?.start.toPlainDate().equals(skyDate.toPlainDate())) {
 				entries.push(
 					createCalendarEntry({
 						key: `aviarys-firework-festival-${date}`,
 						kind: CalendarEntryKind.AviarysFireworkFestival,
 						label: aviarysFireworkFestivalLabel,
 						start: skyDate,
-						end: aviarysFireworkFestivalSchedule(skyDate.with({ hour: 20 })).end,
+						end: aviarysFireworkFestival.end,
 						wikiURL: aviarysFireworkFestivalWikiURL,
 					}),
 				);
