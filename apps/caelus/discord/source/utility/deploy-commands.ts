@@ -762,7 +762,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						scheduleType !== ScheduleType.Dragon &&
 						scheduleType !== ScheduleType.Maintenance &&
 						scheduleType !== ScheduleType.Events &&
-						scheduleType !== ScheduleType.Season,
+						scheduleType !== ScheduleType.Season &&
+						scheduleType !== ScheduleType.Update,
 				).map((scheduleType) => ({
 					name: t(`schedule.command-option-type-choice-name.${scheduleType}`, {
 						ns: "commands",

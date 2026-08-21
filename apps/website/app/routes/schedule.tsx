@@ -1,6 +1,7 @@
 import { AlertTriangle, ExternalLinkIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
+import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/patch-notes";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
@@ -670,6 +671,7 @@ const enum DisplayCardType {
 	Event = 1,
 	Schedule = 2,
 	Maintenance = 3,
+	Update = 4,
 }
 
 const enum DisplayCardBadge {
@@ -1119,6 +1121,32 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			),
 			nextUnix: upcomingMaintenance.start.epochMilliseconds,
 			relative: formatRelativeTime(upcomingMaintenance.start, now, locale),
+		});
+	}
+
+	const today = now.withTimeZone(timeZone).toPlainDate();
+	const upcomingUpdate = upcomingPatchNote(today.toString());
+
+	if (upcomingUpdate) {
+		const date = Temporal.PlainDate.from(upcomingUpdate.date);
+		const start = date.toZonedDateTime(timeZone);
+
+		upcoming.push({
+			type: DisplayCardType.Update,
+			key: `update-${upcomingUpdate.date}`,
+			label: t("schedule.update-version", {
+				ns: "features",
+				version: patchNoteVersion(upcomingUpdate.identifier),
+			}),
+			active: false,
+			next: new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone }).format(
+				start.epochMilliseconds,
+			),
+			nextUnix: start.epochMilliseconds,
+			relative: new Intl.RelativeTimeFormat(locale, { numeric: "auto" }).format(
+				today.until(date).days,
+				"day",
+			),
 		});
 	}
 

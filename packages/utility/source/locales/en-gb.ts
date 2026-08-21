@@ -3199,7 +3199,6 @@ export default {
 			cadence_one: "Every minute",
 			cadence_other: "Every {{count}} minutes",
 			"community-event": "Community event",
-			update: "Update",
 		},
 		catalogue: {
 			"main-title": "Catalogue",
@@ -3353,6 +3352,9 @@ export default {
 			"event-upcoming-time": "{{event}} starts at {{time}}.",
 			"maintenance-upcoming_one": "Maintenance starts at {{time}} tomorrow.",
 			"maintenance-upcoming_other": "Maintenance starts in {{count}} days.",
+			"update-upcoming_zero": "The {{update}} releases today.",
+			"update-upcoming_one": "The {{update}} releases tomorrow.",
+			"update-upcoming_other": "The {{update}} releases in {{count}} days.",
 			"not-yet-updated":
 				"Daily guides are waiting for an awesome Sky kid to update them. Got the information we need? Join the [support server]({{url}}) and update them yourself for the community!\n\nWe're currently missing the following:",
 			"not-yet-updated-support-server":
@@ -3640,6 +3642,7 @@ export default {
 				[ScheduleType.Events]: "$t(general:event)",
 				[ScheduleType.Season]: "$t(general:season)",
 				[ScheduleType.ReturningSpirits]: "$t(general:returning-spirits)",
+				[ScheduleType.Update]: "Update",
 			} satisfies Record<ScheduleTypes, string>,
 			name: "Schedule",
 			description:
@@ -3658,6 +3661,7 @@ export default {
 			"overview-ends-timestamp": "Ends: {{timestamp}}",
 			"overview-in": "In:",
 			overview: "**{{type}}:** {{details}}",
+			"update-version": "{{version}} update",
 			"event-ongoing": "The event is ongoing!",
 			"event-will-occur": "The event will occur again {{timestamp}}.",
 			"next-daily-reset": "{{timestamp1}} ({{timestamp2}})",

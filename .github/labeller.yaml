@@ -1,6 +1,8 @@
 a:caelus:
   - changed-files:
-      - any-glob-to-any-file: apps/caelus/**/*
+      - any-glob-to-any-file:
+          - apps/caelus/**/*
+          - packages/patch-notes/**/*
 a:friendship-tree-generator:
   - changed-files:
       - any-glob-to-any-file: packages/friendship-tree-generator/**/*

@@ -31,6 +31,7 @@ import {
 import { DiscordAPIError } from "@discordjs/rest";
 import { t } from "i18next";
 import pQueue from "p-queue";
+import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/patch-notes";
 import {
 	communityUpcomingEvents,
 	DAILY_GUIDES_DISTRIBUTION_CHANNEL_TYPES,
@@ -1345,6 +1346,23 @@ async function distributionData({
 	}
 
 	footerItems.push(...upcomingMaintenance);
+	const upcomingUpdate = upcomingPatchNote(today.toPlainDate().toString());
+
+	if (upcomingUpdate) {
+		footerItems.push({
+			start: Temporal.PlainDate.from(upcomingUpdate.date).toZonedDateTime(TIME_ZONE),
+			text: t("daily-guides.update-upcoming", {
+				lng: locale,
+				ns: "features",
+				count: today.toPlainDate().until(Temporal.PlainDate.from(upcomingUpdate.date)).days,
+				update: t("schedule.update-version", {
+					lng: locale,
+					ns: "features",
+					version: patchNoteVersion(upcomingUpdate.identifier),
+				}),
+			}),
+		});
+	}
 
 	if (footerItems.length > 0) {
 		sortDaysCountItems(footerItems, today);

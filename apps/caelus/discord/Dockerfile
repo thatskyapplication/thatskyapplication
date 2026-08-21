@@ -6,11 +6,13 @@ WORKDIR /thatskyapplication
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 RUN npm install --global "pnpm@$(node --print 'require("./package.json").devEngines.packageManager.version')"
 
+COPY packages/patch-notes/package.json packages/patch-notes/
 COPY packages/utility/package.json packages/utility/
 COPY apps/caelus/discord/package.json apps/caelus/discord/
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
 	pnpm install --frozen-lockfile
 
+COPY packages/patch-notes packages/patch-notes
 COPY packages/utility packages/utility
 COPY apps/caelus/discord apps/caelus/discord
 RUN pnpm --filter @thatskyapplication/caelus... run build

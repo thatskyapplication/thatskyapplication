@@ -28,6 +28,7 @@ export const ScheduleType = {
 	Events: 20,
 	Season: 21,
 	ReturningSpirits: 22,
+	Update: 23,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const SCHEDULE_TYPE_VALUES = Object.values(ScheduleType);

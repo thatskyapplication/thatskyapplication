@@ -5,12 +5,11 @@ export type HTTPSURL = `https://${string}`;
 export interface PatchNote {
 	readonly aliases?: readonly PatchNoteIdentifier[];
 	readonly date: ISODate;
-	readonly identifier?: PatchNoteIdentifier;
+	readonly identifier: PatchNoteIdentifier;
 	readonly url?: HTTPSURL;
 }
 
 export interface PublishedPatchNote extends PatchNote {
-	readonly identifier: PatchNoteIdentifier;
 	readonly url: HTTPSURL;
 }
 
@@ -760,11 +759,11 @@ export const PATCH_NOTES: readonly PatchNote[] = [
 		identifier: "p344",
 		url: "https://thatgamecompany.helpshift.com/hc/en/17-sky-children-of-the-light/faq/1467-hotfix-34-4---august-10-2026---playstation-ios",
 	},
-	{ date: "2026-08-25" },
+	{ date: "2026-08-25", identifier: "p345" },
 ];
 
 export function isPublishedPatchNote(patchNote: PatchNote): patchNote is PublishedPatchNote {
-	return patchNote.identifier !== undefined && patchNote.url !== undefined;
+	return patchNote.url !== undefined;
 }
 
 export function patchNoteVersion(identifier: PatchNoteIdentifier) {
@@ -784,6 +783,10 @@ export function patchNoteVersion(identifier: PatchNoteIdentifier) {
 	return numeric >= 310
 		? `${Math.trunc(numeric / 10)}.${numeric % 10}`
 		: `0.${Math.trunc(numeric / 10)}.${numeric % 10}`;
+}
+
+export function upcomingPatchNote(date: string) {
+	return PATCH_NOTES.find((patchNote) => patchNote.date >= date) ?? null;
 }
 
 const patchNoteRedirects = new Map<PatchNoteIdentifier, HTTPSURL>();

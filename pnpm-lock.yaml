@@ -338,6 +338,9 @@ importers:
       '@sentry/node':
         specifier: 'catalog:'
         version: 10.69.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@8.1.1)
+      '@thatskyapplication/patch-notes':
+        specifier: workspace:^
+        version: link:../../../packages/patch-notes
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../../packages/utility

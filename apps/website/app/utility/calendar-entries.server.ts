@@ -486,7 +486,7 @@ export function calendarEntriesBetween({
 		}
 	}
 
-	for (const [index, patchNote] of PATCH_NOTES.entries()) {
+	for (const patchNote of PATCH_NOTES) {
 		const date = Temporal.PlainDate.from(patchNote.date);
 		const start = date.toZonedDateTime(timeZone);
 		const end = date.add({ days: 1 }).toZonedDateTime(timeZone);
@@ -495,32 +495,20 @@ export function calendarEntriesBetween({
 			continue;
 		}
 
-		if (isPublishedPatchNote(patchNote)) {
-			entries.push(
-				createCalendarEntry({
-					key: `update-${patchNote.identifier}`,
-					kind: CalendarEntryKind.Update,
-					label: patchNoteVersion(patchNote.identifier),
-					start,
-					end,
-					dateOnly: true,
-					marketingURL: patchNote.url,
-				}),
-			);
+		const input: CalendarEntryInput = {
+			key: `update-${patchNote.identifier}`,
+			kind: CalendarEntryKind.Update,
+			label: patchNoteVersion(patchNote.identifier),
+			start,
+			end,
+			dateOnly: true,
+		};
 
-			continue;
+		if (isPublishedPatchNote(patchNote)) {
+			input.marketingURL = patchNote.url;
 		}
 
-		entries.push(
-			createCalendarEntry({
-				key: `update-${patchNote.date}-${index}`,
-				kind: CalendarEntryKind.Update,
-				label: t("calendar.update", { ns: "features" }),
-				start,
-				end,
-				dateOnly: true,
-			}),
-		);
+		entries.push(createCalendarEntry(input));
 	}
 
 	for (const { start, end } of MAINTENANCE_PERIODS) {

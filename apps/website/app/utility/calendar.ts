@@ -116,7 +116,7 @@ export const CalendarEntryKindPresentations = {
 		swatch: "bg-amber-400 dark:bg-amber-600",
 	},
 	[CalendarEntryKind.Update]: {
-		labelKey: "features:calendar.update",
+		labelKey: `features:schedule.type.${ScheduleType.Update}`,
 		bar: "bg-indigo-200 text-indigo-900 dark:bg-indigo-800 dark:text-indigo-50",
 		swatch: "bg-indigo-400 dark:bg-indigo-600",
 	},

@@ -15,6 +15,7 @@ import {
 	SeparatorSpacingSize,
 } from "@discordjs/core";
 import { t } from "i18next";
+import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/patch-notes";
 import {
 	auroraSchedule,
 	aviarysFireworkFestivalSchedule,
@@ -46,6 +47,7 @@ import {
 	skyNotEndedEvents,
 	skyNow,
 	skyUpcomingSeason,
+	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	travellingSpiritSchedule,
 	turtleSchedule,
@@ -1263,6 +1265,33 @@ export async function scheduleOverview(
 								ns: "features",
 								timestamp: `<t:${epochSeconds(activeMaintenance.start)}:R>`,
 							}),
+			}),
+		});
+	}
+
+	const today = now.toPlainDate();
+	const upcomingUpdate = upcomingPatchNote(today.toString());
+
+	if (upcomingUpdate) {
+		const date = Temporal.PlainDate.from(upcomingUpdate.date);
+
+		firstContainerComponents.push({
+			type: ComponentType.TextDisplay,
+			content: t("schedule.overview", {
+				lng: locale,
+				ns: "features",
+				type: t("schedule.update-version", {
+					lng: locale,
+					ns: "features",
+					version: patchNoteVersion(upcomingUpdate.identifier),
+				}),
+				details: date.equals(today)
+					? t("today", { lng: locale, ns: "general" })
+					: t("schedule.overview-next-timestamp", {
+							lng: locale,
+							ns: "features",
+							timestamp: `<t:${epochSeconds(date.toZonedDateTime(TIME_ZONE))}:R>`,
+						}),
 			}),
 		});
 	}

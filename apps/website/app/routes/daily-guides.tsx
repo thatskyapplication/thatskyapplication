@@ -4,6 +4,7 @@ import { type JSX, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { HeadersArgs } from "react-router";
 import { data, Link } from "react-router";
+import { patchNoteVersion, upcomingPatchNote } from "@thatskyapplication/patch-notes";
 import {
 	communityUpcomingEvents,
 	type DailyGuidesDaysCountItem,
@@ -547,6 +548,25 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				start: maintenance.start,
 			});
 		}
+	}
+
+	const upcomingUpdate = upcomingPatchNote(today.toPlainDate().toString());
+
+	if (upcomingUpdate) {
+		const start = Temporal.PlainDate.from(upcomingUpdate.date).toZonedDateTime(TIME_ZONE);
+
+		daysCount.push({
+			content: t("daily-guides.update-upcoming", {
+				ns: "features",
+				count: today.toPlainDate().until(Temporal.PlainDate.from(upcomingUpdate.date)).days,
+				update: t("schedule.update-version", {
+					ns: "features",
+					version: patchNoteVersion(upcomingUpdate.identifier),
+				}),
+			}),
+			key: `update-${upcomingUpdate.date}`,
+			start,
+		});
 	}
 
 	sortDaysCountItems(daysCount, now);
