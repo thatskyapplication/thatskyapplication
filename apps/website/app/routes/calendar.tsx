@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { TIME_ZONE, WEBSITE_URL } from "@thatskyapplication/utility";
 import { CalendarDayDialog } from "~/components/calendar/CalendarDayDialog";
+import { CalendarDayView } from "~/components/calendar/CalendarDayView";
 import { CalendarGrid } from "~/components/calendar/CalendarGrid";
 import { CalendarLegend } from "~/components/calendar/CalendarLegend";
 import { CalendarSummary } from "~/components/calendar/CalendarSummary";
@@ -89,14 +90,20 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 	const anchor = Temporal.PlainDate.compare(requested, minimum) < 0 ? minimum : requested;
 	const weekStartsOn = firstDayOfWeek(locale);
 	const isMonth = view === CalendarView.Month;
+	const isDay = view === CalendarView.Day;
 	const focus = isMonth ? anchor.with({ day: 1 }) : anchor;
-	const gridStart = focus.subtract({ days: (focus.dayOfWeek - weekStartsOn + 7) % 7 });
 
-	const weekCount = isMonth
-		? Math.ceil((focus.daysInMonth + gridStart.until(focus, { largestUnit: "day" }).days) / 7)
-		: 1;
+	const gridStart = isDay
+		? anchor
+		: focus.subtract({ days: (focus.dayOfWeek - weekStartsOn + 7) % 7 });
 
-	const gridEnd = gridStart.add({ days: weekCount * 7 - 1 });
+	const weekCount = isDay
+		? 0
+		: isMonth
+			? Math.ceil((focus.daysInMonth + gridStart.until(focus, { largestUnit: "day" }).days) / 7)
+			: 1;
+
+	const gridEnd = isDay ? anchor : gridStart.add({ days: weekCount * 7 - 1 });
 	const rangeStart = gridStart.toZonedDateTime(timeZone);
 	const rangeEnd = gridEnd.add({ days: 1 }).toZonedDateTime(timeZone);
 
@@ -164,27 +171,31 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 
 	const weekdayFormat = new Intl.DateTimeFormat(locale, { timeZone, weekday: "short" });
 
-	const weekdayLabels = Array.from({ length: 7 }, (_, dayIndex) =>
-		weekdayFormat.format(
-			gridStart.add({ days: dayIndex }).toZonedDateTime(timeZone).epochMilliseconds,
-		),
-	);
-
-	const title = isMonth
-		? new Intl.DateTimeFormat(locale, { timeZone, month: "long", year: "numeric" }).format(
-				focus.toZonedDateTime(timeZone).epochMilliseconds,
-			)
-		: new Intl.DateTimeFormat(locale, {
-				timeZone,
-				day: "numeric",
-				month: "long",
-				year: "numeric",
-			}).formatRange(
-				gridStart.toZonedDateTime(timeZone).epochMilliseconds,
-				gridEnd.toZonedDateTime(timeZone).epochMilliseconds,
+	const weekdayLabels = isDay
+		? []
+		: Array.from({ length: 7 }, (_, dayIndex) =>
+				weekdayFormat.format(
+					gridStart.add({ days: dayIndex }).toZonedDateTime(timeZone).epochMilliseconds,
+				),
 			);
 
-	const day = parsePlainDate(url.searchParams.get("day"));
+	const title = isDay
+		? fullDayFormat.format(anchor.toZonedDateTime(timeZone).epochMilliseconds)
+		: isMonth
+			? new Intl.DateTimeFormat(locale, { timeZone, month: "long", year: "numeric" }).format(
+					focus.toZonedDateTime(timeZone).epochMilliseconds,
+				)
+			: new Intl.DateTimeFormat(locale, {
+					timeZone,
+					day: "numeric",
+					month: "long",
+					year: "numeric",
+				}).formatRange(
+					gridStart.toZonedDateTime(timeZone).epochMilliseconds,
+					gridEnd.toZonedDateTime(timeZone).epochMilliseconds,
+				);
+
+	const day = isDay ? anchor : parsePlainDate(url.searchParams.get("day"));
 
 	const dayDetail: CalendarDayDetail | null =
 		day &&
@@ -193,9 +204,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		Temporal.PlainDate.compare(day, gridEnd) <= 0
 			? {
 					date: day.toString(),
-					heading: new Intl.DateTimeFormat(locale, { dateStyle: "full", timeZone }).format(
-						day.toZonedDateTime(timeZone).epochMilliseconds,
-					),
+					heading: fullDayFormat.format(day.toZonedDateTime(timeZone).epochMilliseconds),
 					allDay: entries.filter(
 						(entry) =>
 							!isDayMarkerKind(entry.kind) &&
@@ -211,20 +220,39 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 				}
 			: null;
 
-	const previous = isMonth ? focus.subtract({ months: 1 }) : gridStart.subtract({ weeks: 1 });
+	const previous = isDay
+		? anchor.subtract({ days: 1 })
+		: isMonth
+			? focus.subtract({ months: 1 })
+			: gridStart.subtract({ weeks: 1 });
 
-	const previousEnd = isMonth
-		? previous.with({ day: previous.daysInMonth })
-		: previous.add({ days: 6 });
+	const previousEnd = isDay
+		? previous
+		: isMonth
+			? previous.with({ day: previous.daysInMonth })
+			: previous.add({ days: 6 });
+
+	const next = isDay
+		? anchor.add({ days: 1 })
+		: isMonth
+			? focus.add({ months: 1 })
+			: gridStart.add({ weeks: 1 });
+
+	const focusedDay =
+		Temporal.PlainDate.compare(today, gridStart) >= 0 &&
+		Temporal.PlainDate.compare(today, gridEnd) <= 0
+			? today
+			: focus;
 
 	return {
 		anchorDate: (isMonth ? focus : gridStart).toString(),
+		dayDate: focusedDay.toString(),
 		dayDetail,
 		entries,
 		summary,
 		initialTimestamp: Date.now(),
 		locale,
-		nextDate: (isMonth ? focus.add({ months: 1 }) : gridStart.add({ weeks: 1 })).toString(),
+		nextDate: next.toString(),
 		previousDate: Temporal.PlainDate.compare(previousEnd, minimum) < 0 ? null : previous.toString(),
 		skyTime,
 		timeZone,
@@ -240,6 +268,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 export default function Calendar({ loaderData }: Route.ComponentProps) {
 	const {
 		anchorDate,
+		dayDate,
 		dayDetail,
 		entries,
 		summary,
@@ -260,6 +289,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 	useDailyRevalidator(currentTimestamp, timeZone);
 	const [hiddenKinds, setHiddenKinds] = useState<ReadonlySet<CalendarEntryKinds>>(new Set());
+	const isDay = view === CalendarView.Day;
 
 	const visible = useMemo(
 		() => ({
@@ -287,6 +317,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 			<div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
 				<CalendarToolbar
 					anchorDate={anchorDate}
+					dayDate={dayDate}
 					locale={locale}
 					nextDate={nextDate}
 					previousDate={previousDate}
@@ -297,16 +328,22 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					weekStartsOn={weekStartsOn}
 				/>
 				<CalendarLegend hiddenKinds={hiddenKinds} onToggle={toggleKind} />
-				<CalendarGrid
-					anchorDate={anchorDate}
-					currentTimestamp={currentTimestamp}
-					entries={visible.entries}
-					locale={locale}
-					skyTime={skyTime}
-					view={view}
-					weekdayLabels={weekdayLabels}
-					weeks={weeks}
-				/>
+				{isDay ? (
+					dayDetail && (
+						<CalendarDayView allDay={visible.allDay} detail={dayDetail} locale={locale} />
+					)
+				) : (
+					<CalendarGrid
+						anchorDate={anchorDate}
+						currentTimestamp={currentTimestamp}
+						entries={visible.entries}
+						locale={locale}
+						skyTime={skyTime}
+						view={view}
+						weekdayLabels={weekdayLabels}
+						weeks={weeks}
+					/>
+				)}
 				<CalendarSummary
 					active={visible.active}
 					skyTime={skyTime}
@@ -314,7 +351,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					view={view}
 				/>
 			</div>
-			{dayDetail && (
+			{!isDay && dayDetail && (
 				<CalendarDayDialog
 					allDay={visible.allDay}
 					anchorDate={anchorDate}

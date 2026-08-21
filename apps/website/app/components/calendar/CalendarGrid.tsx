@@ -70,7 +70,7 @@ function CalendarWeekRow({
 				return (
 					<Fragment key={day.date}>
 						<Link
-							aria-label={t("calendar.view-day", { ns: "features", date: day.fullLabel })}
+							aria-label={t("calendar.view-date", { ns: "features", date: day.fullLabel })}
 							className={clsx(
 								"border-s border-b border-gray-100 transition-colors first:border-s-0 hover:bg-sky-50 dark:border-gray-800 dark:hover:bg-sky-950/40",
 								isToday

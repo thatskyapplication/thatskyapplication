@@ -9,8 +9,21 @@ import { calendarPath, CalendarView, type CalendarViews } from "~/utility/calend
 const NAVIGATION_BUTTON_CLASS =
 	"inline-flex h-9 items-center justify-center rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800" as const;
 
+const PREVIOUS_LABEL_KEYS = {
+	[CalendarView.Month]: "calendar.previous-month",
+	[CalendarView.Week]: "calendar.previous-week",
+	[CalendarView.Day]: "calendar.previous-day",
+} as const satisfies Readonly<Record<CalendarViews, string>>;
+
+const NEXT_LABEL_KEYS = {
+	[CalendarView.Month]: "calendar.next-month",
+	[CalendarView.Week]: "calendar.next-week",
+	[CalendarView.Day]: "calendar.next-day",
+} as const satisfies Readonly<Record<CalendarViews, string>>;
+
 export function CalendarToolbar({
 	anchorDate,
+	dayDate,
 	locale,
 	nextDate,
 	previousDate,
@@ -21,6 +34,7 @@ export function CalendarToolbar({
 	weekStartsOn,
 }: {
 	anchorDate: string;
+	dayDate: string;
 	locale: string;
 	nextDate: string;
 	previousDate: string | null;
@@ -31,7 +45,8 @@ export function CalendarToolbar({
 	weekStartsOn: number;
 }) {
 	const { t } = useTranslation();
-	const isMonth = view === CalendarView.Month;
+	const previousLabel = t(PREVIOUS_LABEL_KEYS[view], { ns: "features" });
+	const nextLabel = t(NEXT_LABEL_KEYS[view], { ns: "features" });
 
 	return (
 		<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -40,9 +55,7 @@ export function CalendarToolbar({
 				<div className="flex items-center gap-2">
 					{previousDate === null ? (
 						<button
-							aria-label={t(isMonth ? "calendar.previous-month" : "calendar.previous-week", {
-								ns: "features",
-							})}
+							aria-label={previousLabel}
 							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 cursor-not-allowed px-0 opacity-40")}
 							disabled
 							type="button"
@@ -51,9 +64,7 @@ export function CalendarToolbar({
 						</button>
 					) : (
 						<Link
-							aria-label={t(isMonth ? "calendar.previous-month" : "calendar.previous-week", {
-								ns: "features",
-							})}
+							aria-label={previousLabel}
 							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
 							preventScrollReset
 							to={calendarPath({ view, skyTime, date: previousDate })}
@@ -78,9 +89,7 @@ export function CalendarToolbar({
 						weekStartsOn={weekStartsOn}
 					/>
 					<Link
-						aria-label={t(isMonth ? "calendar.next-month" : "calendar.next-week", {
-							ns: "features",
-						})}
+						aria-label={nextLabel}
 						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
 						preventScrollReset
 						to={calendarPath({ view, skyTime, date: nextDate })}
@@ -91,6 +100,7 @@ export function CalendarToolbar({
 				<CalendarSettings
 					anchorDate={anchorDate}
 					className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+					dayDate={dayDate}
 					skyTime={skyTime}
 					view={view}
 				/>

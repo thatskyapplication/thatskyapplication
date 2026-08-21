@@ -6,6 +6,7 @@ export const CALENDAR_MINIMUM_DATE = "2017-12-19" as const;
 export const CalendarView = {
 	Month: "month",
 	Week: "week",
+	Day: "day",
 } as const satisfies Readonly<Record<string, string>>;
 
 const CALENDAR_VIEW_VALUES = Object.values(CalendarView);
@@ -248,7 +249,7 @@ export function calendarPath({ view, skyTime, date, day }: CalendarPathOptions) 
 		searchParams.set("date", date);
 	}
 
-	if (day !== undefined) {
+	if (day !== undefined && view !== CalendarView.Day) {
 		searchParams.set("day", day);
 	}
 

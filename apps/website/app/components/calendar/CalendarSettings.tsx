@@ -63,11 +63,13 @@ function SettingsGroup({
 export function CalendarSettings({
 	anchorDate,
 	className,
+	dayDate,
 	skyTime,
 	view,
 }: {
 	anchorDate: string;
 	className: string;
+	dayDate: string;
 	skyTime: boolean;
 	view: CalendarViews;
 }) {
@@ -95,6 +97,12 @@ export function CalendarSettings({
 									label: t("calendar.view-week", { ns: "features" }),
 									selected: view === CalendarView.Week,
 									to: calendarPath({ view: CalendarView.Week, skyTime, date: anchorDate }),
+								},
+								{
+									key: CalendarView.Day,
+									label: t("calendar.view-day", { ns: "features" }),
+									selected: view === CalendarView.Day,
+									to: calendarPath({ view: CalendarView.Day, skyTime, date: dayDate }),
 								},
 							]}
 						/>
