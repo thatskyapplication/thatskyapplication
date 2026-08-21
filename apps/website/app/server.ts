@@ -7,7 +7,7 @@ import pino from "./pino";
 
 const MAXIMUM_REQUEST_BODY_SIZE = MAXIMUM_ASSET_SIZE * 2 + 2_000_000;
 
-export default createHonoServer({
+export default await createHonoServer({
 	configure(server) {
 		server.use(
 			"*",

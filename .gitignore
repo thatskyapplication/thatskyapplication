@@ -9,6 +9,8 @@ node_modules
 .env
 .env.production
 .env.development
+.dev.vars*
+!.dev.vars.example
 
 # Locales
 packages/utility/locales
@@ -16,6 +18,7 @@ packages/utility/locales
 # Miscellaneous
 .cache
 .DS_Store
+.wrangler
 .react-router
 build
 distribution/

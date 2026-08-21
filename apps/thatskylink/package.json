@@ -1,0 +1,25 @@
+{
+	"name": "@thatskyapplication/thatskylink",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "wrangler deploy --dry-run --outdir distribution",
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev",
+		"format": "oxlint --fix . && oxfmt .",
+		"lint": "oxfmt --check . && oxlint .",
+		"test": "wrangler types --check && tsc --noEmit",
+		"types": "wrangler types"
+	},
+	"dependencies": {
+		"@sentry/cloudflare": "^10.69.0"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"oxfmt": "catalog:",
+		"oxlint": "catalog:",
+		"oxlint-tsgolint": "catalog:",
+		"typescript": "catalog:",
+		"wrangler": "^4.124.0"
+	}
+}

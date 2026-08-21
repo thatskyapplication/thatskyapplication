@@ -3,9 +3,11 @@ BA = "BA"
 FO = "FO"
 PN = "PN"
 INFP = "INFP"
+tmis = "tmis"
 
 [files]
 extend-exclude = [
+	"apps/thatskylink/worker-configuration.d.ts",
 	"packages/utility/scripts/locale.ts",
 	"packages/utility/source/locales/de.json",
 	"packages/utility/source/locales/es-419.json",

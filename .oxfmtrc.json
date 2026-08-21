@@ -25,6 +25,7 @@
 		"**/.react-router/**",
 		"**/build/**",
 		"**/distribution/**",
+		"**/worker-configuration.d.ts",
 		"pnpm-lock.yaml",
 		"packages/utility/source/database/schema.ts"
 	]

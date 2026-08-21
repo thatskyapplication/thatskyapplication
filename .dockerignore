@@ -3,11 +3,14 @@
 **/distribution
 **/build
 **/.cache
+**/.wrangler
 
 # Local-only files.
 **/.env
 **/.env.development
 **/.env.production
+**/.dev.vars*
+!**/.dev.vars.example
 **/test.js
 **/test.ts
 

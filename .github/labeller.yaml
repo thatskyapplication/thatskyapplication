@@ -13,6 +13,9 @@ a:sky-elder:
 a:socials:
   - changed-files:
       - any-glob-to-any-file: apps/socials/**/*
+a:thatskylink:
+  - changed-files:
+      - any-glob-to-any-file: apps/thatskylink/**/*
 a:utility:
   - changed-files:
       - any-glob-to-any-file: packages/utility/**/*

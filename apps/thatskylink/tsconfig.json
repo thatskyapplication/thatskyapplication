@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"module": "NodeNext",
+		"resolveJsonModule": true,
+		"verbatimModuleSyntax": true,
+		"newLine": "lf",
+		"rootDir": "source",
+		"outDir": "distribution",
+		"lib": ["ESNext"],
+		"target": "ESNext",
+		"skipLibCheck": true,
+		"types": ["./worker-configuration.d.ts", "node"],
+		"noEmit": true
+	}
+}

@@ -17,7 +17,6 @@
 		"@discordjs/core": "catalog:",
 		"@discordjs/rest": "catalog:",
 		"@floating-ui/react": "^0.27.20",
-		"@hono/node-server": "catalog:",
 		"@icons-pack/react-simple-icons": "10.2.0",
 		"@react-router/fs-routes": "^8.3.0",
 		"@react-router/node": "^8.3.0",
@@ -36,7 +35,7 @@
 		"react-dom": "^19.2.8",
 		"react-i18next": "^17.0.11",
 		"react-router": "^8.3.0",
-		"react-router-hono-server": "^3.0.0",
+		"react-router-hono-server": "^4.0.0",
 		"remix-i18next": "^8.0.0",
 		"sharp": "catalog:"
 	},
