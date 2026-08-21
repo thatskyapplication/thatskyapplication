@@ -1,37 +1,26 @@
 {
-	"name": "@thatskyapplication/utility",
+	"name": "@thatskyapplication/patch-notes",
 	"private": true,
 	"files": [
 		"distribution"
 	],
 	"type": "module",
+	"sideEffects": false,
 	"types": "./distribution/index.d.ts",
 	"exports": "./distribution/index.js",
 	"scripts": {
 		"build": "tsdown",
-		"crowdin": "tsx scripts/crowdin.ts",
 		"format": "oxlint --fix . && oxfmt .",
-		"kysely": "kysely-codegen --dialect postgres --out-file source/database/schema.ts",
 		"lint": "oxfmt --check . && oxlint .",
-		"locale": "tsx scripts/locale.ts",
 		"test": "tsx --test __tests__/*.test.ts && tsc --noEmit"
-	},
-	"dependencies": {
-		"@discordjs/collection": "catalog:",
-		"discord-api-types": "catalog:",
-		"kysely": "catalog:",
-		"temporal-polyfill": "^1.0.1"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",
-		"@typescript/native": "catalog:",
-		"kysely-codegen": "^0.20.0",
 		"oxfmt": "catalog:",
 		"oxlint": "catalog:",
 		"oxlint-tsgolint": "catalog:",
-		"pg": "catalog:",
 		"tsdown": "catalog:",
 		"tsx": "catalog:",
-		"typescript": "catalog:typescript6"
+		"typescript": "catalog:"
 	}
 }

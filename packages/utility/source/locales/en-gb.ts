@@ -3199,6 +3199,7 @@ export default {
 			cadence_one: "Every minute",
 			cadence_other: "Every {{count}} minutes",
 			"community-event": "Community event",
+			update: "Update",
 		},
 		catalogue: {
 			"main-title": "Catalogue",

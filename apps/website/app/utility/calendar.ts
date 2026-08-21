@@ -27,6 +27,7 @@ export const CalendarEntryKind = {
 	NestingWorkshop: 12,
 	AviarysFireworkFestival: 13,
 	Maintenance: 14,
+	Update: 15,
 } as const satisfies Readonly<Record<string, number>>;
 
 export const CALENDAR_ENTRY_KIND_VALUES = Object.values(CalendarEntryKind);
@@ -113,6 +114,11 @@ export const CalendarEntryKindPresentations = {
 		labelKey: "general:maintenance",
 		bar: "bg-amber-200 text-amber-900 dark:bg-amber-800 dark:text-amber-50",
 		swatch: "bg-amber-400 dark:bg-amber-600",
+	},
+	[CalendarEntryKind.Update]: {
+		labelKey: "features:calendar.update",
+		bar: "bg-indigo-200 text-indigo-900 dark:bg-indigo-800 dark:text-indigo-50",
+		swatch: "bg-indigo-400 dark:bg-indigo-600",
 	},
 } as const satisfies Readonly<Record<CalendarEntryKinds, CalendarEntryKindPresentation>>;
 

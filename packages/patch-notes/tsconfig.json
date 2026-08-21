@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"exactOptionalPropertyTypes": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"module": "NodeNext",
+		"verbatimModuleSyntax": true,
+		"newLine": "lf",
+		"outDir": "distribution",
+		"lib": ["ESNext"],
+		"target": "ESNext",
+		"skipLibCheck": true,
+		"types": ["node"]
+	}
+}

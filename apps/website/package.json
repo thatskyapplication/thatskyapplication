@@ -21,6 +21,7 @@
 		"@react-router/fs-routes": "^8.3.0",
 		"@react-router/node": "^8.3.0",
 		"@sentry/react-router": "^10.69.0",
+		"@thatskyapplication/patch-notes": "workspace:^",
 		"@thatskyapplication/utility": "workspace:^",
 		"clsx": "^2.1.1",
 		"cookie": "^2.0.1",

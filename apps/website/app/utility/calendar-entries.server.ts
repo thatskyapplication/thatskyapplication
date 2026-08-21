@@ -1,5 +1,10 @@
 import type { TFunction } from "i18next";
 import {
+	isPublishedPatchNote,
+	PATCH_NOTES,
+	patchNoteVersion,
+} from "@thatskyapplication/patch-notes";
+import {
 	aviarysFireworkFestivalSchedule,
 	communityEventsBetween,
 	DOUBLE_HEART_EVENTS,
@@ -45,6 +50,7 @@ interface CalendarEntryInput {
 	label: string;
 	start: Temporal.ZonedDateTime;
 	end?: Temporal.ZonedDateTime;
+	dateOnly?: boolean;
 	iconEmojiIds?: readonly Snowflake[];
 	detail?: string;
 	wikiURL?: string;
@@ -119,10 +125,20 @@ export function calendarEntriesBetween({
 	});
 
 	const timeFormat = new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 });
+	const dateFormat = new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeZone });
+
+	const formatDateRange = (firstDate: Temporal.PlainDate, lastDate: Temporal.PlainDate) => {
+		const first = firstDate.toZonedDateTime(timeZone).epochMilliseconds;
+
+		return firstDate.equals(lastDate)
+			? dateFormat.format(first)
+			: dateFormat.formatRange(first, lastDate.toZonedDateTime(timeZone).epochMilliseconds);
+	};
 
 	const createCalendarEntry = (input: CalendarEntryInput): CalendarEntry | CalendarSummaryEntry => {
 		const end = input.end ?? input.start;
 		const { firstDate, lastDate } = inclusiveDates(input.start, end, timeZone);
+		const dateOnly = input.dateOnly ?? false;
 
 		const base = {
 			key: input.key,
@@ -134,7 +150,7 @@ export function calendarEntriesBetween({
 			endsAt: end.epochMilliseconds,
 			iconEmojiIds: input.iconEmojiIds ?? [],
 			detail: input.detail ?? null,
-			duration: input.start.until(end, { largestUnit: "day" }).days,
+			duration: dateOnly ? 0 : input.start.until(end, { largestUnit: "day" }).days,
 			wikiURL: input.wikiURL ?? null,
 			pageURL: input.pageURL ?? null,
 			catalogueURL: input.catalogueURL ?? null,
@@ -148,13 +164,18 @@ export function calendarEntriesBetween({
 		return summary
 			? {
 					...base,
-					startLabel: rangeFormat.format(input.start.epochMilliseconds),
-					endLabel: rangeFormat.format(end.epochMilliseconds),
+					startLabel: dateOnly
+						? dateFormat.format(input.start.epochMilliseconds)
+						: rangeFormat.format(input.start.epochMilliseconds),
+					endLabel: dateOnly
+						? dateFormat.format(lastDate.toZonedDateTime(timeZone).epochMilliseconds)
+						: rangeFormat.format(end.epochMilliseconds),
 				}
 			: {
 					...base,
-					range:
-						input.end === undefined
+					range: dateOnly
+						? formatDateRange(firstDate, lastDate)
+						: input.end === undefined
 							? rangeFormat.format(input.start.epochMilliseconds)
 							: rangeFormat.formatRange(input.start.epochMilliseconds, end.epochMilliseconds),
 				};
@@ -463,6 +484,43 @@ export function calendarEntriesBetween({
 
 			skyDate = skyDate.add({ days: 1 });
 		}
+	}
+
+	for (const [index, patchNote] of PATCH_NOTES.entries()) {
+		const date = Temporal.PlainDate.from(patchNote.date);
+		const start = date.toZonedDateTime(timeZone);
+		const end = date.add({ days: 1 }).toZonedDateTime(timeZone);
+
+		if (!overlapsRange(start, end)) {
+			continue;
+		}
+
+		if (isPublishedPatchNote(patchNote)) {
+			entries.push(
+				createCalendarEntry({
+					key: `update-${patchNote.identifier}`,
+					kind: CalendarEntryKind.Update,
+					label: patchNoteVersion(patchNote.identifier),
+					start,
+					end,
+					dateOnly: true,
+					marketingURL: patchNote.url,
+				}),
+			);
+
+			continue;
+		}
+
+		entries.push(
+			createCalendarEntry({
+				key: `update-${patchNote.date}-${index}`,
+				kind: CalendarEntryKind.Update,
+				label: t("calendar.update", { ns: "features" }),
+				start,
+				end,
+				dateOnly: true,
+			}),
+		);
 	}
 
 	for (const { start, end } of MAINTENANCE_PERIODS) {

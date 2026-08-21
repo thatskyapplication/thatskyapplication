@@ -15,13 +15,17 @@ a:socials:
       - any-glob-to-any-file: apps/socials/**/*
 a:thatskylink:
   - changed-files:
-      - any-glob-to-any-file: apps/thatskylink/**/*
+      - any-glob-to-any-file:
+          - apps/thatskylink/**/*
+          - packages/patch-notes/**/*
 a:utility:
   - changed-files:
       - any-glob-to-any-file: packages/utility/**/*
 a:website:
   - changed-files:
-      - any-glob-to-any-file: apps/website/**/*
+      - any-glob-to-any-file:
+          - apps/website/**/*
+          - packages/patch-notes/**/*
 f:calendar:
   - changed-files:
       - any-glob-to-any-file:
@@ -30,6 +34,7 @@ f:calendar:
           - apps/website/app/utility/calendar-day.server.ts
           - apps/website/app/utility/calendar-entries.server.ts
           - apps/website/app/utility/calendar.ts
+          - packages/patch-notes/**/*
 f:catalogue:
   - changed-files:
       - any-glob-to-any-file:

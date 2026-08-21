@@ -1,4 +1,3 @@
-import { resolve } from "node:path";
 import { reactRouter } from "@react-router/dev/vite";
 import { sentryReactRouter } from "@sentry/react-router";
 import tailwindcss from "@tailwindcss/vite";
@@ -11,16 +10,6 @@ export default defineConfig((config) => ({
 	},
 	resolve: {
 		tsconfigPaths: true,
-		...(config.command === "serve"
-			? {
-					alias: {
-						"@thatskyapplication/utility": resolve(
-							import.meta.dirname,
-							"../../packages/utility/source/index.ts",
-						),
-					},
-				}
-			: {}),
 	},
 	plugins: [
 		reactRouterHonoServer(),
