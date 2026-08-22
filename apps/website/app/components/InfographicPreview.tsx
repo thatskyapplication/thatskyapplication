@@ -1,6 +1,7 @@
 import { Dialog } from "@base-ui/react/dialog";
+import { useMediaQuery } from "@base-ui/react/unstable-use-media-query";
 import { ExternalLinkIcon, X } from "lucide-react";
-import { type RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { type RefObject, useCallback, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { SKY_COTL_INFOGRAPHICS_DATABASE_URL } from "~/utility/constants.js";
 
@@ -22,10 +23,6 @@ interface InfographicPreviewContentProps extends SelectedInfographic {
 }
 
 const DESKTOP_MEDIA_QUERY = "(min-width: 1024px)" as const;
-
-function isDesktopViewport() {
-	return typeof window === "undefined" ? false : window.matchMedia(DESKTOP_MEDIA_QUERY).matches;
-}
 
 function InfographicPreviewContent({
 	acknowledgement,
@@ -82,20 +79,10 @@ export function InfographicPreview({
 	onClose,
 	title,
 }: InfographicPreviewProps) {
-	const [isDesktop, setIsDesktop] = useState(isDesktopViewport);
+	const isDesktop = useMediaQuery(DESKTOP_MEDIA_QUERY, { defaultMatches: false });
 	const modalCloseButtonRef = useRef<HTMLButtonElement>(null);
 	const previousFocusedElementRef = useRef<HTMLElement | null>(null);
 	const useModal = desktop === "modal" || !isDesktop;
-
-	useEffect(() => {
-		const mediaQuery = window.matchMedia(DESKTOP_MEDIA_QUERY);
-		const updateIsDesktop = () => setIsDesktop(mediaQuery.matches);
-
-		updateIsDesktop();
-		mediaQuery.addEventListener("change", updateIsDesktop);
-
-		return () => mediaQuery.removeEventListener("change", updateIsDesktop);
-	}, []);
 
 	useEffect(() => {
 		previousFocusedElementRef.current =
