@@ -16,7 +16,6 @@
 		"@base-ui/react": "^1.7.0",
 		"@discordjs/core": "catalog:",
 		"@discordjs/rest": "catalog:",
-		"@floating-ui/react": "^0.27.20",
 		"@icons-pack/react-simple-icons": "10.2.0",
 		"@react-router/fs-routes": "^8.3.0",
 		"@react-router/node": "^8.3.0",

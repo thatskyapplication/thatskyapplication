@@ -1,15 +1,5 @@
-import {
-	autoUpdate,
-	FloatingFocusManager,
-	FloatingPortal,
-	flip,
-	offset,
-	shift,
-	useClick,
-	useDismiss,
-	useFloating,
-	useInteractions,
-} from "@floating-ui/react";
+import { Menu } from "@base-ui/react/menu";
+import { NavigationMenu } from "@base-ui/react/navigation-menu";
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
 import { clsx } from "clsx";
 import {
@@ -21,7 +11,7 @@ import {
 	Heart,
 	LogIn,
 	LogOut,
-	Menu,
+	Menu as MenuIcon,
 	Settings as SettingsIcon,
 	User,
 	Users,
@@ -31,12 +21,28 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router";
 import { CROWDIN_URL } from "@thatskyapplication/utility";
-import { type NavigationGroup, useNavigationGroups } from "~/hooks/navigation-groups";
+import {
+	type NavigationGroup,
+	type NavigationItem,
+	useNavigationGroups,
+} from "~/hooks/navigation-groups";
 import { APPLICATION_NAME, INVITE_SUPPORT_SERVER_URL } from "~/utility/constants";
 import { avatarURL } from "~/utility/functions";
 import type { DiscordUser } from "~/utility/types";
 import { DesktopUserContextMenuItem } from "./DesktopUserContextMenuItem";
 import { MobileUserContextMenuItem } from "./MobileUserContextMenuItem";
+
+const NAVIGATION_TRIGGER_CLASS =
+	"flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors" as const;
+
+const NAVIGATION_ACTIVE_CLASS =
+	"bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300" as const;
+
+const NAVIGATION_INACTIVE_CLASS =
+	"text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800" as const;
+
+const NAVIGATION_LINK_CLASS =
+	"flex items-start gap-3 px-4 py-3 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700" as const;
 
 interface SiteTopBarProps {
 	user: DiscordUser | null;
@@ -58,43 +64,15 @@ interface MobileMenuProps {
 	userIconURL: string | null;
 }
 
-function useDesktopDropdown(placement: "bottom-end" | "bottom-start") {
-	const [isOpen, setIsOpen] = useState(false);
-	const { context, floatingStyles, refs } = useFloating({
-		middleware: [offset(8), flip(), shift({ padding: 8 })],
-		onOpenChange: setIsOpen,
-		open: isOpen,
-		placement,
-		strategy: "fixed",
-		whileElementsMounted: autoUpdate,
-	});
-	const click = useClick(context);
-	const dismiss = useDismiss(context, { outsidePressEvent: "mousedown" });
-	const { getFloatingProps, getReferenceProps } = useInteractions([click, dismiss]);
-
-	return { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen };
-}
-
 function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
 	const imageURL = userIconURL ?? avatarURL(user);
 	const { t } = useTranslation();
-	const { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen } =
-		useDesktopDropdown("bottom-end");
 
-	/* oxlint-disable react/refs -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
 	return (
-		<>
-			<button
-				ref={refs.setReference}
-				{...getReferenceProps({
-					"aria-expanded": isOpen,
-					className:
-						"flex items-center gap-3 p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors",
-				})}
-				type="button"
-			>
+		<Menu.Root modal={false}>
+			<Menu.Trigger className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
 				<div
 					aria-label={`${userDisplayName}'s avatar`}
 					className="h-8 w-8 rounded-full bg-cover bg-center"
@@ -106,80 +84,43 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 						{userDisplayName}
 					</span>
 				</div>
-				<ChevronDown
-					className={clsx(
-						"h-4 w-4 text-gray-600 transition-transform dark:text-gray-400",
-						isOpen && "rotate-180",
-					)}
-				/>
-			</button>
-			{isOpen && (
-				<FloatingPortal>
-					<FloatingFocusManager context={context} modal={false}>
-						<div
-							className="z-50 w-48 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900"
-							ref={refs.setFloating}
-							style={floatingStyles}
-							{...getFloatingProps()}
+				<ChevronDown className="h-4 w-4 text-gray-600 transition-transform data-popup-open:rotate-180 dark:text-gray-400" />
+			</Menu.Trigger>
+			<Menu.Portal>
+				<Menu.Positioner align="end" collisionPadding={8} side="bottom" sideOffset={8}>
+					<Menu.Popup className="z-50 w-48 rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
+						<DesktopUserContextMenuItem icon={User} to="/me">
+							My area
+						</DesktopUserContextMenuItem>
+						<DesktopUserContextMenuItem icon={Users} to={`/sky-profiles/${user.id}`}>
+							{t("sky-profile.name", { ns: "features" })}
+						</DesktopUserContextMenuItem>
+						<DesktopUserContextMenuItem icon={BookOpenCheck} to="/me/catalogue">
+							{t("catalogue.main-title", { ns: "features" })}
+						</DesktopUserContextMenuItem>
+						<DesktopUserContextMenuItem icon={CheckSquare} to="/me/checklist">
+							{t("checklist.title", { ns: "features" })}
+						</DesktopUserContextMenuItem>
+						<DesktopUserContextMenuItem icon={Heart} to="/me/heart-history">
+							{t("heart.history-title", { ns: "features" })}
+						</DesktopUserContextMenuItem>
+						<DesktopUserContextMenuItem icon={SettingsIcon} to="/me/settings">
+							{t("settings.name", { ns: "features" })}
+						</DesktopUserContextMenuItem>
+						<Menu.Separator className="my-1 border-t border-gray-200 dark:border-gray-700" />
+						<DesktopUserContextMenuItem
+							danger
+							icon={LogOut}
+							to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
 						>
-							<div className="py-1">
-								<DesktopUserContextMenuItem icon={User} onClick={() => setIsOpen(false)} to="/me">
-									My area
-								</DesktopUserContextMenuItem>
-								<DesktopUserContextMenuItem
-									icon={Users}
-									onClick={() => setIsOpen(false)}
-									to={`/sky-profiles/${user.id}`}
-								>
-									{t("sky-profile.name", { ns: "features" })}
-								</DesktopUserContextMenuItem>
-								<DesktopUserContextMenuItem
-									icon={BookOpenCheck}
-									onClick={() => setIsOpen(false)}
-									to="/me/catalogue"
-								>
-									{t("catalogue.main-title", { ns: "features" })}
-								</DesktopUserContextMenuItem>
-								<DesktopUserContextMenuItem
-									icon={CheckSquare}
-									onClick={() => setIsOpen(false)}
-									to="/me/checklist"
-								>
-									{t("checklist.title", { ns: "features" })}
-								</DesktopUserContextMenuItem>
-								<DesktopUserContextMenuItem
-									icon={Heart}
-									onClick={() => setIsOpen(false)}
-									to="/me/heart-history"
-								>
-									{t("heart.history-title", { ns: "features" })}
-								</DesktopUserContextMenuItem>
-								<DesktopUserContextMenuItem
-									icon={SettingsIcon}
-									onClick={() => setIsOpen(false)}
-									to="/me/settings"
-								>
-									{t("settings.name", { ns: "features" })}
-								</DesktopUserContextMenuItem>
-								<div className="mt-1 border-t border-gray-200 pt-1 dark:border-gray-700">
-									<DesktopUserContextMenuItem
-										danger
-										icon={LogOut}
-										onClick={() => setIsOpen(false)}
-										to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
-									>
-										Log out
-									</DesktopUserContextMenuItem>
-								</div>
-							</div>
-						</div>
-					</FloatingFocusManager>
-				</FloatingPortal>
-			)}
-		</>
+							Log out
+						</DesktopUserContextMenuItem>
+					</Menu.Popup>
+				</Menu.Positioner>
+			</Menu.Portal>
+		</Menu.Root>
 	);
 }
-/* oxlint-enable react/refs */
 
 function LoginButton() {
 	const location = useLocation();
@@ -196,87 +137,105 @@ function LoginButton() {
 	);
 }
 
-function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isActive: boolean }) {
-	const { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen } =
-		useDesktopDropdown("bottom-start");
-
-	/* oxlint-disable react/refs -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
-	return (
+function DesktopNavigationLink({ item }: { item: NavigationItem }) {
+	const content = (
 		<>
-			<button
-				ref={refs.setReference}
-				{...getReferenceProps({
-					"aria-expanded": isOpen,
-					className: clsx(
-						"flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-						isActive
-							? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
-							: "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800",
-					),
-				})}
-				type="button"
-			>
-				<span>{group.label}</span>
-				<ChevronDown className={clsx("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
-			</button>
-			{isOpen && (
-				<FloatingPortal>
-					<FloatingFocusManager context={context} modal={false}>
-						<div
-							className="z-50 w-64 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900"
-							ref={refs.setFloating}
-							style={floatingStyles}
-							{...getFloatingProps()}
-						>
-							<div className="py-1">
-								{group.items.map((item) =>
-									item.external ? (
-										<a
-											className="flex items-start gap-3 px-4 py-3 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-											href={item.to}
-											key={item.to}
-											onClick={() => setIsOpen(false)}
-											rel="noopener noreferrer"
-											target="_blank"
-										>
-											<span className="flex h-5 w-5 shrink-0 items-center justify-center">
-												{item.icon}
-											</span>
-											<div className="min-w-0">
-												<div className="text-sm font-medium">{item.label}</div>
-												<div className="text-xs text-gray-500 dark:text-gray-400">
-													{item.description}
-												</div>
-											</div>
-										</a>
-									) : (
-										<Link
-											className="flex items-start gap-3 px-4 py-3 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
-											key={item.to}
-											onClick={() => setIsOpen(false)}
-											to={item.to}
-										>
-											<span className="flex h-5 w-5 shrink-0 items-center justify-center">
-												{item.icon}
-											</span>
-											<div className="min-w-0">
-												<div className="text-sm font-medium">{item.label}</div>
-												<div className="text-xs text-gray-500 dark:text-gray-400">
-													{item.description}
-												</div>
-											</div>
-										</Link>
-									),
-								)}
-							</div>
-						</div>
-					</FloatingFocusManager>
-				</FloatingPortal>
-			)}
+			<span className="flex h-5 w-5 shrink-0 items-center justify-center">{item.icon}</span>
+			<div className="min-w-0">
+				<div className="text-sm font-medium">{item.label}</div>
+				<div className="text-xs text-gray-500 dark:text-gray-400">{item.description}</div>
+			</div>
 		</>
 	);
+
+	if (item.external) {
+		return (
+			<NavigationMenu.Link
+				className={NAVIGATION_LINK_CLASS}
+				closeOnClick
+				href={item.to}
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				{content}
+			</NavigationMenu.Link>
+		);
+	}
+
+	return (
+		<NavigationMenu.Link
+			className={NAVIGATION_LINK_CLASS}
+			closeOnClick
+			render={<Link to={item.to} />}
+		>
+			{content}
+		</NavigationMenu.Link>
+	);
 }
-/* oxlint-enable react/refs */
+
+function DesktopNavigation({
+	activeGroupLabels,
+	groups,
+	isCaelusActive,
+}: {
+	activeGroupLabels: ReadonlySet<string>;
+	groups: readonly NavigationGroup[];
+	isCaelusActive: boolean;
+}) {
+	return (
+		<NavigationMenu.Root className="hidden md:block">
+			<NavigationMenu.List className="flex items-center gap-1">
+				{/* Caelus. This is not a group. */}
+				<NavigationMenu.Item>
+					<NavigationMenu.Link
+						active={isCaelusActive}
+						className={clsx(
+							NAVIGATION_TRIGGER_CLASS,
+							isCaelusActive ? NAVIGATION_ACTIVE_CLASS : NAVIGATION_INACTIVE_CLASS,
+						)}
+						render={<Link to="/caelus" />}
+					>
+						<Bot className="h-5 w-5" />
+						<span>{APPLICATION_NAME}</span>
+					</NavigationMenu.Link>
+				</NavigationMenu.Item>
+				{groups.map((group) => {
+					const isActive = activeGroupLabels.has(group.label);
+
+					return (
+						<NavigationMenu.Item key={group.label}>
+							<NavigationMenu.Trigger
+								className={clsx(
+									NAVIGATION_TRIGGER_CLASS,
+									isActive ? NAVIGATION_ACTIVE_CLASS : NAVIGATION_INACTIVE_CLASS,
+								)}
+							>
+								<span>{group.label}</span>
+								<NavigationMenu.Icon
+									className={(state) => clsx("transition-transform", state.open && "rotate-180")}
+								>
+									<ChevronDown className="h-4 w-4" />
+								</NavigationMenu.Icon>
+							</NavigationMenu.Trigger>
+							<NavigationMenu.Content className="w-64 py-1">
+								{group.items.map((item) => (
+									<DesktopNavigationLink item={item} key={item.to} />
+								))}
+							</NavigationMenu.Content>
+						</NavigationMenu.Item>
+					);
+				})}
+			</NavigationMenu.List>
+			<NavigationMenu.Portal>
+				<NavigationMenu.Positioner align="start" collisionPadding={8} side="bottom" sideOffset={8}>
+					<NavigationMenu.Popup className="z-50 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900">
+						<NavigationMenu.Viewport />
+					</NavigationMenu.Popup>
+				</NavigationMenu.Positioner>
+			</NavigationMenu.Portal>
+		</NavigationMenu.Root>
+	);
+}
 
 function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: MobileMenuProps) {
 	const location = useLocation();
@@ -486,15 +445,19 @@ function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarPro
 		};
 	}, []);
 
-	const getGroupActiveState = (group: NavigationGroup) => {
-		return (
-			group.label !== "Links" &&
-			group.items.some(
-				(item) =>
-					!item.external && location.pathname.startsWith(item.to.split("/").slice(0, 2).join("/")),
+	const activeGroupLabels = new Set(
+		navigationGroups
+			.filter(
+				(group) =>
+					group.label !== "Links" &&
+					group.items.some(
+						(item) =>
+							!item.external &&
+							location.pathname.startsWith(item.to.split("/").slice(0, 2).join("/")),
+					),
 			)
-		);
-	};
+			.map((group) => group.label),
+	);
 
 	return (
 		<>
@@ -512,28 +475,11 @@ function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarPro
 							>
 								thatskyapplication
 							</Link>
-							<nav className="hidden items-center gap-1 md:flex">
-								{/* Caelus. This is not a group. */}
-								<Link
-									className={clsx(
-										"flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-										location.pathname.startsWith("/caelus")
-											? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
-											: "text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800",
-									)}
-									to="/caelus"
-								>
-									<Bot className="h-5 w-5" />
-									<span>{APPLICATION_NAME}</span>
-								</Link>
-								{navigationGroups.map((group) => (
-									<NavigationDropdown
-										group={group}
-										isActive={getGroupActiveState(group)}
-										key={group.label}
-									/>
-								))}
-							</nav>
+							<DesktopNavigation
+								activeGroupLabels={activeGroupLabels}
+								groups={navigationGroups}
+								isCaelusActive={location.pathname.startsWith("/caelus")}
+							/>
 						</div>
 						<div className="flex items-center gap-4">
 							<div className="hidden md:flex">
@@ -553,7 +499,7 @@ function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarPro
 								onClick={() => setMobileMenuOpen(true)}
 								type="button"
 							>
-								<Menu className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+								<MenuIcon className="h-5 w-5 text-gray-600 dark:text-gray-400" />
 							</button>
 						</div>
 					</div>

@@ -1,3 +1,4 @@
+import { Menu } from "@base-ui/react/menu";
 import { clsx } from "clsx";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
@@ -7,7 +8,6 @@ interface DesktopUserContextMenuItemProps {
 	children: ReactNode;
 	danger?: boolean;
 	icon: LucideIcon;
-	onClick: () => void;
 	to: string;
 }
 
@@ -15,22 +15,23 @@ export function DesktopUserContextMenuItem({
 	children,
 	danger = false,
 	icon: Icon,
-	onClick,
 	to,
 }: DesktopUserContextMenuItemProps) {
 	return (
-		<Link
-			className={clsx(
-				"flex items-center gap-3 px-4 py-2 text-sm transition-colors",
-				danger
-					? "w-full text-left text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"
-					: "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700",
-			)}
-			onClick={onClick}
-			to={to}
+		<Menu.LinkItem
+			className={(state) =>
+				clsx(
+					"flex items-center gap-3 px-4 py-2 text-sm transition-colors outline-none",
+					danger ? "text-red-600 dark:text-red-400" : "text-gray-700 dark:text-gray-300",
+					state.highlighted &&
+						(danger ? "bg-red-50 dark:bg-red-900/20" : "bg-gray-100 dark:bg-gray-700"),
+				)
+			}
+			closeOnClick
+			render={<Link to={to} />}
 		>
 			<Icon className="h-4 w-4 shrink-0" />
 			<span className="min-w-0">{children}</span>
-		</Link>
+		</Menu.LinkItem>
 	);
 }

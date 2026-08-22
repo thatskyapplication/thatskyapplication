@@ -19,7 +19,7 @@ import {
 	THATSKYLINK_URL,
 } from "~/utility/constants";
 
-interface NavigationItem {
+export interface NavigationItem {
 	to: string;
 	label: string;
 	icon: React.ReactNode;
