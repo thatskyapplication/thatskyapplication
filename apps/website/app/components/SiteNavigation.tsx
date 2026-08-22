@@ -83,7 +83,7 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 	const { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen } =
 		useDesktopDropdown("bottom-end");
 
-	/* oxlint-disable react/react-compiler -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
+	/* oxlint-disable react/refs -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
 	return (
 		<>
 			<button
@@ -179,7 +179,7 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 		</>
 	);
 }
-/* oxlint-enable react/react-compiler */
+/* oxlint-enable react/refs */
 
 function LoginButton() {
 	const location = useLocation();
@@ -200,7 +200,7 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 	const { context, floatingStyles, getFloatingProps, getReferenceProps, isOpen, refs, setIsOpen } =
 		useDesktopDropdown("bottom-start");
 
-	/* oxlint-disable react/react-compiler -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
+	/* oxlint-disable react/refs -- Floating UI's documented callback-ref API is misclassified as render-time ref access. */
 	return (
 		<>
 			<button
@@ -276,7 +276,7 @@ function NavigationDropdown({ group, isActive }: { group: NavigationGroup; isAct
 		</>
 	);
 }
-/* oxlint-enable react/react-compiler */
+/* oxlint-enable react/refs */
 
 function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: MobileMenuProps) {
 	const location = useLocation();

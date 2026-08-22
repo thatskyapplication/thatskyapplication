@@ -90,7 +90,6 @@
 		"react/no-object-type-as-default-prop": "error",
 		"react/no-unknown-property": "error",
 		"react/no-unstable-nested-components": "error",
-		"react/react-compiler": "error",
 		"react/react-in-jsx-scope": "off",
 		"react/rules-of-hooks": "error",
 		"react/self-closing-comp": "error",

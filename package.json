@@ -12,7 +12,7 @@
 		"update": "pnpm update --interactive --latest --recursive && pre-commit autoupdate"
 	},
 	"devDependencies": {
-		"knip": "^6.29.0",
+		"knip": "^6.32.2",
 		"oxfmt": "catalog:",
 		"oxlint": "catalog:",
 		"oxlint-tsgolint": "catalog:",

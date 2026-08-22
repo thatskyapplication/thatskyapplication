@@ -130,6 +130,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	const data = useRouteLoaderData<typeof loader>("root");
 	const locale = data?.locale ?? Locale.EnglishGB;
 
+	// oxlint-disable-next-line react/preserve-manual-memoization -- Reading resource bundles off the i18next instance is opaque to the compiler, so it skips this component.
 	const localeResources = useMemo(() => {
 		const resources: Resource = { [locale]: localeResourceBundle(i18n, locale) };
 

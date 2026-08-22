@@ -335,7 +335,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 	useEffect(() => {
 		if (actionData?.ok) {
 			formRef.current?.reset();
-			// oxlint-disable-next-line react/react-compiler -- Reset controlled fields after a confirmed successful submission.
+			// oxlint-disable-next-line react/set-state-in-effect -- Reset controlled fields after a confirmed successful submission.
 			setAssetFileName("");
 			if (assetPreviewURLRef.current) {
 				URL.revokeObjectURL(assetPreviewURLRef.current);

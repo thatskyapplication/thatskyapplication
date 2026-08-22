@@ -22,6 +22,6 @@
 		"oxlint-tsgolint": "catalog:",
 		"tsx": "catalog:",
 		"typescript": "catalog:",
-		"wrangler": "^4.124.0"
+		"wrangler": "^4.125.0"
 	}
 }
