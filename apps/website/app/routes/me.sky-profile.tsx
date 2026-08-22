@@ -394,7 +394,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									})}
 								</p>
 								<Select
-									ariaDescribedBy={`country-description${countryError ? " country-error" : ""}`}
+									ariaDescribedBy="country-description"
 									ariaLabelledBy="country-heading"
 									className="w-full"
 									disabled={isSaving}
@@ -405,11 +405,6 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									placeholder={t("sky-profile.select-a-country", { ns: "features" })}
 									value={countryValue}
 								/>
-								{countryError ? (
-									<p className="my-0 text-sm text-red-600 dark:text-red-400" id="country-error">
-										{countryError}
-									</p>
-								) : null}
 							</div>
 						</div>
 

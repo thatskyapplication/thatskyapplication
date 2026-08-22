@@ -391,7 +391,7 @@ export default function AdminFriendshipActions({ actionData }: Route.ComponentPr
 									Choose which friendship action this GIF belongs to.
 								</p>
 								<Select
-									ariaDescribedBy={`type-description${errors.type ? " type-error" : ""}`}
+									ariaDescribedBy="type-description"
 									ariaLabelledBy="type-heading"
 									className="w-full"
 									disabled={isSaving}

@@ -1,7 +1,7 @@
 import { Combobox } from "@base-ui/react/combobox";
+import { Field } from "@base-ui/react/field";
 import { clsx } from "clsx";
 import { ChevronDown, X } from "lucide-react";
-import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { PASSWORD_MANAGER_IGNORE_ATTRIBUTES } from "~/utility/password-manager.js";
 
@@ -55,28 +55,15 @@ export default function Select({
 	surface = "card",
 }: SelectProps) {
 	const { t } = useTranslation();
-	const id = useId();
-	const errorId = `${id}-error`;
-	const describedByParts: string[] = [];
-
-	if (ariaDescribedBy) {
-		describedByParts.push(ariaDescribedBy);
-	}
-
-	if (error) {
-		describedByParts.push(errorId);
-	}
-
-	const describedBy = describedByParts.join(" ") || undefined;
 	const selectedOption = options.find((option) => option.value === value) ?? null;
 	const showClearButton = isClearable && selectedOption !== null;
 
 	return (
-		<div className="flex flex-col gap-1">
+		<Field.Root className="flex flex-col gap-1" disabled={disabled} invalid={Boolean(error)}>
 			{label && (
-				<label className="text-sm font-semibold text-gray-600 dark:text-gray-400" htmlFor={id}>
+				<Field.Label className="text-sm font-semibold text-gray-600 dark:text-gray-400">
 					{label}
-				</label>
+				</Field.Label>
 			)}
 			<div className={className}>
 				<Combobox.Root
@@ -108,8 +95,7 @@ export default function Select({
 						}
 					>
 						<Combobox.Input
-							aria-describedby={describedBy}
-							aria-invalid={error ? true : undefined}
+							aria-describedby={ariaDescribedBy}
 							aria-label={ariaLabel}
 							aria-labelledby={ariaLabelledBy}
 							className={clsx(
@@ -120,7 +106,6 @@ export default function Select({
 									: "border-gray-200 hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600",
 								showClearButton ? "pr-16" : "pr-8",
 							)}
-							id={id}
 							placeholder={placeholder}
 							{...PASSWORD_MANAGER_IGNORE_ATTRIBUTES}
 						/>
@@ -176,10 +161,10 @@ export default function Select({
 				</Combobox.Root>
 			</div>
 			{error && (
-				<span className="text-sm text-red-600 dark:text-red-400" id={errorId}>
+				<Field.Error className="text-sm text-red-600 dark:text-red-400" match>
 					{error}
-				</span>
+				</Field.Error>
 			)}
-		</div>
+		</Field.Root>
 	);
 }
