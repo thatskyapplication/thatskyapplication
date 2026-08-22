@@ -5,6 +5,7 @@ import { calendarEntriesBetween } from "~/utility/calendar-entries.js";
 import {
 	CALENDAR_MAXIMUM_DATE,
 	CALENDAR_MINIMUM_DATE,
+	calendarNavigableMaximumDate,
 	CALENDAR_SKY_TIME_PARAMETER,
 	type CalendarDay,
 	type CalendarDayDetail,
@@ -68,8 +69,9 @@ export function calendarData({
 	const today = now.toPlainDate();
 	const minimum = Temporal.PlainDate.from(CALENDAR_MINIMUM_DATE);
 	const maximum = Temporal.PlainDate.from(CALENDAR_MAXIMUM_DATE);
+	const navigableMaximum = calendarNavigableMaximumDate(today);
 	const requested = parsePlainDate(searchParams.get("date")) ?? today;
-	const anchor = clampPlainDate(requested, minimum, maximum);
+	const anchor = clampPlainDate(requested, minimum, navigableMaximum);
 	const weekStartsOn = firstDayOfWeek(locale);
 
 	const shardEruptionMaximumDate = Temporal.Instant.fromEpochMilliseconds(nowMilliseconds)
@@ -243,7 +245,7 @@ export function calendarData({
 		summary,
 		initialTimestamp: nowMilliseconds,
 		locale,
-		nextDate: Temporal.PlainDate.compare(next, maximum) > 0 ? null : next.toString(),
+		nextDate: Temporal.PlainDate.compare(next, navigableMaximum) > 0 ? null : next.toString(),
 		previousDate: Temporal.PlainDate.compare(previousEnd, minimum) < 0 ? null : previous.toString(),
 		skyTime,
 		timeZone,

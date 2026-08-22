@@ -3,6 +3,11 @@ import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
 
 export const CALENDAR_MINIMUM_DATE = "2017-12-19" as const;
 export const CALENDAR_MAXIMUM_DATE = "9999-12-31" as const;
+export const CALENDAR_YEARS_AHEAD = 1 as const;
+
+export function calendarNavigableMaximumDate(today: Temporal.PlainDate) {
+	return today.with({ month: 12, day: 31 }).add({ years: CALENDAR_YEARS_AHEAD });
+}
 
 export const CalendarView = {
 	Month: "month",

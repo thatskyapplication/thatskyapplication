@@ -6,12 +6,11 @@ import { CalendarSettings } from "~/components/calendar/CalendarSettings";
 import { DatePicker } from "~/components/DatePicker";
 import {
 	CALENDAR_MINIMUM_DATE,
+	calendarNavigableMaximumDate,
 	calendarPath,
 	CalendarView,
 	type CalendarViews,
 } from "~/utility/calendar";
-
-const YEARS_AHEAD = 1 as const;
 
 const NAVIGATION_BUTTON_CLASS =
 	"inline-flex h-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800" as const;
@@ -53,10 +52,7 @@ export function CalendarToolbar({
 }) {
 	const { t } = useTranslation();
 
-	const maximumDate = Temporal.PlainDate.from(todayDate)
-		.with({ month: 12, day: 31 })
-		.add({ years: YEARS_AHEAD })
-		.toString();
+	const maximumDate = calendarNavigableMaximumDate(Temporal.PlainDate.from(todayDate)).toString();
 
 	const previousLabel = t(PREVIOUS_LABEL_KEYS[view], { ns: "features" });
 	const nextLabel = t(NEXT_LABEL_KEYS[view], { ns: "features" });
