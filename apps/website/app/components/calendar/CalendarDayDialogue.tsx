@@ -51,6 +51,7 @@ export function CalendarDayDialogue({
 					if (!open) {
 						void navigate(calendarPath({ view, skyTime, date: anchorDate }), {
 							preventScrollReset: true,
+							replace: true,
 						});
 					}
 				}}
@@ -68,6 +69,7 @@ export function CalendarDayDialogue({
 									aria-label={t("calendar.previous-day", { ns: "features" })}
 									className={DIALOGUE_ICON_BUTTON_CLASS}
 									preventScrollReset
+									replace
 									to={calendarPath({ view, skyTime, date: previousDay, day: previousDay })}
 								>
 									<ChevronLeft aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
@@ -76,6 +78,7 @@ export function CalendarDayDialogue({
 									aria-label={t("calendar.next-day", { ns: "features" })}
 									className={DIALOGUE_ICON_BUTTON_CLASS}
 									preventScrollReset
+									replace
 									to={calendarPath({ view, skyTime, date: nextDay, day: nextDay })}
 								>
 									<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
