@@ -12,7 +12,7 @@ const UNKNOWN_SPIRIT_ID = -1 as SpiritIds;
 const ALL_SPIRITS = [
 	...KINGDOM.standardSpirits.values(),
 	...KINGDOM.elderSpirits.values(),
-	...[...SEASONS.values()].flatMap((season) => [...season.spiritsWithGuide.values()]),
+	...SEASONS.values().flatMap((season) => season.spiritsWithGuide.values()),
 ] as const;
 
 test("displayFriendshipTree follows each spirit kind's rule.", () => {
