@@ -54,7 +54,7 @@ export function CalendarEntryBar({
 				</Popover.Trigger>
 				<Popover.Portal>
 					<Popover.Positioner align="center" collisionPadding={8} side="bottom" sideOffset={6}>
-						<Popover.Popup className="z-50 w-72 max-w-[calc(100vw-1rem)] rounded-xl border border-gray-200 bg-white p-4 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+						<Popover.Popup className="z-50 max-h-(--available-height) w-72 max-w-[calc(100vw-1rem)] overflow-y-auto rounded-xl border border-gray-200 bg-white p-4 shadow-xl dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center gap-2">
 								<span className={clsx("h-2.5 w-2.5 shrink-0 rounded-full", presentation.swatch)} />
 								<span className="text-xs font-medium text-gray-500 dark:text-gray-400">

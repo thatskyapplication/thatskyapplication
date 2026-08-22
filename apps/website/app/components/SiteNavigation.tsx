@@ -88,7 +88,7 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 			</Menu.Trigger>
 			<Menu.Portal>
 				<Menu.Positioner align="end" collisionPadding={8} side="bottom" sideOffset={8}>
-					<Menu.Popup className="z-50 w-48 rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
+					<Menu.Popup className="z-50 max-h-(--available-height) w-48 overflow-y-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
 						<DesktopUserContextMenuItem icon={User} to="/me">
 							My area
 						</DesktopUserContextMenuItem>
