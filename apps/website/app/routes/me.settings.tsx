@@ -34,14 +34,14 @@ const TIME_FORMAT_CHOICES = [
 const SECTION_CLASS =
 	"rounded-xl border border-gray-200 bg-white p-4 shadow-xl dark:border-gray-700 dark:bg-gray-900" as const;
 
-export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
+export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	requireDiscordAuthentication({ context, request, url });
 	const savedAt = getRequestSession(context).get("settings_saved_at") ?? null;
 
 	return {
 		initialTimestamp: Date.now(),
 		locale: getLocale(context),
-		timeZone: await getPreferredTimeZone(request),
+		timeZone: getPreferredTimeZone(request),
 		hour12: getPreferredHour12(request),
 		savedAt,
 	};

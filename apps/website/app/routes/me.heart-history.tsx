@@ -81,7 +81,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		maximumPage,
 		received,
 		remainingToday: Math.max(MAXIMUM_HEARTS_PER_DAY - giftedToday, 0),
-		timeZone: await getPreferredTimeZone(request),
+		timeZone: getPreferredTimeZone(request),
 		hour12: getPreferredHour12(request),
 		userId,
 	};

@@ -75,7 +75,7 @@ export const meta = ({ location }: Route.MetaArgs) => {
 	];
 };
 
-export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
+export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	const pageParameter = url.searchParams.get("page");
 	const dateParameter = url.searchParams.get("date");
 	const now = skyNow();
@@ -121,7 +121,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 
 	const shards = [];
 	const locale = getLocale(context);
-	const timeZone = await getPreferredTimeZone(request);
+	const timeZone = getPreferredTimeZone(request);
 	const hour12 = getPreferredHour12(request);
 	let page = selectedPage ?? (pageParameter ? Number(pageParameter) : 0);
 

@@ -39,7 +39,7 @@ import type { Route } from "./+types/me.catalogue.js";
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
-	const timeZone = await getPreferredTimeZone(request);
+	const timeZone = getPreferredTimeZone(request);
 	const hour12 = getPreferredHour12(request);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 

@@ -51,14 +51,14 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 	];
 };
 
-export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 
 	return calendarData({
 		hour12: getPreferredHour12(request),
 		locale,
 		nowMilliseconds: Date.now(),
-		preferredTimeZone: await getPreferredTimeZone(request),
+		preferredTimeZone: getPreferredTimeZone(request),
 		searchParams: url.searchParams,
 		t: getInstance(context).getFixedT(locale),
 	});

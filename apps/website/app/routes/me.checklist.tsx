@@ -44,7 +44,7 @@ const CHECKLIST_UNAVAILABLE_LABEL_CLASS = "text-gray-400 dark:text-gray-600" as 
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
-	const timeZone = await getPreferredTimeZone(request);
+	const timeZone = getPreferredTimeZone(request);
 	const hour12 = getPreferredHour12(request);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 

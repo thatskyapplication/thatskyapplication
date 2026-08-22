@@ -77,7 +77,7 @@ function resolveSpirit(rawSpiritId: string | null) {
 	return Number.isSafeInteger(spiritId) ? spirits().get(spiritId as SpiritIds) : undefined;
 }
 
-export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const rawSpiritId = url.searchParams.get("spirit");
 	const spirit = resolveSpirit(rawSpiritId);
@@ -111,7 +111,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		pageDescription: t("spirits.description", { ns: "features" }),
 		pageTitle: t("spirit-plural", { ns: "general" }),
 		selection,
-		timeZone: await getPreferredTimeZone(request),
+		timeZone: getPreferredTimeZone(request),
 	};
 };
 

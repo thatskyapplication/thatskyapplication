@@ -99,7 +99,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
 	const locale = getLocale(context);
 	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
-	const timeZone = await getPreferredTimeZone(request);
+	const timeZone = getPreferredTimeZone(request);
 	const hour12 = getPreferredHour12(request);
 	const now = skyNow();
 	const initialTimestamp = now.epochMilliseconds;

@@ -636,11 +636,11 @@ function projectorOfMemoriesOverview(
 	};
 }
 
-export const loader = async ({ request, context }: Route.LoaderArgs) => {
+export const loader = ({ request, context }: Route.LoaderArgs) => {
 	return {
 		initialTimestamp: Date.now(),
 		locale: getLocale(context),
-		timeZone: await getPreferredTimeZone(request),
+		timeZone: getPreferredTimeZone(request),
 		hour12: getPreferredHour12(request),
 	};
 };
