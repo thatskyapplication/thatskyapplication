@@ -14,7 +14,7 @@ import {
 const YEARS_AHEAD = 1 as const;
 
 const NAVIGATION_BUTTON_CLASS =
-	"inline-flex h-9 items-center justify-center rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800" as const;
+	"inline-flex h-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800" as const;
 
 const PREVIOUS_LABEL_KEYS = {
 	[CalendarView.Month]: "calendar.previous-month",
@@ -69,7 +69,7 @@ export function CalendarToolbar({
 					{previousDate === null ? (
 						<button
 							aria-label={previousLabel}
-							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 cursor-not-allowed px-0 opacity-40")}
+							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 cursor-not-allowed opacity-40")}
 							disabled
 							type="button"
 						>
@@ -78,7 +78,7 @@ export function CalendarToolbar({
 					) : (
 						<Link
 							aria-label={previousLabel}
-							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
 							preventScrollReset
 							to={calendarPath({ view, skyTime, date: previousDate })}
 						>
@@ -86,7 +86,7 @@ export function CalendarToolbar({
 						</Link>
 					)}
 					<Link
-						className={NAVIGATION_BUTTON_CLASS}
+						className={clsx(NAVIGATION_BUTTON_CLASS, "px-3")}
 						preventScrollReset
 						to={calendarPath({ view, skyTime })}
 					>
@@ -94,7 +94,7 @@ export function CalendarToolbar({
 					</Link>
 					<DatePicker
 						anchorDate={anchorDate}
-						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
 						getDateURL={(date) => calendarPath({ view, skyTime, date })}
 						iconOnly
 						label={t("calendar.jump-to-date", { ns: "features" })}
@@ -107,7 +107,7 @@ export function CalendarToolbar({
 					{nextDate === null ? (
 						<button
 							aria-label={nextLabel}
-							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 cursor-not-allowed px-0 opacity-40")}
+							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 cursor-not-allowed opacity-40")}
 							disabled
 							type="button"
 						>
@@ -116,7 +116,7 @@ export function CalendarToolbar({
 					) : (
 						<Link
 							aria-label={nextLabel}
-							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
 							preventScrollReset
 							to={calendarPath({ view, skyTime, date: nextDate })}
 						>
@@ -126,7 +126,7 @@ export function CalendarToolbar({
 				</div>
 				<CalendarSettings
 					anchorDate={anchorDate}
-					className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+					className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
 					dayDate={dayDate}
 					skyTime={skyTime}
 					view={view}
