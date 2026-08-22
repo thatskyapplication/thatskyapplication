@@ -213,15 +213,11 @@ export function calendarData({
 			? previous.with({ day: previous.daysInMonth })
 			: previous.add({ days: 6 });
 
-	const next = clampPlainDate(
-		isDay
-			? anchor.add({ days: 1 })
-			: isMonth
-				? focus.add({ months: 1 })
-				: gridStart.add({ weeks: 1 }),
-		minimum,
-		maximum,
-	);
+	const next = isDay
+		? anchor.add({ days: 1 })
+		: isMonth
+			? focus.add({ months: 1 })
+			: gridStart.add({ weeks: 1 });
 
 	const focusedDay =
 		Temporal.PlainDate.compare(today, gridStart) >= 0 &&
@@ -237,7 +233,7 @@ export function calendarData({
 		summary,
 		initialTimestamp: nowMilliseconds,
 		locale,
-		nextDate: next.toString(),
+		nextDate: Temporal.PlainDate.compare(next, maximum) > 0 ? null : next.toString(),
 		previousDate: Temporal.PlainDate.compare(previousEnd, minimum) < 0 ? null : previous.toString(),
 		skyTime,
 		timeZone,

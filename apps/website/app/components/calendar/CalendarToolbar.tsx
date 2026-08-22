@@ -36,7 +36,7 @@ export function CalendarToolbar({
 	anchorDate: string;
 	dayDate: string;
 	locale: string;
-	nextDate: string;
+	nextDate: string | null;
 	previousDate: string | null;
 	skyTime: boolean;
 	title: string;
@@ -88,14 +88,25 @@ export function CalendarToolbar({
 						view={view}
 						weekStartsOn={weekStartsOn}
 					/>
-					<Link
-						aria-label={nextLabel}
-						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
-						preventScrollReset
-						to={calendarPath({ view, skyTime, date: nextDate })}
-					>
-						<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
-					</Link>
+					{nextDate === null ? (
+						<button
+							aria-label={nextLabel}
+							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 cursor-not-allowed px-0 opacity-40")}
+							disabled
+							type="button"
+						>
+							<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+						</button>
+					) : (
+						<Link
+							aria-label={nextLabel}
+							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+							preventScrollReset
+							to={calendarPath({ view, skyTime, date: nextDate })}
+						>
+							<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
+						</Link>
+					)}
 				</div>
 				<CalendarSettings
 					anchorDate={anchorDate}
