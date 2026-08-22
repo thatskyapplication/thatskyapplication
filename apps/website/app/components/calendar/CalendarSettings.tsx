@@ -88,8 +88,14 @@ export function CalendarSettings({
 				<SettingsIcon aria-hidden="true" className="h-4 w-4" />
 			</Popover.Trigger>
 			<Popover.Portal>
-				<Popover.Positioner align="end" collisionPadding={8} side="bottom" sideOffset={6}>
-					<Popover.Popup className="z-50 flex max-h-(--available-height) w-60 flex-col gap-3 overflow-y-auto rounded-xl border border-gray-200 bg-white p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+				<Popover.Positioner
+					align="end"
+					className="z-50"
+					collisionPadding={8}
+					side="bottom"
+					sideOffset={6}
+				>
+					<Popover.Popup className="flex max-h-(--available-height) w-60 flex-col gap-3 overflow-y-auto rounded-xl border border-gray-200 bg-white p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900">
 						<SettingsGroup
 							label={t("calendar.view-label", { ns: "features" })}
 							options={[

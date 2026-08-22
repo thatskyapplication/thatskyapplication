@@ -130,7 +130,13 @@ export default function Select({
 						</div>
 					</Combobox.InputGroup>
 					<Combobox.Portal>
-						<Combobox.Positioner align="start" collisionPadding={12} side="bottom" sideOffset={8}>
+						<Combobox.Positioner
+							align="start"
+							className="z-50"
+							collisionPadding={12}
+							side="bottom"
+							sideOffset={8}
+						>
 							<Combobox.Popup className="max-h-[min(20rem,var(--available-height))] w-(--anchor-width) overflow-y-auto rounded-lg border border-gray-200 bg-gray-100 shadow-lg dark:border-gray-700 dark:bg-gray-900">
 								<Combobox.Empty>
 									<p className="m-0 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-400">

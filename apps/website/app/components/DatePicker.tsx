@@ -124,8 +124,14 @@ export function DatePicker({
 				{!iconOnly && <span>{label}</span>}
 			</Popover.Trigger>
 			<Popover.Portal>
-				<Popover.Positioner align="center" collisionPadding={8} side="bottom" sideOffset={6}>
-					<Popover.Popup className="z-50 max-h-(--available-height) w-60 overflow-y-auto rounded-xl border border-gray-200 bg-white p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+				<Popover.Positioner
+					align="center"
+					className="z-50"
+					collisionPadding={8}
+					side="bottom"
+					sideOffset={6}
+				>
+					<Popover.Popup className="max-h-(--available-height) w-60 overflow-y-auto rounded-xl border border-gray-200 bg-white p-3 shadow-xl dark:border-gray-700 dark:bg-gray-900">
 						<div className="mb-2 flex items-center justify-between gap-2">
 							{mode === DatePickerMode.Years ? (
 								<span className="w-7" />

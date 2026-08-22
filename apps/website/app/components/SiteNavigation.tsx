@@ -87,8 +87,14 @@ function UserMenu({ user, userDisplayName, userIconURL }: UserMenuProps) {
 				<ChevronDown className="h-4 w-4 text-gray-600 transition-transform data-popup-open:rotate-180 dark:text-gray-400" />
 			</Menu.Trigger>
 			<Menu.Portal>
-				<Menu.Positioner align="end" collisionPadding={8} side="bottom" sideOffset={8}>
-					<Menu.Popup className="z-50 max-h-(--available-height) w-48 overflow-y-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
+				<Menu.Positioner
+					align="end"
+					className="z-50"
+					collisionPadding={8}
+					side="bottom"
+					sideOffset={8}
+				>
+					<Menu.Popup className="max-h-(--available-height) w-48 overflow-y-auto rounded-lg border border-gray-200 bg-white py-1 shadow-lg dark:border-gray-700 dark:bg-gray-900">
 						<DesktopUserContextMenuItem icon={User} to="/me">
 							My area
 						</DesktopUserContextMenuItem>
