@@ -13,6 +13,7 @@ import {
 	Outlet,
 	Scripts,
 	ScrollRestoration,
+	type ShouldRevalidateFunctionArgs,
 	useRouteLoaderData,
 } from "react-router";
 import { CDN, WEBSITE_URL } from "@thatskyapplication/utility";
@@ -161,6 +162,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 			</body>
 		</html>
 	);
+}
+
+export function shouldRevalidate({
+	currentUrl,
+	defaultShouldRevalidate,
+	formMethod,
+	nextUrl,
+}: ShouldRevalidateFunctionArgs) {
+	return formMethod !== undefined || currentUrl.pathname !== nextUrl.pathname
+		? defaultShouldRevalidate
+		: false;
 }
 
 export async function loader({ context, url }: Route.LoaderArgs) {

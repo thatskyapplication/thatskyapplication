@@ -2,6 +2,7 @@ import { ScheduleType, type Snowflake } from "@thatskyapplication/utility";
 import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
 
 export const CALENDAR_MINIMUM_DATE = "2017-12-19" as const;
+export const CALENDAR_MAXIMUM_DATE = "9999-12-31" as const;
 
 export const CalendarView = {
 	Month: "month",

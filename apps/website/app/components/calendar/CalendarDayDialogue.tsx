@@ -16,10 +16,10 @@ import {
 	type CalendarViews,
 } from "~/utility/calendar";
 
-const DIALOG_ICON_BUTTON_CLASS =
+const DIALOGUE_ICON_BUTTON_CLASS =
 	"inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-gray-500 transition-colors hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800" as const;
 
-export function CalendarDayDialog({
+export function CalendarDayDialogue({
 	allDay,
 	anchorDate,
 	detail,
@@ -66,7 +66,7 @@ export function CalendarDayDialog({
 							<div className="flex shrink-0 items-center gap-1">
 								<Link
 									aria-label={t("calendar.previous-day", { ns: "features" })}
-									className={DIALOG_ICON_BUTTON_CLASS}
+									className={DIALOGUE_ICON_BUTTON_CLASS}
 									preventScrollReset
 									to={calendarPath({ view, skyTime, date: previousDay, day: previousDay })}
 								>
@@ -74,7 +74,7 @@ export function CalendarDayDialog({
 								</Link>
 								<Link
 									aria-label={t("calendar.next-day", { ns: "features" })}
-									className={DIALOG_ICON_BUTTON_CLASS}
+									className={DIALOGUE_ICON_BUTTON_CLASS}
 									preventScrollReset
 									to={calendarPath({ view, skyTime, date: nextDay, day: nextDay })}
 								>
@@ -82,7 +82,7 @@ export function CalendarDayDialog({
 								</Link>
 								<Dialog.Close
 									aria-label={t("close", { ns: "general" })}
-									className={clsx(DIALOG_ICON_BUTTON_CLASS, "-me-1")}
+									className={clsx(DIALOGUE_ICON_BUTTON_CLASS, "-me-1")}
 								>
 									<X aria-hidden="true" className="h-4 w-4" />
 								</Dialog.Close>

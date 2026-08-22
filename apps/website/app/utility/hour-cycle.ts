@@ -1,3 +1,5 @@
+import { parseCookie } from "cookie";
+
 export const HOUR_CYCLE_COOKIE_NAME = "hour_cycle" as const;
 export const HOUR_CYCLE_COOKIE_MAX_AGE = 31536000 as const;
 export const HOUR_CYCLE_TWELVE = "12" as const;
@@ -20,4 +22,8 @@ export function parseHour12(value: string | null | undefined) {
 	}
 
 	return undefined;
+}
+
+export function getDocumentHour12() {
+	return parseHour12(parseCookie(document.cookie)[HOUR_CYCLE_COOKIE_NAME]);
 }
