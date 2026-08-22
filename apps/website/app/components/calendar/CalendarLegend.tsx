@@ -29,22 +29,15 @@ export function CalendarLegend({
 						<button
 							aria-pressed={!hidden}
 							className={clsx(
-								"inline-flex cursor-pointer items-center gap-2 rounded-full border px-2.5 py-1 text-sm transition-colors",
+								"inline-flex cursor-pointer items-center rounded-full border px-2 py-1 text-xs font-medium transition",
 								hidden
-									? "border-gray-200 bg-transparent text-gray-400 hover:bg-black/5 dark:border-gray-700 dark:text-gray-600 dark:hover:bg-white/10"
-									: "border-gray-200 bg-white text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800",
+									? "border-gray-200 bg-transparent text-gray-400 line-through hover:bg-black/5 dark:border-gray-700 dark:text-gray-600 dark:hover:bg-white/10"
+									: `border-transparent hover:brightness-110 ${presentation.bar}`,
 							)}
 							onClick={() => onToggle(kind)}
 							type="button"
 						>
-							<span
-								className={clsx(
-									"h-2.5 w-2.5 shrink-0 rounded-full transition-opacity",
-									presentation.swatch,
-									hidden && "opacity-30",
-								)}
-							/>
-							<span className={clsx(hidden && "line-through")}>{t(presentation.labelKey)}</span>
+							{t(presentation.labelKey)}
 						</button>
 					</li>
 				);
