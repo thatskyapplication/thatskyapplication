@@ -14,5 +14,4 @@ export function emojiConstants(production: boolean) {
 	return production ? productionEmojis() : developmentEmojis();
 }
 
-export type { DerivedEmojis, EmojiTables } from "./derive.js";
 export { type Emoji, formatEmoji, formatEmojiURL, resolveCurrencyEmoji } from "./emoji.js";
