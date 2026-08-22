@@ -4,6 +4,7 @@ import {
 	AlarmClock,
 	BookOpenCheck,
 	Bot,
+	CalendarDays,
 	CheckSquare,
 	Clock,
 	HandHeart,
@@ -26,11 +27,12 @@ const HUB = { x: 50, y: 46 } as const;
 
 const NODE_POSITIONS = {
 	caelus: { x: 33, y: 31 },
+	calendar: { x: 22, y: 76 },
 	catalogue: { x: 67, y: 31 },
 	checklist: { x: 17, y: 16 },
 	dailyGuides: { x: 34, y: 61 },
 	schedule: { x: 83, y: 16 },
-	shardEruption: { x: 18, y: 80 },
+	shardEruption: { x: 28, y: 90 },
 	skyProfile: { x: 70, y: 66 },
 	spirits: { x: 83, y: 60 },
 } as const;
@@ -60,7 +62,8 @@ const CONSTELLATION_SEGMENTS: {
 	{ from: NODE_POSITIONS.caelus, to: hubEdge(NODE_POSITIONS.caelus) },
 	{ from: NODE_POSITIONS.schedule, to: NODE_POSITIONS.catalogue },
 	{ from: NODE_POSITIONS.catalogue, to: hubEdge(NODE_POSITIONS.catalogue) },
-	{ from: NODE_POSITIONS.shardEruption, to: NODE_POSITIONS.dailyGuides },
+	{ from: NODE_POSITIONS.shardEruption, to: NODE_POSITIONS.calendar },
+	{ from: NODE_POSITIONS.calendar, to: NODE_POSITIONS.dailyGuides },
 	{ from: NODE_POSITIONS.dailyGuides, to: hubEdge(NODE_POSITIONS.dailyGuides) },
 	{ from: NODE_POSITIONS.skyProfile, to: hubEdge(NODE_POSITIONS.skyProfile) },
 	{ from: NODE_POSITIONS.skyProfile, to: NODE_POSITIONS.spirits },
@@ -209,6 +212,14 @@ export default function Index() {
 			Icon: Users,
 		},
 		{
+			...NODE_POSITIONS.calendar,
+			key: "calendar",
+			to: "/calendar",
+			label: t("calendar.name", { ns: "features" }),
+			description: t("calendar.description-short", { ns: "features" }),
+			Icon: CalendarDays,
+		},
+		{
 			...NODE_POSITIONS.spirits,
 			key: "spirits",
 			to: "/spirits",
@@ -262,6 +273,19 @@ export default function Index() {
 						}}
 					/>
 				))}
+				{PLACEHOLDER_RINGS.map((ring) => (
+					<span
+						aria-hidden
+						className="pointer-events-none absolute h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-100/35"
+						key={`${ring.x}-${ring.y}`}
+						style={{
+							left: `${ring.x}%`,
+							top: `${ring.y}%`,
+							boxShadow: "0 0 10px rgba(165,181,241,0.25)",
+						}}
+					/>
+				))}
+
 				{DECOR_STARS.map((star) => (
 					<span
 						className="constellation-sparkle absolute -translate-x-1/2 -translate-y-1/2"
@@ -326,19 +350,6 @@ export default function Index() {
 							"radial-gradient(circle, rgba(165,181,241,0.3) 0%, rgba(118,138,228,0.12) 34%, transparent 68%)",
 					}}
 				/>
-
-				{PLACEHOLDER_RINGS.map((ring) => (
-					<span
-						aria-hidden
-						className="pointer-events-none absolute h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-sky-100/35"
-						key={`${ring.x}-${ring.y}`}
-						style={{
-							left: `${ring.x}%`,
-							top: `${ring.y}%`,
-							boxShadow: "0 0 10px rgba(165,181,241,0.25)",
-						}}
-					/>
-				))}
 
 				<div className="pointer-events-none absolute inset-0">
 					{nodes.map((node) => (
