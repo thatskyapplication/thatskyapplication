@@ -23,7 +23,7 @@
 		"kysely": "catalog:",
 		"pg": "catalog:",
 		"pino": "catalog:",
-		"ws": "^8.21.0"
+		"ws": "^8.21.3"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",

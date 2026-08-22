@@ -20,7 +20,7 @@
 		"@discordjs/collection": "catalog:",
 		"discord-api-types": "catalog:",
 		"kysely": "catalog:",
-		"temporal-polyfill": "^1.0.1"
+		"temporal-polyfill": "^1.0.4"
 	},
 	"devDependencies": {
 		"@types/node": "catalog:",

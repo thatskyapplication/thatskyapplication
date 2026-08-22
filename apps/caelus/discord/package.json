@@ -31,7 +31,7 @@
 		"hono": "catalog:",
 		"i18next": "catalog:",
 		"kysely": "catalog:",
-		"p-queue": "^9.3.0",
+		"p-queue": "^9.3.3",
 		"pg": "catalog:",
 		"pino": "catalog:",
 		"sharp": "catalog:",

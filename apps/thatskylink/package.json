@@ -12,7 +12,7 @@
 		"types": "wrangler types"
 	},
 	"dependencies": {
-		"@sentry/cloudflare": "^10.69.0",
+		"@sentry/cloudflare": "^10.70.0",
 		"@thatskyapplication/patch-notes": "workspace:^"
 	},
 	"devDependencies": {
