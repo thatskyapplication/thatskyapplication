@@ -67,6 +67,7 @@
 		"import/no-commonjs": "error",
 		"import/no-duplicates": "error",
 		"import/no-dynamic-require": "error",
+		"import/no-mutable-exports": "error",
 		"import/no-self-import": "error",
 		"jsx-a11y/label-has-associated-control": ["error", { "depth": 4 }],
 		"jsx-a11y/prefer-tag-over-role": "off",

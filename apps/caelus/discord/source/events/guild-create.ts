@@ -1,10 +1,9 @@
 import { GatewayDispatchEvents } from "@discordjs/core";
 import {
+	allShardsReady,
 	GUILD_CACHE,
 	GUILD_IDS_FROM_READY,
-	READY_COUNT,
 	readyCountReset,
-	TOTAL_SHARDS,
 } from "../caches/guilds.js";
 import { Guild } from "../models/discord/guild.js";
 import pino from "../pino.js";
@@ -37,7 +36,7 @@ export default {
 			GUILD_IDS_FROM_READY.delete(data.id);
 			guildsPerShard.set(shardId, (guildsPerShard.get(shardId) ?? 0) + 1);
 
-			if (GUILD_IDS_FROM_READY.size === 0 && READY_COUNT === TOTAL_SHARDS) {
+			if (GUILD_IDS_FROM_READY.size === 0 && allShardsReady()) {
 				// All guilds across all shards are cached.
 				pino.info(Object.fromEntries(guildsPerShard), `Guilds cached: ${GUILD_CACHE.size}`);
 

@@ -5,17 +5,21 @@ import type { Guild } from "../models/discord/guild.js";
 export const GUILD_IDS_FROM_READY = new Set<Snowflake>();
 export const GUILD_CACHE = new Collection<Snowflake, Guild>();
 
-export let READY_COUNT = 0;
-export let TOTAL_SHARDS = 0;
+let readyCount = 0;
+let totalShards = 0;
 
 export function readyCountIncrement() {
-	READY_COUNT++;
+	readyCount++;
 }
 
 export function readyCountReset() {
-	READY_COUNT = 0;
+	readyCount = 0;
 }
 
 export function totalShardsSet(total: number) {
-	TOTAL_SHARDS = total;
+	totalShards = total;
+}
+
+export function allShardsReady() {
+	return readyCount === totalShards;
 }
