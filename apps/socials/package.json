@@ -14,7 +14,7 @@
 		"test": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@atproto/api": "^0.18.16",
+		"@atproto/api": "^0.20.41",
 		"@discordjs/core": "catalog:",
 		"@discordjs/rest": "catalog:",
 		"@sentry/node": "catalog:",
