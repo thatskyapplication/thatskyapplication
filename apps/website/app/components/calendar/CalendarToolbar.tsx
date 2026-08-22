@@ -2,9 +2,16 @@ import { clsx } from "clsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { CalendarJump } from "~/components/calendar/CalendarJump";
 import { CalendarSettings } from "~/components/calendar/CalendarSettings";
-import { calendarPath, CalendarView, type CalendarViews } from "~/utility/calendar";
+import { DatePicker } from "~/components/DatePicker";
+import {
+	CALENDAR_MINIMUM_DATE,
+	calendarPath,
+	CalendarView,
+	type CalendarViews,
+} from "~/utility/calendar";
+
+const YEARS_AHEAD = 1 as const;
 
 const NAVIGATION_BUTTON_CLASS =
 	"inline-flex h-9 items-center justify-center rounded-lg border border-gray-200 bg-white px-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800" as const;
@@ -45,6 +52,12 @@ export function CalendarToolbar({
 	weekStartsOn: number;
 }) {
 	const { t } = useTranslation();
+
+	const maximumDate = Temporal.PlainDate.from(todayDate)
+		.with({ month: 12, day: 31 })
+		.add({ years: YEARS_AHEAD })
+		.toString();
+
 	const previousLabel = t(PREVIOUS_LABEL_KEYS[view], { ns: "features" });
 	const nextLabel = t(NEXT_LABEL_KEYS[view], { ns: "features" });
 
@@ -79,13 +92,16 @@ export function CalendarToolbar({
 					>
 						{t("today", { ns: "general" })}
 					</Link>
-					<CalendarJump
+					<DatePicker
 						anchorDate={anchorDate}
 						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 px-0")}
+						getDateURL={(date) => calendarPath({ view, skyTime, date })}
+						iconOnly
+						label={t("calendar.jump-to-date", { ns: "features" })}
 						locale={locale}
-						skyTime={skyTime}
+						maximumDate={maximumDate}
+						minimumDate={CALENDAR_MINIMUM_DATE}
 						todayDate={todayDate}
-						view={view}
 						weekStartsOn={weekStartsOn}
 					/>
 					{nextDate === null ? (

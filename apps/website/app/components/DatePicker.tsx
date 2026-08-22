@@ -2,6 +2,7 @@ import { Popover } from "@base-ui/react/popover";
 import { clsx } from "clsx";
 import { CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 
 const DAY_COUNT = 42 as const;
@@ -47,6 +48,7 @@ export function DatePicker({
 	anchorDate,
 	className,
 	getDateURL,
+	iconOnly = false,
 	label,
 	locale,
 	maximumDate,
@@ -57,6 +59,7 @@ export function DatePicker({
 	anchorDate: string;
 	className: string;
 	getDateURL: (date: string) => string;
+	iconOnly?: boolean;
 	label: string;
 	locale: string;
 	maximumDate: string;
@@ -64,6 +67,7 @@ export function DatePicker({
 	todayDate: string;
 	weekStartsOn: number;
 }) {
+	const { t } = useTranslation();
 	const [mode, setMode] = useState<DatePickerModes>(DatePickerMode.Days);
 	const [month, setMonth] = useState(() => Temporal.PlainDate.from(anchorDate).with({ day: 1 }));
 	const minimum = Temporal.PlainDate.from(minimumDate);
@@ -117,7 +121,7 @@ export function DatePicker({
 		>
 			<Popover.Trigger aria-label={label} className={className}>
 				<CalendarDays aria-hidden="true" className="h-4 w-4 shrink-0" />
-				<span>{label}</span>
+				{!iconOnly && <span>{label}</span>}
 			</Popover.Trigger>
 			<Popover.Portal>
 				<Popover.Positioner align="center" collisionPadding={8} side="bottom" sideOffset={6}>
@@ -127,7 +131,12 @@ export function DatePicker({
 								<span className="w-7" />
 							) : (
 								<button
-									aria-label={mode === DatePickerMode.Days ? "Previous month" : "Previous year"}
+									aria-label={t(
+										mode === DatePickerMode.Days
+											? "calendar.previous-month"
+											: "calendar.previous-year",
+										{ ns: "features" },
+									)}
 									className={clsx(NAVIGATION_CLASS, atMinimum && "cursor-not-allowed opacity-40")}
 									disabled={atMinimum}
 									onClick={() =>
@@ -171,7 +180,12 @@ export function DatePicker({
 								<span className="w-7" />
 							) : (
 								<button
-									aria-label={mode === DatePickerMode.Days ? "Next month" : "Next year"}
+									aria-label={t(
+										mode === DatePickerMode.Days ? "calendar.next-month" : "calendar.next-year",
+										{
+											ns: "features",
+										},
+									)}
 									className={clsx(NAVIGATION_CLASS, atMaximum && "cursor-not-allowed opacity-40")}
 									disabled={atMaximum}
 									onClick={() =>
@@ -231,6 +245,7 @@ export function DatePicker({
 																	? ENABLED_CLASS
 																	: "text-gray-400 hover:bg-gray-100 dark:text-gray-600 dark:hover:bg-gray-800",
 													)}
+													preventScrollReset
 													to={getDateURL(date)}
 												/>
 											}
@@ -277,6 +292,7 @@ export function DatePicker({
 																? ANCHORED_CLASS
 																: ENABLED_CLASS,
 													)}
+													preventScrollReset
 													to={getDateURL(date)}
 												/>
 											}
