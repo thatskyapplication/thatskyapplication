@@ -2025,7 +2025,7 @@ export async function skyProfileSetName(
 	const components = new ModalResolver(interaction.data);
 
 	// Mobile may use new lines.
-	const name = components.getTextInputValue(CustomId.SkyProfileNameModalName).replace(/\n/g, " ");
+	const name = components.getTextInputValue(CustomId.SkyProfileNameModalName).replaceAll("\n", " ");
 
 	return skyProfileSet(
 		interaction,
@@ -2113,7 +2113,7 @@ export function skyProfileSetHangout(interaction: APIModalSubmitInteraction) {
 	// Mobile may use new lines.
 	const hangout = components
 		.getTextInputValue(CustomId.SkyProfileHangoutModalHangout)
-		.replace(/\n/g, " ");
+		.replaceAll("\n", " ");
 
 	return skyProfileSet(interaction, { user_id: interactionInvoker(interaction).id, hangout });
 }

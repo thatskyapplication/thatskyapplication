@@ -109,7 +109,7 @@ export const loader = async ({ url }: Route.LoaderArgs) => {
 
 	if (name) {
 		const queryLowerCase = name.toLowerCase();
-		const likePattern = `%${queryLowerCase.replace(/[\\%_]/g, String.raw`\$&`)}%`;
+		const likePattern = `%${queryLowerCase.replaceAll(/[\\%_]/g, String.raw`\$&`)}%`;
 
 		profilesQuery = profilesQuery.where((eb) =>
 			eb.or([

@@ -1683,7 +1683,7 @@ async function writeChangeLog(): Promise<void> {
 }
 
 function stripMarkup(value: string): string {
-	return normaliseQuotes(value.replace(/<[^>]+>/g, "").replaceAll(/\s*\n\s*/g, "")).trim();
+	return normaliseQuotes(value.replaceAll(/<[^>]+>/g, "").replaceAll(/\s*\n\s*/g, "")).trim();
 }
 
 function stripCommerceItemNameBadge(upstreamKey: string, value: string): string {
@@ -1710,9 +1710,9 @@ function localeValue(mapping: LocaleMapping, lproj: string, value: string): stri
 }
 
 function normaliseQuotes(value: string): string {
-	const normalised = value.replace(/[‘’]/g, "'");
+	const normalised = value.replaceAll(/[‘’]/g, "'");
 
-	return normalised.includes('"') ? normalised.replace(/[“”„‟]/g, '"') : normalised;
+	return normalised.includes('"') ? normalised.replaceAll(/[“”„‟]/g, '"') : normalised;
 }
 
 function decodeLocalisableString(value: string): string {
@@ -1858,7 +1858,7 @@ async function updateEnGbTs(tsKey: string, upstreamKey: string, value: string): 
 		return false;
 	}
 
-	const safeValue = encodeTsStringLiteralValue(value).replace(/\$/g, "$$$$");
+	const safeValue = encodeTsStringLiteralValue(value).replaceAll("$", "$$$$");
 	await writeFile(EN_GB_TS, content.replace(pattern, `$1"${safeValue}"`));
 	changes.push(`en-gb.ts\t${tsKey}\t${upstreamKey}\t${value}`);
 

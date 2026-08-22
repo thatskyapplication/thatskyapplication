@@ -41,7 +41,7 @@ export async function postTriggersPostCreate(req: Request) {
 		return;
 	}
 
-	const title = `## ${post.title.replace(/^#+/g, (match) => match.replace(/#/g, String.raw`\#`))}`;
+	const title = `## ${post.title.replaceAll(/^#+/g, (match) => match.replaceAll("#", String.raw`\#`))}`;
 	let authorText = `[u/${author.name}](${author.url}) in [r/${subreddit.name}](${REDDIT_BASE_URL}${subreddit.permalink})`;
 	const footer = `-# <t:${Math.floor(post.createdAt / 1000)}:R>`;
 	const postV2 = await reddit.getPostById(T3(post.id));

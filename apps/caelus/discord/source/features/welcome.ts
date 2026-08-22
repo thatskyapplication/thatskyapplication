@@ -604,7 +604,7 @@ function welcomeComponents(
 	if (welcomePacket.message) {
 		containerComponents.push({
 			type: ComponentType.TextDisplay,
-			content: welcomePacket.message.replace(/\{\{user\}\}/g, `<@${userId}>`),
+			content: welcomePacket.message.replaceAll("{{user}}", `<@${userId}>`),
 		});
 	}
 
