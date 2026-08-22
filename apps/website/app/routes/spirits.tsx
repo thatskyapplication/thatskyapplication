@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { redirect, useSearchParams } from "react-router";
+import { redirect, type ShouldRevalidateFunctionArgs, useSearchParams } from "react-router";
 import {
 	spiritOriginTranslationKey,
 	type SpiritIds,
@@ -126,11 +126,7 @@ export function shouldRevalidate({
 	currentUrl,
 	defaultShouldRevalidate,
 	nextUrl,
-}: {
-	currentUrl: URL;
-	defaultShouldRevalidate: boolean;
-	nextUrl: URL;
-}) {
+}: ShouldRevalidateFunctionArgs) {
 	return currentUrl.pathname !== nextUrl.pathname ||
 		loaderSearchParameters(currentUrl) !== loaderSearchParameters(nextUrl)
 		? defaultShouldRevalidate
