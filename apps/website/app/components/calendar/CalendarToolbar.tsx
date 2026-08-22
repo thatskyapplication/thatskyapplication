@@ -9,6 +9,7 @@ import {
 	CALENDAR_MINIMUM_DATE,
 	calendarNavigableMaximumDate,
 	calendarPath,
+	type CalendarEntryKinds,
 	CalendarView,
 	type CalendarViews,
 } from "~/utility/calendar";
@@ -31,6 +32,7 @@ const NEXT_LABEL_KEYS = {
 export function CalendarToolbar({
 	anchorDate,
 	dayDate,
+	hiddenKinds,
 	locale,
 	nextDate,
 	previousDate,
@@ -42,6 +44,7 @@ export function CalendarToolbar({
 }: {
 	anchorDate: string;
 	dayDate: string;
+	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
 	nextDate: string | null;
 	previousDate: string | null;
@@ -56,10 +59,12 @@ export function CalendarToolbar({
 	const maximumDate = calendarNavigableMaximumDate(Temporal.PlainDate.from(todayDate)).toString();
 
 	const previousPath =
-		previousDate === null ? null : calendarPath({ view, skyTime, date: previousDate });
+		previousDate === null ? null : calendarPath({ view, skyTime, hiddenKinds, date: previousDate });
 
-	const nextPath = nextDate === null ? null : calendarPath({ view, skyTime, date: nextDate });
-	const todayPath = calendarPath({ view, skyTime });
+	const nextPath =
+		nextDate === null ? null : calendarPath({ view, skyTime, hiddenKinds, date: nextDate });
+
+	const todayPath = calendarPath({ view, skyTime, hiddenKinds });
 
 	useCalendarKeyboardNavigation({
 		nextPath,
@@ -101,7 +106,7 @@ export function CalendarToolbar({
 					<DatePicker
 						anchorDate={anchorDate}
 						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
-						getDateURL={(date) => calendarPath({ view, skyTime, date })}
+						getDateURL={(date) => calendarPath({ view, skyTime, hiddenKinds, date })}
 						iconOnly
 						label={t("calendar.jump-to-date", { ns: "features" })}
 						locale={locale}
@@ -132,6 +137,7 @@ export function CalendarToolbar({
 				</div>
 				<CalendarSettings
 					anchorDate={anchorDate}
+					hiddenKinds={hiddenKinds}
 					className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
 					dayDate={dayDate}
 					skyTime={skyTime}

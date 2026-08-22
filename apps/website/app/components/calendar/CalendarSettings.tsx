@@ -4,7 +4,12 @@ import { Settings as SettingsIcon } from "lucide-react";
 import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
-import { calendarPath, CalendarView, type CalendarViews } from "~/utility/calendar";
+import {
+	calendarPath,
+	type CalendarEntryKinds,
+	CalendarView,
+	type CalendarViews,
+} from "~/utility/calendar";
 
 const OPTION_CLASS =
 	"inline-flex h-8 flex-1 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors" as const;
@@ -64,12 +69,14 @@ export function CalendarSettings({
 	anchorDate,
 	className,
 	dayDate,
+	hiddenKinds,
 	skyTime,
 	view,
 }: {
 	anchorDate: string;
 	className: string;
 	dayDate: string;
+	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	skyTime: boolean;
 	view: CalendarViews;
 }) {
@@ -90,19 +97,29 @@ export function CalendarSettings({
 									key: CalendarView.Month,
 									label: t("calendar.view-month", { ns: "features" }),
 									selected: view === CalendarView.Month,
-									to: calendarPath({ view: CalendarView.Month, skyTime, date: anchorDate }),
+									to: calendarPath({
+										view: CalendarView.Month,
+										skyTime,
+										hiddenKinds,
+										date: anchorDate,
+									}),
 								},
 								{
 									key: CalendarView.Week,
 									label: t("calendar.view-week", { ns: "features" }),
 									selected: view === CalendarView.Week,
-									to: calendarPath({ view: CalendarView.Week, skyTime, date: anchorDate }),
+									to: calendarPath({
+										view: CalendarView.Week,
+										skyTime,
+										hiddenKinds,
+										date: anchorDate,
+									}),
 								},
 								{
 									key: CalendarView.Day,
 									label: t("calendar.view-day", { ns: "features" }),
 									selected: view === CalendarView.Day,
-									to: calendarPath({ view: CalendarView.Day, skyTime, date: dayDate }),
+									to: calendarPath({ view: CalendarView.Day, skyTime, hiddenKinds, date: dayDate }),
 								},
 							]}
 						/>
@@ -113,13 +130,13 @@ export function CalendarSettings({
 									key: "local",
 									label: t("calendar.time-zone-local", { ns: "features" }),
 									selected: !skyTime,
-									to: calendarPath({ view, skyTime: false, date: anchorDate }),
+									to: calendarPath({ view, skyTime: false, hiddenKinds, date: anchorDate }),
 								},
 								{
 									key: "sky",
 									label: t("schedule.sky-time", { ns: "features" }),
 									selected: skyTime,
-									to: calendarPath({ view, skyTime: true, date: anchorDate }),
+									to: calendarPath({ view, skyTime: true, hiddenKinds, date: anchorDate }),
 								},
 							]}
 						/>

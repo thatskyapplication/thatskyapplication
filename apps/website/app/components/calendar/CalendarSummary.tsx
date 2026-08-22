@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CalendarEntryIcons } from "~/components/calendar/CalendarEntryDetails";
 import {
+	type CalendarEntryKinds,
 	CalendarEntryKindPresentations,
 	calendarPath,
 	type CalendarSummaryEntry,
@@ -14,6 +15,7 @@ function SummarySection({
 	className,
 	entries,
 	heading,
+	hiddenKinds,
 	skyTime,
 	view,
 }: {
@@ -21,6 +23,7 @@ function SummarySection({
 	className?: string | undefined;
 	entries: readonly CalendarSummaryEntry[];
 	heading: string;
+	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	skyTime: boolean;
 	view: CalendarViews;
 }) {
@@ -38,7 +41,13 @@ function SummarySection({
 							<Link
 								className="flex items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
 								preventScrollReset
-								to={calendarPath({ view, skyTime, date: entry.firstDate, day: entry.firstDate })}
+								to={calendarPath({
+									view,
+									skyTime,
+									hiddenKinds,
+									date: entry.firstDate,
+									day: entry.firstDate,
+								})}
 							>
 								<span
 									className={clsx(
@@ -73,11 +82,13 @@ function SummarySection({
 
 export function CalendarSummary({
 	active,
+	hiddenKinds,
 	skyTime,
 	upcoming,
 	view,
 }: {
 	active: readonly CalendarSummaryEntry[];
+	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	skyTime: boolean;
 	upcoming: readonly CalendarSummaryEntry[];
 	view: CalendarViews;
@@ -90,6 +101,7 @@ export function CalendarSummary({
 				active
 				entries={active}
 				heading={t("schedule.overview-active", { ns: "features" })}
+				hiddenKinds={hiddenKinds}
 				skyTime={skyTime}
 				view={view}
 			/>
@@ -98,6 +110,7 @@ export function CalendarSummary({
 				className="border-t border-gray-200 pt-4 md:border-s md:border-t-0 md:ps-6 md:pt-0 dark:border-gray-700"
 				entries={upcoming}
 				heading={t("schedule.overview-upcoming", { ns: "features" })}
+				hiddenKinds={hiddenKinds}
 				skyTime={skyTime}
 				view={view}
 			/>

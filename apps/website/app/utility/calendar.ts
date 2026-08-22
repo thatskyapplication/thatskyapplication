@@ -4,6 +4,7 @@ import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
 export const CALENDAR_MINIMUM_DATE = "2017-12-19" as const;
 export const CALENDAR_MAXIMUM_DATE = "9999-12-31" as const;
 export const CALENDAR_YEARS_AHEAD = 1 as const;
+export const CALENDAR_HIDDEN_KINDS_PARAMETER = "hide" as const;
 
 export function calendarNavigableMaximumDate(today: Temporal.PlainDate) {
 	return today.with({ month: 12, day: 31 }).add({ years: CALENDAR_YEARS_AHEAD });
@@ -233,14 +234,32 @@ export function isCalendarView(value: unknown): value is CalendarViews {
 
 export const CALENDAR_SKY_TIME_PARAMETER = "sky" as const;
 
+export function parseHiddenCalendarKinds(
+	searchParams: URLSearchParams,
+): ReadonlySet<CalendarEntryKinds> {
+	const value = searchParams.get(CALENDAR_HIDDEN_KINDS_PARAMETER);
+
+	if (value === null) {
+		return new Set();
+	}
+
+	const parts = new Set(value.split(","));
+	return new Set(CALENDAR_ENTRY_KIND_VALUES.filter((kind) => parts.has(String(kind))));
+}
+
+export function serialiseHiddenCalendarKinds(hiddenKinds: ReadonlySet<CalendarEntryKinds>) {
+	return [...hiddenKinds].sort((a, b) => a - b).join(",");
+}
+
 export interface CalendarPathOptions {
 	view: CalendarViews;
 	skyTime: boolean;
+	hiddenKinds?: ReadonlySet<CalendarEntryKinds>;
 	date?: string;
 	day?: string;
 }
 
-export function calendarPath({ view, skyTime, date, day }: CalendarPathOptions) {
+export function calendarPath({ view, skyTime, hiddenKinds, date, day }: CalendarPathOptions) {
 	const searchParams = new URLSearchParams();
 
 	if (view !== CalendarView.Month) {
@@ -249,6 +268,10 @@ export function calendarPath({ view, skyTime, date, day }: CalendarPathOptions) 
 
 	if (skyTime) {
 		searchParams.set("zone", CALENDAR_SKY_TIME_PARAMETER);
+	}
+
+	if (hiddenKinds !== undefined && hiddenKinds.size > 0) {
+		searchParams.set(CALENDAR_HIDDEN_KINDS_PARAMETER, serialiseHiddenCalendarKinds(hiddenKinds));
 	}
 
 	if (date !== undefined) {

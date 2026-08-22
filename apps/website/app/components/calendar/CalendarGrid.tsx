@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import { CalendarEntryBar } from "~/components/calendar/CalendarEntryBar";
 import {
 	type CalendarEntry,
+	type CalendarEntryKinds,
 	calendarPath,
 	type CalendarViews,
 	CalendarView,
@@ -19,6 +20,7 @@ function CalendarWeekRow({
 	anchorDate,
 	currentTimestamp,
 	entries,
+	hiddenKinds,
 	locale,
 	skyTime,
 	view,
@@ -27,6 +29,7 @@ function CalendarWeekRow({
 	anchorDate: string;
 	currentTimestamp: number;
 	entries: readonly CalendarEntry[];
+	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
 	skyTime: boolean;
 	view: CalendarViews;
@@ -79,7 +82,7 @@ function CalendarWeekRow({
 							)}
 							preventScrollReset
 							style={{ gridColumn: index + 1, gridRow: "1 / -1" }}
-							to={calendarPath({ view, skyTime, date: anchorDate, day: day.date })}
+							to={calendarPath({ view, skyTime, hiddenKinds, date: anchorDate, day: day.date })}
 						/>
 						<div
 							className="pointer-events-none px-1 pt-1 pb-0.5 text-center"
@@ -112,6 +115,7 @@ export function CalendarGrid({
 	anchorDate,
 	currentTimestamp,
 	entries,
+	hiddenKinds,
 	locale,
 	skyTime,
 	view,
@@ -121,6 +125,7 @@ export function CalendarGrid({
 	anchorDate: string;
 	currentTimestamp: number;
 	entries: readonly CalendarEntry[];
+	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
 	skyTime: boolean;
 	view: CalendarViews;
@@ -144,6 +149,7 @@ export function CalendarGrid({
 					anchorDate={anchorDate}
 					currentTimestamp={currentTimestamp}
 					entries={entries}
+					hiddenKinds={hiddenKinds}
 					key={week.key}
 					locale={locale}
 					skyTime={skyTime}

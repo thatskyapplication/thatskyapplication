@@ -7,6 +7,7 @@ import { CalendarDayDetails } from "~/components/calendar/CalendarDayDetails";
 import {
 	type CalendarDayDetail,
 	type CalendarEntry,
+	type CalendarEntryKinds,
 	calendarPath,
 	type CalendarViews,
 } from "~/utility/calendar";
@@ -18,6 +19,7 @@ export function CalendarDayDialogue({
 	allDay,
 	anchorDate,
 	detail,
+	hiddenKinds,
 	locale,
 	skyTime,
 	view,
@@ -25,6 +27,7 @@ export function CalendarDayDialogue({
 	allDay: readonly CalendarEntry[];
 	anchorDate: string;
 	detail: CalendarDayDetail;
+	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
 	skyTime: boolean;
 	view: CalendarViews;
@@ -39,7 +42,7 @@ export function CalendarDayDialogue({
 		<Dialog.Root
 			onOpenChange={(open) => {
 				if (!open) {
-					void navigate(calendarPath({ view, skyTime, date: anchorDate }), {
+					void navigate(calendarPath({ view, skyTime, hiddenKinds, date: anchorDate }), {
 						preventScrollReset: true,
 						replace: true,
 					});
@@ -60,7 +63,13 @@ export function CalendarDayDialogue({
 								className={DIALOGUE_ICON_BUTTON_CLASS}
 								preventScrollReset
 								replace
-								to={calendarPath({ view, skyTime, date: previousDay, day: previousDay })}
+								to={calendarPath({
+									view,
+									skyTime,
+									hiddenKinds,
+									date: previousDay,
+									day: previousDay,
+								})}
 							>
 								<ChevronLeft aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 							</Link>
@@ -69,7 +78,7 @@ export function CalendarDayDialogue({
 								className={DIALOGUE_ICON_BUTTON_CLASS}
 								preventScrollReset
 								replace
-								to={calendarPath({ view, skyTime, date: nextDay, day: nextDay })}
+								to={calendarPath({ view, skyTime, hiddenKinds, date: nextDay, day: nextDay })}
 							>
 								<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 							</Link>

@@ -1,5 +1,6 @@
 import i18next from "i18next";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
+import { type ShouldRevalidateFunctionArgs, useSearchParams } from "react-router";
 import { TIME_ZONE, WEBSITE_URL } from "@thatskyapplication/utility";
 import { CalendarDayDialogue } from "~/components/calendar/CalendarDayDialogue";
 import { CalendarDayView } from "~/components/calendar/CalendarDayView";
@@ -11,7 +12,13 @@ import { SitePage } from "~/components/PageLayout";
 import { useCurrentTimestamp, useDailyRevalidator } from "~/hooks/use-current-timestamp.js";
 import { getInstance, getLocale } from "~/middleware/i18next.js";
 import { calendarData } from "~/utility/calendar-data.js";
-import { type CalendarEntryKinds, CalendarView } from "~/utility/calendar.js";
+import {
+	CALENDAR_HIDDEN_KINDS_PARAMETER,
+	type CalendarEntryKinds,
+	CalendarView,
+	parseHiddenCalendarKinds,
+	serialiseHiddenCalendarKinds,
+} from "~/utility/calendar.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, CALENDAR_DESCRIPTION, CALENDAR_TITLE } from "~/utility/constants.js";
 import { getDocumentHour12 } from "~/utility/hour-cycle.js";
@@ -77,6 +84,24 @@ export const clientLoader = ({ request }: Route.ClientLoaderArgs) => {
 	});
 };
 
+function loaderSearchParameters(url: URL) {
+	const parameters = new URLSearchParams(url.search);
+	parameters.delete(CALENDAR_HIDDEN_KINDS_PARAMETER);
+	return parameters.toString();
+}
+
+export function shouldRevalidate({
+	currentUrl,
+	defaultShouldRevalidate,
+	nextUrl,
+}: ShouldRevalidateFunctionArgs) {
+	return currentUrl.href !== nextUrl.href &&
+		currentUrl.pathname === nextUrl.pathname &&
+		loaderSearchParameters(currentUrl) === loaderSearchParameters(nextUrl)
+		? false
+		: defaultShouldRevalidate;
+}
+
 export default function Calendar({ loaderData }: Route.ComponentProps) {
 	const {
 		anchorDate,
@@ -100,7 +125,8 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 	useDailyRevalidator(currentTimestamp, timeZone);
-	const [hiddenKinds, setHiddenKinds] = useState<ReadonlySet<CalendarEntryKinds>>(new Set());
+	const [searchParams, setSearchParams] = useSearchParams();
+	const hiddenKinds = useMemo(() => parseHiddenCalendarKinds(searchParams), [searchParams]);
 	const isDay = view === CalendarView.Day;
 
 	const visible = useMemo(
@@ -113,16 +139,28 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 		[entries, summary, dayDetail, hiddenKinds],
 	);
 
-	const toggleKind = (kind: CalendarEntryKinds) =>
-		setHiddenKinds((current) => {
-			const next = new Set(current);
+	const toggleKind = (kind: CalendarEntryKinds) => {
+		const next = new Set(hiddenKinds);
 
-			if (!next.delete(kind)) {
-				next.add(kind);
-			}
+		if (!next.delete(kind)) {
+			next.add(kind);
+		}
 
-			return next;
-		});
+		setSearchParams(
+			(current) => {
+				const updated = new URLSearchParams(current);
+
+				if (next.size > 0) {
+					updated.set(CALENDAR_HIDDEN_KINDS_PARAMETER, serialiseHiddenCalendarKinds(next));
+				} else {
+					updated.delete(CALENDAR_HIDDEN_KINDS_PARAMETER);
+				}
+
+				return updated;
+			},
+			{ preventScrollReset: true, replace: true },
+		);
+	};
 
 	return (
 		<SitePage>
@@ -130,6 +168,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 				<CalendarToolbar
 					anchorDate={anchorDate}
 					dayDate={dayDate}
+					hiddenKinds={hiddenKinds}
 					locale={locale}
 					nextDate={nextDate}
 					previousDate={previousDate}
@@ -149,6 +188,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 						anchorDate={anchorDate}
 						currentTimestamp={currentTimestamp}
 						entries={visible.entries}
+						hiddenKinds={hiddenKinds}
 						locale={locale}
 						skyTime={skyTime}
 						view={view}
@@ -158,6 +198,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 				)}
 				<CalendarSummary
 					active={visible.active}
+					hiddenKinds={hiddenKinds}
 					skyTime={skyTime}
 					upcoming={visible.upcoming}
 					view={view}
@@ -168,6 +209,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					allDay={visible.allDay}
 					anchorDate={anchorDate}
 					detail={dayDetail}
+					hiddenKinds={hiddenKinds}
 					locale={locale}
 					skyTime={skyTime}
 					view={view}
