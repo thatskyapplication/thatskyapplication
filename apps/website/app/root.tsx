@@ -1,3 +1,4 @@
+import { Tooltip } from "@base-ui/react/tooltip";
 import "./tailwind.css";
 import { Locale } from "@discordjs/core/http-only";
 import { captureException } from "@sentry/react-router";
@@ -220,8 +221,10 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	}, []);
 
 	return (
-		<ConditionalLayout user={user} userDisplayName={userDisplayName} userIconURL={userIconURL}>
-			<Outlet />
-		</ConditionalLayout>
+		<Tooltip.Provider>
+			<ConditionalLayout user={user} userDisplayName={userDisplayName} userIconURL={userIconURL}>
+				<Outlet />
+			</ConditionalLayout>
+		</Tooltip.Provider>
 	);
 }
