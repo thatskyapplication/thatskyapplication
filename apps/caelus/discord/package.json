@@ -27,7 +27,7 @@
 		"@thatskyapplication/patch-notes": "workspace:^",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "catalog:",
-		"diff": "^8.0.4",
+		"diff": "^9.0.0",
 		"hono": "catalog:",
 		"i18next": "catalog:",
 		"kysely": "catalog:",
