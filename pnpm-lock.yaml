@@ -249,8 +249,8 @@ catalogs:
       specifier: ^26.4.0
       version: 26.4.0
     kysely:
-      specifier: ^0.28.17
-      version: 0.28.17
+      specifier: ^0.29.5
+      version: 0.29.5
     oxfmt:
       specifier: 0.64.0
       version: 0.64.0
@@ -358,7 +358,7 @@ importers:
         version: 26.4.0(typescript@7.0.2)
       kysely:
         specifier: 'catalog:'
-        version: 0.28.17
+        version: 0.29.5
       p-queue:
         specifier: ^9.3.3
         version: 9.3.3
@@ -465,7 +465,7 @@ importers:
         version: 26.4.0(typescript@7.0.2)
       kysely:
         specifier: 'catalog:'
-        version: 0.28.17
+        version: 0.29.5
       pg:
         specifier: 'catalog:'
         version: 8.23.0
@@ -566,7 +566,7 @@ importers:
         version: link:../../packages/utility
       kysely:
         specifier: 'catalog:'
-        version: 0.28.17
+        version: 0.29.5
       pg:
         specifier: 'catalog:'
         version: 8.23.0
@@ -685,7 +685,7 @@ importers:
         version: 5.2.1
       kysely:
         specifier: 'catalog:'
-        version: 0.28.17
+        version: 0.29.5
       lucide-react:
         specifier: ^1.33.0
         version: 1.33.0(react@19.2.8)
@@ -834,7 +834,7 @@ importers:
         version: 0.38.53
       kysely:
         specifier: 'catalog:'
-        version: 0.28.17
+        version: 0.29.5
       temporal-polyfill:
         specifier: ^1.0.4
         version: 1.0.4
@@ -847,7 +847,7 @@ importers:
         version: typescript@7.0.2
       kysely-codegen:
         specifier: ^0.20.0
-        version: 0.20.0(@typescript/typescript6@6.0.2)(kysely@0.28.17)(pg@8.23.0)(tarn@3.0.2)
+        version: 0.20.0(@typescript/typescript6@6.0.2)(kysely@0.29.5)(pg@8.23.0)(tarn@3.0.2)
       oxfmt:
         specifier: 'catalog:'
         version: 0.64.0
@@ -5014,9 +5014,9 @@ packages:
       tedious:
         optional: true
 
-  kysely@0.28.17:
-    resolution: {integrity: sha512-nbD8lB9EB3wNdMhOCdx5Li8DxnLbvKByylRLcJ1h+4SkrowVeECAyZlyiKMThF7xFdRz0jSQ2MoJr+wXux2y0Q==}
-    engines: {node: '>=20.0.0'}
+  kysely@0.29.5:
+    resolution: {integrity: sha512-ooa+eSbBNPTo3MycPEuW5jdrxQdQwdtB3LC3h43FiXQbIry5tR0C5lDG7eealK0E4D7XjrnOP5DIUg/LyjRMYQ==}
+    engines: {node: '>=22.0.0'}
 
   lie@3.3.0:
     resolution: {integrity: sha512-UaiMJzeWRlEujzAuw5LokY1L5ecNQYZKfmyZ9L7wDHb/p5etKaxXhohBcrw0EYby+G/NA52vRSN4N39dxHAIwQ==}
@@ -10397,14 +10397,14 @@ snapshots:
       yaml: 2.9.0
       zod: 4.4.3
 
-  kysely-codegen@0.20.0(@typescript/typescript6@6.0.2)(kysely@0.28.17)(pg@8.23.0)(tarn@3.0.2):
+  kysely-codegen@0.20.0(@typescript/typescript6@6.0.2)(kysely@0.29.5)(pg@8.23.0)(tarn@3.0.2):
     dependencies:
       chalk: 4.1.2
       cosmiconfig: 9.0.2(@typescript/typescript6@6.0.2)
       diff: 8.0.4
       dotenv: 17.4.2
       dotenv-expand: 12.0.3
-      kysely: 0.28.17
+      kysely: 0.29.5
       micromatch: 4.0.8
       minimist: 1.2.8
       pluralize: 8.0.0
@@ -10415,7 +10415,7 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
-  kysely@0.28.17: {}
+  kysely@0.29.5: {}
 
   lie@3.3.0:
     dependencies:
