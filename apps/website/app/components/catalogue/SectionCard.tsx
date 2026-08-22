@@ -39,7 +39,7 @@ export function SectionCard({
 					<p className="m-0 text-sm text-gray-600 dark:text-gray-400">{emptyLabel}</p>
 				)
 			) : (
-				<ProgressBar percentage={percentage} />
+				<ProgressBar label={title} percentage={percentage} />
 			)}
 		</Link>
 	);
