@@ -71,6 +71,7 @@ interface CalendarEntriesOptions {
 	hour12: boolean | undefined;
 	t: TFunction;
 	dayMarkers: boolean;
+	shardEruptionMaximumDate: string;
 	summary?: boolean;
 }
 
@@ -111,6 +112,7 @@ export function calendarEntriesBetween({
 	hour12,
 	t,
 	dayMarkers,
+	shardEruptionMaximumDate,
 	summary = false,
 }: CalendarEntriesOptions): (CalendarEntry | CalendarSummaryEntry)[] {
 	const overlapsRange = (start: Temporal.ZonedDateTime, end: Temporal.ZonedDateTime) =>
@@ -403,30 +405,34 @@ export function calendarEntriesBetween({
 						? MISCELLANEOUS_EMOJIS.ShardStrong
 						: MISCELLANEOUS_EMOJIS.ShardRegular;
 
-					entries.push(
-						createCalendarEntry({
-							key: `shard-eruption-${date}`,
-							kind: CalendarEntryKind.ShardEruption,
-							label: shardEruptionLabel,
-							start: skyDate,
-							end: skyDate.add({ days: 1 }),
-							times: shard.timestamps.map(({ start, end }) =>
-								t("time-range", {
-									ns: "general",
-									start: timeFormat.format(start.epochMilliseconds),
-									end: timeFormat.format(end.epochMilliseconds),
-								}),
-							),
-							iconEmojiIds: [emoji.id],
-							detail: t("shard-eruption.realm-area", {
-								ns: "features",
-								realm: shard.realm,
-								area: shard.area,
+					const input: CalendarEntryInput = {
+						key: `shard-eruption-${date}`,
+						kind: CalendarEntryKind.ShardEruption,
+						label: shardEruptionLabel,
+						start: skyDate,
+						end: skyDate.add({ days: 1 }),
+						times: shard.timestamps.map(({ start, end }) =>
+							t("time-range", {
+								ns: "general",
+								start: timeFormat.format(start.epochMilliseconds),
+								end: timeFormat.format(end.epochMilliseconds),
 							}),
-							infographicURL: shard.infographic.url,
-							acknowledgement: shard.infographic.acknowledgement,
+						),
+						iconEmojiIds: [emoji.id],
+						detail: t("shard-eruption.realm-area", {
+							ns: "features",
+							realm: shard.realm,
+							area: shard.area,
 						}),
-					);
+						infographicURL: shard.infographic.url,
+						acknowledgement: shard.infographic.acknowledgement,
+					};
+
+					if (date <= shardEruptionMaximumDate) {
+						input.pageURL = `/shard-eruption?date=${date}`;
+					}
+
+					entries.push(createCalendarEntry(input));
 				}
 			}
 

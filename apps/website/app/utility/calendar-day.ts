@@ -217,6 +217,7 @@ function shardEruptionOccurrences(
 	dayEnd: Temporal.ZonedDateTime,
 	timeFormat: Intl.DateTimeFormat,
 	t: TFunction,
+	shardEruptionMaximumDate: string,
 ): CalendarDayOccurrence[] {
 	const occurrences: CalendarDayOccurrence[] = [];
 	const limit = dayEnd.withTimeZone(TIME_ZONE);
@@ -241,8 +242,10 @@ function shardEruptionOccurrences(
 				? MISCELLANEOUS_EMOJIS.ShardStrong
 				: MISCELLANEOUS_EMOJIS.ShardRegular;
 
+			const plainDate = date.toPlainDate().toString();
+
 			occurrences.push({
-				key: `shard-eruption-${date.toPlainDate().toString()}`,
+				key: `shard-eruption-${plainDate}`,
 				label: t(`schedule.type.${ScheduleType.ShardEruption}`, { ns: "features" }),
 				detail: t("shard-eruption.realm-area", {
 					ns: "features",
@@ -254,7 +257,7 @@ function shardEruptionOccurrences(
 				infographicURL: shard.infographic.url,
 				acknowledgement: shard.infographic.acknowledgement,
 				wikiURL: null,
-				pageURL: null,
+				pageURL: plainDate <= shardEruptionMaximumDate ? `/shard-eruption?date=${plainDate}` : null,
 				catalogueURL: null,
 				times: timestamps.map(({ start, end }) =>
 					t("time-range", {
@@ -279,6 +282,7 @@ export function calendarDayOccurrences(
 	locale: string,
 	timeFormat: Intl.DateTimeFormat,
 	t: TFunction,
+	shardEruptionMaximumDate: string,
 ): CalendarDayOccurrence[] {
 	const dayEnd = dayStart.add({ days: 1 }).withTimeZone(dayStart.timeZoneId).startOfDay();
 	const skyDayStart = dayStart.withTimeZone(TIME_ZONE);
@@ -327,6 +331,8 @@ export function calendarDayOccurrences(
 		);
 	}
 
-	occurrences.push(...shardEruptionOccurrences(dayStart, dayEnd, timeFormat, t));
+	occurrences.push(
+		...shardEruptionOccurrences(dayStart, dayEnd, timeFormat, t, shardEruptionMaximumDate),
+	);
 	return occurrences.sort((a, b) => a.count - b.count || a.label.localeCompare(b.label, locale));
 }

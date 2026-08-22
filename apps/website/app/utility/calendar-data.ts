@@ -13,6 +13,7 @@ import {
 	isCalendarView,
 	isDayMarkerKind,
 } from "~/utility/calendar.js";
+import { SHARD_ERUPTION_MAXIMUM_PAGE } from "~/utility/constants.js";
 
 interface CalendarDataOptions {
 	hour12: boolean | undefined;
@@ -70,6 +71,12 @@ export function calendarData({
 	const requested = parsePlainDate(searchParams.get("date")) ?? today;
 	const anchor = clampPlainDate(requested, minimum, maximum);
 	const weekStartsOn = firstDayOfWeek(locale);
+
+	const shardEruptionMaximumDate = Temporal.Instant.fromEpochMilliseconds(nowMilliseconds)
+		.toZonedDateTimeISO(TIME_ZONE)
+		.toPlainDate()
+		.add({ days: SHARD_ERUPTION_MAXIMUM_PAGE * 30 + 30 })
+		.toString();
 	const isMonth = view === CalendarView.Month;
 	const isDay = view === CalendarView.Day;
 	const focus = isMonth ? anchor.with({ day: 1 }) : anchor;
@@ -99,6 +106,7 @@ export function calendarData({
 		hour12,
 		t,
 		dayMarkers: true,
+		shardEruptionMaximumDate,
 	});
 
 	const summaryEntries = calendarEntriesBetween({
@@ -109,6 +117,7 @@ export function calendarData({
 		hour12,
 		t,
 		dayMarkers: false,
+		shardEruptionMaximumDate,
 		summary: true,
 	});
 
@@ -197,6 +206,7 @@ export function calendarData({
 						locale,
 						new Intl.DateTimeFormat(locale, { timeStyle: "short", timeZone, hour12 }),
 						t,
+						shardEruptionMaximumDate,
 					),
 				}
 			: null;
