@@ -11,7 +11,7 @@
 		"test": "tsc --build --noEmit"
 	},
 	"dependencies": {
-		"@devvit/web": "^0.13.10",
+		"@devvit/web": "^0.14.1",
 		"@thatskyapplication/utility": "workspace:^",
 		"discord-api-types": "catalog:",
 		"express": "^5.2.1",
@@ -21,7 +21,7 @@
 		"@types/express": "^5.0.6",
 		"@types/node": "catalog:",
 		"@typescript/native": "catalog:",
-		"devvit": "^0.13.10",
+		"devvit": "^0.14.1",
 		"oxfmt": "catalog:",
 		"oxlint": "catalog:",
 		"oxlint-tsgolint": "catalog:",
