@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CalendarSettings } from "~/components/calendar/CalendarSettings";
 import { DatePicker } from "~/components/DatePicker";
+import { useCalendarKeyboardNavigation } from "~/hooks/use-calendar-keyboard-navigation";
 import {
 	CALENDAR_MINIMUM_DATE,
 	calendarNavigableMaximumDate,
@@ -50,9 +51,22 @@ export function CalendarToolbar({
 	view: CalendarViews;
 	weekStartsOn: number;
 }) {
-	const { t } = useTranslation();
+	const { i18n, t } = useTranslation();
 
 	const maximumDate = calendarNavigableMaximumDate(Temporal.PlainDate.from(todayDate)).toString();
+
+	const previousPath =
+		previousDate === null ? null : calendarPath({ view, skyTime, date: previousDate });
+
+	const nextPath = nextDate === null ? null : calendarPath({ view, skyTime, date: nextDate });
+	const todayPath = calendarPath({ view, skyTime });
+
+	useCalendarKeyboardNavigation({
+		nextPath,
+		previousPath,
+		rightToLeft: i18n.dir(i18n.language) === "rtl",
+		todayPath,
+	});
 
 	const previousLabel = t(PREVIOUS_LABEL_KEYS[view], { ns: "features" });
 	const nextLabel = t(NEXT_LABEL_KEYS[view], { ns: "features" });
@@ -62,7 +76,7 @@ export function CalendarToolbar({
 			<h1 className="my-0 text-xl sm:text-2xl lg:text-2xl">{title}</h1>
 			<div className="flex flex-wrap items-center justify-between gap-2 sm:justify-end">
 				<div className="flex items-center gap-2">
-					{previousDate === null ? (
+					{previousPath === null ? (
 						<button
 							aria-label={previousLabel}
 							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 cursor-not-allowed opacity-40")}
@@ -76,16 +90,12 @@ export function CalendarToolbar({
 							aria-label={previousLabel}
 							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
 							preventScrollReset
-							to={calendarPath({ view, skyTime, date: previousDate })}
+							to={previousPath}
 						>
 							<ChevronLeft aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 						</Link>
 					)}
-					<Link
-						className={clsx(NAVIGATION_BUTTON_CLASS, "px-3")}
-						preventScrollReset
-						to={calendarPath({ view, skyTime })}
-					>
+					<Link className={clsx(NAVIGATION_BUTTON_CLASS, "px-3")} preventScrollReset to={todayPath}>
 						{t("today", { ns: "general" })}
 					</Link>
 					<DatePicker
@@ -100,7 +110,7 @@ export function CalendarToolbar({
 						todayDate={todayDate}
 						weekStartsOn={weekStartsOn}
 					/>
-					{nextDate === null ? (
+					{nextPath === null ? (
 						<button
 							aria-label={nextLabel}
 							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9 cursor-not-allowed opacity-40")}
@@ -114,7 +124,7 @@ export function CalendarToolbar({
 							aria-label={nextLabel}
 							className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
 							preventScrollReset
-							to={calendarPath({ view, skyTime, date: nextDate })}
+							to={nextPath}
 						>
 							<ChevronRight aria-hidden="true" className="h-4 w-4 rtl:rotate-180" />
 						</Link>
