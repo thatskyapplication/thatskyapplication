@@ -81,8 +81,9 @@ export {
 	emojiConstants,
 	formatEmoji,
 	formatEmojiURL,
+	productionEmojis,
 	resolveCurrencyEmoji,
-} from "./emojis.js";
+} from "./emojis/index.js";
 export {
 	communityEventsBetween,
 	communityUpcomingEvents,

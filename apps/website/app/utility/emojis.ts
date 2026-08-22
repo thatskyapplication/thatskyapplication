@@ -1,4 +1,4 @@
-import { emojiConstants } from "@thatskyapplication/utility";
+import { productionEmojis } from "@thatskyapplication/utility";
 
 export const {
 	CosmeticToEmoji,
@@ -9,4 +9,4 @@ export const {
 	SkyProfilePersonalityToEmoji,
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalHeartEmoji,
-} = emojiConstants(true);
+} = productionEmojis();
