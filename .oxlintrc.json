@@ -131,6 +131,10 @@
 		"typescript/prefer-string-starts-ends-with": "error",
 		"typescript/related-getter-setter-pairs": "error",
 		"typescript/restrict-plus-operands": "error",
+		"typescript/switch-exhaustiveness-check": [
+			"error",
+			{ "considerDefaultExhaustiveForUnions": true }
+		],
 		"typescript/use-unknown-in-catch-callback-variable": "error",
 		"unicorn/catch-error-name": "error",
 		"unicorn/custom-error-definition": "error",

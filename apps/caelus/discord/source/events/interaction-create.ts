@@ -269,6 +269,10 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 			errorTypeString += `submitting \`${interaction.data.custom_id}\`.`;
 			break;
 		}
+		case InteractionType.Ping: {
+			errorTypeString += "responding to a ping.";
+			break;
+		}
 	}
 
 	pino.error(error, errorTypeString);
