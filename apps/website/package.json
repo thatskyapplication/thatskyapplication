@@ -40,18 +40,22 @@
 		"sharp": "catalog:"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.29.7",
+		"@babel/preset-typescript": "^7.29.7",
 		"@react-router/dev": "^8.3.0",
 		"@tailwindcss/vite": "^4.3.3",
 		"@types/node": "catalog:",
 		"@types/pg": "catalog:",
 		"@types/react": "^19.2.18",
 		"@types/react-dom": "^19.2.4",
+		"babel-plugin-react-compiler": "^1.0.0",
 		"oxfmt": "catalog:",
 		"oxlint": "catalog:",
 		"oxlint-tsgolint": "catalog:",
 		"pino-pretty": "catalog:",
 		"tailwindcss": "^4.3.3",
 		"typescript": "catalog:",
-		"vite": "catalog:"
+		"vite": "catalog:",
+		"vite-plugin-babel": "^1.7.3"
 	}
 }
