@@ -1,9 +1,4 @@
-import { useState } from "react";
-import {
-	type CalendarDayInfographic,
-	CalendarDayDetails,
-} from "~/components/calendar/CalendarDayDetails";
-import { InfographicPreview } from "~/components/InfographicPreview";
+import { CalendarDayDetails } from "~/components/calendar/CalendarDayDetails";
 import type { CalendarDayDetail, CalendarEntry } from "~/utility/calendar";
 
 export function CalendarDayView({
@@ -15,28 +10,9 @@ export function CalendarDayView({
 	detail: CalendarDayDetail;
 	locale: string;
 }) {
-	const [selectedInfographic, setSelectedInfographic] = useState<CalendarDayInfographic | null>(
-		null,
-	);
-
 	return (
-		<>
-			<div className="rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-xl dark:border-gray-700 dark:bg-gray-900">
-				<CalendarDayDetails
-					allDay={allDay}
-					locale={locale}
-					occurrences={detail.occurrences}
-					onPreview={setSelectedInfographic}
-				/>
-			</div>
-			{selectedInfographic && (
-				<InfographicPreview
-					acknowledgement={selectedInfographic.acknowledgement}
-					imageURL={selectedInfographic.imageURL}
-					onClose={() => setSelectedInfographic(null)}
-					title={selectedInfographic.title}
-				/>
-			)}
-		</>
+		<div className="rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-xl dark:border-gray-700 dark:bg-gray-900">
+			<CalendarDayDetails allDay={allDay} locale={locale} occurrences={detail.occurrences} />
+		</div>
 	);
 }

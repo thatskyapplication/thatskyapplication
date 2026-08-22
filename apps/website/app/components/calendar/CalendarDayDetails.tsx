@@ -1,5 +1,6 @@
 import { clsx } from "clsx";
 import { ExternalLinkIcon } from "lucide-react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import {
@@ -9,7 +10,7 @@ import {
 } from "~/components/calendar/CalendarEntryDetails";
 import { EmojiImage } from "~/components/EmojiIcon";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
-import type { SelectedInfographic } from "~/components/InfographicPreview";
+import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import {
 	type CalendarDayOccurrence,
 	type CalendarEntry,
@@ -18,7 +19,7 @@ import {
 
 const ENTRY_LINK_CLASS = "underline underline-offset-2 hover:no-underline" as const;
 
-export type CalendarDayInfographic = SelectedInfographic & { title: string };
+type CalendarDayInfographic = SelectedInfographic & { title: string };
 
 function AllDayEntry({ entry, locale }: { entry: CalendarEntry; locale: string }) {
 	const { t } = useTranslation();
@@ -130,14 +131,15 @@ export function CalendarDayDetails({
 	allDay,
 	locale,
 	occurrences,
-	onPreview,
 }: {
 	allDay: readonly CalendarEntry[];
 	locale: string;
 	occurrences: readonly CalendarDayOccurrence[];
-	onPreview: (infographic: CalendarDayInfographic) => void;
 }) {
 	const { t } = useTranslation();
+	const [selectedInfographic, setSelectedInfographic] = useState<CalendarDayInfographic | null>(
+		null,
+	);
 
 	return (
 		<>
@@ -160,7 +162,11 @@ export function CalendarDayDetails({
 					</h3>
 					<ul className="m-0 list-none p-0">
 						{occurrences.map((occurrence) => (
-							<DayOccurrence key={occurrence.key} occurrence={occurrence} onPreview={onPreview} />
+							<DayOccurrence
+								key={occurrence.key}
+								occurrence={occurrence}
+								onPreview={setSelectedInfographic}
+							/>
 						))}
 					</ul>
 				</section>
@@ -169,6 +175,14 @@ export function CalendarDayDetails({
 				<p className="m-0 text-sm text-gray-500 dark:text-gray-400">
 					{t("calendar.nothing-scheduled", { ns: "features" })}
 				</p>
+			)}
+			{selectedInfographic && (
+				<InfographicPreview
+					acknowledgement={selectedInfographic.acknowledgement}
+					imageURL={selectedInfographic.imageURL}
+					onClose={() => setSelectedInfographic(null)}
+					title={selectedInfographic.title}
+				/>
 			)}
 		</>
 	);
