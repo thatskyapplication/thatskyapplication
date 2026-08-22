@@ -1,3 +1,4 @@
+import { Dialog } from "@base-ui/react/dialog";
 import { Menu } from "@base-ui/react/menu";
 import { NavigationMenu } from "@base-ui/react/navigation-menu";
 import { SiCrowdin, SiDiscord, SiGithub } from "@icons-pack/react-simple-icons";
@@ -57,7 +58,6 @@ interface UserMenuProps {
 }
 
 interface MobileMenuProps {
-	isOpen: boolean;
 	onClose: () => void;
 	user?: DiscordUser | null;
 	userDisplayName: string | null;
@@ -237,169 +237,176 @@ function DesktopNavigation({
 	);
 }
 
-function MobileMenu({ isOpen, onClose, user, userDisplayName, userIconURL }: MobileMenuProps) {
+function MobileMenu({ onClose, user, userDisplayName, userIconURL }: MobileMenuProps) {
 	const location = useLocation();
 	const currentPath = location.pathname + location.search;
 	const { t } = useTranslation();
 	const navigationGroups = useNavigationGroups();
-
-	if (!isOpen) {
-		return null;
-	}
-
 	const imageURL = user ? (userIconURL ?? avatarURL(user)) : null;
 
 	return (
-		<div className="md:hidden">
-			<button
-				aria-label="Close mobile menu"
-				className="fixed inset-0 z-40 bg-black/20 backdrop-blur-xs"
-				onClick={onClose}
-				type="button"
-			/>
-			<div className="fixed top-4 right-4 bottom-4 left-4 z-50 flex flex-col rounded-xl border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900">
-				<div className="flex shrink-0 items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
-					<h3 className="font-semibold text-gray-900 dark:text-gray-100">Navigation</h3>
-					<button
-						aria-label="Close menu."
-						className="rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
-						onClick={onClose}
-						type="button"
-					>
-						<X className="h-5 w-5" />
-					</button>
-				</div>
-				<div className="flex-1 overflow-y-auto p-4">
-					{user ? (
-						<div className="mb-4 rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
-							<div className="mb-3 flex items-center gap-3">
-								<div
-									aria-label={`Avatar of ${userDisplayName ?? user.username}`}
-									className="h-8 w-8 rounded-full bg-cover bg-center"
-									role="img"
-									style={{ backgroundImage: `url(${imageURL})` }}
-								/>
-								<span className="font-medium text-gray-900 dark:text-gray-100">
-									{userDisplayName ?? user.username}
-								</span>
-							</div>
-							<div className="space-y-2">
-								<MobileUserContextMenuItem icon={User} onClick={onClose} to="/me">
-									My area
-								</MobileUserContextMenuItem>
-								<MobileUserContextMenuItem
-									icon={Users}
-									onClick={onClose}
-									to={`/sky-profiles/${user.id}`}
-								>
-									{t("sky-profile.name", { ns: "features" })}
-								</MobileUserContextMenuItem>
-								<MobileUserContextMenuItem
-									icon={BookOpenCheck}
-									onClick={onClose}
-									to="/me/catalogue"
-								>
-									{t("catalogue.main-title", { ns: "features" })}
-								</MobileUserContextMenuItem>
-								<MobileUserContextMenuItem icon={CheckSquare} onClick={onClose} to="/me/checklist">
-									{t("checklist.title", { ns: "features" })}
-								</MobileUserContextMenuItem>
-								<MobileUserContextMenuItem icon={Heart} onClick={onClose} to="/me/heart-history">
-									{t("heart.history-title", { ns: "features" })}
-								</MobileUserContextMenuItem>
-								<MobileUserContextMenuItem icon={SettingsIcon} onClick={onClose} to="/me/settings">
-									{t("settings.name", { ns: "features" })}
-								</MobileUserContextMenuItem>
-								<MobileUserContextMenuItem
-									danger
-									icon={LogOut}
-									onClick={onClose}
-									to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
-								>
-									Log out
-								</MobileUserContextMenuItem>
-							</div>
-						</div>
-					) : (
-						<div className="mb-4">
-							<Link
-								className="flex w-full items-center justify-center gap-2 rounded-lg bg-discord-button px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-								onClick={onClose}
-								to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
-							>
-								<LogIn className="h-4 w-4" />
-								Sign in with Discord
-							</Link>
-						</div>
-					)}
-
-					<nav className="space-y-4">
-						{/* Caelus. This is not a group. */}
-						<Link
-							className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-							onClick={onClose}
-							to="/caelus"
+		<Dialog.Root
+			onOpenChange={(open) => {
+				if (!open) {
+					onClose();
+				}
+			}}
+			open
+		>
+			<Dialog.Portal>
+				<Dialog.Backdrop className="fixed inset-0 z-40 bg-black/20 backdrop-blur-xs" />
+				<Dialog.Popup className="fixed top-4 right-4 bottom-4 left-4 z-50 flex flex-col rounded-xl border border-gray-200 bg-white shadow-xl dark:border-gray-700 dark:bg-gray-900">
+					<div className="flex shrink-0 items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
+						<Dialog.Title className="my-0 font-semibold text-gray-900 dark:text-gray-100">
+							Navigation
+						</Dialog.Title>
+						<Dialog.Close
+							aria-label={t("close", { ns: "general" })}
+							className="rounded-lg p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
 						>
-							<Bot className="h-5 w-5" />
-							<div>
-								<div className="font-medium">{APPLICATION_NAME}</div>
-								<div className="text-sm text-gray-500 dark:text-gray-400">
-									Guides for {APPLICATION_NAME}.
+							<X className="h-5 w-5" />
+						</Dialog.Close>
+					</div>
+					<div className="flex-1 overflow-y-auto p-4">
+						{user ? (
+							<div className="mb-4 rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
+								<div className="mb-3 flex items-center gap-3">
+									<div
+										aria-label={`Avatar of ${userDisplayName ?? user.username}`}
+										className="h-8 w-8 rounded-full bg-cover bg-center"
+										role="img"
+										style={{ backgroundImage: `url(${imageURL})` }}
+									/>
+									<span className="font-medium text-gray-900 dark:text-gray-100">
+										{userDisplayName ?? user.username}
+									</span>
+								</div>
+								<div className="space-y-2">
+									<MobileUserContextMenuItem icon={User} onClick={onClose} to="/me">
+										My area
+									</MobileUserContextMenuItem>
+									<MobileUserContextMenuItem
+										icon={Users}
+										onClick={onClose}
+										to={`/sky-profiles/${user.id}`}
+									>
+										{t("sky-profile.name", { ns: "features" })}
+									</MobileUserContextMenuItem>
+									<MobileUserContextMenuItem
+										icon={BookOpenCheck}
+										onClick={onClose}
+										to="/me/catalogue"
+									>
+										{t("catalogue.main-title", { ns: "features" })}
+									</MobileUserContextMenuItem>
+									<MobileUserContextMenuItem
+										icon={CheckSquare}
+										onClick={onClose}
+										to="/me/checklist"
+									>
+										{t("checklist.title", { ns: "features" })}
+									</MobileUserContextMenuItem>
+									<MobileUserContextMenuItem icon={Heart} onClick={onClose} to="/me/heart-history">
+										{t("heart.history-title", { ns: "features" })}
+									</MobileUserContextMenuItem>
+									<MobileUserContextMenuItem
+										icon={SettingsIcon}
+										onClick={onClose}
+										to="/me/settings"
+									>
+										{t("settings.name", { ns: "features" })}
+									</MobileUserContextMenuItem>
+									<MobileUserContextMenuItem
+										danger
+										icon={LogOut}
+										onClick={onClose}
+										to={`/logout?returnTo=${encodeURIComponent(currentPath)}`}
+									>
+										Log out
+									</MobileUserContextMenuItem>
 								</div>
 							</div>
-						</Link>
-						{navigationGroups.map((group) => (
-							<div key={group.label}>
-								<h4 className="mb-2 px-3 text-sm font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
-									{group.label}
-								</h4>
-								<div className="space-y-1">
-									{group.items.map((item) =>
-										"external" in item ? (
-											<a
-												className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-												href={item.to}
-												key={item.to}
-												onClick={onClose}
-												rel="noopener noreferrer"
-												target="_blank"
-											>
-												<span className="flex h-5 w-5 shrink-0 items-center justify-center">
-													{item.icon}
-												</span>
-												<div className="min-w-0">
-													<div className="font-medium">{item.label}</div>
-													<div className="text-sm text-gray-500 dark:text-gray-400">
-														{item.description}
-													</div>
-												</div>
-											</a>
-										) : (
-											<Link
-												className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-												key={item.to}
-												onClick={onClose}
-												to={item.to}
-											>
-												<span className="flex h-5 w-5 shrink-0 items-center justify-center">
-													{item.icon}
-												</span>
-												<div className="min-w-0">
-													<div className="font-medium">{item.label}</div>
-													<div className="text-sm text-gray-500 dark:text-gray-400">
-														{item.description}
-													</div>
-												</div>
-											</Link>
-										),
-									)}
-								</div>
+						) : (
+							<div className="mb-4">
+								<Link
+									className="flex w-full items-center justify-center gap-2 rounded-lg bg-discord-button px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+									onClick={onClose}
+									to={`/login?returnTo=${encodeURIComponent(currentPath)}`}
+								>
+									<LogIn className="h-4 w-4" />
+									Sign in with Discord
+								</Link>
 							</div>
-						))}
-					</nav>
-				</div>
-			</div>
-		</div>
+						)}
+
+						<nav className="space-y-4">
+							{/* Caelus. This is not a group. */}
+							<Link
+								className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+								onClick={onClose}
+								to="/caelus"
+							>
+								<Bot className="h-5 w-5" />
+								<div>
+									<div className="font-medium">{APPLICATION_NAME}</div>
+									<div className="text-sm text-gray-500 dark:text-gray-400">
+										Guides for {APPLICATION_NAME}.
+									</div>
+								</div>
+							</Link>
+							{navigationGroups.map((group) => (
+								<div key={group.label}>
+									<h4 className="mb-2 px-3 text-sm font-semibold tracking-wider text-gray-500 uppercase dark:text-gray-400">
+										{group.label}
+									</h4>
+									<div className="space-y-1">
+										{group.items.map((item) =>
+											"external" in item ? (
+												<a
+													className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+													href={item.to}
+													key={item.to}
+													onClick={onClose}
+													rel="noopener noreferrer"
+													target="_blank"
+												>
+													<span className="flex h-5 w-5 shrink-0 items-center justify-center">
+														{item.icon}
+													</span>
+													<div className="min-w-0">
+														<div className="font-medium">{item.label}</div>
+														<div className="text-sm text-gray-500 dark:text-gray-400">
+															{item.description}
+														</div>
+													</div>
+												</a>
+											) : (
+												<Link
+													className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+													key={item.to}
+													onClick={onClose}
+													to={item.to}
+												>
+													<span className="flex h-5 w-5 shrink-0 items-center justify-center">
+														{item.icon}
+													</span>
+													<div className="min-w-0">
+														<div className="font-medium">{item.label}</div>
+														<div className="text-sm text-gray-500 dark:text-gray-400">
+															{item.description}
+														</div>
+													</div>
+												</Link>
+											),
+										)}
+									</div>
+								</div>
+							))}
+						</nav>
+					</div>
+				</Dialog.Popup>
+			</Dialog.Portal>
+		</Dialog.Root>
 	);
 }
 
@@ -408,17 +415,6 @@ function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarPro
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const topBarRef = useRef<HTMLDivElement>(null);
 	const navigationGroups = useNavigationGroups();
-
-	useEffect(() => {
-		const handleEscape = (event: KeyboardEvent) => {
-			if (event.key === "Escape") {
-				setMobileMenuOpen(false);
-			}
-		};
-
-		document.addEventListener("keydown", handleEscape);
-		return () => document.removeEventListener("keydown", handleEscape);
-	}, []);
 
 	useEffect(() => {
 		const topBarElement = topBarRef.current;
@@ -505,13 +501,14 @@ function SiteTopBarContent({ user, userDisplayName, userIconURL }: SiteTopBarPro
 					</div>
 				</div>
 			</div>
-			<MobileMenu
-				isOpen={mobileMenuOpen}
-				onClose={() => setMobileMenuOpen(false)}
-				user={user}
-				userDisplayName={userDisplayName}
-				userIconURL={userIconURL}
-			/>
+			{mobileMenuOpen && (
+				<MobileMenu
+					onClose={() => setMobileMenuOpen(false)}
+					user={user}
+					userDisplayName={userDisplayName}
+					userIconURL={userIconURL}
+				/>
+			)}
 		</>
 	);
 }
