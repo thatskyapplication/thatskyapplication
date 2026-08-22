@@ -117,6 +117,10 @@ export function calendarEntriesBetween({
 		Temporal.ZonedDateTime.compare(start, rangeEnd) < 0 &&
 		Temporal.ZonedDateTime.compare(rangeStart, end) < 0;
 
+	const containsInstant = (instant: Temporal.ZonedDateTime) =>
+		Temporal.ZonedDateTime.compare(rangeStart, instant) <= 0 &&
+		Temporal.ZonedDateTime.compare(instant, rangeEnd) < 0;
+
 	const rangeFormat = new Intl.DateTimeFormat(locale, {
 		dateStyle: "medium",
 		timeStyle: "short",
@@ -426,7 +430,7 @@ export function calendarEntriesBetween({
 				}
 			}
 
-			if (skyDate.dayOfWeek === 7) {
+			if (skyDate.dayOfWeek === 7 && containsInstant(skyDate)) {
 				entries.push(
 					createCalendarEntry({
 						key: `eye-of-eden-${date}`,
@@ -438,6 +442,7 @@ export function calendarEntriesBetween({
 			}
 
 			if (
+				containsInstant(skyDate) &&
 				nextNestingWorkshop(skyDate.subtract({ nanoseconds: 1 }))
 					?.toPlainDate()
 					.equals(skyDate.toPlainDate())
@@ -454,7 +459,10 @@ export function calendarEntriesBetween({
 				);
 			}
 
-			if (isInternationalSpaceStationDate(skyDate)) {
+			if (
+				isInternationalSpaceStationDate(skyDate) &&
+				overlapsRange(skyDate, skyDate.add({ days: 1 }))
+			) {
 				entries.push(
 					createCalendarEntry({
 						key: `international-space-station-${date}`,
@@ -469,7 +477,10 @@ export function calendarEntriesBetween({
 
 			const aviarysFireworkFestival = aviarysFireworkFestivalSchedule(skyDate.with({ hour: 20 }));
 
-			if (aviarysFireworkFestival?.start.toPlainDate().equals(skyDate.toPlainDate())) {
+			if (
+				aviarysFireworkFestival?.start.toPlainDate().equals(skyDate.toPlainDate()) &&
+				overlapsRange(skyDate, aviarysFireworkFestival.end)
+			) {
 				entries.push(
 					createCalendarEntry({
 						key: `aviarys-firework-festival-${date}`,
