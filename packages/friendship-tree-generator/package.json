@@ -10,7 +10,7 @@
 		"test": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@napi-rs/canvas": "^0.1.100",
+		"@napi-rs/canvas": "^1.0.7",
 		"@thatskyapplication/utility": "workspace:^",
 		"undici": "^8.10.0"
 	},
