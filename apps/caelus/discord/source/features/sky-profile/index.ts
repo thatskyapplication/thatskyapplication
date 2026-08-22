@@ -68,21 +68,20 @@ import {
 	type SkyProfileData,
 	SkyProfileEditType,
 	type SkyProfileEditTypes,
-	SkyProfileMissingNameSource,
 	type SkyProfileMissingNameSources,
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
 	skySeasons,
 } from "@thatskyapplication/utility";
-import { COMMAND_CACHE } from "../caches/commands.js";
-import { GUILD_CACHE } from "../caches/guilds.js";
-import database from "../database.js";
-import { client } from "../discord.js";
-import pino from "../pino.js";
-import S3Client from "../s3-client.js";
-import { cdn } from "../thatskyapplication.js";
-import { processUploadedImage } from "../utility/assets.js";
+import { COMMAND_CACHE } from "../../caches/commands.js";
+import { GUILD_CACHE } from "../../caches/guilds.js";
+import database from "../../database.js";
+import { client } from "../../discord.js";
+import pino from "../../pino.js";
+import S3Client from "../../s3-client.js";
+import { cdn } from "../../thatskyapplication.js";
+import { processUploadedImage } from "../../utility/assets.js";
 import {
 	ARTIST_ROLE_ID,
 	CDN_BUCKET,
@@ -90,29 +89,28 @@ import {
 	SUPPORT_SERVER_GUILD_ID,
 	SUPPORTER_ROLE_ID,
 	TRANSLATOR_ROLE_ID,
-} from "../utility/configuration.js";
+} from "../../utility/configuration.js";
 import {
 	MAXIMUM_AUTOCOMPLETE_CHOICES_LIMIT,
 	MAXIMUM_AUTOCOMPLETE_NAME_LIMIT,
 	MAXIMUM_STRING_SELECT_MENU_OPTIONS_LIMIT,
-	ME_SKY_PROFILE_URL,
 	SKY_PROFILE_EXPLORE_DESCRIPTION_LENGTH,
 	SKY_PROFILE_REPORT_MAXIMUM_LENGTH,
 	SKY_PROFILE_REPORT_MINIMUM_LENGTH,
 	SKY_PROFILE_UNKNOWN_NAME,
 	SKY_PROFILES_URL,
-} from "../utility/constants.js";
+} from "../../utility/constants.js";
 import {
 	CustomId,
 	SKY_PROFILE_EXPLORER_LIKES,
 	SKY_PROFILE_EXPLORERS,
-} from "../utility/custom-id.js";
+} from "../../utility/custom-id.js";
 import {
 	EMOTE_EMOJIS,
 	MISCELLANEOUS_EMOJIS,
 	SeasonIdToSeasonalEmoji,
 	SkyProfilePersonalityToEmoji,
-} from "../utility/emojis.js";
+} from "../../utility/emojis.js";
 import {
 	chatInputApplicationCommandMention,
 	interactionInvoker,
@@ -123,13 +121,13 @@ import {
 	skyProfileWebsiteURL,
 	snowflakeDate,
 	userLogFormat,
-} from "../utility/functions.js";
-import { ModalResolver } from "../utility/modal-resolver.js";
-import type { OptionResolver } from "../utility/option-resolver.js";
-import { can } from "../utility/permissions.js";
-import { fetchCatalogue } from "./catalogue.js";
-import { findUser } from "./guess.js";
-import { totalReceived } from "./heart.js";
+} from "../../utility/functions.js";
+import { ModalResolver } from "../../utility/modal-resolver.js";
+import type { OptionResolver } from "../../utility/option-resolver.js";
+import { can } from "../../utility/permissions.js";
+import { fetchCatalogue } from "../catalogue.js";
+import { findUser } from "../guess.js";
+import { totalReceived } from "../heart.js";
 
 export type SkyProfileSetData = Partial<Packet<"sky_profiles">> &
 	Pick<Packet<"sky_profiles">, "user_id"> & {
@@ -181,18 +179,6 @@ export function isSkyProfileMissingNameSource(
 ): value is SkyProfileMissingNameSources {
 	return SKY_PROFILE_MISSING_NAME_SOURCE_VALUES.includes(value as SkyProfileMissingNameSources);
 }
-
-const SkyProfileMissingNameSourceToDescriptionKey = {
-	[SkyProfileMissingNameSource.Heart]:
-		"sky-profile.missing-name-modal-text-display-heart-source-content",
-	[SkyProfileMissingNameSource.Guess]:
-		"sky-profile.missing-name-modal-text-display-guess-source-content",
-} as const satisfies Readonly<
-	Record<
-		SkyProfileMissingNameSources,
-		`sky-profile.missing-name-modal-text-display-${string}-content`
-	>
->;
 
 function generateProfileExplorerSelectMenuOptions(
 	skyProfilePackets: readonly Packet<"sky_profiles">[],
@@ -2672,84 +2658,6 @@ function skyProfileMissingData(skyProfilePacket: Packet<"sky_profiles">, locale:
 	}
 
 	return missing;
-}
-
-export async function noSkyProfileName(
-	interaction:
-		| APIChatInputApplicationCommandInteraction
-		| APIMessageComponentButtonInteraction
-		| APIUserApplicationCommandInteraction,
-	source: SkyProfileMissingNameSources,
-) {
-	const skyProfilePacket = await database
-		.selectFrom("sky_profiles")
-		.select("name")
-		.where("user_id", "=", interactionInvoker(interaction).id)
-		.executeTakeFirst();
-
-	if (!skyProfilePacket?.name) {
-		await skyProfileMissingNameModal(interaction, source);
-		return true;
-	}
-
-	return false;
-}
-
-async function skyProfileMissingNameModal(
-	interaction:
-		| APIChatInputApplicationCommandInteraction
-		| APIMessageComponentButtonInteraction
-		| APIUserApplicationCommandInteraction,
-	source: SkyProfileMissingNameSources,
-) {
-	const { locale } = interaction;
-	const skyProfileCommandId = COMMAND_CACHE.get(t("sky-profile.command-name", { ns: "commands" }));
-	let suffix: "mention" | "text";
-
-	const options: Parameters<typeof t>[1] = {
-		lng: locale,
-		ns: "features",
-		url: ME_SKY_PROFILE_URL,
-	};
-
-	if (skyProfileCommandId) {
-		suffix = "mention";
-
-		options.mention = chatInputApplicationCommandMention(
-			skyProfileCommandId,
-			t("sky-profile.command-name", { ns: "commands" }),
-			t("sky-profile.edit.command-name", { ns: "commands" }),
-		);
-	} else {
-		suffix = "text";
-	}
-
-	await client.api.interactions.createModal(interaction.id, interaction.token, {
-		title: t("sky-profile.name", { lng: locale, ns: "features" }),
-		custom_id: `${CustomId.SkyProfileMissingNameModal}§${source}`,
-		components: [
-			{
-				type: ComponentType.TextDisplay,
-				content: t(`${SkyProfileMissingNameSourceToDescriptionKey[source]}-${suffix}`, options),
-			},
-			{
-				type: ComponentType.Label,
-				label: t("sky-profile.edit-modal-label-name-label", { lng: locale, ns: "features" }),
-				description: t("sky-profile.edit-modal-label-name-description", {
-					lng: locale,
-					ns: "features",
-				}),
-				component: {
-					type: ComponentType.TextInput,
-					custom_id: CustomId.SkyProfileNameModalName,
-					max_length: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
-					min_length: 1,
-					required: true,
-					style: TextInputStyle.Short,
-				},
-			},
-		],
-	});
 }
 
 export async function skyProfileHandleMissingNameModal(

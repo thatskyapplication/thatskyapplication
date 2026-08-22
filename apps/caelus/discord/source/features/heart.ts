@@ -45,7 +45,7 @@ import {
 	snowflakeDate,
 } from "../utility/functions.js";
 import { cannotUseUserInstallable } from "../utility/permissions.js";
-import { noSkyProfileName } from "./sky-profile.js";
+import { noSkyProfileName } from "./sky-profile/missing-name.js";
 
 function totalGifted(userId: Snowflake) {
 	return totalHearts(database, "user_id", userId);

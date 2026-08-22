@@ -6,7 +6,7 @@ import {
 	SkyProfileMissingNameSource,
 } from "@thatskyapplication/utility";
 import { guessEvent, guessSpirit, leaderboard } from "../../features/guess.js";
-import { noSkyProfileName } from "../../features/sky-profile.js";
+import { noSkyProfileName } from "../../features/sky-profile/missing-name.js";
 import { OptionResolver } from "../../utility/option-resolver.js";
 
 export default {

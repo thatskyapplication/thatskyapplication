@@ -45,7 +45,7 @@ import {
 	GUESSABLE_SPIRIT_IDS,
 	SPIRIT_COSMETIC_EMOJIS,
 } from "../utility/guess.js";
-import { noSkyProfileName } from "./sky-profile.js";
+import { noSkyProfileName } from "./sky-profile/missing-name.js";
 
 const GUESS_RANK_RAW = sql.raw<number>(GUESS_RANK_SQL);
 

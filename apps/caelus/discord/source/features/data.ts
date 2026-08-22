@@ -14,7 +14,7 @@ import {
 	TRANSLATOR_ROLE_ID,
 } from "../utility/configuration.js";
 import { interactionInvoker } from "../utility/functions.js";
-import { skyProfileDelete } from "./sky-profile.js";
+import { skyProfileDelete } from "./sky-profile/index.js";
 
 export async function deleteUserData(interaction: APIMessageComponentButtonInteraction) {
 	const { locale } = interaction;

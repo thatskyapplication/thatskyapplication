@@ -1,7 +1,7 @@
 import { type APIUserApplicationCommandInteraction, MessageFlags } from "@discordjs/core";
 import { t } from "i18next";
 import { client } from "../../discord.js";
-import { skyProfileExploreProfile } from "../../features/sky-profile.js";
+import { skyProfileExploreProfile } from "../../features/sky-profile/index.js";
 
 export default {
 	name: t("Sky-Profile.command-name", { ns: "commands" }),

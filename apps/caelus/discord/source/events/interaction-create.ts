@@ -119,7 +119,7 @@ import {
 	skyProfileSetWingedLight,
 	skyProfileShowEdit,
 	skyProfileShowReset,
-} from "../features/sky-profile.js";
+} from "../features/sky-profile/index.js";
 import {
 	spiritsHistory,
 	spiritsParseSpiritsHistoryCustomId,

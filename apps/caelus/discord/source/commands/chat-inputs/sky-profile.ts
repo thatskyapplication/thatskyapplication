@@ -23,7 +23,7 @@ import {
 	skyProfileSetAsset,
 	skyProfileShow,
 	skyProfileShowEdit,
-} from "../../features/sky-profile.js";
+} from "../../features/sky-profile/index.js";
 import { searchAutocomplete } from "../../features/spirits.js";
 import { interactionInvoker, validateImageAttachment } from "../../utility/functions.js";
 import { OptionResolver } from "../../utility/option-resolver.js";

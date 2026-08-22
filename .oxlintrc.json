@@ -65,6 +65,7 @@
 		"yoda": "error",
 		"import/no-absolute-path": "error",
 		"import/no-commonjs": "error",
+		"import/no-cycle": "error",
 		"import/no-duplicates": "error",
 		"import/no-dynamic-require": "error",
 		"import/no-mutable-exports": "error",
