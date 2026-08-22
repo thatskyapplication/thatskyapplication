@@ -3395,7 +3395,7 @@ export enum Cosmetic {
 	// 23/01/2026 | Season of Lightmending Quest 3.
 	LightmendingGuideQuest3 = 2690,
 
-	// 29/01/2026 | Travelling Spirit #159.
+	// 29/01/2026 | Travelling Spirit #159.
 	MelancholyMopeWingBuff = 2691,
 
 	// 30/01/2026 | Season of Lightmending Quest 4.
@@ -3579,7 +3579,7 @@ export enum Cosmetic {
 	BouncePad2 = 2829,
 	BouncePad3 = 2830,
 
-	// 21/05/2026 | Travelling spirit #167.
+	// 21/05/2026 | Travelling spirit #167.
 	ReassuringRangerWingBuff = 2831,
 
 	// 26/05/2026 | Version 0.33.5.
