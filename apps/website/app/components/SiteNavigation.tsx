@@ -217,7 +217,7 @@ function DesktopNavigation({
 									<ChevronDown className="h-4 w-4" />
 								</NavigationMenu.Icon>
 							</NavigationMenu.Trigger>
-							<NavigationMenu.Content className="w-64 py-1">
+							<NavigationMenu.Content className="h-full w-64 py-1">
 								{group.items.map((item) => (
 									<DesktopNavigationLink item={item} key={item.to} />
 								))}
@@ -227,9 +227,15 @@ function DesktopNavigation({
 				})}
 			</NavigationMenu.List>
 			<NavigationMenu.Portal>
-				<NavigationMenu.Positioner align="start" collisionPadding={8} side="bottom" sideOffset={8}>
-					<NavigationMenu.Popup className="z-50 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900">
-						<NavigationMenu.Viewport />
+				<NavigationMenu.Positioner
+					align="start"
+					className="h-(--positioner-height) w-(--positioner-width) max-w-(--available-width)"
+					collisionPadding={8}
+					side="bottom"
+					sideOffset={8}
+				>
+					<NavigationMenu.Popup className="relative z-50 h-(--popup-height) w-(--popup-width) overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg transition-[width,height] duration-150 dark:border-gray-700 dark:bg-gray-900">
+						<NavigationMenu.Viewport className="relative h-full w-full overflow-hidden" />
 					</NavigationMenu.Popup>
 				</NavigationMenu.Positioner>
 			</NavigationMenu.Portal>
