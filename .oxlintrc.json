@@ -139,6 +139,7 @@
 		"unicorn/no-array-fill-with-reference-type": "error",
 		"unicorn/no-array-for-each": "error",
 		"unicorn/no-document-cookie": "error",
+		"unicorn/no-immediate-mutation": "error",
 		"unicorn/no-instanceof-array": "error",
 		"unicorn/no-instanceof-builtins": "error",
 		"unicorn/no-negated-condition": "error",

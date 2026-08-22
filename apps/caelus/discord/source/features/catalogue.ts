@@ -1964,17 +1964,16 @@ async function viewSpirit(
 			divider: true,
 			spacing: SeparatorSpacingSize.Small,
 		},
+		{
+			type: ComponentType.TextDisplay,
+			content:
+				offerProgress.spirits.first() ??
+				t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, {
+					lng: locale,
+					ns: "features",
+				}),
+		},
 	];
-
-	containerComponents.push({
-		type: ComponentType.TextDisplay,
-		content:
-			offerProgress.spirits.first() ??
-			t(`catalogue.spirit-kind-no-friendship-tree.${spirit.kind}`, {
-				lng: locale,
-				ns: "features",
-			}),
-	});
 
 	if (imageURL) {
 		containerComponents.push({

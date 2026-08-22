@@ -1954,12 +1954,11 @@ export async function questsReorder(
 	const data: DailyGuidesSetData = {
 		last_updated_user_id: interaction.member.user.id,
 		last_updated_at: snowflakeDate(interaction.id),
+		quest1: isDailyQuest(newQuest1) ? newQuest1 : null,
+		quest2: isDailyQuest(newQuest2) ? newQuest2 : null,
+		quest3: newQuest3 !== null && isDailyQuest(newQuest3) ? newQuest3 : null,
+		quest4: newQuest4 !== null && isDailyQuest(newQuest4) ? newQuest4 : null,
 	};
-
-	data.quest1 = isDailyQuest(newQuest1) ? newQuest1 : null;
-	data.quest2 = isDailyQuest(newQuest2) ? newQuest2 : null;
-	data.quest3 = newQuest3 !== null && isDailyQuest(newQuest3) ? newQuest3 : null;
-	data.quest4 = newQuest4 !== null && isDailyQuest(newQuest4) ? newQuest4 : null;
 
 	const oldQuests = {
 		quest1: quest1 === null ? null : t(`quests.${quest1}`, { ns: "general" }),
