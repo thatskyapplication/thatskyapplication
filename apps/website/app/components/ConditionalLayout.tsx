@@ -24,18 +24,16 @@ export default function ConditionalLayout({
 	const location = useLocation();
 
 	const shouldShowNavigation =
-		forceShowTopBar === undefined
-			? !EXCLUDE_TOP_BAR_AND_FOOTER.includes(
-					location.pathname as (typeof EXCLUDE_TOP_BAR_AND_FOOTER)[number],
-				)
-			: forceShowTopBar;
+		forceShowTopBar ??
+		!EXCLUDE_TOP_BAR_AND_FOOTER.includes(
+			location.pathname as (typeof EXCLUDE_TOP_BAR_AND_FOOTER)[number],
+		);
 
 	const shouldShowFooter =
-		forceShowFooter === undefined
-			? !EXCLUDE_TOP_BAR_AND_FOOTER.includes(
-					location.pathname as (typeof EXCLUDE_TOP_BAR_AND_FOOTER)[number],
-				)
-			: forceShowFooter;
+		forceShowFooter ??
+		!EXCLUDE_TOP_BAR_AND_FOOTER.includes(
+			location.pathname as (typeof EXCLUDE_TOP_BAR_AND_FOOTER)[number],
+		);
 
 	return (
 		<div
