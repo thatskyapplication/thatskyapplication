@@ -237,8 +237,8 @@ catalogs:
       specifier: npm:typescript@^7.0.2
       version: 7.0.2
     croner:
-      specifier: ^9.1.0
-      version: 9.1.0
+      specifier: ^10.0.1
+      version: 10.0.1
     discord-api-types:
       specifier: ^0.38.53
       version: 0.38.53
@@ -346,7 +346,7 @@ importers:
         version: link:../../../packages/utility
       croner:
         specifier: 'catalog:'
-        version: 9.1.0
+        version: 10.0.1
       diff:
         specifier: ^9.0.0
         version: 9.0.0
@@ -459,7 +459,7 @@ importers:
         version: link:../../packages/utility
       croner:
         specifier: 'catalog:'
-        version: 9.1.0
+        version: 10.0.1
       i18next:
         specifier: 'catalog:'
         version: 26.4.0(typescript@7.0.2)
@@ -4201,8 +4201,8 @@ packages:
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
 
-  croner@9.1.0:
-    resolution: {integrity: sha512-p9nwwR4qyT5W996vBZhdvBCnMhicY5ytZkR4D1Xj0wuTDEiMnjwR57Q3RXYY/s0EpX6Ay3vgIcfaR+ewGHsi+g==}
+  croner@10.0.1:
+    resolution: {integrity: sha512-ixNtAJndqh173VQ4KodSdJEI6nuioBWI0V1ITNKhZZsO0pEMoDxz539T4FTTbSZ/xIOSuDnzxLVRqBVSvPNE2g==}
     engines: {node: '>=18.0'}
 
   cross-spawn@7.0.6:
@@ -9557,7 +9557,7 @@ snapshots:
 
   create-require@1.1.1: {}
 
-  croner@9.1.0: {}
+  croner@10.0.1: {}
 
   cross-spawn@7.0.6:
     dependencies:
