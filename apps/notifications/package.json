@@ -18,6 +18,7 @@
 		"@discordjs/rest": "catalog:",
 		"@sentry/node": "catalog:",
 		"@sentry/node-native": "catalog:",
+		"@sentry/profiling-node": "catalog:",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "catalog:",
 		"i18next": "catalog:",

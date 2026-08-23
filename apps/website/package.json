@@ -19,6 +19,7 @@
 		"@icons-pack/react-simple-icons": "10.2.0",
 		"@react-router/fs-routes": "^8.3.0",
 		"@react-router/node": "^8.3.0",
+		"@sentry/profiling-node": "catalog:",
 		"@sentry/react-router": "^10.70.0",
 		"@thatskyapplication/patch-notes": "workspace:^",
 		"@thatskyapplication/utility": "workspace:^",

@@ -1,3 +1,4 @@
+import { nodeProfilingIntegration } from "@sentry/profiling-node";
 import {
 	extraErrorDataIntegration,
 	init,
@@ -18,8 +19,11 @@ if (
 			pinoIntegration({ error: { levels: ["error", "fatal"] } }),
 			nodeRuntimeMetricsIntegration(),
 			extraErrorDataIntegration(),
+			nodeProfilingIntegration(),
 		],
 		maxBreadcrumbs: 25,
+		profileLifecycle: "trace",
+		profileSessionSampleRate: 1,
 		release: process.env.SENTRY_RELEASE,
 		traceLifecycle: "stream",
 		tracesSampleRate: 1,

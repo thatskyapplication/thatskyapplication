@@ -11,6 +11,7 @@ catalog:
   "@hono/node-server": ^2.1.1
   "@sentry/node": ^10.70.0
   "@sentry/node-native": ^10.70.0
+  "@sentry/profiling-node": ^10.70.0
   "@typescript/native": "npm:typescript@^7.0.2"
   "@types/node": ^26.2.0
   "@types/pg": ^8.23.1
@@ -41,6 +42,7 @@ syncInjectedDepsAfterScripts:
   - build
 allowBuilds:
   "@sentry/cli": true
+  "@sentry/node-cpu-profiler": false
   "@sentry/node-native-stacktrace": false
   esbuild: true
   protobufjs: true

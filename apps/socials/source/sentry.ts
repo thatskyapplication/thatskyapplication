@@ -5,6 +5,7 @@ import {
 	pinoIntegration,
 } from "@sentry/node";
 import { eventLoopBlockIntegration } from "@sentry/node-native";
+import { nodeProfilingIntegration } from "@sentry/profiling-node";
 import { PRODUCTION, SENTRY_DATA_SOURCE_NAME, SENTRY_RELEASE } from "./utility/configuration.js";
 
 if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
@@ -17,8 +18,11 @@ if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
 			nodeRuntimeMetricsIntegration(),
 			extraErrorDataIntegration(),
 			eventLoopBlockIntegration(),
+			nodeProfilingIntegration(),
 		],
 		maxBreadcrumbs: 10,
+		profileLifecycle: "trace",
+		profileSessionSampleRate: 1,
 		release: SENTRY_RELEASE,
 		traceLifecycle: "stream",
 		tracesSampleRate: 1,

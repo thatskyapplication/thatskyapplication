@@ -230,6 +230,9 @@ catalogs:
     '@sentry/node-native':
       specifier: ^10.70.0
       version: 10.70.0
+    '@sentry/profiling-node':
+      specifier: ^10.70.0
+      version: 10.70.0
     '@types/node':
       specifier: ^26.2.0
       version: 26.2.0
@@ -342,6 +345,9 @@ importers:
         specifier: 'catalog:'
         version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
       '@sentry/node-native':
+        specifier: 'catalog:'
+        version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
+      '@sentry/profiling-node':
         specifier: 'catalog:'
         version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
       '@thatskyapplication/patch-notes':
@@ -463,6 +469,9 @@ importers:
       '@sentry/node-native':
         specifier: 'catalog:'
         version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
+      '@sentry/profiling-node':
+        specifier: 'catalog:'
+        version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
       '@thatskyapplication/utility':
         specifier: workspace:^
         version: link:../../packages/utility
@@ -570,6 +579,9 @@ importers:
       '@sentry/node-native':
         specifier: 'catalog:'
         version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
+      '@sentry/profiling-node':
+        specifier: 'catalog:'
+        version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
       '@skyware/jetstream':
         specifier: 0.2.5
         version: 0.2.5(react@19.2.8)
@@ -671,6 +683,9 @@ importers:
       '@react-router/node':
         specifier: ^8.3.0
         version: 8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@7.0.2)
+      '@sentry/profiling-node':
+        specifier: 'catalog:'
+        version: 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
       '@sentry/react-router':
         specifier: ^10.70.0
         version: 10.70.0(@react-router/node@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@7.0.2))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(rollup@4.59.0)(supports-color@10.2.2)
@@ -3344,6 +3359,10 @@ packages:
       '@opentelemetry/sdk-trace-base':
         optional: true
 
+  '@sentry/node-cpu-profiler@2.4.3':
+    resolution: {integrity: sha512-18g/yJKRUk4PNcnZYEPyT2nS+9UoFcTRrIrct1DbpfI7k//RtQ+8araZrR0WH5MT8xoiLCm67GEX/RcxDsI0iQ==}
+    engines: {node: '>=18'}
+
   '@sentry/node-native-stacktrace@0.5.2':
     resolution: {integrity: sha512-p1Skk57ERpsLa/cUEFx9ePc/noCIoEXc3PnOy2bnl0r1Xkjla+hLzJKcvkVp+CuUX/4eMZ+/5AA4BJ3EJLrjZg==}
     engines: {node: '>=18'}
@@ -3363,6 +3382,11 @@ packages:
       '@opentelemetry/api': ^1.9.0
       '@opentelemetry/core': ^1.30.1 || ^2.1.0
       '@opentelemetry/sdk-trace-base': ^1.30.1 || ^2.1.0
+
+  '@sentry/profiling-node@10.70.0':
+    resolution: {integrity: sha512-bOL1nd+t6H4dHM2BB768Thm26UXBxIqBORIMr7nM+QLID+6DjHRcknRZbyklGNUVzAggsprzQ3f61i2xdRmTEA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   '@sentry/react-router@10.70.0':
     resolution: {integrity: sha512-L9x1mUOQleKC4+hwaFygxvavpnjoSG4KyoGiap2T3sLTqUc2ojG0SXICjltD5AyOny+pgAupCSPDzge7VuaAEA==}
@@ -8778,6 +8802,11 @@ snapshots:
       '@opentelemetry/instrumentation': 0.220.0(@opentelemetry/api@1.9.1)(supports-color@10.2.2)
       '@opentelemetry/sdk-trace-base': 2.10.0(@opentelemetry/api@1.9.1)
 
+  '@sentry/node-cpu-profiler@2.4.3':
+    dependencies:
+      detect-libc: 2.1.2
+      node-abi: 3.94.0
+
   '@sentry/node-native-stacktrace@0.5.2':
     dependencies:
       detect-libc: 2.1.2
@@ -8816,6 +8845,16 @@ snapshots:
       '@opentelemetry/sdk-trace-base': 2.10.0(@opentelemetry/api@1.9.1)
       '@sentry/conventions': 0.16.0
       '@sentry/core': 10.70.0
+
+  '@sentry/profiling-node@10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)':
+    dependencies:
+      '@sentry/core': 10.70.0
+      '@sentry/node': 10.70.0(@opentelemetry/core@2.10.0(@opentelemetry/api@1.9.1))(supports-color@10.2.2)
+      '@sentry/node-cpu-profiler': 2.4.3
+    transitivePeerDependencies:
+      - '@opentelemetry/core'
+      - '@opentelemetry/exporter-trace-otlp-http'
+      - supports-color
 
   '@sentry/react-router@10.70.0(@react-router/node@8.3.0(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(typescript@7.0.2))(react-router@8.3.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)(rollup@4.59.0)(supports-color@10.2.2)':
     dependencies:
