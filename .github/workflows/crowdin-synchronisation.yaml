@@ -3,6 +3,15 @@ on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
+    inputs:
+      upload_translations:
+        description: Upload the translation files to Crowdin.
+        type: boolean
+        default: false
+      auto_approve_imported:
+        description: Automatically approve the uploaded translations.
+        type: boolean
+        default: false
 permissions: {}
 jobs:
   synchronise:
@@ -45,7 +54,8 @@ jobs:
       - uses: crowdin/github-action@v2
         with:
           upload_sources: true
-          upload_translations: false
+          upload_translations: ${{ inputs.upload_translations || false }}
+          auto_approve_imported: ${{ inputs.auto_approve_imported || false }}
           download_sources: false
           download_translations: true
           skip_untranslated_strings: false
