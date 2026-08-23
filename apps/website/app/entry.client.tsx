@@ -25,7 +25,7 @@ if (dsn) {
 		integrations: [
 			reactRouterTracingIntegration(),
 			extraErrorDataIntegration(),
-			replayIntegration(),
+			replayIntegration({ maskAllText: false }),
 		],
 		replaysOnErrorSampleRate: 1,
 		replaysSessionSampleRate: 0.1,
