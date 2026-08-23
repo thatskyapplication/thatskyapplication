@@ -36,7 +36,6 @@ import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
-import { getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME } from "~/utility/constants.js";
 import {
@@ -46,8 +45,7 @@ import {
 	SeasonIdToSeasonalCandleEmoji,
 	SeasonIdToSeasonalEmoji,
 } from "~/utility/emojis.js";
-import { getPreferredHour12 } from "~/utility/hour-cycle.server";
-import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/daily-guides.js";
 
 interface DaysCountItem extends DailyGuidesDaysCountItem {
@@ -97,10 +95,8 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 };
 
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
-	const locale = getLocale(context);
+	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
 	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
-	const timeZone = getPreferredTimeZone(request);
-	const hour12 = getPreferredHour12(request);
 	const now = skyNow();
 	const initialTimestamp = now.epochMilliseconds;
 	const shard = shardEruption(now);

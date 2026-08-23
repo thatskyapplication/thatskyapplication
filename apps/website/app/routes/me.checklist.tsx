@@ -11,16 +11,14 @@ import {
 	skyCurrentEvents,
 	skyCurrentSeason,
 	skyNow,
-	TIME_ZONE,
 } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import database from "~/database.server";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
-import { getLocale } from "~/middleware/i18next.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
-import { getPreferredHour12 } from "~/utility/hour-cycle.server";
-import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import { formatClockTimes } from "~/utility/time.js";
+import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/me.checklist.js";
 
 const CHECKLIST_CARD_BASE_CLASS =
@@ -43,9 +41,7 @@ const CHECKLIST_INCOMPLETE_LABEL_CLASS = "text-gray-900 dark:text-gray-100" as c
 const CHECKLIST_UNAVAILABLE_LABEL_CLASS = "text-gray-400 dark:text-gray-600" as const;
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
-	const locale = getLocale(context);
-	const timeZone = getPreferredTimeZone(request);
-	const hour12 = getPreferredHour12(request);
+	const preferences = getTimePreferences(request, context);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	let checklistPacket = await database
@@ -75,11 +71,10 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		checklistPacket,
 		discordUser,
 		initialTimestamp,
-		locale,
 		shard,
 		season,
-		timeZone,
-		hour12,
+		...preferences,
+		initialClockTimes: formatClockTimes(initialTimestamp, preferences),
 		isAnyEventWithEventTickets,
 		isDoubleSeasonalLight: season?.isDuringDoubleSeasonalLightEvent(now) ?? false,
 	};
@@ -152,6 +147,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		season,
 		timeZone,
 		hour12,
+		initialClockTimes,
 		isAnyEventWithEventTickets,
 		isDoubleSeasonalLight,
 	} = loaderData;
@@ -160,21 +156,10 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 	useSkyDailyResetRevalidator(currentTimestamp);
 
-	const localTime = new Intl.DateTimeFormat(locale, {
-		hour: "2-digit",
-		minute: "2-digit",
-		timeZone,
-		timeZoneName: "short",
-		hour12,
-	}).format(currentTimestamp);
-
-	const skyTime = new Intl.DateTimeFormat(locale, {
-		timeZone: TIME_ZONE,
-		hour: "2-digit",
-		minute: "2-digit",
-		timeZoneName: "short",
-		hour12,
-	}).format(currentTimestamp);
+	const { localTime, skyTime } =
+		currentTimestamp === initialTimestamp
+			? initialClockTimes
+			: formatClockTimes(currentTimestamp, { locale, timeZone, hour12 });
 
 	const dailyQuestsComplete = checklistPacket?.daily_quests ?? false;
 	const seasonalCandlesComplete = checklistPacket?.seasonal_candles ?? false;

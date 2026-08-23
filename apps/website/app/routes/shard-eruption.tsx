@@ -18,7 +18,6 @@ import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
-import { getLocale } from "~/middleware/i18next.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
 import {
 	APPLICATION_NAME,
@@ -26,8 +25,7 @@ import {
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
-import { getPreferredHour12 } from "~/utility/hour-cycle.server";
-import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/shard-eruption.js";
 
 type ShardEruptionCardProps = {
@@ -120,9 +118,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	}
 
 	const shards = [];
-	const locale = getLocale(context);
-	const timeZone = getPreferredTimeZone(request);
-	const hour12 = getPreferredHour12(request);
+	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
 	let page = selectedPage ?? (pageParameter ? Number(pageParameter) : 0);
 
 	if (!Number.isInteger(page)) {

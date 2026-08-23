@@ -10,7 +10,7 @@ import { CalendarSummary } from "~/components/calendar/CalendarSummary";
 import { CalendarToolbar } from "~/components/calendar/CalendarToolbar";
 import { SitePage } from "~/components/PageLayout";
 import { useCurrentTimestamp, useDailyRevalidator } from "~/hooks/use-current-timestamp.js";
-import { getInstance, getLocale } from "~/middleware/i18next.js";
+import { getInstance } from "~/middleware/i18next.js";
 import { calendarData } from "~/utility/calendar-data.js";
 import {
 	CALENDAR_HIDDEN_KINDS_PARAMETER,
@@ -22,9 +22,8 @@ import {
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, CALENDAR_DESCRIPTION, CALENDAR_TITLE } from "~/utility/constants.js";
 import { getDocumentHour12 } from "~/utility/hour-cycle.js";
-import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
 import { getBrowserTimeZone } from "~/utility/time-zone.js";
-import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
+import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/calendar.js";
 
 export const meta: Route.MetaFunction = ({ location, matches }) => {
@@ -59,13 +58,13 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 };
 
 export const loader = ({ context, request, url }: Route.LoaderArgs) => {
-	const locale = getLocale(context);
+	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
 
 	return calendarData({
-		hour12: getPreferredHour12(request),
+		hour12,
 		locale,
 		nowMilliseconds: Date.now(),
-		preferredTimeZone: getPreferredTimeZone(request),
+		preferredTimeZone: timeZone,
 		searchParams: url.searchParams,
 		t: getInstance(context).getFixedT(locale),
 	});

@@ -15,6 +15,7 @@ import {
 	Scripts,
 	ScrollRestoration,
 	type ShouldRevalidateFunctionArgs,
+	useRevalidator,
 	useRouteLoaderData,
 } from "react-router";
 import { CDN, WEBSITE_URL } from "@thatskyapplication/utility";
@@ -36,6 +37,7 @@ import {
 	TIME_ZONE_COOKIE_MAX_AGE,
 	TIME_ZONE_COOKIE_NAME,
 } from "~/utility/time-zone";
+import { getPreferredTimeZone } from "~/utility/time-zone.server";
 import type { Route } from "./+types/root.js";
 
 export const middleware = [sessionMiddleware, i18nextMiddleware];
@@ -175,7 +177,7 @@ export function shouldRevalidate({
 		: false;
 }
 
-export async function loader({ context, url }: Route.LoaderArgs) {
+export async function loader({ context, request, url }: Route.LoaderArgs) {
 	const locale = getLocale(context);
 	const { pathname } = url;
 	const bareLayout = EXCLUDE_TOP_BAR_AND_FOOTER.includes(
@@ -195,12 +197,21 @@ export async function loader({ context, url }: Route.LoaderArgs) {
 	const userIconURL =
 		user && skyProfile?.icon ? cdn.skyProfileIconURL(user.id, skyProfile.icon) : null;
 
-	return { bareLayout, cdnURL: CDN_URL, locale, user, userDisplayName, userIconURL };
+	return {
+		bareLayout,
+		cdnURL: CDN_URL,
+		locale,
+		timeZone: getPreferredTimeZone(request),
+		user,
+		userDisplayName,
+		userIconURL,
+	};
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {
-	const { locale, user, userDisplayName, userIconURL } = loaderData;
+	const { locale, timeZone, user, userDisplayName, userIconURL } = loaderData;
 	const { i18n } = useTranslation();
+	const { revalidate } = useRevalidator();
 
 	useEffect(() => {
 		if (i18n.language !== locale) {
@@ -211,12 +222,12 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	useEffect(() => {
 		const browserTimeZone = getBrowserTimeZone();
 
-		if (!browserTimeZone) {
+		if (!browserTimeZone || browserTimeZone === timeZone) {
 			return;
 		}
 
-		void persistBrowserTimeZone(browserTimeZone);
-	}, []);
+		void persistBrowserTimeZone(browserTimeZone).then(revalidate);
+	}, [timeZone, revalidate]);
 
 	return (
 		<Tooltip.Provider>

@@ -30,17 +30,13 @@ import { StartView } from "~/components/catalogue/StartView";
 import { TotalSpentView } from "~/components/catalogue/TotalSpentView";
 import { SitePage } from "~/components/PageLayout";
 import database from "~/database.server";
-import { getLocale } from "~/middleware/i18next.js";
 import { parseCosmetics, resolveScopeCosmetics } from "~/utility/catalogue.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
-import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
-import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
+import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/me.catalogue.js";
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
-	const locale = getLocale(context);
-	const timeZone = getPreferredTimeZone(request);
-	const hour12 = getPreferredHour12(request);
+	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	const cataloguePacket = await database

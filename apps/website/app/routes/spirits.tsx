@@ -11,12 +11,11 @@ import { SpiritHistory } from "~/components/spirits/SpiritHistory.js";
 import { SpiritSearch } from "~/components/spirits/SpiritSearch.js";
 import { SpiritView } from "~/components/spirits/SpiritView.js";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
-import { getInstance, getLocale } from "~/middleware/i18next.js";
+import { getInstance } from "~/middleware/i18next.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SPIRITS_DESCRIPTION, SPIRITS_TITLE } from "~/utility/constants.js";
-import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
 import { spiritHistoryURL } from "~/utility/spirits.js";
-import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
+import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/spirits.js";
 
 export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
@@ -78,7 +77,7 @@ function resolveSpirit(rawSpiritId: string | null) {
 }
 
 export const loader = ({ context, request, url }: Route.LoaderArgs) => {
-	const locale = getLocale(context);
+	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
 	const rawSpiritId = url.searchParams.get("spirit");
 	const spirit = resolveSpirit(rawSpiritId);
 	const t = getInstance(context).getFixedT(locale);
@@ -105,13 +104,13 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 			: ({ status: "none" } as const);
 
 	return {
-		hour12: getPreferredHour12(request),
+		hour12,
 		initialTimestamp: Date.now(),
 		locale,
 		pageDescription: t("spirits.description", { ns: "features" }),
 		pageTitle: t("spirit-plural", { ns: "general" }),
 		selection,
-		timeZone: getPreferredTimeZone(request),
+		timeZone,
 	};
 };
 

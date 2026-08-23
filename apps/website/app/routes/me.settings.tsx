@@ -7,7 +7,6 @@ import { SitePage } from "~/components/PageLayout";
 import { SaveConfirmation, SaveStatus, useSaveConfirmation } from "~/components/SaveStatus.js";
 import { PRODUCTION } from "~/config.server";
 import { selectableOptionLabelClass, useIsSaving } from "~/hooks/use-is-saving.js";
-import { getLocale } from "~/middleware/i18next.js";
 import { getRequestSession } from "~/middleware/session.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import {
@@ -18,9 +17,8 @@ import {
 	HOUR_CYCLE_TWENTY_FOUR,
 	isHourCycleValue,
 } from "~/utility/hour-cycle";
-import { getPreferredHour12 } from "~/utility/hour-cycle.server";
 import { SELECTABLE_OPTION_CARD_CLASS } from "~/utility/styles.js";
-import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/me.settings.js";
 
 const TIME_FORMAT_FIELD_NAME = "time-format" as const;
@@ -40,9 +38,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 
 	return {
 		initialTimestamp: Date.now(),
-		locale: getLocale(context),
-		timeZone: getPreferredTimeZone(request),
-		hour12: getPreferredHour12(request),
+		...getTimePreferences(request, context),
 		savedAt,
 	};
 };
