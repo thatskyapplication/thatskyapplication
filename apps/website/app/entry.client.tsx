@@ -20,6 +20,7 @@ if (dsn) {
 	init({
 		dataCollection: {},
 		dsn,
+		enableLogs: true,
 		integrations: [reactRouterTracingIntegration(), extraErrorDataIntegration()],
 		tracesSampleRate: 1,
 	});
