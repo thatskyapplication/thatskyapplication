@@ -4,6 +4,7 @@ import {
 	extraErrorDataIntegration,
 	init,
 	reactRouterTracingIntegration,
+	replayIntegration,
 	sentryOnError,
 } from "@sentry/react-router";
 import i18next, { type Resource } from "i18next";
@@ -21,7 +22,13 @@ if (dsn) {
 		dataCollection: {},
 		dsn,
 		enableLogs: true,
-		integrations: [reactRouterTracingIntegration(), extraErrorDataIntegration()],
+		integrations: [
+			reactRouterTracingIntegration(),
+			extraErrorDataIntegration(),
+			replayIntegration(),
+		],
+		replaysOnErrorSampleRate: 1,
+		replaysSessionSampleRate: 0.1,
 		tracesSampleRate: 1,
 	});
 }
