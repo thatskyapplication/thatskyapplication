@@ -3,8 +3,10 @@ api_token_env: CROWDIN_PERSONAL_TOKEN
 base_url: https://thatskyapplication.api.crowdin.com
 preserve_hierarchy: true
 files:
-  - source: packages/utility/source/locales/en-gb.ts
-    translation: packages/utility/source/locales/%locale%.json
+  - source: packages/utility/en-gb.json
+    dest: /caelus.json
+    update_option: update_as_unapproved
+    translation: /packages/utility/source/locales/%locale%.json
     translation_replace:
       de-DE: de
       es-ES: es-es
