@@ -18,6 +18,7 @@
 		"@discordjs/core": "catalog:",
 		"@discordjs/rest": "catalog:",
 		"@sentry/node": "catalog:",
+		"@sentry/node-native": "catalog:",
 		"@skyware/jetstream": "0.2.5",
 		"@thatskyapplication/utility": "workspace:^",
 		"kysely": "catalog:",

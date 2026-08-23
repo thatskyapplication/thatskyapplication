@@ -24,6 +24,7 @@
 		"@hono/node-server": "catalog:",
 		"@sapphire/snowflake": "^3.5.5",
 		"@sentry/node": "catalog:",
+		"@sentry/node-native": "catalog:",
 		"@thatskyapplication/patch-notes": "workspace:^",
 		"@thatskyapplication/utility": "workspace:^",
 		"croner": "catalog:",
