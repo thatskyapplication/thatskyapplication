@@ -17,7 +17,3 @@ export function resolvePreferredTimeZone(request: Request) {
 
 	return { timeZone: TIME_ZONE, timeZoneEstimated: true };
 }
-
-export function getPreferredTimeZone(request: Request) {
-	return resolvePreferredTimeZone(request).timeZone;
-}
