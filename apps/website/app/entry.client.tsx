@@ -4,11 +4,13 @@ import {
 	extraErrorDataIntegration,
 	init,
 	reactRouterTracingIntegration,
+	sentryOnError,
 } from "@sentry/react-router";
 import i18next, { type Resource } from "i18next";
 import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
+import { isRouteErrorResponse } from "react-router";
 import { HydratedRouter } from "react-router/dom";
 import { LOCALE_RESOURCES_ELEMENT_ID, LOCALES } from "~/utility/constants";
 
@@ -70,7 +72,13 @@ async function main() {
 			document,
 			<I18nextProvider i18n={i18next}>
 				<StrictMode>
-					<HydratedRouter />
+					<HydratedRouter
+						onError={(error, info) => {
+							if (!isRouteErrorResponse(error)) {
+								sentryOnError(error, info);
+							}
+						}}
+					/>
 				</StrictMode>
 			</I18nextProvider>,
 		);

@@ -94,8 +94,6 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
 	if (isRouteErrorResponse(error)) {
 		({ status } = error);
-	} else if (error instanceof Error) {
-		captureException(error);
 	}
 
 	return (
