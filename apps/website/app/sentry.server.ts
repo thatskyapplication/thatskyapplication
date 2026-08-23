@@ -1,5 +1,6 @@
 import { nodeProfilingIntegration } from "@sentry/profiling-node";
 import {
+	dedupeIntegration,
 	extraErrorDataIntegration,
 	init,
 	nodeRuntimeMetricsIntegration,
@@ -20,6 +21,7 @@ if (
 			nodeRuntimeMetricsIntegration(),
 			extraErrorDataIntegration(),
 			nodeProfilingIntegration(),
+			dedupeIntegration(),
 		],
 		maxBreadcrumbs: 25,
 		profileLifecycle: "trace",

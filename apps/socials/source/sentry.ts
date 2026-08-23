@@ -1,4 +1,5 @@
 import {
+	dedupeIntegration,
 	extraErrorDataIntegration,
 	init,
 	nodeRuntimeMetricsIntegration,
@@ -19,6 +20,7 @@ if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
 			extraErrorDataIntegration(),
 			eventLoopBlockIntegration(),
 			nodeProfilingIntegration(),
+			dedupeIntegration(),
 		],
 		maxBreadcrumbs: 10,
 		profileLifecycle: "trace",
