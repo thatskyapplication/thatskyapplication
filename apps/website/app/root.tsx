@@ -37,7 +37,7 @@ import {
 	TIME_ZONE_COOKIE_MAX_AGE,
 	TIME_ZONE_COOKIE_NAME,
 } from "~/utility/time-zone";
-import { getPreferredTimeZone } from "~/utility/time-zone.server";
+import { resolvePreferredTimeZone } from "~/utility/time-zone.server";
 import type { Route } from "./+types/root.js";
 
 export const middleware = [sessionMiddleware, i18nextMiddleware];
@@ -201,7 +201,7 @@ export async function loader({ context, request, url }: Route.LoaderArgs) {
 		bareLayout,
 		cdnURL: CDN_URL,
 		locale,
-		timeZone: getPreferredTimeZone(request),
+		...resolvePreferredTimeZone(request),
 		user,
 		userDisplayName,
 		userIconURL,
@@ -209,7 +209,7 @@ export async function loader({ context, request, url }: Route.LoaderArgs) {
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {
-	const { locale, timeZone, user, userDisplayName, userIconURL } = loaderData;
+	const { locale, timeZone, timeZoneEstimated, user, userDisplayName, userIconURL } = loaderData;
 	const { i18n } = useTranslation();
 	const { revalidate } = useRevalidator();
 
@@ -222,12 +222,12 @@ export default function App({ loaderData }: Route.ComponentProps) {
 	useEffect(() => {
 		const browserTimeZone = getBrowserTimeZone();
 
-		if (!browserTimeZone || browserTimeZone === timeZone) {
+		if (!browserTimeZone || (!timeZoneEstimated && browserTimeZone === timeZone)) {
 			return;
 		}
 
 		void persistBrowserTimeZone(browserTimeZone).then(revalidate);
-	}, [timeZone, revalidate]);
+	}, [timeZone, timeZoneEstimated, revalidate]);
 
 	return (
 		<Tooltip.Provider>

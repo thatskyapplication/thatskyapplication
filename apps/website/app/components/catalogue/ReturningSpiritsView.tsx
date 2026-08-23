@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { resolveReturningSpirits, returningSpiritsSchedule } from "@thatskyapplication/utility";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
@@ -11,12 +12,14 @@ export function ReturningSpiritsView({
 	locale,
 	now,
 	timeZone,
+	timeZoneEstimated,
 	hour12,
 }: {
 	data: ReadonlySet<number>;
 	locale: string;
 	now: Temporal.ZonedDateTime;
 	timeZone: string;
+	timeZoneEstimated: boolean;
 	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
@@ -55,11 +58,21 @@ export function ReturningSpiritsView({
 						{t("returning-spirits", { ns: "general" })}
 					</h1>
 					<p className={NOTE_CLASS}>
-						{t("time-range", {
-							ns: "general",
-							start: dateFormat.format(visit.start.epochMilliseconds),
-							end: dateFormat.format(visit.end.epochMilliseconds),
-						})}
+						{timeZoneEstimated ? (
+							<SkeletonText>
+								{t("time-range", {
+									ns: "general",
+									start: dateFormat.format(visit.start.epochMilliseconds),
+									end: dateFormat.format(visit.end.epochMilliseconds),
+								})}
+							</SkeletonText>
+						) : (
+							t("time-range", {
+								ns: "general",
+								start: dateFormat.format(visit.start.epochMilliseconds),
+								end: dateFormat.format(visit.end.epochMilliseconds),
+							})
+						)}
 					</p>
 				</div>
 			)}

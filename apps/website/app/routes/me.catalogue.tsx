@@ -36,7 +36,7 @@ import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/me.catalogue.js";
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
-	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
+	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 
 	const cataloguePacket = await database
@@ -51,6 +51,7 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 		now: skyNow().epochMilliseconds,
 		showEverythingButton: cataloguePacket?.show_everything_button ?? false,
 		timeZone,
+		timeZoneEstimated,
 		hour12,
 	};
 };
@@ -142,6 +143,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 		now: nowMillis,
 		showEverythingButton,
 		timeZone,
+		timeZoneEstimated,
 		hour12,
 	} = loaderData;
 	const { t } = useTranslation();
@@ -180,6 +182,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 						seasonId={season.id}
 						showEverythingButton={showEverythingButton}
 						timeZone={timeZone}
+						timeZoneEstimated={timeZoneEstimated}
 						hour12={hour12}
 					/>
 				);
@@ -202,6 +205,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 						locale={locale}
 						showEverythingButton={showEverythingButton}
 						timeZone={timeZone}
+						timeZoneEstimated={timeZoneEstimated}
 						hour12={hour12}
 					/>
 				);
@@ -233,6 +237,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 					locale={locale}
 					now={now}
 					timeZone={timeZone}
+					timeZoneEstimated={timeZoneEstimated}
 				/>
 			);
 			break;

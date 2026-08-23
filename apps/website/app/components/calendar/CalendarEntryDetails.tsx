@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { formatEmojiURL, type Snowflake } from "@thatskyapplication/utility";
 import { EmojiImage } from "~/components/EmojiIcon";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import type { CalendarEntry, CalendarSummaryEntry } from "~/utility/calendar";
 
 const TIME_CHIP_CLASS =
@@ -21,10 +22,16 @@ export function CalendarEntryIcons({
 	));
 }
 
-export function CalendarTimeChips({ times }: { times: readonly string[] }) {
+export function CalendarTimeChips({
+	estimated = false,
+	times,
+}: {
+	estimated?: boolean;
+	times: readonly string[];
+}) {
 	return times.map((time) => (
 		<span className={TIME_CHIP_CLASS} key={time}>
-			{time}
+			{estimated ? <SkeletonText>{time}</SkeletonText> : time}
 		</span>
 	));
 }

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CalendarSettings } from "~/components/calendar/CalendarSettings";
 import { DatePicker } from "~/components/DatePicker";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import { useCalendarKeyboardNavigation } from "~/hooks/use-calendar-keyboard-navigation";
 import {
 	CALENDAR_MINIMUM_DATE,
@@ -31,6 +32,7 @@ const NEXT_LABEL_KEYS = {
 
 export function CalendarToolbar({
 	anchorDate,
+	anchorEstimated,
 	dayDate,
 	hiddenKinds,
 	locale,
@@ -43,6 +45,7 @@ export function CalendarToolbar({
 	weekStartsOn,
 }: {
 	anchorDate: string;
+	anchorEstimated: boolean;
 	dayDate: string;
 	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
@@ -78,7 +81,9 @@ export function CalendarToolbar({
 
 	return (
 		<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-			<h1 className="my-0 text-xl sm:text-2xl lg:text-2xl">{title}</h1>
+			<h1 className="my-0 text-xl sm:text-2xl lg:text-2xl">
+				{anchorEstimated ? <SkeletonText>{title}</SkeletonText> : title}
+			</h1>
 			<div className="flex flex-wrap items-center justify-between gap-2 sm:justify-end">
 				<div className="flex items-center gap-2">
 					{previousPath === null ? (

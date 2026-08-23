@@ -58,7 +58,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 };
 
 export const loader = ({ context, request, url }: Route.LoaderArgs) => {
-	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
+	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 
 	return calendarData({
 		hour12,
@@ -67,6 +67,7 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 		preferredTimeZone: timeZone,
 		searchParams: url.searchParams,
 		t: getInstance(context).getFixedT(locale),
+		timeZoneEstimated,
 	});
 };
 
@@ -80,6 +81,7 @@ export const clientLoader = ({ request }: Route.ClientLoaderArgs) => {
 		preferredTimeZone: getBrowserTimeZone() ?? TIME_ZONE,
 		searchParams: new URL(request.url).searchParams,
 		t: i18next.getFixedT(locale),
+		timeZoneEstimated: false,
 	});
 };
 
@@ -114,6 +116,8 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 		previousDate,
 		skyTime,
 		timeZone,
+		zoneEstimated,
+		anchorEstimated,
 		title,
 		todayDate,
 		view,
@@ -166,6 +170,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 			<div className="mx-auto flex w-full max-w-6xl flex-col gap-4">
 				<CalendarToolbar
 					anchorDate={anchorDate}
+					anchorEstimated={anchorEstimated}
 					dayDate={dayDate}
 					hiddenKinds={hiddenKinds}
 					locale={locale}
@@ -180,16 +185,23 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 				<CalendarLegend hiddenKinds={hiddenKinds} onToggle={toggleKind} />
 				{isDay ? (
 					dayDetail && (
-						<CalendarDayView allDay={visible.allDay} detail={dayDetail} locale={locale} />
+						<CalendarDayView
+							allDay={visible.allDay}
+							detail={dayDetail}
+							locale={locale}
+							zoneEstimated={zoneEstimated}
+						/>
 					)
 				) : (
 					<CalendarGrid
 						anchorDate={anchorDate}
+						anchorEstimated={anchorEstimated}
 						currentTimestamp={currentTimestamp}
 						entries={visible.entries}
 						hiddenKinds={hiddenKinds}
 						locale={locale}
 						skyTime={skyTime}
+						zoneEstimated={zoneEstimated}
 						view={view}
 						weekdayLabels={weekdayLabels}
 						weeks={weeks}
@@ -199,6 +211,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					active={visible.active}
 					hiddenKinds={hiddenKinds}
 					skyTime={skyTime}
+					zoneEstimated={zoneEstimated}
 					upcoming={visible.upcoming}
 					view={view}
 				/>
@@ -211,6 +224,7 @@ export default function Calendar({ loaderData }: Route.ComponentProps) {
 					hiddenKinds={hiddenKinds}
 					locale={locale}
 					skyTime={skyTime}
+					zoneEstimated={zoneEstimated}
 					view={view}
 				/>
 			)}

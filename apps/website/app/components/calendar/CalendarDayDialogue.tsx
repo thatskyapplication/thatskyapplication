@@ -22,6 +22,7 @@ export function CalendarDayDialogue({
 	hiddenKinds,
 	locale,
 	skyTime,
+	zoneEstimated,
 	view,
 }: {
 	allDay: readonly CalendarEntry[];
@@ -30,6 +31,7 @@ export function CalendarDayDialogue({
 	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
 	skyTime: boolean;
+	zoneEstimated: boolean;
 	view: CalendarViews;
 }) {
 	const { t } = useTranslation();
@@ -91,7 +93,12 @@ export function CalendarDayDialogue({
 						</div>
 					</div>
 					<div className="overflow-y-auto px-4 py-3">
-						<CalendarDayDetails allDay={allDay} locale={locale} occurrences={detail.occurrences} />
+						<CalendarDayDetails
+							zoneEstimated={zoneEstimated}
+							allDay={allDay}
+							locale={locale}
+							occurrences={detail.occurrences}
+						/>
 					</div>
 				</Dialog.Popup>
 			</Dialog.Portal>

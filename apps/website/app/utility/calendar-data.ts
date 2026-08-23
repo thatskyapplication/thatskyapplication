@@ -16,6 +16,9 @@ import {
 } from "~/utility/calendar.js";
 import { SHARD_ERUPTION_MAXIMUM_PAGE } from "~/utility/constants.js";
 
+const EARLIEST_UTC_OFFSET = "-12:00" as const;
+const LATEST_UTC_OFFSET = "+14:00" as const;
+
 interface CalendarDataOptions {
 	hour12: boolean | undefined;
 	locale: string;
@@ -23,6 +26,14 @@ interface CalendarDataOptions {
 	preferredTimeZone: string;
 	searchParams: URLSearchParams;
 	t: TFunction;
+	timeZoneEstimated: boolean;
+}
+
+function monthIsZoneSensitive(nowMilliseconds: number) {
+	const instant = Temporal.Instant.fromEpochMilliseconds(nowMilliseconds);
+	const earliest = instant.toZonedDateTimeISO(EARLIEST_UTC_OFFSET).toPlainDate();
+	const latest = instant.toZonedDateTimeISO(LATEST_UTC_OFFSET).toPlainDate();
+	return earliest.year !== latest.year || earliest.month !== latest.month;
 }
 
 function parsePlainDate(value: string | null) {
@@ -60,8 +71,10 @@ export function calendarData({
 	preferredTimeZone,
 	searchParams,
 	t,
+	timeZoneEstimated,
 }: CalendarDataOptions) {
 	const skyTime = searchParams.get("zone") === CALENDAR_SKY_TIME_PARAMETER;
+	const zoneEstimated = timeZoneEstimated && !skyTime;
 	const timeZone = skyTime ? TIME_ZONE : preferredTimeZone;
 	const viewParameter = searchParams.get("view");
 	const view = isCalendarView(viewParameter) ? viewParameter : CalendarView.Month;
@@ -70,8 +83,12 @@ export function calendarData({
 	const minimum = Temporal.PlainDate.from(CALENDAR_MINIMUM_DATE);
 	const maximum = Temporal.PlainDate.from(CALENDAR_MAXIMUM_DATE);
 	const navigableMaximum = calendarNavigableMaximumDate(today);
-	const requested = parsePlainDate(searchParams.get("date")) ?? today;
+	const requestedDate = parsePlainDate(searchParams.get("date"));
+	const requested = requestedDate ?? today;
 	const anchor = clampPlainDate(requested, minimum, navigableMaximum);
+
+	const anchorDependsOnToday =
+		requestedDate === null || Temporal.PlainDate.compare(requestedDate, navigableMaximum) > 0;
 	const weekStartsOn = firstDayOfWeek(locale);
 
 	const shardEruptionMaximumDate = Temporal.Instant.fromEpochMilliseconds(nowMilliseconds)
@@ -249,6 +266,8 @@ export function calendarData({
 		previousDate: Temporal.PlainDate.compare(previousEnd, minimum) < 0 ? null : previous.toString(),
 		skyTime,
 		timeZone,
+		zoneEstimated,
+		anchorEstimated: zoneEstimated && anchorDependsOnToday && monthIsZoneSensitive(nowMilliseconds),
 		title,
 		todayDate: today.toString(),
 		view,

@@ -3,6 +3,7 @@ import { ExternalLinkIcon, Link2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import type { Event } from "@thatskyapplication/utility";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import { CARD_CLASS, eventAnchor, NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { EverythingButton } from "./EverythingButton";
 import { ItemChecklist } from "./ItemChecklist";
@@ -12,6 +13,7 @@ export function EventOccurrence({
 	currentName,
 	data,
 	dateFormat,
+	timeZoneEstimated,
 	event,
 	locale,
 	showEverythingButton,
@@ -19,6 +21,7 @@ export function EventOccurrence({
 	currentName: Event["name"];
 	data: ReadonlySet<number>;
 	dateFormat: Intl.DateTimeFormat;
+	timeZoneEstimated: boolean;
 	event: Event;
 	locale: string;
 	showEverythingButton: boolean;
@@ -53,11 +56,21 @@ export function EventOccurrence({
 						</Link>
 					</h2>
 					<p className={NOTE_CLASS}>
-						{t("time-range", {
-							ns: "general",
-							start: dateFormat.format(event.start.epochMilliseconds),
-							end: dateFormat.format(event.end.epochMilliseconds),
-						})}
+						{timeZoneEstimated ? (
+							<SkeletonText>
+								{t("time-range", {
+									ns: "general",
+									start: dateFormat.format(event.start.epochMilliseconds),
+									end: dateFormat.format(event.end.epochMilliseconds),
+								})}
+							</SkeletonText>
+						) : (
+							t("time-range", {
+								ns: "general",
+								start: dateFormat.format(event.start.epochMilliseconds),
+								end: dateFormat.format(event.end.epochMilliseconds),
+							})
+						)}
 					</p>
 				</div>
 				<a

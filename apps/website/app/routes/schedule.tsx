@@ -38,6 +38,7 @@ import {
 } from "@thatskyapplication/utility";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { CentredSitePage } from "~/components/PageLayout";
+import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import { useCurrentTimestamp } from "~/hooks/use-current-timestamp.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
@@ -479,7 +480,15 @@ export const loader = ({ request, context }: Route.LoaderArgs) => {
 	};
 };
 
-function DisplayCardRow({ item, locale }: { item: DisplayCard; locale: string }) {
+function DisplayCardRow({
+	item,
+	locale,
+	timeZoneEstimated,
+}: {
+	item: DisplayCard;
+	locale: string;
+	timeZoneEstimated: boolean;
+}) {
 	const { t } = useTranslation();
 
 	const timestamp = item.active
@@ -558,7 +567,7 @@ function DisplayCardRow({ item, locale }: { item: DisplayCard; locale: string })
 				</span>
 			</div>
 			<span className="col-span-2 text-sm text-gray-500 md:col-span-1 md:text-right md:whitespace-nowrap dark:text-gray-400">
-				{timestamp}{" "}
+				{timeZoneEstimated ? <SkeletonText>{timestamp}</SkeletonText> : timestamp}{" "}
 				{relative && <span className="text-gray-400 dark:text-gray-500">({relative})</span>}
 			</span>
 		</div>
@@ -566,7 +575,7 @@ function DisplayCardRow({ item, locale }: { item: DisplayCard; locale: string })
 }
 
 export default function Schedule({ loaderData }: Route.ComponentProps) {
-	const { initialTimestamp, locale, timeZone, hour12, initialView } = loaderData;
+	const { initialTimestamp, locale, timeZone, timeZoneEstimated, hour12, initialView } = loaderData;
 	const { t } = useTranslation();
 	const currentTimestamp = useCurrentTimestamp(initialTimestamp);
 
@@ -575,10 +584,22 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 			? initialView
 			: buildScheduleView(currentTimestamp, { locale, timeZone, hour12 });
 
+	const maintenanceDescription =
+		maintenances.length === 1
+			? t("maintenance-description-singular", {
+					ns: "general",
+					start: maintenances[0]!.start,
+					end: maintenances[0]!.end,
+				})
+			: null;
+
 	return (
 		<CentredSitePage>
 			<div className="w-full max-w-2xl space-y-4">
-				<TimeTopBar localTime={localTime} skyTime={skyTime} />
+				<TimeTopBar
+					localTime={timeZoneEstimated ? <SkeletonText>{localTime}</SkeletonText> : localTime}
+					skyTime={skyTime}
+				/>
 				{maintenances.length > 0 && (
 					<div className="flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 shadow-xl dark:border-amber-800 dark:bg-amber-950/40">
 						<AlertTriangle className="h-5 w-5 shrink-0 text-amber-600 dark:text-amber-400" />
@@ -588,11 +609,11 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 							</p>
 							{maintenances.length === 1 ? (
 								<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
-									{t("maintenance-description-singular", {
-										ns: "general",
-										start: maintenances[0]!.start,
-										end: maintenances[0]!.end,
-									})}
+									{timeZoneEstimated ? (
+										<SkeletonText>{maintenanceDescription}</SkeletonText>
+									) : (
+										maintenanceDescription
+									)}
 								</p>
 							) : (
 								<>
@@ -600,15 +621,19 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 										{t("maintenance-description-many", { ns: "general" })}
 									</p>
 									<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
-										{maintenances.map((maintenance) => (
-											<li key={maintenance.key}>
-												{t("time-range", {
-													ns: "general",
-													start: maintenance.start,
-													end: maintenance.end,
-												})}
-											</li>
-										))}
+										{maintenances.map((maintenance) => {
+											const range = t("time-range", {
+												ns: "general",
+												start: maintenance.start,
+												end: maintenance.end,
+											});
+
+											return (
+												<li key={maintenance.key}>
+													{timeZoneEstimated ? <SkeletonText>{range}</SkeletonText> : range}
+												</li>
+											);
+										})}
 									</ul>
 								</>
 							)}
@@ -626,7 +651,12 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 							</div>
 							<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
 								{active.map((item) => (
-									<DisplayCardRow item={item} key={item.key} locale={locale} />
+									<DisplayCardRow
+										item={item}
+										key={item.key}
+										locale={locale}
+										timeZoneEstimated={timeZoneEstimated}
+									/>
 								))}
 							</div>
 						</div>
@@ -640,7 +670,12 @@ export default function Schedule({ loaderData }: Route.ComponentProps) {
 						</div>
 						<div className="col-span-4 grid grid-cols-subgrid divide-y divide-gray-100 dark:divide-gray-800">
 							{upcoming.map((item) => (
-								<DisplayCardRow item={item} key={item.key} locale={locale} />
+								<DisplayCardRow
+									item={item}
+									key={item.key}
+									locale={locale}
+									timeZoneEstimated={timeZoneEstimated}
+								/>
 							))}
 						</div>
 					</div>

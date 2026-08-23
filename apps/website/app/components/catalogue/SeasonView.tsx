@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { catalogueSeasonItems, type SeasonIds, skySeasons } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { Tooltip } from "../Tooltip";
@@ -19,6 +20,7 @@ export function SeasonView({
 	seasonId,
 	showEverythingButton,
 	timeZone,
+	timeZoneEstimated,
 	hour12,
 }: {
 	data: ReadonlySet<number>;
@@ -26,6 +28,7 @@ export function SeasonView({
 	seasonId: SeasonIds;
 	showEverythingButton: boolean;
 	timeZone: string;
+	timeZoneEstimated: boolean;
 	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
@@ -113,11 +116,21 @@ export function SeasonView({
 					</a>
 				</h1>
 				<p className={NOTE_CLASS}>
-					{t("time-range", {
-						ns: "general",
-						start: dateFormat.format(season.start.epochMilliseconds),
-						end: dateFormat.format(season.end.epochMilliseconds),
-					})}
+					{timeZoneEstimated ? (
+						<SkeletonText>
+							{t("time-range", {
+								ns: "general",
+								start: dateFormat.format(season.start.epochMilliseconds),
+								end: dateFormat.format(season.end.epochMilliseconds),
+							})}
+						</SkeletonText>
+					) : (
+						t("time-range", {
+							ns: "general",
+							start: dateFormat.format(season.start.epochMilliseconds),
+							end: dateFormat.format(season.end.epochMilliseconds),
+						})
+					)}
 				</p>
 			</div>
 

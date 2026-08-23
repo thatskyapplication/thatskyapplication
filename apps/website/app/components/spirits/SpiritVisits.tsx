@@ -6,6 +6,7 @@ import {
 	TIME_ZONE,
 	visitsForSpirit,
 } from "@thatskyapplication/utility";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import { formatRelativeTime } from "~/utility/relative-time.js";
 import { VisitNumber } from "./VisitNumber.js";
 
@@ -25,6 +26,7 @@ function VisitHistory({
 	locale,
 	now,
 	timeZone,
+	timeZoneEstimated,
 	title,
 }: {
 	entries: readonly VisitEntry[];
@@ -33,6 +35,7 @@ function VisitHistory({
 	locale: string;
 	now: number;
 	timeZone: string;
+	timeZoneEstimated: boolean;
 	title: string;
 }) {
 	if (entries.length === 0) {
@@ -79,7 +82,11 @@ function VisitHistory({
 									className="block text-sm leading-tight text-gray-900 dark:text-gray-100"
 									dateTime={start.toInstant().toString()}
 								>
-									{dateFormat.format(timestamp)}
+									{timeZoneEstimated ? (
+										<SkeletonText>{dateFormat.format(timestamp)}</SkeletonText>
+									) : (
+										dateFormat.format(timestamp)
+									)}
 								</time>
 								<span className="mt-0.5 block text-xs leading-tight text-gray-600 dark:text-gray-400">
 									{formatRelativeTime(timestamp, now, locale, timeZone)}
@@ -99,12 +106,14 @@ export function SpiritVisits({
 	now,
 	spirit,
 	timeZone,
+	timeZoneEstimated,
 }: {
 	hour12: boolean | undefined;
 	locale: string;
 	now: number;
 	spirit: Spirit;
 	timeZone: string;
+	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
 
@@ -169,6 +178,7 @@ export function SpiritVisits({
 						locale={locale}
 						now={now}
 						timeZone={timeZone}
+						timeZoneEstimated={timeZoneEstimated}
 						title={t("spirits.travelling", { ns: "features" })}
 					/>
 					<VisitHistory
@@ -178,6 +188,7 @@ export function SpiritVisits({
 						locale={locale}
 						now={now}
 						timeZone={timeZone}
+						timeZoneEstimated={timeZoneEstimated}
 						title={t("spirits.returning", { ns: "features" })}
 					/>
 				</div>

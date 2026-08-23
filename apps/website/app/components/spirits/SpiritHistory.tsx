@@ -14,6 +14,7 @@ import {
 } from "@thatskyapplication/utility";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
 import Pagination from "~/components/Pagination.js";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { formatRelativeTime } from "~/utility/relative-time.js";
 import { SPIRIT_HISTORY_LOCATION_STATE, spiritURL } from "~/utility/spirits.js";
@@ -46,6 +47,7 @@ function SpiritHistoryEntry({
 	searchParams,
 	spirit,
 	timeZone,
+	timeZoneEstimated,
 	visit,
 	visitNumber,
 }: {
@@ -55,6 +57,7 @@ function SpiritHistoryEntry({
 	searchParams: URLSearchParams;
 	spirit: Spirit;
 	timeZone: string;
+	timeZoneEstimated: boolean;
 	visit: IndividualSpiritVisit;
 	visitNumber: number | null;
 }) {
@@ -83,7 +86,11 @@ function SpiritHistoryEntry({
 				</div>
 				<div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-gray-600 dark:text-gray-400">
 					<time dateTime={visit.start.toInstant().toString()}>
-						{dateFormatter.format(timestamp)}
+						{timeZoneEstimated ? (
+							<SkeletonText>{dateFormatter.format(timestamp)}</SkeletonText>
+						) : (
+							dateFormatter.format(timestamp)
+						)}
 					</time>
 					<span aria-hidden="true">·</span>
 					<span>{formatRelativeTime(timestamp, now, locale, timeZone)}</span>
@@ -100,12 +107,14 @@ export function SpiritHistory({
 	now,
 	searchParams,
 	timeZone,
+	timeZoneEstimated,
 }: {
 	hour12: boolean | undefined;
 	locale: string;
 	now: number;
 	searchParams: URLSearchParams;
 	timeZone: string;
+	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
 	const order =
@@ -199,6 +208,7 @@ export function SpiritHistory({
 						searchParams={searchParams}
 						spirit={spirit}
 						timeZone={timeZone}
+						timeZoneEstimated={timeZoneEstimated}
 						visit={visit}
 						visitNumber={visitNumber}
 					/>

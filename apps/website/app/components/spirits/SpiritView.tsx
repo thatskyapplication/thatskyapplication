@@ -19,6 +19,7 @@ export function SpiritView({
 	now,
 	spirit,
 	timeZone,
+	timeZoneEstimated,
 }: {
 	historyURL: string;
 	hour12: boolean | undefined;
@@ -26,6 +27,7 @@ export function SpiritView({
 	now: number;
 	spirit: Spirit;
 	timeZone: string;
+	timeZoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
 	const location = useLocation();
@@ -74,7 +76,14 @@ export function SpiritView({
 				</div>
 			</div>
 
-			<SpiritVisits hour12={hour12} locale={locale} now={now} spirit={spirit} timeZone={timeZone} />
+			<SpiritVisits
+				hour12={hour12}
+				locale={locale}
+				now={now}
+				spirit={spirit}
+				timeZone={timeZone}
+				timeZoneEstimated={timeZoneEstimated}
+			/>
 
 			{spirit.isGuideSpirit() && spirit.inProgress ? (
 				<p className={NOTE_CLASS}>

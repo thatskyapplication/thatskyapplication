@@ -16,6 +16,7 @@ import { InfographicPreview, type SelectedInfographic } from "~/components/Infog
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination.js";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
@@ -38,6 +39,7 @@ type ShardEruptionCardProps = {
 				}[];
 		  })
 		| null;
+	timeZoneEstimated: boolean;
 	todayFormat: string;
 	currentUnix: number;
 	onPreview: (imageURL: string, acknowledgement: string | null) => void;
@@ -118,7 +120,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	}
 
 	const shards = [];
-	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
+	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	let page = selectedPage ?? (pageParameter ? Number(pageParameter) : 0);
 
 	if (!Number.isInteger(page)) {
@@ -187,6 +189,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 		page,
 		selectedDate,
 		shards,
+		timeZoneEstimated,
 		todayDate: today.toPlainDate().toString(),
 		weekStartsOn: new Intl.Locale(locale).getWeekInfo().firstDay,
 	};
@@ -195,6 +198,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 function ShardEruptionCard({
 	selected,
 	shard,
+	timeZoneEstimated,
 	todayFormat,
 	currentUnix,
 	onPreview,
@@ -232,7 +236,9 @@ function ShardEruptionCard({
 						}}
 					/>
 				)}
-				<h2 className="my-0 text-lg">{todayFormat}</h2>
+				<h2 className="my-0 text-lg">
+					{timeZoneEstimated ? <SkeletonText>{todayFormat}</SkeletonText> : todayFormat}
+				</h2>
 			</div>
 			{shard ? (
 				<>
@@ -271,6 +277,7 @@ function ShardEruptionCard({
 							end={end}
 							key={start.unix}
 							start={start}
+							timeZoneEstimated={timeZoneEstimated}
 							variant="shard-eruption"
 						/>
 					))}
@@ -293,6 +300,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 		page,
 		selectedDate,
 		shards,
+		timeZoneEstimated,
 		todayDate,
 		weekStartsOn,
 	} = loaderData;
@@ -311,6 +319,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 			}
 			selected={shard.date === selectedDate}
 			shard={shard.shard}
+			timeZoneEstimated={timeZoneEstimated}
 			todayFormat={shard.todayFormat}
 		/>
 	));

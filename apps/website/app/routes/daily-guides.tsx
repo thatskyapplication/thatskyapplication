@@ -33,6 +33,7 @@ import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
 import { CentredSitePage } from "~/components/PageLayout";
 import { ShardEruptionTimestamp } from "~/components/ShardEruptionTimestamp.js";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import database from "~/database.server";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
@@ -95,7 +96,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 };
 
 export const loader = async ({ request, context }: Route.LoaderArgs) => {
-	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
+	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const dailyGuides = await database.selectFrom("daily_guides").selectAll().execute();
 	const now = skyNow();
 	const initialTimestamp = now.epochMilliseconds;
@@ -108,6 +109,7 @@ export const loader = async ({ request, context }: Route.LoaderArgs) => {
 			initialTimestamp,
 			locale,
 			timeZone,
+			timeZoneEstimated,
 			hour12,
 			dailyGuides: dailyGuides[0]!,
 			todayString: new Intl.DateTimeFormat(locale, {
@@ -156,8 +158,16 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 }
 
 export default function DailyGuides({ loaderData }: Route.ComponentProps) {
-	const { initialTimestamp, locale, timeZone, hour12, dailyGuides, todayString, shard } =
-		loaderData;
+	const {
+		initialTimestamp,
+		locale,
+		timeZone,
+		timeZoneEstimated,
+		hour12,
+		dailyGuides,
+		todayString,
+		shard,
+	} = loaderData;
 
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
 	const cdnURL = useCDNURL();
@@ -345,52 +355,52 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 		for (const { start, name, marketingURL } of communityEvents) {
 			const daysUntilStart = start.since(today).total({ unit: "days", relativeTo: today });
 
-			const translatedText =
-				daysUntilStart >= 1
-					? t("daily-guides.event-upcoming", {
-							ns: "features",
-							event: name,
-							count: Math.floor(daysUntilStart),
-						})
-					: t("daily-guides.event-upcoming-time", {
-							ns: "features",
-							event: name,
-							time: new Intl.DateTimeFormat(locale, {
-								timeZone,
-								timeStyle: "short",
-								hour12,
-							}).format(start.epochMilliseconds),
-						});
+			const showsStartTime = daysUntilStart < 1;
+
+			const translatedText = showsStartTime
+				? t("daily-guides.event-upcoming-time", {
+						ns: "features",
+						event: name,
+						time: new Intl.DateTimeFormat(locale, {
+							timeZone,
+							timeStyle: "short",
+							hour12,
+						}).format(start.epochMilliseconds),
+					})
+				: t("daily-guides.event-upcoming", {
+						ns: "features",
+						event: name,
+						count: Math.floor(daysUntilStart),
+					});
+
+			let content: DaysCountItem["content"] = translatedText;
 
 			if (marketingURL) {
 				const parts = translatedText.split(name);
 
-				daysCount.push({
-					content: (
-						<span>
-							{parts[0]}
-							<a
-								className="regular-link inline-flex items-center gap-1"
-								href={marketingURL}
-								rel="noopener noreferrer"
-								target="_blank"
-							>
-								{name}
-								<ExternalLinkIcon className="h-3 w-3" />
-							</a>
-							{parts[1]}
-						</span>
-					),
-					key: `community-event-${name}-${start.epochMilliseconds}`,
-					start,
-				});
-			} else {
-				daysCount.push({
-					content: translatedText,
-					key: `community-event-${name}-${start.epochMilliseconds}`,
-					start,
-				});
+				content = (
+					<span>
+						{parts[0]}
+						<a
+							className="regular-link inline-flex items-center gap-1"
+							href={marketingURL}
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							{name}
+							<ExternalLinkIcon className="h-3 w-3" />
+						</a>
+						{parts[1]}
+					</span>
+				);
 			}
+
+			daysCount.push({
+				content:
+					showsStartTime && timeZoneEstimated ? <SkeletonText>{content}</SkeletonText> : content,
+				key: `community-event-${name}-${start.epochMilliseconds}`,
+				start,
+			});
 		}
 	}
 
@@ -499,6 +509,12 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 	const seenMaintenanceDays = new Set<number>();
 	const tomorrow = today.add({ days: 1 });
 
+	const maintenanceTimeFormat = new Intl.DateTimeFormat(locale, {
+		timeStyle: "short",
+		timeZone,
+		hour12,
+	});
+
 	for (const maintenance of MAINTENANCE_PERIODS) {
 		if (Temporal.ZonedDateTime.compare(maintenance.end, now) <= 0) {
 			continue;
@@ -529,22 +545,29 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				});
 			}
 		} else {
+			const upcoming = t("daily-guides.maintenance-upcoming", {
+				ns: "features",
+				count: 1,
+				time: maintenanceTimeFormat.format(maintenance.start.epochMilliseconds),
+			});
+
 			daysCount.push({
-				content: t("daily-guides.maintenance-upcoming", {
-					ns: "features",
-					count: 1,
-					time: new Intl.DateTimeFormat(locale, {
-						timeZone,
-						timeStyle: "short",
-						hour12,
-					}).format(maintenance.start.epochMilliseconds),
-				}),
+				content: timeZoneEstimated ? <SkeletonText>{upcoming}</SkeletonText> : upcoming,
 				end: maintenance.end,
 				key: `maintenance-upcoming-${maintenance.start.epochMilliseconds}`,
 				start: maintenance.start,
 			});
 		}
 	}
+
+	const maintenanceDescription =
+		todayMaintenance.length === 1
+			? t("maintenance-description-singular", {
+					ns: "general",
+					start: maintenanceTimeFormat.format(todayMaintenance[0]!.start.epochMilliseconds),
+					end: maintenanceTimeFormat.format(todayMaintenance[0]!.end.epochMilliseconds),
+				})
+			: null;
 
 	const upcomingUpdate = upcomingPatchNote(today.toPlainDate().toString());
 
@@ -594,19 +617,11 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 								</p>
 								{todayMaintenance.length === 1 ? (
 									<p className="m-0 text-xs text-amber-700 dark:text-amber-300">
-										{t("maintenance-description-singular", {
-											ns: "general",
-											start: new Intl.DateTimeFormat(locale, {
-												timeStyle: "short",
-												timeZone,
-												hour12,
-											}).format(todayMaintenance[0]!.start.epochMilliseconds),
-											end: new Intl.DateTimeFormat(locale, {
-												timeStyle: "short",
-												timeZone,
-												hour12,
-											}).format(todayMaintenance[0]!.end.epochMilliseconds),
-										})}
+										{timeZoneEstimated ? (
+											<SkeletonText>{maintenanceDescription}</SkeletonText>
+										) : (
+											maintenanceDescription
+										)}
 									</p>
 								) : (
 									<>
@@ -614,23 +629,19 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 											{t("maintenance-description-many", { ns: "general" })}
 										</p>
 										<ul className="m-0 list-disc ps-4 text-xs text-amber-600 dark:text-amber-400">
-											{todayMaintenance.map((maintenance) => (
-												<li key={maintenance.start.epochMilliseconds}>
-													{t("time-range", {
-														ns: "general",
-														start: new Intl.DateTimeFormat(locale, {
-															timeStyle: "short",
-															timeZone,
-															hour12,
-														}).format(maintenance.start.epochMilliseconds),
-														end: new Intl.DateTimeFormat(locale, {
-															timeStyle: "short",
-															timeZone,
-															hour12,
-														}).format(maintenance.end.epochMilliseconds),
-													})}
-												</li>
-											))}
+											{todayMaintenance.map((maintenance) => {
+												const range = t("time-range", {
+													ns: "general",
+													start: maintenanceTimeFormat.format(maintenance.start.epochMilliseconds),
+													end: maintenanceTimeFormat.format(maintenance.end.epochMilliseconds),
+												});
+
+												return (
+													<li key={maintenance.start.epochMilliseconds}>
+														{timeZoneEstimated ? <SkeletonText>{range}</SkeletonText> : range}
+													</li>
+												);
+											})}
 										</ul>
 									</>
 								)}
@@ -805,6 +816,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 													end={end}
 													key={start.unix}
 													start={start}
+													timeZoneEstimated={timeZoneEstimated}
 													variant="daily-guides"
 												/>
 											))}
@@ -854,6 +866,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												end={end}
 												key={start.unix}
 												start={start}
+												timeZoneEstimated={timeZoneEstimated}
 												variant="daily-guides"
 											/>
 										))}

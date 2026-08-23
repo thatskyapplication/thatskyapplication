@@ -11,6 +11,7 @@ import {
 import { EmojiImage } from "~/components/EmojiIcon";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import {
 	type CalendarDayOccurrence,
 	type CalendarEntry,
@@ -21,7 +22,15 @@ const ENTRY_LINK_CLASS = "underline underline-offset-2 hover:no-underline" as co
 
 type CalendarDayInfographic = SelectedInfographic & { title: string };
 
-function AllDayEntry({ entry, locale }: { entry: CalendarEntry; locale: string }) {
+function AllDayEntry({
+	entry,
+	locale,
+	zoneEstimated,
+}: {
+	entry: CalendarEntry;
+	locale: string;
+	zoneEstimated: boolean;
+}) {
 	const { t } = useTranslation();
 	const presentation = CalendarEntryKindPresentations[entry.kind];
 	const kindLabel = t(presentation.labelKey);
@@ -35,7 +44,9 @@ function AllDayEntry({ entry, locale }: { entry: CalendarEntry; locale: string }
 					<span className="text-xs font-normal opacity-75">{kindLabel}</span>
 				)}
 			</div>
-			<p className="m-0 mt-0.5 text-xs opacity-90">{entry.range}</p>
+			<p className="m-0 mt-0.5 text-xs opacity-90">
+				{zoneEstimated ? <SkeletonText>{entry.range}</SkeletonText> : entry.range}
+			</p>
 			{entry.spiritLinks && (
 				<p className="m-0 mt-1 text-xs">
 					<ExternalLinkList
@@ -57,9 +68,11 @@ function AllDayEntry({ entry, locale }: { entry: CalendarEntry; locale: string }
 
 function DayOccurrence({
 	occurrence,
+	zoneEstimated,
 	onPreview,
 }: {
 	occurrence: CalendarDayOccurrence;
+	zoneEstimated: boolean;
 	onPreview: (infographic: CalendarDayInfographic) => void;
 }) {
 	const { t } = useTranslation();
@@ -121,7 +134,7 @@ function DayOccurrence({
 				<p className="m-0 mt-1 text-xs text-gray-500 dark:text-gray-400">{occurrence.cadence}</p>
 			)}
 			<div className="mt-1 flex flex-wrap gap-1">
-				<CalendarTimeChips times={occurrence.times} />
+				<CalendarTimeChips estimated={zoneEstimated} times={occurrence.times} />
 			</div>
 		</li>
 	);
@@ -131,10 +144,12 @@ export function CalendarDayDetails({
 	allDay,
 	locale,
 	occurrences,
+	zoneEstimated,
 }: {
 	allDay: readonly CalendarEntry[];
 	locale: string;
 	occurrences: readonly CalendarDayOccurrence[];
+	zoneEstimated: boolean;
 }) {
 	const { t } = useTranslation();
 	const [selectedInfographic, setSelectedInfographic] = useState<CalendarDayInfographic | null>(
@@ -150,7 +165,12 @@ export function CalendarDayDetails({
 					</h3>
 					<ul className="m-0 flex list-none flex-col gap-2 p-0">
 						{allDay.map((entry) => (
-							<AllDayEntry entry={entry} key={entry.key} locale={locale} />
+							<AllDayEntry
+								entry={entry}
+								key={entry.key}
+								locale={locale}
+								zoneEstimated={zoneEstimated}
+							/>
 						))}
 					</ul>
 				</section>
@@ -166,6 +186,7 @@ export function CalendarDayDetails({
 								key={occurrence.key}
 								occurrence={occurrence}
 								onPreview={setSelectedInfographic}
+								zoneEstimated={zoneEstimated}
 							/>
 						))}
 					</ul>

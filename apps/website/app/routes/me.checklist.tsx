@@ -13,6 +13,7 @@ import {
 	skyNow,
 } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
+import { SkeletonText } from "~/components/SkeletonText";
 import { TimeTopBar } from "~/components/TimeTopBar";
 import database from "~/database.server";
 import { useCurrentTimestamp, useSkyDailyResetRevalidator } from "~/hooks/use-current-timestamp.js";
@@ -146,6 +147,7 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 		shard,
 		season,
 		timeZone,
+		timeZoneEstimated,
 		hour12,
 		initialClockTimes,
 		isAnyEventWithEventTickets,
@@ -190,7 +192,10 @@ export default function Checklist({ loaderData }: Route.ComponentProps) {
 					</p>
 				</div>
 
-				<TimeTopBar localTime={localTime} skyTime={skyTime} />
+				<TimeTopBar
+					localTime={timeZoneEstimated ? <SkeletonText>{localTime}</SkeletonText> : localTime}
+					skyTime={skyTime}
+				/>
 
 				<div className="flex flex-wrap items-stretch gap-4 *:flex *:w-full md:*:w-[calc(50%-0.5rem)] md:[&>*:last-child]:w-full">
 					<div>

@@ -11,6 +11,7 @@ export function EventFamilyView({
 	locale,
 	showEverythingButton,
 	timeZone,
+	timeZoneEstimated,
 	hour12,
 }: {
 	data: ReadonlySet<number>;
@@ -18,6 +19,7 @@ export function EventFamilyView({
 	locale: string;
 	showEverythingButton: boolean;
 	timeZone: string;
+	timeZoneEstimated: boolean;
 	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
@@ -47,6 +49,7 @@ export function EventFamilyView({
 					currentName={latest.name}
 					data={data}
 					dateFormat={dateFormat}
+					timeZoneEstimated={timeZoneEstimated}
 					event={event}
 					key={event.id}
 					locale={locale}

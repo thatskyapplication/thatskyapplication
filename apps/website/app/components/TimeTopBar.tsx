@@ -1,12 +1,13 @@
 import { clsx } from "clsx";
 import { Clock } from "lucide-react";
+import type React from "react";
 import { useTranslation } from "react-i18next";
 import { useCDNURL } from "~/hooks/use-cdn-url.js";
 import { cdnAssetURL } from "~/utility/cdn.js";
 
 interface TimeTopBarProps {
 	className?: string | undefined;
-	localTime: string;
+	localTime: React.ReactNode;
 	skyTime: string;
 }
 

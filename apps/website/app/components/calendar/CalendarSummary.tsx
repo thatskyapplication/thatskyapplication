@@ -2,6 +2,7 @@ import { clsx } from "clsx";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CalendarEntryIcons } from "~/components/calendar/CalendarEntryDetails";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import {
 	type CalendarEntryKinds,
 	CalendarEntryKindPresentations,
@@ -17,6 +18,7 @@ function SummarySection({
 	heading,
 	hiddenKinds,
 	skyTime,
+	zoneEstimated,
 	view,
 }: {
 	active: boolean;
@@ -25,6 +27,7 @@ function SummarySection({
 	heading: string;
 	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	skyTime: boolean;
+	zoneEstimated: boolean;
 	view: CalendarViews;
 }) {
 	const { t } = useTranslation();
@@ -36,40 +39,42 @@ function SummarySection({
 			</h2>
 			{entries.length > 0 ? (
 				<ul className="m-0 -mx-2 list-none p-0">
-					{entries.map((entry) => (
-						<li key={entry.key}>
-							<Link
-								className="flex items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
-								preventScrollReset
-								to={calendarPath({
-									view,
-									skyTime,
-									hiddenKinds,
-									date: entry.firstDate,
-									day: entry.firstDate,
-								})}
-							>
-								<span
-									className={clsx(
-										"h-2.5 w-2.5 shrink-0 rounded-full",
-										CalendarEntryKindPresentations[entry.kind].swatch,
-									)}
-								/>
-								<CalendarEntryIcons emojiIds={entry.iconEmojiIds} />
-								<span className="min-w-0 truncate text-sm font-medium text-gray-900 dark:text-gray-100">
-									{entry.label}
-								</span>
-								<span className="ms-auto shrink-0 text-xs whitespace-nowrap text-gray-500 dark:text-gray-400">
-									{t(
-										active
-											? "schedule.overview-ends-timestamp"
-											: "schedule.overview-next-timestamp",
-										{ ns: "features", timestamp: active ? entry.endLabel : entry.startLabel },
-									)}
-								</span>
-							</Link>
-						</li>
-					))}
+					{entries.map((entry) => {
+						const timestamp = t(
+							active ? "schedule.overview-ends-timestamp" : "schedule.overview-next-timestamp",
+							{ ns: "features", timestamp: active ? entry.endLabel : entry.startLabel },
+						);
+
+						return (
+							<li key={entry.key}>
+								<Link
+									className="flex items-center gap-2 rounded-md px-2 py-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+									preventScrollReset
+									to={calendarPath({
+										view,
+										skyTime,
+										hiddenKinds,
+										date: entry.firstDate,
+										day: entry.firstDate,
+									})}
+								>
+									<span
+										className={clsx(
+											"h-2.5 w-2.5 shrink-0 rounded-full",
+											CalendarEntryKindPresentations[entry.kind].swatch,
+										)}
+									/>
+									<CalendarEntryIcons emojiIds={entry.iconEmojiIds} />
+									<span className="min-w-0 truncate text-sm font-medium text-gray-900 dark:text-gray-100">
+										{entry.label}
+									</span>
+									<span className="ms-auto shrink-0 text-xs whitespace-nowrap text-gray-500 dark:text-gray-400">
+										{zoneEstimated ? <SkeletonText>{timestamp}</SkeletonText> : timestamp}
+									</span>
+								</Link>
+							</li>
+						);
+					})}
 				</ul>
 			) : (
 				<p className="m-0 text-sm text-gray-500 dark:text-gray-400">
@@ -84,12 +89,14 @@ export function CalendarSummary({
 	active,
 	hiddenKinds,
 	skyTime,
+	zoneEstimated,
 	upcoming,
 	view,
 }: {
 	active: readonly CalendarSummaryEntry[];
 	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	skyTime: boolean;
+	zoneEstimated: boolean;
 	upcoming: readonly CalendarSummaryEntry[];
 	view: CalendarViews;
 }) {
@@ -103,6 +110,7 @@ export function CalendarSummary({
 				heading={t("schedule.overview-active", { ns: "features" })}
 				hiddenKinds={hiddenKinds}
 				skyTime={skyTime}
+				zoneEstimated={zoneEstimated}
 				view={view}
 			/>
 			<SummarySection
@@ -112,6 +120,7 @@ export function CalendarSummary({
 				heading={t("schedule.overview-upcoming", { ns: "features" })}
 				hiddenKinds={hiddenKinds}
 				skyTime={skyTime}
+				zoneEstimated={zoneEstimated}
 				view={view}
 			/>
 		</div>

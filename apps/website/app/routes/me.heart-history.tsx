@@ -14,13 +14,14 @@ import {
 } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
 import Pagination from "~/components/Pagination";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import { Tooltip } from "~/components/Tooltip";
 import database from "~/database.server";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
 import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
-import { getPreferredTimeZone } from "~/utility/time-zone.server.js";
+import { resolvePreferredTimeZone } from "~/utility/time-zone.server.js";
 import type { Route } from "./+types/me.heart-history.js";
 
 const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 30 as const;
@@ -81,7 +82,7 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 		maximumPage,
 		received,
 		remainingToday: Math.max(MAXIMUM_HEARTS_PER_DAY - giftedToday, 0),
-		timeZone: getPreferredTimeZone(request),
+		...resolvePreferredTimeZone(request),
 		hour12: getPreferredHour12(request),
 		userId,
 	};
@@ -144,10 +145,18 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 		received,
 		remainingToday,
 		timeZone,
+		timeZoneEstimated,
 		hour12,
 		userId,
 	} = loaderData;
 	const { i18n, t } = useTranslation();
+
+	const heartTimestampFormat = new Intl.DateTimeFormat(i18n.language, {
+		dateStyle: "medium",
+		timeStyle: "short",
+		timeZone,
+		hour12,
+	});
 	const heartEmojiURL = formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id);
 
 	return (
@@ -244,6 +253,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 							const relatedUserId = gifted ? heartPacket.giftee_id : heartPacket.user_id;
 							const relatedProfileName = gifted ? heartPacket.giftee_name : heartPacket.user_name;
 							const timestamp = heartPacket.timestamp.toISOString();
+							const formatted = heartTimestampFormat.format(heartPacket.timestamp);
 
 							return (
 								<div
@@ -273,12 +283,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 											</p>
 										</div>
 										<time className="text-xs text-gray-500 dark:text-gray-400" dateTime={timestamp}>
-											{new Intl.DateTimeFormat(i18n.language, {
-												dateStyle: "medium",
-												timeStyle: "short",
-												timeZone,
-												hour12,
-											}).format(heartPacket.timestamp)}
+											{timeZoneEstimated ? <SkeletonText>{formatted}</SkeletonText> : formatted}
 										</time>
 									</div>
 								</div>

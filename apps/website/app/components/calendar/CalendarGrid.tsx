@@ -3,6 +3,7 @@ import { Fragment, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { CalendarEntryBar } from "~/components/calendar/CalendarEntryBar";
+import { SkeletonText } from "~/components/SkeletonText.js";
 import {
 	type CalendarEntry,
 	type CalendarEntryKinds,
@@ -18,20 +19,24 @@ const WEEK_LANE_HEIGHT = "sm:[--calendar-lane:1.875rem]" as const;
 
 function CalendarWeekRow({
 	anchorDate,
+	anchorEstimated,
 	currentTimestamp,
 	entries,
 	hiddenKinds,
 	locale,
 	skyTime,
+	zoneEstimated,
 	view,
 	week,
 }: {
 	anchorDate: string;
+	anchorEstimated: boolean;
 	currentTimestamp: number;
 	entries: readonly CalendarEntry[];
 	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
 	skyTime: boolean;
+	zoneEstimated: boolean;
 	view: CalendarViews;
 	week: CalendarWeek;
 }) {
@@ -68,7 +73,8 @@ function CalendarWeekRow({
 					);
 				}
 
-				const isToday = currentTimestamp >= day.startsAt && currentTimestamp < day.endsAt;
+				const isToday =
+					!zoneEstimated && currentTimestamp >= day.startsAt && currentTimestamp < day.endsAt;
 
 				return (
 					<Fragment key={day.date}>
@@ -98,36 +104,49 @@ function CalendarWeekRow({
 											: "text-gray-700 dark:text-gray-300",
 								)}
 							>
-								{day.label}
+								{anchorEstimated ? <SkeletonText>{day.label}</SkeletonText> : day.label}
 							</span>
 						</div>
 					</Fragment>
 				);
 			})}
-			{segments.map((segment) => (
-				<CalendarEntryBar key={segment.key} locale={locale} segment={segment} view={view} />
-			))}
+			{zoneEstimated
+				? Array.from({ length: laneCount }, (_, lane) => (
+						<div
+							aria-hidden
+							className="mx-1 mb-0.5 rounded bg-current/10 motion-safe:animate-pulse"
+							key={lane}
+							style={{ gridColumn: "1 / -1", gridRow: lane + 2 }}
+						/>
+					))
+				: segments.map((segment) => (
+						<CalendarEntryBar key={segment.key} locale={locale} segment={segment} view={view} />
+					))}
 		</div>
 	);
 }
 
 export function CalendarGrid({
 	anchorDate,
+	anchorEstimated,
 	currentTimestamp,
 	entries,
 	hiddenKinds,
 	locale,
 	skyTime,
+	zoneEstimated,
 	view,
 	weekdayLabels,
 	weeks,
 }: {
 	anchorDate: string;
+	anchorEstimated: boolean;
 	currentTimestamp: number;
 	entries: readonly CalendarEntry[];
 	hiddenKinds: ReadonlySet<CalendarEntryKinds>;
 	locale: string;
 	skyTime: boolean;
+	zoneEstimated: boolean;
 	view: CalendarViews;
 	weekdayLabels: readonly string[];
 	weeks: readonly CalendarWeek[];
@@ -147,12 +166,14 @@ export function CalendarGrid({
 			{weeks.map((week) => (
 				<CalendarWeekRow
 					anchorDate={anchorDate}
+					anchorEstimated={anchorEstimated}
 					currentTimestamp={currentTimestamp}
 					entries={entries}
 					hiddenKinds={hiddenKinds}
 					key={week.key}
 					locale={locale}
 					skyTime={skyTime}
+					zoneEstimated={zoneEstimated}
 					view={view}
 					week={week}
 				/>

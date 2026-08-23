@@ -77,7 +77,7 @@ function resolveSpirit(rawSpiritId: string | null) {
 }
 
 export const loader = ({ context, request, url }: Route.LoaderArgs) => {
-	const { locale, timeZone, hour12 } = getTimePreferences(request, context);
+	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const rawSpiritId = url.searchParams.get("spirit");
 	const spirit = resolveSpirit(rawSpiritId);
 	const t = getInstance(context).getFixedT(locale);
@@ -111,6 +111,7 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 		pageTitle: t("spirit-plural", { ns: "general" }),
 		selection,
 		timeZone,
+		timeZoneEstimated,
 	};
 };
 
@@ -126,10 +127,11 @@ export function shouldRevalidate({
 	defaultShouldRevalidate,
 	nextUrl,
 }: ShouldRevalidateFunctionArgs) {
-	return currentUrl.pathname !== nextUrl.pathname ||
-		loaderSearchParameters(currentUrl) !== loaderSearchParameters(nextUrl)
-		? defaultShouldRevalidate
-		: false;
+	return currentUrl.href !== nextUrl.href &&
+		currentUrl.pathname === nextUrl.pathname &&
+		loaderSearchParameters(currentUrl) === loaderSearchParameters(nextUrl)
+		? false
+		: defaultShouldRevalidate;
 }
 
 export default function Spirits({ loaderData }: Route.ComponentProps) {
@@ -163,6 +165,7 @@ export default function Spirits({ loaderData }: Route.ComponentProps) {
 						now={currentTimestamp}
 						spirit={selectedSpirit}
 						timeZone={loaderData.timeZone}
+						timeZoneEstimated={loaderData.timeZoneEstimated}
 					/>
 				) : (
 					<SpiritHistory
@@ -171,6 +174,7 @@ export default function Spirits({ loaderData }: Route.ComponentProps) {
 						now={currentTimestamp}
 						searchParams={searchParams}
 						timeZone={loaderData.timeZone}
+						timeZoneEstimated={loaderData.timeZoneEstimated}
 					/>
 				)}
 			</div>
