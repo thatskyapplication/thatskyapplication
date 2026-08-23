@@ -20,6 +20,7 @@ if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
 		],
 		maxBreadcrumbs: 10,
 		release: SENTRY_RELEASE,
+		traceLifecycle: "stream",
 		tracesSampleRate: 1,
 	});
 }

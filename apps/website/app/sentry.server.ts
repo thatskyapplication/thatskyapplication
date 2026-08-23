@@ -21,6 +21,7 @@ if (
 		],
 		maxBreadcrumbs: 25,
 		release: process.env.SENTRY_RELEASE,
+		traceLifecycle: "stream",
 		tracesSampleRate: 1,
 	});
 }
