@@ -1,4 +1,9 @@
-import { init, nodeRuntimeMetricsIntegration, pinoIntegration } from "@sentry/node";
+import {
+	extraErrorDataIntegration,
+	init,
+	nodeRuntimeMetricsIntegration,
+	pinoIntegration,
+} from "@sentry/node";
 import { PRODUCTION, SENTRY_DATA_SOURCE_NAME, SENTRY_RELEASE } from "./utility/configuration.js";
 
 if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
@@ -9,6 +14,7 @@ if (PRODUCTION && SENTRY_DATA_SOURCE_NAME && SENTRY_RELEASE) {
 		integrations: [
 			pinoIntegration({ error: { levels: ["error", "fatal"] } }),
 			nodeRuntimeMetricsIntegration(),
+			extraErrorDataIntegration(),
 		],
 		maxBreadcrumbs: 10,
 		release: SENTRY_RELEASE,

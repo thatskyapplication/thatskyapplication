@@ -1,5 +1,10 @@
 import { Locale } from "@discordjs/core/http-only";
-import { captureException, init, reactRouterTracingIntegration } from "@sentry/react-router";
+import {
+	captureException,
+	extraErrorDataIntegration,
+	init,
+	reactRouterTracingIntegration,
+} from "@sentry/react-router";
 import i18next, { type Resource } from "i18next";
 import { StrictMode, startTransition } from "react";
 import { hydrateRoot } from "react-dom/client";
@@ -13,7 +18,7 @@ if (dsn) {
 	init({
 		dataCollection: {},
 		dsn,
-		integrations: [reactRouterTracingIntegration()],
+		integrations: [reactRouterTracingIntegration(), extraErrorDataIntegration()],
 		tracesSampleRate: 1,
 	});
 }

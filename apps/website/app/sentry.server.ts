@@ -1,4 +1,9 @@
-import { init, nodeRuntimeMetricsIntegration, pinoIntegration } from "@sentry/react-router";
+import {
+	extraErrorDataIntegration,
+	init,
+	nodeRuntimeMetricsIntegration,
+	pinoIntegration,
+} from "@sentry/react-router";
 
 if (
 	process.env.NODE_ENV === "production" &&
@@ -12,9 +17,10 @@ if (
 		integrations: [
 			pinoIntegration({ error: { levels: ["error", "fatal"] } }),
 			nodeRuntimeMetricsIntegration(),
+			extraErrorDataIntegration(),
 		],
 		maxBreadcrumbs: 25,
-		tracesSampleRate: 1,
 		release: process.env.SENTRY_RELEASE,
+		tracesSampleRate: 1,
 	});
 }
