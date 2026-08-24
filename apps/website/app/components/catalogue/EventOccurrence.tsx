@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import type { Event } from "@thatskyapplication/utility";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { CARD_CLASS, eventAnchor, NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
+import type { DateTimeLabels } from "~/utility/time.js";
 import { EverythingButton } from "./EverythingButton";
 import { ItemChecklist } from "./ItemChecklist";
 import { RemainingCostList } from "./RemainingCostList";
@@ -12,7 +13,7 @@ import { RemainingCostList } from "./RemainingCostList";
 export function EventOccurrence({
 	currentName,
 	data,
-	dateFormat,
+	dateTimeLabels,
 	timeZoneEstimated,
 	event,
 	locale,
@@ -20,13 +21,19 @@ export function EventOccurrence({
 }: {
 	currentName: Event["name"];
 	data: ReadonlySet<number>;
-	dateFormat: Intl.DateTimeFormat;
+	dateTimeLabels: DateTimeLabels;
 	timeZoneEstimated: boolean;
 	event: Event;
 	locale: string;
 	showEverythingButton: boolean;
 }) {
 	const { t } = useTranslation();
+
+	const timeRange = t("time-range", {
+		ns: "general",
+		start: dateTimeLabels[event.start.epochMilliseconds],
+		end: dateTimeLabels[event.end.epochMilliseconds],
+	});
 
 	return (
 		<div
@@ -56,21 +63,7 @@ export function EventOccurrence({
 						</Link>
 					</h2>
 					<p className={NOTE_CLASS}>
-						{timeZoneEstimated ? (
-							<SkeletonText>
-								{t("time-range", {
-									ns: "general",
-									start: dateFormat.format(event.start.epochMilliseconds),
-									end: dateFormat.format(event.end.epochMilliseconds),
-								})}
-							</SkeletonText>
-						) : (
-							t("time-range", {
-								ns: "general",
-								start: dateFormat.format(event.start.epochMilliseconds),
-								end: dateFormat.format(event.end.epochMilliseconds),
-							})
-						)}
+						{timeZoneEstimated ? <SkeletonText>{timeRange}</SkeletonText> : timeRange}
 					</p>
 				</div>
 				<a

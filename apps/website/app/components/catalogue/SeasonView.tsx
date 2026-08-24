@@ -5,6 +5,7 @@ import { EmojiIcon } from "~/components/EmojiIcon.js";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
+import type { DateTimeLabels } from "~/utility/time.js";
 import { Tooltip } from "../Tooltip";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
@@ -16,20 +17,18 @@ import { SpiritTreeColumn } from "./SpiritTreeColumn";
 
 export function SeasonView({
 	data,
+	dateTimeLabels,
 	locale,
 	seasonId,
 	showEverythingButton,
-	timeZone,
 	timeZoneEstimated,
-	hour12,
 }: {
 	data: ReadonlySet<number>;
+	dateTimeLabels: DateTimeLabels;
 	locale: string;
 	seasonId: SeasonIds;
 	showEverythingButton: boolean;
-	timeZone: string;
 	timeZoneEstimated: boolean;
-	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
 	const seasons = skySeasons();
@@ -37,11 +36,11 @@ export function SeasonView({
 	const items = catalogueSeasonItems([season]);
 	const seasonEmoji = SeasonIdToSeasonalEmoji[season.id];
 	const spiritTreeColumns = [];
-	const dateFormat = new Intl.DateTimeFormat(locale, {
-		dateStyle: "medium",
-		timeStyle: "short",
-		timeZone,
-		hour12,
+
+	const timeRange = t("time-range", {
+		ns: "general",
+		start: dateTimeLabels[season.start.epochMilliseconds],
+		end: dateTimeLabels[season.end.epochMilliseconds],
 	});
 
 	for (const spirit of season.spiritsWithGuide.values()) {
@@ -116,21 +115,7 @@ export function SeasonView({
 					</a>
 				</h1>
 				<p className={NOTE_CLASS}>
-					{timeZoneEstimated ? (
-						<SkeletonText>
-							{t("time-range", {
-								ns: "general",
-								start: dateFormat.format(season.start.epochMilliseconds),
-								end: dateFormat.format(season.end.epochMilliseconds),
-							})}
-						</SkeletonText>
-					) : (
-						t("time-range", {
-							ns: "general",
-							start: dateFormat.format(season.start.epochMilliseconds),
-							end: dateFormat.format(season.end.epochMilliseconds),
-						})
-					)}
+					{timeZoneEstimated ? <SkeletonText>{timeRange}</SkeletonText> : timeRange}
 				</p>
 			</div>
 

@@ -10,6 +10,7 @@ import {
 	type SeasonIds,
 	type SpiritIds,
 	STARTER_PACKS,
+	returningSpiritsSchedule,
 	skyEventFamilies,
 	skyNow,
 	skySeasons,
@@ -32,12 +33,40 @@ import { SitePage } from "~/components/PageLayout";
 import database from "~/database.server";
 import { parseCosmetics, resolveScopeCosmetics } from "~/utility/catalogue.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
+import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/me.catalogue.js";
+
+function viewTimestamps(searchParams: URLSearchParams, now: Temporal.ZonedDateTime) {
+	switch (searchParams.get("view")) {
+		case "season": {
+			const season = skySeasons().get(Number(searchParams.get("season")) as SeasonIds);
+			return season ? [season.start.epochMilliseconds, season.end.epochMilliseconds] : [];
+		}
+		case "event-family": {
+			const family = Number(searchParams.get("family"));
+			const eventFamily = isEventFamilyId(family) ? skyEventFamilies().get(family) : undefined;
+
+			return eventFamily
+				? eventFamily.occurrences.flatMap((event) => [
+						event.start.epochMilliseconds,
+						event.end.epochMilliseconds,
+					])
+				: [];
+		}
+		case "returning-spirits": {
+			const visit = returningSpiritsSchedule(now);
+			return visit ? [visit.start.epochMilliseconds, visit.end.epochMilliseconds] : [];
+		}
+		default:
+			return [];
+	}
+}
 
 export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
+	const now = skyNow();
 
 	const cataloguePacket = await database
 		.selectFrom("catalogue")
@@ -47,12 +76,15 @@ export const loader = async ({ request, context, url }: Route.LoaderArgs) => {
 
 	return {
 		data: cataloguePacket?.data ?? [],
+		dateTimeLabels: dateTimeLabels(viewTimestamps(url.searchParams, now), {
+			locale,
+			timeZone,
+			hour12,
+		}),
 		locale,
-		now: skyNow().epochMilliseconds,
+		now: now.epochMilliseconds,
 		showEverythingButton: cataloguePacket?.show_everything_button ?? false,
-		timeZone,
 		timeZoneEstimated,
-		hour12,
 	};
 };
 
@@ -139,12 +171,11 @@ export const action = async ({ context, request, url }: Route.ActionArgs) => {
 export default function Catalogue({ loaderData }: Route.ComponentProps) {
 	const {
 		data: dataArray,
+		dateTimeLabels,
 		locale,
 		now: nowMillis,
 		showEverythingButton,
-		timeZone,
 		timeZoneEstimated,
-		hour12,
 	} = loaderData;
 	const { t } = useTranslation();
 	const [searchParams] = useSearchParams();
@@ -178,12 +209,11 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 				content = (
 					<SeasonView
 						data={data}
+						dateTimeLabels={dateTimeLabels}
 						locale={locale}
 						seasonId={season.id}
 						showEverythingButton={showEverythingButton}
-						timeZone={timeZone}
 						timeZoneEstimated={timeZoneEstimated}
-						hour12={hour12}
 					/>
 				);
 			}
@@ -201,12 +231,11 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 				content = (
 					<EventFamilyView
 						data={data}
+						dateTimeLabels={dateTimeLabels}
 						family={eventFamily}
 						locale={locale}
 						showEverythingButton={showEverythingButton}
-						timeZone={timeZone}
 						timeZoneEstimated={timeZoneEstimated}
-						hour12={hour12}
 					/>
 				);
 			}
@@ -233,10 +262,9 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 			content = (
 				<ReturningSpiritsView
 					data={data}
-					hour12={hour12}
+					dateTimeLabels={dateTimeLabels}
 					locale={locale}
 					now={now}
-					timeZone={timeZone}
 					timeZoneEstimated={timeZoneEstimated}
 				/>
 			);

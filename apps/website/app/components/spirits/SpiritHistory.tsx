@@ -18,6 +18,7 @@ import { SkeletonText } from "~/components/SkeletonText.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { formatRelativeTime } from "~/utility/relative-time.js";
 import { SPIRIT_HISTORY_LOCATION_STATE, spiritURL } from "~/utility/spirits.js";
+import type { DateTimeLabels } from "~/utility/time.js";
 import { VisitNumber } from "./VisitNumber.js";
 
 const SPIRITS_HISTORY_PAGE_SIZE = 10 as const;
@@ -41,7 +42,7 @@ function orderURL(searchParams: URLSearchParams, order: SpiritsHistoryOrderTypes
 }
 
 function SpiritHistoryEntry({
-	dateFormatter,
+	dateTimeLabels,
 	locale,
 	now,
 	searchParams,
@@ -51,7 +52,7 @@ function SpiritHistoryEntry({
 	visit,
 	visitNumber,
 }: {
-	dateFormatter: Intl.DateTimeFormat;
+	dateTimeLabels: DateTimeLabels;
 	locale: string;
 	now: number;
 	searchParams: URLSearchParams;
@@ -87,9 +88,9 @@ function SpiritHistoryEntry({
 				<div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-gray-600 dark:text-gray-400">
 					<time dateTime={visit.start.toInstant().toString()}>
 						{timeZoneEstimated ? (
-							<SkeletonText>{dateFormatter.format(timestamp)}</SkeletonText>
+							<SkeletonText>{dateTimeLabels[timestamp]}</SkeletonText>
 						) : (
-							dateFormatter.format(timestamp)
+							dateTimeLabels[timestamp]
 						)}
 					</time>
 					<span aria-hidden="true">·</span>
@@ -102,14 +103,14 @@ function SpiritHistoryEntry({
 }
 
 export function SpiritHistory({
-	hour12,
+	dateTimeLabels,
 	locale,
 	now,
 	searchParams,
 	timeZone,
 	timeZoneEstimated,
 }: {
-	hour12: boolean | undefined;
+	dateTimeLabels: DateTimeLabels;
 	locale: string;
 	now: number;
 	searchParams: URLSearchParams;
@@ -150,12 +151,6 @@ export function SpiritHistory({
 			: 1;
 	const offset = (currentPage - 1) * SPIRITS_HISTORY_PAGE_SIZE;
 	const visits = history.slice(offset, offset + SPIRITS_HISTORY_PAGE_SIZE);
-	const dateFormatter = new Intl.DateTimeFormat(locale, {
-		dateStyle: "medium",
-		timeStyle: "short",
-		timeZone,
-		hour12,
-	});
 
 	return (
 		<section aria-labelledby="spirit-history-title" className="flex flex-col gap-5">
@@ -201,7 +196,7 @@ export function SpiritHistory({
 			<div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 				{visits.map(({ spirit, visit, visitNumber }) => (
 					<SpiritHistoryEntry
-						dateFormatter={dateFormatter}
+						dateTimeLabels={dateTimeLabels}
 						key={`${visit.spiritId}-${visit.start.epochMilliseconds}`}
 						locale={locale}
 						now={now}

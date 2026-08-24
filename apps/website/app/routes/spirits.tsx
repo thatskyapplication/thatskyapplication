@@ -1,9 +1,13 @@
 import { useTranslation } from "react-i18next";
 import { redirect, type ShouldRevalidateFunctionArgs, useSearchParams } from "react-router";
 import {
+	type Spirit,
 	spiritOriginTranslationKey,
 	type SpiritIds,
 	spirits,
+	TRAVELLING_DATES,
+	visitsForSpirit,
+	VISITS_ABSENT,
 	WEBSITE_URL,
 } from "@thatskyapplication/utility";
 import { SitePage } from "~/components/PageLayout";
@@ -15,6 +19,7 @@ import { getInstance } from "~/middleware/i18next.js";
 import { cdnAssetURL, getCDNURLFromMatches } from "~/utility/cdn.js";
 import { APPLICATION_NAME, SPIRITS_DESCRIPTION, SPIRITS_TITLE } from "~/utility/constants.js";
 import { spiritHistoryURL } from "~/utility/spirits.js";
+import { dateTimeLabels } from "~/utility/time.js";
 import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/spirits.js";
 
@@ -76,6 +81,36 @@ function resolveSpirit(rawSpiritId: string | null) {
 	return Number.isSafeInteger(spiritId) ? spirits().get(spiritId as SpiritIds) : undefined;
 }
 
+function visitTimestamps(spirit: Spirit | undefined) {
+	const timestamps = new Set<number>();
+
+	for (const [, visit] of TRAVELLING_DATES) {
+		timestamps.add(visit.start.epochMilliseconds);
+	}
+
+	for (const [, visit] of VISITS_ABSENT) {
+		timestamps.add(visit.start.epochMilliseconds);
+	}
+
+	if (spirit?.isSeasonalSpirit()) {
+		const { returning, travelling } = visitsForSpirit(spirit.id);
+
+		for (const [, { start }] of travelling) {
+			timestamps.add(start.epochMilliseconds);
+		}
+
+		for (const [, { start }] of returning) {
+			timestamps.add(start.epochMilliseconds);
+		}
+
+		for (const [, start] of spirit.visits.travellingErrors) {
+			timestamps.add(start.epochMilliseconds);
+		}
+	}
+
+	return timestamps;
+}
+
 export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const rawSpiritId = url.searchParams.get("spirit");
@@ -104,7 +139,7 @@ export const loader = ({ context, request, url }: Route.LoaderArgs) => {
 			: ({ status: "none" } as const);
 
 	return {
-		hour12,
+		dateTimeLabels: dateTimeLabels(visitTimestamps(spirit), { locale, timeZone, hour12 }),
 		initialTimestamp: Date.now(),
 		locale,
 		pageDescription: t("spirits.description", { ns: "features" }),
@@ -159,8 +194,8 @@ export default function Spirits({ loaderData }: Route.ComponentProps) {
 
 				{selectedSpirit ? (
 					<SpiritView
+						dateTimeLabels={loaderData.dateTimeLabels}
 						historyURL={spiritHistoryURL(searchParams)}
-						hour12={loaderData.hour12}
 						locale={loaderData.locale}
 						now={currentTimestamp}
 						spirit={selectedSpirit}
@@ -169,7 +204,7 @@ export default function Spirits({ loaderData }: Route.ComponentProps) {
 					/>
 				) : (
 					<SpiritHistory
-						hour12={loaderData.hour12}
+						dateTimeLabels={loaderData.dateTimeLabels}
 						locale={loaderData.locale}
 						now={currentTimestamp}
 						searchParams={searchParams}

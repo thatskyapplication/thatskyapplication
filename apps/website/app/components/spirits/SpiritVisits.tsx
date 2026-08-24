@@ -8,6 +8,7 @@ import {
 } from "@thatskyapplication/utility";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { formatRelativeTime } from "~/utility/relative-time.js";
+import type { DateTimeLabels } from "~/utility/time.js";
 import { VisitNumber } from "./VisitNumber.js";
 
 interface BaseVisitEntry {
@@ -20,18 +21,18 @@ type VisitEntry =
 	| (BaseVisitEntry & { type: "visit"; visit: number });
 
 function VisitHistory({
+	dateTimeLabels,
 	entries,
 	headingId,
-	hour12,
 	locale,
 	now,
 	timeZone,
 	timeZoneEstimated,
 	title,
 }: {
+	dateTimeLabels: DateTimeLabels;
 	entries: readonly VisitEntry[];
 	headingId: string;
-	hour12: boolean | undefined;
 	locale: string;
 	now: number;
 	timeZone: string;
@@ -41,13 +42,6 @@ function VisitHistory({
 	if (entries.length === 0) {
 		return null;
 	}
-
-	const dateFormat = new Intl.DateTimeFormat(locale, {
-		dateStyle: "medium",
-		timeStyle: "short",
-		timeZone,
-		hour12,
-	});
 
 	return (
 		<section
@@ -83,9 +77,9 @@ function VisitHistory({
 									dateTime={start.toInstant().toString()}
 								>
 									{timeZoneEstimated ? (
-										<SkeletonText>{dateFormat.format(timestamp)}</SkeletonText>
+										<SkeletonText>{dateTimeLabels[timestamp]}</SkeletonText>
 									) : (
-										dateFormat.format(timestamp)
+										dateTimeLabels[timestamp]
 									)}
 								</time>
 								<span className="mt-0.5 block text-xs leading-tight text-gray-600 dark:text-gray-400">
@@ -101,14 +95,14 @@ function VisitHistory({
 }
 
 export function SpiritVisits({
-	hour12,
+	dateTimeLabels,
 	locale,
 	now,
 	spirit,
 	timeZone,
 	timeZoneEstimated,
 }: {
-	hour12: boolean | undefined;
+	dateTimeLabels: DateTimeLabels;
 	locale: string;
 	now: number;
 	spirit: Spirit;
@@ -172,9 +166,9 @@ export function SpiritVisits({
 			{travellingVisits.length > 0 || returningVisits.length > 0 ? (
 				<div className="flex flex-col gap-4">
 					<VisitHistory
+						dateTimeLabels={dateTimeLabels}
 						entries={travellingVisits}
 						headingId="travelling-visits-title"
-						hour12={hour12}
 						locale={locale}
 						now={now}
 						timeZone={timeZone}
@@ -182,9 +176,9 @@ export function SpiritVisits({
 						title={t("spirits.travelling", { ns: "features" })}
 					/>
 					<VisitHistory
+						dateTimeLabels={dateTimeLabels}
 						entries={returningVisits}
 						headingId="returning-visits-title"
-						hour12={hour12}
 						locale={locale}
 						now={now}
 						timeZone={timeZone}

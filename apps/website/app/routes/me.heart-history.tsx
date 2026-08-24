@@ -20,13 +20,14 @@ import database from "~/database.server";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
 import { parsePage } from "~/utility/functions.js";
 import { requireDiscordAuthentication } from "~/utility/functions.server.js";
-import { getPreferredHour12 } from "~/utility/hour-cycle.server.js";
-import { resolvePreferredTimeZone } from "~/utility/time-zone.server.js";
+import { dateTimeLabels } from "~/utility/time.js";
+import { getTimePreferences } from "~/utility/time.server.js";
 import type { Route } from "./+types/me.heart-history.js";
 
 const HEART_HISTORY_MAXIMUM_DISPLAY_NUMBER = 30 as const;
 
 export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
+	const { locale, timeZone, timeZoneEstimated, hour12 } = getTimePreferences(request, context);
 	const { discordUser } = requireDiscordAuthentication({ context, request, url });
 	const userId = discordUser.id;
 	const requestedPage = parsePage(url);
@@ -76,14 +77,17 @@ export const loader = async ({ context, request, url }: Route.LoaderArgs) => {
 
 	return {
 		currentPage,
+		dateTimeLabels: dateTimeLabels(
+			heartPackets.map((heartPacket) => heartPacket.timestamp.getTime()),
+			{ locale, timeZone, hour12 },
+		),
 		doubleHearts,
 		gifted,
 		heartPackets,
 		maximumPage,
 		received,
 		remainingToday: Math.max(MAXIMUM_HEARTS_PER_DAY - giftedToday, 0),
-		...resolvePreferredTimeZone(request),
-		hour12: getPreferredHour12(request),
+		timeZoneEstimated,
 		userId,
 	};
 };
@@ -138,25 +142,18 @@ function NoProfileUserId({ userId }: { userId: Snowflake }) {
 export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 	const {
 		currentPage,
+		dateTimeLabels,
 		doubleHearts,
 		gifted,
 		heartPackets,
 		maximumPage,
 		received,
 		remainingToday,
-		timeZone,
 		timeZoneEstimated,
-		hour12,
 		userId,
 	} = loaderData;
 	const { i18n, t } = useTranslation();
 
-	const heartTimestampFormat = new Intl.DateTimeFormat(i18n.language, {
-		dateStyle: "medium",
-		timeStyle: "short",
-		timeZone,
-		hour12,
-	});
 	const heartEmojiURL = formatEmojiURL(MISCELLANEOUS_EMOJIS.Heart.id);
 
 	return (
@@ -253,7 +250,7 @@ export default function HeartHistory({ loaderData }: Route.ComponentProps) {
 							const relatedUserId = gifted ? heartPacket.giftee_id : heartPacket.user_id;
 							const relatedProfileName = gifted ? heartPacket.giftee_name : heartPacket.user_name;
 							const timestamp = heartPacket.timestamp.toISOString();
-							const formatted = heartTimestampFormat.format(heartPacket.timestamp);
+							const formatted = dateTimeLabels[heartPacket.timestamp.getTime()];
 
 							return (
 								<div

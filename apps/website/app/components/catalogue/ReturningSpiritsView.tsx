@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { resolveReturningSpirits, returningSpiritsSchedule } from "@thatskyapplication/utility";
 import { SkeletonText } from "~/components/SkeletonText.js";
 import { NOTE_CLASS } from "~/utility/catalogue.js";
+import type { DateTimeLabels } from "~/utility/time.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { FriendshipTreeCarousel } from "./FriendshipTreeCarousel";
@@ -9,29 +10,29 @@ import { SpiritTreeColumn } from "./SpiritTreeColumn";
 
 export function ReturningSpiritsView({
 	data,
+	dateTimeLabels,
 	locale,
 	now,
-	timeZone,
 	timeZoneEstimated,
-	hour12,
 }: {
 	data: ReadonlySet<number>;
+	dateTimeLabels: DateTimeLabels;
 	locale: string;
 	now: Temporal.ZonedDateTime;
-	timeZone: string;
 	timeZoneEstimated: boolean;
-	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
 	const returningSpirits = resolveReturningSpirits(now);
 	const visit = returningSpiritsSchedule(now);
 	const spiritTreeColumns = [];
-	const dateFormat = new Intl.DateTimeFormat(locale, {
-		dateStyle: "medium",
-		timeStyle: "short",
-		timeZone,
-		hour12,
-	});
+
+	const timeRange = visit
+		? t("time-range", {
+				ns: "general",
+				start: dateTimeLabels[visit.start.epochMilliseconds],
+				end: dateTimeLabels[visit.end.epochMilliseconds],
+			})
+		: null;
 
 	if (returningSpirits) {
 		for (const spirit of returningSpirits.values()) {
@@ -58,21 +59,7 @@ export function ReturningSpiritsView({
 						{t("returning-spirits", { ns: "general" })}
 					</h1>
 					<p className={NOTE_CLASS}>
-						{timeZoneEstimated ? (
-							<SkeletonText>
-								{t("time-range", {
-									ns: "general",
-									start: dateFormat.format(visit.start.epochMilliseconds),
-									end: dateFormat.format(visit.end.epochMilliseconds),
-								})}
-							</SkeletonText>
-						) : (
-							t("time-range", {
-								ns: "general",
-								start: dateFormat.format(visit.start.epochMilliseconds),
-								end: dateFormat.format(visit.end.epochMilliseconds),
-							})
-						)}
+						{timeZoneEstimated ? <SkeletonText>{timeRange}</SkeletonText> : timeRange}
 					</p>
 				</div>
 			)}

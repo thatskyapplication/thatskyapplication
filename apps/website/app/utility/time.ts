@@ -6,6 +6,8 @@ export interface TimePreferences {
 	hour12: boolean | undefined;
 }
 
+export type DateTimeLabels = Readonly<Record<number, string>>;
+
 export function formatClockTimes(timestamp: number, { locale, timeZone, hour12 }: TimePreferences) {
 	return {
 		localTime: new Intl.DateTimeFormat(locale, {
@@ -23,4 +25,24 @@ export function formatClockTimes(timestamp: number, { locale, timeZone, hour12 }
 			hour12,
 		}).format(timestamp),
 	};
+}
+
+export function dateTimeLabels(
+	timestamps: Iterable<number>,
+	{ locale, timeZone, hour12 }: TimePreferences,
+): DateTimeLabels {
+	const format = new Intl.DateTimeFormat(locale, {
+		dateStyle: "medium",
+		timeStyle: "short",
+		timeZone,
+		hour12,
+	});
+
+	const labels: Record<number, string> = {};
+
+	for (const timestamp of timestamps) {
+		labels[timestamp] ??= format.format(timestamp);
+	}
+
+	return labels;
 }

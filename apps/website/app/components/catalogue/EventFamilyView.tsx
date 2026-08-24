@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import type { EventFamily } from "@thatskyapplication/utility";
+import type { DateTimeLabels } from "~/utility/time.js";
 import { BackButton } from "./BackButton";
 import { Breadcrumb } from "./Breadcrumb";
 import { EventFamilyHeader } from "./EventFamilyHeader";
@@ -7,30 +8,21 @@ import { EventOccurrence } from "./EventOccurrence";
 
 export function EventFamilyView({
 	data,
+	dateTimeLabels,
 	family,
 	locale,
 	showEverythingButton,
-	timeZone,
 	timeZoneEstimated,
-	hour12,
 }: {
 	data: ReadonlySet<number>;
+	dateTimeLabels: DateTimeLabels;
 	family: EventFamily;
 	locale: string;
 	showEverythingButton: boolean;
-	timeZone: string;
 	timeZoneEstimated: boolean;
-	hour12: boolean | undefined;
 }) {
 	const { t } = useTranslation();
 	const { latest, occurrences } = family;
-
-	const dateFormat = new Intl.DateTimeFormat(locale, {
-		dateStyle: "medium",
-		timeStyle: "short",
-		timeZone,
-		hour12,
-	});
 
 	return (
 		<>
@@ -48,7 +40,7 @@ export function EventFamilyView({
 				<EventOccurrence
 					currentName={latest.name}
 					data={data}
-					dateFormat={dateFormat}
+					dateTimeLabels={dateTimeLabels}
 					timeZoneEstimated={timeZoneEstimated}
 					event={event}
 					key={event.id}

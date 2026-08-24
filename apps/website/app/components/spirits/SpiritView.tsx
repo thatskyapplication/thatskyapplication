@@ -9,20 +9,21 @@ import { ShareButton } from "~/components/ShareButton.js";
 import { NOTE_CLASS, VIEW_LINK_CLASS } from "~/utility/catalogue.js";
 import { SeasonIdToSeasonalEmoji } from "~/utility/emojis.js";
 import { fromSpiritHistory } from "~/utility/spirits.js";
+import type { DateTimeLabels } from "~/utility/time.js";
 import { SpiritFriendshipTrees } from "./SpiritFriendshipTrees.js";
 import { SpiritVisits } from "./SpiritVisits.js";
 
 export function SpiritView({
+	dateTimeLabels,
 	historyURL,
-	hour12,
 	locale,
 	now,
 	spirit,
 	timeZone,
 	timeZoneEstimated,
 }: {
+	dateTimeLabels: DateTimeLabels;
 	historyURL: string;
-	hour12: boolean | undefined;
 	locale: string;
 	now: number;
 	spirit: Spirit;
@@ -77,7 +78,7 @@ export function SpiritView({
 			</div>
 
 			<SpiritVisits
-				hour12={hour12}
+				dateTimeLabels={dateTimeLabels}
 				locale={locale}
 				now={now}
 				spirit={spirit}
