@@ -125,7 +125,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 			name: "description",
 			content: skyProfileData?.description ?? "A Sky profile.",
 		},
-		{ name: "theme-color", content: "#A5B5F1" },
+		{ name: "theme-color", content: "#49add8" },
 		{ property: "og:title", content: skyProfileData?.name ?? "Sky Profile" },
 		{
 			property: "og:description",

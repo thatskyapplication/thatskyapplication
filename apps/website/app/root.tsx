@@ -73,7 +73,7 @@ export const meta: Route.MetaFunction = ({ loaderData }) => [
 	},
 	{ title: APPLICATION_NAME },
 	{ name: "description", content: APPLICATION_DESCRIPTION },
-	{ name: "theme-color", content: "#A5B5F1" },
+	{ name: "theme-color", content: "#49add8" },
 	{ property: "og:title", content: APPLICATION_NAME },
 	{ property: "og:description", content: APPLICATION_DESCRIPTION },
 	{ property: "og:type", content: "website" },
@@ -146,6 +146,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 		<html data-locale={i18n.language} dir={i18n.dir(i18n.language)} lang={i18n.language}>
 			<head>
 				<Meta />
+				<link href="/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
+				<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png" />
+				<link href="/favicon.svg" rel="icon" sizes="any" type="image/svg+xml" />
+				<link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180" />
+				<link color="#49add8" href="/safari-pinned-tab.svg" rel="mask-icon" />
+				<link href="/site.webmanifest" rel="manifest" />
 				{data?.cdnURL && <link href={data.cdnURL} rel="preconnect" />}
 				<link href="https://cdn.discordapp.com" rel="preconnect" />
 				<Links />

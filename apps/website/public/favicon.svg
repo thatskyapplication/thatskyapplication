@@ -1,0 +1,30 @@
+<svg viewBox="0 0 256 256" role="img" aria-labelledby="logo-title logo-desc" xmlns="http://www.w3.org/2000/svg" width="256" height="256">
+          <title id="logo-title">TSA constellation logo</title>
+          <desc id="logo-desc">The letters T, S and A drawn as a bold constellation inside a rounded square.</desc>
+          <defs><clipPath id="primary-icon-clip"><rect x="12" y="12" width="232" height="232" rx="52"/></clipPath></defs>
+          <rect x="12" y="12" width="232" height="232" rx="52" fill="#49add8" stroke="#dff7ff" stroke-width="8"/>
+          <path d="M20 73c25-19 49-17 69-1 20-27 55-25 74-3 18-14 41-14 73 3V20H20Z" fill="#effbff" opacity=".14" clip-path="url(#primary-icon-clip)"/>
+          <circle cx="128" cy="128" r="93" fill="none" stroke="#effbff" stroke-opacity=".18" stroke-width="3"/>
+
+          <g id="letter-t" aria-label="T">
+            <path d="M42 69H96 M69 69V187" fill="none" stroke="#f7fbff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            <g data-x="42" data-y="69" transform="translate(42 69) scale(1.4285714285714286)">
+              <path d="M0-15C2-4 4-2 15 0 4 2 2 4 0 15-2 4-4 2-15 0-4-2-2-4 0-15Z" fill="#d9f5ff" opacity=".72"/>
+              <path d="M0-11C1.5-3 3-1.5 11 0 3 1.5 1.5 3 0 11-1.5 3-3 1.5-11 0-3-1.5-1.5-3 0-11Z" fill="#eafaff"/>
+            </g>
+          </g>
+          <g id="letter-s" aria-label="S">
+            <path d="M151 82C141 66 105 65 101 88C97 113 153 106 153 139C153 171 112 181 94 158" fill="none" stroke="#f7fbff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            <g data-x="151" data-y="82" transform="translate(151 82) scale(1.4285714285714286)">
+              <path d="M0-15C2-4 4-2 15 0 4 2 2 4 0 15-2 4-4 2-15 0-4-2-2-4 0-15Z" fill="#d9f5ff" opacity=".72"/>
+              <path d="M0-11C1.5-3 3-1.5 11 0 3 1.5 1.5 3 0 11-1.5 3-3 1.5-11 0-3-1.5-1.5-3 0-11Z" fill="#fff4bd"/>
+            </g>
+          </g>
+          <g id="letter-a" aria-label="A">
+            <path d="M162 184L195 71L226 184 M175 141H214" fill="none" stroke="#f7fbff" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            <g data-x="226" data-y="184" transform="translate(226 184) scale(1.4285714285714286)">
+              <path d="M0-15C2-4 4-2 15 0 4 2 2 4 0 15-2 4-4 2-15 0-4-2-2-4 0-15Z" fill="#d9f5ff" opacity=".72"/>
+              <path d="M0-11C1.5-3 3-1.5 11 0 3 1.5 1.5 3 0 11-1.5 3-3 1.5-11 0-3-1.5-1.5-3 0-11Z" fill="#eafaff"/>
+            </g>
+          </g>
+        </svg>

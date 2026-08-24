@@ -62,7 +62,7 @@ export const meta = ({ location }: Route.MetaArgs) => {
 		},
 		{ title: "Shard Eruption" },
 		{ name: "description", content: SHARD_ERUPTION_DESCRIPTION },
-		{ name: "theme-color", content: "#A5B5F1" },
+		{ name: "theme-color", content: "#49add8" },
 		{ property: "og:title", content: "Shard Eruption" },
 		{ property: "og:description", content: SHARD_ERUPTION_DESCRIPTION },
 		{ property: "og:type", content: "website" },

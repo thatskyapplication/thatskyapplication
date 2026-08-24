@@ -58,7 +58,7 @@ export const meta: Route.MetaFunction = ({ loaderData, location, matches }) => {
 		{ name: "keywords", content: keywords.join(", ") },
 		{ title },
 		{ name: "description", content: description },
-		{ name: "theme-color", content: "#A5B5F1" },
+		{ name: "theme-color", content: "#49add8" },
 		{ property: "og:title", content: title },
 		{ property: "og:description", content: description },
 		{ property: "og:type", content: "website" },

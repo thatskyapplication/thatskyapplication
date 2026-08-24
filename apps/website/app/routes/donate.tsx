@@ -55,7 +55,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		},
 		{ title: DONATE_TITLE },
 		{ name: "description", content: DONATE_DESCRIPTION },
-		{ name: "theme-color", content: "#A5B5F1" },
+		{ name: "theme-color", content: "#49add8" },
 		{ property: "og:title", content: DONATE_TITLE },
 		{ property: "og:description", content: DONATE_DESCRIPTION },
 		{ property: "og:type", content: "website" },

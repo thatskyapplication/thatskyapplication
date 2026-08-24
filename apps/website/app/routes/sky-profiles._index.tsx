@@ -54,7 +54,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		},
 		{ title: "Sky Profiles" },
 		{ name: "description", content: SKY_PROFILES_DESCRIPTION },
-		{ name: "theme-color", content: "#A5B5F1" },
+		{ name: "theme-color", content: "#49add8" },
 		{ property: "og:title", content: "Sky Profiles" },
 		{ property: "og:description", content: SKY_PROFILES_DESCRIPTION },
 		{ property: "og:type", content: "website" },

@@ -65,7 +65,7 @@ export const meta: Route.MetaFunction = ({ location, matches }) => {
 		},
 		{ title: SCHEDULE_TITLE },
 		{ name: "description", content: SCHEDULE_DESCRIPTION },
-		{ name: "theme-color", content: "#A5B5F1" },
+		{ name: "theme-color", content: "#49add8" },
 		{ property: "og:title", content: SCHEDULE_TITLE },
 		{ property: "og:description", content: SCHEDULE_DESCRIPTION },
 		{ property: "og:type", content: "website" },
