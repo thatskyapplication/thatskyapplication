@@ -63,7 +63,7 @@ async function persistBrowserTimeZone(browserTimeZone: string) {
 	}
 }
 
-export const meta: Route.MetaFunction = ({ loaderData }) => [
+export const meta: Route.MetaFunction = ({ loaderData, location }) => [
 	{ charSet: "utf-8" },
 	{ name: "viewport", content: "width=device-width, initial-scale=1" },
 	{ name: "robots", content: "index, follow" },
@@ -73,7 +73,10 @@ export const meta: Route.MetaFunction = ({ loaderData }) => [
 	},
 	{ title: APPLICATION_NAME },
 	{ name: "description", content: APPLICATION_DESCRIPTION },
-	{ name: "theme-color", content: "#49add8" },
+	{
+		name: "theme-color",
+		content: location.pathname.startsWith("/caelus") ? "#a5b5f1" : "#49add8",
+	},
 	{ property: "og:title", content: APPLICATION_NAME },
 	{ property: "og:description", content: APPLICATION_DESCRIPTION },
 	{ property: "og:type", content: "website" },
