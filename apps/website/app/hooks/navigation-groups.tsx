@@ -40,10 +40,34 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 			label: "Features",
 			items: [
 				{
+					to: "/calendar",
+					label: t("calendar.name", { ns: "features" }),
+					icon: <CalendarDays className="h-5 w-5" />,
+					description: t("calendar.description-short", { ns: "features" }),
+				},
+				{
+					to: "/me/catalogue",
+					label: t("catalogue.main-title", { ns: "features" }),
+					icon: <BookOpenCheck className="h-5 w-5" />,
+					description: t("catalogue.description-short", { ns: "features" }),
+				},
+				{
+					to: "/me/checklist",
+					label: t("checklist.title", { ns: "features" }),
+					icon: <CheckSquare className="h-5 w-5" />,
+					description: t("checklist.description-short", { ns: "features" }),
+				},
+				{
 					to: "/daily-guides",
 					label: t("daily-guides.name", { ns: "features" }),
 					icon: <Clock className="h-5 w-5" />,
 					description: t("daily-guides.description-short", { ns: "features" }),
+				},
+				{
+					to: "/schedule",
+					label: t("schedule.name", { ns: "features" }),
+					icon: <AlarmClock className="h-5 w-5" />,
+					description: t("schedule.description-short", { ns: "features" }),
 				},
 				{
 					to: "/shard-eruption",
@@ -58,34 +82,10 @@ export function useNavigationGroups(): readonly NavigationGroup[] {
 					description: t("sky-profile.description-short", { ns: "features" }),
 				},
 				{
-					to: "/schedule",
-					label: t("schedule.name", { ns: "features" }),
-					icon: <AlarmClock className="h-5 w-5" />,
-					description: t("schedule.description-short", { ns: "features" }),
-				},
-				{
-					to: "/calendar",
-					label: t("calendar.name", { ns: "features" }),
-					icon: <CalendarDays className="h-5 w-5" />,
-					description: t("calendar.description-short", { ns: "features" }),
-				},
-				{
 					to: "/spirits",
 					label: t("spirit-plural", { ns: "general" }),
 					icon: <History className="h-5 w-5" />,
 					description: t("spirits.description-short", { ns: "features" }),
-				},
-				{
-					to: "/me/catalogue",
-					label: t("catalogue.main-title", { ns: "features" }),
-					icon: <BookOpenCheck className="h-5 w-5" />,
-					description: t("catalogue.description-short", { ns: "features" }),
-				},
-				{
-					to: "/me/checklist",
-					label: t("checklist.title", { ns: "features" }),
-					icon: <CheckSquare className="h-5 w-5" />,
-					description: t("checklist.description-short", { ns: "features" }),
 				},
 			],
 		},
