@@ -13,7 +13,8 @@ import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { isRouteErrorResponse } from "react-router";
 import { HydratedRouter } from "react-router/dom";
-import { LOCALE_RESOURCES_ELEMENT_ID, LOCALES } from "~/utility/constants";
+import { LOCALE_RESOURCES_ELEMENT_ID } from "~/utility/constants";
+import { isLocale } from "~/utility/locale.js";
 
 const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
 
@@ -31,10 +32,6 @@ if (dsn) {
 		replaysSessionSampleRate: 0.1,
 		tracesSampleRate: 1,
 	});
-}
-
-function isLocale(value: string | undefined): value is (typeof LOCALES)[number] {
-	return LOCALES.includes(value as (typeof LOCALES)[number]);
 }
 
 function isResource(value: unknown): value is Resource {

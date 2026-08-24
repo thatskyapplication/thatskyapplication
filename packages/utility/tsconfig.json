@@ -14,7 +14,7 @@
 		"verbatimModuleSyntax": true,
 		"newLine": "lf",
 		"outDir": "distribution",
-		"lib": ["ESNext"],
+		"lib": ["ES2025", "ESNext.Temporal"],
 		"target": "ESNext",
 		"types": ["node"],
 		"skipLibCheck": true

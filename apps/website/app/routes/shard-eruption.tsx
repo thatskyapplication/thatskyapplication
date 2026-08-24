@@ -26,6 +26,7 @@ import {
 	SHARD_ERUPTION_MAXIMUM_PAGE,
 } from "~/utility/constants";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
+import { firstDayOfWeek } from "~/utility/locale.js";
 import { getTimePreferences } from "~/utility/time.server";
 import type { Route } from "./+types/shard-eruption.js";
 
@@ -191,7 +192,7 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 		shards,
 		timeZoneEstimated,
 		todayDate: today.toPlainDate().toString(),
-		weekStartsOn: new Intl.Locale(locale).getWeekInfo().firstDay,
+		weekStartsOn: firstDayOfWeek(locale),
 	};
 };
 

@@ -15,7 +15,7 @@
 		"newLine": "lf",
 		"outDir": "distribution",
 		"jsx": "react-jsx",
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"lib": ["DOM", "DOM.Iterable", "ES2025", "ESNext.Temporal"],
 		"target": "ESNext",
 		"skipLibCheck": true,
 		"rootDirs": [".", "./.react-router/types"],

@@ -15,6 +15,7 @@ import {
 	isDayMarkerKind,
 } from "~/utility/calendar.js";
 import { SHARD_ERUPTION_MAXIMUM_PAGE } from "~/utility/constants.js";
+import { firstDayOfWeek } from "~/utility/locale.js";
 
 const EARLIEST_UTC_OFFSET = "-12:00" as const;
 const LATEST_UTC_OFFSET = "+14:00" as const;
@@ -58,10 +59,6 @@ function clampPlainDate(
 	}
 
 	return Temporal.PlainDate.compare(date, maximum) > 0 ? maximum : date;
-}
-
-function firstDayOfWeek(locale: string) {
-	return new Intl.Locale(locale).getWeekInfo().firstDay;
 }
 
 export function calendarData({
