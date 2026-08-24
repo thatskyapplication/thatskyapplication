@@ -1,5 +1,5 @@
 <svg viewBox="0 0 256 256" role="img" aria-labelledby="logo-title logo-desc" xmlns="http://www.w3.org/2000/svg" width="256" height="256">
-          <title id="logo-title">TSA constellation logo</title>
+          <title id="logo-title">thatskyapplication constellation logo</title>
           <desc id="logo-desc">The letters T, S and A drawn as a bold constellation inside a rounded square.</desc>
           <defs><clipPath id="primary-icon-clip"><rect x="12" y="12" width="232" height="232" rx="52"/></clipPath></defs>
           <rect x="12" y="12" width="232" height="232" rx="52" fill="#49add8" stroke="#dff7ff" stroke-width="8"/>
