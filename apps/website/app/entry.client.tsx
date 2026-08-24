@@ -16,6 +16,10 @@ import { HydratedRouter } from "react-router/dom";
 import { LOCALE_RESOURCES_ELEMENT_ID } from "~/utility/constants";
 import { isLocale } from "~/utility/locale.js";
 
+const BROWSER_TRANSLATION_CLASSES = ["translated-ltr", "translated-rtl"] as const;
+const BROWSER_TRANSLATION_ELEMENT_ID = "goog-gt-tt" as const;
+const HYDRATION_BREADCRUMB_CATEGORY = "replay.hydrate-error" as const;
+
 const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
 
 if (dsn) {
@@ -26,12 +30,29 @@ if (dsn) {
 		integrations: [
 			reactRouterTracingIntegration(),
 			extraErrorDataIntegration(),
-			replayIntegration({ maskAllText: false }),
+			replayIntegration({
+				beforeAddRecordingEvent: (event) =>
+					event.data.tag === "breadcrumb" &&
+					event.data.payload.category === HYDRATION_BREADCRUMB_CATEGORY &&
+					translatedByBrowser()
+						? null
+						: event,
+				maskAllText: false,
+			}),
 		],
 		replaysOnErrorSampleRate: 1,
 		replaysSessionSampleRate: 0.1,
 		tracesSampleRate: 1,
 	});
+}
+
+function translatedByBrowser() {
+	const { classList } = document.documentElement;
+
+	return (
+		BROWSER_TRANSLATION_CLASSES.some((className) => classList.contains(className)) ||
+		document.getElementById(BROWSER_TRANSLATION_ELEMENT_ID) !== null
+	);
 }
 
 function isResource(value: unknown): value is Resource {
