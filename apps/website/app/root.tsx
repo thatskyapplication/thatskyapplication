@@ -47,6 +47,7 @@ const cdn = new CDN(CDN_URL);
 function localeResourceBundle(i18n: I18n, locale: string): ResourceLanguage {
 	return {
 		general: i18n.getResourceBundle(locale, "general") as ResourceKey,
+		commands: i18n.getResourceBundle(locale, "commands") as ResourceKey,
 		features: i18n.getResourceBundle(locale, "features") as ResourceKey,
 	};
 }
