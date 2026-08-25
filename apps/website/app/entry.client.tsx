@@ -21,6 +21,7 @@ const BROWSER_TRANSLATION_ELEMENT_ID = "goog-gt-tt" as const;
 const HYDRATION_BREADCRUMB_CATEGORY = "replay.hydrate-error" as const;
 
 const dsn = import.meta.env.VITE_SENTRY_DATA_SOURCE_NAME;
+let translatedBeforeHydration = false;
 
 if (dsn) {
 	init({
@@ -32,9 +33,9 @@ if (dsn) {
 			extraErrorDataIntegration(),
 			replayIntegration({
 				beforeAddRecordingEvent: (event) =>
+					translatedBeforeHydration &&
 					event.data.tag === "breadcrumb" &&
-					event.data.payload.category === HYDRATION_BREADCRUMB_CATEGORY &&
-					translatedByBrowser()
+					event.data.payload.category === HYDRATION_BREADCRUMB_CATEGORY
 						? null
 						: event,
 				maskAllText: false,
@@ -92,6 +93,8 @@ async function main() {
 		returnEmptyString: false,
 		saveMissing: true,
 	});
+
+	translatedBeforeHydration = translatedByBrowser();
 
 	startTransition(() => {
 		hydrateRoot(
