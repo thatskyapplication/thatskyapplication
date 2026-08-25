@@ -2553,7 +2553,6 @@
 					"1": "Sem Capa."
 				},
 				"command-option-spirit-name": "espírito",
-				"command-option-spirit-description": "Qual o seu espírito favorito?",
 				"command-option-country-name": "país",
 				"command-option-country-description": "Gostaria de especificar seu país?",
 				"command-option-hangout-name": "ponto-de-encontro",
@@ -3258,7 +3257,7 @@
 				"9": "Exibir seu ranking no jogo de quiz?",
 				"10": "Qual a sua personalidade?",
 				"11": "De onde você é?",
-				"12": "$t(commands:sky-profile.edit.command-option-spirit-description)"
+				"12": "Qual o seu espírito favorito?"
 			},
 			"edit-modal-title": "Perfil Sky",
 			"edit-modal-label-name-label": "Nome",

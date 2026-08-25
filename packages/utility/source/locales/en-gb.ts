@@ -3048,7 +3048,6 @@ export default {
 					[SkyProfileWingedLightType.Capeless]: "Capeless.",
 				} satisfies Record<SkyProfileWingedLightTypes, string>,
 				"command-option-spirit-name": "spirit",
-				"command-option-spirit-description": "What's your favourite spirit?",
 				"command-option-country-name": "country",
 				"command-option-country-description": "Feel like specifying your country?",
 				"command-option-hangout-name": "hangout",
@@ -3849,8 +3848,7 @@ export default {
 				[SkyProfileEditType.GuessRank]: "Toggle showing your guessing game rank?",
 				[SkyProfileEditType.Personality]: "What's your personality?",
 				[SkyProfileEditType.Country]: "Where are you from?",
-				[SkyProfileEditType.Spirit]:
-					"$t(commands:sky-profile.edit.command-option-spirit-description)",
+				[SkyProfileEditType.Spirit]: "What's your favourite spirit?",
 			} satisfies Record<SkyProfileEditTypes, string>,
 			"edit-modal-title": "Sky Profile",
 			"edit-modal-label-name-label": "Name",

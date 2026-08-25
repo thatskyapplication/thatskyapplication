@@ -2553,7 +2553,6 @@
 					"1": "ケープなし。"
 				},
 				"command-option-spirit-name": "精霊",
-				"command-option-spirit-description": "あなたが一番好きな精霊は？",
 				"command-option-country-name": "国",
 				"command-option-country-description": "あなたが住んでいる国を伝えますか？",
 				"command-option-hangout-name": "遊び場",
@@ -3248,7 +3247,7 @@
 				"9": "あなたのクイズゲームのランキングを公開しますか？",
 				"10": "",
 				"11": "",
-				"12": ""
+				"12": "あなたが一番好きな精霊は？"
 			},
 			"edit-modal-title": "Skyプロフィール",
 			"edit-modal-label-name-label": "名前",

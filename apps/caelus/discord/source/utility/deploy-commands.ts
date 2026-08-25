@@ -22,6 +22,7 @@ import {
 	SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 	SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
+	SkyProfileEditType,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
 } from "@thatskyapplication/utility";
@@ -927,11 +928,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							ns: "commands",
 						}),
 						name_localizations: localisations("sky-profile.edit.command-option-spirit-name"),
-						description: t("sky-profile.edit.command-option-spirit-description", {
-							ns: "commands",
+						description: t(`sky-profile.edit-type-description.${SkyProfileEditType.Spirit}`, {
+							ns: "features",
 						}),
 						description_localizations: localisations(
-							"sky-profile.edit.command-option-spirit-description",
+							`sky-profile.edit-type-description.${SkyProfileEditType.Spirit}`,
+							{ ns: "features" },
 						),
 						autocomplete: true,
 					},

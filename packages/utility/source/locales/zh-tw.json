@@ -2553,7 +2553,6 @@
 					"1": "無翼。"
 				},
 				"command-option-spirit-name": "先靈",
-				"command-option-spirit-description": "您最喜歡的先靈是誰？",
 				"command-option-country-name": "國家",
 				"command-option-country-description": "想要指定您的國家嗎？",
 				"command-option-hangout-name": "",
@@ -3248,7 +3247,7 @@
 				"9": "",
 				"10": "",
 				"11": "",
-				"12": ""
+				"12": "您最喜歡的先靈是誰？"
 			},
 			"edit-modal-title": "",
 			"edit-modal-label-name-label": "",

@@ -2553,7 +2553,6 @@
 					"1": "Sans cape."
 				},
 				"command-option-spirit-name": "esprit",
-				"command-option-spirit-description": "Quel est votre esprit favori ?",
 				"command-option-country-name": "pays",
 				"command-option-country-description": "Souhaitez-Vous préciser votre pays ?",
 				"command-option-hangout-name": "lieu-de-rencontre",
@@ -3258,7 +3257,7 @@
 				"9": "Montrer votre rang de jeu des devinettes ?",
 				"10": "Quelle est votre personnalité ?",
 				"11": "D'où venez-vous ?",
-				"12": "$t(commands:sky-profile.edit.command-option-spirit-description)"
+				"12": "Quel est votre esprit favori ?"
 			},
 			"edit-modal-title": "Profil Sky",
 			"edit-modal-label-name-label": "Pseudo",
