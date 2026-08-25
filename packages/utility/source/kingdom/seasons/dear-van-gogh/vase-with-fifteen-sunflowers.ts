@@ -49,16 +49,19 @@ export default new GuideSpirit({
 					translation: { key: CosmeticCommon.PropMultiple, number: 2 },
 					cosmetic: Cosmetic.VaseWithFifteenSunflowersProp2,
 				},
-				{
-					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
-					cosmetic: Cosmetic.VaseWithFifteenSunflowersHeart1,
-				},
 			],
 			[
 				null,
 				{
 					translation: { key: CosmeticCommon.PropMultiple, number: 3 },
 					cosmetic: Cosmetic.VaseWithFifteenSunflowersProp3,
+				},
+			],
+			[
+				null,
+				{
+					translation: { key: CosmeticCommon.HeartMultiple, number: 1 },
+					cosmetic: Cosmetic.VaseWithFifteenSunflowersHeart1,
 				},
 			],
 			[
@@ -108,6 +111,14 @@ export default new GuideSpirit({
 					cosmetic: Cosmetic.VaseWithFifteenSunflowersUltimateProp,
 					cost: { seasonalHearts: 1 },
 					seasonPass: true,
+				},
+			],
+			[
+				null,
+				{
+					translation: { key: CosmeticCommon.PropMultiple, number: 7 },
+					cosmetic: Cosmetic.VaseWithFifteenSunflowersProp7,
+					cost: { candles: 120 },
 				},
 			],
 			[

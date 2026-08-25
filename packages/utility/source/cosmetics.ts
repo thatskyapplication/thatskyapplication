@@ -3714,6 +3714,9 @@ export enum Cosmetic {
 	SunlightDiverDuoShoes = 2941,
 	SunlightSportySunglasses = 2942,
 	SunlightCrabFloat = 2943,
+
+	// 25/08/2026 | Version 34.5.
+	VaseWithFifteenSunflowersProp7 = 2945,
 }
 
 export enum CosmeticCommon {
