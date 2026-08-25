@@ -2692,7 +2692,6 @@
 			"main-description": "Willkommen zu deinem Katalog!\n\nHier kannst du all deine Kosmetika im Spiel im Überblick halten. Du kannst sogar mit dynamischen Berechnungen sehen, wie viele Saisonkerzen in der aktiven Saison übrig sind. Es ist also ein nützliches Werkzeug!\n\nGesamtfortschritt: {{progress}}%",
 			"standard-spirits": "Reguläre Geister",
 			"elders": "Älteste",
-			"events": "$t(general:events)",
 			"starter-packs": "Starterpaket",
 			"secret-area": "Geheimversteck",
 			"clothing-shop": "",

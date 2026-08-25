@@ -18,7 +18,7 @@ export function EventsView({ data }: { data: ReadonlySet<number> }) {
 	return (
 		<>
 			<Breadcrumb
-				current={t("catalogue.events", { ns: "features" })}
+				current={t("events", { ns: "general" })}
 				trail={[{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" }]}
 			/>
 

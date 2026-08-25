@@ -204,7 +204,7 @@ export function TotalSpentView({ data, locale }: { data: ReadonlySet<number>; lo
 					)}
 
 					{events.length > 0 && (
-						<Section title={t("catalogue.events", { ns: "features" })}>
+						<Section title={t("events", { ns: "general" })}>
 							<div className="flex flex-wrap gap-x-3 gap-y-1.5 py-1 text-sm text-gray-700 dark:text-gray-300">
 								{events
 									.sort((a, b) => a.eventId - b.eventId)

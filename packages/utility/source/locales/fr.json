@@ -2692,7 +2692,6 @@
 			"main-description": "Bienvenue dans votre catalogue !\n\nIci, vous pouvez suivre tous les cosmétiques dans le jeu, avec des calculs dynamiques tel que les bougies saisonnières restantes lors d'une saison active, ce qui en fait un puissant outil à utiliser.\n\nProgrès total : {{progress}}%",
 			"standard-spirits": "Esprits standards",
 			"elders": "Anciens",
-			"events": "$t(general:events)",
 			"starter-packs": "Packs de début",
 			"secret-area": "Zone secrète",
 			"clothing-shop": "",

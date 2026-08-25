@@ -2692,7 +2692,6 @@
 			"main-description": "¡Bienvenido a tu catálogo!\n\nAquí puedes llevar un seguimiento de todos los cosméticos del juego, con cálculos dinámicos como las velas de temporada restantes en una temporada activa, convirtiéndolo en una poderosa herramienta para utilizar.\n\nProgreso total: {{progress}}%",
 			"standard-spirits": "Espíritus estándar",
 			"elders": "Ancianos",
-			"events": "$t(general:events)",
 			"starter-packs": "Packs de inicio",
 			"secret-area": "Área secreta",
 			"clothing-shop": "",

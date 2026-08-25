@@ -2692,7 +2692,6 @@
 			"main-description": "Bem-vindo ao seu catálogo!\n\nAqui, você pode controlar todos os cosméticos do jogo, com cálculos dinâmicos, como a quantidade de velas da temporada que faltam para a temporada atual, tornando-o uma ferramenta poderosa para usar.\n\nProgresso total: {{progress}}%",
 			"standard-spirits": "Espíritos regulares",
 			"elders": "Anciões",
-			"events": "$t(general:events)",
 			"starter-packs": "Pacotes de iniciante",
 			"secret-area": "Área secreta",
 			"clothing-shop": "Loja de roupas",

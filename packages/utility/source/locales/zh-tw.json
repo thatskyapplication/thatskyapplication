@@ -2692,7 +2692,6 @@
 			"main-description": "歡迎來到您的目錄！\n\n在這裡，您可以追蹤遊戲中的所有飾品，並進行動態計算，例如當前賽季剩餘的季節蠟燭數量，這使其成為一款強大的工具。\n\n總進度：{{progress}}%",
 			"standard-spirits": "普通先靈",
 			"elders": "長老",
-			"events": "$t(general:events)",
 			"starter-packs": "入門包",
 			"secret-area": "秘密區域",
 			"clothing-shop": "",

@@ -78,7 +78,7 @@ export function StartView({
 			},
 			{
 				percentage: percentage(catalogueEventItems(skyEvents().values())),
-				title: t("catalogue.events", { ns: "features" }),
+				title: t("events", { ns: "general" }),
 				to: "?view=events",
 			},
 			{

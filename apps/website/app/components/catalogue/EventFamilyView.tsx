@@ -30,7 +30,7 @@ export function EventFamilyView({
 				current={t(latest.name, { ns: "general" })}
 				trail={[
 					{ label: t("catalogue.main-title", { ns: "features" }), to: "/me/catalogue" },
-					{ label: t("catalogue.events", { ns: "features" }), to: "?view=events" },
+					{ label: t("events", { ns: "general" }), to: "?view=events" },
 				]}
 			/>
 

@@ -536,7 +536,7 @@ async function start({
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.events", { lng: locale, ns: "features" })}\n\n${eventProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: eventProgressResult })}`,
+					content: `### ${t("events", { lng: locale, ns: "general" })}\n\n${eventProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: eventProgressResult })}`,
 				},
 			],
 		},
@@ -979,7 +979,7 @@ export async function viewTotalSpent(interaction: APIMessageComponentButtonInter
 					"",
 					seasonalCurrencyTable,
 					"",
-					`## ${t("catalogue.events", { lng: locale, ns: "features" })}`,
+					`## ${t("events", { lng: locale, ns: "general" })}`,
 					"",
 					eventsTable,
 					"",
@@ -1057,7 +1057,7 @@ function traversalContainer({
 	}
 
 	const events: APISelectMenuOption = {
-		label: t("catalogue.events", { lng: locale, ns: "features" }),
+		label: t("events", { lng: locale, ns: "general" }),
 		value: CustomId.CatalogueViewEvents,
 	};
 
@@ -1718,7 +1718,7 @@ export async function viewEvents(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const current = t("catalogue.events", { lng: locale, ns: "features" });
+	const current = t("events", { lng: locale, ns: "general" });
 	const title = `## ${current}\n\n${breadcrumb(locale, current)}`;
 
 	const containerComponents: APIComponentInContainer[] = [
@@ -2155,7 +2155,7 @@ async function viewEvent(
 	const eventName = t(event.name, { lng: locale, ns: "general" });
 	const heading = `[${eventName}](${t(`event-wiki.${id}`, { lng: locale, ns: "general" })})`;
 	const title = `## ${heading}\n\n${breadcrumb(locale, eventName, [
-		t("catalogue.events", { lng: locale, ns: "features" }),
+		t("events", { lng: locale, ns: "general" }),
 	])}\n\n${t("time-range", {
 		lng: locale,
 		ns: "general",
