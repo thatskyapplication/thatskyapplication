@@ -131,17 +131,9 @@
 			"9": "AURORA",
 			"10": "Passagem",
 			"11": "Festival Aviário de Fogos de Artifício",
-			"12": "$t(general:travelling-spirit)",
 			"13": "Patinadora dos sonhos",
 			"14": "Oficina de Nidificação",
-			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)",
-			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)",
-			"19": "$t(general:event-names.double-hearts)",
-			"20": "Velas sazonais em dobro",
-			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": "$t(general:returning-spirits)"
+			"20": "Velas sazonais em dobro"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -2882,9 +2874,7 @@
 		},
 		"guess": {
 			"type": {
-				"0": "$t(general:spirit-plural)",
-				"1": "$t(general:spirit-plural) (difícil)",
-				"2": "$t(general:events)"
+				"1": "$t(general:spirit-plural) (difícil)"
 			},
 			"title": "De onde isso veio?",
 			"guess-in": "Palpite {{time}}!",
@@ -3066,12 +3056,10 @@
 				"0": "Reinicialização diária",
 				"1": "Olho de Éden",
 				"2": "Estação Espacial Internacional",
-				"3": "$t(general:travelling-spirit)",
 				"4": "Dragão",
 				"5": "Gêiser poluído",
 				"6": "Vovó",
 				"7": "Tartaruga",
-				"8": "$t(general:shard-eruption)",
 				"9": "Patinadora dos sonhos",
 				"10": "AURORA",
 				"11": "Passagem",
@@ -3079,13 +3067,7 @@
 				"13": "Cervo de nove cores",
 				"14": "Oficina do Ninho",
 				"15": "Benção do Ancião do Relicário",
-				"16": "$t(general:cosmetic-names.2498)",
 				"17": "Chuva de meteoros",
-				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)",
-				"20": "$t(general:event)",
-				"21": "$t(general:season)",
-				"22": "$t(general:returning-spirits)",
 				"23": "Atualização"
 			},
 			"name": "Programação",
@@ -3235,7 +3217,6 @@
 				"3": "Descrição",
 				"4": "Luz Alada",
 				"5": "Ponto de encontro",
-				"6": "$t(general:season-plural)",
 				"7": "Plataformas",
 				"8": "Progresso no Catálogo",
 				"9": "Ranking no Quiz",

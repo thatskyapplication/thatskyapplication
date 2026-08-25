@@ -131,17 +131,9 @@
 			"9": "AURORA",
 			"10": "Initiation",
 			"11": "Feux d'artifices du Village Volière",
-			"12": "$t(general:travelling-spirit)",
 			"13": "Patineuse des rêves",
 			"14": "Atelier de la Nidification",
-			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)",
-			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)",
-			"19": "$t(general:event-names.double-hearts)",
-			"20": "Double lumière saisonnière",
-			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": "$t(general:returning-spirits)"
+			"20": "Double lumière saisonnière"
 		},
 		"page": "Page",
 		"quests-common": {
@@ -2882,9 +2874,7 @@
 		},
 		"guess": {
 			"type": {
-				"0": "$t(general:spirit-plural)",
-				"1": "",
-				"2": "$t(general:events)"
+				"1": ""
 			},
 			"title": "D'où cela vient ?",
 			"guess-in": "Devinez {{time}} !",
@@ -3066,12 +3056,10 @@
 				"0": "Réinitialisation journalière",
 				"1": "Œil d'Éden",
 				"2": "Station Spatiale Internationale",
-				"3": "$t(general:travelling-spirit)",
 				"4": "Dragon",
 				"5": "Geyser pollué",
 				"6": "Mamie",
 				"7": "Tortue",
-				"8": "$t(general:shard-eruption)",
 				"9": "Patineuse des rêves",
 				"10": "AURORA",
 				"11": "Initiation",
@@ -3079,13 +3067,7 @@
 				"13": "Cerf aux neuf couleurs",
 				"14": "Atelier de la Nidification",
 				"15": "Bénédiction de l'Ancienne de la Chambre forte",
-				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
-				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)",
-				"20": "$t(general:event)",
-				"21": "$t(general:season)",
-				"22": "$t(general:returning-spirits)",
 				"23": ""
 			},
 			"name": "Calendrier",
@@ -3235,7 +3217,6 @@
 				"3": "Description",
 				"4": "Lumières Ailées",
 				"5": "Lieu où passer du temps",
-				"6": "$t(general:season-plural)",
 				"7": "Plateformes",
 				"8": "Progression du Catalogue",
 				"9": "Rang de Devinettes",

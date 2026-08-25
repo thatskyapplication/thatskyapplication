@@ -131,17 +131,9 @@
 			"9": "AURORA",
 			"10": "",
 			"11": "",
-			"12": "$t(general:travelling-spirit)",
 			"13": "",
 			"14": "",
-			"15": "$t(general:maintenance)",
-			"16": "$t(general:events)",
-			"17": "$t(general:event-names.radiance-event)",
-			"18": "$t(general:season-plural)",
-			"19": "$t(general:event-names.double-hearts)",
-			"20": "Doble luz estacional",
-			"21": "$t(general:event-names.double-treasure-candles)",
-			"22": "$t(general:returning-spirits)"
+			"20": "Doble luz estacional"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -2882,9 +2874,7 @@
 		},
 		"guess": {
 			"type": {
-				"0": "$t(general:spirit-plural)",
-				"1": "",
-				"2": "$t(general:events)"
+				"1": ""
 			},
 			"title": "",
 			"guess-in": "",
@@ -3056,12 +3046,10 @@
 				"0": "",
 				"1": "",
 				"2": "",
-				"3": "$t(general:travelling-spirit)",
 				"4": "",
 				"5": "",
 				"6": "",
 				"7": "",
-				"8": "$t(general:shard-eruption)",
 				"9": "",
 				"10": "",
 				"11": "",
@@ -3069,13 +3057,7 @@
 				"13": "",
 				"14": "",
 				"15": "",
-				"16": "$t(general:cosmetic-names.2498)",
 				"17": "",
-				"18": "$t(general:maintenance)",
-				"19": "$t(general:event-names.radiance-event)",
-				"20": "$t(general:event)",
-				"21": "$t(general:season)",
-				"22": "$t(general:returning-spirits)",
 				"23": ""
 			},
 			"name": "",
@@ -3225,7 +3207,6 @@
 				"3": "",
 				"4": "",
 				"5": "",
-				"6": "$t(general:season-plural)",
 				"7": "",
 				"8": "",
 				"9": "",
