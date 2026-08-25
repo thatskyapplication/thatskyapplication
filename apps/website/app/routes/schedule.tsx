@@ -35,6 +35,7 @@ import {
 	turtleSchedule,
 	vaultEldersBlessingSchedule,
 	WEBSITE_URL,
+	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { CentredSitePage } from "~/components/PageLayout";
@@ -303,7 +304,7 @@ function buildScheduleView(timestamp: number, preferences: TimePreferences) {
 			type: DisplayCardType.Schedule,
 			badge: SCHEDULE_BADGES[type],
 			key: `${type}`,
-			labelKey: spiritId ? `general:spirits.${spiritId}` : `features:schedule.type.${type}`,
+			labelKey: spiritId ? `general:spirits.${spiritId}` : ScheduleTypeToLocaleKey[type],
 			wikiKey: spiritId ? `general:spirit-wiki.${spiritId}` : SCHEDULE_TYPE_TO_WIKI_KEY[type],
 			spiritIds,
 			pageHref: type === ScheduleType.ShardEruption ? SHARD_ERUPTION_PAGE_HREF : undefined,

@@ -25,6 +25,8 @@ import {
 	SkyProfileEditType,
 	SPIRITS_HISTORY_ORDER_TYPE_VALUES,
 	WING_BUFFS,
+	GuessTypeToLocaleKey,
+	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { I18_NEXT_OPTIONS, LOCALES, QUEST_NUMBER } from "./constants.js";
 
@@ -492,8 +494,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						}),
 						description_localizations: localisations("guess.game.command-option-type-description"),
 						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(`guess.type.${guessType}`, { ns: "features" }),
-							name_localizations: localisations(`guess.type.${guessType}`, { ns: "features" }),
+							name: t(GuessTypeToLocaleKey[guessType]),
+							name_localizations: localisations(GuessTypeToLocaleKey[guessType]),
 							value: guessType,
 						})),
 						required: true,
@@ -522,8 +524,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							"guess.leaderboard.command-option-type-description",
 						),
 						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(`guess.type.${guessType}`, { ns: "features" }),
-							name_localizations: localisations(`guess.type.${guessType}`, { ns: "features" }),
+							name: t(GuessTypeToLocaleKey[guessType]),
+							name_localizations: localisations(GuessTypeToLocaleKey[guessType]),
 							value: guessType,
 						})),
 						required: true,
@@ -758,8 +760,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						scheduleType !== ScheduleType.Season &&
 						scheduleType !== ScheduleType.Update,
 				).map((scheduleType) => ({
-					name: t(`schedule.type.${scheduleType}`, { ns: "features" }),
-					name_localizations: localisations(`schedule.type.${scheduleType}`, { ns: "features" }),
+					name: t(ScheduleTypeToLocaleKey[scheduleType]),
+					name_localizations: localisations(ScheduleTypeToLocaleKey[scheduleType]),
 					value: scheduleType,
 				})),
 			},

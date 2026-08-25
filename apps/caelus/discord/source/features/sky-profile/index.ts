@@ -73,6 +73,7 @@ import {
 	type SkyProfilePersonalityTypes,
 	SkyProfileWingedLightType,
 	skySeasons,
+	SkyProfileEditTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { COMMAND_CACHE } from "../../caches/commands.js";
 import { GUILD_CACHE } from "../../caches/guilds.js";
@@ -549,10 +550,7 @@ export async function skyProfileShowEdit(
 						lng: locale,
 						ns: "features",
 					}),
-					label: t(`sky-profile.edit-type-label.${skyProfileEditType}`, {
-						lng: locale,
-						ns: "features",
-					}),
+					label: t(SkyProfileEditTypeToLocaleKey[skyProfileEditType], { lng: locale }),
 					value: skyProfileEditType.toString(),
 				})),
 				placeholder: t("sky-profile.edit-placeholder", { lng: locale, ns: "features" }),
@@ -2242,10 +2240,7 @@ export async function skyProfileShowReset(interaction: APIMessageComponentButton
 								max_values: SKY_PROFILE_RESET_TYPE_VALUES.length,
 								min_values: 1,
 								options: SKY_PROFILE_RESET_TYPE_VALUES.map((skyProfileResetType) => ({
-									label: t(`sky-profile.edit-type-label.${skyProfileResetType}`, {
-										lng: locale,
-										ns: "features",
-									}),
+									label: t(SkyProfileEditTypeToLocaleKey[skyProfileResetType], { lng: locale }),
 									value: skyProfileResetType.toString(),
 								})),
 								placeholder: t("sky-profile.reset-string-select-menu-placeholder", {

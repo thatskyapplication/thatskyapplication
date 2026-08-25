@@ -22,6 +22,7 @@ import {
 	NotificationOffsetToMaximumValues,
 	type NotificationTypes,
 	type Packet,
+	NotificationTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
@@ -257,9 +258,8 @@ export async function setupResponse(
 													lng: interaction.locale,
 													ns: "features",
 												}),
-										label: t(`notification-types.${notificationType}`, {
+										label: t(NotificationTypeToLocaleKey[notificationType], {
 											lng: interaction.locale,
-											ns: "general",
 										}),
 										value: String(notificationType),
 									};
@@ -380,7 +380,7 @@ export async function displayNotificationType(
 				components: [
 					{
 						type: ComponentType.TextDisplay,
-						content: `## ${t(`notification-types.${notificationType}`, { lng: interaction.locale, ns: "general" })}`,
+						content: `## ${t(NotificationTypeToLocaleKey[notificationType], { lng: interaction.locale })}`,
 					},
 					{
 						type: ComponentType.Separator,

@@ -17,6 +17,7 @@ import {
 	SkyProfilePersonalityToMBTI,
 	skySeasons,
 	spirits,
+	SkyProfileEditTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import { ActionButton, ActionLink } from "~/components/ActionButton";
 import { EmojiIcon } from "~/components/EmojiIcon.js";
@@ -312,9 +313,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 					<div className="flex flex-col gap-4">
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Name}`, {
-									ns: "features",
-								})}
+								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Name])}
 							</h2>
 							<div className="flex flex-col gap-2">
 								<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="name">
@@ -345,9 +344,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Description}`, {
-									ns: "features",
-								})}
+								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Description])}
 							</h2>
 							<div className="flex flex-col gap-2">
 								<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="description">
@@ -380,9 +377,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
 								id="country-heading"
 							>
-								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Country}`, {
-									ns: "features",
-								})}
+								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Country])}
 							</h2>
 							<div className="flex flex-col gap-2">
 								<p
@@ -410,9 +405,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Platforms}`, {
-									ns: "features",
-								})}
+								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Platforms])}
 							</h2>
 							<div className="flex flex-col gap-3">
 								<p
@@ -425,9 +418,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								</p>
 								<fieldset aria-describedby="platforms-description">
 									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Platforms}`, {
-											ns: "features",
-										})}
+										{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Platforms])}
 									</legend>
 									<div className="grid grid-cols-2 gap-2 md:grid-cols-3">
 										{PLATFORM_ID_VALUES.map((platform) => (
@@ -478,9 +469,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
 								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Personality}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Personality])}
 								</h2>
 								<button
 									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
@@ -502,9 +491,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									aria-invalid={personalityError ? true : undefined}
 								>
 									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Personality}`, {
-											ns: "features",
-										})}
+										{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Personality])}
 									</legend>
 									<div className="grid grid-cols-2 gap-2 md:grid-cols-4">
 										{SKY_PROFILE_PERSONALITY_TYPE_VALUES.map((personality) => (
@@ -558,9 +545,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
 								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.Seasons}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Seasons])}
 								</h2>
 								<button
 									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
@@ -587,9 +572,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								</div>
 								<fieldset aria-describedby="seasons-description">
 									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.Seasons}`, {
-											ns: "features",
-										})}
+										{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Seasons])}
 									</legend>
 									<div className="rounded-xl border border-gray-300 bg-white/60 p-2 dark:border-gray-600 dark:bg-gray-800/40">
 										<div className="hide-scrollbar max-h-80 overflow-y-auto">
@@ -657,9 +640,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								className="my-0 text-base font-medium text-gray-900 dark:text-gray-100"
 								id="spirit-heading"
 							>
-								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Spirit}`, {
-									ns: "features",
-								})}
+								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Spirit])}
 							</h2>
 							<div className="flex flex-col gap-2">
 								<p
@@ -687,9 +668,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-								{t(`sky-profile.edit-type-label.${SkyProfileEditType.Hangout}`, {
-									ns: "features",
-								})}
+								{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Hangout])}
 							</h2>
 							<div className="flex flex-col gap-2">
 								<label className="text-sm text-gray-600 dark:text-gray-400" htmlFor="hangout">
@@ -720,9 +699,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
 								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.WingedLight])}
 								</h2>
 								<button
 									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
@@ -748,9 +725,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									aria-invalid={wingedLightError ? true : undefined}
 								>
 									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.WingedLight}`, {
-											ns: "features",
-										})}
+										{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.WingedLight])}
 									</legend>
 									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 										{SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES.map((wingedLight) => (
@@ -793,9 +768,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
 								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.CatalogueProgression])}
 								</h2>
 								<button
 									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
@@ -821,9 +794,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									aria-invalid={catalogueProgressionError ? true : undefined}
 								>
 									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.CatalogueProgression}`, {
-											ns: "features",
-										})}
+										{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.CatalogueProgression])}
 									</legend>
 									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 										{([true, false] as const).map((catalogueProgression) => (
@@ -864,9 +835,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 						<div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-gray-100 p-4 shadow-md dark:border-gray-700 dark:bg-gray-900">
 							<div className="flex items-center justify-between gap-3">
 								<h2 className="my-0 text-base font-medium text-gray-900 dark:text-gray-100">
-									{t(`sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`, {
-										ns: "features",
-									})}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.GuessRank])}
 								</h2>
 								<button
 									className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-400 dark:text-gray-400 dark:hover:text-gray-100 dark:disabled:text-gray-500"
@@ -891,9 +860,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 									aria-invalid={guessRankError ? true : undefined}
 								>
 									<legend className="sr-only">
-										{t(`sky-profile.edit-type-label.${SkyProfileEditType.GuessRank}`, {
-											ns: "features",
-										})}
+										{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.GuessRank])}
 									</legend>
 									<div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
 										{([true, false] as const).map((guessRank) => (

@@ -1,4 +1,4 @@
-import { ScheduleType, type Snowflake } from "@thatskyapplication/utility";
+import { ScheduleType, type Snowflake, ScheduleTypeToLocaleKey } from "@thatskyapplication/utility";
 import type { ExternalLinkListItem } from "~/components/ExternalLinkList";
 
 export const CALENDAR_MINIMUM_DATE = "2017-12-19" as const;
@@ -99,22 +99,22 @@ export const CalendarEntryKindPresentations = {
 		swatch: "bg-slate-400 dark:bg-slate-500",
 	},
 	[CalendarEntryKind.EyeOfEden]: {
-		labelKey: `features:schedule.type.${ScheduleType.EyeOfEden}`,
+		labelKey: ScheduleTypeToLocaleKey[ScheduleType.EyeOfEden],
 		bar: "bg-red-200 text-red-900 dark:bg-red-800 dark:text-red-50",
 		swatch: "bg-red-400 dark:bg-red-600",
 	},
 	[CalendarEntryKind.InternationalSpaceStation]: {
-		labelKey: `features:schedule.type.${ScheduleType.InternationalSpaceStation}`,
+		labelKey: ScheduleTypeToLocaleKey[ScheduleType.InternationalSpaceStation],
 		bar: "bg-blue-200 text-blue-900 dark:bg-blue-800 dark:text-blue-50",
 		swatch: "bg-blue-400 dark:bg-blue-600",
 	},
 	[CalendarEntryKind.NestingWorkshop]: {
-		labelKey: `features:schedule.type.${ScheduleType.NestingWorkshop}`,
+		labelKey: ScheduleTypeToLocaleKey[ScheduleType.NestingWorkshop],
 		bar: "bg-yellow-200 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-50",
 		swatch: "bg-yellow-400 dark:bg-yellow-600",
 	},
 	[CalendarEntryKind.AviarysFireworkFestival]: {
-		labelKey: `features:schedule.type.${ScheduleType.AviarysFireworkFestival}`,
+		labelKey: ScheduleTypeToLocaleKey[ScheduleType.AviarysFireworkFestival],
 		bar: "bg-pink-200 text-pink-900 dark:bg-pink-800 dark:text-pink-50",
 		swatch: "bg-pink-400 dark:bg-pink-600",
 	},
@@ -124,7 +124,7 @@ export const CalendarEntryKindPresentations = {
 		swatch: "bg-amber-400 dark:bg-amber-600",
 	},
 	[CalendarEntryKind.Update]: {
-		labelKey: `features:schedule.type.${ScheduleType.Update}`,
+		labelKey: ScheduleTypeToLocaleKey[ScheduleType.Update],
 		bar: "bg-indigo-200 text-indigo-900 dark:bg-indigo-800 dark:text-indigo-50",
 		swatch: "bg-indigo-400 dark:bg-indigo-600",
 	},

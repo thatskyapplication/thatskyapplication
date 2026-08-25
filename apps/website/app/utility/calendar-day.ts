@@ -30,6 +30,7 @@ import {
 	turtleSchedule,
 	VAULT_ELDERS_BLESSING_START_DATE,
 	vaultEldersBlessingSchedule,
+	ScheduleTypeToLocaleKey,
 } from "@thatskyapplication/utility";
 import type { CalendarDayOccurrence } from "~/utility/calendar.js";
 import { MISCELLANEOUS_EMOJIS } from "~/utility/emojis.js";
@@ -197,7 +198,7 @@ function occurrenceFrom(
 
 	return {
 		key: `schedule-${type}`,
-		label: t(`schedule.type.${type}`, { ns: "features" }),
+		label: t(ScheduleTypeToLocaleKey[type]),
 		detail: null,
 		iconURL: null,
 		light: LIGHT_SCHEDULE_TYPES.includes(type),
@@ -246,7 +247,7 @@ function shardEruptionOccurrences(
 
 			occurrences.push({
 				key: `shard-eruption-${plainDate}`,
-				label: t(`schedule.type.${ScheduleType.ShardEruption}`, { ns: "features" }),
+				label: t(ScheduleTypeToLocaleKey[ScheduleType.ShardEruption]),
 				detail: t("shard-eruption.realm-area", {
 					ns: "features",
 					realm: shard.realm,
