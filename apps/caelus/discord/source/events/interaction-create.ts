@@ -12,6 +12,7 @@ import {
 	RESTJSONErrorCodes,
 } from "@discordjs/core";
 import { DiscordAPIError } from "@discordjs/rest";
+import { DiscordSnowflake } from "@sapphire/snowflake";
 import { t } from "i18next";
 import {
 	isRealm,
@@ -247,6 +248,14 @@ async function isOldId(
 	return true;
 }
 
+function isSpuriousUnknownInteraction(interaction: APIInteraction, error: unknown) {
+	return (
+		error instanceof DiscordAPIError &&
+		error.code === RESTJSONErrorCodes.UnknownInteraction &&
+		Date.now() - DiscordSnowflake.timestampFrom(interaction.id) < 3_000
+	);
+}
+
 async function recoverInteractionError(interaction: APIInteraction, error: unknown) {
 	let errorTypeString = "Error from ";
 
@@ -275,7 +284,11 @@ async function recoverInteractionError(interaction: APIInteraction, error: unkno
 		}
 	}
 
-	pino.error(error, errorTypeString);
+	if (isSpuriousUnknownInteraction(interaction, error)) {
+		pino.warn(error, errorTypeString);
+	} else {
+		pino.error(error, errorTypeString);
+	}
 
 	// We cannot respond to this.
 	if (
