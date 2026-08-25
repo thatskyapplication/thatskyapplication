@@ -248,6 +248,9 @@ async function isOldId(
 	return true;
 }
 
+/**
+ * @see {@link https://github.com/discord/discord-api-docs/issues/5558}
+ */
 function isSpuriousUnknownInteraction(interaction: APIInteraction, error: unknown) {
 	return (
 		error instanceof DiscordAPIError &&
