@@ -31,6 +31,7 @@ export {
 } from "./assets.js";
 export {
 	CatalogueCollection,
+	CatalogueCollectionToLocaleKey,
 	type CatalogueProgress,
 	type CatalogueSearchEntry,
 	type CatalogueSpiritSearchEntry,

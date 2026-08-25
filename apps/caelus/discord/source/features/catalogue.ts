@@ -67,6 +67,7 @@ import {
 	spiritOriginTranslationKey,
 	spirits,
 	sumCosts,
+	CatalogueCollectionToLocaleKey,
 } from "@thatskyapplication/utility";
 import database from "../database.js";
 import { client } from "../discord.js";
@@ -99,13 +100,6 @@ import {
 } from "../utility/functions.js";
 
 const CATALOGUE_MAXIMUM_OPTIONS_LIMIT = 25 as const;
-
-const CATALOGUE_COLLECTION_TRANSLATION_KEY = {
-	[CatalogueCollection.StarterPacks]: "catalogue.starter-packs",
-	[CatalogueCollection.SecretArea]: "catalogue.secret-area",
-	[CatalogueCollection.ClothingShop]: "catalogue.clothing-shop",
-	[CatalogueCollection.NestingWorkshop]: "catalogue.nesting-workshop",
-} as const satisfies Readonly<Record<CatalogueCollection, string>>;
 
 function breadcrumb(locale: Locale, current: string, trail: readonly string[] = []) {
 	return `-# ${[t("catalogue.main-title", { lng: locale, ns: "features" }), ...trail, current].join(
@@ -677,10 +671,7 @@ function searchResultName(
 			detail = t(spiritOriginTranslationKey(target.spirit), { lng: locale, ns: "general" });
 			break;
 		case CatalogueSearchType.Collection:
-			detail = t(CATALOGUE_COLLECTION_TRANSLATION_KEY[target.collection], {
-				lng: locale,
-				ns: "features",
-			});
+			detail = t(CatalogueCollectionToLocaleKey[target.collection], { lng: locale });
 
 			break;
 	}

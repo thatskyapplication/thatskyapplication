@@ -285,6 +285,13 @@ export enum CatalogueCollection {
 	NestingWorkshop = 3,
 }
 
+export const CatalogueCollectionToLocaleKey = {
+	[CatalogueCollection.StarterPacks]: "features:catalogue.starter-packs",
+	[CatalogueCollection.SecretArea]: "features:catalogue.secret-area",
+	[CatalogueCollection.ClothingShop]: "features:catalogue.clothing-shop",
+	[CatalogueCollection.NestingWorkshop]: "features:catalogue.nesting-workshop",
+} as const satisfies Readonly<Record<CatalogueCollection, string>>;
+
 export type CatalogueSearchTarget =
 	| { readonly type: CatalogueSearchType.Season; readonly season: Season }
 	| { readonly type: CatalogueSearchType.Event; readonly event: Event }
