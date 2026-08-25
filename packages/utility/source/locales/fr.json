@@ -2454,23 +2454,13 @@
 				"command-name": "jeu",
 				"command-description": "Commencez le jeu de devinettes !",
 				"command-option-type-name": "type",
-				"command-option-type-description": "À quel type de jeu souhaitez-vous jouer ?",
-				"command-option-type-choice-name": {
-					"0": "$t(features:guess.type.0)",
-					"1": "$t(features:guess.type.1)",
-					"2": "$t(features:guess.type.2)"
-				}
+				"command-option-type-description": "À quel type de jeu souhaitez-vous jouer ?"
 			},
 			"leaderboard": {
 				"command-name": "classement",
 				"command-description": "Voir le classement !",
 				"command-option-type-name": "type",
-				"command-option-type-description": "Quel type de jeu souhaitez-vous voir ?",
-				"command-option-type-choice-name": {
-					"0": "$t(features:guess.type.0)",
-					"1": "$t(features:guess.type.1)",
-					"2": "$t(features:guess.type.2)"
-				}
+				"command-option-type-description": "Quel type de jeu souhaitez-vous voir ?"
 			}
 		},
 		"hair-tousle": {
@@ -2528,31 +2518,6 @@
 			"command-description": "Montre un planning des évènements de Sky !",
 			"command-option-type-name": "type",
 			"command-option-type-description": "Voir le détail des horaires d'un calendrier spécifique ?",
-			"command-option-type-choice-name": {
-				"0": "$t(features:schedule.type.0)",
-				"1": "$t(features:schedule.type.1)",
-				"2": "$t(features:schedule.type.2)",
-				"3": "$t(features:schedule.type.3)",
-				"4": "$t(features:schedule.type.4)",
-				"5": "$t(features:schedule.type.5)",
-				"6": "$t(features:schedule.type.6)",
-				"7": "$t(features:schedule.type.7)",
-				"8": "$t(features:schedule.type.8)",
-				"9": "$t(features:schedule.type.9)",
-				"10": "$t(features:schedule.type.10)",
-				"11": "$t(features:schedule.type.11)",
-				"12": "$t(features:schedule.type.12)",
-				"13": "$t(features:schedule.type.13)",
-				"14": "$t(features:schedule.type.14)",
-				"15": "$t(features:schedule.type.15)",
-				"16": "$t(features:schedule.type.16)",
-				"17": "$t(features:schedule.type.17)",
-				"18": "$t(features:schedule.type.18)",
-				"19": "$t(features:schedule.type.19)",
-				"20": "$t(features:schedule.type.20)",
-				"21": "$t(features:schedule.type.21)",
-				"22": "$t(features:schedule.type.22)"
-			},
 			"command-option-hide-name": "cacher",
 			"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
 		},
@@ -2696,6 +2661,7 @@
 			"description-short": "",
 			"view-month": "",
 			"view-week": "",
+			"view-day": "",
 			"view-label": "",
 			"previous-month": "",
 			"next-month": "",
@@ -2714,7 +2680,7 @@
 			"time-zone-label": "",
 			"all-day": "",
 			"during-the-day": "",
-			"view-day": "",
+			"view-date": "",
 			"cadence_one": "",
 			"cadence_other": "",
 			"community-event": ""
@@ -2862,6 +2828,9 @@
 			"event-upcoming-time": "{{event}} commence à {{time}}.",
 			"maintenance-upcoming_one": "La maintenance commencera à {{time}} demain.",
 			"maintenance-upcoming_other": "La maintenance sera dans {{count}} jours.",
+			"update-upcoming_zero": "",
+			"update-upcoming_one": "",
+			"update-upcoming_other": "",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
 			"error-thread-archived": "Le fil est archivé.",
@@ -3117,7 +3086,8 @@
 				"19": "$t(general:event-names.radiance-event)",
 				"20": "$t(general:event)",
 				"21": "$t(general:season)",
-				"22": "$t(general:returning-spirits)"
+				"22": "$t(general:returning-spirits)",
+				"23": ""
 			},
 			"name": "Calendrier",
 			"description": "Voir les horaires des évènements tel que le geyser pollué, mamie, la tortue, la bénédiction de l'Ancienne de la Chambre forte et plus encore !",
@@ -3135,6 +3105,7 @@
 			"overview-ends-timestamp": "Fin : {{timestamp}}",
 			"overview-in": "Dans :",
 			"overview": "**{{type}}:** {{details}}",
+			"update-version": "",
 			"event-ongoing": "L'évènement est en cours !",
 			"event-will-occur": "L'évènement reviendra de nouveau {{timestamp}}.",
 			"next-daily-reset": "{{timestamp1}} ({{timestamp2}})",

@@ -5,13 +5,13 @@ import {
 	DailyQuest,
 	type DailyQuests,
 } from "../daily-guides.js";
-import { GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "../guess.js";
+import { GuessType, type GuessTypes } from "../guess.js";
 import { SkyProfileMissingNameSource, type SkyProfileMissingNameSources } from "../heart.js";
 import { AreaName, isRealm, REALM_NAME_VALUES, RealmName } from "../kingdom/geography.js";
 import { SpiritKind } from "../models/spirits.js";
 import { NotificationType, type NotificationTypes } from "../notifications.js";
 import { PlatformId, type PlatformIds } from "../platforms.js";
-import { SCHEDULE_TYPE_VALUES, ScheduleType, type ScheduleTypes } from "../schedule.js";
+import { ScheduleType, type ScheduleTypes } from "../schedule.js";
 import { SeasonId, type SeasonIds } from "../season.js";
 import {
 	SkyProfileEditType,
@@ -2950,18 +2950,12 @@ export default {
 				"command-description": "Begin the guessing game!",
 				"command-option-type-name": "type",
 				"command-option-type-description": "What type of game do you wish to play?",
-				"command-option-type-choice-name": Object.fromEntries(
-					GUESS_TYPE_VALUES.map((guessType) => [guessType, `$t(features:guess.type.${guessType})`]),
-				),
 			},
 			leaderboard: {
 				"command-name": "leaderboard",
 				"command-description": "View the leaderboard!",
 				"command-option-type-name": "type",
 				"command-option-type-description": "What type of game would you like to view?",
-				"command-option-type-choice-name": Object.fromEntries(
-					GUESS_TYPE_VALUES.map((guessType) => [guessType, `$t(features:guess.type.${guessType})`]),
-				),
 			},
 		},
 		"hair-tousle": {
@@ -3019,12 +3013,6 @@ export default {
 			"command-description": "Returns a schedule of events in Sky!",
 			"command-option-type-name": "type",
 			"command-option-type-description": "View a detailed breakdown of a specific schedule?",
-			"command-option-type-choice-name": Object.fromEntries(
-				SCHEDULE_TYPE_VALUES.map((scheduleType) => [
-					scheduleType,
-					`$t(features:schedule.type.${scheduleType})`,
-				]),
-			),
 			"command-option-hide-name": "hide",
 			"command-option-hide-description": "Ensure only you can see the response.",
 		},

@@ -2454,23 +2454,13 @@
 				"command-name": "",
 				"command-description": "",
 				"command-option-type-name": "",
-				"command-option-type-description": "",
-				"command-option-type-choice-name": {
-					"0": "$t(features:guess.type.0)",
-					"1": "$t(features:guess.type.1)",
-					"2": "$t(features:guess.type.2)"
-				}
+				"command-option-type-description": ""
 			},
 			"leaderboard": {
 				"command-name": "",
 				"command-description": "",
 				"command-option-type-name": "",
-				"command-option-type-description": "",
-				"command-option-type-choice-name": {
-					"0": "$t(features:guess.type.0)",
-					"1": "$t(features:guess.type.1)",
-					"2": "$t(features:guess.type.2)"
-				}
+				"command-option-type-description": ""
 			}
 		},
 		"hair-tousle": {
@@ -2528,31 +2518,6 @@
 			"command-description": "",
 			"command-option-type-name": "",
 			"command-option-type-description": "",
-			"command-option-type-choice-name": {
-				"0": "$t(features:schedule.type.0)",
-				"1": "$t(features:schedule.type.1)",
-				"2": "$t(features:schedule.type.2)",
-				"3": "$t(features:schedule.type.3)",
-				"4": "$t(features:schedule.type.4)",
-				"5": "$t(features:schedule.type.5)",
-				"6": "$t(features:schedule.type.6)",
-				"7": "$t(features:schedule.type.7)",
-				"8": "$t(features:schedule.type.8)",
-				"9": "$t(features:schedule.type.9)",
-				"10": "$t(features:schedule.type.10)",
-				"11": "$t(features:schedule.type.11)",
-				"12": "$t(features:schedule.type.12)",
-				"13": "$t(features:schedule.type.13)",
-				"14": "$t(features:schedule.type.14)",
-				"15": "$t(features:schedule.type.15)",
-				"16": "$t(features:schedule.type.16)",
-				"17": "",
-				"18": "$t(features:schedule.type.18)",
-				"19": "$t(features:schedule.type.19)",
-				"20": "$t(features:schedule.type.20)",
-				"21": "$t(features:schedule.type.21)",
-				"22": "$t(features:schedule.type.22)"
-			},
 			"command-option-hide-name": "",
 			"command-option-hide-description": ""
 		},
@@ -2696,6 +2661,7 @@
 			"description-short": "",
 			"view-month": "",
 			"view-week": "",
+			"view-day": "",
 			"view-label": "",
 			"previous-month": "",
 			"next-month": "",
@@ -2714,7 +2680,7 @@
 			"time-zone-label": "",
 			"all-day": "",
 			"during-the-day": "",
-			"view-day": "",
+			"view-date": "",
 			"cadence_one": "",
 			"cadence_other": "",
 			"community-event": ""
@@ -2862,6 +2828,9 @@
 			"event-upcoming-time": "",
 			"maintenance-upcoming_one": "",
 			"maintenance-upcoming_other": "",
+			"update-upcoming_zero": "",
+			"update-upcoming_one": "",
+			"update-upcoming_other": "",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
 			"error-thread-archived": "",
@@ -3107,7 +3076,8 @@
 				"19": "$t(general:event-names.radiance-event)",
 				"20": "$t(general:event)",
 				"21": "$t(general:season)",
-				"22": "$t(general:returning-spirits)"
+				"22": "$t(general:returning-spirits)",
+				"23": ""
 			},
 			"name": "",
 			"description": "",
@@ -3125,6 +3095,7 @@
 			"overview-ends-timestamp": "",
 			"overview-in": "",
 			"overview": "",
+			"update-version": "",
 			"event-ongoing": "",
 			"event-will-occur": "",
 			"next-daily-reset": "",

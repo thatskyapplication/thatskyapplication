@@ -491,12 +491,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						}),
 						description_localizations: localisations("guess.game.command-option-type-description"),
 						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(`guess.game.command-option-type-choice-name.${guessType}`, {
-								ns: "commands",
-							}),
-							name_localizations: localisations(
-								`guess.game.command-option-type-choice-name.${guessType}`,
-							),
+							name: t(`guess.type.${guessType}`, { ns: "features" }),
+							name_localizations: localisations(`guess.type.${guessType}`, { ns: "features" }),
 							value: guessType,
 						})),
 						required: true,
@@ -525,12 +521,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							"guess.leaderboard.command-option-type-description",
 						),
 						choices: GUESS_TYPE_VALUES.map((guessType) => ({
-							name: t(`guess.leaderboard.command-option-type-choice-name.${guessType}`, {
-								ns: "commands",
-							}),
-							name_localizations: localisations(
-								`guess.leaderboard.command-option-type-choice-name.${guessType}`,
-							),
+							name: t(`guess.type.${guessType}`, { ns: "features" }),
+							name_localizations: localisations(`guess.type.${guessType}`, { ns: "features" }),
 							value: guessType,
 						})),
 						required: true,
@@ -765,12 +757,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 						scheduleType !== ScheduleType.Season &&
 						scheduleType !== ScheduleType.Update,
 				).map((scheduleType) => ({
-					name: t(`schedule.command-option-type-choice-name.${scheduleType}`, {
-						ns: "commands",
-					}),
-					name_localizations: localisations(
-						`schedule.command-option-type-choice-name.${scheduleType}`,
-					),
+					name: t(`schedule.type.${scheduleType}`, { ns: "features" }),
+					name_localizations: localisations(`schedule.type.${scheduleType}`, { ns: "features" }),
 					value: scheduleType,
 				})),
 			},
