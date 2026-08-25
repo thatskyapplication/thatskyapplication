@@ -137,6 +137,10 @@ type LocaleMapping =
  */
 const MAPPINGS: LocaleMapping[] = [
 	{
+		upstreamKey: "eventboard_name_camping",
+		jsonPath: "general.event-names.summer-camping",
+	},
+	{
 		upstreamKey: "title_dawn_01",
 		tsKey: "AreaName.DawnCircle",
 	},

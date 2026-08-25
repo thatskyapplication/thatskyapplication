@@ -90,12 +90,16 @@ export default new GuideSpirit({
 					translation: { key: CosmeticCommon.QuestMultiple, number: 5 },
 					cosmetic: Cosmetic.MomentsGuideQuest5,
 				},
-			],
-			[
 				{
 					translation: { key: CosmeticCommon.HeartMultiple, number: 5 },
 					cosmetic: Cosmetic.MomentsGuideHeart5,
 					cost: { candles: 3 },
+				},
+			],
+			[
+				{
+					cosmetic: Cosmetic.MomentsCameraUpgrade,
+					cost: { candles: 25 },
 				},
 			],
 		],
