@@ -27,6 +27,32 @@ export const NotificationType = {
 export type NotificationTypes = (typeof NotificationType)[keyof typeof NotificationType];
 export const NOTIFICATION_TYPE_VALUES = Object.values(NotificationType);
 
+export const NotificationTypeToLocaleKey = {
+	[NotificationType.DailyReset]: `general:notification-types.${NotificationType.DailyReset}`,
+	[NotificationType.EyeOfEden]: `general:notification-types.${NotificationType.EyeOfEden}`,
+	[NotificationType.InternationalSpaceStation]: `general:notification-types.${NotificationType.InternationalSpaceStation}`,
+	[NotificationType.Dragon]: `general:notification-types.${NotificationType.Dragon}`,
+	[NotificationType.PollutedGeyser]: `general:notification-types.${NotificationType.PollutedGeyser}`,
+	[NotificationType.Grandma]: `general:notification-types.${NotificationType.Grandma}`,
+	[NotificationType.Turtle]: `general:notification-types.${NotificationType.Turtle}`,
+	[NotificationType.RegularShardEruption]: `general:notification-types.${NotificationType.RegularShardEruption}`,
+	[NotificationType.StrongShardEruption]: `general:notification-types.${NotificationType.StrongShardEruption}`,
+	[NotificationType.AURORA]: `general:notification-types.${NotificationType.AURORA}`,
+	[NotificationType.Passage]: `general:notification-types.${NotificationType.Passage}`,
+	[NotificationType.AviarysFireworkFestival]: `general:notification-types.${NotificationType.AviarysFireworkFestival}`,
+	[NotificationType.TravellingSpirit]: "general:travelling-spirit",
+	[NotificationType.DreamsSkater]: `general:notification-types.${NotificationType.DreamsSkater}`,
+	[NotificationType.NestingWorkshop]: `general:notification-types.${NotificationType.NestingWorkshop}`,
+	[NotificationType.Maintenance]: "general:maintenance",
+	[NotificationType.Events]: "general:events",
+	[NotificationType.RadianceEvent]: "general:event-names.radiance-event",
+	[NotificationType.Seasons]: "general:season-plural",
+	[NotificationType.DoubleHearts]: "general:event-names.double-hearts",
+	[NotificationType.DoubleSeasonalLight]: `general:notification-types.${NotificationType.DoubleSeasonalLight}`,
+	[NotificationType.DoubleTreasureCandles]: "general:event-names.double-treasure-candles",
+	[NotificationType.ReturningSpirits]: "general:returning-spirits",
+} as const satisfies Readonly<Record<NotificationTypes, string>>;
+
 // Cannot exceed 24.
 export const NotificationOffsetToMaximumValues = {
 	[NotificationType.DailyReset]: 15,

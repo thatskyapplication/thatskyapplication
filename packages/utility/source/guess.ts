@@ -9,3 +9,9 @@ export const GuessType = {
 
 export type GuessTypes = (typeof GuessType)[keyof typeof GuessType];
 export const GUESS_TYPE_VALUES = Object.values(GuessType);
+
+export const GuessTypeToLocaleKey = {
+	[GuessType.Spirits]: "general:spirit-plural",
+	[GuessType.SpiritsHard]: `features:guess.type.${GuessType.SpiritsHard}`,
+	[GuessType.Events]: "general:events",
+} as const satisfies Readonly<Record<GuessTypes, string>>;

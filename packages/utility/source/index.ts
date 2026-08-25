@@ -124,7 +124,13 @@ export {
 	type PlacedFriendshipTreeNode,
 	TEXT_COLOUR,
 } from "./friendship-tree.js";
-export { GUESS_RANK_SQL, GUESS_TYPE_VALUES, GuessType, type GuessTypes } from "./guess.js";
+export {
+	GUESS_RANK_SQL,
+	GUESS_TYPE_VALUES,
+	GuessType,
+	GuessTypeToLocaleKey,
+	type GuessTypes,
+} from "./guess.js";
 export {
 	DELETED_USER_TEXT,
 	heartHistory,
@@ -195,6 +201,7 @@ export {
 	NOTIFICATION_TYPE_VALUES,
 	NotificationOffsetToMaximumValues,
 	NotificationType,
+	NotificationTypeToLocaleKey,
 	type NotificationTypes,
 } from "./notifications.js";
 export { isPlatformId, PLATFORM_ID_VALUES, PlatformId, type PlatformIds } from "./platforms.js";
@@ -225,6 +232,7 @@ export {
 	returningSpiritsSchedule,
 	SCHEDULE_TYPE_VALUES,
 	ScheduleType,
+	ScheduleTypeToLocaleKey,
 	type ScheduleTypes,
 	shardEruptionSchedule,
 	travellingSpiritSchedule,
@@ -258,6 +266,7 @@ export {
 	SKY_PROFILE_WINGED_LIGHT_TYPE_VALUES,
 	type SkyProfileData,
 	SkyProfileEditType,
+	SkyProfileEditTypeToLocaleKey,
 	type SkyProfileEditTypes,
 	SkyProfilePersonalityToMBTI,
 	type SkyProfilePersonalityTypes,
