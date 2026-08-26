@@ -2942,7 +2942,6 @@ export default {
 			"starter-packs": "Starter packs",
 			"secret-area": "Secret area",
 			"clothing-shop": "Clothing shop",
-			"nesting-workshop": "Nesting Workshop",
 			"main-no-progress": "No progress",
 			"main-progress": "Progress: {{number}}%",
 			"search-placeholder": "Search seasons, events, and spirits...",
@@ -3050,7 +3049,6 @@ export default {
 			"setup-type-string-select-menu-placeholder": "Select an optional format.",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
-			"seasonal-candles": "Seasonal candles",
 			"seasonal-candles-remain-with-season-pass":
 				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
 			"shard-eruption-data": "Data",
@@ -3209,7 +3207,6 @@ export default {
 				"Updates are being performed too quickly. Please wait a while before trying again! {{emoji}}",
 		},
 		notifications: {
-			back: "Back",
 			title: "Notifications",
 			"setup-description":
 				"You may choose a channel to receive notifications in! Use the select menu below to select a notification type.",
@@ -3445,7 +3442,6 @@ export default {
 				"Radiance events increase the availability of certain dyes.\n\n{{result}}",
 			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
 			"detailed-breakdown-nothing-planned": "There are no upcoming events.",
-			back: "Back",
 		},
 		settings: {
 			name: "Settings",
@@ -3595,7 +3591,6 @@ export default {
 			"reset-string-select-menu-placeholder": "What do you wish to reset?",
 			country: "Country:",
 			"winged-light": "Winged light:",
-			"winged-light-capeless": "Capeless",
 			"winged-light-max": "Max",
 			"favourite-spirit": "Favourite spirit:",
 			"favourite-hangout": "Favourite hangout:",

@@ -2602,7 +2602,6 @@
 			"starter-packs": "Pacotes de iniciante",
 			"secret-area": "Área secreta",
 			"clothing-shop": "Loja de roupas",
-			"nesting-workshop": "Oficina do Ninho",
 			"main-no-progress": "Sem progresso",
 			"main-progress": "Progresso: {{number}}%",
 			"search-placeholder": "Procure por temporadas, eventos, ou espíritos...",
@@ -2706,7 +2705,6 @@
 			"setup-type-string-select-menu-placeholder": "Selecione um formato opcional.",
 			"quests-heading": "Missões",
 			"treasure-candles": "Velas do tesouro",
-			"seasonal-candles": "Velas de temporada",
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} com o Passe de Temporada)",
 			"shard-eruption-data": "Dados",
 			"shard-eruption-timestamps": "Marcação de data/hora",
@@ -2844,7 +2842,6 @@
 			"rate-limit": "As atualizações estão sendo realizadas rapidamente. Aguarde um momento antes de tentar novamente! {{emoji}}"
 		},
 		"notifications": {
-			"back": "Retornar",
 			"title": "Notificações",
 			"setup-description": "Escolha um canal para receber notificações! Use o menu abaixo para selecionar o tipo de notificação.",
 			"setup-option-sending": "Enviando!",
@@ -3027,7 +3024,6 @@
 			"detailed-breakdown-radiance-message": "Eventos de resplendor aumentam a disponibilidade de algumas tintas.\n\n{{result}}",
 			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
 			"detailed-breakdown-nothing-planned": "Não há eventos programados.",
-			"back": "Retornar",
 			"timestamps": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-requires": "-# Requer {{emoji}}",
 			"detailed-breakdown-two-hourly-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 10 minutos.\n\n{{timestamps}}\n\n{{status}}"
@@ -3169,7 +3165,6 @@
 			"reset-string-select-menu-placeholder": "O que você deseja redefinir?",
 			"country": "País:",
 			"winged-light": "Luz alada:",
-			"winged-light-capeless": "Sem Capa",
 			"winged-light-max": "Máximo",
 			"favourite-spirit": "Espírito favorito:",
 			"favourite-hangout": "Cantinho favorito:",

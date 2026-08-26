@@ -714,7 +714,7 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 					{seasonalCandles && (
 						<div className="mb-5">
 							<h2 className="mb-3 text-sm font-semibold text-gray-900 dark:text-white">
-								{t("daily-guides.seasonal-candles", { ns: "features" })}
+								{t("seasonal-candles", { ns: "general" })}
 							</h2>
 							<div className="space-y-2">
 								{seasonalCandles.url && (

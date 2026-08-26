@@ -362,7 +362,9 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 								</p>
 								<p className="my-0">
 									{maximumWingedLight.capeless
-										? t("sky-profile.winged-light-capeless", { ns: "features" })
+										? t(`sky-profile-winged-light-types.${SkyProfileWingedLightType.Capeless}`, {
+												ns: "general",
+											})
 										: maximumWingedLight.isMax
 											? `${maximumWingedLight.count} (${t("sky-profile.winged-light-max", { ns: "features" })})`
 											: maximumWingedLight.count.toString()}

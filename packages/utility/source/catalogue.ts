@@ -7,6 +7,7 @@ import type { EventFamily, EventFamilyOccurrences } from "./models/event-family.
 import type { Event } from "./models/event.js";
 import type { Season } from "./models/season.js";
 import type { Spirit } from "./models/spirits.js";
+import { NotificationType } from "./notifications.js";
 import { resolveAllCosmeticsFromItems, resolveOfferFromItems } from "./utility/functions.js";
 import { friendshipTreeToItems, type Item, type ItemCost } from "./utility/spirits.js";
 
@@ -289,7 +290,7 @@ export const CatalogueCollectionToLocaleKey = {
 	[CatalogueCollection.StarterPacks]: "features:catalogue.starter-packs",
 	[CatalogueCollection.SecretArea]: "features:catalogue.secret-area",
 	[CatalogueCollection.ClothingShop]: "features:catalogue.clothing-shop",
-	[CatalogueCollection.NestingWorkshop]: "features:catalogue.nesting-workshop",
+	[CatalogueCollection.NestingWorkshop]: `general:notification-types.${NotificationType.NestingWorkshop}`,
 } as const satisfies Readonly<Record<CatalogueCollection, string>>;
 
 export type CatalogueSearchTarget =

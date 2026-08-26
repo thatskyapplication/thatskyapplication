@@ -16,6 +16,8 @@ import {
 	skySeasons,
 	spirits,
 	TIME_ZONE,
+	CatalogueCollection,
+	CatalogueCollectionToLocaleKey,
 } from "@thatskyapplication/utility";
 import { CatalogueSearch } from "~/components/catalogue/CatalogueSearch";
 import { CollectionView } from "~/components/catalogue/CollectionView";
@@ -313,7 +315,7 @@ export default function Catalogue({ loaderData }: Route.ComponentProps) {
 					locale={locale}
 					scope="nesting-workshop"
 					showEverythingButton={showEverythingButton}
-					title={t("catalogue.nesting-workshop", { ns: "features" })}
+					title={t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop])}
 				/>
 			);
 			break;

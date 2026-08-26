@@ -1052,7 +1052,7 @@ async function distributionData({
 			}),
 		});
 
-		let seasonalCandlesContent = `### ${t("daily-guides.seasonal-candles", { lng: locale, ns: "features" })}\n\n`;
+		let seasonalCandlesContent = `### ${t("seasonal-candles", { lng: locale, ns: "general" })}\n\n`;
 
 		if (type === DailyGuidesDistributionType.Compact && seasonalCandlesRotation) {
 			seasonalCandlesContent += `[${t("view", { lng: locale, ns: "general" })}](${seasonalCandlesRotation})\n`;

@@ -590,7 +590,7 @@ async function start({
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `### ${t("catalogue.nesting-workshop", { lng: locale, ns: "features" })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
+					content: `### ${t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], { lng: locale })}\n\n${nestingWorkshopProgressResult === null ? t("catalogue.main-no-progress", { lng: locale, ns: "features" }) : t("catalogue.main-progress", { lng: locale, ns: "features", number: nestingWorkshopProgressResult })}`,
 				},
 			],
 		},
@@ -1084,7 +1084,7 @@ function traversalContainer({
 	}
 
 	const nestingWorkshop: APISelectMenuOption = {
-		label: t("catalogue.nesting-workshop", { lng: locale, ns: "features" }),
+		label: t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], { lng: locale }),
 		value: CustomId.CatalogueViewNestingWorkshop,
 	};
 
@@ -2591,7 +2591,9 @@ export async function viewNestingWorkshop(
 ) {
 	const catalogue = await fetchCatalogue(interactionInvoker(interaction).id);
 	const { locale } = interaction;
-	const current = t("catalogue.nesting-workshop", { lng: locale, ns: "features" });
+	const current = t(CatalogueCollectionToLocaleKey[CatalogueCollection.NestingWorkshop], {
+		lng: locale,
+	});
 
 	const itemSelectionOptions = NESTING_WORKSHOP.items.map((item) =>
 		itemToSelectMenuOption(item, catalogue?.data, locale),

@@ -2127,7 +2127,7 @@ export async function scheduleDetailedBreakdown(
 							type: ComponentType.Button,
 							style: ButtonStyle.Secondary,
 							custom_id: CustomId.ScheduleViewOverview,
-							label: t("schedule.back", { lng: locale, ns: "features" }),
+							label: t("navigation-back", { lng: locale, ns: "general" }),
 							emoji: { name: "⬅️" },
 						},
 					],

@@ -129,7 +129,7 @@
 			"8": "Fragmentación Fuerte",
 			"10": "",
 			"13": "",
-			"14": ""
+			"14": "Taller acogedor"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -2602,7 +2602,6 @@
 			"starter-packs": "Packs de inicio",
 			"secret-area": "Área secreta",
 			"clothing-shop": "",
-			"nesting-workshop": "Taller acogedor",
 			"main-no-progress": "Sin progreso",
 			"main-progress": "Progreso: {{number}}%",
 			"search-placeholder": "",
@@ -2706,7 +2705,6 @@
 			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "Misiones",
 			"treasure-candles": "",
-			"seasonal-candles": "",
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} quedan ({{remainingSeasonPass}} con Pase de Temporada)",
 			"shard-eruption-data": "Datos",
 			"shard-eruption-timestamps": "Marcas de tiempo",
@@ -2834,7 +2832,6 @@
 			"rate-limit": ""
 		},
 		"notifications": {
-			"back": "Atrás",
 			"title": "",
 			"setup-description": "",
 			"setup-option-sending": "",
@@ -3017,7 +3014,6 @@
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
 			"detailed-breakdown-nothing-planned": "",
-			"back": "",
 			"timestamps": "",
 			"detailed-breakdown-requires": "",
 			"detailed-breakdown-two-hourly-message": ""
@@ -3159,7 +3155,6 @@
 			"reset-string-select-menu-placeholder": "",
 			"country": "",
 			"winged-light": "",
-			"winged-light-capeless": "",
 			"winged-light-max": "",
 			"favourite-spirit": "",
 			"favourite-hangout": "",

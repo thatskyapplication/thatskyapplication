@@ -21,7 +21,7 @@
 		"candles": "",
 		"hearts": "",
 		"ascended-candles": "",
-		"seasonal-candles": "",
+		"seasonal-candles": "시즌양초",
 		"seasonal-hearts": "",
 		"days-left": {
 			"season_zero": "",
@@ -2602,7 +2602,6 @@
 			"starter-packs": "",
 			"secret-area": "",
 			"clothing-shop": "",
-			"nesting-workshop": "",
 			"main-no-progress": "",
 			"main-progress": "",
 			"search-placeholder": "",
@@ -2706,7 +2705,6 @@
 			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "",
 			"treasure-candles": "무더기 양초",
-			"seasonal-candles": "시즌양초",
 			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
@@ -2834,7 +2832,6 @@
 			"rate-limit": ""
 		},
 		"notifications": {
-			"back": "",
 			"title": "",
 			"setup-description": "",
 			"setup-option-sending": "",
@@ -3017,7 +3014,6 @@
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
 			"detailed-breakdown-nothing-planned": "",
-			"back": "",
 			"timestamps": "",
 			"detailed-breakdown-requires": "",
 			"detailed-breakdown-two-hourly-message": ""
@@ -3159,7 +3155,6 @@
 			"reset-string-select-menu-placeholder": "",
 			"country": "",
 			"winged-light": "",
-			"winged-light-capeless": "",
 			"winged-light-max": "",
 			"favourite-spirit": "",
 			"favourite-hangout": "",

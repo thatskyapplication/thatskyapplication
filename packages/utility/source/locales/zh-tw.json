@@ -2602,7 +2602,6 @@
 			"starter-packs": "入門包",
 			"secret-area": "秘密區域",
 			"clothing-shop": "",
-			"nesting-workshop": "雲巢工作坊",
 			"main-no-progress": "沒有進展",
 			"main-progress": "進度: {{number}}%",
 			"search-placeholder": "",
@@ -2706,7 +2705,6 @@
 			"setup-type-string-select-menu-placeholder": "",
 			"quests-heading": "",
 			"treasure-candles": "",
-			"seasonal-candles": "",
 			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "時間戳",
@@ -2834,7 +2832,6 @@
 			"rate-limit": ""
 		},
 		"notifications": {
-			"back": "",
 			"title": "",
 			"setup-description": "",
 			"setup-option-sending": "",
@@ -3017,7 +3014,6 @@
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
 			"detailed-breakdown-nothing-planned": "",
-			"back": "",
 			"timestamps": "",
 			"detailed-breakdown-requires": "",
 			"detailed-breakdown-two-hourly-message": ""
@@ -3159,7 +3155,6 @@
 			"reset-string-select-menu-placeholder": "",
 			"country": "",
 			"winged-light": "",
-			"winged-light-capeless": "",
 			"winged-light-max": "",
 			"favourite-spirit": "",
 			"favourite-hangout": "",
