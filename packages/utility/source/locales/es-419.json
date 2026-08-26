@@ -2721,6 +2721,7 @@
 			"infographic-acknowledgement-item": "",
 			"returning-spirits-leave-today": "",
 			"event-upcoming-time": "",
+			"maintenance-tomorrow": "",
 			"update-releases-today": "",
 			"not-yet-updated": "",
 			"not-yet-updated-support-server": "",
@@ -2743,7 +2744,6 @@
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
 			"maintenance-upcoming_one": "",
-			"maintenance-tomorrow": "",
 			"maintenance-upcoming_other": "",
 			"update-upcoming_one": "",
 			"update-upcoming_other": ""
