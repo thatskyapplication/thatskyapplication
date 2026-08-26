@@ -2905,8 +2905,6 @@ export default {
 		},
 		calendar: {
 			name: "Calendar",
-			description:
-				"See seasons, events, travelling spirits, returning spirits, and more laid out on a calendar.",
 			"description-short": "See what's on in Sky on a calendar.",
 			"view-month": "Month",
 			"view-week": "Week",
@@ -2935,7 +2933,6 @@ export default {
 		},
 		catalogue: {
 			"main-title": "Catalogue",
-			description: "Keep a catalogue and track all of your Sky cosmetics.",
 			"description-short": "Keep track of your Sky cosmetics.",
 			"main-description":
 				"Welcome to your catalogue!\n\nHere, you can track all the cosmetics in the game, with dynamic calculations, such as remaining seasonal candles for an active season, making this a powerful tool to use.\n\nTotal progress: {{progress}}%",
@@ -3341,21 +3338,15 @@ export default {
 				[ScheduleType.Update]: "Update",
 			} satisfies Partial<Record<ScheduleTypes, string>>,
 			name: "Schedule",
-			description:
-				"See a schedule of events such as the polluted geyser, grandma, turtle, Vault Elder's blessing, and more!",
 			"description-short": "View a schedule of events in Sky.",
 			"local-time-notice": "All times are shown in your local time.",
 			"sky-time": "Sky time",
 			"overview-active": "Active",
 			"overview-available": "{{emoji}} Available!",
 			"overview-upcoming": "Upcoming",
-			"overview-unavailable": "Unavailable",
-			"overview-next": "Next:",
 			"overview-next-timestamp": "Next: {{timestamp}}",
 			"overview-next-available-timestamp": "Next available {{timestamp}}",
-			"overview-ends": "Ends:",
 			"overview-ends-timestamp": "Ends: {{timestamp}}",
-			"overview-in": "In:",
 			overview: "**{{type}}:** {{details}}",
 			"update-version": "{{version}} update",
 			"event-ongoing": "The event is ongoing!",
