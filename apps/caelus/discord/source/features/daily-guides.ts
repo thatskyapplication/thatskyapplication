@@ -64,6 +64,7 @@ import {
 	TIME_ZONE,
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
+	dailyQuestLabel,
 } from "@thatskyapplication/utility";
 import { GUILD_CACHE } from "../caches/guilds.js";
 import database from "../database.js";
@@ -144,12 +145,12 @@ export function questAutocomplete(focused: string, locale: Locale) {
 	return focused === ""
 		? []
 		: DAILY_QUEST_VALUES.filter((dailyQuest) =>
-				t(`quests.${dailyQuest}`, { lng: locale, ns: "general" })
+				dailyQuestLabel(dailyQuest, t, { lng: locale })
 					.toUpperCase()
 					.includes(focused.toUpperCase()),
 			)
 				.map((dailyQuest) => {
-					let quest = t(`quests.${dailyQuest}`, { lng: locale, ns: "general" });
+					let quest = dailyQuestLabel(dailyQuest, t, { lng: locale });
 
 					if (quest.length > MAXIMUM_AUTOCOMPLETE_NAME_LIMIT) {
 						quest = `${quest.slice(0, MAXIMUM_AUTOCOMPLETE_NAME_LIMIT - 3)}...`;
@@ -169,7 +170,7 @@ export function questResponse(quest: DailyQuests, locale: Locale): [APIMessageTo
 			components: [
 				{
 					type: ComponentType.TextDisplay,
-					content: `### ${t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+					content: `### ${dailyQuestLabel(quest, t, { lng: locale })}`,
 				},
 				url
 					? { type: ComponentType.MediaGallery, items: [{ media: { url } }] }
@@ -897,7 +898,7 @@ async function distributionData({
 			content: `### ${t("daily-guides.quests-heading", { lng: locale, ns: "features" })}\n${quests
 				.map(
 					({ quest, url }, index) =>
-						`${index + 1}. ${type === DailyGuidesDistributionType.Compact && url ? `[${t(`quests.${quest}`, { lng: locale, ns: "general" })}](${url})` : t(`quests.${quest}`, { lng: locale, ns: "general" })}`,
+						`${index + 1}. ${type === DailyGuidesDistributionType.Compact && url ? `[${dailyQuestLabel(quest, t, { lng: locale })}](${url})` : dailyQuestLabel(quest, t, { lng: locale })}`,
 				)
 				.join("\n")}`,
 		});
@@ -937,7 +938,7 @@ async function distributionData({
 					type: ComponentType.MediaGallery,
 					items: questsWithMedia.map(({ quest, url }) => ({
 						media: { url },
-						description: t(`quests.${quest}`, { lng: locale, ns: "general" }),
+						description: dailyQuestLabel(quest, t, { lng: locale }),
 					})),
 				});
 
@@ -1556,12 +1557,12 @@ export async function interactive(
 	const questOptions = [];
 
 	for (const quest of quests) {
-		if (quest === null) {
+		if (quest === null || !isDailyQuest(quest)) {
 			continue;
 		}
 
 		questOptions.push({
-			label: t(`quests.${quest}`, { lng: locale, ns: "general" }),
+			label: dailyQuestLabel(quest, t, { lng: locale }),
 			value: quest.toString(),
 		});
 	}
@@ -1842,10 +1843,10 @@ export async function set(
 	}
 
 	const oldData = {
-		quest1: oldQuest1 === null ? null : t(`quests.${oldQuest1}`, { ns: "general" }),
-		quest2: oldQuest2 === null ? null : t(`quests.${oldQuest2}`, { ns: "general" }),
-		quest3: oldQuest3 === null ? null : t(`quests.${oldQuest3}`, { ns: "general" }),
-		quest4: oldQuest4 === null ? null : t(`quests.${oldQuest4}`, { ns: "general" }),
+		quest1: oldQuest1 === null || !isDailyQuest(oldQuest1) ? null : dailyQuestLabel(oldQuest1, t),
+		quest2: oldQuest2 === null || !isDailyQuest(oldQuest2) ? null : dailyQuestLabel(oldQuest2, t),
+		quest3: oldQuest3 === null || !isDailyQuest(oldQuest3) ? null : dailyQuestLabel(oldQuest3, t),
+		quest4: oldQuest4 === null || !isDailyQuest(oldQuest4) ? null : dailyQuestLabel(oldQuest4, t),
 		travellingRock,
 		travellingRockNotSpawned,
 	};
@@ -1901,22 +1902,10 @@ export async function set(
 	const finalTravellingRockNotSpawned =
 		data.travelling_rock_not_spawned ?? travellingRockNotSpawned;
 	const newData = {
-		quest1:
-			newQuest1 === null || !isDailyQuest(newQuest1)
-				? null
-				: t(`quests.${newQuest1}`, { ns: "general" }),
-		quest2:
-			newQuest2 === null || !isDailyQuest(newQuest2)
-				? null
-				: t(`quests.${newQuest2}`, { ns: "general" }),
-		quest3:
-			newQuest3 === null || !isDailyQuest(newQuest3)
-				? null
-				: t(`quests.${newQuest3}`, { ns: "general" }),
-		quest4:
-			newQuest4 === null || !isDailyQuest(newQuest4)
-				? null
-				: t(`quests.${newQuest4}`, { ns: "general" }),
+		quest1: newQuest1 === null || !isDailyQuest(newQuest1) ? null : dailyQuestLabel(newQuest1, t),
+		quest2: newQuest2 === null || !isDailyQuest(newQuest2) ? null : dailyQuestLabel(newQuest2, t),
+		quest3: newQuest3 === null || !isDailyQuest(newQuest3) ? null : dailyQuestLabel(newQuest3, t),
+		quest4: newQuest4 === null || !isDailyQuest(newQuest4) ? null : dailyQuestLabel(newQuest4, t),
 		travellingRock: finalTravellingRock,
 		travellingRockNotSpawned: finalTravellingRockNotSpawned,
 	};
@@ -1961,17 +1950,17 @@ export async function questsReorder(
 	};
 
 	const oldQuests = {
-		quest1: quest1 === null ? null : t(`quests.${quest1}`, { ns: "general" }),
-		quest2: quest2 === null ? null : t(`quests.${quest2}`, { ns: "general" }),
-		quest3: quest3 === null ? null : t(`quests.${quest3}`, { ns: "general" }),
-		quest4: quest4 === null ? null : t(`quests.${quest4}`, { ns: "general" }),
+		quest1: quest1 === null || !isDailyQuest(quest1) ? null : dailyQuestLabel(quest1, t),
+		quest2: quest2 === null || !isDailyQuest(quest2) ? null : dailyQuestLabel(quest2, t),
+		quest3: quest3 === null || !isDailyQuest(quest3) ? null : dailyQuestLabel(quest3, t),
+		quest4: quest4 === null || !isDailyQuest(quest4) ? null : dailyQuestLabel(quest4, t),
 	};
 
 	const newQuests = {
-		quest1: t(`quests.${newQuest1}`, { ns: "general" }),
-		quest2: t(`quests.${newQuest2}`, { ns: "general" }),
-		quest3: newQuest3 === null ? null : t(`quests.${newQuest3}`, { ns: "general" }),
-		quest4: newQuest4 === null ? null : t(`quests.${newQuest4}`, { ns: "general" }),
+		quest1: isDailyQuest(newQuest1) ? dailyQuestLabel(newQuest1, t) : null,
+		quest2: isDailyQuest(newQuest2) ? dailyQuestLabel(newQuest2, t) : null,
+		quest3: newQuest3 === null || !isDailyQuest(newQuest3) ? null : dailyQuestLabel(newQuest3, t),
+		quest4: newQuest4 === null || !isDailyQuest(newQuest4) ? null : dailyQuestLabel(newQuest4, t),
 	};
 
 	await logModification({

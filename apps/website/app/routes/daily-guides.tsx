@@ -28,6 +28,7 @@ import {
 	TREASURE_CANDLES_DOUBLE_CONFIGURATIONS,
 	treasureCandles,
 	WEBSITE_URL,
+	dailyQuestLabel,
 } from "@thatskyapplication/utility";
 import { ExternalLinkList } from "~/components/ExternalLinkList";
 import { InfographicPreview, type SelectedInfographic } from "~/components/InfographicPreview";
@@ -665,11 +666,11 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 												onClick={() => handleImageClick(url, acknowledgement)}
 												type="button"
 											>
-												{t(`quests.${quest}`, { ns: "general" })}
+												{dailyQuestLabel(quest, t)}
 											</button>
 										) : (
 											<span className="flex-1 text-sm text-gray-700 dark:text-gray-300">
-												{t(`quests.${quest}`, { ns: "general" })}
+												{dailyQuestLabel(quest, t)}
 											</span>
 										)}
 									</div>
