@@ -12,6 +12,9 @@ a:notifications:
 a:sky-elder:
   - changed-files:
       - any-glob-to-any-file: apps/sky-elder/**/*
+a:sky-links:
+  - changed-files:
+      - any-glob-to-any-file: packages/sky-links/**/*
 a:socials:
   - changed-files:
       - any-glob-to-any-file: apps/socials/**/*
