@@ -2301,9 +2301,7 @@
 			"ascended-candles": {
 				"command-name": "星のキャンドル",
 				"command-description": "任意の数の星のキャンドルを獲得するのにかかる日数を計算します。",
-				"command-option-start-name": "開始",
 				"command-option-start-description": "開始時の星のキャンドル所持数。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "目標の星のキャンドル所持数。",
 				"command-option-eye-of-eden-name": "暴風域",
 				"command-option-eye-of-eden-description": "計算に原罪を含めるか。",
@@ -2313,21 +2311,16 @@
 			"event-tickets": {
 				"command-name": "イベントチケット",
 				"command-description": "任意の数のイベントチケットを獲得するのにかかる日数を計算します。",
-				"command-option-start-name": "開始",
 				"command-option-start-description": "開始時のイベントチケット所持数。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "目標のイベントチケット所持数。"
 			},
 			"seasonal-candles": {
 				"command-name": "シーズンキャンドル",
 				"command-description": "任意の数のシーズンキャンドルを獲得するのにかかる日数を計算します。",
-				"command-option-start-name": "開始",
 				"command-option-start-description": "開始時のシーズンキャンドル所持数。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "目標のシーズンキャンドル所持数。"
 			},
 			"winged-light": {
-				"command-name": "光の翼",
 				"command-description": "",
 				"command-option-wing-buffs-name": "",
 				"command-option-wing-buffs-description": ""
@@ -2336,7 +2329,6 @@
 		"catalogue": {
 			"command-name": "カタログ",
 			"command-description": "あなた専用のSkyカタログ。",
-			"command-option-search-name": "",
 			"command-option-search-description": ""
 		},
 		"checklist": {
@@ -2347,7 +2339,6 @@
 			"command-name": "設定",
 			"command-description": "このサーバーの通知設定をします。",
 			"daily-guides": {
-				"command-name": "デイリーガイド",
 				"command-description": "このサーバーにデイリーガイドを設置するコマンドです。"
 			},
 			"me": {
@@ -2364,9 +2355,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "デイリーガイド",
 			"command-description": "デイリーガイドを表示します。",
-			"command-option-type-name": "",
 			"command-option-type-description": ""
 		},
 		"data": {
@@ -2386,20 +2375,17 @@
 			"game": {
 				"command-name": "ゲーム",
 				"command-description": "クイズゲームを始めましょう！",
-				"command-option-type-name": "ジャンル",
 				"command-option-type-description": "どのジャンルのクイズで遊びますか？"
 			},
 			"leaderboard": {
 				"command-name": "ランキング",
 				"command-description": "ランキングを見ましょう！",
-				"command-option-type-name": "ジャンル",
 				"command-option-type-description": "どのクイズについて知りたいですか？"
 			}
 		},
 		"hair-tousle": {
 			"command-name": "なでなで",
 			"command-description": "誰かをなでなでしましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "髪がくしゃくしゃになるまで撫でたい相手。"
 		},
 		"heart": {
@@ -2408,36 +2394,30 @@
 			"gift": {
 				"command-name": "ギフト",
 				"command-description": "誰かにハートを送りましょう！",
-				"command-option-user-name": "",
 				"command-option-user-description": ""
 			},
 			"history": {
-				"command-name": "",
 				"command-description": "仲間とのハートの思い出を見ましょう！"
 			}
 		},
 		"high-five": {
 			"command-name": "ハイタッチ",
 			"command-description": "誰かとハイタッチしましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "ハイタッチしたい相手。"
 		},
 		"hug": {
 			"command-name": "ハグ",
 			"command-description": "誰かとハグしましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "ぎゅーっと抱きしめたい相手。"
 		},
 		"krill": {
 			"command-name": "エビ",
 			"command-description": "相手に暗黒竜をぶつけましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "エビの犠牲者を選ぶ。"
 		},
 		"play-fight": {
 			"command-name": "けんかごっこ",
 			"command-description": "誰かとけんかごっこをしましょう！",
-			"command-option-user-name": "ユーザー",
 			"command-option-user-description": "けんかごっこをふっかける相手。"
 		},
 		"quest": {
@@ -2449,10 +2429,7 @@
 		"schedule": {
 			"command-name": "スケジュール",
 			"command-description": "Skyの各イベントスケジュールを呼び出します！",
-			"command-option-type-name": "",
-			"command-option-type-description": "",
-			"command-option-hide-name": "",
-			"command-option-hide-description": ""
+			"command-option-type-description": ""
 		},
 		"shard-eruption": {
 			"command-name": "闇の破片",
@@ -2472,13 +2449,11 @@
 			"edit": {
 				"command-name": "",
 				"command-description": "あなたのSkyプロフィールを作成します。",
-				"command-option-name-name": "名前",
 				"command-option-name-description": "あなたの星の子のお名前はなんですか？",
 				"command-option-icon-name": "アイコン",
 				"command-option-icon-description": "アイコンをアップロードしましょう！",
 				"command-option-banner-name": "バナー",
 				"command-option-banner-description": "バナーをアップロードしましょう！(Webサイト表示用)",
-				"command-option-winged-light-name": "光の翼",
 				"command-option-winged-light-description": "あなたの光の翼の最大枚数は？",
 				"command-option-winged-light-choice-name": {
 					"0": "カタログから推測する。",
@@ -2497,16 +2472,12 @@
 			"explore": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
 				"command-option-name-description": ""
 			},
 			"show": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
-				"command-option-user-description": "",
-				"command-option-hide-name": "",
-				"command-option-hide-description": ""
+				"command-option-user-description": ""
 			}
 		},
 		"Sky-Profile": {
@@ -2516,7 +2487,6 @@
 			"command-name": "精霊",
 			"command-description": "精霊の情報を調べましょう！",
 			"history": {
-				"command-name": "来歴",
 				"command-description": "長い間訪れていない精霊を含む、精霊が再訪した履歴をご覧ください。",
 				"command-option-order-name": "オーダー",
 				"command-option-order-description": "精霊の表示順を選択します。",
@@ -2526,11 +2496,23 @@
 				}
 			},
 			"search": {
-				"command-name": "検索",
 				"command-description": "精霊の情報を表示します。",
 				"command-option-query-name": "キーワード",
 				"command-option-query-description": "精霊の名前・季節・エモート・姿勢・呼びかけ。"
 			}
+		},
+		"common": {
+			"user": "ユーザー",
+			"type": "ジャンル",
+			"goal": "目標",
+			"start": "開始",
+			"hide": "",
+			"hide-description": "",
+			"name": "名前",
+			"history": "来歴",
+			"search": "検索",
+			"daily-guides": "デイリーガイド",
+			"winged-light": "光の翼"
 		}
 	},
 	"features": {

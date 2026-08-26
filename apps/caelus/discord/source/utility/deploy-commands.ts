@@ -96,12 +96,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("calculate.ascended-candles.command-option-start-name", {
+						name: t("common.start", {
 							ns: "commands",
 						}),
-						name_localizations: localisations(
-							"calculate.ascended-candles.command-option-start-name",
-						),
+						name_localizations: localisations("common.start"),
 						description: t("calculate.ascended-candles.command-option-start-description", {
 							ns: "commands",
 						}),
@@ -113,12 +111,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("calculate.ascended-candles.command-option-goal-name", {
+						name: t("common.goal", {
 							ns: "commands",
 						}),
-						name_localizations: localisations(
-							"calculate.ascended-candles.command-option-goal-name",
-						),
+						name_localizations: localisations("common.goal"),
 						description: t("calculate.ascended-candles.command-option-goal-description", {
 							ns: "commands",
 						}),
@@ -177,10 +173,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("calculate.event-tickets.command-option-start-name", {
+						name: t("common.start", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("calculate.event-tickets.command-option-start-name"),
+						name_localizations: localisations("common.start"),
 						description: t("calculate.event-tickets.command-option-start-description", {
 							ns: "commands",
 						}),
@@ -192,10 +188,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("calculate.event-tickets.command-option-goal-name", {
+						name: t("common.goal", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("calculate.event-tickets.command-option-goal-name"),
+						name_localizations: localisations("common.goal"),
 						description: t("calculate.event-tickets.command-option-goal-description", {
 							ns: "commands",
 						}),
@@ -221,12 +217,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("calculate.seasonal-candles.command-option-start-name", {
+						name: t("common.start", {
 							ns: "commands",
 						}),
-						name_localizations: localisations(
-							"calculate.seasonal-candles.command-option-start-name",
-						),
+						name_localizations: localisations("common.start"),
 						description: t("calculate.seasonal-candles.command-option-start-description", {
 							ns: "commands",
 						}),
@@ -239,12 +233,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("calculate.seasonal-candles.command-option-goal-name", {
+						name: t("common.goal", {
 							ns: "commands",
 						}),
-						name_localizations: localisations(
-							"calculate.seasonal-candles.command-option-goal-name",
-						),
+						name_localizations: localisations("common.goal"),
 						description: t("calculate.seasonal-candles.command-option-goal-description", {
 							ns: "commands",
 						}),
@@ -259,8 +251,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("calculate.winged-light.command-name", { ns: "commands" }),
-				name_localizations: localisations("calculate.winged-light.command-name"),
+				name: t("common.winged-light", { ns: "commands" }),
+				name_localizations: localisations("common.winged-light"),
 				description: t("calculate.winged-light.command-description", {
 					ns: "commands",
 				}),
@@ -306,8 +298,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.String,
-				name: t("catalogue.command-option-search-name", { ns: "commands" }),
-				name_localizations: localisations("catalogue.command-option-search-name"),
+				name: t("common.search", { ns: "commands" }),
+				name_localizations: localisations("common.search"),
 				description: t("catalogue.command-option-search-description", { ns: "commands" }),
 				description_localizations: localisations("catalogue.command-option-search-description"),
 				autocomplete: true,
@@ -348,8 +340,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("configure.daily-guides.command-name", { ns: "commands" }),
-				name_localizations: localisations("configure.daily-guides.command-name"),
+				name: t("common.daily-guides", { ns: "commands" }),
+				name_localizations: localisations("common.daily-guides"),
 				description: t("configure.daily-guides.command-description", {
 					ns: "commands",
 				}),
@@ -398,16 +390,16 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		contexts: [InteractionContextType.Guild],
 	},
 	{
-		name: t("daily-guides.command-name", { ns: "commands" }),
-		name_localizations: localisations("daily-guides.command-name"),
+		name: t("common.daily-guides", { ns: "commands" }),
+		name_localizations: localisations("common.daily-guides"),
 		description: t("daily-guides.command-description", { ns: "commands" }),
 		description_localizations: localisations("daily-guides.command-description"),
 		type: ApplicationCommandType.ChatInput,
 		options: [
 			{
 				type: ApplicationCommandOptionType.Integer,
-				name: t("daily-guides.command-option-type-name", { ns: "commands" }),
-				name_localizations: localisations("daily-guides.command-option-type-name"),
+				name: t("common.type", { ns: "commands" }),
+				name_localizations: localisations("common.type"),
 				description: t("daily-guides.command-option-type-description", { ns: "commands" }),
 				description_localizations: localisations("daily-guides.command-option-type-description"),
 				choices: DAILY_GUIDES_DISTRIBUTION_TYPE_VALUES.map((dailyGuidesDistributionType) => ({
@@ -485,10 +477,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("guess.game.command-option-type-name", {
+						name: t("common.type", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("guess.game.command-option-type-name"),
+						name_localizations: localisations("common.type"),
 						description: t("guess.game.command-option-type-description", {
 							ns: "commands",
 						}),
@@ -513,10 +505,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("guess.leaderboard.command-option-type-name", {
+						name: t("common.type", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("guess.leaderboard.command-option-type-name"),
+						name_localizations: localisations("common.type"),
 						description: t("guess.leaderboard.command-option-type-description", {
 							ns: "commands",
 						}),
@@ -552,8 +544,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: t("hair-tousle.command-option-user-name", { ns: "commands" }),
-				name_localizations: localisations("hair-tousle.command-option-user-name"),
+				name: t("common.user", { ns: "commands" }),
+				name_localizations: localisations("common.user"),
 				description: t("hair-tousle.command-option-user-description", {
 					ns: "commands",
 				}),
@@ -583,10 +575,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.User,
-						name: t("heart.gift.command-option-user-name", {
+						name: t("common.user", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("heart.gift.command-option-user-name"),
+						name_localizations: localisations("common.user"),
 						description: t("heart.gift.command-option-user-description", {
 							ns: "commands",
 						}),
@@ -597,8 +589,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("heart.history.command-name", { ns: "commands" }),
-				name_localizations: localisations("heart.history.command-name"),
+				name: t("common.history", { ns: "commands" }),
+				name_localizations: localisations("common.history"),
 				description: t("heart.history.command-description", {
 					ns: "commands",
 				}),
@@ -620,8 +612,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: t("high-five.command-option-user-name", { ns: "commands" }),
-				name_localizations: localisations("high-five.command-option-user-name"),
+				name: t("common.user", { ns: "commands" }),
+				name_localizations: localisations("common.user"),
 				description: t("high-five.command-option-user-description", {
 					ns: "commands",
 				}),
@@ -644,8 +636,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: t("hug.command-option-user-name", { ns: "commands" }),
-				name_localizations: localisations("hug.command-option-user-name"),
+				name: t("common.user", { ns: "commands" }),
+				name_localizations: localisations("common.user"),
 				description: t("hug.command-option-user-description", {
 					ns: "commands",
 				}),
@@ -668,8 +660,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: t("krill.command-option-user-name", { ns: "commands" }),
-				name_localizations: localisations("krill.command-option-user-name"),
+				name: t("common.user", { ns: "commands" }),
+				name_localizations: localisations("common.user"),
 				description: t("krill.command-option-user-description", {
 					ns: "commands",
 				}),
@@ -692,8 +684,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.User,
-				name: t("play-fight.command-option-user-name", { ns: "commands" }),
-				name_localizations: localisations("play-fight.command-option-user-name"),
+				name: t("common.user", { ns: "commands" }),
+				name_localizations: localisations("common.user"),
 				description: t("play-fight.command-option-user-description", {
 					ns: "commands",
 				}),
@@ -744,10 +736,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Integer,
-				name: t("schedule.command-option-type-name", {
+				name: t("common.type", {
 					ns: "commands",
 				}),
-				name_localizations: localisations("schedule.command-option-type-name"),
+				name_localizations: localisations("common.type"),
 				description: t("schedule.command-option-type-description", {
 					ns: "commands",
 				}),
@@ -767,12 +759,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			},
 			{
 				type: ApplicationCommandOptionType.Boolean,
-				name: t("schedule.command-option-hide-name", { ns: "commands" }),
-				name_localizations: localisations("schedule.command-option-hide-name"),
-				description: t("schedule.command-option-hide-description", {
+				name: t("common.hide", { ns: "commands" }),
+				name_localizations: localisations("common.hide"),
+				description: t("common.hide-description", {
 					ns: "commands",
 				}),
-				description_localizations: localisations("schedule.command-option-hide-description"),
+				description_localizations: localisations("common.hide-description"),
 			},
 		],
 		integration_types: [
@@ -861,10 +853,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
-						name: t("sky-profile.edit.command-option-name-name", {
+						name: t("common.name", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("sky-profile.edit.command-option-name-name"),
+						name_localizations: localisations("common.name"),
 						description: t("sky-profile.edit.command-option-name-description", {
 							ns: "commands",
 						}),
@@ -903,10 +895,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					},
 					{
 						type: ApplicationCommandOptionType.Integer,
-						name: t("sky-profile.edit.command-option-winged-light-name", {
+						name: t("common.winged-light", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("sky-profile.edit.command-option-winged-light-name"),
+						name_localizations: localisations("common.winged-light"),
 						description: t("sky-profile.edit.command-option-winged-light-description", {
 							ns: "commands",
 						}),
@@ -1009,10 +1001,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.String,
-						name: t("sky-profile.explore.command-option-name-name", {
+						name: t("common.name", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("sky-profile.explore.command-option-name-name"),
+						name_localizations: localisations("common.name"),
 						description: t("sky-profile.explore.command-option-name-description", {
 							ns: "commands",
 						}),
@@ -1034,10 +1026,10 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				options: [
 					{
 						type: ApplicationCommandOptionType.User,
-						name: t("sky-profile.show.command-option-user-name", {
+						name: t("common.user", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("sky-profile.show.command-option-user-name"),
+						name_localizations: localisations("common.user"),
 						description: t("sky-profile.show.command-option-user-description", {
 							ns: "commands",
 						}),
@@ -1047,16 +1039,14 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 					},
 					{
 						type: ApplicationCommandOptionType.Boolean,
-						name: t("sky-profile.show.command-option-hide-name", {
+						name: t("common.hide", {
 							ns: "commands",
 						}),
-						name_localizations: localisations("sky-profile.show.command-option-hide-name"),
-						description: t("sky-profile.show.command-option-hide-description", {
+						name_localizations: localisations("common.hide"),
+						description: t("common.hide-description", {
 							ns: "commands",
 						}),
-						description_localizations: localisations(
-							"sky-profile.show.command-option-hide-description",
-						),
+						description_localizations: localisations("common.hide-description"),
 					},
 				],
 			},
@@ -1094,8 +1084,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		options: [
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("spirits.history.command-name", { ns: "commands" }),
-				name_localizations: localisations("spirits.history.command-name"),
+				name: t("common.history", { ns: "commands" }),
+				name_localizations: localisations("common.history"),
 				description: t("spirits.history.command-description", {
 					ns: "commands",
 				}),
@@ -1128,8 +1118,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			},
 			{
 				type: ApplicationCommandOptionType.Subcommand,
-				name: t("spirits.search.command-name", { ns: "commands" }),
-				name_localizations: localisations("spirits.search.command-name"),
+				name: t("common.search", { ns: "commands" }),
+				name_localizations: localisations("common.search"),
 				description: t("spirits.search.command-description", {
 					ns: "commands",
 				}),
@@ -1180,8 +1170,8 @@ const SUPPORT_SERVER_COMMANDS: RESTPutAPIApplicationGuildCommandsJSONBody = [
 		default_member_permissions: "0",
 	},
 	{
-		name: t("daily-guides.command-name", { ns: "commands" }),
-		name_localizations: localisations("daily-guides.command-name"),
+		name: t("common.daily-guides", { ns: "commands" }),
+		name_localizations: localisations("common.daily-guides"),
 		description: "Edits the daily guides.",
 		type: ApplicationCommandType.ChatInput,
 		options: [

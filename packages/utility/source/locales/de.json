@@ -2301,9 +2301,7 @@
 			"ascended-candles": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": "",
 				"command-option-eye-of-eden-name": "",
 				"command-option-eye-of-eden-description": "",
@@ -2313,21 +2311,16 @@
 			"event-tickets": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": ""
 			},
 			"seasonal-candles": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": ""
 			},
 			"winged-light": {
-				"command-name": "",
 				"command-description": "",
 				"command-option-wing-buffs-name": "",
 				"command-option-wing-buffs-description": ""
@@ -2336,7 +2329,6 @@
 		"catalogue": {
 			"command-name": "katalog",
 			"command-description": "Dein ganz eigener Sky-Katalog.",
-			"command-option-search-name": "",
 			"command-option-search-description": ""
 		},
 		"checklist": {
@@ -2347,7 +2339,6 @@
 			"command-name": "",
 			"command-description": "",
 			"daily-guides": {
-				"command-name": "",
 				"command-description": ""
 			},
 			"me": {
@@ -2364,9 +2355,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "",
 			"command-description": "",
-			"command-option-type-name": "",
 			"command-option-type-description": ""
 		},
 		"data": {
@@ -2386,20 +2375,17 @@
 			"game": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			},
 			"leaderboard": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			}
 		},
 		"hair-tousle": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "nutzer",
 			"command-option-user-description": ""
 		},
 		"heart": {
@@ -2408,36 +2394,30 @@
 			"gift": {
 				"command-name": "geschenk",
 				"command-description": "",
-				"command-option-user-name": "nutzer",
 				"command-option-user-description": ""
 			},
 			"history": {
-				"command-name": "verlauf",
 				"command-description": ""
 			}
 		},
 		"high-five": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "nutzer",
 			"command-option-user-description": ""
 		},
 		"hug": {
 			"command-name": "umarmung",
 			"command-description": "Umarme jemanden!",
-			"command-option-user-name": "nutzer",
 			"command-option-user-description": "Die Person, die umarmt werden soll."
 		},
 		"krill": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "nutzer",
 			"command-option-user-description": ""
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "nutzer",
 			"command-option-user-description": ""
 		},
 		"quest": {
@@ -2449,10 +2429,7 @@
 		"schedule": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-type-name": "",
-			"command-option-type-description": "",
-			"command-option-hide-name": "",
-			"command-option-hide-description": ""
+			"command-option-type-description": ""
 		},
 		"shard-eruption": {
 			"command-name": "",
@@ -2472,13 +2449,11 @@
 			"edit": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
 				"command-option-name-description": "",
 				"command-option-icon-name": "",
 				"command-option-icon-description": "",
 				"command-option-banner-name": "",
 				"command-option-banner-description": "",
-				"command-option-winged-light-name": "",
 				"command-option-winged-light-description": "",
 				"command-option-winged-light-choice-name": {
 					"0": "",
@@ -2497,16 +2472,12 @@
 			"explore": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
 				"command-option-name-description": ""
 			},
 			"show": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "nutzer",
-				"command-option-user-description": "",
-				"command-option-hide-name": "",
-				"command-option-hide-description": ""
+				"command-option-user-description": ""
 			}
 		},
 		"Sky-Profile": {
@@ -2516,7 +2487,6 @@
 			"command-name": "geister",
 			"command-description": "Schau dir Informationen zu Geistern an!",
 			"history": {
-				"command-name": "verlauf",
 				"command-description": "Schaue den Verlauf der Geister, die zu Besuch gekommen sind, in unterschiedlichen Reihenfolgen an.",
 				"command-option-order-name": "reihenfolge",
 				"command-option-order-description": "Wähle die Reihenfolge, wie die Geister angeordnet sind.",
@@ -2526,11 +2496,23 @@
 				}
 			},
 			"search": {
-				"command-name": "suchen",
 				"command-description": "Schaue Informationen über einen Geist nach.",
 				"command-option-query-name": "suchanfrage",
 				"command-option-query-description": "Der Name, die Saison, der Ausdruck, die Haltung oder der Ruf eines Geists."
 			}
+		},
+		"common": {
+			"user": "nutzer",
+			"type": "",
+			"goal": "",
+			"start": "",
+			"hide": "",
+			"hide-description": "",
+			"name": "",
+			"history": "verlauf",
+			"search": "suchen",
+			"daily-guides": "",
+			"winged-light": ""
 		}
 	},
 	"features": {

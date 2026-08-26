@@ -2604,6 +2604,19 @@ export default {
 		wiki: "Wiki",
 	},
 	commands: {
+		common: {
+			user: "user",
+			type: "type",
+			goal: "goal",
+			start: "start",
+			hide: "hide",
+			"hide-description": "Ensure only you can see the response.",
+			name: "name",
+			history: "history",
+			search: "search",
+			"daily-guides": "daily-guides",
+			"winged-light": "winged-light",
+		},
 		about: {
 			"command-name": "about",
 			"command-description": "About me, the wondrous little Sky helper!",
@@ -2615,9 +2628,7 @@ export default {
 				"command-name": "ascended-candles",
 				"command-description":
 					"Calculates the number of days it would take to achieve a number of ascended candles.",
-				"command-option-start-name": "start",
 				"command-option-start-description": "The starting number of ascended candles.",
-				"command-option-goal-name": "goal",
 				"command-option-goal-description": "The desired number of ascended candles.",
 				"command-option-eye-of-eden-name": "eye-of-eden",
 				"command-option-eye-of-eden-description":
@@ -2630,22 +2641,17 @@ export default {
 				"command-name": "event-tickets",
 				"command-description":
 					"Calculates the number of days it would take to achieve a number of event tickets.",
-				"command-option-start-name": "start",
 				"command-option-start-description": "The starting number of event tickets.",
-				"command-option-goal-name": "goal",
 				"command-option-goal-description": "The desired number of event tickets.",
 			},
 			"seasonal-candles": {
 				"command-name": "seasonal-candles",
 				"command-description":
 					"Calculates the number of days it would take to achieve a number of seasonal candles.",
-				"command-option-start-name": "start",
 				"command-option-start-description": "The starting number of seasonal candles.",
-				"command-option-goal-name": "goal",
 				"command-option-goal-description": "The desired number of seasonal candles.",
 			},
 			"winged-light": {
-				"command-name": "winged-light",
 				"command-description": "Calculates how much winged light one should possess.",
 				"command-option-wing-buffs-name": "wing-buffs",
 				"command-option-wing-buffs-description":
@@ -2655,7 +2661,6 @@ export default {
 		catalogue: {
 			"command-name": "catalogue",
 			"command-description": "Your very own Sky catalogue.",
-			"command-option-search-name": "search",
 			"command-option-search-description": "Go straight to a season, event, or spirit.",
 		},
 		checklist: {
@@ -2666,7 +2671,6 @@ export default {
 			"command-name": "configure",
 			"command-description": "Configure settings for the server.",
 			"daily-guides": {
-				"command-name": "daily-guides",
 				"command-description": "The command to set up daily guides in the server.",
 			},
 			me: {
@@ -2684,9 +2688,7 @@ export default {
 			},
 		},
 		"daily-guides": {
-			"command-name": "daily-guides",
 			"command-description": "Show the daily guides.",
-			"command-option-type-name": "type",
 			"command-option-type-description": "Choose a type to view daily guides in!",
 		},
 		data: {
@@ -2706,20 +2708,17 @@ export default {
 			game: {
 				"command-name": "game",
 				"command-description": "Begin the guessing game!",
-				"command-option-type-name": "type",
 				"command-option-type-description": "What type of game do you wish to play?",
 			},
 			leaderboard: {
 				"command-name": "leaderboard",
 				"command-description": "View the leaderboard!",
-				"command-option-type-name": "type",
 				"command-option-type-description": "What type of game would you like to view?",
 			},
 		},
 		"hair-tousle": {
 			"command-name": "hair-tousle",
 			"command-description": "Give someone a hair tousle!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual whose hair will be tousled.",
 		},
 		heart: {
@@ -2728,36 +2727,30 @@ export default {
 			gift: {
 				"command-name": "gift",
 				"command-description": "Choose someone to gift a heart to!",
-				"command-option-user-name": "user",
 				"command-option-user-description": "The user to gift a heart to.",
 			},
 			history: {
-				"command-name": "history",
 				"command-description": "Display a history of your hearts!",
 			},
 		},
 		"high-five": {
 			"command-name": "high-five",
 			"command-description": "High-five someone!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to high-five.",
 		},
 		hug: {
 			"command-name": "hug",
 			"command-description": "Hug someone!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to be hugged.",
 		},
 		krill: {
 			"command-name": "krill",
 			"command-description": "Krill someone!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to be krilled.",
 		},
 		"play-fight": {
 			"command-name": "play-fight",
 			"command-description": "Fight someone!",
-			"command-option-user-name": "user",
 			"command-option-user-description": "The individual to play fight.",
 		},
 		quest: {
@@ -2769,10 +2762,7 @@ export default {
 		schedule: {
 			"command-name": "schedule",
 			"command-description": "Returns a schedule of events in Sky!",
-			"command-option-type-name": "type",
 			"command-option-type-description": "View a detailed breakdown of a specific schedule?",
-			"command-option-hide-name": "hide",
-			"command-option-hide-description": "Ensure only you can see the response.",
 		},
 		"shard-eruption": {
 			"command-name": "shard-eruption",
@@ -2792,13 +2782,11 @@ export default {
 			edit: {
 				"command-name": "edit",
 				"command-description": "Edit your Sky profile.",
-				"command-option-name-name": "name",
 				"command-option-name-description": "What's your in-game name?",
 				"command-option-icon-name": "icon",
 				"command-option-icon-description": "Upload your icon!",
 				"command-option-banner-name": "banner",
 				"command-option-banner-description": "Upload your banner (only on the website)!",
-				"command-option-winged-light-name": "winged-light",
 				"command-option-winged-light-description": "What is your maximum winged light?",
 				"command-option-winged-light-choice-name": {
 					[SkyProfileWingedLightType.InferFromCatalogue]: "Infer from catalogue.",
@@ -2817,16 +2805,12 @@ export default {
 			explore: {
 				"command-name": "explore",
 				"command-description": "Explore the Sky profiles of others!",
-				"command-option-name-name": "name",
 				"command-option-name-description": "Search a Sky profile via a name!",
 			},
 			show: {
 				"command-name": "show",
 				"command-description": "Shows the Sky profile of someone.",
-				"command-option-user-name": "user",
 				"command-option-user-description": "The user whose Sky profile you wish to see.",
-				"command-option-hide-name": "hide",
-				"command-option-hide-description": "Ensure only you can see the response.",
 			},
 		},
 		"Sky-Profile": {
@@ -2836,7 +2820,6 @@ export default {
 			"command-name": "spirits",
 			"command-description": "Look up a spirit's information!",
 			history: {
-				"command-name": "history",
 				"command-description":
 					"See a history of spirits that visit, including spirits that have been away for a long time.",
 				"command-option-order-name": "order",
@@ -2848,7 +2831,6 @@ export default {
 				} satisfies Record<SpiritsHistoryOrderTypes, string>,
 			},
 			search: {
-				"command-name": "search",
 				"command-description": "Reveal information about a spirit.",
 				"command-option-query-name": "query",
 				"command-option-query-description":

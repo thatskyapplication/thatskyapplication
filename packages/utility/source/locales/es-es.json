@@ -2301,9 +2301,7 @@
 			"ascended-candles": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": "",
 				"command-option-eye-of-eden-name": "",
 				"command-option-eye-of-eden-description": "",
@@ -2313,21 +2311,16 @@
 			"event-tickets": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-start-name": "",
 				"command-option-start-description": "",
-				"command-option-goal-name": "",
 				"command-option-goal-description": ""
 			},
 			"seasonal-candles": {
 				"command-name": "velas-de-temporada",
 				"command-description": "Este comando indica cuántos días se necesitan para conseguir cierta cantidad de velas de temporada.",
-				"command-option-start-name": "inicio",
 				"command-option-start-description": "Número inicial de velas de temporada.",
-				"command-option-goal-name": "meta",
 				"command-option-goal-description": "Número de velas de temporada que deseas"
 			},
 			"winged-light": {
-				"command-name": "luz-alada",
 				"command-description": "Calcula cuánta luz alada deberías tener.",
 				"command-option-wing-buffs-name": "",
 				"command-option-wing-buffs-description": ""
@@ -2336,7 +2329,6 @@
 		"catalogue": {
 			"command-name": "catálogo",
 			"command-description": "Tu propio catálogo de Sky.",
-			"command-option-search-name": "",
 			"command-option-search-description": ""
 		},
 		"checklist": {
@@ -2347,7 +2339,6 @@
 			"command-name": "",
 			"command-description": "",
 			"daily-guides": {
-				"command-name": "guías-diarias",
 				"command-description": "El comando para poner las guías diarias en el servidor."
 			},
 			"me": {
@@ -2364,9 +2355,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "guías-diarias",
 			"command-description": "Mostrar las guías diarias.",
-			"command-option-type-name": "",
 			"command-option-type-description": ""
 		},
 		"data": {
@@ -2386,20 +2375,17 @@
 			"game": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			},
 			"leaderboard": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			}
 		},
 		"hair-tousle": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"heart": {
@@ -2408,36 +2394,30 @@
 			"gift": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
 				"command-option-user-description": ""
 			},
 			"history": {
-				"command-name": "",
 				"command-description": ""
 			}
 		},
 		"high-five": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"hug": {
 			"command-name": "abrazo",
 			"command-description": "¡Abraza a alguien!",
-			"command-option-user-name": "usuario",
 			"command-option-user-description": "El individuo para ser abrazado."
 		},
 		"krill": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"quest": {
@@ -2449,10 +2429,7 @@
 		"schedule": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-type-name": "",
-			"command-option-type-description": "",
-			"command-option-hide-name": "",
-			"command-option-hide-description": ""
+			"command-option-type-description": ""
 		},
 		"shard-eruption": {
 			"command-name": "",
@@ -2472,13 +2449,11 @@
 			"edit": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
 				"command-option-name-description": "",
 				"command-option-icon-name": "",
 				"command-option-icon-description": "",
 				"command-option-banner-name": "",
 				"command-option-banner-description": "",
-				"command-option-winged-light-name": "",
 				"command-option-winged-light-description": "",
 				"command-option-winged-light-choice-name": {
 					"0": "",
@@ -2497,16 +2472,12 @@
 			"explore": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-name": "",
 				"command-option-name-description": ""
 			},
 			"show": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-user-name": "",
-				"command-option-user-description": "",
-				"command-option-hide-name": "",
-				"command-option-hide-description": ""
+				"command-option-user-description": ""
 			}
 		},
 		"Sky-Profile": {
@@ -2516,7 +2487,6 @@
 			"command-name": "espíritus",
 			"command-description": "¡Mira la información de un espíritu!",
 			"history": {
-				"command-name": "historial",
 				"command-description": "Mira el historial de espíritus que han venido, incluyendo aquellos que no lo han hecho hace tiempo.",
 				"command-option-order-name": "orden",
 				"command-option-order-description": "Elige un tipo de orden para los espíritus.",
@@ -2526,11 +2496,23 @@
 				}
 			},
 			"search": {
-				"command-name": "buscar",
 				"command-description": "Revelar información sobre un espíritu.",
 				"command-option-query-name": "consulta",
 				"command-option-query-description": "El nombre, temporada, expresión, postura o llamada del espíritu."
 			}
+		},
+		"common": {
+			"user": "usuario",
+			"type": "",
+			"goal": "meta",
+			"start": "inicio",
+			"hide": "",
+			"hide-description": "",
+			"name": "",
+			"history": "historial",
+			"search": "buscar",
+			"daily-guides": "guías-diarias",
+			"winged-light": "luz-alada"
 		}
 	},
 	"features": {

@@ -2301,9 +2301,7 @@
 			"ascended-candles": {
 				"command-name": "bougies-élevées",
 				"command-description": "Calcule le nombre de jours qu'il faudrait pour atteindre un nombre donné de bougies élevées.",
-				"command-option-start-name": "départ",
 				"command-option-start-description": "Le nombre de bougies élevées au départ.",
-				"command-option-goal-name": "objectif",
 				"command-option-goal-description": "Le nombre désiré de bougies élevées.",
 				"command-option-eye-of-eden-name": "œil-éden",
 				"command-option-eye-of-eden-description": "Choisissez d'inclure ou non l'Œil d'Éden dans le calcul.",
@@ -2313,21 +2311,16 @@
 			"event-tickets": {
 				"command-name": "devises-évènements",
 				"command-description": "Calcule le nombre de jours qu'il faudrait pour atteindre un nombre donné de devises d'évènements.",
-				"command-option-start-name": "départ",
 				"command-option-start-description": "Le nombre de devises d'évènements au départ.",
-				"command-option-goal-name": "objectif",
 				"command-option-goal-description": "Le nombre désiré de devises d'évènements."
 			},
 			"seasonal-candles": {
 				"command-name": "bougies-saisonnières",
 				"command-description": "Calcule le nombre de jours qu'il faudrait pour atteindre un nombre donné de bougies saisonnières.",
-				"command-option-start-name": "départ",
 				"command-option-start-description": "Le nombre de bougies saisonnières au départ.",
-				"command-option-goal-name": "objectif",
 				"command-option-goal-description": "Le nombre désiré de bougies saisonnières."
 			},
 			"winged-light": {
-				"command-name": "lumière-ailée",
 				"command-description": "Calcule combien de lumières ailées il faudrait posséder.",
 				"command-option-wing-buffs-name": "quartiers-ailes",
 				"command-option-wing-buffs-description": ""
@@ -2336,7 +2329,6 @@
 		"catalogue": {
 			"command-name": "catalogue",
 			"command-description": "Votre propre catalogue Sky.",
-			"command-option-search-name": "",
 			"command-option-search-description": ""
 		},
 		"checklist": {
@@ -2347,7 +2339,6 @@
 			"command-name": "configurer",
 			"command-description": "Configurer les paramètres pour le serveur.",
 			"daily-guides": {
-				"command-name": "guides-journaliers",
 				"command-description": "La commande pour mettre en place un guide journalier sur le serveur."
 			},
 			"me": {
@@ -2364,9 +2355,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "guides-journaliers",
 			"command-description": "Montrer les guides journaliers.",
-			"command-option-type-name": "",
 			"command-option-type-description": ""
 		},
 		"data": {
@@ -2386,20 +2375,17 @@
 			"game": {
 				"command-name": "jeu",
 				"command-description": "Commencez le jeu de devinettes !",
-				"command-option-type-name": "type",
 				"command-option-type-description": "À quel type de jeu souhaitez-vous jouer ?"
 			},
 			"leaderboard": {
 				"command-name": "classement",
 				"command-description": "Voir le classement !",
-				"command-option-type-name": "type",
 				"command-option-type-description": "Quel type de jeu souhaitez-vous voir ?"
 			}
 		},
 		"hair-tousle": {
 			"command-name": "ébouriffage-de-cheveux",
 			"command-description": "Ébouriffez les cheveux de quelqu'un !",
-			"command-option-user-name": "utilisateur",
 			"command-option-user-description": "La personne qui se fera ébouriffer les cheveux."
 		},
 		"heart": {
@@ -2408,36 +2394,30 @@
 			"gift": {
 				"command-name": "cadeau",
 				"command-description": "Choisissez quelqu'un pour lui envoyer un cœur !",
-				"command-option-user-name": "utilisateur",
 				"command-option-user-description": "L'utilisateur à qui offrir un cœur."
 			},
 			"history": {
-				"command-name": "historique",
 				"command-description": "Afficher un historique de vos cœurs !"
 			}
 		},
 		"high-five": {
 			"command-name": "tope-là",
 			"command-description": "Topez-là avec quelqu'un !",
-			"command-option-user-name": "utilisateur",
 			"command-option-user-description": "La personne à qui là-toper."
 		},
 		"hug": {
 			"command-name": "câlin",
 			"command-description": "Fais un câlin à quelqu'un !",
-			"command-option-user-name": "utilisateur",
 			"command-option-user-description": "La personne à qui tu veux faire un câlin."
 		},
 		"krill": {
 			"command-name": "krill",
 			"command-description": "Fait quelqu'un se faire attaquer par un krill !",
-			"command-option-user-name": "utilisateur",
 			"command-option-user-description": "La personne qui se fera attaquer par un krill."
 		},
 		"play-fight": {
 			"command-name": "bagarre-amicale",
 			"command-description": "Jouez à la bagarre avec quelqu'un !",
-			"command-option-user-name": "utilisateur",
 			"command-option-user-description": "La personne avec qui jouer à la bagarre."
 		},
 		"quest": {
@@ -2449,10 +2429,7 @@
 		"schedule": {
 			"command-name": "calendrier",
 			"command-description": "Montre un planning des évènements de Sky !",
-			"command-option-type-name": "type",
-			"command-option-type-description": "Voir le détail des horaires d'un calendrier spécifique ?",
-			"command-option-hide-name": "cacher",
-			"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
+			"command-option-type-description": "Voir le détail des horaires d'un calendrier spécifique ?"
 		},
 		"shard-eruption": {
 			"command-name": "éruption-éclats",
@@ -2472,13 +2449,11 @@
 			"edit": {
 				"command-name": "éditer",
 				"command-description": "Éditer votre profil Sky.",
-				"command-option-name-name": "pseudo",
 				"command-option-name-description": "Quel est votre pseudo en jeu ?",
 				"command-option-icon-name": "icône",
 				"command-option-icon-description": "Téléchargez votre icône !",
 				"command-option-banner-name": "bannière",
 				"command-option-banner-description": "Téléchargez votre bannière (seulement sur le site web) !",
-				"command-option-winged-light-name": "lumière-ailée",
 				"command-option-winged-light-description": "Quel est votre maximum de lumières ailées ?",
 				"command-option-winged-light-choice-name": {
 					"0": "Déduire depuis le catalogue.",
@@ -2497,16 +2472,12 @@
 			"explore": {
 				"command-name": "explorer",
 				"command-description": "Explorez les profils Sky des autres !",
-				"command-option-name-name": "pseudo",
 				"command-option-name-description": "Chercher un profil Sky via un pseudo !"
 			},
 			"show": {
 				"command-name": "montrer",
 				"command-description": "Montre le profil Sky de quelqu'un.",
-				"command-option-user-name": "utilisateur",
-				"command-option-user-description": "L'utilisateur dont vous désirez voir le profil Sky.",
-				"command-option-hide-name": "cacher",
-				"command-option-hide-description": "S'assure que seulement vous pouvez voir la réponse."
+				"command-option-user-description": "L'utilisateur dont vous désirez voir le profil Sky."
 			}
 		},
 		"Sky-Profile": {
@@ -2516,7 +2487,6 @@
 			"command-name": "esprits",
 			"command-description": "Recherchez les informations d'un esprit !",
 			"history": {
-				"command-name": "historique",
 				"command-description": "Voir l'historique des esprits qui voyagent, y compris ceux qui sont partis il y a longtemps.",
 				"command-option-order-name": "ordre",
 				"command-option-order-description": "Choisissez un type d'ordre pour les esprits.",
@@ -2526,11 +2496,23 @@
 				}
 			},
 			"search": {
-				"command-name": "chercher",
 				"command-description": "Révèle les informations d'un esprit.",
 				"command-option-query-name": "requête",
 				"command-option-query-description": "Le nom, la saison, l'expression, la posture ou l'appel de l'esprit."
 			}
+		},
+		"common": {
+			"user": "utilisateur",
+			"type": "type",
+			"goal": "objectif",
+			"start": "départ",
+			"hide": "cacher",
+			"hide-description": "S'assure que seulement vous pouvez voir la réponse.",
+			"name": "pseudo",
+			"history": "historique",
+			"search": "chercher",
+			"daily-guides": "guides-journaliers",
+			"winged-light": "lumière-ailée"
 		}
 	},
 	"features": {

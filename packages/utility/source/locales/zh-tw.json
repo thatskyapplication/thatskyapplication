@@ -2301,9 +2301,7 @@
 			"ascended-candles": {
 				"command-name": "昇華蠟燭",
 				"command-description": "計算達到一定數量的昇華蠟燭所需的天數。",
-				"command-option-start-name": "起始",
 				"command-option-start-description": "昇華蠟燭的起始數量。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "期望的昇華蠟燭數量。",
 				"command-option-eye-of-eden-name": "暴風眼",
 				"command-option-eye-of-eden-description": "是否將暴風眼納入計算。",
@@ -2313,21 +2311,16 @@
 			"event-tickets": {
 				"command-name": "活動票券",
 				"command-description": "計算獲得一定數量的活動票卷所需的天數。",
-				"command-option-start-name": "起始",
 				"command-option-start-description": "活動票券的起始數量。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "所需的活動票券數量。"
 			},
 			"seasonal-candles": {
 				"command-name": "季節蠟燭",
 				"command-description": "計算獲得一定數量的季節蠟燭所需的天數。",
-				"command-option-start-name": "起始",
 				"command-option-start-description": "季節蠟燭的起始數量。",
-				"command-option-goal-name": "目標",
 				"command-option-goal-description": "所需的季節蠟燭數量。"
 			},
 			"winged-light": {
-				"command-name": "翼之光",
 				"command-description": "計算一個人應該擁有多少翼光。",
 				"command-option-wing-buffs-name": "永久翼",
 				"command-option-wing-buffs-description": "永久翼數量（從昇華先靈收集的總數量）。"
@@ -2336,7 +2329,6 @@
 		"catalogue": {
 			"command-name": "目錄",
 			"command-description": "您自己的Sky目錄。",
-			"command-option-search-name": "",
 			"command-option-search-description": ""
 		},
 		"checklist": {
@@ -2347,7 +2339,6 @@
 			"command-name": "配置",
 			"command-description": "配置伺服器的設定。",
 			"daily-guides": {
-				"command-name": "每日指南",
 				"command-description": "在伺服器中設定每日指南的命令。"
 			},
 			"me": {
@@ -2364,9 +2355,7 @@
 			}
 		},
 		"daily-guides": {
-			"command-name": "每日指南",
 			"command-description": "顯示每日指南。",
-			"command-option-type-name": "",
 			"command-option-type-description": ""
 		},
 		"data": {
@@ -2386,20 +2375,17 @@
 			"game": {
 				"command-name": "遊戲",
 				"command-description": "開始猜謎遊戲！",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			},
 			"leaderboard": {
 				"command-name": "排行榜",
 				"command-description": "查看排行榜！",
-				"command-option-type-name": "",
 				"command-option-type-description": ""
 			}
 		},
 		"hair-tousle": {
 			"command-name": "弄亂頭髮",
 			"command-description": "弄亂某人的頭髮！",
-			"command-option-user-name": "用戶",
 			"command-option-user-description": "頭髮將會被弄亂的人。"
 		},
 		"heart": {
@@ -2408,36 +2394,30 @@
 			"gift": {
 				"command-name": "贈送",
 				"command-description": "選擇要贈送愛心的人！",
-				"command-option-user-name": "用戶",
 				"command-option-user-description": "贈送愛心的用戶。"
 			},
 			"history": {
-				"command-name": "愛心歷史紀錄",
 				"command-description": "展現你獲得愛心的歷史紀錄！"
 			}
 		},
 		"high-five": {
 			"command-name": "擊掌",
 			"command-description": "擊掌慶祝！",
-			"command-option-user-name": "用戶",
 			"command-option-user-description": "和某人擊掌了。"
 		},
 		"hug": {
 			"command-name": "擁抱",
 			"command-description": "擁抱某人！",
-			"command-option-user-name": "用戶",
 			"command-option-user-description": "某人被擁抱了。"
 		},
 		"krill": {
 			"command-name": "冥龍",
 			"command-description": "冥龍某人！",
-			"command-option-user-name": "用戶",
 			"command-option-user-description": "某人被冥龍了。"
 		},
 		"play-fight": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-user-name": "",
 			"command-option-user-description": ""
 		},
 		"quest": {
@@ -2449,10 +2429,7 @@
 		"schedule": {
 			"command-name": "",
 			"command-description": "",
-			"command-option-type-name": "",
-			"command-option-type-description": "",
-			"command-option-hide-name": "",
-			"command-option-hide-description": ""
+			"command-option-type-description": ""
 		},
 		"shard-eruption": {
 			"command-name": "碎片噴發",
@@ -2472,13 +2449,11 @@
 			"edit": {
 				"command-name": "編輯",
 				"command-description": "編輯您的 Sky 個人資料。",
-				"command-option-name-name": "名字",
 				"command-option-name-description": "你的遊戲名字是？",
 				"command-option-icon-name": "圖示",
 				"command-option-icon-description": "上傳你的圖標！",
 				"command-option-banner-name": "",
 				"command-option-banner-description": "",
-				"command-option-winged-light-name": "光之翼",
 				"command-option-winged-light-description": "您的最大翼光是多少？",
 				"command-option-winged-light-choice-name": {
 					"0": "從目錄推斷。",
@@ -2497,16 +2472,12 @@
 			"explore": {
 				"command-name": "探索",
 				"command-description": "探索其他人的天空個人資料！",
-				"command-option-name-name": "名字",
 				"command-option-name-description": "透過姓名搜尋 Sky 個人資料！"
 			},
 			"show": {
 				"command-name": "展示",
 				"command-description": "顯示某人的天空個人資料。",
-				"command-option-user-name": "用戶",
-				"command-option-user-description": "您希望查看其 Sky 個人資料的使用者。",
-				"command-option-hide-name": "隱藏",
-				"command-option-hide-description": "確保只有您可以看到回應。"
+				"command-option-user-description": "您希望查看其 Sky 個人資料的使用者。"
 			}
 		},
 		"Sky-Profile": {
@@ -2516,7 +2487,6 @@
 			"command-name": "",
 			"command-description": "",
 			"history": {
-				"command-name": "",
 				"command-description": "",
 				"command-option-order-name": "",
 				"command-option-order-description": "",
@@ -2526,11 +2496,23 @@
 				}
 			},
 			"search": {
-				"command-name": "",
 				"command-description": "",
 				"command-option-query-name": "",
 				"command-option-query-description": ""
 			}
+		},
+		"common": {
+			"user": "用戶",
+			"type": "",
+			"goal": "目標",
+			"start": "起始",
+			"hide": "隱藏",
+			"hide-description": "確保只有您可以看到回應。",
+			"name": "名字",
+			"history": "愛心歷史紀錄",
+			"search": "",
+			"daily-guides": "每日指南",
+			"winged-light": "翼之光"
 		}
 	},
 	"features": {
