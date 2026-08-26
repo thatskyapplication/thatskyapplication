@@ -20,6 +20,7 @@ import {
 	GUESS_RANK_SQL,
 	GUESS_TYPE_VALUES,
 	GuessType,
+	GuessTypeToLocaleKey,
 	type GuessTypes,
 	isEventId,
 	isSpiritId,
@@ -408,7 +409,7 @@ export async function guessSpirit({ interaction, type, streak }: GuessSpiritOpti
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# ${t("guess.footer", { lng: interaction.locale, ns: "features", type, streak, highestStreak })}`,
+					content: `-# ${t("guess.footer", { lng: interaction.locale, ns: "features", type: t(GuessTypeToLocaleKey[type], { lng: interaction.locale }), streak, highestStreak })}`,
 				},
 			],
 		},
@@ -558,7 +559,7 @@ async function endSpiritGame({
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `-# ${t("guess.footer", { lng: locale, ns: "features", type, streak, highestStreak })}`,
+						content: `-# ${t("guess.footer", { lng: locale, ns: "features", type: t(GuessTypeToLocaleKey[type], { lng: locale }), streak, highestStreak })}`,
 					},
 				],
 			},
@@ -706,7 +707,7 @@ export async function guessEvent({ interaction, type, streak }: GuessEventOption
 				},
 				{
 					type: ComponentType.TextDisplay,
-					content: `-# ${t("guess.footer", { lng: locale, ns: "features", type, streak, highestStreak })}`,
+					content: `-# ${t("guess.footer", { lng: locale, ns: "features", type: t(GuessTypeToLocaleKey[type], { lng: locale }), streak, highestStreak })}`,
 				},
 			],
 		},
@@ -857,7 +858,7 @@ async function endEventGame({
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `-# ${t("guess.footer", { lng: locale, ns: "features", type, streak, highestStreak })}`,
+						content: `-# ${t("guess.footer", { lng: locale, ns: "features", type: t(GuessTypeToLocaleKey[type], { lng: locale }), streak, highestStreak })}`,
 					},
 				],
 			},
@@ -995,7 +996,7 @@ export async function leaderboard(
 	const containerComponents: APIComponentInContainer[] = [
 		{
 			type: ComponentType.TextDisplay,
-			content: `## ${t("guess.leaderboard-title", { lng: locale, ns: "features", type })}`,
+			content: `## ${t("guess.leaderboard-title", { lng: locale, ns: "features", type: t(GuessTypeToLocaleKey[type], { lng: locale }) })}`,
 		},
 		{
 			type: ComponentType.Separator,

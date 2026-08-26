@@ -3138,7 +3138,7 @@ export default {
 			} satisfies Partial<Record<GuessTypes, string>>,
 			title: "Where does this come from?",
 			"guess-in": "Guess {{time}}!",
-			footer: "Type: $t(guess.type.{{type}}) | Streak: {{streak}} | Highest: {{highestStreak}}",
+			footer: "Type: {{type}} | Streak: {{streak}} | Highest: {{highestStreak}}",
 			"end-game": "End game",
 			"try-again": "Try again?",
 			"game-over": "Game over",
@@ -3147,7 +3147,7 @@ export default {
 			"too-late": "You were too late to guess!",
 			"game-interaction-not-self": "You didn't start this game!",
 			"leaderboard-nothing": "There is nothing on the leaderboard. Why not be the first?",
-			"leaderboard-title": "$t(guess.type.{{type}}) leaderboard",
+			"leaderboard-title": "{{type}} leaderboard",
 			"leaderboard-you": "You: #{{rank}} ({{streak}})",
 		},
 		heart: {

@@ -2782,7 +2782,7 @@
 			},
 			"title": "D'où cela vient ?",
 			"guess-in": "Devinez {{time}} !",
-			"footer": "Type : $t(guess.type.{{type}}) | Combo : {{streak}} | Meilleur : {{highestStreak}}",
+			"footer": "Type : {{type}} | Combo : {{streak}} | Meilleur : {{highestStreak}}",
 			"end-game": "Finir le jeu",
 			"try-again": "Essayer de nouveau ?",
 			"game-over": "Jeu terminé",
@@ -2791,7 +2791,7 @@
 			"too-late": "Vous avez mis trop de temps à répondre !",
 			"game-interaction-not-self": "Vous n'avez pas démarré ce jeu !",
 			"leaderboard-nothing": "Il n'y a rien dans le classement. Pourquoi ne pas être le premier ?",
-			"leaderboard-title": "$t(guess.type.{{type}}) classement",
+			"leaderboard-title": "{{type}} classement",
 			"leaderboard-you": "Vous : #{{rank}} ({{streak}})"
 		},
 		"heart": {

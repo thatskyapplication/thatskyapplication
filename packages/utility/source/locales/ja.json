@@ -2782,7 +2782,7 @@
 			},
 			"title": "この絵に当てはまるのは？",
 			"guess-in": "残り{{time}}!",
-			"footer": "ジャンル: $t(guess.type.{{type}}) | スコア: {{streak}} | ハイスコア: {{highestStreak}}",
+			"footer": "ジャンル: {{type}} | スコア: {{streak}} | ハイスコア: {{highestStreak}}",
 			"end-game": "ゲーム終了",
 			"try-again": "もう一回？",
 			"game-over": "Game Over",
@@ -2791,7 +2791,7 @@
 			"too-late": "時間切れです！",
 			"game-interaction-not-self": "別ユーザーのゲームはプレイできません！",
 			"leaderboard-nothing": "ランキングには何もありません。1位になってみませんか？",
-			"leaderboard-title": "$t(guess.type.{{type}}) ランキング",
+			"leaderboard-title": "{{type}} ランキング",
 			"leaderboard-you": "あなた: {{rank}}位 ({{streak}})"
 		},
 		"heart": {

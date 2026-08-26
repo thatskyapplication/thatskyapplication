@@ -2782,7 +2782,7 @@
 			},
 			"title": "De onde isso veio?",
 			"guess-in": "Palpite {{time}}!",
-			"footer": "Tipo: $t(guess.type.{{type}}) | Sequência: {{streak}} | Maior: {{highestStreak}}",
+			"footer": "Tipo: {{type}} | Sequência: {{streak}} | Maior: {{highestStreak}}",
 			"end-game": "Encerrar jogo",
 			"try-again": "Tentar novamente?",
 			"game-over": "Fim de jogo",
@@ -2791,7 +2791,7 @@
 			"too-late": "Você demorou muito para responder!",
 			"game-interaction-not-self": "Você não iniciou esse jogo!",
 			"leaderboard-nothing": "Não há nada no leaderboard. Que tal ser o primeiro?",
-			"leaderboard-title": "Leaderboard - $t(guess.type.{{type}})",
+			"leaderboard-title": "Leaderboard - {{type}}",
 			"leaderboard-you": "Você: #{{rank}} ({{streak}})"
 		},
 		"heart": {
