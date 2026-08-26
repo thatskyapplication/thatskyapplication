@@ -2287,7 +2287,8 @@
 		"close": "Fechado",
 		"today": "Hoje",
 		"shard-eruption": "Erupções de fragmentos",
-		"wiki": "Wiki"
+		"wiki": "Wiki",
+		"jump-to-date": "Ir para uma data"
 	},
 	"commands": {
 		"about": {
@@ -2533,8 +2534,7 @@
 				"title": "Calculadora de velas ascendidas",
 				"goal-first-achievable": "Esse objetivo é primeiro conquistado em {{date}} ({{relative}}).",
 				"minimum-time-beginning": "Tempo mínimo calculado por:",
-				"minimum-time-eye-of-eden": "Olho das estátuas do Éden",
-				"minimum-time-shard-eruptions": "Erupções de Fragmentos"
+				"minimum-time-eye-of-eden": "Olho das estátuas do Éden"
 			},
 			"event-tickets": {
 				"no-event": "No momento, não há eventos ativos com tíquetes.",
@@ -2582,7 +2582,6 @@
 			"nothing-scheduled": "Nada está programado.",
 			"duration_one": "{{count}} dia",
 			"duration_other": "{{count}} dias",
-			"jump-to-date": "Ir para uma data",
 			"time-zone-local": "Hora local",
 			"time-zone-label": "Fuso horário",
 			"all-day": "Dia todo",
@@ -2980,7 +2979,6 @@
 			"overview-detailed-breakdown-message": "Você pode selecionar um evento para ver os detalhes!",
 			"overview-detailed-breakdown-string-select-menu-placeholder": "Ver o detalhamento de um evento?",
 			"detailed-breakdown-daily-reset-message": "O novo dia se inicia às {{time}}. Você poderá reenviar luz aos seus amigos, haverá um novo conjunto de missões diárias para completar, e mais!",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "Guias diários",
 			"detailed-breakdown-eye-of-eden-message": "Uma vez por semana, aos domingos, o Olho de Éden concede velas ascendidas. O próximo domingo será em {{time}}.\n\nErupções de fragmentos também oferecem velas ascendidas.",
 			"detailed-breakdown-international-space-station-wiki-button-url": "https://sky-filhos-da-luz.fandom.com/pt-br/wiki/%C3%81rea_Secreta#A_Esta%C3%A7%C3%A3o_Espacial_Internacional_(ISS)",
 			"detailed-breakdown-international-space-station-message": "Disponível em dias específicos do mês. Veja abaixo a lista de datas:\n{{result}}",
@@ -3044,7 +3042,6 @@
 			"browse-no-shard": "Sem erupções de fragmentos.",
 			"none": "Nada",
 			"browse": "Procurar",
-			"jump-to-date": "Ir para uma data",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))"
 		},
 		"sky-profile": {
@@ -3079,13 +3076,11 @@
 			"explore-profile-like-button-like": "Gostei",
 			"explore-profile-like-button-unlike": "Não Gostei",
 			"explore-profile-explore-button": "Explorar",
-			"explore-profile-report-button": "Denunciar",
 			"explore-likes-none": "Não há perfis Sky dos quais você tenha gostado.",
 			"explore-likes-description": "Você {{emoji}} esses perfis Sky!",
 			"no-sky-profile-explore-likes": "Não foi possível acessar o perfil Sky desse Filho da Luz. Que tal tentar navegar por aí?",
 			"like-own-profile": "Você não pode curtir seu próprio perfil Sky!",
 			"report-description": "Se o perfil Sky de alguém não estiver no espírito de Sky (palavrões, spam excessivo, etc.), sinta-se livre para denunciá-lo para que seja reavaliado.\n\nDeseja denunciar este perfil Sky?",
-			"report-confirm-button": "Denunciar",
 			"report-modal-title": "Denunciar Perfil Sky",
 			"report-modal-label-reason-label": "Motivo",
 			"report-modal-label-reason-description": "O que há de errado com esse perfil Sky?",
@@ -3201,7 +3196,8 @@
 			"missing-name-source-success": {
 				"0": "Você está pronto(a) para presentear corações, {{name}}!",
 				"1": "Você está pronto para o quiz, {{name}}. Pode começar a adivinhar!"
-			}
+			},
+			"report": "Denunciar"
 		},
 		"spirits": {
 			"description": "Consulte o histórico dos Espíritos, veja quais estão ausentes há mais tempo e explore suas árvores de amizade.",

@@ -2287,7 +2287,8 @@
 		"close": "",
 		"today": "Aujourd'hui",
 		"shard-eruption": "Éruption d'éclats",
-		"wiki": "Wiki"
+		"wiki": "Wiki",
+		"jump-to-date": ""
 	},
 	"commands": {
 		"about": {
@@ -2533,8 +2534,7 @@
 				"title": "Calculateur de bougies élevées",
 				"goal-first-achievable": "Votre objectif est atteignable au minimum le {{date}} ({{relative}}).",
 				"minimum-time-beginning": "Temps minimum calculé avec :",
-				"minimum-time-eye-of-eden": "Statues de l'Œil d'Éden",
-				"minimum-time-shard-eruptions": "Éruptions d'éclats"
+				"minimum-time-eye-of-eden": "Statues de l'Œil d'Éden"
 			},
 			"event-tickets": {
 				"no-event": "Il n'y a actuellement pas d'évènement actif avec des tickets d'évènement.",
@@ -2582,7 +2582,6 @@
 			"nothing-scheduled": "",
 			"duration_one": "",
 			"duration_other": "",
-			"jump-to-date": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
@@ -2980,7 +2979,6 @@
 			"overview-detailed-breakdown-message": "Vous devez sélectionner un évènement pour en voir le détail des horaires !",
 			"overview-detailed-breakdown-string-select-menu-placeholder": "Voir le détail des horaires d'un évènement ?",
 			"detailed-breakdown-daily-reset-message": "Le jour changera à {{time}}. Vous pourrez de nouveau envoyer de la lumière à vos amis, il y aura un nouveau lot de quêtes journalières à compléter, et plus encore !",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "Guides journaliers",
 			"detailed-breakdown-eye-of-eden-message": "Une fois par semaine, le dimanche, l'Œil d'Éden donne des bougies élevées hebdomadaires. Le prochain dimanche sera le {{time}}.\n\nLes éruptions d'éclats offrent également des bougies élevées.",
 			"detailed-breakdown-international-space-station-wiki-button-url": "https://sky-enfants-de-la-lumiere.fandom.com/fr/wiki/Zone_Secr%C3%A8te#La_Station_spatiale_(ISS)",
 			"detailed-breakdown-international-space-station-message": "Disponible certains jours du mois. Voir ci-dessous pour une liste des dates :\n{{result}}",
@@ -3044,7 +3042,6 @@
 			"browse-no-shard": "Pas d'éruptions d'éclats.",
 			"none": "Aucun",
 			"browse": "Rechercher",
-			"jump-to-date": "",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))"
 		},
 		"sky-profile": {
@@ -3079,13 +3076,11 @@
 			"explore-profile-like-button-like": "Liker",
 			"explore-profile-like-button-unlike": "Enlever le like",
 			"explore-profile-explore-button": "Explorer",
-			"explore-profile-report-button": "Reporter",
 			"explore-likes-none": "Vous n'avez pas liké de profils Sky.",
 			"explore-likes-description": "You {{emoji}} ces profils Sky !",
 			"no-sky-profile-explore-likes": "Impossible d'accéder au profil Sky de cet enfant de Sky. Essayez de chercher ?",
 			"like-own-profile": "Vous ne pouvez pas liker votre propre profil Sky !",
 			"report-description": "Si le profil Sky de quelqu'un n'est pas dans l'esprit de Sky (insultes excessives, spam, etc.), vous pouvez le reporter afin qu'il soit revu.\n\nVoulez-vous reporter ce profil Sky ?",
-			"report-confirm-button": "Reporter",
 			"report-modal-title": "Reporter un Profil Sky",
 			"report-modal-label-reason-label": "Raison",
 			"report-modal-label-reason-description": "Qu'est-ce qu'il ne va pas avec ce profil Sky ?",
@@ -3201,7 +3196,8 @@
 			"missing-name-source-success": {
 				"0": "",
 				"1": ""
-			}
+			},
+			"report": "Reporter"
 		},
 		"spirits": {
 			"description": "",

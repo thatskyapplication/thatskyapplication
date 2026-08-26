@@ -2287,7 +2287,8 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "闇の破片",
-		"wiki": ""
+		"wiki": "",
+		"jump-to-date": ""
 	},
 	"commands": {
 		"about": {
@@ -2533,8 +2534,7 @@
 				"title": "",
 				"goal-first-achievable": "",
 				"minimum-time-beginning": "",
-				"minimum-time-eye-of-eden": "",
-				"minimum-time-shard-eruptions": "闇の破片"
+				"minimum-time-eye-of-eden": ""
 			},
 			"event-tickets": {
 				"no-event": "",
@@ -2582,7 +2582,6 @@
 			"nothing-scheduled": "",
 			"duration_one": "",
 			"duration_other": "",
-			"jump-to-date": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
@@ -2970,7 +2969,6 @@
 			"overview-detailed-breakdown-message": "",
 			"overview-detailed-breakdown-string-select-menu-placeholder": "",
 			"detailed-breakdown-daily-reset-message": "",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "",
 			"detailed-breakdown-eye-of-eden-message": "",
 			"detailed-breakdown-international-space-station-wiki-button-url": "https://sky-children-of-the-light.fandom.com/ja/wiki/%E7%A7%98%E5%AF%86%E3%81%AE%E3%82%A8%E3%83%AA%E3%82%A2#%E5%9B%BD%E9%9A%9B%E5%AE%87%E5%AE%99%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3(ISS)",
 			"detailed-breakdown-international-space-station-message": "",
@@ -3026,7 +3024,7 @@
 			"time-format-twenty-four": "24時間"
 		},
 		"shard-eruption": {
-			"name-plural": "",
+			"name-plural": "闇の破片",
 			"description-short": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
@@ -3034,7 +3032,6 @@
 			"browse-no-shard": "",
 			"none": "",
 			"browse": "",
-			"jump-to-date": "",
 			"realm-area": "$t(general:realms.{{realm}})（$t(general:areas.{{area}})）"
 		},
 		"sky-profile": {
@@ -3069,13 +3066,11 @@
 			"explore-profile-like-button-like": "",
 			"explore-profile-like-button-unlike": "",
 			"explore-profile-explore-button": "",
-			"explore-profile-report-button": "",
 			"explore-likes-none": "",
 			"explore-likes-description": "",
 			"no-sky-profile-explore-likes": "",
 			"like-own-profile": "",
 			"report-description": "",
-			"report-confirm-button": "",
 			"report-modal-title": "",
 			"report-modal-label-reason-label": "",
 			"report-modal-label-reason-description": "",
@@ -3191,7 +3186,8 @@
 			"missing-name-source-success": {
 				"0": "",
 				"1": ""
-			}
+			},
+			"report": ""
 		},
 		"spirits": {
 			"description": "",

@@ -119,7 +119,7 @@ function dailyResetDetailedBreakdown(
 					type: ComponentType.Button,
 					style: ButtonStyle.Secondary,
 					custom_id: CustomId.ScheduleDetailedBreakdownViewDailyGuides,
-					label: t("schedule.detailed-breakdown-daily-reset-daily-guides-button-label", {
+					label: t("daily-guides.name", {
 						lng: locale,
 						ns: "features",
 					}),

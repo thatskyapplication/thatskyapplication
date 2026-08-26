@@ -113,7 +113,7 @@ export function CalendarToolbar({
 						className={clsx(NAVIGATION_BUTTON_CLASS, "w-9")}
 						getDateURL={(date) => calendarPath({ view, skyTime, hiddenKinds, date })}
 						iconOnly
-						label={t("calendar.jump-to-date", { ns: "features" })}
+						label={t("jump-to-date", { ns: "general" })}
 						locale={locale}
 						maximumDate={maximumDate}
 						minimumDate={CALENDAR_MINIMUM_DATE}

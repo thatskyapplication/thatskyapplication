@@ -54,6 +54,7 @@ export default {
 		hearts: "Hearts",
 		"ascended-candles": "Ascended candles",
 		"seasonal-candles": "Seasonal candles",
+		"jump-to-date": "Jump to a date",
 		"seasonal-hearts": "Seasonal hearts",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -2871,7 +2872,6 @@ export default {
 				"goal-first-achievable": "This goal is first achievable at {{date}} ({{relative}}).",
 				"minimum-time-beginning": "Minimum time derived by:",
 				"minimum-time-eye-of-eden": "Eye of Eden statues",
-				"minimum-time-shard-eruptions": "Shard eruptions",
 			},
 			"event-tickets": {
 				"no-event": "There is no event currently active with event tickets.",
@@ -2921,7 +2921,6 @@ export default {
 			"nothing-scheduled": "Nothing is scheduled.",
 			duration_one: "{{count}} day",
 			duration_other: "{{count}} days",
-			"jump-to-date": "Jump to a date",
 			"time-zone-local": "Local time",
 			"time-zone-label": "Time zone",
 			"all-day": "All day",
@@ -3365,7 +3364,6 @@ export default {
 				"View a detailed breakdown of an event?",
 			"detailed-breakdown-daily-reset-message":
 				"The new day happens at {{time}}. You may send your friends light again, there will be a new set of daily quests to complete, and more!",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "Daily guides",
 			"detailed-breakdown-eye-of-eden-message":
 				"Once a week on Sundays, the Eye of Eden will give ascended candles a week. Next Sunday is at {{time}}.\n\nShard eruptions also offer ascended candles.",
 			"detailed-breakdown-international-space-station-wiki-button-url":
@@ -3460,7 +3458,6 @@ export default {
 			"browse-no-shard": "No shard eruptions.",
 			none: "None",
 			browse: "Browse",
-			"jump-to-date": "Jump to a date",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))",
 		},
 		"sky-profile": {
@@ -3475,6 +3472,7 @@ export default {
 			"select-a-spirit": "Select a spirit",
 			random: "Random",
 			me: "Me",
+			report: "Report",
 			"country-unspecified": "Unspecified",
 			"search-none": "No Sky profiles.",
 			"unknown-country": "Please select a country!",
@@ -3500,14 +3498,12 @@ export default {
 			"explore-profile-like-button-like": "Like",
 			"explore-profile-like-button-unlike": "Unlike",
 			"explore-profile-explore-button": "Explore",
-			"explore-profile-report-button": "Report",
 			"explore-likes-none": "You have no Sky profiles that you've liked.",
 			"explore-likes-description": "You {{emoji}} these Sky profiles!",
 			"no-sky-profile-explore-likes": "Could not go to that Sky kid's Sky profile. Try browsing?",
 			"like-own-profile": "You can't like your own Sky profile!",
 			"report-description":
 				"If someone's Sky profile is not in the spirit of Sky (excessive slurs, spam, etc.), feel free to report it so it can be reviewed.\n\nDo you wish to report this Sky profile?",
-			"report-confirm-button": "Report",
 			"report-modal-title": "Report Sky Profile",
 			"report-modal-label-reason-label": "Reason",
 			"report-modal-label-reason-description": "What's wrong with this Sky profile?",

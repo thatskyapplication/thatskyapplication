@@ -2287,7 +2287,8 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "",
-		"wiki": ""
+		"wiki": "",
+		"jump-to-date": ""
 	},
 	"commands": {
 		"about": {
@@ -2533,8 +2534,7 @@
 				"title": "",
 				"goal-first-achievable": "",
 				"minimum-time-beginning": "",
-				"minimum-time-eye-of-eden": "",
-				"minimum-time-shard-eruptions": ""
+				"minimum-time-eye-of-eden": ""
 			},
 			"event-tickets": {
 				"no-event": "",
@@ -2582,7 +2582,6 @@
 			"nothing-scheduled": "",
 			"duration_one": "",
 			"duration_other": "",
-			"jump-to-date": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
@@ -2970,7 +2969,6 @@
 			"overview-detailed-breakdown-message": "",
 			"overview-detailed-breakdown-string-select-menu-placeholder": "",
 			"detailed-breakdown-daily-reset-message": "",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "",
 			"detailed-breakdown-eye-of-eden-message": "",
 			"detailed-breakdown-international-space-station-wiki-button-url": "",
 			"detailed-breakdown-international-space-station-message": "",
@@ -3034,7 +3032,6 @@
 			"browse-no-shard": "",
 			"none": "",
 			"browse": "",
-			"jump-to-date": "",
 			"realm-area": "$t(general:realms.{{realm}})（$t(general:areas.{{area}})）"
 		},
 		"sky-profile": {
@@ -3069,13 +3066,11 @@
 			"explore-profile-like-button-like": "",
 			"explore-profile-like-button-unlike": "",
 			"explore-profile-explore-button": "",
-			"explore-profile-report-button": "",
 			"explore-likes-none": "",
 			"explore-likes-description": "",
 			"no-sky-profile-explore-likes": "",
 			"like-own-profile": "",
 			"report-description": "",
-			"report-confirm-button": "",
 			"report-modal-title": "",
 			"report-modal-label-reason-label": "",
 			"report-modal-label-reason-description": "",
@@ -3191,7 +3186,8 @@
 			"missing-name-source-success": {
 				"0": "",
 				"1": ""
-			}
+			},
+			"report": ""
 		},
 		"spirits": {
 			"description": "",

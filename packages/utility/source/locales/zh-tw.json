@@ -2287,7 +2287,8 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "",
-		"wiki": ""
+		"wiki": "",
+		"jump-to-date": ""
 	},
 	"commands": {
 		"about": {
@@ -2533,8 +2534,7 @@
 				"title": "昇華蠟燭計算器",
 				"goal-first-achievable": "此目標將於 {{date}} ({{relative}}) 首次實現。",
 				"minimum-time-beginning": "最短時間由以下公式得出：",
-				"minimum-time-eye-of-eden": "暴風眼雕像",
-				"minimum-time-shard-eruptions": "碎片噴發"
+				"minimum-time-eye-of-eden": "暴風眼雕像"
 			},
 			"event-tickets": {
 				"no-event": "",
@@ -2582,7 +2582,6 @@
 			"nothing-scheduled": "",
 			"duration_one": "",
 			"duration_other": "",
-			"jump-to-date": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
@@ -2970,7 +2969,6 @@
 			"overview-detailed-breakdown-message": "",
 			"overview-detailed-breakdown-string-select-menu-placeholder": "",
 			"detailed-breakdown-daily-reset-message": "",
-			"detailed-breakdown-daily-reset-daily-guides-button-label": "",
 			"detailed-breakdown-eye-of-eden-message": "",
 			"detailed-breakdown-international-space-station-wiki-button-url": "",
 			"detailed-breakdown-international-space-station-message": "",
@@ -3026,7 +3024,7 @@
 			"time-format-twenty-four": "24 小時"
 		},
 		"shard-eruption": {
-			"name-plural": "",
+			"name-plural": "碎片噴發",
 			"description-short": "",
 			"browse-description": "",
 			"no-shard-eruptions-today": "",
@@ -3034,7 +3032,6 @@
 			"browse-no-shard": "",
 			"none": "無",
 			"browse": "",
-			"jump-to-date": "",
 			"realm-area": "$t(general:realms.{{realm}})（$t(general:areas.{{area}})）"
 		},
 		"sky-profile": {
@@ -3069,13 +3066,11 @@
 			"explore-profile-like-button-like": "",
 			"explore-profile-like-button-unlike": "",
 			"explore-profile-explore-button": "",
-			"explore-profile-report-button": "",
 			"explore-likes-none": "",
 			"explore-likes-description": "",
 			"no-sky-profile-explore-likes": "",
 			"like-own-profile": "",
 			"report-description": "",
-			"report-confirm-button": "",
 			"report-modal-title": "",
 			"report-modal-label-reason-label": "",
 			"report-modal-label-reason-description": "",
@@ -3191,7 +3186,8 @@
 			"missing-name-source-success": {
 				"0": "",
 				"1": ""
-			}
+			},
+			"report": ""
 		},
 		"spirits": {
 			"description": "",

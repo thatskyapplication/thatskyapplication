@@ -979,7 +979,7 @@ export async function skyProfileExploreProfile(
 								custom_id: `${CustomId.SkyProfileExplorerProfileReport}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: t("sky-profile.explore-profile-report-button", {
+								label: t("sky-profile.report", {
 									lng: locale,
 									ns: "features",
 								}),
@@ -1265,7 +1265,7 @@ export async function skyProfileExploreLikedProfile(
 								custom_id: `${CustomId.SkyProfileExplorerLikesProfileReport}§${userId}`,
 								disabled: ownSkyProfile,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: t("sky-profile.explore-profile-report-button", {
+								label: t("sky-profile.report", {
 									lng: locale,
 									ns: "features",
 								}),
@@ -1381,7 +1381,7 @@ export async function skyProfileReport(
 								type: ComponentType.Button,
 								custom_id: `${CustomId.SkyProfileExplorerConfirmReport}§${userId}`,
 								emoji: MISCELLANEOUS_EMOJIS.Report,
-								label: t("sky-profile.report-confirm-button", { lng: locale, ns: "features" }),
+								label: t("sky-profile.report", { lng: locale, ns: "features" }),
 								style: ButtonStyle.Danger,
 							},
 						],

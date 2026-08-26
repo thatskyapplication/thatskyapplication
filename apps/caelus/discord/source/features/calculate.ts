@@ -143,7 +143,7 @@ export async function ascendedCandles(
 					},
 					{
 						type: ComponentType.TextDisplay,
-						content: `${t("calculate.ascended-candles.minimum-time-beginning", { lng: locale, ns: "features" })}\n${eyeOfEden ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-eye-of-eden", { lng: locale, ns: "features" })}\n${shardEruptions ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-shard-eruptions", { lng: locale, ns: "features" })}`,
+						content: `${t("calculate.ascended-candles.minimum-time-beginning", { lng: locale, ns: "features" })}\n${eyeOfEden ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("calculate.ascended-candles.minimum-time-eye-of-eden", { lng: locale, ns: "features" })}\n${shardEruptions ? formatEmoji(MISCELLANEOUS_EMOJIS.Yes) : formatEmoji(MISCELLANEOUS_EMOJIS.No)} ${t("shard-eruption.name-plural", { lng: locale, ns: "features" })}`,
 					},
 				],
 			},
