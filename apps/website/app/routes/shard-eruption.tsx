@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
-import { useState } from "react";
+import { type Ref, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, redirect } from "react-router";
+import { Link, redirect, useLocation } from "react-router";
 import {
 	epochSeconds,
 	formatEmojiURL,
@@ -44,6 +44,7 @@ type ShardEruptionCardProps = {
 	todayFormat: string;
 	currentUnix: number;
 	onPreview: (imageURL: string, acknowledgement: string | null) => void;
+	ref: Ref<HTMLDivElement>;
 };
 
 const DATE_NAVIGATION_CLASS =
@@ -79,12 +80,15 @@ export const meta = ({ location }: Route.MetaArgs) => {
 export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 	const pageParameter = url.searchParams.get("page");
 	const dateParameter = url.searchParams.get("date");
+	const todayParameter = url.searchParams.get("today");
 	const now = skyNow();
 	const today = now.startOfDay();
 	const startDate = SHARD_ERUPTION_START_DATE.toPlainDate();
 	const startDaysOffset = startDate.since(today.toPlainDate()).days;
 	const minimumPage =
 		startDaysOffset > 0 ? Math.floor((startDaysOffset - 1) / 30) : Math.floor(startDaysOffset / 30);
+	const jumpingToPage = Boolean(pageParameter);
+	let dateSelection: { date: string; page: number } | null = null;
 	let selectedDate: string | null = null;
 	let selectedPage: number | null = null;
 
@@ -101,7 +105,6 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 
 		if (!targetDate) {
 			url.searchParams.delete("date");
-			url.searchParams.delete("page");
 			throw redirect(`${url.pathname}${url.search}`);
 		}
 
@@ -116,8 +119,16 @@ export const loader = ({ request, context, url }: Route.LoaderArgs) => {
 			throw new Response("Date is outside the supported shard-eruption range.", { status: 400 });
 		}
 
-		selectedDate = targetDate.toString();
-		selectedPage = targetPage;
+		dateSelection = { date: targetDate.toString(), page: targetPage };
+	}
+
+	if (!jumpingToPage) {
+		if (todayParameter === "1") {
+			selectedDate = today.toPlainDate().toString();
+		} else if (dateSelection !== null) {
+			selectedDate = dateSelection.date;
+			selectedPage = dateSelection.page;
+		}
 	}
 
 	const shards = [];
@@ -203,6 +214,7 @@ function ShardEruptionCard({
 	todayFormat,
 	currentUnix,
 	onPreview,
+	ref,
 }: ShardEruptionCardProps) {
 	const cdnURL = useCDNURL();
 	const { t } = useTranslation();
@@ -223,8 +235,10 @@ function ShardEruptionCard({
 					? "border-red-400 bg-red-300 hover:bg-red-300/70 dark:border-red-900 dark:bg-red-950/50 dark:hover:bg-red-950/40"
 					: "border-gray-200 bg-gray-100 hover:bg-gray-100/50 dark:border-gray-700 dark:bg-gray-900 dark:hover:bg-gray-900/50",
 				selected &&
-					"ring-2 ring-blue-500 ring-offset-2 dark:ring-blue-300 dark:ring-offset-gray-950",
+					"relative z-10 ring-2 ring-blue-500 ring-offset-2 [--shard-eruption-pulse:var(--color-blue-500)] focus:outline-hidden dark:ring-blue-300 dark:ring-offset-gray-950 dark:[--shard-eruption-pulse:var(--color-blue-300)]",
 			)}
+			ref={ref}
+			tabIndex={selected ? -1 : undefined}
 		>
 			<div className="flex flex-row items-center justify-center">
 				{shard && (
@@ -306,10 +320,43 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 		weekStartsOn,
 	} = loaderData;
 	const { t } = useTranslation();
+	const { key: locationKey } = useLocation();
 	const [selectedInfographic, setSelectedInfographic] = useState<SelectedInfographic | null>(null);
+	const selectedCardRef = useRef<HTMLDivElement>(null);
 	const currentTimestamp = useCurrentTimestamp(initialUnix * 1000);
 	useSkyDailyResetRevalidator(currentTimestamp);
 	const currentUnix = Math.floor(currentTimestamp / 1000);
+
+	useEffect(() => {
+		const card = selectedCardRef.current;
+
+		if (card === null) {
+			return;
+		}
+
+		const { bottom, top } = card.getBoundingClientRect();
+
+		const obscuredHeight =
+			Number.parseFloat(
+				getComputedStyle(document.documentElement).getPropertyValue("--site-top-bar-height"),
+			) || 0;
+
+		if (top < obscuredHeight || bottom > window.innerHeight) {
+			card.scrollIntoView({ block: "center" });
+		}
+
+		card.focus({ preventScroll: true });
+
+		const animation = card.animate(
+			[
+				{ outline: "2px solid var(--shard-eruption-pulse)", outlineOffset: "6px" },
+				{ outline: "2px solid transparent", outlineOffset: "6px" },
+			],
+			{ duration: 450, easing: "ease-out", iterations: 2 },
+		);
+
+		return () => animation.cancel();
+	}, [locationKey]);
 
 	const shardCards = shards.map((shard) => (
 		<ShardEruptionCard
@@ -318,6 +365,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 			onPreview={(imageURL, acknowledgement) =>
 				setSelectedInfographic({ acknowledgement, imageURL })
 			}
+			ref={shard.date === selectedDate ? selectedCardRef : null}
 			selected={shard.date === selectedDate}
 			shard={shard.shard}
 			timeZoneEstimated={timeZoneEstimated}
@@ -331,7 +379,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 		<SitePage>
 			<div className="flex flex-col items-center justify-center">
 				<div className="mb-4 flex w-full justify-center gap-2">
-					<Link className={DATE_NAVIGATION_CLASS} to="/shard-eruption">
+					<Link className={DATE_NAVIGATION_CLASS} to="?today=1">
 						{t("today", { ns: "general" })}
 					</Link>
 					<DatePicker
@@ -361,7 +409,7 @@ export default function ShardEruption({ loaderData }: Route.ComponentProps) {
 					)}
 					<Pagination
 						currentPage={page}
-						excludeSearchParameters={["date"]}
+						excludeSearchParameters={["date", "today"]}
 						maximumPage={SHARD_ERUPTION_MAXIMUM_PAGE}
 						minimumPage={minimumPage}
 					/>
