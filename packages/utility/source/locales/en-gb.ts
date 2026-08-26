@@ -2833,6 +2833,16 @@ export default {
 		},
 	},
 	features: {
+		common: {
+			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
+			"error-missing-permissions-website": `View Channel & Send Messages are required for "{{channel}}".`,
+			"error-missing-permissions-thread":
+				"`View Channel` & `Send Messages in Threads` are required for {{channel}}.",
+			"error-missing-permissions-thread-website": `View Channel & Send Messages in Threads are required for "{{channel}}".`,
+			"no-channel-detected": "No channel detected. Was it deleted?",
+			sending: "Sending {{emoji}}",
+			stopped: "Stopped {{emoji}}",
+		},
 		about: {
 			description:
 				"### Translating\n\nWilling to help translate? Spotted a translation mistake? We translate over at [Crowdin]({{crowdinURL}}), and your contributions will help everyone!\n### Daily guides\n\nDo you look up the daily guides? They're manually filled in every day at reset. Why not be one of those awesome people?\n### Friendship actions\n\nThe GIFs you see for hugging, hair tousling, krilling, etc. are all contributed by the community. Submit your own into the mix!\n### Reporting issues & giving feedback\n\nFound a bug? Want to give feedback? Join the [support server]({{supportServerInviteURL}}) and let us know all about it!\n### Sponsoring\n\nYou can help keep Caelus afloat by sponsoring! You can sponsor via [GitHub]({{githubSponsorsURL}}) or within Discord itself via the button below!",
@@ -2856,7 +2866,6 @@ export default {
 			goal: "Goal: ",
 			required: "Required: ",
 			"ascended-candles": {
-				"goal-achieved": "You have already achieved your goal!",
 				"no-source": "You must have a source for gaining ascended candles!",
 				title: "Ascended candle calculator",
 				"goal-first-achievable": "This goal is first achievable at {{date}} ({{relative}}).",
@@ -3036,12 +3045,9 @@ export default {
 			} satisfies Readonly<Record<DailyGuidesDistributionTypes, string>>,
 			"setup-description":
 				"Set up delivery of daily guides in your server! Use the select menus below to select a channel and to select an optional desired format.",
-			"setup-no-channel-detected": "No channel detected. Was it deleted?",
 			"setup-no-channel-selected": "No channel selected.",
 			"setup-channel-select-menu-placeholder": "Select a channel to use for daily guides.",
 			"setup-type-string-select-menu-placeholder": "Select an optional format.",
-			"setup-stopped": "Stopped {{emoji}}",
-			"setup-sending": "Sending {{emoji}}",
 			"quests-heading": "Quests",
 			"treasure-candles": "Treasure candles",
 			"seasonal-candles": "Seasonal candles",
@@ -3082,11 +3088,6 @@ export default {
 				"Daily guides are waiting for an awesome Sky kid to update them. See {{channel}} to find out how to update them for the community!\n\nWe're currently missing the following:",
 			"error-thread-archived": "The thread is archived.",
 			"error-thread-locked": "The thread is locked.",
-			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
-			"error-missing-permissions-website": `View Channel & Send Messages are required for "{{channel}}".`,
-			"error-missing-permissions-thread":
-				"`View Channel` & `Send Messages in Threads` are required for {{channel}}.",
-			"error-missing-permissions-thread-website": `View Channel & Send Messages in Threads are required for "{{channel}}".`,
 			"quest-unknown": "Woah, that's a daily we do not know. Maybe try another?",
 			"quest-no-infographic": "This quest does not have an infographic.",
 		},
@@ -3218,12 +3219,8 @@ export default {
 			"setup-option-not-set-up": "Not set up.",
 			"setup-type-string-select-menu-placeholder": "Select a notification type.",
 			"edit-offset-now-description": "Notify as soon as the event occurs.",
-			"edit-no-channel-detected": "No channel detected. Was it deleted?",
 			"edit-channel-and-role-required": "A channel and a role is required.",
 			"edit-offset-required": "An offset is required.",
-			"edit-stopped": "Stopped {{emoji}}",
-			"edit-sending": "Sending {{emoji}}",
-			"error-missing-permissions": "`View Channel` & `Send Messages` are required for {{channel}}.",
 			"error-cannot-mention-role":
 				"Cannot mention the {{role}} role. Ensure `Mention @everyone, @here and All Roles` permission is enabled for {{me}} in {{channel}} or make the role mentionable.",
 			messages: {
@@ -3337,6 +3334,10 @@ export default {
 			"edit-offset-string-select-menu-placeholder": "Select an offset.",
 		},
 		schedule: {
+			timestamps: "{{timestamp1}} ({{timestamp2}})",
+			"detailed-breakdown-requires": "-# Requires {{emoji}}",
+			"detailed-breakdown-two-hourly-message":
+				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			type: {
 				[ScheduleType.NineColouredDeer]: "Nine-coloured deer",
 				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
@@ -3363,17 +3364,14 @@ export default {
 			"update-version": "{{version}} update",
 			"event-ongoing": "The event is ongoing!",
 			"event-will-occur": "The event will occur again {{timestamp}}.",
-			"next-daily-reset": "{{timestamp1}} ({{timestamp2}})",
 			"overview-detailed-breakdown-message": "You may select an event to see a detailed breakdown!",
 			"overview-detailed-breakdown-string-select-menu-placeholder":
 				"View a detailed breakdown of an event?",
 			"detailed-breakdown-daily-reset-message":
 				"The new day happens at {{time}}. You may send your friends light again, there will be a new set of daily quests to complete, and more!",
 			"detailed-breakdown-daily-reset-daily-guides-button-label": "Daily guides",
-			"next-eye-of-eden": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-eye-of-eden-message":
 				"Once a week on Sundays, the Eye of Eden will give ascended candles a week. Next Sunday is at {{time}}.\n\nShard eruptions also offer ascended candles.",
-			"detailed-breakdown-international-space-station-time": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-international-space-station-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Secret_Area#The_International_Space_Station_(ISS)",
 			"detailed-breakdown-international-space-station-message":
@@ -3396,16 +3394,10 @@ export default {
 				"There are currently no announced returning spirits.",
 			"detailed-breakdown-polluted-geyser-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Polluted_Geyser",
-			"detailed-breakdown-polluted-geyser-message":
-				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-grandma-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Grandma's_Dinner_Event",
-			"detailed-breakdown-grandma-message":
-				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-turtle-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Additional_Light_Sources#Sunset_Sanctuary_Turtle",
-			"detailed-breakdown-turtle-message":
-				"Available every 2 hours from {{timestamp}} lasting 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-shard-eruptions-view": "View shard eruptions",
 			"detailed-breakdown-shard-eruptions-website": "Website",
 			"detailed-breakdown-shard-eruptions-upcoming":
@@ -3420,7 +3412,6 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/AURORA_Concert",
 			"detailed-breakdown-aurora-message":
 				"Available every 2 hours from {{timestamp}} lasting 48 minutes.\n\n{{timestamps}}\n\n{{status}}",
-			"detailed-breakdown-aurora-requires": "-# Requires {{emoji}}",
 			"detailed-breakdown-passage-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_Passage#Spirit_Memory_Quests",
 			"detailed-breakdown-passage-message":
@@ -3439,8 +3430,6 @@ export default {
 			"detailed-breakdown-nine-coloured-deer-time-1200": "{{timestamp}} (Disappears)",
 			"detailed-breakdown-nine-coloured-deer-message":
 				"Available every 30 minutes from {{timestamp}} lasting 20 minutes.\n{{timestamps}}\n\n{{status}}",
-			"detailed-breakdown-nine-coloured-deer-requires": "-# Requires {{emoji}}",
-			"next-nesting-workshop": "{{timestamp1}} ({{timestamp2}})",
 			"detailed-breakdown-nesting-workshop-wiki-button-url":
 				"https://sky-children-of-the-light.fandom.com/wiki/Nesting_Workshop",
 			"detailed-breakdown-nesting-workshop-message":
@@ -3453,7 +3442,6 @@ export default {
 				"https://sky-children-of-the-light.fandom.com/wiki/Season_of_The_Two_Embers_-_Part_1#Projector_of_Memories",
 			"detailed-breakdown-projector-of-memories-message":
 				"Available every 80 minutes from {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
-			"detailed-breakdown-projector-of-memories-requires": "-# Requires {{emoji}}",
 			"detailed-breakdown-radiance-message":
 				"Radiance events increase the availability of certain dyes.\n\n{{result}}",
 			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",

@@ -298,12 +298,12 @@ function isDailyGuidesDistributable({
 	if (!can({ permission: permissions, guild, member: me, channel: resolvedChannelForPermission })) {
 		errors.push(
 			isThread
-				? t(`daily-guides.error-missing-permissions-thread${website ? "-website" : ""}`, {
+				? t(`common.error-missing-permissions-thread${website ? "-website" : ""}`, {
 						lng: locale,
 						ns: "features",
 						channel: website ? channel.name : `<#${channel.id}>`,
 					})
-				: t(`daily-guides.error-missing-permissions${website ? "-website" : ""}`, {
+				: t(`common.error-missing-permissions${website ? "-website" : ""}`, {
 						lng: locale,
 						ns: "features",
 						channel: website ? channel.name : `<#${channel.id}>`,
@@ -418,7 +418,7 @@ export async function setupResponse(
 				...isDailyGuidesDistributable({ guild, channel, me: await guild.fetchMe(), locale }),
 			);
 		} else {
-			feedback.push(t("daily-guides.setup-no-channel-detected", { lng: locale, ns: "features" }));
+			feedback.push(t("common.no-channel-detected", { lng: locale, ns: "features" }));
 		}
 	} else {
 		feedback.push(t("daily-guides.setup-no-channel-selected", { lng: locale, ns: "features" }));
@@ -495,8 +495,8 @@ export async function setupResponse(
 						type: ComponentType.TextDisplay,
 						content:
 							feedback.length > 0
-								? `${t("daily-guides.setup-stopped", { lng: locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.join("\n")}`
-								: t("daily-guides.setup-sending", {
+								? `${t("common.stopped", { lng: locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.join("\n")}`
+								: t("common.sending", {
 										lng: locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),

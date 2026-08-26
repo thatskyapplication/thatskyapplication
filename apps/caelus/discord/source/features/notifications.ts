@@ -89,7 +89,7 @@ function isNotificationSendable(
 		})
 	) {
 		errors.push(
-			t("notifications.error-missing-permissions", {
+			t("common.error-missing-permissions", {
 				lng: locale,
 				ns: "features",
 				channel: `<#${channel.id}>`,
@@ -352,7 +352,7 @@ export async function displayNotificationType(
 			);
 		} else {
 			feedback.push(
-				t("notifications.edit-no-channel-detected", {
+				t("common.no-channel-detected", {
 					lng: interaction.locale,
 					ns: "features",
 				}),
@@ -452,8 +452,8 @@ export async function displayNotificationType(
 						type: ComponentType.TextDisplay,
 						content:
 							feedback.length > 0
-								? `${t("notifications.edit-stopped", { lng: interaction.locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
-								: t("notifications.edit-sending", {
+								? `${t("common.stopped", { lng: interaction.locale, ns: "features", emoji: formatEmoji(MISCELLANEOUS_EMOJIS.No) })}\n${feedback.length > 1 ? feedback.map((string) => `- ${string}`).join("\n") : feedback[0]}`
+								: t("common.sending", {
 										lng: interaction.locale,
 										ns: "features",
 										emoji: formatEmoji(MISCELLANEOUS_EMOJIS.Yes),

@@ -52,7 +52,7 @@ export async function ascendedCandles(
 
 	if (start >= goal) {
 		await client.api.interactions.reply(interaction.id, interaction.token, {
-			content: t("calculate.ascended-candles.goal-achieved", { lng: locale, ns: "features" }),
+			content: t("calculate.goal-already-achieved", { lng: locale, ns: "features" }),
 			flags: MessageFlags.Ephemeral,
 		});
 

@@ -78,7 +78,7 @@ import {
 function dailyResetNext(now: Temporal.ZonedDateTime, locale: Locale) {
 	const timestamp = epochSeconds(nextDailyReset(now));
 
-	return t("schedule.next-daily-reset", {
+	return t("schedule.timestamps", {
 		lng: locale,
 		ns: "features",
 		timestamp1: `<t:${timestamp}:t>`,
@@ -134,7 +134,7 @@ function dailyResetDetailedBreakdown(
 function eyeOfEdenNext(now: Temporal.ZonedDateTime, locale: Locale) {
 	const timestamp = epochSeconds(nextEyeOfEden(now));
 
-	return t("schedule.next-eye-of-eden", {
+	return t("schedule.timestamps", {
 		lng: locale,
 		ns: "features",
 		timestamp1: `<t:${timestamp}:s>`,
@@ -193,7 +193,7 @@ function internationalSpaceStationDetailedBreakdown(
 	for (const internationalSpaceStationDate of internationalSpaceStationDates(date)) {
 		const issDateUnix = epochSeconds(internationalSpaceStationDate);
 
-		let string = t("schedule.detailed-breakdown-international-space-station-time", {
+		let string = t("schedule.timestamps", {
 			lng: locale,
 			ns: "features",
 			timestamp1: `<t:${issDateUnix}:f>`,
@@ -520,7 +520,7 @@ function pollutedGeyserDetailedBreakdown(
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-polluted-geyser-message", {
+			content: t("schedule.detailed-breakdown-two-hourly-message", {
 				lng: locale,
 				ns: "features",
 				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
@@ -575,7 +575,7 @@ function grandmaDetailedBreakdown(
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-grandma-message", {
+			content: t("schedule.detailed-breakdown-two-hourly-message", {
 				lng: locale,
 				ns: "features",
 				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
@@ -630,7 +630,7 @@ function turtleDetailedBreakdown(
 	return [
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-turtle-message", {
+			content: t("schedule.detailed-breakdown-two-hourly-message", {
 				lng: locale,
 				ns: "features",
 				timestamp: `<t:${epochSeconds(startOfEvent)}:t>`,
@@ -834,7 +834,7 @@ function auroraDetailedBreakdown(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-aurora-requires", {
+			content: t("schedule.detailed-breakdown-requires", {
 				lng: locale,
 				ns: "features",
 				emoji: formatEmoji(CAPE_EMOJIS.Cape96),
@@ -1054,7 +1054,7 @@ function nineColouredDeerDetailedBreakdown(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-nine-coloured-deer-requires", {
+			content: t("schedule.detailed-breakdown-requires", {
 				lng: locale,
 				ns: "features",
 				emoji: formatEmoji(CAPE_EMOJIS.Cape125),
@@ -1066,7 +1066,7 @@ function nineColouredDeerDetailedBreakdown(
 function nestingWorkshopNext(now: Temporal.ZonedDateTime, locale: Locale) {
 	const timestamp = epochSeconds(nextNestingWorkshop(now)!);
 
-	return t("schedule.next-nesting-workshop", {
+	return t("schedule.timestamps", {
 		lng: locale,
 		ns: "features",
 		timestamp1: `<t:${timestamp}:s>`,
@@ -1195,7 +1195,7 @@ function projectorOfMemoriesDetailedBreakdown(
 		},
 		{
 			type: ComponentType.TextDisplay,
-			content: t("schedule.detailed-breakdown-projector-of-memories-requires", {
+			content: t("schedule.detailed-breakdown-requires", {
 				lng: locale,
 				ns: "features",
 				emoji: formatEmoji(SMALL_PLACEABLE_PROPS_EMOJIS.SmallPlaceableProp106),
