@@ -1,8 +1,6 @@
 a:caelus:
   - changed-files:
-      - any-glob-to-any-file:
-          - apps/caelus/**/*
-          - packages/sky-links/**/*
+      - any-glob-to-any-file: apps/caelus/**/*
 a:friendship-tree-generator:
   - changed-files:
       - any-glob-to-any-file: packages/friendship-tree-generator/**/*
@@ -20,18 +18,13 @@ a:socials:
       - any-glob-to-any-file: apps/socials/**/*
 a:thatskylink:
   - changed-files:
-      - any-glob-to-any-file:
-          - apps/thatskylink/**/*
-          - apps/website/app/routes/thatskylink.tsx
-          - packages/sky-links/**/*
+      - any-glob-to-any-file: apps/thatskylink/**/*
 a:utility:
   - changed-files:
       - any-glob-to-any-file: packages/utility/**/*
 a:website:
   - changed-files:
-      - any-glob-to-any-file:
-          - apps/website/**/*
-          - packages/sky-links/**/*
+      - any-glob-to-any-file: apps/website/**/*
 f:calendar:
   - changed-files:
       - any-glob-to-any-file:
@@ -40,7 +33,7 @@ f:calendar:
           - apps/website/app/utility/calendar-day.server.ts
           - apps/website/app/utility/calendar-entries.server.ts
           - apps/website/app/utility/calendar.ts
-          - packages/sky-links/**/*
+          - packages/sky-links/source/patch-notes.ts
 f:catalogue:
   - changed-files:
       - any-glob-to-any-file:
