@@ -25,7 +25,7 @@ import type { Route } from "./+types/thatskylink.js";
 const THATSKYLINK_TITLE = "thatskylink" as const;
 
 const THATSKYLINK_DESCRIPTION =
-	"A link redirector for Sky: Children of the Light. Point anyone at the wiki, patch notes, Sky profiles, and more." as const;
+	"A link redirector for Sky: Children of the Light. Point anyone to the wiki, patch notes, Sky profiles, and more." as const;
 
 const HTTPS_SCHEME = "https://" as const;
 

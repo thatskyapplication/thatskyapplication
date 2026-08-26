@@ -3997,7 +3997,7 @@ export default {
 			"sky-profiles": "Follow this with a user id to open that Sky kid's Sky profile.",
 			"this-month-in-sky":
 				"Follow this with a year and a month to open that This Month in Sky entry.",
-			"latest-patch-notes": "Always points at the most recent patch notes ({{version}}).",
+			"latest-patch-notes": "Always points to the most recent patch notes ({{version}}).",
 		},
 		welcome: {
 			preview: "This is the preview area for your welcome message. It is currently empty.",
