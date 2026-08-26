@@ -3258,6 +3258,18 @@
 			"error-missing-permissions-website": "Voir les salons & Envoyer des messages sont nécessaires pour \"{{channel}}\".",
 			"error-missing-permissions-thread": "`Voir les salons` & `Envoyer des messages dans les fils` sont nécessaires pour {{channel}}.",
 			"error-missing-permissions-thread-website": "Voir les salons & Envoyer des messages dans les fils sont nécessaires pour \"{{channel}}\"."
+		},
+		"thatskylink": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"links": "",
+			"patterns": "",
+			"patch-notes": "",
+			"sky-profiles": "",
+			"this-month-in-sky": "",
+			"latest-patch-notes": ""
 		}
 	}
 }
