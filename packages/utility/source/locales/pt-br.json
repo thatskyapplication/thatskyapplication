@@ -22,21 +22,25 @@
 		"hearts": "Corações",
 		"ascended-candles": "Velas ascendidas",
 		"seasonal-candles": "Velas de temporada",
+		"jump-to-date": "Ir para uma data",
+		"none": "Nada",
+		"reset": "Redefinir",
+		"none_travelling-rock": "",
 		"seasonal-hearts": "Corações sazonais",
 		"days-left": {
 			"season-ends-today": "A temporada termina hoje.",
+			"event-ends-today": "{{name}} termina hoje.",
+			"double-hearts-ends-today": "Corações em dobro termina hoje.",
+			"double-seasonal-light-ends-today": "As luzes sazonais em dobro terminam amanhã.",
+			"double-treasure-candles-ends-today": "As velas do tesouro em dobro terminam hoje.",
 			"season_one": "{{count}} dia restante na temporada.",
 			"season_other": "{{count}} dias restantes na temporada.",
-			"event-ends-today": "{{name}} termina hoje.",
 			"event_one": "{{count}} dia restante em {{name}}.",
 			"event_other": "{{count}} dias restantes em {{name}}.",
-			"double-hearts-ends-today": "Corações em dobro termina hoje.",
 			"double-hearts_one": "Falta {{count}} dia para o fim dos corações em dobro.",
 			"double-hearts_other": "Faltam {{count}} dias para o fim dos corações em dobro.",
-			"double-seasonal-light-ends-today": "As luzes sazonais em dobro terminam amanhã.",
 			"double-seasonal-light_one": "Falta {{count}} dia para o fim das velas sazonais em dobro.",
 			"double-seasonal-light_other": "Faltam {{count}} dias para o fim das velas sazonais em dobro.",
-			"double-treasure-candles-ends-today": "As velas do tesouro em dobro terminam hoje.",
 			"double-treasure-candles_one": "Falta {{count}} dia para o fim das velas do tesouro em dobro.",
 			"double-treasure-candles_other": "Faltam {{count}} dias para o fim das velas do tesouro em dobro."
 		},
@@ -2287,13 +2291,22 @@
 		"close": "Fechado",
 		"today": "Hoje",
 		"shard-eruption": "Erupções de fragmentos",
-		"wiki": "Wiki",
-		"jump-to-date": "Ir para uma data",
-		"none": "Nada",
-		"none_travelling-rock": "",
-		"reset": "Redefinir"
+		"wiki": "Wiki"
 	},
 	"commands": {
+		"common": {
+			"user": "usuário",
+			"type": "tipo",
+			"goal": "objetivo",
+			"start": "iniciar",
+			"hide": "ocultar",
+			"hide-description": "Certifique-se de que só você veja a resposta.",
+			"name": "nome",
+			"history": "histórico",
+			"search": "pesquisar",
+			"daily-guides": "guias-diários",
+			"winged-light": "luz-alada"
+		},
 		"about": {
 			"command-name": "sobre",
 			"command-description": "Sobre mim, o maravilhoso pequeno ajudante de Sky!"
@@ -2498,22 +2511,18 @@
 				"command-option-query-name": "consulta",
 				"command-option-query-description": "O nome, temporada, expressão, pose ou chamado do espírito."
 			}
-		},
-		"common": {
-			"user": "usuário",
-			"type": "tipo",
-			"goal": "objetivo",
-			"start": "iniciar",
-			"hide": "ocultar",
-			"hide-description": "Certifique-se de que só você veja a resposta.",
-			"name": "nome",
-			"history": "histórico",
-			"search": "pesquisar",
-			"daily-guides": "guias-diários",
-			"winged-light": "luz-alada"
 		}
 	},
 	"features": {
+		"common": {
+			"error-missing-permissions": "`Ver Canal` & `Enviar Mensagens` são obrigatórios para {{channel}}.",
+			"error-missing-permissions-website": "Ver Canal & Enviar Mensagens são obrigatórios para \"{{channel}}\".",
+			"error-missing-permissions-thread": "`Ver Canal` & `Enviar Mensagens em Tópicos` são obrigatórios para {{channel}}.",
+			"error-missing-permissions-thread-website": "Ver Canal & Enviar Mensagens em Tópicos são obrigatórios para \"{{channel}}\".",
+			"no-channel-detected": "Nenhum canal foi detectado. Ele foi excluído?",
+			"sending": "Enviando {{emoji}}",
+			"stopped": "Parou {{emoji}}"
+		},
 		"about": {
 			"description": "### Tradução\n\nQuer ajudar a traduzir? Encontrou algum erro de tradução? Nós traduzimos tudo pelo [Crowdin]({{crowdinURL}}), e suas contribuições ajudarão a todos!\n### Guias diários\n\nVocê consulta os guias diários? Eles são preenchidos manualmente todos os dias no reset. Que tal se tornar uma dessas pessoas incríveis?\n### Ações de amizade\n\nOs GIFs que você vê para abraçar, bagunçar o cabelo, krillar etc. são todos contribuídos pela comunidade. Envie os seus também!\n### Reportando problemas e dando feedback\n\nEncontrou um bug? Quer dar algum feedback? Entre no [servidor de suporte]({{supportServerInviteURL}}) e conte tudo pra gente!\n### Patrocínio\n\nVocê pode ajudar a manter o Caelus funcionando ao patrocinar! Você pode patrocinar pelo [GitHub]({{githubSponsorsURL}}) ou diretamente no Discord através do botão abaixo!",
 			"magical-companion": "Seu companheiro mágico para [Sky: Children of the Light]({{url}}).",
@@ -2549,21 +2558,21 @@
 			},
 			"seasonal-candles": {
 				"no-season": "Não há temporada agora.",
+				"title": "Calculadora de Velas de Temporada",
+				"double-seasonal-light-calculation": "Evento de Luz Sazonal em Dobro incluído no cálculo.\n{{start}}–{{end}} (fim {{relative}})",
 				"day_one": "Resultado: {{count}} dia",
 				"day_other": "Resultado: {{count}} dias",
 				"day-season-pass_one": "({{count}} dia com o Passe de Temporada).",
-				"day-season-pass_other": "({{count}} dias com o Passe de Temporada).",
-				"title": "Calculadora de Velas de Temporada",
-				"double-seasonal-light-calculation": "Evento de Luz Sazonal em Dobro incluído no cálculo.\n{{start}}–{{end}} (fim {{relative}})"
+				"day-season-pass_other": "({{count}} dias com o Passe de Temporada)."
 			},
 			"winged-light": {
 				"started-with": "Começar com",
 				"reborn-with": "Renascer com",
 				"total": "Total",
 				"wedge-next": "Próximo nivel: {{amount}}",
+				"title": "Calculadora de Luz Alada",
 				"wedge-total_one": "Nível {{count}}",
-				"wedge-total_other": "Nível {{count}}",
-				"title": "Calculadora de Luz Alada"
+				"wedge-total_other": "Nível {{count}}"
 			}
 		},
 		"calendar": {
@@ -2583,16 +2592,16 @@
 			"next-year": "Próximo ano",
 			"legend": "Legenda",
 			"nothing-scheduled": "Nada está programado.",
-			"duration_one": "{{count}} dia",
-			"duration_other": "{{count}} dias",
 			"time-zone-local": "Hora local",
 			"time-zone-label": "Fuso horário",
 			"all-day": "Dia todo",
 			"during-the-day": "Durante o dia",
 			"view-date": "Ver {{date}}",
+			"community-event": "Evento da comunidade",
+			"duration_one": "{{count}} dia",
+			"duration_other": "{{count}} dias",
 			"cadence_one": "Cada minuto",
-			"cadence_other": "A cada {{count}} minutos",
-			"community-event": "Evento da comunidade"
+			"cadence_other": "A cada {{count}} minutos"
 		},
 		"catalogue": {
 			"main-title": "Catálogo",
@@ -2710,6 +2719,15 @@
 			"shard-eruption-timestamps": "Marcação de data/hora",
 			"travelling-rock": "Pedra viajante",
 			"infographic-acknowledgement-item": "Infográfico {{infographic}} por {{acknowledgement}}",
+			"returning-spirits-leave-today": "{{returningSpirits}} partirão hoje: {{spirits}}.",
+			"event-upcoming-time": "{{event}} começa às {{time}}.",
+			"update-releases-today": "A {{update}} lança hoje.",
+			"not-yet-updated": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Junte-se ao [servidor de suporte]({{url}}) e atualize você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
+			"not-yet-updated-support-server": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Veja o {{channel}} para encontrar como atualizá-los você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
+			"error-thread-archived": "O tópico foi arquivado.",
+			"error-thread-locked": "O tópico está bloqueado.",
+			"quest-unknown": "Uou, essa é uma missão diária que não conhecemos. Talvez tente outra?",
+			"quest-no-infographic": "Essa missão não possui um infográfico.",
 			"season-upcoming_one": "A nova temporada inicia amanhã.",
 			"season-upcoming_other": "A nova temporada inicia em {{count}} dias.",
 			"double-hearts-upcoming_one": "Os corações em dobro começarão amanhã.",
@@ -2718,25 +2736,16 @@
 			"double-seasonal-light-upcoming_other": "As luzes sazonais em dobro começam em {{count}} dias.",
 			"double-treasure-candles-upcoming_one": "As velas do tesouro em dobro começarão amanhã.",
 			"double-treasure-candles-upcoming_other": "As velas do tesouro em dobro começam em {{count}} dias.",
-			"returning-spirits-leave-today": "{{returningSpirits}} partirão hoje: {{spirits}}.",
 			"returning-spirits-active-list_one": "{{returningSpirits}} partirão em {{count}} dia: {{spirits}}.",
 			"returning-spirits-active-list_other": "{{returningSpirits}} partirão em {{count}} dias: {{spirits}}.",
 			"returning-spirits-upcoming-list_one": "{{returningSpirits}} chegam amanhã: {{spirits}}.",
 			"returning-spirits-upcoming-list_other": "{{returningSpirits}} chegarão em {{count}} dias: {{spirits}}.",
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
-			"event-upcoming-time": "{{event}} começa às {{time}}.",
 			"maintenance-upcoming_one": "A manutenção começa às {{time}} amanhã.",
 			"maintenance-upcoming_other": "A manutenção começa em {{count}} dias.",
-			"update-releases-today": "A {{update}} lança hoje.",
 			"update-upcoming_one": "A {{update}} lança amanhã.",
-			"update-upcoming_other": "A {{update}} será lançada em {{count}} dias.",
-			"not-yet-updated": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Junte-se ao [servidor de suporte]({{url}}) e atualize você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
-			"not-yet-updated-support-server": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Veja o {{channel}} para encontrar como atualizá-los você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
-			"error-thread-archived": "O tópico foi arquivado.",
-			"error-thread-locked": "O tópico está bloqueado.",
-			"quest-unknown": "Uou, essa é uma missão diária que não conhecemos. Talvez tente outra?",
-			"quest-no-infographic": "Essa missão não possui um infográfico."
+			"update-upcoming_other": "A {{update}} será lançada em {{count}} dias."
 		},
 		"data": {
 			"delete-message": "Tem certeza que quer apagar seus dados? Isso vai:\n- Apagar seu perfil Sky\n- Apagar seu catálogo\n- Apagar seus corações\n  - Seu id de usuário no histórico de corações se tornará anônimo para os outros\n- Apagar sua maior sequência no quiz\n- Apagar seus dados de checklist\n- Apagar dados do sorteio\n- Apagar sua função de tradutor, se você tiver uma",
@@ -2951,6 +2960,9 @@
 			"edit-offset-string-select-menu-placeholder": "Selecione um intervalo."
 		},
 		"schedule": {
+			"timestamps": "{{timestamp1}} ({{timestamp2}})",
+			"detailed-breakdown-requires": "-# Requer {{emoji}}",
+			"detailed-breakdown-two-hourly-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 10 minutos.\n\n{{timestamps}}\n\n{{status}}",
 			"type": {
 				"13": "Cervo de nove cores",
 				"15": "Benção do Ancião do Relicário",
@@ -3016,10 +3028,7 @@
 			"detailed-breakdown-projector-of-memories-message": "Disponível a cada 80 minutos a partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-radiance-message": "Eventos de resplendor aumentam a disponibilidade de algumas tintas.\n\n{{result}}",
 			"detailed-breakdown-radiance-event": "{{range}}: {{dyes}}",
-			"detailed-breakdown-nothing-planned": "Não há eventos programados.",
-			"timestamps": "{{timestamp1}} ({{timestamp2}})",
-			"detailed-breakdown-requires": "-# Requer {{emoji}}",
-			"detailed-breakdown-two-hourly-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 10 minutos.\n\n{{timestamps}}\n\n{{status}}"
+			"detailed-breakdown-nothing-planned": "Não há eventos programados."
 		},
 		"settings": {
 			"name": "Configurações",
@@ -3050,6 +3059,7 @@
 			"select-a-spirit": "Selecione um espírito",
 			"random": "Aleatório",
 			"me": "Eu",
+			"report": "Denunciar",
 			"country-unspecified": "Não especificado",
 			"search-none": "Sem perfis Sky.",
 			"unknown-country": "Por favor, selecione um país!",
@@ -3189,8 +3199,7 @@
 			"missing-name-source-success": {
 				"0": "Você está pronto(a) para presentear corações, {{name}}!",
 				"1": "Você está pronto para o quiz, {{name}}. Pode começar a adivinhar!"
-			},
-			"report": "Denunciar"
+			}
 		},
 		"spirits": {
 			"description": "Consulte o histórico dos Espíritos, veja quais estão ausentes há mais tempo e explore suas árvores de amizade.",
@@ -3217,6 +3226,18 @@
 			"order-natural": "Ordenar por aparência",
 			"order-label": "Ordem por histórico de espíritos",
 			"order-rarity": "Ordenar por raridade"
+		},
+		"thatskylink": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"links": "",
+			"patterns": "",
+			"patch-notes": "",
+			"sky-profiles": "",
+			"this-month-in-sky": "",
+			"latest-patch-notes": ""
 		},
 		"welcome": {
 			"preview": "Esta é a área de pré-visualização da sua mensagem de boas-vindas. Ela está atualmente vazia.",
@@ -3250,27 +3271,6 @@
 			"hug-self": "É você! Que tal abraçar os outros?",
 			"hug-disabled": "Este servidor desativou os abraços.",
 			"hug-missing-permissions": "Preciso das seguintes permissões para fazer isso:\n- `Ver Canais`\n- `Enviar mensagens`\n- `Ver Histórico de Mensagens`\nAlguém precisa ajustar as permissões!"
-		},
-		"common": {
-			"error-missing-permissions": "`Ver Canal` & `Enviar Mensagens` são obrigatórios para {{channel}}.",
-			"no-channel-detected": "Nenhum canal foi detectado. Ele foi excluído?",
-			"sending": "Enviando {{emoji}}",
-			"stopped": "Parou {{emoji}}",
-			"error-missing-permissions-website": "Ver Canal & Enviar Mensagens são obrigatórios para \"{{channel}}\".",
-			"error-missing-permissions-thread": "`Ver Canal` & `Enviar Mensagens em Tópicos` são obrigatórios para {{channel}}.",
-			"error-missing-permissions-thread-website": "Ver Canal & Enviar Mensagens em Tópicos são obrigatórios para \"{{channel}}\"."
-		},
-		"thatskylink": {
-			"description": "",
-			"description-short": "",
-			"meta-description": "",
-			"search-placeholder": "",
-			"links": "",
-			"patterns": "",
-			"patch-notes": "",
-			"sky-profiles": "",
-			"this-month-in-sky": "",
-			"latest-patch-notes": ""
 		}
 	}
 }

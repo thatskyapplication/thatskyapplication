@@ -22,21 +22,25 @@
 		"hearts": "Cœurs",
 		"ascended-candles": "Bougies d'ascension",
 		"seasonal-candles": "Bougies saisonnières",
+		"jump-to-date": "",
+		"none": "Aucun",
+		"reset": "Réinitialiser",
+		"none_travelling-rock": "Aucune",
 		"seasonal-hearts": "Cœurs saisonniers",
 		"days-left": {
 			"season-ends-today": "La saison finit aujourd'hui.",
+			"event-ends-today": "{{name}} finit aujourd'hui.",
+			"double-hearts-ends-today": "Les cœurs doubles finissent aujourd'hui.",
+			"double-seasonal-light-ends-today": "La double lumière saisonnière finit aujourd'hui.",
+			"double-treasure-candles-ends-today": "Les doubles bouquets de bougies finissent aujourd'hui.",
 			"season_one": "{{count}} jour restant avant la fin de la saison.",
 			"season_other": "{{count}} jours restants avant la fin de la saison.",
-			"event-ends-today": "{{name}} finit aujourd'hui.",
 			"event_one": "{{count}} jour restant avant {{name}}.",
 			"event_other": "{{count}} jours restants pour {{name}}.",
-			"double-hearts-ends-today": "Les cœurs doubles finissent aujourd'hui.",
 			"double-hearts_one": "Il reste {{count}} jour aux cœurs doubles.",
 			"double-hearts_other": "Il reste {{count}} jours aux cœurs doubles.",
-			"double-seasonal-light-ends-today": "La double lumière saisonnière finit aujourd'hui.",
 			"double-seasonal-light_one": "Il reste {{count}} jour à la double lumière saisonnière.",
 			"double-seasonal-light_other": "Il reste {{count}} jours à la double lumière saisonnière.",
-			"double-treasure-candles-ends-today": "Les doubles bouquets de bougies finissent aujourd'hui.",
 			"double-treasure-candles_one": "Il reste {{count}} jour aux doubles bouquets de bougies.",
 			"double-treasure-candles_other": "Il reste {{count}} jours aux doubles bouquets de bougies."
 		},
@@ -2287,13 +2291,22 @@
 		"close": "",
 		"today": "Aujourd'hui",
 		"shard-eruption": "Éruption d'éclats",
-		"wiki": "Wiki",
-		"jump-to-date": "",
-		"none": "Aucun",
-		"none_travelling-rock": "Aucune",
-		"reset": "Réinitialiser"
+		"wiki": "Wiki"
 	},
 	"commands": {
+		"common": {
+			"user": "utilisateur",
+			"type": "type",
+			"goal": "objectif",
+			"start": "départ",
+			"hide": "cacher",
+			"hide-description": "S'assure que seulement vous pouvez voir la réponse.",
+			"name": "pseudo",
+			"history": "historique",
+			"search": "chercher",
+			"daily-guides": "guides-journaliers",
+			"winged-light": "lumière-ailée"
+		},
 		"about": {
 			"command-name": "à-propos",
 			"command-description": "À propos de moi, le merveilleux petit assistant de Sky !"
@@ -2498,22 +2511,18 @@
 				"command-option-query-name": "requête",
 				"command-option-query-description": "Le nom, la saison, l'expression, la posture ou l'appel de l'esprit."
 			}
-		},
-		"common": {
-			"user": "utilisateur",
-			"type": "type",
-			"goal": "objectif",
-			"start": "départ",
-			"hide": "cacher",
-			"hide-description": "S'assure que seulement vous pouvez voir la réponse.",
-			"name": "pseudo",
-			"history": "historique",
-			"search": "chercher",
-			"daily-guides": "guides-journaliers",
-			"winged-light": "lumière-ailée"
 		}
 	},
 	"features": {
+		"common": {
+			"error-missing-permissions": "`Voir les salons` & `Envoyer des messages` sont nécessaires pour {{channel}}.",
+			"error-missing-permissions-website": "Voir les salons & Envoyer des messages sont nécessaires pour \"{{channel}}\".",
+			"error-missing-permissions-thread": "`Voir les salons` & `Envoyer des messages dans les fils` sont nécessaires pour {{channel}}.",
+			"error-missing-permissions-thread-website": "Voir les salons & Envoyer des messages dans les fils sont nécessaires pour \"{{channel}}\".",
+			"no-channel-detected": "Salon non détecté. A-t-il été supprimé ?",
+			"sending": "Envoi {{emoji}}",
+			"stopped": "Arrêté {{emoji}}"
+		},
 		"about": {
 			"description": "### Traduire\n\nVous désirez aider à la traduction ? Vous avez trouvé une faute de traduction ? Nous traduisons sur [Crowdin]({{crowdinURL}}), et votre contribution aidera tout le monde !\n### Guides journaliers\n\nRegardez-vous les guides journaliers ? Ils sont remplis manuellement tous les jours au moment de la réinisalisation. Pourquoi pas devenir une de ces merveilleuses personnes ?\n### Actions d'amitiés\n\nLes GIF que vous voyez pour les câlins, ébouriffages de cheveux, krill, etc., sont tous des contributions de la communauté. Proposez le vôtre pour apporter votre pierre à l'édifice !\n### Reporter des problèmes & envoyer des avis\n\nVous avez trouvé un bug ? Vous souhaiter envoyer un avis ? Rejoignez le [serveur d'assistance]({{supportServerInviteURL}}) et faites-le nous savoir !\n### Parrainage\n\nVous pouvez aider à préserver Caelus actif en parrainant ! Vous pouvez parrainer via [GitHub]({{githubSponsorsURL}}) ou directement depuis Discord via le bouton ci-dessous !",
 			"magical-companion": "Votre compagnon magique pour [Sky: Enfants de la Lumière]({{url}}).",
@@ -2549,21 +2558,21 @@
 			},
 			"seasonal-candles": {
 				"no-season": "Il n'y a pas de saison en cours actuellement.",
+				"title": "Calculateur de bougies saisonnières",
+				"double-seasonal-light-calculation": "L'évènement à double bougies saisonnières est inclus dans le calcul.\n{{start}}–{{end}} (finit {{relative}})",
 				"day_one": "Résultat : {{count}} jour",
 				"day_other": "Résultat : {{count}} jours",
 				"day-season-pass_one": "({{count}} jour avec le Passe Saisonnier).",
-				"day-season-pass_other": "({{count}} jours avec le Passe Saisonnier).",
-				"title": "Calculateur de bougies saisonnières",
-				"double-seasonal-light-calculation": "L'évènement à double bougies saisonnières est inclus dans le calcul.\n{{start}}–{{end}} (finit {{relative}})"
+				"day-season-pass_other": "({{count}} jours avec le Passe Saisonnier)."
 			},
 			"winged-light": {
 				"started-with": "Commence avec",
 				"reborn-with": "Renaît avec",
 				"total": "Total",
 				"wedge-next": "Prochain niveau : {{amount}}",
+				"title": "Calculateur de lumières ailées",
 				"wedge-total_one": "{{count}} niveau",
-				"wedge-total_other": "{{count}} niveaux",
-				"title": "Calculateur de lumières ailées"
+				"wedge-total_other": "{{count}} niveaux"
 			}
 		},
 		"calendar": {
@@ -2583,16 +2592,16 @@
 			"next-year": "",
 			"legend": "",
 			"nothing-scheduled": "",
-			"duration_one": "",
-			"duration_other": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
 			"during-the-day": "",
 			"view-date": "",
+			"community-event": "",
+			"duration_one": "",
+			"duration_other": "",
 			"cadence_one": "",
-			"cadence_other": "",
-			"community-event": ""
+			"cadence_other": ""
 		},
 		"catalogue": {
 			"main-title": "Catalogue",
@@ -2710,6 +2719,15 @@
 			"shard-eruption-timestamps": "Heures",
 			"travelling-rock": "Pierre voyageuse",
 			"infographic-acknowledgement-item": "Infographie {{infographic}} par {{acknowledgement}}",
+			"returning-spirits-leave-today": "",
+			"event-upcoming-time": "{{event}} commence à {{time}}.",
+			"update-releases-today": "",
+			"not-yet-updated": "",
+			"not-yet-updated-support-server": "",
+			"error-thread-archived": "Le fil est archivé.",
+			"error-thread-locked": "Le fil est verrouillé.",
+			"quest-unknown": "Wow, c'est une quête que nous ne connaissons pas. Peut-être essayez-en une autre ?",
+			"quest-no-infographic": "Cette quête n'a pas d'infographie.",
 			"season-upcoming_one": "La nouvelle saison commence demain.",
 			"season-upcoming_other": "La nouvelle saison commence dans {{count}} jours.",
 			"double-hearts-upcoming_one": "Les cœurs doubles commencent demain.",
@@ -2718,25 +2736,16 @@
 			"double-seasonal-light-upcoming_other": "La lumière saisonnière double commencera dans {{count}} jours.",
 			"double-treasure-candles-upcoming_one": "Les doubles bougies au trésor commenceront demain.",
 			"double-treasure-candles-upcoming_other": "Les doubles bougies au trésor commenceront dans {{count}} jours.",
-			"returning-spirits-leave-today": "",
 			"returning-spirits-active-list_one": "",
 			"returning-spirits-active-list_other": "",
 			"returning-spirits-upcoming-list_one": "",
 			"returning-spirits-upcoming-list_other": "",
 			"event-upcoming_one": "{{event}} commence demain.",
 			"event-upcoming_other": "{{event}} commence dans {{count}} jours.",
-			"event-upcoming-time": "{{event}} commence à {{time}}.",
 			"maintenance-upcoming_one": "La maintenance commencera à {{time}} demain.",
 			"maintenance-upcoming_other": "La maintenance sera dans {{count}} jours.",
-			"update-releases-today": "",
 			"update-upcoming_one": "",
-			"update-upcoming_other": "",
-			"not-yet-updated": "",
-			"not-yet-updated-support-server": "",
-			"error-thread-archived": "Le fil est archivé.",
-			"error-thread-locked": "Le fil est verrouillé.",
-			"quest-unknown": "Wow, c'est une quête que nous ne connaissons pas. Peut-être essayez-en une autre ?",
-			"quest-no-infographic": "Cette quête n'a pas d'infographie."
+			"update-upcoming_other": ""
 		},
 		"data": {
 			"delete-message": "Êtes-vous sûr•e de vouloir supprimer vos données ? Cela va :\n- Supprimer votre profil Sky\n- Supprimer votre catalogue\n- Supprimer vos cœurs\n  - Votre identifiant d'utilisateur dans l'historique de cœur des autres sera rendu anonyme\n- Supprimer vos combos maximaux dans les jeux de devinettes\n- Supprimer vos données de liste de choses à faire\n- Destituer les données de tirage au sort\n- Destituer votre rôle de traducteur, si vous en avez un",
@@ -2951,6 +2960,9 @@
 			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
+			"timestamps": "{{timestamp1}} ({{timestamp2}})",
+			"detailed-breakdown-requires": "-# Nécessite {{emoji}}",
+			"detailed-breakdown-two-hourly-message": "Disponible toutes les 2 heures à partir de {{timestamp}} et dure 10 minutes.\n\n{{timestamps}}\n\n{{status}}",
 			"type": {
 				"13": "Cerf aux neuf couleurs",
 				"15": "Bénédiction de l'Ancienne de la Chambre forte",
@@ -3016,10 +3028,7 @@
 			"detailed-breakdown-projector-of-memories-message": "Disponible toutes les 80 minutes à partir de {{timestamp}}.\n\n{{timestamps}}\n\n{{status}}",
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
-			"detailed-breakdown-nothing-planned": "",
-			"timestamps": "{{timestamp1}} ({{timestamp2}})",
-			"detailed-breakdown-requires": "-# Nécessite {{emoji}}",
-			"detailed-breakdown-two-hourly-message": "Disponible toutes les 2 heures à partir de {{timestamp}} et dure 10 minutes.\n\n{{timestamps}}\n\n{{status}}"
+			"detailed-breakdown-nothing-planned": ""
 		},
 		"settings": {
 			"name": "",
@@ -3050,6 +3059,7 @@
 			"select-a-spirit": "Sélectionnez un esprit",
 			"random": "Aléatoire",
 			"me": "Moi",
+			"report": "Reporter",
 			"country-unspecified": "Non précisé",
 			"search-none": "Pas de profils Sky.",
 			"unknown-country": "Sélectionnez un pays !",
@@ -3189,8 +3199,7 @@
 			"missing-name-source-success": {
 				"0": "",
 				"1": ""
-			},
-			"report": "Reporter"
+			}
 		},
 		"spirits": {
 			"description": "",
@@ -3217,6 +3226,18 @@
 			"order-natural": "Ordre d'apparence",
 			"order-label": "",
 			"order-rarity": "Ordre de rareté"
+		},
+		"thatskylink": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"links": "",
+			"patterns": "",
+			"patch-notes": "",
+			"sky-profiles": "",
+			"this-month-in-sky": "",
+			"latest-patch-notes": ""
 		},
 		"welcome": {
 			"preview": "Ceci est la zone d'aperçu de votre message de bienvenue. C'est actuellement vide.",
@@ -3250,27 +3271,6 @@
 			"hug-self": "C'est vous ! Pourquoi ne pas faire de câlins aux autres ?",
 			"hug-disabled": "Ce serveur a désactivé les câlins.",
 			"hug-missing-permissions": "J'ai besoin des permissions suivantes pour faire cela :\n- `Voir les salons`\n- `Envoyer des messages`\n- `Voir les anciens messages`\nQuelqu'un devrait ajuster les permissions !"
-		},
-		"common": {
-			"error-missing-permissions": "`Voir les salons` & `Envoyer des messages` sont nécessaires pour {{channel}}.",
-			"no-channel-detected": "Salon non détecté. A-t-il été supprimé ?",
-			"sending": "Envoi {{emoji}}",
-			"stopped": "Arrêté {{emoji}}",
-			"error-missing-permissions-website": "Voir les salons & Envoyer des messages sont nécessaires pour \"{{channel}}\".",
-			"error-missing-permissions-thread": "`Voir les salons` & `Envoyer des messages dans les fils` sont nécessaires pour {{channel}}.",
-			"error-missing-permissions-thread-website": "Voir les salons & Envoyer des messages dans les fils sont nécessaires pour \"{{channel}}\"."
-		},
-		"thatskylink": {
-			"description": "",
-			"description-short": "",
-			"meta-description": "",
-			"search-placeholder": "",
-			"links": "",
-			"patterns": "",
-			"patch-notes": "",
-			"sky-profiles": "",
-			"this-month-in-sky": "",
-			"latest-patch-notes": ""
 		}
 	}
 }
