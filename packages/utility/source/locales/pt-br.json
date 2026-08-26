@@ -2721,6 +2721,7 @@
 			"infographic-acknowledgement-item": "Infográfico {{infographic}} por {{acknowledgement}}",
 			"returning-spirits-leave-today": "{{returningSpirits}} partirão hoje: {{spirits}}.",
 			"event-upcoming-time": "{{event}} começa às {{time}}.",
+			"maintenance-tomorrow": "A manutenção começa às {{time}} amanhã.",
 			"update-releases-today": "A {{update}} lança hoje.",
 			"not-yet-updated": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Junte-se ao [servidor de suporte]({{url}}) e atualize você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
 			"not-yet-updated-support-server": "Guias diários estão esperando por um incrível Filho da luz para atualizá-los. Tem as informações que precisamos? Veja o {{channel}} para encontrar como atualizá-los você mesmo para a comunidade!\n\nNo momento, estamos sem as seguintes informações:",
@@ -2743,7 +2744,6 @@
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
 			"maintenance-upcoming_one": "A manutenção começa em {{count}} dia.",
-			"maintenance-tomorrow": "A manutenção começa às {{time}} amanhã.",
 			"maintenance-upcoming_other": "A manutenção começa em {{count}} dias.",
 			"update-upcoming_one": "A {{update}} lança amanhã.",
 			"update-upcoming_other": "A {{update}} será lançada em {{count}} dias."
@@ -2961,7 +2961,7 @@
 			"edit-offset-string-select-menu-placeholder": "Selecione um intervalo."
 		},
 		"schedule": {
-			"timestamps": "{{timestamp1}} ({{timestamp2}})",
+			"timestamps": "",
 			"detailed-breakdown-requires": "-# Requer {{emoji}}",
 			"detailed-breakdown-two-hourly-message": "Disponível a cada 2 horas a partir de {{timestamp}}, com duração de 10 minutos.\n\n{{timestamps}}\n\n{{status}}",
 			"type": {
