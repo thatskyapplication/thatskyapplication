@@ -17,6 +17,7 @@ import {
 	zhTW,
 } from "@thatskyapplication/utility";
 import { LOCALES } from "~/utility/constants.js";
+import { reportMissingTranslation } from "~/utility/missing-translation.js";
 
 export const [i18nextMiddleware, getLocale, getInstance] = createI18nextMiddleware({
 	detection: {
@@ -26,10 +27,7 @@ export const [i18nextMiddleware, getLocale, getInstance] = createI18nextMiddlewa
 	i18next: {
 		fallbackLng: Locale.EnglishGB,
 		interpolation: { escapeValue: false },
-		missingKeyHandler: (lngs, namespace, key) =>
-			console.warn(
-				`Locale ${lngs.join(", ")} had a missing translation in namespace ${namespace} for "${key}".`,
-			),
+		missingKeyHandler: reportMissingTranslation,
 		resources: {
 			[Locale.German]: de,
 			[Locale.EnglishGB]: enGB,
