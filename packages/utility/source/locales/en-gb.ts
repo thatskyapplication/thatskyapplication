@@ -2817,6 +2817,7 @@ export default {
 			[Cosmetic.SunlightDiverDuoShoes]: "Sunlight Diver Duo shoes",
 			[Cosmetic.SunlightSportySunglasses]: "Sunlight Sporty Sunglasses",
 			[Cosmetic.SunlightCrabFloat]: "Sunlight Crab Float",
+			[Cosmetic.StarryNightsCanopy]: "Starry Night's Canopy",
 		},
 		"interaction-error":
 			"Oh no, that wasn't supposed to happen!\n\nFeel free to join our [support server]({{url}}) and report this issue! 🩵",
