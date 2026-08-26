@@ -2429,7 +2429,7 @@ async function skyProfileComponents(
 	if (typeof wingedLight === "number") {
 		if (wingedLight === SkyProfileWingedLightType.Capeless) {
 			miscellaneous.push(
-				`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${t("sky-profile.winged-light-capeless", { lng: locale, ns: "features" })}`,
+				`**${t("sky-profile.winged-light", { lng: locale, ns: "features" })}** ${t(`sky-profile-winged-light-types.${SkyProfileWingedLightType.Capeless}`, { lng: locale, ns: "general" })}`,
 			);
 		} else {
 			const catalogue = await fetchCatalogue(userId);
