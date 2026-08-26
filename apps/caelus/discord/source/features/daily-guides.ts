@@ -1146,7 +1146,7 @@ async function distributionData({
 			locale,
 		});
 	} else {
-		shardEruptionContent += t("shard-eruption.none", { lng: locale, ns: "features" });
+		shardEruptionContent += t("none", { lng: locale, ns: "general" });
 	}
 
 	containerComponents.push({
@@ -1190,9 +1190,10 @@ async function distributionData({
 		if (travellingRockURL && type === DailyGuidesDistributionType.Compact) {
 			travellingRockContent += `[${t("view", { lng: locale, ns: "general" })}](${travellingRockURL})`;
 		} else if (travellingRockNotSpawned) {
-			travellingRockContent += t("daily-guides.shard-eruption-none", {
+			travellingRockContent += t("none", {
 				lng: locale,
-				ns: "features",
+				ns: "general",
+				context: "travelling-rock",
 			});
 		}
 

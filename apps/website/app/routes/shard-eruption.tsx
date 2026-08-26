@@ -298,7 +298,7 @@ function ShardEruptionCard({
 					))}
 				</>
 			) : (
-				<p className="pt-6">{t("shard-eruption.none", { ns: "features" })}</p>
+				<p className="pt-6">{t("none", { ns: "general" })}</p>
 			)}
 		</div>
 	);

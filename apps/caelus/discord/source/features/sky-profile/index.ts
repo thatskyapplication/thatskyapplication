@@ -564,7 +564,7 @@ export async function skyProfileShowEdit(
 			{
 				type: ComponentType.Button,
 				custom_id: CustomId.SkyProfileViewReset,
-				label: t("sky-profile.edit-reset-button-label", { lng: locale, ns: "features" }),
+				label: t("reset", { lng: locale, ns: "general" }),
 				style: ButtonStyle.Secondary,
 			},
 		],

@@ -2288,7 +2288,10 @@
 		"today": "Hoy",
 		"shard-eruption": "",
 		"wiki": "",
-		"jump-to-date": ""
+		"jump-to-date": "",
+		"none": "Ninguna",
+		"none_travelling-rock": "",
+		"reset": ""
 	},
 	"commands": {
 		"about": {
@@ -2666,7 +2669,6 @@
 			"description": "",
 			"description-short": "",
 			"complete": "",
-			"reset": "",
 			"daily-quests-message-incomplete": "",
 			"daily-quests-message-complete": "",
 			"daily-quests-show-button-label": "",
@@ -2707,7 +2709,6 @@
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} quedan ({{remainingSeasonPass}} con Pase de Temporada)",
 			"shard-eruption-data": "Datos",
 			"shard-eruption-timestamps": "Marcas de tiempo",
-			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
@@ -3030,7 +3031,6 @@
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "No hay erupciones de fragmentos en este día.",
 			"browse-no-shard": "",
-			"none": "Ninguna",
 			"browse": "Echar un vistazo",
 			"realm-area": ""
 		},
@@ -3054,7 +3054,6 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
-			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",

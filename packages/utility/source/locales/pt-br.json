@@ -2288,7 +2288,10 @@
 		"today": "Hoje",
 		"shard-eruption": "Erupções de fragmentos",
 		"wiki": "Wiki",
-		"jump-to-date": "Ir para uma data"
+		"jump-to-date": "Ir para uma data",
+		"none": "Nada",
+		"none_travelling-rock": "",
+		"reset": "Redefinir"
 	},
 	"commands": {
 		"about": {
@@ -2666,7 +2669,6 @@
 			"description": "Acompanhe suas atividades em Sky, {{user}}!",
 			"description-short": "Acompanhe suas atividades em Sky.",
 			"complete": "Completo",
-			"reset": "Redefinir",
 			"daily-quests-message-incomplete": "Você já completou as missões diárias?",
 			"daily-quests-message-complete": "Missões diárias completas! Bom trabalho!",
 			"daily-quests-show-button-label": "Exibir missões diárias",
@@ -2707,7 +2709,6 @@
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} com o Passe de Temporada)",
 			"shard-eruption-data": "Dados",
 			"shard-eruption-timestamps": "Marcação de data/hora",
-			"shard-eruption-none": "Nada",
 			"travelling-rock": "Pedra viajante",
 			"infographic-acknowledgement-item": "Infográfico {{infographic}} por {{acknowledgement}}",
 			"season-upcoming_one": "A nova temporada inicia amanhã.",
@@ -3040,7 +3041,6 @@
 			"no-shard-eruptions-today": "Não haverá erupções de cristais hoje.",
 			"no-shard-eruptions-not-today": "Não há erupções de cristais nesse dia.",
 			"browse-no-shard": "Sem erupções de fragmentos.",
-			"none": "Nada",
 			"browse": "Procurar",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))"
 		},
@@ -3064,7 +3064,6 @@
 			"no-sky-profile-sky-kid": "Esse Filho da Luz ainda não tem um perfil Sky. Que tal convidá-la a criar um?",
 			"no-sky-profile-edit": "Você ainda não tem um perfil Sky. Crie um agora!\nOs perfis Sky também aparecem em {{url}}!",
 			"edit-placeholder": "O que você gostaria de editar?",
-			"edit-reset-button-label": "Redefinir",
 			"no-sky-profile-application": "Aplicativos têm perfil Sky? Hm... Quem sabe?",
 			"no-sky-profile-invoker": "Você ainda não tem um perfil Sky! Que tal criar um?",
 			"no-sky-profile-other": "{{user}} ainda não tem um perfil Sky! Que tal convidá-la a criar um?",

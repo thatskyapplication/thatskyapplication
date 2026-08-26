@@ -2288,7 +2288,10 @@
 		"today": "",
 		"shard-eruption": "闇の破片",
 		"wiki": "",
-		"jump-to-date": ""
+		"jump-to-date": "",
+		"none": "",
+		"none_travelling-rock": "",
+		"reset": "リセット"
 	},
 	"commands": {
 		"about": {
@@ -2666,7 +2669,6 @@
 			"description": "{{user}}さん、Skyでの活躍を記録しましょう！",
 			"description-short": "Skyでの活躍を記録しましょう。",
 			"complete": "完了",
-			"reset": "リセット",
 			"daily-quests-message-incomplete": "デイリークエストは全て完了しましたか？",
 			"daily-quests-message-complete": "デイリークエストを全て達成しました！お見事です！",
 			"daily-quests-show-button-label": "デイリーガイドを見る",
@@ -2707,7 +2709,6 @@
 			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "",
-			"shard-eruption-none": "",
 			"travelling-rock": "小さな岩の冒険",
 			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
@@ -3030,7 +3031,6 @@
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
 			"browse-no-shard": "",
-			"none": "",
 			"browse": "",
 			"realm-area": "$t(general:realms.{{realm}})（$t(general:areas.{{area}})）"
 		},
@@ -3054,7 +3054,6 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
-			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",

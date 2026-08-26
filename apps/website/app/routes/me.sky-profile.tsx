@@ -902,7 +902,7 @@ function MeSkyProfileEditor({ loaderData, actionData, showSuccess }: MeSkyProfil
 								{isSaving ? t("saving", { ns: "general" }) : t("save", { ns: "general" })}
 							</ActionButton>
 							<ActionButton disabled={isSaving || !hasChanges} type="reset" variant="secondary">
-								{t("sky-profile.edit-reset-button-label", { ns: "features" })}
+								{t("reset", { ns: "general" })}
 							</ActionButton>
 						</div>
 						{initialProfile.name ? (

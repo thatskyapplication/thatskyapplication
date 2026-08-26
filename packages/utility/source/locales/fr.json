@@ -2288,7 +2288,10 @@
 		"today": "Aujourd'hui",
 		"shard-eruption": "Éruption d'éclats",
 		"wiki": "Wiki",
-		"jump-to-date": ""
+		"jump-to-date": "",
+		"none": "Aucun",
+		"none_travelling-rock": "Aucune",
+		"reset": "Réinitialiser"
 	},
 	"commands": {
 		"about": {
@@ -2666,7 +2669,6 @@
 			"description": "Gardez un suivi de vos activités, {{user}} !",
 			"description-short": "Suivez vos activités Sky.",
 			"complete": "Compléter",
-			"reset": "Réinitialiser",
 			"daily-quests-message-incomplete": "Avez-vous complété les quêtes journalières ?",
 			"daily-quests-message-complete": "Quêtes journalières complétées ! Beau travail !",
 			"daily-quests-show-button-label": "Montrer le guide journalier",
@@ -2707,7 +2709,6 @@
 			"seasonal-candles-remain-with-season-pass": "{{remaining}} restantes ({{remainingSeasonPass}} avec un Passe Saisonnier)",
 			"shard-eruption-data": "Données",
 			"shard-eruption-timestamps": "Heures",
-			"shard-eruption-none": "Aucune",
 			"travelling-rock": "Pierre voyageuse",
 			"infographic-acknowledgement-item": "Infographie {{infographic}} par {{acknowledgement}}",
 			"season-upcoming_one": "La nouvelle saison commence demain.",
@@ -3040,7 +3041,6 @@
 			"no-shard-eruptions-today": "Il n'y a pas d'éruption d'éclats aujourd'hui.",
 			"no-shard-eruptions-not-today": "Il n'y a pas d'éruption d'éclats ce jour-là.",
 			"browse-no-shard": "Pas d'éruptions d'éclats.",
-			"none": "Aucun",
 			"browse": "Rechercher",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))"
 		},
@@ -3064,7 +3064,6 @@
 			"no-sky-profile-sky-kid": "Cet enfant de Sky n'a pas de profil Sky ! Pourquoi ne pas lui demander d'en créer un ?",
 			"no-sky-profile-edit": "Vous n'avez pas de profil Sky pour l'instant. Créez en un ! Les profils Sky apparaissent sur {{url}} également !",
 			"edit-placeholder": "Que souhaitez-vous éditer ?",
-			"edit-reset-button-label": "Réinitialiser",
 			"no-sky-profile-application": "Est-ce que les applications ont des profils Sky ? Hmm. Qui sait ?",
 			"no-sky-profile-invoker": "Vous n'avez pas de profil Sky ! Pourquoi ne pas en créer un ?",
 			"no-sky-profile-other": "{{user}} n'a pas de profil Sky ! Pourquoi ne pas lui demander d'en créer un ?",

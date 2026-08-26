@@ -55,6 +55,9 @@ export default {
 		"ascended-candles": "Ascended candles",
 		"seasonal-candles": "Seasonal candles",
 		"jump-to-date": "Jump to a date",
+		none: "None",
+		reset: "Reset",
+		"none_travelling-rock": "None",
 		"seasonal-hearts": "Seasonal hearts",
 		"days-left": {
 			season_zero: "The season ends today.",
@@ -3007,7 +3010,6 @@ export default {
 			description: "Keep track of your Sky activities, {{user}}!",
 			"description-short": "Keep track of your Sky activities.",
 			complete: "Complete",
-			reset: "Reset",
 			"daily-quests-message-incomplete": "Have you completed daily quests?",
 			"daily-quests-message-complete": "Daily quests completed! Great job!",
 			"daily-quests-show-button-label": "Show daily guides",
@@ -3052,7 +3054,6 @@ export default {
 				"{{remaining}} remain ({{remainingSeasonPass}} with a Season Pass)",
 			"shard-eruption-data": "Data",
 			"shard-eruption-timestamps": "Timestamps",
-			"shard-eruption-none": "None",
 			"travelling-rock": "Travelling rock",
 			"infographic-acknowledgement-item": "Infographic {{infographic}} by {{acknowledgement}}",
 			"season-upcoming_one": "The new season starts tomorrow.",
@@ -3456,7 +3457,6 @@ export default {
 			"no-shard-eruptions-today": "There are no shard eruptions today.",
 			"no-shard-eruptions-not-today": "There are no shard eruptions on this day.",
 			"browse-no-shard": "No shard eruptions.",
-			none: "None",
 			browse: "Browse",
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))",
 		},
@@ -3483,7 +3483,6 @@ export default {
 			"no-sky-profile-edit":
 				"You do not have a Sky profile yet. Build one!\nSky profiles show up on {{url}} too!",
 			"edit-placeholder": "What do you want to edit?",
-			"edit-reset-button-label": "Reset",
 			"no-sky-profile-application": "Do applications have Sky profiles? Hm. Who knows?",
 			"no-sky-profile-invoker": "You do not have a Sky profile! Why not create one?",
 			"no-sky-profile-other":

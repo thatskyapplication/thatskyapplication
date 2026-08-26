@@ -2288,7 +2288,10 @@
 		"today": "",
 		"shard-eruption": "",
 		"wiki": "",
-		"jump-to-date": ""
+		"jump-to-date": "",
+		"none": "無",
+		"none_travelling-rock": "",
+		"reset": ""
 	},
 	"commands": {
 		"about": {
@@ -2666,7 +2669,6 @@
 			"description": "",
 			"description-short": "",
 			"complete": "",
-			"reset": "",
 			"daily-quests-message-incomplete": "",
 			"daily-quests-message-complete": "",
 			"daily-quests-show-button-label": "",
@@ -2707,7 +2709,6 @@
 			"seasonal-candles-remain-with-season-pass": "",
 			"shard-eruption-data": "",
 			"shard-eruption-timestamps": "時間戳",
-			"shard-eruption-none": "",
 			"travelling-rock": "",
 			"infographic-acknowledgement-item": "",
 			"season-upcoming_one": "",
@@ -3030,7 +3031,6 @@
 			"no-shard-eruptions-today": "",
 			"no-shard-eruptions-not-today": "",
 			"browse-no-shard": "",
-			"none": "無",
 			"browse": "",
 			"realm-area": "$t(general:realms.{{realm}})（$t(general:areas.{{area}})）"
 		},
@@ -3054,7 +3054,6 @@
 			"no-sky-profile-sky-kid": "",
 			"no-sky-profile-edit": "",
 			"edit-placeholder": "",
-			"edit-reset-button-label": "",
 			"no-sky-profile-application": "",
 			"no-sky-profile-invoker": "",
 			"no-sky-profile-other": "",
