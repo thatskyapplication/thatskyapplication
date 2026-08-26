@@ -517,7 +517,7 @@ export async function wingedLight(
 
 	if (nextThreshold) {
 		wedgeText.push(
-			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "features", count: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`,
+			`${t("calculate.winged-light.wedge-next", { lng: locale, ns: "features", amount: nextThreshold })} ${formatEmoji(MISCELLANEOUS_EMOJIS.WingedLight)}`,
 		);
 	}
 

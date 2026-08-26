@@ -2560,7 +2560,8 @@
 				"started-with": "始於",
 				"reborn-with": "重生",
 				"total": "總數",
-				"wedge-next_other": "下個等級: {{count}}",
+				"wedge-next": "下個等級: {{amount}}",
+				"wedge-total_one": "",
 				"wedge-total_other": "{{count}} 個",
 				"title": "翼光計算器"
 			}

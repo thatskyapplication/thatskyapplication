@@ -2560,7 +2560,8 @@
 				"started-with": "Commence avec",
 				"reborn-with": "Renaît avec",
 				"total": "Total",
-				"wedge-next_other": "Prochain niveau : {{count}}",
+				"wedge-next": "Prochain niveau : {{amount}}",
+				"wedge-total_one": "{{count}} niveau",
 				"wedge-total_other": "{{count}} niveaux",
 				"title": "Calculateur de lumières ailées"
 			}

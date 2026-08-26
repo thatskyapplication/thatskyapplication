@@ -2560,7 +2560,8 @@
 				"started-with": "Empezaste con",
 				"reborn-with": "Renaciste con",
 				"total": "",
-				"wedge-next_other": "Siguiente nivel: {{count}}",
+				"wedge-next": "Siguiente nivel: {{amount}}",
+				"wedge-total_one": "Nivel {{count}}",
 				"wedge-total_other": "Nivel {{count}}",
 				"title": "Calculadora de Luz Alada"
 			}
