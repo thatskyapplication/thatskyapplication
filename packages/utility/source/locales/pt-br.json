@@ -118,7 +118,7 @@
 			"Wandering Carnival": "Circo Itinerante",
 			"The Last City": "A Última Cidade"
 		},
-		"notification-types": {
+		"occurrences": {
 			"0": "Reinicialização diária",
 			"2": "Estação Espacial Internacional",
 			"3": "Dragão",

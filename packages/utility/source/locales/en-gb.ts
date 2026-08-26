@@ -142,7 +142,7 @@ export default {
 			[AreaName.WanderingCarnival]: "Wandering Carnival",
 			[AreaName.TheLastCity]: "The Last City",
 		} satisfies Record<AreaName, string>,
-		"notification-types": {
+		occurrences: {
 			[NotificationType.DailyReset]: "Daily reset",
 			[NotificationType.InternationalSpaceStation]: "International Space Station",
 			[NotificationType.Dragon]: "Dragon",

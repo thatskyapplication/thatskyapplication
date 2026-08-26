@@ -290,7 +290,7 @@ export const CatalogueCollectionToLocaleKey = {
 	[CatalogueCollection.StarterPacks]: "features:catalogue.starter-packs",
 	[CatalogueCollection.SecretArea]: "features:catalogue.secret-area",
 	[CatalogueCollection.ClothingShop]: "features:catalogue.clothing-shop",
-	[CatalogueCollection.NestingWorkshop]: `general:notification-types.${NotificationType.NestingWorkshop}`,
+	[CatalogueCollection.NestingWorkshop]: `general:occurrences.${NotificationType.NestingWorkshop}`,
 } as const satisfies Readonly<Record<CatalogueCollection, string>>;
 
 export type CatalogueSearchTarget =

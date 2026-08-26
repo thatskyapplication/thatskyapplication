@@ -118,7 +118,7 @@
 			"Wandering Carnival": "Carnaval itinérant",
 			"The Last City": "La Dernière Ville"
 		},
-		"notification-types": {
+		"occurrences": {
 			"0": "Réinitialisation journalière",
 			"2": "Station spatiale internationale",
 			"3": "Dragon",

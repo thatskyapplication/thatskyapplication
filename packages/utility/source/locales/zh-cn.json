@@ -118,7 +118,7 @@
 			"Wandering Carnival": "漫游狂欢号",
 			"The Last City": "最终之城"
 		},
-		"notification-types": {
+		"occurrences": {
 			"0": "每日重置",
 			"2": "太空站",
 			"3": "冥龙",
