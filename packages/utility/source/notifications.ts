@@ -29,7 +29,7 @@ export const NOTIFICATION_TYPE_VALUES = Object.values(NotificationType);
 
 export const NotificationTypeToLocaleKey = {
 	[NotificationType.DailyReset]: `general:notification-types.${NotificationType.DailyReset}`,
-	[NotificationType.EyeOfEden]: `general:notification-types.${NotificationType.EyeOfEden}`,
+	[NotificationType.EyeOfEden]: "general:areas.Eye of Eden",
 	[NotificationType.InternationalSpaceStation]: `general:notification-types.${NotificationType.InternationalSpaceStation}`,
 	[NotificationType.Dragon]: `general:notification-types.${NotificationType.Dragon}`,
 	[NotificationType.PollutedGeyser]: `general:notification-types.${NotificationType.PollutedGeyser}`,
@@ -39,7 +39,7 @@ export const NotificationTypeToLocaleKey = {
 	[NotificationType.StrongShardEruption]: `general:notification-types.${NotificationType.StrongShardEruption}`,
 	[NotificationType.AURORA]: `general:notification-types.${NotificationType.AURORA}`,
 	[NotificationType.Passage]: `general:notification-types.${NotificationType.Passage}`,
-	[NotificationType.AviarysFireworkFestival]: `general:notification-types.${NotificationType.AviarysFireworkFestival}`,
+	[NotificationType.AviarysFireworkFestival]: "general:event-names.aviarys-firework-festival",
 	[NotificationType.TravellingSpirit]: "general:travelling-spirit",
 	[NotificationType.DreamsSkater]: `general:notification-types.${NotificationType.DreamsSkater}`,
 	[NotificationType.NestingWorkshop]: `general:notification-types.${NotificationType.NestingWorkshop}`,
@@ -48,7 +48,7 @@ export const NotificationTypeToLocaleKey = {
 	[NotificationType.RadianceEvent]: "general:event-names.radiance-event",
 	[NotificationType.Seasons]: "general:season-plural",
 	[NotificationType.DoubleHearts]: "general:event-names.double-hearts",
-	[NotificationType.DoubleSeasonalLight]: `general:notification-types.${NotificationType.DoubleSeasonalLight}`,
+	[NotificationType.DoubleSeasonalLight]: "general:event-names.double-seasonal-light",
 	[NotificationType.DoubleTreasureCandles]: "general:event-names.double-treasure-candles",
 	[NotificationType.ReturningSpirits]: "general:returning-spirits",
 } as const satisfies Readonly<Record<NotificationTypes, string>>;

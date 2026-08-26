@@ -144,7 +144,6 @@ export default {
 		} satisfies Record<AreaName, string>,
 		"notification-types": {
 			[NotificationType.DailyReset]: "Daily reset",
-			[NotificationType.EyeOfEden]: "Eye of Eden",
 			[NotificationType.InternationalSpaceStation]: "International Space Station",
 			[NotificationType.Dragon]: "Dragon",
 			[NotificationType.PollutedGeyser]: "Polluted geyser",
@@ -154,10 +153,8 @@ export default {
 			[NotificationType.StrongShardEruption]: "Shard eruption (strong)",
 			[NotificationType.AURORA]: "AURORA",
 			[NotificationType.Passage]: "Passage",
-			[NotificationType.AviarysFireworkFestival]: "Aviary's Firework Festival",
 			[NotificationType.DreamsSkater]: "Dreams skater",
 			[NotificationType.NestingWorkshop]: "Nesting Workshop",
-			[NotificationType.DoubleSeasonalLight]: "Double seasonal light",
 		} satisfies Partial<Record<NotificationTypes, string>>,
 		page: "Page",
 		"quests-common": {
@@ -3365,19 +3362,7 @@ export default {
 		},
 		schedule: {
 			type: {
-				[ScheduleType.DailyReset]: "Daily reset",
-				[ScheduleType.EyeOfEden]: "Eye of Eden",
-				[ScheduleType.InternationalSpaceStation]: "International Space Station",
-				[ScheduleType.Dragon]: "Dragon",
-				[ScheduleType.PollutedGeyser]: "Polluted geyser",
-				[ScheduleType.Grandma]: "Grandma",
-				[ScheduleType.Turtle]: "Turtle",
-				[ScheduleType.DreamsSkater]: "Dreams skater",
-				[ScheduleType.AURORA]: "AURORA",
-				[ScheduleType.Passage]: "Passage",
-				[ScheduleType.AviarysFireworkFestival]: "Aviary's Firework Festival",
 				[ScheduleType.NineColouredDeer]: "Nine-coloured deer",
-				[ScheduleType.NestingWorkshop]: "Nesting Workshop",
 				[ScheduleType.VaultEldersBlessing]: "Vault Elder's blessing",
 				[ScheduleType.MeteorShower]: "Meteor shower",
 				[ScheduleType.Update]: "Update",

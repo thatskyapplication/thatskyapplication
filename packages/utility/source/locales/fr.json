@@ -120,7 +120,6 @@
 		},
 		"notification-types": {
 			"0": "Réinitialisation journalière",
-			"1": "Œil d'Éden",
 			"2": "Station spatiale internationale",
 			"3": "Dragon",
 			"4": "Geyser pollué",
@@ -130,10 +129,8 @@
 			"8": "Éruption d'éclat (forte)",
 			"9": "AURORA",
 			"10": "Initiation",
-			"11": "Feux d'artifices du Village Volière",
 			"13": "Patineuse des rêves",
-			"14": "Atelier de la Nidification",
-			"20": "Double lumière saisonnière"
+			"14": "Atelier de la Nidification"
 		},
 		"page": "Page",
 		"quests-common": {
@@ -495,7 +492,7 @@
 			"days-of-music": "Jours de la Musique",
 			"aurora-encore-concerts": "Concert d'AURORA : Le Rappel",
 			"days-of-style": "Jours du Style",
-			"aviarys-firework-festival": "Festival de Feux d'Artifice de la Volière",
+			"aviarys-firework-festival": "Feux d'artifices du Village Volière",
 			"spring-camping": "Camping de Printemps",
 			"sky-x-cinnamoroll-pop-up-cafe": "Sky × Cinnamoroll Pop-Up Café",
 			"skyfest": "SkyFest",
@@ -2996,19 +2993,7 @@
 		},
 		"schedule": {
 			"type": {
-				"0": "Réinitialisation journalière",
-				"1": "Œil d'Éden",
-				"2": "Station Spatiale Internationale",
-				"4": "Dragon",
-				"5": "Geyser pollué",
-				"6": "Mamie",
-				"7": "Tortue",
-				"9": "Patineuse des rêves",
-				"10": "AURORA",
-				"11": "Initiation",
-				"12": "Festival de Feux d'Artifice de la Volière",
 				"13": "Cerf aux neuf couleurs",
-				"14": "Atelier de la Nidification",
 				"15": "Bénédiction de l'Ancienne de la Chambre forte",
 				"17": "",
 				"23": ""

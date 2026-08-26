@@ -120,7 +120,6 @@
 		},
 		"notification-types": {
 			"0": "Reinicialização diária",
-			"1": "Olho de Éden",
 			"2": "Estação Espacial Internacional",
 			"3": "Dragão",
 			"4": "Gêiser poluído",
@@ -130,10 +129,8 @@
 			"8": "Explosão de fragmentos (forte)",
 			"9": "AURORA",
 			"10": "Passagem",
-			"11": "Festival Aviário de Fogos de Artifício",
 			"13": "Patinadora dos sonhos",
-			"14": "Oficina de Nidificação",
-			"20": "Velas sazonais em dobro"
+			"14": "Oficina do Ninho"
 		},
 		"page": "Página",
 		"quests-common": {
@@ -2996,19 +2993,7 @@
 		},
 		"schedule": {
 			"type": {
-				"0": "Reinicialização diária",
-				"1": "Olho de Éden",
-				"2": "Estação Espacial Internacional",
-				"4": "Dragão",
-				"5": "Gêiser poluído",
-				"6": "Vovó",
-				"7": "Tartaruga",
-				"9": "Patinadora dos sonhos",
-				"10": "AURORA",
-				"11": "Passagem",
-				"12": "Festival Aviário de Fogos de Artifício",
 				"13": "Cervo de nove cores",
-				"14": "Oficina do Ninho",
 				"15": "Benção do Ancião do Relicário",
 				"17": "Chuva de meteoros",
 				"23": "Atualização"
