@@ -1563,7 +1563,7 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-modal-label-name-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Name], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-name-description", {
 					lng: locale,
 					ns: "features",
@@ -1605,7 +1605,7 @@ async function skyProfileShowDescriptionModal(
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-modal-label-description-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Description], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-description-description", {
 					lng: locale,
 					ns: "features",
@@ -1632,7 +1632,7 @@ async function skyProfileShowIconModal(interaction: APIMessageComponentSelectMen
 					min_values: 1,
 					required: true,
 				},
-				label: t("sky-profile.edit-modal-label-icon-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Icon], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-icon-description", {
 					lng: locale,
 					ns: "features",
@@ -1659,7 +1659,7 @@ async function skyProfileShowBannerModal(interaction: APIMessageComponentSelectM
 					min_values: 1,
 					required: true,
 				},
-				label: t("sky-profile.edit-modal-label-banner-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Banner], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-banner-description", {
 					lng: locale,
 					ns: "features",
@@ -1764,7 +1764,7 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 			{
 				type: ComponentType.Label,
 				component: textInput,
-				label: t("sky-profile.edit-modal-label-hangout-label", { lng: locale, ns: "features" }),
+				label: t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Hangout], { lng: locale }),
 				description: t("sky-profile.edit-modal-label-hangout-description", {
 					lng: locale,
 					ns: "features",

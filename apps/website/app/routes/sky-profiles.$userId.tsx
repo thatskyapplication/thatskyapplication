@@ -394,7 +394,7 @@ export default function SkyProfile({ loaderData }: Route.ComponentProps) {
 							/>
 							<div className="flex-1">
 								<p className="my-0 text-xs text-gray-500 dark:text-gray-400">
-									{t("sky-profile.personality", { ns: "features" })}
+									{t(SkyProfileEditTypeToLocaleKey[SkyProfileEditType.Personality])}
 								</p>
 								<p className="my-0">
 									{t("sky-profile.personality-with-mbti", {

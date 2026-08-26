@@ -3201,7 +3201,6 @@ export default {
 			"customise-me-modal-label-bio-description": "Type a bio for me to display in your server.",
 			"customise-me-modal-label-avatar-label": "Avatar",
 			"customise-me-modal-label-avatar-description": "Upload an avatar to display in your server.",
-			"customise-me-modal-label-banner-label": "Banner",
 			"customise-me-modal-label-banner-description": "Upload a banner to display in your server.",
 			"delete-bio-button-label": "Delete bio",
 			"delete-avatar-button-label": "Delete avatar",
@@ -3547,13 +3546,9 @@ export default {
 				[SkyProfileEditType.Country]: "Where are you from?",
 				[SkyProfileEditType.Spirit]: "What's your favourite spirit?",
 			} satisfies Record<SkyProfileEditTypes, string>,
-			"edit-modal-label-name-label": "Name",
 			"edit-modal-label-name-description": "What's your in-game name?",
-			"edit-modal-label-description-label": "Description",
 			"edit-modal-label-description-description": "Type a lovely description about your Sky kid!",
-			"edit-modal-label-icon-label": "Icon",
 			"edit-modal-label-icon-description": "Upload an icon for your Sky kid!",
-			"edit-modal-label-banner-label": "Banner",
 			"edit-modal-label-banner-description":
 				"Upload a banner for your Sky kid! This is only used on the website.",
 			"edit-winged-light-description":
@@ -3563,7 +3558,6 @@ export default {
 			"edit-winged-light-invalid": "Invalid winged light selected.",
 			"edit-catalogue-progression-invalid": "Invalid catalogue progression selected.",
 			"edit-guess-rank-invalid": "Invalid guessing rank selected.",
-			"edit-modal-label-hangout-label": "Hangout",
 			"edit-modal-label-hangout-description": "Where's your favourite place to hang out?",
 			"edit-seasons-string-select-menu-placeholder": "Select the seasons you participated in!",
 			"edit-platforms-string-select-menu-placeholder": "Select the platforms you play on!",
@@ -3578,7 +3572,6 @@ export default {
 			} satisfies Record<PlatformIds, string>,
 			"edit-platform-invalid": "Invalid platform selected. Please try again.",
 			"edit-personality-invalid": "Invalid personality selected. Please try again.",
-			personality: "Personality",
 			"personality-types": {
 				[SkyProfilePersonalityType.Counsellor]: "Counsellor",
 				[SkyProfilePersonalityType.Champion]: "Champion",
