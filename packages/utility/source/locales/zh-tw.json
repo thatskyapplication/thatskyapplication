@@ -2449,7 +2449,6 @@
 			"edit": {
 				"command-name": "編輯",
 				"command-description": "編輯您的 Sky 個人資料。",
-				"command-option-name-description": "你的遊戲名字是？",
 				"command-option-icon-name": "圖示",
 				"command-option-icon-description": "上傳你的圖標！",
 				"command-option-banner-name": "",
@@ -2463,7 +2462,6 @@
 				"command-option-country-name": "國家",
 				"command-option-country-description": "想要指定您的國家嗎？",
 				"command-option-hangout-name": "",
-				"command-option-hangout-description": "",
 				"command-option-catalogue-progression-name": "目錄進展",
 				"command-option-catalogue-progression-description": "顯示您的目錄進度？",
 				"command-option-guess-rank-name": "猜測排名",
@@ -2479,9 +2477,6 @@
 				"command-description": "顯示某人的天空個人資料。",
 				"command-option-user-description": "您希望查看其 Sky 個人資料的使用者。"
 			}
-		},
-		"Sky-Profile": {
-			"command-name": ""
 		},
 		"spirits": {
 			"command-name": "",

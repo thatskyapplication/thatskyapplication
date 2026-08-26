@@ -2449,7 +2449,6 @@
 			"edit": {
 				"command-name": "editar",
 				"command-description": "Edite seu perfil Sky.",
-				"command-option-name-description": "Qual o seu nome no jogo?",
 				"command-option-icon-name": "ícone",
 				"command-option-icon-description": "Carregue seu ícone!",
 				"command-option-banner-name": "banner",
@@ -2463,7 +2462,6 @@
 				"command-option-country-name": "país",
 				"command-option-country-description": "Gostaria de especificar seu país?",
 				"command-option-hangout-name": "ponto-de-encontro",
-				"command-option-hangout-description": "Onde você gosta de passar o tempo?",
 				"command-option-catalogue-progression-name": "progresso-no-catálogo",
 				"command-option-catalogue-progression-description": "Mostrar seu progresso no catálogo?",
 				"command-option-guess-rank-name": "ranking-no-quiz",
@@ -2479,9 +2477,6 @@
 				"command-description": "Mostra o perfil Sky de alguém.",
 				"command-option-user-description": "O usuário cujo perfil de Sky você deseja ver."
 			}
-		},
-		"Sky-Profile": {
-			"command-name": "Perfil Sky"
 		},
 		"spirits": {
 			"command-name": "espíritos",

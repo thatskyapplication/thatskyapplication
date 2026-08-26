@@ -2449,7 +2449,6 @@
 			"edit": {
 				"command-name": "",
 				"command-description": "",
-				"command-option-name-description": "",
 				"command-option-icon-name": "",
 				"command-option-icon-description": "",
 				"command-option-banner-name": "",
@@ -2463,7 +2462,6 @@
 				"command-option-country-name": "",
 				"command-option-country-description": "",
 				"command-option-hangout-name": "",
-				"command-option-hangout-description": "",
 				"command-option-catalogue-progression-name": "",
 				"command-option-catalogue-progression-description": "",
 				"command-option-guess-rank-name": "",
@@ -2479,9 +2477,6 @@
 				"command-description": "",
 				"command-option-user-description": ""
 			}
-		},
-		"Sky-Profile": {
-			"command-name": ""
 		},
 		"spirits": {
 			"command-name": "",

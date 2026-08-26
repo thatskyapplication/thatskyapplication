@@ -2449,7 +2449,6 @@
 			"edit": {
 				"command-name": "",
 				"command-description": "あなたのSkyプロフィールを作成します。",
-				"command-option-name-description": "あなたの星の子のお名前はなんですか？",
 				"command-option-icon-name": "アイコン",
 				"command-option-icon-description": "アイコンをアップロードしましょう！",
 				"command-option-banner-name": "バナー",
@@ -2463,7 +2462,6 @@
 				"command-option-country-name": "国",
 				"command-option-country-description": "あなたが住んでいる国を伝えますか？",
 				"command-option-hangout-name": "遊び場",
-				"command-option-hangout-description": "あなたが好きな場所はどこですか？",
 				"command-option-catalogue-progression-name": "カタログの進捗",
 				"command-option-catalogue-progression-description": "あなたのカタログの進捗を公開しますか？",
 				"command-option-guess-rank-name": "クイズランキング",
@@ -2479,9 +2477,6 @@
 				"command-description": "",
 				"command-option-user-description": ""
 			}
-		},
-		"Sky-Profile": {
-			"command-name": "Skyプロフィール"
 		},
 		"spirits": {
 			"command-name": "精霊",

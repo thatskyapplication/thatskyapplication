@@ -857,11 +857,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							ns: "commands",
 						}),
 						name_localizations: localisations("common.name"),
-						description: t("sky-profile.edit.command-option-name-description", {
-							ns: "commands",
+						description: t("sky-profile.edit-modal-label-name-description", {
+							ns: "features",
 						}),
 						description_localizations: localisations(
-							"sky-profile.edit.command-option-name-description",
+							"sky-profile.edit-modal-label-name-description",
+							{ ns: "features" },
 						),
 						max_length: SKY_PROFILE_MAXIMUM_NAME_LENGTH,
 					},
@@ -951,11 +952,12 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 							ns: "commands",
 						}),
 						name_localizations: localisations("sky-profile.edit.command-option-hangout-name"),
-						description: t("sky-profile.edit.command-option-hangout-description", {
-							ns: "commands",
+						description: t(`sky-profile.edit-type-description.${SkyProfileEditType.Hangout}`, {
+							ns: "features",
 						}),
 						description_localizations: localisations(
-							"sky-profile.edit.command-option-hangout-description",
+							`sky-profile.edit-type-description.${SkyProfileEditType.Hangout}`,
+							{ ns: "features" },
 						),
 						max_length: SKY_PROFILE_MAXIMUM_HANGOUT_LENGTH,
 						min_length: SKY_PROFILE_MINIMUM_HANGOUT_LENGTH,
@@ -1062,8 +1064,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
-		name: t("Sky-Profile.command-name", { ns: "commands" }),
-		name_localizations: localisations("Sky-Profile.command-name"),
+		name: t("sky-profile.edit-modal-title", { ns: "features" }),
+		name_localizations: localisations("sky-profile.edit-modal-title", { ns: "features" }),
 		type: ApplicationCommandType.User,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,

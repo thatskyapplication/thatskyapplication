@@ -2782,7 +2782,6 @@ export default {
 			edit: {
 				"command-name": "edit",
 				"command-description": "Edit your Sky profile.",
-				"command-option-name-description": "What's your in-game name?",
 				"command-option-icon-name": "icon",
 				"command-option-icon-description": "Upload your icon!",
 				"command-option-banner-name": "banner",
@@ -2796,7 +2795,6 @@ export default {
 				"command-option-country-name": "country",
 				"command-option-country-description": "Feel like specifying your country?",
 				"command-option-hangout-name": "hangout",
-				"command-option-hangout-description": "Where do you like to hang out?",
 				"command-option-catalogue-progression-name": "catalogue-progression",
 				"command-option-catalogue-progression-description": "Show your catalogue progression?",
 				"command-option-guess-rank-name": "guess-rank",
@@ -2812,9 +2810,6 @@ export default {
 				"command-description": "Shows the Sky profile of someone.",
 				"command-option-user-description": "The user whose Sky profile you wish to see.",
 			},
-		},
-		"Sky-Profile": {
-			"command-name": "Sky Profile",
 		},
 		spirits: {
 			"command-name": "spirits",
