@@ -22,21 +22,25 @@
 		"hearts": "Corazones",
 		"ascended-candles": "Velas Ascendidas",
 		"seasonal-candles": "Velas de Temporada",
+		"jump-to-date": "",
+		"none": "Ninguna",
+		"reset": "",
+		"none_travelling-rock": "",
 		"seasonal-hearts": "Corazones de Temporada",
 		"days-left": {
 			"season-ends-today": "La temporada termina hoy.",
+			"event-ends-today": "{{name}} termina hoy.",
+			"double-hearts-ends-today": "La promoción de corazones dobles termina hoy.",
+			"double-seasonal-light-ends-today": "El horario de doble luz estacional termina hoy.",
+			"double-treasure-candles-ends-today": "",
 			"season_one": "Resta {{count}} día en la temporada.",
 			"season_other": "Restan {{count}} días en la temporada.",
-			"event-ends-today": "{{name}} termina hoy.",
 			"event_one": "Quedan {{count}} días de {{name}}.",
 			"event_other": "Quedan {{count}} días de {{name}}.",
-			"double-hearts-ends-today": "La promoción de corazones dobles termina hoy.",
 			"double-hearts_one": "",
 			"double-hearts_other": "",
-			"double-seasonal-light-ends-today": "El horario de doble luz estacional termina hoy.",
 			"double-seasonal-light_one": "",
 			"double-seasonal-light_other": "",
-			"double-treasure-candles-ends-today": "",
 			"double-treasure-candles_one": "",
 			"double-treasure-candles_other": ""
 		},
@@ -2287,13 +2291,22 @@
 		"close": "",
 		"today": "Hoy",
 		"shard-eruption": "",
-		"wiki": "",
-		"jump-to-date": "",
-		"none": "Ninguna",
-		"none_travelling-rock": "",
-		"reset": ""
+		"wiki": ""
 	},
 	"commands": {
+		"common": {
+			"user": "usuario",
+			"type": "",
+			"goal": "meta",
+			"start": "inicio",
+			"hide": "",
+			"hide-description": "",
+			"name": "",
+			"history": "historial",
+			"search": "buscar",
+			"daily-guides": "guías-diarias",
+			"winged-light": "luz-alada"
+		},
 		"about": {
 			"command-name": "sobre",
 			"command-description": "Sobre mí, ¡el pequeño y maravilloso ayudante de Sky!"
@@ -2498,22 +2511,18 @@
 				"command-option-query-name": "consulta",
 				"command-option-query-description": "El nombre, temporada, expresión, postura o llamada del espíritu."
 			}
-		},
-		"common": {
-			"user": "usuario",
-			"type": "",
-			"goal": "meta",
-			"start": "inicio",
-			"hide": "",
-			"hide-description": "",
-			"name": "",
-			"history": "historial",
-			"search": "buscar",
-			"daily-guides": "guías-diarias",
-			"winged-light": "luz-alada"
 		}
 	},
 	"features": {
+		"common": {
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
+			"no-channel-detected": "",
+			"sending": "",
+			"stopped": ""
+		},
 		"about": {
 			"description": "",
 			"magical-companion": "",
@@ -2549,21 +2558,21 @@
 			},
 			"seasonal-candles": {
 				"no-season": "",
+				"title": "Calculadora de Velas de Temporada",
+				"double-seasonal-light-calculation": "",
 				"day_one": "Resultado: {{count}} día",
 				"day_other": "Resultado: {{count}} días",
 				"day-season-pass_one": "({{count}} día con el Pase).",
-				"day-season-pass_other": "({{count}} días con el Pase).",
-				"title": "Calculadora de Velas de Temporada",
-				"double-seasonal-light-calculation": ""
+				"day-season-pass_other": "({{count}} días con el Pase)."
 			},
 			"winged-light": {
 				"started-with": "Empezaste con",
 				"reborn-with": "Renaciste con",
 				"total": "",
 				"wedge-next": "Siguiente nivel: {{amount}}",
+				"title": "Calculadora de Luz Alada",
 				"wedge-total_one": "Nivel {{count}}",
-				"wedge-total_other": "Nivel {{count}}",
-				"title": "Calculadora de Luz Alada"
+				"wedge-total_other": "Nivel {{count}}"
 			}
 		},
 		"calendar": {
@@ -2583,16 +2592,16 @@
 			"next-year": "",
 			"legend": "",
 			"nothing-scheduled": "",
-			"duration_one": "",
-			"duration_other": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
 			"during-the-day": "",
 			"view-date": "",
+			"community-event": "",
+			"duration_one": "",
+			"duration_other": "",
 			"cadence_one": "",
-			"cadence_other": "",
-			"community-event": ""
+			"cadence_other": ""
 		},
 		"catalogue": {
 			"main-title": "Catálogo",
@@ -2710,6 +2719,15 @@
 			"shard-eruption-timestamps": "Marcas de tiempo",
 			"travelling-rock": "",
 			"infographic-acknowledgement-item": "",
+			"returning-spirits-leave-today": "",
+			"event-upcoming-time": "",
+			"update-releases-today": "",
+			"not-yet-updated": "",
+			"not-yet-updated-support-server": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"quest-unknown": "Vaya, esa es una diaria que no conocemos. ¿Mejor prueba otra?",
+			"quest-no-infographic": "Esta misión no tiene una infografía.",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "La nueva temporada empieza en {{count}} días.",
 			"double-hearts-upcoming_one": "",
@@ -2718,25 +2736,16 @@
 			"double-seasonal-light-upcoming_other": "",
 			"double-treasure-candles-upcoming_one": "",
 			"double-treasure-candles-upcoming_other": "",
-			"returning-spirits-leave-today": "",
 			"returning-spirits-active-list_one": "",
 			"returning-spirits-active-list_other": "",
 			"returning-spirits-upcoming-list_one": "",
 			"returning-spirits-upcoming-list_other": "",
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
-			"event-upcoming-time": "",
 			"maintenance-upcoming_one": "",
 			"maintenance-upcoming_other": "",
-			"update-releases-today": "",
 			"update-upcoming_one": "",
-			"update-upcoming_other": "",
-			"not-yet-updated": "",
-			"not-yet-updated-support-server": "",
-			"error-thread-archived": "",
-			"error-thread-locked": "",
-			"quest-unknown": "Vaya, esa es una diaria que no conocemos. ¿Mejor prueba otra?",
-			"quest-no-infographic": "Esta misión no tiene una infografía."
+			"update-upcoming_other": ""
 		},
 		"data": {
 			"delete-message": "",
@@ -2941,6 +2950,9 @@
 			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
+			"timestamps": "",
+			"detailed-breakdown-requires": "",
+			"detailed-breakdown-two-hourly-message": "",
 			"type": {
 				"13": "",
 				"15": "",
@@ -3006,10 +3018,7 @@
 			"detailed-breakdown-projector-of-memories-message": "",
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
-			"detailed-breakdown-nothing-planned": "",
-			"timestamps": "",
-			"detailed-breakdown-requires": "",
-			"detailed-breakdown-two-hourly-message": ""
+			"detailed-breakdown-nothing-planned": ""
 		},
 		"settings": {
 			"name": "",
@@ -3040,6 +3049,7 @@
 			"select-a-spirit": "",
 			"random": "",
 			"me": "",
+			"report": "",
 			"country-unspecified": "",
 			"search-none": "",
 			"unknown-country": "",
@@ -3179,8 +3189,7 @@
 			"missing-name-source-success": {
 				"0": "",
 				"1": ""
-			},
-			"report": ""
+			}
 		},
 		"spirits": {
 			"description": "",
@@ -3207,6 +3216,18 @@
 			"order-natural": "Orden según aparición",
 			"order-label": "",
 			"order-rarity": "Orden según rareza"
+		},
+		"thatskylink": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"links": "",
+			"patterns": "",
+			"patch-notes": "",
+			"sky-profiles": "",
+			"this-month-in-sky": "",
+			"latest-patch-notes": ""
 		},
 		"welcome": {
 			"preview": "",
@@ -3240,27 +3261,6 @@
 			"hug-self": "",
 			"hug-disabled": "",
 			"hug-missing-permissions": ""
-		},
-		"common": {
-			"error-missing-permissions-website": "",
-			"error-missing-permissions-thread": "",
-			"error-missing-permissions-thread-website": "",
-			"error-missing-permissions": "",
-			"no-channel-detected": "",
-			"sending": "",
-			"stopped": ""
-		},
-		"thatskylink": {
-			"description": "",
-			"description-short": "",
-			"meta-description": "",
-			"search-placeholder": "",
-			"links": "",
-			"patterns": "",
-			"patch-notes": "",
-			"sky-profiles": "",
-			"this-month-in-sky": "",
-			"latest-patch-notes": ""
 		}
 	}
 }

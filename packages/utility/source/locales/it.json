@@ -22,21 +22,25 @@
 		"hearts": "",
 		"ascended-candles": "",
 		"seasonal-candles": "",
+		"jump-to-date": "",
+		"none": "",
+		"reset": "",
+		"none_travelling-rock": "",
 		"seasonal-hearts": "",
 		"days-left": {
 			"season-ends-today": "",
+			"event-ends-today": "",
+			"double-hearts-ends-today": "",
+			"double-seasonal-light-ends-today": "",
+			"double-treasure-candles-ends-today": "",
 			"season_one": "Ancora {{count}} giorno alla fine della stagione.",
 			"season_other": "Ancora {{count}} giorni alla fine della stagione.",
-			"event-ends-today": "",
 			"event_one": "",
 			"event_other": "",
-			"double-hearts-ends-today": "",
 			"double-hearts_one": "",
 			"double-hearts_other": "",
-			"double-seasonal-light-ends-today": "",
 			"double-seasonal-light_one": "",
 			"double-seasonal-light_other": "",
-			"double-treasure-candles-ends-today": "",
 			"double-treasure-candles_one": "",
 			"double-treasure-candles_other": ""
 		},
@@ -2287,13 +2291,22 @@
 		"close": "",
 		"today": "",
 		"shard-eruption": "",
-		"wiki": "",
-		"jump-to-date": "",
-		"none": "",
-		"none_travelling-rock": "",
-		"reset": ""
+		"wiki": ""
 	},
 	"commands": {
+		"common": {
+			"user": "",
+			"type": "",
+			"goal": "",
+			"start": "",
+			"hide": "",
+			"hide-description": "",
+			"name": "",
+			"history": "",
+			"search": "",
+			"daily-guides": "",
+			"winged-light": ""
+		},
 		"about": {
 			"command-name": "",
 			"command-description": ""
@@ -2498,22 +2511,18 @@
 				"command-option-query-name": "",
 				"command-option-query-description": ""
 			}
-		},
-		"common": {
-			"user": "",
-			"type": "",
-			"goal": "",
-			"start": "",
-			"hide": "",
-			"hide-description": "",
-			"name": "",
-			"history": "",
-			"search": "",
-			"daily-guides": "",
-			"winged-light": ""
 		}
 	},
 	"features": {
+		"common": {
+			"error-missing-permissions": "",
+			"error-missing-permissions-website": "",
+			"error-missing-permissions-thread": "",
+			"error-missing-permissions-thread-website": "",
+			"no-channel-detected": "",
+			"sending": "",
+			"stopped": ""
+		},
 		"about": {
 			"description": "",
 			"magical-companion": "",
@@ -2549,21 +2558,21 @@
 			},
 			"seasonal-candles": {
 				"no-season": "",
+				"title": "",
+				"double-seasonal-light-calculation": "",
 				"day_one": "",
 				"day_other": "",
 				"day-season-pass_one": "",
-				"day-season-pass_other": "",
-				"title": "",
-				"double-seasonal-light-calculation": ""
+				"day-season-pass_other": ""
 			},
 			"winged-light": {
 				"started-with": "",
 				"reborn-with": "",
 				"total": "",
 				"wedge-next": "",
+				"title": "",
 				"wedge-total_one": "",
-				"wedge-total_other": "",
-				"title": ""
+				"wedge-total_other": ""
 			}
 		},
 		"calendar": {
@@ -2583,16 +2592,16 @@
 			"next-year": "",
 			"legend": "",
 			"nothing-scheduled": "",
-			"duration_one": "",
-			"duration_other": "",
 			"time-zone-local": "",
 			"time-zone-label": "",
 			"all-day": "",
 			"during-the-day": "",
 			"view-date": "",
+			"community-event": "",
+			"duration_one": "",
+			"duration_other": "",
 			"cadence_one": "",
-			"cadence_other": "",
-			"community-event": ""
+			"cadence_other": ""
 		},
 		"catalogue": {
 			"main-title": "",
@@ -2710,6 +2719,15 @@
 			"shard-eruption-timestamps": "",
 			"travelling-rock": "",
 			"infographic-acknowledgement-item": "",
+			"returning-spirits-leave-today": "",
+			"event-upcoming-time": "",
+			"update-releases-today": "",
+			"not-yet-updated": "",
+			"not-yet-updated-support-server": "",
+			"error-thread-archived": "",
+			"error-thread-locked": "",
+			"quest-unknown": "",
+			"quest-no-infographic": "",
 			"season-upcoming_one": "",
 			"season-upcoming_other": "",
 			"double-hearts-upcoming_one": "",
@@ -2718,25 +2736,16 @@
 			"double-seasonal-light-upcoming_other": "",
 			"double-treasure-candles-upcoming_one": "",
 			"double-treasure-candles-upcoming_other": "",
-			"returning-spirits-leave-today": "",
 			"returning-spirits-active-list_one": "",
 			"returning-spirits-active-list_other": "",
 			"returning-spirits-upcoming-list_one": "",
 			"returning-spirits-upcoming-list_other": "",
 			"event-upcoming_one": "",
 			"event-upcoming_other": "",
-			"event-upcoming-time": "",
 			"maintenance-upcoming_one": "",
 			"maintenance-upcoming_other": "",
-			"update-releases-today": "",
 			"update-upcoming_one": "",
-			"update-upcoming_other": "",
-			"not-yet-updated": "",
-			"not-yet-updated-support-server": "",
-			"error-thread-archived": "",
-			"error-thread-locked": "",
-			"quest-unknown": "",
-			"quest-no-infographic": ""
+			"update-upcoming_other": ""
 		},
 		"data": {
 			"delete-message": "",
@@ -2941,6 +2950,9 @@
 			"edit-offset-string-select-menu-placeholder": ""
 		},
 		"schedule": {
+			"timestamps": "",
+			"detailed-breakdown-requires": "",
+			"detailed-breakdown-two-hourly-message": "",
 			"type": {
 				"13": "",
 				"15": "",
@@ -3006,10 +3018,7 @@
 			"detailed-breakdown-projector-of-memories-message": "",
 			"detailed-breakdown-radiance-message": "",
 			"detailed-breakdown-radiance-event": "",
-			"detailed-breakdown-nothing-planned": "",
-			"timestamps": "",
-			"detailed-breakdown-requires": "",
-			"detailed-breakdown-two-hourly-message": ""
+			"detailed-breakdown-nothing-planned": ""
 		},
 		"settings": {
 			"name": "",
@@ -3040,6 +3049,7 @@
 			"select-a-spirit": "",
 			"random": "",
 			"me": "",
+			"report": "",
 			"country-unspecified": "",
 			"search-none": "",
 			"unknown-country": "",
@@ -3179,8 +3189,7 @@
 			"missing-name-source-success": {
 				"0": "",
 				"1": ""
-			},
-			"report": ""
+			}
 		},
 		"spirits": {
 			"description": "",
@@ -3207,6 +3216,18 @@
 			"order-natural": "",
 			"order-label": "",
 			"order-rarity": ""
+		},
+		"thatskylink": {
+			"description": "",
+			"description-short": "",
+			"meta-description": "",
+			"search-placeholder": "",
+			"links": "",
+			"patterns": "",
+			"patch-notes": "",
+			"sky-profiles": "",
+			"this-month-in-sky": "",
+			"latest-patch-notes": ""
 		},
 		"welcome": {
 			"preview": "",
@@ -3240,27 +3261,6 @@
 			"hug-self": "",
 			"hug-disabled": "",
 			"hug-missing-permissions": ""
-		},
-		"common": {
-			"error-missing-permissions-website": "",
-			"error-missing-permissions-thread": "",
-			"error-missing-permissions-thread-website": "",
-			"error-missing-permissions": "",
-			"no-channel-detected": "",
-			"sending": "",
-			"stopped": ""
-		},
-		"thatskylink": {
-			"description": "",
-			"description-short": "",
-			"meta-description": "",
-			"search-placeholder": "",
-			"links": "",
-			"patterns": "",
-			"patch-notes": "",
-			"sky-profiles": "",
-			"this-month-in-sky": "",
-			"latest-patch-notes": ""
 		}
 	}
 }
