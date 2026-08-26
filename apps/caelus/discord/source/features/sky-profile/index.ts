@@ -1571,7 +1571,7 @@ async function skyProfileShowNameModal(interaction: APIMessageComponentSelectMen
 			},
 		],
 		custom_id: CustomId.SkyProfileNameModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1613,7 +1613,7 @@ async function skyProfileShowDescriptionModal(
 			},
 		],
 		custom_id: CustomId.SkyProfileDescriptionModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1640,7 +1640,7 @@ async function skyProfileShowIconModal(interaction: APIMessageComponentSelectMen
 			},
 		],
 		custom_id: CustomId.SkyProfileIconModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1667,7 +1667,7 @@ async function skyProfileShowBannerModal(interaction: APIMessageComponentSelectM
 			},
 		],
 		custom_id: CustomId.SkyProfileBannerModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 
@@ -1772,7 +1772,7 @@ async function skyProfileShowHangoutModal(interaction: APIMessageComponentSelect
 			},
 		],
 		custom_id: CustomId.SkyProfileHangoutModal,
-		title: t("sky-profile.edit-modal-title", { lng: locale, ns: "features" }),
+		title: t("sky-profile.name", { lng: locale, ns: "features" }),
 	});
 }
 

@@ -3482,8 +3482,8 @@ export default {
 			"realm-area": "$t(general:realms.{{realm}}) ($t(general:areas.{{area}}))",
 		},
 		"sky-profile": {
-			name: "Sky profile",
-			"name-plural": "Sky profiles",
+			name: "Sky Profile",
+			"name-plural": "Sky Profiles",
 			"description-short": "Explore everyone's Sky profiles.",
 			"description-website": "Discover Sky profiles from the community.",
 			"description-recent": "See the most recent Sky profiles!",
@@ -3560,7 +3560,6 @@ export default {
 				[SkyProfileEditType.Country]: "Where are you from?",
 				[SkyProfileEditType.Spirit]: "What's your favourite spirit?",
 			} satisfies Record<SkyProfileEditTypes, string>,
-			"edit-modal-title": "Sky Profile",
 			"edit-modal-label-name-label": "Name",
 			"edit-modal-label-name-description": "What's your in-game name?",
 			"edit-modal-label-description-label": "Description",

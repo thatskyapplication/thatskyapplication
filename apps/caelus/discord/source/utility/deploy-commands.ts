@@ -1064,8 +1064,8 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 		],
 	},
 	{
-		name: t("sky-profile.edit-modal-title", { ns: "features" }),
-		name_localizations: localisations("sky-profile.edit-modal-title", { ns: "features" }),
+		name: t("sky-profile.name", { ns: "features" }),
+		name_localizations: localisations("sky-profile.name", { ns: "features" }),
 		type: ApplicationCommandType.User,
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
