@@ -60,5 +60,9 @@ export default new Season({
 			packName: CosmeticPackName.StarryNightsMantle,
 			cost: { money: 24.99 },
 		},
+		{
+			cosmetic: Cosmetic.StarryNightsCanopy,
+			cost: { money: 14.99 },
+		},
 	],
 });

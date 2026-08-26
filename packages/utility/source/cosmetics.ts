@@ -3717,6 +3717,9 @@ export enum Cosmetic {
 
 	// 25/08/2026 | Version 34.5.
 	VaseWithFifteenSunflowersProp7 = 2945,
+
+	// 26/08/2026 | Version 34.5.
+	StarryNightsCanopy = 2946,
 }
 
 export enum CosmeticCommon {

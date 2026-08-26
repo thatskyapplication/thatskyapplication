@@ -2331,7 +2331,8 @@
 			"2940": "Traje de Pé de Pato Solar",
 			"2941": "Calçado de Pé de Pato Solar",
 			"2942": "Óculos de Sol Esportivos",
-			"2943": "Boia de Caranguejo Solar"
+			"2943": "Boia de Caranguejo Solar",
+			"2946": "Cúpula da Noite Estrelada"
 		},
 		"interaction-error": "Ah não, isso não era pra acontecer!\n\nSinta-se à vontade para entrar no nosso [servidor de suporte]({{url}}) e reportar esse problema! 🩵",
 		"interaction-not-in-cached-guild": "Esse comando requer que eu esteja presente no servidor. [Me convide]({{url1}}) com o escopo \"bot\" e tente de novo!\nSe precisar de ajuda, entre no [servidor de suporte]({{url2}})!",
