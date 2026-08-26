@@ -826,10 +826,9 @@ async function distributionData({
 			upcomingMaintenance.push({
 				end: maintenance.end,
 				start: maintenance.start,
-				text: t("daily-guides.maintenance-upcoming", {
+				text: t("daily-guides.maintenance-tomorrow", {
 					ns: "features",
 					lng: locale,
-					count: 1,
 					time: new Intl.DateTimeFormat(locale, {
 						timeZone: TIME_ZONE,
 						timeStyle: "short",

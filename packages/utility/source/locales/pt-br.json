@@ -2742,7 +2742,8 @@
 			"returning-spirits-upcoming-list_other": "{{returningSpirits}} chegarão em {{count}} dias: {{spirits}}.",
 			"event-upcoming_one": "{{event}} começa amanhã.",
 			"event-upcoming_other": "{{event}} começa em {{count}} dias.",
-			"maintenance-upcoming_one": "A manutenção começa às {{time}} amanhã.",
+			"maintenance-upcoming_one": "A manutenção começa em {{count}} dia.",
+			"maintenance-tomorrow": "A manutenção começa às {{time}} amanhã.",
 			"maintenance-upcoming_other": "A manutenção começa em {{count}} dias.",
 			"update-upcoming_one": "A {{update}} lança amanhã.",
 			"update-upcoming_other": "A {{update}} será lançada em {{count}} dias."

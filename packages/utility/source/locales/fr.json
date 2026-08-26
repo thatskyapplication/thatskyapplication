@@ -2742,7 +2742,8 @@
 			"returning-spirits-upcoming-list_other": "",
 			"event-upcoming_one": "{{event}} commence demain.",
 			"event-upcoming_other": "{{event}} commence dans {{count}} jours.",
-			"maintenance-upcoming_one": "La maintenance commencera à {{time}} demain.",
+			"maintenance-upcoming_one": "La maintenance sera dans {{count}} jour.",
+			"maintenance-tomorrow": "La maintenance commencera à {{time}} demain.",
 			"maintenance-upcoming_other": "La maintenance sera dans {{count}} jours.",
 			"update-upcoming_one": "",
 			"update-upcoming_other": ""

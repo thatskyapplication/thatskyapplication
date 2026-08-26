@@ -565,9 +565,8 @@ export default function DailyGuides({ loaderData }: Route.ComponentProps) {
 				});
 			}
 		} else {
-			const upcoming = t("daily-guides.maintenance-upcoming", {
+			const upcoming = t("daily-guides.maintenance-tomorrow", {
 				ns: "features",
-				count: 1,
 				time: maintenanceTimeFormat.format(maintenance.start.epochMilliseconds),
 			});
 
